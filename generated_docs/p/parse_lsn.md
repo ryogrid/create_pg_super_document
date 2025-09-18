@@ -26,7 +26,7 @@ This function is critical for backup label parsing where LSN values need to be e
 - Functions called/Symbols referenced:
   - sscanf (for parsing hexadecimal values)
 - Called from (representative examples):
-  - parse_backup_label (for START WAL LOCATION and INCREMENTAL FROM LSN lines)
+  - [parse_backup_label](parse_backup_label.md) (for START WAL LOCATION and INCREMENTAL FROM LSN lines)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the backup_label.c source file

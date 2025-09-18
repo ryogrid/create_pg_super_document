@@ -19,10 +19,10 @@ The function performs validation to ensure that the parallel worker doesn't have
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializedActiveRelMaps (structure type)
+  - [SerializedActiveRelMaps](../S/SerializedActiveRelMaps.md) (structure type)
   - elog (error logging)
 - Called from (representative examples):
-  - ParallelWorkerMain (at src/backend/access/transam/parallel.c:1517)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (at src/backend/access/transam/parallel.c:1517)
 
 ## Notes and Other Information
 - This function is specifically designed for parallel query execution support

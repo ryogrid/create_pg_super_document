@@ -34,7 +34,7 @@ Key algorithmic features include finding the longest consecutive sequence of zer
   - EINVAL (error code for invalid bit count)
   - EMSGSIZE (error code for insufficient buffer space)
 - Called from (representative examples):
-  - pg_inet_cidr_ntop (when processing IPv6 addresses)
+  - [pg_inet_cidr_ntop](../p/pg_inet_cidr_ntop.md) (when processing IPv6 addresses)
 
 ## Notes and Other Information
 - Returns pointer to destination buffer on success, NULL on error with errno set

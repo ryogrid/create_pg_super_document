@@ -17,15 +17,15 @@ This function implements the core row iteration logic for JsonTablePathScan plan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlanNextRow (recursive call for nested plans)
-  - JsonValueListNext (advances through the list of found JSON values)
-  - JsonbValueToJsonb (converts JsonbValue to Jsonb format)
-  - JsonbPGetDatum (creates a PostgreSQL Datum from Jsonb)
-  - JsonTableResetNestedPlan (resets nested plans for re-evaluation)
-  - MemoryContextSwitchTo (manages memory contexts)
-  - PointerGetDatum (creates NULL datum)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md) (recursive call for nested plans)
+  - [JsonValueListNext](JsonValueListNext.md) (advances through the list of found JSON values)
+  - [JsonbValueToJsonb](JsonbValueToJsonb.md) (converts JsonbValue to Jsonb format)
+  - [JsonbPGetDatum](JsonbPGetDatum.md) (creates a PostgreSQL Datum from Jsonb)
+  - [JsonTableResetNestedPlan](JsonTableResetNestedPlan.md) (resets nested plans for re-evaluation)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (manages memory contexts)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (creates NULL datum)
 - Called from (representative examples):
-  - JsonTablePlanNextRow (dispatcher function for different plan types)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md) (dispatcher function for different plan types)
 
 ## Notes and Other Information
 - Returns true if more rows are available (either from current plan or nested plans), false when exhausted

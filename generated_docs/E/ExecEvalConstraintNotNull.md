@@ -21,13 +21,13 @@ The function is part of PostgreSQL's domain constraint enforcement mechanism, en
 ## Dependencies
 - Functions called/Symbols referenced:
   - errsave
-  - errcode
-  - errmsg
-  - format_type_be
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
   - errdatatype
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - This function only checks for null values; it doesn't validate the actual data content

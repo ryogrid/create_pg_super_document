@@ -21,11 +21,11 @@ This function creates a backup of the current global locale setting for the spec
   - setlocale (POSIX locale function)
   - _wsetlocale (Windows wide-character locale function)
   - wcsdup (Windows wide-character string duplication)
-  - pg_strdup (PostgreSQL string duplication utility)
-  - pg_fatal (PostgreSQL fatal error reporting)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication utility)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error reporting)
 - Called from (representative examples):
-  - locale_date_order (in src/bin/initdb/initdb.c:2138)
-  - check_locale_name (in src/bin/initdb/initdb.c:2196)
+  - [locale_date_order](../l/locale_date_order.md) (in src/bin/initdb/initdb.c:2138)
+  - [check_locale_name](../c/check_locale_name.md) (in src/bin/initdb/initdb.c:2196)
 
 ## Notes and Other Information
 - This function is part of initdb's locale management system

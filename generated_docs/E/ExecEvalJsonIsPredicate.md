@@ -25,13 +25,13 @@ This function implements the SQL/JSON IS JSON predicate evaluation, which tests 
 - Functions called/Symbols referenced:
   - exprType
   - DatumGetTextP
-  - json_get_first_token
-  - json_validate
-  - DatumGetJsonbP
-  - BoolGetDatum
+  - [json_get_first_token](../j/json_get_first_token.md)
+  - [json_validate](../j/json_validate.md)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Returns false immediately if the input is NULL

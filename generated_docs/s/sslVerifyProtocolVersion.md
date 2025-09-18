@@ -18,11 +18,11 @@ This function serves as a sanity check routine for the connection parameters  an
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
-  - pg_strcasecmp (PostgreSQL case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL case-insensitive string comparison)
 - Called from (representative examples):
   - internalPQconninfoOption
   - pqConnectOptions2
-  - sslVerifyProtocolRange
+  - [sslVerifyProtocolRange](sslVerifyProtocolRange.md)
 
 ## Notes and Other Information
 - Accepts TLS versions: "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"

@@ -27,14 +27,14 @@ The function provides context-aware error messages, giving different hints depen
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport/ERROR (for error reporting)
-  - parser_errposition (for error location reporting)
+  - [parser_errposition](../p/parser_errposition.md) (for error location reporting)
 - Types referenced:
-  - ParseNamespaceItem
-  - RangeTblEntry
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [RangeTblEntry](../R/RangeTblEntry.md)
 - Called from (representative examples):
-  - scanNameSpaceForRefname (src/backend/parser/parse_relation.c:224)
-  - scanNameSpaceForRelid (src/backend/parser/parse_relation.c:268)
-  - colNameToVar (src/backend/parser/parse_relation.c:918)
+  - [scanNameSpaceForRefname](../s/scanNameSpaceForRefname.md) (src/backend/parser/parse_relation.c:224)
+  - [scanNameSpaceForRelid](../s/scanNameSpaceForRelid.md) (src/backend/parser/parse_relation.c:268)
+  - [colNameToVar](colNameToVar.md) (src/backend/parser/parse_relation.c:918)
 
 ## Notes and Other Information
 - This is a static convenience function to avoid code duplication of error reporting logic

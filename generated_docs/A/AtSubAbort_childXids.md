@@ -23,9 +23,9 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - CurrentTransactionState (global variable)
   - TransactionState (type)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - AbortSubTransaction
+  - [AbortSubTransaction](AbortSubTransaction.md)
 
 ## Notes and Other Information
 - This function is static and only used within the transaction management subsystem

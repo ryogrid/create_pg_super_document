@@ -26,10 +26,10 @@ The function follows PostgreSQL's pattern of minimal signal handlers that defer 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - SIGNAL_ARGS (macro)
 - Called from (representative examples):
-  - PostmasterMain (as signal handler registration)
+  - [PostmasterMain](../P/PostmasterMain.md) (as signal handler registration)
 
 ## Notes and Other Information
 - Static function - only accessible within postmaster.c

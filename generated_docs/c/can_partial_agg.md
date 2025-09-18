@@ -26,7 +26,7 @@ The function implements a conservative approach, returning false whenever any co
 - Functions called/Symbols referenced:
   - (No external function calls - uses only direct field access)
 - Called from (representative examples):
-  - create_grouping_paths
+  - [create_grouping_paths](create_grouping_paths.md)
   - standard_qp_extra
 
 ## Notes and Other Information

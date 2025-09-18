@@ -30,10 +30,10 @@ The conversion process maintains the original page headers and handles edge case
   - write
   - close
   - memcpy
-  - pg_checksum_page
-  - pg_fatal
+  - [pg_checksum_page](../p/pg_checksum_page.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - PGIOAlignedBlock
-  - PageHeaderData
+  - [PageHeaderData](../P/PageHeaderData.md)
   - PageHeader
   - SizeOfPageHeaderData
   - BLCKSZ
@@ -43,7 +43,7 @@ The conversion process maintains the original page headers and handles edge case
   - PG_BINARY
   - pg_file_create_mode
 - Called from (representative examples):
-  - transfer_relfile
+  - [transfer_relfile](../t/transfer_relfile.md)
 
 ## Notes and Other Information
 - Only needed when upgrading from PostgreSQL versions before 9.6 that used single-bit visibility maps

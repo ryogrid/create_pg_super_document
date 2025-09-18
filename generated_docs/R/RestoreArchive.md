@@ -29,36 +29,36 @@ The function handles various restore options including single transactions, tran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildTocEntryArrays
-  - ConnectDatabase
-  - DisconnectDatabase
-  - SaveOutput
-  - SetOutput
-  - RestoreOutput
-  - StartTransaction
-  - CommitTransaction
-  - _doSetFixedOutputState
-  - _becomeOwner
-  - _selectOutputSchema
-  - restore_toc_entry
-  - restore_toc_entries_prefork
-  - restore_toc_entries_parallel
-  - restore_toc_entries_postfork
-  - ParallelBackupStart
-  - ParallelBackupEnd
-  - IssueCommandPerBlob
-  - DropLOIfExists
-  - supports_compression
-  - dumpTimestamp
-  - ahprintf
+  - [buildTocEntryArrays](../b/buildTocEntryArrays.md)
+  - [ConnectDatabase](../C/ConnectDatabase.md)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md)
+  - [SaveOutput](../S/SaveOutput.md)
+  - [SetOutput](../S/SetOutput.md)
+  - [RestoreOutput](RestoreOutput.md)
+  - [StartTransaction](../S/StartTransaction.md)
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [_doSetFixedOutputState](../d/_doSetFixedOutputState.md)
+  - [_becomeOwner](../b/_becomeOwner.md)
+  - [_selectOutputSchema](../s/_selectOutputSchema.md)
+  - [restore_toc_entry](../r/restore_toc_entry.md)
+  - [restore_toc_entries_prefork](../r/restore_toc_entries_prefork.md)
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
+  - [restore_toc_entries_postfork](../r/restore_toc_entries_postfork.md)
+  - [ParallelBackupStart](../P/ParallelBackupStart.md)
+  - [ParallelBackupEnd](../P/ParallelBackupEnd.md)
+  - [IssueCommandPerBlob](../I/IssueCommandPerBlob.md)
+  - [DropLOIfExists](../D/DropLOIfExists.md)
+  - [supports_compression](../s/supports_compression.md)
+  - [dumpTimestamp](../d/dumpTimestamp.md)
+  - [ahprintf](../a/ahprintf.md)
   - pg_log_info
   - pg_log_warning
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - And many constants and enums for stages, sections, and requirements
 - Called from (representative examples):
-  - main (in pg_dump.c)
-  - main (in pg_restore.c)
-  - _CloseArchive (in pg_backup_tar.c)
+  - [main](../m/main.md) (in pg_dump.c)
+  - [main](../m/main.md) (in pg_restore.c)
+  - [_CloseArchive](../C/_CloseArchive.md) (in pg_backup_tar.c)
 
 ## Notes and Other Information
 - This is a public function and the primary interface for archive restoration

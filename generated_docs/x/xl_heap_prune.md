@@ -35,9 +35,9 @@ The design carefully considers memory alignment requirements, with the snapshot 
 - Functions called/Symbols referenced:
   - (This is a data structure with conditional sub-records)
 - Called from (representative examples):
-  - heap_xlog_prune_freeze (src/backend/access/heap/heapam.c:9215)
-  - log_heap_prune_and_freeze (src/backend/access/heap/pruneheap.c:2062)
-  - heap2_desc (src/backend/access/rmgrdesc/heapdesc.c:270)
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md) (src/backend/access/heap/heapam.c:9215)
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md) (src/backend/access/heap/pruneheap.c:2062)
+  - [heap2_desc](../h/heap2_desc.md) (src/backend/access/rmgrdesc/heapdesc.c:270)
   - SizeOfHeapPrune (src/include/access/heapam_xlog.h:295)
 
 ## Notes and Other Information

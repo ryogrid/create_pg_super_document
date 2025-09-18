@@ -22,16 +22,16 @@ The function uses a bitwise AND operation with the complement of PD_ALL_VISIBLE 
   - PageHeader (type cast)
   - PD_ALL_VISIBLE (flag constant 0x0004)
 - Called from (representative examples):
-  - mask_page_hint_bits
-  - heap_insert
-  - heap_multi_insert
-  - heap_delete
-  - heap_update
-  - heap_xlog_delete
-  - heap_xlog_insert
-  - heap_xlog_multi_insert
-  - heap_xlog_update
-  - lazy_scan_prune
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md)
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_xlog_delete](../h/heap_xlog_delete.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md)
+  - [heap_xlog_update](../h/heap_xlog_update.md)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

@@ -30,19 +30,19 @@ For logical replication scenarios involving catalog relations, the function also
   - TransactionIdIsValid
   - TransactionIdIsNormal
   - GetConflictingVirtualXIDs
-  - ResolveRecoveryConflictWithVirtualXIDs
-  - InvalidateObsoleteReplicationSlots
+  - [ResolveRecoveryConflictWithVirtualXIDs](ResolveRecoveryConflictWithVirtualXIDs.md)
+  - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)
   - PROCSIG_RECOVERY_CONFLICT_SNAPSHOT
   - WAIT_EVENT_RECOVERY_CONFLICT_SNAPSHOT
   - RS_INVAL_HORIZON
 - Called from (representative examples):
-  - gistRedoDeleteRecord
-  - hash_xlog_vacuum_one_page
-  - heap_xlog_prune_freeze
-  - heap_xlog_visible
-  - btree_xlog_delete
-  - spgRedoVacuumRedirect
-  - ResolveRecoveryConflictWithSnapshotFullXid
+  - [gistRedoDeleteRecord](../g/gistRedoDeleteRecord.md)
+  - [hash_xlog_vacuum_one_page](../h/hash_xlog_vacuum_one_page.md)
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md)
+  - [heap_xlog_visible](../h/heap_xlog_visible.md)
+  - [btree_xlog_delete](../b/btree_xlog_delete.md)
+  - [spgRedoVacuumRedirect](../s/spgRedoVacuumRedirect.md)
+  - [ResolveRecoveryConflictWithSnapshotFullXid](ResolveRecoveryConflictWithSnapshotFullXid.md)
 
 ## Notes and Other Information
 - This is a public function (void return type, not static) available for use across the PostgreSQL codebase

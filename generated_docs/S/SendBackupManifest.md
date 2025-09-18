@@ -30,11 +30,11 @@ The function uses a streaming approach to handle potentially large manifest file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsManifestEnabled
-  - pg_cryptohash_final
-  - pg_cryptohash_error
-  - AppendStringToManifest
-  - hex_encode
+  - [IsManifestEnabled](../I/IsManifestEnabled.md)
+  - [pg_cryptohash_final](../p/pg_cryptohash_final.md)
+  - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
+  - [AppendStringToManifest](../A/AppendStringToManifest.md)
+  - [hex_encode](../h/hex_encode.md)
   - BufFileSeek
   - BufFileReadExact
   - BufFileClose
@@ -42,7 +42,7 @@ The function uses a streaming approach to handle potentially large manifest file
   - bbsink_manifest_contents
   - bbsink_end_manifest
 - Called from (representative examples):
-  - perform_base_backup (src/backend/backup/basebackup.c:648)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:648)
 
 ## Notes and Other Information
 - The function returns early if manifest generation is disabled via IsManifestEnabled check

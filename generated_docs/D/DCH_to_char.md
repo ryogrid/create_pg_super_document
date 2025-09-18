@@ -31,15 +31,15 @@ The function workflow:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_locale_time (for caching localized day/month names)
-  - str_numth (for ordinal number formatting)
+  - [cache_locale_time](../c/cache_locale_time.md) (for caching localized day/month names)
+  - [str_numth](../s/str_numth.md) (for ordinal number formatting)
   - strcpy, sprintf, strlen (standard C library functions)
   - Various DCH format constants (DCH_HH, DCH_AM, etc.)
   - Format suffix macros (S_FM, S_THth, S_TH_TYPE)
   - Time constants (HOURS_PER_DAY, A_M_STR, PM_STR, etc.)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1042)
-  - datetime_to_char_body (formatting.c:4227)
+  - [datetime_to_char_body](../d/datetime_to_char_body.md) (formatting.c:4227)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

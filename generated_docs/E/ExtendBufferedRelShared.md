@@ -27,21 +27,21 @@ The function handles several edge cases including concurrent extensions, existin
 ## Dependencies
 - Functions called/Symbols referenced:
   - IOContextForStrategy
-  - LimitAdditionalPins
-  - GetVictimBuffer
+  - [LimitAdditionalPins](../L/LimitAdditionalPins.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - BufHdrGetBlock/GetBufferDescriptor
   - MemSet
   - LockRelationForExtension/UnlockRelationForExtension
   - smgrnblocks/smgrzeroextend
-  - BufTableInsert/BufTableHashCode
-  - BufferDescriptorGetContentLock
+  - [BufTableInsert](../B/BufTableInsert.md)/BufTableHashCode
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
   - PinBuffer/UnpinBuffer
   - StartBufferIO/TerminateBufferIO
   - StrategyFreeBuffer
-  - pgstat_count_io_op_time
-  - PageIsNew
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
+  - [PageIsNew](../P/PageIsNew.md)
 - Called from (representative examples):
-  - ExtendBufferedRelCommon
+  - [ExtendBufferedRelCommon](ExtendBufferedRelCommon.md)
 
 ## Notes and Other Information
 - Handles concurrent extension scenarios by rechecking relation size after acquiring lock

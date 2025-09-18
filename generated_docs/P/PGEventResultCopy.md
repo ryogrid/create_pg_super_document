@@ -28,7 +28,7 @@ When PQcopyResult is called to duplicate a PGresult object, the libpq library tr
 - Functions called/Symbols referenced:
   - None (this is a data structure)
 - Called from (representative examples):
-  - PQcopyResult (in src/interfaces/libpq/fe-exec.c:388)
+  - [PQcopyResult](PQcopyResult.md) (in src/interfaces/libpq/fe-exec.c:388)
 
 ## Notes and Other Information
 - This structure is part of the libpq events API defined in libpq-events.h

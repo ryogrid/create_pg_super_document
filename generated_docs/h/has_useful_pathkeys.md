@@ -29,8 +29,8 @@ This is designed as an early filter to avoid the computational overhead of build
 - Functions called/Symbols referenced:
   - NIL (null list constant)
 - Called from (representative examples):
-  - set_append_rel_size (src/backend/optimizer/path/allpaths.c:1083)
-  - build_index_paths (src/backend/optimizer/path/indxpath.c:911)
+  - [set_append_rel_size](../s/set_append_rel_size.md) (src/backend/optimizer/path/allpaths.c:1083)
+  - [build_index_paths](../b/build_index_paths.md) (src/backend/optimizer/path/indxpath.c:911)
   - build_child_join_rel (src/backend/optimizer/util/relnode.c:1015)
 
 ## Notes and Other Information

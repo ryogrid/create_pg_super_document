@@ -20,16 +20,16 @@ This function constructs command-line connection parameters that can be used wit
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - resetPQExpBuffer
-  - appendPQExpBufferStr
-  - appendShellString
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendShellString](../a/appendShellString.md)
   - appendPQExpBufferChar
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
 - Called from (representative examples):
-  - generate_old_dump
-  - prepare_new_cluster
-  - prepare_new_globals
-  - create_new_objects
+  - [generate_old_dump](../g/generate_old_dump.md)
+  - [prepare_new_cluster](../p/prepare_new_cluster.md)
+  - [prepare_new_globals](../p/prepare_new_globals.md)
+  - [create_new_objects](create_new_objects.md)
 
 ## Notes and Other Information
 - Uses static buffer management - result is valid only until next function call

@@ -25,13 +25,13 @@ For single-byte encodings, the function only needs to check for null bytes (\0) 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING (macro for encoding validation)
-  - pg_encoding_max_length (gets maximum bytes per character for encoding)
+  - [pg_encoding_max_length](pg_encoding_max_length.md) (gets maximum bytes per character for encoding)
   - memchr (standard C library function for finding null bytes)
-  - report_invalid_encoding (error reporting function)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting function)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
   - pg_wchar_table[encoding].mbverifychar (encoding-specific character verification function)
 - Called from (representative examples):
-  - length_in_encoding
+  - [length_in_encoding](../l/length_in_encoding.md)
 
 ## Notes and Other Information
 - Returns the number of characters in the string (not bytes) if validation succeeds

@@ -23,9 +23,9 @@ None (void function)
 - Functions called/Symbols referenced:
   - ClientEncoding (global variable - accesses encoding field)
 - Called from:
-  - BeginCopyFrom (in copyfrom.c:1523)
-  - BeginCopyTo (in copyto.c:609)
-  - xml_send (in xml.c:448)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (in copyfrom.c:1523)
+  - [BeginCopyTo](../B/BeginCopyTo.md) (in copyto.c:609)
+  - [xml_send](../x/xml_send.md) (in xml.c:448)
 
 ## Notes and Other Information
 - Returns the numeric encoding ID (int) of the current client encoding

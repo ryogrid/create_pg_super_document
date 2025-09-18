@@ -28,14 +28,14 @@ The function handles different search modes specially: GIN_SEARCH_MODE_ALL keys 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - palloc0
+  - [palloc](../p/palloc.md)
+  - [palloc0](../p/palloc0.md)
   - ItemPointerSetMin
-  - ginInitConsistentFunction
-  - ginFillScanEntry
-  - ginScanKeyAddHiddenEntry
+  - [ginInitConsistentFunction](ginInitConsistentFunction.md)
+  - [ginFillScanEntry](ginFillScanEntry.md)
+  - [ginScanKeyAddHiddenEntry](ginScanKeyAddHiddenEntry.md)
 - Called from:
-  - ginNewScanKey (in multiple contexts)
+  - [ginNewScanKey](ginNewScanKey.md) (in multiple contexts)
 
 ## Notes and Other Information
 - Allocates one extra slot in scan entry arrays for potential hidden entries

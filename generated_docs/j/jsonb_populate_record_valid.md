@@ -23,9 +23,9 @@ This function is particularly useful for data validation scenarios where you nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ErrorSaveContext (error capture context structure)
-  - populate_record_worker (core implementation function)
-  - BoolGetDatum (PostgreSQL boolean conversion macro)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md) (error capture context structure)
+  - [populate_record_worker](../p/populate_record_worker.md) (core implementation function)
+  - [BoolGetDatum](../B/BoolGetDatum.md) (PostgreSQL boolean conversion macro)
 
 - Called from (representative examples):
   - Direct SQL function calls

@@ -27,13 +27,13 @@ The function performs several validation steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findNewestTimeLine
-  - readTimeLineHistory
+  - [findNewestTimeLine](../f/findNewestTimeLine.md)
+  - [readTimeLineHistory](readTimeLineHistory.md)
   - TimeLineHistoryEntry
-  - list_free_deep
-  - restoreTimeLineHistoryFiles
+  - [list_free_deep](../l/list_free_deep.md)
+  - [restoreTimeLineHistoryFiles](restoreTimeLineHistoryFiles.md)
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlogrecovery.c module

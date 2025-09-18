@@ -21,14 +21,14 @@ This function implements the decrement side of the reference counting mechanism 
 - Functions called/Symbols referenced:
   - SNAPSHOT_HISTORIC_MVCC
   - FirstCommandId
-  - SnapBuildFreeSnapshot
+  - [SnapBuildFreeSnapshot](SnapBuildFreeSnapshot.md)
 - Called from (representative examples):
-  - ReorderBufferTransferSnapToParent
-  - ReorderBufferCleanupTXN
-  - ReorderBufferFreeSnap
-  - FreeSnapshotBuilder
+  - [ReorderBufferTransferSnapToParent](../R/ReorderBufferTransferSnapToParent.md)
+  - [ReorderBufferCleanupTXN](../R/ReorderBufferCleanupTXN.md)
+  - [ReorderBufferFreeSnap](../R/ReorderBufferFreeSnap.md)
+  - [FreeSnapshotBuilder](../F/FreeSnapshotBuilder.md)
   - SnapBuildCommitTxn
-  - SnapBuildRestore
+  - [SnapBuildRestore](SnapBuildRestore.md)
 
 ## Notes and Other Information
 - Externally visible function (not static) for use by other replication components

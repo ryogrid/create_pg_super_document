@@ -18,12 +18,12 @@ ReorderBufferReturnTXN performs complete cleanup of a transaction structure. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (called multiple times for different fields)
-  - hash_destroy
-  - ReorderBufferToastReset
+  - [pfree](../p/pfree.md) (called multiple times for different fields)
+  - [hash_destroy](../h/hash_destroy.md)
+  - [ReorderBufferToastReset](ReorderBufferToastReset.md)
 - Called from (representative examples):
   - IsInsertOrUpdate  
-  - ReorderBufferCleanupTXN
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not part of the public API

@@ -20,13 +20,13 @@ This function performs the DFS phase of the Hopcroft-Karp maximum bipartite matc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BipartiteMatchState (struct type for algorithm state)
+  - [BipartiteMatchState](../B/BipartiteMatchState.md) (struct type for algorithm state)
   - HK_INFINITY (constant representing unreachable/infinite distance)
   - check_stack_depth (PostgreSQL function to prevent stack overflow in deep recursion)
-  - hk_depth_search (recursive self-call to explore deeper levels)
+  - [hk_depth_search](hk_depth_search.md) (recursive self-call to explore deeper levels)
 - Called from (representative examples):
-  - BipartiteMatch (main algorithm calls DFS for each unmatched vertex in U)
-  - hk_depth_search (recursive calls during path exploration)
+  - [BipartiteMatch](../B/BipartiteMatch.md) (main algorithm calls DFS for each unmatched vertex in U)
+  - [hk_depth_search](hk_depth_search.md) (recursive calls during path exploration)
 
 ## Notes and Other Information
 - Uses recursive DFS with memoization (distance array) to avoid redundant path exploration

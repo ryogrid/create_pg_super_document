@@ -27,7 +27,7 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (extract integer arguments)
   - VARBITTOTALLEN (calculate total storage length)
-  - palloc (allocate memory for result)
+  - [palloc](../p/palloc.md) (allocate memory for result)
   - SET_VARSIZE (set variable-length object size)
   - VARBITLEN (set bit string length)
   - VARBITS (access bit data)

@@ -21,8 +21,8 @@ This function searches for keywords (strings of non-whitespace characters) in th
   - isspace (standard C library function)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - filter_read_item (at src/bin/pg_dump/filter.c:421)
-  - filter_read_item (at src/bin/pg_dump/filter.c:440)
+  - [filter_read_item](filter_read_item.md) (at src/bin/pg_dump/filter.c:421)
+  - [filter_read_item](filter_read_item.md) (at src/bin/pg_dump/filter.c:440)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the filter.c file

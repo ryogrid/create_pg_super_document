@@ -22,26 +22,26 @@ When no recognized pattern is found, the function logs a warning and breaks the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repairTypeFuncLoop
-  - repairViewRuleLoop
-  - repairViewRuleMultiLoop
-  - repairMatViewBoundaryMultiLoop
-  - repairFunctionBoundaryMultiLoop
-  - repairTableConstraintLoop
-  - repairTableConstraintMultiLoop
-  - repairTableAttrDefLoop
-  - repairIndexLoop
-  - repairTableAttrDefMultiLoop
-  - repairDomainConstraintLoop
-  - repairDomainConstraintMultiLoop
-  - removeObjectDependency
-  - describeDumpableObject
+  - [repairTypeFuncLoop](repairTypeFuncLoop.md)
+  - [repairViewRuleLoop](repairViewRuleLoop.md)
+  - [repairViewRuleMultiLoop](repairViewRuleMultiLoop.md)
+  - [repairMatViewBoundaryMultiLoop](repairMatViewBoundaryMultiLoop.md)
+  - [repairFunctionBoundaryMultiLoop](repairFunctionBoundaryMultiLoop.md)
+  - [repairTableConstraintLoop](repairTableConstraintLoop.md)
+  - [repairTableConstraintMultiLoop](repairTableConstraintMultiLoop.md)
+  - [repairTableAttrDefLoop](repairTableAttrDefLoop.md)
+  - [repairIndexLoop](repairIndexLoop.md)
+  - [repairTableAttrDefMultiLoop](repairTableAttrDefMultiLoop.md)
+  - [repairDomainConstraintLoop](repairDomainConstraintLoop.md)
+  - [repairDomainConstraintMultiLoop](repairDomainConstraintMultiLoop.md)
+  - [removeObjectDependency](removeObjectDependency.md)
+  - [describeDumpableObject](../d/describeDumpableObject.md)
   - pg_log_warning
   - pg_log_warning_detail
   - pg_log_warning_hint
   - ngettext
 - Called from (representative examples):
-  - findDependencyLoops
+  - [findDependencyLoops](../f/findDependencyLoops.md)
 
 ## Notes and Other Information
 - Handles specific dependency loop patterns including:

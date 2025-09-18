@@ -24,7 +24,7 @@ This comprehensive attribute copying ensures that function declarations maintain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - llvm_copy_attributes_at_index (helper function for index-specific copying)
+  - [llvm_copy_attributes_at_index](llvm_copy_attributes_at_index.md) (helper function for index-specific copying)
   - LLVMGetTypeKind (LLVM C API)
   - LLVMGetFunctionReturnType (LLVM C API)
   - LLVMCountParams (LLVM C API)
@@ -33,8 +33,8 @@ This comprehensive attribute copying ensures that function declarations maintain
   - LLVMVoidTypeKind (LLVM constant)
 
 - Called from (representative examples):
-  - llvm_pg_func (in llvmjit.c)
-  - slot_compile_deform (in llvmjit_deform.c)
+  - [llvm_pg_func](llvm_pg_func.md) (in llvmjit.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
   - llvm_compile_expr (in llvmjit_expr.c)
 
 ## Notes and Other Information

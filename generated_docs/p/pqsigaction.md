@@ -33,12 +33,12 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sigaction (struct type)
+  - [sigaction](../s/sigaction.md) (struct type)
   - PG_SIGNAL_COUNT (maximum signal number constant)
   - EINVAL (errno constant)
   - pg_signal_array (global signal handler array)
 - Called from (representative examples):
-  - sigaction (via header mapping)
+  - [sigaction](../s/sigaction.md) (via header mapping)
 
 ## Notes and Other Information
 - This is a Windows-specific implementation located in src/backend/port/win32/signal.c

@@ -22,11 +22,11 @@ This function implements a binary search algorithm specifically designed for has
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (partition boundary structure)
-  - DatumGetInt32 (extracts int32 values from stored datums)
-  - partition_hbound_cmp (compares hash partition bounds)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (partition boundary structure)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (extracts int32 values from stored datums)
+  - [partition_hbound_cmp](partition_hbound_cmp.md) (compares hash partition bounds)
 - Called from:
-  - check_new_partition_bound (at src/backend/partitioning/partbounds.c:2956)
+  - [check_new_partition_bound](../c/check_new_partition_bound.md) (at src/backend/partitioning/partbounds.c:2956)
   - partition_bound_has_default (at src/include/partitioning/partbounds.h:143)
 
 ## Notes and Other Information

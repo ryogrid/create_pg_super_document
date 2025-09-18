@@ -46,18 +46,18 @@ This is a comprehensive function responsible for obtaining a suitable buffer for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferBI, ReadBuffer, ReadBufferExtended
-  - BufferGetBlockNumber, BufferGetPage, BufferGetPageSize
-  - PageIsAllVisible, PageIsNew, PageInit, PageGetHeapFreeSpace, PageGetMaxOffsetNumber
-  - GetVisibilityMapPins, visibilitymap_pin, visibilitymap_pin_ok
-  - LockBuffer, ConditionalLockBuffer, ReleaseBuffer, UnlockReleaseBuffer
+  - [ReadBufferBI](ReadBufferBI.md), ReadBuffer, ReadBufferExtended
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md), BufferGetPage, BufferGetPageSize
+  - [PageIsAllVisible](../P/PageIsAllVisible.md), PageIsNew, PageInit, PageGetHeapFreeSpace, PageGetMaxOffsetNumber
+  - [GetVisibilityMapPins](../G/GetVisibilityMapPins.md), visibilitymap_pin, visibilitymap_pin_ok
+  - [LockBuffer](../L/LockBuffer.md), ConditionalLockBuffer, ReleaseBuffer, UnlockReleaseBuffer
   - RelationGetTargetBlock, RelationSetTargetBlock, RelationAddBlocks
   - GetPageWithFreeSpace, RecordPageWithFreeSpace, RecordAndGetPageWithFreeSpace
   - RelationGetTargetPageFreeSpace, RelationGetNumberOfBlocks
 - Called from:
-  - heap_insert
-  - heap_multi_insert  
-  - heap_update
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)  
+  - [heap_update](../h/heap_update.md)
 
 ## Notes and Other Information
 - Central function in PostgreSQL's heap insertion mechanism

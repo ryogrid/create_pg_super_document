@@ -24,17 +24,17 @@ The `hlCover` function is a core component of PostgreSQL's text search highlight
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeadlineParsedText (headline parsed text structure)
+  - [HeadlineParsedText](../H/HeadlineParsedText.md) (headline parsed text structure)
   - TSQuery (text search query type)
   - ExecPhraseData (execution phrase data from TS_execute_locations)
   - TS_execute (executes query against word subset)
   - GETQUERY (extracts query from TSQuery)
-  - checkcondition_HL (callback for condition checking)
+  - [checkcondition_HL](../c/checkcondition_HL.md) (callback for condition checking)
   - TS_EXEC_EMPTY (execution flag for empty handling)
   - hlCheck (headline check structure)
 - Called from (representative examples):
-  - mark_hl_fragments (src/backend/tsearch/wparser_def.c:2302)
-  - mark_hl_words (src/backend/tsearch/wparser_def.c:2475)
+  - [mark_hl_fragments](../m/mark_hl_fragments.md) (src/backend/tsearch/wparser_def.c:2302)
+  - [mark_hl_words](../m/mark_hl_words.md) (src/backend/tsearch/wparser_def.c:2475)
 
 ## Notes and Other Information
 - Returns true on successful match, false when no valid cover can be found

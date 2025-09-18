@@ -29,7 +29,7 @@ None - this is a parameter-less function that returns a computed value.
   - MAXALIGN
   - FPM_PAGE_SIZE
 - Called from (representative examples):
-  - ExecInitParallelPlan (in execParallel.c)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (in execParallel.c)
   - pgstat_dsa_init_size (in pgstat_shmem.c)
   - create_internal (in dsa.c)
 

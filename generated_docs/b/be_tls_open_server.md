@@ -30,23 +30,23 @@ The function handles various SSL error conditions with appropriate error reporti
   - SSL_CTX_set_info_callback (debugging callback setup)
   - SSL_CTX_set_alpn_select_cb (ALPN protocol negotiation)
   - SSL_new (SSL connection object creation)
-  - my_SSL_set_fd (socket association)
+  - [my_SSL_set_fd](../m/my_SSL_set_fd.md) (socket association)
   - SSL_accept (SSL handshake)
   - SSL_get_error (error code retrieval)
   - ERR_get_error / ERR_clear_error (OpenSSL error handling)
-  - WaitLatchOrSocket (non-blocking I/O waiting)
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md) (non-blocking I/O waiting)
   - SSL_get0_alpn_selected (ALPN result retrieval)
   - SSL_get_peer_certificate (client certificate retrieval)
   - X509_get_subject_name / X509_NAME_get_text_by_NID (certificate parsing)
   - X509_NAME_print_ex (DN formatting)
   - BIO_new / BIO_get_mem_ptr (certificate data extraction)
-  - MemoryContextAlloc (memory allocation)
-  - SSLerrmessage (error message formatting)
-  - errcode_for_socket_access (socket error codes)
-  - ssl_protocol_version_to_string (protocol version formatting)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation)
+  - [SSLerrmessage](../S/SSLerrmessage.md) (error message formatting)
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md) (socket error codes)
+  - [ssl_protocol_version_to_string](../s/ssl_protocol_version_to_string.md) (protocol version formatting)
 
 - Called from (representative examples):
-  - secure_open_server (in be-secure.c:132)
+  - [secure_open_server](../s/secure_open_server.md) (in be-secure.c:132)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

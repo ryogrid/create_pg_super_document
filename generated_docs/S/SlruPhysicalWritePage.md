@@ -31,19 +31,19 @@ The function implements PostgreSQL's durability guarantees while providing optim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_count_slru_page_written
+  - [pgstat_count_slru_page_written](../p/pgstat_count_slru_page_written.md)
   - XLogRecPtrIsInvalid
-  - XLogFlush
-  - SlruFileName
+  - [XLogFlush](../X/XLogFlush.md)
+  - [SlruFileName](SlruFileName.md)
   - OpenTransientFile
   - pg_pwrite
-  - RegisterSyncRequest
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
   - pg_fsync
   - CloseTransientFile
   - pgstat_report_wait_start/end
   - START_CRIT_SECTION/END_CRIT_SECTION
 - Called from (representative examples):
-  - SlruInternalWritePage
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
 
 ## Notes and Other Information
 - Never calls ereport(ERROR) directly - returns false and saves error info for later reporting to allow caller cleanup

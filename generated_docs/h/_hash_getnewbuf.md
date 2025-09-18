@@ -31,17 +31,17 @@ The caller must hold write lock on the metapage to ensure only one process exten
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetNumberOfBlocksInFork (gets current relation size)
-  - ExtendBufferedRel (extends relation and gets buffer)
-  - ReadBufferExtended (reads existing block with special flags)
-  - BufferGetBlockNumber (gets block number from buffer)
-  - _hash_pageinit (initializes page structure)
-  - BufferGetPage, BufferGetPageSize (buffer utilities)
+  - [RelationGetNumberOfBlocksInFork](../R/RelationGetNumberOfBlocksInFork.md) (gets current relation size)
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (extends relation and gets buffer)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (reads existing block with special flags)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
+  - [_hash_pageinit](_hash_pageinit.md) (initializes page structure)
+  - [BufferGetPage](../B/BufferGetPage.md), BufferGetPageSize (buffer utilities)
   - BMR_REL, EB_LOCK_FIRST, EB_SKIP_EXTENSION_LOCK, RBM_ZERO_AND_LOCK (constants)
 - Called from (representative examples):
-  - _hash_addovflpage (when adding overflow pages)
-  - _hash_init (during index creation)
-  - _hash_expandtable (during hash table expansion)
+  - [_hash_addovflpage](_hash_addovflpage.md) (when adding overflow pages)
+  - [_hash_init](_hash_init.md) (during index creation)
+  - [_hash_expandtable](_hash_expandtable.md) (during hash table expansion)
 
 ## Notes and Other Information
 - Only function in this group that can extend the index filesystem size

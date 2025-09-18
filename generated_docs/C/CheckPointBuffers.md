@@ -19,7 +19,7 @@ CheckPointBuffers serves as the main entry point for flushing dirty buffers duri
 - Functions called/Symbols referenced:
   - BufferSync
 - Called from (representative examples):
-  - CheckPointGuts
+  - [CheckPointGuts](CheckPointGuts.md)
 
 ## Notes and Other Information
 - Temporary relations do not participate in checkpoints and are not flushed

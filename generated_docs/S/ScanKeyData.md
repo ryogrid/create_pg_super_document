@@ -38,17 +38,17 @@ When used in arrays, multiple ScanKeys are implicitly ANDed together. The struct
   - StrategyNumber (typedef for operator strategy)
   - AttrNumber (typedef for attribute numbers)
   - Oid (typedef for object identifiers)
-  - FmgrInfo (function manager information structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager information structure)
   - Datum (generic data type for PostgreSQL values)
 
 - Called from (representative examples):
   - Various index access method functions
   - Heap scan initialization routines
-  - Query executor scan operations
+  - [Query](../Q/Query.md) executor scan operations
   - Index build and maintenance operations
 
 ## Notes and Other Information
-- ScanKeyData is often used via the ScanKey typedef (ScanKeyData *)
+- [ScanKeyData](ScanKeyData.md) is often used via the ScanKey typedef (ScanKeyData *)
 - Not all index access methods support all ScanKey features (e.g., search arrays, null searches)
 - For heap scans, sk_strategy and sk_subtype fields are unused and may be set to InvalidStrategy/InvalidOid
 - Row comparison functionality is currently only implemented for btree indexes

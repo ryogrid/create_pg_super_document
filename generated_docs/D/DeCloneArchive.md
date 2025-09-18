@@ -19,7 +19,7 @@ DeCloneArchive performs cleanup operations for an ArchiveHandle clone created by
 - Functions called/Symbols referenced:
   - No direct function calls (uses free() and structure field access)
 - Called from (representative examples):
-  - RunWorker (from src/bin/pg_dump/parallel.c:866)
+  - [RunWorker](../R/RunWorker.md) (from src/bin/pg_dump/parallel.c:866)
   - ARCHIVE_OPTS (from src/bin/pg_dump/pg_backup_archiver.h:422)
 
 ## Notes and Other Information

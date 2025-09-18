@@ -20,17 +20,17 @@ ExecInitCustomScan is the initialization function for custom scan nodes in Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateCustomScanState (via cscan->methods)
-  - ExecCustomScan
+  - [ExecCustomScan](ExecCustomScan.md)
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - ExecTypeFromTL
-  - ExecInitScanTupleSlot
-  - ExecInitResultTupleSlotTL
-  - ExecAssignScanProjectionInfoWithVarno
-  - ExecInitQual
+  - [ExecTypeFromTL](ExecTypeFromTL.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
+  - [ExecAssignScanProjectionInfoWithVarno](ExecAssignScanProjectionInfoWithVarno.md)
+  - [ExecInitQual](ExecInitQual.md)
   - BeginCustomScan (via css->methods)
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - The custom scan provider must allocate the CustomScanState object and can embed it in a larger structure

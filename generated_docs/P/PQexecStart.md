@@ -23,24 +23,24 @@ The function handles several critical tasks: validates the connection object, ma
 - Functions called/Symbols referenced:
   - pqClearConnErrorState
   - PQ_PIPELINE_OFF
-  - PQgetResult
+  - [PQgetResult](PQgetResult.md)
   - ExecStatusType
   - PGRES_COPY_IN
-  - PQputCopyEnd
-  - libpq_gettext
+  - [PQputCopyEnd](PQputCopyEnd.md)
+  - [libpq_gettext](../l/libpq_gettext.md)
   - PGRES_COPY_OUT
   - PGASYNC_BUSY
   - PGRES_COPY_BOTH
   - CONNECTION_BAD
 - Called from (representative examples):
-  - PQexec
-  - PQexecParams
-  - PQprepare
-  - PQexecPrepared
-  - PQdescribePrepared
-  - PQdescribePortal
-  - PQclosePrepared
-  - PQclosePortal
+  - [PQexec](PQexec.md)
+  - [PQexecParams](PQexecParams.md)
+  - [PQprepare](PQprepare.md)
+  - [PQexecPrepared](PQexecPrepared.md)
+  - [PQdescribePrepared](PQdescribePrepared.md)
+  - [PQdescribePortal](PQdescribePortal.md)
+  - [PQclosePrepared](PQclosePrepared.md)
+  - [PQclosePortal](PQclosePortal.md)
 
 ## Notes and Other Information
 - Returns false if the connection is invalid or cannot be prepared for execution

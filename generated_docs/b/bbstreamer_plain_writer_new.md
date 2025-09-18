@@ -20,16 +20,16 @@ The function allocates memory for the streamer structure using palloc0(), sets u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - pstrdup (string duplication)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
   - fopen (file opening)
-  - pg_fatal (error reporting)
-  - bbstreamer_plain_writer (struct type)
-  - bbstreamer_ops (operations table type)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
+  - [bbstreamer_plain_writer](bbstreamer_plain_writer.md) (struct type)
+  - [bbstreamer_ops](bbstreamer_ops.md) (operations table type)
 
 - Called from (representative examples):
-  - CreateBackupStreamer (in pg_basebackup.c)
-  - bbstreamer_buffer_until (referenced in bbstreamer.h)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (in pg_basebackup.c)
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md) (referenced in bbstreamer.h)
 
 ## Notes and Other Information
 - The streamer takes ownership of the pathname string by duplicating it

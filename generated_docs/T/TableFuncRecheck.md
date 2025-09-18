@@ -20,9 +20,9 @@ The function serves as a placeholder implementation of the recheck interface, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableFuncScanState (struct type)
+  - [TableFuncScanState](TableFuncScanState.md) (struct type)
 - Called from:
-  - ExecTableFuncScan
+  - [ExecTableFuncScan](../E/ExecTableFuncScan.md)
 
 ## Notes and Other Information
 - Always returns true since table function results are immutable and don't require rechecking

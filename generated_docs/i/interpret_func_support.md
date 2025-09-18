@@ -21,17 +21,17 @@ The function performs comprehensive validation including existence checks, signa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type for definition elements)
-  - defGetQualifiedName (extracts qualified name from DefElem)
-  - LookupFuncName (looks up function by name and signature)
-  - func_signature_string (creates function signature string for error messages)
-  - get_func_rettype (gets function return type)
-  - NameListToString (converts name list to string)
+  - [DefElem](../D/DefElem.md) (structure type for definition elements)
+  - [defGetQualifiedName](../d/defGetQualifiedName.md) (extracts qualified name from DefElem)
+  - [LookupFuncName](../L/LookupFuncName.md) (looks up function by name and signature)
+  - [func_signature_string](../f/func_signature_string.md) (creates function signature string for error messages)
+  - [get_func_rettype](../g/get_func_rettype.md) (gets function return type)
+  - [NameListToString](../N/NameListToString.md) (converts name list to string)
   - superuser (checks if current user is superuser)
   - INTERNALOID (internal type OID constant)
 - Called from (representative examples):
-  - compute_function_attributes (src/backend/commands/functioncmds.c:835)
-  - AlterFunction (src/backend/commands/functioncmds.c:1444)
+  - [compute_function_attributes](../c/compute_function_attributes.md) (src/backend/commands/functioncmds.c:835)
+  - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1444)
 
 ## Notes and Other Information
 - Support functions must have signature: `function_name(internal) RETURNS internal`

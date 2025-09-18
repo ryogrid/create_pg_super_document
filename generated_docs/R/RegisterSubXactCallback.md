@@ -22,8 +22,8 @@ The callback registration creates a linked list of SubXactCallbackItem structure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubXactCallbackItem (structure type)
-  - MemoryContextAlloc (for allocating callback item)
+  - [SubXactCallbackItem](../S/SubXactCallbackItem.md) (structure type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for allocating callback item)
   - TopMemoryContext (memory context for persistent storage)
   - SubXact_callbacks (global linked list head)
 - Called from (representative examples):

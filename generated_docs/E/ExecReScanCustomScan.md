@@ -21,7 +21,7 @@ ExecReScanCustomScan is called when a custom scan node needs to be reset to rest
 - Functions called/Symbols referenced:
   - ReScanCustomScan (via node->methods callback)
 - Called from (representative examples):
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 
 ## Notes and Other Information
 - This function is essential for proper execution of nested loop joins and other query patterns requiring multiple scans

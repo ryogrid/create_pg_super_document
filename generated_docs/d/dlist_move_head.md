@@ -22,16 +22,16 @@ The function includes a debug check at the end using `dlist_check` to verify lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete
-  - dlist_push_head
-  - dlist_check
-  - dlist_head (type)
-  - dlist_node (type)
+  - [dlist_delete](dlist_delete.md)
+  - [dlist_push_head](dlist_push_head.md)
+  - [dlist_check](dlist_check.md)
+  - [dlist_head](dlist_head.md) (type)
+  - [dlist_node](dlist_node.md) (type)
 - Called from (representative examples):
-  - launch_worker
-  - SearchCatCacheInternal
-  - SearchCatCacheList
-  - dclist_move_head
+  - [launch_worker](../l/launch_worker.md)
+  - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md)
+  - [dclist_move_head](dclist_move_head.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

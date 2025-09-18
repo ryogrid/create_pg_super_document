@@ -22,19 +22,19 @@ ExecuteQuery retrieves and executes a prepared statement by name, handling param
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FetchPreparedStatement (retrieves prepared statement)
-  - CreateExecutorState (creates execution state for parameter evaluation)
-  - EvaluateParams (evaluates parameter expressions)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (retrieves prepared statement)
+  - [CreateExecutorState](../C/CreateExecutorState.md) (creates execution state for parameter evaluation)
+  - [EvaluateParams](EvaluateParams.md) (evaluates parameter expressions)
   - CreateNewPortal (creates portal for execution)
-  - GetCachedPlan (gets cached plan for execution)
-  - PortalDefineQuery (defines query in portal)
-  - PortalStart (starts portal execution)
-  - PortalRun (runs portal to completion or specified count)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (gets cached plan for execution)
+  - [PortalDefineQuery](../P/PortalDefineQuery.md) (defines query in portal)
+  - [PortalStart](../P/PortalStart.md) (starts portal execution)
+  - [PortalRun](../P/PortalRun.md) (runs portal to completion or specified count)
   - PortalDrop (cleans up portal)
-  - FreeExecutorState (releases execution state)
+  - [FreeExecutorState](../F/FreeExecutorState.md) (releases execution state)
 - Called from (representative examples):
-  - standard_ProcessUtility (utility command processing)
-  - ExecCreateTableAs (CREATE TABLE AS execution)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
+  - [ExecCreateTableAs](ExecCreateTableAs.md) (CREATE TABLE AS execution)
 
 ## Notes and Other Information
 - Validates that prepared statements have fixed result types to prevent variable-result plan execution

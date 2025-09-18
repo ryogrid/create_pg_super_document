@@ -19,10 +19,10 @@ The function is a key component in PostgreSQL's extension version resolution sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtensionVersionInfo (struct type)
+  - [ExtensionVersionInfo](../E/ExtensionVersionInfo.md) (struct type)
   - lfirst (list iteration macro)
 - Called from (representative examples):  
-  - find_update_path
+  - [find_update_path](../f/find_update_path.md)
 
 ## Notes and Other Information
 - Part of Dijkstra's algorithm implementation for extension version path finding

@@ -21,11 +21,11 @@ The function includes error handling to detect and report issues during the file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EndCompressFileHandle
-  - pg_fatal (for error reporting)
+  - [EndCompressFileHandle](../E/EndCompressFileHandle.md)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
 - Called from (representative examples):
-  - main (in pg_dump.c)
-  - main (in pg_restore.c)
+  - [main](../m/main.md) (in pg_dump.c)
+  - [main](../m/main.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - This is a public function in the pg_dump/pg_restore architecture

@@ -24,9 +24,9 @@ The output format uses parentheses to group related items, with comma separation
 - Functions called/Symbols referenced:
   - PathKey (structure type)
   - EquivalenceClass (structure type)  
-  - EquivalenceMember (structure type)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (structure type)
   - print_expr (function to print individual expressions)
-  - lnext (list navigation function)
+  - [lnext](../l/lnext.md) (list navigation function)
 - Called from (representative examples):
   - nodeDisplay (via print.h header inclusion)
 

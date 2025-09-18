@@ -31,14 +31,14 @@ Key validation includes:
 - Functions called/Symbols referenced:
   - popen/pclose (system process execution)
   - pg_strip_crlf (string processing)
-  - str2uint (string to integer conversion)
+  - [str2uint](../s/str2uint.md) (string to integer conversion)
   - setenv/unsetenv (environment manipulation)
-  - pg_log (logging)
-  - pg_fatal (error handling)
+  - [pg_log](../p/pg_log.md) (logging)
+  - [pg_fatal](../p/pg_fatal.md) (error handling)
   - strlcpy (safe string copying)
-  - pg_free (memory management)
+  - [pg_free](../p/pg_free.md) (memory management)
 - Called from (representative examples):
-  - check_cluster_compatibility (src/bin/pg_upgrade/check.c:842-843)
+  - [check_cluster_compatibility](../c/check_cluster_compatibility.md) (src/bin/pg_upgrade/check.c:842-843)
 
 ## Notes and Other Information
 - Temporarily modifies locale environment variables to force English output for reliable parsing

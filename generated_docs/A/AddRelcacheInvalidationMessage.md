@@ -24,18 +24,18 @@ The function employs several optimizations: it assumes the database ID never cha
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcessMessageSubGroup (for duplicate detection scanning)
-  - AddInvalidationMessage (to add the constructed message to the group)
+  - [AddInvalidationMessage](AddInvalidationMessage.md) (to add the constructed message to the group)
   - VALGRIND_MAKE_MEM_DEFINED (for memory debugging support)
 - Constants used:
   - SHAREDINVALRELCACHE_ID (message type identifier for relation cache invalidation)
   - RelCacheMsgs (subgroup identifier for relation cache messages)
   - InvalidOid (special value indicating global invalidation)
 - Data structures used:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
   - Oid type
 - Called from:
-  - RegisterRelcacheInvalidation
+  - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c file

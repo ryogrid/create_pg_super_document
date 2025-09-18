@@ -35,11 +35,11 @@ The function performs several critical tasks:
   - DatumGetEOHP (expanded object handling)
   - EOH_get_flat_size, EOH_flatten_into (expanded object flattening)
   - VARSIZE_EXTERNAL, VARSIZE_SHORT, VARSIZE (varlena size calculations)
-  - DatumGetCString, DatumGetPointer (datum extraction)
+  - [DatumGetCString](../D/DatumGetCString.md), DatumGetPointer (datum extraction)
   - SET_VARSIZE_SHORT, VARDATA (varlena manipulation)
 - Called from (representative examples):
-  - heap_fill_tuple
-  - expand_tuple
+  - [heap_fill_tuple](../h/heap_fill_tuple.md)
+  - [expand_tuple](../e/expand_tuple.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

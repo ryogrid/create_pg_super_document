@@ -20,17 +20,17 @@ _LoadLOs is responsible for restoring all large objects from a PostgreSQL archiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartRestoreLOs
-  - ReadInt
-  - StartRestoreLO
-  - _PrintData
-  - EndRestoreLO
-  - EndRestoreLOs
+  - [StartRestoreLOs](../S/StartRestoreLOs.md)
+  - [ReadInt](../R/ReadInt.md)
+  - [StartRestoreLO](../S/StartRestoreLO.md)
+  - [_PrintData](../P/_PrintData.md)
+  - [EndRestoreLO](../E/EndRestoreLO.md)
+  - [EndRestoreLOs](../E/EndRestoreLOs.md)
   - Oid (type)
 - Called from (representative examples):
-  - _PrintTocData (in custom format when processing BLK_BLOBS)
-  - _PrintTocData (in directory format)
-  - _PrintTocData (in tar format)
+  - [_PrintTocData](../P/_PrintTocData.md) (in custom format when processing BLK_BLOBS)
+  - [_PrintTocData](../P/_PrintTocData.md) (in directory format)
+  - [_PrintTocData](../P/_PrintTocData.md) (in tar format)
 
 ## Notes and Other Information
 This function relies on the zero OID terminator protocol established by _EndLOs during the dump process. The drop parameter allows for different restoration strategies - when true, existing large objects with the same OID will be removed before restoring the archived version. The function uses _PrintData to handle the actual data restoration, ensuring consistent handling of compressed data streams.

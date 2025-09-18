@@ -22,12 +22,12 @@ The function supports all standard R-tree spatial strategies by mapping each str
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (for calling box operators)
-  - box_left, box_overleft, box_overlap, box_overright, box_right
-  - box_same, box_contain, box_contained
-  - box_overbelow, box_below, box_above, box_overabove
+  - [box_left](../b/box_left.md), box_overleft, box_overlap, box_overright, box_right
+  - [box_same](../b/box_same.md), box_contain, box_contained
+  - [box_overbelow](../b/box_overbelow.md), box_below, box_above, box_overabove
   - Strategy number constants (RTLeftStrategyNumber, RTOverlapStrategyNumber, etc.)
 - Called from (representative examples):
-  - gist_box_consistent
+  - [gist_box_consistent](gist_box_consistent.md)
 
 ## Notes and Other Information
 - This is a static helper function used specifically for leaf-level consistency checking

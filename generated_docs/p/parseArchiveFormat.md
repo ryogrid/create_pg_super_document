@@ -27,12 +27,12 @@ If an unrecognized format is provided, the function terminates the program with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (string comparison)
-  - pg_fatal (error handling)
-  - ArchiveFormat enum values: archNull, archCustom, archDirectory, archTar
-  - ArchiveMode enum values: archModeWrite, archModeAppend
+  - [pg_strcasecmp](pg_strcasecmp.md) (string comparison)
+  - [pg_fatal](pg_fatal.md) (error handling)
+  - [ArchiveFormat](../A/ArchiveFormat.md) enum values: archNull, archCustom, archDirectory, archTar
+  - [ArchiveMode](../A/ArchiveMode.md) enum values: archModeWrite, archModeAppend
 - Called from (representative examples):
-  - main (in pg_dump.c at line 756)
+  - [main](../m/main.md) (in pg_dump.c at line 756)
   - fmtQualifiedDumpable (in pg_dump.c at line 185)
 
 ## Notes and Other Information

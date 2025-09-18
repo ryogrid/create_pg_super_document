@@ -27,19 +27,19 @@ The time complexity is O(n^2.5) worst case but typically much better in practice
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BipartiteMatch
-  - BipartiteMatchFree
+  - [BipartiteMatch](../B/BipartiteMatch.md)
+  - [BipartiteMatchFree](../B/BipartiteMatchFree.md)
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - for_each_cell
-  - bms_add_member
-  - bms_equal
-  - bms_free
-  - bms_is_subset
-  - list_concat
-  - lcons
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [bms_free](../b/bms_free.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [list_concat](../l/list_concat.md)
+  - [lcons](../l/lcons.md)
 - Called from (representative examples):
-  - preprocess_grouping_sets
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md)
   - standard_qp_extra
 
 ## Notes and Other Information

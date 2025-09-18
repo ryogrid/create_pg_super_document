@@ -21,9 +21,9 @@ The function uses PostgreSQL's errcontext() mechanism to append context informat
 - Functions called/Symbols referenced:
   - errcontext (PostgreSQL error context reporting function)
 - Called from (representative examples):
-  - plperl_func_handler (for regular PL/Perl function execution)
-  - plperl_trigger_handler (for PL/Perl trigger function execution)
-  - plperl_event_trigger_handler (for PL/Perl event trigger function execution)
+  - [plperl_func_handler](plperl_func_handler.md) (for regular PL/Perl function execution)
+  - [plperl_trigger_handler](plperl_trigger_handler.md) (for PL/Perl trigger function execution)
+  - [plperl_event_trigger_handler](plperl_event_trigger_handler.md) (for PL/Perl event trigger function execution)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the plperl.c file

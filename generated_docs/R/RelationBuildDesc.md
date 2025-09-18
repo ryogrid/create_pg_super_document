@@ -20,23 +20,23 @@ The function includes sophisticated memory management with optional temporary co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanPgRelation (scan pg_class for relation tuple)
-  - AllocateRelationDesc (allocate relation structure)
-  - RelationBuildTupleDesc (build tuple descriptor)
-  - RelationInitIndexAccessInfo (initialize index access methods)
-  - RelationInitTableAccessMethod (initialize table access methods)
-  - RelationParseRelOptions (parse relation options)
-  - RelationBuildRuleLock (build rule locks)
-  - RelationBuildTriggers (build trigger information)
-  - RelationBuildRowSecurity (build row security policies)
-  - RelationInitLockInfo (initialize lock manager info)
-  - RelationInitPhysicalAddr (initialize physical addressing)
+  - [ScanPgRelation](../S/ScanPgRelation.md) (scan pg_class for relation tuple)
+  - [AllocateRelationDesc](../A/AllocateRelationDesc.md) (allocate relation structure)
+  - [RelationBuildTupleDesc](RelationBuildTupleDesc.md) (build tuple descriptor)
+  - [RelationInitIndexAccessInfo](RelationInitIndexAccessInfo.md) (initialize index access methods)
+  - [RelationInitTableAccessMethod](RelationInitTableAccessMethod.md) (initialize table access methods)
+  - [RelationParseRelOptions](RelationParseRelOptions.md) (parse relation options)
+  - [RelationBuildRuleLock](RelationBuildRuleLock.md) (build rule locks)
+  - [RelationBuildTriggers](RelationBuildTriggers.md) (build trigger information)
+  - [RelationBuildRowSecurity](RelationBuildRowSecurity.md) (build row security policies)
+  - [RelationInitLockInfo](RelationInitLockInfo.md) (initialize lock manager info)
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md) (initialize physical addressing)
   - RelationCacheInsert (insert into cache if requested)
-  - heap_freetuple (free pg_class tuple)
+  - [heap_freetuple](../h/heap_freetuple.md) (free pg_class tuple)
 - Called from (representative examples):
-  - RelationIdGetRelation
-  - RelationClearRelation
-  - load_critical_index
+  - [RelationIdGetRelation](RelationIdGetRelation.md)
+  - [RelationClearRelation](RelationClearRelation.md)
+  - [load_critical_index](../l/load_critical_index.md)
 
 ## Notes and Other Information
 - Requires caller to hold at least AccessShareLock on target relation

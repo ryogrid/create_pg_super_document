@@ -20,12 +20,12 @@ This function performs comprehensive security checks on SSL private key files to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call)
+  - [stat](../s/stat.md) (system call)
   - geteuid (system call)
   - S_ISREG (macro)
   - S_IRWXG, S_IRWXO, S_IWGRP, S_IXGRP (permission bit macros)
 - Called from (representative examples):
-  - be_tls_init
+  - [be_tls_init](../b/be_tls_init.md)
 
 ## Notes and Other Information
 - Security checks are platform-specific and only enforced on Unix-like systems (not Windows/Cygwin)

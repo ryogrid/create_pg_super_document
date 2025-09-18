@@ -21,14 +21,14 @@ This function is invoked during SP-GiST index scans when reaching leaf nodes. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgLeafConsistentIn, spgLeafConsistentOut (SP-GiST framework structures)
+  - [spgLeafConsistentIn](spgLeafConsistentIn.md), spgLeafConsistentOut (SP-GiST framework structures)
   - DatumGetTextPP (text datum conversion)
   - SET_VARSIZE, VARDATA (text/varlena manipulation macros)
-  - text_starts_with, DirectFunctionCall2Coll (prefix comparison functions)
+  - [text_starts_with](../t/text_starts_with.md), DirectFunctionCall2Coll (prefix comparison functions)
   - PG_GET_COLLATION (collation context)
   - SPG_IS_COLLATION_AWARE_STRATEGY (strategy testing macro)
-  - pg_verifymbstr (multibyte string validation)
-  - varstr_cmp (collation-aware string comparison)
+  - [pg_verifymbstr](../p/pg_verifymbstr.md) (multibyte string validation)
+  - [varstr_cmp](../v/varstr_cmp.md) (collation-aware string comparison)
   - BTLessStrategyNumber, BTEqualStrategyNumber, etc. (comparison strategy constants)
 - Called from (representative examples):
   - SP-GiST framework during leaf node evaluation (no direct references found)

@@ -25,7 +25,7 @@ Unlike uint32in_subr, this function doesn't require additional platform compatib
   - strtou64 (PostgreSQL's 64-bit unsigned integer parsing function)
   - ereturn (error return macro for soft error handling)
 - Called from (representative examples):
-  - xid8in (64-bit transaction ID input function)
+  - [xid8in](../x/xid8in.md) (64-bit transaction ID input function)
 
 ## Notes and Other Information
 - Uses PostgreSQL's custom strtou64() function rather than standard library functions

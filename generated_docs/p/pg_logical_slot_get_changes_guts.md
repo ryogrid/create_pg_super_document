@@ -23,27 +23,27 @@ The function supports both text and binary output modes, handles various limits 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckSlotPermissions (validates slot access permissions)
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md) (validates slot access permissions)
   - CheckLogicalDecodingRequirements (verifies logical decoding prerequisites)
-  - ReplicationSlotAcquire/ReplicationSlotRelease (slot management)
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)/ReplicationSlotRelease (slot management)
   - CreateDecodingContext/FreeDecodingContext (decoding context lifecycle)
-  - XLogBeginRead/XLogReadRecord (WAL reading functions)
-  - LogicalDecodingProcessRecord (processes individual WAL records)
-  - LogicalOutputPrepareWrite/LogicalOutputWrite (output handling callbacks)
+  - [XLogBeginRead](../X/XLogBeginRead.md)/XLogReadRecord (WAL reading functions)
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md) (processes individual WAL records)
+  - [LogicalOutputPrepareWrite](../L/LogicalOutputPrepareWrite.md)/LogicalOutputWrite (output handling callbacks)
   - LogicalConfirmReceivedLocation (advances slot position)
   - WaitForStandbyConfirmation (synchronous replication support)
-  - GetFlushRecPtr/GetXLogReplayRecPtr (determines WAL endpoints)
-  - InitMaterializedSRF (initializes set-returning function support)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)/GetXLogReplayRecPtr (determines WAL endpoints)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function support)
 - Data types used:
-  - LogicalDecodingContext (main decoding context)
-  - DecodingOutputState (tracks output state and statistics)
-  - XLogRecord (individual WAL record structure)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (main decoding context)
+  - [DecodingOutputState](../D/DecodingOutputState.md) (tracks output state and statistics)
+  - [XLogRecord](../X/XLogRecord.md) (individual WAL record structure)
   - ReturnSetInfo (set-returning function metadata)
 - Called from:
-  - pg_logical_slot_get_changes (public SQL function for textual output with confirmation)
-  - pg_logical_slot_peek_changes (public SQL function for textual output without confirmation)  
-  - pg_logical_slot_get_binary_changes (public SQL function for binary output with confirmation)
-  - pg_logical_slot_peek_binary_changes (public SQL function for binary output without confirmation)
+  - [pg_logical_slot_get_changes](pg_logical_slot_get_changes.md) (public SQL function for textual output with confirmation)
+  - [pg_logical_slot_peek_changes](pg_logical_slot_peek_changes.md) (public SQL function for textual output without confirmation)  
+  - [pg_logical_slot_get_binary_changes](pg_logical_slot_get_binary_changes.md) (public SQL function for binary output with confirmation)
+  - [pg_logical_slot_peek_binary_changes](pg_logical_slot_peek_binary_changes.md) (public SQL function for binary output without confirmation)
 
 ## Notes and Other Information
 - This is a static function serving as the implementation core for multiple public SQL functions

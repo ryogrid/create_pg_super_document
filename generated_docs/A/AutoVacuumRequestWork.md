@@ -33,7 +33,7 @@ The function returns success/failure status, allowing callers to handle cases wh
   - AutoVacuumShmem (shared memory structure)
   - NUM_WORKITEMS (maximum work items)
 - Called from (representative examples):
-  - brininsert
+  - [brininsert](../b/brininsert.md)
 
 ## Notes and Other Information
 - Returns  if no unused work item slots are available (pool is full)

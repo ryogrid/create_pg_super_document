@@ -26,16 +26,16 @@ dotrim is a static helper function that implements the common trimming logic use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_database_encoding_max_length (check for multibyte encoding)
-  - pg_mblen (get multibyte character length)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (check for multibyte encoding)
+  - [pg_mblen](../p/pg_mblen.md) (get multibyte character length)
   - cstring_to_text_with_len (convert result to text type)
 - Called from (representative examples):
-  - btrim (bidirectional trimming)
-  - btrim1 (bidirectional whitespace trimming)
-  - ltrim (left-side trimming)
-  - ltrim1 (left-side whitespace trimming)
-  - rtrim (right-side trimming)
-  - rtrim1 (right-side whitespace trimming)
+  - [btrim](../b/btrim.md) (bidirectional trimming)
+  - [btrim1](../b/btrim1.md) (bidirectional whitespace trimming)
+  - [ltrim](../l/ltrim.md) (left-side trimming)
+  - [ltrim1](../l/ltrim1.md) (left-side whitespace trimming)
+  - [rtrim](../r/rtrim.md) (right-side trimming)
+  - [rtrim1](../r/rtrim1.md) (right-side whitespace trimming)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/oracle_compat.c:378-533

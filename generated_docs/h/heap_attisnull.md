@@ -38,10 +38,10 @@ The function also supports cases where tupleDesc is NULL for relations not expec
   - TableOidAttributeNumber, SelfItemPointerAttributeNumber, etc. (system attribute constants)
   - elog (error logging)
 - Called from (representative examples):
-  - ExecEvalRowNullInt
-  - pg_get_indexdef_worker
-  - RelationGetIndexList
-  - transformFkeyCheckAttrs
+  - [ExecEvalRowNullInt](../E/ExecEvalRowNullInt.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [transformFkeyCheckAttrs](../t/transformFkeyCheckAttrs.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

@@ -20,11 +20,11 @@ This function handles reconnection to a PostgreSQL server during dump or restore
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (duplicates database name string)
-  - ConnectDatabase (establishes new database connection)
-  - PQfinish (closes old PostgreSQL connection)
+  - [pg_strdup](../p/pg_strdup.md) (duplicates database name string)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (establishes new database connection)
+  - [PQfinish](../P/PQfinish.md) (closes old PostgreSQL connection)
 - Called from (representative examples):
-  - _reconnectToDB
+  - [_reconnectToDB](../r/_reconnectToDB.md)
   - appendByteaLiteralAHX
 
 ## Notes and Other Information

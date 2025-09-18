@@ -28,13 +28,13 @@ The function properly handles subquery nesting by tracking sublevels_up and only
 ## Dependencies
 - Functions called/Symbols referenced:
   - rangeTableEntry_used_context (context structure)
-  - bms_is_member (bitmap set membership check)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership check)
   - query_tree_walker (for recursing into subqueries)
   - expression_tree_walker (for traversing expression nodes)
   - Various node type checks: CurrentOfExpr, RangeTblRef, JoinExpr, PlaceHolderVar, etc.
 - Called from (representative examples):
-  - rangeTableEntry_used_walker (recursive calls)
-  - rangeTableEntry_used (main entry point)
+  - [rangeTableEntry_used_walker](rangeTableEntry_used_walker.md) (recursive calls)
+  - [rangeTableEntry_used](rangeTableEntry_used.md) (main entry point)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:900-966

@@ -32,15 +32,15 @@ The function respects dump options like --no-comments, --data-only, and --schema
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findComments
-  - fmtId
+  - [findComments](../f/findComments.md)
+  - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
-  - createDumpId
-  - ArchiveEntry
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - ARCHIVE_OPTS
 - Called from (representative examples):
-  - dumpComment
-  - dumpNamespace
+  - [dumpComment](dumpComment.md)
+  - [dumpNamespace](dumpNamespace.md)
 
 ## Notes and Other Information
 - Comments are marked as SECTION_NONE so they appear in the same section as their parent object

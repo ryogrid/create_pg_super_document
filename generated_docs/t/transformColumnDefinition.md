@@ -26,19 +26,19 @@ For SERIAL columns, the function automatically creates NOT NULL and DEFAULT next
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformColumnType
-  - generateSerialExtraStmts
-  - transformConstraintAttrs
+  - [transformColumnType](transformColumnType.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [transformConstraintAttrs](transformConstraintAttrs.md)
   - quote_qualified_identifier
-  - typenameType
+  - [typenameType](typenameType.md)
   - makeFuncCall
   - makeNode (A_Const, TypeCast, Constraint, AlterTableStmt, AlterTableCmd)
-  - makeString
+  - [makeString](../m/makeString.md)
   - SystemTypeName
   - SystemFuncName
 - Called from (representative examples):
-  - transformCreateStmt
-  - transformAlterTableStmt
+  - [transformCreateStmt](transformCreateStmt.md)
+  - [transformAlterTableStmt](transformAlterTableStmt.md)
 
 ## Notes and Other Information
 The function maintains strict validation of constraint combinations, preventing conflicting specifications like both DEFAULT and IDENTITY on the same column. SERIAL types are treated as pseudo-types that expand into integer types with associated sequences and constraints. For identity columns, the function ensures they are implicitly NOT NULL and validates that they're not used on typed tables or partitions. Foreign table columns have restricted constraint support, prohibiting PRIMARY KEY, UNIQUE, and FOREIGN KEY constraints. The function accumulates constraints into different lists within the CreateStmtContext for later processing in the appropriate order.

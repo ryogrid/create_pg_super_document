@@ -34,21 +34,21 @@ The function works by iterating through the provided key columns, finding the co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_deparse_context_plan (sets up context for expression deparsing)
-  - get_tle_by_resno (finds target entry by result number)
-  - deparse_expression (converts expression nodes to readable text)
-  - show_sortorder_options (adds sort order information to expressions)
+  - [set_deparse_context_plan](set_deparse_context_plan.md) (sets up context for expression deparsing)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md) (finds target entry by result number)
+  - [deparse_expression](../d/deparse_expression.md) (converts expression nodes to readable text)
+  - [show_sortorder_options](show_sortorder_options.md) (adds sort order information to expressions)
   - resetStringInfo (resets string buffer)
-  - ExplainPropertyList (outputs the formatted key list)
+  - [ExplainPropertyList](../E/ExplainPropertyList.md) (outputs the formatted key list)
 - Types referenced:
-  - PlanState, Plan, TargetEntry, AttrNumber, ExplainState
+  - [PlanState](../P/PlanState.md), Plan, TargetEntry, AttrNumber, ExplainState
 - Called from (representative examples):
-  - show_sort_keys (for Sort nodes)
-  - show_incremental_sort_keys (for IncrementalSort nodes)
-  - show_merge_append_keys (for MergeAppend nodes)
-  - show_agg_keys (for Agg nodes)
-  - show_grouping_set_keys (for GroupingSets)
-  - show_group_keys (for Group nodes)
+  - [show_sort_keys](show_sort_keys.md) (for Sort nodes)
+  - [show_incremental_sort_keys](show_incremental_sort_keys.md) (for IncrementalSort nodes)
+  - [show_merge_append_keys](show_merge_append_keys.md) (for MergeAppend nodes)
+  - [show_agg_keys](show_agg_keys.md) (for Agg nodes)
+  - [show_grouping_set_keys](show_grouping_set_keys.md) (for GroupingSets)
+  - [show_group_keys](show_group_keys.md) (for Group nodes)
 
 ## Notes and Other Information
 - The function returns early if nkeys <= 0, avoiding unnecessary processing

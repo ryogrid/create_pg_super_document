@@ -26,12 +26,12 @@ The function implements several optimization strategies:
   - BufFileClose
   - HJ_FILL_OUTER
   - HJ_FILL_INNER
-  - ExecHashTableReset
+  - [ExecHashTableReset](ExecHashTableReset.md)
   - BufFileSeek
-  - ExecHashJoinGetSavedTuple
+  - [ExecHashJoinGetSavedTuple](ExecHashJoinGetSavedTuple.md)
   - ExecHashTableInsert
 - Called from (representative examples):
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - Returns true if a new batch was successfully prepared, false if no more batches remain

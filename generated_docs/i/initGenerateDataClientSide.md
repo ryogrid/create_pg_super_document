@@ -17,15 +17,15 @@ This function implements the client-side data generation strategy for pgbench da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeStatement: Executes BEGIN and COMMIT transaction statements
-  - initTruncateTables: Truncates all pgbench tables to remove old data
-  - initPopulateTable: Core function for populating individual tables with generated data
-  - initBranch: Row generation function for pgbench_branches table
-  - initTeller: Row generation function for pgbench_tellers table  
-  - initAccount: Row generation function for pgbench_accounts table
+  - [executeStatement](../e/executeStatement.md): Executes BEGIN and COMMIT transaction statements
+  - [initTruncateTables](initTruncateTables.md): Truncates all pgbench tables to remove old data
+  - [initPopulateTable](initPopulateTable.md): Core function for populating individual tables with generated data
+  - [initBranch](initBranch.md): Row generation function for pgbench_branches table
+  - [initTeller](initTeller.md): Row generation function for pgbench_tellers table  
+  - [initAccount](initAccount.md): Row generation function for pgbench_accounts table
   - nbranches, ntellers, naccounts: Global variables specifying record counts per table
 - Called from (representative examples):
-  - runInitSteps: Main initialization workflow that invokes this function for client-side data generation
+  - [runInitSteps](../r/runInitSteps.md): Main initialization workflow that invokes this function for client-side data generation
 
 ## Notes and Other Information
 - All operations are performed within a single transaction to enable PostgreSQL's data-loading optimizations

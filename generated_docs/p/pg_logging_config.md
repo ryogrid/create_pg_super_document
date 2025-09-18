@@ -23,7 +23,7 @@ The function simply assigns the new flags value to the static log_flags variable
 - Functions called/Symbols referenced:
   - None (simple assignment operation)
 - Called from (representative examples):
-  - process_file (in psql command processing)
+  - [process_file](process_file.md) (in psql command processing)
   - Various startup functions in psql
 
 ## Notes and Other Information

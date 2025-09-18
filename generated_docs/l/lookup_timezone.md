@@ -20,16 +20,16 @@ The `lookup_timezone` function is a utility function that converts a PostgreSQL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring_buffer
-  - DecodeTimezoneNameToTz
+  - [DecodeTimezoneNameToTz](../D/DecodeTimezoneNameToTz.md)
 - Constants referenced:
   - TZ_STRLEN_MAX
 - Types referenced:
-  - pg_tz
+  - [pg_tz](../p/pg_tz.md)
 - Called from (representative examples):
-  - timestamptz_pl_interval_at_zone
-  - timestamptz_mi_interval_at_zone
-  - timestamptz_trunc_zone
-  - generate_series_timestamptz_internal
+  - [timestamptz_pl_interval_at_zone](../t/timestamptz_pl_interval_at_zone.md)
+  - [timestamptz_mi_interval_at_zone](../t/timestamptz_mi_interval_at_zone.md)
+  - [timestamptz_trunc_zone](../t/timestamptz_trunc_zone.md)
+  - [generate_series_timestamptz_internal](../g/generate_series_timestamptz_internal.md)
 
 ## Notes and Other Information
 - Static function, only accessible within timestamp.c

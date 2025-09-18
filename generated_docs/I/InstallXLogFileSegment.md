@@ -26,15 +26,15 @@ The function performs the installation under ControlFileLock protection to preve
   - XLogFilePath
   - LWLockAcquire/LWLockRelease
   - durable_unlink
-  - stat
+  - [stat](../s/stat.md)
   - access
-  - durable_rename
+  - [durable_rename](../d/durable_rename.md)
   - Assert
 - Called from (representative examples):
   - RefreshXLogWriteResult (src/backend/access/transam/xlog.c:677)
-  - XLogFileInitInternal (src/backend/access/transam/xlog.c:3324)
-  - XLogFileCopy (src/backend/access/transam/xlog.c:3509)
-  - RemoveXlogFile (src/backend/access/transam/xlog.c:4007)
+  - [XLogFileInitInternal](../X/XLogFileInitInternal.md) (src/backend/access/transam/xlog.c:3324)
+  - [XLogFileCopy](../X/XLogFileCopy.md) (src/backend/access/transam/xlog.c:3509)
+  - [RemoveXlogFile](../R/RemoveXlogFile.md) (src/backend/access/transam/xlog.c:4007)
 
 ## Notes and Other Information
 - Returns true on successful installation, false on failure or disabled state

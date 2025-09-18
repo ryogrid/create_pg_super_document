@@ -26,11 +26,11 @@ The function is designed to be callable from both normal B-tree operations and W
 - Functions called/Symbols referenced:
   - GinDataPageGetRightBound
   - PostingItemSetBlockNumber
-  - GinDataPageAddPostingItem
+  - [GinDataPageAddPostingItem](../G/GinDataPageAddPostingItem.md)
   - InvalidOffsetNumber (constant)
 - Called from (representative examples):
-  - ginPrepareDataScan
-  - GinBtreeDataLeafInsertData (via function pointer)
+  - [ginPrepareDataScan](ginPrepareDataScan.md)
+  - [GinBtreeDataLeafInsertData](../G/GinBtreeDataLeafInsertData.md) (via function pointer)
 
 ## Notes and Other Information
 - This is a public function (not static) and can be called from other modules

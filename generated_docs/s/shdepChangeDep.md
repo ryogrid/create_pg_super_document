@@ -23,22 +23,22 @@ This is a core internal function that handles updating pg_shdepend entries when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - classIdGetDbId
-  - shdepLockAndCheckObject
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - heap_copytuple
-  - IsPinnedObject
-  - CatalogTupleDelete
-  - CatalogTupleUpdate
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [classIdGetDbId](../c/classIdGetDbId.md)
+  - [shdepLockAndCheckObject](shdepLockAndCheckObject.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](systable_beginscan.md)
+  - [systable_getnext](systable_getnext.md)
+  - [systable_endscan](systable_endscan.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [IsPinnedObject](../I/IsPinnedObject.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - changeDependencyOnOwner
-  - changeDependencyOnTablespace
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)
+  - [changeDependencyOnTablespace](../c/changeDependencyOnTablespace.md)
 
 ## Notes and Other Information
 - Static function - internal use only within pg_shdepend.c

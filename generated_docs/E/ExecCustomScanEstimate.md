@@ -20,9 +20,9 @@ ExecCustomScanEstimate is responsible for calculating the shared memory space ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (structure type)
-  - ParallelContext (structure type)
-  - CustomExecMethods (structure type)
+  - [CustomScanState](../C/CustomScanState.md) (structure type)
+  - [ParallelContext](../P/ParallelContext.md) (structure type)
+  - [CustomExecMethods](../C/CustomExecMethods.md) (structure type)
   - shm_toc_estimate_chunk (shared memory TOC estimation function)
   - shm_toc_estimate_keys (shared memory TOC key estimation function)
 - Called from (representative examples):

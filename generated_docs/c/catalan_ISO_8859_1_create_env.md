@@ -24,7 +24,7 @@ The function returns a pointer to a newly allocated SN_env structure that contai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Generic Snowball environment creation function that allocates and initializes the stemming environment structure
+  - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function that allocates and initializes the stemming environment structure
 - Called from (representative examples):
   - External stemming interface initialization routines
   - PostgreSQL text search configuration for Catalan language support

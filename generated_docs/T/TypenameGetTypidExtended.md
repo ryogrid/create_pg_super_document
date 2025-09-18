@@ -18,11 +18,11 @@ TypenameGetTypidExtended searches for a type by name through all namespaces in t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - GetSysCacheOid2
 - Called from (representative examples):
-  - TypenameGetTypid (src/backend/catalog/namespace.c:997)
-  - LookupTypeNameExtended (src/backend/parser/parse_type.c:192)
+  - [TypenameGetTypid](TypenameGetTypid.md) (src/backend/catalog/namespace.c:997)
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md) (src/backend/parser/parse_type.c:192)
   - RangeVarGetRelid (src/include/catalog/namespace.h:97)
 
 ## Notes and Other Information

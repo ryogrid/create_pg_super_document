@@ -22,13 +22,13 @@ The function performs extensive validation including column count verification, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Stack overflow protection for recursive calls
-  - lookup_rowtype_tupdesc: Retrieves tuple descriptor for the record type
-  - pq_getmsgint: Reads integer values from message buffer
-  - getTypeBinaryInputInfo: Gets binary input function info for column types
-  - ReceiveFunctionCall: Calls type-specific binary receive functions
-  - heap_form_tuple: Creates heap tuple from values array
-  - format_type_extended: Formats type names for error messages
-  - MemoryContextAlloc: Memory allocation in function context
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the record type
+  - [pq_getmsgint](../p/pq_getmsgint.md): Reads integer values from message buffer
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md): Gets binary input function info for column types
+  - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md): Calls type-specific binary receive functions
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates heap tuple from values array
+  - [format_type_extended](../f/format_type_extended.md): Formats type names for error messages
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in function context
   - ReleaseTupleDesc: Releases tuple descriptor reference
 
 - Called from (representative examples):

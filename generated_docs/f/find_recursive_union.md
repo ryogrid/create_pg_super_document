@@ -27,13 +27,13 @@ If no matching RecursiveUnion is found, the function raises an error, as this in
   - deparse_namespace (namespace structure containing ancestor information)
   - WorkTableScan (work table scan plan node)
   - RecursiveUnion (recursive union plan node)
-  - Plan (base plan node structure)
+  - [Plan](../P/Plan.md) (base plan node structure)
   - ListCell (list cell structure for iteration)
   - lfirst (macro to extract data from list cell)
   - IsA (macro for type checking)
   - elog (error logging function)
 - Called from (representative examples):
-  - set_deparse_plan (at line 5010)
+  - [set_deparse_plan](../s/set_deparse_plan.md) (at line 5010)
 
 ## Notes and Other Information
 - This is a static function, only accessible within ruleutils.c

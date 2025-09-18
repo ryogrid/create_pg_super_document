@@ -24,7 +24,7 @@ The `scanplain` function is a utility that scans through plain character sequenc
   - ISERR (macro for error checking)
   - Token type constants: COLLEL, ECLASS, CCLASS, PLAIN, END
 - Called from:
-  - brackpart (called multiple times to scan different bracket constructs)
+  - [brackpart](../b/brackpart.md) (called multiple times to scan different bracket constructs)
 
 ## Notes and Other Information
 - Works specifically with bracket expression delimited constructs: [. .], [= =], [: :]

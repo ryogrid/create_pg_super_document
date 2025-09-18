@@ -21,12 +21,12 @@ The function also increments the instrumentation counter for tracking the number
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (PostgreSQL assertion macro)
-  - psprintf (PostgreSQL string formatting function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL string formatting function)
   - context->module_generation (module generation number)
   - context->counter (function counter)
   - context->base.instr.created_functions (instrumentation counter)
 - Called from:
-  - slot_compile_deform (tuple deforming compilation)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (tuple deforming compilation)
   - llvm_compile_expr (expression compilation)
 
 ## Notes and Other Information

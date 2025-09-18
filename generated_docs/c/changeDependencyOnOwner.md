@@ -20,19 +20,19 @@ This function manages the complex process of changing object ownership in Postgr
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - shdepChangeDep
-  - shdepDropDependency
+  - [shdepChangeDep](../s/shdepChangeDep.md)
+  - [shdepDropDependency](../s/shdepDropDependency.md)
   - table_close
   - SHARED_DEPENDENCY_OWNER (dependency type)
   - SHARED_DEPENDENCY_ACL (dependency type)
 - Called from (representative examples):
-  - AlterObjectOwner_internal
-  - AlterDatabaseOwner
-  - ATExecChangeOwner (table ownership changes)
-  - AlterSchemaOwner_internal
-  - AlterSubscriptionOwner_internal
-  - AlterPublicationOwner_internal
-  - AlterTypeOwner_oid
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)
+  - [AlterDatabaseOwner](../A/AlterDatabaseOwner.md)
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md) (table ownership changes)
+  - [AlterSchemaOwner_internal](../A/AlterSchemaOwner_internal.md)
+  - [AlterSubscriptionOwner_internal](../A/AlterSubscriptionOwner_internal.md)
+  - [AlterPublicationOwner_internal](../A/AlterPublicationOwner_internal.md)
+  - [AlterTypeOwner_oid](../A/AlterTypeOwner_oid.md)
 
 ## Notes and Other Information
 - No objsubid parameter needed since only whole objects have owners (not sub-objects)

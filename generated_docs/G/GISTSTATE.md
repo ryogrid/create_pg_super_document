@@ -34,16 +34,16 @@ The structure stores cached FmgrInfo structures for all nine standard GiST suppo
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS
-  - MemoryContext
-  - TupleDesc
-  - FmgrInfo
+  - [MemoryContext](../M/MemoryContext.md)
+  - [TupleDesc](../T/TupleDesc.md)
+  - [FmgrInfo](../F/FmgrInfo.md)
   - Oid
 - Called from (representative examples):
-  - initGISTstate
-  - freeGISTstate
-  - gistinsert
-  - gistbeginscan
-  - gistScanPage
+  - [initGISTstate](../i/initGISTstate.md)
+  - [freeGISTstate](../f/freeGISTstate.md)
+  - [gistinsert](../g/gistinsert.md)
+  - [gistbeginscan](../g/gistbeginscan.md)
+  - [gistScanPage](../g/gistScanPage.md)
 
 ## Notes and Other Information
 The GISTSTATE structure is typically initialized once per index operation via initGISTstate() and freed with freeGISTstate(). The cached function information significantly improves performance by avoiding repeated catalog lookups for support functions. The dual memory context design (scanCxt vs tempCxt) provides flexibility in memory management strategies depending on the operation's requirements and can be configured to use the same context when per-tuple resets are not needed.

@@ -18,14 +18,14 @@ This function implements the entry point for PL/Python subtransactions, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_exception_set
-  - MemoryContextAlloc
-  - BeginInternalSubTransaction
-  - MemoryContextSwitchTo
-  - lcons
+  - [PLy_exception_set](PLy_exception_set.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [lcons](../l/lcons.md)
   - Py_INCREF
-  - PLySubtransactionData (struct type)
-  - PLySubtransactionObject (struct type)
+  - [PLySubtransactionData](PLySubtransactionData.md) (struct type)
+  - [PLySubtransactionObject](PLySubtransactionObject.md) (struct type)
 - Called from:
   - Python method dispatch system (registered as `__enter__` or `enter`)
 

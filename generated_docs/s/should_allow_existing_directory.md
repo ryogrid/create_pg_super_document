@@ -23,13 +23,13 @@ For WAL-related directories, the function accounts for the fact that WAL receive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - last_dir_separator
+  - [last_dir_separator](../l/last_dir_separator.md)
   - strcmp
   - strspn
   - strlen  
   - strstr
 - Called from (representative examples):
-  - extract_directory
+  - [extract_directory](../e/extract_directory.md)
 
 ## Notes and Other Information
 - This is a static function specific to the bbstreamer file extraction implementation

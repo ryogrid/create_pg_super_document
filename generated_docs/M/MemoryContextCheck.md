@@ -20,10 +20,10 @@ This function provides a comprehensive integrity check mechanism for memory cont
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid (structural context validation)
-  - MemoryContextTraverseNext (safe context hierarchy traversal)
+  - [MemoryContextTraverseNext](MemoryContextTraverseNext.md) (safe context hierarchy traversal)
   - context->methods->check (context-specific integrity checking method)
 - Called from (representative examples):
-  - finish_xact_command (transaction cleanup validation)
+  - [finish_xact_command](../f/finish_xact_command.md) (transaction cleanup validation)
   - Various debugging and validation scenarios
 
 ## Notes and Other Information

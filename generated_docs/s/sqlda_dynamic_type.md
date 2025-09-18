@@ -30,9 +30,9 @@ For unhandled or unknown types, the function defaults to `ECPGt_char`, treating 
   - ECPGt_char, ECPGt_short, ECPGt_int, ECPGt_double, ECPGt_float, ECPGt_decimal, ECPGt_numeric, ECPGt_date, ECPGt_timestamp, ECPGt_interval, ECPGt_long_long, ECPGt_long (ECPG type constants)
   - INFORMIX_MODE (compatibility mode macro)
 - Called from (representative examples):
-  - sqlda_common_total_size (in sqlda.c:74)
-  - ecpg_build_compat_sqlda (in sqlda.c:231)
-  - ecpg_build_native_sqlda (in sqlda.c:434)
+  - [sqlda_common_total_size](sqlda_common_total_size.md) (in sqlda.c:74)
+  - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md) (in sqlda.c:231)
+  - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md) (in sqlda.c:434)
 
 ## Notes and Other Information
 - The function is specifically designed for SQLDA operations, which require ECPG type constants rather than SQL3 type constants.

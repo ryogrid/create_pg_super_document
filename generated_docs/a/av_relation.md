@@ -22,8 +22,8 @@ The  structure serves as a tracking mechanism for tables and their associated TO
 - Functions called/Symbols referenced:
   - AutoVacOpts (autovacuum options structure)
 - Called from (representative examples):
-  - do_autovacuum
-  - table_recheck_autovac
+  - [do_autovacuum](../d/do_autovacuum.md)
+  - [table_recheck_autovac](../t/table_recheck_autovac.md)
 
 ## Notes and Other Information
 - The  field must be positioned first to serve as a proper hash key

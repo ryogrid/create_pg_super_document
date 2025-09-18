@@ -23,13 +23,13 @@ The function assigns specific gzip-related handlers for reading, writing, and cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadDataFromArchiveGzip
-  - WriteDataToArchiveGzip  
-  - EndCompressorGzip
-  - DeflateCompressorInit
-  - pg_fatal
+  - [ReadDataFromArchiveGzip](../R/ReadDataFromArchiveGzip.md)
+  - [WriteDataToArchiveGzip](../W/WriteDataToArchiveGzip.md)  
+  - [EndCompressorGzip](../E/EndCompressorGzip.md)
+  - [DeflateCompressorInit](../D/DeflateCompressorInit.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - AllocateCompressor (src/bin/pg_dump/compress_io.c:136)
+  - [AllocateCompressor](../A/AllocateCompressor.md) (src/bin/pg_dump/compress_io.c:136)
 
 ## Notes and Other Information
 - The function is conditionally compiled based on HAVE_LIBZ preprocessor definition

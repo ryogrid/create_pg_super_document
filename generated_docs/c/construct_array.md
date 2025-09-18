@@ -24,20 +24,20 @@ The function assumes that NULL element values are not supported - all elements m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - construct_md_array
+  - [construct_md_array](construct_md_array.md)
 - Called from (representative examples):
-  - StoreAttrMissingVal
-  - StoreAttrDefault
-  - update_attstats
-  - ATExecAlterColumnType
-  - serialize_expr_stats
-  - construct_array_builtin
-  - enum_range_internal
-  - float8_combine
-  - float8_accum
-  - float4_accum
-  - float8_regr_accum
-  - float8_regr_combine
+  - [StoreAttrMissingVal](../S/StoreAttrMissingVal.md)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md)
+  - [update_attstats](../u/update_attstats.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [serialize_expr_stats](../s/serialize_expr_stats.md)
+  - [construct_array_builtin](construct_array_builtin.md)
+  - [enum_range_internal](../e/enum_range_internal.md)
+  - [float8_combine](../f/float8_combine.md)
+  - [float8_accum](../f/float8_accum.md)
+  - [float4_accum](../f/float4_accum.md)
+  - [float8_regr_accum](../f/float8_regr_accum.md)
+  - [float8_regr_combine](../f/float8_regr_combine.md)
 
 ## Notes and Other Information
 - The caller is responsible for providing correct elmlen/elmbyval/elmalign information for performance reasons, rather than having the function look up this information from system catalogs

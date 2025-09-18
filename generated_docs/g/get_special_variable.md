@@ -23,7 +23,7 @@ The function's primary responsibility is to format the resolved expression node 
 - Functions called/Symbols referenced:
   - get_rule_expr (for recursive expression formatting)
 - Called from (representative examples):
-  - get_variable (via resolve_special_varno callback mechanism)
+  - [get_variable](get_variable.md) (via resolve_special_varno callback mechanism)
 
 ## Notes and Other Information
 - Designed as a callback function for the resolve_special_varno infrastructure

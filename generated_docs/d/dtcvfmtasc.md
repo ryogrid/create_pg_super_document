@@ -23,7 +23,7 @@ The function allows flexible date/time parsing by accepting a format string that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_defmt_asc
+  - [PGTYPEStimestamp_defmt_asc](../P/PGTYPEStimestamp_defmt_asc.md)
 - Called from (representative examples):
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)
 

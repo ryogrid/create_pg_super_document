@@ -22,13 +22,13 @@ The `compatible_oper_opid` function is a simplified interface to `compatible_ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compatible_oper (performs the actual operator resolution)
-  - oprid (extracts operator OID from operator tuple)
-  - ReleaseSysCache (releases syscache entry)
+  - [compatible_oper](compatible_oper.md) (performs the actual operator resolution)
+  - [oprid](../o/oprid.md) (extracts operator OID from operator tuple)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases syscache entry)
   - Operator (operator syscache entry type)
 - Called from (representative examples):
-  - ComputeIndexAttrs (index attribute computation)
-  - addTargetToSortList (sort target list processing)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md) (index attribute computation)
+  - [addTargetToSortList](../a/addTargetToSortList.md) (sort target list processing)
 
 ## Notes and Other Information
 - Convenience wrapper that simplifies syscache management for callers

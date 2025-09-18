@@ -29,15 +29,15 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocCStatePrepared (for lazy allocation of tracking array)
-  - PQprepare (PostgreSQL libpq function for preparing statements)
+  - [allocCStatePrepared](../a/allocCStatePrepared.md) (for lazy allocation of tracking array)
+  - [PQprepare](../P/PQprepare.md) (PostgreSQL libpq function for preparing statements)
   - pg_log_debug (for debug logging)
-  - Command (command structure)
+  - [Command](../C/Command.md) (command structure)
   - SQL_COMMAND (command type constant)
   - PGRES_COMMAND_OK (PostgreSQL result status)
 - Called from (representative examples):
-  - prepareCommandsInPipeline
-  - sendCommand
+  - [prepareCommandsInPipeline](prepareCommandsInPipeline.md)
+  - [sendCommand](../s/sendCommand.md)
 
 ## Notes and Other Information
 - This function is part of pgbench's prepared statement optimization feature

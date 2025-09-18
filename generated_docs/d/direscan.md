@@ -23,10 +23,10 @@ The rescan operation is typically used in nested loop joins or when query execut
 
 ## Dependencies
 - Data types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanKey
 - Called from (representative examples):
-  - dihandler
+  - [dihandler](dihandler.md)
 
 ## Notes and Other Information
 - This is a static function within the dummy_index_am test module

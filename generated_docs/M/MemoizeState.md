@@ -295,18 +295,18 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - dlist_head
-  - MemoizeTuple
-  - MemoizeEntry
-  - MemoizeInstrumentation
-  - SharedMemoizeInfo
+  - [ScanState](../S/ScanState.md)
+  - [dlist_head](../d/dlist_head.md)
+  - [MemoizeTuple](MemoizeTuple.md)
+  - [MemoizeEntry](MemoizeEntry.md)
+  - [MemoizeInstrumentation](MemoizeInstrumentation.md)
+  - [SharedMemoizeInfo](../S/SharedMemoizeInfo.md)
 - Called from (representative examples):
-  - ExecMemoize
-  - ExecInitMemoize
-  - ExecEndMemoize
-  - ExecReScanMemoize
-  - show_memoize_info
+  - [ExecMemoize](../E/ExecMemoize.md)
+  - [ExecInitMemoize](../E/ExecInitMemoize.md)
+  - [ExecEndMemoize](../E/ExecEndMemoize.md)
+  - [ExecReScanMemoize](../E/ExecReScanMemoize.md)
+  - [show_memoize_info](../s/show_memoize_info.md)
 
 ## Notes and Other Information
 The MemoizeState is central to PostgreSQL's result caching optimization strategy. It implements sophisticated memory management with configurable limits and LRU eviction. The binary_mode flag allows for optimization when exact bitwise comparison is sufficient. The structure supports both single-row and multi-row caching scenarios, and includes comprehensive instrumentation for performance monitoring. In parallel query execution, the shared_info field coordinates statistics collection across worker processes.

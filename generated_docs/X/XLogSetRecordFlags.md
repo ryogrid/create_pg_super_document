@@ -26,11 +26,11 @@ The primary use cases involve controlling replication origin inclusion and marki
   - Assert (for debug assertions)
   - curinsert_flags (global variable storing current insertion flags)
 - Called from (representative examples):
-  - heap_insert (heap tuple insertions)
-  - XactLogCommitRecord (transaction commit logging)
-  - LogLogicalMessage (logical replication messages)
-  - ExecuteTruncateGuts (table truncation operations)
-  - RequestXLogSwitch (WAL switch requests)
+  - [heap_insert](../h/heap_insert.md) (heap tuple insertions)
+  - [XactLogCommitRecord](XactLogCommitRecord.md) (transaction commit logging)
+  - [LogLogicalMessage](../L/LogLogicalMessage.md) (logical replication messages)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (table truncation operations)
+  - [RequestXLogSwitch](../R/RequestXLogSwitch.md) (WAL switch requests)
 
 ## Notes and Other Information
 - Must be called after XLogBeginInsert() and before XLogInsert()

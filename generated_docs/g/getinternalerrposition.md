@@ -24,7 +24,7 @@ The function accesses the current error data context and returns the internal po
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
 - Called from (representative examples):
-  - function_parse_error_transpose
+  - [function_parse_error_transpose](../f/function_parse_error_transpose.md)
   - errcontext
 
 ## Notes and Other Information

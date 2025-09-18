@@ -22,14 +22,14 @@ This function initiates execution of one query within a SQL function by setting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ActiveSnapshotSet
-  - CreateDestReceiver
-  - CreateQueryDesc
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
   - GetActiveSnapshot
-  - ExecutorStart
+  - [ExecutorStart](../E/ExecutorStart.md)
   - None_Receiver (destination receiver)
   - DR_sqlfunction (destination receiver type)
 - Called from (representative examples):
-  - fmgr_sql
+  - [fmgr_sql](../f/fmgr_sql.md)
 
 ## Notes and Other Information
 - Asserts that no query descriptor exists yet (es->qd == NULL) and active snapshot is set

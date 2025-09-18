@@ -28,9 +28,9 @@ The output format is optimized to be as compact as possible:
   - SECSPERMIN (constant for seconds per minute)
   - MINSPERHOUR (constant for minutes per hour)
   - zic_t (timezone calculation type)
-  - error (error reporting function)
+  - [error](../e/error.md) (error reporting function)
 - Called from (representative examples):
-  - doabbr (in src/timezone/zic.c:2644)
+  - [doabbr](../d/doabbr.md) (in src/timezone/zic.c:2644)
 
 ## Notes and Other Information
 - The function modifies the sign to positive internally for easier calculation, while preserving the original sign for display

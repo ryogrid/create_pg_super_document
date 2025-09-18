@@ -21,7 +21,7 @@ This utility function analyzes the second byte of a Shift-JIS-2004 character enc
 ## Dependencies
 - Functions called/Symbols referenced: None (pure computation)
 - Called from:
-  - shift_jis_20042euc_jis_2004 (multiple times at lines 314, 327, 341, 368)
+  - [shift_jis_20042euc_jis_2004](../s/shift_jis_20042euc_jis_2004.md) (multiple times at lines 314, 327, 341, 368)
 
 ## Notes and Other Information
 - Located in src/backend/utils/mb/conversion_procs/euc2004_sjis2004/euc2004_sjis2004.c:222-253

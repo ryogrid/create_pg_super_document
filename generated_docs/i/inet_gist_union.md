@@ -25,11 +25,11 @@ The resulting union key maintains GiST's requirement that all child values must 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER, PG_RETURN_POINTER
-  - GistEntryVector, GISTENTRY
-  - calc_inet_union_params
+  - [GistEntryVector](../G/GistEntryVector.md), GISTENTRY
+  - [calc_inet_union_params](../c/calc_inet_union_params.md)
   - DatumGetInetKeyP
   - gk_ip_addr
-  - build_inet_union_key
+  - [build_inet_union_key](../b/build_inet_union_key.md)
 - Called from (representative examples):
   - GiST index access methods (indirectly through function pointer)
 

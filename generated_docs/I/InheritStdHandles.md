@@ -22,7 +22,7 @@ This function configures the STARTUPINFO structure for a new process to inherit 
   - STD_INPUT_HANDLE, STD_OUTPUT_HANDLE, STD_ERROR_HANDLE (Windows constants)
   - INVALID_HANDLE_VALUE (Windows constant)
 - Called from (representative examples):
-  - CreateRestrictedProcess
+  - [CreateRestrictedProcess](../C/CreateRestrictedProcess.md)
 
 ## Notes and Other Information
 - This function is Windows-specific and addresses service-specific handle inheritance behavior

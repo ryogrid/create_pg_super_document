@@ -25,10 +25,10 @@ The function is crucial for ensuring data durability in logical replication scen
 ## Dependencies
 - Functions called/Symbols referenced:
   - fsync (system call to synchronize file data with storage device)
-  - pg_fatal (error reporting function, called on fsync failure)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting function, called on fsync failure)
 - Called from (representative examples):
-  - StreamLogicalLog (main logical replication streaming loop, multiple call sites)
-  - flushAndSendFeedback (periodic flush and feedback operation)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (main logical replication streaming loop, multiple call sites)
+  - [flushAndSendFeedback](../f/flushAndSendFeedback.md) (periodic flush and feedback operation)
 
 ## Notes and Other Information
 - Static function only accessible within pg_recvlogical.c

@@ -18,19 +18,19 @@ This function performs a bitwise difference operation (A - B) on two Bitmapsets,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation macro for input bitmapsets)
-  - bms_copy (creates a copy of a bitmapset)
-  - bms_nonempty_difference (checks if difference would be non-empty)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation macro for input bitmapsets)
+  - [bms_copy](bms_copy.md) (creates a copy of a bitmapset)
+  - [bms_nonempty_difference](bms_nonempty_difference.md) (checks if difference would be non-empty)
 
 - Called from (representative examples):
-  - add_child_rel_equivalences
-  - check_index_predicates
-  - add_paths_to_joinrel
-  - have_unsafe_outer_join_ref
-  - remove_useless_groupby_columns
-  - finalize_plan
-  - make_restrictinfo_internal
-  - pull_varnos_walker
+  - [add_child_rel_equivalences](../a/add_child_rel_equivalences.md)
+  - [check_index_predicates](../c/check_index_predicates.md)
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
+  - [have_unsafe_outer_join_ref](../h/have_unsafe_outer_join_ref.md)
+  - [remove_useless_groupby_columns](../r/remove_useless_groupby_columns.md)
+  - [finalize_plan](../f/finalize_plan.md)
+  - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md)
+  - [pull_varnos_walker](../p/pull_varnos_walker.md)
   - examine_variable
 
 ## Notes and Other Information

@@ -28,7 +28,7 @@ This function takes no parameters and returns:
   - OidIsValid (macro to check if OID is valid)
   - CurrentUserId (static variable holding current effective user ID)
 - Called from (representative examples):
-  - object_ownercheck functions for permission validation
+  - [object_ownercheck](../o/object_ownercheck.md) functions for permission validation
   - Various catalog operations for ownership checks
   - PL/Tcl for user context in trusted procedures
   - Extension modules for access control

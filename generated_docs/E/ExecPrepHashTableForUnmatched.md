@@ -26,10 +26,10 @@ This initialization enables subsequent calls to ExecScanHashTableForUnmatched to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinState (struct type)
+  - [HashJoinState](../H/HashJoinState.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelPrepHashTableForUnmatched (calls this function)
-  - ExecHashJoinImpl
+  - [ExecParallelPrepHashTableForUnmatched](ExecParallelPrepHashTableForUnmatched.md) (calls this function)
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - This function is used specifically for RIGHT JOIN and FULL OUTER JOIN operations

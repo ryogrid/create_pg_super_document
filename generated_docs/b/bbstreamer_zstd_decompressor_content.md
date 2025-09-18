@@ -28,11 +28,11 @@ The function uses ZSTD_decompressStream() to perform the actual decompression wo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer
+  - [bbstreamer](bbstreamer.md)
   - bbstreamer_member
-  - bbstreamer_archive_context
-  - bbstreamer_zstd_frame
-  - bbstreamer_content
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md)
+  - [bbstreamer_zstd_frame](bbstreamer_zstd_frame.md)
+  - [bbstreamer_content](bbstreamer_content.md)
   - ZSTD_decompressStream (ZSTD library function)
   - ZSTD_isError (ZSTD library function)
   - ZSTD_getErrorName (ZSTD library function)

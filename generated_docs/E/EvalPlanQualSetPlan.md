@@ -19,10 +19,10 @@ This function is part of PostgreSQL's EPQ (Eval Plan Qual) infrastructure, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EvalPlanQualEnd
-  - EPQState
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md)
+  - [EPQState](EPQState.md)
 - Called from (representative examples):
-  - ExecInitModifyTable
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
   - ExecGetJunkAttribute
 
 ## Notes and Other Information

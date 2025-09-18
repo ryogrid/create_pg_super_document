@@ -32,13 +32,13 @@ The function assumes that expressions from process_equivalence() are already val
 - Functions called/Symbols referenced:
   - makeNode
   - bms_is_empty
-  - bms_add_members
+  - [bms_add_members](../b/bms_add_members.md)
   - lappend
 - Called from (representative examples):
-  - process_equivalence
-  - get_eclass_for_sort_expr
-  - add_child_rel_equivalences
-  - add_setop_child_rel_equivalences
+  - [process_equivalence](../p/process_equivalence.md)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
+  - [add_child_rel_equivalences](add_child_rel_equivalences.md)
+  - [add_setop_child_rel_equivalences](add_setop_child_rel_equivalences.md)
 
 ## Notes and Other Information
 - Static function, only accessible within equivclass.c

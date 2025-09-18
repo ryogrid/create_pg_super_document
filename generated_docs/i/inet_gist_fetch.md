@@ -37,9 +37,9 @@ This operation is crucial for index-only scans and other scenarios where the ori
   - ip_addr: Gets address buffer in inet structure
   - ip_addrsize: Gets address size for inet structure
   - SET_INET_VARSIZE: Sets variable size header for inet
-  - InetPGetDatum: Converts inet pointer to Datum
+  - [InetPGetDatum](../I/InetPGetDatum.md): Converts inet pointer to Datum
   - gistentryinit: Initializes GISTENTRY structure
-  - palloc/palloc0: PostgreSQL memory allocation functions
+  - [palloc](../p/palloc.md)/palloc0: PostgreSQL memory allocation functions
 
 - Called from (representative examples):
   - GiST index operations (indirectly through function pointer in operator class)

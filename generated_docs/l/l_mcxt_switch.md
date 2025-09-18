@@ -27,8 +27,8 @@ The function handles the case where the `CurrentMemoryContext` global variable h
 - Functions called/Symbols referenced:
   - `LLVMGetNamedGlobal`: To check if CurrentMemoryContext global already exists
   - `LLVMAddGlobal`: To declare the CurrentMemoryContext global if not present
-  - `l_ptr`: To create pointer types for the MemoryContextData structure
-  - `l_load`: To generate a load instruction for the current memory context
+  - `[l_ptr](l_ptr.md)`: To create pointer types for the MemoryContextData structure
+  - `[l_load](l_load.md)`: To generate a load instruction for the current memory context
   - `LLVMBuildStore`: To generate a store instruction for the new memory context
 - Called from (representative examples):
   - `llvm_compile_expr`: Used when compiling expressions that need to manage memory contexts during execution

@@ -25,21 +25,21 @@ The `AdjustTimestampForTypmod` function adjusts timestamp precision by rounding 
   - MAX_TIMESTAMP_PRECISION
   - INT64CONST
   - ereturn
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - ERRCODE_INVALID_PARAMETER_VALUE
 - Called from (representative examples):
-  - timestamp_in
-  - timestamp_recv
-  - timestamp_scale
-  - timestamptz_in
-  - timestamptz_recv
-  - timestamptz_scale
-  - to_timestamp
-  - parse_datetime
-  - executeDateTimeMethod
-  - GetSQLCurrentTimestamp
-  - GetSQLLocalTimestamp
+  - [timestamp_in](../t/timestamp_in.md)
+  - [timestamp_recv](../t/timestamp_recv.md)
+  - [timestamp_scale](../t/timestamp_scale.md)
+  - [timestamptz_in](../t/timestamptz_in.md)
+  - [timestamptz_recv](../t/timestamptz_recv.md)
+  - [timestamptz_scale](../t/timestamptz_scale.md)
+  - [to_timestamp](../t/to_timestamp.md)
+  - [parse_datetime](../p/parse_datetime.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
+  - [GetSQLCurrentTimestamp](../G/GetSQLCurrentTimestamp.md)
+  - [GetSQLLocalTimestamp](../G/GetSQLLocalTimestamp.md)
 
 ## Notes and Other Information
 - Uses static lookup tables (TimestampScales and TimestampOffsets) for efficient precision adjustment

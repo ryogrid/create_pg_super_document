@@ -30,14 +30,14 @@ The optimization strategy prioritizes reusing existing sort order and applies in
 ## Dependencies
 - Functions called/Symbols referenced:
   - fetch_upper_rel
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - apply_projection_to_path
-  - create_gather_merge_path
-  - add_path
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](create_sort_path.md)
+  - [create_incremental_sort_path](create_incremental_sort_path.md)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md)
+  - [create_gather_merge_path](create_gather_merge_path.md)
+  - [add_path](../a/add_path.md)
 - Called from:
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
 
 ## Notes and Other Information
 - Only considers sort_pathkeys, unlike generate_useful_gather_paths which looks at other pathkeys

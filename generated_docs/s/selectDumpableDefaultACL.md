@@ -28,7 +28,7 @@ The function sets the dump component flags appropriately based on these conditio
   - DUMP_COMPONENT_ALL (constant)
   - DUMP_COMPONENT_NONE (constant)
 - Called from (representative examples):
-  - getDefaultACLs
+  - [getDefaultACLs](../g/getDefaultACLs.md)
 
 ## Notes and Other Information
 - Default ACLs cannot be extension members, as noted in the function comment

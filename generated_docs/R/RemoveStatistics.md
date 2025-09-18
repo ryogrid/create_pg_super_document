@@ -21,21 +21,21 @@ The function opens the pg_statistic table with RowExclusiveLock, sets up scan ke
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Int16GetDatum
   - HeapTupleIsValid
 - Called from (representative examples):
-  - RemoveAttributeById
-  - heap_drop_with_catalog
-  - index_drop
-  - ATExecSetExpression
-  - ATExecAlterColumnType
+  - [RemoveAttributeById](RemoveAttributeById.md)
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [index_drop](../i/index_drop.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
 
 ## Notes and Other Information
 - The function must loop through all matching entries even when attnum != 0 because of inherited statistics from parent tables

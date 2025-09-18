@@ -26,14 +26,14 @@ The function leverages the generic convert_any_priv_string utility function to p
   - priv_map: Type definition for privilege mapping structure
   - ACL_USAGE: Basic usage privilege constant
   - ACL_GRANT_OPTION_FOR: Macro to create grant option for a privilege
-  - convert_any_priv_string: Generic privilege string conversion function
+  - [convert_any_priv_string](convert_any_priv_string.md): Generic privilege string conversion function
 - Called from (representative examples):
-  - has_foreign_data_wrapper_privilege_name_name: Role/FDW name-based privilege checking
-  - has_foreign_data_wrapper_privilege_name: Role Oid/FDW name-based privilege checking
-  - has_foreign_data_wrapper_privilege_name_id: Role/FDW Oid-based privilege checking
-  - has_foreign_data_wrapper_privilege_id: Role Oid/FDW Oid-based privilege checking
-  - has_foreign_data_wrapper_privilege_id_name: Role Oid/FDW name-based privilege checking
-  - has_foreign_data_wrapper_privilege_id_id: Role Oid/FDW Oid-based privilege checking
+  - [has_foreign_data_wrapper_privilege_name_name](../h/has_foreign_data_wrapper_privilege_name_name.md): Role/FDW name-based privilege checking
+  - [has_foreign_data_wrapper_privilege_name](../h/has_foreign_data_wrapper_privilege_name.md): Role Oid/FDW name-based privilege checking
+  - [has_foreign_data_wrapper_privilege_name_id](../h/has_foreign_data_wrapper_privilege_name_id.md): Role/FDW Oid-based privilege checking
+  - [has_foreign_data_wrapper_privilege_id](../h/has_foreign_data_wrapper_privilege_id.md): Role Oid/FDW Oid-based privilege checking
+  - [has_foreign_data_wrapper_privilege_id_name](../h/has_foreign_data_wrapper_privilege_id_name.md): Role Oid/FDW name-based privilege checking
+  - [has_foreign_data_wrapper_privilege_id_id](../h/has_foreign_data_wrapper_privilege_id_id.md): Role Oid/FDW Oid-based privilege checking
 
 ## Notes and Other Information
 - This is a static function, accessible only within the acl.c compilation unit

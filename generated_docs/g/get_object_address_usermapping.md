@@ -22,13 +22,13 @@ The function performs a two-stage lookup process: first resolving the username t
 - Functions called/Symbols referenced:
   - ObjectAddressSet
   - strVal/linitial/lsecond (list manipulation)
-  - SearchSysCache1/SearchSysCache2 (system catalog lookups)
-  - GetForeignServerByName
-  - CStringGetDatum/ObjectIdGetDatum (datum conversion)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/SearchSysCache2 (system catalog lookups)
+  - [GetForeignServerByName](../G/GetForeignServerByName.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)/ObjectIdGetDatum (datum conversion)
   - Form_pg_authid/Form_pg_user_mapping (catalog tuple access)
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - get_object_address (main object address resolution dispatcher)
+  - [get_object_address](get_object_address.md) (main object address resolution dispatcher)
   - object_type_map (object type mapping table)
 
 ## Notes and Other Information

@@ -19,7 +19,7 @@ The function delegates the actual cleanup work to the underlying  function, pass
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function, called with the environment pointer and parameter 0)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function, called with the environment pointer and parameter 0)
 - Called from:
   - No direct references found in the current codebase (likely called by external clients as part of cleanup procedures)
 

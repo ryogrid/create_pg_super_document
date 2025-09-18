@@ -37,11 +37,11 @@ As of PostgreSQL 8.3, support routines are further categorized by left and right
   - rd_indam->amsupport (number of support functions for the access method)
   - rd_support (cached array of support procedure OIDs)
 - Called from (representative examples):
-  - bloom_get_procinfo (BRIN bloom support procedure lookup)
-  - inclusion_get_procinfo (BRIN inclusion support procedure lookup)
-  - initGinState (GIN index state initialization)
-  - initGISTstate (GiST index state initialization)
-  - gistbuild (GiST index building)
+  - [bloom_get_procinfo](../b/bloom_get_procinfo.md) (BRIN bloom support procedure lookup)
+  - [inclusion_get_procinfo](inclusion_get_procinfo.md) (BRIN inclusion support procedure lookup)
+  - [initGinState](initGinState.md) (GIN index state initialization)
+  - [initGISTstate](initGISTstate.md) (GiST index state initialization)
+  - [gistbuild](../g/gistbuild.md) (GiST index building)
 
 ## Notes and Other Information
 - Returns RegProcedure (OID of the procedure) for the requested support function

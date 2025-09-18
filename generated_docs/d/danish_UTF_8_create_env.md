@@ -22,7 +22,7 @@ The parameters passed to SN_create_env (1, 2) indicate the specific memory and b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Generic Snowball environment creation function that allocates and initializes the base structure
+  - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function that allocates and initializes the base structure
 
 - Called from (representative examples):
   - No direct references found (likely called by external stemming interface or library users)

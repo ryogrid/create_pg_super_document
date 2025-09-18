@@ -33,9 +33,9 @@ During a commit, if any SPI connections are found that need cleanup, a WARNING i
   - ereport (error reporting function)
 
 - Called from (representative examples):
-  - CommitTransaction (src/backend/access/transam/xact.c:2412)
-  - PrepareTransaction (src/backend/access/transam/xact.c:2701)
-  - AbortTransaction (src/backend/access/transam/xact.c:2921)
+  - [CommitTransaction](../C/CommitTransaction.md) (src/backend/access/transam/xact.c:2412)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2701)
+  - [AbortTransaction](AbortTransaction.md) (src/backend/access/transam/xact.c:2921)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's transaction cleanup infrastructure

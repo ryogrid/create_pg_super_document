@@ -33,15 +33,15 @@ The actual row fetching is delegated to PortalRunFetch, which handles the comple
 - Functions called/Symbols referenced:
   - GetPortalByName
   - PortalIsValid
-  - PortalRunFetch
+  - [PortalRunFetch](PortalRunFetch.md)
   - SetQueryCompletion
   - None_Receiver
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - MOVE operations use DestNone receiver to discard results while still advancing cursor position
 - The function validates cursor existence and reports appropriate errors for invalid or non-existent cursors
-- Query completion status includes the number of rows processed, which is useful for client applications
+- [Query](../Q/Query.md) completion status includes the number of rows processed, which is useful for client applications
 - The actual fetch direction and count validation is handled by lower-level portal functions
 - Empty cursor names are explicitly rejected to avoid conflicts with protocol-level unnamed portals

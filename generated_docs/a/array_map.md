@@ -33,8 +33,8 @@ The function is designed for efficient bulk transformations and integrates with 
 - Functions called/Symbols referenced:
   - DatumGetAnyArrayP
   - ArrayGetNItems
-  - construct_empty_array
-  - get_typlenbyvalalign
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - array_iter_setup
   - array_iter_next
   - ExecEvalExpr
@@ -42,15 +42,15 @@ The function is designed for efficient bulk transformations and integrates with 
   - att_addlength_datum
   - att_align_nominal
   - AllocSizeIsValid
-  - CopyArrayEls
+  - [CopyArrayEls](../C/CopyArrayEls.md)
   - SET_VARSIZE
 - Called from:
-  - ExecEvalArrayCoerce
+  - [ExecEvalArrayCoerce](../E/ExecEvalArrayCoerce.md)
 
 ## Notes and Other Information
 - The caller must ensure the input array is not NULL (NULL elements within the array are acceptable)
 - The caller should run in the econtext's per-tuple memory context for proper memory management
-- ArrayMapState can be reused across multiple calls for better performance by caching type lookup information
+- [ArrayMapState](../A/ArrayMapState.md) can be reused across multiple calls for better performance by caching type lookup information
 - Source elements are placed in  and  for expression evaluation
 - Handles both fixed-length and variable-length element types with proper alignment and detoasting
 - Returns an empty array if the source array is empty

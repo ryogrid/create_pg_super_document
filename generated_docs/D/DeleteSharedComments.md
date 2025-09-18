@@ -21,15 +21,15 @@ The function is typically called during the dropping of shared objects to clean 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_shdescription relation for modification
-  - systable_beginscan: Initiates indexed scan using SharedDescriptionObjIndexId
-  - systable_getnext: Iterates through matching comment tuples
-  - CatalogTupleDelete: Removes each matching comment tuple
-  - systable_endscan: Ends the systematic scan
+  - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan using SharedDescriptionObjIndexId
+  - [systable_getnext](../s/systable_getnext.md): Iterates through matching comment tuples
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Removes each matching comment tuple
+  - [systable_endscan](../s/systable_endscan.md): Ends the systematic scan
   - table_close: Closes the pg_shdescription relation
 - Called from (representative examples):
-  - dropdb: Removes database comments when dropping a database
-  - DropTableSpace: Removes tablespace comments when dropping a tablespace
-  - DropRole: Removes role comments when dropping a user/role
+  - [dropdb](../d/dropdb.md): Removes database comments when dropping a database
+  - [DropTableSpace](DropTableSpace.md): Removes tablespace comments when dropping a tablespace
+  - [DropRole](DropRole.md): Removes role comments when dropping a user/role
 
 ## Notes and Other Information
 - Always uses exactly 2 scan keys since shared objects don't have sub-object identifiers

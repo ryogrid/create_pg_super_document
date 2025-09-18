@@ -25,20 +25,20 @@ The function performs comprehensive message validation by comparing the actual b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceFormatTimestamp (formats timestamps for trace output)
+  - [pqTraceFormatTimestamp](pqTraceFormatTimestamp.md) (formats timestamps for trace output)
   - pg_ntoh32 (network byte order conversion)
   - Multiple pqTraceOutput_* functions for specific message types:
-    - pqTraceOutput_NegotiateProtocolVersion
-    - pqTraceOutput_FunctionCallResponse  
-    - pqTraceOutput_CopyBothResponse
-    - pqTraceOutput_ReadyForQuery
+    - [pqTraceOutput_NegotiateProtocolVersion](pqTraceOutput_NegotiateProtocolVersion.md)
+    - [pqTraceOutput_FunctionCallResponse](pqTraceOutput_FunctionCallResponse.md)  
+    - [pqTraceOutput_CopyBothResponse](pqTraceOutput_CopyBothResponse.md)
+    - [pqTraceOutput_ReadyForQuery](pqTraceOutput_ReadyForQuery.md)
     - And many others for different protocol message types
   - fprintf (standard C library)
 - Called from (representative examples):
-  - pqPutMsgEnd (when sending messages to server)
-  - pqParseInput3 (when receiving messages from server)
-  - getCopyDataMessage (during COPY operations)
-  - pqFunctionCall3 (during function call operations)
+  - [pqPutMsgEnd](pqPutMsgEnd.md) (when sending messages to server)
+  - [pqParseInput3](pqParseInput3.md) (when receiving messages from server)
+  - [getCopyDataMessage](../g/getCopyDataMessage.md) (during COPY operations)
+  - [pqFunctionCall3](pqFunctionCall3.md) (during function call operations)
 
 ## Notes and Other Information
 - This is a public function within libpq's tracing infrastructure

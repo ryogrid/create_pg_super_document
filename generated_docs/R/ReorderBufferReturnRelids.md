@@ -20,9 +20,9 @@ ReorderBufferReturnRelids deallocates memory for an array of Oid values that was
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ReorderBufferReturnChange
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
 
 ## Notes and Other Information
 This function should only be called on Oid arrays that were allocated using ReorderBufferGetRelids(). The ReorderBuffer parameter is included for API consistency and potential future use, though the current implementation only performs a simple pfree() operation. It's part of the memory management pair for handling relation ID arrays in TRUNCATE operations during logical replication.

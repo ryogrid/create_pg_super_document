@@ -20,13 +20,13 @@ CC_WORD is a member of the char_classes enumeration defined in the PostgreSQL re
 - Functions called/Symbols referenced:
   - Part of char_classes enumeration
 - Called from (representative examples):
-  - lexescape (in regc_lex.c:699, 703) - handles \w and \W escape sequences
-  - cclasscvec (in regc_locale.c:605) - creates character vectors for character classes
-  - cclass_column_index (in regc_locale.c:688, 689) - maps character classes to column indices
+  - [lexescape](../l/lexescape.md) (in regc_lex.c:699, 703) - handles \w and \W escape sequences
+  - [cclasscvec](../c/cclasscvec.md) (in regc_locale.c:605) - creates character vectors for character classes
+  - [cclass_column_index](../c/cclass_column_index.md) (in regc_locale.c:688, 689) - maps character classes to column indices
   - wordchrs (in regcomp.c:2007) - builds word character representations
 
 ## Notes and Other Information
-- CC_WORD is used in conjunction with the REG_ULOCALE flag to support locale-specific word character definitions
+- [CC_WORD](CC_WORD.md) is used in conjunction with the REG_ULOCALE flag to support locale-specific word character definitions
 - The regex engine uses this constant to optimize character class matching by pre-computing character vectors
 - Total number of character classes is defined as NUM_CCLASSES (14), with CC_WORD being the last one
 - This constant enables the PostgreSQL regex engine to support POSIX-style character classes efficiently

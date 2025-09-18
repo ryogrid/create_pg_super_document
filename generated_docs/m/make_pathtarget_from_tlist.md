@@ -19,9 +19,9 @@ The function iterates through each TargetEntry in the input list, extracting the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathTarget (data structure)
+  - [PathTarget](../P/PathTarget.md) (data structure)
   - makeNode (node creation)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - list_length (list utility)
   - lappend (list append)
   - VOLATILITY_UNKNOWN (volatility constant)

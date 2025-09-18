@@ -23,14 +23,14 @@ The compression process operates by iterating through the valid range of the arr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - KAXCompressReason (enum type for compression reasons)
-  - ProcArrayStruct (main process array structure)
+  - [KAXCompressReason](KAXCompressReason.md) (enum type for compression reasons)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (main process array structure)
   - procArray (global process array instance)
   - KnownAssignedXids (global transaction ID array)
   - KnownAssignedXidsValid (global validity array)
   - LWLockAcquire/LWLockRelease (locking primitives)
   - TimestampTzPlusMilliseconds (timestamp arithmetic)
-  - GetCurrentTimestamp (current time function)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (current time function)
 - Called from:
   - KnownAssignedTransactionIdsIdleMaintenance (idle maintenance)
   - KnownAssignedXidsAdd (when adding new XIDs)

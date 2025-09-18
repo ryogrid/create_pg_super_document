@@ -32,12 +32,12 @@ This mechanism provides both performance benefits (through query plan reuse) and
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - transformParamRef
-  - sql_fn_param_ref
-  - paramlist_param_ref
-  - fixed_paramref_hook
-  - variable_paramref_hook
-  - transformExprRecurse
+  - [transformParamRef](../t/transformParamRef.md)
+  - [sql_fn_param_ref](../s/sql_fn_param_ref.md)
+  - [paramlist_param_ref](../p/paramlist_param_ref.md)
+  - [fixed_paramref_hook](../f/fixed_paramref_hook.md)
+  - [variable_paramref_hook](../v/variable_paramref_hook.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
 
 ## Notes and Other Information
 - Parameter numbers are 1-based following SQL standard conventions

@@ -27,7 +27,7 @@ This function implements a PostgreSQL conversion procedure that transforms text 
   - PG_GETARG_INT32
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
-  - UtfToLocal
+  - [UtfToLocal](../U/UtfToLocal.md)
   - PG_RETURN_INT32
   - PG_UTF8 (encoding constant)
   - PG_EUC_TW (encoding constant)

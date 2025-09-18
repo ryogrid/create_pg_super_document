@@ -28,13 +28,13 @@ Each node contains pointers to the previous and next nodes in the linked list, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ss_lru_item_t (self-referential for prev/next pointers)
-  - ss_scan_location_t (embedded member structure)
+  - [ss_lru_item_t](ss_lru_item_t.md) (self-referential for prev/next pointers)
+  - [ss_scan_location_t](ss_scan_location_t.md) (embedded member structure)
 - Called from (representative examples):
-  - ss_scan_locations_t (used as array element)
+  - [ss_scan_locations_t](ss_scan_locations_t.md) (used as array element)
   - SizeOfScanLocations (referenced for size calculation)
-  - SyncScanShmemInit (used during shared memory initialization)
-  - ss_search (used in search operations)
+  - [SyncScanShmemInit](../S/SyncScanShmemInit.md) (used during shared memory initialization)
+  - [ss_search](ss_search.md) (used in search operations)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's synchronized scan infrastructure in src/backend/access/common/syncscan.c

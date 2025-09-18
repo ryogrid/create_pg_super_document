@@ -24,12 +24,12 @@ This function takes no parameters and returns:
   - OidIsValid (macro to check if OID is valid)
   - SessionUserId (static variable holding session user ID)
 - Called from (representative examples):
-  - InitializeParallelDSM (for parallel query session context)
-  - DropRole/RenameRole (to check if operating on session user)
-  - check_session_authorization (for GUC variable validation)
-  - session_user (SQL function implementation)
-  - InitPostgres (during backend initialization)
-  - pgstat_bestart (for statistics reporting)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (for parallel query session context)
+  - [DropRole](../D/DropRole.md)/RenameRole (to check if operating on session user)
+  - [check_session_authorization](../c/check_session_authorization.md) (for GUC variable validation)
+  - [session_user](../s/session_user.md) (SQL function implementation)
+  - [InitPostgres](../I/InitPostgres.md) (during backend initialization)
+  - [pgstat_bestart](../p/pgstat_bestart.md) (for statistics reporting)
 
 ## Notes and Other Information
 - SessionUserId differs from AuthenticatedUserId in that it can be changed by SET SESSION AUTHORIZATION

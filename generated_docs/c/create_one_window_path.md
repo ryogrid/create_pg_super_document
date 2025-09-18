@@ -40,19 +40,19 @@ The function processes window clauses in the order determined by select_active_w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_pathkeys_for_window
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - copy_pathtarget
-  - add_column_to_pathtarget
-  - get_typavgwidth
-  - clamp_width_est
+  - [make_pathkeys_for_window](../m/make_pathkeys_for_window.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](create_sort_path.md)
+  - [create_incremental_sort_path](create_incremental_sort_path.md)
+  - [copy_pathtarget](copy_pathtarget.md)
+  - [add_column_to_pathtarget](../a/add_column_to_pathtarget.md)
+  - [get_typavgwidth](../g/get_typavgwidth.md)
+  - [clamp_width_est](clamp_width_est.md)
   - make_opclause
-  - create_windowagg_path
-  - add_path
+  - [create_windowagg_path](create_windowagg_path.md)
+  - [add_path](../a/add_path.md)
 - Called from (representative examples):
-  - create_window_paths
+  - [create_window_paths](create_window_paths.md)
 
 ## Notes and Other Information
 - Input target must contain all variables, aggregates, and window partitioning/sorting expressions to ensure they're computed only once at the bottom of the execution stack

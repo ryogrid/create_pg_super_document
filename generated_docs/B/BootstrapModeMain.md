@@ -33,30 +33,30 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitStandaloneProcess
-  - InitializeGUCOptions
-  - SetConfigOption
-  - SelectConfigFiles
-  - checkDataDir
-  - ChangeToDataDir
-  - CreateDataDirLockFile
+  - [InitStandaloneProcess](../I/InitStandaloneProcess.md)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
+  - [SelectConfigFiles](../S/SelectConfigFiles.md)
+  - [checkDataDir](../c/checkDataDir.md)
+  - [ChangeToDataDir](../C/ChangeToDataDir.md)
+  - [CreateDataDirLockFile](../C/CreateDataDirLockFile.md)
   - SetProcessingMode
-  - InitializeMaxBackends
-  - CreateSharedMemoryAndSemaphores
-  - CheckerModeMain (when check_only is true)
+  - [InitializeMaxBackends](../I/InitializeMaxBackends.md)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
+  - [CheckerModeMain](../C/CheckerModeMain.md) (when check_only is true)
   - InitProcess
-  - BaseInit
-  - bootstrap_signals
-  - BootStrapXLOG
-  - InitPostgres
-  - StartTransactionCommand
+  - [BaseInit](BaseInit.md)
+  - [bootstrap_signals](../b/bootstrap_signals.md)
+  - [BootStrapXLOG](BootStrapXLOG.md)
+  - [InitPostgres](../I/InitPostgres.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - boot_yyparse
-  - CommitTransactionCommand
-  - RelationMapFinishBootstrap
-  - cleanup
-  - proc_exit
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [RelationMapFinishBootstrap](../R/RelationMapFinishBootstrap.md)
+  - [cleanup](../c/cleanup.md)
+  - [proc_exit](../p/proc_exit.md)
 - Called from (representative examples):
-  - main (in src/backend/main/main.c)
+  - [main](../m/main.md) (in src/backend/main/main.c)
 
 ## Notes and Other Information
 - This function is only called when PostgreSQL is not running under the postmaster (Assert(!IsUnderPostmaster))

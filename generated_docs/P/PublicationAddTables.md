@@ -27,16 +27,16 @@ The function ensures that only authorized users can add tables to publications a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck (validates table ownership)
-  - publication_add_relation (adds relation to publication catalog)
-  - aclcheck_error (reports access control errors)
-  - get_relkind_objtype (gets object type for error messages)
-  - EventTriggerCollectSimpleCommand (event trigger integration)
+  - [object_ownercheck](../o/object_ownercheck.md) (validates table ownership)
+  - [publication_add_relation](../p/publication_add_relation.md) (adds relation to publication catalog)
+  - [aclcheck_error](../a/aclcheck_error.md) (reports access control errors)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md) (gets object type for error messages)
+  - [EventTriggerCollectSimpleCommand](../E/EventTriggerCollectSimpleCommand.md) (event trigger integration)
   - InvokeObjectPostCreateHook (post-creation hook invocation)
 - Called from (representative examples):
-  - CreatePublication (src/backend/commands/publicationcmds.c:839)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1106)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1235)
+  - [CreatePublication](../C/CreatePublication.md) (src/backend/commands/publicationcmds.c:839)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1106)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1235)
 
 ## Notes and Other Information
 - Includes assertion to ensure the statement is not for 'FOR ALL TABLES' publications

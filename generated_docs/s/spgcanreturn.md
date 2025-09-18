@@ -20,12 +20,12 @@ The function checks two conditions: first, it automatically allows index-only sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgGetCache
+  - [spgGetCache](spgGetCache.md)
 - Types used:
-  - Relation
-  - SpGistCache
+  - [Relation](../R/Relation.md)
+  - [SpGistCache](../S/SpGistCache.md)
 - Called from:
-  - spghandler (as part of the access method interface)
+  - [spghandler](spghandler.md) (as part of the access method interface)
 
 ## Notes and Other Information
 - Returns true if index-only scans are supported for the specified attribute, false otherwise

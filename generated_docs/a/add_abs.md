@@ -30,14 +30,14 @@ The function is designed to be safe for in-place operations where the result poi
 - Functions called/Symbols referenced:
   - digitbuf_alloc (allocates memory for result digits)
   - digitbuf_free (frees old result buffer)
-  - strip_var (removes leading/trailing zeros)
+  - [strip_var](../s/strip_var.md) (removes leading/trailing zeros)
   - NumericDigit (type for individual digit storage)
   - NBASE (base for digit arithmetic)
 - Called from (representative examples):
-  - add_var (signed addition function)
-  - sub_var (subtraction when operands have different signs)
-  - PGTYPESnumeric_add (ECPG interface addition)
-  - PGTYPESnumeric_sub (ECPG interface subtraction)
+  - [add_var](add_var.md) (signed addition function)
+  - [sub_var](../s/sub_var.md) (subtraction when operands have different signs)
+  - [PGTYPESnumeric_add](../P/PGTYPESnumeric_add.md) (ECPG interface addition)
+  - [PGTYPESnumeric_sub](../P/PGTYPESnumeric_sub.md) (ECPG interface subtraction)
 
 ## Notes and Other Information
 - Static function internal to numeric.c, part of the lowest-level arithmetic operations
@@ -46,6 +46,6 @@ The function is designed to be safe for in-place operations where the result poi
 - Uses base-NBASE arithmetic where each 'digit' represents multiple decimal digits
 - Allocates one extra digit to handle potential carry overflow
 - The Assert(carry == 0) ensures the buffer sizing was calculated correctly
-- Result weight is set to Max(var1->weight, var2->weight) + 1 to handle potential overflow
+- [Result](../R/Result.md) weight is set to Max(var1->weight, var2->weight) + 1 to handle potential overflow
 - Decimal scale (dscale) is set to the maximum of the input scales to preserve precision
 - Essential building block for all numeric addition and subtraction operations in PostgreSQL

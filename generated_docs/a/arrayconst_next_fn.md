@@ -287,11 +287,11 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (parameter type)
+  - [PredIterInfo](../P/PredIterInfo.md) (parameter type)
   - ArrayConstIterState (state structure)
 - Called from (representative examples):
   - iterate_end (src/backend/optimizer/util/predtest.c:93)
-  - predicate_classify (src/backend/optimizer/util/predtest.c:883)
+  - [predicate_classify](../p/predicate_classify.md) (src/backend/optimizer/util/predtest.c:883)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the predtest.c file

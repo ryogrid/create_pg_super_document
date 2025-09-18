@@ -23,13 +23,13 @@ The function performs validation to ensure both the area_handle and handle are v
 ## Dependencies
 - Functions called/Symbols referenced:
   - `Assert`
-  - `palloc0`
-  - `dsa_attach`
+  - `[palloc0](../p/palloc0.md)`
+  - `[dsa_attach](../d/dsa_attach.md)`
   - `shared_ts_attach`
   - `DSA_HANDLE_INVALID`
   - `DsaPointerIsValid`
 - Called from (representative examples):
-  - `parallel_vacuum_main` (src/backend/commands/vacuumparallel.c:1039)
+  - `[parallel_vacuum_main](../p/parallel_vacuum_main.md)` (src/backend/commands/vacuumparallel.c:1039)
 
 ## Notes and Other Information
 - The returned TidStore object is allocated in backend-local memory using CurrentMemoryContext

@@ -22,10 +22,10 @@ The function follows PostgreSQL's memory management conventions by using pfree()
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL's memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function)
   - City (type representing relation information in GEQO context)
 - Called from (representative examples):
-  - geqo (main GEQO function, called multiple times during cleanup phases)
+  - [geqo](../g/geqo.md) (main GEQO function, called multiple times during cleanup phases)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Genetic Query Optimizer (GEQO) memory management

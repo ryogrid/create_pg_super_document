@@ -26,14 +26,14 @@ The function performs several important checks:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - FilterByOrigin
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - XLogRecGetOrigin
-  - ReorderBufferGetChange
-  - ReorderBufferGetRelids
-  - ReorderBufferQueueChange
+  - [ReorderBufferGetChange](../R/ReorderBufferGetChange.md)
+  - [ReorderBufferGetRelids](../R/ReorderBufferGetRelids.md)
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md)
   - XLogRecGetXid
 - Called from (representative examples):
-  - heap_decode
+  - [heap_decode](../h/heap_decode.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's logical replication infrastructure

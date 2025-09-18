@@ -23,15 +23,15 @@ The function also manages the active worker count for vacuum delay calculations,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_add_fetch_u32
-  - pg_atomic_fetch_add_u32
-  - pg_atomic_sub_fetch_u32
-  - parallel_vacuum_process_one_index
+  - [pg_atomic_add_fetch_u32](pg_atomic_add_fetch_u32.md)
+  - [pg_atomic_fetch_add_u32](pg_atomic_fetch_add_u32.md)
+  - [pg_atomic_sub_fetch_u32](pg_atomic_sub_fetch_u32.md)
+  - [parallel_vacuum_process_one_index](parallel_vacuum_process_one_index.md)
   - VacuumActiveNWorkers
-  - PVIndStats
+  - [PVIndStats](../P/PVIndStats.md)
 - Called from (representative examples):
-  - parallel_vacuum_process_all_indexes
-  - parallel_vacuum_main
+  - [parallel_vacuum_process_all_indexes](parallel_vacuum_process_all_indexes.md)
+  - [parallel_vacuum_main](parallel_vacuum_main.md)
 
 ## Notes and Other Information
 - Used by both leader and worker processes - this is the main work distribution function for parallel vacuum

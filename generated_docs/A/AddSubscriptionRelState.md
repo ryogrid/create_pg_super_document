@@ -23,17 +23,17 @@ The function performs duplicate checking by searching the SUBSCRIPTIONRELMAP cac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockSharedObject
+  - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheCopy2
-  - CharGetDatum
+  - [CharGetDatum](../C/CharGetDatum.md)
   - LSNGetDatum
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - UnlockSharedObject
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [UnlockSharedObject](../U/UnlockSharedObject.md)
 - Called from (representative examples):
-  - CreateSubscription
-  - binary_upgrade_add_sub_rel_state
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [binary_upgrade_add_sub_rel_state](../b/binary_upgrade_add_sub_rel_state.md)
 
 ## Notes and Other Information
 - The function enforces uniqueness by checking for existing subscription-relation mappings before insertion

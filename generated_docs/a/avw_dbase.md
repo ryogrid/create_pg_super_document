@@ -22,11 +22,11 @@ The  structure represents database-specific information that autovacuum workers 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactId (transaction system type)
-  - PgStat_StatDBEntry (statistics system structure)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md) (statistics system structure)
 - Called from (representative examples):
-  - rebuild_database_list
-  - do_start_worker
-  - get_database_list
+  - [rebuild_database_list](../r/rebuild_database_list.md)
+  - [do_start_worker](../d/do_start_worker.md)
+  - [get_database_list](../g/get_database_list.md)
 
 ## Notes and Other Information
 - This structure is primarily used by autovacuum workers (as opposed to the launcher)

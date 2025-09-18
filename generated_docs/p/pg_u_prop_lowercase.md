@@ -22,12 +22,12 @@ The Lowercase property is distinct from the general category "Lowercase Letter" 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_LOWERCASE (constant bitmask for the Lowercase property)
-  - range_search (function for searching ranges)
+  - [range_search](../r/range_search.md) (function for searching ranges)
   - lengthof (macro for array length)
 - Called from (representative examples):
-  - pg_u_prop_cased
-  - pg_u_islower
-  - icu_test (testing function)
+  - [pg_u_prop_cased](pg_u_prop_cased.md)
+  - [pg_u_islower](pg_u_islower.md)
+  - [icu_test](../i/icu_test.md) (testing function)
 
 ## Notes and Other Information
 - Optimized for ASCII characters with direct bitmask lookup

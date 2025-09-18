@@ -19,13 +19,13 @@ This distinction is crucial in parallel processing scenarios where multiple proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - TBMSharedIterator
-  - PagetableEntry
+  - [pfree](../p/pfree.md)
+  - [TBMSharedIterator](../T/TBMSharedIterator.md)
+  - [PagetableEntry](../P/PagetableEntry.md)
 - Called from (representative examples):
-  - BitmapPrefetch (src/backend/executor/nodeBitmapHeapscan.c:538)
-  - ExecReScanBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:609, 611)
-  - ExecEndBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:664, 666)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md) (src/backend/executor/nodeBitmapHeapscan.c:538)
+  - [ExecReScanBitmapHeapScan](../E/ExecReScanBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:609, 611)
+  - [ExecEndBitmapHeapScan](../E/ExecEndBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:664, 666)
 
 ## Notes and Other Information
 Critical for parallel bitmap scans where shared memory state must persist beyond individual process cleanup. The shared state (including the actual bitmap data and shared iterator state) remains valid for other processes. Always pair with appropriate shared iterator initialization. The function does not acquire locks since it only affects local process state.

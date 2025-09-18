@@ -33,17 +33,17 @@ This optimization is particularly valuable because it eliminates the overhead of
 - Functions called/Symbols referenced:
   - copyObject
   - linitial
-  - contain_vars_of_level
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)
   - lappend
-  - makeTargetEntry
+  - [makeTargetEntry](../m/makeTargetEntry.md)
   - lfirst
-  - palloc0
-  - perform_pullup_replace_vars
+  - [palloc0](palloc0.md)
+  - [perform_pullup_replace_vars](perform_pullup_replace_vars.md)
   - makeNode
-  - makeAlias
+  - [makeAlias](../m/makeAlias.md)
   - list_make1
 - Called from (representative examples):
-  - pull_up_subqueries_recurse
+  - [pull_up_subqueries_recurse](pull_up_subqueries_recurse.md)
 
 ## Notes and Other Information
 - The function is static, limiting its scope to the prepjointree.c compilation unit

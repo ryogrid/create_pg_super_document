@@ -32,16 +32,16 @@ The function uses the short-circuit evaluation pattern typical of PostgreSQL tre
   - expression_tree_walker (for recursing into expression nodes)
 - Referenced node types:
   - Var
-  - CurrentOfExpr
-  - PlaceHolderVar
-  - Query
+  - [CurrentOfExpr](../C/CurrentOfExpr.md)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
+  - [Query](../Q/Query.md)
 - Called from:
-  - contain_vars_of_level (main entry point)
-  - contain_vars_of_level_walker (recursive self-calls)
+  - [contain_vars_of_level](contain_vars_of_level.md) (main entry point)
+  - [contain_vars_of_level_walker](contain_vars_of_level_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static helper function, not part of the public API
 - Implements the standard PostgreSQL tree walker pattern for short-circuit boolean searches
 - The function carefully manages nesting levels when encountering subqueries, incrementing before recursion and decrementing after
-- PlaceHolderVar handling is special: it first checks the placeholder level, then continues traversing the contained expression even if the level matches
-- CurrentOfExpr nodes are only considered to match at the outermost query level (sublevels_up == 0)
+- [PlaceHolderVar](../P/PlaceHolderVar.md) handling is special: it first checks the placeholder level, then continues traversing the contained expression even if the level matches
+- [CurrentOfExpr](../C/CurrentOfExpr.md) nodes are only considered to match at the outermost query level (sublevels_up == 0)

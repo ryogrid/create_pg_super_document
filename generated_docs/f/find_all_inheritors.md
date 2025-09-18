@@ -25,27 +25,27 @@ The function excludes detached partitions automatically since it relies on find_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (with HASH_ELEM, HASH_BLOBS, HASH_CONTEXT)
+  - [hash_create](../h/hash_create.md) (with HASH_ELEM, HASH_BLOBS, HASH_CONTEXT)
   - list_make1_oid
   - list_make1_int
-  - find_inheritance_children
-  - hash_search (with HASH_ENTER)
+  - [find_inheritance_children](find_inheritance_children.md)
+  - [hash_search](../h/hash_search.md) (with HASH_ENTER)
   - list_nth_cell
   - lfirst_int
   - lappend_oid
   - lappend_int
-  - list_free
-  - hash_destroy
-  - SeenRelsEntry (hash table entry structure)
+  - [list_free](../l/list_free.md)
+  - [hash_destroy](../h/hash_destroy.md)
+  - [SeenRelsEntry](../S/SeenRelsEntry.md) (hash table entry structure)
 - Called from (representative examples):
-  - GetPubPartitionOptionRelations (src/backend/catalog/pg_publication.c:273)
-  - acquire_inherited_sample_rows (src/backend/commands/analyze.c:1369)
-  - get_tables_to_cluster_partitioned (src/backend/commands/cluster.c:1698)
-  - DefineIndex (src/backend/commands/indexcmds.c:1289)
-  - LockTableRecurse (src/backend/commands/lockcmds.c:122)
-  - RemoveRelations (src/backend/commands/tablecmds.c:1608)
-  - ExecuteTruncate (src/backend/commands/tablecmds.c:1838)
-  - expand_inherited_rtentry (src/backend/optimizer/util/inherit.c:170)
+  - [GetPubPartitionOptionRelations](../G/GetPubPartitionOptionRelations.md) (src/backend/catalog/pg_publication.c:273)
+  - [acquire_inherited_sample_rows](../a/acquire_inherited_sample_rows.md) (src/backend/commands/analyze.c:1369)
+  - [get_tables_to_cluster_partitioned](../g/get_tables_to_cluster_partitioned.md) (src/backend/commands/cluster.c:1698)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:1289)
+  - [LockTableRecurse](../L/LockTableRecurse.md) (src/backend/commands/lockcmds.c:122)
+  - [RemoveRelations](../R/RemoveRelations.md) (src/backend/commands/tablecmds.c:1608)
+  - [ExecuteTruncate](../E/ExecuteTruncate.md) (src/backend/commands/tablecmds.c:1838)
+  - [expand_inherited_rtentry](../e/expand_inherited_rtentry.md) (src/backend/optimizer/util/inherit.c:170)
 
 ## Notes and Other Information
 - Uses a hash table with O(1) lookup to efficiently detect duplicate relations in the inheritance graph

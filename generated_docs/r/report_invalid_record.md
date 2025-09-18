@@ -24,11 +24,11 @@ static void report_invalid_record(XLogReaderState *state, const char *fmt, ...)
   - vsnprintf (standard C library function)
   - MAX_ERRORMSG_LEN (constant defining maximum error message length)
 - Called from (representative examples):
-  - XLogDecodeNextRecord
-  - ValidXLogRecordHeader 
-  - ValidXLogRecord
-  - XLogReaderValidatePageHeader
-  - RestoreBlockImage
+  - [XLogDecodeNextRecord](../X/XLogDecodeNextRecord.md)
+  - [ValidXLogRecordHeader](../V/ValidXLogRecordHeader.md) 
+  - [ValidXLogRecord](../V/ValidXLogRecord.md)
+  - [XLogReaderValidatePageHeader](../X/XLogReaderValidatePageHeader.md)
+  - [RestoreBlockImage](../R/RestoreBlockImage.md)
   - COPY_HEADER_FIELD
 
 ## Notes and Other Information

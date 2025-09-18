@@ -49,19 +49,19 @@ The function also handles special cases like binary upgrades, foreign tables, pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - findObjectByDumpId
-  - binary_upgrade_set_pg_class_oids
+  - [findObjectByDumpId](../f/findObjectByDumpId.md)
+  - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
   - fmtQualifiedDumpable
-  - fmtId
-  - getAttrName
-  - nonemptyReloptions
-  - appendReloptionsArrayAH
-  - append_depends_on_extension
-  - ArchiveEntry
-  - dumpTableConstraintComment
-  - dumpComment
+  - [fmtId](../f/fmtId.md)
+  - [getAttrName](../g/getAttrName.md)
+  - [nonemptyReloptions](../n/nonemptyReloptions.md)
+  - [appendReloptionsArrayAH](../a/appendReloptionsArrayAH.md)
+  - [append_depends_on_extension](../a/append_depends_on_extension.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpTableConstraintComment](dumpTableConstraintComment.md)
+  - [dumpComment](dumpComment.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing in data-only dump mode as constraints are schema objects

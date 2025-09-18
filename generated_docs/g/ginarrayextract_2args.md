@@ -24,7 +24,7 @@ The function performs a simple argument count check and then delegates all proce
 ## Dependencies  
 - Functions called/Symbols referenced:
   - PG_NARGS (macro to get number of function arguments)
-  - ginarrayextract (delegates all actual processing to this function)
+  - [ginarrayextract](ginarrayextract.md) (delegates all actual processing to this function)
 - Called from:
   - No direct references found (used through pg_proc entries for compatibility)
 

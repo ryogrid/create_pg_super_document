@@ -19,8 +19,8 @@ The  function is a PostgreSQL built-in function that generates pseudo-random 64-
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: Extracts int64 arguments from PostgreSQL function call
-  - initialize_prng: Initializes the pseudo-random number generator state
-  - pg_prng_int64_range: Generates a random int64 within the specified range
+  - [initialize_prng](initialize_prng.md): Initializes the pseudo-random number generator state
+  - [pg_prng_int64_range](../p/pg_prng_int64_range.md): Generates a random int64 within the specified range
   - PG_RETURN_INT64: Returns an int64 value from PostgreSQL function
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

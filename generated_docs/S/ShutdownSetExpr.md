@@ -23,11 +23,11 @@ The function is typically registered as a callback using PostgreSQL's expression
 - Functions called/Symbols referenced:
   - castNode (for type-safe casting to SetExprState)
   - ExecClearTuple (to clear the function result slot)
-  - tuplestore_end (to release the tuplestore)
-  - DatumGetPointer (to extract pointer from Datum)
+  - [tuplestore_end](../t/tuplestore_end.md) (to release the tuplestore)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (to extract pointer from Datum)
 - Called from (representative examples):
-  - ExecMakeFunctionResultSet (registers this as a callback)
-  - ExecPrepareTuplestoreResult (registers this as a callback)
+  - [ExecMakeFunctionResultSet](../E/ExecMakeFunctionResultSet.md) (registers this as a callback)
+  - [ExecPrepareTuplestoreResult](../E/ExecPrepareTuplestoreResult.md) (registers this as a callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the execSRF.c compilation unit

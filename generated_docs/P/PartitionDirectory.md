@@ -24,17 +24,17 @@ This caching mechanism is particularly important for multi-table operations wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDirectoryData (underlying structure)
-  - PartitionDirectoryEntry (hash table entry structure)
-  - MemoryContext (PostgreSQL memory management)
-  - HTAB (PostgreSQL hash table type)
-  - PartitionDesc (cached partition descriptors)
+  - [PartitionDirectoryData](PartitionDirectoryData.md) (underlying structure)
+  - [PartitionDirectoryEntry](PartitionDirectoryEntry.md) (hash table entry structure)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
+  - [HTAB](../H/HTAB.md) (PostgreSQL hash table type)
+  - [PartitionDesc](PartitionDesc.md) (cached partition descriptors)
 
 - Called from (representative examples):
-  - CreatePartitionDirectory (directory creation and initialization)
-  - PartitionDirectoryLookup (partition descriptor lookup with caching)
-  - DestroyPartitionDirectory (cleanup and memory deallocation)
-  - RelationBuildPartitionDesc (integration with partition descriptor building)
+  - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md) (directory creation and initialization)
+  - [PartitionDirectoryLookup](PartitionDirectoryLookup.md) (partition descriptor lookup with caching)
+  - [DestroyPartitionDirectory](../D/DestroyPartitionDirectory.md) (cleanup and memory deallocation)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md) (integration with partition descriptor building)
 
 ## Notes and Other Information
 - Used primarily in planner and executor contexts for multi-partition operations

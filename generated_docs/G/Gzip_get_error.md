@@ -24,7 +24,7 @@ This function is part of PostgreSQL's compression abstraction layer, providing s
   - gzerror (from zlib library)
   - strerror (standard C library function)
   - Z_ERRNO (zlib constant)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through function pointers in compression interface)
 

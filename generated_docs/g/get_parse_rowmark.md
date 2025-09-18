@@ -29,9 +29,9 @@ Row marks are essential for:
   - RowMarkClause (structure type used in the search)
   - Standard PostgreSQL list iteration macros (foreach, lfirst)
 - Called from (representative examples):
-  - applyLockingClause (query analysis for locking clauses)
-  - AcquireRewriteLocks (rewrite rule processing)
-  - ApplyRetrieveRule (rule application)
+  - [applyLockingClause](../a/applyLockingClause.md) (query analysis for locking clauses)
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (rewrite rule processing)
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md) (rule application)
   - rt_fetch (via macro expansion)
 
 ## Notes and Other Information

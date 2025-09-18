@@ -30,7 +30,7 @@ After file operations, the function calls  to reset all statistics counters and 
   - PGSTAT_STAT_PERMANENT_FILENAME (constant)
   - pgstat_reset_after_failure
 - Called from (representative examples):
-  - StartupXLOG (src/backend/access/transam/xlog.c:5638)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5638)
 
 ## Notes and Other Information
 - This function must be called during server startup, specifically by the startup process or in single-user mode

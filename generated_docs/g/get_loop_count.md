@@ -27,14 +27,14 @@ This heuristic assumes the nested loop will be driven by the smallest outer rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member (to iterate through outer relation IDs)
+  - [bms_next_member](../b/bms_next_member.md) (to iterate through outer relation IDs)
   - IS_DUMMY_REL (to check if a relation is proven empty)
-  - adjust_rowcount_for_semijoins (to account for semijoin effects on row counts)
+  - [adjust_rowcount_for_semijoins](../a/adjust_rowcount_for_semijoins.md) (to account for semijoin effects on row counts)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - create_index_paths
-  - build_index_paths
-  - bitmap_scan_cost_est
+  - [create_index_paths](../c/create_index_paths.md)
+  - [build_index_paths](../b/build_index_paths.md)
+  - [bitmap_scan_cost_est](../b/bitmap_scan_cost_est.md)
 
 ## Notes and Other Information
 - Returns 1.0 for non-parameterized paths (when outer_relids is NULL)

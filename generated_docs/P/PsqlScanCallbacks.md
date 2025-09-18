@@ -31,10 +31,10 @@ The callback mechanism provides flexibility for different applications to implem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_variable (function pointer)
+  - [get_variable](../g/get_variable.md) (function pointer)
   - PsqlScanQuoteType
 - Called from (representative examples):
-  - PsqlScanStateData (src/include/fe_utils/psqlscan_int.h:130)
+  - [PsqlScanStateData](PsqlScanStateData.md) (src/include/fe_utils/psqlscan_int.h:130)
   - MAINLOOP_H (src/bin/psql/mainloop.h:13)
 
 ## Notes and Other Information

@@ -21,8 +21,8 @@ Unlike the standard isblank() which typically only checks for space and tab, thi
 - Functions called/Symbols referenced:
   - None (uses only basic character comparisons)
 - Called from (representative examples):
-  - interpret_ident_response (in src/backend/libpq/auth.c)
-  - next_token (in src/backend/libpq/hba.c)
+  - [interpret_ident_response](../i/interpret_ident_response.md) (in src/backend/libpq/auth.c)
+  - [next_token](../n/next_token.md) (in src/backend/libpq/hba.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's HBA (Host-Based Authentication) parsing infrastructure

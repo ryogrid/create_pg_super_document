@@ -27,17 +27,17 @@ The function includes sophisticated handling of concurrent invalidations through
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_flatten_tuple
-  - heap_freetuple
-  - heap_getattr
-  - CatCacheCopyKeys
-  - dlist_push_head
-  - RehashCatCache
+  - [toast_flatten_tuple](../t/toast_flatten_tuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [CatCacheCopyKeys](CatCacheCopyKeys.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [RehashCatCache](../R/RehashCatCache.md)
   - HeapTupleHasExternal
-  - pg_prng_uint32 (debug builds only)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md) (debug builds only)
 - Called from (representative examples):
-  - SearchCatCacheMiss
-  - SearchCatCacheList
+  - [SearchCatCacheMiss](../S/SearchCatCacheMiss.md)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md)
 
 ## Notes and Other Information
 - Returns NULL if the tuple becomes stale during TOAST decompression (caller must retry)

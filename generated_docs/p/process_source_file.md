@@ -29,16 +29,16 @@ This function is part of the larger pg_rewind workflow where files from both sou
 ## Dependencies
 - Functions called/Symbols referenced:
   - file_type_t (enum type)
-  - file_entry_t (structure type)
+  - [file_entry_t](../f/file_entry_t.md) (structure type)
   - FILE_TYPE_SYMLINK (enum value)
   - FILE_TYPE_DIRECTORY (enum value)
   - FILE_TYPE_REGULAR (enum value)
-  - isRelDataFile (function to check if path is a relation data file)
-  - insert_filehash_entry (function to insert or find filehash entry)
-  - pg_fatal (error reporting function)
-  - pg_strdup (string duplication function)
+  - [isRelDataFile](../i/isRelDataFile.md) (function to check if path is a relation data file)
+  - [insert_filehash_entry](../i/insert_filehash_entry.md) (function to insert or find filehash entry)
+  - [pg_fatal](pg_fatal.md) (error reporting function)
+  - [pg_strdup](pg_strdup.md) (string duplication function)
 - Called from (representative examples):
-  - main (in pg_rewind.c:474)
+  - [main](../m/main.md) (in pg_rewind.c:474)
 
 ## Notes and Other Information
 - This is a public function that can be used as a callback by file traversal routines

@@ -29,15 +29,15 @@ The resulting structure is used throughout the range partitioning system for bou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - lfirst_node (list iteration)
   - castNode (type casting)
   - elog (error reporting)
   - PARTITION_RANGE_DATUM_VALUE (constant)
 - Called from (representative examples):
   - compare_range_bounds
-  - create_range_bounds  
-  - check_new_partition_bound
+  - [create_range_bounds](../c/create_range_bounds.md)  
+  - [check_new_partition_bound](../c/check_new_partition_bound.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the partbounds.c file

@@ -25,8 +25,8 @@ The offset calculation is crucial for the multirange data structure's space effi
   - MULTIRANGE_ITEM_HAS_OFF
   - MultirangeType
 - Called from (representative examples):
-  - multirange_get_range
-  - multirange_get_bounds
+  - [multirange_get_range](multirange_get_range.md)
+  - [multirange_get_bounds](multirange_get_bounds.md)
 
 ## Notes and Other Information
 - This is a static function, used internally within the multirange implementation

@@ -21,9 +21,9 @@ The function assumes that the FDW supports asynchronous operations and has provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AsyncRequest (structure)
-  - ForeignScanState (structure) 
-  - FdwRoutine (structure)
+  - [AsyncRequest](../A/AsyncRequest.md) (structure)
+  - [ForeignScanState](../F/ForeignScanState.md) (structure) 
+  - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ForeignAsyncRequest (FDW callback function)
 - Called from (representative examples):
   - ExecAsyncRequest (in execAsync.c)

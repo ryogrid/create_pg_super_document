@@ -39,12 +39,12 @@ For hexadecimal input, each hex digit represents 4 bits. For binary input, each 
   - VARBITTOTALLEN (macro for calculating storage size)
   - SET_VARSIZE, VARBITLEN, VARBITS (VarBit manipulation macros)
   - HIGHBIT (bit manipulation constant)
-  - palloc0 (zero-initialized memory allocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - ereturn (soft error return)
-  - pg_mblen (multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (multibyte character length)
   - PG_RETURN_VARBIT_P (return macro)
 - Called from (representative examples):
-  - make_const (during constant parsing)
+  - [make_const](../m/make_const.md) (during constant parsing)
 
 ## Notes and Other Information
 - This is a PostgreSQL built-in function accessible via the type system

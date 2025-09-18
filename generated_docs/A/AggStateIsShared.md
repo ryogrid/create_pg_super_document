@@ -26,12 +26,12 @@ The function returns true as a conservative default when not called as an aggreg
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - AggState (aggregate execution state structure)
-  - AggStatePerAgg (per-aggregate state structure)
-  - AggStatePerTrans (per-transition state structure)
-  - FunctionCallInfo (function call information structure)
+  - [AggState](AggState.md) (aggregate execution state structure)
+  - [AggStatePerAgg](AggStatePerAgg.md) (per-aggregate state structure)
+  - [AggStatePerTrans](AggStatePerTrans.md) (per-transition state structure)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (function call information structure)
 - Called from (representative examples):
-  - ordered_set_startup (in orderedsetaggs.c)
+  - [ordered_set_startup](../o/ordered_set_startup.md) (in orderedsetaggs.c)
   - AGG_CONTEXT_WINDOW (referenced in include/fmgr.h)
 
 ## Notes and Other Information

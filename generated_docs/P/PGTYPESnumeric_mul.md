@@ -26,8 +26,8 @@ This function multiplies two numeric variables using a digit-by-digit multiplica
   - NUMERIC_POS/NUMERIC_NEG (sign constants)
   - NumericDigit (digit type)
 - Called from (representative examples):
-  - decmul (in ECPG Informix compatibility layer)
-  - main (in various pgtypes test programs)
+  - [decmul](../d/decmul.md) (in ECPG Informix compatibility layer)
+  - [main](../m/main.md) (in various pgtypes test programs)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (memory allocation error)

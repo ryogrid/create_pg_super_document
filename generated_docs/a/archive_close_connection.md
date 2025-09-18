@@ -34,16 +34,16 @@ The function uses GetMyPSlot() to determine whether the calling context is a lea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMyPSlot (finds current worker's parallel slot)
-  - ShutdownWorkersHard (forcibly terminates all worker processes)
-  - DisconnectDatabase (closes database connections)
+  - [GetMyPSlot](../G/GetMyPSlot.md) (finds current worker's parallel slot)
+  - [ShutdownWorkersHard](../S/ShutdownWorkersHard.md) (forcibly terminates all worker processes)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md) (closes database connections)
   - closesocket (Windows API for closing sockets)
-  - ShutdownInformation (struct type for cleanup state)
-  - ParallelSlot (struct type for worker information)
+  - [ShutdownInformation](../S/ShutdownInformation.md) (struct type for cleanup state)
+  - [ParallelSlot](../P/ParallelSlot.md) (struct type for worker information)
 
 - Called from (representative examples):
-  - on_exit_close_archive (registered as exit handler)
-  - write_stderr (context for error handling)
+  - [on_exit_close_archive](../o/on_exit_close_archive.md) (registered as exit handler)
+  - [write_stderr](../w/write_stderr.md) (context for error handling)
 
 ## Notes and Other Information
 - This is a static function, accessible only within parallel.c

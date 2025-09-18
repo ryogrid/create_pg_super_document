@@ -31,12 +31,12 @@ The function operates recursively, ensuring that all child nodes are properly pr
   - `check_stack_depth` - Stack overflow protection
   - `JUMBLE_FIELD` - Macro to jumble node fields
   - `nodeTag` - Get the NodeTag type of a node
-  - `_jumbleList` - Process list-type nodes
+  - `[_jumbleList](_jumbleList.md)` - Process list-type nodes
   - `elog` - Logging for unrecognized node types
 - Called from (representative examples):
-  - `JumbleQuery` - Main query jumbling entry point
+  - `[JumbleQuery](../J/JumbleQuery.md)` - Main query jumbling entry point
   - `JUMBLE_NODE` - Macro wrapper for jumbling nodes
-  - `_jumbleList` - Recursive calls from list processing
+  - `[_jumbleList](_jumbleList.md)` - Recursive calls from list processing
 
 ## Notes and Other Information
 - The function includes an automated switch statement from `queryjumblefuncs.switch.c` which is generated to handle the vast majority of PostgreSQL node types

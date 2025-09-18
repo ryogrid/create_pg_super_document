@@ -25,20 +25,20 @@ When the restore operation fails (which is expected when reaching the end of ava
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetOldestRestartPoint (retrieves restart point information for cleanup calculations)
+  - [GetOldestRestartPoint](../G/GetOldestRestartPoint.md) (retrieves restart point information for cleanup calculations)
   - XLByteToSeg (converts WAL position to segment number)
-  - XLogFileName (generates WAL filename from timeline and segment)
+  - [XLogFileName](../X/XLogFileName.md) (generates WAL filename from timeline and segment)
   - BuildRestoreCommand (constructs the restore command string)
-  - PreRestoreCommand/PostRestoreCommand (signal handling management)
+  - [PreRestoreCommand](../P/PreRestoreCommand.md)/PostRestoreCommand (signal handling management)
   - pgstat_report_wait_start/pgstat_report_wait_end (wait event reporting)
   - system (executes the restore command)
   - wait_result_is_signal/wait_result_is_any_signal (signal detection utilities)
-  - proc_exit (process termination)
+  - [proc_exit](../p/proc_exit.md) (process termination)
 - Called from (representative examples):
-  - XLogFileRead (in xlogrecovery.c:4210)
-  - restoreTimeLineHistoryFiles (in timeline.c:62)
-  - readTimeLineHistory (in timeline.c:100)
-  - SimpleXLogPageRead (in pg_rewind/parsexlog.c:341)
+  - [XLogFileRead](../X/XLogFileRead.md) (in xlogrecovery.c:4210)
+  - [restoreTimeLineHistoryFiles](../r/restoreTimeLineHistoryFiles.md) (in timeline.c:62)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (in timeline.c:100)
+  - [SimpleXLogPageRead](../S/SimpleXLogPageRead.md) (in pg_rewind/parsexlog.c:341)
 
 ## Notes and Other Information
 - The function only operates during archive recovery (not crash recovery), checking ArchiveRecoveryRequested flag

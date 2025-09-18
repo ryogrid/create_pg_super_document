@@ -31,19 +31,19 @@ The function includes special handling for lateral references in the FROM clause
 - Functions called/Symbols referenced:
   - makeNode (creates Query node)
   - CMD_UPDATE (command type constant)
-  - transformWithClause (processes WITH/CTE clauses)
-  - setTargetTable (sets up target relation with permissions)
+  - [transformWithClause](transformWithClause.md) (processes WITH/CTE clauses)
+  - [setTargetTable](../s/setTargetTable.md) (sets up target relation with permissions)
   - ACL_UPDATE (update permission constant)
-  - transformFromClause (processes FROM clause)
-  - transformWhereClause (processes WHERE conditions)
+  - [transformFromClause](transformFromClause.md) (processes FROM clause)
+  - [transformWhereClause](transformWhereClause.md) (processes WHERE conditions)
   - EXPR_KIND_WHERE (expression context for WHERE)
-  - transformReturningList (processes RETURNING clause)
+  - [transformReturningList](transformReturningList.md) (processes RETURNING clause)
   - EXPR_KIND_RETURNING (expression context for RETURNING)
-  - transformUpdateTargetList (processes SET clause target list)
-  - makeFromExpr (creates FROM clause expression tree)
-  - assign_query_collations (assigns collations)
+  - [transformUpdateTargetList](transformUpdateTargetList.md) (processes SET clause target list)
+  - [makeFromExpr](../m/makeFromExpr.md) (creates FROM clause expression tree)
+  - [assign_query_collations](../a/assign_query_collations.md) (assigns collations)
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 The function supports PostgreSQL's non-standard FROM clause in UPDATE statements, which is maintained for compatibility with historical POSTQUEL syntax. The lateral access control mechanism ensures proper name resolution by temporarily restricting the target relation's visibility during FROM clause processing. This prevents ambiguous column references when the same table appears in both the target and FROM clauses. The transformation maintains all necessary query properties for execution planning, including sublinks and target SRFs detection.

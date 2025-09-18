@@ -37,9 +37,9 @@ This function is particularly useful for one-time query execution where plan reu
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call (initialize SPI context)
-  - _SPI_convert_params (convert parameters to internal format)
-  - _SPI_prepare_plan (parse and plan the query)
-  - SPI_cursor_open_internal (create the actual portal)
+  - [_SPI_convert_params](_SPI_convert_params.md) (convert parameters to internal format)
+  - [_SPI_prepare_plan](_SPI_prepare_plan.md) (parse and plan the query)
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md) (create the actual portal)
   - _SPI_end_call (cleanup SPI context)
   - elog (error logging)
 - Called from (representative examples):
@@ -48,9 +48,9 @@ This function is particularly useful for one-time query execution where plan reu
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call
-  - _SPI_convert_params
-  - _SPI_prepare_plan
-  - SPI_cursor_open_internal
+  - [_SPI_convert_params](_SPI_convert_params.md)
+  - [_SPI_prepare_plan](_SPI_prepare_plan.md)
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md)
   - _SPI_end_call
 - Called from (representative examples):
   - Available through SPI interface for direct use

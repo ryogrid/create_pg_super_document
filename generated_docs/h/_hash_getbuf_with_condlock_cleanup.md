@@ -26,13 +26,13 @@ The cleanup process follows these steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer (buffer manager function to read a page)
+  - [ReadBuffer](../R/ReadBuffer.md) (buffer manager function to read a page)
   - ConditionalLockBufferForCleanup (attempts non-blocking cleanup lock)
   - ReleaseBuffer (releases buffer if lock fails)
   - _hash_checkpage (validates page contents and type)
   - P_NEW, InvalidBuffer (constants)
 - Called from (representative examples):
-  - _hash_expandtable (during hash table expansion/cleanup)
+  - [_hash_expandtable](_hash_expandtable.md) (during hash table expansion/cleanup)
 
 ## Notes and Other Information
 - Non-blocking nature makes it suitable for cleanup operations that shouldn't interfere with normal operations

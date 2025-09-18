@@ -19,11 +19,11 @@ The substitute_actual_parameters_context structure provides the necessary contex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - int (integer type)
 - Called from (representative examples):
-  - substitute_actual_parameters
-  - substitute_actual_parameters_mutator
+  - [substitute_actual_parameters](substitute_actual_parameters.md)
+  - [substitute_actual_parameters_mutator](substitute_actual_parameters_mutator.md)
 
 ## Notes and Other Information
 This context structure is crucial for function inlining and parameter substitution operations in the PostgreSQL optimizer. The usecounts array serves dual purposes: parameter validation (ensuring parameter IDs are within valid range) and usage tracking (for optimization decisions). The substitution process expects PARAM_EXTERN parameter kinds and validates parameter IDs against the nargs limit. Each successful parameter substitution increments the corresponding usage count, providing valuable information for subsequent optimization passes.

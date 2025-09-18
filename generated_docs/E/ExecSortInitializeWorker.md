@@ -26,10 +26,10 @@ This setup allows the worker process to report its tuplesort performance statist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup (locates shared memory segment by key)
-  - ParallelWorkerContext (worker context structure)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (locates shared memory segment by key)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md) (worker context structure)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker (parallel worker initialization)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (parallel worker initialization)
 
 ## Notes and Other Information
 - The function uses the plan node ID from `node->ss.ps.plan->plan_node_id` as the lookup key to find the correct shared memory segment

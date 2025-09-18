@@ -34,14 +34,14 @@ The function assumes that baserel->pages and baserel->tuples have already been a
 ## Dependencies
 - Functions called/Symbols referenced:
   - `planner_rt_fetch()`: Retrieves range table entry for the relation
-  - `GetTsmRoutine()`: Gets the table sampling method routine
-  - `get_tablespace_page_costs()`: Gets tablespace-specific page access costs
-  - `get_restriction_qual_cost()`: Calculates WHERE clause evaluation costs
-  - `TableSampleClause`, `TsmRoutine`: Types for table sampling infrastructure
+  - `[GetTsmRoutine](../G/GetTsmRoutine.md)()`: Gets the table sampling method routine
+  - `[get_tablespace_page_costs](../g/get_tablespace_page_costs.md)()`: Gets tablespace-specific page access costs
+  - `[get_restriction_qual_cost](../g/get_restriction_qual_cost.md)()`: Calculates WHERE clause evaluation costs
+  - `[TableSampleClause](../T/TableSampleClause.md)`, `TsmRoutine`: Types for table sampling infrastructure
   - `RTE_RELATION`: Constant for relation table entry type
 
 - Called from (representative examples):
-  - `create_samplescan_path()`: Creates table sample scan path nodes
+  - `[create_samplescan_path](create_samplescan_path.md)()`: Creates table sample scan path nodes
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/costsize.c:361-435

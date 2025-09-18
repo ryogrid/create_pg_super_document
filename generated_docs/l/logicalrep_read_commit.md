@@ -20,12 +20,12 @@ This is the counterpart to logicalrep_write_commit and is used by logical replic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte (reads a single byte from the input buffer)
-  - pq_getmsgint64 (reads a 64-bit integer from the input buffer)
-  - LogicalRepCommitData (structure type for storing COMMIT message data)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (reads a single byte from the input buffer)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (reads a 64-bit integer from the input buffer)
+  - [LogicalRepCommitData](../L/LogicalRepCommitData.md) (structure type for storing COMMIT message data)
   - elog (logging/error reporting function)
 - Called from (representative examples):
-  - apply_handle_commit (in the logical replication worker for processing COMMIT messages)
+  - [apply_handle_commit](../a/apply_handle_commit.md) (in the logical replication worker for processing COMMIT messages)
 
 ## Notes and Other Information
 - This function is part of the logical replication protocol implementation for subscribers

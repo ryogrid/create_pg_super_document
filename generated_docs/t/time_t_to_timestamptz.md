@@ -25,10 +25,10 @@ This function converts Unix timestamps (time_t values) to PostgreSQL's internal 
   - SECS_PER_DAY (seconds per day constant)
   - USECS_PER_SEC (microseconds per second constant)
 - Called from (representative examples):
-  - pg_stat_file (file statistics functions)
-  - pg_ls_dir_files (directory listing functions)
-  - pg_control_system (control file system information)
-  - pg_control_checkpoint (control file checkpoint information)
+  - [pg_stat_file](../p/pg_stat_file.md) (file statistics functions)
+  - [pg_ls_dir_files](../p/pg_ls_dir_files.md) (directory listing functions)
+  - [pg_control_system](../p/pg_control_system.md) (control file system information)
+  - [pg_control_checkpoint](../p/pg_control_checkpoint.md) (control file checkpoint information)
 
 ## Notes and Other Information
 - The function adjusts for the difference between Unix epoch (January 1, 1970) and PostgreSQL epoch (January 1, 2000)

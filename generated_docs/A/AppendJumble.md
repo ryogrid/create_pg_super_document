@@ -19,8 +19,8 @@ AppendJumble is responsible for adding meaningful query data to the jumble buffe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any_extended (computes hash when buffer is full)
-  - DatumGetUInt64 (converts hash result to uint64)
+  - [hash_any_extended](../h/hash_any_extended.md) (computes hash when buffer is full)
+  - [DatumGetUInt64](../D/DatumGetUInt64.md) (converts hash result to uint64)
   - JUMBLE_SIZE (constant defining maximum buffer size)
   - memcpy (for copying data to buffer)
 - Called from (representative examples):

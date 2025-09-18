@@ -25,7 +25,7 @@ The parameter (0) passed to SN_close_env corresponds to the S_size parameter use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Generic Snowball environment cleanup function (called with parameter 0)
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function (called with parameter 0)
 - Called from (representative examples):
   - No direct references found (likely called via external stemming library interface)
 

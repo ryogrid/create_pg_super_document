@@ -20,20 +20,20 @@ NamespaceCreate is the core function responsible for creating new namespaces (sc
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists1: Check for existing namespace with the same name
-  - get_user_default_acl: Retrieve default ACL for the schema owner (skipped for temp schemas)
+  - [get_user_default_acl](../g/get_user_default_acl.md): Retrieve default ACL for the schema owner (skipped for temp schemas)
   - table_open: Open the pg_namespace catalog for modification
-  - GetNewOidWithIndex: Generate a unique OID for the new namespace
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generate a unique OID for the new namespace
   - namestrcpy: Copy the namespace name into a NameData structure
-  - heap_form_tuple: Create the catalog tuple for insertion
-  - CatalogTupleInsert: Insert the new namespace tuple into pg_namespace
-  - recordDependencyOnOwner: Record ownership dependency
-  - recordDependencyOnNewAcl: Record ACL-related dependencies
-  - recordDependencyOnCurrentExtension: Record extension membership (skipped for temp schemas)
+  - [heap_form_tuple](../h/heap_form_tuple.md): Create the catalog tuple for insertion
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md): Insert the new namespace tuple into pg_namespace
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md): Record ownership dependency
+  - [recordDependencyOnNewAcl](../r/recordDependencyOnNewAcl.md): Record ACL-related dependencies
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md): Record extension membership (skipped for temp schemas)
   - InvokeObjectPostCreateHook: Trigger post-creation hooks for extensions
 
 - Called from (representative examples):
-  - InitTempTableNamespace: Creates temporary schemas for backend sessions
-  - CreateSchemaCommand: Implements the CREATE SCHEMA SQL command
+  - [InitTempTableNamespace](../I/InitTempTableNamespace.md): Creates temporary schemas for backend sessions
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md): Implements the CREATE SCHEMA SQL command
 
 ## Notes and Other Information
 - The function includes comprehensive error checking, ensuring the namespace name is provided and doesn't conflict with existing schemas

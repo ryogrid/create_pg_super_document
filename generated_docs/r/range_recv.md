@@ -20,18 +20,18 @@ This function processes binary data received over the wire (typically from clien
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Stack overflow protection for recursive calls
-  - get_range_io_data: Retrieves I/O function cache data for the range type
-  - pq_getmsgbyte: Reads a single byte from the message buffer
-  - pq_getmsgint: Reads a 4-byte integer from the message buffer
-  - pq_getmsgbytes: Reads a specified number of bytes from the message buffer
-  - pq_getmsgend: Validates that all message data has been consumed
+  - [get_range_io_data](../g/get_range_io_data.md): Retrieves I/O function cache data for the range type
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md): Reads a single byte from the message buffer
+  - [pq_getmsgint](../p/pq_getmsgint.md): Reads a 4-byte integer from the message buffer
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md): Reads a specified number of bytes from the message buffer
+  - [pq_getmsgend](../p/pq_getmsgend.md): Validates that all message data has been consumed
   - initStringInfo: Initializes a StringInfo buffer
   - appendBinaryStringInfo: Appends binary data to a StringInfo buffer
-  - ReceiveFunctionCall: Calls the element type's receive function
-  - pfree: Frees allocated memory
-  - make_range: Constructs and canonicalizes the final RangeType structure
+  - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md): Calls the element type's receive function
+  - [pfree](../p/pfree.md): Frees allocated memory
+  - [make_range](../m/make_range.md): Constructs and canonicalizes the final RangeType structure
 - Data structures used:
-  - RangeIOData: Cache structure for I/O functions
+  - [RangeIOData](../R/RangeIOData.md): Cache structure for I/O functions
   - RangeBound: Structure representing range boundaries
   - StringInfo/StringInfoData: Buffer structures for handling binary data
   - IOFunc_receive: Enum value for receive function type

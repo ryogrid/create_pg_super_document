@@ -35,12 +35,12 @@ The function follows the GUC check_hook interface:
   - GUC_check_errdetail (GUC system function for setting detailed error messages)
 
 - Called from (representative examples):
-  - check_transaction_buffers (for transaction status buffer validation)
+  - [check_transaction_buffers](check_transaction_buffers.md) (for transaction status buffer validation)
   - check_commit_ts_buffers (for commit timestamp buffer validation)
-  - check_multixact_offset_buffers (for MultiXact offset buffer validation)
-  - check_multixact_member_buffers (for MultiXact member buffer validation)
+  - [check_multixact_offset_buffers](check_multixact_offset_buffers.md) (for MultiXact offset buffer validation)
+  - [check_multixact_member_buffers](check_multixact_member_buffers.md) (for MultiXact member buffer validation)
   - check_subtrans_buffers (for subtransaction buffer validation)
-  - check_notify_buffers (for async notification buffer validation)
+  - [check_notify_buffers](check_notify_buffers.md) (for async notification buffer validation)
   - check_serial_buffers (for serializable isolation buffer validation)
 
 ## Notes and Other Information

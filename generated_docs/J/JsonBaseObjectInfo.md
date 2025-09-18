@@ -18,12 +18,12 @@ JsonBaseObjectInfo is a simple structure used in PostgreSQL's JSON path executio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbContainer
+  - [JsonbContainer](JsonbContainer.md)
 - Called from (representative examples):
-  - JsonPathExecContext (as a member)
-  - executeItemOptUnwrapTarget
-  - executeKeyValueMethod
-  - setBaseObject
+  - [JsonPathExecContext](JsonPathExecContext.md) (as a member)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeKeyValueMethod](../e/executeKeyValueMethod.md)
+  - [setBaseObject](../s/setBaseObject.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for supporting the .keyvalue() JSON path method

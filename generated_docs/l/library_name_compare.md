@@ -18,13 +18,13 @@ This function implements a specialized comparison algorithm for LibraryInfo stru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LibraryInfo (structure type)
-  - pg_cmp_size (for comparing string lengths)
-  - pg_cmp_s32 (for comparing database numbers)
+  - [LibraryInfo](../L/LibraryInfo.md) (structure type)
+  - [pg_cmp_size](../p/pg_cmp_size.md) (for comparing string lengths)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (for comparing database numbers)
   - strlen (for getting string lengths)
   - strcmp (for alphabetical comparison)
 - Called from (representative examples):
-  - check_loadable_libraries
+  - [check_loadable_libraries](../c/check_loadable_libraries.md)
 
 ## Notes and Other Information
 - This is a static function only used within src/bin/pg_upgrade/function.c

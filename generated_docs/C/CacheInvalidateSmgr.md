@@ -27,14 +27,14 @@ The function constructs a SharedInvalidationMessage with the SHAREDINVALSMGR_ID 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocatorBackend (data structure)
+  - [RelFileLocatorBackend](../R/RelFileLocatorBackend.md) (data structure)
   - SharedInvalidationMessage (message structure)
   - SHAREDINVALSMGR_ID (message type identifier)
   - VALGRIND_MAKE_MEM_DEFINED (memory debugging macro)
-  - SendSharedInvalidMessages (message transmission function)
+  - [SendSharedInvalidMessages](../S/SendSharedInvalidMessages.md) (message transmission function)
 - Called from (representative examples):
-  - vm_extend (src/backend/access/heap/visibilitymap.c:629)
-  - smgrdounlinkall (src/backend/storage/smgr/smgr.c:503)
+  - [vm_extend](../v/vm_extend.md) (src/backend/access/heap/visibilitymap.c:629)
+  - [smgrdounlinkall](../s/smgrdounlinkall.md) (src/backend/storage/smgr/smgr.c:503)
   - smgrtruncate2 (src/backend/storage/smgr/smgr.c:748)
 
 ## Notes and Other Information

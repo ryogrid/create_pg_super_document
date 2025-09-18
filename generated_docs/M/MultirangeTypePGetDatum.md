@@ -24,7 +24,7 @@ Being implemented as a static inline function ensures optimal performance with n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (implicit - standard PostgreSQL macro for pointer-to-Datum conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicit - standard PostgreSQL macro for pointer-to-Datum conversion)
   - MultirangeType (parameter type)
 - Called from (representative examples):
   - PG_RETURN_MULTIRANGE_P (macro for returning multirange values from functions)

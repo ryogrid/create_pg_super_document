@@ -32,14 +32,14 @@ The structure maintains two hash tables: one for finding matching TupleDescs bas
 ## Dependencies
 - Functions called/Symbols referenced:
   - dshash_table_handle (PostgreSQL dynamic shared hash table handle)
-  - pg_atomic_uint32 (PostgreSQL atomic 32-bit unsigned integer)
-  - TupleDesc (PostgreSQL tuple descriptor structure)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (PostgreSQL atomic 32-bit unsigned integer)
+  - [TupleDesc](../T/TupleDesc.md) (PostgreSQL tuple descriptor structure)
 - Called from (representative examples):
-  - GetSessionDsmHandle
-  - AttachSession
-  - SharedRecordTypmodRegistryEstimate
-  - SharedRecordTypmodRegistryInit
-  - SharedRecordTypmodRegistryAttach
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md)
+  - [AttachSession](../A/AttachSession.md)
+  - [SharedRecordTypmodRegistryEstimate](SharedRecordTypmodRegistryEstimate.md)
+  - [SharedRecordTypmodRegistryInit](SharedRecordTypmodRegistryInit.md)
+  - [SharedRecordTypmodRegistryAttach](SharedRecordTypmodRegistryAttach.md)
 
 ## Notes and Other Information
 - Designed specifically for parallel query execution where multiple backends need consistent record type definitions

@@ -54,12 +54,12 @@ The structure supports both unary operations (with lexpr or rexpr NULL) and bina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - A_Expr_Kind
+  - [A_Expr_Kind](A_Expr_Kind.md)
   - ParseLoc
 - Called from (representative examples):
-  - transformAExprOp
-  - transformAExprOpAny
-  - transformAExprOpAll
+  - [transformAExprOp](../t/transformAExprOp.md)
+  - [transformAExprOpAny](../t/transformAExprOpAny.md)
+  - [transformAExprOpAll](../t/transformAExprOpAll.md)
   - transformAExprDistinct
   - transformAExprNullIf
   - transformAExprIn
@@ -68,7 +68,7 @@ The structure supports both unary operations (with lexpr or rexpr NULL) and bina
   - makeSimpleA_Expr
 
 ## Notes and Other Information
-- A_Expr nodes are created by the parser and transformed during semantic analysis
+- [A_Expr](A_Expr.md) nodes are created by the parser and transformed during semantic analysis
 - The kind field determines the specific transformation and resolution logic applied
 - Special constructs like BETWEEN are parsed as A_Expr nodes but may be transformed into function calls
 - Operator precedence and associativity are handled during parsing before A_Expr creation

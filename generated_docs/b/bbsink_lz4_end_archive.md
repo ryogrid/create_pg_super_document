@@ -27,7 +27,7 @@ After finalizing compression, it sends all remaining compressed data to the next
   - LZ4F_getErrorName (LZ4 library function)
   - LZ4F_freeCompressionContext (LZ4 library function)
   - bbsink_archive_contents (calls next sink in chain, called twice)
-  - bbsink_forward_end_archive (forwards end notification)
+  - [bbsink_forward_end_archive](bbsink_forward_end_archive.md) (forwards end notification)
   - elog (error logging)
 - Called from (representative examples):
   - Referenced through bbsink_lz4_ops function pointer table

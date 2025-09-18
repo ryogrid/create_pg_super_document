@@ -30,7 +30,7 @@ RecursiveUnionState manages the execution of recursive UNION operations, which a
 ## Dependencies
 - Functions called/Symbols referenced:
   - Tuplestorestate
-  - TupleHashTable
+  - [TupleHashTable](../T/TupleHashTable.md)
 - Called from (representative examples):
   - ExecRecursiveUnion
   - ExecInitRecursiveUnion

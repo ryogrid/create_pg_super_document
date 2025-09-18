@@ -34,22 +34,22 @@ This function is responsible for scanning all tuples on a GiST index page and ro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
-  - PredicateLockPage
-  - gistcheckpage
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
+  - [gistcheckpage](gistcheckpage.md)
   - GistPageGetOpaque
   - GistFollowRight
   - GistPageGetNSN
   - GistPageIsDeleted
-  - BufferGetLSNAtomic
-  - gistindex_keytest
-  - tbm_add_tuples
-  - gistFetchTuple
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
+  - [gistindex_keytest](gistindex_keytest.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
+  - [gistFetchTuple](gistFetchTuple.md)
   - pairingheap_add
 - Called from:
-  - getNextNearest
-  - gistgettuple
-  - gistgetbitmap
+  - [getNextNearest](getNextNearest.md)
+  - [gistgettuple](gistgettuple.md)
+  - [gistgetbitmap](gistgetbitmap.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within gistget.c

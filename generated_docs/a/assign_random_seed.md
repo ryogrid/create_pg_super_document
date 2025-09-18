@@ -23,8 +23,8 @@ The actual seed setting is performed by calling the  function through PostgreSQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall1 (macro/function for calling PostgreSQL functions)
-  - setseed (PostgreSQL function that actually sets the random seed)
-  - Float8GetDatum (function to convert double to PostgreSQL Datum type)
+  - [setseed](../s/setseed.md) (PostgreSQL function that actually sets the random seed)
+  - [Float8GetDatum](../F/Float8GetDatum.md) (function to convert double to PostgreSQL Datum type)
 - Called from (representative examples):
   - GUC system via function pointer in guc_hooks.h
 

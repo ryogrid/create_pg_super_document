@@ -24,7 +24,7 @@ This function is part of the JSON accessor function family that includes operato
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (for parameter extraction)
   - text_to_cstring (for text to C string conversion)
-  - get_worker (for actual JSON processing)
+  - [get_worker](../g/get_worker.md) (for actual JSON processing)
   - PG_RETURN_TEXT_P (for returning text result)
   - PG_RETURN_NULL (for returning null result)
 - Called from (representative examples):

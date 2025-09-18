@@ -21,28 +21,28 @@ This function implements the CREATE SERVER SQL command by creating a new foreign
 - Functions called/Symbols referenced:
   - CreateForeignServerStmt
   - AclResult
-  - ForeignDataWrapper
-  - get_foreign_server_oid
+  - [ForeignDataWrapper](../F/ForeignDataWrapper.md)
+  - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
   - ObjectAddressSet
-  - checkMembershipInCurrentExtension
-  - GetForeignDataWrapperByName
-  - object_aclcheck
-  - aclcheck_error
-  - GetNewOidWithIndex
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)
+  - [GetForeignDataWrapperByName](../G/GetForeignDataWrapperByName.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - namein
   - DirectFunctionCall1
-  - CStringGetDatum
-  - transformGenericOptions
+  - [CStringGetDatum](CStringGetDatum.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
   - PointerIsValid
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Automatically assigns the effective user ID as the server owner (cannot be overridden during creation)

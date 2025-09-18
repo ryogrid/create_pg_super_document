@@ -29,7 +29,7 @@ This construct is essential for handling JSON_TABLE expressions that contain mul
   - JsonTableSiblingJoin: Structure type for sibling join plan nodes
 
 - Called from (representative examples):
-  - transformJsonTableNestedColumns: Used when combining multiple nested column specifications
+  - [transformJsonTableNestedColumns](../t/transformJsonTableNestedColumns.md): Used when combining multiple nested column specifications
 
 ## Notes and Other Information
 - The join semantics follow UNION ALL behavior (no duplicate elimination)

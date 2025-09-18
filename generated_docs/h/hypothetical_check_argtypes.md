@@ -23,14 +23,14 @@ The function validates two key aspects: first, it confirms that the tuple descri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `FunctionCallInfo`: PostgreSQL function call information structure
-  - `get_fn_expr_argtype`: Retrieves the type of a function argument from call info
+  - `[FunctionCallInfo](../F/FunctionCallInfo.md)`: PostgreSQL function call information structure
+  - `[get_fn_expr_argtype](../g/get_fn_expr_argtype.md)`: Retrieves the type of a function argument from call info
   - `TupleDescAttr`: Macro to access tuple descriptor attributes
   - `INT4OID`: Object identifier for int4 data type
   - `elog`: PostgreSQL error logging function
 - Called from (representative examples):
-  - `hypothetical_rank_common`: Common implementation for rank-based hypothetical-set functions
-  - `hypothetical_dense_rank_final`: Final function for dense_rank() hypothetical-set aggregate
+  - `[hypothetical_rank_common](hypothetical_rank_common.md)`: Common implementation for rank-based hypothetical-set functions
+  - `[hypothetical_dense_rank_final](hypothetical_dense_rank_final.md)`: Final function for dense_rank() hypothetical-set aggregate
 
 ## Notes and Other Information
 - This is a security-critical function that prevents malicious manipulation of aggregate function arguments

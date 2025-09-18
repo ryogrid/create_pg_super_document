@@ -33,12 +33,12 @@ The function creates a MultiXactMember array with the two provided transactions 
   - TransactionIdIsValid (validation function)
   - TransactionIdEquals (comparison function)
   - MultiXactIdIsValid (validation function)
-  - MultiXactIdCreateFromMembers (core creation function)
-  - MultiXactMember (structure type)
-  - MultiXactStatus (enum type)
+  - [MultiXactIdCreateFromMembers](MultiXactIdCreateFromMembers.md) (core creation function)
+  - [MultiXactMember](MultiXactMember.md) (structure type)
+  - [MultiXactStatus](MultiXactStatus.md) (enum type)
   - debug_elog3, mxid_to_string (debugging functions)
 - Called from (representative examples):
-  - compute_new_xmax_infomask (heap access management)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (heap access management)
 
 ## Notes and Other Information
 - This function is optimized for the common case of exactly two transactions, avoiding the overhead of variable-length arrays

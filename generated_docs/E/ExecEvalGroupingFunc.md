@@ -27,10 +27,10 @@ For example, in GROUP BY GROUPING SETS ((a,b), (a), ()), calling GROUPING(a,b) w
 - Functions called/Symbols referenced:
   - castNode
   - lfirst_int
-  - bms_is_member
-  - Int32GetDatum
+  - [bms_is_member](../b/bms_is_member.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
 - Called from (representative examples):
-  - ExecInterpExpr (main expression interpreter loop)
+  - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter loop)
 
 ## Notes and Other Information
 - This function is only valid within aggregate execution contexts (AggState)

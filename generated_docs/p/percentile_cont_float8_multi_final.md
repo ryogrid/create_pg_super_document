@@ -25,11 +25,11 @@ This is part of PostgreSQL's implementation of the SQL standard percentile_cont 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - percentile_cont_multi_final_common (core implementation)
+  - [percentile_cont_multi_final_common](percentile_cont_multi_final_common.md) (core implementation)
   - FLOAT8OID (type identifier constant)  
   - FLOAT8PASSBYVAL (pass-by-value flag for float8 type)
   - TYPALIGN_DOUBLE (alignment constant for double precision)
-  - float8_lerp (linear interpolation function for float8)
+  - [float8_lerp](../f/float8_lerp.md) (linear interpolation function for float8)
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework (no direct code references found)
 

@@ -21,8 +21,8 @@ This function takes a numeric compression method identifier and returns the corr
   - TOAST_LZ4_COMPRESSION
   - elog (for error reporting)
 - Called from (representative examples):
-  - MergeAttributes
-  - transformTableLikeClause
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
   - CompressionMethodIsValid
 
 ## Notes and Other Information

@@ -27,8 +27,8 @@ This function serves as the implementation for the PostgreSQL SQL operator  for 
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P: Extracts CIRCLE arguments from function call
   - isnan: Checks if radius values are NaN
-  - FPeq: Floating-point equality comparison for radii
-  - point_eq_point: Compares circle center points for equality
+  - [FPeq](../F/FPeq.md): Floating-point equality comparison for radii
+  - [point_eq_point](../p/point_eq_point.md): Compares circle center points for equality
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using the  operator for circles

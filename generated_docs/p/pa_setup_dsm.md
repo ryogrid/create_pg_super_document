@@ -20,19 +20,19 @@ This function creates and configures a dynamic shared memory (DSM) segment that 
   - shm_toc_initialize_estimator
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
-  - shm_toc_estimate
-  - dsm_create
+  - [shm_toc_estimate](../s/shm_toc_estimate.md)
+  - [dsm_create](../d/dsm_create.md)
   - shm_toc_create
   - shm_toc_allocate
   - shm_toc_insert
-  - shm_mq_create
-  - shm_mq_set_sender
-  - shm_mq_set_receiver
-  - shm_mq_attach
+  - [shm_mq_create](../s/shm_mq_create.md)
+  - [shm_mq_set_sender](../s/shm_mq_set_sender.md)
+  - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md)
+  - [shm_mq_attach](../s/shm_mq_attach.md)
   - SpinLockInit
-  - pg_atomic_init_u32
+  - [pg_atomic_init_u32](pg_atomic_init_u32.md)
 - Called from:
-  - pa_launch_parallel_worker
+  - [pa_launch_parallel_worker](pa_launch_parallel_worker.md)
 
 ## Notes and Other Information
 - Creates three main components in shared memory: ParallelApplyWorkerShared header, message queue, and error queue

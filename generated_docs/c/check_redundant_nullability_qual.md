@@ -28,12 +28,12 @@ The primary motivation is to avoid generating bogus selectivity estimates for co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_forced_null_var
-  - SpecialJoinInfo
+  - [find_forced_null_var](../f/find_forced_null_var.md)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - JOIN_ANTI
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
-  - distribute_qual_to_rels
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's query optimization strategy for handling anti-joins and null semantics. Key implementation details:

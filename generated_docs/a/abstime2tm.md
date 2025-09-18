@@ -38,7 +38,7 @@ Error handling includes setting errno to PGTYPES_TS_BAD_TIMESTAMP when time conv
   - AbsoluteTime (PostgreSQL's absolute time type)
 
 - Called from (representative examples):
-  - GetCurrentDateTime (src/interfaces/ecpg/pgtypeslib/dt_common.c:1062)
+  - [GetCurrentDateTime](../G/GetCurrentDateTime.md) (src/interfaces/ecpg/pgtypeslib/dt_common.c:1062)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dt_common.c compilation unit

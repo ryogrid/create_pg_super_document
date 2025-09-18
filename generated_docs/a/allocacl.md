@@ -20,7 +20,7 @@ The function initializes the ACL as a one-dimensional array with no null values,
 ## Dependencies
 - Functions called/Symbols referenced:
   - ACL_N_SIZE (macro to calculate total size needed for n ACL items)
-  - palloc0 (allocates zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - SET_VARSIZE (macro to set the varlena header size)
   - ARR_LBOUND (macro to access array lower bound)
   - ARR_DIMS (macro to access array dimensions)
@@ -30,9 +30,9 @@ The function initializes the ACL as a one-dimensional array with no null values,
   - make_empty_acl (creates empty ACLs)
   - aclcopy (duplicates existing ACLs)
   - aclconcat (combines multiple ACLs)
-  - acldefault (creates default ACLs)
-  - aclupdate (modifies existing ACLs)
-  - aclnewowner (updates ACL ownership)
+  - [acldefault](acldefault.md) (creates default ACLs)
+  - [aclupdate](aclupdate.md) (modifies existing ACLs)
+  - [aclnewowner](aclnewowner.md) (updates ACL ownership)
 
 ## Notes and Other Information
 The function always creates ACLs with dataoffset=0 since ACL arrays never contain null values, and ndim=1 since ACLs are always one-dimensional arrays. The lower bound is set to 1 following PostgreSQL's standard array indexing convention. This is a fundamental utility function used throughout the ACL system for creating new ACL structures.

@@ -28,9 +28,9 @@ This estimation is performed during the parallel query planning phase, before wo
 - Functions called/Symbols referenced:
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
-  - BitmapHeapScanState (structure)
-  - ParallelContext (structure)
-  - ParallelBitmapHeapState (structure)
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md) (structure)
+  - [ParallelContext](../P/ParallelContext.md) (structure)
+  - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
 - Called from (representative examples):
   - ExecParallelEstimate
 

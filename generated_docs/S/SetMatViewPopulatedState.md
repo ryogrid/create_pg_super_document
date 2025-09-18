@@ -26,18 +26,18 @@ The function requires that the caller holds an appropriate lock on the relation 
   - RelationGetRelid (gets OID from relation)
   - GETSTRUCT (macro to access tuple data)
   - Form_pg_class (structure type for pg_class tuples)
-  - CatalogTupleUpdate (updates system catalog tuple)
-  - heap_freetuple (frees heap tuple memory)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates system catalog tuple)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees heap tuple memory)
   - table_close (closes system catalog relation)
   - CommandCounterIncrement (advances command counter)
 
 - Called from (representative examples):
-  - intorel_startup (when creating materialized views via CREATE TABLE AS)
-  - RefreshMatViewByOid (when refreshing materialized view data)
+  - [intorel_startup](../i/intorel_startup.md) (when creating materialized views via CREATE TABLE AS)
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md) (when refreshing materialized view data)
 
 ## Notes and Other Information
 - The caller must hold an appropriate lock on the materialized view relation before calling this function
 - The function includes an assertion to verify the relation is of type RELKIND_MATVIEW
 - The catalog update triggers shared invalidation messages to ensure all backends update their relation caches
-- Command counter increment ensures the updated state is visible within the same transaction
+- [Command](../C/Command.md) counter increment ensures the updated state is visible within the same transaction
 - This function is essential for the materialized view refresh mechanism in PostgreSQL

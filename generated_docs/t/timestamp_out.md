@@ -22,25 +22,25 @@ The conversion process involves checking for special values first, then breaking
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP: Macro to extract timestamp argument
   - TIMESTAMP_NOT_FINITE: Macro to check for infinity values
-  - EncodeSpecialTimestamp: Handles formatting of special values (infinity, -infinity)
-  - timestamp2tm: Converts internal timestamp to broken-down time structure
-  - EncodeDateTime: Formats broken-down time into string representation
-  - pstrdup: Creates a copy of the formatted string for return
+  - [EncodeSpecialTimestamp](../E/EncodeSpecialTimestamp.md): Handles formatting of special values (infinity, -infinity)
+  - [timestamp2tm](timestamp2tm.md): Converts internal timestamp to broken-down time structure
+  - [EncodeDateTime](../E/EncodeDateTime.md): Formats broken-down time into string representation
+  - [pstrdup](../p/pstrdup.md): Creates a copy of the formatted string for return
   - PG_RETURN_CSTRING: Return value macro
 - Called from:
-  - ExecGetJsonValueItemString (src/backend/executor/execExprInterp.c:4522)
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md) (src/backend/executor/execExprInterp.c:4522)
   - Used as output function for TIMESTAMP type (registered in pg_type catalog)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TIMESTAMP_NOT_FINITE
-  - EncodeSpecialTimestamp
-  - timestamp2tm
-  - EncodeDateTime
+  - [EncodeSpecialTimestamp](../E/EncodeSpecialTimestamp.md)
+  - [timestamp2tm](timestamp2tm.md)
+  - [EncodeDateTime](../E/EncodeDateTime.md)
   - DateStyle (global variable)
   - ereport (for error reporting)
 - Called from:
-  - ExecGetJsonValueItemString (src/backend/executor/execExprInterp.c:4522)
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md) (src/backend/executor/execExprInterp.c:4522)
 
 ## Notes and Other Information
 - Handles special timestamp values: 'infinity' and '-infinity' are formatted as special strings

@@ -35,14 +35,14 @@ The function uses OpenSSL's BIO (Basic Input/Output) mechanism as a temporary bu
   - BIO_write (OpenSSL BIO write function)
   - BIO_get_mem_data (OpenSSL BIO data extraction)
   - BIO_free (OpenSSL BIO cleanup)
-  - pg_any_to_server (PostgreSQL encoding conversion)
-  - pstrdup (PostgreSQL string duplication)
-  - pfree (PostgreSQL memory deallocation)
+  - [pg_any_to_server](../p/pg_any_to_server.md) (PostgreSQL encoding conversion)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - ereport/elog (PostgreSQL error reporting)
 - Called from (representative examples):
-  - verify_cb (certificate verification callback)
-  - be_tls_get_peer_subject_name (get peer subject name)
-  - be_tls_get_peer_issuer_name (get peer issuer name)
+  - [verify_cb](../v/verify_cb.md) (certificate verification callback)
+  - [be_tls_get_peer_subject_name](../b/be_tls_get_peer_subject_name.md) (get peer subject name)
+  - [be_tls_get_peer_issuer_name](../b/be_tls_get_peer_issuer_name.md) (get peer issuer name)
 
 ## Notes and Other Information
 - Static function - only accessible within the be-secure-openssl.c compilation unit

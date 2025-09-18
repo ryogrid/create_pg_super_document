@@ -23,11 +23,11 @@ This function manages the indentation and line formatting for YAML output in Pos
   - ExplainState (struct type)
   - EXPLAIN_FORMAT_YAML (format constant)
 - Called from (representative examples):
-  - ExplainPropertyList
-  - ExplainPropertyListNested
-  - ExplainProperty
-  - ExplainOpenGroup
-  - ExplainDummyGroup
+  - [ExplainPropertyList](ExplainPropertyList.md)
+  - [ExplainPropertyListNested](ExplainPropertyListNested.md)
+  - [ExplainProperty](ExplainProperty.md)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)
+  - [ExplainDummyGroup](ExplainDummyGroup.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the explain.c file

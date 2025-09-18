@@ -25,17 +25,17 @@ The function is critical for B-tree operations that need to uniquely identify tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPivot
-  - ItemPointerGetOffsetNumberNoCheck  
+  - [BTreeTupleIsPivot](BTreeTupleIsPivot.md)
+  - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)  
   - BT_PIVOT_HEAP_TID_ATTR
   - IndexTupleSize
-  - BTreeTupleIsPosting
-  - BTreeTupleGetPosting
+  - [BTreeTupleIsPosting](BTreeTupleIsPosting.md)
+  - [BTreeTupleGetPosting](BTreeTupleGetPosting.md)
 - Called from (representative examples):
   - _bt_bottomupdel_finish_pending
-  - _bt_compare
-  - _bt_truncate
-  - _bt_mkscankey
+  - [_bt_compare](../b/_bt_compare.md)
+  - [_bt_truncate](../b/_bt_truncate.md)
+  - [_bt_mkscankey](../b/_bt_mkscankey.md)
 
 ## Notes and Other Information
 - This is an inline function defined in nbtree.h for performance optimization

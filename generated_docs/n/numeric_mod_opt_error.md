@@ -29,13 +29,13 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_NAN, NUMERIC_IS_INF
-  - make_result, make_result_opt_error
-  - numeric_sign_internal, duplicate_numeric
-  - init_var_from_num, init_var, free_var
-  - mod_var (core modulo implementation)
+  - [make_result](../m/make_result.md), make_result_opt_error
+  - [numeric_sign_internal](numeric_sign_internal.md), duplicate_numeric
+  - [init_var_from_num](../i/init_var_from_num.md), init_var, free_var
+  - [mod_var](../m/mod_var.md) (core modulo implementation)
 - Called from (representative examples):
-  - numeric_mod
-  - executeItemOptUnwrapTarget (JSON path execution)
+  - [numeric_mod](numeric_mod.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution)
 
 ## Notes and Other Information
 - This is the core implementation function for numeric modulo operations in PostgreSQL

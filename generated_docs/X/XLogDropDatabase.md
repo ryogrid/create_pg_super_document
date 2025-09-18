@@ -23,11 +23,11 @@ After closing storage manager relations, the function removes all invalid page r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrdestroyall
-  - forget_invalid_pages_db
+  - [smgrdestroyall](../s/smgrdestroyall.md)
+  - [forget_invalid_pages_db](../f/forget_invalid_pages_db.md)
 
 - Called from (representative examples):
-  - dbase_redo
+  - [dbase_redo](../d/dbase_redo.md)
   - InHotStandby (referenced in header)
 
 ## Notes and Other Information

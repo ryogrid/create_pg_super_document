@@ -19,14 +19,14 @@ The getRightMostTuple function returns the rightmost (last) tuple on a GIN entry
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber: Gets the maximum offset number (last item) on the page
-  - PageGetItemId: Gets the item identifier for a specific offset
-  - PageGetItem: Retrieves the actual item (tuple) from the page using the item identifier
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md): Gets the maximum offset number (last item) on the page
+  - [PageGetItemId](../P/PageGetItemId.md): Gets the item identifier for a specific offset
+  - [PageGetItem](../P/PageGetItem.md): Retrieves the actual item (tuple) from the page using the item identifier
 
 - Called from (representative examples):
-  - entryIsMoveRight: Checking if entry operations should move right
-  - entryPrepareDownlink: Preparing downlinks during page operations
-  - ginEntryFillRoot: Filling root page entries
+  - [entryIsMoveRight](../e/entryIsMoveRight.md): Checking if entry operations should move right
+  - [entryPrepareDownlink](../e/entryPrepareDownlink.md): Preparing downlinks during page operations
+  - [ginEntryFillRoot](ginEntryFillRoot.md): Filling root page entries
 
 ## Notes and Other Information
 - Function is static (internal to ginentrypage.c)

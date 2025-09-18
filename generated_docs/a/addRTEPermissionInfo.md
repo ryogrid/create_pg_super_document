@@ -25,14 +25,14 @@ RTEPermissionInfo *addRTEPermissionInfo(List **rteperminfos, RangeTblEntry *rte)
   - list_length
   - OidIsValid (via Assert)
 - Data structures used:
-  - RTEPermissionInfo
-  - RangeTblEntry
-  - List
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
+  - [RangeTblEntry](../R/RangeTblEntry.md)
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - addRangeTableEntry (src/backend/parser/parse_relation.c:1523)
-  - addRangeTableEntryForRelation (src/backend/parser/parse_relation.c:1608)
-  - add_rte_to_flat_rtable (src/backend/optimizer/plan/setrefs.c:599)
-  - plan_cluster_use_sort (src/backend/optimizer/plan/planner.c:6781)
+  - [addRangeTableEntry](addRangeTableEntry.md) (src/backend/parser/parse_relation.c:1523)
+  - [addRangeTableEntryForRelation](addRangeTableEntryForRelation.md) (src/backend/parser/parse_relation.c:1608)
+  - [add_rte_to_flat_rtable](add_rte_to_flat_rtable.md) (src/backend/optimizer/plan/setrefs.c:599)
+  - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md) (src/backend/optimizer/plan/planner.c:6781)
 
 ## Notes and Other Information
 - The function requires that the RTE has a valid relation ID (checked via Assert)

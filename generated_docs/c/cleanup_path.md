@@ -21,11 +21,11 @@ The function gracefully handles cases where GetShortPathName() fails (such as wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - debackslash_path
+  - [debackslash_path](../d/debackslash_path.md)
   - PG_SQL_ASCII
   - GetShortPathName (Windows API)
 - Called from (representative examples):
-  - get_configdata (multiple calls for different configuration paths)
+  - [get_configdata](../g/get_configdata.md) (multiple calls for different configuration paths)
 
 ## Notes and Other Information
 - This function only operates on Windows platforms (WIN32 build)

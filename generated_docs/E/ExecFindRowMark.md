@@ -19,11 +19,11 @@ ExecFindRowMark searches for the ExecRowMark structure corresponding to a specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecRowMark (structure type)
+  - [ExecRowMark](ExecRowMark.md) (structure type)
   - elog (for error reporting)
 - Called from (representative examples):
-  - ExecInitLockRows
-  - ExecInitModifyTable
+  - [ExecInitLockRows](ExecInitLockRows.md)
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's row locking infrastructure, used during query execution to manage concurrent access to rows. The range table index is 1-based in PostgreSQL's range table system, but the es_rowmarks array is 0-based, hence the `rti - 1` indexing. The function includes safety checks to prevent array bounds violations when accessing the es_rowmarks array.

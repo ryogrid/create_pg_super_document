@@ -20,10 +20,10 @@ This function retrieves the length of the shared data portion of a statistics en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgStat_Kind (enum type for statistics kinds)
-  - pgstat_get_kind_info (function to get kind-specific information)
+  - [PgStat_Kind](../P/PgStat_Kind.md) (enum type for statistics kinds)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md) (function to get kind-specific information)
 - Called from (representative examples):
-  - pgstat_write_statsfile in pgstat.c
+  - [pgstat_write_statsfile](pgstat_write_statsfile.md) in pgstat.c
   - pgstat_read_statsfile in pgstat.c
   - pgstat_reinit_entry in pgstat_shmem.c
   - shared_stat_reset_contents in pgstat_shmem.c

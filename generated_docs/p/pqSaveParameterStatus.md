@@ -30,12 +30,12 @@ Additionally, the function maintains cached copies of several critical parameter
   - sscanf (for parsing server version)
   - atoi (for parsing numeric values)
 - Types used:
-  - pgParameterStatus (linked list node structure)
+  - [pgParameterStatus](pgParameterStatus.md) (linked list node structure)
 - Constants used:
   - PG_SQL_ASCII (fallback encoding)
   - PG_BOOL_YES, PG_BOOL_NO (boolean value constants)
 - Called from:
-  - getParameterStatus (in fe-protocol3.c for processing server messages)
+  - [getParameterStatus](../g/getParameterStatus.md) (in fe-protocol3.c for processing server messages)
 
 ## Notes and Other Information
 - Uses a linked list to store parameter status information, with new entries prepended to the list

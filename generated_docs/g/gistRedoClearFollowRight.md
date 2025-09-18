@@ -30,11 +30,11 @@ The function reads the buffer for redo, updates the NSN, clears the follow-right
   - XLogReadBufferForRedo (reads buffer for redo operation)
   - GistPageSetNSN (sets Next Sequence Number on the page)
   - GistClearFollowRight (clears the follow-right flag)
-  - BufferGetPage, PageSetLSN, MarkBufferDirty, UnlockReleaseBuffer (buffer management)
+  - [BufferGetPage](../B/BufferGetPage.md), PageSetLSN, MarkBufferDirty, UnlockReleaseBuffer (buffer management)
   - XLogRedoAction, BLK_NEEDS_REDO, BLK_RESTORED (WAL redo action types)
 - Called from (representative examples):
-  - gistRedoPageUpdateRecord
-  - gistRedoPageSplitRecord
+  - [gistRedoPageUpdateRecord](gistRedoPageUpdateRecord.md)
+  - [gistRedoPageSplitRecord](gistRedoPageSplitRecord.md)
 
 ## Notes and Other Information
 - This is a static function only used within gistxlog.c

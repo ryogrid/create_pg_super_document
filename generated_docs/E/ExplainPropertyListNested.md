@@ -27,14 +27,14 @@ This function is specifically designed for cases where list data needs to be rep
 - Functions called/Symbols referenced:
   - ExplainState (struct type)
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (enum values)
-  - ExplainPropertyList
-  - ExplainJSONLineEnding
-  - ExplainYAMLLineStarting
+  - [ExplainPropertyList](ExplainPropertyList.md)
+  - [ExplainJSONLineEnding](ExplainJSONLineEnding.md)
+  - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md)
   - appendStringInfoSpaces, appendStringInfoString, appendStringInfoChar
-  - escape_json, escape_yaml
+  - [escape_json](../e/escape_json.md), escape_yaml
   - lfirst (PostgreSQL list macro)
 - Called from (representative examples):
-  - show_grouping_set_keys (at src/backend/commands/explain.c:2724)
+  - [show_grouping_set_keys](../s/show_grouping_set_keys.md) (at src/backend/commands/explain.c:2724)
 
 ## Notes and Other Information
 - This is a public function (not static), available throughout the PostgreSQL codebase

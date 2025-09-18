@@ -26,17 +26,17 @@ Like other locking functions in this family, it calls AcceptInvalidationMessages
 - Functions called/Symbols referenced:
   - LOCKTAG (data structure for lock identification)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag with InvalidOid for database)
-  - LockAcquire (core lock acquisition function)
-  - AcceptInvalidationMessages (system cache invalidation handling)
+  - [LockAcquire](LockAcquire.md) (core lock acquisition function)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (system cache invalidation handling)
 - Called from (representative examples):
-  - AcquireDeletionLock (src/backend/catalog/dependency.c:1512)
-  - get_object_address (src/backend/catalog/objectaddress.c:1175)
-  - shdepLockAndCheckObject (src/backend/catalog/pg_shdepend.c:1214)
-  - DisableSubscription (src/backend/catalog/pg_subscription.c:184)
-  - createdb (src/backend/commands/dbcommands.c:1485)
-  - DropRole (src/backend/commands/user.c:1191)
-  - AddRoleMems (src/backend/commands/user.c:1703)
-  - InitPostgres (src/backend/utils/init/postinit.c:1076)
+  - [AcquireDeletionLock](../A/AcquireDeletionLock.md) (src/backend/catalog/dependency.c:1512)
+  - [get_object_address](../g/get_object_address.md) (src/backend/catalog/objectaddress.c:1175)
+  - [shdepLockAndCheckObject](../s/shdepLockAndCheckObject.md) (src/backend/catalog/pg_shdepend.c:1214)
+  - [DisableSubscription](../D/DisableSubscription.md) (src/backend/catalog/pg_subscription.c:184)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1485)
+  - [DropRole](../D/DropRole.md) (src/backend/commands/user.c:1191)
+  - [AddRoleMems](../A/AddRoleMems.md) (src/backend/commands/user.c:1703)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:1076)
 
 ## Notes and Other Information
 - Used specifically for cluster-wide shared objects (roles, tablespaces, databases, replication objects)

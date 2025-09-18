@@ -18,15 +18,15 @@ This function handles the execution of a PREPARE TRANSACTION command, which is p
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionState (type definition)
-  - EndTransactionBlock (transaction block management function)
+  - [EndTransactionBlock](../E/EndTransactionBlock.md) (transaction block management function)
   - CurrentTransactionState (global variable)
-  - MemoryContextStrdup (memory allocation function)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (memory allocation function)
   - TopTransactionContext (memory context)
   - prepareGID (global variable for storing GID)
   - TBlockState enumeration values (TBLOCK_END, TBLOCK_PREPARE, etc.)
 - Called from (representative examples):
-  - apply_handle_prepare_internal (at src/backend/replication/logical/worker.c:1103)
-  - standard_ProcessUtility (at src/backend/tcop/utility.c:640)
+  - [apply_handle_prepare_internal](../a/apply_handle_prepare_internal.md) (at src/backend/replication/logical/worker.c:1103)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (at src/backend/tcop/utility.c:640)
 
 ## Notes and Other Information
 - Returns true for successful PREPARE, false for ROLLBACK or no-op cases

@@ -25,15 +25,15 @@ The function manages memory context switching and recursion depth tracking to en
 - Functions called/Symbols referenced:
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
-  - send_message_to_server_log (function)
-  - send_message_to_frontend (function)
-  - MemoryContextSwitchTo (function)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md) (function)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md) (function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (function)
 - Called from (representative examples):
-  - AutoVacWorkerMain
-  - BackgroundWorkerMain
-  - CheckpointerMain
-  - PostgresMain
-  - errfinish
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [PostgresMain](../P/PostgresMain.md)
+  - [errfinish](../e/errfinish.md)
   - Various worker processes (bgwriter, walwriter, etc.)
 
 ## Notes and Other Information

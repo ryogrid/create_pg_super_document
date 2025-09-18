@@ -23,9 +23,9 @@ The function safely handles relations that may not exist or be accessible by ret
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open (safely opens relation with lock)
-  - calculate_total_relation_size (performs the actual size calculation)
-  - relation_close (closes relation and releases lock)
+  - [try_relation_open](../t/try_relation_open.md) (safely opens relation with lock)
+  - [calculate_total_relation_size](../c/calculate_total_relation_size.md) (performs the actual size calculation)
+  - [relation_close](../r/relation_close.md) (closes relation and releases lock)
   - PG_RETURN_INT64 (returns 64-bit integer result)
 - Called from (representative examples):
   - SQL queries using pg_total_relation_size() function
@@ -34,6 +34,6 @@ The function safely handles relations that may not exist or be accessible by ret
 ## Notes and Other Information
 - Returns NULL if the relation OID is invalid or inaccessible
 - Uses AccessShareLock to ensure consistent size calculation
-- Result is in bytes as a 64-bit integer
+- [Result](../R/Result.md) is in bytes as a 64-bit integer
 - This is the SQL-callable version of the total relation size calculation
 - Commonly used in database administration for monitoring disk usage

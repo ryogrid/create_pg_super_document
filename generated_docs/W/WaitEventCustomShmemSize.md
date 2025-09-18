@@ -24,15 +24,15 @@ The function uses proper memory alignment (MAXALIGN) and safe size addition (add
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAXALIGN (memory alignment macro)
-  - add_size (safe size addition function)
-  - hash_estimate_size (hash table size estimation function)
+  - [add_size](../a/add_size.md) (safe size addition function)
+  - [hash_estimate_size](../h/hash_estimate_size.md) (hash table size estimation function)
   - WaitEventCustomCounterData (counter data structure type)
   - WaitEventCustomEntryByInfo (hash entry type for info-based lookup)
   - WaitEventCustomEntryByName (hash entry type for name-based lookup)
   - WAIT_EVENT_CUSTOM_HASH_MAX_SIZE (maximum hash table size constant)
 
 - Called from (representative examples):
-  - CalculateShmemSize (in src/backend/storage/ipc/ipci.c:152)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in src/backend/storage/ipc/ipci.c:152)
   - PG_WAIT_INJECTIONPOINT (in src/include/utils/wait_event.h:62)
 
 ## Notes and Other Information

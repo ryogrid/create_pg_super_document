@@ -17,12 +17,12 @@ bmsToString is a specialized function designed to convert Bitmapset data structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - outBitmapset
+  - [outBitmapset](../o/outBitmapset.md)
   - initStringInfo
-  - StringInfoData (struct)
+  - [StringInfoData](../S/StringInfoData.md) (struct)
 - Called from (representative examples):
-  - search_indexed_tlist_for_var (src/backend/optimizer/plan/setrefs.c:2836)
-  - search_indexed_tlist_for_phv (src/backend/optimizer/plan/setrefs.c:2892)
+  - [search_indexed_tlist_for_var](../s/search_indexed_tlist_for_var.md) (src/backend/optimizer/plan/setrefs.c:2836)
+  - [search_indexed_tlist_for_phv](../s/search_indexed_tlist_for_phv.md) (src/backend/optimizer/plan/setrefs.c:2892)
 
 ## Notes and Other Information
 - This function is specifically designed for Bitmapset structures, unlike the more general nodeToString functions

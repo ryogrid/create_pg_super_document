@@ -24,11 +24,11 @@ The function computes the total size by adding:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SerializedReindexState (structure type)
-  - mul_size (utility function for safe size multiplication)
+  - [mul_size](../m/mul_size.md) (utility function for safe size multiplication)
   - list_length (list utility function)
   - pendingReindexedIndexes (global list variable)
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel reindex infrastructure

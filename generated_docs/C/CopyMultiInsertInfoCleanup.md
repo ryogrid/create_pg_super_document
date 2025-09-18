@@ -25,10 +25,10 @@ This function should be called after all COPY operations are complete to ensure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertBufferCleanup (cleanup of individual buffers)
-  - list_free (deallocation of the buffer list)
+  - [CopyMultiInsertBufferCleanup](CopyMultiInsertBufferCleanup.md) (cleanup of individual buffers)
+  - [list_free](../l/list_free.md) (deallocation of the buffer list)
 - Called from (representative examples):
-  - CopyFrom (at src/backend/commands/copyfrom.c:1339)
+  - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1339)
 
 ## Notes and Other Information
 This function serves as the final cleanup step in the COPY FROM operation lifecycle. It's typically called in error handling paths and at the end of successful COPY operations to ensure proper resource deallocation. The function is designed to be safe to call even if some buffers are empty, as the underlying cleanup functions handle this gracefully.

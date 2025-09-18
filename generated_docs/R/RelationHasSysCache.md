@@ -19,7 +19,7 @@ RelationHasSysCache efficiently determines if a relation is backed by a system c
 - Functions called/Symbols referenced:
   - Uses SysCacheRelationOid array and SysCacheRelationOidSize for binary search
 - Called from (representative examples):
-  - GetNonHistoricCatalogSnapshot
+  - [GetNonHistoricCatalogSnapshot](../G/GetNonHistoricCatalogSnapshot.md)
   - Referenced in syscache.h header
 
 ## Notes and Other Information

@@ -38,10 +38,10 @@ When used in Informix compatibility mode (struct sqlvar_compat):
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlvar_compat (when in Informix compatibility mode)
-  - sqlvar_struct (when in native mode)
+  - [sqlvar_compat](sqlvar_compat.md) (when in Informix compatibility mode)
+  - [sqlvar_struct](sqlvar_struct.md) (when in native mode)
 - Called from (representative examples):
-  - main functions in ECPG test cases
+  - [main](../m/main.md) functions in ECPG test cases
   - ECPG runtime functions for SQL descriptor area management
 
 ## Notes and Other Information

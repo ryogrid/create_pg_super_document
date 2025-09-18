@@ -21,10 +21,10 @@ The function processes security quals in levels, where each sublist of clauses g
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - distribute_quals_to_rels
-  - JoinTreeItem (struct)
+  - [distribute_quals_to_rels](../d/distribute_quals_to_rels.md)
+  - [JoinTreeItem](../J/JoinTreeItem.md) (struct)
 - Called from (representative examples):
-  - deconstruct_distribute
+  - [deconstruct_distribute](../d/deconstruct_distribute.md)
 
 ## Notes and Other Information
 - The function uses a "cheat" by passing ojscope = qualscope instead of NULL to force Var-free qualifiers to be evaluated at the relation level rather than being pushed to the top of the tree

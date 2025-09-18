@@ -34,8 +34,8 @@ This comprehensive approach ensures that environment variable changes are visibl
   - FreeLibrary (Windows API)
   - _putenv (CRT function)
 - Called from (representative examples):
-  - pgwin32_setenv (src/port/win32env.c:144)
-  - pgwin32_unsetenv (src/port/win32env.c:160)
+  - [pgwin32_setenv](pgwin32_setenv.md) (src/port/win32env.c:144)
+  - [pgwin32_unsetenv](pgwin32_unsetenv.md) (src/port/win32env.c:160)
   - putenv macro replacement (src/include/port/win32_port.h:534)
 
 ## Notes and Other Information

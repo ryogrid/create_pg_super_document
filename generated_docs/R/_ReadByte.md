@@ -23,9 +23,9 @@ The function serves as a wrapper around the standard library getc() function, ad
 - Functions called/Symbols referenced:
   - READ_ERROR_EXIT: Error handling macro for read failures and EOF conditions
 - Called from (representative examples):
-  - InitArchiveFmt_Custom: Used during custom format archive initialization
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md): Used during custom format archive initialization
   - lclTocEntry: Used in directory format implementation
-  - InitArchiveFmt_Directory: Used in directory format initialization
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md): Used in directory format initialization
 
 ## Notes and Other Information
 - This is a static function specific to the custom format archive handling

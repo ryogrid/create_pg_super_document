@@ -21,10 +21,10 @@ The function follows a careful cleanup order to ensure that if SPI_freeplan fail
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - hash_search (with HASH_FIND to locate, HASH_REMOVE to delete)
-  - MemoryContextDelete (cleanup query descriptor memory)
-  - SPI_freeplan (release PostgreSQL execution plan)
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [hash_search](../h/hash_search.md) (with HASH_FIND to locate, HASH_REMOVE to delete)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (cleanup query descriptor memory)
+  - [SPI_freeplan](../S/SPI_freeplan.md) (release PostgreSQL execution plan)
 - Called from (representative examples):
   - PL_PERL_H (header declaration)
 

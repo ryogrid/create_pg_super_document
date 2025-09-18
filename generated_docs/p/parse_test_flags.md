@@ -31,10 +31,10 @@ Default settings match Tcl's defaults with REG_ADVANCED enabled.
   - VARDATA_ANY (extracts data from TEXT object)
   - VARSIZE_ANY_EXHDR (gets TEXT object size excluding header)
   - Multiple REG_* constants (regex compilation and execution flags)
-  - pg_mblen (gets multibyte character length for error reporting)
+  - [pg_mblen](pg_mblen.md) (gets multibyte character length for error reporting)
   - ereport/ERROR (PostgreSQL error reporting)
 - Called from (representative examples):
-  - test_regex (main regex testing function)
+  - [test_regex](../t/test_regex.md) (main regex testing function)
 
 ## Notes and Other Information
 - This is a static (internal) function within the test_regex module

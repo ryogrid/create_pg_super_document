@@ -28,9 +28,9 @@ This function is typically called when the reorder buffer needs to free up memor
 - Functions called/Symbols referenced:
   - pairingheap_container (macro for extracting container structure from heap node)
   - pairingheap_first (retrieves the first/root element from the pairing heap)
-  - ReorderBufferTXN (transaction structure type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
 - Called from (representative examples):
-  - ReorderBufferCheckMemoryLimit (for identifying transactions to spill during memory pressure)
+  - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (for identifying transactions to spill during memory pressure)
 
 ## Notes and Other Information
 - This is a static function, only accessible within reorderbuffer.c

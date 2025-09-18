@@ -24,16 +24,16 @@ The comparison is essential for buffer management operations that target entire 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufTagGetRelNumber
+  - [BufTagGetRelNumber](BufTagGetRelNumber.md)
   - BufferTag (structure type)
-  - RelFileLocator (structure type)
+  - [RelFileLocator](../R/RelFileLocator.md) (structure type)
 - Called from (representative examples):
   - ReleaseAndReadBuffer
-  - DropRelationBuffers
-  - DropRelationsAllBuffers
-  - FindAndDropRelationBuffers
-  - FlushRelationBuffers
-  - FlushRelationsAllBuffers
+  - [DropRelationBuffers](../D/DropRelationBuffers.md)
+  - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md)
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
+  - [FlushRelationsAllBuffers](../F/FlushRelationsAllBuffers.md)
   - DropRelationLocalBuffers
   - DropRelationAllLocalBuffers
 

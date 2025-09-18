@@ -24,9 +24,9 @@ This is a helper function used by match_prosrc_to_query() when dealing with sing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen
+  - [pg_mblen](../p/pg_mblen.md)
 - Called from (representative examples):
-  - match_prosrc_to_query
+  - [match_prosrc_to_query](match_prosrc_to_query.md)
 
 ## Notes and Other Information
 - Returns true if the source matches the literal, false otherwise

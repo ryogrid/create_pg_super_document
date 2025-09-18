@@ -34,14 +34,14 @@ This base node structure contains essential metadata that enables the radix tree
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - RT_NODE_4, RT_NODE_16, RT_NODE_48, RT_NODE_256 (specific node type implementations)
+  - [RT_NODE_4](RT_NODE_4.md), RT_NODE_16, RT_NODE_48, RT_NODE_256 (specific node type implementations)
 - Called from (representative examples):
-  - RT_ALLOC_NODE (node allocation functions)
-  - RT_NODE_SEARCH (node traversal functions)
-  - RT_NODE_INSERT (node insertion functions)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (node allocation functions)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md) (node traversal functions)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (node insertion functions)
   - RT_GROW_NODE_* (node expansion functions)
   - RT_SHRINK_NODE_* (node contraction functions)
-  - RT_VERIFY_NODE (node validation functions)
+  - [RT_VERIFY_NODE](RT_VERIFY_NODE.md) (node validation functions)
 
 ## Notes and Other Information
 - Serves as the base structure embedded in all specialized node types

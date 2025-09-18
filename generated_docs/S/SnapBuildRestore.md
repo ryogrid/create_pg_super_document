@@ -29,19 +29,19 @@ The function returns true if a usable snapshot was successfully restored, false 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildRestoreContents
+  - [SnapBuildRestoreContents](SnapBuildRestoreContents.md)
   - OpenTransientFile/CloseTransientFile
-  - fsync_fname
-  - MemoryContextAllocZero
+  - [fsync_fname](../f/fsync_fname.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - CRC32C checksum functions (INIT_CRC32C, COMP_CRC32C, FIN_CRC32C, EQ_CRC32C)
-  - TransactionIdPrecedes
-  - SnapBuildSnapDecRefcount/SnapBuildSnapIncRefcount
-  - SnapBuildBuildSnapshot
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [SnapBuildSnapDecRefcount](SnapBuildSnapDecRefcount.md)/SnapBuildSnapIncRefcount
+  - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
   - ReorderBufferSetRestartPoint
   - SNAPBUILD_MAGIC/SNAPBUILD_VERSION (constants)
 - Called from (representative examples):
   - SnapBuildFindSnapshot
-  - SnapBuildSerializationPoint
+  - [SnapBuildSerializationPoint](SnapBuildSerializationPoint.md)
 
 ## Notes and Other Information
 - Only attempts restoration if current builder state is not already SNAPBUILD_CONSISTENT

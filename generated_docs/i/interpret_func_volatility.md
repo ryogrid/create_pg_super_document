@@ -24,8 +24,8 @@ This function takes a DefElem containing a volatility specification and translat
   - PROVOLATILE_STABLE: Constant for stable functions
   - PROVOLATILE_VOLATILE: Constant for volatile functions
 - Called from (representative examples):
-  - compute_function_attributes: During function creation attribute processing
-  - AlterFunction: During function alteration attribute processing
+  - [compute_function_attributes](../c/compute_function_attributes.md): During function creation attribute processing
+  - [AlterFunction](../A/AlterFunction.md): During function alteration attribute processing
 
 ## Notes and Other Information
 - Returns character constants defined in PostgreSQL's catalog system (likely in pg_proc.h)

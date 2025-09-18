@@ -32,14 +32,14 @@ The limit includes both direct and indirect descendants (e.g., for a relation lo
   - max_predicate_locks_per_xact (GUC variable)
   - max_predicate_locks_per_page (GUC variable)
 - Called from (representative examples):
-  - SerialControl
-  - CheckAndPromotePredicateLockRequest
+  - [SerialControl](../S/SerialControl.md)
+  - [CheckAndPromotePredicateLockRequest](../C/CheckAndPromotePredicateLockRequest.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the predicate.c file
 - The function includes TODO comments suggesting future enhancements for more sophisticated lock allocation strategies
 - Default limit for page locks is typically 2
-- Relation lock limit defaults to (max_predicate_locks_per_xact / (-max_predicate_locks_per_relation)) - 1 when max_predicate_locks_per_relation is negative
+- [Relation](../R/Relation.md) lock limit defaults to (max_predicate_locks_per_xact / (-max_predicate_locks_per_relation)) - 1 when max_predicate_locks_per_relation is negative
 - The function asserts that tuple-level promotion should never be requested since tuples are the finest granularity
 - Part of PostgreSQL's lock escalation strategy to prevent memory exhaustion
 - The promotion thresholds are configurable via GUC (Grand Unified Configuration) parameters

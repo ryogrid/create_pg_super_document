@@ -20,11 +20,11 @@ The  function is a PostgreSQL geometric operation that computes the intersection
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract BOX arguments)
-  - BOX (geometric box data type)
-  - box_ov (function to check if boxes overlap)
-  - palloc (PostgreSQL memory allocation function)
-  - float8_min (minimum of two float8 values)
-  - float8_max (maximum of two float8 values)
+  - [BOX](../B/BOX.md) (geometric box data type)
+  - [box_ov](box_ov.md) (function to check if boxes overlap)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [float8_min](../f/float8_min.md) (minimum of two float8 values)
+  - [float8_max](../f/float8_max.md) (maximum of two float8 values)
   - PG_RETURN_BOX_P (macro to return BOX result)
   - PG_RETURN_NULL (macro to return NULL)
 - Called from (representative examples):

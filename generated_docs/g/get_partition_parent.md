@@ -23,21 +23,21 @@ The function assumes that the relation whose OID is passed as an argument will h
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (to access InheritsRelationId catalog)
-  - get_partition_parent_worker (performs the actual parent lookup)
+  - [get_partition_parent_worker](get_partition_parent_worker.md) (performs the actual parent lookup)
   - table_close (to release catalog lock)
   - OidIsValid (to validate the result)
   - elog (for error reporting)
 
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - index_get_partition
-  - RangeVarCallbackForDropRelation
-  - ATExecDropNotNull
-  - DetachPartitionFinalize
-  - ATExecAttachPartitionIdx
-  - validatePartitionedIndex
-  - renametrig
-  - generate_partition_qual
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [index_get_partition](../i/index_get_partition.md)
+  - [RangeVarCallbackForDropRelation](../R/RangeVarCallbackForDropRelation.md)
+  - [ATExecDropNotNull](../A/ATExecDropNotNull.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
+  - [validatePartitionedIndex](../v/validatePartitionedIndex.md)
+  - [renametrig](../r/renametrig.md)
+  - [generate_partition_qual](generate_partition_qual.md)
 
 ## Notes and Other Information
 - The function throws an error if no parent tuple is found for the given relation

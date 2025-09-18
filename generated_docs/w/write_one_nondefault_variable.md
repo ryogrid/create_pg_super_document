@@ -41,7 +41,7 @@ The function includes an assertion to ensure only non-default variables are writ
   - fputc
   - fwrite
 - Called from (representative examples):
-  - write_nondefault_variables
+  - [write_nondefault_variables](write_nondefault_variables.md)
 
 ## Notes and Other Information
 - This is a static function only used within guc.c

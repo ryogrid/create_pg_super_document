@@ -19,15 +19,15 @@ pg_parse_json_or_errsave serves as a wrapper around pg_parse_json that provides 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_parse_json
-  - json_errsave_error
+  - [pg_parse_json](pg_parse_json.md)
+  - [json_errsave_error](../j/json_errsave_error.md)
   - JsonParseErrorType
   - JSON_SUCCESS
 - Called from (representative examples):
-  - json_in
-  - jsonb_from_cstring
-  - populate_array_json
-  - get_json_object_as_hash
+  - [json_in](../j/json_in.md)
+  - [jsonb_from_cstring](../j/jsonb_from_cstring.md)
+  - [populate_array_json](populate_array_json.md)
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's JSON processing infrastructure where error recovery is critical. It enables parsing operations to continue even when individual JSON values are malformed, which is particularly important in bulk data processing scenarios. The function follows PostgreSQL's standard error handling patterns by supporting both immediate error reporting and soft error collection through the ErrorSaveContext mechanism.

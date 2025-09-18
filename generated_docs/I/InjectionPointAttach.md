@@ -29,15 +29,15 @@ The registration process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
-  - pg_atomic_write_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
   - pg_write_barrier
   - strlcpy
   - LWLockAcquire/LWLockRelease
 - Types referenced:
-  - InjectionPointEntry
+  - [InjectionPointEntry](InjectionPointEntry.md)
 - Constants used:
   - INJ_NAME_MAXLEN
   - INJ_LIB_MAXLEN
@@ -45,7 +45,7 @@ The registration process involves:
   - INJ_PRIVATE_MAXLEN
   - MAX_INJECTION_POINTS
 - Called from:
-  - injection_points_attach (src/test/modules/injection_points/injection_points.c:290)
+  - [injection_points_attach](../i/injection_points_attach.md) (src/test/modules/injection_points/injection_points.c:290)
 
 ## Notes and Other Information
 - Only functional when compiled with USE_INJECTION_POINTS defined

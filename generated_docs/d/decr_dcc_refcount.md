@@ -26,13 +26,13 @@ This approach ensures that shared DomainConstraintCache objects are properly cle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintCache (struct type)
+  - [DomainConstraintCache](../D/DomainConstraintCache.md) (struct type)
   - Assert (debugging macro)
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - load_domaintype_info
-  - dccref_deletion_callback
-  - UpdateDomainConstraintRef
+  - [load_domaintype_info](../l/load_domaintype_info.md)
+  - [dccref_deletion_callback](dccref_deletion_callback.md)
+  - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

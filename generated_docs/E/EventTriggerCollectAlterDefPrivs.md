@@ -21,12 +21,12 @@ The function operates within the event trigger collection framework and respects
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc0
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
   - copyObject
   - lappend
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1822)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1822)
 
 ## Notes and Other Information
 - Part of the event trigger collection system that tracks DDL commands for event trigger processing

@@ -292,11 +292,11 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StandbyAcquireAccessExclusiveLock (acquire AccessExclusive lock in standby mode)
+  - [StandbyAcquireAccessExclusiveLock](../S/StandbyAcquireAccessExclusiveLock.md) (acquire AccessExclusive lock in standby mode)
   - elog (error logging function)
   - lengthof (macro to get array length)
 - Data structures used:
-  - TwoPhaseLockRecord (2PC lock record structure)
+  - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md) (2PC lock record structure)
   - LOCKTAG (lock identification tag)
   - LOCKMODE (lock mode type)
   - LOCKMETHODID (lock method identifier)

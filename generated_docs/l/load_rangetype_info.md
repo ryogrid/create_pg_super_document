@@ -21,13 +21,13 @@ This lazy loading approach ensures that expensive range type setup only occurs w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1, ReleaseSysCache (for pg_range catalog access)
-  - get_opclass_family, get_opclass_input_type, get_opfamily_proc (for operator class resolution)
-  - fmgr_info_cxt (for setting up function manager structures)
-  - lookup_type_cache (for loading element type information)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (for pg_range catalog access)
+  - [get_opclass_family](../g/get_opclass_family.md), get_opclass_input_type, get_opfamily_proc (for operator class resolution)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (for setting up function manager structures)
+  - [lookup_type_cache](lookup_type_cache.md) (for loading element type information)
 - Called from (representative examples):
-  - lookup_type_cache (when TYPECACHE_RANGE_INFO flag is requested)
-  - cache_range_element_properties (when analyzing range element properties)
+  - [lookup_type_cache](lookup_type_cache.md) (when TYPECACHE_RANGE_INFO flag is requested)
+  - [cache_range_element_properties](../c/cache_range_element_properties.md) (when analyzing range element properties)
 
 ## Notes and Other Information
 - This is a static helper function only used within typcache.c

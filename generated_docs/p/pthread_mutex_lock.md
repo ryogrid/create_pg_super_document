@@ -19,17 +19,17 @@ This function implements the POSIX pthread_mutex_lock functionality for Windows 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_t (mutex structure type)
+  - [pthread_mutex_t](pthread_mutex_t.md) (mutex structure type)
   - InterlockedExchange (Windows atomic operation)
   - Sleep (Windows sleep function)
   - InitializeCriticalSection (Windows function)
   - EnterCriticalSection (Windows function)
 - Called from (representative examples):
   - ecpg_get_connection (in src/interfaces/ecpg/ecpglib/connect.c)
-  - ECPGconnect (in src/interfaces/ecpg/ecpglib/connect.c)
-  - ECPGdisconnect (in src/interfaces/ecpg/ecpglib/connect.c)
-  - ECPGdebug (in src/interfaces/ecpg/ecpglib/misc.c)
-  - ecpg_log (in src/interfaces/ecpg/ecpglib/misc.c)
+  - [ECPGconnect](../E/ECPGconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md) (in src/interfaces/ecpg/ecpglib/connect.c)
+  - [ECPGdebug](../E/ECPGdebug.md) (in src/interfaces/ecpg/ecpglib/misc.c)
+  - [ecpg_log](../e/ecpg_log.md) (in src/interfaces/ecpg/ecpglib/misc.c)
   - Multiple libpq functions for thread-safe operations
 
 ## Notes and Other Information

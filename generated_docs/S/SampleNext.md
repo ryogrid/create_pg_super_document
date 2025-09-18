@@ -17,11 +17,11 @@ SampleNext serves as the core workhorse function for sample scanning operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tablesample_init
-  - tablesample_getnext
-  - SampleScanState
+  - [tablesample_init](../t/tablesample_init.md)
+  - [tablesample_getnext](../t/tablesample_getnext.md)
+  - [SampleScanState](SampleScanState.md)
 - Called from (representative examples):
-  - ExecSampleScan
+  - [ExecSampleScan](../E/ExecSampleScan.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the nodeSamplescan.c file

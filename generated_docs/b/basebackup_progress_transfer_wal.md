@@ -19,11 +19,11 @@ This function is a progress reporting utility used during PostgreSQL base backup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_param
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - PROGRESS_BASEBACKUP_PHASE (parameter constant)
   - PROGRESS_BASEBACKUP_PHASE_TRANSFER_WAL (phase constant)
 - Called from (representative examples):
-  - perform_base_backup
+  - [perform_base_backup](../p/perform_base_backup.md)
   - bbsink_cleanup
 
 ## Notes and Other Information

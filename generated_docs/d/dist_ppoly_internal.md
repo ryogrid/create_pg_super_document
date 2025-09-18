@@ -22,7 +22,7 @@ This function implements the core algorithm for calculating the minimum distance
   -  - Calculates distance from point to line segment
   -  - Compares two float8 values for less-than relationship
   -  - Line segment data structure
-  -  - Point data structure  
+  -  - [Point](../P/Point.md) data structure  
   -  - Polygon data structure
 - Called from (representative examples):
   -  - Distance from polygon to point

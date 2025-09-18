@@ -33,19 +33,19 @@ The function assumes the transition function strictness was already validated du
 ## Dependencies
 - Functions called/Symbols referenced:
   - tuplesort_performsort
-  - tuplesort_getdatum  
-  - MemoryContextReset
-  - FunctionCall2Coll
-  - advance_transition_function
-  - datumCopy
+  - [tuplesort_getdatum](../t/tuplesort_getdatum.md)  
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [advance_transition_function](../a/advance_transition_function.md)
+  - [datumCopy](../d/datumCopy.md)
   - tuplesort_end
 - Data types used:
-  - AggState
-  - AggStatePerTrans
-  - AggStatePerGroup
-  - FunctionCallInfo
+  - [AggState](../A/AggState.md)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
 - Called from (representative examples):
-  - finalize_aggregates
+  - [finalize_aggregates](../f/finalize_aggregates.md)
 
 ## Notes and Other Information
 - Designed specifically for single-column ordered aggregates to maximize performance

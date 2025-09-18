@@ -22,23 +22,23 @@ The `JsonbValueAsText` function converts a JsonbValue structure to a PostgreSQL 
   - cstring_to_text_with_len
   - cstring_to_text
   - DirectFunctionCall1
-  - numeric_out
-  - DatumGetCString
+  - [numeric_out](../n/numeric_out.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
   - initStringInfo
-  - JsonbToCString
+  - [JsonbToCString](JsonbToCString.md)
   - elog
 - Types used:
-  - JsonbValue
+  - [JsonbValue](JsonbValue.md)
   - jbvNull, jbvBool, jbvString, jbvNumeric, jbvBinary
-  - StringInfoData
+  - [StringInfoData](../S/StringInfoData.md)
   - Datum
 - Called from:
   - JsObjectFree
-  - jsonb_object_field_text
-  - jsonb_array_element_text
-  - jsonb_get_element
-  - each_worker_jsonb
-  - elements_worker_jsonb
+  - [jsonb_object_field_text](../j/jsonb_object_field_text.md)
+  - [jsonb_array_element_text](../j/jsonb_array_element_text.md)
+  - [jsonb_get_element](../j/jsonb_get_element.md)
+  - [each_worker_jsonb](../e/each_worker_jsonb.md)
+  - [elements_worker_jsonb](../e/elements_worker_jsonb.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, not exposed externally

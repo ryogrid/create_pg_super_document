@@ -27,14 +27,14 @@ The function ensures type safety by validating that cached descriptors match bot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_rowtype_tupdesc
-  - FreeTupleDesc
-  - CreateTupleDescCopy
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - ReleaseTupleDesc
 - Called from (representative examples):
-  - populate_composite
-  - populate_recordset_record
-  - populate_recordset_worker
+  - [populate_composite](../p/populate_composite.md)
+  - [populate_recordset_record](../p/populate_recordset_record.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
 
 ## Notes and Other Information
 - Uses a copy-without-constraints strategy via CreateTupleDescCopy() to avoid unnecessary overhead in the cache

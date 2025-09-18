@@ -32,8 +32,8 @@ The function continues this process in a loop until no more whitespace or commen
   - NOTE (macro for recording regex features)
   - REG_UNONPOSIX (flag for non-POSIX feature usage)
 - Called from (representative examples):
-  - next (main tokenizer function)
-  - brenext (BRE tokenizer function)
+  - [next](../n/next.md) (main tokenizer function)
+  - [brenext](../b/brenext.md) (BRE tokenizer function)
   - Various heap, btree, and utility functions throughout PostgreSQL
 
 ## Notes and Other Information

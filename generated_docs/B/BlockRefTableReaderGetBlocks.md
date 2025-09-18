@@ -19,14 +19,14 @@ BlockRefTableReaderGetBlocks retrieves block numbers of modified blocks from the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableRead
+  - [BlockRefTableRead](BlockRefTableRead.md)
   - MAX_ENTRIES_PER_CHUNK
   - BLOCKS_PER_CHUNK
   - BLOCKS_PER_ENTRY
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
-  - dump_one_relation
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
+  - [dump_one_relation](../d/dump_one_relation.md)
 
 ## Notes and Other Information
 - Returns the actual number of block numbers written to the blocks array (may be less than nblocks)

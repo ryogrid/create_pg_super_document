@@ -26,13 +26,13 @@ The function uses the standard C library sqrt() function but adds PostgreSQL-spe
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)
   - ereport (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
   - sqrt (standard C math library function)
   - isinf (standard C math library function to check for infinity)
   - unlikely (compiler hint macro)
-  - float_overflow_error (PostgreSQL float overflow error handler)
-  - float_underflow_error (PostgreSQL float underflow error handler)
+  - [float_overflow_error](../f/float_overflow_error.md) (PostgreSQL float overflow error handler)
+  - [float_underflow_error](../f/float_underflow_error.md) (PostgreSQL float underflow error handler)
   - PG_RETURN_FLOAT8 (macro to return float8 result)
 - Called from (representative examples):
   - No direct references found in the codebase

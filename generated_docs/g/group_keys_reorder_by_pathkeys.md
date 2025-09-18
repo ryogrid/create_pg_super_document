@@ -26,16 +26,16 @@ The algorithm walks through the input pathkeys and searches for matching GROUP B
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy_head (creates subset of pathkeys)
+  - [list_copy_head](../l/list_copy_head.md) (creates subset of pathkeys)
   - PathKey (pathkey structure type)
   - SortGroupClause (sort group clause type)
   - foreach_current_index (gets current list iteration index)
-  - list_member_ptr (checks pointer membership in list)
-  - get_sortgroupref_clause_noerr (retrieves sort group clause safely)
-  - list_concat_unique_ptr (concatenates lists avoiding duplicates)
-  - list_free (releases memory)
+  - [list_member_ptr](../l/list_member_ptr.md) (checks pointer membership in list)
+  - [get_sortgroupref_clause_noerr](get_sortgroupref_clause_noerr.md) (retrieves sort group clause safely)
+  - [list_concat_unique_ptr](../l/list_concat_unique_ptr.md) (concatenates lists avoiding duplicates)
+  - [list_free](../l/list_free.md) (releases memory)
 - Called from:
-  - get_useful_group_keys_orderings
+  - [get_useful_group_keys_orderings](get_useful_group_keys_orderings.md)
 
 ## Notes and Other Information
 This function is static and serves as a helper for get_useful_group_keys_orderings. It's designed to handle the complexity of matching pathkeys with GROUP BY clauses while avoiding issues with aggregate pathkeys that have invalid sortref values. The function returns the number of successfully matched pathkeys, which indicates how many GROUP BY keys can benefit from the existing sort order. The reordering is essential for incremental sort and other optimization techniques that can leverage partial ordering.

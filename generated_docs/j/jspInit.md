@@ -22,13 +22,13 @@ This function serves as a convenient wrapper around jspInitByBuffer that initial
   - JsonPathItem (struct type)
   - JSONPATH_VERSION (version constant)
   - JSONPATH_LAX (flag constant)
-  - jspInitByBuffer (core initialization function)
+  - [jspInitByBuffer](jspInitByBuffer.md) (core initialization function)
   - Assert (debugging macro)
 - Called from (representative examples):
-  - extract_jsp_query
-  - jsonPathToCstring
-  - jspIsMutable
-  - executeJsonPath
+  - [extract_jsp_query](../e/extract_jsp_query.md)
+  - [jsonPathToCstring](jsonPathToCstring.md)
+  - [jspIsMutable](jspIsMutable.md)
+  - [executeJsonPath](../e/executeJsonPath.md)
   - jspHasNext
 
 ## Notes and Other Information

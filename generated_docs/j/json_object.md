@@ -25,9 +25,9 @@ The function validates input array dimensions, constructs a JSON object string b
   - ARR_NDIM  
   - ARR_DIMS
   - PG_RETURN_DATUM
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
-  - escape_json
+  - [escape_json](../e/escape_json.md)
   - cstring_to_text_with_len
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

@@ -25,9 +25,9 @@ The simplicity of this structure reflects PostgreSQL's efficient WAL design - mo
 - Functions called/Symbols referenced:
   - OffsetNumber (type)
 - Called from (representative examples):
-  - hash_xlog_insert (WAL replay function)
-  - _hash_doinsert (hash insertion implementation)
-  - hash_desc (WAL record description function)
+  - [hash_xlog_insert](../h/hash_xlog_insert.md) (WAL replay function)
+  - [_hash_doinsert](../h/_hash_doinsert.md) (hash insertion implementation)
+  - [hash_desc](../h/hash_desc.md) (WAL record description function)
   - SizeOfHashInsert (macro for size calculation)
 
 ## Notes and Other Information

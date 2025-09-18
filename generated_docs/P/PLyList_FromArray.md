@@ -25,10 +25,10 @@ PLyList_FromArray is a comprehensive array conversion function within PostgreSQL
   - ARR_DIMS: Macro to get array dimensions
   - ARR_DATA_PTR: Macro to get pointer to array data
   - ARR_NULLBITMAP: Macro to get array's null bitmap
-  - PLyList_FromArray_recurse: Recursive helper function to build nested lists
+  - [PLyList_FromArray_recurse](PLyList_FromArray_recurse.md): Recursive helper function to build nested lists
   - PyList_New: Creates empty Python list for zero-dimensional arrays
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for PostgreSQL to Python data conversion
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for PostgreSQL to Python data conversion
 
 ## Notes and Other Information
 - This is a static function within the PL/Python type conversion system

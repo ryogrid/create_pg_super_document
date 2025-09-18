@@ -20,7 +20,7 @@ BlockIdEquals performs a bitwise comparison of two BlockIdData structures to det
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockIdData (structure type)
+  - [BlockIdData](BlockIdData.md) (structure type)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase (may be used via macros or inlined)
 

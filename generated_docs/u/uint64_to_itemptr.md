@@ -25,9 +25,9 @@ The function performs validation after reconstruction to ensure the resulting It
   - GinItemPointerSetOffsetNumber
   - GinItemPointerSetBlockNumber
   - MaxHeapTuplesPerPageBits
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from (representative examples):
-  - ginPostingListDecodeAllSegments
+  - [ginPostingListDecodeAllSegments](../g/ginPostingListDecodeAllSegments.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance during GIN index decompression operations

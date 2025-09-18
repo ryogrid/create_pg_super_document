@@ -21,17 +21,17 @@ This function is the core handler for actual WAL data received during streaming 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fe_recvint64
+  - [fe_recvint64](../f/fe_recvint64.md)
   - XLogSegmentOffset
-  - open_walfile
-  - GetLastWalMethodError
-  - close_walfile
-  - PQputCopyEnd
-  - PQflush
-  - PQerrorMessage
+  - [open_walfile](../o/open_walfile.md)
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
+  - [close_walfile](../c/close_walfile.md)
+  - [PQputCopyEnd](PQputCopyEnd.md)
+  - [PQflush](PQflush.md)
+  - [PQerrorMessage](PQerrorMessage.md)
   - pg_log_error
 - Called from (representative examples):
-  - HandleCopyStream
+  - [HandleCopyStream](../H/HandleCopyStream.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

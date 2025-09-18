@@ -31,8 +31,8 @@ This is the most comprehensive variant of the ts_rank function family, accepting
   - PG_GETARG_TSVECTOR
   - PG_GETARG_TSQUERY
   - PG_GETARG_INT32
-  - calc_rank
-  - getWeights
+  - [calc_rank](../c/calc_rank.md)
+  - [getWeights](../g/getWeights.md)
   - PG_FREE_IF_COPY
   - PG_RETURN_FLOAT4
 - Called from (representative examples):

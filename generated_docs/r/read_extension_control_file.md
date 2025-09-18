@@ -23,15 +23,15 @@ After setting defaults, it calls parse_extension_control_file() with version=NUL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - pstrdup
-  - parse_extension_control_file
+  - [palloc0](../p/palloc0.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [parse_extension_control_file](../p/parse_extension_control_file.md)
 - Types referenced:
-  - ExtensionControlFile
+  - [ExtensionControlFile](../E/ExtensionControlFile.md)
 - Called from (representative examples):
-  - CreateExtensionInternal
-  - pg_available_extensions
-  - pg_available_extension_versions
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [pg_available_extensions](../p/pg_available_extensions.md)
+  - [pg_available_extension_versions](../p/pg_available_extension_versions.md)
   - pg_extension_update_paths
   - AlterExtensionNamespace
   - ExecAlterExtensionStmt

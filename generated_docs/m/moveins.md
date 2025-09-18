@@ -31,21 +31,21 @@ The function includes optimization logic via BULK_ARC_OP_USE_SORT() to determine
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createarc (creates new arc)
-  - freearc (frees an arc)
-  - cparc (copies arc with duplicate suppression)
-  - sortins (sorts incoming arcs)
-  - changearctarget (changes arc target state)
+  - [createarc](../c/createarc.md) (creates new arc)
+  - [freearc](../f/freearc.md) (frees an arc)
+  - [cparc](../c/cparc.md) (copies arc with duplicate suppression)
+  - [sortins](../s/sortins.md) (sorts incoming arcs)
+  - [changearctarget](../c/changearctarget.md) (changes arc target state)
   - BULK_ARC_OP_USE_SORT (macro to determine sort strategy)
   - INTERRUPT (cancellation check macro)
   - NISERR (error checking macro)
-  - sortins_cmp (comparison function for sorting)
+  - [sortins_cmp](../s/sortins_cmp.md) (comparison function for sorting)
   - NOTREACHED (assertion macro)
-  - arc (struct type)
+  - [arc](../a/arc.md) (struct type)
 - Called from (representative examples):
-  - pull (src/backend/regex/regc_nfa.c:1801)
+  - [pull](../p/pull.md) (src/backend/regex/regc_nfa.c:1801)
   - fixempties (src/backend/regex/regc_nfa.c:2106)
-  - parsebranch (src/backend/regex/regcomp.c:806)
+  - [parsebranch](../p/parsebranch.md) (src/backend/regex/regcomp.c:806)
   - ARCV (src/backend/regex/regcomp.c:1204)
   - REDUCE (src/backend/regex/regcomp.c:1619, 1640)
 

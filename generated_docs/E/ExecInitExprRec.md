@@ -20,19 +20,19 @@ ExecInitExprRec is PostgreSQL's central expression compilation function that tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalPushStep (primary step creation function)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (primary step creation function)
   - check_stack_depth (prevents stack overflow)
-  - ExecInitFunc (for function expressions)
-  - ExecInitSubPlan (for subplan expressions)
-  - ExecInitExprRec (recursive calls for nested expressions)
-  - ExecReadyExpr (for array coercion subexpressions)
+  - [ExecInitFunc](ExecInitFunc.md) (for function expressions)
+  - [ExecInitSubPlan](ExecInitSubPlan.md) (for subplan expressions)
+  - [ExecInitExprRec](ExecInitExprRec.md) (recursive calls for nested expressions)
+  - [ExecReadyExpr](ExecReadyExpr.md) (for array coercion subexpressions)
   - Various opcode constants (EEOP_VAR, EEOP_CONST, etc.)
 - Called from (representative examples):
-  - ExecInitExpr
-  - ExecInitExprWithParams  
-  - ExecInitQual
-  - ExecBuildProjectionInfo
-  - ExecBuildUpdateProjection
+  - [ExecInitExpr](ExecInitExpr.md)
+  - [ExecInitExprWithParams](ExecInitExprWithParams.md)  
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
   - Recursive calls from within itself
 
 ## Notes and Other Information

@@ -27,15 +27,15 @@ The function uses doubly-linked lists (dlist) to manage cache entries within eac
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)
-  - MemoryContextAllocZero (for allocating new bucket array)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (for allocating new bucket array)
   - dlist_foreach_modify (for iterating through cache entries)
   - dlist_container (for accessing CatCTup from list node)
   - HASH_INDEX (macro for computing hash bucket index)
-  - dlist_delete (for removing entries from old buckets)
-  - dlist_push_head (for adding entries to new buckets)
-  - pfree (for freeing old bucket array)
+  - [dlist_delete](../d/dlist_delete.md) (for removing entries from old buckets)
+  - [dlist_push_head](../d/dlist_push_head.md) (for adding entries to new buckets)
+  - [pfree](../p/pfree.md) (for freeing old bucket array)
 - Called from:
-  - CatalogCacheCreateEntry (when cache load factor becomes too high)
+  - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md) (when cache load factor becomes too high)
 
 ## Notes and Other Information
 - This is a static function, only accessible within catcache.c

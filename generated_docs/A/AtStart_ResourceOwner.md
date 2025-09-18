@@ -30,7 +30,7 @@ This ensures proper resource tracking and cleanup when the transaction ends, eit
   - ResourceOwnerCreate (at line 1232)
   - CurrentTransactionState (global variable)
 - Called from (representative examples):
-  - StartTransaction (src/backend/access/transam/xact.c:2105)
+  - [StartTransaction](../S/StartTransaction.md) (src/backend/access/transam/xact.c:2105)
 
 ## Notes and Other Information
 - This is a static function, only accessible within xact.c

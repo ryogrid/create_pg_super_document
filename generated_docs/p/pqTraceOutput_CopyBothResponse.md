@@ -25,10 +25,10 @@ The function first reads a single byte indicating the overall copy format (0 for
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputByte1 (reads and formats the overall copy format byte)
-  - pqTraceOutputInt16 (reads and formats each column's format code)
+  - [pqTraceOutputByte1](pqTraceOutputByte1.md) (reads and formats the overall copy format byte)
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md) (reads and formats each column's format code)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message dispatcher for trace output)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message dispatcher for trace output)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, part of the internal tracing infrastructure

@@ -27,12 +27,12 @@ The function maintains the sequential order of elements as they are added, prese
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (PostgreSQL memory reallocation)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation)
   - ereport/errcode/errmsg (PostgreSQL error reporting)
   - JSONB_MAX_ELEMS (maximum allowed elements constant)
   - jbvArray (JSONB array type constant)
 - Called from (representative examples):
-  - pushJsonbValueScalar (when processing WJB_ELEM tokens and nested arrays)
+  - [pushJsonbValueScalar](../p/pushJsonbValueScalar.md) (when processing WJB_ELEM tokens and nested arrays)
 
 ## Notes and Other Information
 - This is a static function internal to jsonb_util.c, not exposed in the public API

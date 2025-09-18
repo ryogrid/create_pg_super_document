@@ -24,13 +24,13 @@ The algorithm handles overlapping summary files correctly and can detect the exa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy
-  - list_sort
-  - ListComparatorForWalSummaryFiles
+  - [list_copy](../l/list_copy.md)
+  - [list_sort](../l/list_sort.md)
+  - [ListComparatorForWalSummaryFiles](../L/ListComparatorForWalSummaryFiles.md)
   - lfirst
   - foreach
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
 
 ## Notes and Other Information
 - Returns true if complete coverage exists, false otherwise

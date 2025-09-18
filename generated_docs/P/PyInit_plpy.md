@@ -18,10 +18,10 @@ This function serves as the entry point for initializing the plpy Python module 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyModule_Create (Python C API)
-  - PLy_add_exceptions
+  - [PLy_add_exceptions](PLy_add_exceptions.md)
   - PLy_module (module definition structure)
 - Called from (representative examples):
-  - PLy_initialize
+  - [PLy_initialize](PLy_initialize.md)
   - Referenced in PLPY_PLPYMODULE_H
 
 ## Notes and Other Information

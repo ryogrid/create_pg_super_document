@@ -20,17 +20,17 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
   - PG_DETOAST_DATUM (macro for handling TOAST decompression)
   - Numeric (data type)
 - Called from (representative examples):
-  - extract_date
-  - numeric_absolute
-  - numeric_half_rounded
-  - numeric_truncated_divide
-  - pg_size_bytes
-  - numeric_to_number
-  - numeric_to_char
-  - jsonb_in_scalar
+  - [extract_date](../e/extract_date.md)
+  - [numeric_absolute](../n/numeric_absolute.md)
+  - [numeric_half_rounded](../n/numeric_half_rounded.md)
+  - [numeric_truncated_divide](../n/numeric_truncated_divide.md)
+  - [pg_size_bytes](../p/pg_size_bytes.md)
+  - [numeric_to_number](../n/numeric_to_number.md)
+  - [numeric_to_char](../n/numeric_to_char.md)
+  - [jsonb_in_scalar](../j/jsonb_in_scalar.md)
   - datum_to_jsonb_internal
-  - numeric_fast_cmp
-  - timestamp_part_common
+  - [numeric_fast_cmp](../n/numeric_fast_cmp.md)
+  - [timestamp_part_common](../t/timestamp_part_common.md)
   - PG_GETARG_NUMERIC
 
 ## Notes and Other Information

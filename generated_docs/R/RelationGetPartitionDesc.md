@@ -25,16 +25,16 @@ When cached descriptors cannot be used, the function falls back to calling Relat
   - likely (compiler hint)
   - ActiveSnapshotSet
   - GetActiveSnapshot
-  - XidInMVCCSnapshot
-  - RelationBuildPartitionDesc
-  - PartitionDesc (return type)
+  - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md)
+  - [RelationBuildPartitionDesc](RelationBuildPartitionDesc.md)
+  - [PartitionDesc](../P/PartitionDesc.md) (return type)
 
 - Called from (representative examples):
-  - StorePartitionBound
-  - DefineIndex
-  - ATExecAttachPartition
-  - ATExecDetachPartition
-  - PartitionDirectoryLookup
+  - [StorePartitionBound](../S/StorePartitionBound.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md)
+  - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
 
 ## Notes and Other Information
 - The function requires the relation to be a partitioned table (RELKIND_PARTITIONED_TABLE)

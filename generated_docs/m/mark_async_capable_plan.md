@@ -21,17 +21,17 @@ The `mark_async_capable_plan` function evaluates whether a given execution plan 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - trivial_subqueryscan
-  - mark_async_capable_plan (recursive call)
+  - [trivial_subqueryscan](../t/trivial_subqueryscan.md)
+  - [mark_async_capable_plan](mark_async_capable_plan.md) (recursive call)
   - SubqueryScan (type)
-  - FdwRoutine (type)
+  - [FdwRoutine](../F/FdwRoutine.md) (type)
   - SubqueryScanPath (type)
   - ForeignPath (type)
   - ProjectionPath (type)
-  - Result (type)
+  - [Result](../R/Result.md) (type)
 - Called from (representative examples):
-  - create_append_plan
-  - mark_async_capable_plan (recursive calls)
+  - [create_append_plan](../c/create_append_plan.md)
+  - [mark_async_capable_plan](mark_async_capable_plan.md) (recursive calls)
 
 ## Notes and Other Information
 - Plans with gating Result nodes cannot be executed asynchronously due to execution model constraints

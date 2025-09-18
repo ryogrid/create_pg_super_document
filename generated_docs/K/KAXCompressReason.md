@@ -22,11 +22,11 @@ The compression is controlled by heuristics that determine the optimal time to p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct (used in compression logic)
-  - PGPROC (process array structure)
-  - GlobalVisState (visibility state structures)
+  - [ProcArrayStruct](../P/ProcArrayStruct.md) (used in compression logic)
+  - [PGPROC](../P/PGPROC.md) (process array structure)
+  - [GlobalVisState](../G/GlobalVisState.md) (visibility state structures)
 - Called from:
-  - KnownAssignedXidsCompress (primary consumer of this enum)
+  - [KnownAssignedXidsCompress](KnownAssignedXidsCompress.md) (primary consumer of this enum)
 
 ## Notes and Other Information
 - This enum is specific to Hot Standby recovery operations and is not used during normal database operations

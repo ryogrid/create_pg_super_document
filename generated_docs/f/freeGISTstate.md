@@ -19,11 +19,11 @@ This function is part of PostgreSQL's GiST (Generalized Search Tree) index acces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
-  - GISTSTATE
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [GISTSTATE](../G/GISTSTATE.md)
 - Called from (representative examples):
-  - gistbuild
-  - gistendscan
+  - [gistbuild](../g/gistbuild.md)
+  - [gistendscan](../g/gistendscan.md)
 
 ## Notes and Other Information
 - The function relies on PostgreSQL's memory context system for efficient memory management

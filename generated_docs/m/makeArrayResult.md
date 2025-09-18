@@ -26,11 +26,11 @@ Memory management is handled according to the private_cxt flag: if the ArrayBuil
 - Functions called/Symbols referenced:
   - makeMdArrayResult (performs the actual multi-dimensional array construction)
 - Called from (representative examples):
-  - array_positions (finding positions of elements in arrays)
-  - parse_ident (identifier parsing functions)
-  - regexp_split_to_array (regular expression splitting)
-  - text_to_array (text splitting functions)
-  - xpath (XML path expression functions)
+  - [array_positions](../a/array_positions.md) (finding positions of elements in arrays)
+  - [parse_ident](../p/parse_ident.md) (identifier parsing functions)
+  - [regexp_split_to_array](../r/regexp_split_to_array.md) (regular expression splitting)
+  - [text_to_array](../t/text_to_array.md) (text splitting functions)
+  - [xpath](../x/xpath.md) (XML path expression functions)
 
 ## Notes and Other Information
 - Always creates one-dimensional arrays with lower bound of 1

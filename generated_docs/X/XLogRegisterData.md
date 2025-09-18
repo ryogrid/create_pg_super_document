@@ -23,15 +23,15 @@ The function includes protection against resource exhaustion by checking against
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecData (struct type for managing data segments)
-  - errdetail_internal (for error reporting)
+  - [errdetail_internal](../e/errdetail_internal.md) (for error reporting)
   - Assert (for debug assertions)
   - ereport (for error reporting)
 - Called from (representative examples):
-  - heap_insert (heap tuple insertions)
-  - heap_update (heap tuple updates)
-  - _bt_insertonpg (B-tree page insertions)
-  - XactLogCommitRecord (transaction commit records)
-  - CreateCheckPoint (checkpoint records)
+  - [heap_insert](../h/heap_insert.md) (heap tuple insertions)
+  - [heap_update](../h/heap_update.md) (heap tuple updates)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md) (B-tree page insertions)
+  - [XactLogCommitRecord](XactLogCommitRecord.md) (transaction commit records)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (checkpoint records)
 
 ## Notes and Other Information
 - Must be called after XLogBeginInsert() and before XLogInsert()

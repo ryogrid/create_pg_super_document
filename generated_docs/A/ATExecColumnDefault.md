@@ -35,13 +35,13 @@ The function ensures data integrity by validating column types and providing cle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_attnum (to resolve column name to attribute number)
-  - RemoveAttrDefault (to remove existing default values)
-  - AddRelationNewConstraints (to add new default constraints)
+  - [get_attnum](../g/get_attnum.md) (to resolve column name to attribute number)
+  - [RemoveAttrDefault](../R/RemoveAttrDefault.md) (to remove existing default values)
+  - [AddRelationNewConstraints](AddRelationNewConstraints.md) (to add new default constraints)
   - ObjectAddressSubSet (to create return address for the modified column)
   - TupleDescAttr (macro to access column attributes)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command execution dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command execution dispatcher)
 
 ## Notes and Other Information
 - Supports both SET DEFAULT and DROP DEFAULT operations based on whether newDefault is NULL

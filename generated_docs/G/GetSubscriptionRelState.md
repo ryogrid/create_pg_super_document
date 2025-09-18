@@ -21,15 +21,15 @@ The function handles cases where the subscription-relation mapping doesn't exist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
+  - [SearchSysCache2](../S/SearchSysCache2.md)
   - SUBREL_STATE_UNKNOWN
   - Form_pg_subscription_rel
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetLSN
 - Called from (representative examples):
   - logicalrep_rel_open
-  - wait_for_relation_state_change
-  - LogicalRepSyncTableStart
+  - [wait_for_relation_state_change](../w/wait_for_relation_state_change.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
 
 ## Notes and Other Information
 - Provides race condition protection by holding AccessShareLock during the lookup operation

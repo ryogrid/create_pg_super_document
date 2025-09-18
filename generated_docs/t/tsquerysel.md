@@ -26,11 +26,11 @@ This function is essential for the PostgreSQL query planner to make cost-based d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetTSQuery: Converts Datum to TSQuery structure
-  - get_attstatsslot: Retrieves statistics slot data for the column
-  - mcelem_tsquery_selec: Calculates selectivity using most-common-elements statistics
+  - [DatumGetTSQuery](../D/DatumGetTSQuery.md): Converts Datum to TSQuery structure
+  - [get_attstatsslot](../g/get_attstatsslot.md): Retrieves statistics slot data for the column
+  - [mcelem_tsquery_selec](../m/mcelem_tsquery_selec.md): Calculates selectivity using most-common-elements statistics
   - tsquery_opr_selec_no_stats: Fallback selectivity calculation without statistics
-  - free_attstatsslot: Releases memory for statistics slot data
+  - [free_attstatsslot](../f/free_attstatsslot.md): Releases memory for statistics slot data
 - Data structures used:
   - TSQuery: Text search query structure
   - Form_pg_statistic: PostgreSQL column statistics structure
@@ -39,7 +39,7 @@ This function is essential for the PostgreSQL query planner to make cost-based d
   - STATISTIC_KIND_MCELEM: Statistics type for most-common-elements
   - ATTSTATSSLOT_VALUES/ATTSTATSSLOT_NUMBERS: Flags for statistics retrieval
 - Called from (representative examples):
-  - tsmatchsel: Main selectivity function for @@ operator
+  - [tsmatchsel](tsmatchsel.md): Main selectivity function for @@ operator
 
 ## Notes and Other Information
 - Returns 0.0 selectivity for empty TSQuery expressions

@@ -50,15 +50,15 @@ PLyObToDatum is the counterpart to PLyDatumToOb, handling the reverse conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - PLyObToDatumFunc (function pointer type)  
-  - PLyObToScalar, PLyObToArray, PLyObToTuple, PLyObToDomain, PLyObToTransform (union members)
+  - [PLyObToScalar](PLyObToScalar.md), PLyObToArray, PLyObToTuple, PLyObToDomain, PLyObToTransform (union members)
   - Standard PostgreSQL types: Oid, MemoryContext, Datum
   - Python C API types: PyObject
 - Called from (representative examples):
-  - PLy_output_convert
-  - PLy_output_setup_func
-  - PLyProcedure structure
+  - [PLy_output_convert](PLy_output_convert.md)
+  - [PLy_output_setup_func](PLy_output_setup_func.md)
+  - [PLyProcedure](PLyProcedure.md) structure
   - Various conversion functions (PLyObject_ToBool, PLyObject_ToScalar, etc.)
-  - PLy_spi_prepare, PLy_spi_execute_plan
+  - [PLy_spi_prepare](PLy_spi_prepare.md), PLy_spi_execute_plan
 
 ## Notes and Other Information
 The PLyObToDatum structure is essential for PostgreSQL's PLpython procedural language output conversion system. The isnull parameter in the conversion function is set to true if the Python value is None, and false otherwise. The inarray parameter indicates if the converted value was within a Python list/array context, which helps provide better error messages. Domain constraint checking requires that the conversion function be called even for None values. The structure follows the same memory management principles as PLyDatumToOb, with conversion data being private to plpy_typeio.c.

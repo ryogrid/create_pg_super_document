@@ -23,12 +23,12 @@ The function includes safety checks and will raise an ERROR if it cannot find a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotName
+  - [ReplicationSlotName](../R/ReplicationSlotName.md)
   - elog
 - Types referenced:
   - PgStat_HashKey
   - PgStatShared_Common
-  - NameData
+  - [NameData](../N/NameData.md)
 - Called from (representative examples):
   - Statistics hash table operations (via SH_DECLARE macro in pgstat.c:317)
 

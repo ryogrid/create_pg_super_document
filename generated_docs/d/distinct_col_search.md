@@ -30,7 +30,7 @@ This is used during distinctness analysis to check if columns from DISTINCT clau
   - lfirst_oid (extract OID from list cell)
   - InvalidOid (PostgreSQL invalid OID constant)
 - Called from:
-  - query_is_distinct_for (multiple times at lines 1016, 1047, 1115)
+  - [query_is_distinct_for](../q/query_is_distinct_for.md) (multiple times at lines 1016, 1047, 1115)
 
 ## Notes and Other Information
 - Declared as static, so it's only visible within the analyzejoins.c file

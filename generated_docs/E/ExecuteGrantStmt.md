@@ -18,19 +18,19 @@ This public function serves as the primary interface for PostgreSQL's GRANT and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_rolespec_oid
-  - objectNamesToOids
-  - objectsInSchemaToOids  
+  - [objectNamesToOids](../o/objectNamesToOids.md)
+  - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md)  
   - lappend_oid
-  - string_to_privilege
-  - privilege_to_string
-  - ExecGrantStmt_oids
+  - [string_to_privilege](../s/string_to_privilege.md)
+  - [privilege_to_string](../p/privilege_to_string.md)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md)
   - ereport
   - elog
   - gettext_noop
 - Types and structures:
   - GrantStmt
   - InternalGrant
-  - RoleSpec
+  - [RoleSpec](../R/RoleSpec.md)
   - AccessPriv
   - AclMode
 - Constants used:
@@ -40,8 +40,8 @@ This public function serves as the primary interface for PostgreSQL's GRANT and 
   - ACL_ID_PUBLIC
   - ROLESPEC_PUBLIC
 - Called from:
-  - standard_ProcessUtility
-  - ProcessUtilitySlow
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Currently enforces that the grantor must be the current user for SQL standard compliance, though this restriction may be relaxed in future versions

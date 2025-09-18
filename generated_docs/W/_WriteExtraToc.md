@@ -22,11 +22,11 @@ This mechanism allows the custom format to maintain precise offset information f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteOffset (archiver utility function for writing offset data)
+  - [WriteOffset](WriteOffset.md) (archiver utility function for writing offset data)
   - lclTocEntry (local TOC entry structure type)
 
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (assigned as WriteExtraTocPtr function pointer)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (assigned as WriteExtraTocPtr function pointer)
   - Referenced by InitArchiveFmt_Directory (directory format also uses this pattern)
 
 ## Notes and Other Information

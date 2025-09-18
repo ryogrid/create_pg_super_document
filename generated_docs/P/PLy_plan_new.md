@@ -18,10 +18,10 @@ This function takes no parameters and returns a PyObject pointer to the newly cr
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_New (Python C API)
-  - PLyPlanObject (struct type)
+  - [PLyPlanObject](PLyPlanObject.md) (struct type)
   - PLy_PlanType (Python type object)
 - Called from (representative examples):
-  - PLy_spi_prepare
+  - [PLy_spi_prepare](PLy_spi_prepare.md)
 
 ## Notes and Other Information
 - Returns NULL on memory allocation failure, which should be handled by calling code

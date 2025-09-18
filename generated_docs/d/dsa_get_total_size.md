@@ -25,7 +25,7 @@ The returned size represents only the currently active segments and does not inc
   - LWLockRelease  
   - DSA_AREA_LOCK
 - Called from (representative examples):
-  - RT_MEMORY_USAGE (in radixtree.h)
+  - [RT_MEMORY_USAGE](../R/RT_MEMORY_USAGE.md) (in radixtree.h)
 
 ## Notes and Other Information
 - The function uses exclusive locking to ensure atomic access to the total_segment_size field

@@ -35,28 +35,28 @@ The test demonstrates the distinction between pipeline-aborted state (recoverabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec - Execute immediate SQL commands
+  - [PQexec](../P/PQexec.md) - Execute immediate SQL commands
   - PQenterPipelineMode - Enter pipeline mode
-  - PQsendPrepare - Prepare a statement in pipeline
-  - PQsendQueryParams - Send parameterized queries
-  - PQsendQueryPrepared - Execute prepared statements
+  - [PQsendPrepare](../P/PQsendPrepare.md) - Prepare a statement in pipeline
+  - [PQsendQueryParams](../P/PQsendQueryParams.md) - Send parameterized queries
+  - [PQsendQueryPrepared](../P/PQsendQueryPrepared.md) - Execute prepared statements
   - PQpipelineSync - Send pipeline synchronization
-  - PQgetResult - Retrieve query results
+  - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
   - PQexitPipelineMode - Exit pipeline mode
-  - PQresultStatus - Get result status
-  - PQresStatus - Get status string representation
-  - PQntuples - Get number of tuples in result
-  - PQgetvalue - Get specific field value
-  - PQclear - Free result memory
-  - PQerrorMessage - Get error message
-  - PGRES_COMMAND_OK - Command executed successfully
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status
+  - [PQresStatus](../P/PQresStatus.md) - Get status string representation
+  - [PQntuples](../P/PQntuples.md) - Get number of tuples in result
+  - [PQgetvalue](../P/PQgetvalue.md) - Get specific field value
+  - [PQclear](../P/PQclear.md) - Free result memory
+  - [PQerrorMessage](../P/PQerrorMessage.md) - Get error message
+  - PGRES_COMMAND_OK - [Command](../C/Command.md) executed successfully
   - PGRES_TUPLES_OK - Normal tuples result status
   - PGRES_FATAL_ERROR - Fatal error status
   - PGRES_PIPELINE_ABORTED - Pipeline aborted status
   - PGRES_PIPELINE_SYNC - Pipeline sync result status
-  - ExecStatusType - Result status enumeration type
+  - ExecStatusType - [Result](../R/Result.md) status enumeration type
 - Called from (representative examples):
-  - main - Main test driver function
+  - [main](../m/main.md) - Main test driver function
 
 ## Notes and Other Information
 - This is a comprehensive test for PostgreSQL pipeline error handling and state management

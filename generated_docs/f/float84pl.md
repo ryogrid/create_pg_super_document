@@ -23,7 +23,7 @@ This function implements the addition operation for mixed-precision floating-poi
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Macro to extract float8 argument from function arguments
   - PG_GETARG_FLOAT4: Macro to extract float4 argument from function arguments  
-  - float8_pl: Function that performs double precision floating-point addition
+  - [float8_pl](float8_pl.md): Function that performs double precision floating-point addition
   - PG_RETURN_FLOAT8: Macro to return a float8 result
 - Called from (representative examples):
   - No direct references found in the codebase

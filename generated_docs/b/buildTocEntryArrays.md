@@ -28,12 +28,12 @@ For TABLE DATA entries, the function establishes a reverse mapping by examining 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0 (memory allocation)
-  - pg_fatal (error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
   - DumpId (type)
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - RestoreArchive (during archive restoration process)
-  - getTocEntryByDumpId (ensures arrays are built before lookup)
+  - [RestoreArchive](../R/RestoreArchive.md) (during archive restoration process)
+  - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md) (ensures arrays are built before lookup)
 
 ## Notes and Other Information
 - This is a static function only accessible within pg_backup_archiver.c

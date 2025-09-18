@@ -24,9 +24,9 @@ If the prepared transaction is later committed via COMMIT PREPARED, the system w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtEOXact_Inval
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md)
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](PrepareTransaction.md)
 
 ## Notes and Other Information
 - Essential for maintaining cache consistency during two-phase commit operations

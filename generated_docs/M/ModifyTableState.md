@@ -66,25 +66,25 @@ ModifyTableState is one of the most complex executor state structures, managing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited base structure)
+  - [PlanState](../P/PlanState.md) (inherited base structure)
   - CmdType (operation type enumeration)
-  - ResultRelInfo (target relation information)
-  - EPQState (concurrent update handling)
-  - HTAB (hash table for OID lookups)
-  - PartitionTupleRouting (partitioning support)
+  - [ResultRelInfo](../R/ResultRelInfo.md) (target relation information)
+  - [EPQState](../E/EPQState.md) (concurrent update handling)
+  - [HTAB](../H/HTAB.md) (hash table for OID lookups)
+  - [PartitionTupleRouting](../P/PartitionTupleRouting.md) (partitioning support)
   - TransitionCaptureState (transition table management)
-  - MergeActionState (MERGE operation state)
+  - [MergeActionState](MergeActionState.md) (MERGE operation state)
   - TupleTableSlot (tuple storage)
 - Called from (representative examples):
-  - ExecModifyTable
-  - ExecInitModifyTable
-  - ExecEndModifyTable
-  - ExecReScanModifyTable
-  - ExecInsert
-  - ExecBatchInsert
-  - ExecOnConflictUpdate
-  - ExecMergeMatched
-  - ExecMergeNotMatched
+  - [ExecModifyTable](../E/ExecModifyTable.md)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md)
+  - [ExecEndModifyTable](../E/ExecEndModifyTable.md)
+  - [ExecReScanModifyTable](../E/ExecReScanModifyTable.md)
+  - [ExecInsert](../E/ExecInsert.md)
+  - [ExecBatchInsert](../E/ExecBatchInsert.md)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md)
+  - [ExecMergeMatched](../E/ExecMergeMatched.md)
+  - [ExecMergeNotMatched](../E/ExecMergeNotMatched.md)
 
 ## Notes and Other Information
 ModifyTableState represents the pinnacle of complexity in PostgreSQL's executor state structures, reflecting the sophisticated requirements of modern data modification operations. The structure's extensive partition and inheritance support enables PostgreSQL's advanced table organization features. The EPQ mechanism provides crucial MVCC support for concurrent operations. The MERGE-specific fields demonstrate PostgreSQL's implementation of SQL standard MERGE operations, allowing complex conditional data modification in a single statement. The transition capture mechanisms support advanced trigger functionality, enabling applications to track changes through statement-level triggers. This state structure is central to PostgreSQL's data modification capabilities and is extensively used throughout the executor and related subsystems.

@@ -21,15 +21,15 @@ The function includes optimization paths for different scenarios and performs in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createarc
-  - freearc
+  - [createarc](../c/createarc.md)
+  - [freearc](../f/freearc.md)
   - BULK_ARC_OP_USE_SORT
-  - cparc
+  - [cparc](../c/cparc.md)
   - INTERRUPT
-  - sortouts
+  - [sortouts](../s/sortouts.md)
   - NISERR
-  - sortouts_cmp
-  - changearcsource
+  - [sortouts_cmp](../s/sortouts_cmp.md)
+  - [changearcsource](../c/changearcsource.md)
   - NOTREACHED
 - Called from (representative examples):
   - push

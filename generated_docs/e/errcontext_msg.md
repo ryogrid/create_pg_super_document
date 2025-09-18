@@ -25,7 +25,7 @@ The function operates on the current error context and uses the context_domain f
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE (macro)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - errcontext (macro in elog.h, multiple definitions)
 

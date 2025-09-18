@@ -18,14 +18,14 @@ The `attribute_reloptions` function is a specialized option parser for PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
   - relopt_parse_elt (structure)
   - RELOPT_TYPE_REAL (constant)
   - RELOPT_KIND_ATTRIBUTE (constant)
   - AttributeOpts (structure)
   - lengthof (macro)
 - Called from (representative examples):
-  - ATExecSetOptions
+  - [ATExecSetOptions](../A/ATExecSetOptions.md)
   - get_attribute_options
 
 ## Notes and Other Information

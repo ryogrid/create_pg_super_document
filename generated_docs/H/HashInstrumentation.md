@@ -23,7 +23,7 @@ HashInstrumentation serves as a data collection structure for monitoring and ana
 - Functions called/Symbols referenced:
   - Size (for memory measurement)
 - Called from (representative examples):
-  - show_hash_info (for EXPLAIN ANALYZE output)
+  - [show_hash_info](../s/show_hash_info.md) (for EXPLAIN ANALYZE output)
   - ExecHashRetrieveInstrumentation (for collecting metrics)
   - ExecHashAccumInstrumentation (for accumulating metrics)
   - ExecHashEstimate (for estimation)

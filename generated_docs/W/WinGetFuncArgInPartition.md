@@ -36,13 +36,13 @@ This function is essential for implementing window functions like LAG/LEAD that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - spool_tuples
-  - window_gettupleslot
-  - WinSetMarkPosition
+  - [spool_tuples](../s/spool_tuples.md)
+  - [window_gettupleslot](../w/window_gettupleslot.md)
+  - [WinSetMarkPosition](WinSetMarkPosition.md)
   - ExecEvalExpr
-  - list_nth
+  - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
-  - leadlag_common
+  - [leadlag_common](../l/leadlag_common.md)
 
 ## Notes and Other Information
 - Non-existent row positions are not treated as errors - they simply return null results

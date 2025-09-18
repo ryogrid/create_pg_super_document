@@ -25,11 +25,11 @@ The function uses the `rank_up()` utility function to determine when the rank sh
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_WINDOW_OBJECT
-  - rank_up
-  - WinGetPartitionLocalMemory
-  - WinGetCurrentPosition
+  - [rank_up](../r/rank_up.md)
+  - [WinGetPartitionLocalMemory](../W/WinGetPartitionLocalMemory.md)
+  - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md)
   - PG_RETURN_INT64
-  - rank_context (struct)
+  - [rank_context](../r/rank_context.md) (struct)
   - WindowObject (type)
 - Called from (representative examples):
   - This is a PostgreSQL built-in function called directly from SQL queries

@@ -19,10 +19,10 @@ PLy_get_scratch_context provides access to a dedicated memory context for tempor
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - ALLOCSET_DEFAULT_SIZES
-  - PLyExecutionContext
+  - [PLyExecutionContext](PLyExecutionContext.md)
 - Called from (representative examples):
-  - PLy_input_convert
-  - PLy_input_from_tuple
+  - [PLy_input_convert](PLy_input_convert.md)
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md)
 
 ## Notes and Other Information
 - The scratch context is lazily allocated to avoid unnecessary memory overhead for procedures that don't need temporary storage

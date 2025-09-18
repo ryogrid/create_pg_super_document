@@ -33,15 +33,15 @@ The function handles RestrictInfo nodes in the clause tree and uses predicate_cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - predicate_classify (classifies expressions as AND/OR/ATOM)
-  - predicate_implied_by_simple_clause (handles atom => atom base cases)
+  - [predicate_classify](predicate_classify.md) (classifies expressions as AND/OR/ATOM)
+  - [predicate_implied_by_simple_clause](predicate_implied_by_simple_clause.md) (handles atom => atom base cases)
   - iterate_begin/iterate_end (macros for iterating over AND/OR components)
-  - PredIterInfoData (structure for iteration state)
-  - PredClass enumeration (CLASS_AND, CLASS_OR, CLASS_ATOM)
+  - [PredIterInfoData](../P/PredIterInfoData.md) (structure for iteration state)
+  - [PredClass](../P/PredClass.md) enumeration (CLASS_AND, CLASS_OR, CLASS_ATOM)
 - Called from (representative examples):
-  - predicate_implied_by (top-level entry point)
-  - predicate_implied_by_recurse (recursive self-calls)
-  - predicate_refuted_by_recurse (similar logic for refutation)
+  - [predicate_implied_by](predicate_implied_by.md) (top-level entry point)
+  - [predicate_implied_by_recurse](predicate_implied_by_recurse.md) (recursive self-calls)
+  - [predicate_refuted_by_recurse](predicate_refuted_by_recurse.md) (similar logic for refutation)
 
 ## Notes and Other Information
 - Static function - internal implementation detail of predtest.c

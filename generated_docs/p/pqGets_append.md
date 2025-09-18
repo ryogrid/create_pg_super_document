@@ -22,7 +22,7 @@ The function handles memory management gracefully - if the buffer cannot be expa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGets_internal (with resetbuffer=false)
+  - [pqGets_internal](pqGets_internal.md) (with resetbuffer=false)
 - Called from (representative examples):
   - MAX_ERRLEN (referenced in fe-connect.c:3755)
   - pgunlock_thread (referenced in libpq-int.h:746)

@@ -35,14 +35,14 @@ The function supports two reporting modes: terminating processes that own invali
   - ngettext
   - LSN_FORMAT_ARGS
   - ereport
-  - errmsg
-  - errdetail_internal
-  - errhint
+  - [errmsg](../e/errmsg.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [errhint](../e/errhint.md)
   - NameStr
-  - pfree
+  - [pfree](../p/pfree.md)
   - pg_unreachable
 - Called from (representative examples):
-  - InvalidatePossiblyObsoleteSlot (twice - for termination and invalidation reporting)
+  - [InvalidatePossiblyObsoleteSlot](../I/InvalidatePossiblyObsoleteSlot.md) (twice - for termination and invalidation reporting)
 
 ## Notes and Other Information
 This function is crucial for PostgreSQL administrators to understand why replication slots are being invalidated. The detailed error messages help in diagnosing replication issues and adjusting configuration parameters like max_slot_wal_keep_size or wal_level appropriately.

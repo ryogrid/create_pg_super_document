@@ -25,21 +25,21 @@ The function is critical for MVCC (Multi-Version Concurrency Control) implementa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionLogFetch
-  - TransactionIdPrecedes
-  - SubTransGetParent
+  - [TransactionLogFetch](TransactionLogFetch.md)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md)
+  - [SubTransGetParent](../S/SubTransGetParent.md)
   - TransactionIdIsValid
-  - TransactionIdDidCommit (recursive call)
+  - [TransactionIdDidCommit](TransactionIdDidCommit.md) (recursive call)
   - XidStatus
   - TRANSACTION_STATUS_COMMITTED
   - TRANSACTION_STATUS_SUB_COMMITTED
 - Called from (representative examples):
-  - HeapTupleSatisfiesSelf
-  - HeapTupleSatisfiesMVCC
-  - HeapTupleSatisfiesUpdate
-  - HeapTupleSatisfiesDirty
-  - FreezeMultiXactId
-  - compute_new_xmax_infomask
+  - [HeapTupleSatisfiesSelf](../H/HeapTupleSatisfiesSelf.md)
+  - [HeapTupleSatisfiesMVCC](../H/HeapTupleSatisfiesMVCC.md)
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)
+  - [HeapTupleSatisfiesDirty](../H/HeapTupleSatisfiesDirty.md)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md)
 
 ## Notes and Other Information
 - This function assumes the transaction identifier is valid and exists in the commit log (clog)

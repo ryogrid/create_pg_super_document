@@ -27,11 +27,11 @@ The function performs a loop that:
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - makeObjectName
+  - [makeObjectName](../m/makeObjectName.md)
   - GetSysCacheOid2
   - NAMEDATALEN (constant)
 - Called from (representative examples):
-  - CreateStatistics
+  - [CreateStatistics](CreateStatistics.md)
 
 ## Notes and Other Information
 - The function includes a theoretical race condition warning: concurrent sessions could choose the same name, though this is unlikely in practice when holding appropriate locks

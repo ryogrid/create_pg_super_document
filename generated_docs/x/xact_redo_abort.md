@@ -20,18 +20,18 @@ This function performs the recovery replay of transaction abort operations durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdLatest
+  - [TransactionIdLatest](../T/TransactionIdLatest.md)
   - AdvanceNextFullTransactionIdPastXid
-  - TransactionIdAbortTree
-  - RecordKnownAssignedTransactionIds
+  - [TransactionIdAbortTree](../T/TransactionIdAbortTree.md)
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
   - ExpireTreeKnownAssignedTransactionIds
   - StandbyReleaseLockTree
-  - replorigin_advance
-  - DropRelationFiles
+  - [replorigin_advance](../r/replorigin_advance.md)
+  - [DropRelationFiles](../D/DropRelationFiles.md)
   - pgstat_execute_transactional_drops
-  - XLogFlush
+  - [XLogFlush](../X/XLogFlush.md)
 - Called from (representative examples):
-  - xact_redo (for both XLOG_XACT_ABORT and XLOG_XACT_ABORT_PREPARED)
+  - [xact_redo](xact_redo.md) (for both XLOG_XACT_ABORT and XLOG_XACT_ABORT_PREPARED)
 
 ## Notes and Other Information
 The function is similar to xact_redo_commit but simpler since aborts don't require invalidation message processing or complex timing considerations. A key difference is that abort records can represent subtransaction aborts (topxid != xid), unlike commits where topxid == xid always. The function includes the same WAL-first rule protection for file drops as the commit replay function. Unlike commits, aborts don't use async protocols during hot standby recovery since there are no consistency concerns with hint bits for aborted transactions.

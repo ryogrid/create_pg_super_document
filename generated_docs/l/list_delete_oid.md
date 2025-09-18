@@ -23,11 +23,11 @@ When a matching OID is found, the cell is removed using `list_delete_cell()` and
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsOidList (macro for type checking)
-  - check_list_invariants
+  - [check_list_invariants](../c/check_list_invariants.md)
   - lfirst_oid (macro to extract OID from list cell)
-  - list_delete_cell
+  - [list_delete_cell](list_delete_cell.md)
 - Called from (representative examples):
-  - RemoveReindexPending (src/backend/catalog/index.c:4143)
+  - [RemoveReindexPending](../R/RemoveReindexPending.md) (src/backend/catalog/index.c:4143)
 
 ## Notes and Other Information
 - Only works with OID lists (OidList), not pointer or integer lists

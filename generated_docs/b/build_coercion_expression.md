@@ -31,15 +31,15 @@ For function-based coercion, it validates the coercion function and constructs a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1, ReleaseSysCache (system catalog access)
-  - makeConst, makeFuncExpr, makeNode (node construction)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (system catalog access)
+  - [makeConst](../m/makeConst.md), makeFuncExpr, makeNode (node construction)
   - exprType, exprTypmod (expression type utilities)
-  - getBaseTypeAndTypmod, get_element_type (type utilities)
-  - coerce_to_target_type (recursive coercion)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md), get_element_type (type utilities)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (recursive coercion)
   - list_make1, lappend (list operations)
 - Called from:
-  - coerce_type
-  - coerce_type_typmod
+  - [coerce_type](../c/coerce_type.md)
+  - [coerce_type_typmod](../c/coerce_type_typmod.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_coerce.c

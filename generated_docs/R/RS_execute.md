@@ -24,15 +24,15 @@ The function handles multibyte characters correctly using pg_mblen() and support
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen (for multibyte character length calculation)
-  - mb_strchr (for multibyte-aware character search)
+  - [pg_mblen](../p/pg_mblen.md) (for multibyte character length calculation)
+  - [mb_strchr](../m/mb_strchr.md) (for multibyte-aware character search)
   - elog (for error reporting)
 - Data structures used:
   - Regis (pattern container structure)
   - RegisNode (linked list nodes representing pattern elements)
   - RSF_ONEOF, RSF_NONEOF (pattern type constants)
 - Called from (representative examples):
-  - CheckAffix (in src/backend/tsearch/spell.c)
+  - [CheckAffix](../C/CheckAffix.md) (in src/backend/tsearch/spell.c)
 
 ## Notes and Other Information
 - Returns true if the string matches the pattern, false otherwise

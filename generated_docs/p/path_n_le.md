@@ -23,7 +23,7 @@ The `path_n_le` function implements the "less than or equal" comparison operator
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P: Macro to extract PATH argument from function call
   - PG_RETURN_BOOL: Macro to return boolean result
-  - PATH: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
 
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through SQL operator framework)

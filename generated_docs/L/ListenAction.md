@@ -18,12 +18,12 @@ ListenAction is a flexible-sized structure used to queue LISTEN, UNLISTEN, and U
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ListenActionKind (for the action field type)
+  - [ListenActionKind](ListenActionKind.md) (for the action field type)
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro for flexible array members)
 - Called from (representative examples):
-  - queue_listen (src/backend/commands/async.c:693, 705)
-  - PreCommit_Notify (src/backend/commands/async.c:876)
-  - AtCommit_Notify (src/backend/commands/async.c:987)
+  - [queue_listen](../q/queue_listen.md) (src/backend/commands/async.c:693, 705)
+  - [PreCommit_Notify](../P/PreCommit_Notify.md) (src/backend/commands/async.c:876)
+  - [AtCommit_Notify](../A/AtCommit_Notify.md) (src/backend/commands/async.c:987)
 
 ## Notes and Other Information
 - The structure uses a flexible array member to store channel names efficiently, avoiding separate memory allocations

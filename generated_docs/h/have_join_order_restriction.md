@@ -21,13 +21,13 @@ The function implements a critical optimization heuristic by deferring clauseles
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap
-  - bms_is_subset
-  - has_legal_joinclause
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [has_legal_joinclause](has_legal_joinclause.md)
 - Called from (representative examples):
-  - join_search_one_level
-  - make_rels_by_clause_joins
-  - desirable_join
+  - [join_search_one_level](../j/join_search_one_level.md)
+  - [make_rels_by_clause_joins](../m/make_rels_by_clause_joins.md)
+  - [desirable_join](../d/desirable_join.md)
 
 ## Notes and Other Information
 - Always used in conjunction with have_relevant_joinclause() in practice, though kept separate for clarity

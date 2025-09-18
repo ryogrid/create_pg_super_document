@@ -22,9 +22,9 @@ The function includes robust error handling for client disconnections and protoc
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_CANCEL_INTERRUPTS() (interrupt control macro)
-  - pq_startmsgread() (protocol message reading)
-  - pq_getbyte() (protocol byte reading)
-  - IsTransactionState() (transaction state checking)
+  - [pq_startmsgread](../p/pq_startmsgread.md)() (protocol message reading)
+  - [pq_getbyte](../p/pq_getbyte.md)() (protocol byte reading)
+  - [IsTransactionState](../I/IsTransactionState.md)() (transaction state checking)
   - ereport() (error reporting via COMMERROR, DEBUG1, FATAL levels)
   - pq_getmessage() (protocol message body reading)
   - RESUME_CANCEL_INTERRUPTS() (interrupt control macro)
@@ -33,7 +33,7 @@ The function includes robust error handling for client disconnections and protoc
   - Global variables (whereToSendOutput, doing_extended_query_message, ignore_till_sync)
 
 - Called from (representative examples):
-  - ReadCommand (src/backend/tcop/postgres.c:497)
+  - [ReadCommand](../R/ReadCommand.md) (src/backend/tcop/postgres.c:497)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the postgres.c compilation unit

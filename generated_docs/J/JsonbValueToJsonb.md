@@ -26,18 +26,18 @@ The function is essential for preparing JSONB data for storage or transmission a
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsAJsonbScalar (macro to check if value is scalar)
-  - pushJsonbValue (builds JSONB structures)
-  - convertToJsonb (converts JsonbValue to Jsonb)
-  - palloc (PostgreSQL memory allocation)
+  - [pushJsonbValue](../p/pushJsonbValue.md) (builds JSONB structures)
+  - [convertToJsonb](../c/convertToJsonb.md) (converts JsonbValue to Jsonb)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - SET_VARSIZE (sets variable-length data size)
   - VARDATA (gets variable-length data pointer)
   - memcpy (memory copy function)
 - Called from (representative examples):
-  - jsonb_build_object_worker
-  - jsonb_build_array_worker  
-  - jsonb_set
-  - jsonb_insert
-  - jsonb_path_query_internal
+  - [jsonb_build_object_worker](../j/jsonb_build_object_worker.md)
+  - [jsonb_build_array_worker](../j/jsonb_build_array_worker.md)  
+  - [jsonb_set](../j/jsonb_set.md)
+  - [jsonb_insert](../j/jsonb_insert.md)
+  - [jsonb_path_query_internal](../j/jsonb_path_query_internal.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

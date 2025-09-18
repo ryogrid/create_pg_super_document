@@ -30,11 +30,11 @@ The command supports:
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
   - strchr
-  - listAllDbs
+  - [listAllDbs](../l/listAllDbs.md)
   - free
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure  

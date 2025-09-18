@@ -19,16 +19,16 @@ This static helper function implements complex number division for PostgreSQL Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float8_pl (floating point addition)
-  - float8_mul (floating point multiplication)
-  - float8_div (floating point division)
-  - float8_mi (floating point subtraction)
-  - point_construct (constructs the result point)
+  - [float8_pl](../f/float8_pl.md) (floating point addition)
+  - [float8_mul](../f/float8_mul.md) (floating point multiplication)
+  - [float8_div](../f/float8_div.md) (floating point division)
+  - [float8_mi](../f/float8_mi.md) (floating point subtraction)
+  - [point_construct](point_construct.md) (constructs the result point)
 - Called from (representative examples):
-  - point_div
-  - box_div
-  - path_div_pt
-  - circle_div_pt
+  - [point_div](point_div.md)
+  - [box_div](../b/box_div.md)
+  - [path_div_pt](path_div_pt.md)
+  - [circle_div_pt](../c/circle_div_pt.md)
 
 ## Notes and Other Information
 - This is a static inline function for internal use within geo_ops.c

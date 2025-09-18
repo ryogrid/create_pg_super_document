@@ -26,20 +26,20 @@ This function is designed for queries that return configuration values, status i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec
-  - PQresultStatus
-  - PQresultErrorMessage
-  - PQnfields
-  - PQntuples
-  - PQgetisnull
-  - PQgetvalue
-  - PQclear
-  - pg_strdup
-  - pg_fatal
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - PGRES_TUPLES_OK
 - Called from:
-  - init_libpq_conn (in src/bin/pg_rewind/libpq_source.c:140)
-  - libpq_get_current_wal_insert_lsn (in src/bin/pg_rewind/libpq_source.c:217)
+  - [init_libpq_conn](../i/init_libpq_conn.md) (in src/bin/pg_rewind/libpq_source.c:140)
+  - [libpq_get_current_wal_insert_lsn](../l/libpq_get_current_wal_insert_lsn.md) (in src/bin/pg_rewind/libpq_source.c:217)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the libpq_source.c file

@@ -21,7 +21,7 @@ This function provides a comparison mechanism for sorting transaction IDs that t
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal (macro to check if XID is normal)
-  - TransactionIdPrecedes (function for wraparound-aware XID comparison)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (function for wraparound-aware XID comparison)
 - Called from (representative examples):
   - ProcArrayApplyRecoveryInfo (in procarray.c)
 

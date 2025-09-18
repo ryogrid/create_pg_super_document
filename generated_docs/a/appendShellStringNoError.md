@@ -29,12 +29,12 @@ When LF or CR characters are encountered, they are silently omitted from the out
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar (appends individual characters)
-  - appendPQExpBufferStr (appends string segments)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md) (appends string segments)
   - strspn (checks for safe character optimization)
   - strlen (determines string length for optimization check)
 - Called from (representative examples):
-  - appendShellString (as the underlying implementation)
-  - psql_get_variable (in psql's common.c)
+  - [appendShellString](appendShellString.md) (as the underlying implementation)
+  - [psql_get_variable](../p/psql_get_variable.md) (in psql's common.c)
 
 ## Notes and Other Information
 - Implements different quoting strategies based on the target platform (Unix vs Windows)

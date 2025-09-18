@@ -34,11 +34,11 @@ This step targets common Arabic noun endings that need to be stripped to find th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b` (Snowball backward pattern matching function)
-  - `len_utf8` (UTF-8 string length calculation)
-  - `slice_del` (Snowball suffix deletion function)
+  - `[find_among_b](../f/find_among_b.md)` (Snowball backward pattern matching function)
+  - `[len_utf8](../l/len_utf8.md)` (UTF-8 string length calculation)
+  - `[slice_del](../s/slice_del.md)` (Snowball suffix deletion function)
 - Called from (representative examples):
-  - `arabic_UTF_8_stem` (main Arabic stemming function, called at lines 1508, 1543, 1570)
+  - `[arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md)` (main Arabic stemming function, called at lines 1508, 1543, 1570)
 
 ## Notes and Other Information
 - This function matches three common Arabic suffixes: و, ي, and ا

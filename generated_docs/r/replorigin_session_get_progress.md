@@ -27,12 +27,12 @@ The optional flush parameter allows callers to ensure that all changes up to the
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease (with LW_SHARED mode)
-  - XLogFlush
+  - [XLogFlush](../X/XLogFlush.md)
   - InvalidXLogRecPtr (for validation)
 - Called from (representative examples):
-  - pg_replication_origin_session_progress
-  - LogicalRepSyncTableStart
-  - run_apply_worker
+  - [pg_replication_origin_session_progress](../p/pg_replication_origin_session_progress.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
+  - [run_apply_worker](run_apply_worker.md)
 
 ## Notes and Other Information
 - Requires an active replication origin session (established via replorigin_session_setup())

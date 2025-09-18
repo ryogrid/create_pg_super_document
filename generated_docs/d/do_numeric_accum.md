@@ -22,7 +22,7 @@ This static function performs the core accumulation logic for numeric aggregate 
   -  - Check for positive infinity
   -  - Check for negative infinity
   -  - Convert numeric to NumericVar format
-  -  - Initialize NumericVar structure
+  -  - [Initialize](../I/Initialize.md) NumericVar structure
   -  - Multiply two NumericVar values
   -  - Add value to accumulated sum
   -  - Switch memory contexts

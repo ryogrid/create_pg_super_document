@@ -20,9 +20,9 @@ AttributeTemplate serves as a template function in PostgreSQL's LLVM JIT compila
   - AssertVariableIsOfType (for type assertion)
   - PG_RETURN_NULL (PostgreSQL macro for returning NULL)
 - Called from (representative examples):
-  - llvm_function_reference (in llvmjit.c:627)
-  - llvm_create_types (in llvmjit.c:1135)
-  - slot_compile_deform (in llvmjit_deform.c:144)
+  - [llvm_function_reference](../l/llvm_function_reference.md) (in llvmjit.c:627)
+  - [llvm_create_types](../l/llvm_create_types.md) (in llvmjit.c:1135)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c:144)
   - llvm_compile_expr (in llvmjit_expr.c:160)
   - BuildV1Call (in llvmjit_expr.c:2726)
 

@@ -35,11 +35,11 @@ The function combines pattern matching with state management and morphological t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Pattern matching function for prefix identification
-  - len_utf8: UTF-8 string length calculation function
-  - slice_from_s: Function to replace text slice with specified string
+  - [find_among](../f/find_among.md): Pattern matching function for prefix identification
+  - [len_utf8](../l/len_utf8.md): UTF-8 string length calculation function
+  - [slice_from_s](../s/slice_from_s.md): Function to replace text slice with specified string
 - Called from:
-  - arabic_UTF_8_stem: Main Arabic stemming function at line 1645
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at line 1645
 
 ## Notes and Other Information
 - This function specifically targets Arabic verb prefixes in Step 4 of the stemming process

@@ -22,17 +22,17 @@ The extended version provides graceful error handling for cases where the operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (OPFAMILYOID cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (OPFAMILYOID cache lookup)
   - HeapTupleIsValid
   - GETSTRUCT
-  - recomputeNamespacePath
-  - list_member_oid
-  - OpfamilynameGetOpfid
-  - ReleaseSysCache
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [OpfamilynameGetOpfid](OpfamilynameGetOpfid.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_opfamily
 - Called from (representative examples):
-  - OpfamilyIsVisible (src/backend/catalog/namespace.c:2258)
-  - pg_opfamily_is_visible (src/backend/catalog/namespace.c:4970)
+  - [OpfamilyIsVisible](OpfamilyIsVisible.md) (src/backend/catalog/namespace.c:2258)
+  - [pg_opfamily_is_visible](../p/pg_opfamily_is_visible.md) (src/backend/catalog/namespace.c:4970)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside namespace.c

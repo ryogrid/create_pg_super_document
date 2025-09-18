@@ -22,14 +22,14 @@ The function is designed to handle complex expressions that may contain PlaceHol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_var_clause (for extracting variable-like nodes from expressions)
-  - find_placeholder_info (for registering discovered PlaceHolderVars)
-  - list_free (for memory cleanup)
-  - PlaceHolderVar (node type checking and casting)
+  - [pull_var_clause](../p/pull_var_clause.md) (for extracting variable-like nodes from expressions)
+  - [find_placeholder_info](find_placeholder_info.md) (for registering discovered PlaceHolderVars)
+  - [list_free](../l/list_free.md) (for memory cleanup)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md) (node type checking and casting)
   - PVC_RECURSE_AGGREGATES, PVC_RECURSE_WINDOWFUNCS, PVC_INCLUDE_PLACEHOLDERS (flags for pull_var_clause)
 - Called from (representative examples):
-  - find_placeholder_info (for processing nested PlaceHolderVars)
-  - find_placeholders_recurse (for processing join qualifications)
+  - [find_placeholder_info](find_placeholder_info.md) (for processing nested PlaceHolderVars)
+  - [find_placeholders_recurse](find_placeholders_recurse.md) (for processing join qualifications)
 
 ## Notes and Other Information
 - Static function, only accessible within placeholder.c

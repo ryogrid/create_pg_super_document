@@ -24,9 +24,9 @@ AtEOXact_LogicalRepWorkers is called at the end of a transaction (EOXact = End o
   - lfirst_oid
   - lfirst
 - Called from (representative examples):
-  - CommitTransaction (src/backend/access/transam/xact.c:2423)
-  - PrepareTransaction (src/backend/access/transam/xact.c:2713)
-  - AbortTransaction (src/backend/access/transam/xact.c:2931)
+  - [CommitTransaction](../C/CommitTransaction.md) (src/backend/access/transam/xact.c:2423)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (src/backend/access/transam/xact.c:2713)
+  - [AbortTransaction](AbortTransaction.md) (src/backend/access/transam/xact.c:2931)
 
 ## Notes and Other Information
 - The function uses shared locking (LW_SHARED) on LogicalRepWorkerLock to safely iterate through worker information

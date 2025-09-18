@@ -21,10 +21,10 @@ The  function computes the inverse cosine of a floating-point argument and retur
   - isnan (to check for NaN input)
   - get_float8_nan (to return NaN when input is NaN)
   - INIT_DEGREE_CONSTANTS (macro to initialize degree constants)
-  - acosd_q1 (PostgreSQL arccosine function for first quadrant)
-  - asind_q1 (PostgreSQL arcsine function for first quadrant)
+  - [acosd_q1](../a/acosd_q1.md) (PostgreSQL arccosine function for first quadrant)
+  - [asind_q1](../a/asind_q1.md) (PostgreSQL arcsine function for first quadrant)
   - isinf (to check for infinite result)
-  - float_overflow_error (for overflow error reporting)
+  - [float_overflow_error](../f/float_overflow_error.md) (for overflow error reporting)
   - ereport (for error reporting)
 - Called from (representative examples):
   - No direct references found in the codebase

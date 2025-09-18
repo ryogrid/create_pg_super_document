@@ -26,8 +26,8 @@ The function is specifically designed to parse TLI values from backup label file
   - sscanf (standard C library function)
   - TimeLineID (PostgreSQL type definition)
 - Called from (representative examples):
-  - parse_backup_label (src/bin/pg_combinebackup/backup_label.c:75)
-  - parse_backup_label (src/bin/pg_combinebackup/backup_label.c:94)
+  - [parse_backup_label](parse_backup_label.md) (src/bin/pg_combinebackup/backup_label.c:75)
+  - [parse_backup_label](parse_backup_label.md) (src/bin/pg_combinebackup/backup_label.c:94)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the backup_label.c compilation unit

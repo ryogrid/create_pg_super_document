@@ -24,14 +24,14 @@ The tuplestore is stored in the global afterTriggers structure, indexed by the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - tuplestore_begin_heap
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - CurTransactionContext
   - CurrentResourceOwner
   - CurTransactionResourceOwner
   - work_mem
   - afterTriggers (global structure)
 - Called from (representative examples):
-  - AfterTriggerExecute
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
   - AfterTriggerSaveEvent
 
 ## Notes and Other Information

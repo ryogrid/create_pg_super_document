@@ -21,9 +21,9 @@ The `open_write_none` function is a specialized file opening function for uncomp
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
   - fopen (standard C library function)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
-  - InitCompressFileHandleNone (used to initialize function pointer)
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md) (used to initialize function pointer)
 
 ## Notes and Other Information
 - This function is part of the "none" compression implementation for uncompressed files

@@ -19,13 +19,13 @@ The function returns true (non-zero) only when two conditions are met: the serve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQpass (retrieves the current password from the connection)
+  - [PQpass](PQpass.md) (retrieves the current password from the connection)
 - Called from (representative examples):
-  - GetConnection (streamutil.c)
-  - ConnectDatabase (pg_backup_db.c)
-  - connectDatabase (pg_dumpall.c)
-  - do_connect (psql command.c)
-  - connectDatabase (connect_utils.c)
+  - [GetConnection](../G/GetConnection.md) (streamutil.c)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (pg_backup_db.c)
+  - [connectDatabase](../c/connectDatabase.md) (pg_dumpall.c)
+  - [do_connect](../d/do_connect.md) (psql command.c)
+  - [connectDatabase](../c/connectDatabase.md) (connect_utils.c)
 
 ## Notes and Other Information
 - Returns int where non-zero (true) indicates a password is needed, zero (false) indicates no password is required

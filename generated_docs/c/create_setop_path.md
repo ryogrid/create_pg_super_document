@@ -30,7 +30,7 @@ This function creates a SetOpPath node that represents the execution of set oper
   - list_length
   - cpu_operator_cost
 - Called from (representative examples):
-  - generate_nonunion_paths (src/backend/optimizer/prep/prepunion.c:1179)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md) (src/backend/optimizer/prep/prepunion.c:1179)
 
 ## Notes and Other Information
 - SetOp operations don't project new columns, so they reuse the source path's pathtarget

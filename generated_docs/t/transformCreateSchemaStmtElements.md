@@ -23,13 +23,13 @@ Note that this function modifies schema-name fields within the passed-in structu
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateSchemaStmtContext (local context structure)
-  - setSchemaName
+  - [setSchemaName](../s/setSchemaName.md)
   - nodeTag
   - lappend
-  - list_concat
+  - [list_concat](../l/list_concat.md)
   - elog
 - Called from (representative examples):
-  - CreateSchemaCommand (in src/backend/commands/schemacmds.c:197)
+  - [CreateSchemaCommand](../C/CreateSchemaCommand.md) (in src/backend/commands/schemacmds.c:197)
 
 ## Notes and Other Information
 - The logic for determining forward references is currently incomplete, as noted in the comments

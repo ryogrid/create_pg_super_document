@@ -20,14 +20,14 @@ The structure is primarily used for EXPLAIN ANALYZE output to provide detailed s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IncrementalSortGroupInfo (struct type for both member variables)
+  - [IncrementalSortGroupInfo](IncrementalSortGroupInfo.md) (struct type for both member variables)
 - Called from (representative examples):
-  - show_incremental_sort_info (src/backend/commands/explain.c:3191)
-  - ExecIncrementalSortEstimate (src/backend/executor/nodeIncrementalSort.c:1181)
-  - ExecIncrementalSortInitializeDSM (src/backend/executor/nodeIncrementalSort.c:1203)
-  - ExecIncrementalSortRetrieveInstrumentation (src/backend/executor/nodeIncrementalSort.c:1242)
-  - SharedIncrementalSortInfo (src/include/nodes/execnodes.h:2374)
-  - IncrementalSortState (src/include/nodes/execnodes.h:2403)
+  - [show_incremental_sort_info](../s/show_incremental_sort_info.md) (src/backend/commands/explain.c:3191)
+  - [ExecIncrementalSortEstimate](../E/ExecIncrementalSortEstimate.md) (src/backend/executor/nodeIncrementalSort.c:1181)
+  - [ExecIncrementalSortInitializeDSM](../E/ExecIncrementalSortInitializeDSM.md) (src/backend/executor/nodeIncrementalSort.c:1203)
+  - [ExecIncrementalSortRetrieveInstrumentation](../E/ExecIncrementalSortRetrieveInstrumentation.md) (src/backend/executor/nodeIncrementalSort.c:1242)
+  - [SharedIncrementalSortInfo](../S/SharedIncrementalSortInfo.md) (src/include/nodes/execnodes.h:2374)
+  - [IncrementalSortState](IncrementalSortState.md) (src/include/nodes/execnodes.h:2403)
 
 ## Notes and Other Information
 - This structure is part of the PostgreSQL executor node system and is specifically designed for performance monitoring and analysis

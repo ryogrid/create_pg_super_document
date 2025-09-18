@@ -20,29 +20,29 @@ This function creates a complete IndexStmt that recreates an existing index on a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - SysCacheGetAttrNotNull
-  - SysCacheGetAttr
-  - get_tablespace_name
-  - get_index_constraint
-  - deconstruct_array_builtin
-  - get_namespace_name
-  - stringToNode
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [get_tablespace_name](get_tablespace_name.md)
+  - [get_index_constraint](get_index_constraint.md)
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [get_namespace_name](get_namespace_name.md)
+  - [stringToNode](../s/stringToNode.md)
   - TextDatumGetCString
-  - map_variable_attnos
-  - get_attname
-  - get_atttype
-  - get_collation
-  - get_opclass
-  - get_attoptions
-  - untransformRelOptions
+  - [map_variable_attnos](../m/map_variable_attnos.md)
+  - [get_attname](get_attname.md)
+  - [get_atttype](get_atttype.md)
+  - [get_collation](get_collation.md)
+  - [get_opclass](get_opclass.md)
+  - [get_attoptions](get_attoptions.md)
+  - [untransformRelOptions](../u/untransformRelOptions.md)
   - exprType
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - DefineIndex
-  - DefineRelation
-  - AttachPartitionEnsureIndexes
-  - expandTableLikeClause
+  - [DefineIndex](../D/DefineIndex.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
 
 ## Notes and Other Information
 - Does not preserve the original index name, allowing DefineIndex to choose a new name

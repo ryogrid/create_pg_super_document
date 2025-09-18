@@ -35,8 +35,8 @@ FdwInfo is part of pg_dump's internal representation of PostgreSQL database obje
   - DumpableObject (base structure)
   - DumpableAcl (access control list structure)
 - Called from (representative examples):
-  - getForeignDataWrappers (populates FdwInfo structures from pg_foreign_data_wrapper catalog)
-  - dumpForeignDataWrapper (uses FdwInfo to generate CREATE FOREIGN DATA WRAPPER statements)
+  - [getForeignDataWrappers](../g/getForeignDataWrappers.md) (populates FdwInfo structures from pg_foreign_data_wrapper catalog)
+  - [dumpForeignDataWrapper](../d/dumpForeignDataWrapper.md) (uses FdwInfo to generate CREATE FOREIGN DATA WRAPPER statements)
   - fmtQualifiedDumpable (formats the wrapper name for output)
 
 ## Notes and Other Information

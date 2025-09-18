@@ -26,7 +26,7 @@ ForBothState enables synchronized iteration through two lists simultaneously, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (implicitly referenced through l1 and l2 members)
+  - [List](../L/List.md) (implicitly referenced through l1 and l2 members)
 - Called from (representative examples):
   - forboth
 

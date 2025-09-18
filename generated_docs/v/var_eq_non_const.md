@@ -30,12 +30,12 @@ The estimation formula is: (1.0 - nullfrac) / number_of_distinct_values, represe
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_variable_numdistinct
-  - get_attstatsslot
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - CLAMP_PROBABILITY
   - STATISTIC_KIND_MCV, ATTSTATSSLOT_NUMBERS (constants)
 - Called from (representative examples):
-  - eqsel_internal
+  - [eqsel_internal](../e/eqsel_internal.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/selfuncs.c:467-557

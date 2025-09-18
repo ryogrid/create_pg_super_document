@@ -34,13 +34,13 @@ The function includes safety assertions to verify it's called in the correct con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_disconnect
-  - pgstat_report_stat
-  - dlist_is_empty
-  - dlist_init
+  - [pgstat_report_disconnect](pgstat_report_disconnect.md)
+  - [pgstat_report_stat](pgstat_report_stat.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [dlist_init](../d/dlist_init.md)
   - pgstat_detach_shmem
 - Called from (representative examples):
-  - pgstat_initialize (src/backend/utils/activity/pgstat.c:546) - registered as exit hook
+  - [pgstat_initialize](pgstat_initialize.md) (src/backend/utils/activity/pgstat.c:546) - registered as exit hook
 
 ## Notes and Other Information
 - This is a static function used internally by the statistics system

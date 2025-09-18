@@ -20,16 +20,16 @@ The XLogPrefetcherFilter serves as a selective blocking mechanism within the WAL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (file location identifier)
+  - [RelFileLocator](../R/RelFileLocator.md) (file location identifier)
   - XLogRecPtr (WAL position type)  
   - BlockNumber (block number type)
-  - dlist_node (double-linked list node)
+  - [dlist_node](../d/dlist_node.md) (double-linked list node)
 
 - Called from (representative examples):
-  - XLogPrefetcherAllocate (sets up hash table for filters)
-  - XLogPrefetcherAddFilter (adds new filter or updates existing one)
-  - XLogPrefetcherCompleteFilters (removes completed/expired filters)
-  - XLogPrefetcherIsFiltered (checks if a block should be filtered)
+  - [XLogPrefetcherAllocate](XLogPrefetcherAllocate.md) (sets up hash table for filters)
+  - [XLogPrefetcherAddFilter](XLogPrefetcherAddFilter.md) (adds new filter or updates existing one)
+  - [XLogPrefetcherCompleteFilters](XLogPrefetcherCompleteFilters.md) (removes completed/expired filters)
+  - [XLogPrefetcherIsFiltered](XLogPrefetcherIsFiltered.md) (checks if a block should be filtered)
 
 ## Notes and Other Information
 The filtering mechanism supports both specific block range filtering and whole database filtering (by setting appropriate RelFileLocator fields to invalid values). Filters are managed in a FIFO queue and indexed by a hash table for O(1) lookup performance. The system handles filter lifetime extension - when multiple WAL records affect the same relation, the filter duration is extended to cover the latest LSN, and the block range is adjusted to cover the minimum (most restrictive) block number. This prevents premature prefetching of blocks that may cause IO errors or unnecessary work when the blocks don't yet exist in the target relation.

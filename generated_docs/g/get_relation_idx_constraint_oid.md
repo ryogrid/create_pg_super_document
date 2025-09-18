@@ -22,19 +22,19 @@ The function scans through all constraints on the given relation and checks if a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_constraint
   - CONSTRAINT_PRIMARY
   - CONSTRAINT_UNIQUE
   - CONSTRAINT_EXCLUSION
 - Called from (representative examples):
-  - DefineIndex
-  - AttachPartitionEnsureIndexes
-  - DetachPartitionFinalize
-  - ATExecAttachPartitionIdx
-  - ConstraintCategory
+  - [DefineIndex](../D/DefineIndex.md)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
+  - [ConstraintCategory](../C/ConstraintCategory.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no constraint is found that owns the specified index

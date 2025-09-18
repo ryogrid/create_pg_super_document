@@ -18,10 +18,10 @@ This function outputs detailed statistics about a hash table to stderr for debug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_get_num_entries
-  - HTAB (hash table structure)
+  - [hash_get_num_entries](hash_get_num_entries.md)
+  - [HTAB](../H/HTAB.md) (hash table structure)
 - Called from (representative examples):
-  - hash_destroy
+  - [hash_destroy](hash_destroy.md)
 
 ## Notes and Other Information
 - Only compiled when HASH_STATISTICS is defined

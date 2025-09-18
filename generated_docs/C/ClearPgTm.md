@@ -27,8 +27,8 @@ This provides a consistent starting point for subsequent time/date calculations 
 - Functions called/Symbols referenced:
   - fsec_t (type definition for fractional seconds)
 - Called from (representative examples):
-  - DecodeISO8601Interval
-  - DecodeInterval
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md)
+  - [DecodeInterval](../D/DecodeInterval.md)
 
 ## Notes and Other Information
 - This is a static inline function within src/interfaces/ecpg/pgtypeslib/interval.c

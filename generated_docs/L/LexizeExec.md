@@ -35,15 +35,15 @@ The function manages state through the LexizeData structure and can recursively 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RemoveHead (removes processed tokens from work queue)
-  - lookup_ts_dictionary_cache (retrieves dictionary cache entries)
+  - [lookup_ts_dictionary_cache](../l/lookup_ts_dictionary_cache.md) (retrieves dictionary cache entries)
   - FunctionCall4 (calls dictionary lexize functions)
-  - setNewTmpRes (stores temporary results during multi-word processing)
-  - moveToWaste (moves processed tokens to waste list)
-  - setCorrLex (manages corresponding lexeme list)
-  - DatumGetObjectId (extracts ObjectId from Datum)
+  - [setNewTmpRes](../s/setNewTmpRes.md) (stores temporary results during multi-word processing)
+  - [moveToWaste](../m/moveToWaste.md) (moves processed tokens to waste list)
+  - [setCorrLex](../s/setCorrLex.md) (manages corresponding lexeme list)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md) (extracts ObjectId from Datum)
 - Called from (representative examples):
-  - parsetext (main text parsing function at line 402)
-  - hlparsetext (highlighting text parsing at line 590)
+  - [parsetext](../p/parsetext.md) (main text parsing function at line 402)
+  - [hlparsetext](../h/hlparsetext.md) (highlighting text parsing at line 590)
   - Self-recursive calls (lines 226, 288, 341)
 
 ## Notes and Other Information

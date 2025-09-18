@@ -20,12 +20,12 @@ The function delegates the actual relation discovery to GetSchemaPublicationRela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPublicationSchemas: Retrieves the list of schema OIDs associated with the publication
-  - GetSchemaPublicationRelations: Gets publishable relations for each individual schema
-  - list_concat: Concatenates relation lists from multiple schemas
+  - [GetPublicationSchemas](GetPublicationSchemas.md): Retrieves the list of schema OIDs associated with the publication
+  - [GetSchemaPublicationRelations](GetSchemaPublicationRelations.md): Gets publishable relations for each individual schema
+  - [list_concat](../l/list_concat.md): Concatenates relation lists from multiple schemas
   - lfirst_oid: Extracts OID from list cell during iteration
 - Called from (representative examples):
-  - AlterPublicationOptions: Updates publication when options change
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md): Updates publication when options change
   - NUM_PUBLICATION_TABLES_ELEM: Counts total relations in schema-based publications
 
 ## Notes and Other Information

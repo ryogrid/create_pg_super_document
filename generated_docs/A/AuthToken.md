@@ -22,20 +22,20 @@ AuthToken serves as the fundamental building block for parsing PostgreSQL authen
   - regex_t (POSIX regex type)
 - Called from (representative examples):
   - token_matches_insensitive
-  - next_token
-  - make_auth_token
-  - free_auth_token
-  - copy_auth_token
-  - regcomp_auth_token
-  - regexec_auth_token
-  - tokenize_expand_file
-  - tokenize_auth_file
-  - check_role
+  - [next_token](../n/next_token.md)
+  - [make_auth_token](../m/make_auth_token.md)
+  - [free_auth_token](../f/free_auth_token.md)
+  - [copy_auth_token](../c/copy_auth_token.md)
+  - [regcomp_auth_token](../r/regcomp_auth_token.md)
+  - [regexec_auth_token](../r/regexec_auth_token.md)
+  - [tokenize_expand_file](../t/tokenize_expand_file.md)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md)
+  - [check_role](../c/check_role.md)
   - check_db
-  - parse_hba_line
-  - parse_ident_line
-  - check_ident_usermap
-  - fill_hba_line
+  - [parse_hba_line](../p/parse_hba_line.md)
+  - [parse_ident_line](../p/parse_ident_line.md)
+  - [check_ident_usermap](../c/check_ident_usermap.md)
+  - [fill_hba_line](../f/fill_hba_line.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's authentication configuration parsing system

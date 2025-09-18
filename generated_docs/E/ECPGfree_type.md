@@ -18,7 +18,7 @@ This function implements a comprehensive memory deallocation system for ECPGtype
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SIMPLE_TYPE (macro to check if type is simple)
-  - ECPGfree_struct_member (frees struct member linked lists)
+  - [ECPGfree_struct_member](ECPGfree_struct_member.md) (frees struct member linked lists)
   - base_yyerror (parser error reporting)
   - mmerror (memory/parsing error reporting)  
   - free (standard C library deallocation)

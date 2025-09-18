@@ -21,17 +21,17 @@ This function is the most commonly used string-to-Unicode conversion function in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_FromStringAndSize
+  - [PLyUnicode_FromStringAndSize](PLyUnicode_FromStringAndSize.md)
   - strlen (implicit)
 - Called from (representative examples):
-  - set_string_attr
-  - PLy_trigger_build_args (extensively used - 16 times)
-  - PLy_generate_spi_exceptions
-  - PLy_quote_literal
-  - PLy_quote_nullable (multiple times)
-  - PLy_quote_ident
-  - PLy_result_colnames
-  - PLyUnicode_FromScalar
+  - [set_string_attr](../s/set_string_attr.md)
+  - [PLy_trigger_build_args](PLy_trigger_build_args.md) (extensively used - 16 times)
+  - [PLy_generate_spi_exceptions](PLy_generate_spi_exceptions.md)
+  - [PLy_quote_literal](PLy_quote_literal.md)
+  - [PLy_quote_nullable](PLy_quote_nullable.md) (multiple times)
+  - [PLy_quote_ident](PLy_quote_ident.md)
+  - [PLy_result_colnames](PLy_result_colnames.md)
+  - [PLyUnicode_FromScalar](PLyUnicode_FromScalar.md)
 
 ## Notes and Other Information
 - Returns a new Python Unicode object with transferred reference ownership to the caller

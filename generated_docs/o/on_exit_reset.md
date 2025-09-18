@@ -21,11 +21,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `reset_on_dsm_detach` (clears dynamic shared memory detach callbacks)
+  - `[reset_on_dsm_detach](../r/reset_on_dsm_detach.md)` (clears dynamic shared memory detach callbacks)
   - Modifies `before_shmem_exit_index`, `on_shmem_exit_index`, and `on_proc_exit_index` (global indices)
 
 - Called from (representative examples):
-  - `InitPostmasterChild` (initialization of child processes)
+  - `[InitPostmasterChild](../I/InitPostmasterChild.md)` (initialization of child processes)
   - `PG_END_ENSURE_ERROR_CLEANUP` (error cleanup macro)
 
 ## Notes and Other Information

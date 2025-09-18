@@ -19,18 +19,18 @@ pgoutput_stream_abort is a callback function in the pgoutput logical replication
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext
-  - ReorderBufferTXN
-  - PGOutputData
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [PGOutputData](../P/PGOutputData.md)
   - LOGICALREP_STREAM_PARALLEL
   - rbtxn_get_toptxn
   - rbtxn_is_streamed
-  - OutputPluginPrepareWrite
-  - logicalrep_write_stream_abort
-  - OutputPluginWrite
-  - cleanup_rel_sync_cache
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_stream_abort](../l/logicalrep_write_stream_abort.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
+  - [cleanup_rel_sync_cache](../c/cleanup_rel_sync_cache.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgoutput.c file

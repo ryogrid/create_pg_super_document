@@ -21,15 +21,15 @@ The function serves as a critical safety mechanism in the PostgreSQL protocol im
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error (appends error message to connection error buffer)
-  - pqSaveErrorResult (saves the current error state as a result)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (appends error message to connection error buffer)
+  - [pqSaveErrorResult](../p/pqSaveErrorResult.md) (saves the current error state as a result)
   - PGASYNC_READY (sets connection to ready state to exit wait loops)
-  - pqDropConnection (closes the network connection)
+  - [pqDropConnection](../p/pqDropConnection.md) (closes the network connection)
   - CONNECTION_BAD (marks connection status as unusable)
 - Called from (representative examples):
-  - pqParseInput3 (multiple locations: lines 94, 99, 127)
-  - getCopyDataMessage (lines 1662, 1681)
-  - pqFunctionCall3 (lines 2090, 2095, 2119)
+  - [pqParseInput3](../p/pqParseInput3.md) (multiple locations: lines 94, 99, 127)
+  - [getCopyDataMessage](../g/getCopyDataMessage.md) (lines 1662, 1681)
+  - [pqFunctionCall3](../p/pqFunctionCall3.md) (lines 2090, 2095, 2119)
   - VALID_LONG_MESSAGE_TYPE (line 46)
 
 ## Notes and Other Information

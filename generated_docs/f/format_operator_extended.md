@@ -22,27 +22,27 @@ The function queries the pg_operator system catalog to retrieve operator informa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - NameStr
   - IsBootstrapProcessingMode
   - initStringInfo
-  - OperatorIsVisible
-  - get_namespace_name
-  - quote_identifier
+  - [OperatorIsVisible](../O/OperatorIsVisible.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [quote_identifier](../q/quote_identifier.md)
   - appendStringInfo
   - appendStringInfoString
-  - format_type_be_qualified
-  - format_type_be
-  - ReleaseSysCache
-  - palloc
+  - [format_type_be_qualified](format_type_be_qualified.md)
+  - [format_type_be](format_type_be.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [palloc](../p/palloc.md)
   - snprintf
 - Called from (representative examples):
-  - getObjectDescription (src/backend/catalog/objectaddress.c:3143)
-  - getObjectIdentityParts (src/backend/catalog/objectaddress.c:5037)
-  - format_operator (src/backend/utils/adt/regproc.c:795)
-  - format_operator_qualified (src/backend/utils/adt/regproc.c:801)
+  - [getObjectDescription](../g/getObjectDescription.md) (src/backend/catalog/objectaddress.c:3143)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md) (src/backend/catalog/objectaddress.c:5037)
+  - [format_operator](format_operator.md) (src/backend/utils/adt/regproc.c:795)
+  - [format_operator_qualified](format_operator_qualified.md) (src/backend/utils/adt/regproc.c:801)
 
 ## Notes and Other Information
 - This is the primary implementation function for operator formatting in PostgreSQL

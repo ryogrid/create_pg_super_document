@@ -25,8 +25,8 @@ Transaction control statements (BEGIN, COMMIT, ROLLBACK) cannot have snapshots b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt structure and its utilityStmt field
-  - Node type checking (IsA macro)
+  - [PlannedStmt](PlannedStmt.md) structure and its utilityStmt field
+  - [Node](../N/Node.md) type checking (IsA macro)
   - Various utility statement types:
     - TransactionStmt
     - LockStmt
@@ -39,8 +39,8 @@ Transaction control statements (BEGIN, COMMIT, ROLLBACK) cannot have snapshots b
     - UnlistenStmt
     - CheckPointStmt
 - Called from (representative examples):
-  - PortalRunUtility
-  - _SPI_execute_plan
+  - [PortalRunUtility](PortalRunUtility.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
 
 ## Notes and Other Information
 - Returns true for all non-utility statements (DML operations)

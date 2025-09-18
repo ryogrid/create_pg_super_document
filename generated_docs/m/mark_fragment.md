@@ -22,13 +22,13 @@ The `mark_fragment` function is responsible for marking words within a specified
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeadlineParsedText (headline parsed text structure)
+  - [HeadlineParsedText](../H/HeadlineParsedText.md) (headline parsed text structure)
   - HLIDREPLACE (macro for checking if word type should be replaced)
   - HLIDSKIP (macro for checking if word type should be skipped)
   - XMLHLIDSKIP (macro for XML-aware skip checking)
 - Called from (representative examples):
-  - mark_hl_fragments (src/backend/tsearch/wparser_def.c:2414, 2444)
-  - mark_hl_words (src/backend/tsearch/wparser_def.c:2609)
+  - [mark_hl_fragments](mark_hl_fragments.md) (src/backend/tsearch/wparser_def.c:2414, 2444)
+  - [mark_hl_words](mark_hl_words.md) (src/backend/tsearch/wparser_def.c:2609)
 
 ## Notes and Other Information
 - Sets selected=1 for words that contain query items

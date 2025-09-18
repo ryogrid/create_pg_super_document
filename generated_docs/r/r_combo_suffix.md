@@ -29,11 +29,11 @@ The function is essential for handling Romanian words with complex morphological
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1: Validates that the operation is within the R1 region
-  - find_among_b: Searches for complex suffix patterns in the a_2 automaton
-  - slice_from_s: Replaces suffix with specified multi-character strings
+  - [r_R1](r_R1.md): Validates that the operation is within the R1 region
+  - [find_among_b](../f/find_among_b.md): Searches for complex suffix patterns in the a_2 automaton
+  - [slice_from_s](../s/slice_from_s.md): Replaces suffix with specified multi-character strings
 - Called from (representative examples):
-  - r_standard_suffix: Invoked as part of the standard suffix processing pipeline for both ISO-8859-2 and UTF-8 Romanian stemmers
+  - [r_standard_suffix](r_standard_suffix.md): Invoked as part of the standard suffix processing pipeline for both ISO-8859-2 and UTF-8 Romanian stemmers
 
 ## Notes and Other Information
 - Specific to Romanian language stemming with implementations for both ISO-8859-2 and UTF-8 encodings

@@ -23,15 +23,15 @@ For Query nodes (subqueries), the function properly manages the sublevels_up cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_placeholder_references_context (context structure type)
-  - PlaceHolderVar (placeholder variable node type)
-  - bms_is_member (checks if relid is member of bitmap set)
+  - [contain_placeholder_references_context](contain_placeholder_references_context.md) (context structure type)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md) (placeholder variable node type)
+  - [bms_is_member](../b/bms_is_member.md) (checks if relid is member of bitmap set)
   - query_tree_walker (walker for Query nodes/subqueries)
   - expression_tree_walker (general expression tree walker)
-  - contain_placeholder_references_walker (recursive self-reference)
+  - [contain_placeholder_references_walker](contain_placeholder_references_walker.md) (recursive self-reference)
 - Called from (representative examples):
-  - contain_placeholder_references_to (src/backend/optimizer/util/placeholder.c:475)
-  - contain_placeholder_references_walker (recursive calls at lines 512, 518)
+  - [contain_placeholder_references_to](contain_placeholder_references_to.md) (src/backend/optimizer/util/placeholder.c:475)
+  - [contain_placeholder_references_walker](contain_placeholder_references_walker.md) (recursive calls at lines 512, 518)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the placeholder.c file

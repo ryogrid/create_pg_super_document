@@ -20,9 +20,9 @@ This function ensures that the SSL protocol range specified by minimum and maxim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sslVerifyProtocolVersion (validation of individual protocol versions)
+  - [sslVerifyProtocolVersion](sslVerifyProtocolVersion.md) (validation of individual protocol versions)
   - strlen (standard C library function)
-  - pg_strcasecmp (PostgreSQL case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL case-insensitive string comparison)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
   - internalPQconninfoOption

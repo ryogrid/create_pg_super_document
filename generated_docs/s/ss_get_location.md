@@ -30,11 +30,11 @@ The goal is to have new scans start close to where existing scans are currently 
 - Functions called/Symbols referenced:
   - LWLockAcquire
   - LWLockRelease
-  - ss_search (internal function)
+  - [ss_search](ss_search.md) (internal function)
   - SyncScanLock (lock identifier)
 - Called from (representative examples):
-  - initscan
-  - table_block_parallelscan_startblock_init
+  - [initscan](../i/initscan.md)
+  - [table_block_parallelscan_startblock_init](../t/table_block_parallelscan_startblock_init.md)
 
 ## Notes and Other Information
 - Returns 0 if no synchronized scan location is available or if the stored location is invalid

@@ -24,8 +24,8 @@ The `asyncQueuePagePrecedes` function performs a straightforward comparison to d
   - QUEUE_POS_MIN
   - QUEUE_POS_MAX  
   - NotificationHash
-  - AsyncShmemInit
-  - asyncQueueAdvanceTail
+  - [AsyncShmemInit](../A/AsyncShmemInit.md)
+  - [asyncQueueAdvanceTail](asyncQueueAdvanceTail.md)
 
 ## Notes and Other Information
 - The function is declared as `static inline`, making it internal to the async.c file and suitable for compiler inlining

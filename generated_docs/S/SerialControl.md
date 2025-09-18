@@ -22,12 +22,12 @@ This type is part of the broader predicate locking infrastructure that prevents 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerialControlData (base structure type)
-  - SERIALIZABLEXACT (related transaction structure)
-  - PredXactList (predicate transaction list)
-  - RWConflictPoolHeader (read-write conflict pool)
-  - HTAB (hash table type for various predicate lock tables)
-  - PREDICATELOCKTARGETTAG (predicate lock target identification)
+  - [SerialControlData](SerialControlData.md) (base structure type)
+  - [SERIALIZABLEXACT](SERIALIZABLEXACT.md) (related transaction structure)
+  - [PredXactList](../P/PredXactList.md) (predicate transaction list)
+  - [RWConflictPoolHeader](../R/RWConflictPoolHeader.md) (read-write conflict pool)
+  - [HTAB](../H/HTAB.md) (hash table type for various predicate lock tables)
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (predicate lock target identification)
 - Called from (representative examples):
   - SerialInit (initialization function)
   - Various predicate locking functions that access serialControl

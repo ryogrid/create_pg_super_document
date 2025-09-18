@@ -19,10 +19,10 @@ This function provides a straightforward way to retrieve the Portal associated w
 - Functions called/Symbols referenced:
   - GetPortalByName (internal portal lookup function)
 - Called from (representative examples):
-  - cursor_to_xml (XML generation functions)
-  - cursor_to_xmlschema (XML schema functions)
-  - plperl_spi_fetchrow (PL/Perl cursor operations)
-  - plperl_spi_cursor_close (PL/Perl cursor cleanup)
+  - [cursor_to_xml](../c/cursor_to_xml.md) (XML generation functions)
+  - [cursor_to_xmlschema](../c/cursor_to_xmlschema.md) (XML schema functions)
+  - [plperl_spi_fetchrow](../p/plperl_spi_fetchrow.md) (PL/Perl cursor operations)
+  - [plperl_spi_cursor_close](../p/plperl_spi_cursor_close.md) (PL/Perl cursor cleanup)
 
 ## Notes and Other Information
 - Returns NULL if no cursor with the specified name exists

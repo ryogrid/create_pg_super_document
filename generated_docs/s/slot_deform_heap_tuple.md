@@ -42,9 +42,9 @@ The function carefully handles NULL values, variable-length attributes (varlena)
   - att_addlength_pointer
   - TTS_SLOW (macro)
 - Called from (representative examples):
-  - tts_heap_getsomeattrs
-  - tts_minimal_getsomeattrs
-  - tts_buffer_heap_getsomeattrs
+  - [tts_heap_getsomeattrs](../t/tts_heap_getsomeattrs.md)
+  - [tts_minimal_getsomeattrs](../t/tts_minimal_getsomeattrs.md)
+  - [tts_buffer_heap_getsomeattrs](../t/tts_buffer_heap_getsomeattrs.md)
 
 ## Notes and Other Information
 - Marked as pg_attribute_always_inline for performance optimization in hot code paths

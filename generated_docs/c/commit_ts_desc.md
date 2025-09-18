@@ -25,7 +25,7 @@ The function examines the WAL record's info field to determine the operation typ
   - XLR_INFO_MASK
   - COMMIT_TS_ZEROPAGE
   - COMMIT_TS_TRUNCATE
-  - xl_commit_ts_truncate
+  - [xl_commit_ts_truncate](../x/xl_commit_ts_truncate.md)
   - appendStringInfo
   - memcpy
 - Called from (representative examples):

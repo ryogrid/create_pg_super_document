@@ -27,18 +27,18 @@ The function validates the plan and parameters, converts parameters to the inter
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call
-  - _SPI_convert_params
-  - _SPI_execute_plan
+  - [_SPI_convert_params](_SPI_convert_params.md)
+  - [_SPI_execute_plan](_SPI_execute_plan.md)
   - _SPI_end_call
-  - SPIPlanPtr
-  - SPIExecuteOptions
+  - [SPIPlanPtr](SPIPlanPtr.md)
+  - [SPIExecuteOptions](SPIExecuteOptions.md)
   - _SPI_PLAN_MAGIC
   - SPI_ERROR_ARGUMENT
   - SPI_ERROR_PARAM
 - Called from (representative examples):
-  - RI_Initial_Check
-  - RI_PartitionRemove_Check
-  - ri_PerformCheck
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
+  - [ri_PerformCheck](../r/ri_PerformCheck.md)
 
 ## Notes and Other Information
 - This function is currently undocumented in spi.sgml as it is intended for internal use by RI triggers only

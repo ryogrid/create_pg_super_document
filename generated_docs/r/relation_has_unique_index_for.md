@@ -26,18 +26,18 @@ The function accepts conditions in two formats: RestrictInfo nodes (for join-der
   - list_length
   - bms_is_empty
   - lappend
-  - list_member_oid
-  - get_rightop
-  - get_leftop
-  - match_index_to_operand
+  - [list_member_oid](../l/list_member_oid.md)
+  - [get_rightop](../g/get_rightop.md)
+  - [get_leftop](../g/get_leftop.md)
+  - [match_index_to_operand](../m/match_index_to_operand.md)
   - forboth
   - lfirst_oid
-  - op_in_opfamily
-  - IndexOptInfo (structure)
-  - RestrictInfo (structure)
+  - [op_in_opfamily](../o/op_in_opfamily.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (structure)
 - Called from (representative examples):
-  - rel_is_distinct_for
-  - create_unique_path
+  - [rel_is_distinct_for](rel_is_distinct_for.md)
+  - [create_unique_path](../c/create_unique_path.md)
 
 ## Notes and Other Information
 - Automatically adds usable baserestrictinfo clauses to the analysis

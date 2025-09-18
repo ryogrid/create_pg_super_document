@@ -22,12 +22,12 @@ The function sets up a hash table with specific parameters optimized for sequenc
 ## Dependencies
 - Functions called/Symbols referenced:
   - HASHCTL (hash table control structure)
-  - SeqTableData (sequence table data structure)
-  - hash_create (creates a new hash table)
+  - [SeqTableData](../S/SeqTableData.md) (sequence table data structure)
+  - [hash_create](../h/hash_create.md) (creates a new hash table)
   - HASH_ELEM (hash table flag for fixed-size elements)
   - HASH_BLOBS (hash table flag for byte-wise key comparison)
 - Called from (representative examples):
-  - init_sequence
+  - [init_sequence](../i/init_sequence.md)
 
 ## Notes and Other Information
 - The hash table is named "Sequence values" for debugging and monitoring purposes

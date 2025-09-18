@@ -32,7 +32,7 @@ The macro uses STMT_START/STMT_END wrappers to ensure it can be used safely in a
   - STMT_START/STMT_END (statement block macros)
 
 - Called from (representative examples):
-  - croak_cstr (in src/pl/plperl/plperl.h)
+  - [croak_cstr](croak_cstr.md) (in src/pl/plperl/plperl.h)
   - D_PPP_CROAK_IF_ERROR (in src/pl/plperl/ppport.h)
   - Various error handling contexts in PL/Perl
 

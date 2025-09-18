@@ -19,17 +19,17 @@ This static function implements a centralized permission checking mechanism for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
-  - object_ownercheck
-  - object_aclcheck
-  - aclcheck_error
+  - [GetUserId](../G/GetUserId.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
   - ACL_USAGE
   - ACLCHECK_NOT_OWNER
   - OBJECT_FOREIGN_SERVER
 - Called from (representative examples):
-  - CreateUserMapping
-  - AlterUserMapping
-  - RemoveUserMapping
+  - [CreateUserMapping](../C/CreateUserMapping.md)
+  - [AlterUserMapping](../A/AlterUserMapping.md)
+  - [RemoveUserMapping](../R/RemoveUserMapping.md)
 
 ## Notes and Other Information
 This function serves as a security gate for all user mapping DDL operations, centralizing the access control logic to ensure consistency across different commands. The function uses PostgreSQL's standard ACL (Access Control List) checking mechanisms and follows the principle of least privilege by allowing users to modify only their own mappings unless they own the entire server.

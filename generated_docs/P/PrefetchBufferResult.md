@@ -25,8 +25,8 @@ There are three possible scenarios represented by this structure:
 - Functions called/Symbols referenced:
   - Buffer (type)
 - Called from (representative examples):
-  - XLogPrefetcherNextBlock (in xlogprefetcher.c:652)
-  - PrefetchSharedBuffer (in bufmgr.c:552, 637)
+  - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md) (in xlogprefetcher.c:652)
+  - [PrefetchSharedBuffer](PrefetchSharedBuffer.md) (in bufmgr.c:552, 637)
   - PrefetchLocalBuffer (in localbuf.c:72)
 
 ## Notes and Other Information

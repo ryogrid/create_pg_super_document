@@ -25,17 +25,17 @@ Several assertions ensure data integrity: the attribute count doesn't exceed IND
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS
   - BT_STATUS_OFFSET_MASK
-  - BTreeTupleIsPivot
+  - [BTreeTupleIsPivot](BTreeTupleIsPivot.md)
   - INDEX_ALT_TID_MASK
   - BT_PIVOT_HEAP_TID_ATTR
-  - ItemPointerSetOffsetNumber
+  - [ItemPointerSetOffsetNumber](../I/ItemPointerSetOffsetNumber.md)
 - Called from (representative examples):
-  - _bt_newlevel
-  - _bt_pgaddtup
+  - [_bt_newlevel](../b/_bt_newlevel.md)
+  - [_bt_pgaddtup](../b/_bt_pgaddtup.md)
   - _bt_sortaddtup
   - _bt_buildadd
-  - _bt_truncate
-  - BTreeTupleSetTopParent
+  - [_bt_truncate](../b/_bt_truncate.md)
+  - [BTreeTupleSetTopParent](BTreeTupleSetTopParent.md)
 
 ## Notes and Other Information
 - This function transforms a regular index tuple into a pivot tuple by setting appropriate metadata bits

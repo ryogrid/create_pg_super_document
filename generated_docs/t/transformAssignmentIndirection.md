@@ -45,25 +45,25 @@ The function distinguishes between different base node contexts:
   - for_each_cell
   - lappend
   - IsA (A_Indices, A_Star, String)
-  - transformAssignmentSubscripts
-  - getBaseTypeAndTypmod
-  - typeidTypeRelid
-  - get_attnum
-  - get_atttypetypmodcoll
+  - [transformAssignmentSubscripts](transformAssignmentSubscripts.md)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
+  - [typeidTypeRelid](typeidTypeRelid.md)
+  - [get_attnum](../g/get_attnum.md)
+  - [get_atttypetypmodcoll](../g/get_atttypetypmodcoll.md)
   - strVal
   - list_make1
   - list_make1_int
-  - lnext
-  - coerce_to_domain
-  - coerce_to_target_type
+  - [lnext](../l/lnext.md)
+  - [coerce_to_domain](../c/coerce_to_domain.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
   - exprType
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - Constants: InvalidAttrNumber, COERCION_IMPLICIT, COERCE_IMPLICIT_CAST
 - Called from:
-  - transformPLAssignStmt (analyze.c)
-  - transformAssignedExpr (parse_target.c)
-  - transformAssignmentIndirection (recursive)
-  - transformAssignmentSubscripts (parse_target.c)
+  - [transformPLAssignStmt](transformPLAssignStmt.md) (analyze.c)
+  - [transformAssignedExpr](transformAssignedExpr.md) (parse_target.c)
+  - [transformAssignmentIndirection](transformAssignmentIndirection.md) (recursive)
+  - [transformAssignmentSubscripts](transformAssignmentSubscripts.md) (parse_target.c)
 
 ## Notes and Other Information
 - The function is recursive and can handle arbitrarily deep indirection chains

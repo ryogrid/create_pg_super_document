@@ -23,7 +23,7 @@ The function operates on the page header structure, which contains metadata abou
   - PD_HAS_FREE_LINES (flag constant)
 - Called from (representative examples):
   - PageAddItemExtended (src/backend/storage/page/bufpage.c:251)
-  - PageGetHeapFreeSpace (src/backend/storage/page/bufpage.c:1007)
+  - [PageGetHeapFreeSpace](PageGetHeapFreeSpace.md) (src/backend/storage/page/bufpage.c:1007)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

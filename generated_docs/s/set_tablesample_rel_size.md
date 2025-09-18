@@ -21,14 +21,14 @@ The function assumes that only a SampleScan path will be considered for the samp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableSampleClause (struct type for sampling clause)
+  - [TableSampleClause](../T/TableSampleClause.md) (struct type for sampling clause)
   - TsmRoutine (struct type for table sampling method routines)
-  - check_index_predicates (checks partial index applicability)
-  - GetTsmRoutine (retrieves table sampling method routines)
-  - set_baserel_size_estimates (finalizes relation size estimates)
+  - [check_index_predicates](../c/check_index_predicates.md) (checks partial index applicability)
+  - [GetTsmRoutine](../G/GetTsmRoutine.md) (retrieves table sampling method routines)
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md) (finalizes relation size estimates)
 
 - Called from (representative examples):
-  - set_rel_size (main relation sizing dispatcher)
+  - [set_rel_size](set_rel_size.md) (main relation sizing dispatcher)
 
 ## Notes and Other Information
 - This function is static and only used within allpaths.c

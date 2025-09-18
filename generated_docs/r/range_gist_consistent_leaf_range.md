@@ -27,21 +27,21 @@ The function supports all standard range spatial relationship operators and dire
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_before_internal
-  - range_overleft_internal
-  - range_overlaps_internal
-  - range_overright_internal
-  - range_after_internal
-  - range_adjacent_internal
-  - range_contains_internal
-  - range_contained_by_internal
-  - range_eq_internal
+  - [range_before_internal](range_before_internal.md)
+  - [range_overleft_internal](range_overleft_internal.md)
+  - [range_overlaps_internal](range_overlaps_internal.md)
+  - [range_overright_internal](range_overright_internal.md)
+  - [range_after_internal](range_after_internal.md)
+  - [range_adjacent_internal](range_adjacent_internal.md)
+  - [range_contains_internal](range_contains_internal.md)
+  - [range_contained_by_internal](range_contained_by_internal.md)
+  - [range_eq_internal](range_eq_internal.md)
   - RANGESTRAT_* constants
   - elog (for error handling)
 - Called from (representative examples):
   - rangeCopy
-  - range_gist_consistent
-  - multirange_gist_consistent
+  - [range_gist_consistent](range_gist_consistent.md)
+  - [multirange_gist_consistent](../m/multirange_gist_consistent.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation

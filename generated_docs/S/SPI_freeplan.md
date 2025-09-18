@@ -21,18 +21,18 @@ SPI_freeplan completely deallocates an SPI execution plan and all its associated
 - Functions called/Symbols referenced:
   - _SPI_PLAN_MAGIC
   - CachedPlanSource
-  - DropCachedPlan
-  - MemoryContextDelete
+  - [DropCachedPlan](../D/DropCachedPlan.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - SPI_ERROR_ARGUMENT
 - Called from (representative examples):
-  - ri_FetchPreparedPlan (referential integrity triggers)
-  - tsquery_rewrite_query (text search query rewriting)
-  - ts_stat_sql (text search statistics)
-  - plperl_spi_query (PL/Perl SPI query execution)
-  - plperl_spi_prepare (PL/Perl SPI preparation)
-  - plperl_spi_freeplan (PL/Perl plan cleanup)
-  - PLy_cursor_query (PL/Python cursor queries)
-  - PLy_plan_dealloc (PL/Python plan deallocation)
+  - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md) (referential integrity triggers)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (text search query rewriting)
+  - [ts_stat_sql](../t/ts_stat_sql.md) (text search statistics)
+  - [plperl_spi_query](../p/plperl_spi_query.md) (PL/Perl SPI query execution)
+  - [plperl_spi_prepare](../p/plperl_spi_prepare.md) (PL/Perl SPI preparation)
+  - [plperl_spi_freeplan](../p/plperl_spi_freeplan.md) (PL/Perl plan cleanup)
+  - [PLy_cursor_query](../P/PLy_cursor_query.md) (PL/Python cursor queries)
+  - [PLy_plan_dealloc](../P/PLy_plan_dealloc.md) (PL/Python plan deallocation)
 
 ## Notes and Other Information
 - Returns 0 on success, SPI_ERROR_ARGUMENT if plan is NULL or has invalid magic number

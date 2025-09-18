@@ -26,20 +26,20 @@ The compilation process creates evaluation steps for each qualification expressi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ExprState)
-  - ExecCreateExprSetupSteps (inserts setup steps)
-  - ExecInitExprRec (recursively compiles each qualification expression)
-  - ExprEvalPushStep (adds evaluation steps)
-  - ExecReadyExpr (finalizes expression for execution)
+  - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md) (inserts setup steps)
+  - [ExecInitExprRec](ExecInitExprRec.md) (recursively compiles each qualification expression)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (adds evaluation steps)
+  - [ExecReadyExpr](ExecReadyExpr.md) (finalizes expression for execution)
   - lappend_int (builds jump target adjustment list)
   - foreach_ptr, foreach_int (list iteration macros)
   - EEOP_QUAL, EEOP_DONE (opcode constants)
   - EEO_FLAG_IS_QUAL (marks expression for qualification use)
 - Called from (representative examples):
-  - ExecInitSeqScan (for table scan qualifications)
-  - ExecInitIndexScan (for index scan qualifications) 
-  - ExecInitNestLoop (for join qualifications)
-  - ExecInitHashJoin (for hash join qualifications)
-  - ExecInitModifyTable (for modification qualifications)
+  - [ExecInitSeqScan](ExecInitSeqScan.md) (for table scan qualifications)
+  - [ExecInitIndexScan](ExecInitIndexScan.md) (for index scan qualifications) 
+  - [ExecInitNestLoop](ExecInitNestLoop.md) (for join qualifications)
+  - [ExecInitHashJoin](ExecInitHashJoin.md) (for hash join qualifications)
+  - [ExecInitModifyTable](ExecInitModifyTable.md) (for modification qualifications)
 
 ## Notes and Other Information
 - Implements SQL's three-valued logic: NULL qualification results are treated as FALSE

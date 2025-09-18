@@ -28,11 +28,11 @@ As of PostgreSQL 17, this structure is part of the unified XLOG_HEAP2_PRUNE_VACU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xlhp_freeze_plan (individual freeze plan structure)
+  - [xlhp_freeze_plan](xlhp_freeze_plan.md) (individual freeze plan structure)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member)
 - Called from (representative examples):
-  - log_heap_prune_and_freeze (src/backend/access/heap/pruneheap.c:2068, 2097)
-  - heap_xlog_deserialize_prune_and_freeze (src/backend/access/rmgrdesc/heapdesc.c:113, 119)
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md) (src/backend/access/heap/pruneheap.c:2068, 2097)
+  - [heap_xlog_deserialize_prune_and_freeze](../h/heap_xlog_deserialize_prune_and_freeze.md) (src/backend/access/rmgrdesc/heapdesc.c:113, 119)
 
 ## Notes and Other Information
 - This is a variable-length structure due to the flexible array member

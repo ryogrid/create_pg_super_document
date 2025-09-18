@@ -29,15 +29,15 @@ The transformation process includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr
+  - [transformExpr](../t/transformExpr.md)
   - exprType
-  - can_coerce_type
-  - coerce_type
-  - format_type_be
-  - exprLocation
+  - [can_coerce_type](../c/can_coerce_type.md)
+  - [coerce_type](../c/coerce_type.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [exprLocation](../e/exprLocation.md)
   - ereport
 - Called from:
-  - jsonb_subscript_handler
+  - [jsonb_subscript_handler](jsonb_subscript_handler.md)
 
 ## Notes and Other Information
 - JSONB subscripting does not support slice operations and will generate errors if attempted

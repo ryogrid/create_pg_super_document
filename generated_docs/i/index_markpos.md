@@ -25,8 +25,8 @@ The function performs validation checks to ensure the scan descriptor is valid a
   - CHECK_SCAN_PROCEDURE (validation macro for ammarkpos availability)
   - ammarkpos (access method-specific position marking routine)
 - Called from (representative examples):
-  - ExecIndexMarkPos
-  - ExecIndexOnlyMarkPos
+  - [ExecIndexMarkPos](../E/ExecIndexMarkPos.md)
+  - [ExecIndexOnlyMarkPos](../E/ExecIndexOnlyMarkPos.md)
 
 ## Notes and Other Information
 - This function is part of the position management functionality for index scans

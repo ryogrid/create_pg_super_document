@@ -21,15 +21,15 @@ The function calculates the union by taking the maximum of the high coordinates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type)
-  - float8_max (for calculating maximum high coordinates)
-  - float8_min (for calculating minimum low coordinates)
+  - [BOX](../B/BOX.md) (data type)
+  - [float8_max](../f/float8_max.md) (for calculating maximum high coordinates)
+  - [float8_min](../f/float8_min.md) (for calculating minimum low coordinates)
 - Called from (representative examples):
-  - box_penalty
+  - [box_penalty](../b/box_penalty.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the gistproc.c file
 - The function operates directly on floating-point coordinates using PostgreSQL's float8 operations
-- The union operation is commutative - rt_box_union(n, a, b) produces the same result as rt_box_union(n, b, a)
+- The union operation is commutative - [rt_box_union](rt_box_union.md)(n, a, b) produces the same result as rt_box_union(n, b, a)
 - Part of the PostgreSQL GiST access method implementation for spatial data types
 - Located in src/backend/access/gist/gistproc.c:55-67

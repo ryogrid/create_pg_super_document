@@ -28,7 +28,7 @@ The formatted message is allocated in the ErrorContext and returned as a string.
   - MemSet (macro/function)
   - PG_TEXTDOMAIN (macro)
   - EVALUATE_MESSAGE (macro)
-  - MemoryContextSwitchTo (function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (function)
   - ErrorContext (global variable)
 - Called from (representative examples):
   - arch_module_check_errdetail

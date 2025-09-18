@@ -35,9 +35,9 @@ The ORDER procedures are essential for:
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanOpaque
-  - index_getprocinfo
-  - get_opfamily_proc
-  - fmgr_info_cxt
+  - [index_getprocinfo](../i/index_getprocinfo.md)
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
   - RegProcedureIsValid
   - RelationGetRelationName
   - BTEqualStrategyNumber
@@ -45,8 +45,8 @@ The ORDER procedures are essential for:
   - OidIsValid
 
 - Called from (representative examples):
-  - _bt_preprocess_array_keys (during array preprocessing)
-  - _bt_preprocess_array_keys_final (for non-array equality keys)
+  - [_bt_preprocess_array_keys](_bt_preprocess_array_keys.md) (during array preprocessing)
+  - [_bt_preprocess_array_keys_final](_bt_preprocess_array_keys_final.md) (for non-array equality keys)
 
 ## Notes and Other Information
 - The function assumes the scan key uses BTEqualStrategyNumber strategy

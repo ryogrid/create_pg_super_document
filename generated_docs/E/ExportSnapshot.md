@@ -27,18 +27,18 @@ The exported snapshot file contains critical transaction information including v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTopTransactionIdIfAny
-  - IsSubTransaction  
-  - xactGetCommittedChildren
-  - TransactionIdPrecedes
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
+  - [IsSubTransaction](../I/IsSubTransaction.md)  
+  - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - CopySnapshot
-  - GetMaxSnapshotSubxidCount
+  - [GetMaxSnapshotSubxidCount](../G/GetMaxSnapshotSubxidCount.md)
   - AllocateFile
   - FreeFile
   - pairingheap_add
 - Called from (representative examples):
-  - pg_export_snapshot
-  - SnapBuildExportSnapshot
+  - [pg_export_snapshot](../p/pg_export_snapshot.md)
+  - [SnapBuildExportSnapshot](../S/SnapBuildExportSnapshot.md)
 
 ## Notes and Other Information
 - Cannot be called from within a subtransaction due to verification complexities

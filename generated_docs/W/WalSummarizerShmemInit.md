@@ -17,13 +17,13 @@ This function creates or attaches to the shared memory structure for WAL summari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSummarizerData (structure type being initialized)
-  - WalSummarizerShmemSize (to get required memory size)
-  - ShmemInitStruct (PostgreSQL shared memory allocation)
+  - [WalSummarizerData](WalSummarizerData.md) (structure type being initialized)
+  - [WalSummarizerShmemSize](WalSummarizerShmemSize.md) (to get required memory size)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (PostgreSQL shared memory allocation)
   - INVALID_PROC_NUMBER (constant for invalid process number)
-  - ConditionVariableInit (initializes condition variable)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md) (initializes condition variable)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (in src/backend/storage/ipc/ipci.c:346)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (in src/backend/storage/ipc/ipci.c:346)
 
 ## Notes and Other Information
 - Sets WalSummarizerCtl global pointer to the shared memory structure

@@ -26,13 +26,13 @@ The function processes both commit scenarios (XLOG_XACT_COMMIT and XLOG_XACT_COM
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract record type and operation mask from WAL record
   - XLogRecGetData: Get the payload data from the WAL record
-  - ParseCommitRecord: Parse commit record to extract removed relations list
-  - ParseAbortRecord: Parse abort record to extract removed relations list
+  - [ParseCommitRecord](../P/ParseCommitRecord.md): Parse commit record to extract removed relations list
+  - [ParseAbortRecord](../P/ParseAbortRecord.md): Parse abort record to extract removed relations list
   - BlockRefTableSetLimitBlock: Set limit blocks to 0 for removed relations
   - MAX_FORKNUM: Maximum fork number for iteration over all fork types
   - FSM_FORKNUM: Free Space Map fork identifier (excluded from processing)
 - Called from (representative examples):
-  - SummarizeWAL: Main WAL summarization loop when processing RM_XACT_ID records
+  - [SummarizeWAL](SummarizeWAL.md): Main WAL summarization loop when processing RM_XACT_ID records
 
 ## Notes and Other Information
 - Handles four specific transaction operation types: XLOG_XACT_COMMIT, XLOG_XACT_COMMIT_PREPARED, XLOG_XACT_ABORT, and XLOG_XACT_ABORT_PREPARED

@@ -24,14 +24,14 @@ The function carefully manages the SPI global state by resetting result variable
 - Functions called/Symbols referenced:
   - PortalIsValid: Validates that the portal is still valid
   - _SPI_begin_call: Initializes SPI call context
-  - PortalRunFetch: Executes the actual cursor fetch/move operation
+  - [PortalRunFetch](../P/PortalRunFetch.md): Executes the actual cursor fetch/move operation
   - _SPI_checktuples: Validates SPI tuple count consistency
   - _SPI_end_call: Cleans up SPI call context
 - Called from (representative examples):
-  - SPI_cursor_fetch: Public API for fetching from cursor
-  - SPI_cursor_move: Public API for moving cursor position
-  - SPI_scroll_cursor_fetch: Scrollable cursor fetch operations
-  - SPI_scroll_cursor_move: Scrollable cursor move operations
+  - [SPI_cursor_fetch](SPI_cursor_fetch.md): Public API for fetching from cursor
+  - [SPI_cursor_move](SPI_cursor_move.md): Public API for moving cursor position
+  - [SPI_scroll_cursor_fetch](SPI_scroll_cursor_fetch.md): Scrollable cursor fetch operations
+  - [SPI_scroll_cursor_move](SPI_scroll_cursor_move.md): Scrollable cursor move operations
 
 ## Notes and Other Information
 - Includes important comment about SPI stack pointer stability during portal execution

@@ -27,13 +27,13 @@ The function is designed to handle the fact that amcheck functions report corrup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus (PostgreSQL libpq function to get result status)
-  - PQresultErrorField (PostgreSQL libpq function to extract error field information)
+  - [PQresultStatus](../P/PQresultStatus.md) (PostgreSQL libpq function to get result status)
+  - [PQresultErrorField](../P/PQresultErrorField.md) (PostgreSQL libpq function to extract error field information)
   - PG_DIAG_SEVERITY_NONLOCALIZED (PostgreSQL diagnostic field constant)
   - Various PGRES_* constants (PostgreSQL result status constants)
 - Called from (representative examples):
-  - verify_heap_slot_handler (in pg_amcheck.c:1101)
-  - verify_btree_slot_handler (in pg_amcheck.c:1170)
+  - [verify_heap_slot_handler](../v/verify_heap_slot_handler.md) (in pg_amcheck.c:1101)
+  - [verify_btree_slot_handler](../v/verify_btree_slot_handler.md) (in pg_amcheck.c:1170)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the pg_amcheck.c compilation unit

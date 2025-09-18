@@ -19,20 +19,20 @@ The function performs a system catalog lookup in pg_operator using the provided 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (operator catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (invalid OID constant)
 
 - Called from (representative examples):
-  - CommuteOpExpr (expression commutation)
-  - operator_predicate_proof (predicate testing)
-  - match_opclause_to_indexcol (index optimization)
-  - compute_semijoin_info (join planning)
-  - eqjoinsel (selectivity estimation)
+  - [CommuteOpExpr](../C/CommuteOpExpr.md) (expression commutation)
+  - [operator_predicate_proof](../o/operator_predicate_proof.md) (predicate testing)
+  - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md) (index optimization)
+  - [compute_semijoin_info](../c/compute_semijoin_info.md) (join planning)
+  - [eqjoinsel](../e/eqjoinsel.md) (selectivity estimation)
 
 ## Notes and Other Information
 - This function is part of the lsyscache.c module which provides cached access to system catalog information

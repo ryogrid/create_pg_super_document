@@ -26,7 +26,7 @@ This function is an extended version of the standard float8 hash function that a
   - PG_RETURN_UINT64: Return 64-bit unsigned integer result
   - isnan: Check if the float value is NaN
   - get_float8_nan: Get normalized NaN representation
-  - hash_any_extended: Generic extended hash function for binary data
+  - [hash_any_extended](hash_any_extended.md): Generic extended hash function for binary data
 - Called from (representative examples):
   - No direct callers found in the codebase
 

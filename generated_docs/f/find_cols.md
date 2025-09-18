@@ -21,15 +21,15 @@ The function uses a tree walker approach to traverse the plan's target list and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_cols_walker
-  - bms_add_member
+  - [find_cols_walker](find_cols_walker.md)
+  - [bms_add_member](../b/bms_add_member.md)
 - Types referenced:
-  - AggState
+  - [AggState](../A/AggState.md)
   - Agg
-  - FindColsContext
-  - Bitmapset
+  - [FindColsContext](../F/FindColsContext.md)
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - find_hash_columns
+  - [find_hash_columns](find_hash_columns.md)
 
 ## Notes and Other Information
 - This function is part of the aggregation optimization infrastructure in PostgreSQL's executor

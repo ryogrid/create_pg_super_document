@@ -24,17 +24,17 @@ The Generation context maintains a doubly-linked list of blocks and tracks the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - MemoryContextStats
-  - MemoryContextCreate
-  - dlist_init
-  - dlist_push_head
+  - [MemoryContextStats](../M/MemoryContextStats.md)
+  - [MemoryContextCreate](../M/MemoryContextCreate.md)
+  - [dlist_init](../d/dlist_init.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
   - KeeperBlock
-  - GenerationBlockInit
+  - [GenerationBlockInit](GenerationBlockInit.md)
   - StaticAssertDecl
   - AllocHugeSizeIsValid
 - Called from (representative examples):
-  - gistvacuumscan
-  - ReorderBufferAllocate
+  - [gistvacuumscan](../g/gistvacuumscan.md)
+  - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md)
 
 ## Notes and Other Information
 - The function enforces strict validation of block size parameters with assertions

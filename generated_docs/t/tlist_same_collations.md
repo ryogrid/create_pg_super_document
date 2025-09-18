@@ -24,12 +24,12 @@ Like its datatype counterpart, this function handles resjunk columns based on th
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head (to get the first element of colCollations list)
-  - exprCollation (to get the collation of an expression)
-  - lnext (to advance through colCollations list)
+  - [exprCollation](../e/exprCollation.md) (to get the collation of an expression)
+  - [lnext](../l/lnext.md) (to advance through colCollations list)
   - lfirst_oid (to extract Oid from list cell)
-  - TargetEntry (struct type)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
 - Called from (representative examples):
-  - recurse_set_operations
+  - [recurse_set_operations](../r/recurse_set_operations.md)
 
 ## Notes and Other Information
 - Returns false if the target list is longer or shorter than the expected collations list

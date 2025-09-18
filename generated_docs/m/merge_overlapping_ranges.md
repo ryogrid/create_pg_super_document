@@ -32,12 +32,12 @@ The function operates in-place to minimize memory usage and returns the new coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandedRange
-  - FunctionCall2Coll
+  - [ExpandedRange](../E/ExpandedRange.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
   - memmove
 
 - Called from (representative examples):
-  - brin_minmax_multi_union
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - Requires input to be pre-sorted by minval, then maxval for correct operation

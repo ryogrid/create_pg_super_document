@@ -38,13 +38,13 @@ The cache entry maintains both the original search path key (searchPath + roleid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheKey (embedded as the key field)
+  - [SearchPathCacheKey](SearchPathCacheKey.md) (embedded as the key field)
 - Called from (representative examples):
-  - spcache_lookup (when retrieving cached entries)
-  - spcache_insert (when creating new cache entries)
-  - finalNamespacePath (when accessing cached final path)
-  - cachedNamespacePath (when retrieving cached namespace path)
-  - recomputeNamespacePath (when updating cached computations)
+  - [spcache_lookup](../s/spcache_lookup.md) (when retrieving cached entries)
+  - [spcache_insert](../s/spcache_insert.md) (when creating new cache entries)
+  - [finalNamespacePath](../f/finalNamespacePath.md) (when accessing cached final path)
+  - [cachedNamespacePath](../c/cachedNamespacePath.md) (when retrieving cached namespace path)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (when updating cached computations)
 
 ## Notes and Other Information
 - This struct is used as the SH_ELEMENT_TYPE in the simplehash implementation for the search path cache

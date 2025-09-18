@@ -21,11 +21,11 @@ The generated string serves as the column-specific portion of index names, helpi
 - Functions called/Symbols referenced:
   - NAMEDATALEN (PostgreSQL's maximum name length constant)
   - strlcpy (safe string copy function)
-  - pstrdup (PostgreSQL's string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL's string duplication function)
   - lfirst (list iteration macro)
   - foreach (list iteration macro)
 - Called from:
-  - ChooseIndexName (three times for different index types in src/backend/commands/indexcmds.c)
+  - [ChooseIndexName](ChooseIndexName.md) (three times for different index types in src/backend/commands/indexcmds.c)
 
 ## Notes and Other Information
 - This is a static function internal to indexcmds.c

@@ -20,20 +20,20 @@ The `join_tsqueries` function is an internal utility that creates a new query tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc0` - Allocates zero-initialized memory
+  - `[palloc0](../p/palloc0.md)` - Allocates zero-initialized memory
   - `QT2QTN` - Converts query tree to query tree node format
   - `GETQUERY` - Extracts query portion from TSQuery
   - `GETOPERAND` - Extracts operand portion from TSQuery
-  - `QTNode` - Query tree node structure
-  - `QueryItem` - Query item structure for operators
+  - `QTNode` - [Query](../Q/Query.md) tree node structure
+  - `QueryItem` - [Query](../Q/Query.md) item structure for operators
   - `QTN_NEEDFREE` - Flag indicating memory needs to be freed
-  - `QI_OPR` - Query item type for operators
+  - `QI_OPR` - [Query](../Q/Query.md) item type for operators
   - `OP_PHRASE` - Phrase operator constant
 
 - Called from (representative examples):
-  - `tsquery_and` - For AND operations
-  - `tsquery_or` - For OR operations  
-  - `tsquery_phrase_distance` - For phrase operations with distance
+  - `[tsquery_and](../t/tsquery_and.md)` - For AND operations
+  - `[tsquery_or](../t/tsquery_or.md)` - For OR operations  
+  - `[tsquery_phrase_distance](../t/tsquery_phrase_distance.md)` - For phrase operations with distance
 
 ## Notes and Other Information
 - The function creates a binary tree structure with the operator as parent and queries as children

@@ -21,13 +21,13 @@ ExecInitNullTupleSlot creates a specialized tuple slot that contains a tuple whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitExtraTupleSlot: Creates the underlying tuple slot
-  - ExecStoreAllNullTuple: Fills the slot with NULL values
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md): Creates the underlying tuple slot
+  - [ExecStoreAllNullTuple](ExecStoreAllNullTuple.md): Fills the slot with NULL values
   - TupleTableSlotOps: Structure defining slot operations
 - Called from (representative examples):
-  - ExecInitHashJoin: Hash join initialization for outer join NULL padding
+  - [ExecInitHashJoin](ExecInitHashJoin.md): Hash join initialization for outer join NULL padding
   - ExecInitMergeJoin: Merge join initialization for outer join NULL padding
-  - ExecInitNestLoop: Nested loop join initialization for outer join scenarios
+  - [ExecInitNestLoop](ExecInitNestLoop.md): Nested loop join initialization for outer join scenarios
 
 ## Notes and Other Information
 - Specifically designed for outer join operations where NULL padding is required

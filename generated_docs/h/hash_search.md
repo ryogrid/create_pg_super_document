@@ -20,20 +20,20 @@ This is the primary interface for hash table operations in PostgreSQL. It provid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (hash table structure)
+  - [HTAB](../H/HTAB.md) (hash table structure)
   - HASHACTION (enumeration for operation types)
-  - hash_search_with_hash_value (core implementation function)
+  - [hash_search_with_hash_value](hash_search_with_hash_value.md) (core implementation function)
 - Called from (representative examples):
-  - getmissingattr
-  - gistMemorizeParent
-  - gistGetParent
-  - _hash_splitbucket
-  - ReorderBufferTXNByXid
+  - [getmissingattr](../g/getmissingattr.md)
+  - [gistMemorizeParent](../g/gistMemorizeParent.md)
+  - [gistGetParent](../g/gistGetParent.md)
+  - [_hash_splitbucket](_hash_splitbucket.md)
+  - [ReorderBufferTXNByXid](../R/ReorderBufferTXNByXid.md)
   - LocalBufferAlloc
-  - LockAcquireExtended
-  - smgropen
-  - WaitEventCustomNew
-  - lookup_collation_cache
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
+  - [smgropen](../s/smgropen.md)
+  - [WaitEventCustomNew](../W/WaitEventCustomNew.md)
+  - [lookup_collation_cache](../l/lookup_collation_cache.md)
 
 ## Notes and Other Information
 - Returns a pointer to the found/created/removed entry, or NULL if not found

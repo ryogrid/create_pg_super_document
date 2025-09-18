@@ -29,12 +29,12 @@ The function delegates to updateAclDependenciesWorker with SHARED_DEPENDENCY_INI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - updateAclDependenciesWorker
+  - [updateAclDependenciesWorker](updateAclDependenciesWorker.md)
   - SHARED_DEPENDENCY_INITACL
 - Called from (representative examples):
-  - recordExtensionInitPrivWorker
-  - ReplaceRoleInInitPriv
-  - RemoveRoleFromInitPriv
+  - [recordExtensionInitPrivWorker](../r/recordExtensionInitPrivWorker.md)
+  - [ReplaceRoleInInitPriv](../R/ReplaceRoleInInitPriv.md)
+  - [RemoveRoleFromInitPriv](../R/RemoveRoleFromInitPriv.md)
 
 ## Notes and Other Information
 - Similar to updateAclDependencies but specifically for pg_init_privs entries

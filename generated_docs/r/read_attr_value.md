@@ -20,17 +20,17 @@ The function modifies the input string by null-terminating the extracted value a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sanitize_char
+  - [sanitize_char](../s/sanitize_char.md)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
   - ERRCODE_PROTOCOL_VIOLATION
 - Called from (representative examples):
-  - read_client_first_message
-  - read_client_final_message  
-  - read_server_first_message
-  - read_server_final_message
+  - [read_client_first_message](read_client_first_message.md)
+  - [read_client_final_message](read_client_final_message.md)  
+  - [read_server_first_message](read_server_first_message.md)
+  - [read_server_final_message](read_server_final_message.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within auth-scram.c (and fe-auth-scram.c)

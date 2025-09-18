@@ -18,16 +18,16 @@ This internal function performs critical version compatibility checks when pg_du
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQparameterStatus (retrieves server version string)
-  - PQserverVersion (retrieves numeric server version)
-  - pg_fatal (error handling for libpq failures)
-  - pg_strdup (string duplication)
+  - [PQserverVersion](../P/PQserverVersion.md) (retrieves numeric server version)
+  - [pg_fatal](../p/pg_fatal.md) (error handling for libpq failures)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - pg_log_error (error logging)
   - pg_log_error_detail (detailed error logging)
-  - ExecuteSqlQueryForSingleRow (executes SQL query for standby check)
-  - PQgetvalue (extracts result value)
-  - PQclear (cleanup result set)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (executes SQL query for standby check)
+  - [PQgetvalue](../P/PQgetvalue.md) (extracts result value)
+  - [PQclear](../P/PQclear.md) (cleanup result set)
 - Called from (representative examples):
-  - ConnectDatabase
+  - [ConnectDatabase](../C/ConnectDatabase.md)
 
 ## Notes and Other Information
 - Sets AH->public.remoteVersionStr and AH->public.remoteVersion for later use

@@ -19,11 +19,11 @@ This utility function iterates through a list of StatisticExtInfo structures to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - StatisticExtInfo (type)
-  - List (PostgreSQL list operations)
+  - [List](../L/List.md) (PostgreSQL list operations)
   - lfirst (list traversal macro)
 - Called from (representative examples):
-  - dependencies_clauselist_selectivity
-  - statext_mcv_clauselist_selectivity
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md)
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Returns true immediately upon finding the first matching statistic kind

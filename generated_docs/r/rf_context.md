@@ -22,11 +22,11 @@ The struct is used during row filter expression tree walking to maintain state a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Bitmapset (bitmap operations)
+  - [Bitmapset](../B/Bitmapset.md) (bitmap operations)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - contain_invalid_rfcolumn_walker
-  - pub_rf_contains_invalid_column
+  - [contain_invalid_rfcolumn_walker](../c/contain_invalid_rfcolumn_walker.md)
+  - [pub_rf_contains_invalid_column](../p/pub_rf_contains_invalid_column.md)
 
 ## Notes and Other Information
 This structure is integral to PostgreSQL's logical replication row filtering feature introduced to allow publications to filter which row changes are replicated. The validation ensures data consistency by preventing the use of non-replica-identity columns in filters, which could lead to replication conflicts or data inconsistencies on subscriber nodes. The pubviaroot mechanism handles the complexity of partitioned tables where a parent table's row filter may be applied to partition changes, requiring careful column mapping between parent and child relations.

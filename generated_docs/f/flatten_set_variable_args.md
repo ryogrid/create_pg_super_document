@@ -26,14 +26,14 @@ For variables with the GUC_LIST_INPUT flag, multiple arguments are joined with c
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_option
-  - quote_identifier
-  - typenameTypeIdAndMod
+  - [quote_identifier](../q/quote_identifier.md)
+  - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md)
   - DirectFunctionCall3 (interval_in)
   - DirectFunctionCall1 (interval_out)
   - Various node type checking macros (IsA, nodeTag)
 - Called from (representative examples):
-  - ExtractSetVariableArgs (in src/backend/utils/misc/guc_funcs.c:172)
-  - SetPGVariable (in src/backend/utils/misc/guc_funcs.c:317)
+  - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md) (in src/backend/utils/misc/guc_funcs.c:172)
+  - [SetPGVariable](../S/SetPGVariable.md) (in src/backend/utils/misc/guc_funcs.c:317)
 
 ## Notes and Other Information
 - Returns NULL for empty argument lists (corresponding to SET ... TO DEFAULT)

@@ -25,7 +25,7 @@ This internal function implements an optimization for transaction ID consumption
   - CLOG_XACTS_PER_PAGE (constant defining transactions per commit log page)
   - Min (macro for minimum value calculation)
 - Called from:
-  - consume_xids_shortcut (uses this function to determine skip distances)
+  - [consume_xids_shortcut](../c/consume_xids_shortcut.md) (uses this function to determine skip distances)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

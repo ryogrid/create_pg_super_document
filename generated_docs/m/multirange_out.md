@@ -26,15 +26,15 @@ The function deserializes the multirange into its constituent ranges, then itera
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P
   - MultirangeTypeGetOid
-  - get_multirange_io_data
+  - [get_multirange_io_data](../g/get_multirange_io_data.md)
   - IOFunc_output
-  - multirange_deserialize
-  - OutputFunctionCall
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
   - RangeTypePGetDatum
   - PG_RETURN_CSTRING
 - Called from:
-  - anymultirange_out (src/backend/utils/adt/pseudotypes.c:238)
-  - anycompatiblemultirange_out (src/backend/utils/adt/pseudotypes.c:251)
+  - [anymultirange_out](../a/anymultirange_out.md) (src/backend/utils/adt/pseudotypes.c:238)
+  - [anycompatiblemultirange_out](../a/anycompatiblemultirange_out.md) (src/backend/utils/adt/pseudotypes.c:251)
 
 ## Notes and Other Information
 - Uses StringInfo buffer for efficient string building

@@ -21,15 +21,15 @@ This function serves as the foundation for both full backup files and incrementa
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - open
-  - pg_free
-  - pg_fatal
+  - [pg_free](../p/pg_free.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - PG_BINARY
   - O_RDONLY
 - Called from (representative examples):
-  - make_incremental_rfile
-  - reconstruct_from_incremental_file
+  - [make_incremental_rfile](make_incremental_rfile.md)
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md)
 
 ## Notes and Other Information
 The function opens files in binary mode (PG_BINARY) which is essential for reading PostgreSQL's block-oriented backup files correctly across different platforms. The missing_ok parameter allows callers to distinguish between optional files (like when checking if a full backup exists before looking for an incremental one) and required files that should cause fatal errors if missing.

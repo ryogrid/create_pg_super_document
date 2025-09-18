@@ -22,17 +22,17 @@ This function processes all tuples starting from a specified offset on a pending
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber (get maximum offset on page)
-  - PageGetItem, PageGetItemId (page item access functions)
-  - gintuple_get_attrnum (extract attribute number from tuple)
-  - gintuple_get_key (extract key and category from tuple)
-  - ginInsertBAEntries (insert accumulated entries into build accumulator)
-  - addDatum (add datum to KeyArray)
-  - ItemPointerSetInvalid, ItemPointerIsValid, ItemPointerEquals (heap pointer utilities)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (get maximum offset on page)
+  - [PageGetItem](../P/PageGetItem.md), PageGetItemId (page item access functions)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md) (extract attribute number from tuple)
+  - [gintuple_get_key](../g/gintuple_get_key.md) (extract key and category from tuple)
+  - [ginInsertBAEntries](../g/ginInsertBAEntries.md) (insert accumulated entries into build accumulator)
+  - [addDatum](../a/addDatum.md) (add datum to KeyArray)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md), ItemPointerIsValid, ItemPointerEquals (heap pointer utilities)
   - OffsetNumberNext (offset number iteration)
 - Called from (representative examples):
-  - ginInsertCleanup (at src/backend/access/gin/ginfast.c:893)
-  - ginInsertCleanup (at src/backend/access/gin/ginfast.c:954)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (at src/backend/access/gin/ginfast.c:893)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (at src/backend/access/gin/ginfast.c:954)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the ginfast.c file

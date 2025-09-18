@@ -25,10 +25,10 @@ The function generates deterministic salt based on the username using the cluste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scram_mock_salt
+  - [scram_mock_salt](../s/scram_mock_salt.md)
   - pg_b64_enc_len
   - pg_b64_encode
-  - palloc
+  - [palloc](../p/palloc.md)
   - memset
   - elog
   - PG_SHA256
@@ -37,7 +37,7 @@ The function generates deterministic salt based on the username using the cluste
   - SCRAM_SHA_256_DEFAULT_ITERATIONS
   - SCRAM_MAX_KEY_LEN
 - Called from (representative examples):
-  - scram_init
+  - [scram_init](../s/scram_init.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within auth-scram.c

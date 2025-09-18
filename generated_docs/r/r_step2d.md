@@ -32,14 +32,14 @@ The function requires at least 5 characters before the left boundary and validat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Searches backwards for patterns in the given array
-  - `slice_del`: Deletes the substring between bra and ket
-  - `slice_from_s`: Replaces the substring with specified string
+  - `[find_among_b](../f/find_among_b.md)`: Searches backwards for patterns in the given array
+  - `[slice_del](../s/slice_del.md)`: Deletes the substring between bra and ket
+  - `[slice_from_s](../s/slice_from_s.md)`: Replaces the substring with specified string
   - `a_30`: Array of 2 suffix patterns for initial matching
   - `a_31`: Array of 8 suffix patterns for replacement phase
   - `s_68`: Greek character "ε" (epsilon) used as replacement
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function at line 3559
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function at line 3559
 
 ## Notes and Other Information
 - This is step 2d in the Greek stemming algorithm, executed after step 2c

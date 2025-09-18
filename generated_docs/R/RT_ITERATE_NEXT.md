@@ -41,9 +41,9 @@ The function handles both embedded values (for small data) and pointer-based val
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (for name generation)
-  - RT_NODE_ITERATE_NEXT (for node-level iteration)
-  - RT_CHILDPTR_IS_VALUE (for checking if slot contains embedded value)
-  - RT_PTR_SET_LOCAL (for setting up local pointers)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md) (for node-level iteration)
+  - [RT_CHILDPTR_IS_VALUE](RT_CHILDPTR_IS_VALUE.md) (for checking if slot contains embedded value)
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md) (for setting up local pointers)
 - Called from (representative examples):
   - User code performing complete tree traversal
   - Database scan operations

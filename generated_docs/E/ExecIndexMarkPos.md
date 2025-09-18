@@ -21,17 +21,17 @@ The function assumes that at least one tuple has been read before marking is att
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_markpos
+  - [index_markpos](../i/index_markpos.md)
   - elog
 - Data types used:
-  - IndexScanState
-  - EState
-  - EPQState
+  - [IndexScanState](../I/IndexScanState.md)
+  - [EState](EState.md)
+  - [EPQState](EPQState.md)
   - Scan
   - Index
 
 ## Called From
-- ExecMarkPos (src/backend/executor/execAmi.c:331)
+- [ExecMarkPos](ExecMarkPos.md) (src/backend/executor/execAmi.c:331)
 
 ## Notes and Other Information
 - Assumes at least one tuple has been read before marking (iss_ScanDesc is non-NULL)

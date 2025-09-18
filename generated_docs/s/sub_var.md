@@ -25,22 +25,22 @@ The function implements the mathematical rules for signed number subtraction:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_abs (for adding absolute values)
-  - sub_abs (for subtracting absolute values)
-  - cmp_abs (for comparing absolute values)
-  - zero_var (for setting result to zero)
+  - [add_abs](../a/add_abs.md) (for adding absolute values)
+  - [sub_abs](sub_abs.md) (for subtracting absolute values)
+  - [cmp_abs](../c/cmp_abs.md) (for comparing absolute values)
+  - [zero_var](../z/zero_var.md) (for setting result to zero)
   - NUMERIC_POS (positive sign constant)
   - NUMERIC_NEG (negative sign constant)
 - Called from (representative examples):
-  - numeric_sub_opt_error
-  - compute_bucket
-  - in_range_numeric_numeric
-  - numeric_stddev_internal
-  - mod_var
-  - div_mod_var
-  - floor_var
-  - sqrt_var
-  - ln_var
+  - [numeric_sub_opt_error](../n/numeric_sub_opt_error.md)
+  - [compute_bucket](../c/compute_bucket.md)
+  - [in_range_numeric_numeric](../i/in_range_numeric_numeric.md)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md)
+  - [mod_var](../m/mod_var.md)
+  - [div_mod_var](../d/div_mod_var.md)
+  - [floor_var](../f/floor_var.md)
+  - [sqrt_var](sqrt_var.md)
+  - [ln_var](../l/ln_var.md)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

@@ -23,22 +23,22 @@ ProcessTwoPhaseBuffer is a core function in PostgreSQL's two-phase commit recove
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId
   - LWLockHeldByMeInMode
-  - TransactionIdDidCommit
-  - TransactionIdDidAbort
-  - RemoveTwoPhaseFile
-  - PrepareRedoRemove
-  - TransactionIdFollowsOrEquals
-  - ReadTwoPhaseFile
-  - XlogReadTwoPhaseData
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [TransactionIdDidAbort](../T/TransactionIdDidAbort.md)
+  - [RemoveTwoPhaseFile](../R/RemoveTwoPhaseFile.md)
+  - [PrepareRedoRemove](PrepareRedoRemove.md)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md)
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
   - TransactionIdEquals
-  - TransactionIdFollows
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - AdvanceNextFullTransactionIdPastXid
-  - SubTransSetParent
+  - [SubTransSetParent](../S/SubTransSetParent.md)
 - Called from (representative examples):
-  - restoreTwoPhaseData
-  - PrescanPreparedTransactions
-  - StandbyRecoverPreparedTransactions
-  - RecoverPreparedTransactions
+  - [restoreTwoPhaseData](../r/restoreTwoPhaseData.md)
+  - [PrescanPreparedTransactions](PrescanPreparedTransactions.md)
+  - [StandbyRecoverPreparedTransactions](../S/StandbyRecoverPreparedTransactions.md)
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md)
 
 ## Notes and Other Information
 The function requires exclusive access to TwoPhaseStateLock and performs extensive error checking to ensure data integrity. It handles both normal recovery scenarios and error conditions like stale or corrupted transaction state. When reading from WAL, prepare_start_lsn must be valid. The function returns the transaction buffer on success or NULL if the transaction was already processed or invalid. Location: src/backend/access/transam/twophase.c:2177-2296

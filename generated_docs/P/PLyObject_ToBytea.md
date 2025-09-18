@@ -20,19 +20,19 @@ This specialized conversion function handles the conversion from Python objects 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (type structure)
+  - [PLyObToDatum](PLyObToDatum.md) (type structure)
   - PLy_elog (PL/Python error reporting function)
   - PG_TRY/PG_FINALLY/PG_END_TRY (PostgreSQL exception handling macros)
   - PyObject_Bytes (Python C API function to convert object to bytes)
   - PyBytes_AsString (Python C API function to get string data from bytes object)
   - PyBytes_Size (Python C API function to get size of bytes object)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - SET_VARSIZE (PostgreSQL macro to set variable-length object size)
   - VARDATA (PostgreSQL macro to get data portion of variable-length object)
-  - PointerGetDatum (PostgreSQL macro to create datum from pointer)
+  - [PointerGetDatum](PointerGetDatum.md) (PostgreSQL macro to create datum from pointer)
   - Py_XDECREF (Python C API macro for safe reference decrementing)
 - Called from:
-  - PLy_output_setup_func (during output function setup for bytea types)
+  - [PLy_output_setup_func](PLy_output_setup_func.md) (during output function setup for bytea types)
 
 ## Notes and Other Information
 The function includes comprehensive error handling and memory management. It uses PostgreSQL's PG_TRY/PG_FINALLY block to ensure that Python reference counts are properly managed even if PostgreSQL exceptions occur during memory allocation or data copying. The comment emphasizes that this specialized approach is both necessary (to handle embedded nulls) and more efficient than generic conversion. The function properly handles Python's None as a NULL value and correctly formats the resulting bytea with PostgreSQL's variable-length object structure.

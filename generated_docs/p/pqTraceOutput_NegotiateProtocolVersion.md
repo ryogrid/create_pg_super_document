@@ -24,9 +24,9 @@ The function reads two consecutive 32-bit integers from the message buffer using
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputInt32 (reads and formats 32-bit integers from message buffer)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (reads and formats 32-bit integers from message buffer)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message dispatcher for trace output)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message dispatcher for trace output)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, part of the internal tracing infrastructure

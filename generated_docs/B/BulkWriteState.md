@@ -27,16 +27,16 @@ The structure maintains a queue of pending writes that are processed in batches,
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation
-  - PendingWrite
+  - [PendingWrite](../P/PendingWrite.md)
   - MAX_PENDING_WRITES
-  - smgr_bulk_flush
+  - [smgr_bulk_flush](../s/smgr_bulk_flush.md)
 
 - Called from (representative examples):
-  - smgr_bulk_start_rel
-  - smgr_bulk_start_smgr
-  - smgr_bulk_finish
-  - smgr_bulk_write
-  - smgr_bulk_get_buf
+  - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md)
+  - [smgr_bulk_start_smgr](../s/smgr_bulk_start_smgr.md)
+  - [smgr_bulk_finish](../s/smgr_bulk_finish.md)
+  - [smgr_bulk_write](../s/smgr_bulk_write.md)
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md)
   - Various index building functions (btbuildempty, spgbuildempty)
   - Table rewrite operations (RewriteStateData, RelationCopyStorage)
 

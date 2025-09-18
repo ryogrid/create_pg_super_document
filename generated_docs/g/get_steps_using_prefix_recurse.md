@@ -36,17 +36,17 @@ The function maintains careful bookkeeping of expressions and comparison functio
   - lfirst
   - llast
   - for_each_cell
-  - list_copy
+  - [list_copy](../l/list_copy.md)
   - lappend
   - lappend_oid
-  - list_concat
-  - list_free
-  - gen_prune_step_op
+  - [list_concat](../l/list_concat.md)
+  - [list_free](../l/list_free.md)
+  - [gen_prune_step_op](gen_prune_step_op.md)
   - bms_is_empty
-  - bms_num_members
+  - [bms_num_members](../b/bms_num_members.md)
 - Called from:
-  - get_steps_using_prefix
-  - get_steps_using_prefix_recurse (recursive)
+  - [get_steps_using_prefix](get_steps_using_prefix.md)
+  - [get_steps_using_prefix_recurse](get_steps_using_prefix_recurse.md) (recursive)
 
 ## Notes and Other Information
 The function includes important assertions to validate the structure for hash partitioning, ensuring that each partition key has either an equality clause or is marked as NULL in step_nullkeys. The recursion is bounded by PARTITION_MAX_KEYS to prevent stack overflow. Memory management is carefully handled by copying and freeing intermediate expression/function lists to avoid modifying shared data structures. This function is critical for optimizing queries with complex multi-column partition key predicates involving multiple clauses per key.

@@ -19,7 +19,7 @@ The `range_empty` function is a range predicate function that checks whether a P
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_RANGE_P` - Extracts range argument from function parameters
-  - `range_get_flags` - Retrieves the flags byte from the range header
+  - `[range_get_flags](range_get_flags.md)` - Retrieves the flags byte from the range header
   - `RANGE_EMPTY` - Flag constant indicating an empty range
 - Called from (representative examples):
   - SQL queries using the `isempty()` function on range types

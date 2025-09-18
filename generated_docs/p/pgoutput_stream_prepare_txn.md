@@ -25,12 +25,12 @@ The `pgoutput_stream_prepare_txn` function is part of PostgreSQL's logical repli
 ## Dependencies
 - Functions called/Symbols referenced:
   - rbtxn_is_streamed
-  - OutputPluginUpdateProgress
-  - OutputPluginPrepareWrite
-  - logicalrep_write_stream_prepare
-  - OutputPluginWrite
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_stream_prepare](../l/logicalrep_write_stream_prepare.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as callback)
 
 ## Notes and Other Information
 - This function is specifically for streaming two-phase commit transactions

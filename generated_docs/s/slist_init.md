@@ -20,12 +20,12 @@ This function initializes or reinitializes a singly-linked list by setting the h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_head (parameter type)
+  - [slist_head](slist_head.md) (parameter type)
 - Called from (representative examples):
-  - EventTriggerBeginCompleteQuery (event trigger processing)
+  - [EventTriggerBeginCompleteQuery](../E/EventTriggerBeginCompleteQuery.md) (event trigger processing)
   - SPI_connect_ext (Server Programming Interface)
-  - dsm_create_descriptor (dynamic shared memory)
-  - InitCatCache (system catalog cache)
+  - [dsm_create_descriptor](../d/dsm_create_descriptor.md) (dynamic shared memory)
+  - [InitCatCache](../I/InitCatCache.md) (system catalog cache)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

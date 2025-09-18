@@ -23,8 +23,8 @@ The  function constructs a complete row for the pg_ident_file_mappings system vi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int32GetDatum, CStringGetTextDatum
-  - heap_form_tuple
+  - [Int32GetDatum](../I/Int32GetDatum.md), CStringGetTextDatum
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - tuplestore_puttuple
   - Assert, memset
 - Types referenced:
@@ -32,7 +32,7 @@ The  function constructs a complete row for the pg_ident_file_mappings system vi
   - NUM_PG_IDENT_FILE_MAPPINGS_ATTS
   - HeapTuple, Datum
 - Called from:
-  - fill_ident_view
+  - [fill_ident_view](fill_ident_view.md)
 
 ## Notes and Other Information
 - Function is static and only used within hbafuncs.c for system view implementation

@@ -28,7 +28,7 @@ The `newdfa` function allocates and initializes a new DFA structure for regex ex
 - Functions called/Symbols referenced:
   - MALLOC (memory allocation macro)
   - ERR (error reporting macro)
-  - freedfa (cleanup function called on allocation failure)
+  - [freedfa](../f/freedfa.md) (cleanup function called on allocation failure)
   - REG_ESPACE, REG_SMALL (error and flag constants)
   - FEWSTATES, FEWCOLORS, UBITS, WORK (size and allocation constants)
 - Called from (representative examples):

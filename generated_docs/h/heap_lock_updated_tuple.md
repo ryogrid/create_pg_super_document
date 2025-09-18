@@ -31,11 +31,11 @@ The function delegates the actual recursive locking work to heap_lock_updated_tu
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderIndicatesMovedPartitions
-  - ItemPointerEquals
-  - MultiXactIdSetOldestMember
-  - heap_lock_updated_tuple_rec
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
+  - [MultiXactIdSetOldestMember](../M/MultiXactIdSetOldestMember.md)
+  - [heap_lock_updated_tuple_rec](heap_lock_updated_tuple_rec.md)
 - Called from (representative examples):
-  - heap_lock_tuple
+  - [heap_lock_tuple](heap_lock_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam.c, serving as a controlled entry point for update chain locking

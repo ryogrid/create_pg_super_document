@@ -21,17 +21,17 @@ CollateClause is a parse tree node that represents collation specifications in S
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParseLoc
-  - Node (generic parse tree node)
-  - List (PostgreSQL list structure)
+  - [Node](../N/Node.md) (generic parse tree node)
+  - [List](../L/List.md) (PostgreSQL list structure)
 - Called from (representative examples):
-  - transformCollateClause
-  - transformExprRecurse
-  - FigureColnameInternal
-  - ColumnDef (in column definitions)
+  - [transformCollateClause](../t/transformCollateClause.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [FigureColnameInternal](../F/FigureColnameInternal.md)
+  - [ColumnDef](ColumnDef.md) (in column definitions)
   - CreateDomainStmt (in domain definitions)
 
 ## Notes and Other Information
-- CollateClause nodes are transformed during analysis to apply the specified collation to expressions
+- [CollateClause](CollateClause.md) nodes are transformed during analysis to apply the specified collation to expressions
 - The collname List typically contains String nodes representing the components of the collation name
 - Used extensively in internationalization scenarios where locale-specific text handling is required
 - Can be applied to column definitions, domain definitions, and individual expressions

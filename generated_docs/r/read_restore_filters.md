@@ -26,21 +26,21 @@ For include operations, the function sets appropriate selection flags in the Res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filter_init
-  - filter_read_item
-  - filter_free
-  - simple_string_list_append
-  - pg_log_filter_error
-  - filter_object_type_name
-  - exit_nicely
+  - [filter_init](../f/filter_init.md)
+  - [filter_read_item](../f/filter_read_item.md)
+  - [filter_free](../f/filter_free.md)
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [pg_log_filter_error](../p/pg_log_filter_error.md)
+  - [filter_object_type_name](../f/filter_object_type_name.md)
+  - [exit_nicely](../e/exit_nicely.md)
   - free
 - Types used:
-  - RestoreOptions
+  - [RestoreOptions](../R/RestoreOptions.md)
   - FilterStateData
   - FilterCommandType
-  - FilterObjectType
+  - [FilterObjectType](../F/FilterObjectType.md)
 - Called from (representative examples):
-  - main (in src/bin/pg_dump/pg_restore.c:295)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_restore.c:295)
 
 ## Notes and Other Information
 - This function is declared as static, limiting its scope to the pg_restore.c source file

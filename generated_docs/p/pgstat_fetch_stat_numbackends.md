@@ -21,7 +21,7 @@ This is a support function for PostgreSQL's SQL-callable pgstat* functions that 
 - Called from (representative examples):
   - PG_STAT_GET_PROGRESS_COLS
   - PG_STAT_GET_ACTIVITY_COLS  
-  - pg_stat_get_db_numbackends
+  - [pg_stat_get_db_numbackends](pg_stat_get_db_numbackends.md)
 
 ## Notes and Other Information
 - Returns the value of localNumBackends, which represents the current count of active backend processes

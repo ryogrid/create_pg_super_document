@@ -25,10 +25,10 @@ This function creates two check triggers on the referencing table that validate 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateFKCheckTrigger (trigger creation for INSERT and UPDATE)
+  - [CreateFKCheckTrigger](../C/CreateFKCheckTrigger.md) (trigger creation for INSERT and UPDATE)
 - Called from (representative examples):
   - child_dependency_type
-  - addFkRecurseReferencing
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md)
 
 ## Notes and Other Information
 - Complementary to createForeignKeyActionTriggers which creates triggers on the referenced table

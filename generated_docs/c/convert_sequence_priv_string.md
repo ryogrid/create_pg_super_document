@@ -19,18 +19,18 @@ This function is a static helper function that converts human-readable privilege
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string: Generic privilege string parser that uses the mapping table
+  - [convert_any_priv_string](convert_any_priv_string.md): Generic privilege string parser that uses the mapping table
   - ACL_USAGE: Usage privilege constant
   - ACL_SELECT: Select privilege constant  
   - ACL_UPDATE: Update privilege constant
   - ACL_GRANT_OPTION_FOR: Macro to set grant option bits for privileges
 - Called from (representative examples):
-  - has_sequence_privilege_name_name: Line 2119
-  - has_sequence_privilege_name: Line 2149
-  - has_sequence_privilege_name_id: Line 2180
-  - has_sequence_privilege_id: Line 2216
-  - has_sequence_privilege_id_name: Line 2249
-  - has_sequence_privilege_id_id: Line 2278
+  - [has_sequence_privilege_name_name](../h/has_sequence_privilege_name_name.md): Line 2119
+  - [has_sequence_privilege_name](../h/has_sequence_privilege_name.md): Line 2149
+  - [has_sequence_privilege_name_id](../h/has_sequence_privilege_name_id.md): Line 2180
+  - [has_sequence_privilege_id](../h/has_sequence_privilege_id.md): Line 2216
+  - [has_sequence_privilege_id_name](../h/has_sequence_privilege_id_name.md): Line 2249
+  - [has_sequence_privilege_id_id](../h/has_sequence_privilege_id_id.md): Line 2278
 
 ## Notes and Other Information
 - Static function, only accessible within the same source file

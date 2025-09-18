@@ -21,23 +21,23 @@ The handler processes signals in a specific order and ensures that each signal t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckProcSignal (called multiple times for different signal reasons)
-  - HandleCatchupInterrupt
-  - HandleNotifyInterrupt 
-  - HandleParallelMessageInterrupt
-  - HandleWalSndInitStopping
-  - HandleProcSignalBarrierInterrupt
-  - HandleLogMemoryContextInterrupt
-  - HandleParallelApplyMessageInterrupt
-  - HandleRecoveryConflictInterrupt (called with various conflict types)
-  - SetLatch
+  - [CheckProcSignal](../C/CheckProcSignal.md) (called multiple times for different signal reasons)
+  - [HandleCatchupInterrupt](../H/HandleCatchupInterrupt.md)
+  - [HandleNotifyInterrupt](../H/HandleNotifyInterrupt.md) 
+  - [HandleParallelMessageInterrupt](../H/HandleParallelMessageInterrupt.md)
+  - [HandleWalSndInitStopping](../H/HandleWalSndInitStopping.md)
+  - [HandleProcSignalBarrierInterrupt](../H/HandleProcSignalBarrierInterrupt.md)
+  - [HandleLogMemoryContextInterrupt](../H/HandleLogMemoryContextInterrupt.md)
+  - [HandleParallelApplyMessageInterrupt](../H/HandleParallelApplyMessageInterrupt.md)
+  - [HandleRecoveryConflictInterrupt](../H/HandleRecoveryConflictInterrupt.md) (called with various conflict types)
+  - [SetLatch](../S/SetLatch.md)
   - PROCSIG_* constants (various signal reason enums)
 - Called from (representative examples):
-  - PostgresMain (main backend process)
+  - [PostgresMain](../P/PostgresMain.md) (main backend process)
   - WalSenderMain (WAL sender processes)
-  - BackgroundWorkerMain (background workers)
-  - AutoVacWorkerMain (autovacuum workers)
-  - CheckpointerMain (checkpointer process)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md) (background workers)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum workers)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (checkpointer process)
 
 ## Notes and Other Information
 - This is the primary SIGUSR1 handler installed by most PostgreSQL processes

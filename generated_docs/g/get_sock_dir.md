@@ -24,10 +24,10 @@ This function sets the socket directory for a PostgreSQL cluster with different 
   - snprintf (for path construction)
   - fgets (for reading file lines)
   - sscanf (for parsing port number)
-  - pg_strdup (for string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - pg_strip_crlf (to clean string endings)
-  - pg_fatal (for error reporting)
-  - pg_log (for warnings)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
+  - [pg_log](../p/pg_log.md) (for warnings)
 - Constants used:
   - LOCK_FILE_LINE_PORT (line number in postmaster.pid containing port)
   - LOCK_FILE_LINE_SOCKET_DIR (line number containing socket directory)
@@ -37,7 +37,7 @@ This function sets the socket directory for a PostgreSQL cluster with different 
   - user_opts.socketdir (user-specified socket directory)
   - old_cluster.port (may be updated from postmaster.pid)
 - Called from (representative examples):
-  - main (src/bin/pg_upgrade/pg_upgrade.c:132-133) - called for both old and new clusters
+  - [main](../m/main.md) (src/bin/pg_upgrade/pg_upgrade.c:132-133) - called for both old and new clusters
 
 ## Notes and Other Information
 - Platform-specific: Unix-like systems use Unix domain sockets, Windows sets sockdir to NULL

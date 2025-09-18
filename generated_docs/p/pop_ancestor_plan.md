@@ -20,10 +20,10 @@ The function ensures that the deparse context is properly restored to its state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_free (frees memory allocated for a list)
+  - [list_free](../l/list_free.md) (frees memory allocated for a list)
 - Called from (representative examples):
-  - get_name_for_var_field
-  - get_parameter
+  - [get_name_for_var_field](../g/get_name_for_var_field.md)
+  - [get_parameter](../g/get_parameter.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c for internal use within the rule/query deparsing subsystem

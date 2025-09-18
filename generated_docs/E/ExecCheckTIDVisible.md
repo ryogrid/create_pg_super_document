@@ -33,10 +33,10 @@ This function encapsulates the common pattern of "fetch tuple by TID, then check
   - IsolationUsesXactSnapshot
   - table_tuple_fetch_row_version
   - SnapshotAny
-  - ExecCheckTupleVisible
+  - [ExecCheckTupleVisible](ExecCheckTupleVisible.md)
   - ExecClearTuple
 - Called from (representative examples):
-  - ExecInsert
+  - [ExecInsert](ExecInsert.md)
 
 ## Notes and Other Information
 - This function is static to nodeModifyTable.c and used internally for ON CONFLICT processing

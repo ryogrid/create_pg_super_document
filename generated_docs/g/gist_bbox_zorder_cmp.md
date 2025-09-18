@@ -21,10 +21,10 @@ This function implements a comparison operation based on Z-order (Morton code) v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP (extracts Box pointer from Datum)
-  - point_zorder_internal (computes Z-order value for a point)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (extracts Box pointer from Datum)
+  - [point_zorder_internal](../p/point_zorder_internal.md) (computes Z-order value for a point)
 - Called from:
-  - gist_point_sortsupport (registered as comparison function)
+  - [gist_point_sortsupport](gist_point_sortsupport.md) (registered as comparison function)
 
 ## Notes and Other Information
 - Returns -1, 0, or 1 following standard comparison function conventions

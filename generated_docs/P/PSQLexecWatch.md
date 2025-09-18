@@ -30,14 +30,14 @@ The function is optimized for repeated execution scenarios and provides detailed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printQueryOpt (structure type for formatting options)
-  - SetCancelConn (sets up query cancellation handling)
-  - ExecQueryAndProcessResults (main query execution and result processing)
-  - ResetCancelConn (cleans up cancellation setup)
-  - PrintTiming (displays timing information)
+  - [printQueryOpt](../p/printQueryOpt.md) (structure type for formatting options)
+  - [SetCancelConn](../S/SetCancelConn.md) (sets up query cancellation handling)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (main query execution and result processing)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (cleans up cancellation setup)
+  - [PrintTiming](PrintTiming.md) (displays timing information)
 
 - Called from (representative examples):
-  - do_watch (implements the \watch command functionality)
+  - [do_watch](../d/do_watch.md) (implements the \watch command functionality)
 
 ## Notes and Other Information
 - Returns 1 on successful execution, 0 if query cannot be repeated (e.g., due to interrupt), -1 on error

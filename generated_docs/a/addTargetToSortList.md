@@ -23,17 +23,17 @@ The function performs type coercion for UNKNOWN literals to TEXT, determines app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - coerce_type
-  - setup_parser_errposition_callback
-  - get_sort_group_operators
-  - compatible_oper_opid
-  - get_equality_op_for_ordering_op
-  - op_hashjoinable
-  - targetIsInSortList
-  - assignSortGroupRef
+  - [coerce_type](../c/coerce_type.md)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
+  - [get_sort_group_operators](../g/get_sort_group_operators.md)
+  - [compatible_oper_opid](../c/compatible_oper_opid.md)
+  - [get_equality_op_for_ordering_op](../g/get_equality_op_for_ordering_op.md)
+  - [op_hashjoinable](../o/op_hashjoinable.md)
+  - [targetIsInSortList](../t/targetIsInSortList.md)
+  - [assignSortGroupRef](assignSortGroupRef.md)
 - Called from (representative examples):
-  - transformSortClause
-  - transformAggregateCall
+  - [transformSortClause](../t/transformSortClause.md)
+  - [transformAggregateCall](../t/transformAggregateCall.md)
 
 ## Notes and Other Information
 - Handles type coercion for UNKNOWN literals to TEXT type automatically

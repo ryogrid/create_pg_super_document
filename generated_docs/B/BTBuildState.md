@@ -26,16 +26,16 @@ In parallel builds, only the leader process has the btleader field populated, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTSpool
-  - BTLeader
+  - [BTSpool](BTSpool.md)
+  - [BTLeader](BTLeader.md)
 - Called from (representative examples):
-  - btbuild
-  - _bt_spools_heapscan
-  - _bt_build_callback
-  - _bt_begin_parallel
-  - _bt_parallel_heapscan
-  - _bt_leader_participate_as_worker
-  - _bt_parallel_scan_and_sort
+  - [btbuild](../b/btbuild.md)
+  - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md)
+  - [_bt_build_callback](../b/_bt_build_callback.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
+  - [_bt_parallel_heapscan](../b/_bt_parallel_heapscan.md)
+  - [_bt_leader_participate_as_worker](../b/_bt_leader_participate_as_worker.md)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
 
 ## Notes and Other Information
 BTBuildState is designed to support both serial and parallel index construction workflows. The dual spool architecture (spool and spool2) is specifically designed for unique indexes where dead tuples must be processed separately to avoid false uniqueness violations. In parallel builds, worker processes maintain their own BTBuildState instances but without the btleader field, which is exclusive to the leader process for coordination purposes. The structure serves as the central state container passed to various callback functions during the index building process.

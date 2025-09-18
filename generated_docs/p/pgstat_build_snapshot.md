@@ -21,22 +21,22 @@ The snapshot includes only statistics relevant to the current database context, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_snapshot
-  - GetCurrentTimestamp
+  - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - dshash_seq_init
   - dshash_seq_next
   - dshash_seq_term
-  - pgstat_get_kind_info
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - pgstat_snapshot_insert
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - LWLockAcquire/LWLockRelease
-  - pgstat_get_entry_data
-  - pg_atomic_read_u32
-  - dsa_get_address
-  - pgstat_build_snapshot_fixed
+  - [pgstat_get_entry_data](pgstat_get_entry_data.md)
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [pgstat_build_snapshot_fixed](pgstat_build_snapshot_fixed.md)
 - Called from (representative examples):
-  - pgstat_fetch_entry
-  - pgstat_snapshot_fixed
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
 
 ## Notes and Other Information
 - Static function for internal use within the pgstat module

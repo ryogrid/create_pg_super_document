@@ -29,9 +29,9 @@ The function works by:
 - Functions called/Symbols referenced:
   - MultirangeType
   - PG_GETARG_MULTIRANGE_P
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeTypeGetOid
-  - multirange_contains_elem_internal
+  - [multirange_contains_elem_internal](multirange_contains_elem_internal.md)
 - Called from (representative examples):
   - No direct references found in codebase
 

@@ -21,9 +21,9 @@ Notably, this function does not close the PostgreSQL connection (PGconn) contain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - init_libpq_source (src/bin/pg_rewind/libpq_source.c:96)
+  - [init_libpq_source](../i/init_libpq_source.md) (src/bin/pg_rewind/libpq_source.c:96)
 
 ## Notes and Other Information
 - This is a static function used internally within the pg_rewind utility

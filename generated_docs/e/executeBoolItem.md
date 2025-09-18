@@ -22,29 +22,29 @@ The  function is the core boolean expression evaluator for JSONPath. It implemen
 - Functions called/Symbols referenced:
   - check_stack_depth
   - jspHasNext
-  - jspGetLeftArg
-  - jspGetRightArg  
-  - jspGetArg
-  - jspInitByBuffer
+  - [jspGetLeftArg](../j/jspGetLeftArg.md)
+  - [jspGetRightArg](../j/jspGetRightArg.md)  
+  - [jspGetArg](../j/jspGetArg.md)
+  - [jspInitByBuffer](../j/jspInitByBuffer.md)
   - jspStrictAbsenceOfErrors
-  - executeBoolItem (recursive)
-  - executePredicate
-  - executeComparison
-  - executeStartsWith
-  - executeLikeRegex
-  - executeItemOptUnwrapResultNoThrow
+  - [executeBoolItem](executeBoolItem.md) (recursive)
+  - [executePredicate](executePredicate.md)
+  - [executeComparison](executeComparison.md)
+  - [executeStartsWith](executeStartsWith.md)
+  - [executeLikeRegex](executeLikeRegex.md)
+  - [executeItemOptUnwrapResultNoThrow](executeItemOptUnwrapResultNoThrow.md)
   - jperIsError
-  - JsonValueListIsEmpty
+  - [JsonValueListIsEmpty](../J/JsonValueListIsEmpty.md)
   - JsonPathBool (return type)
   - JsonPathItem (type)
-  - JsonValueList (type)
-  - JsonLikeRegexContext (type)
+  - [JsonValueList](../J/JsonValueList.md) (type)
+  - [JsonLikeRegexContext](../J/JsonLikeRegexContext.md) (type)
   - Various enum values (jpiAnd, jpiOr, jpiNot, jpiEqual, etc.)
   - Three-valued logic constants (jpbTrue, jpbFalse, jpbUnknown)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget
-  - executeBoolItem (recursive calls)
-  - executeNestedBoolItem
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)
+  - [executeBoolItem](executeBoolItem.md) (recursive calls)
+  - [executeNestedBoolItem](executeNestedBoolItem.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c

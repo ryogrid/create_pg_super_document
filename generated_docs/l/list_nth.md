@@ -24,10 +24,10 @@ This function is one of the core list access utilities in PostgreSQL, providing 
   - list_nth_cell (to get the cell at position n)
   - lfirst (to extract the pointer value from the cell)
 - Called from (representative examples):
-  - gistfinishsplit (GiST index operations)
-  - ExecInitAppend (append node initialization)
-  - transformInsertRow (SQL INSERT statement processing)
-  - get_rte_attribute_name (relation attribute name retrieval)
+  - [gistfinishsplit](../g/gistfinishsplit.md) (GiST index operations)
+  - [ExecInitAppend](../E/ExecInitAppend.md) (append node initialization)
+  - [transformInsertRow](../t/transformInsertRow.md) (SQL INSERT statement processing)
+  - [get_rte_attribute_name](../g/get_rte_attribute_name.md) (relation attribute name retrieval)
   - rt_fetch (range table access macro)
   - Many optimizer and executor functions
 

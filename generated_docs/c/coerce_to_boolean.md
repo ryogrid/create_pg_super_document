@@ -26,16 +26,16 @@ The function uses COERCION_ASSIGNMENT context, which allows implicit casts that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType (get expression type)
-  - coerce_to_target_type (perform type coercion)
-  - expression_returns_set (check for set-returning expressions)
-  - exprLocation (get source location for errors)
-  - format_type_be, parser_errposition (error reporting)
+  - [coerce_to_target_type](coerce_to_target_type.md) (perform type coercion)
+  - [expression_returns_set](../e/expression_returns_set.md) (check for set-returning expressions)
+  - [exprLocation](../e/exprLocation.md) (get source location for errors)
+  - [format_type_be](../f/format_type_be.md), parser_errposition (error reporting)
   - BOOLOID, COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST (constants)
 - Called from:
-  - cookConstraint (constraint processing)
-  - DoCopy (COPY command)
-  - domainAddCheckConstraint (domain constraints)
-  - transformJoinUsingClause, transformWhereClause (clause processing)
+  - [cookConstraint](cookConstraint.md) (constraint processing)
+  - [DoCopy](../D/DoCopy.md) (COPY command)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md) (domain constraints)
+  - [transformJoinUsingClause](../t/transformJoinUsingClause.md), transformWhereClause (clause processing)
   - transformAExprIn, transformBoolExpr, transformCaseExpr (expression transformation)
   - transformXmlExpr, transformBooleanTest (specialized expressions)
 

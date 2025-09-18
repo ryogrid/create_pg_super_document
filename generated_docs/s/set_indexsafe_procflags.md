@@ -35,7 +35,7 @@ The function acquires the ProcArrayLock in exclusive mode to safely update both 
   - ProcGlobal (global process array)
   - PROC_IN_SAFE_IC (status flag constant)
 - Called from (representative examples):
-  - DefineIndex (multiple locations)
+  - [DefineIndex](../D/DefineIndex.md) (multiple locations)
 
 ## Notes and Other Information
 - The function is static inline, optimized for performance as it's called frequently during index creation

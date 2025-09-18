@@ -29,18 +29,18 @@ The function creates a binary file containing the SnapBuildOnDisk structure, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetCatalogChangesXacts
-  - dclist_count
+  - [ReorderBufferGetCatalogChangesXacts](../R/ReorderBufferGetCatalogChangesXacts.md)
+  - [dclist_count](../d/dclist_count.md)
   - OpenTransientFile
   - write/pg_fsync/CloseTransientFile
-  - fsync_fname
+  - [fsync_fname](../f/fsync_fname.md)
   - rename
   - ReorderBufferSetRestartPoint
   - SNAPBUILD_MAGIC/SNAPBUILD_VERSION (constants)
   - CRC32C checksum functions (INIT_CRC32C, COMP_CRC32C, FIN_CRC32C)
 - Called from (representative examples):
   - SnapBuildProcessRunningXacts
-  - SnapBuildSerializationPoint
+  - [SnapBuildSerializationPoint](SnapBuildSerializationPoint.md)
 
 ## Notes and Other Information
 - Only serializes snapshots that have reached SNAPBUILD_CONSISTENT state to ensure they are usable for decoding

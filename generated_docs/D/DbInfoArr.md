@@ -18,14 +18,14 @@ DbInfoArr serves as the top-level container for managing database information du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DbInfo
+  - [DbInfo](DbInfo.md)
   - ident (indirectly through related structures)
 - Called from (representative examples):
-  - free_db_and_rel_infos
-  - print_db_infos
-  - parallel_transfer_all_new_dbs
-  - transfer_all_new_tablespaces
-  - transfer_all_new_dbs
+  - [free_db_and_rel_infos](../f/free_db_and_rel_infos.md)
+  - [print_db_infos](../p/print_db_infos.md)
+  - [parallel_transfer_all_new_dbs](../p/parallel_transfer_all_new_dbs.md)
+  - [transfer_all_new_tablespaces](../t/transfer_all_new_tablespaces.md)
+  - [transfer_all_new_dbs](../t/transfer_all_new_dbs.md)
 
 ## Notes and Other Information
 - This structure is central to cluster-wide operations during pg_upgrade, enabling batch processing of all databases

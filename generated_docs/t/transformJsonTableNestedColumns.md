@@ -27,13 +27,13 @@ The sibling join semantics ensure that rows from different nested column paths a
 - Functions called/Symbols referenced:
   - castNode: Safely casts nodes to specific types with type checking
   - lfirst: Gets the first element from a list cell
-  - generateJsonTablePathName: Generates unique path names for nested columns
-  - transformJsonTableColumns: Recursively processes column definitions
-  - makeJsonTableSiblingJoin: Creates sibling join plans for combining nested results
+  - [generateJsonTablePathName](../g/generateJsonTablePathName.md): Generates unique path names for nested columns
+  - [transformJsonTableColumns](transformJsonTableColumns.md): Recursively processes column definitions
+  - [makeJsonTableSiblingJoin](../m/makeJsonTableSiblingJoin.md): Creates sibling join plans for combining nested results
   - JTC_NESTED: Constant identifying nested column types
 
 - Called from (representative examples):
-  - transformJsonTableColumns: Main column processing function that handles nested structures
+  - [transformJsonTableColumns](transformJsonTableColumns.md): Main column processing function that handles nested structures
 
 ## Notes and Other Information
 - The function implements lazy evaluation by only processing columns of type JTC_NESTED

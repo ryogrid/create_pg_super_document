@@ -24,23 +24,23 @@ The function first validates that the container is both an array and marked as s
 - Functions called/Symbols referenced:
   - JsonContainerIsArray
   - JsonContainerIsScalar
-  - JsonbIteratorInit
-  - JsonbIteratorNext
+  - [JsonbIteratorInit](JsonbIteratorInit.md)
+  - [JsonbIteratorNext](JsonbIteratorNext.md)
   - IsAJsonbScalar
 - Types/Constants referenced:
-  - JsonbContainer
-  - JsonbValue
+  - [JsonbContainer](JsonbContainer.md)
+  - [JsonbValue](JsonbValue.md)
   - JsonbIterator
   - JsonbIteratorToken
   - jbvArray, jbvObject
   - WJB_BEGIN_ARRAY, WJB_ELEM, WJB_END_ARRAY, WJB_DONE
 - Called from (representative examples):
-  - jsonb_bool
-  - jsonb_numeric
-  - jsonb_int2, jsonb_int4, jsonb_int8
-  - jsonb_float4, jsonb_float8
-  - JsonbUnquote
-  - executeJsonPath
+  - [jsonb_bool](../j/jsonb_bool.md)
+  - [jsonb_numeric](../j/jsonb_numeric.md)
+  - [jsonb_int2](../j/jsonb_int2.md), jsonb_int4, jsonb_int8
+  - [jsonb_float4](../j/jsonb_float4.md), jsonb_float8
+  - [JsonbUnquote](JsonbUnquote.md)
+  - [executeJsonPath](../e/executeJsonPath.md)
 
 ## Notes and Other Information
 - Returns true if extraction succeeds, false if the container doesn't contain a raw scalar

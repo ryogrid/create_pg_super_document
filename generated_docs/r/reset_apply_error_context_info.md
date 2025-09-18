@@ -27,16 +27,16 @@ The function is marked as static inline for performance optimization, as it's fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_apply_error_context_xact (to reset transaction context with invalid values)
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md) (to reset transaction context with invalid values)
 - Called from (representative examples):
-  - apply_handle_commit (after transaction commit)
-  - apply_handle_prepare (after transaction preparation)
-  - apply_handle_commit_prepared (after prepared transaction commit)
-  - apply_handle_rollback_prepared (after prepared transaction rollback)
-  - apply_handle_stream_prepare (after streaming preparation)
-  - apply_handle_stream_stop (when stopping streaming)
-  - apply_handle_stream_abort (after streaming abort)
-  - apply_handle_stream_commit (after streaming commit)
+  - [apply_handle_commit](../a/apply_handle_commit.md) (after transaction commit)
+  - [apply_handle_prepare](../a/apply_handle_prepare.md) (after transaction preparation)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md) (after prepared transaction commit)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md) (after prepared transaction rollback)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md) (after streaming preparation)
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md) (when stopping streaming)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md) (after streaming abort)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md) (after streaming commit)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

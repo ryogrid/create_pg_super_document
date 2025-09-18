@@ -31,16 +31,16 @@ The dbname expansion feature is particularly useful for command-line tools where
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recognized_connection_string
-  - parse_connection_string
-  - conninfo_init
-  - PQconninfoFree
-  - libpq_append_error
-  - conninfo_add_defaults
+  - [recognized_connection_string](../r/recognized_connection_string.md)
+  - [parse_connection_string](../p/parse_connection_string.md)
+  - [conninfo_init](conninfo_init.md)
+  - [PQconninfoFree](../P/PQconninfoFree.md)
+  - [libpq_append_error](../l/libpq_append_error.md)
+  - [conninfo_add_defaults](conninfo_add_defaults.md)
   - strcmp, strdup, free (standard C library functions)
 - Called from (representative examples):
   - internalPQconninfoOption (src/interfaces/libpq/fe-connect.c:415)
-  - PQconnectStartParams (src/interfaces/libpq/fe-connect.c:810)
+  - [PQconnectStartParams](../P/PQconnectStartParams.md) (src/interfaces/libpq/fe-connect.c:810)
 
 ## Notes and Other Information
 - This is a static function, internal to the fe-connect.c file

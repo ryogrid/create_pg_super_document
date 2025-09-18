@@ -19,18 +19,18 @@ This function constructs a properly formatted column list for use in COPY statem
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar
-  - appendPQExpBufferStr
-  - fmtId
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [fmtId](fmtId.md)
 - Types used:
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
-  - dumpTableData_copy
-  - dumpTableData
+  - [dumpTableData_copy](../d/dumpTableData_copy.md)
+  - [dumpTableData](../d/dumpTableData.md)
 
 ## Notes and Other Information
 - Excludes dropped columns (attisdropped[i] == true)
 - Excludes generated columns (attgenerated[i] == true)
 - Uses fmtId() to properly quote column names that need escaping
 - Returns empty string "" if no valid columns exist (avoids invalid "()" syntax)
-- Result is stored in the provided buffer and returned as buffer->data
+- [Result](../R/Result.md) is stored in the provided buffer and returned as buffer->data
 - Essential for generating correct COPY statements during pg_dump operations

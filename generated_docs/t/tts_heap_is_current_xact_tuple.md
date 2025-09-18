@@ -22,9 +22,9 @@ The function requires the slot to be materialized (contain an actual HeapTuple) 
   - HeapTupleTableSlot (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
   - HeapTupleHeaderGetRawXmin (extracts xmin from tuple header)
-  - TransactionIdIsCurrentTransactionId (checks if xmin belongs to current transaction)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md) (checks if xmin belongs to current transaction)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to the execTuples.c compilation unit

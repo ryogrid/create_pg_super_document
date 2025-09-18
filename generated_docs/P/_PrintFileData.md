@@ -18,14 +18,14 @@ The _PrintFileData function is part of the tar backup format implementation used
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tarOpen (opens a tar member for reading)
-  - tarRead (reads data from tar member)
-  - tarClose (closes tar member)
-  - ahwrite (writes data to archive handle output)
-  - lclContext (local context structure)
-  - TAR_MEMBER (tar member structure)
+  - [tarOpen](../t/tarOpen.md) (opens a tar member for reading)
+  - [tarRead](../t/tarRead.md) (reads data from tar member)
+  - [tarClose](../t/tarClose.md) (closes tar member)
+  - [ahwrite](../a/ahwrite.md) (writes data to archive handle output)
+  - [lclContext](../l/lclContext.md) (local context structure)
+  - [TAR_MEMBER](../T/TAR_MEMBER.md) (tar member structure)
 - Called from (representative examples):
-  - _PrintTocData (when outputting TOC entry data)
+  - [_PrintTocData](_PrintTocData.md) (when outputting TOC entry data)
 
 ## Notes and Other Information
 - Uses a 4KB buffer (4095 bytes + null terminator) for efficient file reading

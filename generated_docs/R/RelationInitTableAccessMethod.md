@@ -26,16 +26,16 @@ After determining the handler, the function calls InitTableAmRoutine() to fetch 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_am
-  - IsCatalogRelation
-  - InitTableAmRoutine
-  - SearchSysCache1
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
+  - [InitTableAmRoutine](../I/InitTableAmRoutine.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](ReleaseSysCache.md)
 - Called from (representative examples):
-  - RelationBuildDesc
-  - RelationBuildLocalRelation
-  - load_relcache_init_file
+  - [RelationBuildDesc](RelationBuildDesc.md)
+  - [RelationBuildLocalRelation](RelationBuildLocalRelation.md)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md)
 
 ## Notes and Other Information
 - The function uses different strategies to avoid performance overhead: sequences get heap AM directly, catalog relations skip syscache lookup

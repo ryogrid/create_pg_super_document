@@ -23,26 +23,26 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSystemIdentifier
-  - RecoveryInProgress
-  - GetStandbyFlushRecPtr
-  - GetFlushRecPtr
-  - StartTransactionCommand
-  - get_database_name
-  - CommitTransactionCommand
-  - CreateDestReceiver
-  - CreateTemplateTupleDesc
-  - TupleDescInitBuiltinEntry
-  - begin_tup_output_tupdesc
-  - Int64GetDatum
-  - do_tup_output
-  - end_tup_output
+  - [GetSystemIdentifier](../G/GetSystemIdentifier.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetStandbyFlushRecPtr](../G/GetStandbyFlushRecPtr.md)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [get_database_name](../g/get_database_name.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)
+  - [Int64GetDatum](Int64GetDatum.md)
+  - [do_tup_output](../d/do_tup_output.md)
+  - [end_tup_output](../e/end_tup_output.md)
   - DestRemoteSimple
   - MAXFNAMELEN
   - UINT64_FORMAT
 
 - Called from:
-  - exec_replication_command (when processing IDENTIFY_SYSTEM command)
+  - [exec_replication_command](../e/exec_replication_command.md) (when processing IDENTIFY_SYSTEM command)
 
 ## Notes and Other Information
 - This is a static function only accessible within walsender.c

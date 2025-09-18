@@ -27,18 +27,18 @@ The function optionally returns the canonical name of the timezone through the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy (for safe string copying)
-  - pg_TZDIR (to get timezone directory path)
+  - [pg_TZDIR](pg_TZDIR.md) (to get timezone directory path)
   - open (system call to open the file)
   - TZ_STRLEN_MAX (constant defining maximum timezone name length)
   - PG_BINARY (flag for binary file access)
 - Called from (representative examples):
   - tzloadbody (in src/timezone/localtime.c)
-  - pg_tz (referenced in src/timezone/pgtz.h)
+  - [pg_tz](pg_tz.md) (referenced in src/timezone/pgtz.h)
 
 ## Notes and Other Information
 - Returns the file descriptor on success, -1 on failure
 - This is a simplified version compared to the backend's pg_open_tzfile, as it doesn't perform case-folding
 - The function assumes timezone names come from trusted sources (filesystem or TZ environment variable)
-- Path construction is done using basic string operations with overflow protection
+- [Path](../P/Path.md) construction is done using basic string operations with overflow protection
 - The function is primarily used during database initialization when setting up timezone handling
 - The canonname parameter provides compatibility with the backend version but serves a reduced purpose in this context

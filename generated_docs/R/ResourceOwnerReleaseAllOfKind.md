@@ -25,7 +25,7 @@ To prevent corruption during the scanning process, the function temporarily sets
   - ResourceOwnerDesc (resource type descriptor structure)
   - ReleaseResource (callback function via kind descriptor for releasing specific resource types)
 - Called from (representative examples):
-  - ReleaseAllPlanCacheRefsInOwner (releases plan cache references)
+  - [ReleaseAllPlanCacheRefsInOwner](ReleaseAllPlanCacheRefsInOwner.md) (releases plan cache references)
 
 ## Notes and Other Information
 - This function provides fine-grained control over resource cleanup compared to bulk release operations

@@ -20,15 +20,15 @@ This function provides a way to increment the reference count (pin count) on a b
   - BufferIsPinned (assertion check)
   - ResourceOwnerEnlarge
   - BufferIsLocal
-  - GetPrivateRefCountEntry
-  - ResourceOwnerRememberBuffer
+  - [GetPrivateRefCountEntry](../G/GetPrivateRefCountEntry.md)
+  - [ResourceOwnerRememberBuffer](../R/ResourceOwnerRememberBuffer.md)
   - PrivateRefCountEntry (type)
 - Called from (representative examples):
-  - scanPostingTree (GIN index scanning)
-  - startScanEntry (GIN index operations)
-  - ReadBufferBI (heap I/O operations)
-  - btrestrpos (B-tree positioning)
-  - _bt_steppage (B-tree page navigation)
+  - [scanPostingTree](../s/scanPostingTree.md) (GIN index scanning)
+  - [startScanEntry](../s/startScanEntry.md) (GIN index operations)
+  - [ReadBufferBI](../R/ReadBufferBI.md) (heap I/O operations)
+  - [btrestrpos](../b/btrestrpos.md) (B-tree positioning)
+  - [_bt_steppage](../b/_bt_steppage.md) (B-tree page navigation)
 
 ## Notes and Other Information
 - Can only be used on buffers that are already pinned (enforced by assertion)

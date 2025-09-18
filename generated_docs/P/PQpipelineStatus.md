@@ -21,11 +21,11 @@ The function performs a simple null check on the connection pointer and returns 
 - Functions called/Symbols referenced:
   - PQ_PIPELINE_OFF (enum constant)
 - Called from (representative examples):
-  - advanceConnectionState (pgbench.c)
-  - executeMetaCommand (pgbench.c)
-  - test_disallowed_in_pipeline (libpq_pipeline.c)
-  - test_pipeline_abort (libpq_pipeline.c)
-  - test_simple_pipeline (libpq_pipeline.c)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (pgbench.c)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (pgbench.c)
+  - [test_disallowed_in_pipeline](../t/test_disallowed_in_pipeline.md) (libpq_pipeline.c)
+  - [test_pipeline_abort](../t/test_pipeline_abort.md) (libpq_pipeline.c)
+  - [test_simple_pipeline](../t/test_simple_pipeline.md) (libpq_pipeline.c)
 
 ## Notes and Other Information
 - The return type PGpipelineStatus is an enum with three possible values: PQ_PIPELINE_OFF, PQ_PIPELINE_ON, and PQ_PIPELINE_ABORTED

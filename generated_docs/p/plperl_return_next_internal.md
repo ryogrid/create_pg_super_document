@@ -26,20 +26,20 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_result_type
-  - CreateTupleDescCopy
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
   - tuplestore_begin_heap
   - AllocSetContextCreate
-  - plperl_build_tuple_result
-  - domain_check
-  - HeapTupleGetDatum
+  - [plperl_build_tuple_result](plperl_build_tuple_result.md)
+  - [domain_check](../d/domain_check.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - tuplestore_puttuple
-  - plperl_sv_to_datum
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md)
   - tuplestore_putvalues
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - plperl_func_handler (src/pl/plperl/plperl.c:2477)
-  - plperl_return_next (src/pl/plperl/plperl.c:3253)
+  - [plperl_func_handler](plperl_func_handler.md) (src/pl/plperl/plperl.c:2477)
+  - [plperl_return_next](plperl_return_next.md) (src/pl/plperl/plperl.c:3253)
 
 ## Notes and Other Information
 - Function reports errors via PostgreSQL's ereport mechanism

@@ -39,7 +39,7 @@ The function is designed to work with hostile search paths by fully qualifying a
 - Functions called/Symbols referenced:
   -  - Converts shell patterns to SQL regex
   -  - Buffer data structure
-  -  - Initialize buffer
+  -  - [Initialize](../I/Initialize.md) buffer
   -  - Clean up buffer
   -  - Append formatted data to buffer
   -  - Append string to buffer

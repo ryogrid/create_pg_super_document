@@ -22,13 +22,13 @@ The function is designed to handle cases where the same physical subplan might b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (checks if subplan already printed)
-  - bms_add_member (marks subplan as printed)
-  - lcons (adds SubPlan to ancestors list)
-  - ExplainNode (recursively explains the subplan node)
+  - [bms_is_member](../b/bms_is_member.md) (checks if subplan already printed)
+  - [bms_add_member](../b/bms_add_member.md) (marks subplan as printed)
+  - [lcons](../l/lcons.md) (adds SubPlan to ancestors list)
+  - [ExplainNode](ExplainNode.md) (recursively explains the subplan node)
   - list_delete_first (removes SubPlan from ancestors list)
 - Called from:
-  - ExplainNode (main plan explanation function)
+  - [ExplainNode](ExplainNode.md) (main plan explanation function)
 
 ## Notes and Other Information
 - Uses a bitmapset to track printed subplans globally across the entire plan tree

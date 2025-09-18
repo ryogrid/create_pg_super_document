@@ -18,14 +18,14 @@ The printProgressReport function collects statistics from all active worker thre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initStats - Initializes statistics structure
-  - mergeSimpleStats - Merges statistics from multiple threads
-  - getFailures - Calculates total failure count from statistics
+  - [initStats](../i/initStats.md) - Initializes statistics structure
+  - [mergeSimpleStats](../m/mergeSimpleStats.md) - Merges statistics from multiple threads
+  - [getFailures](../g/getFailures.md) - Calculates total failure count from statistics
   - PG_TIME_GET_DOUBLE - Converts time to double precision
   - snprintf - String formatting
   - fprintf - Output formatting to stderr
 - Called from (representative examples):
-  - threadRun - Main thread execution function that calls this for periodic progress reporting
+  - [threadRun](../t/threadRun.md) - Main thread execution function that calls this for periodic progress reporting
 
 ## Notes and Other Information
 - Statistics aggregation is performed without locking, so values may not be perfectly atomic but are sufficient for progress reporting purposes

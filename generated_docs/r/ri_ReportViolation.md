@@ -25,20 +25,20 @@ The function creates user-friendly error messages that include constraint names,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_enable_rls
-  - pg_class_aclcheck
-  - pg_attribute_aclcheck
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
   - slot_getattr
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
-  - errtableconstraint
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
+  - [errtableconstraint](../e/errtableconstraint.md)
   - RI_PLAN_CHECK_LOOKUPPK (constant)
   - RLS_ENABLED (constant)
   - ACL_SELECT (constant)
 - Called from (representative examples):
-  - RI_Initial_Check
-  - RI_PartitionRemove_Check
-  - ri_PerformCheck
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
+  - [ri_PerformCheck](ri_PerformCheck.md)
 
 ## Notes and Other Information
 - Performs comprehensive permission checking before revealing key values in error messages

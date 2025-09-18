@@ -28,16 +28,16 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - LWLockAcquire (CommitTsLock, LW_EXCLUSIVE)
   - LWLockRelease (CommitTsLock)
-  - SlruScanDirectory (CommitTsCtl, SlruScanDirCbDeleteAll, NULL)
+  - [SlruScanDirectory](../S/SlruScanDirectory.md) (CommitTsCtl, SlruScanDirCbDeleteAll, NULL)
   - TIMESTAMP_NOBEGIN (macro)
   - InvalidTransactionId (constant)
   - InvalidRepOriginId (constant)
   - CommitTsCtl (SLRU control structure)
-  - SlruScanDirCbDeleteAll (callback function)
+  - [SlruScanDirCbDeleteAll](../S/SlruScanDirCbDeleteAll.md) (callback function)
 
 - Called from (representative examples):
-  - CompleteCommitTsInitialization
-  - CommitTsParameterChange
+  - [CompleteCommitTsInitialization](../C/CompleteCommitTsInitialization.md)
+  - [CommitTsParameterChange](../C/CommitTsParameterChange.md)
 
 ## Notes and Other Information
 - This is a static function, only callable within the commit_ts.c module

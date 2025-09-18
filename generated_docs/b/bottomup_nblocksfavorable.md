@@ -29,13 +29,13 @@ Key design goals:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - IndexDeleteCounts (structure type)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [IndexDeleteCounts](../I/IndexDeleteCounts.md) (structure type)
   - TM_IndexDelete (structure type)  
   - BOTTOMUP_MAX_NBLOCKS (constant)
   - BOTTOMUP_TOLERANCE_NBLOCKS (constant)
 - Called from (representative examples):
-  - bottomup_sort_and_shrink
+  - [bottomup_sort_and_shrink](bottomup_sort_and_shrink.md)
 
 ## Notes and Other Information
 - Always returns at least 1 favorable block (degenerate case of single block)

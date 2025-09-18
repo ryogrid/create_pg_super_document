@@ -25,10 +25,10 @@ The implementation is straightforward and focuses on creating a minimal, efficie
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POLYGON_P`: Macro to extract POLYGON argument from function call
-  - `pq_begintypsend`: Initializes binary output buffer
-  - `pq_sendint32`: Writes int32 to binary buffer
-  - `pq_sendfloat8`: Writes float8 to binary buffer
-  - `pq_endtypsend`: Finalizes binary buffer and returns bytea
+  - `[pq_begintypsend](pq_begintypsend.md)`: Initializes binary output buffer
+  - `[pq_sendint32](pq_sendint32.md)`: Writes int32 to binary buffer
+  - `[pq_sendfloat8](pq_sendfloat8.md)`: Writes float8 to binary buffer
+  - `[pq_endtypsend](pq_endtypsend.md)`: Finalizes binary buffer and returns bytea
   - `PG_RETURN_BYTEA_P`: Returns the binary data result
 - Called from (representative examples):
   - This is a PostgreSQL type send function, typically called by the binary protocol handler and COPY BINARY operations

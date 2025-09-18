@@ -21,9 +21,9 @@ The function handles cross-platform differences between Unix-like systems and Wi
 - Functions called/Symbols referenced:
   - DEFAULT_SHELL (fallback shell when environment variables are not set)
   - system (standard C library function for executing shell commands)
-  - SetShellResultVariables (updates psql variables with command execution results)
+  - [SetShellResultVariables](../S/SetShellResultVariables.md) (updates psql variables with command execution results)
 - Called from (representative examples):
-  - exec_command_shell_escape (handles \! commands in psql)
+  - [exec_command_shell_escape](../e/exec_command_shell_escape.md) (handles \! commands in psql)
 
 ## Notes and Other Information
 - Uses environment variables SHELL (Unix) and COMSPEC (Windows) to determine the user's preferred shell

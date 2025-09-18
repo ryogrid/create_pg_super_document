@@ -25,16 +25,16 @@ The function handles platform-specific differences between Unix and Windows syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeWaitEventSetAfterFork
+  - [FreeWaitEventSetAfterFork](../F/FreeWaitEventSetAfterFork.md)
   - close
   - closesocket  
   - ReleaseExternalFD
   - ereport
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - postmaster_child_launch
-  - SubPostmasterMain
+  - [postmaster_child_launch](../p/postmaster_child_launch.md)
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
 
 ## Notes and Other Information
 - Critical for proper resource management in forked child processes

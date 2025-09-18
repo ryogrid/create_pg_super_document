@@ -29,17 +29,17 @@ The function operates directly on the catalog tuple by copying it, modifying the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended, RangeVarCallbackForPolicy (table identification and permissions)
-  - relation_open, table_open, relation_close, table_close (relation management)
-  - systable_beginscan, systable_getnext, systable_endscan (catalog scanning)
-  - heap_copytuple (tuple duplication)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md), RangeVarCallbackForPolicy (table identification and permissions)
+  - [relation_open](relation_open.md), table_open, relation_close, table_close (relation management)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan (catalog scanning)
+  - [heap_copytuple](../h/heap_copytuple.md) (tuple duplication)
   - namestrcpy (name field modification)
-  - CatalogTupleUpdate (catalog updates)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
   - InvokeObjectPostAlterHook (event hooks)
-  - CacheInvalidateRelcache (cache management)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md) (cache management)
   - ObjectAddressSet (return value construction)
 - Called from:
-  - ExecRenameStmt (main rename command dispatcher)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (main rename command dispatcher)
 
 ## Notes and Other Information
 - Requires AccessExclusiveLock on the target table to prevent concurrent DDL operations

@@ -19,8 +19,8 @@ This function serves as a bootstrap wrapper for the masked population count func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - choose_popcount_functions
-  - pg_popcount_masked
+  - [choose_popcount_functions](../c/choose_popcount_functions.md)
+  - [pg_popcount_masked](pg_popcount_masked.md)
 - Called from (representative examples):
   - Used indirectly through function pointer initialization mechanism
 

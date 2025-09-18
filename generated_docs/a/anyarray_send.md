@@ -17,7 +17,7 @@ The anyarray_send function serves as a binary output function for the anyarray p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_send: The actual implementation for binary array output
+  - [array_send](array_send.md): The actual implementation for binary array output
 - Called from (representative examples):
   - No direct references found in the codebase (typically called through PostgreSQL's type system)
 

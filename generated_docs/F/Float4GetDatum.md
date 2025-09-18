@@ -23,16 +23,16 @@ The function is implemented as an inline function rather than a macro to properl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int32GetDatum (converts the int32 representation to a Datum)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (converts the int32 representation to a Datum)
   - float4 (PostgreSQL's 4-byte floating point type)
 - Called from (representative examples):
-  - index_store_float8_orderby_distances
-  - InsertPgClassTuple
-  - EnumValuesCreate
-  - AddEnumLabel
-  - ProcedureCreate
-  - update_attstats
-  - serialize_expr_stats
+  - [index_store_float8_orderby_distances](../i/index_store_float8_orderby_distances.md)
+  - [InsertPgClassTuple](../I/InsertPgClassTuple.md)
+  - [EnumValuesCreate](../E/EnumValuesCreate.md)
+  - [AddEnumLabel](../A/AddEnumLabel.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [update_attstats](../u/update_attstats.md)
+  - [serialize_expr_stats](../s/serialize_expr_stats.md)
   - PG_RETURN_FLOAT4
 
 ## Notes and Other Information

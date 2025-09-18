@@ -25,24 +25,24 @@ The function maintains static variables to track timing state across calls and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_assert_is_up
-  - IsTransactionOrTransactionBlock
-  - dlist_is_empty
+  - [pgstat_assert_is_up](pgstat_assert_is_up.md)
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - pgstat_have_pending_wal
-  - GetCurrentTimestamp
-  - GetCurrentTransactionStopTimestamp
-  - TimestampDifferenceExceeds
-  - pgstat_update_dbstats
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [GetCurrentTransactionStopTimestamp](../G/GetCurrentTransactionStopTimestamp.md)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
+  - [pgstat_update_dbstats](pgstat_update_dbstats.md)
   - pgstat_flush_pending_entries
-  - pgstat_flush_io
+  - [pgstat_flush_io](pgstat_flush_io.md)
   - pgstat_flush_wal
   - pgstat_slru_flush
 - Called from (representative examples):
-  - PostgresMain (main query processing loop)
+  - [PostgresMain](../P/PostgresMain.md) (main query processing loop)
   - ProcessInterrupts (interrupt handling)
-  - LogicalRepApplyLoop (logical replication)
-  - pgstat_shutdown_hook (shutdown processing)
-  - worker_spi_main (background worker processes)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (logical replication)
+  - [pgstat_shutdown_hook](pgstat_shutdown_hook.md) (shutdown processing)
+  - [worker_spi_main](../w/worker_spi_main.md) (background worker processes)
 
 ## Notes and Other Information
 - Must only be called outside of transactions (enforced by assertion)

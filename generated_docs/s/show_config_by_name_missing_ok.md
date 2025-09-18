@@ -23,7 +23,7 @@ The function serves as a robust alternative to the SHOW SQL command, particularl
 - Functions called/Symbols referenced:
   - TextDatumGetCString
   - PG_GETARG_BOOL
-  - GetConfigOptionByName
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
   - PG_RETURN_NULL

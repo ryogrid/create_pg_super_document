@@ -28,13 +28,13 @@ For expression-based attributes (attno == 0), it compares the inference element 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opclass_family
-  - get_opclass_input_type
-  - list_nth
-  - equal
+  - [get_opclass_family](../g/get_opclass_family.md)
+  - [get_opclass_input_type](../g/get_opclass_input_type.md)
+  - [list_nth](../l/list_nth.md)
+  - [equal](../e/equal.md)
   - IsA macro
 - Called from (representative examples):
-  - infer_arbiter_indexes
+  - [infer_arbiter_indexes](infer_arbiter_indexes.md)
 
 ## Notes and Other Information
 - Returns true immediately if no collation/opclass constraints are specified

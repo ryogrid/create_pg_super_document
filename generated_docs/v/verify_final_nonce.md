@@ -25,7 +25,7 @@ A successful verification confirms that the client has the correct nonce values 
   - memcmp (standard C library function)
   - scram_state (at Line 1113)
 - Called from (representative examples):
-  - scram_exchange (at src/backend/libpq/auth-scram.c:413)
+  - [scram_exchange](../s/scram_exchange.md) (at src/backend/libpq/auth-scram.c:413)
   - scram_state (at src/backend/libpq/auth-scram.c:178)
 
 ## Notes and Other Information

@@ -22,9 +22,9 @@ The function is designed to be called at the end of vacuum operations to ensure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ParallelVacuumIsActive
-  - parallel_vacuum_end
+  - [parallel_vacuum_end](../p/parallel_vacuum_end.md)
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within vacuumlazy.c

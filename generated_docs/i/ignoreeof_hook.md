@@ -19,9 +19,9 @@ This hook is part of psql's variable system that provides validation and process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseVariableNum
+  - [ParseVariableNum](../P/ParseVariableNum.md)
 - Called from (representative examples):
-  - EstablishVariableSpace (registers the hook)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (registers the hook)
 
 ## Notes and Other Information
 - This is a static function within src/bin/psql/startup.c, used internally by psql's variable system

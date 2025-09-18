@@ -29,19 +29,19 @@ The cost model considers nested loop scenarios where the index scan may be repea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_quals_from_indexclauses
-  - add_predicate_to_index_quals
-  - estimate_array_length
-  - clauselist_selectivity
-  - get_tablespace_page_costs
-  - index_pages_fetched
-  - index_other_operands_eval_cost
+  - [get_quals_from_indexclauses](get_quals_from_indexclauses.md)
+  - [add_predicate_to_index_quals](../a/add_predicate_to_index_quals.md)
+  - [estimate_array_length](../e/estimate_array_length.md)
+  - [clauselist_selectivity](../c/clauselist_selectivity.md)
+  - [get_tablespace_page_costs](get_tablespace_page_costs.md)
+  - [index_pages_fetched](../i/index_pages_fetched.md)
+  - [index_other_operands_eval_cost](../i/index_other_operands_eval_cost.md)
   - lsecond
 - Called from (representative examples):
-  - btcostestimate
-  - hashcostestimate
-  - gistcostestimate
-  - spgcostestimate
+  - [btcostestimate](../b/btcostestimate.md)
+  - [hashcostestimate](../h/hashcostestimate.md)
+  - [gistcostestimate](gistcostestimate.md)
+  - [spgcostestimate](../s/spgcostestimate.md)
 
 ## Notes and Other Information
 - Sets index correlation to 0.0 as a generic assumption, though specific index types may override this

@@ -17,7 +17,7 @@ This function implements a coordinated shutdown of the WAL receiver process. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData
+  - [WalRcvData](../W/WalRcvData.md)
   - pid_t
   - WALRCV_STOPPED
   - WALRCV_STARTING
@@ -27,12 +27,12 @@ This function implements a coordinated shutdown of the WAL receiver process. It 
   - WALRCV_STOPPING
   - ConditionVariableBroadcast
   - kill
-  - ConditionVariablePrepareToSleep
-  - WalRcvRunning
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)
+  - [WalRcvRunning](../W/WalRcvRunning.md)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
 - Called from (representative examples):
-  - XLogShutdownWalRcv
+  - [XLogShutdownWalRcv](../X/XLogShutdownWalRcv.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/walreceiverfuncs.c:178-244

@@ -32,7 +32,7 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
   - ScanDirection (enumeration for scan direction)
   - makeNode (PostgreSQL's node allocation macro)
 - Called from (representative examples):
-  - create_indexscan_plan
+  - [create_indexscan_plan](../c/create_indexscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal module use

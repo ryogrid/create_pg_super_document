@@ -20,11 +20,11 @@ This function provides a way for aggregate support functions (both transition an
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - AggState
-  - AggStatePerAgg
-  - AggStatePerTrans
+  - [AggState](AggState.md)
+  - [AggStatePerAgg](AggStatePerAgg.md)
+  - [AggStatePerTrans](AggStatePerTrans.md)
 - Called from (representative examples):
-  - ordered_set_startup (src/backend/utils/adt/orderedsetaggs.c:142)
+  - [ordered_set_startup](../o/ordered_set_startup.md) (src/backend/utils/adt/orderedsetaggs.c:142)
 
 ## Notes and Other Information
 - Part of the public API exposed to aggregate functions for accessing aggregate metadata

@@ -26,12 +26,12 @@ Internally, the function uses PostgreSQL's regular expression engine (`RE_compil
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP_IF_EXISTS
-  - pg_re_flags (struct type)
-  - parse_re_flags
-  - RE_compile_and_execute
+  - [pg_re_flags](../p/pg_re_flags.md) (struct type)
+  - [parse_re_flags](../p/parse_re_flags.md)
+  - [RE_compile_and_execute](../R/RE_compile_and_execute.md)
   - PG_GET_COLLATION
 - Called from (representative examples):
-  - regexp_like_no_flags
+  - [regexp_like_no_flags](regexp_like_no_flags.md)
 
 ## Notes and Other Information
 - Returns boolean result (true/false) indicating pattern match

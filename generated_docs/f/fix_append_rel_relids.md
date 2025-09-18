@@ -27,12 +27,12 @@ The function modifies AppendRelInfo nodes in-place, which is safe in this contex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (structure representing append relation information)
-  - bms_singleton_member (extracts single member from singleton bitmapset)
-  - substitute_phv_relids (updates PlaceHolderVar relation IDs)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure representing append relation information)
+  - [bms_singleton_member](../b/bms_singleton_member.md) (extracts single member from singleton bitmapset)
+  - [substitute_phv_relids](../s/substitute_phv_relids.md) (updates PlaceHolderVar relation IDs)
 - Called from (representative examples):
-  - pull_up_simple_subquery (in prepjointree.c:1400)
-  - remove_result_refs (in prepjointree.c:3812)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md) (in prepjointree.c:1400)
+  - [remove_result_refs](../r/remove_result_refs.md) (in prepjointree.c:3812)
 
 ## Notes and Other Information
 - This function is static and only used within prepjointree.c

@@ -21,7 +21,7 @@ This SQL-callable function takes a function OID as input and returns a formatted
 - Functions called/Symbols referenced:
   - Form_pg_proc
   - PROKIND_PROCEDURE
-  - print_function_rettype
+  - [print_function_rettype](print_function_rettype.md)
   - string_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

@@ -25,14 +25,14 @@ The implementation uses libxml2 xmlTextWriter API to build well-formed XML outpu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - map_sql_value_to_xml_value (SQL to XML value conversion)
-  - pg_xml_init (XML error context initialization)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md) (SQL to XML value conversion)
+  - [pg_xml_init](../p/pg_xml_init.md) (XML error context initialization)
   - xml_ereport (XML-specific error reporting)
-  - xmlBuffer_to_xmltype (buffer to XML type conversion)
+  - [xmlBuffer_to_xmltype](xmlBuffer_to_xmltype.md) (buffer to XML type conversion)
   - pg_xml_done (XML context cleanup)
   - forboth (parallel list iteration macro)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (expression evaluation in executor)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (expression evaluation in executor)
   - PG_RETURN_XML_P (via macro usage)
 
 ## Notes and Other Information

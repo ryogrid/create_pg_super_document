@@ -24,15 +24,15 @@ This function creates a GroupingSetsPath node that represents sorted grouping wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - cost_agg
-  - cost_sort
+  - [cost_agg](cost_agg.md)
+  - [cost_sort](cost_sort.md)
   - list_length
   - linitial
   - lfirst
 - Called from (representative examples):
-  - consider_groupingsets_paths (src/backend/optimizer/plan/planner.c:4377)
-  - consider_groupingsets_paths (src/backend/optimizer/plan/planner.c:4535)
-  - consider_groupingsets_paths (src/backend/optimizer/plan/planner.c:4550)
+  - [consider_groupingsets_paths](consider_groupingsets_paths.md) (src/backend/optimizer/plan/planner.c:4377)
+  - [consider_groupingsets_paths](consider_groupingsets_paths.md) (src/backend/optimizer/plan/planner.c:4535)
+  - [consider_groupingsets_paths](consider_groupingsets_paths.md) (src/backend/optimizer/plan/planner.c:4550)
 
 ## Notes and Other Information
 - The function simplifies aggregation strategies when possible: AGG_SORTED to AGG_PLAIN for single rollups with no grouping clause, and AGG_MIXED to AGG_HASHED for single rollups

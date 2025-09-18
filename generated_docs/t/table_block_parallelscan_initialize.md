@@ -32,14 +32,14 @@ The synchronized scanning decision follows similar logic to sequential scans - i
   - RelationGetNumberOfBlocks
   - RelationUsesLocalBuffers
   - SpinLockInit
-  - pg_atomic_init_u64
-  - ParallelBlockTableScanDesc (struct type)
-  - ParallelBlockTableScanDescData
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
+  - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (struct type)
+  - [ParallelBlockTableScanDescData](../P/ParallelBlockTableScanDescData.md)
   - InvalidBlockNumber
   - synchronize_seqscans (global variable)
   - NBuffers (global variable)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

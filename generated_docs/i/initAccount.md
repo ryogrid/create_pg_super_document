@@ -18,11 +18,11 @@ This function is part of pgbench's database initialization process. It formats a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printfPQExpBuffer: PostgreSQL utility function for formatting data into a buffer
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): PostgreSQL utility function for formatting data into a buffer
   - INT64_FORMAT: Macro for platform-specific 64-bit integer formatting
   - naccounts: Global variable representing the number of accounts per branch
 - Called from (representative examples):
-  - initGenerateDataClientSide: Uses this function during client-side data generation
+  - [initGenerateDataClientSide](initGenerateDataClientSide.md): Uses this function during client-side data generation
 
 ## Notes and Other Information
 - The function generates tab-separated values suitable for COPY operations

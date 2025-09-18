@@ -23,16 +23,16 @@ The createarc function performs the actual creation of a new arc within an NFA s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocarc (for arc memory allocation)
+  - [allocarc](../a/allocarc.md) (for arc memory allocation)
   - NISERR (for error checking)
   - COLORED (macro to check if arc is colored)
-  - colorchain (for color chain management)
+  - [colorchain](colorchain.md) (for color chain management)
 - Called from (representative examples):
-  - newarc (main arc creation entry point)
-  - moveins (moving incoming arcs)
-  - copyins (copying incoming arcs)
-  - copyouts (copying outgoing arcs)
-  - mergeins (merging incoming arcs)
+  - [newarc](../n/newarc.md) (main arc creation entry point)
+  - [moveins](../m/moveins.md) (moving incoming arcs)
+  - [copyins](copyins.md) (copying incoming arcs)
+  - [copyouts](copyouts.md) (copying outgoing arcs)
+  - [mergeins](../m/mergeins.md) (merging incoming arcs)
 
 ## Notes and Other Information
 - This function must only be called after verifying no duplicate arc exists

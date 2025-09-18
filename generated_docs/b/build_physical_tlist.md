@@ -29,14 +29,14 @@ For different RTE kinds:
   - table_open/table_close (relation access functions)
   - RelationGetNumberOfAttributes (gets attribute count)
   - makeVar (creates Var nodes for table columns)
-  - makeTargetEntry (creates target list entries)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (creates target list entries)
   - makeVarFromTargetEntry (creates Var from subquery target entry)
-  - expandRTE (expands range table entry to column list)
+  - [expandRTE](../e/expandRTE.md) (expands range table entry to column list)
   - TupleDescAttr (accesses tuple descriptor attributes)
   - RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc. (range table entry kinds)
 
 - Called from (representative examples):
-  - create_scan_plan (src/backend/optimizer/plan/createplan.c:659)
+  - [create_scan_plan](../c/create_scan_plan.md) (src/backend/optimizer/plan/createplan.c:659)
 
 ## Notes and Other Information
 - Returns NIL when dropped columns (attisdropped) or missing columns (atthasmissing) are encountered

@@ -17,16 +17,16 @@ This static function serves as a central dispatch mechanism for PostgreSQL's int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - ExecGrant_Largeobject
-  - ExecGrant_Parameter
-  - EventTriggerSupportsObjectType
-  - EventTriggerCollectGrant
+  - [ExecGrant_Relation](ExecGrant_Relation.md)
+  - [ExecGrant_common](ExecGrant_common.md)
+  - [ExecGrant_Largeobject](ExecGrant_Largeobject.md)
+  - [ExecGrant_Parameter](ExecGrant_Parameter.md)
+  - [EventTriggerSupportsObjectType](EventTriggerSupportsObjectType.md)
+  - [EventTriggerCollectGrant](EventTriggerCollectGrant.md)
   - elog
 - Validation callbacks used:
-  - ExecGrant_Type_check
-  - ExecGrant_Language_check
+  - [ExecGrant_Type_check](ExecGrant_Type_check.md)
+  - [ExecGrant_Language_check](ExecGrant_Language_check.md)
 - Catalog relation constants:
   - DatabaseRelationId
   - TypeRelationId
@@ -40,9 +40,9 @@ This static function serves as a central dispatch mechanism for PostgreSQL's int
   - All OBJECT_* type constants
   - All ACL_ALL_RIGHTS_* privilege masks
 - Called from:
-  - ExecuteGrantStmt
+  - [ExecuteGrantStmt](ExecuteGrantStmt.md)
   - InternalDefaultACL
-  - RemoveRoleFromObjectACL
+  - [RemoveRoleFromObjectACL](../R/RemoveRoleFromObjectACL.md)
 
 ## Notes and Other Information
 - This function represents the boundary between generic privilege processing and object-type-specific implementation details

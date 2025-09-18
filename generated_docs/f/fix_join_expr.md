@@ -30,20 +30,20 @@ The function supports four different scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_join_expr_mutator
+  - [fix_join_expr_mutator](fix_join_expr_mutator.md)
 - Data types used:
-  - PlannerInfo
-  - List
-  - indexed_tlist
+  - [PlannerInfo](../P/PlannerInfo.md)
+  - [List](../L/List.md)
+  - [indexed_tlist](../i/indexed_tlist.md)
   - Index
   - NullingRelsMatch
-  - fix_join_expr_context
-  - Node
+  - [fix_join_expr_context](fix_join_expr_context.md)
+  - [Node](../N/Node.md)
 - Called from (representative examples):
   - fix_scan_list
-  - set_plan_refs
-  - set_join_references
-  - set_returning_clause_references
+  - [set_plan_refs](../s/set_plan_refs.md)
+  - [set_join_references](../s/set_join_references.md)
+  - [set_returning_clause_references](../s/set_returning_clause_references.md)
 
 ## Notes and Other Information
 - Returns a new expression tree; the original clause structure is not modified

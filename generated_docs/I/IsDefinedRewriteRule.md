@@ -21,10 +21,10 @@ This function is part of PostgreSQL's rewrite rule system, which allows for quer
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists2
-  - ObjectIdGetDatum  
-  - PointerGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)  
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - RenameRewriteRule
+  - [RenameRewriteRule](../R/RenameRewriteRule.md)
   - ViewSelectRuleName
 
 ## Notes and Other Information

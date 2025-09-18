@@ -21,9 +21,9 @@ Unlike the scalar version of array_agg that builds a simple array from individua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype
-  - ArrayBuildStateArr
-  - AggCheckCallContext
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [ArrayBuildStateArr](../A/ArrayBuildStateArr.md)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - initArrayResultArr
   - accumArrayResultArr
   - ereport

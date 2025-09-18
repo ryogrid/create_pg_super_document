@@ -24,11 +24,11 @@ This function takes no parameters and returns a boolean value indicating transac
   - TBLOCK_DEFAULT (enum constant)
   - TBLOCK_STARTED (enum constant)
 - Called from (representative examples):
-  - PreventInTransactionBlock
-  - CheckTransactionBlock
-  - IsInTransactionBlock
-  - standard_ProcessUtility
-  - CreateReplicationSlot
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
+  - [CheckTransactionBlock](../C/CheckTransactionBlock.md)
+  - [IsInTransactionBlock](IsInTransactionBlock.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 The function specifically returns false for TBLOCK_DEFAULT and TBLOCK_STARTED states, treating these as "not in a transaction block" for the purposes of command restrictions. This distinction is important because while TBLOCK_STARTED technically represents an active transaction, it's considered safe for operations that would otherwise be prohibited in transaction blocks since no user commands have been executed yet.

@@ -34,7 +34,7 @@ PgStat_StatReplSlotEntry maintains comprehensive statistics for logical replicat
   - pgstat_fetch_replslot (statistics retrieval for specific slot)
   - PG_STAT_GET_REPLICATION_SLOT_COLS (SQL interface macro)
   - pgstat_count_buffer_hit (buffer statistics integration)
-  - PgStatShared_ReplSlot (shared memory statistics structure)
+  - [PgStatShared_ReplSlot](PgStatShared_ReplSlot.md) (shared memory statistics structure)
 
 ## Notes and Other Information
 - This structure is the foundation for PostgreSQL's pg_stat_replication_slots system view

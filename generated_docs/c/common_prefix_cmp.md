@@ -34,7 +34,7 @@ The strategic ordering by highest tleSortGroupRef first is designed to align wit
   - list_length (function to get list length)
   - lfirst_node (macro to access list node content)
 - Called from (representative examples):
-  - select_active_windows (src/backend/optimizer/plan/planner.c:5984)
+  - [select_active_windows](../s/select_active_windows.md) (src/backend/optimizer/plan/planner.c:5984)
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:256)
 
 ## Notes and Other Information

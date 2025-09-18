@@ -24,14 +24,14 @@ This function takes no parameters but operates on several global variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimestampTzPlusMilliseconds
-  - WalSndKeepalive
+  - [WalSndKeepalive](WalSndKeepalive.md)
   - pq_flush_if_writable
-  - WalSndShutdown
+  - [WalSndShutdown](WalSndShutdown.md)
   - InvalidXLogRecPtr (constant)
 - Called from (representative examples):
-  - ProcessPendingWrites
-  - WalSndWaitForWal
-  - WalSndLoop
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md)
+  - [WalSndWaitForWal](WalSndWaitForWal.md)
+  - [WalSndLoop](WalSndLoop.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the walsender.c file

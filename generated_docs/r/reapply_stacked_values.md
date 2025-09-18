@@ -33,14 +33,14 @@ This recursive function is used during custom variable definition to restore the
 ## Dependencies
 - Functions called/Symbols referenced:
   - set_config_option_ext (multiple calls with different actions)
-  - slist_delete
-  - reapply_stacked_values (recursive self-call)
+  - [slist_delete](../s/slist_delete.md)
+  - [reapply_stacked_values](reapply_stacked_values.md) (recursive self-call)
   - GUC_ACTION_SAVE, GUC_ACTION_SET, GUC_ACTION_LOCAL (action constants)
   - GUC_SAVE, GUC_SET, GUC_LOCAL, GUC_SET_LOCAL (state constants)
   - PGC_S_SESSION (context constant)
 - Called from (representative examples):
-  - define_custom_variable
-  - reapply_stacked_values (recursive)
+  - [define_custom_variable](../d/define_custom_variable.md)
+  - [reapply_stacked_values](reapply_stacked_values.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function internal to guc.c and not exposed publicly

@@ -40,9 +40,9 @@ The WAL record ensures that truncation operations can be properly replayed durin
   - MultiXactId: Multi-transaction identifier type
   - MultiXactOffset: Offset type for the members file
 - Called from (representative examples):
-  - WriteMTruncateXlogRec: Creates WAL records using this structure during multi-transaction cleanup operations
-  - multixact_redo: Processes xl_multixact_truncate records during recovery to replay truncation operations
-  - multixact_desc: Uses this structure for debugging and logging WAL record information
+  - [WriteMTruncateXlogRec](../W/WriteMTruncateXlogRec.md): Creates WAL records using this structure during multi-transaction cleanup operations
+  - [multixact_redo](../m/multixact_redo.md): Processes xl_multixact_truncate records during recovery to replay truncation operations
+  - [multixact_desc](../m/multixact_desc.md): Uses this structure for debugging and logging WAL record information
 
 ## Notes and Other Information
 - This is part of PostgreSQL's automatic cleanup mechanism to prevent pg_multixact directory from growing unboundedly

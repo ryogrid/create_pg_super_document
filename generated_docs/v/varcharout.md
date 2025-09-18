@@ -25,7 +25,7 @@ This function is typically called by PostgreSQL's type system when a VARCHAR val
 
 - Called from (representative examples):
   - PostgreSQL type system during output operations
-  - Query result formatting routines
+  - [Query](../Q/Query.md) result formatting routines
 
 ## Notes and Other Information
 - This function assumes that VARCHAR and text types are equivalent, which is true in PostgreSQL's current implementation

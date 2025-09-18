@@ -36,7 +36,7 @@ The function ensures that non-constant expressions are only evaluated when a val
   - ExecEvalExprSwitchContext
   - Assert
 - Called from (representative examples):
-  - perform_pruning_base_step
+  - [perform_pruning_base_step](perform_pruning_base_step.md)
 
 ## Notes and Other Information
 - Memory allocated during expression evaluation may be in the per-tuple memory context and requires cleanup via ExprContext reset

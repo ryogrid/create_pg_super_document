@@ -31,7 +31,7 @@ This setup enables parallel workers to contribute their individual incremental s
   - memset (initializes memory to zero)
   - shm_toc_insert (registers shared memory with unique key)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM (parallel execution DSM initialization dispatcher)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (parallel execution DSM initialization dispatcher)
 
 ## Notes and Other Information
 - This function is only executed when both instrumentation is enabled and parallel workers are available

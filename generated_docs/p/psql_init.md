@@ -18,9 +18,9 @@ This function performs the initialization setup for the PostgreSQL regression te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_stringlist_item: Adds the "regression" database to the global dblist
+  - [add_stringlist_item](../a/add_stringlist_item.md): Adds the "regression" database to the global dblist
 - Called from (representative examples):
-  - main (in src/test/regress/pg_regress_main.c:114)
+  - [main](../m/main.md) (in src/test/regress/pg_regress_main.c:114)
 
 ## Notes and Other Information
 - Currently does not process command-line arguments, but the parameters are provided for potential future extension

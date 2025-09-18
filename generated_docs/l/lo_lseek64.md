@@ -22,16 +22,16 @@ The lo_lseek64 function is the client-side implementation for seeking within a P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
-  - lo_hton64
-  - lo_ntoh64
+  - [lo_initialize](lo_initialize.md)
+  - [lo_hton64](lo_hton64.md)
+  - [lo_ntoh64](lo_ntoh64.md)
   - PQfn
   - PQArgBlock
   - PGRES_COMMAND_OK
   - pg_int64
 - Called from (representative examples):
-  - pickout (test example in testlo64.c)
-  - overwrite (test example in testlo64.c)
+  - [pickout](../p/pickout.md) (test example in testlo64.c)
+  - [overwrite](../o/overwrite.md) (test example in testlo64.c)
 
 ## Notes and Other Information
 - Returns the new 64-bit position within the large object, or -1 on error

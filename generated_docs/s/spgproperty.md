@@ -31,11 +31,11 @@ Currently, SP-GiST distance-ordered scans require a distance operator in the opc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_index_column_opclass
-  - get_opclass_opfamily_and_input_type
+  - [get_index_column_opclass](../g/get_index_column_opclass.md)
+  - [get_opclass_opfamily_and_input_type](../g/get_opclass_opfamily_and_input_type.md)
   - SearchSysCacheList1
-  - opfamily_can_sort_type
-  - get_op_rettype
+  - [opfamily_can_sort_type](../o/opfamily_can_sort_type.md)
+  - [get_op_rettype](../g/get_op_rettype.md)
   - ReleaseSysCacheList
   - AMPROP_DISTANCE_ORDERABLE
   - AMOP_ORDER
@@ -43,7 +43,7 @@ Currently, SP-GiST distance-ordered scans require a distance operator in the opc
   - CatCList
   - Form_pg_amop
 - Called from (representative examples):
-  - spghandler (SP-GiST access method handler)
+  - [spghandler](spghandler.md) (SP-GiST access method handler)
 
 ## Notes and Other Information
 - Only handles column-level inquiries (attno > 0); returns false for index-level queries (attno == 0)

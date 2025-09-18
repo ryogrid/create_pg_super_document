@@ -23,15 +23,15 @@ The function returns the OID of the to-SQL transformation function if found, or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid (check if type is in transform list)
-  - SearchSysCache2 (system cache lookup with two keys)
+  - [list_member_oid](../l/list_member_oid.md) (check if type is in transform list)
+  - [SearchSysCache2](../S/SearchSysCache2.md) (system cache lookup with two keys)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract structure from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_transform (pg_transform tuple structure)
 - Called from (representative examples):
-  - plperl_sv_to_datum (PL/Perl)
-  - PLy_output_setup_func (PL/Python)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (PL/Perl)
+  - [PLy_output_setup_func](../P/PLy_output_setup_func.md) (PL/Python)
 
 ## Notes and Other Information
 - Part of PostgreSQL's transform system that enables custom type conversions for procedural languages

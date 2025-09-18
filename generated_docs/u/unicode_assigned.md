@@ -19,10 +19,10 @@ The `unicode_assigned` function validates that all Unicode code points in a give
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
-  - pg_mbstrlen_with_len
-  - utf8_to_unicode
-  - unicode_category
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [utf8_to_unicode](utf8_to_unicode.md)
+  - [unicode_category](unicode_category.md)
   - pg_utf_mblen
 - Constants referenced:
   - PG_UTF8

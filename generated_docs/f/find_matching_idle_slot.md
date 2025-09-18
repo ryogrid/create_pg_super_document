@@ -20,10 +20,10 @@ This function iterates through all slots in a parallel slot array to locate an a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlotArray (struct type for the slot array)
-  - PQdb (PostgreSQL libpq function to get database name from connection)
+  - [ParallelSlotArray](../P/ParallelSlotArray.md) (struct type for the slot array)
+  - [PQdb](../P/PQdb.md) (PostgreSQL libpq function to get database name from connection)
 - Called from (representative examples):
-  - ParallelSlotsGetIdle
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parallel_slot.c file

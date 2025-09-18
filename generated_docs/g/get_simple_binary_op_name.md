@@ -24,7 +24,7 @@ This function examines an OpExpr to determine whether it represents a simple bin
   - exprType
   - OpExpr
 - Called from (representative examples):
-  - isSimpleNode
+  - [isSimpleNode](../i/isSimpleNode.md)
 
 ## Notes and Other Information
 - Returns the single-character operator name if the expression is a simple binary operator

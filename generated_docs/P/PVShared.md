@@ -28,14 +28,14 @@ PVShared serves as the central coordination structure for parallel vacuum operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
   - dsa_handle
   - dsa_pointer
   - VacDeadItemsInfo
 - Called from (representative examples):
-  - ParallelVacuumState (as a member)
-  - parallel_vacuum_init
-  - parallel_vacuum_main
+  - [ParallelVacuumState](ParallelVacuumState.md) (as a member)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
 
 ## Notes and Other Information
 - The structure is specifically designed for DSM allocation and inter-process sharing

@@ -21,7 +21,7 @@ The `texticregexeq` function implements the SQL operator `~*` for PostgreSQL's t
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP`: Extracts text argument from function call with potential detoasting
-  - `RE_compile_and_execute`: Core regex compilation and execution function
+  - `[RE_compile_and_execute](../R/RE_compile_and_execute.md)`: Core regex compilation and execution function
   - `VARDATA_ANY`: Gets pointer to the actual data portion of a text variable
   - `VARSIZE_ANY_EXHDR`: Gets the size of text data excluding the header
   - `PG_GET_COLLATION`: Gets collation information for the operation

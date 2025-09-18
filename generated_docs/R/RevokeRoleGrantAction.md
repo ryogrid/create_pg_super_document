@@ -23,10 +23,10 @@ This enumeration is used internally by PostgreSQL's role management system to de
 - Functions called/Symbols referenced:
   - (This is an enum type with no direct function calls)
 - Called from (representative examples):
-  - AddRoleMems (src/backend/commands/user.c:1767)
-  - DelRoleMems (src/backend/commands/user.c:1987)
-  - check_role_grantor (src/backend/commands/user.c:2287)
-  - initialize_revoke_actions (src/backend/commands/user.c:2290)
+  - [AddRoleMems](../A/AddRoleMems.md) (src/backend/commands/user.c:1767)
+  - [DelRoleMems](../D/DelRoleMems.md) (src/backend/commands/user.c:1987)
+  - [check_role_grantor](../c/check_role_grantor.md) (src/backend/commands/user.c:2287)
+  - [initialize_revoke_actions](../i/initialize_revoke_actions.md) (src/backend/commands/user.c:2290)
   - plan_single_revoke (src/backend/commands/user.c:2319)
   - plan_member_revoke (src/backend/commands/user.c:2389)
   - plan_recursive_revoke (src/backend/commands/user.c:2413)

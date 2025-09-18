@@ -27,7 +27,7 @@ The actual implementation delegates to array_position_common, which handles:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_position_common
+  - [array_position_common](array_position_common.md)
 - Called from (representative examples):
   - No direct references found (used as SQL function)
 

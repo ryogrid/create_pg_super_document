@@ -21,15 +21,15 @@ This function implements the core logic for JSON object expansion operations on 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (get text argument)
-  - InitMaterializedSRF (initialize set-returning function)
-  - makeJsonLexContext (create JSON lexical context)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initialize set-returning function)
+  - [makeJsonLexContext](../m/makeJsonLexContext.md) (create JSON lexical context)
   - pg_parse_json_or_ereport (parse JSON with error handling)
-  - each_array_start, each_scalar, each_object_field_start, each_object_field_end (callback functions)
+  - [each_array_start](each_array_start.md), each_scalar, each_object_field_start, each_object_field_end (callback functions)
   - AllocSetContextCreate, MemoryContextDelete (memory management)
   - freeJsonLexContext (cleanup lexical context)
 - Called from (representative examples):
-  - json_each (with as_text=false)
-  - json_each_text (with as_text=true)
+  - [json_each](../j/json_each.md) (with as_text=false)
+  - [json_each_text](../j/json_each_text.md) (with as_text=true)
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/jsonfuncs.c:2056-2095

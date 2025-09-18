@@ -20,14 +20,14 @@ The function performs complete scans in forward direction only, handling array k
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_first (initializes scan and gets first tuple)
-  - _bt_next (advances scan to next tuple)
-  - _bt_start_prim_scan (starts new primitive scan for array keys)
-  - tbm_add_tuples (adds heap TIDs to the bitmap)
+  - [_bt_first](_bt_first.md) (initializes scan and gets first tuple)
+  - [_bt_next](_bt_next.md) (advances scan to next tuple)
+  - [_bt_start_prim_scan](_bt_start_prim_scan.md) (starts new primitive scan for array keys)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md) (adds heap TIDs to the bitmap)
   - BTScanOpaque, IndexScanDesc, TIDBitmap (type definitions)
   - ForwardScanDirection (constant for scan direction)
 - Called from (representative examples):
-  - bthandler (registered as amgetbitmap callback)
+  - [bthandler](bthandler.md) (registered as amgetbitmap callback)
   - Bitmap index scan nodes in query execution
   - Multi-index bitmap operations (BitmapOr, BitmapAnd nodes)
 

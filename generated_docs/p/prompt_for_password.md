@@ -21,11 +21,11 @@ This function provides a secure password input mechanism for psql with proper si
 ## Dependencies
 - Functions called/Symbols referenced:
   - simple_prompt_extended
-  - psprintf
+  - [psprintf](psprintf.md)
   - free
   - PromptInterruptContext (struct)
 - Called from (representative examples):
-  - do_connect
+  - [do_connect](../d/do_connect.md)
 
 ## Notes and Other Information
 - This is a static function used internally within psql's connection handling

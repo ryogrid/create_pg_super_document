@@ -28,12 +28,12 @@ This process is necessary when abbreviated keys (which are optimized short repre
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - index_getattr
+  - [index_getattr](../i/index_getattr.md)
   - RelationGetDescr (via argument access)
 - Called from (representative examples):
-  - tuplesort_begin_index_btree
-  - tuplesort_begin_index_hash
-  - tuplesort_begin_index_gist
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md)
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md)
   - CLUSTER_SORT operations
 
 ## Notes and Other Information

@@ -25,16 +25,16 @@ The function skips objects that don't have permissions (indexes, partitioned ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recordExtensionInitPrivWorker (worker function that actually inserts records into pg_init_privs)
-  - SearchSysCache1, SearchSysCache2 (system catalog lookups)
-  - SysCacheGetAttr (extracts attributes from cached tuples)
-  - get_object_attnum_acl (gets ACL attribute number for object types)
-  - get_object_catcache_oid (gets cache ID for object types)
-  - get_object_class_descr (gets descriptive name for object classes)
+  - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md) (worker function that actually inserts records into pg_init_privs)
+  - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCache2 (system catalog lookups)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (extracts attributes from cached tuples)
+  - [get_object_attnum_acl](../g/get_object_attnum_acl.md) (gets ACL attribute number for object types)
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md) (gets cache ID for object types)
+  - [get_object_class_descr](../g/get_object_class_descr.md) (gets descriptive name for object classes)
   - DatumGetAclP (converts Datum to ACL pointer)
   - Various system catalog access functions
 - Called from:
-  - ExecAlterExtensionContentsRecurse (during ALTER EXTENSION ADD operations)
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md) (during ALTER EXTENSION ADD operations)
 
 ## Notes and Other Information
 - Part of PostgreSQL's extension privilege preservation system

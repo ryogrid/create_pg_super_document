@@ -27,12 +27,12 @@ The tuple store is configured based on the cursor options - enabling random acce
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - tuplestore_begin_heap
-  - Portal (type)
+  - [Portal](Portal.md) (type)
   - ALLOCSET_DEFAULT_SIZES
   - CURSOR_OPT_SCROLL
 - Called from (representative examples):
-  - FillPortalStore
-  - HoldPortal
+  - [FillPortalStore](../F/FillPortalStore.md)
+  - [HoldPortal](../H/HoldPortal.md)
 
 ## Notes and Other Information
 - The holdContext is intentionally NOT a child of the portal's portalContext to ensure survival across transaction boundaries

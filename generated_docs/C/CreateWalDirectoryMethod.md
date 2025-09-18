@@ -25,16 +25,16 @@ This function is a factory constructor that creates and initializes a DirectoryM
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0 (PostgreSQL memory allocation)
-  - pg_strdup (PostgreSQL string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication)
   - clear_error (internal error clearing function)
 - Data structures used:
-  - DirectoryMethodData
-  - WalWriteMethod
-  - WalWriteMethodOps
-  - pg_compress_algorithm (enum)
+  - [DirectoryMethodData](../D/DirectoryMethodData.md)
+  - [WalWriteMethod](../W/WalWriteMethod.md)
+  - [WalWriteMethodOps](../W/WalWriteMethodOps.md)
+  - [pg_compress_algorithm](../p/pg_compress_algorithm.md) (enum)
 - Called from:
-  - LogStreamerMain (in pg_basebackup.c:568)
-  - StreamLog (in pg_receivewal.c:588)
+  - [LogStreamerMain](../L/LogStreamerMain.md) (in pg_basebackup.c:568)
+  - [StreamLog](../S/StreamLog.md) (in pg_receivewal.c:588)
   - Referenced in walmethods.h:127
 
 ## Notes and Other Information

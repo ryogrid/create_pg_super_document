@@ -19,16 +19,16 @@ This function multiplies a Cash value by a 64-bit signed integer while checking 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (data type)
-  - pg_mul_s64_overflow (overflow detection utility)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (overflow detection utility)
   - ereport (error reporting function)
   - unlikely (branch prediction hint macro)
 - Called from (representative examples):
-  - cash_mul_int8
-  - int8_mul_cash
-  - cash_mul_int4
-  - int4_mul_cash
-  - cash_mul_int2
-  - int2_mul_cash
+  - [cash_mul_int8](cash_mul_int8.md)
+  - [int8_mul_cash](../i/int8_mul_cash.md)
+  - [cash_mul_int4](cash_mul_int4.md)
+  - [int4_mul_cash](../i/int4_mul_cash.md)
+  - [cash_mul_int2](cash_mul_int2.md)
+  - [int2_mul_cash](../i/int2_mul_cash.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the same compilation unit and is likely to be inlined at call sites

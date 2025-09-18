@@ -28,12 +28,12 @@ The function ensures all notifications are processed and displayed immediately, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGnotify (libpq structure type for notification data)
-  - PQconsumeInput (consumes input from server connection)
-  - PQnotifies (retrieves pending notifications)
-  - PQfreemem (frees notification memory)
+  - [PQconsumeInput](PQconsumeInput.md) (consumes input from server connection)
+  - [PQnotifies](PQnotifies.md) (retrieves pending notifications)
+  - [PQfreemem](PQfreemem.md) (frees notification memory)
 
 - Called from (representative examples):
-  - SendQuery (processes notifications after query execution)
+  - [SendQuery](../S/SendQuery.md) (processes notifications after query execution)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/bin/psql/common.c

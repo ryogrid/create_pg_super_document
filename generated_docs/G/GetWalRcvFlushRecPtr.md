@@ -18,13 +18,13 @@ This function provides a thread-safe way to query the current flush position of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData (shared memory structure)
+  - [WalRcvData](../W/WalRcvData.md) (shared memory structure)
   - SpinLockAcquire/SpinLockRelease (for mutex protection)
 - Called from (representative examples):
-  - CreateRestartPoint (during checkpoint creation)
-  - pg_last_wal_receive_lsn (SQL function)
-  - WaitForWALToBecomeAvailable (during recovery)
-  - GetStandbyFlushRecPtr (in walsender)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (during checkpoint creation)
+  - [pg_last_wal_receive_lsn](../p/pg_last_wal_receive_lsn.md) (SQL function)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (during recovery)
+  - [GetStandbyFlushRecPtr](GetStandbyFlushRecPtr.md) (in walsender)
 
 ## Notes and Other Information
 - Thread-safe through spinlock protection of the walrcv mutex

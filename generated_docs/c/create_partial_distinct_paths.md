@@ -28,19 +28,19 @@ The function implements several optimization strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - fetch_upper_rel
-  - get_sortgrouplist_exprs
-  - estimate_num_groups
-  - grouping_is_sortable
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - create_limit_path
-  - create_upper_unique_path
-  - create_agg_path
-  - generate_useful_gather_paths
-  - create_final_distinct_paths
+  - [get_sortgrouplist_exprs](../g/get_sortgrouplist_exprs.md)
+  - [estimate_num_groups](../e/estimate_num_groups.md)
+  - [grouping_is_sortable](../g/grouping_is_sortable.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](create_sort_path.md)
+  - [create_incremental_sort_path](create_incremental_sort_path.md)
+  - [create_limit_path](create_limit_path.md)
+  - [create_upper_unique_path](create_upper_unique_path.md)
+  - [create_agg_path](create_agg_path.md)
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
+  - [create_final_distinct_paths](create_final_distinct_paths.md)
 - Called from:
-  - create_distinct_paths
+  - [create_distinct_paths](create_distinct_paths.md)
 
 ## Notes and Other Information
 - Early returns if input relation has no partial paths or uses DISTINCT ON (which cannot be parallelized)

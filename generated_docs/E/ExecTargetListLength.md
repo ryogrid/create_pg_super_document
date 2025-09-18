@@ -21,7 +21,7 @@ The comment indicates this function "used to be more complex, but fjoins are dea
 - Functions called/Symbols referenced:
   - list_length (get list length)
 - Called from (representative examples):
-  - ExecTypeFromTLInternal (tuple type construction from target list)
+  - [ExecTypeFromTLInternal](ExecTypeFromTLInternal.md) (tuple type construction from target list)
   - exec_rt_fetch (runtime tuple access)
 
 ## Notes and Other Information

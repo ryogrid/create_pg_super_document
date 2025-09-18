@@ -25,9 +25,9 @@ This function takes no parameters.
   - InvalidXLogRecPtr (invalid LSN constant)
 
 - Called from:
-  - apply_handle_prepare (in worker.c:1154)
-  - apply_handle_stream_prepare (in worker.c:1396)
-  - apply_handle_commit_internal (in worker.c:2247)
+  - [apply_handle_prepare](../a/apply_handle_prepare.md) (in worker.c:1154)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md) (in worker.c:1396)
+  - [apply_handle_commit_internal](../a/apply_handle_commit_internal.md) (in worker.c:2247)
 
 ## Notes and Other Information
 - This is a static function, only accessible within worker.c

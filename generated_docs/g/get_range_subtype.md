@@ -19,16 +19,16 @@ The get_range_subtype function retrieves the subtype (element type) of a Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup using RANGETYPE cache)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup using RANGETYPE cache)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract structure from heap tuple)
-  - ReleaseSysCache (cache reference cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache reference cleanup)
   - Form_pg_range (structure type for pg_range catalog)
 - Called from (representative examples):
-  - CheckAttributeType
-  - check_generic_type_consistency
-  - enforce_generic_type_consistency
-  - resolve_anyelement_from_others
+  - [CheckAttributeType](../C/CheckAttributeType.md)
+  - [check_generic_type_consistency](../c/check_generic_type_consistency.md)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)
+  - [resolve_anyelement_from_others](../r/resolve_anyelement_from_others.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the provided OID does not correspond to a range type

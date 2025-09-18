@@ -28,9 +28,9 @@ During de-summarization, two backup blocks are registered:
   - BlockNumber (type)
   - OffsetNumber (type)
 - Called from (representative examples):
-  - brinRevmapDesummarizeRange (src/backend/access/brin/brin_revmap.c:411)
-  - brin_xlog_desummarize_page (src/backend/access/brin/brin_xlog.c:272, 276)
-  - brin_desc (src/backend/access/rmgrdesc/brindesc.c:66)
+  - [brinRevmapDesummarizeRange](../b/brinRevmapDesummarizeRange.md) (src/backend/access/brin/brin_revmap.c:411)
+  - [brin_xlog_desummarize_page](../b/brin_xlog_desummarize_page.md) (src/backend/access/brin/brin_xlog.c:272, 276)
+  - [brin_desc](../b/brin_desc.md) (src/backend/access/rmgrdesc/brindesc.c:66)
   - SizeOfBrinDesummarize (src/include/access/brin_xlog.h:142)
 
 ## Notes and Other Information

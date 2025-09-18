@@ -40,10 +40,10 @@ When processed by the walsender, this command triggers the CreateReplicationSlot
 - Functions called/Symbols referenced:
   - NodeTag (from nodes/nodes.h)
   - ReplicationKind (enum from replnodes.h)
-  - List (from nodes/pg_list.h)
+  - [List](../L/List.md) (from nodes/pg_list.h)
 - Called from (representative examples):
-  - walsender.c:2131 - CreateReplicationSlot((CreateReplicationSlotCmd *) cmd_node)
-  - walsender.c:1127 - parseCreateReplSlotOptions() parses command options
+  - walsender.c:2131 - [CreateReplicationSlot](CreateReplicationSlot.md)((CreateReplicationSlotCmd *) cmd_node)
+  - walsender.c:1127 - [parseCreateReplSlotOptions](../p/parseCreateReplSlotOptions.md)() parses command options
   - Processed in replication command switch statement at walsender.c:2128
 
 ## Notes and Other Information

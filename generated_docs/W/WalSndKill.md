@@ -22,10 +22,10 @@ The cleanup process involves careful ordering of operations under spinlock prote
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSnd (structure type)
+  - [WalSnd](WalSnd.md) (structure type)
   - SpinLockAcquire/SpinLockRelease
 - Called from:
-  - InitWalSenderSlot (src/backend/replication/walsender.c:2999) - registered as exit handler
+  - [InitWalSenderSlot](../I/InitWalSenderSlot.md) (src/backend/replication/walsender.c:2999) - registered as exit handler
 
 ## Notes and Other Information
 - Registered as exit handler via on_shmem_exit() in InitWalSenderSlot()

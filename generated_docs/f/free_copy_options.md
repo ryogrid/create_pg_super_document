@@ -18,10 +18,10 @@ This function performs cleanup by freeing all dynamically allocated memory withi
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard library)
-  - copy_options (struct definition)
+  - [copy_options](../c/copy_options.md) (struct definition)
 - Called from (representative examples):
-  - parse_slash_copy (src/bin/psql/copy.c:256)
-  - do_copy (src/bin/psql/copy.c:331, 352, 406)
+  - [parse_slash_copy](../p/parse_slash_copy.md) (src/bin/psql/copy.c:256)
+  - [do_copy](../d/do_copy.md) (src/bin/psql/copy.c:331, 352, 406)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/bin/psql/copy.c

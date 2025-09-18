@@ -31,14 +31,14 @@ The function includes specialized logic for detecting and properly initializing 
 - Functions called/Symbols referenced:
   - makeNode
   - ExecAssignExprContext
-  - ExecInitNode
-  - ExecInitResultTupleSlotTL
-  - ExecInitFunctionResultSet
-  - ExecInitExpr
+  - [ExecInitNode](ExecInitNode.md)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
+  - [ExecInitFunctionResultSet](ExecInitFunctionResultSet.md)
+  - [ExecInitExpr](ExecInitExpr.md)
   - AllocSetContextCreate
-  - expression_returns_set
+  - [expression_returns_set](../e/expression_returns_set.md)
 - Called from (representative examples):
-  - ExecInitNode (as part of plan tree initialization)
+  - [ExecInitNode](ExecInitNode.md) (as part of plan tree initialization)
 
 ## Notes and Other Information
 - Asserts that unsupported execution flags (MARK/BACKWARD) are not set

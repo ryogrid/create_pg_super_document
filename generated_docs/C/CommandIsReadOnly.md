@@ -19,12 +19,12 @@ The function examines the command type and specific characteristics of SELECT st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt (structure type)
+  - [PlannedStmt](../P/PlannedStmt.md) (structure type)
   - CMD_SELECT, CMD_UPDATE, CMD_INSERT, CMD_DELETE, CMD_MERGE, CMD_UTILITY (command type constants)
 - Called from (representative examples):
-  - init_execution_state (src/backend/executor/functions.c:523)
-  - SPI_cursor_open_internal (src/backend/executor/spi.c:1740)
-  - _SPI_execute_plan (src/backend/executor/spi.c:2653)
+  - [init_execution_state](../i/init_execution_state.md) (src/backend/executor/functions.c:523)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (src/backend/executor/spi.c:1740)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md) (src/backend/executor/spi.c:2653)
 
 ## Notes and Other Information
 - Returns false for SELECT statements with rowMarks (FOR UPDATE/SHARE clauses) or hasModifyingCTE flag set

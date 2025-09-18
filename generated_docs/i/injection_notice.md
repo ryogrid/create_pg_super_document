@@ -18,9 +18,9 @@ The `injection_notice` function serves as a callback action for injection points
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - injection_point_allowed
+  - [injection_point_allowed](injection_point_allowed.md)
   - elog
-  - InjectionPointCondition
+  - [InjectionPointCondition](../I/InjectionPointCondition.md)
   - NOTICE
 - Called from (representative examples):
   - No direct callers found (used as callback function name string in injection_points_attach)

@@ -21,15 +21,15 @@ The output format depends on the explain format specified in the ExplainState. F
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrEndLoop
-  - ExplainOpenGroup
+  - [InstrEndLoop](../I/InstrEndLoop.md)
+  - [ExplainOpenGroup](../E/ExplainOpenGroup.md)
   - RelationGetRelationName
-  - get_constraint_name
-  - ExplainPropertyText
-  - ExplainPropertyFloat
-  - ExplainCloseGroup
+  - [get_constraint_name](../g/get_constraint_name.md)
+  - [ExplainPropertyText](../E/ExplainPropertyText.md)
+  - [ExplainPropertyFloat](../E/ExplainPropertyFloat.md)
+  - [ExplainCloseGroup](../E/ExplainCloseGroup.md)
 - Called from (representative examples):
-  - ExplainPrintTriggers
+  - [ExplainPrintTriggers](../E/ExplainPrintTriggers.md)
 
 ## Notes and Other Information
 - The function cleans up instrumentation state for each trigger using InstrEndLoop

@@ -29,13 +29,13 @@ The function maintains a count of processed tuples in the build state for progre
 ## Dependencies
 - Functions called/Symbols referenced:
   - _hash_convert_tuple
-  - _h_spool
-  - index_form_tuple
+  - [_h_spool](_h_spool.md)
+  - [index_form_tuple](../i/index_form_tuple.md)
   - RelationGetDescr
-  - _hash_doinsert
-  - pfree
+  - [_hash_doinsert](_hash_doinsert.md)
+  - [pfree](../p/pfree.md)
 - Called from:
-  - table_index_build_scan (via function pointer in hashbuild)
+  - [table_index_build_scan](../t/table_index_build_scan.md) (via function pointer in hashbuild)
 
 ## Notes and Other Information
 - Handles both immediate insertion and spooling strategies based on build state

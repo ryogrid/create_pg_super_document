@@ -28,14 +28,14 @@ If no support function is available, the function falls back to PostgreSQL's his
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_func_support
+  - [get_func_support](../g/get_func_support.md)
   - OidFunctionCall1
   - SupportRequestSelectivity
   - JoinType
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - RegProcedure
 - Called from (representative examples):
-  - clause_selectivity_ext
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
 
 ## Notes and Other Information
 The function validates that the returned selectivity value is between 0.0 and 1.0, throwing an error if the support function returns an invalid value. The historical default of 0.3333333 reflects PostgreSQL's conservative approach to estimation when specific knowledge about a function's behavior is unavailable. This mechanism allows function authors to provide custom selectivity estimation logic for their functions, improving query optimization accuracy.

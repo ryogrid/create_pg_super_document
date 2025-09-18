@@ -21,9 +21,9 @@ PLyObject_FromTransform is a conversion function within PostgreSQL's PL/Python e
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall1: Invokes the transform function with the input datum
-  - DatumGetPointer: Extracts the Python object pointer from the result datum
+  - [DatumGetPointer](../D/DatumGetPointer.md): Extracts the Python object pointer from the result datum
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for PostgreSQL to Python data conversion
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for PostgreSQL to Python data conversion
 
 ## Notes and Other Information
 - This is a static function within the PL/Python type conversion system

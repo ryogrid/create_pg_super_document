@@ -28,14 +28,14 @@ The function ensures proper security enforcement while accommodating the structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member
-  - bms_add_member
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - FirstLowInvalidHeapAttributeNumber
   - InvalidAttrNumber
   - lfirst_node macro
 - Called from (representative examples):
-  - expand_partitioned_rtentry
-  - translate_col_privs_multilevel
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md)
+  - [translate_col_privs_multilevel](translate_col_privs_multilevel.md)
 
 ## Notes and Other Information
 - The function is static and used internally within the inheritance handling subsystem

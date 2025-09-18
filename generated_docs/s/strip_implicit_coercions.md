@@ -28,10 +28,10 @@ This function recursively traverses down expression trees to remove implicit typ
   - COERCE_IMPLICIT_CAST (coercion format constant)
 
 - Called from (representative examples):
-  - ATExecAlterColumnType (table alteration)
-  - findTargetlistEntrySQL99 (SQL99 target list parsing)
-  - AcquireRewriteLocks (query rewriting)
-  - get_update_query_targetlist_def (rule utilities)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md) (table alteration)
+  - [findTargetlistEntrySQL99](../f/findTargetlistEntrySQL99.md) (SQL99 target list parsing)
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (query rewriting)
+  - [get_update_query_targetlist_def](../g/get_update_query_targetlist_def.md) (rule utilities)
   - get_rule_expr (rule expression formatting)
 
 ## Notes and Other Information

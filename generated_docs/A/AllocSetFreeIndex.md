@@ -21,7 +21,7 @@ The function assumes that the caller has already verified that size <= ALLOC_CHU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos32 (on platforms with HAVE_BITSCAN_REVERSE)
+  - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md) (on platforms with HAVE_BITSCAN_REVERSE)
   - pg_leftmost_one_pos (lookup table for bit position)
   - ALLOC_MINBITS (minimum allocation size bits)
   - ALLOC_CHUNK_LIMIT (maximum chunk size limit)
@@ -29,8 +29,8 @@ The function assumes that the caller has already verified that size <= ALLOC_CHU
   - StaticAssertDecl (compile-time assertion)
 
 - Called from (representative examples):
-  - AllocSetAllocFromNewBlock
-  - AllocSetAlloc
+  - [AllocSetAllocFromNewBlock](AllocSetAllocFromNewBlock.md)
+  - [AllocSetAlloc](AllocSetAlloc.md)
 
 ## Notes and Other Information
 - This is a static inline function optimized for high performance since it's called frequently during memory allocation

@@ -19,7 +19,7 @@ The  function is a static helper function in the libpq_pipeline test utility tha
 - Functions called/Symbols referenced:
   - printf (standard C library function)
 - Called from (representative examples):
-  - main function in src/test/modules/libpq_pipeline/libpq_pipeline.c:2209 (when testname equals "tests")
+  - [main](../m/main.md) function in src/test/modules/libpq_pipeline/libpq_pipeline.c:2209 (when testname equals "tests")
 
 ## Notes and Other Information
 - This function lists the following test cases:

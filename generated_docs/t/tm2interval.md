@@ -27,7 +27,7 @@ The function performs overflow checking on the month calculation to prevent inte
   - INT64CONST (macro for 64-bit integer constants)
   - USECS_PER_SEC (microseconds per second constant)
 - Called from (representative examples):
-  - PGTYPESinterval_from_asc (string to interval conversion function)
+  - [PGTYPESinterval_from_asc](../P/PGTYPESinterval_from_asc.md) (string to interval conversion function)
 
 ## Notes and Other Information
 - Located in src/interfaces/ecpg/pgtypeslib/interval.c:972-986

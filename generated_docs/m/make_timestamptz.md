@@ -29,8 +29,8 @@ This function corresponds to the SQL function  that can be called from SQL queri
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (macro)
   - PG_GETARG_FLOAT8 (macro)
-  - make_timestamp_internal
-  - timestamp2timestamptz
+  - [make_timestamp_internal](make_timestamp_internal.md)
+  - [timestamp2timestamptz](../t/timestamp2timestamptz.md)
   - PG_RETURN_TIMESTAMPTZ (macro)
 - Called from:
   - SQL queries (via function call mechanism)
@@ -42,4 +42,4 @@ This function corresponds to the SQL function  that can be called from SQL queri
 - All validation and error handling for date/time components is performed by make_timestamp_internal
 - The timezone conversion is handled by timestamp2timestamptz using the session timezone
 - Can be called from SQL as: SELECT make_timestamptz(2023, 12, 25, 10, 30, 45.5);
-- Result includes timezone information unlike the plain make_timestamp function
+- [Result](../R/Result.md) includes timezone information unlike the plain make_timestamp function

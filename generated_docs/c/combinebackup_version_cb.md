@@ -20,10 +20,10 @@ When an incompatible version (specifically version 1) is encountered, the functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (when version 1 is detected)
-  - JsonManifestParseContext (type reference)
+  - [pg_fatal](../p/pg_fatal.md) (when version 1 is detected)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (type reference)
 - Called from:
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:145) - set as version_cb callback
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:145) - set as version_cb callback
   - Referenced in SH_DEFINE macro context
 
 ## Notes and Other Information  

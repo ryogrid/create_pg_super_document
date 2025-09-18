@@ -35,7 +35,7 @@ This function implements the tuple insertion interface for PostgreSQL's dummy in
   - ItemPointer (tuple identifier type)
   - Datum (PostgreSQL data value type)
 - Called from (representative examples):
-  - dihandler (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:306)
+  - [dihandler](dihandler.md) (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:306)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's test infrastructure for the dummy index access method

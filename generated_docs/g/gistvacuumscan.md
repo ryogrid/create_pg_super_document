@@ -292,17 +292,17 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GenerationContextCreate, MemoryContextSwitchTo, MemoryContextDelete (memory management)
-  - intset_create (for tracking internal and empty page sets)
+  - [GenerationContextCreate](../G/GenerationContextCreate.md), MemoryContextSwitchTo, MemoryContextDelete (memory management)
+  - [intset_create](../i/intset_create.md) (for tracking internal and empty page sets)
   - RelationNeedsWAL, GetInsertRecPtr, gistGetFakeLSN (WAL and LSN management)
   - RELATION_IS_LOCAL, LockRelationForExtension, UnlockRelationForExtension (concurrency control)
   - RelationGetNumberOfBlocks (relation size management)
-  - gistvacuumpage (per-page processing)
+  - [gistvacuumpage](gistvacuumpage.md) (per-page processing)
   - IndexFreeSpaceMapVacuum (FSM maintenance)
-  - gistvacuum_delete_empty_pages (empty page cleanup)
+  - [gistvacuum_delete_empty_pages](gistvacuum_delete_empty_pages.md) (empty page cleanup)
 - Called from (representative examples):
-  - gistbulkdelete (bulk delete phase)
-  - gistvacuumcleanup (cleanup phase when no prior bulk delete occurred)
+  - [gistbulkdelete](gistbulkdelete.md) (bulk delete phase)
+  - [gistvacuumcleanup](gistvacuumcleanup.md) (cleanup phase when no prior bulk delete occurred)
 
 ## Notes and Other Information
 - Uses a generation memory context for efficient management of page set data structures

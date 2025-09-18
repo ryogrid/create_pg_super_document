@@ -21,7 +21,7 @@ This function is typically called directly from SQL queries using the interval_p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - interval_part_common (with retnumeric=false for float8 return type)
+  - [interval_part_common](interval_part_common.md) (with retnumeric=false for float8 return type)
 - Called from:
   - SQL queries using interval_part() function
 

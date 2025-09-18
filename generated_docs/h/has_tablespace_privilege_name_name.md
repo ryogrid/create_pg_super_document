@@ -22,9 +22,9 @@ The `has_tablespace_privilege_name_name` function is part of PostgreSQL's built-
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public
-  - convert_tablespace_name
-  - convert_tablespace_priv_string
-  - object_aclcheck
+  - [convert_tablespace_name](../c/convert_tablespace_name.md)
+  - [convert_tablespace_priv_string](../c/convert_tablespace_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - Name (PostgreSQL data type)
   - AclResult
 - Called from (representative examples):

@@ -22,13 +22,13 @@ The function operates by acquiring a spinlock on the shared worker structure, up
 - Functions called/Symbols referenced:
   - SpinLockAcquire (spinlock acquisition)
   - SpinLockRelease (spinlock release)
-  - ParallelApplyWorkerShared (shared worker state structure)
+  - [ParallelApplyWorkerShared](../P/ParallelApplyWorkerShared.md) (shared worker state structure)
   - ParallelTransState (transaction state enumeration)
 - Called from (representative examples):
-  - pa_stream_abort
-  - apply_handle_stream_prepare
-  - apply_handle_stream_start
-  - apply_handle_stream_commit
+  - [pa_stream_abort](pa_stream_abort.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - This function is located in src/backend/replication/logical/applyparallelworker.c:1307-1318

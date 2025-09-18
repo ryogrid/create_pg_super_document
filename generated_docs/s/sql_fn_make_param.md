@@ -22,10 +22,10 @@ This function creates a Param node representing a function parameter () with the
   - SQLFunctionParseInfoPtr
   - Param
   - PARAM_EXTERN
-  - get_typcollation
+  - [get_typcollation](../g/get_typcollation.md)
 - Called from (representative examples):
-  - sql_fn_param_ref (src/backend/executor/functions.c:403)
-  - sql_fn_resolve_param_name (src/backend/executor/functions.c:451)
+  - [sql_fn_param_ref](sql_fn_param_ref.md) (src/backend/executor/functions.c:403)
+  - [sql_fn_resolve_param_name](sql_fn_resolve_param_name.md) (src/backend/executor/functions.c:451)
 
 ## Notes and Other Information
 - Creates PARAM_EXTERN type parameters which represent externally supplied parameter values

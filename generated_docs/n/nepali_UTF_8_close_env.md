@@ -21,7 +21,7 @@ The function should be called when stemming operations are complete to prevent m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (called with the environment pointer and S_size parameter of 0)
+  - [SN_close_env](../S/SN_close_env.md) (called with the environment pointer and S_size parameter of 0)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

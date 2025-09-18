@@ -26,19 +26,19 @@ Key cleanup operations performed:
 ## Dependencies
 - Functions called/Symbols referenced:
   - FreeExprContext
-  - jit_release_context
-  - DestroyPartitionDirectory
-  - MemoryContextDelete
+  - [jit_release_context](../j/jit_release_context.md)
+  - [DestroyPartitionDirectory](../D/DestroyPartitionDirectory.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - linitial (list manipulation macro)
 
 - Called from (representative examples):
-  - standard_ExecutorEnd
-  - EvalPlanQualEnd
-  - evaluate_expr
-  - CopyFrom
-  - compute_index_stats
-  - ATRewriteTable
-  - IndexCheckExclusion
+  - [standard_ExecutorEnd](../s/standard_ExecutorEnd.md)
+  - [EvalPlanQualEnd](../E/EvalPlanQualEnd.md)
+  - [evaluate_expr](../e/evaluate_expr.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [compute_index_stats](../c/compute_index_stats.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md)
 
 ## Notes and Other Information
 The function uses a while loop to iteratively free ExprContexts, with a comment noting that using repeated list_delete() operations might not be the most efficient approach. The cleanup is performed in a specific order: first ExprContexts (which may have shutdown callbacks), then JIT resources, then partition directories, and finally the memory context itself. This ordering ensures that any cleanup callbacks can still access memory that might be needed during the shutdown process. The function is not responsible for releasing non-memory resources like open relations or buffer pins - that cleanup must be handled elsewhere in the executor shutdown sequence.

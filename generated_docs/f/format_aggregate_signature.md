@@ -22,13 +22,13 @@ The function formats the signature as  or  for aggregates that accept any argume
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - fmtId
-  - appendPQExpBufferStr
+  - [fmtId](fmtId.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - appendPQExpBuffer
-  - getFormattedTypeName
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md)
 - Called from (representative examples):
-  - dumpAgg
+  - [dumpAgg](../d/dumpAgg.md)
 
 ## Notes and Other Information
 - Returns dynamically allocated string that caller must free

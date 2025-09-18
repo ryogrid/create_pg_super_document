@@ -24,12 +24,12 @@ Finally, it deallocates the memory used by the hash-specific scan state, includi
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashScanPosIsValid
-  - _hash_kill_items
-  - _hash_dropscanbuf
-  - pfree (memory deallocation)
+  - [_hash_kill_items](_hash_kill_items.md)
+  - [_hash_dropscanbuf](_hash_dropscanbuf.md)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - HashScanOpaque (structure type)
 - Called from (representative examples):
-  - hashhandler (hash access method handler)
+  - [hashhandler](hashhandler.md) (hash access method handler)
   - Referenced in HASHNProcs (hash index procedure array)
 
 ## Notes and Other Information

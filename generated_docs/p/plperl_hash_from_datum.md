@@ -18,18 +18,18 @@ This function serves as a conversion utility that transforms a PostgreSQL compos
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeader: Type for tuple header structures
-  - HeapTupleData: Type for heap tuple control structures
+  - [HeapTupleData](../H/HeapTupleData.md): Type for heap tuple control structures
   - DatumGetHeapTupleHeader: Extracts tuple header from datum
   - HeapTupleHeaderGetTypeId: Gets the type OID from tuple header
   - HeapTupleHeaderGetTypMod: Gets type modifier from tuple header
-  - lookup_rowtype_tupdesc: Retrieves tuple descriptor for the row type
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the row type
   - HeapTupleHeaderGetDatumLength: Gets the length of the tuple data
-  - plperl_hash_from_tuple: Converts tuple to Perl hash
+  - [plperl_hash_from_tuple](plperl_hash_from_tuple.md): Converts tuple to Perl hash
   - ReleaseTupleDesc: Releases the tuple descriptor
 - Called from:
-  - make_array_ref: Used in array element processing
-  - plperl_call_perl_func: Used in function argument conversion
-  - plperl_hash_from_tuple: Used recursively for nested composite types
+  - [make_array_ref](../m/make_array_ref.md): Used in array element processing
+  - [plperl_call_perl_func](plperl_call_perl_func.md): Used in function argument conversion
+  - [plperl_hash_from_tuple](plperl_hash_from_tuple.md): Used recursively for nested composite types
 
 ## Notes and Other Information
 - Returns a Perl SV* (scalar value) representing a hash reference

@@ -20,10 +20,10 @@ This function remaps a list of partition column numbers using a provided attribu
 - Functions called/Symbols referenced:
   - lfirst_int
   - lappend_int
-  - AttrMap
+  - [AttrMap](../A/AttrMap.md)
 - Called from (representative examples):
-  - ExecInitPartitionInfo
-  - adjust_partition_colnos
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [adjust_partition_colnos](adjust_partition_colnos.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execPartition.c

@@ -20,8 +20,8 @@ The testprs_lextype function returns a description of the lexical types (token t
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexDescr (structure type for lexical descriptions)
-  - palloc (PostgreSQL memory allocation function)
-  - pstrdup (PostgreSQL string duplication function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - PG_RETURN_POINTER (PostgreSQL return macro)
 - Called from (representative examples):
   - LexDescr (referenced in test parser lexical description)

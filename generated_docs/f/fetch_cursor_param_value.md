@@ -22,13 +22,13 @@ Type safety is enforced by verifying that the parameter is of REFCURSOR type (OI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (parameter list structure)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure)
   - ParamExternData (individual parameter data structure)
   - TextDatumGetCString (to convert REFCURSOR datum to C string)
   - OidIsValid (to validate parameter type OID)
-  - format_type_be (for error message formatting)
+  - [format_type_be](format_type_be.md) (for error message formatting)
 - Called from (representative examples):
-  - execCurrentOf (when cursor name is parameterized)
+  - [execCurrentOf](../e/execCurrentOf.md) (when cursor name is parameterized)
 
 ## Notes and Other Information
 The function is marked static as it's only used within execCurrent.c. It raises ERRCODE_DATATYPE_MISMATCH for type mismatches and ERRCODE_UNDEFINED_OBJECT when no value is found for the specified parameter. The 1-based parameter indexing matches PostgreSQL's parameter numbering convention. The function handles the paramFetch hook mechanism which allows for dynamic parameter resolution in prepared statements and other contexts.

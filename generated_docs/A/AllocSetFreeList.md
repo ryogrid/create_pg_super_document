@@ -22,10 +22,10 @@ When an AllocSetContext is deleted via , if it qualifies for freelisting, it get
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocSetContext (referenced as pointer type for the linked list)
+  - [AllocSetContext](AllocSetContext.md) (referenced as pointer type for the linked list)
 - Called from (representative examples):
-  - AllocSetContextCreateInternal (for recycling contexts from freelist)
-  - AllocSetDelete (for adding contexts to freelist)
+  - [AllocSetContextCreateInternal](AllocSetContextCreateInternal.md) (for recycling contexts from freelist)
+  - [AllocSetDelete](AllocSetDelete.md) (for adding contexts to freelist)
 
 ## Notes and Other Information
 - The system uses a maximum limit of  (100) to prevent unlimited growth of the freelists

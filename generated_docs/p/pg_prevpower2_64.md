@@ -17,7 +17,7 @@ This function efficiently computes the previous (lower) power of 2 for 64-bit un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos64 (to find the position of the leftmost set bit)
+  - [pg_leftmost_one_pos64](pg_leftmost_one_pos64.md) (to find the position of the leftmost set bit)
 - Called from (representative examples):
   - pg_prevpower2_size_t (size_t variant wrapper)
 

@@ -19,14 +19,14 @@ The btbeginscan function is responsible for initializing a B-tree index scan. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexScan
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
   - BTScanPosInvalidate  
-  - BTScanOpaqueData
+  - [BTScanOpaqueData](../B/BTScanOpaqueData.md)
   - ScanKey
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - This function only performs initialization; the actual scan setup with keys occurs in btrescan

@@ -23,10 +23,10 @@ The function performs validation to ensure that there is indeed an active Python
   - PLy_execution_contexts: Global variable tracking the execution context stack
   - elog: PostgreSQL logging/error function
 - Called from (representative examples):
-  - PLy_cursor_query: For cursor operations requiring execution context
-  - PLy_spi_prepare: For SPI operation context management
-  - PLy_traceback: For error reporting and traceback generation
-  - PLy_commit/PLy_rollback: For transaction control operations
+  - [PLy_cursor_query](PLy_cursor_query.md): For cursor operations requiring execution context
+  - [PLy_spi_prepare](PLy_spi_prepare.md): For SPI operation context management
+  - [PLy_traceback](PLy_traceback.md): For error reporting and traceback generation
+  - [PLy_commit](PLy_commit.md)/PLy_rollback: For transaction control operations
   - Various type conversion functions in plpy_typeio.c
 
 ## Notes and Other Information

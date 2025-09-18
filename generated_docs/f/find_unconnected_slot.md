@@ -19,10 +19,10 @@ This function performs a linear search through all slots in a parallel slot arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlotArray (struct type for the slot array)
+  - [ParallelSlotArray](../P/ParallelSlotArray.md) (struct type for the slot array)
 - Called from (representative examples):
-  - ParallelSlotsGetIdle
-  - ParallelSlotsAdoptConn
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md)
+  - [ParallelSlotsAdoptConn](../P/ParallelSlotsAdoptConn.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parallel_slot.c file

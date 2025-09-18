@@ -25,7 +25,7 @@ The function also maintains statistics about the pruning operation, including co
   - PruneState (structure)
   - MaxHeapTuplesPerPage (constant)
 - Called from (representative examples):
-  - heap_prune_chain
+  - [heap_prune_chain](heap_prune_chain.md)
 
 ## Notes and Other Information
 - Marks the source offset as processed to avoid double-processing

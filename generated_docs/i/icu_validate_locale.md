@@ -31,15 +31,15 @@ The function is only available when PostgreSQL is compiled with ICU support. Wit
   - uloc_getLanguage (ICU function to extract language from locale)
   - uloc_countAvailable (ICU function to count available locales)
   - uloc_getAvailable (ICU function to get available locale by index)
-  - pg_ucol_open (PostgreSQL wrapper for ICU collator opening)
+  - [pg_ucol_open](../p/pg_ucol_open.md) (PostgreSQL wrapper for ICU collator opening)
   - ucol_close (ICU function to close collator)
   - ereport (PostgreSQL error reporting)
   - u_errorName (ICU error name function)
   - strcmp (standard C string comparison)
 - Called from (representative examples):
-  - DefineCollation (src/backend/commands/collationcmds.c:300)
-  - createdb (src/backend/commands/dbcommands.c:1141)
-  - setlocales (src/bin/initdb/initdb.c:2481)
+  - [DefineCollation](../D/DefineCollation.md) (src/backend/commands/collationcmds.c:300)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1141)
+  - [setlocales](../s/setlocales.md) (src/bin/initdb/initdb.c:2481)
 
 ## Notes and Other Information
 - Only available when compiled with ICU support (`USE_ICU`)

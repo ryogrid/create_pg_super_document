@@ -22,14 +22,14 @@ This function enforces timezone requirements when converting between temporal da
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
-  - errhint (error hint message)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [errhint](../e/errhint.md) (error hint message)
 - Called from (representative examples):
-  - executeDateTimeMethod (multiple locations)
-  - castTimeToTimeTz
-  - cmpDateToTimestampTz
-  - cmpTimestampToTimestampTz
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (multiple locations)
+  - [castTimeToTimeTz](castTimeToTimeTz.md)
+  - [cmpDateToTimestampTz](cmpDateToTimestampTz.md)
+  - [cmpTimestampToTimestampTz](cmpTimestampToTimestampTz.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/jsonpath_exec.c:3666-3677

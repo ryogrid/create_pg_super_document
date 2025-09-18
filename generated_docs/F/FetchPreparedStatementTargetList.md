@@ -17,10 +17,10 @@ FetchPreparedStatementTargetList retrieves the target list from a prepared state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CachedPlanGetTargetList (retrieves target list from cached plan)
+  - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md) (retrieves target list from cached plan)
   - copyObject (creates a copy in caller's context)
 - Called from (representative examples):
-  - FetchStatementTargetList
+  - [FetchStatementTargetList](FetchStatementTargetList.md)
 
 ## Notes and Other Information
 - Designed for corner cases and debugging rather than performance-critical operations

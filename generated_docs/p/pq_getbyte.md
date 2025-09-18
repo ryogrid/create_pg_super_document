@@ -17,15 +17,15 @@ pq_getbyte is the primary function for reading individual bytes from a PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_recvbuf
+  - [pq_recvbuf](pq_recvbuf.md)
 - Called from (representative examples):
-  - CopyGetData
-  - CheckSASLAuth
-  - recv_password_packet
-  - pg_GSS_recvauth
-  - pg_SSPI_recvauth
-  - HandleUploadManifestPacket
-  - SocketBackend
+  - [CopyGetData](../C/CopyGetData.md)
+  - [CheckSASLAuth](../C/CheckSASLAuth.md)
+  - [recv_password_packet](../r/recv_password_packet.md)
+  - [pg_GSS_recvauth](pg_GSS_recvauth.md)
+  - [pg_SSPI_recvauth](pg_SSPI_recvauth.md)
+  - [HandleUploadManifestPacket](../H/HandleUploadManifestPacket.md)
+  - [SocketBackend](../S/SocketBackend.md)
 
 ## Notes and Other Information
 - Asserts that PqCommReadingMsg is true to ensure proper message reading state

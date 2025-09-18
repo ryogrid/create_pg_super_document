@@ -28,10 +28,10 @@ If no suitable name can be determined, the function returns the default PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FigureColnameInternal
+  - [FigureColnameInternal](FigureColnameInternal.md)
 - Called from (representative examples):
-  - transformTargetEntry
-  - transformRangeFunction
+  - [transformTargetEntry](../t/transformTargetEntry.md)
+  - [transformRangeFunction](../t/transformRangeFunction.md)
   - transformXmlExpr
 
 ## Notes and Other Information

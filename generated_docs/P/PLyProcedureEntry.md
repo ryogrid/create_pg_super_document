@@ -24,11 +24,11 @@ PLyProcedureEntry represents a single entry in the PL/Python procedure cache has
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyProcedureKey (embedded structure for cache key)
-  - PLyProcedure (referenced structure containing procedure data)
+  - [PLyProcedureKey](PLyProcedureKey.md) (embedded structure for cache key)
+  - [PLyProcedure](PLyProcedure.md) (referenced structure containing procedure data)
 - Called from (representative examples):
-  - init_procedure_caches (initializes hash table to store these entries)
-  - PLy_procedure_get (retrieves and manipulates these entries during cache lookups)
+  - [init_procedure_caches](../i/init_procedure_caches.md) (initializes hash table to store these entries)
+  - [PLy_procedure_get](PLy_procedure_get.md) (retrieves and manipulates these entries during cache lookups)
 
 ## Notes and Other Information
 - This structure is the basic unit of the procedure cache hash table implementation

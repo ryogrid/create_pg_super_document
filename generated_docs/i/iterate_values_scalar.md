@@ -23,7 +23,7 @@ This function serves as a JSON parser callback handler specifically for scalar v
 - Functions called/Symbols referenced:
   - strlen (for calculating token length)
 - Called from (representative examples):
-  - iterate_json_values (registered as scalar callback)
+  - [iterate_json_values](iterate_json_values.md) (registered as scalar callback)
   - JsObjectFree
 
 ## Notes and Other Information

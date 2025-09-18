@@ -26,17 +26,17 @@ ReorderBufferProcessTXN is the central engine for transaction processing in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferBuildTupleCidHash (build tuple command ID hash)
+  - [ReorderBufferBuildTupleCidHash](ReorderBufferBuildTupleCidHash.md) (build tuple command ID hash)
   - SetupHistoricSnapshot (setup snapshot for decoding)
-  - ReorderBufferIterTXNInit/ReorderBufferIterTXNNext (transaction iteration)
-  - ReorderBufferApplyChange (apply individual changes)
-  - ReorderBufferApplyMessage (apply messages)
-  - ReorderBufferApplyTruncate (apply truncate operations)
-  - ReorderBufferToastReplace/ReorderBufferToastReset (toast handling)
+  - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md)/ReorderBufferIterTXNNext (transaction iteration)
+  - [ReorderBufferApplyChange](ReorderBufferApplyChange.md) (apply individual changes)
+  - [ReorderBufferApplyMessage](ReorderBufferApplyMessage.md) (apply messages)
+  - [ReorderBufferApplyTruncate](ReorderBufferApplyTruncate.md) (apply truncate operations)
+  - [ReorderBufferToastReplace](ReorderBufferToastReplace.md)/ReorderBufferToastReset (toast handling)
   - Various relation and snapshot management functions
 - Called from (representative examples):
-  - ReorderBufferReplay (regular transaction replay)
-  - ReorderBufferStreamTXN (streaming transaction processing)
+  - [ReorderBufferReplay](ReorderBufferReplay.md) (regular transaction replay)
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md) (streaming transaction processing)
 
 ## Notes and Other Information
 - This is the core processing engine for logical replication in PostgreSQL

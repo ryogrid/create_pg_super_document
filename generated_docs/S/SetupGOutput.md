@@ -22,11 +22,11 @@ The function is designed to be called before query execution to ensure output re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - openQueryOutputFile (to open the output destination)
-  - disable_sigpipe_trap (to configure signal handling for pipes)
+  - [openQueryOutputFile](../o/openQueryOutputFile.md) (to open the output destination)
+  - [disable_sigpipe_trap](../d/disable_sigpipe_trap.md) (to configure signal handling for pipes)
   - pset.gfname (global variable containing the output filename/command)
 - Called from (representative examples):
-  - ExecQueryAndProcessResults (multiple call sites)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (multiple call sites)
 
 ## Notes and Other Information
 - This is a static function, only accessible within common.c

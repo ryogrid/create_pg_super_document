@@ -27,15 +27,15 @@ The immutability requirement is particularly important because canonical functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName: Locates the function by name and signature
-  - func_signature_string: Formats function signature for error messages
-  - get_func_rettype: Retrieves the return type of a function
-  - func_volatile: Gets the volatility classification of a function
-  - object_aclcheck: Checks access permissions for database objects
-  - aclcheck_error: Reports permission-related errors
-  - get_func_name: Retrieves function name for error reporting
+  - [LookupFuncName](../L/LookupFuncName.md): Locates the function by name and signature
+  - [func_signature_string](func_signature_string.md): Formats function signature for error messages
+  - [get_func_rettype](../g/get_func_rettype.md): Retrieves the return type of a function
+  - [func_volatile](func_volatile.md): Gets the volatility classification of a function
+  - [object_aclcheck](../o/object_aclcheck.md): Checks access permissions for database objects
+  - [aclcheck_error](../a/aclcheck_error.md): Reports permission-related errors
+  - [get_func_name](../g/get_func_name.md): Retrieves function name for error reporting
 - Called from:
-  - DefineRange: During creation of new range types with canonical functions
+  - [DefineRange](../D/DefineRange.md): During creation of new range types with canonical functions
   - AlterTypeRecurseParams: As part of recursive type alteration operations
 
 ## Notes and Other Information

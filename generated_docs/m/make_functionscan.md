@@ -33,7 +33,7 @@ FunctionScan nodes are commonly used for queries involving functions like `gener
   - makeNode (to allocate FunctionScan node)
   - FunctionScan (node type)
 - Called from (representative examples):
-  - create_functionscan_plan
+  - [create_functionscan_plan](../c/create_functionscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's an internal helper for plan creation

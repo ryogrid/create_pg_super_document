@@ -28,7 +28,7 @@ The function includes a union semun parameter that is unused for the IPC_RMID op
 - Types used:
   - union semun
 - Called from (representative examples):
-  - ReleaseSemaphores
+  - [ReleaseSemaphores](../R/ReleaseSemaphores.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_sema.c file

@@ -33,13 +33,13 @@ The structure manages two primary areas of concern: active process tracking thro
   - PROCARRAY_MAXPROCS
 
 - Called from (representative examples):
-  - CreateSharedProcArray
-  - ProcArrayAdd
-  - ProcArrayRemove
+  - [CreateSharedProcArray](../C/CreateSharedProcArray.md)
+  - [ProcArrayAdd](ProcArrayAdd.md)
+  - [ProcArrayRemove](ProcArrayRemove.md)
   - ComputeXidHorizons
-  - GetSnapshotData
+  - [GetSnapshotData](../G/GetSnapshotData.md)
   - TransactionIdIsInProgress
-  - GetOldestActiveTransactionId
+  - [GetOldestActiveTransactionId](../G/GetOldestActiveTransactionId.md)
 
 ## Notes and Other Information
 - This structure resides in shared memory and is protected by ProcArrayLock

@@ -20,8 +20,8 @@ The  function is a PostgreSQL built-in function that generates pseudo-random num
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts Numeric arguments from PostgreSQL function call
   - Numeric: PostgreSQL's arbitrary-precision numeric data type
-  - initialize_prng: Initializes the pseudo-random number generator state
-  - random_numeric: Generates a random Numeric within the specified range
+  - [initialize_prng](../i/initialize_prng.md): Initializes the pseudo-random number generator state
+  - [random_numeric](../r/random_numeric.md): Generates a random Numeric within the specified range
   - PG_RETURN_NUMERIC: Returns a Numeric value from PostgreSQL function
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

@@ -21,10 +21,10 @@ This function serves as a JSON parser callback handler specifically for object f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (to create a copy of the field name)
+  - [pstrdup](../p/pstrdup.md) (to create a copy of the field name)
   - strlen (for calculating field name length)
 - Called from (representative examples):
-  - iterate_json_values (registered as object_field_start callback)
+  - [iterate_json_values](iterate_json_values.md) (registered as object_field_start callback)
   - JsObjectFree
 
 ## Notes and Other Information

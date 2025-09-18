@@ -25,8 +25,8 @@ This utility function is commonly used in pg_archivecleanup to normalize WAL fil
   - strlen (standard library function)
   - strcmp (standard library function)
 - Called from (representative examples):
-  - CleanupPriorWALFiles (in src/bin/pg_archivecleanup/pg_archivecleanup.c:115)
-  - SetWALFileNameForCleanup (in src/bin/pg_archivecleanup/pg_archivecleanup.c:187)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c:115)
+  - [SetWALFileNameForCleanup](../S/SetWALFileNameForCleanup.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c:187)
 
 ## Notes and Other Information
 - The function is marked as `static`, making it internal to the pg_archivecleanup.c file

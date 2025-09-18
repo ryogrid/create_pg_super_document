@@ -29,18 +29,18 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create MergeAppend node)
-  - build_path_tlist
-  - copy_generic_path_info
-  - prepare_sort_from_pathkeys
-  - create_plan_recurse
-  - pathkeys_contained_in
-  - make_sort
-  - label_sort_with_costsize
-  - extract_actual_clauses
-  - make_partition_pruneinfo
-  - inject_projection_plan
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [make_sort](../m/make_sort.md)
+  - [label_sort_with_costsize](../l/label_sort_with_costsize.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md)
+  - [inject_projection_plan](../i/inject_projection_plan.md)
 - Called from (representative examples):
-  - create_plan_recurse (main recursive plan creation function)
+  - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)
 
 ## Notes and Other Information
 - The function assumes all child paths have compatible sort orders that can be merged

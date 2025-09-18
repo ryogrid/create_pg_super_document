@@ -19,22 +19,22 @@ XlogReadTwoPhaseData provides the capability to retrieve two-phase commit state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderAllocate
-  - XLogBeginRead
-  - XLogReadRecord
+  - [XLogReaderAllocate](XLogReaderAllocate.md)
+  - [XLogBeginRead](XLogBeginRead.md)
+  - [XLogReadRecord](XLogReadRecord.md)
   - XLogRecGetRmid
   - XLogRecGetInfo
   - XLogRecGetDataLen
   - XLogRecGetData
-  - XLogReaderFree
-  - read_local_xlog_page
-  - wal_segment_open
-  - wal_segment_close
+  - [XLogReaderFree](XLogReaderFree.md)
+  - [read_local_xlog_page](../r/read_local_xlog_page.md)
+  - [wal_segment_open](../w/wal_segment_open.md)
+  - [wal_segment_close](../w/wal_segment_close.md)
 - Called from (representative examples):
-  - FinishPreparedTransaction
-  - CheckPointTwoPhase
-  - ProcessTwoPhaseBuffer
-  - LookupGXact
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [CheckPointTwoPhase](../C/CheckPointTwoPhase.md)
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
+  - [LookupGXact](../L/LookupGXact.md)
 
 ## Notes and Other Information
 - Static function (internal to twophase.c module)

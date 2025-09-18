@@ -28,14 +28,14 @@ Before sending to readline, the function cleans up the input by trimming trailin
   - USE_READLINE (preprocessor macro)
   - hctl_ignorespace
   - hctl_ignoredups
-  - resetPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - strlen
   - strcmp
   - free
-  - pg_strdup
+  - [pg_strdup](pg_strdup.md)
   - add_history (readline function)
 - Called from (representative examples):
-  - MainLoop (multiple locations)
+  - [MainLoop](../M/MainLoop.md) (multiple locations)
 
 ## Notes and Other Information
 - Only functions when USE_READLINE is defined and useHistory is enabled

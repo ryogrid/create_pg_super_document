@@ -20,10 +20,10 @@ This structure is used to log GiST index page deletion operations in the write-a
 - Functions called/Symbols referenced:
   - FullTransactionId
 - Called from (representative examples):
-  - gistRedoPageDelete
-  - gistXLogPageDelete
-  - out_gistxlogPageDelete
-  - gist_desc
+  - [gistRedoPageDelete](gistRedoPageDelete.md)
+  - [gistXLogPageDelete](gistXLogPageDelete.md)
+  - [out_gistxlogPageDelete](../o/out_gistxlogPageDelete.md)
+  - [gist_desc](gist_desc.md)
   - SizeOfGistxlogPageDelete
 
 ## Notes and Other Information

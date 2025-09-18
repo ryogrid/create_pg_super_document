@@ -25,18 +25,18 @@ This function is the core logic for inserting posting list items into GIN leaf d
 - Functions called/Symbols referenced:
   - GinDataPageGetRightBound
   - GinPageRightMost
-  - ginCompareItemPointers
-  - disassembleLeaf
-  - ginPostingListDecode
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
+  - [disassembleLeaf](disassembleLeaf.md)
+  - [ginPostingListDecode](../g/ginPostingListDecode.md)
   - GinPageIsCompressed
   - GinDataLeafPageGetFreeSpace
-  - addItemsToLeaf
-  - leafRepackItems
-  - computeLeafRecompressWALData
-  - dataPlaceToPageLeafSplit
-  - BufferGetBlockNumber
+  - [addItemsToLeaf](../a/addItemsToLeaf.md)
+  - [leafRepackItems](../l/leafRepackItems.md)
+  - [computeLeafRecompressWALData](../c/computeLeafRecompressWALData.md)
+  - [dataPlaceToPageLeafSplit](dataPlaceToPageLeafSplit.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
 - Called from (representative examples):
-  - dataBeginPlaceToPage
+  - [dataBeginPlaceToPage](dataBeginPlaceToPage.md)
 
 ## Notes and Other Information
 - Implements sophisticated space estimation to avoid failed insertions

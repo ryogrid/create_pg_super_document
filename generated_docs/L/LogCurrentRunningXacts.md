@@ -21,11 +21,11 @@ The function ensures the WAL record is eventually synced to disk by using XLogSe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogSetRecordFlags
-  - XLogRegisterData
-  - XLogInsert
-  - XLogSetAsyncXactLSN
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [XLogSetAsyncXactLSN](../X/XLogSetAsyncXactLSN.md)
   - XLOG_MARK_UNIMPORTANT
   - XLOG_RUNNING_XACTS
   - MinSizeOfXactRunningXacts

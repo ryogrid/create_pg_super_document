@@ -38,7 +38,7 @@ TimeoutId provides a comprehensive enumeration system for managing various timeo
   - disable_timeout (timeout.c:685)
   - RegisterTimeout (timeout.c:505)
   - EnableTimeoutParams struct
-  - DisableTimeoutParams struct
+  - [DisableTimeoutParams](../D/DisableTimeoutParams.md) struct
 
 ## Notes and Other Information
 The TimeoutId enum serves as the foundation for PostgreSQL's timeout management system, allowing the database to handle various timing constraints through a unified interface. The ordering is significant as it determines service priority when multiple timeouts expire simultaneously. The system reserves space for up to 10 user-defined timeout types beyond the predefined system timeouts, providing extensibility for custom timeout handling requirements.

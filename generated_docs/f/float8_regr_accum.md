@@ -21,14 +21,14 @@ This function implements the accumulation phase for SQL binary regression aggreg
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (extract array argument)
   - PG_GETARG_FLOAT8 (extract float8 arguments)
-  - check_float8_array (validate transition array)
+  - [check_float8_array](../c/check_float8_array.md) (validate transition array)
   - isinf (check for infinite values)
   - isnan (check for NaN values)
-  - float_overflow_error (report overflow errors)
+  - [float_overflow_error](float_overflow_error.md) (report overflow errors)
   - get_float8_nan (get NaN value)
-  - AggCheckCallContext (check if in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if in aggregate context)
   - Float8GetDatumFast (convert float8 to Datum)
-  - construct_array (build new array)
+  - [construct_array](../c/construct_array.md) (build new array)
 - Called from (representative examples):
   - No direct callers found (used through SQL aggregate system)
 

@@ -25,12 +25,12 @@ The function handles the common case where the message data is stored in a singl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_sendv (vectorized send implementation)
+  - [shm_mq_sendv](shm_mq_sendv.md) (vectorized send implementation)
   - shm_mq_iovec (I/O vector structure)
 - Called from (representative examples):
-  - tqueueReceiveSlot (tuple queue operations)
-  - test_shm_mq (testing infrastructure)
-  - copy_messages (test worker processes)
+  - [tqueueReceiveSlot](../t/tqueueReceiveSlot.md) (tuple queue operations)
+  - [test_shm_mq](../t/test_shm_mq.md) (testing infrastructure)
+  - [copy_messages](../c/copy_messages.md) (test worker processes)
 
 ## Notes and Other Information
 - This is a convenience wrapper that simplifies the most common sending scenario

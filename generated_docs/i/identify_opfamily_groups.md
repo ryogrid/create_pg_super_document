@@ -19,19 +19,19 @@ This function analyzes an operator family's operators and support functions to c
 ## Dependencies
 - Functions called/Symbols referenced:
   - CatCList (catalog cache list structure)
-  - OpFamilyOpFuncGroup (result structure type)
+  - [OpFamilyOpFuncGroup](../O/OpFamilyOpFuncGroup.md) (result structure type)
   - Form_pg_amop (operator tuple form)
   - Form_pg_amproc (support function tuple form)
   - GETSTRUCT (macro to extract tuple structure)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - lappend (list append function)
 - Called from (representative examples):
-  - brinvalidate
-  - ginvalidate
-  - gistvalidate
-  - hashvalidate
-  - btvalidate
-  - spgvalidate
+  - [brinvalidate](../b/brinvalidate.md)
+  - [ginvalidate](../g/ginvalidate.md)
+  - [gistvalidate](../g/gistvalidate.md)
+  - [hashvalidate](../h/hashvalidate.md)
+  - [btvalidate](../b/btvalidate.md)
+  - [spgvalidate](../s/spgvalidate.md)
 
 ## Notes and Other Information
 - Requires ordered catalog lists to function correctly; will error if lists are unordered

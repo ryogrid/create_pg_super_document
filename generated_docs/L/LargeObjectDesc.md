@@ -26,22 +26,22 @@ As of PostgreSQL version 11, permission checks are performed when the large obje
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid
-  - Snapshot
+  - [Snapshot](../S/Snapshot.md)
   - SubTransactionId
 - Called from (representative examples):
-  - be_lo_open
-  - inv_open
-  - inv_close
-  - inv_read
-  - inv_write
-  - inv_seek
-  - inv_tell
-  - inv_getsize
-  - inv_truncate
-  - lo_read
-  - lo_write
-  - newLOfd
-  - closeLOfd
+  - [be_lo_open](../b/be_lo_open.md)
+  - [inv_open](../i/inv_open.md)
+  - [inv_close](../i/inv_close.md)
+  - [inv_read](../i/inv_read.md)
+  - [inv_write](../i/inv_write.md)
+  - [inv_seek](../i/inv_seek.md)
+  - [inv_tell](../i/inv_tell.md)
+  - [inv_getsize](../i/inv_getsize.md)
+  - [inv_truncate](../i/inv_truncate.md)
+  - [lo_read](../l/lo_read.md)
+  - [lo_write](../l/lo_write.md)
+  - [newLOfd](../n/newLOfd.md)
+  - [closeLOfd](../c/closeLOfd.md)
 
 ## Notes and Other Information
 - Permission checks are now performed at open time rather than on each operation, improving performance for repeated access

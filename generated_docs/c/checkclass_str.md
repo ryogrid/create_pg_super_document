@@ -32,14 +32,14 @@ The implementation efficiently filters positions by weight when weight restricti
   - SHORTALIGN: Align memory addresses to short boundaries
   - WEP_GETWEIGHT: Extract weight value from WordEntryPos
   - WEP_GETPOS: Extract position value from WordEntryPos
-  - palloc: Allocate memory in PostgreSQL memory context
-  - pfree: Free allocated memory
+  - [palloc](../p/palloc.md): Allocate memory in PostgreSQL memory context
+  - [pfree](../p/pfree.md): Free allocated memory
   - WordEntryPosVector: Structure containing position array
   - WordEntryPos: Position and weight information for lexeme
   - TSTernaryValue constants (TS_YES, TS_NO, TS_MAYBE)
 
 - Called from (representative examples):
-  - checkcondition_str: Main condition checking function for text search execution
+  - [checkcondition_str](checkcondition_str.md): Main condition checking function for text search execution
 
 ## Notes and Other Information
 - Returns TS_YES for definite match, TS_NO for definite non-match, TS_MAYBE for uncertain cases

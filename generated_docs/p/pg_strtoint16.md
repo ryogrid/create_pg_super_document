@@ -27,7 +27,7 @@ Unlike its safe counterpart, this function will throw an `ereport()` on invalid 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strtoint16_safe
+  - [pg_strtoint16_safe](pg_strtoint16_safe.md)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

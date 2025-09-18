@@ -20,20 +20,20 @@ This function creates and sends a two-column result set containing an XLog recor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateDestReceiver
+  - [CreateDestReceiver](../C/CreateDestReceiver.md)
   - DestRemoteSimple
-  - CreateTemplateTupleDesc
-  - TupleDescInitBuiltinEntry
-  - begin_tup_output_tupdesc
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitBuiltinEntry](../T/TupleDescInitBuiltinEntry.md)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)
   - CStringGetTextDatum
-  - Int64GetDatum
-  - do_tup_output
-  - end_tup_output
-  - pq_puttextmessage
+  - [Int64GetDatum](../I/Int64GetDatum.md)
+  - [do_tup_output](../d/do_tup_output.md)
+  - [end_tup_output](../e/end_tup_output.md)
+  - [pq_puttextmessage](../p/pq_puttextmessage.md)
   - PqMsg_CommandComplete
 - Called from (representative examples):
-  - bbsink_copystream_begin_backup
-  - bbsink_copystream_end_backup
+  - [bbsink_copystream_begin_backup](../b/bbsink_copystream_begin_backup.md)
+  - [bbsink_copystream_end_backup](../b/bbsink_copystream_end_backup.md)
 
 ## Notes and Other Information
 - This is a static function limited to the basebackup_copy.c file

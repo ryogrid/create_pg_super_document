@@ -29,7 +29,7 @@ This function performs a safety check by reading the data directory lock file an
   - DIRECTORY_LOCK_FILE (constant)
   - PG_BINARY (constant)
 - Called from (representative examples):
-  - ServerLoop
+  - [ServerLoop](../S/ServerLoop.md)
 
 ## Notes and Other Information
 - Called periodically during normal postmaster operation for safety monitoring

@@ -24,16 +24,16 @@ This function is typically called before more expensive conflict detection opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializationNeededForRead
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
   - SxactIsDoomed
   - ereport
-  - errcode
-  - errmsg
-  - errdetail_internal  
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail_internal](../e/errdetail_internal.md)  
+  - [errhint](../e/errhint.md)
 - Called from:
-  - heap_prepare_pagescan
-  - HeapCheckForSerializableConflictOut
+  - [heap_prepare_pagescan](../h/heap_prepare_pagescan.md)
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
   - SerializableXactHandle (via include)
 
 ## Notes and Other Information

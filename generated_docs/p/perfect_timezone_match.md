@@ -20,10 +20,10 @@ This function serves as a wrapper around score_timezone() to determine if a time
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - score_timezone
+  - [score_timezone](../s/score_timezone.md)
   - tztry (structure type)
 - Called from (representative examples):
-  - check_system_link_file
+  - [check_system_link_file](../c/check_system_link_file.md)
 
 ## Notes and Other Information
 - Returns `true` only if the timezone matches all test time points perfectly

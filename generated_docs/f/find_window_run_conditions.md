@@ -31,19 +31,19 @@ This function implements an optimization for window functions by detecting cases
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
-  - contain_subplans (subplan detection)
-  - get_func_support (retrieve support function OID)
-  - is_pseudo_constant_clause (check for constant expressions)
-  - list_nth (list access)
+  - [contain_subplans](../c/contain_subplans.md) (subplan detection)
+  - [get_func_support](../g/get_func_support.md) (retrieve support function OID)
+  - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md) (check for constant expressions)
+  - [list_nth](../l/list_nth.md) (list access)
   - OidFunctionCall1 (call support function)
-  - get_op_btree_interpretation (operator analysis)
-  - get_opfamily_member (operator family lookup)
+  - [get_op_btree_interpretation](../g/get_op_btree_interpretation.md) (operator analysis)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (operator family lookup)
   - makeNode (node creation)
   - copyObject (node copying)
   - lappend (list append)
-  - bms_add_member (bitmapset manipulation)
+  - [bms_add_member](../b/bms_add_member.md) (bitmapset manipulation)
 - Called from (representative examples):
-  - check_and_push_window_quals
+  - [check_and_push_window_quals](../c/check_and_push_window_quals.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within allpaths.c

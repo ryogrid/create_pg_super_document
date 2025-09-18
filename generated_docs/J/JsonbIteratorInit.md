@@ -19,17 +19,17 @@ The iterator created by this function allows sequential access to all elements w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - iteratorFromContainer
-  - JsonbContainer
+  - [iteratorFromContainer](../i/iteratorFromContainer.md)
+  - [JsonbContainer](JsonbContainer.md)
   - JsonbIteratorToken
 - Called from (representative examples):
-  - JsonbToCStringWorker
-  - jsonb_contains
-  - JsonbDeepContains
-  - jsonb_object_keys
-  - jsonb_set_element
-  - each_worker_jsonb
-  - elements_worker_jsonb
+  - [JsonbToCStringWorker](JsonbToCStringWorker.md)
+  - [jsonb_contains](../j/jsonb_contains.md)
+  - [JsonbDeepContains](JsonbDeepContains.md)
+  - [jsonb_object_keys](../j/jsonb_object_keys.md)
+  - [jsonb_set_element](../j/jsonb_set_element.md)
+  - [each_worker_jsonb](../e/each_worker_jsonb.md)
+  - [elements_worker_jsonb](../e/elements_worker_jsonb.md)
 
 ## Notes and Other Information
 - This function is a thin wrapper around iteratorFromContainer with NULL parent parameter

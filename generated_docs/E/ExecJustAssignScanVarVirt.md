@@ -23,11 +23,11 @@ In query execution, the scan tuple typically represents the current tuple being 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustAssignVarVirtImpl
+  - [ExecJustAssignVarVirtImpl](ExecJustAssignVarVirtImpl.md)
   - EEO_USE_COMPUTED_GOTO (compilation directive)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation jump table)
-  - ExecReadyInterpretedExpr (expression preparation)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation)
 
 ## Notes and Other Information
 - This function is marked as static and is only used within the expression interpreter

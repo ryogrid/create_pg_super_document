@@ -19,10 +19,10 @@ The function operates on two buffers: first, it inserts the tuple data into the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_hash_insert (WAL record structure)
+  - [xl_hash_insert](../x/xl_hash_insert.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
   - XLogReadBufferForRedo (reads buffers for redo operations)
-  - XLogRecGetBlockData (gets block data from record)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data from record)
   - BLK_NEEDS_REDO (indicates block needs redo)
   - PageAddItem (adds tuple to page)
   - HashPageGetMeta (gets metapage metadata)
@@ -30,7 +30,7 @@ The function operates on two buffers: first, it inserts the tuple data into the 
   - InvalidOffsetNumber (invalid offset constant)
   - PANIC (error level constant)
 - Called from:
-  - hash_redo (main hash WAL replay function)
+  - [hash_redo](hash_redo.md) (main hash WAL replay function)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

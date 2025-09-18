@@ -23,11 +23,11 @@ The function includes assertions to verify that both input lists contain only OI
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsOidList (validation)
-  - list_copy (copy first list)
-  - list_member_oid (check membership)
+  - [list_copy](list_copy.md) (copy first list)
+  - [list_member_oid](list_member_oid.md) (check membership)
   - lfirst_oid (extract OID values)
   - lappend_oid (append OID values)
-  - check_list_invariants (validation)
+  - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - forfive (pg_list.h:648)
 

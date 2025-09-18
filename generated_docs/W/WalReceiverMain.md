@@ -28,19 +28,19 @@ The function runs in an infinite loop, streaming WAL data until instructed to re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
   - walrcv_connect, walrcv_identify_system, walrcv_startstreaming
-  - ProcessWalRcvInterrupts
-  - WalRcvFetchTimeLineHistoryFiles
-  - WalRcvWaitForStartPosition
-  - XLogWalRcvProcessMsg, XLogWalRcvSendReply, XLogWalRcvFlush
-  - GetCurrentTimestamp, RecoveryInProgress
-  - WaitLatchOrSocket, ResetLatch
-  - on_shmem_exit, WalRcvDie
+  - [ProcessWalRcvInterrupts](../P/ProcessWalRcvInterrupts.md)
+  - [WalRcvFetchTimeLineHistoryFiles](WalRcvFetchTimeLineHistoryFiles.md)
+  - [WalRcvWaitForStartPosition](WalRcvWaitForStartPosition.md)
+  - [XLogWalRcvProcessMsg](../X/XLogWalRcvProcessMsg.md), XLogWalRcvSendReply, XLogWalRcvFlush
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md), RecoveryInProgress
+  - [WaitLatchOrSocket](WaitLatchOrSocket.md), ResetLatch
+  - [on_shmem_exit](../o/on_shmem_exit.md), WalRcvDie
 
 - Called from (representative examples):
   - child_process_kind (process launcher)
-  - walrcv_clear_result (via function pointer)
+  - [walrcv_clear_result](../w/walrcv_clear_result.md) (via function pointer)
 
 ## Notes and Other Information
 - Central component of PostgreSQL's streaming replication infrastructure

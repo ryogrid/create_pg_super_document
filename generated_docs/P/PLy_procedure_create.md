@@ -22,16 +22,16 @@ This comprehensive function constructs a complete PLyProcedure object from Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (memory context creation)
-  - MemoryContextSwitchTo/MemoryContextSetIdentifier (memory management)
-  - SearchSysCache1/SysCacheGetAttr/ReleaseSysCache (system catalog access)
-  - get_func_arg_info (argument information extraction)
-  - PLy_output_setup_func/PLy_input_setup_func (I/O function setup)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)/MemoryContextSetIdentifier (memory management)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/SysCacheGetAttr/ReleaseSysCache (system catalog access)
+  - [get_func_arg_info](../g/get_func_arg_info.md) (argument information extraction)
+  - [PLy_output_setup_func](PLy_output_setup_func.md)/PLy_input_setup_func (I/O function setup)
   - TextDatumGetCString (source code extraction)
-  - PLy_procedure_compile (Python compilation)
-  - PLy_procedure_delete (cleanup on error)
+  - [PLy_procedure_compile](PLy_procedure_compile.md) (Python compilation)
+  - [PLy_procedure_delete](PLy_procedure_delete.md) (cleanup on error)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling)
 - Called from (representative examples):
-  - PLy_procedure_get (cache miss or validation failure scenarios)
+  - [PLy_procedure_get](PLy_procedure_get.md) (cache miss or validation failure scenarios)
 
 ## Notes and Other Information
 - Creates a dedicated memory context for each procedure to ensure proper cleanup

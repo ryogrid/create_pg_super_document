@@ -20,10 +20,10 @@ _WorkerJobRestoreCustom is executed in child processes during parallel restore o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (structure type)
-  - parallel_restore (generic parallel restore function)
+  - [TocEntry](../T/TocEntry.md) (structure type)
+  - [parallel_restore](../p/parallel_restore.md) (generic parallel restore function)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (through function pointer assignment)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (through function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function internal to pg_backup_custom.c

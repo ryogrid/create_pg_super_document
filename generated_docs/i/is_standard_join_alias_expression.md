@@ -38,18 +38,18 @@ The function serves as a gatekeeper for the optimization where nullingrels can b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlaceHolderVar, FuncExpr, RelabelType
+  - [PlaceHolderVar](../P/PlaceHolderVar.md), FuncExpr, RelabelType
   - CoerceViaIO, ArrayCoerceExpr, CoalesceExpr
   - COERCE_IMPLICIT_CAST
   - linitial (for examining first arguments)
   - Recursive calls to is_standard_join_alias_expression
 - Called from (representative examples):
-  - add_nullingrels_if_needed (to determine integration strategy)
+  - [add_nullingrels_if_needed](../a/add_nullingrels_if_needed.md) (to determine integration strategy)
 
 ## Notes and Other Information
 - Returns false for NULL input or unrecognized node types
 - The function is conservative - expressions that might be safe but aren't explicitly recognized return false
-- Query level matching (varlevelsup/phlevelsup) is essential for correct variable scope handling
+- [Query](../Q/Query.md) level matching (varlevelsup/phlevelsup) is essential for correct variable scope handling
 - The restriction to implicit coercions helps ensure null-preservation semantics
 - COALESCE expressions require all arguments to be standard expressions for the entire expression to qualify
 - The function's coverage is designed to handle anything the parser would put into joinaliasvars

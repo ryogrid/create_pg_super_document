@@ -21,11 +21,11 @@ This function performs cleanup of the recovery transaction tracking environment 
 - Functions called/Symbols referenced:
   - ExpireAllKnownAssignedTransactionIds (marks all tracked transactions as finished)
   - StandbyReleaseAllLocks (releases all locks held by tracked transactions)
-  - hash_destroy (destroys the recovery lock hash tables)
+  - [hash_destroy](../h/hash_destroy.md) (destroys the recovery lock hash tables)
   - VirtualXactLockTableCleanup (cleans up the virtual transaction entry)
 - Called from (representative examples):
-  - StartupXLOG (main recovery process function)
-  - StartupProcExit (startup process exit handler)
+  - [StartupXLOG](StartupXLOG.md) (main recovery process function)
+  - [StartupProcExit](StartupProcExit.md) (startup process exit handler)
 
 ## Notes and Other Information
 - Safe to call multiple times - checks if RecoveryLockHash is NULL to avoid redundant operations

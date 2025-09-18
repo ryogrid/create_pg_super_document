@@ -23,12 +23,12 @@ The function resets all allocation tracking counters and repositions the free po
 ## Dependencies
 - Functions called/Symbols referenced:
   - Generation_BLOCKHDRSZ (constant for block header size)
-  - wipe_mem (clears memory contents when CLOBBER_FREED_MEMORY is defined)
+  - [wipe_mem](../w/wipe_mem.md) (clears memory contents when CLOBBER_FREED_MEMORY is defined)
   - VALGRIND_MAKE_MEM_NOACCESS (marks memory as inaccessible for valgrind)
 - Called from (representative examples):
   - IsKeeperBlock (during keeper block management)
-  - GenerationReset (when resetting memory context)
-  - GenerationFree (when freeing chunks makes block empty)
+  - [GenerationReset](GenerationReset.md) (when resetting memory context)
+  - [GenerationFree](GenerationFree.md) (when freeing chunks makes block empty)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization

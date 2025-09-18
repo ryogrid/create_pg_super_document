@@ -20,24 +20,24 @@ The function handles pipeline mode by setting the pipeline status to aborted whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqClearAsyncResult
+  - [pqClearAsyncResult](pqClearAsyncResult.md)
   - initPQExpBuffer
-  - PQmakeEmptyPGresult
-  - pqGetc
-  - pqGets
-  - pqSaveMessageField
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
+  - [pqGetc](pqGetc.md)
+  - [pqGets](pqGets.md)
+  - [pqSaveMessageField](pqSaveMessageField.md)
   - strlcpy
-  - pqResultStrdup
-  - resetPQExpBuffer
-  - pqBuildErrorMessage3
-  - pqSetResultError
+  - [pqResultStrdup](pqResultStrdup.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [pqBuildErrorMessage3](pqBuildErrorMessage3.md)
+  - [pqSetResultError](pqSetResultError.md)
   - PQExpBufferDataBroken
-  - libpq_gettext
+  - [libpq_gettext](../l/libpq_gettext.md)
   - termPQExpBuffer
 - Called from (representative examples):
-  - pqParseInput3
-  - getCopyDataMessage
-  - pqFunctionCall3
+  - [pqParseInput3](pqParseInput3.md)
+  - [getCopyDataMessage](../g/getCopyDataMessage.md)
+  - [pqFunctionCall3](pqFunctionCall3.md)
 
 ## Notes and Other Information
 - Returns 0 on successful message consumption, EOF if insufficient data available
@@ -46,4 +46,4 @@ The function handles pipeline mode by setting the pipeline status to aborted whe
 - Handles memory allocation failures gracefully by falling back to internal error processing
 - For errors in pipeline mode, sets pipeline status to PQ_PIPELINE_ABORTED
 - Notice messages trigger registered notice callbacks if available
-- Query text is preserved in the result only when statement position information is present
+- [Query](../Q/Query.md) text is preserved in the result only when statement position information is present

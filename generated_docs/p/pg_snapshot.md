@@ -47,14 +47,14 @@ The struct uses a flexible array member design where the `xip` array contains th
 - Called from (representative examples):
   - PG_SNAPSHOT_SIZE (macro for calculating structure size)
   - PG_SNAPSHOT_MAX_NXIP (macro for maximum array size)
-  - sort_snapshot (function for sorting snapshot contents)
-  - is_visible_fxid (function for transaction visibility checks)
-  - buf_init, buf_add_txid, buf_finalize (snapshot construction functions)
-  - pg_current_snapshot (function to get current snapshot)
-  - pg_snapshot_in, pg_snapshot_out (I/O functions)
-  - pg_snapshot_recv, pg_snapshot_send (binary I/O functions)
-  - pg_visible_in_snapshot (visibility check function)
-  - pg_snapshot_xmin, pg_snapshot_xmax, pg_snapshot_xip (accessor functions)
+  - [sort_snapshot](../s/sort_snapshot.md) (function for sorting snapshot contents)
+  - [is_visible_fxid](../i/is_visible_fxid.md) (function for transaction visibility checks)
+  - [buf_init](../b/buf_init.md), buf_add_txid, buf_finalize (snapshot construction functions)
+  - [pg_current_snapshot](pg_current_snapshot.md) (function to get current snapshot)
+  - [pg_snapshot_in](pg_snapshot_in.md), pg_snapshot_out (I/O functions)
+  - [pg_snapshot_recv](pg_snapshot_recv.md), pg_snapshot_send (binary I/O functions)
+  - [pg_visible_in_snapshot](pg_visible_in_snapshot.md) (visibility check function)
+  - [pg_snapshot_xmin](pg_snapshot_xmin.md), pg_snapshot_xmax, pg_snapshot_xip (accessor functions)
 
 ## Notes and Other Information
 - The structure uses FullTransactionId instead of TransactionId to avoid 32-bit wraparound issues

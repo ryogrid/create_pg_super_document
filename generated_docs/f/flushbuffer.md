@@ -24,7 +24,7 @@ The function calculates the number of characters currently in the buffer by comp
   - fwrite (standard C library function)
   - PrintfTarget (struct type used throughout the printf implementation)
 - Called from (representative examples):
-  - pg_vfprintf
+  - [pg_vfprintf](../p/pg_vfprintf.md)
   - dostr
   - dopr_outch
   - dopr_outchmulti

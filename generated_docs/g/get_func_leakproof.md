@@ -19,18 +19,18 @@ This function retrieves the leakproof flag for a PostgreSQL function from the sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_proc
 - Called from (representative examples):
-  - select_equality_operator
-  - contain_leaked_vars_checker
-  - contain_leaked_vars_walker
-  - statext_is_compatible_clause_internal
+  - [select_equality_operator](../s/select_equality_operator.md)
+  - [contain_leaked_vars_checker](../c/contain_leaked_vars_checker.md)
+  - [contain_leaked_vars_walker](../c/contain_leaked_vars_walker.md)
+  - [statext_is_compatible_clause_internal](../s/statext_is_compatible_clause_internal.md)
   - statistic_proc_security_check
 
 ## Notes and Other Information

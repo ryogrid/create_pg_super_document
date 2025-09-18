@@ -30,7 +30,7 @@ The function reads the entire remaining content of the input buffer, sets the ap
   - TSQueryParserState (parser state structure)
   - int8 (PostgreSQL type alias)
 - Called from (representative examples):
-  - parse_tsquery
+  - [parse_tsquery](../p/parse_tsquery.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search functionality for processing tsquery input

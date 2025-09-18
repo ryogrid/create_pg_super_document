@@ -18,13 +18,13 @@ This function removes a specific publication-schema mapping from the pg_publicat
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (catalog access)
-  - SearchSysCache1 (cache lookup)
-  - GetSchemaPublicationRelations (relation enumeration)
-  - InvalidatePublicationRels (cache invalidation)
-  - CatalogTupleDelete (catalog modification)
-  - ReleaseSysCache (cache cleanup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
+  - [GetSchemaPublicationRelations](../G/GetSchemaPublicationRelations.md) (relation enumeration)
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md) (cache invalidation)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (catalog modification)
+  - [ReleaseSysCache](ReleaseSysCache.md) (cache cleanup)
 - Called from (representative examples):
-  - doDeletion (dependency system)
+  - [doDeletion](../d/doDeletion.md) (dependency system)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock on PublicationNamespaceRelationId for concurrent access safety

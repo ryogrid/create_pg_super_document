@@ -27,12 +27,12 @@ The function uses a switch statement to efficiently route each WAL record to its
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo: Extract operation information from WAL record
-  - brin_xlog_createidx: Handle index creation replay
-  - brin_xlog_insert: Handle tuple insertion replay
-  - brin_xlog_update: Handle tuple update replay
-  - brin_xlog_samepage_update: Handle same-page update replay
-  - brin_xlog_revmap_extend: Handle revmap extension replay
-  - brin_xlog_desummarize_page: Handle desummarization replay
+  - [brin_xlog_createidx](brin_xlog_createidx.md): Handle index creation replay
+  - [brin_xlog_insert](brin_xlog_insert.md): Handle tuple insertion replay
+  - [brin_xlog_update](brin_xlog_update.md): Handle tuple update replay
+  - [brin_xlog_samepage_update](brin_xlog_samepage_update.md): Handle same-page update replay
+  - [brin_xlog_revmap_extend](brin_xlog_revmap_extend.md): Handle revmap extension replay
+  - [brin_xlog_desummarize_page](brin_xlog_desummarize_page.md): Handle desummarization replay
   - elog: Log error messages for unknown operation codes
 - Called from (representative examples):
   - WAL recovery system: Invoked by PostgreSQL's recovery manager during crash recovery

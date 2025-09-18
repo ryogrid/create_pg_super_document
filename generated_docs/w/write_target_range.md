@@ -21,18 +21,18 @@ This function writes a specified buffer to a target file at a given offset. It p
 - Functions called/Symbols referenced:
   - lseek (system call)
   - write (system call) 
-  - progress_report
-  - pg_fatal
+  - [progress_report](../p/progress_report.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Global variables used:
   - fetch_done (progress tracking counter)
   - dry_run (configuration flag)
   - dstfd (static file descriptor)
   - dstpath (static path buffer for error reporting)
 - Called from (representative examples):
-  - process_queued_fetch_requests
-  - local_queue_fetch_file
-  - local_queue_fetch_range
-  - createBackupLabel
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md)
+  - [local_queue_fetch_file](../l/local_queue_fetch_file.md)
+  - [local_queue_fetch_range](../l/local_queue_fetch_range.md)
+  - [createBackupLabel](../c/createBackupLabel.md)
 
 ## Notes and Other Information
 - Part of pg_rewind utility's file operations module (src/bin/pg_rewind/file_ops.c)

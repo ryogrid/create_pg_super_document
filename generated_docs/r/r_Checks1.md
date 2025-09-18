@@ -28,10 +28,10 @@ The function also performs a preliminary character check, ensuring the character
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Searches for patterns using lookup table a_3
-  - len_utf8: Calculates UTF-8 character length of the string
+  - [find_among](../f/find_among.md): Searches for patterns using lookup table a_3
+  - [len_utf8](../l/len_utf8.md): Calculates UTF-8 character length of the string
 - Called from (representative examples):
-  - arabic_UTF_8_stem: Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1419
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1419
 
 ## Notes and Other Information
 This function serves as a gatekeeper for the Arabic stemming process, ensuring only words that meet specific pattern and length criteria proceed to more complex stemming operations. The function returns 1 if checks pass and the word should be stemmed, or 0 if the word should be left unchanged. The state variables set by this function guide subsequent stemming steps in the algorithm.

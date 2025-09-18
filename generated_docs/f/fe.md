@@ -20,7 +20,7 @@ The `fe` function is a test function that takes an enumeration parameter of type
   - printf (standard C library function)
   - enum e (enumeration type defined in the same file)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/test/expected/preproc-init.c:248)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-init.c:248)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within its compilation unit

@@ -31,15 +31,15 @@ The function also handles parameterized paths (used in nested loops) by using di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_tablespace_page_costs()`: Gets tablespace-specific page access costs
-  - `get_restriction_qual_cost()`: Calculates WHERE clause evaluation costs
-  - `get_parallel_divisor()`: Computes parallelism adjustment factor
-  - `clamp_row_est()`: Ensures row estimates are within valid ranges
+  - `[get_tablespace_page_costs](../g/get_tablespace_page_costs.md)()`: Gets tablespace-specific page access costs
+  - `[get_restriction_qual_cost](../g/get_restriction_qual_cost.md)()`: Calculates WHERE clause evaluation costs
+  - `[get_parallel_divisor](../g/get_parallel_divisor.md)()`: Computes parallelism adjustment factor
+  - `[clamp_row_est](clamp_row_est.md)()`: Ensures row estimates are within valid ranges
   - `RTE_RELATION`: Constant indicating relation table entry type
-  - `ParamPathInfo`, `Cost`, `QualCost`: Type definitions for cost structures
+  - `[ParamPathInfo](../P/ParamPathInfo.md)`, `Cost`, `QualCost`: Type definitions for cost structures
 
 - Called from (representative examples):
-  - `create_seqscan_path()`: Creates sequential scan path nodes
+  - `[create_seqscan_path](create_seqscan_path.md)()`: Creates sequential scan path nodes
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/costsize.c:284-360

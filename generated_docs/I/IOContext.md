@@ -22,11 +22,11 @@ IOContext categorizes I/O operations based on the database activity context in w
 - Functions called/Symbols referenced:
   - Used in conjunction with IOObject and IOOp for comprehensive I/O tracking
 - Called from (representative examples):
-  - pgstat_count_io_op
-  - pgstat_count_io_op_n
-  - pgstat_count_io_op_time
-  - pgstat_get_io_context_name
-  - pgstat_tracks_io_object
+  - [pgstat_count_io_op](../p/pgstat_count_io_op.md)
+  - [pgstat_count_io_op_n](../p/pgstat_count_io_op_n.md)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
+  - [pgstat_get_io_context_name](../p/pgstat_get_io_context_name.md)
+  - [pgstat_tracks_io_object](../p/pgstat_tracks_io_object.md)
   - Buffer management functions throughout bufmgr.c
   - Resource management functions
 

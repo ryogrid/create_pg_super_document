@@ -24,11 +24,11 @@ This function takes no parameters but works with transaction state and memory co
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionState (type)
-  - MemoryContextSwitchTo (implicitly called)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicitly called)
   - MemoryContextIsEmpty
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - CommitSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
 
 ## Notes and Other Information
 - This is a static function within xact.c, part of the subtransaction commit process

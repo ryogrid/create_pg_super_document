@@ -22,15 +22,15 @@ This function manages the output of all data content during a dump operation by 
 - Functions called/Symbols referenced:
   - pg_malloc
   - qsort
-  - TocEntrySizeCompareQsort
-  - DispatchJobForTocEntry
-  - mark_dump_job_done
-  - pg_free
-  - WaitForWorkers
-  - WriteDataChunksForTocEntry
+  - [TocEntrySizeCompareQsort](../T/TocEntrySizeCompareQsort.md)
+  - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md)
+  - [mark_dump_job_done](../m/mark_dump_job_done.md)
+  - [pg_free](../p/pg_free.md)
+  - [WaitForWorkers](WaitForWorkers.md)
+  - [WriteDataChunksForTocEntry](WriteDataChunksForTocEntry.md)
   - ACT_DUMP, REQ_DATA, WFW_ALL_IDLE (constants)
 - Called from (representative examples):
-  - _CloseArchive (in various format handlers)
+  - [_CloseArchive](../C/_CloseArchive.md) (in various format handlers)
 
 ## Notes and Other Information
 - Public function, declared in pg_backup_archiver.h

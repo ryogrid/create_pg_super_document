@@ -21,13 +21,13 @@ The comparison logic uses inverted float8 comparison (negative result) to create
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float8_cmp_internal
+  - [float8_cmp_internal](../f/float8_cmp_internal.md)
   - GISTSearchItemIsHeap
-  - pairingheap_node (type)
-  - GISTSearchItem (type)
-  - IndexScanDesc (type)
+  - [pairingheap_node](pairingheap_node.md) (type)
+  - [GISTSearchItem](../G/GISTSearchItem.md) (type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (type)
 - Called from (representative examples):
-  - gistrescan
+  - [gistrescan](../g/gistrescan.md)
 
 ## Notes and Other Information
 - The function implements a stable sort by using multiple comparison levels

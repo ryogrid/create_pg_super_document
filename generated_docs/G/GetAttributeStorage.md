@@ -24,11 +24,11 @@ This function converts a string-based storage specification into a storage type 
   - TYPSTORAGE_EXTERNAL
   - TYPSTORAGE_EXTENDED
   - TYPSTORAGE_MAIN
-  - get_typstorage
+  - [get_typstorage](../g/get_typstorage.md)
   - TypeIsToastable
 - Called from (representative examples):
-  - BuildDescForRelation
-  - ATExecSetStorage
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [ATExecSetStorage](../A/ATExecSetStorage.md)
 
 ## Notes and Other Information
 - Uses case-insensitive string comparison for storage mode names

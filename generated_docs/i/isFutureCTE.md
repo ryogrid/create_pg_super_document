@@ -21,7 +21,7 @@ This static function searches through the p_future_ctes lists in the parsing sta
   - CommonTableExpr (struct type)
   - strcmp (for name comparison)
 - Called from (representative examples):
-  - parserOpenTable
+  - [parserOpenTable](../p/parserOpenTable.md)
 
 ## Notes and Other Information
 - Searches p_future_ctes list rather than p_ctenamespace

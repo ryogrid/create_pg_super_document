@@ -32,7 +32,7 @@ The function handles dual-parameter behavior of the LZ4F_decompress API, where r
   - LZ4F_isError (external LZ4 library function) 
   - LZ4F_getErrorName (external LZ4 library function)
   - pg_log_error (PostgreSQL logging function)
-  - bbstreamer_content (forwards processed data to next streamer)
+  - [bbstreamer_content](bbstreamer_content.md) (forwards processed data to next streamer)
 - Called from (representative examples):
   - Referenced indirectly through bbstreamer function pointer mechanism
 

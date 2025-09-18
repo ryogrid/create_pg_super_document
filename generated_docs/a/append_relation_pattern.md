@@ -21,11 +21,11 @@ The `append_relation_pattern` function is a simple wrapper around `append_relati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - append_relation_pattern_helper
+  - [append_relation_pattern_helper](append_relation_pattern_helper.md)
 - Types used:
-  - PatternInfoArray
+  - [PatternInfoArray](../P/PatternInfoArray.md)
 - Called from (representative examples):
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:344, 349)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:344, 349)
 
 ## Notes and Other Information
 - Simple wrapper function that delegates to append_relation_pattern_helper

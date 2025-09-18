@@ -27,8 +27,8 @@ The function iterates through the argument list in order, evaluating each expres
   - lfirst (to access list elements)
   - Assert (for debugging assertions)
 - Called from (representative examples):
-  - ExecMakeTableFunctionResult (for table function argument evaluation)
-  - ExecMakeFunctionResultSet (for set-returning function argument evaluation)
+  - [ExecMakeTableFunctionResult](ExecMakeTableFunctionResult.md) (for table function argument evaluation)
+  - [ExecMakeFunctionResultSet](ExecMakeFunctionResultSet.md) (for set-returning function argument evaluation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the execSRF.c compilation unit

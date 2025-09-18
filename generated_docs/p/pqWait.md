@@ -19,13 +19,13 @@ pqWait is a convenience wrapper function that provides socket waiting functional
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqWaitTimed
+  - [pqWaitTimed](pqWaitTimed.md)
 - Called from (representative examples):
-  - PQgetResult
-  - pqSendSome
-  - pqGetCopyData3
-  - pqGetline3
-  - pqFunctionCall3
+  - [PQgetResult](../P/PQgetResult.md)
+  - [pqSendSome](pqSendSome.md)
+  - [pqGetCopyData3](pqGetCopyData3.md)
+  - [pqGetline3](pqGetline3.md)
+  - [pqFunctionCall3](pqFunctionCall3.md)
 
 ## Notes and Other Information
 - This function is a simple wrapper around pqWaitTimed with an infinite timeout

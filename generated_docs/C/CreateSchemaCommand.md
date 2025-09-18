@@ -29,17 +29,17 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NamespaceCreate (creates the actual namespace)
-  - GetUserIdAndSecContext/SetUserIdAndSecContext (security context management)
+  - [NamespaceCreate](../N/NamespaceCreate.md) (creates the actual namespace)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)/SetUserIdAndSecContext (security context management)
   - get_rolespec_oid (resolves owner role specification)
-  - object_aclcheck (checks CREATE privilege on database)
-  - checkMembershipInCurrentExtension (validates extension membership for IF NOT EXISTS)
-  - transformCreateSchemaStmtElements (reorganizes embedded statements)
-  - ProcessUtility (executes embedded statements)
-  - EventTriggerCollectSimpleCommand (reports schema creation to event triggers)
+  - [object_aclcheck](../o/object_aclcheck.md) (checks CREATE privilege on database)
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md) (validates extension membership for IF NOT EXISTS)
+  - [transformCreateSchemaStmtElements](../t/transformCreateSchemaStmtElements.md) (reorganizes embedded statements)
+  - [ProcessUtility](../P/ProcessUtility.md) (executes embedded statements)
+  - [EventTriggerCollectSimpleCommand](../E/EventTriggerCollectSimpleCommand.md) (reports schema creation to event triggers)
 - Called from (representative examples):
-  - ProcessUtilitySlow (main utility command processing)
-  - CreateExtensionInternal (schema creation during extension installation)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main utility command processing)
+  - [CreateExtensionInternal](CreateExtensionInternal.md) (schema creation during extension installation)
 
 ## Notes and Other Information
 - Returns the OID of the created namespace, or InvalidOid if skipped due to IF NOT EXISTS

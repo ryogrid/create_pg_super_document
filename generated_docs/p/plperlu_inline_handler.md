@@ -19,10 +19,10 @@ This function serves as the specific entry point for executing PL/PerlU (untrust
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_inline_handler
+  - [plperl_inline_handler](plperl_inline_handler.md)
   - PG_FUNCTION_INFO_V1
 - Called from (representative examples):
-  - plperlu_call_handler
+  - [plperlu_call_handler](plperlu_call_handler.md)
 
 ## Notes and Other Information
 - This is the handler function specifically registered for PL/PerlU (untrusted Perl) inline code execution

@@ -31,22 +31,22 @@ The function ensures the primary key is valid and immediate, as deferrable prima
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - lfirst_oid
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
-  - list_free
-  - SysCacheGetAttrNotNull
-  - DatumGetPointer
-  - attnumTypeId
-  - attnumAttName
-  - makeString
-  - pstrdup
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [list_free](../l/list_free.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [attnumTypeId](../a/attnumTypeId.md)
+  - [attnumAttName](../a/attnumAttName.md)
+  - [makeString](../m/makeString.md)
+  - [pstrdup](../p/pstrdup.md)
   - lappend
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint (when creating foreign keys without explicit column lists)
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md) (when creating foreign keys without explicit column lists)
 
 ## Notes and Other Information
 - Only works with immediate (non-deferrable) primary keys per SQL specification

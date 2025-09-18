@@ -27,7 +27,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - shell_archive_callbacks (static structure)
 - Called from (representative examples):
-  - LoadArchiveLibrary (in pgarch.c:926)
+  - [LoadArchiveLibrary](../L/LoadArchiveLibrary.md) (in pgarch.c:926)
 
 ## Notes and Other Information
 - This is the entry point function that PostgreSQL's archiver process calls to initialize the shell archiving module

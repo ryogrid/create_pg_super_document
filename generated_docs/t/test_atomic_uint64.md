@@ -21,22 +21,22 @@ The  function is a thorough unit test that systematically validates all atomic o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint64: Type definition for 64-bit atomic unsigned integer
-  - pg_atomic_init_u64: Initializes atomic uint64 variable
-  - pg_atomic_read_u64: Atomically reads current value
-  - pg_atomic_write_u64: Atomically writes new value
-  - pg_atomic_fetch_add_u64: Atomically adds and returns old value
-  - pg_atomic_add_fetch_u64: Atomically adds and returns new value
-  - pg_atomic_fetch_sub_u64: Atomically subtracts and returns old value
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md): Type definition for 64-bit atomic unsigned integer
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md): Initializes atomic uint64 variable
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md): Atomically reads current value
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md): Atomically writes new value
+  - [pg_atomic_fetch_add_u64](../p/pg_atomic_fetch_add_u64.md): Atomically adds and returns old value
+  - [pg_atomic_add_fetch_u64](../p/pg_atomic_add_fetch_u64.md): Atomically adds and returns new value
+  - [pg_atomic_fetch_sub_u64](../p/pg_atomic_fetch_sub_u64.md): Atomically subtracts and returns old value
   - pg_atomic_sub_fetch_u64: Atomically subtracts and returns new value
-  - pg_atomic_exchange_u64: Atomically exchanges values
-  - pg_atomic_compare_exchange_u64: Atomic compare-and-swap operation
-  - pg_atomic_fetch_or_u64: Atomic bitwise OR with fetch
-  - pg_atomic_fetch_and_u64: Atomic bitwise AND with fetch
+  - [pg_atomic_exchange_u64](../p/pg_atomic_exchange_u64.md): Atomically exchanges values
+  - [pg_atomic_compare_exchange_u64](../p/pg_atomic_compare_exchange_u64.md): Atomic compare-and-swap operation
+  - [pg_atomic_fetch_or_u64](../p/pg_atomic_fetch_or_u64.md): Atomic bitwise OR with fetch
+  - [pg_atomic_fetch_and_u64](../p/pg_atomic_fetch_and_u64.md): Atomic bitwise AND with fetch
   - EXPECT_EQ_U64: Test assertion macro for uint64 equality
   - EXPECT_TRUE: Test assertion macro for boolean conditions
 - Called from (representative examples):
-  - test_atomic_ops: Main atomic operations test function
+  - [test_atomic_ops](test_atomic_ops.md): Main atomic operations test function
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

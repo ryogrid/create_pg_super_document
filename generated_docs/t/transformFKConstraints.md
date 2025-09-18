@@ -30,8 +30,8 @@ The deferred execution ensures that foreign key constraints are added after all 
   - CreateStmtContext, Constraint, AlterTableStmt, AlterTableCmd (data structures)
   - AT_AddConstraint, OBJECT_TABLE (command type constants)
 - Called from (representative examples):
-  - transformCreateStmt (during CREATE TABLE processing)
-  - transformAlterTableStmt (during ALTER TABLE processing)
+  - [transformCreateStmt](transformCreateStmt.md) (during CREATE TABLE processing)
+  - [transformAlterTableStmt](transformAlterTableStmt.md) (during ALTER TABLE processing)
 
 ## Notes and Other Information
 - This is a static function in parse_utilcmd.c, part of the constraint transformation infrastructure

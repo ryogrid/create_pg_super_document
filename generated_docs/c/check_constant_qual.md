@@ -20,12 +20,12 @@ The function iterates through each element in the qualification list, verifying 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list data structure)
+  - [List](../L/List.md) (PostgreSQL list data structure)
   - ListCell (list iteration structure) 
   - Const (constant value node type)
   - lfirst (macro to get current list element)
   - IsA (macro to check node type)
-  - DatumGetBool (converts Datum to boolean)
+  - [DatumGetBool](../D/DatumGetBool.md) (converts Datum to boolean)
 - Called from (representative examples):
   - ExecInitMergeJoin (merge join initialization function, called twice during setup)
 

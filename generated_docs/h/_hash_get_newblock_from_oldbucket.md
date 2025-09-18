@@ -22,12 +22,12 @@ This is particularly important for handling incomplete splits, where the system 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_getbuf
+  - [_hash_getbuf](_hash_getbuf.md)
   - HashPageGetMeta
-  - BufferGetPage
-  - _hash_get_newbucket_from_oldbucket
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [_hash_get_newbucket_from_oldbucket](_hash_get_newbucket_from_oldbucket.md)
   - BUCKET_TO_BLKNO
-  - _hash_relbuf
+  - [_hash_relbuf](_hash_relbuf.md)
 - Referenced types/constants:
   - Bucket
   - HashMetaPage
@@ -35,7 +35,7 @@ This is particularly important for handling incomplete splits, where the system 
   - HASH_READ
   - LH_META_PAGE
 - Called from (representative examples):
-  - _hash_finish_split
+  - [_hash_finish_split](_hash_finish_split.md)
 
 ## Notes and Other Information
 This function is essential for completing incomplete hash index splits. It relies on the current table state (lowmask and maxbucket) from the meta page and delegates the actual bucket number calculation to _hash_get_newbucket_from_oldbucket. The function is designed with the assumption that only one bucket split can be in progress from any old bucket at a time, which simplifies the logic for determining the corresponding new bucket.

@@ -39,8 +39,8 @@ This rich error context is crucial for debugging logical replication issues, esp
   - errcontext (PostgreSQL error context reporting function)
   - LSN_FORMAT_ARGS (macro for formatting LSN values)
 - Called from (representative examples):
-  - LogicalParallelApplyLoop (in parallel apply worker)
-  - LogicalRepApplyLoop (in main apply worker)
+  - [LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md) (in parallel apply worker)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (in main apply worker)
 
 ## Notes and Other Information
 - The function uses a global variable apply_error_callback_arg of type ApplyErrorCallbackArg

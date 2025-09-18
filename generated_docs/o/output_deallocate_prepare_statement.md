@@ -17,8 +17,8 @@ This function is part of the ECPG (Embedded SQL in C) preprocessor and generates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - output_escaped_str (for escaping the statement name when not "all")
-  - whenever_action (for generating error handling code)
+  - [output_escaped_str](output_escaped_str.md) (for escaping the statement name when not "all")
+  - [whenever_action](../w/whenever_action.md) (for generating error handling code)
 - Called from (representative examples):
   - No direct callers found in the indexed symbols
 

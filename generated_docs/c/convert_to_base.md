@@ -22,9 +22,9 @@ This function implements efficient base conversion using a reverse-building algo
   - cstring_to_text_with_len (converts the resulting C string to PostgreSQL text type)
   - Assert (debug assertions to validate base parameter constraints)
 - Called from:
-  - to_bin32, to_bin64 (binary conversion functions)
-  - to_oct32, to_oct64 (octal conversion functions) 
-  - to_hex32, to_hex64 (hexadecimal conversion functions)
+  - [to_bin32](../t/to_bin32.md), to_bin64 (binary conversion functions)
+  - [to_oct32](../t/to_oct32.md), to_oct64 (octal conversion functions) 
+  - [to_hex32](../t/to_hex32.md), to_hex64 (hexadecimal conversion functions)
 
 ## Notes and Other Information
 The function is marked as static inline for performance, as it's called frequently by the various base conversion functions and the inlining optimization helps eliminate function call overhead. The buffer is sized to handle the longest possible output (binary representation of UINT64_MAX), which provides sufficient space for any supported base. The reverse-construction approach eliminates the need for string manipulation operations, making the conversion very efficient. The use of assertion checks ensures that the base parameter stays within the supported range, catching programming errors during development. The digit string "0123456789abcdef" provides a compact lookup table for all possible digit values in bases up to 16.

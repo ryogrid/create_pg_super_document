@@ -21,11 +21,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty (checks if segment list is empty)
+  - [dlist_is_empty](dlist_is_empty.md) (checks if segment list is empty)
   - dlist_head_element (gets first segment from list)
-  - dsm_detach (detaches individual segments)
+  - [dsm_detach](dsm_detach.md) (detaches individual segments)
 - Called from (representative examples):
-  - shmem_exit (shared memory exit procedures)
+  - [shmem_exit](../s/shmem_exit.md) (shared memory exit procedures)
 
 ## Notes and Other Information
 - Called automatically during backend shutdown process via shmem_exit()

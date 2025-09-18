@@ -27,10 +27,10 @@ This two-step synchronization ensures that subsequent cancellation requests will
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `wait_for_connection_state()` - waits for specific connection states/events
-  - `PQbackendPID()` - get backend process ID for monitoring
-  - `PQsendQueryParams()` - send parameterized query asynchronously
-  - `PQerrorMessage()` - get connection error messages
+  - `[wait_for_connection_state](../w/wait_for_connection_state.md)()` - waits for specific connection states/events
+  - `[PQbackendPID](../P/PQbackendPID.md)()` - get backend process ID for monitoring
+  - `[PQsendQueryParams](../P/PQsendQueryParams.md)()` - send parameterized query asynchronously
+  - `[PQerrorMessage](../P/PQerrorMessage.md)()` - get connection error messages
   - `getenv()` - read environment variables
   - `pg_fatal_impl()` - report fatal test errors
   - `INT4OID` - integer parameter type OID

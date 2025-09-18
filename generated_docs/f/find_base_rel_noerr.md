@@ -25,7 +25,7 @@ This makes it suitable for tentative lookups where the absence of a relation is 
   - None (this is a simple array access function)
 - Data structures used:
   - RelOptInfo (return type)  
-  - PlannerInfo (contains simple_rel_array)
+  - [PlannerInfo](../P/PlannerInfo.md) (contains simple_rel_array)
 - Called from (representative examples):
   - all_rows_selectable (src/backend/utils/adt/selfuncs.c:5620)
 

@@ -26,12 +26,12 @@ The function can handle NULL input strings, though the behavior depends on wheth
   - Type (typedef for HeapTuple)
   - Form_pg_type (structure representing pg_type catalog row)
   - GETSTRUCT (macro to extract structure from HeapTuple)
-  - getTypeIOParam (function to get the I/O parameter for the type)
-  - OidInputFunctionCall (function to call the type's input function)
+  - [getTypeIOParam](../g/getTypeIOParam.md) (function to get the I/O parameter for the type)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md) (function to call the type's input function)
   - Datum (PostgreSQL's internal value representation type)
   - Oid (object identifier type)
 - Called from (representative examples):
-  - coerce_type (in parse_coerce.c:311, 315, 345)
+  - [coerce_type](../c/coerce_type.md) (in parse_coerce.c:311, 315, 345)
 
 ## Notes and Other Information
 - This function is essential for literal value parsing and type coercion in PostgreSQL

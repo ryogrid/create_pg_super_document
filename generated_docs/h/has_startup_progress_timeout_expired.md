@@ -26,8 +26,8 @@ This mechanism allows PostgreSQL to report progress during long-running startup 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - TimestampDifference
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifference](../T/TimestampDifference.md)
 - Called from (representative examples):
   - ereport_startup_progress (macro in src/include/postmaster/startup.h)
 

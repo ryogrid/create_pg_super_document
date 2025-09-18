@@ -27,15 +27,15 @@ Like other catalog functions with "WithInfo" suffix, this function is designed f
   - CatalogIndexState
   - TU_UpdateIndexes
   - TU_All
-  - CatalogTupleCheckConstraints
-  - simple_heap_update
-  - CatalogIndexInsert
+  - [CatalogTupleCheckConstraints](CatalogTupleCheckConstraints.md)
+  - [simple_heap_update](../s/simple_heap_update.md)
+  - [CatalogIndexInsert](CatalogIndexInsert.md)
 - Called from (representative examples):
-  - update_attstats
-  - swap_relation_files
-  - MakeConfigurationMapping
-  - inv_write
-  - inv_truncate
+  - [update_attstats](../u/update_attstats.md)
+  - [swap_relation_files](../s/swap_relation_files.md)
+  - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md)
+  - [inv_write](../i/inv_write.md)
+  - [inv_truncate](../i/inv_truncate.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's catalog management infrastructure, optimized for bulk update operations

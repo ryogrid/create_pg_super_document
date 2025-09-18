@@ -24,9 +24,9 @@ The function returns true only when:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION
-  - check_collation_set
-  - lc_collate_is_c
-  - get_collation_isdeterministic
+  - [check_collation_set](../c/check_collation_set.md)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md)
+  - [get_collation_isdeterministic](../g/get_collation_isdeterministic.md)
 - Called from (representative examples):
   - No direct references found in the codebase (likely referenced through operator class definitions)
 

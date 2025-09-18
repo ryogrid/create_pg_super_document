@@ -23,7 +23,7 @@ The function supports comprehensive error handling through the escontext mechani
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getid (extracts identifiers from input string)
+  - [getid](../g/getid.md) (extracts identifiers from input string)
   - get_role_oid (resolves role names to OIDs)
   - ereturn (error handling macro)
   - ACLITEM_SET_PRIVS_GOPTIONS (macro to set privileges and grant options)
@@ -31,7 +31,7 @@ The function supports comprehensive error handling through the escontext mechani
   - ACL_ID_PUBLIC (special OID for public role)
   - BOOTSTRAP_SUPERUSERID (default grantor OID)
 - Called from (representative examples):
-  - aclitemin (during ACL input conversion)
+  - [aclitemin](aclitemin.md) (during ACL input conversion)
 
 ## Notes and Other Information
 The parser supports all PostgreSQL privilege types including INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER, EXECUTE, USAGE, CREATE, CREATE_TEMP, CONNECT, SET, ALTER_SYSTEM, and MAINTAIN. It maintains backward compatibility by accepting the obsolete 'R' (RULE) privilege character while ignoring it. The grantor specification after '/' is optional but recommended to avoid the deprecation warning about defaulting to the superuser.

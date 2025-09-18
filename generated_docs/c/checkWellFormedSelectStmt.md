@@ -38,16 +38,16 @@ This approach ensures that recursive references appear only in semantically vali
 ## Dependencies
 - Functions called/Symbols referenced:
   - raw_expression_tree_walker (generic tree traversal)
-  - checkWellFormedRecursionWalker (specialized recursion walker)
+  - [checkWellFormedRecursionWalker](checkWellFormedRecursionWalker.md) (specialized recursion walker)
   - elog (internal error logging)
   - SelectStmt (SELECT statement structure)
-  - CteState (CTE validation state)
-  - RecursionContext (recursion context enum)
+  - [CteState](../C/CteState.md) (CTE validation state)
+  - [RecursionContext](../R/RecursionContext.md) (recursion context enum)
   - SETOP_* constants (set operation type enumeration)
   - RECURSION_* constants (recursion context enumeration)
 
 - Called from:
-  - checkWellFormedRecursionWalker (main recursion validation walker)
+  - [checkWellFormedRecursionWalker](checkWellFormedRecursionWalker.md) (main recursion validation walker)
 
 ## Notes and Other Information
 - This function is essential for handling complex set operations within recursive CTEs where different parts may have different validity rules for recursive references

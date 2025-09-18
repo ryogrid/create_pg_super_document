@@ -20,15 +20,15 @@ The function handles the case where there are no pending syncs by simply termina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - hash_get_num_entries
-  - hash_seq_init
-  - hash_seq_search
-  - hash_search
-  - hash_destroy
+  - [hash_create](../h/hash_create.md)
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_search](../h/hash_search.md)
+  - [hash_destroy](../h/hash_destroy.md)
   - MemSet
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
 
 ## Notes and Other Information
 - The function uses a temporary hash table to avoid duplicates and efficiently manage the collection of active relation file locators

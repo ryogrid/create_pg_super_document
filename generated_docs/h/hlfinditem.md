@@ -24,20 +24,20 @@ The `hlfinditem` function processes a lexeme to find matching query items and as
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETQUERY (macro to extract query items from TSQuery)
-  - repalloc (for expanding words array when needed)
+  - [repalloc](../r/repalloc.md) (for expanding words array when needed)
   - LIMITPOS (macro to limit position values)
-  - tsCompareString (for comparing lexeme with query operands)
+  - [tsCompareString](../t/tsCompareString.md) (for comparing lexeme with query operands)
   - GETOPERAND (macro to get operand text from query)
   - memcpy (for duplicating word entries)
 - Data structures used:
-  - HeadlineParsedText
+  - [HeadlineParsedText](../H/HeadlineParsedText.md)
   - TSQuery
   - QueryItem
-  - HeadlineWordEntry
+  - [HeadlineWordEntry](../H/HeadlineWordEntry.md)
 - Constants used:
   - QI_VAL (query item type for values)
 - Called from (representative examples):
-  - addHLParsedLex
+  - [addHLParsedLex](../a/addHLParsedLex.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within ts_parse.c

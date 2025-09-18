@@ -18,13 +18,13 @@ The  function is a PostgreSQL backend function that opens a large object (LO) fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LargeObjectDesc
+  - [LargeObjectDesc](../L/LargeObjectDesc.md)
   - DEBUG4
   - INV_WRITE
-  - PreventCommandIfReadOnly
-  - newLOfd
-  - inv_open
-  - GetCurrentSubTransactionId
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
+  - [newLOfd](../n/newLOfd.md)
+  - [inv_open](../i/inv_open.md)
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
   - RegisterSnapshotOnOwner
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function call mechanism)

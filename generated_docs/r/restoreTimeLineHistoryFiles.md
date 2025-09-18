@@ -23,12 +23,12 @@ The function skips timeline ID 1 since the master timeline does not have a histo
 ## Dependencies
 - Functions called/Symbols referenced:
   - TLHistoryFileName - constructs timeline history filename
-  - RestoreArchivedFile - restores archived file to pg_wal
-  - KeepFileRestoredFromArchive - marks restored file to be kept
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) - restores archived file to pg_wal
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md) - marks restored file to be kept
   - MAXFNAMELEN - constant for maximum filename length
 - Called from (representative examples):
-  - StartupXLOG - during database startup and recovery
-  - rescanLatestTimeLine - when rescanning timeline information
+  - [StartupXLOG](../S/StartupXLOG.md) - during database startup and recovery
+  - [rescanLatestTimeLine](rescanLatestTimeLine.md) - when rescanning timeline information
 
 ## Notes and Other Information
 - Timeline ID 1 (the master timeline) is explicitly skipped as it has no history file

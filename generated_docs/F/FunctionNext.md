@@ -28,17 +28,17 @@ The function uses tuplestores to cache function results, allowing for efficient 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecMakeTableFunctionResult
-  - tuplestore_rescan
-  - tuplestore_gettupleslot
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - ExecClearTuple
   - slot_getallattrs
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - ScanDirectionIsForward
   - TupIsNull
   - Int64GetDatumFast
 - Called from (representative examples):
-  - ExecFunctionScan
+  - [ExecFunctionScan](../E/ExecFunctionScan.md)
 
 ## Notes and Other Information
 - Implements both forward and backward scanning capabilities

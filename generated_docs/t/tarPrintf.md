@@ -22,12 +22,12 @@ This function implements a printf-like interface for writing formatted text data
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (memory allocation)
-  - pvsnprintf (PostgreSQL variant of vsnprintf for safe formatting)
-  - tarWrite (writes data to TAR member)
-  - TAR_MEMBER (struct type)
+  - [pvsnprintf](../p/pvsnprintf.md) (PostgreSQL variant of vsnprintf for safe formatting)
+  - [tarWrite](tarWrite.md) (writes data to TAR member)
+  - [TAR_MEMBER](../T/TAR_MEMBER.md) (struct type)
 - Called from (representative examples):
-  - _CloseArchive (for writing TAR metadata)
-  - _StartLO (for Large Object operations)
+  - [_CloseArchive](../C/_CloseArchive.md) (for writing TAR metadata)
+  - [_StartLO](../S/_StartLO.md) (for Large Object operations)
 
 ## Notes and Other Information
 - Uses dynamic memory allocation with automatic resizing to handle strings of any length

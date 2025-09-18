@@ -27,7 +27,7 @@ SnapshotType encodes the specific semantics of a snapshot, determining how tuple
 - Called from (representative examples):
   - Various heap access methods
   - Logical replication components
-  - Snapshot management functions
+  - [Snapshot](Snapshot.md) management functions
 
 ## Notes and Other Information
 This enumeration replaced callback-based approaches to allow the same snapshot to work with different table access methods. Each snapshot type has specific semantics documented alongside its enum value, described in terms not specific to individual table access methods. The design enables flexible snapshot behavior while maintaining type safety and performance.

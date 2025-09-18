@@ -27,11 +27,11 @@ The allocation uses atomic operations to track globally allocated blocks (phs_na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_add_u64
-  - ss_report_location
+  - [pg_atomic_fetch_add_u64](../p/pg_atomic_fetch_add_u64.md)
+  - [ss_report_location](../s/ss_report_location.md)
   - PARALLEL_SEQSCAN_RAMPDOWN_CHUNKS
 - Called from (representative examples):
-  - heap_scan_stream_read_next_parallel
+  - [heap_scan_stream_read_next_parallel](../h/heap_scan_stream_read_next_parallel.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

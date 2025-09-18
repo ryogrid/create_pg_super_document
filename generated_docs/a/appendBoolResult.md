@@ -20,17 +20,17 @@ This function is responsible for converting a boolean execution result from json
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetNext (gets the next jsonpath item)
-  - executeNextItem (continues execution with the next item)
+  - [jspGetNext](../j/jspGetNext.md) (gets the next jsonpath item)
+  - [executeNextItem](../e/executeNextItem.md) (continues execution with the next item)
 - Data types used:
-  - JsonPathExecContext, JsonPathItem, JsonValueList, JsonPathBool
-  - JsonbValue (for creating JSON values)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md), JsonPathItem, JsonValueList, JsonPathBool
+  - [JsonbValue](../J/JsonbValue.md) (for creating JSON values)
   - jperOk (return status for successful singleton boolean)
   - jbvNull, jbvBool (JSON value types)
   - jpbUnknown, jpbTrue (boolean result values)
 - Called from (representative examples):
   - RETURN_ERROR macro in jsonpath_exec.c:308
-  - executeItemOptUnwrapTarget in jsonpath_exec.c:807
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) in jsonpath_exec.c:807
 
 ## Notes and Other Information
 - This is a static function internal to the jsonpath execution module

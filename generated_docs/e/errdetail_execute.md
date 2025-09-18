@@ -22,10 +22,10 @@ The function iterates through the provided parse tree list, identifies EXECUTE s
   - RawStmt (parse tree node structure)
   - ExecuteStmt (EXECUTE statement node)
   - PreparedStatement (prepared statement structure)
-  - FetchPreparedStatement (retrieves prepared statement by name)
-  - errdetail (adds detail to error messages)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (retrieves prepared statement by name)
+  - [errdetail](errdetail.md) (adds detail to error messages)
 - Called from (representative examples):
-  - exec_simple_query (when handling query execution errors)
+  - [exec_simple_query](exec_simple_query.md) (when handling query execution errors)
 
 ## Notes and Other Information
 - Returns 0 in all cases (return value appears to be unused)

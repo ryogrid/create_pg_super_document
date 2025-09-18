@@ -284,17 +284,17 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - TIDBitmap
-  - IndexRuntimeKeyInfo
-  - IndexArrayKeyInfo
-  - IndexScanDescData
+  - [ScanState](../S/ScanState.md)
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [IndexRuntimeKeyInfo](../I/IndexRuntimeKeyInfo.md)
+  - [IndexArrayKeyInfo](../I/IndexArrayKeyInfo.md)
+  - [IndexScanDescData](../I/IndexScanDescData.md)
 - Called from (representative examples):
-  - MultiExecBitmapIndexScan
-  - ExecInitBitmapIndexScan
-  - ExecEndBitmapIndexScan
-  - ExecReScanBitmapIndexScan
-  - MultiExecBitmapOr
+  - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md)
+  - [ExecInitBitmapIndexScan](../E/ExecInitBitmapIndexScan.md)
+  - [ExecEndBitmapIndexScan](../E/ExecEndBitmapIndexScan.md)
+  - [ExecReScanBitmapIndexScan](../E/ExecReScanBitmapIndexScan.md)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
 
 ## Notes and Other Information
 - Bitmap index scans are essential for multi-index queries where results from multiple indexes need to be combined

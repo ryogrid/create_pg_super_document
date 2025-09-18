@@ -29,17 +29,17 @@ This function takes no parameters.
   - AllocSetContextCreate
   - CreateIncrementalBackupInfo
   - pq_beginmessage
-  - pq_sendbyte
-  - pq_sendint16
-  - pq_endmessage_reuse
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_endmessage_reuse](../p/pq_endmessage_reuse.md)
   - pq_flush
-  - HandleUploadManifestPacket
-  - FinalizeIncrementalManifest
-  - MemoryContextDelete
+  - [HandleUploadManifestPacket](../H/HandleUploadManifestPacket.md)
+  - [FinalizeIncrementalManifest](../F/FinalizeIncrementalManifest.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - MemoryContextSetParent
-  - WalSndResourceCleanup
+  - [WalSndResourceCleanup](../W/WalSndResourceCleanup.md)
 - Called from:
-  - exec_replication_command
+  - [exec_replication_command](../e/exec_replication_command.md)
 
 ## Notes and Other Information
 - The function is static and only used within the walsender module

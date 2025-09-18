@@ -26,12 +26,12 @@ The function performs a simple lookup operation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
-  - ReorderBuffer
-  - ReorderBufferTXN
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
+  - [ReorderBuffer](ReorderBuffer.md)
+  - [ReorderBufferTXN](ReorderBufferTXN.md)
   - SharedInvalidationMessage
 - Called from (representative examples):
-  - SnapBuildDistributeSnapshotAndInval
+  - [SnapBuildDistributeSnapshotAndInval](../S/SnapBuildDistributeSnapshotAndInval.md)
 
 ## Notes and Other Information
 - Returns 0 if the specified transaction is not found in the reorder buffer

@@ -23,7 +23,7 @@ The function assumes the buffer is valid and includes an assertion to verify thi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid (validation function)
+  - [BufferIsValid](BufferIsValid.md) (validation function)
   - BufferIsLocal (function to check if buffer is local)
   - LocalBufferBlockPointers (array of local buffer pointers)
   - BufferBlocks (base address of shared buffer blocks)
@@ -31,9 +31,9 @@ The function assumes the buffer is valid and includes an assertion to verify thi
   - Size (type alias)
   - Block (return type)
 - Called from (representative examples):
-  - XLogSaveBufferForHint (src/backend/access/transam/xloginsert.c:1093)
-  - WaitReadBuffers (src/backend/storage/buffer/bufmgr.c:1480, 1499)
-  - BufferGetPage (src/include/storage/bufmgr.h:406)
+  - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md) (src/backend/access/transam/xloginsert.c:1093)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md) (src/backend/storage/buffer/bufmgr.c:1480, 1499)
+  - [BufferGetPage](BufferGetPage.md) (src/include/storage/bufmgr.h:406)
 
 ## Notes and Other Information
 - The function assumes the buffer parameter is valid and will assert if it is not

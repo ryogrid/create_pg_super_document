@@ -26,9 +26,9 @@ Extensions can use this information to implement appropriate security policies, 
 - Functions called/Symbols referenced:
   - InvalidOid (for auxiliary_id initialization)
 - Called from (representative examples):
-  - RunObjectPostAlterHook
-  - RunObjectPostAlterHookStr
-  - accesstype_arg_to_string
+  - [RunObjectPostAlterHook](../R/RunObjectPostAlterHook.md)
+  - [RunObjectPostAlterHookStr](../R/RunObjectPostAlterHookStr.md)
+  - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
 
 ## Notes and Other Information
 - This struct is specifically used with OAT_POST_ALTER hook events

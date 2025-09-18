@@ -27,9 +27,9 @@ Since ISO years can have 52 or 53 weeks, the possible return values range from 1
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j (converts date to Julian day number)
-  - isoweek2j (converts ISO year and week to Julian day)
-  - date2isoyear (determines ISO year for the date)
+  - [date2j](date2j.md) (converts date to Julian day number)
+  - [isoweek2j](../i/isoweek2j.md) (converts ISO year and week to Julian day)
+  - [date2isoyear](date2isoyear.md) (determines ISO year for the date)
 - Called from (representative examples):
   - timestamptz_cmp_internal
 

@@ -24,12 +24,12 @@ The algorithm works by walking backwards from the target index to find the most 
 - Functions called/Symbols referenced:
   - JBE_OFFLENFLD (macro to extract offset/length field from JEntry)
   - JBE_HAS_OFF (macro to check if JEntry contains an offset)
-  - JsonbContainer (structure type)
+  - [JsonbContainer](../J/JsonbContainer.md) (structure type)
 - Called from (representative examples):
-  - getJsonbLength
-  - getKeyJsonValueFromContainer
-  - getIthJsonbValueFromContainer
-  - JsonbIteratorNext
+  - [getJsonbLength](getJsonbLength.md)
+  - [getKeyJsonValueFromContainer](getKeyJsonValueFromContainer.md)
+  - [getIthJsonbValueFromContainer](getIthJsonbValueFromContainer.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

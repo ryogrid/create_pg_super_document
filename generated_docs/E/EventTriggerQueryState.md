@@ -47,15 +47,15 @@ The structure is divided into several functional areas: memory management, SQL d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_head (PostgreSQL singly-linked list header)
+  - [slist_head](../s/slist_head.md) (PostgreSQL singly-linked list header)
   - CollectedCommand (command collection structure from deparse_utility.h)
-  - MemoryContext (PostgreSQL memory management)
-  - List (PostgreSQL list type)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
+  - [List](../L/List.md) (PostgreSQL list type)
   - Oid (PostgreSQL object identifier type)
 
 - Called from (representative examples):
-  - EventTriggerBeginCompleteQuery (src/backend/commands/event_trigger.c:1186, 1200)
-  - EventTriggerEndCompleteQuery (src/backend/commands/event_trigger.c:1230)
+  - [EventTriggerBeginCompleteQuery](EventTriggerBeginCompleteQuery.md) (src/backend/commands/event_trigger.c:1186, 1200)
+  - [EventTriggerEndCompleteQuery](EventTriggerEndCompleteQuery.md) (src/backend/commands/event_trigger.c:1230)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's event trigger implementation, providing the necessary state tracking for proper event trigger execution. The nested design (via the `previous` pointer) allows for handling complex scenarios where commands may trigger other commands that also need event trigger processing. The structure is defined in src/backend/commands/event_trigger.c and is primarily used internally by the event trigger subsystem for maintaining execution context and state across DDL operations.

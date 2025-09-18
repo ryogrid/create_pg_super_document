@@ -19,13 +19,13 @@ This function takes a JSONB scalar value and converts it to its JSON string repr
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendBinaryStringInfo (for null, true, false literals)
-  - escape_json (for string escaping)
-  - pnstrdup (for string duplication)
-  - DatumGetCString, DirectFunctionCall1, numeric_out (for numeric conversion)
+  - [escape_json](../e/escape_json.md) (for string escaping)
+  - [pnstrdup](../p/pnstrdup.md) (for string duplication)
+  - [DatumGetCString](../D/DatumGetCString.md), DirectFunctionCall1, numeric_out (for numeric conversion)
   - elog (for error reporting)
   - jbvNull, jbvString, jbvNumeric, jbvBool (JSONB value type constants)
 - Called from (representative examples):
-  - JsonbToCStringWorker (multiple times for different scalar contexts)
+  - [JsonbToCStringWorker](../J/JsonbToCStringWorker.md) (multiple times for different scalar contexts)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (jsonb.c)

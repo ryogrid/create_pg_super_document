@@ -25,9 +25,9 @@ The function ensures that the shared TID data remains available to other process
   - `TidStoreIsShared`
   - `shared_ts_detach`
   - `dsa_detach`
-  - `pfree`
+  - `[pfree](../p/pfree.md)`
 - Called from (representative examples):
-  - `parallel_vacuum_main` (src/backend/commands/vacuumparallel.c:1088)
+  - `[parallel_vacuum_main](../p/parallel_vacuum_main.md)` (src/backend/commands/vacuumparallel.c:1088)
 
 ## Notes and Other Information
 - Can only be used with shared TidStores (verified by assertion on TidStoreIsShared)

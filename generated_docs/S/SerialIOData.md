@@ -19,9 +19,9 @@ The structure is allocated in the function's memory context and stored in fcinfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)
 - Called from (representative examples):
-  - array_agg_serialize (src/backend/utils/adt/array_userfuncs.c:671, 675, 681, 683)
+  - [array_agg_serialize](../a/array_agg_serialize.md) (src/backend/utils/adt/array_userfuncs.c:671, 675, 681, 683)
 
 ## Notes and Other Information
 - This structure is only used for by-reference element types; by-value types don't require the send function during serialization

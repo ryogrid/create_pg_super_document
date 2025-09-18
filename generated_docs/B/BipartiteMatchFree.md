@@ -19,10 +19,10 @@ This function performs cleanup for a BipartiteMatchState object created by Bipar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BipartiteMatchState (struct type)
-  - pfree (PostgreSQL memory deallocation function)
+  - [BipartiteMatchState](BipartiteMatchState.md) (struct type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - extract_rollup_sets (in query planning after ROLLUP matching is complete)
+  - [extract_rollup_sets](../e/extract_rollup_sets.md) (in query planning after ROLLUP matching is complete)
 
 ## Notes and Other Information
 - Memory cleanup is optional in PostgreSQL due to memory context management, but recommended for explicit resource management

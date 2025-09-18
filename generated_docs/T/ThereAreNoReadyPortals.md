@@ -21,16 +21,16 @@ None - the function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
 - Data types used:
   - HASH_SEQ_STATUS
   - PortalHashEnt
-  - Portal
+  - [Portal](../P/Portal.md)
 - Constants used:
   - PORTAL_READY
 - Called from:
-  - CopyFrom (src/backend/commands/copyfrom.c:741)
+  - [CopyFrom](../C/CopyFrom.md) (src/backend/commands/copyfrom.c:741)
 
 ## Notes and Other Information
 - The function returns true if no ready portals exist, false if at least one ready portal is found

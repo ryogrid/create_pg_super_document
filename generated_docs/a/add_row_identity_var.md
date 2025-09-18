@@ -24,18 +24,18 @@ The function transforms the original Var into a ROWID_VAR reference and manages 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeTargetEntry: Creates target list entries for the processed_tlist
+  - [makeTargetEntry](../m/makeTargetEntry.md): Creates target list entries for the processed_tlist
   - copyObject: Creates deep copies of Var nodes
-  - equal: Compares row-identity variables for structural equality
-  - bms_is_member: Checks if rtindex is in leaf_result_relids
-  - bms_add_member: Adds rtindex to existing RowIdentityVarInfo
-  - bms_make_singleton: Creates single-member bitmapset for new RowIdentityVarInfo
-  - get_typavgwidth: Estimates width of the row-identity column
+  - [equal](../e/equal.md): Compares row-identity variables for structural equality
+  - [bms_is_member](../b/bms_is_member.md): Checks if rtindex is in leaf_result_relids
+  - [bms_add_member](../b/bms_add_member.md): Adds rtindex to existing RowIdentityVarInfo
+  - [bms_make_singleton](../b/bms_make_singleton.md): Creates single-member bitmapset for new RowIdentityVarInfo
+  - [get_typavgwidth](../g/get_typavgwidth.md): Estimates width of the row-identity column
   - exprType/exprTypmod: Extract type information from expressions
 
 - Called from (representative examples):
-  - add_row_identity_columns: When adding multiple row-identity columns
-  - expand_single_inheritance_child: During inheritance expansion
+  - [add_row_identity_columns](add_row_identity_columns.md): When adding multiple row-identity columns
+  - [expand_single_inheritance_child](../e/expand_single_inheritance_child.md): During inheritance expansion
 
 ## Notes and Other Information
 - The function enforces that all row-identity variables with the same name must be structurally equivalent (equal() aside from varno)

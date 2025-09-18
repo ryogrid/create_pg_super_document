@@ -29,16 +29,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - timestamptz_to_time_t
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [timestamptz_to_time_t](../t/timestamptz_to_time_t.md)
   - pg_prng_strong_seed
   - pg_prng_seed
-  - pg_prng_uint32
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
   - srandom (Unix only)
 - Called from (representative examples):
-  - PostmasterMain
-  - InitPostmasterChild
-  - InitStandaloneProcess
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [InitPostmasterChild](InitPostmasterChild.md)
+  - [InitStandaloneProcess](InitStandaloneProcess.md)
 
 ## Notes and Other Information
 - Must be called early in both postmaster and backend processes

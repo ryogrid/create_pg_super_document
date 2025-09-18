@@ -19,7 +19,7 @@ The function calls SN_create_env with parameters (0, 2), indicating no string ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic environment creation with 0 string slots and 2 integer slots)
+  - [SN_create_env](../S/SN_create_env.md) (generic environment creation with 0 string slots and 2 integer slots)
 - Called from (representative examples):
   - No direct callers found in codebase
 

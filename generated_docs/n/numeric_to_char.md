@@ -27,9 +27,9 @@ The function manages sign handling, decimal alignment, padding with spaces or '#
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUM_TOCHAR_prepare, NUM_TOCHAR_finish, numeric_round, numeric_out_sci
-  - int_to_roman, numeric_int4, numeric_out, numeric_power, numeric_mul
-  - int64_to_numeric, fill_str, DirectFunctionCall1, DirectFunctionCall2
-  - DatumGetNumeric, NumericGetDatum, DatumGetInt32, DatumGetCString
+  - [int_to_roman](../i/int_to_roman.md), numeric_int4, numeric_out, numeric_power, numeric_mul
+  - [int64_to_numeric](../i/int64_to_numeric.md), fill_str, DirectFunctionCall1, DirectFunctionCall2
+  - [DatumGetNumeric](../D/DatumGetNumeric.md), NumericGetDatum, DatumGetInt32, DatumGetCString
   - IS_ROMAN, IS_EEEE, IS_MULTI (formatting condition macros)
 - Called from (representative examples):
   - This is a SQL-callable function, typically not called directly from C code

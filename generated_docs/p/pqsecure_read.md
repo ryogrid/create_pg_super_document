@@ -26,13 +26,13 @@ The function is responsible for appending appropriate error messages to `conn->e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pgtls_read` (when SSL is in use)
-  - `pg_GSS_read` (when GSS encryption is enabled)
-  - `pqsecure_raw_read` (for unencrypted connections)
+  - `[pgtls_read](pgtls_read.md)` (when SSL is in use)
+  - `[pg_GSS_read](pg_GSS_read.md)` (when GSS encryption is enabled)
+  - `[pqsecure_raw_read](pqsecure_raw_read.md)` (for unencrypted connections)
   - `USE_SSL` (preprocessor macro)
   - `ENABLE_GSS` (preprocessor macro)
 - Called from (representative examples):
-  - `pqReadData` (in fe-misc.c:642, 737)
+  - `[pqReadData](pqReadData.md)` (in fe-misc.c:642, 737)
   - `pgunlock_thread` (referenced in libpq-int.h:768)
 
 ## Notes and Other Information

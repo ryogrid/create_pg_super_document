@@ -27,11 +27,11 @@ This pattern allows logical decoding to efficiently reuse snapshots across multi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildBuildSnapshot
-  - SnapBuildSnapIncRefcount
+  - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
+  - [SnapBuildSnapIncRefcount](SnapBuildSnapIncRefcount.md)
   - SNAPBUILD_CONSISTENT
 - Called from (representative examples):
-  - logicalmsg_decode
+  - [logicalmsg_decode](../l/logicalmsg_decode.md)
 
 ## Notes and Other Information
 - Requires the builder to be in SNAPBUILD_CONSISTENT state

@@ -19,9 +19,9 @@ This function transforms a regular B-tree index tuple into a posting list tuple,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPivot
-  - ItemPointerSetOffsetNumber
-  - ItemPointerSetBlockNumber
+  - [BTreeTupleIsPivot](BTreeTupleIsPivot.md)
+  - [ItemPointerSetOffsetNumber](../I/ItemPointerSetOffsetNumber.md)
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)
 - Constants used:
   - BT_STATUS_OFFSET_MASK
   - INDEX_SIZE_MASK

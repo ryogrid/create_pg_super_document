@@ -22,23 +22,23 @@ The initialization is straightforward but crucial - it ensures thread-safe acces
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockInit (initializes the mutex spinlock)
-  - proclist_init (initializes the process wait list)
+  - [proclist_init](../p/proclist_init.md) (initializes the process wait list)
 - Called from (representative examples):
-  - _brin_begin_parallel
-  - btinitparallelscan
-  - _bt_begin_parallel
-  - MultiXactShmemInit
-  - XLogRecoveryShmemInit
-  - ExecBitmapHeapInitializeDSM
-  - CheckpointerShmemInit
-  - WalSummarizerShmemInit
-  - ReplicationOriginShmemInit
-  - ReplicationSlotsShmemInit
-  - WalRcvShmemInit
-  - WalSndShmemInit
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [btinitparallelscan](../b/btinitparallelscan.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
+  - [MultiXactShmemInit](../M/MultiXactShmemInit.md)
+  - [XLogRecoveryShmemInit](../X/XLogRecoveryShmemInit.md)
+  - [ExecBitmapHeapInitializeDSM](../E/ExecBitmapHeapInitializeDSM.md)
+  - [CheckpointerShmemInit](CheckpointerShmemInit.md)
+  - [WalSummarizerShmemInit](../W/WalSummarizerShmemInit.md)
+  - [ReplicationOriginShmemInit](../R/ReplicationOriginShmemInit.md)
+  - [ReplicationSlotsShmemInit](../R/ReplicationSlotsShmemInit.md)
+  - [WalRcvShmemInit](../W/WalRcvShmemInit.md)
+  - [WalSndShmemInit](../W/WalSndShmemInit.md)
   - InitBufferPool
   - BarrierInit
-  - ProcSignalShmemInit
+  - [ProcSignalShmemInit](../P/ProcSignalShmemInit.md)
 
 ## Notes and Other Information
 - Must be called before any other condition variable operations

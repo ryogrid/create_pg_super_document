@@ -19,7 +19,7 @@ The `json_to_recordset` function is a wrapper that provides the SQL interface fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_recordset_worker
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
 - Called from (representative examples):
   - SQL queries using json_to_recordset()
 

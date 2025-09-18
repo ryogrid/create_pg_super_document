@@ -22,16 +22,16 @@ The aliasname field stores the primary alias for the relation and is never schem
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - String nodes (for column names)
 
 - Called from (representative examples):
-  - makeAlias (creation function)
-  - addRangeTableEntry functions (various RTE creation)
-  - buildRelationAliases
-  - expandRelation
-  - scanRTEForColumn
-  - transformJsonArrayQueryConstructor
+  - [makeAlias](../m/makeAlias.md) (creation function)
+  - [addRangeTableEntry](../a/addRangeTableEntry.md) functions (various RTE creation)
+  - [buildRelationAliases](../b/buildRelationAliases.md)
+  - [expandRelation](../e/expandRelation.md)
+  - [scanRTEForColumn](../s/scanRTEForColumn.md)
+  - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md)
 
 ## Notes and Other Information
 - The Alias struct is used extensively throughout the parser for handling AS clauses in SQL

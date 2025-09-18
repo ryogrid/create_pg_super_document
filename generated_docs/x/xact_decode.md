@@ -36,16 +36,16 @@ The function is essential for logical replication as it transforms low-level WAL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildCurrentState
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
   - XLogRecGetInfo
   - XLogRecGetData
   - XLogRecGetXid
-  - ParseCommitRecord / ParseAbortRecord / ParsePrepareRecord
-  - FilterPrepare
-  - DecodeCommit / DecodeAbort / DecodePrepare
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) / ParseAbortRecord / ParsePrepareRecord
+  - [FilterPrepare](../F/FilterPrepare.md)
+  - [DecodeCommit](../D/DecodeCommit.md) / DecodeAbort / DecodePrepare
   - ReorderBufferAddInvalidations
-  - ReorderBufferXidSetCatalogChanges
-  - ReorderBufferImmediateInvalidation
+  - [ReorderBufferXidSetCatalogChanges](../R/ReorderBufferXidSetCatalogChanges.md)
+  - [ReorderBufferImmediateInvalidation](../R/ReorderBufferImmediateInvalidation.md)
   - ReorderBufferProcessXid
 - Constants used:
   - XLOG_XACT_OPMASK
@@ -54,8 +54,8 @@ The function is essential for logical replication as it transforms low-level WAL
   - XLOG_XACT_ASSIGNMENT, XLOG_XACT_INVALIDATIONS
   - SNAPBUILD_FULL_SNAPSHOT
 - Data types used:
-  - xl_xact_commit, xl_xact_abort, xl_xact_prepare
-  - xl_xact_parsed_commit, xl_xact_parsed_abort, xl_xact_parsed_prepare
+  - [xl_xact_commit](xl_xact_commit.md), xl_xact_abort, xl_xact_prepare
+  - [xl_xact_parsed_commit](xl_xact_parsed_commit.md), xl_xact_parsed_abort, xl_xact_parsed_prepare
   - xl_xact_invals
 - Called from:
   - Resource manager system via LogicalDecodingProcessRecord (registered in rmgrlist.h)

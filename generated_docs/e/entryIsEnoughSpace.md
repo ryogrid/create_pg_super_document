@@ -22,16 +22,16 @@ The calculation takes into account proper memory alignment using MAXALIGN and in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsData
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - IndexTupleSize
   - MAXALIGN
-  - ItemIdData
-  - PageGetFreeSpace
+  - [ItemIdData](../I/ItemIdData.md)
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
 - Called from (representative examples):
-  - entryBeginPlaceToPage
+  - [entryBeginPlaceToPage](entryBeginPlaceToPage.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GIN entry page implementation

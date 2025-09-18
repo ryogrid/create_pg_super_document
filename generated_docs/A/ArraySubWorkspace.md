@@ -27,14 +27,14 @@ The workspace is part of the SubscriptingRefState.workspace mechanism, which all
 - Functions called/Symbols referenced:
   - MAXDIM (constant defining maximum array dimensions as 6)
 - Called from (representative examples):
-  - array_subscript_check_subscripts
-  - array_subscript_fetch
-  - array_subscript_fetch_slice
-  - array_subscript_assign
-  - array_subscript_assign_slice
-  - array_subscript_fetch_old
-  - array_subscript_fetch_old_slice
-  - array_exec_setup
+  - [array_subscript_check_subscripts](../a/array_subscript_check_subscripts.md)
+  - [array_subscript_fetch](../a/array_subscript_fetch.md)
+  - [array_subscript_fetch_slice](../a/array_subscript_fetch_slice.md)
+  - [array_subscript_assign](../a/array_subscript_assign.md)
+  - [array_subscript_assign_slice](../a/array_subscript_assign_slice.md)
+  - [array_subscript_fetch_old](../a/array_subscript_fetch_old.md)
+  - [array_subscript_fetch_old_slice](../a/array_subscript_fetch_old_slice.md)
+  - [array_exec_setup](../a/array_exec_setup.md)
 
 ## Notes and Other Information
 The index arrays are always allocated with MAXDIM (6) entries regardless of the actual number of subscripts being used, because internal array manipulation functions like array_get_slice and array_set_slice may write to unused entries. This design choice prioritizes safety and simplicity over memory efficiency. The workspace is allocated using PostgreSQL's memory context system (palloc) and is automatically cleaned up when the query execution context ends.

@@ -23,7 +23,7 @@ The function leverages `JsonbToCStringIndent` to perform the actual formatting w
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
   - makeStringInfo
-  - JsonbToCStringIndent
+  - [JsonbToCStringIndent](../J/JsonbToCStringIndent.md)
   - VARSIZE
   - cstring_to_text_with_len
   - PG_RETURN_TEXT_P

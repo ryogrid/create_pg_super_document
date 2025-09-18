@@ -45,14 +45,14 @@ JsonSemAction implements a callback-driven parser pattern for JSON processing. I
   - json_aelem_action (function pointer type)
   - json_scalar_action (function pointer type)
 - Called from (representative examples):
-  - pg_parse_json
-  - pg_parse_json_incremental
-  - json_validate
-  - jsonb_from_cstring
-  - json_object_keys
-  - each_worker
-  - elements_worker
-  - populate_recordset_worker
+  - [pg_parse_json](../p/pg_parse_json.md)
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)
+  - [json_validate](../j/json_validate.md)
+  - [jsonb_from_cstring](../j/jsonb_from_cstring.md)
+  - [json_object_keys](../j/json_object_keys.md)
+  - [each_worker](../e/each_worker.md)
+  - [elements_worker](../e/elements_worker.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
 
 ## Notes and Other Information
 All action function callbacks return JsonParseErrorType to indicate success or failure. If any action returns a non-success value, parsing is immediately abandoned and that error code is propagated. The special return value JSON_SEM_ACTION_FAILED indicates that the action function has already reported the error appropriately. String parameters (fname, token) passed to action functions are palloc'd and ownership is transferred to the action function. The structure enables PostgreSQL's JSON infrastructure to support diverse use cases including validation, extraction, transformation, and conversion to different internal representations like JSONB.

@@ -44,17 +44,17 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - OpenTransientFile, CloseTransientFile
-  - read_file_data_into_buffer
-  - push_to_sink
-  - _tarWriteHeader, _tarWritePadding
+  - [read_file_data_into_buffer](../r/read_file_data_into_buffer.md)
+  - [push_to_sink](../p/push_to_sink.md)
+  - [_tarWriteHeader](../t/_tarWriteHeader.md), _tarWritePadding
   - bbsink_archive_contents
   - pg_checksum_init, pg_checksum_update
-  - DataChecksumsEnabled
-  - AddFileToBackupManifest
-  - pgstat_report_checksum_failures_in_db
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
+  - [pgstat_report_checksum_failures_in_db](../p/pgstat_report_checksum_failures_in_db.md)
 - Called from (representative examples):
-  - sendDir
-  - perform_base_backup
+  - [sendDir](sendDir.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
 
 ## Notes and Other Information
 - Returns true if file was successfully sent, false if missing_ok=true and file doesn't exist

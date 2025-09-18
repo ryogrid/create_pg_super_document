@@ -23,13 +23,13 @@ The dt2local function performs timezone conversion by subtracting the timezone o
   - Timestamp (timestamp data type)
   - USECS_PER_SEC (constant for microseconds per second)
 - Called from (representative examples):
-  - make_timestamptz_at_timezone
-  - tm2timestamp
-  - timestamp_zone
-  - timestamp_izone
-  - timestamp2timestamptz_opt_overflow
-  - timestamptz_zone
-  - timestamptz_izone
+  - [make_timestamptz_at_timezone](../m/make_timestamptz_at_timezone.md)
+  - [tm2timestamp](../t/tm2timestamp.md)
+  - [timestamp_zone](../t/timestamp_zone.md)
+  - [timestamp_izone](../t/timestamp_izone.md)
+  - [timestamp2timestamptz_opt_overflow](../t/timestamp2timestamptz_opt_overflow.md)
+  - [timestamptz_zone](../t/timestamptz_zone.md)
+  - [timestamptz_izone](../t/timestamptz_izone.md)
 
 ## Notes and Other Information
 This is a static function local to timestamp.c used internally for timezone conversions throughout PostgreSQL's timestamp handling system. The function assumes the input timestamp is in UTC and the timezone parameter follows the conventional sign where positive values represent timezones ahead of UTC (east of Greenwich). The subtraction operation effectively moves the timestamp backward in time to represent the same moment in the local timezone.

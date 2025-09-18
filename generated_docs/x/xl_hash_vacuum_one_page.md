@@ -38,9 +38,9 @@ The record is used when hash index pages are cleaned up during vacuum operations
   - OffsetNumber (PostgreSQL tuple offset type)
 
 - Called from (representative examples):
-  - hash_xlog_vacuum_one_page (WAL replay function)
-  - _hash_vacuum_one_page (hash index vacuum implementation)
-  - hash_desc (WAL record description function)
+  - [hash_xlog_vacuum_one_page](../h/hash_xlog_vacuum_one_page.md) (WAL replay function)
+  - [_hash_vacuum_one_page](../h/_hash_vacuum_one_page.md) (hash index vacuum implementation)
+  - [hash_desc](../h/hash_desc.md) (WAL record description function)
   - SizeOfHashVacuumOnePage (macro for calculating structure size)
 
 ## Notes and Other Information

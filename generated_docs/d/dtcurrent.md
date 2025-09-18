@@ -19,7 +19,7 @@ The function internally uses the system's current date and time, converts it to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_current
+  - [PGTYPEStimestamp_current](../P/PGTYPEStimestamp_current.md)
 - Called from (representative examples):
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)
 

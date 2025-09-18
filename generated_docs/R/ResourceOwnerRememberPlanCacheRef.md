@@ -23,12 +23,12 @@ The function uses the planref_resowner_desc descriptor which defines how plan ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerRemember
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - planref_resowner_desc (static descriptor)
 - Called from (representative examples):
-  - GetCachedPlan
-  - CachedPlanAllowsSimpleValidityCheck  
-  - CachedPlanIsSimplyValid
+  - [GetCachedPlan](../G/GetCachedPlan.md)
+  - [CachedPlanAllowsSimpleValidityCheck](../C/CachedPlanAllowsSimpleValidityCheck.md)  
+  - [CachedPlanIsSimplyValid](../C/CachedPlanIsSimplyValid.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within plancache.c and will be inlined at call sites for performance

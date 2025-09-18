@@ -23,33 +23,33 @@ The function handles both base relation scans and join-replacement scans (for Fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - use_physical_tlist
-  - build_physical_tlist
-  - build_path_tlist
-  - get_gating_quals
-  - apply_pathtarget_labeling_to_tlist
-  - list_concat_copy
+  - [use_physical_tlist](../u/use_physical_tlist.md)
+  - [build_physical_tlist](../b/build_physical_tlist.md)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [get_gating_quals](../g/get_gating_quals.md)
+  - [apply_pathtarget_labeling_to_tlist](../a/apply_pathtarget_labeling_to_tlist.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
   - copyObject
-  - create_seqscan_plan
-  - create_samplescan_plan
-  - create_indexscan_plan
-  - create_bitmap_scan_plan
-  - create_tidscan_plan
-  - create_tidrangescan_plan
-  - create_subqueryscan_plan
-  - create_functionscan_plan
-  - create_tablefuncscan_plan
-  - create_valuesscan_plan
-  - create_ctescan_plan
-  - create_namedtuplestorescan_plan
-  - create_resultscan_plan
-  - create_worktablescan_plan
-  - create_foreignscan_plan
-  - create_customscan_plan
-  - create_gating_plan
+  - [create_seqscan_plan](create_seqscan_plan.md)
+  - [create_samplescan_plan](create_samplescan_plan.md)
+  - [create_indexscan_plan](create_indexscan_plan.md)
+  - [create_bitmap_scan_plan](create_bitmap_scan_plan.md)
+  - [create_tidscan_plan](create_tidscan_plan.md)
+  - [create_tidrangescan_plan](create_tidrangescan_plan.md)
+  - [create_subqueryscan_plan](create_subqueryscan_plan.md)
+  - [create_functionscan_plan](create_functionscan_plan.md)
+  - [create_tablefuncscan_plan](create_tablefuncscan_plan.md)
+  - [create_valuesscan_plan](create_valuesscan_plan.md)
+  - [create_ctescan_plan](create_ctescan_plan.md)
+  - [create_namedtuplestorescan_plan](create_namedtuplestorescan_plan.md)
+  - [create_resultscan_plan](create_resultscan_plan.md)
+  - [create_worktablescan_plan](create_worktablescan_plan.md)
+  - [create_foreignscan_plan](create_foreignscan_plan.md)
+  - [create_customscan_plan](create_customscan_plan.md)
+  - [create_gating_plan](create_gating_plan.md)
   - IS_JOIN_REL (macro)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - For IndexScan and IndexOnlyScan, uses indrestrictinfo instead of baserestrictinfo to avoid redundant predicate checks

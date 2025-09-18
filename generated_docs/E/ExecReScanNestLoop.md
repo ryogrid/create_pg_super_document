@@ -26,9 +26,9 @@ The function resets the nested loop's state flags to indicate that a new outer t
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState: Accesses the outer child plan state
-  - ExecReScan: Rescans the outer plan if necessary
+  - [ExecReScan](ExecReScan.md): Rescans the outer plan if necessary
 - Called from (representative examples):
-  - ExecReScan: As part of general plan node rescanning operations
+  - [ExecReScan](ExecReScan.md): As part of general plan node rescanning operations
 
 ## Notes and Other Information
 - Does not rescan the inner plan to avoid conflicts with parameterized inner scans

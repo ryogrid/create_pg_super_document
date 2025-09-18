@@ -19,10 +19,10 @@ The `lexstart` function is responsible for initializing the lexical analysis pha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prefixes
+  - [prefixes](../p/prefixes.md)
   - NOERR
   - INTOCON
-  - next
+  - [next](../n/next.md)
 - Constants referenced:
   - REG_QUOTE, REG_EXTENDED, REG_ADVANCED, REG_EXPANDED, REG_NEWLINE, REG_ADVF
   - L_Q, L_ERE, L_BRE

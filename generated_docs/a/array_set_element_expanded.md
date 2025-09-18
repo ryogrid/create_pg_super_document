@@ -33,19 +33,19 @@ The function is designed to be failure-safe, ensuring the expanded array object 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetExpandedArray
+  - [DatumGetExpandedArray](../D/DatumGetExpandedArray.md)
   - deconstruct_expanded_array
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
   - ArrayGetNItems
   - ArrayCheckBounds
   - ArrayGetOffset
   - EOHPGetRWDatum
-  - MemoryContextAllocZero
-  - repalloc
-  - pg_sub_s32_overflow
-  - pg_add_s32_overflow
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [repalloc](../r/repalloc.md)
+  - [pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
 - Called from:
-  - array_set_element
+  - [array_set_element](array_set_element.md)
 
 ## Notes and Other Information
 - Only supports extending single-dimensional arrays; multi-dimensional arrays cannot be extended during assignment

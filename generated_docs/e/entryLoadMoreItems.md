@@ -23,24 +23,24 @@ The function maintains proper buffer management by pinning pages to prevent vacu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareItemPointers
-  - ginFindLeafPage
-  - ginStepRight
-  - GinDataLeafPageGetItems
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
+  - [ginFindLeafPage](../g/ginFindLeafPage.md)
+  - [ginStepRight](../g/ginStepRight.md)
+  - [GinDataLeafPageGetItems](../G/GinDataLeafPageGetItems.md)
   - GinDataPageGetRightBound
   - ItemPointerIsLossyPage
-  - ItemPointerSet
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - GinItemPointerGetBlockNumber
   - GinItemPointerGetOffsetNumber
-  - BufferGetPage
-  - LockBuffer/UnlockReleaseBuffer
-  - IncrBufferRefCount
-  - freeGinBtreeStack
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [LockBuffer](../L/LockBuffer.md)/UnlockReleaseBuffer
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
+  - [freeGinBtreeStack](../f/freeGinBtreeStack.md)
 - Data types used:
-  - GinState
-  - GinScanEntry
-  - ItemPointerData
-  - GinBtreeStack
+  - [GinState](../G/GinState.md)
+  - [GinScanEntry](../G/GinScanEntry.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
+  - [GinBtreeStack](../G/GinBtreeStack.md)
   - Page
 - Constants:
   - GIN_SHARE, GIN_UNLOCK
@@ -48,7 +48,7 @@ The function maintains proper buffer management by pinning pages to prevent vacu
   - InvalidOffsetNumber
   - FirstOffsetNumber
 - Called from:
-  - entryGetItem
+  - [entryGetItem](entryGetItem.md)
 
 ## Notes and Other Information
 - Uses a hybrid navigation strategy: step-right for sequential access, re-descent for random access

@@ -23,19 +23,19 @@ The function enforces several important constraints:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace
-  - object_aclcheck
-  - aclcheck_error
-  - get_namespace_name
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - pg_char_to_encoding
-  - LookupFuncName
-  - get_func_rettype
-  - NameListToString
+  - [LookupFuncName](../L/LookupFuncName.md)
+  - [get_func_rettype](../g/get_func_rettype.md)
+  - [NameListToString](../N/NameListToString.md)
   - OidFunctionCall6
-  - DatumGetInt32
-  - ConversionCreate
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [ConversionCreate](ConversionCreate.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 The function performs a unique validation step by actually calling the conversion function with empty string input to ensure it works correctly for the specified encoding pair. This prevents registration of incompatible conversion functions. The function signature validation enforces the standard PostgreSQL conversion function interface: (int4, int4, cstring, internal, int4, bool) returning int4. Located at src/backend/commands/conversioncmds.c:32-134.

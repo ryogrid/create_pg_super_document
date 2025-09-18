@@ -26,18 +26,18 @@ This function is designed for scan types that evaluate all qualifications "the h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval
-  - ParamPathInfo (struct)
+  - [cost_qual_eval](../c/cost_qual_eval.md)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (struct)
   - QualCost (struct)
 - Called from (representative examples):
-  - cost_seqscan
-  - cost_samplescan
-  - cost_bitmap_heap_scan
-  - cost_tidscan
-  - cost_tidrangescan
-  - cost_subqueryscan
-  - cost_functionscan
-  - cost_tablefuncscan
+  - [cost_seqscan](../c/cost_seqscan.md)
+  - [cost_samplescan](../c/cost_samplescan.md)
+  - [cost_bitmap_heap_scan](../c/cost_bitmap_heap_scan.md)
+  - [cost_tidscan](../c/cost_tidscan.md)
+  - [cost_tidrangescan](../c/cost_tidrangescan.md)
+  - [cost_subqueryscan](../c/cost_subqueryscan.md)
+  - [cost_functionscan](../c/cost_functionscan.md)
+  - [cost_tablefuncscan](../c/cost_tablefuncscan.md)
 
 ## Notes and Other Information
 - Static function within costsize.c, used internally by scan cost estimation routines

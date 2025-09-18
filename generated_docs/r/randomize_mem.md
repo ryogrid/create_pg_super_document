@@ -28,16 +28,16 @@ The pseudo-random pattern uses a static counter that cycles from 1 to 251, ensur
 - Functions called/Symbols referenced:
   - VALGRIND_MAKE_MEM_UNDEFINED (macro for Valgrind integration)
 - Called from (representative examples):
-  - AllocSetAllocLarge (src/backend/utils/mmgr/aset.c:737)
-  - AllocSetAllocChunkFromBlock (src/backend/utils/mmgr/aset.c:798)
-  - AllocSetAlloc (src/backend/utils/mmgr/aset.c:1024)
-  - AllocSetRealloc (src/backend/utils/mmgr/aset.c:1258, 1339)
-  - BumpAllocLarge (src/backend/utils/mmgr/bump.c:342)
-  - BumpAllocChunkFromBlock (src/backend/utils/mmgr/bump.c:406)
-  - GenerationAllocLarge (src/backend/utils/mmgr/generation.c:392)
-  - GenerationAllocChunkFromBlock (src/backend/utils/mmgr/generation.c:440)
-  - GenerationRealloc (src/backend/utils/mmgr/generation.c:871)
-  - SlabAllocSetupNewChunk (src/backend/utils/mmgr/slab.c:528)
+  - [AllocSetAllocLarge](../A/AllocSetAllocLarge.md) (src/backend/utils/mmgr/aset.c:737)
+  - [AllocSetAllocChunkFromBlock](../A/AllocSetAllocChunkFromBlock.md) (src/backend/utils/mmgr/aset.c:798)
+  - [AllocSetAlloc](../A/AllocSetAlloc.md) (src/backend/utils/mmgr/aset.c:1024)
+  - [AllocSetRealloc](../A/AllocSetRealloc.md) (src/backend/utils/mmgr/aset.c:1258, 1339)
+  - [BumpAllocLarge](../B/BumpAllocLarge.md) (src/backend/utils/mmgr/bump.c:342)
+  - [BumpAllocChunkFromBlock](../B/BumpAllocChunkFromBlock.md) (src/backend/utils/mmgr/bump.c:406)
+  - [GenerationAllocLarge](../G/GenerationAllocLarge.md) (src/backend/utils/mmgr/generation.c:392)
+  - [GenerationAllocChunkFromBlock](../G/GenerationAllocChunkFromBlock.md) (src/backend/utils/mmgr/generation.c:440)
+  - [GenerationRealloc](../G/GenerationRealloc.md) (src/backend/utils/mmgr/generation.c:871)
+  - [SlabAllocSetupNewChunk](../S/SlabAllocSetupNewChunk.md) (src/backend/utils/mmgr/slab.c:528)
 
 ## Notes and Other Information
 - This function is conditionally compiled only when `RANDOMIZE_ALLOCATED_MEMORY` is defined

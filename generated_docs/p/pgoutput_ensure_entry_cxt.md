@@ -18,13 +18,13 @@ This function is responsible for lazily initializing the memory context for a sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationIdGetRelation
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
   - AllocSetContextCreate
   - MemoryContextCopyAndSetIdentifier
   - ALLOCSET_SMALL_SIZES
 - Called from (representative examples):
-  - pgoutput_row_filter_init
-  - pgoutput_column_list_init
+  - [pgoutput_row_filter_init](pgoutput_row_filter_init.md)
+  - [pgoutput_column_list_init](pgoutput_column_list_init.md)
 
 ## Notes and Other Information
 - The function performs an early return if the memory context already exists, making it safe to call multiple times

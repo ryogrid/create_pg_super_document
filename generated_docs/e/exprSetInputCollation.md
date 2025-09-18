@@ -26,7 +26,7 @@ Notably, the function omits  because it requires special treatment since it cont
   - Various expression node type constants (T_Aggref, T_WindowFunc, etc.)
 
 - Called from:
-  - assign_collations_walker (src/backend/parser/parse_collate.c:756, 758)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (src/backend/parser/parse_collate.c:756, 758)
 
 ## Notes and Other Information
 - Only handles expression types that have an  field: Aggref, WindowFunc, FuncExpr, OpExpr, DistinctExpr, NullIfExpr, ScalarArrayOpExpr, and MinMaxExpr

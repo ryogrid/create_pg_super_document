@@ -26,7 +26,7 @@ This function is used for serializing large numeric values, timestamps, large ob
   - Assert (macro)
   - memcpy (standard library function)
 - Called from (representative examples):
-  - pq_sendint64
+  - [pq_sendint64](pq_sendint64.md)
 
 ## Notes and Other Information
 - Automatically converts from host byte order to network byte order using pg_hton64

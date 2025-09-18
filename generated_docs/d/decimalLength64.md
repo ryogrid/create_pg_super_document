@@ -26,10 +26,10 @@ This approach avoids expensive division operations and provides optimal performa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos64
+  - [pg_leftmost_one_pos64](../p/pg_leftmost_one_pos64.md)
   - int8
 - Called from (representative examples):
-  - pg_ulltoa_n
+  - [pg_ulltoa_n](../p/pg_ulltoa_n.md)
 
 ## Notes and Other Information
 - The function is marked `static inline` for optimal performance in numeric conversion routines

@@ -34,16 +34,16 @@ The function is essential for scan key preprocessing and redundancy elimination 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTCommuteStrategyNumber (strategy flipping for DESC/NULLS FIRST)
-  - _bt_compare_array_scankey_args (specialized array comparison)
-  - FunctionCall2Coll (direct function call for same-type comparisons)
-  - get_opfamily_member (cross-type operator lookup)
-  - get_opcode (operator procedure lookup)
-  - OidFunctionCall2Coll (cross-type function call)
+  - [_bt_compare_array_scankey_args](_bt_compare_array_scankey_args.md) (specialized array comparison)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (direct function call for same-type comparisons)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (cross-type operator lookup)
+  - [get_opcode](../g/get_opcode.md) (operator procedure lookup)
+  - [OidFunctionCall2Coll](../O/OidFunctionCall2Coll.md) (cross-type function call)
   - Various strategy constants (BTLessStrategyNumber, BTEqualStrategyNumber, etc.)
   - Scan key flags (SK_ISNULL, SK_SEARCHARRAY, SK_BT_NULLS_FIRST, SK_BT_DESC)
 
 - Called from (representative examples):
-  - _bt_preprocess_keys (multiple calls during scan key preprocessing and redundancy elimination)
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md) (multiple calls during scan key preprocessing and redundancy elimination)
 
 ## Notes and Other Information
 - Returns true if comparison was successful, false if comparison could not be made

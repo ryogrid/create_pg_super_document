@@ -56,15 +56,15 @@ The function supports advanced PostgreSQL features including variadic functions,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncnameGetCandidates (searches catalogs for function candidates)
-  - FuncNameAsType (checks if function name is actually a type name)
-  - func_match_argtypes (filters type-compatible candidates)
-  - func_select_candidate (resolves ambiguity among multiple candidates)
-  - find_coercion_pathway (validates type coercion paths)
-  - SearchSysCache1 (retrieves function metadata from pg_proc)
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md) (searches catalogs for function candidates)
+  - [FuncNameAsType](../F/FuncNameAsType.md) (checks if function name is actually a type name)
+  - [func_match_argtypes](func_match_argtypes.md) (filters type-compatible candidates)
+  - [func_select_candidate](func_select_candidate.md) (resolves ambiguity among multiple candidates)
+  - [find_coercion_pathway](find_coercion_pathway.md) (validates type coercion paths)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (retrieves function metadata from pg_proc)
 - Called from (representative examples):
-  - ParseFuncOrColumn (from parse_func.c:266)
-  - lookup_agg_function (from pg_aggregate.c:848)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (from parse_func.c:266)
+  - [lookup_agg_function](../l/lookup_agg_function.md) (from pg_aggregate.c:848)
   - generate_function_name (from ruleutils.c:12993)
 
 ## Notes and Other Information

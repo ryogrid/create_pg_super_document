@@ -17,14 +17,14 @@ The getPartitioningInfo function analyzes all partitioned tables in the database
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
   - atooid
-  - TableInfo (structure type)
-  - findTableByOid
+  - [TableInfo](../T/TableInfo.md) (structure type)
+  - [findTableByOid](../f/findTableByOid.md)
 - Called from (representative examples):
-  - getSchemaData
-  - SubRelInfo (referenced in header)
+  - [getSchemaData](getSchemaData.md)
+  - [SubRelInfo](../S/SubRelInfo.md) (referenced in header)
 
 ## Notes and Other Information
 - Only processes databases with PostgreSQL version 11.0000 or higher (hash partitioning introduction)

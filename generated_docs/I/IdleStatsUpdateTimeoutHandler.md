@@ -21,9 +21,9 @@ The function is lightweight and signal-safe, performing minimal work within the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](InitPostgres.md)
 
 ## Notes and Other Information
 - This is a static function within postinit.c, indicating it's only used within that compilation unit

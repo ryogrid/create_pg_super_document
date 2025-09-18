@@ -19,9 +19,9 @@ The function returns the exact size needed for a SharedRecordTypmodRegistry, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedRecordTypmodRegistry (struct type)
+  - [SharedRecordTypmodRegistry](SharedRecordTypmodRegistry.md) (struct type)
 - Called from (representative examples):
-  - GetSessionDsmHandle
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md)
 
 ## Notes and Other Information
 - This function exists specifically to avoid exposing the private internal structure of SharedRecordTypmodRegistry in header files

@@ -26,22 +26,22 @@ This function generates a complete XML Schema definition for a single SQL table,
 ## Dependencies
 - Functions called/Symbols referenced:
   - initStringInfo
-  - SearchSysCache1
-  - map_sql_identifier_to_xml_name
-  - map_multipart_sql_identifier_to_xml_name
-  - get_database_name
-  - get_namespace_name
-  - ReleaseSysCache
-  - xsd_schema_element_start
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [map_sql_identifier_to_xml_name](map_sql_identifier_to_xml_name.md)
+  - [map_multipart_sql_identifier_to_xml_name](map_multipart_sql_identifier_to_xml_name.md)
+  - [get_database_name](../g/get_database_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [xsd_schema_element_start](../x/xsd_schema_element_start.md)
   - map_sql_typecoll_to_xmlschema_types
   - map_sql_type_to_xml_name
-  - xsd_schema_element_end
+  - [xsd_schema_element_end](../x/xsd_schema_element_end.md)
 - Called from:
-  - table_to_xmlschema
-  - query_to_xmlschema
-  - cursor_to_xmlschema
-  - table_to_xml_and_xmlschema
-  - query_to_xml_and_xmlschema
+  - [table_to_xmlschema](../t/table_to_xmlschema.md)
+  - [query_to_xmlschema](../q/query_to_xmlschema.md)
+  - [cursor_to_xmlschema](../c/cursor_to_xmlschema.md)
+  - [table_to_xml_and_xmlschema](../t/table_to_xml_and_xmlschema.md)
+  - [query_to_xml_and_xmlschema](../q/query_to_xml_and_xmlschema.md)
 
 ## Notes and Other Information
 - Static function used internally within the XML module

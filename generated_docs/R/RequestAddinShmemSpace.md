@@ -19,10 +19,10 @@ The function includes strict validation to ensure it's only called during the ap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (utility function for safe size addition)
+  - [add_size](../a/add_size.md) (utility function for safe size addition)
   - elog (error logging function)
 - Called from (representative examples):
-  - test_slru_shmem_request (from test modules)
+  - [test_slru_shmem_request](../t/test_slru_shmem_request.md) (from test modules)
   - Various extension shmem_request_hook implementations
 
 ## Notes and Other Information

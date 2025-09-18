@@ -25,15 +25,15 @@ The partitioning strategy uses hash bits to distribute tuples evenly across part
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_choose_num_partitions
-  - palloc0
+  - [hash_choose_num_partitions](hash_choose_num_partitions.md)
+  - [palloc0](../p/palloc0.md)
   - LogicalTapeCreate
   - initHyperLogLog
   - HASHAGG_HLL_BIT_WIDTH
 - Called from (representative examples):
-  - hash_agg_enter_spill_mode
-  - lookup_hash_entries
-  - agg_refill_hash_table
+  - [hash_agg_enter_spill_mode](hash_agg_enter_spill_mode.md)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - The function uses bit manipulation to create a hash-based partitioning scheme with shift and mask values

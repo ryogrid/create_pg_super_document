@@ -33,18 +33,18 @@ The function leverages the fact that pathlist is sorted by total_cost to exit ea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_pathkeys
-  - bms_equal
+  - [compare_pathkeys](../c/compare_pathkeys.md)
+  - [bms_equal](../b/bms_equal.md)
   - PATH_REQ_OUTER
   - STD_FUZZ_FACTOR (constant)
   - PATHKEYS_EQUAL, PATHKEYS_BETTER2 (enum values)
   - Cost (type)
   - PathKeysComparison (type)
 - Called from (representative examples):
-  - try_nestloop_path
-  - try_mergejoin_path  
-  - try_hashjoin_path
-  - add_partial_path_precheck
+  - [try_nestloop_path](../t/try_nestloop_path.md)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)  
+  - [try_hashjoin_path](../t/try_hashjoin_path.md)
+  - [add_partial_path_precheck](add_partial_path_precheck.md)
 
 ## Notes and Other Information
 This function is an important performance optimization that avoids creating Path structures that would be immediately discarded. It follows the same policy as add_path regarding parameterized paths having no pathkeys. The early exit capability based on sorted pathlist can significantly reduce planning time for relations with many potential paths.

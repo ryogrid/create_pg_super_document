@@ -27,9 +27,9 @@ The function handles both the first page of a segment (with long headers) and su
   - XLogSegNoOffsetToRecPtr
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - ReserveXLogInsertLocation
-  - ReserveXLogSwitch
-  - WaitXLogInsertionsToFinish
+  - [ReserveXLogInsertLocation](../R/ReserveXLogInsertLocation.md)
+  - [ReserveXLogSwitch](../R/ReserveXLogSwitch.md)
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
 
 ## Notes and Other Information
 - This is a static function internal to xlog.c

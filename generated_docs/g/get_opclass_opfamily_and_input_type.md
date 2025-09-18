@@ -19,15 +19,15 @@ This function performs a system catalog lookup to extract key information about 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure access)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_opclass (catalog tuple structure)
 - Called from (representative examples):
   - gistproperty (GiST index property checking)
-  - spgproperty (SP-GiST index property checking)  
-  - DefineIndex (index definition processing)
+  - [spgproperty](../s/spgproperty.md) (SP-GiST index property checking)  
+  - [DefineIndex](../D/DefineIndex.md) (index definition processing)
 
 ## Notes and Other Information
 - Returns false if the specified operator class OID is not found in the system catalog

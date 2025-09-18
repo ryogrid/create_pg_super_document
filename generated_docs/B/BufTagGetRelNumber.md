@@ -20,8 +20,8 @@ BufTagGetRelNumber is a simple inline accessor function that retrieves the relat
   - BufferTag (structure type)
 - Called from (representative examples):
   - BufferSync
-  - BufTagGetRelFileLocator
-  - BufTagMatchesRelFileLocator
+  - [BufTagGetRelFileLocator](BufTagGetRelFileLocator.md)
+  - [BufTagMatchesRelFileLocator](BufTagMatchesRelFileLocator.md)
 
 ## Notes and Other Information
 - This is an inline function defined in buf_internals.h for performance efficiency

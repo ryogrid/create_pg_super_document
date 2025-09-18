@@ -27,24 +27,24 @@ The function enforces PostgreSQL's access method handler function contract, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName
+  - [LookupFuncName](../L/LookupFuncName.md)
   - AMTYPE_INDEX
   - AMTYPE_TABLE
   - INDEX_AM_HANDLEROID
   - TABLE_AM_HANDLEROID
-  - get_func_rettype
-  - get_func_name
-  - format_type_extended
+  - [get_func_rettype](../g/get_func_rettype.md)
+  - [get_func_name](../g/get_func_name.md)
+  - [format_type_extended](../f/format_type_extended.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - elog
   - ERROR
   - ERRCODE_UNDEFINED_FUNCTION
   - ERRCODE_WRONG_OBJECT_TYPE
 
 - Called from (representative examples):
-  - CreateAccessMethod (src/backend/commands/amcmds.c:78)
+  - [CreateAccessMethod](../C/CreateAccessMethod.md) (src/backend/commands/amcmds.c:78)
 
 ## Notes and Other Information
 - This is a static function, only accessible within amcmds.c

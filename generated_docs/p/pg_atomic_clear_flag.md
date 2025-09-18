@@ -23,13 +23,13 @@ This function is typically used in lock release scenarios where a thread has fin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_clear_flag_impl
+  - [pg_atomic_clear_flag_impl](pg_atomic_clear_flag_impl.md)
 - Structures referenced:
-  - pg_atomic_flag
+  - [pg_atomic_flag](pg_atomic_flag.md)
 - Called from (representative examples):
-  - FreeWorkerInfo (src/backend/postmaster/autovacuum.c:1615)
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:2401)
-  - test_atomic_flag (src/test/regress/regress.c:721, 724)
+  - [FreeWorkerInfo](../F/FreeWorkerInfo.md) (src/backend/postmaster/autovacuum.c:1615)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2401)
+  - [test_atomic_flag](../t/test_atomic_flag.md) (src/test/regress/regress.c:721, 724)
 
 ## Notes and Other Information
 - Provides release semantics with write barrier, ensuring proper memory ordering when releasing locks

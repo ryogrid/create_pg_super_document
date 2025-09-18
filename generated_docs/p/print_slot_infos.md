@@ -19,12 +19,12 @@ This function provides verbose logging output for logical replication slot infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log
-  - LogicalSlotInfoArr (struct type)
+  - [pg_log](pg_log.md)
+  - [LogicalSlotInfoArr](../L/LogicalSlotInfoArr.md) (struct type)
   - LogicalSlotInfo (struct type)
   - PG_VERBOSE (log level constant)
 - Called from (representative examples):
-  - print_db_infos
+  - [print_db_infos](print_db_infos.md)
 
 ## Notes and Other Information
 - This is a static function only used within src/bin/pg_upgrade/info.c

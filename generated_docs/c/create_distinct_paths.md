@@ -31,11 +31,11 @@ The function inherits parallel safety characteristics from the input relation, a
 ## Dependencies
 - Functions called/Symbols referenced:
   - fetch_upper_rel
-  - create_final_distinct_paths  
-  - create_partial_distinct_paths
-  - set_cheapest
+  - [create_final_distinct_paths](create_final_distinct_paths.md)  
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md)
+  - [set_cheapest](../s/set_cheapest.md)
 - Called from (representative examples):
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
 
 ## Notes and Other Information
 - Input paths are expected to already compute the desired target columns since Sort/Unique operations don't perform projection

@@ -21,16 +21,16 @@ This function provides a clean interface for removing shared dependency records 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shdepDropDependency (performs the actual dependency removal)
+  - [shdepDropDependency](../s/shdepDropDependency.md) (performs the actual dependency removal)
   - SHARED_DEPENDENCY_INVALID (dependency type constant indicating removal)
 - Called from (representative examples):
-  - deleteOneObject (general object deletion in dependency.c:1322)
-  - DropRole (role deletion in user.c:1223, 1243)
-  - DropTableSpace (tablespace deletion in tablespace.c:481)
-  - DropSubscription (subscription deletion in subscriptioncmds.c:1730)
-  - DelRoleMems (role membership removal in user.c:2053)
-  - makeOperatorDependencies (operator dependency management in pg_operator.c:871)
-  - GenerateTypeDependencies (type dependency management in pg_type.c:596)
+  - [deleteOneObject](deleteOneObject.md) (general object deletion in dependency.c:1322)
+  - [DropRole](../D/DropRole.md) (role deletion in user.c:1223, 1243)
+  - [DropTableSpace](../D/DropTableSpace.md) (tablespace deletion in tablespace.c:481)
+  - [DropSubscription](../D/DropSubscription.md) (subscription deletion in subscriptioncmds.c:1730)
+  - [DelRoleMems](../D/DelRoleMems.md) (role membership removal in user.c:2053)
+  - [makeOperatorDependencies](../m/makeOperatorDependencies.md) (operator dependency management in pg_operator.c:871)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md) (type dependency management in pg_type.c:596)
 
 ## Notes and Other Information
 - Simple wrapper around shdepDropDependency that provides a convenient interface for dependency cleanup

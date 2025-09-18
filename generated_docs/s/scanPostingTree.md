@@ -23,18 +23,18 @@ The traversal continues until it reaches the rightmost page of the posting tree,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginScanBeginPostingTree
-  - IncrBufferRefCount
-  - freeGinBtreeStack
+  - [ginScanBeginPostingTree](../g/ginScanBeginPostingTree.md)
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
+  - [freeGinBtreeStack](../f/freeGinBtreeStack.md)
   - GinPageGetOpaque
-  - GinDataLeafPageGetItemsToTbm
+  - [GinDataLeafPageGetItemsToTbm](../G/GinDataLeafPageGetItemsToTbm.md)
   - GinPageRightMost
-  - ginStepRight
-  - UnlockReleaseBuffer
+  - [ginStepRight](../g/ginStepRight.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - GIN_DELETED (flag constant)
   - GIN_SHARE (lock mode constant)
 - Called from:
-  - collectMatchBitmap (src/backend/access/gin/ginget.c:247)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md) (src/backend/access/gin/ginget.c:247)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ginget.c file

@@ -18,15 +18,15 @@ The  function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility lib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_new
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - PGTYPESnumeric_from_decimal  
   - PGTYPESnumeric_to_int
-  - PGTYPESnumeric_free
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - ECPG_INFORMIX_OUT_OF_MEMORY (error constant)
   - ECPG_INFORMIX_NUM_OVERFLOW (error constant)
   - PGTYPES_NUM_OVERFLOW (error constant)
 - Called from (representative examples):
-  - main (in test programs)
+  - [main](../m/main.md) (in test programs)
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)
 
 ## Notes and Other Information

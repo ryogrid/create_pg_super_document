@@ -292,7 +292,7 @@ Text creation and manipulation
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
 - Called from (representative examples):
-  - hashhandler (as part of the hash AM handler functions)
+  - [hashhandler](hashhandler.md) (as part of the hash AM handler functions)
 
 ## Notes and Other Information
 - Returns NULL if no bulk deletion was performed (stats parameter is NULL), indicating no changes occurred

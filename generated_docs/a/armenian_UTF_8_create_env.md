@@ -23,7 +23,7 @@ This is a language-specific wrapper around the generic Snowball environment crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (creates the generic Snowball environment with 0 string variables and 2 integer variables)
+  - [SN_create_env](../S/SN_create_env.md) (creates the generic Snowball environment with 0 string variables and 2 integer variables)
 - Called from:
   - External callers needing to initialize Armenian stemming operations
 

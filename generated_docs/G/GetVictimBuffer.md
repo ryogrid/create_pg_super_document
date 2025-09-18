@@ -20,26 +20,26 @@ The function operates in a loop (with 'again' label) to handle cases where a sel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReservePrivateRefCountEntry
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
   - ResourceOwnerEnlarge
   - StrategyGetBuffer
-  - BufferDescriptorGetBuffer
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
   - PinBuffer_Locked
   - CheckBufferIsPinnedOnce
-  - BufferDescriptorGetContentLock
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
   - LWLockConditionalAcquire
   - UnpinBuffer
   - LockBufHdr/UnlockBufHdr
   - BufferGetLSN
-  - XLogNeedsFlush
+  - [XLogNeedsFlush](../X/XLogNeedsFlush.md)
   - StrategyRejectBuffer
-  - FlushBuffer
-  - ScheduleBufferTagForWriteback
-  - pgstat_count_io_op
-  - InvalidateVictimBuffer
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md)
+  - [pgstat_count_io_op](../p/pgstat_count_io_op.md)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
 - Called from (representative examples):
-  - BufferAlloc
-  - ExtendBufferedRelShared
+  - [BufferAlloc](../B/BufferAlloc.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
 
 ## Notes and Other Information
 - Uses conditional locking to avoid deadlocks when acquiring content locks for dirty buffer writeout

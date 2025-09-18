@@ -27,7 +27,7 @@ The `mic_to_big5` function is a PostgreSQL conversion function that handles the 
   - `PG_GETARG_INT32`: Extract integer argument (length)
   - `PG_GETARG_BOOL`: Extract boolean argument (error handling flag)
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validate conversion between PG_MULE_INTERNAL and PG_BIG5
-  - `mic2big5`: Core conversion function that performs the actual encoding transformation
+  - `[mic2big5](mic2big5.md)`: Core conversion function that performs the actual encoding transformation
   - `PG_RETURN_INT32`: Return the number of converted bytes
 - Called from:
   - PostgreSQL encoding conversion system (no direct references found in codebase)

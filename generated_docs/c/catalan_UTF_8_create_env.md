@@ -24,7 +24,7 @@ The function abstracts the complexity of environment setup and provides a simple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - No direct references found - likely called via external stemming library interfaces or initialization routines
 

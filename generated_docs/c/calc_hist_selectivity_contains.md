@@ -31,13 +31,13 @@ This is essentially the complement operation to containment - instead of asking 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbound_bsearch
-  - get_position
-  - get_distance
-  - calc_length_hist_frac
+  - [rbound_bsearch](../r/rbound_bsearch.md)
+  - [get_position](../g/get_position.md)
+  - [get_distance](../g/get_distance.md)
+  - [calc_length_hist_frac](calc_length_hist_frac.md)
   - RangeBound
 - Called from (representative examples):
-  - calc_hist_selectivity
+  - [calc_hist_selectivity](calc_hist_selectivity.md)
 
 ## Notes and Other Information
 - Implements selectivity estimation for the contains operator (@>) on range types

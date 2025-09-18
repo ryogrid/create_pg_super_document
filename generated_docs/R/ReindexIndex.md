@@ -25,16 +25,16 @@ The function handles lock acquisition carefully to avoid deadlocks by using a ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended (resolves relation name to OID with locking)
-  - RangeVarCallbackForReindexIndex (callback for lock acquisition)
-  - get_rel_persistence (determines if index is temporary/persistent)
-  - get_rel_relkind (determines relation kind)
-  - ReindexPartitions (handles partitioned index reindexing)
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md) (resolves relation name to OID with locking)
+  - [RangeVarCallbackForReindexIndex](RangeVarCallbackForReindexIndex.md) (callback for lock acquisition)
+  - [get_rel_persistence](../g/get_rel_persistence.md) (determines if index is temporary/persistent)
+  - [get_rel_relkind](../g/get_rel_relkind.md) (determines relation kind)
+  - [ReindexPartitions](ReindexPartitions.md) (handles partitioned index reindexing)
   - ReindexRelationConcurrently (handles concurrent reindexing)
-  - reindex_index (performs the actual index rebuild)
+  - [reindex_index](../r/reindex_index.md) (performs the actual index rebuild)
   - Various lock types and constants (ShareUpdateExclusiveLock, AccessExclusiveLock, etc.)
 - Called from:
-  - ExecReindex (src/backend/commands/indexcmds.c:2755)
+  - [ExecReindex](../E/ExecReindex.md) (src/backend/commands/indexcmds.c:2755)
 
 ## Notes and Other Information
 - This is a static function internal to indexcmds.c

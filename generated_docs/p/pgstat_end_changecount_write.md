@@ -31,7 +31,7 @@ The dual increment approach (begin: even→odd, end: odd→even) allows concurre
   - pg_write_barrier (memory barrier function)
   - END_CRIT_SECTION (macro to end critical section)
 - Called from (representative examples):
-  - pgstat_report_archiver
+  - [pgstat_report_archiver](pgstat_report_archiver.md)
 
 ## Notes and Other Information
 - This function must always be paired with a preceding pgstat_begin_changecount_write call

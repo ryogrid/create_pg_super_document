@@ -26,7 +26,7 @@ This function is specifically designed for use during recovery operations where 
 - Functions called/Symbols referenced:
   - StatusFilePath
 - Called from (representative examples):
-  - CleanupAfterArchiveRecovery
+  - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md)
 
 ## Notes and Other Information
 - Designed primarily for recovery scenarios where race conditions are minimized

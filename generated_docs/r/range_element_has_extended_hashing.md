@@ -17,11 +17,11 @@ This function determines if the element type of a range type has extended hashin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_range_element_properties
+  - [cache_range_element_properties](../c/cache_range_element_properties.md)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
   - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
 - Called from (representative examples):
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
 
 ## Notes and Other Information
 This is a static helper function within the type cache system. The function follows a lazy evaluation pattern - it only computes and caches the element properties when they haven't been checked before. The extended hashing capability is important for performance optimizations in hash-based operations like hash joins and hash partitioning.

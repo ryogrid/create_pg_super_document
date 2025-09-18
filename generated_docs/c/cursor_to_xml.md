@@ -28,14 +28,14 @@ The function finds an existing cursor by name, fetches a specified number of row
   - PG_GETARG_INT32
   - PG_GETARG_BOOL
   - initStringInfo
-  - xmldata_root_element_start
-  - xmldata_root_element_end
+  - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
+  - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
   - SPI_connect
-  - SPI_cursor_find
-  - SPI_cursor_fetch
-  - SPI_sql_row_to_xmlelement
+  - [SPI_cursor_find](../S/SPI_cursor_find.md)
+  - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)
+  - [SPI_sql_row_to_xmlelement](../S/SPI_sql_row_to_xmlelement.md)
   - SPI_finish
-  - stringinfo_to_xmltype
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - No direct callers found (SQL function interface)

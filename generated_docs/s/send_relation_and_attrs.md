@@ -22,15 +22,15 @@ This function transmits schema information for a relation to logical replication
 - Functions called/Symbols referenced:
   - RelationGetDescr (via TupleDescAttr macro)
   - TupleDescAttr
-  - bms_is_member
-  - OutputPluginPrepareWrite
-  - logicalrep_write_typ
-  - OutputPluginWrite
-  - logicalrep_write_rel
+  - [bms_is_member](../b/bms_is_member.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_typ](../l/logicalrep_write_typ.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
+  - [logicalrep_write_rel](../l/logicalrep_write_rel.md)
   - FirstGenbkiObjectId (constant)
-  - LogicalDecodingContext (type)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (type)
 - Called from (representative examples):
-  - maybe_send_schema (twice - for ancestor and relation)
+  - [maybe_send_schema](../m/maybe_send_schema.md) (twice - for ancestor and relation)
 
 ## Notes and Other Information
 The function uses FirstGenbkiObjectId as a cutoff to distinguish between built-in types (with hand-assigned OIDs that remain stable across PostgreSQL versions) and user-created types that need explicit transmission. This is crucial for cross-version replication compatibility. The function handles column filtering through the Bitmapset parameter, allowing for selective replication of specific columns. Type information is sent before relation schema to ensure subscribers have all necessary type definitions before processing the relation structure.

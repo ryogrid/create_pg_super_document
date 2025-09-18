@@ -24,14 +24,14 @@ The function stops building pathkeys when it encounters a partition key that can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - partitions_are_ordered (to verify partition ordering)
+  - [partitions_are_ordered](../p/partitions_are_ordered.md) (to verify partition ordering)
   - IS_SIMPLE_REL (to validate relation type)
-  - make_pathkey_from_sortinfo (to create canonical pathkeys)
+  - [make_pathkey_from_sortinfo](../m/make_pathkey_from_sortinfo.md) (to create canonical pathkeys)
   - ScanDirectionIsBackward (to handle scan direction)
-  - pathkey_is_redundant (to avoid duplicate pathkeys)
-  - partkey_is_bool_constant_for_query (to handle boolean partition keys)
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md) (to avoid duplicate pathkeys)
+  - [partkey_is_bool_constant_for_query](../p/partkey_is_bool_constant_for_query.md) (to handle boolean partition keys)
 - Called from (representative examples):
-  - generate_orderedappend_paths
+  - [generate_orderedappend_paths](../g/generate_orderedappend_paths.md)
 
 ## Notes and Other Information
 - Currently only supports simple base relations (not joins or subqueries)

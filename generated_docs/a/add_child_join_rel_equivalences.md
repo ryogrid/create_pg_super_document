@@ -23,16 +23,16 @@ The function handles both simple single-level transformations (RELOPT_JOINREL) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_eclass_indexes_for_relids
-  - bms_next_member
-  - list_nth
-  - bms_overlap
-  - bms_membership
-  - adjust_appendrel_attrs
-  - adjust_appendrel_attrs_multilevel
-  - bms_difference
-  - bms_add_members
-  - add_eq_member
+  - [get_eclass_indexes_for_relids](../g/get_eclass_indexes_for_relids.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth](../l/list_nth.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_membership](../b/bms_membership.md)
+  - [adjust_appendrel_attrs](adjust_appendrel_attrs.md)
+  - [adjust_appendrel_attrs_multilevel](adjust_appendrel_attrs_multilevel.md)
+  - [bms_difference](../b/bms_difference.md)
+  - [bms_add_members](../b/bms_add_members.md)
+  - [add_eq_member](add_eq_member.md)
 - Called from (representative examples):
   - build_child_join_rel
 

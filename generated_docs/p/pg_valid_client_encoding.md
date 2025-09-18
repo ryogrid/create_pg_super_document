@@ -20,7 +20,7 @@ This function validates an encoding name string to determine if it represents a 
   - pg_char_to_encoding (converts encoding name string to internal encoding ID)
   - PG_VALID_FE_ENCODING (macro for validating frontend/client encodings)
 - Called from (representative examples):
-  - check_client_encoding (src/backend/commands/variable.c:686)
+  - [check_client_encoding](../c/check_client_encoding.md) (src/backend/commands/variable.c:686)
 
 ## Notes and Other Information
 - Returns the encoding ID (positive integer) if valid, or -1 if invalid

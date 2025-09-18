@@ -32,25 +32,25 @@ The function is designed to be separable from the main detach operation, allowin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemoveInheritance
-  - DropClonedTriggersFromPartition
-  - RelationGetFKeyList
-  - ConstraintSetParentConstraint
-  - GetForeignKeyCheckTriggers
-  - TriggerSetParentTrigger
-  - DeconstructFkConstraintRow
-  - addFkRecurseReferenced
-  - GetParentedForeignKeyRefs
-  - RelationGetIndexList
-  - IndexSetParentIndex
-  - get_relation_idx_constraint_oid
-  - ATExecDropIdentity
-  - update_default_partition_oid
-  - CacheInvalidateRelcache
-  - find_all_inheritors
+  - [RemoveInheritance](../R/RemoveInheritance.md)
+  - [DropClonedTriggersFromPartition](DropClonedTriggersFromPartition.md)
+  - [RelationGetFKeyList](../R/RelationGetFKeyList.md)
+  - [ConstraintSetParentConstraint](../C/ConstraintSetParentConstraint.md)
+  - [GetForeignKeyCheckTriggers](../G/GetForeignKeyCheckTriggers.md)
+  - [TriggerSetParentTrigger](../T/TriggerSetParentTrigger.md)
+  - [DeconstructFkConstraintRow](DeconstructFkConstraintRow.md)
+  - [addFkRecurseReferenced](../a/addFkRecurseReferenced.md)
+  - [GetParentedForeignKeyRefs](../G/GetParentedForeignKeyRefs.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [IndexSetParentIndex](../I/IndexSetParentIndex.md)
+  - [get_relation_idx_constraint_oid](../g/get_relation_idx_constraint_oid.md)
+  - [ATExecDropIdentity](../A/ATExecDropIdentity.md)
+  - [update_default_partition_oid](../u/update_default_partition_oid.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
 - Called from (representative examples):
-  - ATExecDetachPartition
-  - ATExecDetachPartitionFinalize
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md)
+  - [ATExecDetachPartitionFinalize](../A/ATExecDetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - Handles complex foreign key constraint hierarchies by distinguishing between constraints inherited from parent vs. partition-specific constraints

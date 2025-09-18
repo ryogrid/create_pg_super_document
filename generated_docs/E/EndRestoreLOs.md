@@ -19,13 +19,13 @@ This function is called by format handlers after completing the restoration of a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestoreOptions
-  - CommitTransaction
-  - ahprintf
+  - [RestoreOptions](../R/RestoreOptions.md)
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [ahprintf](../a/ahprintf.md)
   - ngettext
   - pg_log_info
 - Called from (representative examples):
-  - _LoadLOs (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
+  - [_LoadLOs](../L/_LoadLOs.md) (in pg_backup_custom.c, pg_backup_directory.c, pg_backup_tar.c)
 
 ## Notes and Other Information
 - Only commits the transaction if it was started by StartRestoreLOs (respects single_txn and txn_size settings)

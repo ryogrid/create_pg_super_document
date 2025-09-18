@@ -25,7 +25,7 @@ The `time_cmp` function is a PostgreSQL built-in function that implements a comp
   - PG_RETURN_INT32: Macro to return 32-bit integer result
   - TimeADT: PostgreSQL's internal representation of time values
 - Called from (representative examples):
-  - compareDatetime: Used in JSON path execution for datetime comparisons (src/backend/utils/adt/jsonpath_exec.c:3765)
+  - [compareDatetime](../c/compareDatetime.md): Used in JSON path execution for datetime comparisons (src/backend/utils/adt/jsonpath_exec.c:3765)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/date.c:1734-1746

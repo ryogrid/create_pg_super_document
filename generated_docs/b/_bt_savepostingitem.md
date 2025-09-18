@@ -24,9 +24,9 @@ This inline function is used to save additional heap TIDs from a posting list tu
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanOpaque (scan state structure)
-  - BTScanPosItem (item storage structure)
+  - [BTScanPosItem](../B/BTScanPosItem.md) (item storage structure)
 - Called from (representative examples):
-  - _bt_readpage (during posting list tuple processing)
+  - [_bt_readpage](_bt_readpage.md) (during posting list tuple processing)
 
 ## Notes and Other Information
 - Must be preceded by a call to _bt_setuppostingitems() for the same posting list tuple

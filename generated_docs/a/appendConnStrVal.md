@@ -25,12 +25,12 @@ The function is essential for building dynamic connection strings safely, ensuri
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar (appends individual characters including quotes and escapes)
-  - appendPQExpBufferStr (appends the raw string when no quoting is needed)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md) (appends the raw string when no quoting is needed)
 - Called from (representative examples):
-  - constructConnStr (in pg_dumpall.c for building connection strings)
-  - get_db_conn (in pg_upgrade for database connections)
-  - GenerateRecoveryConfig (in recovery_gen.c for recovery configuration)
-  - appendPsqlMetaConnect (in string_utils.c for psql meta-commands)
+  - [constructConnStr](../c/constructConnStr.md) (in pg_dumpall.c for building connection strings)
+  - [get_db_conn](../g/get_db_conn.md) (in pg_upgrade for database connections)
+  - [GenerateRecoveryConfig](../G/GenerateRecoveryConfig.md) (in recovery_gen.c for recovery configuration)
+  - [appendPsqlMetaConnect](appendPsqlMetaConnect.md) (in string_utils.c for psql meta-commands)
 
 ## Notes and Other Information
 - Uses conservative quoting rules - only alphanumeric characters, underscore, and period are considered safe

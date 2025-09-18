@@ -18,16 +18,16 @@ LockTableCommand is the main entry point for executing LOCK TABLE statements in 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockStmt (structure type)
-  - RangeVar (structure type)
-  - RangeVarGetRelidExtended
+  - [RangeVar](../R/RangeVar.md) (structure type)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
   - RVR_NOWAIT
-  - RangeVarCallbackForLockTable
-  - get_rel_relkind
+  - [RangeVarCallbackForLockTable](../R/RangeVarCallbackForLockTable.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
   - RELKIND_VIEW
-  - LockViewRecurse
-  - LockTableRecurse
+  - [LockViewRecurse](LockViewRecurse.md)
+  - [LockTableRecurse](LockTableRecurse.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - The function processes each relation individually, allowing for mixed relation types in a single LOCK statement

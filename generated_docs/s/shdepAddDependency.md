@@ -25,17 +25,17 @@ The function first locks the referenced object to prevent it from being dropped 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shdepLockAndCheckObject
-  - classIdGetDbId
-  - ObjectIdGetDatum
-  - Int32GetDatum
-  - CharGetDatum
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [shdepLockAndCheckObject](shdepLockAndCheckObject.md)
+  - [classIdGetDbId](../c/classIdGetDbId.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
+  - [CharGetDatum](../C/CharGetDatum.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - recordSharedDependencyOn
-  - updateAclDependenciesWorker
+  - [recordSharedDependencyOn](../r/recordSharedDependencyOn.md)
+  - [updateAclDependenciesWorker](../u/updateAclDependenciesWorker.md)
 
 ## Notes and Other Information
 - This is a static internal function, not directly accessible outside pg_shdepend.c

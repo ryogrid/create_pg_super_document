@@ -28,10 +28,10 @@ The function efficiently handles multiple flag formats and returns 0 immediately
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getNextFlagFromString: Extract individual flags from the input string
-  - setCompoundAffixFlagValue: Create a search key with the parsed flag
+  - [getNextFlagFromString](getNextFlagFromString.md): Extract individual flags from the input string
+  - [setCompoundAffixFlagValue](../s/setCompoundAffixFlagValue.md): Create a search key with the parsed flag
   - bsearch: Standard C library binary search function
-  - cmpcmdflag: Comparison function for CompoundAffixFlag structures
+  - [cmpcmdflag](../c/cmpcmdflag.md): Comparison function for CompoundAffixFlag structures
 - Called from (representative examples):
   - NIImportOOAffixes: Process OpenOffice-style affix configurations
   - makeCompoundFlags: Generate compound flags for word formation

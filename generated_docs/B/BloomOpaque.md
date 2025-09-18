@@ -29,8 +29,8 @@ BloomOpaque serves as a cache for function manager information (FmgrInfo) relate
 - Functions called/Symbols referenced:
   - BLOOM_MAX_PROCNUMS (defined as 1)
 - Called from (representative examples):
-  - brin_bloom_opcinfo
-  - bloom_get_procinfo
+  - [brin_bloom_opcinfo](../b/brin_bloom_opcinfo.md)
+  - [bloom_get_procinfo](../b/bloom_get_procinfo.md)
 
 ## Notes and Other Information
 Located in src/backend/access/brin/brin_bloom.c:434-442. The structure follows PostgreSQL's pattern for operator class opaque data, providing a consistent interface for procedure caching across different BRIN operator class types. The current implementation focuses on hash computation but is designed for future expansion to additional procedures as needed.

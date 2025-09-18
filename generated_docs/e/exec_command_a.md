@@ -24,7 +24,7 @@ The implementation uses the do_pset() function to change the "format" setting, w
   - PRINT_ALIGNED (constant)
   - pset global variable (print options)
 - Called from (representative examples):
-  - exec_command (src/bin/psql/command.c:329)
+  - [exec_command](exec_command.md) (src/bin/psql/command.c:329)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure

@@ -23,12 +23,12 @@ This function takes no parameters and operates on global state.
 - Functions called/Symbols referenced:
   - TransactionIdIsValid (implied via CheckXidAlive validation)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - ereport (for error reporting)
 - Called from (representative examples):
-  - systable_getnext
-  - systable_recheck_tuple  
-  - systable_getnext_ordered
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_recheck_tuple](../s/systable_recheck_tuple.md)  
+  - [systable_getnext_ordered](../s/systable_getnext_ordered.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the genam.c compilation unit and is likely to be inlined by the compiler for performance

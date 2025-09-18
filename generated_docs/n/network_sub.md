@@ -25,7 +25,7 @@ This function performs a boolean network inclusion test to determine if the firs
   - ip_family - gets the IP family (IPv4 or IPv6) of a network
   - ip_bits - gets the number of network bits (netmask length)
   - ip_addr - gets the network address portion
-  - bitncmp - performs bitwise comparison of network addresses
+  - [bitncmp](../b/bitncmp.md) - performs bitwise comparison of network addresses
   - PG_RETURN_BOOL - returns boolean result
 - Called from (representative examples):
   - No direct references found in the codebase (likely used as an operator function)
@@ -35,5 +35,5 @@ This function performs a boolean network inclusion test to determine if the firs
 - Returns false immediately if the networks are from different IP families
 - Requires the first network to have MORE bits than the second (strict subset)
 - Uses bitncmp to compare only the relevant bits according to the containing network's netmask
-- This is a strict containment test - equal networks will return false
+- This is a strict containment test - [equal](../e/equal.md) networks will return false
 - For non-strict containment (<=), use network_subeq instead

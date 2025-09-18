@@ -25,10 +25,10 @@ This design ensures that the actual configuration reload processing happens in t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - SIGNAL_ARGS (macro)
 - Called from (representative examples):
-  - PostmasterMain (as signal handler registration)
+  - [PostmasterMain](../P/PostmasterMain.md) (as signal handler registration)
 
 ## Notes and Other Information
 - Static function - only accessible within postmaster.c

@@ -33,26 +33,26 @@ Key responsibilities:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace
-  - object_aclcheck
-  - SearchSysCache1, SearchSysCache3
-  - GetIndexAmRoutineByAmId
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCache3
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
   - superuser
-  - typenameTypeId
-  - get_opfamily_oid
-  - CreateOpFamily
-  - LookupOperWithArgs, LookupOperName
-  - LookupFuncWithArgs
-  - assignOperTypes, assignProcTypes
-  - addFamilyMember
-  - storeOperators, storeProcedures
-  - recordDependencyOn
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [get_opfamily_oid](../g/get_opfamily_oid.md)
+  - [CreateOpFamily](../C/CreateOpFamily.md)
+  - [LookupOperWithArgs](../L/LookupOperWithArgs.md), LookupOperName
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [assignOperTypes](../a/assignOperTypes.md), assignProcTypes
+  - [addFamilyMember](../a/addFamilyMember.md)
+  - [storeOperators](../s/storeOperators.md), storeProcedures
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
-  - EventTriggerCollectCreateOpClass
+  - [EventTriggerCollectCreateOpClass](../E/EventTriggerCollectCreateOpClass.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Requires superuser privileges due to the complexity of validating operator/function consistency

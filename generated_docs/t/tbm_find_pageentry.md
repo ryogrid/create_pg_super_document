@@ -21,13 +21,13 @@ The function handles different bitmap states: when the bitmap contains only a si
 ## Dependencies
 - Functions called/Symbols referenced:
   - pagetable_lookup
-  - TIDBitmap
-  - PagetableEntry
+  - [TIDBitmap](../T/TIDBitmap.md)
+  - [PagetableEntry](../P/PagetableEntry.md)
   - TBM_ONE_PAGE
   - BlockNumber
 - Called from (representative examples):
   - tbm_intersect_page (src/backend/nodes/tidbitmap.c:616, 648)
-  - TBMSharedIterator (src/backend/nodes/tidbitmap.c:232)
+  - [TBMSharedIterator](../T/TBMSharedIterator.md) (src/backend/nodes/tidbitmap.c:232)
 
 ## Notes and Other Information
 This is a static function internal to tidbitmap.c, primarily used for bitmap intersection operations. The function explicitly rejects lossy chunk headers (where ischunk is true) to ensure callers receive only exact tuple position information. Returns NULL for non-existent pages or when only lossy information is available for the requested page.

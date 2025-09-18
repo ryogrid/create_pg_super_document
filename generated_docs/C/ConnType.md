@@ -43,11 +43,11 @@ The enum is used to match incoming connection attempts against the appropriate a
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - HbaLine (struct member)
-  - CheckPAMAuth
-  - parse_hba_line
-  - check_hba
-  - fill_hba_line
+  - [HbaLine](../H/HbaLine.md) (struct member)
+  - [CheckPAMAuth](CheckPAMAuth.md)
+  - [parse_hba_line](../p/parse_hba_line.md)
+  - [check_hba](../c/check_hba.md)
+  - [fill_hba_line](../f/fill_hba_line.md)
 
 ## Notes and Other Information
 - Defined in src/include/libpq/hba.h:57-65

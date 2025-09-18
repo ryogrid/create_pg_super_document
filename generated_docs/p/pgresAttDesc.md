@@ -25,7 +25,7 @@ The  structure contains comprehensive metadata about a column in a PostgreSQL qu
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - Query result processing functions in libpq
+  - [Query](../Q/Query.md) result processing functions in libpq
   - PGresult structure members for column metadata
 
 ## Notes and Other Information
@@ -33,6 +33,6 @@ The  structure contains comprehensive metadata about a column in a PostgreSQL qu
 - The tableid and columnid fields help trace columns back to their source tables when possible
 - Format codes support both text and binary result formats in PostgreSQL protocol
 - Type modifiers (atttypmod) provide additional type constraints like precision, scale, or length limits
-- Variable-length types use typlen = -1, requiring actual length to be determined from the data
+- [Variable](../V/Variable.md)-length types use typlen = -1, requiring actual length to be determined from the data
 - The structure enables type-safe data extraction and conversion in client applications
 - Binary format (format=1) provides more efficient data transfer for certain data types

@@ -32,14 +32,14 @@ This function is more complex than sift_up because it must handle two children a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - left_offset (macro to calculate left child index)
-  - right_offset (macro to calculate right child index)
+  - [left_offset](../l/left_offset.md) (macro to calculate left child index)
+  - [right_offset](../r/right_offset.md) (macro to calculate right child index)
   - heap->bh_compare (comparison function for heap ordering)
 - Called from (representative examples):
-  - binaryheap_build (common/binaryheap.c:143)
-  - binaryheap_remove_first (common/binaryheap.c:213)
-  - binaryheap_remove_node (common/binaryheap.c:244)
-  - binaryheap_replace_first (common/binaryheap.c:262)
+  - [binaryheap_build](../b/binaryheap_build.md) (common/binaryheap.c:143)
+  - [binaryheap_remove_first](../b/binaryheap_remove_first.md) (common/binaryheap.c:213)
+  - [binaryheap_remove_node](../b/binaryheap_remove_node.md) (common/binaryheap.c:244)
+  - [binaryheap_replace_first](../b/binaryheap_replace_first.md) (common/binaryheap.c:262)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

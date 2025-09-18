@@ -29,16 +29,16 @@ The function returns a boolean indicating whether execution should be allowed, a
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser_arg
-  - GetUserId
-  - audit_attempt
-  - audit_success
-  - audit_failure
+  - [GetUserId](../G/GetUserId.md)
+  - [audit_attempt](../a/audit_attempt.md)
+  - [audit_success](../a/audit_success.md)
+  - [audit_failure](../a/audit_failure.md)
   - ereport
-  - errcode
-  - errmsg
-  - pstrdup
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):
-  - _PG_init (hook installation)
+  - [_PG_init](../P/_PG_init.md) (hook installation)
 
 ## Notes and Other Information
 - This is a static function used exclusively for regression testing in the test_oat_hooks module

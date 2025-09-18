@@ -22,21 +22,21 @@ For Valgrind-enabled builds, the function provides debugging support by notifyin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMemoryChunkMethodID (when USE_VALGRIND defined)
+  - [GetMemoryChunkMethodID](../G/GetMemoryChunkMethodID.md) (when USE_VALGRIND defined)
   - GetMemoryChunkContext (when USE_ASSERT_CHECKING or USE_VALGRIND defined)
   - AssertNotInCriticalSection
   - MCXT_METHOD
   - MCTX_ALIGNED_REDIRECT_ID (when USE_VALGRIND defined)
   - VALGRIND_MEMPOOL_CHANGE (when USE_VALGRIND defined)
 - Called from (representative examples):
-  - brin_copy_tuple
-  - add_reloption
-  - tidstore_iter_extract_tids
-  - GinFormTuple
-  - ExprEvalPushStep
-  - SPI_repalloc
-  - bms_add_member
-  - enlarge_list
+  - [brin_copy_tuple](../b/brin_copy_tuple.md)
+  - [add_reloption](../a/add_reloption.md)
+  - [tidstore_iter_extract_tids](../t/tidstore_iter_extract_tids.md)
+  - [GinFormTuple](../G/GinFormTuple.md)
+  - [ExprEvalPushStep](../E/ExprEvalPushStep.md)
+  - [SPI_repalloc](../S/SPI_repalloc.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [enlarge_list](../e/enlarge_list.md)
   - (extensively used throughout PostgreSQL codebase)
 
 ## Notes and Other Information

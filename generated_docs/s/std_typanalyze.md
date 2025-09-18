@@ -19,16 +19,16 @@ The `std_typanalyze` function serves as the standard type analysis dispatcher fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sort_group_operators
-  - palloc
-  - get_opcode
-  - compute_scalar_stats
-  - compute_distinct_stats
-  - compute_trivial_stats
+  - [get_sort_group_operators](../g/get_sort_group_operators.md)
+  - [palloc](../p/palloc.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [compute_scalar_stats](../c/compute_scalar_stats.md)
+  - [compute_distinct_stats](../c/compute_distinct_stats.md)
+  - [compute_trivial_stats](../c/compute_trivial_stats.md)
   - StdAnalyzeData (structure type)
 - Called from (representative examples):
-  - examine_attribute
-  - array_typanalyze
+  - [examine_attribute](../e/examine_attribute.md)
+  - [array_typanalyze](../a/array_typanalyze.md)
 
 ## Notes and Other Information
 - Sets attstattarget to default_statistics_target if negative

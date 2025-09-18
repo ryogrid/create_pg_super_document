@@ -36,17 +36,17 @@ The structure ensures that parallel workers operate with the same database conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGPROC (process control block structure)
+  - [PGPROC](../P/PGPROC.md) (process control block structure)
   - pid_t (process ID type)
   - ProcNumber (process number type)
   - SerializableXactHandle (serializable transaction handle type)
-  - slock_t (spinlock type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
 - Called from (representative examples):
-  - InitializeParallelDSM (initializes the structure in shared memory)
-  - ReinitializeParallelDSM (reinitializes for reused parallel contexts)
-  - ParallelWorkerMain (workers read state from this structure)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (initializes the structure in shared memory)
+  - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md) (reinitializes for reused parallel contexts)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (workers read state from this structure)
   - WaitForParallelWorkersToFinish (leader accesses coordination data)
-  - ParallelWorkerReportLastRecEnd (workers update last_xlog_end field)
+  - [ParallelWorkerReportLastRecEnd](../P/ParallelWorkerReportLastRecEnd.md) (workers update last_xlog_end field)
 
 ## Notes and Other Information
 The structure is designed to be fixed-size to simplify memory management in the shared memory segment. Variable-length state information is stored separately in the DSM segment and referenced by keys in the table of contents. The mutex field specifically protects only the last_xlog_end field, which is updated by workers to report their transaction log positions back to the leader. This coordination is important for ensuring proper WAL synchronization in parallel operations.

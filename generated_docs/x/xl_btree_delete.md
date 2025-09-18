@@ -22,12 +22,12 @@ Unlike vacuum operations, this record type is used during regular index maintena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_btree_update (embedded in payload)
+  - [xl_btree_update](xl_btree_update.md) (embedded in payload)
   - SizeOfBtreeDelete (size calculation macro)
 - Called from (representative examples):
-  - _bt_delitems_delete (src/backend/access/nbtree/nbtpage.c:1347)
-  - btree_xlog_delete (src/backend/access/nbtree/nbtxlog.c:654)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:72)
+  - [_bt_delitems_delete](../b/_bt_delitems_delete.md) (src/backend/access/nbtree/nbtpage.c:1347)
+  - [btree_xlog_delete](../b/btree_xlog_delete.md) (src/backend/access/nbtree/nbtxlog.c:654)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:72)
 
 ## Notes and Other Information
 - The record's payload contains three distinct sections in order: deleted item offset numbers, updated item offset numbers, and xl_btree_update metadata items

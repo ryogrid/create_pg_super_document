@@ -19,8 +19,8 @@ The ResOwnerReleaseHMAC function serves as a resource cleanup callback that is a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (to extract the context pointer)
-  - pg_hmac_free (to actually free the context)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (to extract the context pointer)
+  - [pg_hmac_free](../p/pg_hmac_free.md) (to actually free the context)
 - Called from (representative examples):
   - Resource owner cleanup system (automatic invocation)
   - Referenced in HMAC context initialization for resource tracking

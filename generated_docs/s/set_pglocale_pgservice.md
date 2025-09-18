@@ -31,7 +31,7 @@ This function initializes locale settings and service directories for PostgreSQL
   -  (src/test/regress/pg_regress.c:2106)
 
 ## Notes and Other Information
-- Backend processes (postgres) skip locale setting to avoid conflicts with postmaster locale management
+- [Backend](../B/Backend.md) processes (postgres) skip locale setting to avoid conflicts with postmaster locale management
 - The function includes detailed commentary about multithreading considerations in frontend programs
 - Only sets environment variables if they are not already defined (using setenv with overwrite=0)
 - NLS configuration is conditionally compiled based on ENABLE_NLS

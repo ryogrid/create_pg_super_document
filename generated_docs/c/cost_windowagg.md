@@ -33,15 +33,15 @@ The function does not account for spooling costs when data overflows work_mem, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_function_cost
-  - cost_qual_eval_node
-  - get_windowclause_startup_tuples
+  - [add_function_cost](../a/add_function_cost.md)
+  - [cost_qual_eval_node](cost_qual_eval_node.md)
+  - [get_windowclause_startup_tuples](../g/get_windowclause_startup_tuples.md)
   - WindowClause
   - WindowFunc
   - QualCost
   - Cost
 - Called from (representative examples):
-  - create_windowagg_path
+  - [create_windowagg_path](create_windowagg_path.md)
 
 ## Notes and Other Information
 - Input data is assumed to be already properly sorted according to the window clause requirements

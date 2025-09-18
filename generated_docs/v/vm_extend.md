@@ -18,8 +18,8 @@ This static function extends the visibility map fork to ensure it contains at le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRelTo
-  - CacheInvalidateSmgr
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md)
+  - [CacheInvalidateSmgr](../C/CacheInvalidateSmgr.md)
   - RelationGetSmgr
   - BMR_REL
   - VISIBILITYMAP_FORKNUM
@@ -27,7 +27,7 @@ This static function extends the visibility map fork to ensure it contains at le
   - EB_CLEAR_SIZE_CACHE
   - RBM_ZERO_ON_ERROR
 - Called from (representative examples):
-  - vm_readbuf
+  - [vm_readbuf](vm_readbuf.md)
 
 ## Notes and Other Information
 - Static function internal to visibilitymap.c

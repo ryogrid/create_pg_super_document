@@ -20,9 +20,9 @@ This function is designed to perform any necessary cleanup operations on a TextP
   - TextPositionState (structure parameter, but not modified)
 - Called from (representative examples):
   - text_position
-  - replace_text  
+  - [replace_text](../r/replace_text.md)  
   - split_part
-  - split_text
+  - [split_text](../s/split_text.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within varlena.c

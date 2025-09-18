@@ -18,7 +18,7 @@ The pg_ndistinct_send function serves as the binary output routine for the pg_nd
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byteasend (standard PostgreSQL function for binary output of bytea data)
+  - [byteasend](../b/byteasend.md) (standard PostgreSQL function for binary output of bytea data)
 - Called from:
   - No direct references found (used as type send function)
 

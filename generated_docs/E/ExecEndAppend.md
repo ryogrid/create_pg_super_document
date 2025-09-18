@@ -24,9 +24,9 @@ This function is part of the standard executor cleanup protocol and ensures that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (for recursive cleanup of each subplan)
+  - [ExecEndNode](ExecEndNode.md) (for recursive cleanup of each subplan)
 - Called from (representative examples):
-  - ExecEndNode (main executor cleanup dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (main executor cleanup dispatcher)
 
 ## Notes and Other Information
 - The function does not explicitly handle async-specific cleanup as that is managed by the PostgreSQL async execution framework

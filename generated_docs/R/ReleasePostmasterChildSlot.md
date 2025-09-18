@@ -25,10 +25,10 @@ This function deallocates a slot in the PMChildFlags array when a child process 
   - PM_CHILD_ASSIGNED (enum constant for assigned state)
   - PM_CHILD_UNUSED (enum constant for unused state)
 - Called from (representative examples):
-  - CleanupBackgroundWorker (src/backend/postmaster/postmaster.c:2748)
-  - CleanupBackend (src/backend/postmaster/postmaster.c:2835)
-  - HandleChildCrash (src/backend/postmaster/postmaster.c:2912, 2948)
-  - BackendStartup (src/backend/postmaster/postmaster.c:3603)
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md) (src/backend/postmaster/postmaster.c:2748)
+  - [CleanupBackend](../C/CleanupBackend.md) (src/backend/postmaster/postmaster.c:2835)
+  - [HandleChildCrash](../H/HandleChildCrash.md) (src/backend/postmaster/postmaster.c:2912, 2948)
+  - [BackendStartup](../B/BackendStartup.md) (src/backend/postmaster/postmaster.c:3603)
 
 ## Notes and Other Information
 - Must be called only in the postmaster process

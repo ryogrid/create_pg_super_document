@@ -23,17 +23,17 @@ The function includes sophisticated thread/process management on Windows, includ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - waitpid (Unix)
+  - [waitpid](../w/waitpid.md) (Unix)
   - WaitForMultipleObjects (Windows)
   - GetExitCodeThread (Windows)
   - CloseHandle (Windows)
-  - pg_fatal (error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
 - Called from (representative examples):
-  - parallel_exec_prog
-  - parallel_transfer_all_new_dbs
-  - generate_old_dump
-  - create_new_objects
-  - transfer_all_new_tablespaces
+  - [parallel_exec_prog](../p/parallel_exec_prog.md)
+  - [parallel_transfer_all_new_dbs](../p/parallel_transfer_all_new_dbs.md)
+  - [generate_old_dump](../g/generate_old_dump.md)
+  - [create_new_objects](../c/create_new_objects.md)
+  - [transfer_all_new_tablespaces](../t/transfer_all_new_tablespaces.md)
 
 ## Notes and Other Information
 - Platform-specific implementation: Uses waitpid() on Unix and Windows threading APIs on Windows

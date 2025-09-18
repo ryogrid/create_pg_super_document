@@ -21,14 +21,14 @@ The addtype function is a core component of PostgreSQL's timezone compiler that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - want_bloat (configuration check)
-  - newabbr (abbreviation management)
+  - [want_bloat](../w/want_bloat.md) (configuration check)
+  - [newabbr](../n/newabbr.md) (abbreviation management)
   - EXIT_FAILURE (error exit status)
   - TZ_MAX_TYPES (maximum type limit constant)
   - zic_t (timestamp type definition)
 - Called from (representative examples):
-  - writezone (at lines 2375, 2387)
-  - years_of_observations (at lines 3118, 3261, 3287)
+  - [writezone](../w/writezone.md) (at lines 2375, 2387)
+  - [years_of_observations](../y/years_of_observations.md) (at lines 3118, 3261, 3287)
 
 ## Notes and Other Information
 - Returns the index of the timezone type (either existing or newly created)

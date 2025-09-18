@@ -286,13 +286,13 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (structure type)
+  - [PredIterInfo](../P/PredIterInfo.md) (structure type)
   - BoolExpr (structure type representing boolean expressions)
   - list_head (function to get the first ListCell of the arguments list)
   - OpExpr (referenced in the broader context)
 - Called from (representative examples):
   - iterate_end (in predicate classification logic)
-  - predicate_classify (during predicate analysis for boolean expressions)
+  - [predicate_classify](../p/predicate_classify.md) (during predicate analysis for boolean expressions)
 
 ## Notes and Other Information
 - This function is specifically designed for BoolExpr nodes, which contain their iterable elements in the 'args' field

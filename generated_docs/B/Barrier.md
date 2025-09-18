@@ -27,12 +27,12 @@ Static barriers behave similarly to POSIX's pthread_barrier_t, while dynamic bar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock type for thread-safe access)
+  - [slock_t](../s/slock_t.md) (spinlock type for thread-safe access)
   - ConditionVariable (for process synchronization)
 - Called from (representative examples):
-  - MultiExecParallelHash (parallel hash table execution)
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md) (parallel hash table execution)
   - ExecHashTableCreate (hash table creation in parallel execution)
-  - ExecHashJoinImpl (parallel hash join implementation)
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md) (parallel hash join implementation)
   - ParallelHashJoinState (state management for parallel hash joins)
 
 ## Notes and Other Information

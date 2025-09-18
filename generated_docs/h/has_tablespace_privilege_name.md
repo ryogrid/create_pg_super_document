@@ -27,10 +27,10 @@ This is one of several overloaded variants of the `has_tablespace_privilege` fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId (to get current user's OID)
-  - convert_tablespace_name (converts tablespace name to OID)
-  - convert_tablespace_priv_string (converts privilege string to AclMode)
-  - object_aclcheck (performs the actual privilege check)
+  - [GetUserId](../G/GetUserId.md) (to get current user's OID)
+  - [convert_tablespace_name](../c/convert_tablespace_name.md) (converts tablespace name to OID)
+  - [convert_tablespace_priv_string](../c/convert_tablespace_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck](../o/object_aclcheck.md) (performs the actual privilege check)
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)
 

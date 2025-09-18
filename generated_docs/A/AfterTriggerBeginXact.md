@@ -22,7 +22,7 @@ This function takes no parameters.
   - CommandId (type used for firing_counter)
   - Assert (for state verification)
 - Called from:
-  - StartTransaction (in src/backend/access/transam/xact.c:2156)
+  - [StartTransaction](../S/StartTransaction.md) (in src/backend/access/transam/xact.c:2156)
 
 ## Notes and Other Information
 - The firing_counter is initialized to 1 rather than 0 because 0 has special meaning in the trigger system

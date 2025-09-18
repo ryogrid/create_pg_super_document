@@ -17,15 +17,15 @@ This function retrieves the OID of the currently configured text search configur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_ts_config_cache
-  - stringToQualifiedNameList  
-  - get_ts_config_oid
-  - ErrorSaveContext
+  - [init_ts_config_cache](../i/init_ts_config_cache.md)
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md)  
+  - [get_ts_config_oid](get_ts_config_oid.md)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md)
 - Called from (representative examples):
-  - get_current_ts_config
-  - to_tsvector
-  - to_tsquery
-  - ts_headline functions
+  - [get_current_ts_config](get_current_ts_config.md)
+  - [to_tsvector](../t/to_tsvector.md)
+  - [to_tsquery](../t/to_tsquery.md)
+  - [ts_headline](../t/ts_headline.md) functions
 
 ## Notes and Other Information
 - Uses caching mechanism (TSCurrentConfigCache) to improve performance on repeated calls

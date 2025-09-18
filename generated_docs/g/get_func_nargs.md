@@ -17,11 +17,11 @@ This function retrieves the argument count for a specified function by performin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches the system cache for the function entry
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the function entry
   - HeapTupleIsValid: Validates the returned heap tuple
   - elog: Logs error if function not found
   - GETSTRUCT: Extracts the struct from the heap tuple
-  - ReleaseSysCache: Releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache entry
   - Form_pg_proc: PostgreSQL system catalog structure for procedures/functions
 - Called from (representative examples):
   - Currently no direct references found in the indexed codebase

@@ -19,12 +19,12 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - AllocateDir (opens pg_replslot directory)
   - ReadDir (reads directory entries)
-  - ReplicationSlotValidateName (validates slot directory names)
-  - ReorderBufferCleanupSerializedTXNs (removes spilled files from individual slots)
+  - [ReplicationSlotValidateName](../R/ReplicationSlotValidateName.md) (validates slot directory names)
+  - [ReorderBufferCleanupSerializedTXNs](../R/ReorderBufferCleanupSerializedTXNs.md) (removes spilled files from individual slots)
   - FreeDir (closes directory handle)
   - strcmp (string comparison for directory entry filtering)
 - Called from (representative examples):
-  - StartupXLOG (during WAL recovery startup process)
+  - [StartupXLOG](StartupXLOG.md) (during WAL recovery startup process)
 
 ## Notes and Other Information
 - This is a cleanup function specifically designed for startup scenarios

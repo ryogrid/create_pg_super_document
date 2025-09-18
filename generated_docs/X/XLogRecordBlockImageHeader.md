@@ -22,7 +22,7 @@ XLogRecordBlockImageHeader provides metadata for full-page images stored in WAL 
   - (No direct symbol references)
 
 - Called from (representative examples):
-  - XLogRecordAssemble
+  - [XLogRecordAssemble](XLogRecordAssemble.md)
   - SizeOfXLogRecordBlockImageHeader
 
 ## Notes and Other Information

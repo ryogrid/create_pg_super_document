@@ -24,7 +24,7 @@ The synchronization process involves opening the specified file and performing a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruSyncFileTag
+  - [SlruSyncFileTag](../S/SlruSyncFileTag.md)
   - CommitTsCtl
   - FileTag (struct type)
 - Called from (representative examples):

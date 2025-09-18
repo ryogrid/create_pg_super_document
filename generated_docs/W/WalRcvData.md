@@ -73,23 +73,23 @@ The structure is designed to handle both process lifecycle management (PID track
   - XLogRecPtr
   - TimeLineID
   - TimestampTz
-  - Latch
-  - slock_t
-  - pg_atomic_uint64
+  - [Latch](../L/Latch.md)
+  - [slock_t](../s/slock_t.md)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - sig_atomic_t
 
 - Called from (representative examples):
-  - WalReceiverMain
-  - WalRcvWaitForStartPosition
-  - WalRcvDie
-  - XLogWalRcvFlush
-  - ProcessWalSndrMessage
-  - WalRcvShmemInit
-  - WalRcvRunning
-  - WalRcvStreaming
-  - ShutdownWalRcv
-  - RequestXLogStreaming
-  - GetWalRcvFlushRecPtr
+  - [WalReceiverMain](WalReceiverMain.md)
+  - [WalRcvWaitForStartPosition](WalRcvWaitForStartPosition.md)
+  - [WalRcvDie](WalRcvDie.md)
+  - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md)
+  - [ProcessWalSndrMessage](../P/ProcessWalSndrMessage.md)
+  - [WalRcvShmemInit](WalRcvShmemInit.md)
+  - [WalRcvRunning](WalRcvRunning.md)
+  - [WalRcvStreaming](WalRcvStreaming.md)
+  - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
+  - [RequestXLogStreaming](../R/RequestXLogStreaming.md)
+  - [GetWalRcvFlushRecPtr](../G/GetWalRcvFlushRecPtr.md)
 
 ## Notes and Other Information
 - Accessed through the global WalRcv pointer declared as `extern PGDLLIMPORT WalRcvData *WalRcv`

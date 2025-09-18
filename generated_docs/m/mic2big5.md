@@ -23,14 +23,14 @@ The `mic2big5` function performs character encoding conversion from MIC (Mule In
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro for checking if high bit is set)
-  - report_invalid_encoding (error reporting for invalid byte sequences)
-  - pg_encoding_verifymbchar (validates multi-byte character boundaries)
-  - CNStoBIG5 (converts CNS 11643 character codes to Big5 representation)
-  - report_untranslatable_char (error reporting for untranslatable characters)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting for invalid byte sequences)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md) (validates multi-byte character boundaries)
+  - [CNStoBIG5](../C/CNStoBIG5.md) (converts CNS 11643 character codes to Big5 representation)
+  - [report_untranslatable_char](../r/report_untranslatable_char.md) (error reporting for untranslatable characters)
   - PG_MULE_INTERNAL, PG_BIG5 (encoding constants)
   - LC_CNS11643_1, LC_CNS11643_2, LCPRV2_B (character set plane constants)
 - Called from:
-  - mic_to_big5 (main MIC to Big5 conversion function)
+  - [mic_to_big5](mic_to_big5.md) (main MIC to Big5 conversion function)
 
 ## Notes and Other Information
 The function implements a two-step conversion process: MIC → CNS 11643 → Big5, using the CNStoBIG5 lookup function for character mapping. ASCII characters are handled directly without conversion. The function properly distinguishes between standard CNS planes (1 and 2) and private planes (3 and 4), with private planes being identified by the LCPRV2_B prefix byte. Character extraction differs for private planes, where the plane number is in the second byte and character data starts from the third byte. The function integrates with PostgreSQL's encoding verification and error reporting systems, ensuring robust handling of malformed input. Returns the number of input bytes successfully processed, enabling proper handling of partial conversions in streaming scenarios.

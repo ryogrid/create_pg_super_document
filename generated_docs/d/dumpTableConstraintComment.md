@@ -34,12 +34,12 @@ Key aspects:
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - fmtId
-  - dumpComment
+  - [fmtId](../f/fmtId.md)
+  - [dumpComment](dumpComment.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpTableSchema
-  - dumpConstraint
+  - [dumpTableSchema](dumpTableSchema.md)
+  - [dumpConstraint](dumpConstraint.md)
 
 ## Notes and Other Information
 - Only processes comments if DUMP_COMPONENT_COMMENT flag is set

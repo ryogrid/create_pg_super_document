@@ -24,23 +24,23 @@ This function performs expression transformation similar to transformTargetList,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr
-  - ExpandColumnRefStar
-  - ExpandIndirectionStar
-  - list_concat
+  - [transformExpr](transformExpr.md)
+  - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md)
+  - [ExpandIndirectionStar](../E/ExpandIndirectionStar.md)
+  - [list_concat](../l/list_concat.md)
   - lappend
   - llast
   - IsA (macro)
   - lfirst (macro)
-  - ColumnRef
-  - A_Indirection
-  - A_Star
-  - SetToDefault
+  - [ColumnRef](../C/ColumnRef.md)
+  - [A_Indirection](../A/A_Indirection.md)
+  - [A_Star](../A/A_Star.md)
+  - [SetToDefault](../S/SetToDefault.md)
 - Called from (representative examples):
-  - transformInsertStmt
-  - transformValuesClause
+  - [transformInsertStmt](transformInsertStmt.md)
+  - [transformValuesClause](transformValuesClause.md)
   - transformRowExpr
-  - transformMergeStmt
+  - [transformMergeStmt](transformMergeStmt.md)
 
 ## Notes and Other Information
 - Simpler version of transformTargetList that works with bare expressions rather than ResTarget/TargetEntry structures

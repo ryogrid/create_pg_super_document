@@ -31,14 +31,14 @@ The function uses mathematical relationships between transaction IDs and page nu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (for XID comparison testing)
-  - TransactionIdFollowsOrEquals (for XID relationship testing)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (for XID comparison testing)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md) (for XID relationship testing)
   - ctl->PagePrecedes (callback function being tested)
-  - SlruMayDeleteSegment (segment deletion safety validation)
+  - [SlruMayDeleteSegment](SlruMayDeleteSegment.md) (segment deletion safety validation)
   - SLRU_PAGES_PER_SEGMENT (segment size constant)
   - Assert (for validation assertions)
 - Called from (representative examples):
-  - SlruPagePrecedesUnitTests (multiple times with different offsets)
+  - [SlruPagePrecedesUnitTests](SlruPagePrecedesUnitTests.md) (multiple times with different offsets)
 
 ## Notes and Other Information
 - This is a static (internal) test function used for SLRU validation

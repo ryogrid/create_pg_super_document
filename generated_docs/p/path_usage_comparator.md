@@ -20,12 +20,12 @@ The function extracts cost and selectivity information by calling cost_bitmap_tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_bitmap_tree_node
+  - [cost_bitmap_tree_node](../c/cost_bitmap_tree_node.md)
   - PathClauseUsage
   - Cost
   - Selectivity
 - Called from (representative examples):
-  - choose_bitmap_and
+  - [choose_bitmap_and](../c/choose_bitmap_and.md)
 
 ## Notes and Other Information
 - This is a static function local to indxpath.c

@@ -22,13 +22,13 @@ Unlike object lookups which require key comparison, array access is direct using
 - Functions called/Symbols referenced:
   - JsonContainerIsArray
   - JsonContainerSize
-  - fillJsonbValue
-  - getJsonbOffset
+  - [fillJsonbValue](../f/fillJsonbValue.md)
+  - [getJsonbOffset](getJsonbOffset.md)
 - Called from (representative examples):
-  - jsonb_array_element
-  - jsonb_array_element_text
-  - jsonb_get_element
-  - executeItemOptUnwrapTarget
+  - [jsonb_array_element](../j/jsonb_array_element.md)
+  - [jsonb_array_element_text](../j/jsonb_array_element_text.md)
+  - [jsonb_get_element](../j/jsonb_get_element.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
 
 ## Notes and Other Information
 - Strict type checking: will error (elog ERROR) if container is not an array

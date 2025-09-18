@@ -26,21 +26,21 @@ The function retrieves the relation's metadata from the system catalog and perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
-  - object_ownercheck (ownership verification)
-  - aclcheck_error (access control error reporting)
-  - get_relkind_objtype (relation type description)
-  - get_rel_relkind (relation kind retrieval)
-  - IsSystemClass (system catalog detection)
+  - [object_ownercheck](../o/object_ownercheck.md) (ownership verification)
+  - [aclcheck_error](../a/aclcheck_error.md) (access control error reporting)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md) (relation type description)
+  - [get_rel_relkind](../g/get_rel_relkind.md) (relation kind retrieval)
+  - [IsSystemClass](../I/IsSystemClass.md) (system catalog detection)
   - ereport (error reporting)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](ReleaseSysCache.md) (cache cleanup)
 
 - Called from:
-  - CreatePolicy (policy creation operations)
-  - AlterPolicy (policy modification operations)
-  - rename_policy (policy rename operations)
+  - [CreatePolicy](../C/CreatePolicy.md) (policy creation operations)
+  - [AlterPolicy](../A/AlterPolicy.md) (policy modification operations)
+  - [rename_policy](../r/rename_policy.md) (policy rename operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the policy.c module

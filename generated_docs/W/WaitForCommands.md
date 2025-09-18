@@ -28,16 +28,16 @@ The function runs in an infinite loop until it receives EOF from the leader, ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getMessageFromLeader (receives commands from leader process)
-  - parseWorkerCommand (decodes command into table entry and action)
-  - lockTableForWorker (acquires table locks for dump operations)
-  - buildWorkerResponse (creates status response message)
-  - sendMessageToLeader (sends response back to leader)
+  - [getMessageFromLeader](../g/getMessageFromLeader.md) (receives commands from leader process)
+  - [parseWorkerCommand](../p/parseWorkerCommand.md) (decodes command into table entry and action)
+  - [lockTableForWorker](../l/lockTableForWorker.md) (acquires table locks for dump operations)
+  - [buildWorkerResponse](../b/buildWorkerResponse.md) (creates status response message)
+  - [sendMessageToLeader](../s/sendMessageToLeader.md) (sends response back to leader)
   - ACT_DUMP, ACT_RESTORE (action type constants)
-  - TocEntry, T_Action (data structures)
+  - [TocEntry](../T/TocEntry.md), T_Action (data structures)
 
 - Called from (representative examples):
-  - RunWorker (worker process initialization and execution)
+  - [RunWorker](../R/RunWorker.md) (worker process initialization and execution)
 
 ## Notes and Other Information
 - Central component of pg_dump's parallel processing infrastructure

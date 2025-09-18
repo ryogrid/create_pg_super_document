@@ -28,9 +28,9 @@ The return value indicates which dimension advanced, which can be useful for opt
 - Functions called/Symbols referenced:
   - (No external function calls)
 - Called from (representative examples):
-  - array_slice_size
-  - array_extract_slice
-  - array_insert_slice
+  - [array_slice_size](../a/array_slice_size.md)
+  - [array_extract_slice](../a/array_extract_slice.md)
+  - [array_insert_slice](../a/array_insert_slice.md)
 
 ## Notes and Other Information
 - Returns -1 when no next tuple exists (end of iteration)

@@ -24,13 +24,13 @@ The function creates a mapping array (argnumbers) that translates from call argu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttr
-  - get_func_arg_info
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [get_func_arg_info](../g/get_func_arg_info.md)
   - FUNC_PARAM_IN
   - FUNC_PARAM_INOUT
   - FUNC_PARAM_VARIADIC
 - Called from (representative examples):
-  - FuncnameGetCandidates
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within namespace.c

@@ -20,17 +20,17 @@ The function iterates through all states in the NFA, calling  for each one to pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpstate (for dumping individual state information)
-  - dumpcolors (for dumping color map information)
+  - [dumpstate](dumpstate.md) (for dumping individual state information)
+  - [dumpcolors](dumpcolors.md) (for dumping color map information)
   - COLORLESS (constant for colorless transitions)
   - HASLACONS (flag for lookahead/lookbehind constraints)
   - HASCANTMATCH (flag for cant-match constraints)
   - MATCHALL (flag for match-all patterns)
   - DUPINF (constant for infinite duplication)
 - Called from (representative examples):
-  - optimize (src/backend/regex/regc_nfa.c:1612, 1631)
-  - pullback (src/backend/regex/regc_nfa.c:1678)
-  - pushfwd (src/backend/regex/regc_nfa.c:1849)
+  - [optimize](../o/optimize.md) (src/backend/regex/regc_nfa.c:1612, 1631)
+  - [pullback](../p/pullback.md) (src/backend/regex/regc_nfa.c:1678)
+  - [pushfwd](../p/pushfwd.md) (src/backend/regex/regc_nfa.c:1849)
   - fixempties (src/backend/regex/regc_nfa.c:2284)
   - fixconstraintloops (src/backend/regex/regc_nfa.c:2446)
 

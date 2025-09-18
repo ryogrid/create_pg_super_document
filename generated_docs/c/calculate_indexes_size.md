@@ -30,15 +30,15 @@ The function safely handles cases where it's applied to an index itself (returns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `RelationGetIndexList`: Gets list of index OIDs for the relation
-  - `relation_open`: Opens an index relation with specified lock mode
+  - `[RelationGetIndexList](../R/RelationGetIndexList.md)`: Gets list of index OIDs for the relation
+  - `[relation_open](../r/relation_open.md)`: Opens an index relation with specified lock mode
   - `MAX_FORKNUM`: Maximum fork number constant for iterating through all forks
-  - `calculate_relation_size`: Calculates size of a specific relation fork
-  - `relation_close`: Closes the index relation and releases lock
-  - `list_free`: Frees the allocated index OID list
+  - `[calculate_relation_size](calculate_relation_size.md)`: Calculates size of a specific relation fork
+  - `[relation_close](../r/relation_close.md)`: Closes the index relation and releases lock
+  - `[list_free](../l/list_free.md)`: Frees the allocated index OID list
 - Called from (representative examples):
-  - `pg_indexes_size`: SQL function wrapper for index size calculation
-  - `calculate_total_relation_size`: Used in total relation size calculation
+  - `[pg_indexes_size](../p/pg_indexes_size.md)`: SQL function wrapper for index size calculation
+  - `[calculate_total_relation_size](calculate_total_relation_size.md)`: Used in total relation size calculation
 
 ## Notes and Other Information
 - Returns total size in bytes as int64

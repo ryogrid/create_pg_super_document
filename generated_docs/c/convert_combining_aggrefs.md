@@ -28,14 +28,14 @@ This step is performed during the setrefs phase rather than createplan phase to 
   - makeNode
   - memcpy
   - copyObject
-  - mark_partial_aggref
-  - makeTargetEntry
+  - [mark_partial_aggref](../m/mark_partial_aggref.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
   - list_make1
   - expression_tree_mutator
 - Called from (representative examples):
   - fix_scan_list (src/backend/optimizer/plan/setrefs.c:166)
-  - set_plan_refs (src/backend/optimizer/plan/setrefs.c:953, 956)
-  - convert_combining_aggrefs (recursive call at line 2603)
+  - [set_plan_refs](../s/set_plan_refs.md) (src/backend/optimizer/plan/setrefs.c:953, 956)
+  - [convert_combining_aggrefs](convert_combining_aggrefs.md) (recursive call at line 2603)
 
 ## Notes and Other Information
 - Only supports aggregates without ORDER BY clauses (aggorder) or DISTINCT clauses (aggdistinct)

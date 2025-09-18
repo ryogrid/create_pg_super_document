@@ -34,4 +34,4 @@ This is a critical function in the block reference table I/O system, ensuring th
 - The actual I/O operation is delegated to the configured callback function
 - Part of the buffered I/O system for block reference table operations
 - Typically called when buffer is full or during cleanup/termination
-- Does not handle I/O errors - error handling is left to the callback function
+- Does not handle I/O errors - [error](../e/error.md) handling is left to the callback function

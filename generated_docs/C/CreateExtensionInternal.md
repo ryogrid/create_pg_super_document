@@ -29,22 +29,22 @@ The function is designed to handle complex scenarios including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_extension_control_file
-  - check_valid_version_name
-  - get_extension_script_filename
-  - get_ext_ver_list
-  - find_install_path
-  - read_extension_aux_control_file
-  - get_namespace_oid
-  - CreateSchemaCommand
-  - get_required_extension
-  - InsertExtensionTuple
-  - CreateComments
-  - execute_extension_script
-  - ApplyExtensionUpdates
+  - [read_extension_control_file](../r/read_extension_control_file.md)
+  - [check_valid_version_name](../c/check_valid_version_name.md)
+  - [get_extension_script_filename](../g/get_extension_script_filename.md)
+  - [get_ext_ver_list](../g/get_ext_ver_list.md)
+  - [find_install_path](../f/find_install_path.md)
+  - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [CreateSchemaCommand](CreateSchemaCommand.md)
+  - [get_required_extension](../g/get_required_extension.md)
+  - [InsertExtensionTuple](../I/InsertExtensionTuple.md)
+  - [CreateComments](CreateComments.md)
+  - [execute_extension_script](../e/execute_extension_script.md)
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md)
 - Called from (representative examples):
-  - get_required_extension
-  - CreateExtension
+  - [get_required_extension](../g/get_required_extension.md)
+  - [CreateExtension](CreateExtension.md)
 
 ## Notes and Other Information
 - This is a static function internal to extension.c, serving as the main worker for both direct CREATE EXTENSION commands and recursive dependency installation

@@ -33,7 +33,7 @@ The function returns NULL for empty input sets (N == 0) since population varianc
 ## Notes and Other Information
 - Returns NULL for empty input sets since population variance is undefined for N=0
 - Uses first and third elements of transition array (N and Sxx), ignores Sx (sum)
-- Result is guaranteed to be non-negative due to mathematical properties of variance
+- [Result](../R/Result.md) is guaranteed to be non-negative due to mathematical properties of variance
 - Population variance divides by N, unlike sample variance which divides by (N-1)
 - Part of PostgreSQL's statistical aggregate infrastructure
 - Located in src/backend/utils/adt/float.c:3138-3159

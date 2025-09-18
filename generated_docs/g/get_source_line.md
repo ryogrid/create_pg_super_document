@@ -22,10 +22,10 @@ The function is primarily used in error reporting contexts where PostgreSQL need
 - Functions called/Symbols referenced:
   - strchr (standard C library function)
   - isspace (standard C library function)  
-  - pstrdup (PostgreSQL memory allocation function)
-  - pnstrdup (PostgreSQL memory allocation function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL memory allocation function)
+  - [pnstrdup](../p/pnstrdup.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - PLy_traceback
+  - [PLy_traceback](../P/PLy_traceback.md)
 
 ## Notes and Other Information
 - Returns NULL for invalid line numbers (≤ 0) or if the requested line doesn't exist

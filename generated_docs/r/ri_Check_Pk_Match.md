@@ -28,21 +28,21 @@ Key aspects of the implementation:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_NullCheck
+  - [ri_NullCheck](ri_NullCheck.md)
   - SPI_connect/SPI_finish
-  - ri_BuildQueryKey
-  - ri_FetchPreparedPlan
-  - ri_PlanCheck
-  - ri_PerformCheck
-  - quoteRelationName
-  - quoteOneName
+  - [ri_BuildQueryKey](ri_BuildQueryKey.md)
+  - [ri_FetchPreparedPlan](ri_FetchPreparedPlan.md)
+  - [ri_PlanCheck](ri_PlanCheck.md)
+  - [ri_PerformCheck](ri_PerformCheck.md)
+  - [quoteRelationName](../q/quoteRelationName.md)
+  - [quoteOneName](../q/quoteOneName.md)
   - RIAttType
   - RIAttName
-  - ri_GenerateQual
+  - [ri_GenerateQual](ri_GenerateQual.md)
   - RI_PLAN_CHECK_LOOKUPPK_FROM_PK (constant)
   - Various SPI constants and types
 - Called from (representative examples):
-  - ri_restrict (src/backend/utils/adt/ri_triggers.c:653)
+  - [ri_restrict](ri_restrict.md) (src/backend/utils/adt/ri_triggers.c:653)
 
 ## Notes and Other Information
 - This is a static (internal) function, not exposed outside ri_triggers.c

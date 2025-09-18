@@ -25,15 +25,15 @@ This function is primarily used internally by other locking functions to standar
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG
-  - IsSharedRelation
+  - [IsSharedRelation](../I/IsSharedRelation.md)
   - SET_LOCKTAG_RELATION
   - InvalidOid
   - MyDatabaseId
 - Called from (representative examples):
-  - LockRelationOid (src/backend/storage/lmgr/lmgr.c:114)
-  - ConditionalLockRelationOid (src/backend/storage/lmgr/lmgr.c:157)
-  - UnlockRelationOid (src/backend/storage/lmgr/lmgr.c:231)
-  - CheckRelationOidLockedByMe (src/backend/storage/lmgr/lmgr.c:351)
+  - [LockRelationOid](../L/LockRelationOid.md) (src/backend/storage/lmgr/lmgr.c:114)
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md) (src/backend/storage/lmgr/lmgr.c:157)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md) (src/backend/storage/lmgr/lmgr.c:231)
+  - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md) (src/backend/storage/lmgr/lmgr.c:351)
 
 ## Notes and Other Information
 - Static inline function for internal use within the lock manager

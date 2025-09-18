@@ -33,21 +33,21 @@ The function creates JoinTreeItem structures that track essential information in
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc0_object
-  - bms_add_member
-  - bms_make_singleton
-  - bms_add_members
-  - bms_union
-  - bms_copy
-  - list_concat
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_union](../b/bms_union.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [list_concat](../l/list_concat.md)
   - list_make1
   - list_make2
   - llast
-  - mark_rels_nulled_by_join
+  - [mark_rels_nulled_by_join](../m/mark_rels_nulled_by_join.md)
   - makeNode
   - nodeTag
 - Called from (representative examples):
-  - deconstruct_jointree
-  - deconstruct_recurse (recursive calls)
+  - [deconstruct_jointree](deconstruct_jointree.md)
+  - [deconstruct_recurse](deconstruct_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - Creates JoinTreeItem for each node to track structural information needed later

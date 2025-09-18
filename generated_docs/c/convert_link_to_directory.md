@@ -24,7 +24,7 @@ This function modifies the file mode in a stat structure to treat symbolic links
   - S_IFDIR (file type constant for directories)
   - pg_dir_create_mode (PostgreSQL directory creation mode)
 - Called from (representative examples):
-  - sendDir
+  - [sendDir](../s/sendDir.md)
 
 ## Notes and Other Information
 - Static function used only within the basebackup.c module

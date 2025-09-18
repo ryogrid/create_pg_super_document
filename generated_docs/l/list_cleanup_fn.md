@@ -285,10 +285,10 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (structure type)
+  - [PredIterInfo](../P/PredIterInfo.md) (structure type)
 - Called from (representative examples):
   - iterate_end (during predicate classification cleanup)
-  - predicate_classify (multiple locations for cleanup after predicate analysis)
+  - [predicate_classify](../p/predicate_classify.md) (multiple locations for cleanup after predicate analysis)
 
 ## Notes and Other Information
 - This function performs no operations - it contains only a comment "Nothing to clean up"

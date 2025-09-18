@@ -27,8 +27,8 @@ This function provides a convenient wrapper for calling PostgreSQL functions ide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - FunctionCall7Coll
+  - [fmgr_info](../f/fmgr_info.md)
+  - [FunctionCall7Coll](../F/FunctionCall7Coll.md)
 - Called from (representative examples):
   - OidFunctionCall7 (macro)
 

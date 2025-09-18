@@ -23,7 +23,7 @@ This function implements the division operation for mixed-precision floating-poi
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Macro to extract float4 argument from function arguments
   - PG_GETARG_FLOAT8: Macro to extract float8 argument from function arguments  
-  - float8_div: Function that performs double precision floating-point division
+  - [float8_div](float8_div.md): Function that performs double precision floating-point division
   - PG_RETURN_FLOAT8: Macro to return a float8 result
 - Called from (representative examples):
   - No direct references found in the codebase

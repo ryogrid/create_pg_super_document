@@ -25,10 +25,10 @@ This function retrieves the existing value of an array element before assignment
 - Functions called/Symbols referenced:
   - ExprEvalStep (struct)
   - SubscriptingRefState (struct)
-  - ArraySubWorkspace (struct)
-  - array_get_element
+  - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)
+  - [array_get_element](array_get_element.md)
 - Called from (representative examples):
-  - array_exec_setup
+  - [array_exec_setup](array_exec_setup.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the array subscripting implementation

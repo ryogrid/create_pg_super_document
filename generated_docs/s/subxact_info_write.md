@@ -20,8 +20,8 @@ This function manages the persistent storage of subtransaction information for l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subxact_filename
-  - cleanup_subxact_info
+  - [subxact_filename](subxact_filename.md)
+  - [cleanup_subxact_info](../c/cleanup_subxact_info.md)
   - BufFileDeleteFileSet
   - BufFileOpenFileSet
   - BufFileCreateFileSet
@@ -30,8 +30,8 @@ This function manages the persistent storage of subtransaction information for l
   - SubXactInfo
   - BufFile
 - Called from (representative examples):
-  - stream_stop_internal
-  - stream_abort_internal
+  - [stream_stop_internal](stream_stop_internal.md)
+  - [stream_abort_internal](stream_abort_internal.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within worker.c

@@ -22,11 +22,11 @@ This function traverses the `ec_merged` chain for both the left and right Equiva
 - Functions called/Symbols referenced:
   - (None - uses direct field access on EquivalenceClass structures)
 - Called from (representative examples):
-  - select_mergejoin_clauses
-  - find_mergeclauses_for_outer_pathkeys
-  - select_outer_pathkeys_for_merge
-  - make_inner_pathkeys_for_merge
-  - pathkeys_useful_for_merging
+  - [select_mergejoin_clauses](../s/select_mergejoin_clauses.md)
+  - [find_mergeclauses_for_outer_pathkeys](../f/find_mergeclauses_for_outer_pathkeys.md)
+  - [select_outer_pathkeys_for_merge](../s/select_outer_pathkeys_for_merge.md)
+  - [make_inner_pathkeys_for_merge](../m/make_inner_pathkeys_for_merge.md)
+  - [pathkeys_useful_for_merging](../p/pathkeys_useful_for_merging.md)
 
 ## Notes and Other Information
 - Must be called after EC merging is complete to ensure canonical EC references

@@ -20,22 +20,22 @@ This static function performs cleanup operations for a BrinBuildState that was u
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsInvalid
-  - BufferGetPage
-  - PageGetFreeSpace
-  - BufferGetBlockNumber
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - ReleaseBuffer
   - RecordPageWithFreeSpace
   - FreeSpaceMapVacuumRange
-  - brin_free_desc
-  - pfree
+  - [brin_free_desc](../b/brin_free_desc.md)
+  - [pfree](../p/pfree.md)
 - Types referenced:
-  - BrinBuildState
+  - [BrinBuildState](../B/BrinBuildState.md)
   - Page
   - Size
   - BlockNumber
 - Called from (representative examples):
-  - brinbuild
-  - brinsummarize
+  - [brinbuild](../b/brinbuild.md)
+  - [brinsummarize](../b/brinsummarize.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin.c module

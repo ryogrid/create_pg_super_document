@@ -27,26 +27,26 @@ Key responsibilities include setting up all locale categories (LC_COLLATE, LC_CT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setlocales (PostgreSQL locale setup function)
+  - [setlocales](setlocales.md) (PostgreSQL locale setup function)
   - strcmp (C standard library)
   - printf (C standard library)
-  - collprovider_name (PostgreSQL utility for provider names)
+  - [collprovider_name](../c/collprovider_name.md) (PostgreSQL utility for provider names)
   - pg_get_encoding_from_locale (PostgreSQL encoding detection)
-  - pg_valid_server_encoding_id (PostgreSQL encoding validation)
+  - [pg_valid_server_encoding_id](../p/pg_valid_server_encoding_id.md) (PostgreSQL encoding validation)
   - pg_encoding_to_char (PostgreSQL encoding utility)
-  - get_encoding_id (PostgreSQL encoding lookup)
-  - check_locale_encoding (PostgreSQL locale-encoding validation)
-  - check_icu_locale_encoding (ICU-specific validation)
+  - [get_encoding_id](../g/get_encoding_id.md) (PostgreSQL encoding lookup)
+  - [check_locale_encoding](../c/check_locale_encoding.md) (PostgreSQL locale-encoding validation)
+  - [check_icu_locale_encoding](../c/check_icu_locale_encoding.md) (ICU-specific validation)
   - pg_log_error (PostgreSQL error logging)
   - pg_log_error_hint (PostgreSQL error hint logging)
   - pg_log_error_detail (PostgreSQL error detail logging)
-  - pg_fatal (PostgreSQL fatal error function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error function)
   - exit (C standard library)
 - Constants referenced:
   - COLLPROVIDER_LIBC, COLLPROVIDER_ICU, COLLPROVIDER_BUILTIN
   - PG_SQL_ASCII, PG_UTF8
 - Called from (representative examples):
-  - main (src/bin/initdb/initdb.c:3467)
+  - [main](../m/main.md) (src/bin/initdb/initdb.c:3467)
 
 ## Notes and Other Information
 - The function provides detailed output about the locale configuration, displaying either a simple message when all locale categories are identical or a comprehensive breakdown when they differ

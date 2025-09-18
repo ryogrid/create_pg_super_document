@@ -20,10 +20,10 @@ This function removes an ephemeral named relation from a query environment's lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ENR (to locate the ENR by name)
-  - list_delete (PostgreSQL list manipulation function)
+  - [get_ENR](../g/get_ENR.md) (to locate the ENR by name)
+  - [list_delete](../l/list_delete.md) (PostgreSQL list manipulation function)
 - Called from (representative examples):
-  - SPI_unregister_relation
+  - [SPI_unregister_relation](../S/SPI_unregister_relation.md)
 
 ## Notes and Other Information
 - The function operates safely - no error occurs if the named ENR doesn't exist

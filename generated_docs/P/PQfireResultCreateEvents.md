@@ -20,10 +20,10 @@ The function handles the case where multiple event procedures may be registered 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGEventResultCreate (structure used for event data)
+  - [PGEventResultCreate](PGEventResultCreate.md) (structure used for event data)
   - PGEVT_RESULTCREATE (event type constant)
 - Called from (representative examples):
-  - PQgetResult (src/interfaces/libpq/fe-exec.c:2214)
+  - [PQgetResult](PQgetResult.md) (src/interfaces/libpq/fe-exec.c:2214)
 
 ## Notes and Other Information
 - The function returns true if all event procedures succeed, false if any fail or if res is NULL

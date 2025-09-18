@@ -25,11 +25,11 @@ The function handles edge cases such as EXISTS queries where the target list mig
   - linitial_node
   - exprType
   - exprTypmod
-  - exprCollation
+  - [exprCollation](../e/exprCollation.md)
 - Called from (representative examples):
-  - build_subplan
-  - SS_process_ctes
-  - SS_make_initplan_from_plan
+  - [build_subplan](../b/build_subplan.md)
+  - [SS_process_ctes](../S/SS_process_ctes.md)
+  - [SS_make_initplan_from_plan](../S/SS_make_initplan_from_plan.md)
 
 ## Notes and Other Information
 - The function is defined as static, meaning it's only accessible within the subselect.c file

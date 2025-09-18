@@ -24,7 +24,7 @@ The implementation is straightforward - it delegates all processing to the oidre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidrecv (delegates all processing to this function)
+  - [oidrecv](../o/oidrecv.md) (delegates all processing to this function)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through function registry)
 

@@ -24,16 +24,16 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - strlen (standard C library function)
   - isspace (standard C library character classification function)
 - Called from (representative examples):
-  - plperl_trusted_init (for cleaning PLC_TRUSTED and utf8fix error messages)
-  - plperl_untrusted_init (for cleaning plperlu_init error messages)  
-  - plperl_create_sub (for cleaning function compilation errors)
-  - plperl_call_perl_func (for cleaning function execution errors)
-  - plperl_call_perl_trigger_func (for cleaning trigger function errors)
-  - select_perl_context (for cleaning context setup errors)
+  - [plperl_trusted_init](../p/plperl_trusted_init.md) (for cleaning PLC_TRUSTED and utf8fix error messages)
+  - [plperl_untrusted_init](../p/plperl_untrusted_init.md) (for cleaning plperlu_init error messages)  
+  - [plperl_create_sub](../p/plperl_create_sub.md) (for cleaning function compilation errors)
+  - [plperl_call_perl_func](../p/plperl_call_perl_func.md) (for cleaning function execution errors)
+  - [plperl_call_perl_trigger_func](../p/plperl_call_perl_trigger_func.md) (for cleaning trigger function errors)
+  - [select_perl_context](select_perl_context.md) (for cleaning context setup errors)
   - PLPERL_RESTORE_LOCALE (for cleaning locale restoration errors)
 
 ## Notes and Other Information

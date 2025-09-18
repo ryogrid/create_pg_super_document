@@ -46,14 +46,14 @@ The function integrates with PostgreSQL's three-phase ALTER TABLE model by queui
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate, get_default_oid_from_partdesc, LockRelationOid
+  - [make_parsestate](../m/make_parsestate.md), get_default_oid_from_partdesc, LockRelationOid
   - table_openrv, ATSimplePermissions, find_all_inheritors
-  - check_new_partition_bound, CreateInheritance, StorePartitionBound
-  - AttachPartitionEnsureIndexes, CloneRowTriggersToPartition, CloneForeignKeyConstraints
-  - get_qual_from_partbound, RelationGetPartitionQual, QueuePartitionConstraintValidation
-  - get_proposed_default_constraint, map_partition_varattnos
+  - [check_new_partition_bound](../c/check_new_partition_bound.md), CreateInheritance, StorePartitionBound
+  - [AttachPartitionEnsureIndexes](AttachPartitionEnsureIndexes.md), CloneRowTriggersToPartition, CloneForeignKeyConstraints
+  - [get_qual_from_partbound](../g/get_qual_from_partbound.md), RelationGetPartitionQual, QueuePartitionConstraintValidation
+  - [get_proposed_default_constraint](../g/get_proposed_default_constraint.md), map_partition_varattnos
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
 
 ## Notes and Other Information

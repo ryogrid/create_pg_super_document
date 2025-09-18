@@ -22,13 +22,13 @@ This function serves as the core implementation for polygon overlap detection an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - box_ov: Performs bounding box overlap check for quick elimination
-  - lseg_interpt_lseg: Tests if two line segments intersect
-  - point_inside: Determines if a point is inside a polygon
+  - [box_ov](../b/box_ov.md): Performs bounding box overlap check for quick elimination
+  - [lseg_interpt_lseg](../l/lseg_interpt_lseg.md): Tests if two line segments intersect
+  - [point_inside](point_inside.md): Determines if a point is inside a polygon
   - Assert: Validates that both polygons have points
 - Called from (representative examples):
-  - poly_overlap: Public interface function for overlap testing
-  - poly_distance: Distance calculation function that needs overlap information
+  - [poly_overlap](poly_overlap.md): Public interface function for overlap testing
+  - [poly_distance](poly_distance.md): Distance calculation function that needs overlap information
 
 ## Notes and Other Information
 - Static function - not exposed in the public API, used internally within geo_ops.c

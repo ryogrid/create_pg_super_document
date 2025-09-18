@@ -38,11 +38,11 @@ This function performs early analysis of LIMIT and OFFSET clauses to provide the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimate_expression_value
-  - DatumGetInt64
+  - [estimate_expression_value](../e/estimate_expression_value.md)
+  - [DatumGetInt64](../D/DatumGetInt64.md)
   - IsA, Const node type checking
 - Called from:
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
   - standard_qp_extra
 
 ## Notes and Other Information

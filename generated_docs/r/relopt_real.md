@@ -22,14 +22,14 @@ This structure is used to define floating-point options that can be set on datab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relopt_gen
+  - [relopt_gen](relopt_gen.md)
 - Called from (representative examples):
-  - allocate_reloption
-  - init_real_reloption
-  - add_real_reloption
-  - add_local_real_reloption
-  - parse_one_reloption
-  - fillRelOptions
+  - [allocate_reloption](../a/allocate_reloption.md)
+  - [init_real_reloption](../i/init_real_reloption.md)
+  - [add_real_reloption](../a/add_real_reloption.md)
+  - [add_local_real_reloption](../a/add_local_real_reloption.md)
+  - [parse_one_reloption](../p/parse_one_reloption.md)
+  - [fillRelOptions](../f/fillRelOptions.md)
 
 ## Notes and Other Information
 This structure enforces value constraints through the min and max fields, which are checked during option parsing to ensure floating-point values are within valid ranges. The gen field must be the first member to allow casting between relopt_real* and relopt_gen* for polymorphic handling. The type field in the embedded gen structure will be set to RELOPT_TYPE_REAL for all instances of this structure.

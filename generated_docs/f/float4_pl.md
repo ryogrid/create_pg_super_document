@@ -19,10 +19,10 @@ This inline function implements safe single-precision floating-point addition by
 ## Dependencies
 - Functions called/Symbols referenced:
   - isinf (checks if value is infinite)
-  - float_overflow_error (reports overflow error)
+  - [float_overflow_error](float_overflow_error.md) (reports overflow error)
   - float4 (PostgreSQL's single-precision float type)
 - Called from (representative examples):
-  - float4pl (src/backend/utils/adt/float.c:726)
+  - [float4pl](float4pl.md) (src/backend/utils/adt/float.c:726)
 
 ## Notes and Other Information
 - Defined as a static inline function in src/include/utils/float.h:146-157

@@ -19,7 +19,7 @@ This function provides access to JIT-compiled functions by looking up their symb
 ## Dependencies
 - Functions called/Symbols referenced:
   - llvm_assert_in_fatal_section (safety assertion)
-  - llvm_compile_module (triggers compilation if needed)
+  - [llvm_compile_module](llvm_compile_module.md) (triggers compilation if needed)
   - LLVMOrcLLJITLookup (LLVM 12+ symbol lookup)
   - LLVMOrcGetSymbolAddressIn (LLVM ≤11 symbol lookup)
   - llvm_error_message (error handling utility)

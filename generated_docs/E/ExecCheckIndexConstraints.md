@@ -42,16 +42,16 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSetInvalid: Initializes conflict TID pointers to invalid state
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md): Initializes conflict TID pointers to invalid state
   - GetPerTupleExprContext: Gets expression evaluation context for tuple processing
-  - list_member_oid: Checks if an index OID is in the arbiter list
-  - errtableconstraint: Reports constraint violation errors with proper error context
-  - ExecPrepareQual: Prepares partial index predicate expressions for evaluation
+  - [list_member_oid](../l/list_member_oid.md): Checks if an index OID is in the arbiter list
+  - [errtableconstraint](../e/errtableconstraint.md): Reports constraint violation errors with proper error context
+  - [ExecPrepareQual](ExecPrepareQual.md): Prepares partial index predicate expressions for evaluation
   - ExecQual: Evaluates partial index predicate expressions
-  - FormIndexDatum: Extracts index column values from the heap tuple
-  - check_exclusion_or_unique_constraint: Performs the actual constraint checking logic
+  - [FormIndexDatum](../F/FormIndexDatum.md): Extracts index column values from the heap tuple
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md): Performs the actual constraint checking logic
 - Called from (representative examples):
-  - ExecInsert: Used in INSERT ... ON CONFLICT to detect conflicts before insertion
+  - [ExecInsert](ExecInsert.md): Used in INSERT ... ON CONFLICT to detect conflicts before insertion
   - nodeModifyTable operations: Part of conflict detection in modification operations
 
 ## Notes and Other Information

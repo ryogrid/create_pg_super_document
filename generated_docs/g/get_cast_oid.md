@@ -24,12 +24,12 @@ This function is essential for PostgreSQL's type conversion system, allowing the
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid2 (performs system cache lookup for cast)
-  - ObjectIdGetDatum (converts OID parameters to Datum format)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID parameters to Datum format)
   - OidIsValid (checks if returned OID is valid)
   - ereport (reports errors when cast not found)
-  - format_type_be (formats type names for error messages)
+  - [format_type_be](../f/format_type_be.md) (formats type names for error messages)
 - Called from (representative examples):
-  - get_object_address (when resolving cast object addresses)
+  - [get_object_address](get_object_address.md) (when resolving cast object addresses)
 
 ## Notes and Other Information
 - Returns InvalidOid when no cast exists and missing_ok is true

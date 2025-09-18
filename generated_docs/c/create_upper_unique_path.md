@@ -33,9 +33,9 @@ The function requires the input to be sorted on the grouping columns (and possib
   - cpu_operator_cost (cost parameter for comparison operations)
   - UpperUniquePath (return type structure)
 - Called from (representative examples):
-  - create_partial_distinct_paths
-  - create_final_distinct_paths
-  - generate_union_paths
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md)
+  - [create_final_distinct_paths](create_final_distinct_paths.md)
+  - [generate_union_paths](../g/generate_union_paths.md)
 
 ## Notes and Other Information
 - Requires input to be sorted on at least the first numCols columns for efficient duplicate detection

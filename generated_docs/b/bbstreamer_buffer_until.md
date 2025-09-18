@@ -27,11 +27,11 @@ This pattern is particularly useful for parsing operations that need to accumula
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (struct type)
-  - bbstreamer_buffer_bytes (helper function)
+  - [bbstreamer](bbstreamer.md) (struct type)
+  - [bbstreamer_buffer_bytes](bbstreamer_buffer_bytes.md) (helper function)
 
 - Called from (representative examples):
-  - bbstreamer_tar_parser_content
+  - [bbstreamer_tar_parser_content](bbstreamer_tar_parser_content.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in bbstreamer.h for internal use by bbstreamer implementations

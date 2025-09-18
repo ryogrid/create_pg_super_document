@@ -38,13 +38,13 @@ The function handles the case where opfuncoid might be InvalidOid (unlike eqjoin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
+  - [fmgr_info](../f/fmgr_info.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - CLAMP_PROBABILITY
   - LOCAL_FCINFO
 - Called from (representative examples):
-  - eqjoinsel
+  - [eqjoinsel](eqjoinsel.md)
 
 ## Notes and Other Information
 - Used for both SEMI and ANTI joins since they're estimated the same way

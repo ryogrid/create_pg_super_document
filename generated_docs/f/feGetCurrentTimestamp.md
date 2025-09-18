@@ -26,10 +26,10 @@ This function provides a frontend implementation of timestamp retrieval since cl
   - POSTGRES_EPOCH_JDATE
   - USECS_PER_SEC
 - Called from (representative examples):
-  - StreamLogicalLog (multiple calls in pg_recvlogical.c)
-  - flushAndSendFeedback
-  - HandleCopyStream
-  - ProcessKeepaliveMsg
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (multiple calls in pg_recvlogical.c)
+  - [flushAndSendFeedback](flushAndSendFeedback.md)
+  - [HandleCopyStream](../H/HandleCopyStream.md)
+  - [ProcessKeepaliveMsg](../P/ProcessKeepaliveMsg.md)
 
 ## Notes and Other Information
 - Frontend equivalent of backend's GetCurrentTimestamp() function

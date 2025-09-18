@@ -26,13 +26,13 @@ The structure uses a flexible array member to accommodate a variable number of w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeInstrumentation (per-worker instrumentation data)
+  - [MemoizeInstrumentation](../M/MemoizeInstrumentation.md) (per-worker instrumentation data)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member macro)
 - Called from (representative examples):
-  - ExecMemoizeEstimate (for shared memory size calculation)
-  - ExecMemoizeInitializeDSM (for shared memory initialization)
-  - ExecMemoizeRetrieveInstrumentation (for collecting worker data)
-  - MemoizeState (contains reference to shared info)
+  - [ExecMemoizeEstimate](../E/ExecMemoizeEstimate.md) (for shared memory size calculation)
+  - [ExecMemoizeInitializeDSM](../E/ExecMemoizeInitializeDSM.md) (for shared memory initialization)
+  - [ExecMemoizeRetrieveInstrumentation](../E/ExecMemoizeRetrieveInstrumentation.md) (for collecting worker data)
+  - [MemoizeState](../M/MemoizeState.md) (contains reference to shared info)
 
 ## Notes and Other Information
 - Used exclusively in parallel query execution contexts where multiple workers perform memoization

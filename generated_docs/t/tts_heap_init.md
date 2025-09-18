@@ -19,7 +19,7 @@ This function is part of the TupleTableSlotOps interface for heap tuple table sl
 - Functions called/Symbols referenced:
   - None (empty function body)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (indirectly through TupleTableSlotOps structure)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (indirectly through TupleTableSlotOps structure)
 
 ## Notes and Other Information
 - This is a static function specific to heap tuple table slot operations

@@ -27,12 +27,12 @@ The function ensures that all arguments are properly converted and available to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyList_New, PyList_SetItem (Python list operations)
-  - PLy_input_convert (type conversion from PostgreSQL to Python)
+  - [PLy_input_convert](PLy_input_convert.md) (type conversion from PostgreSQL to Python)
   - PyDict_SetItemString (for setting named arguments in globals)
   - PLy_elog (error reporting)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling)
 - Called from (representative examples):
-  - PLy_exec_function (main function execution)
+  - [PLy_exec_function](PLy_exec_function.md) (main function execution)
 
 ## Notes and Other Information
 - Returns a Python list object containing the converted arguments

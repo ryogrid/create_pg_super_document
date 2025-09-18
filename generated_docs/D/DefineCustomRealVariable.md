@@ -43,8 +43,8 @@ The function initializes all necessary metadata for the real variable including 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_custom_variable
-  - define_custom_variable
+  - [init_custom_variable](../i/init_custom_variable.md)
+  - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_REAL
   - config_real
   - GucContext

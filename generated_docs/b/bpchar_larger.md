@@ -24,8 +24,8 @@ The comparison respects the current collation setting, making it suitable for us
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (argument extraction macro)
-  - bcTruelen (determines true length of BPCHAR)
-  - varstr_cmp (performs collation-aware string comparison)
+  - [bcTruelen](bcTruelen.md) (determines true length of BPCHAR)
+  - [varstr_cmp](../v/varstr_cmp.md) (performs collation-aware string comparison)
   - VARDATA_ANY (extracts character data from variable-length type)
   - PG_GET_COLLATION (gets current collation setting)
   - PG_RETURN_BPCHAR_P (returns BPCHAR result)

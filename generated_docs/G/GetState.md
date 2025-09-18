@@ -41,19 +41,19 @@ The GetState structure provides comprehensive state management for JSON path-bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
-  - text
+  - [JsonLexContext](../J/JsonLexContext.md)
+  - [text](../t/text.md)
 - Called from (representative examples):
-  - get_worker
-  - get_object_start
-  - get_object_end
-  - get_object_field_start
-  - get_object_field_end
-  - get_array_start
-  - get_array_end
-  - get_array_element_start
-  - get_array_element_end
-  - get_scalar
+  - [get_worker](../g/get_worker.md)
+  - [get_object_start](../g/get_object_start.md)
+  - [get_object_end](../g/get_object_end.md)
+  - [get_object_field_start](../g/get_object_field_start.md)
+  - [get_object_field_end](../g/get_object_field_end.md)
+  - [get_array_start](../g/get_array_start.md)
+  - [get_array_end](../g/get_array_end.md)
+  - [get_array_element_start](../g/get_array_element_start.md)
+  - [get_array_element_end](../g/get_array_element_end.md)
+  - [get_scalar](../g/get_scalar.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL JSON path extraction functionality and supports complex nested path queries. The parallel arrays (path_names, path_indexes, pathok, array_cur_index) work together to maintain state at each level of the JSON hierarchy being traversed. The structure handles both object field access and array indexing, making it suitable for a wide variety of JSON query patterns. The normalize_results flag provides flexibility in how extracted values are formatted for return to the caller.

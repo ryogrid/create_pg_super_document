@@ -28,11 +28,11 @@ The current active implementation simply calls varbit_out(fcinfo), which produce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varbit_out (active implementation)
+  - [varbit_out](../v/varbit_out.md) (active implementation)
   - VarBit, bits8 (type definitions - commented code)
   - PG_GETARG_VARBIT_P, VARBIT_CORRECTLY_PADDED, VARBITLEN, VARBITS (VarBit macros - commented code)
   - HEXDIG (hex digit conversion macro - commented code)
-  - palloc (memory allocation - commented code)
+  - [palloc](../p/palloc.md) (memory allocation - commented code)
   - PG_RETURN_CSTRING (return macro - commented code)
 - Called from (representative examples):
   - Type system output functions (automatically invoked)

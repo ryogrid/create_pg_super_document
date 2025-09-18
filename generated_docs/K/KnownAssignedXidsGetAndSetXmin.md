@@ -29,13 +29,13 @@ The function is critical for snapshot creation and transaction visibility determ
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_read_barrier
-  - TransactionIdPrecedes
-  - TransactionIdFollowsOrEquals
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
   - TransactionIdIsValid (implicit)
 - Called from (representative examples):
   - xc_slow_answer_inc
-  - GetSnapshotData
-  - KnownAssignedXidsGet
+  - [GetSnapshotData](../G/GetSnapshotData.md)
+  - [KnownAssignedXidsGet](KnownAssignedXidsGet.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within procarray.c

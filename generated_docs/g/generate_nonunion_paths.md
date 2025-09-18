@@ -28,19 +28,19 @@ The function handles both ALL and non-ALL variants of INTERSECT and EXCEPT opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recurse_set_operations
-  - build_setop_child_paths
-  - generate_append_tlist
+  - [recurse_set_operations](../r/recurse_set_operations.md)
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)
+  - [generate_append_tlist](generate_append_tlist.md)
   - fetch_upper_rel
   - create_pathtarget
-  - create_append_path
-  - generate_setop_grouplist
-  - choose_hashed_setop
-  - create_sort_path
-  - make_pathkeys_for_sortclauses
-  - create_setop_path
+  - [create_append_path](../c/create_append_path.md)
+  - [generate_setop_grouplist](generate_setop_grouplist.md)
+  - [choose_hashed_setop](../c/choose_hashed_setop.md)
+  - [create_sort_path](../c/create_sort_path.md)
+  - [make_pathkeys_for_sortclauses](../m/make_pathkeys_for_sortclauses.md)
+  - [create_setop_path](../c/create_setop_path.md)
 - Called from (representative examples):
-  - recurse_set_operations
+  - [recurse_set_operations](../r/recurse_set_operations.md)
 
 ## Notes and Other Information
 - The function temporarily sets root->tuple_fraction to 0.0 to ensure complete data retrieval from children

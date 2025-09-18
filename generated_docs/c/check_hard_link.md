@@ -26,14 +26,14 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - unlink (system call for removing files)
-  - link (system call for creating hard links)
+  - [link](../l/link.md) (system call for creating hard links)
   - snprintf (for formatting file paths)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
 - Global variables accessed:
   - old_cluster.pgdata (source data directory path)
   - new_cluster.pgdata (destination data directory path)
 - Called from:
-  - check_new_cluster (src/bin/pg_upgrade/check.c:705)
+  - [check_new_cluster](check_new_cluster.md) (src/bin/pg_upgrade/check.c:705)
 
 ## Notes and Other Information
 - This function is essential for validating link mode compatibility in pg_upgrade

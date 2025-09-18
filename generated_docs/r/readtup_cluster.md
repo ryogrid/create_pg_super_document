@@ -30,14 +30,14 @@ This function is essential for the CLUSTER operation as it maintains the relatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - tuplesort_readtup_alloc
+  - [tuplesort_readtup_alloc](../t/tuplesort_readtup_alloc.md)
   - LogicalTapeReadExact
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - TUPLESORT_RANDOMACCESS (flag)
   - HEAPTUPLESIZE (constant)
 - Called from (representative examples):
   - CLUSTER_SORT operations
-  - tuplesort_begin_cluster
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)
 
 ## Notes and Other Information
 - This function is the read counterpart to `writetup_cluster` and must handle the same serialization format

@@ -35,10 +35,10 @@ The function conditionally sets the SO_ALLOW_STRAT and SO_ALLOW_SYNC flags based
   - SO_ALLOW_SYNC (conditionally set based on allow_sync parameter)
   - rd_tableam->scan_begin (table access method function)
 - Called from (representative examples):
-  - heapam_index_build_range_scan
-  - heapam_index_validate_scan
-  - systable_beginscan
-  - IndexCheckExclusion
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [heapam_index_validate_scan](../h/heapam_index_validate_scan.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md)
 
 ## Notes and Other Information
 - This function provides more granular control compared to table_beginscan

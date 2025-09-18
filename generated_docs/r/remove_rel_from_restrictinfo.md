@@ -29,16 +29,16 @@ The function is conservative about cleaning - it only touches clause_relids and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_copy: Creates private copies of bitmap sets to avoid modifying shared structures
-  - bms_del_member: Removes specific relation IDs from bitmap sets
-  - restriction_is_or_clause: Checks if the RestrictInfo contains an OR clause
-  - is_orclause, is_andclause: Node type checking functions for boolean expressions
+  - [bms_copy](../b/bms_copy.md): Creates private copies of bitmap sets to avoid modifying shared structures
+  - [bms_del_member](../b/bms_del_member.md): Removes specific relation IDs from bitmap sets
+  - [restriction_is_or_clause](restriction_is_or_clause.md): Checks if the RestrictInfo contains an OR clause
+  - [is_orclause](../i/is_orclause.md), is_andclause: Node type checking functions for boolean expressions
   - BoolExpr: Boolean expression node type for OR/AND clauses
-  - remove_rel_from_restrictinfo: Recursive calls for processing sub-clauses
+  - [remove_rel_from_restrictinfo](remove_rel_from_restrictinfo.md): Recursive calls for processing sub-clauses
 
 - Called from (representative examples):
-  - remove_rel_from_query: Main relation removal function during join elimination
-  - remove_rel_from_eclass: Equivalence class cleanup
+  - [remove_rel_from_query](remove_rel_from_query.md): Main relation removal function during join elimination
+  - [remove_rel_from_eclass](remove_rel_from_eclass.md): Equivalence class cleanup
   - Self-recursive calls for handling nested OR/AND structures
 
 ## Notes and Other Information

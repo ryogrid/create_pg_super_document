@@ -30,12 +30,12 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC, PG_RETURN_NUMERIC
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_NAN, NUMERIC_IS_PINF, NUMERIC_IS_NINF
-  - make_result, numeric_sign_internal
-  - init_var_from_num, init_var, free_var
-  - div_var (called with scale=0, round=false for truncation)
+  - [make_result](../m/make_result.md), numeric_sign_internal
+  - [init_var_from_num](../i/init_var_from_num.md), init_var, free_var
+  - [div_var](../d/div_var.md) (called with scale=0, round=false for truncation)
 - Called from (representative examples):
-  - numeric_half_rounded
-  - numeric_truncated_divide
+  - [numeric_half_rounded](numeric_half_rounded.md)
+  - [numeric_truncated_divide](numeric_truncated_divide.md)
 
 ## Notes and Other Information
 - This is a PostgreSQL built-in function accessible via SQL

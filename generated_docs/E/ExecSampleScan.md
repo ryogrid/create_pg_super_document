@@ -17,13 +17,13 @@ ExecSampleScan serves as the primary execution entry point for sample scan nodes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecScan
-  - SampleNext
-  - SampleRecheck
-  - SampleScanState (type)
+  - [ExecScan](ExecScan.md)
+  - [SampleNext](../S/SampleNext.md)
+  - [SampleRecheck](../S/SampleRecheck.md)
+  - [SampleScanState](../S/SampleScanState.md) (type)
   - castNode (macro)
 - Called from (representative examples):
-  - ExecInitSampleScan (as ps_ExecProcNode function pointer)
+  - [ExecInitSampleScan](ExecInitSampleScan.md) (as ps_ExecProcNode function pointer)
 
 ## Notes and Other Information
 - This is a static function, accessible only within nodeSamplescan.c

@@ -35,7 +35,7 @@ For proper functionality, reads and writes on the returned handles must go throu
   - pg_log_error (logs error messages)
   - PGINVALID_SOCKET (invalid socket constant)
 - Called from (representative examples):
-  - ParallelBackupStart (parallel backup initialization)
+  - [ParallelBackupStart](../P/ParallelBackupStart.md) (parallel backup initialization)
 
 ## Notes and Other Information
 - Windows-only implementation (conditionally compiled)

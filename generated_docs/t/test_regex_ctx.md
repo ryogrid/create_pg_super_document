@@ -47,13 +47,13 @@ The test_regex_ctx structure serves as a comprehensive context holder for regex 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_re_flags (embedded structure)
+  - [test_re_flags](test_re_flags.md) (embedded structure)
   - rm_detail_t (Spencer's regex detail type)
 - Used by:
-  - test_regex (primary function)
-  - parse_test_flags (for initialization)
-  - setup_test_matches (for match processing)
-  - build_test_match_result (for result building)
+  - [test_regex](test_regex.md) (primary function)
+  - [parse_test_flags](../p/parse_test_flags.md) (for initialization)
+  - [setup_test_matches](../s/setup_test_matches.md) (for match processing)
+  - [build_test_match_result](../b/build_test_match_result.md) (for result building)
 
 ## Notes and Other Information
 This structure is designed to efficiently handle complex regex operations involving multiple matches and various output formats. The match_locs array uses a specific layout where each match stores start and end+1 indices, allowing precise character-level result reporting. The workspace arrays (elems, nulls) facilitate building PostgreSQL tuple results without repeated memory allocation.

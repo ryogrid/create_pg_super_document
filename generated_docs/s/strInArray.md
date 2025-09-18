@@ -21,7 +21,7 @@ This is a simple utility function that performs linear search through an array o
 - Functions called/Symbols referenced:
   - strcmp (standard C library function for string comparison)
 - Called from (representative examples):
-  - flagInhAttrs
+  - [flagInhAttrs](../f/flagInhAttrs.md)
   - Referenced near CATALOGIDHASH_INITIAL_SIZE
 
 ## Notes and Other Information

@@ -20,14 +20,14 @@ Similar to pq_sendfloat4, this function uses a union to perform type-punning, tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendint64 (handles the actual serialization and byte-swapping of the 64-bit representation)
+  - [pq_sendint64](pq_sendint64.md) (handles the actual serialization and byte-swapping of the 64-bit representation)
   - float8 (PostgreSQL's double-precision floating-point type)
   - int64 (64-bit signed integer type used in the union)
 
 - Called from (representative examples):
-  - float8send (float8 datatype's send function for binary output)
-  - box_send, line_send, point_send, lseg_send, poly_send, circle_send (geometric types that contain float8 coordinates)
-  - complex_send (tutorial example of complex number type)
+  - [float8send](../f/float8send.md) (float8 datatype's send function for binary output)
+  - [box_send](../b/box_send.md), line_send, point_send, lseg_send, poly_send, circle_send (geometric types that contain float8 coordinates)
+  - [complex_send](../c/complex_send.md) (tutorial example of complex number type)
 
 ## Notes and Other Information
 - Uses a union for type-punning to convert float8 to int64 without changing bit representation

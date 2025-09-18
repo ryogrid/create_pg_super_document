@@ -22,10 +22,10 @@ The function calculates the area of each box using the box_ar helper function an
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract BOX argument from function args)
-  - box_ar (function to calculate box area)
-  - FPlt (floating-point less than comparison)
+  - [box_ar](box_ar.md) (function to calculate box area)
+  - [FPlt](../F/FPlt.md) (floating-point less than comparison)
   - PG_RETURN_BOOL (macro to return boolean result)
-  - BOX (box data structure)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
   - No current references found
 

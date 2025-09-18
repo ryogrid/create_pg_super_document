@@ -30,7 +30,7 @@ This function is commonly used in comparison operations and range checking where
   - `vqsubq_u8` (NEON intrinsic for saturated subtraction)
   - Vector8 type
 - Called from (representative examples):
-  - `vector8_has_le` (less-than-or-equal comparison helper)
+  - `[vector8_has_le](vector8_has_le.md)` (less-than-or-equal comparison helper)
 
 ## Notes and Other Information
 - Defined as static inline for optimal performance

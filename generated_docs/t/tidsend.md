@@ -22,12 +22,12 @@ The `tidsend` function serializes TID values into PostgreSQL's binary wire proto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pq_begintypsend`: Initializes binary output buffer for type serialization
-  - `pq_sendint32`: Sends a 32-bit integer to the binary buffer
-  - `pq_sendint16`: Sends a 16-bit integer to the binary buffer
-  - `ItemPointerGetBlockNumberNoCheck`: Extracts block number from ItemPointer without validation
-  - `ItemPointerGetOffsetNumberNoCheck`: Extracts offset number from ItemPointer without validation
-  - `pq_endtypsend`: Finalizes binary output buffer and returns bytea
+  - `[pq_begintypsend](../p/pq_begintypsend.md)`: Initializes binary output buffer for type serialization
+  - `[pq_sendint32](../p/pq_sendint32.md)`: Sends a 32-bit integer to the binary buffer
+  - `[pq_sendint16](../p/pq_sendint16.md)`: Sends a 16-bit integer to the binary buffer
+  - `[ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)`: Extracts block number from ItemPointer without validation
+  - `[ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)`: Extracts offset number from ItemPointer without validation
+  - `[pq_endtypsend](../p/pq_endtypsend.md)`: Finalizes binary output buffer and returns bytea
   - `PG_RETURN_BYTEA_P`: PostgreSQL macro to return bytea datum
 - Called from (representative examples):
   - PostgreSQL binary protocol handling when sending TID values to clients

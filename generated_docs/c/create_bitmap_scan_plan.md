@@ -39,22 +39,22 @@ The function includes sophisticated logic to minimize redundant condition checki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_bitmap_subplan
-  - bitmap_subplan_mark_shared
-  - list_member
-  - list_member_ptr
-  - contain_mutable_functions
-  - predicate_implied_by
-  - order_qual_clauses
-  - extract_actual_clauses
-  - list_difference_ptr
-  - replace_nestloop_params
-  - make_bitmap_heapscan
-  - copy_generic_path_info
+  - [create_bitmap_subplan](create_bitmap_subplan.md)
+  - [bitmap_subplan_mark_shared](../b/bitmap_subplan_mark_shared.md)
+  - [list_member](../l/list_member.md)
+  - [list_member_ptr](../l/list_member_ptr.md)
+  - [contain_mutable_functions](contain_mutable_functions.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [list_difference_ptr](../l/list_difference_ptr.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_bitmap_heapscan](../m/make_bitmap_heapscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - BitmapHeapPath, BitmapHeapScan (struct types)
   - RTE_RELATION (enum value)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - Bitmap scans provide a middle ground between sequential scans and index scans for moderate selectivity queries

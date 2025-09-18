@@ -27,7 +27,7 @@ This is part of PostgreSQL's JIT compilation infrastructure and is widely used d
   - LLVMInt32TypeInContext (LLVM C API function)
   - int32 (PostgreSQL type alias for signed 32-bit integer)
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c, used for tuple slot deformation operations)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c, used for tuple slot deformation operations)
   - llvm_compile_expr (in llvmjit_expr.c, used extensively for expression compilation with 15+ call sites)
 
 ## Notes and Other Information

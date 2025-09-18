@@ -26,12 +26,12 @@ The structure serves as the private_data context passed to hash table operations
 - Functions called/Symbols referenced:
   - saophash_hash (the underlying hash table type from simplehash.h)
   - ExprEvalStep (parent expression step structure)
-  - FmgrInfo (PostgreSQL function manager info)
-  - FunctionCallInfoBaseData (function call argument and result data)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info)
+  - [FunctionCallInfoBaseData](../F/FunctionCallInfoBaseData.md) (function call argument and result data)
 - Called from (representative examples):
-  - ExecEvalHashedScalarArrayOp (creates, populates, and uses the hash table)
-  - saop_element_hash (accesses hash_fcinfo_data and hash_finfo for computing hash values)
-  - saop_hash_element_match (accesses op field to get comparison function info)
+  - [ExecEvalHashedScalarArrayOp](../E/ExecEvalHashedScalarArrayOp.md) (creates, populates, and uses the hash table)
+  - [saop_element_hash](../s/saop_element_hash.md) (accesses hash_fcinfo_data and hash_finfo for computing hash values)
+  - [saop_hash_element_match](../s/saop_hash_element_match.md) (accesses op field to get comparison function info)
 
 ## Notes and Other Information
 - Memory for this structure is allocated in the per-query memory context to persist across multiple evaluations

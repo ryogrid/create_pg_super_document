@@ -21,7 +21,7 @@ This function is the extended version of hashoidvector that accepts an additiona
   - PG_GETARG_POINTER: Extract pointer argument from function call
   - PG_GETARG_INT64: Extract int64 seed argument from function call
   - oidvector: PostgreSQL data type for OID vectors
-  - hash_any_extended: Generic extended hash function for binary data with seed
+  - [hash_any_extended](hash_any_extended.md): Generic extended hash function for binary data with seed
 - Called from (representative examples):
   - No direct callers found in the codebase
 

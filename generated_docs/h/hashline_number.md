@@ -23,14 +23,14 @@ This function creates a properly formatted C preprocessor line directive (`#line
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (memory allocation)
+  - [mm_alloc](../m/mm_alloc.md) (memory allocation)
   - sprintf
   - strlen
   - strcat
   - EMPTY (constant for empty string)
   - CHAR_BIT (system constant)
 - Called from:
-  - output_line_number (src/interfaces/ecpg/preproc/output.c:12)
+  - [output_line_number](../o/output_line_number.md) (src/interfaces/ecpg/preproc/output.c:12)
 
 ## Notes and Other Information
 - Returns dynamically allocated memory that must be freed by the caller

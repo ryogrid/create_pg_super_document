@@ -29,12 +29,12 @@ For performance optimization, the function uses binary search (bsearch) when the
   - FullTransactionIdPrecedes
   - FullTransactionIdEquals
   - bsearch (C library function)
-  - cmp_fxid
+  - [cmp_fxid](../c/cmp_fxid.md)
   - FullTransactionId (type)
-  - pg_snapshot (type)
+  - [pg_snapshot](../p/pg_snapshot.md) (type)
   - USE_BSEARCH_IF_NXIP_GREATER (preprocessor constant)
 - Called from (representative examples):
-  - pg_visible_in_snapshot
+  - [pg_visible_in_snapshot](../p/pg_visible_in_snapshot.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the xid8funcs.c module

@@ -21,11 +21,11 @@ The function follows a void return pattern, writing the result directly to the p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentDateTime (retrieves current system time into tm structure)
-  - tm2timestamp (converts tm structure to PostgreSQL timestamp format)
+  - [GetCurrentDateTime](../G/GetCurrentDateTime.md) (retrieves current system time into tm structure)
+  - [tm2timestamp](../t/tm2timestamp.md) (converts tm structure to PostgreSQL timestamp format)
   - errno (standard C error indicator)
 - Called from (representative examples):
-  - dtcurrent (Informix compatibility function)
+  - [dtcurrent](../d/dtcurrent.md) (Informix compatibility function)
   - Test programs (dt_test)
 
 ## Notes and Other Information

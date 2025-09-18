@@ -23,11 +23,11 @@ Like ExecTypeFromTL, it delegates the actual work to ExecTypeFromTLInternal, but
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecTypeFromTLInternal (the actual implementation function with skipjunk=true)
+  - [ExecTypeFromTLInternal](ExecTypeFromTLInternal.md) (the actual implementation function with skipjunk=true)
 - Called from (representative examples):
   - ExecInitJunkFilter
-  - PortalStart
-  - PlanCacheComputeResultDesc
+  - [PortalStart](../P/PortalStart.md)
+  - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
 
 ## Notes and Other Information
 - This function excludes resjunk columns, making it suitable for creating final result descriptors

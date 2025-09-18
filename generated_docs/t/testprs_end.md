@@ -20,8 +20,8 @@ The testprs_end function serves as the cleanup function for the test parser modu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParserState (structure type being deallocated)
-  - pfree (PostgreSQL memory deallocation function)
+  - [ParserState](../P/ParserState.md) (structure type being deallocated)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - PG_GETARG_POINTER, PG_RETURN_VOID (PostgreSQL function argument/return macros)
 - Called from (representative examples):
   - LexDescr (referenced in test parser lexical description)

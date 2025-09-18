@@ -30,18 +30,18 @@ The function handles partial updates efficiently by preserving unchanged attribu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - policy_role_list_to_array, construct_array_builtin (role processing)
-  - RangeVarGetRelidExtended, relation_open (table access)
-  - make_parsestate, transformWhereClause, assign_expr_collations (expression parsing)
-  - systable_beginscan, systable_getnext (policy lookup)
-  - heap_getattr, heap_modify_tuple, heap_freetuple (tuple manipulation)
-  - CatalogTupleUpdate (catalog updates)
-  - deleteDependencyRecordsFor, deleteSharedDependencyRecordsFor (dependency cleanup)
-  - recordDependencyOn, recordDependencyOnExpr, recordSharedDependencyOn (dependency creation)
-  - stringToNode, nodeToString (expression serialization)
+  - [policy_role_list_to_array](../p/policy_role_list_to_array.md), construct_array_builtin (role processing)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md), relation_open (table access)
+  - [make_parsestate](../m/make_parsestate.md), transformWhereClause, assign_expr_collations (expression parsing)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (policy lookup)
+  - [heap_getattr](../h/heap_getattr.md), heap_modify_tuple, heap_freetuple (tuple manipulation)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md), deleteSharedDependencyRecordsFor (dependency cleanup)
+  - [recordDependencyOn](../r/recordDependencyOn.md), recordDependencyOnExpr, recordSharedDependencyOn (dependency creation)
+  - [stringToNode](../s/stringToNode.md), nodeToString (expression serialization)
   - InvokeObjectPostAlterHook, CacheInvalidateRelcache (hooks and cache management)
 - Called from:
-  - ProcessUtilitySlow (main utility command dispatcher)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main utility command dispatcher)
 
 ## Notes and Other Information
 - Requires AccessExclusiveLock on target table to prevent concurrent operations

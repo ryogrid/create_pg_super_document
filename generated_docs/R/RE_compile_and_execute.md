@@ -27,17 +27,17 @@ The function includes an optimization where it automatically sets the REG_NOSUB 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RE_compile_and_cache (pattern compilation and caching)
-  - RE_execute (pattern execution with encoding conversion)
+  - [RE_compile_and_cache](RE_compile_and_cache.md) (pattern compilation and caching)
+  - [RE_execute](RE_execute.md) (pattern execution with encoding conversion)
   - regex_t, regmatch_t (data structures)
   - REG_NOSUB (compilation flag for optimization)
 - Called from (representative examples):
-  - nameregexeq, nameregexne (name pattern matching functions)
-  - textregexeq, textregexne (text pattern matching functions)
-  - nameicregexeq, nameicregexne (case-insensitive name matching)
-  - texticregexeq, texticregexne (case-insensitive text matching)
-  - regexp_like (SQL REGEXP_LIKE function)
-  - executeLikeRegex (JSON path regex execution)
+  - [nameregexeq](../n/nameregexeq.md), nameregexne (name pattern matching functions)
+  - [textregexeq](../t/textregexeq.md), textregexne (text pattern matching functions)
+  - [nameicregexeq](../n/nameicregexeq.md), nameicregexne (case-insensitive name matching)
+  - [texticregexeq](../t/texticregexeq.md), texticregexne (case-insensitive text matching)
+  - [regexp_like](../r/regexp_like.md) (SQL REGEXP_LIKE function)
+  - [executeLikeRegex](../e/executeLikeRegex.md) (JSON path regex execution)
 
 ## Notes and Other Information
 - This is the main public interface for regex operations in PostgreSQL

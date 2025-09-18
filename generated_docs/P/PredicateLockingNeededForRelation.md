@@ -28,10 +28,10 @@ Both types of relations are exempt from predicate locking because:
   - FirstUnpinnedObjectId (constant defining the boundary between system and user objects)
   - RelationUsesLocalBuffers (function to check if relation uses local/temporary buffers)
 - Called from (representative examples):
-  - SerializationNeededForRead
-  - SerializationNeededForWrite
-  - DropAllPredicateLocksFromTable
-  - PredicateLockPageSplit
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
+  - [SerializationNeededForWrite](../S/SerializationNeededForWrite.md)
+  - [DropAllPredicateLocksFromTable](../D/DropAllPredicateLocksFromTable.md)
+  - [PredicateLockPageSplit](PredicateLockPageSplit.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance, as it's called frequently during predicate lock operations

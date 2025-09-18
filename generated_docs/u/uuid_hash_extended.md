@@ -24,9 +24,9 @@ The function leverages PostgreSQL's `hash_any_extended` function to compute the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_uuid_t (UUID structure type)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (UUID structure type)
   - PG_GETARG_UUID_P (UUID argument extraction macro)
-  - hash_any_extended (extended hash function with seed)
+  - [hash_any_extended](../h/hash_any_extended.md) (extended hash function with seed)
   - UUID_LEN (UUID length constant - 16 bytes)
   - PG_GETARG_INT64 (64-bit integer argument extraction macro)
 - Called from (representative examples):

@@ -31,7 +31,7 @@ The postgres database is typically the default database that administrators and 
   - PostgresDbOid (constant defining the fixed OID for postgres database)
 
 - Called from:
-  - initialize_data_directory (main initialization function in initdb)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (main initialization function in initdb)
 
 ## Notes and Other Information
 - The postgres database serves as the default administrative connection database

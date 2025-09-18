@@ -38,20 +38,20 @@ The function supports various backup modes including plain and tar formats, serv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckServerVersionForStreaming (server version validation)
-  - GenerateRecoveryConfig (recovery configuration generation)  
-  - RunIdentifySystem (system identification)
-  - AppendStringCommandOption, AppendPlainCommandOption, AppendIntegerCommandOption (command building)
-  - StartLogStreamer (WAL streaming setup)
-  - ReceiveArchiveStream (archive stream handling for newer servers)
-  - ReceiveTarFile (individual tar file reception for older servers)
-  - ReceiveBackupManifest (manifest file reception)
+  - [CheckServerVersionForStreaming](../C/CheckServerVersionForStreaming.md) (server version validation)
+  - [GenerateRecoveryConfig](../G/GenerateRecoveryConfig.md) (recovery configuration generation)  
+  - [RunIdentifySystem](../R/RunIdentifySystem.md) (system identification)
+  - [AppendStringCommandOption](../A/AppendStringCommandOption.md), AppendPlainCommandOption, AppendIntegerCommandOption (command building)
+  - [StartLogStreamer](../S/StartLogStreamer.md) (WAL streaming setup)
+  - [ReceiveArchiveStream](../R/ReceiveArchiveStream.md) (archive stream handling for newer servers)
+  - [ReceiveTarFile](../R/ReceiveTarFile.md) (individual tar file reception for older servers)
+  - [ReceiveBackupManifest](../R/ReceiveBackupManifest.md) (manifest file reception)
   - Various PQxxx functions for PostgreSQL client communication
-  - sync_dir_recurse, sync_pgdata (data synchronization)
-  - durable_rename (atomic file operations)
+  - [sync_dir_recurse](../s/sync_dir_recurse.md), sync_pgdata (data synchronization)
+  - [durable_rename](../d/durable_rename.md) (atomic file operations)
 
 - Called from (representative examples):
-  - main (primary entry point from command-line processing)
+  - [main](../m/main.md) (primary entry point from command-line processing)
 
 ## Notes and Other Information
 - Supports PostgreSQL servers from version 9.1 onwards with feature detection for newer capabilities

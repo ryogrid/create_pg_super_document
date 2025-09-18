@@ -25,11 +25,11 @@ The structure uses bit fields to pack the character value and affix count into a
   - AFFIX (affix structure type)
   - AffixNode (parent node structure)
 - Called from (representative examples):
-  - mkANode (creates affix nodes)
-  - mkVoidAffix (creates empty affix nodes)  
-  - NISortAffixes (sorts affix data)
-  - FindAffixes (searches for matching affixes)
-  - NormalizeSubWord (uses affixes for word normalization)
+  - [mkANode](../m/mkANode.md) (creates affix nodes)
+  - [mkVoidAffix](../m/mkVoidAffix.md) (creates empty affix nodes)  
+  - [NISortAffixes](../N/NISortAffixes.md) (sorts affix data)
+  - [FindAffixes](../F/FindAffixes.md) (searches for matching affixes)
+  - [NormalizeSubWord](../N/NormalizeSubWord.md) (uses affixes for word normalization)
 
 ## Notes and Other Information
 - Part of the AffixNode structure which uses this as its data array

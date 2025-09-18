@@ -25,14 +25,14 @@ This function initializes the sampling parameters for the SYSTEM table sampling 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat4 (extracts float4 value from first parameter)
+  - [DatumGetFloat4](../D/DatumGetFloat4.md) (extracts float4 value from first parameter)
   - isnan (checks for NaN values)
   - ereport/errcode/errmsg (error reporting functions)
   - rint (rounds double to nearest integer)
   - PG_UINT32_MAX (maximum 32-bit unsigned integer constant)
   - InvalidOffsetNumber (invalid offset constant)
 - Called from (representative examples):
-  - tsm_system_handler (as function pointer in TsmRoutine)
+  - [tsm_system_handler](../t/tsm_system_handler.md) (as function pointer in TsmRoutine)
   - PostgreSQL executor when starting a sample scan
 
 ## Notes and Other Information

@@ -22,14 +22,14 @@ The function performs a complete forward scan of the hash index, starting with _
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_first
-  - _hash_next
-  - tbm_add_tuples
+  - [_hash_first](_hash_first.md)
+  - [_hash_next](_hash_next.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
   - ForwardScanDirection
   - HashScanOpaque
-  - HashScanPosItem
+  - [HashScanPosItem](../H/HashScanPosItem.md)
 - Called from (representative examples):
-  - hashhandler (hash access method handler)
+  - [hashhandler](hashhandler.md) (hash access method handler)
   - Referenced in HASHNProcs (hash index procedure array)
 
 ## Notes and Other Information

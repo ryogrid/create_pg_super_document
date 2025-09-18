@@ -27,13 +27,13 @@ With uint64 fields, the structure can handle operator and function numbers up to
   - Oid (PostgreSQL object identifier type)
   - uint64 (unsigned 64-bit integer type)
 - Called from (representative examples):
-  - brinvalidate (src/backend/access/brin/brin_validate.c:53, 210)
-  - ginvalidate (src/backend/access/gin/ginvalidate.c:46, 218)  
-  - gistvalidate (src/backend/access/gist/gistvalidate.c:48, 244)
-  - hashvalidate (src/backend/access/hash/hashvalidate.c:61, 210)
-  - btvalidate (src/backend/access/nbtree/nbtvalidate.c:55, 192)
-  - spgvalidate (src/backend/access/spgist/spgvalidate.c:54, 152, 264)
-  - identify_opfamily_groups (src/backend/access/index/amvalidate.c:46, 121)
+  - [brinvalidate](../b/brinvalidate.md) (src/backend/access/brin/brin_validate.c:53, 210)
+  - [ginvalidate](../g/ginvalidate.md) (src/backend/access/gin/ginvalidate.c:46, 218)  
+  - [gistvalidate](../g/gistvalidate.md) (src/backend/access/gist/gistvalidate.c:48, 244)
+  - [hashvalidate](../h/hashvalidate.md) (src/backend/access/hash/hashvalidate.c:61, 210)
+  - [btvalidate](../b/btvalidate.md) (src/backend/access/nbtree/nbtvalidate.c:55, 192)
+  - [spgvalidate](../s/spgvalidate.md) (src/backend/access/spgist/spgvalidate.c:54, 152, 264)
+  - [identify_opfamily_groups](../i/identify_opfamily_groups.md) (src/backend/access/index/amvalidate.c:46, 121)
 
 ## Notes and Other Information
 - This structure is primarily used in operator family validation routines across all PostgreSQL access methods

@@ -19,10 +19,10 @@ This is a simple wrapper function that calls lookup_proof_cache to get the cache
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_proof_cache
-  - OprProofCacheEntry (accessed fields: same_subexprs_refutes, same_subexprs_implies)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md)
+  - [OprProofCacheEntry](../O/OprProofCacheEntry.md) (accessed fields: same_subexprs_refutes, same_subexprs_implies)
 - Called from:
-  - operator_same_subexprs_proof
+  - [operator_same_subexprs_proof](operator_same_subexprs_proof.md)
 
 ## Notes and Other Information
 This function serves as an abstraction layer over the cache lookup mechanism, simplifying access to cached proof results for the common case of same-subexpression operator relationships.

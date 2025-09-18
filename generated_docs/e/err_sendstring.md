@@ -18,11 +18,11 @@ This function serves as a wrapper around PostgreSQL's string sending functionali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_error_recursion_trouble
-  - pq_send_ascii_string  
-  - pq_sendstring
+  - [in_error_recursion_trouble](../i/in_error_recursion_trouble.md)
+  - [pq_send_ascii_string](../p/pq_send_ascii_string.md)  
+  - [pq_sendstring](../p/pq_sendstring.md)
 - Called from (representative examples):
-  - send_message_to_frontend (multiple locations throughout error message construction)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md) (multiple locations throughout error message construction)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's robust error handling system that prevents error cascades. The error recursion detection mechanism ensures that even if encoding conversion fails during error reporting, the system can still communicate error information to clients using safe ASCII-only transmission. Code that calls this function during error recursion scenarios must ensure the input strings are plain 7-bit ASCII characters to avoid encoding issues.

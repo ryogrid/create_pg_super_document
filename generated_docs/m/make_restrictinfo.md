@@ -26,20 +26,20 @@ The make_restrictinfo function serves as the primary entry point for creating Re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_orclause
-  - make_sub_restrictinfos
-  - is_andclause
-  - make_restrictinfo_internal
+  - [is_orclause](../i/is_orclause.md)
+  - [make_sub_restrictinfos](make_sub_restrictinfos.md)
+  - [is_andclause](../i/is_andclause.md)
+  - [make_restrictinfo_internal](make_restrictinfo_internal.md)
 - Called from (representative examples):
-  - process_equivalence
-  - reconsider_outer_join_clauses
-  - distribute_qual_to_rels
-  - add_base_clause_to_rel
-  - process_implied_equality
-  - build_implied_join_equality
-  - apply_child_basequals
-  - add_join_clause_to_rels
-  - consider_new_or_clause
+  - [process_equivalence](../p/process_equivalence.md)
+  - [reconsider_outer_join_clauses](../r/reconsider_outer_join_clauses.md)
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
+  - [add_base_clause_to_rel](../a/add_base_clause_to_rel.md)
+  - [process_implied_equality](../p/process_implied_equality.md)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md)
+  - [apply_child_basequals](../a/apply_child_basequals.md)
+  - [add_join_clause_to_rels](../a/add_join_clause_to_rels.md)
+  - [consider_new_or_clause](../c/consider_new_or_clause.md)
   - make_simple_restrictinfo
 
 ## Notes and Other Information

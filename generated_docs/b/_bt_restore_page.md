@@ -28,13 +28,13 @@ The restoration process involves careful memory handling since the items in the 
   - MAXALIGN
   - elog (PANIC level)
 - Data types used:
-  - IndexTupleData
+  - [IndexTupleData](../I/IndexTupleData.md)
   - Item
   - MaxIndexTuplesPerPage
   - InvalidOffsetNumber
 - Called from (representative examples):
-  - btree_xlog_split
-  - btree_xlog_newroot
+  - [btree_xlog_split](btree_xlog_split.md)
+  - [btree_xlog_newroot](btree_xlog_newroot.md)
 
 ## Notes and Other Information
 - This is a static function used internally within nbtxlog.c for B-tree WAL recovery

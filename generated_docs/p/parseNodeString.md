@@ -29,12 +29,12 @@ This function takes no parameters and operates on globally available tokenizer s
 - Functions called/Symbols referenced:
   - `READ_TEMP_LOCALS` - Macro that declares local variables `token` and `length` for parsing
   - `check_stack_depth` - Guards against stack overflow from deeply nested expressions
-  - `pg_strtok` - Tokenizer function to get the next token from the input string
+  - `[pg_strtok](pg_strtok.md)` - Tokenizer function to get the next token from the input string
   - `MATCH` - Macro for token comparison (defined locally)
   - `elog` - Error logging function (called when parsing fails)
 
 - Called from (representative examples):
-  - `nodeRead` (src/backend/nodes/read.c:338) - Main entry point for node deserialization
+  - `[nodeRead](../n/nodeRead.md)` (src/backend/nodes/read.c:338) - Main entry point for node deserialization
 
 ## Notes and Other Information
 - The string to be parsed must already be loaded into the `pg_strtok()` system before calling this function

@@ -29,16 +29,16 @@ The function encapsulates the typical index-to-heap scanning pattern, making it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `index_getnext_tid` (retrieves next TID from index)
-  - `index_fetch_heap` (fetches heap tuple from TID)
-  - `ItemPointerEquals` (validates TID consistency)
-  - `ItemPointerIsValid` (validates TID)
-  - `IndexScanDesc` (scan descriptor type)
+  - `[index_getnext_tid](index_getnext_tid.md)` (retrieves next TID from index)
+  - `[index_fetch_heap](index_fetch_heap.md)` (fetches heap tuple from TID)
+  - `[ItemPointerEquals](../I/ItemPointerEquals.md)` (validates TID consistency)
+  - `[ItemPointerIsValid](../I/ItemPointerIsValid.md)` (validates TID)
+  - `[IndexScanDesc](../I/IndexScanDesc.md)` (scan descriptor type)
   - `ScanDirection` (direction enumeration)
 - Called from (representative examples):
-  - `IndexNext` (src/backend/executor/nodeIndexscan.c:130)
-  - `systable_getnext` (src/backend/access/index/genam.c:511)
-  - `check_exclusion_or_unique_constraint` (src/backend/executor/execIndexing.c:780)
+  - `[IndexNext](../I/IndexNext.md)` (src/backend/executor/nodeIndexscan.c:130)
+  - `[systable_getnext](../s/systable_getnext.md)` (src/backend/access/index/genam.c:511)
+  - `[check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md)` (src/backend/executor/execIndexing.c:780)
 
 ## Notes and Other Information
 - The caller must check `scan->xs_recheck` and perform scan key rechecking if required

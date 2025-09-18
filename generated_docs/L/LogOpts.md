@@ -27,7 +27,7 @@ LogOpts centralizes all logging and output configuration for the pg_upgrade proc
   - FILE
   - transferMode (indirectly through related structures)
 - Called from (representative examples):
-  - OSInfo (as part of larger configuration structures)
+  - [OSInfo](../O/OSInfo.md) (as part of larger configuration structures)
 
 ## Notes and Other Information
 - This structure is essential for pg_upgrade's comprehensive logging and output management strategy

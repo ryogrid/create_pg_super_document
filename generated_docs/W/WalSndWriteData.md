@@ -25,17 +25,17 @@ The function handles network I/O carefully, checking for interrupts, attempting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - resetStringInfo (clears temporary buffer)
-  - GetCurrentTimestamp (gets current timestamp for protocol)
-  - pq_sendint64 (formats timestamp data)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current timestamp for protocol)
+  - [pq_sendint64](../p/pq_sendint64.md) (formats timestamp data)
   - pq_putmessage_noblock (sends CopyData message)
   - pq_flush_if_writable (attempts non-blocking flush)
-  - WalSndShutdown (shuts down on flush failure)
+  - [WalSndShutdown](WalSndShutdown.md) (shuts down on flush failure)
   - TimestampTzPlusMilliseconds (timeout calculation)
   - pq_is_send_pending (checks for pending output)
-  - ProcessPendingWrites (handles slow path processing)
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md) (handles slow path processing)
 - Called from (representative examples):
-  - CreateReplicationSlot (sets up logical replication slot)
-  - StartLogicalReplication (initiates logical replication streaming)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (sets up logical replication slot)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md) (initiates logical replication streaming)
 
 ## Notes and Other Information
 - Fills timestamp as late as possible to maintain protocol compatibility with physical replication

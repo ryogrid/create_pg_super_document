@@ -25,8 +25,8 @@ The structure is primarily used within the analyze.c module to coordinate the co
   - IndexInfo
   - VacAttrStats
 - Called from (representative examples):
-  - do_analyze_rel (multiple references for index processing)
-  - compute_index_stats (for statistical computation)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (multiple references for index processing)
+  - [compute_index_stats](../c/compute_index_stats.md) (for statistical computation)
 
 ## Notes and Other Information
 - This structure is defined at src/backend/commands/analyze.c:63-69

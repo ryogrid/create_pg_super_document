@@ -28,14 +28,14 @@ The compilation process includes:
 - Functions called/Symbols referenced:
   - VARSIZE_ANY_EXHDR (gets size of TEXT object excluding header)
   - VARDATA_ANY (gets data pointer from TEXT object)
-  - palloc (PostgreSQL memory allocation)
-  - pg_mb2wchar_with_len (converts multibyte string to wide characters)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (converts multibyte string to wide characters)
   - pg_regcomp (core regex compilation function)
-  - pfree (PostgreSQL memory deallocation)
-  - pg_regerror (gets error message for failed compilation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [pg_regerror](../p/pg_regerror.md) (gets error message for failed compilation)
   - ereport/ERROR (PostgreSQL error reporting)
 - Called from (representative examples):
-  - test_regex (main regex testing function)
+  - [test_regex](test_regex.md) (main regex testing function)
 
 ## Notes and Other Information
 - This is a static (internal) function within the test_regex module

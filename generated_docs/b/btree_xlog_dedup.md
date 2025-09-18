@@ -29,15 +29,15 @@ Key operations performed:
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - BTPageGetOpaque
-  - _bt_dedup_start_pending
-  - _bt_dedup_save_htid
-  - _bt_dedup_finish_pending
-  - PageGetTempPageCopySpecial
-  - PageRestoreTempPage
+  - [_bt_dedup_start_pending](_bt_dedup_start_pending.md)
+  - [_bt_dedup_save_htid](_bt_dedup_save_htid.md)
+  - [_bt_dedup_finish_pending](_bt_dedup_finish_pending.md)
+  - [PageGetTempPageCopySpecial](../P/PageGetTempPageCopySpecial.md)
+  - [PageRestoreTempPage](../P/PageRestoreTempPage.md)
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally for B-tree WAL recovery

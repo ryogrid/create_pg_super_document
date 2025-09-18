@@ -19,8 +19,8 @@ This function is a PostgreSQL internal function that performs privilege checking
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_language_priv_string: Converts the privilege string to an AclMode bitmask
-  - object_aclcheck_ext: Performs the actual ACL privilege check against the object
+  - [convert_language_priv_string](../c/convert_language_priv_string.md): Converts the privilege string to an AclMode bitmask
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Performs the actual ACL privilege check against the object
   - AclResult: Enum type for ACL check results
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

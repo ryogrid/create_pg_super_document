@@ -19,10 +19,10 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_snapshot_fixed
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
   - PGSTAT_KIND_ARCHIVER
 - Called from (representative examples):
-  - pg_stat_get_archiver
+  - [pg_stat_get_archiver](pg_stat_get_archiver.md)
 
 ## Notes and Other Information
 This function is specifically designed to support PostgreSQL's SQL-level statistics access functions. The snapshot mechanism ensures that the returned statistics represent a consistent point-in-time view, preventing inconsistencies that could arise if the underlying shared memory statistics were updated during SQL function execution.

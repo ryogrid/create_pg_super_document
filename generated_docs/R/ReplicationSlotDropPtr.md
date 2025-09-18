@@ -29,18 +29,18 @@ The function performs these key operations:
   - LWLockAcquire (ReplicationSlotAllocationLock, ReplicationSlotControlLock)
   - LWLockRelease
   - rename
-  - fsync_fname
+  - [fsync_fname](../f/fsync_fname.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
   - SpinLockAcquire/SpinLockRelease
   - ConditionVariableBroadcast
-  - ReplicationSlotsComputeRequiredXmin
-  - ReplicationSlotsComputeRequiredLSN
+  - [ReplicationSlotsComputeRequiredXmin](ReplicationSlotsComputeRequiredXmin.md)
+  - [ReplicationSlotsComputeRequiredLSN](ReplicationSlotsComputeRequiredLSN.md)
   - rmtree
   - SlotIsLogical
   - pgstat_drop_replslot
 - Called from (representative examples):
-  - ReplicationSlotCleanup
-  - ReplicationSlotDropAcquired
+  - [ReplicationSlotCleanup](ReplicationSlotCleanup.md)
+  - [ReplicationSlotDropAcquired](ReplicationSlotDropAcquired.md)
 
 ## Notes and Other Information
 - The function uses a two-phase approach: first rename to invalidate, then remove completely

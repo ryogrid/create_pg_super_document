@@ -25,10 +25,10 @@ BlocktableEntry serves as the core data structure for storing tuple identifiers 
   - FLEXIBLE_ARRAY_MEMBER (macro)
   - bitmapword (data type)
 - Called from (representative examples):
-  - TidStoreSetBlockOffsets
-  - TidStoreIsMember
-  - TidStoreIterateNext
-  - tidstore_iter_extract_tids
+  - [TidStoreSetBlockOffsets](../T/TidStoreSetBlockOffsets.md)
+  - [TidStoreIsMember](../T/TidStoreIsMember.md)
+  - [TidStoreIterateNext](../T/TidStoreIterateNext.md)
+  - [tidstore_iter_extract_tids](../t/tidstore_iter_extract_tids.md)
 
 ## Notes and Other Information
 - The structure layout is carefully designed to handle endianness differences, with conditional compilation directives ensuring proper memory alignment

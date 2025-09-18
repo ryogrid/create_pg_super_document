@@ -18,17 +18,17 @@ This function converts string-based token type names into structured TSTokenType
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_ts_parser_cache
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)
   - TSParserCacheEntry
   - LexDescr
   - OidFunctionCall1
   - String
-  - tstoken_list_member
+  - [tstoken_list_member](../t/tstoken_list_member.md)
   - TSTokenTypeItem
   - list_length, lfirst_node, lappend, palloc0, pstrdup, strVal
 - Called from (representative examples):
-  - MakeConfigurationMapping
-  - DropConfigurationMapping
+  - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md)
+  - [DropConfigurationMapping](../D/DropConfigurationMapping.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsearchcmds.c file

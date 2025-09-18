@@ -24,11 +24,11 @@ LockData serves as a container structure for collecting and passing lock informa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockInstanceData
+  - [LockInstanceData](LockInstanceData.md)
 - Called from (representative examples):
-  - LockShmemSize
-  - GetLockStatusData
-  - pg_lock_status
+  - [LockShmemSize](LockShmemSize.md)
+  - [GetLockStatusData](../G/GetLockStatusData.md)
+  - [pg_lock_status](../p/pg_lock_status.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

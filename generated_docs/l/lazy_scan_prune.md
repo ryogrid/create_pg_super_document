@@ -31,22 +31,22 @@ lazy_scan_prune is a core function in PostgreSQL's lazy VACUUM implementation th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber
-  - heap_page_prune_and_freeze
-  - heap_page_is_all_visible
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md)
+  - [heap_page_is_all_visible](../h/heap_page_is_all_visible.md)
   - MultiXactIdIsValid
   - qsort
-  - cmpOffsetNumbers
-  - dead_items_add
-  - PageSetAllVisible
-  - PageIsAllVisible
-  - PageClearAllVisible
-  - visibilitymap_set
-  - visibilitymap_get_status
-  - visibilitymap_clear
+  - [cmpOffsetNumbers](../c/cmpOffsetNumbers.md)
+  - [dead_items_add](../d/dead_items_add.md)
+  - [PageSetAllVisible](../P/PageSetAllVisible.md)
+  - [PageIsAllVisible](../P/PageIsAllVisible.md)
+  - [PageClearAllVisible](../P/PageClearAllVisible.md)
+  - [visibilitymap_set](../v/visibilitymap_set.md)
+  - [visibilitymap_get_status](../v/visibilitymap_get_status.md)
+  - [visibilitymap_clear](../v/visibilitymap_clear.md)
   - VM_ALL_FROZEN
 - Called from:
-  - lazy_scan_heap
+  - [lazy_scan_heap](lazy_scan_heap.md)
 
 ## Notes and Other Information
 - Returns the number of tuples deleted from the page during HOT pruning

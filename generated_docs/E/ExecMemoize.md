@@ -26,17 +26,17 @@ The function maintains statistics on cache hits, misses, and overflows to monito
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext
-  - build_hash_table
-  - cache_lookup
-  - cache_store_tuple
-  - entry_purge_tuples
+  - [build_hash_table](../b/build_hash_table.md)
+  - [cache_lookup](../c/cache_lookup.md)
+  - [cache_store_tuple](../c/cache_store_tuple.md)
+  - [entry_purge_tuples](../e/entry_purge_tuples.md)
   - ExecProcNode
-  - ExecStoreMinimalTuple
+  - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md)
   - ExecCopySlot
   - outerPlanState
   - TupIsNull
 - Called from (representative examples):
-  - ExecInitMemoize (sets up the execution function pointer)
+  - [ExecInitMemoize](ExecInitMemoize.md) (sets up the execution function pointer)
 
 ## Notes and Other Information
 - Uses a hash table-based cache with configurable estimated entries from the planner

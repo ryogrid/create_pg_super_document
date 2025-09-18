@@ -24,19 +24,19 @@ The test creates an input buffer filled with ASCII dash characters ('-') and ter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pe_test_config (struct type)
+  - [pe_test_config](../p/pe_test_config.md) (struct type)
   - pg_malloc (PostgreSQL memory allocation)
   - memset (standard library function)
   - createPQExpBuffer (libpq buffer creation)
-  - appendPQExpBuffer (libpq buffer append)
-  - escapify (local utility function for readable output)
-  - PQsetClientEncoding (libpq encoding setting)
-  - PQescapeLiteral (libpq escape function being tested)
-  - report_result (local test reporting function)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (libpq buffer append)
+  - [escapify](../e/escapify.md) (local utility function for readable output)
+  - [PQsetClientEncoding](../P/PQsetClientEncoding.md) (libpq encoding setting)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md) (libpq escape function being tested)
+  - [report_result](../r/report_result.md) (local test reporting function)
   - destroyPQExpBuffer (libpq buffer cleanup)
-  - pg_free (PostgreSQL memory deallocation)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the test_escape.c file

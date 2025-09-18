@@ -21,16 +21,16 @@ The function returns true if the type is fully defined and ready for use, or fal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract structure from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_type (pg_type tuple structure)
 - Called from (representative examples):
-  - RenameTypeInternal
-  - moveArrayTypeName
-  - DefineType
-  - DefineRange
+  - [RenameTypeInternal](../R/RenameTypeInternal.md)
+  - [moveArrayTypeName](../m/moveArrayTypeName.md)
+  - [DefineType](../D/DefineType.md)
+  - [DefineRange](../D/DefineRange.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's type system infrastructure

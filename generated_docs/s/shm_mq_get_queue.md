@@ -21,8 +21,8 @@ The function serves as an abstraction layer between the high-level handle interf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_handle (parameter type)
-  - shm_mq (return type)
+  - [shm_mq_handle](shm_mq_handle.md) (parameter type)
+  - [shm_mq](shm_mq.md) (return type)
 - Called from (representative examples):
   - WaitForParallelWorkersToAttach
   - WaitForParallelWorkersToFinish

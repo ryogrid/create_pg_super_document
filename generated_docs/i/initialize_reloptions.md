@@ -23,9 +23,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DoLockModesConflict
-  - MemoryContextAlloc
-  - pfree
+  - [DoLockModesConflict](../D/DoLockModesConflict.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [pfree](../p/pfree.md)
   - strlen
 - Data structures accessed:
   - boolRelOpts
@@ -44,8 +44,8 @@ This function takes no parameters.
   - RELOPT_TYPE_ENUM
   - RELOPT_TYPE_STRING
 - Called from:
-  - parseRelOptions
-  - AlterTableGetRelOptionsLockLevel
+  - [parseRelOptions](../p/parseRelOptions.md)
+  - [AlterTableGetRelOptionsLockLevel](../A/AlterTableGetRelOptionsLockLevel.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reloptions.c file

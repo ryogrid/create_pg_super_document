@@ -20,10 +20,10 @@ The function delegates all the actual parsing work to , providing a simpler inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inet_cidr_pton_ipv6
+  - [inet_cidr_pton_ipv6](inet_cidr_pton_ipv6.md)
   - NS_IN6ADDRSZ (constant: 16)
 - Called from (representative examples):
-  - pg_inet_net_pton
+  - [pg_inet_net_pton](../p/pg_inet_net_pton.md)
 
 ## Notes and Other Information
 - This is a static function internal to the inet_net_pton.c file

@@ -29,12 +29,12 @@ This caching mechanism optimizes performance by avoiding repeated conversions an
 ## Dependencies
 - Functions called/Symbols referenced:
   - ISARRKEY (macro to check if key is array-based)
-  - makesign (function to create signature from array)
+  - [makesign](../m/makesign.md) (function to create signature from array)
   - ISALLTRUE (macro to check if signature is in ALLTRUE state)
   - GETSIGN (macro to get signature bit vector)
   - memcpy (standard memory copy function)
 - Called from:
-  - gtsvector_picksplit (multiple times during index node splitting)
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md) (multiple times during index node splitting)
 
 ## Notes and Other Information
 - This is a static helper function used only within tsgistidx.c

@@ -22,16 +22,16 @@ The function performs bounds checking to ensure the new position is valid, rejec
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for assertion checking)
-  - inv_getsize (to get the current size for SEEK_END operations)
+  - [inv_getsize](inv_getsize.md) (to get the current size for SEEK_END operations)
   - ereport (for error reporting)
-  - errmsg_internal (for internal error messages)
+  - [errmsg_internal](../e/errmsg_internal.md) (for internal error messages)
   - MAX_LARGE_OBJECT_SIZE (maximum allowed position)
   - INT64_FORMAT (for formatting 64-bit integers in error messages)
 - Called from (representative examples):
-  - be_lo_lseek
-  - be_lo_lseek64
-  - lo_get_fragment_internal
-  - be_lo_put
+  - [be_lo_lseek](../b/be_lo_lseek.md)
+  - [be_lo_lseek64](../b/be_lo_lseek64.md)
+  - [lo_get_fragment_internal](../l/lo_get_fragment_internal.md)
+  - [be_lo_put](../b/be_lo_put.md)
 
 ## Notes and Other Information
 - No explicit permission check is performed since seek/tell operations are allowed with either read or write permissions

@@ -19,10 +19,10 @@ This function performs comprehensive initialization of the PL/Python environment
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_plan_init_type
-  - PLy_result_init_type  
-  - PLy_subtransaction_init_type
-  - PLy_cursor_init_type
+  - [PLy_plan_init_type](PLy_plan_init_type.md)
+  - [PLy_result_init_type](PLy_result_init_type.md)  
+  - [PLy_subtransaction_init_type](PLy_subtransaction_init_type.md)
+  - [PLy_cursor_init_type](PLy_cursor_init_type.md)
   - PyModule_Create (Python C API)
   - PyImport_AddModule (Python C API)
   - PyModule_GetDict (Python C API)
@@ -30,7 +30,7 @@ This function performs comprehensive initialization of the PL/Python environment
   - PLy_elog
   - PLy_module (module definition structure)
 - Called from (representative examples):
-  - PLy_initialize
+  - [PLy_initialize](PLy_initialize.md)
   - Referenced in PLPY_PLPYMODULE_H
 
 ## Notes and Other Information

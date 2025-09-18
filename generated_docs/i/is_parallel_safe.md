@@ -25,17 +25,17 @@ The function also handles parameter safety by building a list of 'safe' paramete
 ## Dependencies
 - Functions called/Symbols referenced:
   - max_parallel_hazard_context
-  - max_parallel_hazard_walker
-  - list_concat
+  - [max_parallel_hazard_walker](../m/max_parallel_hazard_walker.md)
+  - [list_concat](../l/list_concat.md)
   - PROPARALLEL_SAFE
   - PROPARALLEL_RESTRICTED
   - SubPlan
 - Called from (representative examples):
-  - set_rel_consider_parallel
-  - query_planner
-  - grouping_planner
-  - create_projection_path
-  - apply_projection_to_path
+  - [set_rel_consider_parallel](../s/set_rel_consider_parallel.md)
+  - [query_planner](../q/query_planner.md)
+  - [grouping_planner](../g/grouping_planner.md)
+  - [create_projection_path](../c/create_projection_path.md)
+  - [apply_projection_to_path](../a/apply_projection_to_path.md)
 
 ## Notes and Other Information
 - This function requires that  be previously set by calling  on the entire query

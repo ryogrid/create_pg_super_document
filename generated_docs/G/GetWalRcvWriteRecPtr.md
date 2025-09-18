@@ -17,8 +17,8 @@ This function provides a fast, lock-free method to retrieve the current write po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData (shared memory structure)
-  - pg_atomic_read_u64 (atomic read operation)
+  - [WalRcvData](../W/WalRcvData.md) (shared memory structure)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md) (atomic read operation)
 - Called from (representative examples):
   - Limited direct usage found in the codebase
 

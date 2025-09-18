@@ -25,17 +25,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire
-  - ZeroMultiXactOffsetPage
-  - SimpleLruWritePage
+  - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
   - LWLockRelease
-  - ZeroMultiXactMemberPage
+  - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
 - Global variables accessed:
   - MultiXactOffsetCtl
   - MultiXactMemberCtl
 - Called from:
-  - BootStrapXLOG
+  - [BootStrapXLOG](BootStrapXLOG.md)
 
 ## Notes and Other Information
 - This function must be called only once during database cluster initialization

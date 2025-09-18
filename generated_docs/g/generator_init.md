@@ -20,10 +20,10 @@ This function creates and initializes a CombinationGenerator structure that pre-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CombinationGenerator (structure type)
-  - palloc (PostgreSQL memory allocation function)
-  - n_choose_k (computes binomial coefficient)
-  - generate_combinations (populates the combinations)
+  - [CombinationGenerator](../C/CombinationGenerator.md) (structure type)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [n_choose_k](../n/n_choose_k.md) (computes binomial coefficient)
+  - [generate_combinations](generate_combinations.md) (populates the combinations)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
   - statext_ndistinct_build

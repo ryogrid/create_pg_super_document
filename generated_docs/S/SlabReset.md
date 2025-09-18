@@ -19,22 +19,22 @@ This function implements a complete reset operation for a slab memory context, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext (struct type)
-  - dlist_mutable_iter (doubly-linked list iterator type)
+  - [SlabContext](SlabContext.md) (struct type)
+  - [dlist_mutable_iter](../d/dlist_mutable_iter.md) (doubly-linked list iterator type)
   - SlabIsValid (validation function)
   - MEMORY_CONTEXT_CHECKING (conditional compilation macro)
-  - SlabCheck (memory checking function)
+  - [SlabCheck](SlabCheck.md) (memory checking function)
   - dclist_foreach_modify, dlist_foreach_modify (list iteration macros)
-  - SlabBlock (struct type)
+  - [SlabBlock](SlabBlock.md) (struct type)
   - dlist_container (macro to get container from list node)
-  - dclist_delete_from, dlist_delete (list deletion functions)
+  - [dclist_delete_from](../d/dclist_delete_from.md), dlist_delete (list deletion functions)
   - CLOBBER_FREED_MEMORY (conditional compilation macro)
-  - wipe_mem (memory clearing function)
+  - [wipe_mem](../w/wipe_mem.md) (memory clearing function)
   - SLAB_BLOCKLIST_COUNT (constant for number of blocklists)
   - free (system memory deallocation)
 - Called from (representative examples):
   - BOGUS_MCTX (memory context framework)
-  - SlabDelete
+  - [SlabDelete](SlabDelete.md)
   - MEMUTILS_INTERNAL_H (memory utilities header)
 
 ## Notes and Other Information

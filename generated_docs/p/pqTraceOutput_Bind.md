@@ -30,12 +30,12 @@ The function follows the PostgreSQL frontend/backend protocol specification for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputString (for portal and statement names)
-  - pqTraceOutputInt16 (for format codes and parameter counts)
-  - pqTraceOutputInt32 (for parameter lengths)
-  - pqTraceOutputNchar (for parameter data)
+  - [pqTraceOutputString](pqTraceOutputString.md) (for portal and statement names)
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md) (for format codes and parameter counts)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (for parameter lengths)
+  - [pqTraceOutputNchar](pqTraceOutputNchar.md) (for parameter data)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message tracing dispatcher)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message tracing dispatcher)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, making it internal to the libpq tracing implementation

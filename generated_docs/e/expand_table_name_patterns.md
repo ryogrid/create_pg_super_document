@@ -41,16 +41,16 @@ When with_child_tables is true, the function uses a recursive CTE (Common Table 
 - Functions called/Symbols referenced:
   - createPQExpBuffer, resetPQExpBuffer, destroyPQExpBuffer (query buffer management)
   - processSQL    ePattern (pattern matching and SQL generation with schema support)
-  - GetConnection (database connection retrieval)
-  - ExecuteSqlStatement, ExecuteSqlQuery, ExecuteSqlQueryForSingleRow (query execution)
-  - prohibit_crossdb_refs (cross-database reference validation)
-  - simple_oid_list_append (OID list management)
+  - [GetConnection](../G/GetConnection.md) (database connection retrieval)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md), ExecuteSqlQuery, ExecuteSqlQueryForSingleRow (query execution)
+  - [prohibit_crossdb_refs](../p/prohibit_crossdb_refs.md) (cross-database reference validation)
+  - [simple_oid_list_append](../s/simple_oid_list_append.md) (OID list management)
   - atooid (string to OID conversion)
-  - pg_fatal (error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting)
   - RELKIND_* constants (relation type identification)
   - ALWAYS_SECURE_SEARCH_PATH_SQL (secure search path restoration)
 - Called from (representative examples):
-  - main (in pg_dump.c at lines 891, 894, 902, 905, 909, 912)
+  - [main](../m/main.md) (in pg_dump.c at lines 891, 894, 902, 905, 909, 912)
   - fmtQualifiedDumpable (in pg_dump.c at line 197)
 
 ## Notes and Other Information

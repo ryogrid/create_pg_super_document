@@ -29,9 +29,9 @@ The approach of resetting rather than deallocating tuplesort states avoids the o
   - outerPlanState (gets outer child plan state)
   - ExecClearTuple (clears tuple slots)
   - tuplesort_reset (resets tuplesort states)
-  - ExecReScan (rescans outer child node)
+  - [ExecReScan](ExecReScan.md) (rescans outer child node)
 - Called from (representative examples):
-  - ExecReScan (main rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (main rescan dispatcher)
 
 ## Notes and Other Information
 - Incremental sort cannot efficiently support rescan operations because it doesn't store complete result sets like regular sort

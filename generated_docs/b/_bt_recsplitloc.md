@@ -30,13 +30,13 @@ The function implements conservative space estimation, particularly for leaf pag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId: Get item ID from page
-  - PageGetItem: Get item data from page
-  - BTreeTupleIsPosting: Check if tuple is a posting list tuple
+  - [PageGetItemId](../P/PageGetItemId.md): Get item ID from page
+  - [PageGetItem](../P/PageGetItem.md): Get item data from page
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md): Check if tuple is a posting list tuple
   - IndexTupleSize: Get total size of index tuple
-  - BTreeTupleGetPostingOffset: Get posting list offset within tuple
+  - [BTreeTupleGetPostingOffset](../B/BTreeTupleGetPostingOffset.md): Get posting list offset within tuple
 - Called from:
-  - _bt_findsplitloc: Main split location finder (multiple call sites)
+  - [_bt_findsplitloc](_bt_findsplitloc.md): Main split location finder (multiple call sites)
 
 ## Notes and Other Information
 - Only records splits where both left and right sides have non-negative free space

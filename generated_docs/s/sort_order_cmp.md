@@ -23,7 +23,7 @@ The function is specifically designed to work with PostgreSQL's enum type system
   - Form_pg_enum (type definition for pg_enum catalog structure)
   - GETSTRUCT (macro to extract structure from HeapTuple)
 - Called from (representative examples):
-  - AddEnumLabel (at src/backend/catalog/pg_enum.c:369)
+  - [AddEnumLabel](../A/AddEnumLabel.md) (at src/backend/catalog/pg_enum.c:369)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_enum.c compilation unit

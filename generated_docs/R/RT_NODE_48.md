@@ -32,19 +32,19 @@ This node type is used when a node needs to store between 17-48 child pointers, 
   - RT_PREFIX
 - Called from (representative examples):
   - RT_FANOUT_48
-  - RT_NODE_48_IS_CHUNK_USED
-  - RT_NODE_48_GET_CHILD
-  - RT_ALLOC_NODE
-  - RT_NODE_SEARCH
-  - RT_GROW_NODE_48
-  - RT_ADD_CHILD_48
-  - RT_GROW_NODE_16
-  - RT_FREE_RECURSE
-  - RT_NODE_ITERATE_NEXT
-  - RT_SHRINK_NODE_256
-  - RT_SHRINK_NODE_48
-  - RT_REMOVE_CHILD_48
-  - RT_VERIFY_NODE
+  - [RT_NODE_48_IS_CHUNK_USED](RT_NODE_48_IS_CHUNK_USED.md)
+  - [RT_NODE_48_GET_CHILD](RT_NODE_48_GET_CHILD.md)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md)
+  - [RT_GROW_NODE_48](RT_GROW_NODE_48.md)
+  - [RT_ADD_CHILD_48](RT_ADD_CHILD_48.md)
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md)
+  - [RT_SHRINK_NODE_256](RT_SHRINK_NODE_256.md)
+  - [RT_SHRINK_NODE_48](RT_SHRINK_NODE_48.md)
+  - [RT_REMOVE_CHILD_48](RT_REMOVE_CHILD_48.md)
+  - [RT_VERIFY_NODE](RT_VERIFY_NODE.md)
 
 ## Notes and Other Information
 The 48-slot node represents a key optimization in the adaptive radix tree design. Instead of allocating a full 256-slot array (which would waste significant memory when sparsely populated), it uses a two-level indirection system:

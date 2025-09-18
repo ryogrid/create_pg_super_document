@@ -24,10 +24,10 @@ This function is part of PostgreSQL's WAL reading infrastructure, which is essen
 - Functions called/Symbols referenced:
   - snprintf (standard C library function for formatted string copying)
 - Data structures used:
-  - WALOpenSegment
-  - WALSegmentContext
+  - [WALOpenSegment](WALOpenSegment.md)
+  - [WALSegmentContext](WALSegmentContext.md)
 - Called from (representative examples):
-  - XLogReaderAllocate
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlogreader.c compilation unit

@@ -19,21 +19,21 @@ This function processes column list definitions from multiple publications for a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationIdGetRelation
-  - SearchSysCache2
-  - SysCacheGetAttr
-  - pgoutput_ensure_entry_cxt
-  - pub_collist_to_bitmapset
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [pgoutput_ensure_entry_cxt](pgoutput_ensure_entry_cxt.md)
+  - [pub_collist_to_bitmapset](pub_collist_to_bitmapset.md)
   - RelationGetDescr
   - TupleDescAttr
-  - bms_num_members
-  - bms_free
-  - bms_equal
-  - get_namespace_name
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_free](../b/bms_free.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
-  - RelationClose
+  - [RelationClose](../R/RelationClose.md)
 - Called from (representative examples):
-  - get_rel_sync_entry
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information
 - The function enforces that all publications must have identical column lists for the same table, raising an error if they differ

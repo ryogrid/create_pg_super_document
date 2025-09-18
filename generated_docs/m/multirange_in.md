@@ -35,14 +35,14 @@ The parser delegates individual range parsing to the underlying range type's inp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_multirange_io_data
-  - pg_strncasecmp
-  - pnstrdup
-  - repalloc
-  - InputFunctionCallSafe
+  - [get_multirange_io_data](../g/get_multirange_io_data.md)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md)
+  - [pnstrdup](../p/pnstrdup.md)
+  - [repalloc](../r/repalloc.md)
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
   - DatumGetRangeTypeP
   - RangeIsEmpty
-  - make_multirange
+  - [make_multirange](make_multirange.md)
   - PG_RETURN_MULTIRANGE_P
 - Called from:
   - PostgreSQL type system (input function registration)

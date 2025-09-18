@@ -27,12 +27,12 @@ All errors reported through this function are classified as data corruption erro
   - appendStringInfoVA (PostgreSQL string formatting function)
   - enlargeStringInfo (PostgreSQL string buffer expansion function)
   - ereport (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg_internal (PostgreSQL internal error message function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg_internal](../e/errmsg_internal.md) (PostgreSQL internal error message function)
   - ERRCODE_DATA_CORRUPTED (PostgreSQL error code constant)
 - Called from:
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - Uses a variadic function interface to accept printf-style formatting

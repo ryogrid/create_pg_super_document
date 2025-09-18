@@ -26,13 +26,13 @@ The function sets the  flag when the first subscript is an integer, which helps 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - int4out
+  - [int4out](../i/int4out.md)
   - DirectFunctionCall1
-  - DatumGetCString
+  - [DatumGetCString](../D/DatumGetCString.md)
   - CStringGetTextDatum
   - ereport
 - Called from:
-  - jsonb_exec_setup
+  - [jsonb_exec_setup](jsonb_exec_setup.md)
 
 ## Notes and Other Information
 - Returns  if any subscript is NULL in a fetch context, instructing the caller to skip the rest of the SubscriptingRef sequence

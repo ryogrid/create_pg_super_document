@@ -33,18 +33,18 @@ The function adapts its queries and output based on the PostgreSQL server versio
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer: Initialize query buffer management
-  - printfPQExpBuffer: Format SQL queries with parameters
-  - PSQLexec: Execute SQL queries against the database
-  - printTableInit: Initialize table formatting structure
-  - printTableAddHeader: Add column headers to table output
-  - printTableAddCell: Add data cells to table output
-  - printTableAddFooter: Add footer information to table output
-  - printTable: Display the formatted table
-  - add_tablespace_footer: Add tablespace information to footer
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Format SQL queries with parameters
+  - [PSQLexec](../P/PSQLexec.md): Execute SQL queries against the database
+  - [printTableInit](../p/printTableInit.md): Initialize table formatting structure
+  - [printTableAddHeader](../p/printTableAddHeader.md): Add column headers to table output
+  - [printTableAddCell](../p/printTableAddCell.md): Add data cells to table output
+  - [printTableAddFooter](../p/printTableAddFooter.md): Add footer information to table output
+  - [printTable](../p/printTable.md): Display the formatted table
+  - [add_tablespace_footer](../a/add_tablespace_footer.md): Add tablespace information to footer
   - atooid: Convert string to OID
-  - fmtId: Format identifiers for SQL queries
+  - [fmtId](../f/fmtId.md): Format identifiers for SQL queries
 - Called from (representative examples):
-  - describeTableDetails: For each relation matching the \d pattern
+  - [describeTableDetails](describeTableDetails.md): For each relation matching the \d pattern
 
 ## Notes and Other Information
 - The function is marked static, indicating it's only used within the describe.c file

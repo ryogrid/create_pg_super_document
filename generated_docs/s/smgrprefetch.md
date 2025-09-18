@@ -23,8 +23,8 @@ The smgrprefetch function is a storage manager interface for initiating asynchro
   - smgrsw[].smgr_prefetch (storage manager implementation function)
   - SMgrRelation (relation structure)
 - Called from (representative examples):
-  - PrefetchSharedBuffer (shared buffer prefetching)
-  - StartReadBuffersImpl (read buffer initialization)
+  - [PrefetchSharedBuffer](../P/PrefetchSharedBuffer.md) (shared buffer prefetching)
+  - [StartReadBuffersImpl](../S/StartReadBuffersImpl.md) (read buffer initialization)
   - PrefetchLocalBuffer (local buffer prefetching)
 
 ## Notes and Other Information

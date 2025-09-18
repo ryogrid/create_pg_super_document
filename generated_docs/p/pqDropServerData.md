@@ -22,15 +22,15 @@ The function resets various categories of server state including pending notific
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGnotify (struct type)
-  - pgParameterStatus (struct type)
+  - [pgParameterStatus](pgParameterStatus.md) (struct type)
   - PG_SQL_ASCII (constant)
   - PG_BOOL_UNKNOWN (constant)
   - SCRAM_SHA_256_DEFAULT_ITERATIONS (constant)
   - free (standard library function)
 
 - Called from (representative examples):
-  - PQconnectPoll
-  - pqClosePGconn
+  - [PQconnectPoll](../P/PQconnectPoll.md)
+  - [pqClosePGconn](pqClosePGconn.md)
 
 ## Notes and Other Information
 - The function preserves be_pid and be_key for cancel connections to maintain access to the secret token needed for cancellation operations

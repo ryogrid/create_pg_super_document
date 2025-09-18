@@ -19,8 +19,8 @@ ResetReindexState is a public function called during transaction abort scenarios
 - Functions called/Symbols referenced:
   - None (only uses global variables and constants)
 - Called from (representative examples):
-  - AbortTransaction
-  - AbortSubTransaction
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)
   - REINDEX_REL_FORCE_INDEXES_PERMANENT
 
 ## Notes and Other Information

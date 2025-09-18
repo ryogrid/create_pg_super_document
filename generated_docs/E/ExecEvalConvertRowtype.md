@@ -30,16 +30,16 @@ The function handles NULL inputs by passing them through unchanged and optimizes
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetHeapTupleHeader: Extracts HeapTupleHeader from input Datum
-  - get_cached_rowtype: Retrieves cached tuple descriptors for input/output types
-  - IncrTupleDescRefCount/DecrTupleDescRefCount: Manages tuple descriptor reference counting
+  - [get_cached_rowtype](../g/get_cached_rowtype.md): Retrieves cached tuple descriptors for input/output types
+  - [IncrTupleDescRefCount](../I/IncrTupleDescRefCount.md)/DecrTupleDescRefCount: Manages tuple descriptor reference counting
   - HeapTupleHeaderGetTypeId: Gets type ID from tuple header for validation
-  - convert_tuples_by_name: Creates attribute mapping between different tuple structures
-  - execute_attr_map_tuple: Performs tuple conversion with field rearrangement
-  - heap_copy_tuple_as_datum: Creates copy with updated composite datum headers
+  - [convert_tuples_by_name](../c/convert_tuples_by_name.md): Creates attribute mapping between different tuple structures
+  - [execute_attr_map_tuple](../e/execute_attr_map_tuple.md): Performs tuple conversion with field rearrangement
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md): Creates copy with updated composite datum headers
   - HeapTupleHeaderGetDatumLength: Gets length for HeapTupleData setup
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation type mapping function
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type mapping function
 
 ## Notes and Other Information
 - Supports both cases where field layout is compatible (simple header update) and where rearrangement is needed

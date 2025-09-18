@@ -17,20 +17,20 @@ shmem_exit implements a three-phase shared memory cleanup strategy during proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_backend_shutdown (dynamic shared memory cleanup)
+  - [dsm_backend_shutdown](../d/dsm_backend_shutdown.md) (dynamic shared memory cleanup)
   - elog (for debugging output)
 - Called from (representative examples):
-  - proc_exit_prepare (normal process termination)
-  - PostmasterStateMachine (postmaster recovery operations)
+  - [proc_exit_prepare](../p/proc_exit_prepare.md) (normal process termination)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md) (postmaster recovery operations)
   - PG_END_ENSURE_ERROR_CLEANUP (error cleanup macro)
 
 ## Notes and Other Information
 - Does not actually exit the process, only performs shared memory cleanup
 - Used by postmaster to clean up after backend crashes for shared memory reinitialization
 - Three-phase cleanup: before_shmem_exit → dynamic shared memory → on_shmem_exit
-- before_shmem_exit callbacks run first and need most system functionality available
+- [before_shmem_exit](../b/before_shmem_exit.md) callbacks run first and need most system functionality available
 - Dynamic shared memory cleanup is explicitly called rather than registered as callback
-- on_shmem_exit callbacks handle low-level resource cleanup and serve as backstop
+- [on_shmem_exit](../o/on_shmem_exit.md) callbacks handle low-level resource cleanup and serve as backstop
 - Callbacks are removed from lists before execution to prevent infinite loops on errors
 - Sets shmem_exit_inprogress flag during execution to track cleanup state
 - All callback arrays are reset to index 0 after execution

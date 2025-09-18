@@ -21,9 +21,9 @@ This function serves as a convenience wrapper around table_tuple_insert, providi
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_tuple_insert
-  - GetCurrentCommandId
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
 - Called from (representative examples):
-  - ExecSimpleRelationInsert (logical replication)
+  - [ExecSimpleRelationInsert](../E/ExecSimpleRelationInsert.md) (logical replication)
   - table_scan_sample_next_tuple (sampling operations)
 
 ## Notes and Other Information

@@ -29,18 +29,18 @@ Key initialization performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - on_dsm_detach (cleanup registration)
-  - shm_mq_detach_callback (cleanup callback)
+  - [shm_mq_detach_callback](shm_mq_detach_callback.md) (cleanup callback)
 - Called from (representative examples):
-  - InitializeParallelDSM (parallel query setup)
-  - ExecParallelSetupTupleQueues (parallel execution)
-  - ParallelWorkerMain (worker process initialization)
-  - pa_setup_dsm (logical replication)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (parallel query setup)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md) (parallel execution)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (worker process initialization)
+  - [pa_setup_dsm](../p/pa_setup_dsm.md) (logical replication)
 
 ## Notes and Other Information
 - The caller must ensure that either mq->mq_receiver or mq->mq_sender equals MyProc (verified by assertion)
 - The memory context in effect during this call should persist for the lifetime of the queue
-- shm_mq_detach() should be called when done to properly clean up resources
+- [shm_mq_detach](shm_mq_detach.md)() should be called when done to properly clean up resources
 - Future buffer allocations for incoming data will use the memory context active during this call
 - The handle enables communication even before the counterpart process has attached

@@ -36,19 +36,19 @@ The function dynamically manages memory for runtime keys and array keys, sharing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc/palloc0/repalloc
-  - get_leftop/get_rightop
-  - get_op_opfamily_properties
-  - get_opfamily_proc
-  - ExecInitExpr
+  - [palloc](../p/palloc.md)/palloc0/repalloc
+  - [get_leftop](../g/get_leftop.md)/get_rightop
+  - [get_op_opfamily_properties](../g/get_op_opfamily_properties.md)
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
+  - [ExecInitExpr](ExecInitExpr.md)
   - TypeIsToastable
-  - ScanKeyEntryInitialize
+  - [ScanKeyEntryInitialize](../S/ScanKeyEntryInitialize.md)
   - IndexRelationGetNumberOfKeyAttributes
   - MemSet
 - Called from (representative examples):
-  - ExecInitIndexScan (in nodeIndexscan.c:967, 981)
-  - ExecInitBitmapIndexScan (in nodeBitmapIndexscan.c:268)
-  - ExecInitIndexOnlyScan (in nodeIndexonlyscan.c:600, 614)
+  - [ExecInitIndexScan](ExecInitIndexScan.md) (in nodeIndexscan.c:967, 981)
+  - [ExecInitBitmapIndexScan](ExecInitBitmapIndexScan.md) (in nodeBitmapIndexscan.c:268)
+  - [ExecInitIndexOnlyScan](ExecInitIndexOnlyScan.md) (in nodeIndexonlyscan.c:600, 614)
 
 ## Notes and Other Information
 - The function performs extensive validation of index qualifications including operator compatibility with index

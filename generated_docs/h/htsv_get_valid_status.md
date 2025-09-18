@@ -28,7 +28,7 @@ The function is designed to catch programming errors during development where vi
   - HTSV_Result (return type enum)
   - Assert (debugging macro)
 - Called from (representative examples):
-  - heap_prune_chain
+  - [heap_prune_chain](heap_prune_chain.md)
 
 ## Notes and Other Information
 - Static inline function for performance in debug builds

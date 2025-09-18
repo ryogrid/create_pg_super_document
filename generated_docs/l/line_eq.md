@@ -22,11 +22,11 @@ This function determines whether two lines are geometrically equivalent by check
   - LINE (data type)
   - PG_GETARG_LINE_P (argument extraction macro)
   - isnan (NaN detection function)
-  - float8_eq (exact floating-point equality)
+  - [float8_eq](../f/float8_eq.md) (exact floating-point equality)
   - FPzero (floating-point zero comparison)
-  - float8_div (floating-point division)
-  - float8_mul (floating-point multiplication)
-  - FPeq (floating-point equality with tolerance)
+  - [float8_div](../f/float8_div.md) (floating-point division)
+  - [float8_mul](../f/float8_mul.md) (floating-point multiplication)
+  - [FPeq](../F/FPeq.md) (floating-point equality with tolerance)
   - PG_RETURN_BOOL (return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -23,14 +23,14 @@ The function is designed as a higher-level abstraction that simplifies the commo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpFamilyCacheLookup
+  - [OpFamilyCacheLookup](../O/OpFamilyCacheLookup.md)
   - Form_pg_opfamily
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - get_object_address_opcf
-  - DefineOpClass
-  - AlterOpFamily
-  - AlterOpFamilyAdd
+  - [get_object_address_opcf](get_object_address_opcf.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamily](../A/AlterOpFamily.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
 
 ## Notes and Other Information
 - This function is exported and can be called from other source files, as evidenced by its declaration in defrem.h

@@ -29,19 +29,19 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - TransactionState (current transaction state type)
   - FullTransactionIdIsValid (checks if transaction ID is valid)
-  - AssignTransactionId (assigns a new transaction ID)
+  - [AssignTransactionId](../A/AssignTransactionId.md) (assigns a new transaction ID)
   - XidFromFullTransactionId (converts full XID to regular XID)
 - Called from (representative examples):
-  - heap_insert
-  - heap_multi_insert
-  - heap_delete
-  - heap_update
-  - heap_lock_tuple
-  - heap_abort_speculative
-  - PrepareTransaction
-  - ExecInsert
-  - LogLogicalMessage
-  - RelationSetNewRelfilenumber
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heap_abort_speculative](../h/heap_abort_speculative.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [ExecInsert](../E/ExecInsert.md)
+  - [LogLogicalMessage](../L/LogLogicalMessage.md)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
 
 ## Notes and Other Information
 - This function is essential for heap operations and tuple visibility management

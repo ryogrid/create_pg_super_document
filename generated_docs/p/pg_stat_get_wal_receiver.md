@@ -38,17 +38,17 @@ The returned tuple contains the following fields:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvGetStateString
+  - [WalRcvGetStateString](../W/WalRcvGetStateString.md)
   - SpinLockAcquire/SpinLockRelease
-  - pg_atomic_read_u64
-  - get_call_result_type
+  - [pg_atomic_read_u64](pg_atomic_read_u64.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
   - has_privs_of_role
   - XLogRecPtrIsInvalid
   - LSNGetDatum
   - TimestampTzGetDatum
   - CStringGetTextDatum
-  - heap_form_tuple
-  - HeapTupleGetDatum
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - strlcpy
 - Called from (representative examples):
   - This function is typically accessed through PostgreSQL's function call mechanism via SQL queries to pg_stat_wal_receiver view

@@ -37,12 +37,12 @@ The implementation includes special handling for NULL records (returns NULL), dr
   - DatumGetHeapTupleHeader: Converts Datum to HeapTupleHeader
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple header
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple header
-  - get_cached_rowtype: Retrieves cached tuple descriptor for type
+  - [get_cached_rowtype](../g/get_cached_rowtype.md): Retrieves cached tuple descriptor for type
   - HeapTupleHeaderGetDatumLength: Gets tuple length for HeapTuple construction
-  - heap_getattr: Extracts attribute from standard heap tuple
+  - [heap_getattr](../h/heap_getattr.md): Extracts attribute from standard heap tuple
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation context
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation context
 
 ## Notes and Other Information
 - Supports both expanded records (optimized format) and standard heap tuples

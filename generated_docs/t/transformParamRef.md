@@ -22,11 +22,11 @@ This design allows different parts of PostgreSQL (such as prepared statements, P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamRef (struct type for parameter references)
+  - [ParamRef](../P/ParamRef.md) (struct type for parameter references)
   - ereport (error reporting function)
-  - parser_errposition (for error location reporting)
+  - [parser_errposition](../p/parser_errposition.md) (for error location reporting)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - This function is static and only used within the parse_expr.c module

@@ -35,18 +35,18 @@ The function differentiates between AT_AlterColumnType and AT_SetExpression oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan
-  - systable_getnext
-  - get_rel_relkind
-  - RememberIndexForRebuilding
-  - RememberConstraintForRebuilding
-  - RememberStatisticsForRebuilding
-  - GetAttrDefaultColumnAddress
-  - getObjectDescription
-  - get_attname
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [RememberIndexForRebuilding](RememberIndexForRebuilding.md)
+  - [RememberConstraintForRebuilding](RememberConstraintForRebuilding.md)
+  - [RememberStatisticsForRebuilding](RememberStatisticsForRebuilding.md)
+  - [GetAttrDefaultColumnAddress](../G/GetAttrDefaultColumnAddress.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [get_attname](../g/get_attname.md)
 - Called from (representative examples):
-  - ATExecAlterColumnType
-  - ATExecSetExpression
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
 
 ## Notes and Other Information
 - Uses DependReferenceIndexId for efficient dependency scanning

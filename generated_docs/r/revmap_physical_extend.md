@@ -28,29 +28,29 @@ The function is designed to be retry-safe, meaning callers are expected to retry
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer
-  - BufferGetPage
-  - PageGetContents
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetContents](../P/PageGetContents.md)
   - RelationGetNumberOfBlocks
-  - ReadBuffer
-  - ExtendBufferedRel
-  - BufferGetBlockNumber
-  - UnlockReleaseBuffer
-  - PageIsNew
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [PageIsNew](../P/PageIsNew.md)
   - BRIN_IS_REGULAR_PAGE
   - BrinPageType
-  - brin_start_evacuating_page
-  - brin_evacuate_page
-  - brin_page_init
+  - [brin_start_evacuating_page](../b/brin_start_evacuating_page.md)
+  - [brin_evacuate_page](../b/brin_evacuate_page.md)
+  - [brin_page_init](../b/brin_page_init.md)
   - MarkBufferDirty
   - RelationNeedsWAL
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
-  - PageSetLSN
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
 - Called from (representative examples):
-  - revmap_extend_and_get_blkno
+  - [revmap_extend_and_get_blkno](revmap_extend_and_get_blkno.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the BRIN revmap implementation

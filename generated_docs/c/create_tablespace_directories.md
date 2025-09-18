@@ -25,11 +25,11 @@ Permission validation ensures the target directory is accessible and properly se
   - MakePGDirectory: Creates directories with proper PostgreSQL permissions
   - TABLESPACE_VERSION_DIRECTORY: Constant defining the version subdirectory name
   - S_ISDIR: System macro to verify directory status
-  - remove_tablespace_symlink: Removes existing symlinks during recovery
+  - [remove_tablespace_symlink](../r/remove_tablespace_symlink.md): Removes existing symlinks during recovery
   - symlink: System call to create symbolic links
 - Called from (representative examples):
-  - CreateTableSpace: During tablespace creation
-  - tblspc_redo: During WAL replay for tablespace creation
+  - [CreateTableSpace](../C/CreateTableSpace.md): During tablespace creation
+  - [tblspc_redo](../t/tblspc_redo.md): During WAL replay for tablespace creation
 
 ## Notes and Other Information
 - Supports both normal and 'in-place' tablespace creation modes

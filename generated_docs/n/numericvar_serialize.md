@@ -20,13 +20,13 @@ The serialization format differs from the wire protocol used by numeric_send/rec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendint32 (for ndigits, weight, sign, dscale fields)
-  - pq_sendint16 (for individual digit values)
+  - [pq_sendint32](../p/pq_sendint32.md) (for ndigits, weight, sign, dscale fields)
+  - [pq_sendint16](../p/pq_sendint16.md) (for individual digit values)
 - Called from (representative examples):
-  - numeric_avg_serialize
-  - numeric_serialize  
-  - numeric_poly_serialize
-  - int8_avg_serialize
+  - [numeric_avg_serialize](numeric_avg_serialize.md)
+  - [numeric_serialize](numeric_serialize.md)  
+  - [numeric_poly_serialize](numeric_poly_serialize.md)
+  - [int8_avg_serialize](../i/int8_avg_serialize.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the numeric.c file

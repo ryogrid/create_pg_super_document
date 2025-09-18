@@ -30,18 +30,18 @@ For parallel-aware append operations, the function sorts non-partial paths by de
   - makeNode (AppendPath creation)
   - get_baserel_parampathinfo
   - get_appendrel_parampathinfo
-  - list_sort
-  - append_total_cost_compare
-  - append_startup_cost_compare
-  - list_concat
-  - bms_equal
-  - cost_append
+  - [list_sort](../l/list_sort.md)
+  - [append_total_cost_compare](../a/append_total_cost_compare.md)
+  - [append_startup_cost_compare](../a/append_startup_cost_compare.md)
+  - [list_concat](../l/list_concat.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [cost_append](cost_append.md)
   - PATH_REQ_OUTER
 - Called from (representative examples):
-  - add_paths_to_append_rel
-  - generate_orderedappend_paths
-  - generate_union_paths
-  - set_dummy_rel_pathlist
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md)
+  - [generate_orderedappend_paths](../g/generate_orderedappend_paths.md)
+  - [generate_union_paths](../g/generate_union_paths.md)
+  - [set_dummy_rel_pathlist](../s/set_dummy_rel_pathlist.md)
 
 ## Notes and Other Information
 - Handles the special case of NIL subpaths representing dummy access paths

@@ -30,12 +30,12 @@ The structure includes a memory context callback mechanism to ensure proper clea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLySavedArgs
-  - MemoryContextCallback
+  - [PLySavedArgs](PLySavedArgs.md)
+  - [MemoryContextCallback](../M/MemoryContextCallback.md)
   - PyObject (Python C API)
 - Called from (representative examples):
-  - PLy_exec_function (primary usage for managing SRF state)
-  - plpython_srf_cleanup_callback (cleanup operations)
+  - [PLy_exec_function](PLy_exec_function.md) (primary usage for managing SRF state)
+  - [plpython_srf_cleanup_callback](../p/plpython_srf_cleanup_callback.md) (cleanup operations)
 
 ## Notes and Other Information
 - The structure is allocated using MemoryContextAllocZero in the multi-call memory context to ensure zero-initialization

@@ -25,10 +25,10 @@ The conversion adjusts the time component by the difference between the original
   - PG_GETARG_TIMETZADT_P
   - INTERVAL_NOT_FINITE
   - DirectFunctionCall1
-  - interval_out
-  - DatumGetCString
-  - PointerGetDatum
-  - palloc
+  - [interval_out](../i/interval_out.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [palloc](../p/palloc.md)
   - PG_RETURN_TIMETZADT_P
   - ereport
 - Called from (representative examples):

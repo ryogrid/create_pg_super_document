@@ -19,14 +19,14 @@ For entries that survive the cleanup, the function resets both creating_subid an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OnCommitItem (struct representing on-commit entries)
+  - [OnCommitItem](../O/OnCommitItem.md) (struct representing on-commit entries)
   - InvalidSubTransactionId (constant representing invalid subtransaction ID)
   - foreach_delete_current (macro to safely delete current list element during iteration)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from:
-  - CommitTransaction (during transaction commit cleanup)
-  - PrepareTransaction (during two-phase commit cleanup) 
-  - AbortTransaction (during transaction abort cleanup)
+  - [CommitTransaction](../C/CommitTransaction.md) (during transaction commit cleanup)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (during two-phase commit cleanup) 
+  - [AbortTransaction](AbortTransaction.md) (during transaction abort cleanup)
 
 ## Notes and Other Information
 - This function is part of the cleanup phase that occurs after PreCommit_on_commit_actions

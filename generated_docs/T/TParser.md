@@ -32,15 +32,15 @@ The structure maintains multiple representations of the input text (multibyte, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParserPosition
+  - [TParserPosition](TParserPosition.md)
 - Called from (representative examples):
   - TParserInit
   - TParserCopyInit
   - TParserClose
   - TParserCopyClose
-  - TParserGet
-  - prsd_nexttoken
-  - prsd_end
+  - [TParserGet](TParserGet.md)
+  - [prsd_nexttoken](../p/prsd_nexttoken.md)
+  - [prsd_end](../p/prsd_end.md)
   - Various parser utility functions (p_iswhat, p_isEOF, etc.)
 
 ## Notes and Other Information

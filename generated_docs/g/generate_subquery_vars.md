@@ -28,7 +28,7 @@ The function skips resjunk entries since these are internal columns that shouldn
   - makeVarFromTargetEntry
   - lappend
 - Called from (representative examples):
-  - convert_ANY_sublink_to_join
+  - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md)
 
 ## Notes and Other Information
 - The function is static, accessible only within subselect.c

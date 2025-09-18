@@ -30,14 +30,14 @@ Incremental sort cannot support backward scans or mark/restore operations becaus
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates IncrementalSortState)
-  - ExecInitNode (initializes outer child node)
+  - [ExecInitNode](ExecInitNode.md) (initializes outer child node)
   - ExecCreateScanSlotFromOuterPlan (creates scan slot)
-  - ExecInitResultTupleSlotTL (initializes result slot and tuple descriptor)
-  - MakeSingleTupleTableSlot (creates standalone tuple slots)
-  - ExecGetResultType (gets result tuple descriptor)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (initializes result slot and tuple descriptor)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates standalone tuple slots)
+  - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor)
   - SO_printf (debug output)
 - Called from (representative examples):
-  - ExecInitNode (main node initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (main node initialization dispatcher)
 
 ## Notes and Other Information
 - Incremental sort is incompatible with EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK flags

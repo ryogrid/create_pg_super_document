@@ -20,7 +20,7 @@ This function is part of the GUC (Grand Unified Configuration) system's hook mec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tz (type reference)
+  - [pg_tz](../p/pg_tz.md) (type reference)
 - Called from (representative examples):
   - PostgreSQL GUC system (via function pointer in GUC_HOOKS_H)
 

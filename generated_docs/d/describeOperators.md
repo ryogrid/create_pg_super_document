@@ -26,14 +26,14 @@ The query results are formatted and displayed using psql's standard table printi
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer (initialize query buffer)
-  - printfPQExpBuffer (format SQL query)
-  - validateSQLNamePattern (validate and add pattern matching clauses)
-  - map_typename_pattern (normalize type name patterns)
-  - PSQLexec (execute SQL query)
-  - printQuery (display results)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and add pattern matching clauses)
+  - [map_typename_pattern](../m/map_typename_pattern.md) (normalize type name patterns)
+  - [PSQLexec](../P/PSQLexec.md) (execute SQL query)
+  - [printQuery](../p/printQuery.md) (display results)
   - termPQExpBuffer (cleanup query buffer)
 - Called from (representative examples):
-  - exec_command_dfo (src/bin/psql/command.c:1066) - handles \do command
+  - [exec_command_dfo](../e/exec_command_dfo.md) (src/bin/psql/command.c:1066) - handles \do command
   - Declared in DESCRIBE_H (src/bin/psql/describe.h:30)
 
 ## Notes and Other Information

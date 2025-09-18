@@ -23,7 +23,7 @@ Like other SearchSysCache variants, it returns a read-only cache copy of the tup
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - SearchCatCache1
+  - [SearchCatCache1](SearchCatCache1.md)
 - Called from (representative examples):
   - No direct references found in the current codebase analysis
 

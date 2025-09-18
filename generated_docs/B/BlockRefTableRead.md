@@ -31,9 +31,9 @@ The function handles partial reads by looping until the entire requested length 
   - BUFSIZE (constant)
 - Called from (representative examples):
   - BlockRefTableWriter
-  - CreateBlockRefTableReader
-  - BlockRefTableReaderNextRelation
-  - BlockRefTableReaderGetBlocks
+  - [CreateBlockRefTableReader](../C/CreateBlockRefTableReader.md)
+  - [BlockRefTableReaderNextRelation](BlockRefTableReaderNextRelation.md)
+  - [BlockRefTableReaderGetBlocks](BlockRefTableReaderGetBlocks.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the blkreftable.c module

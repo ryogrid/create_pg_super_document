@@ -19,17 +19,17 @@ The function is part of PostgreSQL's type conversion system that allows differen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (internal conversion function)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (internal conversion function)
   - Interval (data type structure)
 - Called from (representative examples):
   - PG_STAT_GET_WAL_SENDERS_COLS (WAL sender statistics)
-  - in_range_date_interval (date range operations)
-  - pg_timezone_abbrevs (timezone abbreviation functions)
-  - pg_timezone_names (timezone name functions) 
-  - timestamp_mi (timestamp subtraction)
-  - in_range_timestamp_interval (timestamp range operations)
-  - in_range_interval_interval (interval range operations)
-  - interval_avg (interval averaging)
+  - [in_range_date_interval](../i/in_range_date_interval.md) (date range operations)
+  - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md) (timezone abbreviation functions)
+  - [pg_timezone_names](../p/pg_timezone_names.md) (timezone name functions) 
+  - [timestamp_mi](../t/timestamp_mi.md) (timestamp subtraction)
+  - [in_range_timestamp_interval](../i/in_range_timestamp_interval.md) (timestamp range operations)
+  - [in_range_interval_interval](../i/in_range_interval_interval.md) (interval range operations)
+  - [interval_avg](../i/interval_avg.md) (interval averaging)
   - PG_RETURN_INTERVAL_P (return macro)
 
 ## Notes and Other Information

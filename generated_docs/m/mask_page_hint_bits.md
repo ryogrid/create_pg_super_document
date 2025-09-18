@@ -28,17 +28,17 @@ These modifications ensure that pages can be compared based on their actual data
 - Functions called/Symbols referenced:
   - PageHeader (type cast for page header access)
   - MASK_MARKER (constant used as mask value)
-  - PageClearFull (macro to clear page full flag)
-  - PageClearHasFreeLinePointers (macro to clear free line pointers flag)  
-  - PageClearAllVisible (macro to clear all-visible flag)
+  - [PageClearFull](../P/PageClearFull.md) (macro to clear page full flag)
+  - [PageClearHasFreeLinePointers](../P/PageClearHasFreeLinePointers.md) (macro to clear free line pointers flag)  
+  - [PageClearAllVisible](../P/PageClearAllVisible.md) (macro to clear all-visible flag)
 - Called from (representative examples):
-  - brin_mask (BRIN index masking)
-  - gin_mask (GIN index masking)
-  - gist_mask (GiST index masking)
-  - hash_mask (hash index masking)
-  - heap_mask (heap page masking)
-  - btree_mask (B-tree index masking)
-  - spg_mask (SP-GiST index masking)
+  - [brin_mask](../b/brin_mask.md) (BRIN index masking)
+  - [gin_mask](../g/gin_mask.md) (GIN index masking)
+  - [gist_mask](../g/gist_mask.md) (GiST index masking)
+  - [hash_mask](../h/hash_mask.md) (hash index masking)
+  - [heap_mask](../h/heap_mask.md) (heap page masking)
+  - [btree_mask](../b/btree_mask.md) (B-tree index masking)
+  - [spg_mask](../s/spg_mask.md) (SP-GiST index masking)
 
 ## Notes and Other Information
 - Hint bits are performance optimizations that can be set independently of WAL generation

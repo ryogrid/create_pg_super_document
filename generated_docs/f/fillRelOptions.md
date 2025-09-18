@@ -23,16 +23,16 @@ This function takes the output from parseRelOptions and fills a relation options
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relopt_value (struct type)
+  - [relopt_value](../r/relopt_value.md) (struct type)
   - relopt_parse_elt (struct type) 
-  - relopt_string, relopt_bool, relopt_int, relopt_real, relopt_enum (struct types)
+  - [relopt_string](../r/relopt_string.md), relopt_bool, relopt_int, relopt_real, relopt_enum (struct types)
   - RELOPT_TYPE_BOOL, RELOPT_TYPE_INT, RELOPT_TYPE_REAL, RELOPT_TYPE_ENUM, RELOPT_TYPE_STRING (enum values)
   - SET_VARSIZE (macro)
   - strcmp, strcpy, strlen (standard C functions)
   - elog (PostgreSQL logging function)
 - Called from:
-  - build_reloptions (src/backend/access/common/reloptions.c:1940)
-  - build_local_reloptions (src/backend/access/common/reloptions.c:1976)
+  - [build_reloptions](../b/build_reloptions.md) (src/backend/access/common/reloptions.c:1940)
+  - [build_local_reloptions](../b/build_local_reloptions.md) (src/backend/access/common/reloptions.c:1976)
 
 ## Notes and Other Information
 - This is a static function, only accessible within reloptions.c

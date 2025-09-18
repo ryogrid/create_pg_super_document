@@ -21,19 +21,19 @@ The reference time is calculated as the difference between the PostgreSQL epoch 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tz (timezone structure type)
-  - pg_tm (PostgreSQL time structure)
+  - [pg_tz](pg_tz.md) (timezone structure type)
+  - [pg_tm](pg_tm.md) (PostgreSQL time structure)
   - pg_time_t (PostgreSQL time type)
-  - pg_localtime (timezone conversion function)
+  - [pg_localtime](pg_localtime.md) (timezone conversion function)
   - POSTGRES_EPOCH_JDATE (PostgreSQL epoch constant)
   - UNIX_EPOCH_JDATE (Unix epoch constant)
   - SECS_PER_DAY (seconds per day constant)
 - Called from (representative examples):
-  - check_timezone (src/backend/commands/variable.c:349)
-  - check_log_timezone (src/backend/commands/variable.c:431)
-  - score_timezone (src/bin/initdb/findtimezone.c:249)
-  - validate_zone (src/bin/initdb/findtimezone.c:1739)
-  - pg_tzenumerate_next (src/timezone/pgtz.c:481)
+  - [check_timezone](../c/check_timezone.md) (src/backend/commands/variable.c:349)
+  - [check_log_timezone](../c/check_log_timezone.md) (src/backend/commands/variable.c:431)
+  - [score_timezone](../s/score_timezone.md) (src/bin/initdb/findtimezone.c:249)
+  - [validate_zone](../v/validate_zone.md) (src/bin/initdb/findtimezone.c:1739)
+  - [pg_tzenumerate_next](pg_tzenumerate_next.md) (src/timezone/pgtz.c:481)
 
 ## Notes and Other Information
 - Returns true if the timezone is acceptable (no leap-second handling detected)

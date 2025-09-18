@@ -29,18 +29,18 @@ ProcessQuery orchestrates the complete execution of a single planned query state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateQueryDesc
-  - ExecutorStart
-  - ExecutorRun
-  - ExecutorFinish
-  - ExecutorEnd
-  - FreeQueryDesc
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
+  - [ExecutorStart](../E/ExecutorStart.md)
+  - [ExecutorRun](../E/ExecutorRun.md)
+  - [ExecutorFinish](../E/ExecutorFinish.md)
+  - [ExecutorEnd](../E/ExecutorEnd.md)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
   - GetActiveSnapshot
   - SetQueryCompletion
   - ForwardScanDirection
   - InvalidSnapshot
 - Called from (representative examples):
-  - PortalRunMulti
+  - [PortalRunMulti](PortalRunMulti.md)
 
 ## Notes and Other Information
 This is a static function intended for internal use within the pquery.c module. The function must be called within a memory context that will be reset or deleted on error to prevent memory leaks from the executor. The query completion parameter (qc) is optional and may be NULL if the caller doesn't need status information. The function uses the active snapshot for query execution and no crosscheck snapshot (InvalidSnapshot).

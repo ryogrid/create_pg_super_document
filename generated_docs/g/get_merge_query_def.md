@@ -36,7 +36,7 @@ Key processing aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_with_clause
+  - [get_with_clause](get_with_clause.md)
   - rt_fetch
   - only_marker
   - generate_relation_name
@@ -44,14 +44,14 @@ Key processing aspects:
   - get_from_clause
   - appendContextKeyword
   - get_rule_expr
-  - quote_identifier
-  - get_attname
+  - [quote_identifier](../q/quote_identifier.md)
+  - [get_attname](get_attname.md)
   - processIndirection
   - get_rule_list_toplevel
-  - get_update_query_targetlist_def
-  - get_target_list
+  - [get_update_query_targetlist_def](get_update_query_targetlist_def.md)
+  - [get_target_list](get_target_list.md)
 - Called from:
-  - get_query_def
+  - [get_query_def](get_query_def.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, part of PostgreSQL's rule decompilation system

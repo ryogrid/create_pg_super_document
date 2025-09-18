@@ -24,20 +24,20 @@ All key values are allocated in the per-tuple memory context to ensure proper me
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalExpr
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - PG_DETOAST_DATUM
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data types used:
-  - IndexRuntimeKeyInfo
+  - [IndexRuntimeKeyInfo](../I/IndexRuntimeKeyInfo.md)
   - ScanKey
   - ExprContext
 - Constants used:
   - SK_ISNULL
 
 ## Called From
-- ExecReScanBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:152)
-- ExecReScanIndexOnlyScan (src/backend/executor/nodeIndexonlyscan.c:377)  
-- ExecReScanIndexScan (src/backend/executor/nodeIndexscan.c:565)
+- [ExecReScanBitmapIndexScan](ExecReScanBitmapIndexScan.md) (src/backend/executor/nodeBitmapIndexscan.c:152)
+- [ExecReScanIndexOnlyScan](ExecReScanIndexOnlyScan.md) (src/backend/executor/nodeIndexonlyscan.c:377)  
+- [ExecReScanIndexScan](ExecReScanIndexScan.md) (src/backend/executor/nodeIndexscan.c:565)
 
 ## Notes and Other Information
 - The function switches to per-tuple memory context to ensure key values have the appropriate lifetime

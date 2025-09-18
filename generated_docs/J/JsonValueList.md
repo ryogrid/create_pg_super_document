@@ -24,16 +24,16 @@ JsonValueList provides an efficient container for managing collections of JsonbV
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbValue
-  - List (PostgreSQL list type)
+  - [JsonbValue](JsonbValue.md)
+  - [List](../L/List.md) (PostgreSQL list type)
 - Called from (representative examples):
-  - executeJsonPath
-  - executeItem
-  - executeItemOptUnwrapTarget
-  - JsonValueListClear
-  - JsonValueListAppend
-  - JsonValueListLength
-  - JsonValueListIsEmpty
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [executeItem](../e/executeItem.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [JsonValueListClear](JsonValueListClear.md)
+  - [JsonValueListAppend](JsonValueListAppend.md)
+  - [JsonValueListLength](JsonValueListLength.md)
+  - [JsonValueListIsEmpty](JsonValueListIsEmpty.md)
 
 ## Notes and Other Information
 - Uses a singleton optimization to avoid List overhead for single values

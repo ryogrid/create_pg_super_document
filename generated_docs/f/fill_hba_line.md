@@ -23,13 +23,13 @@ The  function constructs a complete row for the pg_hba_file_rules system view, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int32GetDatum, CStringGetTextDatum, PointerGetDatum
-  - strlist_to_textarray
+  - [Int32GetDatum](../I/Int32GetDatum.md), CStringGetTextDatum, PointerGetDatum
+  - [strlist_to_textarray](../s/strlist_to_textarray.md)
   - pg_getnameinfo_all
-  - clean_ipv6_addr
-  - hba_authname
-  - get_hba_options
-  - heap_form_tuple
+  - [clean_ipv6_addr](../c/clean_ipv6_addr.md)
+  - [hba_authname](../h/hba_authname.md)
+  - [get_hba_options](../g/get_hba_options.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - tuplestore_puttuple
 - Types referenced:
   - Tuplestorestate, TupleDesc, HbaLine, AuthToken
@@ -37,7 +37,7 @@ The  function constructs a complete row for the pg_hba_file_rules system view, w
   - Connection type enums (ctLocal, ctHost, ctHostSSL, etc.)
   - IP comparison method enums (ipCmpMask, ipCmpAll, etc.)
 - Called from:
-  - fill_hba_view
+  - [fill_hba_view](fill_hba_view.md)
 
 ## Notes and Other Information
 - Function is static and only used within hbafuncs.c for system view implementation

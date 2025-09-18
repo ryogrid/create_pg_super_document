@@ -19,9 +19,9 @@ This function creates a new iterator object that can be used to sequentially tra
 - Functions called/Symbols referenced:
   - pg_malloc (for allocating the iterator structure)
 - Called from (representative examples):
-  - datapagemap_print (in datapagemap.c:122)
-  - calculate_totals (in filemap.c:530)
-  - perform_rewind (in pg_rewind.c:583)
+  - [datapagemap_print](datapagemap_print.md) (in datapagemap.c:122)
+  - [calculate_totals](../c/calculate_totals.md) (in filemap.c:530)
+  - [perform_rewind](../p/perform_rewind.md) (in pg_rewind.c:583)
 
 ## Notes and Other Information
 - Returns a newly allocated datapagemap_iterator_t pointer that must be freed by the caller

@@ -29,9 +29,9 @@ After validation, it transforms the contained query and packages the entire stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformStmt, makeNode
+  - [transformStmt](transformStmt.md), makeNode
   - ereport, errcode, errmsg, errdetail
-  - LCS_asString, linitial
+  - [LCS_asString](../L/LCS_asString.md), linitial
   - IsA macro for type checking
 - Constants referenced:
   - CURSOR_OPT_SCROLL, CURSOR_OPT_NO_SCROLL
@@ -39,7 +39,7 @@ After validation, it transforms the contained query and packages the entire stat
   - CURSOR_OPT_HOLD, CMD_SELECT, CMD_UTILITY
   - Error codes: ERRCODE_INVALID_CURSOR_DEFINITION, ERRCODE_FEATURE_NOT_SUPPORTED
 - Called from (representative examples):
-  - transformStmt
+  - [transformStmt](transformStmt.md)
 
 ## Notes and Other Information
 - The function enforces SQL standard restrictions on cursor options compatibility

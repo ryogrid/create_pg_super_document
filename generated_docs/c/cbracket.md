@@ -21,15 +21,15 @@ The `cbracket` function processes complemented bracket expressions (like `[^abc]
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newstate (creates new NFA states)
+  - [newstate](../n/newstate.md) (creates new NFA states)
   - NOERR (error handling macro)
-  - bracket (processes the positive bracket expression)
+  - [bracket](../b/bracket.md) (processes the positive bracket expression)
   - REG_NLSTOP (flag for newline stop mode)
-  - newarc (creates new NFA arc)
+  - [newarc](../n/newarc.md) (creates new NFA arc)
   - PLAIN (arc type constant)
-  - colorcomplement (complements the color set)
-  - dropstate (removes state from NFA)
-  - freestate (deallocates state memory)
+  - [colorcomplement](colorcomplement.md) (complements the color set)
+  - [dropstate](../d/dropstate.md) (removes state from NFA)
+  - [freestate](../f/freestate.md) (deallocates state memory)
 - Called from:
   - ARCV (main arc processing function)
 

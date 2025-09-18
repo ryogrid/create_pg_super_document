@@ -30,12 +30,12 @@ This design allows PostgreSQL to coordinate multiple sequential table scans by s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ss_lru_item_t (used for head, tail pointers and array elements)
+  - [ss_lru_item_t](ss_lru_item_t.md) (used for head, tail pointers and array elements)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member syntax)
   - SYNC_SCAN_NELEM (constant defining array size as 20)
 - Called from (representative examples):
   - SizeOfScanLocations (used for size calculations)
-  - SyncScanShmemInit (used during shared memory initialization)
+  - [SyncScanShmemInit](../S/SyncScanShmemInit.md) (used during shared memory initialization)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's synchronized scan infrastructure in src/backend/access/common/syncscan.c

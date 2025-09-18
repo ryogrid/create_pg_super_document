@@ -21,7 +21,7 @@ The function deallocates all memory associated with a Catalan stemmer environmen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (with parameter 0 for S_size)
+  - [SN_close_env](../S/SN_close_env.md) (with parameter 0 for S_size)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called from higher-level stemming interfaces)
 

@@ -24,10 +24,10 @@ The function operates within the larger context of , which provides a systematic
 - Functions called/Symbols referenced:
   - PSWALK (macro that wraps the walker callback invocation)
 - Called from (representative examples):
-  - planstate_tree_walker_impl (for T_Append case)
-  - planstate_tree_walker_impl (for T_MergeAppend case)
-  - planstate_tree_walker_impl (for T_BitmapAnd case)
-  - planstate_tree_walker_impl (for T_BitmapOr case)
+  - [planstate_tree_walker_impl](planstate_tree_walker_impl.md) (for T_Append case)
+  - [planstate_tree_walker_impl](planstate_tree_walker_impl.md) (for T_MergeAppend case)
+  - [planstate_tree_walker_impl](planstate_tree_walker_impl.md) (for T_BitmapAnd case)
+  - [planstate_tree_walker_impl](planstate_tree_walker_impl.md) (for T_BitmapOr case)
 
 ## Notes and Other Information
 - This is a static function internal to nodeFuncs.c, not exposed to external modules

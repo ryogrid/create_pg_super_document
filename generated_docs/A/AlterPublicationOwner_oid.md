@@ -24,12 +24,12 @@ This function is particularly useful in scenarios where the publication OID is a
 - Functions called/Symbols referenced:
   - table_open
   - SearchSysCacheCopy1
-  - ObjectIdGetDatum
-  - AlterPublicationOwner_internal
-  - heap_freetuple
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [AlterPublicationOwner_internal](AlterPublicationOwner_internal.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Called from (representative examples):
-  - shdepReassignOwned_Owner
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md)
 
 ## Notes and Other Information
 - This is a public function, accessible throughout the PostgreSQL codebase and declared in publicationcmds.h

@@ -21,13 +21,13 @@ The function returns VOID after successfully acquiring the lock.
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (extracts 64-bit integer argument from function call)
   - SET_LOCKTAG_INT64 (creates a lock tag for 64-bit integer advisory locks)
-  - LockAcquire (core lock acquisition function)
+  - [LockAcquire](../L/LockAcquire.md) (core lock acquisition function)
   - PG_RETURN_VOID (returns void result)
 - Referenced types:
   - LOCKTAG (lock identifier structure)
   - ExclusiveLock (lock mode constant)
 - Called from:
-  - delay_execution_planner (in test modules for execution control)
+  - [delay_execution_planner](../d/delay_execution_planner.md) (in test modules for execution control)
   - Application code requiring custom locking mechanisms
   - SQL queries using pg_advisory_lock(bigint) function
 

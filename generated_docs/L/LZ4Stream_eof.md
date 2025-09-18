@@ -21,10 +21,10 @@ This function implements end-of-file detection for LZ4-compressed streams in Pos
 - Functions called/Symbols referenced:
   - feof (standard library function)
 - Types used:
-  - CompressFileHandle
-  - LZ4State
+  - [CompressFileHandle](../C/CompressFileHandle.md)
+  - [LZ4State](LZ4State.md)
 - Called from (representative examples):
-  - LZ4Stream_getc
+  - [LZ4Stream_getc](LZ4Stream_getc.md)
 
 ## Notes and Other Information
 - This is a static function internal to the compress_lz4.c module

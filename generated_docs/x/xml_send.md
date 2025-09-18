@@ -20,11 +20,11 @@ The function first converts the XML value to its string representation using xml
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_XML_P (retrieves XML argument)
-  - xml_out_internal (converts XML to string representation)
-  - pg_get_client_encoding (gets client character encoding)
-  - pq_begintypsend (initializes binary send buffer)
+  - [xml_out_internal](xml_out_internal.md) (converts XML to string representation)
+  - [pg_get_client_encoding](../p/pg_get_client_encoding.md) (gets client character encoding)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initializes binary send buffer)
   - pq_sendtext (sends text data in binary format)
-  - pq_endtypsend (finalizes binary send buffer)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary send buffer)
   - PG_RETURN_BYTEA_P (returns bytea result)
 - Called from:
   - Binary protocol transmission system (no direct references found)

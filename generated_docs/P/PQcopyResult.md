@@ -24,13 +24,13 @@ The function supports copying attributes (column metadata), tuples (data rows), 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmakeEmptyPGresult
-  - PQsetResultAttrs
-  - PQsetvalue
-  - dupEvents
-  - PQclear
+  - [PQmakeEmptyPGresult](PQmakeEmptyPGresult.md)
+  - [PQsetResultAttrs](PQsetResultAttrs.md)
+  - [PQsetvalue](PQsetvalue.md)
+  - [dupEvents](../d/dupEvents.md)
+  - [PQclear](PQclear.md)
 - Called from (representative examples):
-  - pqRowProcessor
+  - [pqRowProcessor](../p/pqRowProcessor.md)
 
 ## Notes and Other Information
 - Returns NULL if source is NULL or if any copying operation fails

@@ -27,15 +27,15 @@ The function employs several key techniques:
 - Functions called/Symbols referenced:
   - SortSupport (structure type)
   - uuid_sortsupport_state (structure type) 
-  - pg_uuid_t (UUID structure type)
-  - DatumGetUUIDP (conversion macro)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (UUID structure type)
+  - [DatumGetUUIDP](../D/DatumGetUUIDP.md) (conversion macro)
   - SIZEOF_DATUM (platform-specific size macro)
   - addHyperLogLog (cardinality estimation function)
-  - hash_uint32 (hash function)
-  - DatumGetUInt32 (conversion macro)
+  - [hash_uint32](../h/hash_uint32.md) (hash function)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (conversion macro)
   - DatumBigEndianToNative (endian conversion macro)
 - Called from (representative examples):
-  - uuid_sortsupport (as convert callback assignment)
+  - [uuid_sortsupport](uuid_sortsupport.md) (as convert callback assignment)
 
 ## Notes and Other Information
 - The abbreviated key uses only the first 4/8 bytes of the 16-byte UUID, which is sufficient for most sorting scenarios

@@ -25,7 +25,7 @@ If the input is NULL or an empty string, the function immediately returns CMDTAG
   -  (macro to get array length)
   -  (global array of CommandTagBehavior structures)
   - CommandTag (enum type)
-  - CommandTagBehavior (struct type)
+  - [CommandTagBehavior](../C/CommandTagBehavior.md) (struct type)
 - Called from (representative examples):
   -  (src/backend/commands/event_trigger.c:219)
   -  (src/backend/commands/event_trigger.c:246)

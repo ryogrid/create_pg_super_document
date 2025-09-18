@@ -22,18 +22,18 @@ The function is designed to be crash-safe through proper WAL logging and uses cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mXactCacheGetBySet (cache lookup)
+  - [mXactCacheGetBySet](../m/mXactCacheGetBySet.md) (cache lookup)
   - MultiXactIdIsValid (validation)
   - ISUPDATE_from_mxstatus (status checking)
-  - GetNewMultiXactId (ID assignment)
-  - XLogBeginInsert, XLogRegisterData, XLogInsert (WAL logging)
-  - RecordNewMultiXact (SLRU storage)
-  - mXactCachePut (caching)
+  - [GetNewMultiXactId](../G/GetNewMultiXactId.md) (ID assignment)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert (WAL logging)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md) (SLRU storage)
+  - [mXactCachePut](../m/mXactCachePut.md) (caching)
   - debug_elog3, debug_elog2 (debugging)
 - Called from (representative examples):
-  - FreezeMultiXactId (during vacuum operations)
-  - MultiXactIdCreate (creating new MultiXacts)
-  - MultiXactIdExpand (expanding existing MultiXacts)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md) (during vacuum operations)
+  - [MultiXactIdCreate](MultiXactIdCreate.md) (creating new MultiXacts)
+  - [MultiXactIdExpand](MultiXactIdExpand.md) (expanding existing MultiXacts)
 
 ## Notes and Other Information
 - The members array is sorted in-place during processing

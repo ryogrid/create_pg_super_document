@@ -28,8 +28,8 @@ The color customization system supports four message types: error, warning, note
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enable_vt_processing (Windows only)
-  - get_progname
+  - [enable_vt_processing](../e/enable_vt_processing.md) (Windows only)
+  - [get_progname](../g/get_progname.md)
   - getenv
   - isatty
   - fileno
@@ -45,7 +45,7 @@ The color customization system supports four message types: error, warning, note
   - SGR_NOTE_DEFAULT
   - SGR_LOCUS_DEFAULT
 - Called from (representative examples):
-  - main functions in various PostgreSQL client utilities (pg_dump, psql, initdb, etc.)
+  - [main](../m/main.md) functions in various PostgreSQL client utilities (pg_dump, psql, initdb, etc.)
 
 ## Notes and Other Information
 - Must be called before any logging output occurs

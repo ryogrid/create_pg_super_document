@@ -22,15 +22,15 @@ This structure is primarily used during table creation, constraint management, a
 - Functions called/Symbols referenced:
   - AttrNumber (type)
 - Called from (representative examples):
-  - CreateTupleDescCopyConstr
-  - FreeTupleDesc
-  - equalTupleDescs
-  - TupleDescGetDefault
-  - AttrDefaultFetch
-  - AttrDefaultCmp
+  - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [equalTupleDescs](../e/equalTupleDescs.md)
+  - [TupleDescGetDefault](../T/TupleDescGetDefault.md)
+  - [AttrDefaultFetch](AttrDefaultFetch.md)
+  - [AttrDefaultCmp](AttrDefaultCmp.md)
 
 ## Notes and Other Information
 - The adbin field stores expressions in a serialized format that can be reconstructed using stringToNode()
-- AttrDefault structures are typically stored in arrays within TupleConstr
+- [AttrDefault](AttrDefault.md) structures are typically stored in arrays within TupleConstr
 - Used extensively in the relation cache system for managing table constraints
 - The structure is designed to be lightweight while preserving all necessary information about column defaults

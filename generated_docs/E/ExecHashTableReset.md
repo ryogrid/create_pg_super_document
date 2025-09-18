@@ -25,12 +25,12 @@ This efficient approach allows reusing the same hash table structure across mult
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset - resets the batch memory context, freeing all allocated memory
-  - MemoryContextSwitchTo - switches to the batch context for new allocations
+  - [MemoryContextReset](../M/MemoryContextReset.md) - resets the batch memory context, freeing all allocated memory
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) - switches to the batch context for new allocations
   - palloc0_array - allocates and zero-initializes the new bucket array
-  - HashJoinTuple - type used for bucket array allocation
+  - [HashJoinTuple](../H/HashJoinTuple.md) - type used for bucket array allocation
 - Called from (representative examples):
-  - ExecHashJoinNewBatch - initiates processing of a new batch in batched hash joins
+  - [ExecHashJoinNewBatch](ExecHashJoinNewBatch.md) - initiates processing of a new batch in batched hash joins
 
 ## Notes and Other Information
 - Essential for implementing batched hash joins when working sets exceed work_mem

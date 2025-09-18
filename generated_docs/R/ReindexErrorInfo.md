@@ -23,8 +23,8 @@ This structure enables more informative error messages by preserving the name, n
 - Functions called/Symbols referenced:
   - None (this is a plain data structure)
 - Called from (representative examples):
-  - reindex_error_callback
-  - ReindexPartitions
+  - [reindex_error_callback](../r/reindex_error_callback.md)
+  - [ReindexPartitions](ReindexPartitions.md)
 
 ## Notes and Other Information
 - This structure is only used for partitioned relations (tables and indexes) as indicated by the assertion in the error callback

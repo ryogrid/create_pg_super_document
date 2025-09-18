@@ -24,10 +24,10 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - list_free
+  - [RelationGetIndexList](RelationGetIndexList.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - GetRelationIdentityOrPK
+  - [GetRelationIdentityOrPK](../G/GetRelationIdentityOrPK.md)
   - RelationPtr
 
 ## Notes and Other Information

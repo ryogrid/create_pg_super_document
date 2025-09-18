@@ -41,7 +41,7 @@ The function maintains careful state management to ensure signs are written exac
   - strcpy, strlen (string operations)
   - elog (debug logging)
 - Called from (representative examples):
-  - NUM_processor (formatting.c:6035)
+  - [NUM_processor](NUM_processor.md) (formatting.c:6035)
   - DCH_ZONED (formatting.c:1080)
 
 ## Notes and Other Information

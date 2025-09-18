@@ -24,7 +24,7 @@ The function deliberately delays unsetting the all_visible flag to allow dead tu
   - PruneState (structure)
   - MaxHeapTuplesPerPage (constant)
 - Called from (representative examples):
-  - heap_prune_record_dead_or_unused
+  - [heap_prune_record_dead_or_unused](heap_prune_record_dead_or_unused.md)
 
 ## Notes and Other Information
 - Marks the offset as processed to prevent duplicate processing

@@ -28,12 +28,12 @@ This is an internal helper function (note the static modifier) that performs a d
   - RT_MAKE_PREFIX
   - RT_PREFIX (defined by the including code)
   - check_stack_depth (PostgreSQL stack overflow protection)
-  - dsa_free (Dynamic Shared Area memory freeing)
-  - RT_PTR_SET_LOCAL (converts DSA pointer to local pointer)
-  - RT_CHILDPTR_IS_VALUE (checks if child pointer is a value or node)
+  - [dsa_free](../d/dsa_free.md) (Dynamic Shared Area memory freeing)
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md) (converts DSA pointer to local pointer)
+  - [RT_CHILDPTR_IS_VALUE](RT_CHILDPTR_IS_VALUE.md) (checks if child pointer is a value or node)
 - Called from (representative examples):
-  - RT_FREE (main tree freeing function)
-  - RT_FREE_RECURSE (recursive self-calls during traversal)
+  - [RT_FREE](RT_FREE.md) (main tree freeing function)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (recursive self-calls during traversal)
 
 ## Notes and Other Information
 - Internal helper function, not part of the public API

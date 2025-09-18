@@ -25,9 +25,9 @@ The operation is typically used when testing block-level operations on the tidst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber (to extract block number from ItemPointers)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (to extract block number from ItemPointers)
 - Called from (representative examples):
-  - do_set_block_offsets
+  - [do_set_block_offsets](../d/do_set_block_offsets.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the test_tidstore module

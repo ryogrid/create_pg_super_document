@@ -26,8 +26,8 @@ FindDefaultConversion locates the default conversion procedure for a specific so
   - Form_pg_conversion (struct type)
   - CatCList (struct type)
 - Called from (representative examples):
-  - FindDefaultConversionProc
-  - ConversionCreate
+  - [FindDefaultConversionProc](FindDefaultConversionProc.md)
+  - [ConversionCreate](../C/ConversionCreate.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no default conversion is found for the specified encoding pair

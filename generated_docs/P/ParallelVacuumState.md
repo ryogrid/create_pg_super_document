@@ -34,27 +34,27 @@ ParallelVacuumState serves as the central control structure for PostgreSQL's par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelContext (parallel processing framework)
-  - PVShared (shared worker state)
-  - PVIndStats (per-index statistics)
-  - TidStore (dead tuple storage)
+  - [ParallelContext](ParallelContext.md) (parallel processing framework)
+  - [PVShared](PVShared.md) (shared worker state)
+  - [PVIndStats](PVIndStats.md) (per-index statistics)
+  - [TidStore](../T/TidStore.md) (dead tuple storage)
   - BufferUsage (buffer statistics)
   - WalUsage (WAL statistics)
-  - BufferAccessStrategy (I/O strategy)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (I/O strategy)
   - PVIndVacStatus (vacuum status enum)
 - Called from (representative examples):
-  - LVRelState (as member in lazy vacuum state)
-  - parallel_vacuum_init (initialization)
-  - parallel_vacuum_end (cleanup)
-  - parallel_vacuum_process_all_indexes (index processing coordination)
-  - parallel_vacuum_main (worker main function)
-  - parallel_vacuum_error_callback (error handling)
+  - [LVRelState](../L/LVRelState.md) (as member in lazy vacuum state)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (initialization)
+  - [parallel_vacuum_end](../p/parallel_vacuum_end.md) (cleanup)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md) (index processing coordination)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md) (worker main function)
+  - [parallel_vacuum_error_callback](../p/parallel_vacuum_error_callback.md) (error handling)
 
 ## Notes and Other Information
 - The typedef for this structure appears in vacuum.h, making it available to other vacuum-related modules
 - Worker processes have pcxt set to NULL since they don't manage the parallel context directly
 - The indstats array is allocated for every index, even those not suitable for parallel processing
-- IndexBulkDeleteResult data is kept in DSM during parallel vacuum and copied to local memory at completion
+- [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) data is kept in DSM during parallel vacuum and copied to local memory at completion
 - Error reporting fields (relnamespace, relname, indname, status) are primarily used by worker processes for context in error callbacks
 - Integrates with PostgreSQL's shared memory and parallel processing infrastructure for scalable vacuum operations
 - Central to the coordination between leader and worker processes in parallel vacuum workflows

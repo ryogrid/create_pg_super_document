@@ -18,14 +18,14 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextAlloc  
-  - SlabContextCreate
-  - GenerationContextCreate
-  - hash_create
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)  
+  - [SlabContextCreate](../S/SlabContextCreate.md)
+  - [GenerationContextCreate](../G/GenerationContextCreate.md)
+  - [hash_create](../h/hash_create.md)
   - pairingheap_allocate
-  - dlist_init
-  - dclist_init
-  - ReorderBufferCleanupSerializedTXNs
+  - [dlist_init](../d/dlist_init.md)
+  - [dclist_init](../d/dclist_init.md)
+  - [ReorderBufferCleanupSerializedTXNs](ReorderBufferCleanupSerializedTXNs.md)
 - Called from (representative examples):
   - StartupDecodingContext
 

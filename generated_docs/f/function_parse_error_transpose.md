@@ -19,15 +19,15 @@ The function works by leveraging the ActivePortal to access the original query t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geterrposition
-  - getinternalerrposition  
+  - [geterrposition](../g/geterrposition.md)
+  - [getinternalerrposition](../g/getinternalerrposition.md)  
   - PORTAL_ACTIVE
-  - match_prosrc_to_query
-  - errposition
-  - internalerrposition
-  - internalerrquery
+  - [match_prosrc_to_query](../m/match_prosrc_to_query.md)
+  - [errposition](../e/errposition.md)
+  - [internalerrposition](../i/internalerrposition.md)
+  - [internalerrquery](../i/internalerrquery.md)
 - Called from (representative examples):
-  - sql_function_parse_error_callback
+  - [sql_function_parse_error_callback](../s/sql_function_parse_error_callback.md)
 
 ## Notes and Other Information
 - Returns true if a syntax error was processed, false if not

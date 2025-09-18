@@ -29,7 +29,7 @@ The function performs straightforward arithmetic operations to extract each time
   - USECS_PER_MINUTE (microseconds per minute constant)
   - USECS_PER_SEC (microseconds per second constant)
 - Called from (representative examples):
-  - PGTYPESinterval_to_asc (interval to string conversion function)
+  - [PGTYPESinterval_to_asc](../P/PGTYPESinterval_to_asc.md) (interval to string conversion function)
 
 ## Notes and Other Information
 - Located in src/interfaces/ecpg/pgtypeslib/interval.c:942-971

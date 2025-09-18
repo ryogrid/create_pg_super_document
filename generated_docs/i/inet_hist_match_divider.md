@@ -29,13 +29,13 @@ For supernet operators (negative codes), the boundary's mask length is decisive.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ip_family (extracts IP family from inet value)
-  - inet_masklen_inclusion_cmp (validates mask length relationship for operator)
+  - [inet_masklen_inclusion_cmp](inet_masklen_inclusion_cmp.md) (validates mask length relationship for operator)
   - ip_bits (extracts mask length from inet value)
   - Min (minimum macro)
-  - bitncommon (counts common leading bits between addresses)
+  - [bitncommon](../b/bitncommon.md) (counts common leading bits between addresses)
   - ip_addr (extracts IP address portion from inet value)
 - Called from (representative examples):
-  - inet_hist_value_sel (histogram-based selectivity estimation)
+  - [inet_hist_value_sel](inet_hist_value_sel.md) (histogram-based selectivity estimation)
 
 ## Notes and Other Information
 Returns -1 if the calculation cannot be performed (different IP families or incompatible mask length relationship). Otherwise returns a non-negative value representing the "distance" between the boundary and query in terms of network bits. A return value of 0 indicates an exact match, while positive values indicate the degree of mismatch. This value is used in the histogram interpolation logic to estimate what fraction of a histogram bucket satisfies the query condition.

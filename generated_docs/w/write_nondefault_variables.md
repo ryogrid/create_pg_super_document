@@ -33,13 +33,13 @@ The function uses the global guc_nondef_list, which maintains a doubly-linked li
   - FreeFile
   - dlist_foreach
   - dlist_container
-  - write_one_nondefault_variable
+  - [write_one_nondefault_variable](write_one_nondefault_variable.md)
   - rename
   - ereport
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
 - Called from (representative examples):
-  - PostmasterMain
-  - process_pm_reload_request
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md)
 
 ## Notes and Other Information
 - Only available when EXEC_BACKEND is defined (Windows and some Unix configurations)

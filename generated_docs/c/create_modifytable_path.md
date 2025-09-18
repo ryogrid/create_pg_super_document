@@ -42,7 +42,7 @@ Cost calculation is intentionally simplified since ModifyTable is always a top-l
   - CmdType, CMD_MERGE, CMD_UPDATE (command type constants)
   - OnConflictExpr (ON CONFLICT expression structure)
 - Called from (representative examples):
-  - grouping_planner (src/backend/optimizer/plan/planner.c:2009)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:2009)
 
 ## Notes and Other Information
 - Always creates a top-level path node that cannot be parallelized
@@ -50,5 +50,5 @@ Cost calculation is intentionally simplified since ModifyTable is always a top-l
 - Supports complex features like partitioning, RETURNING clauses, and MERGE operations
 - Validates list length consistency between resultRelations and related parameter lists
 - Row count is set to subpath rows if RETURNING is present, otherwise 0
-- Path target width handling is acknowledged as suboptimal but maintained for historical compatibility
+- [Path](../P/Path.md) target width handling is acknowledged as suboptimal but maintained for historical compatibility
 - No pathkeys (sort order) since modification operations don't preserve ordering

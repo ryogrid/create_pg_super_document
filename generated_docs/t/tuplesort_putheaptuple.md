@@ -21,13 +21,13 @@ This function takes a HeapTuple and prepares it for sorting by creating a comple
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - heap_copytuple
-  - heap_getattr
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [heap_getattr](../h/heap_getattr.md)
   - TupleSortUseBumpTupleCxt
   - GetMemoryChunkSpace
   - tuplesort_puttuple_common
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 
 ## Notes and Other Information
 - Always creates a complete copy of the input HeapTuple data

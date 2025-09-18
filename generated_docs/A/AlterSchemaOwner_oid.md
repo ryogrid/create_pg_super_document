@@ -25,10 +25,10 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close (catalog access with RowExclusiveLock)
-  - SearchSysCache1/ReleaseSysCache (schema lookup by OID)
-  - AlterSchemaOwner_internal (performs the actual ownership change)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache (schema lookup by OID)
+  - [AlterSchemaOwner_internal](AlterSchemaOwner_internal.md) (performs the actual ownership change)
 - Called from (representative examples):
-  - shdepReassignOwned_Owner (dependency reassignment during role operations)
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md) (dependency reassignment during role operations)
 
 ## Notes and Other Information
 - Void return type as it performs the operation in-place

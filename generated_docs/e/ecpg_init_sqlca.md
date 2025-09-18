@@ -20,14 +20,14 @@ The function uses  to efficiently copy the entire structure contents, ensuring t
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcpy (standard library function)
-  - sqlca_t (structure type)
+  - [sqlca_t](../s/sqlca_t.md) (structure type)
   - sqlca_init (static template structure)
 - Called from (representative examples):
-  - ECPGconnect
-  - ECPGdisconnect
-  - ECPGget_desc_header
-  - ECPGget_desc
-  - ecpg_init
+  - [ECPGconnect](../E/ECPGconnect.md)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md)
+  - [ECPGget_desc_header](../E/ECPGget_desc_header.md)
+  - [ECPGget_desc](../E/ECPGget_desc.md)
+  - [ecpg_init](ecpg_init.md)
   - ECPGget_sqlca
   - ECPGset_var
 

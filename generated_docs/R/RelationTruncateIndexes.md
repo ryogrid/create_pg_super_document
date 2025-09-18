@@ -19,17 +19,17 @@ The function uses a dummy IndexInfo structure during rebuilding to avoid executi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
+  - [RelationGetIndexList](RelationGetIndexList.md)
   - lfirst_oid
-  - index_open
+  - [index_open](../i/index_open.md)
   - AccessExclusiveLock
-  - BuildDummyIndexInfo
-  - RelationTruncate
-  - index_build
-  - index_close
+  - [BuildDummyIndexInfo](../B/BuildDummyIndexInfo.md)
+  - [RelationTruncate](RelationTruncate.md)
+  - [index_build](../i/index_build.md)
+  - [index_close](../i/index_close.md)
   - NoLock
 - Called from (representative examples):
-  - heap_truncate_one_rel
+  - [heap_truncate_one_rel](../h/heap_truncate_one_rel.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heap.c

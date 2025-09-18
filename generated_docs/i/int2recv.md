@@ -19,7 +19,7 @@ int2recv is a PostgreSQL receive function that handles binary input conversion f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
+  - [pq_getmsgint](../p/pq_getmsgint.md)
   - PG_RETURN_INT16
 - Called from (representative examples):
   - No direct references found in the codebase

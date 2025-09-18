@@ -22,17 +22,17 @@ The function initializes all output arrays to NULL/true, then populates them bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NextCopyFromRawFields: Reads raw field strings from input for text/CSV mode
+  - [NextCopyFromRawFields](NextCopyFromRawFields.md): Reads raw field strings from input for text/CSV mode
   - MemSet: Initializes arrays to default values
-  - InputFunctionCallSafe: Safely converts string input to typed Datum values
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md): Safely converts string input to typed Datum values
   - ExecEvalExpr: Evaluates default expressions for missing columns
-  - CopyGetInt16: Reads 16-bit integers from binary input
-  - CopyReadBinaryData: Reads raw binary data from input stream
-  - CopyReadBinaryAttribute: Reads and converts binary attribute data
+  - [CopyGetInt16](../C/CopyGetInt16.md): Reads 16-bit integers from binary input
+  - [CopyReadBinaryData](../C/CopyReadBinaryData.md): Reads raw binary data from input stream
+  - [CopyReadBinaryAttribute](../C/CopyReadBinaryAttribute.md): Reads and converts binary attribute data
   - CopyLimitPrintoutLength: Limits output length for error messages
   - lfirst_int: Extracts integer values from list cells
 - Called from (representative examples):
-  - CopyFrom: Main COPY FROM processing loop
+  - [CopyFrom](../C/CopyFrom.md): Main COPY FROM processing loop
 
 ## Notes and Other Information
 - Supports both text/CSV and binary input formats with format-specific processing paths

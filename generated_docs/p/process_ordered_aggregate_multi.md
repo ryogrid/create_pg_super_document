@@ -35,21 +35,21 @@ The function coordinates multiple components: tuple sorting, slot management, ex
 - Functions called/Symbols referenced:
   - tuplesort_performsort
   - ExecClearTuple
-  - tuplesort_gettupleslot
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md)
   - ExecQual
   - slot_getsomeattrs
-  - advance_transition_function
+  - [advance_transition_function](../a/advance_transition_function.md)
   - ResetExprContext
   - tuplesort_end
 - Data types used:
-  - AggState
-  - AggStatePerTrans
-  - AggStatePerGroup
+  - [AggState](../A/AggState.md)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md)
   - ExprContext
-  - FunctionCallInfo
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
   - TupleTableSlot
 - Called from (representative examples):
-  - finalize_aggregates
+  - [finalize_aggregates](../f/finalize_aggregates.md)
 
 ## Notes and Other Information
 - Handles only one grouping set (already set in aggstate->current_set) per invocation

@@ -29,11 +29,11 @@ Internal state variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP
-  - CreateTemplateTupleDesc, TupleDescInitEntry, TupleDescGetAttInMetadata
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md), TupleDescInitEntry, TupleDescGetAttInMetadata
   - get_guc_variables
   - ConfigOptionIsVisible
-  - GetConfigOptionValues
-  - BuildTupleFromCStrings, HeapTupleGetDatum
+  - [GetConfigOptionValues](../G/GetConfigOptionValues.md)
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md), HeapTupleGetDatum
   - SRF_RETURN_NEXT, SRF_RETURN_DONE
 - Called from (representative examples):
   - SQL queries using pg_settings view (no direct C references found)

@@ -17,9 +17,9 @@ This function serves as the tp_dealloc callback for the PLy_PlanType Python type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyPlanObject (struct type cast)
-  - SPI_freeplan (PostgreSQL SPI function)
-  - MemoryContextDelete (PostgreSQL memory management)
+  - [PLyPlanObject](PLyPlanObject.md) (struct type cast)
+  - [SPI_freeplan](../S/SPI_freeplan.md) (PostgreSQL SPI function)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (PostgreSQL memory management)
   - tp_free (Python object deallocation)
 - Called from (representative examples):
   - Python garbage collector (via tp_dealloc callback)

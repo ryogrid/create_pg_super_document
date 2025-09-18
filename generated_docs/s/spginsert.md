@@ -25,14 +25,14 @@ This function handles the insertion of individual tuples into an SP-GiST index d
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - initSpGistState
-  - spgdoinsert
-  - MemoryContextReset
-  - SpGistUpdateMetaPage
-  - MemoryContextDelete
+  - [initSpGistState](../i/initSpGistState.md)
+  - [spgdoinsert](spgdoinsert.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [SpGistUpdateMetaPage](../S/SpGistUpdateMetaPage.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - SpGistState
 - Called from (representative examples):
-  - spghandler
+  - [spghandler](spghandler.md)
 
 ## Notes and Other Information
 Always returns false since SP-GiST does not support unique constraints. The retry mechanism ensures eventual success even under high concurrency. Memory context management prevents memory leaks during repeated retry attempts.

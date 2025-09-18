@@ -23,17 +23,17 @@ The function performs several critical validation steps including duplicate name
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeDependencyGraph - builds dependency graph for recursive WITH processing
-  - checkWellFormedRecursion - validates recursive CTE patterns
-  - analyzeCTE - transforms individual CTEs into Query nodes
-  - list_copy - creates copy of CTE list for future reference tracking
+  - [makeDependencyGraph](../m/makeDependencyGraph.md) - builds dependency graph for recursive WITH processing
+  - [checkWellFormedRecursion](../c/checkWellFormedRecursion.md) - validates recursive CTE patterns
+  - [analyzeCTE](../a/analyzeCTE.md) - transforms individual CTEs into Query nodes
+  - [list_copy](../l/list_copy.md) - creates copy of CTE list for future reference tracking
   - list_delete_first - removes processed CTEs from future list
 - Called from (representative examples):
-  - transformSelectStmt - when processing SELECT statements with WITH clauses
-  - transformInsertStmt - when processing INSERT statements with WITH clauses
-  - transformUpdateStmt - when processing UPDATE statements with WITH clauses
-  - transformDeleteStmt - when processing DELETE statements with WITH clauses
-  - transformMergeStmt - when processing MERGE statements with WITH clauses
+  - [transformSelectStmt](transformSelectStmt.md) - when processing SELECT statements with WITH clauses
+  - [transformInsertStmt](transformInsertStmt.md) - when processing INSERT statements with WITH clauses
+  - [transformUpdateStmt](transformUpdateStmt.md) - when processing UPDATE statements with WITH clauses
+  - [transformDeleteStmt](transformDeleteStmt.md) - when processing DELETE statements with WITH clauses
+  - [transformMergeStmt](transformMergeStmt.md) - when processing MERGE statements with WITH clauses
 
 ## Notes and Other Information
 - Only one WITH clause is allowed per query level (enforced by assertions)

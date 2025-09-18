@@ -20,9 +20,9 @@ This function performs several validation checks on a timezone entry before it c
   - TOKMAXLEN
   - GUC_check_errmsg
   - SECS_PER_HOUR 
-  - pg_tolower
+  - [pg_tolower](../p/pg_tolower.md)
 - Called from (representative examples):
-  - ParseTzFile
+  - [ParseTzFile](../P/ParseTzFile.md)
 
 ## Notes and Other Information
 The function enforces a maximum length limit for timezone abbreviations (TOKMAXLEN characters) and validates that timezone offsets don't exceed ±14 hours, which is a reasonable sanity check for valid timezone offsets. All abbreviations are converted to lowercase for consistency with PostgreSQL's internal datetime handling.

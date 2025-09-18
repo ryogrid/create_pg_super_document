@@ -29,12 +29,12 @@ The output format depends on PostgreSQL's DateStyle setting and includes both th
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P
-  - timetz2tm
+  - [timetz2tm](timetz2tm.md)
   - EncodeTimeOnly
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
-  - ExecGetJsonValueItemString
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md)
   - No other direct callers found (typically invoked through PostgreSQL's type system during result formatting)
 
 ## Notes and Other Information

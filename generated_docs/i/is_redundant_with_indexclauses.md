@@ -29,9 +29,9 @@ The function skips lossy index clauses since they don't enforce conditions exact
   - IndexClause (structure type accessed via lfirst_node macro)
   - lfirst_node (macro for safe list cell extraction)
 - Called from (representative examples):
-  - extract_nonindex_conditions (src/backend/optimizer/path/costsize.c:851)
-  - has_indexed_join_quals (src/backend/optimizer/path/costsize.c:5163)
-  - create_indexscan_plan (src/backend/optimizer/plan/createplan.c:3082)
+  - [extract_nonindex_conditions](../e/extract_nonindex_conditions.md) (src/backend/optimizer/path/costsize.c:851)
+  - [has_indexed_join_quals](../h/has_indexed_join_quals.md) (src/backend/optimizer/path/costsize.c:5163)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (src/backend/optimizer/plan/createplan.c:3082)
 
 ## Notes and Other Information
 - Combines both identity and equivalence class checks for comprehensive redundancy detection

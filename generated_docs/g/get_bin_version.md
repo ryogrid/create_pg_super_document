@@ -21,12 +21,12 @@ The  function determines the PostgreSQL version of the binaries in a cluster's b
   - fflush
   - popen
   - fgets
-  - pclose
-  - pg_fatal
+  - [pclose](../p/pclose.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - wait_result_to_str
   - sscanf
 - Called from (representative examples):
-  - check_bin_dir
+  - [check_bin_dir](../c/check_bin_dir.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the exec.c file

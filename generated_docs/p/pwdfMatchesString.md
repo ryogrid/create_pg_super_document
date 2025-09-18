@@ -27,7 +27,7 @@ The parsing continues character by character, tracking escape sequences to ensur
   - No external PostgreSQL functions referenced (uses standard C operations)
 - Called from (representative examples):
   - internalPQconninfoOption (fe-connect.c:445)
-  - passwordFromFile (fe-connect.c:7514, 7515, 7516, 7517)
+  - [passwordFromFile](passwordFromFile.md) (fe-connect.c:7514, 7515, 7516, 7517)
 
 ## Notes and Other Information
 - This function is marked as static, indicating it's only used within the fe-connect.c file

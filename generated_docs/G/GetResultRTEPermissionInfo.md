@@ -26,13 +26,13 @@ The function determines which case applies based on the ResultRelInfo structure'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RTEPermissionInfo (return type)
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (return type)
   - exec_rt_fetch (to get RangeTblEntry from range table)
-  - getRTEPermissionInfo (to get permission info from RTE)
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md) (to get permission info from RTE)
 - Called from (representative examples):
-  - ExecGetInsertedCols (src/backend/executor/execUtils.c:1269)
-  - ExecGetUpdatedCols (src/backend/executor/execUtils.c:1290)
-  - ExecGetResultRelCheckAsUser (src/backend/executor/execUtils.c:1397)
+  - [ExecGetInsertedCols](../E/ExecGetInsertedCols.md) (src/backend/executor/execUtils.c:1269)
+  - [ExecGetUpdatedCols](../E/ExecGetUpdatedCols.md) (src/backend/executor/execUtils.c:1290)
+  - [ExecGetResultRelCheckAsUser](../E/ExecGetResultRelCheckAsUser.md) (src/backend/executor/execUtils.c:1397)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within execUtils.c

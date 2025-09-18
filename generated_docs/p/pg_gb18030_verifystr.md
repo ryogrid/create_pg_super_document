@@ -19,9 +19,9 @@ This function performs string validation for GB18030 encoding by iterating throu
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
-  - pg_gb18030_verifychar
+  - [pg_gb18030_verifychar](pg_gb18030_verifychar.md)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the number of bytes successfully validated before encountering an error, null terminator, or end of buffer

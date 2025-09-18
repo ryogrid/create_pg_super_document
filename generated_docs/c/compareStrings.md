@@ -20,14 +20,14 @@ The compareStrings function performs string comparison using Unicode codepoint o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
-  - binaryCompareStrings
-  - pg_server_to_any
-  - pfree
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [binaryCompareStrings](../b/binaryCompareStrings.md)
+  - [pg_server_to_any](../p/pg_server_to_any.md)
+  - [pfree](../p/pfree.md)
   - PG_SQL_ASCII
   - PG_UTF8
 - Called from (representative examples):
-  - compareItems
+  - [compareItems](compareItems.md)
 
 ## Notes and Other Information
 The function includes special handling for encoding edge cases where the same Unicode characters may have different byte representations. The fallback to binary comparison when Unicode codepoints are equal ensures that the equality operator (`==`) can use simple binary comparison for performance. Future enhancements could include input string normalization for strict standard conformance. Memory management is carefully handled for dynamically allocated UTF-8 conversions.

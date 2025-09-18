@@ -26,7 +26,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - getenv: Standard library function to read environment variables
-  - SetConfigOption: Sets GUC parameter values with specified context and source
+  - [SetConfigOption](../S/SetConfigOption.md): Sets GUC parameter values with specified context and source
   - get_stack_depth_rlimit: Retrieves system stack size limit
   - snprintf: Formats numeric values as strings
   - PGC_POSTMASTER: Configuration context constant
@@ -34,7 +34,7 @@ This function takes no parameters.
   - STACK_DEPTH_SLOP: Safety margin constant for stack calculations
   - GucSource: Type for configuration source tracking
 - Called from (representative examples):
-  - InitializeGUCOptions: Main GUC initialization during startup
+  - [InitializeGUCOptions](InitializeGUCOptions.md): Main GUC initialization during startup
   - ProcessConfigFile: Configuration reload processing (legacy usage)
 
 ## Notes and Other Information

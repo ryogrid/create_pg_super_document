@@ -27,9 +27,9 @@ The function is implemented as a wrapper around `pg_atomic_compare_exchange_u32_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (type definition)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type definition)
   - AssertPointerAlignment (alignment checks for both ptr and expected)
-  - pg_atomic_compare_exchange_u32_impl (platform-specific implementation)
+  - [pg_atomic_compare_exchange_u32_impl](pg_atomic_compare_exchange_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
   - TransactionGroupUpdateXidStatus (src/backend/access/transam/clog.c:518)
   - MarkBufferDirty (src/backend/storage/buffer/bufmgr.c:2552)

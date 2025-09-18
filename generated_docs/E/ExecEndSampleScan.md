@@ -17,11 +17,11 @@ ExecEndSampleScan is the cleanup function for sample scan executor nodes in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_endscan
-  - SampleScanState (type reference)
+  - [table_endscan](../t/table_endscan.md)
+  - [SampleScanState](../S/SampleScanState.md) (type reference)
   - EndSampleScan (via tsmroutine function pointer)
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - This is a void function that does not return any value

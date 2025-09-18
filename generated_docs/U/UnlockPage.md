@@ -22,11 +22,11 @@ UnlockPage is a PostgreSQL locking function that releases a previously acquired 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_PAGE
-  - LockRelease
+  - [LockRelease](../L/LockRelease.md)
   - LOCKTAG
 - Called from (representative examples):
-  - ginInsertCleanup (multiple calls)
-  - XLTW_Oper
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (multiple calls)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - This function must be called with the same relation, block number, and lock mode that were used to acquire the lock

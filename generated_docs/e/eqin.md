@@ -29,7 +29,7 @@ This function is particularly useful for parsing command-line options where you 
 - Functions called/Symbols referenced:
   - None (uses only basic pointer arithmetic and character comparison)
 - Called from (representative examples):
-  - set_option (src/tools/pg_bsd_indent/args.c:268)
+  - [set_option](../s/set_option.md) (src/tools/pg_bsd_indent/args.c:268)
 
 ## Notes and Other Information
 - Returns NULL if s1 is not a prefix of s2

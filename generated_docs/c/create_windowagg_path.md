@@ -26,10 +26,10 @@ This function creates a WindowAggPath node that represents the execution of wind
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - cost_windowagg
+  - [cost_windowagg](cost_windowagg.md)
   - Assert
 - Called from (representative examples):
-  - create_one_window_path (src/backend/optimizer/plan/planner.c:4809)
+  - [create_one_window_path](create_one_window_path.md) (src/backend/optimizer/plan/planner.c:4809)
 
 ## Notes and Other Information
 - The input data must be sorted according to the WindowClause's PARTITION keys plus ORDER BY keys

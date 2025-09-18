@@ -22,7 +22,7 @@ This function provides a way to query whether a tuplestore is still operating en
   - Tuplestorestate
   - TSS_INMEM (tuplestore status constant indicating in-memory mode)
 - Called from (representative examples):
-  - spool_tuples
+  - [spool_tuples](../s/spool_tuples.md)
 
 ## Notes and Other Information
 - Returns true if the tuplestore status is TSS_INMEM, false otherwise

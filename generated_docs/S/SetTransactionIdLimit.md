@@ -33,15 +33,15 @@ The limits are calculated with generous safety margins to account for scenarios 
   - `LWLockAcquire` (XidGenLock, LW_EXCLUSIVE)
   - `XidFromFullTransactionId`
   - `LWLockRelease` (XidGenLock)
-  - `TransactionIdFollowsOrEquals`
+  - `[TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)`
   - `SendPostmasterSignal` (PMSIGNAL_START_AUTOVAC_LAUNCHER)
-  - `IsTransactionState`
-  - `get_database_name`
+  - `[IsTransactionState](../I/IsTransactionState.md)`
+  - `[get_database_name](../g/get_database_name.md)`
 - Called from (representative examples):
-  - `BootStrapXLOG` (src/backend/access/transam/xlog.c:5056)
-  - `StartupXLOG` (src/backend/access/transam/xlog.c:5532)
-  - `xlog_redo` (src/backend/access/transam/xlog.c:8304, 8415)
-  - `vac_truncate_clog` (src/backend/commands/vacuum.c:1946)
+  - `[BootStrapXLOG](../B/BootStrapXLOG.md)` (src/backend/access/transam/xlog.c:5056)
+  - `[StartupXLOG](StartupXLOG.md)` (src/backend/access/transam/xlog.c:5532)
+  - `[xlog_redo](../x/xlog_redo.md)` (src/backend/access/transam/xlog.c:8304, 8415)
+  - `[vac_truncate_clog](../v/vac_truncate_clog.md)` (src/backend/commands/vacuum.c:1946)
 
 ## Notes and Other Information
 - The function uses hardcoded safety margins: 40M XIDs for warnings, 3M XIDs for stopping new transactions

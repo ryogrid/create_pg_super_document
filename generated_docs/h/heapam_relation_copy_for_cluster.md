@@ -26,29 +26,29 @@ heapam_relation_copy_for_cluster is the core function that implements the CLUSTE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSystemRelation
+  - [IsSystemRelation](../I/IsSystemRelation.md)
   - RelationGetTargetBlock
-  - begin_heap_rewrite
-  - tuplesort_begin_cluster
-  - index_beginscan, index_rescan, index_endscan
-  - table_beginscan, table_endscan
-  - table_scan_getnextslot
-  - index_getnext_slot
-  - HeapTupleSatisfiesVacuum
-  - ExecFetchSlotHeapTuple
-  - LockBuffer
-  - rewrite_heap_dead_tuple
-  - reform_and_rewrite_tuple
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md)
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)
+  - [index_beginscan](../i/index_beginscan.md), index_rescan, index_endscan
+  - [table_beginscan](../t/table_beginscan.md), table_endscan
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
+  - [index_getnext_slot](../i/index_getnext_slot.md)
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [rewrite_heap_dead_tuple](../r/rewrite_heap_dead_tuple.md)
+  - [reform_and_rewrite_tuple](../r/reform_and_rewrite_tuple.md)
   - tuplesort_performsort, tuplesort_getheaptuple, tuplesort_end
-  - end_heap_rewrite
-  - pgstat_progress_update_param, pgstat_progress_update_multi_param
+  - [end_heap_rewrite](../e/end_heap_rewrite.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md), pgstat_progress_update_multi_param
 - Constants referenced:
   - HEAPTUPLE_DEAD, HEAPTUPLE_LIVE, HEAPTUPLE_RECENTLY_DEAD
   - HEAPTUPLE_INSERT_IN_PROGRESS, HEAPTUPLE_DELETE_IN_PROGRESS
   - PROGRESS_CLUSTER_* (various progress reporting constants)
   - BUFFER_LOCK_SHARE, BUFFER_LOCK_UNLOCK
 - Called from (representative examples):
-  - SampleHeapTupleVisible (referenced in heapam_handler.c:2631)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (referenced in heapam_handler.c:2631)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heapam_handler.c

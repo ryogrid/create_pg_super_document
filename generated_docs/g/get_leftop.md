@@ -24,14 +24,14 @@ This function provides access to the left (or first) argument of an OpExpr node 
   - linitial (macro to get first list element)
   - NIL (empty list constant)
 - Called from (representative examples):
-  - ExecIndexBuildScanKeys
-  - MakeTidOpExpr
-  - TidExprListCreate
-  - addRangeClause
-  - process_equivalence
-  - match_clause_to_ordering_op
-  - make_restrictinfo_internal
-  - mergejoinscansel
+  - [ExecIndexBuildScanKeys](../E/ExecIndexBuildScanKeys.md)
+  - [MakeTidOpExpr](../M/MakeTidOpExpr.md)
+  - [TidExprListCreate](../T/TidExprListCreate.md)
+  - [addRangeClause](../a/addRangeClause.md)
+  - [process_equivalence](../p/process_equivalence.md)
+  - [match_clause_to_ordering_op](../m/match_clause_to_ordering_op.md)
+  - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md)
+  - [mergejoinscansel](../m/mergejoinscansel.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in nodeFuncs.h, making it available to any file that includes this header

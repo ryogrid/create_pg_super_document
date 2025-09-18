@@ -30,16 +30,16 @@ The function requires AccessExclusiveLock and assumes the caller has proper perm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_sequence
-  - read_seq_tuple
-  - SearchSysCache1
-  - heap_copytuple
-  - UnlockReleaseBuffer
-  - RelationSetNewRelfilenumber
-  - fill_seq_with_data
-  - sequence_close
+  - [init_sequence](../i/init_sequence.md)
+  - [read_seq_tuple](../r/read_seq_tuple.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md)
+  - [sequence_close](../s/sequence_close.md)
 - Called from (representative examples):
-  - ExecuteTruncateGuts (src/backend/commands/tablecmds.c:2222)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (src/backend/commands/tablecmds.c:2222)
 
 ## Notes and Other Information
 - Used primarily during TRUNCATE operations on tables with identity columns or sequences

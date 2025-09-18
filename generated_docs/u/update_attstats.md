@@ -25,18 +25,18 @@ The function handles both regular table statistics and inheritance tree statisti
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCache3
-  - CatalogOpenIndexes
-  - heap_modify_tuple
-  - heap_form_tuple
-  - CatalogTupleUpdateWithInfo
-  - CatalogTupleInsertWithInfo
-  - construct_array_builtin
-  - construct_array
-  - heap_freetuple
-  - CatalogCloseIndexes
+  - [SearchSysCache3](../S/SearchSysCache3.md)
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleUpdateWithInfo](../C/CatalogTupleUpdateWithInfo.md)
+  - [CatalogTupleInsertWithInfo](../C/CatalogTupleInsertWithInfo.md)
+  - [construct_array_builtin](../c/construct_array_builtin.md)
+  - [construct_array](../c/construct_array.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md)
 - Called from (representative examples):
-  - do_analyze_rel (called twice, once for regular stats and once for inheritance stats)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (called twice, once for regular stats and once for inheritance stats)
 
 ## Notes and Other Information
 - Only processes attributes where stats_valid is true in the VacAttrStats structure

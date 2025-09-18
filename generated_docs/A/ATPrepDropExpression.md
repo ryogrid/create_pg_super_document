@@ -24,10 +24,10 @@ The function implements two key safety checks: first, it rejects ONLY operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - AlterTableCmd (structure)
-  - find_inheritance_children
-  - SearchSysCacheCopyAttName
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
 - Called from (representative examples):
-  - ATPrepCmd
+  - [ATPrepCmd](ATPrepCmd.md)
 
 ## Notes and Other Information
 - The function contains detailed comments explaining why ONLY operations are not implemented for DROP EXPRESSION

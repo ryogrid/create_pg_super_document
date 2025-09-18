@@ -46,13 +46,13 @@ Range restrictions cannot be used in combination with synchronized scanning (`al
 - Functions called/Symbols referenced:
   - table_rel->rd_tableam->index_build_range_scan (delegates to table AM implementation)
 - Types referenced:
-  - Relation
+  - [Relation](../R/Relation.md)
   - IndexInfo  
   - BlockNumber
   - IndexBuildCallback
-  - TableScanDesc
+  - [TableScanDesc](../T/TableScanDesc.md)
 - Called from (representative examples):
-  - summarize_range (src/backend/access/brin/brin.c:1808)
+  - [summarize_range](../s/summarize_range.md) (src/backend/access/brin/brin.c:1808)
 
 ## Notes and Other Information
 - Returns the total count of live tuples scanned in the specified range

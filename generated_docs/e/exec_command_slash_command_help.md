@@ -23,14 +23,14 @@ The function follows the conditional execution pattern, only processing when `ac
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option (to extract the help category parameter)
-  - slashUsage (to display backslash command help)
-  - usage (to display command-line option help)
-  - helpVariables (to display psql variable help)
-  - ignore_slash_options (to skip processing when not in active branch)
+  - [slashUsage](../s/slashUsage.md) (to display backslash command help)
+  - [usage](../u/usage.md) (to display command-line option help)
+  - [helpVariables](../h/helpVariables.md) (to display psql variable help)
+  - [ignore_slash_options](../i/ignore_slash_options.md) (to skip processing when not in active branch)
   - strcmp (for string comparison of help categories)
   - free (for memory cleanup)
 - Called from (representative examples):
-  - exec_command (main command dispatcher for psql meta-commands)
+  - [exec_command](exec_command.md) (main command dispatcher for psql meta-commands)
 
 ## Notes and Other Information
 - Always returns PSQL_CMD_SKIP_LINE regardless of execution success

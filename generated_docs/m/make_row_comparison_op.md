@@ -23,18 +23,18 @@ The `make_row_comparison_op` function handles row comparison operations where tw
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_op
+  - [make_op](make_op.md)
   - castNode
-  - expression_returns_set
-  - get_op_btree_interpretation
-  - bms_add_member
-  - bms_int_members
-  - bms_next_member
-  - makeBoolExpr
+  - [expression_returns_set](../e/expression_returns_set.md)
+  - [get_op_btree_interpretation](../g/get_op_btree_interpretation.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_int_members](../b/bms_int_members.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [makeBoolExpr](makeBoolExpr.md)
   - lappend_oid
   - makeNode
 - Called from (representative examples):
-  - transformAExprOp
+  - [transformAExprOp](../t/transformAExprOp.md)
   - transformAExprIn
   - transformSubLink
 

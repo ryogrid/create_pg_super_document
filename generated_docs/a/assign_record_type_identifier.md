@@ -24,12 +24,12 @@ The function serves PostgreSQL's expanded record infrastructure by providing a w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_TUPDESC (flag constant)
 - Called from (representative examples):
-  - make_expanded_record_from_typeid (src/backend/utils/adt/expandedrecord.c:110)
-  - make_expanded_record_from_tupdesc (src/backend/utils/adt/expandedrecord.c:242)
-  - expanded_record_fetch_tupdesc (src/backend/utils/adt/expandedrecord.c:866)
+  - [make_expanded_record_from_typeid](../m/make_expanded_record_from_typeid.md) (src/backend/utils/adt/expandedrecord.c:110)
+  - [make_expanded_record_from_tupdesc](../m/make_expanded_record_from_tupdesc.md) (src/backend/utils/adt/expandedrecord.c:242)
+  - [expanded_record_fetch_tupdesc](../e/expanded_record_fetch_tupdesc.md) (src/backend/utils/adt/expandedrecord.c:866)
 
 ## Notes and Other Information
 - Returns backend-lifetime unique uint64 identifiers via tupledesc_id_counter increment

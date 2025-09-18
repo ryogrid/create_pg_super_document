@@ -25,7 +25,7 @@ The function includes a CHECK_IS_BINARY_UPGRADE macro call to ensure it can only
   - PG_GETARG_TEXT_P
   - text_to_cstring
   - CHECK_IS_BINARY_UPGRADE
-  - SetAttrMissing
+  - [SetAttrMissing](../S/SetAttrMissing.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct callers found (likely called via SQL during binary upgrades)

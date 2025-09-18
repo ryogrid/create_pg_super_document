@@ -27,9 +27,9 @@ The function uses the EVALUATE_MESSAGE_PLURAL macro to handle the pluralization 
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE_PLURAL (macro)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - ParseFuncOrColumn (in parse_func.c, multiple locations)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (in parse_func.c, multiple locations)
 
 ## Notes and Other Information
 - Returns 0 as the return value does not matter for this function

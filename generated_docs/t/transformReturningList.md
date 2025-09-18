@@ -29,15 +29,15 @@ The function ensures that RETURNING clauses behave consistently with SELECT targ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformTargetList (standard target list transformation)
-  - exprLocation (gets expression location for error reporting)
-  - markTargetListOrigins (marks column origin information)
-  - resolveTargetListUnknowns (resolves unknown types to text)
+  - [transformTargetList](transformTargetList.md) (standard target list transformation)
+  - [exprLocation](../e/exprLocation.md) (gets expression location for error reporting)
+  - [markTargetListOrigins](../m/markTargetListOrigins.md) (marks column origin information)
+  - [resolveTargetListUnknowns](../r/resolveTargetListUnknowns.md) (resolves unknown types to text)
 - Called from (representative examples):
-  - transformDeleteStmt (DELETE statement with RETURNING)
-  - transformInsertStmt (INSERT statement with RETURNING)
-  - transformUpdateStmt (UPDATE statement with RETURNING)
-  - transformMergeStmt (MERGE statement with RETURNING)
+  - [transformDeleteStmt](transformDeleteStmt.md) (DELETE statement with RETURNING)
+  - [transformInsertStmt](transformInsertStmt.md) (INSERT statement with RETURNING)
+  - [transformUpdateStmt](transformUpdateStmt.md) (UPDATE statement with RETURNING)
+  - [transformMergeStmt](transformMergeStmt.md) (MERGE statement with RETURNING)
 
 ## Notes and Other Information
 The function is used across all data modification statements that support RETURNING clauses, providing consistent behavior. The result number management ensures that RETURNING lists start numbering from 1, independent of the main statement's target list numbering. The validation for at least one column prevents confusing behavior when star-expansion results in zero columns. The type resolution to text for unknowns follows PostgreSQL's general approach for ambiguous types in output contexts. The function maintains proper isolation between RETURNING processing and main statement processing through careful state management.

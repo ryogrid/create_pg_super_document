@@ -34,15 +34,15 @@ The function maintains transaction integrity by preserving old values on a stack
 ## Dependencies
 - Functions called/Symbols referenced:
   - dlist_foreach_modify, dlist_container
-  - push_old_value
-  - set_extra_field, set_string_field
-  - set_guc_source
-  - slist_push_head
+  - [push_old_value](../p/push_old_value.md)
+  - [set_extra_field](../s/set_extra_field.md), set_string_field
+  - [set_guc_source](../s/set_guc_source.md)
+  - [slist_push_head](../s/slist_push_head.md)
   - Various GUC constants (PGC_SUSET, PGC_USERSET, GUC_NO_RESET_ALL, etc.)
   - Configuration structures (config_bool, config_int, config_real, config_string, config_enum)
 - Called from (representative examples):
-  - DiscardAll
-  - ExecSetVariableStmt
+  - [DiscardAll](../D/DiscardAll.md)
+  - [ExecSetVariableStmt](../E/ExecSetVariableStmt.md)
 
 ## Notes and Other Information
 - This function implements the backend for the SQL "RESET ALL" statement

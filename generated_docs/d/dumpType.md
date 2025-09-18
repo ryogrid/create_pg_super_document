@@ -20,16 +20,16 @@ The function includes validation logic that logs a warning if it encounters an i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpBaseType
-  - dumpDomain
-  - dumpCompositeType
-  - dumpEnumType
-  - dumpRangeType
-  - dumpUndefinedType
+  - [dumpBaseType](dumpBaseType.md)
+  - [dumpDomain](dumpDomain.md)
+  - [dumpCompositeType](dumpCompositeType.md)
+  - [dumpEnumType](dumpEnumType.md)
+  - [dumpRangeType](dumpRangeType.md)
+  - [dumpUndefinedType](dumpUndefinedType.md)
   - pg_log_warning
 - Called from (representative examples):
-  - dumpDumpableObject (in pg_dump.c:10544)
-  - crashDumpHandler (in src/backend/port/win32/crashdump.c - multiple locations)
+  - [dumpDumpableObject](dumpDumpableObject.md) (in pg_dump.c:10544)
+  - [crashDumpHandler](../c/crashDumpHandler.md) (in src/backend/port/win32/crashdump.c - multiple locations)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode ()

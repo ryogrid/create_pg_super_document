@@ -20,13 +20,13 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FPlt (floating-point less-than comparison function, called twice)
+  - [FPlt](../F/FPlt.md) (floating-point less-than comparison function, called twice)
 - Data types used:
   - RangeBox
   - Range
 - Called from (representative examples):
-  - left4D
-  - below4D
+  - [left4D](left4D.md)
+  - [below4D](../b/below4D.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within the geo_spgist.c file

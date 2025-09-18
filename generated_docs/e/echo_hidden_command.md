@@ -22,8 +22,8 @@ The function checks the current echo_hidden setting and conditionally displays t
   - PSQL_ECHO_HIDDEN_OFF (constant indicating echo hidden is disabled)
   - PSQL_ECHO_HIDDEN_NOEXEC (constant indicating echo but don't execute mode)
 - Called from (representative examples):
-  - lookup_object_oid (uses this to echo object lookup queries)
-  - get_create_object_cmd (uses this to echo DDL extraction queries)
+  - [lookup_object_oid](../l/lookup_object_oid.md) (uses this to echo object lookup queries)
+  - [get_create_object_cmd](../g/get_create_object_cmd.md) (uses this to echo DDL extraction queries)
 
 ## Notes and Other Information
 - Part of psql's debugging and transparency infrastructure for internal query visibility

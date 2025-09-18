@@ -23,13 +23,13 @@ This function serves as the main write interface for TAR-based WAL files in Post
 - Functions called/Symbols referenced:
   - clear_error (error state reset function)
   - write (system call for uncompressed writes)
-  - tar_write_compressed_data (compression handler)
-  - TarMethodData (cast target type)
+  - [tar_write_compressed_data](tar_write_compressed_data.md) (compression handler)
+  - [TarMethodData](../T/TarMethodData.md) (cast target type)
   - PG_COMPRESSION_NONE (compression algorithm constant)
   - PG_COMPRESSION_GZIP (compression algorithm constant)
 - Called from:
-  - CreateWalDirectoryMethod (as function pointer assignment)
-  - tar_write_padding_data
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (as function pointer assignment)
+  - [tar_write_padding_data](tar_write_padding_data.md)
   - tar_close
 
 ## Notes and Other Information

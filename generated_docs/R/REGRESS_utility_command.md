@@ -33,19 +33,19 @@ The function ensures proper processing flow by either calling the next hook in t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCommandTagName
-  - CreateCommandTag
-  - audit_attempt
+  - [GetCommandTagName](../G/GetCommandTagName.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
+  - [audit_attempt](../a/audit_attempt.md)
   - superuser_arg
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - ereport
-  - errcode
-  - errmsg
-  - standard_ProcessUtility
-  - audit_success
-  - pstrdup
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [audit_success](../a/audit_success.md)
+  - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):
-  - _PG_init (hook installation)
+  - [_PG_init](../P/_PG_init.md) (hook installation)
 
 ## Notes and Other Information
 - This is a static function used exclusively for regression testing in the test_oat_hooks module

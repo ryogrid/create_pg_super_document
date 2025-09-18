@@ -19,14 +19,14 @@ GetCurrentTransactionStartTimestamp is a simple accessor function that returns t
 - Functions called/Symbols referenced:
   - xactStartTimestamp (global variable)
 - Called from (representative examples):
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:351)
-  - timetz_zone (src/backend/utils/adt/date.c:3086,3094)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:351)
+  - [timetz_zone](../t/timetz_zone.md) (src/backend/utils/adt/date.c:3086,3094)
   - GetCurrentTimeUsec (src/backend/utils/adt/datetime.c:389)
-  - pg_timezone_abbrevs (src/backend/utils/adt/datetime.c:5075)
-  - pg_timezone_names (src/backend/utils/adt/datetime.c:5149)
-  - now (src/backend/utils/adt/timestamp.c:1620)
-  - GetSQLCurrentTimestamp (src/backend/utils/adt/timestamp.c:1676)
-  - GetSQLLocalTimestamp (src/backend/utils/adt/timestamp.c:1690)
+  - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md) (src/backend/utils/adt/datetime.c:5075)
+  - [pg_timezone_names](../p/pg_timezone_names.md) (src/backend/utils/adt/datetime.c:5149)
+  - [now](../n/now.md) (src/backend/utils/adt/timestamp.c:1620)
+  - [GetSQLCurrentTimestamp](GetSQLCurrentTimestamp.md) (src/backend/utils/adt/timestamp.c:1676)
+  - [GetSQLLocalTimestamp](GetSQLLocalTimestamp.md) (src/backend/utils/adt/timestamp.c:1690)
 
 ## Notes and Other Information
 - The timestamp is set once at transaction start and remains constant throughout the transaction

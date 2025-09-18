@@ -27,15 +27,15 @@ The function performs the following operations:
 - Functions called/Symbols referenced:
   - SerializedReindexState (structure type)
   - lappend_oid (list utility function to append OID values)
-  - GetCurrentTransactionNestLevel (transaction utility function)
-  - MemoryContextSwitchTo (memory management function)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md) (transaction utility function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management function)
   - TopMemoryContext (global memory context)
   - currentlyReindexedHeap (global variable)
   - currentlyReindexedIndex (global variable)
   - pendingReindexedIndexes (global list variable)
   - reindexingNestLevel (global variable)
 - Called from (representative examples):
-  - ParallelWorkerMain
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel reindex infrastructure

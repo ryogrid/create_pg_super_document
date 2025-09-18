@@ -45,22 +45,22 @@ The structure includes execution metadata such as whether the statement returns 
   - CmdType
   - ParseLoc
   - NodeTag
-  - Plan (struct)
-  - List
-  - Bitmapset
-  - Node
+  - [Plan](Plan.md) (struct)
+  - [List](../L/List.md)
+  - [Bitmapset](../B/Bitmapset.md)
+  - [Node](../N/Node.md)
 
 - Called from (representative examples):
-  - planner (optimizer/plan/planner.c:278,287)
-  - standard_planner (optimizer/plan/planner.c:291,538)
-  - CreateQueryDesc (tcop/pquery.c:67)
-  - ProcessQuery (tcop/pquery.c:136)
-  - PortalStart (tcop/pquery.c:495,547,569)
-  - InitPlan (executor/execMain.c:829)
+  - [planner](../p/planner.md) (optimizer/plan/planner.c:278,287)
+  - [standard_planner](../s/standard_planner.md) (optimizer/plan/planner.c:291,538)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md) (tcop/pquery.c:67)
+  - [ProcessQuery](ProcessQuery.md) (tcop/pquery.c:136)
+  - [PortalStart](PortalStart.md) (tcop/pquery.c:495,547,569)
+  - [InitPlan](../I/InitPlan.md) (executor/execMain.c:829)
   - ExecSerializePlan (executor/execParallel.c:147,174)
 
 ## Notes and Other Information
-- PlannedStmt nodes do not support the equal() function, as there is currently no need for equality comparison of execution plans
+- [PlannedStmt](PlannedStmt.md) nodes do not support the equal() function, as there is currently no need for equality comparison of execution plans
 - For utility statements, most fields are dummy values except canSetTag, stmt_location, stmt_len, and possibly queryId
 - The structure is designed to contain all information needed for plan execution without requiring access to the original parse tree
 - Cache invalidation relies heavily on the relationOids and invalItems fields to determine when plans need to be regenerated

@@ -21,14 +21,14 @@ This function serves as a callback for JSON processing that takes individual JSO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSVectorBuildState
+  - [TSVectorBuildState](../T/TSVectorBuildState.md)
   - ParsedText
   - ParsedWord
-  - palloc
-  - parsetext
+  - [palloc](../p/palloc.md)
+  - [parsetext](../p/parsetext.md)
 - Called from (representative examples):
-  - jsonb_to_tsvector_worker
-  - json_to_tsvector_worker
+  - [jsonb_to_tsvector_worker](../j/jsonb_to_tsvector_worker.md)
+  - [json_to_tsvector_worker](../j/json_to_tsvector_worker.md)
 
 ## Notes and Other Information
 - Static function used internally within the JSON to TSVector conversion process

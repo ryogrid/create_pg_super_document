@@ -23,12 +23,12 @@ If strict name checking is enabled, the function calls StrictNamesCheck to valid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tocEntryRequired
-  - StrictNamesCheck
+  - [_tocEntryRequired](../t/_tocEntryRequired.md)
+  - [StrictNamesCheck](../S/StrictNamesCheck.md)
   - pg_log_warning
-  - pg_fatal
-  - RestoreOptions
-  - TocEntry
+  - [pg_fatal](../p/pg_fatal.md)
+  - [RestoreOptions](../R/RestoreOptions.md)
+  - [TocEntry](../T/TocEntry.md)
   - teSection
   - SECTION_PRE_DATA
   - SECTION_DATA
@@ -36,8 +36,8 @@ If strict name checking is enabled, the function calls StrictNamesCheck to valid
   - SECTION_NONE
   - archModeRead
 - Called from (representative examples):
-  - main (in pg_dump.c)
-  - main (in pg_restore.c)
+  - [main](../m/main.md) (in pg_dump.c)
+  - [main](../m/main.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - This is a public function in the pg_dump/pg_restore architecture

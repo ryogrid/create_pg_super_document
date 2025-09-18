@@ -25,17 +25,17 @@ When a line of code is provided, the function displays the problematic line and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData: Buffer structure for building formatted strings
+  - [PQExpBufferData](../P/PQExpBufferData.md): Buffer structure for building formatted strings
   - initPQExpBuffer: Initializes the string buffer
-  - printfPQExpBuffer: Formats the primary error message
-  - appendPQExpBuffer: Appends additional error context
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats the primary error message
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md): Appends additional error context
   - termPQExpBuffer: Cleans up the buffer resources
   - pg_log_error: Outputs the formatted error message
   - fprintf: Outputs the problematic line and error marker to stderr
   - exit: Terminates the program with error code 1
 - Called from (representative examples):
-  - process_backslash_command: Main command processor that validates backslash commands
-  - string_to_uuid: UUID parsing functions that detect malformed UUID strings
+  - [process_backslash_command](../p/process_backslash_command.md): Main command processor that validates backslash commands
+  - [string_to_uuid](string_to_uuid.md): UUID parsing functions that detect malformed UUID strings
 
 ## Notes and Other Information
 - This function never returns as it always calls exit(1) after reporting the error

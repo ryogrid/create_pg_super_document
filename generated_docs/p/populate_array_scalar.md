@@ -19,17 +19,17 @@ This function serves as a JSON semantic action callback specifically designed fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTokenType (token type enumeration)
-  - PopulateArrayState (state structure)
-  - PopulateArrayContext (context structure)  
-  - populate_array_assign_ndims (dimension assignment function)
-  - populate_array_report_expected_array (error reporting function)
+  - [JsonTokenType](../J/JsonTokenType.md) (token type enumeration)
+  - [PopulateArrayState](../P/PopulateArrayState.md) (state structure)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md) (context structure)  
+  - [populate_array_assign_ndims](populate_array_assign_ndims.md) (dimension assignment function)
+  - [populate_array_report_expected_array](populate_array_report_expected_array.md) (error reporting function)
   - JSON_SEM_ACTION_FAILED (error return constant)
   - SOFT_ERROR_OCCURRED (error checking macro)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
   - JsObjectFree
-  - populate_array_json
+  - [populate_array_json](populate_array_json.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, serving as an internal implementation detail

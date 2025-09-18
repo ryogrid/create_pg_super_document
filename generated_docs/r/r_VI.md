@@ -23,7 +23,7 @@ If these conditions are met, it decrements the cursor and checks if the previous
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b (utility function for backward character group matching)
+  - [in_grouping_b](../i/in_grouping_b.md) (utility function for backward character group matching)
 - Called from (representative examples):
   - No direct references found in the codebase
 

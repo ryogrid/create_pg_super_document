@@ -34,11 +34,11 @@ The function follows the standard Snowball stemmer return convention where 1 ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Pattern matching function for prefix identification
-  - len_utf8: UTF-8 string length calculation function
-  - slice_del: Function to delete text slice between bra and ket markers
+  - [find_among](../f/find_among.md): Pattern matching function for prefix identification
+  - [len_utf8](../l/len_utf8.md): UTF-8 string length calculation function
+  - [slice_del](../s/slice_del.md): Function to delete text slice between bra and ket markers
 - Called from:
-  - arabic_UTF_8_stem: Main Arabic stemming function at line 1621
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at line 1621
 
 ## Notes and Other Information
 - This function specifically targets Arabic noun prefixes in Step 3a of the stemming process

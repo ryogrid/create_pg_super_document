@@ -28,7 +28,7 @@ If the inverse operation fails (which can happen due to numerical precision issu
   - PG_ARGISNULL: Checks if function arguments are NULL
   - PG_GETARG_POINTER: Retrieves the NumericAggState from argument 0
   - PG_GETARG_NUMERIC: Retrieves the numeric value from argument 1  
-  - do_numeric_discard: Performs the actual inverse accumulation operation
+  - [do_numeric_discard](../d/do_numeric_discard.md): Performs the actual inverse accumulation operation
   - PG_RETURN_NULL: Returns NULL if inverse operation fails
   - PG_RETURN_POINTER: Returns the updated state pointer
 - Called from (representative examples):

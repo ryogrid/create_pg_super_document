@@ -23,17 +23,17 @@ The function is optimized for sort/group operations and is faster than search_in
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst
-  - equal
+  - [equal](../e/equal.md)
   - makeVarFromTargetEntry
 - Data types used:
-  - Expr
+  - [Expr](../E/Expr.md)
   - Index
-  - indexed_tlist
+  - [indexed_tlist](../i/indexed_tlist.md)
   - ListCell
-  - TargetEntry
+  - [TargetEntry](../T/TargetEntry.md)
 - Called from (representative examples):
   - fix_scan_list
-  - set_upper_references
+  - [set_upper_references](set_upper_references.md)
 
 ## Notes and Other Information
 - Returns NULL if no matching expression with the correct sortgroupref is found

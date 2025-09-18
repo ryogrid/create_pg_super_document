@@ -19,11 +19,11 @@ ExecuteSqlCommandBuf serves as a dispatcher function that routes incoming data b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputCopyData
-  - PQerrorMessage
-  - pg_fatal
-  - ExecuteSimpleCommands
-  - ExecuteSqlCommand
+  - [PQputCopyData](../P/PQputCopyData.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [pg_fatal](../p/pg_fatal.md)
+  - [ExecuteSimpleCommands](ExecuteSimpleCommands.md)
+  - [ExecuteSqlCommand](ExecuteSqlCommand.md)
   - pg_malloc
   - memcpy
   - free
@@ -31,7 +31,7 @@ ExecuteSqlCommandBuf serves as a dispatcher function that routes incoming data b
   - OUTPUT_COPYDATA
   - OUTPUT_OTHERDATA
 - Called from (representative examples):
-  - ahwrite (in pg_backup_archiver.c)
+  - [ahwrite](../a/ahwrite.md) (in pg_backup_archiver.c)
 
 ## Notes and Other Information
 - Returns the buffer length as confirmation of bytes processed

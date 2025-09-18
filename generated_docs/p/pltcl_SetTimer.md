@@ -21,7 +21,7 @@ As part of the complete notifier subsystem override, this function replaces Tcl'
 - Functions called/Symbols referenced:
   - CONST86 (Tcl compatibility macro)
 - Called from (representative examples):
-  - _PG_init (during PL/Tcl module initialization as part of notifier setup)
+  - [_PG_init](../P/_PG_init.md) (during PL/Tcl module initialization as part of notifier setup)
 
 ## Notes and Other Information
 - This function is part of a complete notifier subsystem override in PL/Tcl

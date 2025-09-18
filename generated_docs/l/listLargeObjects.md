@@ -20,16 +20,16 @@ The query uses system functions like  to resolve owner IDs to usernames and  to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - printACLColumn
-  - PSQLexec
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [printACLColumn](../p/printACLColumn.md)
+  - [PSQLexec](../P/PSQLexec.md)
   - termPQExpBuffer
-  - printQuery
-  - PQExpBufferData
-  - printQueryOpt
+  - [printQuery](../p/printQuery.md)
+  - [PQExpBufferData](../P/PQExpBufferData.md)
+  - [printQueryOpt](../p/printQueryOpt.md)
 - Called from (representative examples):
-  - exec_command_d (psql describe command dispatcher)
-  - exec_command_lo (large object command handler)
+  - [exec_command_d](../e/exec_command_d.md) (psql describe command dispatcher)
+  - [exec_command_lo](../e/exec_command_lo.md) (large object command handler)
 
 ## Notes and Other Information
 - This function is part of psql's describe command family, specifically handling the  command and large object listing functionality

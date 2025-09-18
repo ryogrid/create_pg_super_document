@@ -29,9 +29,9 @@ ParallelBlockTableScanWorkerData represents the per-worker private state for par
 - Functions called/Symbols referenced:
   - (No direct symbol references - uses built-in types)
 - Called from (representative examples):
-  - heap_beginscan
-  - HeapScanDescData (as embedded member)
-  - ParallelBlockTableScanWorker
+  - [heap_beginscan](../h/heap_beginscan.md)
+  - [HeapScanDescData](../H/HeapScanDescData.md) (as embedded member)
+  - [ParallelBlockTableScanWorker](ParallelBlockTableScanWorker.md)
 
 ## Notes and Other Information
 - This structure is specific to each worker process and is not shared between workers

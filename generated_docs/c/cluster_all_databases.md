@@ -26,23 +26,23 @@ This function implements the database-wide clustering functionality for the clus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectMaintenanceDatabase
-  - executeQuery
-  - PQfinish
-  - PQntuples
-  - PQgetvalue
+  - [connectMaintenanceDatabase](connectMaintenanceDatabase.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - printf
   - fflush
-  - cluster_one_database
-  - PQclear
+  - [cluster_one_database](cluster_one_database.md)
+  - [PQclear](../P/PQclear.md)
 - Called from:
-  - main (in clusterdb.c)
+  - [main](../m/main.md) (in clusterdb.c)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConnParams
-  - SimpleStringList
-  - SimpleStringListCell
+  - [ConnParams](../C/ConnParams.md)
+  - [SimpleStringList](../S/SimpleStringList.md)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md)
 
 ## Notes and Other Information
 - Part of the clusterdb utility when --all-databases option is used

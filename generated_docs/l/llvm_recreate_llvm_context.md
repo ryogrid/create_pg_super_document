@@ -29,10 +29,10 @@ The function follows a careful sequence: reset inline caches → dispose old con
   - llvm_inline_reset_caches (clears module caches)
   - LLVMContextDispose (LLVM API to dispose context)
   - LLVMContextCreate (LLVM API to create new context)  
-  - llvm_create_types (rebuilds type information)
+  - [llvm_create_types](llvm_create_types.md) (rebuilds type information)
   - LLVMJIT_LLVM_CONTEXT_REUSE_MAX (constant defining reuse threshold)
 - Called from (representative examples):
-  - llvm_create_context
+  - [llvm_create_context](llvm_create_context.md)
 
 ## Notes and Other Information
 - Static function, only accessible within llvmjit.c

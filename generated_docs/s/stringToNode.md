@@ -21,19 +21,19 @@ This function is widely used throughout the PostgreSQL codebase for deserializin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stringToNodeInternal
+  - [stringToNodeInternal](stringToNodeInternal.md)
 - Called from (representative examples):
-  - TupleDescGetDefault
-  - AddRelationNewConstraints
-  - MergeWithExistingConstraint
+  - [TupleDescGetDefault](../T/TupleDescGetDefault.md)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
+  - [MergeWithExistingConstraint](../M/MergeWithExistingConstraint.md)
   - index_concurrently_create_copy
-  - ProcedureCreate
-  - RelationBuildRowSecurity
-  - ATExecValidateConstraint
-  - ExecRelCheck
-  - pg_get_expr_worker
-  - RelationBuildRuleLock
-  - RelationGetIndexExpressions
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [RelationBuildRowSecurity](../R/RelationBuildRowSecurity.md)
+  - [ATExecValidateConstraint](../A/ATExecValidateConstraint.md)
+  - [ExecRelCheck](../E/ExecRelCheck.md)
+  - [pg_get_expr_worker](../p/pg_get_expr_worker.md)
+  - [RelationBuildRuleLock](../R/RelationBuildRuleLock.md)
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md)
 
 ## Notes and Other Information
 - This is the standard public interface for string-to-node conversion

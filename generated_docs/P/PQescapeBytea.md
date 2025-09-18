@@ -27,7 +27,7 @@ If standard_conforming_strings is disabled, all backslashes in the output are do
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeByteaInternal (internal implementation function)
+  - [PQescapeByteaInternal](PQescapeByteaInternal.md) (internal implementation function)
   - static_std_strings (global variable for standard_conforming_strings setting)
 - Called from (representative examples):
   - Referenced in libpq-fe.h header file declarations

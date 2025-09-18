@@ -23,12 +23,12 @@ This function provides a convenient wrapper for assigning integer values to pgbe
 ## Dependencies
 - Functions called/Symbols referenced:
   - setIntValue
-  - putVariableValue
-  - Variables (type)
+  - [putVariableValue](putVariableValue.md)
+  - [Variables](../V/Variables.md) (type)
   - PgBenchValue (type)
 - Called from:
-  - runShellCommand (src/bin/pgbench/pgbench.c:3016)
-  - main (src/bin/pgbench/pgbench.c:7264, 7276, 7286, 7295)
+  - [runShellCommand](../r/runShellCommand.md) (src/bin/pgbench/pgbench.c:3016)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:7264, 7276, 7286, 7295)
 
 ## Notes and Other Information
 - Returns false if the variable name is invalid or creation fails

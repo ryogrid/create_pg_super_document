@@ -24,19 +24,19 @@ The function includes sophisticated locking mechanisms to coordinate between lea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_transaction_apply_action
-  - stream_stop_internal
-  - pa_lock_stream
+  - [get_transaction_apply_action](../g/get_transaction_apply_action.md)
+  - [stream_stop_internal](../s/stream_stop_internal.md)
+  - [pa_lock_stream](../p/pa_lock_stream.md)
   - pa_send_data
-  - pa_set_stream_apply_worker
-  - pa_switch_to_partial_serialize
-  - stream_write_change
-  - pa_decr_and_wait_stream_block
-  - IsTransactionOrTransactionBlock
-  - pgstat_report_activity
-  - reset_apply_error_context_info
+  - [pa_set_stream_apply_worker](../p/pa_set_stream_apply_worker.md)
+  - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
+  - [stream_write_change](../s/stream_write_change.md)
+  - [pa_decr_and_wait_stream_block](../p/pa_decr_and_wait_stream_block.md)
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [reset_apply_error_context_info](../r/reset_apply_error_context_info.md)
 - Called from:
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - Validates that a STREAM START message was previously received

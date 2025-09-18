@@ -27,12 +27,12 @@ This structure is designed for efficiency in process communication, containing o
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgsocket (PostgreSQL socket type definition)
-  - SockAddr (Socket address structure)
+  - [SockAddr](../S/SockAddr.md) (Socket address structure)
 - Called from (representative examples):
-  - AcceptConnection (in src/backend/libpq/pqcomm.c:793)
-  - BackendStartup (in src/backend/postmaster/postmaster.c:3545)
-  - postmaster_child_launch (in src/backend/postmaster/launch_backend.c:233)
-  - BackendInitialize (in src/backend/tcop/backend_startup.c:122)
+  - [AcceptConnection](../A/AcceptConnection.md) (in src/backend/libpq/pqcomm.c:793)
+  - [BackendStartup](../B/BackendStartup.md) (in src/backend/postmaster/postmaster.c:3545)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (in src/backend/postmaster/launch_backend.c:233)
+  - [BackendInitialize](../B/BackendInitialize.md) (in src/backend/tcop/backend_startup.c:122)
 
 ## Notes and Other Information
 - Used primarily in the postmaster-to-backend process communication pathway

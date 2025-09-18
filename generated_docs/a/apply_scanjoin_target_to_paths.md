@@ -32,20 +32,20 @@ The function balances correctness, performance, and parallelism while maintainin
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - generate_useful_gather_paths  
-  - create_projection_path
-  - adjust_paths_for_srfs
-  - find_appinfos_by_relids
-  - copy_pathtarget
-  - adjust_appendrel_attrs
-  - add_paths_to_append_rel
-  - set_cheapest
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)  
+  - [create_projection_path](../c/create_projection_path.md)
+  - [adjust_paths_for_srfs](adjust_paths_for_srfs.md)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md)
+  - [copy_pathtarget](../c/copy_pathtarget.md)
+  - [adjust_appendrel_attrs](adjust_appendrel_attrs.md)
+  - [add_paths_to_append_rel](add_paths_to_append_rel.md)
+  - [set_cheapest](../s/set_cheapest.md)
   - IS_PARTITIONED_REL
   - IS_DUMMY_REL
   - IS_OTHER_REL
 - Called from (representative examples):
-  - grouping_planner
-  - apply_scanjoin_target_to_paths (recursive)
+  - [grouping_planner](../g/grouping_planner.md)
+  - [apply_scanjoin_target_to_paths](apply_scanjoin_target_to_paths.md) (recursive)
   - standard_qp_extra
 
 ## Notes and Other Information

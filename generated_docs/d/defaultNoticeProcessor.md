@@ -25,7 +25,7 @@ Applications can override this default behavior by providing their own notice pr
   - No external PostgreSQL functions referenced (uses standard C library fprintf)
 - Called from (representative examples):
   - internalPQconninfoOption (fe-connect.c:437)
-  - pqMakeEmptyPGconn (fe-connect.c:4572)
+  - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md) (fe-connect.c:4572)
 
 ## Notes and Other Information
 - This function is marked as static, indicating it's only used within the fe-connect.c file

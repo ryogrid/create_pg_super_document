@@ -43,20 +43,20 @@ The function supports both standard and non-standard parsing modes, implements s
   - `text_to_cstring` - Convert text to C strings
   - `parse_format` - Parse format string into nodes
   - `DCH_cache_fetch` - Retrieve cached format entries
-  - `DCH_from_char` - Core character-to-datetime parsing
+  - `[DCH_from_char](../D/DCH_from_char.md)` - Core character-to-datetime parsing
   - `DCH_datetime_type` - Determine datetime component types
-  - `j2date` - Convert Julian day to date components
-  - `isoweek2date`, `isoweekdate2date` - ISO week date conversions
-  - `isoweek2j` - ISO week to Julian day conversion
+  - `[j2date](../j/j2date.md)` - Convert Julian day to date components
+  - `[isoweek2date](../i/isoweek2date.md)`, `isoweekdate2date` - ISO week date conversions
+  - `[isoweek2j](../i/isoweek2j.md)` - ISO week to Julian day conversion
   - `isleap` - Leap year detection
   - `ValidateDate` - Date component validation
   - `DateTimeParseError` - Error reporting
-  - `DetermineTimeZoneAbbrevOffset` - Timezone abbreviation resolution
+  - `[DetermineTimeZoneAbbrevOffset](../D/DetermineTimeZoneAbbrevOffset.md)` - Timezone abbreviation resolution
   - Various datetime constants (SECS_PER_HOUR, MINS_PER_HOUR, etc.)
 - Called from (representative examples):
-  - `to_timestamp` - SQL TO_TIMESTAMP function
-  - `to_date` - SQL TO_DATE function
-  - `parse_datetime` - Dynamic type parsing function
+  - `[to_timestamp](../t/to_timestamp.md)` - SQL TO_TIMESTAMP function
+  - `[to_date](../t/to_date.md)` - SQL TO_DATE function
+  - `[parse_datetime](../p/parse_datetime.md)` - Dynamic type parsing function
 
 ## Notes and Other Information
 - The function implements a sophisticated caching mechanism for format strings, using static cache for small formats and dynamic allocation for larger ones

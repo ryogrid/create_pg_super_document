@@ -23,7 +23,7 @@ This structure is part of PostgreSQL's pg_dump utility and is used to maintain t
 - Functions called/Symbols referenced:
   - DumpableObject
   - PublicationInfo
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

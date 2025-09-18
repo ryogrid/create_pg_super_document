@@ -23,12 +23,12 @@ The structure is designed to handle NULL values gracefully by using NULL pointer
 - Functions called/Symbols referenced:
   - (None directly - this is a data structure definition)
 - Called from (representative examples):
-  - _avl_node (as member field)
+  - [_avl_node](../a/_avl_node.md) (as member field)
   - avl_tree (in tree operations)
   - PaintResultInCrosstab (for header management)
-  - printCrosstab (for display operations)
-  - avlInsertNode (for tree insertion)
-  - pivotFieldCompare (for comparison operations)
+  - [printCrosstab](printCrosstab.md) (for display operations)
+  - [avlInsertNode](../a/avlInsertNode.md) (for tree insertion)
+  - [pivotFieldCompare](pivotFieldCompare.md) (for comparison operations)
 
 ## Notes and Other Information
 - Part of psql's crosstabview feature located in src/bin/psql/crosstabview.c:22-46

@@ -25,12 +25,12 @@ When inserting, the function compares the current process's waitLSN with existin
 - Functions called/Symbols referenced:
   - dlist_reverse_foreach (doubly-linked list reverse iteration)
   - dlist_container (extracts PGPROC from list node)
-  - dlist_insert_after (inserts node after specified position)
-  - dlist_push_head (inserts node at queue head)
-  - PGPROC (process structure type)
+  - [dlist_insert_after](../d/dlist_insert_after.md) (inserts node after specified position)
+  - [dlist_push_head](../d/dlist_push_head.md) (inserts node at queue head)
+  - [PGPROC](../P/PGPROC.md) (process structure type)
   - NUM_SYNC_REP_WAIT_MODE (maximum number of sync rep modes)
 - Called from (representative examples):
-  - SyncRepWaitForLSN
+  - [SyncRepWaitForLSN](SyncRepWaitForLSN.md)
   - SyncStandbysDefined
 
 ## Notes and Other Information

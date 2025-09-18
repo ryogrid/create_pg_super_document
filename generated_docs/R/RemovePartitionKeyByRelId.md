@@ -22,15 +22,15 @@ The function performs minimal error checking - if the partition key entry is not
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - CatalogTupleDelete
-  - ReleaseSysCache
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [ReleaseSysCache](ReleaseSysCache.md)
   - table_close
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - heap_drop_with_catalog
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
 
 ## Notes and Other Information
 - Requires RowExclusiveLock on PartitionedRelationId catalog

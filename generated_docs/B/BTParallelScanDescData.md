@@ -24,13 +24,13 @@ The structure uses a state machine approach (via btps_pageStatus) to coordinate 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPS_State (enum for parallel scan states)
-  - slock_t (spinlock type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
   - ConditionVariable (synchronization primitive)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array members)
   - BlockNumber (block identifier type)
 - Called from (representative examples):
-  - BTParallelScanDesc (pointer typedef to this struct)
-  - btestimateparallelscan (for estimating parallel scan resources)
+  - [BTParallelScanDesc](BTParallelScanDesc.md) (pointer typedef to this struct)
+  - [btestimateparallelscan](../b/btestimateparallelscan.md) (for estimating parallel scan resources)
 
 ## Notes and Other Information
 The structure is designed to be allocated in shared memory and accessed by multiple worker processes. The BTPS_State enum values represent different phases of the parallel scan lifecycle, with proper state transitions managed through the mutex and condition variable. The flexible array member allows the structure size to be determined at runtime based on the number of array elements needed for the specific scan operation.

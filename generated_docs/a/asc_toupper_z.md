@@ -19,7 +19,7 @@ This function is a simplified wrapper around the `asc_toupper` function that aut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asc_toupper
+  - [asc_toupper](asc_toupper.md)
   - strlen
 - Called from (representative examples):
   - Currently no callers found in the codebase

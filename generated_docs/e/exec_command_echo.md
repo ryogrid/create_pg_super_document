@@ -25,13 +25,13 @@ The function processes command arguments, handling the special "-n" flag to supp
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - ignore_slash_options
-  - PsqlScanState (type)
+  - [ignore_slash_options](../i/ignore_slash_options.md)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
   - OT_NORMAL (constant)
   - PSQL_CMD_SKIP_LINE (return value)
-  - backslashResult (return type)
+  - [backslashResult](../b/backslashResult.md) (return type)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

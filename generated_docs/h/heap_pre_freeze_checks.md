@@ -25,19 +25,19 @@ The function deliberately avoids relying on tuple hint bits, performing direct t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageGetItemId
-  - PageGetItem
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
   - HeapTupleHeaderGetRawXmin
   - HeapTupleHeaderGetRawXmax
   - HeapTupleHeaderXminFrozen
-  - TransactionIdDidCommit
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - TransactionIdIsNormal
   - HEAP_FREEZE_CHECK_XMIN_COMMITTED
   - HEAP_FREEZE_CHECK_XMAX_ABORTED
   - ERRCODE_DATA_CORRUPTED
 - Called from:
-  - heap_page_prune_and_freeze
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
   - HeapScanIsValid (via header inclusion)
 
 ## Notes and Other Information

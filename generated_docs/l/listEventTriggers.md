@@ -18,16 +18,16 @@ The listEventTriggers function generates and executes a SQL query to retrieve in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - formatPGVersionNumber
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
   - lengthof
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher)
 
 ## Notes and Other Information
 - Implements the \dy psql meta-command functionality

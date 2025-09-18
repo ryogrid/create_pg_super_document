@@ -27,7 +27,7 @@ The function is specifically designed to not trigger ereport(ERROR) since it may
 - Functions called/Symbols referenced:
   - None (self-contained implementation)
 - Called from:
-  - BackgroundWorkerStateChange (in bgworker.c, multiple calls)
+  - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md) (in bgworker.c, multiple calls)
   - pgstat_get_crashed_backend_activity (in backend_status.c)
 
 ## Notes and Other Information

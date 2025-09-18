@@ -30,15 +30,15 @@ For relation data files, the function implements sophisticated logic to handle s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_file_excluded
-  - keepwal_entry_exists
+  - [check_file_excluded](../c/check_file_excluded.md)
+  - [keepwal_entry_exists](../k/keepwal_entry_exists.md)
   - pg_log_debug
   - pg_str_endswith
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - FILE_ACTION_* constants
   - FILE_TYPE_* constants
 - Called from (representative examples):
-  - decide_file_actions
+  - [decide_file_actions](decide_file_actions.md)
 
 ## Notes and Other Information
 - This is a static function internal to filemap.c

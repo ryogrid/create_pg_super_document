@@ -26,20 +26,20 @@ The prepared statement uses PostgreSQL's  function with  to fetch multiple file 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - run_simple_command
-  - run_simple_query
-  - PQexec
-  - PQprepare
-  - PQresultStatus
-  - PQresultErrorMessage
-  - PQclear
-  - pg_free
-  - pg_fatal
+  - [run_simple_command](../r/run_simple_command.md)
+  - [run_simple_query](../r/run_simple_query.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQprepare](../P/PQprepare.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [PQclear](../P/PQclear.md)
+  - [pg_free](../p/pg_free.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - ALWAYS_SECURE_SEARCH_PATH_SQL
   - PGRES_TUPLES_OK
   - PGRES_COMMAND_OK
 - Called from:
-  - init_libpq_source (in src/bin/pg_rewind/libpq_source.c:86)
+  - [init_libpq_source](init_libpq_source.md) (in src/bin/pg_rewind/libpq_source.c:86)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the libpq_source.c file

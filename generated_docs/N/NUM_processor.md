@@ -37,13 +37,13 @@ The function operates in two main phases: initialization/setup and pattern proce
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet, IS_EEEE, IS_ROMAN, IS_FILLMODE, IS_DECIMAL, IS_ZERO
-  - NUM_prepare_locale, NUM_numpart_to_char, NUM_numpart_from_char
-  - NUM_eat_non_data_chars, get_th, get_last_relevant_decnum
-  - pg_mblen, pg_mbstrlen, asc_tolower_z, OVERLOAD_TEST, AMOUNT_TEST
+  - [NUM_prepare_locale](NUM_prepare_locale.md), NUM_numpart_to_char, NUM_numpart_from_char
+  - [NUM_eat_non_data_chars](NUM_eat_non_data_chars.md), get_th, get_last_relevant_decnum
+  - [pg_mblen](../p/pg_mblen.md), pg_mbstrlen, asc_tolower_z, OVERLOAD_TEST, AMOUNT_TEST
 - Called from (representative examples):
   - DCH_ZONED (at formatting.c:1081)
   - NUM_TOCHAR_finish (at formatting.c:6324)  
-  - numeric_to_number (at formatting.c:6365)
+  - [numeric_to_number](../n/numeric_to_number.md) (at formatting.c:6365)
 
 ## Notes and Other Information
 - This is a static function, only available within formatting.c

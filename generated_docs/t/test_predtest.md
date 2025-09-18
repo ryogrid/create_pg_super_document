@@ -27,11 +27,11 @@ The function then compares the empirical and theoretical results, issuing warnin
   - text_to_cstring
   - SPI_connect, SPI_prepare, SPI_execute_plan, SPI_finish
   - SPI_getbinval, SPI_plan_get_cached_plan
-  - make_ands_implicit
-  - predicate_implied_by
-  - predicate_refuted_by
-  - CreateTemplateTupleDesc, TupleDescInitEntry, BlessTupleDesc
-  - heap_form_tuple, HeapTupleGetDatum
+  - [make_ands_implicit](../m/make_ands_implicit.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [predicate_refuted_by](../p/predicate_refuted_by.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md), TupleDescInitEntry, BlessTupleDesc
+  - [heap_form_tuple](../h/heap_form_tuple.md), HeapTupleGetDatum
   - PG_RETURN_DATUM
 - Called from (representative examples):
   - No direct callers found (likely invoked via SQL function calls)

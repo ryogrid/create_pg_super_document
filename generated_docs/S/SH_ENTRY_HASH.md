@@ -28,10 +28,10 @@ This abstraction allows the hash table implementation to optimize for either spe
   - SH_HASH_KEY (conditionally, when SH_STORE_HASH is not defined)
   - SH_KEY (entry field containing the key when hash is computed)
 - Called from (representative examples):
-  - SH_GROW (during hash table resizing operations)
-  - SH_INSERT_HASH_INTERNAL (during element insertion for Robin Hood hashing)
-  - SH_DELETE and SH_DELETE_ITEM (during element deletion and shifting)
-  - SH_STAT (for hash table statistics and analysis)
+  - [SH_GROW](SH_GROW.md) (during hash table resizing operations)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (during element insertion for Robin Hood hashing)
+  - [SH_DELETE](SH_DELETE.md) and SH_DELETE_ITEM (during element deletion and shifting)
+  - [SH_STAT](SH_STAT.md) (for hash table statistics and analysis)
 
 ## Notes and Other Information
 - This is an internal helper function for the simplehash template system

@@ -19,7 +19,7 @@ pg_sprintf provides a portable alternative to the standard sprintf function. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_vsprintf (performs the actual formatting work with va_list)
+  - [pg_vsprintf](pg_vsprintf.md) (performs the actual formatting work with va_list)
 - Called from (representative examples):
   - sprintf (when PostgreSQL's implementation replaces system's)
   - printf (indirectly through PostgreSQL printf wrappers)

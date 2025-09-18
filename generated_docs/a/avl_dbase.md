@@ -20,13 +20,13 @@ The  structure serves as a database tracking entry in the autovacuum launcher's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (for linked list operations)
+  - [dlist_node](../d/dlist_node.md) (for linked list operations)
 - Called from (representative examples):
-  - launcher_determine_sleep
-  - rebuild_database_list
-  - db_comparator
-  - do_start_worker
-  - launch_worker
+  - [launcher_determine_sleep](../l/launcher_determine_sleep.md)
+  - [rebuild_database_list](../r/rebuild_database_list.md)
+  - [db_comparator](../d/db_comparator.md)
+  - [do_start_worker](../d/do_start_worker.md)
+  - [launch_worker](../l/launch_worker.md)
 
 ## Notes and Other Information
 - The  field must be positioned first in the structure to serve as a proper hash key

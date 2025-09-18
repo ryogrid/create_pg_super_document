@@ -25,14 +25,14 @@ The function performs extensive sanity checking to ensure the given expression m
 - Functions called/Symbols referenced:
   - copyObject
   - makeVar
-  - equal
+  - [equal](../e/equal.md)
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - exprType
-  - exprCollation
+  - [exprCollation](../e/exprCollation.md)
   - INDEX_VAR
 - Called from (representative examples):
-  - fix_indexqual_clause
+  - [fix_indexqual_clause](fix_indexqual_clause.md)
 
 ## Notes and Other Information
 - The function uses INDEX_VAR as a special varno value to distinguish index column references from regular table column references

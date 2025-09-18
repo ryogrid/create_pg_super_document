@@ -21,43 +21,43 @@ The function handles all the same conversions as make_result_opt_error, includin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_result_opt_error (with NULL as second parameter)
+  - [make_result_opt_error](make_result_opt_error.md) (with NULL as second parameter)
 - Called from (representative examples):
-  - numeric_in
-  - numeric_recv
-  - numeric (type conversion)
-  - numeric_sign
-  - numeric_round
-  - numeric_trunc
+  - [numeric_in](../n/numeric_in.md)
+  - [numeric_recv](../n/numeric_recv.md)
+  - [numeric](../n/numeric.md) (type conversion)
+  - [numeric_sign](../n/numeric_sign.md)
+  - [numeric_round](../n/numeric_round.md)
+  - [numeric_trunc](../n/numeric_trunc.md)
   - numeric_ceil
   - numeric_floor
   - generate_series_step_numeric
-  - numeric_add_opt_error
-  - numeric_sub_opt_error
-  - numeric_mul_opt_error
-  - numeric_div_opt_error
-  - numeric_div_trunc
-  - numeric_mod_opt_error
-  - numeric_inc
-  - numeric_gcd
-  - numeric_lcm
-  - numeric_fac
-  - numeric_sqrt
-  - numeric_exp
-  - numeric_ln
-  - numeric_log
-  - numeric_power
-  - numeric_trim_scale
-  - random_numeric
-  - int64_to_numeric
-  - int64_div_fast_to_numeric
-  - float8_numeric
-  - float4_numeric
-  - numeric_poly_sum
-  - numeric_poly_avg
-  - numeric_avg
-  - numeric_sum
-  - numeric_stddev_internal
+  - [numeric_add_opt_error](../n/numeric_add_opt_error.md)
+  - [numeric_sub_opt_error](../n/numeric_sub_opt_error.md)
+  - [numeric_mul_opt_error](../n/numeric_mul_opt_error.md)
+  - [numeric_div_opt_error](../n/numeric_div_opt_error.md)
+  - [numeric_div_trunc](../n/numeric_div_trunc.md)
+  - [numeric_mod_opt_error](../n/numeric_mod_opt_error.md)
+  - [numeric_inc](../n/numeric_inc.md)
+  - [numeric_gcd](../n/numeric_gcd.md)
+  - [numeric_lcm](../n/numeric_lcm.md)
+  - [numeric_fac](../n/numeric_fac.md)
+  - [numeric_sqrt](../n/numeric_sqrt.md)
+  - [numeric_exp](../n/numeric_exp.md)
+  - [numeric_ln](../n/numeric_ln.md)
+  - [numeric_log](../n/numeric_log.md)
+  - [numeric_power](../n/numeric_power.md)
+  - [numeric_trim_scale](../n/numeric_trim_scale.md)
+  - [random_numeric](../r/random_numeric.md)
+  - [int64_to_numeric](../i/int64_to_numeric.md)
+  - [int64_div_fast_to_numeric](../i/int64_div_fast_to_numeric.md)
+  - [float8_numeric](../f/float8_numeric.md)
+  - [float4_numeric](../f/float4_numeric.md)
+  - [numeric_poly_sum](../n/numeric_poly_sum.md)
+  - [numeric_poly_avg](../n/numeric_poly_avg.md)
+  - [numeric_avg](../n/numeric_avg.md)
+  - [numeric_sum](../n/numeric_sum.md)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c file

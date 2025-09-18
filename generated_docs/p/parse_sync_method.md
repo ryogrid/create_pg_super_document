@@ -26,17 +26,17 @@ The function performs validation to ensure only recognized sync methods are acce
 - Functions called/Symbols referenced:
   - strcmp
   - pg_log_error
-  - DataDirSyncMethod (enum type)
+  - [DataDirSyncMethod](../D/DataDirSyncMethod.md) (enum type)
   - DATA_DIR_SYNC_METHOD_FSYNC
   - DATA_DIR_SYNC_METHOD_SYNCFS
   - HAVE_SYNCFS (preprocessor macro)
 - Called from (representative examples):
-  - main (in initdb)
-  - main (in pg_basebackup)
-  - main (in pg_checksums)
-  - main (in pg_combinebackup)
-  - main (in pg_dump)
-  - parseCommandLine (in pg_upgrade)
+  - [main](../m/main.md) (in initdb)
+  - [main](../m/main.md) (in pg_basebackup)
+  - [main](../m/main.md) (in pg_checksums)
+  - [main](../m/main.md) (in pg_combinebackup)
+  - [main](../m/main.md) (in pg_dump)
+  - [parseCommandLine](parseCommandLine.md) (in pg_upgrade)
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on error or unsupported method

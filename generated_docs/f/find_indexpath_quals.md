@@ -25,16 +25,16 @@ The function appends results to the provided lists, allowing multiple calls to a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_indexpath_quals (recursive calls)
-  - list_concat
+  - [find_indexpath_quals](find_indexpath_quals.md) (recursive calls)
+  - [list_concat](../l/list_concat.md)
   - nodeTag
   - BitmapAndPath
   - BitmapOrPath
-  - IndexPath
+  - [IndexPath](../I/IndexPath.md)
   - IndexClause
 - Called from (representative examples):
-  - classify_index_clause_usage
-  - find_indexpath_quals (recursive self-calls)
+  - [classify_index_clause_usage](../c/classify_index_clause_usage.md)
+  - [find_indexpath_quals](find_indexpath_quals.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static function local to indxpath.c

@@ -26,8 +26,8 @@ The function also initializes the timezone directory path when  is not defined, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - getenv: Get TZ environment variable value
-  - validate_zone: Validate timezone name acceptability (called twice)
-  - identify_system_timezone: Platform-specific system timezone detection
+  - [validate_zone](../v/validate_zone.md): Validate timezone name acceptability (called twice)
+  - [identify_system_timezone](../i/identify_system_timezone.md): Platform-specific system timezone detection
   - snprintf: Format timezone directory path
   - tzdirpath: Global variable storing timezone database directory
 - Called from:

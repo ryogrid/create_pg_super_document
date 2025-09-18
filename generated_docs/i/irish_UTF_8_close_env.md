@@ -19,7 +19,7 @@ The function is part of the Snowball stemming library integration in PostgreSQL,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - (No direct references found in the codebase - likely called by external stemming library users)
 

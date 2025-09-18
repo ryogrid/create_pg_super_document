@@ -23,11 +23,11 @@ The intersection operation finds all overlapping parts between the ranges in bot
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P
   - MultirangeTypeGetOid
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeIsEmpty
-  - make_empty_multirange
-  - multirange_deserialize
-  - multirange_intersect_internal
+  - [make_empty_multirange](make_empty_multirange.md)
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [multirange_intersect_internal](multirange_intersect_internal.md)
   - PG_RETURN_MULTIRANGE_P
 - Called from:
   - No direct callers found (likely called through SQL function interface)

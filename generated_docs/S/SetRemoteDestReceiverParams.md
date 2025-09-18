@@ -25,8 +25,8 @@ This function is used to set up parameters for DestReceiver objects that are con
   - DestRemote (remote destination constant)
   - DestRemoteExecute (remote execute destination constant)
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_execute_message
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify the receiver is configured for DestRemote or DestRemoteExecute destinations

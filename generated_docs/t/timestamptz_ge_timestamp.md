@@ -23,7 +23,7 @@ This function implements the ">=" comparison operator between a timestamptz (tim
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMPTZ (macro to extract timestamptz argument)
   - PG_GETARG_TIMESTAMP (macro to extract timestamp argument)
-  - timestamp_cmp_timestamptz_internal (internal comparison function)
+  - [timestamp_cmp_timestamptz_internal](timestamp_cmp_timestamptz_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from:
   - No direct references found (likely called through PostgreSQL's operator framework)

@@ -23,8 +23,8 @@ WriteTempFileBlock is a wrapper around BufFile operations specifically designed 
   - BufFileWrite
   - elog (for error reporting)
 - Called from (representative examples):
-  - gistUnloadNodeBuffer
-  - gistPushItupToNodeBuffer
+  - [gistUnloadNodeBuffer](../g/gistUnloadNodeBuffer.md)
+  - [gistPushItupToNodeBuffer](../g/gistPushItupToNodeBuffer.md)
 
 ## Notes and Other Information
 - This function is part of the GiST index building buffer management system located in gistbuildbuffers.c:758-763

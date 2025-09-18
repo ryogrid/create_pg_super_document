@@ -18,16 +18,16 @@ This function implements the ALTER DEFAULT PRIVILEGES SQL command, which allows 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errorConflictingDefElem
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
   - get_rolespec_oid
   - lappend_oid
-  - string_to_privilege
-  - privilege_to_string
-  - GetUserId
+  - [string_to_privilege](../s/string_to_privilege.md)
+  - [privilege_to_string](../p/privilege_to_string.md)
+  - [GetUserId](../G/GetUserId.md)
   - has_privs_of_role
-  - SetDefaultACLsInSchemas
+  - [SetDefaultACLsInSchemas](../S/SetDefaultACLsInSchemas.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - The function handles both scenarios: setting default privileges for the current user (when no roles specified) and for explicitly specified roles (requiring privilege checks)

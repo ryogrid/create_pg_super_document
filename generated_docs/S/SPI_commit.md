@@ -26,8 +26,8 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - _SPI_commit (internal implementation with chain parameter set to false)
 - Called from (representative examples):
-  - plperl_spi_commit (from PL/Perl)
-  - PLy_commit (from PL/Python)
+  - [plperl_spi_commit](../p/plperl_spi_commit.md) (from PL/Perl)
+  - [PLy_commit](../P/PLy_commit.md) (from PL/Python)
   - pltcl_commit (from PL/Tcl)
 
 ## Notes and Other Information

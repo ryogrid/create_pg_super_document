@@ -20,14 +20,14 @@ This is a common pattern in PostgreSQL where both name-based and OID-based acces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_publication_oid: Resolves publication name to OID, with error handling controlled by missing_ok
-  - GetPublication: Retrieves the full Publication structure using the resolved OID
+  - [get_publication_oid](../g/get_publication_oid.md): Resolves publication name to OID, with error handling controlled by missing_ok
+  - [GetPublication](GetPublication.md): Retrieves the full Publication structure using the resolved OID
   - OidIsValid: Validates the OID returned by get_publication_oid
 - Called from (representative examples):
-  - get_object_address_publication_rel: Object address resolution for publication relations
-  - get_object_address_publication_schema: Object address resolution for publication schemas  
+  - [get_object_address_publication_rel](../g/get_object_address_publication_rel.md): Object address resolution for publication relations
+  - [get_object_address_publication_schema](../g/get_object_address_publication_schema.md): Object address resolution for publication schemas  
   - NUM_PUBLICATION_TABLES_ELEM: Counts tables when publication is specified by name
-  - LoadPublications: Loads publication configurations in pgoutput plugin
+  - [LoadPublications](../L/LoadPublications.md): Loads publication configurations in pgoutput plugin
 
 ## Notes and Other Information
 - Returns NULL if the publication doesn't exist and missing_ok is true

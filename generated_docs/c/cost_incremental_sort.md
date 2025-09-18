@@ -35,16 +35,16 @@ Special handling is implemented for expressions containing "varno 0" (introduced
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_tuplesort
-  - estimate_num_groups
-  - bms_is_member
-  - pull_varnos
+  - [cost_tuplesort](cost_tuplesort.md)
+  - [estimate_num_groups](../e/estimate_num_groups.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [pull_varnos](../p/pull_varnos.md)
   - foreach_current_index
   - DEFAULT_NUM_DISTINCT
   - PathKey
-  - EquivalenceMember
+  - [EquivalenceMember](../E/EquivalenceMember.md)
 - Called from (representative examples):
-  - create_incremental_sort_path
+  - [create_incremental_sort_path](create_incremental_sort_path.md)
 
 ## Notes and Other Information
 - Ensures minimum tuple count of 2.0 to avoid zero cost estimates and log(0) calculations

@@ -19,19 +19,19 @@ This function processes a TOC file that contains a list of dump IDs specifying t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestoreOptions
+  - [RestoreOptions](../R/RestoreOptions.md)
   - pg_malloc0
   - PG_BINARY_R
   - fopen
   - pg_get_line_buf
   - DumpId
-  - TocEntry
+  - [TocEntry](../T/TocEntry.md)
   - pg_log_warning
-  - getTocEntryByDumpId
-  - _moveBefore
-  - pg_free
+  - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md)
+  - [_moveBefore](../m/_moveBefore.md)
+  - [pg_free](../p/pg_free.md)
 - Called from (representative examples):
-  - main (in pg_restore.c)
+  - [main](../m/main.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - Allocates and initializes the idWanted boolean array based on maxDumpId

@@ -26,7 +26,7 @@ This function takes no parameters and returns a dynamically allocated string.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ErrorData (type)
-  - get_error_stack_entry
+  - [get_error_stack_entry](../g/get_error_stack_entry.md)
   - ErrorContextCallback callbacks (through callback field)
   - CurrentMemoryContext (global variable)
   - error_context_stack (global variable)

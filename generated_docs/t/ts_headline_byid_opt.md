@@ -36,23 +36,23 @@ The function handles memory management carefully, allocating structures for pars
   - TSQuery (text search query type)
   - PG_GETARG_TSQUERY (macro to extract TSQuery argument)
   - PG_NARGS (macro to get argument count)
-  - HeadlineParsedText (structure for parsed text data)
+  - [HeadlineParsedText](../H/HeadlineParsedText.md) (structure for parsed text data)
   - TSConfigCacheEntry (cached configuration information)
   - TSParserCacheEntry (cached parser information)
-  - lookup_ts_config_cache (retrieves configuration from cache)
-  - lookup_ts_parser_cache (retrieves parser from cache)
-  - HeadlineWordEntry (structure for individual word entries)
-  - hlparsetext (parses text and identifies query matches)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md) (retrieves configuration from cache)
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md) (retrieves parser from cache)
+  - [HeadlineWordEntry](../H/HeadlineWordEntry.md) (structure for individual word entries)
+  - [hlparsetext](../h/hlparsetext.md) (parses text and identifies query matches)
   - deserialize_deflist (converts options text to parameter list)
   - FunctionCall3 (calls the parser's headline function)
-  - generateHeadline (generates final headline text)
+  - [generateHeadline](../g/generateHeadline.md) (generates final headline text)
   - PG_FREE_IF_COPY (memory management for varlena types)
-  - palloc/pfree (PostgreSQL memory allocation/deallocation)
+  - [palloc](../p/palloc.md)/pfree (PostgreSQL memory allocation/deallocation)
 
 - Called from (representative examples):
-  - ts_headline_byid (at src/backend/tsearch/wparser.c:341)
-  - ts_headline (at src/backend/tsearch/wparser.c:350)
-  - ts_headline_opt (at src/backend/tsearch/wparser.c:359)
+  - [ts_headline_byid](ts_headline_byid.md) (at src/backend/tsearch/wparser.c:341)
+  - [ts_headline](ts_headline.md) (at src/backend/tsearch/wparser.c:350)
+  - [ts_headline_opt](ts_headline_opt.md) (at src/backend/tsearch/wparser.c:359)
 
 ## Notes and Other Information
 - This function is the core implementation used by other headline functions

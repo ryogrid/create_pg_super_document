@@ -23,17 +23,17 @@ The design includes predefined field number constants (FIELDNO_NULLABLE_DATUM_DA
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (base type for the value field)
-  - bool (standard boolean type)
+  - [bool](../b/bool.md) (standard boolean type)
 
 - Used by (representative examples):
   - SerializedReindexState (catalog/index.c:110)
-  - AppendAttributeTuples (catalog/index.c:510)
+  - [AppendAttributeTuples](../A/AppendAttributeTuples.md) (catalog/index.c:510)
   - index_create (catalog/index.c:738)
-  - ExecBuildAggTrans (executor/execExpr.c:3545)
-  - ExecInterpExpr (executor/execExprInterp.c:750, 1687)
+  - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md) (executor/execExpr.c:3545)
+  - [ExecInterpExpr](../E/ExecInterpExpr.md) (executor/execExprInterp.c:750, 1687)
   - ExprEvalStep (include/executor/execExpr.h:662)
-  - FunctionCallInfoBaseData (include/fmgr.h:95)
-  - JsonExprState (include/nodes/execnodes.h:1028, 1031, 1044, 1047)
+  - [FunctionCallInfoBaseData](../F/FunctionCallInfoBaseData.md) (include/fmgr.h:95)
+  - [JsonExprState](../J/JsonExprState.md) (include/nodes/execnodes.h:1028, 1031, 1044, 1047)
 
 ## Notes and Other Information
 - The structure includes a comment noting that alignment padding could potentially be used for additional flags without increasing the overall structure size

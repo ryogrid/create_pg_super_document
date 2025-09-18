@@ -23,12 +23,12 @@ This function serves as the relation options handler for GiST indexes, parsing a
   - relopt_parse_elt (structure type for defining parseable options)
   - RELOPT_TYPE_INT (option type constant for integer values)
   - RELOPT_TYPE_ENUM (option type constant for enumerated values)
-  - GiSTOptions (target structure type for storing processed options)
-  - build_reloptions (core function that parses and builds the options structure)
+  - [GiSTOptions](../G/GiSTOptions.md) (target structure type for storing processed options)
+  - [build_reloptions](../b/build_reloptions.md) (core function that parses and builds the options structure)
   - RELOPT_KIND_GIST (relation option kind constant for GiST indexes)
   - lengthof (macro to get array length)
 - Called from (representative examples):
-  - gisthandler (as part of the GiST access method interface)
+  - [gisthandler](gisthandler.md) (as part of the GiST access method interface)
 
 ## Notes and Other Information
 - Supports two main GiST-specific options: 'fillfactor' (page fill percentage) and 'buffering' (build-time buffering mode)

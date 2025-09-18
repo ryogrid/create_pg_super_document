@@ -23,11 +23,11 @@ This inline utility function generates a consistent filename format for files th
 - Functions called/Symbols referenced:
   - snprintf (standard C library function)
 - Called from (representative examples):
-  - stream_abort_internal
-  - ensure_last_message  
-  - apply_spooled_messages
-  - stream_cleanup_files
-  - stream_open_file
+  - [stream_abort_internal](../s/stream_abort_internal.md)
+  - [ensure_last_message](../e/ensure_last_message.md)  
+  - [apply_spooled_messages](../a/apply_spooled_messages.md)
+  - [stream_cleanup_files](../s/stream_cleanup_files.md)
+  - [stream_open_file](../s/stream_open_file.md)
 
 ## Notes and Other Information
 - The function assumes the output buffer has sufficient space (MAXPGPATH bytes)

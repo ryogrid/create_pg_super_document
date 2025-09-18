@@ -23,15 +23,15 @@ This function implements the core logic for JSONB object expansion operations. I
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P (get JSONB argument)
   - JB_ROOT_IS_OBJECT (validate object type)
-  - InitMaterializedSRF (initialize set-returning function)
-  - JsonbIteratorInit, JsonbIteratorNext (JSONB iteration)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initialize set-returning function)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md), JsonbIteratorNext (JSONB iteration)
   - cstring_to_text_with_len (key conversion)
-  - JsonbValueAsText, JsonbValueToJsonb (value conversion)
+  - [JsonbValueAsText](../J/JsonbValueAsText.md), JsonbValueToJsonb (value conversion)
   - tuplestore_putvalues (result storage)
   - AllocSetContextCreate, MemoryContextDelete (memory management)
 - Called from (representative examples):
-  - jsonb_each (with as_text=false)
-  - jsonb_each_text (with as_text=true)
+  - [jsonb_each](../j/jsonb_each.md) (with as_text=false)
+  - [jsonb_each_text](../j/jsonb_each_text.md) (with as_text=true)
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/jsonfuncs.c:1972-2055

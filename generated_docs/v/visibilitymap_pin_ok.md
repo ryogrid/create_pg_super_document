@@ -21,11 +21,11 @@ The function performs a simple validation: it converts the heap block number to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)
-  - BufferGetBlockNumber (gets block number from buffer)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
 - Called from (representative examples):
-  - heap_multi_insert (checks if correct page is pinned during bulk inserts)
-  - GetVisibilityMapPins (optimizes buffer management during tuple operations)
-  - RelationGetBufferForTuple (avoids redundant pinning during tuple insertion)
+  - [heap_multi_insert](../h/heap_multi_insert.md) (checks if correct page is pinned during bulk inserts)
+  - [GetVisibilityMapPins](../G/GetVisibilityMapPins.md) (optimizes buffer management during tuple operations)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md) (avoids redundant pinning during tuple insertion)
 
 ## Notes and Other Information
 - Returns true if the buffer is valid and contains the correct map page, false otherwise

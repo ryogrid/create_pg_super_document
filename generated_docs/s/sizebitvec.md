@@ -18,14 +18,14 @@ This function provides a simple wrapper around PostgreSQL's pg_popcount() functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount (PostgreSQL function to count set bits in memory)
+  - [pg_popcount](../p/pg_popcount.md) (PostgreSQL function to count set bits in memory)
   - BITVECP (typedef for bit vector pointer)
 - Called from (representative examples):
-  - gtsvectorout (for signature output formatting)
-  - hemdist (for Hamming distance calculations)
-  - gtsvector_penalty (for penalty calculations in index operations)
-  - hemdistcache (for cached distance calculations)
-  - gtsvector_picksplit (for page splitting decisions)
+  - [gtsvectorout](../g/gtsvectorout.md) (for signature output formatting)
+  - [hemdist](../h/hemdist.md) (for Hamming distance calculations)
+  - [gtsvector_penalty](../g/gtsvector_penalty.md) (for penalty calculations in index operations)
+  - [hemdistcache](../h/hemdistcache.md) (for cached distance calculations)
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md) (for page splitting decisions)
 
 ## Notes and Other Information
 This is a static helper function that abstracts the bit counting operation, making the code more readable and maintainable. The function leverages PostgreSQL's optimized pg_popcount() implementation which uses hardware instructions when available for efficient bit counting. It's widely used throughout the TSVector GiST implementation wherever bit density measurements are needed.

@@ -21,12 +21,12 @@ This is a comprehensive cleanup function that removes all SLRU data, typically u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SlruScanDirectory`: Scans the SLRU directory and calls callback for each segment
+  - `[SlruScanDirectory](../S/SlruScanDirectory.md)`: Scans the SLRU directory and calls callback for each segment
   - `TestSlruCtl`: The test SLRU control structure
-  - `test_slru_scan_cb`: Callback function that handles deletion of each segment
+  - `[test_slru_scan_cb](test_slru_scan_cb.md)`: Callback function that handles deletion of each segment
   - `PG_RETURN_VOID`: Returns void to SQL
 - Related callback function:
-  - `test_slru_scan_cb`: Calls SlruScanDirCbDeleteAll to delete segments
+  - `[test_slru_scan_cb](test_slru_scan_cb.md)`: Calls SlruScanDirCbDeleteAll to delete segments
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)
 

@@ -31,17 +31,17 @@ The function handles different data types (text, name, bytea) and respects colla
 - Functions called/Symbols referenced:
   - DatumGetByteaPP (bytea handling)
   - DirectFunctionCall1, DatumGetCString, TextDatumGetCString (string conversion)
-  - lc_collate_is_c (collation checking)
-  - varstr_cmp (string comparison for suffix determination)
-  - byte_increment (bytea character incrementing)
-  - pg_database_encoding_character_incrementer (text character incrementing)
-  - pg_mbcliplen (multibyte character handling)
-  - string_to_bytea_const, string_to_const (result construction)
-  - FunctionCall2Coll (collation-aware comparison)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md) (collation checking)
+  - [varstr_cmp](../v/varstr_cmp.md) (string comparison for suffix determination)
+  - [byte_increment](../b/byte_increment.md) (bytea character incrementing)
+  - [pg_database_encoding_character_incrementer](../p/pg_database_encoding_character_incrementer.md) (text character incrementing)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (multibyte character handling)
+  - [string_to_bytea_const](../s/string_to_bytea_const.md), string_to_const (result construction)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (collation-aware comparison)
 - Called from (representative examples):
   - Pattern_Prefix_Status
-  - match_pattern_prefix
-  - prefix_selectivity
+  - [match_pattern_prefix](match_pattern_prefix.md)
+  - [prefix_selectivity](../p/prefix_selectivity.md)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, used for LIKE pattern optimization

@@ -17,11 +17,11 @@ This function creates a multirange containing exactly one range element. While i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_rettype
-  - multirange_get_typcache
+  - [get_fn_expr_rettype](../g/get_fn_expr_rettype.md)
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - PG_GETARG_RANGE_P
   - RangeTypeGetOid
-  - make_multirange
+  - [make_multirange](make_multirange.md)
   - PG_RETURN_MULTIRANGE_P
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)

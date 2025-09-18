@@ -33,15 +33,15 @@ This function is a recursive tree walker that processes expression trees to fina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flatten_join_alias_vars
-  - equal
-  - exprLocation
+  - [flatten_join_alias_vars](flatten_join_alias_vars.md)
+  - [equal](../e/equal.md)
+  - [exprLocation](../e/exprLocation.md)
   - lappend_int
   - query_tree_walker
   - expression_tree_walker
   - ereport (for error reporting)
 - Called from:
-  - finalize_grouping_exprs
+  - [finalize_grouping_exprs](finalize_grouping_exprs.md)
   - Self-recursion for tree traversal
 
 ## Notes and Other Information

@@ -36,12 +36,12 @@ This function takes no parameters but operates on global predicate locking state
   - dlist_container (container access for serializable transactions)
   - SxactIsRolledBack (transaction state check)
   - SxactIsCommitted (transaction state check)
-  - TransactionIdPrecedes (transaction ID comparison using modular arithmetic)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (transaction ID comparison using modular arithmetic)
   - TransactionIdEquals (transaction ID equality check)
-  - SerialSetActiveSerXmin (updates serial scheduling xmin)
+  - [SerialSetActiveSerXmin](SerialSetActiveSerXmin.md) (updates serial scheduling xmin)
 - Called from:
-  - SerialControl (during serializable transaction management)
-  - ReleasePredicateLocks (when transactions complete)
+  - [SerialControl](SerialControl.md) (during serializable transaction management)
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md) (when transactions complete)
 
 ## Notes and Other Information
 - This is a static (internal) function called only within the predicate locking subsystem

@@ -30,16 +30,16 @@ The function also manages cleanup of previously held locks when the relation OID
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnlockRelationOid
-  - DropErrorMsgWrongType
-  - object_ownercheck
-  - aclcheck_error
-  - IsSystemClass
-  - IndexGetRelation
-  - LockRelationOid
-  - get_partition_parent
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [DropErrorMsgWrongType](../D/DropErrorMsgWrongType.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [IsSystemClass](../I/IsSystemClass.md)
+  - [IndexGetRelation](../I/IndexGetRelation.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [get_partition_parent](../g/get_partition_parent.md)
 - Called from (representative examples):
-  - RemoveRelations
+  - [RemoveRelations](RemoveRelations.md)
 
 ## Notes and Other Information
 - This callback is specifically designed for DROP operations and implements PostgreSQL's lock ordering rules to prevent deadlocks

@@ -22,15 +22,15 @@ The prepared plan is stored in the top memory context to persist beyond the curr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context: Gets current execution context
-  - PLy_exception_set: Sets Python exceptions
-  - PLy_plan_new: Creates new plan object
+  - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current execution context
+  - [PLy_exception_set](PLy_exception_set.md): Sets Python exceptions
+  - [PLy_plan_new](PLy_plan_new.md): Creates new plan object
   - AllocSetContextCreate: Creates memory context for the plan
-  - PLy_spi_subtransaction_begin/commit/abort: Manages subtransactions
-  - parseTypeString: Parses type names to OIDs
-  - PLy_output_setup_func: Sets up parameter conversion functions
-  - SPI_prepare: PostgreSQL SPI function to prepare the query
-  - SPI_keepplan: Transfers plan to top memory context
+  - [PLy_spi_subtransaction_begin](PLy_spi_subtransaction_begin.md)/commit/abort: Manages subtransactions
+  - [parseTypeString](../p/parseTypeString.md): Parses type names to OIDs
+  - [PLy_output_setup_func](PLy_output_setup_func.md): Sets up parameter conversion functions
+  - [SPI_prepare](../S/SPI_prepare.md): PostgreSQL SPI function to prepare the query
+  - [SPI_keepplan](../S/SPI_keepplan.md): Transfers plan to top memory context
 - Called from (representative examples):
   - Python code via plpy.prepare() interface
 

@@ -36,11 +36,11 @@ Physical maintenance operations (pruning, visibility changes, locking) are ignor
   - XLogRecGetInfo
   - XLogRecGetXid
   - ReorderBufferProcessXid
-  - SnapBuildCurrentState
-  - SnapBuildProcessChange
-  - DecodeMultiInsert
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
+  - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md)
   - XLogRecGetData
-  - SnapBuildProcessNewCid
+  - [SnapBuildProcessNewCid](../S/SnapBuildProcessNewCid.md)
 - Constants used:
   - XLOG_HEAP_OPMASK
   - SNAPBUILD_FULL_SNAPSHOT
@@ -49,7 +49,7 @@ Physical maintenance operations (pruning, visibility changes, locking) are ignor
   - XLOG_HEAP2_REWRITE
   - Various physical operation constants (PRUNE, VISIBLE, LOCK_UPDATED)
 - Data types used:
-  - xl_heap_new_cid
+  - [xl_heap_new_cid](../x/xl_heap_new_cid.md)
 - Called from:
   - Resource manager system via LogicalDecodingProcessRecord (registered in rmgrlist.h)
 
@@ -57,7 +57,7 @@ Physical maintenance operations (pruning, visibility changes, locking) are ignor
 - This function is registered as the decode handler for RM_HEAP2_ID in the resource manager list
 - Critical for building base snapshots during fast-forward mode, even when not decoding actual changes
 - Multi-insert processing is conditional on both snapshot state and fast-forward mode
-- Command ID processing is essential for maintaining proper transaction visibility semantics
+- [Command](../C/Command.md) ID processing is essential for maintaining proper transaction visibility semantics
 - Table rewrite records exist specifically for logical decoding but are handled during recovery, not here
 - Physical maintenance operations (pruning, visibility, locking) are ignored as they don't affect logical content
 - Requires a full snapshot (SNAPBUILD_FULL_SNAPSHOT) before processing most operations

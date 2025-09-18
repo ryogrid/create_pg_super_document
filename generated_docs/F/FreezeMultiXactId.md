@@ -31,21 +31,21 @@ The decision-making process considers multiple factors including transaction com
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
-  - MultiXactIdIsRunning
-  - MultiXactIdGetUpdateXid
-  - GetMultiXactIdMembers
-  - MultiXactIdCreateFromMembers
-  - TransactionIdPrecedes
-  - TransactionIdDidCommit
-  - TransactionIdIsCurrentTransactionId
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
+  - [MultiXactIdGetUpdateXid](../M/MultiXactIdGetUpdateXid.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
   - HEAP_XMAX_IS_MULTI
   - HEAP_LOCKED_UPGRADED
   - HEAP_XMAX_IS_LOCKED_ONLY
   - ISUPDATE_from_mxstatus
 - Called from:
-  - heap_prepare_freeze_tuple
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
 
 ## Notes and Other Information
 - **Return Value Interpretation**: The returned TransactionId's meaning depends on the flags set:

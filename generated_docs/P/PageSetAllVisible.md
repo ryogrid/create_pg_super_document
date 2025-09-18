@@ -22,12 +22,12 @@ The function uses a bitwise OR operation to set the PD_ALL_VISIBLE flag bit whil
   - PageHeader (type cast)
   - PD_ALL_VISIBLE (flag constant 0x0004)
 - Called from (representative examples):
-  - heap_multi_insert
-  - heap_xlog_visible
-  - heap_xlog_multi_insert
-  - lazy_scan_new_or_empty
-  - lazy_scan_prune
-  - lazy_vacuum_heap_page
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_xlog_visible](../h/heap_xlog_visible.md)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md)
+  - [lazy_scan_new_or_empty](../l/lazy_scan_new_or_empty.md)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
+  - [lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

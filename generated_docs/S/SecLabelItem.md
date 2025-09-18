@@ -25,10 +25,10 @@ The structure is used to build a sorted array of security labels that can be qui
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - findSecLabels (searches the seclabels array)
-  - dumpSecLabel (dumps security labels for objects)
-  - dumpTableSecLabel (dumps security labels for table columns)
-  - collectSecLabels (collects security labels from the database)
+  - [findSecLabels](../f/findSecLabels.md) (searches the seclabels array)
+  - [dumpSecLabel](../d/dumpSecLabel.md) (dumps security labels for objects)
+  - [dumpTableSecLabel](../d/dumpTableSecLabel.md) (dumps security labels for table columns)
+  - [collectSecLabels](../c/collectSecLabels.md) (collects security labels from the database)
 
 ## Notes and Other Information
 - Used only in pg_dump utility, not in the core PostgreSQL server

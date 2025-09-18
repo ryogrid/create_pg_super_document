@@ -22,12 +22,12 @@ The function performs two passes: first counting the qualifying relations, then 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - palloc
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - StartPrepare
-  - RecordTransactionCommit
-  - RecordTransactionAbort
+  - [StartPrepare](../S/StartPrepare.md)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
 
 ## Notes and Other Information
 - Returns the count of relations as the function return value

@@ -30,9 +30,9 @@ The traversal is performed using a callback mechanism where a user-provided walk
   - WALK (macro for calling walker callback)
   - range_table_walker
   - WindowClause
-  - QTW_EXAMINE_SORTGROUP
-  - QTW_IGNORE_CTE_SUBQUERIES  
-  - QTW_IGNORE_RANGE_TABLE
+  - [QTW_EXAMINE_SORTGROUP](../Q/QTW_EXAMINE_SORTGROUP.md)
+  - [QTW_IGNORE_CTE_SUBQUERIES](../Q/QTW_IGNORE_CTE_SUBQUERIES.md)  
+  - [QTW_IGNORE_RANGE_TABLE](../Q/QTW_IGNORE_RANGE_TABLE.md)
 - Called from (representative examples):
   - query_tree_walker (inline wrapper)
   - planstate_tree_walker

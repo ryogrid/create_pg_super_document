@@ -17,16 +17,16 @@ This function allocates and initializes a DR_intorel structure that implements t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - intorel_receive
-  - intorel_startup  
-  - intorel_shutdown
-  - intorel_destroy
+  - [palloc0](../p/palloc0.md)
+  - [intorel_receive](../i/intorel_receive.md)
+  - [intorel_startup](../i/intorel_startup.md)  
+  - [intorel_shutdown](../i/intorel_shutdown.md)
+  - [intorel_destroy](../i/intorel_destroy.md)
   - DestIntoRel
 - Called from (representative examples):
-  - ExecCreateTableAs
-  - ExplainOnePlan
-  - CreateDestReceiver
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [CreateDestReceiver](CreateDestReceiver.md)
 
 ## Notes and Other Information
 The function initializes the pub.mydest field to DestIntoRel to identify this as a relation destination receiver. Other private fields of the DR_intorel structure are set during the intorel_startup phase rather than during creation. The returned DestReceiver pointer provides a generic interface while hiding the specific DR_intorel implementation details.

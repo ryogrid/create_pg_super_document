@@ -26,12 +26,12 @@ For text and binary columns, it reads the length, allocates memory, copies the d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint: Reads integers from message stream (attribute count and data length)
-  - pq_getmsgbyte: Reads single byte (column status/kind)
-  - pq_copymsgbytes: Copies data bytes from message stream
-  - palloc/palloc0: Allocates memory for column data and status arrays
-  - initStringInfoFromString: Initializes StringInfo structure with data
-  - LogicalRepTupleData: Structure for storing parsed tuple information
+  - [pq_getmsgint](../p/pq_getmsgint.md): Reads integers from message stream (attribute count and data length)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md): Reads single byte (column status/kind)
+  - [pq_copymsgbytes](../p/pq_copymsgbytes.md): Copies data bytes from message stream
+  - [palloc](../p/palloc.md)/palloc0: Allocates memory for column data and status arrays
+  - [initStringInfoFromString](../i/initStringInfoFromString.md): Initializes StringInfo structure with data
+  - [LogicalRepTupleData](../L/LogicalRepTupleData.md): Structure for storing parsed tuple information
   - LOGICALREP_COLUMN_* constants: Column representation type identifiers
 
 - Called from (representative examples):

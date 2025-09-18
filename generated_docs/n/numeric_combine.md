@@ -27,13 +27,13 @@ The combining process involves adding counts, merging scale tracking data, and u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
-  - makeNumericAggStateCurrentContext
-  - accum_sum_copy
-  - accum_sum_combine
-  - MemoryContextSwitchTo
+  - [makeNumericAggStateCurrentContext](../m/makeNumericAggStateCurrentContext.md)
+  - [accum_sum_copy](../a/accum_sum_copy.md)
+  - [accum_sum_combine](../a/accum_sum_combine.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - PG_RETURN_POINTER
   - elog
 - Called from (representative examples):

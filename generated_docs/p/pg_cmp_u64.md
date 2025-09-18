@@ -25,10 +25,10 @@ This function is particularly useful for comparing large unsigned values like LS
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)
 - Called from (representative examples):
-  - ListComparatorForWalSummaryFiles (src/backend/backup/walsummary.c:352)
-  - file_sort_by_lsn (src/backend/replication/logical/reorderbuffer.c:5318)
-  - cmp_lsn (src/backend/replication/syncrep.c:743)
-  - ginCompareItemPointers (src/include/access/gin_private.h:493)
+  - [ListComparatorForWalSummaryFiles](../L/ListComparatorForWalSummaryFiles.md) (src/backend/backup/walsummary.c:352)
+  - [file_sort_by_lsn](../f/file_sort_by_lsn.md) (src/backend/replication/logical/reorderbuffer.c:5318)
+  - [cmp_lsn](../c/cmp_lsn.md) (src/backend/replication/syncrep.c:743)
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md) (src/include/access/gin_private.h:493)
 
 ## Notes and Other Information
 - The branchless implementation `(a > b) - (a < b)` is more efficient than traditional if-else comparison logic

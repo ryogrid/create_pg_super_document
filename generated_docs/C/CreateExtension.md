@@ -18,17 +18,17 @@ This function serves as the primary interface for the CREATE EXTENSION SQL comma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_valid_extension_name
-  - get_extension_oid
-  - errorConflictingDefElem
-  - defGetString
-  - defGetBoolean
-  - CreateExtensionInternal
+  - [check_valid_extension_name](../c/check_valid_extension_name.md)
+  - [get_extension_oid](../g/get_extension_oid.md)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
+  - [defGetString](../d/defGetString.md)
+  - [defGetBoolean](../d/defGetBoolean.md)
+  - [CreateExtensionInternal](CreateExtensionInternal.md)
 - Types referenced:
   - CreateExtensionStmt
-  - DefElem
+  - [DefElem](../D/DefElem.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - This is the public interface function declared in extension.h and called by the utility command processor

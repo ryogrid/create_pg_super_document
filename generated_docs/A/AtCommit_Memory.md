@@ -23,11 +23,11 @@ This function takes no parameters but operates on several global memory context 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (implicitly called)
-  - MemoryContextDelete
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (implicitly called)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
 
 ## Notes and Other Information
 - This is a static function within xact.c, part of the transaction commit cleanup process

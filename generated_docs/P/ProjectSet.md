@@ -21,16 +21,16 @@ The node relies on the common Plan structure for basic plan information, with th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan (base structure)
+  - [Plan](Plan.md) (base structure)
 
 - Called from (representative examples):
   - make_project_set (optimizer/plan/createplan.c:7013)
-  - create_project_set_plan (optimizer/plan/createplan.c:1615)
-  - ExecInitProjectSet (executor/nodeProjectSet.c:227)
-  - create_group_result_plan (optimizer/plan/createplan.c:1612)
+  - [create_project_set_plan](../c/create_project_set_plan.md) (optimizer/plan/createplan.c:1615)
+  - [ExecInitProjectSet](../E/ExecInitProjectSet.md) (executor/nodeProjectSet.c:227)
+  - [create_group_result_plan](../c/create_group_result_plan.md) (optimizer/plan/createplan.c:1612)
 
 ## Notes and Other Information
-- ProjectSet nodes are created when the planner detects set-returning functions in the targetlist
+- [ProjectSet](ProjectSet.md) nodes are created when the planner detects set-returning functions in the targetlist
 - Handles complex scenarios where multiple SRFs need to be coordinated in the same SELECT clause
 - The executor implementation manages the stateful nature of set-returning functions across multiple calls
 - Critical for supporting PostgreSQL's advanced SQL features like lateral joins with set-returning functions

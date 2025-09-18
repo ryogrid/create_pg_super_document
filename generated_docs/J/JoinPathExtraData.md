@@ -22,22 +22,22 @@ JoinPathExtraData serves as a container for essential information needed during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - SemiAntiJoinFactors
 - Called from (representative examples):
-  - add_paths_to_joinrel
-  - try_nestloop_path
-  - try_mergejoin_path
-  - try_hashjoin_path
-  - create_nestloop_path
-  - create_mergejoin_path
-  - create_hashjoin_path
-  - initial_cost_nestloop
-  - final_cost_nestloop
-  - initial_cost_mergejoin
-  - final_cost_mergejoin
-  - initial_cost_hashjoin
-  - final_cost_hashjoin
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
+  - [try_nestloop_path](../t/try_nestloop_path.md)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [try_hashjoin_path](../t/try_hashjoin_path.md)
+  - [create_nestloop_path](../c/create_nestloop_path.md)
+  - [create_mergejoin_path](../c/create_mergejoin_path.md)
+  - [create_hashjoin_path](../c/create_hashjoin_path.md)
+  - [initial_cost_nestloop](../i/initial_cost_nestloop.md)
+  - [final_cost_nestloop](../f/final_cost_nestloop.md)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
+  - [initial_cost_hashjoin](../i/initial_cost_hashjoin.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
 
 ## Notes and Other Information
 - This structure is primarily used in the query optimizer's join planning phase

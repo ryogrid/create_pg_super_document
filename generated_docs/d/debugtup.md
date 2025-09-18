@@ -29,12 +29,12 @@ The function processes each attribute by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - slot_getattr: Extracts attribute values from the tuple slot
-  - getTypeOutputInfo: Retrieves the output function OID for a given data type
-  - OidOutputFunctionCall: Calls the appropriate output function to convert attribute values to strings
-  - printatt: Formats and displays attribute information to standard output
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md): Retrieves the output function OID for a given data type
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md): Calls the appropriate output function to convert attribute values to strings
+  - [printatt](../p/printatt.md): Formats and displays attribute information to standard output
   - TupleDescAttr: Macro to access tuple descriptor attribute information
 - Called from (representative examples):
-  - print_slot: Uses debugtup for printing slot contents in debugging contexts
+  - [print_slot](../p/print_slot.md): Uses debugtup for printing slot contents in debugging contexts
   - MJ_debugtup: Merge join debugging macro that utilizes debugtup functionality
 
 ## Notes and Other Information

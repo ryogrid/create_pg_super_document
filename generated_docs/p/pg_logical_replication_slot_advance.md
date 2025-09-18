@@ -21,9 +21,9 @@ Unlike physical slots which only need to update restart_lsn, logical slots requi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `LogicalSlotAdvanceAndCheckSnapState` - Performs the actual logical slot advancement with snapshot state validation
+  - `[LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)` - Performs the actual logical slot advancement with snapshot state validation
 - Called from:
-  - `pg_replication_slot_advance` - Main SQL function for advancing replication slots
+  - `[pg_replication_slot_advance](pg_replication_slot_advance.md)` - Main SQL function for advancing replication slots
 
 ## Notes and Other Information
 - This is a static helper function, not directly accessible from SQL

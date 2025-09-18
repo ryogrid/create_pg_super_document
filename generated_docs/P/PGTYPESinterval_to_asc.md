@@ -19,13 +19,13 @@ The function provides error handling by checking the validity of the interval co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - interval2tm (converts interval to tm structure)
-  - EncodeInterval (formats tm structure to string)
-  - pgtypes_strdup (duplicates string)
+  - [interval2tm](../i/interval2tm.md) (converts interval to tm structure)
+  - [EncodeInterval](../E/EncodeInterval.md) (formats tm structure to string)
+  - [pgtypes_strdup](../p/pgtypes_strdup.md) (duplicates string)
 - Called from (representative examples):
-  - intoasc (Informix compatibility function)
+  - [intoasc](../i/intoasc.md) (Informix compatibility function)
   - ecpg_store_input (ECPG input storage)
-  - main (in various test programs)
+  - [main](../m/main.md) (in various test programs)
   - Client applications needing string representation of intervals
 
 ## Notes and Other Information

@@ -29,14 +29,14 @@ JsonExprState contains the execution state for JSON path expressions, which are 
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonExpr
-  - NullableDatum
-  - List
-  - FunctionCallInfo
-  - ErrorSaveContext
+  - [NullableDatum](../N/NullableDatum.md)
+  - [List](../L/List.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md)
 - Called from (representative examples):
-  - ExecInitJsonExpr
-  - ExecEvalJsonExprPath
-  - ExecEvalJsonCoercionFinish
+  - [ExecInitJsonExpr](../E/ExecInitJsonExpr.md)
+  - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)
+  - [ExecEvalJsonCoercionFinish](../E/ExecEvalJsonCoercionFinish.md)
   - llvm_compile_expr
 
 ## Notes and Other Information

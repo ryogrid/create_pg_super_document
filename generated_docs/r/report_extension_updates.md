@@ -19,17 +19,17 @@ The function queries the pg_available_extensions view to compare installed_versi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting initialization)
-  - connectToServer (database connection establishment)
-  - executeQueryOrDie (SQL query execution)
+  - [prep_status](../p/prep_status.md) (status reporting initialization)
+  - [connectToServer](../c/connectToServer.md) (database connection establishment)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL query execution)
   - fopen_priv (secure file creation)
-  - PQExpBufferData, initPQExpBuffer, appendPsqlMetaConnect, termPQExpBuffer (query buffer management)
-  - quote_identifier (SQL identifier quoting for safety)
-  - PQclear, PQfinish (PostgreSQL result and connection cleanup)
+  - [PQExpBufferData](../P/PQExpBufferData.md), initPQExpBuffer, appendPsqlMetaConnect, termPQExpBuffer (query buffer management)
+  - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting for safety)
+  - [PQclear](../P/PQclear.md), PQfinish (PostgreSQL result and connection cleanup)
   - report_status, pg_log (logging and user notification)
-  - check_ok (successful completion reporting)
+  - [check_ok](../c/check_ok.md) (successful completion reporting)
 - Called from (representative examples):
-  - issue_warnings_and_set_wal_level (during upgrade process)
+  - [issue_warnings_and_set_wal_level](../i/issue_warnings_and_set_wal_level.md) (during upgrade process)
 
 ## Notes and Other Information
 - Uses the pg_available_extensions system view to identify extension version discrepancies

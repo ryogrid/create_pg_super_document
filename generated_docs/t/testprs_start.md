@@ -19,8 +19,8 @@ The testprs_start function is part of PostgreSQL's test parser module, designed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation function)
-  - ParserState (structure type for maintaining parser state)
+  - [palloc0](../p/palloc0.md) (memory allocation function)
+  - [ParserState](../P/ParserState.md) (structure type for maintaining parser state)
   - PG_GETARG_POINTER, PG_GETARG_INT32, PG_RETURN_POINTER (PostgreSQL function argument macros)
 - Called from (representative examples):
   - LexDescr (referenced in test parser lexical description)

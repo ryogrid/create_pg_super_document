@@ -23,10 +23,10 @@ The function implements multiple security checks: SSL certificate validation whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - StaticAssertDecl (compile-time assertion)
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - auth_method_allowed
-  - auth_method_description
-  - libpq_gettext
+  - [auth_method_description](../a/auth_method_description.md)
+  - [libpq_gettext](../l/libpq_gettext.md)
 - Constants used:
   - AUTH_REQ_OK
   - AUTH_REQ_PASSWORD

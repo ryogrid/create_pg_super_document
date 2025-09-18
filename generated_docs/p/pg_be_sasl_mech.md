@@ -35,11 +35,11 @@ The interface supports both client-first and server-first SASL mechanisms and ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Port (from libpq/libpq-be.h)
+  - [Port](../P/Port.md) (from libpq/libpq-be.h)
   - StringInfo (from lib/stringinfo.h)
   - PG_SASL_EXCHANGE_* constants (defined in same header)
 - Called from (representative examples):
-  - CheckSASLAuth (src/backend/libpq/auth-sasl.c:52)
+  - [CheckSASLAuth](../C/CheckSASLAuth.md) (src/backend/libpq/auth-sasl.c:52)
   - Referenced by SCRAM implementation (src/include/libpq/scram.h:25)
 
 ## Notes and Other Information

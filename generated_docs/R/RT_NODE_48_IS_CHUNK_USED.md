@@ -37,11 +37,11 @@ This design allows node48 to efficiently handle sparse key distributions where o
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
   - RT_INVALID_SLOT_IDX (constant value 0xFF indicating unused slot)
-  - RT_NODE_48 (structure type for 48-way radix tree nodes)
+  - [RT_NODE_48](RT_NODE_48.md) (structure type for 48-way radix tree nodes)
 - Called from (representative examples):
-  - RT_FREE_RECURSE (at src/include/lib/radixtree.h:2016)
-  - RT_NODE_ITERATE_NEXT (at src/include/lib/radixtree.h:2171)
-  - RT_VERIFY_NODE (at src/include/lib/radixtree.h:2747)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (at src/include/lib/radixtree.h:2016)
+  - [RT_NODE_ITERATE_NEXT](RT_NODE_ITERATE_NEXT.md) (at src/include/lib/radixtree.h:2171)
+  - [RT_VERIFY_NODE](RT_VERIFY_NODE.md) (at src/include/lib/radixtree.h:2747)
   - Various dump and debug functions (at src/include/lib/radixtree.h:2872, 2890)
 
 ## Notes and Other Information

@@ -25,15 +25,15 @@ The constraint check follows SQL semantics where:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBool
+  - [DatumGetBool](../D/DatumGetBool.md)
   - errsave
-  - errcode
-  - errmsg
-  - format_type_be
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
   - errdomainconstraint
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - The function assumes the constraint expression has already been evaluated and its result is stored in op->d.domaincheck.checkvalue

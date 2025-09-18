@@ -19,10 +19,10 @@ The handler follows PostgreSQL's standard pattern for signal handling - it perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WakeupRecovery (wakes up the recovery process)
+  - [WakeupRecovery](../W/WakeupRecovery.md) (wakes up the recovery process)
   - SIGNAL_ARGS (signal handler arguments macro)
 - Called from (representative examples):
-  - StartupProcessMain (registers this as SIGHUP handler)
+  - [StartupProcessMain](StartupProcessMain.md) (registers this as SIGHUP handler)
 
 ## Notes and Other Information
 - This handler is registered specifically for SIGHUP signals during startup process initialization

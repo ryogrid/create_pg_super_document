@@ -21,12 +21,12 @@ Like other NoCheck functions, this is designed for performance-critical scenario
 - Functions called/Symbols referenced:
   - (None - direct field access)
 - Called from (representative examples):
-  - ItemPointerCompare
-  - ItemPointerInc
-  - ItemPointerDec
-  - table_tuple_get_latest_tid
-  - BTreeTupleIsPivot
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerCompare](ItemPointerCompare.md)
+  - [ItemPointerInc](ItemPointerInc.md)
+  - [ItemPointerDec](ItemPointerDec.md)
+  - [table_tuple_get_latest_tid](../t/table_tuple_get_latest_tid.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [ItemPointerGetOffsetNumber](ItemPointerGetOffsetNumber.md)
   - GinItemPointerGetOffsetNumber
 
 ## Notes and Other Information

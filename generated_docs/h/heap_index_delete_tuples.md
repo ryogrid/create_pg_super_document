@@ -42,19 +42,19 @@ The function handles HOT (Heap-Only Tuples) chains by traversing from the index-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_delete_sort
-  - bottomup_sort_and_shrink
-  - index_delete_prefetch_buffer
-  - index_delete_check_htid
-  - heap_hot_search_buffer
-  - HeapTupleHeaderAdvanceConflictHorizon
+  - [index_delete_sort](../i/index_delete_sort.md)
+  - [bottomup_sort_and_shrink](../b/bottomup_sort_and_shrink.md)
+  - [index_delete_prefetch_buffer](../i/index_delete_prefetch_buffer.md)
+  - [index_delete_check_htid](../i/index_delete_check_htid.md)
+  - [heap_hot_search_buffer](heap_hot_search_buffer.md)
+  - [HeapTupleHeaderAdvanceConflictHorizon](../H/HeapTupleHeaderAdvanceConflictHorizon.md)
   - InitNonVacuumableSnapshot
-  - ReadBuffer / UnlockReleaseBuffer
-  - PageGetItemId / PageGetItem
-  - ItemPointerGetBlockNumber / ItemPointerGetOffsetNumber
+  - [ReadBuffer](../R/ReadBuffer.md) / UnlockReleaseBuffer
+  - [PageGetItemId](../P/PageGetItemId.md) / PageGetItem
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) / ItemPointerGetOffsetNumber
   - HeapTupleHeaderGetXmin / HeapTupleHeaderGetUpdateXid
-  - IsCatalogRelation
-  - get_tablespace_maintenance_io_concurrency
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
+  - [get_tablespace_maintenance_io_concurrency](../g/get_tablespace_maintenance_io_concurrency.md)
 - Called from (representative examples):
   - Index AM implementations via tableam interface
 

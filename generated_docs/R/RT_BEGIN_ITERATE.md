@@ -34,8 +34,8 @@ The iterator uses a stack-based approach to track the current position at each l
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (for name generation)
-  - MemoryContextAllocZero (for iterator allocation)
-  - RT_PTR_SET_LOCAL (for setting up root node pointer)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (for iterator allocation)
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md) (for setting up root node pointer)
 - Called from (representative examples):
   - User code that needs to traverse all tree entries
   - Database scan operations

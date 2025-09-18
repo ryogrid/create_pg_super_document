@@ -30,13 +30,13 @@ The function is particularly careful during error abort situations (when portal-
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid
-  - ExecutorFinish
-  - ExecutorEnd
-  - FreeQueryDesc
+  - [ExecutorFinish](../E/ExecutorFinish.md)
+  - [ExecutorEnd](../E/ExecutorEnd.md)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
   - CurrentResourceOwner (global variable)
 - Called from (representative examples):
   - PortalDrop (indirectly via portal cleanup mechanism)
-  - Portal cleanup hooks during transaction abort
+  - [Portal](Portal.md) cleanup hooks during transaction abort
 
 ## Notes and Other Information
 - This function is set as the default cleanup hook for portals in CreatePortal via portal->cleanup = PortalCleanup

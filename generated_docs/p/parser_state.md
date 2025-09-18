@@ -71,9 +71,9 @@ The structure uses several stacks (p_stack, il, cstk, paren_indents) to handle n
 - Functions called/Symbols referenced:
   - DECLARE_INDENT_GLOBALS (macro for global declarations)
 - Referenced by (representative examples):
-  - main function in indent.c:87
+  - [main](../m/main.md) function in indent.c:87
   - nitems macro usage in indent.h:33,41
-  - lexi function in lexi.c:216
+  - [lexi](../l/lexi.md) function in lexi.c:216
 
 ## Notes and Other Information
 - This structure is the heart of the pg_bsd_indent state machine, containing all context needed for proper C code formatting

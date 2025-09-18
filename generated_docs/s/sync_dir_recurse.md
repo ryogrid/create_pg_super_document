@@ -147,13 +147,13 @@ write_data_to_archive_lz4_doc.md: Path to the directory to synchronize recursive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - do_syncfs
-  - walkdir
-  - pre_sync_fname
-  - fsync_fname
+  - [do_syncfs](../d/do_syncfs.md)
+  - [walkdir](../w/walkdir.md)
+  - [pre_sync_fname](../p/pre_sync_fname.md)
+  - [fsync_fname](../f/fsync_fname.md)
 - Called from (representative examples):
-  - BaseBackup (pg_basebackup)
-  - _CloseArchive (pg_dump)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup)
+  - [_CloseArchive](../C/_CloseArchive.md) (pg_dump)
 
 ## Notes and Other Information
 - This is a wrapper function designed for simpler use cases where special symlink handling is not required

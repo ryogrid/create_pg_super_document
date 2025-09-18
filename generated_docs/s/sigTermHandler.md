@@ -27,10 +27,10 @@ The function is designed to work safely in signal handler context, using only as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsignal (installs/modifies signal handlers)
+  - [pqsignal](../p/pqsignal.md) (installs/modifies signal handlers)
   - kill (sends SIGTERM to worker processes)
-  - PQcancel (cancels active PostgreSQL queries)
-  - write_stderr (writes error messages to stderr)
+  - [PQcancel](../P/PQcancel.md) (cancels active PostgreSQL queries)
+  - [write_stderr](../w/write_stderr.md) (writes error messages to stderr)
   - _exit (terminates process without cleanup)
 - Global variables accessed:
   - signal_info.pstate (parallel state information)

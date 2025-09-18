@@ -24,15 +24,15 @@ This is particularly useful for JSON type checking operations, conditional proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (lexical context structure for JSON parsing)
+  - [JsonLexContext](../J/JsonLexContext.md) (lexical context structure for JSON parsing)
   - JsonParseErrorType (enum for JSON parsing error types)
-  - makeJsonLexContext (function to initialize JSON lexical context)
+  - [makeJsonLexContext](../m/makeJsonLexContext.md) (function to initialize JSON lexical context)
   - json_lex (function to perform lexical analysis of JSON)
   - JSON_SUCCESS (success return code)
-  - json_errsave_error (function to report JSON parsing errors)
+  - [json_errsave_error](json_errsave_error.md) (function to report JSON parsing errors)
   - JSON_TOKEN_INVALID (token type for invalid JSON)
 - Called from (representative examples):
-  - ExecEvalJsonIsPredicate (JSON predicate evaluation in executor)
+  - [ExecEvalJsonIsPredicate](../E/ExecEvalJsonIsPredicate.md) (JSON predicate evaluation in executor)
   - pg_parse_json_or_ereport (JSON parsing utility function)
 
 ## Notes and Other Information

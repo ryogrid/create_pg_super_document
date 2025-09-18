@@ -19,10 +19,10 @@ PARAM_EXEC parameters are commonly used in subquery execution, correlated querie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_exec_paramids_walker
+  - [pull_exec_paramids_walker](pull_exec_paramids_walker.md)
 - Called from:
-  - match_clause_to_partition_key (multiple locations)
-  - get_partkey_exec_paramids
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md) (multiple locations)
+  - [get_partkey_exec_paramids](../g/get_partkey_exec_paramids.md)
 
 ## Notes and Other Information
 - This is a static utility function used within the partition pruning subsystem

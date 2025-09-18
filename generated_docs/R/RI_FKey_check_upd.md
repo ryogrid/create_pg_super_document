@@ -26,7 +26,7 @@ This function follows PostgreSQL's trigger function interface:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_CheckTrigger
+  - [ri_CheckTrigger](../r/ri_CheckTrigger.md)
   - RI_FKey_check
   - RI_TRIGTYPE_UPDATE (constant)
   - TriggerData (type cast)

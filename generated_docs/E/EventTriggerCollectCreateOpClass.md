@@ -28,9 +28,9 @@ Operator classes define how PostgreSQL's indexing methods (like B-tree, GiST, GI
   -  - Zero-initialized memory allocation in current context
   -  - Object address initialization macro
   -  - Deep copy of parse tree nodes
-  -  - List append operation
-  -  - Command type constant
-  -  - Relation OID constant
+  -  - [List](../L/List.md) append operation
+  -  - [Command](../C/Command.md) type constant
+  -  - [Relation](../R/Relation.md) OID constant
 - Called from (representative examples):
   -  - Main operator class definition function
 

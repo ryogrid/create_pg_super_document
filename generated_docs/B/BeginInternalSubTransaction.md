@@ -27,11 +27,11 @@ Unlike regular subtransactions, internal subtransactions are allowed during para
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PushTransaction
-  - MemoryContextStrdup
-  - CommitTransactionCommand
-  - StartTransactionCommand
-  - BlockStateAsString
+  - [PushTransaction](../P/PushTransaction.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [BlockStateAsString](BlockStateAsString.md)
   - elog
 - Transaction state constants:
   - TBLOCK_STARTED, TBLOCK_INPROGRESS, TBLOCK_IMPLICIT_INPROGRESS
@@ -41,10 +41,10 @@ Unlike regular subtransactions, internal subtransactions are allowed during para
   - ExitOnAnyError
   - TopTransactionContext
 - Called from:
-  - ReorderBufferProcessTXN (logical replication)
-  - ReorderBufferImmediateInvalidation (logical replication)
+  - [ReorderBufferProcessTXN](../R/ReorderBufferProcessTXN.md) (logical replication)
+  - [ReorderBufferImmediateInvalidation](../R/ReorderBufferImmediateInvalidation.md) (logical replication)
   - plperl_spi_* functions (PL/Perl SPI operations)
-  - PLy_spi_subtransaction_begin (PL/Python)
+  - [PLy_spi_subtransaction_begin](../P/PLy_spi_subtransaction_begin.md) (PL/Python)
   - pltcl_subtrans_begin (PL/Tcl)
 
 ## Notes and Other Information

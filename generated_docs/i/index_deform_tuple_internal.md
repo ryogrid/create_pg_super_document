@@ -46,14 +46,14 @@ Key optimizations include:
 - Data types used:
   - bits8 (for null bitmap handling)
 - Called from:
-  - index_deform_tuple (src/backend/access/common/indextuple.c:467)
-  - spgDeformLeafTuple (src/backend/access/spgist/spgutils.c:1135)
+  - [index_deform_tuple](index_deform_tuple.md) (src/backend/access/common/indextuple.c:467)
+  - [spgDeformLeafTuple](../s/spgDeformLeafTuple.md) (src/backend/access/spgist/spgutils.c:1135)
 
 ## Notes and Other Information
 - Located in src/backend/access/common/indextuple.c:479-546
 - Includes an assertion to protect callers who allocate fixed-size arrays (natts <= INDEX_MAX_KEYS)
 - The function maintains a "slow" flag that tracks whether attribute offset caching can continue to be used
-- Variable-length attributes can only have their offsets cached if they are naturally aligned, avoiding padding issues
+- [Variable](../V/Variable.md)-length attributes can only have their offsets cached if they are naturally aligned, avoiding padding issues
 - Once a null attribute or problematic alignment is encountered, the function switches to "slow" mode and stops caching offsets
 - Used by both regular index tuple deformation and specialized access methods like SP-GiST
 - The flexible interface allows it to work with different tuple header layouts and external null bitmap arrangements

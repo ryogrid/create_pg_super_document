@@ -20,10 +20,10 @@ This function provides a testing interface for writing data to SLRU (Simple Log-
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (argument extraction)
   - text_to_cstring (text conversion)
-  - SimpleLruGetBankLock (lock acquisition for the page)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (lock acquisition for the page)
   - LWLockAcquire/LWLockRelease (locking primitives)
-  - SimpleLruZeroPage (page allocation and initialization)
-  - SimpleLruWritePage (page persistence to disk)
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md) (page allocation and initialization)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md) (page persistence to disk)
   - TestSlruCtl (global SLRU control structure)
   - SLRU_PAGE_VALID (page status constant)
 - Called from (representative examples):

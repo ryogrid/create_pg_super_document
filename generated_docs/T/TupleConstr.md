@@ -25,17 +25,17 @@ The structure is designed to efficiently store constraint arrays with correspond
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttrDefault
-  - ConstrCheck
+  - [AttrDefault](../A/AttrDefault.md)
+  - [ConstrCheck](../C/ConstrCheck.md)
   - AttrMissing
 - Called from (representative examples):
-  - CreateTupleDescCopyConstr
-  - equalTupleDescs
-  - AddRelationNewConstraints
-  - BuildDescForRelation
-  - MergeAttributes
-  - ExecConstraints
-  - RelationBuildTupleDesc
+  - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
+  - [equalTupleDescs](../e/equalTupleDescs.md)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [ExecConstraints](../E/ExecConstraints.md)
+  - [RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md)
 
 ## Notes and Other Information
 - Central component of PostgreSQL's constraint management system

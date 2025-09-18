@@ -25,7 +25,7 @@ The function includes a note about potential out-of-memory conditions occurring 
 - Functions called/Symbols referenced:
   -  - Checks if already listening on the specified channel
   -  - Memory context management
-  -  - List manipulation function
+  -  - [List](../L/List.md) manipulation function
   -  - String duplication function
 
 - Called from:

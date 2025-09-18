@@ -20,12 +20,12 @@ The `dectodbl` function converts a decimal number to a double-precision floating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_new
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - PGTYPESnumeric_from_decimal
-  - PGTYPESnumeric_to_double
-  - PGTYPESnumeric_free
+  - [PGTYPESnumeric_to_double](../P/PGTYPESnumeric_to_double.md)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
 - Called from (representative examples):
-  - main (in test files)
+  - [main](../m/main.md) (in test files)
 - Error constants used:
   - ECPG_INFORMIX_OUT_OF_MEMORY
 

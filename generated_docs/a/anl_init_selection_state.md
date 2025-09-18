@@ -19,9 +19,9 @@ This function implements the initialization step for Vitter's Algorithm Z, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sampler_random_init_state
-  - pg_prng_uint32
-  - sampler_random_fract
+  - [sampler_random_init_state](../s/sampler_random_init_state.md)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
+  - [sampler_random_fract](../s/sampler_random_fract.md)
   - exp (math library function)
   - log (math library function)
 - Called from (representative examples):

@@ -25,21 +25,21 @@ The function queries `pg_database` to examine all databases and their connection
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting for user feedback)  
-  - connectToServer (establishes database connection)
-  - executeQueryOrDie (SQL query execution with error handling)
-  - PQfnumber (column index lookup)
-  - PQntuples (result tuple count)
-  - PQgetvalue (result value extraction)
-  - PQclear (result cleanup)
-  - PQfinish (connection cleanup)
+  - [prep_status](../p/prep_status.md) (status reporting for user feedback)  
+  - [connectToServer](connectToServer.md) (establishes database connection)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL query execution with error handling)
+  - [PQfnumber](../P/PQfnumber.md) (column index lookup)
+  - [PQntuples](../P/PQntuples.md) (result tuple count)
+  - [PQgetvalue](../P/PQgetvalue.md) (result value extraction)
+  - [PQclear](../P/PQclear.md) (result cleanup)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
   - fopen_priv (secure file opening)
   - fclose (file closing)
-  - pg_log (logging with severity levels)
-  - pg_fatal (error reporting and termination)
-  - check_ok (completion status reporting)
+  - [pg_log](../p/pg_log.md) (logging with severity levels)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting and termination)
+  - [check_ok](check_ok.md) (completion status reporting)
 - Called from (representative examples):
-  - check_and_dump_old_cluster (old cluster validation)
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md) (old cluster validation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the check.c compilation unit

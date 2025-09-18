@@ -26,12 +26,12 @@ The function implements special compatibility rules for built-in PostgreSQL hash
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - IsBinaryCoercible
-  - ReleaseSysCache
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - GETSTRUCT
 - Called from (representative examples):
-  - hashvalidate (during operator class validation)
+  - [hashvalidate](../h/hashvalidate.md) (during operator class validation)
 
 ## Notes and Other Information
 - This is a custom implementation needed because standard amproc signature validation is too strict for PostgreSQL's built-in hash operator classes.

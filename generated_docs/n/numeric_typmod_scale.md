@@ -21,11 +21,11 @@ This function decodes the scale component from a typmod value by reversing the e
 - Functions called/Symbols referenced:
   - VARHDRSZ (constant)
 - Called from (representative examples):
-  - numeric_support (at src/backend/utils/adt/numeric.c:1214, 1215)
-  - numeric (at src/backend/utils/adt/numeric.c:1277)
-  - numerictypmodout (at src/backend/utils/adt/numeric.c:1375)
-  - apply_typmod (at src/backend/utils/adt/numeric.c:7936)
-  - apply_typmod_special (at src/backend/utils/adt/numeric.c:8029)
+  - [numeric_support](numeric_support.md) (at src/backend/utils/adt/numeric.c:1214, 1215)
+  - [numeric](numeric.md) (at src/backend/utils/adt/numeric.c:1277)
+  - [numerictypmodout](numerictypmodout.md) (at src/backend/utils/adt/numeric.c:1375)
+  - [apply_typmod](../a/apply_typmod.md) (at src/backend/utils/adt/numeric.c:7936)
+  - [apply_typmod_special](../a/apply_typmod_special.md) (at src/backend/utils/adt/numeric.c:8029)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the numeric.c compilation unit

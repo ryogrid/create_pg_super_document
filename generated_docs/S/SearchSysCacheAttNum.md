@@ -22,15 +22,15 @@ This behavior is convenient for callers that want to act as though dropped attri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
+  - [SearchSysCache2](SearchSysCache2.md)
   - Int16GetDatum
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - ATExecSetStatistics (src/backend/commands/tablecmds.c:8680)
-  - SearchSysCacheCopyAttNum (src/backend/utils/cache/syscache.c:572)
+  - [ATExecSetStatistics](../A/ATExecSetStatistics.md) (src/backend/commands/tablecmds.c:8680)
+  - [SearchSysCacheCopyAttNum](SearchSysCacheCopyAttNum.md) (src/backend/utils/cache/syscache.c:572)
 
 ## Notes and Other Information
 - Uses the ATTNUM system cache which indexes attributes by relation OID and attribute number

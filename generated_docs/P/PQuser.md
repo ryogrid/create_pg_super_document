@@ -21,10 +21,10 @@ PQuser is a libpq client library function that retrieves the user name associate
 - Functions called/Symbols referenced:
   - None (simple accessor function)
 - Called from (representative examples):
-  - exec_command_conninfo (src/bin/psql/command.c:689)
-  - do_connect (src/bin/psql/command.c:3711)
-  - SyncVariables (src/bin/psql/command.c:4053)
-  - session_username (src/bin/psql/common.c:2163)
+  - [exec_command_conninfo](../e/exec_command_conninfo.md) (src/bin/psql/command.c:689)
+  - [do_connect](../d/do_connect.md) (src/bin/psql/command.c:3711)
+  - [SyncVariables](../S/SyncVariables.md) (src/bin/psql/command.c:4053)
+  - [session_username](../s/session_username.md) (src/bin/psql/common.c:2163)
 
 ## Notes and Other Information
 - Returns a pointer to the internal pguser string; the caller should not modify or free this string

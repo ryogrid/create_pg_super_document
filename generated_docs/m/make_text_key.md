@@ -23,25 +23,25 @@ The resulting Datum uses PostgreSQL's standard text format with a flag byte as t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any
-  - DatumGetUInt32
+  - [hash_any](../h/hash_any.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
   - snprintf
-  - palloc
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - VARDATA
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - memcpy
 - Constants/Macros:
   - JGIN_MAXLENGTH
   - JGINFLAG_HASHED
   - VARHDRSZ
 - Types used:
-  - text
+  - [text](../t/text.md)
   - Datum
 - Called from (representative examples):
-  - jsonb_ops__add_path_item
-  - gin_extract_jsonb_query
-  - make_scalar_key
+  - [jsonb_ops__add_path_item](../j/jsonb_ops__add_path_item.md)
+  - [gin_extract_jsonb_query](../g/gin_extract_jsonb_query.md)
+  - [make_scalar_key](make_scalar_key.md)
 
 ## Notes and Other Information
 The function is critical for ensuring consistent key representation in JSONB GIN indexes while managing storage efficiency. The hashing mechanism prevents extremely long text values from consuming excessive index space, though it does introduce the possibility of hash collisions for very long strings. The flag byte encoding allows the GIN index to efficiently distinguish between different types of JSONB elements and their processing requirements. The function always builds 4-byte header varlena structures for simplicity, relying on PostgreSQL's automatic compression to short header format during index storage.

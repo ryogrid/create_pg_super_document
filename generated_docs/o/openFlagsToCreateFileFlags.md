@@ -29,7 +29,7 @@ The function uses a switch statement to handle all possible combinations of the 
 - Functions called/Symbols referenced:
   - None (uses only standard flag constants)
 - Called from (representative examples):
-  - pgwin32_open_handle
+  - [pgwin32_open_handle](../p/pgwin32_open_handle.md)
 
 ## Notes and Other Information
 - This is a static function internal to src/port/open.c

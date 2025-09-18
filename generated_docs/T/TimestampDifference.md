@@ -24,11 +24,11 @@ The function handles edge cases gracefully: if the start_time is greater than or
 - Functions called/Symbols referenced:
   - USECS_PER_SEC (constant for microseconds per second conversion)
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - launcher_determine_sleep  
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [launcher_determine_sleep](../l/launcher_determine_sleep.md)  
   - ProcSleep
-  - check_log_duration
-  - pgstat_report_activity
+  - [check_log_duration](../c/check_log_duration.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
   - schedule_alarm
 
 ## Notes and Other Information

@@ -26,17 +26,17 @@ When corruption is detected, the function reports detailed error information inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage: Gets page from buffer
-  - PageIsNew: Checks if page is all-zero/uninitialized
-  - PageGetSpecialSize: Gets size of page's special area
-  - BufferGetBlockNumber: Gets block number for error reporting
+  - [BufferGetPage](../B/BufferGetPage.md): Gets page from buffer
+  - [PageIsNew](../P/PageIsNew.md): Checks if page is all-zero/uninitialized
+  - [PageGetSpecialSize](../P/PageGetSpecialSize.md): Gets size of page's special area
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md): Gets block number for error reporting
   - RelationGetRelationName: Gets relation name for error messages
-  - BTPageOpaqueData: B-tree page opaque structure type
+  - [BTPageOpaqueData](../B/BTPageOpaqueData.md): B-tree page opaque structure type
 - Called from (representative examples):
-  - _bt_getbuf: After reading any B-tree page
-  - _bt_relandgetbuf: When switching to a different page
-  - _bt_search_insert: During insertion operations
-  - btvacuumpage: During VACUUM operations
+  - [_bt_getbuf](_bt_getbuf.md): After reading any B-tree page
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md): When switching to a different page
+  - [_bt_search_insert](_bt_search_insert.md): During insertion operations
+  - [btvacuumpage](btvacuumpage.md): During VACUUM operations
 
 ## Notes and Other Information
 - Called immediately after reading B-tree pages to catch corruption early

@@ -44,8 +44,8 @@ This structure serves as the central repository for WAL-related statistics in Po
 - Called from (representative examples):
   - pgstat_report_wal
   - PG_STAT_GET_WAL_COLS
-  - PgStatShared_Wal
-  - PgStat_Snapshot
+  - [PgStatShared_Wal](PgStatShared_Wal.md)
+  - [PgStat_Snapshot](PgStat_Snapshot.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/pgstat.h at lines 431-442

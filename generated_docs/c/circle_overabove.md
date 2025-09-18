@@ -21,8 +21,8 @@ The `circle_overabove` function performs a positional comparison between two cir
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_CIRCLE_P`: Macro to extract CIRCLE argument from function call
-  - `FPge`: Floating-point greater-than-or-equal comparison
-  - `float8_mi`: Floating-point subtraction function
+  - `[FPge](../F/FPge.md)`: Floating-point greater-than-or-equal comparison
+  - `[float8_mi](../f/float8_mi.md)`: Floating-point subtraction function
   - `PG_RETURN_BOOL`: Macro to return boolean result
 - Called from (representative examples):
   - No direct references found in the codebase

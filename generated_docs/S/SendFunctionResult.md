@@ -22,18 +22,18 @@ SendFunctionResult is responsible for formatting and transmitting function call 
 - Functions called/Symbols referenced:
   - pq_beginmessage
   - PqMsg_FunctionCallResponse
-  - pq_sendint32
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - pq_sendcountedtext
-  - getTypeBinaryOutputInfo
-  - OidSendFunctionCall
+  - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md)
+  - [OidSendFunctionCall](../O/OidSendFunctionCall.md)
   - pq_sendbytes
   - VARSIZE
   - VARDATA
-  - pq_endmessage
+  - [pq_endmessage](../p/pq_endmessage.md)
 - Called from (representative examples):
-  - HandleFunctionRequest
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the fast-path protocol implementation

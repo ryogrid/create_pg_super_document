@@ -24,9 +24,9 @@ This is part of PostgreSQL's multi-layered cache invalidation system, complement
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddSnapshotInvalidationMessage
+  - [AddSnapshotInvalidationMessage](../A/AddSnapshotInvalidationMessage.md)
 - Called from (representative examples):
-  - CacheInvalidateHeapTuple
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to the invalidation system

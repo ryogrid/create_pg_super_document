@@ -19,7 +19,7 @@ This function implements PostgreSQL's sort support interface for timestamp value
 - Functions called/Symbols referenced:
   - SortSupport (type)
   - ssup_datum_signed_cmp (on 64-bit builds)
-  - timestamp_fastcmp (on smaller builds)
+  - [timestamp_fastcmp](timestamp_fastcmp.md) (on smaller builds)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct references found in the codebase

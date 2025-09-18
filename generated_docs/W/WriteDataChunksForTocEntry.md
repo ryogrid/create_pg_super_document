@@ -20,12 +20,12 @@ This function orchestrates the data dumping process for a single database object
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
   - StartDataPtrType and EndDataPtrType function pointers
   - dataDumper callback function
 - Called from (representative examples):
-  - WriteDataChunks
-  - _WorkerJobDumpDirectory
+  - [WriteDataChunks](WriteDataChunks.md)
+  - [_WorkerJobDumpDirectory](_WorkerJobDumpDirectory.md)
 
 ## Notes and Other Information
 - The function distinguishes between BLOB data and regular table data, using different start/end function pointers accordingly

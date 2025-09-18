@@ -36,12 +36,12 @@ The function uses a sophisticated control flow with labels (lab0, lab1, lab2) an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_cyr_to_lat: Converts Cyrillic characters to Latin equivalents
-  - r_prelude: Performs preprocessing transformations
-  - r_mark_regions: Identifies morphological regions (R1, R2)
-  - r_Step_1: Removes primary Serbian suffixes (130 patterns)
-  - r_Step_2: Removes common derivational suffixes
-  - r_Step_3: Removes additional derivational suffixes (alternative to Step 2)
+  - [r_cyr_to_lat](../r/r_cyr_to_lat.md): Converts Cyrillic characters to Latin equivalents
+  - [r_prelude](../r/r_prelude.md): Performs preprocessing transformations
+  - [r_mark_regions](../r/r_mark_regions.md): Identifies morphological regions (R1, R2)
+  - [r_Step_1](../r/r_Step_1.md): Removes primary Serbian suffixes (130 patterns)
+  - [r_Step_2](../r/r_Step_2.md): Removes common derivational suffixes
+  - [r_Step_3](../r/r_Step_3.md): Removes additional derivational suffixes (alternative to Step 2)
 
 - Called from (representative examples):
   - Not directly referenced in the codebase (external interface function)

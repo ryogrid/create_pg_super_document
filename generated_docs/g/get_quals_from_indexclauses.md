@@ -22,9 +22,9 @@ This utility function processes a list of IndexClause structures and extracts al
   - IndexClause
   - Cost
 - Called from (representative examples):
-  - genericcostestimate
-  - gincostestimate
-  - brincostestimate
+  - [genericcostestimate](genericcostestimate.md)
+  - [gincostestimate](gincostestimate.md)
+  - [brincostestimate](../b/brincostestimate.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's index cost estimation framework and is used by various index access method cost estimation functions. The function performs a straightforward flattening operation, converting the two-level structure (IndexClauses containing lists of indexquals) into a single-level list of RestrictInfo nodes. This flattened representation is often more convenient for subsequent processing steps that need to examine individual qualification conditions. The function is non-static, making it available for use by different index access methods and cost estimation routines throughout the codebase.

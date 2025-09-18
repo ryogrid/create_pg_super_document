@@ -21,13 +21,13 @@ The function intentionally returns NULL rather than the hash table directly, as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashState (parameter type)
+  - [HashState](../H/HashState.md) (parameter type)
   - InstrStartNode (instrumentation start)
-  - MultiExecParallelHash (parallel execution path)
-  - MultiExecPrivateHash (single-backend execution path)  
+  - [MultiExecParallelHash](MultiExecParallelHash.md) (parallel execution path)
+  - [MultiExecPrivateHash](MultiExecPrivateHash.md) (single-backend execution path)  
   - InstrStopNode (instrumentation end)
 - Called from (representative examples):
-  - MultiExecProcNode (main executor dispatch)
+  - [MultiExecProcNode](MultiExecProcNode.md) (main executor dispatch)
   - NODEHASH_H (header declaration)
 
 ## Notes and Other Information

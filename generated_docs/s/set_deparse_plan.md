@@ -31,20 +31,20 @@ This setup is essential for proper variable resolution during expression decompi
 ## Dependencies
 - Functions called/Symbols referenced:
   - deparse_namespace (namespace structure)
-  - Plan (base plan node structure)
+  - [Plan](../P/Plan.md) (base plan node structure)
   - Append, MergeAppend (append-type plan nodes)
   - SubqueryScan, CteScan, WorkTableScan (scan plan nodes)
-  - ModifyTable (modification plan node)
+  - [ModifyTable](../M/ModifyTable.md) (modification plan node)
   - IndexOnlyScan, ForeignScan, CustomScan (specialized scan nodes)
   - outerPlan, innerPlan (macros to access child plans)
   - linitial (macro to get first list element)
-  - list_nth (function to get nth list element)
-  - find_recursive_union (function to locate recursive union plans)
+  - [list_nth](../l/list_nth.md) (function to get nth list element)
+  - [find_recursive_union](../f/find_recursive_union.md) (function to locate recursive union plans)
   - CMD_MERGE, CMD_INSERT (command type constants)
 - Called from (representative examples):
-  - set_deparse_context_plan (at line 3786)
-  - push_child_plan (at line 5086)
-  - push_ancestor_plan (at line 5137)
+  - [set_deparse_context_plan](set_deparse_context_plan.md) (at line 3786)
+  - [push_child_plan](../p/push_child_plan.md) (at line 5086)
+  - [push_ancestor_plan](../p/push_ancestor_plan.md) (at line 5137)
 
 ## Notes and Other Information
 - This is a static function, only accessible within ruleutils.c

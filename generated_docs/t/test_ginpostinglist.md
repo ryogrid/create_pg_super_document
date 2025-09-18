@@ -25,7 +25,7 @@ These test cases are designed to exercise different aspects of the GIN posting l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_itemptr_pair (called 4 times with different parameters)
+  - [test_itemptr_pair](test_itemptr_pair.md) (called 4 times with different parameters)
   - MaxHeapTuplesPerPage (PostgreSQL constant for maximum tuples per page)
   - MaxBlockNumber (PostgreSQL constant for maximum block number)
   - PG_RETURN_VOID (PostgreSQL macro to return void from a function)

@@ -25,20 +25,20 @@ The function supports different enabling modes including completely disabled, en
 - Functions called/Symbols referenced:
   - table_open (to open the pg_event_trigger relation)
   - SearchSysCacheCopy1 (to find the event trigger by name)
-  - CStringGetDatum (to convert trigger name to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (to convert trigger name to Datum)
   - HeapTupleIsValid (to validate the found tuple)
   - GETSTRUCT (to extract the form structure from the tuple)
-  - object_ownercheck (to verify ownership permissions)
-  - GetUserId (to get current user ID)
-  - aclcheck_error (to report permission errors)
-  - CatalogTupleUpdate (to update the catalog tuple)
+  - [object_ownercheck](../o/object_ownercheck.md) (to verify ownership permissions)
+  - [GetUserId](../G/GetUserId.md) (to get current user ID)
+  - [aclcheck_error](../a/aclcheck_error.md) (to report permission errors)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (to update the catalog tuple)
   - namestrcmp (to compare event type names)
-  - SetDatabaseHasLoginEventTriggers (to set database flag for login triggers)
+  - [SetDatabaseHasLoginEventTriggers](../S/SetDatabaseHasLoginEventTriggers.md) (to set database flag for login triggers)
   - InvokeObjectPostAlterHook (to invoke post-alter hooks)
-  - heap_freetuple (to free tuple memory)
+  - [heap_freetuple](../h/heap_freetuple.md) (to free tuple memory)
   - table_close (to close the relation)
 - Called from (representative examples):
-  - standard_ProcessUtility (main utility command processor)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (main utility command processor)
 
 ## Notes and Other Information
 - Returns the OID of the altered event trigger

@@ -24,10 +24,10 @@ The function exists primarily to maintain API compatibility for existing code th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_execute_plan (delegates all work to this function with read_only=false)
-  - SPIPlanPtr (prepared plan type)
+  - [SPI_execute_plan](SPI_execute_plan.md) (delegates all work to this function with read_only=false)
+  - [SPIPlanPtr](SPIPlanPtr.md) (prepared plan type)
 - Called from (representative examples):
-  - ttdummy (test trigger function)
+  - [ttdummy](../t/ttdummy.md) (test trigger function)
   - Referenced in SPI header for compatibility
 
 ## Notes and Other Information

@@ -18,7 +18,7 @@ This function serves as the final function for the array_agg aggregate operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - makeArrayResultArr
   - PG_RETURN_DATUM
 - Called from (representative examples):

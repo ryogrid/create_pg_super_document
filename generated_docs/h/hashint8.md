@@ -18,13 +18,13 @@ This function implements a specialized hash algorithm for 64-bit integers that e
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: PostgreSQL macro to extract int64 argument from function call
-  - hash_uint32: Core 32-bit hash function that performs the actual hash computation
+  - [hash_uint32](hash_uint32.md): Core 32-bit hash function that performs the actual hash computation
 - Called from (representative examples):
-  - time_hash: Hash function for time data type
-  - timetz_hash: Hash function for time with timezone data type
-  - pg_lsn_hash: Hash function for PostgreSQL Log Sequence Number
-  - timestamp_hash: Hash function for timestamp data type
-  - interval_hash: Hash function for interval data type
+  - [time_hash](../t/time_hash.md): Hash function for time data type
+  - [timetz_hash](../t/timetz_hash.md): Hash function for time with timezone data type
+  - [pg_lsn_hash](../p/pg_lsn_hash.md): Hash function for PostgreSQL Log Sequence Number
+  - [timestamp_hash](../t/timestamp_hash.md): Hash function for timestamp data type
+  - [interval_hash](../i/interval_hash.md): Hash function for interval data type
 
 ## Notes and Other Information
 - Critical for maintaining hash join compatibility across different integer types

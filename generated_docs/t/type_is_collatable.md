@@ -19,14 +19,14 @@ This function checks if a PostgreSQL data type supports collation by examining w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typcollation
+  - [get_typcollation](../g/get_typcollation.md)
   - OidIsValid
 - Called from (representative examples):
-  - CheckAttributeType
-  - coerce_to_target_type
-  - transformCollateClause
-  - ComputeIndexAttrs
-  - DefineRange
+  - [CheckAttributeType](../C/CheckAttributeType.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [transformCollateClause](transformCollateClause.md)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md)
+  - [DefineRange](../D/DefineRange.md)
 
 ## Notes and Other Information
 - This function is crucial for query planning and type coercion decisions

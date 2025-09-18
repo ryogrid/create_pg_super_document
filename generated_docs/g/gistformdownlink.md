@@ -30,18 +30,18 @@ The union computation is essential for maintaining the GiST tree property that p
 ## Dependencies
 - Functions called/Symbols referenced:
   - gistgetadjusted
-  - gistFindCorrectParent
-  - BufferGetPage
-  - BufferGetBlockNumber
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
-  - CopyIndexTuple
-  - ItemPointerSetBlockNumber
+  - [gistFindCorrectParent](gistFindCorrectParent.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)
   - GistTupleSetValid
-  - LockBuffer
+  - [LockBuffer](../L/LockBuffer.md)
 - Called from (representative examples):
-  - gistfixsplit
+  - [gistfixsplit](gistfixsplit.md)
 
 ## Notes and Other Information
 - The function handles the special case of empty pages by reusing the parent's downlink, which is suboptimal but ensures correctness

@@ -19,8 +19,8 @@ The gtsvectorin function serves as the input function for the gtsvector data typ
 - Functions called/Symbols referenced:
   - PG_RETURN_VOID (macro for returning void from PostgreSQL functions)
   - ereport (for error reporting)
-  - errcode (for error codes)
-  - errmsg (for error messages)
+  - [errcode](../e/errcode.md) (for error codes)
+  - [errmsg](../e/errmsg.md) (for error messages)
 - Called from (representative examples):
   - No direct references found (typically called through PostgreSQL's type system)
 

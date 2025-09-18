@@ -17,13 +17,13 @@ PLy_pop_execution_context pops the top execution context from the global PL/Pyth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyExecutionContext
-  - MemoryContextDelete
+  - [PLyExecutionContext](PLyExecutionContext.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - plpython3_call_handler
-  - plpython3_inline_handler
+  - [plpython3_call_handler](../p/plpython3_call_handler.md)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the plpy_main.c module

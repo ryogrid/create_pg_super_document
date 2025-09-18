@@ -23,12 +23,12 @@ The design addresses the fundamental problem that function addresses cannot be d
   - strcmp (for string comparison)
   - lengthof (macro for array size)
   - elog (for error reporting)
-  - load_external_function (for dynamic library loading)
+  - [load_external_function](../l/load_external_function.md) (for dynamic library loading)
   - InternalBGWorkers array access
   - bgworker_main_type typedef
 - Called from (representative examples):
-  - BackgroundWorkerMain
-  - BackgroundWorkerHandle (indirect reference)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md)
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md) (indirect reference)
 
 ## Notes and Other Information
 - Static function (internal to bgworker.c)

@@ -18,22 +18,22 @@ This is a type alias for a pointer to ConditionalStackData, so it has no direct 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionalStackData (underlying data structure)
+  - [ConditionalStackData](ConditionalStackData.md) (underlying data structure)
   - ifState (enum for conditional states)
-  - conditional_stack_create (constructor)
-  - conditional_stack_destroy (destructor)
-  - conditional_stack_push (add new conditional level)
-  - conditional_stack_pop (remove conditional level)
-  - conditional_stack_peek (examine top state)
-  - conditional_stack_poke (modify top state)
-  - conditional_stack_empty (check if stack is empty)
-  - conditional_active (check if currently in active branch)
-  - conditional_stack_set_query_len/conditional_stack_get_query_len (query buffer management)
-  - conditional_stack_set_paren_depth/conditional_stack_get_paren_depth (lexer state management)
+  - [conditional_stack_create](../c/conditional_stack_create.md) (constructor)
+  - [conditional_stack_destroy](../c/conditional_stack_destroy.md) (destructor)
+  - [conditional_stack_push](../c/conditional_stack_push.md) (add new conditional level)
+  - [conditional_stack_pop](../c/conditional_stack_pop.md) (remove conditional level)
+  - [conditional_stack_peek](../c/conditional_stack_peek.md) (examine top state)
+  - [conditional_stack_poke](../c/conditional_stack_poke.md) (modify top state)
+  - [conditional_stack_empty](../c/conditional_stack_empty.md) (check if stack is empty)
+  - [conditional_active](../c/conditional_active.md) (check if currently in active branch)
+  - [conditional_stack_set_query_len](../c/conditional_stack_set_query_len.md)/conditional_stack_get_query_len (query buffer management)
+  - [conditional_stack_set_paren_depth](../c/conditional_stack_set_paren_depth.md)/conditional_stack_get_paren_depth (lexer state management)
 - Called from (representative examples):
   - psql command processing (exec_command_if, exec_command_elif, exec_command_else, exec_command_endif)
   - pgbench conditional processing (CheckConditional)
-  - Query text management (save_query_text_state, discard_query_text)
+  - [Query](../Q/Query.md) text management (save_query_text_state, discard_query_text)
 
 ## Notes and Other Information
 This type provides a complete API for conditional processing in PostgreSQL frontend tools. The interface supports full conditional logic including nested if-elif-else-endif constructs, proper query buffer management for discarding inactive branches, and lexer state preservation. The implementation is used extensively in both psql and pgbench for interactive conditional execution of commands and scripts.

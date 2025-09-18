@@ -53,20 +53,20 @@ This function is the comprehensive interface for creating new relations in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_create (creates physical storage and relcache entry)
-  - AddNewRelationType (creates composite type for relation)
-  - TypeCreate (creates array type over composite type)
-  - AddNewRelationTuple (registers relation in pg_class)
-  - AddNewAttributeTuples (creates pg_attribute entries)
-  - moveArrayTypeName (handles array type name conflicts)
-  - StoreConstraints (processes constraints and defaults)
-  - recordDependencyOnOwner (establishes ownership dependencies)
-  - recordDependencyOnCurrentExtension (handles extension membership)
-  - register_on_commit_action (handles temporary table commit actions)
+  - [heap_create](heap_create.md) (creates physical storage and relcache entry)
+  - [AddNewRelationType](../A/AddNewRelationType.md) (creates composite type for relation)
+  - [TypeCreate](../T/TypeCreate.md) (creates array type over composite type)
+  - [AddNewRelationTuple](../A/AddNewRelationTuple.md) (registers relation in pg_class)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md) (creates pg_attribute entries)
+  - [moveArrayTypeName](../m/moveArrayTypeName.md) (handles array type name conflicts)
+  - [StoreConstraints](../S/StoreConstraints.md) (processes constraints and defaults)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md) (establishes ownership dependencies)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md) (handles extension membership)
+  - [register_on_commit_action](../r/register_on_commit_action.md) (handles temporary table commit actions)
 - Called from (representative examples):
-  - DefineRelation (main table creation path)
-  - create_toast_table (TOAST table creation)
-  - make_new_heap (table clustering/rewriting)
+  - [DefineRelation](../D/DefineRelation.md) (main table creation path)
+  - [create_toast_table](../c/create_toast_table.md) (TOAST table creation)
+  - [make_new_heap](../m/make_new_heap.md) (table clustering/rewriting)
 
 ## Notes and Other Information
 - This function is central to PostgreSQL's DDL operations and is used whenever a new cataloged relation needs to be created

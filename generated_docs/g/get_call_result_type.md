@@ -25,16 +25,16 @@ The function is designed to be called sparingly in set-returning functions due t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_get_result_type
-  - FunctionCallInfo (structure)
+  - [internal_get_result_type](../i/internal_get_result_type.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (structure)
   - ReturnSetInfo (structure)
   - TypeFuncClass (return type)
 - Called from (representative examples):
-  - pg_last_committed_xact
-  - init_sql_fcache
-  - InitMaterializedSRF
-  - plperl_return_next_internal
-  - PLy_exec_function
+  - [pg_last_committed_xact](../p/pg_last_committed_xact.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [plperl_return_next_internal](../p/plperl_return_next_internal.md)
+  - [PLy_exec_function](../P/PLy_exec_function.md)
 
 ## Notes and Other Information
 - This function is relatively expensive computationally and should be used judiciously in performance-critical code paths

@@ -19,7 +19,7 @@ The  function performs a hash table lookup operation in PostgreSQL's dynamic sha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_key: Computes hash value for the given key
+  - [hash_key](../h/hash_key.md): Computes hash value for the given key
   - PARTITION_FOR_HASH: Macro to determine partition from hash value
   - PARTITION_LOCK: Macro to get partition lock
   - ensure_valid_bucket_pointers: Ensures bucket pointers are valid
@@ -31,7 +31,7 @@ The  function performs a hash table lookup operation in PostgreSQL's dynamic sha
 - Called from (representative examples):
   - ApplyLauncherGetWorkerStartTime: Worker startup time retrieval
   - pgstat_get_entry_ref: Statistics entry reference retrieval
-  - lookup_rowtype_tupdesc_internal: Type cache lookup operations
+  - [lookup_rowtype_tupdesc_internal](../l/lookup_rowtype_tupdesc_internal.md): Type cache lookup operations
 
 ## Notes and Other Information
 - The function holds interrupts while the lock is active, which are only resumed when  is called

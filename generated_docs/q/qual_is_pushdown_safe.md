@@ -36,17 +36,17 @@ The function can return different safety levels: completely safe, unsafe, or saf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_subplans
-  - contain_volatile_functions
-  - contain_leaked_vars
-  - pull_var_clause
+  - [contain_subplans](../c/contain_subplans.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [contain_leaked_vars](../c/contain_leaked_vars.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
   - lfirst
   - IsA
   - Assert
-  - list_free
+  - [list_free](../l/list_free.md)
 - Types/Constants referenced:
   - pushdown_safe_type
-  - pushdown_safety_info
+  - [pushdown_safety_info](../p/pushdown_safety_info.md)
   - PUSHDOWN_SAFE
   - PUSHDOWN_UNSAFE
   - PUSHDOWN_WINDOWCLAUSE_RUNCOND
@@ -56,7 +56,7 @@ The function can return different safety levels: completely safe, unsafe, or saf
   - UNSAFE_NOTIN_DISTINCTON_CLAUSE
   - UNSAFE_TYPE_MISMATCH
 - Called from (representative examples):
-  - set_subquery_pathlist (src/backend/optimizer/path/allpaths.c:2568)
+  - [set_subquery_pathlist](../s/set_subquery_pathlist.md) (src/backend/optimizer/path/allpaths.c:2568)
 
 ## Notes and Other Information
 - Static function within allpaths.c, core component of PostgreSQL's qualifier pushdown optimization

@@ -20,19 +20,19 @@ ProcessCopyOptions is the central option processing function for COPY statements
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString
-  - defGetBoolean  
-  - defGetCopyHeaderChoice
-  - defGetCopyOnErrorChoice
-  - defGetCopyLogVerbosityChoice
-  - errorConflictingDefElem
+  - [defGetString](../d/defGetString.md)
+  - [defGetBoolean](../d/defGetBoolean.md)  
+  - [defGetCopyHeaderChoice](../d/defGetCopyHeaderChoice.md)
+  - [defGetCopyOnErrorChoice](../d/defGetCopyOnErrorChoice.md)
+  - [defGetCopyLogVerbosityChoice](../d/defGetCopyLogVerbosityChoice.md)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
   - pg_char_to_encoding
   - ereport/parser_errposition
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - strlen/strchr/strncmp
 - Called from (representative examples):
-  - BeginCopyFrom
-  - BeginCopyTo
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)
+  - [BeginCopyTo](../B/BeginCopyTo.md)
 
 ## Notes and Other Information
 - Supports external API usage by allowing opts_out to be NULL for option validation without result storage

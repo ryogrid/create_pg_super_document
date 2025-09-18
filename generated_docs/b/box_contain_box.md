@@ -20,13 +20,13 @@ The function uses the BOX data structure which represents a rectangular box with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FPge (floating-point greater than or equal comparison)
-  - FPle (floating-point less than or equal comparison)
-  - BOX (box data structure)
+  - [FPge](../F/FPge.md) (floating-point greater than or equal comparison)
+  - [FPle](../F/FPle.md) (floating-point less than or equal comparison)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
-  - box_contained
-  - box_contain
-  - poly_contain_poly
+  - [box_contained](box_contained.md)
+  - [box_contain](box_contain.md)
+  - [poly_contain_poly](../p/poly_contain_poly.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geo_ops.c file

@@ -27,14 +27,14 @@ The function works in conjunction with CreatePredXact to provide complete lifecy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SERIALIZABLEXACT (the serializable transaction structure type)
-  - ShmemAddrIsValid (function to validate shared memory address)
-  - dlist_delete (function to remove node from doubly-linked list)
-  - dlist_push_tail (function to add node to tail of list)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md) (the serializable transaction structure type)
+  - [ShmemAddrIsValid](../S/ShmemAddrIsValid.md) (function to validate shared memory address)
+  - [dlist_delete](../d/dlist_delete.md) (function to remove node from doubly-linked list)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (function to add node to tail of list)
 - Called from (representative examples):
-  - SerialControl
-  - GetSerializableTransactionSnapshotInt (multiple locations)
-  - ReleaseOneSerializableXact
+  - [SerialControl](../S/SerialControl.md)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (multiple locations)
+  - [ReleaseOneSerializableXact](ReleaseOneSerializableXact.md)
 
 ## Notes and Other Information
 - Includes assertion to catch programming errors with invalid pointers

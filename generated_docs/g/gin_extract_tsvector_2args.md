@@ -21,7 +21,7 @@ The function performs a simple validation to ensure at least three arguments are
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_NARGS (macro to get the number of function arguments)
-  - gin_extract_tsvector (the actual implementation function)
+  - [gin_extract_tsvector](gin_extract_tsvector.md) (the actual implementation function)
   - elog (for error reporting)
 - Called from (representative examples):
   - No direct callers found (used by PostgreSQL function call infrastructure)

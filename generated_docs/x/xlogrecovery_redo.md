@@ -29,10 +29,10 @@ The function performs validation of record payloads and updates global recovery 
   - XLogRecGetInfo
   - XLogRecGetRmid
   - XLogRecGetData
-  - timestamptz_to_str
+  - [timestamptz_to_str](../t/timestamptz_to_str.md)
   - elog
 - Called from:
-  - ApplyWalRecord (src/backend/access/transam/xlogrecovery.c:1988)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md) (src/backend/access/transam/xlogrecovery.c:1988)
 
 ## Notes and Other Information
 - This is a static function only called from within the xlogrecovery.c module

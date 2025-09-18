@@ -22,11 +22,11 @@ The function performs two key validations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CurrentOfExpr (node type)
+  - [CurrentOfExpr](../C/CurrentOfExpr.md) (node type)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - RestrictInfoIsTidQual
-  - TidQualFromRestrictInfoList
+  - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md)
+  - [TidQualFromRestrictInfoList](../T/TidQualFromRestrictInfoList.md)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the tidpath.c file

@@ -34,20 +34,20 @@ The function processes multi-byte characters by first validating their structure
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING: Validates encoding identifier
   - IS_HIGHBIT_SET: Checks if byte has high bit set (non-ASCII)
-  - pg_encoding_verifymbchar: Validates multibyte character structure
-  - pg_mb_radix_conv: Performs radix tree character lookup
-  - store_coded_char: Stores UTF-8 encoded character to output buffer
-  - compare4: Comparison function for binary search in combined character map
-  - report_untranslatable_char: Reports characters that cannot be converted
-  - report_invalid_encoding: Reports invalid byte sequences in input
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md): Validates multibyte character structure
+  - [pg_mb_radix_conv](../p/pg_mb_radix_conv.md): Performs radix tree character lookup
+  - [store_coded_char](../s/store_coded_char.md): Stores UTF-8 encoded character to output buffer
+  - [compare4](../c/compare4.md): Comparison function for binary search in combined character map
+  - [report_untranslatable_char](../r/report_untranslatable_char.md): Reports characters that cannot be converted
+  - [report_invalid_encoding](../r/report_invalid_encoding.md): Reports invalid byte sequences in input
   
 - Called from (representative examples):
-  - big5_to_utf8: Big5 to UTF-8 conversion
-  - koi8r_to_utf8: KOI8-R to UTF-8 conversion
-  - euc_jp_to_utf8: EUC-JP to UTF-8 conversion
-  - sjis_to_utf8: Shift-JIS to UTF-8 conversion
-  - iso8859_to_utf8: ISO 8859 family to UTF-8 conversion
-  - win_to_utf8: Windows codepage to UTF-8 conversion
+  - [big5_to_utf8](../b/big5_to_utf8.md): Big5 to UTF-8 conversion
+  - [koi8r_to_utf8](../k/koi8r_to_utf8.md): KOI8-R to UTF-8 conversion
+  - [euc_jp_to_utf8](../e/euc_jp_to_utf8.md): EUC-JP to UTF-8 conversion
+  - [sjis_to_utf8](../s/sjis_to_utf8.md): Shift-JIS to UTF-8 conversion
+  - [iso8859_to_utf8](../i/iso8859_to_utf8.md): ISO 8859 family to UTF-8 conversion
+  - [win_to_utf8](../w/win_to_utf8.md): Windows codepage to UTF-8 conversion
 
 ## Notes and Other Information
 - Returns the number of input bytes consumed, which may be less than  if  is true and conversion fails

@@ -24,7 +24,7 @@ This function is essential for memory management within the GUC system. Before f
   - GucStack (struct type for configuration stack entries)
 
 - Called from (representative examples):
-  - set_string_field
+  - [set_string_field](set_string_field.md)
 
 ## Notes and Other Information
 - Static function - only used internally within guc.c

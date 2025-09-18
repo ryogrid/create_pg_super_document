@@ -28,13 +28,13 @@ This function is primarily used during query planning and rewriting phases to pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_mutator (tree traversal framework)
-  - add_nulling_relids_mutator (actual mutation callback function)
+  - [add_nulling_relids_mutator](add_nulling_relids_mutator.md) (actual mutation callback function)
 - Structures used:
-  - add_nulling_relids_context (context structure containing target_relids, added_relids, and sublevels_up)
+  - [add_nulling_relids_context](add_nulling_relids_context.md) (context structure containing target_relids, added_relids, and sublevels_up)
 - Called from (representative examples):
-  - deconstruct_distribute_oj_quals (in optimizer/plan/initsplan.c)
-  - transform_MERGE_to_join (in optimizer/prep/prepjointree.c)
-  - pullup_replace_vars_callback (in optimizer/prep/prepjointree.c)
+  - [deconstruct_distribute_oj_quals](../d/deconstruct_distribute_oj_quals.md) (in optimizer/plan/initsplan.c)
+  - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md) (in optimizer/prep/prepjointree.c)
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md) (in optimizer/prep/prepjointree.c)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:1149-1164

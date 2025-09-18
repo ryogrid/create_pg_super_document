@@ -29,10 +29,10 @@ This function generates the full filesystem path for a relation file based on it
   - MAIN_FORKNUM (constant for main fork)
   - TABLESPACE_VERSION_DIRECTORY (version-specific directory name)
   - forkNames (array of fork name strings)
-  - psprintf (PostgreSQL formatted string creation)
+  - [psprintf](../p/psprintf.md) (PostgreSQL formatted string creation)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - GetIncrementalFilePath (in src/backend/backup/basebackup_incremental.c:634)
+  - [GetIncrementalFilePath](GetIncrementalFilePath.md) (in src/backend/backup/basebackup_incremental.c:634)
   - relpathbackend (via macro in src/include/common/relpath.h:86)
   - FORKNAMECHARS (referenced in src/include/common/relpath.h:76)
 

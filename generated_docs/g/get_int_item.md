@@ -33,11 +33,11 @@ The function supports a comprehensive range of integer, floating-point, and unsi
   - ECPGt_unsigned_long_long
   - ECPGt_float
   - ECPGt_double
-  - ecpg_raise
+  - [ecpg_raise](../e/ecpg_raise.md)
   - ECPG_VAR_NOT_NUMERIC
   - ECPG_SQLSTATE_RESTRICTED_DATA_TYPE_ATTRIBUTE_VIOLATION
 - Called from (representative examples):
-  - ECPGget_desc (multiple calls for different descriptor field types)
+  - [ECPGget_desc](../E/ECPGget_desc.md) (multiple calls for different descriptor field types)
 
 ## Notes and Other Information
 - Static function, only accessible within descriptor.c

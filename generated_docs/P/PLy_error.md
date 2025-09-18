@@ -21,7 +21,7 @@ The function accepts both positional and keyword arguments, allowing for flexibl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_output (with ERROR level parameter)
+  - [PLy_output](PLy_output.md) (with ERROR level parameter)
 - Called from (representative examples):
   - Exposed to Python as `plpy.error` method in the plpy module
 

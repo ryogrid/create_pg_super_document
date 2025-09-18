@@ -20,18 +20,18 @@ This function performs efficient role name lookup by converting a string OID to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - atooid
-  - pg_fatal (on error)
+  - [pg_fatal](../p/pg_fatal.md) (on error)
 - Global variables accessed:
   - `rolenames`: Array of RoleNameItem structures sorted by OID
   - `nrolenames`: Number of entries in the rolenames array
 - Called from (representative examples):
   - fmtQualifiedDumpable
-  - dumpDatabase
-  - getNamespaces
-  - getTypes
-  - getForeignDataWrappers
-  - getForeignServers
-  - getDefaultACLs
+  - [dumpDatabase](../d/dumpDatabase.md)
+  - [getNamespaces](getNamespaces.md)
+  - [getTypes](getTypes.md)
+  - [getForeignDataWrappers](getForeignDataWrappers.md)
+  - [getForeignServers](getForeignServers.md)
+  - [getDefaultACLs](getDefaultACLs.md)
 
 ## Notes and Other Information
 - This is a static function local to pg_dump.c

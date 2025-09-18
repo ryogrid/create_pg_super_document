@@ -21,9 +21,9 @@ This hook is part of psql's variable system that provides preprocessing and defa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (implicitly called to duplicate the "none" string)
+  - [pg_strdup](../p/pg_strdup.md) (implicitly called to duplicate the "none" string)
 - Called from (representative examples):
-  - EstablishVariableSpace (registers the hook)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (registers the hook)
 
 ## Notes and Other Information
 - This is a static function within src/bin/psql/startup.c, used internally by psql's variable system

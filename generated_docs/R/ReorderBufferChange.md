@@ -41,17 +41,17 @@ ReorderBufferChange is the fundamental data structure used in PostgreSQL's logic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferChangeType
-  - ReorderBufferTXN
+  - [ReorderBufferChangeType](ReorderBufferChangeType.md)
+  - [ReorderBufferTXN](ReorderBufferTXN.md)
   - RepOriginId
   - CommandId
   - SharedInvalidationMessage
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
-  - ReorderBufferGetChange
-  - ReorderBufferQueueChange
-  - ReorderBufferApplyChange
-  - DecodeInsert/DecodeUpdate/DecodeDelete
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
+  - [ReorderBufferApplyChange](ReorderBufferApplyChange.md)
+  - [DecodeInsert](../D/DecodeInsert.md)/DecodeUpdate/DecodeDelete
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's logical replication architecture and is used extensively throughout the WAL decoding and logical replication processes. The union design allows efficient memory usage while supporting diverse change types. Changes are typically allocated from a memory pool and linked into transaction change lists for ordered processing during logical replication output.

@@ -21,9 +21,9 @@ The structure contains only a single pointer to the next node, making it a minim
 - Functions called/Symbols referenced:
   - (none - this is a basic data structure)
 - Called from (representative examples):
-  - slist_head (as the node type for list management)
-  - slist_iter (for list iteration)
-  - slist_mutable_iter (for mutable list iteration)
+  - [slist_head](slist_head.md) (as the node type for list management)
+  - [slist_iter](slist_iter.md) (for list iteration)
+  - [slist_mutable_iter](slist_mutable_iter.md) (for mutable list iteration)
   - Various PostgreSQL subsystems that embed this in their structures
 
 ## Notes and Other Information

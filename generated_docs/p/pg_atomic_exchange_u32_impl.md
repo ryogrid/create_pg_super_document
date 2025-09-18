@@ -25,14 +25,14 @@ The generic fallback reads the current value and repeatedly attempts compare-and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (struct type)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (struct type)
   - `__atomic_exchange_n` (GCC builtin, in GCC implementation)
-  - pg_atomic_compare_exchange_u32_impl (in generic fallback)
+  - [pg_atomic_compare_exchange_u32_impl](pg_atomic_compare_exchange_u32_impl.md) (in generic fallback)
   - PG_HAVE_ATOMIC_FETCH_ADD_U32 (feature detection macro)
 - Called from (representative examples):
-  - pg_atomic_exchange_u32 (inline wrapper function)
-  - pg_atomic_test_set_flag_impl (generic implementation)
-  - pg_atomic_write_membarrier_u32_impl (generic implementation)
+  - [pg_atomic_exchange_u32](pg_atomic_exchange_u32.md) (inline wrapper function)
+  - [pg_atomic_test_set_flag_impl](pg_atomic_test_set_flag_impl.md) (generic implementation)
+  - [pg_atomic_write_membarrier_u32_impl](pg_atomic_write_membarrier_u32_impl.md) (generic implementation)
 
 ## Notes and Other Information
 - Multiple implementations exist for different compiler/platform combinations

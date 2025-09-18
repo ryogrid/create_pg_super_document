@@ -26,7 +26,7 @@ The function operates by examining the trigger descriptor of the relation and ch
   - TriggerDesc (struct)
   - TRIGGER_EVENT_TRUNCATE (constant)
 - Called from (representative examples):
-  - ExecuteTruncateGuts
+  - [ExecuteTruncateGuts](ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 - This function only handles AFTER STATEMENT triggers for TRUNCATE operations

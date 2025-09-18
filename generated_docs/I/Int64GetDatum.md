@@ -19,8 +19,8 @@ The function is part of PostgreSQL's type system infrastructure that provides a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - PointerGetDatum (converts pointer to Datum)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
 - Called from (representative examples):
   - PG_RETURN_INT64 (macro for returning int64 from SQL functions)
   - Various statistical and system information functions

@@ -29,21 +29,21 @@ The function handles security by switching to the table owner's userid and restr
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - index_open
-  - index_close
-  - BuildIndexInfo
-  - index_bulk_delete
-  - validate_index_callback
-  - table_index_validate_scan
-  - index_insert_cleanup
-  - tuplesort_begin_datum
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [index_bulk_delete](../i/index_bulk_delete.md)
+  - [validate_index_callback](validate_index_callback.md)
+  - [table_index_validate_scan](../t/table_index_validate_scan.md)
+  - [index_insert_cleanup](../i/index_insert_cleanup.md)
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md)
   - tuplesort_performsort
   - tuplesort_end
-  - GetUserIdAndSecContext
-  - SetUserIdAndSecContext
-  - pgstat_progress_update_multi_param
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
 - Called from (representative examples):
-  - DefineIndex
+  - [DefineIndex](../D/DefineIndex.md)
 
 ## Notes and Other Information
 - This is a critical component of PostgreSQL's concurrent index building feature

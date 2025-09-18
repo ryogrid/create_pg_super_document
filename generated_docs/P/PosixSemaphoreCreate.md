@@ -33,7 +33,7 @@ This function takes no parameters and returns:
   - nextSemKey (global semaphore key counter)
 
 - Called from:
-  - PGSemaphoreCreate (PostgreSQL's public semaphore creation interface)
+  - [PGSemaphoreCreate](PGSemaphoreCreate.md) (PostgreSQL's public semaphore creation interface)
 
 ## Notes and Other Information
 - The function is static and internal to the POSIX semaphore implementation

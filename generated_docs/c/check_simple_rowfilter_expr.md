@@ -22,9 +22,9 @@ The function acts as a simple wrapper that delegates all validation logic to che
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_simple_rowfilter_expr_walker
+  - [check_simple_rowfilter_expr_walker](check_simple_rowfilter_expr_walker.md)
 - Called from:
-  - TransformPubWhereClauses
+  - [TransformPubWhereClauses](../T/TransformPubWhereClauses.md)
 
 ## Notes and Other Information
 - This is a static function used internally within publicationcmds.c

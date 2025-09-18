@@ -25,10 +25,10 @@ The function ensures that all elements within a CREATE SCHEMA statement are cons
   - unconstify
   - strcmp
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - transformCreateSchemaStmtElements (multiple calls for different statement types)
+  - [transformCreateSchemaStmtElements](../t/transformCreateSchemaStmtElements.md) (multiple calls for different statement types)
 
 ## Notes and Other Information
 - This is a static helper function used exclusively within the parse_utilcmd.c file

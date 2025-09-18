@@ -23,14 +23,14 @@ The function also records the parser's membership in the current extension (if e
 - Functions called/Symbols referenced:
   - Form_pg_ts_parser: Type cast to access parser tuple fields
   - ObjectAddressSet: Sets up object address structures
-  - recordDependencyOnCurrentExtension: Records extension membership
-  - new_object_addresses: Creates new ObjectAddresses collection
-  - add_exact_object_address: Adds object to dependency collection
-  - record_object_address_dependencies: Records all dependencies with specified strength
-  - free_object_addresses: Cleans up ObjectAddresses collection
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md): Records extension membership
+  - [new_object_addresses](../n/new_object_addresses.md): Creates new ObjectAddresses collection
+  - [add_exact_object_address](../a/add_exact_object_address.md): Adds object to dependency collection
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md): Records all dependencies with specified strength
+  - [free_object_addresses](../f/free_object_addresses.md): Cleans up ObjectAddresses collection
   - OidIsValid: Checks if optional prsheadline function is provided
 - Called from (representative examples):
-  - DefineTSParser: Called after inserting new parser tuple to establish dependencies
+  - [DefineTSParser](../D/DefineTSParser.md): Called after inserting new parser tuple to establish dependencies
 
 ## Notes and Other Information
 - This is a static function, only accessible within tsearchcmds.c

@@ -25,21 +25,21 @@ This function performs recursive directory verification as part of the backup ve
   - opendir
   - readdir
   - closedir
-  - report_fatal_error
-  - report_backup_error
-  - simple_string_list_append
-  - should_ignore_relpath
-  - verify_backup_file
-  - psprintf
-  - pstrdup
-  - pfree
+  - [report_fatal_error](../r/report_fatal_error.md)
+  - [report_backup_error](../r/report_backup_error.md)
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [should_ignore_relpath](../s/should_ignore_relpath.md)
+  - [verify_backup_file](verify_backup_file.md)
+  - [psprintf](../p/psprintf.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [pfree](../p/pfree.md)
 - Types referenced:
-  - verifier_context
+  - [verifier_context](verifier_context.md)
   - DIR
   - struct dirent
 - Called from (representative examples):
-  - main
-  - verify_backup_file
+  - [main](../m/main.md)
+  - [verify_backup_file](verify_backup_file.md)
 
 ## Notes and Other Information
 - The function implements recursive directory traversal by calling verify_backup_file, which in turn may call back to this function for subdirectories

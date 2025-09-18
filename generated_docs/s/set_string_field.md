@@ -21,14 +21,14 @@ This function is part of the internal GUC (Grand Unified Configuration) infrastr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - string_field_used (checks if old value is still referenced)
-  - guc_free (frees memory allocated for old string value)
+  - [string_field_used](string_field_used.md) (checks if old value is still referenced)
+  - [guc_free](../g/guc_free.md) (frees memory allocated for old string value)
 - Called from (representative examples):
-  - set_stack_value
-  - discard_stack_value
-  - ResetAllOptions
-  - AtEOXact_GUC
-  - define_custom_variable
+  - [set_stack_value](set_stack_value.md)
+  - [discard_stack_value](../d/discard_stack_value.md)
+  - [ResetAllOptions](../R/ResetAllOptions.md)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
+  - [define_custom_variable](../d/define_custom_variable.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/utils/misc/guc.c

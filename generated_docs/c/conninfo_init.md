@@ -22,19 +22,19 @@ The function carefully copies only the public portion of each option structure (
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - libpq_append_error
+  - [libpq_append_error](../l/libpq_append_error.md)
   - memcpy
   - MemSet
-  - PQconninfoOption (data structure)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (data structure)
   - internalPQconninfoOption (data structure)
   - PQconninfoOptions (global array)
 - Called from (representative examples):
   - internalPQconninfoOption
   - PQconndefaults
-  - conninfo_parse
-  - conninfo_array_parse
-  - conninfo_uri_parse
-  - PQconninfo
+  - [conninfo_parse](conninfo_parse.md)
+  - [conninfo_array_parse](conninfo_array_parse.md)
+  - [conninfo_uri_parse](conninfo_uri_parse.md)
+  - [PQconninfo](../P/PQconninfo.md)
 
 ## Notes and Other Information
 - Returns NULL on memory allocation failure

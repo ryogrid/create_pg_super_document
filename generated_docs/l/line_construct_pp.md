@@ -20,11 +20,11 @@ This function creates a LINE geometric object by taking two Point arguments and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P: Extracts Point arguments from function call
-  - point_eq_point: Validates that the two points are distinct
-  - point_sl: Calculates slope between two points
-  - line_construct: Internal helper to construct LINE from point and slope
+  - [point_eq_point](../p/point_eq_point.md): Validates that the two points are distinct
+  - [point_sl](../p/point_sl.md): Calculates slope between two points
+  - [line_construct](line_construct.md): Internal helper to construct LINE from point and slope
   - PG_RETURN_LINE_P: Returns the constructed LINE object
-  - palloc: Memory allocation for LINE structure
+  - [palloc](../p/palloc.md): Memory allocation for LINE structure
 - Called from (representative examples):
   - No direct callers found (likely called via PostgreSQL's function dispatch system)
 

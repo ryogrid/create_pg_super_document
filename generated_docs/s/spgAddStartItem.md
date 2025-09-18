@@ -20,14 +20,14 @@ The function establishes the foundation for the search by creating an inner node
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgAllocSearchItem (allocates the search item structure)
-  - ItemPointerSet (sets the heap pointer to appropriate block and offset)
-  - spgAddSearchItemToQueue (adds the item to the search queue)
+  - [spgAllocSearchItem](spgAllocSearchItem.md) (allocates the search item structure)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (sets the heap pointer to appropriate block and offset)
+  - [spgAddSearchItemToQueue](spgAddSearchItemToQueue.md) (adds the item to the search queue)
   - SPGIST_ROOT_BLKNO (constant for root block number)
   - SPGIST_NULL_BLKNO (constant for NULL partition block number)
   - FirstOffsetNumber (constant for first offset number)
 - Called from (representative examples):
-  - resetSpGistScanOpaque (called twice - once for root, once for NULL partition if needed)
+  - [resetSpGistScanOpaque](../r/resetSpGistScanOpaque.md) (called twice - once for root, once for NULL partition if needed)
 
 ## Notes and Other Information
 - Creates inner node items (isLeaf = false) at level 0 representing tree entry points

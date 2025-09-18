@@ -26,10 +26,10 @@ The insertion process involves four pointer updates:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (data structure)
+  - [dlist_node](dlist_node.md) (data structure)
 - Called from (representative examples):
-  - ReorderBufferTransferSnapToParent (src/backend/replication/logical/reorderbuffer.c:1188)
-  - dclist_insert_before (src/include/lib/ilist.h:750)
+  - [ReorderBufferTransferSnapToParent](../R/ReorderBufferTransferSnapToParent.md) (src/backend/replication/logical/reorderbuffer.c:1188)
+  - [dclist_insert_before](dclist_insert_before.md) (src/include/lib/ilist.h:750)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization

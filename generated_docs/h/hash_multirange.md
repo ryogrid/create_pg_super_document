@@ -25,15 +25,15 @@ The function first validates that hash functions are available for the element t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P - Extract multirange argument
-  - multirange_get_typcache - Get type cache for multirange type
+  - [multirange_get_typcache](../m/multirange_get_typcache.md) - Get type cache for multirange type
   - MultirangeTypeGetOid - Get OID of multirange type
-  - lookup_type_cache - Look up type cache information
-  - multirange_get_bounds - Extract bounds from a specific range
-  - FunctionCall1Coll - Call element hash function with collation
-  - hash_uint32 - Hash the range flags
-  - pg_rotate_left32 - Rotate hash bits for better distribution
+  - [lookup_type_cache](../l/lookup_type_cache.md) - Look up type cache information
+  - [multirange_get_bounds](../m/multirange_get_bounds.md) - Extract bounds from a specific range
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md) - Call element hash function with collation
+  - [hash_uint32](hash_uint32.md) - Hash the range flags
+  - [pg_rotate_left32](../p/pg_rotate_left32.md) - Rotate hash bits for better distribution
   - RANGE_HAS_LBOUND/RANGE_HAS_UBOUND - Check bound existence
-  - DatumGetUInt32 - Convert Datum to uint32
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) - Convert Datum to uint32
   - PG_RETURN_UINT32 - Return the computed hash value
 - Called from: 
   - Used internally by PostgreSQL's hash-based operations (no direct references found)

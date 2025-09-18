@@ -23,12 +23,12 @@ PgBenchExpr is the core data structure for representing expressions in pgbench s
 - Functions called/Symbols referenced:
   - PgBenchExprType (enum)
   - PgBenchValue (struct)
-  - PgBenchFunction (enum)
-  - PgBenchExprLink (struct)
+  - [PgBenchFunction](PgBenchFunction.md) (enum)
+  - [PgBenchExprLink](PgBenchExprLink.md) (struct)
 - Called from (representative examples):
-  - evaluateExpr
-  - executeMetaCommand
-  - Command struct
+  - [evaluateExpr](../e/evaluateExpr.md)
+  - [executeMetaCommand](../e/executeMetaCommand.md)
+  - [Command](../C/Command.md) struct
 
 ## Notes and Other Information
 - Forward declared at line 106 in pgbench.h, with full definition at lines 110-126

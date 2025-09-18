@@ -23,8 +23,8 @@ The `circle_add_pt` function implements the translation operator for PostgreSQL'
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves CIRCLE argument)
   - PG_GETARG_POINT_P (retrieves Point argument)
-  - palloc (allocates memory for result)
-  - point_add_point (adds point coordinates to compute new center)
+  - [palloc](../p/palloc.md) (allocates memory for result)
+  - [point_add_point](../p/point_add_point.md) (adds point coordinates to compute new center)
   - PG_RETURN_CIRCLE_P (returns CIRCLE result)
 - Called from (representative examples):
   - No direct references found in codebase

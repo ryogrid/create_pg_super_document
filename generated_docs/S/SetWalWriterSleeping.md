@@ -24,7 +24,7 @@ The WalWriterSleeping flag is used for coordination between the WAL writer proce
   - XLogCtl (global control structure)
   - XLogCtl->info_lck (spinlock for information updates)
 - Called from (representative examples):
-  - WalWriterMain (in walwriter.c) - called twice to set sleeping state
+  - [WalWriterMain](../W/WalWriterMain.md) (in walwriter.c) - called twice to set sleeping state
 
 ## Notes and Other Information
 - Uses spinlock rather than LWLock for fast, lightweight synchronization

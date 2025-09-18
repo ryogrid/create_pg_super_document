@@ -22,10 +22,10 @@ This function provides a wrapper around the ZSTD library's  function with error 
 - Functions called/Symbols referenced:
   - ZSTD_CCtx_setParameter (from ZSTD library)
   - ZSTD_isError (from ZSTD library)
-  - pg_fatal (PostgreSQL error handling)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
   - ZSTD_getErrorName (from ZSTD library)
 - Called from (representative examples):
-  - _ZstdCStreamParams
+  - [_ZstdCStreamParams](_ZstdCStreamParams.md)
 
 ## Notes and Other Information
 - This is a static function internal to the compress_zstd.c module

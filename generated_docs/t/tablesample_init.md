@@ -19,13 +19,13 @@ This static function performs the complete initialization of a table sampling sc
 - Functions called/Symbols referenced:
   - TsmRoutine (sampling method interface)
   - ExecEvalExprSwitchContext (parameter evaluation)
-  - hashfloat8 (seed generation from REPEATABLE parameter)
+  - [hashfloat8](../h/hashfloat8.md) (seed generation from REPEATABLE parameter)
   - DirectFunctionCall1 (function call wrapper)
-  - DatumGetUInt32 (datum conversion)
-  - table_beginscan_sampling (heap scan initialization)
-  - table_rescan_set_params (heap scan reset)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (datum conversion)
+  - [table_beginscan_sampling](table_beginscan_sampling.md) (heap scan initialization)
+  - [table_rescan_set_params](table_rescan_set_params.md) (heap scan reset)
 - Called from (representative examples):
-  - SampleNext (in nodeSamplescan.c:48)
+  - [SampleNext](../S/SampleNext.md) (in nodeSamplescan.c:48)
 
 ## Notes and Other Information
 Key initialization steps performed:

@@ -27,9 +27,9 @@ This is useful when you need just the vocabulary from a TSVector without the ass
   - ARRPTR - Get pointer to WordEntry array in TSVector
   - STRPTR - Get pointer to string data in TSVector  
   - cstring_to_text_with_len - Convert C string to PostgreSQL text
-  - construct_array_builtin - Build PostgreSQL array from Datum elements
-  - palloc - Allocate memory
-  - pfree - Free allocated memory
+  - [construct_array_builtin](../c/construct_array_builtin.md) - Build PostgreSQL array from Datum elements
+  - [palloc](../p/palloc.md) - Allocate memory
+  - [pfree](../p/pfree.md) - Free allocated memory
   - PG_FREE_IF_COPY - Free copied arguments if needed
   - PG_RETURN_POINTER - Return result pointer
 - Called from (representative examples):

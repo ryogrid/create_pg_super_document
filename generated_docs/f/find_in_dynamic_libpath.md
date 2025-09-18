@@ -40,7 +40,7 @@ The function includes robust error checking, reporting errors for zero-length pa
   -  - tests for file existence
   - / - PostgreSQL memory management
   -  - constructs full file paths
-  -  - debug logging
+  -  - [debug](../d/debug.md) logging
   -  - global configuration variable
 - Called from:
   -  (src/backend/utils/fmgr/dfmgr.c:426, 442)

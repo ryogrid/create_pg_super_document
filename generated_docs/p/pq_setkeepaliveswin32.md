@@ -25,8 +25,8 @@ This function implements TCP keepalive configuration specifically for Windows pl
   - STATUS_ERROR (PostgreSQL status constant)
   - STATUS_OK (PostgreSQL status constant)
 - Called from (representative examples):
-  - pq_setkeepalivesidle
-  - pq_setkeepalivesinterval
+  - [pq_setkeepalivesidle](pq_setkeepalivesidle.md)
+  - [pq_setkeepalivesinterval](pq_setkeepalivesinterval.md)
 
 ## Notes and Other Information
 - Windows-specific implementation using struct tcp_keepalive and WSAIoctl

@@ -21,15 +21,15 @@ The function handles initialization of shared memory state and provides differen
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmWalSummarizerProcess (checks if current process is WAL summarizer)
-  - GetLatestLSN (gets current latest LSN and timeline)
-  - readTimeLineHistory (reads timeline history for the latest timeline)
-  - XLogGetOldestSegno (finds oldest WAL segment for a timeline)
+  - [GetLatestLSN](GetLatestLSN.md) (gets current latest LSN and timeline)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (reads timeline history for the latest timeline)
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md) (finds oldest WAL segment for a timeline)
   - XLogSegNoOffsetToRecPtr (converts segment number to LSN)
-  - GetWalSummaries (retrieves existing summary files)
+  - [GetWalSummaries](GetWalSummaries.md) (retrieves existing summary files)
   - Various PostgreSQL list and memory management functions
 - Called from (representative examples):
-  - KeepLogSeg (in src/backend/access/transam/xlog.c:8004)
-  - WalSummarizerMain (in src/backend/postmaster/walsummarizer.c:341)
+  - [KeepLogSeg](../K/KeepLogSeg.md) (in src/backend/access/transam/xlog.c:8004)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md) (in src/backend/postmaster/walsummarizer.c:341)
 
 ## Notes and Other Information
 - Returns InvalidXLogRecPtr if WAL summarization is disabled (summarize_wal = false)

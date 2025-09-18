@@ -19,17 +19,17 @@ AddPendingSync is a static function that manages deferred synchronization of rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - hash_search
-  - PendingRelSync
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [PendingRelSync](../P/PendingRelSync.md)
   - HASHCTL
   - HASH_ELEM
   - HASH_BLOBS
   - HASH_CONTEXT
   - HASH_ENTER
 - Called from (representative examples):
-  - RelationCreateStorage
-  - RestorePendingSyncs
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)
+  - [RestorePendingSyncs](../R/RestorePendingSyncs.md)
 
 ## Notes and Other Information
 - The function uses Assert(!found) to ensure that duplicate entries are not added to the hash table

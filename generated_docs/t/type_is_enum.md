@@ -25,13 +25,13 @@ Enum types have special properties in PostgreSQL:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype (retrieve the type category)
+  - [get_typtype](../g/get_typtype.md) (retrieve the type category)
   - TYPTYPE_ENUM (constant for enumerated type category)
 
 - Called from (representative examples):
-  - check_generic_type_consistency (src/backend/parser/parse_coerce.c:1971)
-  - enforce_generic_type_consistency (src/backend/parser/parse_coerce.c:2532)
-  - IsBinaryCoercibleWithCast (src/backend/parser/parse_coerce.c:3085)
+  - [check_generic_type_consistency](../c/check_generic_type_consistency.md) (src/backend/parser/parse_coerce.c:1971)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md) (src/backend/parser/parse_coerce.c:2532)
+  - [IsBinaryCoercibleWithCast](../I/IsBinaryCoercibleWithCast.md) (src/backend/parser/parse_coerce.c:3085)
 
 ## Notes and Other Information
 - Part of the type classification utility functions in lsyscache.c

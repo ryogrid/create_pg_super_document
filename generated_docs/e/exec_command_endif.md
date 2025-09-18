@@ -28,13 +28,13 @@ The cleanup process ensures that only query text from executed conditional branc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_peek
-  - conditional_stack_pop
-  - discard_query_text
+  - [conditional_stack_peek](../c/conditional_stack_peek.md)
+  - [conditional_stack_pop](../c/conditional_stack_pop.md)
+  - [discard_query_text](../d/discard_query_text.md)
   - pg_log_error
   - Assert
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure

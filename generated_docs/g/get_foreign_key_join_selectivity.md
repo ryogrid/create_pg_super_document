@@ -43,17 +43,17 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member, bms_membership
-  - list_copy, list_member_ptr, list_concat
+  - [bms_is_member](../b/bms_is_member.md), bms_membership
+  - [list_copy](../l/list_copy.md), list_member_ptr, list_concat
   - foreach_delete_current
-  - find_base_rel
-  - find_derived_clause_for_ec_member
-  - clause_selectivity
+  - [find_base_rel](../f/find_base_rel.md)
+  - [find_derived_clause_for_ec_member](../f/find_derived_clause_for_ec_member.md)
+  - [clause_selectivity](../c/clause_selectivity.md)
   - CLAMP_PROBABILITY
   - Types: ForeignKeyOptInfo, EquivalenceClass, EquivalenceMember
   - Constants: JOIN_SEMI, JOIN_ANTI, BMS_SINGLETON
 - Called from (representative examples):
-  - calc_joinrel_size_estimate (src/backend/optimizer/path/costsize.c:5424)
+  - [calc_joinrel_size_estimate](../c/calc_joinrel_size_estimate.md) (src/backend/optimizer/path/costsize.c:5424)
 
 ## Notes and Other Information
 - This is a static function accessible only within costsize.c

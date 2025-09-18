@@ -18,16 +18,16 @@ This function is responsible for sending the BEGIN message that marks the start 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginPrepareWrite
-  - logicalrep_write_begin  
-  - send_repl_origin
-  - OutputPluginWrite
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_begin](../l/logicalrep_write_begin.md)  
+  - [send_repl_origin](../s/send_repl_origin.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
   - InvalidRepOriginId (constant)
-  - PGOutputTxnData (struct type)
+  - [PGOutputTxnData](../P/PGOutputTxnData.md) (struct type)
 - Called from (representative examples):
-  - pgoutput_change
-  - pgoutput_truncate
-  - pgoutput_message
+  - [pgoutput_change](pgoutput_change.md)
+  - [pgoutput_truncate](pgoutput_truncate.md)
+  - [pgoutput_message](pgoutput_message.md)
 
 ## Notes and Other Information
 - This is a static function internal to the pgoutput plugin

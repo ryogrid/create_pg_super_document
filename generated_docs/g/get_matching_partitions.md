@@ -22,17 +22,17 @@ The function supports all PostgreSQL partitioning strategies (LIST, RANGE, HASH)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_range
-  - perform_pruning_base_step
-  - perform_pruning_combine_step
-  - bms_next_member
-  - bms_add_member
+  - [bms_add_range](../b/bms_add_range.md)
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md)
+  - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - partition_bound_has_default
   - partition_bound_accepts_nulls
   - nodeTag
 - Called from (representative examples):
-  - find_matching_subplans_recurse (execPartition.c:2383, 2386)
-  - prune_append_rel_partitions (partprune.c:803)
+  - [find_matching_subplans_recurse](../f/find_matching_subplans_recurse.md) (execPartition.c:2383, 2386)
+  - [prune_append_rel_partitions](../p/prune_append_rel_partitions.md) (partprune.c:803)
 
 ## Notes and Other Information
 - Returns all partitions if no pruning steps are provided

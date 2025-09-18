@@ -19,13 +19,13 @@ lazy_vacuum serves as the main entry point for the index and heap vacuuming phas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dead_items_reset
-  - TidStoreMemoryUsage
-  - lazy_vacuum_all_indexes
-  - lazy_vacuum_heap_rel
+  - [dead_items_reset](../d/dead_items_reset.md)
+  - [TidStoreMemoryUsage](../T/TidStoreMemoryUsage.md)
+  - [lazy_vacuum_all_indexes](lazy_vacuum_all_indexes.md)
+  - [lazy_vacuum_heap_rel](lazy_vacuum_heap_rel.md)
   - BYPASS_THRESHOLD_PAGES
 - Called from:
-  - lazy_scan_heap (multiple call sites)
+  - [lazy_scan_heap](lazy_scan_heap.md) (multiple call sites)
 
 ## Notes and Other Information
 - Only called for relations with indexes (nindexes > 0)

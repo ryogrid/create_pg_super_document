@@ -31,13 +31,13 @@ The function provides better ergonomics when modifying a small, fixed set of col
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for temporary arrays)
-  - heap_deform_tuple
+  - [palloc](../p/palloc.md) (for temporary arrays)
+  - [heap_deform_tuple](heap_deform_tuple.md)
   - elog/ERROR (for column validation)
-  - heap_form_tuple
-  - pfree (cleanup of temporary arrays)
+  - [heap_form_tuple](heap_form_tuple.md)
+  - [pfree](../p/pfree.md) (cleanup of temporary arrays)
 - Called from (representative examples):
-  - tsvector_update_trigger
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

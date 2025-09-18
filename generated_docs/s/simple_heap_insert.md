@@ -18,12 +18,12 @@ This function serves as a convenience wrapper for heap_insert() with default par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_insert
-  - GetCurrentCommandId
+  - [heap_insert](../h/heap_insert.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
 - Called from:
-  - InsertOneTuple (bootstrap.c)
-  - CatalogTupleInsert (indexing.c)
-  - CatalogTupleInsertWithInfo (indexing.c)
+  - [InsertOneTuple](../I/InsertOneTuple.md) (bootstrap.c)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md) (indexing.c)
+  - [CatalogTupleInsertWithInfo](../C/CatalogTupleInsertWithInfo.md) (indexing.c)
 
 ## Notes and Other Information
 - This is the preferred function for system catalog modifications

@@ -22,14 +22,14 @@ The binary search algorithm efficiently narrows down the search space by compari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat8
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - ARR_DATA_PTR
   - ArrayGetNItems
   - ARR_NDIM
   - ARR_DIMS
   - isnan
 - Called from:
-  - width_bucket_array (src/backend/utils/adt/arrayfuncs.c:6699)
+  - [width_bucket_array](width_bucket_array.md) (src/backend/utils/adt/arrayfuncs.c:6699)
 
 ## Notes and Other Information
 - Uses direct array indexing since NULL values are guaranteed to be absent

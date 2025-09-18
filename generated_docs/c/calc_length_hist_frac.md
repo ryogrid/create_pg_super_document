@@ -26,13 +26,13 @@ Where A=length1 and B=length2. The geometrical interpretation is calculating the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - length_hist_bsearch
-  - get_len_position
-  - DatumGetFloat8
+  - [length_hist_bsearch](../l/length_hist_bsearch.md)
+  - [get_len_position](../g/get_len_position.md)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - isinf
 - Called from (representative examples):
-  - calc_hist_selectivity_contained
-  - calc_hist_selectivity_contains
+  - [calc_hist_selectivity_contained](calc_hist_selectivity_contained.md)
+  - [calc_hist_selectivity_contains](calc_hist_selectivity_contains.md)
 
 ## Notes and Other Information
 - Uses binary search to find the appropriate histogram bin containing the bounds

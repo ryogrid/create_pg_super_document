@@ -29,13 +29,13 @@ The implementation checks transaction states and maintains a list of uncommitted
   - HeapTupleHeaderXminCommitted
   - HeapTupleHeaderGetXmin
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
-  - EnumUncommitted
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [EnumUncommitted](../E/EnumUncommitted.md)
 - Called from (representative examples):
-  - enum_in
-  - enum_recv
-  - enum_endpoint
-  - enum_range_internal
+  - [enum_in](../e/enum_in.md)
+  - [enum_recv](../e/enum_recv.md)
+  - [enum_endpoint](../e/enum_endpoint.md)
+  - [enum_range_internal](../e/enum_range_internal.md)
 
 ## Notes and Other Information
 - This is a static function internal to enum.c, serving as a central validation point

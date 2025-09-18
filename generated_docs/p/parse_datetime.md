@@ -37,18 +37,18 @@ The function uses `do_to_timestamp` for the core parsing logic and then converts
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `do_to_timestamp` - Core parsing logic
-  - `tm2timestamp` - Convert tm struct to timestamp
-  - `tm2timetz` - Convert tm struct to time with timezone
-  - `tm2time` - Convert tm struct to time
-  - `date2j` - Convert date to Julian day
+  - `[do_to_timestamp](../d/do_to_timestamp.md)` - Core parsing logic
+  - `[tm2timestamp](../t/tm2timestamp.md)` - Convert tm struct to timestamp
+  - `[tm2timetz](../t/tm2timetz.md)` - Convert tm struct to time with timezone
+  - `[tm2time](../t/tm2time.md)` - Convert tm struct to time
+  - `[date2j](../d/date2j.md)` - Convert date to Julian day
   - `IS_VALID_JULIAN` - Validate Julian date range
   - `IS_VALID_DATE` - Validate date range
-  - `AdjustTimestampForTypmod` - Apply precision constraints
-  - `AdjustTimeForTypmod` - Apply time precision constraints
+  - `[AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)` - Apply precision constraints
+  - `[AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)` - Apply time precision constraints
   - Various datum conversion functions (TimestampTzGetDatum, DateADTGetDatum, etc.)
 - Called from (representative examples):
-  - `executeDateTimeMethod` - JSON path datetime operations
+  - `[executeDateTimeMethod](../e/executeDateTimeMethod.md)` - JSON path datetime operations
   - Header definitions in formatting.h
 
 ## Notes and Other Information

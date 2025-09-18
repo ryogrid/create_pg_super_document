@@ -32,16 +32,16 @@ The function initializes all the standard Path fields, sets up the pathnode stru
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates IncrementalSortPath node)
-  - cost_incremental_sort (calculates sorting costs)
+  - [cost_incremental_sort](cost_incremental_sort.md) (calculates sorting costs)
   - IncrementalSortPath (return type structure)
   - SortPath (embedded structure)
 - Called from (representative examples):
-  - generate_useful_gather_paths
-  - create_one_window_path  
-  - create_partial_distinct_paths
-  - create_final_distinct_paths
-  - create_ordered_paths
-  - make_ordered_path
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md)
+  - [create_one_window_path](create_one_window_path.md)  
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md)
+  - [create_final_distinct_paths](create_final_distinct_paths.md)
+  - [create_ordered_paths](create_ordered_paths.md)
+  - [make_ordered_path](../m/make_ordered_path.md)
 
 ## Notes and Other Information
 - Incremental sort is most beneficial when the input has a significant amount of pre-existing order that matches the required sort prefix

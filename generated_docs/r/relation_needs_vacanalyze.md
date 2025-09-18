@@ -33,14 +33,14 @@ The analyze threshold uses similar logic for tuples modified since last analyze.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
-  - TransactionIdPrecedes  
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)  
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
-  - AutoVacuumingActive
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [AutoVacuumingActive](../A/AutoVacuumingActive.md)
   - PointerIsValid
 - Called from (representative examples):
-  - do_autovacuum
-  - recheck_relation_needs_vacanalyze
+  - [do_autovacuum](../d/do_autovacuum.md)
+  - [recheck_relation_needs_vacanalyze](recheck_relation_needs_vacanalyze.md)
 
 ## Notes and Other Information
 - Automatically skips relations with autovacuum_enabled=false unless wraparound protection is needed

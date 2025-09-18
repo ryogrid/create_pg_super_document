@@ -27,8 +27,8 @@ This approach provides a well-defined, consistent ordering that is optimized for
 - Functions called/Symbols referenced:
   - memcmp (standard C library function for binary memory comparison)
 - Called from:
-  - lengthCompareJsonbStringValue (wrapper for JsonbValue string comparisons)
-  - getKeyJsonValueFromContainer (for binary searches in JSONB containers)
+  - [lengthCompareJsonbStringValue](lengthCompareJsonbStringValue.md) (wrapper for JsonbValue string comparisons)
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md) (for binary searches in JSONB containers)
 
 ## Notes and Other Information
 - Returns standard comparator values: negative if val1 < val2, zero if equal, positive if val1 > val2

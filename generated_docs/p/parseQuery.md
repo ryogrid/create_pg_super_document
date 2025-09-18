@@ -19,14 +19,14 @@ The function iterates through the SQL string looking for ':' characters, then us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseVariable: Extracts variable names from parameter placeholders
-  - replaceVariable: Performs the actual text replacement in the SQL string
-  - pg_strdup: Duplicates the SQL string for modification
-  - pg_free: Frees allocated memory on error
+  - [parseVariable](parseVariable.md): Extracts variable names from parameter placeholders
+  - [replaceVariable](../r/replaceVariable.md): Performs the actual text replacement in the SQL string
+  - [pg_strdup](pg_strdup.md): Duplicates the SQL string for modification
+  - [pg_free](pg_free.md): Frees allocated memory on error
   - pg_log_error: Logs error messages
   - MAX_ARGS: Maximum number of arguments allowed
 - Called from (representative examples):
-  - postprocess_sql_command: Main function that processes SQL commands in pgbench
+  - [postprocess_sql_command](postprocess_sql_command.md): Main function that processes SQL commands in pgbench
 
 ## Notes and Other Information
 - The function enforces a maximum number of parameters (MAX_ARGS - 1) to prevent excessive memory usage

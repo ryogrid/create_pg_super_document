@@ -24,10 +24,10 @@ PQescapeByteaInternal is the core implementation function for bytea escaping in 
 - Functions called/Symbols referenced:
   - malloc
   - hextbl (static hex character lookup table)
-  - libpq_append_conn_error (for error reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from (representative examples):
-  - PQescapeByteaConn
-  - PQescapeBytea
+  - [PQescapeByteaConn](PQescapeByteaConn.md)
+  - [PQescapeBytea](PQescapeBytea.md)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

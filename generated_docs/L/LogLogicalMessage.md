@@ -21,20 +21,20 @@ This function creates and logs a logical message record in the write-ahead log (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_logical_message
-  - IsTransactionState
-  - GetCurrentTransactionId
-  - XLogBeginInsert
+  - [xl_logical_message](../x/xl_logical_message.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
   - SizeOfLogicalMessage
-  - XLogRegisterData
+  - [XLogRegisterData](../X/XLogRegisterData.md)
   - unconstify
-  - XLogSetRecordFlags
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
   - XLOG_INCLUDE_ORIGIN
-  - XLogInsert
+  - [XLogInsert](../X/XLogInsert.md)
   - XLOG_LOGICAL_MESSAGE
-  - XLogFlush
+  - [XLogFlush](../X/XLogFlush.md)
 - Called from (representative examples):
-  - pg_logical_emit_message_bytea
+  - [pg_logical_emit_message_bytea](../p/pg_logical_emit_message_bytea.md)
 
 ## Notes and Other Information
 - For transactional messages, a transaction ID is forcibly allocated to ensure proper transaction tracking

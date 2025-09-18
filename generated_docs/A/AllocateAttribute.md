@@ -19,12 +19,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero (allocates and zero-initializes memory)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocates and zero-initializes memory)
   - ATTRIBUTE_FIXED_PART_SIZE (constant defining the size of fixed pg_attribute data)
 
 - Called from:
-  - boot_openrel (when opening relations during bootstrap)
-  - DefineAttr (when defining new attributes during bootstrap)
+  - [boot_openrel](../b/boot_openrel.md) (when opening relations during bootstrap)
+  - [DefineAttr](../D/DefineAttr.md) (when defining new attributes during bootstrap)
 
 ## Notes and Other Information
 - Uses TopMemoryContext to ensure the allocated attribute persists throughout bootstrap

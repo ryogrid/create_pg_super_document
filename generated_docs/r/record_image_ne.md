@@ -21,8 +21,8 @@ The function delegates all the complex comparison logic to `record_image_eq` and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - record_image_eq
-  - DatumGetBool
+  - [record_image_eq](record_image_eq.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

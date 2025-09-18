@@ -19,10 +19,10 @@ This function takes no explicit parameters (uses PG_FUNCTION_ARGS macro for Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Port (struct type from MyProcPort)
+  - [Port](../P/Port.md) (struct type from MyProcPort)
   - pg_getnameinfo_all (address-to-string conversion)
-  - clean_ipv6_addr (IPv6 address formatting)
-  - network_in (string to inet type conversion)
+  - [clean_ipv6_addr](../c/clean_ipv6_addr.md) (IPv6 address formatting)
+  - [network_in](../n/network_in.md) (string to inet type conversion)
   - PG_RETURN_INET_P (PostgreSQL return macro)
 - Called from (representative examples):
   - No direct callers found (likely called through SQL function interface)

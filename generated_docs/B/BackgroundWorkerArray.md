@@ -26,11 +26,11 @@ The active parallel worker count is calculated as (registered - terminated), all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorkerSlot
+  - [BackgroundWorkerSlot](BackgroundWorkerSlot.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - BackgroundWorkerHandle
-  - BackgroundWorkerShmemSize
+  - [BackgroundWorkerHandle](BackgroundWorkerHandle.md)
+  - [BackgroundWorkerShmemSize](BackgroundWorkerShmemSize.md)
 
 ## Notes and Other Information
 - Uses flexible array member for efficient memory layout - actual size determined at runtime

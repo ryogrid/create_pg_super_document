@@ -19,16 +19,16 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease (thread-safe access to SlotSyncCtx)
   - kill (sends SIGINT to worker process)
-  - WaitLatch (efficient waiting with timeout and interrupt handling)
-  - ResetLatch (latch state management)
+  - [WaitLatch](../W/WaitLatch.md) (efficient waiting with timeout and interrupt handling)
+  - [ResetLatch](../R/ResetLatch.md) (latch state management)
   - CHECK_FOR_INTERRUPTS (interrupt processing)
-  - update_synced_slots_inactive_since (slot timestamp updates)
+  - [update_synced_slots_inactive_since](../u/update_synced_slots_inactive_since.md) (slot timestamp updates)
   - SlotSyncCtx (global slot synchronization context)
   - InvalidPid (process ID validation)
   - MyLatch (current process latch)
 
 - Called from (representative examples):
-  - FinishWalRecovery (src/backend/access/transam/xlogrecovery.c:1486)
+  - [FinishWalRecovery](../F/FinishWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1486)
   - Referenced in SLOTSYNC_H header (src/include/replication/slotsync.h:31)
 
 ## Notes and Other Information

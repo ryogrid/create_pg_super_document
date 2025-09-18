@@ -27,17 +27,17 @@ This function takes no parameters.
   - LWLockRelease 
   - dlist_foreach_modify
   - dlist_container
-  - TransactionIdPrecedesOrEquals
-  - dlist_delete_thoroughly
-  - ReleaseOneSerializableXact
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
+  - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md)
+  - [ReleaseOneSerializableXact](../R/ReleaseOneSerializableXact.md)
   - SxactIsReadOnly
   - PredicateLockTargetTagHashCode
   - PredicateLockHashPartitionLock
-  - hash_search_with_hash_value
-  - RemoveTargetIfNoLongerUsed
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
 - Called from:
-  - SerialControl
-  - ReleasePredicateLocks
+  - [SerialControl](../S/SerialControl.md)
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md)
 
 ## Notes and Other Information
 - This function is critical for preventing memory leaks in long-running systems with many serializable transactions

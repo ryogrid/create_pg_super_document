@@ -40,8 +40,8 @@ The structure tracks expected vs actual relation properties, manages subsidiary 
   - Oid (data type)
   - LOCKMODE (data type)
 - Called from (representative examples):
-  - RemoveRelations (src/backend/commands/tablecmds.c:1544)
-  - RangeVarCallbackForDropRelation (src/backend/commands/tablecmds.c:1636, 1643)
+  - [RemoveRelations](../R/RemoveRelations.md) (src/backend/commands/tablecmds.c:1544)
+  - [RangeVarCallbackForDropRelation](../R/RangeVarCallbackForDropRelation.md) (src/backend/commands/tablecmds.c:1636, 1643)
 
 ## Notes and Other Information
 - Critical for preventing deadlocks during DROP operations by ensuring proper lock acquisition order

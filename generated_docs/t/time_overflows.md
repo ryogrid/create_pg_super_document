@@ -30,8 +30,8 @@ The time_overflows function performs comprehensive validation of time-of-day com
 - Types used:
   - fsec_t (fractional seconds type)
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeTimeOnly
+  - [DecodeDateTime](../D/DecodeDateTime.md)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information

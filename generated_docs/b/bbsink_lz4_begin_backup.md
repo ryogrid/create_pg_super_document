@@ -22,7 +22,7 @@ The function ensures that the output buffer size accommodates the worst-case com
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset (memory initialization)
-  - palloc (memory allocation)  
+  - [palloc](../p/palloc.md) (memory allocation)  
   - LZ4F_compressBound (LZ4 library function)
   - bbsink_begin_backup (calls next sink in chain)
 - Called from (representative examples):

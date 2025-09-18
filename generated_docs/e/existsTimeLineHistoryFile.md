@@ -19,12 +19,12 @@ This function determines if a timeline history file exists for the current timel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StreamCtl (structure)
+  - [StreamCtl](../S/StreamCtl.md) (structure)
   - MAXFNAMELEN (constant)
   - TLHistoryFileName
   - walmethod->ops->existsfile
 - Called from (representative examples):
-  - ReceiveXlogStream
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md)
 
 ## Notes and Other Information
 - Timeline 1 always returns true since it never has a history file by PostgreSQL convention

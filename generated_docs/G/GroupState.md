@@ -276,14 +276,14 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base executor state structure)
+  - [ScanState](../S/ScanState.md) (base executor state structure)
   - ExprState (compiled expression state for equality comparisons)
 - Called from (representative examples):
-  - ExecGroup (src/backend/executor/nodeGroup.c:38, 160)
-  - ExecInitGroup (src/backend/executor/nodeGroup.c:163, 172)
-  - ExecEndGroup (src/backend/executor/nodeGroup.c:226)
-  - ExecReScanGroup (src/backend/executor/nodeGroup.c:235)
-  - show_group_keys (src/backend/commands/explain.c:2739)
+  - [ExecGroup](../E/ExecGroup.md) (src/backend/executor/nodeGroup.c:38, 160)
+  - [ExecInitGroup](../E/ExecInitGroup.md) (src/backend/executor/nodeGroup.c:163, 172)
+  - [ExecEndGroup](../E/ExecEndGroup.md) (src/backend/executor/nodeGroup.c:226)
+  - [ExecReScanGroup](../E/ExecReScanGroup.md) (src/backend/executor/nodeGroup.c:235)
+  - [show_group_keys](../s/show_group_keys.md) (src/backend/commands/explain.c:2739)
 
 ## Notes and Other Information
 - The Group node requires pre-sorted input and is only used when the query planner can guarantee proper ordering of the input stream

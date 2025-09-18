@@ -27,37 +27,37 @@ The initialization process includes setting up shared memory structures, timeout
 ## Dependencies
 - Functions called/Symbols referenced:
   - InitProcessPhase2
-  - SharedInvalBackendInit
-  - ProcSignalInit
+  - [SharedInvalBackendInit](../S/SharedInvalBackendInit.md)
+  - [ProcSignalInit](../P/ProcSignalInit.md)
   - RegisterTimeout (various timeout types)
-  - CreateAuxProcessResourceOwner
-  - StartupXLOG
-  - RelationCacheInitialize
-  - InitCatalogCache
-  - InitPlanCache
+  - [CreateAuxProcessResourceOwner](../C/CreateAuxProcessResourceOwner.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [RelationCacheInitialize](../R/RelationCacheInitialize.md)
+  - [InitCatalogCache](InitCatalogCache.md)
+  - [InitPlanCache](InitPlanCache.md)
   - EnablePortalManager
-  - pgstat_beinit
+  - [pgstat_beinit](../p/pgstat_beinit.md)
   - RelationCacheInitializePhase2
-  - SetCurrentStatementStartTimestamp
-  - StartTransactionCommand
+  - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - GetTransactionSnapshot
-  - PerformAuthentication
-  - InitializeSessionUserId
-  - InitializeSystemUser
-  - GetDatabaseTuple
-  - LockSharedObject
-  - CheckMyDatabase
-  - process_startup_options
-  - process_settings
-  - InitializeSearchPath
-  - InitializeClientEncoding
-  - InitializeSession
+  - [PerformAuthentication](../P/PerformAuthentication.md)
+  - [InitializeSessionUserId](InitializeSessionUserId.md)
+  - [InitializeSystemUser](InitializeSystemUser.md)
+  - [GetDatabaseTuple](../G/GetDatabaseTuple.md)
+  - [LockSharedObject](../L/LockSharedObject.md)
+  - [CheckMyDatabase](../C/CheckMyDatabase.md)
+  - [process_startup_options](../p/process_startup_options.md)
+  - [process_settings](../p/process_settings.md)
+  - [InitializeSearchPath](InitializeSearchPath.md)
+  - [InitializeClientEncoding](InitializeClientEncoding.md)
+  - [InitializeSession](InitializeSession.md)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - AutoVacWorkerMain
-  - BackgroundWorkerInitializeConnection
-  - ReplSlotSyncWorkerMain
-  - PostgresMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md)
+  - [BackgroundWorkerInitializeConnection](../B/BackgroundWorkerInitializeConnection.md)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md)
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - Must be called after BaseInit and InitProcess

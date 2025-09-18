@@ -27,8 +27,8 @@ The function is called as part of pgbench's socket monitoring loop to prepare fo
   - SELECT version:  macro,  field reset
   -  type (structure being cleared)
 - Called from (representative examples):
-  - threadRun() function at src/bin/pgbench/pgbench.c:7518
-  - threadRun() function at src/bin/pgbench/pgbench.c:7620
+  - [threadRun](../t/threadRun.md)() function at src/bin/pgbench/pgbench.c:7518
+  - [threadRun](../t/threadRun.md)() function at src/bin/pgbench/pgbench.c:7620
 
 ## Notes and Other Information
 - The implementations differ significantly between ppoll() and select() versions due to their different underlying data structures

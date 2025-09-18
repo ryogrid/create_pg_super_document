@@ -21,14 +21,14 @@ spgPickSplitIn is an input structure used in the SP-GiST (Space-Partitioned Gene
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL generic data value type)
 - Called from (representative examples):
-  - checkAllTheSame (src/backend/access/spgist/spgdoinsert.c:599)
-  - doPickSplit (src/backend/access/spgist/spgdoinsert.c:683)
-  - spg_kd_picksplit (src/backend/access/spgist/spgkdtreeproc.c:110)
-  - spg_quad_picksplit (src/backend/access/spgist/spgquadtreeproc.c:171)
-  - spg_text_picksplit (src/backend/access/spgist/spgtextproc.c:335)
-  - spg_box_quad_picksplit (src/backend/utils/adt/geo_spgist.c:443)
-  - inet_spg_picksplit (src/backend/utils/adt/network_spgist.c:167)
-  - spg_range_quad_picksplit (src/backend/utils/adt/rangetypes_spgist.c:202)
+  - [checkAllTheSame](../c/checkAllTheSame.md) (src/backend/access/spgist/spgdoinsert.c:599)
+  - [doPickSplit](../d/doPickSplit.md) (src/backend/access/spgist/spgdoinsert.c:683)
+  - [spg_kd_picksplit](spg_kd_picksplit.md) (src/backend/access/spgist/spgkdtreeproc.c:110)
+  - [spg_quad_picksplit](spg_quad_picksplit.md) (src/backend/access/spgist/spgquadtreeproc.c:171)
+  - [spg_text_picksplit](spg_text_picksplit.md) (src/backend/access/spgist/spgtextproc.c:335)
+  - [spg_box_quad_picksplit](spg_box_quad_picksplit.md) (src/backend/utils/adt/geo_spgist.c:443)
+  - [inet_spg_picksplit](../i/inet_spg_picksplit.md) (src/backend/utils/adt/network_spgist.c:167)
+  - [spg_range_quad_picksplit](spg_range_quad_picksplit.md) (src/backend/utils/adt/rangetypes_spgist.c:202)
 
 ## Notes and Other Information
 - This struct is part of the SP-GiST index access method interface

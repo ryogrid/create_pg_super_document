@@ -25,9 +25,9 @@ The function is specifically designed to handle both regular BRIN pages and meta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mask_page_lsn_and_checksum: Standard function to mask LSN and checksum
-  - mask_page_hint_bits: Standard function to mask hint bits
-  - mask_unused_space: Standard function to mask unused page space
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md): Standard function to mask LSN and checksum
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md): Standard function to mask hint bits
+  - [mask_unused_space](../m/mask_unused_space.md): Standard function to mask unused page space
   - BRIN_IS_REGULAR_PAGE: Macro to check if page is a regular BRIN page
   - BRIN_IS_META_PAGE: Macro to check if page is a BRIN meta page
   - BrinPageFlags: Macro to access BRIN page flags

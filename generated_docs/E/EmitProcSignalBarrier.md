@@ -27,23 +27,23 @@ The function is designed to be safe from exceptions (will not throw ERROR or FAT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_or_u32 (atomic bitwise OR operation)
-  - pg_atomic_add_fetch_u64 (atomic increment operation)
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md) (atomic bitwise OR operation)
+  - [pg_atomic_add_fetch_u64](../p/pg_atomic_add_fetch_u64.md) (atomic increment operation)
   - kill (system call to send signals)
 - Data structures accessed:
   - ProcSignal global structure
-  - ProcSignalSlot array elements
+  - [ProcSignalSlot](../P/ProcSignalSlot.md) array elements
   - NumProcSignalSlots global variable
 - Constants used:
   - PROCSIG_BARRIER (signal type identifier)
   - SIGUSR1 (Unix signal number)
 
 - Called from (representative examples):
-  - dropdb (database drop operations)
-  - movedb (database move operations)
-  - dbase_redo (database WAL replay)
-  - DropTableSpace (tablespace removal)
-  - tblspc_redo (tablespace WAL replay)
+  - [dropdb](../d/dropdb.md) (database drop operations)
+  - [movedb](../m/movedb.md) (database move operations)
+  - [dbase_redo](../d/dbase_redo.md) (database WAL replay)
+  - [DropTableSpace](../D/DropTableSpace.md) (tablespace removal)
+  - [tblspc_redo](../t/tblspc_redo.md) (tablespace WAL replay)
 
 ## Notes and Other Information
 - The function returns a generation number that can be passed to WaitForProcSignalBarrier to synchronize on completion

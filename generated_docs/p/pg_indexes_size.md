@@ -29,9 +29,9 @@ The function is designed to be safe for concurrent use and handles edge cases gr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `try_relation_open`: Safely opens a relation by OID with specified lock mode
-  - `calculate_indexes_size`: Core function that computes the total indexes size
-  - `relation_close`: Closes the relation and releases the lock
+  - `[try_relation_open](../t/try_relation_open.md)`: Safely opens a relation by OID with specified lock mode
+  - `[calculate_indexes_size](../c/calculate_indexes_size.md)`: Core function that computes the total indexes size
+  - `[relation_close](../r/relation_close.md)`: Closes the relation and releases the lock
   - `PG_RETURN_INT64`: PostgreSQL macro for returning int64 values from functions
 - Called from (representative examples):
   - This is a top-level SQL function, typically called directly from SQL queries

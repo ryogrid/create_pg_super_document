@@ -20,12 +20,12 @@ This function calculates how many database pages are needed to store a specified
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_byte_size (calculates total byte storage requirement)
+  - [relation_byte_size](../r/relation_byte_size.md) (calculates total byte storage requirement)
   - BLCKSZ (constant defining the database block/page size)
   - ceil (math function to round up to nearest integer)
 - Called from (representative examples):
   - cost_qual_eval_context
-  - initial_cost_hashjoin
+  - [initial_cost_hashjoin](../i/initial_cost_hashjoin.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the cost estimation module

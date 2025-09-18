@@ -25,18 +25,18 @@ The function automatically detects the optimal build strategy by checking for so
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initGISTstate: Initialize GiST operational state
-  - createTempGistContext: Create temporary memory context for tuple processing
-  - index_getprocid: Retrieve sort support function OIDs
-  - tuplesort_begin_index_gist: Initialize tuplesort for GiST index building
-  - table_index_build_scan: Scan heap relation and process tuples
-  - gistSortedBuildCallback: Callback for sorted build tuple processing
-  - gist_indexsortbuild: Build index pages from sorted tuples
-  - gistBuildCallback: Callback for traditional insertion build
-  - gistNewBuffer: Allocate new index page buffer
-  - GISTInitBuffer: Initialize GiST page structure
+  - [initGISTstate](../i/initGISTstate.md): Initialize GiST operational state
+  - [createTempGistContext](../c/createTempGistContext.md): Create temporary memory context for tuple processing
+  - [index_getprocid](../i/index_getprocid.md): Retrieve sort support function OIDs
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md): Initialize tuplesort for GiST index building
+  - [table_index_build_scan](../t/table_index_build_scan.md): Scan heap relation and process tuples
+  - [gistSortedBuildCallback](gistSortedBuildCallback.md): Callback for sorted build tuple processing
+  - [gist_indexsortbuild](gist_indexsortbuild.md): Build index pages from sorted tuples
+  - [gistBuildCallback](gistBuildCallback.md): Callback for traditional insertion build
+  - [gistNewBuffer](gistNewBuffer.md): Allocate new index page buffer
+  - [GISTInitBuffer](../G/GISTInitBuffer.md): Initialize GiST page structure
 - Called from (representative examples):
-  - gisthandler: GiST access method handler dispatch function
+  - [gisthandler](gisthandler.md): GiST access method handler dispatch function
 
 ## Notes and Other Information
 - The function expects to be called exactly once per index relation and will error if the index already contains data

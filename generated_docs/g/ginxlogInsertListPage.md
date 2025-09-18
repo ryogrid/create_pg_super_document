@@ -25,8 +25,8 @@ The structure is followed by the actual tuple data in the WAL record, allowing c
 - Functions called/Symbols referenced:
   - None (this is a data structure)
 - Called from (representative examples):
-  - writeListPage (src/backend/access/gin/ginfast.c:118, 125)
-  - ginRedoInsertListPage (src/backend/access/gin/ginxlog.c:623)
+  - [writeListPage](../w/writeListPage.md) (src/backend/access/gin/ginfast.c:118, 125)
+  - [ginRedoInsertListPage](ginRedoInsertListPage.md) (src/backend/access/gin/ginxlog.c:623)
 
 ## Notes and Other Information
 - This structure is specifically designed for WAL logging and is not used for in-memory operations

@@ -20,11 +20,11 @@ The create_fullpage_directory function is responsible for setting up a directory
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_check_dir (function to check directory status and accessibility)
-  - pg_mkdir_p (function to create directory with parent directories as needed)
+  - [pg_mkdir_p](../p/pg_mkdir_p.md) (function to create directory with parent directories as needed)
   - pg_dir_create_mode (global variable defining directory creation permissions)
-  - pg_fatal (function to report fatal errors and exit)
+  - [pg_fatal](../p/pg_fatal.md) (function to report fatal errors and exit)
 - Called from (representative examples):
-  - main (called in pg_waldump.c:1110)
+  - [main](../m/main.md) (called in pg_waldump.c:1110)
 
 ## Notes and Other Information
 - The function enforces a strict policy: the target directory must be either non-existent or empty

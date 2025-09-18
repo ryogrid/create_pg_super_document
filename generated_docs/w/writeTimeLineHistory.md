@@ -34,15 +34,15 @@ The function includes robust error handling throughout, cleaning up temporary fi
   - CloseTransientFile - closes file handles
   - TLHistoryFileName - constructs timeline history filename
   - TLHistoryFilePath - constructs local path to history file
-  - RestoreArchivedFile - restores parent history from archive if needed
-  - durable_rename - atomically renames temporary file to final location
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) - restores parent history from archive if needed
+  - [durable_rename](../d/durable_rename.md) - atomically renames temporary file to final location
   - XLogArchivingActive - checks if archiving is enabled
-  - XLogArchiveNotify - notifies archiver of new file
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md) - notifies archiver of new file
   - pg_fsync - ensures data is written to disk
   - pgstat_report_wait_start/end - reports wait events for monitoring
   - Various system calls: read, write, unlink, access
 - Called from (representative examples):
-  - StartupXLOG - during database startup when creating new timelines
+  - [StartupXLOG](../S/StartupXLOG.md) - during database startup when creating new timelines
 
 ## Notes and Other Information
 - Used primarily at the end of recovery operations when promoting a standby or switching timelines

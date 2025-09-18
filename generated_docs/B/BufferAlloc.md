@@ -42,19 +42,19 @@ The function is designed to handle high concurrency scenarios and includes robus
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerEnlarge
-  - ReservePrivateRefCountEntry
-  - InitBufferTag
-  - BufTableHashCode
-  - BufMappingPartitionLock
-  - BufTableLookup
-  - BufTableInsert
-  - GetBufferDescriptor
-  - GetVictimBuffer
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
+  - [InitBufferTag](../I/InitBufferTag.md)
+  - [BufTableHashCode](BufTableHashCode.md)
+  - [BufMappingPartitionLock](BufMappingPartitionLock.md)
+  - [BufTableLookup](BufTableLookup.md)
+  - [BufTableInsert](BufTableInsert.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - PinBuffer
   - UnpinBuffer
   - StrategyFreeBuffer
   - LockBufHdr
-  - UnlockBufHdr
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Constants used:
   - LW_SHARED
   - BM_TAG_VALID
@@ -66,7 +66,7 @@ The function is designed to handle high concurrency scenarios and includes robus
   - RELPERSISTENCE_PERMANENT
   - INIT_FORKNUM
 - Called from (representative examples):
-  - PinBufferForBlock
+  - [PinBufferForBlock](../P/PinBufferForBlock.md)
 
 ## Notes and Other Information
 - This function is marked as pg_attribute_always_inline for performance optimization

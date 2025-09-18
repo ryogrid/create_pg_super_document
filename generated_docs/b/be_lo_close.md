@@ -20,7 +20,7 @@ The `be_lo_close` function closes a large object that was previously opened with
 ## Dependencies
 - Functions called/Symbols referenced:
   - DEBUG4
-  - closeLOfd
+  - [closeLOfd](../c/closeLOfd.md)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function call mechanism)
 

@@ -14,9 +14,9 @@ The addScript function is responsible for adding a pre-parsed SQL script to the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal - Error reporting function when validation fails
-  - CheckConditional - Validates conditional logic in the script
-  - ParsedScript - Structure type for the script parameter
+  - [pg_fatal](../p/pg_fatal.md) - Error reporting function when validation fails
+  - [CheckConditional](../C/CheckConditional.md) - Validates conditional logic in the script
+  - [ParsedScript](../P/ParsedScript.md) - Structure type for the script parameter
   - MAX_SCRIPTS - Constant defining maximum allowed scripts
 - Called from (representative examples):
   - Function at line 6064 in pgbench.c (within script processing logic)

@@ -22,13 +22,13 @@ This function handles the parsing of backslash commands (metacommands) in pgbenc
   - expr_scanner_offset, expr_scanner_get_lineno, expr_scanner_get_substring
   - expr_lex_one_word
   - pg_malloc0, pg_strdup
-  - initSimpleStats
-  - getMetaCommand
+  - [initSimpleStats](../i/initSimpleStats.md)
+  - [getMetaCommand](../g/getMetaCommand.md)
   - expr_scanner_init, expr_yyparse, expr_scanner_finish
-  - syntax_error
-  - pg_strcasecmp
+  - [syntax_error](../s/syntax_error.md)
+  - [pg_strcasecmp](pg_strcasecmp.md)
   - isdigit
-  - Command, PsqlScanState, PQExpBufferData structs
+  - [Command](../C/Command.md), PsqlScanState, PQExpBufferData structs
   - META_COMMAND, META_SET, META_IF, META_ELIF, META_SLEEP, META_SHELL, etc. enums
 - Called from:
   - COMMANDS_ALLOC_NUM (src/bin/pgbench/pgbench.c:6000)

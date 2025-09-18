@@ -22,7 +22,7 @@ This function takes no parameters.
   - CurrentTransactionState (global variable)
   - TransactionState (type)
 - Called from (representative examples):
-  - AbortSubTransaction
+  - [AbortSubTransaction](AbortSubTransaction.md)
 
 ## Notes and Other Information
 - This function is static and only used within the transaction management subsystem

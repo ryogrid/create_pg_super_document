@@ -21,10 +21,10 @@ The function checks if the global tidstore pointer is NULL and immediately throw
 - Functions called/Symbols referenced:
   - elog (for error logging and exception throwing)
 - Called from (representative examples):
-  - do_set_block_offsets
-  - check_set_block_offsets
-  - test_is_full
-  - test_destroy
+  - [do_set_block_offsets](../d/do_set_block_offsets.md)
+  - [check_set_block_offsets](check_set_block_offsets.md)
+  - [test_is_full](../t/test_is_full.md)
+  - [test_destroy](../t/test_destroy.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the test_tidstore module

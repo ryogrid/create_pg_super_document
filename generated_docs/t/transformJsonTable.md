@@ -26,16 +26,16 @@ The function ensures SQL standard compliance and proper handling of lateral refe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generateJsonTablePathName
-  - CheckDuplicateColumnOrPathNames
+  - [generateJsonTablePathName](../g/generateJsonTablePathName.md)
+  - [CheckDuplicateColumnOrPathNames](../C/CheckDuplicateColumnOrPathNames.md)
   - makeNode
-  - transformExpr
-  - transformJsonTableColumns
+  - [transformExpr](transformExpr.md)
+  - [transformJsonTableColumns](transformJsonTableColumns.md)
   - copyObject
-  - contain_vars_of_level
-  - addRangeTableEntryForTableFunc
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)
+  - [addRangeTableEntryForTableFunc](../a/addRangeTableEntryForTableFunc.md)
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - The function temporarily enables lateral reference resolution (p_lateral_active = true) during transformation to comply with SQL specification requirements

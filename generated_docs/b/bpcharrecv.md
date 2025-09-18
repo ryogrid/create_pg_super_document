@@ -21,9 +21,9 @@ The function extracts the binary message text using , then delegates the actual 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgtext
-  - bpchar_input
-  - pfree
+  - [pq_getmsgtext](../p/pq_getmsgtext.md)
+  - [bpchar_input](bpchar_input.md)
+  - [pfree](../p/pfree.md)
   - PG_RETURN_BPCHAR_P
 - Called from (representative examples):
   - None found in current analysis

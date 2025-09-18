@@ -29,13 +29,13 @@ The structure uses a flexible array member for the nodes, allowing for variable-
   - binaryheap_comparator
 
 - Called from (representative examples):
-  - binaryheap_allocate
-  - binaryheap_reset
-  - binaryheap_free
-  - binaryheap_add
-  - binaryheap_remove_first
-  - MergeAppendState (in executor nodes)
-  - GatherMergeState (in parallel query execution)
+  - [binaryheap_allocate](binaryheap_allocate.md)
+  - [binaryheap_reset](binaryheap_reset.md)
+  - [binaryheap_free](binaryheap_free.md)
+  - [binaryheap_add](binaryheap_add.md)
+  - [binaryheap_remove_first](binaryheap_remove_first.md)
+  - [MergeAppendState](../M/MergeAppendState.md) (in executor nodes)
+  - [GatherMergeState](../G/GatherMergeState.md) (in parallel query execution)
   - BufferSync (in buffer management)
   - ReorderBufferIterTXNState (in logical replication)
 

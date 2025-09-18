@@ -34,21 +34,21 @@ The operation is complex because changing a generated expression affects not onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName
-  - RelationClearMissing
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
+  - [RelationClearMissing](../R/RelationClearMissing.md)
   - CommandCounterIncrement
-  - RememberAllDependentForRebuilding
-  - GetAttrDefaultOid
-  - deleteDependencyRecordsFor
-  - RemoveAttrDefault
-  - AddRelationNewConstraints
-  - build_column_default
-  - expression_planner
-  - RemoveStatistics
+  - [RememberAllDependentForRebuilding](../R/RememberAllDependentForRebuilding.md)
+  - [GetAttrDefaultOid](../G/GetAttrDefaultOid.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
+  - [RemoveAttrDefault](../R/RemoveAttrDefault.md)
+  - [AddRelationNewConstraints](AddRelationNewConstraints.md)
+  - [build_column_default](../b/build_column_default.md)
+  - [expression_planner](../e/expression_planner.md)
+  - [RemoveStatistics](../R/RemoveStatistics.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSubSet
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
 
 ## Notes and Other Information

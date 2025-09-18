@@ -61,14 +61,14 @@ The ginVersion field tracks the index format version, enabling backward compatib
   - int32 (32-bit signed integer type)
 - Called from (representative examples):
   - GinPageGetMeta (macro for accessing metapage data)
-  - ginHeapTupleFastInsert (fast insertion operations)
-  - ginInsertCleanup (pending list cleanup)
-  - GinInitMetabuffer (metapage initialization)
-  - ginGetStats (statistics retrieval)
-  - ginUpdateStats (statistics updates)
-  - ginRedoUpdateMetapage (WAL replay)
-  - makeSublist (pending list management)
-  - shiftList (pending list reorganization)
+  - [ginHeapTupleFastInsert](../g/ginHeapTupleFastInsert.md) (fast insertion operations)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (pending list cleanup)
+  - [GinInitMetabuffer](GinInitMetabuffer.md) (metapage initialization)
+  - [ginGetStats](../g/ginGetStats.md) (statistics retrieval)
+  - [ginUpdateStats](../g/ginUpdateStats.md) (statistics updates)
+  - [ginRedoUpdateMetapage](../g/ginRedoUpdateMetapage.md) (WAL replay)
+  - [makeSublist](../m/makeSublist.md) (pending list management)
+  - [shiftList](../s/shiftList.md) (pending list reorganization)
 
 ## Notes and Other Information
 - Version compatibility: Version 2 (9.4+) is current, Version 1 (9.1-9.3) may contain uncompressed pages, Version 0 (9.0-) may miss null entries

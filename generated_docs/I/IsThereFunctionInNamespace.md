@@ -26,12 +26,12 @@ The function uses the PROCNAMEARGSNSP system cache to efficiently search for exi
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3 (system cache lookup)
-  - CStringGetDatum (datum conversion)
-  - funcname_signature_string (signature formatting for error messages)
-  - get_namespace_name (namespace name retrieval for error messages)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion)
+  - [funcname_signature_string](../f/funcname_signature_string.md) (signature formatting for error messages)
+  - [get_namespace_name](../g/get_namespace_name.md) (namespace name retrieval for error messages)
 - Called from (representative examples):
-  - AlterObjectRename_internal
-  - AlterObjectNamespace_internal
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)
 
 ## Notes and Other Information
 - Used specifically during ALTER operations to provide better error reporting

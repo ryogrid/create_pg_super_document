@@ -18,12 +18,12 @@ This function is responsible for converting a Param node into its appropriate te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_param_referent
-  - find_param_generator
-  - push_ancestor_plan
-  - pop_ancestor_plan
+  - [find_param_referent](../f/find_param_referent.md)
+  - [find_param_generator](../f/find_param_generator.md)
+  - [push_ancestor_plan](../p/push_ancestor_plan.md)
+  - [pop_ancestor_plan](../p/pop_ancestor_plan.md)
   - get_rule_expr
-  - quote_identifier
+  - [quote_identifier](../q/quote_identifier.md)
   - llast
   - deparse_namespace
   - SubPlan

@@ -20,7 +20,7 @@ This function is designed to be called exactly once using  to ensure thread-safe
 ## Dependencies
 - Functions called/Symbols referenced:
   - pthread_key_create (POSIX threads function for creating thread-specific data keys)
-  - ecpg_sqlca_key_destructor (destructor function for cleanup)
+  - [ecpg_sqlca_key_destructor](ecpg_sqlca_key_destructor.md) (destructor function for cleanup)
   - sqlca_key (static pthread_key_t variable)
 - Called from (representative examples):
   - ECPGget_sqlca (via pthread_once mechanism)

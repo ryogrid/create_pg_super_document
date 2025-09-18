@@ -23,16 +23,16 @@ The function is exported for use by add-on transform modules, making it a public
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_Bytes
+  - [PLyUnicode_Bytes](PLyUnicode_Bytes.md)
   - PyObject_Repr
   - PyObject_Str
   - PLy_elog
-  - pstrdup
-  - pg_verifymbstr
+  - [pstrdup](../p/pstrdup.md)
+  - [pg_verifymbstr](../p/pg_verifymbstr.md)
 - Called from (representative examples):
-  - PLyObject_ToScalar
-  - PLyUnicode_ToComposite
-  - PLyObToDatum
+  - [PLyObject_ToScalar](PLyObject_ToScalar.md)
+  - [PLyUnicode_ToComposite](PLyUnicode_ToComposite.md)
+  - [PLyObToDatum](PLyObToDatum.md)
 
 ## Notes and Other Information
 The function implements important safety measures including null byte detection and multibyte string validation. The special handling of float objects using repr() instead of str() prevents precision loss that could occur with standard string conversion. The exported nature of this function makes it available to transform modules, indicating its role as a fundamental conversion utility in the PL/Python infrastructure.

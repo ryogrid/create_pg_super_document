@@ -23,21 +23,21 @@ Similar to the initialization function, it includes conditional pointer alignmen
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (conditionally)
-  - pg_atomic_read_u64_impl
-  - pg_atomic_uint64 (type)
+  - [pg_atomic_read_u64_impl](pg_atomic_read_u64_impl.md)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
   - PG_HAVE_ATOMIC_U64_SIMULATION (preprocessor macro)
 - Called from (representative examples):
-  - SlruSelectLRUPage
+  - [SlruSelectLRUPage](../S/SlruSelectLRUPage.md)
   - RefreshXLogWriteResult
-  - GetXLogBuffer
-  - WALReadFromBuffers
-  - AdvanceXLInsertBuffer
-  - XLogWrite
-  - XLogPrefetchIncrement
-  - GetWalRcvWriteRecPtr
-  - WaitForProcSignalBarrier
-  - shm_mq_send_bytes
-  - shm_mq_receive_bytes
+  - [GetXLogBuffer](../G/GetXLogBuffer.md)
+  - [WALReadFromBuffers](../W/WALReadFromBuffers.md)
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md)
+  - [XLogWrite](../X/XLogWrite.md)
+  - [XLogPrefetchIncrement](../X/XLogPrefetchIncrement.md)
+  - [GetWalRcvWriteRecPtr](../G/GetWalRcvWriteRecPtr.md)
+  - [WaitForProcSignalBarrier](../W/WaitForProcSignalBarrier.md)
+  - [shm_mq_send_bytes](../s/shm_mq_send_bytes.md)
+  - [shm_mq_receive_bytes](../s/shm_mq_receive_bytes.md)
 
 ## Notes and Other Information
 - Conditionally enforces 8-byte alignment only when hardware atomic operations are available (not using spinlock simulation)

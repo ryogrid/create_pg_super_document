@@ -34,17 +34,17 @@ The function ensures that pulled-up SubLinks are placed correctly in the join tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - pull_up_sublinks_qual_recurse
-  - makeFromExpr
-  - bms_make_singleton, bms_join, bms_union, bms_add_member
-  - palloc, memcpy
+  - [pull_up_sublinks_qual_recurse](pull_up_sublinks_qual_recurse.md)
+  - [makeFromExpr](../m/makeFromExpr.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md), bms_join, bms_union, bms_add_member
+  - [palloc](palloc.md), memcpy
   - lappend, lfirst
   - IsA macro
   - elog, nodeTag
   - JOIN_INNER, JOIN_LEFT, JOIN_RIGHT, JOIN_FULL constants
 - Called from (representative examples):
-  - pull_up_sublinks (in src/backend/optimizer/prep/prepjointree.c:459)  
-  - pull_up_sublinks_qual_recurse (multiple locations for recursive SubLink processing)
+  - [pull_up_sublinks](pull_up_sublinks.md) (in src/backend/optimizer/prep/prepjointree.c:459)  
+  - [pull_up_sublinks_qual_recurse](pull_up_sublinks_qual_recurse.md) (multiple locations for recursive SubLink processing)
   - Self-recursive calls for processing child nodes
 
 ## Notes and Other Information

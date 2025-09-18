@@ -24,7 +24,7 @@ The function always throws an error with code `ERRCODE_FEATURE_NOT_SUPPORTED` an
   - TTS_EMPTY (macro to check if slot is empty)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (at src/backend/executor/execTuples.c:1116)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (at src/backend/executor/execTuples.c:1116)
 
 ## Notes and Other Information
 - The function includes an assertion that the slot is not empty before attempting to report the error

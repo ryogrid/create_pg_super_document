@@ -21,19 +21,19 @@ typenameType is the recommended high-level interface for converting TypeName obj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeName
-  - TypeNameToString
+  - [LookupTypeName](../L/LookupTypeName.md)
+  - [TypeNameToString](../T/TypeNameToString.md)
 - Called from (representative examples):
-  - ATExecAlterColumnType
-  - ATExecAddOf
-  - DefineType
-  - DefineDomain
-  - AlterType
-  - typenameTypeId
-  - typenameTypeIdAndMod
-  - transformColumnDefinition
-  - transformOfType
-  - transformColumnType
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [ATExecAddOf](../A/ATExecAddOf.md)
+  - [DefineType](../D/DefineType.md)
+  - [DefineDomain](../D/DefineDomain.md)
+  - [AlterType](../A/AlterType.md)
+  - [typenameTypeId](typenameTypeId.md)
+  - [typenameTypeIdAndMod](typenameTypeIdAndMod.md)
+  - [transformColumnDefinition](transformColumnDefinition.md)
+  - [transformOfType](transformOfType.md)
+  - [transformColumnType](transformColumnType.md)
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:264-290. This function is the preferred choice for most code that needs to resolve type names, as it provides complete validation and error handling. Unlike the lower-level LookupTypeName functions, callers can safely assume the returned Type represents a fully valid type without additional checking. The function always raises errors rather than returning NULL, simplifying error handling for callers.

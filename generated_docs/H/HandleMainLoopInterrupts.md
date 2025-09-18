@@ -21,13 +21,13 @@ This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessProcSignalBarrier
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)
   - ProcessConfigFile (with PGC_SIGHUP parameter)
-  - proc_exit
-  - ProcessLogMemoryContextInterrupt
+  - [proc_exit](../p/proc_exit.md)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md)
 - Called from (representative examples):
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:229)
-  - WalWriterMain (src/backend/postmaster/walwriter.c:244)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:229)
+  - [WalWriterMain](../W/WalWriterMain.md) (src/backend/postmaster/walwriter.c:244)
 
 ## Notes and Other Information
 - This function is declared in src/include/postmaster/interrupt.h for use by background processes

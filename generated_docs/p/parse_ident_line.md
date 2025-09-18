@@ -29,15 +29,15 @@ The function supports both literal username matching and regular expression patt
 - Functions called/Symbols referenced:
   - list_head/lnext (list manipulation)
   - lfirst/linitial (list element access)
-  - palloc0 (memory allocation)
-  - pstrdup (string duplication)
-  - copy_auth_token (authentication token duplication)
-  - regcomp_auth_token (regular expression compilation for auth tokens)
+  - [palloc0](palloc0.md) (memory allocation)
+  - [pstrdup](pstrdup.md) (string duplication)
+  - [copy_auth_token](../c/copy_auth_token.md) (authentication token duplication)
+  - [regcomp_auth_token](../r/regcomp_auth_token.md) (regular expression compilation for auth tokens)
   - IDENT_MULTI_VALUE/IDENT_FIELD_ABSENT (validation macros)
-  - TokenizedAuthLine, AuthToken, IdentLine (data structures)
+  - [TokenizedAuthLine](../T/TokenizedAuthLine.md), AuthToken, IdentLine (data structures)
 - Called from:
-  - load_ident (src/backend/libpq/hba.c:2997)
-  - fill_ident_view (src/backend/utils/adt/hbafuncs.c:552)
+  - [load_ident](../l/load_ident.md) (src/backend/libpq/hba.c:2997)
+  - [fill_ident_view](../f/fill_ident_view.md) (src/backend/utils/adt/hbafuncs.c:552)
 
 ## Notes and Other Information
 - Memory leaks are acceptable on error since caller is expected to reset the memory context

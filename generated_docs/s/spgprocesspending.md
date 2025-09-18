@@ -23,18 +23,18 @@ The function implements an optimization where it processes all pending items poi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_delay_point
-  - ItemPointerGetBlockNumber/ItemPointerGetOffsetNumber
-  - ReadBufferExtended
-  - vacuumLeafPage
-  - vacuumRedirectAndPlaceholder
-  - SpGistSetLastUsedPage
-  - spgAddPendingTID
-  - spgClearPendingList
-  - PageIsNew/SpGistPageIsDeleted/SpGistPageIsLeaf/SpGistBlockIsRoot
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)/ItemPointerGetOffsetNumber
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [vacuumLeafPage](../v/vacuumLeafPage.md)
+  - [vacuumRedirectAndPlaceholder](../v/vacuumRedirectAndPlaceholder.md)
+  - [SpGistSetLastUsedPage](../S/SpGistSetLastUsedPage.md)
+  - [spgAddPendingTID](spgAddPendingTID.md)
+  - [spgClearPendingList](spgClearPendingList.md)
+  - [PageIsNew](../P/PageIsNew.md)/SpGistPageIsDeleted/SpGistPageIsLeaf/SpGistBlockIsRoot
   - SGITITERATE
 - Called from (representative examples):
-  - spgvacuumscan
+  - [spgvacuumscan](spgvacuumscan.md)
 
 ## Notes and Other Information
 - Implements an efficient batch processing approach by handling all pending items for the same page in one visit

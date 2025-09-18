@@ -19,9 +19,9 @@ PQping is a utility function that determines whether a PostgreSQL server is runn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconnectStart
-  - internal_ping
-  - PQfinish
+  - [PQconnectStart](PQconnectStart.md)
+  - [internal_ping](../i/internal_ping.md)
+  - [PQfinish](PQfinish.md)
   - PGPing (return type enum)
 - Called from (representative examples):
   - Referenced in libpq-fe.h header definitions

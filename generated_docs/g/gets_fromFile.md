@@ -29,17 +29,17 @@ Key features:
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - resetPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - fgets
   - ferror
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - PQExpBufferBroken
   - pg_log_error
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - gets_interactive
-  - MainLoop
-  - exec_command_prompt
+  - [gets_interactive](gets_interactive.md)
+  - [MainLoop](../M/MainLoop.md)
+  - [exec_command_prompt](../e/exec_command_prompt.md)
 
 ## Notes and Other Information
 - Caller must have set up sigint_interrupt_jmp before calling

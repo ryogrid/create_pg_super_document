@@ -17,16 +17,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size
-  - add_size
-  - PgBackendStatus
+  - [mul_size](../m/mul_size.md)
+  - [add_size](../a/add_size.md)
+  - [PgBackendStatus](../P/PgBackendStatus.md)
   - NumBackendStatSlots
   - NAMEDATALEN
   - pgstat_track_activity_query_size
-  - PgBackendSSLStatus (ifdef USE_SSL)
-  - PgBackendGSSStatus (ifdef ENABLE_GSS)
+  - [PgBackendSSLStatus](../P/PgBackendSSLStatus.md) (ifdef USE_SSL)
+  - [PgBackendGSSStatus](../P/PgBackendGSSStatus.md) (ifdef ENABLE_GSS)
 - Called from:
-  - CalculateShmemSize
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 The function uses PostgreSQL's safe arithmetic functions (mul_size, add_size) to prevent integer overflow when calculating memory requirements. It conditionally includes memory for SSL and GSS status buffers based on compile-time configuration. This function is called during postmaster startup to determine how much shared memory to allocate for the backend status system.

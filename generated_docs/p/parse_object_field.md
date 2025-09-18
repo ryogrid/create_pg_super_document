@@ -18,14 +18,14 @@ parse_object_field handles the parsing of individual JSON object fields followin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lex_peek (for token lookahead and validation)
+  - [lex_peek](../l/lex_peek.md) (for token lookahead and validation)
   - report_parse_error (for syntax error reporting)
   - json_lex (for token consumption)
-  - lex_expect (for colon separator validation)
+  - [lex_expect](../l/lex_expect.md) (for colon separator validation)
   - parse_object (for nested object values)
   - parse_array (for array values)
-  - parse_scalar (for scalar values)
-  - pstrdup (for field name string duplication)
+  - [parse_scalar](parse_scalar.md) (for scalar values)
+  - [pstrdup](pstrdup.md) (for field name string duplication)
 - Called from (representative examples):
   - parse_object (src/common/jsonapi.c:1153, 1159) - when processing object field lists
 

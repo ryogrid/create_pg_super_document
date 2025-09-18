@@ -27,8 +27,8 @@ The function follows the standard PostgreSQL privilege checking workflow:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_table_priv_string: Converts privilege string to AclMode bitmask
-  - pg_class_aclcheck_ext: Performs the actual privilege check on the table
+  - [convert_table_priv_string](../c/convert_table_priv_string.md): Converts privilege string to AclMode bitmask
+  - [pg_class_aclcheck_ext](../p/pg_class_aclcheck_ext.md): Performs the actual privilege check on the table
   - AclResult: Enumeration type for access control check results
 - Called from (representative examples):
   - This is a system function callable from SQL queries via has_table_privilege() function

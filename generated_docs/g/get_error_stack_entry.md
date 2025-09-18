@@ -26,13 +26,13 @@ The error stack mechanism allows PostgreSQL to handle errors that occur during e
   - PANIC (error level constant)
   - memset (standard library function)
   - ereport (PostgreSQL error reporting function)
-  - errmsg_internal (internal error message function)
+  - [errmsg_internal](../e/errmsg_internal.md) (internal error message function)
 
 - Called from (representative examples):
-  - errstart (src/backend/utils/error/elog.c:446)
-  - errsave_start (src/backend/utils/error/elog.c:660) 
-  - ReThrowError (src/backend/utils/error/elog.c:1961)
-  - GetErrorContextStack (src/backend/utils/error/elog.c:2066)
+  - [errstart](../e/errstart.md) (src/backend/utils/error/elog.c:446)
+  - [errsave_start](../e/errsave_start.md) (src/backend/utils/error/elog.c:660) 
+  - [ReThrowError](../R/ReThrowError.md) (src/backend/utils/error/elog.c:1961)
+  - [GetErrorContextStack](../G/GetErrorContextStack.md) (src/backend/utils/error/elog.c:2066)
 
 ## Notes and Other Information
 - The function is static and only used internally within the error handling subsystem

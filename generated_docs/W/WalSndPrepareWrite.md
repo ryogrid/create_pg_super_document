@@ -25,12 +25,12 @@ The function is designed to be lightweight since the prepared data might not act
 ## Dependencies
 - Functions called/Symbols referenced:
   - resetStringInfo (resets the output buffer)
-  - pq_sendbyte (sends message type `w`)
-  - pq_sendint64 (sends LSN and timestamp values)
-  - LogicalDecodingContext (context structure)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (sends message type `w`)
+  - [pq_sendint64](../p/pq_sendint64.md) (sends LSN and timestamp values)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (context structure)
 - Called from (representative examples):
-  - CreateReplicationSlot (sets up logical replication slot)
-  - StartLogicalReplication (initiates logical replication streaming)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (sets up logical replication slot)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md) (initiates logical replication streaming)
 
 ## Notes and Other Information
 - The function invalidates the LSN for non-final writes to prevent sync replication confusion from duplicate LSNs

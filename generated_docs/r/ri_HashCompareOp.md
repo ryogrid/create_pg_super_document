@@ -28,15 +28,15 @@ The cached information is stored in TopMemoryContext to persist for the lifetime
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_InitHashTables (initializes hash table on first call)
-  - hash_search (finds or creates hash table entries)
-  - get_opcode (gets the function implementing the operator)
-  - fmgr_info_cxt (caches function manager information)
-  - op_input_types (determines operator input type requirements)
-  - find_coercion_pathway (locates type coercion functions)
-  - IsBinaryCoercible (checks for binary coercion compatibility)
+  - [ri_InitHashTables](ri_InitHashTables.md) (initializes hash table on first call)
+  - [hash_search](../h/hash_search.md) (finds or creates hash table entries)
+  - [get_opcode](../g/get_opcode.md) (gets the function implementing the operator)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (caches function manager information)
+  - [op_input_types](../o/op_input_types.md) (determines operator input type requirements)
+  - [find_coercion_pathway](../f/find_coercion_pathway.md) (locates type coercion functions)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (checks for binary coercion compatibility)
 - Called from (representative examples):
-  - ri_AttributesEqual (when performing attribute equality comparisons)
+  - [ri_AttributesEqual](ri_AttributesEqual.md) (when performing attribute equality comparisons)
 
 ## Notes and Other Information
 - Returns a pointer to the cached RI_CompareHashEntry containing operator and cast function information

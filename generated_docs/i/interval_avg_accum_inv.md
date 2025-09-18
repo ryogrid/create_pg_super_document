@@ -21,12 +21,12 @@ The function includes error handling to ensure it is not called with a NULL stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntervalAggState (struct type)
+  - [IntervalAggState](../I/IntervalAggState.md) (struct type)
   - PG_ARGISNULL (PostgreSQL macro)
   - PG_GETARG_POINTER (PostgreSQL macro)
   - PG_GETARG_INTERVAL_P (PostgreSQL macro)
   - PG_RETURN_POINTER (PostgreSQL macro)
-  - do_interval_discard (helper function)
+  - [do_interval_discard](../d/do_interval_discard.md) (helper function)
   - elog (error logging function)
 - Called from (representative examples):
   - No direct references found (likely used through PostgreSQL's aggregate function infrastructure)

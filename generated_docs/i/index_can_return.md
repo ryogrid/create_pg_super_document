@@ -30,8 +30,8 @@ The function checks if the access method provides an `amcanreturn` procedure and
   - RELATION_CHECKS (macro for relation validation)
   - amcanreturn (access method specific procedure for determining column returnability)
 - Called from (representative examples):
-  - get_relation_info (relation information gathering for query planning)
-  - indexam_property (index access method property queries)
+  - [get_relation_info](../g/get_relation_info.md) (relation information gathering for query planning)
+  - [indexam_property](indexam_property.md) (index access method property queries)
   - IndexScanIsValid (index scan validation)
 
 ## Notes and Other Information

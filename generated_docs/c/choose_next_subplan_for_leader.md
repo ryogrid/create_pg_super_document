@@ -24,11 +24,11 @@ The leader starts from the last (cheapest) subplan and works backward, immediate
   - ScanDirectionIsForward
   - LWLockAcquire
   - LWLockRelease
-  - ExecFindMatchingSubPlans
-  - mark_invalid_subplans_as_finished
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
+  - [mark_invalid_subplans_as_finished](../m/mark_invalid_subplans_as_finished.md)
   - INVALID_SUBPLAN_INDEX (constant)
 - Called from (representative examples):
-  - ExecAppendInitializeDSM (sets as function pointer)
+  - [ExecAppendInitializeDSM](../E/ExecAppendInitializeDSM.md) (sets as function pointer)
 
 ## Notes and Other Information
 - Returns `true` if a subplan was selected for execution, `false` if no more subplans are available

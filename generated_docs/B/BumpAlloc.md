@@ -24,13 +24,13 @@ This function implements the main allocation logic for the bump memory allocator
   - BumpIsValid (validates the context structure)
   - MAXALIGN (aligns chunk size to platform requirements)
   - MEMORY_CONTEXT_CHECKING (conditional compilation for debugging)
-  - BumpAllocLarge (handles oversized allocations)
+  - [BumpAllocLarge](BumpAllocLarge.md) (handles oversized allocations)
   - Bump_CHUNKHDRSZ (chunk header size constant)
-  - dlist_head_node (gets first node in block list)
+  - [dlist_head_node](../d/dlist_head_node.md) (gets first node in block list)
   - dlist_container (converts node to containing block)
-  - BumpBlockFreeBytes (checks available space in block)
-  - BumpAllocFromNewBlock (creates new block when needed)
-  - BumpAllocChunkFromBlock (allocates chunk from existing block)
+  - [BumpBlockFreeBytes](BumpBlockFreeBytes.md) (checks available space in block)
+  - [BumpAllocFromNewBlock](BumpAllocFromNewBlock.md) (creates new block when needed)
+  - [BumpAllocChunkFromBlock](BumpAllocChunkFromBlock.md) (allocates chunk from existing block)
 - Called from (representative examples):
   - Memory allocation macros and functions throughout PostgreSQL
   - BOGUS_MCTX (test/debugging context)

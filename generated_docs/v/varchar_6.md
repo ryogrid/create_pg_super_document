@@ -18,18 +18,18 @@ varchar_6 is a C struct type that implements a variable-length string data struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ind
-  - ECPGdebug
-  - ECPGconnect
-  - ECPGtrans
+  - [ind](../i/ind.md)
+  - [ECPGdebug](../E/ECPGdebug.md)
+  - [ECPGconnect](../E/ECPGconnect.md)
+  - [ECPGtrans](../E/ECPGtrans.md)
   - ECPGt_varchar
   - BUFFERSIZ
-  - birthinfo
+  - [birthinfo](../b/birthinfo.md)
   - ECPGt_long
   - ECPGt_short
   - ECPGt_char
   - ECPG_NOT_FOUND
-  - ECPGdisconnect
+  - [ECPGdisconnect](../E/ECPGdisconnect.md)
 - Called from (representative examples):
   - No direct references to this symbol found
 

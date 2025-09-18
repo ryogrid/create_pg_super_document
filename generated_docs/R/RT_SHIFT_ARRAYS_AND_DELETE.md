@@ -32,8 +32,8 @@ The function contains a GCC-specific workaround (inline assembly with empty stri
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
 - Called from (representative examples):
-  - RT_REMOVE_CHILD_16 (src/include/lib/radixtree.h:2517)
-  - RT_REMOVE_CHILD_4 (src/include/lib/radixtree.h:2565)
+  - [RT_REMOVE_CHILD_16](RT_REMOVE_CHILD_16.md) (src/include/lib/radixtree.h:2517)
+  - [RT_REMOVE_CHILD_4](RT_REMOVE_CHILD_4.md) (src/include/lib/radixtree.h:2565)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's template-based radix tree implementation

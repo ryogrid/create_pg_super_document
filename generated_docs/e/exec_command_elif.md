@@ -19,16 +19,16 @@ This function handles the execution of the \elif (else if) backslash command in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_peek (examines current conditional state without modifying stack)
-  - conditional_stack_poke (modifies the top conditional state)
-  - save_query_text_state (preserves query state from active branches)
-  - discard_query_text (removes query text from inactive branches)
-  - is_true_boolean_expression (evaluates the elif boolean expression)
-  - ignore_boolean_expression (skips expression parsing when ignoring)
+  - [conditional_stack_peek](../c/conditional_stack_peek.md) (examines current conditional state without modifying stack)
+  - [conditional_stack_poke](../c/conditional_stack_poke.md) (modifies the top conditional state)
+  - [save_query_text_state](../s/save_query_text_state.md) (preserves query state from active branches)
+  - [discard_query_text](../d/discard_query_text.md) (removes query text from inactive branches)
+  - [is_true_boolean_expression](../i/is_true_boolean_expression.md) (evaluates the elif boolean expression)
+  - [ignore_boolean_expression](../i/ignore_boolean_expression.md) (skips expression parsing when ignoring)
   - pg_log_error (reports syntax and context errors)
   - IFSTATE_TRUE, IFSTATE_FALSE, IFSTATE_IGNORED, IFSTATE_ELSE_TRUE, IFSTATE_ELSE_FALSE, IFSTATE_NONE (conditional state constants)
 - Called from (representative examples):
-  - exec_command (main command dispatcher in psql)
+  - [exec_command](exec_command.md) (main command dispatcher in psql)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure
@@ -36,5 +36,5 @@ This function handles the execution of the \elif (else if) backslash command in 
 - Supports multiple \elif branches within a single \if..\endif block
 - Uses a state machine approach to handle different conditional states appropriately
 - Part of psql's conditional scripting system enabling complex branching logic in SQL scripts
-- Query buffer management ensures that only text from the single active branch is preserved
+- [Query](../Q/Query.md) buffer management ensures that only text from the single active branch is preserved
 - Expression evaluation only occurs when transitioning from a false state to potentially true state

@@ -42,8 +42,8 @@ The structure maintains critical WAL logging information through start and end L
   - ProcNumber (process identification type)
   - GIDSIZE (constant defining GID string size)
 - Called from (representative examples):
-  - TwoPhaseShmemSize (for shared memory size calculation)
-  - GetPreparedTransactionList (for retrieving prepared transaction information)
+  - [TwoPhaseShmemSize](../T/TwoPhaseShmemSize.md) (for shared memory size calculation)
+  - [GetPreparedTransactionList](GetPreparedTransactionList.md) (for retrieving prepared transaction information)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's distributed transaction support

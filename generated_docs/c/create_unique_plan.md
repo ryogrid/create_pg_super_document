@@ -27,24 +27,24 @@ A special case is handled when the unique method is UNIQUE_PATH_NOOP, where no a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - build_path_tlist
-  - tlist_member
-  - makeTargetEntry
-  - change_plan_targetlist
-  - exprCollation
-  - get_compatible_hash_operators
-  - make_agg
-  - get_ordering_op_for_equality_op
-  - get_equality_op_for_ordering_op
-  - get_tle_by_resno
-  - assignSortGroupRef
-  - make_sort_from_sortclauses
-  - label_sort_with_costsize
-  - make_unique_from_sortclauses
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [tlist_member](../t/tlist_member.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [change_plan_targetlist](change_plan_targetlist.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [get_compatible_hash_operators](../g/get_compatible_hash_operators.md)
+  - [make_agg](../m/make_agg.md)
+  - [get_ordering_op_for_equality_op](../g/get_ordering_op_for_equality_op.md)
+  - [get_equality_op_for_ordering_op](../g/get_equality_op_for_ordering_op.md)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md)
+  - [assignSortGroupRef](../a/assignSortGroupRef.md)
+  - [make_sort_from_sortclauses](../m/make_sort_from_sortclauses.md)
+  - [label_sort_with_costsize](../l/label_sort_with_costsize.md)
+  - [make_unique_from_sortclauses](../m/make_unique_from_sortclauses.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function optimizes target list handling by only modifying the subplan's target list when necessary (when new expressions need to be added or when sorting is required)

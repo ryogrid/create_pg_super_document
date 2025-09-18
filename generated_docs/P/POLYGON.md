@@ -30,21 +30,21 @@ The polygon is always considered closed, with an implicit edge connecting the la
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (bounding box storage)
-  - Point (vertex coordinates)
+  - [BOX](../B/BOX.md) (bounding box storage)
+  - [Point](Point.md) (vertex coordinates)
   - FLEXIBLE_ARRAY_MEMBER (variable-length array support)
   - int32 (PostgreSQL integer type)
-  - varlena header system
+  - [varlena](../v/varlena.md) header system
 
 - Called from (representative examples):
-  - poly_in/poly_out (I/O functions)
-  - poly_contain_pt/pt_contained_poly (point containment tests)
-  - poly_overlap/poly_contain (polygon relationship tests)
-  - poly_distance (distance calculations)
-  - poly_center (centroid calculation)
-  - poly_box (bounding box extraction)
-  - poly_path/path_poly (conversion with PATH type)
-  - poly_circle/circle_poly (conversion with CIRCLE type)
+  - [poly_in](../p/poly_in.md)/poly_out (I/O functions)
+  - [poly_contain_pt](../p/poly_contain_pt.md)/pt_contained_poly (point containment tests)
+  - [poly_overlap](../p/poly_overlap.md)/poly_contain (polygon relationship tests)
+  - [poly_distance](../p/poly_distance.md) (distance calculations)
+  - [poly_center](../p/poly_center.md) (centroid calculation)
+  - [poly_box](../p/poly_box.md) (bounding box extraction)
+  - [poly_path](../p/poly_path.md)/path_poly (conversion with PATH type)
+  - [poly_circle](../p/poly_circle.md)/circle_poly (conversion with CIRCLE type)
   - GiST spatial indexing operations
   - SP-GiST spatial partitioning
 

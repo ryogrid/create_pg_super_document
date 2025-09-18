@@ -21,8 +21,8 @@ The function temporarily switches to the SPI saved memory context, performs the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumTransfer
-  - MemoryContextSwitchTo
+  - [datumTransfer](../d/datumTransfer.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - elog (for error reporting)
 - Called from (representative examples):
   - Various SPI functions that need to preserve datum values across context boundaries

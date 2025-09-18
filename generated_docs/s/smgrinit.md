@@ -19,10 +19,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - on_proc_exit
-  - smgrshutdown
+  - [on_proc_exit](../o/on_proc_exit.md)
+  - [smgrshutdown](smgrshutdown.md)
 - Called from (representative examples):
-  - BaseInit (src/backend/utils/init/postinit.c:672)
+  - [BaseInit](../B/BaseInit.md) (src/backend/utils/init/postinit.c:672)
 
 ## Notes and Other Information
 - This function is called once per backend process during initialization

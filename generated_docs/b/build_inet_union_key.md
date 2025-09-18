@@ -29,13 +29,13 @@ The function ensures data integrity by masking unused bits in partial bytes and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - gk_ip_family, gk_ip_minbits, gk_ip_commonbits, gk_ip_addr (accessor macros)
   - memcpy
   - SET_GK_VARSIZE
 - Called from (representative examples):
-  - inet_gist_union
-  - inet_gist_picksplit (multiple calls during page splitting)
+  - [inet_gist_union](../i/inet_gist_union.md)
+  - [inet_gist_picksplit](../i/inet_gist_picksplit.md) (multiple calls during page splitting)
 
 ## Notes and Other Information
 - This is a static function, only accessible within network_gist.c

@@ -21,11 +21,11 @@ The function operates in-place, modifying the input string to remove invalid seq
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_UTF8: Encoding constant for UTF-8 identification
-  - mb_utf_validate: UTF-8 specific validation function that removes invalid sequences
+  - [mb_utf_validate](mb_utf_validate.md): UTF-8 specific validation function that removes invalid sequences
 - Called from (representative examples):
-  - printTableAddHeader: For validating table header text before formatting
-  - printTableAddCell: For validating table cell content before display
-  - lineptr: Through header inclusion for line text validation
+  - [printTableAddHeader](../p/printTableAddHeader.md): For validating table header text before formatting
+  - [printTableAddCell](../p/printTableAddCell.md): For validating table cell content before display
+  - [lineptr](../l/lineptr.md): Through header inclusion for line text validation
 
 ## Notes and Other Information
 - The function currently only implements UTF-8 validation, with a framework for adding other encodings

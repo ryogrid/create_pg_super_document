@@ -23,13 +23,13 @@ The function stores references to the option structures within the archive handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpOptionsFromRestoreOptions
+  - [dumpOptionsFromRestoreOptions](../d/dumpOptionsFromRestoreOptions.md)
   - DumpOptions
-  - RestoreOptions
+  - [RestoreOptions](../R/RestoreOptions.md)
 - Called from (representative examples):
-  - main (in pg_dump.c)
-  - main (in pg_restore.c)
-  - _CloseArchive (in pg_backup_tar.c)
+  - [main](../m/main.md) (in pg_dump.c)
+  - [main](../m/main.md) (in pg_restore.c)
+  - [_CloseArchive](../C/_CloseArchive.md) (in pg_backup_tar.c)
 
 ## Notes and Other Information
 - This is a public function in the pg_dump/pg_restore architecture

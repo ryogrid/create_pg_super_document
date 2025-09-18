@@ -22,18 +22,18 @@ The `binaryheap_allocate` function creates a new binary heap with the given capa
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (macro for calculating struct member offset)
-  - palloc (PostgreSQL memory allocation function)
-  - binaryheap (struct type)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [binaryheap](binaryheap.md) (struct type)
   - bh_node_type (node data type)
   - binaryheap_comparator (function pointer type)
 - Called from (representative examples):
-  - gather_merge_setup
+  - [gather_merge_setup](../g/gather_merge_setup.md)
   - ExecInitMergeAppend
-  - PgArchiverMain
-  - ReorderBufferIterTXNInit
+  - [PgArchiverMain](../P/PgArchiverMain.md)
+  - [ReorderBufferIterTXNInit](../R/ReorderBufferIterTXNInit.md)
   - BufferSync
-  - restore_toc_entries_parallel
-  - TopoSort
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
+  - [TopoSort](../T/TopoSort.md)
 
 ## Notes and Other Information
 - The function calculates the total memory needed using offsetof to account for the variable-length array of nodes

@@ -30,11 +30,11 @@ If any inconsistency is detected, the function raises an ERROR using elog, which
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Called from (representative examples):
-  - dlist_is_empty
-  - dlist_push_head
-  - dlist_push_tail
-  - dlist_move_head
-  - dlist_move_tail
+  - [dlist_is_empty](dlist_is_empty.md)
+  - [dlist_push_head](dlist_push_head.md)
+  - [dlist_push_tail](dlist_push_tail.md)
+  - [dlist_move_head](dlist_move_head.md)
+  - [dlist_move_tail](dlist_move_tail.md)
 
 ## Notes and Other Information
 - **Performance**: This is an O(n) operation that traverses the entire list twice (forward and backward), making it expensive for large lists

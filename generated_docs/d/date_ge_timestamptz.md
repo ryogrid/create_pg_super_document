@@ -23,7 +23,7 @@ The function is part of PostgreSQL's date/time comparison infrastructure and han
 - Functions called/Symbols referenced:
   - PG_GETARG_DATEADT
   - PG_GETARG_TIMESTAMPTZ
-  - date_cmp_timestamptz_internal
+  - [date_cmp_timestamptz_internal](date_cmp_timestamptz_internal.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct callers found (likely called through SQL operator infrastructure)

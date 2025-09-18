@@ -25,17 +25,17 @@ The output member is marked as variable-size and must be last in the structure, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TBMSharedIteratorState (shared state management)
-  - PTEntryArray (pagetable entry storage)
-  - PTIterationArray (iteration index management)
+  - [TBMSharedIteratorState](TBMSharedIteratorState.md) (shared state management)
+  - [PTEntryArray](../P/PTEntryArray.md) (pagetable entry storage)
+  - [PTIterationArray](../P/PTIterationArray.md) (iteration index management)
   - TBMIterateResult (iteration output results)
 - Called from (representative examples):
-  - BitmapHeapNext (in nodeBitmapHeapscan.c)
-  - BitmapAdjustPrefetchIterator
-  - BitmapPrefetch
-  - tbm_shared_iterate
-  - tbm_end_shared_iterate
-  - tbm_attach_shared_iterate
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (in nodeBitmapHeapscan.c)
+  - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md)
+  - [tbm_shared_iterate](../t/tbm_shared_iterate.md)
+  - [tbm_end_shared_iterate](../t/tbm_end_shared_iterate.md)
+  - [tbm_attach_shared_iterate](../t/tbm_attach_shared_iterate.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's parallel bitmap heap scan implementation

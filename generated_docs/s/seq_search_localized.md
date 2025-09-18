@@ -30,13 +30,13 @@ The search algorithm:
 ## Dependencies
 - Functions called/Symbols referenced:
   - unconstify (to cast away const qualifier)
-  - str_toupper (for locale-aware upper case conversion)
-  - str_tolower (for locale-aware lower case conversion)
-  - pfree (for memory cleanup)
+  - [str_toupper](str_toupper.md) (for locale-aware upper case conversion)
+  - [str_tolower](str_tolower.md) (for locale-aware lower case conversion)
+  - [pfree](../p/pfree.md) (for memory cleanup)
   - strlen, strncmp (standard C library functions)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1065)
-  - from_char_seq_search (formatting.c:2728)
+  - [from_char_seq_search](../f/from_char_seq_search.md) (formatting.c:2728)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

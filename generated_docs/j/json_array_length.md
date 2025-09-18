@@ -21,17 +21,17 @@ The `json_array_length` function implements the SQL function `json_array_length(
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - palloc0
-  - makeJsonLexContext
+  - [palloc0](../p/palloc0.md)
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - pg_parse_json_or_ereport
   - PG_RETURN_INT32
-  - alen_object_start (callback function)
-  - alen_scalar (callback function)
-  - alen_array_element_start (callback function)
+  - [alen_object_start](../a/alen_object_start.md) (callback function)
+  - [alen_scalar](../a/alen_scalar.md) (callback function)
+  - [alen_array_element_start](../a/alen_array_element_start.md) (callback function)
 - Types used:
-  - AlenState
-  - JsonLexContext
-  - JsonSemAction
+  - [AlenState](../A/AlenState.md)
+  - [JsonLexContext](../J/JsonLexContext.md)
+  - [JsonSemAction](../J/JsonSemAction.md)
 - Called from:
   - No direct callers found (SQL-callable function)
 

@@ -25,20 +25,20 @@ This function serves as a comprehensive interface for retrieving type-related me
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - boot_get_type_io_data
-  - SearchSysCache1
-  - getTypeIOParam
-  - ReleaseSysCache
+  - [boot_get_type_io_data](../b/boot_get_type_io_data.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [getTypeIOParam](getTypeIOParam.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - GETSTRUCT
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
 - Called from (representative examples):
-  - array_in
-  - array_out
-  - array_recv
-  - array_send
-  - get_range_io_data
-  - get_multirange_io_data
+  - [array_in](../a/array_in.md)
+  - [array_out](../a/array_out.md)
+  - [array_recv](../a/array_recv.md)
+  - [array_send](../a/array_send.md)
+  - [get_range_io_data](get_range_io_data.md)
+  - [get_multirange_io_data](get_multirange_io_data.md)
 
 ## Notes and Other Information
 - The function performs a system catalog lookup using the syscache for efficient access to type information

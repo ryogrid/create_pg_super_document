@@ -22,10 +22,10 @@ The function focuses on estimates that can be reasonably calculated without deep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval
-  - set_rel_width
+  - [cost_qual_eval](../c/cost_qual_eval.md)
+  - [set_rel_width](set_rel_width.md)
 - Called from (representative examples):
-  - set_foreign_size
+  - [set_foreign_size](set_foreign_size.md)
 
 ## Notes and Other Information
 - Only applicable to base relations (validated with assertions)

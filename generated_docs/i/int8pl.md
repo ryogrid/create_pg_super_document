@@ -20,7 +20,7 @@ This function performs addition of two 64-bit signed integer arguments. It extra
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro for extracting int64 arguments)
-  - pg_add_s64_overflow (overflow-safe addition function)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (overflow-safe addition function)
   - PG_RETURN_INT64 (macro for returning int64 result)
   - ereport (error reporting function)
 - Called from: 

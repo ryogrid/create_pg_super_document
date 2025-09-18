@@ -28,7 +28,7 @@ The `file_analysis` struct is used internally by PostgreSQL's timezone loading m
 ## Dependencies
 - Functions called/Symbols referenced:
   - input_buffer (union)
-  - state (struct)
+  - [state](../s/state.md) (struct)
 - Called from (representative examples):
   - Used within local_storage union for tzloadbody function
 

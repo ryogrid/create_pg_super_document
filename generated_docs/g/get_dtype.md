@@ -21,8 +21,8 @@ This function serves as a lookup table that maps ECPGdtype enumeration values to
   - ECPGdtype enumeration values (ECPGd_count, ECPGd_data, ECPGd_di_code, etc.)
   - PARSE_ERROR, ET_ERROR (error classification constants)
 - Called from (representative examples):
-  - output_get_descr (generates GET DESCRIPTOR statements)
-  - output_set_descr (generates SET DESCRIPTOR statements)
+  - [output_get_descr](../o/output_get_descr.md) (generates GET DESCRIPTOR statements)
+  - [output_set_descr](../o/output_set_descr.md) (generates SET DESCRIPTOR statements)
 
 ## Notes and Other Information
 - Returns string literals that match the enumeration names exactly (e.g., "ECPGd_count" for ECPGd_count)

@@ -52,22 +52,22 @@ Key responsibilities include attribute mapping for partitions (since column orde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckRelationLockedByMe
-  - createForeignKeyActionTriggers
-  - RelationGetPartitionDesc
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md)
+  - [createForeignKeyActionTriggers](../c/createForeignKeyActionTriggers.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - table_open
-  - build_attrmap_by_name_if_req
-  - index_get_partition
-  - addFkConstraint
-  - addFkRecurseReferenced (recursive call)
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [index_get_partition](../i/index_get_partition.md)
+  - [addFkConstraint](addFkConstraint.md)
+  - [addFkRecurseReferenced](addFkRecurseReferenced.md) (recursive call)
   - table_close
-  - free_attrmap
+  - [free_attrmap](../f/free_attrmap.md)
   - RelationGetDescr
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
-  - addFkRecurseReferenced (recursive)
-  - CloneFkReferenced
-  - DetachPartitionFinalize
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
+  - [addFkRecurseReferenced](addFkRecurseReferenced.md) (recursive)
+  - [CloneFkReferenced](../C/CloneFkReferenced.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, part of the foreign key constraint creation infrastructure

@@ -27,10 +27,10 @@ The function handles empty arrays by outputting "[]" and non-empty arrays by ite
   - appendStringInfoString
   - appendStringInfoChar
 - Called from (representative examples):
-  - plan_elem_desc
-  - heap_desc
-  - heap2_desc
-  - delvacuum_desc
+  - [plan_elem_desc](../p/plan_elem_desc.md)
+  - [heap_desc](../h/heap_desc.md)
+  - [heap2_desc](../h/heap2_desc.md)
+  - [delvacuum_desc](../d/delvacuum_desc.md)
 
 ## Notes and Other Information
 - This function is part of the WAL record description infrastructure used for debugging and monitoring

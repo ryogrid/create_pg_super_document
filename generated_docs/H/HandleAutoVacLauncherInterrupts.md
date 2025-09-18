@@ -17,13 +17,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AutoVacLauncherShutdown
+  - [AutoVacLauncherShutdown](../A/AutoVacLauncherShutdown.md)
   - ProcessConfigFile (with PGC_SIGHUP)
-  - AutoVacuumingActive
-  - rebuild_database_list
-  - ProcessProcSignalBarrier
-  - ProcessLogMemoryContextInterrupt
-  - ProcessCatchupInterrupt
+  - [AutoVacuumingActive](../A/AutoVacuumingActive.md)
+  - [rebuild_database_list](../r/rebuild_database_list.md)
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md)
+  - [ProcessCatchupInterrupt](../P/ProcessCatchupInterrupt.md)
 - Called from:
   - AutoVacLauncher main loop (line 592 in autovacuum.c)
 

@@ -21,8 +21,8 @@ GiSTOptions serves as the storage type for GiST index reloptions (relation optio
 - Functions called/Symbols referenced:
   - GistOptBufferingMode
 - Called from (representative examples):
-  - gistbuild
-  - gistoptions
+  - [gistbuild](../g/gistbuild.md)
+  - [gistoptions](../g/gistoptions.md)
 
 ## Notes and Other Information
 The GiSTOptions structure is part of PostgreSQL's reloption system, which allows users to customize index behavior through CREATE INDEX and ALTER INDEX statements. The fillfactor option is particularly important for performance tuning, as it affects the balance between storage efficiency and update performance. Lower fill factors leave more free space for insertions but use more storage, while higher fill factors pack data more densely but may cause more page splits during updates. The buffering_mode option controls memory usage and I/O patterns during index construction, which can significantly impact build performance for large indexes.

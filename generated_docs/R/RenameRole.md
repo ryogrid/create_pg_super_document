@@ -26,18 +26,18 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close: Access pg_authid catalog
-  - SearchSysCache1/ReleaseSysCache: Cache-based role lookup
-  - GetSessionUserId/GetOuterUserId: Current user validation
-  - IsReservedName: Reserved name checking
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache: Cache-based role lookup
+  - [GetSessionUserId](../G/GetSessionUserId.md)/GetOuterUserId: Current user validation
+  - [IsReservedName](../I/IsReservedName.md): Reserved name checking
   - superuser/have_createrole_privilege/is_admin_of_role: Permission validation
-  - get_password_type: Password type detection for MD5 handling
-  - heap_modify_tuple/CatalogTupleUpdate: Catalog modification
+  - [get_password_type](../g/get_password_type.md): Password type detection for MD5 handling
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)/CatalogTupleUpdate: Catalog modification
   - InvokeObjectPostAlterHook: Post-operation hooks
 - Called from (representative examples):
-  - ExecRenameStmt: ALTER ROLE RENAME statement execution
+  - [ExecRenameStmt](../E/ExecRenameStmt.md): ALTER ROLE RENAME statement execution
 
 ## Notes and Other Information
-- Session users and current effective users cannot be renamed to prevent application confusion
+- [Session](../S/Session.md) users and current effective users cannot be renamed to prevent application confusion
 - MD5 passwords are automatically cleared during rename since they incorporate the username as salt
 - The function maintains exclusive locks on pg_authid until transaction commit
 - Regression testing enforces 'regress_' prefix convention when compiled with appropriate flags

@@ -26,14 +26,14 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - UNBLOCKED_SIGNAL_QUEUE (macro for checking queued signals)
-  - pgwin32_dispatch_queued_signals (signal dispatch function)
+  - [pgwin32_dispatch_queued_signals](pgwin32_dispatch_queued_signals.md) (signal dispatch function)
   - EINTR (error constant for interrupted system call)
 
 - Called from (representative examples):
-  - pgwin32_accept
-  - pgwin32_recv
-  - pgwin32_send
-  - pgwin32_select
+  - [pgwin32_accept](pgwin32_accept.md)
+  - [pgwin32_recv](pgwin32_recv.md)
+  - [pgwin32_send](pgwin32_send.md)
+  - [pgwin32_select](pgwin32_select.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function located in src/backend/port/win32/socket.c

@@ -23,9 +23,9 @@ The function leverages the existing TocEntrySizeCompareQsort comparator but inve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntrySizeCompareQsort (delegates comparison logic to this function)
+  - [TocEntrySizeCompareQsort](TocEntrySizeCompareQsort.md) (delegates comparison logic to this function)
 - Called from (representative examples):
-  - restore_toc_entries_parallel (for parallel processing optimization)
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md) (for parallel processing optimization)
   - Functions related to TEXT_DUMPALL_HEADER processing
 
 ## Notes and Other Information

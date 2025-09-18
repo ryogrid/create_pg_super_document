@@ -32,4 +32,4 @@ The function always returns 0, indicating successful conversion. The actual conv
 - This function is specifically designed for Informix compatibility in the ECPG interface
 - Located in the compatibility library at src/interfaces/ecpg/compatlib/informix.c:541-552
 - The function converts integer results from the internal PostgreSQL date function to short integers to match Informix's expected data types
-- Always returns 0 (success) - error handling is presumably done by the underlying  function
+- Always returns 0 (success) - [error](../e/error.md) handling is presumably done by the underlying  function

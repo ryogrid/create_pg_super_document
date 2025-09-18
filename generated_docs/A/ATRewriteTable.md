@@ -26,43 +26,43 @@ The function processes each tuple by first extracting data from the old tuple, a
   - table_open
   - table_close
   - RelationGetDescr
-  - GetCurrentCommandId
-  - GetBulkInsertState
-  - FreeBulkInsertState
-  - CreateExecutorState
-  - FreeExecutorState
-  - ExecPrepareExpr
-  - ExecInitExpr
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [GetBulkInsertState](../G/GetBulkInsertState.md)
+  - [FreeBulkInsertState](../F/FreeBulkInsertState.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
+  - [ExecPrepareExpr](../E/ExecPrepareExpr.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
   - GetPerTupleExprContext
-  - MakeSingleTupleTableSlot
-  - ExecDropSingleTupleTableSlot
-  - table_slot_callbacks
-  - ExecStoreAllNullTuple
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [table_slot_callbacks](../t/table_slot_callbacks.md)
+  - [ExecStoreAllNullTuple](../E/ExecStoreAllNullTuple.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - lappend_int
   - TupleDescAttr
   - RegisterSnapshot
   - UnregisterSnapshot
   - GetLatestSnapshot
-  - table_beginscan
-  - table_endscan
-  - table_scan_getnextslot
+  - [table_beginscan](../t/table_beginscan.md)
+  - [table_endscan](../t/table_endscan.md)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
   - GetPerTupleMemoryContext
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - slot_getallattrs
   - slot_attisnull
   - ExecEvalExpr
-  - ExecCheck
+  - [ExecCheck](../E/ExecCheck.md)
   - ResetExprContext
   - table_tuple_insert
   - table_finish_bulk_insert
-  - TransferPredicateLocksToHeapRelation
+  - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
   - RelationGetRelationName
   - RelationGetRelid
   - CHECK_FOR_INTERRUPTS
 - Called from:
-  - ATRewriteTables
+  - [ATRewriteTables](ATRewriteTables.md)
 
 ## Notes and Other Information
 - This function is static and only used within the tablecmds.c module

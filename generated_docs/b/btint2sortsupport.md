@@ -21,7 +21,7 @@ btint2sortsupport is a PostgreSQL built-in function that initializes sort suppor
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupport: Type definition for the sort support context structure
-  - btint2fastcmp: The optimized comparison function assigned to the comparator field
+  - [btint2fastcmp](btint2fastcmp.md): The optimized comparison function assigned to the comparator field
   - PG_GETARG_POINTER: Macro to extract pointer arguments from the function call context
   - PG_RETURN_VOID: Macro to return void from a PostgreSQL function
 - Called from (representative examples):

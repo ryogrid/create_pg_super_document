@@ -32,13 +32,13 @@ The implementation follows PostgreSQL's standard SRF pattern with initialization
   - SRF_PERCALL_SETUP (SRF per-call setup)
   - SRF_RETURN_NEXT (return next value in series)
   - SRF_RETURN_DONE (indicate series completion)
-  - pg_add_s64_overflow (safe addition with overflow detection)
-  - Int64GetDatum (convert int64 to Datum)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (safe addition with overflow detection)
+  - [Int64GetDatum](../I/Int64GetDatum.md) (convert int64 to Datum)
   - generate_series_fctx (context structure for state)
-  - FuncCallContext (PostgreSQL function call context)
+  - [FuncCallContext](../F/FuncCallContext.md) (PostgreSQL function call context)
 
 - Called from (representative examples):
-  - generate_series_int8 (wrapper function)
+  - [generate_series_int8](generate_series_int8.md) (wrapper function)
 
 ## Notes and Other Information
 - Validates that step size cannot be zero, throwing an error if it is

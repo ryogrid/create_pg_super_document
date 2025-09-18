@@ -24,12 +24,12 @@ RangeTableFunc is a parse node structure that represents table functions like XM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Alias
+  - [Alias](../A/Alias.md)
   - ParseLoc
 - Called from (representative examples):
-  - transformRangeTableFunc
-  - transformFromClauseItem
-  - raw_expression_tree_walker_impl
+  - [transformRangeTableFunc](../t/transformRangeTableFunc.md)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:655-665

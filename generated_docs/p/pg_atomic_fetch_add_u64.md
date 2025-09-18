@@ -21,13 +21,13 @@ The function acts as a wrapper around the platform-specific implementation , pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for pointer alignment verification when not using simulation)
-  - pg_atomic_fetch_add_u64_impl (platform-specific implementation)
+  - [pg_atomic_fetch_add_u64_impl](pg_atomic_fetch_add_u64_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - table_block_parallelscan_nextpage (parallel table scanning)
-  - GetFakeLSNForUnloggedRel (transaction log sequence number generation)
+  - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md) (parallel table scanning)
+  - [GetFakeLSNForUnloggedRel](../G/GetFakeLSNForUnloggedRel.md) (transaction log sequence number generation)
   - pgstat_request_entry_refs_gc (statistics entry reference counting)
   - dsa_pointer_atomic_fetch_add (dynamic shared area pointer arithmetic)
-  - test_atomic_uint64 (regression testing)
+  - [test_atomic_uint64](../t/test_atomic_uint64.md) (regression testing)
 
 ## Notes and Other Information
 - Returns the original value before the addition, not the result after addition

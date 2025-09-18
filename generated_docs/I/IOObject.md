@@ -20,11 +20,11 @@ IOObject defines the types of database objects that can be tracked for I/O opera
 - Functions called/Symbols referenced:
   - Used in conjunction with IOContext and IOOp for comprehensive I/O tracking
 - Called from (representative examples):
-  - pgstat_count_io_op
-  - pgstat_count_io_op_n
-  - pgstat_count_io_op_time
-  - pgstat_get_io_object_name
-  - pgstat_tracks_io_object
+  - [pgstat_count_io_op](../p/pgstat_count_io_op.md)
+  - [pgstat_count_io_op_n](../p/pgstat_count_io_op_n.md)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
+  - [pgstat_get_io_object_name](../p/pgstat_get_io_object_name.md)
+  - [pgstat_tracks_io_object](../p/pgstat_tracks_io_object.md)
   - Buffer management functions in bufmgr.c
 
 ## Notes and Other Information

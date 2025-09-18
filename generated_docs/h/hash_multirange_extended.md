@@ -30,15 +30,15 @@ The extended version provides better hash distribution and collision resistance,
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P - Extract multirange argument
   - PG_GETARG_DATUM - Extract seed argument
-  - multirange_get_typcache - Get type cache for multirange type
+  - [multirange_get_typcache](../m/multirange_get_typcache.md) - Get type cache for multirange type
   - MultirangeTypeGetOid - Get OID of multirange type
-  - lookup_type_cache - Look up type cache with extended hash info
-  - multirange_get_bounds - Extract bounds from a specific range
-  - FunctionCall2Coll - Call element extended hash function with collation and seed
-  - hash_uint32_extended - Hash the range flags with seed
+  - [lookup_type_cache](../l/lookup_type_cache.md) - Look up type cache with extended hash info
+  - [multirange_get_bounds](../m/multirange_get_bounds.md) - Extract bounds from a specific range
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) - Call element extended hash function with collation and seed
+  - [hash_uint32_extended](hash_uint32_extended.md) - Hash the range flags with seed
   - ROTATE_HIGH_AND_LOW_32BITS - Rotate 64-bit hash for better distribution
   - RANGE_HAS_LBOUND/RANGE_HAS_UBOUND - Check bound existence
-  - DatumGetUInt64/DatumGetInt64 - Convert Datum to 64-bit integers
+  - [DatumGetUInt64](../D/DatumGetUInt64.md)/DatumGetInt64 - Convert Datum to 64-bit integers
   - PG_RETURN_UINT64 - Return the computed 64-bit hash value
 - Called from:
   - Used internally by PostgreSQL's extended hash-based operations (no direct references found)

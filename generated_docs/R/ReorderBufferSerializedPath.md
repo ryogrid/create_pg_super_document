@@ -25,9 +25,9 @@ This function constructs the filesystem path for spill files used by PostgreSQL'
   - NameStr (extracts slot name)
   - LSN_FORMAT_ARGS (formats LSN for filename)
 - Called from (representative examples):
-  - ReorderBufferSerializeTXN
-  - ReorderBufferRestoreChanges
-  - ReorderBufferRestoreCleanup
+  - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md)
+  - [ReorderBufferRestoreChanges](ReorderBufferRestoreChanges.md)
+  - [ReorderBufferRestoreCleanup](ReorderBufferRestoreCleanup.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the reorderbuffer.c file

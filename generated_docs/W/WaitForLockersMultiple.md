@@ -27,16 +27,16 @@ The function includes optional progress reporting functionality that can update 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLockConflicts
+  - [GetLockConflicts](../G/GetLockConflicts.md)
   - VirtualTransactionIdIsValid  
   - VirtualXactLock
   - ProcNumberGetProc
-  - pgstat_progress_update_param
-  - pgstat_progress_update_multi_param
-  - list_free_deep
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
+  - [list_free_deep](../l/list_free_deep.md)
 - Called from (representative examples):
-  - ATExecDetachPartition (in tablecmds.c:19266)
-  - WaitForLockers (in lmgr.c:986)
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md) (in tablecmds.c:19266)
+  - [WaitForLockers](WaitForLockers.md) (in lmgr.c:986)
 
 ## Notes and Other Information
 - Returns immediately if the locktags list is empty (NIL)

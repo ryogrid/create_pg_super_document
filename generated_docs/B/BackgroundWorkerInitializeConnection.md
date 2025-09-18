@@ -23,20 +23,20 @@ The function validates that the background worker was registered with the BGWORK
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorker (struct type)
+  - [BackgroundWorker](BackgroundWorker.md) (struct type)
   - MyBgworkerEntry (global variable)
   - BGWORKER_BYPASS_ALLOWCONN (flag constant)
   - INIT_PG_OVERRIDE_ALLOW_CONNS (flag constant)
   - BGWORKER_BYPASS_ROLELOGINCHECK (flag constant)
   - INIT_PG_OVERRIDE_ROLE_LOGIN (flag constant)
   - BGWORKER_BACKEND_DATABASE_CONNECTION (flag constant)
-  - InitPostgres (function)
+  - [InitPostgres](../I/InitPostgres.md) (function)
   - IsInitProcessingMode (function)
   - SetProcessingMode (function)
   - NormalProcessing (processing mode constant)
 - Called from (representative examples):
-  - ApplyLauncherMain (src/backend/replication/logical/launcher.c:1154)
-  - worker_spi_main (src/test/modules/worker_spi/worker_spi.c:173)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md) (src/backend/replication/logical/launcher.c:1154)
+  - [worker_spi_main](../w/worker_spi_main.md) (src/test/modules/worker_spi/worker_spi.c:173)
 
 ## Notes and Other Information
 - The function requires that the background worker was registered with BGWORKER_BACKEND_DATABASE_CONNECTION flag

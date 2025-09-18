@@ -21,12 +21,12 @@ The function uses memory management functions specific to the ECPG preprocessor 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc: Memory allocation function for the preprocessor
-  - mm_strdup: String duplication function for the preprocessor
+  - [mm_alloc](../m/mm_alloc.md): Memory allocation function for the preprocessor
+  - [mm_strdup](../m/mm_strdup.md): String duplication function for the preprocessor
   - ECPGtype: Type structure for ECPG variables
 - Called from (representative examples):
   - find_struct_member: When processing struct member variables
-  - find_variable: When creating new variable entries during parsing
+  - [find_variable](../f/find_variable.md): When creating new variable entries during parsing
 
 ## Notes and Other Information
 - The function maintains a global linked list of variables through the  global variable

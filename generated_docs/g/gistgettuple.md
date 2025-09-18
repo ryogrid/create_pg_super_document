@@ -24,14 +24,14 @@ The function also implements the "killed items" optimization, tracking index tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getNextNearest (for ordered scans)
-  - gistScanPage (for processing index pages)  
-  - getNextGISTSearchItem (for retrieving next search item)
-  - gistkillitems (for marking dead tuples)
+  - [getNextNearest](getNextNearest.md) (for ordered scans)
+  - [gistScanPage](gistScanPage.md) (for processing index pages)  
+  - [getNextGISTSearchItem](getNextGISTSearchItem.md) (for retrieving next search item)
+  - [gistkillitems](gistkillitems.md) (for marking dead tuples)
   - pgstat_count_index_scan (for statistics)
-  - MemoryContextReset (for memory management)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (for memory management)
 - Called from (representative examples):
-  - gisthandler (index AM handler setup)
+  - [gisthandler](gisthandler.md) (index AM handler setup)
 
 ## Notes and Other Information
 - Only supports forward scan direction; throws error for backward scans

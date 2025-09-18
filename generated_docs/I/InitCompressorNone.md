@@ -18,13 +18,13 @@ This function serves as the public interface for initializing the "none" compres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressorState (struct type)
-  - pg_compress_specification (struct type)
-  - ReadDataFromArchiveNone (function pointer assignment)
-  - WriteDataToArchiveNone (function pointer assignment)  
-  - EndCompressorNone (function pointer assignment)
+  - [CompressorState](../C/CompressorState.md) (struct type)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (struct type)
+  - [ReadDataFromArchiveNone](../R/ReadDataFromArchiveNone.md) (function pointer assignment)
+  - [WriteDataToArchiveNone](../W/WriteDataToArchiveNone.md) (function pointer assignment)  
+  - [EndCompressorNone](../E/EndCompressorNone.md) (function pointer assignment)
 - Called from (representative examples):
-  - AllocateCompressor
+  - [AllocateCompressor](../A/AllocateCompressor.md)
 
 ## Notes and Other Information
 - This function is part of the public interface for the none compression module

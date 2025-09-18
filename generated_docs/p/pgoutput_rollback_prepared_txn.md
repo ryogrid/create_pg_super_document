@@ -20,14 +20,14 @@ This function is a callback handler for the ROLLBACK PREPARED operation in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginUpdateProgress
-  - OutputPluginPrepareWrite
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
   - logicalrep_write_rollback_prepared
-  - OutputPluginWrite
-  - LogicalDecodingContext (type)
-  - ReorderBufferTXN (type)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (type)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (type)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as callback)
 
 ## Notes and Other Information
 This function is registered as a callback in the pgoutput plugin initialization and is part of PostgreSQL's two-phase commit support in logical replication. It ensures that prepared transaction rollbacks are properly propagated to logical replication subscribers, maintaining consistency across the replication cluster. The function is static and only used within the pgoutput plugin module.

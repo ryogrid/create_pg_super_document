@@ -21,20 +21,20 @@ The function is widely used throughout the heap access method and visibility che
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdGetUpdateXid
+  - [MultiXactIdGetUpdateXid](../M/MultiXactIdGetUpdateXid.md)
   - HeapTupleHeaderGetRawXmax
 - Types used:
   - HeapTupleHeader
   - TransactionId
 - Called from (representative examples):
-  - heap_update
-  - HeapTupleSatisfiesSelf
-  - HeapTupleSatisfiesUpdate
-  - HeapTupleSatisfiesDirty
-  - HeapTupleSatisfiesMVCC
-  - HeapTupleSatisfiesVacuumHorizon
-  - HeapTupleHeaderIsOnlyLocked
-  - HeapTupleSatisfiesHistoricMVCC
+  - [heap_update](../h/heap_update.md)
+  - [HeapTupleSatisfiesSelf](HeapTupleSatisfiesSelf.md)
+  - [HeapTupleSatisfiesUpdate](HeapTupleSatisfiesUpdate.md)
+  - [HeapTupleSatisfiesDirty](HeapTupleSatisfiesDirty.md)
+  - [HeapTupleSatisfiesMVCC](HeapTupleSatisfiesMVCC.md)
+  - [HeapTupleSatisfiesVacuumHorizon](HeapTupleSatisfiesVacuumHorizon.md)
+  - [HeapTupleHeaderIsOnlyLocked](HeapTupleHeaderIsOnlyLocked.md)
+  - [HeapTupleSatisfiesHistoricMVCC](HeapTupleSatisfiesHistoricMVCC.md)
   - HeapTupleHeaderGetUpdateXid
 
 ## Notes and Other Information

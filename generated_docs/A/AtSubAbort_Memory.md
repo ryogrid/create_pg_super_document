@@ -22,9 +22,9 @@ This function takes no parameters and operates on global memory context variable
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionAbortContext (specialized abort context, verified via assertion)
-  - MemoryContextSwitchTo (context switching function)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (context switching function)
 - Called from:
-  - AbortSubTransaction (subtransaction abort at src/backend/access/transam/xact.c:5170)
+  - [AbortSubTransaction](AbortSubTransaction.md) (subtransaction abort at src/backend/access/transam/xact.c:5170)
 
 ## Notes and Other Information
 - Specifically designed for subtransaction abort scenarios, unlike AtAbort_Memory which handles both main and subtransactions

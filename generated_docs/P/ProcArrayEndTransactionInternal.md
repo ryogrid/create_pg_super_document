@@ -29,7 +29,7 @@ This function is designed to be called from multiple contexts: directly when loc
 - Functions called/Symbols referenced:
   - LWLockHeldByMeInMode
   - TransactionIdIsValid
-  - MaintainLatestCompletedXid
+  - [MaintainLatestCompletedXid](../M/MaintainLatestCompletedXid.md)
   - InvalidTransactionId
   - InvalidLocalTransactionId
   - PROC_VACUUM_STATE_MASK
@@ -37,8 +37,8 @@ This function is designed to be called from multiple contexts: directly when loc
   - TransamVariables
 
 - Called from (representative examples):
-  - ProcArrayEndTransaction
-  - ProcArrayGroupClearXid
+  - [ProcArrayEndTransaction](ProcArrayEndTransaction.md)
+  - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md)
   - xc_slow_answer_inc
 
 ## Notes and Other Information

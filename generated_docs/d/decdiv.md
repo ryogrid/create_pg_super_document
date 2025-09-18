@@ -21,10 +21,10 @@ The `decdiv` function divides two decimal numbers (`n1` / `n2`) and stores the r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deccall3
-  - PGTYPESnumeric_div
+  - [deccall3](deccall3.md)
+  - [PGTYPESnumeric_div](../P/PGTYPESnumeric_div.md)
 - Called from (representative examples):
-  - main (in test files)
+  - [main](../m/main.md) (in test files)
 - Error constants used:
   - PGTYPES_NUM_DIVIDE_ZERO
   - ECPG_INFORMIX_DIVIDE_ZERO

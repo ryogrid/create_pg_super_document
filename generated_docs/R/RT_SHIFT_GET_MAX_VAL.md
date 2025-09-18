@@ -40,10 +40,10 @@ The result defines the upper bound of keys that the tree can store without needi
   - UINT64CONST (PostgreSQL macro for 64-bit constants)
   - RT_MAKE_NAME (macro name generation)
 - Called from (representative examples):
-  - RT_EXTEND_UP (when updating tree capacity after expansion)
-  - RT_SET (during key insertion to check capacity)
+  - [RT_EXTEND_UP](RT_EXTEND_UP.md) (when updating tree capacity after expansion)
+  - [RT_SET](RT_SET.md) (during key insertion to check capacity)
   - RT_CREATE (when initializing new trees)
-  - RT_REMOVE_CHILD_4 (during tree shrinking operations)
+  - [RT_REMOVE_CHILD_4](RT_REMOVE_CHILD_4.md) (during tree shrinking operations)
 
 ## Notes and Other Information
 - The returned value represents the inclusive upper bound of keys that can be stored

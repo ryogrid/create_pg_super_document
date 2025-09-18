@@ -36,20 +36,20 @@ Key aspects of node tuple formation:
   - SpGistState (index state structure)
   - SpGistNodeTuple (return type structure)
   - SGNTHDRSZ (node tuple header size constant)
-  - SpGistGetInnerTypeSize (calculates label storage size)
+  - [SpGistGetInnerTypeSize](../S/SpGistGetInnerTypeSize.md) (calculates label storage size)
   - INDEX_SIZE_MASK (size constraint mask)
   - INDEX_NULL_MASK (null value flag)
-  - ItemPointerSetInvalid (TID invalidation function)
-  - memcpyInnerDatum (inner datum copying function)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md) (TID invalidation function)
+  - [memcpyInnerDatum](../m/memcpyInnerDatum.md) (inner datum copying function)
   - SGNTDATAPTR (node tuple data pointer macro)
 - Called from (representative examples):
-  - addNode (during node addition operations)
-  - doPickSplit (during node splitting)
-  - spgSplitNodeAction (during split node actions)
+  - [addNode](../a/addNode.md) (during node addition operations)
+  - [doPickSplit](../d/doPickSplit.md) (during node splitting)
+  - [spgSplitNodeAction](spgSplitNodeAction.md) (during split node actions)
 
 ## Notes and Other Information
 - The downlink (t_tid) is intentionally left invalid and must be filled by the caller
-- Node tuples are components of inner tuples in the SP-GiST tree structure
+- [Node](../N/Node.md) tuples are components of inner tuples in the SP-GiST tree structure
 - The size validation prevents index corruption by ensuring tuples fit within PostgreSQL's indexing constraints
 - Uses the same storage conventions as other inner tuple components via memcpyInnerDatum()
 - The INDEX_VAR_MASK bit is deliberately not set as mentioned in the code comment

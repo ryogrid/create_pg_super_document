@@ -30,12 +30,12 @@ The function optimizes performance by choosing between two processing paths: if 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_scan_expr_context
-  - fix_scan_expr_mutator
-  - fix_scan_expr_walker
+  - [fix_scan_expr_context](fix_scan_expr_context.md)
+  - [fix_scan_expr_mutator](fix_scan_expr_mutator.md)
+  - [fix_scan_expr_walker](fix_scan_expr_walker.md)
 - Called from (representative examples):
   - fix_scan_list
-  - set_plan_refs
+  - [set_plan_refs](../s/set_plan_refs.md)
 
 ## Notes and Other Information
 - The function includes an important optimization: when no transformations are required, it modifies the input tree in-place rather than copying it, which provides measurable performance benefits on trivial queries

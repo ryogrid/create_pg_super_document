@@ -25,7 +25,7 @@ The function is used in subplan execution contexts where detecting completely NU
 - Types used:
   - TupleTableSlot
 - Called from (representative examples):
-  - ExecHashSubPlan (for NULL tuple detection in subplan execution)
+  - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (for NULL tuple detection in subplan execution)
 
 ## Notes and Other Information
 - This is a static function internal to nodeSubplan.c, used exclusively for subplan operations

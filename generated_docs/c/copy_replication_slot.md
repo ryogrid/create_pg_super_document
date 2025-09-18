@@ -40,23 +40,23 @@ The function deliberately does not copy the failover option to prevent synchroni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `CheckSlotPermissions` - Validates user permissions for slot operations
+  - `[CheckSlotPermissions](../C/CheckSlotPermissions.md)` - Validates user permissions for slot operations
   - `CheckLogicalDecodingRequirements` - Validates logical decoding prerequisites
-  - `CheckSlotRequirements` - Validates general slot requirements
-  - `create_logical_replication_slot` - Creates a new logical replication slot
-  - `create_physical_replication_slot` - Creates a new physical replication slot
-  - `ReplicationSlotMarkDirty` - Marks the slot for checkpointing
-  - `ReplicationSlotsComputeRequiredXmin` - Recomputes global minimum xmin
-  - `ReplicationSlotsComputeRequiredLSN` - Recomputes global minimum LSN
-  - `ReplicationSlotSave` - Saves slot state to disk
-  - `ReplicationSlotPersist` - Makes temporary logical slots persistent
-  - `ReplicationSlotRelease` - Releases the acquired destination slot
+  - `[CheckSlotRequirements](../C/CheckSlotRequirements.md)` - Validates general slot requirements
+  - `[create_logical_replication_slot](create_logical_replication_slot.md)` - Creates a new logical replication slot
+  - `[create_physical_replication_slot](create_physical_replication_slot.md)` - Creates a new physical replication slot
+  - `[ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)` - Marks the slot for checkpointing
+  - `[ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)` - Recomputes global minimum xmin
+  - `[ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)` - Recomputes global minimum LSN
+  - `[ReplicationSlotSave](../R/ReplicationSlotSave.md)` - Saves slot state to disk
+  - `[ReplicationSlotPersist](../R/ReplicationSlotPersist.md)` - Makes temporary logical slots persistent
+  - `[ReplicationSlotRelease](../R/ReplicationSlotRelease.md)` - Releases the acquired destination slot
 - Called from:
-  - `pg_copy_logical_replication_slot_a` - 2-parameter logical slot copy
-  - `pg_copy_logical_replication_slot_b` - 3-parameter logical slot copy  
-  - `pg_copy_logical_replication_slot_c` - 4-parameter logical slot copy
-  - `pg_copy_physical_replication_slot_a` - 2-parameter physical slot copy
-  - `pg_copy_physical_replication_slot_b` - 3-parameter physical slot copy
+  - `[pg_copy_logical_replication_slot_a](../p/pg_copy_logical_replication_slot_a.md)` - 2-parameter logical slot copy
+  - `[pg_copy_logical_replication_slot_b](../p/pg_copy_logical_replication_slot_b.md)` - 3-parameter logical slot copy  
+  - `[pg_copy_logical_replication_slot_c](../p/pg_copy_logical_replication_slot_c.md)` - 4-parameter logical slot copy
+  - `[pg_copy_physical_replication_slot_a](../p/pg_copy_physical_replication_slot_a.md)` - 2-parameter physical slot copy
+  - `[pg_copy_physical_replication_slot_b](../p/pg_copy_physical_replication_slot_b.md)` - 3-parameter physical slot copy
 
 ## Notes and Other Information
 - Returns a composite type (slot_name, lsn) with the destination slot name and confirmed flush LSN

@@ -25,14 +25,14 @@ The function serves as a gate-keeper to ensure that only performance-critical re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationSupportsSysCache
+  - [RelationSupportsSysCache](RelationSupportsSysCache.md)
   - SharedSecLabelRelationId (constant)
   - TriggerRelidNameIndexId (constant)
   - DatabaseNameIndexId (constant)
   - SharedSecLabelObjectIndexId (constant)
 - Called from (representative examples):
-  - write_relcache_init_file
-  - RegisterRelcacheInvalidation
+  - [write_relcache_init_file](../w/write_relcache_init_file.md)
+  - [RegisterRelcacheInvalidation](RegisterRelcacheInvalidation.md)
 
 ## Notes and Other Information
 - Returns true if the relation should be included in the init file, false otherwise

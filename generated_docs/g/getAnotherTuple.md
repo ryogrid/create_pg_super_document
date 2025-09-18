@@ -20,17 +20,17 @@ The function implements an efficient approach by avoiding data copying - instead
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetInt (reads integer values from input buffer)
-  - libpq_gettext (translates error messages)
+  - [pqGetInt](../p/pqGetInt.md) (reads integer values from input buffer)
+  - [libpq_gettext](../l/libpq_gettext.md) (translates error messages)
   - realloc (dynamically resizes row buffer)
-  - pqSkipnchar (advances input cursor past field data)
-  - pqRowProcessor (processes the complete row data)
-  - pqClearAsyncResult (clears connection's async result)
-  - appendPQExpBuffer (appends to error message buffer)
-  - pqSaveErrorResult (saves error result)
+  - [pqSkipnchar](../p/pqSkipnchar.md) (advances input cursor past field data)
+  - [pqRowProcessor](../p/pqRowProcessor.md) (processes the complete row data)
+  - [pqClearAsyncResult](../p/pqClearAsyncResult.md) (clears connection's async result)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends to error message buffer)
+  - [pqSaveErrorResult](../p/pqSaveErrorResult.md) (saves error result)
   - PGdataValue (structure holding field value and length)
 - Called from (representative examples):
-  - pqParseInput3 (from src/interfaces/libpq/fe-protocol3.c:386)
+  - [pqParseInput3](../p/pqParseInput3.md) (from src/interfaces/libpq/fe-protocol3.c:386)
   - VALID_LONG_MESSAGE_TYPE (from src/interfaces/libpq/fe-protocol3.c:49)
 
 ## Notes and Other Information

@@ -18,18 +18,18 @@ This function is part of PostgreSQL's type modifier input system for the NUMERIC
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P: Extracts array argument from function call
-  - ArrayGetIntegerTypmods: Extracts integer values from the typmod array
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md): Extracts integer values from the typmod array
   - NUMERIC_MAX_PRECISION: Maximum allowed precision constant
   - NUMERIC_MIN_SCALE: Minimum allowed scale constant  
   - NUMERIC_MAX_SCALE: Maximum allowed scale constant
   - ereport: Error reporting function
-  - errcode: Error code specification
-  - errmsg: Error message formatting
-  - make_numeric_typmod: Creates internal typmod representation
+  - [errcode](../e/errcode.md): Error code specification
+  - [errmsg](../e/errmsg.md): Error message formatting
+  - [make_numeric_typmod](../m/make_numeric_typmod.md): Creates internal typmod representation
   - PG_RETURN_INT32: Returns int32 result
 
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget: JSON path execution context
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md): JSON path execution context
 
 ## Notes and Other Information
 - Handles type declarations like NUMERIC(precision) and NUMERIC(precision, scale)

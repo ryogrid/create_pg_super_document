@@ -24,20 +24,20 @@ This function provides a convenient abstraction for the common pattern of "execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - PQntuples
-  - pg_fatal
+  - [ExecuteSqlQuery](ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - ngettext
   - PGRES_TUPLES_OK (constant)
 
 - Called from (representative examples):
-  - _check_database_version
-  - ConnectDatabase
-  - setup_connection
-  - get_synchronized_snapshot
-  - dumpDatabase
-  - get_next_possible_free_pg_type_oid
-  - dumpFunc
+  - [_check_database_version](../c/_check_database_version.md)
+  - [ConnectDatabase](../C/ConnectDatabase.md)
+  - [setup_connection](../s/setup_connection.md)
+  - [get_synchronized_snapshot](../g/get_synchronized_snapshot.md)
+  - [dumpDatabase](../d/dumpDatabase.md)
+  - [get_next_possible_free_pg_type_oid](../g/get_next_possible_free_pg_type_oid.md)
+  - [dumpFunc](../d/dumpFunc.md)
 
 ## Notes and Other Information
 - This function is part of the public API for pg_dump modules, declared in pg_backup_db.h

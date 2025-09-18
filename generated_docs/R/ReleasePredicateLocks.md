@@ -32,19 +32,19 @@ The function performs extensive cleanup of shared memory hash tables, manages th
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker/ParallelContextActive (parallel query coordination)
-  - ReleasePredicateLocksLocal (local backend cleanup)
+  - [ReleasePredicateLocksLocal](ReleasePredicateLocksLocal.md) (local backend cleanup)
   - SxactIsPartiallyReleased/SxactIsCommitted/SxactIsReadOnly (transaction state checks)
-  - ReleaseRWConflict (conflict cleanup)
-  - SetNewSxactGlobalXmin (global xmin management)
-  - ClearOldPredicateLocks (old transaction cleanup)
-  - FlagSxactUnsafe (read-only transaction conflict marking)
-  - ProcSendSignal (deferrable transaction wakeup)
-  - ReleaseOneSerializableXact (transaction structure cleanup)
+  - [ReleaseRWConflict](ReleaseRWConflict.md) (conflict cleanup)
+  - [SetNewSxactGlobalXmin](../S/SetNewSxactGlobalXmin.md) (global xmin management)
+  - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md) (old transaction cleanup)
+  - [FlagSxactUnsafe](../F/FlagSxactUnsafe.md) (read-only transaction conflict marking)
+  - [ProcSendSignal](../P/ProcSendSignal.md) (deferrable transaction wakeup)
+  - [ReleaseOneSerializableXact](ReleaseOneSerializableXact.md) (transaction structure cleanup)
 - Called from (representative examples):
-  - SerializationNeededForRead (early release for safe read-only transactions)
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md) (early release for safe read-only transactions)
   - GetSafeSnapshot (snapshot acquisition safety checks)
   - PredicateLockTwoPhaseFinish (two-phase commit completion)
-  - ResourceOwnerReleaseInternal (resource cleanup)
+  - [ResourceOwnerReleaseInternal](ResourceOwnerReleaseInternal.md) (resource cleanup)
 
 ## Notes and Other Information
 - Must handle complex parallel query scenarios where workers and leaders have different responsibilities

@@ -29,16 +29,16 @@ The function implements sophisticated logic to handle both initial streaming (sn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTransferSnapToParent (snapshot management for subtransactions)
-  - ReorderBufferCopySnap (snapshot copying and management)
-  - ReorderBufferFreeSnap (snapshot cleanup)
-  - ReorderBufferProcessTXN (actual change processing and output)
+  - [ReorderBufferTransferSnapToParent](ReorderBufferTransferSnapToParent.md) (snapshot management for subtransactions)
+  - [ReorderBufferCopySnap](ReorderBufferCopySnap.md) (snapshot copying and management)
+  - [ReorderBufferFreeSnap](ReorderBufferFreeSnap.md) (snapshot cleanup)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (actual change processing and output)
   - UpdateDecodingStats (statistics maintenance)
   - rbtxn_is_toptxn/rbtxn_is_streamed (transaction state checks)
 - Called from (representative examples):
-  - ReorderBufferCheckMemoryLimit (when choosing streaming over spilling)
-  - ReorderBufferStreamCommit (during commit processing)
-  - ReorderBufferProcessPartialChange (partial change streaming)
+  - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (when choosing streaming over spilling)
+  - [ReorderBufferStreamCommit](ReorderBufferStreamCommit.md) (during commit processing)
+  - [ReorderBufferProcessPartialChange](ReorderBufferProcessPartialChange.md) (partial change streaming)
 
 ## Notes and Other Information
 - Only works with top-level transactions (subtransactions are not directly streamable)
@@ -46,6 +46,6 @@ The function implements sophisticated logic to handle both initial streaming (sn
 - Handles both initial streaming and continuation of previously streamed transactions
 - Updates comprehensive statistics for monitoring streaming performance
 - The streaming API differs from the standard commit-time processing API
-- Snapshot handling is more complex than regular commit processing due to in-progress state
+- [Snapshot](../S/Snapshot.md) handling is more complex than regular commit processing due to in-progress state
 - Ensures all changes and memory are properly cleaned up after streaming
 - Critical for handling large transactions that would otherwise cause memory issues

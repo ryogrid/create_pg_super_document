@@ -23,7 +23,7 @@ For infinite bounds, the function creates PartitionRangeDatum nodes with appropr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - get_partition_exprs
   - makeNode
   - IsA
@@ -31,24 +31,24 @@ For infinite bounds, the function creates PartitionRangeDatum nodes with appropr
   - linitial
   - strVal
   - strcmp
-  - get_attname
+  - [get_attname](../g/get_attname.md)
   - RelationGetRelid
-  - deparse_expression
-  - list_nth
-  - deparse_context_for
+  - [deparse_expression](../d/deparse_expression.md)
+  - [list_nth](../l/list_nth.md)
+  - [deparse_context_for](../d/deparse_context_for.md)
   - RelationGetRelationName
   - get_partition_col_typid
   - get_partition_col_typmod
   - get_partition_col_collation
-  - transformPartitionBoundValue
+  - [transformPartitionBoundValue](transformPartitionBoundValue.md)
   - ereport
-  - errcode
-  - errmsg
-  - exprLocation
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [exprLocation](../e/exprLocation.md)
   - lappend
-  - validateInfiniteBounds
+  - [validateInfiniteBounds](../v/validateInfiniteBounds.md)
 - Called from (representative examples):
-  - transformPartitionBound (in src/backend/parser/parse_utilcmd.c:4121, 4124)
+  - [transformPartitionBound](transformPartitionBound.md) (in src/backend/parser/parse_utilcmd.c:4121, 4124)
 
 ## Notes and Other Information
 - Handles special keywords "minvalue" and "maxvalue" as infinite range bounds

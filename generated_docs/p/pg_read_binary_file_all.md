@@ -18,7 +18,7 @@ This function provides a simple interface for reading complete binary files in P
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (macro for extracting text argument)
-  - pg_read_binary_file_common (core file reading implementation with parameters: offset=0, length=-1, enforce_size=true, missing_ok=false)
+  - [pg_read_binary_file_common](pg_read_binary_file_common.md) (core file reading implementation with parameters: offset=0, length=-1, enforce_size=true, missing_ok=false)
   - PG_RETURN_BYTEA_P (macro for returning bytea data)
   - PG_RETURN_NULL (macro for returning NULL)
 - Called from (representative examples):

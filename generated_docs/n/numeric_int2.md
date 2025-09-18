@@ -21,11 +21,11 @@ The `numeric_int2` function converts a PostgreSQL `Numeric` type to a 16-bit sig
   - `PG_GETARG_NUMERIC`: Retrieves the numeric argument from function parameters
   - `NUMERIC_IS_SPECIAL`: Checks if the numeric value is special (NaN or infinity)
   - `NUMERIC_IS_NAN`: Checks specifically for NaN values
-  - `init_var_from_num`: Initializes a NumericVar from a Numeric value
-  - `numericvar_to_int64`: Converts NumericVar to 64-bit integer
+  - `[init_var_from_num](../i/init_var_from_num.md)`: Initializes a NumericVar from a Numeric value
+  - `[numericvar_to_int64](numericvar_to_int64.md)`: Converts NumericVar to 64-bit integer
   - `PG_RETURN_INT16`: Returns the 16-bit integer result
 - Called from (representative examples):
-  - `jsonb_int2`: JSONB to smallint conversion
+  - `[jsonb_int2](../j/jsonb_int2.md)`: JSONB to smallint conversion
 
 ## Notes and Other Information
 - Throws `ERRCODE_FEATURE_NOT_SUPPORTED` error for NaN and infinity inputs

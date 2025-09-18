@@ -23,17 +23,17 @@ Swap:        8388608           0     8388608: Function pointer for resource deal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (main structure that contains this ops pointer)
+  - [bbstreamer](bbstreamer.md) (main structure that contains this ops pointer)
   - bbstreamer_member (for archive member metadata)
-  - bbstreamer_archive_context (for data type classification)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (for data type classification)
 
 - Called from (representative examples):
-  - bbstreamer_content (static inline wrapper)
-  - bbstreamer_finalize (static inline wrapper)
-  - bbstreamer_free (static inline wrapper)
-  - bbstreamer_plain_writer_new
-  - bbstreamer_gzip_writer_new
-  - bbstreamer_tar_parser_new
+  - [bbstreamer_content](bbstreamer_content.md) (static inline wrapper)
+  - [bbstreamer_finalize](bbstreamer_finalize.md) (static inline wrapper)
+  - [bbstreamer_free](bbstreamer_free.md) (static inline wrapper)
+  - [bbstreamer_plain_writer_new](bbstreamer_plain_writer_new.md)
+  - [bbstreamer_gzip_writer_new](bbstreamer_gzip_writer_new.md)
+  - [bbstreamer_tar_parser_new](bbstreamer_tar_parser_new.md)
 
 ## Notes and Other Information
 - The ops structure should always be accessed through the provided static inline wrapper functions (bbstreamer_content, bbstreamer_finalize, bbstreamer_free) rather than calling the function pointers directly

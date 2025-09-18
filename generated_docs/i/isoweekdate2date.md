@@ -21,10 +21,10 @@ This function converts a full ISO 8601 week date specification into a Gregorian 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isoweek2j (converts ISO year/week to Julian day for Monday of that week)
-  - j2date (converts Julian day number to Gregorian date)
+  - [isoweek2j](isoweek2j.md) (converts ISO year/week to Julian day for Monday of that week)
+  - [j2date](../j/j2date.md) (converts Julian day number to Gregorian date)
 - Called from (representative examples):
-  - do_to_timestamp (in formatting.c:4865)
+  - [do_to_timestamp](../d/do_to_timestamp.md) (in formatting.c:4865)
   - timestamptz_cmp_internal (referenced in timestamp.h:140)
 
 ## Notes and Other Information

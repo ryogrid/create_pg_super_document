@@ -19,21 +19,21 @@ This function completes a bulk write operation by first flushing any remaining p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_flush
+  - [smgr_bulk_flush](smgr_bulk_flush.md)
   - SmgrIsTemp
-  - smgrregistersync
-  - smgrimmedsync
-  - GetRedoRecPtr
+  - [smgrregistersync](smgrregistersync.md)
+  - [smgrimmedsync](smgrimmedsync.md)
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
   - DELAY_CHKPT_START
   - MyProc (process state)
   - DEBUG1 (logging level)
 - Called from (representative examples):
-  - gist_indexsortbuild
-  - end_heap_rewrite
-  - btbuildempty
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
+  - [end_heap_rewrite](../e/end_heap_rewrite.md)
+  - [btbuildempty](../b/btbuildempty.md)
   - _bt_load
-  - spgbuildempty
-  - RelationCopyStorage
+  - [spgbuildempty](spgbuildempty.md)
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
 
 ## Notes and Other Information
 - Temporary relations require no synchronization as they don't survive crashes

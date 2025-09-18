@@ -32,21 +32,21 @@ This function takes no parameters but operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetConfigOption: Configure PostgreSQL settings (session_replication_role, search_path, synchronous_commit)
-  - BackgroundWorkerInitializeConnectionByOid: Establish database connection
+  - [SetConfigOption](../S/SetConfigOption.md): Configure PostgreSQL settings (session_replication_role, search_path, synchronous_commit)
+  - [BackgroundWorkerInitializeConnectionByOid](../B/BackgroundWorkerInitializeConnectionByOid.md): Establish database connection
   - AllocSetContextCreate: Create memory context for subscription data
-  - StartTransactionCommand/CommitTransactionCommand: Transaction management
-  - LockSharedObject: Lock subscription to prevent concurrent drops
-  - GetSubscription: Load subscription configuration from catalog
-  - am_leader_apply_worker/am_tablesync_worker: Worker type identification
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand: Transaction management
+  - [LockSharedObject](../L/LockSharedObject.md): Lock subscription to prevent concurrent drops
+  - [GetSubscription](../G/GetSubscription.md): Load subscription configuration from catalog
+  - [am_leader_apply_worker](../a/am_leader_apply_worker.md)/am_tablesync_worker: Worker type identification
   - ApplyLauncherForgetWorkerStartTime: Clean up launcher tracking
-  - apply_worker_exit: Graceful worker termination
-  - CacheRegisterSyscacheCallback: Register for catalog change notifications
-  - subscription_change_cb: Callback for subscription/role changes
-  - get_rel_name: Get table name for logging
+  - [apply_worker_exit](../a/apply_worker_exit.md): Graceful worker termination
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md): Register for catalog change notifications
+  - [subscription_change_cb](../s/subscription_change_cb.md): Callback for subscription/role changes
+  - [get_rel_name](../g/get_rel_name.md): Get table name for logging
 - Called from:
-  - ParallelApplyWorkerMain: Parallel apply worker initialization
-  - SetupApplyOrSyncWorker: Common worker setup path
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md): Parallel apply worker initialization
+  - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md): Common worker setup path
 
 ## Notes and Other Information
 - This is a public function that can be called from other source files

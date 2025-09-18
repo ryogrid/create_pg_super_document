@@ -30,18 +30,18 @@ The function performs these key operations:
 - Functions called/Symbols referenced:
   - strVal
   - table_open
-  - SearchSysCacheCopyAttName
-  - GetAttributeCompression
-  - CatalogTupleUpdate
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [GetAttributeCompression](../G/GetAttributeCompression.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - SetIndexStorageProperties
-  - heap_freetuple
+  - [SetIndexStorageProperties](../S/SetIndexStorageProperties.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
   - CommandCounterIncrement
   - ObjectAddressSubSet
 
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Returns an ObjectAddress pointing to the modified column for dependency tracking

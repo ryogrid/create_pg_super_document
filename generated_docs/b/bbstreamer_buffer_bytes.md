@@ -22,13 +22,13 @@ The function takes a portion of the input data (specified by nbytes), appends it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (struct type)
+  - [bbstreamer](bbstreamer.md) (struct type)
   - appendBinaryStringInfo (PostgreSQL StringInfo function)
   - Assert (assertion macro)
 
 - Called from (representative examples):
-  - bbstreamer_buffer_until
-  - bbstreamer_tar_parser_content
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md)
+  - [bbstreamer_tar_parser_content](bbstreamer_tar_parser_content.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in bbstreamer.h for internal use by bbstreamer implementations

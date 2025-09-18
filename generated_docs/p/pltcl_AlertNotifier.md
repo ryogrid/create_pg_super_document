@@ -23,7 +23,7 @@ This approach is safe because PostgreSQL never enters the Tcl event loop, so the
 - Functions called/Symbols referenced:
   - (None - this is an empty stub function)
 - Called from (representative examples):
-  - _PG_init (assigned to notifier.alertNotifierProc)
+  - [_PG_init](../P/_PG_init.md) (assigned to notifier.alertNotifierProc)
 
 ## Notes and Other Information
 - This function is part of a complete set of Tcl notifier overrides that includes pltcl_InitNotifier, pltcl_FinalizeNotifier, pltcl_SetTimer, pltcl_CreateFileHandler, pltcl_DeleteFileHandler, pltcl_ServiceModeHook, and pltcl_WaitForEvent

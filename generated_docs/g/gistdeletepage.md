@@ -295,25 +295,25 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GistPageIsLeaf
   - GistFollowRight
-  - PageGetMaxOffsetNumber
-  - PageIsNew
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageIsNew](../P/PageIsNew.md)
   - GistPageIsDeleted
-  - PageGetItemId
-  - PageGetItem
-  - BufferGetBlockNumber
-  - ItemPointerGetBlockNumber
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - ReadNextFullTransactionId
-  - GistPageSetDeleted
-  - PageIndexTupleDelete
+  - [GistPageSetDeleted](../G/GistPageSetDeleted.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - RelationNeedsWAL
-  - gistXLogPageDelete
+  - [gistXLogPageDelete](gistXLogPageDelete.md)
   - gistGetFakeLSN
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
 - Called from:
-  - gistvacuum_delete_empty_pages
+  - [gistvacuum_delete_empty_pages](gistvacuum_delete_empty_pages.md)
 
 ## Notes and Other Information
 - Returns  if the page was successfully deleted,  if concurrent operations prevented deletion

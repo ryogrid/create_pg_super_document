@@ -21,7 +21,7 @@ The function is the counterpart to yiddish_UTF_8_create_env and should always be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct callers found in the codebase (likely called through stemmer interface)
 

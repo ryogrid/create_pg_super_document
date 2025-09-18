@@ -32,18 +32,18 @@ This is particularly important for queries with array operators (e.g., `column =
   - SpinLockAcquire
   - SpinLockRelease
 - Types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque
-  - ParallelIndexScanDesc
-  - BTParallelScanDesc
-  - BTArrayKeyInfo
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md)
+  - [BTParallelScanDesc](../B/BTParallelScanDesc.md)
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md)
   - BlockNumber
 - Constants used:
   - BTPARALLEL_IDLE
   - BTPARALLEL_NEED_PRIMSCAN
   - InvalidBlockNumber
 - Called from:
-  - _bt_advance_array_keys
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
 
 ## Notes and Other Information
 - The function includes an assertion requiring that array keys are present (so->numArrayKeys must be non-zero)

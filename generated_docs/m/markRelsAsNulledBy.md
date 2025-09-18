@@ -21,17 +21,17 @@ This function implements a critical aspect of PostgreSQL's outer join semantics 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - markRelsAsNulledBy (recursive calls)
-  - bms_add_member
+  - [markRelsAsNulledBy](markRelsAsNulledBy.md) (recursive calls)
+  - [bms_add_member](../b/bms_add_member.md)
   - list_nth_cell
   - nodeTag
 - Types referenced:
   - RangeTblRef
   - JoinExpr
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - transformFromClauseItem (for LEFT, RIGHT, and FULL outer joins)
-  - markRelsAsNulledBy (recursive calls for nested joins)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (for LEFT, RIGHT, and FULL outer joins)
+  - [markRelsAsNulledBy](markRelsAsNulledBy.md) (recursive calls for nested joins)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c used internally for outer join processing

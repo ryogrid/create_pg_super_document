@@ -25,8 +25,8 @@ The function uses unsigned arithmetic internally to correctly handle the full ra
   - PG_INT32_MAX (maximum 32-bit signed integer constant)
   - ereturn (error return macro for soft error handling)
 - Called from (representative examples):
-  - int4in (integer input function)
-  - pg_strtoint32 (wrapper function without error context)
+  - [int4in](../i/int4in.md) (integer input function)
+  - [pg_strtoint32](pg_strtoint32.md) (wrapper function without error context)
 
 ## Notes and Other Information
 - Uses a fast path optimization for common base-10 integers without underscores

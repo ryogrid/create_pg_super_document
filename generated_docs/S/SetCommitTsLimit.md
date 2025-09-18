@@ -28,15 +28,15 @@ This conservative approach ensures that the valid range can only shrink, never e
 - Functions called/Symbols referenced:
   - LWLockAcquire (CommitTsLock, LW_EXCLUSIVE)
   - LWLockRelease (CommitTsLock)
-  - TransactionIdPrecedes (for comparing transaction IDs)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (for comparing transaction IDs)
   - InvalidTransactionId (constant for invalid transaction ID)
   - Assert (for debugging validation)
   - TransamVariables->oldestCommitTsXid (global variable)
   - TransamVariables->newestCommitTsXid (global variable)
 
 - Called from (representative examples):
-  - BootStrapXLOG (during database bootstrap)
-  - StartupXLOG (during recovery startup)
+  - [BootStrapXLOG](../B/BootStrapXLOG.md) (during database bootstrap)
+  - [StartupXLOG](StartupXLOG.md) (during recovery startup)
 
 ## Notes and Other Information
 - Uses exclusive locking on CommitTsLock to ensure atomicity of limit updates

@@ -24,10 +24,10 @@ This function creates a dynamically allocated filename string by combining a bas
   - pg_malloc0 (PostgreSQL memory allocation function)
   - snprintf (formatted string printing)
   - MAXPGPATH (maximum path length constant)
-  - WalWriteMethod (method structure type)
+  - [WalWriteMethod](../W/WalWriteMethod.md) (method structure type)
 - Called from:
-  - CreateWalDirectoryMethod (as function pointer assignment)
-  - tar_open_for_write
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (as function pointer assignment)
+  - [tar_open_for_write](tar_open_for_write.md)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

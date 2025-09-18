@@ -23,14 +23,14 @@ The function internally uses PQconnectStartParams to initiate a connection attem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconnectStartParams
-  - internal_ping
-  - PQfinish
+  - [PQconnectStartParams](PQconnectStartParams.md)
+  - [internal_ping](../i/internal_ping.md)
+  - [PQfinish](PQfinish.md)
   - PGPing (return type enum)
 
 - Called from (representative examples):
   - pg_isready utility
-  - regression_main (PostgreSQL regression tests)
+  - [regression_main](../r/regression_main.md) (PostgreSQL regression tests)
 
 ## Notes and Other Information
 - Returns a PGPing enum value indicating server status (PQPING_OK, PQPING_REJECT, PQPING_NO_RESPONSE, PQPING_NO_ATTEMPT)

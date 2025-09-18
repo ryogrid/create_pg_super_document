@@ -31,10 +31,10 @@ This function is specifically designed to work with the  structure and is called
   - JSON_TOKEN_ARRAY_START (token type constant)
   - JSON_TOKEN_OBJECT_START (token type constant)
   - JsonParseErrorType (return type)
-  - PopulateRecordsetState (state structure)
+  - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (state structure)
 
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

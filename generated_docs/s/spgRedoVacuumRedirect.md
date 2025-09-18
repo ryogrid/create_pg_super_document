@@ -26,21 +26,21 @@ The operation ensures that redirect cleanup during recovery maintains the same c
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - ResolveRecoveryConflictWithSnapshot
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
   - XLogReadBufferForRedo
   - SpGistPageGetOpaque
-  - PageGetItem
-  - PageGetItemId
-  - ItemPointerSetInvalid
-  - PageGetMaxOffsetNumber
-  - PageIndexMultiDelete
-  - BufferGetPage
-  - PageSetLSN
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
-  - spg_redo (main SP-GiST redo dispatcher)
+  - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)
 
 ## Notes and Other Information
 - Handles Hot Standby conflicts by resolving snapshot conflicts before processing

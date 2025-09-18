@@ -33,19 +33,19 @@ ForeignScanState serves as the execution state for foreign table scans, enabling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
+  - [ScanState](../S/ScanState.md)
   - ExprState
-  - ResultRelInfo
-  - FdwRoutine
+  - [ResultRelInfo](../R/ResultRelInfo.md)
+  - [FdwRoutine](FdwRoutine.md)
 - Called from (representative examples):
-  - ExecForeignScan
-  - ExecInitForeignScan
-  - ExecEndForeignScan
-  - ExecReScanForeignScan
-  - ForeignNext
-  - ForeignRecheck
-  - ExecForeignScanEstimate
-  - ExecAsyncForeignScanRequest
+  - [ExecForeignScan](../E/ExecForeignScan.md)
+  - [ExecInitForeignScan](../E/ExecInitForeignScan.md)
+  - [ExecEndForeignScan](../E/ExecEndForeignScan.md)
+  - [ExecReScanForeignScan](../E/ExecReScanForeignScan.md)
+  - [ForeignNext](ForeignNext.md)
+  - [ForeignRecheck](ForeignRecheck.md)
+  - [ExecForeignScanEstimate](../E/ExecForeignScanEstimate.md)
+  - [ExecAsyncForeignScanRequest](../E/ExecAsyncForeignScanRequest.md)
 
 ## Notes and Other Information
 - Central component of PostgreSQL Foreign Data Wrapper architecture for external data access

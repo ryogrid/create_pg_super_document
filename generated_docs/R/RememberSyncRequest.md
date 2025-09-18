@@ -22,18 +22,18 @@ The function operates within the checkpointer's memory context and includes logi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (find, enter, or remove hash table entries)
-  - hash_seq_init/hash_seq_search (iterate through hash table for filter operations)
+  - [hash_search](../h/hash_search.md) (find, enter, or remove hash table entries)
+  - [hash_seq_init](../h/hash_seq_init.md)/hash_seq_search (iterate through hash table for filter operations)
   - syncsw[].sync_filetagmatches (handler-specific file matching function)
-  - MemoryContextSwitchTo (switch to pendingOpsCxt for allocations)
-  - palloc (allocate memory for unlink entries)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switch to pendingOpsCxt for allocations)
+  - [palloc](../p/palloc.md) (allocate memory for unlink entries)
   - lappend (add entries to pendingUnlinks list)
   - PendingFsyncEntry (structure for fsync requests)
-  - PendingUnlinkEntry (structure for unlink requests)
+  - [PendingUnlinkEntry](../P/PendingUnlinkEntry.md) (structure for unlink requests)
   - SyncRequestType (enum defining request types)
 - Called from (representative examples):
-  - AbsorbSyncRequests (in checkpointer.c:1305)
-  - RegisterSyncRequest (in sync.c:588)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md) (in checkpointer.c:1305)
+  - [RegisterSyncRequest](RegisterSyncRequest.md) (in sync.c:588)
 
 ## Notes and Other Information
 - Requires pendingOps hash table to be initialized (via InitSync)

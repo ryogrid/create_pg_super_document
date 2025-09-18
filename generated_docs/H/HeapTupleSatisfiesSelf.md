@@ -33,14 +33,14 @@ The function also performs hint bit optimization by calling SetHintBits to cache
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderGetRawXmin
   - HeapTupleHeaderGetRawXmax
-  - HeapTupleGetUpdateXid
-  - TransactionIdIsCurrentTransactionId
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
-  - SetHintBits
-  - ItemPointerIsValid
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [SetHintBits](../S/SetHintBits.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's pluggable tuple visibility system

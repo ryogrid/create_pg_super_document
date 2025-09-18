@@ -29,10 +29,10 @@ The function is critical for PostgreSQL's parallel aggregation infrastructure, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate execution context)
-  - makeStringAggState (creates new StringInfo state in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate execution context)
+  - [makeStringAggState](../m/makeStringAggState.md) (creates new StringInfo state in aggregate context)
   - appendBinaryStringInfo (appends binary data to StringInfo buffer)
-  - MemoryContextSwitchTo (changes memory allocation context)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (changes memory allocation context)
   - PG_ARGISNULL, PG_GETARG_POINTER (PostgreSQL argument macros)
 
 - Called from:

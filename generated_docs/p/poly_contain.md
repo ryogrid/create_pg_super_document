@@ -19,7 +19,7 @@ poly_contain serves as the PostgreSQL function interface for the polygon contain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - poly_contain_poly: Core polygon containment algorithm
+  - [poly_contain_poly](poly_contain_poly.md): Core polygon containment algorithm
   - PG_GETARG_POLYGON_P: Extracts POLYGON argument from function arguments
   - PG_FREE_IF_COPY: Manages memory for potentially toasted inputs
   - PG_RETURN_BOOL: Returns boolean result following PostgreSQL conventions

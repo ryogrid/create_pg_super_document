@@ -20,14 +20,14 @@ The comparison logic prioritizes block numbers (physical storage blocks) over of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumberNoCheck: Safely extracts block number without validation assertions
-  - ItemPointerGetOffsetNumberNoCheck: Safely extracts offset number without validation assertions
+  - [ItemPointerGetBlockNumberNoCheck](ItemPointerGetBlockNumberNoCheck.md): Safely extracts block number without validation assertions
+  - [ItemPointerGetOffsetNumberNoCheck](ItemPointerGetOffsetNumberNoCheck.md): Safely extracts offset number without validation assertions
 - Called from (representative examples):
-  - bttidcmp: Used in btree comparison operations for TID data types
-  - heap_set_tidrange: Used in heap tuple range scanning operations
-  - _bt_compare: Used in btree search and insertion operations
-  - TidRangeEval: Used in TID range scan execution
-  - tideq, tidne, tidlt, tidle, tidgt, tidge: Used in TID comparison operators
+  - [bttidcmp](../b/bttidcmp.md): Used in btree comparison operations for TID data types
+  - [heap_set_tidrange](../h/heap_set_tidrange.md): Used in heap tuple range scanning operations
+  - [_bt_compare](../b/_bt_compare.md): Used in btree search and insertion operations
+  - [TidRangeEval](../T/TidRangeEval.md): Used in TID range scan execution
+  - [tideq](../t/tideq.md), tidne, tidlt, tidle, tidgt, tidge: Used in TID comparison operators
 
 ## Notes and Other Information
 - Returns -1 if arg1 < arg2, 0 if arg1 == arg2, and 1 if arg1 > arg2

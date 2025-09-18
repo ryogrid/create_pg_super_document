@@ -28,16 +28,16 @@ This infrastructure is commonly used by utility commands like EXPLAIN and SHOW A
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - MakeSingleTupleTableSlot
+  - [palloc](../p/palloc.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - CMD_SELECT
   - DestReceiver->rStartup
 - Called from (representative examples):
-  - SendXlogRecPtrResult (basebackup_copy.c)
-  - SendTablespaceList (basebackup_copy.c)
-  - ExplainQuery (explain.c)
-  - ExecuteCallStmt (functioncmds.c)
-  - IdentifySystem (walsender.c)
+  - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (basebackup_copy.c)
+  - [SendTablespaceList](../S/SendTablespaceList.md) (basebackup_copy.c)
+  - [ExplainQuery](../E/ExplainQuery.md) (explain.c)
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md) (functioncmds.c)
+  - [IdentifySystem](../I/IdentifySystem.md) (walsender.c)
   - ShowGUCConfigOption (guc_funcs.c)
   - ShowAllGUCConfig (guc_funcs.c)
 

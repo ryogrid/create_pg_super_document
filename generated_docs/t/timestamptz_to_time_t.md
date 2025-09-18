@@ -25,9 +25,9 @@ This function converts PostgreSQL's internal TimestampTz format to Unix timestam
   - UNIX_EPOCH_JDATE (Unix epoch date constant)
   - SECS_PER_DAY (seconds per day constant)
 - Called from (representative examples):
-  - InitProcessGlobals (process initialization)
-  - DetermineTimeZoneAbbrevOffsetTS (timezone offset determination)
-  - timestamptz_to_str (timestamp string conversion in pg_waldump)
+  - [InitProcessGlobals](../I/InitProcessGlobals.md) (process initialization)
+  - [DetermineTimeZoneAbbrevOffsetTS](../D/DetermineTimeZoneAbbrevOffsetTS.md) (timezone offset determination)
+  - [timestamptz_to_str](timestamptz_to_str.md) (timestamp string conversion in pg_waldump)
 
 ## Notes and Other Information
 - Performs the inverse conversion of time_t_to_timestamptz

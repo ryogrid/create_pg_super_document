@@ -28,21 +28,21 @@ Returns true if the page must be split into two pages, false if all items fit on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSetInvalid
-  - dlist_head_node
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [dlist_head_node](../d/dlist_head_node.md)
   - dlist_container
-  - dlist_has_next
-  - dlist_next_node
-  - ginCompressPostingList
-  - dlist_insert_after
-  - dlist_delete
-  - dlist_prev_node
+  - [dlist_has_next](../d/dlist_has_next.md)
+  - [dlist_next_node](../d/dlist_next_node.md)
+  - [ginCompressPostingList](../g/ginCompressPostingList.md)
+  - [dlist_insert_after](../d/dlist_insert_after.md)
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_prev_node](../d/dlist_prev_node.md)
   - SizeOfGinPostingList
-  - ginPostingListDecode
-  - ginMergeItemPointers
+  - [ginPostingListDecode](../g/ginPostingListDecode.md)
+  - [ginMergeItemPointers](../g/ginMergeItemPointers.md)
   - dlist_foreach
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - memcpy
   - GIN_SEGMENT_DELETE
   - GIN_SEGMENT_INSERT
@@ -53,7 +53,7 @@ Returns true if the page must be split into two pages, false if all items fit on
   - GinPostingListSegmentMinSize
   - GinDataPageMaxDataSize
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
+  - [dataBeginPlaceToPageLeaf](../d/dataBeginPlaceToPageLeaf.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within gindatapage.c

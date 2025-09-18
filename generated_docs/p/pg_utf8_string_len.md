@@ -24,10 +24,10 @@ Returns the character count on success, or -1 if any invalid UTF-8 sequences are
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_utf_mblen (determines byte length of UTF-8 character)
-  - pg_utf8_islegal (validates UTF-8 sequence legality)
+  - [pg_utf8_islegal](pg_utf8_islegal.md) (validates UTF-8 sequence legality)
   - pg_saslprep_rc (return code enumeration)
 - Called from (representative examples):
-  - pg_saslprep (main SASL preparation function)
+  - [pg_saslprep](pg_saslprep.md) (main SASL preparation function)
 
 ## Notes and Other Information
 - This is a static function local to src/common/saslprep.c

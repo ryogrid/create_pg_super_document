@@ -21,7 +21,7 @@ The comment indicates this separation is specifically to keep the opr_sanity reg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_instr: The main function that performs the actual regular expression position finding logic
+  - [regexp_instr](regexp_instr.md): The main function that performs the actual regular expression position finding logic
 
 - Called from (representative examples):
   - SQL function dispatcher (no direct C code references found)

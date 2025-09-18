@@ -29,12 +29,12 @@ The relcache invalidation is crucial because it forces other backends to rebuild
 - Functions called/Symbols referenced:
   - Form_pg_class
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
-  - CacheInvalidateRelcache
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - StoreConstraints
-  - AddRelationNewConstraints
+  - [StoreConstraints](StoreConstraints.md)
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
 
 ## Notes and Other Information
 - Caller must hold exclusive lock on the relation to ensure consistency

@@ -19,9 +19,9 @@ The function uses PostgreSQL's memory management functions to safely deallocate 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_free
-  - pfree
-  - bbstreamer (struct type)
+  - [bbstreamer_free](bbstreamer_free.md)
+  - [pfree](../p/pfree.md)
+  - [bbstreamer](bbstreamer.md) (struct type)
 - Called from (representative examples):
   - No direct references found (likely called via function pointer in operations table)
 

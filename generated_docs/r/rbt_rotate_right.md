@@ -25,12 +25,12 @@ This operation, like left rotation, preserves the binary search tree invariant w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (tree structure type)
-  - RBTNode (node structure type)  
+  - [RBTree](../R/RBTree.md) (tree structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)  
   - RBTNIL (sentinel value for null nodes)
 - Called from (representative examples):
-  - rbt_insert_fixup (in rbtree.c:395, 418)
-  - rbt_delete_fixup (in rbtree.c:563, 583, 607)
+  - [rbt_insert_fixup](rbt_insert_fixup.md) (in rbtree.c:395, 418)
+  - [rbt_delete_fixup](rbt_delete_fixup.md) (in rbtree.c:563, 583, 607)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

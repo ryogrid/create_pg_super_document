@@ -19,9 +19,9 @@ This function reads a serialized library state buffer (created by SerializeLibra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_load_library (loads a single dynamic library by filename)
+  - [internal_load_library](../i/internal_load_library.md) (loads a single dynamic library by filename)
 - Called from (representative examples):
-  - ParallelWorkerMain
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
   - OidFunctionCall9
 
 ## Notes and Other Information

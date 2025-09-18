@@ -22,11 +22,11 @@ Unlike other validators, this function does not honor the check_function_bodies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckFunctionValidatorAccess: Verifies permission to validate this function
-  - SearchSysCache1: Looks up the function tuple in pg_proc
-  - SysCacheGetAttrNotNull: Gets the prosrc (function source) attribute
+  - [CheckFunctionValidatorAccess](../C/CheckFunctionValidatorAccess.md): Verifies permission to validate this function
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up the function tuple in pg_proc
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md): Gets the prosrc (function source) attribute
   - TextDatumGetCString: Converts the function name from text to C string
-  - fmgr_internal_function: Checks if the function name is a known built-in
+  - [fmgr_internal_function](fmgr_internal_function.md): Checks if the function name is a known built-in
   - PG_RETURN_VOID: Returns void datum
 
 - Called from (representative examples):

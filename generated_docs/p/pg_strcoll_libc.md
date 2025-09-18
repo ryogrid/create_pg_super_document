@@ -33,13 +33,13 @@ LC_ALL=: PostgreSQL locale object containing collation information, or NULL to u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
-  - pg_strncoll_libc_win32_utf8
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [pg_strncoll_libc_win32_utf8](pg_strncoll_libc_win32_utf8.md)
   - strcoll_l
   - strcoll
 - Called from (representative examples):
-  - pg_strncoll_libc
-  - pg_strcoll
+  - [pg_strncoll_libc](pg_strncoll_libc.md)
+  - [pg_strcoll](pg_strcoll.md)
 
 ## Notes and Other Information
 - This is a static function, internal to the PostgreSQL locale handling system

@@ -17,10 +17,10 @@ This function is a simplified wrapper around the  function that automatically de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asc_tolower
+  - [asc_tolower](asc_tolower.md)
   - strlen
 - Called from (representative examples):
-  - NUM_processor
+  - [NUM_processor](../N/NUM_processor.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/formatting.c

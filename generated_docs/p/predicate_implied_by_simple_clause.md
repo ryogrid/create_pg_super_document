@@ -27,16 +27,16 @@ The function supports both "weak" and "strong" implication modes, where strong i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal (for expression equality testing)
+  - [equal](../e/equal.md) (for expression equality testing)
   - nodeTag (for node type checking)
   - lsecond (for accessing second list element)
-  - is_notclause (for NOT clause detection)
-  - get_notclausearg (for extracting NOT clause argument)
-  - clause_is_strict_for (for strictness testing)
-  - operator_predicate_proof (for operator-based implication proofs)
+  - [is_notclause](../i/is_notclause.md) (for NOT clause detection)
+  - [get_notclausearg](../g/get_notclausearg.md) (for extracting NOT clause argument)
+  - [clause_is_strict_for](../c/clause_is_strict_for.md) (for strictness testing)
+  - [operator_predicate_proof](../o/operator_predicate_proof.md) (for operator-based implication proofs)
 - Called from (representative examples):
   - iterate_end
-  - predicate_implied_by_recurse
+  - [predicate_implied_by_recurse](predicate_implied_by_recurse.md)
 
 ## Notes and Other Information
 - Includes CHECK_FOR_INTERRUPTS() to allow interruption of long proof attempts

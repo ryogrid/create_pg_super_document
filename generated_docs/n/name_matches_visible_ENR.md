@@ -18,9 +18,9 @@ This function serves as a boolean test to determine if a specified relation name
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_visible_ENR_metadata
+  - [get_visible_ENR_metadata](../g/get_visible_ENR_metadata.md)
 - Called from (representative examples):
-  - scanNameSpaceForENR
+  - [scanNameSpaceForENR](../s/scanNameSpaceForENR.md)
 
 ## Notes and Other Information
 - This function provides a simple boolean interface for ENR visibility checking

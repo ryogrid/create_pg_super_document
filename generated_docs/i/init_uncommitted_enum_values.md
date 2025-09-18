@@ -21,13 +21,13 @@ The hash table is allocated in TopTransactionContext to ensure proper transactio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
+  - [hash_create](../h/hash_create.md)
   - HASH_ELEM (flag)
   - HASH_BLOBS (flag) 
   - HASH_CONTEXT (flag)
 - Called from:
-  - AddEnumLabel (src/backend/catalog/pg_enum.c:595)
-  - RestoreUncommittedEnums (src/backend/catalog/pg_enum.c:899)
+  - [AddEnumLabel](../A/AddEnumLabel.md) (src/backend/catalog/pg_enum.c:595)
+  - [RestoreUncommittedEnums](../R/RestoreUncommittedEnums.md) (src/backend/catalog/pg_enum.c:899)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to pg_enum.c

@@ -26,7 +26,7 @@ For each partition specification, the function examines every Const node in the 
   - lfirst_node (list cell access macro)
   - Const (node type for constant values)
 - Called from (representative examples):
-  - create_list_bounds (src/backend/partitioning/partbounds.c:482)
+  - [create_list_bounds](../c/create_list_bounds.md) (src/backend/partitioning/partbounds.c:482)
 
 ## Notes and Other Information
 - Static function, only accessible within partbounds.c

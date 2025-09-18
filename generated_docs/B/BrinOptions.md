@@ -26,9 +26,9 @@ The structure follows PostgreSQL's varlena convention, making it suitable for st
 - Functions called/Symbols referenced:
   - BlockNumber (type dependency)
   - int32 (type dependency)
-  - bool (type dependency)
+  - [bool](../b/bool.md) (type dependency)
 - Called from (representative examples):
-  - brinoptions() function in src/backend/access/brin/brin.c:1341
+  - [brinoptions](../b/brinoptions.md)() function in src/backend/access/brin/brin.c:1341
   - BrinGetPagesPerRange() macro in src/include/access/brin.h:44
   - BrinGetAutoSummarize() macro in src/include/access/brin.h:50
 

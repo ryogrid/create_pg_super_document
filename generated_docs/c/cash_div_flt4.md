@@ -23,7 +23,7 @@ This function implements the division operation between a PostgreSQL Cash value 
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Extracts Cash argument from function call context
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
-  - cash_div_float8: Performs the actual division with float8 precision
+  - [cash_div_float8](cash_div_float8.md): Performs the actual division with float8 precision
   - PG_RETURN_CASH: Returns the computed Cash result
 - Called from:
   - SQL operator implementations for money / float4 operations

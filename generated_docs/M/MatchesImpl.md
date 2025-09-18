@@ -27,7 +27,7 @@ The function performs word-by-word comparison between the command line input (st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - word_matches (performs individual word comparison with case sensitivity support)
+  - [word_matches](../w/word_matches.md) (performs individual word comparison with case sensitivity support)
 
 - Called from (representative examples):
   - Matches (macro wrapper for case-insensitive exact matching)

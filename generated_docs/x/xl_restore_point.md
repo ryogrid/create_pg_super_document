@@ -23,10 +23,10 @@ The restore point includes both a timestamp indicating when it was created and a
   - MAXFNAMELEN (maximum filename length constant, value 64)
   - TimestampTz (timestamp with timezone type)
 - Called from (representative examples):
-  - XLogRestorePoint (creates and logs restore point records)
-  - xlog_desc (describes restore point records for debugging)
-  - getRecordTimestamp (extracts timestamp from restore point records)
-  - recoveryStopsAfter (checks if recovery should stop at restore point)
+  - [XLogRestorePoint](../X/XLogRestorePoint.md) (creates and logs restore point records)
+  - [xlog_desc](xlog_desc.md) (describes restore point records for debugging)
+  - [getRecordTimestamp](../g/getRecordTimestamp.md) (extracts timestamp from restore point records)
+  - [recoveryStopsAfter](../r/recoveryStopsAfter.md) (checks if recovery should stop at restore point)
 
 ## Notes and Other Information
 - Associated with WAL record type XLOG_RESTORE_POINT (0x70)

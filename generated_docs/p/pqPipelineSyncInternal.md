@@ -26,15 +26,15 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqAllocCmdQueueEntry
-  - pqPutMsgStart
-  - pqPutMsgEnd
-  - pqFlush
-  - pqPipelineFlush
-  - pqAppendCmdQueueEntry
-  - pqRecycleCmdQueueEntry
-  - libpq_append_conn_error
-  - appendPQExpBufferStr
+  - [pqAllocCmdQueueEntry](pqAllocCmdQueueEntry.md)
+  - [pqPutMsgStart](pqPutMsgStart.md)
+  - [pqPutMsgEnd](pqPutMsgEnd.md)
+  - [pqFlush](pqFlush.md)
+  - [pqPipelineFlush](pqPipelineFlush.md)
+  - [pqAppendCmdQueueEntry](pqAppendCmdQueueEntry.md)
+  - [pqRecycleCmdQueueEntry](pqRecycleCmdQueueEntry.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from:
   - PQpipelineSync (fe-exec.c:3274)
   - PQsendPipelineSync (fe-exec.c:3284)

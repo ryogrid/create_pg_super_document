@@ -21,18 +21,18 @@ This function processes RETURNING clauses in JSON expressions such as JSON_VALUE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonOutput
+  - [transformJsonOutput](transformJsonOutput.md)
   - ereport
-  - errcode
-  - errmsg
-  - errhint
-  - format_type_be
-  - parser_errposition
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [parser_errposition](../p/parser_errposition.md)
   - makeNode
-  - makeJsonFormat
+  - [makeJsonFormat](../m/makeJsonFormat.md)
 - Called from (representative examples):
-  - transformJsonParseExpr (src/backend/parser/parse_expr.c:4159)
-  - transformJsonScalarExpr (src/backend/parser/parse_expr.c:4208)
+  - [transformJsonParseExpr](transformJsonParseExpr.md) (src/backend/parser/parse_expr.c:4159)
+  - [transformJsonScalarExpr](transformJsonScalarExpr.md) (src/backend/parser/parse_expr.c:4208)
 
 ## Notes and Other Information
 - Only accepts JSON and JSONB types in RETURNING clauses  

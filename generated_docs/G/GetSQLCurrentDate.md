@@ -23,11 +23,11 @@ The `GetSQLCurrentDate` function implements PostgreSQL's SQL CURRENT_DATE functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentDateTime: Retrieves current date and time into pg_tm structure
-  - date2j: Converts year/month/day to Julian day number
+  - [GetCurrentDateTime](GetCurrentDateTime.md): Retrieves current date and time into pg_tm structure
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number
   - POSTGRES_EPOCH_JDATE: Constant representing PostgreSQL's epoch in Julian days
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction: Executor function for evaluating SQL value functions
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md): Executor function for evaluating SQL value functions
   - PG_RETURN_TIMETZADT_P: Related time zone date handling functions
 
 ## Notes and Other Information

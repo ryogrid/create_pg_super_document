@@ -28,14 +28,14 @@ PartitionTupleRouting is a central structure in PostgreSQL's partition tuple rou
 - Functions called/Symbols referenced:
   - PartitionDispatch
 - Called from (representative examples):
-  - CopyFrom
-  - ExecSetupPartitionTupleRouting
-  - ExecFindPartition
-  - ExecInitPartitionInfo
-  - ExecInitRoutingInfo
-  - ExecCleanupTupleRouting
-  - ExecInsert
-  - ExecPrepareTupleRouting
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecSetupPartitionTupleRouting](../E/ExecSetupPartitionTupleRouting.md)
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [ExecInitRoutingInfo](../E/ExecInitRoutingInfo.md)
+  - [ExecCleanupTupleRouting](../E/ExecCleanupTupleRouting.md)
+  - [ExecInsert](../E/ExecInsert.md)
+  - [ExecPrepareTupleRouting](../E/ExecPrepareTupleRouting.md)
 
 ## Notes and Other Information
 The structure is designed to efficiently manage partition hierarchy traversal during tuple insertion operations. The arrays use indexed access patterns where the indexes array in PartitionDispatchData coordinates access to both the partition_dispatch_info and partitions arrays. Memory management is centralized through the memcxt field to ensure proper cleanup of all subsidiary structures.

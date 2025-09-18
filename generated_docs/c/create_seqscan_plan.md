@@ -28,15 +28,15 @@ The sequential scan is the most basic access method in PostgreSQL, reading every
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_seqscan
-  - copy_generic_path_info
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_seqscan](../m/make_seqscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - RTE_RELATION (enum value)
   - SeqScan (struct type)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - This function is static and only used within the createplan.c module

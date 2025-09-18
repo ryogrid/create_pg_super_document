@@ -22,15 +22,15 @@ The function performs several key operations: it looks up the type cache entry f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintRef (struct for managing constraint references)
-  - lookup_type_cache (retrieves type cache information)
+  - [DomainConstraintRef](../D/DomainConstraintRef.md) (struct for managing constraint references)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (retrieves type cache information)
   - TYPECACHE_DOMAIN_CONSTR_INFO (flag for domain constraint information)
-  - dccref_deletion_callback (cleanup callback function)
-  - MemoryContextRegisterResetCallback (registers memory context cleanup)
-  - prep_domain_constraints (prepares constraints for execution)
+  - [dccref_deletion_callback](../d/dccref_deletion_callback.md) (cleanup callback function)
+  - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md) (registers memory context cleanup)
+  - [prep_domain_constraints](../p/prep_domain_constraints.md) (prepares constraints for execution)
 - Called from (representative examples):
-  - ExecInitCoerceToDomain (executor initialization)
-  - domain_state_setup (domain constraint setup)
+  - [ExecInitCoerceToDomain](../E/ExecInitCoerceToDomain.md) (executor initialization)
+  - [domain_state_setup](../d/domain_state_setup.md) (domain constraint setup)
 
 ## Notes and Other Information
 - The function registers a deletion callback to ensure proper cleanup of constraint references when the memory context is reset

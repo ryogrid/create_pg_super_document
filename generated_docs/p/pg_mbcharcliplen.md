@@ -23,16 +23,16 @@ The function iterates through the string character by character, counting both c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_database_encoding_max_length
-  - cliplen
-  - pg_mblen
+  - [pg_database_encoding_max_length](pg_database_encoding_max_length.md)
+  - [cliplen](../c/cliplen.md)
+  - [pg_mblen](pg_mblen.md)
 - Called from (representative examples):
-  - bpchar_input
-  - bpchar
-  - varchar_input
-  - varchar
-  - text_left
-  - text_right
+  - [bpchar_input](../b/bpchar_input.md)
+  - [bpchar](../b/bpchar.md)
+  - [varchar_input](../v/varchar_input.md)
+  - [varchar](../v/varchar.md)
+  - [text_left](../t/text_left.md)
+  - [text_right](../t/text_right.md)
 
 ## Notes and Other Information
 - The function assumes the input string is valid in the database encoding

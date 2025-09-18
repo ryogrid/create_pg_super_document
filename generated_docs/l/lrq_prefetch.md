@@ -23,13 +23,13 @@ The queue operates as a ring buffer with head and tail pointers, and the functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LsnReadQueue (struct type)
+  - [LsnReadQueue](../L/LsnReadQueue.md) (struct type)
   - LRQ_NEXT_AGAIN (enumeration value)
   - LRQ_NEXT_IO (enumeration value)  
   - LRQ_NEXT_NO_IO (enumeration value)
 - Called from (representative examples):
-  - lrq_complete_lsn
-  - XLogPrefetcherReadRecord
+  - [lrq_complete_lsn](lrq_complete_lsn.md)
+  - [XLogPrefetcherReadRecord](../X/XLogPrefetcherReadRecord.md)
 
 ## Notes and Other Information
 - Implements the core prefetching logic that drives asynchronous I/O initiation

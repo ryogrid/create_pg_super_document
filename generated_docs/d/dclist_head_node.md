@@ -20,7 +20,7 @@ The `dclist_head_node` function retrieves the first node in a doubly-linked coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head_element_off
+  - [dlist_head_element_off](dlist_head_element_off.md)
 - Called from (representative examples):
   - No direct callers found in codebase
 

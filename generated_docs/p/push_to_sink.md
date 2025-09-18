@@ -30,7 +30,7 @@ The function is designed as a utility for cases where data cannot be read direct
   - bbsink_archive_contents
   - pg_checksum_update
 - Called from (representative examples):
-  - sendFile (multiple calls for incremental backup headers)
+  - [sendFile](../s/sendFile.md) (multiple calls for incremental backup headers)
 
 ## Notes and Other Information
 - Uses < instead of <= comparison to trigger flush when data exactly fills remaining buffer space

@@ -23,7 +23,7 @@ The function uses a simple state machine approach, continuously checking each ch
   - strncmp: Standard C library function to compare string prefixes
   - strchr: Standard C library function to find character occurrences
 - Called from (representative examples):
-  - create_sql_command: Main function that processes SQL commands in pgbench scripts
+  - [create_sql_command](../c/create_sql_command.md): Main function that processes SQL commands in pgbench scripts
 
 ## Notes and Other Information
 - The function modifies the input pointer but does not alter the actual string content

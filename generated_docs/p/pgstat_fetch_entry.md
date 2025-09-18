@@ -23,25 +23,25 @@ The function handles several edge cases: it returns NULL for dropped entries, cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
-  - pgstat_prep_snapshot
-  - pgstat_build_snapshot
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [pgstat_prep_snapshot](pgstat_prep_snapshot.md)
+  - [pgstat_build_snapshot](pgstat_build_snapshot.md)
   - pgstat_snapshot_lookup
   - pgstat_get_entry_ref
   - pgstat_snapshot_insert
   - pgstat_lock_entry_shared
-  - pgstat_get_entry_data
+  - [pgstat_get_entry_data](pgstat_get_entry_data.md)
   - pgstat_unlock_entry
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - PgStat_HashKey (struct type)
   - PgStat_EntryRef (struct type)
-  - PgStat_SnapshotEntry (struct type)
+  - [PgStat_SnapshotEntry](../P/PgStat_SnapshotEntry.md) (struct type)
 - Called from (representative examples):
-  - pgstat_fetch_stat_dbentry
-  - pgstat_fetch_stat_funcentry
-  - pgstat_fetch_stat_tabentry_ext
+  - [pgstat_fetch_stat_dbentry](pgstat_fetch_stat_dbentry.md)
+  - [pgstat_fetch_stat_funcentry](pgstat_fetch_stat_funcentry.md)
+  - [pgstat_fetch_stat_tabentry_ext](pgstat_fetch_stat_tabentry_ext.md)
   - pgstat_fetch_replslot
-  - pgstat_fetch_stat_subscription
+  - [pgstat_fetch_stat_subscription](pgstat_fetch_stat_subscription.md)
 
 ## Notes and Other Information
 - This function should only be called from backend processes, not the postmaster

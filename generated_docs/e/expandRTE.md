@@ -32,21 +32,21 @@ The function provides flexibility in output by allowing callers to request only 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expandRelation (for RTE_RELATION)
-  - expandTupleDesc (for composite function types)
+  - [expandRelation](expandRelation.md) (for RTE_RELATION)
+  - [expandTupleDesc](expandTupleDesc.md) (for composite function types)
   - makeVar (creating Var nodes)
-  - makeString (creating string nodes)
-  - makeNullConst (creating null constants for dropped columns)
-  - get_expr_result_type (determining function return types)
+  - [makeString](../m/makeString.md) (creating string nodes)
+  - [makeNullConst](../m/makeNullConst.md) (creating null constants for dropped columns)
+  - [get_expr_result_type](../g/get_expr_result_type.md) (determining function return types)
   - exprType, exprTypmod, exprCollation (extracting expression type information)
 - Data structures used:
-  - RangeTblEntry, RangeTblFunction, TargetEntry
+  - [RangeTblEntry](../R/RangeTblEntry.md), RangeTblFunction, TargetEntry
   - Various PostgreSQL list manipulation functions
 - Called from (representative examples):
   - transformWholeRowRef (expanding whole-row references)
-  - expandRecordVariable (expanding record variables)
-  - build_physical_tlist (optimizer planning)
-  - set_relation_column_names (rule utilities)
+  - [expandRecordVariable](expandRecordVariable.md) (expanding record variables)
+  - [build_physical_tlist](../b/build_physical_tlist.md) (optimizer planning)
+  - [set_relation_column_names](../s/set_relation_column_names.md) (rule utilities)
 
 ## Notes and Other Information
 - Only user columns are considered; system columns are excluded from expansion

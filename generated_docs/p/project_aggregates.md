@@ -23,8 +23,8 @@ This function performs the final step in aggregate processing by projecting the 
   - ExecProject
   - InstrCountFiltered1
 - Called from (representative examples):
-  - agg_retrieve_direct
-  - agg_retrieve_hash_table_in_memory
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
 
 ## Notes and Other Information
 - Assumes that finalize_aggregates has already been called to compute aggregate values

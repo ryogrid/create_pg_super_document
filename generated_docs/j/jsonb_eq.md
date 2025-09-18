@@ -21,7 +21,7 @@ The comparison is performed at the container level, comparing the root container
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
-  - compareJsonbContainers (src/backend/utils/adt/jsonb_util.c:191-340)
+  - [compareJsonbContainers](../c/compareJsonbContainers.md) (src/backend/utils/adt/jsonb_util.c:191-340)
   - PG_FREE_IF_COPY
   - PG_RETURN_BOOL
 - Data types used:

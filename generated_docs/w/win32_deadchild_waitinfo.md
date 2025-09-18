@@ -24,9 +24,9 @@ This struct encapsulates the necessary Windows handles and identifiers required 
   - Windows API functions (RegisterWaitForSingleObject, UnregisterWaitEx, GetExitCodeProcess)
   - I/O completion port functions (PostQueuedCompletionStatus, GetQueuedCompletionStatus)
 - Called from (representative examples):
-  - waitpid (Windows implementation for child process waiting)
-  - pgwin32_register_deadchild_callback (registers child process for monitoring)
-  - pgwin32_deadchild_callback (callback function when child terminates)
+  - [waitpid](waitpid.md) (Windows implementation for child process waiting)
+  - [pgwin32_register_deadchild_callback](../p/pgwin32_register_deadchild_callback.md) (registers child process for monitoring)
+  - [pgwin32_deadchild_callback](../p/pgwin32_deadchild_callback.md) (callback function when child terminates)
 
 ## Notes and Other Information
 - Only available on WIN32 platforms, enclosed in #ifdef WIN32 conditional compilation

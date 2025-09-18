@@ -45,18 +45,18 @@ The function includes comprehensive error handling, debug logging, and state man
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - evaluateSleep, evaluateExpr, putVariableValue, valueTruth
-  - runShellCommand, prepareCommandsInPipeline, commandFailed
+  - [evaluateSleep](evaluateSleep.md), evaluateExpr, putVariableValue, valueTruth
+  - [runShellCommand](../r/runShellCommand.md), prepareCommandsInPipeline, commandFailed
   - conditional stack functions (push, pop, peek, poke, empty)
-  - PQpipelineStatus, PQenterPipelineMode, PQsendPipelineSync, PQpipelineSync
+  - [PQpipelineStatus](../P/PQpipelineStatus.md), PQenterPipelineMode, PQsendPipelineSync, PQpipelineSync
   - PQExpBuffer functions for debug logging
-  - pg_time_now_lazy
+  - [pg_time_now_lazy](../p/pg_time_now_lazy.md)
 - Types and enums referenced:
   - META_SLEEP, META_SET, META_IF, META_ELIF, META_ELSE, META_ENDIF
   - META_SETSHELL, META_SHELL, META_STARTPIPELINE, META_SYNCPIPELINE, META_ENDPIPELINE
   - IFSTATE_* conditional states, QUERY_SIMPLE, QUERY_PREPARED
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - Returns ConnectionStateEnum indicating next state: CSTATE_SLEEP, CSTATE_WAIT_RESULT, CSTATE_END_COMMAND, or CSTATE_ABORTED

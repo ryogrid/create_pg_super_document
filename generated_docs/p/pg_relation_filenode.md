@@ -28,15 +28,15 @@ The function retrieves the pg_class tuple, checks if the relation kind supports 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID: Extracts OID argument from function call
-  - SearchSysCache1: Searches system cache for tuple by single key
-  - ObjectIdGetDatum: Converts OID to Datum
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches system cache for tuple by single key
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md): Converts OID to Datum
   - HeapTupleIsValid: Checks if heap tuple is valid
   - PG_RETURN_NULL: Returns NULL from function
   - GETSTRUCT: Extracts struct from heap tuple
   - RELKIND_HAS_STORAGE: Macro to check if relation kind has physical storage
-  - RelationMapOidToFilenumber: Maps OID to filenode for mapped relations
+  - [RelationMapOidToFilenumber](../R/RelationMapOidToFilenumber.md): Maps OID to filenode for mapped relations
   - InvalidRelFileNumber: Constant for invalid file number
-  - ReleaseSysCache: Releases system cache tuple
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases system cache tuple
   - RelFileNumberIsValid: Checks if file number is valid
   - PG_RETURN_OID: Returns OID result from function
 - Called from (representative examples):

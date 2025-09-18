@@ -18,17 +18,17 @@ This function implements the \dF psql command for listing text search configurat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - listTSConfigsVerbose (when verbose=true)
+  - [listTSConfigsVerbose](listTSConfigsVerbose.md) (when verbose=true)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - gettext_noop
 - Called from (representative examples):
-  - exec_command_d (psql command processor)
+  - [exec_command_d](../e/exec_command_d.md) (psql command processor)
 
 ## Notes and Other Information
 - Returns false on error, true on success

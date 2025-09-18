@@ -22,7 +22,7 @@ In-place updates are used for these critical system tables to avoid the overhead
   - RelationRelationId (constant: 1259, pg_class table OID)
   - DatabaseRelationId (constant: 1262, pg_database table OID)
 - Called from:
-  - IsInplaceUpdateRelation (wrapper function that takes a Relation instead of OID)
+  - [IsInplaceUpdateRelation](IsInplaceUpdateRelation.md) (wrapper function that takes a Relation instead of OID)
 
 ## Notes and Other Information
 - This function is used for assertions and to ensure the executor follows the proper locking protocol for in-place updated tables

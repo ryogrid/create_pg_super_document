@@ -23,13 +23,13 @@ This function handles the execution of the \watch command in psql, which provide
   - psql_scan_slash_option: Parses command arguments with flexible name=value syntax
   - strtod: Converts string interval values to double precision
   - strtoint: Converts string count/min_rows values to integers
-  - copy_previous_query: Recalls previous query when current buffer is empty
-  - do_watch: Core execution function that performs the repeated query execution
-  - resetPQExpBuffer: Clears the query buffer after execution
+  - [copy_previous_query](../c/copy_previous_query.md): Recalls previous query when current buffer is empty
+  - [do_watch](../d/do_watch.md): Core execution function that performs the repeated query execution
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Clears the query buffer after execution
   - psql_scan_reset: Resets the scanner state
-  - ignore_slash_options: Skips parsing when in inactive branch
+  - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when in inactive branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Supports multiple parameter formats: unlabeled interval, i=/interval=, c=/count=, m=/min_rows=

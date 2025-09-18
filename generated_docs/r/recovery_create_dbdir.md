@@ -19,16 +19,16 @@ This function handles a specific recovery scenario where PostgreSQL needs to cre
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - RecoveryInProgress (recovery state check)
-  - stat (filesystem status check)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state check)
+  - [stat](../s/stat.md) (filesystem status check)
   - strstr (string search)
   - elog (error/log reporting)
   - ereport (enhanced error reporting)
-  - pg_mkdir_p (recursive directory creation)
+  - [pg_mkdir_p](../p/pg_mkdir_p.md) (recursive directory creation)
   - PANIC (error level constant)
   - DEBUG1/WARNING (logging level constants)
 - Called from (representative examples):
-  - dbase_redo (database WAL record replay - multiple call sites)
+  - [dbase_redo](../d/dbase_redo.md) (database WAL record replay - multiple call sites)
 
 ## Notes and Other Information
 - Static function only used during WAL recovery operations

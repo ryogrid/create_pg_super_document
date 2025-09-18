@@ -20,16 +20,16 @@ This function calculates the number of partitions needed when hash aggregation m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit
-  - my_log2
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
+  - [my_log2](../m/my_log2.md)
   - HASHAGG_READ_BUFFER_SIZE
   - HASHAGG_WRITE_BUFFER_SIZE  
   - HASHAGG_PARTITION_FACTOR
   - HASHAGG_MIN_PARTITIONS
   - HASHAGG_MAX_PARTITIONS
 - Called from (representative examples):
-  - hash_agg_set_limits
-  - hashagg_spill_init
+  - [hash_agg_set_limits](hash_agg_set_limits.md)
+  - [hashagg_spill_init](hashagg_spill_init.md)
 
 ## Notes and Other Information
 - The function ensures partition file memory overhead doesn't exceed 25% of available hash memory

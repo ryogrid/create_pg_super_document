@@ -23,18 +23,18 @@ This function provides a non-blocking variant of LockSharedObject that attempts 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_OBJECT
-  - LockAcquireExtended
-  - AcceptInvalidationMessages
-  - MarkLockClear
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [MarkLockClear](../M/MarkLockClear.md)
 - Types used:
   - LOCKTAG
-  - LOCALLOCK
+  - [LOCALLOCK](../L/LOCALLOCK.md)
   - LockAcquireResult
   - LOCKACQUIRE_NOT_AVAIL
   - LOCKACQUIRE_ALREADY_CLEAR
 - Called from (representative examples):
-  - EventTriggerOnLogin
-  - XLTW_Oper
+  - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - Returns true if lock was acquired, false if lock would block

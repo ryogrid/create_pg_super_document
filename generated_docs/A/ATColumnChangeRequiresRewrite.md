@@ -19,11 +19,11 @@ This function analyzes the transformation expression used in ALTER COLUMN TYPE t
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking for Var, RelabelType, CoerceToDomain, FuncExpr)
-  - DomainHasConstraints (domain constraint checking)
-  - TimestampTimestampTzRequiresRewrite (timezone-specific rewrite determination)
+  - [DomainHasConstraints](../D/DomainHasConstraints.md) (domain constraint checking)
+  - [TimestampTimestampTzRequiresRewrite](../T/TimestampTimestampTzRequiresRewrite.md) (timezone-specific rewrite determination)
   - linitial (list access for function arguments)
 - Called from (representative examples):
-  - ATPrepAlterColumnType (rewrite determination during ALTER COLUMN TYPE preparation)
+  - [ATPrepAlterColumnType](ATPrepAlterColumnType.md) (rewrite determination during ALTER COLUMN TYPE preparation)
 
 ## Notes and Other Information
 - Optimization function that can significantly improve ALTER TABLE performance

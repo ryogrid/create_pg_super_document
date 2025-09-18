@@ -27,10 +27,10 @@ If a matching HBA entry is found, the corresponding `HbaLine` structure is store
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_hba (performs the actual HBA rule matching logic)
-  - hbaPort (typedef for struct Port containing connection information)
+  - [check_hba](../c/check_hba.md) (performs the actual HBA rule matching logic)
+  - [hbaPort](hbaPort.md) (typedef for struct Port containing connection information)
 - Called from (representative examples):
-  - ClientAuthentication (main authentication entry point in auth.c)
+  - [ClientAuthentication](../C/ClientAuthentication.md) (main authentication entry point in auth.c)
 
 ## Notes and Other Information
 - This function is located at src/backend/libpq/hba.c:3048-3060

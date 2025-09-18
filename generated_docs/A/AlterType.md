@@ -18,24 +18,24 @@ AlterType processes ALTER TYPE SET commands that can modify specific properties 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameType
-  - typeTypeId
-  - defGetString
-  - defGetQualifiedName
-  - findTypeReceiveFunction
-  - findTypeSendFunction
-  - findTypeTypmodinFunction
-  - findTypeTypmodoutFunction
-  - findTypeAnalyzeFunction
-  - findTypeSubscriptingFunction
+  - [typenameType](../t/typenameType.md)
+  - [typeTypeId](../t/typeTypeId.md)
+  - [defGetString](../d/defGetString.md)
+  - [defGetQualifiedName](../d/defGetQualifiedName.md)
+  - [findTypeReceiveFunction](../f/findTypeReceiveFunction.md)
+  - [findTypeSendFunction](../f/findTypeSendFunction.md)
+  - [findTypeTypmodinFunction](../f/findTypeTypmodinFunction.md)
+  - [findTypeTypmodoutFunction](../f/findTypeTypmodoutFunction.md)
+  - [findTypeAnalyzeFunction](../f/findTypeAnalyzeFunction.md)
+  - [findTypeSubscriptingFunction](../f/findTypeSubscriptingFunction.md)
   - superuser
-  - object_ownercheck
-  - aclcheck_error_type
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md)
   - IsTrueArrayType
-  - AlterTypeRecurse
+  - [AlterTypeRecurse](AlterTypeRecurse.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Only allows modification of base types, rejecting composite types, domains, and array types

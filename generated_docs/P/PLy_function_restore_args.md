@@ -28,11 +28,11 @@ This function is essential for maintaining correct argument visibility when retu
 - Functions called/Symbols referenced:
   - PyDict_SetItemString (Python dictionary operations for restoration)
   - Py_DECREF (Python reference counting)
-  - pfree (PostgreSQL memory deallocation)
-  - PLySavedArgs and PLyProcedure structures
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [PLySavedArgs](PLySavedArgs.md) and PLyProcedure structures
 - Called from (representative examples):
-  - PLy_exec_function (for set-returning function state restoration)
-  - PLy_global_args_pop (for recursive call cleanup)
+  - [PLy_exec_function](PLy_exec_function.md) (for set-returning function state restoration)
+  - [PLy_global_args_pop](PLy_global_args_pop.md) (for recursive call cleanup)
 
 ## Notes and Other Information
 - Complements PLy_function_save_args to provide complete argument state management

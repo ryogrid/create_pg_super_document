@@ -20,24 +20,24 @@ AlterRole implements the ALTER ROLE, ALTER USER, and ALTER GROUP SQL statements 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - check_rolespec_name
-  - have_createrole_privilege
+  - [have_createrole_privilege](../h/have_createrole_privilege.md)
   - is_admin_of_role
   - superuser
-  - have_createdb_privilege
-  - has_rolreplication
-  - has_bypassrls_privilege
+  - [have_createdb_privilege](../h/have_createdb_privilege.md)
+  - [has_rolreplication](../h/has_rolreplication.md)
+  - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)
   - get_rolespec_tuple
   - table_open
-  - CatalogTupleUpdate
-  - heap_modify_tuple
-  - AddRoleMems
-  - DelRoleMems
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [AddRoleMems](AddRoleMems.md)
+  - [DelRoleMems](../D/DelRoleMems.md)
   - InvokeObjectPostAlterHook
-  - encrypt_password
+  - [encrypt_password](../e/encrypt_password.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Returns the OID of the altered role

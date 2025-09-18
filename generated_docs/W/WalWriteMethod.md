@@ -26,15 +26,15 @@ The structure is designed to be embedded as the first member of larger, method-s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalWriteMethodOps
-  - pg_compress_algorithm
+  - [WalWriteMethodOps](WalWriteMethodOps.md)
+  - [pg_compress_algorithm](../p/pg_compress_algorithm.md)
   - pgoff_t
 
 - Called from (representative examples):
-  - CreateWalDirectoryMethod (src/bin/pg_basebackup/walmethods.c:640)
-  - CreateWalTarMethod (src/bin/pg_basebackup/walmethods.c:1364)
-  - StreamCtl structure (src/bin/pg_basebackup/receivelog.h:46)
-  - GetLastWalMethodError (src/bin/pg_basebackup/walmethods.c:1383)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (src/bin/pg_basebackup/walmethods.c:640)
+  - [CreateWalTarMethod](../C/CreateWalTarMethod.md) (src/bin/pg_basebackup/walmethods.c:1364)
+  - [StreamCtl](../S/StreamCtl.md) structure (src/bin/pg_basebackup/receivelog.h:46)
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md) (src/bin/pg_basebackup/walmethods.c:1383)
 
 ## Notes and Other Information
 - Two concrete implementations are available: WalDirectoryMethod (for writing to regular files) and WalTarMethod (for writing to tar archives)

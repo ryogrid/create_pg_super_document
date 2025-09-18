@@ -25,11 +25,11 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQntuples (gets number of rows in result)
-  - PQnfields (gets number of columns in result)
-  - PQgetisnull (checks if cell value is NULL)
-  - PQgetvalue (retrieves cell value as string)
-  - SendQuery (executes SQL statement)
+  - [PQntuples](../P/PQntuples.md) (gets number of rows in result)
+  - [PQnfields](../P/PQnfields.md) (gets number of columns in result)
+  - [PQgetisnull](../P/PQgetisnull.md) (checks if cell value is NULL)
+  - [PQgetvalue](../P/PQgetvalue.md) (retrieves cell value as string)
+  - [SendQuery](../S/SendQuery.md) (executes SQL statement)
   - puts (outputs query text in ECHO_ALL mode)
   - fflush (flushes stdout output)
 - Global variables accessed:
@@ -40,7 +40,7 @@ Key behaviors:
   - cancel_pressed (cancellation flag)
   - PSQL_ECHO_ALL (echo mode constant)
 - Called from:
-  - PrintQueryResult (in src/bin/psql/common.c:1020)
+  - [PrintQueryResult](../P/PrintQueryResult.md) (in src/bin/psql/common.c:1020)
 
 ## Notes and Other Information
 - This is a static function internal to psql's common.c module
@@ -48,4 +48,4 @@ Key behaviors:
 - Memory management is handled by the underlying libpq functions
 - The function supports early termination on cancellation or errors (when ON_ERROR_STOP is enabled)
 - Empty cells (NULL values) are silently skipped rather than executed as empty queries
-- Query echoing behavior depends on the current ECHO mode and single-step settings
+- [Query](../Q/Query.md) echoing behavior depends on the current ECHO mode and single-step settings

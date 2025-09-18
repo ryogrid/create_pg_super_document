@@ -29,17 +29,17 @@ This ensures that concurrent readers never see an inconsistent state where the m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage
-  - TransactionIdSetPageStatus  
-  - set_status_by_pages
+  - [TransactionIdToPage](TransactionIdToPage.md)
+  - [TransactionIdSetPageStatus](TransactionIdSetPageStatus.md)  
+  - [set_status_by_pages](../s/set_status_by_pages.md)
   - TRANSACTION_STATUS_COMMITTED
   - TRANSACTION_STATUS_ABORTED
   - TRANSACTION_STATUS_SUB_COMMITTED
   - XidStatus
 - Called from (representative examples):
-  - TransactionIdCommitTree
-  - TransactionIdAsyncCommitTree
-  - TransactionIdAbortTree
+  - [TransactionIdCommitTree](TransactionIdCommitTree.md)
+  - [TransactionIdAsyncCommitTree](TransactionIdAsyncCommitTree.md)
+  - [TransactionIdAbortTree](TransactionIdAbortTree.md)
 
 ## Notes and Other Information
 - This is a low-level routine intended for internal use; higher-level functions in transam.c are the preferred entry points

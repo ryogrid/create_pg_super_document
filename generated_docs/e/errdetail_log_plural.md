@@ -25,9 +25,9 @@ The function manages memory context switching to ensure proper memory allocation
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE_PLURAL (macro)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - LogRecoveryConflict (in standby.c)
+  - [LogRecoveryConflict](../L/LogRecoveryConflict.md) (in standby.c)
   - ProcSleep (in proc.c, multiple locations)
 
 ## Notes and Other Information

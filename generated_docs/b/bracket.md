@@ -23,15 +23,15 @@ The  function processes non-complemented bracket expressions (like  or ) in regu
   - NEXT (macro for advancing to next character)
   - EOS (end of string marker)
   - ISERR (macro for error checking)
-  - brackpart (processes individual parts of bracket expression)
-  - okcolors (closes open subcolors)
+  - [brackpart](brackpart.md) (processes individual parts of bracket expression)
+  - [okcolors](../o/okcolors.md) (closes open subcolors)
   - NOERR (error handling macro)
-  - charclasscomplement (handles complemented character classes)
+  - [charclasscomplement](../c/charclasscomplement.md) (handles complemented character classes)
   - optimizebracket (optimizes bracket expression into rainbow if possible)
   - NUM_CCLASSES (constant for number of character classes)
 - Called from:
   - ARCV (main arc processing function)
-  - cbracket (complemented bracket expression handler)
+  - [cbracket](../c/cbracket.md) (complemented bracket expression handler)
 
 ## Notes and Other Information
 - Uses deferred processing for complemented character classes to maintain proper color bookkeeping

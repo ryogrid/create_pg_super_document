@@ -19,15 +19,15 @@ During normal operation, it returns the flush position. During recovery, the log
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - GetFlushRecPtr
-  - GetWALInsertionTimeLineIfSet
-  - GetXLogReplayRecPtr
-  - GetWalRcvFlushRecPtr
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetFlushRecPtr](GetFlushRecPtr.md)
+  - [GetWALInsertionTimeLineIfSet](GetWALInsertionTimeLineIfSet.md)
+  - [GetXLogReplayRecPtr](GetXLogReplayRecPtr.md)
+  - [GetWalRcvFlushRecPtr](GetWalRcvFlushRecPtr.md)
 - Called from (representative examples):
-  - WalSummarizerMain
-  - GetOldestUnsummarizedLSN
-  - summarizer_read_local_xlog_page
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
+  - [GetOldestUnsummarizedLSN](GetOldestUnsummarizedLSN.md)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within walsummarizer.c

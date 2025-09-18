@@ -21,15 +21,15 @@ This function creates and writes a TRUNCATE xlog record (xl_multixact_truncate) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
-  - XLogFlush
-  - xl_multixact_truncate (struct)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [XLogFlush](../X/XLogFlush.md)
+  - [xl_multixact_truncate](../x/xl_multixact_truncate.md) (struct)
   - SizeOfMultiXactTruncate
   - XLOG_MULTIXACT_TRUNCATE_ID
 - Called from:
-  - TruncateMultiXact
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
   - debug_elog6
 
 ## Notes and Other Information

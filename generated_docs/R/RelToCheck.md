@@ -21,12 +21,12 @@ The structure serves as an optimization mechanism that groups multiple attribute
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Relation (PostgreSQL relation type)
+  - [Relation](Relation.md) (PostgreSQL relation type)
   - RelationGetNumberOfAttributes
 - Called from (representative examples):
-  - get_rels_with_domain
-  - validateDomainNotNullConstraint
-  - validateDomainCheckConstraint
+  - [get_rels_with_domain](../g/get_rels_with_domain.md)
+  - [validateDomainNotNullConstraint](../v/validateDomainNotNullConstraint.md)
+  - [validateDomainCheckConstraint](../v/validateDomainCheckConstraint.md)
 
 ## Notes and Other Information
 - The  array is allocated with enough space for all attributes in the relation (), but only the first  entries are actually used

@@ -25,18 +25,18 @@ This function is critical for maintaining B-tree index integrity and is used ext
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPosting
-  - BTreeTupleGetNPosting
-  - BTreeTupleGetHeapTID
-  - ItemPointerCopy
-  - ItemPointerIsValid
-  - BTreeTupleGetPostingN
-  - ItemPointerCompare
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
 - Called from (representative examples):
   - _bt_bottomupdel_finish_pending
   - _bt_form_posting
   - _bt_update_posting
-  - _bt_swap_posting
+  - [_bt_swap_posting](_bt_swap_posting.md)
 
 ## Notes and Other Information
 - Returns false if the tuple is not a posting list or has fewer than 2 TIDs

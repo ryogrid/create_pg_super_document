@@ -18,12 +18,12 @@ The  structure serves as a parameter context for the  function during the final 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (structure)
-  - Bitmapset (structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (structure)
+  - [Bitmapset](../B/Bitmapset.md) (structure)
 - Called from (representative examples):
-  - finalize_plan (src/backend/optimizer/plan/subselect.c:2297, 2471, 2738)
-  - finalize_primnode (src/backend/optimizer/plan/subselect.c:2890)
-  - finalize_agg_primnode (src/backend/optimizer/plan/subselect.c:2974)
+  - [finalize_plan](finalize_plan.md) (src/backend/optimizer/plan/subselect.c:2297, 2471, 2738)
+  - [finalize_primnode](finalize_primnode.md) (src/backend/optimizer/plan/subselect.c:2890)
+  - [finalize_agg_primnode](finalize_agg_primnode.md) (src/backend/optimizer/plan/subselect.c:2974)
 
 ## Notes and Other Information
 - This context structure follows PostgreSQL's expression tree walker pattern for systematic plan tree traversal

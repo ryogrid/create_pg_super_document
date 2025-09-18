@@ -23,19 +23,19 @@ The function is designed to be symmetric with the relation opening functions - i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationClose - Performs the actual relation cache cleanup
-  - UnlockRelationId - Releases the specified lock on the relation
+  - [RelationClose](../R/RelationClose.md) - Performs the actual relation cache cleanup
+  - [UnlockRelationId](../U/UnlockRelationId.md) - Releases the specified lock on the relation
   - LockRelId - Structure type for lock relation identifier
   - MAX_LOCKMODES - Maximum lock mode constant for validation
 
 - Called from (representative examples):
   - table_close - Table-specific closing function
-  - sequence_close - Sequence-specific closing function
+  - [sequence_close](../s/sequence_close.md) - Sequence-specific closing function
   - Various catalog functions during relation manipulation
-  - analyze_rel - Analysis operations cleanup
-  - cluster_rel - Clustering operations cleanup
-  - vacuum_rel - Vacuum operations cleanup
-  - Command processing functions for DDL operations
+  - [analyze_rel](../a/analyze_rel.md) - Analysis operations cleanup
+  - [cluster_rel](../c/cluster_rel.md) - Clustering operations cleanup
+  - [vacuum_rel](../v/vacuum_rel.md) - Vacuum operations cleanup
+  - [Command](../C/Command.md) processing functions for DDL operations
   - Size calculation functions in dbsize.c
 
 ## Notes and Other Information

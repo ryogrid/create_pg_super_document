@@ -23,10 +23,10 @@ This function provides a convenient combination of table_to_xml and table_to_xml
   - PG_GETARG_BOOL
   - text_to_cstring
   - table_open
-  - map_sql_table_to_xmlschema
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
   - table_close
-  - stringinfo_to_xmltype
-  - table_to_xml_internal
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
+  - [table_to_xml_internal](table_to_xml_internal.md)
   - PG_RETURN_XML_P
 - Called from:
   - Available as SQL function (no direct C callers found)

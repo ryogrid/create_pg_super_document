@@ -20,8 +20,8 @@ The jspGetBool function is a simple accessor function that extracts boolean valu
   - JsonPathItem (struct type)
   - jpiBool (enumeration constant)
 - Called from (representative examples):
-  - printJsonPathItem
-  - getJsonPathItem
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [getJsonPathItem](../g/getJsonPathItem.md)
 
 ## Notes and Other Information
 - Returns the boolean value directly as a C bool type

@@ -28,8 +28,8 @@ This is a critical synchronization point in the two-phase commit protocol, ensur
   - MyLockedGxact (current process's locked global transaction)
   - TwoPhaseStateLock (lightweight lock protecting two-phase state)
 - Called from:
-  - RecoverPreparedTransactions (in twophase.c:2155) - during recovery processing
-  - PrepareTransaction (in xact.c:2697) - during normal transaction preparation
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md) (in twophase.c:2155) - during recovery processing
+  - [PrepareTransaction](PrepareTransaction.md) (in xact.c:2697) - during normal transaction preparation
 
 ## Notes and Other Information
 - Called only after successful completion of state transfer to the prepared PGPROC entry

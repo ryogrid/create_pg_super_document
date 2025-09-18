@@ -23,13 +23,13 @@ The function first checks if `wake_wal_senders` is true, indicating that a wake-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSndWakeup
+  - [WalSndWakeup](WalSndWakeup.md)
 - Global variables accessed:
   - wake_wal_senders (flag indicating wake-up is needed)
   - max_wal_senders (maximum number of WAL sender processes)
 - Called from (representative examples):
-  - XLogFlush
-  - XLogBackgroundFlush
+  - [XLogFlush](../X/XLogFlush.md)
+  - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for performance optimization

@@ -30,16 +30,16 @@ The function is designed to be called only once per write attempt, meaning it ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlotGetBankNumber
-  - SimpleLruGetBankLock  
-  - SimpleLruWaitIO
-  - SlruPhysicalWritePage
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)  
+  - [SimpleLruWaitIO](SimpleLruWaitIO.md)
+  - [SlruPhysicalWritePage](SlruPhysicalWritePage.md)
   - CloseTransientFile
-  - SlruReportIOError
+  - [SlruReportIOError](SlruReportIOError.md)
 - Called from (representative examples):
-  - SimpleLruWritePage
-  - SlruSelectLRUPage
-  - SimpleLruWriteAll
-  - SimpleLruTruncate
+  - [SimpleLruWritePage](SimpleLruWritePage.md)
+  - [SlruSelectLRUPage](SlruSelectLRUPage.md)
+  - [SimpleLruWriteAll](SimpleLruWriteAll.md)
+  - [SimpleLruTruncate](SimpleLruTruncate.md)
 
 ## Notes and Other Information
 - The function must be called with the appropriate bank lock held in exclusive mode

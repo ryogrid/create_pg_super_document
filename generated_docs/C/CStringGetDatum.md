@@ -19,13 +19,13 @@ The function is implemented as a static inline function for performance efficien
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - enum_in (enum input function)
-  - current_user (system information function)
-  - pg_get_viewdef_worker (rule utilities)
-  - InputFunctionCall (function manager)
-  - CreateRole (user management)
+  - [enum_in](../e/enum_in.md) (enum input function)
+  - [current_user](../c/current_user.md) (system information function)
+  - [pg_get_viewdef_worker](../p/pg_get_viewdef_worker.md) (rule utilities)
+  - [InputFunctionCall](../I/InputFunctionCall.md) (function manager)
+  - [CreateRole](CreateRole.md) (user management)
   - many type input/output functions
 
 ## Notes and Other Information

@@ -36,13 +36,13 @@ This optimization reduces the number of Append/MergeAppend nodes in the final pl
   - linitial
   - list_delete_first
   - IsA
-  - equal
-  - lcons
-  - recurse_set_operations
+  - [equal](../e/equal.md)
+  - [lcons](../l/lcons.md)
+  - [recurse_set_operations](../r/recurse_set_operations.md)
   - lappend
   - lappend_int
 - Called from (representative examples):
-  - generate_union_paths
+  - [generate_union_paths](../g/generate_union_paths.md)
 
 ## Notes and Other Information
 - The function can pull UNION ALL operations into UNION operations because the distinct output will eliminate duplicates anyway

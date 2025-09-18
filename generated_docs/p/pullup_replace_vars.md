@@ -24,12 +24,12 @@ The function returns a modified copy of the expression tree, making it suitable 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_rte_variables
-  - pullup_replace_vars_callback
+  - [replace_rte_variables](../r/replace_rte_variables.md)
+  - [pullup_replace_vars_callback](pullup_replace_vars_callback.md)
   - pullup_replace_vars_context
 - Called from (representative examples):
-  - perform_pullup_replace_vars (multiple locations)
-  - replace_vars_in_jointree (multiple locations)
+  - [perform_pullup_replace_vars](perform_pullup_replace_vars.md) (multiple locations)
+  - [replace_vars_in_jointree](../r/replace_vars_in_jointree.md) (multiple locations)
 
 ## Notes and Other Information
 - Returns a modified copy of the tree rather than performing in-place replacement

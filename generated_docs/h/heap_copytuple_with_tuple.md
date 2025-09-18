@@ -21,7 +21,7 @@ This function is useful when the caller wants to manage the HeapTuple structure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleIsValid (macro for tuple validation)
-  - palloc (memory allocation for tuple data)
+  - [palloc](../p/palloc.md) (memory allocation for tuple data)
   - memcpy (data copying)
   - HeapTupleHeader (type casting)
 - Called from (representative examples):

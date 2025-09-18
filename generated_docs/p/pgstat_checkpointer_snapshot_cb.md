@@ -23,7 +23,7 @@ The snapshot mechanism is crucial for providing consistent views of statistics a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_copy_changecounted_stats
+  - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
   - LWLockAcquire
   - LWLockRelease
   - memcpy

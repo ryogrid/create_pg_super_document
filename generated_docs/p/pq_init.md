@@ -28,22 +28,22 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](palloc0.md)
   - memcpy
   - getsockname
   - setsockopt
-  - pq_setkeepalivesidle
-  - pq_setkeepalivesinterval
-  - pq_setkeepalivescount
-  - pq_settcpusertimeout
-  - MemoryContextAlloc
-  - on_proc_exit
-  - socket_close
-  - pg_set_noblock
-  - CreateWaitEventSet
-  - AddWaitEventToSet
+  - [pq_setkeepalivesidle](pq_setkeepalivesidle.md)
+  - [pq_setkeepalivesinterval](pq_setkeepalivesinterval.md)
+  - [pq_setkeepalivescount](pq_setkeepalivescount.md)
+  - [pq_settcpusertimeout](pq_settcpusertimeout.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [on_proc_exit](../o/on_proc_exit.md)
+  - [socket_close](../s/socket_close.md)
+  - [pg_set_noblock](pg_set_noblock.md)
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
 - Called from (representative examples):
-  - BackendInitialize
+  - [BackendInitialize](../B/BackendInitialize.md)
 
 ## Notes and Other Information
 - This function is called once per backend process during initialization

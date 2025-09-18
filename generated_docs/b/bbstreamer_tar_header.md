@@ -20,16 +20,16 @@ This function processes a complete tar header block (512 bytes) that has been bu
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - read_tar_number
-  - tarPaddingBytesRequired
-  - bbstreamer_content
+  - [read_tar_number](../r/read_tar_number.md)
+  - [tarPaddingBytesRequired](../t/tarPaddingBytesRequired.md)
+  - [bbstreamer_content](bbstreamer_content.md)
   - TAR_BLOCK_SIZE
   - TAR_OFFSET_NAME, TAR_OFFSET_SIZE, TAR_OFFSET_MODE, TAR_OFFSET_UID, TAR_OFFSET_GID
   - TAR_OFFSET_TYPEFLAG, TAR_OFFSET_LINKNAME
   - TAR_FILETYPE_DIRECTORY, TAR_FILETYPE_SYMLINK
   - BBSTREAMER_MEMBER_HEADER
 - Called from (representative examples):
-  - bbstreamer_tar_parser_content
+  - [bbstreamer_tar_parser_content](bbstreamer_tar_parser_content.md)
 
 ## Notes and Other Information
 - Returns true if a valid file header was found and processed, false if end-of-archive detected

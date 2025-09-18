@@ -29,14 +29,14 @@ The function includes sophisticated error handling and maintains consistency thr
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease (for ShmemIndexLock synchronization)
-  - hash_search (for ShmemIndex operations)
-  - ShmemAlloc/ShmemAllocRaw (for memory allocation)
-  - ShmemAddrIsValid (for validation)
+  - [hash_search](../h/hash_search.md) (for ShmemIndex operations)
+  - [ShmemAlloc](ShmemAlloc.md)/ShmemAllocRaw (for memory allocation)
+  - [ShmemAddrIsValid](ShmemAddrIsValid.md) (for validation)
   - CACHELINEALIGN (for alignment verification)
   - strcmp (for string comparison)
 - Called from (representative examples):
   - InitBufferPool (buffer management)
-  - CreateSharedProcArray (process array)
+  - [CreateSharedProcArray](../C/CreateSharedProcArray.md) (process array)
   - StatsShmemInit (statistics collection)
   - Many other subsystem initialization functions
 

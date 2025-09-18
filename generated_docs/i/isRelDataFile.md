@@ -25,19 +25,19 @@ After parsing, it performs a cross-validation step by reconstructing the expecte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (struct type)
+  - [RelFileLocator](../R/RelFileLocator.md) (struct type)
   - InvalidOid
   - InvalidRelFileNumber  
   - GLOBALTABLESPACE_OID
   - DEFAULTTABLESPACE_OID
   - TABLESPACE_VERSION_DIRECTORY
-  - datasegpath
+  - [datasegpath](../d/datasegpath.md)
   - MAIN_FORKNUM
   - strcmp
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - insert_filehash_entry
-  - process_source_file
+  - [insert_filehash_entry](insert_filehash_entry.md)
+  - [process_source_file](../p/process_source_file.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the filemap.c compilation unit

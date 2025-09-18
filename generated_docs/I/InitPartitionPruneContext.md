@@ -25,13 +25,13 @@ This function initializes a PartitionPruneContext structure that contains all th
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - PruneCxtStateIdx
-  - ExecInitExprWithParams
-  - ExecInitExpr
-  - lnext
+  - [ExecInitExprWithParams](../E/ExecInitExprWithParams.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
+  - [lnext](../l/lnext.md)
 - Called from (representative examples):
-  - CreatePartitionPruneState (twice - for initial and exec contexts)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md) (twice - for initial and exec contexts)
 
 ## Notes and Other Information
 - Static function only accessible within execPartition.c

@@ -27,14 +27,14 @@ The function maintains the same basic structure and attribute information as a f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeIndexInfo
+  - [makeIndexInfo](../m/makeIndexInfo.md)
   - RelationGetRelid
-  - RelationGetDummyIndexExpressions
+  - [RelationGetDummyIndexExpressions](../R/RelationGetDummyIndexExpressions.md)
   - INDEX_MAX_KEYS
   - Form_pg_index
   - NIL
 - Called from (representative examples):
-  - RelationTruncateIndexes
+  - [RelationTruncateIndexes](../R/RelationTruncateIndexes.md)
 
 ## Notes and Other Information
 - Specifically designed to avoid executing user-defined code that might exist in index expressions or predicates

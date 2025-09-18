@@ -29,23 +29,23 @@ The function ensures consistent ordering by sorting child OIDs and implements pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_subclass
-  - systable_beginscan
-  - systable_getnext
+  - [has_subclass](../h/has_subclass.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - ActiveSnapshotSet
   - HeapTupleHeaderGetXmin
   - GetActiveSnapshot
-  - XidInMVCCSnapshot
-  - TransactionIdFollows
+  - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - qsort (with oid_cmp)
-  - LockRelationOid
+  - [LockRelationOid](../L/LockRelationOid.md)
   - SearchSysCacheExists1
-  - UnlockRelationOid
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
   - lappend_oid
-  - repalloc
+  - [repalloc](../r/repalloc.md)
 - Called from (representative examples):
-  - find_inheritance_children (src/backend/catalog/pg_inherits.c:60)
-  - RelationBuildPartitionDesc (src/backend/partitioning/partdesc.c:164)
+  - [find_inheritance_children](find_inheritance_children.md) (src/backend/catalog/pg_inherits.c:60)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md) (src/backend/partitioning/partdesc.c:164)
 
 ## Notes and Other Information
 - Uses an optimization where it skips the scan entirely if has_subclass() indicates no children exist

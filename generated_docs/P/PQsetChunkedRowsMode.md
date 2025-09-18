@@ -22,10 +22,10 @@ The function validates that it's safe to change the result mode using canChangeR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canChangeResultMode
+  - [canChangeResultMode](../c/canChangeResultMode.md)
 - Called from (representative examples):
-  - ExecQueryAndProcessResults (in psql)
-  - test_singlerowmode (in libpq_pipeline tests)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (in psql)
+  - [test_singlerowmode](../t/test_singlerowmode.md) (in libpq_pipeline tests)
 
 ## Notes and Other Information
 - Returns 1 for success, 0 for failure (including invalid chunkSize <= 0)

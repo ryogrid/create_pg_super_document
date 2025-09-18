@@ -20,20 +20,20 @@ This function is the core command-line argument parser for pg_upgrade, handling 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_progname
-  - get_user_info
-  - usage
+  - [get_progname](../g/get_progname.md)
+  - [get_user_info](../g/get_user_info.md)
+  - [usage](../u/usage.md)
   - getopt_long
-  - pg_strdup
-  - pg_free
-  - pg_log
-  - check_required_directory
-  - parse_sync_method
+  - [pg_strdup](pg_strdup.md)
+  - [pg_free](pg_free.md)
+  - [pg_log](pg_log.md)
+  - [check_required_directory](../c/check_required_directory.md)
+  - [parse_sync_method](parse_sync_method.md)
   - setenv
-  - canonicalize_path (Windows)
-  - path_is_prefix_of_path (Windows)
+  - [canonicalize_path](../c/canonicalize_path.md) (Windows)
+  - [path_is_prefix_of_path](path_is_prefix_of_path.md) (Windows)
 - Called from (representative examples):
-  - main (src/bin/pg_upgrade/pg_upgrade.c:103)
+  - [main](../m/main.md) (src/bin/pg_upgrade/pg_upgrade.c:103)
 
 ## Notes and Other Information
 - Supports comprehensive set of options including data directories (-d/-D), binary directories (-b/-B), ports (-p/-P), transfer modes (--link, --clone, --copy), and operational flags

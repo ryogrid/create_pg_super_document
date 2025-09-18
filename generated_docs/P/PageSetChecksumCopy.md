@@ -26,12 +26,12 @@ The returned pointer must be used immediately for I/O operations and cannot be r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsNew
-  - DataChecksumsEnabled
-  - MemoryContextAllocAligned
-  - pg_checksum_page
+  - [PageIsNew](PageIsNew.md)
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
+  - [MemoryContextAllocAligned](../M/MemoryContextAllocAligned.md)
+  - [pg_checksum_page](../p/pg_checksum_page.md)
 - Called from (representative examples):
-  - FlushBuffer (buffer manager page writing)
+  - [FlushBuffer](../F/FlushBuffer.md) (buffer manager page writing)
 
 ## Notes and Other Information
 - Returns original page pointer if checksums are disabled or page is new

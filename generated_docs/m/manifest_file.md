@@ -39,10 +39,10 @@ The `manifest_file` structure is used by PostgreSQL backup verification tools (p
   - pg_checksum_type
 
 - Called from (representative examples):
-  - ReceiveArchiveStream (src/bin/pg_basebackup/pg_basebackup.c:1297)
-  - verifybackup_per_file_cb (src/bin/pg_verifybackup/pg_verifybackup.c:555)
-  - verify_backup_file (src/bin/pg_verifybackup/pg_verifybackup.c:678)
-  - combinebackup_per_file_cb (src/bin/pg_combinebackup/load_manifest.c:274)
+  - [ReceiveArchiveStream](../R/ReceiveArchiveStream.md) (src/bin/pg_basebackup/pg_basebackup.c:1297)
+  - [verifybackup_per_file_cb](../v/verifybackup_per_file_cb.md) (src/bin/pg_verifybackup/pg_verifybackup.c:555)
+  - [verify_backup_file](../v/verify_backup_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:678)
+  - [combinebackup_per_file_cb](../c/combinebackup_per_file_cb.md) (src/bin/pg_combinebackup/load_manifest.c:274)
 
 ## Notes and Other Information
 This structure is primarily used in PostgreSQL backup-related utilities and is essential for maintaining file integrity during backup operations. The structure supports various checksum algorithms and tracks verification state to ensure backup reliability.

@@ -26,15 +26,15 @@ The function works in conjunction with XLogReadAhead() which populates the inter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReleasePreviousRecord (releases previous record)
+  - [XLogReleasePreviousRecord](XLogReleasePreviousRecord.md) (releases previous record)
   - XLogRecPtrIsInvalid (validates record pointers)
   - Assert (debugging assertion macro)
 - Data structures used:
-  - DecodedXLogRecord
-  - XLogReaderState
+  - [DecodedXLogRecord](../D/DecodedXLogRecord.md)
+  - [XLogReaderState](XLogReaderState.md)
 - Called from (representative examples):
-  - XLogPrefetcherReadRecord
-  - XLogReadRecord
+  - [XLogPrefetcherReadRecord](XLogPrefetcherReadRecord.md)
+  - [XLogReadRecord](XLogReadRecord.md)
 
 ## Notes and Other Information
 - Must be preceded by XLogBeginRead() or XLogFindNextRecord() and XLogReadAhead() calls

@@ -21,12 +21,12 @@ This function is commonly used when working directly with foreign tables and nee
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetForeignServerIdByRelId
-  - GetFdwRoutineByServerId
+  - [GetForeignServerIdByRelId](GetForeignServerIdByRelId.md)
+  - [GetFdwRoutineByServerId](GetFdwRoutineByServerId.md)
 - Called from (representative examples):
-  - GetFdwRoutineForRelation
+  - [GetFdwRoutineForRelation](GetFdwRoutineForRelation.md)
   - make_modifytable
-  - select_rowmark_type
+  - [select_rowmark_type](../s/select_rowmark_type.md)
 
 ## Notes and Other Information
 - Wrapper function that combines foreign server lookup and FDW routine retrieval

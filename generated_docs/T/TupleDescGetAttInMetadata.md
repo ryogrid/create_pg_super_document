@@ -21,22 +21,22 @@ This is particularly useful for functions that need to build tuples from externa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - BlessTupleDesc
-  - palloc0
+  - [palloc](../p/palloc.md)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
+  - [palloc0](../p/palloc0.md)
   - TupleDescAttr
-  - getTypeInputInfo
-  - fmgr_info
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info](../f/fmgr_info.md)
 
 - Called from (representative examples):
-  - mxact
-  - libpqrcv_processTuples
-  - pg_stats_ext_mcvlist_items
-  - tt_setup_firstcall
-  - prs_setup_firstcall
-  - pg_get_keywords
-  - show_all_settings
-  - pltcl_func_handler
+  - [mxact](../m/mxact.md)
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
+  - [pg_stats_ext_mcvlist_items](../p/pg_stats_ext_mcvlist_items.md)
+  - [tt_setup_firstcall](../t/tt_setup_firstcall.md)
+  - [prs_setup_firstcall](../p/prs_setup_firstcall.md)
+  - [pg_get_keywords](../p/pg_get_keywords.md)
+  - [show_all_settings](../s/show_all_settings.md)
+  - [pltcl_func_handler](../p/pltcl_func_handler.md)
   - pltcl_build_tuple_result
 
 ## Notes and Other Information

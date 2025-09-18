@@ -20,11 +20,11 @@ This function performs the core accumulation operation for 128-bit aggregate fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Int128AggState`: The state structure type being modified
+  - `[Int128AggState](../I/Int128AggState.md)`: The state structure type being modified
 - Called from (representative examples):
-  - `int2_accum`: Accumulates smallint values
-  - `int4_accum`: Accumulates integer values  
-  - `int8_avg_accum`: Accumulates bigint values for average calculation
+  - `[int2_accum](../i/int2_accum.md)`: Accumulates smallint values
+  - `[int4_accum](../i/int4_accum.md)`: Accumulates integer values  
+  - `[int8_avg_accum](../i/int8_avg_accum.md)`: Accumulates bigint values for average calculation
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the numeric.c file

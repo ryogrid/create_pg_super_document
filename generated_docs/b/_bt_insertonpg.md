@@ -39,15 +39,15 @@ The function ensures WAL logging for crash recovery and maintains B-tree invaria
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_split (for page splitting)
-  - _bt_insert_parent (for recursive parent insertion)
-  - _bt_swap_posting (for posting list manipulation)
-  - PageGetFreeSpace (to check available space)
-  - XLogBeginInsert, XLogRegisterData, XLogInsert (for WAL logging)
+  - [_bt_split](_bt_split.md) (for page splitting)
+  - [_bt_insert_parent](_bt_insert_parent.md) (for recursive parent insertion)
+  - [_bt_swap_posting](_bt_swap_posting.md) (for posting list manipulation)
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md) (to check available space)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert (for WAL logging)
   - Various buffer and page management functions
 - Called from (representative examples):
-  - _bt_doinsert (main insertion entry point)
-  - _bt_insert_parent (recursive calls during split propagation)
+  - [_bt_doinsert](_bt_doinsert.md) (main insertion entry point)
+  - [_bt_insert_parent](_bt_insert_parent.md) (recursive calls during split propagation)
 
 ## Notes and Other Information
 - This is a static function within nbtinsert.c, not exposed to external modules

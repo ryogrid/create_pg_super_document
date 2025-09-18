@@ -17,14 +17,14 @@ This function calculates the maximum number of hash table entries that can be ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PagetableEntry (struct type)
+  - [PagetableEntry](../P/PagetableEntry.md) (struct type)
   - Pointer (type)
   - Min (macro)
   - Max (macro)
   - INT_MAX (constant)
 - Called from (representative examples):
-  - tbm_create
-  - compute_bitmap_pages
+  - [tbm_create](tbm_create.md)
+  - [compute_bitmap_pages](../c/compute_bitmap_pages.md)
 
 ## Notes and Other Information
 - Used for memory-conscious planning of TID bitmap hash tables

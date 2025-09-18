@@ -23,7 +23,7 @@ This dual format allows for both verbose and compact display modes in test outpu
 - Functions called/Symbols referenced:
   - LONG_FLAG (preprocessor macro)
 - Called from (representative examples):
-  - describe_char (in src/test/locale/test-ctype.c)
+  - [describe_char](../d/describe_char.md) (in src/test/locale/test-ctype.c)
   - Various other PostgreSQL internal functions across the codebase
 
 ## Notes and Other Information

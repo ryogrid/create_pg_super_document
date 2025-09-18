@@ -20,10 +20,10 @@ The function performs validation on the received data, ensuring that required fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_read_prepare_common
-  - LogicalRepPreparedTxnData (type)
+  - [logicalrep_read_prepare_common](logicalrep_read_prepare_common.md)
+  - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md) (type)
 - Called from (representative examples):
-  - apply_handle_stream_prepare
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
 
 ## Notes and Other Information
 - This function is the read counterpart to logicalrep_write_stream_prepare

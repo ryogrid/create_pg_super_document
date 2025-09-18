@@ -26,18 +26,18 @@ This design prevents privilege escalation attacks where a less-privileged user c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserIdAndSecContext
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
   - member_can_set_role
-  - GetUserNameFromId
-  - SetUserIdAndSecContext
-  - NewGUCNestLevel
+  - [GetUserNameFromId](../G/GetUserNameFromId.md)
+  - [SetUserIdAndSecContext](SetUserIdAndSecContext.md)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md)
   - SECURITY_RESTRICTED_OPERATION
 - Called from (representative examples):
-  - ExecuteTruncateGuts (tablecmds.c:2061, 2270)
-  - LogicalRepSyncTableStart (tablesync.c:1508)
-  - apply_handle_insert (worker.c:2414)
-  - apply_handle_update (worker.c:2577)
-  - apply_handle_delete (worker.c:2757)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (tablecmds.c:2061, 2270)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md) (tablesync.c:1508)
+  - [apply_handle_insert](../a/apply_handle_insert.md) (worker.c:2414)
+  - [apply_handle_update](../a/apply_handle_update.md) (worker.c:2577)
+  - [apply_handle_delete](../a/apply_handle_delete.md) (worker.c:2757)
 
 ## Notes and Other Information
 - Always paired with RestoreUserContext() to restore the original user context

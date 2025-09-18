@@ -26,15 +26,15 @@ When truncation is necessary due to length constraints, the function preferentia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbcliplen (for multibyte-safe string truncation)
-  - palloc (for memory allocation)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (for multibyte-safe string truncation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - strlen, memcpy, strcpy (standard string operations)
   - NAMEDATALEN (PostgreSQL's name length limit constant)
 - Called from (representative examples):
-  - ChooseRelationName (for generating index names)
-  - ChooseConstraintName (for generating constraint names)
-  - ChooseExtendedStatisticName (for generating statistics object names)
-  - makeArrayTypeName (for generating array type names)
+  - [ChooseRelationName](../C/ChooseRelationName.md) (for generating index names)
+  - [ChooseConstraintName](../C/ChooseConstraintName.md) (for generating constraint names)
+  - [ChooseExtendedStatisticName](../C/ChooseExtendedStatisticName.md) (for generating statistics object names)
+  - [makeArrayTypeName](makeArrayTypeName.md) (for generating array type names)
 
 ## Notes and Other Information
 - Returns a palloc'd string that the caller must eventually free

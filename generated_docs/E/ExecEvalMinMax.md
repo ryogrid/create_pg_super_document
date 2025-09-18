@@ -32,12 +32,12 @@ The algorithm iterates through all values, maintaining the current min/max candi
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCallInvoke: Executes the type-specific comparison function
-  - DatumGetInt32: Extracts integer comparison result from Datum
+  - [DatumGetInt32](../D/DatumGetInt32.md): Extracts integer comparison result from Datum
   - IS_LEAST: MinMaxOp constant for LEAST() operation
   - IS_GREATEST: MinMaxOp constant for GREATEST() operation
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation context
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation context
 
 ## Notes and Other Information
 - This function handles GREATEST()/LEAST() functions, not aggregate MIN()/MAX() operations

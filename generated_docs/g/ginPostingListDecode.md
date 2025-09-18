@@ -20,16 +20,16 @@ The function takes a compressed posting list and returns a newly allocated array
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginPostingListDecodeAllSegments
+  - [ginPostingListDecodeAllSegments](ginPostingListDecodeAllSegments.md)
   - SizeOfGinPostingList
-  - GinPostingList (type)
+  - [GinPostingList](../G/GinPostingList.md) (type)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf (gin/gindatapage.c:504, 677)
-  - ginVacuumPostingTreeLeaf (gin/gindatapage.c:756)
-  - addItemsToLeaf (gin/gindatapage.c:1503)
-  - leafRepackItems (gin/gindatapage.c:1652, 1655)
-  - ginReadTuple (gin/ginentrypage.c:174)
-  - ginCompressPostingList (gin/ginpostinglist.c:268)
+  - [dataBeginPlaceToPageLeaf](../d/dataBeginPlaceToPageLeaf.md) (gin/gindatapage.c:504, 677)
+  - [ginVacuumPostingTreeLeaf](ginVacuumPostingTreeLeaf.md) (gin/gindatapage.c:756)
+  - [addItemsToLeaf](../a/addItemsToLeaf.md) (gin/gindatapage.c:1503)
+  - [leafRepackItems](../l/leafRepackItems.md) (gin/gindatapage.c:1652, 1655)
+  - [ginReadTuple](ginReadTuple.md) (gin/ginentrypage.c:174)
+  - [ginCompressPostingList](ginCompressPostingList.md) (gin/ginpostinglist.c:268)
 
 ## Notes and Other Information
 - This is a wrapper function that simplifies the common use case of decoding an entire posting list

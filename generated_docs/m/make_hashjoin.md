@@ -35,7 +35,7 @@ The function initializes all the hash-specific fields including hash clauses, op
   - HashJoin (plan node structure)
   - JoinType (enumeration for join types)
 - Called from (representative examples):
-  - create_hashjoin_plan (in createplan.c:4902)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (in createplan.c:4902)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the plan creation subsystem

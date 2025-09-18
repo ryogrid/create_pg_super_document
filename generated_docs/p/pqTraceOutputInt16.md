@@ -25,15 +25,15 @@ The function handles the byte order conversion using pg_ntoh16() to ensure corre
 - Functions called/Symbols referenced:
   - pg_ntoh16 (network to host byte order conversion for 16-bit integers)
 - Called from (representative examples):
-  - pqTraceOutput_Bind
-  - pqTraceOutput_DataRow
-  - pqTraceOutput_FunctionCall
-  - pqTraceOutput_CopyInResponse
-  - pqTraceOutput_CopyOutResponse
-  - pqTraceOutput_Parse
-  - pqTraceOutput_ParameterDescription
-  - pqTraceOutput_RowDescription
-  - pqTraceOutput_CopyBothResponse
+  - [pqTraceOutput_Bind](pqTraceOutput_Bind.md)
+  - [pqTraceOutput_DataRow](pqTraceOutput_DataRow.md)
+  - [pqTraceOutput_FunctionCall](pqTraceOutput_FunctionCall.md)
+  - [pqTraceOutput_CopyInResponse](pqTraceOutput_CopyInResponse.md)
+  - [pqTraceOutput_CopyOutResponse](pqTraceOutput_CopyOutResponse.md)
+  - [pqTraceOutput_Parse](pqTraceOutput_Parse.md)
+  - [pqTraceOutput_ParameterDescription](pqTraceOutput_ParameterDescription.md)
+  - [pqTraceOutput_RowDescription](pqTraceOutput_RowDescription.md)
+  - [pqTraceOutput_CopyBothResponse](pqTraceOutput_CopyBothResponse.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

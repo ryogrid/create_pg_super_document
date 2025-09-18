@@ -22,15 +22,15 @@ GistSplitVector serves as the working state container for complex page splitting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GIST_SPLITVEC
+  - [GIST_SPLITVEC](GIST_SPLITVEC.md)
   - INDEX_MAX_KEYS
 - Called from (representative examples):
-  - gistSplit
-  - gistunionsubkey
-  - findDontCares
-  - placeOne
-  - gistUserPicksplit
-  - gistSplitByKey
+  - [gistSplit](../g/gistSplit.md)
+  - [gistunionsubkey](../g/gistunionsubkey.md)
+  - [findDontCares](../f/findDontCares.md)
+  - [placeOne](../p/placeOne.md)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md)
+  - [gistSplitByKey](../g/gistSplitByKey.md)
 
 ## Notes and Other Information
 The structure's design reflects the complexity of optimizing GiST splits for multi-dimensional and composite data types. The spl_dontcare mechanism is a key optimization that allows the split algorithm to place certain tuples on either side of the split, which can be used to balance page utilization or minimize overlap between resulting pages. This flexibility is crucial for maintaining good index performance in high-dimensional spaces where traditional split strategies might result in poor page utilization.

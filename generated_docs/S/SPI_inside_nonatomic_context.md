@@ -27,10 +27,10 @@ The logic matches the behavior of _SPI_commit regarding what constitutes an atom
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_current (global variable pointing to current SPI connection)
-  - IsSubTransaction (function to check if in subtransaction)
+  - [IsSubTransaction](../I/IsSubTransaction.md) (function to check if in subtransaction)
 
 - Called from (representative examples):
-  - StartTransaction (src/backend/access/transam/xact.c:2140)
+  - [StartTransaction](StartTransaction.md) (src/backend/access/transam/xact.c:2140)
 
 ## Notes and Other Information
 - Returns true only when in a nonatomic SPI context (procedure execution)

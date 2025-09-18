@@ -46,13 +46,13 @@ For a short summary of all commands, run 'snap help --all'.: Snapshot pointer - 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (for copied snapshots)
-  - SnapBuildSnapDecRefcount (for reference-counted snapshots)
+  - [pfree](../p/pfree.md) (for copied snapshots)
+  - [SnapBuildSnapDecRefcount](../S/SnapBuildSnapDecRefcount.md) (for reference-counted snapshots)
 - Called from (representative examples):
-  - ReorderBufferReturnChange
-  - ReorderBufferCleanupTXN
-  - ReorderBufferProcessTXN
-  - ReorderBufferStreamTXN
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md)
 
 ## Notes and Other Information
 - This is a static function within reorderbuffer.c, indicating it's for internal use only

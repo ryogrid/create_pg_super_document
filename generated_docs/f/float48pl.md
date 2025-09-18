@@ -24,7 +24,7 @@ This function is part of PostgreSQL's mixed-precision arithmetic operators that 
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4
   - PG_GETARG_FLOAT8
-  - float8_pl (performs the actual addition with overflow checking)
+  - [float8_pl](float8_pl.md) (performs the actual addition with overflow checking)
 - Called from (representative examples):
   - Used in SQL expressions mixing float4 and float8 types
   - PostgreSQL operator system for "+" operator between float4 and float8
@@ -34,5 +34,5 @@ This function is part of PostgreSQL's mixed-precision arithmetic operators that 
 - Promotes the float4 argument to float8 precision before performing the operation
 - Inherits overflow detection from float8_pl, which throws an error if the result overflows to infinity
 - The function signature follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS
-- Result precision is determined by the higher-precision operand (float8)
+- [Result](../R/Result.md) precision is determined by the higher-precision operand (float8)
 - Ensures mathematical operations between different float types are handled consistently

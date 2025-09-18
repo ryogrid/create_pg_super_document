@@ -29,16 +29,16 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - GetFlushRecPtr
-  - GetXLogReplayRecPtr
-  - XLogReadDetermineTimeline
-  - pg_usleep
-  - WALRead
-  - WALReadRaiseError
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
+  - [XLogReadDetermineTimeline](../X/XLogReadDetermineTimeline.md)
+  - [pg_usleep](../p/pg_usleep.md)
+  - [WALRead](../W/WALRead.md)
+  - [WALReadRaiseError](../W/WALReadRaiseError.md)
 - Called from (representative examples):
-  - read_local_xlog_page
-  - read_local_xlog_page_no_wait
+  - [read_local_xlog_page](read_local_xlog_page.md)
+  - [read_local_xlog_page_no_wait](read_local_xlog_page_no_wait.md)
 
 ## Notes and Other Information
 - The function implements a sophisticated waiting loop that checks for interrupts and sleeps briefly when WAL data is not yet available

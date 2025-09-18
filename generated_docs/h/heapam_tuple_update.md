@@ -35,9 +35,9 @@ The index update decision logic distinguishes between:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTuple
-  - heap_update
-  - ItemPointerCopy
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
+  - [heap_update](heap_update.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
   - HeapTupleIsHeapOnly
   - RelationGetRelid (implicitly through slot->tts_tableOid assignment)
 - Types referenced:

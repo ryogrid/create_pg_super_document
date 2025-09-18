@@ -28,7 +28,7 @@ Examples of transformations:
 - Functions called/Symbols referenced:
   - None (uses only basic C string operations)
 - Called from (representative examples):
-  - pg_import_system_collations
+  - [pg_import_system_collations](../p/pg_import_system_collations.md)
 
 ## Notes and Other Information
 - Static function used internally within collationcmds.c

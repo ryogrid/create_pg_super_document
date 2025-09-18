@@ -18,13 +18,13 @@ SharedJitInstrumentation serves as a coordination structure for collecting JIT c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JitInstrumentation (embedded structure for each worker)
+  - [JitInstrumentation](../J/JitInstrumentation.md) (embedded structure for each worker)
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro for variable-length arrays)
 - Called from (representative examples):
-  - ExecInitParallelPlan
-  - ExecParallelRetrieveJitInstrumentation
-  - ParallelQueryMain
-  - ExplainNode
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md)
+  - [ExecParallelRetrieveJitInstrumentation](../E/ExecParallelRetrieveJitInstrumentation.md)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - Specifically designed for Dynamic Shared Memory (DSM) usage in parallel query execution

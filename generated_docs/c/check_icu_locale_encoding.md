@@ -19,13 +19,13 @@ When an incompatible encoding is detected, the function provides clear error mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_encoding_supported_by_icu (checks if the encoding is compatible with ICU)
+  - [is_encoding_supported_by_icu](../i/is_encoding_supported_by_icu.md) (checks if the encoding is compatible with ICU)
   - pg_encoding_to_char (converts encoding ID to human-readable name)
   - pg_log_error (logs error messages)
   - pg_log_error_detail (provides detailed error explanations)
   - pg_log_error_hint (offers suggestions for resolution)
 - Called from (representative examples):
-  - setup_locale_encoding (during ICU locale provider setup)
+  - [setup_locale_encoding](../s/setup_locale_encoding.md) (during ICU locale provider setup)
 
 ## Notes and Other Information
 - Returns true if the encoding is ICU-compatible, false if incompatible

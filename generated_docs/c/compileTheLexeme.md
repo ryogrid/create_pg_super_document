@@ -27,16 +27,16 @@ The function ensures robust error handling for unrecognized words and stop words
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - addCompiledLexeme (adds normalized lexemes to compiled array)
+  - [addCompiledLexeme](../a/addCompiledLexeme.md) (adds normalized lexemes to compiled array)
   - FunctionCall4 (calls subdictionary lexize function)
   - qsort (sorts the compiled lexeme array)
-  - cmpTheLexeme (comparison function for sorting)
-  - cmpLexeme (comparison function for deduplication)
-  - cmpLexemeInfo (comparison function for LexemeInfo entries)
-  - repalloc (memory reallocation)
-  - TheLexeme, TSLexeme, DictThesaurus (structure types)
+  - [cmpTheLexeme](cmpTheLexeme.md) (comparison function for sorting)
+  - [cmpLexeme](cmpLexeme.md) (comparison function for deduplication)
+  - [cmpLexemeInfo](cmpLexemeInfo.md) (comparison function for LexemeInfo entries)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
+  - [TheLexeme](../T/TheLexeme.md), TSLexeme, DictThesaurus (structure types)
 - Called from (representative examples):
-  - thesaurus_init
+  - [thesaurus_init](../t/thesaurus_init.md)
 
 ## Notes and Other Information
 - Handles both regular lexemes and stop word markers ("?") appropriately

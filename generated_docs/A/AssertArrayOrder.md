@@ -22,9 +22,9 @@ The function uses BTLessStrategyNumber comparison semantics, meaning it expects 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
-  - AssertCheckRanges
+  - [AssertCheckRanges](AssertCheckRanges.md)
 
 ## Notes and Other Information
 - This is a debug-only function that only executes when assertions are enabled

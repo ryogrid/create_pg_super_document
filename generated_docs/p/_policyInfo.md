@@ -37,7 +37,7 @@ This structure is part of pg_dump's internal representation for PostgreSQL's Row
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
   - No direct references found in the indexed codebase
 

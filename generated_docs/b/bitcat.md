@@ -20,7 +20,7 @@ This function is a PostgreSQL SQL-callable function that concatenates two bit st
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_VARBIT_P (extracts VarBit arguments)
-  - bit_catenate (performs actual concatenation)
+  - [bit_catenate](bit_catenate.md) (performs actual concatenation)
   - PG_RETURN_VARBIT_P (returns VarBit result)
 - Called from:
   - No direct references found (likely called via SQL function dispatch)

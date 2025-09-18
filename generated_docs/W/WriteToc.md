@@ -19,13 +19,13 @@ This function serializes the complete Table of Contents structure to the archive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
   - REQ_SCHEMA, REQ_DATA, REQ_SPECIAL (requirement flags)
-  - WriteInt (writes integer values to archive)
-  - WriteStr (writes string values to archive)
+  - [WriteInt](WriteInt.md) (writes integer values to archive)
+  - [WriteStr](WriteStr.md) (writes string values to archive)
   - WriteExtraTocPtr (optional format-specific extension point)
 - Called from (representative examples):
-  - _CloseArchive (in custom, directory, and tar format implementations)
+  - [_CloseArchive](../C/_CloseArchive.md) (in custom, directory, and tar format implementations)
 
 ## Notes and Other Information
 - Only writes entries that have at least one of REQ_SCHEMA, REQ_DATA, or REQ_SPECIAL requirements set

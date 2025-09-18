@@ -24,7 +24,7 @@ The function is part of PostgreSQL's type system and is typically invoked throug
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR8_P (macro for extracting macaddr8 arguments)
-  - macaddr8_cmp_internal (performs actual comparison)
+  - [macaddr8_cmp_internal](macaddr8_cmp_internal.md) (performs actual comparison)
   - PG_RETURN_BOOL (macro for returning boolean result)
   - macaddr8 (structure type)
 - Called from (representative examples):

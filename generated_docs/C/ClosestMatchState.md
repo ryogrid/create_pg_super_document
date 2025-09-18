@@ -24,10 +24,10 @@ The structure maintains state during a search process where multiple candidate s
 - Functions called/Symbols referenced:
   - (This is a data structure with no direct function calls)
 - Called from (representative examples):
-  - initClosestMatch
-  - updateClosestMatch  
-  - getClosestMatch
-  - postgresql_fdw_validator
+  - [initClosestMatch](../i/initClosestMatch.md)
+  - [updateClosestMatch](../u/updateClosestMatch.md)  
+  - [getClosestMatch](../g/getClosestMatch.md)
+  - [postgresql_fdw_validator](../p/postgresql_fdw_validator.md)
 
 ## Notes and Other Information
 This structure is typically used in a three-phase pattern:

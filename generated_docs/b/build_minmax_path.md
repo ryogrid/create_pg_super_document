@@ -48,6 +48,6 @@ The function effectively transforms  into , allowing the optimizer to use index 
 - Returns true if a suitable index path is found, false otherwise
 - The function tries both NULLS FIRST and NULLS LAST orderings to find the best available index
 - Generated subquery becomes an initplan since it has no level-1 variables after transformation
-- Path costs are calculated to match  methodology
+- [Path](../P/Path.md) costs are calculated to match  methodology
 - Assumes the target expression was already validated as non-mutable and non-rowtype
 - The IS NOT NULL condition is only added if not already present in the WHERE clause

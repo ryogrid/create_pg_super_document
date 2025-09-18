@@ -25,17 +25,17 @@ The function properly handles UTF-16 surrogate pairs for Unicode code points abo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hexval (converts hexadecimal character to numeric value)
-  - check_unicode_value (validates Unicode code point)
+  - [hexval](../h/hexval.md) (converts hexadecimal character to numeric value)
+  - [check_unicode_value](../c/check_unicode_value.md) (validates Unicode code point)
   - is_utf16_surrogate_first (checks if code point is first half of surrogate pair)
   - is_utf16_surrogate_second (checks if code point is second half of surrogate pair)
   - surrogate_pair_to_codepoint (combines surrogate pair into full Unicode code point)
-  - pg_unicode_to_server (converts Unicode to server encoding)
+  - [pg_unicode_to_server](../p/pg_unicode_to_server.md) (converts Unicode to server encoding)
   - setup_scanner_errposition_callback (sets up error positioning)
   - cancel_scanner_errposition_callback (cleans up error positioning)
-  - repalloc (reallocates memory for growing output buffer)
+  - [repalloc](../r/repalloc.md) (reallocates memory for growing output buffer)
 - Called from (representative examples):
-  - base_yylex (PostgreSQL lexical analyzer at lines 286 and 302)
+  - [base_yylex](../b/base_yylex.md) (PostgreSQL lexical analyzer at lines 286 and 302)
 
 ## Notes and Other Information
 - The function uses dynamic memory allocation with initial size estimation and buffer expansion as needed

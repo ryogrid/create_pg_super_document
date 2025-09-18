@@ -26,7 +26,7 @@ The counts are calculated by taking the difference between the next and oldest v
   - MultiXactState (shared memory structure)
   - LW_SHARED
 - Called from (representative examples):
-  - MultiXactMemberFreezeThreshold (src/backend/access/transam/multixact.c:2979)
+  - [MultiXactMemberFreezeThreshold](../M/MultiXactMemberFreezeThreshold.md) (src/backend/access/transam/multixact.c:2979)
 
 ## Notes and Other Information
 - Returns false if unable to determine counts (when oldestOffsetKnown is false)

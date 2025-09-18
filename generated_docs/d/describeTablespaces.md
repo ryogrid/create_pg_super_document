@@ -21,17 +21,17 @@ This function generates and executes a SQL query to list tablespaces from the pg
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
-  - printACLColumn
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [printACLColumn](../p/printACLColumn.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - exec_command_d (in command.c:839)
+  - [exec_command_d](../e/exec_command_d.md) (in command.c:839)
 
 ## Notes and Other Information
 - Part of psql's describe functionality (\db command)

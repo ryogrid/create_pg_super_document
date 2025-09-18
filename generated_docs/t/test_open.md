@@ -23,12 +23,12 @@ This function performs a preliminary test to ensure that the target filename can
   - write (POSIX file writing)
   - fsync (POSIX file synchronization)
   - close (POSIX file closing)
-  - die (error handling and program termination)
+  - [die](../d/die.md) (error handling and program termination)
   - PG_BINARY (PostgreSQL binary file flag)
   - S_IRUSR/S_IWUSR (POSIX file permission constants)
   - DEFAULT_XLOG_SEG_SIZE (PostgreSQL WAL segment size)
 - Called from (representative examples):
-  - main (pg_test_fsync main function)
+  - [main](../m/main.md) (pg_test_fsync main function)
 
 ## Notes and Other Information
 - Sets the global variable needs_unlink to 1 to indicate cleanup is required

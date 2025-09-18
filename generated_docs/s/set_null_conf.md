@@ -17,15 +17,15 @@ The  function creates a minimal empty postgresql.conf configuration file in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's printf-like memory allocating function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's printf-like memory allocating function)
   - fopen (standard C library function for file opening)
   - fclose (standard C library function for file closing)
-  - pg_fatal (PostgreSQL fatal error logging function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error logging function)
   - free (standard C library function for memory deallocation)
   - PG_BINARY_W (PostgreSQL macro for binary write mode)
   - pg_data (global variable containing the data directory path)
 - Called from (representative examples):
-  - initialize_data_directory (called early in the initialization process)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (called early in the initialization process)
 
 ## Notes and Other Information
 - This is a static function, only accessible within initdb.c

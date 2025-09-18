@@ -29,17 +29,17 @@ This function takes no parameters and operates on the global CurrentTransactionS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShowTransactionState
-  - TransStateAsString
-  - AtSubCleanup_Portals
-  - ResourceOwnerDelete
-  - AtSubCleanup_Memory
-  - PopTransaction
+  - [ShowTransactionState](../S/ShowTransactionState.md)
+  - [TransStateAsString](../T/TransStateAsString.md)
+  - [AtSubCleanup_Portals](../A/AtSubCleanup_Portals.md)
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md)
+  - [AtSubCleanup_Memory](../A/AtSubCleanup_Memory.md)
+  - [PopTransaction](../P/PopTransaction.md)
 - Called from (representative examples):
-  - CommitTransactionCommandInternal
-  - AbortCurrentTransactionInternal
-  - RollbackAndReleaseCurrentSubTransaction
-  - AbortOutOfAnyTransaction
+  - [CommitTransactionCommandInternal](CommitTransactionCommandInternal.md)
+  - [AbortCurrentTransactionInternal](../A/AbortCurrentTransactionInternal.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)
 
 ## Notes and Other Information
 - The function includes a warning that callers must reassign CurrentTransactionState local pointers after calling this function, similar to CommitSubTransaction

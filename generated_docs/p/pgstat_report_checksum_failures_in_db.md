@@ -21,14 +21,14 @@ This function is responsible for tracking checksum validation failures that occu
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_get_entry_ref_locked
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - pgstat_unlock_entry
   - PGSTAT_KIND_DATABASE
   - PgStat_EntryRef
-  - PgStatShared_Database
+  - [PgStatShared_Database](../P/PgStatShared_Database.md)
 - Called from (representative examples):
-  - sendFile (in src/backend/backup/basebackup.c:1818)
-  - pgstat_report_checksum_failure (in src/backend/utils/activity/pgstat_database.c:168)
+  - [sendFile](../s/sendFile.md) (in src/backend/backup/basebackup.c:1818)
+  - [pgstat_report_checksum_failure](pgstat_report_checksum_failure.md) (in src/backend/utils/activity/pgstat_database.c:168)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's data integrity monitoring system

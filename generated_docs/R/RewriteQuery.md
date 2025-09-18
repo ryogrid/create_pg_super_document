@@ -31,21 +31,21 @@ The function handles special cases including multi-row INSERT VALUES, ON CONFLIC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rewriteTargetListIU
-  - rewriteValuesRTE
-  - rewriteValuesRTEToNulls
-  - matchLocks
-  - fireRules
-  - view_has_instead_trigger
-  - error_view_not_updatable
-  - rewriteTargetView
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md)
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md)
+  - [rewriteValuesRTEToNulls](../r/rewriteValuesRTEToNulls.md)
+  - [matchLocks](../m/matchLocks.md)
+  - [fireRules](../f/fireRules.md)
+  - [view_has_instead_trigger](../v/view_has_instead_trigger.md)
+  - [error_view_not_updatable](../e/error_view_not_updatable.md)
+  - [rewriteTargetView](../r/rewriteTargetView.md)
   - table_open/table_close
   - rt_fetch
   - copyObject
-  - list_concat/lcons/lappend
+  - [list_concat](../l/list_concat.md)/lcons/lappend
 - Called from (representative examples):
   - Self-recursive calls for rule processing
-  - QueryRewrite (src/backend/rewrite/rewriteHandler.c:4432)
+  - [QueryRewrite](../Q/QueryRewrite.md) (src/backend/rewrite/rewriteHandler.c:4432)
 
 ## Notes and Other Information
 - Maintains recursion detection through rewrite_events list to prevent infinite rule loops

@@ -27,11 +27,11 @@ The function's behavior depends on compile-time configuration:
   - RT_PTR_ALLOC (type representing pointer allocation slots)
   - RT_VALUE_TYPE (the value type stored in the radix tree)
 - Called from (representative examples):
-  - RT_FIND (at src/include/lib/radixtree.h:1123)
-  - RT_SET (at src/include/lib/radixtree.h:1757, 1776)
-  - RT_FREE_RECURSE (at multiple locations for cleanup)
-  - RT_ITERATE_NEXT (at src/include/lib/radixtree.h:2234)
-  - RT_DELETE_RECURSIVE (at src/include/lib/radixtree.h:2622)
+  - [RT_FIND](RT_FIND.md) (at src/include/lib/radixtree.h:1123)
+  - [RT_SET](RT_SET.md) (at src/include/lib/radixtree.h:1757, 1776)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (at multiple locations for cleanup)
+  - [RT_ITERATE_NEXT](RT_ITERATE_NEXT.md) (at src/include/lib/radixtree.h:2234)
+  - [RT_DELETE_RECURSIVE](RT_DELETE_RECURSIVE.md) (at src/include/lib/radixtree.h:2622)
 
 ## Notes and Other Information
 This function is essential for the radix tree's optimization strategy of embedding small values directly in pointer slots. When RT_RUNTIME_EMBEDDABLE_VALUE is enabled, the lowest bit of the pointer is used as a tag to indicate whether the pointer contains an embedded value or points to a separate leaf node.

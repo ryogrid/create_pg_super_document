@@ -20,11 +20,11 @@ This function implements PostgreSQL's debug level functionality triggered by the
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf: Formats the debug level into a string for log_min_messages
-  - SetConfigOption: Sets individual GUC parameters programmatically
+  - [SetConfigOption](../S/SetConfigOption.md): Sets individual GUC parameters programmatically
   - PGC_POSTMASTER: Context constant for postmaster-level configuration changes
 - Called from (representative examples):
-  - PostmasterMain: Sets debug options during postmaster startup
-  - process_postgres_switches: Processes command-line switches including -d option
+  - [PostmasterMain](../P/PostmasterMain.md): Sets debug options during postmaster startup
+  - [process_postgres_switches](../p/process_postgres_switches.md): Processes command-line switches including -d option
 
 ## Notes and Other Information
 - Debug levels have cumulative effects: higher levels include all lower level settings

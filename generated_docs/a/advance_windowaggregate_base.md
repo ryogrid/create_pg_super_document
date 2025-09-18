@@ -20,16 +20,16 @@ This function is the counterpart to  and handles the removal of tuples from movi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalExpr
-  - initialize_windowaggregate
+  - [initialize_windowaggregate](../i/initialize_windowaggregate.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - DatumIsReadWriteExpandedObject
   - DatumGetEOHP
   - MemoryContextGetParent
-  - datumCopy
-  - DeleteExpandedObject
+  - [datumCopy](../d/datumCopy.md)
+  - [DeleteExpandedObject](../D/DeleteExpandedObject.md)
 - Called from (representative examples):
-  - eval_windowaggregates
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
 
 ## Notes and Other Information
 - Returns  if successful,  if the inverse transition function cannot handle the removal (forcing aggregate restart)

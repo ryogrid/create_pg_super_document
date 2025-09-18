@@ -38,16 +38,16 @@ This function is essential when partition bounds have been merged, as it establi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_intersect
-  - bms_num_members
-  - bms_singleton_member
-  - find_base_rel
-  - find_join_rel
+  - [bms_intersect](../b/bms_intersect.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_singleton_member](../b/bms_singleton_member.md)
+  - [find_base_rel](../f/find_base_rel.md)
+  - [find_join_rel](../f/find_join_rel.md)
   - lappend
   - IS_SIMPLE_REL
   - Assert
 - Called from (representative examples):
-  - compute_partition_bounds
+  - [compute_partition_bounds](../c/compute_partition_bounds.md)
 
 ## Notes and Other Information
 - Only called when joinrel->partbounds_merged is true, indicating partition bounds required merging

@@ -24,12 +24,12 @@ This function ensures type safety by asserting that the provided list is actuall
   - list_nth_cell (to get the cell at position n)
   - lfirst_oid (to extract the OID value from the cell)
 - Called from (representative examples):
-  - interpret_AS_clause (function parameter processing)
+  - [interpret_AS_clause](../i/interpret_AS_clause.md) (function parameter processing)
   - EstimateParamExecSpace (parallel execution parameter estimation)
-  - expand_indexqual_rowcompare (index qualification expansion)
-  - get_rte_attribute_is_dropped (relation attribute checking)
-  - rewriteSearchAndCycle (search/cycle rewriting logic)
-  - pg_partition_ancestors (partition hierarchy functions)
+  - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md) (index qualification expansion)
+  - [get_rte_attribute_is_dropped](../g/get_rte_attribute_is_dropped.md) (relation attribute checking)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (search/cycle rewriting logic)
+  - [pg_partition_ancestors](../p/pg_partition_ancestors.md) (partition hierarchy functions)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

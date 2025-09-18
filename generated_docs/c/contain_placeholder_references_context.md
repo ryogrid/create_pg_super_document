@@ -20,8 +20,8 @@ This structure serves as a context parameter for the tree walker function  when 
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - contain_placeholder_references_to
-  - contain_placeholder_references_walker
+  - [contain_placeholder_references_to](contain_placeholder_references_to.md)
+  - [contain_placeholder_references_walker](contain_placeholder_references_walker.md)
 
 ## Notes and Other Information
 - This context structure is specifically designed for the placeholder reference detection mechanism in PostgreSQL's optimizer

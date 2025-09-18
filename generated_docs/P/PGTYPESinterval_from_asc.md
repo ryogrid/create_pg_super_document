@@ -20,15 +20,15 @@ The function includes robust error handling with proper memory management - it a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_alloc (memory allocation)
-  - ParseDateTime (datetime string parsing)
-  - DecodeInterval (PostgreSQL interval format decoding)
-  - DecodeISO8601Interval (ISO 8601 interval format decoding)
-  - tm2interval (converts tm structure to interval)
+  - [pgtypes_alloc](../p/pgtypes_alloc.md) (memory allocation)
+  - [ParseDateTime](ParseDateTime.md) (datetime string parsing)
+  - [DecodeInterval](../D/DecodeInterval.md) (PostgreSQL interval format decoding)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (ISO 8601 interval format decoding)
+  - [tm2interval](../t/tm2interval.md) (converts tm structure to interval)
   - free (memory deallocation)
 - Called from (representative examples):
   - ecpg_get_data (ECPG data retrieval)
-  - main (in various test programs)
+  - [main](../m/main.md) (in various test programs)
   - Client applications using ECPG interval types
 
 ## Notes and Other Information

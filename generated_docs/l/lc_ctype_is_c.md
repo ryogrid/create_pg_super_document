@@ -19,16 +19,16 @@ This function provides an efficient way to determine if a collation uses C-style
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_collation_cache
+  - [lookup_collation_cache](lookup_collation_cache.md)
   - setlocale
   - strcmp
   - elog
 - Called from (representative examples):
-  - str_tolower
-  - str_toupper
-  - str_initcap
-  - GenericMatchText
-  - Generic_Text_IC_like
+  - [str_tolower](../s/str_tolower.md)
+  - [str_toupper](../s/str_toupper.md)
+  - [str_initcap](../s/str_initcap.md)
+  - [GenericMatchText](../G/GenericMatchText.md)
+  - [Generic_Text_IC_like](../G/Generic_Text_IC_like.md)
 
 ## Notes and Other Information
 - Returns false for invalid collation OID to force non-C code path for proper error detection

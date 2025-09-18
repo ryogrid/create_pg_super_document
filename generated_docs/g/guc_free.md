@@ -20,19 +20,19 @@ The function includes an important safety feature that helps catch programming e
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetMemoryChunkContext (for memory context verification)
-  - pfree (for actual memory deallocation)
+  - [pfree](../p/pfree.md) (for actual memory deallocation)
 
 - Called from (representative examples):
-  - check_datestyle
-  - check_client_encoding
-  - check_application_name
-  - set_string_field
-  - set_extra_field
-  - add_placeholder_variable
-  - SelectConfigFiles
-  - ReportGUCOption
+  - [check_datestyle](../c/check_datestyle.md)
+  - [check_client_encoding](../c/check_client_encoding.md)
+  - [check_application_name](../c/check_application_name.md)
+  - [set_string_field](../s/set_string_field.md)
+  - [set_extra_field](../s/set_extra_field.md)
+  - [add_placeholder_variable](../a/add_placeholder_variable.md)
+  - [SelectConfigFiles](../S/SelectConfigFiles.md)
+  - [ReportGUCOption](../R/ReportGUCOption.md)
   - parse_and_validate_value
-  - AlterSystemSetConfigFile
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
   - RestoreGUCState
   - call_string_check_hook
 

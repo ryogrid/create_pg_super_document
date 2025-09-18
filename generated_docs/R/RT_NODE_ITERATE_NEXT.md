@@ -37,12 +37,12 @@ The function is marked as static inline for performance, as it's called frequent
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (for name generation)
-  - RT_NODE_48_IS_CHUNK_USED (for checking chunk usage in 48-node)
-  - RT_NODE_48_GET_CHILD (for getting child in 48-node)
-  - RT_NODE_256_IS_CHUNK_USED (for checking chunk usage in 256-node)
-  - RT_NODE_256_GET_CHILD (for getting child in 256-node)
+  - [RT_NODE_48_IS_CHUNK_USED](RT_NODE_48_IS_CHUNK_USED.md) (for checking chunk usage in 48-node)
+  - [RT_NODE_48_GET_CHILD](RT_NODE_48_GET_CHILD.md) (for getting child in 48-node)
+  - [RT_NODE_256_IS_CHUNK_USED](RT_NODE_256_IS_CHUNK_USED.md) (for checking chunk usage in 256-node)
+  - [RT_NODE_256_GET_CHILD](RT_NODE_256_GET_CHILD.md) (for getting child in 256-node)
 - Called from (representative examples):
-  - RT_ITERATE_NEXT (main iteration function)
+  - [RT_ITERATE_NEXT](RT_ITERATE_NEXT.md) (main iteration function)
 
 ## Notes and Other Information
 - This is an internal static inline function, not part of the public API

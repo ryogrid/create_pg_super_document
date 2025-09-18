@@ -24,11 +24,11 @@ Importantly, the function inverts the return value of PGSemaphoreTryLock because
 ## Dependencies
 - Functions called/Symbols referenced:
   - s_check_valid: Validates that the semaphore index is within valid bounds to prevent array access violations
-  - PGSemaphoreTryLock: Attempts to acquire a semaphore without blocking, returning true if successful
-  - slock_t: The spinlock data type used to store semaphore array indices
+  - [PGSemaphoreTryLock](../P/PGSemaphoreTryLock.md): Attempts to acquire a semaphore without blocking, returning true if successful
+  - [slock_t](../s/slock_t.md): The spinlock data type used to store semaphore array indices
 - Called from (representative examples):
   - TAS: The main test-and-set macro that may delegate to this function when semaphore-based locking is active
-  - slock_t: Used indirectly through the spinlock system when hardware test-and-set is unavailable
+  - [slock_t](../s/slock_t.md): Used indirectly through the spinlock system when hardware test-and-set is unavailable
 
 ## Notes and Other Information
 - This function follows the traditional TAS convention where 0 means success and non-zero means failure

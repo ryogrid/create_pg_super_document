@@ -28,31 +28,31 @@ The function prevents unprincipled deadlocks that could occur when multiple back
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionId
-  - ItemPointerIsValid
-  - ItemPointerGetBlockNumber
-  - ReadBuffer
-  - PageIsAllVisible
-  - PageGetItemId
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [PageIsAllVisible](../P/PageIsAllVisible.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal
   - HeapTupleHeaderIsSpeculative
-  - IsToastRelation
+  - [IsToastRelation](../I/IsToastRelation.md)
   - HeapTupleHeaderIsHeapOnly
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - PageSetPrunable
   - HeapTupleHeaderSetXmin
-  - compute_infobits
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
+  - [compute_infobits](../c/compute_infobits.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - HeapTupleHasExternal
-  - heap_toast_delete
+  - [heap_toast_delete](heap_toast_delete.md)
   - ReleaseBuffer
-  - pgstat_count_heap_delete
+  - [pgstat_count_heap_delete](../p/pgstat_count_heap_delete.md)
 - Called from (representative examples):
-  - toast_delete_datum
-  - heapam_tuple_complete_speculative
+  - [toast_delete_datum](../t/toast_delete_datum.md)
+  - [heapam_tuple_complete_speculative](heapam_tuple_complete_speculative.md)
   - HeapScanIsValid (indirect reference)
 
 ## Notes and Other Information

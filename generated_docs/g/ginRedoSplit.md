@@ -26,9 +26,9 @@ The function expects the WAL record to contain full-page images rather than incr
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - ginRedoClearIncompleteSplit
+  - [ginRedoClearIncompleteSplit](ginRedoClearIncompleteSplit.md)
   - XLogReadBufferForRedo
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - elog
 
 - Constants/Flags used:
@@ -37,7 +37,7 @@ The function expects the WAL record to contain full-page images rather than incr
   - BLK_RESTORED
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - Uses ginxlogSplit structure to access WAL record metadata

@@ -18,13 +18,13 @@ This function creates a hash table specifically designed to handle TOAST data re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the hash table with specified parameters)
+  - [hash_create](../h/hash_create.md) (creates the hash table with specified parameters)
   - Assert (ensures toast_hash is NULL before initialization)
   - HASHCTL (hash table control structure)
   - ReorderBufferToastEnt (hash table entry structure for TOAST data)
   - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT (hash table configuration flags)
 - Called from (representative examples):
-  - ReorderBufferToastAppendChunk (when first TOAST chunk is encountered)
+  - [ReorderBufferToastAppendChunk](ReorderBufferToastAppendChunk.md) (when first TOAST chunk is encountered)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within reorderbuffer.c

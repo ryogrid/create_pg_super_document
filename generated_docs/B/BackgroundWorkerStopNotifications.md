@@ -21,12 +21,12 @@ This function iterates through all registered background workers and clears the 
   - slist_container (macro to get container structure from list node)
 - Data structures used:
   - pid_t
-  - slist_iter
-  - RegisteredBgWorker
+  - [slist_iter](../s/slist_iter.md)
+  - [RegisteredBgWorker](../R/RegisteredBgWorker.md)
   - BackgroundWorkerList (global list of registered background workers)
 - Called from (representative examples):
-  - CleanupBackgroundWorker
-  - CleanupBackend
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md)
+  - [CleanupBackend](../C/CleanupBackend.md)
 
 ## Notes and Other Information
 - This function should only be called from the postmaster process

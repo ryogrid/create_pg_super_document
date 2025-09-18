@@ -29,7 +29,7 @@ This wraparound behavior is essential for PostgreSQL's transaction management sy
   - FirstMultiXactId (constant)
   - MaxMultiXactId (constant)
 - Called from (representative examples):
-  - PerformOffsetsTruncation
+  - [PerformOffsetsTruncation](PerformOffsetsTruncation.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance during frequent MultiXact ID operations

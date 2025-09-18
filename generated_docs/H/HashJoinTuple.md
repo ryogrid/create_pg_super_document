@@ -24,7 +24,7 @@ HashJoinTuple represents individual tuples stored in PostgreSQL's hash join hash
   - MinimalTuple (for efficient tuple storage format)
 - Called from (representative examples):
   - ExecHashTableInsert (inserts tuples into hash table)
-  - ExecScanHashBucket (scans hash bucket for matching tuples)
+  - [ExecScanHashBucket](../E/ExecScanHashBucket.md) (scans hash bucket for matching tuples)
   - ExecHashIncreaseNumBatches (redistributes tuples during batch expansion)
   - ExecParallelHashTableInsert (parallel hash table insertion)
   - ExecHashSkewTableInsert (inserts into skew buckets for optimization)

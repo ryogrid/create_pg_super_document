@@ -22,7 +22,7 @@ The function extracts two BPCHAR arguments from the PostgreSQL function call int
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (macro to extract BPCHAR arguments)
-  - internal_bpchar_pattern_compare (performs the actual comparison)
+  - [internal_bpchar_pattern_compare](../i/internal_bpchar_pattern_compare.md) (performs the actual comparison)
   - PG_FREE_IF_COPY (macro to free memory if needed)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):

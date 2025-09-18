@@ -26,22 +26,22 @@ The function carefully manages the critical section to avoid doing complex opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_param
-  - update_vacuum_error_info
-  - PageGetItemId
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [update_vacuum_error_info](../u/update_vacuum_error_info.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsDead
   - ItemIdHasStorage  
   - ItemIdSetUnused
-  - PageTruncateLinePointerArray
+  - [PageTruncateLinePointerArray](../P/PageTruncateLinePointerArray.md)
   - MarkBufferDirty
   - RelationNeedsWAL
-  - log_heap_prune_and_freeze
-  - heap_page_is_all_visible
-  - PageSetAllVisible
-  - visibilitymap_set
-  - restore_vacuum_error_info
+  - [log_heap_prune_and_freeze](log_heap_prune_and_freeze.md)
+  - [heap_page_is_all_visible](../h/heap_page_is_all_visible.md)
+  - [PageSetAllVisible](../P/PageSetAllVisible.md)
+  - [visibilitymap_set](../v/visibilitymap_set.md)
+  - [restore_vacuum_error_info](../r/restore_vacuum_error_info.md)
 - Called from:
-  - lazy_vacuum_heap_rel
+  - [lazy_vacuum_heap_rel](lazy_vacuum_heap_rel.md)
 
 ## Notes and Other Information
 - Requires caller to hold exclusive buffer lock (cleanup lock also acceptable)

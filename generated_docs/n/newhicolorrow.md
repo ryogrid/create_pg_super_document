@@ -23,8 +23,8 @@ The  function is part of PostgreSQL's regex color management system. It creates 
   - memcpy (standard library function for memory copying)
   - REG_ESPACE (error code constant)
 - Called from (representative examples):
-  - subcoloronechr (at lines 681, 707, 716)
-  - subcoloronerange (at lines 801, 832, 841, 859)
+  - [subcoloronechr](../s/subcoloronechr.md) (at lines 681, 707, 716)
+  - [subcoloronerange](../s/subcoloronerange.md) (at lines 801, 832, 841, 859)
 
 ## Notes and Other Information
 - Returns the array index of the newly created row, or 0 on error

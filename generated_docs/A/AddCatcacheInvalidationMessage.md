@@ -24,17 +24,17 @@ The function ensures that the catalog cache ID fits within the int8 range by ass
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddInvalidationMessage (to add the constructed message to the group)
+  - [AddInvalidationMessage](AddInvalidationMessage.md) (to add the constructed message to the group)
   - VALGRIND_MAKE_MEM_DEFINED (for memory debugging support)
 - Constants used:
   - CatCacheMsgs (subgroup identifier for catalog cache messages)
   - CHAR_MAX (for ID range validation)
 - Data structures used:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
   - int8, uint32, Oid types
 - Called from:
-  - RegisterCatcacheInvalidation
+  - [RegisterCatcacheInvalidation](../R/RegisterCatcacheInvalidation.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c file

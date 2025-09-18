@@ -17,14 +17,14 @@ This function takes no parameters and returns a boolean indicating success or fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the hashtable with specified configuration)
+  - [hash_create](../h/hash_create.md) (creates the hashtable with specified configuration)
   - HASHCTL (hashtable control structure)
   - pg_tz_cache (timezone cache entry structure type)
   - TZ_STRLEN_MAX (maximum timezone string length constant)
   - HASH_ELEM (hashtable flag for custom element size)
   - HASH_STRINGS (hashtable flag for string key handling)
 - Called from (representative examples):
-  - pg_tzset (in src/timezone/pgtz.c:246)
+  - [pg_tzset](../p/pg_tzset.md) (in src/timezone/pgtz.c:246)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same source file

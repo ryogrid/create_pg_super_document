@@ -21,12 +21,12 @@ This function updates the queue's bytes_read counter to reflect data consumption
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_read_barrier
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
-  - SetLatch
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - shm_mq_receive
-  - shm_mq_receive_bytes
+  - [shm_mq_receive](shm_mq_receive.md)
+  - [shm_mq_receive_bytes](shm_mq_receive_bytes.md)
 
 ## Notes and Other Information
 - Uses a read barrier to ensure proper ordering between ring buffer reads and counter updates

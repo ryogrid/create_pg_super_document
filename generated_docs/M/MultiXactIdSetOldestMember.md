@@ -36,10 +36,10 @@ This mechanism is crucial for maintaining consistency in MultiXactId operations 
   - MultiXactState->nextMXact
   - FirstMultiXactId
 - Called from (representative examples):
-  - heap_delete (src/backend/access/heap/heapam.c:2990)
-  - heap_update (src/backend/access/heap/heapam.c:3409)
-  - heap_lock_tuple (src/backend/access/heap/heapam.c:5108)
-  - heap_lock_updated_tuple (src/backend/access/heap/heapam.c:6016)
+  - [heap_delete](../h/heap_delete.md) (src/backend/access/heap/heapam.c:2990)
+  - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3409)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (src/backend/access/heap/heapam.c:5108)
+  - [heap_lock_updated_tuple](../h/heap_lock_updated_tuple.md) (src/backend/access/heap/heapam.c:6016)
 
 ## Notes and Other Information
 - Must be called before any operation that might create or participate in a MultiXactId

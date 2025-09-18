@@ -22,9 +22,9 @@ BloomOptions serves as the storage type for BRIN's reloptions (relation options)
 - Called from (representative examples):
   - BloomGetNDistinctPerRange
   - BloomGetFalsePositiveRate
-  - brin_bloom_get_ndistinct
-  - brin_bloom_add_value
-  - brin_bloom_options
+  - [brin_bloom_get_ndistinct](../b/brin_bloom_get_ndistinct.md)
+  - [brin_bloom_add_value](../b/brin_bloom_add_value.md)
+  - [brin_bloom_options](../b/brin_bloom_options.md)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's BRIN (Block Range Index) bloom filter implementation, located in src/backend/access/brin/brin_bloom.c:154-159. The bloom filter parameters stored here directly impact memory usage and query performance, making proper configuration essential for optimal index behavior.

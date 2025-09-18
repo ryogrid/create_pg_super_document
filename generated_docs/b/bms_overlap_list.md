@@ -22,13 +22,13 @@ The function performs validation to ensure negative integers are not allowed as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
+  - [bms_is_valid_set](bms_is_valid_set.md)
   - lfirst_int
   - WORDNUM
   - BITNUM
   - bitmapword
 - Called from (representative examples):
-  - preprocess_grouping_sets (src/backend/optimizer/plan/planner.c:2136, 2151, 2216)
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md) (src/backend/optimizer/plan/planner.c:2136, 2151, 2216)
 
 ## Notes and Other Information
 - Returns false if either the bitmapset is NULL or the list is NIL (empty)

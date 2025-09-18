@@ -31,13 +31,13 @@ RewriteMappingFile serves as a control structure for managing logical mapping fi
 ## Dependencies
 - Functions called/Symbols referenced:
   - vfd (virtual file descriptor type)
-  - dclist_head (doubly-linked circular list header)
+  - [dclist_head](../d/dclist_head.md) (doubly-linked circular list header)
 - Called from (representative examples):
-  - logical_begin_heap_rewrite
-  - logical_heap_rewrite_flush_mappings
-  - logical_end_heap_rewrite
-  - logical_rewrite_log_mapping
-  - UpdateLogicalMappings
+  - [logical_begin_heap_rewrite](../l/logical_begin_heap_rewrite.md)
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md)
+  - [logical_end_heap_rewrite](../l/logical_end_heap_rewrite.md)
+  - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md)
+  - [UpdateLogicalMappings](../U/UpdateLogicalMappings.md)
 
 ## Notes and Other Information
 This structure is primarily used in logical replication contexts where maintaining tuple mapping consistency across rewrite operations is critical. The combination of in-memory and on-disk storage provides both performance optimization and crash recovery capabilities. The file-based approach allows the system to handle large rewrite operations that exceed available memory while ensuring mapping information persists across potential system failures.

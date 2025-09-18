@@ -22,15 +22,15 @@ The function uses a cleanup lock on the root page to prevent concurrent insertio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginVacuumPostingTreeLeaves
-  - ReadBufferExtended
+  - [ginVacuumPostingTreeLeaves](ginVacuumPostingTreeLeaves.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
   - LockBufferForCleanup
-  - ginScanToDelete
-  - UnlockReleaseBuffer
-  - DataPageDeleteStack
-  - GinVacuumState
+  - [ginScanToDelete](ginScanToDelete.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [DataPageDeleteStack](../D/DataPageDeleteStack.md)
+  - [GinVacuumState](../G/GinVacuumState.md)
 - Called from (representative examples):
-  - ginbulkdelete
+  - [ginbulkdelete](ginbulkdelete.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN vacuum implementation

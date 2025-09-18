@@ -30,8 +30,8 @@ The ginxlogDeletePage structure is used as part of WAL logging when vacuum opera
   - BlockNumber 
   - TransactionId
 - Called from (representative examples):
-  - ginDeletePage (in src/backend/access/gin/ginvacuum.c:201,220)
-  - ginRedoDeletePage (in src/backend/access/gin/ginxlog.c:480)
+  - [ginDeletePage](ginDeletePage.md) (in src/backend/access/gin/ginvacuum.c:201,220)
+  - [ginRedoDeletePage](ginRedoDeletePage.md) (in src/backend/access/gin/ginxlog.c:480)
 
 ## Notes and Other Information
 - This structure is part of the GIN index WAL logging infrastructure (XLOG_GIN_DELETE_PAGE operation)

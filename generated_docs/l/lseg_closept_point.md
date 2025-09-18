@@ -19,16 +19,16 @@ This static function finds the closest point on a line segment to a given point 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - line_construct: Constructs a line from two points
-  - point_invsl: Calculates inverse slope between two points
-  - lseg_closept_line: Finds closest point on line segment to a line
-  - point_dt: Calculates distance between two points
+  - [line_construct](line_construct.md): Constructs a line from two points
+  - [point_invsl](../p/point_invsl.md): Calculates inverse slope between two points
+  - [lseg_closept_line](lseg_closept_line.md): Finds closest point on line segment to a line
+  - [point_dt](../p/point_dt.md): Calculates distance between two points
 - Called from (representative examples):
-  - dist_ps: Distance from point to line segment
-  - dist_sp: Distance from line segment to point
-  - close_ps: Closest point from point to line segment
-  - lseg_closept_lseg: Closest point between two line segments
-  - box_closept_point: Closest point on box to a point
+  - [dist_ps](../d/dist_ps.md): Distance from point to line segment
+  - [dist_sp](../d/dist_sp.md): Distance from line segment to point
+  - [close_ps](../c/close_ps.md): Closest point from point to line segment
+  - [lseg_closept_lseg](lseg_closept_lseg.md): Closest point between two line segments
+  - [box_closept_point](../b/box_closept_point.md): Closest point on box to a point
 
 ## Notes and Other Information
 - This is a static function used internally within geo_ops.c for geometric calculations

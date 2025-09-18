@@ -24,10 +24,10 @@ This is a critical component of range partition constraint generation, as it enf
   - list_head
   - makeVar
   - copyObject
-  - lnext
+  - [lnext](../l/lnext.md)
   - makeNode
 - Called from (representative examples):
-  - get_qual_for_range
+  - [get_qual_for_range](get_qual_for_range.md)
   - compare_range_bounds
 
 ## Notes and Other Information

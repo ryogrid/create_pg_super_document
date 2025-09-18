@@ -25,8 +25,8 @@ The documentation notes recommend using GetWALInsertionTimeLine() instead wherev
   - SpinLockRelease
   - XLogCtl (global WAL control structure)
 - Called from (representative examples):
-  - GetLatestLSN
-  - WALAvailability
+  - [GetLatestLSN](GetLatestLSN.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - Safe to call during recovery state transitions, unlike GetWALInsertionTimeLine()

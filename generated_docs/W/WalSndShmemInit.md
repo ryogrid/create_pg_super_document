@@ -28,14 +28,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct (shared memory structure initialization)
-  - WalSndShmemSize (calculates required shared memory size)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory structure initialization)
+  - [WalSndShmemSize](WalSndShmemSize.md) (calculates required shared memory size)
   - MemSet (memory zeroing)
-  - dlist_init (initializes doubly-linked lists for sync rep queues)
+  - [dlist_init](../d/dlist_init.md) (initializes doubly-linked lists for sync rep queues)
   - SpinLockInit (initializes spin locks for WAL sender mutexes)
-  - ConditionVariableInit (initializes condition variables)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md) (initializes condition variables)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (during server startup)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during server startup)
 
 ## Notes and Other Information
 - This function is called once during PostgreSQL server startup as part of shared memory initialization

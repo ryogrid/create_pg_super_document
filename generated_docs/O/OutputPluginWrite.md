@@ -23,18 +23,18 @@ The function performs these operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext (struct access)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (struct access)
   - elog (for error reporting)
   - write (function pointer callback)
 - Called from (representative examples):
-  - pgoutput_send_begin
-  - pgoutput_commit_txn
-  - pgoutput_begin_prepare_txn
-  - pgoutput_change
-  - pgoutput_truncate
-  - pgoutput_message
-  - pgoutput_stream_start
-  - send_relation_and_attrs
+  - [pgoutput_send_begin](../p/pgoutput_send_begin.md)
+  - [pgoutput_commit_txn](../p/pgoutput_commit_txn.md)
+  - [pgoutput_begin_prepare_txn](../p/pgoutput_begin_prepare_txn.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [pgoutput_truncate](../p/pgoutput_truncate.md)
+  - [pgoutput_message](../p/pgoutput_message.md)
+  - [pgoutput_stream_start](../p/pgoutput_stream_start.md)
+  - [send_relation_and_attrs](../s/send_relation_and_attrs.md)
 
 ## Notes and Other Information
 - Must be preceded by OutputPluginPrepareWrite call - enforced through prepared_write flag checking

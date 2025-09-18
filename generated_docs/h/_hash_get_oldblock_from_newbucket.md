@@ -22,12 +22,12 @@ The function reads the hash meta page to access the bucket-to-block mapping info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos32
-  - _hash_getbuf
+  - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)
+  - [_hash_getbuf](_hash_getbuf.md)
   - HashPageGetMeta
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BUCKET_TO_BLKNO
-  - _hash_relbuf
+  - [_hash_relbuf](_hash_relbuf.md)
 - Referenced types/constants:
   - Bucket
   - HashMetaPage
@@ -35,7 +35,7 @@ The function reads the hash meta page to access the bucket-to-block mapping info
   - HASH_READ
   - LH_META_PAGE
 - Called from (representative examples):
-  - _hash_first
+  - [_hash_first](_hash_first.md)
 
 ## Notes and Other Information
 The function is critical for hash index splitting operations. It cannot rely on the current hashm_lowmask value stored in the meta page because it needs the mask value that was prevalent when the bucket split started. The mask calculation using pg_leftmost_one_pos32 ensures correct mapping from new buckets to their corresponding old buckets during the split process. This is essential for maintaining data consistency during hash table expansion.

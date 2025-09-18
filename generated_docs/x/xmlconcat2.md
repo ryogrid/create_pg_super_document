@@ -29,7 +29,7 @@ This function is essential for aggregate operations where partial results need t
 - Functions called/Symbols referenced:
   - PG_RETURN_XML_P
   - PG_GETARG_XML_P
-  - xmlconcat
+  - [xmlconcat](xmlconcat.md)
   - list_make2
 - Called from (representative examples):
   - No direct references found in codebase (likely used by aggregate function system)

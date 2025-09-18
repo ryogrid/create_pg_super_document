@@ -28,15 +28,15 @@ This function takes no parameters and operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_pgpid - retrieves the postmaster process ID
+  - [get_pgpid](../g/get_pgpid.md) - retrieves the postmaster process ID
   - kill - sends termination signal to the process
-  - wait_for_postmaster_stop - waits for server shutdown completion
-  - write_stderr - outputs error messages
-  - print_msg - outputs status messages
+  - [wait_for_postmaster_stop](../w/wait_for_postmaster_stop.md) - waits for server shutdown completion
+  - [write_stderr](../w/write_stderr.md) - outputs error messages
+  - [print_msg](../p/print_msg.md) - outputs status messages
   - SMART_MODE - shutdown mode constant for hints
 
 - Called from (representative examples):
-  - main - main entry point of pg_ctl when stop action is requested
+  - [main](../m/main.md) - [main](../m/main.md) entry point of pg_ctl when stop action is requested
 
 ## Notes and Other Information
 - The function exits with code 1 on any error condition

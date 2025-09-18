@@ -21,14 +21,14 @@ LockViewRecurse implements the comprehensive locking mechanism for views in Post
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockViewRecurse_context (structure type)
-  - get_view_query
+  - [get_view_query](../g/get_view_query.md)
   - RelationHasSecurityInvoker
   - lappend_oid
-  - LockViewRecurse_walker
+  - [LockViewRecurse_walker](LockViewRecurse_walker.md)
   - list_delete_last
 - Called from (representative examples):
-  - LockTableCommand
-  - LockViewRecurse_walker
+  - [LockTableCommand](LockTableCommand.md)
+  - [LockViewRecurse_walker](LockViewRecurse_walker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the lockcmds.c module

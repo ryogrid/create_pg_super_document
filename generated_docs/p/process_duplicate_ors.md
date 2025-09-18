@@ -34,19 +34,19 @@ The optimization is particularly effective for expressions like:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeBoolConst
-  - is_andclause
+  - [makeBoolConst](../m/makeBoolConst.md)
+  - [is_andclause](../i/is_andclause.md)
   - BoolExpr
   - list_union
-  - list_member
-  - equal
-  - make_orclause
-  - list_difference
-  - make_andclause
-  - pull_ors
-  - pull_ands
+  - [list_member](../l/list_member.md)
+  - [equal](../e/equal.md)
+  - [make_orclause](../m/make_orclause.md)
+  - [list_difference](../l/list_difference.md)
+  - [make_andclause](../m/make_andclause.md)
+  - [pull_ors](pull_ors.md)
+  - [pull_ands](pull_ands.md)
 - Called from (representative examples):
-  - find_duplicate_ors
+  - [find_duplicate_ors](../f/find_duplicate_ors.md)
 
 ## Notes and Other Information
 - This is a static function located in src/backend/optimizer/prep/prepqual.c:517-676

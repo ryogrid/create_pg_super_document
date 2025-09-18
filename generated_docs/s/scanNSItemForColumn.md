@@ -21,22 +21,22 @@ This function performs column name resolution within a specific namespace item (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem
-  - scanRTEForColumn
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [scanRTEForColumn](scanRTEForColumn.md)
   - InvalidAttrNumber
   - EXPR_KIND_CHECK_CONSTRAINT
   - TableOidAttributeNumber
   - EXPR_KIND_GENERATED_COLUMN
   - EXPR_KIND_MERGE_WHEN
-  - ParseNamespaceColumn
+  - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md)
   - makeVar
-  - SystemAttributeDefinition
-  - markNullableIfNeeded
-  - markVarForSelectPriv
+  - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md)
+  - [markNullableIfNeeded](../m/markNullableIfNeeded.md)
+  - [markVarForSelectPriv](../m/markVarForSelectPriv.md)
 - Called from (representative examples):
-  - CRERR_TOO_MANY (parse expression error handling)
-  - ParseComplexProjection
-  - colNameToVar
+  - [CRERR_TOO_MANY](../C/CRERR_TOO_MANY.md) (parse expression error handling)
+  - [ParseComplexProjection](../P/ParseComplexProjection.md)
+  - [colNameToVar](../c/colNameToVar.md)
 
 ## Notes and Other Information
 - Returns NULL if no column match is found

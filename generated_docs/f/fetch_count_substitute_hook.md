@@ -17,9 +17,9 @@ The  function serves as a substitute hook for the FETCH_COUNT psql variable. Unl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (used to allocate memory for the default "0" value)
+  - [pg_strdup](../p/pg_strdup.md) (used to allocate memory for the default "0" value)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
 
 ## Notes and Other Information
 - This is a static function within the psql startup module

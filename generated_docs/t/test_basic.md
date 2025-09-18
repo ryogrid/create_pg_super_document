@@ -36,7 +36,7 @@ The function supports both local and shared radix tree configurations and provid
   - rt_begin_iterate, rt_iterate_next, rt_end_iterate (iteration operations)
   - rt_stats (statistics reporting)
   - rt_free (radix tree cleanup)
-  - palloc, pfree (memory allocation/deallocation)
+  - [palloc](../p/palloc.md), pfree (memory allocation/deallocation)
   - elog (logging functionality)
   - LWLockNewTrancheId, LWLockRegisterTranche, dsa_create, dsa_detach (shared memory operations)
 - Called from (representative examples):

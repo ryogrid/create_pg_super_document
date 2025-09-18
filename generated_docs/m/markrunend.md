@@ -19,11 +19,11 @@ This function is essential for the multi-way merge algorithm used in PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalTape (structure type)
+  - [LogicalTape](../L/LogicalTape.md) (structure type)
   - LogicalTapeWrite (function for writing to logical tapes)
 - Called from (representative examples):
   - mergeonerun (src/backend/utils/sort/tuplesort.c:2283)
-  - dumptuples (src/backend/utils/sort/tuplesort.c:2426)
+  - [dumptuples](../d/dumptuples.md) (src/backend/utils/sort/tuplesort.c:2426)
   - LEADER macro usage (src/backend/utils/sort/tuplesort.c:476)
 
 ## Notes and Other Information

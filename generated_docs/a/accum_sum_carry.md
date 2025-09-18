@@ -19,11 +19,11 @@ The function maintains the invariant that the accumulator always has space for o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericSumAccum
+  - [NumericSumAccum](../N/NumericSumAccum.md)
   - NBASE
 - Called from (representative examples):
-  - accum_sum_add
-  - accum_sum_final
+  - [accum_sum_add](accum_sum_add.md)
+  - [accum_sum_final](accum_sum_final.md)
 
 ## Notes and Other Information
 - The function only performs carry propagation if num_uncarried > 0, optimizing performance by avoiding unnecessary work

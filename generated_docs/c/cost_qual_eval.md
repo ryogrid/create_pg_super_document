@@ -23,21 +23,21 @@ This function is fundamental to PostgreSQL's cost-based optimization, as qualifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval_walker
+  - [cost_qual_eval_walker](cost_qual_eval_walker.md)
   - cost_qual_eval_context (struct)
   - QualCost (struct)
 - Called from (representative examples):
-  - cost_index
-  - cost_tidscan
-  - final_cost_nestloop
-  - final_cost_mergejoin
-  - final_cost_hashjoin
-  - get_restriction_qual_cost
-  - set_baserel_size_estimates
+  - [cost_index](cost_index.md)
+  - [cost_tidscan](cost_tidscan.md)
+  - [final_cost_nestloop](../f/final_cost_nestloop.md)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md)
+  - [set_baserel_size_estimates](../s/set_baserel_size_estimates.md)
 
 ## Notes and Other Information
 - Widely used throughout the cost estimation system for all plan node types that evaluate qualifications
-- RestrictInfo input is preferred over raw expressions because it enables cost caching
+- [RestrictInfo](../R/RestrictInfo.md) input is preferred over raw expressions because it enables cost caching
 - Root parameter can be NULL in some code paths, which reduces estimation accuracy
 - Does not charge cost for implicit ANDing at the top level of qualification lists
 - Results are accumulated in a cost_qual_eval_context structure before final assignment

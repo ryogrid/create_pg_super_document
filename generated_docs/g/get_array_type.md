@@ -19,18 +19,18 @@ The function uses the system cache (syscache) for efficient lookups, which provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - Form_pg_type
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - get_promoted_array_type
+  - [get_promoted_array_type](get_promoted_array_type.md)
   - transformArrayExpr
-  - ParseFuncOrColumn
-  - make_scalar_array_op
-  - LookupTypeNameExtended
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md)
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
   - initArrayResultAny
 
 ## Notes and Other Information

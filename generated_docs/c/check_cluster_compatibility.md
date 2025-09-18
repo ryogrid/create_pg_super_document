@@ -40,6 +40,6 @@ The function is essential for validating that the two clusters can be safely upg
 ## Notes and Other Information
 - This function focuses on PostgreSQL's internal control data compatibility rather than high-level version checks
 - The live_check parameter affects how the old cluster's control data is retrieved - live servers require different handling than stopped clusters
-- Port conflict checking is critical for live upgrades to prevent the upgrade process from interfering with the running old cluster
+- [Port](../P/Port.md) conflict checking is critical for live upgrades to prevent the upgrade process from interfering with the running old cluster
 - Control data validation includes checks for system identifiers, page checksums, WAL block sizes, and other fundamental database parameters
 - This function complements version checking by examining the actual database internals rather than just version numbers

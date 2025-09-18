@@ -21,7 +21,7 @@ The `bytea_bit_count` function implements the SQL standard BIT_COUNT() function 
   - PG_GETARG_BYTEA_PP (for extracting the bytea argument)
   - VARDATA_ANY (for getting pointer to the actual data within the bytea)
   - VARSIZE_ANY_EXHDR (for getting the size of the data excluding headers)
-  - pg_popcount (for efficiently counting set bits)
+  - [pg_popcount](../p/pg_popcount.md) (for efficiently counting set bits)
   - PG_RETURN_INT64 (for returning 64-bit integer result)
 - Called from:
   - SQL BIT_COUNT() function invocations on bytea data

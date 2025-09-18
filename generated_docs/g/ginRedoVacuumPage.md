@@ -25,14 +25,14 @@ Key functionality:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogReadBufferForRedo
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - elog
 
 - Constants used:
   - BLK_RESTORED
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - Expects the WAL record to contain a full-page image (similar to XLOG_FPI records)

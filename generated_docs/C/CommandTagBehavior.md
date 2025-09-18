@@ -25,13 +25,13 @@ The structure is populated through the PG_CMDTAG macro expansion from the cmdtag
 - Functions called/Symbols referenced: 
   - None (this is a data structure definition)
 - Called from (representative examples):
-  - GetCommandTagName (src/backend/tcop/cmdtag.c:48)
-  - GetCommandTagNameAndLen (src/backend/tcop/cmdtag.c:54)
-  - command_tag_display_rowcount (src/backend/tcop/cmdtag.c:61)
-  - command_tag_event_trigger_ok (src/backend/tcop/cmdtag.c:67)
-  - command_tag_table_rewrite_ok (src/backend/tcop/cmdtag.c:73)
-  - GetCommandTagEnum (src/backend/tcop/cmdtag.c:85)
-  - BuildQueryCompletionString (src/backend/tcop/cmdtag.c:124)
+  - [GetCommandTagName](../G/GetCommandTagName.md) (src/backend/tcop/cmdtag.c:48)
+  - [GetCommandTagNameAndLen](../G/GetCommandTagNameAndLen.md) (src/backend/tcop/cmdtag.c:54)
+  - [command_tag_display_rowcount](../c/command_tag_display_rowcount.md) (src/backend/tcop/cmdtag.c:61)
+  - [command_tag_event_trigger_ok](../c/command_tag_event_trigger_ok.md) (src/backend/tcop/cmdtag.c:67)
+  - [command_tag_table_rewrite_ok](../c/command_tag_table_rewrite_ok.md) (src/backend/tcop/cmdtag.c:73)
+  - [GetCommandTagEnum](../G/GetCommandTagEnum.md) (src/backend/tcop/cmdtag.c:85)
+  - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (src/backend/tcop/cmdtag.c:124)
 
 ## Notes and Other Information
 - The structure is used exclusively as a const data structure in the tag_behavior array

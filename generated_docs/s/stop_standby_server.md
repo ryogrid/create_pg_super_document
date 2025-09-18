@@ -26,15 +26,15 @@ The function uses psprintf() for safe string formatting and automatically handle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's safe string formatting function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's safe string formatting function)
   - system (standard library function for shell command execution)
-  - pg_ctl_status (error handling for pg_ctl operations)
+  - [pg_ctl_status](../p/pg_ctl_status.md) (error handling for pg_ctl operations)
   - pg_log_debug, pg_log_info (PostgreSQL logging functions)
 
 - Called from (representative examples):
-  - cleanup_objects_atexit
-  - wait_for_end_recovery
-  - main (multiple call sites in pg_createsubscriber)
+  - [cleanup_objects_atexit](../c/cleanup_objects_atexit.md)
+  - [wait_for_end_recovery](../w/wait_for_end_recovery.md)
+  - [main](../m/main.md) (multiple call sites in pg_createsubscriber)
 
 ## Notes and Other Information
 - This is a static function specific to the pg_createsubscriber utility

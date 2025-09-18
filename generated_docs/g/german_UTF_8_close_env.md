@@ -27,7 +27,7 @@ This function is essential for preventing memory leaks in long-running applicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Generic Snowball environment cleanup function (called with parameters z, 0)
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function (called with parameters z, 0)
 - Called from (representative examples):
   - No direct callers found (likely used by higher-level stemming interfaces for cleanup)
 

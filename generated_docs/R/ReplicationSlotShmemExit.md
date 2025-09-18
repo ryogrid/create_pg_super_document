@@ -22,10 +22,10 @@ The function is designed to handle both normal and abnormal process termination 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotRelease
-  - ReplicationSlotCleanup
+  - [ReplicationSlotRelease](ReplicationSlotRelease.md)
+  - [ReplicationSlotCleanup](ReplicationSlotCleanup.md)
 - Called from (representative examples):
-  - ReplicationSlotInitialize (via before_shmem_exit callback registration)
+  - [ReplicationSlotInitialize](ReplicationSlotInitialize.md) (via before_shmem_exit callback registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the slot.c compilation unit

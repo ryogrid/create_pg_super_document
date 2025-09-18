@@ -21,9 +21,9 @@ This function handles the binary input protocol for int2vector data types, conve
 ## Dependencies
 - Functions called/Symbols referenced:
   - `LOCAL_FCINFO` (local function call info macro)
-  - `int2vector` (data type)
+  - `[int2vector](int2vector.md)` (data type)
   - `InitFunctionCallInfoData` (function call initialization)
-  - `array_recv` (generic array binary input function)
+  - `[array_recv](../a/array_recv.md)` (generic array binary input function)
   - `ARR_NDIM`, `ARR_HASNULL`, `ARR_ELEMTYPE`, `ARR_LBOUND` (array metadata macros)
   - `ereport` (error reporting)
 - Called from (representative examples):

@@ -18,8 +18,8 @@ This function is a Python method implementation that extracts type modifier info
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (cast target type)
-  - PLy_exception_set (error handling)
+  - [PLyResultObject](PLyResultObject.md) (cast target type)
+  - [PLy_exception_set](PLy_exception_set.md) (error handling)
   - PyList_New (Python list creation)
   - PyList_SET_ITEM (Python list item assignment)
   - PyLong_FromLong (Python integer conversion)

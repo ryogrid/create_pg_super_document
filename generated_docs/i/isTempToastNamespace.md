@@ -23,7 +23,7 @@ This function provides a way to identify whether a given namespace is the callin
   - myTempToastNamespace: Global variable storing the current session's temporary TOAST namespace OID
 
 - Called from (representative examples):
-  - IsToastNamespace: Used to determine if a namespace is any kind of TOAST namespace (regular or temporary)
+  - [IsToastNamespace](../I/IsToastNamespace.md): Used to determine if a namespace is any kind of TOAST namespace (regular or temporary)
   - RangeVarGetRelid: During relation name resolution involving temporary TOAST objects
 
 ## Notes and Other Information

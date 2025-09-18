@@ -18,13 +18,13 @@ json_count_array_elements provides a specialized function for determining the nu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lex_expect (for array start/end token validation)
-  - lex_peek (for token lookahead)
+  - [lex_expect](../l/lex_expect.md) (for array start/end token validation)
+  - [lex_peek](../l/lex_peek.md) (for token lookahead)
   - parse_array_element (for processing individual array elements)
   - json_lex (for advancing through tokens)
   - nullSemAction (global semantic action structure for element parsing)
 - Called from (representative examples):
-  - get_array_start (src/backend/utils/adt/jsonfuncs.c:1311)
+  - [get_array_start](../g/get_array_start.md) (src/backend/utils/adt/jsonfuncs.c:1311)
 
 ## Notes and Other Information
 The function uses a shallow copy of the JsonLexContext to safely parse without affecting the original context state. It specifically sets the copied context's strval to NULL since element values are not needed for counting. The lexical level is incremented on the copy to properly track nesting depth during parsing. Empty arrays (containing no elements) are handled correctly and will result in a count of 0.

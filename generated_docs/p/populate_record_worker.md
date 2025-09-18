@@ -29,23 +29,23 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - get_record_type_from_argument
-  - get_record_type_from_query
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [get_record_type_from_argument](../g/get_record_type_from_argument.md)
+  - [get_record_type_from_query](../g/get_record_type_from_query.md)
   - PG_GETARG_HEAPTUPLEHEADER
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
   - PG_GETARG_TEXT_PP
   - PG_GETARG_JSONB_P
-  - populate_composite
+  - [populate_composite](populate_composite.md)
   - SOFT_ERROR_OCCURRED
   - PG_RETURN_DATUM
 - Called from (representative examples):
-  - jsonb_populate_record
-  - jsonb_populate_record_valid
-  - jsonb_to_record
-  - json_populate_record
-  - json_to_record
+  - [jsonb_populate_record](../j/jsonb_populate_record.md)
+  - [jsonb_populate_record_valid](../j/jsonb_populate_record_valid.md)
+  - [jsonb_to_record](../j/jsonb_to_record.md)
+  - [json_populate_record](../j/json_populate_record.md)
+  - [json_to_record](../j/json_to_record.md)
 
 ## Notes and Other Information
 - This is a static function serving as the common implementation for multiple public functions

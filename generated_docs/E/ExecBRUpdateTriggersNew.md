@@ -25,19 +25,19 @@ This function executes BEFORE ROW UPDATE triggers for update operations, providi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetTriggerOldSlot
-  - ExecUpdateLockMode
-  - GetTupleForTrigger
-  - ExecGetUpdateNewTuple
-  - ExecFetchSlotHeapTuple
-  - ExecGetAllUpdatedCols
-  - TriggerEnabled
-  - ExecCallTriggerFunc
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
+  - [ExecUpdateLockMode](ExecUpdateLockMode.md)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
+  - [ExecGetUpdateNewTuple](ExecGetUpdateNewTuple.md)
+  - [ExecFetchSlotHeapTuple](ExecFetchSlotHeapTuple.md)
+  - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
   - ExecMaterializeSlot
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ExecBRUpdateTriggers
-  - ExecUpdatePrologue
+  - [ExecBRUpdateTriggers](ExecBRUpdateTriggers.md)
+  - [ExecUpdatePrologue](ExecUpdatePrologue.md)
 
 ## Notes and Other Information
 - Returns false if any trigger cancels the operation or if tuple retrieval fails

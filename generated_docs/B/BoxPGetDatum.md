@@ -17,15 +17,15 @@ This function performs the reverse operation of DatumGetBoxP, converting a BOX p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (conversion utility)
-  - BOX (geometric data type)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (conversion utility)
+  - [BOX](BOX.md) (geometric data type)
 - Called from (representative examples):
-  - fallbackSplit
-  - gist_point_compress
-  - spg_kd_inner_consistent
-  - spg_quad_inner_consistent
-  - spg_box_quad_choose
-  - spg_box_quad_picksplit
+  - [fallbackSplit](../f/fallbackSplit.md)
+  - [gist_point_compress](../g/gist_point_compress.md)
+  - [spg_kd_inner_consistent](../s/spg_kd_inner_consistent.md)
+  - [spg_quad_inner_consistent](../s/spg_quad_inner_consistent.md)
+  - [spg_box_quad_choose](../s/spg_box_quad_choose.md)
+  - [spg_box_quad_picksplit](../s/spg_box_quad_picksplit.md)
 
 ## Notes and Other Information
 This function is essential for PostgreSQL's geometric indexing infrastructure, particularly in GiST and SP-GiST implementations. It's defined in src/include/utils/geo_decls.h:239-242 and enables seamless integration between geometric data types and PostgreSQL's internal storage and retrieval mechanisms.

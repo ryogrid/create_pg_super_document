@@ -32,14 +32,14 @@ The function also maintains Foreign Data Wrapper (FDW) context by copying server
 - Functions called/Symbols referenced:
   - fetch_upper_rel
   - IS_OTHER_REL (macro)
-  - is_parallel_safe
+  - [is_parallel_safe](../i/is_parallel_safe.md)
 - Constants used:
   - UPPERREL_GROUP_AGG
   - RELOPT_OTHER_UPPER_REL
 - Called from:
   - standard_qp_extra
-  - create_grouping_paths
-  - create_partitionwise_grouping_paths
+  - [create_grouping_paths](../c/create_grouping_paths.md)
+  - [create_partitionwise_grouping_paths](../c/create_partitionwise_grouping_paths.md)
 
 ## Notes and Other Information
 - By tradition, the main grouping relation uses NULL for relids, though this could theoretically be changed

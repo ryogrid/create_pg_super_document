@@ -21,15 +21,15 @@ MultiAssignRef nodes are generated during parsing of UPDATE statements that use 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)
-  - Node (base type for source pointer)
+  - [Node](../N/Node.md) (base type for source pointer)
 - Called from (representative examples):
   - transformMultiAssignRef (src/backend/parser/parse_expr.c:1484)
-  - transformExprRecurse (src/backend/parser/parse_expr.c:233)
-  - raw_expression_tree_walker_impl (src/backend/nodes/nodeFuncs.c:4413)
-  - exprLocation (src/backend/nodes/nodeFuncs.c:1687)
+  - [transformExprRecurse](../t/transformExprRecurse.md) (src/backend/parser/parse_expr.c:233)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:4413)
+  - [exprLocation](../e/exprLocation.md) (src/backend/nodes/nodeFuncs.c:1687)
 
 ## Notes and Other Information
-- MultiAssignRef is specifically designed for UPDATE statement processing and is part of PostgreSQL's parse tree structure
+- [MultiAssignRef](MultiAssignRef.md) is specifically designed for UPDATE statement processing and is part of PostgreSQL's parse tree structure
 - The colno=1 MultiAssignRef is special as it triggers the actual processing of the shared row-valued expression
 - This node type optimizes multi-column assignments by avoiding redundant processing of the source expression
 - File location: src/include/nodes/parsenodes.h:532-538

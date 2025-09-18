@@ -31,12 +31,12 @@ The function uses an efficient bitmap initialization technique, filling the isse
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
-  - RT_ALLOC_NODE (allocates a new node)
-  - RT_COPY_COMMON (copies common node metadata)
-  - RT_NODE_256_IS_CHUNK_USED (checks if a chunk is present in node256)
-  - RT_FREE_NODE (frees the old node)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (allocates a new node)
+  - [RT_COPY_COMMON](RT_COPY_COMMON.md) (copies common node metadata)
+  - [RT_NODE_256_IS_CHUNK_USED](RT_NODE_256_IS_CHUNK_USED.md) (checks if a chunk is present in node256)
+  - [RT_FREE_NODE](RT_FREE_NODE.md) (frees the old node)
 - Called from (representative examples):
-  - RT_REMOVE_CHILD_256 (src/include/lib/radixtree.h:2396)
+  - [RT_REMOVE_CHILD_256](RT_REMOVE_CHILD_256.md) (src/include/lib/radixtree.h:2396)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's template-based radix tree implementation

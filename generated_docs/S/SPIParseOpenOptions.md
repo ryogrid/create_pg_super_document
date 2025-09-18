@@ -21,10 +21,10 @@ The structure follows PostgreSQL's pattern of using dedicated option structures 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo
+  - [ParamListInfo](../P/ParamListInfo.md)
 
 - Called from (representative examples):
-  - SPI_cursor_parse_open
+  - [SPI_cursor_parse_open](SPI_cursor_parse_open.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for cursor operations that combine parsing and opening in one step

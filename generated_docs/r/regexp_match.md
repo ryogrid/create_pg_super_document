@@ -30,15 +30,15 @@ Key behavioral characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP_IF_EXISTS
-  - pg_re_flags (struct type)
-  - regexp_matches_ctx (struct type)
-  - parse_re_flags
-  - setup_regexp_matches
+  - [pg_re_flags](../p/pg_re_flags.md) (struct type)
+  - [regexp_matches_ctx](regexp_matches_ctx.md) (struct type)
+  - [parse_re_flags](../p/parse_re_flags.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
   - PG_GET_COLLATION
-  - build_regexp_match_result
+  - [build_regexp_match_result](../b/build_regexp_match_result.md)
   - PG_RETURN_DATUM
 - Called from (representative examples):
-  - regexp_match_no_flags
+  - [regexp_match_no_flags](regexp_match_no_flags.md)
 
 ## Notes and Other Information
 - Returns text array containing matched strings and captured subgroups

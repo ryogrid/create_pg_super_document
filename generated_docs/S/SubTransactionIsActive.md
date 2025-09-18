@@ -22,7 +22,7 @@ SubTransactionIsActive traverses the current transaction state hierarchy to dete
   - TRANS_ABORT (transaction state enum value)
   - SubTransactionId (type)
 - Called from (representative examples):
-  - fmgr_sql (src/backend/executor/functions.c:1087)
+  - [fmgr_sql](../f/fmgr_sql.md) (src/backend/executor/functions.c:1087)
 
 ## Notes and Other Information
 - The caller is responsible for ensuring the provided subxid is relevant to the current transaction

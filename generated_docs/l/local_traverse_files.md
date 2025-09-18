@@ -20,7 +20,7 @@ The function acts as a thin wrapper that adapts the generic rewind_source interf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - traverse_datadir
+  - [traverse_datadir](../t/traverse_datadir.md)
 - Called from (representative examples):
   - Via function pointer in rewind_source interface
 

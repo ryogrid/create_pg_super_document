@@ -21,11 +21,11 @@ The level structure created by this BFS ensures that the DFS phase can find mult
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BipartiteMatchState (struct type for algorithm state)
+  - [BipartiteMatchState](../B/BipartiteMatchState.md) (struct type for algorithm state)
   - HK_INFINITY (constant representing infinite distance for unreachable vertices)
   - Assert (PostgreSQL assertion macro for debugging)
 - Called from (representative examples):
-  - BipartiteMatch (main algorithm driver that calls BFS iteratively)
+  - [BipartiteMatch](../B/BipartiteMatch.md) (main algorithm driver that calls BFS iteratively)
 
 ## Notes and Other Information
 - Uses distance[0] as a sentinel to track the minimum distance to any unmatched vertex in V

@@ -25,10 +25,10 @@ This function is typically used when PL/Perl functions return hash references th
 ## Dependencies
 - Functions called/Symbols referenced:
   - SvRV (Perl macro to extract reference value)
-  - plperl_build_tuple_result (builds HeapTuple from hash)
-  - HeapTupleGetDatum (converts HeapTuple to Datum)
+  - [plperl_build_tuple_result](plperl_build_tuple_result.md) (builds HeapTuple from hash)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md) (converts HeapTuple to Datum)
 - Called from:
-  - plperl_sv_to_datum (as part of the general Perl-to-PostgreSQL type conversion system)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md) (as part of the general Perl-to-PostgreSQL type conversion system)
 
 ## Notes and Other Information
 - This function assumes that the input SV is actually a reference to a hash; no type checking is performed

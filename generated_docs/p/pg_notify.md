@@ -22,8 +22,8 @@ The `pg_notify` function serves as the SQL interface for PostgreSQL's NOTIFY com
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring (converts PostgreSQL text type to C string)
-  - PreventCommandDuringRecovery (prevents operation during recovery)
-  - Async_Notify (performs the actual notification work)
+  - [PreventCommandDuringRecovery](../P/PreventCommandDuringRecovery.md) (prevents operation during recovery)
+  - [Async_Notify](../A/Async_Notify.md) (performs the actual notification work)
   - PG_RETURN_VOID (returns void result to SQL caller)
   - PG_FUNCTION_ARGS, PG_ARGISNULL, PG_GETARG_TEXT_PP (PostgreSQL function interface macros)
 - Called from:

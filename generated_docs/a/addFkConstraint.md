@@ -50,22 +50,22 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConstraintNameIsUsed
-  - ChooseConstraintName
-  - ChooseForeignKeyConstraintNameAddition
-  - CreateConstraintEntry
+  - [ConstraintNameIsUsed](../C/ConstraintNameIsUsed.md)
+  - [ChooseConstraintName](../C/ChooseConstraintName.md)
+  - [ChooseForeignKeyConstraintNameAddition](../C/ChooseForeignKeyConstraintNameAddition.md)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
   - ObjectAddressSet
-  - recordDependencyOn
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - CommandCounterIncrement
   - RelationGetNamespace
   - RelationGetRelid
   - RelationGetRelationName
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
-  - addFkRecurseReferenced
-  - addFkRecurseReferencing
-  - CloneFkReferenced
-  - CloneFkReferencing
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
+  - [addFkRecurseReferenced](addFkRecurseReferenced.md)
+  - [addFkRecurseReferencing](addFkRecurseReferencing.md)
+  - [CloneFkReferenced](../C/CloneFkReferenced.md)
+  - [CloneFkReferencing](../C/CloneFkReferencing.md)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, part of the ALTER TABLE infrastructure
@@ -73,4 +73,4 @@ Key responsibilities include:
 - For partitioned tables, special dependency relationships are created to ensure proper constraint management during partition operations
 - Constraint names are automatically modified if conflicts exist, ensuring uniqueness within the relation
 - The function handles both top-level constraints and partition-specific constraints differently regarding inheritance properties
-- Command counter increment ensures constraint visibility for subsequent operations in the same transaction
+- [Command](../C/Command.md) counter increment ensures constraint visibility for subsequent operations in the same transaction

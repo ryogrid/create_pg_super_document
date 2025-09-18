@@ -44,17 +44,17 @@ The function follows PostgreSQL's type creation protocol where I/O functions mus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeShellMake: Creates shell type entries
-  - TypeCreate: Creates the actual type catalog entry
-  - moveArrayTypeName: Handles array type naming conflicts
-  - makeArrayTypeName: Generates array type names
-  - AssignTypeArrayOid: Allocates OID for array type
-  - findTypeInputFunction, findTypeOutputFunction: Locate I/O functions
-  - QualifiedNameGetCreationNamespace: Parse qualified names
+  - [TypeShellMake](../T/TypeShellMake.md): Creates shell type entries
+  - [TypeCreate](../T/TypeCreate.md): Creates the actual type catalog entry
+  - [moveArrayTypeName](../m/moveArrayTypeName.md): Handles array type naming conflicts
+  - [makeArrayTypeName](../m/makeArrayTypeName.md): Generates array type names
+  - [AssignTypeArrayOid](../A/AssignTypeArrayOid.md): Allocates OID for array type
+  - [findTypeInputFunction](../f/findTypeInputFunction.md), findTypeOutputFunction: Locate I/O functions
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md): Parse qualified names
   - Various defGet* functions: Extract parameter values
 
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main DDL command processing
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main DDL command processing
 
 ## Notes and Other Information
 - Requires superuser privileges for security reasons due to the complexity of type creation

@@ -21,18 +21,18 @@ This is a fundamental utility function used extensively throughout the catalog s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - ObjectAddresses (struct type)
-  - ObjectAddress (struct type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
 - Called from (representative examples):
-  - performDeletion
-  - performMultipleDeletions
-  - recordDependencyOnExpr
-  - heap_create_with_catalog
+  - [performDeletion](../p/performDeletion.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
+  - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
   - index_create
-  - AggregateCreate
-  - ProcedureCreate
-  - RemoveObjects
+  - [AggregateCreate](../A/AggregateCreate.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [RemoveObjects](../R/RemoveObjects.md)
 
 ## Notes and Other Information
 - Initializes with capacity of 32 ObjectAddress entries (maxrefs = 32)

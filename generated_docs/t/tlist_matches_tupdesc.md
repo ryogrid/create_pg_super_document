@@ -32,12 +32,12 @@ The function handles a special case for typmod mismatches: when a Var has typmod
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head (gets first element of target list)
-  - lnext (iterates through target list)
+  - [lnext](../l/lnext.md) (iterates through target list)
   - TupleDescAttr (macro to access tuple descriptor attributes)
   - IsA (checks if node is a Var)
   - lfirst (gets list cell content)
 - Called from (representative examples):
-  - ExecConditionalAssignProjectionInfo (execUtils.c:561)
+  - [ExecConditionalAssignProjectionInfo](../E/ExecConditionalAssignProjectionInfo.md) (execUtils.c:561)
 
 ## Notes and Other Information
 - Static function used internally within execUtils.c for projection optimization

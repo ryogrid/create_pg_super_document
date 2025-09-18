@@ -36,7 +36,7 @@ The error messages are designed to match those used in the sequential vacuum err
   - PARALLEL_INDVAC_STATUS_INITIAL
   - PARALLEL_INDVAC_STATUS_COMPLETED
 - Called from (representative examples):
-  - parallel_vacuum_main (registered as error callback)
+  - [parallel_vacuum_main](parallel_vacuum_main.md) (registered as error callback)
 
 ## Notes and Other Information
 - This is a static function used internally within the parallel vacuum implementation

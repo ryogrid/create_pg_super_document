@@ -21,7 +21,7 @@ FunctionReturningBool serves a specific purpose in PostgreSQL's LLVM JIT compila
 - Functions called/Symbols referenced:
   - None (returns constant false)
 - Called from (representative examples):
-  - ExecEvalBoolSubroutineTemplate (referenced in llvmjit_types.c:126)
+  - [ExecEvalBoolSubroutineTemplate](../E/ExecEvalBoolSubroutineTemplate.md) (referenced in llvmjit_types.c:126)
 
 ## Notes and Other Information
 - This function is part of the JIT template system and should not be called directly during normal PostgreSQL operations

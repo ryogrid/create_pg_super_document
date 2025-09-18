@@ -22,13 +22,13 @@ The returned data includes various PostgreSQL build and installation parameters 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - get_configdata
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [get_configdata](../g/get_configdata.md)
   - CStringGetTextDatum
   - tuplestore_putvalues
 - Data structures used:
   - ReturnSetInfo
-  - ConfigData
+  - [ConfigData](../C/ConfigData.md)
 - Called from (representative examples):
   - SQL queries via the pg_config() function call
   - System catalog functions

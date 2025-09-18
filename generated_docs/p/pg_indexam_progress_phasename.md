@@ -22,11 +22,11 @@ The function first retrieves the access method routine structure using the provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetIndexAmRoutineByAmId
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
   - CStringGetTextDatum
   - PG_RETURN_DATUM
 - Types used:
-  - IndexAmRoutine
+  - [IndexAmRoutine](../I/IndexAmRoutine.md)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL interface)
 

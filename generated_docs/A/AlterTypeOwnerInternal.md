@@ -24,19 +24,19 @@ The function uses heap_modify_tuple to update the type tuple, ensuring atomic up
 - Functions called/Symbols referenced:
   - table_open
   - SearchSysCacheCopy1
-  - heap_getattr
-  - aclnewowner
+  - [heap_getattr](../h/heap_getattr.md)
+  - [aclnewowner](../a/aclnewowner.md)
   - DatumGetAclP
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - get_range_multirange
-  - AlterTypeOwnerInternal (recursive calls)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [get_range_multirange](../g/get_range_multirange.md)
+  - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md) (recursive calls)
   - table_close
   - TYPTYPE_RANGE
 - Called from (representative examples):
-  - AlterTypeOwner_oid
-  - ATExecChangeOwner
-  - AlterTypeOwnerInternal (recursive self-calls)
+  - [AlterTypeOwner_oid](AlterTypeOwner_oid.md)
+  - [ATExecChangeOwner](ATExecChangeOwner.md)
+  - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a void function that operates directly on the system catalogs

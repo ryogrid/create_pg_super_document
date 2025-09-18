@@ -24,14 +24,14 @@ The function also includes a nudging mechanism: when the queue becomes more than
 - Functions called/Symbols referenced:
   - AmCheckpointerProcess
   - CompactCheckpointerRequestQueue  
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - LWLockAcquire/LWLockRelease (CheckpointerCommLock)
 - Types used:
   - FileTag
   - SyncRequestType
-  - CheckpointerRequest
+  - [CheckpointerRequest](../C/CheckpointerRequest.md)
 - Called from:
-  - RegisterSyncRequest
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
 
 ## Notes and Other Information
 - Returns false if the request cannot be queued (checkpointer not running, queue full and non-compactable), indicating the backend must perform its own fsync

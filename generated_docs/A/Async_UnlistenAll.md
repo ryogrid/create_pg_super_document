@@ -18,12 +18,12 @@ Async_UnlistenAll handles the UNLISTEN * command which removes all notification 
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)
-  - queue_listen
+  - [queue_listen](../q/queue_listen.md)
   - LISTEN_UNLISTEN_ALL (enum constant)
   - DEBUG1 (logging level)
 - Called from (representative examples):
-  - DiscardAll
-  - standard_ProcessUtility
+  - [DiscardAll](../D/DiscardAll.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Dual purpose: handles UNLISTEN * command and backend exit cleanup

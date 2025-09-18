@@ -23,7 +23,7 @@ The function takes four arguments: start timestamp, end timestamp, step interval
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_series_timestamptz_internal (core implementation function)
+  - [generate_series_timestamptz_internal](generate_series_timestamptz_internal.md) (core implementation function)
 - Called from:
   - SQL queries using generate_series(timestamptz, timestamptz, interval, text) syntax
 

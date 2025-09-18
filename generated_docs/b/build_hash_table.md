@@ -31,18 +31,18 @@ The hash table is stored in the perhash structure corresponding to the given gro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState
-  - AggStatePerHash
+  - [AggState](../A/AggState.md)
+  - [AggStatePerHash](../A/AggStatePerHash.md)
   - AGG_HASHED
   - AGG_MIXED
   - AggStatePerGroupData
   - BuildTupleHashTableExt
   - DO_AGGSPLIT_SKIPFINAL
 - Called from (representative examples):
-  - build_hash_tables
-  - ExecMemoize
+  - [build_hash_tables](build_hash_tables.md)
+  - [ExecMemoize](../E/ExecMemoize.md)
   - ExecInitRecursiveUnion
-  - ExecInitSetOp
+  - [ExecInitSetOp](../E/ExecInitSetOp.md)
 
 ## Notes and Other Information
 - Only valid for AGG_HASHED and AGG_MIXED aggregation strategies (asserted at runtime)

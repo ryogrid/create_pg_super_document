@@ -22,15 +22,15 @@ The function sets up an XLogReader, reads one record at the specified position, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderAllocate
-  - SimpleXLogPageRead
-  - XLogBeginRead
-  - XLogReadRecord
-  - XLogReaderFree
-  - XLogRecord
-  - XLogPageReadPrivate
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md)
+  - [SimpleXLogPageRead](../S/SimpleXLogPageRead.md)
+  - [XLogBeginRead](../X/XLogBeginRead.md)
+  - [XLogReadRecord](../X/XLogReadRecord.md)
+  - [XLogReaderFree](../X/XLogReaderFree.md)
+  - [XLogRecord](../X/XLogRecord.md)
+  - [XLogPageReadPrivate](../X/XLogPageReadPrivate.md)
 - Called from (representative examples):
-  - main (in src/bin/pg_rewind/pg_rewind.c:417)
+  - [main](../m/main.md) (in src/bin/pg_rewind/pg_rewind.c:417)
 
 ## Notes and Other Information
 - Returns XLogRecPtr representing the end position of the read record

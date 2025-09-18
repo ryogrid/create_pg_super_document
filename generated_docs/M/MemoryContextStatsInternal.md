@@ -27,16 +27,16 @@ This static function performs the actual recursive traversal of memory context h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextCounters (statistics accumulation structure)
+  - [MemoryContextCounters](MemoryContextCounters.md) (statistics accumulation structure)
   - MemoryContextIsValid (context validation)
-  - MemoryContextStatsPrint (context-specific statistics printing callback)
+  - [MemoryContextStatsPrint](MemoryContextStatsPrint.md) (context-specific statistics printing callback)
   - stack_is_too_deep (stack overflow protection)
-  - MemoryContextTraverseNext (non-recursive context traversal)
+  - [MemoryContextTraverseNext](MemoryContextTraverseNext.md) (non-recursive context traversal)
   - LOG_SERVER_ONLY (logging level for ereport)
-  - errhidestmt/errhidecontext (error reporting functions)
+  - [errhidestmt](../e/errhidestmt.md)/errhidecontext (error reporting functions)
 - Called from (representative examples):
-  - MemoryContextStatsDetail (main entry point)
-  - MemoryContextStatsInternal (recursive self-calls)
+  - [MemoryContextStatsDetail](MemoryContextStatsDetail.md) (main entry point)
+  - [MemoryContextStatsInternal](MemoryContextStatsInternal.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Static function, only accessible within mcxt.c

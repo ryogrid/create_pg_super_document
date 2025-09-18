@@ -28,17 +28,17 @@ The function properly handles special cases including NULL values (which may go 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - bms_is_empty
   - partition_bound_accepts_nulls
   - partition_bound_has_default
-  - bms_add_range
-  - partition_list_bsearch
-  - bms_del_member
-  - bms_make_singleton
+  - [bms_add_range](../b/bms_add_range.md)
+  - [partition_list_bsearch](../p/partition_list_bsearch.md)
+  - [bms_del_member](../b/bms_del_member.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
   - elog
 - Called from:
-  - perform_pruning_base_step
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md)
 
 ## Notes and Other Information
 List partitioning only supports single-column partition keys, hence the assertion that partnatts == 1. The function sets scan_null and scan_default flags appropriately based on whether special partitions exist and need to be included in the scan. Binary search is used for efficient bound lookup in the sorted partition bounds array. For inequality operations (using InvalidStrategy), the function starts with all partitions and removes the matching one. Range operations conservatively include the default partition due to the potential gaps in list partition value coverage.

@@ -20,9 +20,9 @@ SubqueryRecheck is part of PostgreSQL's EvalPlanQual (EPQ) mechanism, which hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubqueryScanState (execution state structure)
+  - [SubqueryScanState](SubqueryScanState.md) (execution state structure)
 - Called from (representative examples):
-  - ExecSubqueryScan (main subquery scan execution function during EvalPlanQual operations)
+  - [ExecSubqueryScan](../E/ExecSubqueryScan.md) (main subquery scan execution function during EvalPlanQual operations)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the nodeSubqueryscan.c file

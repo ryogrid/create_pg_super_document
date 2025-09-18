@@ -21,7 +21,7 @@ The function must be called while a snapshot is active or registered to avoid wr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalVisHorizonKindForRel
+  - [GlobalVisHorizonKindForRel](GlobalVisHorizonKindForRel.md)
   - FullTransactionIdIsValid
 - Global visibility state variables:
   - GlobalVisSharedRels
@@ -29,11 +29,11 @@ The function must be called while a snapshot is active or registered to avoid wr
   - GlobalVisDataRels
   - GlobalVisTempRels
 - Called from (representative examples):
-  - heap_hot_search_buffer
-  - heap_index_delete_tuples
-  - heap_page_prune_opt
-  - heap_vacuum_rel
-  - GlobalVisCheckRemovableFullXid
+  - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md)
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [GlobalVisCheckRemovableFullXid](GlobalVisCheckRemovableFullXid.md)
 
 ## Notes and Other Information
 - Asserts that RecentXmin is valid, indicating an active snapshot

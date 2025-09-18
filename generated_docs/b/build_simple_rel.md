@@ -31,22 +31,22 @@ Key responsibilities include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create RelOptInfo structure)
-  - bms_make_singleton (for creating relation ID bitmaps)
-  - create_empty_pathtarget (for target list initialization)
-  - getRTEPermissionInfo (for permission handling)
-  - get_relation_info (for table statistics and metadata)
-  - apply_child_basequals (for constraint inheritance)
-  - mark_dummy_rel (when constraints prove relation is empty)
+  - [bms_make_singleton](bms_make_singleton.md) (for creating relation ID bitmaps)
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md) (for target list initialization)
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md) (for permission handling)
+  - [get_relation_info](../g/get_relation_info.md) (for table statistics and metadata)
+  - [apply_child_basequals](../a/apply_child_basequals.md) (for constraint inheritance)
+  - [mark_dummy_rel](../m/mark_dummy_rel.md) (when constraints prove relation is empty)
 - Constants used:
   - RELOPT_BASEREL, RELOPT_OTHER_MEMBER_REL (relation optimization kinds)
   - RTE_RELATION, RTE_SUBQUERY, RTE_FUNCTION, etc. (range table entry types)
 - Data structures used:
   - RelOptInfo, RangeTblEntry, RTEPermissionInfo, AppendRelInfo
 - Called from (representative examples):
-  - add_base_rels_to_query (src/backend/optimizer/plan/initsplan.c:165)
-  - query_planner (src/backend/optimizer/plan/planmain.c:107)
-  - expand_inherited_rtentry (src/backend/optimizer/util/inherit.c:221)
-  - expand_partitioned_rtentry (src/backend/optimizer/util/inherit.c:414)
+  - [add_base_rels_to_query](../a/add_base_rels_to_query.md) (src/backend/optimizer/plan/initsplan.c:165)
+  - [query_planner](../q/query_planner.md) (src/backend/optimizer/plan/planmain.c:107)
+  - [expand_inherited_rtentry](../e/expand_inherited_rtentry.md) (src/backend/optimizer/util/inherit.c:221)
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md) (src/backend/optimizer/util/inherit.c:414)
 
 ## Notes and Other Information
 - Includes comprehensive validation to prevent duplicate relation creation

@@ -19,13 +19,13 @@ This function is responsible for completely draining all query results from a gi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlot (struct type)
-  - SetCancelConn (sets up cancellation handling for the connection)
-  - PQgetResult (PostgreSQL libpq function to retrieve query results)
-  - processQueryResult (processes individual query results)
-  - ResetCancelConn (resets cancellation handling)
+  - [ParallelSlot](../P/ParallelSlot.md) (struct type)
+  - [SetCancelConn](../S/SetCancelConn.md) (sets up cancellation handling for the connection)
+  - [PQgetResult](../P/PQgetResult.md) (PostgreSQL libpq function to retrieve query results)
+  - [processQueryResult](../p/processQueryResult.md) (processes individual query results)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (resets cancellation handling)
 - Called from (representative examples):
-  - ParallelSlotsWaitCompletion
+  - [ParallelSlotsWaitCompletion](../P/ParallelSlotsWaitCompletion.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parallel_slot.c file

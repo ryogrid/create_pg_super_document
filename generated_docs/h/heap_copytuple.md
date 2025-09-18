@@ -20,18 +20,18 @@ The function performs validation on the input tuple and returns NULL if the tupl
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleIsValid (macro for tuple validation)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (data copying)
   - HEAPTUPLESIZE (size constant)
   - HeapTupleHeader (type casting)
 - Called from (representative examples):
-  - rewrite_heap_tuple
-  - systable_inplace_update_begin
-  - MergeWithExistingConstraint
-  - CopyStatistics
-  - tts_heap_materialize
-  - SPI_copytuple
-  - SearchSysCacheCopy
+  - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md)
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)
+  - [MergeWithExistingConstraint](../M/MergeWithExistingConstraint.md)
+  - [CopyStatistics](../C/CopyStatistics.md)
+  - [tts_heap_materialize](../t/tts_heap_materialize.md)
+  - [SPI_copytuple](../S/SPI_copytuple.md)
+  - [SearchSysCacheCopy](../S/SearchSysCacheCopy.md)
 
 ## Notes and Other Information
 - Returns NULL for invalid input tuples or tuples with NULL data

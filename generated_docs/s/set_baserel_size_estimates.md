@@ -26,17 +26,17 @@ Cost evaluation for restriction clauses is performed using , storing the result 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clauselist_selectivity
-  - clamp_row_est
-  - cost_qual_eval
-  - set_rel_width
+  - [clauselist_selectivity](../c/clauselist_selectivity.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [cost_qual_eval](../c/cost_qual_eval.md)
+  - [set_rel_width](set_rel_width.md)
   - JOIN_INNER
 - Called from (representative examples):
-  - set_plain_rel_size
-  - set_tablesample_rel_size
-  - set_subquery_size_estimates
-  - set_function_size_estimates
-  - set_values_size_estimates
+  - [set_plain_rel_size](set_plain_rel_size.md)
+  - [set_tablesample_rel_size](set_tablesample_rel_size.md)
+  - [set_subquery_size_estimates](set_subquery_size_estimates.md)
+  - [set_function_size_estimates](set_function_size_estimates.md)
+  - [set_values_size_estimates](set_values_size_estimates.md)
 
 ## Notes and Other Information
 - Must only be applied to base relations (Assert checks rel->relid > 0)

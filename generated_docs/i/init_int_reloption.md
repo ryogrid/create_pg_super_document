@@ -23,11 +23,11 @@ This function serves as an internal constructor for integer-type relation option
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocate_reloption
+  - [allocate_reloption](../a/allocate_reloption.md)
   - RELOPT_TYPE_INT
 - Called from (representative examples):
-  - add_int_reloption
-  - add_local_int_reloption
+  - [add_int_reloption](../a/add_int_reloption.md)
+  - [add_local_int_reloption](../a/add_local_int_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the reloptions.c file

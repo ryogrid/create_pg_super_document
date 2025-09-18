@@ -28,18 +28,18 @@ The function validates that the operator used is an equality operator by checkin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_membership
-  - is_opclause
-  - is_pseudo_constant_clause
-  - get_oprrest
-  - is_orclause
-  - is_notclause
-  - get_notclausearg
+  - [bms_membership](../b/bms_membership.md)
+  - [is_opclause](../i/is_opclause.md)
+  - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md)
+  - [get_oprrest](../g/get_oprrest.md)
+  - [is_orclause](../i/is_orclause.md)
+  - [is_notclause](../i/is_notclause.md)
+  - [get_notclausearg](../g/get_notclausearg.md)
   - AttrNumberIsForUserDefinedAttr
 - Called from (representative examples):
   - DependencyGenerator
-  - dependency_is_compatible_clause (recursive call for OR clauses)
-  - dependencies_clauselist_selectivity
+  - [dependency_is_compatible_clause](dependency_is_compatible_clause.md) (recursive call for OR clauses)
+  - [dependencies_clauselist_selectivity](dependencies_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Only supports simple Var expressions, not complex expressions or functions

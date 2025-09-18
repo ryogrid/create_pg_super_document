@@ -21,7 +21,7 @@ This function computes the shortest distance between a box and a line segment in
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P - extracts BOX argument from function call
   - PG_GETARG_LSEG_P - extracts LSEG argument from function call  
-  - box_closept_lseg - performs the actual distance calculation
+  - [box_closept_lseg](../b/box_closept_lseg.md) - performs the actual distance calculation
   - PG_RETURN_FLOAT8 - returns float8 result to PostgreSQL
 - Called from:
   - No direct references found (likely called via SQL function registry)

@@ -22,10 +22,10 @@ The structure supports PostgreSQL's shared memory optimization strategy by maint
 - Functions called/Symbols referenced:
   - dsa_pointer
 - Called from (representative examples):
-  - shared_record_table_hash
-  - lookup_rowtype_tupdesc_internal
-  - SharedRecordTypmodRegistryInit
-  - find_or_make_matching_shared_tupledesc
+  - [shared_record_table_hash](../s/shared_record_table_hash.md)
+  - [lookup_rowtype_tupdesc_internal](../l/lookup_rowtype_tupdesc_internal.md)
+  - [SharedRecordTypmodRegistryInit](SharedRecordTypmodRegistryInit.md)
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/cache/typcache.c:205-209

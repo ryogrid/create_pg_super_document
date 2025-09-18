@@ -26,15 +26,15 @@ The created CachedPlanSource is initialized with default values for most fields,
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextSwitchTo
-  - palloc0
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](../p/palloc0.md)
   - copyObject
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - MemoryContextSetIdentifier
 - Called from (representative examples):
-  - PrepareQuery (for PREPARE statements)
-  - _SPI_prepare_plan (SPI interface)
-  - exec_parse_message (protocol message handling)
+  - [PrepareQuery](../P/PrepareQuery.md) (for PREPARE statements)
+  - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md) (SPI interface)
+  - [exec_parse_message](../e/exec_parse_message.md) (protocol message handling)
 
 ## Notes and Other Information
 - Part of a two-phase plan creation process (CreateCachedPlan followed by CompleteCachedPlan)

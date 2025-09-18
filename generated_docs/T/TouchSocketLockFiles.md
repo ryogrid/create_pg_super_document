@@ -23,7 +23,7 @@ This function iterates through all registered lock files and updates their times
   - lock_files (global list variable)
   - utime() (system call)
 - Called from (representative examples):
-  - ServerLoop
+  - [ServerLoop](../S/ServerLoop.md)
 
 ## Notes and Other Information
 - Called periodically during normal server operation to maintain lock file freshness

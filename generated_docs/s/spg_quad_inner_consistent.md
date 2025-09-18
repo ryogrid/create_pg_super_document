@@ -27,16 +27,16 @@ The function uses a bitmask approach where each bit represents one of the four q
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgInnerConsistentIn/spgInnerConsistentOut
-  - Point, BOX
-  - DatumGetPointP, DatumGetBoxP
+  - [spgInnerConsistentIn](spgInnerConsistentIn.md)/spgInnerConsistentOut
+  - [Point](../P/Point.md), BOX
+  - [DatumGetPointP](../D/DatumGetPointP.md), DatumGetBoxP
   - get_float8_infinity
-  - getQuadrant, getQuadrantArea
-  - box_copy, box_contain_pt
-  - spg_key_orderbys_distances
+  - [getQuadrant](../g/getQuadrant.md), getQuadrantArea
+  - [box_copy](../b/box_copy.md), box_contain_pt
+  - [spg_key_orderbys_distances](spg_key_orderbys_distances.md)
   - SPTEST macro with point comparison functions (point_left, point_right, point_above, point_below)
   - Strategy number constants (RTLeftStrategyNumber, RTRightStrategyNumber, etc.)
-  - BoxPGetDatum, PG_RETURN_VOID
+  - [BoxPGetDatum](../B/BoxPGetDatum.md), PG_RETURN_VOID
 - Called from (representative examples):
   - SP-GiST framework (via function pointers in operator class)
 

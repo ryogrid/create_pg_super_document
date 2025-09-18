@@ -22,14 +22,14 @@ The function performs several validation checks: it verifies the port is valid a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_gettcpusertimeout (to retrieve current/default values)
+  - [pq_gettcpusertimeout](pq_gettcpusertimeout.md) (to retrieve current/default values)
   - setsockopt (system call to set socket options)
   - ereport (PostgreSQL error reporting function)
-  - errmsg (PostgreSQL error message formatting)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message formatting)
   - STATUS_OK, STATUS_ERROR (return value constants)
 - Called from (representative examples):
-  - pq_init (during connection initialization)
-  - assign_tcp_user_timeout (GUC assignment hook)
+  - [pq_init](pq_init.md) (during connection initialization)
+  - [assign_tcp_user_timeout](../a/assign_tcp_user_timeout.md) (GUC assignment hook)
 
 ## Notes and Other Information
 - Returns STATUS_OK on success, STATUS_ERROR on failure

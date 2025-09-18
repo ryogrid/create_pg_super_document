@@ -26,10 +26,10 @@ The function performs a SearchSysCache operation, validates that a tuple was fou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache
+  - [SearchSysCache](../S/SearchSysCache.md)
   - HeapTupleIsValid
-  - heap_getattr
-  - ReleaseSysCache
+  - [heap_getattr](../h/heap_getattr.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - SysCache (global array access)
 - Called from (representative examples):
   - GetSysCacheOid1 (macro wrapper for single key searches)

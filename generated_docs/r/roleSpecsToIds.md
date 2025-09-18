@@ -23,12 +23,12 @@ This function serves as a critical conversion step in many role management opera
   - lappend_oid: Append OID to the result list
   - lfirst_node: Extract RoleSpec from list cell
 - Called from (representative examples):
-  - CreateRole: Role creation with membership specifications
-  - AlterRole: Role modification with membership changes
-  - GrantRole: Role grant operations
-  - DropOwnedObjects: Object dropping by role ownership
-  - ReassignOwnedObjects: Object ownership reassignment
-  - AlterTableMoveAll: Table movement operations
+  - [CreateRole](../C/CreateRole.md): Role creation with membership specifications
+  - [AlterRole](../A/AlterRole.md): Role modification with membership changes
+  - [GrantRole](../G/GrantRole.md): Role grant operations
+  - [DropOwnedObjects](../D/DropOwnedObjects.md): Object dropping by role ownership
+  - [ReassignOwnedObjects](../R/ReassignOwnedObjects.md): Object ownership reassignment
+  - [AlterTableMoveAll](../A/AlterTableMoveAll.md): Table movement operations
 
 ## Notes and Other Information
 - Maintains the same order as the input list for consistent behavior across operations

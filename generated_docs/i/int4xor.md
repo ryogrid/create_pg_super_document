@@ -32,4 +32,4 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - This function is located in src/backend/utils/adt/int.c:1411-1419
 - Part of PostgreSQL's arithmetic and bitwise operations for the int4 data type
 - The bitwise XOR operation sets each bit to 1 if exactly one of the corresponding bits in the operands is 1
-- Result follows standard C bitwise XOR semantics for 32-bit signed integers
+- [Result](../R/Result.md) follows standard C bitwise XOR semantics for 32-bit signed integers

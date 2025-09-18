@@ -21,15 +21,15 @@ XLogRecGetBlockTag is a convenience wrapper around XLogRecGetBlockTagExtended th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecGetBlockTagExtended
+  - [XLogRecGetBlockTagExtended](XLogRecGetBlockTagExtended.md)
   - elog/pg_fatal (for error reporting)
 - Called from (representative examples):
-  - brin_xlog_revmap_extend
-  - gistRedoDeleteRecord
-  - hash_xlog_init_meta_page
-  - heap_xlog_prune_freeze
-  - btree_xlog_split
-  - DecodeInsert
+  - [brin_xlog_revmap_extend](../b/brin_xlog_revmap_extend.md)
+  - [gistRedoDeleteRecord](../g/gistRedoDeleteRecord.md)
+  - [hash_xlog_init_meta_page](../h/hash_xlog_init_meta_page.md)
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md)
+  - [btree_xlog_split](../b/btree_xlog_split.md)
+  - [DecodeInsert](../D/DecodeInsert.md)
   - XLogRecHasBlockData
 
 ## Notes and Other Information

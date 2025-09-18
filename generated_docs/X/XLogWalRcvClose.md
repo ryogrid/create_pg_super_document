@@ -28,13 +28,13 @@ The function distinguishes between different archive modes - for non-ALWAYS mode
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteInSeg
-  - XLogWalRcvFlush
-  - XLogFileName
+  - [XLogWalRcvFlush](XLogWalRcvFlush.md)
+  - [XLogFileName](XLogFileName.md)
   - close
-  - XLogArchiveForceDone
-  - XLogArchiveNotify
+  - [XLogArchiveForceDone](XLogArchiveForceDone.md)
+  - [XLogArchiveNotify](XLogArchiveNotify.md)
 - Called from (representative examples):
-  - XLogWalRcvWrite
+  - [XLogWalRcvWrite](XLogWalRcvWrite.md)
 
 ## Notes and Other Information
 - This is a static function internal to the walreceiver.c module

@@ -28,10 +28,10 @@ This function is commonly used by database monitoring tools and system views to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_numbackends
-  - pgstat_get_local_beentry_by_index
+  - [pgstat_fetch_stat_numbackends](pgstat_fetch_stat_numbackends.md)
+  - [pgstat_get_local_beentry_by_index](pgstat_get_local_beentry_by_index.md)
 - Data types used:
-  - LocalPgBackendStatus
+  - [LocalPgBackendStatus](../L/LocalPgBackendStatus.md)
 
 ## Notes and Other Information
 - The function provides a snapshot count and may change between calls as connections are established or terminated

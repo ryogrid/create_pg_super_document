@@ -22,23 +22,23 @@ The function processes error fields in a specific order: severity, SQLSTATE (if 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr
-  - libpq_gettext
-  - PQresultErrorField
-  - appendPQExpBuffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [libpq_gettext](../l/libpq_gettext.md)
+  - [PQresultErrorField](../P/PQresultErrorField.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - atoi
   - appendPQExpBufferChar
   - reportErrorPosition
 - Called from (representative examples):
-  - PQresultVerboseErrorMessage
-  - pqGetErrorNotice3
+  - [PQresultVerboseErrorMessage](../P/PQresultVerboseErrorMessage.md)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md)
 
 ## Notes and Other Information
 - Handles NULL PGresult by returning "out of memory" message
 - Falls back to base error message if no broken-down fields are available
 - Supports internationalization through libpq_gettext for translatable strings
 - Handles both statement position and internal position error reporting
-- Query text with syntax cursor display is shown only for non-TERSE verbosity levels
+- [Query](../Q/Query.md) text with syntax cursor display is shown only for non-TERSE verbosity levels
 - VERBOSE mode includes schema, table, column, datatype, and constraint names when available
 - Source location information (file:line, function) is included only in VERBOSE mode
 - Context information display is controlled by show_context parameter and result status

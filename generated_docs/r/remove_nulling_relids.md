@@ -28,15 +28,15 @@ This functionality is essential during query optimization phases where the optim
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_mutator (tree traversal framework)
-  - remove_nulling_relids_mutator (actual mutation callback function)
+  - [remove_nulling_relids_mutator](remove_nulling_relids_mutator.md) (actual mutation callback function)
 - Structures used:
   - remove_nulling_relids_context (context structure containing removable_relids, except_relids, and sublevels_up)
 - Called from (representative examples):
-  - reconsider_full_join_clause (in optimizer/path/equivclass.c)
-  - deconstruct_distribute_oj_quals (in optimizer/plan/initsplan.c)
-  - reduce_outer_joins (in optimizer/prep/prepjointree.c)
-  - remove_useless_result_rtes (in optimizer/prep/prepjointree.c)
-  - have_partkey_equi_join (in optimizer/util/relnode.c)
+  - [reconsider_full_join_clause](reconsider_full_join_clause.md) (in optimizer/path/equivclass.c)
+  - [deconstruct_distribute_oj_quals](../d/deconstruct_distribute_oj_quals.md) (in optimizer/plan/initsplan.c)
+  - [reduce_outer_joins](reduce_outer_joins.md) (in optimizer/prep/prepjointree.c)
+  - [remove_useless_result_rtes](remove_useless_result_rtes.md) (in optimizer/prep/prepjointree.c)
+  - [have_partkey_equi_join](../h/have_partkey_equi_join.md) (in optimizer/util/relnode.c)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:1238-1253

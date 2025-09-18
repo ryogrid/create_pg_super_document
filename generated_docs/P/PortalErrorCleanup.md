@@ -24,13 +24,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - PortalDrop
   - HASH_SEQ_STATUS
   - PortalHashEnt
 - Called from (representative examples):
-  - PostgresMain
+  - [PostgresMain](PostgresMain.md)
 
 ## Notes and Other Information
 - Called specifically during error recovery in the main PostgreSQL loop, not during transaction processing

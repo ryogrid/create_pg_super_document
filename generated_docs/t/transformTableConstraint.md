@@ -32,8 +32,8 @@ For foreign tables, the function enforces PostgreSQL's design decision that cert
   - ereport (for error reporting)
   - elog (for internal errors)
 - Called from (representative examples):
-  - transformCreateStmt
-  - transformAlterTableStmt
+  - [transformCreateStmt](transformCreateStmt.md)
+  - [transformAlterTableStmt](transformAlterTableStmt.md)
 
 ## Notes and Other Information
 The function enforces that column-level constraint types (NULL, NOT NULL, DEFAULT, and constraint attributes like DEFERRABLE) cannot appear as table-level constraints, throwing internal errors if encountered. This separation ensures proper constraint processing order and prevents logical inconsistencies. Foreign tables have significant constraint limitations - they cannot have PRIMARY KEY, UNIQUE, EXCLUSION, or FOREIGN KEY constraints since these require local enforcement capabilities that don't exist for external data sources. The constraint categorization performed here enables later processing phases to handle each constraint type with the appropriate logic and in the correct sequence.

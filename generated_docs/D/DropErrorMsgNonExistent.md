@@ -19,12 +19,12 @@ DropErrorMsgNonExistent is a static helper function responsible for providing us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupNamespaceNoError
+  - [LookupNamespaceNoError](../L/LookupNamespaceNoError.md)
   - dropmsgstringarray
   - ereport
   - Assert
 - Called from (representative examples):
-  - RemoveRelations
+  - [RemoveRelations](../R/RemoveRelations.md)
 
 ## Notes and Other Information
 DropErrorMsgNonExistent is designed to provide consistent and informative error messages across different DROP operations. The function uses a static array (dropmsgstringarray) that maps relation kinds to their corresponding error codes and message templates. The two-phase check (schema existence, then relation existence) ensures that users get the most specific error message possible. The missing_ok parameter enables the IF EXISTS functionality common in DDL operations, allowing scripts to be more robust by not failing on missing objects.

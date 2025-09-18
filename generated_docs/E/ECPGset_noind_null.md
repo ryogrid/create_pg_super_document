@@ -26,9 +26,9 @@ ECPGset_noind_null initializes variables with type-specific NULL values when SQL
   - NUMERIC_NULL constant for decimal/numeric types
   - ECPGgeneric_varchar, ECPGgeneric_bytea structures
 - Called from (representative examples):
-  - rsetnull in informix compatibility library
+  - [rsetnull](../r/rsetnull.md) in informix compatibility library
   - ecpg_get_data for NULL value handling in data retrieval
-  - ecpg_set_compat_sqlda, ecpg_set_native_sqlda for SQLDA NULL handling
+  - [ecpg_set_compat_sqlda](../e/ecpg_set_compat_sqlda.md), ecpg_set_native_sqlda for SQLDA NULL handling
 
 ## Notes and Other Information
 - Handles all major ECPG data types including primitives, strings, and complex types

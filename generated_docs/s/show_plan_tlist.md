@@ -27,12 +27,12 @@ For displayable target lists, the function deparses each target entry expression
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_deparse_context_plan
-  - deparse_expression
-  - ExplainPropertyList
+  - [set_deparse_context_plan](set_deparse_context_plan.md)
+  - [deparse_expression](../d/deparse_expression.md)
+  - [ExplainPropertyList](../E/ExplainPropertyList.md)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - ExplainNode
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - Only called when EXPLAIN VERBOSE is used, controlled by the es->verbose flag in ExplainNode

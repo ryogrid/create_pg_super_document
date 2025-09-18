@@ -25,14 +25,14 @@ The calculation includes the base parallel scan descriptor, estimated snapshot s
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (validation macro for relation)
-  - ParallelIndexScanDescData (parallel scan descriptor structure)
+  - [ParallelIndexScanDescData](../P/ParallelIndexScanDescData.md) (parallel scan descriptor structure)
   - EstimateSnapshotSpace (estimates memory needed for snapshot data)
-  - add_size (safe size addition utility)
+  - [add_size](../a/add_size.md) (safe size addition utility)
   - MAXALIGN (memory alignment macro)
   - amestimateparallelscan (access method-specific estimation routine)
 - Called from (representative examples):
-  - ExecIndexScanEstimate
-  - ExecIndexOnlyScanEstimate
+  - [ExecIndexScanEstimate](../E/ExecIndexScanEstimate.md)
+  - [ExecIndexOnlyScanEstimate](../E/ExecIndexOnlyScanEstimate.md)
 
 ## Notes and Other Information
 - Essential for parallel query processing - provides memory requirements before scan initialization

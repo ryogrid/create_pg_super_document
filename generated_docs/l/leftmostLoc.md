@@ -28,7 +28,7 @@ This logic is crucial for 's operation because parse tree nodes created during a
   - Min (macro for finding minimum of two values)
 
 - Called from:
-  - exprLocation (extensively throughout src/backend/nodes/nodeFuncs.c, lines 1426-1699)
+  - [exprLocation](../e/exprLocation.md) (extensively throughout src/backend/nodes/nodeFuncs.c, lines 1426-1699)
 
 ## Notes and Other Information
 - Declared as static, so it's only visible within nodeFuncs.c

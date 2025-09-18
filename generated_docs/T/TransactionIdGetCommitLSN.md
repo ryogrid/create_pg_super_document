@@ -30,7 +30,7 @@ The function is primarily used in visibility checking contexts where the system 
   - TransactionIdIsNormal (checks if transaction ID is a normal user transaction)
   - TransactionIdGetStatus (retrieves transaction status and associated LSN)
 - Called from (representative examples):
-  - SetHintBits (heap tuple visibility hint bit setting)
+  - [SetHintBits](../S/SetHintBits.md) (heap tuple visibility hint bit setting)
 
 ## Notes and Other Information
 The function leverages caching from TransactionLogFetch operations since most callers have recently checked transaction status. For special XIDs (bootstrap, frozen, etc.), it returns InvalidXLogRecPtr since these are always considered committed without needing WAL records. The grouping of transactions on the same clog page means the returned LSN might correspond to a later transaction in the same group, which still provides the necessary durability guarantee.

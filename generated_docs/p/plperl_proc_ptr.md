@@ -20,12 +20,12 @@ The separation between the key structure and the procedure descriptor serves an 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_proc_key (embedded as hash key)
-  - plperl_proc_desc (referenced by pointer)
+  - [plperl_proc_key](plperl_proc_key.md) (embedded as hash key)
+  - [plperl_proc_desc](plperl_proc_desc.md) (referenced by pointer)
 - Called from (representative examples):
-  - _PG_init (hash table initialization)
-  - validate_plperl_function (function validation)
-  - compile_plperl_function (function compilation and caching)
+  - [_PG_init](../P/_PG_init.md) (hash table initialization)
+  - [validate_plperl_function](../v/validate_plperl_function.md) (function validation)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation and caching)
 
 ## Notes and Other Information
 - The proc_key field must be first to satisfy PostgreSQL's hash table key requirements

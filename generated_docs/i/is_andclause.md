@@ -24,15 +24,15 @@ This function provides a type-safe way to determine if a clause represents an AN
   - AND_EXPR (boolean operation constant)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - ExecInitSubPlan
-  - make_ands_implicit
-  - clause_selectivity_ext
-  - generate_bitmap_or_paths
-  - pull_ands
-  - simplify_and_arguments
-  - extract_or_clause
-  - make_restrictinfo
-  - gen_partprune_steps_internal
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [generate_bitmap_or_paths](../g/generate_bitmap_or_paths.md)
+  - [pull_ands](../p/pull_ands.md)
+  - [simplify_and_arguments](../s/simplify_and_arguments.md)
+  - [extract_or_clause](../e/extract_or_clause.md)
+  - [make_restrictinfo](../m/make_restrictinfo.md)
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md)
   - mcv_get_match_bitmap
 
 ## Notes and Other Information

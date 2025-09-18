@@ -19,13 +19,13 @@ This function checks if a page is empty by examining the pd_lower field of the p
 - Functions called/Symbols referenced:
   - PageHeader (casting page to PageHeaderData pointer)
   - SizeOfPageHeaderData (macro defining size of page header without line pointers)
-  - PageHeaderData structure (accessed via pd_lower field)
+  - [PageHeaderData](PageHeaderData.md) structure (accessed via pd_lower field)
 - Called from (representative examples):
-  - ginHeapTupleFastInsert (in src/backend/access/gin/ginfast.c:365)
-  - gistfillbuffer (in src/backend/access/gist/gistutil.c:38)
-  - lazy_scan_new_or_empty (in src/backend/access/heap/vacuumlazy.c:1323)
-  - SpGistNewBuffer (in src/backend/access/spgist/spgutils.c:418)
-  - PageIndexTupleDelete (in src/backend/storage/page/bufpage.c:1135)
+  - [ginHeapTupleFastInsert](../g/ginHeapTupleFastInsert.md) (in src/backend/access/gin/ginfast.c:365)
+  - [gistfillbuffer](../g/gistfillbuffer.md) (in src/backend/access/gist/gistutil.c:38)
+  - [lazy_scan_new_or_empty](../l/lazy_scan_new_or_empty.md) (in src/backend/access/heap/vacuumlazy.c:1323)
+  - [SpGistNewBuffer](../S/SpGistNewBuffer.md) (in src/backend/access/spgist/spgutils.c:418)
+  - [PageIndexTupleDelete](PageIndexTupleDelete.md) (in src/backend/storage/page/bufpage.c:1135)
 
 ## Notes and Other Information
 - This is an inline function defined in bufpage.h for performance

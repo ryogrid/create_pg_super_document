@@ -26,8 +26,8 @@ The materialized approach ensures that the view remains consistent even if the p
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - fill_ident_view
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [fill_ident_view](../f/fill_ident_view.md)
   - PG_RETURN_NULL
 - Called from (representative examples):
   - SQL queries accessing pg_ident_file_mappings view

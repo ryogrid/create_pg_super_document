@@ -29,7 +29,7 @@ This function constructs a WorkTableScan plan node, which is specifically design
   - makeNode (to allocate WorkTableScan node)
   - WorkTableScan (struct type)
 - Called from (representative examples):
-  - create_worktablescan_plan
+  - [create_worktablescan_plan](../c/create_worktablescan_plan.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the createplan.c file

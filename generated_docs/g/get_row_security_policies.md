@@ -31,15 +31,15 @@ The function applies policies in a specific order to ensure proper privilege esc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getRTEPermissionInfo
-  - check_enable_rls
-  - get_policies_for_relation
-  - add_security_quals
-  - add_with_check_options
+  - [getRTEPermissionInfo](getRTEPermissionInfo.md)
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [get_policies_for_relation](get_policies_for_relation.md)
+  - [add_security_quals](../a/add_security_quals.md)
+  - [add_with_check_options](../a/add_with_check_options.md)
   - table_open/table_close
-  - setRuleCheckAsUser
+  - [setRuleCheckAsUser](../s/setRuleCheckAsUser.md)
 - Called from (representative examples):
-  - fireRIRrules
+  - [fireRIRrules](../f/fireRIRrules.md)
 
 ## Notes and Other Information
 - The function handles the complex interaction between different command types and permission requirements

@@ -18,15 +18,15 @@ ATCheckPartitionsNotInUse performs safety validation specifically for partitione
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_all_inheritors
+  - [find_all_inheritors](../f/find_all_inheritors.md)
   - table_open
-  - CheckAlterTableIsSafe
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
   - table_close
-  - list_free
+  - [list_free](../l/list_free.md)
   - RelationGetRelid
   - for_each_from (macro)
 - Called from (representative examples):
-  - ATPrepCmd (for operations requiring partition safety validation)
+  - [ATPrepCmd](ATPrepCmd.md) (for operations requiring partition safety validation)
 
 ## Notes and Other Information
 - Only operates on partitioned tables (RELKIND_PARTITIONED_TABLE), ignoring other relation types

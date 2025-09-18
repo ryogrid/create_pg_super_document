@@ -28,11 +28,11 @@ The function works by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_SET_CURRENT (timing measurement)
-  - wait_for_tests (wait for test completion) 
-  - results_differ (compare result vs expected files)
+  - [wait_for_tests](../w/wait_for_tests.md) (wait for test completion) 
+  - [results_differ](results_differ.md) (compare result vs expected files)
   - test_status_failed (report test failure)
   - test_status_ok (report test success)
-  - log_child_failure (log process exit failures)
+  - [log_child_failure](../l/log_child_failure.md) (log process exit failures)
   - diag (diagnostic output)
   - INSTR_TIME_SUBTRACT (timing calculations)
   - INSTR_TIME_GET_MILLISEC (timing conversion)

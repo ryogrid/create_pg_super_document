@@ -29,10 +29,10 @@ This enables database administrators to monitor autovacuum work item progress th
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid
-  - SetCurrentStatementStartTimestamp
-  - pgstat_report_activity
+  - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
 - Called from (representative examples):
-  - perform_work_item
+  - [perform_work_item](../p/perform_work_item.md)
 
 ## Notes and Other Information
 - Currently only supports AVW_BRINSummarizeRange work item type, but the structure allows for easy extension

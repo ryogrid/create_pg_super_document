@@ -18,13 +18,13 @@ This function implements an optimization strategy for dependency management in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsPinnedObject
-  - get_func_signature
-  - pfree
-  - op_input_types
+  - [IsPinnedObject](../I/IsPinnedObject.md)
+  - [get_func_signature](../g/get_func_signature.md)
+  - [pfree](../p/pfree.md)
+  - [op_input_types](../o/op_input_types.md)
 - Called from (representative examples):
-  - storeOperators (src/backend/commands/opclasscmds.c:1511, 1523)
-  - storeProcedures (src/backend/commands/opclasscmds.c:1635, 1647)
+  - [storeOperators](../s/storeOperators.md) (src/backend/commands/opclasscmds.c:1511, 1523)
+  - [storeProcedures](../s/storeProcedures.md) (src/backend/commands/opclasscmds.c:1635, 1647)
 
 ## Notes and Other Information
 - Returns false immediately if the type is a pinned object (built-in types), as these don't require dependency tracking

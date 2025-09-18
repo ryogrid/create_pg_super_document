@@ -26,22 +26,22 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - parseInput
-  - pqFlush
-  - pqCheckOutBufferSpace
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [parseInput](../p/parseInput.md)
+  - [pqFlush](../p/pqFlush.md)
+  - [pqCheckOutBufferSpace](../p/pqCheckOutBufferSpace.md)
   - pqIsnonblocking
-  - pqPutMsgStart
-  - pqPutnchar
-  - pqPutMsgEnd
+  - [pqPutMsgStart](../p/pqPutMsgStart.md)
+  - [pqPutnchar](../p/pqPutnchar.md)
+  - [pqPutMsgEnd](../p/pqPutMsgEnd.md)
   - PGASYNC_COPY_IN
   - PGASYNC_COPY_BOTH
   - PqMsg_CopyData
 - Called from (representative examples):
-  - handleCopyIn (psql)
-  - ExecuteSqlCommandBuf (pg_dump)
-  - sendFeedback (pg_basebackup tools)
-  - libpqrcv_send (replication)
+  - [handleCopyIn](../h/handleCopyIn.md) (psql)
+  - [ExecuteSqlCommandBuf](../E/ExecuteSqlCommandBuf.md) (pg_dump)
+  - [sendFeedback](../s/sendFeedback.md) (pg_basebackup tools)
+  - [libpqrcv_send](../l/libpqrcv_send.md) (replication)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 if data couldn't be sent in non-blocking mode, or -1 on error

@@ -19,19 +19,19 @@ Despite being less efficient, this function is often the most convenient to use 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareInvalidationState
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
-  - CacheInvalidateRelcacheByTuple
-  - ReleaseSysCache
+  - [CacheInvalidateRelcacheByTuple](CacheInvalidateRelcacheByTuple.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - DefineIndex
-  - InvalidatePublicationRels
-  - ATExecAlterConstraint
-  - ATExecAttachPartition
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md)
+  - [ATExecAlterConstraint](../A/ATExecAlterConstraint.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - This is explicitly noted as the least efficient of the three relcache invalidation options due to the required catalog lookup

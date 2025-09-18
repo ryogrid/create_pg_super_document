@@ -20,11 +20,11 @@ This function implements a simple "unget" mechanism that allows a block number t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadStream (structure type)
+  - [ReadStream](../R/ReadStream.md) (structure type)
   - Assert (debugging macro)
   - InvalidBlockNumber (constant for invalid block sentinel)
 - Called from (representative examples):
-  - read_stream_look_ahead
+  - [read_stream_look_ahead](read_stream_look_ahead.md)
 
 ## Notes and Other Information
 - The function includes assertions to ensure only one block can be buffered at a time

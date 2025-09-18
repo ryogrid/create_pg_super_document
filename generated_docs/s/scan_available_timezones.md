@@ -31,14 +31,14 @@ The function modifies the  buffer during traversal but restores it to its origin
 - Functions called/Symbols referenced:
   - pgfnames: Get list of files in directory
   - S_ISDIR: Check if path is directory
-  - score_timezone: Calculate match score for timezone file
-  - zone_name_pref: Get timezone name preference ranking
+  - [score_timezone](score_timezone.md): Calculate match score for timezone file
+  - [zone_name_pref](../z/zone_name_pref.md): Get timezone name preference ranking
   - strlcpy: Safe string copy
   - pgfnames_cleanup: Clean up file list
   - TZ_STRLEN_MAX: Maximum timezone string length constant
 - Called from:
-  - identify_system_timezone: Main timezone identification function
-  - scan_available_timezones: Recursive calls for subdirectories
+  - [identify_system_timezone](../i/identify_system_timezone.md): Main timezone identification function
+  - [scan_available_timezones](scan_available_timezones.md): Recursive calls for subdirectories
 
 ## Notes and Other Information
 - Uses recursive directory traversal to explore the complete timezone database hierarchy

@@ -26,14 +26,14 @@ This is one of the simplest geometric containment algorithms, requiring only fou
 - Functions called/Symbols referenced:
   - None (uses only direct member access and comparison operators)
 - Data types used:
-  - BOX (rectangular box representation with low and high corner points)
-  - Point (point representation with x, y coordinates)
+  - [BOX](../B/BOX.md) (rectangular box representation with low and high corner points)
+  - [Point](../P/Point.md) (point representation with x, y coordinates)
 - Called from (representative examples):
-  - on_pb (point on box test)
-  - box_closept_point (closest point calculations)
-  - box_contain_pt (public box containment interface)
-  - box_contain_lseg (box-line segment containment)
-  - box_interpt_lseg (box-line segment intersection testing)
+  - [on_pb](../o/on_pb.md) (point on box test)
+  - [box_closept_point](box_closept_point.md) (closest point calculations)
+  - [box_contain_pt](box_contain_pt.md) (public box containment interface)
+  - [box_contain_lseg](box_contain_lseg.md) (box-line segment containment)
+  - [box_interpt_lseg](box_interpt_lseg.md) (box-line segment intersection testing)
 
 ## Notes and Other Information
 - This is a static function, accessible only within geo_ops.c

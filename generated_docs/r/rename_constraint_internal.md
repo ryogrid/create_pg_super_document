@@ -25,20 +25,20 @@ The function includes comprehensive inheritance handling for CHECK constraints, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_domain_constraint_oid
-  - get_relation_constraint_oid
-  - relation_open
-  - renameatt_check
-  - find_all_inheritors
-  - find_inheritance_children
-  - RenameRelationInternal
-  - RenameConstraintById
-  - CacheInvalidateRelcache
-  - relation_close
+  - [get_domain_constraint_oid](../g/get_domain_constraint_oid.md)
+  - [get_relation_constraint_oid](../g/get_relation_constraint_oid.md)
+  - [relation_open](relation_open.md)
+  - [renameatt_check](renameatt_check.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [RenameRelationInternal](../R/RenameRelationInternal.md)
+  - [RenameConstraintById](../R/RenameConstraintById.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [relation_close](relation_close.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - RenameConstraint (in src/backend/commands/tablecmds.c)
-  - rename_constraint_internal (recursive calls)
+  - [RenameConstraint](../R/RenameConstraint.md) (in src/backend/commands/tablecmds.c)
+  - [rename_constraint_internal](rename_constraint_internal.md) (recursive calls)
 
 ## Notes and Other Information
 - Uses AccessExclusiveLock when opening relations to prevent concurrent modifications

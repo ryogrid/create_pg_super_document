@@ -23,7 +23,7 @@ The pg_advisory_lock_int4 function provides a blocking mechanism to acquire excl
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32: Extracts the 32-bit integer arguments (called twice for key1 and key2)
   - SET_LOCKTAG_INT32: Sets up the lock tag structure with the composite key
-  - LockAcquire: Core lock acquisition function (called with sessionLock=true, dontWait=false)
+  - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function (called with sessionLock=true, dontWait=false)
   - ExclusiveLock: Lock mode constant for exclusive locks
   - PG_RETURN_VOID: Returns void (no return value)
 - Called from (representative examples):
@@ -33,7 +33,7 @@ The pg_advisory_lock_int4 function provides a blocking mechanism to acquire excl
 - Returns void (no return value) - always succeeds by waiting if necessary
 - Blocking operation - will wait indefinitely until lock becomes available
 - Uses exclusive lock mode, preventing any other locks on the same key
-- Session-scoped: persists until session end or explicit unlock
+- [Session](../S/Session.md)-scoped: persists until session end or explicit unlock
 - Uses composite key approach with two 32-bit integers instead of single 64-bit key
 - Equivalent to using pg_advisory_lock with a single bigint derived from the two int4 values
 - Part of PostgreSQL's advisory locking system for application-level coordination

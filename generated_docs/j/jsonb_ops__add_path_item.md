@@ -29,16 +29,16 @@ Unsupported path items (like method calls) cause the function to return false, i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetString (extracts string from JsonPathItem)
-  - make_text_key (converts key string to indexable Datum with JGINFLAG_KEY)
-  - palloc (allocates memory for new path item)
-  - PointerGetDatum (creates NULL Datum for wildcard items)
+  - [jspGetString](jspGetString.md) (extracts string from JsonPathItem)
+  - [make_text_key](../m/make_text_key.md) (converts key string to indexable Datum with JGINFLAG_KEY)
+  - [palloc](../p/palloc.md) (allocates memory for new path item)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (creates NULL Datum for wildcard items)
 - Types/Constants referenced:
   - JsonPathGinPath, JsonPathGinPathItem, JsonPathItem
   - JsonPathItemType constants (jpiRoot, jpiKey, jpiAny, etc.)
   - JGINFLAG_KEY (flag indicating key semantics)
 - Called from (representative examples):
-  - extract_jsp_query (at src/backend/utils/adt/jsonb_gin.c:766)
+  - [extract_jsp_query](../e/extract_jsp_query.md) (at src/backend/utils/adt/jsonb_gin.c:766)
 
 ## Notes and Other Information
 - This is a static function, accessible only within jsonb_gin.c

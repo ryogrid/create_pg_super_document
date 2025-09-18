@@ -21,9 +21,9 @@ The function performs a cache lookup to find the statistics data, extracts the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2, SysCacheGetAttr, DatumGetExpandedArray
+  - [SearchSysCache2](../S/SearchSysCache2.md), SysCacheGetAttr, DatumGetExpandedArray
   - deconstruct_expanded_array, DatumGetHeapTupleHeader, HeapTupleHeaderGetDatumLength
-  - ItemPointerSetInvalid, heap_copytuple, ReleaseSysCache
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md), heap_copytuple, ReleaseSysCache
 - Called from (representative examples):
   - examine_variable
 

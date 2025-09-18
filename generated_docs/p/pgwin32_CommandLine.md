@@ -32,17 +32,17 @@ The function carefully handles Windows path conventions and service-specific req
   - createPQExpBuffer
   - find_my_exec
   - find_other_exec
-  - write_stderr
-  - make_native_path
-  - make_absolute_path
-  - pg_strcasecmp
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [write_stderr](../w/write_stderr.md)
+  - [make_native_path](../m/make_native_path.md)
+  - [make_absolute_path](../m/make_absolute_path.md)
+  - [pg_strcasecmp](pg_strcasecmp.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - PG_BACKEND_VERSIONSTR
   - DEFAULT_WAIT
 - Called from (representative examples):
-  - pgwin32_doRegister (src/bin/pg_ctl/pg_ctl.c:1521)
-  - pgwin32_ServiceMain (src/bin/pg_ctl/pg_ctl.c:1640)
+  - [pgwin32_doRegister](pgwin32_doRegister.md) (src/bin/pg_ctl/pg_ctl.c:1521)
+  - [pgwin32_ServiceMain](pgwin32_ServiceMain.md) (src/bin/pg_ctl/pg_ctl.c:1640)
 
 ## Notes and Other Information
 - The function is static and Windows-specific, only used within pg_ctl.c

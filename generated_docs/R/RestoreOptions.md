@@ -70,16 +70,16 @@ RestoreOptions is a comprehensive configuration structure that controls all aspe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConnParams (struct)
-  - SimpleStringList (struct)
-  - pg_compress_specification (struct)
+  - [ConnParams](../C/ConnParams.md) (struct)
+  - [SimpleStringList](../S/SimpleStringList.md) (struct)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (struct)
 - Called from (representative examples):
-  - NewRestoreOptions
-  - SetArchiveOptions
-  - ProcessArchiveRestoreOptions
-  - RestoreArchive
-  - CloneArchive
-  - main (pg_restore.c)
+  - [NewRestoreOptions](../N/NewRestoreOptions.md)
+  - [SetArchiveOptions](../S/SetArchiveOptions.md)
+  - [ProcessArchiveRestoreOptions](../P/ProcessArchiveRestoreOptions.md)
+  - [RestoreArchive](RestoreArchive.md)
+  - [CloneArchive](../C/CloneArchive.md)
+  - [main](../m/main.md) (pg_restore.c)
 
 ## Notes and Other Information
 RestoreOptions serves as the central configuration hub for pg_restore operations, providing fine-grained control over every aspect of database restoration. The structure supports selective restoration through various filter mechanisms, transaction control for performance optimization, and comprehensive error handling options. It is typically initialized by NewRestoreOptions() and populated based on command-line arguments parsed by pg_restore.

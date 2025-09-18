@@ -31,9 +31,9 @@ Each format serves different use cases: TEXT for human readability, XML/JSON/YAM
   - Used within ExplainState struct (line 59 in explain.h)
   - Referenced extensively throughout explain.c formatting functions
 - Called from (representative examples):
-  - ExplainQuery parsing logic (lines 256-262 in explain.c)
-  - ExplainBeginOutput, ExplainEndOutput formatting functions
-  - ExplainOpenGroup, ExplainCloseGroup grouping functions
+  - [ExplainQuery](ExplainQuery.md) parsing logic (lines 256-262 in explain.c)
+  - [ExplainBeginOutput](ExplainBeginOutput.md), ExplainEndOutput formatting functions
+  - [ExplainOpenGroup](ExplainOpenGroup.md), ExplainCloseGroup grouping functions
   - Multiple ExplainProperty* functions for value formatting
 
 ## Notes and Other Information

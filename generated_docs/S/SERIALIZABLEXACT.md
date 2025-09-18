@@ -61,17 +61,17 @@ The structure uses a home-grown shared memory list management system and support
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VirtualTransactionId
+  - [VirtualTransactionId](../V/VirtualTransactionId.md)
   - SerCommitSeqNo
-  - dlist_head
-  - dlist_node
-  - LWLock
+  - [dlist_head](../d/dlist_head.md)
+  - [dlist_node](../d/dlist_node.md)
+  - [LWLock](../L/LWLock.md)
   - TransactionId
 - Called from (representative examples):
-  - CreatePredXact
-  - ReleasePredXact
-  - GetSerializableTransactionSnapshotInt
-  - CheckForSerializableConflictOut
+  - [CreatePredXact](../C/CreatePredXact.md)
+  - [ReleasePredXact](../R/ReleasePredXact.md)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's Serializable Snapshot Isolation implementation

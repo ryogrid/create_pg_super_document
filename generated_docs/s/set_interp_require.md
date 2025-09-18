@@ -18,13 +18,13 @@ This function modifies Perl's internal operation dispatch table (PL_ppaddr) to c
 ## Dependencies
 - Functions called/Symbols referenced:
   - PL_ppaddr (Perl's operation dispatch table)
-  - pp_require_safe (safe implementation of require/dofile operations)
+  - [pp_require_safe](../p/pp_require_safe.md) (safe implementation of require/dofile operations)
   - pp_require_orig (original Perl require/dofile implementation)
   - OP_REQUIRE (Perl opcode constant for require operation)
   - OP_DOFILE (Perl opcode constant for dofile operation)
 - Called from (representative examples):
-  - select_perl_context
-  - activate_interpreter
+  - [select_perl_context](select_perl_context.md)
+  - [activate_interpreter](../a/activate_interpreter.md)
 
 ## Notes and Other Information
 - Critical security function that enforces trusted vs untrusted Perl execution contexts

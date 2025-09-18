@@ -21,15 +21,15 @@ ExecInitExtraTupleSlot is designed for creating additional tuple slots beyond th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecAllocTableSlot: Creates and adds the tuple slot to the tuple table
+  - [ExecAllocTableSlot](ExecAllocTableSlot.md): Creates and adds the tuple slot to the tuple table
   - TupleTableSlotOps: Structure defining slot operations
 - Called from (representative examples):
-  - ExecInitNullTupleSlot: Creating null tuple slots
-  - ExecGetTriggerOldSlot: Trigger handling for old row values
-  - ExecGetTriggerNewSlot: Trigger handling for new row values
-  - ExecInitAgg: Aggregation node for temporary slots
-  - ExecInitSubPlan: Subplan execution
-  - ExecInitWindowAgg: Window aggregation functions
+  - [ExecInitNullTupleSlot](ExecInitNullTupleSlot.md): Creating null tuple slots
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md): Trigger handling for old row values
+  - [ExecGetTriggerNewSlot](ExecGetTriggerNewSlot.md): Trigger handling for new row values
+  - [ExecInitAgg](ExecInitAgg.md): Aggregation node for temporary slots
+  - [ExecInitSubPlan](ExecInitSubPlan.md): Subplan execution
+  - [ExecInitWindowAgg](ExecInitWindowAgg.md): Window aggregation functions
   - Various replication and worker functions
 
 ## Notes and Other Information

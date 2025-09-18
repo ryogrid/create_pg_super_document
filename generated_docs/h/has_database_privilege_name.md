@@ -20,10 +20,10 @@ This PostgreSQL function implements a variant of the has_database_privilege SQL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - GetUserId
-  - convert_database_name
-  - convert_database_priv_string
-  - object_aclcheck
+  - [GetUserId](../G/GetUserId.md)
+  - [convert_database_name](../c/convert_database_name.md)
+  - [convert_database_priv_string](../c/convert_database_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)

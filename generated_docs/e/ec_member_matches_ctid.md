@@ -24,9 +24,9 @@ The function performs a simple but important check: it verifies that the equival
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - IsCTIDVar (function to verify if a Var represents a relation's CTID)
+  - [IsCTIDVar](../I/IsCTIDVar.md) (function to verify if a Var represents a relation's CTID)
 - Called from (representative examples):
-  - create_tidscan_paths (via generate_implied_equalities_for_column callback)
+  - [create_tidscan_paths](../c/create_tidscan_paths.md) (via generate_implied_equalities_for_column callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the tidpath.c source file

@@ -26,9 +26,9 @@ This Windows-specific function creates a duplicate of a handle that can be inher
   - GetLastError (Windows API)
   - ereport
   - LOG
-  - errmsg_internal
+  - [errmsg_internal](../e/errmsg_internal.md)
 - Called from (representative examples):
-  - save_backend_variables
+  - [save_backend_variables](../s/save_backend_variables.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function (only compiled on Windows platforms)

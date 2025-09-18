@@ -25,12 +25,12 @@ The function should only be called at the moment a transaction commit has been r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - rbtxn_is_streamed (for assertion)
-  - ReorderBufferImmediateInvalidation
-  - ReorderBufferCleanupTXN
+  - [ReorderBufferImmediateInvalidation](ReorderBufferImmediateInvalidation.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
 - Called from (representative examples):
-  - DecodeCommit (in decode.c)
+  - [DecodeCommit](../D/DecodeCommit.md) (in decode.c)
 
 ## Notes and Other Information
 - Must be called for subtransactions before the toplevel transaction

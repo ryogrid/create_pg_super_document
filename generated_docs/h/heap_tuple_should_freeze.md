@@ -31,19 +31,19 @@ The function handles several special cases:
   - HeapTupleHeaderGetRawXmax
   - HeapTupleHeaderGetXvac
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
-  - TransactionIdPrecedesOrEquals
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
-  - MultiXactIdPrecedesOrEquals
-  - GetMultiXactIdMembers
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [MultiXactIdPrecedesOrEquals](../M/MultiXactIdPrecedesOrEquals.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - HEAP_XMAX_IS_MULTI
   - HEAP_LOCKED_UPGRADED
   - HEAP_XMAX_IS_LOCKED_ONLY
   - HEAP_MOVED
 - Called from (representative examples):
-  - heap_prepare_freeze_tuple
-  - lazy_scan_noprune
+  - [heap_prepare_freeze_tuple](heap_prepare_freeze_tuple.md)
+  - [lazy_scan_noprune](../l/lazy_scan_noprune.md)
 
 ## Notes and Other Information
 - The function works in conjunction with heap_prepare_freeze_tuple, providing a way to determine freeze necessity without actually performing the freeze operation

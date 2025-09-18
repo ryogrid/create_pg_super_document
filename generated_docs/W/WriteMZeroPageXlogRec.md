@@ -288,14 +288,14 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - RM_MULTIXACT_ID (resource manager constant)
 - Called from (representative examples):
   - debug_elog6
-  - ZeroMultiXactOffsetPage
-  - ZeroMultiXactMemberPage
+  - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
+  - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
 
 ## Notes and Other Information
 - This is a static function internal to multixact.c

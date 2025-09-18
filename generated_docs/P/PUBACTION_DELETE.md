@@ -23,8 +23,8 @@ The enum is part of PostgreSQL's logical replication infrastructure, where it he
   - None (enum constant)
 - Called from (representative examples):
   - NUM_ROWFILTER_PUBACTIONS (macro calculation)
-  - pgoutput_row_filter_init (row filter initialization)
-  - pgoutput_row_filter (row filtering logic)
+  - [pgoutput_row_filter_init](../p/pgoutput_row_filter_init.md) (row filter initialization)
+  - [pgoutput_row_filter](../p/pgoutput_row_filter.md) (row filtering logic)
   - map_changetype_pubaction array (change type mapping)
 
 ## Notes and Other Information

@@ -23,16 +23,16 @@ The function modifies the object in-place, potentially reducing the nPairs count
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lengthCompareJsonbPair
+  - [lengthCompareJsonbPair](../l/lengthCompareJsonbPair.md)
   - qsort_arg
-  - lengthCompareJsonbStringValue
+  - [lengthCompareJsonbStringValue](../l/lengthCompareJsonbStringValue.md)
   - ereport (error reporting)
   - memcpy
-  - JsonbPair (struct type)
+  - [JsonbPair](../J/JsonbPair.md) (struct type)
   - jbvObject (enum value)
   - jbvNull (enum value)
 - Called from (representative examples):
-  - pushJsonbValueScalar
+  - [pushJsonbValueScalar](../p/pushJsonbValueScalar.md)
 
 ## Notes and Other Information
 - This is a static function within jsonb_util.c, not exposed to other modules

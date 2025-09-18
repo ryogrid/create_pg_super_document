@@ -25,8 +25,8 @@ The function calculates the required output buffer size first to prevent buffer 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP
-  - hex_encode
-  - palloc
+  - [hex_encode](../h/hex_encode.md)
+  - [palloc](../p/palloc.md)
   - ereport/elog
   - VARSIZE_ANY_EXHDR
   - VARDATA_ANY
@@ -37,7 +37,7 @@ The function calculates the required output buffer size first to prevent buffer 
   - BYTEA_OUTPUT_ESCAPE
   - MaxAllocSize
 - Called from:
-  - pg_mcv_list_out (statistics module)
+  - [pg_mcv_list_out](../p/pg_mcv_list_out.md) (statistics module)
 
 ## Notes and Other Information
 - The function respects the global bytea_output setting to determine output format

@@ -32,7 +32,7 @@ The serialization format is designed to be efficiently readable by the correspon
   - TUPLESORT_RANDOMACCESS (flag)
 - Called from (representative examples):
   - CLUSTER_SORT operations
-  - tuplesort_begin_cluster
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md)
 
 ## Notes and Other Information
 - This function is specific to CLUSTER operations and handles heap tuples differently from other tuple types

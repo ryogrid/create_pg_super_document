@@ -35,12 +35,12 @@ The function is marked as "unaligned" because it can handle strings at any memor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `fasthash_accum` (processes each chunk of string data)
-  - `fasthash_state` (structure type being operated on) 
+  - `[fasthash_accum](fasthash_accum.md)` (processes each chunk of string data)
+  - `[fasthash_state](fasthash_state.md)` (structure type being operated on) 
   - `FH_SIZEOF_ACCUM` (constant defining maximum chunk size: sizeof(uint64))
 - Called from (representative examples):
   - Functions marked with `pg_attribute_no_sanitize_address` (src/include/common/hashfn_unstable.h:279)
-  - `fasthash_accum_cstring` (src/include/common/hashfn_unstable.h:299, 314)
+  - `[fasthash_accum_cstring](fasthash_accum_cstring.md)` (src/include/common/hashfn_unstable.h:299, 314)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for performance optimization since string hashing is a common operation

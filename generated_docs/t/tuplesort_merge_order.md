@@ -29,8 +29,8 @@ The function enforces bounds with MINORDER (6) as the minimum merge order even i
   - MAXORDER (maximum merge order constant, value 500)
   - Max/Min (macros for bound enforcement)
 - Called from (representative examples):
-  - cost_tuplesort (query planner cost estimation)
-  - inittapes (tape initialization during sort setup)
+  - [cost_tuplesort](../c/cost_tuplesort.md) (query planner cost estimation)
+  - [inittapes](../i/inittapes.md) (tape initialization during sort setup)
 
 ## Notes and Other Information
 - The function is exported for use by the query planner to estimate sorting costs

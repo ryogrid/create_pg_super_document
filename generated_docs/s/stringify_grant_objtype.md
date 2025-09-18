@@ -24,7 +24,7 @@ The function includes explicit handling for object types that are supported in G
   - elog (for error reporting)
   - ObjectType enumeration constants (OBJECT_TABLE, OBJECT_FUNCTION, etc.)
 - Called from (representative examples):
-  - pg_event_trigger_ddl_commands (src/backend/commands/event_trigger.c:2097)
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md) (src/backend/commands/event_trigger.c:2097)
 
 ## Notes and Other Information
 - Returns string constants that match the exact syntax used in SQL GRANT and REVOKE statements

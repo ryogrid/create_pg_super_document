@@ -22,18 +22,18 @@ The function automatically filters out duplicate schema OIDs when the same schem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_oid
-  - list_append_unique_oid
-  - fetch_search_path
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [list_append_unique_oid](../l/list_append_unique_oid.md)
+  - [fetch_search_path](../f/fetch_search_path.md)
   - linitial_oid
-  - list_free
+  - [list_free](../l/list_free.md)
   - PublicationObjSpec
   - PUBLICATIONOBJ_TABLE
   - PUBLICATIONOBJ_TABLES_IN_SCHEMA
   - PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA
 - Called from (representative examples):
-  - CreatePublication
-  - AlterPublication
+  - [CreatePublication](../C/CreatePublication.md)
+  - [AlterPublication](../A/AlterPublication.md)
 
 ## Notes and Other Information
 - Returns early without processing if pubobjspec_list is NULL

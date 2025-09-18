@@ -26,8 +26,8 @@ The function handles signal interruptions (EINTR) by retrying the operation, ens
   - elog (error reporting with FATAL level)
   - errno constants: EINTR, EAGAIN, EDEADLK
 - Called from (representative examples):
-  - PGSemaphoreReset (used in reset implementation to drain semaphore counts)
-  - tas_sema (test-and-set semaphore operations for spinlocks)
+  - [PGSemaphoreReset](PGSemaphoreReset.md) (used in reset implementation to drain semaphore counts)
+  - [tas_sema](../t/tas_sema.md) (test-and-set semaphore operations for spinlocks)
 
 ## Notes and Other Information
 - This is a non-blocking operation that returns immediately regardless of semaphore availability

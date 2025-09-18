@@ -33,20 +33,20 @@ Currently, the function does not implement tests to verify compatibility of expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexGetRelation
-  - GetIndexAmRoutine
-  - makeIndexInfo
-  - ComputeIndexAttrs
-  - heap_attisnull
-  - get_opclass_input_type
+  - [IndexGetRelation](../I/IndexGetRelation.md)
+  - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md)
+  - [makeIndexInfo](../m/makeIndexInfo.md)
+  - [ComputeIndexAttrs](ComputeIndexAttrs.md)
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [get_opclass_input_type](../g/get_opclass_input_type.md)
   - IsPolymorphicType
-  - CompareOpclassOptions
-  - RelationGetExclusionInfo
-  - op_input_types
-  - index_open
-  - index_close
+  - [CompareOpclassOptions](CompareOpclassOptions.md)
+  - [RelationGetExclusionInfo](../R/RelationGetExclusionInfo.md)
+  - [op_input_types](../o/op_input_types.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
 - Called from (representative examples):
-  - TryReuseIndex
+  - [TryReuseIndex](../T/TryReuseIndex.md)
 
 ## Notes and Other Information
 - Returns false immediately if the index has expressions, predicates, or is invalid

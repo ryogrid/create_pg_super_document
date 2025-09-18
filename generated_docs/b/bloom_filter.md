@@ -33,16 +33,16 @@ The implementation uses enhanced double hashing for generating the k hash functi
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
-  - my_bloom_power
-  - optimal_k
-  - k_hashes
-  - mod_m
+  - [my_bloom_power](../m/my_bloom_power.md)
+  - [optimal_k](../o/optimal_k.md)
+  - [k_hashes](../k/k_hashes.md)
+  - [mod_m](../m/mod_m.md)
 - Called from (representative examples):
-  - bloom_create
-  - bloom_free
-  - bloom_add_element
-  - bloom_lacks_element
-  - bloom_prop_bits_set
+  - [bloom_create](bloom_create.md)
+  - [bloom_free](bloom_free.md)
+  - [bloom_add_element](bloom_add_element.md)
+  - [bloom_lacks_element](bloom_lacks_element.md)
+  - [bloom_prop_bits_set](bloom_prop_bits_set.md)
   - roles_list_append (in ACL system)
   - roles_is_member_of (in ACL system)
 

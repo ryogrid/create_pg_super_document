@@ -26,11 +26,11 @@ The function follows the same error handling pattern as pgTypeNameCompare, treat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findAccessMethodByOid (looks up AccessMethodInfo by OID)
+  - [findAccessMethodByOid](../f/findAccessMethodByOid.md) (looks up AccessMethodInfo by OID)
   - strcmp (standard string comparison)
 - Called from (representative examples):
-  - DOTypeNameCompare (for operator class access method comparisons)
-  - DOTypeNameCompare (for operator family access method comparisons)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (for operator class access method comparisons)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (for operator family access method comparisons)
 
 ## Notes and Other Information
 - Returns 0 if access methods are identical or if catalog corruption is detected

@@ -37,14 +37,14 @@ BrinTuple represents the on-disk storage format for BRIN index tuples and is opt
   - BlockNumber (data type)
   - uint8 (data type)
 - Called from (representative examples):
-  - brin_form_tuple
-  - brin_doupdate
-  - brin_doinsert
-  - brinGetTupleForHeapBlock
-  - brin_evacuate_page
-  - brin_free_tuple
-  - brin_copy_tuple
-  - brin_deform_tuple
+  - [brin_form_tuple](../b/brin_form_tuple.md)
+  - [brin_doupdate](../b/brin_doupdate.md)
+  - [brin_doinsert](../b/brin_doinsert.md)
+  - [brinGetTupleForHeapBlock](../b/brinGetTupleForHeapBlock.md)
+  - [brin_evacuate_page](../b/brin_evacuate_page.md)
+  - [brin_free_tuple](../b/brin_free_tuple.md)
+  - [brin_copy_tuple](../b/brin_copy_tuple.md)
+  - [brin_deform_tuple](../b/brin_deform_tuple.md)
   - SizeOfBrinTuple (macro)
   - BrinTupleHasNulls (macro)
   - BrinTupleIsPlaceholder (macro)

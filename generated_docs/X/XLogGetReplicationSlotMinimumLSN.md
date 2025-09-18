@@ -26,9 +26,9 @@ XLogGetReplicationSlotMinimumLSN is a getter function that provides thread-safe 
   - XLogCtl->info_lck (spinlock for protecting shared control data)
 - Called from (representative examples):
   - RefreshXLogWriteResult (in xlog.c:672)
-  - CreateCheckPoint (in xlog.c:7112, 7316)
-  - CreateRestartPoint (in xlog.c:7687, 7787)
-  - GetWALAvailability (in xlog.c:7904)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (in xlog.c:7112, 7316)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (in xlog.c:7687, 7787)
+  - [GetWALAvailability](../G/GetWALAvailability.md) (in xlog.c:7904)
 
 ## Notes and Other Information
 - Static function (internal to xlog.c) - not part of the public API

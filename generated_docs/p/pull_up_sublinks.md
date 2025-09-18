@@ -29,14 +29,14 @@ The function recursively searches through the query's jointree to find and trans
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_up_sublinks_jointree_recurse
-  - makeFromExpr
+  - [pull_up_sublinks_jointree_recurse](pull_up_sublinks_jointree_recurse.md)
+  - [makeFromExpr](../m/makeFromExpr.md)
   - list_make1
   - IsA macro
   - FromExpr type
 - Called from (representative examples):
-  - subquery_planner (in src/backend/optimizer/plan/planner.c:715)
-  - pull_up_simple_subquery (in src/backend/optimizer/prep/prepjointree.c:1198)
+  - [subquery_planner](../s/subquery_planner.md) (in src/backend/optimizer/plan/planner.c:715)
+  - [pull_up_simple_subquery](pull_up_simple_subquery.md) (in src/backend/optimizer/prep/prepjointree.c:1198)
 
 ## Notes and Other Information
 - Must run before preprocess_expression() since quals are not yet in reduced implicit-AND format

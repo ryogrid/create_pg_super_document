@@ -28,10 +28,10 @@ This function adds a PostingItem to a non-leaf GIN data page at the specified of
   - memmove
   - memcpy
 - Called from (representative examples):
-  - dataExecPlaceToPageInternal
-  - ginDataFillRoot
-  - ginRedoInsertData
-  - GinBtreeDataLeafInsertData
+  - [dataExecPlaceToPageInternal](../d/dataExecPlaceToPageInternal.md)
+  - [ginDataFillRoot](../g/ginDataFillRoot.md)
+  - [ginRedoInsertData](../g/ginRedoInsertData.md)
+  - [GinBtreeDataLeafInsertData](GinBtreeDataLeafInsertData.md)
 
 ## Notes and Other Information
 - Only operates on non-leaf GIN data pages (verified by assertion)

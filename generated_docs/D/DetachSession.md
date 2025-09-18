@@ -25,10 +25,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsm_detach
+  - [dsm_detach](../d/dsm_detach.md)
   - dsa_detach
 - Called from (representative examples):
-  - ParallelWorkerMain (in src/backend/access/transam/parallel.c:1562)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (in src/backend/access/transam/parallel.c:1562)
 
 ## Notes and Other Information
 - Explicitly runs detach hooks through dsm_detach(), allowing subsystems to clean up session-specific state

@@ -20,11 +20,11 @@ The function enables PostgreSQL utilities and applications to locate HTML docume
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
   - HTMLDIR (compile-time constant)
   - PGBINDIR (compile-time constant)
 - Called from (representative examples):
-  - get_configdata (src/common/config_info.c:60)
+  - [get_configdata](get_configdata.md) (src/common/config_info.c:60)
 
 ## Notes and Other Information
 - Part of PostgreSQL's installation path resolution system for documentation

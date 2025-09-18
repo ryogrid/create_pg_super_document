@@ -21,9 +21,9 @@ The function is intentionally simple and focused, performing only the specific t
 - Functions called/Symbols referenced:
   - appendStringInfoString
 - Called from (representative examples):
-  - schema_to_xmlschema_internal
-  - database_to_xmlschema_internal
-  - map_sql_table_to_xmlschema
+  - [schema_to_xmlschema_internal](../s/schema_to_xmlschema_internal.md)
+  - [database_to_xmlschema_internal](../d/database_to_xmlschema_internal.md)
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
 
 ## Notes and Other Information
 - This is a static internal function, not directly accessible from SQL

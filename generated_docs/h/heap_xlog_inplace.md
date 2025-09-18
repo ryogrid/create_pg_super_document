@@ -34,13 +34,13 @@ This operation is primarily used for system catalog maintenance and other specia
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_inplace structure from WAL record)
   - XLogReadBufferForRedo (reads and locks target buffer for redo operations)
-  - XLogRecGetBlockData (retrieves the new tuple data from the WAL record)
-  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem (page-level tuple access functions)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (retrieves the new tuple data from the WAL record)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page-level tuple access functions)
   - ItemIdGetLength (retrieves the current tuple length for validation)
   - memcpy (performs the actual data replacement)
-  - PageSetLSN, MarkBufferDirty (page maintenance operations)
+  - [PageSetLSN](../P/PageSetLSN.md), MarkBufferDirty (page maintenance operations)
 - Called from (representative examples):
-  - heap_redo (main heap WAL replay dispatcher)
+  - [heap_redo](heap_redo.md) (main heap WAL replay dispatcher)
 
 ## Notes and Other Information
 - **Length Validation**: Critical safety check ensures old and new tuple data have identical lengths to prevent page corruption

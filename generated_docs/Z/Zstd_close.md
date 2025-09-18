@@ -29,7 +29,7 @@ The function ensures proper resource cleanup by freeing all allocated memory and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ZstdCompressorState
+  - [ZstdCompressorState](ZstdCompressorState.md)
   - ZSTD_compressStream2
   - ZSTD_isError
   - ZSTD_getErrorName
@@ -38,10 +38,10 @@ The function ensures proper resource cleanup by freeing all allocated memory and
   - fwrite
   - fclose
   - strerror
-  - pg_free
+  - [pg_free](../p/pg_free.md)
   - unconstify
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (as part of function pointer assignment)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (as part of function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function within the Zstd compression module

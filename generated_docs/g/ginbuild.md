@@ -29,20 +29,20 @@ The function uses a build accumulator (buildstate.accum) to collect entries duri
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
-  - initGinState
-  - GinNewBuffer
-  - GinInitMetabuffer
-  - GinInitBuffer
-  - ginInitBA
-  - table_index_build_scan
-  - ginBuildCallback
-  - ginBeginBAScan
-  - ginGetBAEntry
-  - ginEntryInsert
-  - ginUpdateStats
-  - log_newpage_range
+  - [initGinState](../i/initGinState.md)
+  - [GinNewBuffer](../G/GinNewBuffer.md)
+  - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
+  - [GinInitBuffer](../G/GinInitBuffer.md)
+  - [ginInitBA](ginInitBA.md)
+  - [table_index_build_scan](../t/table_index_build_scan.md)
+  - [ginBuildCallback](ginBuildCallback.md)
+  - [ginBeginBAScan](ginBeginBAScan.md)
+  - [ginGetBAEntry](ginGetBAEntry.md)
+  - [ginEntryInsert](ginEntryInsert.md)
+  - [ginUpdateStats](ginUpdateStats.md)
+  - [log_newpage_range](../l/log_newpage_range.md)
 - Called from (representative examples):
-  - ginhandler (via access method handler)
+  - [ginhandler](ginhandler.md) (via access method handler)
 
 ## Notes and Other Information
 - The function ensures the index is completely empty before starting the build process

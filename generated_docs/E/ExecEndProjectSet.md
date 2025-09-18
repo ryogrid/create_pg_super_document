@@ -24,10 +24,10 @@ The cleanup is relatively straightforward compared to other node types because:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState
 - Called from (representative examples):
-  - ExecEndNode (as part of plan tree cleanup)
+  - [ExecEndNode](ExecEndNode.md) (as part of plan tree cleanup)
 
 ## Notes and Other Information
 - This is one of the simpler cleanup functions in the executor

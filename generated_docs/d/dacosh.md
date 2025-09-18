@@ -21,8 +21,8 @@ The dacosh function is a PostgreSQL wrapper around the standard C library acosh(
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
   - ereport: Reports PostgreSQL errors
-  - errcode: Sets error code for out of range values
-  - errmsg: Sets error message text
+  - [errcode](../e/errcode.md): Sets error code for out of range values
+  - [errmsg](../e/errmsg.md): Sets error message text
 - Called from (representative examples):
   - No direct references found in the codebase
 

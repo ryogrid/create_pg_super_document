@@ -21,15 +21,15 @@ No parameters - the function reads current system state internally.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadMultiXactCounts
+  - [ReadMultiXactCounts](../R/ReadMultiXactCounts.md)
   - MULTIXACT_MEMBER_SAFE_THRESHOLD
   - MULTIXACT_MEMBER_DANGER_THRESHOLD
   - autovacuum_multixact_freeze_max_age
   - Min
 - Called from (representative examples):
-  - vacuum_get_cutoffs (src/backend/commands/vacuum.c:1136)
-  - do_start_worker (src/backend/postmaster/autovacuum.c:1123)
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:1914)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md) (src/backend/commands/vacuum.c:1136)
+  - [do_start_worker](../d/do_start_worker.md) (src/backend/postmaster/autovacuum.c:1123)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:1914)
   - SizeOfMultiXactTruncate (src/include/access/multixact.h:146)
 
 ## Notes and Other Information

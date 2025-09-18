@@ -32,13 +32,13 @@ The algorithm follows a backward processing approach, working from the end of th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions: Identifies vowel-consonant regions for suffix rules
-  - r_attached_pronoun: Removes pronoun suffixes
-  - r_standard_suffix: Processes standard morphological suffixes
-  - r_y_verb_suffix: Handles Y-ending verb forms
-  - r_verb_suffix: Removes general verb suffixes
-  - r_residual_suffix: Cleans up remaining morphological elements
-  - r_postlude: Performs final character normalization
+  - [r_mark_regions](../r/r_mark_regions.md): Identifies vowel-consonant regions for suffix rules
+  - [r_attached_pronoun](../r/r_attached_pronoun.md): Removes pronoun suffixes
+  - [r_standard_suffix](../r/r_standard_suffix.md): Processes standard morphological suffixes
+  - [r_y_verb_suffix](../r/r_y_verb_suffix.md): Handles Y-ending verb forms
+  - [r_verb_suffix](../r/r_verb_suffix.md): Removes general verb suffixes
+  - [r_residual_suffix](../r/r_residual_suffix.md): Cleans up remaining morphological elements
+  - [r_postlude](../r/r_postlude.md): Performs final character normalization
 - Called from (representative examples):
   - No direct references found (likely called via function pointer or external interface)
 

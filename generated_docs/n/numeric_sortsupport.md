@@ -26,13 +26,13 @@ The implementation includes adaptive abortion logic - if the abbreviation cardin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numeric_fast_cmp (primary comparator)
+  - [numeric_fast_cmp](numeric_fast_cmp.md) (primary comparator)
   - numeric_cmp_abbrev (abbreviated comparator)
-  - numeric_abbrev_convert (abbreviation converter)
-  - numeric_abbrev_abort (abbreviation abort handler)
+  - [numeric_abbrev_convert](numeric_abbrev_convert.md) (abbreviation converter)
+  - [numeric_abbrev_abort](numeric_abbrev_abort.md) (abbreviation abort handler)
   - initHyperLogLog (for cardinality estimation)
-  - palloc (memory allocation)
-  - MemoryContextSwitchTo (memory context management)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
 - Called from (representative examples):
   - PostgreSQL's sort support infrastructure (via function pointer)
 

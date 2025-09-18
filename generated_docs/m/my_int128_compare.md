@@ -20,7 +20,7 @@ This function provides a simple three-way comparison for 128-bit integers. It se
 - Functions called/Symbols referenced:
   - (None - uses only built-in comparison operators)
 - Called from (representative examples):
-  - main (in src/tools/testint128.c at lines 143, 147, 157, 161)
+  - [main](main.md) (in src/tools/testint128.c at lines 143, 147, 157, 161)
 
 ## Notes and Other Information
 - This is a static inline function defined in the testint128.c test utility

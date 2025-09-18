@@ -27,16 +27,16 @@ The function also includes sophisticated error context handling, allowing it to 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TRANSACTION (constructs transaction-specific lock tag)
-  - LockAcquire/LockRelease (acquires and releases ShareLock on transaction)
+  - [LockAcquire](../L/LockAcquire.md)/LockRelease (acquires and releases ShareLock on transaction)
   - TransactionIdIsInProgress (checks if transaction is still running)
-  - SubTransGetTopmostTransaction (finds the topmost parent transaction)
-  - GetTopTransactionIdIfAny (gets current transaction's XID for comparison)
-  - XactLockTableWaitErrorCb (error context callback function)
-  - pg_usleep (sleep function for retry logic)
+  - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (finds the topmost parent transaction)
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md) (gets current transaction's XID for comparison)
+  - [XactLockTableWaitErrorCb](XactLockTableWaitErrorCb.md) (error context callback function)
+  - [pg_usleep](../p/pg_usleep.md) (sleep function for retry logic)
 - Called from (representative examples):
-  - heap_delete, heap_update, heap_lock_tuple (heap access methods)
-  - _bt_doinsert (B-tree index operations)
-  - check_exclusion_or_unique_constraint (constraint checking)
+  - [heap_delete](../h/heap_delete.md), heap_update, heap_lock_tuple (heap access methods)
+  - [_bt_doinsert](../b/_bt_doinsert.md) (B-tree index operations)
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md) (constraint checking)
   - SnapBuildWaitSnapshot (logical replication)
 
 ## Notes and Other Information

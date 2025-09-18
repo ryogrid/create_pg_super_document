@@ -20,16 +20,16 @@ ThrowErrorData provides a mechanism to re-report errors using information from a
 ## Dependencies
 - Functions called/Symbols referenced:
   - ErrorData (structure type)
-  - errstart (error reporting initiation)
-  - errfinish (error reporting completion)
-  - pstrdup (string duplication)
-  - MemoryContextSwitchTo (memory context management)
+  - [errstart](../e/errstart.md) (error reporting initiation)
+  - [errfinish](../e/errfinish.md) (error reporting completion)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
   - errordata (global array)
   - errordata_stack_depth (global variable)
   - recursion_depth (global variable)
 
 - Called from (representative examples):
-  - HandleParallelMessage
+  - [HandleParallelMessage](../H/HandleParallelMessage.md)
 
 ## Notes and Other Information
 - Supports all error levels, not just ERROR like ReThrowError

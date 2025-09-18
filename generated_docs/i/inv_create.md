@@ -17,22 +17,22 @@ This function creates a new large object in the PostgreSQL system with initially
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LargeObjectCreate (creates the actual large object metadata)
-  - recordDependencyOnOwner (establishes ownership dependency)
-  - GetUserId (retrieves current user ID for ownership)
+  - [LargeObjectCreate](../L/LargeObjectCreate.md) (creates the actual large object metadata)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md) (establishes ownership dependency)
+  - [GetUserId](../G/GetUserId.md) (retrieves current user ID for ownership)
   - InvokeObjectPostCreateHook (triggers post-creation hooks)
   - CommandCounterIncrement (makes new object visible)
 - Called from (representative examples):
-  - be_lo_creat
-  - be_lo_create
-  - lo_import_internal
-  - be_lo_from_bytea
+  - [be_lo_creat](../b/be_lo_creat.md)
+  - [be_lo_create](../b/be_lo_create.md)
+  - [lo_import_internal](../l/lo_import_internal.md)
+  - [be_lo_from_bytea](../b/be_lo_from_bytea.md)
 
 ## Notes and Other Information
 - Returns the OID of the newly created large object
 - Raises an error if a specific lobjId is requested but already exists
 - Uses LargeObjectRelationId for dependency tracking (not LargeObjectMetadataRelationId) for backward compatibility
 - Post-creation hooks allow extensions to perform additional processing
-- Command counter increment ensures immediate visibility within the transaction
+- [Command](../C/Command.md) counter increment ensures immediate visibility within the transaction
 - Part of the public large object API (not static)
 - Integrates with PostgreSQL's dependency tracking system for proper cleanup

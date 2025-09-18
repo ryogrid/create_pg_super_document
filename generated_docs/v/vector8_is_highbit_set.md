@@ -25,12 +25,12 @@ This function is commonly used for ASCII validation and character encoding detec
   - Vector8 (type)
   - _mm_movemask_epi8 (SSE2 intrinsic)
   - vmaxvq_u8 (NEON intrinsic)
-  - vector8_broadcast (fallback implementation)
+  - [vector8_broadcast](vector8_broadcast.md) (fallback implementation)
   - USE_SSE2, USE_NEON (preprocessor conditions)
 - Called from (representative examples):
-  - vector8_has
-  - vector32_is_highbit_set
-  - is_valid_ascii
+  - [vector8_has](vector8_has.md)
+  - [vector32_is_highbit_set](vector32_is_highbit_set.md)
+  - [is_valid_ascii](../i/is_valid_ascii.md)
 
 ## Notes and Other Information
 - Implemented as a static inline function for performance optimization

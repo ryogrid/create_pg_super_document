@@ -18,23 +18,23 @@ GetSubscription retrieves a subscription record by its OID from the PostgreSQL s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (extract form data from tuple)
-  - palloc (memory allocation)
-  - pstrdup (string duplication)
-  - SysCacheGetAttrNotNull (get non-null attributes)
-  - SysCacheGetAttr (get potentially null attributes)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (get non-null attributes)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (get potentially null attributes)
   - TextDatumGetCString (convert text datum to C string)
-  - DatumGetName (extract name from datum)
-  - textarray_to_stringlist (convert text array to string list)
+  - [DatumGetName](../D/DatumGetName.md) (extract name from datum)
+  - [textarray_to_stringlist](../t/textarray_to_stringlist.md) (convert text array to string list)
   - DatumGetArrayTypeP (convert datum to array type)
   - superuser_arg (check if user is superuser)
-  - ReleaseSysCache (release cache entry)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache entry)
 - Called from (representative examples):
-  - AlterSubscription (subscription management)
-  - maybe_reread_subscription (logical replication worker)
-  - InitializeLogRepWorker (logical replication initialization)
+  - [AlterSubscription](../A/AlterSubscription.md) (subscription management)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (logical replication worker)
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md) (logical replication initialization)
 
 ## Notes and Other Information
 - Uses PostgreSQL's system cache (syscache) for efficient repeated access to subscription data

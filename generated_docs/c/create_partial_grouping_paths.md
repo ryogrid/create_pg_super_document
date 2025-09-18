@@ -31,17 +31,17 @@ The function intelligently determines whether partial aggregation is beneficial 
 ## Dependencies
 - Functions called/Symbols referenced:
   - fetch_upper_rel
-  - make_partial_grouping_target
-  - get_agg_clause_costs
-  - get_number_of_groups
-  - get_useful_group_keys_orderings
-  - make_ordered_path
-  - create_agg_path
-  - create_group_path
-  - add_path
-  - add_partial_path
+  - [make_partial_grouping_target](../m/make_partial_grouping_target.md)
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
+  - [get_number_of_groups](../g/get_number_of_groups.md)
+  - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md)
+  - [make_ordered_path](../m/make_ordered_path.md)
+  - [create_agg_path](create_agg_path.md)
+  - [create_group_path](create_group_path.md)
+  - [add_path](../a/add_path.md)
+  - [add_partial_path](../a/add_partial_path.md)
 - Called from (representative examples):
-  - create_ordinary_grouping_paths
+  - [create_ordinary_grouping_paths](create_ordinary_grouping_paths.md)
   - standard_qp_extra
 
 ## Notes and Other Information

@@ -29,16 +29,16 @@ Key behaviors include:
 - Functions called/Symbols referenced:
   - table_open/table_close (catalog table access with locking)
   - SearchSysCacheCopy1 (lookup existing schema by name)
-  - get_namespace_oid (check for name conflicts)
-  - object_ownercheck (verify schema ownership)
-  - object_aclcheck (check CREATE privilege on database)
-  - IsReservedName (validate against system reserved names)
+  - [get_namespace_oid](../g/get_namespace_oid.md) (check for name conflicts)
+  - [object_ownercheck](../o/object_ownercheck.md) (verify schema ownership)
+  - [object_aclcheck](../o/object_aclcheck.md) (check CREATE privilege on database)
+  - [IsReservedName](../I/IsReservedName.md) (validate against system reserved names)
   - namestrcpy (update schema name in catalog tuple)
-  - CatalogTupleUpdate (persist changes to catalog)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (persist changes to catalog)
   - InvokeObjectPostAlterHook (trigger post-alter hooks)
-  - heap_freetuple (cleanup allocated tuple memory)
+  - [heap_freetuple](../h/heap_freetuple.md) (cleanup allocated tuple memory)
 - Called from (representative examples):
-  - ExecRenameStmt (general rename statement execution)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (general rename statement execution)
 
 ## Notes and Other Information
 - Returns ObjectAddress identifying the renamed schema

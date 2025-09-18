@@ -25,11 +25,11 @@ This function is primarily used in test code to provide meaningful output when d
   - ECPG_INFORMIX_BAD_DAY
   - ECPG_INFORMIX_BAD_MONTH
 - Called from (representative examples):
-  - ECPGdebug
-  - date_test_strdate
-  - date_test_defmt
-  - date_test_fmt
-  - fmtlong
+  - [ECPGdebug](../E/ECPGdebug.md)
+  - [date_test_strdate](../d/date_test_strdate.md)
+  - [date_test_defmt](../d/date_test_defmt.md)
+  - [date_test_fmt](../d/date_test_fmt.md)
+  - [fmtlong](../f/fmtlong.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within its compilation unit

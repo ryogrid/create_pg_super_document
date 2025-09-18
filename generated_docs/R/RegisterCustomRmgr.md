@@ -22,7 +22,7 @@ The function validates the resource manager name, ensures the ID is in the custo
 - Functions called/Symbols referenced:
   - RmgrId
   - RmgrData
-  - RmgrIdIsCustom
+  - [RmgrIdIsCustom](RmgrIdIsCustom.md)
   - RM_MIN_CUSTOM_ID
   - RM_MAX_CUSTOM_ID
   - RM_MAX_ID
@@ -30,9 +30,9 @@ The function validates the resource manager name, ensures the ID is in the custo
   - RmgrTable
   - ereport
   - process_shared_preload_libraries_in_progress
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
 - Called from (representative examples):
-  - _PG_init (in extension modules)
+  - [_PG_init](../P/_PG_init.md) (in extension modules)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/rmgr.c:107-149

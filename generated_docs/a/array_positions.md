@@ -26,14 +26,14 @@ Like , it uses cached type information (ArrayMetaState) for efficiency across mu
   - PG_GET_COLLATION
   - PG_GETARG_ARRAYTYPE_P
   - ARR_NDIM, ARR_ELEMTYPE, ARR_LBOUND
-  - array_contains_nulls
-  - initArrayResult, accumArrayResult, makeArrayResult
-  - MemoryContextAlloc
-  - get_typlenbyvalalign
-  - lookup_type_cache
-  - fmgr_info_cxt
-  - array_create_iterator, array_iterate, array_free_iterator
-  - FunctionCall2Coll
+  - [array_contains_nulls](array_contains_nulls.md)
+  - [initArrayResult](../i/initArrayResult.md), accumArrayResult, makeArrayResult
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [array_create_iterator](array_create_iterator.md), array_iterate, array_free_iterator
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
   - SQL function  (through function catalog)
 

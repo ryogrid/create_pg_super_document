@@ -40,7 +40,7 @@ The aliasing system allows dictionaries to reference complex flag combinations t
 ## Notes and Other Information
 - Index 0 intentionally returns VoidString as it represents an empty flag set
 - The AffixData array includes an empty string at index 0, explaining the bounds checking logic
-- Alias indices are 1-based to match Hunspell dictionary format conventions
+- [Alias](../A/Alias.md) indices are 1-based to match Hunspell dictionary format conventions
 - Error handling includes validation for both parsing failures and range violations
 - Part of PostgreSQL's Hunspell-compatible spell checking implementation
 - Enables efficient storage of complex flag combinations in dictionary files

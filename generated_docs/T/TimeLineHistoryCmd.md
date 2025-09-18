@@ -26,8 +26,8 @@ TimeLineHistoryCmd represents the TIMELINE_HISTORY command in PostgreSQL's strea
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - SendTimeLineHistory (src/backend/replication/walsender.c:593)
-  - exec_replication_command (src/backend/replication/walsender.c:2173)
+  - [SendTimeLineHistory](../S/SendTimeLineHistory.md) (src/backend/replication/walsender.c:593)
+  - [exec_replication_command](../e/exec_replication_command.md) (src/backend/replication/walsender.c:2173)
 
 ## Notes and Other Information
 - Timeline history is essential for understanding how WAL segments relate across timeline switches

@@ -20,7 +20,7 @@ This function provides a way to convert JSON string data to a TSVector while exp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_to_tsvector_worker
+  - [json_to_tsvector_worker](json_to_tsvector_worker.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_P
   - PG_FREE_IF_COPY

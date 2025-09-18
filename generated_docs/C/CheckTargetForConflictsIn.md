@@ -30,18 +30,18 @@ The conflict detection logic ensures that:
 - Functions called/Symbols referenced:
   - PredicateLockTargetTagHashCode
   - PredicateLockHashPartitionLock
-  - hash_search_with_hash_value
-  - IsSubTransaction
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [IsSubTransaction](../I/IsSubTransaction.md)
   - SxactIsDoomed
   - SxactIsCommitted
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - GetTransactionSnapshot
-  - RWConflictExists
-  - FlagRWConflict
-  - RemoveTargetIfNoLongerUsed
-  - DecrementParentLocks
+  - [RWConflictExists](../R/RWConflictExists.md)
+  - [FlagRWConflict](../F/FlagRWConflict.md)
+  - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
+  - [DecrementParentLocks](../D/DecrementParentLocks.md)
 - Called from (representative examples):
-  - CheckForSerializableConflictIn
+  - [CheckForSerializableConflictIn](CheckForSerializableConflictIn.md)
 
 ## Notes and Other Information
 - This is a static function internal to predicate.c, part of PostgreSQL's serializable snapshot isolation implementation

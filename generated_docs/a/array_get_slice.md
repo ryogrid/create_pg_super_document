@@ -40,17 +40,17 @@ The `array_get_slice` function creates a new array containing a specified slice 
   - `DatumGetArrayTypeP`: Converts datum to ArrayType pointer
   - `ARR_NDIM`, `ARR_DIMS`, `ARR_LBOUND`, `ARR_ELEMTYPE`: Array metadata accessors
   - `ARR_DATA_PTR`, `ARR_NULLBITMAP`: Array data accessors
-  - `construct_empty_array`: Creates empty array for invalid slices
-  - `mda_get_range`: Calculates span dimensions from bounds
-  - `array_slice_size`: Calculates required memory for slice data
+  - `[construct_empty_array](../c/construct_empty_array.md)`: Creates empty array for invalid slices
+  - `[mda_get_range](../m/mda_get_range.md)`: Calculates span dimensions from bounds
+  - `[array_slice_size](array_slice_size.md)`: Calculates required memory for slice data
   - `ArrayGetNItems`: Calculates total number of items
   - `ARR_OVERHEAD_WITHNULLS`, `ARR_OVERHEAD_NONULLS`: Array header size calculations
-  - `array_extract_slice`: Extracts actual slice data into new array
+  - `[array_extract_slice](array_extract_slice.md)`: Extracts actual slice data into new array
   - `SET_VARSIZE`: Sets variable-length header size
 - Called from (representative examples):
-  - `array_subscript_fetch_slice`: Array slice subscripting operations
-  - `trim_array`: Array trimming operations
-  - `array_subscript_fetch_old_slice`: Legacy slice operations
+  - `[array_subscript_fetch_slice](array_subscript_fetch_slice.md)`: Array slice subscripting operations
+  - `[trim_array](../t/trim_array.md)`: Array trimming operations
+  - `[array_subscript_fetch_old_slice](array_subscript_fetch_old_slice.md)`: Legacy slice operations
 
 ## Notes and Other Information
 - Always returns a valid Datum (never NULL), creating empty arrays for invalid ranges

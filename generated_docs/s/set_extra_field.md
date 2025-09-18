@@ -22,13 +22,13 @@ This function is part of the internal GUC infrastructure that manages additional
 ## Dependencies
 - Functions called/Symbols referenced:
   - config_generic (structure type)
-  - extra_field_used (checks if old value is still referenced)
-  - guc_free (frees memory allocated for old extra data)
+  - [extra_field_used](../e/extra_field_used.md) (checks if old value is still referenced)
+  - [guc_free](../g/guc_free.md) (frees memory allocated for old extra data)
 - Called from (representative examples):
-  - set_stack_value
-  - discard_stack_value
-  - ResetAllOptions
-  - AtEOXact_GUC
+  - [set_stack_value](set_stack_value.md)
+  - [discard_stack_value](../d/discard_stack_value.md)
+  - [ResetAllOptions](../R/ResetAllOptions.md)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
   - newval (in configuration validation and assignment contexts)
 
 ## Notes and Other Information

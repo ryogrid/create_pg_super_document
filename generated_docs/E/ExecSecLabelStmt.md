@@ -35,17 +35,17 @@ The function maintains proper resource management by closing relations opened du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SecLabelSupportsObjectType
-  - get_object_address
-  - check_object_ownership
-  - SetSecurityLabel
-  - relation_close
-  - GetUserId
+  - [SecLabelSupportsObjectType](../S/SecLabelSupportsObjectType.md)
+  - [get_object_address](../g/get_object_address.md)
+  - [check_object_ownership](../c/check_object_ownership.md)
+  - [SetSecurityLabel](../S/SetSecurityLabel.md)
+  - [relation_close](../r/relation_close.md)
+  - [GetUserId](../G/GetUserId.md)
   - RelationGetRelationName
-  - errdetail_relkind_not_supported
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
-  - ProcessUtilitySlow
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Returns an ObjectAddress representing the object to which the security label was applied

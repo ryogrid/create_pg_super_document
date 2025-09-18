@@ -28,17 +28,17 @@ The query uses case-insensitive comparison to match GUC variable names, making i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (structure for building SQL queries)
-  - escape_string (for SQL injection protection)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (structure for building SQL queries)
+  - [escape_string](../e/escape_string.md) (for SQL injection protection)
   - initPQExpBuffer (initialize query buffer)
-  - appendPQExpBuffer (build SQL query)
-  - exec_query (execute the query safely)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (build SQL query)
+  - [exec_query](../e/exec_query.md) (execute the query safely)
   - termPQExpBuffer (cleanup query buffer)
   - PGRES_TUPLES_OK (constant for successful query result)
-  - PQntuples (check number of result rows)
-  - pg_strdup (duplicate result string)
-  - PQgetvalue (extract result value)
-  - PQclear (cleanup result set)
+  - [PQntuples](../P/PQntuples.md) (check number of result rows)
+  - [pg_strdup](../p/pg_strdup.md) (duplicate result string)
+  - [PQgetvalue](../P/PQgetvalue.md) (extract result value)
+  - [PQclear](../P/PQclear.md) (cleanup result set)
 - Called from (representative examples):
   - THING_NO_SHOW (completion handling)
   - HeadMatchesCS (case-sensitive header matching for GUC completion)

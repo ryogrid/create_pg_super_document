@@ -33,13 +33,13 @@ This information is gathered by walking the expression tree with `expr_setup_wal
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (type)
-  - List (type)
+  - [List](../L/List.md) (type)
 - Called from (representative examples):
-  - ExecCreateExprSetupSteps
-  - ExecPushExprSetupSteps
-  - expr_setup_walker
-  - ExecBuildUpdateProjection
-  - ExecBuildAggTrans
+  - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md)
+  - [ExecPushExprSetupSteps](ExecPushExprSetupSteps.md)
+  - [expr_setup_walker](../e/expr_setup_walker.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
+  - [ExecBuildAggTrans](ExecBuildAggTrans.md)
 
 ## Notes and Other Information
 - The structure is typically initialized with zero values: `{0, 0, 0, NIL}`

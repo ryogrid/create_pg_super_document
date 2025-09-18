@@ -22,7 +22,7 @@ The  structure encapsulates all the essential database connection parameters tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - trivalue (enum type)
+  - [trivalue](../t/trivalue.md) (enum type)
 - Called from (representative examples):
   - Used as typedef ConnParams throughout the codebase
 

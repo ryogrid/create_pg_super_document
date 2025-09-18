@@ -22,13 +22,13 @@ This function is part of PostgreSQL's hierarchical locking system and is used ex
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TUPLE (macro to construct tuple-specific lock tag)
-  - ItemPointerGetBlockNumber (extracts block number from ItemPointer)
-  - ItemPointerGetOffsetNumber (extracts offset number from ItemPointer)
-  - LockRelease (performs the actual lock release operation)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (extracts block number from ItemPointer)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md) (extracts offset number from ItemPointer)
+  - [LockRelease](../L/LockRelease.md) (performs the actual lock release operation)
 - Called from (representative examples):
   - UnlockTupleTuplock (heap access method)
-  - heap_inplace_lock/heap_inplace_unlock (heap tuple operations)
-  - ExecUpdate/ExecMergeMatched (executor for UPDATE/MERGE operations)
+  - [heap_inplace_lock](../h/heap_inplace_lock.md)/heap_inplace_unlock (heap tuple operations)
+  - [ExecUpdate](../E/ExecUpdate.md)/ExecMergeMatched (executor for UPDATE/MERGE operations)
   - Various DDL operations (ALTER TABLE, RENAME, etc.)
 
 ## Notes and Other Information

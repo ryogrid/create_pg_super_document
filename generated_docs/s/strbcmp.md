@@ -29,7 +29,7 @@ This backward comparison is particularly useful for suffix-based affix operation
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
 - Called from:
-  - cmpaffix (src/backend/tsearch/spell.c:323) - for comparing suffix affixes
+  - [cmpaffix](../c/cmpaffix.md) (src/backend/tsearch/spell.c:323) - for comparing suffix affixes
 
 ## Notes and Other Information
 - This is a static function, accessible only within the spell.c compilation unit

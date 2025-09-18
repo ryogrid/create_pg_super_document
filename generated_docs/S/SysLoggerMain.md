@@ -27,13 +27,13 @@ The function operates differently on Windows vs Unix-like systems, using threads
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - syslogger_fdopen (re-opens log files from passed descriptors)
-  - process_pipe_input (processes incoming log data)
-  - logfile_rotate (handles log file rotation)
-  - set_next_rotation_time (calculates next rotation time)
-  - update_metainfo_datafile (updates metadata file)
-  - CreateWaitEventSet/WaitEventSetWait (event loop management)
-  - SignalHandlerForConfigReload/sigUsr1Handler (signal handling)
+  - [syslogger_fdopen](../s/syslogger_fdopen.md) (re-opens log files from passed descriptors)
+  - [process_pipe_input](../p/process_pipe_input.md) (processes incoming log data)
+  - [logfile_rotate](../l/logfile_rotate.md) (handles log file rotation)
+  - [set_next_rotation_time](../s/set_next_rotation_time.md) (calculates next rotation time)
+  - [update_metainfo_datafile](../u/update_metainfo_datafile.md) (updates metadata file)
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)/WaitEventSetWait (event loop management)
+  - [SignalHandlerForConfigReload](SignalHandlerForConfigReload.md)/sigUsr1Handler (signal handling)
 - Called from (representative examples):
   - child_process_kind (process launch infrastructure)
   - Referenced in syslogger.h (header declarations)

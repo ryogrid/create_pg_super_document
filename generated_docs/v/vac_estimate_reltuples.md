@@ -32,7 +32,7 @@ For the normal case, it calculates the old tuple density (tuples per page), appl
 - Functions called/Symbols referenced:
   - floor (standard library function)
 - Called from (representative examples):
-  - lazy_scan_heap (src/backend/access/heap/vacuumlazy.c:1035)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md) (src/backend/access/heap/vacuumlazy.c:1035)
 
 ## Notes and Other Information
 - Returns estimated total number of live tuples as a double value

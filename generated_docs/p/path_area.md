@@ -25,12 +25,12 @@ The shoelace formula implementation:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P (retrieves PATH argument)
-  - float8_pl, float8_mi, float8_mul, float8_div (floating-point arithmetic)
+  - [float8_pl](../f/float8_pl.md), float8_mi, float8_mul, float8_div (floating-point arithmetic)
   - fabs (absolute value)
   - PG_RETURN_NULL (returns NULL result)
   - PG_RETURN_FLOAT8 (returns float8 result)
 - Types used:
-  - PATH (geometric path type with npts, closed flag, and point array)
+  - [PATH](../P/PATH.md) (geometric path type with npts, closed flag, and point array)
   - float8 (double precision floating-point)
   - Datum (PostgreSQL data type)
 - Called from:

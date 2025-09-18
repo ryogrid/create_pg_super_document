@@ -30,10 +30,10 @@ The function handles different query strategies appropriately: containment queri
   - PG_GETARG_DATUM
   - PG_GETARG_JSONPATH_P
   - DirectFunctionCall2
-  - gin_extract_jsonb_path
-  - extract_jsp_query
-  - DatumGetPointer
-  - PointerGetDatum
+  - [gin_extract_jsonb_path](gin_extract_jsonb_path.md)
+  - [extract_jsp_query](../e/extract_jsp_query.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - elog
   - PG_RETURN_POINTER
 - Strategy constants:

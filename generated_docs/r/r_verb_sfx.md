@@ -25,13 +25,13 @@ The pre-filtering optimization (using bit pattern 282896) helps avoid expensive 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_RV: Checks if current position is within RV (vowel) region
-  - r_R1: Checks if current position is within R1 region
-  - find_among_b: Searches backwards for matching verb suffix patterns
-  - slice_del: Deletes the identified suffix from the word
+  - [r_RV](r_RV.md): Checks if current position is within RV (vowel) region
+  - [r_R1](r_R1.md): Checks if current position is within R1 region
+  - [find_among_b](../f/find_among_b.md): Searches backwards for matching verb suffix patterns
+  - [slice_del](../s/slice_del.md): Deletes the identified suffix from the word
 - Called from (representative examples):
-  - irish_ISO_8859_1_stem: Main stemming function for ISO-8859-1 encoded Irish text
-  - irish_UTF_8_stem: Main stemming function for UTF-8 encoded Irish text
+  - [irish_ISO_8859_1_stem](../i/irish_ISO_8859_1_stem.md): Main stemming function for ISO-8859-1 encoded Irish text
+  - [irish_UTF_8_stem](../i/irish_UTF_8_stem.md): Main stemming function for UTF-8 encoded Irish text
 
 ## Notes and Other Information
 - The function uses lookup table 'a_3' containing 12 different Irish verb suffix patterns

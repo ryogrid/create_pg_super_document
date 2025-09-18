@@ -24,11 +24,11 @@ The tuple locking system allows PostgreSQL to implement fine-grained concurrency
 - Functions called/Symbols referenced:
   - (None - this is an enum type definition)
 - Called from (representative examples):
-  - heap_lock_tuple (src/backend/access/heap/heapam.c:4534)
-  - heap_update (src/backend/access/heap/heapam.c:3202)
-  - ExecLockRows (src/backend/executor/nodeLockRows.c:83)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (src/backend/access/heap/heapam.c:4534)
+  - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3202)
+  - [ExecLockRows](../E/ExecLockRows.md) (src/backend/executor/nodeLockRows.c:83)
   - table_tuple_lock (src/include/access/tableam.h:1582)
-  - heapam_tuple_update (src/backend/access/heap/heapam_handler.c:318)
+  - [heapam_tuple_update](../h/heapam_tuple_update.md) (src/backend/access/heap/heapam_handler.c:318)
 
 ## Notes and Other Information
 - The locking modes form a strict hierarchy where stronger locks conflict with more operations than weaker ones

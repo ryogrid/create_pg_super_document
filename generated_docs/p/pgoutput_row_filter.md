@@ -21,24 +21,24 @@ This function implements sophisticated row filtering logic for logical replicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_name
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
   - RelationGetRelationName
   - ResetPerTupleExprContext
   - GetPerTupleExprContext
-  - pgoutput_row_filter_exec_expr
+  - [pgoutput_row_filter_exec_expr](pgoutput_row_filter_exec_expr.md)
   - slot_getallattrs
   - RelationGetDescr
   - TupleDescAttr
-  - MakeSingleTupleTableSlot
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - VARATT_IS_EXTERNAL_ONDISK
   - TTSOpsVirtual
   - PUBACTION_INSERT/UPDATE/DELETE constants
   - REORDER_BUFFER_CHANGE_INSERT/UPDATE/DELETE constants
 - Called from (representative examples):
-  - pgoutput_change
+  - [pgoutput_change](pgoutput_change.md)
 
 ## Notes and Other Information
 - Returns true if the change should be replicated, false if it should be dropped

@@ -23,23 +23,23 @@ The  function serves as a control flow manager in JSONPath execution. It determi
 ## Dependencies
 - Functions called/Symbols referenced:
   - jspHasNext
-  - jspGetNext
-  - executeItem
-  - JsonValueListAppend
-  - copyJsonbValue
+  - [jspGetNext](../j/jspGetNext.md)
+  - [executeItem](executeItem.md)
+  - [JsonValueListAppend](../J/JsonValueListAppend.md)
+  - [copyJsonbValue](../c/copyJsonbValue.md)
   - jperOk (enum value)
-  - JsonPathExecContext (type)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (type)
   - JsonPathItem (type)
-  - JsonValueList (type)
-  - JsonPathExecResult (return type)
+  - [JsonValueList](../J/JsonValueList.md) (type)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (return type)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget
-  - executeBinaryArithmExpr
-  - executeUnaryArithmExpr
-  - executeNumericItemMethod
-  - executeDateTimeMethod
-  - executeKeyValueMethod
-  - appendBoolResult
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)
+  - [executeBinaryArithmExpr](executeBinaryArithmExpr.md)
+  - [executeUnaryArithmExpr](executeUnaryArithmExpr.md)
+  - [executeNumericItemMethod](executeNumericItemMethod.md)
+  - [executeDateTimeMethod](executeDateTimeMethod.md)
+  - [executeKeyValueMethod](executeKeyValueMethod.md)
+  - [appendBoolResult](../a/appendBoolResult.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c

@@ -26,10 +26,10 @@ This suffix is used to create version-specific subdirectories within tablespace 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf
+  - [psprintf](../p/psprintf.md)
 - Called from (representative examples):
-  - init_tablespaces (src/bin/pg_upgrade/tablespace.c:23)
-  - init_tablespaces (src/bin/pg_upgrade/tablespace.c:24)
+  - [init_tablespaces](../i/init_tablespaces.md) (src/bin/pg_upgrade/tablespace.c:23)
+  - [init_tablespaces](../i/init_tablespaces.md) (src/bin/pg_upgrade/tablespace.c:24)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tablespace.c compilation unit

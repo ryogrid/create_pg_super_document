@@ -28,8 +28,8 @@ This dual behavior ensures robust error detection during development while maint
   - fmtIdEncoding (static variable access)
   - Assert (macro for debug builds)
 - Called from (representative examples):
-  - fmtId (string_utils.c:250)
-  - fmtQualifiedId (string_utils.c:298)
+  - [fmtId](../f/fmtId.md) (string_utils.c:250)
+  - [fmtQualifiedId](../f/fmtQualifiedId.md) (string_utils.c:298)
 
 ## Notes and Other Information
 - Returns the value set by setFmtEncoding(), or PG_UTF8 as fallback

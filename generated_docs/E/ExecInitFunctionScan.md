@@ -40,23 +40,23 @@ The function handles various complexity levels from simple single-function scans
 - Functions called/Symbols referenced:
   - makeNode
   - ExecAssignExprContext
-  - ExecInitTableFunctionResult
-  - BuildDescFromLists
-  - BlessTupleDesc
-  - get_expr_result_type
-  - CreateTupleDescCopy
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
-  - TupleDescInitEntryCollation
-  - ExecInitExtraTupleSlot
-  - TupleDescCopyEntry
-  - ExecInitScanTupleSlot
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfo
-  - ExecInitQual
+  - [ExecInitTableFunctionResult](ExecInitTableFunctionResult.md)
+  - [BuildDescFromLists](../B/BuildDescFromLists.md)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
+  - [get_expr_result_type](../g/get_expr_result_type.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md)
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md)
+  - [TupleDescCopyEntry](../T/TupleDescCopyEntry.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
+  - [ExecInitQual](ExecInitQual.md)
   - AllocSetContextCreate
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - Supports both simple (single function) and complex (multiple functions/ordinality) scan modes

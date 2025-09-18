@@ -36,15 +36,15 @@ For example, a query like "WHERE network_col <<= '192.168.1.0/24'" becomes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro for Const nodes)
-  - get_opfamily_member (lookup operators by strategy number)
-  - network_scan_first (get first address in network range)
-  - network_scan_last (get last address in network range)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (lookup operators by strategy number)
+  - [network_scan_first](../n/network_scan_first.md) (get first address in network range)
+  - [network_scan_last](../n/network_scan_last.md) (get last address in network range)
   - make_opclause (create operator expression nodes)
-  - makeConst (create constant expression nodes)
+  - [makeConst](makeConst.md) (create constant expression nodes)
   - list_make1, lappend (list construction functions)
   - elog (error logging)
 - Called from (representative examples):
-  - match_network_function (network function dispatcher)
+  - [match_network_function](match_network_function.md) (network function dispatcher)
 
 ## Notes and Other Information
 - This is a static helper function, not directly callable from outside the module

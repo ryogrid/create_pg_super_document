@@ -26,14 +26,14 @@ The function handles both compressed and uncompressed external data, properly se
   - SET_VARSIZE_COMPRESSED
   - SET_VARSIZE
   - table_open
-  - table_relation_fetch_toast_slice
+  - [table_relation_fetch_toast_slice](table_relation_fetch_toast_slice.md)
   - table_close
-  - palloc
+  - [palloc](../p/palloc.md)
   - elog
 - Called from:
-  - detoast_external_attr
-  - detoast_attr
-  - detoast_attr_slice
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [detoast_attr](../d/detoast_attr.md)
+  - [detoast_attr_slice](../d/detoast_attr_slice.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the detoast.c compilation unit

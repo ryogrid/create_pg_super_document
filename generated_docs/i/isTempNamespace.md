@@ -23,13 +23,13 @@ The function first validates that myTempNamespace is a valid OID using OidIsVali
   - myTempNamespace: Global variable storing the current session's temporary namespace OID
 
 - Called from (representative examples):
-  - pg_namespace_aclmask_ext: For access control checks on namespaces
-  - RemoveObjects: When dropping objects to handle temporary namespace special cases
-  - EventTriggerSQLDropAddObject: For event trigger processing with temporary objects
-  - CreateExtensionInternal: During extension creation to handle temporary namespace contexts
-  - ReindexMultipleTables: When reindexing to handle temporary tables differently
-  - ExecCheckXactReadOnly: For transaction read-only checks involving temporary objects
-  - get_namespace_name_or_temp: When retrieving namespace names with special temporary handling
+  - [pg_namespace_aclmask_ext](../p/pg_namespace_aclmask_ext.md): For access control checks on namespaces
+  - [RemoveObjects](../R/RemoveObjects.md): When dropping objects to handle temporary namespace special cases
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md): For event trigger processing with temporary objects
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md): During extension creation to handle temporary namespace contexts
+  - [ReindexMultipleTables](../R/ReindexMultipleTables.md): When reindexing to handle temporary tables differently
+  - [ExecCheckXactReadOnly](../E/ExecCheckXactReadOnly.md): For transaction read-only checks involving temporary objects
+  - [get_namespace_name_or_temp](../g/get_namespace_name_or_temp.md): When retrieving namespace names with special temporary handling
   - RangeVarGetRelid: During relation name resolution involving temporary objects
 
 ## Notes and Other Information

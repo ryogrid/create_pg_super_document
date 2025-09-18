@@ -28,14 +28,14 @@ The approach deliberately avoids de-duplication of outer aggregate references, c
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject: Creates a deep copy of the GroupingFunc
-  - IncrementVarSublevelsUp: Adjusts variable level references in the copied GroupingFunc
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md): Adjusts variable level references in the copied GroupingFunc
   - makeNode: Creates new PlannerParamItem and Param nodes
   - lappend_oid: Appends parameter type to the global parameter types list
   - lappend: Adds the parameter item to the plan parameters list
   - exprType: Determines the data type of the GroupingFunc expression
 
 - Called from (representative examples):
-  - replace_correlation_vars_mutator: Used during correlation variable replacement in subquery planning
+  - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md): Used during correlation variable replacement in subquery planning
 
 ## Notes and Other Information
 - The function asserts that agglevelsup > 0 and agglevelsup < root->query_level to ensure valid outer reference

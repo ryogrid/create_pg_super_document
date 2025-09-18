@@ -23,7 +23,7 @@ This function implements the addition operation for PostgreSQL's integer (int4) 
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 - retrieves the first 32-bit integer argument
   - PG_GETARG_INT64 - retrieves the second 64-bit integer argument  
-  - pg_add_s64_overflow - performs safe 64-bit addition with overflow detection
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) - performs safe 64-bit addition with overflow detection
   - PG_RETURN_INT64 - returns the 64-bit result
   - ereport - reports errors when overflow occurs
 - Called from (representative examples):

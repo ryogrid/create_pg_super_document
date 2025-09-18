@@ -20,17 +20,17 @@ After freeing the blocks, the function resets the nextBlockSize to the initial b
 ## Dependencies
 - Functions called/Symbols referenced:
   - BumpIsValid
-  - BumpCheck (in MEMORY_CONTEXT_CHECKING builds)
+  - [BumpCheck](BumpCheck.md) (in MEMORY_CONTEXT_CHECKING builds)
   - dlist_foreach_modify
   - dlist_container
   - IsKeeperBlock
-  - BumpBlockMarkEmpty
-  - BumpBlockFree
-  - dlist_is_empty
-  - dlist_has_next
-  - dlist_head_node
+  - [BumpBlockMarkEmpty](BumpBlockMarkEmpty.md)
+  - [BumpBlockFree](BumpBlockFree.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [dlist_has_next](../d/dlist_has_next.md)
+  - [dlist_head_node](../d/dlist_head_node.md)
 - Called from (representative examples):
-  - BumpDelete
+  - [BumpDelete](BumpDelete.md)
   - BOGUS_MCTX (via function pointer)
 
 ## Notes and Other Information

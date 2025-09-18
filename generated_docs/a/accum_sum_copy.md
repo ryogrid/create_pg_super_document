@@ -20,14 +20,14 @@ This function is essential for operations that need to preserve the original acc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericSumAccum
-  - palloc
+  - [NumericSumAccum](../N/NumericSumAccum.md)
+  - [palloc](../p/palloc.md)
   - memcpy
 - Called from (representative examples):
-  - numeric_combine
-  - numeric_avg_combine
-  - numeric_poly_combine
-  - int8_avg_combine
+  - [numeric_combine](../n/numeric_combine.md)
+  - [numeric_avg_combine](../n/numeric_avg_combine.md)
+  - [numeric_poly_combine](../n/numeric_poly_combine.md)
+  - [int8_avg_combine](../i/int8_avg_combine.md)
 
 ## Notes and Other Information
 - The destination accumulator must be uninitialized; no cleanup of existing data is performed

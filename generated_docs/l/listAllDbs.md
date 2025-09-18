@@ -23,14 +23,14 @@ When verbose mode is enabled, the function includes additional columns for datab
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer (initialize query buffer)
-  - printfPQExpBuffer (format base SQL query)
-  - printACLColumn (add access privileges column)
-  - validateSQLNamePattern (validate and apply name pattern filtering)
-  - PSQLexec (execute the constructed SQL query)
-  - printQuery (display formatted results)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format base SQL query)
+  - [printACLColumn](../p/printACLColumn.md) (add access privileges column)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and apply name pattern filtering)
+  - [PSQLexec](../P/PSQLexec.md) (execute the constructed SQL query)
+  - [printQuery](../p/printQuery.md) (display formatted results)
   - termPQExpBuffer (cleanup query buffer)
 - Called from (representative examples):
-  - exec_command_list (src/bin/psql/command.c:1984) - handles \l and \list commands
+  - [exec_command_list](../e/exec_command_list.md) (src/bin/psql/command.c:1984) - handles \l and \list commands
   - PARAMS_ARRAY_SIZE (src/bin/psql/startup.c:334) - handles -l command line option
   - Declared in DESCRIBE_H (src/bin/psql/describe.h:68)
 

@@ -28,14 +28,14 @@ For absolute positioning, the function optimizes by choosing whether to rewind a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DoPortalRewind
-  - PortalRunSelect
-  - Portal structure and its fields (strategy, portalPos, atStart, atEnd)
-  - FetchDirection enum values
+  - [DoPortalRewind](DoPortalRewind.md)
+  - [PortalRunSelect](../P/PortalRunSelect.md)
+  - [Portal](../P/Portal.md) structure and its fields (strategy, portalPos, atStart, atEnd)
+  - [FetchDirection](../F/FetchDirection.md) enum values
   - DestReceiver and DestNone
-  - Portal strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_RETURNING, etc.)
+  - [Portal](../P/Portal.md) strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_RETURNING, etc.)
 - Called from (representative examples):
-  - PortalRunFetch
+  - [PortalRunFetch](../P/PortalRunFetch.md)
 
 ## Notes and Other Information
 - The function enforces NO SCROLL cursor restrictions by disallowing backwards movement

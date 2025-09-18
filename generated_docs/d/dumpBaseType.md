@@ -27,19 +27,19 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlStatement
-  - ExecuteSqlQueryForSingleRow
-  - fmtId
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - binary_upgrade_set_type_oids_by_type_oid
+  - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)
   - appendStringLiteralAH
-  - getFormattedTypeName
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
+  - [getFormattedTypeName](../g/getFormattedTypeName.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
 - Called from (representative examples):
-  - dumpType
+  - [dumpType](dumpType.md)
 
 ## Notes and Other Information
 - Most complex type dump function due to the comprehensive nature of base type definitions

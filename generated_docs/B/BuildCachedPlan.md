@@ -22,19 +22,19 @@ The function performs several critical operations: validates the query tree (rev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RevalidateCachedQuery (for query tree validation)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (for query tree validation)
   - copyObject (for deep copying query structures)
   - ActiveSnapshotSet, PushActiveSnapshot, PopActiveSnapshot (snapshot management)
-  - analyze_requires_snapshot (to determine if snapshot is needed)
+  - [analyze_requires_snapshot](../a/analyze_requires_snapshot.md) (to determine if snapshot is needed)
   - GetTransactionSnapshot (for snapshot acquisition)
-  - pg_plan_queries (core PostgreSQL planner interface)
+  - [pg_plan_queries](../p/pg_plan_queries.md) (core PostgreSQL planner interface)
   - AllocSetContextCreate (memory context creation)
   - MemoryContextCopyAndSetIdentifier (memory context naming)
-  - GetUserId (for role dependency tracking)
+  - [GetUserId](../G/GetUserId.md) (for role dependency tracking)
   - TransactionIdIsNormal (transaction validation)
   - CACHEDPLAN_MAGIC (plan validation magic number)
 - Called from (representative examples):
-  - GetCachedPlan
+  - [GetCachedPlan](../G/GetCachedPlan.md)
   - StmtPlanRequiresRevalidation
 
 ## Notes and Other Information

@@ -20,7 +20,7 @@ XLogRecordBlockCompressHeader is a specialized header structure used only when a
   - (No direct symbol references)
 
 - Called from (representative examples):
-  - XLogRecordAssemble
+  - [XLogRecordAssemble](XLogRecordAssemble.md)
   - SizeOfXLogRecordBlockCompressHeader
 
 ## Notes and Other Information

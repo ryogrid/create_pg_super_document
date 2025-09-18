@@ -20,15 +20,15 @@ TidStoreIter provides a standardized interface for iterating through all tuple i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TidStore (parent structure type)
+  - [TidStore](TidStore.md) (parent structure type)
   - TidStoreIterResult (output structure type)
-  - BlocktableEntry (for TID extraction)
-  - tidstore_iter_extract_tids (helper function)
+  - [BlocktableEntry](../B/BlocktableEntry.md) (for TID extraction)
+  - [tidstore_iter_extract_tids](../t/tidstore_iter_extract_tids.md) (helper function)
 - Called from (representative examples):
-  - TidStoreBeginIterate
-  - TidStoreIterateNext
-  - TidStoreEndIterate
-  - lazy_vacuum_heap_rel
+  - [TidStoreBeginIterate](TidStoreBeginIterate.md)
+  - [TidStoreIterateNext](TidStoreIterateNext.md)
+  - [TidStoreEndIterate](TidStoreEndIterate.md)
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
 
 ## Notes and Other Information
 - The union design allows efficient switching between local and shared iteration modes without code duplication

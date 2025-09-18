@@ -19,15 +19,15 @@ The pg_hmac_free function properly deallocates a HMAC context structure and ensu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_free
+  - [pg_cryptohash_free](pg_cryptohash_free.md)
   - explicit_bzero
   - FREE (memory deallocation)
 - Called from (representative examples):
-  - verify_client_proof (SCRAM authentication cleanup)
-  - build_server_final_message (SCRAM authentication cleanup)
-  - ResOwnerReleaseHMAC (resource owner cleanup)
+  - [verify_client_proof](../v/verify_client_proof.md) (SCRAM authentication cleanup)
+  - [build_server_final_message](../b/build_server_final_message.md) (SCRAM authentication cleanup)
+  - [ResOwnerReleaseHMAC](../R/ResOwnerReleaseHMAC.md) (resource owner cleanup)
   - scram_SaltedPassword (SCRAM key derivation cleanup)
-  - calculate_client_proof (libpq SCRAM client cleanup)
+  - [calculate_client_proof](../c/calculate_client_proof.md) (libpq SCRAM client cleanup)
 
 ## Notes and Other Information
 - Safe to call with NULL pointer (performs null check)

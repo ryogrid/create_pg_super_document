@@ -20,8 +20,8 @@ This function provides a PostgreSQL-callable interface for dividing two Point ob
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P (argument extraction)
-  - palloc (memory allocation)
-  - point_div_point (performs the actual division)
+  - [palloc](palloc.md) (memory allocation)
+  - [point_div_point](point_div_point.md) (performs the actual division)
   - PG_RETURN_POINT_P (return value packaging)
 - Called from (representative examples):
   - No direct callers found in the codebase

@@ -23,15 +23,15 @@ This function performs a generalized test to determine if a given operand (from 
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
   - list_head (list traversal function)
-  - lnext (list navigation function) 
-  - equal (deep equality comparison for expression trees)
+  - [lnext](../l/lnext.md) (list navigation function) 
+  - [equal](../e/equal.md) (deep equality comparison for expression trees)
   - elog (error logging function)
 - Called from (representative examples):
-  - match_clause_to_indexcol (src/backend/optimizer/path/indxpath.c:2256)
-  - match_boolean_index_clause (src/backend/optimizer/path/indxpath.c:2314)
-  - match_opclause_to_indexcol (src/backend/optimizer/path/indxpath.c:2433)
-  - match_funcclause_to_indexcol (src/backend/optimizer/path/indxpath.c:2535)
-  - get_actual_variable_range (src/backend/utils/adt/selfuncs.c:6203)
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md) (src/backend/optimizer/path/indxpath.c:2256)
+  - [match_boolean_index_clause](match_boolean_index_clause.md) (src/backend/optimizer/path/indxpath.c:2314)
+  - [match_opclause_to_indexcol](match_opclause_to_indexcol.md) (src/backend/optimizer/path/indxpath.c:2433)
+  - [match_funcclause_to_indexcol](match_funcclause_to_indexcol.md) (src/backend/optimizer/path/indxpath.c:2535)
+  - [get_actual_variable_range](../g/get_actual_variable_range.md) (src/backend/utils/adt/selfuncs.c:6203)
 
 ## Notes and Other Information
 - The function is exported for use in selfuncs.c for selectivity estimation

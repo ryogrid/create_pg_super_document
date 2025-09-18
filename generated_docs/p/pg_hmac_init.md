@@ -23,12 +23,12 @@ pg_hmac_init implements the HMAC (Hash-based Message Authentication Code) initia
 - Functions called/Symbols referenced:
   - ALLOC (memory allocation macro)
   - FREE (memory deallocation macro)
-  - pg_cryptohash_create
-  - pg_cryptohash_init
-  - pg_cryptohash_update
-  - pg_cryptohash_final
-  - pg_cryptohash_free
-  - pg_cryptohash_error
+  - [pg_cryptohash_create](pg_cryptohash_create.md)
+  - [pg_cryptohash_init](pg_cryptohash_init.md)
+  - [pg_cryptohash_update](pg_cryptohash_update.md)
+  - [pg_cryptohash_final](pg_cryptohash_final.md)
+  - [pg_cryptohash_free](pg_cryptohash_free.md)
+  - [pg_cryptohash_error](pg_cryptohash_error.md)
   - memset
   - explicit_bzero
 - Constants referenced:
@@ -37,13 +37,13 @@ pg_hmac_init implements the HMAC (Hash-based Message Authentication Code) initia
   - PG_HMAC_ERROR_OOM
   - PG_HMAC_ERROR_INTERNAL
 - Called from (representative examples):
-  - verify_client_proof
-  - build_server_final_message
+  - [verify_client_proof](../v/verify_client_proof.md)
+  - [build_server_final_message](../b/build_server_final_message.md)
   - scram_SaltedPassword
   - scram_ClientKey
   - scram_ServerKey
-  - calculate_client_proof
-  - verify_server_signature
+  - [calculate_client_proof](../c/calculate_client_proof.md)
+  - [verify_server_signature](../v/verify_server_signature.md)
 
 ## Notes and Other Information
 - Defined in src/common/hmac.c, available to both frontend and backend code

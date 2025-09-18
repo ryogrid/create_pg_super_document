@@ -22,7 +22,7 @@ The comparison is performed by first converting both times to GMT-equivalent val
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P: Extracts TimeTzADT arguments from function call
-  - timetz_cmp_internal: Internal comparison function that performs the actual comparison logic
+  - [timetz_cmp_internal](timetz_cmp_internal.md): Internal comparison function that performs the actual comparison logic
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL function call framework
 - Data types used:
   - TimeTzADT: Structure containing time (TimeADT) and zone (int32) fields

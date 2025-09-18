@@ -25,17 +25,17 @@ This is part of PostgreSQL's GIN index data page management system, specifically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dataPlaceToPageLeafRecompress
+  - [dataPlaceToPageLeafRecompress](dataPlaceToPageLeafRecompress.md)
   - MarkBufferDirty
   - RelationNeedsWAL
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - disassembledLeaf (structure type)
-  - GinBtree (structure type)
-  - GinBtreeStack (structure type)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [disassembledLeaf](disassembledLeaf.md) (structure type)
+  - [GinBtree](../G/GinBtree.md) (structure type)
+  - [GinBtreeStack](../G/GinBtreeStack.md) (structure type)
   - REGBUF_STANDARD (constant)
 - Called from (representative examples):
-  - dataExecPlaceToPage
+  - [dataExecPlaceToPage](dataExecPlaceToPage.md)
 
 ## Notes and Other Information
 - This function must be called within a critical section

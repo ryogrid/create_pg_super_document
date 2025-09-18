@@ -37,8 +37,8 @@ Returns:
   - VirtualTransactionIdIsValid
   - VirtualTransactionIdEquals
 - Called from (representative examples):
-  - CreateCheckPoint (src/backend/access/transam/xlog.c:7158)
-  - CreateCheckPoint (src/backend/access/transam/xlog.c:7175)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (src/backend/access/transam/xlog.c:7158)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (src/backend/access/transam/xlog.c:7175)
 
 ## Notes and Other Information
 - Designed to work with results from GetVirtualXIDsDelayingChkpt

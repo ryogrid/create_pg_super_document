@@ -22,17 +22,17 @@ This function extracts and formats the SQL body of a PostgreSQL function from it
 - Functions called/Symbols referenced:
   - deparse_namespace
   - Form_pg_proc
-  - get_func_arg_info
-  - SysCacheGetAttrNotNull
-  - stringToNode
+  - [get_func_arg_info](../g/get_func_arg_info.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [stringToNode](../s/stringToNode.md)
   - TextDatumGetCString
-  - AcquireRewriteLocks (called twice)
-  - get_query_def (called twice)
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (called twice)
+  - [get_query_def](../g/get_query_def.md) (called twice)
   - PRETTYFLAG_INDENT
   - WRAP_COLUMN_DEFAULT
 - Called from (representative examples):
-  - pg_get_functiondef
-  - pg_get_function_sqlbody
+  - [pg_get_functiondef](pg_get_functiondef.md)
+  - [pg_get_function_sqlbody](pg_get_function_sqlbody.md)
 
 ## Notes and Other Information
 - The function distinguishes between single Query nodes and List nodes containing multiple statements

@@ -25,13 +25,13 @@ The function uses PostgreSQL's error reporting mechanism to provide clear error 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsCatalogNamespace
-  - IsToastNamespace
-  - get_namespace_name
-  - isAnyTempNamespace
+  - [IsCatalogNamespace](../I/IsCatalogNamespace.md)
+  - [IsToastNamespace](../I/IsToastNamespace.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [isAnyTempNamespace](../i/isAnyTempNamespace.md)
   - ereport (error reporting)
 - Called from:
-  - publication_add_schema
+  - [publication_add_schema](../p/publication_add_schema.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_publication.c compilation unit

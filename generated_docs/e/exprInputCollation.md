@@ -32,8 +32,8 @@ This function extracts the input collation OID from expression nodes that can in
   - InvalidOid (constant for invalid OID)
 
 - Called from (representative examples):
-  - check_simple_rowfilter_expr_walker (publication row filtering)
-  - resolve_polymorphic_tupdesc (polymorphic function resolution)
+  - [check_simple_rowfilter_expr_walker](../c/check_simple_rowfilter_expr_walker.md) (publication row filtering)
+  - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md) (polymorphic function resolution)
 
 ## Notes and Other Information
 - This function is complementary to exprCollation() - while exprCollation() returns the collation of the result, this returns the collation for inputs

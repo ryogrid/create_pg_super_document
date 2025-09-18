@@ -21,16 +21,16 @@ The function operates in two phases: first summing all vertex coordinates and di
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro for debugging)
-  - point_add_point (vector addition of two points)
-  - float8_div (floating-point division)
-  - float8_pl (floating-point addition)
-  - point_dt (distance calculation between two points)
+  - [point_add_point](point_add_point.md) (vector addition of two points)
+  - [float8_div](../f/float8_div.md) (floating-point division)
+  - [float8_pl](../f/float8_pl.md) (floating-point addition)
+  - [point_dt](point_dt.md) (distance calculation between two points)
 - Data types referenced:
   - CIRCLE, POLYGON (geometric data structures)
 
 - Called from (representative examples):
-  - poly_center (calculates polygon center point)
-  - poly_circle (public interface for polygon-to-circle conversion)
+  - [poly_center](poly_center.md) (calculates polygon center point)
+  - [poly_circle](poly_circle.md) (public interface for polygon-to-circle conversion)
 
 ## Notes and Other Information
 - This is a static (internal) function not directly exposed as a PostgreSQL function

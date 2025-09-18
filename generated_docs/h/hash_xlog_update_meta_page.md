@@ -23,18 +23,18 @@ During replay, the function reads the meta page buffer, extracts the xl_hash_upd
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogReadBufferForRedo
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetMeta
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Types referenced:
   - HashMetaPage
-  - xl_hash_update_meta_page
+  - [xl_hash_update_meta_page](../x/xl_hash_update_meta_page.md)
   - BLK_NEEDS_REDO
 - Called from:
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

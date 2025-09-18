@@ -34,16 +34,16 @@ This function takes no parameters but operates on several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_other_exec_or_die` (locate initdb executable)
-  - `psprintf` (formatted string creation)
+  - `[find_other_exec_or_die](../f/find_other_exec_or_die.md)` (locate initdb executable)
+  - `[psprintf](../p/psprintf.md)` (formatted string creation)
   - `DEVNULL` (platform-specific null device path)
   - `fflush` (flush output streams before system call)
   - `system` (execute shell command)
-  - `write_stderr` (error output function)
+  - `[write_stderr](../w/write_stderr.md)` (error output function)
   - `PG_VERSION` (PostgreSQL version constant)
 
 - Called from:
-  - `main` (primary entry point for init command)
+  - `[main](../m/main.md)` (primary entry point for init command)
 
 ## Notes and Other Information
 - The function uses `system()` to execute initdb, which invokes the command through the shell

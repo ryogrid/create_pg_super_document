@@ -25,18 +25,18 @@ The function delegates the actual execution to `executeItemOptUnwrapTarget` whil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonPathExecContext (execution context structure)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (execution context structure)
   - JsonPathItem (path item structure) 
-  - JsonbValue (JSONB value representation)
-  - JsonValueList (result collection structure)
+  - [JsonbValue](../J/JsonbValue.md) (JSONB value representation)
+  - [JsonValueList](../J/JsonValueList.md) (result collection structure)
   - jspAutoUnwrap (unwrapping behavior determination)
-  - executeItemOptUnwrapTarget (core execution implementation)
-  - JsonPathExecResult (return type enumeration)
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md) (core execution implementation)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (return type enumeration)
 - Called from (representative examples):
-  - executeJsonPath (main execution entry point)
-  - executeNextItem (sequential execution)
-  - executeItemOptUnwrapResult (result processing)
-  - getArrayIndex (array indexing operations)
+  - [executeJsonPath](executeJsonPath.md) (main execution entry point)
+  - [executeNextItem](executeNextItem.md) (sequential execution)
+  - [executeItemOptUnwrapResult](executeItemOptUnwrapResult.md) (result processing)
+  - [getArrayIndex](../g/getArrayIndex.md) (array indexing operations)
 
 ## Notes and Other Information
 - This is a thin wrapper that encapsulates the common pattern of automatic unwrapping

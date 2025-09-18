@@ -23,7 +23,7 @@ This represents the standard SQL json_object_agg function that accumulates key-v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_object_agg_transfn_worker
+  - [json_object_agg_transfn_worker](json_object_agg_transfn_worker.md)
 - Called from (representative examples):
   - This function is typically registered in PostgreSQL's system catalogs and called by the SQL executor during aggregate processing
 

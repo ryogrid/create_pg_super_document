@@ -23,11 +23,11 @@ Dead-end children (processes that failed during startup) are always excluded fro
 - Functions called/Symbols referenced:
   - dlist_foreach (doubly-linked list iteration)
   - dlist_container (container_of macro for Backend structs)  
-  - IsPostmasterChildWalSender (WAL sender process detection)
+  - [IsPostmasterChildWalSender](../I/IsPostmasterChildWalSender.md) (WAL sender process detection)
   - BACKEND_TYPE_ALL, BACKEND_TYPE_NORMAL, BACKEND_TYPE_WALSND (backend type constants)
 - Called from (representative examples):
-  - PostmasterStateMachine (for state transition decisions)
-  - canAcceptConnections (connection limit checking)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md) (for state transition decisions)
+  - [canAcceptConnections](../c/canAcceptConnections.md) (connection limit checking)
   - SignalChildren (process management)
 
 ## Notes and Other Information

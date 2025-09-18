@@ -29,10 +29,10 @@ This function implements the main page allocation logic for the Free Page Manage
   - FreePagePushSpanLeader
   - FreePageBtreeSearch
   - FreePageBtreeRemove
-  - FreePageBtreeAdjustAncestorKeys
+  - [FreePageBtreeAdjustAncestorKeys](FreePageBtreeAdjustAncestorKeys.md)
 - Called from (representative examples):
   - FreePageManagerGet
-  - FreePageManagerPutInternal (internal use for span consolidation)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md) (internal use for span consolidation)
 
 ## Notes and Other Information
 - Uses best-fit allocation strategy which may cause fragmentation but is suitable for PostgreSQL's typical allocation patterns

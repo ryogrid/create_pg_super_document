@@ -22,11 +22,11 @@ InstrEndLoop is a critical function in PostgreSQLs query execution instrumentati
   - INSTR_TIME_SET_ZERO (macro for zeroing time values)
   - elog (error logging function)
 - Called from (representative examples):
-  - report_triggers (in explain.c for trigger reporting)
-  - ExplainNode (in explain.c for query plan explanation)
-  - show_modifytable_info (in explain.c for modify table information)
-  - ExecReScan (in execAmi.c for plan node rescanning)
-  - ExecParallelReportInstrumentation (in execParallel.c for parallel execution reporting)
+  - [report_triggers](../r/report_triggers.md) (in explain.c for trigger reporting)
+  - [ExplainNode](../E/ExplainNode.md) (in explain.c for query plan explanation)
+  - [show_modifytable_info](../s/show_modifytable_info.md) (in explain.c for modify table information)
+  - [ExecReScan](../E/ExecReScan.md) (in execAmi.c for plan node rescanning)
+  - [ExecParallelReportInstrumentation](../E/ExecParallelReportInstrumentation.md) (in execParallel.c for parallel execution reporting)
 
 ## Notes and Other Information
 - The function performs error checking to ensure its not called on a node that is still actively running

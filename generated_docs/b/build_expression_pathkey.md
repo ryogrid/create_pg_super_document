@@ -25,12 +25,12 @@ If the expression is not already part of an EquivalenceClass and create_it is fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ordering_op_properties (to extract operator family and strategy information)
-  - make_pathkey_from_sortinfo (to create the actual pathkey)
-  - exprCollation (to determine expression's collation)
+  - [get_ordering_op_properties](../g/get_ordering_op_properties.md) (to extract operator family and strategy information)
+  - [make_pathkey_from_sortinfo](../m/make_pathkey_from_sortinfo.md) (to create the actual pathkey)
+  - [exprCollation](../e/exprCollation.md) (to determine expression's collation)
   - BTGreaterStrategyNumber (constant for determining sort direction)
 - Called from (representative examples):
-  - set_function_pathlist
+  - [set_function_pathlist](../s/set_function_pathlist.md)
 
 ## Notes and Other Information
 - This is a convenience function that simplifies pathkey creation for single expressions

@@ -40,22 +40,22 @@ The state machine approach allows pgbench to handle asynchronous operations effi
 - Functions called/Symbols referenced:
   - PGconn (PostgreSQL connection type)
   - ConnectionStateEnum (state machine states)
-  - ConditionalStack (conditional execution stack)
+  - [ConditionalStack](ConditionalStack.md) (conditional execution stack)
   - pg_prng_state (random number generator state)
-  - Variables (variable storage structure)
+  - [Variables](../V/Variables.md) (variable storage structure)
   - pg_time_usec_t (microsecond timestamp type)
   - EStatus (error status enumeration)
-  - StatsData (statistics collection structure)
+  - [StatsData](../S/StatsData.md) (statistics collection structure)
 - Called from (representative examples):
   - evalLazyFunc (for lazy function evaluation)
   - evalStandardFunc (for standard function evaluation)
-  - commandFailed (for error handling)
-  - advanceConnectionState (for state machine progression)
-  - executeMetaCommand (for meta-command execution)
-  - threadRun (for thread execution management)
-  - prepareCommand (for statement preparation)
-  - sendCommand (for command transmission)
-  - readCommandResponse (for response processing)
+  - [commandFailed](../c/commandFailed.md) (for error handling)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (for state machine progression)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (for meta-command execution)
+  - [threadRun](../t/threadRun.md) (for thread execution management)
+  - [prepareCommand](../p/prepareCommand.md) (for statement preparation)
+  - [sendCommand](../s/sendCommand.md) (for command transmission)
+  - [readCommandResponse](../r/readCommandResponse.md) (for response processing)
 
 ## Notes and Other Information
 - Located in src/bin/pgbench/pgbench.c at lines 596-640
@@ -64,5 +64,5 @@ The state machine approach allows pgbench to handle asynchronous operations effi
 - Maintains separate random number generators for different purposes to ensure deterministic behavior
 - Comprehensive timing infrastructure supports detailed latency measurements and performance analysis
 - Error handling and retry mechanism allows robust transaction processing with serialization and deadlock recovery
-- Variable system provides per-client isolated variable spaces for complex benchmark scenarios
+- [Variable](../V/Variable.md) system provides per-client isolated variable spaces for complex benchmark scenarios
 - Used extensively throughout pgbench for client management, script execution, and performance measurement

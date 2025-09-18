@@ -26,17 +26,17 @@ When a help option is detected, it calls the provided help handler function. For
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_progname
+  - [get_progname](../g/get_progname.md)
   - strcmp
   - printf
   - exit
   - PG_VERSION (macro)
 - Called from (representative examples):
-  - main (in pg_amcheck)
-  - main (in pg_combinebackup) 
-  - main (in clusterdb)
-  - main (in createdb)
-  - main (in various other client utilities)
+  - [main](../m/main.md) (in pg_amcheck)
+  - [main](../m/main.md) (in pg_combinebackup) 
+  - [main](../m/main.md) (in clusterdb)
+  - [main](../m/main.md) (in createdb)
+  - [main](../m/main.md) (in various other client utilities)
 
 ## Notes and Other Information
 - This function should be called early in main() before other argument processing

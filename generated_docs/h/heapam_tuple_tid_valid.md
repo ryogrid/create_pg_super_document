@@ -23,12 +23,12 @@ This function is essential for ensuring that tuple access operations don't attem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (parameter type)
-  - HeapScanDesc (type cast)
-  - ItemPointerIsValid (TID format validation)
-  - ItemPointerGetBlockNumber (block number extraction)
+  - [TableScanDesc](../T/TableScanDesc.md) (parameter type)
+  - [HeapScanDesc](../H/HeapScanDesc.md) (type cast)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md) (TID format validation)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (block number extraction)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
 
 ## Notes and Other Information
 - This is a static function serving as a callback in the table access method interface

@@ -36,7 +36,7 @@ The output includes:
   - fpm_largest
   - DSA_SCLASS_LOCK
   - DsaPointerIsValid
-  - dsa_get_address
+  - [dsa_get_address](dsa_get_address.md)
   - fprintf
 - Called from (representative examples):
   - Available through DSA public interface for debugging

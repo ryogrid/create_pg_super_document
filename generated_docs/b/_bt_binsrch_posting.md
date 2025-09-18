@@ -23,15 +23,15 @@ The function implements a standard binary search algorithm but operates specific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
-  - PageGetItem
-  - BTreeTupleIsPosting
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
   - ItemIdIsDead
-  - BTreeTupleGetNPosting
-  - ItemPointerCompare
-  - BTreeTupleGetPostingN
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
 - Called from:
-  - _bt_binsrch_insert
+  - [_bt_binsrch_insert](_bt_binsrch_insert.md)
 
 ## Notes and Other Information
 - Returns the offset into the posting list where the caller's scantid belongs

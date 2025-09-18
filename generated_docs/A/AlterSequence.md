@@ -36,24 +36,24 @@ The operation is fully transactional - if the transaction aborts, all changes ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackOwnsRelation
-  - init_sequence
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackOwnsRelation](../R/RangeVarCallbackOwnsRelation.md)
+  - [init_sequence](../i/init_sequence.md)
   - SearchSysCacheCopy1
-  - read_seq_tuple
-  - heap_copytuple
-  - init_params
+  - [read_seq_tuple](../r/read_seq_tuple.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [init_params](../i/init_params.md)
   - RelationNeedsWAL
-  - GetTopTransactionId
-  - RelationSetNewRelfilenumber
-  - fill_seq_with_data
-  - process_owned_by
-  - CatalogTupleUpdate
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md)
+  - [process_owned_by](../p/process_owned_by.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSet
-  - sequence_close
+  - [sequence_close](../s/sequence_close.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1671)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1671)
 
 ## Notes and Other Information
 - Supports missing_ok option to avoid errors when sequence doesn't exist

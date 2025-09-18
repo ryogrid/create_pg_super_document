@@ -21,17 +21,17 @@ The iterator maintains internal state to track the current position in the tree 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (tree structure)
+  - [RBTree](../R/RBTree.md) (tree structure)
   - RBTOrderControl (traversal order enum)
-  - RBTreeIterator (iterator state structure)
+  - [RBTreeIterator](../R/RBTreeIterator.md) (iterator state structure)
   - RBTNIL (sentinel node constant)
   - LeftRightWalk (traversal order constant)
-  - rbt_left_right_iterator (left-right iterator function)
+  - [rbt_left_right_iterator](rbt_left_right_iterator.md) (left-right iterator function)
   - RightLeftWalk (traversal order constant) 
-  - rbt_right_left_iterator (right-left iterator function)
+  - [rbt_right_left_iterator](rbt_right_left_iterator.md) (right-left iterator function)
   - elog (error logging function)
 - Called from (representative examples):
-  - ginBeginBAScan (src/backend/access/gin/ginbulk.c:259)
+  - [ginBeginBAScan](../g/ginBeginBAScan.md) (src/backend/access/gin/ginbulk.c:259)
   - testleftright (src/test/modules/test_rbtree/test_rbtree.c:173, 181)
   - testrightleft (src/test/modules/test_rbtree/test_rbtree.c:213, 221)
 

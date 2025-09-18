@@ -29,11 +29,11 @@ For non-leaf entries that already contain compressed data (bounding boxes), the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract function arguments)
-  - DatumGetCircleP (to convert Datum to CIRCLE pointer)
-  - palloc (PostgreSQL's memory allocation)
-  - float8_pl, float8_mi (floating-point addition and subtraction)
+  - [DatumGetCircleP](../D/DatumGetCircleP.md) (to convert Datum to CIRCLE pointer)
+  - [palloc](../p/palloc.md) (PostgreSQL's memory allocation)
+  - [float8_pl](../f/float8_pl.md), float8_mi (floating-point addition and subtraction)
   - gistentryinit (to initialize new GISTENTRY)
-  - PointerGetDatum (to convert pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (to convert pointer to Datum)
   - PG_RETURN_POINTER (to return result)
 - Called from (representative examples):
   - GiST index access method framework (via function registration)

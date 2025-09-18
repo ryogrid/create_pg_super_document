@@ -23,13 +23,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size
-  - mul_size
-  - ReplicationSlotCtlData (struct)
-  - ReplicationSlot (struct)
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
+  - [ReplicationSlotCtlData](ReplicationSlotCtlData.md) (struct)
+  - [ReplicationSlot](ReplicationSlot.md) (struct)
 - Called from (representative examples):
-  - CalculateShmemSize
-  - ReplicationSlotsShmemInit
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
+  - [ReplicationSlotsShmemInit](ReplicationSlotsShmemInit.md)
 
 ## Notes and Other Information
 - Returns 0 if max_replication_slots is 0, effectively disabling replication slot shared memory allocation

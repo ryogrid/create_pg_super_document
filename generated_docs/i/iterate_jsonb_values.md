@@ -20,15 +20,15 @@ This function provides a generic mechanism for traversing a JSONB structure and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - DatumGetCString
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
   - DirectFunctionCall1
-  - numeric_out
-  - NumericGetDatum
-  - pfree
+  - [numeric_out](../n/numeric_out.md)
+  - [NumericGetDatum](../N/NumericGetDatum.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - jsonb_to_tsvector_worker
+  - [jsonb_to_tsvector_worker](../j/jsonb_to_tsvector_worker.md)
   - pg_parse_json_or_ereport
 
 ## Notes and Other Information

@@ -21,10 +21,10 @@ The xl_xact_origin structure is used to store origin tracking information in WAL
   - XLogRecPtr (data type)
   - TimestampTz (data type)
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c)
-  - ParseAbortRecord (in xactdesc.c)
-  - XactLogCommitRecord (in xact.c)
-  - XactLogAbortRecord (in xact.c)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in xactdesc.c)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (in xact.c)
 
 ## Notes and Other Information
 This structure is essential for logical replication conflict detection and resolution. The origin information helps distinguish between locally generated transactions and those that originated from replication, preventing infinite replication loops and enabling proper conflict resolution in multi-master setups.

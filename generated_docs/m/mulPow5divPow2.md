@@ -23,10 +23,10 @@ This is part of the Ryu algorithm implementation for fast and accurate floating-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mulShift (performs the actual multiplication and bit shifting)
+  - [mulShift](mulShift.md) (performs the actual multiplication and bit shifting)
   - FLOAT_POW5_SPLIT (lookup table containing precomputed power-of-5 values)
 - Called from (representative examples):
-  - f2d (float-to-decimal conversion function, called 4 times at lines 320-322, 327)
+  - [f2d](../f/f2d.md) (float-to-decimal conversion function, called 4 times at lines 320-322, 327)
 
 ## Notes and Other Information
 - This is an inline static function for performance optimization

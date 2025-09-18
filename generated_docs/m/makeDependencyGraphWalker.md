@@ -25,14 +25,14 @@ The walker uses PostgreSQL's raw_expression_tree_walker infrastructure to traver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member - adds dependencies to bitmapsets tracking CTE relationships
-  - WalkInnerWith - handles nested WITH clauses with proper scoping
+  - [bms_add_member](../b/bms_add_member.md) - adds dependencies to bitmapsets tracking CTE relationships
+  - [WalkInnerWith](../W/WalkInnerWith.md) - handles nested WITH clauses with proper scoping
   - raw_expression_tree_walker - PostgreSQL's tree walking infrastructure for recursive traversal
-  - makeDependencyGraphWalker - recursive call to itself via raw_expression_tree_walker
+  - [makeDependencyGraphWalker](makeDependencyGraphWalker.md) - recursive call to itself via raw_expression_tree_walker
 - Called from (representative examples):
-  - makeDependencyGraph - main entry point for dependency analysis
-  - WalkInnerWith - for processing nested WITH clauses
-  - makeDependencyGraphWalker - recursively calls itself through tree walker
+  - [makeDependencyGraph](makeDependencyGraph.md) - [main](main.md) entry point for dependency analysis
+  - [WalkInnerWith](../W/WalkInnerWith.md) - for processing nested WITH clauses
+  - [makeDependencyGraphWalker](makeDependencyGraphWalker.md) - recursively calls itself through tree walker
 
 ## Notes and Other Information
 - Returns false in most cases to continue tree walking, true would stop traversal

@@ -20,7 +20,7 @@ The  struct represents another variant of a customer record structure designed f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varchar_4 (nested struct type)
+  - [varchar_4](../v/varchar_4.md) (nested struct type)
 - Called from (representative examples):
   - Referenced in varchar_5 operations
   - Used in pointer_to_struct test scenarios

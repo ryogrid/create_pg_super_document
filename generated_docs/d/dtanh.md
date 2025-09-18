@@ -21,7 +21,7 @@ The dtanh function is a PostgreSQL wrapper around the standard C library tanh() 
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
   - isinf: Checks if the result is infinite
-  - float_overflow_error: Handles overflow error conditions
+  - [float_overflow_error](../f/float_overflow_error.md): Handles overflow error conditions
 - Called from (representative examples):
   - No direct references found in the codebase
 

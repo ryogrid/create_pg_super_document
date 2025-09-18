@@ -19,28 +19,28 @@ This function performs a comprehensive refresh operation on a logical replicatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_file
+  - [load_file](../l/load_file.md)
   - walrcv_connect
-  - check_publications
-  - fetch_table_list
-  - GetSubscriptionRelations
+  - [check_publications](../c/check_publications.md)
+  - [fetch_table_list](../f/fetch_table_list.md)
+  - [GetSubscriptionRelations](../G/GetSubscriptionRelations.md)
   - RangeVarGetRelid
-  - CheckSubscriptionRelkind
-  - AddSubscriptionRelState
-  - GetSubscriptionRelState
-  - RemoveSubscriptionRel
+  - [CheckSubscriptionRelkind](../C/CheckSubscriptionRelkind.md)
+  - [AddSubscriptionRelState](AddSubscriptionRelState.md)
+  - [GetSubscriptionRelState](../G/GetSubscriptionRelState.md)
+  - [RemoveSubscriptionRel](../R/RemoveSubscriptionRel.md)
   - logicalrep_worker_stop
-  - ReplicationOriginNameForLogicalRep
-  - replorigin_drop_by_name
-  - ReplicationSlotNameForTablesync
-  - ReplicationSlotDropAtPubNode
+  - [ReplicationOriginNameForLogicalRep](../R/ReplicationOriginNameForLogicalRep.md)
+  - [replorigin_drop_by_name](../r/replorigin_drop_by_name.md)
+  - [ReplicationSlotNameForTablesync](../R/ReplicationSlotNameForTablesync.md)
+  - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md)
   - walrcv_disconnect
   - table_open
   - table_close
 - Called from (representative examples):
-  - AlterSubscription (at src/backend/commands/subscriptioncmds.c:1341)
-  - AlterSubscription (at src/backend/commands/subscriptioncmds.c:1400)
-  - AlterSubscription (at src/backend/commands/subscriptioncmds.c:1442)
+  - [AlterSubscription](AlterSubscription.md) (at src/backend/commands/subscriptioncmds.c:1341)
+  - [AlterSubscription](AlterSubscription.md) (at src/backend/commands/subscriptioncmds.c:1400)
+  - [AlterSubscription](AlterSubscription.md) (at src/backend/commands/subscriptioncmds.c:1442)
 
 ## Notes and Other Information
 - Uses WAL receiver connection to communicate with publisher

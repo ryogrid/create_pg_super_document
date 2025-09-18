@@ -23,7 +23,7 @@ The function serves as a key component in PostgreSQL's write-ahead logging and c
   - smgrsw (storage manager switch table)
   - SMgrRelation (storage manager relation structure)
 - Called from (representative examples):
-  - smgr_bulk_finish (in bulk_write.c at lines 180 and 219)
+  - [smgr_bulk_finish](smgr_bulk_finish.md) (in bulk_write.c at lines 180 and 219)
 
 ## Notes and Other Information
 - Must be used carefully with regard to checkpoint timing - if a checkpoint occurs between the original write/extend call and this registration, smgrimmedsync should be used instead

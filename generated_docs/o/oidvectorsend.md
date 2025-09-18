@@ -20,7 +20,7 @@ The implementation is remarkably simple - it directly delegates all work to the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_send (general array send function)
+  - [array_send](../a/array_send.md) (general array send function)
 - Called from (representative examples):
   - PostgreSQL binary protocol handling
   - Network communication during data transfer

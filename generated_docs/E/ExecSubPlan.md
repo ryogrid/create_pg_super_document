@@ -23,12 +23,12 @@ The function implements a strategy pattern by choosing between hash-based execut
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecHashSubPlan (for hash table-based subplan execution)
-  - ExecScanSubPlan (for scan-based subplan execution)
+  - [ExecHashSubPlan](ExecHashSubPlan.md) (for hash table-based subplan execution)
+  - [ExecScanSubPlan](ExecScanSubPlan.md) (for scan-based subplan execution)
   - CHECK_FOR_INTERRUPTS (for query cancellation handling)
   - elog (for error reporting)
 - Called from (representative examples):
-  - ExecEvalSubPlan (in execExprInterp.c:4760)
+  - [ExecEvalSubPlan](ExecEvalSubPlan.md) (in execExprInterp.c:4760)
 
 ## Notes and Other Information
 - Forces forward-scan direction during subplan execution to ensure consistent behavior

@@ -23,11 +23,11 @@ This is the fundamental mechanism that allows PostgreSQL users to reference tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
-  - get_relname_relid
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
   - activeSearchPath (global list)
 - Called from (representative examples):
-  - RangeVarGetRelidExtended
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
   - RangeVarGetRelid (header inline function)
 
 ## Notes and Other Information

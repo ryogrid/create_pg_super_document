@@ -23,16 +23,16 @@ The function is designed to work with PostgreSQL's function manager infrastructu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll
-  - DatumGetInt32
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from (representative examples):
-  - find_next_mcelem
-  - mcelem_array_selec
-  - mcelem_array_contain_overlap_selec
-  - mcelem_array_contained_selec
+  - [find_next_mcelem](../f/find_next_mcelem.md)
+  - [mcelem_array_selec](../m/mcelem_array_selec.md)
+  - [mcelem_array_contain_overlap_selec](../m/mcelem_array_contain_overlap_selec.md)
+  - [mcelem_array_contained_selec](../m/mcelem_array_contained_selec.md)
   - DECountItem
-  - element_match
-  - trackitem_compare_element
+  - [element_match](element_match.md)
+  - [trackitem_compare_element](../t/trackitem_compare_element.md)
 
 ## Notes and Other Information
 - Uses PostgreSQL's function call infrastructure with collation support

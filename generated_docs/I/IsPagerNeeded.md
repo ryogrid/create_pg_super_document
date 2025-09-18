@@ -23,12 +23,12 @@ The function handles two output modes: expanded format (where each row spans mul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageOutput (determines actual pager setup based on line count)
-  - printTableFooter (structure type for footer counting)
+  - [PageOutput](../P/PageOutput.md) (determines actual pager setup based on line count)
+  - [printTableFooter](../p/printTableFooter.md) (structure type for footer counting)
 - Called from (representative examples):
-  - print_aligned_text (print.c)
-  - print_aligned_vertical (print.c)
-  - printTable (print.c)
+  - [print_aligned_text](../p/print_aligned_text.md) (print.c)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md) (print.c)
+  - [printTable](../p/printTable.md) (print.c)
 
 ## Notes and Other Information
 - Only activates paging when output is directed to stdout

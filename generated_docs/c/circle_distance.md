@@ -20,9 +20,9 @@ This function calculates the distance between the closest points of two circles.
 - Functions called/Symbols referenced:
   - CIRCLE (type definition)
   - PG_GETARG_CIRCLE_P (parameter extraction macro)
-  - point_dt (distance between two points)
-  - float8_mi (floating point subtraction)
-  - float8_pl (floating point addition)
+  - [point_dt](../p/point_dt.md) (distance between two points)
+  - [float8_mi](../f/float8_mi.md) (floating point subtraction)
+  - [float8_pl](../f/float8_pl.md) (floating point addition)
   - PG_RETURN_FLOAT8 (return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -19,8 +19,8 @@ The function first sets the CancelRequested flag to true, then calls a user-defi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQcancel
-  - write_stderr
+  - [PQcancel](../P/PQcancel.md)
+  - [write_stderr](../w/write_stderr.md)
   - SIGNAL_ARGS (macro)
 - Called from (representative examples):
   - No direct callers found (signal handler registered with operating system)

@@ -23,13 +23,13 @@ The checkpointer uses these requests to manage pending sync operations that need
   - SyncRequestType
   - FileTag
 - Used by:
-  - CheckpointerShmemStruct (as array element)
-  - ForwardSyncRequest
-  - CheckpointerSlotMapping
-  - AbsorbSyncRequests
+  - [CheckpointerShmemStruct](CheckpointerShmemStruct.md) (as array element)
+  - [ForwardSyncRequest](../F/ForwardSyncRequest.md)
+  - [CheckpointerSlotMapping](CheckpointerSlotMapping.md)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md)
 
 ## Notes and Other Information
-- CheckpointerRequest structures are stored in a flexible array member within CheckpointerShmemStruct
+- [CheckpointerRequest](CheckpointerRequest.md) structures are stored in a flexible array member within CheckpointerShmemStruct
 - The requests are processed during checkpoint operations to ensure file system consistency
 - This structure is part of PostgreSQL's crash recovery and durability mechanisms
 - The type field determines whether the operation is a sync (ensure data is written to disk) or unlink (remove file) operation

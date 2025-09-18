@@ -22,8 +22,8 @@ The function ensures list integrity by calling check_list_invariants before retu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_list (creates the base list structure with specified capacity)
-  - check_list_invariants (validates list consistency)
+  - [new_list](../n/new_list.md) (creates the base list structure with specified capacity)
+  - [check_list_invariants](../c/check_list_invariants.md) (validates list consistency)
 - Called from (representative examples):
   - list_make3 (generic three-element list macro)
   - list_make3_int (three-element integer list macro)

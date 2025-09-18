@@ -25,11 +25,11 @@ The algorithm considers the segment from (prev_x, prev_y) to (x, y) and determin
 ## Dependencies
 - Functions called/Symbols referenced:
   - FPzero, FPgt, FPlt, FPge, FPle (floating-point comparison macros)
-  - float8_mi, float8_mul (floating-point arithmetic functions)
+  - [float8_mi](../f/float8_mi.md), float8_mul (floating-point arithmetic functions)
   - POINT_ON_POLYGON (constant for special case when segment contains origin)
 
 - Called from (representative examples):
-  - point_inside (uses this function to count axis crossings for point-in-polygon testing)
+  - [point_inside](../p/point_inside.md) (uses this function to count axis crossings for point-in-polygon testing)
 
 ## Notes and Other Information
 - This is a static (internal) function not directly exposed as a PostgreSQL function

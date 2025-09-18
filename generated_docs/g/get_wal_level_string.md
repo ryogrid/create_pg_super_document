@@ -22,7 +22,7 @@ The function supports all standard WAL levels including "minimal", "replica", "l
   - wal_level_options (configuration array)
   - config_enum_entry (struct type)
 - Called from (representative examples):
-  - xlog_desc (multiple locations in xlogdesc.c)
+  - [xlog_desc](../x/xlog_desc.md) (multiple locations in xlogdesc.c)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlogdesc.c file

@@ -30,16 +30,16 @@ This optimization is most effective for top-level queries, as subqueries would t
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - is_simple_union_all_recurse
+  - [is_simple_union_all_recurse](../i/is_simple_union_all_recurse.md)
   - rt_fetch
   - copyObject
   - lappend
   - list_length
   - makeNode
   - list_make1
-  - pull_up_union_leaf_queries
+  - [pull_up_union_leaf_queries](../p/pull_up_union_leaf_queries.md)
 - Called from (representative examples):
-  - subquery_planner
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
 - Cannot optimize recursive UNION operations (checked via root->hasRecursion)

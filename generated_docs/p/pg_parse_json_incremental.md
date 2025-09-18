@@ -22,15 +22,15 @@ pg_parse_json_incremental implements a table-driven, non-recursive parser specif
 ## Dependencies
 - Functions called/Symbols referenced:
   - json_lex (for token lexing)
-  - lex_peek (for token lookahead)
+  - [lex_peek](../l/lex_peek.md) (for token lookahead)
   - have_prediction/pop_prediction/push_prediction (prediction stack management)
-  - inc_lex_level/dec_lex_level (nesting level tracking)
+  - [inc_lex_level](../i/inc_lex_level.md)/dec_lex_level (nesting level tracking)
   - set_fname/get_fname/set_fnull/get_fnull (field name and null value tracking)
   - report_parse_error (error reporting)
 - Called from (representative examples):
-  - pg_parse_json (src/common/jsonapi.c:542)
-  - json_parse_manifest_incremental_chunk (src/common/parse_manifest.c:193)
-  - main functions in test modules for incremental parsing
+  - [pg_parse_json](pg_parse_json.md) (src/common/jsonapi.c:542)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md) (src/common/parse_manifest.c:193)
+  - [main](../m/main.md) functions in test modules for incremental parsing
 
 ## Notes and Other Information
 This parser is slower than the recursive descent approach but necessary for incremental parsing scenarios. It requires the lexing context to be set up with incremental mode enabled, returning JSON_INVALID_LEXER_TYPE otherwise. The parser maintains a prediction stack with semantic action markers to ensure callbacks occur at the appropriate parsing moments. It enforces nesting depth limits (JSON_TD_MAX_STACK) and handles partial token processing across chunk boundaries. The semantic actions function identically to those in the recursive parser, maintaining compatibility between parsing approaches.

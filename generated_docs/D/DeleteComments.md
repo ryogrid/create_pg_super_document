@@ -22,13 +22,13 @@ The function performs a systematic scan using the DescriptionObjIndexId and dele
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_description relation for modification
-  - systable_beginscan: Initiates indexed scan for comments to delete
-  - systable_getnext: Iterates through matching comment tuples
-  - CatalogTupleDelete: Removes each matching comment tuple
-  - systable_endscan: Ends the systematic scan
+  - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan for comments to delete
+  - [systable_getnext](../s/systable_getnext.md): Iterates through matching comment tuples
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Removes each matching comment tuple
+  - [systable_endscan](../s/systable_endscan.md): Ends the systematic scan
   - table_close: Closes the pg_description relation
 - Called from (representative examples):
-  - deleteOneObject: Dependency system calls during object deletion
+  - [deleteOneObject](../d/deleteOneObject.md): Dependency system calls during object deletion
 
 ## Notes and Other Information
 - Uses conditional scan key construction: 2 keys for object-wide deletion, 3 keys for sub-object deletion

@@ -29,7 +29,7 @@ This function takes no parameters and returns a boolean value indicating Hot Sta
   - SpinLockAcquire
   - SpinLockRelease
 - Called from (representative examples):
-  - XLogWalRcvSendHSFeedback
+  - [XLogWalRcvSendHSFeedback](../X/XLogWalRcvSendHSFeedback.md)
   - Referenced in EndOfWalRecoveryInfo
 
 ## Notes and Other Information

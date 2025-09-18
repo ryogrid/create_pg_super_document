@@ -24,11 +24,11 @@ The `parseScriptWeight` function processes command-line options for pgbench scri
   - pg_malloc
   - strncpy (standard library) 
   - strtol (standard library)
-  - pg_fatal
-  - pg_strdup
+  - [pg_fatal](pg_fatal.md)
+  - [pg_strdup](pg_strdup.md)
   - WSEP (weight separator constant)
 - Called from (representative examples):
-  - main (src/bin/pgbench/pgbench.c:6785, 6831)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:6785, 6831)
 
 ## Notes and Other Information
 - Uses WSEP (weight separator) character to separate script names from weights, typically '@'

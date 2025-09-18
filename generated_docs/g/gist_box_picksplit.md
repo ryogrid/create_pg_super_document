@@ -34,13 +34,13 @@ The algorithm is based on the research paper "A new double sorting-based node sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GistEntryVector, GIST_SPLITVEC, ConsiderSplitContext, BOX, SplitInterval, CommonEntry (data structures)
-  - DatumGetBoxP (extracts box from datum)
-  - adjustBox (adjusts bounding box)
-  - g_box_consider_split (evaluates split candidates)
-  - interval_cmp_lower, interval_cmp_upper (comparison functions for sorting)
-  - float8_eq, float8_lt, float8_le, float8_gt, float8_ge (floating-point comparisons)
-  - fallbackSplit (fallback splitting strategy)
+  - [GistEntryVector](../G/GistEntryVector.md), GIST_SPLITVEC, ConsiderSplitContext, BOX, SplitInterval, CommonEntry (data structures)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (extracts box from datum)
+  - [adjustBox](../a/adjustBox.md) (adjusts bounding box)
+  - [g_box_consider_split](g_box_consider_split.md) (evaluates split candidates)
+  - [interval_cmp_lower](../i/interval_cmp_lower.md), interval_cmp_upper (comparison functions for sorting)
+  - [float8_eq](../f/float8_eq.md), float8_lt, float8_le, float8_gt, float8_ge (floating-point comparisons)
+  - [fallbackSplit](../f/fallbackSplit.md) (fallback splitting strategy)
   - qsort (standard library sorting function)
   - FirstOffsetNumber, OffsetNumberNext (offset number utilities)
 - Called from (representative examples):

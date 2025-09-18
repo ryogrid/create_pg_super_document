@@ -32,10 +32,10 @@ The structure is used in conjunction with `check_agg_arguments_walker()` which r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseState (structure type)
+  - [ParseState](../P/ParseState.md) (structure type)
 - Called from (representative examples):
-  - check_agg_arguments (src/backend/parser/parse_agg.c:642)
-  - check_agg_arguments_walker (src/backend/parser/parse_agg.c:718)
+  - [check_agg_arguments](check_agg_arguments.md) (src/backend/parser/parse_agg.c:642)
+  - [check_agg_arguments_walker](check_agg_arguments_walker.md) (src/backend/parser/parse_agg.c:718)
 
 ## Notes and Other Information
 - This structure is closely related to `check_ungrouped_columns_context` which serves a similar purpose for GROUP BY validation

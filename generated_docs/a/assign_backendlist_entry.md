@@ -27,15 +27,15 @@ The function is designed to handle failures gracefully without changing worker s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canAcceptConnections
-  - RandomCancelKey
-  - palloc_extended
-  - AssignPostmasterChildSlot
+  - [canAcceptConnections](../c/canAcceptConnections.md)
+  - [RandomCancelKey](../R/RandomCancelKey.md)
+  - [palloc_extended](../p/palloc_extended.md)
+  - [AssignPostmasterChildSlot](../A/AssignPostmasterChildSlot.md)
   - BACKEND_TYPE_BGWORKER
   - CAC_OK
   - MCXT_ALLOC_NO_OOM
 - Called from (representative examples):
-  - do_start_bgworker
+  - [do_start_bgworker](../d/do_start_bgworker.md)
   - SignalChildren
 
 ## Notes and Other Information

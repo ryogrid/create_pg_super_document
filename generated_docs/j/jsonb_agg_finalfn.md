@@ -17,14 +17,14 @@ This function serves as the final function for JSONB array aggregation operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbAggState
-  - JsonbInState
+  - [JsonbAggState](../J/JsonbAggState.md)
+  - [JsonbInState](../J/JsonbInState.md)
   - Jsonb
-  - AggCheckCallContext
-  - clone_parse_state
-  - pushJsonbValue
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [clone_parse_state](../c/clone_parse_state.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
   - WJB_END_ARRAY
-  - JsonbValueToJsonb
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
 - Called from (representative examples):
   - PostgreSQL aggregate framework (no direct code references found)
 

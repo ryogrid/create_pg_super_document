@@ -22,16 +22,16 @@ Range partitions use these datums to define inclusive lower bounds and exclusive
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionRangeDatumKind
+  - [PartitionRangeDatumKind](PartitionRangeDatumKind.md)
   - ParseLoc
   - NodeTag (inherited)
-  - Node (for value storage)
+  - [Node](../N/Node.md) (for value storage)
 - Called from (representative examples):
-  - transformPartitionRangeBounds
+  - [transformPartitionRangeBounds](../t/transformPartitionRangeBounds.md)
   - compare_range_bounds
-  - check_new_partition_bound
-  - get_qual_for_range
-  - make_one_partition_rbound
+  - [check_new_partition_bound](../c/check_new_partition_bound.md)
+  - [get_qual_for_range](../g/get_qual_for_range.md)
+  - [make_one_partition_rbound](../m/make_one_partition_rbound.md)
 
 ## Notes and Other Information
 - Used exclusively in range partitioning to define partition bounds

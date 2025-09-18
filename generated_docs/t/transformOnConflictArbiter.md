@@ -25,19 +25,19 @@ When a constraint name is specified, the function resolves it to get the constra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resolve_unique_index_expr: Transforms index element expressions for unique index inference
-  - transformExpr: Transforms WHERE clause expressions using index predicate expression kind
-  - get_relation_constraint_attnos: Resolves constraint names and returns constrained column numbers
-  - IsCatalogRelation: Checks if a relation is a system catalog table
+  - [resolve_unique_index_expr](../r/resolve_unique_index_expr.md): Transforms index element expressions for unique index inference
+  - [transformExpr](transformExpr.md): Transforms WHERE clause expressions using index predicate expression kind
+  - [get_relation_constraint_attnos](../g/get_relation_constraint_attnos.md): Resolves constraint names and returns constrained column numbers
+  - [IsCatalogRelation](../I/IsCatalogRelation.md): Checks if a relation is a system catalog table
   - RelationIsUsedAsCatalogTable: Checks if a relation is used as a catalog table by logical decoding
-  - bms_add_members: Adds column numbers to permission bitmaps for access control
-  - exprLocation: Gets parse locations for error reporting
+  - [bms_add_members](../b/bms_add_members.md): Adds column numbers to permission bitmaps for access control
+  - [exprLocation](../e/exprLocation.md): Gets parse locations for error reporting
   - OnConflictClause, InferClause: Node structures for ON CONFLICT processing
   - ONCONFLICT_UPDATE: Constant for UPDATE action type
   - EXPR_KIND_INDEX_PREDICATE: Expression kind for index predicate transformation
   - ACL_SELECT: Permission constant for SELECT access
 - Called from (representative examples):
-  - transformOnConflictClause: Higher-level ON CONFLICT transformation in analyzer
+  - [transformOnConflictClause](transformOnConflictClause.md): Higher-level ON CONFLICT transformation in analyzer
 
 ## Notes and Other Information
 - The function returns results through output parameters rather than return values

@@ -23,7 +23,7 @@ This function implements platform-specific logic to check if the WAL streaming s
 - Functions called/Symbols referenced:
   - select (Unix system call for I/O multiplexing)
   - read (Unix system call for reading from file descriptor)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
   - sscanf (standard C library function for parsing formatted strings)
   - FD_ZERO, FD_SET (Unix macros for file descriptor set manipulation)
 - Global variables accessed:
@@ -31,7 +31,7 @@ This function implements platform-specific logic to check if the WAL streaming s
   - bgpipe[0] (read end of the background pipe for communication)
   - xlogendptr (the target end position for streaming)
 - Called from (representative examples):
-  - LogStreamerMain function in pg_basebackup.c at line 554
+  - [LogStreamerMain](../L/LogStreamerMain.md) function in pg_basebackup.c at line 554
 
 ## Notes and Other Information
 - This function exhibits different behavior on Unix vs Windows due to different process architectures in pg_basebackup

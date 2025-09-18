@@ -21,15 +21,15 @@ The function operates by walking through the partition attachment list of a refe
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (struct type)
-  - IndxInfo (struct type)
-  - SimplePtrListCell (struct type)
+  - [IndxInfo](../I/IndxInfo.md) (struct type)
+  - [SimplePtrListCell](../S/SimplePtrListCell.md) (struct type)
   - DO_FK_CONSTRAINT (enum value)
-  - IndexAttachInfo (struct type)
-  - addObjectDependency (function)
-  - addConstrChildIdxDeps (recursive self-call)
+  - [IndexAttachInfo](../I/IndexAttachInfo.md) (struct type)
+  - [addObjectDependency](addObjectDependency.md) (function)
+  - [addConstrChildIdxDeps](addConstrChildIdxDeps.md) (recursive self-call)
 
 - Called from (representative examples):
-  - getConstraints (primary caller)
+  - [getConstraints](../g/getConstraints.md) (primary caller)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_dump.c file

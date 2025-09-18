@@ -32,7 +32,7 @@ A_Expr_Kind categorizes different types of expressions in PostgreSQL's abstract 
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - A_Expr (in kind field)
+  - [A_Expr](A_Expr.md) (in kind field)
   - makeA_Expr
   - makeSimpleA_Expr
 

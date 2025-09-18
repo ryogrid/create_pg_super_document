@@ -21,7 +21,7 @@ When auto-tuning is requested (-1), the function either preserves the boot value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLOGChooseNumBuffers
+  - [XLOGChooseNumBuffers](../X/XLOGChooseNumBuffers.md)
   - GucSource (enum type)
 - Called from (representative examples):
   - GUC system during parameter validation

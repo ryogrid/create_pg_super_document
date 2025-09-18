@@ -24,15 +24,15 @@ The function handles memory management by freeing any previously materialized tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ReleaseBuffer
-  - IncrBufferRefCount
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
   - TTS_SHOULDFREE (macro)
-  - BufferIsValid (macro)
+  - [BufferIsValid](../B/BufferIsValid.md) (macro)
 - Called from (representative examples):
-  - tts_buffer_heap_copyslot
-  - ExecStoreBufferHeapTuple
-  - ExecStorePinnedBufferHeapTuple
+  - [tts_buffer_heap_copyslot](tts_buffer_heap_copyslot.md)
+  - [ExecStoreBufferHeapTuple](../E/ExecStoreBufferHeapTuple.md)
+  - [ExecStorePinnedBufferHeapTuple](../E/ExecStorePinnedBufferHeapTuple.md)
 
 ## Notes and Other Information
 - This is a static inline function optimized for performance in hot code paths

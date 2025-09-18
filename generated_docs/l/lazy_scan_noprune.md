@@ -27,37 +27,37 @@ lazy_scan_noprune is an optimized variant of lazy_scan_prune that processes heap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
   - ItemIdIsRedirected
   - ItemIdIsDead
-  - PageGetItem
-  - heap_tuple_should_freeze
-  - ItemPointerSet
+  - [PageGetItem](../P/PageGetItem.md)
+  - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md)
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - ItemIdGetLength
-  - HeapTupleSatisfiesVacuum
-  - dead_items_add
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
+  - [dead_items_add](../d/dead_items_add.md)
 - Called from:
-  - lazy_scan_heap
+  - [lazy_scan_heap](lazy_scan_heap.md)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
   - ItemIdIsRedirected
   - ItemIdIsDead
-  - PageGetItem
-  - heap_tuple_should_freeze
-  - ItemPointerSet
+  - [PageGetItem](../P/PageGetItem.md)
+  - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md)
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - ItemIdGetLength
-  - HeapTupleSatisfiesVacuum
-  - dead_items_add
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
+  - [dead_items_add](../d/dead_items_add.md)
 - Called from:
-  - lazy_scan_heap
+  - [lazy_scan_heap](lazy_scan_heap.md)
 
 ## Notes and Other Information
 - Returns true if processing completed successfully, false if aggressive VACUUM needs full pruning

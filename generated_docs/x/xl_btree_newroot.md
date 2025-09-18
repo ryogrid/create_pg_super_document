@@ -23,10 +23,10 @@ When creating the first root page (level 0), the new root is both a leaf and roo
   - SizeOfBtreeNewroot (size calculation macro)  
   - xl_btree_metadata (embedded in backup block data)
 - Called from (representative examples):
-  - _bt_newlevel (src/backend/access/nbtree/nbtinsert.c:2559)
-  - _bt_getroot (src/backend/access/nbtree/nbtpage.c:474)
-  - btree_xlog_newroot (src/backend/access/nbtree/nbtxlog.c:940)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:108)
+  - [_bt_newlevel](../b/_bt_newlevel.md) (src/backend/access/nbtree/nbtinsert.c:2559)
+  - [_bt_getroot](../b/_bt_getroot.md) (src/backend/access/nbtree/nbtpage.c:474)
+  - [btree_xlog_newroot](../b/btree_xlog_newroot.md) (src/backend/access/nbtree/nbtxlog.c:940)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:108)
 
 ## Notes and Other Information
 - The record includes up to 3 backup blocks: new root page, left child (if splitting), and metapage

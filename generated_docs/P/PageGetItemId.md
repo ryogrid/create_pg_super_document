@@ -19,15 +19,15 @@ This function accesses the line pointer array (pd_linp) in a page header to retu
 ## Dependencies
 - Functions called/Symbols referenced:
   - PageHeader (casting page to PageHeaderData pointer)
-  - PageHeaderData structure (accessed via pd_linp array)
+  - [PageHeaderData](PageHeaderData.md) structure (accessed via pd_linp array)
   - ItemId (return type - pointer to ItemIdData)
   - OffsetNumber (parameter type - uint16)
 - Called from (representative examples):
-  - brininsert (in src/backend/access/brin/brin.c:444)
-  - entryLocateEntry (in src/backend/access/gin/ginentrypage.c:310)
-  - gistdoinsert (in src/backend/access/gist/gist.c:751)
-  - heapgettup (in src/backend/access/heap/heapam.c:928)
-  - _bt_search (in src/backend/access/nbtree/nbtsearch.c:150)
+  - [brininsert](../b/brininsert.md) (in src/backend/access/brin/brin.c:444)
+  - [entryLocateEntry](../e/entryLocateEntry.md) (in src/backend/access/gin/ginentrypage.c:310)
+  - [gistdoinsert](../g/gistdoinsert.md) (in src/backend/access/gist/gist.c:751)
+  - [heapgettup](../h/heapgettup.md) (in src/backend/access/heap/heapam.c:928)
+  - [_bt_search](../b/_bt_search.md) (in src/backend/access/nbtree/nbtsearch.c:150)
   - PageAddItemExtended (in src/backend/storage/page/bufpage.c:233)
 
 ## Notes and Other Information

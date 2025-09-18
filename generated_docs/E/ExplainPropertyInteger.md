@@ -21,15 +21,15 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 ## Dependencies
 - Functions called/Symbols referenced:
   - INT64_FORMAT (macro for formatting 64-bit integers)
-  - ExplainProperty (generic property explanation function)
+  - [ExplainProperty](ExplainProperty.md) (generic property explanation function)
 - Called from (representative examples):
-  - ExplainPrintPlan (for plan execution times)
+  - [ExplainPrintPlan](ExplainPrintPlan.md) (for plan execution times)
   - ExplainPrintJIT (for JIT compilation statistics)
-  - ExplainNode (for various node statistics like loops, rows)
-  - show_sort_info (for sort statistics)
-  - show_hash_info (for hash table statistics)
-  - show_memoize_info (for memoization statistics)
-  - show_buffer_usage (for buffer usage statistics)
+  - [ExplainNode](ExplainNode.md) (for various node statistics like loops, rows)
+  - [show_sort_info](../s/show_sort_info.md) (for sort statistics)
+  - [show_hash_info](../s/show_hash_info.md) (for hash table statistics)
+  - [show_memoize_info](../s/show_memoize_info.md) (for memoization statistics)
+  - [show_buffer_usage](../s/show_buffer_usage.md) (for buffer usage statistics)
 
 ## Notes and Other Information
 - This function is extensively used throughout the explain system for displaying numeric statistics

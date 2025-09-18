@@ -34,8 +34,8 @@ This function takes no parameters.
   - PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_URL (build-time constants)
 
 - Called from (representative examples):
-  - main (when --help option is specified)
-  - write_stderr (indirectly through error handling)
+  - [main](../m/main.md) (when --help option is specified)
+  - [write_stderr](../w/write_stderr.md) (indirectly through error handling)
 
 ## Notes and Other Information
 - The function includes conditional compilation blocks for Windows-specific features (#ifdef WIN32)

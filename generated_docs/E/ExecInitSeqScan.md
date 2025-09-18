@@ -24,15 +24,15 @@ ExecInitSeqScan performs comprehensive initialization of a sequential scan execu
   - makeNode (SeqScanState)
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - ExecInitScanTupleSlot
-  - table_slot_callbacks
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfo
-  - ExecInitQual
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [table_slot_callbacks](../t/table_slot_callbacks.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
+  - [ExecInitQual](ExecInitQual.md)
   - outerPlan
   - innerPlan
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
   - NODESEQSCAN_H
 
 ## Notes and Other Information

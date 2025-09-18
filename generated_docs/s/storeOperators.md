@@ -22,33 +22,33 @@ This function persists operator family members to the pg_amop catalog table, whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - OpFamilyMember (type)
+  - [OpFamilyMember](../O/OpFamilyMember.md) (type)
   - SearchSysCacheExists4
   - Int16GetDatum
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - ereport
-  - errcode
-  - errmsg
-  - format_type_be
-  - NameListToString
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [NameListToString](../N/NameListToString.md)
   - OidIsValid
   - AMOP_ORDER
   - AMOP_SEARCH
-  - GetNewOidWithIndex
-  - CharGetDatum
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [CharGetDatum](../C/CharGetDatum.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - DEPENDENCY_NORMAL
   - DEPENDENCY_AUTO
   - DEPENDENCY_INTERNAL
-  - typeDepNeeded
+  - [typeDepNeeded](../t/typeDepNeeded.md)
   - InvokeObjectPostCreateHook
   - table_close
 - Called from (representative examples):
-  - DefineOpClass
-  - AlterOpFamilyAdd
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
 
 ## Notes and Other Information
 - Creates entries in pg_amop with all required attributes including strategy number and purpose

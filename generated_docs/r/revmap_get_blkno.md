@@ -26,9 +26,9 @@ The function provides a simple mapping from heap block addresses to their corres
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_REVMAP_BLK (macro for block number conversion)
 - Called from (representative examples):
-  - brinGetTupleForHeapBlock
-  - brinRevmapDesummarizeRange
-  - revmap_get_buffer
+  - [brinGetTupleForHeapBlock](../b/brinGetTupleForHeapBlock.md)
+  - [brinRevmapDesummarizeRange](../b/brinRevmapDesummarizeRange.md)
+  - [revmap_get_buffer](revmap_get_buffer.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin_revmap.c file

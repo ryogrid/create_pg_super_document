@@ -22,18 +22,18 @@ This function determines whether to send schema information for a relation in th
 - Functions called/Symbols referenced:
   - rbtxn_is_subtxn
   - rbtxn_get_toptxn
-  - get_schema_sent_in_streamed_txn
-  - RelationIdGetRelation
-  - send_relation_and_attrs
-  - RelationClose
-  - set_schema_sent_in_streamed_txn
-  - PGOutputData (type)
-  - LogicalDecodingContext (type)
-  - ReorderBufferChange (type)
-  - RelationSyncEntry (type)
+  - [get_schema_sent_in_streamed_txn](../g/get_schema_sent_in_streamed_txn.md)
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
+  - [send_relation_and_attrs](../s/send_relation_and_attrs.md)
+  - [RelationClose](../R/RelationClose.md)
+  - [set_schema_sent_in_streamed_txn](../s/set_schema_sent_in_streamed_txn.md)
+  - [PGOutputData](../P/PGOutputData.md) (type)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (type)
+  - [ReorderBufferChange](../R/ReorderBufferChange.md) (type)
+  - [RelationSyncEntry](../R/RelationSyncEntry.md) (type)
 - Called from (representative examples):
-  - pgoutput_change
-  - pgoutput_truncate
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [pgoutput_truncate](../p/pgoutput_truncate.md)
 
 ## Notes and Other Information
 This function includes an optimization comment noting that schema sending in streaming transactions could potentially be improved by checking the 'relentry->schema_sent' flag, but this needs careful analysis for mixed streaming/non-streaming transaction scenarios. The function handles inheritance hierarchies by sending ancestor schemas first when a relation is published using an ancestor's schema definition. Schema tracking is maintained separately for streaming and non-streaming contexts due to different transaction visibility and ordering requirements.

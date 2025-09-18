@@ -25,16 +25,16 @@ The function handles both built-in and custom GUC variables, applying proper acc
 - Functions called/Symbols referenced:
   - find_option
   - ConfigOptionIsVisible
-  - ShowGUCOption
+  - [ShowGUCOption](../S/ShowGUCOption.md)
   - config_generic
 - Called from (representative examples):
-  - ExplainPrintSettings (explain.c:828, explain.c:853)
-  - ExtractSetVariableArgs (guc_funcs.c:174)
-  - set_config_by_name (guc_funcs.c:371)
+  - [ExplainPrintSettings](../E/ExplainPrintSettings.md) (explain.c:828, explain.c:853)
+  - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md) (guc_funcs.c:174)
+  - [set_config_by_name](../s/set_config_by_name.md) (guc_funcs.c:371)
   - GetPGVariableResultDesc (guc_funcs.c:414)
   - ShowGUCConfigOption (guc_funcs.c:436)
-  - show_config_by_name (guc_funcs.c:813)
-  - show_config_by_name_missing_ok (guc_funcs.c:832)
+  - [show_config_by_name](../s/show_config_by_name.md) (guc_funcs.c:813)
+  - [show_config_by_name_missing_ok](../s/show_config_by_name_missing_ok.md) (guc_funcs.c:832)
 
 ## Notes and Other Information
 The returned string is allocated with palloc() and must be freed by the caller using pfree(). The function enforces PostgreSQL's privilege system, requiring appropriate permissions to examine certain configuration variables. The varname parameter, if provided, receives a pointer to the canonical variable name from the GUC registry (this pointer should not be freed). The function respects the missing_ok parameter to provide flexible error handling for applications that need to handle non-existent variables gracefully.

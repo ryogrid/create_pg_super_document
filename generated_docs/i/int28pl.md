@@ -23,7 +23,7 @@ The function uses PostgreSQL's pg_add_s64_overflow utility to detect overflow co
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16 (extracts 16-bit argument)
   - PG_GETARG_INT64 (extracts 64-bit argument)
-  - pg_add_s64_overflow (safe 64-bit addition with overflow detection)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (safe 64-bit addition with overflow detection)
   - PG_RETURN_INT64 (returns 64-bit result)
   - ereport (error reporting)
 - Called from (representative examples):

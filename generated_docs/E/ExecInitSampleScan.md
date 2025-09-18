@@ -22,18 +22,18 @@ ExecInitSampleScan is the initialization function for sample scan executor nodes
   - makeNode
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - ExecInitScanTupleSlot
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfo
-  - ExecInitQual
-  - ExecInitExprList
-  - ExecInitExpr
-  - pg_prng_uint32
-  - GetTsmRoutine
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecInitExprList](ExecInitExprList.md)
+  - [ExecInitExpr](ExecInitExpr.md)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
+  - [GetTsmRoutine](../G/GetTsmRoutine.md)
   - outerPlan/innerPlan (macros)
-  - table_slot_callbacks
+  - [table_slot_callbacks](../t/table_slot_callbacks.md)
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - Returns a fully initialized SampleScanState ready for execution

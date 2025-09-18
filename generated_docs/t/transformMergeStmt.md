@@ -33,15 +33,15 @@ The function handles the three types of MERGE actions:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode, setTargetTable, transformFromClause
-  - transformWithClause, transformExpr, transformWhereClause
-  - transformReturningList, transformUpdateTargetList, transformInsertRow
-  - checkInsertTargets, transformExpressionList
-  - setNamespaceForMergeWhen, addNSItemToQuery
-  - GetNSItemByRangeTablePosn, makeFromExpr, makeTargetEntry
-  - assign_query_collations, errdetail_relkind_not_supported
+  - [transformWithClause](transformWithClause.md), transformExpr, transformWhereClause
+  - [transformReturningList](transformReturningList.md), transformUpdateTargetList, transformInsertRow
+  - [checkInsertTargets](../c/checkInsertTargets.md), transformExpressionList
+  - [setNamespaceForMergeWhen](../s/setNamespaceForMergeWhen.md), addNSItemToQuery
+  - [GetNSItemByRangeTablePosn](../G/GetNSItemByRangeTablePosn.md), makeFromExpr, makeTargetEntry
+  - [assign_query_collations](../a/assign_query_collations.md), errdetail_relkind_not_supported
   - Various ACL_* permission constants and CMD_* command type constants
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 - Validates that MERGE can only be performed on tables, partitioned tables, and views

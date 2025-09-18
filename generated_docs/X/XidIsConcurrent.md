@@ -26,14 +26,14 @@ This concurrency detection is crucial for the serializable snapshot isolation im
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
   - TransactionIdEquals
-  - GetTopTransactionIdIfAny
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
   - GetTransactionSnapshot
-  - TransactionIdPrecedes
-  - TransactionIdFollowsOrEquals
-  - pg_lfind32
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
+  - [pg_lfind32](../p/pg_lfind32.md)
 - Called from:
-  - SerialControl
-  - CheckForSerializableConflictOut
+  - [SerialControl](../S/SerialControl.md)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md)
 
 ## Notes and Other Information
 - Assumes the XID is a top-level transaction ID, not a subtransaction

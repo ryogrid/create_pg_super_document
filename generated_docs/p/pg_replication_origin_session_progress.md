@@ -23,7 +23,7 @@ The function performs prerequisite checks to ensure that replication origins are
 - Functions called/Symbols referenced:
   - PG_GETARG_BOOL
   - replorigin_check_prerequisites  
-  - replorigin_session_get_progress
+  - [replorigin_session_get_progress](../r/replorigin_session_get_progress.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

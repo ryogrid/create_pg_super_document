@@ -23,16 +23,16 @@ The isRedo parameter indicates whether this creation is being performed as part 
 - Functions called/Symbols referenced:
   - smgrsw (storage manager switch table)
   - SMgrRelation (relation structure type)
-  - ForkNumber (fork identifier type)
+  - [ForkNumber](../F/ForkNumber.md) (fork identifier type)
 - Called from (representative examples):
-  - heapam_relation_set_new_filelocator (heap access method operations)
-  - heapam_relation_copy_data (heap data copying)
+  - [heapam_relation_set_new_filelocator](../h/heapam_relation_set_new_filelocator.md) (heap access method operations)
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md) (heap data copying)
   - XLogReadBufferExtended (WAL replay buffer operations)
-  - index_build (index construction)
-  - RelationCreateStorage (relation storage creation)
-  - smgr_redo (storage manager WAL replay)
-  - fill_seq_with_data (sequence data initialization)
-  - ExtendBufferedRelTo (buffer extension operations)
+  - [index_build](../i/index_build.md) (index construction)
+  - [RelationCreateStorage](../R/RelationCreateStorage.md) (relation storage creation)
+  - [smgr_redo](smgr_redo.md) (storage manager WAL replay)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md) (sequence data initialization)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (buffer extension operations)
   - CreateAndCopyRelationData (relation data copying)
 
 ## Notes and Other Information

@@ -28,10 +28,10 @@ The caching system is crucial for performance as namespace resolution can be exp
 - Functions called/Symbols referenced:
   - None (this is a simple data structure)
 - Called from (representative examples):
-  - spcachekey_hash (for hash table operations)
-  - spcachekey_equal (for hash table key comparison)
-  - spcache_lookup (when searching for cached entries)
-  - spcache_insert (when inserting new cache entries)
+  - [spcachekey_hash](../s/spcachekey_hash.md) (for hash table operations)
+  - [spcachekey_equal](../s/spcachekey_equal.md) (for hash table key comparison)
+  - [spcache_lookup](../s/spcache_lookup.md) (when searching for cached entries)
+  - [spcache_insert](../s/spcache_insert.md) (when inserting new cache entries)
 
 ## Notes and Other Information
 - This struct is used as the SH_KEY_TYPE in the simplehash implementation for the search path cache

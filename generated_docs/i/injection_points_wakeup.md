@@ -19,7 +19,7 @@ The `injection_points_wakeup` function complements `injection_wait` by providing
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - injection_init_shmem
+  - [injection_init_shmem](injection_init_shmem.md)
   - ConditionVariableBroadcast
   - PG_RETURN_VOID
   - INJ_MAX_WAIT

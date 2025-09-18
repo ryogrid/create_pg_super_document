@@ -26,14 +26,14 @@ When the function encounters an ordinary arc (color < ncolors), it increments th
 ## Dependencies
 - Functions called/Symbols referenced:
   - `check_stack_depth` (stack overflow protection)
-  - `cnfa` (compiled NFA structure)
+  - `[cnfa](../c/cnfa.md)` (compiled NFA structure)
   - `carc` (compiled arc structure)
   - `COLORLESS` (sentinel value for arc termination)
-  - `regex_arc_t` (output arc structure)
-  - `traverse_lacons` (recursive self-call)
+  - `[regex_arc_t](../r/regex_arc_t.md)` (output arc structure)
+  - `[traverse_lacons](traverse_lacons.md)` (recursive self-call)
 - Called from (representative examples):
-  - `pg_reg_getnumoutarcs` (to count outgoing arcs)
-  - `pg_reg_getoutarcs` (to retrieve arc information)
+  - `[pg_reg_getnumoutarcs](../p/pg_reg_getnumoutarcs.md)` (to count outgoing arcs)
+  - `[pg_reg_getoutarcs](../p/pg_reg_getoutarcs.md)` (to retrieve arc information)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed to external callers

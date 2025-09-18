@@ -25,13 +25,13 @@ If the input operator is already single-type (left and right types are the same)
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
   - ReleaseSysCacheList
-  - get_opfamily_member
+  - [get_opfamily_member](get_opfamily_member.md)
   - HTEqualStrategyNumber
   - Form_pg_amop
   - CatCList
 - Called from (representative examples):
-  - ExecInitSubPlan
-  - create_unique_plan
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
+  - [create_unique_plan](../c/create_unique_plan.md)
 
 ## Notes and Other Information
 - Returns true if able to find all requested operators, false otherwise

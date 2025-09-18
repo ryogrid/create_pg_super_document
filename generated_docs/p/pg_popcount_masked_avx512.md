@@ -38,7 +38,7 @@ This is particularly useful for operations that need to count specific bit patte
   - _mm512_reduce_add_epi64 (AVX-512 reduction intrinsic)
 - Called from (representative examples):
   - TRY_POPCNT_FAST (macro in pg_bitutils.h:317)
-  - choose_popcount_functions (in pg_bitutils.c:177)
+  - [choose_popcount_functions](../c/choose_popcount_functions.md) (in pg_bitutils.c:177)
 
 ## Notes and Other Information
 - This function is only compiled when TRY_POPCNT_FAST is defined and AVX-512 support is available

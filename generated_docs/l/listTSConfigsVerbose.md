@@ -18,17 +18,17 @@ This function queries the PostgreSQL system catalogs to retrieve comprehensive i
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer 
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) 
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - PQgetisnull
-  - describeOneTSConfig
-  - PQgetvalue
-  - PQntuples
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [describeOneTSConfig](../d/describeOneTSConfig.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - listTSConfigs
+  - [listTSConfigs](listTSConfigs.md)
 
 ## Notes and Other Information
 - Returns false if no configurations match the pattern or if an error occurs

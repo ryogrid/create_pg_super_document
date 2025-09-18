@@ -27,7 +27,7 @@ The decision process follows a hierarchical approach: first checking for mandato
   - CURSOR_OPT_CUSTOM_PLAN (cursor-specific setting)
   - plan_cache_mode (global configuration variable)
 - Called from (representative examples):
-  - GetCachedPlan
+  - [GetCachedPlan](../G/GetCachedPlan.md)
   - StmtPlanRequiresRevalidation
 
 ## Notes and Other Information

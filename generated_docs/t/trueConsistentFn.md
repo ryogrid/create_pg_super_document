@@ -17,10 +17,10 @@ This function serves as a placeholder consistent function for GIN (Generalized I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanKey (struct type)
+  - [GinScanKey](../G/GinScanKey.md) (struct type)
   - GinTernaryValue (enum type)
 - Called from (representative examples):
-  - ginInitConsistentFunction
+  - [ginInitConsistentFunction](../g/ginInitConsistentFunction.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the ginlogic.c compilation unit

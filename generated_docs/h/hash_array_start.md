@@ -23,16 +23,16 @@ For nested arrays (lex_level > 0), the function allows processing to continue, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JHashState (struct type for state management)
+  - [JHashState](../J/JHashState.md) (struct type for state management)
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
   - ereport (PostgreSQL error reporting function)
   - ERROR (error level constant)
-  - errcode (error code specification function)
+  - [errcode](../e/errcode.md) (error code specification function)
   - ERRCODE_INVALID_PARAMETER_VALUE (specific error code)
-  - errmsg (error message formatting function)
+  - [errmsg](../e/errmsg.md) (error message formatting function)
 - Called from (representative examples):
-  - get_json_object_as_hash
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
   - JsObjectFree
 
 ## Notes and Other Information

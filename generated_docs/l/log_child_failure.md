@@ -23,7 +23,7 @@ This function provides comprehensive error reporting for failed test processes i
   - pg_strsignal (signal name/description lookup on Unix/Linux)
 - Called from (representative examples):
   - Used in MAX_PARALLEL_TESTS context (src/test/regress/pg_regress.c:1812)
-  - run_single_test (src/test/regress/pg_regress.c:1892)
+  - [run_single_test](../r/run_single_test.md) (src/test/regress/pg_regress.c:1892)
 
 ## Notes and Other Information
 - Handles three types of process termination: normal exit with non-zero code, signal termination, and unrecognized status

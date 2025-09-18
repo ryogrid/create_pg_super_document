@@ -20,8 +20,8 @@ This static function performs tuple compactification to eliminate gaps caused by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
-  - PageGetMaxOffsetNumber
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - memmove
   - memcpy
   - Assert (for debugging)
@@ -32,8 +32,8 @@ This static function performs tuple compactification to eliminate gaps caused by
   - ItemId
   - PGAlignedBlock
 - Called from:
-  - PageRepairFragmentation (main page defragmentation function)
-  - PageIndexMultiDelete (bulk tuple deletion operations)
+  - [PageRepairFragmentation](../P/PageRepairFragmentation.md) (main page defragmentation function)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (bulk tuple deletion operations)
 
 ## Notes and Other Information
 - This is a static function internal to bufpage.c, not exposed in the public API

@@ -22,20 +22,20 @@ The function includes assertions to ensure there is at most one updating transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMultiXactIdMembers
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - ISUPDATE_from_mxstatus
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types used:
   - TransactionId
-  - MultiXactMember
+  - [MultiXactMember](MultiXactMember.md)
 - Constants used:
   - InvalidTransactionId
   - HEAP_XMAX_LOCK_ONLY
   - HEAP_XMAX_IS_MULTI
 - Called from (representative examples):
-  - compute_new_xmax_infomask
-  - FreezeMultiXactId
-  - HeapTupleGetUpdateXid
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md)
+  - [HeapTupleGetUpdateXid](../H/HeapTupleGetUpdateXid.md)
 
 ## Notes and Other Information
 - Static function, only used within heapam.c

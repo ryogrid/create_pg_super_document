@@ -28,15 +28,15 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - pqGetCopyData3
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqGetCopyData3](../p/pqGetCopyData3.md)
   - PGASYNC_COPY_OUT
   - PGASYNC_COPY_BOTH
 - Called from (representative examples):
-  - handleCopyOut (psql)
-  - dumpTableData_copy (pg_dump)
-  - libpqrcv_receive (replication)
-  - ReceiveCopyData (pg_basebackup)
+  - [handleCopyOut](../h/handleCopyOut.md) (psql)
+  - [dumpTableData_copy](../d/dumpTableData_copy.md) (pg_dump)
+  - [libpqrcv_receive](../l/libpqrcv_receive.md) (replication)
+  - [ReceiveCopyData](../R/ReceiveCopyData.md) (pg_basebackup)
 
 ## Notes and Other Information
 - Returns row length (> 0) on success with data in *buffer

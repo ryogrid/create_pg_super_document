@@ -27,21 +27,21 @@ The function connects to the subscriber using the first database connection info
 - Functions called/Symbols referenced:
   - pg_log_info
   - connect_database
-  - server_is_in_recovery
-  - disconnect_database
-  - PQexec
+  - [server_is_in_recovery](../s/server_is_in_recovery.md)
+  - [disconnect_database](../d/disconnect_database.md)
+  - [PQexec](../P/PQexec.md)
   - PGRES_TUPLES_OK
-  - PQresultErrorMessage
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
   - atoi
-  - PQgetvalue
+  - [PQgetvalue](../P/PQgetvalue.md)
   - strcmp
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - pg_log_debug
-  - PQclear
+  - [PQclear](../P/PQclear.md)
   - pg_log_error
   - pg_log_error_hint
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Must be called before promoting the standby to ensure logical replication compatibility

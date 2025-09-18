@@ -26,12 +26,12 @@ The function is designed to be simple and focused, handling only the permission 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclcheck
-  - aclcheck_error  
-  - get_relkind_objtype
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)  
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
 - Called from (representative examples):
-  - ExecuteTruncateGuts
-  - RangeVarCallbackForTruncate
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
+  - [RangeVarCallbackForTruncate](../R/RangeVarCallbackForTruncate.md)
 
 ## Notes and Other Information
 - This function specifically checks for ACL_TRUNCATE privilege, which is distinct from other table privileges like SELECT, INSERT, UPDATE, or DELETE

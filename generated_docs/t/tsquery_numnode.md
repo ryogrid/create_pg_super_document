@@ -21,7 +21,7 @@ The  function is a PostgreSQL built-in function that calculates and returns the 
   -  - Frees memory if argument was copied
   -  - Returns 32-bit integer result
   -  - Text search query data type
-  -  - Query tree node structure
+  -  - [Query](../Q/Query.md) tree node structure
 
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

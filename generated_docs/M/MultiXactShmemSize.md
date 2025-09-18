@@ -24,9 +24,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruShmemSize (called twice for offset and member buffers)
-  - add_size (PostgreSQL size calculation macro)
-  - mul_size (PostgreSQL size calculation macro)
+  - [SimpleLruShmemSize](../S/SimpleLruShmemSize.md) (called twice for offset and member buffers)
+  - [add_size](../a/add_size.md) (PostgreSQL size calculation macro)
+  - [mul_size](../m/mul_size.md) (PostgreSQL size calculation macro)
   - offsetof (standard C macro)
 - Global variables referenced:
   - multixact_offset_buffers (GUC parameter)
@@ -35,9 +35,9 @@ This function takes no parameters.
 - Data types used:
   - Size (PostgreSQL size type)
   - MultiXactId (multi-transaction identifier type)
-  - MultiXactStateData (shared state structure)
+  - [MultiXactStateData](MultiXactStateData.md) (shared state structure)
 - Called from:
-  - CalculateShmemSize (in src/backend/storage/ipc/ipci.c:132)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in src/backend/storage/ipc/ipci.c:132)
   - SizeOfMultiXactTruncate (referenced in src/include/access/multixact.h:124)
 
 ## Notes and Other Information

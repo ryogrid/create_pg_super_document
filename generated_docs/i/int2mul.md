@@ -24,9 +24,9 @@ Multiplication is particularly prone to overflow since the product of two number
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16 (macro for extracting int16 arguments)
-  - pg_mul_s16_overflow (safe multiplication with overflow detection)
+  - [pg_mul_s16_overflow](../p/pg_mul_s16_overflow.md) (safe multiplication with overflow detection)
   - ereport (error reporting function)
-  - errcode/errmsg (error handling macros)
+  - [errcode](../e/errcode.md)/errmsg (error handling macros)
   - PG_RETURN_INT16 (macro for returning int16 value)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through operator dispatch)

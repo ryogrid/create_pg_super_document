@@ -21,11 +21,11 @@ Like its counterpart get_typmodin, this function gracefully handles invalid type
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (extract struct from heap tuple)
   - Form_pg_type (pg_type catalog structure)
-  - ReleaseSysCache (release cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache reference)
 - Called from (representative examples):
   - Currently not directly referenced in the analyzed codebase (may be used via function pointers or external modules)
 

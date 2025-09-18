@@ -32,8 +32,8 @@ The function is designed to be called repeatedly until it returns 0, allowing co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParserGet (core parsing engine function)
-  - TParser (parser structure type)
+  - [TParserGet](../T/TParserGet.md) (core parsing engine function)
+  - [TParser](../T/TParser.md) (parser structure type)
   - PG_GETARG_POINTER (PostgreSQL argument extraction macro)
   - PG_RETURN_INT32 (PostgreSQL return value macro)
 - Called from:

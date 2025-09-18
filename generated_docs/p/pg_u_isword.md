@@ -27,13 +27,13 @@ This comprehensive approach ensures proper word boundary detection across all Un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category
+  - [unicode_category](../u/unicode_category.md)
   - PG_U_CATEGORY_MASK
   - PG_U_M_MASK (mark characters bitmask)
   - PG_U_ND_MASK (decimal number bitmask) 
   - PG_U_PC_MASK (connector punctuation bitmask)
-  - pg_u_isalpha
-  - pg_u_prop_join_control
+  - [pg_u_isalpha](pg_u_isalpha.md)
+  - [pg_u_prop_join_control](pg_u_prop_join_control.md)
 - Called from (representative examples):
   - Referenced in unicode_category.h header
 

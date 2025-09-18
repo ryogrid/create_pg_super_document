@@ -22,11 +22,11 @@ The function performs a simple validation check to ensure the provided shared me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGSharedMemoryDetach (performs the actual detachment)
-  - DatumGetPointer (macro for extracting pointer from Datum)
+  - [PGSharedMemoryDetach](../P/PGSharedMemoryDetach.md) (performs the actual detachment)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro for extracting pointer from Datum)
   - Assert (for validation checking)
 - Called from (representative examples):
-  - PGSharedMemoryCreate (registered as exit callback)
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md) (registered as exit callback)
 
 ## Notes and Other Information
 - Windows-specific implementation (part of win32_shmem.c)

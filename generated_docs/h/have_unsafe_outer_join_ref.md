@@ -27,15 +27,15 @@ These conditions indicate that the parameterized join could produce incorrect re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_difference
-  - bms_intersect
-  - bms_overlap
-  - bms_is_member
-  - bms_free
-  - SpecialJoinInfo
+  - [bms_difference](../b/bms_difference.md)
+  - [bms_intersect](../b/bms_intersect.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_free](../b/bms_free.md)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - JOIN_FULL
 - Called from (representative examples):
-  - try_nestloop_path
+  - [try_nestloop_path](../t/try_nestloop_path.md)
 
 ## Notes and Other Information
 This function is marked as static inline and is used internally within the joinpath.c module as part of the nested loop join path validation logic. It's essential for maintaining query correctness when dealing with complex outer join scenarios.

@@ -32,23 +32,23 @@ reportDependentObjects serves as both a validation and reporting function in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getObjectDescription
-  - message_level_is_interesting
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
   - initStringInfo
   - appendStringInfo/appendStringInfoChar
   - ereport/errmsg/errdetail/errhint
-  - errmsg_plural/errmsg_internal
+  - [errmsg_plural](../e/errmsg_plural.md)/errmsg_internal
   - ngettext
-  - pfree
+  - [pfree](../p/pfree.md)
 - Data structures used:
   - ObjectAddresses/ObjectAddress
   - ObjectAddressExtra
-  - StringInfoData
+  - [StringInfoData](../S/StringInfoData.md)
   - DropBehavior
   - Various DEPFLAG_* constants (DEPFLAG_ORIGINAL, DEPFLAG_IS_PART, etc.)
 - Called from (representative examples):
-  - performDeletion
-  - performMultipleDeletions
+  - [performDeletion](../p/performDeletion.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
   - find_expr_references_context
 
 ## Notes and Other Information

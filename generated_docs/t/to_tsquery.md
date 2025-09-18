@@ -20,11 +20,11 @@ This function provides a convenient wrapper for creating TSQuery objects from te
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - getTSCurrentConfig
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md)
   - DirectFunctionCall2
-  - to_tsquery_byid
-  - ObjectIdGetDatum
-  - PointerGetDatum
+  - [to_tsquery_byid](to_tsquery_byid.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - PG_RETURN_DATUM
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

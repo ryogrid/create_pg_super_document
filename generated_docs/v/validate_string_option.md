@@ -20,11 +20,11 @@ This function serves as a validation callback for string-type relation options i
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (PostgreSQL error reporting function)
-  - errmsg (PostgreSQL error message formatting macro)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message formatting macro)
   - NOTICE (PostgreSQL log level constant)
 - Called from (representative examples):
-  - create_reloptions_table (at src/test/modules/dummy_index_am/dummy_index_am.c:113)
-  - create_reloptions_table (at src/test/modules/dummy_index_am/dummy_index_am.c:126)
+  - [create_reloptions_table](../c/create_reloptions_table.md) (at src/test/modules/dummy_index_am/dummy_index_am.c:113)
+  - [create_reloptions_table](../c/create_reloptions_table.md) (at src/test/modules/dummy_index_am/dummy_index_am.c:126)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's test infrastructure, specifically within the dummy index access method module

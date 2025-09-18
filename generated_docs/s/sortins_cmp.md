@@ -24,12 +24,12 @@ The function is designed as a qsort() compatible comparison function, returning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - arc (struct type)
+  - [arc](../a/arc.md) (struct type)
 - Called from (representative examples):
-  - sortins (src/backend/regex/regc_nfa.c:642)
-  - moveins (src/backend/regex/regc_nfa.c:832)
-  - copyins (src/backend/regex/regc_nfa.c:932)
-  - mergeins (src/backend/regex/regc_nfa.c:994, 1003, 1030)
+  - [sortins](sortins.md) (src/backend/regex/regc_nfa.c:642)
+  - [moveins](../m/moveins.md) (src/backend/regex/regc_nfa.c:832)
+  - [copyins](../c/copyins.md) (src/backend/regex/regc_nfa.c:932)
+  - [mergeins](../m/mergeins.md) (src/backend/regex/regc_nfa.c:994, 1003, 1030)
 
 ## Notes and Other Information
 - This is a static function local to the regc_nfa.c file

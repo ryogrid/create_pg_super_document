@@ -27,11 +27,11 @@ The function supports both successful completion (errormsg = NULL) and error rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - pqPutMsgStart
-  - pqPuts
-  - pqPutMsgEnd
-  - pqFlush
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqPutMsgStart](../p/pqPutMsgStart.md)
+  - [pqPuts](../p/pqPuts.md)
+  - [pqPutMsgEnd](../p/pqPutMsgEnd.md)
+  - [pqFlush](../p/pqFlush.md)
   - PqMsg_CopyFail
   - PqMsg_CopyDone
   - PqMsg_Sync
@@ -41,10 +41,10 @@ The function supports both successful completion (errormsg = NULL) and error rep
   - PGASYNC_BUSY
   - PGQUERY_SIMPLE
 - Called from (representative examples):
-  - handleCopyIn (psql)
-  - EndDBCopyMode (pg_dump)
-  - libpqrcv_endstreaming (replication)
-  - BaseBackup (pg_basebackup)
+  - [handleCopyIn](../h/handleCopyIn.md) (psql)
+  - [EndDBCopyMode](../E/EndDBCopyMode.md) (pg_dump)
+  - [libpqrcv_endstreaming](../l/libpqrcv_endstreaming.md) (replication)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup)
 
 ## Notes and Other Information
 - Returns 1 on success or -1 on error

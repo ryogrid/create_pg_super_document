@@ -37,14 +37,14 @@ The function uses sophisticated sscanf pattern matching to handle all valid form
 ## Dependencies
 - Functions called/Symbols referenced:
   - sscanf (standard C parsing function)
-  - warning (warning message function) 
-  - error (error reporting function)
+  - [warning](../w/warning.md) (warning message function) 
+  - [error](../e/error.md) (error reporting function)
   - oadd (overflow-safe addition function)
   - MINSPERHOUR, SECSPERMIN, SECSPERHOUR, HOURSPERDAY (time constants)
   - ZIC_MAX, PG_INT32_MAX (overflow protection constants)
   - zic_t (timezone time type)
 - Called from (representative examples):
-  - getsave (for parsing timezone offsets)
+  - [getsave](getsave.md) (for parsing timezone offsets)
   - inzsub (for zone definition parsing)
   - getleapdatetime (for leap second time parsing)
   - rulesub (for rule time parsing)

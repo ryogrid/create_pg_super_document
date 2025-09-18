@@ -24,11 +24,11 @@ XLogFileName constructs a WAL segment file name in the standard PostgreSQL forma
   - MAXFNAMELEN
   - snprintf (standard C library)
 - Called from (representative examples):
-  - XLogWrite
-  - XLogFileClose  
-  - RestoreArchivedFile
-  - WalSndSegmentOpen
-  - pg_walfile_name
+  - [XLogWrite](XLogWrite.md)
+  - [XLogFileClose](XLogFileClose.md)  
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
+  - [WalSndSegmentOpen](../W/WalSndSegmentOpen.md)
+  - [pg_walfile_name](../p/pg_walfile_name.md)
 
 ## Notes and Other Information
 - This is an inline function defined in xlog_internal.h for performance

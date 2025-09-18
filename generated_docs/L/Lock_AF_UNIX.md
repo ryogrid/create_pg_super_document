@@ -26,13 +26,13 @@ The function uses a two-stage approach: first acquiring an exclusive lock file, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateSocketLockFile
+  - [CreateSocketLockFile](../C/CreateSocketLockFile.md)
   - unlink
   - lappend
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - STATUS_OK
 - Called from (representative examples):
-  - ListenServerPort
+  - [ListenServerPort](ListenServerPort.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pqcomm.c

@@ -28,12 +28,12 @@ The function handles empty queries as non-matching and properly manages memory c
   - GETOPERAND
   - GETQUERY
   - TS_execute
-  - checkcondition_str
+  - [checkcondition_str](../c/checkcondition_str.md)
   - PG_FREE_IF_COPY
   - PG_RETURN_BOOL
 - Called from (representative examples):
-  - ts_match_qv
-  - ts_match_tt
+  - [ts_match_qv](ts_match_qv.md)
+  - [ts_match_tt](ts_match_tt.md)
   - ts_match_tq
 
 ## Notes and Other Information

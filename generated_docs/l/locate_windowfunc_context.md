@@ -25,8 +25,8 @@ The context is used in conjunction with `locate_windowfunc()` function to find t
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)
 - Called from (representative examples):
-  - locate_windowfunc (src/backend/rewrite/rewriteManip.c:256)
-  - locate_windowfunc_walker (src/backend/rewrite/rewriteManip.c:273)
+  - [locate_windowfunc](locate_windowfunc.md) (src/backend/rewrite/rewriteManip.c:256)
+  - [locate_windowfunc_walker](locate_windowfunc_walker.md) (src/backend/rewrite/rewriteManip.c:273)
 
 ## Notes and Other Information
 - Part of PostgreSQL's query rewriting infrastructure in rewriteManip.c

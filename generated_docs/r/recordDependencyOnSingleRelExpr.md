@@ -30,19 +30,19 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_object_addresses
-  - find_expr_references_walker
-  - eliminate_duplicate_dependencies
-  - add_exact_object_address
-  - recordMultipleDependencies
-  - recordDependencyOn
-  - free_object_addresses
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md)
+  - [eliminate_duplicate_dependencies](../e/eliminate_duplicate_dependencies.md)
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [recordMultipleDependencies](recordMultipleDependencies.md)
+  - [recordDependencyOn](recordDependencyOn.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - list_make1
 - Called from (representative examples):
-  - StorePartitionKey (for partition key expressions)
+  - [StorePartitionKey](../S/StorePartitionKey.md) (for partition key expressions)
   - index_create (for index expressions)
-  - StoreAttrDefault (for column default expressions)
-  - CreateConstraintEntry (for constraint expressions)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md) (for column default expressions)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (for constraint expressions)
 
 ## Notes and Other Information
 - The caller should ensure a whole-table dependency is created separately if needed

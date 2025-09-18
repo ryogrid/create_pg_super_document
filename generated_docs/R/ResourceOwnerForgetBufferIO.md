@@ -21,7 +21,7 @@ The function delegates to ResourceOwnerForget with the buffer converted to a Dat
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForget
-  - Int32GetDatum
+  - [Int32GetDatum](../I/Int32GetDatum.md)
   - buffer_io_resowner_desc
 - Called from (representative examples):
   - TerminateBufferIO

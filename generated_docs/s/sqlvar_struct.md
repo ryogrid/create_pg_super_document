@@ -23,11 +23,11 @@ The struct follows the standard SQLDA pattern used in embedded SQL implementatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlname
+  - [sqlname](sqlname.md)
 - Called from (representative examples):
-  - sqlda_native_empty_size
-  - ecpg_build_native_sqlda
-  - sqlda_struct
+  - [sqlda_native_empty_size](sqlda_native_empty_size.md)
+  - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md)
+  - [sqlda_struct](sqlda_struct.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's ECPG native interface and is located in 

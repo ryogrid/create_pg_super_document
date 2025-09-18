@@ -22,7 +22,7 @@ This function is part of the tuplestore machinery specialized for handling HeapT
 - Functions called/Symbols referenced:
   - Tuplestorestate
   - MinimalTuple
-  - minimal_tuple_from_heap_tuple
+  - [minimal_tuple_from_heap_tuple](../m/minimal_tuple_from_heap_tuple.md)
   - GetMemoryChunkSpace
   - USEMEM (memory accounting macro)
 - Called from (representative examples):

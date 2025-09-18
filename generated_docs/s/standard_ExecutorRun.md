@@ -36,12 +36,12 @@ The function supports various scan directions and respects tuple count limits wh
   - GetActiveSnapshot (validates snapshot consistency)
   - InstrStartNode/InstrStopNode (execution instrumentation)
   - ScanDirectionIsNoMovement (direction validation)
-  - ExecutePlan (core plan execution engine)
+  - [ExecutePlan](../E/ExecutePlan.md) (core plan execution engine)
   - CmdType (command type enumeration)
   - DestReceiver (destination receiver interface)
   - CMD_SELECT (SELECT command type constant)
 - Called from (representative examples):
-  - ExecutorRun (src/backend/executor/execMain.c:306)
+  - [ExecutorRun](../E/ExecutorRun.md) (src/backend/executor/execMain.c:306)
 
 ## Notes and Other Information
 - Requires ExecutorStart to have been called previously to establish proper execution state

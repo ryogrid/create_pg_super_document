@@ -21,14 +21,14 @@ The `transformCollateClause` function processes explicit COLLATE clauses in SQL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
   - exprType
-  - type_is_collatable
-  - LookupCollation
-  - format_type_be
-  - parser_errposition
+  - [type_is_collatable](type_is_collatable.md)
+  - [LookupCollation](../L/LookupCollation.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function validates that the argument type supports collation, rejecting non-collatable types except for UNKNOWNOID

@@ -25,8 +25,8 @@ This function performs garbage collection on a tuplestore by identifying and rem
   - GetMemoryChunkSpace
   - FREEMEM (memory management macro)
 - Called from (representative examples):
-  - ExecMaterialMarkPos
-  - ExecWindowAgg
+  - [ExecMaterialMarkPos](../E/ExecMaterialMarkPos.md)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
 
 ## Notes and Other Information
 - Trimming is disabled if any read pointer requires REWIND capability

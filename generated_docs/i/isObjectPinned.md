@@ -19,11 +19,11 @@ The function specifically ignores any subId component of the object address, ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsPinnedObject
+  - [IsPinnedObject](../I/IsPinnedObject.md)
 - Called from (representative examples):
-  - recordMultipleDependencies
-  - changeDependencyFor
-  - changeDependenciesOn
+  - [recordMultipleDependencies](../r/recordMultipleDependencies.md)
+  - [changeDependencyFor](../c/changeDependencyFor.md)
+  - [changeDependenciesOn](../c/changeDependenciesOn.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_depend.c file

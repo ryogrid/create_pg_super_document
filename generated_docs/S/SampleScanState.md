@@ -289,17 +289,17 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
+  - [ScanState](ScanState.md)
   - TsmRoutine
 - Called from (representative examples):
-  - ExecSampleScan
-  - ExecInitSampleScan
-  - ExecEndSampleScan
-  - ExecReScanSampleScan
-  - tablesample_init
-  - tablesample_getnext
-  - bernoulli_initsamplescan
-  - system_initsamplescan
+  - [ExecSampleScan](../E/ExecSampleScan.md)
+  - [ExecInitSampleScan](../E/ExecInitSampleScan.md)
+  - [ExecEndSampleScan](../E/ExecEndSampleScan.md)
+  - [ExecReScanSampleScan](../E/ExecReScanSampleScan.md)
+  - [tablesample_init](../t/tablesample_init.md)
+  - [tablesample_getnext](../t/tablesample_getnext.md)
+  - [bernoulli_initsamplescan](../b/bernoulli_initsamplescan.md)
+  - [system_initsamplescan](../s/system_initsamplescan.md)
 
 ## Notes and Other Information
 - Primarily implemented in src/backend/executor/nodeSamplescan.c for TABLESAMPLE execution

@@ -21,11 +21,11 @@ The function includes the same error handling as `enum_first` for cases where th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype
-  - enum_endpoint
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [enum_endpoint](enum_endpoint.md)
   - BackwardScanDirection
   - ereport
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - PG_RETURN_OID
 - Called from:
   - SQL queries using enum_last() function

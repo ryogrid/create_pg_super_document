@@ -19,11 +19,11 @@ This internal function iterates through a linked list of descriptors, deallocati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - descriptor_free: Frees memory associated with a single descriptor
+  - [descriptor_free](descriptor_free.md): Frees memory associated with a single descriptor
   - struct descriptor: The descriptor structure type
 
 - Called from (representative examples):
-  - descriptor_destructor: Called during library cleanup/shutdown
+  - [descriptor_destructor](descriptor_destructor.md): Called during library cleanup/shutdown
 
 ## Notes and Other Information
 - This is a static function, only accessible within the descriptor.c compilation unit

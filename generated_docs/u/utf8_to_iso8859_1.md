@@ -33,11 +33,11 @@ The function follows PostgreSQL's encoding conversion framework and includes rob
   - PG_GETARG_CSTRING
   - PG_GETARG_INT32
   - CHECK_ENCODING_CONVERSION_ARGS
-  - report_invalid_encoding
+  - [report_invalid_encoding](../r/report_invalid_encoding.md)
   - IS_HIGHBIT_SET
   - pg_utf_mblen
-  - pg_utf8_islegal
-  - report_untranslatable_char
+  - [pg_utf8_islegal](../p/pg_utf8_islegal.md)
+  - [report_untranslatable_char](../r/report_untranslatable_char.md)
   - PG_RETURN_INT32
 - Constants used:
   - PG_UTF8

@@ -30,24 +30,24 @@ For rebuilds, the function creates a temporary new entry, swaps its contents wit
 - Functions called/Symbols referenced:
   - RelationHasReferenceCountZero
   - RelationCloseSmgr
-  - RelationReloadNailed
-  - RelationReloadIndexInfo
+  - [RelationReloadNailed](RelationReloadNailed.md)
+  - [RelationReloadIndexInfo](RelationReloadIndexInfo.md)
   - RelationCacheDelete
-  - RelationDestroyRelation
-  - RelationBuildDesc
-  - IsTransactionState
+  - [RelationDestroyRelation](RelationDestroyRelation.md)
+  - [RelationBuildDesc](RelationBuildDesc.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
   - HistoricSnapshotActive
-  - equalTupleDescs
-  - equalRuleLocks
-  - equalRSDesc
+  - [equalTupleDescs](../e/equalTupleDescs.md)
+  - [equalRuleLocks](../e/equalRuleLocks.md)
+  - [equalRSDesc](../e/equalRSDesc.md)
   - RELKIND_INDEX
   - RELKIND_PARTITIONED_INDEX
   - InvalidSubTransactionId
 - Called from (representative examples):
-  - RelationIdGetRelation
-  - RelationFlushRelation
-  - RelationCacheInvalidate
-  - AtEOXact_cleanup
+  - [RelationIdGetRelation](RelationIdGetRelation.md)
+  - [RelationFlushRelation](RelationFlushRelation.md)
+  - [RelationCacheInvalidate](RelationCacheInvalidate.md)
+  - [AtEOXact_cleanup](../A/AtEOXact_cleanup.md)
 
 ## Notes and Other Information
 - Central function in PostgreSQL's relation cache invalidation system

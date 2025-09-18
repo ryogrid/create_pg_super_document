@@ -22,10 +22,10 @@ This is a convenience function for checking the current user's privileges withou
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - GetUserId
-  - convert_server_name
-  - convert_server_priv_string
-  - object_aclcheck
+  - [GetUserId](../G/GetUserId.md)
+  - [convert_server_name](../c/convert_server_name.md)
+  - [convert_server_priv_string](../c/convert_server_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - PG_RETURN_BOOL
   - AclResult (type)
   - AclMode (type)

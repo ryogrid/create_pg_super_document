@@ -24,16 +24,16 @@ The function handles two scenarios: when the operator name is schema-qualified (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
   - MemSet
   - strlcpy
-  - setup_parser_errposition_callback
-  - LookupExplicitNamespace
-  - cancel_parser_errposition_callback
-  - fetch_search_path_array
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)
+  - [fetch_search_path_array](../f/fetch_search_path_array.md)
 - Called from (representative examples):
-  - oper (operator lookup function)
-  - left_oper (left unary operator lookup)
+  - [oper](../o/oper.md) (operator lookup function)
+  - [left_oper](../l/left_oper.md) (left unary operator lookup)
 
 ## Notes and Other Information
 - Returns true on success, false if search path overflow prevents caching

@@ -25,7 +25,7 @@ Titlecase is used in certain writing systems where the first letter of a word sh
   - pg_case_map (structure)
   - CaseTitle (enum value)
 - Called from (representative examples):
-  - icu_test_simple
+  - [icu_test_simple](../i/icu_test_simple.md)
 
 ## Notes and Other Information
 - Returns the original codepoint if no titlecase mapping exists

@@ -23,9 +23,9 @@ The struct helps the deletion process make informed decisions about which blocks
 - Functions called/Symbols referenced:
   - (This is a data structure definition with no direct function calls)
 - Called from (representative examples):
-  - bottomup_nblocksfavorable (src/backend/access/heap/heapam.c:8537, 8557)
-  - bottomup_sort_and_shrink_cmp (src/backend/access/heap/heapam.c:8582, 8583)
-  - bottomup_sort_and_shrink (src/backend/access/heap/heapam.c:8655, 8666, 8726, 8737, 8748)
+  - [bottomup_nblocksfavorable](../b/bottomup_nblocksfavorable.md) (src/backend/access/heap/heapam.c:8537, 8557)
+  - [bottomup_sort_and_shrink_cmp](../b/bottomup_sort_and_shrink_cmp.md) (src/backend/access/heap/heapam.c:8582, 8583)
+  - [bottomup_sort_and_shrink](../b/bottomup_sort_and_shrink.md) (src/backend/access/heap/heapam.c:8655, 8666, 8726, 8737, 8748)
 
 ## Notes and Other Information
 - This struct is specifically used in the context of bottom-up index deletion, which is an optimization strategy for bulk index tuple deletion operations

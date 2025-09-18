@@ -22,10 +22,10 @@ The caching mechanism improves performance by allowing reuse of expensive-to-pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_InitHashTables (initializes hash table on first call)
-  - hash_search (inserts the key-plan pair into the cache)
+  - [ri_InitHashTables](ri_InitHashTables.md) (initializes hash table on first call)
+  - [hash_search](../h/hash_search.md) (inserts the key-plan pair into the cache)
 - Called from (representative examples):
-  - ri_PlanCheck (after preparing a new plan for constraint checking)
+  - [ri_PlanCheck](ri_PlanCheck.md) (after preparing a new plan for constraint checking)
 
 ## Notes and Other Information
 - Uses HASH_ENTER mode to insert or update entries in the hash table

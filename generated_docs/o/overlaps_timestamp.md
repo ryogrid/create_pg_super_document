@@ -28,9 +28,9 @@ Internal variables:
   - PG_GETARG_DATUM
   - PG_ARGISNULL
   - DirectFunctionCall2
-  - timestamp_gt
-  - timestamp_lt
-  - DatumGetBool
+  - [timestamp_gt](../t/timestamp_gt.md)
+  - [timestamp_lt](../t/timestamp_lt.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
 - Called from (representative examples):

@@ -22,11 +22,11 @@ This function handles the specific formatting requirements for JSON output in Po
   - ExplainState (struct type)
   - EXPLAIN_FORMAT_JSON (format constant)
 - Called from (representative examples):
-  - ExplainPropertyList
-  - ExplainPropertyListNested
-  - ExplainProperty
-  - ExplainOpenGroup
-  - ExplainDummyGroup
+  - [ExplainPropertyList](ExplainPropertyList.md)
+  - [ExplainPropertyListNested](ExplainPropertyListNested.md)
+  - [ExplainProperty](ExplainProperty.md)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)
+  - [ExplainDummyGroup](ExplainDummyGroup.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the explain.c file

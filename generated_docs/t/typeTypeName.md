@@ -22,10 +22,10 @@ The type name returned is the internal PostgreSQL name for the type (e.g., "int4
   - Type (typedef for HeapTuple)
   - Form_pg_type (structure representing pg_type catalog row)
   - GETSTRUCT (macro to extract structure from HeapTuple)
-  - pstrdup (function to duplicate a string in current memory context)
+  - [pstrdup](../p/pstrdup.md) (function to duplicate a string in current memory context)
   - NameStr (macro to convert Name type to C string)
 - Called from (representative examples):
-  - coerce_type (in parse_coerce.c:352)
+  - [coerce_type](../c/coerce_type.md) (in parse_coerce.c:352)
 
 ## Notes and Other Information
 - The returned string is allocated in the current memory context and must be freed by the caller if needed

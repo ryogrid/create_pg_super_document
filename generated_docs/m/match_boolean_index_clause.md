@@ -35,11 +35,11 @@ All transformations create explicit equality operations that can be processed by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_index_to_operand
+  - [match_index_to_operand](match_index_to_operand.md)
   - make_opclause
-  - makeBoolConst
-  - is_notclause
-  - get_notclausearg
+  - [makeBoolConst](makeBoolConst.md)
+  - [is_notclause](../i/is_notclause.md)
+  - [get_notclausearg](../g/get_notclausearg.md)
   - make_simple_restrictinfo
   - makeNode (IndexClause creation)
 - Constants used:
@@ -48,8 +48,8 @@ All transformations create explicit equality operations that can be processed by
   - IS_FALSE
 - Called from (representative examples):
   - ec_member_matches_arg
-  - match_clause_to_indexcol
-  - indexcol_is_bool_constant_for_query
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md)
+  - [indexcol_is_bool_constant_for_query](../i/indexcol_is_bool_constant_for_query.md)
 
 ## Notes and Other Information
 - Should only be called when `IsBooleanOpfamily()` confirms boolean operator family support

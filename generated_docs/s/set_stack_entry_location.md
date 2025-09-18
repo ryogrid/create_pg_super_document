@@ -30,8 +30,8 @@ A key feature is the filename normalization process: the function strips directo
   - strrchr (standard library function for finding last occurrence of character)
 
 - Called from (representative examples):
-  - errfinish (src/backend/utils/error/elog.c:488)
-  - errsave_finish (src/backend/utils/error/elog.c:711)
+  - [errfinish](../e/errfinish.md) (src/backend/utils/error/elog.c:488)
+  - [errsave_finish](../e/errsave_finish.md) (src/backend/utils/error/elog.c:711)
 
 ## Notes and Other Information
 - The function is static and only used internally within the error handling subsystem

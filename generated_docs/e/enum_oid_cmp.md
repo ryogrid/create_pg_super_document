@@ -18,12 +18,12 @@ The  function is a standard comparison function designed for use with sorting an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32 (PostgreSQL utility function for comparing unsigned 32-bit values)
+  - [pg_cmp_u32](../p/pg_cmp_u32.md) (PostgreSQL utility function for comparing unsigned 32-bit values)
 - Data structures used:
-  - EnumItem
+  - [EnumItem](../E/EnumItem.md)
 - Called from (representative examples):
-  - load_enum_cache_data (for sorting enum values during cache loading)
-  - find_enumitem (for binary search operations)
+  - [load_enum_cache_data](../l/load_enum_cache_data.md) (for sorting enum values during cache loading)
+  - [find_enumitem](../f/find_enumitem.md) (for binary search operations)
 
 ## Notes and Other Information
 - Returns standard comparison result: negative, zero, or positive integer

@@ -24,10 +24,10 @@ This function recursively traverses bitmap scan plan trees and sets the 'isshare
   - BitmapIndexScan (plan node type for bitmap index scans)
   - nodeTag (to get the node type for error reporting)
   - linitial (to get the first element from plan lists)
-  - bitmap_subplan_mark_shared (recursive self-calls)
+  - [bitmap_subplan_mark_shared](bitmap_subplan_mark_shared.md) (recursive self-calls)
 - Called from (representative examples):
-  - create_bitmap_scan_plan
-  - bitmap_subplan_mark_shared (recursive calls)
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md)
+  - [bitmap_subplan_mark_shared](bitmap_subplan_mark_shared.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal module use

@@ -23,15 +23,15 @@ The caching is implemented using the MinmaxMultiOpaque structure's extra_procinf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getprocid
+  - [index_getprocid](../i/index_getprocid.md)
   - RegProcedureIsValid
-  - fmgr_info_copy
-  - index_getprocinfo
+  - [fmgr_info_copy](../f/fmgr_info_copy.md)
+  - [index_getprocinfo](../i/index_getprocinfo.md)
   - ereport (for error handling)
 - Called from (representative examples):
-  - ensure_free_space_in_buffer
-  - compactify_ranges
-  - brin_minmax_multi_union
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the minmax-multi implementation

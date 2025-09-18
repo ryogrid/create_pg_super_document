@@ -22,14 +22,14 @@ DisableSubscription modifies a subscription's enabled status in the pg_subscript
   - table_open (open system table with lock)
   - SearchSysCacheCopy1 (get copy of catalog tuple)
   - HeapTupleIsValid (validate heap tuple)
-  - LockSharedObject (acquire shared object lock)
-  - heap_modify_tuple (create modified tuple)
+  - [LockSharedObject](../L/LockSharedObject.md) (acquire shared object lock)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (create modified tuple)
   - RelationGetDescr (get relation descriptor)
-  - CatalogTupleUpdate (update catalog tuple)
-  - heap_freetuple (free tuple memory)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (update catalog tuple)
+  - [heap_freetuple](../h/heap_freetuple.md) (free tuple memory)
   - table_close (close system table)
 - Called from (representative examples):
-  - DisableSubscriptionAndExit (logical replication worker error handling)
+  - [DisableSubscriptionAndExit](DisableSubscriptionAndExit.md) (logical replication worker error handling)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock to prevent concurrent modifications to the subscription relation

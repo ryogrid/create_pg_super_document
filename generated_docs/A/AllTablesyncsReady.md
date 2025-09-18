@@ -23,13 +23,13 @@ This function is specifically designed to be called from within apply or tablesy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FetchTableStates
-  - CommitTransactionCommand
-  - pgstat_report_stat
+  - [FetchTableStates](../F/FetchTableStates.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md)
 - Called from (representative examples):
-  - pa_can_start
-  - tablesync_start_time_mapping
-  - run_apply_worker
+  - [pa_can_start](../p/pa_can_start.md)
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)
+  - [run_apply_worker](../r/run_apply_worker.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:1757-1781

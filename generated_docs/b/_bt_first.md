@@ -22,27 +22,27 @@ The function processes scan keys to build an insertion-type scan key for tree tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_preprocess_keys
-  - _bt_parallel_seize
-  - _bt_parallel_readpage
-  - _bt_start_array_keys
-  - _bt_endpoint
-  - _bt_search
-  - _bt_binsrch
-  - _bt_readpage
-  - _bt_steppage
-  - _bt_metaversion
-  - _bt_initialize_more_data
-  - _bt_unlockbuf
-  - _bt_drop_lock_and_maybe_pin
-  - _bt_freestack
-  - _bt_parallel_done
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md)
+  - [_bt_parallel_seize](_bt_parallel_seize.md)
+  - [_bt_parallel_readpage](_bt_parallel_readpage.md)
+  - [_bt_start_array_keys](_bt_start_array_keys.md)
+  - [_bt_endpoint](_bt_endpoint.md)
+  - [_bt_search](_bt_search.md)
+  - [_bt_binsrch](_bt_binsrch.md)
+  - [_bt_readpage](_bt_readpage.md)
+  - [_bt_steppage](_bt_steppage.md)
+  - [_bt_metaversion](_bt_metaversion.md)
+  - [_bt_initialize_more_data](_bt_initialize_more_data.md)
+  - [_bt_unlockbuf](_bt_unlockbuf.md)
+  - [_bt_drop_lock_and_maybe_pin](_bt_drop_lock_and_maybe_pin.md)
+  - [_bt_freestack](_bt_freestack.md)
+  - [_bt_parallel_done](_bt_parallel_done.md)
   - pgstat_count_index_scan
-  - PredicateLockRelation
-  - PredicateLockPage
+  - [PredicateLockRelation](../P/PredicateLockRelation.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
 - Called from:
-  - btgettuple
-  - btgetbitmap
+  - [btgettuple](btgettuple.md)
+  - [btgetbitmap](btgetbitmap.md)
 
 ## Notes and Other Information
 - Returns true if a matching tuple is found, false if no matches exist

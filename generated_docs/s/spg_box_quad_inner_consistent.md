@@ -34,13 +34,13 @@ The 4D approach treats each box as having four coordinates (low.x, high.x, low.y
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initRectBox (initializes unbounded 4D rectangle)
-  - getRangeBox (converts BOX to RangeBox format)
-  - spg_box_quad_get_scankey_bbox (extracts bounding box from scan key)
-  - nextRectBox (calculates refined bounding rectangle for quadrant)
+  - [initRectBox](../i/initRectBox.md) (initializes unbounded 4D rectangle)
+  - [getRangeBox](../g/getRangeBox.md) (converts BOX to RangeBox format)
+  - [spg_box_quad_get_scankey_bbox](spg_box_quad_get_scankey_bbox.md) (extracts bounding box from scan key)
+  - [nextRectBox](../n/nextRectBox.md) (calculates refined bounding rectangle for quadrant)
   - 4D spatial predicates: overlap4D, contain4D, contained4D, left4D, overLeft4D, right4D, overRight4D, above4D, overAbove4D, below4D, overBelow4D
-  - pointToRectBoxDistance (distance calculation for ordering)
-  - DatumGetBoxP, DatumGetPointP (datum conversion functions)
+  - [pointToRectBoxDistance](../p/pointToRectBoxDistance.md) (distance calculation for ordering)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md), DatumGetPointP (datum conversion functions)
   - Memory management: palloc, pfree, MemoryContextSwitchTo
 - Called from (representative examples):
   - SP-GiST query execution engine

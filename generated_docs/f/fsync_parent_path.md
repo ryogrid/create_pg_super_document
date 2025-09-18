@@ -23,7 +23,7 @@ A static function that synchronizes the parent directory of a given file or dire
   - fsync_fname_ext
 - Called from (representative examples):
   - AllocateDesc
-  - durable_rename
+  - [durable_rename](../d/durable_rename.md)
   - durable_unlink
 
 ## Notes and Other Information

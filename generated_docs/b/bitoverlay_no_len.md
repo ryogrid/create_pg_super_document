@@ -27,7 +27,7 @@ This function serves as a convenience wrapper around the internal `bit_overlay` 
   - PG_GETARG_VARBIT_P (argument extraction macro)
   - PG_GETARG_INT32 (argument extraction macro)
   - VARBITLEN (macro to get bit string length)
-  - bit_overlay (internal implementation function)
+  - [bit_overlay](bit_overlay.md) (internal implementation function)
   - PG_RETURN_VARBIT_P (return value macro)
 - Called from (representative examples):
   - No direct callers found (called via PostgreSQL function dispatch system)

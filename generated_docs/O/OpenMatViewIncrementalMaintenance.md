@@ -27,7 +27,7 @@ None - this is a parameter-less function that modifies global state.
 - Functions called/Symbols referenced:
   - matview_maintenance_depth (global variable, incremented)
 - Called from (representative examples):
-  - refresh_by_match_merge
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md)
 
 ## Notes and Other Information
 - Must be paired with CloseMatViewIncrementalMaintenance() to maintain proper maintenance context depth

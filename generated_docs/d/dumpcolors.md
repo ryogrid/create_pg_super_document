@@ -27,15 +27,15 @@ For each color, the function scans through all simple characters (CHR_MIN to MAX
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (for formatted output)
-  - CDEND (macro to get end of color descriptor array)
+  - [CDEND](../C/CDEND.md) (macro to get end of color descriptor array)
   - UNUSEDCOLOR (macro to check if a color is unused)
   - GETCOLOR (macro to get color assignment for a character)
-  - dumpchr (to output character representations)
+  - [dumpchr](dumpchr.md) (to output character representations)
   - CHR_MIN, MAX_SIMPLE_CHR (character range constants)
   - PSEUDO (flag indicating pseudo colors)
 - Called from (representative examples):
-  - dumpnfa (src/backend/regex/regc_nfa.c:3684)
-  - dump (src/backend/regex/regcomp.c:2517)
+  - [dumpnfa](dumpnfa.md) (src/backend/regex/regc_nfa.c:3684)
+  - [dump](dump.md) (src/backend/regex/regcomp.c:2517)
 
 ## Notes and Other Information
 - This is a debugging function used for development and troubleshooting of the regex engine

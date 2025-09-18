@@ -23,14 +23,14 @@ The function will not return true for TOAST tables belonging to other sessions' 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsToastNamespace (checks if a namespace is a TOAST namespace)
+  - [IsToastNamespace](IsToastNamespace.md) (checks if a namespace is a TOAST namespace)
   - RelationGetNamespace (extracts the namespace OID from a relation)
 - Called from (representative examples):
-  - heap_insert (src/backend/access/heap/heapam.c:2163)
-  - heap_abort_speculative (src/backend/access/heap/heapam.c:6166, 6250)
-  - ReorderBufferProcessTXN (src/backend/replication/logical/reorderbuffer.c:2297)
-  - ReorderBufferToastAppendChunk (src/backend/replication/logical/reorderbuffer.c:4854)
-  - CacheInvalidateHeapTuple (src/backend/utils/cache/inval.c:1231)
+  - [heap_insert](../h/heap_insert.md) (src/backend/access/heap/heapam.c:2163)
+  - [heap_abort_speculative](../h/heap_abort_speculative.md) (src/backend/access/heap/heapam.c:6166, 6250)
+  - [ReorderBufferProcessTXN](../R/ReorderBufferProcessTXN.md) (src/backend/replication/logical/reorderbuffer.c:2297)
+  - [ReorderBufferToastAppendChunk](../R/ReorderBufferToastAppendChunk.md) (src/backend/replication/logical/reorderbuffer.c:4854)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md) (src/backend/utils/cache/inval.c:1231)
 
 ## Notes and Other Information
 - Does not perform any catalog accesses, making it efficient for frequent use

@@ -19,13 +19,13 @@ The `AsyncShmemSize` function computes the amount of shared memory space needed 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safe multiplication for memory calculations)
-  - add_size (safe addition for memory calculations)  
-  - SimpleLruShmemSize (calculates LRU buffer space)
-  - QueueBackendStatus (structure for backend status tracking)
-  - AsyncQueueControl (main control structure)
+  - [mul_size](../m/mul_size.md) (safe multiplication for memory calculations)
+  - [add_size](../a/add_size.md) (safe addition for memory calculations)  
+  - [SimpleLruShmemSize](../S/SimpleLruShmemSize.md) (calculates LRU buffer space)
+  - [QueueBackendStatus](../Q/QueueBackendStatus.md) (structure for backend status tracking)
+  - [AsyncQueueControl](AsyncQueueControl.md) (main control structure)
 - Called from (representative examples):
-  - CalculateShmemSize (during shared memory setup)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (during shared memory setup)
   - Referenced in ASYNC_H header file
 
 ## Notes and Other Information

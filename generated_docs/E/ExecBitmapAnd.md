@@ -21,7 +21,7 @@ The function immediately throws an error if called, indicating that BitmapAnd no
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Called from (representative examples):
-  - ExecInitBitmapAnd (sets this as the ExecProcNode function pointer)
+  - [ExecInitBitmapAnd](ExecInitBitmapAnd.md) (sets this as the ExecProcNode function pointer)
 
 ## Notes and Other Information
 - This function exists only to satisfy the executor node interface requirements

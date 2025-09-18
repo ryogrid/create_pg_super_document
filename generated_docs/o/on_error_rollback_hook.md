@@ -24,14 +24,14 @@ The "interactive" mode is particularly useful as it provides error recovery duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
-  - ParseVariableBool
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
+  - [ParseVariableBool](../P/ParseVariableBool.md)
   - PsqlVarEnumError
   - PSQL_ERROR_ROLLBACK_INTERACTIVE
   - PSQL_ERROR_ROLLBACK_ON
   - PSQL_ERROR_ROLLBACK_OFF
 - Called from (representative examples):
-  - EstablishVariableSpace (registers the hook)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (registers the hook)
 
 ## Notes and Other Information
 - This is a static function within src/bin/psql/startup.c, used internally by psql's variable system

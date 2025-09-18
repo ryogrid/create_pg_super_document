@@ -21,14 +21,14 @@ This function provides proper cleanup for indexes opened by toast_open_indexes. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_close
-  - pfree
+  - [index_close](../i/index_close.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - toast_save_datum (in toast_internals.c)
-  - toast_delete_datum (in toast_internals.c)
-  - toastrel_valueid_exists (in toast_internals.c)
-  - toast_get_valid_index (in toast_internals.c)
-  - heap_fetch_toast_slice (in heaptoast.c)
+  - [toast_save_datum](toast_save_datum.md) (in toast_internals.c)
+  - [toast_delete_datum](toast_delete_datum.md) (in toast_internals.c)
+  - [toastrel_valueid_exists](toastrel_valueid_exists.md) (in toast_internals.c)
+  - [toast_get_valid_index](toast_get_valid_index.md) (in toast_internals.c)
+  - [heap_fetch_toast_slice](../h/heap_fetch_toast_slice.md) (in heaptoast.c)
 
 ## Notes and Other Information
 - This function is the required cleanup counterpart to toast_open_indexes and should always be called after using opened TOAST indexes

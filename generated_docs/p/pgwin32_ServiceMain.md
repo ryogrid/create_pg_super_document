@@ -24,16 +24,16 @@ During operation, it monitors both shutdown events and the postmaster process st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_post_opts
+  - [read_post_opts](../r/read_post_opts.md)
   - RegisterServiceCtrlHandler (Windows API)
-  - pgwin32_ServiceHandler
+  - [pgwin32_ServiceHandler](pgwin32_ServiceHandler.md)
   - CreateEvent (Windows API)
-  - pgwin32_SetServiceStatus
-  - pgwin32_CommandLine
-  - CreateRestrictedProcess
+  - [pgwin32_SetServiceStatus](pgwin32_SetServiceStatus.md)
+  - [pgwin32_CommandLine](pgwin32_CommandLine.md)
+  - [CreateRestrictedProcess](../C/CreateRestrictedProcess.md)
   - CloseHandle (Windows API)
-  - write_eventlog
-  - wait_for_postmaster_start
+  - [write_eventlog](../w/write_eventlog.md)
+  - [wait_for_postmaster_start](../w/wait_for_postmaster_start.md)
   - WaitForMultipleObjects (Windows API)
   - kill (signal function)
   - WaitForSingleObject (Windows API)
@@ -47,7 +47,7 @@ During operation, it monitors both shutdown events and the postmaster process st
   - `do_wait` (configuration flag)
   - `shutdownHandles` (array of handles to wait on)
 - Called from (representative examples):
-  - pgwin32_doRunAsService
+  - [pgwin32_doRunAsService](pgwin32_doRunAsService.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function used only in pg_ctl on Windows platforms

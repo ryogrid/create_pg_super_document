@@ -20,13 +20,13 @@ DecodePosixTimezone handles POSIX-style timezone specifications that combine a t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeTimezone
-  - DecodeSpecial
+  - [DecodeTimezone](DecodeTimezone.md)
+  - [DecodeSpecial](DecodeSpecial.md)
   - MAXDATEFIELDS
   - DTZ (timezone type constant)
   - TZ (timezone type constant)
 - Called from (representative examples):
-  - DecodeDateTime (in ECPG library)
+  - [DecodeDateTime](DecodeDateTime.md) (in ECPG library)
 
 ## Notes and Other Information
 - This is a static function specific to the ECPG client library

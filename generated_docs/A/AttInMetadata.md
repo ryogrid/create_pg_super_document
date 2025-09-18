@@ -22,16 +22,16 @@ The structure contains a complete TupleDesc along with pre-computed arrays of in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDesc (struct type)
-  - FmgrInfo (struct type)
+  - [TupleDesc](../T/TupleDesc.md) (struct type)
+  - [FmgrInfo](../F/FmgrInfo.md) (struct type)
   - Oid (type alias)
 - Called from (representative examples):
-  - TupleDescGetAttInMetadata
-  - BuildTupleFromCStrings
-  - FuncCallContext (as a member)
-  - show_all_settings
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
+  - [FuncCallContext](../F/FuncCallContext.md) (as a member)
+  - [show_all_settings](../s/show_all_settings.md)
   - pltcl_build_tuple_result
-  - libpqrcv_processTuples
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
 
 ## Notes and Other Information
 - Designed to optimize performance in set-returning functions by pre-computing expensive metadata

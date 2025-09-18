@@ -25,7 +25,7 @@ The function uses a comprehensive switch statement to handle all standard Postgr
   - elog (PostgreSQL error logging for unrecognized privileges)
   - ERROR (error level constant)
 - Called from (representative examples):
-  - aclexplode (function that breaks down ACL items into their components)
+  - [aclexplode](../a/aclexplode.md) (function that breaks down ACL items into their components)
 
 ## Notes and Other Information
 - This is a static function used internally within the ACL module

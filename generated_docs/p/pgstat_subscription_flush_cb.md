@@ -23,7 +23,7 @@ The function performs atomic updates by acquiring a lock on the statistics entry
   - pgstat_lock_entry
   - pgstat_unlock_entry
   - PgStat_BackendSubEntry (type cast)
-  - PgStatShared_Subscription (type cast)
+  - [PgStatShared_Subscription](../P/PgStatShared_Subscription.md) (type cast)
 - Called from (representative examples):
   - PostgreSQL statistics system via SH_DECLARE macro registration
 

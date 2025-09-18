@@ -23,9 +23,9 @@ Unlike its 32-bit counterpart, this function uses only numeric operations for al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `NumericAggState` (aggregate state structure)
-  - `do_numeric_discard` (numeric discard operation)
-  - `int64_to_numeric` (conversion function)
+  - `[NumericAggState](../N/NumericAggState.md)` (aggregate state structure)
+  - `[do_numeric_discard](../d/do_numeric_discard.md)` (numeric discard operation)
+  - `[int64_to_numeric](int64_to_numeric.md)` (conversion function)
   - `PG_GETARG_INT64` (argument extraction macro)
 - Called from (representative examples):
   - No direct references found in the indexed codebase

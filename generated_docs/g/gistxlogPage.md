@@ -22,7 +22,7 @@ This lightweight structure acts as a descriptor that precedes a sequence of inde
 - Functions called/Symbols referenced:
   - BlockNumber
 - Called from (representative examples):
-  - SplitPageLayout
+  - [SplitPageLayout](../S/SplitPageLayout.md)
 
 ## Notes and Other Information
 The naming convention with 'xlog' prefix is historical and potentially misleading, as this structure is used for internal split operations rather than WAL logging. The structure is typically used as a header in memory layouts where page information and associated tuples are stored together for processing during page splits. Its simplicity reflects its focused purpose as a basic descriptor for organizing tuple data during GiST index maintenance operations.

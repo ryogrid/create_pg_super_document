@@ -26,16 +26,16 @@ The function assumes the caller has already opened any required indexes and is r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckCmdReplicaIdentity: Validates replica identity requirements for INSERT operations
-  - ExecBRInsertTriggers: Executes BEFORE ROW INSERT triggers
-  - ExecComputeStoredGenerated: Computes values for stored generated columns
-  - ExecConstraints: Validates tuple constraints
-  - ExecPartitionCheck: Validates partition constraints if applicable
-  - simple_table_tuple_insert: Performs the actual tuple insertion into the table
-  - ExecInsertIndexTuples: Creates index entries for the inserted tuple
-  - ExecARInsertTriggers: Executes AFTER ROW INSERT triggers
+  - [CheckCmdReplicaIdentity](../C/CheckCmdReplicaIdentity.md): Validates replica identity requirements for INSERT operations
+  - [ExecBRInsertTriggers](ExecBRInsertTriggers.md): Executes BEFORE ROW INSERT triggers
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md): Computes values for stored generated columns
+  - [ExecConstraints](ExecConstraints.md): Validates tuple constraints
+  - [ExecPartitionCheck](ExecPartitionCheck.md): Validates partition constraints if applicable
+  - [simple_table_tuple_insert](../s/simple_table_tuple_insert.md): Performs the actual tuple insertion into the table
+  - [ExecInsertIndexTuples](ExecInsertIndexTuples.md): Creates index entries for the inserted tuple
+  - [ExecARInsertTriggers](ExecARInsertTriggers.md): Executes AFTER ROW INSERT triggers
 - Called from (representative examples):
-  - apply_handle_insert_internal: Logical replication worker for processing INSERT operations
+  - [apply_handle_insert_internal](../a/apply_handle_insert_internal.md): Logical replication worker for processing INSERT operations
   - exec_rt_fetch: Through executor header inclusion
 
 ## Notes and Other Information

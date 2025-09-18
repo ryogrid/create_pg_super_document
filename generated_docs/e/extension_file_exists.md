@@ -26,18 +26,18 @@ The function specifically ignores auxiliary control files (those containing "--"
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_extension_control_directory
+  - [get_extension_control_directory](../g/get_extension_control_directory.md)
   - AllocateDir
   - ReadDir
-  - is_extension_control_filename
-  - pstrdup
+  - [is_extension_control_filename](../i/is_extension_control_filename.md)
+  - [pstrdup](../p/pstrdup.md)
   - strrchr
   - strstr
   - strcmp
   - FreeDir
 - Called from (representative examples):
-  - CreateFunction (in functioncmds.c)
-  - ExecuteDoStmt (in functioncmds.c)
+  - [CreateFunction](../C/CreateFunction.md) (in functioncmds.c)
+  - [ExecuteDoStmt](../E/ExecuteDoStmt.md) (in functioncmds.c)
 
 ## Notes and Other Information
 - This function is designed for hint/suggestion purposes and doesn't guarantee the extension is fully valid

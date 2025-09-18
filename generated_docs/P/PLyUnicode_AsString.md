@@ -21,21 +21,21 @@ The function ensures proper memory management by decrementing the reference coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_Bytes
+  - [PLyUnicode_Bytes](PLyUnicode_Bytes.md)
   - PyBytes_AsString (Python C API)
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - Py_XDECREF (Python C API)
 - Called from (representative examples):
-  - PLy_cursor_plan
-  - PLy_traceback (multiple times)
-  - PLy_get_sqlerrcode
-  - get_string_attr
-  - PLy_exec_trigger
-  - PLy_modify_tuple
-  - object_to_string
-  - PLy_output (multiple times)
-  - PLy_spi_prepare
-  - PLy_spi_execute_plan
+  - [PLy_cursor_plan](PLy_cursor_plan.md)
+  - [PLy_traceback](PLy_traceback.md) (multiple times)
+  - [PLy_get_sqlerrcode](PLy_get_sqlerrcode.md)
+  - [get_string_attr](../g/get_string_attr.md)
+  - [PLy_exec_trigger](PLy_exec_trigger.md)
+  - [PLy_modify_tuple](PLy_modify_tuple.md)
+  - [object_to_string](../o/object_to_string.md)
+  - [PLy_output](PLy_output.md) (multiple times)
+  - [PLy_spi_prepare](PLy_spi_prepare.md)
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md)
 
 ## Notes and Other Information
 - Returns a palloc'ed string that must be pfree'd by the caller

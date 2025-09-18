@@ -20,7 +20,7 @@ The  function serves as a fallback description generator for custom resource man
 - Functions called/Symbols referenced:
   - XLogRecGetRmid (to extract the resource manager ID from the record)
 - Called from:
-  - initialize_custom_rmgrs (assigned as the description function for custom resource managers)
+  - [initialize_custom_rmgrs](../i/initialize_custom_rmgrs.md) (assigned as the description function for custom resource managers)
 
 ## Notes and Other Information
 - This function is static and only used within rmgrdesc.c

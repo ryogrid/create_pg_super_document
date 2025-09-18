@@ -21,20 +21,20 @@ The time_out function serves as the output function for PostgreSQL's time data t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMEADT (macro for parameter extraction)
-  - time2tm (time decomposition function)
+  - [time2tm](time2tm.md) (time decomposition function)
   - EncodeTimeOnly (time formatting function)
-  - pstrdup (string duplication function)
+  - [pstrdup](../p/pstrdup.md) (string duplication function)
   - PG_RETURN_CSTRING (return value macro)
 - Types used:
   - TimeADT (time abstract data type)
-  - pg_tm (time structure)
+  - [pg_tm](../p/pg_tm.md) (time structure)
   - fsec_t (fractional seconds type)
   - Datum (PostgreSQL function return type)
 - Constants used:
   - MAXDATELEN (maximum date string length)
   - DateStyle (global formatting setting)
 - Called from (representative examples):
-  - ExecGetJsonValueItemString
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md)
 
 ## Notes and Other Information
 - Registered as the output function for the time data type in PostgreSQL's type system

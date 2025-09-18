@@ -31,18 +31,18 @@ For standalone attributes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xmltype
-  - DatumGetXmlP
+  - [xmltype](xmltype.md)
+  - [DatumGetXmlP](../D/DatumGetXmlP.md)
   - VARSIZE
   - text_to_cstring
   - parse_xml_decl
   - print_xml_decl
   - appendBinaryStringInfo
-  - stringinfo_to_xmltype
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - NO_XML_SUPPORT (fallback when libxml not available)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (src/backend/executor/execExprInterp.c:3910)
-  - xmlconcat2 (src/backend/utils/adt/xml.c:631)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (src/backend/executor/execExprInterp.c:3910)
+  - [xmlconcat2](xmlconcat2.md) (src/backend/utils/adt/xml.c:631)
   - PG_RETURN_XML_P (src/include/utils/xml.h:72)
 
 ## Notes and Other Information

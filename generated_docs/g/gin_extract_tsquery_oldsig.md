@@ -22,7 +22,7 @@ The function uses `PG_FUNCTION_ARGS` macro, which provides access to:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gin_extract_tsquery
+  - [gin_extract_tsquery](gin_extract_tsquery.md)
 - Called from (representative examples):
   - No direct references found (legacy compatibility function)
 

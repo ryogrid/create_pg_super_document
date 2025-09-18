@@ -20,14 +20,14 @@ The function implements a state machine approach where it tracks the current bou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionRangeDatumKind (enum type)
+  - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md) (enum type)
   - PARTITION_RANGE_DATUM_VALUE (enum constant)
   - PARTITION_RANGE_DATUM_MAXVALUE (enum constant) 
   - PARTITION_RANGE_DATUM_MINVALUE (enum constant)
-  - PartitionRangeDatum (struct type)
-  - exprLocation (for error position reporting)
+  - [PartitionRangeDatum](../P/PartitionRangeDatum.md) (struct type)
+  - [exprLocation](../e/exprLocation.md) (for error position reporting)
 - Called from (representative examples):
-  - transformPartitionRangeBounds
+  - [transformPartitionRangeBounds](../t/transformPartitionRangeBounds.md)
 
 ## Notes and Other Information
 - This is a static function within parse_utilcmd.c, used internally for partition bound validation

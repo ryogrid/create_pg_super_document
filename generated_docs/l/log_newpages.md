@@ -22,17 +22,17 @@ log_newpages provides an efficient way to log multiple full-page images to WAL i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogEnsureRecordSpace (ensures sufficient space for maximum batch size)
-  - XLogBeginInsert (starts WAL record construction for each batch)
-  - XLogRegisterBlock (registers each page in the current batch)
-  - XLogInsert (finalizes and writes WAL record with XLOG_FPI type)
-  - PageIsNew (checks if page is uninitialized before setting LSN)
-  - PageSetLSN (sets LSN on initialized pages)
+  - [XLogEnsureRecordSpace](../X/XLogEnsureRecordSpace.md) (ensures sufficient space for maximum batch size)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md) (starts WAL record construction for each batch)
+  - [XLogRegisterBlock](../X/XLogRegisterBlock.md) (registers each page in the current batch)
+  - [XLogInsert](../X/XLogInsert.md) (finalizes and writes WAL record with XLOG_FPI type)
+  - [PageIsNew](../P/PageIsNew.md) (checks if page is uninitialized before setting LSN)
+  - [PageSetLSN](../P/PageSetLSN.md) (sets LSN on initialized pages)
   - XLR_MAX_BLOCK_ID (maximum blocks per WAL record)
   - REGBUF_FORCE_IMAGE (forces full page image inclusion)
   - REGBUF_STANDARD (optimizes standard page layout)
 - Called from:
-  - smgr_bulk_flush (during bulk write operations)
+  - [smgr_bulk_flush](../s/smgr_bulk_flush.md) (during bulk write operations)
 
 ## Notes and Other Information
 - More efficient than multiple log_newpage() calls for bulk operations

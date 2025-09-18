@@ -28,11 +28,11 @@ The simplicity of this function suggests it may be designed as a stable API that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefineViewRules
+  - [DefineViewRules](../D/DefineViewRules.md)
 
 - Called from:
-  - DefineVirtualRelation (during both new view creation and view replacement)
-  - create_ctas_internal (for CREATE TABLE AS operations involving views)
+  - [DefineVirtualRelation](../D/DefineVirtualRelation.md) (during both new view creation and view replacement)
+  - [create_ctas_internal](../c/create_ctas_internal.md) (for CREATE TABLE AS operations involving views)
 
 ## Notes and Other Information
 - This function is designed as a clean abstraction over the rules system interaction

@@ -31,10 +31,10 @@ The operation is destructive to the first filter (col_a) but leaves the second f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM
-  - pg_popcount
-  - PointerGetDatum
-  - DatumGetPointer
-  - pfree
+  - [pg_popcount](../p/pg_popcount.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [pfree](../p/pfree.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - This is a BRIN operator function called by the BRIN index maintenance infrastructure

@@ -26,15 +26,15 @@ A key aspect of this structure is the handling of tuple count estimates. The num
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy (for memory management strategy)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (for memory management strategy)
 - Called from (representative examples):
-  - brinbulkdelete/brinvacuumcleanup (BRIN index vacuum)
-  - ginbulkdelete/ginvacuumcleanup (GIN index vacuum)
-  - gistbulkdelete/gistvacuumcleanup (GiST index vacuum)
-  - hashbulkdelete/hashvacuumcleanup (Hash index vacuum)
-  - btbulkdelete/btvacuumcleanup (B-tree index vacuum)
-  - spgbulkdelete/spgvacuumcleanup (SP-GiST index vacuum)
-  - index_bulk_delete/index_vacuum_cleanup (generic index vacuum functions)
+  - [brinbulkdelete](../b/brinbulkdelete.md)/brinvacuumcleanup (BRIN index vacuum)
+  - [ginbulkdelete](../g/ginbulkdelete.md)/ginvacuumcleanup (GIN index vacuum)
+  - [gistbulkdelete](../g/gistbulkdelete.md)/gistvacuumcleanup (GiST index vacuum)
+  - [hashbulkdelete](../h/hashbulkdelete.md)/hashvacuumcleanup (Hash index vacuum)
+  - [btbulkdelete](../b/btbulkdelete.md)/btvacuumcleanup (B-tree index vacuum)
+  - [spgbulkdelete](../s/spgbulkdelete.md)/spgvacuumcleanup (SP-GiST index vacuum)
+  - [index_bulk_delete](../i/index_bulk_delete.md)/index_vacuum_cleanup (generic index vacuum functions)
 
 ## Notes and Other Information
 - This structure is defined in src/include/access/genam.h and is used across all index access methods

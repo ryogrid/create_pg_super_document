@@ -23,10 +23,10 @@ This function performs the core cryptographic computation of the SCRAM protocol 
   - scram_SaltedPassword (derives password using PBKDF2)
   - scram_ClientKey (derives client key from salted password)
   - scram_H (computes hash function for stored key)
-  - pg_hmac_create/init/update/final/free (HMAC operations)
-  - pg_hmac_error (error reporting for HMAC operations)
+  - [pg_hmac_create](../p/pg_hmac_create.md)/init/update/final/free (HMAC operations)
+  - [pg_hmac_error](../p/pg_hmac_error.md) (error reporting for HMAC operations)
 - Called from:
-  - build_client_final_message (constructs final client authentication message)
+  - [build_client_final_message](../b/build_client_final_message.md) (constructs final client authentication message)
 
 ## Notes and Other Information
 - Implements the mathematical core of SCRAM authentication protocol (RFC 5802)

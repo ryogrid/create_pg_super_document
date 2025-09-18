@@ -25,17 +25,17 @@ The function iterates through all provided ordering scan keys, extracting Point 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanKey (scan key data structure)
-  - Point (geometric point data structure)
-  - DatumGetPointP (datum to point conversion)
+  - [Point](../P/Point.md) (geometric point data structure)
+  - [DatumGetPointP](../D/DatumGetPointP.md) (datum to point conversion)
   - point_point_distance (point-to-point distance calculation)
-  - point_box_distance (point-to-box distance calculation)
-  - DatumGetBoxP (datum to box conversion)
-  - BOX (geometric box data structure)
+  - [point_box_distance](../p/point_box_distance.md) (point-to-box distance calculation)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (datum to box conversion)
+  - [BOX](../B/BOX.md) (geometric box data structure)
 - Called from (representative examples):
-  - spg_kd_inner_consistent
-  - spg_quad_inner_consistent
-  - spg_quad_leaf_consistent
-  - spg_box_quad_leaf_consistent
+  - [spg_kd_inner_consistent](spg_kd_inner_consistent.md)
+  - [spg_quad_inner_consistent](spg_quad_inner_consistent.md)
+  - [spg_quad_leaf_consistent](spg_quad_leaf_consistent.md)
+  - [spg_box_quad_leaf_consistent](spg_box_quad_leaf_consistent.md)
 
 ## Notes and Other Information
 - Returns a dynamically allocated array of distances that must be freed by the caller

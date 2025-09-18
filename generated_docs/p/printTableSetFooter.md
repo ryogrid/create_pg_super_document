@@ -21,10 +21,10 @@ The function automatically manages memory by freeing the old footer content and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - free (standard C library function)
-  - pg_strdup (PostgreSQL string duplication)
-  - printTableAddFooter (fallback when no footers exist)
+  - [pg_strdup](pg_strdup.md) (PostgreSQL string duplication)
+  - [printTableAddFooter](printTableAddFooter.md) (fallback when no footers exist)
 - Called from (representative examples):
-  - add_tablespace_footer (describe.c)
+  - [add_tablespace_footer](../a/add_tablespace_footer.md) (describe.c)
 
 ## Notes and Other Information
 - Operates on the last-added footer only, not all footers

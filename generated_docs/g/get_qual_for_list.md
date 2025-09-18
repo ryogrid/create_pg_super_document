@@ -22,20 +22,20 @@ The constraint generation includes special logic for single-column list partitio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - makeVar
   - copyObject
-  - RelationGetPartitionDesc
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - partition_bound_accepts_nulls
-  - makeConst
-  - datumCopy
-  - make_partition_op_expr
+  - [makeConst](../m/makeConst.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [make_partition_op_expr](../m/make_partition_op_expr.md)
   - makeNode
-  - makeBoolExpr
-  - make_ands_explicit
+  - [makeBoolExpr](../m/makeBoolExpr.md)
+  - [make_ands_explicit](../m/make_ands_explicit.md)
 - Called from (representative examples):
-  - get_qual_from_partbound
-  - check_default_partition_contents
+  - [get_qual_from_partbound](get_qual_from_partbound.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
 
 ## Notes and Other Information
 - Only supports single-column list partitioning (key->partnatts == 1)

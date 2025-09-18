@@ -27,12 +27,12 @@ The function must provide consistent results when called before and after parsin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTableGetRelOptionsLockLevel
+  - [AlterTableGetRelOptionsLockLevel](AlterTableGetRelOptionsLockLevel.md)
   - Various AT_* subcommand type constants
   - Lock mode constants (AccessExclusiveLock, ShareRowExclusiveLock, etc.)
 - Called from (representative examples):
-  - AlterTableInternal
-  - ProcessUtilitySlow
+  - [AlterTableInternal](AlterTableInternal.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Must work with MVCC catalog table reads

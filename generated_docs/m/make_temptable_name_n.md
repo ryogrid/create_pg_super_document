@@ -22,7 +22,7 @@ This utility function creates a new temporary table name by combining a base tem
   - appendStringInfoString  
   - appendStringInfo
 - Called from (representative examples):
-  - refresh_by_match_merge
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

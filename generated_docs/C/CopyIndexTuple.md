@@ -20,23 +20,23 @@ The function determines the exact size of the source tuple using , allocates the
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
 
 - Called from (representative examples):
-  - index_truncate_tuple
-  - gistformdownlink
-  - _hash_squeezebucket
-  - _hash_splitbucket
-  - _bt_swap_posting
-  - _bt_insertonpg
-  - _bt_insert_parent
-  - _bt_newlevel
-  - _bt_pagedel
+  - [index_truncate_tuple](../i/index_truncate_tuple.md)
+  - [gistformdownlink](../g/gistformdownlink.md)
+  - [_hash_squeezebucket](../h/_hash_squeezebucket.md)
+  - [_hash_splitbucket](../h/_hash_splitbucket.md)
+  - [_bt_swap_posting](../b/_bt_swap_posting.md)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md)
+  - [_bt_insert_parent](../b/_bt_insert_parent.md)
+  - [_bt_newlevel](../b/_bt_newlevel.md)
+  - [_bt_pagedel](../b/_bt_pagedel.md)
   - _bt_buildadd
   - _bt_load
-  - btree_xlog_insert
-  - btree_xlog_split
+  - [btree_xlog_insert](../b/btree_xlog_insert.md)
+  - [btree_xlog_split](../b/btree_xlog_split.md)
 
 ## Notes and Other Information
 - The function allocates memory in the current memory context using , so the caller is responsible for ensuring proper memory management

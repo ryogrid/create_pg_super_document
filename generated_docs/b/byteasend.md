@@ -25,11 +25,11 @@ As noted in the source comment, this is a "special case" where the function simp
   - PG_GETARG_BYTEA_P_COPY
   - PG_RETURN_BYTEA_P
 - Called from:
-  - brin_bloom_summary_send (BRIN bloom index)
-  - brin_minmax_multi_summary_send (BRIN minmax-multi index)
-  - pg_dependencies_send (statistics dependencies)
+  - [brin_bloom_summary_send](brin_bloom_summary_send.md) (BRIN bloom index)
+  - [brin_minmax_multi_summary_send](brin_minmax_multi_summary_send.md) (BRIN minmax-multi index)
+  - [pg_dependencies_send](../p/pg_dependencies_send.md) (statistics dependencies)
   - pg_mcv_list_send (statistics MCV lists)
-  - pg_ndistinct_send (statistics ndistinct)
+  - [pg_ndistinct_send](../p/pg_ndistinct_send.md) (statistics ndistinct)
 
 ## Notes and Other Information
 - This function is the counterpart to bytearecv for binary protocol communication

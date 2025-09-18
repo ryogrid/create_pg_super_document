@@ -32,14 +32,14 @@ The function handles the case-insensitive nature of timezone abbreviations by no
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_time_t (type)
-  - pg_tz (struct)
+  - [pg_tz](../p/pg_tz.md) (struct)
   - TZ_STRLEN_MAX (constant)
   - strlcpy
-  - pg_toupper
-  - pg_interpret_timezone_abbrev
+  - [pg_toupper](../p/pg_toupper.md)
+  - [pg_interpret_timezone_abbrev](../p/pg_interpret_timezone_abbrev.md)
 - Called from (representative examples):
-  - DetermineTimeZoneAbbrevOffset
-  - DetermineTimeZoneAbbrevOffsetTS
+  - [DetermineTimeZoneAbbrevOffset](DetermineTimeZoneAbbrevOffset.md)
+  - [DetermineTimeZoneAbbrevOffsetTS](DetermineTimeZoneAbbrevOffsetTS.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the datetime.c module

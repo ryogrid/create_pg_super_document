@@ -21,7 +21,7 @@ Like its counterpart `regnamespacerecv`, this function implementation delegates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidsend
+  - [oidsend](../o/oidsend.md)
 - Called from (representative examples):
   - Used internally by PostgreSQL's type system for binary protocol handling
   - Not directly referenced by other user-visible functions

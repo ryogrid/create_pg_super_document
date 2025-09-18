@@ -18,9 +18,9 @@ This function returns the metadata structure for a specified ENR if it exists an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_visible_ENR_metadata
+  - [get_visible_ENR_metadata](get_visible_ENR_metadata.md)
 - Called from (representative examples):
-  - addRangeTableEntryForENR
+  - [addRangeTableEntryForENR](../a/addRangeTableEntryForENR.md)
 
 ## Notes and Other Information
 - Returns EphemeralNamedRelationMetadata structure if the ENR is found, NULL otherwise

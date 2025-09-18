@@ -22,14 +22,14 @@ The deletion process maintains catalog consistency by properly removing both the
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from:
-  - RemoveTypeById (src/backend/commands/typecmds.c:676)
+  - [RemoveTypeById](../R/RemoveTypeById.md) (src/backend/commands/typecmds.c:676)
 
 ## Notes and Other Information
 - The function uses RowExclusiveLock on the pg_enum table to ensure exclusive access during deletion

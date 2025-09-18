@@ -20,13 +20,13 @@ The filemap_t structure serves as the master container for all file operation de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - file_entry_t (structure for individual file information)
+  - [file_entry_t](file_entry_t.md) (structure for individual file information)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array implementation)
 - Called from (representative examples):
-  - calculate_totals (computes summary statistics)
-  - print_filemap (displays the filemap contents)
-  - decide_file_actions (creates and populates the filemap)
-  - perform_rewind (executes the actions defined in the filemap)
+  - [calculate_totals](../c/calculate_totals.md) (computes summary statistics)
+  - [print_filemap](../p/print_filemap.md) (displays the filemap contents)
+  - [decide_file_actions](../d/decide_file_actions.md) (creates and populates the filemap)
+  - [perform_rewind](../p/perform_rewind.md) (executes the actions defined in the filemap)
 
 ## Notes and Other Information
 This structure represents the culmination of pg_rewind's analysis phase, containing the complete execution plan for file synchronization. The entries array is sorted to ensure operations are performed in the correct order (e.g., removing files before creating directories). The summary fields (total_size, fetch_size) are used for progress reporting and validation. The structure uses a flexible array member to efficiently store a variable number of file entry pointers.

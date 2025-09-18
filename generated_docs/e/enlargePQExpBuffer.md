@@ -34,11 +34,11 @@ The `enlargePQExpBuffer` function ensures that the specified PQExpBuffer has eno
   - markPQExpBufferBroken
   - realloc
 - Called from (representative examples):
-  - appendPQExpBufferVA (core buffer appending)
+  - [appendPQExpBufferVA](../a/appendPQExpBufferVA.md) (core buffer appending)
   - appendPQExpBufferChar (character appending)
   - appendBinaryPQExpBuffer (binary data appending)
-  - fmtIdEnc (identifier encoding)
-  - appendStringLiteral (string formatting)
+  - [fmtIdEnc](../f/fmtIdEnc.md) (identifier encoding)
+  - [appendStringLiteral](../a/appendStringLiteral.md) (string formatting)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 on failure

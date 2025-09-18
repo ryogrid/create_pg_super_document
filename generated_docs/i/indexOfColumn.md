@@ -20,12 +20,12 @@ The function includes comprehensive error handling for various failure scenarios
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields (gets the number of fields/columns in the result set)
-  - PQfname (gets the column name for a given field index)
+  - [PQnfields](../P/PQnfields.md) (gets the number of fields/columns in the result set)
+  - [PQfname](../P/PQfname.md) (gets the column name for a given field index)
   - dequote_downcase_identifier (processes quoted identifiers following PostgreSQL rules)
   - pg_log_error (reports error messages)
 - Called from (representative examples):
-  - PrintResultInCrosstab (main crosstab processing function for resolving column references)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (main crosstab processing function for resolving column references)
 
 ## Notes and Other Information
 - Returns -1 on any error condition (out of range, ambiguous, or not found)

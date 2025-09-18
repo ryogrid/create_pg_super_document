@@ -28,7 +28,7 @@ The serial number is a unique identifier assigned by the Certificate Authority (
   - strlcpy (PostgreSQL utility function)
   - OPENSSL_free (OpenSSL memory deallocation)
 - Called from (representative examples):
-  - pgstat_bestart (backend status reporting)
+  - [pgstat_bestart](../p/pgstat_bestart.md) (backend status reporting)
 
 ## Notes and Other Information
 - The function safely handles the case where no peer certificate is present by setting the output to an empty string

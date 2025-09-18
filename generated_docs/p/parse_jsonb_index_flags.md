@@ -29,18 +29,18 @@ The function iterates through the input array, validates each element as a strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - pg_strncasecmp
-  - pnstrdup
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pg_strncasecmp](pg_strncasecmp.md)
+  - [pnstrdup](pnstrdup.md)
   - WJB_BEGIN_ARRAY, WJB_ELEM, WJB_END_ARRAY, WJB_DONE
   - jbvString
   - jtiAll, jtiKey, jtiString, jtiNumeric, jtiBool (flag constants)
 - Called from (representative examples):
-  - jsonb_to_tsvector_byid
-  - jsonb_to_tsvector
-  - json_to_tsvector_byid  
-  - json_to_tsvector
+  - [jsonb_to_tsvector_byid](../j/jsonb_to_tsvector_byid.md)
+  - [jsonb_to_tsvector](../j/jsonb_to_tsvector.md)
+  - [json_to_tsvector_byid](../j/json_to_tsvector_byid.md)  
+  - [json_to_tsvector](../j/json_to_tsvector.md)
 
 ## Notes and Other Information
 - The function accepts both arrays and scalars since scalars are internally represented as single-element arrays

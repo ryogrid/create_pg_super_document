@@ -21,7 +21,7 @@ This function provides a SQL-callable interface to retrieve the commit timestamp
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TRANSACTIONID
-  - TransactionIdGetCommitTsData
+  - [TransactionIdGetCommitTsData](../T/TransactionIdGetCommitTsData.md)
   - PG_RETURN_NULL
   - PG_RETURN_TIMESTAMPTZ
 - Called from (representative examples):

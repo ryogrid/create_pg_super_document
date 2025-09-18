@@ -25,7 +25,7 @@ The function includes an assertion to verify that the input data is properly nul
   - resetStringInfo (referenced in related context)
   - appendStringInfoVA (referenced in related context)
 - Called from (representative examples):
-  - logicalrep_read_tuple (src/backend/replication/logical/proto.c:914)
+  - [logicalrep_read_tuple](../l/logicalrep_read_tuple.md) (src/backend/replication/logical/proto.c:914)
 
 ## Notes and Other Information
 - The input data must be null-terminated at data[len], enforced by an assertion

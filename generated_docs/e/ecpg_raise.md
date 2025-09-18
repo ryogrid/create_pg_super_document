@@ -21,15 +21,15 @@ The  function is the central error reporting mechanism for the ECPG library. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_log
+  - [ecpg_log](ecpg_log.md)
   - ECPGfree_auto_mem
   - ecpg_gettext (for internationalization)
   - snprintf (for string formatting)
   - strlen
 - Called from (representative examples):
-  - ECPGconnect
+  - [ECPGconnect](../E/ECPGconnect.md)
   - ecpg_get_data
-  - ecpg_check_PQresult
+  - [ecpg_check_PQresult](ecpg_check_PQresult.md)
   - ecpg_store_result
   - ecpg_process_output
 

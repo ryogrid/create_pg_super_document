@@ -30,14 +30,14 @@ The function prioritizes memory efficiency by growing the buffer exponentially (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (memory reallocation for buffer expansion)
+  - [repalloc](../r/repalloc.md) (memory reallocation for buffer expansion)
   - FullTransactionIdFollowsOrEquals (ordering verification in debug builds)
 - Structures referenced:
-  - BTVacState (buffer management and page array)
-  - BTPendingFSM (individual page metadata)
+  - [BTVacState](../B/BTVacState.md) (buffer management and page array)
+  - [BTPendingFSM](../B/BTPendingFSM.md) (individual page metadata)
   - FullTransactionId (transaction ID handling)
 - Called from (representative examples):
-  - _bt_unlink_halfdead_page (during page deletion operations)
+  - [_bt_unlink_halfdead_page](_bt_unlink_halfdead_page.md) (during page deletion operations)
 
 ## Notes and Other Information
 - The function is marked static, indicating it's internal to nbtpage.c and not part of the public API

@@ -135,16 +135,16 @@ RestrictInfo is a central data structure in PostgreSQL's query optimizer that wr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Expr (clause expression)
+  - [Expr](../E/Expr.md) (clause expression)
   - VolatileFunctionStatus (volatility tracking)
   - EquivalenceClass (equivalence processing)
-  - EquivalenceMember (equivalence members)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (equivalence members)
   - QualCost (cost estimation)
   - Relids (relation ID sets)
 - Called from (representative examples):
-  - make_restrictinfo (restrictinfo.c:47)
-  - build_implied_join_equality (initsplan.c:3086)
-  - make_restrictinfo_internal (various locations)
+  - [make_restrictinfo](../m/make_restrictinfo.md) (restrictinfo.c:47)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (initsplan.c:3086)
+  - [make_restrictinfo_internal](../m/make_restrictinfo_internal.md) (various locations)
 
 ## Notes and Other Information
 - RestrictInfos are created for each AND-ed component of restriction conditions, never for OR clauses at the top level

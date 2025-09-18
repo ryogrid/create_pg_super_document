@@ -22,10 +22,10 @@ The function is automatically registered during auxiliary process initialization
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseAuxProcessResources
+  - [ReleaseAuxProcessResources](ReleaseAuxProcessResources.md)
 
 - Called from (representative examples):
-  - CreateAuxProcessResourceOwner (registered via on_shmem_exit in src/backend/utils/resowner/resowner.c:993)
+  - [CreateAuxProcessResourceOwner](../C/CreateAuxProcessResourceOwner.md) (registered via on_shmem_exit in src/backend/utils/resowner/resowner.c:993)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the resowner.c compilation unit

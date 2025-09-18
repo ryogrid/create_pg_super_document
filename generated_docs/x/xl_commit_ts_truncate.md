@@ -29,9 +29,9 @@ The structure contains information about which page is being truncated and what 
   - TransactionId (type definition)
   - int64 (type definition)
 - Called from (representative examples):
-  - WriteTruncateXlogRec function in src/backend/access/transam/commit_ts.c:1009
-  - commit_ts_redo function for WAL replay in src/backend/access/transam/commit_ts.c:1049
-  - commit_ts_desc function for WAL record description in src/backend/access/rmgrdesc/committsdesc.c:35
+  - [WriteTruncateXlogRec](../W/WriteTruncateXlogRec.md) function in src/backend/access/transam/commit_ts.c:1009
+  - [commit_ts_redo](../c/commit_ts_redo.md) function for WAL replay in src/backend/access/transam/commit_ts.c:1049
+  - [commit_ts_desc](../c/commit_ts_desc.md) function for WAL record description in src/backend/access/rmgrdesc/committsdesc.c:35
   - SizeOfCommitTsTruncate macro calculation
 
 ## Notes and Other Information

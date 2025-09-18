@@ -36,14 +36,14 @@ This function takes no parameters.
   - ereport
   - ProcessConfigFile
   - SignalChildren
-  - signal_child
-  - load_hba
-  - load_ident
-  - secure_initialize (SSL)
-  - secure_destroy (SSL)
-  - write_nondefault_variables (EXEC_BACKEND)
+  - [signal_child](../s/signal_child.md)
+  - [load_hba](../l/load_hba.md)
+  - [load_ident](../l/load_ident.md)
+  - [secure_initialize](../s/secure_initialize.md) (SSL)
+  - [secure_destroy](../s/secure_destroy.md) (SSL)
+  - [write_nondefault_variables](../w/write_nondefault_variables.md) (EXEC_BACKEND)
 - Called from (representative examples):
-  - ServerLoop
+  - [ServerLoop](../S/ServerLoop.md)
 
 ## Notes and Other Information
 - Static function - only accessible within postmaster.c

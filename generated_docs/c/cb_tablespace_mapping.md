@@ -24,13 +24,13 @@ The structure forms a singly-linked list where each node represents a single tab
   - MAXPGPATH (constant for maximum path length)
   - (Self-referential structure member)
 - Called from (representative examples):
-  - cb_options (as a member)
-  - add_tablespace_mapping
-  - scan_for_existing_tablespaces
+  - [cb_options](cb_options.md) (as a member)
+  - [add_tablespace_mapping](../a/add_tablespace_mapping.md)
+  - [scan_for_existing_tablespaces](../s/scan_for_existing_tablespaces.md)
 
 ## Notes and Other Information
 - Part of pg_combinebackup's tablespace relocation functionality
 - Used to implement the -T/--tablespace-mapping command line option
 - The linked list structure allows for multiple tablespace mappings to be specified
-- Path lengths are constrained by MAXPGPATH to ensure compatibility with PostgreSQL's path handling
+- [Path](../P/Path.md) lengths are constrained by MAXPGPATH to ensure compatibility with PostgreSQL's path handling
 - Essential for cross-system backup restoration where tablespace paths may differ

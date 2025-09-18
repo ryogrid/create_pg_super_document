@@ -21,20 +21,20 @@ This function provides flexible initialization of JsonLexContext objects with su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (structure type)
-  - palloc0 (memory allocation)
+  - [JsonLexContext](../J/JsonLexContext.md) (structure type)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - JSONLEX_FREE_STRUCT (flag constant)
   - makeStringInfo (string buffer creation)
   - JSONLEX_FREE_STRVAL (flag constant)
 - Called from (representative examples):
-  - json_recv
-  - jsonb_from_cstring
-  - makeJsonLexContext  
-  - populate_array_json
-  - get_json_object_as_hash
-  - json_parse_manifest
-  - test_gb18030_json
-  - main (in test programs)
+  - [json_recv](../j/json_recv.md)
+  - [jsonb_from_cstring](../j/jsonb_from_cstring.md)
+  - [makeJsonLexContext](makeJsonLexContext.md)  
+  - [populate_array_json](../p/populate_array_json.md)
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
+  - [json_parse_manifest](../j/json_parse_manifest.md)
+  - [test_gb18030_json](../t/test_gb18030_json.md)
+  - [main](main.md) (in test programs)
 
 ## Notes and Other Information
 This function is the primary entry point for setting up JSON parsing contexts in PostgreSQL. The flexible memory management allows for optimal performance in different scenarios - stack allocation for temporary parsing and heap allocation for longer-lived contexts. The need_escapes parameter provides an important optimization, as escape processing is expensive and should only be enabled when the unescaped string values are actually needed. The function properly handles memory management flags to ensure correct cleanup behavior.

@@ -21,15 +21,15 @@ This function implements a specialized tree walker that recursively examines Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
-  - list_member_int
+  - [list_member_int](../l/list_member_int.md)
   - expression_tree_walker
-  - contain_exec_param_walker (recursive calls)
+  - [contain_exec_param_walker](contain_exec_param_walker.md) (recursive calls)
 - Data types referenced:
   - Param
   - PARAM_EXEC
 - Called from (representative examples):
-  - contain_exec_param
-  - contain_exec_param_walker (recursive calls)
+  - [contain_exec_param](contain_exec_param.md)
+  - [contain_exec_param_walker](contain_exec_param_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Specifically designed for PARAM_EXEC parameter detection, ignoring other parameter types

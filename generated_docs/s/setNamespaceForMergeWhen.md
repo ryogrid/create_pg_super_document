@@ -27,12 +27,12 @@ The function explicitly makes the appropriate relations visible in the namespace
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch
-  - setNamespaceVisibilityForRTE
+  - [setNamespaceVisibilityForRTE](setNamespaceVisibilityForRTE.md)
   - MERGE_WHEN_MATCHED (enum value)
   - MERGE_WHEN_NOT_MATCHED_BY_SOURCE (enum value)
   - CMD_UPDATE, CMD_DELETE, CMD_INSERT, CMD_NOTHING (command type constants)
 - Called from (representative examples):
-  - transformMergeStmt
+  - [transformMergeStmt](../t/transformMergeStmt.md)
 
 ## Notes and Other Information
 - This is a static helper function specific to MERGE statement parsing

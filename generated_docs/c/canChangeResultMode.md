@@ -29,8 +29,8 @@ This validation prevents mode changes that could corrupt the result stream or ca
   - PGASYNC_BUSY (connection status constant)
   - PGQUERY_SIMPLE, PGQUERY_EXTENDED (query class constants)
 - Called from (representative examples):
-  - PQsetSingleRowMode
-  - PQsetChunkedRowsMode
+  - [PQsetSingleRowMode](../P/PQsetSingleRowMode.md)
+  - [PQsetChunkedRowsMode](../P/PQsetChunkedRowsMode.md)
 
 ## Notes and Other Information
 - This is a static function used internally by libpq for validation purposes

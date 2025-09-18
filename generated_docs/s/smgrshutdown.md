@@ -22,7 +22,7 @@ The `smgrshutdown` function serves as a cleanup handler that is registered with 
 - Functions called/Symbols referenced:
   - SMgrRelation (referenced in the broader context)
 - Called from (representative examples):
-  - smgrinit (registered as exit handler)
+  - [smgrinit](smgrinit.md) (registered as exit handler)
 
 ## Notes and Other Information
 - This function is declared as static, making it internal to the smgr.c module

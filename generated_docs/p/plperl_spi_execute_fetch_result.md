@@ -25,20 +25,20 @@ The function handles large result sets by checking for overflow conditions and u
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context)
-  - check_spi_usage_allowed
-  - hv_store_string
-  - SPI_result_code_string
-  - cstr2sv
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [hv_store_string](../h/hv_store_string.md)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
+  - [cstr2sv](../c/cstr2sv.md)
   - newSVnv/newSVuv (Perl scalar value constructors)
-  - plperl_hash_from_tuple
+  - [plperl_hash_from_tuple](plperl_hash_from_tuple.md)
   - newRV_noinc
-  - SPI_freetuptable
+  - [SPI_freetuptable](../S/SPI_freetuptable.md)
 - Constants referenced:
   - UV_MAX (maximum unsigned value)
   - AV_SIZE_MAX (maximum array size)
 - Called from (representative examples):
-  - plperl_spi_exec
-  - plperl_spi_exec_prepared
+  - [plperl_spi_exec](plperl_spi_exec.md)
+  - [plperl_spi_exec_prepared](plperl_spi_exec_prepared.md)
 
 ## Notes and Other Information
 - Includes overflow protection for very large result sets that exceed Perl array limits

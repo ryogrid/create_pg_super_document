@@ -17,11 +17,11 @@ This function performs a system catalog lookup to retrieve the alignment require
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Form_pg_type
   - TYPALIGN_INT
 - Called from (representative examples):

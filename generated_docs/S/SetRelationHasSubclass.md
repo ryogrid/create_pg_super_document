@@ -26,18 +26,18 @@ The SI invalidation is crucial because query plans cache information about inher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckRelationOidLockedByMe
+  - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md)
   - table_open
   - table_close
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
-  - CacheInvalidateRelcacheByTuple
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - Form_pg_class (structure type)
 - Called from (representative examples):
-  - StoreCatalogInheritance1
+  - [StoreCatalogInheritance1](StoreCatalogInheritance1.md)
   - index_create
-  - IndexSetParentIndex
+  - [IndexSetParentIndex](../I/IndexSetParentIndex.md)
 
 ## Notes and Other Information
 - Requires caller to hold ShareUpdateExclusiveLock or ShareRowExclusiveLock until transaction end

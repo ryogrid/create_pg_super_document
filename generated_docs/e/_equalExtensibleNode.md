@@ -26,7 +26,7 @@ Returns:  if the nodes are equal,  otherwise
   -  (retrieves method structure for extensible node type)
   -  (extension-specific equality function)
 - Called from (representative examples):
-  - Node equality framework (indirectly through function pointers)
+  - [Node](../N/Node.md) equality framework (indirectly through function pointers)
 
 ## Notes and Other Information
 - This function is marked as , meaning it's only accessible within the equalfuncs.c file

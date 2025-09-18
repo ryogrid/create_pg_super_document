@@ -24,23 +24,23 @@ This function extracts statistical information from a specific slot within a pg_
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset
-  - SysCacheGetAttrNotNull
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - DatumGetArrayTypePCopy
   - ARR_ELEMTYPE
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - GETSTRUCT
-  - deconstruct_array
-  - ReleaseSysCache
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL
   - ARR_DATA_PTR
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - var_eq_const
+  - [var_eq_const](../v/var_eq_const.md)
   - histogram_selectivity
   - mcv_selectivity
-  - eqjoinsel
-  - calc_rangesel
-  - btcostestimate
+  - [eqjoinsel](../e/eqjoinsel.md)
+  - [calc_rangesel](../c/calc_rangesel.md)
+  - [btcostestimate](../b/btcostestimate.md)
 
 ## Notes and Other Information
 - Returns true if a matching slot was found, false otherwise

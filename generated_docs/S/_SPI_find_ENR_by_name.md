@@ -17,11 +17,11 @@ This is an internal static function used by the SPI (Server Programming Interfac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ENR (for the actual ENR lookup)
+  - [get_ENR](../g/get_ENR.md) (for the actual ENR lookup)
   - Assert (for parameter validation)
 - Called from (representative examples):
-  - SPI_register_relation
-  - SPI_unregister_relation
+  - [SPI_register_relation](SPI_register_relation.md)
+  - [SPI_unregister_relation](SPI_unregister_relation.md)
 
 ## Notes and Other Information
 - This is an internal static function, not part of the public SPI API

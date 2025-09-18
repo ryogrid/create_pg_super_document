@@ -21,8 +21,8 @@ SPI_copytuple creates a deep copy of a HeapTuple by copying it into the SPI proc
 - Functions called/Symbols referenced:
   - SPI_ERROR_ARGUMENT
   - SPI_ERROR_UNCONNECTED
-  - heap_copytuple
-  - MemoryContextSwitchTo
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - _SPI_current (global SPI connection state)
 - Called from (representative examples):
   - Functions using SPI_OPT_NONATOMIC option

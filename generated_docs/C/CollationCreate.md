@@ -43,21 +43,21 @@ CollationCreate is the core function responsible for creating new collation obje
 - Functions called/Symbols referenced:
   - GetSysCacheOid3
   - ObjectAddressSet
-  - checkMembershipInCurrentExtension
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - recordDependencyOn
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - namestrcpy
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - pg_encoding_to_char
 - Called from (representative examples):
-  - DefineCollation
-  - pg_import_system_collations
+  - [DefineCollation](../D/DefineCollation.md)
+  - [pg_import_system_collations](../p/pg_import_system_collations.md)
 
 ## Notes and Other Information
 The function implements sophisticated duplicate detection by checking both specific-encoding and any-encoding collations to prevent shadowing. It uses ShareRowExclusiveLock to protect against race conditions during duplicate checks. The function supports both libc and ICU collation providers with different parameter requirements. Extension membership is verified when if_not_exists is used to ensure security. The function is located in src/backend/catalog/pg_collation.c:42-236.

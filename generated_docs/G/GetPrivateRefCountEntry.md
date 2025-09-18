@@ -24,20 +24,20 @@ When do_move is true and the entry is found in the hash table, the function opti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
+  - [BufferIsValid](../B/BufferIsValid.md)
   - BufferIsLocal
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - HASH_FIND
   - HASH_REMOVE
-  - ReservePrivateRefCountEntry
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
   - PrivateRefCountEntry (struct type)
   - REFCOUNT_ARRAY_ENTRIES (macro)
 - Called from (representative examples):
-  - GetPrivateRefCount
+  - [GetPrivateRefCount](GetPrivateRefCount.md)
   - PinBuffer
   - PinBuffer_Locked
   - UnpinBufferNoOwner
-  - IncrBufferRefCount
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
 
 ## Notes and Other Information
 - Returns NULL if the buffer doesn't have a refcount entry

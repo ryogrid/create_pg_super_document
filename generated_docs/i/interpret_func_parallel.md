@@ -20,14 +20,14 @@ This function processes parallel safety attributes specified in function definit
   - strVal: Extracts string value from the DefElem argument
   - strcmp: Compares input string with known parallel safety values
   - ereport: Reports structured errors for invalid parallel specifications
-  - errcode: Provides ERRCODE_SYNTAX_ERROR for invalid specifications
-  - errmsg: Formats error message with valid options
+  - [errcode](../e/errcode.md): Provides ERRCODE_SYNTAX_ERROR for invalid specifications
+  - [errmsg](../e/errmsg.md): Formats error message with valid options
   - PROPARALLEL_SAFE: Constant for parallel-safe functions
   - PROPARALLEL_UNSAFE: Constant for functions unsafe for parallel execution
   - PROPARALLEL_RESTRICTED: Constant for functions with restricted parallel usage
 - Called from (representative examples):
-  - compute_function_attributes: During function creation attribute processing
-  - AlterFunction: During function alteration attribute processing
+  - [compute_function_attributes](../c/compute_function_attributes.md): During function creation attribute processing
+  - [AlterFunction](../A/AlterFunction.md): During function alteration attribute processing
 
 ## Notes and Other Information
 - Returns character constants used in the pg_proc system catalog's 'proparallel' column

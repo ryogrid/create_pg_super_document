@@ -21,13 +21,13 @@ This function is particularly useful in scenarios where the caller already holds
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
+  - [BufferIsValid](../B/BufferIsValid.md)
   - TTS_IS_BUFFERTUPLE
-  - tts_buffer_heap_store_tuple (called with pin_transfer=true)
+  - [tts_buffer_heap_store_tuple](../t/tts_buffer_heap_store_tuple.md) (called with pin_transfer=true)
 
 - Called from (representative examples):
-  - heapam_fetch_row_version
-  - heapam_tuple_lock
+  - [heapam_fetch_row_version](../h/heapam_fetch_row_version.md)
+  - [heapam_tuple_lock](../h/heapam_tuple_lock.md)
 
 ## Notes and Other Information
 - The key difference from ExecStoreBufferHeapTuple is pin ownership transfer (pin_transfer=true)

@@ -17,9 +17,9 @@ The print function is a debugging utility that converts a PostgreSQL Node struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToStringWithLocations (converts node to string with location info)
+  - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md) (converts node to string with location info)
   - format_node_dump (formats the string representation)
-  - pfree (memory deallocation)
+  - [pfree](pfree.md) (memory deallocation)
   - printf (standard output)
   - fflush (output buffer flushing)
 - Called from (representative examples):

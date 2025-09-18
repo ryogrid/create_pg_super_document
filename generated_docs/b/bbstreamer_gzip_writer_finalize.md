@@ -22,7 +22,7 @@ Due to libz's behavior of always closing the underlying file descriptor, the con
 ## Dependencies
 - Functions called/Symbols referenced:
   - gzclose
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
   - Used as callback through bbstreamer_gzip_writer_ops function pointer table
 

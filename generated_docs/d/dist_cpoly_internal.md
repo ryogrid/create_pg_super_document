@@ -18,11 +18,11 @@ This static internal function computes the distance between a circle and a polyg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dist_ppoly_internal - calculates distance from circle center point to polygon
-  - float8_mi - performs floating-point subtraction
+  - [dist_ppoly_internal](dist_ppoly_internal.md) - calculates distance from circle center point to polygon
+  - [float8_mi](../f/float8_mi.md) - performs floating-point subtraction
 - Called from:
-  - dist_cpoly - circle to polygon distance function
-  - dist_polyc - polygon to circle distance function
+  - [dist_cpoly](dist_cpoly.md) - circle to polygon distance function
+  - [dist_polyc](dist_polyc.md) - polygon to circle distance function
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/geo_ops.c:2571-2587

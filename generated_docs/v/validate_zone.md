@@ -28,11 +28,11 @@ This validation is crucial during timezone selection to ensure only working, rea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_load_tz: Load timezone definition from timezone database
-  - pg_tz_acceptable: Check if timezone meets PostgreSQL's acceptability criteria
-  - pg_tz: Timezone structure type
+  - [pg_load_tz](../p/pg_load_tz.md): Load timezone definition from timezone database
+  - [pg_tz_acceptable](../p/pg_tz_acceptable.md): Check if timezone meets PostgreSQL's acceptability criteria
+  - [pg_tz](../p/pg_tz.md): Timezone structure type
 - Called from:
-  - select_default_timezone: Used to validate candidate timezone names before selection
+  - [select_default_timezone](../s/select_default_timezone.md): Used to validate candidate timezone names before selection
 
 ## Notes and Other Information
 - Essential safety check in PostgreSQL's timezone selection process

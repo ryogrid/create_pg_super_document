@@ -23,7 +23,7 @@ This function implements the inequality comparison operator for mixed-precision 
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
-  - float8_ne: Performs the actual float8 inequality comparison
+  - [float8_ne](float8_ne.md): Performs the actual float8 inequality comparison
   - PG_RETURN_BOOL: Returns the boolean result
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -22,14 +22,14 @@ The function is primarily designed to be usable at index_form_tuple time to ensu
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_NULL_MASK (constant: 0x8000)
-  - IndexTupleData (struct)
-  - IndexAttributeBitMapData (struct)
+  - [IndexTupleData](IndexTupleData.md) (struct)
+  - [IndexAttributeBitMapData](IndexAttributeBitMapData.md) (struct)
   - MAXALIGN (macro)
 - Called from (representative examples):
-  - index_form_tuple_context
-  - nocache_index_getattr
-  - index_deform_tuple
-  - index_getattr
+  - [index_form_tuple_context](../i/index_form_tuple_context.md)
+  - [nocache_index_getattr](../n/nocache_index_getattr.md)
+  - [index_deform_tuple](../i/index_deform_tuple.md)
+  - [index_getattr](../i/index_getattr.md)
   - _hash_get_indextuple_hashkey
   - GinCategoryOffset
 

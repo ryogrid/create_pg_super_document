@@ -30,9 +30,9 @@ The cleaning process ensures that the application_name is safe for use in log fi
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_clean_ascii
-  - guc_strdup
-  - guc_free
-  - pfree
+  - [guc_strdup](../g/guc_strdup.md)
+  - [guc_free](../g/guc_free.md)
+  - [pfree](../p/pfree.md)
   - MCXT_ALLOC_NO_OOM (memory allocation flag)
 - Called from (representative examples):
   - GUC system framework (as check hook for application_name parameter)

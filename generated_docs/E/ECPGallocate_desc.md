@@ -21,15 +21,15 @@ This function creates a new SQL descriptor structure, initializing all its field
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca: Gets the SQLCA structure for error handling
-  - ecpg_init_sqlca: Initializes the SQLCA structure
+  - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md): Initializes the SQLCA structure
   - ecpg_alloc: ECPG-specific memory allocation function
   - ecpg_free: ECPG-specific memory deallocation function
-  - get_descriptors: Retrieves the current head of the descriptor list
-  - set_descriptors: Updates the head of the descriptor list
-  - PQmakeEmptyPGresult: Creates an empty PostgreSQL result structure
+  - [get_descriptors](../g/get_descriptors.md): Retrieves the current head of the descriptor list
+  - [set_descriptors](../s/set_descriptors.md): Updates the head of the descriptor list
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md): Creates an empty PostgreSQL result structure
   - strcpy: Standard string copy function
   - strlen: Standard string length function
-  - ecpg_raise: Raises ECPG errors with appropriate error codes
+  - [ecpg_raise](../e/ecpg_raise.md): Raises ECPG errors with appropriate error codes
   - ECPG_OUT_OF_MEMORY: Error constant for memory allocation failures
   - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY: SQL state for out-of-memory conditions
 

@@ -20,7 +20,7 @@ The function considers two types of expressions as stable: true constants (Const
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth
+  - [list_nth](../l/list_nth.md)
   - list_length
   - IsA (macro)
 - Expression node types referenced:
@@ -35,7 +35,7 @@ The function considers two types of expressions as stable: true constants (Const
 - Constants referenced:
   - PARAM_EXTERN
 - Called from (representative examples):
-  - get_fn_expr_arg_stable
+  - [get_fn_expr_arg_stable](get_fn_expr_arg_stable.md)
 
 ## Notes and Other Information
 - Returns false if the expression is NULL, unsupported type, or argnum is out of bounds

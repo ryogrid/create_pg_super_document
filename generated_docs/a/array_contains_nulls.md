@@ -29,15 +29,15 @@ If the array has no null bitmap (ARR_HASNULL returns false), the function immedi
   - bits8 (type for bitmap manipulation)
 
 - Called from (representative examples):
-  - pg_logical_slot_get_changes_guts (logical replication slot processing)
-  - array_position_common (array element position finding)
-  - array_positions (finding all positions of an element)
-  - array_fill_internal (array filling operations)
-  - width_bucket_array (histogram bucket calculations)
-  - ArrayGetIntegerTypmods (integer type modifier extraction)
-  - get_path_all/get_jsonb_path_all (JSON path operations)
-  - getWeights (text search weight extraction)
-  - pg_isolation_test_session_is_blocked (isolation testing)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md) (logical replication slot processing)
+  - [array_position_common](array_position_common.md) (array element position finding)
+  - [array_positions](array_positions.md) (finding all positions of an element)
+  - [array_fill_internal](array_fill_internal.md) (array filling operations)
+  - [width_bucket_array](../w/width_bucket_array.md) (histogram bucket calculations)
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md) (integer type modifier extraction)
+  - [get_path_all](../g/get_path_all.md)/get_jsonb_path_all (JSON path operations)
+  - [getWeights](../g/getWeights.md) (text search weight extraction)
+  - [pg_isolation_test_session_is_blocked](../p/pg_isolation_test_session_is_blocked.md) (isolation testing)
 
 ## Notes and Other Information
 - Provides an accurate determination of null presence, unlike ARR_HASNULL which only indicates possibility

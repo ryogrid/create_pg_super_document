@@ -30,18 +30,18 @@ The sendOnly parameter determines whether the backend can only send invalidation
   - elog
   - LWLockAcquire
   - LWLockRelease
-  - on_shmem_exit
-  - CleanupInvalidationState
-  - PointerGetDatum
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [CleanupInvalidationState](../C/CleanupInvalidationState.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Data types referenced:
-  - ProcState
+  - [ProcState](../P/ProcState.md)
   - pid_t
-  - SISeg
+  - [SISeg](SISeg.md)
 - Constants referenced:
   - ERROR
   - PANIC
   - LW_EXCLUSIVE
-- Variables referenced:
+- [Variables](../V/Variables.md) referenced:
   - MyProcNumber
   - NumProcStateSlots
   - MyProcPid
@@ -49,8 +49,8 @@ The sendOnly parameter determines whether the backend can only send invalidation
   - nextLocalTransactionId
   - SInvalWriteLock
 - Called from (representative examples):
-  - InitPostgres
-  - InitRecoveryTransactionEnvironment
+  - [InitPostgres](../I/InitPostgres.md)
+  - [InitRecoveryTransactionEnvironment](../I/InitRecoveryTransactionEnvironment.md)
 
 ## Notes and Other Information
 - This function must be called during backend startup after MyProcNumber has been assigned

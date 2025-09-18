@@ -30,7 +30,7 @@ This function serves as the startup routine for the serialize analyze destinatio
   - EXPLAIN_SERIALIZE_NONE
   - ALLOCSET_DEFAULT_SIZES
 - Called from (representative examples):
-  - CreateExplainSerializeDestReceiver
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
 
 ## Notes and Other Information
 - This function is part of the destination receiver pattern used throughout PostgreSQL for handling query output

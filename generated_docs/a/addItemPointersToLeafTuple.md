@@ -28,18 +28,18 @@ The function ensures that all item pointers are properly merged and sorted, with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gintuple_get_attrnum: Extract attribute number from tuple
-  - gintuple_get_key: Extract key value from tuple
-  - ginReadTuple: Read posting list from existing tuple
-  - ginMergeItemPointers: Merge old and new item pointer arrays
-  - ginCompressPostingList: Compress posting list for storage
-  - GinFormTuple: Create new GIN index tuple
-  - createPostingTree: Create posting tree when tuple becomes too large
-  - ginInsertItemPointers: Insert items into posting tree
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md): Extract attribute number from tuple
+  - [gintuple_get_key](../g/gintuple_get_key.md): Extract key value from tuple
+  - [ginReadTuple](../g/ginReadTuple.md): Read posting list from existing tuple
+  - [ginMergeItemPointers](../g/ginMergeItemPointers.md): Merge old and new item pointer arrays
+  - [ginCompressPostingList](../g/ginCompressPostingList.md): Compress posting list for storage
+  - [GinFormTuple](../G/GinFormTuple.md): Create new GIN index tuple
+  - [createPostingTree](../c/createPostingTree.md): Create posting tree when tuple becomes too large
+  - [ginInsertItemPointers](../g/ginInsertItemPointers.md): Insert items into posting tree
   - GinSetPostingTree: Set posting tree reference in tuple
 
 - Called from (representative examples):
-  - ginEntryInsert: Main entry point for inserting items into GIN index
+  - [ginEntryInsert](../g/ginEntryInsert.md): Main entry point for inserting items into GIN index
 
 ## Notes and Other Information
 - The function assumes the input items array is already sorted and contains no duplicates

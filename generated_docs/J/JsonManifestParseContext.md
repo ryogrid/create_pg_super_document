@@ -24,12 +24,12 @@ The parser processes backup manifests that contain metadata about backup files, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_parse_manifest
-  - json_parse_manifest_incremental_init
-  - json_parse_manifest_incremental_chunk
+  - [json_parse_manifest](../j/json_parse_manifest.md)
+  - [json_parse_manifest_incremental_init](../j/json_parse_manifest_incremental_init.md)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)
 - Called from (representative examples):
-  - parse_manifest_file (in pg_verifybackup)
-  - load_backup_manifest (in pg_combinebackup)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (in pg_verifybackup)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (in pg_combinebackup)
   - basebackup incremental processing functions
 
 ## Notes and Other Information

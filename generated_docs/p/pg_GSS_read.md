@@ -29,12 +29,12 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - gss_unwrap (GSSAPI function for decryption)
   - gss_release_buffer (GSSAPI buffer cleanup)
-  - pqsecure_raw_read (low-level socket read function)
-  - pg_GSS_error (error reporting function)
+  - [pqsecure_raw_read](pqsecure_raw_read.md) (low-level socket read function)
+  - [pg_GSS_error](pg_GSS_error.md) (error reporting function)
   - pg_ntoh32 (network to host byte order conversion)
-  - libpq_gettext (internationalization)
+  - [libpq_gettext](../l/libpq_gettext.md) (internationalization)
 - Called from:
-  - pqsecure_read (main secure read dispatch function)
+  - [pqsecure_read](pqsecure_read.md) (main secure read dispatch function)
 
 ## Notes and Other Information
 - Uses global state variables PqGSSRecvBuffer, PqGSSRecvLength for incoming encrypted packets

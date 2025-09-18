@@ -27,7 +27,7 @@ TID scans are typically used when the exact physical location of desired tuples 
   - rd_tableam->scan_begin (table access method function)
 - Called from (representative examples):
   - TidListEval
-  - currtid_internal
+  - [currtid_internal](../c/currtid_internal.md)
 
 ## Notes and Other Information
 - Designed for direct tuple access using Tuple Identifiers (TIDs)

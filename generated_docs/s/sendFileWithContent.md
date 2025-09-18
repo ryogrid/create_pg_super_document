@@ -34,12 +34,12 @@ Key operations:
 - Functions called/Symbols referenced:
   - pg_checksum_init
   - pg_checksum_update
-  - _tarWriteHeader
+  - [_tarWriteHeader](../t/_tarWriteHeader.md)
   - bbsink_archive_contents
-  - _tarWritePadding
-  - AddFileToBackupManifest
+  - [_tarWritePadding](../t/_tarWritePadding.md)
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md)
 - Called from (representative examples):
-  - perform_base_backup (for backup_label, tablespace_map, .done files)
+  - [perform_base_backup](../p/perform_base_backup.md) (for backup_label, tablespace_map, .done files)
 
 ## Notes and Other Information
 - Uses current effective user/group IDs and timestamp for synthetic file metadata on Unix systems  

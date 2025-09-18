@@ -28,17 +28,17 @@ The function operates in a temporary memory context that is reset after each tri
   - check_stack_depth (stack overflow protection)
   - AllocSetContextCreate (memory context creation)
   - CommandCounterIncrement (command visibility)
-  - fmgr_info (function manager lookup)
+  - [fmgr_info](../f/fmgr_info.md) (function manager lookup)
   - InitFunctionCallInfoData (function call setup)
   - FunctionCallInvoke (actual function execution)
-  - pgstat_init_function_usage/pgstat_end_function_usage (statistics)
-  - MemoryContextReset/MemoryContextDelete (memory management)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md)/pgstat_end_function_usage (statistics)
+  - [MemoryContextReset](../M/MemoryContextReset.md)/MemoryContextDelete (memory management)
 - Called from:
-  - EventTriggerDDLCommandStart
-  - EventTriggerDDLCommandEnd
-  - EventTriggerSQLDrop
-  - EventTriggerOnLogin
-  - EventTriggerTableRewrite
+  - [EventTriggerDDLCommandStart](EventTriggerDDLCommandStart.md)
+  - [EventTriggerDDLCommandEnd](EventTriggerDDLCommandEnd.md)
+  - [EventTriggerSQLDrop](EventTriggerSQLDrop.md)
+  - [EventTriggerOnLogin](EventTriggerOnLogin.md)
+  - [EventTriggerTableRewrite](EventTriggerTableRewrite.md)
 
 ## Notes and Other Information
 - This is a static function internal to the event trigger system

@@ -28,14 +28,14 @@ The function is optimized for performance and assumes the input is valid UTF-8 -
 - Functions called/Symbols referenced:
   - None (uses only bitwise operations)
 - Called from (representative examples):
-  - initcap_wbnext
-  - unicode_assigned
-  - unicode_normalize_func
-  - unicode_is_normalized
-  - pg_saslprep
+  - [initcap_wbnext](../i/initcap_wbnext.md)
+  - [unicode_assigned](unicode_assigned.md)
+  - [unicode_normalize_func](unicode_normalize_func.md)
+  - [unicode_is_normalized](unicode_is_normalized.md)
+  - [pg_saslprep](../p/pg_saslprep.md)
   - convert_case
   - pg_utf_dsplen
-  - pg_wcsformat
+  - [pg_wcsformat](../p/pg_wcsformat.md)
 
 ## Notes and Other Information
 - This is a one-character version of pg_utf2wchar_with_len optimized for single character conversion

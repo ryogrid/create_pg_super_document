@@ -35,6 +35,6 @@ The conditional rescanning logic is an optimization: if the child node's paramet
 ## Notes and Other Information
 - This function is part of the standard executor node interface, implementing the rescan operation for Result nodes
 - The function is declared in src/include/executor/nodeResult.h and follows the naming convention ExecReScan[NodeType]
-- Result nodes are often used for constant expressions, one-time filters, or as leaf nodes in execution trees
+- [Result](../R/Result.md) nodes are often used for constant expressions, one-time filters, or as leaf nodes in execution trees
 - The optimization to avoid unnecessary rescanning when chgParam is non-NULL is a common pattern across executor node types
 - Located in src/backend/executor/nodeResult.c:249-262

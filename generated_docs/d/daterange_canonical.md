@@ -20,14 +20,14 @@ The function includes special handling for infinite dates using DATE_NOT_FINITE 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
-  - range_deserialize
+  - [range_deserialize](../r/range_deserialize.md)
   - DATE_NOT_FINITE
   - DatumGetDateADT
   - IS_VALID_DATE
   - DateADTGetDatum
-  - range_serialize
+  - [range_serialize](../r/range_serialize.md)
   - PG_RETURN_RANGE_P
   - ereturn (for error handling)
 - Called from (representative examples):

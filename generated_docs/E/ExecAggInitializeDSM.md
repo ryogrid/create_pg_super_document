@@ -25,10 +25,10 @@ The function calculates the required memory size based on the number of parallel
   - shm_toc_allocate (allocates space in shared memory table of contents)
   - shm_toc_insert (inserts entry into shared memory table of contents)
   - memset (zeros the allocated memory)
-  - SharedAggInfo (shared aggregate information structure)
-  - AggregateInstrumentation (per-worker instrumentation structure)
+  - [SharedAggInfo](../S/SharedAggInfo.md) (shared aggregate information structure)
+  - [AggregateInstrumentation](../A/AggregateInstrumentation.md) (per-worker instrumentation structure)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM (in execParallel.c)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (in execParallel.c)
 
 ## Notes and Other Information
 - Only performs initialization when both instrumentation is enabled and parallel workers exist

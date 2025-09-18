@@ -27,14 +27,14 @@ The function considers both the relation's target list and restriction clauses, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varattnos (to extract attribute numbers from expressions)
-  - bms_add_member (to add attributes to bitmap sets)
-  - bms_is_subset (to check if required attributes are subset of available)
-  - bms_free (to free bitmap memory)
+  - [pull_varattnos](../p/pull_varattnos.md) (to extract attribute numbers from expressions)
+  - [bms_add_member](../b/bms_add_member.md) (to add attributes to bitmap sets)
+  - [bms_is_subset](../b/bms_is_subset.md) (to check if required attributes are subset of available)
+  - [bms_free](../b/bms_free.md) (to free bitmap memory)
   - FirstLowInvalidHeapAttributeNumber (constant for attribute number conversion)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - build_index_paths
+  - [build_index_paths](../b/build_index_paths.md)
 
 ## Notes and Other Information
 - Index expressions are currently ignored but may be supported in future versions

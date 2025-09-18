@@ -22,7 +22,7 @@ The function is part of PostgreSQL's asynchronous execution framework, allowing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupIsNull
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - IsA (assertion macro)
   - Assert (assertion macro)
 - Called from (representative examples):

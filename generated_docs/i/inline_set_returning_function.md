@@ -35,7 +35,7 @@ The inlining process involves parsing the function body, analyzing and rewriting
   -  - validates function return type compatibility
   -  - replaces parameters with actual arguments
   -  - records plan dependency on the function
-  -  - error callback for enhanced error reporting
+  -  - [error](../e/error.md) callback for enhanced error reporting
 
 - Called from (representative examples):
   -  - during query preprocessing to inline eligible functions

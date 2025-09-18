@@ -20,14 +20,14 @@ This function is essential for proper resource management in GIN scans, ensuring
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReleaseBuffer
-  - pfree
-  - tbm_end_iterate
-  - tbm_free
-  - MemoryContextReset
+  - [pfree](../p/pfree.md)
+  - [tbm_end_iterate](../t/tbm_end_iterate.md)
+  - [tbm_free](../t/tbm_free.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from:
-  - gingetbitmap
-  - ginrescan
-  - ginendscan
+  - [gingetbitmap](gingetbitmap.md)
+  - [ginrescan](ginrescan.md)
+  - [ginendscan](ginendscan.md)
 
 ## Notes and Other Information
 - Safely handles NULL keys by returning early if no keys exist

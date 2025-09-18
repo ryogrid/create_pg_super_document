@@ -26,7 +26,7 @@ The function is essential for proper memory management in long-running applicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Generic Snowball environment cleanup function that handles memory deallocation and resource cleanup
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function that handles memory deallocation and resource cleanup
 
 - Called from (representative examples):
   - Not directly referenced in the codebase (external interface function)  

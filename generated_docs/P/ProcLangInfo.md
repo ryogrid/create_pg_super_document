@@ -37,9 +37,9 @@ ProcLangInfo represents procedural language metadata in PostgreSQL's pg_dump uti
   - DumpableObject (base structure)
   - DumpableAcl (for access control information)
 - Called from (representative examples):
-  - selectDumpableProcLang (src/bin/pg_dump/pg_dump.c:2001)
-  - getProcLangs (src/bin/pg_dump/pg_dump.c:8514, 8542)
-  - dumpProcLang (src/bin/pg_dump/pg_dump.c:12128)
+  - [selectDumpableProcLang](../s/selectDumpableProcLang.md) (src/bin/pg_dump/pg_dump.c:2001)
+  - [getProcLangs](../g/getProcLangs.md) (src/bin/pg_dump/pg_dump.c:8514, 8542)
+  - [dumpProcLang](../d/dumpProcLang.md) (src/bin/pg_dump/pg_dump.c:12128)
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:240)
 
 ## Notes and Other Information

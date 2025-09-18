@@ -21,15 +21,15 @@ This function creates an entry in the pg_shdepend catalog table to track depende
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
   - table_open
-  - IsPinnedObject
-  - shdepAddDependency
+  - [IsPinnedObject](../I/IsPinnedObject.md)
+  - [shdepAddDependency](../s/shdepAddDependency.md)
   - table_close
 - Called from (representative examples):
-  - recordDependencyOnOwner
-  - recordDependencyOnTablespace
-  - CreatePolicy
-  - AlterPolicy
-  - RemoveRoleFromObjectPolicy
+  - [recordDependencyOnOwner](recordDependencyOnOwner.md)
+  - [recordDependencyOnTablespace](recordDependencyOnTablespace.md)
+  - [CreatePolicy](../C/CreatePolicy.md)
+  - [AlterPolicy](../A/AlterPolicy.md)
+  - [RemoveRoleFromObjectPolicy](../R/RemoveRoleFromObjectPolicy.md)
 
 ## Notes and Other Information
 - Objects in pg_shdepend cannot have SubIds (must be 0)

@@ -29,11 +29,11 @@ The function is critical for maintaining PostgreSQL's MVCC semantics in complex 
   - GetTransactionSnapshot
   - PushActiveSnapshotWithLevel
   - GetActiveSnapshot
-  - Portal structure and ActivePortal global
-  - Portal fields (portalSnapshot, createLevel)
+  - [Portal](../P/Portal.md) structure and ActivePortal global
+  - [Portal](../P/Portal.md) fields (portalSnapshot, createLevel)
 - Called from (representative examples):
-  - ExecuteCallStmt
-  - _SPI_execute_plan
+  - [ExecuteCallStmt](ExecuteCallStmt.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
 
 ## Notes and Other Information
 - Only creates a snapshot if no active snapshot exists (optimization)

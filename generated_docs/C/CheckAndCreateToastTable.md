@@ -23,13 +23,13 @@ The function takes care of proper resource management by opening the relation wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_toast_table
+  - [create_toast_table](../c/create_toast_table.md)
   - table_open
   - table_close
 - Called from (representative examples):
-  - AlterTableCreateToastTable (in src/backend/catalog/toasting.c:60)
-  - NewHeapCreateToastTable (in src/backend/catalog/toasting.c:67)
-  - NewRelationCreateToastTable (in src/backend/catalog/toasting.c:73)
+  - [AlterTableCreateToastTable](../A/AlterTableCreateToastTable.md) (in src/backend/catalog/toasting.c:60)
+  - [NewHeapCreateToastTable](../N/NewHeapCreateToastTable.md) (in src/backend/catalog/toasting.c:67)
+  - [NewRelationCreateToastTable](../N/NewRelationCreateToastTable.md) (in src/backend/catalog/toasting.c:73)
 
 ## Notes and Other Information
 - This is a static function, not part of the public API - it serves as an implementation detail

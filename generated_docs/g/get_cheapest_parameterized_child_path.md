@@ -25,15 +25,15 @@ The function implements an optimization by skipping paths that are already more 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_cheapest_path_for_pathkeys (finds cheapest path with specific requirements)
+  - [get_cheapest_path_for_pathkeys](get_cheapest_path_for_pathkeys.md) (finds cheapest path with specific requirements)
   - PATH_REQ_OUTER (macro to extract required outer relations from a path)
-  - bms_equal (checks if two relation bitmaps are equal)
-  - bms_is_subset (checks if one relation bitmap is a subset of another)
-  - compare_path_costs (compares costs of two paths for given cost type)
-  - reparameterize_path (creates new path with different parameterization)
+  - [bms_equal](../b/bms_equal.md) (checks if two relation bitmaps are equal)
+  - [bms_is_subset](../b/bms_is_subset.md) (checks if one relation bitmap is a subset of another)
+  - [compare_path_costs](../c/compare_path_costs.md) (compares costs of two paths for given cost type)
+  - [reparameterize_path](../r/reparameterize_path.md) (creates new path with different parameterization)
   - TOTAL_COST (cost comparison type focusing on total execution cost)
 - Called from (representative examples):
-  - add_paths_to_append_rel (when building parameterized append paths)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md) (when building parameterized append paths)
 
 ## Notes and Other Information
 - Returns NULL if no suitable path can be created with the required parameterization

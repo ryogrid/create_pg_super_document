@@ -23,7 +23,7 @@ SetParallelStartTimestamps is specifically designed for parallel worker processe
   - xactStartTimestamp (global variable)
   - stmtStartTimestamp (global variable)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1398)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1398)
 
 ## Notes and Other Information
 - This function should only be called in parallel worker processes (enforced by Assert)

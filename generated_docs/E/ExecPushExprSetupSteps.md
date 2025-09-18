@@ -294,18 +294,18 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecComputeSlotInfo (slot information computation and optimization)
-  - ExprEvalPushStep (step addition to expression state)
-  - ExecInitSubPlan (subplan state initialization)
+  - [ExecComputeSlotInfo](ExecComputeSlotInfo.md) (slot information computation and optimization)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (step addition to expression state)
+  - [ExecInitSubPlan](ExecInitSubPlan.md) (subplan state initialization)
   - lappend (list manipulation for subplan management)
 - Called from (representative examples):
-  - ExecCreateExprSetupSteps (primary setup step generation)
-  - ExecBuildUpdateProjection (update projection setup)
-  - ExecBuildAggTrans (aggregate transition setup)
+  - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md) (primary setup step generation)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md) (update projection setup)
+  - [ExecBuildAggTrans](ExecBuildAggTrans.md) (aggregate transition setup)
 
 ## Notes and Other Information
 - The function creates steps with specific opcodes (EEOP_INNER_FETCHSOME, EEOP_OUTER_FETCHSOME, EEOP_SCAN_FETCHSOME, EEOP_SUBPLAN) optimized for different setup operations
-- ExecComputeSlotInfo is called to determine if slot deformation steps are actually needed and to optimize them
+- [ExecComputeSlotInfo](ExecComputeSlotInfo.md) is called to determine if slot deformation steps are actually needed and to optimize them
 - MULTIEXPR subplans are handled specially because they can reference Vars but cannot cross-reference each other
 - The function ensures proper ordering: slot preparation before subplan execution before main expression evaluation
 - Setup steps are added to the expression state's step list and will be executed before the main expression steps during runtime

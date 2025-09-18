@@ -28,11 +28,11 @@ The function uses PostgreSQL's standard formatting infrastructure with NUMDesc a
   - NUMDesc, FormatNode (formatting structure types)
   - NUM_TOCHAR_prepare, NUM_TOCHAR_finish (formatting preparation/cleanup macros)
   - IS_ROMAN, IS_EEEE, IS_MULTI (format type checking macros)
-  - int_to_roman (Roman numeral conversion)
-  - int84, int8out, int8mul (int8 type conversion functions)
-  - numeric_out_sci, int64_to_numeric (numeric precision handling)
+  - [int_to_roman](int_to_roman.md) (Roman numeral conversion)
+  - [int84](int84.md), int8out, int8mul (int8 type conversion functions)
+  - [numeric_out_sci](../n/numeric_out_sci.md), int64_to_numeric (numeric precision handling)
   - DirectFunctionCall1, DirectFunctionCall2 (PostgreSQL function call utilities)
-  - fill_str (string padding utility)
+  - [fill_str](../f/fill_str.md) (string padding utility)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via PostgreSQL's function dispatch system)
 

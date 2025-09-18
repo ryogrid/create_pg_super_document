@@ -37,21 +37,21 @@ This approach allows efficient computation of character class complements while 
 ## Dependencies
 - Functions called/Symbols referenced:
   - char_classes (enum type)
-  - cvec (struct type)
-  - newstate
+  - [cvec](cvec.md) (struct type)
+  - [newstate](../n/newstate.md)
   - NOERR (macro)
   - NOTE (macro)
   - REG_ULOCALE (constant)
-  - cclasscvec
+  - [cclasscvec](cclasscvec.md)
   - REG_ICASE (flag)
-  - subcolorcvec
-  - okcolors
-  - colorcomplement
+  - [subcolorcvec](../s/subcolorcvec.md)
+  - [okcolors](../o/okcolors.md)
+  - [colorcomplement](colorcomplement.md)
   - PLAIN (constant)
-  - dropstate
+  - [dropstate](../d/dropstate.md)
 - Called from (representative examples):
   - ARCV (in regcomp.c)
-  - bracket (in regcomp.c)
+  - [bracket](../b/bracket.md) (in regcomp.c)
 
 ## Notes and Other Information
 - This is a static function internal to the regex compilation module

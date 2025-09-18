@@ -32,13 +32,13 @@ ParallelBlockTableScanDescData is a specialized structure for coordinating paral
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelTableScanDescData
-  - slock_t
-  - pg_atomic_uint64
+  - [ParallelTableScanDescData](ParallelTableScanDescData.md)
+  - [slock_t](../s/slock_t.md)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
 - Called from (representative examples):
-  - table_block_parallelscan_estimate (src/backend/access/table/tableam.c:385)
-  - table_block_parallelscan_initialize (src/backend/access/table/tableam.c:403)
-  - ParallelBlockTableScanDesc (src/include/access/relscan.h:85)
+  - [table_block_parallelscan_estimate](../t/table_block_parallelscan_estimate.md) (src/backend/access/table/tableam.c:385)
+  - [table_block_parallelscan_initialize](../t/table_block_parallelscan_initialize.md) (src/backend/access/table/tableam.c:403)
+  - [ParallelBlockTableScanDesc](ParallelBlockTableScanDesc.md) (src/include/access/relscan.h:85)
 
 ## Notes and Other Information
 This structure is defined in src/include/access/relscan.h (lines 75-84) and provides the foundation for efficient parallel scanning of block-oriented tables. The design uses a combination of atomic operations (phs_nallocated) and lightweight locking (phs_mutex) to minimize contention while ensuring correct block distribution. The block allocation strategy helps balance the workload among parallel workers while maintaining good locality of reference. This structure is typically used with heap tables and other block-oriented access methods that can benefit from parallel block-level scanning.

@@ -27,22 +27,22 @@ This static function serves as the core implementation for RestrictInfo creation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_leaked_vars
+  - [contain_leaked_vars](../c/contain_leaked_vars.md)
   - VOLATILITY_UNKNOWN
-  - is_opclause
+  - [is_opclause](../i/is_opclause.md)
   - OpExpr
-  - get_leftop
-  - get_rightop
-  - pull_varnos
-  - bms_union
+  - [get_leftop](../g/get_leftop.md)
+  - [get_rightop](../g/get_rightop.md)
+  - [pull_varnos](../p/pull_varnos.md)
+  - [bms_union](../b/bms_union.md)
   - bms_is_empty
-  - bms_overlap
-  - bms_difference
-  - bms_num_members
-  - bms_free
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_difference](../b/bms_difference.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - make_restrictinfo
-  - make_sub_restrictinfos
+  - [make_restrictinfo](make_restrictinfo.md)
+  - [make_sub_restrictinfos](make_sub_restrictinfos.md)
 
 ## Notes and Other Information
 - Special handling for binary operator clauses: analyzes left and right operands separately to determine join capability and relation dependencies

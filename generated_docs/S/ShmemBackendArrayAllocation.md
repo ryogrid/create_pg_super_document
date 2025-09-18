@@ -17,11 +17,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemBackendArraySize (calculates required array size)
-  - ShmemAlloc (allocates shared memory)
-  - Backend (data structure type)
+  - [ShmemBackendArraySize](ShmemBackendArraySize.md) (calculates required array size)
+  - [ShmemAlloc](ShmemAlloc.md) (allocates shared memory)
+  - [Backend](../B/Backend.md) (data structure type)
 - Called from:
-  - CreateSharedMemoryAndSemaphores (src/backend/storage/ipc/ipci.c:252)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md) (src/backend/storage/ipc/ipci.c:252)
 
 ## Notes and Other Information
 - This function is part of the shared memory initialization process during PostgreSQL startup

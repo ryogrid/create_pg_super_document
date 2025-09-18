@@ -28,7 +28,7 @@ This capability is essential for PostgreSQL's type system, allowing functions to
 - Called from (representative examples):
   - multirange_constructor functions (for determining appropriate multirange type)
   - range_constructor functions (for determining appropriate range type)  
-  - range_agg_finalfn (for range aggregation operations)
+  - [range_agg_finalfn](../r/range_agg_finalfn.md) (for range aggregation operations)
   - OidFunctionCall9 (indirect usage through function call infrastructure)
 
 ## Notes and Other Information

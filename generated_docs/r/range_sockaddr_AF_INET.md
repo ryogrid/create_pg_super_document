@@ -21,7 +21,7 @@ This static function implements IPv4 subnet matching using bitwise operations. I
 - Functions called/Symbols referenced:
   - (No external function calls - uses only standard bitwise operations)
 - Called from (representative examples):
-  - pg_range_sockaddr
+  - [pg_range_sockaddr](../p/pg_range_sockaddr.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

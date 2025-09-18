@@ -20,14 +20,14 @@ IdentLine represents a parsed identity mapping rule from PostgreSQL's user ident
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuthToken (for system_user and pg_user patterns)
+  - [AuthToken](../A/AuthToken.md) (for system_user and pg_user patterns)
 - Called from (representative examples):
-  - load_hba
-  - parse_ident_line
-  - check_ident_usermap
-  - load_ident
-  - fill_ident_line
-  - fill_ident_view
+  - [load_hba](../l/load_hba.md)
+  - [parse_ident_line](../p/parse_ident_line.md)
+  - [check_ident_usermap](../c/check_ident_usermap.md)
+  - [load_ident](../l/load_ident.md)
+  - [fill_ident_line](../f/fill_ident_line.md)
+  - [fill_ident_view](../f/fill_ident_view.md)
 
 ## Notes and Other Information
 - Used in conjunction with HBA lines that specify ident or peer authentication methods

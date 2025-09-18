@@ -28,11 +28,11 @@ The function is separate from valid_custom_variable_name() because the reserved 
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr
-  - valid_custom_variable_name
+  - [valid_custom_variable_name](../v/valid_custom_variable_name.md)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
   - lfirst
   - strlen
   - strncmp
@@ -42,8 +42,8 @@ The function is separate from valid_custom_variable_name() because the reserved 
   - GUC_QUALIFIER_SEPARATOR
 - Called from:
   - find_option (src/backend/utils/misc/guc.c:1270)
-  - check_GUC_name_for_parameter_acl (src/backend/utils/misc/guc.c:1418)
-  - AlterSystemSetConfigFile (src/backend/utils/misc/guc.c:4734)
+  - [check_GUC_name_for_parameter_acl](../c/check_GUC_name_for_parameter_acl.md) (src/backend/utils/misc/guc.c:1418)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md) (src/backend/utils/misc/guc.c:4734)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c file

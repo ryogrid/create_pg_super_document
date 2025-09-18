@@ -21,24 +21,24 @@ The function constructs a comprehensive list of available clauses including rest
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SIMPLE_REL
-  - list_copy
-  - join_clause_is_movable_to
-  - bms_difference
+  - [list_copy](../l/list_copy.md)
+  - [join_clause_is_movable_to](../j/join_clause_is_movable_to.md)
+  - [bms_difference](../b/bms_difference.md)
   - find_childrel_parents
-  - bms_del_members
+  - [bms_del_members](../b/bms_del_members.md)
   - bms_is_empty
-  - list_concat
-  - generate_join_implied_equalities
-  - bms_union
-  - bms_is_member
-  - get_plan_rowmark
-  - predicate_implied_by
-  - contain_mutable_functions
-  - IndexOptInfo (structure)
+  - [list_concat](../l/list_concat.md)
+  - [generate_join_implied_equalities](../g/generate_join_implied_equalities.md)
+  - [bms_union](../b/bms_union.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [get_plan_rowmark](../g/get_plan_rowmark.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [contain_mutable_functions](contain_mutable_functions.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
   - RELOPT_OTHER_MEMBER_REL (constant)
 - Called from (representative examples):
-  - set_plain_rel_size
-  - set_tablesample_rel_size
+  - [set_plain_rel_size](../s/set_plain_rel_size.md)
+  - [set_tablesample_rel_size](../s/set_tablesample_rel_size.md)
 
 ## Notes and Other Information
 - Only processes base or "other" member relations (asserted via IS_SIMPLE_REL)

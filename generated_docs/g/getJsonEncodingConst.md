@@ -21,10 +21,10 @@ The function creates a Name-type constant node that can be used in JSON-related 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - namestrcpy (copy string to Name structure)  
-  - makeConst (create Const node)
-  - NameGetDatum (convert Name to Datum)
+  - [makeConst](../m/makeConst.md) (create Const node)
+  - [NameGetDatum](../N/NameGetDatum.md) (convert Name to Datum)
   - elog (error logging)
   - JsonFormat (input structure type)
   - JsonEncoding (enumeration type)
@@ -32,8 +32,8 @@ The function creates a Name-type constant node that can be used in JSON-related 
   - JS_FORMAT_DEFAULT, JS_ENC_DEFAULT, JS_ENC_UTF8, JS_ENC_UTF16, JS_ENC_UTF32 (enumeration constants)
   - NAMEOID, InvalidOid, NAMEDATALEN (PostgreSQL constants)
 - Called from (representative examples):
-  - makeJsonByteaToTextConversion
-  - coerceJsonFuncExpr
+  - [makeJsonByteaToTextConversion](../m/makeJsonByteaToTextConversion.md)
+  - [coerceJsonFuncExpr](../c/coerceJsonFuncExpr.md)
 
 ## Notes and Other Information
 - This is a static helper function within parse_expr.c

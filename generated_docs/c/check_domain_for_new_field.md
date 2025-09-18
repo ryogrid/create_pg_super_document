@@ -22,15 +22,15 @@ The function handles both empty and populated records appropriately - copying ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_dummy_expanded_header
+  - [build_dummy_expanded_header](../b/build_dummy_expanded_header.md)
   - ExpandedRecordIsEmpty
-  - deconstruct_expanded_record
+  - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
   - VARATT_IS_EXTERNAL
-  - domain_check
+  - [domain_check](../d/domain_check.md)
   - ExpandedRecordGetRODatum
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - expanded_record_set_field_internal
+  - [expanded_record_set_field_internal](../e/expanded_record_set_field_internal.md)
 
 ## Notes and Other Information
 - Function is marked static and pg_noinline, indicating internal use with call-site optimization disabled

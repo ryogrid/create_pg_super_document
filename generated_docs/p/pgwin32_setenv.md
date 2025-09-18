@@ -29,7 +29,7 @@ Internally, it constructs the "NAME=VALUE" string format required by pgwin32_put
   - getenv (C standard library)
   - malloc (C standard library)
   - sprintf (C standard library)
-  - pgwin32_putenv (internal function)
+  - [pgwin32_putenv](pgwin32_putenv.md) (internal function)
   - free (C standard library)
 - Called from (representative examples):
   - setenv macro replacement (src/include/port/win32_port.h:535)

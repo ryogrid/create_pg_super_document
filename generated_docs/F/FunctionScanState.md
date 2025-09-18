@@ -279,17 +279,17 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base structure)
-  - FunctionScanPerFuncState (per-function state)
-  - MemoryContext (memory management)
+  - [ScanState](../S/ScanState.md) (base structure)
+  - [FunctionScanPerFuncState](FunctionScanPerFuncState.md) (per-function state)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
 
 - Called from (representative examples):
-  - ExecInitFunctionScan (initialization)
-  - ExecFunctionScan (tuple retrieval)
-  - ExecEndFunctionScan (cleanup)
-  - ExecReScanFunctionScan (rescan operations)
-  - FunctionNext (next tuple fetch)
-  - FunctionRecheck (tuple rechecking)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md) (initialization)
+  - [ExecFunctionScan](../E/ExecFunctionScan.md) (tuple retrieval)
+  - [ExecEndFunctionScan](../E/ExecEndFunctionScan.md) (cleanup)
+  - [ExecReScanFunctionScan](../E/ExecReScanFunctionScan.md) (rescan operations)
+  - [FunctionNext](FunctionNext.md) (next tuple fetch)
+  - [FunctionRecheck](FunctionRecheck.md) (tuple rechecking)
 
 ## Notes and Other Information
 This executor node is crucial for PostgreSQL's support of table-valued functions, set-returning functions, and lateral joins involving functions. The funcstates array allows a single FunctionScanState to manage multiple functions, which is important for complex queries involving function unions or lateral joins. The ordinality support enables queries that need row numbering (WITH ORDINALITY clause). The argcontext provides proper memory management for function argument evaluation, ensuring that argument values are properly allocated and freed during function execution.

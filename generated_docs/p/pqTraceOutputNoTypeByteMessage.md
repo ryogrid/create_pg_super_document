@@ -23,13 +23,13 @@ The function handles different message types based on their length:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceFormatTimestamp
+  - [pqTraceFormatTimestamp](pqTraceFormatTimestamp.md)
   - pg_ntoh32
-  - pqTraceOutputInt32
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md)
 - Constants referenced:
   - PQTRACE_SUPPRESS_TIMESTAMPS
 - Called from (representative examples):
-  - pqPutMsgEnd
+  - [pqPutMsgEnd](pqPutMsgEnd.md)
   - pgunlock_thread
 
 ## Notes and Other Information

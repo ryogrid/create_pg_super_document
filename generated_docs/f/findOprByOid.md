@@ -19,14 +19,14 @@ This function is part of the pg_dump utility's object management system. It sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
-  - OprInfo (struct)
+  - [OprInfo](../O/OprInfo.md) (struct)
   - DO_OPERATOR (enum value)
   - OperatorRelationId (constant)
 - Called from (representative examples):
-  - getFormattedOperatorName (src/bin/pg_dump/pg_dump.c:13230)
+  - [getFormattedOperatorName](../g/getFormattedOperatorName.md) (src/bin/pg_dump/pg_dump.c:13230)
 
 ## Notes and Other Information
 - Returns NULL if no operator with the specified OID is found

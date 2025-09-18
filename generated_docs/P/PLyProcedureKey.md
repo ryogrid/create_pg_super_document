@@ -26,9 +26,9 @@ PLyProcedureKey provides a compact and efficient way to uniquely identify cached
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - init_procedure_caches (initializes the procedure cache hash table using this key type)
-  - PLy_procedure_get (uses this key to look up cached procedures)
-  - PLyProcedureEntry (contains this key as part of cache entry structure)
+  - [init_procedure_caches](../i/init_procedure_caches.md) (initializes the procedure cache hash table using this key type)
+  - [PLy_procedure_get](PLy_procedure_get.md) (uses this key to look up cached procedures)
+  - [PLyProcedureEntry](PLyProcedureEntry.md) (contains this key as part of cache entry structure)
 
 ## Notes and Other Information
 - This structure is designed to be used as a hash table key, so it must have consistent memory layout and comparison semantics

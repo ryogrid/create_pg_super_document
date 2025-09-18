@@ -29,15 +29,15 @@ The costing model considers the worst-case scenario where no parameter value is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit (determines available cache memory)
-  - relation_byte_size (calculates memory for cached tuples)
-  - ExecEstimateCacheEntryOverheadBytes (estimates per-entry memory overhead)
-  - get_expr_width (calculates parameter expression widths)
-  - estimate_num_groups (estimates distinct parameter value counts)
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md) (determines available cache memory)
+  - [relation_byte_size](../r/relation_byte_size.md) (calculates memory for cached tuples)
+  - [ExecEstimateCacheEntryOverheadBytes](../E/ExecEstimateCacheEntryOverheadBytes.md) (estimates per-entry memory overhead)
+  - [get_expr_width](../g/get_expr_width.md) (calculates parameter expression widths)
+  - [estimate_num_groups](../e/estimate_num_groups.md) (estimates distinct parameter value counts)
   - SELFLAG_USED_DEFAULT (flag indicating default estimation fallback)
   - PG_UINT32_MAX (maximum value for cache entry limit)
 - Called from (representative examples):
-  - cost_rescan (in costsize.c:4619)
+  - [cost_rescan](cost_rescan.md) (in costsize.c:4619)
 
 ## Notes and Other Information
 - Sets mpath->est_entries to guide executor hash table sizing decisions

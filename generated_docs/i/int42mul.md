@@ -23,7 +23,7 @@ The `int42mul` function implements multiplication between a 32-bit integer (int4
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Extracts the first 32-bit integer argument
   - `PG_GETARG_INT16`: Extracts the second 16-bit integer argument
-  - `pg_mul_s32_overflow`: Performs safe 32-bit integer multiplication with overflow checking
+  - `[pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)`: Performs safe 32-bit integer multiplication with overflow checking
   - `ereport`: Reports errors when overflow occurs
   - `PG_RETURN_INT32`: Returns the 32-bit result
 - Called from: No direct references found in the codebase

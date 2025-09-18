@@ -31,19 +31,19 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateCacheMemoryContext
-  - hash_create
-  - MemoryContextAlloc  
-  - RelationMapInitialize
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md)
+  - [hash_create](../h/hash_create.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)  
+  - [RelationMapInitialize](RelationMapInitialize.md)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - Called once per backend during database initialization in InitPostgres()
 - Must be called before any relation cache operations can be performed
 - The hash table grows automatically as more relations are cached
 - The in_progress_list prevents infinite recursion during cache loading of interdependent relations
-- RelationMapInitialize() is essential for system catalog access since some catalogs use mapped storage
+- [RelationMapInitialize](RelationMapInitialize.md)() is essential for system catalog access since some catalogs use mapped storage
 - All memory allocations use CacheMemoryContext to ensure persistence across transactions
 - The initial cache size (INITRELCACHESIZE) is optimized for typical workloads but will expand dynamically
 - This is part of the broader cache initialization sequence during backend startup

@@ -28,13 +28,13 @@ The `matchuntil` function is designed for incremental regex matching with search
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initialize (for setting up initial DFA state when needed)
-  - miss (for handling DFA state transitions)
+  - [initialize](../i/initialize.md) (for setting up initial DFA state when needed)
+  - [miss](miss.md) (for handling DFA state transitions)
   - GETCOLOR (for character-to-color mapping)
   - FDEBUG (for debug tracing)
   - MATCHALL, DUPINF (for MATCHALL NFA optimization)
 - Called from (representative examples):
-  - lacon (lookahead/lookbehind constraint processing)
+  - [lacon](../l/lacon.md) (lookahead/lookbehind constraint processing)
   - LOFF (regex execution offset function)
 
 ## Notes and Other Information

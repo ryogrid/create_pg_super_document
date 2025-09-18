@@ -31,14 +31,14 @@ The function ensures that exactly one delete trigger and one update trigger are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit: Initialize scan key for catalog search
-  - systable_beginscan/systable_getnext/systable_endscan: Scan pg_trigger catalog
-  - RI_FKey_trigger_type: Determine trigger type (action vs check)
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initialize scan key for catalog search
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan: Scan pg_trigger catalog
+  - [RI_FKey_trigger_type](../R/RI_FKey_trigger_type.md): Determine trigger type (action vs check)
   - TRIGGER_FOR_DELETE/TRIGGER_FOR_UPDATE: Check trigger event type
   - elog: Report errors if triggers not found
 
 - Called from:
-  - CloneFkReferenced: When cloning FK constraints to partitions on the referenced side
+  - [CloneFkReferenced](../C/CloneFkReferenced.md): When cloning FK constraints to partitions on the referenced side
 
 ## Notes and Other Information
 - Action triggers execute on the referenced table when rows are deleted or updated

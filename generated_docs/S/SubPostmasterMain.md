@@ -24,19 +24,19 @@ This approach enables PostgreSQL to work on platforms where fork() is unavailabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitializeGUCOptions (basic GUC setup)
-  - read_backend_variables (deserialize process parameters)
-  - ClosePostmasterPorts (close inherited sockets)
-  - InitPostmasterChild (child process initialization)
-  - PGSharedMemoryReAttach/PGSharedMemoryNoReAttach (shared memory handling)
-  - read_nondefault_variables (reload GUC configuration)
-  - checkDataDir (validate data directory)
-  - LocalProcessControlFile (read control file)
-  - process_shared_preload_libraries (reload preloaded libraries)
-  - InitShmemAccess (restore shared memory pointers)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md) (basic GUC setup)
+  - [read_backend_variables](../r/read_backend_variables.md) (deserialize process parameters)
+  - [ClosePostmasterPorts](../C/ClosePostmasterPorts.md) (close inherited sockets)
+  - [InitPostmasterChild](../I/InitPostmasterChild.md) (child process initialization)
+  - [PGSharedMemoryReAttach](../P/PGSharedMemoryReAttach.md)/PGSharedMemoryNoReAttach (shared memory handling)
+  - [read_nondefault_variables](../r/read_nondefault_variables.md) (reload GUC configuration)
+  - [checkDataDir](../c/checkDataDir.md) (validate data directory)
+  - [LocalProcessControlFile](../L/LocalProcessControlFile.md) (read control file)
+  - [process_shared_preload_libraries](../p/process_shared_preload_libraries.md) (reload preloaded libraries)
+  - [InitShmemAccess](../I/InitShmemAccess.md) (restore shared memory pointers)
   - child_process_kinds (global process type array)
 - Called from (representative examples):
-  - main() (when launched with --forkchild argument)
+  - [main](../m/main.md)() (when launched with --forkchild argument)
 
 ## Notes and Other Information
 - Only used in EXEC_BACKEND builds (Windows and optional Unix testing)

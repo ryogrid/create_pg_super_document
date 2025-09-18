@@ -23,7 +23,7 @@ The function includes assertions to ensure it's only called in appropriate conte
   - Assert (for validation checks)
   - OidIsValid (to validate the userid parameter)
 - Called from (representative examples):
-  - SetSessionAuthorization (in miscinit.c:968)
+  - [SetSessionAuthorization](SetSessionAuthorization.md) (in miscinit.c:968)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the miscinit.c file

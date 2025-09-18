@@ -23,18 +23,18 @@ ExecPartitionCheck is a core function in PostgreSQL's partition constraint valid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionQual
-  - ExecPrepareCheck
+  - [RelationGetPartitionQual](../R/RelationGetPartitionQual.md)
+  - [ExecPrepareCheck](ExecPrepareCheck.md)
   - GetPerTupleExprContext
-  - ExecCheck
-  - ExecPartitionCheckEmitError
+  - [ExecCheck](ExecCheck.md)
+  - [ExecPartitionCheckEmitError](ExecPartitionCheckEmitError.md)
 - Called from (representative examples):
-  - CopyFrom
-  - ExecBRInsertTriggers
-  - ExecFindPartition
-  - ExecSimpleRelationInsert
-  - ExecInsert
-  - ExecUpdateAct
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecBRInsertTriggers](ExecBRInsertTriggers.md)
+  - [ExecFindPartition](ExecFindPartition.md)
+  - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md)
+  - [ExecInsert](ExecInsert.md)
+  - [ExecUpdateAct](ExecUpdateAct.md)
 
 ## Notes and Other Information
 - The function implements lazy initialization, building the partition check expression only on first access

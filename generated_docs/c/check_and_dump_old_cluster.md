@@ -19,29 +19,29 @@ The function performs checks for various incompatibilities including prepared tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - start_postmaster
-  - get_db_rel_and_slot_infos
-  - init_tablespaces
-  - get_loadable_libraries
-  - check_is_install_user
-  - check_proper_datallowconn
-  - check_for_prepared_transactions
-  - check_for_isn_and_int8_passing_mismatch
-  - check_old_cluster_for_valid_slots
-  - get_subscription_count
-  - check_old_cluster_subscription_state
-  - check_for_data_types_usage
-  - check_for_user_defined_encoding_conversions
-  - check_for_user_defined_postfix_ops
-  - check_for_incompatible_polymorphics
-  - check_for_tables_with_oids
-  - check_for_not_null_inheritance
-  - old_9_6_invalidate_hash_indexes
-  - check_for_pg_role_prefix
-  - generate_old_dump
-  - stop_postmaster
+  - [start_postmaster](../s/start_postmaster.md)
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md)
+  - [init_tablespaces](../i/init_tablespaces.md)
+  - [get_loadable_libraries](../g/get_loadable_libraries.md)
+  - [check_is_install_user](check_is_install_user.md)
+  - [check_proper_datallowconn](check_proper_datallowconn.md)
+  - [check_for_prepared_transactions](check_for_prepared_transactions.md)
+  - [check_for_isn_and_int8_passing_mismatch](check_for_isn_and_int8_passing_mismatch.md)
+  - [check_old_cluster_for_valid_slots](check_old_cluster_for_valid_slots.md)
+  - [get_subscription_count](../g/get_subscription_count.md)
+  - [check_old_cluster_subscription_state](check_old_cluster_subscription_state.md)
+  - [check_for_data_types_usage](check_for_data_types_usage.md)
+  - [check_for_user_defined_encoding_conversions](check_for_user_defined_encoding_conversions.md)
+  - [check_for_user_defined_postfix_ops](check_for_user_defined_postfix_ops.md)
+  - [check_for_incompatible_polymorphics](check_for_incompatible_polymorphics.md)
+  - [check_for_tables_with_oids](check_for_tables_with_oids.md)
+  - [check_for_not_null_inheritance](check_for_not_null_inheritance.md)
+  - [old_9_6_invalidate_hash_indexes](../o/old_9_6_invalidate_hash_indexes.md)
+  - [check_for_pg_role_prefix](check_for_pg_role_prefix.md)
+  - [generate_old_dump](../g/generate_old_dump.md)
+  - [stop_postmaster](../s/stop_postmaster.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Manages the old cluster's postmaster lifecycle (start/stop) unless performing live checks

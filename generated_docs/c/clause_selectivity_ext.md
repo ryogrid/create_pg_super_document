@@ -45,20 +45,20 @@ The function implements sophisticated logic for different expression types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - treat_as_join_clause (for clause classification)
-  - clauselist_selectivity_ext (for AND clauses)
-  - clauselist_selectivity_or (for OR clauses) 
-  - join_selectivity (for join clauses)
-  - restriction_selectivity (for restriction clauses)
-  - function_selectivity (for function expressions)
+  - [treat_as_join_clause](../t/treat_as_join_clause.md) (for clause classification)
+  - [clauselist_selectivity_ext](clauselist_selectivity_ext.md) (for AND clauses)
+  - [clauselist_selectivity_or](clauselist_selectivity_or.md) (for OR clauses) 
+  - [join_selectivity](../j/join_selectivity.md) (for join clauses)
+  - [restriction_selectivity](../r/restriction_selectivity.md) (for restriction clauses)
+  - [function_selectivity](../f/function_selectivity.md) (for function expressions)
   - boolvarsel (for boolean variables)
   - scalararraysel, rowcomparesel, nulltestsel, booltestsel (for specific node types)
-  - estimate_expression_value (for parameter evaluation)
+  - [estimate_expression_value](../e/estimate_expression_value.md) (for parameter evaluation)
 - Called from (representative examples):
-  - clause_selectivity (standard interface)
-  - clauselist_selectivity_ext (for recursive AND processing)
-  - clauselist_selectivity_or (for recursive OR processing)
-  - statext_mcv_clauselist_selectivity (extended statistics)
+  - [clause_selectivity](clause_selectivity.md) (standard interface)
+  - [clauselist_selectivity_ext](clauselist_selectivity_ext.md) (for recursive AND processing)
+  - [clauselist_selectivity_or](clauselist_selectivity_or.md) (for recursive OR processing)
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md) (extended statistics)
 
 ## Notes and Other Information
 - Default selectivity is 0.5 for unhandled clause types

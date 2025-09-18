@@ -23,20 +23,20 @@ This function removes an attribute default entry from the pg_attrdef system cata
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit: Initializes scan keys for system table scanning
-  - systable_beginscan: Begins systematic scan of system table with index
-  - systable_getnext: Retrieves next tuple from system table scan
-  - systable_endscan: Ends system table scan
-  - performDeletion: Performs object deletion with dependency handling
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan keys for system table scanning
+  - [systable_beginscan](../s/systable_beginscan.md): Begins systematic scan of system table with index
+  - [systable_getnext](../s/systable_getnext.md): Retrieves next tuple from system table scan
+  - [systable_endscan](../s/systable_endscan.md): Ends system table scan
+  - [performDeletion](../p/performDeletion.md): Performs object deletion with dependency handling
   - table_open/table_close: Opens and closes system catalog table
   - PERFORM_DELETION_INTERNAL: Flag for internal deletion operations
 
 - Called from (representative examples):
-  - ATExecColumnDefault: During ALTER TABLE DROP DEFAULT operations
-  - ATExecCookedColumnDefault: When processing column default changes
-  - ATExecSetExpression: When setting new expressions (removes old default)
-  - ATExecDropExpression: When dropping column expressions
-  - ATExecAlterColumnType: During column type changes that affect defaults
+  - [ATExecColumnDefault](../A/ATExecColumnDefault.md): During ALTER TABLE DROP DEFAULT operations
+  - [ATExecCookedColumnDefault](../A/ATExecCookedColumnDefault.md): When processing column default changes
+  - [ATExecSetExpression](../A/ATExecSetExpression.md): When setting new expressions (removes old default)
+  - [ATExecDropExpression](../A/ATExecDropExpression.md): When dropping column expressions
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md): During column type changes that affect defaults
 
 ## Notes and Other Information
 The function uses a systematic scan of pg_attrdef with the AttrDefaultIndexId index for efficient lookup. Although the comment indicates there should be at most one matching tuple, the implementation uses a loop to handle potential edge cases robustly. The function integrates with PostgreSQL's object deletion framework, ensuring proper dependency cascade handling. When performing internal deletions, special flags are passed to performDeletion to distinguish from user-initiated operations. The function maintains proper locking throughout the operation to ensure catalog consistency.

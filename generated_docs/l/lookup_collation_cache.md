@@ -20,16 +20,16 @@ This function implements a caching mechanism for collation properties to avoid r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - hash_search
-  - SearchSysCache1
-  - SysCacheGetAttrNotNull
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - lc_collate_is_c
-  - lc_ctype_is_c
-  - pg_newlocale_from_collation
+  - [lc_collate_is_c](lc_collate_is_c.md)
+  - [lc_ctype_is_c](lc_ctype_is_c.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
 
 ## Notes and Other Information
 - The cache is initialized on first use with a hash table capacity of 100 entries

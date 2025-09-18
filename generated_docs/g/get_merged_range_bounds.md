@@ -40,10 +40,10 @@ This function computes the bounds of a merged partition that results from joinin
 - Functions called/Symbols referenced:
   - compare_range_bounds
   - JoinType
-  - PartitionRangeBound
+  - [PartitionRangeBound](../P/PartitionRangeBound.md)
   - JOIN_INNER, JOIN_SEMI, JOIN_LEFT, JOIN_ANTI, JOIN_FULL
 - Called from (representative examples):
-  - merge_range_bounds
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - This is a static function within partbounds.c used for partition-wise join optimization

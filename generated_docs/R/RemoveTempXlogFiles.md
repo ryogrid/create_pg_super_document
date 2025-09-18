@@ -35,7 +35,7 @@ This function takes no parameters.
   - DEBUG2
   - MAXPGPATH
 - Called from:
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

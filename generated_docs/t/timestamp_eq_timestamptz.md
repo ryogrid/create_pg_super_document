@@ -20,7 +20,7 @@ This function implements the equality operator (=) for cross-type comparisons be
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP (extracts timestamp argument)
   - PG_GETARG_TIMESTAMPTZ (extracts timestamptz argument) 
-  - timestamp_cmp_timestamptz_internal (performs the comparison)
+  - [timestamp_cmp_timestamptz_internal](timestamp_cmp_timestamptz_internal.md) (performs the comparison)
   - PG_RETURN_BOOL (returns boolean result)
 - Called from (representative examples):
   - No direct references found in the codebase

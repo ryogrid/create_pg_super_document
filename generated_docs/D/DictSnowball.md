@@ -23,9 +23,9 @@ The  structure represents an active instance of a Snowball stemmer dictionary in
 - Functions called/Symbols referenced:
   - StopList (structure for managing stop words)
 - Called from (representative examples):
-  - locate_stem_module (function that creates and configures DictSnowball instances)
-  - dsnowball_init (initialization function for Snowball dictionaries)
-  - dsnowball_lexize (lexical analysis function that uses DictSnowball instances)
+  - [locate_stem_module](../l/locate_stem_module.md) (function that creates and configures DictSnowball instances)
+  - [dsnowball_init](../d/dsnowball_init.md) (initialization function for Snowball dictionaries)
+  - [dsnowball_lexize](../d/dsnowball_lexize.md) (lexical analysis function that uses DictSnowball instances)
 
 ## Notes and Other Information
 - The structure is designed to handle memory management challenges specific to Snowball stemmers, which allocate memory that persists between function calls

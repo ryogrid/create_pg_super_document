@@ -18,11 +18,11 @@ This function determines if a given Unicode code point represents a valid hexade
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category
+  - [unicode_category](../u/unicode_category.md)
   - PG_U_DECIMAL_NUMBER
-  - pg_u_prop_hex_digit
+  - [pg_u_prop_hex_digit](pg_u_prop_hex_digit.md)
 - Called from (representative examples):
-  - icu_test (in Unicode category tests)
+  - [icu_test](../i/icu_test.md) (in Unicode category tests)
 
 ## Notes and Other Information
 - In POSIX mode, only ASCII characters 0-9, A-F, and a-f are considered hexadecimal digits

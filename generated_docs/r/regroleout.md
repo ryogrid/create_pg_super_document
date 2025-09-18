@@ -30,8 +30,8 @@ The function uses proper identifier quoting to ensure that role names containing
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_RETURN_CSTRING (returns string values)
-  - GetUserNameFromId (looks up role name by OID)
-  - quote_identifier (properly quotes role names for output)
+  - [GetUserNameFromId](../G/GetUserNameFromId.md) (looks up role name by OID)
+  - [quote_identifier](../q/quote_identifier.md) (properly quotes role names for output)
   - NAMEDATALEN (maximum length constant for names)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through function registry)

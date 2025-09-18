@@ -31,11 +31,11 @@ The function is designed primarily for setting up initial replication state and 
   - PG_GETARG_TEXT_PP
   - PG_GETARG_LSN
   - replorigin_check_prerequisites
-  - LockRelationOid
+  - [LockRelationOid](../L/LockRelationOid.md)
   - replorigin_by_name
   - text_to_cstring
-  - replorigin_advance
-  - UnlockRelationOid
+  - [replorigin_advance](../r/replorigin_advance.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)

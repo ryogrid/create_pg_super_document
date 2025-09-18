@@ -33,8 +33,8 @@ The structure provides essential hash-related parameters including high and low 
 - Functions called/Symbols referenced:
   - TuplesortIndexArg (base structure)
 - Called from (representative examples):
-  - tuplesort_begin_index_hash (src/backend/utils/sort/tuplesortvariants.c:450, 453)
-  - comparetup_index_hash (src/backend/utils/sort/tuplesortvariants.c:1598)
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md) (src/backend/utils/sort/tuplesortvariants.c:450, 453)
+  - [comparetup_index_hash](../c/comparetup_index_hash.md) (src/backend/utils/sort/tuplesortvariants.c:1598)
 
 ## Notes and Other Information
 - This structure is specific to the index_hash sorting subcase and is not used for other index types

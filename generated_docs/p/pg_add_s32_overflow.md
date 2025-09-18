@@ -27,10 +27,10 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
   - PG_INT32_MIN (constant defining minimum 32-bit signed integer value)
   - `__builtin_add_overflow` (compiler built-in, when available)
 - Called from (representative examples):
-  - int4pl (32-bit integer addition operator function)
-  - int4inc (32-bit integer increment function)
-  - detoast_attr_slice (TOAST attribute slicing)
-  - array_append (array append operations)
+  - [int4pl](../i/int4pl.md) (32-bit integer addition operator function)
+  - [int4inc](../i/int4inc.md) (32-bit integer increment function)
+  - [detoast_attr_slice](../d/detoast_attr_slice.md) (TOAST attribute slicing)
+  - [array_append](../a/array_append.md) (array append operations)
   - Various array manipulation functions
   - Date/time calculation functions
   - String manipulation functions (lpad, rpad, repeat, translate)

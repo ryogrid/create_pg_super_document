@@ -32,8 +32,8 @@ For  functions, the traversal always stops immediately since no further analysis
   - PROPARALLEL_RESTRICTED
   - PROPARALLEL_UNSAFE
 - Called from (representative examples):
-  - max_parallel_hazard_checker
-  - max_parallel_hazard_walker
+  - [max_parallel_hazard_checker](max_parallel_hazard_checker.md)
+  - [max_parallel_hazard_walker](max_parallel_hazard_walker.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the clauses.c compilation unit

@@ -40,5 +40,5 @@ Unlike `dump_numeric` which works with the storage format, `dump_var` operates o
 - Output format: \[label\]: VAR w=\[weight\] d=\[dscale\] \[sign\] \[digits...\]
 - Complementary to dump_numeric() - operates on variable format vs storage format
 - Essential for debugging numeric arithmetic operations
-- NumericVar is the internal working format used during calculations
+- [NumericVar](../N/NumericVar.md) is the internal working format used during calculations
 - Not part of the public API - intended for internal debugging only

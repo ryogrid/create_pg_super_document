@@ -31,10 +31,10 @@ This function represents the most comprehensive size measurement available for P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `calculate_table_size`: Calculates size of table including TOAST, FSM, VM
-  - `calculate_indexes_size`: Calculates total size of all attached indexes
+  - `[calculate_table_size](calculate_table_size.md)`: Calculates size of table including TOAST, FSM, VM
+  - `[calculate_indexes_size](calculate_indexes_size.md)`: Calculates total size of all attached indexes
 - Called from (representative examples):
-  - `pg_total_relation_size`: SQL function wrapper for total relation size calculation
+  - `[pg_total_relation_size](../p/pg_total_relation_size.md)`: SQL function wrapper for total relation size calculation
 
 ## Notes and Other Information
 - Returns total size in bytes as int64

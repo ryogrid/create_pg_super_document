@@ -28,9 +28,9 @@ The implementation includes safeguards against excessive run creation and provid
   - selectnewtape
   - tuplesort_sort_memtuples
   - WRITETUP
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - FREEMEM
-  - markrunend
+  - [markrunend](../m/markrunend.md)
   - pg_rusage_show (for tracing)
 - Types referenced:
   - Tuplesortstate

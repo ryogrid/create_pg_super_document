@@ -30,18 +30,18 @@ The function first counts live attributes to write the tuple header, then proces
 - Functions called/Symbols referenced:
   - RelationGetDescr: Gets relation descriptor for column metadata
   - TupleDescAttr: Accesses attribute information from tuple descriptor
-  - column_in_column_list: Checks if a column should be included
-  - pq_sendint16: Writes the count of live attributes
+  - [column_in_column_list](../c/column_in_column_list.md): Checks if a column should be included
+  - [pq_sendint16](../p/pq_sendint16.md): Writes the count of live attributes
   - slot_getallattrs: Extracts all attribute values from the tuple slot
-  - SearchSysCache1: Looks up type information for each column
-  - OidSendFunctionCall: Calls binary output function for types
-  - OidOutputFunctionCall: Calls text output function for types
-  - pq_sendbyte/pq_sendint/pq_sendbytes/pq_sendcountedtext: Protocol writing functions
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up type information for each column
+  - [OidSendFunctionCall](../O/OidSendFunctionCall.md): Calls binary output function for types
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md): Calls text output function for types
+  - [pq_sendbyte](../p/pq_sendbyte.md)/pq_sendint/pq_sendbytes/pq_sendcountedtext: Protocol writing functions
   - VARATT_IS_EXTERNAL_ONDISK: Macro to detect unchanged TOAST data
   - Form_pg_type: Structure for type catalog information
 
 - Called from (representative examples):
-  - logicalrep_write_insert: For INSERT operations
+  - [logicalrep_write_insert](logicalrep_write_insert.md): For INSERT operations
   - logicalrep_write_update: For UPDATE operations (old and new tuples)
   - logicalrep_write_delete: For DELETE operations
 

@@ -29,17 +29,17 @@ The function ensures proper error handling for queries that return multiple colu
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating various AST nodes: SubLink, SelectStmt, RangeSubselect, Alias, ResTarget, JsonArrayAgg, ColumnRef, JsonAggConstructor)
-  - make_parsestate/free_parsestate (for temporary parsing context management)
-  - transformStmt (for transforming the inner query)
+  - [make_parsestate](../m/make_parsestate.md)/free_parsestate (for temporary parsing context management)
+  - [transformStmt](transformStmt.md) (for transforming the inner query)
   - copyObject (for creating a copy of the query for validation)
-  - count_nonjunk_tlist_entries (for validating single-column requirement)
-  - makeJsonValueExpr (for creating JSON value expressions)
+  - [count_nonjunk_tlist_entries](../c/count_nonjunk_tlist_entries.md) (for validating single-column requirement)
+  - [makeJsonValueExpr](../m/makeJsonValueExpr.md) (for creating JSON value expressions)
   - list_make1/list_make2 (for creating lists)
-  - makeString/pstrdup (for string manipulation)
-  - transformExprRecurse (for final expression transformation)
+  - [makeString](../m/makeString.md)/pstrdup (for string manipulation)
+  - [transformExprRecurse](transformExprRecurse.md) (for final expression transformation)
   - EXPR_SUBLINK (sublink type constant)
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - The function enforces that the input query must return exactly one column, raising a syntax error otherwise

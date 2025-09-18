@@ -32,11 +32,11 @@ The structure ensures that essential index parameters are readily accessible and
 - Functions called/Symbols referenced:
   - BlockNumber (PostgreSQL block number type)
 - Called from (representative examples):
-  - brinGetStats (in brin.c:1643, 1648)
-  - brin_metapage_init (in brin_pageops.c:488, 492, 511)
-  - brinRevmapInitialize (in brin_revmap.c:74, 80)
-  - revmap_physical_extend (in brin_revmap.c:527, 539, 618)
-  - brin_xlog_revmap_extend (in brin_xlog.c:228, 231, 246)
+  - [brinGetStats](../b/brinGetStats.md) (in brin.c:1643, 1648)
+  - [brin_metapage_init](../b/brin_metapage_init.md) (in brin_pageops.c:488, 492, 511)
+  - [brinRevmapInitialize](../b/brinRevmapInitialize.md) (in brin_revmap.c:74, 80)
+  - [revmap_physical_extend](../r/revmap_physical_extend.md) (in brin_revmap.c:527, 539, 618)
+  - [brin_xlog_revmap_extend](../b/brin_xlog_revmap_extend.md) (in brin_xlog.c:228, 231, 246)
 
 ## Notes and Other Information
 - This structure is stored on the first page (metapage) of every BRIN index

@@ -27,7 +27,7 @@ The function uses PostgreSQLs `PG_FUNCTION_ARGS` macro to access arguments:
   - `PG_EUC_JP`: Encoding constant for EUC-JP
   - `PG_MULE_INTERNAL`: Encoding constant for Mule Internal Code
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validates encoding conversion parameters
-  - `euc_jp2mic`: Core conversion function that performs the actual character-by-character conversion
+  - `[euc_jp2mic](euc_jp2mic.md)`: Core conversion function that performs the actual character-by-character conversion
   - `PG_RETURN_INT32`: Returns integer result to PostgreSQL
 - Called from (representative examples):
   - `PGEUCALTCODE`: Referenced in the same source file

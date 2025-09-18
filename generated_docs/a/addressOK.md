@@ -29,8 +29,8 @@ The validation process involves:
   - Assert (assertion macro)
 
 - Called from (representative examples):
-  - network_in (network address input function)
-  - network_recv (network address receive function)
+  - [network_in](../n/network_in.md) (network address input function)
+  - [network_recv](../n/network_recv.md) (network address receive function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the network.c source file

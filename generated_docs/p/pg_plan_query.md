@@ -35,24 +35,24 @@ The function is essential in PostgreSQL's query processing pipeline, taking quer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - planner
+  - [planner](planner.md)
   - ActiveSnapshotSet
   - ResetUsage
   - ShowUsage
   - copyObject
-  - nodeToStringWithLocations
-  - stringToNodeWithLocations
+  - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md)
+  - [stringToNodeWithLocations](../s/stringToNodeWithLocations.md)
   - elog_node_display
   - TRACE_POSTGRESQL_QUERY_PLAN_START
   - TRACE_POSTGRESQL_QUERY_PLAN_DONE
 - Called from (representative examples):
-  - pg_plan_queries
-  - BeginCopyTo
-  - ExecCreateTableAs
-  - standard_ExplainOneQuery
-  - refresh_matview_datafill
-  - PerformCursorOpen
-  - init_execution_state
+  - [pg_plan_queries](pg_plan_queries.md)
+  - [BeginCopyTo](../B/BeginCopyTo.md)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md)
+  - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md)
+  - [refresh_matview_datafill](../r/refresh_matview_datafill.md)
+  - [PerformCursorOpen](../P/PerformCursorOpen.md)
+  - [init_execution_state](../i/init_execution_state.md)
 
 ## Notes and Other Information
 - Returns NULL for utility commands as they don't require execution plans

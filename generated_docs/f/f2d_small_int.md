@@ -23,11 +23,11 @@ The function performs bit manipulation to determine if the fractional part is ze
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - floating_decimal_32 (struct type)
+  - [floating_decimal_32](floating_decimal_32.md) (struct type)
   - FLOAT_BIAS (constant)
   - FLOAT_MANTISSA_BITS (constant)
 - Called from:
-  - float_to_shortest_decimal_bufn
+  - [float_to_shortest_decimal_bufn](float_to_shortest_decimal_bufn.md)
 
 ## Notes and Other Information
 - This is an optimization path in the Ryu algorithm for handling small integers efficiently

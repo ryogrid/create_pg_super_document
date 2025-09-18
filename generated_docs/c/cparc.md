@@ -27,18 +27,18 @@ The function name "cparc" likely stands for "copy arc". It's a simple but freque
   - struct arc (data structure)
   - struct nfa (data structure)
   - struct state (data structure)
-  - newarc (function to create new arcs)
+  - [newarc](../n/newarc.md) (function to create new arcs)
 - Called from (representative examples):
-  - moveins (in regc_nfa.c:802)
-  - copyins (in regc_nfa.c:904)
-  - moveouts (in regc_nfa.c:1090)
-  - copyouts (in regc_nfa.c:1189)
-  - duptraverse (in regc_nfa.c:1408)
-  - pull (in regc_nfa.c:1750, 1786, 1787)
+  - [moveins](../m/moveins.md) (in regc_nfa.c:802)
+  - [copyins](copyins.md) (in regc_nfa.c:904)
+  - [moveouts](../m/moveouts.md) (in regc_nfa.c:1090)
+  - [copyouts](copyouts.md) (in regc_nfa.c:1189)
+  - [duptraverse](../d/duptraverse.md) (in regc_nfa.c:1408)
+  - [pull](../p/pull.md) (in regc_nfa.c:1750, 1786, 1787)
   - push (in regc_nfa.c:1921, 1957, 1958)
   - breakconstraintloop (in regc_nfa.c:2659)
   - clonesuccessorstates (in regc_nfa.c:2868, 2886, 2895)
-  - makesearch (in regcomp.c:700)
+  - [makesearch](../m/makesearch.md) (in regcomp.c:700)
 
 ## Notes and Other Information
 - This is a static function internal to the regex NFA construction module

@@ -19,14 +19,14 @@ This function implements the combine phase for parallel regression aggregates, m
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (extract array arguments)
-  - check_float8_array (validate transition arrays)
-  - float8_pl (safe float8 addition with overflow checking)
+  - [check_float8_array](../c/check_float8_array.md) (validate transition arrays)
+  - [float8_pl](float8_pl.md) (safe float8 addition with overflow checking)
   - isinf (check for infinite values)
-  - float_overflow_error (report overflow errors)
+  - [float_overflow_error](float_overflow_error.md) (report overflow errors)
   - unlikely (compiler optimization hint)
-  - AggCheckCallContext (check if in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if in aggregate context)
   - Float8GetDatumFast (convert float8 to Datum)
-  - construct_array (build new array)
+  - [construct_array](../c/construct_array.md) (build new array)
 - Called from (representative examples):
   - No direct callers found (used by parallel aggregate system)
 

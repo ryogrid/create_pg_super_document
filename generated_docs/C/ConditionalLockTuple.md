@@ -22,14 +22,14 @@ ConditionalLockTuple is a non-blocking variant of LockTuple that attempts to acq
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TUPLE
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - LockAcquire
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [LockAcquire](../L/LockAcquire.md)
   - LOCKTAG
   - LOCKACQUIRE_NOT_AVAIL
 - Called from (representative examples):
   - ConditionalLockTupleTuplock
-  - XLTW_Oper
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - This is the non-blocking version of LockTuple that returns immediately rather than waiting for the lock

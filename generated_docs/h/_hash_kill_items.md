@@ -29,24 +29,24 @@ The function includes important concurrency considerations: it only requires a r
 - Functions called/Symbols referenced:
   - HashScanPosIsValid
   - HashScanPosIsPinned
-  - LockBuffer
-  - _hash_getbuf
-  - BufferGetPage
+  - [LockBuffer](../L/LockBuffer.md)
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
-  - ItemPointerEquals
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - ItemIdMarkDead
   - OffsetNumberNext
-  - MarkBufferDirtyHint
-  - _hash_relbuf
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
+  - [_hash_relbuf](_hash_relbuf.md)
 
 - Called from:
-  - hashrescan (src/backend/access/hash/hash.c:407)
-  - hashendscan (src/backend/access/hash/hash.c:440)
-  - _hash_next (src/backend/access/hash/hashsearch.c:68, 86)
-  - _hash_readpage (src/backend/access/hash/hashsearch.c:485, 544)
+  - [hashrescan](hashrescan.md) (src/backend/access/hash/hash.c:407)
+  - [hashendscan](hashendscan.md) (src/backend/access/hash/hash.c:440)
+  - [_hash_next](_hash_next.md) (src/backend/access/hash/hashsearch.c:68, 86)
+  - [_hash_readpage](_hash_readpage.md) (src/backend/access/hash/hashsearch.c:485, 544)
 
 ## Notes and Other Information
 - The function assumes so->numKilled > 0 and resets this counter to 0 after processing

@@ -24,9 +24,9 @@ The function is designed to be part of PostgreSQL's runtime-optimizable bit mani
 - Functions called/Symbols referenced:
   - pg_popcount_slow
 - Called from (representative examples):
-  - pg_popcount (inline function in pg_bitutils.h)
-  - choose_popcount_functions (during function pointer initialization)
-  - pg_popcount_choose (part of the dynamic selection mechanism)
+  - [pg_popcount](pg_popcount.md) (inline function in pg_bitutils.h)
+  - [choose_popcount_functions](../c/choose_popcount_functions.md) (during function pointer initialization)
+  - [pg_popcount_choose](pg_popcount_choose.md) (part of the dynamic selection mechanism)
 
 ## Notes and Other Information
 - When TRY_POPCNT_FAST is defined, this function becomes a function pointer that can be dynamically assigned to optimized implementations including POPCNT instruction support or AVX-512 vectorized routines

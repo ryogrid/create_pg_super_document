@@ -24,11 +24,11 @@ The function decrements the global usage counter and handles both the LLVM-speci
   - LLVMOrcReleaseResourceTracker (LLVM 12+ API) 
   - LLVMOrcSymbolStringPoolClearDeadEntries (LLVM 12+ API)
   - LLVMOrcRemoveModule (LLVM ≤11 API)
-  - list_free (PostgreSQL utility)
-  - ResourceOwnerForgetJIT (PostgreSQL resource management)
+  - [list_free](list_free.md) (PostgreSQL utility)
+  - [ResourceOwnerForgetJIT](../R/ResourceOwnerForgetJIT.md) (PostgreSQL resource management)
   - llvm_enter_fatal_on_oom/llvm_leave_fatal_on_oom (LLVM error handling)
 - Called from:
-  - _PG_jit_provider_init (as part of JIT provider initialization)
+  - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (as part of JIT provider initialization)
 
 ## Notes and Other Information
 - Contains version-specific code paths for LLVM major versions >11 vs ≤11

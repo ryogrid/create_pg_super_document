@@ -20,13 +20,13 @@ This function evaluates whether heap truncation should be attempted during vacuu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LVRelState
+  - [LVRelState](../L/LVRelState.md)
   - VacuumFailsafeActive
   - REL_TRUNCATE_MINIMUM
   - REL_TRUNCATE_FRACTION
   - BlockNumber
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
 
 ## Notes and Other Information
 The function includes important safeguards against truncation during XID wraparound failsafe conditions, where acquiring AccessExclusiveLock could worsen system-wide XID exhaustion problems. Truncation requires AccessExclusiveLock which can be particularly disruptive on hot standby systems, so the function ensures meaningful space savings justify the cost. The thresholds ensure truncation attempts only when there's a reasonable chance of releasing a significant number of pages.

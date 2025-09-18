@@ -29,7 +29,7 @@ The state changes follow a specific pattern: subtransactions between current and
   - IsParallelWorker
   - ereport
   - PointerIsValid
-  - BlockStateAsString
+  - [BlockStateAsString](../B/BlockStateAsString.md)
   - elog
 - Transaction state constants:
   - TBLOCK_INPROGRESS, TBLOCK_ABORT, TBLOCK_IMPLICIT_INPROGRESS
@@ -37,8 +37,8 @@ The state changes follow a specific pattern: subtransactions between current and
   - TBLOCK_SUBABORT_PENDING, TBLOCK_SUBABORT_END
   - TBLOCK_SUBRESTART, TBLOCK_SUBABORT_RESTART
 - Called from:
-  - standard_ProcessUtility (main SQL command processing)
-  - pa_stream_abort (parallel apply worker error handling)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (main SQL command processing)
+  - [pa_stream_abort](../p/pa_stream_abort.md) (parallel apply worker error handling)
 
 ## Notes and Other Information
 - This function only changes the transaction block state; actual abort operations are performed later by CommitTransactionCommand

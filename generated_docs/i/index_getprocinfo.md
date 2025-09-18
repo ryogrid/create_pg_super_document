@@ -27,14 +27,14 @@ The returned pointer references cached data that becomes invalid during relcache
 ## Dependencies
 - Functions called/Symbols referenced:
   - RegProcedureIsValid
-  - fmgr_info_cxt
-  - RelationGetIndexAttOptions
-  - set_fn_opclass_options
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md)
+  - [set_fn_opclass_options](../s/set_fn_opclass_options.md)
 - Called from (representative examples):
-  - initGinState (GIN index initialization)
-  - initGISTstate (GiST index initialization)
-  - _bt_mkscankey (B-tree scan key creation)
-  - spgGetCache (SP-GiST cache management)
+  - [initGinState](initGinState.md) (GIN index initialization)
+  - [initGISTstate](initGISTstate.md) (GiST index initialization)
+  - [_bt_mkscankey](../b/_bt_mkscankey.md) (B-tree scan key creation)
+  - [spgGetCache](../s/spgGetCache.md) (SP-GiST cache management)
 
 ## Notes and Other Information
 - Only caches "default" functions for indexed attributes, not all possible support procedures

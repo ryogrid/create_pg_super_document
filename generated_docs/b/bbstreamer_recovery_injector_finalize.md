@@ -19,8 +19,8 @@ This is a standard implementation for bbstreamer finalization that doesn't requi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_finalize
-  - bbstreamer (struct type)
+  - [bbstreamer_finalize](bbstreamer_finalize.md)
+  - [bbstreamer](bbstreamer.md) (struct type)
 - Called from (representative examples):
   - No direct references found (likely called via function pointer in operations table)
 

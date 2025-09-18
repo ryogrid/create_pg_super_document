@@ -28,14 +28,14 @@ The function performs comprehensive validation including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for NOTICE and ERROR reporting)
-  - ItemPointerSet (to initialize TID values)
-  - ginCompressPostingList (to encode the TID pair)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (to initialize TID values)
+  - [ginCompressPostingList](../g/ginCompressPostingList.md) (to encode the TID pair)
   - SizeOfGinPostingList (to check encoded size)
-  - ginPostingListDecode (to decode back to TIDs)
-  - ItemPointerEquals (to compare original and decoded TIDs)
-  - ItemPointerGetBlockNumber/ItemPointerGetOffsetNumber (for error reporting)
+  - [ginPostingListDecode](../g/ginPostingListDecode.md) (to decode back to TIDs)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md) (to compare original and decoded TIDs)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)/ItemPointerGetOffsetNumber (for error reporting)
 - Called from:
-  - test_ginpostinglist (multiple times with different parameters)
+  - [test_ginpostinglist](test_ginpostinglist.md) (multiple times with different parameters)
 
 ## Notes and Other Information
 - This is a static function within the test_ginpostinglist test module

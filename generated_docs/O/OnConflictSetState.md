@@ -25,12 +25,12 @@ The structure maintains tuple slots for both the existing conflicting tuple and 
 - Functions called/Symbols referenced:
   - NodeTag
   - TupleTableSlot
-  - ProjectionInfo
+  - [ProjectionInfo](../P/ProjectionInfo.md)
   - ExprState
 - Called from (representative examples):
-  - ExecInitModifyTable
-  - ExecInitPartitionInfo
-  - ResultRelInfo
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [ResultRelInfo](../R/ResultRelInfo.md)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's UPSERT (INSERT ... ON CONFLICT DO UPDATE) functionality

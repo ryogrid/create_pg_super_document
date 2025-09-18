@@ -28,12 +28,12 @@ The synonym file format expects each line to contain an input word followed by i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem, List, ListCell (PostgreSQL list structures)
-  - defGetString, defGetBoolean (configuration parsing)
-  - get_tsearch_config_filename (file path resolution)
-  - tsearch_readline_begin, tsearch_readline, tsearch_readline_end (file reading)
-  - findwrd (word parsing)
-  - palloc0, repalloc, pstrdup, lowerstr (memory and string management)
+  - [DefElem](../D/DefElem.md), List, ListCell (PostgreSQL list structures)
+  - [defGetString](defGetString.md), defGetBoolean (configuration parsing)
+  - [get_tsearch_config_filename](../g/get_tsearch_config_filename.md) (file path resolution)
+  - [tsearch_readline_begin](../t/tsearch_readline_begin.md), tsearch_readline, tsearch_readline_end (file reading)
+  - [findwrd](../f/findwrd.md) (word parsing)
+  - [palloc0](../p/palloc0.md), repalloc, pstrdup, lowerstr (memory and string management)
   - qsort with compareSyn (array sorting)
 - Called from (representative examples):
   - PostgreSQL dictionary initialization system (no direct callers in provided data)

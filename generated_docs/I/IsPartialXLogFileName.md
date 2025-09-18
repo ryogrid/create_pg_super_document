@@ -22,11 +22,11 @@ IsPartialXLogFileName checks if a filename represents a partial WAL segment file
   - strspn (standard C library)
   - strcmp (standard C library)
 - Called from (representative examples):
-  - RemoveOldXlogFiles
-  - CleanupPriorWALFiles
-  - SetWALFileNameForCleanup
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md)
+  - [SetWALFileNameForCleanup](../S/SetWALFileNameForCleanup.md)
   - FundEndOfXLOG
-  - KillExistingXLOG
+  - [KillExistingXLOG](../K/KillExistingXLOG.md)
 
 ## Notes and Other Information
 - This is an inline function defined in xlog_internal.h for performance

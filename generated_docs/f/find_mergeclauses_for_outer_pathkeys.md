@@ -28,13 +28,13 @@ The function is designed to handle complex scenarios including outer joins where
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - update_mergeclause_eclasses
+  - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
   - PathKey
   - EquivalenceClass
-  - list_concat
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - sort_inner_and_outer (src/backend/optimizer/path/joinpath.c:1401)
-  - generate_mergejoin_paths (src/backend/optimizer/path/joinpath.c:1494)
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md) (src/backend/optimizer/path/joinpath.c:1401)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md) (src/backend/optimizer/path/joinpath.c:1494)
 
 ## Notes and Other Information
 - The restrictinfos must be pre-marked via outer_is_left to indicate which side of each clause is associated with the current outer path

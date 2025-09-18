@@ -19,12 +19,12 @@ This is a static inline utility function that performs a memory copy of the user
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (structure type)
-  - RBTNode (structure type)
+  - [RBTree](../R/RBTree.md) (structure type)
+  - [RBTNode](../R/RBTNode.md) (structure type)
   - memcpy (memory copy function)
 - Called from (representative examples):
-  - rbt_insert (during node insertion operations)
-  - rbt_delete_node (during node deletion operations)
+  - [rbt_insert](rbt_insert.md) (during node insertion operations)
+  - [rbt_delete_node](rbt_delete_node.md) (during node deletion operations)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's internal to the rbtree.c module and inlined for performance

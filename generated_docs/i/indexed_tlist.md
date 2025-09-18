@@ -26,14 +26,14 @@ The structure includes flags to indicate the presence of different types of expr
 ## Dependencies
 - Functions called/Symbols referenced:
   - tlist_vinfo (companion structure)
-  - List (PostgreSQL list type)
+  - [List](../L/List.md) (PostgreSQL list type)
 - Called from (representative examples):
-  - build_tlist_index
-  - fix_scan_expr_context
-  - fix_join_expr_context
-  - fix_upper_expr_context
-  - search_indexed_tlist_for_var
-  - search_indexed_tlist_for_phv
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [fix_scan_expr_context](../f/fix_scan_expr_context.md)
+  - [fix_join_expr_context](../f/fix_join_expr_context.md)
+  - [fix_upper_expr_context](../f/fix_upper_expr_context.md)
+  - [search_indexed_tlist_for_var](../s/search_indexed_tlist_for_var.md)
+  - [search_indexed_tlist_for_phv](../s/search_indexed_tlist_for_phv.md)
 
 ## Notes and Other Information
 - This is a performance optimization structure used internally by the query planner

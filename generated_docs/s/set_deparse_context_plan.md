@@ -23,13 +23,13 @@ This function specializes a deparse context created by deparse_context_for_plan_
 - Functions called/Symbols referenced:
   - list_length (for assertion checking)
   - linitial (to get first namespace entry)
-  - set_deparse_plan (to configure the plan-specific information)
+  - [set_deparse_plan](set_deparse_plan.md) (to configure the plan-specific information)
 - Called from (representative examples):
-  - show_plan_tlist (src/backend/commands/explain.c:2464)
-  - show_expression (src/backend/commands/explain.c:2495)
-  - show_grouping_sets (src/backend/commands/explain.c:2638)
-  - show_sort_group_keys (src/backend/commands/explain.c:2778)
-  - show_memoize_info (src/backend/commands/explain.c:3346)
+  - [show_plan_tlist](show_plan_tlist.md) (src/backend/commands/explain.c:2464)
+  - [show_expression](show_expression.md) (src/backend/commands/explain.c:2495)
+  - [show_grouping_sets](show_grouping_sets.md) (src/backend/commands/explain.c:2638)
+  - [show_sort_group_keys](show_sort_group_keys.md) (src/backend/commands/explain.c:2778)
+  - [show_memoize_info](show_memoize_info.md) (src/backend/commands/explain.c:3346)
 
 ## Notes and Other Information
 This function must be called each time you want to deparse expressions from a different Plan node within the same Plan tree. It assumes all Plan nodes in the tree share the same range table, which is set up once by deparse_context_for_plan_tree(). The function does not currently support deparsing indexquals in regular IndexScan or BitmapIndexScan nodes - only the indexqualorig fields can be deparsed for those node types since they don't contain INDEX_VAR references. The function returns the same List that was passed in as a notational convenience.

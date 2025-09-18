@@ -28,8 +28,8 @@ The function implements the standard UTF-8 decoding algorithm but in reverse ord
 - Functions called/Symbols referenced:
   - symbol (type used for buffer parameter)
 - Called from (representative examples):
-  - in_grouping_b_U
-  - out_grouping_b_U
+  - [in_grouping_b_U](../i/in_grouping_b_U.md)
+  - [out_grouping_b_U](../o/out_grouping_b_U.md)
 
 ## Notes and Other Information
 - This is a static function internal to the Snowball stemmer utilities

@@ -22,17 +22,17 @@ LookupNamespaceNoError provides a non-error-throwing way to look up a namespace 
   - strcmp
   - OidIsValid
   - InvokeNamespaceSearchHook
-  - get_namespace_oid
+  - [get_namespace_oid](../g/get_namespace_oid.md)
 - Called from (representative examples):
-  - schema_does_not_exist_skipping
-  - DropErrorMsgNonExistent
-  - refnameNamespaceItem
+  - [schema_does_not_exist_skipping](../s/schema_does_not_exist_skipping.md)
+  - [DropErrorMsgNonExistent](../D/DropErrorMsgNonExistent.md)
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
 
 ## Notes and Other Information
 - Returns InvalidOid instead of throwing an error when the namespace is not found
 - Does NOT perform permission checks - callers must handle authorization
 - Handles the "pg_temp" special alias for temporary namespaces
 - For temporary namespaces, does not attempt to initialize them if they don't exist
-- LookupExplicitNamespace is preferable in most cases as it includes permission checks
+- [LookupExplicitNamespace](LookupExplicitNamespace.md) is preferable in most cases as it includes permission checks
 - Part of PostgreSQL's namespace lookup infrastructure
 - Located in src/backend/catalog/namespace.c:3355-3384

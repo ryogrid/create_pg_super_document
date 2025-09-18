@@ -30,32 +30,32 @@ The function does not handle top-level processing features like grouping, sortin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_simple_rel_arrays
-  - build_simple_rel
-  - is_parallel_safe
-  - add_path
-  - create_group_result_path
-  - set_cheapest
-  - add_base_rels_to_query
-  - build_base_rel_tlists
-  - find_placeholders_in_jointree
-  - find_lateral_references
-  - deconstruct_jointree
-  - reconsider_outer_join_clauses
-  - generate_base_implied_equalities
-  - fix_placeholder_input_needed_levels
-  - remove_useless_joins
-  - reduce_unique_semijoins
-  - add_placeholders_to_base_rels
-  - create_lateral_join_info
-  - match_foreign_keys_to_quals
-  - extract_restriction_or_clauses
-  - add_other_rels_to_query
-  - distribute_row_identity_vars
-  - make_one_rel
+  - [setup_simple_rel_arrays](../s/setup_simple_rel_arrays.md)
+  - [build_simple_rel](../b/build_simple_rel.md)
+  - [is_parallel_safe](../i/is_parallel_safe.md)
+  - [add_path](../a/add_path.md)
+  - [create_group_result_path](../c/create_group_result_path.md)
+  - [set_cheapest](../s/set_cheapest.md)
+  - [add_base_rels_to_query](../a/add_base_rels_to_query.md)
+  - [build_base_rel_tlists](../b/build_base_rel_tlists.md)
+  - [find_placeholders_in_jointree](../f/find_placeholders_in_jointree.md)
+  - [find_lateral_references](../f/find_lateral_references.md)
+  - [deconstruct_jointree](../d/deconstruct_jointree.md)
+  - [reconsider_outer_join_clauses](../r/reconsider_outer_join_clauses.md)
+  - [generate_base_implied_equalities](../g/generate_base_implied_equalities.md)
+  - [fix_placeholder_input_needed_levels](../f/fix_placeholder_input_needed_levels.md)
+  - [remove_useless_joins](../r/remove_useless_joins.md)
+  - [reduce_unique_semijoins](../r/reduce_unique_semijoins.md)
+  - [add_placeholders_to_base_rels](../a/add_placeholders_to_base_rels.md)
+  - [create_lateral_join_info](../c/create_lateral_join_info.md)
+  - [match_foreign_keys_to_quals](../m/match_foreign_keys_to_quals.md)
+  - [extract_restriction_or_clauses](../e/extract_restriction_or_clauses.md)
+  - [add_other_rels_to_query](../a/add_other_rels_to_query.md)
+  - [distribute_row_identity_vars](../d/distribute_row_identity_vars.md)
+  - [make_one_rel](../m/make_one_rel.md)
 - Called from (representative examples):
-  - grouping_planner
-  - build_minmax_path
+  - [grouping_planner](../g/grouping_planner.md)
+  - [build_minmax_path](../b/build_minmax_path.md)
 
 ## Notes and Other Information
 - The function includes a special optimization path for trivial queries (single RTE_RESULT relations) that bypasses most of the complex planning logic

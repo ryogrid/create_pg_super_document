@@ -41,15 +41,15 @@ Key operational aspects:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `open`, `close`, `read`, `write`, `lseek` (standard POSIX I/O functions)
-  - `pg_checksum_page` (PostgreSQL checksum calculation function)
-  - `PageIsNew` (PostgreSQL macro to check if page is newly allocated)
-  - `pg_fatal`, `pg_log_error`, `pg_log_info` (PostgreSQL logging functions)
-  - `progress_report` (local progress reporting function)
+  - `[pg_checksum_page](../p/pg_checksum_page.md)` (PostgreSQL checksum calculation function)
+  - `[PageIsNew](../P/PageIsNew.md)` (PostgreSQL macro to check if page is newly allocated)
+  - `[pg_fatal](../p/pg_fatal.md)`, `pg_log_error`, `pg_log_info` (PostgreSQL logging functions)
+  - `[progress_report](../p/progress_report.md)` (local progress reporting function)
   - `PGIOAlignedBlock`, `PageHeader` (PostgreSQL data structure types)
   - Global variables: `mode`, `files_scanned`, `blocks_scanned`, `current_size`, `badblocks`, `files_written`, `blocks_written`, `showprogress`, `verbose`, `ControlFile`
 
 - Called from (representative examples):
-  - `scan_directory` function in pg_checksums.c during directory traversal
+  - `[scan_directory](scan_directory.md)` function in pg_checksums.c during directory traversal
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within pg_checksums.c

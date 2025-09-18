@@ -28,13 +28,13 @@ This structure encapsulates a complete pgbench script after parsing, providing a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Command
-  - StatsData
+  - [Command](../C/Command.md)
+  - [StatsData](../S/StatsData.md)
 - Called from (representative examples):
-  - allocCStatePrepared
-  - CheckConditional
-  - ParseScript
-  - addScript
+  - [allocCStatePrepared](../a/allocCStatePrepared.md)
+  - [CheckConditional](../C/CheckConditional.md)
+  - [ParseScript](ParseScript.md)
+  - [addScript](../a/addScript.md)
 
 ## Notes and Other Information
 ParsedScript serves as the primary container for script execution in pgbench, supporting both single-script and multi-script benchmark scenarios. The weight mechanism enables sophisticated workload modeling where different transaction patterns can be executed with controlled frequency distributions. The structure maintains script-level statistics that can be aggregated for comprehensive performance analysis across different script types within a single benchmark run.

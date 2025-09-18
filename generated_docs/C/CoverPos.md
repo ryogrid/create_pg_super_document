@@ -24,9 +24,9 @@ The structure supports the algorithm's process of finding optimal text fragments
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeadlineWordEntry (indirectly through related structures)
+  - [HeadlineWordEntry](../H/HeadlineWordEntry.md) (indirectly through related structures)
 - Called from (representative examples):
-  - mark_hl_fragments (primary usage location)
+  - [mark_hl_fragments](../m/mark_hl_fragments.md) (primary usage location)
 
 ## Notes and Other Information
 - Used specifically in headline generation for full-text search results

@@ -22,8 +22,8 @@ The function modifies the page header in-place and is typically called during pa
   - PageHeader (cast to access page header structure)
   - PD_HAS_FREE_LINES (flag constant)
 - Called from (representative examples):
-  - PageRepairFragmentation (src/backend/storage/page/bufpage.c:810)
-  - PageTruncateLinePointerArray (src/backend/storage/page/bufpage.c:893)
+  - [PageRepairFragmentation](PageRepairFragmentation.md) (src/backend/storage/page/bufpage.c:810)
+  - [PageTruncateLinePointerArray](PageTruncateLinePointerArray.md) (src/backend/storage/page/bufpage.c:893)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

@@ -25,9 +25,9 @@ The function is designed as a lightweight probe operation that doesn't hold any 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache
+  - [SearchSysCache](SearchSysCache.md)
   - HeapTupleIsValid
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - SearchSysCacheExists1 (macro wrapper for single key searches)
   - SearchSysCacheExists2 (macro wrapper for two key searches)

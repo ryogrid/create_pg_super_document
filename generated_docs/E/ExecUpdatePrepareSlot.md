@@ -25,12 +25,12 @@ This preparation is essential because constraints and generated column expressio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecComputeStoredGenerated (computes stored generated column values)
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md) (computes stored generated column values)
   - CMD_UPDATE (command type constant for UPDATE operations)
   - RelationGetRelid (extracts relation OID from relation descriptor)
 - Called from:
-  - ExecUpdateAct (during the main update execution path)
-  - ExecUpdate (for foreign table updates)
+  - [ExecUpdateAct](ExecUpdateAct.md) (during the main update execution path)
+  - [ExecUpdate](ExecUpdate.md) (for foreign table updates)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeModifyTable.c

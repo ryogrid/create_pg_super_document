@@ -33,15 +33,15 @@ The function uses a nonlinear interpolation formula to determine page access cos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_bitmap_pages
-  - get_tablespace_page_costs
-  - get_restriction_qual_cost
-  - get_parallel_divisor
-  - clamp_row_est
+  - [compute_bitmap_pages](compute_bitmap_pages.md)
+  - [get_tablespace_page_costs](../g/get_tablespace_page_costs.md)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md)
+  - [get_parallel_divisor](../g/get_parallel_divisor.md)
+  - [clamp_row_est](clamp_row_est.md)
 
 - Called from:
-  - bitmap_scan_cost_est (in indxpath.c:1546)
-  - create_bitmap_heap_path (in pathnode.c:1063)
+  - [bitmap_scan_cost_est](../b/bitmap_scan_cost_est.md) (in indxpath.c:1546)
+  - [create_bitmap_heap_path](create_bitmap_heap_path.md) (in pathnode.c:1063)
 
 ## Notes and Other Information
 - Only applicable to base relations (asserts RTE_RELATION)

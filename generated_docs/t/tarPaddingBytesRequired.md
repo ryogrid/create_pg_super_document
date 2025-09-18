@@ -22,13 +22,13 @@ Since TAR_BLOCK_SIZE is a power of 2, the TYPEALIGN macro can use bitwise operat
   - TYPEALIGN
   - TAR_BLOCK_SIZE
 - Called from (representative examples):
-  - sendDir (src/backend/backup/basebackup.c:1536)
-  - _tarWritePadding (src/backend/backup/basebackup.c:2073)
-  - bbstreamer_tar_header (src/bin/pg_basebackup/bbstreamer_tar.c:305)
-  - bbstreamer_tar_archiver_content (src/bin/pg_basebackup/bbstreamer_tar.c:417)
+  - [sendDir](../s/sendDir.md) (src/backend/backup/basebackup.c:1536)
+  - [_tarWritePadding](_tarWritePadding.md) (src/backend/backup/basebackup.c:2073)
+  - [bbstreamer_tar_header](../b/bbstreamer_tar_header.md) (src/bin/pg_basebackup/bbstreamer_tar.c:305)
+  - [bbstreamer_tar_archiver_content](../b/bbstreamer_tar_archiver_content.md) (src/bin/pg_basebackup/bbstreamer_tar.c:417)
   - tar_close (src/bin/pg_basebackup/walmethods.c:1114)
-  - _tarAddFile (src/bin/pg_dump/pg_backup_tar.c:1054)
-  - _tarPositionTo (src/bin/pg_dump/pg_backup_tar.c:1121)
+  - [_tarAddFile](_tarAddFile.md) (src/bin/pg_dump/pg_backup_tar.c:1054)
+  - [_tarPositionTo](_tarPositionTo.md) (src/bin/pg_dump/pg_backup_tar.c:1121)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

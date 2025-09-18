@@ -28,14 +28,14 @@ The function supports various search scenarios including exact matches, partial 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `MemoryContextSwitchTo`: Memory context management
-  - `FunctionCall7Coll`: Calls the extractQuery function for each scan key
-  - `ginFillScanKey`: Fills in the GIN-specific scan key structure
-  - `ginScanKeyAddHiddenEntry`: Adds hidden entries for special search modes
-  - `ginGetStats`: Retrieves GIN index statistics for version checking
+  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)`: Memory context management
+  - `[FunctionCall7Coll](../F/FunctionCall7Coll.md)`: Calls the extractQuery function for each scan key
+  - `[ginFillScanKey](ginFillScanKey.md)`: Fills in the GIN-specific scan key structure
+  - `[ginScanKeyAddHiddenEntry](ginScanKeyAddHiddenEntry.md)`: Adds hidden entries for special search modes
+  - `[ginGetStats](ginGetStats.md)`: Retrieves GIN index statistics for version checking
   - `pgstat_count_index_scan`: Updates index scan statistics
 - Called from (representative examples):
-  - `gingetbitmap`: Main entry point for GIN bitmap scans
+  - `[gingetbitmap](gingetbitmap.md)`: Main entry point for GIN bitmap scans
 
 ## Notes and Other Information
 - This function is called at the beginning of each GIN index scan operation

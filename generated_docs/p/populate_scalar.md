@@ -39,18 +39,18 @@ The function uses InputFunctionCallSafe() for the final type conversion, ensurin
 ## Dependencies
 - Functions called/Symbols referenced:
   - unconstify
-  - escape_json
-  - pnstrdup
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
-  - JsonbToCString
-  - pstrdup
+  - [escape_json](../e/escape_json.md)
+  - [pnstrdup](pnstrdup.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
+  - [JsonbToCString](../J/JsonbToCString.md)
+  - [pstrdup](pstrdup.md)
   - DirectFunctionCall1
-  - numeric_out
-  - DatumGetCString
-  - InputFunctionCallSafe
+  - [numeric_out](../n/numeric_out.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
 - Called from (representative examples):
-  - populate_record_field
+  - [populate_record_field](populate_record_field.md)
   - JsObjectFree
 
 ## Notes and Other Information

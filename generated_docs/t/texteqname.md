@@ -27,8 +27,8 @@ The function follows the same logic pattern as nameeqtext: check lengths for equ
   - Name (data type)
   - PG_GETARG_NAME
   - PG_GET_COLLATION
-  - check_collation_set
-  - varstr_cmp
+  - [check_collation_set](../c/check_collation_set.md)
+  - [varstr_cmp](../v/varstr_cmp.md)
 - Called from (representative examples):
   - No direct references found in the codebase (likely used through SQL equality operators)
 

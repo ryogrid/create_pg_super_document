@@ -17,7 +17,7 @@ This function serves as the destructor for Lithuanian stemming operations by pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function)
 - Called from (representative examples):
   - External stemming library interfaces when cleanup is needed (not shown in current symbol references)
 

@@ -19,18 +19,18 @@ This function handles the initialization of the PL/Python environment within a P
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
   - PyImport_AppendInittab (Python C API function)
-  - PyInit_plpy (PL/Python module initializer)
+  - [PyInit_plpy](PyInit_plpy.md) (PL/Python module initializer)
   - Py_Initialize (Python interpreter initialization)
   - PyImport_ImportModule (Python module import)
-  - PLy_init_interp (PL/Python interpreter setup)
-  - PLy_init_plpy (PL/Python module setup)
+  - [PLy_init_interp](PLy_init_interp.md) (PL/Python interpreter setup)
+  - [PLy_init_plpy](PLy_init_plpy.md) (PL/Python module setup)
   - PyErr_Occurred (Python error checking)
   - PLy_elog (PL/Python error logging)
-  - init_procedure_caches (procedure cache initialization)
+  - [init_procedure_caches](../i/init_procedure_caches.md) (procedure cache initialization)
 - Called from (representative examples):
-  - plpython3_validator
-  - plpython3_call_handler
-  - plpython3_inline_handler
+  - [plpython3_validator](../p/plpython3_validator.md)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md)
 
 ## Notes and Other Information
 - Located in src/pl/plpython/plpy_main.c at lines 90-131

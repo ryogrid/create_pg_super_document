@@ -18,21 +18,21 @@ This function serves as the entry point for initializing Zstd compression suppor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressorState (struct type)
-  - pg_compress_specification (struct type)
-  - ZstdCompressorState (struct type)
-  - ReadDataFromArchiveZstd (function pointer assignment)
-  - WriteDataToArchiveZstd (function pointer assignment)
-  - EndCompressorZstd (function pointer assignment)
+  - [CompressorState](../C/CompressorState.md) (struct type)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (struct type)
+  - [ZstdCompressorState](../Z/ZstdCompressorState.md) (struct type)
+  - [ReadDataFromArchiveZstd](../R/ReadDataFromArchiveZstd.md) (function pointer assignment)
+  - [WriteDataToArchiveZstd](../W/WriteDataToArchiveZstd.md) (function pointer assignment)
+  - [EndCompressorZstd](../E/EndCompressorZstd.md) (function pointer assignment)
   - pg_malloc0 (memory allocation)
   - pg_malloc (memory allocation)
-  - _ZstdCStreamParams (Zstd stream parameter setup)
+  - [_ZstdCStreamParams](../Z/_ZstdCStreamParams.md) (Zstd stream parameter setup)
   - ZSTD_createDStream() (Zstd library function)
   - ZSTD_DStreamInSize() (Zstd library function)
   - ZSTD_DStreamOutSize() (Zstd library function)
   - ZSTD_CStreamOutSize() (Zstd library function)
 - Called from (representative examples):
-  - AllocateCompressor (from compress_io.c)
+  - [AllocateCompressor](../A/AllocateCompressor.md) (from compress_io.c)
 
 ## Notes and Other Information
 - Uses assertions to ensure exactly one of readF or writeF is specified, preventing ambiguous initialization

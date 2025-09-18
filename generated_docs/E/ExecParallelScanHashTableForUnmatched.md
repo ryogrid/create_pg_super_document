@@ -23,15 +23,15 @@ The function coordinates with other parallel workers through:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecParallelHashNextTuple - thread-safe function to get next tuple in parallel hash table
-  - ExecParallelHashFirstTuple - thread-safe function to get first tuple in a bucket
+  - [ExecParallelHashNextTuple](ExecParallelHashNextTuple.md) - thread-safe function to get next tuple in parallel hash table
+  - [ExecParallelHashFirstTuple](ExecParallelHashFirstTuple.md) - thread-safe function to get first tuple in a bucket
   - HeapTupleHeaderHasMatch - checks if a tuple has been matched during join
   - HJTUPLE_MINTUPLE - macro to extract minimal tuple from hash join tuple
-  - ExecStoreMinimalTuple - stores minimal tuple in tuple table slot
+  - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md) - stores minimal tuple in tuple table slot
   - ResetExprContext - resets temporary memory in expression context
   - CHECK_FOR_INTERRUPTS - allows query cancellation
 - Called from (representative examples):
-  - ExecHashJoinImpl - main hash join execution function for parallel workers
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md) - [main](../m/main.md) hash join execution function for parallel workers
 
 ## Notes and Other Information
 - Designed specifically for parallel hash join execution with multiple worker processes

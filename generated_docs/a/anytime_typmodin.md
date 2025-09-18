@@ -18,11 +18,11 @@ This static function serves as a common implementation for both  and  functions.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayGetIntegerTypmods (extracts integer type modifiers from array)
-  - anytime_typmod_check (validates the precision value)
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md) (extracts integer type modifiers from array)
+  - [anytime_typmod_check](anytime_typmod_check.md) (validates the precision value)
 - Called from (representative examples):
-  - timetypmodin (src/backend/utils/adt/date.c:1562)
-  - timetztypmodin (src/backend/utils/adt/date.c:2387)
+  - [timetypmodin](../t/timetypmodin.md) (src/backend/utils/adt/date.c:1562)
+  - [timetztypmodin](../t/timetztypmodin.md) (src/backend/utils/adt/date.c:2387)
 
 ## Notes and Other Information
 - This is a static helper function that consolidates common logic for TIME type modifier processing

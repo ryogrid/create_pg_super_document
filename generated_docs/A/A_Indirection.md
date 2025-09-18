@@ -27,15 +27,15 @@ A_Indirection is a sophisticated parse tree node that handles complex data acces
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)
-  - Node (base node type for expressions)
-  - List (PostgreSQL's list data structure)
+  - [Node](../N/Node.md) (base node type for expressions)
+  - [List](../L/List.md) (PostgreSQL's list data structure)
 - Called from (representative examples):
-  - transformExprRecurse (src/backend/parser/parse_expr.c:163)
-  - transformIndirection (src/backend/parser/parse_expr.c:438)
-  - transformTargetList (src/backend/parser/parse_target.c:159, 161)
-  - transformExpressionList (src/backend/parser/parse_target.c:248, 250)
-  - ExpandIndirectionStar (src/backend/parser/parse_target.c:1345)
-  - FigureColnameInternal (src/backend/parser/parse_target.c:1774)
+  - [transformExprRecurse](../t/transformExprRecurse.md) (src/backend/parser/parse_expr.c:163)
+  - [transformIndirection](../t/transformIndirection.md) (src/backend/parser/parse_expr.c:438)
+  - [transformTargetList](../t/transformTargetList.md) (src/backend/parser/parse_target.c:159, 161)
+  - [transformExpressionList](../t/transformExpressionList.md) (src/backend/parser/parse_target.c:248, 250)
+  - [ExpandIndirectionStar](../E/ExpandIndirectionStar.md) (src/backend/parser/parse_target.c:1345)
+  - [FigureColnameInternal](../F/FigureColnameInternal.md) (src/backend/parser/parse_target.c:1774)
 
 ## Notes and Other Information
 - Central to PostgreSQL's support for complex data types like arrays, composites, and JSON

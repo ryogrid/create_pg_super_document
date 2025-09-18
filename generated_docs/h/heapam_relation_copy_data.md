@@ -18,23 +18,23 @@ heapam_relation_copy_data performs a comprehensive physical copy of a heap relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FlushRelationBuffers
-  - RelationCreateStorage  
-  - RelationCopyStorage
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)  
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
   - RelationGetSmgr
-  - smgrexists
-  - smgrcreate
+  - [smgrexists](../s/smgrexists.md)
+  - [smgrcreate](../s/smgrcreate.md)
   - RelationIsPermanent
-  - log_smgrcreate
-  - RelationDropStorage
-  - smgrclose
+  - [log_smgrcreate](../l/log_smgrcreate.md)
+  - [RelationDropStorage](../R/RelationDropStorage.md)
+  - [smgrclose](../s/smgrclose.md)
 - Constants referenced:
   - MAIN_FORKNUM
   - MAX_FORKNUM
   - INIT_FORKNUM
   - RELPERSISTENCE_UNLOGGED
 - Called from (representative examples):
-  - SampleHeapTupleVisible (referenced in heapam_handler.c:2630)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (referenced in heapam_handler.c:2630)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heapam_handler.c

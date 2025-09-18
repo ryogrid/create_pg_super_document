@@ -20,14 +20,14 @@ This function provides a comparison mechanism for sorting transaction IDs using 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32 (function for comparing unsigned 32-bit integers)
+  - [pg_cmp_u32](../p/pg_cmp_u32.md) (function for comparing unsigned 32-bit integers)
 - Called from (representative examples):
-  - TransactionIdInArray (in heapam_visibility.c and reorderbuffer.c)
-  - SerializeTransactionState (in xact.c)
-  - ReorderBufferCopySnap (in reorderbuffer.c)
-  - ReorderBufferGetCatalogChangesXacts (in reorderbuffer.c)
-  - SnapBuildBuildSnapshot (in snapbuild.c)
-  - SnapBuildInitialSnapshot (in snapbuild.c)
+  - [TransactionIdInArray](../T/TransactionIdInArray.md) (in heapam_visibility.c and reorderbuffer.c)
+  - [SerializeTransactionState](../S/SerializeTransactionState.md) (in xact.c)
+  - [ReorderBufferCopySnap](../R/ReorderBufferCopySnap.md) (in reorderbuffer.c)
+  - [ReorderBufferGetCatalogChangesXacts](../R/ReorderBufferGetCatalogChangesXacts.md) (in reorderbuffer.c)
+  - [SnapBuildBuildSnapshot](../S/SnapBuildBuildSnapshot.md) (in snapbuild.c)
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (in snapbuild.c)
   - SnapBuildXidHasCatalogChanges (in snapbuild.c)
 
 ## Notes and Other Information

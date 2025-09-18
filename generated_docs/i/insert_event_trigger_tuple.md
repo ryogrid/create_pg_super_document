@@ -24,23 +24,23 @@ insert_event_trigger_tuple is the core function responsible for physically creat
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open() - opens the pg_event_trigger relation with lock
-  - GetNewOidWithIndex() - generates a new unique OID for the trigger
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)() - generates a new unique OID for the trigger
   - namestrcpy() - copies strings into NameData structures
-  - NameGetDatum() - converts NameData to Datum
-  - ObjectIdGetDatum() - converts OID to Datum
-  - CharGetDatum() - converts char to Datum
-  - filter_list_to_array() - converts tag list to array for storage
-  - heap_form_tuple() - creates a heap tuple from values and nulls arrays
-  - CatalogTupleInsert() - inserts the tuple into the catalog
-  - heap_freetuple() - frees the temporary heap tuple
-  - SetDatabaseHasLoginEventTriggers() - sets database flag for login triggers
-  - recordDependencyOnOwner() - records ownership dependency
-  - recordDependencyOn() - records function dependency
-  - recordDependencyOnCurrentExtension() - records extension dependency if applicable
+  - [NameGetDatum](../N/NameGetDatum.md)() - converts NameData to Datum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)() - converts OID to Datum
+  - [CharGetDatum](../C/CharGetDatum.md)() - converts char to Datum
+  - [filter_list_to_array](../f/filter_list_to_array.md)() - converts tag list to array for storage
+  - [heap_form_tuple](../h/heap_form_tuple.md)() - creates a heap tuple from values and nulls arrays
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)() - inserts the tuple into the catalog
+  - [heap_freetuple](../h/heap_freetuple.md)() - frees the temporary heap tuple
+  - [SetDatabaseHasLoginEventTriggers](../S/SetDatabaseHasLoginEventTriggers.md)() - sets database flag for login triggers
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)() - records ownership dependency
+  - [recordDependencyOn](../r/recordDependencyOn.md)() - records function dependency
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)() - records extension dependency if applicable
   - InvokeObjectPostCreateHook() - invokes post-creation hooks
   - table_close() - closes the relation and releases lock
 - Called from (representative examples):
-  - CreateEventTrigger() - as the final step in event trigger creation
+  - [CreateEventTrigger](../C/CreateEventTrigger.md)() - as the final step in event trigger creation
 
 ## Notes and Other Information
 - This is a static function only accessible within event_trigger.c

@@ -20,8 +20,8 @@ Each field in this struct corresponds to a field in the main data structure and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - birthinfo (used as indicator structure for birth data)
-  - ind (related indicator variable or function)
+  - [birthinfo](../b/birthinfo.md) (used as indicator structure for birth data)
+  - [ind](../i/ind.md) (related indicator variable or function)
 - Called from (representative examples):
   - No direct references found in the codebase
 

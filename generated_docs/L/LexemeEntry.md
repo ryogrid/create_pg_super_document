@@ -22,8 +22,8 @@ The structure is designed for temporary storage during parsing operations and is
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - prs_setup_firstcall (used in PrsStorage.list allocation)
-  - prs_process_call (accessed to retrieve token data)
+  - [prs_setup_firstcall](../p/prs_setup_firstcall.md) (used in PrsStorage.list allocation)
+  - [prs_process_call](../p/prs_process_call.md) (accessed to retrieve token data)
 
 ## Notes and Other Information
 - Used exclusively within src/backend/tsearch/wparser.c as part of the text search parser interface

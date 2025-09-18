@@ -24,14 +24,14 @@ The function first attempts to use the cached rightmost leaf page. If the page i
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetTargetBlock: Gets cached rightmost block number
-  - ReadBuffer: Reads the cached page into buffer pool
-  - _bt_conditionallockbuf: Attempts to acquire conditional lock on buffer
-  - _bt_checkpage: Validates page structure
-  - _bt_compare: Compares scan key with page items
-  - _bt_relbuf: Releases buffer lock and pin
-  - _bt_search: Performs standard tree search when fastpath unavailable
+  - [ReadBuffer](../R/ReadBuffer.md): Reads the cached page into buffer pool
+  - [_bt_conditionallockbuf](_bt_conditionallockbuf.md): Attempts to acquire conditional lock on buffer
+  - [_bt_checkpage](_bt_checkpage.md): Validates page structure
+  - [_bt_compare](_bt_compare.md): Compares scan key with page items
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer lock and pin
+  - [_bt_search](_bt_search.md): Performs standard tree search when fastpath unavailable
 - Called from (representative examples):
-  - _bt_doinsert: Main insertion routine that uses this for page location
+  - [_bt_doinsert](_bt_doinsert.md): Main insertion routine that uses this for page location
 
 ## Notes and Other Information
 - Returns NULL when fastpath optimization succeeds, indicating no descent stack needed

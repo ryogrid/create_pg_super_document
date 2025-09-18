@@ -19,13 +19,13 @@ The function is a thin wrapper around the red-black tree library's rbt_begin_ite
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildAccumulator (data structure)
-  - rbt_begin_iterate (red-black tree iterator initialization)
+  - [BuildAccumulator](../B/BuildAccumulator.md) (data structure)
+  - [rbt_begin_iterate](../r/rbt_begin_iterate.md) (red-black tree iterator initialization)
   - LeftRightWalk (tree traversal order constant)
 - Called from:
-  - ginInsertCleanup (in ginfast.c)
-  - ginBuildCallback (in gininsert.c)
-  - ginbuild (in gininsert.c)
+  - [ginInsertCleanup](ginInsertCleanup.md) (in ginfast.c)
+  - [ginBuildCallback](ginBuildCallback.md) (in gininsert.c)
+  - [ginbuild](ginbuild.md) (in gininsert.c)
 
 ## Notes and Other Information
 - Must be called before any calls to ginGetBAEntry to properly initialize the tree iterator

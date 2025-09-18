@@ -31,18 +31,18 @@ The function operates in several phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_role_grantor
-  - LockSharedObject
+  - [check_role_grantor](../c/check_role_grantor.md)
+  - [LockSharedObject](../L/LockSharedObject.md)
   - is_member_of_role_nosuper
-  - initialize_revoke_actions
+  - [initialize_revoke_actions](../i/initialize_revoke_actions.md)
   - plan_member_revoke
-  - SearchSysCache3
-  - updateAclDependencies
+  - [SearchSysCache3](../S/SearchSysCache3.md)
+  - [updateAclDependencies](../u/updateAclDependencies.md)
   - CommandCounterIncrement
 - Called from (representative examples):
-  - CreateRole
-  - AlterRole
-  - GrantRole
+  - [CreateRole](../C/CreateRole.md)
+  - [AlterRole](AlterRole.md)
+  - [GrantRole](../G/GrantRole.md)
 
 ## Notes and Other Information
 - Uses ShareUpdateExclusiveLock on the target role to prevent concurrent modifications

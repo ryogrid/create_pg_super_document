@@ -27,12 +27,12 @@ This approach ensures efficient conversion while maintaining numeric precision. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat4: PostgreSQL macro to extract float4 value from Datum
+  - [DatumGetFloat4](../D/DatumGetFloat4.md): PostgreSQL macro to extract float4 value from Datum
   - PyFloat_FromDouble: Python C API function to create float objects from double values
 - Referenced types:
-  - PLyDatumToOb: Input conversion context structure
+  - [PLyDatumToOb](PLyDatumToOb.md): Input conversion context structure
 - Called from:
-  - PLy_input_setup_func: Set as conversion function for FLOAT4OID types
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Set as conversion function for FLOAT4OID types
 
 ## Notes and Other Information
 - This is a static function, only accessible within the plpy_typeio.c compilation unit

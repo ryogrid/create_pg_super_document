@@ -23,10 +23,10 @@ The function only works with FuncExpr nodes, as other expression types (operator
 - Expression node types referenced:
   - FuncExpr
 - Called from (representative examples):
-  - count_nulls
-  - concat_internal
-  - text_format
-  - extract_variadic_args
+  - [count_nulls](../c/count_nulls.md)
+  - [concat_internal](../c/concat_internal.md)
+  - [text_format](../t/text_format.md)
+  - [extract_variadic_args](../e/extract_variadic_args.md)
 
 ## Notes and Other Information
 - Returns false if FmgrInfo is NULL, fn_expr is not initialized, or the expression is not a FuncExpr

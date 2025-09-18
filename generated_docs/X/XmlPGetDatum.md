@@ -17,8 +17,8 @@ This function provides the reverse conversion from DatumGetXmlP, converting an x
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (implicit through macro)
-  - xmltype
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicit through macro)
+  - [xmltype](../x/xmltype.md)
 - Called from (representative examples):
   - Currently no direct references found in the codebase
 

@@ -98,7 +98,7 @@ The _dumpOptions structure serves as the central configuration container for pg_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConnParams
+  - [ConnParams](../C/ConnParams.md)
 - Called from (representative examples):
   - No direct references found in current analysis
 

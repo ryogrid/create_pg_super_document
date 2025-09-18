@@ -27,12 +27,12 @@ The function modifies the input list structure by creating a new filtered list o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - can_coerce_type (performs the actual type coercion checking)
+  - [can_coerce_type](../c/can_coerce_type.md) (performs the actual type coercion checking)
   - FuncCandidateList (data structure for maintaining candidate function lists)
   - COERCION_IMPLICIT (specifies implicit coercion rules)
 - Called from (representative examples):
-  - func_get_detail (from parse_func.c:1548)
-  - oper_select_candidate (from parse_oper.c:323)
+  - [func_get_detail](func_get_detail.md) (from parse_func.c:1548)
+  - [oper_select_candidate](../o/oper_select_candidate.md) (from parse_oper.c:323)
 
 ## Notes and Other Information
 - Returns the number of compatible candidates found

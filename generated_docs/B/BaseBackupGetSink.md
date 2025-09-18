@@ -22,12 +22,12 @@ The function is part of the backup sink chain construction process, where multip
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BaseBackupTargetHandle (struct)
+  - [BaseBackupTargetHandle](BaseBackupTargetHandle.md) (struct)
   - bbsink (type)
   - Target-specific get_sink function (via handle->type->get_sink)
 
 - Called from (representative examples):
-  - SendBaseBackup
+  - [SendBaseBackup](../S/SendBaseBackup.md)
 
 ## Notes and Other Information
 - Acts as a simple delegation wrapper to target-specific sink constructors

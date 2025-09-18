@@ -24,7 +24,7 @@ The node maintains a list of row marking specifications that determine what type
   - makeNode (creates a new LockRows node)
   - LockRows (the plan node type being created)
 - Called from (representative examples):
-  - create_lockrows_plan
+  - [create_lockrows_plan](../c/create_lockrows_plan.md)
   - CP_IGNORE_TLIST
 
 ## Notes and Other Information

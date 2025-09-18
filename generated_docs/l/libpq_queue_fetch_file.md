@@ -23,12 +23,12 @@ The function acknowledges inherent race conditions in file copying operations bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - open_target_file (prepares the local target file by truncating it)
-  - libpq_queue_fetch_range (queues the actual data transfer request)
+  - [open_target_file](../o/open_target_file.md) (prepares the local target file by truncating it)
+  - [libpq_queue_fetch_range](libpq_queue_fetch_range.md) (queues the actual data transfer request)
   - Max (macro to determine maximum between two values)
   - MAX_CHUNK_SIZE (constant defining the maximum chunk size for transfers)
 - Called from:
-  - init_libpq_source (as part of libpq_source function table initialization)
+  - [init_libpq_source](../i/init_libpq_source.md) (as part of libpq_source function table initialization)
 
 ## Notes and Other Information
 - The function immediately truncates the target file before queuing the fetch, which simplifies tracking of complete file operations vs. partial range requests

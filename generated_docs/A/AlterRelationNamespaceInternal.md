@@ -22,21 +22,21 @@ This function implements the core logic for moving a relation between namespaces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheLockedCopy1
-  - object_address_present
-  - get_relname_relid
-  - get_namespace_name
-  - CatalogTupleUpdate
-  - UnlockTuple
-  - changeDependencyFor
-  - add_exact_object_address
+  - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)
+  - [object_address_present](../o/object_address_present.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [UnlockTuple](../U/UnlockTuple.md)
+  - [changeDependencyFor](../c/changeDependencyFor.md)
+  - [add_exact_object_address](../a/add_exact_object_address.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - AlterTableNamespaceInternal
-  - AlterIndexNamespaces
-  - AlterSeqNamespaces
-  - AlterTypeNamespaceInternal
+  - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md)
+  - [AlterIndexNamespaces](AlterIndexNamespaces.md)
+  - [AlterSeqNamespaces](AlterSeqNamespaces.md)
+  - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md)
 
 ## Notes and Other Information
 - Checks for name conflicts in the target namespace before proceeding with the move

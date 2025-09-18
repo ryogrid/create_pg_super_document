@@ -26,8 +26,8 @@ The implementation uses conditional compilation to handle different OpenSSL vers
   - SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TLSv1, SSL_OP_NO_TLSv1_1, SSL_OP_NO_TLSv1_2 (OpenSSL constants)
   - TLS1_VERSION, TLS1_1_VERSION, TLS1_2_VERSION (OpenSSL version constants)
 - Called from (representative examples):
-  - be_tls_init (src/backend/libpq/be-secure-openssl.c:211)
-  - initialize_SSL (src/interfaces/libpq/fe-secure-openssl.c:983)
+  - [be_tls_init](../b/be_tls_init.md) (src/backend/libpq/be-secure-openssl.c:211)
+  - [initialize_SSL](../i/initialize_SSL.md) (src/interfaces/libpq/fe-secure-openssl.c:983)
 
 ## Notes and Other Information
 - This is a compatibility function only compiled when the native OpenSSL function is not available (pre-1.1.0)

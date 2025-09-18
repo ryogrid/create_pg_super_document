@@ -24,17 +24,17 @@ The algorithm aims to keep the most significant gaps (largest distances) intact 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_values
+  - [compare_values](../c/compare_values.md)
   - qsort_arg
-  - palloc
+  - [palloc](../p/palloc.md)
 - Types referenced:
-  - ExpandedRange
-  - DistanceValue
-  - compare_context
+  - [ExpandedRange](../E/ExpandedRange.md)
+  - [DistanceValue](../D/DistanceValue.md)
+  - [compare_context](../c/compare_context.md)
 - Called from:
-  - ensure_free_space_in_buffer
-  - compactify_ranges
-  - brin_minmax_multi_union
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - Returns the number of ranges in the reduced result

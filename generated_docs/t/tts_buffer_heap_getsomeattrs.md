@@ -20,9 +20,9 @@ tts_buffer_heap_getsomeattrs is responsible for extracting (deforming) a specifi
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (cast target type)
   - TTS_EMPTY (slot state check macro)
-  - slot_deform_heap_tuple (core tuple deformation function)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (core tuple deformation function)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (as part of vtable operations)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (as part of vtable operations)
 
 ## Notes and Other Information
 - This is a static function, accessible only within execTuples.c

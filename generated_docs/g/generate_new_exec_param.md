@@ -29,12 +29,12 @@ The created parameter has its location set to -1, indicating it is not associate
   - PARAM_EXEC
   - lappend_oid
 - Called from (representative examples):
-  - build_subplan
-  - generate_subquery_params
-  - convert_EXISTS_to_ANY
-  - SS_make_initplan_output_param
-  - replace_nestloop_param_var
-  - replace_nestloop_param_placeholdervar
+  - [build_subplan](../b/build_subplan.md)
+  - [generate_subquery_params](generate_subquery_params.md)
+  - [convert_EXISTS_to_ANY](../c/convert_EXISTS_to_ANY.md)
+  - [SS_make_initplan_output_param](../S/SS_make_initplan_output_param.md)
+  - [replace_nestloop_param_var](../r/replace_nestloop_param_var.md)
+  - [replace_nestloop_param_placeholdervar](../r/replace_nestloop_param_placeholdervar.md)
 
 ## Notes and Other Information
 This function is widely used throughout the optimizer for creating internal parameters. It is particularly important for subplan implementation and NestLoop parameterization. The automatic ID assignment ensures no conflicts with existing parameters, and the registration in paramExecTypes ensures proper runtime slot allocation.

@@ -23,11 +23,11 @@ The copy is completely independent of the original - modifications to either the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_auth_token (creates the new AuthToken with copied string data)
-  - AuthToken (the struct type being copied)
+  - [make_auth_token](../m/make_auth_token.md) (creates the new AuthToken with copied string data)
+  - [AuthToken](../A/AuthToken.md) (the struct type being copied)
 - Called from (representative examples):
-  - parse_hba_line (in src/backend/libpq/hba.c)
-  - parse_ident_line (in src/backend/libpq/hba.c)
+  - [parse_hba_line](../p/parse_hba_line.md) (in src/backend/libpq/hba.c)
+  - [parse_ident_line](../p/parse_ident_line.md) (in src/backend/libpq/hba.c)
 
 ## Notes and Other Information
 - This is a static function, only visible within the hba.c file

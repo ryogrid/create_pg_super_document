@@ -33,13 +33,13 @@ The structure maintains critical tree state including the current maximum key va
   - RT_MAKE_PREFIX  
   - RT_PREFIX
   - RT_HANDLE (in shared memory mode)
-  - LWLock (in shared memory mode)
+  - [LWLock](../L/LWLock.md) (in shared memory mode)
   - RT_PTR_ALLOC
   - RT_NUM_SIZE_CLASSES (for debug arrays)
 - Called from (representative examples):
-  - RT_RADIX_TREE (as member field)
+  - [RT_RADIX_TREE](RT_RADIX_TREE.md) (as member field)
   - RT_CREATE
-  - RT_ATTACH
+  - [RT_ATTACH](RT_ATTACH.md)
 
 ## Notes and Other Information
 The RT_RADIX_TREE_CONTROL structure serves as the authoritative source of truth for radix tree state and is critical for several key features:

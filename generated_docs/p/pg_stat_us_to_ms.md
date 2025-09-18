@@ -19,7 +19,7 @@ This function performs a simple unit conversion from microseconds to millisecond
 - Functions called/Symbols referenced:
   - PgStat_Counter (type definition)
 - Called from (representative examples):
-  - pg_stat_get_io
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the pgstatfuncs.c file and will be inlined by the compiler for performance

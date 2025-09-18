@@ -36,19 +36,19 @@ The algorithm uses cursor positioning (z->c) and limit boundaries (z->lb, z->l) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_exception1: Handles first set of exceptional words
-  - skip_utf8: UTF-8 character boundary detection
-  - r_prelude: Character preprocessing and normalization
-  - r_mark_regions: Morphological region boundary identification
-  - r_Step_1a: Plural and verb form handling
-  - r_exception2: Second exception list processing
-  - r_Step_1b: Past participle/gerund transformations
-  - r_Step_1c: Y to I conversion
-  - r_Step_2: Double suffix processing
-  - r_Step_3: IC/FULL/NESS suffix removal
-  - r_Step_4: TION/ENCE/MENT suffix removal  
-  - r_Step_5: Final E and L processing
-  - r_postlude: Final character cleanup
+  - [r_exception1](../r/r_exception1.md): Handles first set of exceptional words
+  - [skip_utf8](../s/skip_utf8.md): UTF-8 character boundary detection
+  - [r_prelude](../r/r_prelude.md): Character preprocessing and normalization
+  - [r_mark_regions](../r/r_mark_regions.md): Morphological region boundary identification
+  - [r_Step_1a](../r/r_Step_1a.md): Plural and verb form handling
+  - [r_exception2](../r/r_exception2.md): Second exception list processing
+  - [r_Step_1b](../r/r_Step_1b.md): Past participle/gerund transformations
+  - [r_Step_1c](../r/r_Step_1c.md): Y to I conversion
+  - [r_Step_2](../r/r_Step_2.md): Double suffix processing
+  - [r_Step_3](../r/r_Step_3.md): IC/FULL/NESS suffix removal
+  - [r_Step_4](../r/r_Step_4.md): TION/ENCE/MENT suffix removal  
+  - [r_Step_5](../r/r_Step_5.md): Final E and L processing
+  - [r_postlude](../r/r_postlude.md): Final character cleanup
 - Called from (representative examples):
   - This appears to be an external API function with no internal PostgreSQL callers
 

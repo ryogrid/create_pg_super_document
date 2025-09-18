@@ -24,9 +24,9 @@ The function performs table name resolution by converting the text table name to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_table_name: Converts text table name to table OID
-  - convert_column_priv_string: Converts text privilege specification to AclMode
-  - column_privilege_check: Performs the actual privilege verification
+  - [convert_table_name](../c/convert_table_name.md): Converts text table name to table OID
+  - [convert_column_priv_string](../c/convert_column_priv_string.md): Converts text privilege specification to AclMode
+  - [column_privilege_check](../c/column_privilege_check.md): Performs the actual privilege verification
   - PG_GETARG_OID: Extracts OID argument from function call
   - PG_GETARG_TEXT_PP: Extracts text argument from function call
   - PG_GETARG_INT16: Extracts int16 argument from function call

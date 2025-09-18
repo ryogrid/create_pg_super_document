@@ -22,7 +22,7 @@ This function is especially valuable for database administration tasks, forensic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (type)
+  - [RelFileNumber](../R/RelFileNumber.md) (type)
   - RelFileNumberIsValid
   - RelidByRelfilenumber
   - PG_RETURN_OID

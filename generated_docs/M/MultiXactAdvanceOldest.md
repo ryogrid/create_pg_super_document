@@ -21,10 +21,10 @@ When the provided oldestMulti is indeed more recent than the current oldestMulti
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (InRecovery)
-  - MultiXactIdPrecedes
-  - SetMultiXactIdLimit
+  - [MultiXactIdPrecedes](MultiXactIdPrecedes.md)
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
 - Called from (representative examples):
-  - xlog_redo
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
 - This function may ONLY be called during WAL replay (enforced by Assert)

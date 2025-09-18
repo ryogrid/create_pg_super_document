@@ -19,12 +19,12 @@ CharGetDatum provides the complement to DatumGetChar, converting C char values t
 - Functions called/Symbols referenced:
   - None (simple type cast)
 - Called from (representative examples):
-  - objectsInSchemaToOids (src/backend/catalog/aclchk.c:901, 906)
-  - InsertPgAttributeTuples (src/backend/catalog/heap.c:748-755)
-  - AggregateCreate (src/backend/catalog/pg_aggregate.c:660, 672-673)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:308, 313-314)
-  - TypeCreate (src/backend/catalog/pg_type.c:358-375)
-  - CreatePolicy (src/backend/commands/policy.c:695)
+  - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md) (src/backend/catalog/aclchk.c:901, 906)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md) (src/backend/catalog/heap.c:748-755)
+  - [AggregateCreate](../A/AggregateCreate.md) (src/backend/catalog/pg_aggregate.c:660, 672-673)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:308, 313-314)
+  - [TypeCreate](../T/TypeCreate.md) (src/backend/catalog/pg_type.c:358-375)
+  - [CreatePolicy](CreatePolicy.md) (src/backend/commands/policy.c:695)
   - PG_RETURN_CHAR (src/include/fmgr.h:358)
 
 ## Notes and Other Information

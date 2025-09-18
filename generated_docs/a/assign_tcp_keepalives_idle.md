@@ -22,7 +22,7 @@ The implementation follows a simplified assignment strategy due to kernel API li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_setkeepalivesidle (applies the new keep-alive idle setting to the port)
+  - [pq_setkeepalivesidle](../p/pq_setkeepalivesidle.md) (applies the new keep-alive idle setting to the port)
   - MyProcPort (global variable representing the current process's port)
 - Called from (representative examples):
   - GUC system (automatically when tcp_keepalives_idle parameter changes)

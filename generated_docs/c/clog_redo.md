@@ -22,15 +22,15 @@ This function serves as the central redo operation handler for CLOG-related WAL 
   - XLogRecGetInfo
   - XLogRecHasAnyBlockRefs
   - XLogRecGetData
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire/LWLockRelease
-  - ZeroCLOGPage
-  - SimpleLruWritePage
-  - AdvanceOldestClogXid
-  - SimpleLruTruncate
+  - [ZeroCLOGPage](../Z/ZeroCLOGPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
+  - [AdvanceOldestClogXid](../A/AdvanceOldestClogXid.md)
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
   - XLR_INFO_MASK, CLOG_ZEROPAGE, CLOG_TRUNCATE (constants)
   - XactCtl (global CLOG control structure)
-  - xl_clog_truncate (WAL record structure)
+  - [xl_clog_truncate](../x/xl_clog_truncate.md) (WAL record structure)
 - Called from (representative examples):
   - WAL recovery system (referenced by CLOG_TRUNCATE constant)
 

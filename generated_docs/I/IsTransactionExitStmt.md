@@ -23,10 +23,10 @@ This function checks if a parse tree node represents one of the transaction exit
   - TRANS_STMT_ROLLBACK
   - TRANS_STMT_ROLLBACK_TO
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_parse_message
-  - exec_bind_message
-  - IsTransactionExitStmtList
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [IsTransactionExitStmtList](IsTransactionExitStmtList.md)
 
 ## Notes and Other Information
 - Returns true only for transaction statements that can exit an aborted transaction

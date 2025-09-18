@@ -22,12 +22,12 @@ The function performs a simple lookup in the shared memory table of contents (TO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup (looks up shared memory segment by key in the TOC)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (looks up shared memory segment by key in the TOC)
 - Types referenced:
-  - MemoizeState (memoize execution state structure)
-  - ParallelWorkerContext (parallel worker execution context)
+  - [MemoizeState](../M/MemoizeState.md) (memoize execution state structure)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md) (parallel worker execution context)
 - Called from:
-  - ExecParallelInitializeWorker (main worker initialization function)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (main worker initialization function)
 
 ## Notes and Other Information
 - This function is called by each worker process during parallel execution setup

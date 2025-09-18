@@ -27,22 +27,22 @@ When forupdate is true, the function also completes any incomplete splits encoun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetOpaque
   - P_RIGHTMOST
   - P_INCOMPLETE_SPLIT
   - P_IGNORE
   - P_HIKEY
-  - BufferGetBlockNumber
-  - _bt_unlockbuf
-  - _bt_lockbuf
-  - _bt_finish_split
-  - _bt_relbuf
-  - _bt_getbuf
-  - _bt_compare
-  - _bt_relandgetbuf
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [_bt_unlockbuf](_bt_unlockbuf.md)
+  - [_bt_lockbuf](_bt_lockbuf.md)
+  - [_bt_finish_split](_bt_finish_split.md)
+  - [_bt_relbuf](_bt_relbuf.md)
+  - [_bt_getbuf](_bt_getbuf.md)
+  - [_bt_compare](_bt_compare.md)
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md)
 - Called from (representative examples):
-  - _bt_search
+  - [_bt_search](_bt_search.md)
 
 ## Notes and Other Information
 Key aspects of the move-right protocol:

@@ -20,19 +20,19 @@ This function reads previously stored subtransaction information from a file bac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subxact_filename
+  - [subxact_filename](subxact_filename.md)
   - BufFileOpenFileSet
   - BufFileReadExact
   - BufFileClose
-  - my_log2
-  - palloc
-  - MemoryContextSwitchTo
+  - [my_log2](../m/my_log2.md)
+  - [palloc](../p/palloc.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - SubXactInfo
   - BufFile
   - LogicalStreamingContext
 - Called from (representative examples):
-  - stream_start_internal
-  - stream_abort_internal
+  - [stream_start_internal](stream_start_internal.md)
+  - [stream_abort_internal](stream_abort_internal.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within worker.c

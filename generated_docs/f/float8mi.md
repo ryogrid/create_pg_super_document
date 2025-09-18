@@ -20,7 +20,7 @@ float8mi is a PostgreSQL built-in function wrapper that implements the subtracti
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Macro to extract float8 arguments from function call
-  - float8_mi: Inline helper function that performs the actual subtraction with overflow checking
+  - [float8_mi](float8_mi.md): Inline helper function that performs the actual subtraction with overflow checking
   - PG_RETURN_FLOAT8: Macro to return float8 result as Datum
 - Called from (representative examples):
   - No direct references found (likely called through SQL operator dispatch)

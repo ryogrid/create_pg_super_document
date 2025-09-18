@@ -27,17 +27,17 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findFuncByOid
-  - get_language_name
-  - getFormattedTypeName
-  - format_function_signature
-  - fmtId
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [findFuncByOid](../f/findFuncByOid.md)
+  - [get_language_name](../g/get_language_name.md)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md)
+  - [format_function_signature](../f/format_function_signature.md)
+  - [fmtId](../f/fmtId.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - pg_log_warning
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

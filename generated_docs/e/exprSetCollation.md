@@ -23,12 +23,12 @@ This function is critical for PostgreSQL's collation support system, ensuring th
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine expression type)
-  - exprCollation (for validation in some cases)
+  - [exprCollation](exprCollation.md) (for validation in some cases)
   - linitial_node (for sublink processing)
   - Various expression node type constants (T_Var, T_Const, etc.)
 
 - Called from:
-  - assign_collations_walker (src/backend/parser/parse_collate.c:439, 441, 747, 749)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (src/backend/parser/parse_collate.c:439, 441, 747, 749)
   - Recursively calls itself for nested expressions (JsonValueExpr, JsonConstructorExpr, JsonBehavior)
 
 ## Notes and Other Information

@@ -17,19 +17,19 @@ This function is a core component of PostgreSQL's pg_upgrade utility that collec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - GET_MAJOR_VERSION
   - pg_malloc0
   - atooid
-  - pg_strdup
-  - PQfinish
-  - PQfnumber
-  - PQntuples
-  - PQgetvalue
-  - PQclear
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - get_db_rel_and_slot_infos
+  - [get_db_rel_and_slot_infos](get_db_rel_and_slot_infos.md)
 
 ## Notes and Other Information
 - Only collects information for databases where datallowconn is true (databases that allow connections)

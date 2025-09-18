@@ -19,12 +19,12 @@ This function handles the \gset backslash command which stores the results of th
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - pg_strdup
-  - ignore_slash_options
+  - [pg_strdup](../p/pg_strdup.md)
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - PSQL_CMD_SKIP_LINE
   - PSQL_CMD_SEND
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Takes an optional prefix argument for variable naming

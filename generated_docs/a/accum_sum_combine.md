@@ -27,15 +27,15 @@ This approach leverages the existing accumulator infrastructure to efficiently c
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var (initializes temporary NumericVar)
-  - accum_sum_final (computes final result from accum2)
-  - accum_sum_add (adds the result to target accumulator)
-  - free_var (cleans up temporary variable)
-  - NumericSumAccum (struct type for fast sum accumulation)
+  - [accum_sum_final](accum_sum_final.md) (computes final result from accum2)
+  - [accum_sum_add](accum_sum_add.md) (adds the result to target accumulator)
+  - [free_var](../f/free_var.md) (cleans up temporary variable)
+  - [NumericSumAccum](../N/NumericSumAccum.md) (struct type for fast sum accumulation)
 - Called from (representative examples):
-  - numeric_combine
-  - numeric_avg_combine  
-  - numeric_poly_combine
-  - int8_avg_combine
+  - [numeric_combine](../n/numeric_combine.md)
+  - [numeric_avg_combine](../n/numeric_avg_combine.md)  
+  - [numeric_poly_combine](../n/numeric_poly_combine.md)
+  - [int8_avg_combine](../i/int8_avg_combine.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/utils/adt/numeric.c

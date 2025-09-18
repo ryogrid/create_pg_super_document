@@ -21,16 +21,16 @@ This function constructs a ParseNamespaceItem that encapsulates a relation's col
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (list operations)
-  - palloc0 (zero-initialized memory allocation)
-  - palloc (memory allocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - TupleDescAttr (tuple descriptor access macro)
-  - ParseNamespaceItem (namespace item structure)
-  - ParseNamespaceColumn (namespace column structure)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (namespace item structure)
+  - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md) (namespace column structure)
 - Called from (representative examples):
-  - addRangeTableEntry
-  - addRangeTableEntryForRelation
-  - addRangeTableEntryForFunction
-  - addRangeTableEntryForENR
+  - [addRangeTableEntry](../a/addRangeTableEntry.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
+  - [addRangeTableEntryForENR](../a/addRangeTableEntryForENR.md)
 
 ## Notes and Other Information
 - Ensures column name count matches tuple descriptor attribute count via assertion

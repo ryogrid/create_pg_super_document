@@ -24,13 +24,13 @@ This design reflects the fact that Result nodes themselves don't maintain comple
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (to get the outer plan state)
-  - ExecMarkPos (to mark position in the outer plan)
+  - [ExecMarkPos](ExecMarkPos.md) (to mark position in the outer plan)
   - elog (to log debug messages when mark/restore is not supported)
 - Called from:
-  - ExecMarkPos (general position marking dispatcher in execAmi.c)
+  - [ExecMarkPos](ExecMarkPos.md) (general position marking dispatcher in execAmi.c)
   - Declared in nodeResult.h
 
 ## Notes and Other Information
-- Result nodes without outer plans (constant result generators) inherently don't support mark/restore since they produce at most one tuple
+- [Result](../R/Result.md) nodes without outer plans (constant result generators) inherently don't support mark/restore since they produce at most one tuple
 - The debug message helps identify when mark/restore is being attempted on unsupported Result node configurations
 - Mark/restore functionality is typically used by nested loop joins and similar operations that need to replay tuple streams

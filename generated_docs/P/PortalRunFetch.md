@@ -22,13 +22,13 @@ PortalRunFetch provides cursor-style access to portal results, supporting SQL FE
 - Functions called/Symbols referenced:
   - PortalIsValid
   - MarkPortalActive
-  - DoPortalRunFetch
-  - FillPortalStore
+  - [DoPortalRunFetch](../D/DoPortalRunFetch.md)
+  - [FillPortalStore](../F/FillPortalStore.md)
   - MarkPortalFailed
   - PG_TRY/PG_CATCH/PG_END_TRY macros
 - Called from (representative examples):
-  - PerformPortalFetch
-  - _SPI_cursor_operation
+  - [PerformPortalFetch](PerformPortalFetch.md)
+  - [_SPI_cursor_operation](../S/_SPI_cursor_operation.md)
 
 ## Notes and Other Information
 - This function is public (not static) and declared in pquery.h

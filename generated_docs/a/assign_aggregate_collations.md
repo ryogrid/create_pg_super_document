@@ -33,5 +33,5 @@ This separation ensures that expressions like  work correctly - the ORDER BY col
 ## Notes and Other Information
 - Only applies to normal aggregates - ordered-set and hypothetical aggregates have their own specialized functions
 - The function asserts that  is NIL since normal aggregates don't have direct arguments
-- TargetEntry nodes are processed rather than their contained expressions to ensure proper error reporting for ORDER BY items
+- [TargetEntry](../T/TargetEntry.md) nodes are processed rather than their contained expressions to ensure proper error reporting for ORDER BY items
 - The  and  lists don't need processing since they contain only SortGroupClause nodes without expressions

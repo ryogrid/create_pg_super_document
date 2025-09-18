@@ -28,11 +28,11 @@ The comparison algorithm first checks for identical list pointers as an optimiza
   - PATHKEYS_BETTER1
   - PATHKEYS_BETTER2
 - Called from (representative examples):
-  - add_paths_to_append_rel
-  - pathkeys_contained_in
-  - get_useful_group_keys_orderings
-  - set_cheapest
-  - add_path
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md)
+  - [set_cheapest](../s/set_cheapest.md)
+  - [add_path](../a/add_path.md)
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's query optimization process, as it enables the planner to determine which paths provide better sort ordering. The canonical nature of pathkeys allows for efficient pointer-based equality checking rather than deep structural comparison.

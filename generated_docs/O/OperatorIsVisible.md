@@ -17,9 +17,9 @@ This function serves as a simple wrapper around OperatorIsVisibleExt to check op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OperatorIsVisibleExt
+  - [OperatorIsVisibleExt](OperatorIsVisibleExt.md)
 - Called from (representative examples):
-  - format_operator_extended
+  - [format_operator_extended](../f/format_operator_extended.md)
 
 ## Notes and Other Information
 - Returns true if the operator is visible in the current search path, false otherwise

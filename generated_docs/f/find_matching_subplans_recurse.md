@@ -27,13 +27,13 @@ For each partition found to be valid, the function either adds the corresponding
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - get_matching_partitions
-  - bms_next_member
-  - bms_add_member
-  - find_matching_subplans_recurse (recursive call)
+  - [get_matching_partitions](../g/get_matching_partitions.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [find_matching_subplans_recurse](find_matching_subplans_recurse.md) (recursive call)
 - Called from (representative examples):
-  - ExecFindMatchingSubPlans
-  - find_matching_subplans_recurse (recursive calls)
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
+  - [find_matching_subplans_recurse](find_matching_subplans_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - The function is defined in src/backend/executor/execPartition.c:2366-2418

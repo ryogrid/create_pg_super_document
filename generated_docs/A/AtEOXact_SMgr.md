@@ -21,14 +21,14 @@ The function is part of PostgreSQL's "AtEOXact" (At End Of Transaction) callback
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgrdestroyall (destroys all unpinned storage manager relations)
+  - [smgrdestroyall](../s/smgrdestroyall.md) (destroys all unpinned storage manager relations)
 - Called from (representative examples):
-  - CommitTransaction (in xact.c at line 2416)
-  - PrepareTransaction (in xact.c at line 2705)
-  - AbortTransaction (in xact.c at line 2925)
-  - BackgroundWriterMain (in bgwriter.c at line 174)
-  - CheckpointerMain (in checkpointer.c at line 277)
-  - WalWriterMain (in walwriter.c at line 172)
+  - [CommitTransaction](../C/CommitTransaction.md) (in xact.c at line 2416)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (in xact.c at line 2705)
+  - [AbortTransaction](AbortTransaction.md) (in xact.c at line 2925)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (in bgwriter.c at line 174)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (in checkpointer.c at line 277)
+  - [WalWriterMain](../W/WalWriterMain.md) (in walwriter.c at line 172)
 
 ## Notes and Other Information
 - Called for both transaction commit and abort - the function doesn't distinguish between the two cases

@@ -25,18 +25,18 @@ The test validates that pipeline mode correctly handles the full lifecycle of pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
-  - PQsendPrepare/PQsendClosePrepared (prepared statement operations)
-  - PQsendDescribePrepared/PQdescribePrepared (statement description)
-  - PQsendDescribePortal/PQdescribePortal (portal description)
-  - PQsendClosePortal/PQclosePortal (portal cleanup)
+  - [PQsendPrepare](../P/PQsendPrepare.md)/PQsendClosePrepared (prepared statement operations)
+  - [PQsendDescribePrepared](../P/PQsendDescribePrepared.md)/PQdescribePrepared (statement description)
+  - [PQsendDescribePortal](../P/PQsendDescribePortal.md)/PQdescribePortal (portal description)
+  - [PQsendClosePortal](../P/PQsendClosePortal.md)/PQclosePortal (portal cleanup)
   - PQpipelineSync (pipeline synchronization)
-  - PQgetResult (result retrieval)
-  - PQexec (direct SQL execution for setup)
-  - PQnfields/PQftype (result metadata access)
+  - [PQgetResult](../P/PQgetResult.md) (result retrieval)
+  - [PQexec](../P/PQexec.md) (direct SQL execution for setup)
+  - [PQnfields](../P/PQnfields.md)/PQftype (result metadata access)
   - PGRES_* constants (result status codes)
   - Type OIDs (INT4OID, TEXTOID, NUMERICOID, INTERVALOID)
 - Called from (representative examples):
-  - main (at src/test/modules/libpq_pipeline/libpq_pipeline.c:2268)
+  - [main](../m/main.md) (at src/test/modules/libpq_pipeline/libpq_pipeline.c:2268)
 
 ## Notes and Other Information
 - Tests complex SQL with multiple parameter types and type casting

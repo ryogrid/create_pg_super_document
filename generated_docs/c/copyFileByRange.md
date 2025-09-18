@@ -27,12 +27,12 @@ This approach is more efficient than traditional read/write loops as it avoids m
   - open
   - copy_file_range
   - close
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - PG_BINARY
   - pg_file_create_mode
   - ssize_t
 - Called from (representative examples):
-  - transfer_relfile
+  - [transfer_relfile](../t/transfer_relfile.md)
 
 ## Notes and Other Information
 - The function is conditionally compiled and only available when  is defined

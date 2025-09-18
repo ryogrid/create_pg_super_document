@@ -22,17 +22,17 @@ The target lists and qualifications in the generated plan tree remain in planner
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - apply_tlist_labeling
-  - SS_attach_initplans
-  - ModifyTable (type check)
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [apply_tlist_labeling](../a/apply_tlist_labeling.md)
+  - [SS_attach_initplans](../S/SS_attach_initplans.md)
+  - [ModifyTable](../M/ModifyTable.md) (type check)
   - CP_EXACT_TLIST (constant)
 - Called from (representative examples):
-  - standard_planner
-  - make_subplan
-  - create_subqueryscan_plan
-  - create_minmaxagg_plan
-  - SS_process_ctes
+  - [standard_planner](../s/standard_planner.md)
+  - [make_subplan](../m/make_subplan.md)
+  - [create_subqueryscan_plan](create_subqueryscan_plan.md)
+  - [create_minmaxagg_plan](create_minmaxagg_plan.md)
+  - [SS_process_ctes](../S/SS_process_ctes.md)
 
 ## Notes and Other Information
 - Assumes plan_params is not in use at the current query level and resets it after processing

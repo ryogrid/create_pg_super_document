@@ -20,13 +20,13 @@ The ExecSetupTransitionCaptureState function initializes the transition capture 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakeTransitionCaptureState
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md)
   - RelationGetRelid
-  - ModifyTable (plan structure)
+  - [ModifyTable](../M/ModifyTable.md) (plan structure)
   - CMD_INSERT, CMD_UPDATE (operation constants)
   - ONCONFLICT_UPDATE (conflict action constant)
 - Called from (representative examples):
-  - ExecInitModifyTable (at src/backend/executor/nodeModifyTable.c:4496)
+  - [ExecInitModifyTable](ExecInitModifyTable.md) (at src/backend/executor/nodeModifyTable.c:4496)
 
 ## Notes and Other Information
 - This function is called during the initialization phase of ModifyTable execution to set up transition capture before any tuples are processed

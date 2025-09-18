@@ -20,13 +20,13 @@ This function creates a fully populated tuple descriptor by first creating a tem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc
+  - [CreateTemplateTupleDesc](CreateTemplateTupleDesc.md)
   - memcpy
   - TupleDescAttr (macro for accessing attributes)
   - ATTRIBUTE_FIXED_PART_SIZE (constant)
 - Called from (representative examples):
-  - InsertOneTuple
-  - AddNewAttributeTuples
+  - [InsertOneTuple](../I/InsertOneTuple.md)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
   - TupleDescAttr (header macro)
 
 ## Notes and Other Information

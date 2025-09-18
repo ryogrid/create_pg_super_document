@@ -30,17 +30,17 @@ The function handles the case where a split operation was interrupted (e.g., due
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the TID tracking hash table)
-  - _hash_get_newblock_from_oldbucket (gets the new bucket's block number)
-  - _hash_getbuf (reads bucket pages)
-  - hash_search (inserts TIDs into the tracking hash table)
+  - [hash_create](hash_create.md) (creates the TID tracking hash table)
+  - [_hash_get_newblock_from_oldbucket](_hash_get_newblock_from_oldbucket.md) (gets the new bucket's block number)
+  - [_hash_getbuf](_hash_getbuf.md) (reads bucket pages)
+  - [hash_search](hash_search.md) (inserts TIDs into the tracking hash table)
   - ConditionalLockBufferForCleanup (attempts to acquire cleanup locks)
-  - _hash_splitbucket (performs the actual split operation)
-  - _hash_dropbuf (releases buffer)
-  - hash_destroy (cleans up the TID hash table)
+  - [_hash_splitbucket](_hash_splitbucket.md) (performs the actual split operation)
+  - [_hash_dropbuf](_hash_dropbuf.md) (releases buffer)
+  - [hash_destroy](hash_destroy.md) (cleans up the TID hash table)
 - Called from (representative examples):
-  - _hash_doinsert (during tuple insertion when split completion is needed)
-  - _hash_expandtable (during table expansion operations)
+  - [_hash_doinsert](_hash_doinsert.md) (during tuple insertion when split completion is needed)
+  - [_hash_expandtable](_hash_expandtable.md) (during table expansion operations)
 
 ## Notes and Other Information
 - The function uses conditional locking to avoid blocking - if cleanup locks cannot be acquired, it silently gives up and the split will be retried on the next insertion

@@ -28,7 +28,7 @@ This function is essential for vectorized comparison and arithmetic operations w
   - `_mm_set1_epi32` (SSE2 implementation)
   - `vdupq_n_u32` (NEON implementation)
 - Called from (representative examples):
-  - `pg_lfind32` (SIMD-optimized linear search for 32-bit values)
+  - `[pg_lfind32](../p/pg_lfind32.md)` (SIMD-optimized linear search for 32-bit values)
 
 ## Notes and Other Information
 - This is a static inline function defined in `src/include/port/simd.h` for optimal performance

@@ -17,17 +17,17 @@ This function frees the memory allocated for a Bitmapset structure. It provides 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 
 - Called from (representative examples):
-  - heap_update
-  - bms_copy_and_free
-  - check_index_only
-  - try_nestloop_path
-  - extract_rollup_sets
-  - reduce_outer_joins_pass2
-  - RelationDestroyRelation
-  - RelationGetIndexAttrBitmap
+  - [heap_update](../h/heap_update.md)
+  - [bms_copy_and_free](bms_copy_and_free.md)
+  - [check_index_only](../c/check_index_only.md)
+  - [try_nestloop_path](../t/try_nestloop_path.md)
+  - [extract_rollup_sets](../e/extract_rollup_sets.md)
+  - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
+  - [RelationDestroyRelation](../R/RelationDestroyRelation.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
 
 ## Notes and Other Information
 - Unlike standard pfree(), this function safely handles NULL input pointers

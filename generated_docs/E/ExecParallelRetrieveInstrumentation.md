@@ -28,21 +28,21 @@ The function recursively traverses the entire plan tree using planstate_tree_wal
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetInstrumentationArray
-  - InstrAggNode
+  - [InstrAggNode](../I/InstrAggNode.md)
   - nodeTag
-  - mul_size
-  - MemoryContextSwitchTo
-  - palloc
+  - [mul_size](../m/mul_size.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
   - memcpy
-  - ExecSortRetrieveInstrumentation
-  - ExecIncrementalSortRetrieveInstrumentation
+  - [ExecSortRetrieveInstrumentation](ExecSortRetrieveInstrumentation.md)
+  - [ExecIncrementalSortRetrieveInstrumentation](ExecIncrementalSortRetrieveInstrumentation.md)
   - ExecHashRetrieveInstrumentation
-  - ExecAggRetrieveInstrumentation
-  - ExecMemoizeRetrieveInstrumentation
+  - [ExecAggRetrieveInstrumentation](ExecAggRetrieveInstrumentation.md)
+  - [ExecMemoizeRetrieveInstrumentation](ExecMemoizeRetrieveInstrumentation.md)
   - planstate_tree_walker
 - Called from (representative examples):
-  - ExecParallelCleanup
-  - ExecParallelRetrieveInstrumentation (recursive calls)
+  - [ExecParallelCleanup](ExecParallelCleanup.md)
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function internal to execParallel.c

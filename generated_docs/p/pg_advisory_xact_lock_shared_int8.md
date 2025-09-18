@@ -23,7 +23,7 @@ The function converts the input 64-bit integer into a LOCKTAG structure and acqu
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro for extracting int64 argument)
   - SET_LOCKTAG_INT64 (macro for setting up lock tag with int64 key)
-  - LockAcquire (core lock acquisition function)
+  - [LockAcquire](../L/LockAcquire.md) (core lock acquisition function)
   - ShareLock (lock mode constant)
   - PG_RETURN_VOID (macro for returning void result)
 - Called from (representative examples):

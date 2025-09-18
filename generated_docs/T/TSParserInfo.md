@@ -25,8 +25,8 @@ TSParserInfo is part of pg_dump's internal representation of PostgreSQL database
   - DumpableObject (base structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getTSParsers (populates TSParserInfo structures from pg_ts_parser catalog)
-  - dumpTSParser (uses TSParserInfo to generate CREATE TEXT SEARCH PARSER statements)
+  - [getTSParsers](../g/getTSParsers.md) (populates TSParserInfo structures from pg_ts_parser catalog)
+  - [dumpTSParser](../d/dumpTSParser.md) (uses TSParserInfo to generate CREATE TEXT SEARCH PARSER statements)
   - fmtQualifiedDumpable (formats the parser name for output)
 
 ## Notes and Other Information

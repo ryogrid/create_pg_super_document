@@ -21,11 +21,11 @@ This function is part of the heap table access method interface and provides siz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_block_relation_estimate_size
+  - [table_block_relation_estimate_size](../t/table_block_relation_estimate_size.md)
   - HEAP_OVERHEAD_BYTES_PER_TUPLE (constant)
   - HEAP_USABLE_BYTES_PER_PAGE (constant)
 - Called from (representative examples):
-  - SampleHeapTupleVisible (as part of table access method interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (as part of table access method interface)
 
 ## Notes and Other Information
 - This function is part of the heap table access method (tableam) interface

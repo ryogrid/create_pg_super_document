@@ -30,21 +30,21 @@ This process ensures that when a partition is detached, it doesn't retain trigge
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_object_addresses
-  - ScanKeyInit
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - deleteDependencyRecordsForClass
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - ObjectAddressSet
-  - add_exact_object_address
+  - [add_exact_object_address](../a/add_exact_object_address.md)
   - CommandCounterIncrement
-  - performMultipleDeletions
-  - free_object_addresses
-  - systable_endscan
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from (representative examples):
-  - DetachPartitionFinalize
+  - [DetachPartitionFinalize](DetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - Only removes triggers that have a valid tgparentid (indicating they were cloned)

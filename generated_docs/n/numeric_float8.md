@@ -26,16 +26,16 @@ The `numeric_float8` function converts a PostgreSQL `Numeric` value to a `float8
   - `NUMERIC_IS_NINF`: Checks for negative infinity
   - `get_float8_infinity`: Returns the IEEE 754 positive infinity value
   - `get_float8_nan`: Returns the IEEE 754 NaN value
-  - `numeric_out`: Converts numeric to string representation
-  - `float8in`: Parses string into float8 value
+  - `[numeric_out](numeric_out.md)`: Converts numeric to string representation
+  - `[float8in](../f/float8in.md)`: Parses string into float8 value
   - `DirectFunctionCall1`: Directly calls PostgreSQL functions
-  - `NumericGetDatum`/`DatumGetCString`/`CStringGetDatum`: Type conversion utilities
-  - `pfree`: Frees allocated memory
+  - `[NumericGetDatum](../N/NumericGetDatum.md)`/`DatumGetCString`/`CStringGetDatum`: Type conversion utilities
+  - `[pfree](../p/pfree.md)`: Frees allocated memory
   - `PG_RETURN_DATUM`: Returns the float8 result
 - Called from (representative examples):
-  - `brin_minmax_multi_distance_numeric`: BRIN index distance calculation
-  - `jsonb_float8`: JSONB to float8 conversion
-  - `numrange_subdiff`: Numeric range subdifference calculation
+  - `[brin_minmax_multi_distance_numeric](../b/brin_minmax_multi_distance_numeric.md)`: BRIN index distance calculation
+  - `[jsonb_float8](../j/jsonb_float8.md)`: JSONB to float8 conversion
+  - `[numrange_subdiff](numrange_subdiff.md)`: Numeric range subdifference calculation
 
 ## Notes and Other Information
 - Uses string-based conversion via `numeric_out` and `float8in` to ensure accurate decimal-to-binary conversion

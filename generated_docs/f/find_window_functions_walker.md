@@ -20,14 +20,14 @@ This static function serves as the core implementation for collecting and organi
 - Functions called/Symbols referenced:
   - WindowFunc
   - WindowFuncLists
-  - list_member
+  - [list_member](../l/list_member.md)
   - SubLink
   - expression_tree_walker
-  - find_window_functions_walker (recursive call)
+  - [find_window_functions_walker](find_window_functions_walker.md) (recursive call)
 - Called from (representative examples):
-  - find_window_functions
+  - [find_window_functions](find_window_functions.md)
   - max_parallel_hazard_context
-  - find_window_functions_walker (recursive)
+  - [find_window_functions_walker](find_window_functions_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same compilation unit

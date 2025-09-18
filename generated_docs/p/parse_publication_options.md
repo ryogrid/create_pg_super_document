@@ -24,15 +24,15 @@ The function first sets default values for all publication actions (all enabled 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errorConflictingDefElem
-  - defGetString
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
+  - [defGetString](../d/defGetString.md)
   - SplitIdentifierString
-  - defGetBoolean
-  - PublicationActions
-  - DefElem
+  - [defGetBoolean](../d/defGetBoolean.md)
+  - [PublicationActions](../P/PublicationActions.md)
+  - [DefElem](../D/DefElem.md)
 - Called from (representative examples):
-  - CreatePublication
-  - AlterPublicationOptions
+  - [CreatePublication](../C/CreatePublication.md)
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md)
 
 ## Notes and Other Information
 - Sets default publication actions to true for all DML operations (insert, update, delete, truncate)

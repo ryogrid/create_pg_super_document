@@ -19,12 +19,12 @@ This function compares two BPCHAR values for inequality (not-equal). It follows 
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (macro)
   - PG_GET_COLLATION (macro)
-  - check_collation_set
-  - bcTruelen
-  - lc_collate_is_c
-  - pg_newlocale_from_collation
-  - pg_locale_deterministic
-  - varstr_cmp
+  - [check_collation_set](../c/check_collation_set.md)
+  - [bcTruelen](bcTruelen.md)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [pg_locale_deterministic](../p/pg_locale_deterministic.md)
+  - [varstr_cmp](../v/varstr_cmp.md)
   - VARDATA_ANY (macro)
   - memcmp
   - PG_FREE_IF_COPY (macro)

@@ -23,9 +23,9 @@ The function performs several validation steps: it checks the input string lengt
 - Functions called/Symbols referenced:
   - NAMEDATALEN
   - ereturn
-  - SearchSysCache2
-  - CStringGetDatum
-  - check_safe_enum_use
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [check_safe_enum_use](../c/check_safe_enum_use.md)
   - Form_pg_enum
   - PG_RETURN_OID
 - Called from (representative examples):

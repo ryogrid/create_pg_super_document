@@ -19,17 +19,17 @@ This function iterates through all blocks of a relation's visibility map to coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vm_readbuf
-  - PageGetContents
-  - pg_popcount_masked
+  - [vm_readbuf](vm_readbuf.md)
+  - [PageGetContents](../P/PageGetContents.md)
+  - [pg_popcount_masked](../p/pg_popcount_masked.md)
   - ReleaseBuffer
   - VISIBLE_MASK8
   - FROZEN_MASK8
   - MAPSIZE
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - index_update_stats
-  - do_analyze_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [index_update_stats](../i/index_update_stats.md)
+  - [do_analyze_rel](../d/do_analyze_rel.md)
 
 ## Notes and Other Information
 - The function assumes extra bytes in the last page are zeroed and includes them in the count

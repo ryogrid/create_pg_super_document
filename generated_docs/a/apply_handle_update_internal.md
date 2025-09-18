@@ -32,19 +32,19 @@ The function is designed to handle both direct table updates and partition-speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EvalPlanQualInit
-  - ExecOpenIndices
-  - FindReplTupleInLocalRel
+  - [EvalPlanQualInit](../E/EvalPlanQualInit.md)
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
   - ExecClearTuple
   - GetPerTupleMemoryContext
-  - slot_modify_data
+  - [slot_modify_data](../s/slot_modify_data.md)
   - EvalPlanQualSetSlot
-  - TargetPrivilegesCheck
-  - ExecSimpleRelationUpdate
-  - ExecCloseIndices
-  - EvalPlanQualEnd
+  - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)
+  - [ExecSimpleRelationUpdate](../E/ExecSimpleRelationUpdate.md)
+  - [ExecCloseIndices](../E/ExecCloseIndices.md)
+  - [EvalPlanQualEnd](../E/EvalPlanQualEnd.md)
 - Called from (representative examples):
-  - apply_handle_update
+  - [apply_handle_update](apply_handle_update.md)
 
 ## Notes and Other Information
 - The function includes a comment noting that updates will fail if there are other conflicting unique indexes beyond the one used for tuple lookup

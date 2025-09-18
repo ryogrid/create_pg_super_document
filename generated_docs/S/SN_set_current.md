@@ -21,11 +21,11 @@ The function uses  to perform the actual string replacement, replacing the entir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_s (performs the actual string replacement operation)
+  - [replace_s](../r/replace_s.md) (performs the actual string replacement operation)
   - symbol (type reference for string data)
 
 - Called from (representative examples):
-  - dsnowball_lexize (main entry point for Snowball stemming in PostgreSQL's dictionary system)
+  - [dsnowball_lexize](../d/dsnowball_lexize.md) (main entry point for Snowball stemming in PostgreSQL's dictionary system)
 
 ## Notes and Other Information
 - Returns the result of the replace_s operation (typically 0 on success, non-zero on error)

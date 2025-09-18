@@ -21,7 +21,7 @@ The function exists purely to maintain consistency with the executor node interf
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Called from (representative examples):
-  - ExecInitBitmapIndexScan (sets this as the ExecProcNode function pointer)
+  - [ExecInitBitmapIndexScan](ExecInitBitmapIndexScan.md) (sets this as the ExecProcNode function pointer)
 
 ## Notes and Other Information
 - This is a static function within nodeBitmapIndexscan.c, not exposed to other modules

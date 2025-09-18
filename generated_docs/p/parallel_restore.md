@@ -20,11 +20,11 @@ The function performs the actual restoration work for a single TOC entry by call
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restore_toc_entry
-  - TocEntry
+  - [restore_toc_entry](../r/restore_toc_entry.md)
+  - [TocEntry](../T/TocEntry.md)
 - Called from (representative examples):
-  - _WorkerJobRestoreCustom
-  - _WorkerJobRestoreDirectory
+  - [_WorkerJobRestoreCustom](../W/_WorkerJobRestoreCustom.md)
+  - [_WorkerJobRestoreDirectory](../W/_WorkerJobRestoreDirectory.md)
 
 ## Notes and Other Information
 - Executes in worker context, not the main leader process

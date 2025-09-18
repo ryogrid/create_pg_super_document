@@ -21,12 +21,12 @@ The function examines the filename extension and applies type-specific filtering
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_filter_stderr (stderr file filtering and normalization)
-  - psprintf (PostgreSQL string formatting utility)
-  - pfree (PostgreSQL memory deallocation)
+  - [ecpg_filter_stderr](ecpg_filter_stderr.md) (stderr file filtering and normalization)
+  - [psprintf](../p/psprintf.md) (PostgreSQL string formatting utility)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - Standard C functions (strlen, strcmp)
 - Called from:
-  - main (test execution framework)
+  - [main](../m/main.md) (test execution framework)
 
 ## Notes and Other Information
 - This is a static function used internally within the ECPG test framework

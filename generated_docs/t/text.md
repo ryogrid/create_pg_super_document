@@ -29,14 +29,14 @@ As a typedef of ,  inherits:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (base structure)
+  - [varlena](../v/varlena.md) (base structure)
 - Called from (representative examples):
-  - text_catenate
-  - text_substring
-  - text_overlay
+  - [text_catenate](text_catenate.md)
+  - [text_substring](text_substring.md)
+  - [text_overlay](text_overlay.md)
   - text_position
-  - text_cmp
-  - split_text
+  - [text_cmp](text_cmp.md)
+  - [split_text](../s/split_text.md)
   - Various text manipulation and I/O functions
 
 ## Notes and Other Information

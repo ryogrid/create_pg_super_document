@@ -24,13 +24,13 @@ This function safely converts a string representation to an integer value with c
 - Functions called/Symbols referenced:
   - strtol (standard C library function for string to long conversion)
   - isspace (standard C library function for whitespace checking)
-  - libpq_append_conn_error (PostgreSQL error reporting function)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (PostgreSQL error reporting function)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - PQgetCancel (multiple calls for parsing port and timeout values)
-  - useKeepalives, setKeepalivesIdle, setKeepalivesInterval, setKeepalivesCount
-  - setTCPUserTimeout
-  - pqConnectDBComplete, PQconnectPoll
+  - [PQgetCancel](../P/PQgetCancel.md) (multiple calls for parsing port and timeout values)
+  - [useKeepalives](../u/useKeepalives.md), setKeepalivesIdle, setKeepalivesInterval, setKeepalivesCount
+  - [setTCPUserTimeout](../s/setTCPUserTimeout.md)
+  - [pqConnectDBComplete](pqConnectDBComplete.md), PQconnectPoll
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on error

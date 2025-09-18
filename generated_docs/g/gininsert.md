@@ -33,15 +33,15 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initGinState
+  - [initGinState](../i/initGinState.md)
   - GinGetUseFastUpdate
-  - ginHeapTupleFastCollect
-  - ginHeapTupleFastInsert
-  - ginHeapTupleInsert
+  - [ginHeapTupleFastCollect](ginHeapTupleFastCollect.md)
+  - [ginHeapTupleFastInsert](ginHeapTupleFastInsert.md)
+  - [ginHeapTupleInsert](ginHeapTupleInsert.md)
   - AllocSetContextCreate
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - ginhandler (via access method handler)
+  - [ginhandler](ginhandler.md) (via access method handler)
 
 ## Notes and Other Information
 - Always returns false since GIN indexes don't support unique constraints

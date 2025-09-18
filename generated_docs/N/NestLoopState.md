@@ -20,13 +20,13 @@ NestLoopState extends JoinState to provide specific state management for nested 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinState (inherited base structure)
+  - [JoinState](../J/JoinState.md) (inherited base structure)
   - TupleTableSlot (for null inner tuple storage)
 - Called from (representative examples):
-  - ExecNestLoop (main execution function)
-  - ExecInitNestLoop (initialization function)
-  - ExecEndNestLoop (cleanup function)
-  - ExecReScanNestLoop (rescan function)
+  - [ExecNestLoop](../E/ExecNestLoop.md) (main execution function)
+  - [ExecInitNestLoop](../E/ExecInitNestLoop.md) (initialization function)
+  - [ExecEndNestLoop](../E/ExecEndNestLoop.md) (cleanup function)
+  - [ExecReScanNestLoop](../E/ExecReScanNestLoop.md) (rescan function)
 
 ## Notes and Other Information
 - This structure is specifically designed for nested loop join execution, which has O(N*M) complexity where N and M are the sizes of outer and inner relations respectively

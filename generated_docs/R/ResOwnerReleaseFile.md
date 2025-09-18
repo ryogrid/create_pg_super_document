@@ -17,7 +17,7 @@ This function serves as a resource release callback for PostgreSQL's ResourceOwn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (converts Datum to int32)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum to int32)
   - File (typedef for int file descriptor)
   - Vfd (virtual file descriptor structure)
   - FileIsValid (validates file descriptor)

@@ -26,18 +26,18 @@ The function also manages the transition out of remote transaction state and han
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_skipping_changes/stop_skipping_changes (skip logic management)
-  - IsTransactionState (transaction state check)
-  - StartTransactionCommand (transaction initiation)
-  - clear_subscription_skip_lsn (subscription state management)
-  - CommitTransactionCommand (transaction commit)
-  - IsTransactionBlock/EndTransactionBlock (transaction block handling)
-  - pgstat_report_stat (statistics reporting)
-  - store_flush_position (replication position tracking)
-  - AcceptInvalidationMessages (cache invalidation)
-  - maybe_reread_subscription (subscription configuration refresh)
+  - [IsTransactionState](../I/IsTransactionState.md) (transaction state check)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (transaction initiation)
+  - [clear_subscription_skip_lsn](../c/clear_subscription_skip_lsn.md) (subscription state management)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (transaction commit)
+  - [IsTransactionBlock](../I/IsTransactionBlock.md)/EndTransactionBlock (transaction block handling)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md) (statistics reporting)
+  - [store_flush_position](../s/store_flush_position.md) (replication position tracking)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (cache invalidation)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (subscription configuration refresh)
 - Called from (representative examples):
-  - apply_handle_commit (regular commit processing)
-  - apply_handle_stream_commit (streaming commit processing - called twice for different apply actions)
+  - [apply_handle_commit](apply_handle_commit.md) (regular commit processing)
+  - [apply_handle_stream_commit](apply_handle_stream_commit.md) (streaming commit processing - called twice for different apply actions)
 
 ## Notes and Other Information
 - Static helper function designed for code reuse between different commit handlers

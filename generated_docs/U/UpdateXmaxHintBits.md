@@ -23,13 +23,13 @@ For lock-only transactions (those that only acquired tuple locks without modifyi
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetRawXmax: Extract the raw xmax transaction ID
   - TransactionIdEquals: Verify the xid matches the tuple's xmax
-  - TransactionIdDidCommit: Check if the transaction committed
-  - HeapTupleSetHintBits: Set the appropriate hint bits in the tuple
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md): Check if the transaction committed
+  - [HeapTupleSetHintBits](../H/HeapTupleSetHintBits.md): Set the appropriate hint bits in the tuple
   - HEAP_XMAX_IS_LOCKED_ONLY: Macro to check if xmax was lock-only
 - Called from (representative examples):
-  - heap_delete: After waiting for concurrent delete operations
-  - heap_update: After waiting for concurrent update operations  
-  - heap_lock_tuple: After waiting for concurrent lock operations
+  - [heap_delete](../h/heap_delete.md): After waiting for concurrent delete operations
+  - [heap_update](../h/heap_update.md): After waiting for concurrent update operations  
+  - [heap_lock_tuple](../h/heap_lock_tuple.md): After waiting for concurrent lock operations
 
 ## Notes and Other Information
 - This is a static function, only used within heapam.c

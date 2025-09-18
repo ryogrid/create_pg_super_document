@@ -34,13 +34,13 @@ The function also handles SIGPIPE prevention through MSG_NOSIGNAL flags and sign
   - `REMEMBER_EPIPE` (EPIPE tracking macro)
   - `SOCK_ERRNO`, `SOCK_ERRNO_SET` (socket errno handling macros)
   - `SOCK_STRERROR` (socket error string formatting)
-  - `libpq_gettext` (internationalization support)
+  - `[libpq_gettext](../l/libpq_gettext.md)` (internationalization support)
   - `strlcat`, `strdup` (string manipulation functions)
   - `PG_STRERROR_R_BUFLEN` (buffer size constant)
 - Called from (representative examples):
-  - `pqsecure_write` (in fe-secure.c:301)
-  - `pg_GSS_write` (in fe-secure-gssapi.c:154)
-  - `my_sock_write` (in fe-secure-openssl.c:1946)
+  - `[pqsecure_write](pqsecure_write.md)` (in fe-secure.c:301)
+  - `[pg_GSS_write](pg_GSS_write.md)` (in fe-secure-gssapi.c:154)
+  - `[my_sock_write](../m/my_sock_write.md)` (in fe-secure-openssl.c:1946)
 
 ## Notes and Other Information
 - Returns the number of bytes written on success, or -1 only for retryable errors

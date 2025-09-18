@@ -30,8 +30,8 @@ Virtual transaction IDs are particularly important for:
   - GetCurrentVirtualXIDs
   - GetConflictingVirtualXIDs
   - VirtualXactLock
-  - ResolveRecoveryConflictWithVirtualXIDs
-  - GetLockConflicts
+  - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md)
+  - [GetLockConflicts](../G/GetLockConflicts.md)
 
 ## Notes and Other Information
 - The structure includes several utility macros for validation and comparison:

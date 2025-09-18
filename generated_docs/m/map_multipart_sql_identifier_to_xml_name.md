@@ -24,11 +24,11 @@ This function converts multi-part SQL identifiers (such as catalog.schema.table.
 ## Dependencies
 - Functions called/Symbols referenced:
   - initStringInfo
-  - map_sql_identifier_to_xml_name
+  - [map_sql_identifier_to_xml_name](map_sql_identifier_to_xml_name.md)
   - appendStringInfoString
   - appendStringInfo
 - Called from:
-  - map_sql_table_to_xmlschema
+  - [map_sql_table_to_xmlschema](map_sql_table_to_xmlschema.md)
   - map_sql_schema_to_xmlschema_types
   - map_sql_catalog_to_xmlschema_types
   - map_sql_type_to_xml_name

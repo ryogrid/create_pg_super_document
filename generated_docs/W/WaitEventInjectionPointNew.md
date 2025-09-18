@@ -21,11 +21,11 @@ Like other wait event creation functions, this ensures name uniqueness - if a wa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventCustomNew (underlying custom wait event creation function)
+  - [WaitEventCustomNew](WaitEventCustomNew.md) (underlying custom wait event creation function)
   - PG_WAIT_INJECTIONPOINT (wait event class constant for injection points)
 
 - Called from (representative examples):
-  - injection_wait (in src/test/modules/injection_points/injection_points.c:219)
+  - [injection_wait](../i/injection_wait.md) (in src/test/modules/injection_points/injection_points.c:219)
   - PG_WAIT_INJECTIONPOINT (in src/include/utils/wait_event.h:59)
 
 ## Notes and Other Information

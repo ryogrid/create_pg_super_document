@@ -24,17 +24,17 @@ The partition constraint is used by the query planner for partition pruning - el
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionQual
-  - expression_planner
-  - ChangeVarNodes
+  - [RelationGetPartitionQual](../R/RelationGetPartitionQual.md)
+  - [expression_planner](../e/expression_planner.md)
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
 - Called from (representative examples):
-  - get_relation_constraints
-  - set_relation_partition_info
+  - [get_relation_constraints](../g/get_relation_constraints.md)
+  - [set_relation_partition_info](set_relation_partition_info.md)
 
 ## Notes and Other Information
 - This is a static function used internally within plancat.c for partition constraint handling
 - The function includes an early return optimization to avoid reprocessing already-set partition qualifications
 - Partition quals are assumed to be in canonical implicit-AND format, avoiding the need for canonicalize_qual
 - The expression_planner call optimizes the partition constraint for better runtime performance
-- Variable node re-stamping ensures correct relation references when the relation ID is not 1
+- [Variable](../V/Variable.md) node re-stamping ensures correct relation references when the relation ID is not 1
 - The partition constraint is essential for partition pruning optimization during query execution

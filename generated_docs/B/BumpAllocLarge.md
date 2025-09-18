@@ -23,15 +23,15 @@ The function allocates an entire block sized exactly to hold the requested chunk
 - Functions called/Symbols referenced:
   - MemoryContextCheckSize
   - malloc
-  - MemoryContextAllocationFailure
-  - MemoryChunkSetHdrMaskExternal (in MEMORY_CONTEXT_CHECKING builds)
-  - set_sentinel (in MEMORY_CONTEXT_CHECKING builds)
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
+  - [MemoryChunkSetHdrMaskExternal](../M/MemoryChunkSetHdrMaskExternal.md) (in MEMORY_CONTEXT_CHECKING builds)
+  - [set_sentinel](../s/set_sentinel.md) (in MEMORY_CONTEXT_CHECKING builds)
   - MemoryChunkGetPointer
-  - randomize_mem (if RANDOMIZE_ALLOCATED_MEMORY defined)
-  - dlist_push_tail
+  - [randomize_mem](../r/randomize_mem.md) (if RANDOMIZE_ALLOCATED_MEMORY defined)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - VALGRIND_MAKE_MEM_NOACCESS (in MEMORY_CONTEXT_CHECKING builds)
 - Called from (representative examples):
-  - BumpAlloc
+  - [BumpAlloc](BumpAlloc.md)
 
 ## Notes and Other Information
 - The function is marked pg_noinline to keep the main allocation path (BumpAlloc) lightweight

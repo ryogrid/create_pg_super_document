@@ -28,23 +28,23 @@ The function pre-allocates the hash size for efficiency and includes stack depth
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
   - check_stack_depth
-  - heap_getattr
-  - hv_store_string
-  - type_is_rowtype
-  - plperl_hash_from_datum
-  - get_base_element_type
-  - plperl_ref_from_pg_array
-  - get_transform_fromsql
+  - [heap_getattr](../h/heap_getattr.md)
+  - [hv_store_string](../h/hv_store_string.md)
+  - [type_is_rowtype](../t/type_is_rowtype.md)
+  - [plperl_hash_from_datum](plperl_hash_from_datum.md)
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [plperl_ref_from_pg_array](plperl_ref_from_pg_array.md)
+  - [get_transform_fromsql](../g/get_transform_fromsql.md)
   - OidFunctionCall1
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
-  - cstr2sv
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
+  - [cstr2sv](../c/cstr2sv.md)
   - newRV_noinc
 - Called from (representative examples):
-  - plperl_trigger_build_args
-  - plperl_hash_from_datum
-  - plperl_spi_execute_fetch_result
-  - plperl_spi_fetchrow
+  - [plperl_trigger_build_args](plperl_trigger_build_args.md)
+  - [plperl_hash_from_datum](plperl_hash_from_datum.md)
+  - [plperl_spi_execute_fetch_result](plperl_spi_execute_fetch_result.md)
+  - [plperl_spi_fetchrow](plperl_spi_fetchrow.md)
 
 ## Notes and Other Information
 - Skips dropped columns (attisdropped) automatically

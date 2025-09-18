@@ -27,12 +27,12 @@ The dependency tracking is crucial because individual columns of a composite typ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_expr_result_tupdesc (retrieves function result tuple descriptor)
-  - get_typ_typrelid (gets relation OID for a type)
-  - add_object_address (records the dependency)
+  - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md) (retrieves function result tuple descriptor)
+  - [get_typ_typrelid](../g/get_typ_typrelid.md) (gets relation OID for a type)
+  - [add_object_address](../a/add_object_address.md) (records the dependency)
   - ereport (error reporting)
 - Called from (representative examples):
-  - find_expr_references_walker (when processing Var nodes referencing function RTEs)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (when processing Var nodes referencing function RTEs)
 
 ## Notes and Other Information
 - Only creates dependencies for named composite types, not for RECORD types with explicit column lists

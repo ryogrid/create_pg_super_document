@@ -21,9 +21,9 @@ IsManifestEnabled is a utility function that provides a simple boolean check to 
 - Functions called/Symbols referenced:
   - backup_manifest_info (structure type)
 - Called from (representative examples):
-  - AddFileToBackupManifest (src/backend/backup/backup_manifest.c:109)
-  - AddWALInfoToBackupManifest (src/backend/backup/backup_manifest.c:221)  
-  - SendBackupManifest (src/backend/backup/backup_manifest.c:322)
+  - [AddFileToBackupManifest](../A/AddFileToBackupManifest.md) (src/backend/backup/backup_manifest.c:109)
+  - [AddWALInfoToBackupManifest](../A/AddWALInfoToBackupManifest.md) (src/backend/backup/backup_manifest.c:221)  
+  - [SendBackupManifest](../S/SendBackupManifest.md) (src/backend/backup/backup_manifest.c:322)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the backup_manifest.c file and will be inlined by the compiler for performance

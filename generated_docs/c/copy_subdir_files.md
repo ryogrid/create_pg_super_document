@@ -24,16 +24,16 @@ The copy operation preserves the directory structure and file permissions from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - remove_new_subdir: Removes the target subdirectory from the new cluster before copying
-  - prep_status: Displays status message to user about the copy operation  
-  - exec_prog: Executes the platform-specific copy command
-  - check_ok: Verifies the copy operation completed successfully
+  - [remove_new_subdir](../r/remove_new_subdir.md): Removes the target subdirectory from the new cluster before copying
+  - [prep_status](../p/prep_status.md): Displays status message to user about the copy operation  
+  - [exec_prog](../e/exec_prog.md): Executes the platform-specific copy command
+  - [check_ok](check_ok.md): Verifies the copy operation completed successfully
 - Global variables used:
   - old_cluster.pgdata: Path to the old cluster's data directory
   - new_cluster.pgdata: Path to the new cluster's data directory
   - UTILITY_LOG_FILE: Log file for utility operations
 - Called from:
-  - copy_xact_xlog_xid: Multiple times to copy transaction-related directories
+  - [copy_xact_xlog_xid](copy_xact_xlog_xid.md): Multiple times to copy transaction-related directories
 
 ## Notes and Other Information
 - The function completely replaces the target directory - it doesn't merge contents

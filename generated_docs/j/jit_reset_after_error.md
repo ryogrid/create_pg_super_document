@@ -22,7 +22,7 @@ This function takes no parameters and returns void.
   - provider.reset_after_error() (function pointer call)
   - Uses global variable: `provider_successfully_loaded`
 - Called from (representative examples):
-  - PostgresMain (in src/backend/tcop/postgres.c:4502)
+  - [PostgresMain](../P/PostgresMain.md) (in src/backend/tcop/postgres.c:4502)
 
 ## Notes and Other Information
 - Located in src/backend/jit/jit.c:127-136

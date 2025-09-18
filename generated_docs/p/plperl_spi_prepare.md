@@ -32,26 +32,26 @@ The function manages complex memory contexts to ensure proper resource lifecycle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - BeginInternalSubTransaction
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
   - AllocSetContextCreate
-  - sv2cstr
-  - parseTypeString
-  - getTypeInputInfo
-  - fmgr_info_cxt
-  - pg_verifymbstr
-  - SPI_prepare
-  - SPI_result_code_string
-  - SPI_keepplan
-  - hash_search
-  - MemoryContextDelete
-  - ReleaseCurrentSubTransaction
-  - CopyErrorData
-  - FlushErrorState
-  - SPI_freeplan
-  - RollbackAndReleaseCurrentSubTransaction
-  - croak_cstr
-  - cstr2sv
+  - [sv2cstr](../s/sv2cstr.md)
+  - [parseTypeString](parseTypeString.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [pg_verifymbstr](pg_verifymbstr.md)
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
+  - [SPI_keepplan](../S/SPI_keepplan.md)
+  - [hash_search](../h/hash_search.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [SPI_freeplan](../S/SPI_freeplan.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [croak_cstr](../c/croak_cstr.md)
+  - [cstr2sv](../c/cstr2sv.md)
 - Called from (representative examples):
   - PL_PERL_H header (src/pl/plperl/plperl.h:32)
 
@@ -60,7 +60,7 @@ The function manages complex memory contexts to ensure proper resource lifecycle
 - Uses hash table storage for fast query plan retrieval by unique identifier
 - Comprehensive error handling with automatic cleanup of partially created resources
 - Parameter types must be specified as PostgreSQL type names (e.g., "int4", "text")
-- Query validation ensures proper encoding before plan creation
+- [Query](../Q/Query.md) validation ensures proper encoding before plan creation
 - Memory management uses dedicated contexts to prevent leaks
 - Plans are made persistent with SPI_keepplan for reuse across transactions
 - Returns unique query identifier string for use with execution functions

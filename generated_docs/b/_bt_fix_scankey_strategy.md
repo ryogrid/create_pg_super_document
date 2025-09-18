@@ -40,7 +40,7 @@ The function must handle rescan scenarios carefully to avoid re-commuting strate
   - SK_BT_INDOPTION_SHIFT (bit shifting for flag storage)
 
 - Called from (representative examples):
-  - _bt_preprocess_keys (during scan key preprocessing phase)
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md) (during scan key preprocessing phase)
 
 ## Notes and Other Information
 - Returns true if the scan key is valid and should be used, false if the scan should be abandoned

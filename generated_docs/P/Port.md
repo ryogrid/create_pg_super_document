@@ -101,15 +101,15 @@ The structure handles complex hostname resolution logic, tracking whether revers
 - Functions called/Symbols referenced:
   - pgsocket (socket type)
   - ProtocolVersion (protocol version enum)
-  - SockAddr (socket address structure)
-  - HbaLine (host-based authentication configuration)
+  - [SockAddr](../S/SockAddr.md) (socket address structure)
+  - [HbaLine](../H/HbaLine.md) (host-based authentication configuration)
   - pg_gssinfo (GSSAPI context)
   - ssize_t (signed size type)
 - Called from (representative examples):
-  - BackendInitialize (in src/backend/tcop/backend_startup.c:126)
-  - ClientAuthentication (in src/backend/libpq/auth.c:390)
-  - secure_open_server (in src/backend/libpq/be-secure.c:110)
-  - ProcessStartupPacket (in src/backend/tcop/backend_startup.c:453)
+  - [BackendInitialize](../B/BackendInitialize.md) (in src/backend/tcop/backend_startup.c:126)
+  - [ClientAuthentication](../C/ClientAuthentication.md) (in src/backend/libpq/auth.c:390)
+  - [secure_open_server](../s/secure_open_server.md) (in src/backend/libpq/be-secure.c:110)
+  - [ProcessStartupPacket](ProcessStartupPacket.md) (in src/backend/tcop/backend_startup.c:453)
 
 ## Notes and Other Information
 - All data pointed to by Port structure must be allocated in TopMemoryContext

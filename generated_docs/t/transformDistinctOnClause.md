@@ -22,20 +22,20 @@ The function adds all DISTINCT ON expressions to the target list (as resjunk ite
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTargetlistEntrySQL92: Locates or creates a target list entry for an expression
-  - assignSortGroupRef: Assigns a sort group reference number to a target entry
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md): Locates or creates a target list entry for an expression
+  - [assignSortGroupRef](../a/assignSortGroupRef.md): Assigns a sort group reference number to a target entry
   - lappend_int: Appends an integer value to a list
-  - list_member_int: Checks if an integer value is present in a list
-  - get_matching_location: Gets the parse location of a matching expression for error reporting
+  - [list_member_int](../l/list_member_int.md): Checks if an integer value is present in a list
+  - [get_matching_location](../g/get_matching_location.md): Gets the parse location of a matching expression for error reporting
   - copyObject: Creates a deep copy of a PostgreSQL node structure
-  - get_sortgroupref_tle: Retrieves target entry by sort group reference
-  - targetIsInSortList: Checks if a target is already in the sort list
-  - addTargetToGroupList: Adds a target entry to the group list using default semantics
+  - [get_sortgroupref_tle](../g/get_sortgroupref_tle.md): Retrieves target entry by sort group reference
+  - [targetIsInSortList](targetIsInSortList.md): Checks if a target is already in the sort list
+  - [addTargetToGroupList](../a/addTargetToGroupList.md): Adds a target entry to the group list using default semantics
   - SortGroupClause: Structure representing sort/group operations
   - EXPR_KIND_DISTINCT_ON: Expression kind constant for DISTINCT ON contexts
 - Called from (representative examples):
-  - transformSelectStmt: Main SELECT statement transformation in analyzer
-  - transformPLAssignStmt: PL/pgSQL assignment statement transformation
+  - [transformSelectStmt](transformSelectStmt.md): Main SELECT statement transformation in analyzer
+  - [transformPLAssignStmt](transformPLAssignStmt.md): PL/pgSQL assignment statement transformation
 
 ## Notes and Other Information
 - Enforces the critical rule that DISTINCT ON expressions must match initial ORDER BY expressions when both clauses are present

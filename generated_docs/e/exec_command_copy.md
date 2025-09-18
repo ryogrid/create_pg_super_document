@@ -21,10 +21,10 @@ This command is essential for data import/export operations in psql, allowing us
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the entire command line using OT_WHOLE_LINE option
-  - do_copy: Performs the actual copy operation
-  - ignore_slash_whole_line: Skips parsing when not in active branch
+  - [do_copy](../d/do_copy.md): Performs the actual copy operation
+  - [ignore_slash_whole_line](../i/ignore_slash_whole_line.md): Skips parsing when not in active branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Uses OT_WHOLE_LINE parsing mode to capture the complete COPY command syntax

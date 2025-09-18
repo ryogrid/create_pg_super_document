@@ -30,10 +30,10 @@ The function assumes all keys match initially and looks for evidence that the pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_get_procinfo
-  - bloom_contains_value
-  - FunctionCall1Coll
-  - DatumGetUInt32
+  - [bloom_get_procinfo](bloom_get_procinfo.md)
+  - [bloom_contains_value](bloom_contains_value.md)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
   - PG_DETOAST_DATUM
   - BloomEqualStrategyNumber
   - PROCNUM_HASH

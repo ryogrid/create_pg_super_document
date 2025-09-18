@@ -23,17 +23,17 @@ The function performs several validation steps: it checks for valid block and of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer: Read and pin the page containing the tuple
-  - ItemPointerGetBlockNumber/ItemPointerGetOffsetNumber: Extract TID components
-  - LockBuffer: Acquire/release buffer locks for safe access
-  - PageGetItemId/PageGetItem: Access page-level tuple data
-  - HeapTupleSatisfiesVisibility: Check tuple visibility against snapshot
-  - PredicateLockTID: Acquire predicate locks for serializable isolation
-  - HeapCheckForSerializableConflictOut: Check for serializable conflicts
+  - [ReadBuffer](../R/ReadBuffer.md): Read and pin the page containing the tuple
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)/ItemPointerGetOffsetNumber: Extract TID components
+  - [LockBuffer](../L/LockBuffer.md): Acquire/release buffer locks for safe access
+  - [PageGetItemId](../P/PageGetItemId.md)/PageGetItem: Access page-level tuple data
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md): Check tuple visibility against snapshot
+  - [PredicateLockTID](../P/PredicateLockTID.md): Acquire predicate locks for serializable isolation
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md): Check for serializable conflicts
 - Called from (representative examples):
-  - heapam_fetch_row_version: Table AM interface implementation
-  - heapam_tuple_lock: Tuple locking implementation
-  - heap_lock_updated_tuple_rec: Recursive tuple locking
+  - [heapam_fetch_row_version](heapam_fetch_row_version.md): Table AM interface implementation
+  - [heapam_tuple_lock](heapam_tuple_lock.md): Tuple locking implementation
+  - [heap_lock_updated_tuple_rec](heap_lock_updated_tuple_rec.md): Recursive tuple locking
 
 ## Notes and Other Information
 - Does not follow HOT chains - fetches only the exact TID specified

@@ -26,9 +26,9 @@ The function ensures proper memory management by cleaning up old results before 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - LexizeExec (at lines 225, 306 in ts_parse.c)
+  - [LexizeExec](../L/LexizeExec.md) (at lines 225, 306 in ts_parse.c)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ts_parse.c compilation unit

@@ -29,25 +29,25 @@ The structure is designed to be passed between various pgoutput functions to mai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext (for memory management)
-  - List (for storing publication information)
+  - [MemoryContext](../M/MemoryContext.md) (for memory management)
+  - [List](../L/List.md) (for storing publication information)
 - Called from (representative examples):
-  - parse_output_parameters
-  - pgoutput_startup
-  - maybe_send_schema
-  - pgoutput_ensure_entry_cxt
-  - pgoutput_row_filter_init
-  - pgoutput_column_list_init
-  - init_tuple_slot
-  - pgoutput_change
-  - pgoutput_truncate
-  - pgoutput_message
-  - pgoutput_origin_filter
-  - pgoutput_stream_start
-  - pgoutput_stream_stop
-  - pgoutput_stream_abort
-  - pgoutput_stream_commit
-  - get_rel_sync_entry
+  - [parse_output_parameters](../p/parse_output_parameters.md)
+  - [pgoutput_startup](../p/pgoutput_startup.md)
+  - [maybe_send_schema](../m/maybe_send_schema.md)
+  - [pgoutput_ensure_entry_cxt](../p/pgoutput_ensure_entry_cxt.md)
+  - [pgoutput_row_filter_init](../p/pgoutput_row_filter_init.md)
+  - [pgoutput_column_list_init](../p/pgoutput_column_list_init.md)
+  - [init_tuple_slot](../i/init_tuple_slot.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [pgoutput_truncate](../p/pgoutput_truncate.md)
+  - [pgoutput_message](../p/pgoutput_message.md)
+  - [pgoutput_origin_filter](../p/pgoutput_origin_filter.md)
+  - [pgoutput_stream_start](../p/pgoutput_stream_start.md)
+  - [pgoutput_stream_stop](../p/pgoutput_stream_stop.md)
+  - [pgoutput_stream_abort](../p/pgoutput_stream_abort.md)
+  - [pgoutput_stream_commit](../p/pgoutput_stream_commit.md)
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's logical replication pgoutput plugin implementation

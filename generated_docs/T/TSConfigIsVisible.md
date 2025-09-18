@@ -17,10 +17,10 @@ TSConfigIsVisible is a simple wrapper function that determines if a text search 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSConfigIsVisibleExt
+  - [TSConfigIsVisibleExt](TSConfigIsVisibleExt.md)
 - Called from (representative examples):
-  - getObjectDescription (in objectaddress.c)
-  - regconfigout (in regproc.c)
+  - [getObjectDescription](../g/getObjectDescription.md) (in objectaddress.c)
+  - [regconfigout](../r/regconfigout.md) (in regproc.c)
 
 ## Notes and Other Information
 - This is a convenience wrapper around TSConfigIsVisibleExt that uses the error-throwing behavior (NULL is_missing parameter)

@@ -21,13 +21,13 @@ The function executes a SQL query to perform the conversion and returns the resu
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (for query formatting)
-  - ExecuteSqlQueryForSingleRow (to execute the conversion query)
-  - pg_strdup (for string duplication)
-  - PQgetvalue (to extract query result)
-  - PQclear (to free query result)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (to execute the conversion query)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
+  - [PQgetvalue](../P/PQgetvalue.md) (to extract query result)
+  - [PQclear](../P/PQclear.md) (to free query result)
 - Called from (representative examples):
-  - dumpTSParser (multiple calls for different parser functions)
-  - dumpTSTemplate (for template functions)
+  - [dumpTSParser](../d/dumpTSParser.md) (multiple calls for different parser functions)
+  - [dumpTSTemplate](../d/dumpTSTemplate.md) (for template functions)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

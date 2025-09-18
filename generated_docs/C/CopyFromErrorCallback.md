@@ -33,9 +33,9 @@ For text format operations, it uses CopyLimitPrintoutLength to ensure error mess
   - CopyFromState (struct type)
   - errcontext (error reporting function)
   - CopyLimitPrintoutLength (utility function for limiting output length)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - CopyFrom (main COPY FROM function at src/backend/commands/copyfrom.c:950)
+  - [CopyFrom](CopyFrom.md) (main COPY FROM function at src/backend/commands/copyfrom.c:950)
 
 ## Notes and Other Information
 - The function is designed to be used with PostgreSQL's error context callback mechanism

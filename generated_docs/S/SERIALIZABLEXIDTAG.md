@@ -19,13 +19,13 @@ SERIALIZABLEXIDTAG is a simple tag structure used as a key in hash tables that t
 - Functions called/Symbols referenced:
   - TransactionId (typedef for uint32 from src/include/c.h)
 - Called from (representative examples):
-  - InitPredicateLocks (initialization of predicate locking system)
-  - RegisterPredicateLockingXid (registering transaction for predicate locking)
-  - ReleaseOneSerializableXact (releasing serializable transaction resources)
-  - CheckForSerializableConflictOut (checking for serialization conflicts)
+  - [InitPredicateLocks](../I/InitPredicateLocks.md) (initialization of predicate locking system)
+  - [RegisterPredicateLockingXid](../R/RegisterPredicateLockingXid.md) (registering transaction for predicate locking)
+  - [ReleaseOneSerializableXact](../R/ReleaseOneSerializableXact.md) (releasing serializable transaction resources)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md) (checking for serialization conflicts)
   - PredicateLockTwoPhaseFinish (two-phase commit predicate lock handling)
   - predicatelock_twophase_recover (recovery of two-phase predicate locks)
-  - SERIALIZABLEXID (related data structure)
+  - [SERIALIZABLEXID](SERIALIZABLEXID.md) (related data structure)
 
 ## Notes and Other Information
 - Used as a hash table key for efficient lookup of serializable transaction information

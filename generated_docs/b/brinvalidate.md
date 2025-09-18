@@ -26,19 +26,19 @@ The function validates the entire operator family associated with the given oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - SearchSysCacheList1
-  - check_amproc_signature
-  - check_amoptsproc_signature
-  - check_amop_signature
-  - identify_opfamily_groups
-  - format_procedure
-  - format_operator
-  - format_type_be
-  - ReleaseCatCacheList
-  - ReleaseSysCache
+  - [check_amproc_signature](../c/check_amproc_signature.md)
+  - [check_amoptsproc_signature](../c/check_amoptsproc_signature.md)
+  - [check_amop_signature](../c/check_amop_signature.md)
+  - [identify_opfamily_groups](../i/identify_opfamily_groups.md)
+  - [format_procedure](../f/format_procedure.md)
+  - [format_operator](../f/format_operator.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - brinhandler
+  - [brinhandler](brinhandler.md)
 
 ## Notes and Other Information
 - Returns  if the operator class passes all validation checks,  otherwise

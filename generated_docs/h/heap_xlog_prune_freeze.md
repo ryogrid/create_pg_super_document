@@ -28,28 +28,28 @@ The function is designed to work with or without full-page images and ensures pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
   - XLogReadBufferForRedoExtended
-  - XLogRecGetBlockData
-  - ResolveRecoveryConflictWithSnapshot
-  - heap_xlog_deserialize_prune_and_freeze
-  - heap_page_prune_execute
-  - heap_execute_freeze_tuple
-  - PageGetItemId
-  - PageGetItem
-  - PageSetLSN
-  - PageGetHeapFreeSpace
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
+  - [heap_xlog_deserialize_prune_and_freeze](heap_xlog_deserialize_prune_and_freeze.md)
+  - [heap_page_prune_execute](heap_page_prune_execute.md)
+  - [heap_execute_freeze_tuple](heap_execute_freeze_tuple.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - XLogRecordPageWithFreeSpace
-  - xl_heap_prune (WAL record structure)
-  - xlhp_freeze_plan
-  - HeapTupleFreeze
+  - [xl_heap_prune](../x/xl_heap_prune.md) (WAL record structure)
+  - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md)
+  - [HeapTupleFreeze](../H/HeapTupleFreeze.md)
   - Various XLHP_* flags
   - BLK_NEEDS_REDO
   - RBM_NORMAL
 - Called from:
-  - heap2_redo
+  - [heap2_redo](heap2_redo.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within heapam.c for WAL replay

@@ -21,24 +21,24 @@ The function allocates memory for a fake relation cache entry and initializes ke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - sprintf
-  - smgropen
+  - [smgropen](../s/smgropen.md)
   - FakeRelCacheEntry
-  - FakeRelCacheEntryData
+  - [FakeRelCacheEntryData](../F/FakeRelCacheEntryData.md)
   - INVALID_PROC_NUMBER
   - RELPERSISTENCE_PERMANENT
 
 - Called from (representative examples):
-  - heap_xlog_visible
-  - heap_xlog_delete
-  - heap_xlog_insert
-  - heap_xlog_multi_insert
-  - heap_xlog_update
-  - heap_xlog_lock
-  - heap_xlog_lock_updated
-  - smgrDoPendingSyncs
-  - smgr_redo
+  - [heap_xlog_visible](../h/heap_xlog_visible.md)
+  - [heap_xlog_delete](../h/heap_xlog_delete.md)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md)
+  - [heap_xlog_multi_insert](../h/heap_xlog_multi_insert.md)
+  - [heap_xlog_update](../h/heap_xlog_update.md)
+  - [heap_xlog_lock](../h/heap_xlog_lock.md)
+  - [heap_xlog_lock_updated](../h/heap_xlog_lock_updated.md)
+  - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md)
+  - [smgr_redo](../s/smgr_redo.md)
 
 ## Notes and Other Information
 - The fake entry must be freed using FreeFakeRelcacheEntry() to prevent memory leaks

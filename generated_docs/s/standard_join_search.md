@@ -28,14 +28,14 @@ The function is designed to be replaceable by plugins via join search hooks, ena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - join_search_one_level: Builds all possible joins at a specific level
-  - generate_partitionwise_join_paths: Creates partition-aware join paths
-  - generate_useful_gather_paths: Creates parallel execution paths with Gather nodes
-  - set_cheapest: Identifies and saves the lowest-cost paths
-  - bms_equal: Bitmap set equality comparison
+  - [join_search_one_level](../j/join_search_one_level.md): Builds all possible joins at a specific level
+  - [generate_partitionwise_join_paths](../g/generate_partitionwise_join_paths.md): Creates partition-aware join paths
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md): Creates parallel execution paths with Gather nodes
+  - [set_cheapest](set_cheapest.md): Identifies and saves the lowest-cost paths
+  - [bms_equal](../b/bms_equal.md): Bitmap set equality comparison
   - pprint: Debug output function (when OPTIMIZER_DEBUG enabled)
 - Called from (representative examples):
-  - make_rel_from_joinlist: When standard join search is selected over GEQO
+  - [make_rel_from_joinlist](../m/make_rel_from_joinlist.md): When standard join search is selected over GEQO
 
 ## Notes and Other Information
 - Cannot be invoked recursively within a single planning problem

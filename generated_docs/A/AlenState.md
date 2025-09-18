@@ -24,12 +24,12 @@ The AlenState structure provides a minimal but efficient state management mechan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
 - Called from (representative examples):
-  - json_array_length
-  - alen_object_start
-  - alen_scalar
-  - alen_array_element_start
+  - [json_array_length](../j/json_array_length.md)
+  - [alen_object_start](../a/alen_object_start.md)
+  - [alen_scalar](../a/alen_scalar.md)
+  - [alen_array_element_start](../a/alen_array_element_start.md)
 
 ## Notes and Other Information
 This structure represents the simplest of the JSON state management structures, containing only the essential components needed for array length counting. The count field is incremented by callback functions during JSON parsing to track array elements. The structure is specifically optimized for the json_array_length function and demonstrates the modular design approach used throughout PostgreSQL JSON processing system, where each operation has its own specialized state structure.

@@ -28,13 +28,13 @@ The function follows a standard pattern: setup eligible triggers, invoke them, c
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerData (struct for trigger context)
-  - EventTriggerCommonSetup (identifies applicable triggers)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_DDLCommandStart (event type constant)
-  - EventTriggerInvoke (executes the triggers)
-  - list_free (memory cleanup)
+  - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
+  - [list_free](../l/list_free.md) (memory cleanup)
   - CommandCounterIncrement (ensures visibility)
 - Called from (representative examples):
-  - ProcessUtilitySlow (main DDL command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main DDL command processing)
 
 ## Notes and Other Information
 - Event triggers are disabled in standalone mode for disaster recovery purposes

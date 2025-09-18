@@ -25,12 +25,12 @@ This design allows nodes to change their execution behavior while maintaining th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecProcNodeFirst (first-time execution wrapper)
+  - [ExecProcNodeFirst](ExecProcNodeFirst.md) (first-time execution wrapper)
   - ExecProcNode (execution procedure field)
 - Called from (representative examples):
-  - ExecInitNode (during plan node initialization)
+  - [ExecInitNode](ExecInitNode.md) (during plan node initialization)
   - ExecHashJoinInitializeDSM (parallel hash join setup)
-  - ExecHashJoinInitializeWorker (parallel worker initialization)
+  - [ExecHashJoinInitializeWorker](ExecHashJoinInitializeWorker.md) (parallel worker initialization)
   - EvalPlanQualSetSlot (EPQ slot management)
 
 ## Notes and Other Information

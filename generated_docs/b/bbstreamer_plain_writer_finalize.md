@@ -18,7 +18,7 @@ The `bbstreamer_plain_writer_finalize` function is the finalization callback for
 ## Dependencies
 - Functions called/Symbols referenced:
   - `fclose` (standard C library function)
-  - `pg_fatal` (PostgreSQL error reporting function)
+  - `[pg_fatal](../p/pg_fatal.md)` (PostgreSQL error reporting function)
 - Called from (representative examples):
   - Referenced as callback in `bbstreamer_plain_writer_ops` vtable
   - Called indirectly through bbstreamer finalization

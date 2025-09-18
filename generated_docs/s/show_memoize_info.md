@@ -35,16 +35,16 @@ The function handles the complexity of memory reporting where peak memory is onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_deparse_context_plan: Sets up context for expression deparsing
-  - deparse_expression: Converts expression nodes back to SQL text
+  - [set_deparse_context_plan](set_deparse_context_plan.md): Sets up context for expression deparsing
+  - [deparse_expression](../d/deparse_expression.md): Converts expression nodes back to SQL text
   - BYTES_TO_KILOBYTES: Converts memory usage from bytes to kilobytes
-  - ExplainPropertyText/ExplainPropertyInteger: Adds properties to structured output
-  - ExplainIndentText: Handles text output indentation
+  - [ExplainPropertyText](../E/ExplainPropertyText.md)/ExplainPropertyInteger: Adds properties to structured output
+  - [ExplainIndentText](../E/ExplainIndentText.md): Handles text output indentation
   - appendStringInfo: Formats and appends text to output buffer
-  - ExplainOpenWorker/ExplainCloseWorker: Manages worker-specific output sections
+  - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker: Manages worker-specific output sections
   - initStringInfo/pfree: String buffer management
 - Called from (representative examples):
-  - ExplainNode: Main EXPLAIN node processing function for memoize nodes
+  - [ExplainNode](../E/ExplainNode.md): Main EXPLAIN node processing function for memoize nodes
 
 ## Notes and Other Information
 - This is a static function used internally within explain.c for memoization reporting

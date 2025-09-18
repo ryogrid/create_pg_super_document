@@ -26,13 +26,13 @@ The function follows a standard pattern in PostgreSQL's plan reference fixing: b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index
-  - fix_windowagg_condition_expr  
-  - indexed_tlist (type)
-  - pfree
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [fix_windowagg_condition_expr](../f/fix_windowagg_condition_expr.md)  
+  - [indexed_tlist](../i/indexed_tlist.md) (type)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - fix_scan_list
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
 
 ## Notes and Other Information
 - This is a static function within the setrefs.c module, part of the internal plan reference fixing machinery

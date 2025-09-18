@@ -28,11 +28,11 @@ This function is critical for the query planner's decision to use index-only sca
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes (get count of key attributes)
-  - index_getprocid (look up operator class procedures)
+  - [index_getprocid](../i/index_getprocid.md) (look up operator class procedures)
   - GIST_FETCH_PROC (fetch function procedure number)
   - GIST_COMPRESS_PROC (compression function procedure number)
 - Called from (representative examples):
-  - gisthandler (index AM handler setup)
+  - [gisthandler](gisthandler.md) (index AM handler setup)
 
 ## Notes and Other Information
 - Returns true if the column can be returned in index-only scans, false otherwise

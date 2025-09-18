@@ -26,12 +26,12 @@ For elements at other nesting levels, no validation is performed as nested struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateRecordsetState (struct type)
+  - [PopulateRecordsetState](../P/PopulateRecordsetState.md) (struct type)
   - JSON_TOKEN_OBJECT_START (token type constant for object start)
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - populate_recordset_worker
+  - [populate_recordset_worker](populate_recordset_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

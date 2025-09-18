@@ -19,12 +19,12 @@ The function performs a magic number check to ensure the plan structure integrit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CachedPlanIsValid
+  - [CachedPlanIsValid](../C/CachedPlanIsValid.md)
   - _SPI_PLAN_MAGIC (for integrity check)
-  - SPIPlanPtr (plan structure type)
+  - [SPIPlanPtr](SPIPlanPtr.md) (plan structure type)
   - CachedPlanSource (individual plan source type)
 - Called from (representative examples):
-  - ri_FetchPreparedPlan
+  - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md)
 
 ## Notes and Other Information
 - The function includes an Assert to verify the plan's magic number, ensuring the plan structure is valid

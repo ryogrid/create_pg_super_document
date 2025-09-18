@@ -25,14 +25,14 @@ The algorithm includes a noted optimization where instead of sorting weights in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortAndUniqItems
-  - find_wordentry
+  - [SortAndUniqItems](../S/SortAndUniqItems.md)
+  - [find_wordentry](../f/find_wordentry.md)
   - POSDATALEN
   - POSDATAPTR
   - wpos
 - Called from (representative examples):
-  - calc_rank
-  - calc_rank_and
+  - [calc_rank](calc_rank.md)
+  - [calc_rank_and](calc_rank_and.md)
   - DEF_NORM_METHOD
 
 ## Notes and Other Information

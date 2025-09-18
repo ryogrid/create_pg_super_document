@@ -25,9 +25,9 @@ The logic inverts the result of `bms_equal` because PostgreSQL's hash table impl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_equal
+  - [bms_equal](bms_equal.md)
 - Called from (examples):
-  - build_join_rel_hash
+  - [build_join_rel_hash](build_join_rel_hash.md)
   - bms_is_empty (header usage)
 
 ## Notes and Other Information

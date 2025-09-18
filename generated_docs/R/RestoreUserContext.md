@@ -23,14 +23,14 @@ The function checks if a GUC nest level was created during the user switch (indi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtEOXact_GUC
-  - SetUserIdAndSecContext
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md)
 - Called from (representative examples):
-  - ExecuteTruncateGuts (tablecmds.c:2065, 2274)
-  - LogicalRepSyncTableStart (tablesync.c:1549)
-  - apply_handle_insert (worker.c:2451)
-  - apply_handle_update (worker.c:2630)
-  - apply_handle_delete (worker.c:2791)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (tablecmds.c:2065, 2274)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md) (tablesync.c:1549)
+  - [apply_handle_insert](../a/apply_handle_insert.md) (worker.c:2451)
+  - [apply_handle_update](../a/apply_handle_update.md) (worker.c:2630)
+  - [apply_handle_delete](../a/apply_handle_delete.md) (worker.c:2791)
 
 ## Notes and Other Information
 - Must be called after every SwitchToUntrustedUser() call to prevent context leaks

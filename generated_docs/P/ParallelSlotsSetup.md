@@ -21,15 +21,15 @@ This function creates a new ParallelSlotArray structure and initializes it with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (allocates zero-initialized memory)
-  - ParallelSlotArray (structure type)
-  - ParallelSlot (slot structure type)
-  - ConnParams (connection parameters type)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
+  - [ParallelSlotArray](ParallelSlotArray.md) (structure type)
+  - [ParallelSlot](ParallelSlot.md) (slot structure type)
+  - [ConnParams](../C/ConnParams.md) (connection parameters type)
 - Called from (representative examples):
-  - main (pg_amcheck)
-  - reindex_one_database (reindexdb)
-  - vacuum_one_database (vacuumdb)
-  - ParallelSlotClearHandler
+  - [main](../m/main.md) (pg_amcheck)
+  - [reindex_one_database](../r/reindex_one_database.md) (reindexdb)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (vacuumdb)
+  - [ParallelSlotClearHandler](ParallelSlotClearHandler.md)
 
 ## Notes and Other Information
 - Returns a pointer to the newly allocated ParallelSlotArray structure

@@ -29,8 +29,8 @@ For AND and OR operations, the arguments are provided as a List that can contain
   - (No direct references from this enum)
 - Called from (representative examples):
   - BoolExpr struct (uses BoolExprType as boolop field)
-  - makeBoolExpr function
-  - isSimpleNode function
+  - [makeBoolExpr](../m/makeBoolExpr.md) function
+  - [isSimpleNode](../i/isSimpleNode.md) function
 
 ## Notes and Other Information
 - Used as the boolop field in BoolExpr structures to specify the Boolean operation type

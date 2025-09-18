@@ -20,7 +20,7 @@ This function provides bytea concatenation functionality by taking two bytea arg
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (to extract bytea arguments)
-  - bytea_catenate (performs the actual concatenation)
+  - [bytea_catenate](bytea_catenate.md) (performs the actual concatenation)
   - PG_RETURN_BYTEA_P (returns the result bytea)
 - Called from (representative examples):
   - No direct callers found in the codebase

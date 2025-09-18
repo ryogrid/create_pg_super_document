@@ -20,11 +20,11 @@ This function removes a cached injection point entry from the local hash table c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search: Performs hash table removal with HASH_REMOVE flag
+  - [hash_search](../h/hash_search.md): Performs hash table removal with HASH_REMOVE flag
   - Assert: Verifies the entry was found and removed successfully
   - PG_USED_FOR_ASSERTS_ONLY: Macro to mark the found variable as used only for assertions
 - Called from (representative examples):
-  - InjectionPointCacheRefresh: Refreshes the cache by removing outdated entries
+  - [InjectionPointCacheRefresh](../I/InjectionPointCacheRefresh.md): Refreshes the cache by removing outdated entries
 
 ## Notes and Other Information
 - The function is static (internal to injection_point.c)

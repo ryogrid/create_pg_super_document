@@ -23,12 +23,12 @@ This structure is typically passed to expression mutator and walker functions th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (planner's main state structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (planner's main state structure)
 - Called from (representative examples):
   - fix_scan_list
-  - fix_scan_expr
-  - fix_scan_expr_mutator
-  - fix_scan_expr_walker
+  - [fix_scan_expr](fix_scan_expr.md)
+  - [fix_scan_expr_mutator](fix_scan_expr_mutator.md)
+  - [fix_scan_expr_walker](fix_scan_expr_walker.md)
 
 ## Notes and Other Information
 - Used specifically for scan-level expression fixing, distinct from join and upper-level contexts

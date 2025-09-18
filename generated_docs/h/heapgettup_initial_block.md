@@ -21,7 +21,7 @@ This function calculates the appropriate initial block number for heap scanning 
   - ScanDirectionIsForward
   - SO_ALLOW_SYNC (flag manipulation)
 - Called from (representative examples):
-  - heap_scan_stream_read_next_serial
+  - [heap_scan_stream_read_next_serial](heap_scan_stream_read_next_serial.md)
 
 ## Notes and Other Information
 - Marked as pg_noinline since it's only called during scan initialization

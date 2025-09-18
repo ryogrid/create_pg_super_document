@@ -23,15 +23,15 @@ The function ensures that objects with column-level privileges or initial privil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - atooid
-  - findTableByOid
-  - printfPQExpBuffer
-  - findObjectByCatalogId
+  - [findTableByOid](../f/findTableByOid.md)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
   - pg_log_warning
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):
-  - main (pg_dump main function)
+  - [main](../m/main.md) (pg_dump main function)
 
 ## Notes and Other Information
 - Only processes pg_init_privs data for PostgreSQL 9.6 and later versions

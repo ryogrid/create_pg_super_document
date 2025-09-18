@@ -23,8 +23,8 @@ The function follows PostgreSQL's function calling convention, taking arguments 
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (argument extraction)
   - PG_RETURN_INT64 (return value handling)  
-  - int8gcd_internal (GCD computation)
-  - pg_mul_s64_overflow (overflow-safe multiplication)
+  - [int8gcd_internal](int8gcd_internal.md) (GCD computation)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (overflow-safe multiplication)
   - PG_INT64_MIN (minimum value constant)
   - ereport/ERROR (error reporting)
 - Called from (representative examples):

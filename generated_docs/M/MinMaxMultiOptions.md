@@ -19,9 +19,9 @@ MinMaxMultiOptions serves as the configuration structure for BRIN minmax-multi i
 ## Dependencies
 - Used by functions:
   - MinMaxMultiGetValuesPerRange
-  - brin_minmax_multi_get_values
-  - brin_minmax_multi_add_value
-  - brin_minmax_multi_options
+  - [brin_minmax_multi_get_values](../b/brin_minmax_multi_get_values.md)
+  - [brin_minmax_multi_add_value](../b/brin_minmax_multi_add_value.md)
+  - [brin_minmax_multi_options](../b/brin_minmax_multi_options.md)
 
 ## Notes and Other Information
 - This structure implements the reloptions (relation options) interface for BRIN minmax-multi indexes

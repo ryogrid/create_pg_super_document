@@ -25,19 +25,19 @@ The function handles complex argument matching scenarios including variadic func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
-  - recomputeNamespacePath
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - SearchSysCacheList1
-  - SysCacheGetAttr
-  - MatchNamedCall
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [MatchNamedCall](../M/MatchNamedCall.md)
   - ReleaseSysCacheList
 - Called from (representative examples):
-  - func_get_detail
-  - LookupFuncNameInternal
-  - regprocin
-  - regprocout
-  - regprocedurein
+  - [func_get_detail](../f/func_get_detail.md)
+  - [LookupFuncNameInternal](../L/LookupFuncNameInternal.md)
+  - [regprocin](../r/regprocin.md)
+  - [regprocout](../r/regprocout.md)
+  - [regprocedurein](../r/regprocedurein.md)
 
 ## Notes and Other Information
 - Returns FuncCandidateList which is a linked list of candidate functions

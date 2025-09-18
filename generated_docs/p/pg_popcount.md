@@ -19,13 +19,13 @@ pg_popcount implements an efficient bit counting algorithm that adapts its strat
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_number_of_ones (lookup table for single byte bit counts)
-  - pg_popcount_optimized (optimized implementation for larger buffers)
+  - [pg_popcount_optimized](pg_popcount_optimized.md) (optimized implementation for larger buffers)
 - Called from (representative examples):
-  - brin_bloom_union (BRIN bloom filter operations)
-  - bloom_prop_bits_set (bloom filter bit counting)
-  - sizebitvec (text search bit vector sizing)
-  - bit_bit_count (bit string bit counting)
-  - bytea_bit_count (bytea bit counting)
+  - [brin_bloom_union](../b/brin_bloom_union.md) (BRIN bloom filter operations)
+  - [bloom_prop_bits_set](../b/bloom_prop_bits_set.md) (bloom filter bit counting)
+  - [sizebitvec](../s/sizebitvec.md) (text search bit vector sizing)
+  - [bit_bit_count](../b/bit_bit_count.md) (bit string bit counting)
+  - [bytea_bit_count](../b/bytea_bit_count.md) (bytea bit counting)
 
 ## Notes and Other Information
 - The function is declared as static inline for performance

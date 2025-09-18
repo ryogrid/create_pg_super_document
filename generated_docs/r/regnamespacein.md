@@ -25,14 +25,14 @@ The conversion process involves parsing qualified names, validating the syntax (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseDashOrOid (parses "-" or numeric OID input)
+  - [parseDashOrOid](../p/parseDashOrOid.md) (parses "-" or numeric OID input)
   - PG_RETURN_OID (returns OID result)
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
-  - stringToQualifiedNameList (parses qualified name syntax)
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md) (parses qualified name syntax)
   - ereturn (soft error return mechanism)
-  - get_namespace_oid (looks up namespace OID by name)
+  - [get_namespace_oid](../g/get_namespace_oid.md) (looks up namespace OID by name)
 - Called from (representative examples):
-  - to_regnamespace (conversion function)
+  - [to_regnamespace](../t/to_regnamespace.md) (conversion function)
 
 ## Notes and Other Information
 - Supports three input formats: namespace names, numeric OIDs, and "-" for unknown

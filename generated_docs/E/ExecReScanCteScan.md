@@ -24,12 +24,12 @@ This dual approach allows multiple CTE scan nodes to efficiently share the same 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - ExecScanReScan
+  - [ExecScanReScan](ExecScanReScan.md)
   - tuplestore_clear
-  - tuplestore_select_read_pointer
-  - tuplestore_rescan
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md)
+  - [tuplestore_rescan](../t/tuplestore_rescan.md)
 - Called from (representative examples):
-  - ExecReScan (general executor rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (general executor rescan dispatcher)
 
 ## Notes and Other Information
 - Multiple CTE nodes may redundantly clear the same tuplestore, which is acceptable and not expensive

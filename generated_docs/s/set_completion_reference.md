@@ -21,7 +21,7 @@ The function uses parse_identifier to handle both qualified (schema.object) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_identifier
+  - [parse_identifier](../p/parse_identifier.md)
 - Called from (representative examples):
   - COMPLETE_WITH_ATTR_LIST
   - COMPLETE_WITH_ENUM_VALUE

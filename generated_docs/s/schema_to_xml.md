@@ -31,9 +31,9 @@ This is the simpler version that does not include XML schema definitions, in con
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
   - text_to_cstring
-  - LookupExplicitNamespace
-  - stringinfo_to_xmltype
-  - schema_to_xml_internal
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [stringinfo_to_xmltype](stringinfo_to_xmltype.md)
+  - [schema_to_xml_internal](schema_to_xml_internal.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function call mechanism)

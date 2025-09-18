@@ -27,11 +27,11 @@ The ForeignTable structure represents a foreign table definition in PostgreSQL, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)
-  - List (PostgreSQL list structure)
-  - DefElem (option definition element)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [DefElem](../D/DefElem.md) (option definition element)
 - Called from (representative examples):
-  - GetForeignTable
-  - GetUserMapping
+  - [GetForeignTable](../G/GetForeignTable.md)
+  - [GetUserMapping](../G/GetUserMapping.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/foreign/foreign.h and represents the final mapping layer in the FDW system

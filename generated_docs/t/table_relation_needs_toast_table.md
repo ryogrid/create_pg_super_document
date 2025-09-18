@@ -21,7 +21,7 @@ Different table access methods may have varying requirements for when TOAST tabl
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_needs_toast_table (table access method function pointer)
 - Called from (representative examples):
-  - needs_toast_table (in src/backend/catalog/toasting.c:426)
+  - [needs_toast_table](../n/needs_toast_table.md) (in src/backend/catalog/toasting.c:426)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam header file for efficient access

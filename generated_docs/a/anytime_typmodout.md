@@ -18,11 +18,11 @@ This static function serves as shared implementation for both  and  functions. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (formats string with precision when typmod >= 0)
-  - pstrdup (duplicates time zone string when typmod < 0)
+  - [psprintf](../p/psprintf.md) (formats string with precision when typmod >= 0)
+  - [pstrdup](../p/pstrdup.md) (duplicates time zone string when typmod < 0)
 - Called from (representative examples):
-  - timetypmodout (src/backend/utils/adt/date.c:1570)
-  - timetztypmodout (src/backend/utils/adt/date.c:2395)
+  - [timetypmodout](../t/timetypmodout.md) (src/backend/utils/adt/date.c:1570)
+  - [timetztypmodout](../t/timetztypmodout.md) (src/backend/utils/adt/date.c:2395)
 
 ## Notes and Other Information
 - This is a static helper function that consolidates common logic for TIME type modifier output formatting

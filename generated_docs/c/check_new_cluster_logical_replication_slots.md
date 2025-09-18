@@ -26,15 +26,15 @@ None - this function takes no parameters and operates on global cluster informat
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_MAJOR_VERSION
-  - count_old_cluster_logical_slots
-  - connectToServer
-  - prep_status
-  - executeQueryOrDie
-  - PQclear
-  - PQfinish
-  - check_ok
+  - [count_old_cluster_logical_slots](count_old_cluster_logical_slots.md)
+  - [connectToServer](connectToServer.md)
+  - [prep_status](../p/prep_status.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [check_ok](check_ok.md)
 - Called from:
-  - check_new_cluster
+  - [check_new_cluster](check_new_cluster.md)
 
 ## Notes and Other Information
 - This is a static function specific to pg_upgrade functionality

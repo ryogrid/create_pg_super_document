@@ -22,10 +22,10 @@ This design pattern allows callers to work with the logical WAL addressing schem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFileName: Constructs the WAL filename from timeline ID, segment number, and segment size
-  - XLogArchiveNotify: Creates the actual .ready notification file
+  - [XLogFileName](XLogFileName.md): Constructs the WAL filename from timeline ID, segment number, and segment size
+  - [XLogArchiveNotify](XLogArchiveNotify.md): Creates the actual .ready notification file
 - Called from (representative examples):
-  - XLogWrite: During WAL writing when segments are completed and ready for archival
+  - [XLogWrite](XLogWrite.md): During WAL writing when segments are completed and ready for archival
 
 ## Notes and Other Information
 - Requires a non-zero timeline ID as indicated by the assertion

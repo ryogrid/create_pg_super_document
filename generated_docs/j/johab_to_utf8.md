@@ -31,7 +31,7 @@ The function follows PostgreSQL's standard conversion function interface, accept
   - PG_GETARG_INT32: Extract integer arguments from function call  
   - PG_GETARG_BOOL: Extract boolean arguments from function call
   - CHECK_ENCODING_CONVERSION_ARGS: Validate source and destination encodings
-  - LocalToUtf: Core conversion function that performs the actual encoding transformation
+  - [LocalToUtf](../L/LocalToUtf.md): Core conversion function that performs the actual encoding transformation
   - PG_RETURN_INT32: Return integer result to PostgreSQL
   - johab_to_unicode_tree: Radix tree structure for JOHAB to Unicode mapping
 - Called from (representative examples):

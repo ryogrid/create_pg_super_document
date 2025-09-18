@@ -20,23 +20,23 @@ typenameTypeId combines the validation guarantees of typenameType with the conve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameType
-  - ReleaseSysCache
+  - [typenameType](typenameType.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - objectNamesToOids
-  - check_object_ownership
-  - DefineAggregate
-  - CreateFunction
-  - CreateCast
-  - CreateTransform
-  - DefineOpClass
-  - DefineOperator
-  - PrepareQuery
-  - DefineRelation
-  - DefineType
-  - AlterEnum
-  - DefineRange
-  - AlterDomainDefault
+  - [objectNamesToOids](../o/objectNamesToOids.md)
+  - [check_object_ownership](../c/check_object_ownership.md)
+  - [DefineAggregate](../D/DefineAggregate.md)
+  - [CreateFunction](../C/CreateFunction.md)
+  - [CreateCast](../C/CreateCast.md)
+  - [CreateTransform](../C/CreateTransform.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [DefineOperator](../D/DefineOperator.md)
+  - [PrepareQuery](../P/PrepareQuery.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [DefineType](../D/DefineType.md)
+  - [AlterEnum](../A/AlterEnum.md)
+  - [DefineRange](../D/DefineRange.md)
+  - [AlterDomainDefault](../A/AlterDomainDefault.md)
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:291-309. This function is the preferred choice when only the type OID is needed from a type name, as it provides the same validation as typenameType but with simpler return handling. Unlike LookupTypeNameOid, this function guarantees the type is fully defined and not just a shell type. The function properly manages system cache resources and is extensively used throughout PostgreSQL's DDL command processing.

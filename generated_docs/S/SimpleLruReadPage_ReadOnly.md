@@ -29,19 +29,19 @@ This approach provides better performance for read-only access patterns while ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock (get bank lock for page)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (get bank lock for page)
   - LWLockAcquire (acquire locks in shared/exclusive modes)
   - LWLockRelease (release bank lock for upgrade)
-  - SlruRecentlyUsed (update LRU information)
-  - pgstat_count_slru_page_hit (update statistics)
-  - SimpleLruReadPage (fallback for exclusive access)
+  - [SlruRecentlyUsed](SlruRecentlyUsed.md) (update LRU information)
+  - [pgstat_count_slru_page_hit](../p/pgstat_count_slru_page_hit.md) (update statistics)
+  - [SimpleLruReadPage](SimpleLruReadPage.md) (fallback for exclusive access)
 - Called from (representative examples):
   - TransactionIdGetStatus
-  - TransactionIdGetCommitTsData
-  - find_multixact_start
-  - SubTransGetParent
-  - asyncQueueReadAllNotifications
-  - SerialGetMinConflictCommitSeqNo
+  - [TransactionIdGetCommitTsData](../T/TransactionIdGetCommitTsData.md)
+  - [find_multixact_start](../f/find_multixact_start.md)
+  - [SubTransGetParent](SubTransGetParent.md)
+  - [asyncQueueReadAllNotifications](../a/asyncQueueReadAllNotifications.md)
+  - [SerialGetMinConflictCommitSeqNo](SerialGetMinConflictCommitSeqNo.md)
 
 ## Notes and Other Information
 - Optimized for read-only access patterns to reduce lock contention

@@ -19,12 +19,12 @@ This function is responsible for properly terminating a frontend copy-out operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_putemptymessage (to send the empty CopyDone message)
+  - [pq_putemptymessage](../p/pq_putemptymessage.md) (to send the empty CopyDone message)
   - PqMsg_CopyDone (message type constant for copy completion)
   - Assert (to verify no unsent data remains)
 - Called from (representative examples):
   - DR_copy (in copyto.c:119)
-  - DoCopyTo (in copyto.c:898)
+  - [DoCopyTo](../D/DoCopyTo.md) (in copyto.c:898)
 
 ## Notes and Other Information
 - The function includes an assertion that ensures the frontend message buffer is empty before sending the done message

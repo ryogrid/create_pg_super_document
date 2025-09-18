@@ -25,11 +25,11 @@ This function takes no parameters and returns a boolean value indicating checksu
   - Assert (assertion check)
 - Called from (representative examples):
   - ReadControlFile
-  - sendFile
+  - [sendFile](../s/sendFile.md)
   - PageIsVerifiedExtended
-  - PageSetChecksumCopy
-  - PageSetChecksumInplace
-  - pg_stat_get_db_checksum_failures
+  - [PageSetChecksumCopy](../P/PageSetChecksumCopy.md)
+  - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
+  - [pg_stat_get_db_checksum_failures](../p/pg_stat_get_db_checksum_failures.md)
   - XLogHintBitIsNeeded
 
 ## Notes and Other Information

@@ -18,8 +18,8 @@ This function provides a testing interface for reading SLRU (Simple Log-structur
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (argument extraction macro)
-  - SimpleLruGetBankLock (lock acquisition for the page bank)
-  - SimpleLruReadPage_ReadOnly (read-only page reading function)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (lock acquisition for the page bank)
+  - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md) (read-only page reading function)
   - LWLockHeldByMe (lock verification assertion)
   - LWLockRelease (lock release)
   - TestSlruCtl (global SLRU control structure)

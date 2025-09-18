@@ -18,13 +18,13 @@ SimpleLruWriteAll is a critical function that performs bulk write operations of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_count_slru_flush
+  - [pgstat_count_slru_flush](../p/pgstat_count_slru_flush.md)
   - SlotGetBankNumber
   - LWLockAcquire/LWLockRelease
-  - SlruInternalWritePage
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
   - CloseTransientFile
-  - SlruReportIOError
-  - fsync_fname
+  - [SlruReportIOError](SlruReportIOError.md)
+  - [fsync_fname](../f/fsync_fname.md)
 - Constants used:
   - SLRU_PAGE_EMPTY
   - SLRU_PAGE_VALID
@@ -34,12 +34,12 @@ SimpleLruWriteAll is a critical function that performs bulk write operations of 
 - Types used:
   - SlruCtl, SlruShared, SlruWriteAllData
 - Called from:
-  - CheckPointCLOG
-  - CheckPointCommitTs
-  - CheckPointMultiXact
-  - CheckPointSUBTRANS
-  - CheckPointPredicate
-  - find_multixact_start
+  - [CheckPointCLOG](../C/CheckPointCLOG.md)
+  - [CheckPointCommitTs](../C/CheckPointCommitTs.md)
+  - [CheckPointMultiXact](../C/CheckPointMultiXact.md)
+  - [CheckPointSUBTRANS](../C/CheckPointSUBTRANS.md)
+  - [CheckPointPredicate](../C/CheckPointPredicate.md)
+  - [find_multixact_start](../f/find_multixact_start.md)
 
 ## Notes and Other Information
 - Uses bank-based locking strategy to minimize lock contention during bulk writes

@@ -19,14 +19,14 @@ The  function generates SQL statements to restore the current state of a sequenc
 ## Dependencies
 - Functions called/Symbols referenced:
   - fmtQualifiedDumpable
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - createPQExpBuffer/resetPQExpBuffer/destroyPQExpBuffer
   - appendStringLiteralAH
-  - createDumpId
-  - ArchiveEntry
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - ngettext
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Generates setval() calls with three parameters: sequence name, last value, and is_called flag

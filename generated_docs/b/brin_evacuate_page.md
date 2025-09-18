@@ -33,23 +33,23 @@ The function uses a retry mechanism when brin_doupdate fails, decrementing the o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to access the page from buffer)
+  - [BufferGetPage](../B/BufferGetPage.md) (to access the page from buffer)
   - BrinPageFlags (to access and verify page flags)
-  - PageGetMaxOffsetNumber (to get the highest item offset)
-  - PageGetItemId (to access item pointers)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (to get the highest item offset)
+  - [PageGetItemId](../P/PageGetItemId.md) (to access item pointers)
   - ItemIdIsUsed (to check if an item pointer is in use)
   - ItemIdGetLength (to get tuple size)
-  - PageGetItem (to access tuple data)
-  - brin_copy_tuple (to create a copy of the tuple)
-  - LockBuffer (for lock management during updates)
-  - brin_doupdate (to relocate the tuple)
-  - UnlockReleaseBuffer (to release the buffer)
+  - [PageGetItem](../P/PageGetItem.md) (to access tuple data)
+  - [brin_copy_tuple](brin_copy_tuple.md) (to create a copy of the tuple)
+  - [LockBuffer](../L/LockBuffer.md) (for lock management during updates)
+  - [brin_doupdate](brin_doupdate.md) (to relocate the tuple)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (to release the buffer)
   - CHECK_FOR_INTERRUPTS (to allow query cancellation)
   - BRIN_IS_REGULAR_PAGE (to check if page is still a regular index page)
   - BRIN_EVACUATE_PAGE (flag constant)
   - BUFFER_LOCK_UNLOCK, BUFFER_LOCK_SHARE (lock type constants)
 - Called from:
-  - revmap_physical_extend (in brin_revmap.c)
+  - [revmap_physical_extend](../r/revmap_physical_extend.md) (in brin_revmap.c)
 
 ## Notes and Other Information
 - The caller must hold a lock on the buffer before calling this function

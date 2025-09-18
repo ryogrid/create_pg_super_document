@@ -71,15 +71,15 @@ JsonTablePlanState is the central execution state structure for PostgreSQL's JSO
 - Functions called/Symbols referenced:
   - JsonTablePlan
   - JsonPath
-  - JsonValueList
-  - JsonValueListIterator
-  - JsonTablePlanRowSource
+  - [JsonValueList](JsonValueList.md)
+  - [JsonValueListIterator](JsonValueListIterator.md)
+  - [JsonTablePlanRowSource](JsonTablePlanRowSource.md)
 - Called from (representative examples):
-  - JsonTableExecContext (contains this as a member)
-  - JsonTableInitPlan
-  - JsonTableResetRowPattern
-  - JsonTablePlanNextRow
-  - JsonTableGetValue
+  - [JsonTableExecContext](JsonTableExecContext.md) (contains this as a member)
+  - [JsonTableInitPlan](JsonTableInitPlan.md)
+  - [JsonTableResetRowPattern](JsonTableResetRowPattern.md)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md)
+  - [JsonTableGetValue](JsonTableGetValue.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's JSON_TABLE execution framework

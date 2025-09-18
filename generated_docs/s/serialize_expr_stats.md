@@ -21,10 +21,10 @@ The function opens the pg_statistic system catalog to get the composite type inf
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, get_rel_type_id, accumArrayResult, heap_form_tuple
-  - construct_array_builtin, construct_array, heap_copy_tuple_as_datum
-  - makeArrayResult, ObjectIdGetDatum, Int16GetDatum, Float4GetDatum
+  - [construct_array_builtin](../c/construct_array_builtin.md), construct_array, heap_copy_tuple_as_datum
+  - [makeArrayResult](../m/makeArrayResult.md), ObjectIdGetDatum, Int16GetDatum, Float4GetDatum
 - Called from (representative examples):
-  - BuildRelationExtStatistics
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
 
 ## Notes and Other Information
 - Uses InvalidOid and InvalidAttrNumber for starelid and staattnum since these are expression statistics, not column statistics

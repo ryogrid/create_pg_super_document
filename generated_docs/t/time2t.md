@@ -26,7 +26,7 @@ The time2t function performs a time-to-offset conversion by calculating the tota
   - USECS_PER_SEC (constant for microseconds per second)
   - Timestamp (return type context)
 - Called from (representative examples):
-  - tm2timestamp (in timestamp.c and ecpg pgtypeslib)
+  - [tm2timestamp](tm2timestamp.md) (in timestamp.c and ecpg pgtypeslib)
 
 ## Notes and Other Information
 This is a static function local to timestamp.c, used internally for timestamp conversion operations. The function performs straightforward arithmetic to convert time components into a microsecond offset, which is the internal representation used by PostgreSQL's timestamp system.

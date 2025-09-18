@@ -18,9 +18,9 @@ This function constructs an empty multirange object by calling the general  func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_multirange
+  - [make_multirange](make_multirange.md)
 - Called from (representative examples):
-  - multirange_intersect
+  - [multirange_intersect](multirange_intersect.md)
   - PG_RETURN_MULTIRANGE_P (macro usage)
 
 ## Notes and Other Information

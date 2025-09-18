@@ -23,8 +23,8 @@ The function follows PostgreSQL's standard function calling convention, taking a
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_JSONB_P`: Extracts JSONB argument from function arguments
-  - `JsonbExtractScalar`: Extracts scalar value from JSONB structure
-  - `cannotCastJsonbValue`: Raises error for invalid type conversions
+  - `[JsonbExtractScalar](../J/JsonbExtractScalar.md)`: Extracts scalar value from JSONB structure
+  - `[cannotCastJsonbValue](../c/cannotCastJsonbValue.md)`: Raises error for invalid type conversions
   - `PG_FREE_IF_COPY`: Frees memory if input was copied
   - `PG_RETURN_BOOL`: Returns boolean value as Datum
 - Called from (representative examples):

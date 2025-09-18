@@ -21,14 +21,14 @@ This function performs archive format detection by examining file signatures, di
 - Functions called/Symbols referenced:
   - pg_log_debug
   - pg_malloc0
-  - _fileExistsInDirectory
-  - isValidTarHeader
+  - [_fileExistsInDirectory](../f/_fileExistsInDirectory.md)
+  - [isValidTarHeader](../i/isValidTarHeader.md)
   - S_ISDIR
   - archDirectory, archCustom, archTar (format constants)
   - TEXT_DUMP_HEADER, TEXT_DUMPALL_HEADER (header constants)
   - PG_BINARY_R, READ_ERROR_EXIT (I/O macros)
 - Called from (representative examples):
-  - _allocAH
+  - [_allocAH](../a/_allocAH.md)
 
 ## Notes and Other Information
 - Static function, only accessible within pg_backup_archiver.c

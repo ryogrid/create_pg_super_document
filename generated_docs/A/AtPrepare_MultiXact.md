@@ -20,12 +20,12 @@ This function is called during the prepare phase of two-phase commit transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - RegisterTwoPhaseRecord
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md)
   - TWOPHASE_RM_MULTIXACT_ID (resource manager constant)
 - Global variables accessed:
   - OldestMemberMXactId[MyProcNumber]
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](../P/PrepareTransaction.md)
 
 ## Notes and Other Information
 - Only called during two-phase commit prepare operations

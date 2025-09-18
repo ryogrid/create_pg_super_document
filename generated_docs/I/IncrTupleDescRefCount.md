@@ -18,10 +18,10 @@ This function safely increments the reference count of a tuple descriptor that i
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerEnlarge
-  - ResourceOwnerRememberTupleDesc
+  - [ResourceOwnerRememberTupleDesc](../R/ResourceOwnerRememberTupleDesc.md)
 - Called from (representative examples):
-  - ExecEvalConvertRowtype
-  - cache_record_field_properties
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)
+  - [cache_record_field_properties](../c/cache_record_field_properties.md)
   - PinTupleDesc (macro)
 
 ## Notes and Other Information

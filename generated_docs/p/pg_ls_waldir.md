@@ -19,7 +19,7 @@ This function returns detailed information about each regular file found in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ls_dir_files (the core implementation that performs the actual directory listing)
+  - [pg_ls_dir_files](pg_ls_dir_files.md) (the core implementation that performs the actual directory listing)
   - XLOGDIR (constant defining the WAL directory path, typically 'pg_wal')
 - Called from (representative examples):
   - No direct references found (likely called through SQL function dispatch)

@@ -29,15 +29,15 @@ The function also supports negation logic for inequality operators by first comp
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION
-  - get_negator
+  - [get_negator](../g/get_negator.md)
   - get_restriction_variable
-  - var_eq_const
-  - var_eq_non_const
+  - [var_eq_const](../v/var_eq_const.md)
+  - [var_eq_non_const](../v/var_eq_non_const.md)
   - ReleaseVariableStats
   - DEFAULT_EQ_SEL (constant)
 - Called from (representative examples):
-  - eqsel
-  - neqsel
+  - [eqsel](eqsel.md)
+  - [neqsel](../n/neqsel.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/selfuncs.c:237-295

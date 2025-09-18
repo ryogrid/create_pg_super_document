@@ -20,14 +20,14 @@ This inline function provides a convenient way to extract a Jsonb pointer from a
   - PG_DETOAST_DATUM
   - Jsonb (type)
 - Called from (representative examples):
-  - ExecEvalJsonIsPredicate
+  - [ExecEvalJsonIsPredicate](../E/ExecEvalJsonIsPredicate.md)
   - datum_to_jsonb_internal
-  - jsonb_subscript_fetch
-  - jsonb_subscript_assign
-  - JsonItemFromDatum
-  - JsonPathExists
-  - JsonPathQuery
-  - JsonPathValue
+  - [jsonb_subscript_fetch](../j/jsonb_subscript_fetch.md)
+  - [jsonb_subscript_assign](../j/jsonb_subscript_assign.md)
+  - [JsonItemFromDatum](../J/JsonItemFromDatum.md)
+  - [JsonPathExists](../J/JsonPathExists.md)
+  - [JsonPathQuery](../J/JsonPathQuery.md)
+  - [JsonPathValue](../J/JsonPathValue.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/utils/jsonb.h, making it efficient for frequent use

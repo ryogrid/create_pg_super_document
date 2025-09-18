@@ -32,14 +32,14 @@ The data parameter represents the value to insert, but only the extra data beyon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree, RBTNode (tree and node structure types)
+  - [RBTree](../R/RBTree.md), RBTNode (tree and node structure types)
   - RBTNIL (sentinel value for null nodes)
   - RBTRED (red color constant)
   - color (node color field)
-  - rbt_copy_data (copies data between nodes)
-  - rbt_insert_fixup (rebalances tree after insertion)
+  - [rbt_copy_data](rbt_copy_data.md) (copies data between nodes)
+  - [rbt_insert_fixup](rbt_insert_fixup.md) (rebalances tree after insertion)
 - Called from (representative examples):
-  - ginInsertBAEntry (in ginbulk.c:166)
+  - [ginInsertBAEntry](../g/ginInsertBAEntry.md) (in ginbulk.c:166)
   - rbt_populate (in test_rbtree.c:138, 150)
 
 ## Notes and Other Information

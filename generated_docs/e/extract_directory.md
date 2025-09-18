@@ -23,12 +23,12 @@ On non-Windows systems, the function also sets the directory permissions to matc
 ## Dependencies
 - Functions called/Symbols referenced:
   - mkdir
-  - should_allow_existing_directory
+  - [should_allow_existing_directory](../s/should_allow_existing_directory.md)
   - chmod (non-Windows only)
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - pg_dir_create_mode (global variable)
 - Called from (representative examples):
-  - bbstreamer_extractor_content
+  - [bbstreamer_extractor_content](../b/bbstreamer_extractor_content.md)
 
 ## Notes and Other Information
 - This is a static function specific to the bbstreamer file extraction implementation

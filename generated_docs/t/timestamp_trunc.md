@@ -30,13 +30,13 @@ The function supports a wide range of time units from microseconds up to millenn
   - PG_GETARG_TEXT_PP
   - PG_GETARG_TIMESTAMP
   - TIMESTAMP_NOT_FINITE
-  - downcase_truncate_identifier
-  - DecodeUnits
-  - timestamp2tm
-  - tm2timestamp
-  - date2isoweek
-  - isoweek2date
-  - format_type_be
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md)
+  - [DecodeUnits](../D/DecodeUnits.md)
+  - [timestamp2tm](timestamp2tm.md)
+  - [tm2timestamp](tm2timestamp.md)
+  - [date2isoweek](../d/date2isoweek.md)
+  - [isoweek2date](../i/isoweek2date.md)
+  - [format_type_be](../f/format_type_be.md)
   - PG_RETURN_TIMESTAMP
   - Various DTK_* constants (DTK_WEEK, DTK_YEAR, DTK_MONTH, etc.)
 - Called from (representative examples):

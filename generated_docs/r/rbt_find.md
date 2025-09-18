@@ -18,8 +18,8 @@ This function performs a binary search in the Red-Black Tree to locate a node th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (structure type)
-  - RBTNode (structure type)
+  - [RBTree](../R/RBTree.md) (structure type)
+  - [RBTNode](../R/RBTNode.md) (structure type)
   - RBTNIL (constant representing tree leaf/null)
   - comparator (function pointer from tree structure for comparing nodes)
 - Called from (representative examples):

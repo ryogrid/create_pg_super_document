@@ -17,11 +17,11 @@ This function provides complete cleanup of a conditional stack by first clearing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_reset (to clear all stack elements)
+  - [conditional_stack_reset](conditional_stack_reset.md) (to clear all stack elements)
   - free (standard library function to deallocate memory)
 - Called from (representative examples):
-  - CheckConditional (in pgbench)
-  - MainLoop (in psql)
+  - [CheckConditional](../C/CheckConditional.md) (in pgbench)
+  - [MainLoop](../M/MainLoop.md) (in psql)
   - PARAMS_ARRAY_SIZE (in psql startup)
 
 ## Notes and Other Information

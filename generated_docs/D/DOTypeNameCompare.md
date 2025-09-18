@@ -27,12 +27,12 @@ The function handles many PostgreSQL object types with specialized sorting logic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgTypeNameCompare (for type name comparisons)
-  - accessMethodNameCompare (for access method comparisons)
+  - [pgTypeNameCompare](../p/pgTypeNameCompare.md) (for type name comparisons)
+  - [accessMethodNameCompare](../a/accessMethodNameCompare.md) (for access method comparisons)
   - strcmp (standard string comparison)
   - oidcmp (OID comparison function)
 - Called from (representative examples):
-  - sortDumpableObjectsByTypeName (via qsort callback)
+  - [sortDumpableObjectsByTypeName](../s/sortDumpableObjectsByTypeName.md) (via qsort callback)
 
 ## Notes and Other Information
 - The function provides extensive object-specific sorting logic for functions, operators, operator classes/families, collations, attribute defaults, policies, rules, triggers, constraints, default ACLs, and publication objects

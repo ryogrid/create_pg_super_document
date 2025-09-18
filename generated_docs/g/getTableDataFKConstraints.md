@@ -17,17 +17,17 @@ This function is specifically designed for data-only dump scenarios where foreig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getDumpableObjects
-  - findTableByOid
-  - addObjectDependency
+  - [getDumpableObjects](getDumpableObjects.md)
+  - [findTableByOid](../f/findTableByOid.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
   - free
 - Types referenced:
   - DumpableObject
-  - ConstraintInfo
-  - TableInfo
+  - [ConstraintInfo](../C/ConstraintInfo.md)
+  - [TableInfo](../T/TableInfo.md)
   - DO_FK_CONSTRAINT
 - Called from:
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Only executed in data-only dumps (not in schema+data dumps)

@@ -31,13 +31,13 @@ This function prepares for setting a NOT NULL constraint on a column during ALTE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName (to check column existence and NOT NULL status)
-  - ATSimpleRecursion (for normal recursion logic)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (to check column existence and NOT NULL status)
+  - [ATSimpleRecursion](ATSimpleRecursion.md) (for normal recursion logic)
   - makeNode (to create new AlterTableCmd)
-  - pstrdup (to duplicate column name string)
+  - [pstrdup](../p/pstrdup.md) (to duplicate column name string)
 - Called from (representative examples):
-  - ATPrepCmd (main ALTER TABLE command preparation)
-  - ATParseTransformCmd (command parsing and transformation)
+  - [ATPrepCmd](ATPrepCmd.md) (main ALTER TABLE command preparation)
+  - [ATParseTransformCmd](ATParseTransformCmd.md) (command parsing and transformation)
 
 ## Notes and Other Information
 - This function is part of the two-phase ALTER TABLE processing (preparation and execution phases)

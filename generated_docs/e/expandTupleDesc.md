@@ -37,17 +37,17 @@ The function is particularly important for handling composite-returning function
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing attribute information)
   - makeVar (creating Var nodes with proper type information)
-  - makeString (creating string nodes for column names)
-  - makeNullConst (creating NULL constants for dropped columns)
+  - [makeString](../m/makeString.md) (creating string nodes for column names)
+  - [makeNullConst](../m/makeNullConst.md) (creating NULL constants for dropped columns)
   - list_nth_cell, lnext (list navigation functions)
-  - pstrdup (string duplication)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
 - Data structures used:
-  - TupleDesc, Form_pg_attribute (tuple descriptor structures)
-  - Alias (alias information)
+  - [TupleDesc](../T/TupleDesc.md), Form_pg_attribute (tuple descriptor structures)
+  - [Alias](../A/Alias.md) (alias information)
   - Var (variable reference nodes)
 - Called from:
-  - expandRelation (for regular table relations)
-  - expandRTE (for composite function returns)
+  - [expandRelation](expandRelation.md) (for regular table relations)
+  - [expandRTE](expandRTE.md) (for composite function returns)
 
 ## Notes and Other Information
 - The function is static, indicating it's an internal helper within parse_relation.c

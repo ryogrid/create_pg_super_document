@@ -17,21 +17,21 @@ This function creates a SearchPathMatcher structure that represents the current 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathMatcher (type)
-  - recomputeNamespacePath
-  - list_copy
+  - [SearchPathMatcher](../S/SearchPathMatcher.md) (type)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_copy](../l/list_copy.md)
   - linitial_oid
   - list_delete_first
-  - palloc0
-  - MemoryContextSwitchTo
+  - [palloc0](../p/palloc0.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - activeSearchPath (global variable)
   - activeCreationNamespace (global variable)
   - myTempNamespace (global variable)
   - activePathGeneration (global variable)
   - PG_CATALOG_NAMESPACE (constant)
 - Called from (representative examples):
-  - CompleteCachedPlan (src/backend/utils/cache/plancache.c:436)
-  - RevalidateCachedQuery (src/backend/utils/cache/plancache.c:787)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md) (src/backend/utils/cache/plancache.c:436)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (src/backend/utils/cache/plancache.c:787)
   - RangeVarGetRelid (src/include/catalog/namespace.h:168)
 
 ## Notes and Other Information

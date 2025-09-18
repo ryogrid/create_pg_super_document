@@ -28,11 +28,11 @@ The extended hashing process:
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P: Extracts TimeTzADT argument from function call
   - PG_GETARG_DATUM: Extracts seed Datum from function call
-  - hashint8extended: Computes extended hash value for 64-bit integer (time component)
-  - hash_uint32_extended: Computes extended hash value for 32-bit unsigned integer (zone component)
+  - [hashint8extended](../h/hashint8extended.md): Computes extended hash value for 64-bit integer (time component)
+  - [hash_uint32_extended](../h/hash_uint32_extended.md): Computes extended hash value for 32-bit unsigned integer (zone component)
   - DirectFunctionCall2: PostgreSQL function call mechanism for two-argument functions
-  - DatumGetUInt64: Extracts uint64 value from Datum
-  - DatumGetInt64: Extracts int64 value from Datum
+  - [DatumGetUInt64](../D/DatumGetUInt64.md): Extracts uint64 value from Datum
+  - [DatumGetInt64](../D/DatumGetInt64.md): Extracts int64 value from Datum
   - Int64GetDatumFast: Converts int64 to Datum efficiently
   - PG_RETURN_UINT64: Returns uint64 result to PostgreSQL function call framework
 - Data types used:

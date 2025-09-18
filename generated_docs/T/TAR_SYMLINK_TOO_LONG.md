@@ -20,7 +20,7 @@ This is an enumeration constant with no parameters or member variables.
 ## Dependencies
 - Functions called/Symbols referenced: None (enumeration constant)
 - Used by (representative examples):
-  - _tarWriteHeader (src/backend/backup/basebackup.c:2051)
+  - [_tarWriteHeader](../t/_tarWriteHeader.md) (src/backend/backup/basebackup.c:2051)
   - tarCreateHeader (src/port/tar.c:121)
 
 ## Notes and Other Information

@@ -29,19 +29,19 @@ The function handles cases where EPQ wasn't actually started but tuple tables ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecResetTupleTable
-  - ExecEndNode
-  - ExecCloseResultRelations
-  - FreeExecutorState
+  - [ExecResetTupleTable](ExecResetTupleTable.md)
+  - [ExecEndNode](ExecEndNode.md)
+  - [ExecCloseResultRelations](ExecCloseResultRelations.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
 
 - Called from (representative examples):
-  - EvalPlanQualSetPlan
-  - ExecLockRows
-  - ExecEndLockRows
-  - ExecEndModifyTable
-  - apply_handle_update_internal
-  - apply_handle_delete_internal
-  - apply_handle_tuple_routing
+  - [EvalPlanQualSetPlan](EvalPlanQualSetPlan.md)
+  - [ExecLockRows](ExecLockRows.md)
+  - [ExecEndLockRows](ExecEndLockRows.md)
+  - [ExecEndModifyTable](ExecEndModifyTable.md)
+  - [apply_handle_update_internal](../a/apply_handle_update_internal.md)
+  - [apply_handle_delete_internal](../a/apply_handle_delete_internal.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
   - EvalPlanQualSetSlot
 
 ## Notes and Other Information

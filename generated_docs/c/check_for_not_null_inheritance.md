@@ -25,15 +25,15 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status
-  - connectToServer
-  - executeQueryOrDie
+  - [prep_status](../p/prep_status.md)
+  - [connectToServer](connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - fopen_priv
-  - PQfinish
-  - pg_log
-  - check_ok
+  - [PQfinish](../P/PQfinish.md)
+  - [pg_log](../p/pg_log.md)
+  - [check_ok](check_ok.md)
 - Called from:
-  - check_and_dump_old_cluster
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md)
 
 ## Notes and Other Information
 - This is a static function specific to pg_upgrade functionality

@@ -27,14 +27,14 @@ The function modifies the input string in place by allocating a new string with 
   - get_home_path (for getting current user's home directory)
   - getpwnam (POSIX function to get user information)
   - strlcpy (safe string copy function)
-  - psprintf (PostgreSQL string formatting function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL string formatting function)
   - free (memory deallocation)
 - Called from (representative examples):
-  - exec_command_edit (for \e command file paths)
-  - exec_command_include (for \i command file paths)  
-  - exec_command_out (for \o command file paths)
-  - parse_slash_copy (for COPY command file paths)
-  - process_psqlrc (for .psqlrc file paths)
+  - [exec_command_edit](exec_command_edit.md) (for \e command file paths)
+  - [exec_command_include](exec_command_include.md) (for \i command file paths)  
+  - [exec_command_out](exec_command_out.md) (for \o command file paths)
+  - [parse_slash_copy](../p/parse_slash_copy.md) (for COPY command file paths)
+  - [process_psqlrc](../p/process_psqlrc.md) (for .psqlrc file paths)
 
 ## Notes and Other Information
 - This function is disabled on WIN32 platforms due to different file path conventions

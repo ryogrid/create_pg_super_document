@@ -22,10 +22,10 @@ The function maintains the same semantics as its underlying function: duplicate 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_sp_item_to_pathtarget
+  - [add_sp_item_to_pathtarget](add_sp_item_to_pathtarget.md)
   - lfirst (via foreach macro)
 - Called from (representative examples):
-  - split_pathtarget_at_srfs
+  - [split_pathtarget_at_srfs](../s/split_pathtarget_at_srfs.md)
 
 ## Notes and Other Information
 - This is a static function internal to tlist.c, designed for batch operations during split pathtarget processing

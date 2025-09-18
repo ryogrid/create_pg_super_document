@@ -31,12 +31,12 @@ The function updates the `start_address` pointer to point immediately after the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - PointerGetDatum (converts pointer to Datum)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
   - Assert (assertion macro for debugging)
 - Called from (representative examples):
   - RestoreParamExecParams (in parallel execution parameter restoration)
-  - RestoreParamList (in parameter list restoration)
+  - [RestoreParamList](../R/RestoreParamList.md) (in parameter list restoration)
 
 ## Notes and Other Information
 - The function assumes the serialized data was created by `datumSerialize` and follows the same format

@@ -20,18 +20,18 @@ The function also handles the coordination with the outer plan (typically a bitm
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (macro to get outer plan)
-  - table_rescan
-  - tbm_end_iterate
-  - tbm_end_shared_iterate  
-  - tbm_free
+  - [table_rescan](../t/table_rescan.md)
+  - [tbm_end_iterate](../t/tbm_end_iterate.md)
+  - [tbm_end_shared_iterate](../t/tbm_end_shared_iterate.md)  
+  - [tbm_free](../t/tbm_free.md)
   - ReleaseBuffer
-  - ExecScanReScan
-  - ExecReScan
+  - [ExecScanReScan](ExecScanReScan.md)
+  - [ExecReScan](ExecReScan.md)
 - Data types referenced:
-  - BitmapHeapScanState
-  - PlanState
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md)
+  - [PlanState](../P/PlanState.md)
 - Called from:
-  - ExecReScan (src/backend/executor/execAmi.c:193)
+  - [ExecReScan](ExecReScan.md) (src/backend/executor/execAmi.c:193)
 - Referenced in headers:
   - src/include/executor/nodeBitmapHeapscan.h:22
 

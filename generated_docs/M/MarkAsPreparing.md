@@ -23,12 +23,12 @@ MarkAsPreparing is a core function in PostgreSQL's two-phase commit protocol tha
 - Functions called/Symbols referenced:
   - GlobalTransaction
   - GIDSIZE
-  - AtProcExit_Twophase
-  - before_shmem_exit
+  - [AtProcExit_Twophase](../A/AtProcExit_Twophase.md)
+  - [before_shmem_exit](../b/before_shmem_exit.md)
   - ERRCODE_DUPLICATE_OBJECT
-  - MarkAsPreparingGuts
+  - [MarkAsPreparingGuts](MarkAsPreparingGuts.md)
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](../P/PrepareTransaction.md)
 
 ## Notes and Other Information
 - Requires max_prepared_xacts to be set to a non-zero value to function

@@ -32,13 +32,13 @@ The function includes platform-specific handling for EXEC_BACKEND builds, allowi
   - shmget
   - shmat
   - shmctl
-  - on_shmem_exit
-  - IpcMemoryDelete
-  - IpcMemoryDetach
-  - AddToDataDirLockFile
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [IpcMemoryDelete](IpcMemoryDelete.md)
+  - [IpcMemoryDetach](IpcMemoryDetach.md)
+  - [AddToDataDirLockFile](../A/AddToDataDirLockFile.md)
   - ereport/elog (error reporting)
 - Called from (representative examples):
-  - PGSharedMemoryCreate
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_shmem.c file

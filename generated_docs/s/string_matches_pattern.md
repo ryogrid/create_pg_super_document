@@ -19,10 +19,10 @@ This function implements a simplified pattern matching algorithm that mimics the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - string_matches_pattern (recursive self-call)
+  - [string_matches_pattern](string_matches_pattern.md) (recursive self-call)
 - Called from (representative examples):
-  - load_resultmap
-  - string_matches_pattern (recursive)
+  - [load_resultmap](../l/load_resultmap.md)
+  - [string_matches_pattern](string_matches_pattern.md) (recursive)
 
 ## Notes and Other Information
 - Function is marked static (internal to pg_regress.c)

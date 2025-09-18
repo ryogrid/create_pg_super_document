@@ -29,15 +29,15 @@ The function generates three consecutive bbstreamer_content calls to properly re
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - bbstreamer_content
+  - [bbstreamer_content](bbstreamer_content.md)
   - bbstreamer_member (struct type)
   - pg_file_create_mode (constant)
   - MAXPGPATH (constant)
   - BBSTREAMER_MEMBER_* constants
 - Called from (representative examples):
-  - bbstreamer_recovery_injector_content
-  - ReceiveArchiveStream
-  - ReceiveTarFile
+  - [bbstreamer_recovery_injector_content](bbstreamer_recovery_injector_content.md)
+  - [ReceiveArchiveStream](../R/ReceiveArchiveStream.md)
+  - [ReceiveTarFile](../R/ReceiveTarFile.md)
 
 ## Notes and Other Information
 - Public function used by multiple components in pg_basebackup

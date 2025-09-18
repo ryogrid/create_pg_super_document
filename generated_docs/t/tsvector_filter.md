@@ -25,8 +25,8 @@ The function builds a bitmask from the input weight array where each weight char
   - PG_GETARG_ARRAYTYPE_P: Extract array from function arguments  
   - ARRPTR: Get pointer to WordEntry array in tsvector
   - STRPTR: Get pointer to string data in tsvector
-  - deconstruct_array_builtin: Decompose input weight array
-  - DatumGetChar: Convert Datum to char
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md): Decompose input weight array
+  - [DatumGetChar](../D/DatumGetChar.md): Convert Datum to char
   - _POSVECPTR: Get pointer to position vector for a word entry
   - WEP_GETWEIGHT: Extract weight from a word entry position
   - SHORTALIGN: Align memory addresses

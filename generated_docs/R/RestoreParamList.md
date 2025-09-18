@@ -21,12 +21,12 @@ The resulting ParamListInfo is allocated in the current memory context and conta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (return type)
-  - makeParamList (to create the parameter list structure)
+  - [ParamListInfo](../P/ParamListInfo.md) (return type)
+  - [makeParamList](../m/makeParamList.md) (to create the parameter list structure)
   - ParamExternData (structure type for individual parameters)
-  - datumRestore (to deserialize individual datum values)
+  - [datumRestore](../d/datumRestore.md) (to deserialize individual datum values)
 - Called from (representative examples):
-  - ExecParallelGetQueryDesc (for parallel query execution in worker processes)
+  - [ExecParallelGetQueryDesc](../E/ExecParallelGetQueryDesc.md) (for parallel query execution in worker processes)
 
 ## Notes and Other Information
 - Creates a static copy without dynamic parameter hooks

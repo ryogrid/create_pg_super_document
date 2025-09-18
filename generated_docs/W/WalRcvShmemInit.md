@@ -17,16 +17,16 @@ This function is responsible for setting up the shared memory area used by the W
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData
-  - ShmemInitStruct
-  - WalRcvShmemSize
+  - [WalRcvData](WalRcvData.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [WalRcvShmemSize](WalRcvShmemSize.md)
   - MemSet
   - WALRCV_STOPPED
-  - ConditionVariableInit
+  - [ConditionVariableInit](../C/ConditionVariableInit.md)
   - SpinLockInit
-  - pg_atomic_init_u64
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/walreceiverfuncs.c:54-74

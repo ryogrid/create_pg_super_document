@@ -25,16 +25,16 @@ The function returns NULL when all entries have been consumed, indicating the en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildAccumulator (data structure)
+  - [BuildAccumulator](../B/BuildAccumulator.md) (data structure)
   - GinNullCategory (enum/type)
-  - GinEntryAccumulator (internal entry structure)
-  - rbt_iterate (red-black tree iterator function)
+  - [GinEntryAccumulator](../G/GinEntryAccumulator.md) (internal entry structure)
+  - [rbt_iterate](../r/rbt_iterate.md) (red-black tree iterator function)
   - qsort (standard library sorting function)
-  - qsortCompareItemPointers (comparison function for sorting)
+  - [qsortCompareItemPointers](../q/qsortCompareItemPointers.md) (comparison function for sorting)
 - Called from:
-  - ginInsertCleanup (in ginfast.c)
-  - ginBuildCallback (in gininsert.c)
-  - ginbuild (in gininsert.c)
+  - [ginInsertCleanup](ginInsertCleanup.md) (in ginfast.c)
+  - [ginBuildCallback](ginBuildCallback.md) (in gininsert.c)
+  - [ginbuild](ginbuild.md) (in gininsert.c)
 
 ## Notes and Other Information
 - Must be preceded by a call to ginBeginBAScan to initialize the tree iterator

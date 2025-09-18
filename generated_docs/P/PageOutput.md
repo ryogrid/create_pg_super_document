@@ -20,18 +20,18 @@ This function evaluates whether output should be sent through a pager program ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableOpt (structure type)
-  - winsize (system structure for terminal dimensions)  
+  - [printTableOpt](../p/printTableOpt.md) (structure type)
+  - [winsize](../w/winsize.md) (system structure for terminal dimensions)  
   - DEFAULT_PAGER (fallback pager program)
-  - disable_sigpipe_trap (disable SIGPIPE signal handling)
+  - [disable_sigpipe_trap](../d/disable_sigpipe_trap.md) (disable SIGPIPE signal handling)
   - popen (open pipe to pager process)
-  - restore_sigpipe_trap (restore SIGPIPE signal handling)
+  - [restore_sigpipe_trap](../r/restore_sigpipe_trap.md) (restore SIGPIPE signal handling)
 - Called from (representative examples):
-  - exec_command_sf_sv (src/bin/psql/command.c:2567)
-  - ExecQueryAndProcessResults (src/bin/psql/common.c:1668)
-  - usage, slashUsage, helpVariables (various help functions)
-  - print_aligned_text (src/fe_utils/print.c:888)
-  - IsPagerNeeded (src/fe_utils/print.c:3427)
+  - [exec_command_sf_sv](../e/exec_command_sf_sv.md) (src/bin/psql/command.c:2567)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1668)
+  - [usage](../u/usage.md), slashUsage, helpVariables (various help functions)
+  - [print_aligned_text](../p/print_aligned_text.md) (src/fe_utils/print.c:888)
+  - [IsPagerNeeded](../I/IsPagerNeeded.md) (src/fe_utils/print.c:3427)
 
 ## Notes and Other Information
 - Uses TIOCGWINSZ ioctl to get terminal window size when available

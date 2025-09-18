@@ -22,19 +22,19 @@ The function is typically used in partitioned table scenarios where you need to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList (to get list of indexes on the partition)
-  - SearchSysCache1 (to look up index information in pg_class)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md) (to get list of indexes on the partition)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (to look up index information in pg_class)
   - HeapTupleIsValid (to validate system cache results)
   - GETSTRUCT (to extract struct from heap tuple)
-  - ReleaseSysCache (to release system cache entry)
-  - get_partition_parent (to check if index is child of specified parent)
-  - list_free (to free the index list)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (to release system cache entry)
+  - [get_partition_parent](../g/get_partition_parent.md) (to check if index is child of specified parent)
+  - [list_free](../l/list_free.md) (to free the index list)
   - Form_pg_class (struct type for pg_class tuples)
 
 - Called from (representative examples):
-  - addFkRecurseReferenced
-  - CloneFkReferenced
-  - refuseDupeIndexAttach
+  - [addFkRecurseReferenced](../a/addFkRecurseReferenced.md)
+  - [CloneFkReferenced](../C/CloneFkReferenced.md)
+  - [refuseDupeIndexAttach](../r/refuseDupeIndexAttach.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching partition index is found

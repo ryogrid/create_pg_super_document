@@ -28,16 +28,16 @@ The matching process ignores implicit casts on existing target list expressions,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr
-  - strip_implicit_coercions
-  - equal
-  - transformTargetEntry
+  - [transformExpr](../t/transformExpr.md)
+  - [strip_implicit_coercions](../s/strip_implicit_coercions.md)
+  - [equal](../e/equal.md)
+  - [transformTargetEntry](../t/transformTargetEntry.md)
   - lappend
-  - ParseExprKind
+  - [ParseExprKind](../P/ParseExprKind.md)
 - Called from (representative examples):
-  - findTargetlistEntrySQL92
-  - transformGroupClauseExpr
-  - transformSortClause
+  - [findTargetlistEntrySQL92](findTargetlistEntrySQL92.md)
+  - [transformGroupClauseExpr](../t/transformGroupClauseExpr.md)
+  - [transformSortClause](../t/transformSortClause.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c for internal parser use

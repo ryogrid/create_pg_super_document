@@ -24,13 +24,13 @@ Importantly, there is no deregistration API - once a callback is registered, it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextCallback (structure type)
+  - [MemoryContextCallback](MemoryContextCallback.md) (structure type)
   - MemoryContextIsValid
 - Called from (representative examples):
-  - pgoutput_startup
-  - make_expanded_record_from_typeid
-  - InitDomainConstraintRef
-  - PLy_exec_function
+  - [pgoutput_startup](../p/pgoutput_startup.md)
+  - [make_expanded_record_from_typeid](../m/make_expanded_record_from_typeid.md)
+  - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md)
+  - [PLy_exec_function](../P/PLy_exec_function.md)
 
 ## Notes and Other Information
 - Callbacks are executed in reverse order of registration (LIFO - Last In, First Out)

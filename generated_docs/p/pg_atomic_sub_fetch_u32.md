@@ -25,14 +25,14 @@ The function serves as a high-level wrapper around the platform-specific impleme
 - Functions called/Symbols referenced:
   - AssertPointerAlignment
   - Assert
-  - pg_atomic_sub_fetch_u32_impl
-  - pg_atomic_uint32 (type)
+  - [pg_atomic_sub_fetch_u32_impl](pg_atomic_sub_fetch_u32_impl.md)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type)
 - Called from (representative examples):
-  - compute_parallel_delay
-  - parallel_vacuum_process_safe_indexes
-  - parallel_vacuum_process_unsafe_indexes
-  - tbm_free_shared_area
-  - pa_decr_and_wait_stream_block
+  - [compute_parallel_delay](../c/compute_parallel_delay.md)
+  - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md)
+  - [parallel_vacuum_process_unsafe_indexes](parallel_vacuum_process_unsafe_indexes.md)
+  - [tbm_free_shared_area](../t/tbm_free_shared_area.md)
+  - [pa_decr_and_wait_stream_block](pa_decr_and_wait_stream_block.md)
   - LWLockRelease
   - pgstat_drop_entry_internal
 

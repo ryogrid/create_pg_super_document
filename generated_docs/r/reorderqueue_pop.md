@@ -25,13 +25,13 @@ The function is responsible for memory management of the ReorderTuple structure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_remove_first
-  - pfree
-  - DatumGetPointer
+  - [pfree](../p/pfree.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - ReorderTuple (struct)
-  - IndexScanState (struct)
+  - [IndexScanState](../I/IndexScanState.md) (struct)
 - Called from (representative examples):
-  - IndexNextWithReorder
-  - ExecReScanIndexScan
+  - [IndexNextWithReorder](../I/IndexNextWithReorder.md)
+  - [ExecReScanIndexScan](../E/ExecReScanIndexScan.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's KNN index scan implementation for ordered result retrieval

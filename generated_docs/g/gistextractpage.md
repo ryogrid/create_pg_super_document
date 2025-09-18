@@ -20,15 +20,15 @@ This function performs a complete extraction of all index tuples from a GiST pag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
-  - palloc
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [palloc](../p/palloc.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - FirstOffsetNumber
   - OffsetNumberNext
 - Called from (representative examples):
-  - gistplacetopage
-  - gist_indexsortbuild_levelstate_flush
+  - [gistplacetopage](gistplacetopage.md)
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md)
 
 ## Notes and Other Information
 The returned array contains pointers to tuples that remain within the original page buffer, so the tuples are only valid as long as the page buffer remains pinned and unmodified. This function is commonly used during page reorganization operations, page splits, and bulk loading where all tuples on a page need to be processed collectively. The caller is responsible for freeing the allocated array (but not the individual tuples, as they remain in the page). The array indexing starts from 0, with itvec[0] corresponding to the tuple at FirstOffsetNumber.

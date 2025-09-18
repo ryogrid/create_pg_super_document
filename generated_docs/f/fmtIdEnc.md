@@ -33,18 +33,18 @@ The function uses a shared buffer from getLocalPQExpBuffer(), so the returned st
 - Functions called/Symbols referenced:
   - getLocalPQExpBuffer (for temporary buffer allocation)
   - ScanKeywordLookup (for keyword validation)
-  - appendPQExpBufferStr/appendPQExpBufferChar (for buffer operations)
-  - pg_encoding_mblen (for multibyte character length)
-  - pg_encoding_verifymbchar (for multibyte character validation)
-  - pg_encoding_set_invalid (for invalid character replacement)
-  - enlargePQExpBuffer (for buffer expansion)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)/appendPQExpBufferChar (for buffer operations)
+  - [pg_encoding_mblen](../p/pg_encoding_mblen.md) (for multibyte character length)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md) (for multibyte character validation)
+  - [pg_encoding_set_invalid](../p/pg_encoding_set_invalid.md) (for invalid character replacement)
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md) (for buffer expansion)
   - IS_HIGHBIT_SET (macro for multibyte detection)
 - Called from (representative examples):
-  - fmtId (string_utils.c:250)
-  - fmtQualifiedIdEnc (string_utils.c:271, 273)
-  - appendPsqlMetaConnect (string_utils.c:795, 802)
-  - main functions in dropdb.c, dropuser.c
-  - gen_reindex_command (reindexdb.c:528, 569)
+  - [fmtId](fmtId.md) (string_utils.c:250)
+  - [fmtQualifiedIdEnc](fmtQualifiedIdEnc.md) (string_utils.c:271, 273)
+  - [appendPsqlMetaConnect](../a/appendPsqlMetaConnect.md) (string_utils.c:795, 802)
+  - [main](../m/main.md) functions in dropdb.c, dropuser.c
+  - [gen_reindex_command](../g/gen_reindex_command.md) (reindexdb.c:528, 569)
 
 ## Notes and Other Information
 - Returns pointer to shared buffer data - not thread-safe and not reentrant

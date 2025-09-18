@@ -33,14 +33,14 @@ The function performs parameter change detection via chgParam and automatically 
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow prevention)
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
-  - ExecReScan (parameter change handling)
+  - [ExecReScan](../E/ExecReScan.md) (parameter change handling)
   - nodeTag (node type identification)
-  - MultiExecHash, MultiExecBitmapIndexScan, MultiExecBitmapAnd, MultiExecBitmapOr (type-specific execution functions)
+  - [MultiExecHash](MultiExecHash.md), MultiExecBitmapIndexScan, MultiExecBitmapAnd, MultiExecBitmapOr (type-specific execution functions)
 - Called from (representative examples):
-  - MultiExecBitmapAnd (for child bitmap operations)
-  - BitmapHeapNext (for bitmap heap scan setup)
-  - MultiExecBitmapOr (for child bitmap operations)
-  - ExecHashJoinImpl (for hash table construction)
+  - [MultiExecBitmapAnd](MultiExecBitmapAnd.md) (for child bitmap operations)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (for bitmap heap scan setup)
+  - [MultiExecBitmapOr](MultiExecBitmapOr.md) (for child bitmap operations)
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md) (for hash table construction)
 
 ## Notes and Other Information
 - Returns a Node pointer rather than TupleTableSlot like regular execution functions

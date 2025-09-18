@@ -25,7 +25,7 @@ WIN866 (also known as CP866) is a DOS Cyrillic codepage that was widely used in 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_ENCODING_CONVERSION_ARGS
-  - mic2latin_with_table
+  - [mic2latin_with_table](mic2latin_with_table.md)
   - PG_GETARG_CSTRING
   - PG_GETARG_INT32
   - PG_GETARG_BOOL

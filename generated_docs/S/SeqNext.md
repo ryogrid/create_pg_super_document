@@ -17,13 +17,13 @@ SeqNext implements the fundamental tuple retrieval logic for sequential scans in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_beginscan
-  - table_scan_getnextslot
-  - SeqScanState
-  - TableScanDesc
+  - [table_beginscan](../t/table_beginscan.md)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
+  - [SeqScanState](SeqScanState.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
   - ScanDirection
 - Called from (representative examples):
-  - ExecSeqScan
+  - [ExecSeqScan](../E/ExecSeqScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeSeqscan.c

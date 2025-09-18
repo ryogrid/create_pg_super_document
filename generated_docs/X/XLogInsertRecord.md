@@ -21,16 +21,16 @@ XLogInsertRecord is a low-level routine that inserts an XLOG record represented 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WALInsertLockAcquire
-  - WALInsertLockAcquireExclusive
-  - ReserveXLogInsertLocation
-  - ReserveXLogSwitch
-  - CopyXLogRecordToWAL
-  - XLogInsertAllowed
-  - MarkCurrentTransactionIdLoggedIfAny
-  - XLogFlush
+  - [WALInsertLockAcquire](../W/WALInsertLockAcquire.md)
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)
+  - [ReserveXLogInsertLocation](../R/ReserveXLogInsertLocation.md)
+  - [ReserveXLogSwitch](../R/ReserveXLogSwitch.md)
+  - [CopyXLogRecordToWAL](../C/CopyXLogRecordToWAL.md)
+  - [XLogInsertAllowed](XLogInsertAllowed.md)
+  - [MarkCurrentTransactionIdLoggedIfAny](../M/MarkCurrentTransactionIdLoggedIfAny.md)
+  - [XLogFlush](XLogFlush.md)
 - Called from (representative examples):
-  - XLogInsert (from xloginsert.c)
+  - [XLogInsert](XLogInsert.md) (from xloginsert.c)
 
 ## Notes and Other Information
 - Implements the basic WAL rule "write the log before the data" by returning an LSN that must be flushed before affected data pages can be written

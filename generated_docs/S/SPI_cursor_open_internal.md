@@ -22,18 +22,18 @@ The function performs extensive validation including checking that the plan cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_is_cursor_plan (validates plan is cursor-compatible)
+  - [SPI_is_cursor_plan](SPI_is_cursor_plan.md) (validates plan is cursor-compatible)
   - CreateNewPortal/CreatePortal (creates the portal)
-  - GetCachedPlan (retrieves cached execution plan)
-  - PortalDefineQuery (associates query with portal)
-  - PortalStart (begins portal execution)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (retrieves cached execution plan)
+  - [PortalDefineQuery](../P/PortalDefineQuery.md) (associates query with portal)
+  - [PortalStart](../P/PortalStart.md) (begins portal execution)
   - GetActiveSnapshot/GetTransactionSnapshot (manages snapshots)
   - _SPI_begin_call/_SPI_end_call (SPI stack management)
 - Called from (representative examples):
-  - SPI_cursor_open
-  - SPI_cursor_open_with_args
-  - SPI_cursor_open_with_paramlist
-  - SPI_cursor_parse_open
+  - [SPI_cursor_open](SPI_cursor_open.md)
+  - [SPI_cursor_open_with_args](SPI_cursor_open_with_args.md)
+  - [SPI_cursor_open_with_paramlist](SPI_cursor_open_with_paramlist.md)
+  - [SPI_cursor_parse_open](SPI_cursor_parse_open.md)
 
 ## Notes and Other Information
 - This is a static function internal to spi.c and not part of the public SPI API

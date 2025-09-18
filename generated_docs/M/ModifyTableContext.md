@@ -24,18 +24,18 @@ The context structure encapsulates the main execution states, tuple slots for da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ModifyTableState
-  - EPQState  
+  - [ModifyTableState](ModifyTableState.md)
+  - [EPQState](../E/EPQState.md)  
   - TM_FailureData
 - Called from (representative examples):
-  - ExecInsert
-  - ExecUpdate
-  - ExecDelete
-  - ExecMerge
-  - ExecUpdateAct
-  - ExecDeleteAct
-  - ExecCrossPartitionUpdate
-  - ExecOnConflictUpdate
+  - [ExecInsert](../E/ExecInsert.md)
+  - [ExecUpdate](../E/ExecUpdate.md)
+  - [ExecDelete](../E/ExecDelete.md)
+  - [ExecMerge](../E/ExecMerge.md)
+  - [ExecUpdateAct](../E/ExecUpdateAct.md)
+  - [ExecDeleteAct](../E/ExecDeleteAct.md)
+  - [ExecCrossPartitionUpdate](../E/ExecCrossPartitionUpdate.md)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md)
 
 ## Notes and Other Information
 - This context structure was introduced to consolidate the numerous parameters that were previously passed individually to ModifyTable helper functions

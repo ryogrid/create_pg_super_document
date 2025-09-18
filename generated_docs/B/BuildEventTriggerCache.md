@@ -21,15 +21,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset, CreateCacheMemoryContext, AllocSetContextCreate
-  - CacheRegisterSyscacheCallback, InvalidateEventCacheCallback
-  - hash_create, hash_search
-  - relation_open, index_open, systable_beginscan_ordered, systable_getnext_ordered, systable_endscan_ordered
-  - index_close, relation_close
-  - heap_getattr, DecodeTextArrayToBitmapset
-  - palloc0, lappend, list_make1
+  - [MemoryContextReset](../M/MemoryContextReset.md), CreateCacheMemoryContext, AllocSetContextCreate
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md), InvalidateEventCacheCallback
+  - [hash_create](../h/hash_create.md), hash_search
+  - [relation_open](../r/relation_open.md), index_open, systable_beginscan_ordered, systable_getnext_ordered, systable_endscan_ordered
+  - [index_close](../i/index_close.md), relation_close
+  - [heap_getattr](../h/heap_getattr.md), DecodeTextArrayToBitmapset
+  - [palloc0](../p/palloc0.md), lappend, list_make1
 - Called from (representative examples):
-  - EventCacheLookup (src/backend/utils/cache/evtcache.c:68)
+  - [EventCacheLookup](../E/EventCacheLookup.md) (src/backend/utils/cache/evtcache.c:68)
 
 ## Notes and Other Information
 - Creates a hash table with EventTriggerEvent as key and EventTriggerCacheEntry as value

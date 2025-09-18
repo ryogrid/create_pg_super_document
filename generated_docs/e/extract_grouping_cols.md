@@ -21,15 +21,15 @@ The result column numbers (resnos) are essential for execution plan nodes to ide
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (to determine array size)
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - lfirst (for list iteration)
-  - get_sortgroupclause_tle (to find corresponding TargetEntry)
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (to find corresponding TargetEntry)
   - SortGroupClause (structure type)
-  - TargetEntry (structure type)
+  - [TargetEntry](../T/TargetEntry.md) (structure type)
   - AttrNumber (type for column numbers)
 - Called from (representative examples):
-  - create_group_plan (src/backend/optimizer/plan/createplan.c:2262)
-  - create_agg_plan (src/backend/optimizer/plan/createplan.c:2330)
+  - [create_group_plan](../c/create_group_plan.md) (src/backend/optimizer/plan/createplan.c:2262)
+  - [create_agg_plan](../c/create_agg_plan.md) (src/backend/optimizer/plan/createplan.c:2330)
 
 ## Notes and Other Information
 - The returned array is allocated with palloc() and becomes the caller's responsibility to manage

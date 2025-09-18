@@ -20,10 +20,10 @@ SessionBackupState manages the backup status at the session level, working in pa
 - Functions called/Symbols referenced:
   - None (enum type definition)
 - Called from (representative examples):
-  - do_pg_backup_start (src/backend/access/transam/xlog.c:9116)
-  - pg_backup_start (src/backend/access/transam/xlogfuncs.c:61)
-  - SendBaseBackup (src/backend/backup/basebackup.c:992)
-  - get_backup_status function (src/include/access/xlog.h:296)
+  - [do_pg_backup_start](../d/do_pg_backup_start.md) (src/backend/access/transam/xlog.c:9116)
+  - [pg_backup_start](../p/pg_backup_start.md) (src/backend/access/transam/xlogfuncs.c:61)
+  - [SendBaseBackup](SendBaseBackup.md) (src/backend/backup/basebackup.c:992)
+  - [get_backup_status](../g/get_backup_status.md) function (src/include/access/xlog.h:296)
 
 ## Notes and Other Information
 - Prevents multiple concurrent base backups within a single session

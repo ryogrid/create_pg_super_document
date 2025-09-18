@@ -27,20 +27,20 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_INTERRUPTS
-  - AbortStrongLockAcquire
+  - [AbortStrongLockAcquire](../A/AbortStrongLockAcquire.md)
   - RESUME_INTERRUPTS
   - disable_timeouts
   - LockHashPartitionLock
   - LWLockAcquire
-  - dlist_node_is_detached
-  - RemoveFromWaitQueue
-  - GrantAwaitedLock
+  - [dlist_node_is_detached](../d/dlist_node_is_detached.md)
+  - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md)
+  - [GrantAwaitedLock](../G/GrantAwaitedLock.md)
   - LWLockRelease
 - Called from (representative examples):
-  - AbortTransaction
-  - AbortSubTransaction
-  - ProcReleaseLocks
-  - ProcessRecoveryConflictInterrupt
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)
+  - [ProcReleaseLocks](../P/ProcReleaseLocks.md)
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
   - ProcessInterrupts
 
 ## Notes and Other Information

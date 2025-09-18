@@ -290,12 +290,12 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (for allocating statistics structure)
-  - gistvacuumscan (performs the actual scanning and deletion work)
-  - IndexBulkDeleteResult (return type and statistics structure)
-  - IndexVacuumInfo (parameter structure)
+  - [palloc0](../p/palloc0.md) (for allocating statistics structure)
+  - [gistvacuumscan](gistvacuumscan.md) (performs the actual scanning and deletion work)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (return type and statistics structure)
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md) (parameter structure)
 - Called from (representative examples):
-  - gisthandler (GiST access method handler)
+  - [gisthandler](gisthandler.md) (GiST access method handler)
 
 ## Notes and Other Information
 - The function allocates a new IndexBulkDeleteResult structure only if none is provided (stats == NULL)

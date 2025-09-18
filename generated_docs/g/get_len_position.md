@@ -31,7 +31,7 @@ This is specifically designed for length histogram bins where values represent r
 - Functions called/Symbols referenced:
   - isinf
 - Called from (representative examples):
-  - calc_length_hist_frac
+  - [calc_length_hist_frac](../c/calc_length_hist_frac.md)
 
 ## Notes and Other Information
 - Returns 0.5 as a fallback when the value is infinite but bounds are finite (defensive programming)

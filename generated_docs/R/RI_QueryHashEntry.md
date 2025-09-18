@@ -18,12 +18,12 @@ RI_QueryHashEntry represents an entry in the referential integrity query plan ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RI_QueryKey
-  - SPIPlanPtr
+  - [RI_QueryKey](RI_QueryKey.md)
+  - [SPIPlanPtr](../S/SPIPlanPtr.md)
 - Called from (representative examples):
-  - ri_InitHashTables
-  - ri_FetchPreparedPlan
-  - ri_HashPreparedPlan
+  - [ri_InitHashTables](../r/ri_InitHashTables.md)
+  - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md)
+  - [ri_HashPreparedPlan](../r/ri_HashPreparedPlan.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's query plan caching mechanism for referential integrity operations. The hash table using these entries is initialized by ri_InitHashTables and is used throughout the referential integrity system to store and retrieve prepared plans for different types of constraint checking operations. The SPIPlanPtr allows the system to execute the cached plans directly without re-parsing or re-planning the SQL statements, providing significant performance benefits for applications with frequent foreign key constraint operations.

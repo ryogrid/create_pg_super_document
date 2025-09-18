@@ -19,18 +19,18 @@ This static function parses a list of type name arguments and converts them to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName (type)
+  - [TypeName](../T/TypeName.md) (type)
   - linitial
-  - typenameTypeId
+  - [typenameTypeId](../t/typenameTypeId.md)
   - list_length
   - lsecond
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - DefineOpClass
-  - AlterOpFamilyAdd
-  - AlterOpFamilyDrop
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
+  - [AlterOpFamilyDrop](../A/AlterOpFamilyDrop.md)
 
 ## Notes and Other Information
 - This function is specifically designed for ALTER operator family commands

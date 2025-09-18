@@ -25,11 +25,11 @@ When a shell type exists, the function ensures that if the I/O function needs to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency
-  - addObjectDependency
+  - [removeObjectDependency](removeObjectDependency.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
   - DUMP_COMPONENT_DEFINITION
 - Called from (representative examples):
-  - repairDependencyLoop
+  - [repairDependencyLoop](repairDependencyLoop.md)
 
 ## Notes and Other Information
 - Specifically handles type-function circular dependencies in pg_dump

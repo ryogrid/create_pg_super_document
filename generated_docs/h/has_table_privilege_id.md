@@ -28,9 +28,9 @@ The function workflow:
 - Functions called/Symbols referenced:
   - PG_GETARG_OID - to extract OID argument
   - PG_GETARG_TEXT_PP - to extract text argument
-  - GetUserId - retrieves current session user ID
-  - convert_table_priv_string - converts privilege string to AclMode  
-  - pg_class_aclcheck_ext - performs ACL check with missing table detection
+  - [GetUserId](../G/GetUserId.md) - retrieves current session user ID
+  - [convert_table_priv_string](../c/convert_table_priv_string.md) - converts privilege string to AclMode  
+  - [pg_class_aclcheck_ext](../p/pg_class_aclcheck_ext.md) - performs ACL check with missing table detection
   - PG_RETURN_NULL - returns NULL for missing tables
   - PG_RETURN_BOOL - returns boolean result for existing tables
 - Called from (representative examples):

@@ -18,13 +18,13 @@ This function implements the conversion from ISO 8601 week date format to Julian
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j (converts Gregorian date to Julian day number)
+  - [date2j](../d/date2j.md) (converts Gregorian date to Julian day number)
   - j2day (converts Julian day to day-of-week number)
 - Called from (representative examples):
-  - do_to_timestamp (in formatting.c:4908)
-  - isoweek2date (in timestamp.c:5138)
-  - isoweekdate2date (in timestamp.c:5153)
-  - date2isoyearday (in timestamp.c:5281)
+  - [do_to_timestamp](../d/do_to_timestamp.md) (in formatting.c:4908)
+  - [isoweek2date](isoweek2date.md) (in timestamp.c:5138)
+  - [isoweekdate2date](isoweekdate2date.md) (in timestamp.c:5153)
+  - [date2isoyearday](../d/date2isoyearday.md) (in timestamp.c:5281)
   - timestamptz_cmp_internal (referenced in timestamp.h:138)
 
 ## Notes and Other Information

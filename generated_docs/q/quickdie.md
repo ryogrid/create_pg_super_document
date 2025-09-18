@@ -35,12 +35,12 @@ The function deliberately avoids normal cleanup procedures (proc_exit, atexit ca
   - SIG_SETMASK (signal mask operation)
   - HOLD_INTERRUPTS (interrupt prevention macro)
   - DestRemote, DestNone (output destination constants)
-  - GetQuitSignalReason (function to determine quit reason)
+  - [GetQuitSignalReason](../G/GetQuitSignalReason.md) (function to determine quit reason)
   - PMQUIT_NOT_SENT, PMQUIT_FOR_CRASH, PMQUIT_FOR_STOP (quit reason constants)
   - WARNING_CLIENT_ONLY (error reporting level)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - PostgresMain (in src/backend/tcop/postgres.c:4285) - registered as signal handler
+  - [PostgresMain](../P/PostgresMain.md) (in src/backend/tcop/postgres.c:4285) - registered as signal handler
 
 ## Notes and Other Information
 - This is an async-signal-safe function designed to work reliably in signal context

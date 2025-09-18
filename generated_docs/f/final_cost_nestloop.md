@@ -35,19 +35,19 @@ The function handles complex scenarios like indexed join qualifications where un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_parallel_divisor
-  - clamp_row_est
-  - has_indexed_join_quals
-  - cost_qual_eval
+  - [get_parallel_divisor](../g/get_parallel_divisor.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [has_indexed_join_quals](../h/has_indexed_join_quals.md)
+  - [cost_qual_eval](../c/cost_qual_eval.md)
   - NestPath
-  - JoinCostWorkspace
-  - JoinPathExtraData
+  - [JoinCostWorkspace](../J/JoinCostWorkspace.md)
+  - [JoinPathExtraData](../J/JoinPathExtraData.md)
   - QualCost
   - Cost
   - JOIN_SEMI
   - JOIN_ANTI
 - Called from (representative examples):
-  - create_nestloop_path
+  - [create_nestloop_path](../c/create_nestloop_path.md)
 
 ## Notes and Other Information
 - This is the second phase of the two-phase nested loop costing process

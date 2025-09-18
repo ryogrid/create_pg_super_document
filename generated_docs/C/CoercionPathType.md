@@ -31,12 +31,12 @@ CoercionPathType represents the different strategies PostgreSQL can use to conve
   - Referenced in type coercion logic throughout the parser
 
 - Called from (representative examples):
-  - find_coercion_pathway (src/backend/parser/parse_coerce.c:3159)
-  - coerce_type (src/backend/parser/parse_coerce.c:162)
-  - can_coerce_type (src/backend/parser/parse_coerce.c:567)
-  - build_coercion_expression (src/backend/parser/parse_coerce.c:840)
-  - ATAddForeignKeyConstraint (src/backend/commands/tablecmds.c:9923)
-  - func_get_detail (src/backend/parser/parse_func.c:1501)
+  - [find_coercion_pathway](../f/find_coercion_pathway.md) (src/backend/parser/parse_coerce.c:3159)
+  - [coerce_type](../c/coerce_type.md) (src/backend/parser/parse_coerce.c:162)
+  - [can_coerce_type](../c/can_coerce_type.md) (src/backend/parser/parse_coerce.c:567)
+  - [build_coercion_expression](../b/build_coercion_expression.md) (src/backend/parser/parse_coerce.c:840)
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md) (src/backend/commands/tablecmds.c:9923)
+  - [func_get_detail](../f/func_get_detail.md) (src/backend/parser/parse_func.c:1501)
 
 ## Notes and Other Information
 - The enum values are ordered to facilitate comparison operations in coercion context checking

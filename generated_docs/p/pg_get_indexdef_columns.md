@@ -21,9 +21,9 @@ The function processes the pretty formatting flag to determine output formatting
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PRETTY_FLAGS (macro for converting boolean to formatting flags)
-  - pg_get_indexdef_worker (core worker function that performs the actual index definition extraction)
+  - [pg_get_indexdef_worker](pg_get_indexdef_worker.md) (core worker function that performs the actual index definition extraction)
 - Called from (representative examples):
-  - BuildIndexValueDescription (in src/backend/access/index/genam.c)
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md) (in src/backend/access/index/genam.c)
   - Used via RULE_INDEXDEF_KEYS_ONLY constant (in src/include/utils/ruleutils.h)
 
 ## Notes and Other Information

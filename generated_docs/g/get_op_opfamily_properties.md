@@ -22,21 +22,21 @@ This function provides a comprehensive lookup of an operator's properties within
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache3 (system cache lookup function)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup function)
   - HeapTupleIsValid (checks if tuple is valid)
   - GETSTRUCT (extracts structure from heap tuple)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - elog (error logging function)
   - Form_pg_amop (structure type for pg_amop catalog)
   - AMOP_ORDER (constant for ordering operator type)
   - AMOP_SEARCH (constant for search operator type)
-  - CharGetDatum (datum conversion function)
+  - [CharGetDatum](../C/CharGetDatum.md) (datum conversion function)
 - Called from (representative examples):
-  - ExecInitExprRec (src/backend/executor/execExpr.c:2055)
-  - ExecIndexBuildScanKeys (src/backend/executor/nodeIndexscan.c:1224, 1342, 1465)
-  - MJExamineQuals (src/backend/executor/nodeMergejoin.c:224)
-  - expand_indexqual_rowcompare (src/backend/optimizer/path/indxpath.c:2833, 2894)
-  - gen_prune_steps_from_opexps (src/backend/partitioning/partprune.c:1425)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (src/backend/executor/execExpr.c:2055)
+  - [ExecIndexBuildScanKeys](../E/ExecIndexBuildScanKeys.md) (src/backend/executor/nodeIndexscan.c:1224, 1342, 1465)
+  - [MJExamineQuals](../M/MJExamineQuals.md) (src/backend/executor/nodeMergejoin.c:224)
+  - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md) (src/backend/optimizer/path/indxpath.c:2833, 2894)
+  - [gen_prune_steps_from_opexps](gen_prune_steps_from_opexps.md) (src/backend/partitioning/partprune.c:1425)
 
 ## Notes and Other Information
 - This function assumes the operator is already known to be in the family and will ERROR if not found

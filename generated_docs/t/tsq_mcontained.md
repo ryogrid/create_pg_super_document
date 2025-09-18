@@ -22,7 +22,7 @@ This function implements the <@ (contained by) operator for TSQuery objects. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (PostgreSQL utility to call another function directly)
-  - tsq_mcontains (the actual containment implementation with arguments swapped)
+  - [tsq_mcontains](tsq_mcontains.md) (the actual containment implementation with arguments swapped)
   - PG_RETURN_DATUM (PostgreSQL macro to return generic result)
   - PG_GETARG_DATUM (PostgreSQL macro to extract generic arguments)
 - Types referenced:

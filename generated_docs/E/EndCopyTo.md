@@ -19,13 +19,13 @@ EndCopyTo is responsible for the orderly shutdown of a COPY TO operation by clea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecutorFinish
-  - ExecutorEnd
-  - FreeQueryDesc
+  - [ExecutorFinish](ExecutorFinish.md)
+  - [ExecutorEnd](ExecutorEnd.md)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
   - PopActiveSnapshot
-  - EndCopy
+  - [EndCopy](EndCopy.md)
 - Called from (representative examples):
-  - DoCopy
+  - [DoCopy](../D/DoCopy.md)
   - test_copy_to_callback
 
 ## Notes and Other Information

@@ -19,27 +19,27 @@ The get_namespace_name function retrieves the name of a namespace (schema) from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract structure from heap tuple)
-  - pstrdup (string duplication with palloc)
-  - ReleaseSysCache (cache reference cleanup)
+  - [pstrdup](../p/pstrdup.md) (string duplication with palloc)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache reference cleanup)
   - Form_pg_namespace (structure type for pg_namespace catalog)
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - heap_create
-  - reindex_index
-  - RangeVarGetAndCheckCreationNamespace
-  - getObjectDescription
-  - DefineAggregate
-  - do_analyze_rel
-  - DefineCollation
-  - CreateFunction
-  - DefineIndex
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [heap_create](../h/heap_create.md)
+  - [reindex_index](../r/reindex_index.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [getObjectDescription](getObjectDescription.md)
+  - [DefineAggregate](../D/DefineAggregate.md)
+  - [do_analyze_rel](../d/do_analyze_rel.md)
+  - [DefineCollation](../D/DefineCollation.md)
+  - [CreateFunction](../C/CreateFunction.md)
+  - [DefineIndex](../D/DefineIndex.md)
   - SPI_getnspname
-  - current_schema
-  - regprocout
-  - get_namespace_name_or_temp
+  - [current_schema](../c/current_schema.md)
+  - [regprocout](../r/regprocout.md)
+  - [get_namespace_name_or_temp](get_namespace_name_or_temp.md)
 
 ## Notes and Other Information
 - Returns a palloc'd copy of the namespace name string, which must be freed by the caller

@@ -23,8 +23,8 @@ pgwin32_connect is a sophisticated wrapper around the Windows WSAConnect() funct
 - Functions called/Symbols referenced:
   - WSAConnect (Windows socket API)
   - WSAGetLastError (Windows socket API)
-  - TranslateSocketError
-  - pgwin32_waitforsinglesocket
+  - [TranslateSocketError](../T/TranslateSocketError.md)
+  - [pgwin32_waitforsinglesocket](pgwin32_waitforsinglesocket.md)
 - Called from (representative examples):
   - No direct references found in the indexed codebase
 

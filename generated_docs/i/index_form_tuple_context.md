@@ -31,12 +31,12 @@ The function is designed to be memory-leak safe and avoid external table access 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - detoast_external_attr
-  - heap_compute_data_size
-  - heap_fill_tuple
-  - toast_compress_datum
-  - IndexInfoFindDataOffset
-  - MemoryContextAllocZero
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md)
+  - [heap_fill_tuple](../h/heap_fill_tuple.md)
+  - [toast_compress_datum](../t/toast_compress_datum.md)
+  - [IndexInfoFindDataOffset](../I/IndexInfoFindDataOffset.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
 - Constants used:
   - INDEX_MAX_KEYS
   - INDEX_NULL_MASK
@@ -45,8 +45,8 @@ The function is designed to be memory-leak safe and avoid external table access 
   - TOAST_INDEX_TARGET
   - TOAST_INDEX_HACK (compilation flag)
 - Called from:
-  - index_form_tuple (src/backend/access/common/indextuple.c:48)
-  - tuplesort_putindextuplevalues (src/backend/utils/sort/tuplesortvariants.c:762)
+  - [index_form_tuple](index_form_tuple.md) (src/backend/access/common/indextuple.c:48)
+  - [tuplesort_putindextuplevalues](../t/tuplesort_putindextuplevalues.md) (src/backend/utils/sort/tuplesortvariants.c:762)
 
 ## Notes and Other Information
 - Located in src/backend/access/common/indextuple.c:65-240

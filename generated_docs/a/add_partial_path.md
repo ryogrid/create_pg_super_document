@@ -27,21 +27,21 @@ The function implements a dominance-based pruning algorithm similar to , but sim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_pathkeys
+  - [compare_pathkeys](../c/compare_pathkeys.md)
   - foreach_delete_current
   - foreach_current_index
-  - list_insert_nth
+  - [list_insert_nth](../l/list_insert_nth.md)
   - PathKeysComparison (enum)
   - PATHKEYS_DIFFERENT, PATHKEYS_BETTER1, PATHKEYS_BETTER2 (constants)
   - STD_FUZZ_FACTOR (constant)
 
 - Called from (representative examples):
-  - create_plain_partial_paths
-  - build_index_paths
-  - try_partial_nestloop_path
-  - try_partial_mergejoin_path
-  - try_partial_hashjoin_path
-  - create_partial_grouping_paths
+  - [create_plain_partial_paths](../c/create_plain_partial_paths.md)
+  - [build_index_paths](../b/build_index_paths.md)
+  - [try_partial_nestloop_path](../t/try_partial_nestloop_path.md)
+  - [try_partial_mergejoin_path](../t/try_partial_mergejoin_path.md)
+  - [try_partial_hashjoin_path](../t/try_partial_hashjoin_path.md)
+  - [create_partial_grouping_paths](../c/create_partial_grouping_paths.md)
 
 ## Notes and Other Information
 - The function assumes that GatherPaths are not created until all partial paths for a relation are complete

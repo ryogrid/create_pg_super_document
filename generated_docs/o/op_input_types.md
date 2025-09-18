@@ -19,19 +19,19 @@ This function looks up an operator in the pg_operator system catalog using its O
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_operator
 - Called from (representative examples):
-  - CheckIndexCompatible
-  - typeDepNeeded
-  - process_equivalence
-  - reconsider_outer_join_clause
-  - initialize_mergeclause_eclasses
-  - ri_HashCompareOp
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
+  - [typeDepNeeded](../t/typeDepNeeded.md)
+  - [process_equivalence](../p/process_equivalence.md)
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md)
+  - [initialize_mergeclause_eclasses](../i/initialize_mergeclause_eclasses.md)
+  - [ri_HashCompareOp](../r/ri_HashCompareOp.md)
 
 ## Notes and Other Information
 - The function will raise an ERROR if the operator OID is not found in the system catalog

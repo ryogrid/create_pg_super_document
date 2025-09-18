@@ -24,9 +24,9 @@ The function uses a static buffer to store the result, so consecutive calls will
   - snprintf
 - Called from (representative examples):
   - scram_state
-  - read_attr_value
-  - read_any_attr
-  - read_client_first_message
+  - [read_attr_value](../r/read_attr_value.md)
+  - [read_any_attr](../r/read_any_attr.md)
+  - [read_client_first_message](../r/read_client_first_message.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within auth-scram.c

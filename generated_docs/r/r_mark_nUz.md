@@ -21,10 +21,10 @@ The function follows a two-step validation process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony: Validates Turkish vowel harmony rules
-  - find_among_b: Performs backward pattern matching from array a_17 (4 patterns)
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md): Validates Turkish vowel harmony rules
+  - [find_among_b](../f/find_among_b.md): Performs backward pattern matching from array a_17 (4 patterns)
 - Called from:
-  - r_stem_nominal_verb_suffixes: Part of the Turkish nominal and verb suffix stemming process
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md): Part of the Turkish nominal and verb suffix stemming process
 
 ## Notes and Other Information
 - This function is part of the Turkish language-specific stemming rules

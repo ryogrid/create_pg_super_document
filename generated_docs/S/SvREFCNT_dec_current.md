@@ -20,11 +20,11 @@ This function serves as a convenience wrapper around Perl's SvREFCNT_dec macro. 
   - dTHX (Perl macro for setting up interpreter context)
   - SvREFCNT_dec (Perl macro for decrementing reference count)
 - Called from (representative examples):
-  - plperl_inline_handler
-  - plperl_func_handler
-  - plperl_trigger_handler
-  - plperl_event_trigger_handler
-  - free_plperl_function
+  - [plperl_inline_handler](../p/plperl_inline_handler.md)
+  - [plperl_func_handler](../p/plperl_func_handler.md)
+  - [plperl_trigger_handler](../p/plperl_trigger_handler.md)
+  - [plperl_event_trigger_handler](../p/plperl_event_trigger_handler.md)
+  - [free_plperl_function](../f/free_plperl_function.md)
 
 ## Notes and Other Information
 - This function is particularly useful in PL/Perl where code frequently needs to manage Perl scalar reference counts

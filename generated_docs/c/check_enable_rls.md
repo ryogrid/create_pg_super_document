@@ -29,18 +29,18 @@ The function considers several factors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_bypassrls_privilege
-  - object_ownercheck
-  - InNoForceRLSOperation
-  - get_rel_name
+  - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [InNoForceRLSOperation](../I/InNoForceRLSOperation.md)
+  - [get_rel_name](../g/get_rel_name.md)
   - Form_pg_class
   - FirstNormalObjectId
 - Called from (representative examples):
-  - row_security_active
-  - row_security_active_name
-  - get_row_security_policies
-  - DoCopy
-  - ExecBuildSlotValueDescription
+  - [row_security_active](../r/row_security_active.md)
+  - [row_security_active_name](../r/row_security_active_name.md)
+  - [get_row_security_policies](../g/get_row_security_policies.md)
+  - [DoCopy](../D/DoCopy.md)
+  - [ExecBuildSlotValueDescription](../E/ExecBuildSlotValueDescription.md)
 
 ## Notes and Other Information
 - The function handles checking permissions as another role via checkAsUser parameter, useful for views and security definer functions

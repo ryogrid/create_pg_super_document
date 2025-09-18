@@ -20,17 +20,17 @@ The operation runs in O(1) constant time and is implemented as an inline functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_check (for list integrity validation)
+  - [slist_check](slist_check.md) (for list integrity validation)
 - Data types used:
-  - slist_head (const)
-  - slist_node (const)
+  - [slist_head](slist_head.md) (const)
+  - [slist_node](slist_node.md) (const)
 - Called from (representative examples):
-  - slist_next_node (src/include/lib/ilist.h:1056)
+  - [slist_next_node](slist_next_node.md) (src/include/lib/ilist.h:1056)
 
 ## Notes and Other Information
 - This is an inline function for maximum performance in list operations
 - The function uses const qualifiers for both parameters, indicating it does not modify the list
-- List integrity is validated through slist_check() before checking the next pointer
+- [List](../L/List.md) integrity is validated through slist_check() before checking the next pointer
 - Returns true if the node has a following node, false if it's the last node in the list
 - Part of PostgreSQL's intrusive list implementation that provides safe list traversal
 - The function assumes both head and node pointers are valid (non-NULL)

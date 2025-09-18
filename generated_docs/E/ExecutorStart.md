@@ -22,16 +22,16 @@ An important memory management aspect is that the CurrentMemoryContext when this
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_query_id (for query statistics reporting)
-  - standard_ExecutorStart (default implementation when no hook is present)
+  - [pgstat_report_query_id](../p/pgstat_report_query_id.md) (for query statistics reporting)
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md) (default implementation when no hook is present)
   - QueryDesc (parameter structure)
 - Called from (representative examples):
-  - BeginCopyTo (src/backend/commands/copyto.c:569)
-  - ExecCreateTableAs (src/backend/commands/createas.c:321)
-  - ExplainOnePlan (src/backend/commands/explain.c:688)
-  - ProcessQuery (src/backend/tcop/pquery.c:155)
-  - PortalStart (src/backend/tcop/pquery.c:517)
-  - _SPI_pquery (src/backend/executor/spi.c:2930)
+  - [BeginCopyTo](../B/BeginCopyTo.md) (src/backend/commands/copyto.c:569)
+  - [ExecCreateTableAs](ExecCreateTableAs.md) (src/backend/commands/createas.c:321)
+  - [ExplainOnePlan](ExplainOnePlan.md) (src/backend/commands/explain.c:688)
+  - [ProcessQuery](../P/ProcessQuery.md) (src/backend/tcop/pquery.c:155)
+  - [PortalStart](../P/PortalStart.md) (src/backend/tcop/pquery.c:517)
+  - [_SPI_pquery](../S/_SPI_pquery.md) (src/backend/executor/spi.c:2930)
 
 ## Notes and Other Information
 - The function ensures query_id reporting for cases where it might not have been reported earlier (e.g., EXECUTE statements or extended query protocol)

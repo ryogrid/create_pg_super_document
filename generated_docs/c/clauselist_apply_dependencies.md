@@ -39,20 +39,20 @@ The function processes dependencies in reverse order to handle dependency chains
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member
-  - bms_num_members
-  - bms_next_member
-  - bms_member_index
-  - clauselist_selectivity_ext
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_member_index](../b/bms_member_index.md)
+  - [clauselist_selectivity_ext](clauselist_selectivity_ext.md)
   - CLAMP_PROBABILITY
-  - bms_free
+  - [bms_free](../b/bms_free.md)
 - Types used:
   - JoinType
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - MVDependency
 - Called from (representative examples):
   - DependencyGenerator
-  - dependencies_clauselist_selectivity
+  - [dependencies_clauselist_selectivity](../d/dependencies_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Uses Min(P(a), P(b)) instead of P(a) for dependent rows to ensure the result doesn't exceed individual column selectivities

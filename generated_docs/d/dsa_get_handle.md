@@ -21,8 +21,8 @@ The handle represents the underlying DSM segment handle that contains the DSA co
 - Functions called/Symbols referenced:
   - DSA_HANDLE_INVALID (for assertion checking)
 - Called from (representative examples):
-  - parallel_vacuum_init
-  - parallel_vacuum_reset_dead_items
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md)
   - logicalrep_launcher_attach_dshmem
   - init_dsm_registry
 

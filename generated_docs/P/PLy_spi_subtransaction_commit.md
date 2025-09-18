@@ -18,15 +18,15 @@ PLy_spi_subtransaction_commit finalizes a successfully completed subtransaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCurrentSubTransaction: PostgreSQL core function to commit and release the current subtransaction
-  - MemoryContextSwitchTo: Switches back to the original memory context
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md): PostgreSQL core function to commit and release the current subtransaction
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switches back to the original memory context
   - CurrentResourceOwner: Global variable set to restore the original resource owner
 - Called from (representative examples):
-  - PLy_cursor_query: After successful cursor query execution
-  - PLy_cursor_plan: After successful cursor plan operations
-  - PLy_spi_prepare: After successful SPI query preparation
-  - PLy_spi_execute_plan: After successful prepared plan execution
-  - PLy_spi_execute_query: After successful direct query execution
+  - [PLy_cursor_query](PLy_cursor_query.md): After successful cursor query execution
+  - [PLy_cursor_plan](PLy_cursor_plan.md): After successful cursor plan operations
+  - [PLy_spi_prepare](PLy_spi_prepare.md): After successful SPI query preparation
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md): After successful prepared plan execution
+  - [PLy_spi_execute_query](PLy_spi_execute_query.md): After successful direct query execution
 
 ## Notes and Other Information
 - Must be paired with a preceding PLy_spi_subtransaction_begin call

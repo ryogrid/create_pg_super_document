@@ -22,19 +22,19 @@ The `addHLParsedLex` function is a key component in the headline generation pipe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hladdword (for adding words to the headline structure)
-  - hlfinditem (for associating normalized lexemes with query items)
-  - pfree (for memory cleanup)
+  - [hladdword](../h/hladdword.md) (for adding words to the headline structure)
+  - [hlfinditem](../h/hlfinditem.md) (for associating normalized lexemes with query items)
+  - [pfree](../p/pfree.md) (for memory cleanup)
   - strlen (for getting lexeme length)
 - Data structures used:
-  - HeadlineParsedText
+  - [HeadlineParsedText](../H/HeadlineParsedText.md)
   - TSQuery
-  - ParsedLex
+  - [ParsedLex](../P/ParsedLex.md)
   - TSLexeme
 - Constants used:
   - TSL_ADDPOS (flag indicating position should be incremented)
 - Called from (representative examples):
-  - hlparsetext
+  - [hlparsetext](../h/hlparsetext.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within ts_parse.c

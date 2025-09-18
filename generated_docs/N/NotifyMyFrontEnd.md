@@ -26,13 +26,13 @@ The function constructs protocol messages using PostgreSQL's message buffer syst
   - whereToSendOutput: Global variable determining output destination
   - pq_beginmessage: Starts construction of protocol message buffer
   - PqMsg_NotificationResponse: Protocol message type constant
-  - pq_sendint32: Adds 32-bit integer to message buffer
-  - pq_sendstring: Adds null-terminated string to message buffer  
-  - pq_endmessage: Completes and queues protocol message
+  - [pq_sendint32](../p/pq_sendint32.md): Adds 32-bit integer to message buffer
+  - [pq_sendstring](../p/pq_sendstring.md): Adds null-terminated string to message buffer  
+  - [pq_endmessage](../p/pq_endmessage.md): Completes and queues protocol message
   - elog: Logs message for non-remote output destinations
 - Called from:
-  - asyncQueueProcessPageEntries: Delivers notifications during queue processing
-  - HandleParallelMessage: Processes notifications in parallel worker contexts
+  - [asyncQueueProcessPageEntries](../a/asyncQueueProcessPageEntries.md): Delivers notifications during queue processing
+  - [HandleParallelMessage](../H/HandleParallelMessage.md): Processes notifications in parallel worker contexts
 
 ## Notes and Other Information
 - Does not perform pq_flush() to allow message batching by callers

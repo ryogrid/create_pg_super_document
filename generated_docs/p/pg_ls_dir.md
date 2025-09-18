@@ -21,8 +21,8 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_and_check_filename (validates and converts directory path)
-  - InitMaterializedSRF (initializes set-returning function infrastructure)
+  - [convert_and_check_filename](../c/convert_and_check_filename.md) (validates and converts directory path)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function infrastructure)
   - AllocateDir (opens directory for reading)
   - ReadDir (reads directory entries)
   - tuplestore_putvalues (adds result rows to output)
@@ -30,7 +30,7 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
   - ReturnSetInfo, DIR, dirent (data structures)
   - MAT_SRF_USE_EXPECTED_DESC (SRF configuration constant)
 - Called from (representative examples):
-  - pg_ls_dir_1arg (wrapper function with fewer parameters)
+  - [pg_ls_dir_1arg](pg_ls_dir_1arg.md) (wrapper function with fewer parameters)
 
 ## Notes and Other Information
 - The function validates directory paths through convert_and_check_filename to prevent directory traversal attacks

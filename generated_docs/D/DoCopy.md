@@ -23,16 +23,16 @@ DoCopy is the main entry point for executing COPY statements in PostgreSQL. It p
 - Functions called/Symbols referenced:
   - has_privs_of_role
   - table_openrv
-  - addRangeTableEntryForRelation
-  - transformExpr
-  - CopyGetAttnums
-  - ExecCheckPermissions
-  - check_enable_rls
-  - BeginCopyFrom/CopyFrom/EndCopyFrom
-  - BeginCopyTo/DoCopyTo/EndCopyTo
-  - PreventCommandIfReadOnly
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [transformExpr](../t/transformExpr.md)
+  - [CopyGetAttnums](../C/CopyGetAttnums.md)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)/CopyFrom/EndCopyFrom
+  - [BeginCopyTo](../B/BeginCopyTo.md)/DoCopyTo/EndCopyTo
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Enforces strict permission checking for file and program access through role-based security

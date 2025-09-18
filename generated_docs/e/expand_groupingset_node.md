@@ -37,12 +37,12 @@ GS>: The GroupingSet node to expand, containing:
 - Functions called/Symbols referenced:
   - list_make1
   - list_length  
-  - list_concat
+  - [list_concat](../l/list_concat.md)
   - lappend
   - lfirst
-  - expand_groupingset_node (recursive call)
+  - [expand_groupingset_node](expand_groupingset_node.md) (recursive call)
 - Called from:
-  - expand_grouping_sets
+  - [expand_grouping_sets](expand_grouping_sets.md)
   - Self-recursion for nested SET processing
 
 ## Notes and Other Information

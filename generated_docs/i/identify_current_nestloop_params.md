@@ -23,14 +23,14 @@ When parameters are identified as suitable, they are removed from the root->curO
 ## Dependencies
 - Functions called/Symbols referenced:
   - NestLoopParam
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - foreach_delete_current
-  - bms_intersect
-  - PlaceHolderVar
-  - bms_is_subset
-  - find_placeholder_info
+  - [bms_intersect](../b/bms_intersect.md)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [find_placeholder_info](../f/find_placeholder_info.md)
 - Called from (representative examples):
-  - create_nestloop_plan
+  - [create_nestloop_plan](../c/create_nestloop_plan.md)
 
 ## Notes and Other Information
 This function contains important logic for handling outer join identity transformations, specifically identity 3. The nullingrel adjustment is a workaround for cases where the parser creates lateral references with different nullingrel specifications than what will be available at execution. The comments note this weakens setrefs.c's cross-checking capabilities but avoids the expense of generating multiple versions of laterally-parameterized subqueries.

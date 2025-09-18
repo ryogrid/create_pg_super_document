@@ -22,15 +22,15 @@ The function enforces the tar format's limitation of not supporting compression 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tarAddFile
+  - [_tarAddFile](_tarAddFile.md)
   - free
 - Called from (representative examples):
-  - _EndData
-  - _PrintFileData
-  - _LoadLOs
-  - _CloseArchive
-  - _EndLO
-  - _EndLOs
+  - [_EndData](../E/_EndData.md)
+  - [_PrintFileData](../P/_PrintFileData.md)
+  - [_LoadLOs](../L/_LoadLOs.md)
+  - [_CloseArchive](../C/_CloseArchive.md)
+  - [_EndLO](../E/_EndLO.md)
+  - [_EndLOs](../E/_EndLOs.md)
 
 ## Notes and Other Information
 - Only performs significant work for write mode files by calling _tarAddFile

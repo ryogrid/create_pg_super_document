@@ -24,12 +24,12 @@ The algorithm ensures compliance with PostgreSQL's dollar-quoting rules by check
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar (used to build delimiter and append characters)
-  - appendPQExpBufferStr (used to append string portions)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md) (used to append string portions)
   - createPQExpBuffer (creates temporary buffer for delimiter construction)
   - destroyPQExpBuffer (cleans up temporary buffer)
   - strstr (searches for delimiter conflicts in input string)
 - Called from (representative examples):
-  - dumpFunc (in pg_dump.c for function definition dumping)
+  - [dumpFunc](../d/dumpFunc.md) (in pg_dump.c for function definition dumping)
 
 ## Notes and Other Information
 - No character escaping is performed on the input string, following dollar-quoting semantics

@@ -22,17 +22,17 @@ The function follows PostgreSQL's standard pattern for resource cleanup, ensurin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_close
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - DefineSequence
-  - ResetSequence
-  - AlterSequence
-  - SequenceChangePersistence
-  - nextval_internal
-  - currval_oid
-  - lastval
-  - do_setval
-  - pg_sequence_last_value
+  - [DefineSequence](../D/DefineSequence.md)
+  - [ResetSequence](../R/ResetSequence.md)
+  - [AlterSequence](../A/AlterSequence.md)
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md)
+  - [nextval_internal](../n/nextval_internal.md)
+  - [currval_oid](../c/currval_oid.md)
+  - [lastval](../l/lastval.md)
+  - [do_setval](../d/do_setval.md)
+  - [pg_sequence_last_value](../p/pg_sequence_last_value.md)
 
 ## Notes and Other Information
 - This function is the counterpart to `sequence_open` and should be used to properly clean up sequence relations

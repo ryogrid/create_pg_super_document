@@ -23,9 +23,9 @@ The function dynamically allocates memory for the result, starting with an initi
 - Functions called/Symbols referenced:
   - oidvector (data type)
   - OidVectorSize (macro for calculating oidvector size)
-  - palloc0 (memory allocation with zero initialization)
-  - repalloc (memory reallocation)
-  - uint32in_subr (OID parsing function)
+  - [palloc0](../p/palloc0.md) (memory allocation with zero initialization)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
+  - [uint32in_subr](../u/uint32in_subr.md) (OID parsing function)
   - SOFT_ERROR_OCCURRED (error checking macro)
   - SET_VARSIZE (macro to set variable-length type size)
 - Called from (representative examples):

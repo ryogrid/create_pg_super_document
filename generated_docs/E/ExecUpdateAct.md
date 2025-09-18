@@ -32,17 +32,17 @@ The function uses a retry mechanism (via the  label) to handle cases where cross
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecUpdatePrepareSlot
+  - [ExecUpdatePrepareSlot](ExecUpdatePrepareSlot.md)
   - ExecMaterializeSlot
-  - ExecPartitionCheck
-  - ExecWithCheckOptions
-  - ExecCrossPartitionUpdate
-  - ExecCrossPartitionUpdateForeignKey
-  - ExecConstraints
+  - [ExecPartitionCheck](ExecPartitionCheck.md)
+  - [ExecWithCheckOptions](ExecWithCheckOptions.md)
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md)
+  - [ExecCrossPartitionUpdateForeignKey](ExecCrossPartitionUpdateForeignKey.md)
+  - [ExecConstraints](ExecConstraints.md)
   - table_tuple_update
 - Called from (representative examples):
-  - ExecUpdate (src/backend/executor/nodeModifyTable.c:2358)
-  - ExecMergeMatched (src/backend/executor/nodeModifyTable.c:3048)
+  - [ExecUpdate](ExecUpdate.md) (src/backend/executor/nodeModifyTable.c:2358)
+  - [ExecMergeMatched](ExecMergeMatched.md) (src/backend/executor/nodeModifyTable.c:3048)
 
 ## Notes and Other Information
 - The function is static and only used within nodeModifyTable.c

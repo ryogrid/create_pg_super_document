@@ -30,12 +30,12 @@ The function handles the special case where there are 1 or fewer arcs (no sortin
   - NERR (error reporting macro)
   - REG_ESPACE (error code for out of space)
   - qsort (standard library sort function)
-  - sortouts_cmp (comparison function)
+  - [sortouts_cmp](sortouts_cmp.md) (comparison function)
   - FREE (memory deallocation macro)
-  - arc (struct type)
+  - [arc](../a/arc.md) (struct type)
 - Called from (representative examples):
-  - moveouts (src/backend/regex/regc_nfa.c:1110, 1111)
-  - copyouts (src/backend/regex/regc_nfa.c:1207, 1208)
+  - [moveouts](../m/moveouts.md) (src/backend/regex/regc_nfa.c:1110, 1111)
+  - [copyouts](../c/copyouts.md) (src/backend/regex/regc_nfa.c:1207, 1208)
 
 ## Notes and Other Information
 - This is a static function local to the regc_nfa.c file

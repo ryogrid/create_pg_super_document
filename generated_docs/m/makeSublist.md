@@ -20,14 +20,14 @@ This function is responsible for organizing index tuples into a chain of pending
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinNewBuffer
-  - writeListPage
-  - BufferGetBlockNumber
+  - [GinNewBuffer](../G/GinNewBuffer.md)
+  - [writeListPage](../w/writeListPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - IndexTupleSize
   - MAXALIGN
   - GinListPageSize
 - Called from (representative examples):
-  - ginHeapTupleFastInsert
+  - [ginHeapTupleFastInsert](../g/ginHeapTupleFastInsert.md)
 
 ## Notes and Other Information
 - Assumes ntuples > 0 and includes an assertion to verify this

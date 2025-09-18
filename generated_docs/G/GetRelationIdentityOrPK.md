@@ -22,13 +22,13 @@ The function is essential for logical replication as it determines which index s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetReplicaIndex
-  - RelationGetPrimaryKeyIndex
+  - [RelationGetReplicaIndex](../R/RelationGetReplicaIndex.md)
+  - [RelationGetPrimaryKeyIndex](../R/RelationGetPrimaryKeyIndex.md)
 - Called from (representative examples):
-  - RelationFindReplTupleByIndex
-  - FindLogicalRepLocalIndex
-  - check_relation_updatable
-  - FindReplTupleInLocalRel
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
+  - [FindLogicalRepLocalIndex](../F/FindLogicalRepLocalIndex.md)
+  - [check_relation_updatable](../c/check_relation_updatable.md)
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/relation.c:851-867

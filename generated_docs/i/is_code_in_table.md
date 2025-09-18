@@ -25,7 +25,7 @@ This is a core component of Unicode character classification in SASL string prep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - codepoint_range_cmp (used as bsearch callback)
+  - [codepoint_range_cmp](../c/codepoint_range_cmp.md) (used as bsearch callback)
   - bsearch (standard library binary search)
   - Assert (debugging assertion macro)
 - Called from (representative examples):

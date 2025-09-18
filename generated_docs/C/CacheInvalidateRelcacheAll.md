@@ -19,13 +19,13 @@ The function works by registering a special invalidation message with InvalidOid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PrepareInvalidationState
-  - RegisterRelcacheInvalidation
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
+  - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)
 - Called from (representative examples):
-  - CreatePublication
-  - AlterPublicationOptions
-  - InvalidatePublicationRels
-  - RemovePublicationById
+  - [CreatePublication](CreatePublication.md)
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md)
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md)
+  - [RemovePublicationById](../R/RemovePublicationById.md)
 
 ## Notes and Other Information
 - This is the most aggressive form of relcache invalidation, affecting all relations

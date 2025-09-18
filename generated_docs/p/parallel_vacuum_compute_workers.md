@@ -34,7 +34,7 @@ The function implements several important constraints: it won't allow parallel o
   - max_parallel_maintenance_workers
   - min_parallel_index_scan_size
 - Called from (representative examples):
-  - parallel_vacuum_init
+  - [parallel_vacuum_init](parallel_vacuum_init.md)
 
 ## Notes and Other Information
 - Returns 0 if parallel vacuum is not possible (standalone mode, no suitable indexes, etc.)

@@ -21,12 +21,12 @@ This structure manages the vacuum process for posting list tuples in B-tree inde
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
-  - IndexTuple
+  - [IndexTuple](../I/IndexTuple.md)
   - OffsetNumber
 - Called from (representative examples):
-  - _bt_delitems_delete_check
-  - btreevacuumposting
-  - btree_xlog_updates
+  - [_bt_delitems_delete_check](../b/_bt_delitems_delete_check.md)
+  - [btreevacuumposting](../b/btreevacuumposting.md)
+  - [btree_xlog_updates](../b/btree_xlog_updates.md)
   - BTVacuumPosting
 
 ## Notes and Other Information

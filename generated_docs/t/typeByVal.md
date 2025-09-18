@@ -23,7 +23,7 @@ This function provides a clean interface to access the  field from the  system c
   - Form_pg_type (structure representing pg_type catalog row)
   - GETSTRUCT (macro to extract structure from HeapTuple)
 - Called from (representative examples):
-  - coerce_type (in parse_coerce.c:290)
+  - [coerce_type](../c/coerce_type.md) (in parse_coerce.c:290)
 
 ## Notes and Other Information
 - This is a utility function that abstracts access to the pg_type catalog structure

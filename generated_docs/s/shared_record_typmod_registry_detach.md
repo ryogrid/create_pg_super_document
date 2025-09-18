@@ -23,8 +23,8 @@ This function serves as a callback hook that is invoked when a dynamic shared me
   - dsm_segment
   - CurrentSession (global session state)
 - Called from (representative examples):
-  - SharedRecordTypmodRegistryInit (registers as detach callback)
-  - SharedRecordTypmodRegistryAttach (registers as detach callback)
+  - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md) (registers as detach callback)
+  - [SharedRecordTypmodRegistryAttach](../S/SharedRecordTypmodRegistryAttach.md) (registers as detach callback)
 
 ## Notes and Other Information
 - Function is static and only used within the typcache.c module

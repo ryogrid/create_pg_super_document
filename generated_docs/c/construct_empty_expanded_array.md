@@ -21,13 +21,13 @@ The function first creates a regular empty array using construct_empty_array, th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - construct_empty_array
-  - expand_array
+  - [construct_empty_array](construct_empty_array.md)
+  - [expand_array](../e/expand_array.md)
   - DatumGetEOHP
   - ExpandedArrayHeader (type)
-  - ArrayMetaState (type)
+  - [ArrayMetaState](../A/ArrayMetaState.md) (type)
 - Called from (representative examples):
-  - fetch_array_arg_replace_nulls
+  - [fetch_array_arg_replace_nulls](../f/fetch_array_arg_replace_nulls.md)
 
 ## Notes and Other Information
 - Expanded arrays provide better performance for operations that involve frequent element access or modifications

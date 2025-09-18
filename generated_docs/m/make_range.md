@@ -21,7 +21,7 @@ The  function is a high-level constructor for RangeType objects that performs bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_serialize
+  - [range_serialize](../r/range_serialize.md)
   - SOFT_ERROR_OCCURRED
   - RangeIsEmpty
   - LOCAL_FCINFO
@@ -30,13 +30,13 @@ The  function is a high-level constructor for RangeType objects that performs bo
   - FunctionCallInvoke
   - DatumGetRangeTypeP
 - Called from (representative examples):
-  - range_in
-  - range_recv
-  - range_constructor2
-  - range_constructor3
-  - range_union_internal
-  - range_intersect_internal
-  - make_empty_range
+  - [range_in](../r/range_in.md)
+  - [range_recv](../r/range_recv.md)
+  - [range_constructor2](../r/range_constructor2.md)
+  - [range_constructor3](../r/range_constructor3.md)
+  - [range_union_internal](../r/range_union_internal.md)
+  - [range_intersect_internal](../r/range_intersect_internal.md)
+  - [make_empty_range](make_empty_range.md)
 
 ## Notes and Other Information
 - This function handles soft errors through the escontext parameter, returning NULL when errors occur

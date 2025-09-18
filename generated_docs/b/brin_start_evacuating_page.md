@@ -28,17 +28,17 @@ The BRIN_EVACUATE_PAGE flag serves as a marker that informs other functions (par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to access the page from buffer)
-  - PageIsNew (to check if page is uninitialized)
-  - PageGetMaxOffsetNumber (to get the highest item offset)
-  - PageGetItemId (to access item pointers)
+  - [BufferGetPage](../B/BufferGetPage.md) (to access the page from buffer)
+  - [PageIsNew](../P/PageIsNew.md) (to check if page is uninitialized)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (to get the highest item offset)
+  - [PageGetItemId](../P/PageGetItemId.md) (to access item pointers)
   - ItemIdIsUsed (to check if an item pointer is in use)
   - BrinPageFlags (to access page flags)
-  - MarkBufferDirtyHint (to mark buffer as modified)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md) (to mark buffer as modified)
   - BRIN_EVACUATE_PAGE (flag constant)
   - FirstOffsetNumber (starting offset constant)
 - Called from:
-  - revmap_physical_extend (in brin_revmap.c)
+  - [revmap_physical_extend](../r/revmap_physical_extend.md) (in brin_revmap.c)
 
 ## Notes and Other Information
 - The caller must hold an exclusive lock on the buffer before calling this function

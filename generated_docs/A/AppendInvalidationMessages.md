@@ -22,15 +22,15 @@ This function is typically used when consolidating invalidation messages from di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendInvalidationMessageSubGroup (performs the actual message transfer for each subgroup)
+  - [AppendInvalidationMessageSubGroup](AppendInvalidationMessageSubGroup.md) (performs the actual message transfer for each subgroup)
   - CatCacheMsgs (catalog cache message subgroup identifier)
   - RelCacheMsgs (relation cache message subgroup identifier)
 - Types referenced:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
 - Called from:
-  - AtEOXact_Inval (at transaction end)
-  - AtEOSubXact_Inval (at subtransaction end)
-  - CommandEndInvalidationMessages (at command completion)
+  - [AtEOXact_Inval](AtEOXact_Inval.md) (at transaction end)
+  - [AtEOSubXact_Inval](AtEOSubXact_Inval.md) (at subtransaction end)
+  - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md) (at command completion)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c module

@@ -24,10 +24,10 @@ This mechanism ensures that the complex web of tuple version chains remains inta
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidHashKey (hash key structure)
-  - ItemPointerData (tuple identifier structure)
+  - [ItemPointerData](../I/ItemPointerData.md) (tuple identifier structure)
   - HeapTuple (tuple data structure)
 - Called from (representative examples):
-  - begin_heap_rewrite (where unresolved tuple tracking is initialized)
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md) (where unresolved tuple tracking is initialized)
 
 ## Notes and Other Information
 - This structure is specifically designed for heap rewrite operations and is not used in normal tuple processing

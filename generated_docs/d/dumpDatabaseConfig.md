@@ -20,24 +20,24 @@ This function retrieves configuration settings that have been set at the databas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetConnection
+  - [GetConnection](../G/GetConnection.md)
   - createPQExpBuffer
-  - printfPQExpBuffer
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQgetvalue
-  - makeAlterConfigCommand
-  - PQclear
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [makeAlterConfigCommand](../m/makeAlterConfigCommand.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Types referenced:
-  - Archive
+  - [Archive](../A/Archive.md)
   - PQExpBuffer
   - PGconn
   - PGresult
   - Oid
   - PGRES_TUPLES_OK
 - Called from:
-  - dumpDatabase
+  - [dumpDatabase](dumpDatabase.md)
 
 ## Notes and Other Information
 - Handles two distinct types of configuration settings: database-level and role-specific within database

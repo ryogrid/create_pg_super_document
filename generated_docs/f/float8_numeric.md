@@ -23,14 +23,14 @@ The `float8_numeric` function converts a PostgreSQL `float8` (double precision f
   - `PG_GETARG_FLOAT8`: Retrieves the float8 argument from function parameters
   - `isnan`: Checks if the float8 value is NaN (Not a Number)
   - `isinf`: Checks if the float8 value is infinite
-  - `make_result`: Creates a Numeric result from a NumericVar
+  - `[make_result](../m/make_result.md)`: Creates a Numeric result from a NumericVar
   - `init_var`: Initializes a NumericVar structure
-  - `set_var_from_str`: Parses a string representation into a NumericVar
-  - `free_var`: Frees memory allocated for a NumericVar
+  - `[set_var_from_str](../s/set_var_from_str.md)`: Parses a string representation into a NumericVar
+  - `[free_var](free_var.md)`: Frees memory allocated for a NumericVar
   - `PG_RETURN_NUMERIC`: Returns the Numeric result
 - Called from (representative examples):
-  - `executeItemOptUnwrapTarget`: JSON path execution
-  - `JsonItemFromDatum`: JSON item conversion
+  - `[executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)`: JSON path execution
+  - `[JsonItemFromDatum](../J/JsonItemFromDatum.md)`: JSON item conversion
 
 ## Notes and Other Information
 - Uses `DBL_DIG` constant to determine appropriate precision for string conversion

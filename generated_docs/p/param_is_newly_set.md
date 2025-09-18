@@ -22,7 +22,7 @@ This utility function compares two string parameters to determine if a parameter
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - do_connect
+  - [do_connect](../d/do_connect.md)
 
 ## Notes and Other Information
 - This is a static function used internally within psql's connection handling

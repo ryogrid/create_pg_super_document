@@ -23,15 +23,15 @@ The function also handles fallback scenarios when cross-type operators are incom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_base_implied_equalities_const
-  - generate_base_implied_equalities_no_const
-  - generate_base_implied_equalities_broken
-  - bms_membership
-  - bms_next_member
-  - bms_is_member
-  - bms_add_member
+  - [generate_base_implied_equalities_const](generate_base_implied_equalities_const.md)
+  - [generate_base_implied_equalities_no_const](generate_base_implied_equalities_no_const.md)
+  - [generate_base_implied_equalities_broken](generate_base_implied_equalities_broken.md)
+  - [bms_membership](../b/bms_membership.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - Sets root->ec_merging_done = true to indicate no further EC merging should occur

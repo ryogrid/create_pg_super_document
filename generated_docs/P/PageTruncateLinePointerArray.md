@@ -17,21 +17,21 @@ This function performs selective truncation of the line pointer array by removin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](PageGetItemId.md)
   - ItemIdIsUsed
-  - PageSetHasFreeLinePointers
-  - PageClearHasFreeLinePointers
+  - [PageSetHasFreeLinePointers](PageSetHasFreeLinePointers.md)
+  - [PageClearHasFreeLinePointers](PageClearHasFreeLinePointers.md)
   - memset (when CLOBBER_FREED_MEMORY is enabled)
   - Assert (for debugging)
 - Data types used:
   - PageHeader
   - ItemId
-  - ItemIdData
+  - [ItemIdData](../I/ItemIdData.md)
   - FirstOffsetNumber
 - Called from:
-  - heap_page_prune_execute (during heap pruning operations)
-  - lazy_vacuum_heap_page (during VACUUM operations)
+  - [heap_page_prune_execute](../h/heap_page_prune_execute.md) (during heap pruning operations)
+  - [lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md) (during VACUUM operations)
   - PageIsVerified (for page verification)
 
 ## Notes and Other Information

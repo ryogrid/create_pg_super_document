@@ -17,20 +17,20 @@ RetrieveDataDirCreatePerm determines the permission mode of the PostgreSQL data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion
-  - PQexec
-  - PQresultStatus
-  - PQntuples
-  - PQnfields
-  - PQgetvalue
-  - PQclear
+  - [PQserverVersion](../P/PQserverVersion.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
   - SetDataDirectoryCreatePerm
   - sscanf
   - pg_log_error
   - MINIMUM_VERSION_FOR_GROUP_ACCESS
   - PGRES_TUPLES_OK
 - Called from (representative examples):
-  - GetConnection
+  - [GetConnection](../G/GetConnection.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

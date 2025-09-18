@@ -22,7 +22,7 @@ When  is false, the function simply returns the original string unchanged, as th
 ## Dependencies
 - Functions called/Symbols referenced:
   - ecpg_alloc
-  - PQescapeString
+  - [PQescapeString](../P/PQescapeString.md)
   - ESCAPE_STRING_SYNTAX
   - ecpg_free
 - Called from (representative examples):

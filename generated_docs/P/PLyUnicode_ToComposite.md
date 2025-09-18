@@ -25,12 +25,12 @@ The conversion process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info_cxt (initializes function call info for record_in)
-  - PLyObject_AsString (converts Python string to C string)
-  - InputFunctionCall (calls PostgreSQL's record_in function)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (initializes function call info for record_in)
+  - [PLyObject_AsString](PLyObject_AsString.md) (converts Python string to C string)
+  - [InputFunctionCall](../I/InputFunctionCall.md) (calls PostgreSQL's record_in function)
   - OidIsValid (checks if function OID is valid)
 - Called from (representative examples):
-  - PLyObject_ToComposite (src/pl/plpython/plpy_typeio.c:959)
+  - [PLyObject_ToComposite](PLyObject_ToComposite.md) (src/pl/plpython/plpy_typeio.c:959)
 
 ## Notes and Other Information
 - Uses lazy initialization of record_in function call info to avoid repeated setup overhead

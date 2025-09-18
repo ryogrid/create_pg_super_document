@@ -19,10 +19,10 @@ The `json_unique_object_start` function is a semantic action callback used durin
 - Functions called/Symbols referenced:
   - JsonUniqueParsingState (type cast)
   - JsonUniqueStackEntry (type)
-  - palloc
+  - [palloc](../p/palloc.md)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - json_validate
+  - [json_validate](json_validate.md)
 
 ## Notes and Other Information
 - Returns JSON_SUCCESS immediately if uniqueness checking is disabled

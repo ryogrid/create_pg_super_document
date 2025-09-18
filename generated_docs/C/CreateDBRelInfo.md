@@ -21,12 +21,12 @@ The structure encapsulates the essential information needed to identify and hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (referenced as member type)
+  - [RelFileLocator](../R/RelFileLocator.md) (referenced as member type)
   - Oid (referenced as member type)
 - Called from (representative examples):
-  - CreateDatabaseUsingWalLog (at src/backend/commands/dbcommands.c:159)
-  - ScanSourceDatabasePgClassPage (at src/backend/commands/dbcommands.c:364, 390)
-  - ScanSourceDatabasePgClassTuple (at src/backend/commands/dbcommands.c:394, 432)
+  - [CreateDatabaseUsingWalLog](CreateDatabaseUsingWalLog.md) (at src/backend/commands/dbcommands.c:159)
+  - [ScanSourceDatabasePgClassPage](../S/ScanSourceDatabasePgClassPage.md) (at src/backend/commands/dbcommands.c:364, 390)
+  - [ScanSourceDatabasePgClassTuple](../S/ScanSourceDatabasePgClassTuple.md) (at src/backend/commands/dbcommands.c:394, 432)
 
 ## Notes and Other Information
 - This structure is defined in src/backend/commands/dbcommands.c (lines 104-109)

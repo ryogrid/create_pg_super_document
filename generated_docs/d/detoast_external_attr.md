@@ -24,7 +24,7 @@ The function ensures that the returned datum contains all necessary data interna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_fetch_datum: Retrieves data from TOAST relations for on-disk external values
+  - [toast_fetch_datum](../t/toast_fetch_datum.md): Retrieves data from TOAST relations for on-disk external values
   - VARATT_IS_EXTERNAL_ONDISK: Macro to check if value is stored externally on disk
   - VARATT_IS_EXTERNAL_INDIRECT: Macro to check if value is an indirect pointer
   - VARATT_IS_EXTERNAL_EXPANDED: Macro to check if value is an expanded object
@@ -34,12 +34,12 @@ The function ensures that the returned datum contains all necessary data interna
   - EOH_get_flat_size: Gets the size needed for flattened expanded object
   - EOH_flatten_into: Flattens expanded object into provided buffer
   - VARSIZE_ANY: Gets the total size of a varlena value
-  - palloc: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
 - Called from (representative examples):
-  - detoast_attr: General detoasting function
-  - detoast_attr_slice: Slice-based detoasting function
-  - toast_flatten_tuple: Tuple flattening operations
-  - index_form_tuple_context: Index tuple formation
+  - [detoast_attr](detoast_attr.md): General detoasting function
+  - [detoast_attr_slice](detoast_attr_slice.md): Slice-based detoasting function
+  - [toast_flatten_tuple](../t/toast_flatten_tuple.md): Tuple flattening operations
+  - [index_form_tuple_context](../i/index_form_tuple_context.md): Index tuple formation
 
 ## Notes and Other Information
 - The function handles recursive dereferencing for indirect pointers, ensuring nested indirect datums are not allowed

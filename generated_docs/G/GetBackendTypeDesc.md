@@ -19,16 +19,16 @@ GetBackendTypeDesc is a utility function that maps PostgreSQL backend process ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendType (enum type)
+  - [BackendType](../B/BackendType.md) (enum type)
   - B_INVALID, B_ARCHIVER, B_AUTOVAC_LAUNCHER, B_AUTOVAC_WORKER (enum values)
   - B_BACKEND, B_BG_WORKER, B_BG_WRITER, B_CHECKPOINTER (enum values)
   - B_LOGGER, B_SLOTSYNC_WORKER, B_STANDALONE_BACKEND (enum values)
   - B_STARTUP, B_WAL_RECEIVER, B_WAL_SENDER, B_WAL_SUMMARIZER, B_WAL_WRITER (enum values)
 - Called from (representative examples):
-  - BackendInitialize
+  - [BackendInitialize](../B/BackendInitialize.md)
   - PG_STAT_GET_ACTIVITY_COLS
-  - pg_stat_get_io
-  - get_backend_type_for_log
+  - [pg_stat_get_io](../p/pg_stat_get_io.md)
+  - [get_backend_type_for_log](../g/get_backend_type_for_log.md)
   - init_ps_display
 
 ## Notes and Other Information

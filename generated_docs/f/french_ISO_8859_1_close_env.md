@@ -24,7 +24,7 @@ The function handles NULL pointers gracefully and performs no operation if passe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function with S_size = 0)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function with S_size = 0)
 
 - Called from (representative examples):
   - PostgreSQL dictionary cleanup routines

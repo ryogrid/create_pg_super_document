@@ -35,16 +35,16 @@ This is a low-level function that assumes the caller has verified the operation 
 - Functions called/Symbols referenced:
   - LockTagHashCode
   - LockHashPartitionLock
-  - hash_search_with_hash_value
-  - ProcLockHashCode
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [ProcLockHashCode](../P/ProcLockHashCode.md)
   - LOCKBIT_ON
-  - UnGrantLock
-  - CleanUpLock
+  - [UnGrantLock](../U/UnGrantLock.md)
+  - [CleanUpLock](../C/CleanUpLock.md)
   - ConflictsWithRelationFastPath
   - FastPathStrongLockHashPartition
 - Called from (representative examples):
-  - LockReleaseAll
-  - lock_twophase_postcommit
+  - [LockReleaseAll](LockReleaseAll.md)
+  - [lock_twophase_postcommit](../l/lock_twophase_postcommit.md)
   - VirtualXactLockTableCleanup
 
 ## Notes and Other Information

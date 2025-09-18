@@ -22,9 +22,9 @@ The function processes the string character by character, transitioning between 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - t_isalpha (check if character is alphabetic)
+  - [t_isalpha](../t/t_isalpha.md) (check if character is alphabetic)
   - t_iseq (check character equality)
-  - pg_mblen (get multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (get multibyte character length)
   - elog (error logging)
 - State constants:
   - RS_IN_WAIT (waiting for next pattern element)
@@ -32,7 +32,7 @@ The function processes the string character by character, transitioning between 
   - RS_IN_ONEOF_IN (inside character class with characters)
   - RS_IN_NONEOF (inside negated character class [^])
 - Called from:
-  - NIAddAffix (in spell.c:706)
+  - [NIAddAffix](../N/NIAddAffix.md) (in spell.c:706)
 
 ## Notes and Other Information
 - Returns true if the regex conforms to the supported subset, false otherwise

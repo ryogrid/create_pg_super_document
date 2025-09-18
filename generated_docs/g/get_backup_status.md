@@ -26,9 +26,9 @@ None - this function takes no parameters.
 - Functions called/Symbols referenced:
   - sessionBackupState (global variable)
 - Called from (representative examples):
-  - pg_backup_start
+  - [pg_backup_start](../p/pg_backup_start.md)
   - PG_BACKUP_STOP_V2_COLS
-  - SendBaseBackup
+  - [SendBaseBackup](../S/SendBaseBackup.md)
 
 ## Notes and Other Information
 - This is a simple accessor function that provides session-level backup state information

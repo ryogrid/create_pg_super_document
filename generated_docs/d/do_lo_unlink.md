@@ -20,15 +20,15 @@ The `do_lo_unlink` function implements the PostgreSQL \lo_unlink command functio
 ## Dependencies
 - Functions called/Symbols referenced:
   - atooid (string to OID conversion)
-  - start_lo_xact (transaction management)
-  - SetCancelConn/ResetCancelConn (cancellation handling)
-  - lo_unlink (libpq large object deletion function)
+  - [start_lo_xact](../s/start_lo_xact.md) (transaction management)
+  - [SetCancelConn](../S/SetCancelConn.md)/ResetCancelConn (cancellation handling)
+  - [lo_unlink](../l/lo_unlink.md) (libpq large object deletion function)
   - pg_log_info (error logging)
-  - fail_lo_xact (transaction rollback)
-  - finish_lo_xact (transaction commit)
-  - print_lo_result (result output)
+  - [fail_lo_xact](../f/fail_lo_xact.md) (transaction rollback)
+  - [finish_lo_xact](../f/finish_lo_xact.md) (transaction commit)
+  - [print_lo_result](../p/print_lo_result.md) (result output)
 - Called from (representative examples):
-  - exec_command_lo (psql command execution)
+  - [exec_command_lo](../e/exec_command_lo.md) (psql command execution)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

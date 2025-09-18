@@ -33,13 +33,13 @@ The use of copyObject() ensures that the original A_Indirection node is not modi
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - list_truncate
+  - [list_truncate](../l/list_truncate.md)
   - list_length
-  - transformExpr
-  - ExpandRowReference
+  - [transformExpr](../t/transformExpr.md)
+  - [ExpandRowReference](ExpandRowReference.md)
 - Called from (representative examples):
-  - transformTargetList (src/backend/parser/parse_target.c:167)
-  - transformExpressionList (src/backend/parser/parse_target.c:256)
+  - [transformTargetList](../t/transformTargetList.md) (src/backend/parser/parse_target.c:167)
+  - [transformExpressionList](../t/transformExpressionList.md) (src/backend/parser/parse_target.c:256)
 
 ## Notes and Other Information
 - The function is marked static, indicating it's an internal helper within parse_target.c

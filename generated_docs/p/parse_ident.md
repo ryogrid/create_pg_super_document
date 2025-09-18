@@ -31,13 +31,13 @@ The function processes identifiers by:
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP, PG_GETARG_BOOL, PG_RETURN_DATUM (PostgreSQL argument/return macros)
   - text_to_cstring
-  - scanner_isspace
-  - is_ident_start
-  - is_ident_cont
-  - downcase_identifier
+  - [scanner_isspace](../s/scanner_isspace.md)
+  - [is_ident_start](../i/is_ident_start.md)
+  - [is_ident_cont](../i/is_ident_cont.md)
+  - [downcase_identifier](../d/downcase_identifier.md)
   - cstring_to_text_with_len
-  - accumArrayResult
-  - makeArrayResult
+  - [accumArrayResult](../a/accumArrayResult.md)
+  - [makeArrayResult](../m/makeArrayResult.md)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function mechanism)
 

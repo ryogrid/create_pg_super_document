@@ -31,7 +31,7 @@ Key configuration steps include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_server_version (retrieves server version information)
-  - WalRcvStreamOptions (structure type for streaming options)
+  - [WalRcvStreamOptions](../W/WalRcvStreamOptions.md) (structure type for streaming options)
   - LOGICALREP_PROTO_STREAM_PARALLEL_VERSION_NUM (protocol version constant)
   - LOGICALREP_PROTO_TWOPHASE_VERSION_NUM (protocol version constant)
   - LOGICALREP_PROTO_STREAM_VERSION_NUM (protocol version constant)
@@ -39,8 +39,8 @@ Key configuration steps include:
   - LOGICALREP_STREAM_PARALLEL (streaming mode constant)
   - LOGICALREP_STREAM_OFF (streaming disabled constant)
 - Called from (representative examples):
-  - run_tablesync_worker (at src/backend/replication/logical/tablesync.c:1727)
-  - run_apply_worker (at src/backend/replication/logical/worker.c:4534)
+  - [run_tablesync_worker](../r/run_tablesync_worker.md) (at src/backend/replication/logical/tablesync.c:1727)
+  - [run_apply_worker](../r/run_apply_worker.md) (at src/backend/replication/logical/worker.c:4534)
 
 ## Notes and Other Information
 - Server version thresholds: 16.0+ supports parallel streaming, 15.0+ supports two-phase commit, 14.0+ supports basic streaming

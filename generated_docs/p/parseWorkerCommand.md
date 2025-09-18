@@ -22,12 +22,12 @@ parseWorkerCommand is the counterpart to buildWorkerCommand, responsible for int
 - Functions called/Symbols referenced:
   - messageStartsWith (command prefix matching)
   - sscanf (numeric parsing of dump ID)
-  - getTocEntryByDumpId (TOC entry lookup)
+  - [getTocEntryByDumpId](../g/getTocEntryByDumpId.md) (TOC entry lookup)
   - strlen (string length validation)
   - Assert (validation of parse completeness and entry existence)
-  - pg_fatal (error handling for invalid commands)
+  - [pg_fatal](pg_fatal.md) (error handling for invalid commands)
 - Called from (representative examples):
-  - WaitForCommands (src/bin/pg_dump/parallel.c:1353)
+  - [WaitForCommands](../W/WaitForCommands.md) (src/bin/pg_dump/parallel.c:1353)
 
 ## Notes and Other Information
 - Expects commands in format "DUMP <dumpId>" or "RESTORE <dumpId>"

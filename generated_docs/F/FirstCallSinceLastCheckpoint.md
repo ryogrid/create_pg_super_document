@@ -28,7 +28,7 @@ This function takes no parameters and maintains internal state through a static 
   - CheckpointerShmem->ckpt_lck (spinlock)
   - CheckpointerShmem->ckpt_done (completion counter)
 - Called from:
-  - BackgroundWriterMain
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
 
 ## Notes and Other Information
 - Returns true only on the first call after a checkpoint completes, false on subsequent calls until the next checkpoint

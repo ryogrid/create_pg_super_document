@@ -28,15 +28,15 @@ The function specifically handles partial match semantics where the comparison c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItem
-  - PageGetItemId
-  - gintuple_get_attrnum
-  - gintuple_get_key
-  - FunctionCall4Coll
-  - DatumGetInt32
-  - UInt16GetDatum
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md)
+  - [gintuple_get_key](../g/gintuple_get_key.md)
+  - [FunctionCall4Coll](../F/FunctionCall4Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [UInt16GetDatum](../U/UInt16GetDatum.md)
 - Called from (representative examples):
-  - collectMatchesForHeapRow
+  - [collectMatchesForHeapRow](../c/collectMatchesForHeapRow.md)
 
 ## Notes and Other Information
 Critical optimization for partial match queries in GIN indexes. The caching mechanism significantly improves performance when the same page is scanned multiple times for different entries. The function assumes tuples are ordered by attribute number and datum value, allowing early termination when attribute boundaries are crossed.

@@ -19,14 +19,14 @@ The function assumes that all roles have already been created by the dumpRoles f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeQuery: Executes SQL query to retrieve parameter ACL information
+  - [executeQuery](../e/executeQuery.md): Executes SQL query to retrieve parameter ACL information
   - CppAsString2: Macro for converting values to string literals
-  - buildACLCommands: Generates GRANT/REVOKE SQL commands from ACL data
-  - fmtId: Formats identifier names for SQL output
-  - PQfinish: Closes database connection on error
-  - exit_nicely: Performs clean exit with error status
+  - [buildACLCommands](../b/buildACLCommands.md): Generates GRANT/REVOKE SQL commands from ACL data
+  - [fmtId](../f/fmtId.md): Formats identifier names for SQL output
+  - [PQfinish](../P/PQfinish.md): Closes database connection on error
+  - [exit_nicely](../e/exit_nicely.md): Performs clean exit with error status
 - Called from (representative examples):
-  - main: Primary entry point in pg_dumpall utility
+  - [main](../m/main.md): Primary entry point in pg_dumpall utility
 
 ## Notes and Other Information
 - Only available for PostgreSQL 15.0+ servers where parameter ACLs are supported

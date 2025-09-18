@@ -24,11 +24,11 @@ The function operates on the word boundary markers (ket and bra) and uses backtr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (for pattern matching in suffix array a_0)
-  - slice_del (for suffix removal)
-  - eq_s_b (for backward string equality checking)
+  - [find_among_b](../f/find_among_b.md) (for pattern matching in suffix array a_0)
+  - [slice_del](../s/slice_del.md) (for suffix removal)
+  - [eq_s_b](../e/eq_s_b.md) (for backward string equality checking)
 - Called from:
-  - nepali_UTF_8_stem (main stemming function)
+  - [nepali_UTF_8_stem](../n/nepali_UTF_8_stem.md) (main stemming function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the Nepali stemmer module

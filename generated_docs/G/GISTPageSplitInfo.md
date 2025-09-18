@@ -21,14 +21,14 @@ The structure is designed to be used in lists, where each list element represent
 ## Dependencies
 - Functions called/Symbols referenced:
   - Buffer (for buf field)
-  - IndexTuple (for downlink field)
+  - [IndexTuple](../I/IndexTuple.md) (for downlink field)
 - Called from (representative examples):
-  - gistplacetopage (creates and returns list of GISTPageSplitInfo structures)
-  - gistfixsplit (processes split information during page split operations)
-  - gistfinishsplit (completes split operations using split information)
+  - [gistplacetopage](../g/gistplacetopage.md) (creates and returns list of GISTPageSplitInfo structures)
+  - [gistfixsplit](../g/gistfixsplit.md) (processes split information during page split operations)
+  - [gistfinishsplit](../g/gistfinishsplit.md) (completes split operations using split information)
   - gistbufferinginserttuples (handles split information during buffering builds)
-  - gistFreeBuildBuffers (cleans up split information)
-  - gistRelocateBuildBuffersOnSplit (relocates buffers based on split information)
+  - [gistFreeBuildBuffers](../g/gistFreeBuildBuffers.md) (cleans up split information)
+  - [gistRelocateBuildBuffersOnSplit](../g/gistRelocateBuildBuffersOnSplit.md) (relocates buffers based on split information)
 
 ## Notes and Other Information
 - Returned as a List from gistplacetopage() function in the splitinfo parameter

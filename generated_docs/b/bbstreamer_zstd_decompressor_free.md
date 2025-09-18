@@ -21,11 +21,11 @@ The function ensures proper resource management by calling the appropriate clean
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer
-  - bbstreamer_zstd_frame
-  - bbstreamer_free
+  - [bbstreamer](bbstreamer.md)
+  - [bbstreamer_zstd_frame](bbstreamer_zstd_frame.md)
+  - [bbstreamer_free](bbstreamer_free.md)
   - ZSTD_freeDCtx (ZSTD library function)
-  - pfree (PostgreSQL memory management function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management function)
 - Called from (representative examples):
   - No direct references found in the codebase
 

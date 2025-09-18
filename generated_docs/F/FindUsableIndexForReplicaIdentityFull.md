@@ -22,23 +22,23 @@ The function is designed to support logical replication scenarios where a full r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - foreach_oid (macro)
-  - index_open
-  - BuildIndexInfo
-  - IsIndexUsableForReplicaIdentityFull
-  - index_close
+  - [index_open](../i/index_open.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [IsIndexUsableForReplicaIdentityFull](../I/IsIndexUsableForReplicaIdentityFull.md)
+  - [index_close](../i/index_close.md)
 - Types referenced:
-  - Relation
-  - AttrMap
-  - List
+  - [Relation](../R/Relation.md)
+  - [AttrMap](../A/AttrMap.md)
+  - [List](../L/List.md)
   - IndexInfo
   - Oid
 - Constants referenced:
   - AccessShareLock
   - InvalidOid
 - Called from (representative examples):
-  - FindLogicalRepLocalIndex
+  - [FindLogicalRepLocalIndex](FindLogicalRepLocalIndex.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

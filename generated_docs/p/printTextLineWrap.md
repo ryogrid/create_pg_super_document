@@ -22,7 +22,7 @@ The printTextLineWrap enumeration categorizes different scenarios that can cause
 - Functions called/Symbols referenced:
   - None (enumeration type definition)
 - Called from (representative examples):
-  - print_aligned_text (src/fe_utils/print.c:668)
+  - [print_aligned_text](print_aligned_text.md) (src/fe_utils/print.c:668)
 
 ## Notes and Other Information
 - This enumeration is primarily used in text alignment and formatting functions to handle different line breaking scenarios appropriately

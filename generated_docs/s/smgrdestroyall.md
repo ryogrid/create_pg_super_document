@@ -19,15 +19,15 @@ The  function performs a comprehensive cleanup of all unpinned SMgrRelation obje
 - Functions called/Symbols referenced:
   - dlist_foreach_modify (safely iterates through the unpinned relations list)
   - dlist_container (extracts SMgrRelation from list node)
-  - smgrdestroy (destroys individual relations)
+  - [smgrdestroy](smgrdestroy.md) (destroys individual relations)
   - SMgrRelationData (relation structure type)
   - unpinned_relns (global list of unpinned relations)
 - Called from (representative examples):
-  - XLogDropDatabase
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - RequestCheckpoint
-  - AtEOXact_SMgr
+  - [XLogDropDatabase](../X/XLogDropDatabase.md)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [RequestCheckpoint](../R/RequestCheckpoint.md)
+  - [AtEOXact_SMgr](../A/AtEOXact_SMgr.md)
 
 ## Notes and Other Information
 - This is a public function available to other modules

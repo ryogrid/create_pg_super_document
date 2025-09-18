@@ -25,15 +25,15 @@ The function works by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ErrorData (type)
-  - get_error_stack_entry
+  - [get_error_stack_entry](../g/get_error_stack_entry.md)
   - PG_RE_THROW
-  - pstrdup (for string duplication)
-  - MemoryContextSwitchTo
+  - [pstrdup](../p/pstrdup.md) (for string duplication)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - memcpy
 
 - Called from (representative examples):
   - _SPI_commit
-  - _SPI_rollback
+  - [_SPI_rollback](../S/_SPI_rollback.md)
 
 ## Notes and Other Information
 - This function asserts that the error level is ERROR

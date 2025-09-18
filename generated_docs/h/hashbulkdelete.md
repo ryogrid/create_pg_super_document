@@ -292,22 +292,22 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_getcachedmetap
+  - [_hash_getcachedmetap](_hash_getcachedmetap.md)
   - BUCKET_TO_BLKNO
-  - ReadBufferExtended
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
   - LockBufferForCleanup
   - _hash_checkpage
   - HashPageGetOpaque
   - H_BUCKET_BEING_SPLIT
   - H_NEEDS_SPLIT_CLEANUP
-  - hashbucketcleanup
-  - _hash_dropbuf
-  - _hash_getbuf
+  - [hashbucketcleanup](hashbucketcleanup.md)
+  - [_hash_dropbuf](_hash_dropbuf.md)
+  - [_hash_getbuf](_hash_getbuf.md)
   - HashPageGetMeta
   - RelationNeedsWAL
-  - XLogInsert
+  - [XLogInsert](../X/XLogInsert.md)
 - Called from (representative examples):
-  - hashhandler (as part of the hash AM handler functions)
+  - [hashhandler](hashhandler.md) (as part of the hash AM handler functions)
 
 ## Notes and Other Information
 - The function handles split cleanup by deleting tuples that were moved to other buckets during split operations but are no longer needed

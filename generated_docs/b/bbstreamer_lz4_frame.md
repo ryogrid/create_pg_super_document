@@ -26,20 +26,20 @@ The structure supports both compression and decompression modes, utilizing the L
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - LZ4F_compressionContext_t (from lz4frame.h)
   - LZ4F_decompressionContext_t (from lz4frame.h)
   - LZ4F_preferences_t (from lz4frame.h)
 
 - Called from (representative examples):
-  - bbstreamer_lz4_compressor_new
-  - bbstreamer_lz4_compressor_content
-  - bbstreamer_lz4_compressor_finalize
-  - bbstreamer_lz4_compressor_free
-  - bbstreamer_lz4_decompressor_new
-  - bbstreamer_lz4_decompressor_content
-  - bbstreamer_lz4_decompressor_finalize
-  - bbstreamer_lz4_decompressor_free
+  - [bbstreamer_lz4_compressor_new](bbstreamer_lz4_compressor_new.md)
+  - [bbstreamer_lz4_compressor_content](bbstreamer_lz4_compressor_content.md)
+  - [bbstreamer_lz4_compressor_finalize](bbstreamer_lz4_compressor_finalize.md)
+  - [bbstreamer_lz4_compressor_free](bbstreamer_lz4_compressor_free.md)
+  - [bbstreamer_lz4_decompressor_new](bbstreamer_lz4_decompressor_new.md)
+  - [bbstreamer_lz4_decompressor_content](bbstreamer_lz4_decompressor_content.md)
+  - [bbstreamer_lz4_decompressor_finalize](bbstreamer_lz4_decompressor_finalize.md)
+  - [bbstreamer_lz4_decompressor_free](bbstreamer_lz4_decompressor_free.md)
 
 ## Notes and Other Information
 - This structure is only available when PostgreSQL is compiled with LZ4 support (USE_LZ4 preprocessor flag)

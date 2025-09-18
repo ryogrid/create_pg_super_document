@@ -25,19 +25,19 @@ The function processes arguments in two phases: first parsing any pset options e
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - process_command_g_options
-  - expand_tilde
-  - pg_strdup
-  - savePsetInfo
+  - [process_command_g_options](../p/process_command_g_options.md)
+  - [expand_tilde](expand_tilde.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [savePsetInfo](../s/savePsetInfo.md)
   - strcmp
   - free
-  - PsqlScanState (type)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
   - OT_FILEPIPE (constant)
   - PSQL_CMD_SKIP_LINE (return value)
   - PSQL_CMD_SEND (return value)
-  - backslashResult (return type)
+  - [backslashResult](../b/backslashResult.md) (return type)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

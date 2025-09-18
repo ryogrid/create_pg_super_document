@@ -19,10 +19,10 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainProperty (generic property explanation function)
+  - [ExplainProperty](ExplainProperty.md) (generic property explanation function)
 - Called from (representative examples):
   - ExplainPrintJIT (for JIT compilation flags like expressions, deforming, etc.)
-  - ExplainNode (for boolean flags like async_capable, ordered)
+  - [ExplainNode](ExplainNode.md) (for boolean flags like async_capable, ordered)
 
 ## Notes and Other Information
 - Simplest of the type-specific property explanation functions

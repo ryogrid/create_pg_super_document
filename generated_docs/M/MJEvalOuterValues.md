@@ -28,7 +28,7 @@ The function assumes that mergejoin operators are strict (return NULL when any i
 - Functions called/Symbols referenced:
   - TupIsNull
   - ResetExprContext
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
   - ExecEvalExpr
   - MJEVAL_ENDOFJOIN
   - MJEVAL_MATCHABLE

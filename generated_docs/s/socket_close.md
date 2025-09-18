@@ -26,12 +26,12 @@ The function deliberately leaves the socket open until the process actually dies
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - secure_close
+  - [secure_close](secure_close.md)
   - PGINVALID_SOCKET
   - gss_delete_sec_context (when GSSAPI enabled)
   - gss_release_cred (when GSSAPI enabled)
 - Called from (representative examples):
-  - pq_init (registered as exit callback)
+  - [pq_init](../p/pq_init.md) (registered as exit callback)
   - Process exit handling
 
 ## Notes and Other Information

@@ -32,7 +32,7 @@ This function serves as the foundation for all multirange comparison operators a
   -  - get OID of multirange type for type checking
   -  - get type cache for multirange operations
   -  - extract bounds from specific ranges within multiranges
-  -  - compare range bounds
+  -  - [compare](../c/compare.md) range bounds
   -  - free copied arguments if necessary
   -  - macro to find maximum of two values
 - Called from (representative examples):

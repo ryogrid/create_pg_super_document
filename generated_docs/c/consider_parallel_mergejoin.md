@@ -26,11 +26,11 @@ The function works by determining the appropriate pathkeys (ordering) for the re
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinType (enum type)
-  - JoinPathExtraData (struct type)
-  - build_join_pathkeys
-  - generate_mergejoin_paths
+  - [JoinPathExtraData](../J/JoinPathExtraData.md) (struct type)
+  - [build_join_pathkeys](../b/build_join_pathkeys.md)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md)
 - Called from (representative examples):
-  - match_unsorted_outer
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the joinpath.c compilation unit

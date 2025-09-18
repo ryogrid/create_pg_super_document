@@ -24,16 +24,16 @@ This estimation is used by the parallel context setup code to allocate an approp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size: Safe arithmetic function for adding Size values
+  - [add_size](../a/add_size.md): Safe arithmetic function for adding Size values
   - BUFFERALIGN: Macro for buffer alignment requirements
-  - table_parallelscan_estimate: Estimate memory for parallel table scan state
-  - BTShared: B-tree specific shared state structure
+  - [table_parallelscan_estimate](../t/table_parallelscan_estimate.md): Estimate memory for parallel table scan state
+  - [BTShared](../B/BTShared.md): B-tree specific shared state structure
 - Called from (representative examples):
-  - _bt_begin_parallel: Main parallel setup function that uses this estimate
+  - [_bt_begin_parallel](_bt_begin_parallel.md): Main parallel setup function that uses this estimate
 
 ## Notes and Other Information
 - Uses BUFFERALIGN to ensure proper memory alignment for shared structures
 - The total estimate includes both B-tree specific and table access method requirements
-- Snapshot type affects the parallel scan estimation (MVCC vs SnapshotAny)
+- [Snapshot](../S/Snapshot.md) type affects the parallel scan estimation (MVCC vs SnapshotAny)
 - Critical for preventing shared memory allocation failures during parallel setup
 - Memory estimation must be accurate to avoid runtime allocation errors

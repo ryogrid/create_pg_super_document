@@ -26,14 +26,14 @@ This function generates appropriate error messages for duplicate object names wi
   - gettext_noop (for internationalization)
   - elog (for error logging)
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
-  - get_namespace_name (to convert namespace OID to name)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
+  - [get_namespace_name](../g/get_namespace_name.md) (to convert namespace OID to name)
   - ERRCODE_DUPLICATE_OBJECT (error code constant)
 
 - Called from (representative examples):
-  - AlterObjectRename_internal (src/backend/commands/alter.c:316)
-  - AlterObjectNamespace_internal (src/backend/commands/alter.c:789)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (src/backend/commands/alter.c:316)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (src/backend/commands/alter.c:789)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/commands/alter.c

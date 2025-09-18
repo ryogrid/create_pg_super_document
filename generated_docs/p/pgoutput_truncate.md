@@ -31,16 +31,16 @@ The function only sends the TRUNCATE message if at least one relation qualifies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_publishable_relation
-  - get_rel_sync_entry
-  - pgoutput_send_begin
-  - maybe_send_schema
-  - logicalrep_write_truncate
-  - OutputPluginPrepareWrite
-  - OutputPluginWrite
-  - MemoryContextReset
+  - [is_publishable_relation](../i/is_publishable_relation.md)
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
+  - [pgoutput_send_begin](pgoutput_send_begin.md)
+  - [maybe_send_schema](../m/maybe_send_schema.md)
+  - [logicalrep_write_truncate](../l/logicalrep_write_truncate.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (as callback registration)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (as callback registration)
 
 ## Notes and Other Information
 - Supports both CASCADE and RESTART IDENTITY options from the original TRUNCATE command

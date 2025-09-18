@@ -21,9 +21,9 @@ pgwin32_accept is a wrapper around the Windows WSAAccept() function that provide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_poll_signals
+  - [pgwin32_poll_signals](pgwin32_poll_signals.md)
   - WSAAccept (Windows socket API)
-  - TranslateSocketError
+  - [TranslateSocketError](../T/TranslateSocketError.md)
 - Called from (representative examples):
   - No direct references found in the indexed codebase
 

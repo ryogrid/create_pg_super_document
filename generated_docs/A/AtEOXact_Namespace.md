@@ -35,12 +35,12 @@ The function only operates when a temporary namespace was created in the current
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidSubTransactionId (constant)
-  - RemoveTempRelationsCallback
-  - before_shmem_exit
+  - [RemoveTempRelationsCallback](../R/RemoveTempRelationsCallback.md)
+  - [before_shmem_exit](../b/before_shmem_exit.md)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
-  - AbortTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)
+  - [AbortTransaction](AbortTransaction.md)
   - RangeVarGetRelid (via header include)
 
 ## Notes and Other Information

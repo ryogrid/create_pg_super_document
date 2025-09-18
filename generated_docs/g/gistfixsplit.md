@@ -25,20 +25,20 @@ The function ensures that the tree remains consistent and accessible even after 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistformdownlink
-  - gistfinishsplit
+  - [gistformdownlink](gistformdownlink.md)
+  - [gistfinishsplit](gistfinishsplit.md)
   - GistFollowRight
   - GistPageGetOpaque
   - OffsetNumberIsValid
-  - BufferGetPage
-  - ReadBuffer
-  - LockBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - RelationGetRelationName
   - ereport
   - lappend
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - gistdoinsert
+  - [gistdoinsert](gistdoinsert.md)
 
 ## Notes and Other Information
 - This function is crucial for crash recovery and maintaining GiST tree consistency

@@ -20,16 +20,16 @@ This hook function is called during query parsing to resolve parameter reference
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FixedParamState (structure type)
-  - ParamRef (node type)
+  - [FixedParamState](../F/FixedParamState.md) (structure type)
+  - [ParamRef](../P/ParamRef.md) (node type)
   - Param (node type)
   - PARAM_EXTERN (parameter kind constant)
-  - get_typcollation (function to get type collation)
+  - [get_typcollation](../g/get_typcollation.md) (function to get type collation)
   - makeNode (macro for creating nodes)
   - ereport/errcode/errmsg (error reporting)
   - OidIsValid (macro for OID validation)
 - Called from (representative examples):
-  - setup_parse_fixed_parameters (installed as hook)
+  - [setup_parse_fixed_parameters](../s/setup_parse_fixed_parameters.md) (installed as hook)
 
 ## Notes and Other Information
 - This is a static function used exclusively as a callback hook

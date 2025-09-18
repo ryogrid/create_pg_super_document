@@ -21,17 +21,17 @@ This mechanism allows PostgreSQL to transition from recovery mode to normal oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (recovery state check)
-  - GetCurrentTimestamp (timestamp capture)
-  - WALInsertLockAcquireExclusive/WALInsertLockRelease (WAL coordination)
-  - XLogBeginInsert/XLogRegisterData/XLogInsert (WAL record creation)
-  - XLogFlush (WAL persistence)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state check)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (timestamp capture)
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)/WALInsertLockRelease (WAL coordination)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert (WAL record creation)
+  - [XLogFlush](../X/XLogFlush.md) (WAL persistence)
   - UpdateControlFile (control file updates)
-  - xl_end_of_recovery (record structure)
+  - [xl_end_of_recovery](../x/xl_end_of_recovery.md) (record structure)
   - XLOG_END_OF_RECOVERY (record type constant)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - PerformRecoveryXLogAction
+  - [PerformRecoveryXLogAction](../P/PerformRecoveryXLogAction.md)
 
 ## Notes and Other Information
 - Only callable during recovery mode; validates this with RecoveryInProgress()

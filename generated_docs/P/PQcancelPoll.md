@@ -30,10 +30,10 @@ During the response waiting phase, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconnectPoll
-  - pqReadData
-  - libpq_append_conn_error
-  - resetPQExpBuffer
+  - [PQconnectPoll](PQconnectPoll.md)
+  - [pqReadData](../p/pqReadData.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - CONNECTION_AWAITING_RESPONSE
   - CONNECTION_OK
   - CONNECTION_BAD
@@ -41,9 +41,9 @@ During the response waiting phase, the function:
   - PGRES_POLLING_OK
   - PGRES_POLLING_FAILED
 - Called from (representative examples):
-  - libpqsrv_cancel (src/include/libpq/libpq-be-fe-helpers.h:412)
-  - pqConnectDBComplete (src/interfaces/libpq/fe-connect.c:2562)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:303)
+  - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (src/include/libpq/libpq-be-fe-helpers.h:412)
+  - [pqConnectDBComplete](../p/pqConnectDBComplete.md) (src/interfaces/libpq/fe-connect.c:2562)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:303)
 
 ## Notes and Other Information
 - Returns PostgresPollingStatusType indicating current status:

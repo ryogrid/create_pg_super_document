@@ -25,13 +25,13 @@ The function maintains an "imaginary session user" concept that represents what 
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (string comparison)
-  - _doSetSessionAuth (actual authorization change function)
+  - [_doSetSessionAuth](../d/_doSetSessionAuth.md) (actual authorization change function)
   - free (memory deallocation)
-  - pg_strdup (PostgreSQL string duplication utility)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication utility)
 - Called from (representative examples):
-  - _disableTriggersIfNecessary
-  - _enableTriggersIfNecessary
-  - _becomeOwner
+  - [_disableTriggersIfNecessary](../d/_disableTriggersIfNecessary.md)
+  - [_enableTriggersIfNecessary](../e/_enableTriggersIfNecessary.md)
+  - [_becomeOwner](_becomeOwner.md)
 
 ## Notes and Other Information
 - Located in src/bin/pg_dump/pg_backup_archiver.c:3416-3438

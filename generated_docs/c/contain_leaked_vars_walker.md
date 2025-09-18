@@ -31,15 +31,15 @@ The function is recursive and uses `expression_tree_walker` to continue traversa
 - Functions called/Symbols referenced:
   - nodeTag
   - check_functions_in_node
-  - contain_leaked_vars_checker
-  - contain_var_clause
-  - getSubscriptingRoutines
-  - get_opcode
-  - get_func_leakproof
-  - lookup_type_cache
+  - [contain_leaked_vars_checker](contain_leaked_vars_checker.md)
+  - [contain_var_clause](contain_var_clause.md)
+  - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [get_func_leakproof](../g/get_func_leakproof.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - expression_tree_walker
 - Called from (representative examples):
-  - contain_leaked_vars
+  - [contain_leaked_vars](contain_leaked_vars.md)
   - max_parallel_hazard_context (self-recursively)
 
 ## Notes and Other Information
@@ -47,6 +47,6 @@ The function is recursive and uses `expression_tree_walker` to continue traversa
 - Static function used internally within the clauses.c module
 - Handles complex expression types including row comparisons, min/max expressions, and array subscripting
 - Uses conservative approach: unknown node types are assumed to be potentially leaky
-- CurrentOfExpr is explicitly treated as non-leaky since TID scans must always be generated
+- [CurrentOfExpr](../C/CurrentOfExpr.md) is explicitly treated as non-leaky since TID scans must always be generated
 - Part of PostgreSQL's comprehensive security infrastructure for preventing data leakage
 - Located in src/backend/optimizer/util/clauses.c:1275-1455

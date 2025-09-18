@@ -19,10 +19,10 @@ This sorting is only applied to restrictive policies because they are combined u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_sort
-  - row_security_policy_cmp
+  - [list_sort](../l/list_sort.md)
+  - [row_security_policy_cmp](../r/row_security_policy_cmp.md)
 - Called from (representative examples):
-  - get_policies_for_relation (for both built-in and hook-provided restrictive policies)
+  - [get_policies_for_relation](../g/get_policies_for_relation.md) (for both built-in and hook-provided restrictive policies)
 
 ## Notes and Other Information
 - Only used for restrictive policies, not permissive policies

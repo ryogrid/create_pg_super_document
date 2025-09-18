@@ -26,15 +26,15 @@ The structure is designed to support different levels of XML parsing strictness 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgXmlStrictness (enum for strictness levels)
-  - StringInfoData (PostgreSQL string buffer)
+  - [StringInfoData](../S/StringInfoData.md) (PostgreSQL string buffer)
   - xmlStructuredErrorFunc (libxml error function type)
   - xmlExternalEntityLoader (libxml entity loader type)
 - Called from (representative examples):
-  - pg_xml_init (initializes XML context)
+  - [pg_xml_init](../p/pg_xml_init.md) (initializes XML context)
   - pg_xml_done (cleans up XML context)
   - xml_errorHandler (handles XML parsing errors)
   - xml_errsave (saves XML parsing errors)
-  - XmlTableBuilderData (contains reference to this context)
+  - [XmlTableBuilderData](../X/XmlTableBuilderData.md) (contains reference to this context)
 
 ## Notes and Other Information
 - This structure is private to xml.c and not exposed in public headers

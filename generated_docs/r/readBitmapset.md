@@ -22,7 +22,7 @@ The function exists primarily for backward compatibility and to maintain a stabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `_readBitmapset` (internal implementation function)
+  - `[_readBitmapset](_readBitmapset.md)` (internal implementation function)
 - Called from (representative examples):
   - Currently no direct callers in the core PostgreSQL codebase
   - Intended for use by external extensions

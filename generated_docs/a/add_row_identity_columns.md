@@ -25,15 +25,15 @@ The function ensures that the executor has the necessary information to locate a
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeVar: Creates Var nodes for ctid and wholerow variables
-  - add_row_identity_var: Registers the created row identity variables
-  - GetFdwRoutineForRelation: Retrieves FDW routines for foreign tables
+  - [add_row_identity_var](add_row_identity_var.md): Registers the created row identity variables
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md): Retrieves FDW routines for foreign tables
   - SelfItemPointerAttributeNumber: System attribute number for ctid
   - InvalidAttrNumber: Used for wholerow variables
 
 - Called from (representative examples):
-  - preprocess_targetlist: During target list preprocessing for DML operations
-  - distribute_row_identity_vars: When distributing row identity variables across inheritance hierarchy
-  - expand_single_inheritance_child: During inheritance expansion
+  - [preprocess_targetlist](../p/preprocess_targetlist.md): During target list preprocessing for DML operations
+  - [distribute_row_identity_vars](../d/distribute_row_identity_vars.md): When distributing row identity variables across inheritance hierarchy
+  - [expand_single_inheritance_child](../e/expand_single_inheritance_child.md): During inheritance expansion
 
 ## Notes and Other Information
 - Only processes UPDATE, DELETE, and MERGE commands (enforced by assertion)

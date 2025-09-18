@@ -20,18 +20,18 @@ The pg_re_flags structure is used throughout PostgreSQL's regular expression sys
 - Functions called/Symbols referenced:
   - (This is a simple struct definition with no direct function calls)
 - Called from (representative examples):
-  - parse_re_flags
-  - textregexreplace
-  - textregexreplace_extended
-  - regexp_count
-  - regexp_instr
-  - regexp_like
-  - regexp_match
-  - regexp_matches
-  - setup_regexp_matches
-  - regexp_split_to_table
-  - regexp_split_to_array
-  - regexp_substr
+  - [parse_re_flags](parse_re_flags.md)
+  - [textregexreplace](../t/textregexreplace.md)
+  - [textregexreplace_extended](../t/textregexreplace_extended.md)
+  - [regexp_count](../r/regexp_count.md)
+  - [regexp_instr](../r/regexp_instr.md)
+  - [regexp_like](../r/regexp_like.md)
+  - [regexp_match](../r/regexp_match.md)
+  - [regexp_matches](../r/regexp_matches.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
+  - [regexp_split_to_table](../r/regexp_split_to_table.md)
+  - [regexp_split_to_array](../r/regexp_split_to_array.md)
+  - [regexp_substr](../r/regexp_substr.md)
 
 ## Notes and Other Information
 This structure is fundamental to PostgreSQL's regex implementation and is used extensively throughout src/backend/utils/adt/regexp.c. The separation of Spencer's regex flags (cflags) from PostgreSQL's own behavioral flags (glob) provides clean abstraction and allows for easy extension of regex functionality. The structure is typically populated by parse_re_flags() function based on user-provided flag strings.

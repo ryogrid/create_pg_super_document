@@ -17,17 +17,17 @@ pq_recvbuf is a low-level function responsible for filling the PostgreSQL receiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - socket_set_nonblocking
-  - secure_read
+  - [socket_set_nonblocking](../s/socket_set_nonblocking.md)
+  - [secure_read](../s/secure_read.md)
   - PQ_RECV_BUFFER_SIZE
   - EINTR
   - COMMERROR
-  - errcode_for_socket_access
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md)
 - Called from (representative examples):
-  - pq_getbyte
-  - pq_peekbyte
-  - pq_getbytes
-  - pq_discardbytes
+  - [pq_getbyte](pq_getbyte.md)
+  - [pq_peekbyte](pq_peekbyte.md)
+  - [pq_getbytes](pq_getbytes.md)
+  - [pq_discardbytes](pq_discardbytes.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pqcomm.c

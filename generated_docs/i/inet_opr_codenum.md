@@ -30,9 +30,9 @@ The code assignment follows a symmetric pattern where negating a code gives the 
   - OID_INET_SUBEQ_OP (operator constant)
   - OID_INET_SUB_OP (operator constant)
 - Called from (representative examples):
-  - networksel (network selectivity estimation)
-  - networkjoinsel_inner (inner join selectivity) 
-  - networkjoinsel_semi (semi join selectivity)
+  - [networksel](../n/networksel.md) (network selectivity estimation)
+  - [networkjoinsel_inner](../n/networkjoinsel_inner.md) (inner join selectivity) 
+  - [networkjoinsel_semi](../n/networkjoinsel_semi.md) (semi join selectivity)
 
 ## Notes and Other Information
 The function returns specific codes:

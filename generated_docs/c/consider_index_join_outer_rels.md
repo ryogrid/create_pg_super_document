@@ -35,14 +35,14 @@ The function implements both combination logic (trying clauses together) and ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_subset_compare
-  - eclass_already_used
-  - get_join_index_paths
-  - bms_union
-  - list_member
-  - list_nth
+  - [bms_subset_compare](../b/bms_subset_compare.md)
+  - [eclass_already_used](../e/eclass_already_used.md)
+  - [get_join_index_paths](../g/get_join_index_paths.md)
+  - [bms_union](../b/bms_union.md)
+  - [list_member](../l/list_member.md)
+  - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
-  - consider_index_join_clauses
+  - [consider_index_join_clauses](consider_index_join_clauses.md)
 
 ## Notes and Other Information
 - Uses BMS_DIFFERENT check to avoid subset relationships that wouldn't generate new information

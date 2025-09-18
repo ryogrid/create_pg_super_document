@@ -22,23 +22,23 @@ The function categorizes pages by type (leaf vs inner) and special properties (n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgGetCache
-  - BufferGetPage
-  - BufferGetBlockNumber
+  - [spgGetCache](../s/spgGetCache.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - SpGistBlockIsFixed
   - SpGistPageIsLeaf
   - SpGistPageStoresNulls
-  - PageGetExactFreeSpace
+  - [PageGetExactFreeSpace](../P/PageGetExactFreeSpace.md)
   - GET_LUP (macro)
 - Called from (representative examples):
-  - moveLeafs
-  - doPickSplit
-  - spgMatchNodeAction
-  - spgAddNodeAction
-  - spgSplitNodeAction
-  - spgdoinsert
-  - spgvacuumpage
-  - spgprocesspending
+  - [moveLeafs](../m/moveLeafs.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgMatchNodeAction](../s/spgMatchNodeAction.md)
+  - [spgAddNodeAction](../s/spgAddNodeAction.md)
+  - [spgSplitNodeAction](../s/spgSplitNodeAction.md)
+  - [spgdoinsert](../s/spgdoinsert.md)
+  - [spgvacuumpage](../s/spgvacuumpage.md)
+  - [spgprocesspending](../s/spgprocesspending.md)
 
 ## Notes and Other Information
 - Fixed pages (root pages) are never cached as they require special handling

@@ -19,8 +19,8 @@ The `slice_from_s` function is a high-level wrapper for slice replacement operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slice_check
-  - replace_s
+  - [slice_check](slice_check.md)
+  - [replace_s](../r/replace_s.md)
   - symbol (type definition)
 - Called from (representative examples):
   - No direct references found in the indexed codebase

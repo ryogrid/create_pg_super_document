@@ -22,19 +22,19 @@ This function is commonly used in constraint violation scenarios, including uniq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errtable
-  - err_generic_string (with PG_DIAG_CONSTRAINT_NAME)
+  - [errtable](errtable.md)
+  - [err_generic_string](err_generic_string.md) (with PG_DIAG_CONSTRAINT_NAME)
 - Called from (representative examples):
-  - _bt_check_unique
-  - _bt_check_third_page
-  - ATRewriteTable
-  - ATPrepChangePersistence
-  - ExecCheckIndexConstraints
-  - check_exclusion_or_unique_constraint
-  - ExecConstraints
-  - RI_Initial_Check
-  - ri_ReportViolation
-  - comparetup_index_btree_tiebreak
+  - [_bt_check_unique](../b/_bt_check_unique.md)
+  - [_bt_check_third_page](../b/_bt_check_third_page.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ATPrepChangePersistence](../A/ATPrepChangePersistence.md)
+  - [ExecCheckIndexConstraints](../E/ExecCheckIndexConstraints.md)
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md)
+  - [ExecConstraints](../E/ExecConstraints.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [ri_ReportViolation](../r/ri_ReportViolation.md)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md)
 
 ## Notes and Other Information
 - Widely used throughout PostgreSQL for constraint violation error reporting

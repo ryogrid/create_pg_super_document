@@ -32,7 +32,7 @@ This function takes no parameters.
   - UNBLOCKED_SIGNAL_QUEUE (macro)
   - PG_SIGNAL_COUNT (signal count constant)
   - sigmask (signal mask utility)
-  - sigaction (signal action structure)
+  - [sigaction](../s/sigaction.md) (signal action structure)
   - SIG_DFL, SIG_ERR, SIG_IGN (signal constants)
   - sigset_t (signal set type)
   - SA_NODEFER (signal flag)
@@ -41,12 +41,12 @@ This function takes no parameters.
   - EnterCriticalSection/LeaveCriticalSection (Windows API)
   - ResetEvent (Windows API)
 - Called from (representative examples):
-  - pg_usleep
-  - pqsigprocmask
-  - pgwin32_poll_signals
-  - pgwin32_waitforsinglesocket
-  - pgwin32_select
-  - PGSemaphoreLock
+  - [pg_usleep](pg_usleep.md)
+  - [pqsigprocmask](pqsigprocmask.md)
+  - [pgwin32_poll_signals](pgwin32_poll_signals.md)
+  - [pgwin32_waitforsinglesocket](pgwin32_waitforsinglesocket.md)
+  - [pgwin32_select](pgwin32_select.md)
+  - [PGSemaphoreLock](../P/PGSemaphoreLock.md)
   - WaitEventSetWait
 
 ## Notes and Other Information

@@ -24,14 +24,14 @@ The function returns a mixed list containing both RestrictInfo nodes (from index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - predicate_implied_by
-  - list_concat
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [list_concat](../l/list_concat.md)
   - list_make1
   - lfirst
 - Called from (representative examples):
-  - genericcostestimate
-  - btcostestimate
-  - gincostestimate
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [btcostestimate](../b/btcostestimate.md)
+  - [gincostestimate](../g/gincostestimate.md)
 
 ## Notes and Other Information
 - Returns the original indexQuals unchanged if the index has no predicate (not a partial index)

@@ -19,7 +19,7 @@ The function does not handle buffer management (locks/pins) - that responsibilit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (frees the GenericXLogState memory)
+  - [pfree](../p/pfree.md) (frees the GenericXLogState memory)
 - Called from (representative examples):
   - No direct callers found in current analysis
 

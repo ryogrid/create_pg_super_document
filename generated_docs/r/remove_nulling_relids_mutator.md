@@ -34,15 +34,15 @@ The function includes sophisticated logic for PlaceHolderVars, ensuring that bot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (check if variable belongs to excepted relations)
-  - bms_overlap (check if nulling relations overlap with removable set)
-  - bms_difference (remove relation IDs from bitmapsets)
+  - [bms_is_member](../b/bms_is_member.md) (check if variable belongs to excepted relations)
+  - [bms_overlap](../b/bms_overlap.md) (check if nulling relations overlap with removable set)
+  - [bms_difference](../b/bms_difference.md) (remove relation IDs from bitmapsets)
   - bms_is_empty (verify phrels is not empty after modification)
   - copyObject (create deep copy of Var)
   - expression_tree_mutator (recursively process expression nodes and PHV contents)
   - query_tree_mutator (recursively process Query nodes)
 - Called from:
-  - remove_nulling_relids (primary entry point)
+  - [remove_nulling_relids](remove_nulling_relids.md) (primary entry point)
   - Recursively calls itself during tree traversal
 
 ## Notes and Other Information

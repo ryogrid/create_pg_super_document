@@ -28,18 +28,18 @@ The function validates that the offset interval is non-negative per SQL specific
   - PG_GETARG_TIMESTAMP
   - PG_GETARG_INTERVAL_P
   - PG_GETARG_BOOL
-  - interval_sign
+  - [interval_sign](interval_sign.md)
   - INTERVAL_IS_NOEND
   - TIMESTAMP_IS_NOBEGIN
   - TIMESTAMP_IS_NOEND
   - DatumGetTimestamp
   - DirectFunctionCall2
-  - timestamp_mi_interval
-  - timestamp_pl_interval
+  - [timestamp_mi_interval](../t/timestamp_mi_interval.md)
+  - [timestamp_pl_interval](../t/timestamp_pl_interval.md)
   - TimestampGetDatum
-  - IntervalPGetDatum
+  - [IntervalPGetDatum](../I/IntervalPGetDatum.md)
 - Called from:
-  - in_range_date_interval (in src/backend/utils/adt/date.c:1053)
+  - [in_range_date_interval](in_range_date_interval.md) (in src/backend/utils/adt/date.c:1053)
 
 ## Notes and Other Information
 - Part of SQL window function RANGE BETWEEN support for timestamp without time zone

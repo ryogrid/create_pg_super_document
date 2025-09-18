@@ -19,18 +19,18 @@ The function queries the pg_range system catalog using the provided range type O
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_range (pg_range catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (constant for invalid OID)
 - Called from (representative examples):
-  - ExecAlterExtensionContentsRecurse
-  - AlterTypeOwnerInternal
-  - enforce_generic_type_consistency
-  - resolve_anymultirange_from_others
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md)
+  - [AlterTypeOwnerInternal](../A/AlterTypeOwnerInternal.md)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)
+  - [resolve_anymultirange_from_others](../r/resolve_anymultirange_from_others.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the input is not a valid range type OID

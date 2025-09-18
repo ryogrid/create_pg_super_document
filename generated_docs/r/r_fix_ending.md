@@ -26,15 +26,15 @@ The function handles multiple categories of Tamil endings including grammatical 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - len_utf8 (UTF-8 length calculation)
-  - eq_s_b (backward string equality comparison, used 23 times)
-  - find_among_b (backward pattern matching against arrays)
-  - slice_del (text deletion function)
-  - slice_from_s (text replacement function)
+  - [len_utf8](../l/len_utf8.md) (UTF-8 length calculation)
+  - [eq_s_b](../e/eq_s_b.md) (backward string equality comparison, used 23 times)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching against arrays)
+  - [slice_del](../s/slice_del.md) (text deletion function)
+  - [slice_from_s](../s/slice_from_s.md) (text replacement function)
 - Called from (representative examples):
-  - r_fix_endings (iterative ending fix controller)
-  - r_remove_um (Tamil 'um' suffix removal function)
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [r_fix_endings](r_fix_endings.md) (iterative ending fix controller)
+  - [r_remove_um](r_remove_um.md) (Tamil 'um' suffix removal function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - Returns 1 if any transformation was applied, 0 if no applicable patterns were found

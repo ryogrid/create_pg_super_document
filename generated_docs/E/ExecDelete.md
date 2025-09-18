@@ -39,16 +39,16 @@ The function supports multiple deletion scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecDeletePrologue (preparation and BEFORE triggers)
-  - ExecDeleteAct (physical deletion operation)
-  - ExecDeleteEpilogue (cleanup and AFTER triggers)
-  - ExecIRDeleteTriggers (INSTEAD OF row delete triggers)
-  - ExecGetReturningSlot (RETURNING slot management)
-  - EvalPlanQual/EvalPlanQualBegin (concurrency control)
-  - ExecProcessReturning (RETURNING clause processing)
+  - [ExecDeletePrologue](ExecDeletePrologue.md) (preparation and BEFORE triggers)
+  - [ExecDeleteAct](ExecDeleteAct.md) (physical deletion operation)
+  - [ExecDeleteEpilogue](ExecDeleteEpilogue.md) (cleanup and AFTER triggers)
+  - [ExecIRDeleteTriggers](ExecIRDeleteTriggers.md) (INSTEAD OF row delete triggers)
+  - [ExecGetReturningSlot](ExecGetReturningSlot.md) (RETURNING slot management)
+  - [EvalPlanQual](EvalPlanQual.md)/EvalPlanQualBegin (concurrency control)
+  - [ExecProcessReturning](ExecProcessReturning.md) (RETURNING clause processing)
 - Called from:
-  - ExecCrossPartitionUpdate (cross-partition tuple movement)
-  - ExecModifyTable (main modify table execution)
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md) (cross-partition tuple movement)
+  - [ExecModifyTable](ExecModifyTable.md) (main modify table execution)
 
 ## Notes and Other Information
 - Returns TupleTableSlot containing RETURNING results, or NULL if no RETURNING clause

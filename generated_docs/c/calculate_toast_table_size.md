@@ -26,15 +26,15 @@ The function iterates through all possible fork numbers (0 to MAX_FORKNUM) for b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - calculate_relation_size
-  - RelationGetIndexList
-  - relation_close
-  - list_free
+  - [relation_open](../r/relation_open.md)
+  - [calculate_relation_size](calculate_relation_size.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [relation_close](../r/relation_close.md)
+  - [list_free](../l/list_free.md)
   - lfirst_oid
   - MAX_FORKNUM (constant)
 - Called from (representative examples):
-  - calculate_table_size
+  - [calculate_table_size](calculate_table_size.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit (dbsize.c)

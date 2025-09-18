@@ -21,11 +21,11 @@ The function returns an int64 value, though the comment notes that the actual va
 - Functions called/Symbols referenced:
   - COMMIT_TS_XACTS_PER_PAGE (macro that calculates transactions per page as BLCKSZ / SizeOfCommitTimestampEntry)
 - Called from (representative examples):
-  - TransactionTreeSetCommitTsData
-  - TransactionIdGetCommitTsData
-  - ActivateCommitTs
-  - ExtendCommitTs
-  - TruncateCommitTs
+  - [TransactionTreeSetCommitTsData](TransactionTreeSetCommitTsData.md)
+  - [TransactionIdGetCommitTsData](TransactionIdGetCommitTsData.md)
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
+  - [ExtendCommitTs](../E/ExtendCommitTs.md)
+  - [TruncateCommitTs](TruncateCommitTs.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's optimized for performance and only accessible within the commit_ts.c file

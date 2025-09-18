@@ -22,13 +22,13 @@ The structure uses an LWLock to ensure thread-safe access in PostgreSQL's multi-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
-  - PgStat_WalStats
+  - [LWLock](../L/LWLock.md)
+  - [PgStat_WalStats](PgStat_WalStats.md)
 - Called from (representative examples):
   - pgstat_flush_wal
-  - pgstat_wal_reset_all_cb
-  - pgstat_wal_snapshot_cb
-  - PgStat_ShmemControl (as a member)
+  - [pgstat_wal_reset_all_cb](../p/pgstat_wal_reset_all_cb.md)
+  - [pgstat_wal_snapshot_cb](../p/pgstat_wal_snapshot_cb.md)
+  - [PgStat_ShmemControl](PgStat_ShmemControl.md) (as a member)
 
 ## Notes and Other Information
 - WAL statistics tracked include: wal_records (number of WAL records generated), wal_fpi (full page images), wal_bytes (total bytes written), wal_buffers_full (buffer full events), wal_write/wal_sync (I/O operation counts), wal_write_time/wal_sync_time (timing metrics), and stat_reset_timestamp

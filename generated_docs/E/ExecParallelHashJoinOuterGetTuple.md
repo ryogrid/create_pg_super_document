@@ -39,12 +39,12 @@ The function includes an important coordination mechanism - it sets the outer_eo
   - TupIsNull: Checks if tuple slot is empty
   - ExecHashGetHashValue: Computes hash value for tuples (single-batch only)
   - sts_parallel_scan_next: Gets next tuple from shared tuple store (multi-batch)
-  - ExecForceStoreMinimalTuple: Converts minimal tuple to slot format
+  - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md): Converts minimal tuple to slot format
   - ExecClearTuple: Clears tuple slot when no more tuples
   - HJ_FILL_OUTER: Macro to check if this is an outer join
 
 - Called from:
-  - ExecHashJoinImpl: Main hash join execution function (parallel path)
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md): Main hash join execution function (parallel path)
 
 ## Notes and Other Information
 Key differences from non-parallel execution:

@@ -22,13 +22,13 @@ Unlike regular operands, stopword placeholders don't contain actual text content
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (PostgreSQL memory allocation function)
-  - lcons (list construction function)
+  - [palloc0](palloc0.md) (PostgreSQL memory allocation function)
+  - [lcons](../l/lcons.md) (list construction function)
   - QueryOperand (query operand structure type)
   - QI_VALSTOP (query item type constant for stopword placeholders)
 - Called from (representative examples):
-  - pushval_morph
-  - gettoken_query_websearch
+  - [pushval_morph](pushval_morph.md)
+  - [gettoken_query_websearch](../g/gettoken_query_websearch.md)
   - P_TSQ_WEB
 
 ## Notes and Other Information

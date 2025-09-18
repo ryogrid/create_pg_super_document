@@ -25,18 +25,18 @@ For internal pages, it validates tuple integrity and detects legacy "invalid tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_delay_point (vacuum throttling)
-  - ReadBufferExtended, LockBuffer, BufferGetPage, UnlockReleaseBuffer (buffer management)
-  - gistPageRecyclable, GistPageIsDeleted, GistPageIsLeaf (page state checking)
+  - [vacuum_delay_point](../v/vacuum_delay_point.md) (vacuum throttling)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md), LockBuffer, BufferGetPage, UnlockReleaseBuffer (buffer management)
+  - [gistPageRecyclable](gistPageRecyclable.md), GistPageIsDeleted, GistPageIsLeaf (page state checking)
   - RecordFreeIndexPage (FSM management)
   - GistFollowRight, GistPageGetNSN (split detection logic)
-  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem (page/tuple access)
-  - PageIndexMultiDelete, GistMarkTuplesDeleted (tuple deletion)
-  - gistXLogUpdate, gistGetFakeLSN (WAL logging)
-  - intset_add_member (page set tracking for internal and empty pages)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page/tuple access)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md), GistMarkTuplesDeleted (tuple deletion)
+  - [gistXLogUpdate](gistXLogUpdate.md), gistGetFakeLSN (WAL logging)
+  - [intset_add_member](../i/intset_add_member.md) (page set tracking for internal and empty pages)
   - GistTupleIsInvalid (legacy tuple validation)
 - Called from (representative examples):
-  - gistvacuumscan (main vacuum scanning loop)
+  - [gistvacuumscan](gistvacuumscan.md) (main vacuum scanning loop)
 
 ## Notes and Other Information
 - Uses tail recursion optimization (implemented as a goto loop) to handle concurrent page splits efficiently

@@ -29,14 +29,14 @@ This approach ensures that even if the input entries are sorted, the resulting r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildAccumulator (data structure)
+  - [BuildAccumulator](../B/BuildAccumulator.md) (data structure)
   - GinNullCategory (enum/type)
-  - ItemPointerIsValid (validation function)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md) (validation function)
   - FirstOffsetNumber (constant)
-  - ginInsertBAEntry (single entry insertion function)
+  - [ginInsertBAEntry](ginInsertBAEntry.md) (single entry insertion function)
 - Called from:
-  - processPendingPage (in ginfast.c)
-  - ginHeapTupleBulkInsert (in gininsert.c)
+  - [processPendingPage](../p/processPendingPage.md) (in ginfast.c)
+  - [ginHeapTupleBulkInsert](ginHeapTupleBulkInsert.md) (in gininsert.c)
 
 ## Notes and Other Information
 - The function includes extensive comments explaining the rationale for the complex insertion order algorithm

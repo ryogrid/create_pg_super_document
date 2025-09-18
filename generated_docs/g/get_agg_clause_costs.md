@@ -33,9 +33,9 @@ The costs are ADDED to the existing values in the costs structure, so the caller
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_function_cost
-  - cost_qual_eval_node
-  - get_typavgwidth
+  - [add_function_cost](../a/add_function_cost.md)
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
+  - [get_typavgwidth](get_typavgwidth.md)
   - linitial_node
   - DO_AGGSPLIT_COMBINE
   - DO_AGGSPLIT_DESERIALIZE
@@ -44,8 +44,8 @@ The costs are ADDED to the existing values in the costs structure, so the caller
   - ALLOCSET_SMALL_INITSIZE
   - ALLOCSET_DEFAULT_INITSIZE
 - Called from (representative examples):
-  - create_grouping_paths (src/backend/optimizer/plan/planner.c:3832)
-  - create_partial_grouping_paths (src/backend/optimizer/plan/planner.c:7363, 7367)
+  - [create_grouping_paths](../c/create_grouping_paths.md) (src/backend/optimizer/plan/planner.c:3832)
+  - [create_partial_grouping_paths](../c/create_partial_grouping_paths.md) (src/backend/optimizer/plan/planner.c:7363, 7367)
 
 ## Notes and Other Information
 - The function handles special cases for different transition types, including INTERNAL types and array aggregates

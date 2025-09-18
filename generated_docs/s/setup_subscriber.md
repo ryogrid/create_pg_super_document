@@ -21,14 +21,14 @@ This function is the final step in the pg_createsubscriber process that converts
 ## Dependencies
 - Functions called/Symbols referenced:
   - connect_database (establishes connection to subscriber database)
-  - check_and_drop_existing_subscriptions (removes pre-existing subscriptions)
-  - drop_publication (removes publications from subscriber)
-  - create_subscription (creates new logical replication subscription)
-  - set_replication_progress (sets subscription's LSN starting point)
-  - enable_subscription (activates the subscription)
-  - disconnect_database (closes database connection)
+  - [check_and_drop_existing_subscriptions](../c/check_and_drop_existing_subscriptions.md) (removes pre-existing subscriptions)
+  - [drop_publication](../d/drop_publication.md) (removes publications from subscriber)
+  - [create_subscription](../c/create_subscription.md) (creates new logical replication subscription)
+  - [set_replication_progress](set_replication_progress.md) (sets subscription's LSN starting point)
+  - [enable_subscription](../e/enable_subscription.md) (activates the subscription)
+  - [disconnect_database](../d/disconnect_database.md) (closes database connection)
 - Called from:
-  - main (primary entry point of pg_createsubscriber utility)
+  - [main](../m/main.md) (primary entry point of pg_createsubscriber utility)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c

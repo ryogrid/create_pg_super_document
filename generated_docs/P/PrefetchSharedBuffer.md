@@ -21,14 +21,14 @@ The function follows a non-blocking approach - it only performs a shared lock on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitBufferTag: Creates buffer tag for block identification
-  - BufTableHashCode: Computes hash for buffer table lookup
-  - BufMappingPartitionLock: Gets partition lock for buffer mapping
-  - BufTableLookup: Looks up buffer in buffer table
-  - smgrprefetch: Initiates asynchronous I/O through storage manager
+  - [InitBufferTag](../I/InitBufferTag.md): Creates buffer tag for block identification
+  - [BufTableHashCode](../B/BufTableHashCode.md): Computes hash for buffer table lookup
+  - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md): Gets partition lock for buffer mapping
+  - [BufTableLookup](../B/BufTableLookup.md): Looks up buffer in buffer table
+  - [smgrprefetch](../s/smgrprefetch.md): Initiates asynchronous I/O through storage manager
 - Called from (representative examples):
-  - XLogPrefetcherNextBlock: WAL replay prefetching
-  - PrefetchBuffer: High-level prefetch interface
+  - [XLogPrefetcherNextBlock](../X/XLogPrefetcherNextBlock.md): WAL replay prefetching
+  - [PrefetchBuffer](PrefetchBuffer.md): High-level prefetch interface
 
 ## Notes and Other Information
 - When a block is found in the buffer cache, the function returns the buffer ID but does not pin it, requiring the caller to revalidate

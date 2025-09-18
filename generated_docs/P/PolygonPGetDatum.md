@@ -17,10 +17,10 @@ This function performs the reverse operation of DatumGetPolygonP, converting a P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (conversion utility)
-  - POLYGON (variable-length geometric data type)
+  - [PointerGetDatum](PointerGetDatum.md) (conversion utility)
+  - [POLYGON](POLYGON.md) (variable-length geometric data type)
 - Called from (representative examples):
-  - gist_point_consistent
+  - [gist_point_consistent](../g/gist_point_consistent.md)
   - PG_RETURN_POLYGON_P (macro)
 
 ## Notes and Other Information

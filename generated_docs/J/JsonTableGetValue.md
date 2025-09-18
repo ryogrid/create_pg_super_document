@@ -27,15 +27,15 @@ The function implements careful context management, preserving and restoring the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetJsonTableExecContext
-  - list_nth
+  - [GetJsonTableExecContext](../G/GetJsonTableExecContext.md)
+  - [list_nth](../l/list_nth.md)
   - ExecEvalExpr
-  - Int32GetDatum
+  - [Int32GetDatum](../I/Int32GetDatum.md)
 - Types referenced:
-  - TableFuncScanState
-  - JsonTableExecContext
-  - JsonTablePlanState
-  - JsonTablePlanRowSource
+  - [TableFuncScanState](../T/TableFuncScanState.md)
+  - [JsonTableExecContext](JsonTableExecContext.md)
+  - [JsonTablePlanState](JsonTablePlanState.md)
+  - [JsonTablePlanRowSource](JsonTablePlanRowSource.md)
   - ExprContext
   - ExprState
 - Called from (representative examples):

@@ -32,15 +32,15 @@ This function takes no parameters and operates on:
 - Functions called/Symbols referenced:
   - XLByteToSeg (converts byte position to segment number)
   - opendir, readdir, closedir (POSIX directory operations)
-  - IsXLogFileName (checks if filename is a WAL segment)
-  - IsPartialXLogFileName (checks if filename is a partial WAL segment)
-  - XLogFromFileName (extracts timeline and segment number from filename)
+  - [IsXLogFileName](../I/IsXLogFileName.md) (checks if filename is a WAL segment)
+  - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (checks if filename is a partial WAL segment)
+  - [XLogFromFileName](../X/XLogFromFileName.md) (extracts timeline and segment number from filename)
   - XLOGDIR (constant for WAL directory path)
   - DIR, dirent (POSIX directory structures)
   - TimeLineID, XLogSegNo (PostgreSQL WAL types)
 
 - Called from:
-  - main (in pg_resetwal.c at line 400)
+  - [main](../m/main.md) (in pg_resetwal.c at line 400)
 
 ## Notes and Other Information
 - This is a static function local to pg_resetwal.c

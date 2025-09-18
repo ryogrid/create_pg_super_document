@@ -38,18 +38,18 @@ The validation ensures the index can reliably identify rows for replication, mai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_mark_replica_identity: Updates the replica identity configuration
-  - get_relname_relid: Resolves index name to OID within the table's namespace
-  - index_open: Opens the specified index with ShareLock
-  - index_close: Closes the index relation
-  - RelationGetIndexExpressions: Checks for expression indexes
-  - RelationGetIndexPredicate: Checks for partial indexes
+  - [relation_mark_replica_identity](../r/relation_mark_replica_identity.md): Updates the replica identity configuration
+  - [get_relname_relid](../g/get_relname_relid.md): Resolves index name to OID within the table's namespace
+  - [index_open](../i/index_open.md): Opens the specified index with ShareLock
+  - [index_close](../i/index_close.md): Closes the index relation
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md): Checks for expression indexes
+  - [RelationGetIndexPredicate](../R/RelationGetIndexPredicate.md): Checks for partial indexes
   - IndexRelationGetNumberOfKeyAttributes: Gets count of key attributes
   - ReplicaIdentityStmt: Structure containing parsed statement information
   - REPLICA_IDENTITY_DEFAULT/FULL/NOTHING/INDEX: Constants for identity types
 
 - Called from (representative examples):
-  - ATExecCmd: Main ALTER TABLE command execution dispatcher
+  - [ATExecCmd](ATExecCmd.md): Main ALTER TABLE command execution dispatcher
 
 ## Notes and Other Information
 - The function performs comprehensive validation only for REPLICA_IDENTITY_INDEX type

@@ -21,12 +21,12 @@ The function performs element-by-element conversion, extracting each TEXT datum 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_array_builtin (array element extraction)
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) (array element extraction)
   - TextDatumGetCString (TEXT datum to C string conversion) 
-  - makeString (creates string Value nodes)
+  - [makeString](../m/makeString.md) (creates string Value nodes)
   - lappend (list append operation)
 - Called from (representative examples):
-  - pg_get_object_address (SQL function for object address resolution)
+  - [pg_get_object_address](../p/pg_get_object_address.md) (SQL function for object address resolution)
 
 ## Notes and Other Information
 - Returns NIL (empty list) for empty arrays

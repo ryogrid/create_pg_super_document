@@ -30,15 +30,15 @@ The structure uses condition variables and counters to coordinate checkpoint ope
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t
-  - slock_t
+  - [slock_t](../s/slock_t.md)
   - ConditionVariable
-  - CheckpointerRequest
+  - [CheckpointerRequest](CheckpointerRequest.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Used by:
-  - CheckpointerMain
-  - ImmediateCheckpointRequested
-  - CheckpointerShmemSize
-  - CheckpointerShmemInit
+  - [CheckpointerMain](CheckpointerMain.md)
+  - [ImmediateCheckpointRequested](../I/ImmediateCheckpointRequested.md)
+  - [CheckpointerShmemSize](CheckpointerShmemSize.md)
+  - [CheckpointerShmemInit](CheckpointerShmemInit.md)
 
 ## Notes and Other Information
 - The structure is allocated in shared memory during PostgreSQL startup via CheckpointerShmemInit()

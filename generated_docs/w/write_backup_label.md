@@ -31,17 +31,17 @@ This is essential for creating clean backup label files when combining increment
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_checksum_init
-  - get_eol_offset
-  - line_starts_with
+  - [get_eol_offset](../g/get_eol_offset.md)
+  - [line_starts_with](../l/line_starts_with.md)
   - open
   - write
   - pg_checksum_update
   - close
   - pg_checksum_final
   - add_file_to_manifest
-  - stat
+  - [stat](../s/stat.md)
 - Called from (representative examples):
-  - main (in pg_combinebackup.c)
+  - [main](../m/main.md) (in pg_combinebackup.c)
 
 ## Notes and Other Information
 - Uses O_EXCL flag to ensure the backup_label file doesn't already exist, preventing accidental overwrites

@@ -21,7 +21,7 @@ The function mirrors the logic used in `init_htab` to ensure consistency between
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - next_pow2_long (calculates next power of two for bucket and segment counts)
+  - [next_pow2_long](../n/next_pow2_long.md) (calculates next power of two for bucket and segment counts)
   - DEF_SEGSIZE (default segment size constant)
   - DEF_DIRSIZE (default directory size constant)
 - Called from (representative examples):

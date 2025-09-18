@@ -18,16 +18,16 @@ This function is the central dispatcher for generating NOTICE messages when obje
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - schema_does_not_exist_skipping: Checks if schema exists for schema-qualified objects
-  - type_in_list_does_not_exist_skipping: Checks if types exist for objects with type dependencies
-  - owningrel_does_not_exist_skipping: Checks if owning relation exists for triggers/rules/policies
-  - TypeNameToString: Converts TypeName to string for messages
-  - NameListToString: Converts name lists to strings for messages
-  - TypeNameListToString: Converts type argument lists to strings
+  - [schema_does_not_exist_skipping](../s/schema_does_not_exist_skipping.md): Checks if schema exists for schema-qualified objects
+  - [type_in_list_does_not_exist_skipping](../t/type_in_list_does_not_exist_skipping.md): Checks if types exist for objects with type dependencies
+  - [owningrel_does_not_exist_skipping](../o/owningrel_does_not_exist_skipping.md): Checks if owning relation exists for triggers/rules/policies
+  - [TypeNameToString](../T/TypeNameToString.md): Converts TypeName to string for messages
+  - [NameListToString](../N/NameListToString.md): Converts name lists to strings for messages
+  - [TypeNameListToString](../T/TypeNameListToString.md): Converts type argument lists to strings
   - Various list manipulation functions (list_copy_head, list_copy_tail, etc.)
 
 - Called from (representative examples):
-  - RemoveObjects: Main caller when objects are not found during DROP operations
+  - [RemoveObjects](../R/RemoveObjects.md): Main caller when objects are not found during DROP operations
 
 ## Notes and Other Information
 - This is a static function internal to dropcmds.c

@@ -32,9 +32,9 @@ The structure is used to populate a static array  that contains entries for all 
   - TYPALIGN_* constants
   - TYPSTORAGE_* constants
 - Called from (representative examples):
-  - DefineAttr (via TypInfo array access at line 527-533)
+  - [DefineAttr](../D/DefineAttr.md) (via TypInfo array access at line 527-533)
   - getTypinfo (via TypInfo array lookup at line 782)
-  - boot_get_type_io_data (via TypInfo array access at line 852-871)
+  - [boot_get_type_io_data](../b/boot_get_type_io_data.md) (via TypInfo array access at line 852-871)
 
 ## Notes and Other Information
 This structure is only used during bootstrap and is replaced by the pg_type catalog once the system is fully initialized. The static TypInfo[] array contains hardcoded entries for approximately 22 fundamental PostgreSQL data types that are essential for creating the initial system catalogs. The structure provides a bridge between the bootstrap process and the full type system.

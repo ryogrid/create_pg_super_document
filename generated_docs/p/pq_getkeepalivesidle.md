@@ -24,8 +24,8 @@ This function returns the TCP keepalive idle time setting for a port connection.
   - AF_UNIX (address family constant)
   - IPPROTO_TCP (protocol constant)
 - Called from (representative examples):
-  - pq_setkeepalivesidle
-  - show_tcp_keepalives_idle
+  - [pq_setkeepalivesidle](pq_setkeepalivesidle.md)
+  - [show_tcp_keepalives_idle](../s/show_tcp_keepalives_idle.md)
 
 ## Notes and Other Information
 - Platform-dependent implementation using conditional compilation (#ifdef PG_TCP_KEEPALIVE_IDLE)

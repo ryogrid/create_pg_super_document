@@ -36,16 +36,16 @@ The function creates a tuplestore to hold all results and handles the complex in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset, MemoryContextSwitchTo (memory management)
-  - type_is_rowtype (type checking)
+  - [MemoryContextReset](../M/MemoryContextReset.md), MemoryContextSwitchTo (memory management)
+  - [type_is_rowtype](../t/type_is_rowtype.md) (type checking)
   - tuplestore_begin_heap, tuplestore_puttuple, tuplestore_putvalues (result storage)
   - InitFunctionCallInfoData, FunctionCallInvoke (function call infrastructure)
-  - ExecEvalFuncArgs, ExecEvalExpr (argument and expression evaluation)
-  - CreateTemplateTupleDesc, TupleDescInitEntry (tuple descriptor creation)
-  - lookup_rowtype_tupdesc_copy, tupledesc_match (type descriptor handling)
-  - pgstat_init_function_usage, pgstat_end_function_usage (statistics)
+  - [ExecEvalFuncArgs](ExecEvalFuncArgs.md), ExecEvalExpr (argument and expression evaluation)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md), TupleDescInitEntry (tuple descriptor creation)
+  - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md), tupledesc_match (type descriptor handling)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md), pgstat_end_function_usage (statistics)
 - Called from (representative examples):
-  - FunctionNext (src/backend/executor/nodeFunctionscan.c:94, 153)
+  - [FunctionNext](../F/FunctionNext.md) (src/backend/executor/nodeFunctionscan.c:94, 153)
 
 ## Notes and Other Information
 - Implements careful memory management with separate contexts for arguments, per-tuple operations, and query-lifetime objects

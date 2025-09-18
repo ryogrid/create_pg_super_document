@@ -23,27 +23,27 @@ Build-time compiler and linker information is retrieved from preprocessor macros
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_array
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - strlcpy
   - strlcat
   - strrchr
-  - cleanup_path
-  - get_doc_path
-  - get_html_path
-  - get_include_path
-  - get_pkginclude_path
-  - get_includeserver_path
-  - get_lib_path
-  - get_pkglib_path
-  - get_locale_path
-  - get_man_path
-  - get_share_path
-  - get_etc_path
-  - ConfigData (struct)
+  - [cleanup_path](../c/cleanup_path.md)
+  - [get_doc_path](get_doc_path.md)
+  - [get_html_path](get_html_path.md)
+  - [get_include_path](get_include_path.md)
+  - [get_pkginclude_path](get_pkginclude_path.md)
+  - [get_includeserver_path](get_includeserver_path.md)
+  - [get_lib_path](get_lib_path.md)
+  - [get_pkglib_path](get_pkglib_path.md)
+  - [get_locale_path](get_locale_path.md)
+  - [get_man_path](get_man_path.md)
+  - [get_share_path](get_share_path.md)
+  - [get_etc_path](get_etc_path.md)
+  - [ConfigData](../C/ConfigData.md) (struct)
 
 - Called from (representative examples):
-  - pg_config (backend function)
-  - main (in pg_config utility)
+  - [pg_config](../p/pg_config.md) (backend function)
+  - [main](../m/main.md) (in pg_config utility)
 
 ## Notes and Other Information
 - Returns exactly 23 ConfigData entries covering all major PostgreSQL installation paths and build settings

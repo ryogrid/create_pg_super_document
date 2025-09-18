@@ -26,16 +26,16 @@ This optimization helps reduce repeated visibility checks for tuples that are kn
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid
-  - ReadBuffer
-  - gistcheckpage
-  - BufferGetLSNAtomic
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [gistcheckpage](gistcheckpage.md)
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
   - GistPageIsLeaf
-  - PageGetItemId
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdMarkDead
   - GistMarkPageHasGarbage
-  - MarkBufferDirtyHint
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
 - Called from:
-  - gistgettuple
+  - [gistgettuple](gistgettuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistget.c file

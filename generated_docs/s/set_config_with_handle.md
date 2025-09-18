@@ -30,15 +30,15 @@ The function handles various configuration contexts (POSTMASTER, SIGHUP, BACKEND
 - Functions called/Symbols referenced:
   - find_option
   - IsInParallelMode
-  - pg_parameter_aclcheck
-  - InLocalUserIdChange
-  - InSecurityRestrictedOperation
+  - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md)
+  - [InLocalUserIdChange](../I/InLocalUserIdChange.md)
+  - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md)
   - config_generic
   - GucContext, GucSource, GucAction enums
 - Called from (representative examples):
   - set_config_option
   - set_config_option_ext
-  - fmgr_security_definer
+  - [fmgr_security_definer](../f/fmgr_security_definer.md)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 on failure, -1 if setting was ignored due to lower priority source

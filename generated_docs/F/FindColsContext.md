@@ -21,8 +21,8 @@ FindColsContext serves as a context structure for traversing expression trees to
 - Functions called/Symbols referenced:
   - (No direct symbol references - uses basic types)
 - Called from (representative examples):
-  - find_cols
-  - find_cols_walker
+  - [find_cols](../f/find_cols.md)
+  - [find_cols_walker](../f/find_cols_walker.md)
 
 ## Notes and Other Information
 - Used specifically for expression tree analysis in aggregate query processing

@@ -25,17 +25,17 @@ The function handles special cases like steps with no source IDs (indicating no 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - bms_add_range
+  - [palloc0](palloc0.md)
+  - [bms_add_range](../b/bms_add_range.md)
   - partition_bound_has_default
   - partition_bound_accepts_nulls
   - lfirst_int
-  - bms_add_members
-  - bms_copy
-  - bms_int_members
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_int_members](../b/bms_int_members.md)
   - elog
 - Called from (representative examples):
-  - get_matching_partitions
+  - [get_matching_partitions](../g/get_matching_partitions.md)
 
 ## Notes and Other Information
 - Returns all partition indexes when source_stepids is NIL (empty), indicating no pruning constraints

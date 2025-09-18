@@ -27,8 +27,8 @@ This function is particularly useful for radix tree operations and other data st
   - vld1q_u8, vandq_u8, vshrq_n_s8, vextq_u8, vaddvq_u16, vzip1q_u8 (NEON intrinsics)
   - USE_SSE2, USE_NEON (preprocessor conditions)
 - Called from (representative examples):
-  - RT_NODE_16_SEARCH_EQ
-  - RT_NODE_16_GET_INSERTPOS
+  - [RT_NODE_16_SEARCH_EQ](../R/RT_NODE_16_SEARCH_EQ.md)
+  - [RT_NODE_16_GET_INSERTPOS](../R/RT_NODE_16_GET_INSERTPOS.md)
 
 ## Notes and Other Information
 - Implemented as a static inline function for performance optimization

@@ -20,13 +20,13 @@ This function serves as a simplified wrapper around deparse_expression_pretty, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deparse_expression_pretty
+  - [deparse_expression_pretty](deparse_expression_pretty.md)
 - Called from (representative examples):
-  - show_plan_tlist (src/backend/commands/explain.c:2475)
-  - show_expression (src/backend/commands/explain.c:2500)
-  - show_grouping_set_keys (src/backend/commands/explain.c:2715)
-  - DefineDomain (src/backend/commands/typecmds.c:929)
-  - pg_get_partconstrdef_string (src/backend/utils/adt/ruleutils.c:2116)
+  - [show_plan_tlist](../s/show_plan_tlist.md) (src/backend/commands/explain.c:2475)
+  - [show_expression](../s/show_expression.md) (src/backend/commands/explain.c:2500)
+  - [show_grouping_set_keys](../s/show_grouping_set_keys.md) (src/backend/commands/explain.c:2715)
+  - [DefineDomain](../D/DefineDomain.md) (src/backend/commands/typecmds.c:929)
+  - [pg_get_partconstrdef_string](../p/pg_get_partconstrdef_string.md) (src/backend/utils/adt/ruleutils.c:2116)
 
 ## Notes and Other Information
 This function is primarily used when a simple string representation of an expression is needed without concern for formatting or readability. For formatted output suitable for display, use deparse_expression_pretty directly with appropriate pretty printing flags.

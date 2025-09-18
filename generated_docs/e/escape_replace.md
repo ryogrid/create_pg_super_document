@@ -22,9 +22,9 @@ The escape_replace function implements a straightforward approach to escaping SQ
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from (representative examples):
-  - escape_fmt_id
+  - [escape_fmt_id](escape_fmt_id.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating different escape methods. It always returns true as it doesn't perform error checking, unlike other escape functions in the module. The function demonstrates the simplest possible approach to SQL string escaping, which is sufficient for many use cases but lacks the sophisticated encoding and context awareness of libpq's built-in escaping functions. It serves as a reference implementation for how non-core drivers typically handle string escaping when they don't have access to PostgreSQL's internal escaping mechanisms.

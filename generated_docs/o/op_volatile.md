@@ -19,13 +19,13 @@ This function determines the volatility level of an operator by examining the vo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode
-  - func_volatile
+  - [get_opcode](../g/get_opcode.md)
+  - [func_volatile](../f/func_volatile.md)
   - elog
   - RegProcedure
 - Called from (representative examples):
-  - lookup_proof_cache
-  - match_clause_to_partition_key
+  - [lookup_proof_cache](../l/lookup_proof_cache.md)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md)
 
 ## Notes and Other Information
 - Returns a character representing the volatility level: 'i' (immutable), 's' (stable), or 'v' (volatile)

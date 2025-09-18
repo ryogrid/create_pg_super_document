@@ -22,14 +22,14 @@ GinBtreeStack implements a linked stack data structure that tracks the traversal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinBtreeStack (self-reference for parent pointer)
+  - [GinBtreeStack](GinBtreeStack.md) (self-reference for parent pointer)
 - Called from (representative examples):
-  - ginFindLeafPage
-  - ginFindParents
-  - ginPlaceToPage
-  - ginFinishSplit
-  - dataLocateItem
-  - entryLocateEntry
+  - [ginFindLeafPage](../g/ginFindLeafPage.md)
+  - [ginFindParents](../g/ginFindParents.md)
+  - [ginPlaceToPage](../g/ginPlaceToPage.md)
+  - [ginFinishSplit](../g/ginFinishSplit.md)
+  - [dataLocateItem](../d/dataLocateItem.md)
+  - [entryLocateEntry](../e/entryLocateEntry.md)
 
 ## Notes and Other Information
 - Located in src/include/access/gin_private.h:129-138

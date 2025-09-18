@@ -22,9 +22,9 @@ The structure is part of the predicate locking mechanism that implements Seriali
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a data structure)
 - Called from (representative examples):
-  - SerialControl (as a typedef base)
+  - [SerialControl](SerialControl.md) (as a typedef base)
   - SerialInit
-  - PredicateLockShmemSize
+  - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md)
 
 ## Notes and Other Information
 - This structure is used in conjunction with the SLRU mechanism to efficiently manage memory for serializable transaction tracking

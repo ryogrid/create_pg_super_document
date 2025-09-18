@@ -21,12 +21,12 @@ This function drives execution of a single query within a SQL function, handling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessUtility
-  - ExecutorRun
+  - [ProcessUtility](../P/ProcessUtility.md)
+  - [ExecutorRun](../E/ExecutorRun.md)
   - ForwardScanDirection (scan direction constant)
   - PROCESS_UTILITY_QUERY (utility context constant)
 - Called from (representative examples):
-  - fmgr_sql
+  - [fmgr_sql](../f/fmgr_sql.md)
 
 ## Notes and Other Information
 - Returns true if execution ran to completion, false if stopped early (lazy evaluation)

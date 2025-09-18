@@ -23,9 +23,9 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psql_start_command (initialize psql command buffer)
-  - psql_add_command (add SQL commands to buffer)
-  - psql_end_command (execute the buffered commands)
+  - [psql_start_command](../p/psql_start_command.md) (initialize psql command buffer)
+  - [psql_add_command](../p/psql_add_command.md) (add SQL commands to buffer)
+  - [psql_end_command](../p/psql_end_command.md) (execute the buffered commands)
 - Called from (representative examples):
   - No direct callers found in codebase
 

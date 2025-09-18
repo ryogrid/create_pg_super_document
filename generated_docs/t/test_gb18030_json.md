@@ -24,26 +24,26 @@ The test exercises the same wide-character infrastructure (wchar.c) that the mai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pe_test_config (struct type)
-  - JsonLexContext (JSON lexer context type)
-  - JsonSemAction (JSON semantic action structure)
+  - [pe_test_config](../p/pe_test_config.md) (struct type)
+  - [JsonLexContext](../J/JsonLexContext.md) (JSON lexer context type)
+  - [JsonSemAction](../J/JsonSemAction.md) (JSON semantic action structure)
   - JsonParseErrorType (JSON error enumeration)
   - createPQExpBuffer (libpq buffer creation)
   - appendBinaryPQExpBuffer (libpq binary buffer append)
-  - appendPQExpBufferStr (libpq string buffer append)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (libpq string buffer append)
   - NEVER_ACCESS_STR (constant for Valgrind testing)
   - VALGRIND_MAKE_MEM_NOACCESS (Valgrind memory control macro)
-  - escapify (local utility function for readable output)
-  - makeJsonLexContextCstringLen (JSON lexer context creation)
+  - [escapify](../e/escapify.md) (local utility function for readable output)
+  - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md) (JSON lexer context creation)
   - PG_GB18030 (encoding constant)
-  - pg_parse_json (JSON parser function)
+  - [pg_parse_json](../p/pg_parse_json.md) (JSON parser function)
   - JSON_UNICODE_ESCAPE_FORMAT (expected error constant)
-  - report_result (local test reporting function)
+  - [report_result](../r/report_result.md) (local test reporting function)
   - json_errdetail (JSON error detail function)
   - freeJsonLexContext (JSON lexer cleanup)
   - destroyPQExpBuffer (libpq buffer cleanup)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the test_escape.c file

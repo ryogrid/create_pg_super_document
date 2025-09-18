@@ -25,9 +25,9 @@ The function is designed to be fast and simple, performing only the minimal stat
 - Functions called/Symbols referenced:
   - (None - direct field assignments only)
 - Called from (representative examples):
-  - XLogDecodeNextRecord
-  - ReadPageInternal
-  - XLogFindNextRecord
+  - [XLogDecodeNextRecord](XLogDecodeNextRecord.md)
+  - [ReadPageInternal](../R/ReadPageInternal.md)
+  - [XLogFindNextRecord](XLogFindNextRecord.md)
 
 ## Notes and Other Information
 - Resets ws_segno, segoff, and readLen to 0 to indicate invalid/empty cache

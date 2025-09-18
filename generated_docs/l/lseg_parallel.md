@@ -22,10 +22,10 @@ The `lseg_parallel` function is a PostgreSQL built-in function that tests whethe
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSEG_P: PostgreSQL macro to extract line segment arguments
-  - lseg_sl: Calculates slope of a line segment
-  - FPeq: Floating-point equality comparison with tolerance
+  - [lseg_sl](lseg_sl.md): Calculates slope of a line segment
+  - [FPeq](../F/FPeq.md): Floating-point equality comparison with tolerance
   - PG_RETURN_BOOL: PostgreSQL macro to return boolean result
-  - LSEG: Line segment data structure type
+  - [LSEG](../L/LSEG.md): Line segment data structure type
 
 - Called from (representative examples):
   - This function is typically called from SQL queries rather than C code

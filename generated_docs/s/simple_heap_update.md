@@ -26,17 +26,17 @@ The function handles all possible heap_update results:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_update (core update function)
-  - GetCurrentCommandId (get current command ID)
+  - [heap_update](../h/heap_update.md) (core update function)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md) (get current command ID)
   - elog (error reporting)
 - Type references:
   - TM_Result (tuple manager result codes)
   - TM_FailureData (failure information structure)
-  - LockTupleMode (tuple locking modes)
+  - [LockTupleMode](../L/LockTupleMode.md) (tuple locking modes)
   - TU_UpdateIndexes (index update control)
 - Called from (representative examples):
-  - CatalogTupleUpdate (catalog tuple updates)
-  - CatalogTupleUpdateWithInfo (catalog updates with additional info)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog tuple updates)
+  - [CatalogTupleUpdateWithInfo](../C/CatalogTupleUpdateWithInfo.md) (catalog updates with additional info)
 
 ## Notes and Other Information
 - Designed for scenarios where concurrent updates are not expected

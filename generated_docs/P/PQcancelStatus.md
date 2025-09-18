@@ -25,8 +25,8 @@ The function simply delegates to PQstatus() on the underlying connection structu
 - Functions called/Symbols referenced:
   - PQstatus
 - Called from (representative examples):
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:342)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:399)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:342)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:399)
 
 ## Notes and Other Information
 - Returns ConnStatusType enum value indicating the current connection state

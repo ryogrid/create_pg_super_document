@@ -21,13 +21,13 @@ The function prevents memory leaks during domain constraint checking and detoast
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - ALLOCSET_SMALL_SIZES
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - expanded_record_set_tuple
-  - expanded_record_set_field_internal
-  - expanded_record_set_fields
-  - build_dummy_expanded_header
-  - check_domain_for_new_tuple
+  - [expanded_record_set_tuple](../e/expanded_record_set_tuple.md)
+  - [expanded_record_set_field_internal](../e/expanded_record_set_field_internal.md)
+  - [expanded_record_set_fields](../e/expanded_record_set_fields.md)
+  - [build_dummy_expanded_header](../b/build_dummy_expanded_header.md)
+  - [check_domain_for_new_tuple](../c/check_domain_for_new_tuple.md)
 
 ## Notes and Other Information
 - Function is marked static, indicating internal use within expandedrecord.c only

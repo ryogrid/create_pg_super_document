@@ -20,7 +20,7 @@ The function extracts the array of type modifiers from the function arguments an
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P: Extracts array of type modifiers from function args
-  - anytime_typmodin: Common validation logic for TIME/TIMETZ type modifiers (called with istz=true)
+  - [anytime_typmodin](../a/anytime_typmodin.md): Common validation logic for TIME/TIMETZ type modifiers (called with istz=true)
   - PG_RETURN_INT32: Returns the validated type modifier value
 - Called from (representative examples):
   - PostgreSQL parser and type system (indirectly through function registry)

@@ -19,15 +19,15 @@ This function processes logical replication BEGIN PREPARE messages that signal t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepPreparedTxnData (struct for storing prepared transaction begin data)
-  - am_tablesync_worker (checks if current worker is a tablesync worker)
-  - logicalrep_read_begin_prepare (deserializes BEGIN PREPARE message from stream)
-  - set_apply_error_context_xact (establishes error context for transaction)
-  - maybe_start_skipping_changes (initiates LSN-based change filtering if needed)
-  - pgstat_report_activity (reports worker activity status)
+  - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md) (struct for storing prepared transaction begin data)
+  - [am_tablesync_worker](am_tablesync_worker.md) (checks if current worker is a tablesync worker)
+  - [logicalrep_read_begin_prepare](../l/logicalrep_read_begin_prepare.md) (deserializes BEGIN PREPARE message from stream)
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md) (establishes error context for transaction)
+  - [maybe_start_skipping_changes](../m/maybe_start_skipping_changes.md) (initiates LSN-based change filtering if needed)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (reports worker activity status)
   - STATE_RUNNING (activity state constant)
 - Called from:
-  - apply_dispatch (main message dispatcher for logical replication)
+  - [apply_dispatch](apply_dispatch.md) (main message dispatcher for logical replication)
 
 ## Notes and Other Information
 - Explicitly prevents tablesync workers from processing prepared transactions with error reporting

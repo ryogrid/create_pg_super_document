@@ -29,15 +29,15 @@ The function handles special formatting:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lineptr: Structure type for storing formatted line data
-  - PQmblen: Determines byte length of multibyte characters
-  - PQdsplen: Determines display width of multibyte characters
+  - [lineptr](../l/lineptr.md): Structure type for storing formatted line data
+  - [PQmblen](../P/PQmblen.md): Determines byte length of multibyte characters
+  - [PQdsplen](../P/PQdsplen.md): Determines display width of multibyte characters
   - PG_UTF8: Encoding constant for UTF-8
-  - utf8_to_unicode: Converts UTF-8 sequences to Unicode codepoints
+  - [utf8_to_unicode](../u/utf8_to_unicode.md): Converts UTF-8 sequences to Unicode codepoints
 - Called from (representative examples):
-  - print_aligned_text: For formatting table cell contents
-  - print_aligned_vertical: For vertical table formatting
-  - lineptr: Through header inclusion for line formatting operations
+  - [print_aligned_text](print_aligned_text.md): For formatting table cell contents
+  - [print_aligned_vertical](print_aligned_vertical.md): For vertical table formatting
+  - [lineptr](../l/lineptr.md): Through header inclusion for line formatting operations
 
 ## Notes and Other Information
 - This function MUST be kept in sync with pg_wcssize for consistent behavior

@@ -19,18 +19,18 @@ This function performs complete initialization of index access method support da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1, ReleaseSysCache
-  - heap_copytuple
-  - MemoryContextSwitchTo, AllocSetContextCreate, MemoryContextAllocZero, MemoryContextCopyAndSetIdentifier
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md), AllocSetContextCreate, MemoryContextAllocZero, MemoryContextCopyAndSetIdentifier
   - RelationGetNumberOfAttributes, IndexRelationGetNumberOfAttributes, IndexRelationGetNumberOfKeyAttributes
-  - InitIndexAmRoutine
-  - fastgetattr, GetPgIndexDescriptor
-  - IndexSupportInitialize
-  - RelationGetIndexAttOptions
+  - [InitIndexAmRoutine](../I/InitIndexAmRoutine.md)
+  - [fastgetattr](../f/fastgetattr.md), GetPgIndexDescriptor
+  - [IndexSupportInitialize](../I/IndexSupportInitialize.md)
+  - [RelationGetIndexAttOptions](RelationGetIndexAttOptions.md)
   - Form_pg_am, Form_pg_index, oidvector, int2vector, RegProcedure
 - Called from:
   - index_create
-  - RelationBuildDesc
+  - [RelationBuildDesc](RelationBuildDesc.md)
 
 ## Notes and Other Information
 - This function sets up the complete index access infrastructure needed for index operations

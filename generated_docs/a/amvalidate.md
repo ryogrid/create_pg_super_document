@@ -28,15 +28,15 @@ The function ensures that operator classes are properly structured and contain a
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
-  - GetIndexAmRoutineByAmId
-  - pfree
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
+  - [pfree](../p/pfree.md)
   - PG_RETURN_BOOL
   - Form_pg_opclass
-  - IndexAmRoutine
+  - [IndexAmRoutine](../I/IndexAmRoutine.md)
 - Called from (representative examples):
   - Various index access method handlers (brinhandler, ginhandler, gisthandler, etc.)
   - SQL interface as a system function

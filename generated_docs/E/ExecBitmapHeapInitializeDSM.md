@@ -31,15 +31,15 @@ The function includes a safety check - if no DSA (Dynamic Shared Area) is availa
 - Functions called/Symbols referenced:
   - shm_toc_allocate
   - SpinLockInit
-  - ConditionVariableInit
+  - [ConditionVariableInit](../C/ConditionVariableInit.md)
   - shm_toc_insert
-  - BitmapHeapScanState (structure)
-  - ParallelContext (structure)
-  - ParallelBitmapHeapState (structure)
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md) (structure)
+  - [ParallelContext](../P/ParallelContext.md) (structure)
+  - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
   - dsa_area (structure)
   - BM_INITIAL (enum value)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md)
 
 ## Notes and Other Information
 This function runs only in the leader process during parallel query setup. Worker processes will later access this shared state via ExecBitmapHeapInitializeWorker. The shared state enables coordination for bitmap iterator sharing, prefetch coordination, and synchronization during parallel bitmap heap scanning. The plan_node_id is used as the key for shared memory TOC lookup, ensuring each node's shared state can be uniquely identified.

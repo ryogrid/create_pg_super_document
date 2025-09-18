@@ -18,12 +18,12 @@ This static function handles the filesystem cleanup of two-phase commit state fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseFilePath
+  - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
   - unlink
 - Called from (representative examples):
-  - FinishPreparedTransaction
-  - ProcessTwoPhaseBuffer
-  - PrepareRedoRemove
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
+  - [PrepareRedoRemove](../P/PrepareRedoRemove.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the twophase.c module

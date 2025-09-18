@@ -31,18 +31,18 @@ The function is designed to be safe for use while holding buffer locks since it 
 ## Dependencies
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS
-  - CopyIndexTuple
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
   - TupleDescSize
-  - TupleDescCopy
-  - index_deform_tuple
-  - index_form_tuple
+  - [TupleDescCopy](../T/TupleDescCopy.md)
+  - [index_deform_tuple](index_deform_tuple.md)
+  - [index_form_tuple](index_form_tuple.md)
   - IndexTupleSize
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - Assert
 
 - Called from (representative examples):
-  - _bt_truncate
+  - [_bt_truncate](../b/_bt_truncate.md)
   - IndexTupleHasVarwidths
 
 ## Notes and Other Information

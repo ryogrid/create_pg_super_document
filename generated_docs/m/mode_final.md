@@ -21,14 +21,14 @@ The algorithm maintains state for both the current mode candidate and the last p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `OSAPerGroupState`: Ordered-set aggregate per-group state structure
-  - `AggCheckCallContext`: Validates aggregate calling context
-  - `get_opcode`: Retrieves procedure OID for equality operator
-  - `fmgr_info_cxt`: Initializes function call information
+  - `[OSAPerGroupState](../O/OSAPerGroupState.md)`: Ordered-set aggregate per-group state structure
+  - `[AggCheckCallContext](../A/AggCheckCallContext.md)`: Validates aggregate calling context
+  - `[get_opcode](../g/get_opcode.md)`: Retrieves procedure OID for equality operator
+  - `[fmgr_info_cxt](../f/fmgr_info_cxt.md)`: Initializes function call information
   - `tuplesort_performsort`: Completes the sorting operation
   - `tuplesort_rescan`: Resets tuple sort for reading
-  - `tuplesort_getdatum`: Retrieves next datum from sorted data
-  - `FunctionCall2Coll`: Calls equality function with collation
+  - `[tuplesort_getdatum](../t/tuplesort_getdatum.md)`: Retrieves next datum from sorted data
+  - `[FunctionCall2Coll](../F/FunctionCall2Coll.md)`: Calls equality function with collation
   - `PG_GET_COLLATION`: Gets collation from function call info
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework (no direct callers found in indexed code)

@@ -30,15 +30,15 @@ Key execution phases include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - relation_close
-  - ATExecCmd
-  - ATPostAlterTypeCleanup
-  - AlterTableCreateToastTable
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
+  - [ATExecCmd](ATExecCmd.md)
+  - [ATPostAlterTypeCleanup](ATPostAlterTypeCleanup.md)
+  - [AlterTableCreateToastTable](AlterTableCreateToastTable.md)
   - Various AT_PASS_* constants
-  - AlterTablePass enumeration
+  - [AlterTablePass](AlterTablePass.md) enumeration
 - Called from (representative examples):
-  - ATController
+  - [ATController](ATController.md)
 
 ## Notes and Other Information
 - Static function scope indicating internal implementation detail

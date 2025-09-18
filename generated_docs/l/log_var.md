@@ -28,16 +28,16 @@ The algorithm automatically chooses the result's display scale (dscale) to ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimate_ln_dweight (for precision estimation)
-  - ln_var (for natural logarithm computation)
+  - [estimate_ln_dweight](../e/estimate_ln_dweight.md) (for precision estimation)
+  - [ln_var](ln_var.md) (for natural logarithm computation)
   - init_var, free_var (variable lifecycle management)
-  - div_var_fast (for final division)
+  - [div_var_fast](../d/div_var_fast.md) (for final division)
   - Max, Min (utility macros)
 - Constants used:
   - NUMERIC_MIN_SIG_DIGITS (minimum significant digits)
   - NUMERIC_MIN_DISPLAY_SCALE, NUMERIC_MAX_DISPLAY_SCALE (display scale limits)
 - Called from:
-  - numeric_log (main logarithm SQL function)
+  - [numeric_log](../n/numeric_log.md) (main logarithm SQL function)
 
 ## Notes and Other Information
 - This is a static function within the numeric.c module

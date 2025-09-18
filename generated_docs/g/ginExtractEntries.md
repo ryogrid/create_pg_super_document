@@ -26,18 +26,18 @@ The `ginExtractEntries` function is a core component of GIN index processing tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GinState` (structure containing opclass functions and state)
+  - `[GinState](../G/GinState.md)` (structure containing opclass functions and state)
   - `GinNullCategory` (enum for categorizing different types of keys)
-  - `FunctionCall3Coll` (calls the opclass's extractValueFn)
-  - `keyEntryData` (structure for temporary key storage during sorting)
+  - `[FunctionCall3Coll](../F/FunctionCall3Coll.md)` (calls the opclass's extractValueFn)
+  - `[keyEntryData](../k/keyEntryData.md)` (structure for temporary key storage during sorting)
   - `cmpEntriesArg` (structure for comparison function arguments)
-  - `cmpEntries` (comparison function for sorting keys)
+  - `[cmpEntries](../c/cmpEntries.md)` (comparison function for sorting keys)
   - `qsort_arg` (system function for sorting with custom comparison)
   - `GIN_CAT_NULL_ITEM`, `GIN_CAT_EMPTY_ITEM`, `GIN_CAT_NULL_KEY`, `GIN_CAT_NORM_KEY` (category constants)
 - Called from (representative examples):
-  - `ginHeapTupleFastCollect` (fast insertion path)
-  - `ginHeapTupleBulkInsert` (bulk insertion operations)
-  - `ginHeapTupleInsert` (regular tuple insertion)
+  - `[ginHeapTupleFastCollect](ginHeapTupleFastCollect.md)` (fast insertion path)
+  - `[ginHeapTupleBulkInsert](ginHeapTupleBulkInsert.md)` (bulk insertion operations)
+  - `[ginHeapTupleInsert](ginHeapTupleInsert.md)` (regular tuple insertion)
 
 ## Notes and Other Information
 - Returns a palloc'd array of Datum values that must be freed by the caller

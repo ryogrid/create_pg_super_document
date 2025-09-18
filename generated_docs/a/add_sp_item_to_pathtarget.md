@@ -23,14 +23,14 @@ The design assumes that the target PathTarget does not already contain duplicate
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_pathtarget_sortgroupref
-  - equal
-  - add_column_to_pathtarget
+  - [equal](../e/equal.md)
+  - [add_column_to_pathtarget](add_column_to_pathtarget.md)
   - copyObject
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - list_length
 - Called from (representative examples):
-  - add_sp_items_to_pathtarget
-  - split_pathtarget_at_srfs
+  - [add_sp_items_to_pathtarget](add_sp_items_to_pathtarget.md)
+  - [split_pathtarget_at_srfs](../s/split_pathtarget_at_srfs.md)
 
 ## Notes and Other Information
 - This is a static function internal to tlist.c, specifically designed for use in split pathtarget operations

@@ -19,13 +19,13 @@ ReceiveCopyBegin sets up the COPY FROM operation by sending a CopyInResponse mes
 - Functions called/Symbols referenced:
   - list_length (to get number of attributes)
   - pq_beginmessage (start building protocol message)
-  - pq_sendbyte (send format byte)
-  - pq_sendint16 (send column count and per-column formats)
-  - pq_endmessage (complete the message)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (send format byte)
+  - [pq_sendint16](../p/pq_sendint16.md) (send column count and per-column formats)
+  - [pq_endmessage](../p/pq_endmessage.md) (complete the message)
   - makeStringInfo (create frontend message buffer)
   - pq_flush (ensure message is sent immediately)
 - Called from (representative examples):
-  - BeginCopyFrom (src/backend/commands/copyfrom.c:1708)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (src/backend/commands/copyfrom.c:1708)
 
 ## Notes and Other Information
 - The function must flush immediately to ensure the frontend knows it can start sending data

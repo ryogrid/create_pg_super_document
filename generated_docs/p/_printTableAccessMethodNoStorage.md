@@ -28,17 +28,17 @@ The function includes safety checks and respects restore options:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `fmtQualifiedId` - Formats schema-qualified table names with proper quoting
-  - `fmtId` - Formats PostgreSQL identifiers with proper quoting  
-  - `RestoringToDB` - Checks if restoring directly to database vs script output
-  - `PQexec` - Executes SQL command on database connection
-  - `warn_or_exit_horribly` - Error handling for restore operations
-  - `ahprintf` - Outputs formatted text to archive handle
+  - `[fmtQualifiedId](../f/fmtQualifiedId.md)` - Formats schema-qualified table names with proper quoting
+  - `[fmtId](../f/fmtId.md)` - Formats PostgreSQL identifiers with proper quoting  
+  - `[RestoringToDB](../R/RestoringToDB.md)` - Checks if restoring directly to database vs script output
+  - `[PQexec](../P/PQexec.md)` - Executes SQL command on database connection
+  - `[warn_or_exit_horribly](../w/warn_or_exit_horribly.md)` - Error handling for restore operations
+  - `[ahprintf](../a/ahprintf.md)` - Outputs formatted text to archive handle
 - Data types referenced:
-  - `TocEntry` - Structure representing a database object in the restore archive
-  - `RestoreOptions` - Structure containing restore configuration options
+  - `[TocEntry](../T/TocEntry.md)` - Structure representing a database object in the restore archive
+  - `[RestoreOptions](../R/RestoreOptions.md)` - Structure containing restore configuration options
 - Called from (representative examples):
-  - `_printTocEntry` - TOC entry output function during the restore process
+  - `[_printTocEntry](_printTocEntry.md)` - TOC entry output function during the restore process
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_backup_archiver.c

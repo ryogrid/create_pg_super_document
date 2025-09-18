@@ -21,7 +21,7 @@ This function enables PostgreSQL to display timestamp type specifications like `
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - anytimestamp_typmodout
+  - [anytimestamp_typmodout](../a/anytimestamp_typmodout.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
   - No direct references found in the current analysis

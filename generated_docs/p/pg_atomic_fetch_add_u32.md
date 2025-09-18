@@ -25,12 +25,12 @@ The function is implemented as a wrapper around `pg_atomic_fetch_add_u32_impl`, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (type definition)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type definition)
   - AssertPointerAlignment (alignment check)
-  - pg_atomic_fetch_add_u32_impl (platform-specific implementation)
+  - [pg_atomic_fetch_add_u32_impl](pg_atomic_fetch_add_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - parallel_vacuum_process_safe_indexes (src/backend/commands/vacuumparallel.c:787)
-  - ExecParallelHashJoinNewBatch (src/backend/executor/nodeHashjoin.c:1195)
+  - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md) (src/backend/commands/vacuumparallel.c:787)
+  - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md) (src/backend/executor/nodeHashjoin.c:1195)
   - ClockSweepTick (src/backend/storage/buffer/freelist.c:118)
   - StrategyGetBuffer (src/backend/storage/buffer/freelist.c:250)
   - LWLockQueueSelf (src/backend/storage/lmgr/lwlock.c:1069)

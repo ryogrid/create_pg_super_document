@@ -30,19 +30,19 @@ It also manages the opening mode based on the archive mode (append vs. write) an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitCompressFileHandle
+  - [InitCompressFileHandle](../I/InitCompressFileHandle.md)
   - fileno (standard C library function)
   - strcmp (standard C library function)
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Types/Constants referenced:
-  - CompressFileHandle
-  - pg_compress_specification
+  - [CompressFileHandle](../C/CompressFileHandle.md)
+  - [pg_compress_specification](../p/pg_compress_specification.md)
   - archModeAppend
   - PG_BINARY_A
   - PG_BINARY_W
 - Called from (representative examples):
-  - RestoreArchive
-  - PrintTOCSummary
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md)
 
 ## Notes and Other Information
 - This is a private static function internal to the archiver routines

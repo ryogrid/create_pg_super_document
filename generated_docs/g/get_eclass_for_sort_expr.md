@@ -36,25 +36,25 @@ The function handles several important considerations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canonicalize_ec_expression
+  - [canonicalize_ec_expression](../c/canonicalize_ec_expression.md)
   - linitial_node
-  - equal
-  - bms_equal
+  - [equal](../e/equal.md)
+  - [bms_equal](../b/bms_equal.md)
   - makeNode
-  - list_copy
-  - contain_volatile_functions
-  - pull_varnos
-  - add_eq_member
+  - [list_copy](../l/list_copy.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [pull_varnos](../p/pull_varnos.md)
+  - [add_eq_member](../a/add_eq_member.md)
   - copyObject
-  - expression_returns_set
-  - contain_agg_clause
-  - contain_window_function
-  - bms_next_member
-  - bms_add_member
+  - [expression_returns_set](../e/expression_returns_set.md)
+  - [contain_agg_clause](../c/contain_agg_clause.md)
+  - [contain_window_function](../c/contain_window_function.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
 - Called from (representative examples):
-  - make_pathkey_from_sortinfo
-  - convert_subquery_pathkeys
-  - initialize_mergeclause_eclasses
+  - [make_pathkey_from_sortinfo](../m/make_pathkey_from_sortinfo.md)
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
+  - [initialize_mergeclause_eclasses](../i/initialize_mergeclause_eclasses.md)
 
 ## Notes and Other Information
 - Safe to use both before and after EquivalenceClass merging since it never causes merging

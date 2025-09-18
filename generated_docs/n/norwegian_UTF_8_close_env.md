@@ -21,7 +21,7 @@ The function calls SN_close_env(z, 0), where z is the environment pointer to be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (from src/backend/snowball/libstemmer/api.c)
+  - [SN_close_env](../S/SN_close_env.md) (from src/backend/snowball/libstemmer/api.c)
 - Called from (representative examples):
   - No direct references found in the codebase
 

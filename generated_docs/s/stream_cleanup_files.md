@@ -20,14 +20,14 @@ This function performs cleanup operations for files associated with a specific s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - changes_filename
+  - [changes_filename](../c/changes_filename.md)
   - BufFileDeleteFileSet  
-  - subxact_filename
+  - [subxact_filename](subxact_filename.md)
 - Called from (representative examples):
-  - pa_free_worker_info
-  - apply_handle_stream_prepare
-  - stream_abort_internal
-  - apply_handle_stream_commit
+  - [pa_free_worker_info](../p/pa_free_worker_info.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [stream_abort_internal](stream_abort_internal.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - This function is called during transaction cleanup, whether the transaction commits, aborts, or is prepared

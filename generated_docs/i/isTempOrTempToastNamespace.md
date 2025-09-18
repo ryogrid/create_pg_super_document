@@ -24,12 +24,12 @@ The function first validates that myTempNamespace is valid (which is a prerequis
   - myTempToastNamespace: Global variable storing the current session's temporary TOAST namespace OID
 
 - Called from (representative examples):
-  - RangeVarAdjustRelationPersistence: When adjusting relation persistence settings based on temporary namespace context
-  - isOtherTempNamespace: Used in logic to determine if a namespace belongs to another session's temporary objects
-  - create_toast_table: During TOAST table creation to handle temporary table contexts
-  - pg_relation_filepath: When constructing file paths for relations in temporary namespaces
-  - RelationBuildDesc: During relation descriptor building for temporary relations
-  - RelationBuildLocalRelation: When building local relation information for temporary objects
+  - [RangeVarAdjustRelationPersistence](../R/RangeVarAdjustRelationPersistence.md): When adjusting relation persistence settings based on temporary namespace context
+  - [isOtherTempNamespace](isOtherTempNamespace.md): Used in logic to determine if a namespace belongs to another session's temporary objects
+  - [create_toast_table](../c/create_toast_table.md): During TOAST table creation to handle temporary table contexts
+  - [pg_relation_filepath](../p/pg_relation_filepath.md): When constructing file paths for relations in temporary namespaces
+  - [RelationBuildDesc](../R/RelationBuildDesc.md): During relation descriptor building for temporary relations
+  - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md): When building local relation information for temporary objects
   - RangeVarGetRelid: During relation name resolution involving any temporary objects
 
 ## Notes and Other Information

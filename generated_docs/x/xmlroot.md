@@ -30,10 +30,10 @@ This function takes an existing XML document and creates a new XML document with
   - parse_xml_decl
   - xml_text2xmlChar
   - print_xml_decl
-  - stringinfo_to_xmltype
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - XML_STANDALONE_* constants
 - Called from (representative examples):
-  - ExecEvalXmlExpr (in XML expression evaluation)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (in XML expression evaluation)
 
 ## Notes and Other Information
 - This function is only available when PostgreSQL is compiled with libxml2 support (USE_LIBXML)

@@ -34,11 +34,11 @@ The function determines the execution context (hash or regular aggregate context
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExprEvalPushStep
-  - AggState
+  - [ExprEvalPushStep](ExprEvalPushStep.md)
+  - [AggState](../A/AggState.md)
   - ExprEvalStep
-  - FunctionCallInfo
-  - AggStatePerTrans
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md)
   - EEOP_AGG_PLAIN_PERGROUP_NULLCHECK
   - EEOP_AGG_PLAIN_TRANS_INIT_STRICT_BYVAL
   - EEOP_AGG_PLAIN_TRANS_STRICT_BYVAL
@@ -49,7 +49,7 @@ The function determines the execution context (hash or regular aggregate context
   - EEOP_AGG_ORDERED_TRANS_DATUM
   - EEOP_AGG_ORDERED_TRANS_TUPLE
 - Called from (representative examples):
-  - ExecBuildAggTrans
+  - [ExecBuildAggTrans](ExecBuildAggTrans.md)
 
 ## Notes and Other Information
 - This is a static function in src/backend/executor/execExpr.c (lines 3840-3956)

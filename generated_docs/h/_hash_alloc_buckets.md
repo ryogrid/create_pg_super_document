@@ -21,12 +21,12 @@ This function extends the hash index file to accommodate a new splitpoint's wort
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_pageinit
+  - [_hash_pageinit](_hash_pageinit.md)
   - HashPageGetOpaque
   - RelationNeedsWAL
-  - log_newpage
-  - PageSetChecksumInplace
-  - smgrextend
+  - [log_newpage](../l/log_newpage.md)
+  - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
+  - [smgrextend](../s/smgrextend.md)
   - RelationGetSmgr
   - MAIN_FORKNUM
   - InvalidBlockNumber
@@ -34,7 +34,7 @@ This function extends the hash index file to accommodate a new splitpoint's wort
   - LH_UNUSED_PAGE
   - HASHO_PAGE_ID
 - Called from (representative examples):
-  - _hash_expandtable
+  - [_hash_expandtable](_hash_expandtable.md)
 
 ## Notes and Other Information
 - Returns false if BlockNumber overflow occurs, preventing index corruption

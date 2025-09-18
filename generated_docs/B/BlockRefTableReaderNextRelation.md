@@ -20,16 +20,16 @@ BlockRefTableReaderNextRelation sequentially processes entries in a serialized b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableRead
+  - [BlockRefTableRead](BlockRefTableRead.md)
   - FIN_CRC32C
   - EQ_CRC32C
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - memcmp
   - memcpy
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - Returns false when reaching end of file (sentinel entry), true for valid entries

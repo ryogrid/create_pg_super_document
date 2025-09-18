@@ -22,7 +22,7 @@ This design allows PostgreSQL to efficiently manage JIT-compiled expressions by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LLVMJitContext
+  - [LLVMJitContext](../L/LLVMJitContext.md)
 - Called from (representative examples):
   - llvm_compile_expr
   - ExecRunCompiledExpr

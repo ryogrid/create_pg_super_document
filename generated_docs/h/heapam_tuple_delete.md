@@ -28,7 +28,7 @@ The function includes commentary noting that index tuple deletion is typically h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_delete
+  - [heap_delete](heap_delete.md)
   - CommandId (type)
   - TM_FailureData (type)
   - TM_Result (type)

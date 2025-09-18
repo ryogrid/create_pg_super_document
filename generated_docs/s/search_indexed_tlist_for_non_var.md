@@ -22,18 +22,18 @@ The function includes an optimization where it avoids replacing simple Const nod
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA
-  - tlist_member
+  - [tlist_member](../t/tlist_member.md)
   - makeVarFromTargetEntry
 - Data types used:
-  - Expr
-  - indexed_tlist
-  - TargetEntry
+  - [Expr](../E/Expr.md)
+  - [indexed_tlist](../i/indexed_tlist.md)
+  - [TargetEntry](../T/TargetEntry.md)
   - Const
 - Called from (representative examples):
   - fix_scan_list
-  - fix_join_expr_mutator
-  - fix_upper_expr_mutator
-  - fix_windowagg_condition_expr_mutator
+  - [fix_join_expr_mutator](../f/fix_join_expr_mutator.md)
+  - [fix_upper_expr_mutator](../f/fix_upper_expr_mutator.md)
+  - [fix_windowagg_condition_expr_mutator](../f/fix_windowagg_condition_expr_mutator.md)
 
 ## Notes and Other Information
 - Returns NULL if no matching expression is found in the indexed target list

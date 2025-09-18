@@ -26,7 +26,7 @@ The function is fundamental to query planning as it establishes the basic relati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_simple_rel
+  - [build_simple_rel](../b/build_simple_rel.md)
   - nodeTag
   - elog (for error handling)
 - Data structures used:
@@ -34,7 +34,7 @@ The function is fundamental to query planning as it establishes the basic relati
   - FromExpr
   - JoinExpr
 - Called from (representative examples):
-  - query_planner (main entry point)
+  - [query_planner](../q/query_planner.md) (main entry point)
   - Self-recursion for tree traversal
 
 ## Notes and Other Information

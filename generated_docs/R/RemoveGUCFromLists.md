@@ -25,12 +25,12 @@ The function is designed to be called in uncommon operations like variable delet
 - Functions called/Symbols referenced:
   - config_generic (struct)
   - PGC_S_DEFAULT (constant)
-  - dlist_delete (function)
-  - slist_delete (function)
+  - [dlist_delete](../d/dlist_delete.md) (function)
+  - [slist_delete](../s/slist_delete.md) (function)
   - GUC_NEEDS_REPORT (flag)
 - Called from (representative examples):
-  - define_custom_variable
-  - MarkGUCPrefixReserved
+  - [define_custom_variable](../d/define_custom_variable.md)
+  - [MarkGUCPrefixReserved](../M/MarkGUCPrefixReserved.md)
   - RestoreGUCState
 
 ## Notes and Other Information

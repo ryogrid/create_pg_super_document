@@ -22,14 +22,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shell_archive_init
-  - load_external_function
-  - ArchiveModuleState
-  - pgarch_call_module_shutdown_cb
-  - before_shmem_exit
+  - [shell_archive_init](../s/shell_archive_init.md)
+  - [load_external_function](../l/load_external_function.md)
+  - [ArchiveModuleState](../A/ArchiveModuleState.md)
+  - [pgarch_call_module_shutdown_cb](../p/pgarch_call_module_shutdown_cb.md)
+  - [before_shmem_exit](../b/before_shmem_exit.md)
 - Called from (representative examples):
-  - PgArchiverMain
-  - arch_files_state (indirectly)
+  - [PgArchiverMain](../P/PgArchiverMain.md)
+  - [arch_files_state](../a/arch_files_state.md) (indirectly)
 
 ## Notes and Other Information
 - The function enforces mutual exclusivity between  and  configuration parameters

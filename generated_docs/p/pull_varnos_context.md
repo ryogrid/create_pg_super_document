@@ -20,12 +20,12 @@ The pull_varnos_context structure serves as a walker context for the pull_varnos
 ## Dependencies
 - Functions called/Symbols referenced:
   - Relids (typedef)
-  - PlannerInfo (struct)
-  - Bitmapset (typedef)
+  - [PlannerInfo](../P/PlannerInfo.md) (struct)
+  - [Bitmapset](../B/Bitmapset.md) (typedef)
 - Called from (representative examples):
-  - pull_varnos
-  - pull_varnos_of_level
-  - pull_varnos_walker
+  - [pull_varnos](pull_varnos.md)
+  - [pull_varnos_of_level](pull_varnos_of_level.md)
+  - [pull_varnos_walker](pull_varnos_walker.md)
   - flatten_join_alias_vars_context
 
 ## Notes and Other Information

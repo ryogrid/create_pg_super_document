@@ -26,8 +26,8 @@ The authenticated user ID established by this function remains constant througho
   - AuthenticatedUserId (global static variable)
   - MyProc->roleId (PGPROC structure field access)
 - Called from (representative examples):
-  - ParallelWorkerMain (in parallel.c:1417)
-  - InitializeSessionUserId (in miscinit.c:815)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (in parallel.c:1417)
+  - [InitializeSessionUserId](../I/InitializeSessionUserId.md) (in miscinit.c:815)
 
 ## Notes and Other Information
 - This function enforces single-call semantics - it can only be called once per session

@@ -20,7 +20,7 @@ This function provides a mapping from PostgreSQL's internal character encoding i
   - PG_VALID_BE_ENCODING (macro for validating backend encodings)
   - pg_enc2icu_tbl (global mapping table from PostgreSQL encodings to ICU encoding names)
 - Called from (representative examples):
-  - init_icu_converter (src/backend/utils/adt/pg_locale.c:2693)
+  - [init_icu_converter](../i/init_icu_converter.md) (src/backend/utils/adt/pg_locale.c:2693)
 
 ## Notes and Other Information
 - Returns NULL for invalid encodings or encodings without ICU support

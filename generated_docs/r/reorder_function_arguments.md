@@ -30,9 +30,9 @@ The function assumes that positional arguments appear before named arguments in 
   - Form_pg_proc
   - FUNC_MAX_ARGS
   - NamedArgExpr
-  - fetch_function_defaults
+  - [fetch_function_defaults](../f/fetch_function_defaults.md)
 - Called from (representative examples):
-  - expand_function_arguments
+  - [expand_function_arguments](../e/expand_function_arguments.md)
 
 ## Notes and Other Information
 - The function enforces PostgreSQL's argument limit of FUNC_MAX_ARGS (100) parameters

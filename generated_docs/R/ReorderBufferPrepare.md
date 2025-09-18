@@ -21,12 +21,12 @@ ReorderBufferPrepare handles the prepare phase of a two-phase commit transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - RBTXN_PREPARE (flag constant)
-  - ReorderBufferReplay
+  - [ReorderBufferReplay](ReorderBufferReplay.md)
   - rbtxn_is_streamed
 - Called from (representative examples):
-  - DecodePrepare
+  - [DecodePrepare](../D/DecodePrepare.md)
 
 ## Notes and Other Information
 This function is a key component of two-phase commit support in PostgreSQL logical replication. It relies on prepare information being previously stored by ReorderBufferRememberPrepareInfo and uses pstrdup to create a persistent copy of the GID. The special handling for concurrent_abort cases ensures that downstream subscribers receive prepare messages even for transactions that will ultimately be rolled back, enabling proper cleanup of prepared transactions.

@@ -26,15 +26,15 @@ The function includes safety checks for parallel operations and proper transacti
 ## Dependencies
 - Functions called/Symbols referenced:
   - set_config_option
-  - ExtractSetVariableArgs
-  - SetPGVariable
-  - WarnNoTransactionBlock
+  - [ExtractSetVariableArgs](ExtractSetVariableArgs.md)
+  - [SetPGVariable](../S/SetPGVariable.md)
+  - [WarnNoTransactionBlock](../W/WarnNoTransactionBlock.md)
   - IsInParallelMode
-  - ResetAllOptions
+  - [ResetAllOptions](../R/ResetAllOptions.md)
   - ImportSnapshot
   - InvokeObjectPostAlterHookArgStr
 - Called from (representative examples):
-  - standard_ProcessUtility (in src/backend/tcop/utility.c:872)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (in src/backend/tcop/utility.c:872)
 
 ## Notes and Other Information
 - Blocks SET operations during parallel mode execution for worker synchronization safety

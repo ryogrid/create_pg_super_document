@@ -33,17 +33,17 @@ The cleanup process follows this sequence:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecParallelRetrieveInstrumentation
-  - ExecParallelRetrieveJitInstrumentation
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md)
+  - [ExecParallelRetrieveJitInstrumentation](ExecParallelRetrieveJitInstrumentation.md)
   - DsaPointerIsValid
-  - dsa_free
+  - [dsa_free](../d/dsa_free.md)
   - InvalidDsaPointer
   - dsa_detach
   - DestroyParallelContext
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ExecShutdownGather
-  - ExecShutdownGatherMerge
+  - [ExecShutdownGather](ExecShutdownGather.md)
+  - [ExecShutdownGatherMerge](ExecShutdownGatherMerge.md)
 
 ## Notes and Other Information
 - This is a public function that completes the parallel execution cleanup process

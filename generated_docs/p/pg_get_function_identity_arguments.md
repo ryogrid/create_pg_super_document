@@ -19,7 +19,7 @@ This SQL-callable function takes a function OID as input and returns a formatted
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - print_function_arguments
+  - [print_function_arguments](print_function_arguments.md)
   - string_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

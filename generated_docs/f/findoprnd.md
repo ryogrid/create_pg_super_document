@@ -20,11 +20,11 @@ The findoprnd function serves as the entry point for processing a tsquery struct
 ## Dependencies
 - Functions called/Symbols referenced:
   - QueryItem (tsquery node structure)
-  - findoprnd_recurse (recursive traversal function)
+  - [findoprnd_recurse](findoprnd_recurse.md) (recursive traversal function)
   - elog (error reporting function for malformed queries)
 - Called from (representative examples):
-  - parse_tsquery (during query processing)
-  - tsqueryrecv (during deserialization)
+  - [parse_tsquery](../p/parse_tsquery.md) (during query processing)
+  - [tsqueryrecv](../t/tsqueryrecv.md) (during deserialization)
 
 ## Notes and Other Information
 - Acts as a simple wrapper around findoprnd_recurse with initialization and validation

@@ -31,15 +31,15 @@ The function implements a "delete-then-insert" strategy rather than update-or-in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MVNDistinct, MVDependencies, MCVList (statistics data structures)
+  - [MVNDistinct](../M/MVNDistinct.md), MVDependencies, MCVList (statistics data structures)
   - statext_ndistinct_serialize, statext_dependencies_serialize, statext_mcv_serialize (serialization functions)
   - table_open, table_close (catalog access)
-  - RemoveStatisticsDataById (existing data cleanup)
-  - heap_form_tuple, heap_freetuple (tuple management)
-  - CatalogTupleInsert (catalog insertion)
-  - PointerGetDatum, ObjectIdGetDatum, BoolGetDatum (datum conversion)
+  - [RemoveStatisticsDataById](../R/RemoveStatisticsDataById.md) (existing data cleanup)
+  - [heap_form_tuple](../h/heap_form_tuple.md), heap_freetuple (tuple management)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md) (catalog insertion)
+  - [PointerGetDatum](../P/PointerGetDatum.md), ObjectIdGetDatum, BoolGetDatum (datum conversion)
 - Called from (representative examples):
-  - BuildRelationExtStatistics (main extended statistics builder)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (main extended statistics builder)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock to ensure atomic updates to the statistics catalog

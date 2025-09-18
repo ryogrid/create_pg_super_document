@@ -29,15 +29,15 @@ The structure follows PostgreSQL's varlena header rules to maintain compatibilit
 - Called from (representative examples):
   - DatumGetInetKeyP (macro for datum conversion)
   - SET_GK_VARSIZE (macro for setting variable size)
-  - inet_gist_consistent (GiST consistency function)
-  - calc_inet_union_params (union parameter calculation)
-  - build_inet_union_key (union key construction)
-  - inet_gist_union (GiST union operation)
-  - inet_gist_compress (GiST compression function)
-  - inet_gist_fetch (GiST fetch operation)
-  - inet_gist_penalty (GiST penalty calculation)
-  - inet_gist_picksplit (GiST split operation)
-  - inet_gist_same (GiST equality test)
+  - [inet_gist_consistent](../i/inet_gist_consistent.md) (GiST consistency function)
+  - [calc_inet_union_params](../c/calc_inet_union_params.md) (union parameter calculation)
+  - [build_inet_union_key](../b/build_inet_union_key.md) (union key construction)
+  - [inet_gist_union](../i/inet_gist_union.md) (GiST union operation)
+  - [inet_gist_compress](../i/inet_gist_compress.md) (GiST compression function)
+  - [inet_gist_fetch](../i/inet_gist_fetch.md) (GiST fetch operation)
+  - [inet_gist_penalty](../i/inet_gist_penalty.md) (GiST penalty calculation)
+  - [inet_gist_picksplit](../i/inet_gist_picksplit.md) (GiST split operation)
+  - [inet_gist_same](../i/inet_gist_same.md) (GiST equality test)
 
 ## Notes and Other Information
 - The structure is designed to be compatible with PostgreSQL's varlena system while providing specialized functionality for network address indexing

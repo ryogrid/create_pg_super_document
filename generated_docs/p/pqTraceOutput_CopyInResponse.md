@@ -38,10 +38,10 @@ The message format includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputByte1 (for overall copy format)
-  - pqTraceOutputInt16 (for number of fields and individual format codes)
+  - [pqTraceOutputByte1](pqTraceOutputByte1.md) (for overall copy format)
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md) (for number of fields and individual format codes)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This is a static function internal to the fe-trace.c module

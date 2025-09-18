@@ -29,14 +29,14 @@ The implementation leverages existing PostgreSQL text manipulation functions ( a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_add_s32_overflow
-  - text_substring
-  - text_catenate
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
+  - [text_substring](text_substring.md)
+  - [text_catenate](text_catenate.md)
   - ereport
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - textoverlay
-  - textoverlay_no_len
+  - [textoverlay](textoverlay.md)
+  - [textoverlay_no_len](textoverlay_no_len.md)
   - DatumGetVarStringPP
 
 ## Notes and Other Information

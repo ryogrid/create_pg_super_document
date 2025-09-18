@@ -20,11 +20,11 @@ The `convert_server_name` function is a support routine for the has_server_privi
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - get_foreign_server_oid
+  - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
 - Called from (representative examples):
-  - has_server_privilege_name_name
-  - has_server_privilege_name
-  - has_server_privilege_id_name
+  - [has_server_privilege_name_name](../h/has_server_privilege_name_name.md)
+  - [has_server_privilege_name](../h/has_server_privilege_name.md)
+  - [has_server_privilege_id_name](../h/has_server_privilege_id_name.md)
 
 ## Notes and Other Information
 This function is declared static, making it internal to the acl.c compilation unit. It serves as a common utility for server name-to-OID conversion within the server privilege checking functions. The function will throw an error if the specified server name does not exist, which is appropriate behavior for privilege checking operations where operating on non-existent objects should fail rather than return a default result.

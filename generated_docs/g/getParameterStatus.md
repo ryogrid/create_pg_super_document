@@ -19,14 +19,14 @@ Parameter status messages are used by PostgreSQL to communicate important server
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGets
+  - [pqGets](../p/pqGets.md)
   - initPQExpBuffer
   - termPQExpBuffer
-  - pqSaveParameterStatus
+  - [pqSaveParameterStatus](../p/pqSaveParameterStatus.md)
 - Called from (representative examples):
-  - pqParseInput3
-  - getCopyDataMessage
-  - pqFunctionCall3
+  - [pqParseInput3](../p/pqParseInput3.md)
+  - [getCopyDataMessage](getCopyDataMessage.md)
+  - [pqFunctionCall3](../p/pqFunctionCall3.md)
 
 ## Notes and Other Information
 - Returns 0 on successful message consumption, EOF if insufficient data available

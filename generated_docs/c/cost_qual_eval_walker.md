@@ -30,21 +30,21 @@ The function distinguishes between startup costs (paid once) and per-tuple costs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_function_cost
+  - [add_function_cost](../a/add_function_cost.md)
   - set_opfuncid
   - set_sa_opfuncid
-  - estimate_array_length
-  - cost_qual_eval_node
-  - getTypeInputInfo
-  - getTypeOutputInfo
-  - get_opcode
+  - [estimate_array_length](../e/estimate_array_length.md)
+  - [cost_qual_eval_node](cost_qual_eval_node.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [get_opcode](../g/get_opcode.md)
   - expression_tree_walker
   - cost_qual_eval_context (struct)
   - Various expression node types (FuncExpr, OpExpr, ScalarArrayOpExpr, etc.)
 - Called from (representative examples):
-  - cost_qual_eval
-  - cost_qual_eval_node
-  - cost_qual_eval_walker (recursive calls)
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [cost_qual_eval_node](cost_qual_eval_node.md)
+  - [cost_qual_eval_walker](cost_qual_eval_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Static function within costsize.c, used internally by the cost estimation system

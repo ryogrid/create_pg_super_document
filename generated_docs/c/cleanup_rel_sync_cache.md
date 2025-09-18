@@ -24,13 +24,13 @@ The function handles both commit and abort scenarios differently - committed tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init (initialize hash table iteration)
-  - hash_seq_search (iterate through hash entries)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterate through hash entries)
   - foreach_xid (iterate through transaction ID list)
   - foreach_delete_current (safely remove current element during iteration)
 - Called from (representative examples):
-  - pgoutput_stream_abort (when streamed transaction aborts)
-  - pgoutput_stream_commit (when streamed transaction commits)
+  - [pgoutput_stream_abort](../p/pgoutput_stream_abort.md) (when streamed transaction aborts)
+  - [pgoutput_stream_commit](../p/pgoutput_stream_commit.md) (when streamed transaction commits)
 
 ## Notes and Other Information
 - The function operates on the global RelationSyncCache hash table

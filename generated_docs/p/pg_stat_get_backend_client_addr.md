@@ -25,16 +25,16 @@ The function returns NULL if the backend doesn't exist, the user lacks permissio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_beentry_by_proc_number
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md)
   - HAS_PGSTAT_PERMISSIONS
   - pg_getnameinfo_all
-  - clean_ipv6_addr
-  - inet_in
+  - [clean_ipv6_addr](../c/clean_ipv6_addr.md)
+  - [inet_in](../i/inet_in.md)
   - DirectFunctionCall1
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
 - Data types used:
-  - PgBackendStatus
-  - SockAddr
+  - [PgBackendStatus](../P/PgBackendStatus.md)
+  - [SockAddr](../S/SockAddr.md)
 
 ## Notes and Other Information
 - The function is used internally by PostgreSQL's statistics system functions

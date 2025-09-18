@@ -26,9 +26,9 @@ The backup_file_entry structure is used to store metadata about individual files
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_string_pointer (used for hash table key generation)
+  - [hash_string_pointer](../h/hash_string_pointer.md) (used for hash table key generation)
 - Called from (representative examples):
-  - manifest_process_file (creates and populates instances)
+  - [manifest_process_file](../m/manifest_process_file.md) (creates and populates instances)
   - backup_file_insert (hash table operations)
 
 ## Notes and Other Information

@@ -19,14 +19,14 @@ When extension is required, it acquires an exclusive lock on the appropriate SLR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdToOffsetEntry
-  - MultiXactIdToOffsetPage
-  - SimpleLruGetBankLock
+  - [MultiXactIdToOffsetEntry](../M/MultiXactIdToOffsetEntry.md)
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire
-  - ZeroMultiXactOffsetPage
+  - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
   - LWLockRelease
 - Called from (representative examples):
-  - GetNewMultiXactId
+  - [GetNewMultiXactId](../G/GetNewMultiXactId.md)
 
 ## Notes and Other Information
 - Static function, internal to multixact.c

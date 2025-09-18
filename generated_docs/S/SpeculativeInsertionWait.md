@@ -25,12 +25,12 @@ This mechanism is crucial for handling conflicts in speculative insertions, part
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_SPECULATIVE_INSERTION
-  - LockAcquire
+  - [LockAcquire](../L/LockAcquire.md)
   - ShareLock
-  - LockRelease
+  - [LockRelease](../L/LockRelease.md)
 - Called from (representative examples):
-  - _bt_doinsert (in nbtinsert.c:225)
-  - check_exclusion_or_unique_constraint (in execIndexing.c:844)
+  - [_bt_doinsert](../b/_bt_doinsert.md) (in nbtinsert.c:225)
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md) (in execIndexing.c:844)
 
 ## Notes and Other Information
 - The function includes assertions to ensure the transaction ID is valid and the token is non-zero

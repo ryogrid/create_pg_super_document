@@ -19,14 +19,14 @@ This function serves as a mapping utility that converts I/O operation enumeratio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IOOp (parameter type)
+  - [IOOp](../I/IOOp.md) (parameter type)
   - IO_COL_EVICTIONS, IO_COL_EXTENDS, IO_COL_FSYNCS, IO_COL_HITS, IO_COL_READS, IO_COL_REUSES, IO_COL_WRITES, IO_COL_WRITEBACKS (return values)
   - IOOP_EVICT, IOOP_EXTEND, IOOP_FSYNC, IOOP_HIT, IOOP_READ, IOOP_REUSE, IOOP_WRITE, IOOP_WRITEBACK (enum values)
   - pg_unreachable (error handling)
   - io_stat_col (return type)
 - Called from (representative examples):
-  - pgstat_get_io_time_index
-  - pg_stat_get_io
+  - [pgstat_get_io_time_index](pgstat_get_io_time_index.md)
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file

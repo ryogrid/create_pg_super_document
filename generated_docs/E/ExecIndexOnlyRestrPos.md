@@ -23,14 +23,14 @@ For normal (non-EPQ) operations, the function delegates to the lower-level index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_restrpos
+  - [index_restrpos](../i/index_restrpos.md)
 - Types used:
-  - IndexOnlyScanState
-  - EState
-  - EPQState
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [EState](EState.md)
+  - [EPQState](EPQState.md)
   - Scan
 - Called from (representative examples):
-  - ExecRestrPos
+  - [ExecRestrPos](ExecRestrPos.md)
 
 ## Notes and Other Information
 - This function works in conjunction with ExecIndexOnlyMarkPos to provide cursor-like position management

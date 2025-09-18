@@ -21,7 +21,7 @@ This function iterates through all block references in a WAL record to check if 
   - XLogRecHasBlockRef
   - XLogRecHasBlockImage
 - Called from (representative examples):
-  - main (used for filtering records with full page writes in pg_waldump)
+  - [main](../m/main.md) (used for filtering records with full page writes in pg_waldump)
 
 ## Notes and Other Information
 - Returns true if at least one block in the record contains a full page write

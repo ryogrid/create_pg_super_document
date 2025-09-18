@@ -18,7 +18,7 @@ This function serves as a wrapper around the hash_uint32_extended function, prov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32_extended: Core hash computation function
+  - [hash_uint32_extended](hash_uint32_extended.md): Core hash computation function
   - PG_GETARG_INT64: PostgreSQL macro to extract int64 argument from function call
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through PostgreSQL's function dispatch system)

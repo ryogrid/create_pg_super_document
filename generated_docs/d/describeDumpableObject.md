@@ -25,7 +25,7 @@ The function formats the output to be useful for error messages and debugging, p
   - Various DumpableObject type constants (DO_NAMESPACE, DO_EXTENSION, etc.)
   - Type-specific structures (AttrDefInfo, CastInfo, TransformInfo)
 - Called from (representative examples):
-  - repairDependencyLoop
+  - [repairDependencyLoop](../r/repairDependencyLoop.md)
 
 ## Notes and Other Information
 - Handles all PostgreSQL object types including schemas, extensions, types, functions, tables, indexes, constraints, rules, triggers, casts, transforms, publications, subscriptions, and more

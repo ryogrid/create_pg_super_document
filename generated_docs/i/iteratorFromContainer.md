@@ -20,15 +20,15 @@ The function handles both regular arrays/objects and scalar containers, with spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - JsonContainerSize
   - JsonContainerIsScalar
   - JB_FARRAY, JB_FOBJECT (header flags)
   - JBI_ARRAY_START, JBI_OBJECT_START (iterator states)
   - JEntry
 - Called from (representative examples):
-  - JsonbIteratorInit
-  - JsonbIteratorNext
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
 
 ## Notes and Other Information
 - Static function - only used internally within jsonb_util.c

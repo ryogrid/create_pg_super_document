@@ -20,12 +20,12 @@ This static function serves as a cleanup hook that is automatically called when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus
+  - [PgBackendStatus](../P/PgBackendStatus.md)
   - PGSTAT_BEGIN_WRITE_ACTIVITY
   - PGSTAT_END_WRITE_ACTIVITY
   - MyBEEntry (global variable)
 - Called from:
-  - pgstat_beinit (registered as exit hook)
+  - [pgstat_beinit](pgstat_beinit.md) (registered as exit hook)
 
 ## Notes and Other Information
 This function is registered as a shared memory exit hook by pgstat_beinit and is automatically called during process shutdown. The function is declared static as it's only used internally within the backend_status.c module. Setting MyBEEntry to NULL at the end allows other functions to check if the backend status system is properly initialized by testing if MyBEEntry is non-NULL.

@@ -18,16 +18,16 @@ This function serves as OpenSSL's certificate verification callback, allowing Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - X509_NAME_to_cstring (converts X509_NAME to C string)
-  - prepare_cert_name (sanitizes certificate names for safe logging)
+  - [X509_NAME_to_cstring](../X/X509_NAME_to_cstring.md) (converts X509_NAME to C string)
+  - [prepare_cert_name](../p/prepare_cert_name.md) (sanitizes certificate names for safe logging)
   - X509_STORE_CTX_get_error_depth (gets verification error depth)
   - X509_STORE_CTX_get_error (gets verification error code)
   - X509_verify_cert_error_string (gets error description)
   - X509_STORE_CTX_get_current_cert (gets current certificate)
   - Various OpenSSL functions for certificate parsing
 - Called from (representative examples):
-  - be_tls_init (src/backend/libpq/be-secure-openssl.c:349)
-  - initialize_SSL (src/interfaces/libpq/fe-secure-openssl.c:1463)
+  - [be_tls_init](../b/be_tls_init.md) (src/backend/libpq/be-secure-openssl.c:349)
+  - [initialize_SSL](../i/initialize_SSL.md) (src/interfaces/libpq/fe-secure-openssl.c:1463)
 
 ## Notes and Other Information
 - Returns the original 'ok' value without modification (accepts default verification behavior)

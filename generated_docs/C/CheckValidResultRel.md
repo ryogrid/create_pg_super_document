@@ -31,19 +31,19 @@ For MERGE operations, the function ensures the result relation supports all poss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsInplaceUpdateRelation
-  - CheckCmdReplicaIdentity
-  - view_has_instead_trigger
-  - error_view_not_updatable
-  - MatViewIncrementalMaintenanceIsEnabled
+  - [IsInplaceUpdateRelation](../I/IsInplaceUpdateRelation.md)
+  - [CheckCmdReplicaIdentity](CheckCmdReplicaIdentity.md)
+  - [view_has_instead_trigger](../v/view_has_instead_trigger.md)
+  - [error_view_not_updatable](../e/error_view_not_updatable.md)
+  - [MatViewIncrementalMaintenanceIsEnabled](../M/MatViewIncrementalMaintenanceIsEnabled.md)
   - RelationGetRelationName
   - ereport
   - elog
 - Called from (representative examples):
-  - CopyFrom
-  - ExecFindPartition
-  - ExecInitPartitionInfo
-  - ExecInitModifyTable
+  - [CopyFrom](CopyFrom.md)
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md)
 
 ## Notes and Other Information
 - This function does not return a value; it either succeeds silently or throws an error

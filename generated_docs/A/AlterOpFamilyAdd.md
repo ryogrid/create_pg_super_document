@@ -31,19 +31,19 @@ Key aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetIndexAmRoutineByAmId
-  - LookupOperWithArgs
-  - LookupFuncWithArgs
-  - get_opfamily_oid
-  - assignOperTypes
-  - assignProcTypes
-  - addFamilyMember
-  - processTypesSpec
-  - storeOperators
-  - storeProcedures
-  - EventTriggerCollectAlterOpFam
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
+  - [LookupOperWithArgs](../L/LookupOperWithArgs.md)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [get_opfamily_oid](../g/get_opfamily_oid.md)
+  - [assignOperTypes](../a/assignOperTypes.md)
+  - [assignProcTypes](../a/assignProcTypes.md)
+  - [addFamilyMember](../a/addFamilyMember.md)
+  - [processTypesSpec](../p/processTypesSpec.md)
+  - [storeOperators](../s/storeOperators.md)
+  - [storeProcedures](../s/storeProcedures.md)
+  - [EventTriggerCollectAlterOpFam](../E/EventTriggerCollectAlterOpFam.md)
 - Called from (representative examples):
-  - AlterOpFamily (when isDrop is false)
+  - [AlterOpFamily](AlterOpFamily.md) (when isDrop is false)
 
 ## Notes and Other Information
 - Unlike DefineOpClass, this function requires explicit operator argument types - no defaulting to the opclass input type

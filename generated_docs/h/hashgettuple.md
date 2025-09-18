@@ -23,12 +23,12 @@ On the first call for a scan, it initializes the scan position using _hash_first
 ## Dependencies
 - Functions called/Symbols referenced:
   - HashScanPosIsValid
-  - _hash_first
-  - _hash_next  
+  - [_hash_first](_hash_first.md)
+  - [_hash_next](_hash_next.md)  
   - MaxIndexTuplesPerPage
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - hashhandler (hash access method handler)
+  - [hashhandler](hashhandler.md) (hash access method handler)
   - Referenced in HASHNProcs (hash index procedure array)
 
 ## Notes and Other Information

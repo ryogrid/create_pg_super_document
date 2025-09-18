@@ -32,21 +32,21 @@ Shell types (types that are declared but not fully defined) are explicitly rejec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typeStringToTypeName
-  - LookupTypeName
-  - ErrorSaveContext
-  - TypeNameToString
+  - [typeStringToTypeName](../t/typeStringToTypeName.md)
+  - [LookupTypeName](../L/LookupTypeName.md)
+  - [ErrorSaveContext](../E/ErrorSaveContext.md)
+  - [TypeNameToString](../T/TypeNameToString.md)
   - Form_pg_type
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - ereturn
 - Called from (representative examples):
-  - pg_input_is_valid_common (src/backend/utils/adt/misc.c:799)
-  - regtypein (src/backend/utils/adt/regproc.c:1198)
-  - to_regtypemod (src/backend/utils/adt/regproc.c:1237)
-  - parseNameAndArgTypes (src/backend/utils/adt/regproc.c:2023)
-  - plperl_spi_prepare (src/pl/plperl/plperl.c:3630)
-  - PLy_spi_prepare (src/pl/plpython/plpy_spi.c:108)
+  - [pg_input_is_valid_common](pg_input_is_valid_common.md) (src/backend/utils/adt/misc.c:799)
+  - [regtypein](../r/regtypein.md) (src/backend/utils/adt/regproc.c:1198)
+  - [to_regtypemod](../t/to_regtypemod.md) (src/backend/utils/adt/regproc.c:1237)
+  - [parseNameAndArgTypes](parseNameAndArgTypes.md) (src/backend/utils/adt/regproc.c:2023)
+  - [plperl_spi_prepare](plperl_spi_prepare.md) (src/pl/plperl/plperl.c:3630)
+  - [PLy_spi_prepare](../P/PLy_spi_prepare.md) (src/pl/plpython/plpy_spi.c:108)
   - pltcl_SPI_prepare (src/pl/tcl/pltcl.c:2616)
 
 ## Notes and Other Information

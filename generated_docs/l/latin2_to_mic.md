@@ -27,7 +27,7 @@ The function uses PostgreSQL's standard function argument interface:
   - PG_GETARG_INT32 (macro for extracting integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - latin2mic (actual conversion implementation)
+  - [latin2mic](latin2mic.md) (actual conversion implementation)
   - PG_RETURN_INT32 (macro for returning integer values)
 - Constants referenced:
   - PG_LATIN2 (Latin-2 encoding identifier)

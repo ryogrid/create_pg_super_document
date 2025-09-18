@@ -25,14 +25,14 @@ The function performs these key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - atooid
-  - AssignDumpId
-  - selectDumpableExtension
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [selectDumpableExtension](../s/selectDumpableExtension.md)
   - pg_malloc
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Joins pg_extension with pg_namespace to get namespace names along with extension data

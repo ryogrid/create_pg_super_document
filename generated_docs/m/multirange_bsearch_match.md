@@ -20,13 +20,13 @@ This function implements a generic binary search algorithm for multirange types 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multirange_get_bounds (extracts range boundaries for comparison)
+  - [multirange_get_bounds](multirange_get_bounds.md) (extracts range boundaries for comparison)
   - MultirangeType (multirange structure type)
   - RangeBound (boundary structure type)
 - Called from (representative examples):
-  - multirange_contains_elem_internal
-  - multirange_contains_range_internal
-  - range_overlaps_multirange_internal
+  - [multirange_contains_elem_internal](multirange_contains_elem_internal.md)
+  - [multirange_contains_range_internal](multirange_contains_range_internal.md)
+  - [range_overlaps_multirange_internal](../r/range_overlaps_multirange_internal.md)
 
 ## Notes and Other Information
 - This is a static function, internal to the multirange implementation

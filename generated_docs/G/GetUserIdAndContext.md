@@ -23,7 +23,7 @@ This function is considered obsolete in favor of GetUserIdAndSecContext, which p
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentUserId (global variable)
-  - InLocalUserIdChange (function)
+  - [InLocalUserIdChange](../I/InLocalUserIdChange.md) (function)
 - Called from (representative examples):
   - AmSpecialWorkerProcess
 
@@ -32,5 +32,5 @@ This function is considered obsolete in favor of GetUserIdAndSecContext, which p
 - Maintained for backward compatibility with PL/Java and potentially other extensions
 - Returns simplified boolean context information rather than full security restriction flags
 - Uses InLocalUserIdChange() to determine the security context flag value
-- Should not be used in new PostgreSQL code - GetUserIdAndSecContext is preferred
+- Should not be used in new PostgreSQL code - [GetUserIdAndSecContext](GetUserIdAndSecContext.md) is preferred
 - Part of PostgreSQL's strategy to maintain external extension compatibility while evolving internal APIs

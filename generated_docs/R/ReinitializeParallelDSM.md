@@ -21,14 +21,14 @@ The function first ensures all previous workers have completed and exited, then 
 - Functions called/Symbols referenced:
   - WaitForParallelWorkersToFinish (ensures all workers complete their tasks)
   - WaitForParallelWorkersToExit (waits for worker processes to terminate)
-  - shm_toc_lookup (locates shared memory segments by key)
-  - shm_mq_create, shm_mq_set_receiver, shm_mq_attach (recreates error message queues)
-  - FixedParallelState (structure containing parallel execution state)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (locates shared memory segments by key)
+  - [shm_mq_create](../s/shm_mq_create.md), shm_mq_set_receiver, shm_mq_attach (recreates error message queues)
+  - [FixedParallelState](../F/FixedParallelState.md) (structure containing parallel execution state)
   - PARALLEL_KEY_FIXED, PARALLEL_KEY_ERROR_QUEUE (shared memory keys)
 
 - Called from (representative examples):
-  - parallel_vacuum_process_all_indexes (parallel vacuum reinitialization)
-  - ExecParallelReinitialize (parallel query execution reinitialization)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md) (parallel vacuum reinitialization)
+  - [ExecParallelReinitialize](../E/ExecParallelReinitialize.md) (parallel query execution reinitialization)
 
 ## Notes and Other Information
 - Must wait for all previous workers to finish and exit before reinitializing

@@ -27,14 +27,14 @@ The function is designed to handle race conditions and concurrent operations dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelationOid
-  - UnlockRelationOid
-  - SearchSysCache1
-  - IndexGetRelation
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [IndexGetRelation](../I/IndexGetRelation.md)
   - HeapTupleIsValid
-  - ReleaseSysCache
+  - [ReleaseSysCache](ReleaseSysCache.md)
 - Called from (representative examples):
-  - ATExecAttachPartitionIdx
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
 
 ## Notes and Other Information
 - This is a static function used specifically in the context of ALTER TABLE ATTACH PARTITION operations for indexes

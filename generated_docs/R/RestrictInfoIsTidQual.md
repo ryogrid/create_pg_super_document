@@ -28,12 +28,12 @@ This function handles only base cases; complex AND/OR combinations are processed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restriction_is_securely_promotable
-  - IsTidEqualClause
-  - IsTidEqualAnyClause  
-  - IsCurrentOfClause
+  - [restriction_is_securely_promotable](../r/restriction_is_securely_promotable.md)
+  - [IsTidEqualClause](../I/IsTidEqualClause.md)
+  - [IsTidEqualAnyClause](../I/IsTidEqualAnyClause.md)  
+  - [IsCurrentOfClause](../I/IsCurrentOfClause.md)
 - Called from (representative examples):
-  - TidQualFromRestrictInfoList
+  - [TidQualFromRestrictInfoList](../T/TidQualFromRestrictInfoList.md)
 
 ## Notes and Other Information
 - Static function accessible only within tidpath.c

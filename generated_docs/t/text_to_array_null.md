@@ -20,7 +20,7 @@ The text_to_array_null function is a separate entry point that delegates directl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_to_array (core text-to-array conversion function)
+  - [text_to_array](text_to_array.md) (core text-to-array conversion function)
 - Called from (representative examples):
   - No direct references found
 

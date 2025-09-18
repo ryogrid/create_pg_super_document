@@ -21,15 +21,15 @@ The function implements mechanism selection logic that prioritizes SCRAM-SHA-256
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - pqGets
+  - [pqGets](pqGets.md)
   - PQExpBufferDataBroken
-  - libpq_append_conn_error
-  - pqPutMsgStart
-  - pqPuts
-  - pqPutInt
-  - pqPutnchar
-  - pqPutMsgEnd
-  - pqFlush
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqPutMsgStart](pqPutMsgStart.md)
+  - [pqPuts](pqPuts.md)
+  - [pqPutInt](pqPutInt.md)
+  - [pqPutnchar](pqPutnchar.md)
+  - [pqPutMsgEnd](pqPutMsgEnd.md)
+  - [pqFlush](pqFlush.md)
   - termPQExpBuffer
 - Constants used:
   - SCRAM_SHA_256_PLUS_NAME

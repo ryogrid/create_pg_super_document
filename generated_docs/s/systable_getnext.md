@@ -23,20 +23,20 @@ The function includes safety checks for lossy index conditions, which are not cu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getnext_slot (for index-based scans)
+  - [index_getnext_slot](../i/index_getnext_slot.md) (for index-based scans)
   - ForwardScanDirection (scan direction constant)
-  - ExecFetchSlotHeapTuple (slot to HeapTuple conversion)
-  - table_scan_getnextslot (for heap scans)
-  - HandleConcurrentAbort (concurrent abort handling)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md) (slot to HeapTuple conversion)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md) (for heap scans)
+  - [HandleConcurrentAbort](../H/HandleConcurrentAbort.md) (concurrent abort handling)
 - Called from (representative examples):
-  - toastrel_valueid_exists
-  - systable_inplace_update_begin
-  - RemoveRoleFromObjectACL
-  - ExecGrant_Largeobject
-  - GetNewOidWithIndex
-  - findDependentObjects
-  - SearchCatCacheMiss
-  - RelationBuildTupleDesc
+  - [toastrel_valueid_exists](../t/toastrel_valueid_exists.md)
+  - [systable_inplace_update_begin](systable_inplace_update_begin.md)
+  - [RemoveRoleFromObjectACL](../R/RemoveRoleFromObjectACL.md)
+  - [ExecGrant_Largeobject](../E/ExecGrant_Largeobject.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [findDependentObjects](../f/findDependentObjects.md)
+  - [SearchCatCacheMiss](../S/SearchCatCacheMiss.md)
+  - [RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md)
 
 ## Notes and Other Information
 - Returns NULL when no more tuples are available in the scan

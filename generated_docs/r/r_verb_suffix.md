@@ -31,16 +31,16 @@ This function is essential for properly stemming verbs in Romance languages, whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1 (tests if position is within R1 region)
-  - r_R2 (tests if position is within R2 region)
-  - find_among_b (backward pattern matching function)
-  - slice_del (deletes text between bra and ket positions)
+  - [r_R1](r_R1.md) (tests if position is within R1 region)
+  - [r_R2](r_R2.md) (tests if position is within R2 region)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching function)
+  - [slice_del](../s/slice_del.md) (deletes text between bra and ket positions)
 - Called from (representative examples):
-  - catalan_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1418)
-  - french_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c:1184)
-  - italian_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:994)
-  - portuguese_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c:902)
-  - spanish_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1013)
+  - [catalan_ISO_8859_1_stem](../c/catalan_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1418)
+  - [french_ISO_8859_1_stem](../f/french_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c:1184)
+  - [italian_ISO_8859_1_stem](../i/italian_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:994)
+  - [portuguese_ISO_8859_1_stem](../p/portuguese_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c:902)
+  - [spanish_ISO_8859_1_stem](../s/spanish_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1013)
 
 ## Notes and Other Information
 - The function handles 283 different verb suffix patterns, making it one of the most comprehensive verb-specific processing functions in the stemmer

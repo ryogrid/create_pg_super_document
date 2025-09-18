@@ -28,16 +28,16 @@ This function is designed to be called from multiple contexts, including direct 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (macro)
-  - RelationGetIndexList
-  - TargetPrivilegesCheck
-  - ExecSimpleRelationInsert
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)
+  - [ExecSimpleRelationInsert](../E/ExecSimpleRelationInsert.md)
   - ApplyExecutionData (data structure)
-  - ResultRelInfo (data structure)
+  - [ResultRelInfo](../R/ResultRelInfo.md) (data structure)
   - TupleTableSlot (data structure)
   - ACL_INSERT (constant)
 - Called from (representative examples):
-  - apply_handle_insert
-  - apply_handle_tuple_routing
+  - [apply_handle_insert](apply_handle_insert.md)
+  - [apply_handle_tuple_routing](apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - This is a static function within the logical replication worker module

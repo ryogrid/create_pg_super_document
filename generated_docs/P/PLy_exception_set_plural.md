@@ -28,8 +28,8 @@ This function extends the functionality of PLy_exception_set by providing proper
   - PyErr_SetString (Python C API function)
   - TEXTDOMAIN (PostgreSQL text domain constant)
 - Called from (representative examples):
-  - PLy_cursor_plan
-  - PLy_spi_execute_plan
+  - [PLy_cursor_plan](PLy_cursor_plan.md)
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md)
 
 ## Notes and Other Information
 - Uses dngettext for proper plural form selection based on locale rules

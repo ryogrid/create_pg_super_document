@@ -19,8 +19,8 @@ This function populates the type cache entry with information about the hashing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_multirangetype_info
-  - lookup_type_cache
+  - [load_multirangetype_info](../l/load_multirangetype_info.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPTYPE_MULTIRANGE (type constant)
   - TYPECACHE_HASH_PROC (cache flag)
   - TYPECACHE_HASH_EXTENDED_PROC (cache flag)
@@ -28,8 +28,8 @@ This function populates the type cache entry with information about the hashing 
   - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
 - Called from (representative examples):
-  - multirange_element_has_hashing
-  - multirange_element_has_extended_hashing
+  - [multirange_element_has_hashing](../m/multirange_element_has_hashing.md)
+  - [multirange_element_has_extended_hashing](../m/multirange_element_has_extended_hashing.md)
 
 ## Notes and Other Information
 This is a static helper function that implements lazy initialization for multirange element type properties. It follows the same pattern as cache_range_element_properties but handles the more complex indirection required for multirange types (multirange -> range -> element). The function ensures that all necessary type information is loaded before attempting to access element properties, making it robust for use in various contexts within the type cache system. The multirange type system was introduced in PostgreSQL 14 to represent collections of non-overlapping ranges.

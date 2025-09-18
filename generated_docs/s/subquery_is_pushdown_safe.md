@@ -30,13 +30,13 @@ For leaf queries, it also checks output expressions for safety and marks unsafe 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_output_expressions: Analyzes target list expressions for pushdown safety
-  - recurse_pushdown_safe: Recursively checks set operation components
-  - compare_tlist_datatypes: Validates data type compatibility in set operations
+  - [check_output_expressions](../c/check_output_expressions.md): Analyzes target list expressions for pushdown safety
+  - [recurse_pushdown_safe](../r/recurse_pushdown_safe.md): Recursively checks set operation components
+  - [compare_tlist_datatypes](../c/compare_tlist_datatypes.md): Validates data type compatibility in set operations
   - castNode: Safe node type casting with assertion
 - Called from (representative examples):
-  - set_subquery_pathlist: During subquery path planning
-  - recurse_pushdown_safe: For recursive set operation checking
+  - [set_subquery_pathlist](set_subquery_pathlist.md): During subquery path planning
+  - [recurse_pushdown_safe](../r/recurse_pushdown_safe.md): For recursive set operation checking
 
 ## Notes and Other Information
 - Part of PostgreSQL's qual pushdown optimization infrastructure

@@ -17,9 +17,9 @@ This function performs a linear search through the slots in a ParallelSlotArray 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlotArray (structure type)
+  - [ParallelSlotArray](../P/ParallelSlotArray.md) (structure type)
 - Called from (representative examples):
-  - ParallelSlotsGetIdle
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md)
 
 ## Notes and Other Information
 - Returns the zero-based index of the first idle slot, or -1 if all slots are busy

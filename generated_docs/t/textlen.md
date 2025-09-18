@@ -23,7 +23,7 @@ This function serves as a SQL-callable wrapper around the internal `text_length`
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM (macro for extracting datum argument)
-  - text_length (internal function to calculate text length)
+  - [text_length](text_length.md) (internal function to calculate text length)
   - PG_RETURN_INT32 (macro for returning 32-bit integer result)
 
 - Called from (representative examples):

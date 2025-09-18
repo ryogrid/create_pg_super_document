@@ -24,10 +24,10 @@ The `cstring_send` function serves as the binary output conversion function for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_CSTRING` (macro for extracting cstring argument)
-  - `pq_begintypsend` (initialize binary output buffer)
+  - `[pq_begintypsend](../p/pq_begintypsend.md)` (initialize binary output buffer)
   - `pq_sendtext` (write text data to binary buffer)
   - `strlen` (standard C function to get string length)
-  - `pq_endtypsend` (finalize binary buffer and return bytea)
+  - `[pq_endtypsend](../p/pq_endtypsend.md)` (finalize binary buffer and return bytea)
   - `PG_RETURN_BYTEA_P` (macro for returning bytea result)
 - Called from (representative examples):
   - PostgreSQL's binary protocol message handling

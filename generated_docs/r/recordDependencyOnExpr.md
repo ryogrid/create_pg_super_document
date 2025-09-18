@@ -27,17 +27,17 @@ The function performs a complete dependency analysis by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_object_addresses
-  - find_expr_references_walker
-  - eliminate_duplicate_dependencies
-  - recordMultipleDependencies
-  - free_object_addresses
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md)
+  - [eliminate_duplicate_dependencies](../e/eliminate_duplicate_dependencies.md)
+  - [recordMultipleDependencies](recordMultipleDependencies.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - list_make1
 - Called from (representative examples):
-  - ProcedureCreate (for function expressions)
-  - CreatePolicy (for policy expressions)
-  - CreateTriggerFiringOn (for trigger conditions)
-  - InsertRule (for rule expressions)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (for function expressions)
+  - [CreatePolicy](../C/CreatePolicy.md) (for policy expressions)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md) (for trigger conditions)
+  - [InsertRule](../I/InsertRule.md) (for rule expressions)
 
 ## Notes and Other Information
 - Used extensively in DDL operations that involve expressions requiring dependency tracking

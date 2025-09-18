@@ -39,8 +39,8 @@ The structure includes cost estimates that guide the planner's decisions, parall
   - Cost
   - Cardinality
   - NodeTag
-  - List
-  - Bitmapset
+  - [List](../L/List.md)
+  - [Bitmapset](../B/Bitmapset.md)
 
 - Called from (representative examples):
   - This is an abstract base structure used by all specific plan node types

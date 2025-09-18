@@ -45,17 +45,17 @@ Key responsibilities include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SnapBuildState (enum for tracking build phases)
-  - ReorderBuffer (coordination with transaction reordering)
-  - MemoryContext (memory management)
-  - Snapshot (PostgreSQL snapshot structure)
+  - [ReorderBuffer](../R/ReorderBuffer.md) (coordination with transaction reordering)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
+  - [Snapshot](Snapshot.md) (PostgreSQL snapshot structure)
   - TransactionId, XLogRecPtr (core PostgreSQL types)
 
 - Called from (representative examples):
-  - AllocateSnapshotBuilder (creates and initializes SnapBuild)
+  - [AllocateSnapshotBuilder](../A/AllocateSnapshotBuilder.md) (creates and initializes SnapBuild)
   - SnapBuildProcessRunningXacts (processes running transaction records)
   - SnapBuildCommitTxn (handles transaction commit processing)
-  - SnapBuildSerialize/SnapBuildRestore (snapshot persistence)
-  - LogicalDecodingContext (main logical decoding coordination)
+  - [SnapBuildSerialize](SnapBuildSerialize.md)/SnapBuildRestore (snapshot persistence)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (main logical decoding coordination)
 
 ## Notes and Other Information
 - This structure is private to snapbuild.c and not exposed in public headers

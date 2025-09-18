@@ -17,10 +17,10 @@ This function removes and deallocates all elements from the conditional stack wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_pop (to remove each element from the stack)
+  - [conditional_stack_pop](conditional_stack_pop.md) (to remove each element from the stack)
 - Called from (representative examples):
-  - advanceConnectionState (in pgbench)
-  - conditional_stack_destroy (part of full stack destruction)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (in pgbench)
+  - [conditional_stack_destroy](conditional_stack_destroy.md) (part of full stack destruction)
 
 ## Notes and Other Information
 - Safe to call with a NULL pointer - function returns immediately without error

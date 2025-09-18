@@ -23,17 +23,17 @@ The function ensures that only valid attribute options are applied and maintains
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName
-  - SysCacheGetAttr
-  - transformRelOptions
-  - attribute_reloptions
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [transformRelOptions](../t/transformRelOptions.md)
+  - [attribute_reloptions](../a/attribute_reloptions.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSubSet
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - System columns cannot have their options modified

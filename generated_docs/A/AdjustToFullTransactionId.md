@@ -22,7 +22,7 @@ The function is safe to use as long as the transaction has not yet reached COMMI
   - ReadNextFullTransactionId
   - FullTransactionIdFromAllowableAt
 - Called from (representative examples):
-  - TwoPhaseFilePath
+  - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization in two-phase commit code paths

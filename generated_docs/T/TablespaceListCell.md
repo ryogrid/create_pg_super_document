@@ -23,9 +23,9 @@ The structure implements a simple singly-linked list pattern where each node con
 - Functions called/Symbols referenced:
   - (Self-referential through next pointer)
 - Called from (representative examples):
-  - TablespaceList (typedef for pointer to this structure)
-  - tablespace_list_append
-  - get_tablespace_mapping
+  - [TablespaceList](TablespaceList.md) (typedef for pointer to this structure)
+  - [tablespace_list_append](../t/tablespace_list_append.md)
+  - [get_tablespace_mapping](../g/get_tablespace_mapping.md)
 
 ## Notes and Other Information
 - This structure is specifically used in pg_basebackup utility for managing tablespace directory remapping

@@ -19,7 +19,7 @@ The function handles the case where longer-running transactions that were previo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullXidRelativeTo
+  - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
   - FullTransactionIdNewer
 - Global visibility state variables updated:
   - GlobalVisSharedRels

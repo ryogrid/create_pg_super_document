@@ -24,7 +24,7 @@ Rather than attempting to handle this impossible situation, the function immedia
 - Functions called/Symbols referenced:
   - elog: PostgreSQL logging/error reporting function used to throw the error
 - Called from (representative examples):
-  - ExecIndexOnlyScan: Sets this as the recheck function pointer in the scan tuple table slot
+  - [ExecIndexOnlyScan](../E/ExecIndexOnlyScan.md): Sets this as the recheck function pointer in the scan tuple table slot
 
 ## Notes and Other Information
 - This function should never actually be called in normal operation due to the architectural incompatibility

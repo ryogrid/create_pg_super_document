@@ -23,10 +23,10 @@ The algorithm processes histogram boundaries and calculates probability contribu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - float4
 - Called from (representative examples):
-  - mcelem_array_contained_selec (referenced via DEFAULT_SEL)
+  - [mcelem_array_contained_selec](../m/mcelem_array_contained_selec.md) (referenced via DEFAULT_SEL)
   - Functions in array selectivity estimation (referenced via EFFORT)
 
 ## Notes and Other Information

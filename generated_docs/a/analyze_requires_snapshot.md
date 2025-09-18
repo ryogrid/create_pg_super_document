@@ -26,13 +26,13 @@ The function maintains a separate entry point from stmt_requires_parse_analysis(
 ## Dependencies
 - Functions called/Symbols referenced:
   - RawStmt (structure access)
-  - stmt_requires_parse_analysis (delegation for decision logic)
+  - [stmt_requires_parse_analysis](../s/stmt_requires_parse_analysis.md) (delegation for decision logic)
 
 - Called from (representative examples):
-  - exec_simple_query (simple query execution path)
-  - exec_parse_message (extended protocol parse message handling)
-  - exec_bind_message (extended protocol bind message handling)  
-  - BuildCachedPlan (plan cache construction)
+  - [exec_simple_query](../e/exec_simple_query.md) (simple query execution path)
+  - [exec_parse_message](../e/exec_parse_message.md) (extended protocol parse message handling)
+  - [exec_bind_message](../e/exec_bind_message.md) (extended protocol bind message handling)  
+  - [BuildCachedPlan](../B/BuildCachedPlan.md) (plan cache construction)
 
 ## Notes and Other Information
 - The function is designed to be extensible - future statement types might require parse analysis but not snapshots, though such cases are considered likely to be fragile

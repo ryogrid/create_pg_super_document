@@ -33,16 +33,16 @@ The function ensures that PostgreSQL log messages are properly formatted and enc
 - Functions called/Symbols referenced:
   - RegisterEventSource (Windows API)
   - ReportEventA, ReportEventW (Windows API)
-  - GetACPEncoding (PostgreSQL function)
-  - GetMessageEncoding (PostgreSQL function)  
-  - pgwin32_message_to_UTF16 (PostgreSQL Windows utility)
-  - in_error_recursion_trouble (PostgreSQL error handling)
-  - pfree (PostgreSQL memory management)
+  - [GetACPEncoding](../G/GetACPEncoding.md) (PostgreSQL function)
+  - [GetMessageEncoding](../G/GetMessageEncoding.md) (PostgreSQL function)  
+  - [pgwin32_message_to_UTF16](../p/pgwin32_message_to_UTF16.md) (PostgreSQL Windows utility)
+  - [in_error_recursion_trouble](../i/in_error_recursion_trouble.md) (PostgreSQL error handling)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management)
   - DEFAULT_EVENT_SOURCE (constant)
 - Called from (representative examples):
-  - send_message_to_server_log
-  - write_stderr
-  - pgwin32_ServiceMain
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
+  - [write_stderr](write_stderr.md)
+  - [pgwin32_ServiceMain](../p/pgwin32_ServiceMain.md)
 
 ## Notes and Other Information
 - Windows-specific function, only compiled and used on Windows platforms

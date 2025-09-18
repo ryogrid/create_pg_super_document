@@ -23,11 +23,11 @@ This function is typically used in development and debugging scenarios where dev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printatt: Utility function to print detailed attribute information
+  - [printatt](../p/printatt.md): Utility function to print detailed attribute information
   - TupleDescAttr: Macro to access attribute information from tuple descriptor
   - printf: Standard C library function for formatted output
 - Called from (representative examples):
-  - donothingCleanup: Referenced as a startup handler for debugging operations
+  - [donothingCleanup](donothingCleanup.md): Referenced as a startup handler for debugging operations
   - PRINTTUP_H: Declared in the printtup.h header file for external use
 
 ## Notes and Other Information

@@ -21,16 +21,16 @@ For RT_NODE_KIND_4 nodes, it performs a linear search through the chunks array. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion)
-  - RT_NODE_16_SEARCH_EQ
-  - RT_NODE_48_GET_CHILD
-  - RT_NODE_256_IS_CHUNK_USED
-  - RT_NODE_256_GET_CHILD
+  - [RT_NODE_16_SEARCH_EQ](RT_NODE_16_SEARCH_EQ.md)
+  - [RT_NODE_48_GET_CHILD](RT_NODE_48_GET_CHILD.md)
+  - [RT_NODE_256_IS_CHUNK_USED](RT_NODE_256_IS_CHUNK_USED.md)
+  - [RT_NODE_256_GET_CHILD](RT_NODE_256_GET_CHILD.md)
   - Assert
   - pg_unreachable
 - Called from (representative examples):
-  - RT_FIND
-  - RT_GET_SLOT_RECURSIVE
-  - RT_DELETE_RECURSIVE
+  - [RT_FIND](RT_FIND.md)
+  - [RT_GET_SLOT_RECURSIVE](RT_GET_SLOT_RECURSIVE.md)
+  - [RT_DELETE_RECURSIVE](RT_DELETE_RECURSIVE.md)
 
 ## Notes and Other Information
 - The function assumes the input node pointer has already been converted to a local pointer (asserted at runtime)

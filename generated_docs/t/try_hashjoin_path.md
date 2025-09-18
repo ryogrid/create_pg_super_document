@@ -25,17 +25,17 @@ A key characteristic of hash joins is that they never produce any output pathkey
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - PATH_REQ_OUTER
-  - calc_non_nestloop_required_outer
-  - bms_overlap
-  - initial_cost_hashjoin
-  - add_path_precheck
-  - create_hashjoin_path
-  - add_path
-  - bms_free
+  - [calc_non_nestloop_required_outer](../c/calc_non_nestloop_required_outer.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [initial_cost_hashjoin](../i/initial_cost_hashjoin.md)
+  - [add_path_precheck](../a/add_path_precheck.md)
+  - [create_hashjoin_path](../c/create_hashjoin_path.md)
+  - [add_path](../a/add_path.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - hash_inner_and_outer
+  - [hash_inner_and_outer](../h/hash_inner_and_outer.md)
 
 ## Notes and Other Information
 - Hash joins never produce sorted output, so pathkeys are always NIL for add_path_precheck

@@ -21,14 +21,14 @@ When a table is configured for logical replication, PostgreSQL needs a way to un
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup with INDEXRELID)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup with INDEXRELID)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_index (pg_index catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 - Called from (representative examples):
-  - RememberReplicaIdentityForRebuilding
+  - [RememberReplicaIdentityForRebuilding](../R/RememberReplicaIdentityForRebuilding.md)
 
 ## Notes and Other Information
 - Returns false if the index OID is invalid or not found

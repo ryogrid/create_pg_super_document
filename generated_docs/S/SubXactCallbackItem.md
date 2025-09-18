@@ -19,12 +19,12 @@ SubXactCallbackItem implements a linked list mechanism specifically designed for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubXactCallbackItem (self-reference for linked list)
-  - callback (function pointer field)
+  - [SubXactCallbackItem](SubXactCallbackItem.md) (self-reference for linked list)
+  - [callback](../c/callback.md) (function pointer field)
 - Called from (representative examples):
-  - RegisterSubXactCallback
-  - UnregisterSubXactCallback
-  - CallSubXactCallbacks
+  - [RegisterSubXactCallback](../R/RegisterSubXactCallback.md)
+  - [UnregisterSubXactCallback](../U/UnregisterSubXactCallback.md)
+  - [CallSubXactCallbacks](../C/CallSubXactCallbacks.md)
 
 ## Notes and Other Information
 The subtransaction callback mechanism is crucial for PostgreSQL's savepoint functionality and nested transaction support. Unlike main transaction callbacks, subtransaction callbacks must handle more complex scenarios including partial rollbacks, cascading aborts, and savepoint releases. This structure enables proper resource cleanup and state management during complex transaction nesting scenarios, making it essential for features like cursor management, temporary object cleanup, and lock management within subtransactions.

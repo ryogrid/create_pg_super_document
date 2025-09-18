@@ -20,18 +20,18 @@ This function performs a system cache lookup to retrieve the attribute number fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName - performs system cache lookup using relation ID and attribute name
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) - performs system cache lookup using relation ID and attribute name
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple
-  - ReleaseSysCache - releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) - releases the system cache entry
   - InvalidAttrNumber - constant representing an invalid/non-existent attribute number
 
 - Called from (representative examples):
-  - expand_col_privileges (catalog/aclchk.c:1613)
-  - get_object_address_attribute (catalog/objectaddress.c:1517)
-  - publication_translate_columns (catalog/pg_publication.c:523)
-  - ATExecDropNotNull (commands/tablecmds.c:7654)
-  - transformAssignmentIndirection (parser/parse_target.c:784)
+  - [expand_col_privileges](../e/expand_col_privileges.md) (catalog/aclchk.c:1613)
+  - [get_object_address_attribute](get_object_address_attribute.md) (catalog/objectaddress.c:1517)
+  - [publication_translate_columns](../p/publication_translate_columns.md) (catalog/pg_publication.c:523)
+  - [ATExecDropNotNull](../A/ATExecDropNotNull.md) (commands/tablecmds.c:7654)
+  - [transformAssignmentIndirection](../t/transformAssignmentIndirection.md) (parser/parse_target.c:784)
 
 ## Notes and Other Information
 - Returns InvalidAttrNumber if the attribute doesn't exist or has been dropped, rather than throwing an error

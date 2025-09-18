@@ -19,11 +19,11 @@ The function implements the bottom-up cleanup pattern used in the JSONB iterator
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
   - JsonbIterator
 - Called from (representative examples):
-  - JsonbIteratorNext (when ending array processing)
-  - JsonbIteratorNext (when ending object processing)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md) (when ending array processing)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md) (when ending object processing)
 
 ## Notes and Other Information
 - Static function - only used internally within jsonb_util.c

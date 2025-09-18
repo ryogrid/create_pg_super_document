@@ -23,17 +23,17 @@ The function modifies the page's pd_lower field to point to the end of the GISTD
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsEmpty
+  - [PageIsEmpty](../P/PageIsEmpty.md)
   - GistPageGetOpaque
-  - PageGetContents
+  - [PageGetContents](../P/PageGetContents.md)
   - MAXALIGN
   - SizeOfPageHeaderData
-  - GISTDeletedPageContents
+  - [GISTDeletedPageContents](GISTDeletedPageContents.md)
   - F_DELETED
   - PageHeader
 - Called from (representative examples):
-  - gistdeletepage
-  - gistRedoPageDelete
+  - [gistdeletepage](../g/gistdeletepage.md)
+  - [gistRedoPageDelete](../g/gistRedoPageDelete.md)
 
 ## Notes and Other Information
 - The function includes an assertion that the page must be empty before deletion

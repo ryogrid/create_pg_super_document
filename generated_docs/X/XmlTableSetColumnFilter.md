@@ -24,7 +24,7 @@ Similar to XmlTableSetRowFilter, this function requires that XmlTableSetDocument
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - GetXmlTableBuilderPrivateData
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
   - pg_xmlCharStrndup
   - xmlXPathCtxtCompile (libxml2)
   - xml_ereport

@@ -24,11 +24,11 @@ The function navigates up the planner hierarchy to find the non-recursive term's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_cte_size_estimates
-  - add_path
-  - create_worktablescan_path
+  - [set_cte_size_estimates](set_cte_size_estimates.md)
+  - [add_path](../a/add_path.md)
+  - [create_worktablescan_path](../c/create_worktablescan_path.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - Specifically designed for self-referencing recursive CTEs

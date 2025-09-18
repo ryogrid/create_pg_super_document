@@ -22,20 +22,20 @@ The implementation uses a loop to handle nested domains efficiently, looking up 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract tuple structure)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_type (pg_type tuple structure)
   - TYPTYPE_DOMAIN (domain type constant)
-  - ObjectIdGetDatum (OID conversion macro)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID conversion macro)
 
 - Called from (representative examples):
-  - SendRowDescriptionMessage (src/backend/access/common/printtup.c:208)
-  - ATExecAddColumn (src/backend/commands/tablecmds.c:7289)
-  - coerce_type (src/backend/parser/parse_coerce.c:268, 430)
-  - transformTypeCast (src/backend/parser/parse_expr.c:2725)
-  - lookup_type_cache (src/backend/utils/cache/typcache.c:864)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md) (src/backend/access/common/printtup.c:208)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (src/backend/commands/tablecmds.c:7289)
+  - [coerce_type](../c/coerce_type.md) (src/backend/parser/parse_coerce.c:268, 430)
+  - [transformTypeCast](../t/transformTypeCast.md) (src/backend/parser/parse_expr.c:2725)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:864)
 
 ## Notes and Other Information
 - The function assumes that typmod is -1 when called with a domain type, as enforced by an Assert

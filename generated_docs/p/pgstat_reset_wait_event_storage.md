@@ -24,8 +24,8 @@ This function resets the wait event reporting storage location by setting the gl
   - my_wait_event_info (modified)
   - local_my_wait_event_info (referenced)
 - Called from (representative examples):
-  - ProcKill (in proc.c:915)
-  - AuxiliaryProcKill (in proc.c:996)
+  - [ProcKill](../P/ProcKill.md) (in proc.c:915)
+  - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md) (in proc.c:996)
 
 ## Notes and Other Information
 - Expected to be called during backend shutdown phase

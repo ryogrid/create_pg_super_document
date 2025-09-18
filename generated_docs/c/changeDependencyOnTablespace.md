@@ -22,13 +22,13 @@ The function opens the shared dependency relation with exclusive row lock, then 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - shdepChangeDep
-  - shdepDropDependency  
+  - [shdepChangeDep](../s/shdepChangeDep.md)
+  - [shdepDropDependency](../s/shdepDropDependency.md)  
   - table_close
   - SHARED_DEPENDENCY_TABLESPACE
   - SHARED_DEPENDENCY_INVALID
 - Called from (representative examples):
-  - SetRelationTableSpace
+  - [SetRelationTableSpace](../S/SetRelationTableSpace.md)
 
 ## Notes and Other Information
 - Only operates on whole objects (no objsubid parameter needed) since tablespaces apply to entire objects

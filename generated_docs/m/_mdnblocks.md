@@ -22,17 +22,17 @@ The function is part of PostgreSQL's magnetic disk storage manager (md.c) and is
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileSize (to get the file size in bytes)
-  - FilePathName (for error reporting to get the file path name)
+  - [FilePathName](../F/FilePathName.md) (for error reporting to get the file path name)
   - ereport (for error reporting)
-  - errcode_for_file_access (for error code generation)
-  - errmsg (for error message formatting)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (for error code generation)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 - Called from (representative examples):
-  - mdnblocks (main public interface for getting block count)
+  - [mdnblocks](mdnblocks.md) (main public interface for getting block count)
   - mdextend (when extending files)
   - mdzeroextend (when zero-extending files)
   - mdopenfork (when opening relation forks)
-  - _mdfd_openseg (when opening segments)
-  - _mdfd_getseg (when getting segments)
+  - [_mdfd_openseg](_mdfd_openseg.md) (when opening segments)
+  - [_mdfd_getseg](_mdfd_getseg.md) (when getting segments)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within md.c

@@ -25,12 +25,12 @@ The  function implements decimal rounding for PostgreSQL's numeric type by trunc
   - NBASE (numeric base constant)
   - round_powers (power-of-10 lookup table for DEC_DIGITS=4)
 - Called from (representative examples):
-  - numeric_round (SQL ROUND function)
-  - numeric_mul_opt_error (multiplication with error checking)
-  - apply_typmod (applying type modifiers)
-  - numericvar_to_int64 (conversion to 64-bit integer)
-  - mul_var, div_var, sqrt_var (arithmetic operations)
-  - exp_var, power_var_int (mathematical functions)
+  - [numeric_round](../n/numeric_round.md) (SQL ROUND function)
+  - [numeric_mul_opt_error](../n/numeric_mul_opt_error.md) (multiplication with error checking)
+  - [apply_typmod](../a/apply_typmod.md) (applying type modifiers)
+  - [numericvar_to_int64](../n/numericvar_to_int64.md) (conversion to 64-bit integer)
+  - [mul_var](../m/mul_var.md), div_var, sqrt_var (arithmetic operations)
+  - [exp_var](../e/exp_var.md), power_var_int (mathematical functions)
 
 ## Notes and Other Information
 - Supports rscale < 0 for rounding before decimal point (e.g., rscale=-2 rounds to nearest hundred)

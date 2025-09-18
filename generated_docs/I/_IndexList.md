@@ -25,8 +25,8 @@ This two-phase approach (declare first, build later) is necessary because indexe
   - IndexInfo (structure for index metadata)
   - struct _IndexList (self-reference for linked list)
 - Called from (representative examples):
-  - index_register (creates new IndexList nodes at line 921)
-  - build_indices (traverses the list at line 953)
+  - [index_register](../i/index_register.md) (creates new IndexList nodes at line 921)
+  - [build_indices](../b/build_indices.md) (traverses the list at line 953)
 
 ## Notes and Other Information
 The linked list is managed through a static global variable  that points to the head of the list. New index declarations are added to the front of the list (LIFO order). Memory allocation for IndexList nodes uses a special no-GC memory context () to ensure the index information persists throughout the bootstrap process. This structure is only used during bootstrap and becomes obsolete once the database initialization is complete.

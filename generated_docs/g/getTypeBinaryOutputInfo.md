@@ -23,22 +23,22 @@ The function is part of PostgreSQL's type system infrastructure and is used when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (extract struct from heap tuple)
   - Form_pg_type (pg_type catalog structure)
-  - ReleaseSysCache (release cache reference)
-  - format_type_be (error message formatting)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache reference)
+  - [format_type_be](../f/format_type_be.md) (error message formatting)
 - Called from (representative examples):
-  - printtup_prepare_info (query result preparation)
-  - DoCopyTo (COPY command binary output setup)
-  - SendFunctionResult (function call result transmission)
-  - record_send (composite type binary output)
+  - [printtup_prepare_info](../p/printtup_prepare_info.md) (query result preparation)
+  - [DoCopyTo](../D/DoCopyTo.md) (COPY command binary output setup)
+  - [SendFunctionResult](../S/SendFunctionResult.md) (function call result transmission)
+  - [record_send](../r/record_send.md) (composite type binary output)
 
 ## Notes and Other Information
 - The function will throw an ERROR if the type OID is invalid or not found in the system catalog
 - It validates that the type is fully defined (not just a shell type) before proceeding
 - If no binary send function is available for the type, it raises an error with ERRCODE_UNDEFINED_FUNCTION
 - The typIsVarlena determination is based on two pg_type fields: typbyval (passed by value) and typlen (type length, -1 indicates variable length)
-- Variable-length types require special handling in binary serialization for length encoding
+- [Variable](../V/Variable.md)-length types require special handling in binary serialization for length encoding
 - Part of the larger family of type information lookup functions in lsyscache.c

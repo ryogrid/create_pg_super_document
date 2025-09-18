@@ -31,7 +31,7 @@ This calculation is essential for determining the appropriate size when creating
   - dsm_control_item (structure type)
 - Called from (representative examples):
   - dsm_postmaster_startup
-  - dsm_control_segment_sane
+  - [dsm_control_segment_sane](dsm_control_segment_sane.md)
 
 ## Notes and Other Information
 - Static function - internal to dsm.c implementation

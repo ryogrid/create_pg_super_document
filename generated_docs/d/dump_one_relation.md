@@ -23,12 +23,12 @@ This function extracts and displays block reference information for a specific r
 - Functions called/Symbols referenced:
   - palloc_array (memory allocation)
   - repalloc_array (memory reallocation)
-  - BlockRefTableReaderGetBlocks (block data extraction)
+  - [BlockRefTableReaderGetBlocks](../B/BlockRefTableReaderGetBlocks.md) (block data extraction)
   - qsort (block number sorting)
-  - compare_block_numbers (comparison function for sorting)
+  - [compare_block_numbers](../c/compare_block_numbers.md) (comparison function for sorting)
   - printf (output formatting)
 - Called from:
-  - main function in pg_walsummary.c:116
+  - [main](../m/main.md) function in pg_walsummary.c:116
 
 ## Notes and Other Information
 - Uses a global block_buffer that is allocated on first use and reused across calls

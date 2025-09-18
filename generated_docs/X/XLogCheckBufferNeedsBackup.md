@@ -17,16 +17,16 @@ XLogCheckBufferNeedsBackup evaluates whether a given buffer needs to be included
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFullPageWriteInfo (gets current full-page write settings and redo pointer)
-  - BufferGetPage (extracts page from buffer)
-  - PageGetLSN (gets the page's log sequence number)
+  - [GetFullPageWriteInfo](../G/GetFullPageWriteInfo.md) (gets current full-page write settings and redo pointer)
+  - [BufferGetPage](../B/BufferGetPage.md) (extracts page from buffer)
+  - [PageGetLSN](../P/PageGetLSN.md) (gets the page's log sequence number)
 - Called from:
-  - log_heap_update (in heap operations)
-  - heap_page_prune_and_freeze (during page pruning)
+  - [log_heap_update](../l/log_heap_update.md) (in heap operations)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md) (during page pruning)
   - Various WAL logging functions
 
 ## Notes and Other Information
-- Result is for optimization only since full-page write settings can change
+- [Result](../R/Result.md) is for optimization only since full-page write settings can change
 - Returns true only when both full-page writes are enabled and page LSN <= Redo pointer
 - Critical for crash recovery correctness by ensuring modified pages can be reconstructed
 - Check performed before acquiring WAL insertion lock for performance

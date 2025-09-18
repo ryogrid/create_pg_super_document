@@ -23,20 +23,20 @@ The function sets up all the operational parameters for hash indexes, including 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create IndexAmRoutine)
-  - hashbuild
-  - hashbuildempty  
-  - hashinsert
-  - hashbulkdelete
-  - hashvacuumcleanup
-  - hashcostestimate
+  - [hashbuild](hashbuild.md)
+  - [hashbuildempty](hashbuildempty.md)  
+  - [hashinsert](hashinsert.md)
+  - [hashbulkdelete](hashbulkdelete.md)
+  - [hashvacuumcleanup](hashvacuumcleanup.md)
+  - [hashcostestimate](hashcostestimate.md)
   - hashoptions
-  - hashvalidate
-  - hashadjustmembers
-  - hashbeginscan
-  - hashrescan
-  - hashgettuple
-  - hashgetbitmap
-  - hashendscan
+  - [hashvalidate](hashvalidate.md)
+  - [hashadjustmembers](hashadjustmembers.md)
+  - [hashbeginscan](hashbeginscan.md)
+  - [hashrescan](hashrescan.md)
+  - [hashgettuple](hashgettuple.md)
+  - [hashgetbitmap](hashgetbitmap.md)
+  - [hashendscan](hashendscan.md)
 - Called from: 
   - PostgreSQL access method system (indirectly through function registration)
 

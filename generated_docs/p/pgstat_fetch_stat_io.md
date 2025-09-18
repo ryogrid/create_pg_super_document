@@ -17,10 +17,10 @@ This function provides access to the current I/O statistics by taking a snapshot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_snapshot_fixed
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
   - PGSTAT_KIND_IO
 - Called from (representative examples):
-  - pg_stat_get_io
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - The function returns a pointer to the I/O statistics structure in the local snapshot ()

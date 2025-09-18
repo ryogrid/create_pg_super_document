@@ -28,13 +28,13 @@ The function is designed primarily for auxiliary processes that need to clean up
   - AuxProcessResourceOwner (global variable)
 
 - Called from (representative examples):
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:172)
-  - CheckpointerMain (src/backend/postmaster/checkpointer.c:275)
-  - pgarch_archiveXlog (src/backend/postmaster/pgarch.c:571)
-  - WalSummarizerMain (src/backend/postmaster/walsummarizer.c:291)
-  - WalWriterMain (src/backend/postmaster/walwriter.c:170)
-  - InitPostgres (src/backend/utils/init/postinit.c:801)
-  - ReleaseAuxProcessResourcesCallback (src/backend/utils/resowner/resowner.c:1031)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:172)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (src/backend/postmaster/checkpointer.c:275)
+  - [pgarch_archiveXlog](../p/pgarch_archiveXlog.md) (src/backend/postmaster/pgarch.c:571)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md) (src/backend/postmaster/walsummarizer.c:291)
+  - [WalWriterMain](../W/WalWriterMain.md) (src/backend/postmaster/walwriter.c:170)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:801)
+  - [ReleaseAuxProcessResourcesCallback](ReleaseAuxProcessResourcesCallback.md) (src/backend/utils/resowner/resowner.c:1031)
 
 ## Notes and Other Information
 - Implements the full three-phase resource release protocol for comprehensive cleanup

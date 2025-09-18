@@ -21,18 +21,18 @@ The function is designed as a pass-through operation, returning the same tuple d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - assign_record_type_typmod
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
 
 - Called from (representative examples):
-  - pg_prepared_xact
-  - pg_walfile_name_offset
-  - ExecInitExprRec
-  - ExecEvalWholeRowVar
-  - TupleDescGetAttInMetadata
-  - init_sql_fcache
-  - ExecInitFunctionScan
-  - InitMaterializedSRF
-  - get_expr_result_type
+  - [pg_prepared_xact](../p/pg_prepared_xact.md)
+  - [pg_walfile_name_offset](../p/pg_walfile_name_offset.md)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [get_expr_result_type](../g/get_expr_result_type.md)
 
 ## Notes and Other Information
 - Only affects RECORD-type tuple descriptors that have not been blessed yet (tdtypmod < 0)

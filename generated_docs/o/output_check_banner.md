@@ -19,10 +19,10 @@ The banner serves as a visual separator and progress indicator in the upgrade pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log
+  - [pg_log](../p/pg_log.md)
   - PG_REPORT
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Uses user_opts.check global variable to determine if check mode is enabled

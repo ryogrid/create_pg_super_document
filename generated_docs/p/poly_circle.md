@@ -21,11 +21,11 @@ The function extracts the input polygon from the PostgreSQL function arguments, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (extract polygon argument from PostgreSQL function call)
-  - palloc (PostgreSQL memory allocation)
-  - poly_to_circle (internal function that performs the actual conversion)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
+  - [poly_to_circle](poly_to_circle.md) (internal function that performs the actual conversion)
   - PG_RETURN_CIRCLE_P (return circle result to PostgreSQL)
 - Data types referenced:
-  - POLYGON, CIRCLE (geometric data structures)
+  - [POLYGON](../P/POLYGON.md), CIRCLE (geometric data structures)
 
 ## Notes and Other Information
 - This function follows the standard PostgreSQL function calling convention using the `PG_FUNCTION_ARGS` interface

@@ -17,7 +17,7 @@ The basque_UTF_8_create_env function serves as a specialized constructor for Bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment constructor)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment constructor)
 - Called from (representative examples):
   - External stemming interface (no direct references found in indexed code)
 

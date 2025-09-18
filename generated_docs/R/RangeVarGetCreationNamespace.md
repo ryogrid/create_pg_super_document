@@ -28,14 +28,14 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_name
-  - get_namespace_oid
-  - AccessTempTableNamespace
-  - recomputeNamespacePath
+  - [get_database_name](../g/get_database_name.md)
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
 - Called from (representative examples):
-  - RangeVarGetAndCheckCreationNamespace
-  - CreateTableAsRelExists
-  - generateSerialExtraStmts
+  - [RangeVarGetAndCheckCreationNamespace](RangeVarGetAndCheckCreationNamespace.md)
+  - [CreateTableAsRelExists](../C/CreateTableAsRelExists.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
 
 ## Notes and Other Information
 - May trigger a CommandCounterIncrement operation during temporary namespace initialization

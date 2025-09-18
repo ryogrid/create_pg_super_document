@@ -23,20 +23,20 @@ The function constructs and sends a Parse message containing the statement name,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQueryStart: Validates connection state and prepares for query sending
-  - pqAllocCmdQueueEntry: Allocates a command queue entry for tracking the operation
-  - pqPutMsgStart: Starts construction of a Parse protocol message
-  - pqPuts: Writes string data to the output buffer
-  - pqPutInt: Writes integer data to the output buffer
-  - pqPutMsgEnd: Completes the protocol message construction
-  - pqPipelineFlush: Flushes output buffer with pipeline mode awareness
-  - pqAppendCmdQueueEntry: Adds the command queue entry to the connection's queue
-  - pqRecycleCmdQueueEntry: Cleans up command queue entry on failure
+  - [PQsendQueryStart](PQsendQueryStart.md): Validates connection state and prepares for query sending
+  - [pqAllocCmdQueueEntry](../p/pqAllocCmdQueueEntry.md): Allocates a command queue entry for tracking the operation
+  - [pqPutMsgStart](../p/pqPutMsgStart.md): Starts construction of a Parse protocol message
+  - [pqPuts](../p/pqPuts.md): Writes string data to the output buffer
+  - [pqPutInt](../p/pqPutInt.md): Writes integer data to the output buffer
+  - [pqPutMsgEnd](../p/pqPutMsgEnd.md): Completes the protocol message construction
+  - [pqPipelineFlush](../p/pqPipelineFlush.md): Flushes output buffer with pipeline mode awareness
+  - [pqAppendCmdQueueEntry](../p/pqAppendCmdQueueEntry.md): Adds the command queue entry to the connection's queue
+  - [pqRecycleCmdQueueEntry](../p/pqRecycleCmdQueueEntry.md): Cleans up command queue entry on failure
 - Called from (representative examples):
-  - PQprepare: Synchronous version that waits for preparation to complete
-  - test_pipelined_insert: Pipeline mode testing function
-  - test_prepared: Prepared statement testing function
-  - test_transaction: Transaction testing function
+  - [PQprepare](PQprepare.md): Synchronous version that waits for preparation to complete
+  - [test_pipelined_insert](../t/test_pipelined_insert.md): Pipeline mode testing function
+  - [test_prepared](../t/test_prepared.md): Prepared statement testing function
+  - [test_transaction](../t/test_transaction.md): Transaction testing function
 
 ## Notes and Other Information
 - Part of the extended query protocol's prepare-bind-execute sequence for optimal performance
@@ -44,7 +44,7 @@ The function constructs and sends a Parse message containing the statement name,
 - Parameter type specification is optional - server can infer types if paramTypes is NULL
 - Automatically handles protocol synchronization by adding Sync messages outside pipeline mode
 - Pipeline mode compatible - omits Sync messages when in pipeline mode for better performance
-- Query text is stored in the command queue entry for debugging and tracking purposes
+- [Query](../Q/Query.md) text is stored in the command queue entry for debugging and tracking purposes
 - Enforces parameter limits to prevent resource exhaustion (PQ_QUERY_PARAM_MAX_LIMIT)
 - Prepared statements persist for the duration of the database session unless explicitly deallocated
 - Provides foundation for high-performance applications that execute the same queries repeatedly with different parameters

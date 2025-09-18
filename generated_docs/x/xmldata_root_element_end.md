@@ -22,11 +22,11 @@ This function is deliberately simple and focuses solely on generating the closin
 - Functions called/Symbols referenced:
   - appendStringInfo
 - Called from (representative examples):
-  - cursor_to_xml
-  - query_to_xml_internal  
-  - schema_to_xml_internal
-  - database_to_xml_internal
-  - SPI_sql_row_to_xmlelement
+  - [cursor_to_xml](../c/cursor_to_xml.md)
+  - [query_to_xml_internal](../q/query_to_xml_internal.md)  
+  - [schema_to_xml_internal](../s/schema_to_xml_internal.md)
+  - [database_to_xml_internal](../d/database_to_xml_internal.md)
+  - [SPI_sql_row_to_xmlelement](../S/SPI_sql_row_to_xmlelement.md)
 
 ## Notes and Other Information
 - Internal static function, not exposed as SQL function

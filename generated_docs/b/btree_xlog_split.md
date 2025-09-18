@@ -31,34 +31,34 @@ For internal page splits, it also clears incomplete split flags on child pages, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_clear_incomplete_split
+  - [_bt_clear_incomplete_split](_bt_clear_incomplete_split.md)
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - XLogRecGetBlockTagExtended
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [XLogRecGetBlockTagExtended](../X/XLogRecGetBlockTagExtended.md)
   - XLogInitBufferForRedo
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - XLogReadBufferForRedo
-  - _bt_pageinit
-  - _bt_restore_page
+  - [_bt_pageinit](_bt_pageinit.md)
+  - [_bt_restore_page](_bt_restore_page.md)
   - BTPageGetOpaque
-  - PageGetTempPageCopySpecial
+  - [PageGetTempPageCopySpecial](../P/PageGetTempPageCopySpecial.md)
   - PageAddItem
-  - PageGetItemId
-  - PageGetItem
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
   - OffsetNumberPrev
   - OffsetNumberNext
-  - CopyIndexTuple
-  - _bt_swap_posting
-  - PageRestoreTempPage
-  - PageSetLSN
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
+  - [_bt_swap_posting](_bt_swap_posting.md)
+  - [PageRestoreTempPage](../P/PageRestoreTempPage.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Data types used:
-  - xl_btree_split
+  - [xl_btree_split](../x/xl_btree_split.md)
   - BTPageOpaque
   - ItemId
-  - IndexTuple
+  - [IndexTuple](../I/IndexTuple.md)
 - Constants used:
   - BLK_NEEDS_REDO
   - P_NONE
@@ -68,7 +68,7 @@ For internal page splits, it also clears incomplete split flags on child pages, 
   - P_FIRSTDATAKEY
   - InvalidOffsetNumber
 - Called from (representative examples):
-  - btree_redo (for both leaf and internal page splits)
+  - [btree_redo](btree_redo.md) (for both leaf and internal page splits)
 
 ## Notes and Other Information
 - This is a static function used internally within nbtxlog.c for B-tree WAL recovery

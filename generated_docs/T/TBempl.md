@@ -25,9 +25,9 @@ The structure is defined within an ECPG declare section (between  and  directive
   - mmChar (typedef for char)  
   - access (typedef for short)
 - Called from (representative examples):
-  - main (in preproc-type.c test)
-  - varchar (in preproc-type.c test)
-  - main (in sql-binary.c test)
+  - [main](../m/main.md) (in preproc-type.c test)
+  - [varchar](../v/varchar.md) (in preproc-type.c test)
+  - [main](../m/main.md) (in sql-binary.c test)
 
 ## Notes and Other Information
 - This structure is part of the ECPG test suite located in src/interfaces/ecpg/test/expected/

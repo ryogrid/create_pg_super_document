@@ -35,15 +35,15 @@ The structure is extensively used throughout PostgreSQL's internal systems, part
 - Functions called/Symbols referenced:
   - None (this is a pure data structure)
 - Used extensively by:
-  - get_object_address
-  - get_object_address_rv
-  - check_object_ownership
-  - get_object_namespace
-  - getObjectDescription
-  - getObjectDescriptionOids
+  - [get_object_address](../g/get_object_address.md)
+  - [get_object_address_rv](../g/get_object_address_rv.md)
+  - [check_object_ownership](../c/check_object_ownership.md)
+  - [get_object_namespace](../g/get_object_namespace.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [getObjectDescriptionOids](../g/getObjectDescriptionOids.md)
   - getObjectTypeDescription
-  - getObjectIdentity
-  - getObjectIdentityParts
+  - [getObjectIdentity](../g/getObjectIdentity.md)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md)
 
 ## Notes and Other Information
 - An InvalidObjectAddress constant is provided for initialization and error conditions

@@ -31,14 +31,14 @@ This function is optimized for boolean queries - it only needs to determine pres
   - expression_tree_walker (recursive expression tree traversal)
   - Var, CurrentOfExpr, PlaceHolderVar (node type structures)
 - Called from (representative examples):
-  - contain_var_clause (primary caller)
-  - contain_var_clause_walker (recursive self-calls via expression_tree_walker)
+  - [contain_var_clause](contain_var_clause.md) (primary caller)
+  - [contain_var_clause_walker](contain_var_clause_walker.md) (recursive self-calls via expression_tree_walker)
 
 ## Notes and Other Information
 - This is a static function, internal to var.c
 - Implements early termination optimization - returns true immediately upon finding a variable
 - Only examines the current query level (varlevelsup/phlevelsup == 0)
-- CurrentOfExpr nodes are always treated as variables regardless of level
+- [CurrentOfExpr](../C/CurrentOfExpr.md) nodes are always treated as variables regardless of level
 - For PlaceHolderVar nodes, continues examining contained expressions if not at current level
 - Does not examine subqueries - must only be used after sublink reduction
 - Returns true to halt traversal (variable found), false to continue traversal

@@ -23,13 +23,13 @@ The  structure serves as a cache for prepared SQL plans within PL/Perl functions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr (SPI plan pointer type)
+  - [SPIPlanPtr](../S/SPIPlanPtr.md) (SPI plan pointer type)
 - Called from (representative examples):
-  - plperl_query_entry (as a member structure)
-  - plperl_spi_prepare
-  - plperl_spi_exec_prepared
-  - plperl_spi_query_prepared
-  - plperl_spi_freeplan
+  - [plperl_query_entry](plperl_query_entry.md) (as a member structure)
+  - [plperl_spi_prepare](plperl_spi_prepare.md)
+  - [plperl_spi_exec_prepared](plperl_spi_exec_prepared.md)
+  - [plperl_spi_query_prepared](plperl_spi_query_prepared.md)
+  - [plperl_spi_freeplan](plperl_spi_freeplan.md)
 
 ## Notes and Other Information
 - This structure is primarily used for caching prepared statements to avoid repeated parsing and planning overhead

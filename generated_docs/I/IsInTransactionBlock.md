@@ -26,8 +26,8 @@ Unlike PreventInTransactionBlock, this function does not force a post-statement 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionBlock
-  - IsSubTransaction
+  - [IsTransactionBlock](IsTransactionBlock.md)
+  - [IsSubTransaction](IsSubTransaction.md)
   - MyXactFlags (checked against XACT_FLAGS_PIPELINING)
   - CurrentTransactionState (checked for blockState)
   - TBLOCK_DEFAULT

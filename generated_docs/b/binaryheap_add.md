@@ -18,17 +18,17 @@ This function implements the standard heap insertion algorithm. It adds the new 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap (struct type)
+  - [binaryheap](binaryheap.md) (struct type)
   - bh_node_type (type definition)
   - FRONTEND (preprocessor macro for conditional compilation)
-  - pg_fatal (frontend error function)
+  - [pg_fatal](../p/pg_fatal.md) (frontend error function)
   - elog (backend error function)
-  - sift_up (maintains heap property by moving nodes upward)
+  - [sift_up](../s/sift_up.md) (maintains heap property by moving nodes upward)
 - Called from (representative examples):
-  - pgarch_readyXlog (in src/backend/postmaster/pgarch.c)
-  - move_to_ready_heap (in src/bin/pg_dump/pg_backup_archiver.c)
-  - reduce_dependencies (in src/bin/pg_dump/pg_backup_archiver.c)
-  - TopoSort (in src/bin/pg_dump/pg_dump_sort.c)
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (in src/backend/postmaster/pgarch.c)
+  - [move_to_ready_heap](../m/move_to_ready_heap.md) (in src/bin/pg_dump/pg_backup_archiver.c)
+  - [reduce_dependencies](../r/reduce_dependencies.md) (in src/bin/pg_dump/pg_backup_archiver.c)
+  - [TopoSort](../T/TopoSort.md) (in src/bin/pg_dump/pg_dump_sort.c)
 
 ## Notes and Other Information
 - The function will terminate the program (pg_fatal in frontend, elog ERROR in backend) if the heap capacity is exceeded

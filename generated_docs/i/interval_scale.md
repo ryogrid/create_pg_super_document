@@ -31,9 +31,9 @@ The function creates a copy of the input interval and delegates the actual adjus
 - Functions called/Symbols referenced:
   - PG_GETARG_INTERVAL_P
   - PG_GETARG_INT32
-  - palloc
+  - [palloc](../p/palloc.md)
   - Interval (data structure)
-  - AdjustIntervalForTypmod
+  - [AdjustIntervalForTypmod](../A/AdjustIntervalForTypmod.md)
   - PG_RETURN_INTERVAL_P
 - Called from (representative examples):
   - PostgreSQL type system during interval type conversions

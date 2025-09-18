@@ -17,16 +17,16 @@ This function implements the classic bottom-up heap construction algorithm, also
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap (struct type)
-  - parent_offset (calculates parent index in heap)
-  - sift_down (maintains heap property by moving nodes downward)
+  - [binaryheap](binaryheap.md) (struct type)
+  - [parent_offset](../p/parent_offset.md) (calculates parent index in heap)
+  - [sift_down](../s/sift_down.md) (maintains heap property by moving nodes downward)
 - Called from (representative examples):
-  - gather_merge_init (in src/backend/executor/nodeGatherMerge.c)
+  - [gather_merge_init](../g/gather_merge_init.md) (in src/backend/executor/nodeGatherMerge.c)
   - ExecMergeAppend (in src/backend/executor/nodeMergeAppend.c)
-  - pgarch_readyXlog (in src/backend/postmaster/pgarch.c)
-  - ReorderBufferIterTXNInit (in src/backend/replication/logical/reorderbuffer.c)
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (in src/backend/postmaster/pgarch.c)
+  - [ReorderBufferIterTXNInit](../R/ReorderBufferIterTXNInit.md) (in src/backend/replication/logical/reorderbuffer.c)
   - BufferSync (in src/backend/storage/buffer/bufmgr.c)
-  - TopoSort (in src/bin/pg_dump/pg_dump_sort.c)
+  - [TopoSort](../T/TopoSort.md) (in src/bin/pg_dump/pg_dump_sort.c)
 
 ## Notes and Other Information
 - Uses the optimal O(n) bottom-up heap construction algorithm rather than O(n log n) top-down insertion

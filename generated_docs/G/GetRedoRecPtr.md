@@ -24,16 +24,16 @@ GetRedoRecPtr retrieves the current Redo record pointer from PostgreSQL's shared
   - RedoRecPtr (local static variable)
 - Called from (representative examples):
   - CheckPointLogicalRewriteHeap
-  - XLogWrite
-  - XLogSaveBufferForHint
-  - XLogPageRead
-  - nextval_internal
-  - MaybeRemoveOldWalSummaries
-  - CheckPointSnapBuild
-  - ReplicationSlotReserveWal
-  - smgr_bulk_start_smgr
-  - smgr_bulk_finish
-  - WALAvailability
+  - [XLogWrite](../X/XLogWrite.md)
+  - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md)
+  - [XLogPageRead](../X/XLogPageRead.md)
+  - [nextval_internal](../n/nextval_internal.md)
+  - [MaybeRemoveOldWalSummaries](../M/MaybeRemoveOldWalSummaries.md)
+  - [CheckPointSnapBuild](../C/CheckPointSnapBuild.md)
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md)
+  - [smgr_bulk_start_smgr](../s/smgr_bulk_start_smgr.md)
+  - [smgr_bulk_finish](../s/smgr_bulk_finish.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - Updates the local RedoRecPtr copy as a side effect for performance optimization

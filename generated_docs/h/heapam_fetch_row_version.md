@@ -24,11 +24,11 @@ The function ensures that the slot is of the correct type (BufferHeapTupleTableS
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (type cast)
   - TTS_IS_BUFFERTUPLE (assertion check)
-  - heap_fetch (core tuple fetching)
-  - ExecStorePinnedBufferHeapTuple (slot storage)
+  - [heap_fetch](heap_fetch.md) (core tuple fetching)
+  - [ExecStorePinnedBufferHeapTuple](../E/ExecStorePinnedBufferHeapTuple.md) (slot storage)
   - RelationGetRelid (relation OID retrieval)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
 
 ## Notes and Other Information
 - This is a static function serving as a callback in the table access method interface

@@ -22,12 +22,12 @@ The function iterates through all blocks referenced in the WAL record, reads eac
   - XLogRecMaxBlockId (gets maximum block ID in the record)
   - XLogRecHasBlockRef (checks if block reference exists)
   - XLogReadBufferForRedo (reads buffer for redo operation)
-  - BufferGetPage (gets page from buffer)
-  - XLogRecGetBlockData (extracts delta data from WAL record)
-  - applyPageRedo (applies delta changes to page)
-  - PageSetLSN (sets log sequence number on page)
+  - [BufferGetPage](../B/BufferGetPage.md) (gets page from buffer)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (extracts delta data from WAL record)
+  - [applyPageRedo](../a/applyPageRedo.md) (applies delta changes to page)
+  - [PageSetLSN](../P/PageSetLSN.md) (sets log sequence number on page)
   - MarkBufferDirty (marks buffer as modified)
-  - UnlockReleaseBuffer (releases buffer lock)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (releases buffer lock)
 - Called from (representative examples):
   - No direct callers found in current analysis (typically called by WAL replay system)
 

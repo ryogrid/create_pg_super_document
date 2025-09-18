@@ -29,17 +29,17 @@ A notable characteristic is that IndexTuples should never have missing columns, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfoFindDataOffset
+  - [IndexInfoFindDataOffset](../I/IndexInfoFindDataOffset.md)
   - IndexTupleHasNulls
-  - index_deform_tuple_internal
+  - [index_deform_tuple_internal](index_deform_tuple_internal.md)
 - Data types used:
   - bits8 (for null bitmap access)
-  - IndexTupleData
+  - [IndexTupleData](../I/IndexTupleData.md)
 - Called from (representative examples):
-  - index_truncate_tuple (src/backend/access/common/indextuple.c:596)
-  - _bt_check_unique (src/backend/access/nbtree/nbtinsert.c:660)
-  - StoreIndexTuple (src/backend/executor/nodeIndexonlyscan.c:281)
-  - comparetup_index_btree_tiebreak (src/backend/utils/sort/tuplesortvariants.c:1546)
+  - [index_truncate_tuple](index_truncate_tuple.md) (src/backend/access/common/indextuple.c:596)
+  - [_bt_check_unique](../b/_bt_check_unique.md) (src/backend/access/nbtree/nbtinsert.c:660)
+  - [StoreIndexTuple](../S/StoreIndexTuple.md) (src/backend/executor/nodeIndexonlyscan.c:281)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md) (src/backend/utils/sort/tuplesortvariants.c:1546)
 
 ## Notes and Other Information
 - Located in src/backend/access/common/indextuple.c:456-478

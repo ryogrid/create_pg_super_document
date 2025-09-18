@@ -28,17 +28,17 @@ The structure maintains both local state (reference counts, resource owner infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCALLOCKTAG
+  - [LOCALLOCKTAG](LOCALLOCKTAG.md)
   - LOCK
-  - PROCLOCK
-  - LOCALLOCKOWNER
+  - [PROCLOCK](../P/PROCLOCK.md)
+  - [LOCALLOCKOWNER](LOCALLOCKOWNER.md)
 - Called from (representative examples):
-  - LockAcquireExtended
-  - LockRelease
-  - LockHeldByMe
-  - LockReleaseAll
-  - GrantLockLocal
-  - FastPathGetRelationLockEntry
+  - [LockAcquireExtended](LockAcquireExtended.md)
+  - [LockRelease](LockRelease.md)
+  - [LockHeldByMe](LockHeldByMe.md)
+  - [LockReleaseAll](LockReleaseAll.md)
+  - [GrantLockLocal](../G/GrantLockLocal.md)
+  - [FastPathGetRelationLockEntry](../F/FastPathGetRelationLockEntry.md)
 
 ## Notes and Other Information
 LOCALLOCK entries persist across multiple lock acquisitions and releases, serving as a cache for lock state. The structure supports both normal locks (with valid shared memory pointers) and fast-path locks (with NULL shared memory pointers). The dynamic lockOwners array grows as needed to accommodate locks held by multiple resource owners, which is essential for proper cleanup during subtransaction abort. The lockCleared flag helps optimize shared invalidation message processing by avoiding redundant reads.

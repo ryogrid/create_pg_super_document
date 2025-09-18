@@ -27,17 +27,17 @@ Enum types are internally represented as OIDs (4 bytes) and are always passed by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeCreate: Creates both the enum type and its array type entries
-  - EnumValuesCreate: Populates pg_enum catalog with enum values and sort orders
-  - QualifiedNameGetCreationNamespace: Parses qualified type names
-  - moveArrayTypeName: Handles array type name conflicts  
-  - makeArrayTypeName: Generates array type names
-  - AssignTypeArrayOid: Allocates OID for the array type
-  - object_aclcheck: Validates creation permissions
+  - [TypeCreate](../T/TypeCreate.md): Creates both the enum type and its array type entries
+  - [EnumValuesCreate](../E/EnumValuesCreate.md): Populates pg_enum catalog with enum values and sort orders
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md): Parses qualified type names
+  - [moveArrayTypeName](../m/moveArrayTypeName.md): Handles array type name conflicts  
+  - [makeArrayTypeName](../m/makeArrayTypeName.md): Generates array type names
+  - [AssignTypeArrayOid](../A/AssignTypeArrayOid.md): Allocates OID for the array type
+  - [object_aclcheck](../o/object_aclcheck.md): Validates creation permissions
   - GetSysCacheOid2: Checks for existing type names
 
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main DDL command processing
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main DDL command processing
 
 ## Notes and Other Information
 - Enum types are internally stored as OID values (4 bytes, passed by value)

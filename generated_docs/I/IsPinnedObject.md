@@ -20,14 +20,14 @@ This function identifies system objects that are essential to PostgreSQL's opera
 - Functions called/Symbols referenced:
   - FirstUnpinnedObjectId (constant defining the boundary between system and user objects)
 - Called from (representative examples):
-  - findDependentObjects (src/backend/catalog/dependency.c:494)
-  - isObjectPinned (src/backend/catalog/pg_depend.c:712)
-  - recordSharedDependencyOn (src/backend/catalog/pg_shdepend.c:147)
-  - checkSharedDependencies (src/backend/catalog/pg_shdepend.c:696)
-  - shdepDropOwned (src/backend/catalog/pg_shdepend.c:1369)
-  - shdepReassignOwned (src/backend/catalog/pg_shdepend.c:1550)
-  - DropTableSpace (src/backend/commands/tablespace.c:448)
-  - typeDepNeeded (src/backend/commands/opclasscmds.c:1685)
+  - [findDependentObjects](../f/findDependentObjects.md) (src/backend/catalog/dependency.c:494)
+  - [isObjectPinned](../i/isObjectPinned.md) (src/backend/catalog/pg_depend.c:712)
+  - [recordSharedDependencyOn](../r/recordSharedDependencyOn.md) (src/backend/catalog/pg_shdepend.c:147)
+  - [checkSharedDependencies](../c/checkSharedDependencies.md) (src/backend/catalog/pg_shdepend.c:696)
+  - [shdepDropOwned](../s/shdepDropOwned.md) (src/backend/catalog/pg_shdepend.c:1369)
+  - [shdepReassignOwned](../s/shdepReassignOwned.md) (src/backend/catalog/pg_shdepend.c:1550)
+  - [DropTableSpace](../D/DropTableSpace.md) (src/backend/commands/tablespace.c:448)
+  - [typeDepNeeded](../t/typeDepNeeded.md) (src/backend/commands/opclasscmds.c:1685)
 
 ## Notes and Other Information
 - Objects with OIDs >= FirstUnpinnedObjectId are never pinned, ensuring user-defined objects can always be dropped

@@ -24,14 +24,14 @@ The function ensures proper error handling throughout both phases and handles sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_icu_converter (ensures ICU converter is ready)
+  - [init_icu_converter](init_icu_converter.md) (ensures ICU converter is ready)
   - ucnv_fromUChars (ICU function to convert from Unicode - called twice)
   - u_errorName (ICU function to get error name string)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
 - Called from (representative examples):
-  - str_tolower (string case conversion functions)
-  - str_toupper (string case conversion functions)
-  - str_initcap (string capitalization functions)
+  - [str_tolower](../s/str_tolower.md) (string case conversion functions)
+  - [str_toupper](../s/str_toupper.md) (string case conversion functions)
+  - [str_initcap](../s/str_initcap.md) (string capitalization functions)
   - pg_locale_t (locale-related operations)
 
 ## Notes and Other Information

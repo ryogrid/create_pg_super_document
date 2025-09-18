@@ -19,8 +19,8 @@ The function ensures that negative values are normalized to 0, and only attempts
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqParseIntParam (parses integer parameter from string)
-  - libpq_append_conn_error (appends error message to connection)
+  - [pqParseIntParam](../p/pqParseIntParam.md) (parses integer parameter from string)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (appends error message to connection)
   - setsockopt (system call to set socket options)
   - SOCK_STRERROR (error string formatting macro)
   - SOCK_ERRNO (socket error number macro)

@@ -35,9 +35,9 @@ The function returns a boolean indicating whether `ProcLockWakeup` should be cal
   - LOCK_PRINT (debugging macro)
   - PROCLOCK_PRINT (debugging macro)
 - Called from (representative examples):
-  - LockRelease
-  - LockReleaseAll
-  - LockRefindAndRelease
+  - [LockRelease](../L/LockRelease.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [LockRefindAndRelease](../L/LockRefindAndRelease.md)
 
 ## Notes and Other Information
 - This is a static function internal to lock.c, not exposed externally

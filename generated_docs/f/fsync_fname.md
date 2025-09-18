@@ -22,13 +22,13 @@ A wrapper function that performs filesystem synchronization on a file or directo
   - data_sync_elevel
 - Called from (representative examples):
   - CheckPointLogicalRewriteHeap
-  - SimpleLruWriteAll
-  - CheckPointTwoPhase
-  - CreateDirAndVersionFile
-  - SnapBuildSerialize
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
+  - [CheckPointTwoPhase](../C/CheckPointTwoPhase.md)
+  - [CreateDirAndVersionFile](../C/CreateDirAndVersionFile.md)
+  - [SnapBuildSerialize](../S/SnapBuildSerialize.md)
   - copydir
-  - sync_pgdata
-  - durable_rename
+  - [sync_pgdata](../s/sync_pgdata.md)
+  - [durable_rename](../d/durable_rename.md)
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL for ensuring data durability during critical operations like checkpoints, replication slot management, and database directory operations. It's particularly important for crash recovery guarantees and maintaining ACID properties. The function is part of PostgreSQL's file descriptor management subsystem and provides a consistent interface across different operating systems with varying fsync capabilities.

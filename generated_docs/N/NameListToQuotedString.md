@@ -20,7 +20,7 @@ The function assumes all elements in the input list are String nodes and does no
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head: Used to check if current element is the first in the list to avoid prepending a dot
-  - quote_identifier: Applies PostgreSQL identifier quoting rules to each name component
+  - [quote_identifier](../q/quote_identifier.md): Applies PostgreSQL identifier quoting rules to each name component
   - initStringInfo: Initializes the StringInfo buffer for building the output string
   - appendStringInfoChar: Appends dot separators between name components  
   - appendStringInfoString: Appends the quoted identifier strings

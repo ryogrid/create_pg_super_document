@@ -29,19 +29,19 @@ The function may return false to indicate that the removal cannot be performed c
   - NUMERIC_IS_SPECIAL
   - NUMERIC_IS_PINF  
   - NUMERIC_IS_NINF
-  - init_var_from_num
+  - [init_var_from_num](../i/init_var_from_num.md)
   - init_var
-  - mul_var
-  - accum_sum_add
-  - accum_sum_reset
+  - [mul_var](../m/mul_var.md)
+  - [accum_sum_add](../a/accum_sum_add.md)
+  - [accum_sum_reset](../a/accum_sum_reset.md)
   - NUMERIC_POS
   - NUMERIC_NEG
 - Called from (representative examples):
-  - numeric_accum_inv
-  - int2_accum_inv
-  - int4_accum_inv
-  - int8_accum_inv
-  - int8_avg_accum_inv
+  - [numeric_accum_inv](../n/numeric_accum_inv.md)
+  - [int2_accum_inv](../i/int2_accum_inv.md)
+  - [int4_accum_inv](../i/int4_accum_inv.md)
+  - [int8_accum_inv](../i/int8_accum_inv.md)
+  - [int8_avg_accum_inv](../i/int8_avg_accum_inv.md)
 
 ## Notes and Other Information
 - This function is critical for implementing inverse aggregate functions that support moving window operations

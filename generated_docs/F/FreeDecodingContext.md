@@ -25,17 +25,17 @@ The cleanup sequence is:
 ## Dependencies
 - Functions called/Symbols referenced:
   - shutdown_cb_wrapper
-  - ReorderBufferFree
-  - FreeSnapshotBuilder
-  - XLogReaderFree
-  - MemoryContextDelete
+  - [ReorderBufferFree](../R/ReorderBufferFree.md)
+  - [FreeSnapshotBuilder](FreeSnapshotBuilder.md)
+  - [XLogReaderFree](../X/XLogReaderFree.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
   - LogicalReplicationSlotHasPendingWal
-  - LogicalSlotAdvanceAndCheckSnapState
-  - pg_logical_slot_get_changes_guts
-  - create_logical_replication_slot
-  - CreateReplicationSlot
-  - StartLogicalReplication
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
 
 ## Notes and Other Information
 - This function should always be called to properly clean up a LogicalDecodingContext

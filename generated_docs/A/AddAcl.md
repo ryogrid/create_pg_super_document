@@ -20,8 +20,8 @@ This function is used to build comma-separated lists of privilege keywords when 
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar
-  - appendPQExpBufferStr  
-  - appendPQExpBuffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)  
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
 - Called from (representative examples):
   - CONVERT_PRIV macro (src/bin/pg_dump/dumputils.c:468, 473)
 

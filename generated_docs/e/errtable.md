@@ -21,20 +21,20 @@ The function is designed to be used within ereport() calls to provide contextual
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - err_generic_string (with PG_DIAG_SCHEMA_NAME)
-  - get_namespace_name
+  - [err_generic_string](err_generic_string.md) (with PG_DIAG_SCHEMA_NAME)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
-  - err_generic_string (with PG_DIAG_TABLE_NAME)
+  - [err_generic_string](err_generic_string.md) (with PG_DIAG_TABLE_NAME)
   - RelationGetRelationName
 - Called from (representative examples):
-  - ATRewriteTable
-  - ATPrepChangePersistence
-  - ExecPartitionCheckEmitError
-  - ExecFindPartition
-  - check_default_partition_contents
-  - BuildRelationExtStatistics
-  - errtablecolname
-  - errtableconstraint
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ATPrepChangePersistence](../A/ATPrepChangePersistence.md)
+  - [ExecPartitionCheckEmitError](../E/ExecPartitionCheckEmitError.md)
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
+  - [errtablecolname](errtablecolname.md)
+  - [errtableconstraint](errtableconstraint.md)
 
 ## Notes and Other Information
 - Part of a family of error reporting utility functions located in relcache.c to avoid module layering violations

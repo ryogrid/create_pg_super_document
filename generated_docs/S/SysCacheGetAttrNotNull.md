@@ -23,17 +23,17 @@ This function provides both performance benefits (no need to check the isNull ou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](SysCacheGetAttr.md)
   - elog
-  - get_rel_name
+  - [get_rel_name](../g/get_rel_name.md)
   - NameStr
   - TupleDescAttr
 - Called from (representative examples):
-  - inclusion_get_strategy_procinfo (src/backend/access/brin/brin_inclusion.c:650)
-  - ExecGrant_common (src/backend/catalog/aclchk.c:2206)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:521)
-  - get_db_info (src/backend/commands/dbcommands.c:2888)
-  - ATExecValidateConstraint (src/backend/commands/tablecmds.c:11841)
+  - [inclusion_get_strategy_procinfo](../i/inclusion_get_strategy_procinfo.md) (src/backend/access/brin/brin_inclusion.c:650)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (src/backend/catalog/aclchk.c:2206)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:521)
+  - [get_db_info](../g/get_db_info.md) (src/backend/commands/dbcommands.c:2888)
+  - [ATExecValidateConstraint](../A/ATExecValidateConstraint.md) (src/backend/commands/tablecmds.c:11841)
 
 ## Notes and Other Information
 - Provides better error diagnostics than manually checking SysCacheGetAttr results

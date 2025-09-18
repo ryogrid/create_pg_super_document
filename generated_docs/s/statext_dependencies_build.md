@@ -26,15 +26,15 @@ The function uses a DependencyGenerator to enumerate all possible attribute comb
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - DependencyGenerator_init  
-  - DependencyGenerator_next
-  - DependencyGenerator_free
-  - dependency_degree
-  - MemoryContextReset
-  - MemoryContextDelete
-  - repalloc
+  - [DependencyGenerator_init](../D/DependencyGenerator_init.md)  
+  - [DependencyGenerator_next](../D/DependencyGenerator_next.md)
+  - [DependencyGenerator_free](../D/DependencyGenerator_free.md)
+  - [dependency_degree](../d/dependency_degree.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [repalloc](../r/repalloc.md)
 - Called from:
-  - BuildRelationExtStatistics
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
 
 ## Notes and Other Information
 - Requires at least 2 columns (data->nattnums >= 2) to function properly

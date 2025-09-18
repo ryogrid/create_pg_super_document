@@ -36,9 +36,9 @@ The function includes an optimization where if the node becomes too sparse (coun
   - RT_MAKE_NAME
   - RT_BM_IDX
   - RT_BM_BIT  
-  - RT_SHRINK_NODE_48
+  - [RT_SHRINK_NODE_48](RT_SHRINK_NODE_48.md)
 - Called from (representative examples):
-  - RT_NODE_DELETE
+  - [RT_NODE_DELETE](RT_NODE_DELETE.md)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's generic radix tree implementation that uses C macros for type polymorphism

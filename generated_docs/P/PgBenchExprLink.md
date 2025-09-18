@@ -18,13 +18,13 @@ PgBenchExprLink implements a singly-linked list data structure to organize seque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBenchExpr (struct)
+  - [PgBenchExpr](PgBenchExpr.md) (struct)
 - Called from (representative examples):
   - evalLazyFunc
   - evalStandardFunc
   - evalFunc
-  - PgBenchExpr (in function.args member)
-  - PgBenchExprList (in head/tail members)
+  - [PgBenchExpr](PgBenchExpr.md) (in function.args member)
+  - [PgBenchExprList](PgBenchExprList.md) (in head/tail members)
 
 ## Notes and Other Information
 - Forward declared at line 107 in pgbench.h, with full definition at lines 129-133

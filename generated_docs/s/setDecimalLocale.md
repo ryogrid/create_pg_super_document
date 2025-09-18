@@ -22,14 +22,14 @@ The function also ensures that the thousands separator and decimal point are dif
 ## Dependencies
 - Functions called/Symbols referenced:
   - localeconv() (standard C library function to get locale formatting info)
-  - pg_strdup() (PostgreSQL string duplication function)
+  - [pg_strdup](../p/pg_strdup.md)() (PostgreSQL string duplication function)
   - strcmp() (standard C string comparison)
 - Global variables set:
   - decimal_point (global string for decimal point character)
   - thousands_sep (global string for thousands separator character) 
   - groupdigits (global integer for digit grouping size)
 - Called from (representative examples):
-  - main (psql startup initialization)
+  - [main](../m/main.md) (psql startup initialization)
 
 ## Notes and Other Information
 - The function follows the Open Group standard for locale information but applies practical limitations for PostgreSQL's use case

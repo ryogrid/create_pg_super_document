@@ -45,13 +45,13 @@ This structure allows users to customize their WAL analysis experience, from sim
 - Functions called/Symbols referenced:
   - RM_MAX_ID (maximum resource manager ID constant)
   - TransactionId (PostgreSQL transaction identifier type)
-  - RelFileLocator (relation file locator structure)
+  - [RelFileLocator](../R/RelFileLocator.md) (relation file locator structure)
   - BlockNumber (block number type)
-  - ForkNumber (relation fork identifier type)
+  - [ForkNumber](../F/ForkNumber.md) (relation fork identifier type)
 - Called from (representative examples):
-  - XLogDumpDisplayRecord
-  - XLogDumpDisplayStats
-  - main (pg_waldump)
+  - [XLogDumpDisplayRecord](XLogDumpDisplayRecord.md)
+  - [XLogDumpDisplayStats](XLogDumpDisplayStats.md)
+  - [main](../m/main.md) (pg_waldump)
 
 ## Notes and Other Information
 - This structure is exclusively used by the pg_waldump utility for WAL analysis and debugging

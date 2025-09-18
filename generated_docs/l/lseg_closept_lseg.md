@@ -19,15 +19,15 @@ This static function determines the closest point between two line segments usin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lseg_interpt_lseg: Checks if two line segments intersect and returns intersection point
-  - lseg_closept_point: Finds closest point on line segment to a point (called multiple times)
-  - float8_lt: Compares two float8 values for less-than relationship
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md): Checks if two line segments intersect and returns intersection point
+  - [lseg_closept_point](lseg_closept_point.md): Finds closest point on line segment to a point (called multiple times)
+  - [float8_lt](../f/float8_lt.md): Compares two float8 values for less-than relationship
 - Called from (representative examples):
-  - path_distance: Distance calculation between paths
-  - lseg_distance: Distance between two line segments
-  - close_lseg: Closest point function for line segments
-  - box_closept_lseg: Closest point from box to line segment
-  - poly_distance: Distance calculation for polygons
+  - [path_distance](../p/path_distance.md): Distance calculation between paths
+  - [lseg_distance](lseg_distance.md): Distance between two line segments
+  - [close_lseg](../c/close_lseg.md): Closest point function for line segments
+  - [box_closept_lseg](../b/box_closept_lseg.md): Closest point from box to line segment
+  - [poly_distance](../p/poly_distance.md): Distance calculation for polygons
 
 ## Notes and Other Information
 - This is a static function used internally within geo_ops.c for geometric calculations

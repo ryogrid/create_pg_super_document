@@ -28,18 +28,18 @@ The function distinguishes between startup costs (one-time initialization) and p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - OidFunctionCall1
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_proc
   - SupportRequestCost
   - QualCost
 - Called from (representative examples):
-  - cost_windowagg
-  - cost_qual_eval_walker
-  - get_agg_clause_costs
+  - [cost_windowagg](../c/cost_windowagg.md)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md)
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
 
 ## Notes and Other Information
 The function performs error checking by verifying that the function OID exists in the system catalog. It properly manages system catalog cache resources by releasing the cached tuple after use. The cost estimation mechanism is extensible, allowing custom functions to provide their own costing logic through support functions. When using the default procost method, the cost is scaled by cpu_operator_cost to maintain consistency with other planner cost calculations.

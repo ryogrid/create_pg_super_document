@@ -23,18 +23,18 @@ Unlike some other similar functions, this function will throw an ERROR if the in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup with INDEXRELID)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup with INDEXRELID)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - elog (error logging and throwing)
   - Form_pg_index (pg_index catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - ERROR (error level constant)
 - Called from (representative examples):
-  - reindex_index
-  - reindex_relation
-  - DefineIndex
+  - [reindex_index](../r/reindex_index.md)
+  - [reindex_relation](../r/reindex_relation.md)
+  - [DefineIndex](../D/DefineIndex.md)
 
 ## Notes and Other Information
 - Throws an ERROR if the index OID is invalid or not found (unlike other similar functions)

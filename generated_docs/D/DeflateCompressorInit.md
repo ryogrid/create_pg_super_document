@@ -22,10 +22,10 @@ The function allocates a GzipCompressorState structure to maintain gzip-specific
   - pg_malloc0 (for allocating zeroed memory)
   - pg_malloc (for memory allocation)
   - deflateInit (zlib function to initialize deflate stream)
-  - pg_fatal (for fatal error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (for fatal error reporting)
 - Types referenced:
-  - CompressorState
-  - GzipCompressorState
+  - [CompressorState](../C/CompressorState.md)
+  - [GzipCompressorState](../G/GzipCompressorState.md)
   - z_streamp
   - z_stream
   - DEFAULT_IO_BUFFER_SIZE

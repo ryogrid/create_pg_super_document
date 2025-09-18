@@ -24,8 +24,8 @@ When dsa_pin_mapping is called, it sets the area's resource owner to NULL and ca
   - dsm_pin_mapping
   - dsa_area (struct type)
 - Called from (representative examples):
-  - GetSessionDsmHandle (src/backend/access/common/session.c:140)
-  - AttachSession (src/backend/access/common/session.c:188)
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (src/backend/access/common/session.c:140)
+  - [AttachSession](../A/AttachSession.md) (src/backend/access/common/session.c:188)
   - logicalrep_launcher_attach_dshmem (src/backend/replication/logical/launcher.c:1022, 1033)
   - init_dsm_registry (src/backend/storage/ipc/dsm_registry.c:105, 116)
   - pgstat_attach_shmem (src/backend/utils/activity/pgstat_shmem.c:229)

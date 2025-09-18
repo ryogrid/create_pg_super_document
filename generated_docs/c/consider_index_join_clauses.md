@@ -32,9 +32,9 @@ The function processes both simple join clauses (jclauseset) and EquivalenceClas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - consider_index_join_outer_rels
+  - [consider_index_join_outer_rels](consider_index_join_outer_rels.md)
 - Called from (representative examples):
-  - create_index_paths
+  - [create_index_paths](create_index_paths.md)
 
 ## Notes and Other Information
 - Uses a heuristic to limit computational complexity: restricts the number of outer relation sets considered to a multiple of the number of clauses

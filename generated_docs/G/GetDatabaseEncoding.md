@@ -23,12 +23,12 @@ None - this is a parameter-less function.
 - Functions called/Symbols referenced:
   - DatabaseEncoding (global structure containing encoding information)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1437)
-  - CollationGetCollid (src/backend/catalog/namespace.c:2375)
-  - DefineCollation (src/backend/commands/collationcmds.c:256)
-  - BeginCopyFrom (src/backend/commands/copyfrom.c:1530)
-  - pg_bind_textdomain_codeset (src/backend/utils/mb/mbutils.c:1229)
-  - SetClientEncoding (src/backend/utils/mb/mbutils.c:224)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1437)
+  - [CollationGetCollid](../C/CollationGetCollid.md) (src/backend/catalog/namespace.c:2375)
+  - [DefineCollation](../D/DefineCollation.md) (src/backend/commands/collationcmds.c:256)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (src/backend/commands/copyfrom.c:1530)
+  - [pg_bind_textdomain_codeset](../p/pg_bind_textdomain_codeset.md) (src/backend/utils/mb/mbutils.c:1229)
+  - [SetClientEncoding](../S/SetClientEncoding.md) (src/backend/utils/mb/mbutils.c:224)
 
 ## Notes and Other Information
 - Returns an integer encoding identifier (not a string name)

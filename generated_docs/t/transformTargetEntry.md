@@ -22,16 +22,16 @@ This function is a core component of PostgreSQL's query parser that converts par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr
-  - FigureColname
-  - makeTargetEntry
+  - [transformExpr](transformExpr.md)
+  - [FigureColname](../F/FigureColname.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
   - IsA (macro)
-  - SetToDefault
-  - ParseExprKind
+  - [SetToDefault](../S/SetToDefault.md)
+  - [ParseExprKind](../P/ParseExprKind.md)
   - EXPR_KIND_UPDATE_SOURCE
 - Called from (representative examples):
-  - transformTargetList
-  - findTargetlistEntrySQL99
+  - [transformTargetList](transformTargetList.md)
+  - [findTargetlistEntrySQL99](../f/findTargetlistEntrySQL99.md)
 
 ## Notes and Other Information
 - Exported function used by parse_clause.c for generating targetlist entries for ORDER/GROUP BY items

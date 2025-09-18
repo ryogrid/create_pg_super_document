@@ -27,9 +27,9 @@ This is a crucial part of the adaptive abbreviated key optimization system in Po
 - Functions called/Symbols referenced:
   - Tuplesortstate (sort state management structure)
   - SortTuple (generic sort tuple structure)
-  - PointerGetDatum (macro to convert pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (macro to convert pointer to Datum)
 - Called from (representative examples):
-  - tuplesort_begin_datum (datum sort initialization)
+  - [tuplesort_begin_datum](../t/tuplesort_begin_datum.md) (datum sort initialization)
   - CLUSTER_SORT (clustering sort operations)
 
 ## Notes and Other Information

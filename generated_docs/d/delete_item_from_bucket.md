@@ -25,10 +25,10 @@ This function searches through a hash bucket's linked list to find and remove a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid
-  - dsa_get_address
-  - dsa_free
-  - dshash_table (type)
-  - dshash_table_item (type)
+  - [dsa_get_address](dsa_get_address.md)
+  - [dsa_free](dsa_free.md)
+  - [dshash_table](dshash_table.md) (type)
+  - [dshash_table_item](dshash_table_item.md) (type)
   - dsa_pointer (type)
 - Called from (representative examples):
   - delete_item

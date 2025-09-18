@@ -24,10 +24,10 @@ The function extracts filename and line number information from the callback arg
 ## Dependencies
 - Functions called/Symbols referenced:
   - errcontext
-  - tokenize_error_callback_arg (structure type)
+  - [tokenize_error_callback_arg](tokenize_error_callback_arg.md) (structure type)
 - Called from (representative examples):
   - token_matches_insensitive
-  - tokenize_auth_file
+  - [tokenize_auth_file](tokenize_auth_file.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the hba.c file

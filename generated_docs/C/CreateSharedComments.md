@@ -22,16 +22,16 @@ Like CreateComments, it treats empty strings as NULL comments for deletion, and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_shdescription relation for modification
-  - systable_beginscan: Initiates indexed scan using SharedDescriptionObjIndexId
-  - systable_getnext: Retrieves matching tuples from the scan
-  - CatalogTupleDelete: Removes existing comment tuple
-  - heap_modify_tuple: Creates updated tuple with new comment
-  - CatalogTupleUpdate: Updates existing tuple in catalog
-  - heap_form_tuple: Creates new tuple for insertion
-  - CatalogTupleInsert: Inserts new comment tuple
-  - heap_freetuple: Frees allocated tuple memory
+  - [systable_beginscan](../s/systable_beginscan.md): Initiates indexed scan using SharedDescriptionObjIndexId
+  - [systable_getnext](../s/systable_getnext.md): Retrieves matching tuples from the scan
+  - [CatalogTupleDelete](CatalogTupleDelete.md): Removes existing comment tuple
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates updated tuple with new comment
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md): Updates existing tuple in catalog
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates new tuple for insertion
+  - [CatalogTupleInsert](CatalogTupleInsert.md): Inserts new comment tuple
+  - [heap_freetuple](../h/heap_freetuple.md): Frees allocated tuple memory
 - Called from (representative examples):
-  - CommentObject: Routes shared object comments to this function
+  - [CommentObject](CommentObject.md): Routes shared object comments to this function
 
 ## Notes and Other Information
 - Uses SharedDescriptionObjIndexId for efficient lookups by (objoid, classoid) 

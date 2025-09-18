@@ -20,11 +20,11 @@ This function serves as a simple wrapper that converts a signed integer to a num
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_from_long (performs the actual conversion after type promotion)
-  - numeric (numeric data type)
+  - [PGTYPESnumeric_from_long](PGTYPESnumeric_from_long.md) (performs the actual conversion after type promotion)
+  - [numeric](../n/numeric.md) (numeric data type)
 - Called from (representative examples):
-  - deccvint (in ECPG Informix compatibility layer)
-  - main (in various pgtypes test programs)
+  - [deccvint](../d/deccvint.md) (in ECPG Informix compatibility layer)
+  - [main](../m/main.md) (in various pgtypes test programs)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (typically memory allocation errors)

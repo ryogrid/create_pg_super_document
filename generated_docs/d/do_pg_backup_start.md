@@ -30,17 +30,17 @@ The function includes special handling for backups started during recovery mode,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogIsNeeded
-  - WALInsertLockAcquireExclusive
-  - WALInsertLockRelease
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)
+  - [WALInsertLockRelease](../W/WALInsertLockRelease.md)
   - PG_ENSURE_ERROR_CLEANUP
-  - do_pg_abort_backup
-  - RequestXLogSwitch
-  - RequestCheckpoint
+  - [do_pg_abort_backup](do_pg_abort_backup.md)
+  - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
+  - [RequestCheckpoint](../R/RequestCheckpoint.md)
   - AllocateDir
   - ReadDir
-  - get_dirent_type
+  - [get_dirent_type](../g/get_dirent_type.md)
   - readlink
   - FreeDir
   - BackupState
@@ -50,8 +50,8 @@ The function includes special handling for backups started during recovery mode,
   - CHECKPOINT_IMMEDIATE
   - SESSION_BACKUP_RUNNING
 - Called from (representative examples):
-  - pg_backup_start
-  - perform_base_backup
+  - [pg_backup_start](../p/pg_backup_start.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
 
 ## Notes and Other Information
 - The function enforces full-page writes during backup to prevent torn pages in concurrent read scenarios

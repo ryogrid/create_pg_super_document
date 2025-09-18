@@ -48,13 +48,13 @@ The ExtensionControlFile structure serves as the in-memory representation of a p
   - comment (member field)
   - superuser (member field)
 - Called from (representative examples):
-  - read_extension_control_file
-  - parse_extension_control_file
-  - CreateExtensionInternal
-  - get_ext_ver_list
-  - identify_update_path
-  - extension_is_trusted
-  - execute_extension_script
+  - [read_extension_control_file](../r/read_extension_control_file.md)
+  - [parse_extension_control_file](../p/parse_extension_control_file.md)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [get_ext_ver_list](../g/get_ext_ver_list.md)
+  - [identify_update_path](../i/identify_update_path.md)
+  - [extension_is_trusted](../e/extension_is_trusted.md)
+  - [execute_extension_script](../e/execute_extension_script.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL extension management and is used extensively throughout src/backend/commands/extension.c. The control file format and this structure define the interface between extension authors and the PostgreSQL extension system. Security-related fields (superuser, trusted) are particularly important for maintaining database security during extension operations.

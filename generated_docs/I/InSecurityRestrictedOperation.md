@@ -24,12 +24,12 @@ None - this function takes no parameters and returns a boolean value.
   - SecurityRestrictionContext (global variable)
   - SECURITY_RESTRICTED_OPERATION (macro constant: 0x0002)
 - Called from (representative examples):
-  - CheckRestrictedOperation
-  - DefineRelation
-  - afterTriggerMarkEvents
-  - PerformCursorOpen
-  - SetUserIdAndContext
-  - set_config_with_handle
+  - [CheckRestrictedOperation](../C/CheckRestrictedOperation.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md)
+  - [PerformCursorOpen](../P/PerformCursorOpen.md)
+  - [SetUserIdAndContext](../S/SetUserIdAndContext.md)
+  - [set_config_with_handle](../s/set_config_with_handle.md)
 
 ## Notes and Other Information
 - Returns true when SECURITY_RESTRICTED_OPERATION flag is set in SecurityRestrictionContext

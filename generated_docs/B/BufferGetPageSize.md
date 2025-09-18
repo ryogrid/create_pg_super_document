@@ -19,16 +19,16 @@ The function accepts any valid buffer (both local and shared) and assumes the bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid (through AssertMacro for validation)
+  - [BufferIsValid](BufferIsValid.md) (through AssertMacro for validation)
   - AssertMacro (assertion macro)
   - BLCKSZ (block size constant)
   - Size (return type)
 - Called from (representative examples):
-  - GinInitBuffer (src/backend/access/gin/ginutil.c:352)
-  - hash_xlog_squeeze_page (src/backend/access/hash/hash_xlog.c:745)
-  - heap_xlog_insert (src/backend/access/heap/heapam.c:9642)
-  - _bt_split (src/backend/access/nbtree/nbtinsert.c:1547)
-  - SpGistInitBuffer (src/backend/access/spgist/spgutils.c:716)
+  - [GinInitBuffer](../G/GinInitBuffer.md) (src/backend/access/gin/ginutil.c:352)
+  - [hash_xlog_squeeze_page](../h/hash_xlog_squeeze_page.md) (src/backend/access/hash/hash_xlog.c:745)
+  - [heap_xlog_insert](../h/heap_xlog_insert.md) (src/backend/access/heap/heapam.c:9642)
+  - [_bt_split](../b/_bt_split.md) (src/backend/access/nbtree/nbtinsert.c:1547)
+  - [SpGistInitBuffer](../S/SpGistInitBuffer.md) (src/backend/access/spgist/spgutils.c:716)
 
 ## Notes and Other Information
 - Currently returns a fixed page size (BLCKSZ) for all buffers

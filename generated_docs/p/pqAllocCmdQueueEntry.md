@@ -20,14 +20,14 @@ The function implements a simple memory pooling strategy to reduce the overhead 
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - libpq_append_conn_error
-  - PGcmdQueueEntry (struct type)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [PGcmdQueueEntry](../P/PGcmdQueueEntry.md) (struct type)
 - Called from (representative examples):
-  - PQsendQueryInternal
-  - PQsendPrepare
-  - PQsendQueryGuts
-  - PQsendTypedCommand
-  - pqPipelineSyncInternal
+  - [PQsendQueryInternal](../P/PQsendQueryInternal.md)
+  - [PQsendPrepare](../P/PQsendPrepare.md)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md)
+  - [PQsendTypedCommand](../P/PQsendTypedCommand.md)
+  - [pqPipelineSyncInternal](pqPipelineSyncInternal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-exec.c

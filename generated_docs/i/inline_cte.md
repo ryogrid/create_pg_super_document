@@ -22,11 +22,11 @@ The levelsup counter is initialized to -1 because the walker function will incre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inline_cte_walker
+  - [inline_cte_walker](inline_cte_walker.md)
   - castNode (macro for safe type casting)
-  - inline_cte_walker_context (context structure)
+  - [inline_cte_walker_context](inline_cte_walker_context.md) (context structure)
 - Called from (representative examples):
-  - SS_process_ctes
+  - [SS_process_ctes](../S/SS_process_ctes.md)
 
 ## Notes and Other Information
 - This function is part of the CTE optimization process in PostgreSQL's query planner

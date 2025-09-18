@@ -31,18 +31,18 @@ The manual implementation includes a special case comment noting that overflow c
   - PG_INT64_MIN
   - HAVE_INT128 (conditional compilation)
 - Called from (representative examples):
-  - int8mi (int8 subtraction operator)
-  - int8dec (int8 decrement function)
-  - int84mi, int48mi, int82mi, int28mi (mixed integer type subtractions)
-  - cash_mi_cash (money type subtraction)
-  - cash_in (money input parsing)
-  - timestamp_mi (timestamp subtraction)
-  - interval_um_internal (interval negation)
-  - finite_interval_mi (interval subtraction)
-  - TimestampDifferenceMilliseconds (time difference calculation)
-  - timestamp_bin, timestamptz_bin (timestamp binning operations)
-  - numericvar_to_int64 (numeric to int64 conversion)
-  - strtoint64 (string to int64 parsing in pgbench)
+  - [int8mi](../i/int8mi.md) (int8 subtraction operator)
+  - [int8dec](../i/int8dec.md) (int8 decrement function)
+  - [int84mi](../i/int84mi.md), int48mi, int82mi, int28mi (mixed integer type subtractions)
+  - [cash_mi_cash](../c/cash_mi_cash.md) (money type subtraction)
+  - [cash_in](../c/cash_in.md) (money input parsing)
+  - [timestamp_mi](../t/timestamp_mi.md) (timestamp subtraction)
+  - [interval_um_internal](../i/interval_um_internal.md) (interval negation)
+  - [finite_interval_mi](../f/finite_interval_mi.md) (interval subtraction)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md) (time difference calculation)
+  - [timestamp_bin](../t/timestamp_bin.md), timestamptz_bin (timestamp binning operations)
+  - [numericvar_to_int64](../n/numericvar_to_int64.md) (numeric to int64 conversion)
+  - [strtoint64](../s/strtoint64.md) (string to int64 parsing in pgbench)
 
 ## Notes and Other Information
 - Returns `true` when overflow is detected, `false` when subtraction is safe

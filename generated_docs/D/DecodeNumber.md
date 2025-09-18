@@ -37,7 +37,7 @@ The function handles special cases like:
 ## Dependencies
 - Functions called/Symbols referenced:
   - strtoint
-  - DecodeNumberField
+  - [DecodeNumberField](DecodeNumberField.md)
   - ParseFractionalSecond
   - DTK_M, DTK_DATE_M (field mask macros)
   - YEAR, MONTH, DAY, DOY (field type constants)
@@ -46,9 +46,9 @@ The function handles special cases like:
   - struct pg_tm
   - fsec_t
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeTimeOnly
-  - DecodeDate
+  - [DecodeDateTime](DecodeDateTime.md)
+  - [DecodeTimeOnly](DecodeTimeOnly.md)
+  - [DecodeDate](DecodeDate.md)
 
 ## Notes and Other Information
 - This is a static function internal to datetime.c, not part of the public API

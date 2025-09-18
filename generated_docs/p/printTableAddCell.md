@@ -22,14 +22,14 @@ The function maintains an internal counter of added cells and can optionally mar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mbvalidate (multibyte character validation)
+  - [mbvalidate](../m/mbvalidate.md) (multibyte character validation)
   - pg_malloc0 (PostgreSQL memory allocation)
   - gettext (_ macro, when ENABLE_NLS is defined)
 - Called from (representative examples):
-  - describeOneTableDetails (multiple locations in describe.c)
-  - describeRoles (describe.c)
-  - describePublications (describe.c)
-  - printQuery (print.c)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (multiple locations in describe.c)
+  - [describeRoles](../d/describeRoles.md) (describe.c)
+  - [describePublications](../d/describePublications.md) (describe.c)
+  - [printQuery](printQuery.md) (print.c)
 
 ## Notes and Other Information
 - Cells are not duplicated by this function; the caller must ensure the cell string remains valid

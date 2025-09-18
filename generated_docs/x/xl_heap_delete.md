@@ -22,11 +22,11 @@ This structure contains the essential information needed to record and replay he
 - Functions called/Symbols referenced:
   - (None - this is a data structure)
 - Called from (representative examples):
-  - heap_delete (creates WAL records using this structure)
-  - heap_abort_speculative (uses for speculative insertion cleanup)
-  - heap_xlog_delete (replays deletion from WAL records)
-  - heap_desc (describes WAL records for debugging)
-  - DecodeDelete (logical replication decoding)
+  - [heap_delete](../h/heap_delete.md) (creates WAL records using this structure)
+  - [heap_abort_speculative](../h/heap_abort_speculative.md) (uses for speculative insertion cleanup)
+  - [heap_xlog_delete](../h/heap_xlog_delete.md) (replays deletion from WAL records)
+  - [heap_desc](../h/heap_desc.md) (describes WAL records for debugging)
+  - [DecodeDelete](../D/DecodeDelete.md) (logical replication decoding)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's WAL record format for heap operations

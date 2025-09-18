@@ -23,11 +23,11 @@ The function includes interrupt checking to allow for cancellation of long-runni
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERRUPT
-  - sortins
+  - [sortins](../s/sortins.md)
   - NISERR
   - qsort
-  - sortins_cmp
-  - createarc
+  - [sortins_cmp](../s/sortins_cmp.md)
+  - [createarc](../c/createarc.md)
   - NOTREACHED
 - Called from (representative examples):
   - fixempties

@@ -29,8 +29,8 @@ This provides a more convenient interface when the actual nullness value is need
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - l_load (for loading the boolean value from the pointer)
-  - l_funcnullp (for getting the pointer to the nullness field)
+  - [l_load](l_load.md) (for loading the boolean value from the pointer)
+  - [l_funcnullp](l_funcnullp.md) (for getting the pointer to the nullness field)
 - Called from (representative examples):
   - llvm_compile_expr (in src/backend/jit/llvm/llvmjit_expr.c at lines 649, 1471, 1474, 1569, 1570, 1712, 1713, 2156)
 

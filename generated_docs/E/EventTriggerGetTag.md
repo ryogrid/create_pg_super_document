@@ -22,10 +22,10 @@ This function provides a unified way to obtain the CommandTag that represents th
 - Functions called/Symbols referenced:
   - EventTriggerEvent (event type enumeration)
   - EVT_Login (login event constant)
-  - CreateCommandTag (standard command tag creation function)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (standard command tag creation function)
   - CMDTAG_LOGIN (login command tag constant)
 - Called from (representative examples):
-  - EventTriggerCommonSetup (called twice in different contexts)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (called twice in different contexts)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed outside event_trigger.c

@@ -24,19 +24,19 @@ CastCreate is responsible for creating a new cast entry in the PostgreSQL system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - GetNewOidWithIndex  
-  - heap_form_tuple
-  - CatalogTupleInsert
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)  
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
   - ObjectAddressSet
-  - add_exact_object_address
-  - record_object_address_dependencies
-  - recordDependencyOnCurrentExtension
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - CreateCast (src/backend/commands/functioncmds.c:1777)
-  - DefineRange (src/backend/commands/typecmds.c:1718)
+  - [CreateCast](CreateCast.md) (src/backend/commands/functioncmds.c:1777)
+  - [DefineRange](../D/DefineRange.md) (src/backend/commands/typecmds.c:1718)
 
 ## Notes and Other Information
 The function performs duplicate checking before insertion using SearchSysCache2 to provide user-friendly error messages. It creates dependencies not only on the primary objects (source/target types, cast function) but also on any intermediate casts that may be required for binary coercibility. Extension dependencies are automatically recorded, and post-creation hooks are invoked for proper system integration. Memory cleanup is handled through heap_freetuple and proper relation closing.

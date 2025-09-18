@@ -28,7 +28,7 @@ The replacement algorithm uses a circular search pattern starting from  to find 
   - ERR (error reporting macro)
   - REG_ASSERT (regex assertion error constant)
 - Called from (representative examples):
-  - getvacant (to obtain a candidate state set for reuse)
+  - [getvacant](../g/getvacant.md) (to obtain a candidate state set for reuse)
   - LOFF (in regex execution engine)
 
 ## Notes and Other Information

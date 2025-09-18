@@ -17,19 +17,19 @@ This function looks up a database name in the system catalog pg_database using t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
-  - pstrdup (string duplication with palloc)
+  - [pstrdup](../p/pstrdup.md) (string duplication with palloc)
   - NameStr (name extraction macro)
   - GETSTRUCT (tuple structure access macro)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_database (catalog structure type)
 - Called from (representative examples):
-  - heap_vacuum_rel (vacuum operations)
-  - GetNewMultiXactId (transaction management)
-  - createdb (database creation)
-  - do_autovacuum (automatic maintenance)
-  - current_database (SQL function)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md) (vacuum operations)
+  - [GetNewMultiXactId](../G/GetNewMultiXactId.md) (transaction management)
+  - [createdb](../c/createdb.md) (database creation)
+  - [do_autovacuum](../d/do_autovacuum.md) (automatic maintenance)
+  - [current_database](../c/current_database.md) (SQL function)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

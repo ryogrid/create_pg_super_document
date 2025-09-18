@@ -19,13 +19,13 @@ This function is used when a schema-qualified object specification returns that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVarFromNameList: Converts name list to RangeVar to extract schema information
-  - LookupNamespaceNoError: Looks up schema by name, returns InvalidOid if not found
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md): Converts name list to RangeVar to extract schema information
+  - [LookupNamespaceNoError](../L/LookupNamespaceNoError.md): Looks up schema by name, returns InvalidOid if not found
 
 - Called from (representative examples):
-  - owningrel_does_not_exist_skipping: For checking parent relations
-  - type_in_list_does_not_exist_skipping: For checking type schemas
-  - does_not_exist_skipping: For various schema-qualified object types
+  - [owningrel_does_not_exist_skipping](../o/owningrel_does_not_exist_skipping.md): For checking parent relations
+  - [type_in_list_does_not_exist_skipping](../t/type_in_list_does_not_exist_skipping.md): For checking type schemas
+  - [does_not_exist_skipping](../d/does_not_exist_skipping.md): For various schema-qualified object types
 
 ## Notes and Other Information
 - This is a static function internal to dropcmds.c

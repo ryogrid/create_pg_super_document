@@ -34,12 +34,12 @@ The function is conditionally compiled with USE_PREFETCH and is designed to be c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `tbm_iterate`: Advance the non-parallel prefetch iterator
-  - `tbm_shared_iterate`: Advance the shared prefetch iterator in parallel mode
+  - `[tbm_iterate](../t/tbm_iterate.md)`: Advance the non-parallel prefetch iterator
+  - `[tbm_shared_iterate](../t/tbm_shared_iterate.md)`: Advance the shared prefetch iterator in parallel mode
   - `SpinLockAcquire`/`SpinLockRelease`: Protect shared state modifications in parallel mode
   - `elog`: Report synchronization errors in non-parallel mode
 - Called from (representative examples):
-  - `BitmapHeapNext`: Called when advancing to each new bitmap result block
+  - `[BitmapHeapNext](BitmapHeapNext.md)`: Called when advancing to each new bitmap result block
 
 ## Notes and Other Information
 - Only compiled when USE_PREFETCH is defined, making prefetching optional

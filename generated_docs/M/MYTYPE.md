@@ -22,12 +22,12 @@ MYTYPE serves as a convenient alias for struct mytype in the PostgreSQL ECPG tes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mytype (underlying struct)
+  - [mytype](../m/mytype.md) (underlying struct)
 - Called from (representative examples):
-  - get_var1 (lines 173, 180)
-  - open_cur1 (lines 212, 214, 216, 218, 220)
-  - get_record1 (lines 233, 235, 237, 239, 241)
-  - main (lines 264, 330)
+  - [get_var1](../g/get_var1.md) (lines 173, 180)
+  - [open_cur1](../o/open_cur1.md) (lines 212, 214, 216, 218, 220)
+  - [get_record1](../g/get_record1.md) (lines 233, 235, 237, 239, 241)
+  - [main](../m/main.md) (lines 264, 330)
 
 ## Notes and Other Information
 - Located in src/interfaces/ecpg/test/expected/preproc-outofscope.c:112

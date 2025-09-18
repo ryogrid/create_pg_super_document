@@ -28,12 +28,12 @@ The function behaves differently based on the GUC source - for test scenarios (P
 - Functions called/Symbols referenced:
   - SplitIdentifierString
   - GUC_check_errdetail
-  - IsTransactionState
-  - get_tablespace_oid
-  - object_aclcheck
-  - aclcheck_error
-  - guc_malloc
-  - list_free
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [get_tablespace_oid](../g/get_tablespace_oid.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [guc_malloc](../g/guc_malloc.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
   - GUC system (referenced in src/include/utils/guc_hooks.h:157)
 

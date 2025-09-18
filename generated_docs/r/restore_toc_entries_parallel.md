@@ -22,21 +22,21 @@ The function operates in multiple restore passes (RESTORE_PASS_MAIN through REST
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_debug, pg_log_info (logging functions for debug and informational messages)
-  - binaryheap_allocate, binaryheap_free, binaryheap_empty (binary heap management for ready items)
-  - TocEntrySizeCompareBinaryheap (comparator function for heap ordering)
-  - move_to_ready_heap (moves dependency-satisfied items from pending list to ready heap)
-  - pop_next_work_item (retrieves next available work item from ready heap)
-  - DispatchJobForTocEntry (dispatches restoration job to available worker)
-  - mark_restore_job_done (callback function executed when worker completes job)
-  - reduce_dependencies (updates dependency counts after item completion)
-  - IsEveryWorkerIdle (checks if all workers are currently idle)
-  - WaitForWorkers (waits for worker completion with various strategies)
+  - [binaryheap_allocate](../b/binaryheap_allocate.md), binaryheap_free, binaryheap_empty (binary heap management for ready items)
+  - [TocEntrySizeCompareBinaryheap](../T/TocEntrySizeCompareBinaryheap.md) (comparator function for heap ordering)
+  - [move_to_ready_heap](../m/move_to_ready_heap.md) (moves dependency-satisfied items from pending list to ready heap)
+  - [pop_next_work_item](../p/pop_next_work_item.md) (retrieves next available work item from ready heap)
+  - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md) (dispatches restoration job to available worker)
+  - [mark_restore_job_done](../m/mark_restore_job_done.md) (callback function executed when worker completes job)
+  - [reduce_dependencies](reduce_dependencies.md) (updates dependency counts after item completion)
+  - [IsEveryWorkerIdle](../I/IsEveryWorkerIdle.md) (checks if all workers are currently idle)
+  - [WaitForWorkers](../W/WaitForWorkers.md) (waits for worker completion with various strategies)
   - REQ_SCHEMA, REQ_DATA (requirement flags for determining if item needs restoration)
   - ACT_RESTORE (action constant for restoration jobs)
   - RESTORE_PASS_MAIN, RESTORE_PASS_LAST (restore pass constants)
   - WFW_ONE_IDLE, WFW_GOT_STATUS (wait-for-workers strategy constants)
 - Called from (representative examples):
-  - RestoreArchive (main restore orchestration function)
+  - [RestoreArchive](../R/RestoreArchive.md) (main restore orchestration function)
 
 ## Notes and Other Information
 - Second phase of three-phase parallel restore system

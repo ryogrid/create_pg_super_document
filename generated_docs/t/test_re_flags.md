@@ -291,10 +291,10 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a data structure)
 - Used by:
-  - test_regex_ctx (as a member)
-  - test_regex (function parameter)
-  - parse_test_flags (function parameter)
-  - setup_test_matches (function parameter)
+  - [test_regex_ctx](test_regex_ctx.md) (as a member)
+  - [test_regex](test_regex.md) (function parameter)
+  - [parse_test_flags](../p/parse_test_flags.md) (function parameter)
+  - [setup_test_matches](../s/setup_test_matches.md) (function parameter)
   - build_test_info_result (function parameter)
 
 ## Notes and Other Information

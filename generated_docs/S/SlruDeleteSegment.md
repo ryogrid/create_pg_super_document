@@ -31,12 +31,12 @@ The bank locking mechanism minimizes contention by only holding locks on relevan
 - Functions called/Symbols referenced:
   - SlotGetBankNumber (to determine which bank lock to use)
   - LWLockAcquire/LWLockRelease (for bank locking)
-  - SlruInternalWritePage (to flush dirty pages)
-  - SimpleLruWaitIO (to wait for ongoing I/O)
-  - SlruInternalDeleteSegment (to perform actual file deletion)
+  - [SlruInternalWritePage](SlruInternalWritePage.md) (to flush dirty pages)
+  - [SimpleLruWaitIO](SimpleLruWaitIO.md) (to wait for ongoing I/O)
+  - [SlruInternalDeleteSegment](SlruInternalDeleteSegment.md) (to perform actual file deletion)
 - Called from (representative examples):
-  - PerformMembersTruncation (in multixact.c)
-  - test_slru_page_delete (in test code)
+  - [PerformMembersTruncation](../P/PerformMembersTruncation.md) (in multixact.c)
+  - [test_slru_page_delete](../t/test_slru_page_delete.md) (in test code)
 
 ## Notes and Other Information
 - This is a public function exposed to other PostgreSQL subsystems

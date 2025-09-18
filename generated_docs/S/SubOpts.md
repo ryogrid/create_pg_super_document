@@ -36,9 +36,9 @@ The SubOpts structure serves as a comprehensive container for subscription confi
   - bits32
   - XLogRecPtr
 - Called from (representative examples):
-  - parse_subscription_options
-  - CreateSubscription
-  - AlterSubscription
+  - [parse_subscription_options](../p/parse_subscription_options.md)
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [AlterSubscription](../A/AlterSubscription.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's subscription management system, providing a unified way to handle all subscription configuration parameters. The bitmap approach for tracking specified options ensures that ALTER SUBSCRIPTION commands can properly distinguish between options that should be changed versus those that should retain their current values. The structure supports both basic replication features and advanced capabilities like two-phase commit, binary transfer, and failover scenarios.

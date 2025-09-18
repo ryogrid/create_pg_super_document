@@ -27,8 +27,8 @@ The structure is designed to be simple and compact, containing only the essentia
 - Functions called/Symbols referenced:
   - CAC_state (enum type)
 - Called from (representative examples):
-  - BackendStartup (in postmaster.c:3549)
-  - BackendMain (in backend_startup.c:59, 61)
+  - [BackendStartup](BackendStartup.md) (in postmaster.c:3549)
+  - [BackendMain](BackendMain.md) (in backend_startup.c:59, 61)
 
 ## Notes and Other Information
 - The structure is passed as raw bytes through the startup_data parameter and is cast back to BackendStartupData* in the backend process

@@ -25,16 +25,16 @@ AddWALInfoToBackupManifest concludes the file section of the backup manifest and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsManifestEnabled (manifest enablement check)
-  - AppendStringToManifest (internal manifest writing)
-  - readTimeLineHistory (timeline history parsing - from related processed symbols)
+  - [IsManifestEnabled](../I/IsManifestEnabled.md) (manifest enablement check)
+  - [AppendStringToManifest](AppendStringToManifest.md) (internal manifest writing)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md) (timeline history parsing - from related processed symbols)
   - AppendToManifest (formatted manifest writing)
   - XLogRecPtrIsInvalid (PostgreSQL WAL pointer validation)
   - TimeLineHistoryEntry (timeline history structure)
   - ereport, errmsg (PostgreSQL error reporting)
   - LSN_FORMAT_ARGS (WAL LSN formatting macro)
 - Called from (representative examples):
-  - perform_base_backup (src/backend/backup/basebackup.c:645)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:645)
 
 ## Notes and Other Information
 - Returns early if manifest generation is disabled via IsManifestEnabled check

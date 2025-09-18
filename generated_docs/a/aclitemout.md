@@ -21,12 +21,12 @@ The aclitemout function is a PostgreSQL output function that converts an interna
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ACLITEM_P (macro to extract AclItem argument)
-  - palloc (PostgreSQL memory allocation)
-  - SearchSysCache1 (system catalog lookup)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure extraction)
-  - ReleaseSysCache (cache cleanup)
-  - putid (utility function for ID formatting)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
+  - [putid](../p/putid.md) (utility function for ID formatting)
   - sprintf (standard string formatting)
   - ACLITEM_GET_PRIVS (macro to extract privileges)
   - ACLITEM_GET_GOPTIONS (macro to extract grant options)

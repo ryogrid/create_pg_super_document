@@ -19,9 +19,9 @@ This function converts a Cash value into a human-readable English text represent
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Extracts Cash argument from function call
-  - num_word: Converts numeric values to English words
+  - [num_word](../n/num_word.md): Converts numeric values to English words
   - INT64CONST: Macro for 64-bit integer constants
-  - pg_toupper: Converts character to uppercase
+  - [pg_toupper](../p/pg_toupper.md): Converts character to uppercase
   - cstring_to_text: Converts C string to PostgreSQL text type
   - PG_RETURN_TEXT_P: Returns text result
   - Cash: Cash data type for internal variables

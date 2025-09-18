@@ -38,11 +38,11 @@ The underlying BufferAccessStrategyData structure contains:
   - GetAccessStrategyWithSize
   - FreeAccessStrategy
   - StrategyGetBuffer
-  - ReadBufferExtended
-  - vacuum_rel
-  - analyze_rel
-  - heap_vacuum_rel
-  - parallel_vacuum_init
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [vacuum_rel](../v/vacuum_rel.md)
+  - [analyze_rel](../a/analyze_rel.md)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
 
 ## Notes and Other Information
 - The strategy object is allocated in the current memory context when created

@@ -34,7 +34,7 @@ The function includes extensive commentary explaining why transactions with inco
   - rbtxn_has_partial_change (checks if transaction has incomplete changes)  
   - rbtxn_has_streamable_change (checks if transaction has changes suitable for streaming)
 - Called from (representative examples):
-  - ReorderBufferCheckMemoryLimit (for identifying transactions to stream during memory pressure)
+  - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (for identifying transactions to stream during memory pressure)
 
 ## Notes and Other Information
 - This is a static function, only accessible within reorderbuffer.c

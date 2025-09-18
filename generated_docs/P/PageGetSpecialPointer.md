@@ -19,7 +19,7 @@ The function includes validation through PageValidateSpecialPointer to ensure th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageValidateSpecialPointer (validation function)
+  - [PageValidateSpecialPointer](PageValidateSpecialPointer.md) (validation function)
   - PageHeader (type cast for accessing page header)
   - Item (related page structure)
 - Called from (representative examples):
@@ -30,8 +30,8 @@ The function includes validation through PageValidateSpecialPointer to ensure th
   - HashPageGetOpaque
   - BTPageGetOpaque
   - SpGistPageGetOpaque
-  - ginRedoRecompress
-  - PageGetTempPageCopySpecial
+  - [ginRedoRecompress](../g/ginRedoRecompress.md)
+  - [PageGetTempPageCopySpecial](PageGetTempPageCopySpecial.md)
 
 ## Notes and Other Information
 - This is a foundational function used extensively across all PostgreSQL index access methods

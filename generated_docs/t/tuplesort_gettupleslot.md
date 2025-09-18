@@ -25,18 +25,18 @@ This function retrieves the next tuple from a completed sorting operation and pl
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - tuplesort_gettuple_common
-  - heap_copy_minimal_tuple
-  - ExecStoreMinimalTuple
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md)
+  - [heap_copy_minimal_tuple](../h/heap_copy_minimal_tuple.md)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
   - ExecClearTuple
 - Called from (representative examples):
-  - fetch_input_tuple
-  - process_ordered_aggregate_multi
+  - [fetch_input_tuple](../f/fetch_input_tuple.md)
+  - [process_ordered_aggregate_multi](../p/process_ordered_aggregate_multi.md)
   - switchToPresortedPrefixMode
   - ExecIncrementalSort
-  - ExecSort
-  - hypothetical_rank_common
+  - [ExecSort](../E/ExecSort.md)
+  - [hypothetical_rank_common](../h/hypothetical_rank_common.md)
 
 ## Notes and Other Information
 - Returns true if a tuple was successfully retrieved, false if no more tuples are available

@@ -20,7 +20,7 @@ The function includes pointer alignment verification and provides full barrier s
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for 4-byte alignment verification)
-  - pg_atomic_read_membarrier_u32_impl (platform-specific implementation with barrier semantics)
+  - [pg_atomic_read_membarrier_u32_impl](pg_atomic_read_membarrier_u32_impl.md) (platform-specific implementation with barrier semantics)
 - Called from (representative examples):
   - Currently no direct references found in the codebase
 

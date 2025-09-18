@@ -18,11 +18,11 @@ The  function performs the reverse lookup of  - it takes an attribute number and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SystemAttributeDefinition
+  - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md)
   - TupleDescAttr
   - elog (for error handling)
 - Called from (representative examples):
-  - transformFkeyGetPrimaryKey
+  - [transformFkeyGetPrimaryKey](../t/transformFkeyGetPrimaryKey.md)
   - RIAttName
 
 ## Notes and Other Information

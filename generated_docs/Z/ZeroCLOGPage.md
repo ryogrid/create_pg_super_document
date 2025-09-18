@@ -27,14 +27,14 @@ The function requires that the appropriate control lock be held before entry and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruZeroPage (SLRU function to zero a page)
-  - WriteZeroPageXlogRec (writes WAL record for page zeroing)
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md) (SLRU function to zero a page)
+  - [WriteZeroPageXlogRec](../W/WriteZeroPageXlogRec.md) (writes WAL record for page zeroing)
 - Global variables:
   - XactCtl (CLOG SLRU control structure)
 - Called from:
-  - BootStrapCLOG (during initial CLOG setup)
-  - ExtendCLOG (when extending CLOG to cover new transaction IDs)
-  - clog_redo (during WAL replay)
+  - [BootStrapCLOG](../B/BootStrapCLOG.md) (during initial CLOG setup)
+  - [ExtendCLOG](../E/ExtendCLOG.md) (when extending CLOG to cover new transaction IDs)
+  - [clog_redo](../c/clog_redo.md) (during WAL replay)
 
 ## Notes and Other Information
 - This is a static (internal) function, not exported from the clog.c module

@@ -20,18 +20,18 @@ The ModifyTable node is one of the most complex plan nodes in PostgreSQL due to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - apply_tlist_labeling
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [apply_tlist_labeling](../a/apply_tlist_labeling.md)
   - make_modifytable
-  - copy_generic_path_info
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - CP_EXACT_TLIST (flag constant)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c module
 - Requires exact target list matching using CP_EXACT_TLIST flag to ensure proper column alignment
-- apply_tlist_labeling ensures result names and junk column flags are properly transferred for executor compatibility
+- [apply_tlist_labeling](../a/apply_tlist_labeling.md) ensures result names and junk column flags are properly transferred for executor compatibility
 - Handles complex scenarios including:
   - Partitioned table operations (partColsUpdated)
   - RETURNING clauses (returningLists)

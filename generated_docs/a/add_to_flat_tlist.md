@@ -18,8 +18,8 @@ The `add_to_flat_tlist` function takes a flattened target list and a list of exp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tlist_member (to check for existing entries)
-  - makeTargetEntry (to create new TargetEntry nodes)
+  - [tlist_member](../t/tlist_member.md) (to check for existing entries)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (to create new TargetEntry nodes)
   - copyObject (to copy expressions)
 - Called from (representative examples):
   - Referenced in optimizer/tlist.h header

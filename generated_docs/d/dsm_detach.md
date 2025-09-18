@@ -27,18 +27,18 @@ The function handles both main region segments (allocated from PostgreSQL's shar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_is_empty/slist_pop_head_node/slist_container (callback management)
+  - [slist_is_empty](../s/slist_is_empty.md)/slist_pop_head_node/slist_container (callback management)
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS (interrupt control)
-  - is_main_region_dsm_handle (segment type checking)
+  - [is_main_region_dsm_handle](../i/is_main_region_dsm_handle.md) (segment type checking)
   - dsm_impl_op (platform-specific operations)
-  - FreePageManagerPut (main region deallocation)
+  - [FreePageManagerPut](../F/FreePageManagerPut.md) (main region deallocation)
   - ResourceOwnerForgetDSM (resource owner cleanup)
-  - dlist_delete (list management)
+  - [dlist_delete](dlist_delete.md) (list management)
 - Called from (representative examples):
-  - DetachSession (session management)
+  - [DetachSession](../D/DetachSession.md) (session management)
   - DestroyParallelContext (parallel query cleanup)
   - dsa_detach (dynamic shared arrays)
-  - dsm_backend_shutdown (backend shutdown)
+  - [dsm_backend_shutdown](dsm_backend_shutdown.md) (backend shutdown)
 
 ## Notes and Other Information
 - Designed to never fail, even during error recovery scenarios

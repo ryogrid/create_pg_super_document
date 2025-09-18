@@ -26,7 +26,7 @@ This structure is essential for managing the flow of lexemes through the text se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParsedLex (the node structure that this list manages)
+  - [ParsedLex](../P/ParsedLex.md) (the node structure that this list manages)
 - Called from (representative examples):
   - LPLAddTail (adds ParsedLex nodes to the tail of the list)
   - LPLRemoveHead (removes ParsedLex nodes from the head of the list)

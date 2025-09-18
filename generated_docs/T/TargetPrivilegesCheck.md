@@ -27,23 +27,23 @@ The function raises appropriate errors if either check fails, preventing potenti
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid
-  - GetUserId
-  - pg_class_aclcheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - get_rel_name
-  - check_enable_rls
-  - GetUserNameFromId
+  - [GetUserId](../G/GetUserId.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [check_enable_rls](../c/check_enable_rls.md)
+  - [GetUserNameFromId](../G/GetUserNameFromId.md)
   - RelationGetRelationName
   - AclResult (data type)
   - RLS_ENABLED (constant)
 - Called from (representative examples):
-  - apply_handle_insert_internal
-  - apply_handle_update_internal
-  - apply_handle_delete_internal
-  - FindReplTupleInLocalRel
-  - apply_handle_tuple_routing
-  - apply_handle_truncate
+  - [apply_handle_insert_internal](../a/apply_handle_insert_internal.md)
+  - [apply_handle_update_internal](../a/apply_handle_update_internal.md)
+  - [apply_handle_delete_internal](../a/apply_handle_delete_internal.md)
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
+  - [apply_handle_truncate](../a/apply_handle_truncate.md)
 
 ## Notes and Other Information
 - This is a static function within the logical replication worker module

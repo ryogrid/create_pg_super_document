@@ -26,15 +26,15 @@ This function estimates how many heap pages will be accessed during a bitmap hea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_bitmap_tree_node (gets cost and selectivity of bitmap qualification)
-  - clamp_row_est (ensures row estimates are within reasonable bounds)
-  - tbm_calculate_entries (calculates maximum bitmap entries for given memory)
-  - index_pages_fetched (estimates pages fetched accounting for cache effects)
-  - get_indexpath_pages (gets total index pages for bitmap path)
+  - [cost_bitmap_tree_node](cost_bitmap_tree_node.md) (gets cost and selectivity of bitmap qualification)
+  - [clamp_row_est](clamp_row_est.md) (ensures row estimates are within reasonable bounds)
+  - [tbm_calculate_entries](../t/tbm_calculate_entries.md) (calculates maximum bitmap entries for given memory)
+  - [index_pages_fetched](../i/index_pages_fetched.md) (estimates pages fetched accounting for cache effects)
+  - [get_indexpath_pages](../g/get_indexpath_pages.md) (gets total index pages for bitmap path)
   - Cost (type for cost estimates)
 - Called from (representative examples):
-  - create_partial_bitmap_paths
-  - cost_bitmap_heap_scan
+  - [create_partial_bitmap_paths](create_partial_bitmap_paths.md)
+  - [cost_bitmap_heap_scan](cost_bitmap_heap_scan.md)
 
 ## Notes and Other Information
 - This is a public function used by the query optimizer for bitmap scan costing

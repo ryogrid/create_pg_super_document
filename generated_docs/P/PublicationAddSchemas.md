@@ -22,13 +22,13 @@ The function also manages event trigger collection and post-creation hooks when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - publication_add_schema
-  - EventTriggerCollectSimpleCommand
+  - [publication_add_schema](../p/publication_add_schema.md)
+  - [EventTriggerCollectSimpleCommand](../E/EventTriggerCollectSimpleCommand.md)
   - InvokeObjectPostCreateHook
   - AlterPublicationStmt (structure type)
 - Called from (representative examples):
-  - CreatePublication
-  - AlterPublicationSchemas
+  - [CreatePublication](../C/CreatePublication.md)
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the publicationcmds.c compilation unit

@@ -24,12 +24,12 @@ This function processes a list of expressions that belong to a single GROUP BY c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformGroupClauseExpr
-  - bms_add_member
+  - [transformGroupClauseExpr](transformGroupClauseExpr.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - lappend_int
-  - ParseExprKind (enum type)
+  - [ParseExprKind](../P/ParseExprKind.md) (enum type)
 - Called from (representative examples):
-  - transformGroupingSet
+  - [transformGroupingSet](transformGroupingSet.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c, indicating it's an internal helper function

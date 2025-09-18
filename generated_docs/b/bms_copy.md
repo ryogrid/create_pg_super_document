@@ -19,27 +19,27 @@ The function uses memcpy for efficient copying of the entire bitmap structure, e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation in Assert)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation in Assert)
   - BITMAPSET_SIZE (macro for calculating bitmap size)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copying)
 - Called from (representative examples):
-  - afterTriggerCopyBitmap
-  - CreatePartitionPruneState
-  - ExecFindMatchingSubPlans
-  - bms_copy_and_free
-  - bms_union
-  - bms_intersect
-  - bms_difference
-  - bms_add_members
-  - _copyBitmapset
-  - build_index_paths
-  - join_is_legal
-  - remove_rel_from_query
-  - make_outerjoininfo
-  - finalize_plan
+  - [afterTriggerCopyBitmap](../a/afterTriggerCopyBitmap.md)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
+  - [bms_copy_and_free](bms_copy_and_free.md)
+  - [bms_union](bms_union.md)
+  - [bms_intersect](bms_intersect.md)
+  - [bms_difference](bms_difference.md)
+  - [bms_add_members](bms_add_members.md)
+  - [_copyBitmapset](../c/_copyBitmapset.md)
+  - [build_index_paths](build_index_paths.md)
+  - [join_is_legal](../j/join_is_legal.md)
+  - [remove_rel_from_query](../r/remove_rel_from_query.md)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md)
+  - [finalize_plan](../f/finalize_plan.md)
   - build_join_rel
-  - RelationGetIndexAttrBitmap
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
 
 ## Notes and Other Information
 - Returns NULL for NULL input, maintaining the empty set representation

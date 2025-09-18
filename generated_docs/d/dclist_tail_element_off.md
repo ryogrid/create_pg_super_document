@@ -18,9 +18,9 @@ This function is an internal utility that calculates the memory address of the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_is_empty (validation check)
-  - dclist_head (parameter type)
-  - dlist_node (accessed through head->dlist.head.prev)
+  - [dclist_is_empty](dclist_is_empty.md) (validation check)
+  - [dclist_head](dclist_head.md) (parameter type)
+  - [dlist_node](dlist_node.md) (accessed through head->dlist.head.prev)
 - Called from (representative examples):
   - dclist_tail_element (macro wrapper)
 

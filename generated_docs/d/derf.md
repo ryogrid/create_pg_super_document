@@ -23,7 +23,7 @@ The function includes overflow checking to ensure robust error handling, though 
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)
   - erf (standard C library error function)
   - isinf (check for infinite result)
-  - float_overflow_error (PostgreSQL error handling function)
+  - [float_overflow_error](../f/float_overflow_error.md) (PostgreSQL error handling function)
   - PG_RETURN_FLOAT8 (macro to return float8 result)
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -159,23 +159,23 @@ LVRelState serves as the central coordination structure for PostgreSQL's lazy va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferAccessStrategy
-  - ParallelVacuumState
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
+  - [ParallelVacuumState](../P/ParallelVacuumState.md)
   - VacuumCutoffs
-  - GlobalVisState
+  - [GlobalVisState](../G/GlobalVisState.md)
   - MultiXactId
-  - VacErrPhase
-  - TidStore
+  - [VacErrPhase](../V/VacErrPhase.md)
+  - [TidStore](../T/TidStore.md)
   - VacDeadItemsInfo
-  - IndexBulkDeleteResult
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
 
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - lazy_scan_heap
-  - heap_vac_scan_next_block
-  - lazy_scan_prune
-  - lazy_vacuum_all_indexes
-  - lazy_vacuum_heap_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [lazy_scan_heap](../l/lazy_scan_heap.md)
+  - [heap_vac_scan_next_block](../h/heap_vac_scan_next_block.md)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
+  - [lazy_vacuum_all_indexes](../l/lazy_vacuum_all_indexes.md)
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's lazy vacuum implementation and is passed between most vacuum-related functions. It supports both parallel and serial vacuum operations, with special handling for shared memory allocation of dead_items and dead_items_info in parallel cases. The structure maintains comprehensive statistics that are used both for progress reporting and for updating system catalogs after vacuum completion.

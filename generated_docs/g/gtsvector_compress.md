@@ -28,14 +28,14 @@ The compression strategy balances between exact matching (hash arrays) for small
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `gtsvector_alloc`: Allocates memory for SignTSVector structures
-  - `DatumGetTSVector`: Extracts TSVector from Datum
+  - `[gtsvector_alloc](gtsvector_alloc.md)`: Allocates memory for SignTSVector structures
+  - `[DatumGetTSVector](../D/DatumGetTSVector.md)`: Extracts TSVector from Datum
   - `INIT_LEGACY_CRC32`, `COMP_LEGACY_CRC32`, `FIN_LEGACY_CRC32`: CRC32 hash computation
   - `qsort`: Sorts hash array
-  - `qunique`: Removes duplicate hash values
-  - `makesign`: Creates bit signature from hash array
+  - `[qunique](../q/qunique.md)`: Removes duplicate hash values
+  - `[makesign](../m/makesign.md)`: Creates bit signature from hash array
   - `gistentryinit`: Initializes GiST entry structure
-  - `compareint`: Integer comparison function for sorting
+  - `[compareint](../c/compareint.md)`: Integer comparison function for sorting
 - Called from:
   - GiST index operations (no direct references found in current analysis)
 

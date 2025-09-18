@@ -26,17 +26,17 @@ The function performs extensive error checking and provides detailed error messa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr - transforms cycle mark expressions
-  - select_common_type - determines common type for cycle mark values
-  - coerce_to_common_type - coerces expressions to common type
-  - parse_sub_analyze - performs main query analysis
-  - analyzeCTETargetList - analyzes CTE output column specifications
+  - [transformExpr](../t/transformExpr.md) - transforms cycle mark expressions
+  - [select_common_type](../s/select_common_type.md) - determines common type for cycle mark values
+  - [coerce_to_common_type](../c/coerce_to_common_type.md) - coerces expressions to common type
+  - [parse_sub_analyze](../p/parse_sub_analyze.md) - performs main query analysis
+  - [analyzeCTETargetList](analyzeCTETargetList.md) - analyzes CTE output column specifications
   - GetCTETargetList - retrieves target list from CTE
-  - lookup_type_cache - looks up type operators for cycle detection
-  - get_negator - finds inequality operator for cycle mark comparison
+  - [lookup_type_cache](../l/lookup_type_cache.md) - looks up type operators for cycle detection
+  - [get_negator](../g/get_negator.md) - finds inequality operator for cycle mark comparison
 - Called from (representative examples):
-  - transformWithClause - called for each CTE in recursive WITH processing
-  - transformWithClause - called for each CTE in non-recursive WITH processing
+  - [transformWithClause](../t/transformWithClause.md) - called for each CTE in recursive WITH processing
+  - [transformWithClause](../t/transformWithClause.md) - called for each CTE in non-recursive WITH processing
 
 ## Notes and Other Information
 - The function is static and only used within parse_cte.c

@@ -25,13 +25,13 @@ This is the core parsing function that implements a finite state machine to toke
   - t_iseq, t_isspace, t_isdigit
   - COPYCHAR, RESIZEPRSBUF, RETURN_TOKEN
   - PRSSYNTAXERROR, ISOPERATOR
-  - pg_mblen, palloc, repalloc
+  - [pg_mblen](../p/pg_mblen.md), palloc, repalloc
   - WEP_SETPOS, WEP_GETPOS, WEP_SETWEIGHT, WEP_GETWEIGHT
   - LIMITPOS, ereturn, elog
 - Called from (representative examples):
-  - tsvectorin (src/backend/utils/adt/tsvector.c:208)
-  - gettoken_query_standard (src/backend/utils/adt/tsquery.c:325)
-  - gettoken_query_websearch (src/backend/utils/adt/tsquery.c:454)
+  - [tsvectorin](../t/tsvectorin.md) (src/backend/utils/adt/tsvector.c:208)
+  - [gettoken_query_standard](gettoken_query_standard.md) (src/backend/utils/adt/tsquery.c:325)
+  - [gettoken_query_websearch](gettoken_query_websearch.md) (src/backend/utils/adt/tsquery.c:454)
 
 ## Notes and Other Information
 The parser implements a comprehensive state machine with states including WAITWORD, WAITENDWORD, WAITENDCMPLX, WAITCHARCMPLX, WAITPOSINFO, WAITPOSDELIM, INPOSINFO, and WAITNEXTCHAR. It handles multibyte characters correctly and supports position information in the format 'word:1,2,3A,4B' where numbers are positions and letters are weights (A/*, B, C, D). The function supports both hard and soft error handling through the error context system.

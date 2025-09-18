@@ -21,15 +21,15 @@ This function is the primary interface for converting PostgreSQL interval data s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddPostgresIntPart (for PostgreSQL format output)
-  - AddVerboseIntPart (for verbose PostgreSQL format output)
-  - AddISO8601IntPart (for ISO 8601 format output)
-  - AppendSeconds (for formatting seconds with microseconds)
+  - [AddPostgresIntPart](../A/AddPostgresIntPart.md) (for PostgreSQL format output)
+  - [AddVerboseIntPart](../A/AddVerboseIntPart.md) (for verbose PostgreSQL format output)
+  - [AddISO8601IntPart](../A/AddISO8601IntPart.md) (for ISO 8601 format output)
+  - [AppendSeconds](../A/AppendSeconds.md) (for formatting seconds with microseconds)
   - i64abs (for 64-bit absolute value calculations)
   - sprintf, strcpy, strcat (standard C string functions)
 - Called from (representative examples):
-  - interval_out (in src/backend/utils/adt/timestamp.c)
-  - PGTYPESinterval_to_asc (in src/interfaces/ecpg/pgtypeslib/interval.c)
+  - [interval_out](../i/interval_out.md) (in src/backend/utils/adt/timestamp.c)
+  - [PGTYPESinterval_to_asc](../P/PGTYPESinterval_to_asc.md) (in src/interfaces/ecpg/pgtypeslib/interval.c)
 
 ## Notes and Other Information
 - Handles complex sign logic differently for each format style, with SQL Standard requiring single leading signs, ISO 8601 using individual field signs, and PostgreSQL styles using contextual sign handling

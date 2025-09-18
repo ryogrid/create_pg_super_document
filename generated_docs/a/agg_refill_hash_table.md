@@ -38,27 +38,27 @@ agg_refill_hash_table is a critical function for handling memory overflow in has
 - Functions called/Symbols referenced:
   - llast
   - list_delete_last
-  - hash_agg_set_limits
+  - [hash_agg_set_limits](../h/hash_agg_set_limits.md)
   - MemSet
   - ReScanExprContext
   - ResetTupleHashTable
-  - select_current_set
-  - hashagg_recompile_expressions
-  - hashagg_batch_read
-  - ExecStoreMinimalTuple
-  - prepare_hash_slot
+  - [select_current_set](../s/select_current_set.md)
+  - [hashagg_recompile_expressions](../h/hashagg_recompile_expressions.md)
+  - [hashagg_batch_read](../h/hashagg_batch_read.md)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
+  - [prepare_hash_slot](../p/prepare_hash_slot.md)
   - LookupTupleHashEntryHash
-  - initialize_hash_entry
-  - advance_aggregates
-  - hashagg_spill_init
-  - hashagg_spill_tuple
+  - [initialize_hash_entry](../i/initialize_hash_entry.md)
+  - [advance_aggregates](advance_aggregates.md)
+  - [hashagg_spill_init](../h/hashagg_spill_init.md)
+  - [hashagg_spill_tuple](../h/hashagg_spill_tuple.md)
   - ResetExprContext
   - LogicalTapeClose
-  - hashagg_spill_finish
-  - hash_agg_update_metrics
+  - [hashagg_spill_finish](../h/hashagg_spill_finish.md)
+  - [hash_agg_update_metrics](../h/hash_agg_update_metrics.md)
   - ResetTupleHashIterator
 - Called from (representative examples):
-  - agg_retrieve_hash_table (when processing spilled batches)
+  - [agg_retrieve_hash_table](agg_retrieve_hash_table.md) (when processing spilled batches)
 
 ## Notes and Other Information
 - Returns false when no more batches exist (aggstate->hash_batches == NIL), true otherwise

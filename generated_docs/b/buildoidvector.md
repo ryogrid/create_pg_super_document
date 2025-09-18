@@ -18,17 +18,17 @@ The buildoidvector function creates an oidvector structure, which is PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0: PostgreSQL memory allocation function that zeros the allocated memory
+  - [palloc0](../p/palloc0.md): PostgreSQL memory allocation function that zeros the allocated memory
   - OidVectorSize: Macro to calculate the total size needed for an oidvector with n elements
   - memcpy: Standard C library function to copy OID values from source array
   - SET_VARSIZE: Macro to set the variable-length header size for PostgreSQL variable-length types
 - Called from (representative examples):
-  - StorePartitionKey: Used when storing partition key information in system catalogs
+  - [StorePartitionKey](../S/StorePartitionKey.md): Used when storing partition key information in system catalogs
   - UpdateIndexRelation: Used when updating index relation metadata
-  - DefineAggregate: Used in aggregate function definition to store argument types
-  - interpret_function_parameter_list: Used in function definition to store parameter types
-  - makeRangeConstructors: Used when creating constructor functions for range types
-  - makeMultirangeConstructors: Used when creating constructor functions for multirange types
+  - [DefineAggregate](../D/DefineAggregate.md): Used in aggregate function definition to store argument types
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md): Used in function definition to store parameter types
+  - [makeRangeConstructors](../m/makeRangeConstructors.md): Used when creating constructor functions for range types
+  - [makeMultirangeConstructors](../m/makeMultirangeConstructors.md): Used when creating constructor functions for multirange types
 
 ## Notes and Other Information
 - The function creates an oidvector with standard PostgreSQL array header information

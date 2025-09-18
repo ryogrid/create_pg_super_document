@@ -33,16 +33,16 @@ The function iterates through all attributes in the tuple descriptor and:
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - VARATT_IS_EXTERNAL_ONDISK
   - VARSIZE_EXTERNAL
   - VARATT_IS_EXTERNAL
-  - detoast_attr
-  - detoast_external_attr
-  - PointerGetDatum
+  - [detoast_attr](../d/detoast_attr.md)
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - VARSIZE_ANY
 - Called from (representative examples):
-  - heap_toast_insert_or_update
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md)
 
 ## Notes and Other Information
 - This is the first step in the tuple toasting process, setting up the context for subsequent compression and externalization operations

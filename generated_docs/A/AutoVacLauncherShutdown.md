@@ -18,13 +18,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (with DEBUG1 level)
-  - errmsg_internal
-  - proc_exit
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [proc_exit](../p/proc_exit.md)
 - Global variables accessed:
   - AutoVacuumShmem->av_launcherpid
 - Called from:
-  - HandleAutoVacLauncherInterrupts (on shutdown request - line 744)
-  - HandleAutoVacLauncherInterrupts (when autovacuuming becomes inactive - line 753)
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md) (on shutdown request - line 744)
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md) (when autovacuuming becomes inactive - line 753)
 
 ## Notes and Other Information
 - This is a static function internal to the autovacuum.c module

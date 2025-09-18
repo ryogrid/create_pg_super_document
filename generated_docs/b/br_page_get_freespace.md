@@ -28,14 +28,14 @@ If either condition fails, the function returns 0 to prevent any new data from b
   - BRIN_IS_REGULAR_PAGE (macro to check if page is a regular BRIN page)
   - BrinPageFlags (function to get BRIN-specific page flags)
   - BRIN_EVACUATE_PAGE (flag constant indicating page evacuation status)
-  - PageGetFreeSpace (generic function to calculate free space on a page)
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md) (generic function to calculate free space on a page)
 - Called from (representative examples):
   - BrinMaxItemSize (calculates maximum item size for BRIN pages)
-  - brin_doupdate (during BRIN tuple updates)
-  - brin_doinsert (during BRIN tuple insertions)
-  - brin_page_cleanup (during page cleanup operations)
-  - brin_getinsertbuffer (when finding buffers for insertion)
-  - brin_initialize_empty_new_buffer (during buffer initialization)
+  - [brin_doupdate](brin_doupdate.md) (during BRIN tuple updates)
+  - [brin_doinsert](brin_doinsert.md) (during BRIN tuple insertions)
+  - [brin_page_cleanup](brin_page_cleanup.md) (during page cleanup operations)
+  - [brin_getinsertbuffer](brin_getinsertbuffer.md) (when finding buffers for insertion)
+  - [brin_initialize_empty_new_buffer](brin_initialize_empty_new_buffer.md) (during buffer initialization)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin_pageops.c file

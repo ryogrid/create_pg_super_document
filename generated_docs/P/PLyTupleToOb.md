@@ -21,13 +21,13 @@ PLyTupleToOb manages the conversion of PostgreSQL composite types and records to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDesc (PostgreSQL tuple descriptor)
-  - TypeCacheEntry (PostgreSQL type cache)
-  - PLyDatumToOb (for attribute conversions)
+  - [TupleDesc](../T/TupleDesc.md) (PostgreSQL tuple descriptor)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (PostgreSQL type cache)
+  - [PLyDatumToOb](PLyDatumToOb.md) (for attribute conversions)
 - Called from (representative examples):
-  - PLyDatumToOb (as part of the union)
-  - PLy_input_setup_tuple
-  - PLyDict_FromComposite
+  - [PLyDatumToOb](PLyDatumToOb.md) (as part of the union)
+  - [PLy_input_setup_tuple](PLy_input_setup_tuple.md)
+  - [PLyDict_FromComposite](PLyDict_FromComposite.md)
 
 ## Notes and Other Information
 This struct efficiently handles both row types and user-defined composite types by caching conversion information for each attribute. It supports dynamic type changes by tracking tuple descriptor identifiers and rebuilding conversion info when necessary.

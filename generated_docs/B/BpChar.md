@@ -29,15 +29,15 @@ As a typedef of ,  inherits:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (base structure)
+  - [varlena](../v/varlena.md) (base structure)
 - Called from (representative examples):
-  - bpcharin (input function)
-  - bpchar (type conversion)
-  - bpchareq, bpcharne (comparison functions)
-  - bpcharlt, bpcharle, bpchargt, bpcharge (ordering functions)
-  - bpcharcmp (comparison function)
-  - hashbpchar (hash function)
-  - bcTruelen (length calculation)
+  - [bpcharin](../b/bpcharin.md) (input function)
+  - [bpchar](../b/bpchar.md) (type conversion)
+  - [bpchareq](../b/bpchareq.md), bpcharne (comparison functions)
+  - [bpcharlt](../b/bpcharlt.md), bpcharle, bpchargt, bpcharge (ordering functions)
+  - [bpcharcmp](../b/bpcharcmp.md) (comparison function)
+  - [hashbpchar](../h/hashbpchar.md) (hash function)
+  - [bcTruelen](../b/bcTruelen.md) (length calculation)
   - bpchar_pattern_* (pattern matching functions)
 
 ## Notes and Other Information

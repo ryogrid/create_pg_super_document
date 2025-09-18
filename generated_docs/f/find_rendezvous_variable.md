@@ -27,14 +27,14 @@ The rendezvous variables persist for the entire lifetime of the process, enablin
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - PostgreSQL hash table type
-  -  - hash table entry structure containing the variable value
-  -  - hash table control structure for configuration
+  -  - [hash](../h/hash.md) table entry structure containing the variable value
+  -  - [hash](../h/hash.md) table control structure for configuration
   -  - PostgreSQL standard name length constant
   -  - creates a new hash table
   -  - finds or creates hash table entries
-  -  - hash table flag for element-based operations
-  -  - hash table flag for string key operations
-  -  - hash table operation flag for insert-or-find
+  -  - [hash](../h/hash.md) table flag for element-based operations
+  -  - [hash](../h/hash.md) table flag for string key operations
+  -  - [hash](../h/hash.md) table operation flag for insert-or-find
 - Called from:
   -  (src/include/fmgr.h:748)
   -  (src/pl/plpython/plpy_main.c:74)

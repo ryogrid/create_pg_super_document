@@ -25,11 +25,11 @@ A special consideration is made for binary upgrade operations, where the functio
   - debug_elog4
   - LWLockAcquire
   - LWLockRelease
-  - MaybeExtendOffsetSlru
+  - [MaybeExtendOffsetSlru](MaybeExtendOffsetSlru.md)
 - Called from (representative examples):
-  - BootStrapXLOG
-  - StartupXLOG
-  - xlog_redo
+  - [BootStrapXLOG](../B/BootStrapXLOG.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
 - Primarily used during bootstrap and WAL replay operations

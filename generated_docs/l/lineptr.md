@@ -20,10 +20,10 @@ This structure is primarily used in conjunction with text formatting functions t
 
 ## Dependencies
 - Functions that use this structure:
-  - pg_wcsformat (formats text into lineptr structures)
-  - pg_wcssize (calculates size requirements for text formatting)
-  - print_aligned_text (uses lineptr arrays for text alignment)
-  - print_aligned_vertical (uses lineptr for vertical text formatting)
+  - [pg_wcsformat](../p/pg_wcsformat.md) (formats text into lineptr structures)
+  - [pg_wcssize](../p/pg_wcssize.md) (calculates size requirements for text formatting)
+  - [print_aligned_text](../p/print_aligned_text.md) (uses lineptr arrays for text alignment)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md) (uses lineptr for vertical text formatting)
 - Referenced in:
   - src/fe_utils/mbprint.c (text formatting functions)
   - src/fe_utils/print.c (printing and alignment functions)

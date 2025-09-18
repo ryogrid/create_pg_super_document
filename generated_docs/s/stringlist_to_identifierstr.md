@@ -21,8 +21,8 @@ The `stringlist_to_identifierstr` function takes a PostgreSQL List containing st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeIdentifier
-  - PQfreemem
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
+  - [PQfreemem](../P/PQfreemem.md)
   - initStringInfo
   - appendStringInfoChar
   - appendStringInfoString
@@ -31,8 +31,8 @@ The `stringlist_to_identifierstr` function takes a PostgreSQL List containing st
   - strlen
   - free
 - Called from (representative examples):
-  - WalReceiverConn (line 114)
-  - libpqrcv_startstreaming (line 602)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (line 114)
+  - [libpqrcv_startstreaming](../l/libpqrcv_startstreaming.md) (line 602)
 
 ## Notes and Other Information
 - The function is static, limiting its scope to the libpqwalreceiver module

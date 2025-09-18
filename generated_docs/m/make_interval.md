@@ -29,9 +29,9 @@ All input validation is performed with overflow-safe arithmetic operations, and 
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32, PG_GETARG_FLOAT8 (argument extraction macros)
   - isinf, isnan (IEEE floating-point checks)
-  - palloc (PostgreSQL memory allocation)
-  - pg_mul_s32_overflow, pg_add_s32_overflow, pg_add_s64_overflow (overflow-safe arithmetic)
-  - float8_mul, rint (floating-point operations)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md), pg_add_s32_overflow, pg_add_s64_overflow (overflow-safe arithmetic)
+  - [float8_mul](../f/float8_mul.md), rint (floating-point operations)
   - FLOAT8_FITS_IN_INT64 (range validation macro)
   - INTERVAL_NOT_FINITE (infinity check macro)
   - PG_RETURN_INTERVAL_P (return value macro)

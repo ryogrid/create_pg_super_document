@@ -25,8 +25,8 @@ This function should be called when the hash table is no longer needed to preven
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
-  - SH_FREE (to deallocate the data array)
-  - pfree (PostgreSQL's standard memory deallocation for the table structure)
+  - [SH_FREE](SH_FREE.md) (to deallocate the data array)
+  - [pfree](../p/pfree.md) (PostgreSQL's standard memory deallocation for the table structure)
 - Called from:
   - User code when hash table cleanup is needed
   - Generally not called directly by other simplehash internal functions

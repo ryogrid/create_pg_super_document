@@ -24,9 +24,9 @@ The  structure encapsulates metadata and function pointer for different PostgreS
 - Functions called/Symbols referenced:
   - (No direct references from this structure)
 - Called from (representative examples):
-  - escape_fmt_id
-  - test_one_vector_escape
-  - test_one_vector
+  - [escape_fmt_id](../e/escape_fmt_id.md)
+  - [test_one_vector_escape](../t/test_one_vector_escape.md)
+  - [test_one_vector](../t/test_one_vector.md)
 
 ## Notes and Other Information
 This structure is crucial for the test framework's ability to handle different escape functions uniformly while respecting their individual capabilities and limitations. The capability flags allow the test framework to make intelligent decisions about which tests to run and what results to expect, ensuring comprehensive but appropriate testing coverage for each escape function type.

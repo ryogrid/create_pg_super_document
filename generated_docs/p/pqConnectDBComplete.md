@@ -19,21 +19,21 @@ This function implements a blocking connection completion mechanism that repeate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pqParseIntParam`: Parses the connect_timeout parameter
-  - `PQgetCurrentTimeUSec`: Gets current time for timeout calculations
-  - `pqWaitTimed`: Waits for socket readiness with timeout
-  - `PQconnectPoll`: Advances the connection state machine
-  - `PQcancelPoll`: Handles connection cancellation requests
+  - `[pqParseIntParam](pqParseIntParam.md)`: Parses the connect_timeout parameter
+  - `[PQgetCurrentTimeUSec](../P/PQgetCurrentTimeUSec.md)`: Gets current time for timeout calculations
+  - `[pqWaitTimed](pqWaitTimed.md)`: Waits for socket readiness with timeout
+  - `[PQconnectPoll](../P/PQconnectPoll.md)`: Advances the connection state machine
+  - `[PQcancelPoll](../P/PQcancelPoll.md)`: Handles connection cancellation requests
   - Connection status constants: `CONNECTION_BAD`, `CONNECTION_NEEDED`
   - Polling status constants: `PGRES_POLLING_OK`, `PGRES_POLLING_READING`, `PGRES_POLLING_WRITING`
 
 - Called from (representative examples):
-  - `PQconnectdbParams`: Main connection function with parameters
-  - `PQconnectdb`: Simple connection function
+  - `[PQconnectdbParams](../P/PQconnectdbParams.md)`: Main connection function with parameters
+  - `[PQconnectdb](../P/PQconnectdb.md)`: Simple connection function
   - `PQsetdbLogin`: Legacy connection function
-  - `PQreset`: Connection reset function
-  - `internal_ping`: Internal connection ping function
-  - `PQcancelBlocking`: Blocking connection cancellation
+  - `[PQreset](../P/PQreset.md)`: Connection reset function
+  - `[internal_ping](../i/internal_ping.md)`: Internal connection ping function
+  - `[PQcancelBlocking](../P/PQcancelBlocking.md)`: Blocking connection cancellation
 
 ## Notes and Other Information
 This function is part of the internal libpq connection establishment process and should not be called directly by application code. It implements the blocking variant of connection completion, while `PQconnectPoll()` provides the non-blocking alternative. The function handles multiple host/address combinations and implements per-host timeout logic, allowing clients to fail over to alternative servers when connection attempts time out. The function returns 1 on successful connection establishment and 0 on failure, with detailed error information stored in the PGconn structure.

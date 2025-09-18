@@ -40,17 +40,17 @@ The function sets up pathkey handling based on the aggregation strategy - preser
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates AggPath node)
-  - cost_agg (calculates aggregation operation costs)
+  - [cost_agg](cost_agg.md) (calculates aggregation operation costs)
   - list_length (counts grouping columns and pathkeys)
-  - list_copy_head (preserves subset of input pathkeys for sorted aggregation)
+  - [list_copy_head](../l/list_copy_head.md) (preserves subset of input pathkeys for sorted aggregation)
   - AggPath (return type structure)
-  - PathTarget (target list specification)
+  - [PathTarget](../P/PathTarget.md) (target list specification)
 - Called from (representative examples):
-  - create_partial_distinct_paths
-  - create_final_distinct_paths
-  - add_paths_to_grouping_rel
-  - create_partial_grouping_paths
-  - generate_union_paths
+  - [create_partial_distinct_paths](create_partial_distinct_paths.md)
+  - [create_final_distinct_paths](create_final_distinct_paths.md)
+  - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md)
+  - [create_partial_grouping_paths](create_partial_grouping_paths.md)
+  - [generate_union_paths](../g/generate_union_paths.md)
 
 ## Notes and Other Information
 - Supports multiple aggregation strategies: AGG_SORTED (preserves/manages input order), AGG_HASHED (no output ordering), AGG_MIXED, and AGG_PLAIN

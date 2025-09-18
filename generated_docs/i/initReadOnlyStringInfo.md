@@ -22,11 +22,11 @@ The initialized StringInfo is marked as read-only by setting maxlen to 0, which 
 ## Dependencies
 - Functions called/Symbols referenced: (None)
 - Called from (representative examples):
-  - LogicalParallelApplyLoop (src/backend/replication/logical/applyparallelworker.c:776)
-  - apply_spooled_messages (src/backend/replication/logical/worker.c:2091)
-  - XLogWalRcvProcessMsg (src/backend/replication/walreceiver.c:860)
-  - exec_bind_message (src/backend/tcop/postgres.c:1849)
-  - ReadArrayBinary (src/backend/utils/adt/arrayfuncs.c:1496)
+  - [LogicalParallelApplyLoop](../L/LogicalParallelApplyLoop.md) (src/backend/replication/logical/applyparallelworker.c:776)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (src/backend/replication/logical/worker.c:2091)
+  - [XLogWalRcvProcessMsg](../X/XLogWalRcvProcessMsg.md) (src/backend/replication/walreceiver.c:860)
+  - [exec_bind_message](../e/exec_bind_message.md) (src/backend/tcop/postgres.c:1849)
+  - [ReadArrayBinary](../R/ReadArrayBinary.md) (src/backend/utils/adt/arrayfuncs.c:1496)
 
 ## Notes and Other Information
 - The resulting StringInfo is read-only and cannot be used with appendStringInfo functions or resetStringInfo()

@@ -23,14 +23,14 @@ The function delegates the actual node removal to the underlying dlist_delete_fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete_from
+  - [dlist_delete_from](dlist_delete_from.md)
 - Called from (representative examples):
-  - logical_heap_rewrite_flush_mappings (src/backend/access/heap/rewriteheap.c:866)
-  - mXactCachePut (src/backend/access/transam/multixact.c:1735)
-  - ReorderBufferCleanupTXN (src/backend/replication/logical/reorderbuffer.c:1625)
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (src/backend/access/heap/rewriteheap.c:866)
+  - [mXactCachePut](../m/mXactCachePut.md) (src/backend/access/transam/multixact.c:1735)
+  - [ReorderBufferCleanupTXN](../R/ReorderBufferCleanupTXN.md) (src/backend/replication/logical/reorderbuffer.c:1625)
   - AtEOXact_PgStat_DroppedStats (src/backend/utils/activity/pgstat_xact.c:100)
-  - InvalidateConstraintCacheCallBack (src/backend/utils/adt/ri_triggers.c:2259)
-  - SlabReset (src/backend/utils/mmgr/slab.c:449)
+  - [InvalidateConstraintCacheCallBack](../I/InvalidateConstraintCacheCallBack.md) (src/backend/utils/adt/ri_triggers.c:2259)
+  - [SlabReset](../S/SlabReset.md) (src/backend/utils/mmgr/slab.c:449)
 
 ## Notes and Other Information
 - Requires the list to be non-empty (count > 0) before deletion can proceed

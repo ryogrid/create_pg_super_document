@@ -20,13 +20,13 @@ _EndLOs is a callback function specific to the custom archive format that handle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteInt
-  - TocEntry (type)
+  - [WriteInt](../W/WriteInt.md)
+  - [TocEntry](../T/TocEntry.md) (type)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (registered as callback)
-  - InitArchiveFmt_Directory (referenced in directory format)
-  - InitArchiveFmt_Null (referenced in null format)
-  - _PrintTocData (in null format)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (registered as callback)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (referenced in directory format)
+  - [InitArchiveFmt_Null](../I/InitArchiveFmt_Null.md) (referenced in null format)
+  - [_PrintTocData](../P/_PrintTocData.md) (in null format)
 
 ## Notes and Other Information
 This function is marked as optional in the archiver interface and is specific to the custom format implementation. The use of a zero OID as an end marker is a simple but effective way to delimit the large objects section, as zero is not a valid OID for actual database objects.

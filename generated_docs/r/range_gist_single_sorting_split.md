@@ -25,9 +25,9 @@ The function uses an auxiliary array of SingleBoundSortItem structures to mainta
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetRangeTypeP
-  - range_deserialize
+  - [range_deserialize](range_deserialize.md)
   - qsort_arg
-  - single_bound_cmp
+  - [single_bound_cmp](../s/single_bound_cmp.md)
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro)
   - RangeTypePGetDatum
@@ -36,7 +36,7 @@ The function uses an auxiliary array of SingleBoundSortItem structures to mainta
   - SingleBoundSortItem (struct)
   - RangeBound (struct)
 - Called from (representative examples):
-  - range_gist_picksplit
+  - [range_gist_picksplit](range_gist_picksplit.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rangetypes_gist.c file

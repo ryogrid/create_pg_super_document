@@ -21,14 +21,14 @@ This variant is particularly useful during catalog operations where relations ar
 - Functions called/Symbols referenced:
   - Form_pg_class (type cast)
   - GETSTRUCT (macro)
-  - PrepareInvalidationState
-  - RegisterRelcacheInvalidation
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
+  - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)
 - Called from (representative examples):
-  - CacheInvalidateRelcacheByRelid
-  - index_update_stats
-  - copy_table_data
-  - swap_relation_files
-  - SetRelationHasSubclass
+  - [CacheInvalidateRelcacheByRelid](CacheInvalidateRelcacheByRelid.md)
+  - [index_update_stats](../i/index_update_stats.md)
+  - [copy_table_data](../c/copy_table_data.md)
+  - [swap_relation_files](../s/swap_relation_files.md)
+  - [SetRelationHasSubclass](../S/SetRelationHasSubclass.md)
 
 ## Notes and Other Information
 - This function is essentially a wrapper that extracts relation information from a pg_class tuple and calls the standard relcache invalidation mechanism

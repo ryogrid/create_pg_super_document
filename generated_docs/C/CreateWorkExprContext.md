@@ -28,11 +28,11 @@ Internal calculation parameters:
   - ALLOCSET_DEFAULT_MINSIZE
   - ALLOCSET_DEFAULT_INITSIZE
   - ALLOCSET_DEFAULT_MAXSIZE
-  - CreateExprContextInternal
+  - [CreateExprContextInternal](CreateExprContextInternal.md)
   - work_mem (global variable)
 
 - Called from (representative examples):
-  - ExecInitAgg
+  - [ExecInitAgg](../E/ExecInitAgg.md)
   - do_text_output_oneline
 
 ## Notes and Other Information

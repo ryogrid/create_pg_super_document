@@ -17,7 +17,7 @@ The anycompatiblearray_send function serves as a binary output function for the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_send: The actual implementation for binary array output
+  - [array_send](array_send.md): The actual implementation for binary array output
   - PSEUDOTYPE_DUMMY_INPUT_FUNC: Referenced in the surrounding context
 - Called from (representative examples):
   - No direct references found in the codebase (typically called through PostgreSQL's type system)

@@ -22,12 +22,12 @@ JitInstrumentation serves as a comprehensive performance monitoring structure fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time (timing instrumentation type)
+  - [instr_time](../i/instr_time.md) (timing instrumentation type)
 - Called from (representative examples):
   - ExplainPrintJITSummary
   - ExplainPrintJIT
-  - ExecParallelRetrieveJitInstrumentation
-  - InstrJitAgg
+  - [ExecParallelRetrieveJitInstrumentation](../E/ExecParallelRetrieveJitInstrumentation.md)
+  - [InstrJitAgg](../I/InstrJitAgg.md)
 
 ## Notes and Other Information
 - The deform_counter is explicitly noted as being included within generation_counter, indicating a hierarchical timing relationship

@@ -22,18 +22,18 @@ The `dectoasc` function converts a decimal number to its ASCII string representa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rsetnull
-  - risnull
-  - PGTYPESnumeric_new
+  - [rsetnull](../r/rsetnull.md)
+  - [risnull](../r/risnull.md)
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
   - PGTYPESnumeric_from_decimal
-  - PGTYPESnumeric_to_asc
-  - PGTYPESnumeric_free
+  - [PGTYPESnumeric_to_asc](../P/PGTYPESnumeric_to_asc.md)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - strlen
   - strcpy
   - free
 - Called from (representative examples):
-  - main (in test files)
-  - dump_sqlda
+  - [main](../m/main.md) (in test files)
+  - [dump_sqlda](dump_sqlda.md)
 - Type constants used:
   - CSTRINGTYPE
   - CDECIMALTYPE

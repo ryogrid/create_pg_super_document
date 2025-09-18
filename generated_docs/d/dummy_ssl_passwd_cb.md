@@ -22,7 +22,7 @@ This function serves as a protective mechanism against OpenSSL's default behavio
 - Functions called/Symbols referenced:
   - None (only uses direct assignments and assertions)
 - Called from (representative examples):
-  - default_openssl_tls_init (src/backend/libpq/be-secure-openssl.c:1766)
+  - [default_openssl_tls_init](default_openssl_tls_init.md) (src/backend/libpq/be-secure-openssl.c:1766)
 
 ## Notes and Other Information
 - Always returns 0 (empty passphrase length)

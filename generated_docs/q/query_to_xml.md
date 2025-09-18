@@ -25,8 +25,8 @@ This function provides more flexibility than `table_to_xml` as it can work with 
   - PG_GETARG_TEXT_PP
   - text_to_cstring
   - PG_GETARG_BOOL
-  - query_to_xml_internal
-  - stringinfo_to_xmltype
+  - [query_to_xml_internal](query_to_xml_internal.md)
+  - [stringinfo_to_xmltype](../s/stringinfo_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - No direct callers found (SQL function interface)
@@ -39,4 +39,4 @@ This function provides more flexibility than `table_to_xml` as it can work with 
 - Uses `xmldata_root_element_start` and `xmldata_root_element_end` for proper XML structure
 - Part of PostgreSQL's SQL/XML standard compliance features
 - Returns XML data type that can be further processed or exported
-- Query execution is read-only (uses SPI with read-only flag)
+- [Query](../Q/Query.md) execution is read-only (uses SPI with read-only flag)

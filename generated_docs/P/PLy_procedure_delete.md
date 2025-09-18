@@ -18,12 +18,12 @@ This function performs comprehensive cleanup of a PLyProcedure structure by rele
 ## Dependencies
 - Functions called/Symbols referenced:
   - Py_XDECREF (Python C API macro for safe reference decrementing)
-  - MemoryContextDelete (PostgreSQL memory management function)
-  - PLyProcedure (structure type)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (PostgreSQL memory management function)
+  - [PLyProcedure](PLyProcedure.md) (structure type)
 - Called from (representative examples):
-  - plpython3_inline_handler
-  - PLy_procedure_get
-  - PLy_procedure_create
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md)
+  - [PLy_procedure_get](PLy_procedure_get.md)
+  - [PLy_procedure_create](PLy_procedure_create.md)
 
 ## Notes and Other Information
 - Uses Py_XDECREF instead of Py_DECREF to safely handle NULL pointers

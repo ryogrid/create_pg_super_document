@@ -21,17 +21,17 @@ The function is part of PostgreSQL's logical replication protocol implementation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType: Resolves complex types to their base types
-  - SearchSysCache1: Looks up type information in the system cache
-  - pq_sendbyte: Writes the message type identifier
-  - pq_sendint32: Writes 32-bit integers (transaction ID and type OID)
-  - pq_sendstring: Writes null-terminated strings (type name)
+  - [getBaseType](../g/getBaseType.md): Resolves complex types to their base types
+  - [SearchSysCache1](../S/SearchSysCache1.md): Looks up type information in the system cache
+  - [pq_sendbyte](../p/pq_sendbyte.md): Writes the message type identifier
+  - [pq_sendint32](../p/pq_sendint32.md): Writes 32-bit integers (transaction ID and type OID)
+  - [pq_sendstring](../p/pq_sendstring.md): Writes null-terminated strings (type name)
   - logicalrep_write_namespace: Writes namespace information
   - Form_pg_type: Structure representing pg_type catalog entries
   - LOGICAL_REP_MSG_TYPE: Message type constant for type information
 
 - Called from (representative examples):
-  - send_relation_and_attrs (in pgoutput plugin)
+  - [send_relation_and_attrs](../s/send_relation_and_attrs.md) (in pgoutput plugin)
 
 ## Notes and Other Information
 - Always operates on base types, automatically resolving domains and other complex types

@@ -24,7 +24,7 @@ The callback operates on the principle that PostgreSQL libpq only supports sendi
 - Functions called/Symbols referenced:
   - SSL_get_certificate (checks if a certificate is loaded in the SSL context)
 - Called from (representative examples):
-  - initialize_SSL (registered as SSL certificate callback during SSL context setup)
+  - [initialize_SSL](../i/initialize_SSL.md) (registered as SSL certificate callback during SSL context setup)
 
 ## Notes and Other Information
 - Always returns 1 to indicate successful callback execution to OpenSSL

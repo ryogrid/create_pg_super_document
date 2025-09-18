@@ -23,16 +23,16 @@ This function is essential for proper cleanup of cryptographic operations and fo
 - Functions called/Symbols referenced:
   - explicit_bzero (secure memory clearing function)
   - FREE (memory deallocation macro)
-  - pg_cryptohash_ctx (context structure type)
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md) (context structure type)
 - Called from (representative examples):
-  - FreeBackupManifest
-  - scram_mock_salt
-  - cryptohash_internal
+  - [FreeBackupManifest](../F/FreeBackupManifest.md)
+  - [scram_mock_salt](../s/scram_mock_salt.md)
+  - [cryptohash_internal](../c/cryptohash_internal.md)
   - pg_checksum_init (error cleanup)
   - pg_checksum_final
-  - ResOwnerReleaseCryptoHash
-  - pg_hmac_free
-  - pg_md5_hash
+  - [ResOwnerReleaseCryptoHash](../R/ResOwnerReleaseCryptoHash.md)
+  - [pg_hmac_free](pg_hmac_free.md)
+  - [pg_md5_hash](pg_md5_hash.md)
 
 ## Notes and Other Information
 - Safe to call with NULL pointer (function returns immediately)

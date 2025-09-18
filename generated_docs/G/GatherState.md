@@ -26,16 +26,16 @@ GatherState maintains the execution state for Gather nodes, which implement Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited structure)
+  - [PlanState](../P/PlanState.md) (inherited structure)
   - TupleTableSlot (for tuple collection)
   - ParallelExecutorInfo (for parallel execution context)
-  - TupleQueueReader (for reading from parallel worker queues)
+  - [TupleQueueReader](../T/TupleQueueReader.md) (for reading from parallel worker queues)
 - Called from (representative examples):
-  - ExecInitGather (initialization function)
-  - ExecGather (main execution function)
-  - ExecEndGather (cleanup function)
-  - gather_getnext (tuple collection function)
-  - gather_readnext (worker reading function)
+  - [ExecInitGather](../E/ExecInitGather.md) (initialization function)
+  - [ExecGather](../E/ExecGather.md) (main execution function)
+  - [ExecEndGather](../E/ExecEndGather.md) (cleanup function)
+  - [gather_getnext](../g/gather_getnext.md) (tuple collection function)
+  - [gather_readnext](../g/gather_readnext.md) (worker reading function)
 
 ## Notes and Other Information
 - Essential component of PostgreSQL's parallel query execution system

@@ -23,9 +23,9 @@ The function serves as a safe accessor for the tuple field of HeapTupleTableSlot
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
-  - tts_heap_materialize (materializes tuple if needed)
+  - [tts_heap_materialize](tts_heap_materialize.md) (materializes tuple if needed)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to the execTuples.c compilation unit

@@ -19,14 +19,14 @@ This function serves as a validation hook for the default_text_search_config GUC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - stringToQualifiedNameList
-  - get_ts_config_oid
-  - SearchSysCache1
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md)
+  - [get_ts_config_oid](../g/get_ts_config_oid.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - quote_qualified_identifier
-  - get_namespace_name
-  - guc_free
-  - guc_strdup
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [guc_free](../g/guc_free.md)
+  - [guc_strdup](../g/guc_strdup.md)
 - Called from (representative examples):
   - GUC system (referenced in guc_hooks.h)
 

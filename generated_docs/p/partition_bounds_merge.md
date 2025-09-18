@@ -31,18 +31,18 @@ If any partition on one side matches multiple partitions on the other side, the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - merge_list_bounds
-  - merge_range_bounds
+  - [merge_list_bounds](../m/merge_list_bounds.md)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 - Data types used:
-  - PartitionBoundInfo
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
   - RelOptInfo
   - JoinType
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
 - Constants used:
   - JOIN_INNER, JOIN_LEFT, JOIN_FULL, JOIN_SEMI, JOIN_ANTI
   - PARTITION_STRATEGY_HASH, PARTITION_STRATEGY_LIST, PARTITION_STRATEGY_RANGE
 - Called from:
-  - compute_partition_bounds
+  - [compute_partition_bounds](../c/compute_partition_bounds.md)
   - partition_bound_has_default
 
 ## Notes and Other Information

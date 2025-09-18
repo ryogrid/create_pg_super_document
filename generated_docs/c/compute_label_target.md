@@ -27,8 +27,8 @@ This function takes no parameters but uses several global variables:
 - Functions called/Symbols referenced:
   - label_offset (global variable for label positioning)
 - Called from (representative examples):
-  - dump_line (main line output function when processing labels)
-  - pr_comment (for comment positioning relative to labels)
+  - [dump_line](../d/dump_line.md) (main line output function when processing labels)
+  - [pr_comment](../p/pr_comment.md) (for comment positioning relative to labels)
 
 ## Notes and Other Information
 - Returns the target column number (1-based) where labels should be positioned

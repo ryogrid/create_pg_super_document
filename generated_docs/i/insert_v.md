@@ -22,11 +22,11 @@ This function is particularly useful when working with dynamically allocated str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - insert_s (performs the actual insertion with explicit size)
+  - [insert_s](insert_s.md) (performs the actual insertion with explicit size)
   - SIZE (macro that extracts the length from a variable-length string buffer)
   - symbol (type used for string characters)
 - Called from (representative examples):
-  - among (utility function for pattern matching operations)
+  - [among](../a/among.md) (utility function for pattern matching operations)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on error (inherited from insert_s behavior)

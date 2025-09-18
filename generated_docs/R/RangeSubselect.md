@@ -21,16 +21,16 @@ RangeSubselect nodes are created when a subquery is used as a table source in a 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)
-  - Node (base type for subquery)
-  - Alias (for table and column aliasing)
+  - [Node](../N/Node.md) (base type for subquery)
+  - [Alias](../A/Alias.md) (for table and column aliasing)
 - Called from (representative examples):
-  - transformRangeSubselect (src/backend/parser/parse_clause.c:407)
-  - transformFromClauseItem (src/backend/parser/parse_clause.c:1083, 1089)
-  - transformJsonArrayQueryConstructor (src/backend/parser/parse_expr.c:3756)
-  - raw_expression_tree_walker_impl (src/backend/nodes/nodeFuncs.c:4444)
+  - [transformRangeSubselect](../t/transformRangeSubselect.md) (src/backend/parser/parse_clause.c:407)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (src/backend/parser/parse_clause.c:1083, 1089)
+  - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md) (src/backend/parser/parse_expr.c:3756)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:4444)
 
 ## Notes and Other Information
-- RangeSubselect is part of PostgreSQL's FROM clause processing infrastructure
+- [RangeSubselect](RangeSubselect.md) is part of PostgreSQL's FROM clause processing infrastructure
 - LATERAL subqueries can reference columns from tables that appear earlier in the FROM clause
 - The subquery is kept in untransformed state until query analysis to preserve parse tree structure
 - Aliases are essential for referencing the subquery results in the outer query

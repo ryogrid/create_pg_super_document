@@ -26,17 +26,17 @@ The function is designed to work with PostgreSQL's secure query cancellation mec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqMakeEmptyPGconn
-  - libpq_append_conn_error
-  - pqCopyPGconn
+  - [pqMakeEmptyPGconn](../p/pqMakeEmptyPGconn.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqCopyPGconn](../p/pqCopyPGconn.md)
   - pqConnectOptions2
-  - pqReleaseConnHosts
+  - [pqReleaseConnHosts](../p/pqReleaseConnHosts.md)
   - calloc
   - strdup
 - Called from (representative examples):
-  - disconnectDatabase (src/fe_utils/connect_utils.c:164)
-  - libpqsrv_cancel (src/include/libpq/libpq-be-fe-helpers.h:391)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:287)
+  - [disconnectDatabase](../d/disconnectDatabase.md) (src/fe_utils/connect_utils.c:164)
+  - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (src/include/libpq/libpq-be-fe-helpers.h:391)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:287)
 
 ## Notes and Other Information
 - Returns NULL only if the initial pqMakeEmptyPGconn() call fails due to memory allocation issues

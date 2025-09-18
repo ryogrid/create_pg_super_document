@@ -17,13 +17,13 @@ InitQueryHashTable creates and configures the global hash table that stores prep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates new hash table)
+  - [hash_create](../h/hash_create.md) (creates new hash table)
   - NAMEDATALEN (defines maximum name length for keys)
   - PreparedStatement (defines entry size for hash table)
   - HASH_ELEM (hash table creation flag for element management)
   - HASH_STRINGS (hash table creation flag for string key handling)
 - Called from (representative examples):
-  - StorePreparedStatement (initializes hash table on first prepared statement storage)
+  - [StorePreparedStatement](../S/StorePreparedStatement.md) (initializes hash table on first prepared statement storage)
 
 ## Notes and Other Information
 - Creates a hash table named "Prepared Queries" for debugging and monitoring purposes

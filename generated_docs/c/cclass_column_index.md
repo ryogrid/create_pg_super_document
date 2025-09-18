@@ -30,13 +30,13 @@ The function is only called for characters above MAX_SIMPLE_CHR, as simpler char
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_wc_isprint, pg_wc_isalnum, pg_wc_isalpha, pg_wc_isword (character classification)
-  - pg_wc_isdigit, pg_wc_ispunct, pg_wc_isspace (character classification)  
-  - pg_wc_islower, pg_wc_isupper, pg_wc_isgraph (character classification)
+  - [pg_wc_isprint](../p/pg_wc_isprint.md), pg_wc_isalnum, pg_wc_isalpha, pg_wc_isword (character classification)
+  - [pg_wc_isdigit](../p/pg_wc_isdigit.md), pg_wc_ispunct, pg_wc_isspace (character classification)  
+  - [pg_wc_islower](../p/pg_wc_islower.md), pg_wc_isupper, pg_wc_isgraph (character classification)
   - CC_* constants (character class identifiers)
   - MAX_SIMPLE_CHR (threshold for simple character handling)
 - Called from (representative examples):
-  - pg_reg_getcolor (in regc_color.c:158 for colormap lookup)
+  - [pg_reg_getcolor](../p/pg_reg_getcolor.md) (in regc_color.c:158 for colormap lookup)
 
 ## Notes and Other Information
 - Only processes locale-dependent character classes; hard-wired classes are asserted to have zero classbits

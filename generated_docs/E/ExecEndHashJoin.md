@@ -24,12 +24,12 @@ This cleanup is essential in PostgreSQL's memory management strategy, as hash jo
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecHashTableDestroy: Destroys the hash table and frees associated memory
-  - ExecEndNode: Recursively cleans up child plan nodes
+  - [ExecEndNode](ExecEndNode.md): Recursively cleans up child plan nodes
   - outerPlanState: Accesses the outer child plan state
   - innerPlanState: Accesses the inner child plan state
 
 - Called from:
-  - ExecEndNode: General node cleanup dispatcher
+  - [ExecEndNode](ExecEndNode.md): General node cleanup dispatcher
 
 ## Notes and Other Information
 The cleanup order is important - the hash table is destroyed first before cleaning up child nodes. This ensures that any references to child node data within the hash table are handled properly before the child nodes are destroyed.

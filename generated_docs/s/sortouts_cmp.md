@@ -24,11 +24,11 @@ The function is designed as a qsort() compatible comparison function, returning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - arc (struct type)
+  - [arc](../a/arc.md) (struct type)
 - Called from (representative examples):
-  - sortouts (src/backend/regex/regc_nfa.c:709)
-  - moveouts (src/backend/regex/regc_nfa.c:1120)
-  - copyouts (src/backend/regex/regc_nfa.c:1217)
+  - [sortouts](sortouts.md) (src/backend/regex/regc_nfa.c:709)
+  - [moveouts](../m/moveouts.md) (src/backend/regex/regc_nfa.c:1120)
+  - [copyouts](../c/copyouts.md) (src/backend/regex/regc_nfa.c:1217)
 
 ## Notes and Other Information
 - This is a static function local to the regc_nfa.c file

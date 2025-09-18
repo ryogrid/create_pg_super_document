@@ -27,10 +27,10 @@ All matching is performed case-insensitively since DNS is inherently case-insens
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (C standard library)
-  - pg_strcasecmp (PostgreSQL case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL case-insensitive string comparison)
   - strchr (C standard library)
 - Called from (representative examples):
-  - pq_verify_peer_name_matches_certificate_name
+  - [pq_verify_peer_name_matches_certificate_name](../p/pq_verify_peer_name_matches_certificate_name.md)
 
 ## Notes and Other Information
 - The function is more restrictive than most browser implementations, particularly in rule 3 where '*' does not match '.' characters

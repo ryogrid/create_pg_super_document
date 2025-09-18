@@ -20,20 +20,20 @@ SlabAllocSetupNewChunk is a small helper function designed to avoid code duplica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabBlock
+  - [SlabBlock](SlabBlock.md)
   - MemoryChunk
-  - SlabContext
+  - [SlabContext](SlabContext.md)
   - SlabBlockGetChunk
   - SlabChunkMod
-  - MemoryChunkSetHdrMask
+  - [MemoryChunkSetHdrMask](../M/MemoryChunkSetHdrMask.md)
   - MemoryChunkGetPointer
   - VALGRIND_MAKE_MEM_UNDEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING is enabled)
-  - randomize_mem (when RANDOMIZE_ALLOCATED_MEMORY is enabled)
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING is enabled)
+  - [randomize_mem](../r/randomize_mem.md) (when RANDOMIZE_ALLOCATED_MEMORY is enabled)
 - Called from (representative examples):
-  - SlabAlloc (src/backend/utils/mmgr/slab.c:693)
-  - SlabAllocFromNewBlock (src/backend/utils/mmgr/slab.c:593)
+  - [SlabAlloc](SlabAlloc.md) (src/backend/utils/mmgr/slab.c:693)
+  - [SlabAllocFromNewBlock](SlabAllocFromNewBlock.md) (src/backend/utils/mmgr/slab.c:593)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the same compilation unit and optimized for performance

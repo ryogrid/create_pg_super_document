@@ -27,15 +27,15 @@ This approach ensures that ItemPointers are ordered first by block number, then 
 - Functions called/Symbols referenced:
   - GinItemPointerGetBlockNumber: Extracts block number from ItemPointer
   - GinItemPointerGetOffsetNumber: Extracts offset number from ItemPointer
-  - pg_cmp_u64: PostgreSQL's 64-bit unsigned integer comparison function
+  - [pg_cmp_u64](../p/pg_cmp_u64.md): PostgreSQL's 64-bit unsigned integer comparison function
 
 - Called from (representative examples):
   - ginCombineData: Combines data from multiple GIN scan results
-  - qsortCompareItemPointers: Used as comparison function for sorting
-  - GinDataLeafPageGetItems: Retrieves items from GIN data leaf pages
-  - dataLocateItem: Locates specific items in GIN data pages
-  - entryLoadMoreItems: Loads additional items during GIN scans
-  - ginMergeItemPointers: Merges sorted lists of item pointers
+  - [qsortCompareItemPointers](../q/qsortCompareItemPointers.md): Used as comparison function for sorting
+  - [GinDataLeafPageGetItems](../G/GinDataLeafPageGetItems.md): Retrieves items from GIN data leaf pages
+  - [dataLocateItem](../d/dataLocateItem.md): Locates specific items in GIN data pages
+  - [entryLoadMoreItems](../e/entryLoadMoreItems.md): Loads additional items during GIN scans
+  - [ginMergeItemPointers](ginMergeItemPointers.md): Merges sorted lists of item pointers
 
 ## Notes and Other Information
 - The function is explicitly marked as inline due to its frequent usage in merge operations during GIN scans

@@ -22,21 +22,21 @@ This function implements the ALTER SERVER SQL command by modifying an existing f
   - AlterForeignServerStmt
   - Form_pg_foreign_server
   - SearchSysCacheCopy1
-  - CStringGetDatum
-  - object_ownercheck
-  - aclcheck_error
-  - GetForeignDataWrapper
-  - ForeignDataWrapper
-  - SysCacheGetAttr
-  - transformGenericOptions
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
+  - [ForeignDataWrapper](../F/ForeignDataWrapper.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
   - PointerIsValid
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSet
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Enforces ownership-based access control - only server owner or superuser can alter servers

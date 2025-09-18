@@ -20,11 +20,11 @@ This function performs a type conversion from a PostgreSQL time data type to tim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkTimezoneIsUsedForCast (validation)
+  - [checkTimezoneIsUsedForCast](checkTimezoneIsUsedForCast.md) (validation)
   - DirectFunctionCall1 (function call wrapper)
-  - time_timetz (core conversion function)
+  - [time_timetz](../t/time_timetz.md) (core conversion function)
 - Called from (representative examples):
-  - compareDatetime (multiple locations for datetime comparisons)
+  - [compareDatetime](compareDatetime.md) (multiple locations for datetime comparisons)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/jsonpath_exec.c:3678-3689

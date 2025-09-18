@@ -23,12 +23,12 @@ SQL state codes are standardized 5-character identifiers defined by the SQL stan
 - Functions called/Symbols referenced:
   - PGUNSIXBIT (macro for extracting 6-bit fields)
 - Called from (representative examples):
-  - log_status_format
-  - send_message_to_server_log
-  - send_message_to_frontend
-  - write_csvlog
-  - write_jsonlog
-  - pg_input_error_info
+  - [log_status_format](../l/log_status_format.md)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md)
+  - [write_csvlog](../w/write_csvlog.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
+  - [pg_input_error_info](../p/pg_input_error_info.md)
   - Various PL language modules (plpython, pltcl)
 
 ## Notes and Other Information

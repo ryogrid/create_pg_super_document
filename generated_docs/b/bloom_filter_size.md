@@ -23,10 +23,10 @@ The function ensures the filter size is rounded to whole bytes and implements a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BloomFilter (data structure)
+  - [BloomFilter](../B/BloomFilter.md) (data structure)
   - Mathematical functions: ceil, log, pow, floor
 - Called from (representative examples):
-  - bloom_init
+  - [bloom_init](bloom_init.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the brin_bloom.c file

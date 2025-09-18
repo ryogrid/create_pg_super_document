@@ -22,7 +22,7 @@ Parameters are indexed starting from 0, so the first parameter is at index 0, th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPIPlanPtr (typedef for struct _SPI_plan *)
+  - [SPIPlanPtr](SPIPlanPtr.md) (typedef for struct _SPI_plan *)
   - _SPI_PLAN_MAGIC (validation constant)
   - SPI_ERROR_ARGUMENT (error code)
   - InvalidOid (constant representing invalid Oid)

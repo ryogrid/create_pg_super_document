@@ -27,10 +27,10 @@ The function initializes the dumpSections bitmask on first call (when it equals 
   - DUMP_DATA (constant: 0x02) 
   - DUMP_POST_DATA (constant: 0x04)
   - pg_log_error_hint
-  - exit_nicely
+  - [exit_nicely](../e/exit_nicely.md)
 - Called from (representative examples):
-  - main (pg_dump.c:625)
-  - main (pg_restore.c:291)
+  - [main](../m/main.md) (pg_dump.c:625)
+  - [main](../m/main.md) (pg_restore.c:291)
 
 ## Notes and Other Information
 - The dumpSections parameter is initialized as DUMP_UNSECTIONED by pg_dump and pg_restore

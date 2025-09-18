@@ -19,11 +19,11 @@ The  function is responsible for reading script files in pgbench, PostgreSQL's b
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen (standard library function for file opening)
-  - read_file_contents (pgbench utility to read entire file into memory)
-  - ParseScript (pgbench function to parse and register the script)
+  - [read_file_contents](../r/read_file_contents.md) (pgbench utility to read entire file into memory)
+  - [ParseScript](../P/ParseScript.md) (pgbench function to parse and register the script)
 - Called from (representative examples):
-  - main (in pgbench.c for processing command-line specified script files)
-  - exec_command_include (in psql for including files)
+  - [main](../m/main.md) (in pgbench.c for processing command-line specified script files)
+  - [exec_command_include](../e/exec_command_include.md) (in psql for including files)
 
 ## Notes and Other Information
 - The function is declared as static, limiting its scope to the pgbench.c compilation unit

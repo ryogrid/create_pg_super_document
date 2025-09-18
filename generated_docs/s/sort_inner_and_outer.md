@@ -39,17 +39,17 @@ The function intentionally avoids parameterized input paths (except cheapest-tot
 ## Dependencies
 - Functions called/Symbols referenced:
   - PATH_PARAM_BY_REL
-  - create_unique_path
+  - [create_unique_path](../c/create_unique_path.md)
   - bms_is_empty
-  - get_cheapest_parallel_safe_total_inner
-  - select_outer_pathkeys_for_merge
-  - find_mergeclauses_for_outer_pathkeys
-  - make_inner_pathkeys_for_merge
-  - build_join_pathkeys
-  - try_mergejoin_path
-  - try_partial_mergejoin_path
+  - [get_cheapest_parallel_safe_total_inner](../g/get_cheapest_parallel_safe_total_inner.md)
+  - [select_outer_pathkeys_for_merge](select_outer_pathkeys_for_merge.md)
+  - [find_mergeclauses_for_outer_pathkeys](../f/find_mergeclauses_for_outer_pathkeys.md)
+  - [make_inner_pathkeys_for_merge](../m/make_inner_pathkeys_for_merge.md)
+  - [build_join_pathkeys](../b/build_join_pathkeys.md)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [try_partial_mergejoin_path](../t/try_partial_mergejoin_path.md)
 - Called from (representative examples):
-  - add_paths_to_joinrel
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
 
 ## Notes and Other Information
 - This is a static function within joinpath.c focused on explicit sorting scenarios

@@ -30,8 +30,8 @@ The function ensures proper cleanup and allows other processes to acquire the sa
   - ConditionVariableBroadcast
   - ereport
 - Called from (representative examples):
-  - pg_replication_origin_session_reset
-  - process_syncing_tables_for_sync
+  - [pg_replication_origin_session_reset](../p/pg_replication_origin_session_reset.md)
+  - [process_syncing_tables_for_sync](../p/process_syncing_tables_for_sync.md)
 
 ## Notes and Other Information
 - Must only be called if a replication origin was previously setup with replorigin_session_setup()

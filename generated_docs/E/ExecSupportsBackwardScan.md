@@ -39,13 +39,13 @@ For nodes that pass data through from children (Result, Append, SubqueryScan, Lo
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)
   - outerPlan (access outer child plan)
-  - ExecSupportsBackwardScan (recursive calls)
-  - IndexSupportsBackwardScan (index capability checking)
+  - [ExecSupportsBackwardScan](ExecSupportsBackwardScan.md) (recursive calls)
+  - [IndexSupportsBackwardScan](../I/IndexSupportsBackwardScan.md) (index capability checking)
   - lfirst (list iteration)
 - Called from (representative examples):
-  - PerformCursorOpen (cursor creation)
-  - SPI_cursor_open_internal (SPI cursor operations)  
-  - standard_planner (query planning)
+  - [PerformCursorOpen](../P/PerformCursorOpen.md) (cursor creation)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (SPI cursor operations)  
+  - [standard_planner](../s/standard_planner.md) (query planning)
 
 ## Notes and Other Information
 - This function requires a complete plan tree because backward scan support often depends on the capabilities of child nodes

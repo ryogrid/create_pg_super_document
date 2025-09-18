@@ -28,10 +28,10 @@ The function is designed with performance optimizations in mind, including poten
   - AssertNotInCriticalSection (ensures safe allocation timing)
   - VALGRIND_MEMPOOL_ALLOC (integrates with Valgrind debugging)
 - Called from (representative examples):
-  - initialize_reloptions
-  - _hash_getcachedmetap
-  - _bt_getroot
-  - SPI_palloc
+  - [initialize_reloptions](../i/initialize_reloptions.md)
+  - [_hash_getcachedmetap](../h/_hash_getcachedmetap.md)
+  - [_bt_getroot](../b/_bt_getroot.md)
+  - [SPI_palloc](../S/SPI_palloc.md)
   - list enlargement functions
   - tuple store operations
   - backend initialization routines

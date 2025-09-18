@@ -22,14 +22,14 @@ This function provides a convenient interface for calling PostgreSQL's datatype 
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro for local function call info)
   - InitFunctionCallInfoData (initializes function call structure)
-  - CStringGetDatum (converts C string to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - FunctionCallInvoke (invokes the actual function)
 - Called from (representative examples):
-  - BuildTupleFromCStrings
-  - XmlTableGetValue
-  - OidInputFunctionCall
-  - plperl_sv_to_datum
-  - PLyObject_ToScalar
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
+  - [XmlTableGetValue](../X/XmlTableGetValue.md)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md)
+  - [PLyObject_ToScalar](../P/PLyObject_ToScalar.md)
 
 ## Notes and Other Information
 - Handles NULL input specially: if str is NULL and the function is strict, returns NULL without calling the function

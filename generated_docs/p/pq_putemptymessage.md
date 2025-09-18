@@ -21,12 +21,12 @@ This function is frequently used in PostgreSQL's protocol implementation for sen
 - Functions called/Symbols referenced:
   - pq_putmessage (with NULL data and 0 length)
 - Called from (representative examples):
-  - SendCopyDone (src/backend/backup/basebackup_copy.c:333)
-  - SendCopyEnd (src/backend/commands/copyto.c:155)
-  - NullCommand (src/backend/tcop/dest.c:227)
-  - exec_parse_message (src/backend/tcop/postgres.c:1596)
-  - exec_bind_message (src/backend/tcop/postgres.c:2062)
-  - PostgresMain (src/backend/tcop/postgres.c:4915)
+  - [SendCopyDone](../S/SendCopyDone.md) (src/backend/backup/basebackup_copy.c:333)
+  - [SendCopyEnd](../S/SendCopyEnd.md) (src/backend/commands/copyto.c:155)
+  - [NullCommand](../N/NullCommand.md) (src/backend/tcop/dest.c:227)
+  - [exec_parse_message](../e/exec_parse_message.md) (src/backend/tcop/postgres.c:1596)
+  - [exec_bind_message](../e/exec_bind_message.md) (src/backend/tcop/postgres.c:2062)
+  - [PostgresMain](../P/PostgresMain.md) (src/backend/tcop/postgres.c:4915)
 
 ## Notes and Other Information
 - Simplifies the common pattern of sending header-only messages in the PostgreSQL protocol

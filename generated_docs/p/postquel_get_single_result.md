@@ -20,11 +20,11 @@ postquel_get_single_result is responsible for extracting and properly formatting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTupleDatum
+  - [ExecFetchSlotHeapTupleDatum](../E/ExecFetchSlotHeapTupleDatum.md)
   - slot_getattr
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - fmgr_sql (multiple locations)
+  - [fmgr_sql](../f/fmgr_sql.md) (multiple locations)
 
 ## Notes and Other Information
 - Switches to resultcontext to ensure proper memory allocation lifetime for return values

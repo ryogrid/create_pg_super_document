@@ -19,7 +19,7 @@ This function serves as an atexit handler that ensures proper cleanup of the pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stop_postmaster
+  - [stop_postmaster](stop_postmaster.md)
 - Called from (representative examples):
   - Registered as atexit handler in start_postmaster
 

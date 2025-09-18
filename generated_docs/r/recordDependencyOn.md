@@ -19,19 +19,19 @@ This function provides a simple interface for recording a dependency relationshi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recordMultipleDependencies
+  - [recordMultipleDependencies](recordMultipleDependencies.md)
   - DependencyType
 - Called from (representative examples):
-  - SetDefaultACL
-  - AddNewAttributeTuples
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
   - index_create
-  - CollationCreate
-  - ConversionCreate
-  - recordDependencyOnCurrentExtension
-  - publication_add_relation
-  - CreateAccessMethod
-  - CreateForeignDataWrapper
-  - CreateTriggerFiringOn
+  - [CollationCreate](../C/CollationCreate.md)
+  - [ConversionCreate](../C/ConversionCreate.md)
+  - [recordDependencyOnCurrentExtension](recordDependencyOnCurrentExtension.md)
+  - [publication_add_relation](../p/publication_add_relation.md)
+  - [CreateAccessMethod](../C/CreateAccessMethod.md)
+  - [CreateForeignDataWrapper](../C/CreateForeignDataWrapper.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
 
 ## Notes and Other Information
 - This is a convenience function that internally calls  with a count of 1

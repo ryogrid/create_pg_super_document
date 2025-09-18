@@ -18,17 +18,17 @@ PostingItem is a fundamental structure in GIN index posting trees that serves as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockIdData (for child block reference)
-  - ItemPointerData (for key storage)
+  - [BlockIdData](../B/BlockIdData.md) (for child block reference)
+  - [ItemPointerData](../I/ItemPointerData.md) (for key storage)
 - Called from (representative examples):
-  - dataLocateItem (src/backend/access/gin/gindatapage.c:257)
-  - dataFindChildPtr (src/backend/access/gin/gindatapage.c:323)
-  - GinDataPageAddPostingItem (src/backend/access/gin/gindatapage.c:380)
-  - dataSplitPageInternal (src/backend/access/gin/gindatapage.c:1268)
-  - ginDeletePage (src/backend/access/gin/ginvacuum.c:173)
+  - [dataLocateItem](../d/dataLocateItem.md) (src/backend/access/gin/gindatapage.c:257)
+  - [dataFindChildPtr](../d/dataFindChildPtr.md) (src/backend/access/gin/gindatapage.c:323)
+  - [GinDataPageAddPostingItem](../G/GinDataPageAddPostingItem.md) (src/backend/access/gin/gindatapage.c:380)
+  - [dataSplitPageInternal](../d/dataSplitPageInternal.md) (src/backend/access/gin/gindatapage.c:1268)
+  - [ginDeletePage](../g/ginDeletePage.md) (src/backend/access/gin/ginvacuum.c:173)
 
 ## Notes and Other Information
-- PostingItem is specifically used in non-leaf pages of GIN posting trees, not in leaf pages
+- [PostingItem](PostingItem.md) is specifically used in non-leaf pages of GIN posting trees, not in leaf pages
 - The structure includes helper macros PostingItemGetBlockNumber and PostingItemSetBlockNumber for convenient access to the child block number
 - Memory layout is optimized to avoid unnecessary padding by using BlockIdData instead of BlockNumber
 - This structure is critical for the hierarchical organization of GIN indexes, enabling efficient range queries and bulk operations

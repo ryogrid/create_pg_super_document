@@ -23,14 +23,14 @@ The function uses PostgreSQL system cache for efficient lookups and includes pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](SearchSysCache1.md)
   - HeapTupleIsValid
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_statistic_ext (struct type)
 - Called from (representative examples):
-  - ATPostAlterTypeCleanup
+  - [ATPostAlterTypeCleanup](../A/ATPostAlterTypeCleanup.md)
   - Various functions via DEFREM_H header inclusion
 
 ## Notes and Other Information

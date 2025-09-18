@@ -21,27 +21,27 @@ This function performs comprehensive initialization of the XLOG shared memory st
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - MemoryContextAllowInCriticalSection
-  - ShmemInitStruct
-  - XLOGShmemSize
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [XLOGShmemSize](XLOGShmemSize.md)
   - memcpy
   - memset
-  - pfree
-  - pg_atomic_init_u64
+  - [pfree](../p/pfree.md)
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
   - LWLockInitialize
   - SpinLockInit
   - TYPEALIGN
 - Types and constants referenced:
-  - XLogCtlData
+  - [XLogCtlData](XLogCtlData.md)
   - ControlFileData
   - WALInsertLockPadded
-  - pg_atomic_uint64
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - NUM_XLOGINSERT_LOCKS
   - LWTRANCHE_WAL_INSERT
   - RECOVERY_STATE_CRASH
   - InvalidXLogRecPtr
   - XLOG_BLCKSZ
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Handles both first-time initialization and reattachment to existing shared memory

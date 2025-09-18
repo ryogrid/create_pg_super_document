@@ -40,10 +40,10 @@ The function is defensive in its parsing, validating each step and handling malf
 - Functions called/Symbols referenced:
   - strlen (C standard library)
   - strcmp (C standard library) 
-  - pg_isblank (PostgreSQL character classification)
+  - [pg_isblank](../p/pg_isblank.md) (PostgreSQL character classification)
   - IDENT_USERNAME_MAX (PostgreSQL constant)
 - Called from (representative examples):
-  - ident_inet
+  - [ident_inet](ident_inet.md)
 
 ## Notes and Other Information
 - This function implements RFC 1413 (Identification Protocol) response parsing

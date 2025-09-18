@@ -24,7 +24,7 @@ This function checks if the nth argument of a function is considered an input ar
   - PROARGMODE_INOUT  
   - PROARGMODE_VARIADIC
 - Called from (representative examples):
-  - pg_get_function_arg_default (twice in the same function)
+  - [pg_get_function_arg_default](../p/pg_get_function_arg_default.md) (twice in the same function)
 
 ## Notes and Other Information
 - When argmodes is NULL, the function defaults to returning true, assuming all arguments are input arguments

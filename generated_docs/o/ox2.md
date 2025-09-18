@@ -29,11 +29,11 @@ The algorithm works in several phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geqo_randint (for random number generation)
+  - [geqo_randint](../g/geqo_randint.md) (for random number generation)
   - Gene (typedef for int representing a city/relation)
   - City (struct with used and select_list fields)
 - Called from (representative examples):
-  - geqo (main genetic algorithm function in geqo_main.c:216)
+  - [geqo](../g/geqo.md) (main genetic algorithm function in geqo_main.c:216)
 
 ## Notes and Other Information
 - This is one of several crossover operators available in PostgreSQL's GEQO implementation

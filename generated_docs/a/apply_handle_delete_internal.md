@@ -31,16 +31,16 @@ The function is designed to handle both direct table deletions and partition-spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EvalPlanQualInit
-  - RelationGetIndexList (used in assertion)
-  - FindReplTupleInLocalRel
+  - [EvalPlanQualInit](../E/EvalPlanQualInit.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md) (used in assertion)
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
   - EvalPlanQualSetSlot
-  - TargetPrivilegesCheck
-  - ExecSimpleRelationDelete
-  - EvalPlanQualEnd
+  - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)
+  - [ExecSimpleRelationDelete](../E/ExecSimpleRelationDelete.md)
+  - [EvalPlanQualEnd](../E/EvalPlanQualEnd.md)
 - Called from (representative examples):
-  - apply_handle_delete
-  - apply_handle_tuple_routing
+  - [apply_handle_delete](apply_handle_delete.md)
+  - [apply_handle_tuple_routing](apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify that the caller has properly opened indexes before calling this function, as index management is handled at a higher level

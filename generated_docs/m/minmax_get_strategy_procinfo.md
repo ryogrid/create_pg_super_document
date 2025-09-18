@@ -26,23 +26,23 @@ The caching strategy improves performance by avoiding redundant syscache lookups
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc (structure type)
-  - MinmaxOpaque (structure type for opaque data)
+  - [BrinDesc](../B/BrinDesc.md) (structure type)
+  - [MinmaxOpaque](../M/MinmaxOpaque.md) (structure type for opaque data)
   - BTMaxStrategyNumber (constant defining maximum strategy numbers)
-  - SearchSysCache4 (function to search system catalogs)
-  - SysCacheGetAttrNotNull (function to extract catalog attributes)
-  - ReleaseSysCache (function to release catalog tuple)
-  - DatumGetObjectId (function to extract OID from datum)
-  - get_opcode (function to get procedure OID from operator OID)
-  - fmgr_info_cxt (function to initialize FmgrInfo)
+  - [SearchSysCache4](../S/SearchSysCache4.md) (function to search system catalogs)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (function to extract catalog attributes)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (function to release catalog tuple)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md) (function to extract OID from datum)
+  - [get_opcode](../g/get_opcode.md) (function to get procedure OID from operator OID)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (function to initialize FmgrInfo)
   - InvalidOid (constant representing invalid OID)
   - RegProcedureIsValid (macro to validate procedure OID)
 
 - Called from (representative examples):
-  - brin_minmax_add_value:99 (for BTLessStrategyNumber comparisons)
-  - brin_minmax_add_value:113 (for BTGreaterStrategyNumber comparisons)
-  - brin_minmax_consistent:162, 174, 181, 188 (for various strategy comparisons)
-  - brin_minmax_union:226, 239 (for min/max comparisons during union operations)
+  - [brin_minmax_add_value](../b/brin_minmax_add_value.md):99 (for BTLessStrategyNumber comparisons)
+  - [brin_minmax_add_value](../b/brin_minmax_add_value.md):113 (for BTGreaterStrategyNumber comparisons)
+  - [brin_minmax_consistent](../b/brin_minmax_consistent.md):162, 174, 181, 188 (for various strategy comparisons)
+  - [brin_minmax_union](../b/brin_minmax_union.md):226, 239 (for min/max comparisons during union operations)
 
 ## Notes and Other Information
 - The function is static and only used within the minmax operator class implementation

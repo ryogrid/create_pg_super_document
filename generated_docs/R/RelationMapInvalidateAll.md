@@ -18,11 +18,11 @@ The  function serves as a comprehensive cache invalidation mechanism when Postgr
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELMAPPER_FILEMAGIC (constant)
-  - load_relmap_file (function)
+  - [load_relmap_file](../l/load_relmap_file.md) (function)
   - shared_map (global variable)
   - local_map (global variable)
 - Called from (representative examples):
-  - RelationCacheInvalidate
+  - [RelationCacheInvalidate](RelationCacheInvalidate.md)
   - MinSizeOfRelmapUpdate (referenced in header)
 
 ## Notes and Other Information

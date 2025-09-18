@@ -21,8 +21,8 @@ Note that this function only retrieves the leftmost node without unlinking it fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (tree structure type)
-  - RBTNode (node structure type)  
+  - [RBTree](../R/RBTree.md) (tree structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)  
   - RBTNIL (sentinel value for null nodes)
 - Called from (representative examples):
   - testleftmost (in test_rbtree.c:393, 400)

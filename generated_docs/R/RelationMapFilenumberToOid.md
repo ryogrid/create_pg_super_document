@@ -24,8 +24,8 @@ This ensures consistency with any uncommitted mapping changes during analysis op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (parameter type)
-  - RelMapFile (structure type used for mapping tables)
+  - [RelFileNumber](RelFileNumber.md) (parameter type)
+  - [RelMapFile](RelMapFile.md) (structure type used for mapping tables)
   - InvalidOid (returned when no mapping is found)
 - Called from (representative examples):
   - RelidByRelfilenumber (relfilenumbermap.c:185, 236)

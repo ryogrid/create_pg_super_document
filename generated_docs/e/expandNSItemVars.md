@@ -31,18 +31,18 @@ This function is particularly important for handling complex query scenarios inv
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeVar (creates basic Var nodes)
-  - markNullableIfNeeded (updates nullability information based on join context)
+  - [markNullableIfNeeded](../m/markNullableIfNeeded.md) (updates nullability information based on join context)
   - lappend (list append operations)
   - strVal (extracts string values)
 - Data structures used:
-  - ParseNamespaceItem, ParseNamespaceColumn (namespace metadata structures)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md), ParseNamespaceColumn (namespace metadata structures)
   - String (PostgreSQL string node type)
   - Var (variable reference nodes)
 - Called from (representative examples):
-  - transformInsertStmt (processing INSERT statements)
-  - ExpandSingleTable (target list expansion)
-  - coerce_record_to_complex (type coercion operations)
-  - expandNSItemAttrs (attribute expansion)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (processing INSERT statements)
+  - [ExpandSingleTable](../E/ExpandSingleTable.md) (target list expansion)
+  - [coerce_record_to_complex](../c/coerce_record_to_complex.md) (type coercion operations)
+  - [expandNSItemAttrs](expandNSItemAttrs.md) (attribute expansion)
 
 ## Notes and Other Information
 - Returns a new list of Var nodes; the list itself is newly allocated but column names (if requested) are pointers to original strings

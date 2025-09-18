@@ -29,14 +29,14 @@ None - this function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGShmemHeader (type)
-  - ShmemAllocUnlocked
-  - slock_t (type)
+  - [PGShmemHeader](../P/PGShmemHeader.md) (type)
+  - [ShmemAllocUnlocked](../S/ShmemAllocUnlocked.md)
+  - [slock_t](../s/slock_t.md) (type)
   - SpinLockInit
   - CACHELINEALIGN (macro)
-  - HTAB (type)
+  - [HTAB](../H/HTAB.md) (type)
 - Called from (representative examples):
-  - CreateSharedMemoryAndSemaphores
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
 
 ## Notes and Other Information
 - Must be called only in postmaster or standalone backend processes, never in child processes

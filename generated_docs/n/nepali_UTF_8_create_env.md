@@ -19,7 +19,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (called with parameters 0, 0)
+  - [SN_create_env](../S/SN_create_env.md) (called with parameters 0, 0)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

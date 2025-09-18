@@ -20,9 +20,9 @@ The function handles several expression types including FieldStore (for record f
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
-  - isAssignmentIndirectionExpr (recursive calls for coercion expressions)
+  - [isAssignmentIndirectionExpr](isAssignmentIndirectionExpr.md) (recursive calls for coercion expressions)
 - Called from (representative examples):
-  - ExecInitSubscriptingRef (to determine if old value fetching is needed)
+  - [ExecInitSubscriptingRef](../E/ExecInitSubscriptingRef.md) (to determine if old value fetching is needed)
 
 ## Notes and Other Information
 - Returns true if the expression needs the old value passed via CaseTestExpr

@@ -21,13 +21,13 @@ src/backend/parser/parse_expr.c: 392 - 437
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidAttrNumber (constant for checking if this is a whole-row reference)
-  - GetRTEByRangeTablePosn (retrieves range table entry information)
+  - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md) (retrieves range table entry information)
   - ISCOMPLEX (macro to check if a type is composite)
   - exprType, format_type_be (type system utilities)
   - ereport, errcode, errmsg, parser_errposition (error reporting system)
 
 - Called from (representative examples):
-  - transformIndirection (when field selection fails during indirection processing)
+  - [transformIndirection](../t/transformIndirection.md) (when field selection fails during indirection processing)
 
 ## Notes and Other Information  
 - This is a static function, only accessible within the parse_expr.c module

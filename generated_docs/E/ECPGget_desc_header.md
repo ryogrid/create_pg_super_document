@@ -22,14 +22,14 @@ The function locates the specified descriptor, validates its existence, and extr
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - sqlca_t
-  - ecpg_raise
+  - [sqlca_t](../s/sqlca_t.md)
+  - [ecpg_raise](../e/ecpg_raise.md)
   - ECPG_OUT_OF_MEMORY
   - ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY
-  - ecpg_init_sqlca
-  - ecpg_result_by_descriptor
-  - PQnfields
-  - ecpg_log
+  - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md)
+  - [ecpg_result_by_descriptor](../e/ecpg_result_by_descriptor.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [ecpg_log](../e/ecpg_log.md)
 - Called from (representative examples):
   - Various test programs in ECPG test suite
   - SQL DESCRIBE statement implementations

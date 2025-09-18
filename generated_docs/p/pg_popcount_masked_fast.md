@@ -21,13 +21,13 @@ This function provides a fast implementation for counting the number of 1-bits i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_popcount64_fast (for 64-bit masked chunk processing)
-  - pg_popcount32_fast (for 32-bit masked chunk processing)
+  - [pg_popcount64_fast](pg_popcount64_fast.md) (for 64-bit masked chunk processing)
+  - [pg_popcount32_fast](pg_popcount32_fast.md) (for 32-bit masked chunk processing)
   - TYPEALIGN (for alignment checking)
   - pg_number_of_ones (lookup table for remaining masked bytes)
   - UINT64CONST (for 64-bit constant generation)
 - Called from (representative examples):
-  - choose_popcount_functions
+  - [choose_popcount_functions](../c/choose_popcount_functions.md)
 
 ## Notes and Other Information
 - Creates platform-specific mask expansion: 64-bit masks on 64-bit platforms, 32-bit masks on 32-bit platforms

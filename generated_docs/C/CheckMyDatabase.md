@@ -28,22 +28,22 @@ The function supports different locale providers (builtin, ICU, libc) and handle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1/ReleaseSysCache (for pg_database lookup)
-  - ObjectIdGetDatum/NameStr (for data conversion)
-  - object_aclcheck (for privilege checking)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache (for pg_database lookup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)/NameStr (for data conversion)
+  - [object_aclcheck](../o/object_aclcheck.md) (for privilege checking)
   - AmRegularBackendProcess/CountDBConnections (for connection limit checks)
-  - SetDatabaseEncoding/GetDatabaseEncodingName (for encoding setup)
-  - SetConfigOption (for GUC configuration)
-  - SysCacheGetAttrNotNull/SysCacheGetAttr (for attribute retrieval)
+  - [SetDatabaseEncoding](../S/SetDatabaseEncoding.md)/GetDatabaseEncodingName (for encoding setup)
+  - [SetConfigOption](../S/SetConfigOption.md) (for GUC configuration)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)/SysCacheGetAttr (for attribute retrieval)
   - TextDatumGetCString (for text conversion)
-  - pg_perm_setlocale (for locale setting)
-  - builtin_validate_locale (for builtin locale validation)
-  - make_icu_collator (for ICU collation setup)
-  - get_collation_actual_version (for version checking)
-  - MemoryContextStrdup (for memory management)
-  - quote_identifier (for error message formatting)
+  - [pg_perm_setlocale](../p/pg_perm_setlocale.md) (for locale setting)
+  - [builtin_validate_locale](../b/builtin_validate_locale.md) (for builtin locale validation)
+  - [make_icu_collator](../m/make_icu_collator.md) (for ICU collation setup)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md) (for version checking)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (for memory management)
+  - [quote_identifier](../q/quote_identifier.md) (for error message formatting)
 - Called from:
-  - InitPostgres (src/backend/utils/init/postinit.c:1206)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:1206)
 
 ## Notes and Other Information
 - This is a static function, only accessible within postinit.c

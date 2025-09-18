@@ -21,8 +21,8 @@ This static function handles progress tracking for incoming archive content data
   - bbsink_state (state structure type)
   - PROGRESS_BASEBACKUP_BACKUP_STREAMED (progress parameter constant)
   - PROGRESS_BASEBACKUP_BACKUP_TOTAL (progress parameter constant)  
-  - bbsink_forward_archive_contents (forwarding function)
-  - pgstat_progress_update_multi_param (progress update function)
+  - [bbsink_forward_archive_contents](bbsink_forward_archive_contents.md) (forwarding function)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md) (progress update function)
 - Called from (representative examples):
   - This is a static function, typically called through function pointers in the bbsink operations structure
 

@@ -23,14 +23,14 @@ The function performs two main operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - INIT_SLRUFILETAG (macro to initialize file tag)
-  - RegisterSyncRequest (to forget pending sync requests)
-  - SlruFileName (to construct the segment file path)
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md) (to forget pending sync requests)
+  - [SlruFileName](SlruFileName.md) (to construct the segment file path)
   - ereport (for debug logging)
   - unlink (system call to delete the file)
 - Called from (representative examples):
-  - SlruDeleteSegment
-  - SlruScanDirCbDeleteCutoff
-  - SlruScanDirCbDeleteAll
+  - [SlruDeleteSegment](SlruDeleteSegment.md)
+  - [SlruScanDirCbDeleteCutoff](SlruScanDirCbDeleteCutoff.md)
+  - [SlruScanDirCbDeleteAll](SlruScanDirCbDeleteAll.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside slru.c

@@ -29,11 +29,11 @@ Note that this function only affects non-blocking API operations; it does not pr
 - Functions called/Symbols referenced:
   - CONNECTION_BAD (connection status constant)
   - pqClearConnErrorState (clears connection error state)
-  - pqFlush (flushes pending data)
+  - [pqFlush](../p/pqFlush.md) (flushes pending data)
 - Called from (representative examples):
-  - test_cancel (in libpq_pipeline test module)
-  - test_pipelined_insert (in libpq_pipeline test module)
-  - test_uniqviol (in libpq_pipeline test module)
+  - [test_cancel](../t/test_cancel.md) (in libpq_pipeline test module)
+  - [test_pipelined_insert](../t/test_pipelined_insert.md) (in libpq_pipeline test module)
+  - [test_uniqviol](../t/test_uniqviol.md) (in libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

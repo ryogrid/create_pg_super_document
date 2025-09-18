@@ -29,10 +29,10 @@ The final step converts the broken-down components into PostgreSQL's internal ti
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
   - PG_GET_COLLATION  
-  - do_to_timestamp (core parsing engine)
+  - [do_to_timestamp](../d/do_to_timestamp.md) (core parsing engine)
   - DetermineTimeZoneOffset
-  - tm2timestamp (converts broken-down time to timestamp)
-  - AdjustTimestampForTypmod (applies fractional precision)
+  - [tm2timestamp](tm2timestamp.md) (converts broken-down time to timestamp)
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md) (applies fractional precision)
   - PG_RETURN_TIMESTAMP
 - Called from (representative examples):
   - SQL queries using to_timestamp() function

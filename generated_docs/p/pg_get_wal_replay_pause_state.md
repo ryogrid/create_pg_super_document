@@ -26,8 +26,8 @@ The function first validates that the database is in recovery mode, then uses Ge
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress: Checks if database is in recovery mode
-  - GetRecoveryPauseState: Retrieves the current recovery pause state
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if database is in recovery mode
+  - [GetRecoveryPauseState](../G/GetRecoveryPauseState.md): Retrieves the current recovery pause state
   - RECOVERY_NOT_PAUSED: Constant for normal (not paused) state
   - RECOVERY_PAUSE_REQUESTED: Constant for pause requested but not yet active
   - RECOVERY_PAUSED: Constant for active pause state

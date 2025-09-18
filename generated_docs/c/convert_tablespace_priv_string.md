@@ -19,16 +19,16 @@ This function converts human-readable privilege strings into the internal AclMod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string
+  - [convert_any_priv_string](convert_any_priv_string.md)
   - ACL_CREATE
   - ACL_GRANT_OPTION_FOR
 - Called from (representative examples):
-  - has_tablespace_privilege_name_name
-  - has_tablespace_privilege_name
-  - has_tablespace_privilege_name_id
-  - has_tablespace_privilege_id
-  - has_tablespace_privilege_id_name
-  - has_tablespace_privilege_id_id
+  - [has_tablespace_privilege_name_name](../h/has_tablespace_privilege_name_name.md)
+  - [has_tablespace_privilege_name](../h/has_tablespace_privilege_name.md)
+  - [has_tablespace_privilege_name_id](../h/has_tablespace_privilege_name_id.md)
+  - [has_tablespace_privilege_id](../h/has_tablespace_privilege_id.md)
+  - [has_tablespace_privilege_id_name](../h/has_tablespace_privilege_id_name.md)
+  - [has_tablespace_privilege_id_id](../h/has_tablespace_privilege_id_id.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the acl.c compilation unit

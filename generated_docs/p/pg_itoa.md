@@ -20,10 +20,10 @@ The function writes the string representation directly to the provided buffer an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ltoa (casts input to int32 and delegates conversion)
+  - [pg_ltoa](pg_ltoa.md) (casts input to int32 and delegates conversion)
 - Called from (representative examples):
-  - int2out (converts int16 to string for output)
-  - int2vectorout (converts int16 vector to string representation)
+  - [int2out](../i/int2out.md) (converts int16 to string for output)
+  - [int2vectorout](../i/int2vectorout.md) (converts int16 vector to string representation)
   - LogicalTapeSetCreate (for tape numbering in sort operations)
   - LogicalTapeImport (for tape identification in sort operations)
 

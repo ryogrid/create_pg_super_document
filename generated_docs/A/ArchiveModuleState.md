@@ -21,13 +21,13 @@ The structure is designed to be opaque to the PostgreSQL core system while provi
 - Functions called/Symbols referenced:
   - None (simple data structure)
 - Called from (representative examples):
-  - shell_archive_configured (src/backend/archive/shell_archive.c:46)
-  - shell_archive_file (src/backend/archive/shell_archive.c:57)
-  - shell_archive_shutdown (src/backend/archive/shell_archive.c:139)
-  - LoadArchiveLibrary (src/backend/postmaster/pgarch.c:942)
+  - [shell_archive_configured](../s/shell_archive_configured.md) (src/backend/archive/shell_archive.c:46)
+  - [shell_archive_file](../s/shell_archive_file.md) (src/backend/archive/shell_archive.c:57)
+  - [shell_archive_shutdown](../s/shell_archive_shutdown.md) (src/backend/archive/shell_archive.c:139)
+  - [LoadArchiveLibrary](../L/LoadArchiveLibrary.md) (src/backend/postmaster/pgarch.c:942)
 
 ## Notes and Other Information
 - This structure is defined in src/include/archive/archive_module.h:20-28
 - The structure is intentionally minimal and generic to provide maximum flexibility for different types of archive modules
-- Archive modules are responsible for managing the lifecycle of any data pointed to by private_data
+- [Archive](Archive.md) modules are responsible for managing the lifecycle of any data pointed to by private_data
 - The structure is passed as a parameter to all archive module callback functions defined in ArchiveModuleCallbacks

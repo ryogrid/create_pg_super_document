@@ -31,7 +31,7 @@ This implementation ensures consistent whitespace handling across the ECPG prepr
   - None (uses only basic character comparisons)
 
 - Called from (representative examples):
-  - `check_uescapechar`: Used during Unicode escape character validation in the ECPG preprocessor
+  - `[check_uescapechar](../c/check_uescapechar.md)`: Used during Unicode escape character validation in the ECPG preprocessor
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within the same compilation unit

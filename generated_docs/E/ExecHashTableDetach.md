@@ -23,12 +23,12 @@ After detachment, the function nullifies the parallel state reference, effective
 - Functions called/Symbols referenced:
   - BarrierPhase
   - BarrierArriveAndDetach
-  - sts_end_write
-  - sts_end_parallel_scan
+  - [sts_end_write](../s/sts_end_write.md)
+  - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)
   - DsaPointerIsValid
-  - dsa_free
+  - [dsa_free](../d/dsa_free.md)
 - Data types used:
-  - HashJoinTable
+  - [HashJoinTable](../H/HashJoinTable.md)
   - ParallelHashJoinState
 - Phase constants:
   - PHJ_BUILD_RUN

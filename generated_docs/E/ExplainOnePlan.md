@@ -34,24 +34,24 @@ The function is exported for use by prepare.c in EXPLAIN EXECUTE scenarios and f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateQueryDesc
-  - ExecutorStart
-  - ExecutorRun  
-  - ExecutorFinish
-  - ExecutorEnd
-  - ExplainPrintPlan
-  - ExplainPrintTriggers
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
+  - [ExecutorStart](ExecutorStart.md)
+  - [ExecutorRun](ExecutorRun.md)  
+  - [ExecutorFinish](ExecutorFinish.md)
+  - [ExecutorEnd](ExecutorEnd.md)
+  - [ExplainPrintPlan](ExplainPrintPlan.md)
+  - [ExplainPrintTriggers](ExplainPrintTriggers.md)
   - ExplainPrintJITSummary
   - ExplainPrintSerialize
-  - CreateIntoRelDestReceiver
-  - CreateExplainSerializeDestReceiver
+  - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md)
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
   - PushCopiedSnapshot
   - GetActiveSnapshot
   - UpdateActiveSnapshotCommandId
-  - elapsed_time
+  - [elapsed_time](../e/elapsed_time.md)
 - Called from (representative examples):
-  - standard_ExplainOneQuery
-  - ExplainExecuteQuery
+  - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md)
+  - [ExplainExecuteQuery](ExplainExecuteQuery.md)
 
 ## Notes and Other Information
 - The function always collects timing for the entire statement regardless of node-level timing settings

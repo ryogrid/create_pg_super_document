@@ -21,11 +21,11 @@ The function first validates that the Var is indeed from an outer level, then ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - Param (node structure)
-  - assign_param_for_var (to get parameter ID)
+  - [assign_param_for_var](../a/assign_param_for_var.md) (to get parameter ID)
   - makeNode (node creation)
   - PARAM_EXEC (parameter type constant)
 - Called from (representative examples):
-  - replace_correlation_vars_mutator
+  - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md)
   - PARAMASSIGN_H (header file reference)
 
 ## Notes and Other Information

@@ -23,23 +23,23 @@ The `populate_recordset_worker` function is the central implementation for all J
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_record_type_from_argument
-  - get_record_type_from_query
-  - update_cached_tupdesc
+  - [get_record_type_from_argument](../g/get_record_type_from_argument.md)
+  - [get_record_type_from_query](../g/get_record_type_from_query.md)
+  - [update_cached_tupdesc](../u/update_cached_tupdesc.md)
   - tuplestore_begin_heap
-  - makeJsonLexContext
-  - populate_recordset_array_start (and other JSON parsing callbacks)
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
+  - [populate_recordset_array_start](populate_recordset_array_start.md) (and other JSON parsing callbacks)
   - pg_parse_json_or_ereport
   - freeJsonLexContext
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - populate_recordset_record
-  - CreateTupleDescCopy
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [populate_recordset_record](populate_recordset_record.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
 - Called from (representative examples):
-  - jsonb_to_recordset
-  - json_populate_recordset
-  - json_to_recordset
-  - jsonb_populate_recordset
+  - [jsonb_to_recordset](../j/jsonb_to_recordset.md)
+  - [json_populate_recordset](../j/json_populate_recordset.md)
+  - [json_to_recordset](../j/json_to_recordset.md)
+  - [jsonb_populate_recordset](../j/jsonb_populate_recordset.md)
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/jsonfuncs.c:4039-4212

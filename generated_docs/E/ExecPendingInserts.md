@@ -29,13 +29,13 @@ This design optimizes performance for foreign tables by reducing the number of r
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth (macro for simultaneous list traversal)
-  - ExecBatchInsert (performs the actual batch insertion)
-  - list_free (memory management)
+  - [ExecBatchInsert](ExecBatchInsert.md) (performs the actual batch insertion)
+  - [list_free](../l/list_free.md) (memory management)
 - Called from (representative examples):
-  - ExecInsert (before executing BEFORE ROW triggers)
-  - ExecDeletePrologue (before processing deletes)
-  - ExecUpdatePrologue (before processing updates)
-  - ExecModifyTable (at statement completion)
+  - [ExecInsert](ExecInsert.md) (before executing BEFORE ROW triggers)
+  - [ExecDeletePrologue](ExecDeletePrologue.md) (before processing deletes)
+  - [ExecUpdatePrologue](ExecUpdatePrologue.md) (before processing updates)
+  - [ExecModifyTable](ExecModifyTable.md) (at statement completion)
 
 ## Notes and Other Information
 - Only processes foreign table batches - regular tables don't use this mechanism

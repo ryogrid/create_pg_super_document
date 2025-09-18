@@ -30,14 +30,14 @@ The file_entry_t structure is a comprehensive representation of file information
 ## Dependencies
 - Functions called/Symbols referenced:
   - file_type_t (enum for file types)
-  - datapagemap_t (structure for tracking modified pages)
+  - [datapagemap_t](../d/datapagemap_t.md) (structure for tracking modified pages)
   - file_action_t (enum for file actions)
 - Called from (representative examples):
-  - insert_filehash_entry (creates and initializes file entries)
-  - process_source_file (populates source information)
-  - process_target_file (populates target information)
-  - decide_file_action (determines the action to take)
-  - perform_rewind (executes actions on file entries)
+  - [insert_filehash_entry](../i/insert_filehash_entry.md) (creates and initializes file entries)
+  - [process_source_file](../p/process_source_file.md) (populates source information)
+  - [process_target_file](../p/process_target_file.md) (populates target information)
+  - [decide_file_action](../d/decide_file_action.md) (determines the action to take)
+  - [perform_rewind](../p/perform_rewind.md) (executes actions on file entries)
 
 ## Notes and Other Information
 This structure is central to pg_rewind's operation, serving as the primary data structure for tracking file differences between PostgreSQL clusters. It's initially stored in hash tables during information gathering, then sorted into arrays for action execution. The structure efficiently handles different file types including regular files, directories, and symbolic links, with special handling for relation files that may require page-level synchronization.

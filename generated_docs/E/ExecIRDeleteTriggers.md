@@ -23,12 +23,12 @@ INSTEAD OF triggers are commonly used to make views updatable by defining custom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetTriggerOldSlot
-  - ExecForceStoreHeapTuple
-  - ExecCallTriggerFunc
-  - TriggerEnabled
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Data types referenced:
   - TriggerDesc
   - TriggerData
@@ -42,8 +42,8 @@ INSTEAD OF triggers are commonly used to make views updatable by defining custom
 - Macros used:
   - TRIGGER_TYPE_MATCHES
 - Called from (representative examples):
-  - ExecDelete
-  - ExecMergeMatched
+  - [ExecDelete](ExecDelete.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
 
 ## Notes and Other Information
 - Only applies to views with INSTEAD OF DELETE triggers, not regular tables

@@ -22,12 +22,12 @@ The parsing process relies on the nodeRead function from readfuncs.c, which hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeRead
+  - [nodeRead](../n/nodeRead.md)
   - pg_strtok_ptr (global variable)
   - restore_location_fields (conditional, debug builds only)
 - Called from (representative examples):
-  - stringToNode
-  - stringToNodeWithLocations
+  - [stringToNode](stringToNode.md)
+  - [stringToNodeWithLocations](stringToNodeWithLocations.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/nodes/read.c

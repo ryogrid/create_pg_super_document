@@ -32,14 +32,14 @@ It handles negative years by treating them as BC (Before Christ) dates and conve
 - Functions called/Symbols referenced:
   - ValidateDate
   - IS_VALID_JULIAN
-  - date2j
-  - float_time_overflows
+  - [date2j](../d/date2j.md)
+  - [float_time_overflows](../f/float_time_overflows.md)
   - IS_VALID_TIMESTAMP
   - Constants: DTK_DATE_M, POSTGRES_EPOCH_JDATE, MINS_PER_HOUR, SECS_PER_MINUTE, USECS_PER_SEC, USECS_PER_DAY
 - Called from:
-  - make_timestamp
-  - make_timestamptz
-  - make_timestamptz_at_timezone
+  - [make_timestamp](make_timestamp.md)
+  - [make_timestamptz](make_timestamptz.md)
+  - [make_timestamptz_at_timezone](make_timestamptz_at_timezone.md)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside of timestamp.c

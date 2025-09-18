@@ -22,7 +22,7 @@ This function provides formatted string appending specifically designed for Post
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro (used for efficient character appending)
 - Called from (representative examples):
-  - send_message_to_server_log (multiple locations for formatting various message components like detail, hint, context, and other error fields)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md) (multiple locations for formatting various message components like detail, hint, context, and other error fields)
 
 ## Notes and Other Information
 This function is specifically designed for server-side logging and is extensively used by send_message_to_server_log to ensure consistent formatting of multi-line error message components. The automatic tab insertion after newlines creates a visually hierarchical structure in log files, making it easier to distinguish between different parts of error messages and to parse log entries manually or programmatically.

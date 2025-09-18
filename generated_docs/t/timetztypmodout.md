@@ -20,7 +20,7 @@ The function takes a numeric type modifier (typically representing precision) an
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32: Extracts the type modifier value from function args
-  - anytime_typmodout: Common formatting logic for TIME/TIMETZ type modifiers (called with istz=true)
+  - [anytime_typmodout](../a/anytime_typmodout.md): Common formatting logic for TIME/TIMETZ type modifiers (called with istz=true)
   - PG_RETURN_CSTRING: Returns the formatted string representation
 - Called from (representative examples):
   - PostgreSQL system catalog functions

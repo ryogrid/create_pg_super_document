@@ -21,11 +21,11 @@ The function attempts to load the timezone using  and performs additional valida
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tzset
-  - pg_tz_acceptable  
+  - [pg_tzset](../p/pg_tzset.md)
+  - [pg_tz_acceptable](../p/pg_tz_acceptable.md)  
   - GUC_check_errmsg
   - GUC_check_errdetail
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - PostgreSQL GUC system (via function pointer in GUC_HOOKS_H)
 

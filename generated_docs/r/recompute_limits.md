@@ -25,13 +25,13 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalExprSwitchContext (evaluates LIMIT/OFFSET expressions)
-  - DatumGetInt64 (extracts int64 values from expression results)
-  - ExecSetTupleBound (notifies child about required tuple count)
-  - compute_tuples_needed (calculates optimal tuple bound for child)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (extracts int64 values from expression results)
+  - [ExecSetTupleBound](../E/ExecSetTupleBound.md) (notifies child about required tuple count)
+  - [compute_tuples_needed](../c/compute_tuples_needed.md) (calculates optimal tuple bound for child)
   - outerPlanState (accesses child plan state)
 - Called from (representative examples):
-  - ExecLimit (during LIMIT_INITIAL state)
-  - ExecReScanLimit (when rescanning the limit node)
+  - [ExecLimit](../E/ExecLimit.md) (during LIMIT_INITIAL state)
+  - [ExecReScanLimit](../E/ExecReScanLimit.md) (when rescanning the limit node)
 
 ## Notes and Other Information
 - Handles parameterized queries where LIMIT/OFFSET values may change between executions

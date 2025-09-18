@@ -26,16 +26,16 @@ Each SPELL entry is allocated with enough space for the header (`SPELLHDRSZ`) pl
 ## Dependencies
 - Functions called/Symbols referenced:
   - IspellDict (structure type)
-  - SPELL (structure type for word entries)
-  - repalloc (PostgreSQL memory reallocation function)
+  - [SPELL](../S/SPELL.md) (structure type for word entries)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation function)
   - tmpalloc (PostgreSQL temporary memory allocation function)
   - SPELLHDRSZ (constant for SPELL structure header size)
   - strcpy (standard C library function)
   - strlen (standard C library function)
-  - cpstrdup (custom string duplication function)
+  - [cpstrdup](../c/cpstrdup.md) (custom string duplication function)
   - VoidString (constant for empty string representation)
 - Called from (representative examples):
-  - NIImportDictionary
+  - [NIImportDictionary](NIImportDictionary.md)
 
 ## Notes and Other Information
 - Dynamically grows the Spell array as needed using a doubling strategy

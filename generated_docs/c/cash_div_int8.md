@@ -23,7 +23,7 @@ This function implements the division operation between a PostgreSQL Cash value 
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Extracts Cash argument from function call context
   - PG_GETARG_INT64: Extracts int64 argument from function call context
-  - cash_div_int64: Performs the actual safe division with division-by-zero checking
+  - [cash_div_int64](cash_div_int64.md): Performs the actual safe division with division-by-zero checking
   - PG_RETURN_CASH: Returns the computed Cash result
 - Called from:
   - SQL operator implementations for money / bigint operations

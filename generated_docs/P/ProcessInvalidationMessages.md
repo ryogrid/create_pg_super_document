@@ -26,12 +26,12 @@ The function uses the ProcessMessageSubGroup macro to iterate through each messa
   - CatCacheMsgs (catalog cache message subgroup identifier)
   - RelCacheMsgs (relation cache message subgroup identifier)
 - Types referenced:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
 - Called from:
-  - AtEOXact_Inval (during transaction end processing)
-  - AtEOSubXact_Inval (during subtransaction end processing)
-  - CommandEndInvalidationMessages (during command completion)
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md) (during transaction end processing)
+  - [AtEOSubXact_Inval](../A/AtEOSubXact_Inval.md) (during subtransaction end processing)
+  - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md) (during command completion)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c module

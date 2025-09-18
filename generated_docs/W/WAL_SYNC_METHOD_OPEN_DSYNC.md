@@ -19,9 +19,9 @@ This is an enum constant with no parameters or member variables.
 - Functions called/Symbols referenced:
   - None (enum constant)
 - Called from (representative examples):
-  - get_sync_bit (src/backend/access/transam/xlog.c:8643)
-  - issue_xlog_fsync (src/backend/access/transam/xlog.c:8712)
-  - issue_xlog_fsync (src/backend/access/transam/xlog.c:8739)
+  - [get_sync_bit](../g/get_sync_bit.md) (src/backend/access/transam/xlog.c:8643)
+  - [issue_xlog_fsync](../i/issue_xlog_fsync.md) (src/backend/access/transam/xlog.c:8712)
+  - [issue_xlog_fsync](../i/issue_xlog_fsync.md) (src/backend/access/transam/xlog.c:8739)
   - DEFAULT_WAL_SYNC_METHOD (src/include/access/xlogdefs.h:77)
 
 ## Notes and Other Information

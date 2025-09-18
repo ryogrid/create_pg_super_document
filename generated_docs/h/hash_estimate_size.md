@@ -22,15 +22,15 @@ The calculation considers the dynamic growth patterns of hash tables, estimating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - next_pow2_long (calculates next power of two for bucket and segment sizing)
-  - choose_nelem_alloc (determines optimal element allocation group size)
-  - add_size, mul_size (safe arithmetic operations for size calculations)
+  - [next_pow2_long](../n/next_pow2_long.md) (calculates next power of two for bucket and segment sizing)
+  - [choose_nelem_alloc](../c/choose_nelem_alloc.md) (determines optimal element allocation group size)
+  - [add_size](../a/add_size.md), mul_size (safe arithmetic operations for size calculations)
   - MAXALIGN (aligns sizes to proper boundaries)
 - Called from (representative examples):
-  - BufTableShmemSize (buffer table shared memory sizing)
-  - LockShmemSize (lock manager shared memory sizing)
-  - CalculateShmemSize (overall shared memory calculation)
-  - PredicateLockShmemSize (predicate lock shared memory sizing)
+  - [BufTableShmemSize](../B/BufTableShmemSize.md) (buffer table shared memory sizing)
+  - [LockShmemSize](../L/LockShmemSize.md) (lock manager shared memory sizing)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (overall shared memory calculation)
+  - [PredicateLockShmemSize](../P/PredicateLockShmemSize.md) (predicate lock shared memory sizing)
 
 ## Notes and Other Information
 - Designed specifically for shared memory hashtables - does not count local HTAB structure

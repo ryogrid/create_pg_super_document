@@ -21,7 +21,7 @@ This function takes no parameters.
   - elog() (PostgreSQL logging)
   - PLy_ResultType (static type object)
 - Called from (representative examples):
-  - PLy_init_plpy() at src/pl/plpython/plpy_plpymodule.c:153
+  - [PLy_init_plpy](PLy_init_plpy.md)() at src/pl/plpython/plpy_plpymodule.c:153
 
 ## Notes and Other Information
 - This function must be called during PL/Python initialization before any PLyResult objects can be created

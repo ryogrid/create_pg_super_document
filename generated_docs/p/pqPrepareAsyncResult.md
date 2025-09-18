@@ -30,16 +30,16 @@ The function implements sophisticated error text tracking to avoid showing dupli
 ## Dependencies
 - Functions called/Symbols referenced:
   - PGRES_FATAL_ERROR (result status constant for fatal errors)
-  - PQmakeEmptyPGresult (creates new empty result structures)
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md) (creates new empty result structures)
   - PGRES_EMPTY_QUERY (temporary result status during creation)
-  - pqSetResultError (sets error information in result objects)
+  - [pqSetResultError](pqSetResultError.md) (sets error information in result objects)
   - unconstify (macro for casting away const qualifiers)
-  - libpq_append_conn_error (appends error messages to connection)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (appends error messages to connection)
 
 - Called from (representative examples):
-  - PQgetResult (multiple locations during result retrieval)
-  - getCopyResult (during COPY operation result handling)
-  - pqFunctionCall3 (during function call result processing)
+  - [PQgetResult](../P/PQgetResult.md) (multiple locations during result retrieval)
+  - [getCopyResult](../g/getCopyResult.md) (during COPY operation result handling)
+  - [pqFunctionCall3](pqFunctionCall3.md) (during function call result processing)
 
 ## Notes and Other Information
 - **Internal function**: This is an internal libpq function, not part of the public API

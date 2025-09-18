@@ -23,16 +23,16 @@ VarString inherits all members from :
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (base structure)
+  - [varlena](../v/varlena.md) (base structure)
 - Called from (representative examples):
   - DatumGetVarStringP
   - DatumGetVarStringPP
-  - varstrfastcmp_c
-  - varlenafastcmp_locale
-  - varstr_abbrev_convert
+  - [varstrfastcmp_c](../v/varstrfastcmp_c.md)
+  - [varlenafastcmp_locale](../v/varlenafastcmp_locale.md)
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
 
 ## Notes and Other Information
-- VarString should be handled using PostgreSQL's standard varlena macros (VARDATA, VARSIZE, SET_VARSIZE, etc.) rather than direct field access
+- [VarString](VarString.md) should be handled using PostgreSQL's standard varlena macros (VARDATA, VARSIZE, SET_VARSIZE, etc.) rather than direct field access
 - The type supports TOAST operations for handling large string values
 - This typedef provides semantic clarity in function signatures and variable declarations when working specifically with string data
 - The actual string content can be accessed via VARDATA() macro, and the total size via VARSIZE() macro

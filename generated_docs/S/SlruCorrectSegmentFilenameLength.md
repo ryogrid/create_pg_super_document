@@ -22,7 +22,7 @@ SlruCorrectSegmentFilenameLength is an internal validation function used by Slru
 - Functions called/Symbols referenced:
   - (none - uses only standard length comparisons)
 - Called from (representative examples):
-  - SlruScanDirectory
+  - [SlruScanDirectory](SlruScanDirectory.md)
 
 ## Notes and Other Information
 - Supports both legacy (4,5,6 character) and modern (15 character) SLRU filename lengths

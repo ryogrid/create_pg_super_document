@@ -19,19 +19,19 @@ This function is responsible for restoring the complete state of a backend proce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - memcpy
-  - read_inheritable_socket
-  - SetDataDir
+  - [read_inheritable_socket](read_inheritable_socket.md)
+  - [SetDataDir](../S/SetDataDir.md)
   - strlcpy
   - ReserveExternalFD (Unix/Linux only)
-  - BackendParameters (structure type)
-  - ClientSocket (structure type)
+  - [BackendParameters](../B/BackendParameters.md) (structure type)
+  - [ClientSocket](../C/ClientSocket.md) (structure type)
   - PGINVALID_SOCKET (constant)
   - TopMemoryContext (global variable)
   - MAXPGPATH (constant)
 - Called from (representative examples):
-  - read_backend_variables
+  - [read_backend_variables](read_backend_variables.md)
   - SizeOfBackendParameters
 
 ## Notes and Other Information

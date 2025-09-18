@@ -21,13 +21,13 @@ The function creates a new Point structure and populates it with coordinates fro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc`: Memory allocation for creating new point and entry structures
-  - `DatumGetBoxP`: Extracts bounding box data from the entry's key
+  - `[palloc](../p/palloc.md)`: Memory allocation for creating new point and entry structures
+  - `[DatumGetBoxP](../D/DatumGetBoxP.md)`: Extracts bounding box data from the entry's key
   - `gistentryinit`: Initializes a new GiST entry with the fetched point data
-  - `PointerGetDatum`: Converts point pointer to Datum for storage
-  - `GISTENTRY`: GiST entry structure type
-  - `BOX`: Bounding box structure type
-  - `Point`: Point coordinate structure type
+  - `[PointerGetDatum](../P/PointerGetDatum.md)`: Converts point pointer to Datum for storage
+  - `[GISTENTRY](../G/GISTENTRY.md)`: GiST entry structure type
+  - `[BOX](../B/BOX.md)`: Bounding box structure type
+  - `[Point](../P/Point.md)`: Point coordinate structure type
 - Called from (representative examples):
   - Referenced by GiST access method during index scan operations (no direct references found in codebase)
 

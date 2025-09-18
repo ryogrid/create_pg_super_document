@@ -30,7 +30,7 @@ The function returns the number of bytes in the valid UTF-8 sequence (1-4) or -1
 - Functions called/Symbols referenced:
   - None (uses only bitwise operations and arithmetic)
 - Called from (representative examples):
-  - mb_utf_validate
+  - [mb_utf_validate](../m/mb_utf_validate.md)
 
 ## Notes and Other Information
 - Implements strict Unicode 3.1 validation rules

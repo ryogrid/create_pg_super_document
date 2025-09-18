@@ -21,15 +21,15 @@ If the receiver starts successfully, the function clears the WalReceiverRequeste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartChildProcess (creates the WAL receiver process)
-- Variables referenced:
+  - [StartChildProcess](../S/StartChildProcess.md) (creates the WAL receiver process)
+- [Variables](../V/Variables.md) referenced:
   - WalReceiverPID (tracks current receiver process ID)
   - pmState (postmaster state - checked against PM_STARTUP, PM_RECOVERY, PM_HOT_STANDBY)  
   - Shutdown (shutdown state - compared with SmartShutdown)
   - WalReceiverRequested (flag indicating receiver startup was requested)
 - Called from (representative examples):
-  - ServerLoop (main postmaster loop for regular checks)
-  - process_pm_pmsignal (signal handler for receiver startup requests)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster loop for regular checks)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md) (signal handler for receiver startup requests)
 
 ## Notes and Other Information
 - Implements race condition prevention by allowing potential extra receiver launches

@@ -27,14 +27,14 @@ The function transforms each target entry in the plan's targetlist to reference 
   - OUTER_VAR (special varno for referencing outer plan)
   - exprType
   - exprTypmod  
-  - exprCollation
-  - flatCopyTargetEntry
+  - [exprCollation](../e/exprCollation.md)
+  - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
 - Called from (representative examples):
   - fix_scan_list (src/backend/optimizer/plan/setrefs.c:167)
-  - set_plan_refs (multiple calls for different plan types)
-  - set_append_references (src/backend/optimizer/plan/setrefs.c:1781)
-  - set_mergeappend_references (src/backend/optimizer/plan/setrefs.c:1863)
-  - set_hash_references (src/backend/optimizer/plan/setrefs.c:1923)
+  - [set_plan_refs](set_plan_refs.md) (multiple calls for different plan types)
+  - [set_append_references](set_append_references.md) (src/backend/optimizer/plan/setrefs.c:1781)
+  - [set_mergeappend_references](set_mergeappend_references.md) (src/backend/optimizer/plan/setrefs.c:1863)
+  - [set_hash_references](set_hash_references.md) (src/backend/optimizer/plan/setrefs.c:1923)
 
 ## Notes and Other Information
 - Specifically designed for plan nodes that don't evaluate their targetlists (Sort, Append, etc.)

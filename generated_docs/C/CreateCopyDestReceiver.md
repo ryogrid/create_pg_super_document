@@ -30,17 +30,17 @@ This function takes no parameters. The returned DR_copy structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - copy_dest_receive (tuple processing callback)
-  - copy_dest_startup (startup callback)
-  - copy_dest_shutdown (shutdown callback)  
-  - copy_dest_destroy (cleanup callback)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [copy_dest_receive](../c/copy_dest_receive.md) (tuple processing callback)
+  - [copy_dest_startup](../c/copy_dest_startup.md) (startup callback)
+  - [copy_dest_shutdown](../c/copy_dest_shutdown.md) (shutdown callback)  
+  - [copy_dest_destroy](../c/copy_dest_destroy.md) (cleanup callback)
   - DestCopyOut (destination type constant)
   - DR_copy (structure type)
   - DestReceiver (base structure type)
 
 - Called from (representative examples):
-  - CreateDestReceiver (in dest.c:145 - general destination receiver factory)
+  - [CreateDestReceiver](CreateDestReceiver.md) (in dest.c:145 - general destination receiver factory)
   - Referenced in CopyToState (in copy.h:114 - COPY operation state)
 
 ## Notes and Other Information

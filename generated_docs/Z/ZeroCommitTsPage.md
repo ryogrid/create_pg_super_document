@@ -22,13 +22,13 @@ The function assumes that the commit timestamp control lock is already held by t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruZeroPage
-  - WriteZeroPageXlogRec
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md)
+  - [WriteZeroPageXlogRec](../W/WriteZeroPageXlogRec.md)
   - CommitTsCtl
 - Called from (representative examples):
-  - ActivateCommitTs
-  - ExtendCommitTs  
-  - commit_ts_redo
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
+  - [ExtendCommitTs](../E/ExtendCommitTs.md)  
+  - [commit_ts_redo](../c/commit_ts_redo.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the commit_ts.c module

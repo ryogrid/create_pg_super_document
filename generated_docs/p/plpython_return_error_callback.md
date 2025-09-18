@@ -19,11 +19,11 @@ This callback function is registered with PostgreSQL's error handling system to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context (gets current PLpython execution context)
+  - [PLy_current_execution_context](../P/PLy_current_execution_context.md) (gets current PLpython execution context)
   - errcontext (PostgreSQL error context reporting function)
-  - PLyExecutionContext (execution context structure type)
+  - [PLyExecutionContext](../P/PLyExecutionContext.md) (execution context structure type)
 - Called from (representative examples):
-  - PLy_exec_function (registered as error callback at src/pl/plpython/plpy_exec.c:194)
+  - [PLy_exec_function](../P/PLy_exec_function.md) (registered as error callback at src/pl/plpython/plpy_exec.c:194)
 
 ## Notes and Other Information
 - This is a static function internal to plpy_exec.c

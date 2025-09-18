@@ -20,9 +20,9 @@ The function handles two scenarios: when a current line is available (and safe t
 ## Dependencies
 - Functions called/Symbols referenced:
   - errcontext
-  - tsearch_readline_state (struct type cast)
+  - [tsearch_readline_state](tsearch_readline_state.md) (struct type cast)
 - Called from (representative examples):
-  - tsearch_readline_begin (registers this callback)
+  - [tsearch_readline_begin](tsearch_readline_begin.md) (registers this callback)
 
 ## Notes and Other Information
 - Declared as static function, only used within ts_locale.c

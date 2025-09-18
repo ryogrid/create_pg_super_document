@@ -30,13 +30,13 @@ The function operates in two phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_regexp_matches
-  - build_regexp_match_result
-  - parse_re_flags
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
+  - [build_regexp_match_result](../b/build_regexp_match_result.md)
+  - [parse_re_flags](../p/parse_re_flags.md)
   - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP, SRF_RETURN_NEXT, SRF_RETURN_DONE
   - PG_GET_COLLATION
 - Called from (representative examples):
-  - regexp_matches_no_flags
+  - [regexp_matches_no_flags](regexp_matches_no_flags.md)
 
 ## Notes and Other Information
 - This function is located in src/backend/utils/adt/regexp.c at lines 1367-1415

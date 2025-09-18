@@ -20,12 +20,12 @@ This function provides a simplified user identity initialization for special Pos
   - AmAutoVacuumWorkerProcess (autovacuum worker check)
   - AmBackgroundWorkerProcess (background worker check)
   - AmLogicalSlotSyncWorkerProcess (slot sync worker check)
-  - SetSessionAuthorization (sets session authorization)
-  - SetCurrentRoleId (sets current role)
+  - [SetSessionAuthorization](../S/SetSessionAuthorization.md) (sets session authorization)
+  - [SetCurrentRoleId](../S/SetCurrentRoleId.md) (sets current role)
   - BOOTSTRAP_SUPERUSERID (bootstrap superuser constant)
   - InvalidOid (invalid OID constant)
 - Called from (representative examples):
-  - InitPostgres (src/backend/utils/init/postinit.c:894, 899, 912)
+  - [InitPostgres](InitPostgres.md) (src/backend/utils/init/postinit.c:894, 899, 912)
   - AmSpecialWorkerProcess (src/include/miscadmin.h:416)
 
 ## Notes and Other Information

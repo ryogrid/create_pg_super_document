@@ -23,7 +23,7 @@ Like `texticlike`, this function works directly with text arguments without need
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP` - Extract text arguments from function call
-  - `Generic_Text_IC_like` - Perform case-insensitive pattern matching
+  - `[Generic_Text_IC_like](../G/Generic_Text_IC_like.md)` - Perform case-insensitive pattern matching
   - `PG_GET_COLLATION` - Get collation information for the operation
   - `LIKE_TRUE` - Constant representing successful match
   - `PG_RETURN_BOOL` - Return boolean result

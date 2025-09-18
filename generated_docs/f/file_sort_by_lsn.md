@@ -25,9 +25,9 @@ This ordering is essential when applying logical mappings during table rewrites,
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst (macro to extract data from ListCell)
-  - pg_cmp_u64 (PostgreSQL's 64-bit unsigned integer comparison function)
+  - [pg_cmp_u64](../p/pg_cmp_u64.md) (PostgreSQL's 64-bit unsigned integer comparison function)
 - Called from (representative examples):
-  - UpdateLogicalMappings (used with list_sort())
+  - [UpdateLogicalMappings](../U/UpdateLogicalMappings.md) (used with list_sort())
 
 ## Notes and Other Information
 - This is a static function, accessible only within reorderbuffer.c

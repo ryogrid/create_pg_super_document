@@ -24,21 +24,21 @@ This function modifies the firing behavior of a PostgreSQL rewrite rule by updat
   - SearchSysCacheCopy2
   - HeapTupleIsValid
   - ereport/errcode/errmsg
-  - get_rel_name
+  - [get_rel_name](../g/get_rel_name.md)
   - GETSTRUCT
-  - object_ownercheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - get_rel_relkind
-  - GetUserId
-  - DatumGetChar/CharGetDatum
-  - CatalogTupleUpdate
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [GetUserId](../G/GetUserId.md)
+  - [DatumGetChar](../D/DatumGetChar.md)/CharGetDatum
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
-  - CacheInvalidateRelcache
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
 - Called from (representative examples):
-  - ATExecEnableDisableRule
+  - [ATExecEnableDisableRule](../A/ATExecEnableDisableRule.md)
 
 ## Notes and Other Information
 - Requires RowExclusiveLock on the pg_rewrite catalog relation

@@ -26,16 +26,16 @@ The struct is part of the isolation test specification language defined in specp
   - Referenced by PermutationStepBlocker and PermutationStep structs
 
 - Called from (representative examples):
-  - check_testspec: Validates and processes step definitions
-  - step_qsort_cmp: Comparison function for sorting steps by name
-  - step_bsearch_cmp: Comparison function for binary search lookup
-  - run_permutation: Executes steps in specified order
-  - try_complete_step: Attempts to complete a step execution
+  - [check_testspec](../c/check_testspec.md): Validates and processes step definitions
+  - [step_qsort_cmp](../s/step_qsort_cmp.md): Comparison function for sorting steps by name
+  - [step_bsearch_cmp](../s/step_bsearch_cmp.md): Comparison function for binary search lookup
+  - [run_permutation](../r/run_permutation.md): Executes steps in specified order
+  - [try_complete_step](../t/try_complete_step.md): Attempts to complete a step execution
 
 ## Notes and Other Information
-- Step structs are typically allocated and populated by the spec parser (specparse.y)
+- [Step](Step.md) structs are typically allocated and populated by the spec parser (specparse.y)
 - The isolation tester creates a sorted lookup table of all steps for efficient name-based lookups
-- Step names must be unique across all sessions within a test specification
+- [Step](Step.md) names must be unique across all sessions within a test specification
 - The 'used' flag helps identify unreferenced steps during test validation
 - Steps are executed asynchronously across multiple database connections to simulate real-world concurrency scenarios
 - This is part of PostgreSQL's comprehensive testing infrastructure specifically designed for verifying ACID properties and isolation levels

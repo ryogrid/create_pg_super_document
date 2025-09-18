@@ -28,13 +28,13 @@ The algorithm follows a deterministic sequence, with fallback mechanisms when ce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude
-  - r_mark_regions  
-  - r_attached_pronoun
-  - r_standard_suffix
-  - r_verb_suffix
-  - r_vowel_suffix
-  - r_postlude
+  - [r_prelude](../r/r_prelude.md)
+  - [r_mark_regions](../r/r_mark_regions.md)  
+  - [r_attached_pronoun](../r/r_attached_pronoun.md)
+  - [r_standard_suffix](../r/r_standard_suffix.md)
+  - [r_verb_suffix](../r/r_verb_suffix.md)
+  - [r_vowel_suffix](../r/r_vowel_suffix.md)
+  - [r_postlude](../r/r_postlude.md)
 - Called from (representative examples):
   - (No direct callers found - likely called via function pointer or external interface)
 

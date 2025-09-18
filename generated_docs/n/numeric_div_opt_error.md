@@ -26,14 +26,14 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_NAN, NUMERIC_IS_PINF, NUMERIC_IS_NINF
-  - make_result, make_result_opt_error
-  - numeric_sign_internal
-  - init_var_from_num, init_var, free_var
-  - select_div_scale, div_var
+  - [make_result](../m/make_result.md), make_result_opt_error
+  - [numeric_sign_internal](numeric_sign_internal.md)
+  - [init_var_from_num](../i/init_var_from_num.md), init_var, free_var
+  - [select_div_scale](../s/select_div_scale.md), div_var
 - Called from (representative examples):
-  - numeric_div
-  - executeItemOptUnwrapTarget (JSON path execution)
-  - timestamp_part_common, timestamptz_part_common
+  - [numeric_div](numeric_div.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution)
+  - [timestamp_part_common](../t/timestamp_part_common.md), timestamptz_part_common
 
 ## Notes and Other Information
 - This is the core implementation function for numeric division operations in PostgreSQL

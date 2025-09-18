@@ -24,16 +24,16 @@ The function maintains connection state integrity by tracking write failures, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqReadData
-  - pqsecure_write
+  - [pqReadData](pqReadData.md)
+  - [pqsecure_write](pqsecure_write.md)
   - pqIsnonblocking
-  - pqWait
+  - [pqWait](pqWait.md)
   - strdup, memmove (standard library)
-  - libpq_gettext
+  - [libpq_gettext](../l/libpq_gettext.md)
   - PGINVALID_SOCKET, SOCK_ERRNO, EAGAIN, EWOULDBLOCK, EINTR
 - Called from (representative examples):
-  - pqPutMsgEnd
-  - pqFlush
+  - [pqPutMsgEnd](pqPutMsgEnd.md)
+  - [pqFlush](pqFlush.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure, 1 when not all data could be sent due to non-blocking socket constraints

@@ -21,7 +21,7 @@ The anycompatiblemultirange pseudotype is part of the "compatible" family of pse
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multirange_out
+  - [multirange_out](../m/multirange_out.md)
 - Called from (representative examples):
   - No direct references found (used internally by PostgreSQL's type system)
 

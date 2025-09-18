@@ -29,7 +29,7 @@ PL/pgSQL is considered a core PostgreSQL feature and is typically installed by d
   - PG_CMD_PUTS (macro for writing SQL strings to the command file)
 
 - Called from:
-  - initialize_data_directory (main database initialization function)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (main database initialization function)
 
 ## Notes and Other Information
 - PL/pgSQL is PostgreSQL's most commonly used procedural language

@@ -21,7 +21,7 @@ This structure holds the Unicode characters used for formatting table rows in Po
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure definition)
 - Called from (representative examples):
-  - unicodeStyleFormat (at src/fe_utils/print.c:128)
+  - [unicodeStyleFormat](unicodeStyleFormat.md) (at src/fe_utils/print.c:128)
   - refresh_utf8format (at src/fe_utils/print.c:3696)
 
 ## Notes and Other Information

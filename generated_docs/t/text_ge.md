@@ -19,7 +19,7 @@ The `text_ge` function is a PostgreSQL built-in function that performs a "greate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `text_cmp`: Core text comparison function that performs collation-aware string comparison
+  - `[text_cmp](text_cmp.md)`: Core text comparison function that performs collation-aware string comparison
   - `PG_GET_COLLATION`: Retrieves the collation to use for the comparison
   - `PG_GETARG_TEXT_PP`: Macro to extract text arguments from function call
   - `PG_FREE_IF_COPY`: Memory management macro to free copied arguments if necessary

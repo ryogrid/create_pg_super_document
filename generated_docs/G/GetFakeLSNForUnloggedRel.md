@@ -23,11 +23,11 @@ This function takes no parameters and returns an XLogRecPtr (LSN value).
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_add_u64 (atomic increment operation)
+  - [pg_atomic_fetch_add_u64](../p/pg_atomic_fetch_add_u64.md) (atomic increment operation)
   - XLogCtl (global WAL control structure)
 - Called from (representative examples):
   - gistGetFakeLSN
-  - WALAvailability (header declaration)
+  - [WALAvailability](../W/WALAvailability.md) (header declaration)
 
 ## Notes and Other Information
 - The function uses atomic operations to ensure thread safety in multi-process environments

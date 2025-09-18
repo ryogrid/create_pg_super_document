@@ -42,18 +42,18 @@ For functions returning different types:
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RTE and RangeTblFunction creation)
-  - makeAlias (for alias creation)
-  - get_expr_result_type (function type analysis)
-  - CreateTemplateTupleDesc (tuple descriptor creation)
-  - TupleDescInitEntry, TupleDescInitEntryCollation (attribute initialization)
-  - TupleDescCopyEntry (for merging multiple function results)
-  - chooseScalarFunctionAlias (scalar function naming)
-  - typenameTypeIdAndMod (type resolution from column definitions)
-  - CheckAttributeNamesTypes (column validation)
-  - buildRelationAliases (alias processing)
+  - [makeAlias](../m/makeAlias.md) (for alias creation)
+  - [get_expr_result_type](../g/get_expr_result_type.md) (function type analysis)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (tuple descriptor creation)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md), TupleDescInitEntryCollation (attribute initialization)
+  - [TupleDescCopyEntry](../T/TupleDescCopyEntry.md) (for merging multiple function results)
+  - [chooseScalarFunctionAlias](../c/chooseScalarFunctionAlias.md) (scalar function naming)
+  - [typenameTypeIdAndMod](../t/typenameTypeIdAndMod.md) (type resolution from column definitions)
+  - [CheckAttributeNamesTypes](../C/CheckAttributeNamesTypes.md) (column validation)
+  - [buildRelationAliases](../b/buildRelationAliases.md) (alias processing)
   - Various list manipulation functions (lappend, lappend_oid, lappend_int)
 - Called from (representative examples):
-  - transformRangeFunction (in parse_clause.c)
+  - [transformRangeFunction](../t/transformRangeFunction.md) (in parse_clause.c)
 
 ## Notes and Other Information
 - Functions are never checked for access rights by the permission system since they represent computed results

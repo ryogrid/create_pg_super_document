@@ -43,4 +43,4 @@ Archive libraries define these callback functions and return them via the _PG_ar
 - ArchiveFileCB is the only mandatory callback; others can be NULL if not required
 - All callbacks receive an ArchiveModuleState pointer to access module-specific state data
 - The structure is returned by archive modules through the _PG_archive_module_init() function
-- Archive modules should populate this structure with their specific callback implementations
+- [Archive](Archive.md) modules should populate this structure with their specific callback implementations

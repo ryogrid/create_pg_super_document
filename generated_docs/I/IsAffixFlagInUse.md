@@ -26,13 +26,13 @@ The function performs bounds checking using Assert to ensure the affix index is 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IspellDict (structure type)
-  - getNextFlagFromString (flag parsing function)
+  - [getNextFlagFromString](../g/getNextFlagFromString.md) (flag parsing function)
   - strcmp (standard C library string comparison)
   - Assert (PostgreSQL assertion macro)
   - BUFSIZ (standard C buffer size constant)
 - Called from (representative examples):
-  - FindWord
-  - isAffixInUse
+  - [FindWord](../F/FindWord.md)
+  - [isAffixInUse](../i/isAffixInUse.md)
 
 ## Notes and Other Information
 - Returns true if the affixflag is found in the affix's flag set, false otherwise

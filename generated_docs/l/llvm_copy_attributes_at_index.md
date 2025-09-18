@@ -26,11 +26,11 @@ The function handles memory management by allocating temporary storage for the a
   - LLVMGetAttributeCountAtIndex (LLVM C API)
   - LLVMGetAttributesAtIndex (LLVM C API)
   - LLVMAddAttributeAtIndex (LLVM C API)
-  - palloc (PostgreSQL memory allocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 
 - Called from (representative examples):
-  - llvm_copy_attributes (in llvmjit.c)
+  - [llvm_copy_attributes](llvm_copy_attributes.md) (in llvmjit.c)
 
 ## Notes and Other Information
 - Located in src/backend/jit/llvm/llvmjit.c:525-548

@@ -26,15 +26,15 @@ JsonValueListIterator provides a standardized way to iterate through JsonValueLi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbValue
-  - List (PostgreSQL list type)
+  - [JsonbValue](JsonbValue.md)
+  - [List](../L/List.md) (PostgreSQL list type)
   - ListCell (PostgreSQL list cell type)
 - Called from (representative examples):
-  - executeItemOptUnwrapResult
-  - executePredicate
-  - executeUnaryArithmExpr
-  - JsonValueListInitIterator
-  - JsonValueListNext
+  - [executeItemOptUnwrapResult](../e/executeItemOptUnwrapResult.md)
+  - [executePredicate](../e/executePredicate.md)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
+  - [JsonValueListInitIterator](JsonValueListInitIterator.md)
+  - [JsonValueListNext](JsonValueListNext.md)
 
 ## Notes and Other Information
 - Works seamlessly with both singleton and list storage modes of JsonValueList

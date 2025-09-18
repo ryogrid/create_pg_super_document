@@ -20,16 +20,16 @@ The function handles several important edge cases: it returns zero for negative 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_sub_s64_overflow (for safe subtraction with overflow detection)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (for safe subtraction with overflow detection)
   - INT64CONST (for 64-bit integer constants)
 - Called from (representative examples):
-  - LogCheckpointEnd
-  - recoveryApplyDelay
-  - WaitForWALToBecomeAvailable
-  - do_analyze_rel
-  - DetermineSleepTime
-  - WalReceiverMain
-  - WalSndComputeSleeptime
+  - [LogCheckpointEnd](../L/LogCheckpointEnd.md)
+  - [recoveryApplyDelay](../r/recoveryApplyDelay.md)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
+  - [do_analyze_rel](../d/do_analyze_rel.md)
+  - [DetermineSleepTime](../D/DetermineSleepTime.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [WalSndComputeSleeptime](../W/WalSndComputeSleeptime.md)
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/timestamp.c:1766-1789

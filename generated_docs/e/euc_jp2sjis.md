@@ -30,15 +30,15 @@ The function includes comprehensive error handling and can operate in two modes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET
-  - report_invalid_encoding
-  - pg_encoding_verifymbchar
+  - [report_invalid_encoding](../r/report_invalid_encoding.md)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)
   - PG_EUC_JP
   - SS2 (Single Shift 2 - JIS X0201 kana prefix)
   - SS3 (Single Shift 3 - JIS X0212 kanji prefix)  
   - PGSJISALTCODE (alternative character code for unmappable characters)
   - ibmkanji (lookup table for IBM extended characters)
 - Called from (representative examples):
-  - euc_jp_to_sjis (public conversion function)
+  - [euc_jp_to_sjis](euc_jp_to_sjis.md) (public conversion function)
 
 ## Notes and Other Information
 - The function null-terminates the output buffer

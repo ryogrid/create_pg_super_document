@@ -17,13 +17,13 @@ This function sets up the random seed for pgbench's pseudo-random number generat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_time_now (for time-based seeding)
-  - pg_strong_random (for strong random seeding)
+  - [pg_time_now](../p/pg_time_now.md) (for time-based seeding)
+  - [pg_strong_random](../p/pg_strong_random.md) (for strong random seeding)
   - pg_log_error_detail (for detailed error messages)
   - pg_log_info (for logging seed information)
   - pg_prng_seed (for initializing the base random sequence)
 - Called from (representative examples):
-  - main (in pgbench.c at lines 6770 and 6989)
+  - [main](../m/main.md) (in pgbench.c at lines 6770 and 6989)
 
 ## Notes and Other Information
 - Returns false on error (invalid seed format or strong random generation failure)

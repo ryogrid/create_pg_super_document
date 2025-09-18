@@ -30,18 +30,18 @@ The printTableContent structure is a central data structure in PostgreSQL's tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableOpt
-  - printTableFooter
+  - [printTableOpt](printTableOpt.md)
+  - [printTableFooter](printTableFooter.md)
 - Called from (representative examples):
-  - printTableInit
-  - printTableAddHeader
-  - printTableAddCell
-  - printTableAddFooter
-  - printTable
-  - printQuery
-  - print_aligned_text
-  - print_html_text
-  - print_csv_text
+  - [printTableInit](printTableInit.md)
+  - [printTableAddHeader](printTableAddHeader.md)
+  - [printTableAddCell](printTableAddCell.md)
+  - [printTableAddFooter](printTableAddFooter.md)
+  - [printTable](printTable.md)
+  - [printQuery](printQuery.md)
+  - [print_aligned_text](print_aligned_text.md)
+  - [print_html_text](print_html_text.md)
+  - [print_csv_text](print_csv_text.md)
 
 ## Notes and Other Information
 This structure is extensively used throughout PostgreSQL's frontend utilities, particularly in psql for displaying query results and system information. The design allows for incremental table construction while maintaining efficient access to formatting options. Memory management is handled through the cellmustfree array, ensuring proper cleanup of dynamically allocated content. The structure supports various output formats including aligned text, HTML, CSV, LaTeX, and others through the associated printing functions.

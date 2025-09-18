@@ -28,12 +28,12 @@ This function manages a process-local cache of injection point callbacks that ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create: Creates the hash table on first use
-  - hash_search: Searches/inserts entries in the hash table with HASH_ENTER flag
+  - [hash_create](../h/hash_create.md): Creates the hash table on first use
+  - [hash_search](../h/hash_search.md): Searches/inserts entries in the hash table with HASH_ENTER flag
   - strlcpy: Copies the injection point name
   - memcpy: Copies private data buffer
 - Called from (representative examples):
-  - injection_point_cache_load: Loads injection points from shared memory into cache
+  - [injection_point_cache_load](injection_point_cache_load.md): Loads injection points from shared memory into cache
 
 ## Notes and Other Information
 - The function is static (internal to injection_point.c)

@@ -25,10 +25,10 @@ The function handles the complex WAL segment and page structure by calculating h
   - XLogSegNoOffsetToRecPtr
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - ReserveXLogInsertLocation
-  - ReserveXLogSwitch
-  - CreateCheckPoint
-  - GetXLogInsertRecPtr
+  - [ReserveXLogInsertLocation](../R/ReserveXLogInsertLocation.md)
+  - [ReserveXLogSwitch](../R/ReserveXLogSwitch.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [GetXLogInsertRecPtr](../G/GetXLogInsertRecPtr.md)
 
 ## Notes and Other Information
 - This is a static function internal to xlog.c

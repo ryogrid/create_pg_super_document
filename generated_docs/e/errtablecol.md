@@ -25,14 +25,14 @@ The function provides a convenient interface for callers who have an attribute n
   - RelationGetDescr
   - TupleDescAttr
   - NameStr
-  - get_attname
+  - [get_attname](../g/get_attname.md)
   - RelationGetRelid
-  - errtablecolname
+  - [errtablecolname](errtablecolname.md)
 - Called from (representative examples):
-  - ATRewriteTable
-  - validateDomainNotNullConstraint
-  - validateDomainCheckConstraint
-  - ExecConstraints
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [validateDomainNotNullConstraint](../v/validateDomainNotNullConstraint.md)
+  - [validateDomainCheckConstraint](../v/validateDomainCheckConstraint.md)
+  - [ExecConstraints](../E/ExecConstraints.md)
 
 ## Notes and Other Information
 - Uses the relation's tuple descriptor for efficiency when dealing with user attributes (attnum > 0)

@@ -26,16 +26,16 @@ This function provides a convenient interface for setting Python exceptions with
   - PyErr_SetString (Python C API function)
   - TEXTDOMAIN (PostgreSQL text domain constant)
 - Called from (representative examples):
-  - PLy_cursor
-  - PLy_cursor_plan
-  - PLy_cursor_iternext
-  - PLy_cursor_fetch
-  - PLy_cursor_close
-  - PLy_output
-  - PLy_result_colnames
-  - PLy_spi_prepare
-  - PLy_spi_execute
-  - PLy_subtransaction_enter
+  - [PLy_cursor](PLy_cursor.md)
+  - [PLy_cursor_plan](PLy_cursor_plan.md)
+  - [PLy_cursor_iternext](PLy_cursor_iternext.md)
+  - [PLy_cursor_fetch](PLy_cursor_fetch.md)
+  - [PLy_cursor_close](PLy_cursor_close.md)
+  - [PLy_output](PLy_output.md)
+  - [PLy_result_colnames](PLy_result_colnames.md)
+  - [PLy_spi_prepare](PLy_spi_prepare.md)
+  - [PLy_spi_execute](PLy_spi_execute.md)
+  - [PLy_subtransaction_enter](PLy_subtransaction_enter.md)
 
 ## Notes and Other Information
 - Uses a fixed 1024-byte buffer for formatted messages

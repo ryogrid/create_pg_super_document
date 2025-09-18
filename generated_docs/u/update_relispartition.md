@@ -31,14 +31,14 @@ This function is specifically designed as a subroutine for IndexSetParentIndex a
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCacheLockedCopy1
-  - CatalogTupleUpdate
-  - UnlockTuple
-  - heap_freetuple
+  - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [UnlockTuple](../U/UnlockTuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
   - Form_pg_class (structure)
 - Called from (representative examples):
-  - IndexSetParentIndex
+  - [IndexSetParentIndex](../I/IndexSetParentIndex.md)
 
 ## Notes and Other Information
 - The function is static (internal to indexcmds.c) and serves as a specialized helper for partition management

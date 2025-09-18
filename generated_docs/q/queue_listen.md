@@ -18,20 +18,20 @@ queue_listen serves as the shared implementation for all listening-related SQL c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - MemoryContextSwitchTo
-  - MemoryContextAlloc
-  - palloc
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [palloc](../p/palloc.md)
   - strcpy
   - list_make1
   - lappend
-  - ListenAction (struct)
-  - ActionList (struct)
-  - ListenActionKind (enum)
+  - [ListenAction](../L/ListenAction.md) (struct)
+  - [ActionList](../A/ActionList.md) (struct)
+  - [ListenActionKind](../L/ListenActionKind.md) (enum)
 - Called from (representative examples):
-  - Async_Listen
-  - Async_Unlisten
-  - Async_UnlistenAll
+  - [Async_Listen](../A/Async_Listen.md)
+  - [Async_Unlisten](../A/Async_Unlisten.md)
+  - [Async_UnlistenAll](../A/Async_UnlistenAll.md)
 
 ## Notes and Other Information
 - Static function - internal to async.c module

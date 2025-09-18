@@ -18,14 +18,14 @@ This function provides a unified interface for accessing error information from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - strerror (to convert errno to human-readable string)
-  - WalWriteMethod (structure containing error state)
+  - [WalWriteMethod](../W/WalWriteMethod.md) (structure containing error state)
 - Called from (representative examples):
-  - mark_file_as_archived (in receivelog.c for error reporting)
-  - open_walfile (in receivelog.c for file operation errors)
-  - close_walfile (in receivelog.c for file closing errors)
-  - ReceiveXlogStream (in receivelog.c for streaming errors)
-  - ProcessKeepaliveMsg (in receivelog.c for keepalive message errors)
-  - ProcessXLogDataMsg (in receivelog.c for WAL data processing errors)
+  - [mark_file_as_archived](../m/mark_file_as_archived.md) (in receivelog.c for error reporting)
+  - [open_walfile](../o/open_walfile.md) (in receivelog.c for file operation errors)
+  - [close_walfile](../c/close_walfile.md) (in receivelog.c for file closing errors)
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md) (in receivelog.c for streaming errors)
+  - [ProcessKeepaliveMsg](../P/ProcessKeepaliveMsg.md) (in receivelog.c for keepalive message errors)
+  - [ProcessXLogDataMsg](../P/ProcessXLogDataMsg.md) (in receivelog.c for WAL data processing errors)
 
 ## Notes and Other Information
 - The function prioritizes custom error strings (lasterrstring) over errno-based messages (lasterrno)

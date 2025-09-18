@@ -33,16 +33,16 @@ The mappings contain both old and new relation locators and tuple identifiers, a
   - sprintf
   - OpenTransientFile
   - ereport/ERROR
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
   - memset
   - pgstat_report_wait_start/pgstat_report_wait_end
   - read
-  - ItemPointerCopy
-  - hash_search
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [hash_search](../h/hash_search.md)
   - CloseTransientFile
 - Called from (representative examples):
-  - UpdateLogicalMappings
+  - [UpdateLogicalMappings](../U/UpdateLogicalMappings.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within reorderbuffer.c

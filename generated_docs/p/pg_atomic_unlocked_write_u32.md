@@ -21,13 +21,13 @@ The function provides no memory barrier semantics and includes pointer alignment
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for 4-byte alignment verification)
-  - pg_atomic_unlocked_write_u32_impl (platform-specific implementation)
+  - [pg_atomic_unlocked_write_u32_impl](pg_atomic_unlocked_write_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - ZeroAndLockBuffer (buffer initialization)
-  - WaitReadBuffers (buffer read operations)
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md) (buffer initialization)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md) (buffer read operations)
   - LocalBufferAlloc (local buffer allocation)
   - ExtendBufferedRelLocal (local buffer extension)
-  - FlushRelationBuffers (buffer flushing operations)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md) (buffer flushing operations)
 
 ## Notes and Other Information
 - No barrier semantics are provided, meaning this operation does not enforce memory ordering

@@ -23,17 +23,17 @@ This function is particularly useful in contexts where expressions are processed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval_walker
+  - [cost_qual_eval_walker](cost_qual_eval_walker.md)
   - cost_qual_eval_context (struct)
   - QualCost (struct)
 - Called from (representative examples):
-  - cost_functionscan
-  - cost_tablefuncscan
-  - cost_windowagg
-  - cost_qual_eval_walker
-  - set_rel_width
-  - set_pathtarget_cost_width
-  - get_agg_clause_costs
+  - [cost_functionscan](cost_functionscan.md)
+  - [cost_tablefuncscan](cost_tablefuncscan.md)
+  - [cost_windowagg](cost_windowagg.md)
+  - [cost_qual_eval_walker](cost_qual_eval_walker.md)
+  - [set_rel_width](../s/set_rel_width.md)
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
 
 ## Notes and Other Information
 - Functionally equivalent to  but operates on single expressions instead of lists

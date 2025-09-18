@@ -31,18 +31,18 @@ The function only processes attributes that have valid table attribute numbers, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttrNotNull (to get index operator classes)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (to get index operator classes)
   - IndexRelationGetNumberOfKeyAttributes (to get number of key attributes)
   - AttributeNumberIsValid (to validate attribute numbers)
-  - get_opclass_input_type (to get operator class input type)
-  - get_opclass_family (to get operator class family)
-  - get_equal_strategy_number (to get equality strategy number)
-  - get_opfamily_member (to find equality operator)
-  - get_opcode (to get operator function)
-  - ScanKeyInit (to initialize scan key entries)
+  - [get_opclass_input_type](../g/get_opclass_input_type.md) (to get operator class input type)
+  - [get_opclass_family](../g/get_opclass_family.md) (to get operator class family)
+  - [get_equal_strategy_number](../g/get_equal_strategy_number.md) (to get equality strategy number)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (to find equality operator)
+  - [get_opcode](../g/get_opcode.md) (to get operator function)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (to initialize scan key entries)
 
 - Called from (representative examples):
-  - RelationFindReplTupleByIndex
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within execReplication.c

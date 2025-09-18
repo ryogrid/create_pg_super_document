@@ -20,12 +20,12 @@ This function implements a simple but critical decision logic for logical replic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild (struct type)
+  - [SnapBuild](SnapBuild.md) (struct type)
 - Called from (representative examples):
-  - logicalmsg_decode
-  - DecodeTXNNeedSkip
-  - AssertTXNLsnOrder
-  - ReorderBufferCanStartStreaming
+  - [logicalmsg_decode](../l/logicalmsg_decode.md)
+  - [DecodeTXNNeedSkip](../D/DecodeTXNNeedSkip.md)
+  - [AssertTXNLsnOrder](../A/AssertTXNLsnOrder.md)
+  - [ReorderBufferCanStartStreaming](../R/ReorderBufferCanStartStreaming.md)
 
 ## Notes and Other Information
 - Returns true if the transaction should be skipped (ptr < start_decoding_at)

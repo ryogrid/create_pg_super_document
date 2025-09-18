@@ -26,7 +26,7 @@ The function uses an exclusive lock to safely update the shared memory structure
 - Global variables accessed:
   - WalSummarizerCtl
 - Called from (representative examples):
-  - WalSummarizerMain (registered as exit callback)
+  - [WalSummarizerMain](WalSummarizerMain.md) (registered as exit callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the walsummarizer.c file

@@ -46,11 +46,11 @@ Memory management is handled through separate contexts for temporary operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinState (index state structure)
-  - GinScanKey (scan key pointer type)
-  - GinScanEntry (scan entry pointer type)
+  - [GinState](GinState.md) (index state structure)
+  - [GinScanKey](GinScanKey.md) (scan key pointer type)
+  - [GinScanEntry](GinScanEntry.md) (scan entry pointer type)
 - Called from (representative examples):
-  - ginbeginscan (src/backend/access/gin/ginscan.c:36)
+  - [ginbeginscan](../g/ginbeginscan.md) (src/backend/access/gin/ginscan.c:36)
   - Referenced by GinScanOpaque typedef
 
 ## Notes and Other Information

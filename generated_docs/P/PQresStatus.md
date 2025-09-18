@@ -22,13 +22,13 @@ The pgresStatus array is kept in the same order as the ExecStatusType enumeratio
 ## Dependencies
 - Functions called/Symbols referenced:
   - lengthof (macro for array length calculation)
-  - libpq_gettext (for internationalized error message)
+  - [libpq_gettext](../l/libpq_gettext.md) (for internationalized error message)
   - pgresStatus (static array of status strings)
 - Called from:
-  - BaseBackup (pg_basebackup.c:1860, 1887)
-  - try_complete_step (isolationtester.c:1037)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup.c:1860, 1887)
+  - [try_complete_step](../t/try_complete_step.md) (isolationtester.c:1037)
   - Extensively used in libpq_pipeline test module
-  - process_result (libpq_pipeline.c:2107, 2117, 2125, 2129)
+  - [process_result](../p/process_result.md) (libpq_pipeline.c:2107, 2117, 2125, 2129)
   - Various test functions for status reporting and debugging
 
 ## Notes and Other Information

@@ -23,9 +23,9 @@ This function enables PostgreSQL's regression testing framework to use different
 ## Dependencies
 - Functions called/Symbols referenced:
   - _resultmap (struct type)
-  - test (struct member access)
+  - [test](../t/test.md) (struct member access)
 - Called from (representative examples):
-  - results_differ
+  - [results_differ](../r/results_differ.md)
 
 ## Notes and Other Information
 - Returns NULL if no matching resultmap entry is found or if the file parameter is invalid

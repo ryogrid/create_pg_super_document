@@ -30,20 +30,20 @@ For functions with polymorphic parameters, full semantic analysis is deferred to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckFunctionValidatorAccess: Verifies permission to validate this function
-  - get_typtype: Gets the type category for pseudo-type checking
+  - [CheckFunctionValidatorAccess](../C/CheckFunctionValidatorAccess.md): Verifies permission to validate this function
+  - [get_typtype](../g/get_typtype.md): Gets the type category for pseudo-type checking
   - IsPolymorphicType: Checks if a type is polymorphic
-  - format_type_be: Formats type names for error messages
-  - sql_function_parse_error_callback: Error callback for enhanced error reporting
-  - pg_parse_query: Parses SQL text into raw parse trees
-  - prepare_sql_fn_parse_info: Sets up parsing context for SQL functions
-  - pg_analyze_and_rewrite_withcb: Performs semantic analysis and query rewriting
-  - sql_fn_parser_setup: Parser setup hook for SQL function context
-  - AcquireRewriteLocks: Acquires necessary locks for query rewriting
-  - pg_rewrite_query: Applies rewrite rules to queries
-  - check_sql_fn_statements: Validates SQL function statement structure
-  - get_func_result_type: Determines the actual return type of the function
-  - check_sql_fn_retval: Validates return value compatibility
+  - [format_type_be](format_type_be.md): Formats type names for error messages
+  - [sql_function_parse_error_callback](../s/sql_function_parse_error_callback.md): Error callback for enhanced error reporting
+  - [pg_parse_query](../p/pg_parse_query.md): Parses SQL text into raw parse trees
+  - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md): Sets up parsing context for SQL functions
+  - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md): Performs semantic analysis and query rewriting
+  - [sql_fn_parser_setup](../s/sql_fn_parser_setup.md): Parser setup hook for SQL function context
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md): Acquires necessary locks for query rewriting
+  - [pg_rewrite_query](../p/pg_rewrite_query.md): Applies rewrite rules to queries
+  - [check_sql_fn_statements](../c/check_sql_fn_statements.md): Validates SQL function statement structure
+  - [get_func_result_type](../g/get_func_result_type.md): Determines the actual return type of the function
+  - [check_sql_fn_retval](../c/check_sql_fn_retval.md): Validates return value compatibility
 
 - Called from (representative examples):
   - No direct references found in the codebase - typically registered as the validator for 'sql' language

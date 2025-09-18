@@ -21,8 +21,8 @@ The `hexval` function is a static utility function that converts a single hexade
 - Functions called/Symbols referenced:
   - elog (for error reporting)
 - Called from:
-  - str_udeescape (multiple references at lines 425-428, 462-467)
-  - hexval_n (at src/backend/utils/adt/varlena.c:6493)
+  - [str_udeescape](../s/str_udeescape.md) (multiple references at lines 425-428, 462-467)
+  - [hexval_n](hexval_n.md) (at src/backend/utils/adt/varlena.c:6493)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within the parser.c translation unit

@@ -22,7 +22,7 @@ The function examines the range flags and constructs a class number by setting a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_get_flags
+  - [range_get_flags](../r/range_get_flags.md)
   - RANGE_EMPTY (flag constant)
   - CLS_EMPTY (class constant) 
   - RANGE_LB_INF (flag constant)
@@ -33,8 +33,8 @@ The function examines the range flags and constructs a class number by setting a
   - CLS_CONTAIN_EMPTY (class constant)
 - Called from:
   - rangeCopy (src/backend/utils/adt/rangetypes_gist.c:180)
-  - range_gist_picksplit (src/backend/utils/adt/rangetypes_gist.c:652)
-  - range_gist_class_split (src/backend/utils/adt/rangetypes_gist.c:1206)
+  - [range_gist_picksplit](../r/range_gist_picksplit.md) (src/backend/utils/adt/rangetypes_gist.c:652)
+  - [range_gist_class_split](../r/range_gist_class_split.md) (src/backend/utils/adt/rangetypes_gist.c:1206)
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation

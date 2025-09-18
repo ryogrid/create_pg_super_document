@@ -30,13 +30,13 @@ This is particularly useful for operations like finding the end of consonant clu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_utf8 (for UTF-8 character decoding)
-  - repeat (parameter used in control flow)
+  - [get_utf8](../g/get_utf8.md) (for UTF-8 character decoding)
+  - [repeat](../r/repeat.md) (parameter used in control flow)
 - Called from (representative examples):
-  - r_mark_regions (in various language stemmers)
-  - porter_UTF_8_stem
-  - lithuanian_UTF_8_stem
-  - indonesian_UTF_8_stem
+  - [r_mark_regions](../r/r_mark_regions.md) (in various language stemmers)
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
+  - [lithuanian_UTF_8_stem](../l/lithuanian_UTF_8_stem.md)
+  - [indonesian_UTF_8_stem](../i/indonesian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 0 on successful completion when repeat is true and all characters processed are outside the group

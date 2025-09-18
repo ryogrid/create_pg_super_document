@@ -29,8 +29,8 @@ This function takes no parameters and returns an integer representing the recomm
   - wal_segment_size (global variable - size of WAL segments)
   - XLOG_BLCKSZ (constant - size of WAL blocks)
 - Called from (representative examples):
-  - check_wal_buffers
-  - XLOGShmemSize
+  - [check_wal_buffers](../c/check_wal_buffers.md)
+  - [XLOGShmemSize](XLOGShmemSize.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within xlog.c

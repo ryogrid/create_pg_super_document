@@ -24,14 +24,14 @@ The function determines the trust level of the interpreter based on whether the 
   - Assert (for debugging validation)
   - PERL_SET_CONTEXT (Perl macro for context switching)
   - OidIsValid (PostgreSQL macro for OID validation)
-  - set_interp_require
+  - [set_interp_require](../s/set_interp_require.md)
 - Called from (representative examples):
-  - select_perl_context
-  - plperl_call_handler
-  - plperl_inline_handler
-  - plperl_func_handler
-  - plperl_trigger_handler
-  - compile_plperl_function
+  - [select_perl_context](../s/select_perl_context.md)
+  - [plperl_call_handler](../p/plperl_call_handler.md)
+  - [plperl_inline_handler](../p/plperl_inline_handler.md)
+  - [plperl_func_handler](../p/plperl_func_handler.md)
+  - [plperl_trigger_handler](../p/plperl_trigger_handler.md)
+  - [compile_plperl_function](../c/compile_plperl_function.md)
 
 ## Notes and Other Information
 - Optimized to avoid unnecessary context switches by checking if the target interpreter is already active

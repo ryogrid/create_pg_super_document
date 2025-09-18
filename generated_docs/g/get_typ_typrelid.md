@@ -19,18 +19,18 @@ This function performs a system catalog lookup to fetch the typrelid field from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_type
   - InvalidOid
 - Called from (representative examples):
-  - find_expr_references_walker
-  - process_function_rte_ref
-  - CheckAttributeType
-  - ATPostAlterTypeCleanup
+  - [find_expr_references_walker](../f/find_expr_references_walker.md)
+  - [process_function_rte_ref](../p/process_function_rte_ref.md)
+  - [CheckAttributeType](../C/CheckAttributeType.md)
+  - [ATPostAlterTypeCleanup](../A/ATPostAlterTypeCleanup.md)
   - processIndirection
 
 ## Notes and Other Information

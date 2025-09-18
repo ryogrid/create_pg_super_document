@@ -27,12 +27,12 @@ The function is designed to be called before entering the insertion critical sec
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinNonLeafDataPageGetFreeSpace
-  - dataSplitPageInternal
-  - PostingItem (struct)
+  - [dataSplitPageInternal](dataSplitPageInternal.md)
+  - [PostingItem](../P/PostingItem.md) (struct)
   - GPTP_SPLIT (enum value)
   - GPTP_INSERT (enum value)
 - Called from:
-  - dataBeginPlaceToPage
+  - [dataBeginPlaceToPage](dataBeginPlaceToPage.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within the GIN data page module

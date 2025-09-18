@@ -26,7 +26,7 @@ The function checks three categories of buffer usage: shared buffers, local buff
   - INSTR_TIME_IS_ZERO (macro for checking zero timing values)
   - BufferUsage (structure with buffer counters)
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
   - ExplainPrintSerialize
 
 ## Notes and Other Information

@@ -22,19 +22,19 @@ The function includes comprehensive error checking for index corruption, particu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetOpaque
   - P_ISLEAF
   - P_FIRSTDATAKEY
-  - PageGetMaxOffsetNumber
-  - _bt_compare
-  - _bt_binsrch_posting
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - BufferGetBlockNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [_bt_compare](_bt_compare.md)
+  - [_bt_binsrch_posting](_bt_binsrch_posting.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
 - Called from (representative examples):
-  - _bt_check_unique
-  - _bt_findinsertloc
+  - [_bt_check_unique](_bt_check_unique.md)
+  - [_bt_findinsertloc](_bt_findinsertloc.md)
 
 ## Notes and Other Information
 Key features and behaviors:

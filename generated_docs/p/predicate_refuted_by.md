@@ -26,13 +26,13 @@ This is distinct from !(predicate_implied_by) though similar in technique. The f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - predicate_refuted_by_recurse
+  - [predicate_refuted_by_recurse](predicate_refuted_by_recurse.md)
   - list_length
   - linitial
 - Called from (representative examples):
-  - relation_excluded_by_constraints (constraint-based table exclusion)
-  - gen_partprune_steps_internal (partition pruning)
-  - test_predtest (testing framework)
+  - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md) (constraint-based table exclusion)
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md) (partition pruning)
+  - [test_predtest](../t/test_predtest.md) (testing framework)
 
 ## Notes and Other Information
 - Returns false for empty predicate lists (no predicate means no refutation possible)

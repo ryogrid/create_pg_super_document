@@ -24,13 +24,13 @@ This design guarantees exact results at the boundary points (0°, 30°, and 90°
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sind_0_to_30
-  - cosd_0_to_60
+  - [sind_0_to_30](sind_0_to_30.md)
+  - [cosd_0_to_60](../c/cosd_0_to_60.md)
 - Called from:
-  - init_degree_constants
-  - dcotd
-  - dsind  
-  - dtand
+  - [init_degree_constants](../i/init_degree_constants.md)
+  - [dcotd](../d/dcotd.md)
+  - [dsind](../d/dsind.md)  
+  - [dtand](../d/dtand.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file

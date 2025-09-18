@@ -20,7 +20,7 @@ This function serves as the type modifier output handler for the VARCHAR data ty
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (macro to extract int32 argument)
-  - anychar_typmodout (shared conversion logic for character types)
+  - [anychar_typmodout](../a/anychar_typmodout.md) (shared conversion logic for character types)
   - PG_RETURN_CSTRING (macro to return C string result)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through PostgreSQL's type system infrastructure)

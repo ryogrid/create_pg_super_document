@@ -20,17 +20,17 @@ The function operates as part of the memoize node's cache management system, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete (removes entry from LRU list)
-  - entry_purge_tuples (removes all cached tuples from the entry)
+  - [dlist_delete](../d/dlist_delete.md) (removes entry from LRU list)
+  - [entry_purge_tuples](../e/entry_purge_tuples.md) (removes all cached tuples from the entry)
   - memoize_delete_item (removes entry from hash table)
-  - pfree (frees allocated memory)
+  - [pfree](../p/pfree.md) (frees allocated memory)
   - EMPTY_ENTRY_MEMORY_BYTES (macro for calculating entry memory usage)
 - Types referenced:
-  - MemoizeState
-  - MemoizeEntry  
-  - MemoizeKey
+  - [MemoizeState](../M/MemoizeState.md)
+  - [MemoizeEntry](../M/MemoizeEntry.md)  
+  - [MemoizeKey](../M/MemoizeKey.md)
 - Called from:
-  - cache_reduce_memory
+  - [cache_reduce_memory](../c/cache_reduce_memory.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the nodeMemoize.c file

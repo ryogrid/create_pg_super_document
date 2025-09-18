@@ -26,10 +26,10 @@ The function creates PARAM_EXEC type parameters with a fixed paramid of -1, indi
   - Param (struct type)
   - PARAM_EXEC (constant)
 - Called from (representative examples):
-  - build_aggregate_transfn_expr
-  - build_aggregate_serialfn_expr
-  - build_aggregate_deserialfn_expr
-  - build_aggregate_finalfn_expr
+  - [build_aggregate_transfn_expr](../b/build_aggregate_transfn_expr.md)
+  - [build_aggregate_serialfn_expr](../b/build_aggregate_serialfn_expr.md)
+  - [build_aggregate_deserialfn_expr](../b/build_aggregate_deserialfn_expr.md)
+  - [build_aggregate_finalfn_expr](../b/build_aggregate_finalfn_expr.md)
 
 ## Notes and Other Information
 - Returns a static function (internal to parse_agg.c)

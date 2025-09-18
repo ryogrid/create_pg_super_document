@@ -21,10 +21,10 @@ The `ecpg_result_by_descriptor` function provides a convenient way to access the
 ## Dependencies
 - Functions called/Symbols referenced:
   - ecpg_find_desc
-  - descriptor (structure access)
+  - [descriptor](../d/descriptor.md) (structure access)
 - Called from (representative examples):
-  - ECPGget_desc_header
-  - ECPGget_desc
+  - [ECPGget_desc_header](../E/ECPGget_desc_header.md)
+  - [ECPGget_desc](../E/ECPGget_desc.md)
 
 ## Notes and Other Information
 - This function is declared as static, meaning it has internal linkage and is only accessible within the descriptor.c compilation unit

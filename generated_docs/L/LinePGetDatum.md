@@ -20,7 +20,7 @@ This function serves as a type-safe wrapper for converting LINE geometry pointer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (macro for pointer to Datum conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (macro for pointer to Datum conversion)
   - LINE (geometric data type for infinite lines)
 - Called from (representative examples):
   - PG_RETURN_LINE_P (macro for returning LINE values from functions)

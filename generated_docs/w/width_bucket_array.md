@@ -31,11 +31,11 @@ The function includes optimizations for different data types:
   - PG_GET_COLLATION  
   - ARR_ELEMTYPE
   - ARR_NDIM
-  - array_contains_nulls
-  - width_bucket_array_float8
-  - lookup_type_cache
-  - width_bucket_array_fixed
-  - width_bucket_array_variable
+  - [array_contains_nulls](../a/array_contains_nulls.md)
+  - [width_bucket_array_float8](width_bucket_array_float8.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [width_bucket_array_fixed](width_bucket_array_fixed.md)
+  - [width_bucket_array_variable](width_bucket_array_variable.md)
   - TYPECACHE_CMP_PROC_FINFO
 - Called from:
   - This appears to be a top-level SQL function implementation

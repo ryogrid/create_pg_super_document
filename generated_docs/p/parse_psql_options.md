@@ -28,19 +28,19 @@ After processing all options, the function also handles positional arguments for
   - getopt_long (GNU command-line parsing)
   - SetVariable (psql variable setting)
   - SetVariableBool (boolean variable setting)
-  - simple_action_list_append (action queue management)
-  - setQFout (output file configuration)
+  - [simple_action_list_append](../s/simple_action_list_append.md) (action queue management)
+  - [setQFout](../s/setQFout.md) (output file configuration)
   - do_pset (print setting configuration)
   - DeleteVariable (variable removal)
-  - showVersion (version display)
-  - usage (help display)
-  - slashUsage (slash command help)
-  - helpVariables (variable help)
-  - pg_strdup (string duplication)
+  - [showVersion](../s/showVersion.md) (version display)
+  - [usage](../u/usage.md) (help display)
+  - [slashUsage](../s/slashUsage.md) (slash command help)
+  - [helpVariables](../h/helpVariables.md) (variable help)
+  - [pg_strdup](pg_strdup.md) (string duplication)
   - pg_log_warning (warning logging)
   - pg_log_error_hint (error logging)
 - Called from (representative examples):
-  - main (psql startup)
+  - [main](../m/main.md) (psql startup)
 
 ## Notes and Other Information
 - This is a static function local to src/bin/psql/startup.c

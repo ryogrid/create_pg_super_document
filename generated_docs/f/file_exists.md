@@ -22,9 +22,9 @@ This is a straightforward implementation that leverages the standard C library's
   - fopen (standard C library function for opening files)
   - fclose (standard C library function for closing files)
 - Called from (representative examples):
-  - isolation_start_test (used in isolation testing to check for test files)
-  - results_differ (used to verify that result files exist before comparison)
-  - psql_start_test (used in psql testing to check for test files)
+  - [isolation_start_test](../i/isolation_start_test.md) (used in isolation testing to check for test files)
+  - [results_differ](../r/results_differ.md) (used to verify that result files exist before comparison)
+  - [psql_start_test](../p/psql_start_test.md) (used in psql testing to check for test files)
 
 ## Notes and Other Information
 - Returns true if the file exists and can be opened for reading

@@ -29,7 +29,7 @@ Prefix transformations are more advanced than full transformations, allowing Pos
   - COLLPROVIDER_ICU
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - varstr_abbrev_convert
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
   - Sorting optimization routines
 
 ## Notes and Other Information

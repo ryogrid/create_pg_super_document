@@ -21,16 +21,16 @@ This function flags a read-only serializable transaction as unsafe by setting th
   - SxactIsROSafe
   - dlist_foreach_modify
   - dlist_container
-  - ReleaseRWConflict
+  - [ReleaseRWConflict](../R/ReleaseRWConflict.md)
 - Types referenced:
-  - SERIALIZABLEXACT
-  - dlist_mutable_iter
-  - RWConflict
-  - RWConflictData
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
+  - [dlist_mutable_iter](../d/dlist_mutable_iter.md)
+  - [RWConflict](../R/RWConflict.md)
+  - [RWConflictData](../R/RWConflictData.md)
 - Constants referenced:
   - SXACT_FLAG_RO_UNSAFE
 - Called from (representative examples):
-  - ReleasePredicateLocks
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md)
 
 ## Notes and Other Information
 - Asserts that the transaction is read-only and not already flagged as safe

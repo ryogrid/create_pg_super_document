@@ -19,14 +19,14 @@ The  function is a comprehensive unit test for PostgreSQL's atomic flag implemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_flag: Type definition for atomic flag
-  - pg_atomic_init_flag: Initializes atomic flag to unlocked state
-  - pg_atomic_unlocked_test_flag: Tests if flag is unlocked without modifying it
-  - pg_atomic_test_set_flag: Atomically tests and sets flag, returns previous state
-  - pg_atomic_clear_flag: Atomically clears (unlocks) the flag
+  - [pg_atomic_flag](../p/pg_atomic_flag.md): Type definition for atomic flag
+  - [pg_atomic_init_flag](../p/pg_atomic_init_flag.md): Initializes atomic flag to unlocked state
+  - [pg_atomic_unlocked_test_flag](../p/pg_atomic_unlocked_test_flag.md): Tests if flag is unlocked without modifying it
+  - [pg_atomic_test_set_flag](../p/pg_atomic_test_set_flag.md): Atomically tests and sets flag, returns previous state
+  - [pg_atomic_clear_flag](../p/pg_atomic_clear_flag.md): Atomically clears (unlocks) the flag
   - EXPECT_TRUE: Test assertion macro to verify expected conditions
 - Called from (representative examples):
-  - test_atomic_ops: Main atomic operations test function
+  - [test_atomic_ops](test_atomic_ops.md): Main atomic operations test function
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

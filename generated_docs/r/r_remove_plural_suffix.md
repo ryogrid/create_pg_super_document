@@ -29,12 +29,12 @@ The function follows Tamil morphological rules where plural forms are transforme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s_b (backward string equality check - called 4 times with different patterns s_46, s_48, s_50, s_52)
-  - find_among_b (backward pattern matching with array a_13)
-  - slice_from_s (replaces matched suffix with new string - s_47, s_49, s_51)
-  - slice_del (deletes matched suffix without replacement)
+  - [eq_s_b](../e/eq_s_b.md) (backward string equality check - called 4 times with different patterns s_46, s_48, s_50, s_52)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching with array a_13)
+  - [slice_from_s](../s/slice_from_s.md) (replaces matched suffix with new string - s_47, s_49, s_51)
+  - [slice_del](../s/slice_del.md) (deletes matched suffix without replacement)
 - Called from (representative examples):
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - Implements Tamil-specific plural-to-singular morphological transformations

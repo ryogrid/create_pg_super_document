@@ -24,18 +24,18 @@ The function serves as a notational convenience by returning the same PathTarget
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_expr_width
-  - cost_qual_eval_node
-  - clamp_width_est
+  - [get_expr_width](../g/get_expr_width.md)
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
+  - [clamp_width_est](../c/clamp_width_est.md)
 - Types used:
-  - PathTarget
+  - [PathTarget](../P/PathTarget.md)
   - QualCost
 - Called from (representative examples):
-  - make_group_input_target
-  - make_partial_grouping_target
-  - make_window_input_target
-  - make_sort_input_target
-  - split_pathtarget_at_srfs
+  - [make_group_input_target](../m/make_group_input_target.md)
+  - [make_partial_grouping_target](../m/make_partial_grouping_target.md)
+  - [make_window_input_target](../m/make_window_input_target.md)
+  - [make_sort_input_target](../m/make_sort_input_target.md)
+  - [split_pathtarget_at_srfs](split_pathtarget_at_srfs.md)
   - create_pathtarget
 
 ## Notes and Other Information

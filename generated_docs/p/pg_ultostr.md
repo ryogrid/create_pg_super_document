@@ -18,9 +18,9 @@ This function provides a simple interface for converting a uint32 value into its
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultoa_n (performs the actual integer-to-string conversion)
+  - [pg_ultoa_n](pg_ultoa_n.md) (performs the actual integer-to-string conversion)
 - Called from (representative examples):
-  - AppendSeconds (datetime.c:455, 495)
+  - [AppendSeconds](../A/AppendSeconds.md) (datetime.c:455, 495)
 
 ## Notes and Other Information
 - Returns a pointer to the position immediately after the last written character (not NUL-terminated)

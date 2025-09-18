@@ -26,9 +26,9 @@ This working state is essential for determining the final output behavior of set
 - Functions called/Symbols referenced:
   - (None - this is a data structure definition)
 - Called from (representative examples):
-  - setop_fill_hash_table (src/backend/executor/nodeSetOp.c:391)
-  - ExecInitSetOp (src/backend/executor/nodeSetOp.c:569)
-  - SetOpStatePerGroup (src/include/nodes/execnodes.h:2779)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md) (src/backend/executor/nodeSetOp.c:391)
+  - [ExecInitSetOp](../E/ExecInitSetOp.md) (src/backend/executor/nodeSetOp.c:569)
+  - [SetOpStatePerGroup](SetOpStatePerGroup.md) (src/include/nodes/execnodes.h:2779)
 
 ## Notes and Other Information
 - This structure is defined in src/backend/executor/nodeSetOp.c:64-68

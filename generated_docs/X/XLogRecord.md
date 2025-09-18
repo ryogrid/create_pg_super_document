@@ -26,15 +26,15 @@ XLogRecord serves as the header structure for every WAL record in PostgreSQL's t
   - pg_crc32c
 
 - Called from (representative examples):
-  - XLogInsertRecord
-  - XLogRecordAssemble
-  - XLogDecodeNextRecord
-  - ValidXLogRecordHeader
-  - ValidXLogRecord
+  - [XLogInsertRecord](XLogInsertRecord.md)
+  - [XLogRecordAssemble](XLogRecordAssemble.md)
+  - [XLogDecodeNextRecord](XLogDecodeNextRecord.md)
+  - [ValidXLogRecordHeader](../V/ValidXLogRecordHeader.md)
+  - [ValidXLogRecord](../V/ValidXLogRecord.md)
   - DecodeXLogRecord
 
 ## Notes and Other Information
-- XLogRecord structs always start on MAXALIGN boundaries in WAL files
+- [XLogRecord](XLogRecord.md) structs always start on MAXALIGN boundaries in WAL files
 - The structure is followed by variable-length components: XLogRecordBlockHeaders, XLogRecordDataHeaders, block data, and main data
 - The padding between xl_rmid and xl_crc must be initialized to zero
 - This is the foundation structure for PostgreSQL's WAL-based durability and replication systems

@@ -24,14 +24,14 @@ The structure maintains both the execution state of the function expression and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetExprState
+  - [SetExprState](../S/SetExprState.md)
   - Tuplestorestate
 - Called from (representative examples):
-  - FunctionNext
-  - ExecInitFunctionScan
-  - ExecEndFunctionScan
-  - ExecReScanFunctionScan
-  - FunctionScanState
+  - [FunctionNext](FunctionNext.md)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)
+  - [ExecEndFunctionScan](../E/ExecEndFunctionScan.md)
+  - [ExecReScanFunctionScan](../E/ExecReScanFunctionScan.md)
+  - [FunctionScanState](FunctionScanState.md)
 
 ## Notes and Other Information
 - This structure is defined in src/backend/executor/nodeFunctionscan.c at lines 35-43

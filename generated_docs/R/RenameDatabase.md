@@ -18,17 +18,17 @@ RenameDatabase performs a complete database rename operation with comprehensive 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_info: Retrieves database information and acquires locks
-  - object_ownercheck: Verifies database ownership permissions
-  - have_createdb_privilege: Checks if user has database creation privileges
-  - get_database_oid: Looks up database OID by name
-  - CountOtherDBBackends: Counts active connections to the database
-  - SearchSysCacheLockedCopy1: Retrieves and locks database catalog tuple
+  - [get_db_info](../g/get_db_info.md): Retrieves database information and acquires locks
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies database ownership permissions
+  - [have_createdb_privilege](../h/have_createdb_privilege.md): Checks if user has database creation privileges
+  - [get_database_oid](../g/get_database_oid.md): Looks up database OID by name
+  - [CountOtherDBBackends](../C/CountOtherDBBackends.md): Counts active connections to the database
+  - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md): Retrieves and locks database catalog tuple
   - namestrcpy: Copies the new name into the database tuple
-  - CatalogTupleUpdate: Updates the database catalog entry
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the database catalog entry
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
 - Called from (representative examples):
-  - ExecRenameStmt: Statement execution handler for RENAME operations
+  - [ExecRenameStmt](../E/ExecRenameStmt.md): Statement execution handler for RENAME operations
 
 ## Notes and Other Information
 - Requires AccessExclusiveLock on the database to prevent concurrent operations

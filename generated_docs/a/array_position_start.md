@@ -22,7 +22,7 @@ The function is part of PostgreSQL's array utility functions and provides a way 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_position_common
+  - [array_position_common](array_position_common.md)
 - Called from (representative examples):
   - SQL function  (indirectly through function catalog)
 

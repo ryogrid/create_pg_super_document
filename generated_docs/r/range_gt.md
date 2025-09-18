@@ -21,7 +21,7 @@ The function follows PostgreSQL's standard range comparison rules: empty ranges 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_cmp (performs the actual range comparison logic)
+  - [range_cmp](range_cmp.md) (performs the actual range comparison logic)
 - Called from (representative examples):
   - No direct references found in the codebase (likely used through operator dispatch)
 

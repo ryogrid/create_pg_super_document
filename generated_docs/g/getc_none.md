@@ -21,10 +21,10 @@ The `getc_none` function is a static helper function that implements character-o
 - Functions called/Symbols referenced:
   - fgetc (C standard library)
   - feof (C standard library)
-  - pg_fatal (PostgreSQL error reporting function)
-  - CompressFileHandle (structure type)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
-  - InitCompressFileHandleNone
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md)
 
 ## Notes and Other Information
 - This function is part of the "none" compression implementation, handling uncompressed file character reading

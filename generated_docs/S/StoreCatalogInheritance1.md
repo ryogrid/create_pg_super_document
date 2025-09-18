@@ -28,15 +28,15 @@ The function handles both regular table inheritance and table partitioning scena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StoreSingleInheritance
-  - recordDependencyOn
+  - [StoreSingleInheritance](StoreSingleInheritance.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - child_dependency_type  
   - InvokeObjectPostAlterHookArg
-  - SetRelationHasSubclass
-  - ObjectAddress (structure type)
+  - [SetRelationHasSubclass](SetRelationHasSubclass.md)
+  - [ObjectAddress](../O/ObjectAddress.md) (structure type)
 - Called from (representative examples):
-  - StoreCatalogInheritance
-  - CreateInheritance
+  - [StoreCatalogInheritance](StoreCatalogInheritance.md)
+  - [CreateInheritance](../C/CreateInheritance.md)
 
 ## Notes and Other Information
 - Works with an already-opened pg_inherits catalog relation for efficiency

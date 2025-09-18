@@ -17,12 +17,12 @@ postquel_end is responsible for the orderly shutdown of query execution for a SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecutorFinish
-  - ExecutorEnd
-  - FreeQueryDesc
+  - [ExecutorFinish](../E/ExecutorFinish.md)
+  - [ExecutorEnd](../E/ExecutorEnd.md)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md)
 - Called from (representative examples):
-  - fmgr_sql
-  - ShutdownSQLFunction
+  - [fmgr_sql](../f/fmgr_sql.md)
+  - [ShutdownSQLFunction](../S/ShutdownSQLFunction.md)
 
 ## Notes and Other Information
 - The function first sets the status to F_EXEC_DONE to prevent duplicate ExecutorEnd calls

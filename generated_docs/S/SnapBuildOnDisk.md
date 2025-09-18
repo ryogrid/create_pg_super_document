@@ -33,19 +33,19 @@ The structure uses magic number verification (SNAPBUILD_MAGIC = 0x51A1E001) and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_crc32c (checksum calculation for data integrity)
-  - SnapBuild (embedded snapshot builder state)
+  - [SnapBuild](SnapBuild.md) (embedded snapshot builder state)
   - TransactionId arrays (variable-length transaction lists)
 
 - Called from (representative examples):
-  - SnapBuildSerialize (creates and writes SnapBuildOnDisk to disk)
-  - SnapBuildRestore (reads and validates SnapBuildOnDisk from disk)
+  - [SnapBuildSerialize](SnapBuildSerialize.md) (creates and writes SnapBuildOnDisk to disk)
+  - [SnapBuildRestore](SnapBuildRestore.md) (reads and validates SnapBuildOnDisk from disk)
   - SnapBuildOnDiskConstantSize (macro calculating fixed header size)
   - SnapBuildOnDiskNotChecksummedSize (macro for checksum boundary calculation)
 
 ## Notes and Other Information
 - The structure layout is carefully ordered with version-independent data first to support future schema changes
 - Checksum covers all data except the magic number and checksum field itself
-- Variable-length TransactionId arrays are stored immediately after the structure in a specific order: committed transactions first, then catalog change transactions
+- [Variable](../V/Variable.md)-length TransactionId arrays are stored immediately after the structure in a specific order: committed transactions first, then catalog change transactions
 - The magic number 0x51A1E001 helps identify valid snapshot files and detect corruption
 - Current version 6 indicates the format has evolved over PostgreSQL development history
 - Used primarily during logical replication slot initialization and recovery scenarios

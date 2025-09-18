@@ -22,11 +22,11 @@ In non-EXEC_BACKEND builds, this functionality is not needed since shared memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (debugging assertions)
-  - CreateOrAttachShmemStructs (core shared memory structure attachment)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (core shared memory structure attachment)
   - shmem_startup_hook (extension hook for shared memory initialization)
 - Called from (representative examples):
   - InitProcess (regular backend process initialization)
-  - InitAuxiliaryProcess (auxiliary process initialization)
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (auxiliary process initialization)
 
 ## Notes and Other Information
 - Only relevant in EXEC_BACKEND mode (Windows and some other platforms)

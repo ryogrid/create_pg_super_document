@@ -20,11 +20,11 @@ This specialized conversion function handles the conversion from Python objects 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (type structure)
+  - [PLyObToDatum](PLyObToDatum.md) (type structure)
   - PyObject_IsTrue (Python C API function to determine object truthiness)
-  - BoolGetDatum (PostgreSQL macro to create boolean datum)
+  - [BoolGetDatum](../B/BoolGetDatum.md) (PostgreSQL macro to create boolean datum)
 - Called from:
-  - PLy_output_setup_func (during output function setup for boolean types)
+  - [PLy_output_setup_func](PLy_output_setup_func.md) (during output function setup for boolean types)
 
 ## Notes and Other Information
 This function serves as a bridge between Python's flexible truthiness concept and PostgreSQL's strict boolean type system. The comment in the source emphasizes that this cannot go through generic conversion mechanisms because Python allows many more objects to be considered boolean than PostgreSQL's parser would accept. The function is straightforward but crucial for maintaining semantic correctness when converting Python objects to PostgreSQL booleans. It properly handles NULL representation by detecting Python's None object and setting the isnull flag accordingly.

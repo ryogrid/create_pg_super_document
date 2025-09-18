@@ -33,13 +33,13 @@ The function performs several key operations:
 - Functions called/Symbols referenced:
   - `lappend`: List manipulation function to add elements to global lists
   - `makeNode`: Creates a new SubPlan node
-  - `psprintf`: Formatted string printing function
-  - `get_first_col_type`: Extracts type information from the plan's first column
+  - `[psprintf](../p/psprintf.md)`: Formatted string printing function
+  - `[get_first_col_type](../g/get_first_col_type.md)`: Extracts type information from the plan's first column
   - `list_make1_int`: Creates a single-element integer list
-  - `cost_subplan`: Calculates the cost of executing the subplan
+  - `[cost_subplan](../c/cost_subplan.md)`: Calculates the cost of executing the subplan
   - `EXPR_SUBLINK`: SubLink type constant for expression sublinks
 - Called from (representative examples):
-  - `create_minmaxagg_plan`: Used when creating initplans for MIN/MAX aggregate optimization
+  - `[create_minmaxagg_plan](../c/create_minmaxagg_plan.md)`: Used when creating initplans for MIN/MAX aggregate optimization
   - Referenced in `src/include/optimizer/subselect.h`: Function prototype declaration
 
 ## Notes and Other Information

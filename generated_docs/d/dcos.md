@@ -25,9 +25,9 @@ This function implements the SQL COS function for PostgreSQL, computing the cosi
   - cos (standard C library function)
   - isinf (called twice)
   - ereport
-  - errcode
-  - errmsg
-  - float_overflow_error
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [float_overflow_error](../f/float_overflow_error.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

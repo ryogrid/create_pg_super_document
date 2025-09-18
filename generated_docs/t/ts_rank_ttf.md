@@ -22,8 +22,8 @@ The  function is a PostgreSQL built-in function that computes text search rankin
   - PG_GETARG_TSVECTOR: Extracts TSVector from function arguments
   - PG_GETARG_TSQUERY: Extracts TSQuery from function arguments  
   - PG_GETARG_INT32: Extracts the normalization method integer from function arguments
-  - getWeights: Called with NULL to use default weight values
-  - calc_rank: Performs the actual ranking calculation with the specified normalization method
+  - [getWeights](../g/getWeights.md): Called with NULL to use default weight values
+  - [calc_rank](../c/calc_rank.md): Performs the actual ranking calculation with the specified normalization method
   - PG_FREE_IF_COPY: Frees detoasted copies of arguments
   - PG_RETURN_FLOAT4: Returns the calculated rank as a float4 value
 - Called from (representative examples):

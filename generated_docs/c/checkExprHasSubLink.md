@@ -20,15 +20,15 @@ This function traverses an expression tree or Query node to determine whether it
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_walker (tree traversal function)
-  - checkExprHasSubLink_walker (helper walker function)
-  - QTW_IGNORE_RC_SUBQUERIES (flag to control traversal behavior)
+  - [checkExprHasSubLink_walker](checkExprHasSubLink_walker.md) (helper walker function)
+  - [QTW_IGNORE_RC_SUBQUERIES](../Q/QTW_IGNORE_RC_SUBQUERIES.md) (flag to control traversal behavior)
 - Called from (representative examples):
-  - RelationBuildRowSecurity
-  - flatten_join_alias_vars_mutator
-  - rewriteRuleAction
-  - rewriteTargetView
-  - AddQual
-  - replace_rte_variables_mutator
+  - [RelationBuildRowSecurity](../R/RelationBuildRowSecurity.md)
+  - [flatten_join_alias_vars_mutator](../f/flatten_join_alias_vars_mutator.md)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
+  - [rewriteTargetView](../r/rewriteTargetView.md)
+  - [AddQual](../A/AddQual.md)
+  - [replace_rte_variables_mutator](../r/replace_rte_variables_mutator.md)
 
 ## Notes and Other Information
 - Returns true if any SubLink is found, false otherwise

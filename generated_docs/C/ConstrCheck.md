@@ -24,18 +24,18 @@ The structure stores the constraint name, a serialized representation of the con
 - Functions called/Symbols referenced:
   - (primitive types only)
 - Called from (representative examples):
-  - CreateTupleDescCopyConstr
-  - FreeTupleDesc
-  - equalTupleDescs
-  - MergeAttributes
-  - ExecRelCheck
-  - CheckConstraintFetch
-  - CheckConstraintCmp
+  - [CreateTupleDescCopyConstr](CreateTupleDescCopyConstr.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [equalTupleDescs](../e/equalTupleDescs.md)
+  - [MergeAttributes](../M/MergeAttributes.md)
+  - [ExecRelCheck](../E/ExecRelCheck.md)
+  - [CheckConstraintFetch](CheckConstraintFetch.md)
+  - [CheckConstraintCmp](CheckConstraintCmp.md)
 
 ## Notes and Other Information
 - CHECK constraints are evaluated during INSERT and UPDATE operations to ensure data integrity
 - The ccvalid field allows constraints to be temporarily disabled without dropping them
 - The ccnoinherit field controls inheritance behavior in table hierarchies
-- ConstrCheck structures are typically stored in arrays within TupleConstr
+- [ConstrCheck](ConstrCheck.md) structures are typically stored in arrays within TupleConstr
 - The ccbin field stores expressions that can be reconstructed using stringToNode()
 - Used extensively in constraint validation and table inheritance operations

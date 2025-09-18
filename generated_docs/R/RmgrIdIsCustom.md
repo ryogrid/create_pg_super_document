@@ -26,9 +26,9 @@ Custom resource managers allow extensions to participate in PostgreSQL's Write-A
   - RM_MIN_CUSTOM_ID (constant defining minimum custom resource manager ID, value 128)
   - RM_MAX_CUSTOM_ID (constant defining maximum custom resource manager ID, value UINT8_MAX/255)
 - Called from (representative examples):
-  - RegisterCustomRmgr (in rmgr.c)
-  - XLogDumpDisplayStats (in pg_waldump.c)
-  - main (in pg_waldump.c)
+  - [RegisterCustomRmgr](RegisterCustomRmgr.md) (in rmgr.c)
+  - [XLogDumpDisplayStats](../X/XLogDumpDisplayStats.md) (in pg_waldump.c)
+  - [main](../m/main.md) (in pg_waldump.c)
   - RmgrIdIsValid (macro in rmgr.h)
 
 ## Notes and Other Information

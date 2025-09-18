@@ -18,11 +18,11 @@ poly_contain_poly implements a comprehensive polygon containment test by first p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - box_contain_box: Quick bounding box containment test for early rejection
-  - lseg_inside_poly: Tests whether each edge of contained_poly lies inside contains_poly
+  - [box_contain_box](../b/box_contain_box.md): Quick bounding box containment test for early rejection
+  - [lseg_inside_poly](../l/lseg_inside_poly.md): Tests whether each edge of contained_poly lies inside contains_poly
 - Called from (representative examples):
-  - poly_contain: PostgreSQL function wrapper for polygon containment operator
-  - poly_contained: PostgreSQL function wrapper for reverse containment test
+  - [poly_contain](poly_contain.md): PostgreSQL function wrapper for polygon containment operator
+  - [poly_contained](poly_contained.md): PostgreSQL function wrapper for reverse containment test
   - PATH_CLOSED: For closed path containment testing
 
 ## Notes and Other Information

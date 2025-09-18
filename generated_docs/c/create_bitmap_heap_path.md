@@ -26,11 +26,11 @@ The function initializes all the standard Path fields and calls cost_bitmap_heap
 - Functions called/Symbols referenced:
   - makeNode (creates new BitmapHeapPath node)
   - get_baserel_parampathinfo (gets parameterization info)
-  - cost_bitmap_heap_scan (calculates execution costs)
+  - [cost_bitmap_heap_scan](cost_bitmap_heap_scan.md) (calculates execution costs)
 - Called from (representative examples):
-  - create_partial_bitmap_paths (for parallel bitmap scans)
-  - create_index_paths (when considering bitmap scan alternatives)
-  - reparameterize_path (when adjusting path parameters)
+  - [create_partial_bitmap_paths](create_partial_bitmap_paths.md) (for parallel bitmap scans)
+  - [create_index_paths](create_index_paths.md) (when considering bitmap scan alternatives)
+  - [reparameterize_path](../r/reparameterize_path.md) (when adjusting path parameters)
 
 ## Notes and Other Information
 - The resulting path is always unordered since bitmap heap scans follow physical page order

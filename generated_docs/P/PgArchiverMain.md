@@ -20,19 +20,19 @@ This function serves as the main entry point for the archiver process after it h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon: Common initialization for auxiliary processes
-  - pqsignal: Sets up signal handlers
-  - SignalHandlerForConfigReload: Handler for SIGHUP configuration reload
-  - SignalHandlerForShutdownRequest: Handler for SIGTERM shutdown
-  - procsignal_sigusr1_handler: Handler for SIGUSR1 signals
-  - pgarch_waken_stop: Handler for SIGUSR2 archiver wake/stop signals
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md): Common initialization for auxiliary processes
+  - [pqsignal](../p/pqsignal.md): Sets up signal handlers
+  - [SignalHandlerForConfigReload](../S/SignalHandlerForConfigReload.md): Handler for SIGHUP configuration reload
+  - [SignalHandlerForShutdownRequest](../S/SignalHandlerForShutdownRequest.md): Handler for SIGTERM shutdown
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md): Handler for SIGUSR1 signals
+  - [pgarch_waken_stop](../p/pgarch_waken_stop.md): Handler for SIGUSR2 archiver wake/stop signals
   - XLogArchivingActive: Checks if WAL archiving is enabled
-  - on_shmem_exit: Registers cleanup function
-  - binaryheap_allocate: Creates priority heap for file management
+  - [on_shmem_exit](../o/on_shmem_exit.md): Registers cleanup function
+  - [binaryheap_allocate](../b/binaryheap_allocate.md): Creates priority heap for file management
   - AllocSetContextCreate: Creates memory context
-  - LoadArchiveLibrary: Loads configured archive library
-  - pgarch_MainLoop: Main processing loop
-  - pgarch_die: Cleanup function for process exit
+  - [LoadArchiveLibrary](../L/LoadArchiveLibrary.md): Loads configured archive library
+  - [pgarch_MainLoop](../p/pgarch_MainLoop.md): Main processing loop
+  - [pgarch_die](../p/pgarch_die.md): Cleanup function for process exit
 - Called from (representative examples):
   - child_process_kind: Process launcher infrastructure
 

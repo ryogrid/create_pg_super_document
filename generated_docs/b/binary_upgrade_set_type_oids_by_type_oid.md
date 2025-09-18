@@ -34,20 +34,20 @@ The function queries the system catalogs to determine existing OIDs and generate
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer/destroyPQExpBuffer (buffer management)
-  - appendPQExpBuffer/appendPQExpBufferStr (SQL statement construction)
-  - ExecuteSqlQueryForSingleRow (database queries)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr (SQL statement construction)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (database queries)
   - atooid (string to OID conversion)
-  - get_next_possible_free_pg_type_oid (free OID allocation)
-  - printfPQExpBuffer (formatted buffer writing)
-  - PQgetvalue/PQfnumber/PQclear (query result handling)
+  - [get_next_possible_free_pg_type_oid](../g/get_next_possible_free_pg_type_oid.md) (free OID allocation)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formatted buffer writing)
+  - [PQgetvalue](../P/PQgetvalue.md)/PQfnumber/PQclear (query result handling)
   - OidIsValid (OID validation)
 - Called from (representative examples):
-  - binary_upgrade_set_type_oids_by_rel (src/bin/pg_dump/pg_dump.c:5468)
-  - dumpEnumType (src/bin/pg_dump/pg_dump.c:11000)
-  - dumpRangeType (src/bin/pg_dump/pg_dump.c:11154)
-  - dumpBaseType (src/bin/pg_dump/pg_dump.c:11435)
-  - dumpDomain (src/bin/pg_dump/pg_dump.c:11619)
-  - dumpCompositeType (src/bin/pg_dump/pg_dump.c:11852)
+  - [binary_upgrade_set_type_oids_by_rel](binary_upgrade_set_type_oids_by_rel.md) (src/bin/pg_dump/pg_dump.c:5468)
+  - [dumpEnumType](../d/dumpEnumType.md) (src/bin/pg_dump/pg_dump.c:11000)
+  - [dumpRangeType](../d/dumpRangeType.md) (src/bin/pg_dump/pg_dump.c:11154)
+  - [dumpBaseType](../d/dumpBaseType.md) (src/bin/pg_dump/pg_dump.c:11435)
+  - [dumpDomain](../d/dumpDomain.md) (src/bin/pg_dump/pg_dump.c:11619)
+  - [dumpCompositeType](../d/dumpCompositeType.md) (src/bin/pg_dump/pg_dump.c:11852)
 
 ## Notes and Other Information
 - Essential for maintaining object identity across PostgreSQL major version upgrades

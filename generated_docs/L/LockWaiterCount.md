@@ -21,7 +21,7 @@ This function searches the PostgreSQL lock manager's hash table to find a lock m
   - LockTagHashCode (computes hash value for the lock tag)
   - LockHashPartitionLock (gets the appropriate partition lock)
   - LWLockAcquire (acquires lightweight lock for thread safety)
-  - hash_search_with_hash_value (searches the lock hash table)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (searches the lock hash table)
   - LWLockRelease (releases lightweight lock)
 - Called from (representative examples):
   - RelationExtensionLockWaiterCount (wrapper for relation extension locks)

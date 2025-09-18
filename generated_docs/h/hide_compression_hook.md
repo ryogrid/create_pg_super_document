@@ -19,9 +19,9 @@ This function validates and applies the hide_compression configuration parameter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseVariableBool (for boolean string parsing and validation)
+  - [ParseVariableBool](../P/ParseVariableBool.md) (for boolean string parsing and validation)
 - Called from (representative examples):
-  - EstablishVariableSpace (at src/bin/psql/startup.c:1264)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (at src/bin/psql/startup.c:1264)
 
 ## Notes and Other Information
 - This is a static function defined in src/bin/psql/startup.c

@@ -19,12 +19,12 @@ This function serves as common code for both bpchartypmodout and varchartypmodou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - snprintf (for string formatting)
   - VARHDRSZ (variable header size constant)
 - Called from (representative examples):
-  - bpchartypmodout
-  - varchartypmodout
+  - [bpchartypmodout](../b/bpchartypmodout.md)
+  - [varchartypmodout](../v/varchartypmodout.md)
 
 ## Notes and Other Information
 - Allocates a 64-byte buffer for the result string, which is sufficient for any reasonable length value

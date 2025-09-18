@@ -21,12 +21,12 @@ The function is part of PostgreSQL's aggregate expression building infrastructur
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_make2
-  - make_agg_arg
+  - [make_agg_arg](../m/make_agg_arg.md)
   - makeFuncExpr
   - FuncExpr (struct type)
   - COERCE_EXPLICIT_CALL (constant)
 - Called from (representative examples):
-  - build_pertrans_for_aggref (in nodeAgg.c)
+  - [build_pertrans_for_aggref](build_pertrans_for_aggref.md) (in nodeAgg.c)
 
 ## Notes and Other Information
 - The deserialization function always has a fixed signature: (BYTEA, INTERNAL) -> INTERNAL

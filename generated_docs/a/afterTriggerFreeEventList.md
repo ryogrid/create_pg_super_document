@@ -19,12 +19,12 @@ This function iterates through all chunks in an AfterTriggerEventList and frees 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - AfterTriggerEventList (structure type)
-  - AfterTriggerEventChunk (structure type)
+  - [pfree](../p/pfree.md)
+  - [AfterTriggerEventList](../A/AfterTriggerEventList.md) (structure type)
+  - [AfterTriggerEventChunk](../A/AfterTriggerEventChunk.md) (structure type)
 - Called from (representative examples):
-  - afterTriggerRestoreEventList
-  - AfterTriggerFreeQuery
+  - [afterTriggerRestoreEventList](afterTriggerRestoreEventList.md)
+  - [AfterTriggerFreeQuery](../A/AfterTriggerFreeQuery.md)
 
 ## Notes and Other Information
 - The function is static, used only within the trigger.c module

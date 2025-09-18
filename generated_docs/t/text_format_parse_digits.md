@@ -34,7 +34,7 @@ The function employs PostgreSQL's overflow-safe arithmetic macros ( and ) to det
   - , , ,  - PostgreSQL error reporting system
 - Called from (representative examples):
   -  - Main format specifier parser (multiple call sites)
-  -  - Variable-length string datum extraction
+  -  - [Variable](../V/Variable.md)-length string datum extraction
 
 ## Notes and Other Information
 - Located in 

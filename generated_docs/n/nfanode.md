@@ -30,13 +30,13 @@ This function is essential for the regex compilation pipeline, transforming high
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newnfa - Creates a new NFA structure
-  - dupnfa - Duplicates NFA states and transitions
-  - specialcolors - Handles special color processing for optimization
-  - optimize - Performs NFA optimization
-  - makesearch - Converts NFA to search NFA format
-  - compact - Compresses NFA into final representation
-  - freenfa - Deallocates NFA memory
+  - [newnfa](newnfa.md) - Creates a new NFA structure
+  - [dupnfa](../d/dupnfa.md) - Duplicates NFA states and transitions
+  - [specialcolors](../s/specialcolors.md) - Handles special color processing for optimization
+  - [optimize](../o/optimize.md) - Performs NFA optimization
+  - [makesearch](../m/makesearch.md) - Converts NFA to search NFA format
+  - [compact](../c/compact.md) - Compresses NFA into final representation
+  - [freenfa](../f/freenfa.md) - Deallocates NFA memory
   - NOERR/ISERR - Error checking macros
 - Called from (representative examples):
   - nfatree - Main tree processing function

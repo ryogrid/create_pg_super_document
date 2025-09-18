@@ -22,7 +22,7 @@ The conversion is performed by first extracting the underlying 64-bit unsigned i
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdFromU64
-  - DatumGetUInt64
+  - [DatumGetUInt64](DatumGetUInt64.md)
 - Called from (representative examples):
   - PG_GETARG_FULLTRANSACTIONID
 

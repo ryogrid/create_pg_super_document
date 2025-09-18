@@ -31,8 +31,8 @@ The function includes comprehensive error handling for memory allocation failure
   - CERR (error reporting macro)
   - memcpy (memory copying)
 - Called from (representative examples):
-  - pseudocolor (in regc_color.c)
-  - newsub (in regc_color.c)
+  - [pseudocolor](../p/pseudocolor.md) (in regc_color.c)
+  - [newsub](newsub.md) (in regc_color.c)
 
 ## Notes and Other Information
 - Returns COLORLESS on error conditions (memory allocation failure or color limit exceeded)

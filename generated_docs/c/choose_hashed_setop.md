@@ -32,18 +32,18 @@ The function accounts for the fact that set operation inputs are always unsorted
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_memory_limit
-  - grouping_is_sortable
-  - grouping_is_hashable
-  - cost_agg
-  - cost_sort
-  - cost_group
-  - compare_fractional_path_costs
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
+  - [grouping_is_sortable](../g/grouping_is_sortable.md)
+  - [grouping_is_hashable](../g/grouping_is_hashable.md)
+  - [cost_agg](cost_agg.md)
+  - [cost_sort](cost_sort.md)
+  - [cost_group](cost_group.md)
+  - [compare_fractional_path_costs](compare_fractional_path_costs.md)
   - MAXALIGN
   - SizeofMinimalTupleHeader
   - AGG_HASHED
 - Called from (representative examples):
-  - generate_nonunion_paths
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md)
 
 ## Notes and Other Information
 - The function assumes input is always unsorted since it comes from appending unrelated sub-relations

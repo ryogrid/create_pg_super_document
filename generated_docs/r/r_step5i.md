@@ -34,12 +34,12 @@ The function uses an `among_var` variable to handle conditional logic in the swi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Backward search for suffix patterns in arrays
-  - `slice_del`: Delete the substring between bra and ket
-  - `slice_from_s`: Replace substring with a specific string
-  - `eq_s_b`: Exact string comparison from current position backward
+  - `[find_among_b](../f/find_among_b.md)`: Backward search for suffix patterns in arrays
+  - `[slice_del](../s/slice_del.md)`: Delete the substring between bra and ket
+  - `[slice_from_s](../s/slice_from_s.md)`: Replace substring with a specific string
+  - `[eq_s_b](../e/eq_s_b.md)`: Exact string comparison from current position backward
 - Called from (representative examples):
-  - `greek_UTF_8_stem` at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3631
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)` at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3631
 
 ## Notes and Other Information
 - This function is part of the automatically generated Snowball stemmer code for Greek language

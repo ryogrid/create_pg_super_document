@@ -27,13 +27,13 @@ The function assumes that NaN cases have been handled by the caller, but it prop
   - NUMERIC_NEG: Constant representing the negative sign
 
 - Called from (representative examples):
-  - numeric_sign: Public interface for the sign function
-  - numeric_mul_opt_error: Used in multiplication operations for sign handling
-  - numeric_div_opt_error: Used in division operations for sign handling  
-  - numeric_div_trunc: Used in truncating division operations
-  - numeric_mod_opt_error: Used in modulo operations
-  - numeric_log: Used in logarithm calculations for sign validation
-  - numeric_power: Used in power operations for sign determination
+  - [numeric_sign](numeric_sign.md): Public interface for the sign function
+  - [numeric_mul_opt_error](numeric_mul_opt_error.md): Used in multiplication operations for sign handling
+  - [numeric_div_opt_error](numeric_div_opt_error.md): Used in division operations for sign handling  
+  - [numeric_div_trunc](numeric_div_trunc.md): Used in truncating division operations
+  - [numeric_mod_opt_error](numeric_mod_opt_error.md): Used in modulo operations
+  - [numeric_log](numeric_log.md): Used in logarithm calculations for sign validation
+  - [numeric_power](numeric_power.md): Used in power operations for sign determination
 
 ## Notes and Other Information
 - The function is located in src/backend/utils/adt/numeric.c at lines 1476-1507

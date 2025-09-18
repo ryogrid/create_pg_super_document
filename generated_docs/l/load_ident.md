@@ -27,20 +27,20 @@ This function takes no parameters and returns a boolean indicating success or fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - open_auth_file (opens the ident configuration file)
-  - tokenize_auth_file (breaks file into tokens)
+  - [open_auth_file](../o/open_auth_file.md) (opens the ident configuration file)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md) (breaks file into tokens)
   - AllocSetContextCreate (creates memory context for parsing)
-  - parse_ident_line (parses individual ident mapping lines)
-  - free_auth_file (cleans up file resources)
-  - MemoryContextDelete (manages memory cleanup)
+  - [parse_ident_line](../p/parse_ident_line.md) (parses individual ident mapping lines)
+  - [free_auth_file](../f/free_auth_file.md) (cleans up file resources)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (manages memory cleanup)
   - lappend (adds parsed lines to result list)
   - IdentFileName (global variable containing ident file path)
   - PostmasterContext (parent memory context)
   - parsed_ident_context, parsed_ident_lines (global variables storing results)
 - Called from (representative examples):
-  - PostmasterMain (during server startup)
-  - process_pm_reload_request (when configuration is reloaded)
-  - PerformAuthentication (during authentication process)
+  - [PostmasterMain](../P/PostmasterMain.md) (during server startup)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md) (when configuration is reloaded)
+  - [PerformAuthentication](../P/PerformAuthentication.md) (during authentication process)
 
 ## Notes and Other Information
 - This function is located at src/backend/libpq/hba.c:2959-3047

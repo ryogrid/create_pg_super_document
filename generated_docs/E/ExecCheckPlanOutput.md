@@ -30,11 +30,11 @@ The validation occurs after obtaining a lock on the target relation, ensuring th
   - TupleDescAttr
   - IsA
   - exprType
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - ereport
 - Called from (representative examples):
-  - ExecInitInsertProjection
-  - ExecInitMerge
+  - [ExecInitInsertProjection](ExecInitInsertProjection.md)
+  - [ExecInitMerge](ExecInitMerge.md)
 
 ## Notes and Other Information
 - This function is static to nodeModifyTable.c and used internally during INSERT execution setup

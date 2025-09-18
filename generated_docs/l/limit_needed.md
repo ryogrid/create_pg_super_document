@@ -35,11 +35,11 @@ The key distinction from preprocess_limit() is that this function requires hard 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64
+  - [DatumGetInt64](../D/DatumGetInt64.md)
   - IsA, Const node type checking
 - Called from:
-  - grouping_planner (multiple locations)
-  - set_rel_consider_parallel
+  - [grouping_planner](../g/grouping_planner.md) (multiple locations)
+  - [set_rel_consider_parallel](../s/set_rel_consider_parallel.md)
   - Referenced in GroupPathExtraData structure
 
 ## Notes and Other Information

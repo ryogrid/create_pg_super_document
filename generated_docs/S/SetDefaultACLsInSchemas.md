@@ -18,11 +18,11 @@ This function serves as a dispatcher that applies default Access Control List (A
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_namespace_oid
-  - SetDefaultACL
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [SetDefaultACL](SetDefaultACL.md)
   - strVal (via lfirst)
 - Called from (representative examples):
-  - ExecAlterDefaultPrivilegesStmt
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md)
   - InternalDefaultACL (internal usage)
 
 ## Notes and Other Information

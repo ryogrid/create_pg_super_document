@@ -32,7 +32,7 @@ This join method is typically chosen when one of the relations is small, when th
   - NestLoop (plan node structure)
   - JoinType (enumeration for join types)
 - Called from (representative examples):
-  - create_nestloop_plan (in createplan.c:4425)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md) (in createplan.c:4425)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the plan creation subsystem

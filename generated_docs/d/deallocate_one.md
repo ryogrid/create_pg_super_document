@@ -21,16 +21,16 @@ The  function performs the complete deallocation of a prepared statement in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_log (logging functionality)
+  - [ecpg_log](../e/ecpg_log.md) (logging functionality)
   - ecpg_alloc (memory allocation)
-  - PQexec (PostgreSQL command execution)
+  - [PQexec](../P/PQexec.md) (PostgreSQL command execution)
   - ecpg_free (memory deallocation)
-  - ecpg_check_PQresult (result validation)
+  - [ecpg_check_PQresult](../e/ecpg_check_PQresult.md) (result validation)
   - INFORMIX_MODE (compatibility mode check)
-  - ecpg_raise (error reporting)
+  - [ecpg_raise](../e/ecpg_raise.md) (error reporting)
 - Called from (representative examples):
-  - ECPGdeallocate
-  - ecpg_deallocate_all_conn
+  - [ECPGdeallocate](../E/ECPGdeallocate.md)
+  - [ecpg_deallocate_all_conn](../e/ecpg_deallocate_all_conn.md)
   - ecpg_freeStmtCacheEntry
 
 ## Notes and Other Information

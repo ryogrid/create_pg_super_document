@@ -21,14 +21,14 @@ The function handles both simple index columns (referencing heap table columns) 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPolymorphicType (check if type is polymorphic)
-  - get_atttype (get attribute type from relation)
-  - getBaseType (flatten domain types to base types)
-  - RelationGetIndexExpressions (get index expressions if not cached)
+  - [get_atttype](../g/get_atttype.md) (get attribute type from relation)
+  - [getBaseType](../g/getBaseType.md) (flatten domain types to base types)
+  - [RelationGetIndexExpressions](../R/RelationGetIndexExpressions.md) (get index expressions if not cached)
   - list_head (get first element of list)
-  - lnext (get next element in list)
+  - [lnext](../l/lnext.md) (get next element in list)
   - exprType (get type of expression node)
 - Called from (representative examples):
-  - spgGetCache (at src/backend/access/spgist/spgutils.c:204)
+  - [spgGetCache](../s/spgGetCache.md) (at src/backend/access/spgist/spgutils.c:204)
 
 ## Notes and Other Information
 - Located in src/backend/access/spgist/spgutils.c:115-159

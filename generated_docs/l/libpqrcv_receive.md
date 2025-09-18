@@ -23,15 +23,15 @@ The function implements a two-step approach: first attempting to receive data di
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfreemem (to free previous receive buffer)
-  - PQgetCopyData (to receive COPY data from the stream)
-  - PQconsumeInput (to consume available input data)
-  - PQsocket (to get socket descriptor for waiting)
-  - libpqrcv_PQgetResult (to get command results on stream end)
-  - PQresultStatus (to check result status)
+  - [PQfreemem](../P/PQfreemem.md) (to free previous receive buffer)
+  - [PQgetCopyData](../P/PQgetCopyData.md) (to receive COPY data from the stream)
+  - [PQconsumeInput](../P/PQconsumeInput.md) (to consume available input data)
+  - [PQsocket](../P/PQsocket.md) (to get socket descriptor for waiting)
+  - [libpqrcv_PQgetResult](libpqrcv_PQgetResult.md) (to get command results on stream end)
+  - [PQresultStatus](../P/PQresultStatus.md) (to check result status)
   - PQstatus (to check connection status)
-  - PQclear (to clean up result objects)
-  - pchomp (to format error messages)
+  - [PQclear](../P/PQclear.md) (to clean up result objects)
+  - [pchomp](../p/pchomp.md) (to format error messages)
 - Used by:
   - WAL receiver main loop for continuous data reception
   - Replication stream processing functions

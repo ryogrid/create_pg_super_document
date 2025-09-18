@@ -24,27 +24,27 @@ For non-leaf pages, it can update downlink pointers when a page split has occurr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsLeaf
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
   - GinSetDownlink
-  - PageIndexTupleDelete
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - IndexTupleSize
   - PageAddItem
-  - BufferGetTag
+  - [BufferGetTag](../B/BufferGetTag.md)
   - elog
 - Data structures used:
-  - ginxlogInsertEntry
-  - IndexTuple
-  - RelFileLocator
+  - [ginxlogInsertEntry](ginxlogInsertEntry.md)
+  - [IndexTuple](../I/IndexTuple.md)
+  - [RelFileLocator](../R/RelFileLocator.md)
 - Constants used:
   - InvalidBlockNumber
   - FirstOffsetNumber
   - InvalidOffsetNumber
 - Called from:
-  - ginRedoInsert
+  - [ginRedoInsert](ginRedoInsert.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively within GIN WAL replay operations

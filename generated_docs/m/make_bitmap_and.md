@@ -23,7 +23,7 @@ This function constructs a BitmapAnd plan node, which is used to combine multipl
   - makeNode (to allocate BitmapAnd node)
   - BitmapAnd (struct type)
 - Called from (representative examples):
-  - create_bitmap_subplan
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the createplan.c file

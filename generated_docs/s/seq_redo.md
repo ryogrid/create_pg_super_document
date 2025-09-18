@@ -29,18 +29,18 @@ A key design feature is the use of a local page buffer to avoid transiently corr
   - XLogRecGetInfo
   - XLogRecGetData
   - XLogInitBufferForRedo
-  - BufferGetPage
-  - BufferGetPageSize
-  - palloc
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
+  - [palloc](../p/palloc.md)
   - PageInit
-  - PageGetSpecialPointer
+  - [PageGetSpecialPointer](../P/PageGetSpecialPointer.md)
   - XLogRecGetDataLen
   - PageAddItem
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - memcpy
   - MarkBufferDirty
-  - UnlockReleaseBuffer
-  - pfree
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [pfree](../p/pfree.md)
 - Called from:
   - No direct references found (likely registered as a WAL redo handler)
 

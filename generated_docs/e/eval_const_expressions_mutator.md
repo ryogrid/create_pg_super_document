@@ -37,8 +37,8 @@ The function respects context settings to determine whether unsafe optimizations
   - Type handling: applyRelabelType, getTypeOutputInfo, getTypeInputInfo
   - Many specialized helper functions for different expression types
 - Called from (representative examples):
-  - eval_const_expressions (clauses.c:2266)
-  - estimate_expression_value (clauses.c:2405)
+  - [eval_const_expressions](eval_const_expressions.md) (clauses.c:2266)
+  - [estimate_expression_value](estimate_expression_value.md) (clauses.c:2405)
   - (recursively calls itself throughout expression trees)
 
 ## Notes and Other Information

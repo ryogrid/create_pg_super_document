@@ -24,16 +24,16 @@ This function serves as the primary interface for checking the pause state from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryPauseState (return type)
+  - [RecoveryPauseState](../R/RecoveryPauseState.md) (return type)
   - SpinLockAcquire
   - SpinLockRelease
   - XLogRecoveryCtl (global structure)
 - Called from (representative examples):
-  - pg_is_wal_replay_paused
-  - pg_get_wal_replay_pause_state  
-  - recoveryPausesHere
-  - RecoveryRequiresIntParameter
-  - EndOfWalRecoveryInfo
+  - [pg_is_wal_replay_paused](../p/pg_is_wal_replay_paused.md)
+  - [pg_get_wal_replay_pause_state](../p/pg_get_wal_replay_pause_state.md)  
+  - [recoveryPausesHere](../r/recoveryPausesHere.md)
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md)
 
 ## Notes and Other Information
 - This function is thread-safe due to spinlock protection around the shared state access

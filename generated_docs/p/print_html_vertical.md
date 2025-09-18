@@ -18,11 +18,11 @@ This function generates HTML output in vertical format, displaying table data as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - html_escaped_print (for escaping HTML content)
+  - [html_escaped_print](../h/html_escaped_print.md) (for escaping HTML content)
   - fprintf, fputs, fputc (standard C library functions)
   - strspn (standard C library function)
 - Called from:
-  - printTable (src/fe_utils/print.c:3501)
+  - [printTable](printTable.md) (src/fe_utils/print.c:3501)
 
 ## Notes and Other Information
 - Displays data in vertical format with field names in header cells and values in data cells

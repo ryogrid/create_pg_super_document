@@ -21,17 +21,17 @@ The function integrates with PostgreSQL's interrupt handling system by calling P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQisBusy (to check if connection has pending operations)
-  - WaitLatchOrSocket (to wait for socket readiness or latch signals)
-  - PQsocket (to get the socket file descriptor)
-  - ResetLatch (to reset the latch after processing)
-  - ProcessWalRcvInterrupts (to handle WAL receiver interrupts)
-  - PQconsumeInput (to consume available input from socket)
-  - PQgetResult (to retrieve the actual result)
+  - [PQisBusy](../P/PQisBusy.md) (to check if connection has pending operations)
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md) (to wait for socket readiness or latch signals)
+  - [PQsocket](../P/PQsocket.md) (to get the socket file descriptor)
+  - [ResetLatch](../R/ResetLatch.md) (to reset the latch after processing)
+  - [ProcessWalRcvInterrupts](../P/ProcessWalRcvInterrupts.md) (to handle WAL receiver interrupts)
+  - [PQconsumeInput](../P/PQconsumeInput.md) (to consume available input from socket)
+  - [PQgetResult](../P/PQgetResult.md) (to retrieve the actual result)
 - Used by:
-  - libpqrcv_PQexec (for collecting query results)
-  - libpqrcv_endstreaming (for handling streaming termination)
-  - libpqrcv_receive (for receiving WAL data)
+  - [libpqrcv_PQexec](libpqrcv_PQexec.md) (for collecting query results)
+  - [libpqrcv_endstreaming](libpqrcv_endstreaming.md) (for handling streaming termination)
+  - [libpqrcv_receive](libpqrcv_receive.md) (for receiving WAL data)
 
 ## Notes and Other Information
 - This is a static function, only accessible within libpqwalreceiver.c

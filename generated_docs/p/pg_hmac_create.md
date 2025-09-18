@@ -21,7 +21,7 @@ pg_hmac_create is the primary constructor function for HMAC contexts in PostgreS
 - Functions called/Symbols referenced:
   - ALLOC (memory allocation macro)
   - FREE (memory deallocation macro)
-  - pg_cryptohash_create
+  - [pg_cryptohash_create](pg_cryptohash_create.md)
   - explicit_bzero
   - memset
 - Constants referenced:
@@ -33,18 +33,18 @@ pg_hmac_create is the primary constructor function for HMAC contexts in PostgreS
   - PG_SHA512_DIGEST_LENGTH, PG_SHA512_BLOCK_LENGTH
   - PG_HMAC_ERROR_NONE
 - Called from (representative examples):
-  - verify_client_proof
-  - build_server_final_message
+  - [verify_client_proof](../v/verify_client_proof.md)
+  - [build_server_final_message](../b/build_server_final_message.md)
   - scram_SaltedPassword
   - scram_ClientKey
   - scram_ServerKey
-  - calculate_client_proof
-  - verify_server_signature
+  - [calculate_client_proof](../c/calculate_client_proof.md)
+  - [verify_server_signature](../v/verify_server_signature.md)
 
 ## Notes and Other Information
 - Defined in src/common/hmac.c, available to both frontend and backend code
 - Returns NULL on allocation failure in frontend code
-- Backend code may issue an error and not return on OOM conditions
+- [Backend](../B/Backend.md) code may issue an error and not return on OOM conditions
 - Properly handles cleanup on partial initialization failures
 - Uses explicit_bzero for secure memory clearing on error paths
 - Part of PostgreSQL's cryptographic infrastructure, heavily used in SCRAM authentication

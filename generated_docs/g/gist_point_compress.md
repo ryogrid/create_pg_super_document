@@ -21,13 +21,13 @@ The function distinguishes between leaf and internal nodes: for leaf nodes (wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc`: Memory allocation for creating new box and entry structures
-  - `DatumGetPointP`: Extracts point data from the entry's key
+  - `[palloc](../p/palloc.md)`: Memory allocation for creating new box and entry structures
+  - `[DatumGetPointP](../D/DatumGetPointP.md)`: Extracts point data from the entry's key
   - `gistentryinit`: Initializes a new GiST entry with the compressed data
-  - `BoxPGetDatum`: Converts box pointer to Datum for storage
-  - `GISTENTRY`: GiST entry structure type
-  - `BOX`: Bounding box structure type
-  - `Point`: Point coordinate structure type
+  - `[BoxPGetDatum](../B/BoxPGetDatum.md)`: Converts box pointer to Datum for storage
+  - `[GISTENTRY](../G/GISTENTRY.md)`: GiST entry structure type
+  - `[BOX](../B/BOX.md)`: Bounding box structure type
+  - `[Point](../P/Point.md)`: Point coordinate structure type
 - Called from (representative examples):
   - Referenced by GiST access method during index operations (no direct references found in codebase)
 

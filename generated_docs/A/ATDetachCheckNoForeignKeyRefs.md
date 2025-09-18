@@ -17,14 +17,14 @@ This function is called during the DETACH PARTITION operation to ensure referent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetParentedForeignKeyRefs
+  - [GetParentedForeignKeyRefs](../G/GetParentedForeignKeyRefs.md)
   - Form_pg_constraint
   - Trigger
   - ShareLock
   - TRIGGER_FIRES_ON_ORIGIN
-  - RI_PartitionRemove_Check
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
 - Called from (representative examples):
-  - ATExecDetachPartition
+  - [ATExecDetachPartition](ATExecDetachPartition.md)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, used exclusively during partition detachment operations

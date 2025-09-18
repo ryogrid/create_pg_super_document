@@ -30,9 +30,9 @@ This function is commonly used in debugging, error messages, and system catalog 
   - TYPSTORAGE_EXTENDED (enumeration constant for extended storage)
   - TYPSTORAGE_MAIN (enumeration constant for main storage)
 - Called from (representative examples):
-  - BuildDescForRelation (relation descriptor building)
-  - MergeChildAttribute (attribute inheritance processing)
-  - MergeInheritedAttribute (inherited attribute merging)
+  - [BuildDescForRelation](../B/BuildDescForRelation.md) (relation descriptor building)
+  - [MergeChildAttribute](../M/MergeChildAttribute.md) (attribute inheritance processing)
+  - [MergeInheritedAttribute](../M/MergeInheritedAttribute.md) (inherited attribute merging)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tablecmds.c compilation unit

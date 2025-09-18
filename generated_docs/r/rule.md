@@ -26,7 +26,7 @@ The structure supports different types of rules (indicated by r_type) and provid
   - r_type (enum)
   - gmtsub
   - pg_time_t
-  - pg_tm
+  - [pg_tm](../p/pg_tm.md)
   - increment_overflow
   - increment_overflow_time
   - leapcorr
@@ -38,8 +38,8 @@ The structure supports different types of rules (indicated by r_type) and provid
   - transtime
   - tzparse
   - rulesub
-  - stringrule
-  - outzone
+  - [stringrule](../s/stringrule.md)
+  - [outzone](../o/outzone.md)
 
 ## Notes and Other Information
 - This structure is primarily used in timezone parsing and calculation routines

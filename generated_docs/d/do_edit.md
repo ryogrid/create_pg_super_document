@@ -32,14 +32,14 @@ The function handles platform-specific temporary directory management, ensures p
   - appendPQExpBufferChar() (to ensure newline termination)
   - fwrite(), fclose() (for writing query to temporary file)
   - utime() (to set file modification time)
-  - stat() (to check file modification before/after editing)
-  - editFile() (to invoke the external editor)
+  - [stat](../s/stat.md)() (to check file modification before/after editing)
+  - [editFile](../e/editFile.md)() (to invoke the external editor)
   - fopen(), fgets() (to read edited content back)
-  - resetPQExpBuffer(), appendPQExpBufferStr() (for query buffer management)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)(), appendPQExpBufferStr() (for query buffer management)
   - remove() (to clean up temporary file)
 - Called from:
-  - exec_command_edit (at src/bin/psql/command.c:1149)
-  - exec_command_ef_ev (at src/bin/psql/command.c:1266)
+  - [exec_command_edit](../e/exec_command_edit.md) (at src/bin/psql/command.c:1149)
+  - [exec_command_ef_ev](../e/exec_command_ef_ev.md) (at src/bin/psql/command.c:1266)
 
 ## Notes and Other Information
 - Creates temporary files with pattern 'psql.edit.[pid].sql' in system temp directory

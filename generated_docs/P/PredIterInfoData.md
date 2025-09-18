@@ -23,13 +23,13 @@ The structure uses function pointers to provide node-type-specific behavior whil
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (typedef for pointer to this structure)
-  - Node (base type for expression nodes)
-  - List (PostgreSQL's list structure)
+  - [PredIterInfo](PredIterInfo.md) (typedef for pointer to this structure)
+  - [Node](../N/Node.md) (base type for expression nodes)
+  - [List](../L/List.md) (PostgreSQL's list structure)
 - Called from (representative examples):
-  - predicate_implied_by_recurse
-  - predicate_refuted_by_recurse
-  - predicate_classify
+  - [predicate_implied_by_recurse](../p/predicate_implied_by_recurse.md)
+  - [predicate_refuted_by_recurse](../p/predicate_refuted_by_recurse.md)
+  - [predicate_classify](../p/predicate_classify.md)
 
 ## Notes and Other Information
 - The framework supports three main iterator implementations: list_*_fn for Lists, boolexpr_startup_fn + list_*_fn for BoolExpr, and arrayconst_*_fn/arrayexpr_*_fn for array operations

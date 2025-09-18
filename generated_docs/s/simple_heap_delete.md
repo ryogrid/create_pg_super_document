@@ -26,12 +26,12 @@ Upon receiving the result from heap_delete, it translates all non-success outcom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_delete
-  - GetCurrentCommandId
+  - [heap_delete](../h/heap_delete.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - TM_Result enum values (TM_Ok, TM_SelfModified, TM_Updated, TM_Deleted)
 - Called from (representative examples):
-  - toast_delete_datum
-  - CatalogTupleDelete
+  - [toast_delete_datum](../t/toast_delete_datum.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
 
 ## Notes and Other Information
 - This function assumes the caller has appropriate locking to prevent concurrent modifications

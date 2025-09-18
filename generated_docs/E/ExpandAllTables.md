@@ -27,13 +27,13 @@ The function includes a special validation case for "SELECT *;" (a SELECT with n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem (data structure access)
-  - list_concat
-  - expandNSItemAttrs
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (data structure access)
+  - [list_concat](../l/list_concat.md)
+  - [expandNSItemAttrs](../e/expandNSItemAttrs.md)
   - ereport
-  - parser_errposition
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - ExpandColumnRefStar (src/backend/parser/parse_target.c:1137)
+  - [ExpandColumnRefStar](ExpandColumnRefStar.md) (src/backend/parser/parse_target.c:1137)
 
 ## Notes and Other Information
 - The function is marked static, indicating it's an internal helper within parse_target.c

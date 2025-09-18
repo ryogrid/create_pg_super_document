@@ -29,9 +29,9 @@ The implementation leverages PostgreSQL's array slicing mechanism by setting up 
   - ARR_LBOUND
   - ARR_ELEMTYPE
   - MAXDIM
-  - get_typlenbyvalalign
-  - array_get_slice
-  - PointerGetDatum
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [array_get_slice](../a/array_get_slice.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - PG_RETURN_DATUM
 - Called from:
   - This appears to be a top-level SQL function implementation

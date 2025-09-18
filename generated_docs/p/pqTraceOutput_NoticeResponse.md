@@ -25,9 +25,9 @@ NoticeResponse messages are sent by the PostgreSQL server to provide information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputNR
+  - [pqTraceOutputNR](pqTraceOutputNR.md)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within fe-trace.c

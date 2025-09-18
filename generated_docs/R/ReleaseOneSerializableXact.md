@@ -41,17 +41,17 @@ The function supports three modes:
   - dlist_container
   - PredicateLockTargetTagHashCode
   - PredicateLockHashPartitionLock
-  - hash_search_with_hash_value
-  - dlist_delete
-  - dlist_push_tail
-  - RemoveTargetIfNoLongerUsed
-  - ReleaseRWConflict
-  - ReleasePredXact
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
+  - [RemoveTargetIfNoLongerUsed](RemoveTargetIfNoLongerUsed.md)
+  - [ReleaseRWConflict](ReleaseRWConflict.md)
+  - [ReleasePredXact](ReleasePredXact.md)
 - Called from:
-  - SerialControl
+  - [SerialControl](../S/SerialControl.md)
   - SummarizeOldestCommittedSxact
-  - ReleasePredicateLocks
-  - ClearOldPredicateLocks
+  - [ReleasePredicateLocks](ReleasePredicateLocks.md)
+  - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md)
 
 ## Notes and Other Information
 - Must be called with SerializableFinishedListLock held

@@ -39,9 +39,9 @@ The function returns uppercase string literals for display purposes. Note that A
   - elog (for error handling)
 - Called from:
   - InternalDefaultACL (src/backend/catalog/aclchk.c:137)
-  - ExecuteGrantStmt (src/backend/catalog/aclchk.c:587)
-  - ExecAlterDefaultPrivilegesStmt (src/backend/catalog/aclchk.c:1121)
-  - ExecGrant_Relation (src/backend/catalog/aclchk.c:2098)
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md) (src/backend/catalog/aclchk.c:587)
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md) (src/backend/catalog/aclchk.c:1121)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md) (src/backend/catalog/aclchk.c:2098)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the aclchk.c compilation unit

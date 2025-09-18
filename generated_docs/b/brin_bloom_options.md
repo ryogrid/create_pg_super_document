@@ -20,13 +20,13 @@ This function is a PostgreSQL reloption handler that defines and initializes the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_local_reloptions
-  - add_local_real_reloption
+  - [init_local_reloptions](../i/init_local_reloptions.md)
+  - [add_local_real_reloption](../a/add_local_real_reloption.md)
   - PG_GETARG_POINTER
   - PG_RETURN_VOID
 - Data types used:
-  - local_relopts
-  - BloomOptions
+  - [local_relopts](../l/local_relopts.md)
+  - [BloomOptions](../B/BloomOptions.md)
 - Constants referenced:
   - BLOOM_DEFAULT_NDISTINCT_PER_RANGE
   - BLOOM_DEFAULT_FALSE_POSITIVE_RATE

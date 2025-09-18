@@ -31,21 +31,21 @@ This function takes no parameters but operates on global state:
   - DescribeLockTag
   - appendStringInfoChar
   - appendStringInfo
-  - GetLockmodeName
+  - [GetLockmodeName](../G/GetLockmodeName.md)
   - appendBinaryStringInfo
   - pgstat_get_backend_current_activity
-  - pgstat_report_deadlock
+  - [pgstat_report_deadlock](../p/pgstat_report_deadlock.md)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail_internal
-  - errdetail_log
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail_internal](../e/errdetail_internal.md)
+  - [errdetail_log](../e/errdetail_log.md)
+  - [errhint](../e/errhint.md)
   - DEADLOCK_INFO (struct type)
   - ERRCODE_T_R_DEADLOCK_DETECTED
 
 - Called from (representative examples):
-  - WaitOnLock (src/backend/storage/lmgr/lock.c:1872)
+  - [WaitOnLock](../W/WaitOnLock.md) (src/backend/storage/lmgr/lock.c:1872)
 
 ## Notes and Other Information
 - The function generates two separate message buffers: one sanitized for client consumption and another with full query details for server logs

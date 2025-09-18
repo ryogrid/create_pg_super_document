@@ -19,11 +19,11 @@ This static function searches through the p_namespace list to find a namespace i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_lateral_ref_ok
+  - [check_lateral_ref_ok](../c/check_lateral_ref_ok.md)
   - ereport (for error reporting)
   - RTE_RELATION (enum constant)
 - Called from (representative examples):
-  - refnameNamespaceItem
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
 
 ## Notes and Other Information
 - Only matches RTE_RELATION entries that have no alias (rte->alias == NULL)

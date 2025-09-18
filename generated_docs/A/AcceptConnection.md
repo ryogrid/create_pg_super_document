@@ -23,15 +23,15 @@ The function is designed to be used in a blocking context where the postmaster p
   - accept (system call to accept incoming connections)
   - PGINVALID_SOCKET (PostgreSQL constant for invalid socket)
   - ereport/errmsg (PostgreSQL logging functions)
-  - errcode_for_socket_access (PostgreSQL error code function)
-  - pg_usleep (PostgreSQL sleep function)
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md) (PostgreSQL error code function)
+  - [pg_usleep](../p/pg_usleep.md) (PostgreSQL sleep function)
   - STATUS_OK (success return value)
   - STATUS_ERROR (error return value)
-  - ClientSocket (structure type for client connection info)
+  - [ClientSocket](../C/ClientSocket.md) (structure type for client connection info)
   - pgsocket (PostgreSQL socket type)
 
 - Called from (representative examples):
-  - ServerLoop (main postmaster loop when accepting new connections)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster loop when accepting new connections)
 
 ## Notes and Other Information
 - The function assumes it doesn't need to be non-blocking because the postmaster waits for the socket to be ready before calling accept()

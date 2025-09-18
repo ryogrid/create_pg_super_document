@@ -22,7 +22,7 @@ The implementation delegates to the underlying table access method, allowing dif
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_size (table access method function pointer)
 - Called from (representative examples):
-  - RelationGetNumberOfBlocksInFork (in src/backend/storage/buffer/bufmgr.c:3924)
+  - [RelationGetNumberOfBlocksInFork](../R/RelationGetNumberOfBlocksInFork.md) (in src/backend/storage/buffer/bufmgr.c:3924)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam header file, providing efficient access to the underlying table access method

@@ -23,11 +23,11 @@ The function is relatively straightforward compared to other pathlist functions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_namedtuplestore_size_estimates
-  - add_path
-  - create_namedtuplestorescan_path
+  - [set_namedtuplestore_size_estimates](set_namedtuplestore_size_estimates.md)
+  - [add_path](../a/add_path.md)
+  - [create_namedtuplestorescan_path](../c/create_namedtuplestorescan_path.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - Does not support join-qual-parameterized paths for tuplestores, eliminating the need for a separate set_namedtuplestore_size phase

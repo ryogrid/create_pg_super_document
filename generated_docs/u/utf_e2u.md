@@ -21,11 +21,11 @@ The function may allocate memory during the conversion process, potentially lead
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_any
+  - [pg_server_to_any](../p/pg_server_to_any.md)
   - PG_UTF8
 - Called from (representative examples):
   - UTF_E2U (macro wrapper)
-  - pltcl_trigger_handler
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md)
   - pltcl_event_trigger_handler
 
 ## Notes and Other Information

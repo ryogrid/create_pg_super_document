@@ -19,8 +19,8 @@ This function populates the type cache entry with information about the hashing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_rangetype_info
-  - lookup_type_cache
+  - [load_rangetype_info](../l/load_rangetype_info.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPTYPE_RANGE (type constant)
   - TYPECACHE_HASH_PROC (cache flag)
   - TYPECACHE_HASH_EXTENDED_PROC (cache flag)
@@ -28,8 +28,8 @@ This function populates the type cache entry with information about the hashing 
   - TCFLAGS_HAVE_ELEM_EXTENDED_HASHING (flag constant)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag constant)
 - Called from (representative examples):
-  - range_element_has_hashing
-  - range_element_has_extended_hashing
+  - [range_element_has_hashing](../r/range_element_has_hashing.md)
+  - [range_element_has_extended_hashing](../r/range_element_has_extended_hashing.md)
 
 ## Notes and Other Information
 This is a static helper function that implements lazy initialization for range element type properties. It only performs the work when the TCFLAGS_CHECKED_ELEM_PROPERTIES flag is not set, ensuring that expensive lookups are done only once. The function handles the case where the range element type information may not be loaded yet, making it robust for use in various contexts within the type cache system.

@@ -24,21 +24,21 @@ The function uses exception handling to ensure proper cleanup if errors occur du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ChoosePortalStrategy
+  - [ChoosePortalStrategy](../C/ChoosePortalStrategy.md)
   - PushActiveSnapshot
   - GetTransactionSnapshot
-  - CreateQueryDesc
-  - ExecutorStart
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
+  - [ExecutorStart](../E/ExecutorStart.md)
   - PortalGetPrimaryStmt
-  - ExecCleanTypeFromTL
+  - [ExecCleanTypeFromTL](../E/ExecCleanTypeFromTL.md)
   - UtilityTupleDescriptor
   - MarkPortalFailed
 - Called from (representative examples):
-  - PerformCursorOpen
-  - ExecuteQuery
-  - SPI_cursor_open_internal
-  - exec_simple_query
-  - exec_bind_message
+  - [PerformCursorOpen](PerformCursorOpen.md)
+  - [ExecuteQuery](../E/ExecuteQuery.md)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
 
 ## Notes and Other Information
 - Caller must have already created the portal and called PortalDefineQuery

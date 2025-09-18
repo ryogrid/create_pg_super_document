@@ -21,7 +21,7 @@ This structure serves as a temporary preprocessing container in _bt_preprocess_k
 - Functions called/Symbols referenced:
   - ScanKey (struct type)
 - Called from (representative examples):
-  - _bt_preprocess_keys
+  - [_bt_preprocess_keys](../b/_bt_preprocess_keys.md)
 
 ## Notes and Other Information
 - Used as a local array  in _bt_preprocess_keys() where each element corresponds to a specific strategy type

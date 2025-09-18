@@ -46,7 +46,7 @@ The function includes heuristics to distinguish between backreferences and octal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lexdigits, chrnamed
+  - [lexdigits](lexdigits.md), chrnamed
   - ATEOS, ISERR, CHR_IS_IN_RANGE, ENDOF
   - RETV, RET, FAILW, NOTE, ERR
   - CHR, DIGITVAL
@@ -55,8 +55,8 @@ The function includes heuristics to distinguish between backreferences and octal
   - Character classes: CC_DIGIT, CC_SPACE, CC_WORD
   - Error/notification codes: REG_EESCAPE, REG_UNONPOSIX, REG_UUNPORT, REG_ULOCALE, REG_UBACKREF
 - Called from (representative examples):
-  - next (for general backslash processing)
-  - next (within bracket expressions)
+  - [next](../n/next.md) (for general backslash processing)
+  - [next](../n/next.md) (within bracket expressions)
 
 ## Notes and Other Information
 This function is only used in Advanced Regular Expression mode (REG_ADVF flag must be set). It can be called from both normal contexts and bracket expressions, though the caller must validate that certain escape types are appropriate for the context. The function includes extensive use of NOTE() calls to track non-POSIX features for compliance reporting. Unrecognized alphabetic escape sequences generate errors to reserve them for future use. The backref vs. octal disambiguation uses heuristics based on the number of digits and whether the number is within the valid subexpression range.

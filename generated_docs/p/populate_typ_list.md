@@ -20,18 +20,18 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens the pg_type relation)
-  - table_beginscan_catalog (begins catalog scan)
-  - heap_getnext (retrieves next tuple from scan)
-  - table_endscan (ends the table scan)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md) (begins catalog scan)
+  - [heap_getnext](../h/heap_getnext.md) (retrieves next tuple from scan)
+  - [table_endscan](../t/table_endscan.md) (ends the table scan)
   - table_close (closes the relation)
   - ForwardScanDirection (scan direction constant)
   - Form_pg_type (type form structure)
-  - typmap (type mapping structure)
-  - TableScanDesc (table scan descriptor type)
+  - [typmap](../t/typmap.md) (type mapping structure)
+  - [TableScanDesc](../T/TableScanDesc.md) (table scan descriptor type)
 
 - Called from:
-  - boot_openrel (during bootstrap relation opening)
-  - gettype (when type lookup is needed)
+  - [boot_openrel](../b/boot_openrel.md) (during bootstrap relation opening)
+  - [gettype](../g/gettype.md) (when type lookup is needed)
 
 ## Notes and Other Information
 - Asserts that the global Typ list is NIL (empty) before populating it

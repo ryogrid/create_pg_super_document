@@ -30,17 +30,17 @@ This function serves as the primary constructor for ArchiveHandle objects in Pos
 - Functions called/Symbols referenced:
   - pg_log_debug
   - pg_malloc0
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - time
-  - InitCompressFileHandle
-  - _discoverArchiveFormat
-  - InitArchiveFmt_Custom
-  - InitArchiveFmt_Null
-  - InitArchiveFmt_Directory
+  - [InitCompressFileHandle](../I/InitCompressFileHandle.md)
+  - [_discoverArchiveFormat](../d/_discoverArchiveFormat.md)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md)
+  - [InitArchiveFmt_Null](../I/InitArchiveFmt_Null.md)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md)
   - InitArchiveFmt_Tar
 - Called from (representative examples):
-  - CreateArchive
-  - OpenArchive
+  - [CreateArchive](../C/CreateArchive.md)
+  - [OpenArchive](../O/OpenArchive.md)
 
 ## Notes and Other Information
 - Static function, only accessible within pg_backup_archiver.c

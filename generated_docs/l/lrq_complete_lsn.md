@@ -25,9 +25,9 @@ The function performs queue maintenance by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - RecoveryPrefetchEnabled
-  - lrq_prefetch
+  - [lrq_prefetch](lrq_prefetch.md)
 - Called from (representative examples):
-  - XLogPrefetcherReadRecord
+  - [XLogPrefetcherReadRecord](../X/XLogPrefetcherReadRecord.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

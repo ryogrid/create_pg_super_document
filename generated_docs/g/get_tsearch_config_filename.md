@@ -20,17 +20,17 @@ The function uses  to determine the PostgreSQL share directory path and construc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_share_path
+  - [get_share_path](get_share_path.md)
   - strspn (standard C library)
   - strlen (standard C library)
   - ereport (PostgreSQL error reporting)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - snprintf (standard C library)
 - Called from (representative examples):
-  - dispell_init (ispell dictionary initialization)
-  - dsynonym_init (synonym dictionary initialization)
-  - thesaurusRead (thesaurus dictionary reader)
-  - readstoplist (stop list reader)
+  - [dispell_init](../d/dispell_init.md) (ispell dictionary initialization)
+  - [dsynonym_init](../d/dsynonym_init.md) (synonym dictionary initialization)
+  - [thesaurusRead](../t/thesaurusRead.md) (thesaurus dictionary reader)
+  - [readstoplist](../r/readstoplist.md) (stop list reader)
 
 ## Notes and Other Information
 - The function enforces strict filename validation to prevent security vulnerabilities such as directory traversal attacks

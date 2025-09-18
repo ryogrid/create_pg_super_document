@@ -24,14 +24,14 @@ The implementation carefully preserves the errno value throughout execution to s
 - Functions called/Symbols referenced:
   - SpinLockAcquire: Acquires spin lock for thread-safe access to shared data
   - SpinLockRelease: Releases spin lock after accessing shared data
-  - XLogFileName: Constructs WAL filename for error reporting
+  - [XLogFileName](../X/XLogFileName.md): Constructs WAL filename for error reporting
   - ereport: Reports errors with appropriate error codes and messages
-  - errcode_for_file_access: Provides appropriate error code for file access issues
+  - [errcode_for_file_access](../e/errcode_for_file_access.md): Provides appropriate error code for file access issues
 - Called from (representative examples):
-  - perform_base_backup: Multiple locations during base backup operations
-  - logical_read_xlog_page: During logical replication WAL reading
-  - XLogSendPhysical: During physical WAL replication
-  - WALAvailability: For checking WAL segment availability status
+  - [perform_base_backup](../p/perform_base_backup.md): Multiple locations during base backup operations
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md): During logical replication WAL reading
+  - [XLogSendPhysical](../X/XLogSendPhysical.md): During physical WAL replication
+  - [WALAvailability](../W/WALAvailability.md): For checking WAL segment availability status
 
 ## Notes and Other Information
 - The function guarantees errno preservation, making it safe to use in error handling paths

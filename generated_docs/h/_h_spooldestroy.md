@@ -17,11 +17,11 @@ This function performs cleanup operations for an HSpool structure that was previ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HSpool (structure type)
+  - [HSpool](../H/HSpool.md) (structure type)
   - tuplesort_end (terminates tuple sorting state)
-  - pfree (deallocates memory)
+  - [pfree](../p/pfree.md) (deallocates memory)
 - Called from (representative examples):
-  - hashbuild
+  - [hashbuild](hashbuild.md)
 
 ## Notes and Other Information
 - Must be called after hash index construction is complete to prevent memory leaks

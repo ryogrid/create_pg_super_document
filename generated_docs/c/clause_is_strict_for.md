@@ -30,16 +30,16 @@ The allow_false parameter provides flexibility for top-level boolean contexts wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (for node type checking)
-  - equal (for expression equality)
-  - is_opclause, op_strict (for operator strictness)
-  - is_funcclause, func_strict (for function strictness)
+  - [equal](../e/equal.md) (for expression equality)
+  - [is_opclause](../i/is_opclause.md), op_strict (for operator strictness)
+  - [is_funcclause](../i/is_funcclause.md), func_strict (for function strictness)
   - linitial, lsecond (for list access)
   - DatumGetArrayTypeP, ArrayGetNItems, ARR_NDIM, ARR_DIMS (for array analysis)
-  - clause_is_strict_for (recursive calls)
+  - [clause_is_strict_for](clause_is_strict_for.md) (recursive calls)
 - Called from (representative examples):
-  - predicate_implied_by_simple_clause
-  - predicate_refuted_by_simple_clause
-  - clause_is_strict_for (recursive calls)
+  - [predicate_implied_by_simple_clause](../p/predicate_implied_by_simple_clause.md)
+  - [predicate_refuted_by_simple_clause](../p/predicate_refuted_by_simple_clause.md)
+  - [clause_is_strict_for](clause_is_strict_for.md) (recursive calls)
 
 ## Notes and Other Information
 - Handles RelabelType nodes transparently by looking through them to match underlying expressions

@@ -17,7 +17,7 @@ This function checks the current state of the WAL receiver by examining the shar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvData
+  - [WalRcvData](WalRcvData.md)
   - WalRcvState
   - pg_time_t
   - WALRCV_STARTING
@@ -25,8 +25,8 @@ This function checks the current state of the WAL receiver by examining the shar
   - WALRCV_STOPPED
   - ConditionVariableBroadcast
 - Called from (representative examples):
-  - StartupRequestWalReceiverRestart
-  - ShutdownWalRcv
+  - [StartupRequestWalReceiverRestart](../S/StartupRequestWalReceiverRestart.md)
+  - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/walreceiverfuncs.c:75-125

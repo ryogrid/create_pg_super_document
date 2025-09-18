@@ -22,7 +22,7 @@ ExecCustomMarkPos is used to mark the current position in a custom scan so that 
   - ereport (for error reporting)
   - MarkPosCustomScan (via node->methods callback, if supported)
 - Called from (representative examples):
-  - ExecMarkPos
+  - [ExecMarkPos](ExecMarkPos.md)
 
 ## Notes and Other Information
 - Not all custom scan providers are required to support position marking

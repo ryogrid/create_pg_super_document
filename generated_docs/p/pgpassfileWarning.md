@@ -29,10 +29,10 @@ The warning message includes the full path to the password file that was used, h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultErrorField
+  - [PQresultErrorField](../P/PQresultErrorField.md)
   - PG_DIAG_SQLSTATE
   - ERRCODE_INVALID_PASSWORD
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
   - internalPQconninfoOption (fe-connect.c:448)
 

@@ -22,8 +22,8 @@ The function handles cases where the schema might not exist by checking for miss
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public
-  - convert_schema_priv_string
-  - object_aclcheck_ext
+  - [convert_schema_priv_string](../c/convert_schema_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_GETARG_NAME
   - Name (type)
   - AclResult (type)

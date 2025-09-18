@@ -37,18 +37,18 @@ This structure is crucial for preserving index definitions, including complex pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (inherited base structure)
-  - TableInfo (referenced via indextable pointer)
-  - SimplePtrList (for partition attachments)
+  - [TableInfo](../T/TableInfo.md) (referenced via indextable pointer)
+  - [SimplePtrList](../S/SimplePtrList.md) (for partition attachments)
   - DumpId (for constraint associations)
 - Called from (representative examples):
-  - getIndexes (creates and populates IndxInfo structures)
-  - dumpIndex (processes index dumps)
-  - dumpConstraint (handles constraint-backed indexes)
-  - findIndexByOid (index lookup operations)
-  - flagInhIndexes (inheritance processing)
+  - [getIndexes](../g/getIndexes.md) (creates and populates IndxInfo structures)
+  - [dumpIndex](../d/dumpIndex.md) (processes index dumps)
+  - [dumpConstraint](../d/dumpConstraint.md) (handles constraint-backed indexes)
+  - [findIndexByOid](../f/findIndexByOid.md) (index lookup operations)
+  - [flagInhIndexes](../f/flagInhIndexes.md) (inheritance processing)
 
 ## Notes and Other Information
-- IndxInfo structures are created during the schema discovery phase by getIndexes()
+- [IndxInfo](IndxInfo.md) structures are created during the schema discovery phase by getIndexes()
 - The indexdef field contains the complete CREATE INDEX statement ready for execution
 - Partition indexes maintain parent-child relationships through parentidx and partattaches members
 - Indexes backing constraints (PRIMARY KEY, UNIQUE) have their constraint relationship tracked via indexconstraint

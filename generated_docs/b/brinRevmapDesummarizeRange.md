@@ -27,29 +27,29 @@ The function handles various edge cases including missing tuples, concurrent pag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brinRevmapInitialize
-  - revmap_get_blkno
+  - [brinRevmapInitialize](brinRevmapInitialize.md)
+  - [revmap_get_blkno](../r/revmap_get_blkno.md)
   - BlockNumberIsValid
-  - brinRevmapTerminate
-  - brinLockRevmapPageForUpdate
+  - [brinRevmapTerminate](brinRevmapTerminate.md)
+  - [brinLockRevmapPageForUpdate](brinLockRevmapPageForUpdate.md)
   - HEAPBLK_TO_REVMAP_INDEX
-  - PageGetContents
-  - ItemPointerIsValid
-  - ReadBuffer
-  - ItemPointerGetBlockNumber
+  - [PageGetContents](../P/PageGetContents.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - BRIN_IS_REGULAR_PAGE
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
-  - brinSetHeapBlockItemptr
-  - PageIndexTupleDeleteNoCompact
+  - [brinSetHeapBlockItemptr](brinSetHeapBlockItemptr.md)
+  - [PageIndexTupleDeleteNoCompact](../P/PageIndexTupleDeleteNoCompact.md)
   - MarkBufferDirty
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
 - Called from (representative examples):
-  - brin_desummarize_range
+  - [brin_desummarize_range](brin_desummarize_range.md)
 
 ## Notes and Other Information
 - Requires ShareUpdateExclusiveLock on the index to prevent concurrent summarization

@@ -22,8 +22,8 @@ The  structure encapsulates a single test input case for the escape function tes
   - (No direct references from this structure)
 - Called from (representative examples):
   - TV_LEN (macro for calculating test vector length)
-  - test_one_vector_escape
-  - test_one_vector
+  - [test_one_vector_escape](../t/test_one_vector_escape.md)
+  - [test_one_vector](../t/test_one_vector.md)
 
 ## Notes and Other Information
 This structure is fundamental to the test framework's data-driven testing approach, allowing test cases to be defined declaratively as arrays of test vectors. The inclusion of both length and data pointer supports testing with binary data that may contain null bytes, which is important for comprehensive escape function validation across different character encodings and edge cases.

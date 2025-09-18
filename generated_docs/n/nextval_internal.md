@@ -30,20 +30,20 @@ The function uses a two-phase approach: first it checks if cached values are ava
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_sequence (sequence initialization and locking)
-  - pg_class_aclcheck (permission verification)
-  - PreventCommandIfReadOnly/PreventCommandIfParallelMode (safety checks)
-  - SearchSysCache1 (sequence metadata lookup)
-  - read_seq_tuple (sequence tuple reading)
-  - GetRedoRecPtr/PageGetLSN (WAL checkpoint handling)
+  - [init_sequence](../i/init_sequence.md) (sequence initialization and locking)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md) (permission verification)
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)/PreventCommandIfParallelMode (safety checks)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (sequence metadata lookup)
+  - [read_seq_tuple](../r/read_seq_tuple.md) (sequence tuple reading)
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)/PageGetLSN (WAL checkpoint handling)
   - RelationNeedsWAL/GetTopTransactionId (WAL logging setup)
-  - XLogBeginInsert/XLogRegisterBuffer/XLogInsert (WAL logging)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterBuffer/XLogInsert (WAL logging)
   - MarkBufferDirty (buffer management)
-  - sequence_close (resource cleanup)
+  - [sequence_close](../s/sequence_close.md) (resource cleanup)
 - Called from (representative examples):
-  - nextval (text-based sequence interface)
-  - nextval_oid (OID-based sequence interface) 
-  - ExecEvalNextValueExpr (executor for nextval expressions)
+  - [nextval](nextval.md) (text-based sequence interface)
+  - [nextval_oid](nextval_oid.md) (OID-based sequence interface) 
+  - [ExecEvalNextValueExpr](../E/ExecEvalNextValueExpr.md) (executor for nextval expressions)
 
 ## Notes and Other Information
 - Implements sequence value caching to reduce WAL log volume (SEQ_LOG_VALS optimization)

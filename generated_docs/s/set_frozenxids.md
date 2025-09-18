@@ -23,17 +23,17 @@ The function connects to each database in the cluster and updates the system cat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting)
-  - connectToServer (database connection)
-  - executeQueryOrDie (SQL execution)
-  - quote_identifier (SQL identifier quoting)
-  - check_ok (completion verification)
-  - PQfinish (connection cleanup)
+  - [prep_status](../p/prep_status.md) (status reporting)
+  - [connectToServer](../c/connectToServer.md) (database connection)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) (SQL execution)
+  - [quote_identifier](../q/quote_identifier.md) (SQL identifier quoting)
+  - [check_ok](../c/check_ok.md) (completion verification)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
   - CppAsString2 (macro for string conversion)
   - RELKIND_RELATION, RELKIND_MATVIEW, RELKIND_TOASTVALUE (relation type constants)
 - Called from:
-  - prepare_new_globals (in initial upgrade phase)
-  - create_new_objects (in post-restore phase for pre-9.3 upgrades)
+  - [prepare_new_globals](../p/prepare_new_globals.md) (in initial upgrade phase)
+  - [create_new_objects](../c/create_new_objects.md) (in post-restore phase for pre-9.3 upgrades)
 
 ## Notes and Other Information
 - This function is essential for maintaining MVCC (Multi-Version Concurrency Control) integrity during database upgrades

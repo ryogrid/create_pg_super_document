@@ -35,18 +35,18 @@ The function returns a tuple with 16 columns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLockStatusData (retrieves current lock information)
+  - [GetLockStatusData](../G/GetLockStatusData.md) (retrieves current lock information)
   - GetPredicateLockStatusData (retrieves predicate lock information)
-  - VXIDGetDatum (formats virtual transaction IDs)
-  - GetLockmodeName (converts lock mode to string)
-  - CreateTemplateTupleDesc (creates tuple descriptor)
-  - TupleDescInitEntry (initializes tuple descriptor columns)
-  - BlessTupleDesc (finalizes tuple descriptor)
-  - heap_form_tuple (creates result tuples)
+  - [VXIDGetDatum](../V/VXIDGetDatum.md) (formats virtual transaction IDs)
+  - [GetLockmodeName](../G/GetLockmodeName.md) (converts lock mode to string)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (creates tuple descriptor)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (initializes tuple descriptor columns)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md) (finalizes tuple descriptor)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates result tuples)
 - Referenced types:
-  - LockData, PredicateLockData, LockInstanceData
-  - PREDICATELOCKTARGETTAG, SERIALIZABLEXACT
-  - FuncCallContext, PG_Lock_Status
+  - [LockData](../L/LockData.md), PredicateLockData, LockInstanceData
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md), SERIALIZABLEXACT
+  - [FuncCallContext](../F/FuncCallContext.md), PG_Lock_Status
 - Called from:
   - SQL queries via pg_locks system view
   - Direct function calls in monitoring applications

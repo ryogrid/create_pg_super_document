@@ -23,7 +23,7 @@ The int8abs function implements the absolute value operation for PostgreSQL's bi
   - PG_RETURN_INT64 (returns int64 result)
   - PG_INT64_MIN (minimum int64 constant)
   - ereport (error reporting)
-  - errcode/errmsg (error code and message macros)
+  - [errcode](../e/errcode.md)/errmsg (error code and message macros)
 - Called from:
   - No direct references found (likely called via PostgreSQL function dispatch system)
 

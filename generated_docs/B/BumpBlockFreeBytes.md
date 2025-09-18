@@ -20,7 +20,7 @@ BumpBlockFreeBytes is a static inline utility function within PostgreSQL's bump 
   - BumpBlock (structure type)
 - Called from (representative examples):
   - ExternalChunkGetBlock
-  - BumpAlloc
+  - [BumpAlloc](BumpAlloc.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the bump.c compilation unit and will be inlined at call sites for performance

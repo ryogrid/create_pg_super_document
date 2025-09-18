@@ -21,13 +21,13 @@ The datapagemap_t is a type alias that provides a more convenient and convention
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datapagemap (references the underlying struct)
+  - [datapagemap](datapagemap.md) (references the underlying struct)
 - Called from (representative examples):
-  - datapagemap_iterator (used in iterator structure)
-  - datapagemap_add (function parameter)
-  - datapagemap_iterate (function parameter and return type)
-  - datapagemap_print (function parameter)
-  - file_entry_t (used in file mapping structure)
+  - [datapagemap_iterator](datapagemap_iterator.md) (used in iterator structure)
+  - [datapagemap_add](datapagemap_add.md) (function parameter)
+  - [datapagemap_iterate](datapagemap_iterate.md) (function parameter and return type)
+  - [datapagemap_print](datapagemap_print.md) (function parameter)
+  - [file_entry_t](../f/file_entry_t.md) (used in file mapping structure)
 
 ## Notes and Other Information
 - This typedef is the primary interface type used in pg_rewind's data page mapping API

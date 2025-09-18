@@ -21,14 +21,14 @@ This static function implements the standby wait logic used by ResolveRecoveryCo
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (checks for pending interrupts)
-  - GetStandbyLimitTime (gets the cutoff time for conflicts)
-  - GetCurrentTimestamp (gets current system timestamp)
+  - [GetStandbyLimitTime](../G/GetStandbyLimitTime.md) (gets the cutoff time for conflicts)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current system timestamp)
   - pgstat_report_wait_start (reports start of wait to statistics system)
-  - pg_usleep (sleeps for specified microseconds)
+  - [pg_usleep](../p/pg_usleep.md) (sleeps for specified microseconds)
   - pgstat_report_wait_end (reports end of wait to statistics system)
   - standbyWait_us (global variable tracking current sleep duration)
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithVirtualXIDs (main conflict resolution function)
+  - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (main conflict resolution function)
 
 ## Notes and Other Information
 - Static function, only used within standby.c

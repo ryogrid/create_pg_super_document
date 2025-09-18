@@ -22,14 +22,14 @@ The `varchar_input` function serves as the core input processing routine for Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_mbcharcliplen`: Calculates maximum byte length for multibyte character truncation
+  - `[pg_mbcharcliplen](../p/pg_mbcharcliplen.md)`: Calculates maximum byte length for multibyte character truncation
   - `ereturn`: Returns error through soft error context mechanism
   - `cstring_to_text_with_len`: Converts C string to VarChar/text with specified length
-  - `errcode`: Sets error code for string truncation violations
-  - `errmsg`: Formats error message for length violations
+  - `[errcode](../e/errcode.md)`: Sets error code for string truncation violations
+  - `[errmsg](../e/errmsg.md)`: Formats error message for length violations
 - Called from (representative examples):
-  - `varcharin`: Text input function for varchar type
-  - `varcharrecv`: Binary receive function for varchar type
+  - `[varcharin](varcharin.md)`: Text input function for varchar type
+  - `[varcharrecv](varcharrecv.md)`: Binary receive function for varchar type
 
 ## Notes and Other Information
 - Located in `src/backend/utils/adt/varchar.c:457-494`

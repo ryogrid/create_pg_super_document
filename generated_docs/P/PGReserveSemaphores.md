@@ -31,16 +31,16 @@ For unnamed semaphores:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (file system statistics)
+  - [stat](../s/stat.md) (file system statistics)
   - malloc (memory allocation for named semaphores)
-  - ShmemAllocUnlocked (shared memory allocation for unnamed semaphores)
-  - PGSemaphoreShmemSize (calculate memory requirements)
-  - on_shmem_exit (register cleanup callback)
-  - ReleaseSemaphores (cleanup function)
+  - [ShmemAllocUnlocked](../S/ShmemAllocUnlocked.md) (shared memory allocation for unnamed semaphores)
+  - [PGSemaphoreShmemSize](PGSemaphoreShmemSize.md) (calculate memory requirements)
+  - [on_shmem_exit](../o/on_shmem_exit.md) (register cleanup callback)
+  - [ReleaseSemaphores](../R/ReleaseSemaphores.md) (cleanup function)
   - ereport/elog (PostgreSQL error reporting)
 
 - Called from:
-  - CreateSharedMemoryAndSemaphores (PostgreSQL shared memory initialization)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md) (PostgreSQL shared memory initialization)
 
 ## Notes and Other Information
 - Called during postmaster startup or shared memory reinitialization

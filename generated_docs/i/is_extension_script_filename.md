@@ -22,7 +22,7 @@ The function is part of PostgreSQL's extension management infrastructure and ser
   - strrchr (standard C library function)
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - get_ext_ver_list
+  - [get_ext_ver_list](../g/get_ext_ver_list.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the src/backend/commands/extension.c file

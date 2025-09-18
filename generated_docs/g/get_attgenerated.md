@@ -20,16 +20,16 @@ This function performs a system cache lookup to retrieve the attgenerated field 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 - performs the system cache lookup using ATTNUM cache
-  - ObjectIdGetDatum - converts relation OID to Datum format
+  - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - converts relation OID to Datum format
   - Int16GetDatum - converts attribute number to Datum format
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple
-  - ReleaseSysCache - releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) - releases the system cache entry
   - elog - logs error messages when attribute is not found
 
 - Called from (representative examples):
-  - check_nested_generated_walker (catalog/heap.c:2764)
+  - [check_nested_generated_walker](../c/check_nested_generated_walker.md) (catalog/heap.c:2764)
 
 ## Notes and Other Information
 - Always throws an error if the attribute is not found, unlike some other attribute functions

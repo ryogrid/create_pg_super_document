@@ -19,11 +19,11 @@ This function implements an iterative suffix removal process for Lithuanian stem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function to identify suffix patterns
-  - slice_del: Function to delete the matched suffix portion
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function to identify suffix patterns
+  - [slice_del](../s/slice_del.md): Function to delete the matched suffix portion
   - a_1: Array of 62 Lithuanian suffix patterns for matching
 - Called from (representative examples):
-  - lithuanian_UTF_8_stem: Main Lithuanian stemming function
+  - [lithuanian_UTF_8_stem](../l/lithuanian_UTF_8_stem.md): Main Lithuanian stemming function
 
 ## Notes and Other Information
 - Returns 1 on completion (successful or no matches found), negative values on error

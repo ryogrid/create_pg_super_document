@@ -26,10 +26,10 @@ This function is useful for database administrators and developers who need to i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_fn_expr_argtype`: Get the OID of the argument's data type
-  - `get_typlen`: Get the storage length of a data type
-  - `MemoryContextAlloc`: Allocate memory for caching type information
-  - `DatumGetPointer`: Convert datum to pointer
+  - `[get_fn_expr_argtype](../g/get_fn_expr_argtype.md)`: Get the OID of the argument's data type
+  - `[get_typlen](../g/get_typlen.md)`: Get the storage length of a data type
+  - `[MemoryContextAlloc](../M/MemoryContextAlloc.md)`: Allocate memory for caching type information
+  - `[DatumGetPointer](../D/DatumGetPointer.md)`: Convert datum to pointer
   - `VARATT_IS_EXTERNAL_ONDISK`: Macro to check if attribute is stored on disk
   - `VARATT_EXTERNAL_GET_POINTER`: Macro to extract external pointer information
   - `PG_RETURN_OID`: Macro to return an OID result

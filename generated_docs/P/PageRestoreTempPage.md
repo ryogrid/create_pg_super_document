@@ -18,17 +18,17 @@ This function completes the lifecycle of temporary page processing by copying al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetPageSize
+  - [PageGetPageSize](PageGetPageSize.md)
   - memcpy
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - createPostingTree (in GIN index posting tree creation)
-  - ginbulkdelete (in GIN index bulk deletion)
-  - gistplacetopage (in GiST index operations)
-  - _bt_dedup_pass (in B-tree deduplication)
-  - _bt_split (in B-tree page splitting)
-  - btree_xlog_split (in B-tree WAL recovery)
-  - btree_xlog_dedup (in B-tree deduplication WAL recovery)
+  - [createPostingTree](../c/createPostingTree.md) (in GIN index posting tree creation)
+  - [ginbulkdelete](../g/ginbulkdelete.md) (in GIN index bulk deletion)
+  - [gistplacetopage](../g/gistplacetopage.md) (in GiST index operations)
+  - [_bt_dedup_pass](../b/_bt_dedup_pass.md) (in B-tree deduplication)
+  - [_bt_split](../b/_bt_split.md) (in B-tree page splitting)
+  - [btree_xlog_split](../b/btree_xlog_split.md) (in B-tree WAL recovery)
+  - [btree_xlog_dedup](../b/btree_xlog_dedup.md) (in B-tree deduplication WAL recovery)
   - PageIsVerified (for page verification)
 
 ## Notes and Other Information

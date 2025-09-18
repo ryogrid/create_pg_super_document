@@ -30,24 +30,24 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock (get bank lock for page)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (get bank lock for page)
   - LWLockHeldByMeInMode (assert lock is held)
-  - SlruSelectLRUPage (find page or select victim slot)
-  - SimpleLruWaitIO (wait for I/O completion)
-  - SlruRecentlyUsed (update LRU information)
-  - SlruPhysicalReadPage (perform disk read)
-  - SimpleLruZeroLSNs (initialize LSN values)
-  - SlruReportIOError (report I/O errors)
-  - pgstat_count_slru_page_hit/read (update statistics)
+  - [SlruSelectLRUPage](SlruSelectLRUPage.md) (find page or select victim slot)
+  - [SimpleLruWaitIO](SimpleLruWaitIO.md) (wait for I/O completion)
+  - [SlruRecentlyUsed](SlruRecentlyUsed.md) (update LRU information)
+  - [SlruPhysicalReadPage](SlruPhysicalReadPage.md) (perform disk read)
+  - [SimpleLruZeroLSNs](SimpleLruZeroLSNs.md) (initialize LSN values)
+  - [SlruReportIOError](SlruReportIOError.md) (report I/O errors)
+  - [pgstat_count_slru_page_hit](../p/pgstat_count_slru_page_hit.md)/read (update statistics)
 - Called from (representative examples):
-  - TransactionIdSetPageStatusInternal
-  - SetXidCommitTsInPage
-  - RecordNewMultiXact
-  - GetMultiXactIdMembers
-  - SubTransSetParent
-  - asyncQueueAddEntries
+  - [TransactionIdSetPageStatusInternal](../T/TransactionIdSetPageStatusInternal.md)
+  - [SetXidCommitTsInPage](SetXidCommitTsInPage.md)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [SubTransSetParent](SubTransSetParent.md)
+  - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)
   - SerialAdd
-  - SimpleLruReadPage_ReadOnly
+  - [SimpleLruReadPage_ReadOnly](SimpleLruReadPage_ReadOnly.md)
 
 ## Notes and Other Information
 - The correct bank lock must be held in exclusive mode at entry and exit

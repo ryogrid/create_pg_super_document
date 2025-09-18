@@ -22,10 +22,10 @@ The function saves the current errno value, calls the standard free() function t
   - free (standard C library function)
   - errno (global error variable)
 - Called from (representative examples):
-  - check_compressed_file (src/bin/pg_dump/compress_io.c:222)
-  - InitDiscoverCompressFileHandle (src/bin/pg_dump/compress_io.c:276)
-  - InitDiscoverCompressFileHandle (src/bin/pg_dump/compress_io.c:279)
-  - EndCompressFileHandle (src/bin/pg_dump/compress_io.c:298)
+  - [check_compressed_file](../c/check_compressed_file.md) (src/bin/pg_dump/compress_io.c:222)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:276)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:279)
+  - [EndCompressFileHandle](../E/EndCompressFileHandle.md) (src/bin/pg_dump/compress_io.c:298)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the compress_io.c file

@@ -29,18 +29,18 @@ The function ensures proper resource management by releasing tuple descriptors a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_ToComposite
-  - lookup_rowtype_tupdesc
-  - PLy_output_setup_tuple
-  - PLy_current_execution_context
+  - [PLyUnicode_ToComposite](PLyUnicode_ToComposite.md)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
+  - [PLy_output_setup_tuple](PLy_output_setup_tuple.md)
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
   - PinTupleDesc
-  - PLySequence_ToComposite
-  - PLyMapping_ToComposite
-  - PLyGenericObject_ToComposite
+  - [PLySequence_ToComposite](PLySequence_ToComposite.md)
+  - [PLyMapping_ToComposite](PLyMapping_ToComposite.md)
+  - [PLyGenericObject_ToComposite](PLyGenericObject_ToComposite.md)
   - ReleaseTupleDesc
 - Called from (representative examples):
-  - PLy_output_setup_tuple
-  - PLy_output_setup_func
+  - [PLy_output_setup_tuple](PLy_output_setup_tuple.md)
+  - [PLy_output_setup_func](PLy_output_setup_func.md)
 
 ## Notes and Other Information
 The function implements an important optimization for RECORD types by caching tuple descriptors, since RECORD types cannot change between calls. For named composite types, it must always validate the descriptor to handle potential schema changes. The conversion routing based on Python object type (sequence vs mapping vs generic) provides flexible input handling while maintaining type safety.

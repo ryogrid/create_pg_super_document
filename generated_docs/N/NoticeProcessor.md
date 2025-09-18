@@ -21,7 +21,7 @@ NoticeProcessor serves as a notice message handler for PostgreSQL client connect
   - pg_log_info (for outputting the notice message)
   - sigjmp_buf (referenced in related error handling context)
 - Called from (representative examples):
-  - do_connect (when setting up connection notice processors)
+  - [do_connect](../d/do_connect.md) (when setting up connection notice processors)
   - Used as callback in PostgreSQL connection setup
 
 ## Notes and Other Information

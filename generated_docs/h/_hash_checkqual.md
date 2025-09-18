@@ -20,13 +20,13 @@ The function's design reflects a limitation in the hash index implementation: it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexScanDesc (scan descriptor type)
-  - IndexTuple (index tuple type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (scan descriptor type)
+  - [IndexTuple](../I/IndexTuple.md) (index tuple type)
   - ScanKey (scan key type - in commented code)
-  - index_getattr (for extracting tuple attributes - in commented code)
-  - FunctionCall2Coll (for calling scan key functions - in commented code)
+  - [index_getattr](../i/index_getattr.md) (for extracting tuple attributes - in commented code)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (for calling scan key functions - in commented code)
 - Called from (representative examples):
-  - _hash_load_qualified_items (in hashsearch.c at lines 637 and 683)
+  - [_hash_load_qualified_items](_hash_load_qualified_items.md) (in hashsearch.c at lines 637 and 683)
 
 ## Notes and Other Information
 - The function currently serves as a placeholder that always returns 

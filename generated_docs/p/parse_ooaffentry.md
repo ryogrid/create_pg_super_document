@@ -36,7 +36,7 @@ The function handles incomplete lines gracefully, setting unfound fields to empt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_nextfield
+  - [get_nextfield](../g/get_nextfield.md)
   - PAE_WAIT_TYPE
   - PAE_WAIT_FLAG
   - PAE_WAIT_FIND

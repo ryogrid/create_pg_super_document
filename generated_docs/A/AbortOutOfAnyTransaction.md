@@ -31,14 +31,14 @@ This function is essential for process shutdown, error recovery, and situations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtAbort_Memory
-  - AbortTransaction
-  - CleanupTransaction
-  - AbortSubTransaction
-  - CleanupSubTransaction
-  - AtAbort_Portals
-  - AtSubAbort_Portals
-  - AtCleanup_Memory
+  - [AtAbort_Memory](AtAbort_Memory.md)
+  - [AbortTransaction](AbortTransaction.md)
+  - [CleanupTransaction](../C/CleanupTransaction.md)
+  - [AbortSubTransaction](AbortSubTransaction.md)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md)
+  - [AtAbort_Portals](AtAbort_Portals.md)
+  - [AtSubAbort_Portals](AtSubAbort_Portals.md)
+  - [AtCleanup_Memory](AtCleanup_Memory.md)
 - Transaction state constants:
   - TBLOCK_DEFAULT, TRANS_DEFAULT, TRANS_START, TRANS_INPROGRESS
   - TBLOCK_STARTED, TBLOCK_BEGIN, TBLOCK_INPROGRESS
@@ -51,13 +51,13 @@ This function is essential for process shutdown, error recovery, and situations 
 - Global variables:
   - CurrentTransactionState
 - Called from:
-  - RemoveTempRelationsCallback (catalog cleanup)
-  - do_autovacuum (autovacuum error recovery)
-  - perform_work_item (autovacuum worker cleanup)
-  - start_table_sync (logical replication error handling)
-  - start_apply (logical replication worker error handling)
-  - DisableSubscriptionAndExit (subscription cleanup)
-  - ShutdownPostgres (process shutdown)
+  - [RemoveTempRelationsCallback](../R/RemoveTempRelationsCallback.md) (catalog cleanup)
+  - [do_autovacuum](../d/do_autovacuum.md) (autovacuum error recovery)
+  - [perform_work_item](../p/perform_work_item.md) (autovacuum worker cleanup)
+  - [start_table_sync](../s/start_table_sync.md) (logical replication error handling)
+  - [start_apply](../s/start_apply.md) (logical replication worker error handling)
+  - [DisableSubscriptionAndExit](../D/DisableSubscriptionAndExit.md) (subscription cleanup)
+  - [ShutdownPostgres](../S/ShutdownPostgres.md) (process shutdown)
 
 ## Notes and Other Information
 - This is the most comprehensive transaction abort function in PostgreSQL, capable of handling any transaction state

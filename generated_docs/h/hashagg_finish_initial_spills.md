@@ -19,15 +19,15 @@ The function iterates through all grouping sets, processes each spill structure,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashagg_spill_finish
-  - hash_agg_update_metrics
-  - pfree
+  - [hashagg_spill_finish](hashagg_spill_finish.md)
+  - [hash_agg_update_metrics](hash_agg_update_metrics.md)
+  - [pfree](../p/pfree.md)
 - Types used:
-  - AggState
-  - HashAggSpill
+  - [AggState](../A/AggState.md)
+  - [HashAggSpill](../H/HashAggSpill.md)
 - Called from (representative examples):
-  - agg_retrieve_direct (src/backend/executor/nodeAgg.c:2467)
-  - agg_fill_hash_table (src/backend/executor/nodeAgg.c:2572)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md) (src/backend/executor/nodeAgg.c:2467)
+  - [agg_fill_hash_table](../a/agg_fill_hash_table.md) (src/backend/executor/nodeAgg.c:2572)
 
 ## Notes and Other Information
 - This is a static function internal to nodeAgg.c

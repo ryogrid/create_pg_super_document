@@ -31,16 +31,16 @@ The structure handles complex scenarios in logical replication including streame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PublicationActions
+  - [PublicationActions](../P/PublicationActions.md)
   - NUM_ROWFILTER_PUBACTIONS
-  - AttrMap
+  - [AttrMap](../A/AttrMap.md)
 - Called from (representative examples):
-  - maybe_send_schema
-  - get_rel_sync_entry
-  - pgoutput_row_filter
-  - pgoutput_change
-  - init_rel_sync_cache
-  - cleanup_rel_sync_cache
+  - [maybe_send_schema](../m/maybe_send_schema.md)
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
+  - [pgoutput_row_filter](../p/pgoutput_row_filter.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [init_rel_sync_cache](../i/init_rel_sync_cache.md)
+  - [cleanup_rel_sync_cache](../c/cleanup_rel_sync_cache.md)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's logical replication optimization, preventing redundant schema transmissions

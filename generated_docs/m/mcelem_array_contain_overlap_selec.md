@@ -28,14 +28,14 @@ The function uses either binary search or linear scan to find matching elements 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - floor_log2
-  - element_compare
-  - find_next_mcelem
+  - [floor_log2](../f/floor_log2.md)
+  - [element_compare](../e/element_compare.md)
+  - [find_next_mcelem](../f/find_next_mcelem.md)
   - DEFAULT_CONTAIN_SEL
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - scalararraysel_containment
-  - mcelem_array_selec
+  - [scalararraysel_containment](../s/scalararraysel_containment.md)
+  - [mcelem_array_selec](mcelem_array_selec.md)
 
 ## Notes and Other Information
 - Assumes element occurrences are independent, which may not always be accurate in practice

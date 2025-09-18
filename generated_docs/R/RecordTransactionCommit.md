@@ -28,25 +28,25 @@ This function takes no parameters but works with numerous local variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTopTransactionIdIfAny
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
   - XLogLogicalInfoActive/LogLogicalInvalidations
-  - smgrGetPendingDeletes
-  - xactGetCommittedChildren
+  - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md)
+  - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md)
   - pgstat_get_transactional_drops
   - XLogStandbyInfoActive/xactGetCommittedInvalidationMessages
-  - LogStandbyInvalidations
-  - XactLogCommitRecord
-  - GetCurrentTransactionStopTimestamp
-  - replorigin_session_advance
-  - TransactionTreeSetCommitTsData
-  - XLogFlush
-  - TransactionIdCommitTree
-  - XLogSetAsyncXactLSN
-  - TransactionIdAsyncCommitTree
-  - TransactionIdLatest
-  - SyncRepWaitForLSN
+  - [LogStandbyInvalidations](../L/LogStandbyInvalidations.md)
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md)
+  - [GetCurrentTransactionStopTimestamp](../G/GetCurrentTransactionStopTimestamp.md)
+  - [replorigin_session_advance](../r/replorigin_session_advance.md)
+  - [TransactionTreeSetCommitTsData](../T/TransactionTreeSetCommitTsData.md)
+  - [XLogFlush](../X/XLogFlush.md)
+  - [TransactionIdCommitTree](../T/TransactionIdCommitTree.md)
+  - [XLogSetAsyncXactLSN](../X/XLogSetAsyncXactLSN.md)
+  - [TransactionIdAsyncCommitTree](../T/TransactionIdAsyncCommitTree.md)
+  - [TransactionIdLatest](../T/TransactionIdLatest.md)
+  - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md)
 - Called from (representative examples):
-  - CommitTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
 
 ## Notes and Other Information
 - Critical section management prevents checkpoints from interfering with commit processing

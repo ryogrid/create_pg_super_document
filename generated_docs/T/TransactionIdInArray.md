@@ -26,10 +26,10 @@ The function includes a safety check to ensure the array is not empty before att
 ## Dependencies
 - Functions called/Symbols referenced:
   - bsearch (standard C library function)
-  - xidComparator (comparison function for transaction IDs)
+  - [xidComparator](../x/xidComparator.md) (comparison function for transaction IDs)
 - Called from (representative examples):
-  - HeapTupleSatisfiesHistoricMVCC (multiple times for different visibility checks)
-  - UpdateLogicalMappings
+  - [HeapTupleSatisfiesHistoricMVCC](../H/HeapTupleSatisfiesHistoricMVCC.md) (multiple times for different visibility checks)
+  - [UpdateLogicalMappings](../U/UpdateLogicalMappings.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within heapam_visibility.c

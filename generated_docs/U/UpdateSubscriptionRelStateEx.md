@@ -24,18 +24,18 @@ The function performs validation to ensure the subscription-relation mapping exi
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG
-  - CheckRelationOidLockedByMe
+  - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md)
   - SET_LOCKTAG_OBJECT
-  - LockHeldByMe
-  - LockSharedObject
+  - [LockHeldByMe](../L/LockHeldByMe.md)
+  - [LockSharedObject](../L/LockSharedObject.md)
   - SearchSysCacheCopy2
-  - CharGetDatum
+  - [CharGetDatum](../C/CharGetDatum.md)
   - LSNGetDatum
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
 - Called from (representative examples):
-  - UpdateSubscriptionRelState
-  - tablesync_start_time_mapping
+  - [UpdateSubscriptionRelState](UpdateSubscriptionRelState.md)
+  - [tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)
 
 ## Notes and Other Information
 - Includes comprehensive assertion checking when USE_ASSERT_CHECKING is defined to verify lock state

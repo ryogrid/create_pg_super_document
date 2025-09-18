@@ -18,12 +18,12 @@ This function completely removes a publication from the pg_publication catalog t
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (catalog access)
-  - SearchSysCache1 (cache lookup)
-  - CacheInvalidateRelcacheAll (global cache invalidation)
-  - CatalogTupleDelete (catalog modification)
-  - ReleaseSysCache (cache cleanup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
+  - [CacheInvalidateRelcacheAll](../C/CacheInvalidateRelcacheAll.md) (global cache invalidation)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (catalog modification)
+  - [ReleaseSysCache](ReleaseSysCache.md) (cache cleanup)
 - Called from (representative examples):
-  - doDeletion (dependency system)
+  - [doDeletion](../d/doDeletion.md) (dependency system)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock on PublicationRelationId for safe concurrent operations

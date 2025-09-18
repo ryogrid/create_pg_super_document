@@ -26,12 +26,12 @@ The generated SQL command follows a specific column order and naming convention 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer (clears the SQL buffer)
-  - appendPQExpBuffer (appends formatted text to buffer)
-  - RelationInfo (structure type for relation metadata)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (clears the SQL buffer)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends formatted text to buffer)
+  - [RelationInfo](../R/RelationInfo.md) (structure type for relation metadata)
   - INT64_FORMAT (formatting macro for 64-bit integers)
 - Called from (representative examples):
-  - main (in pg_amcheck.c:774)
+  - [main](../m/main.md) (in pg_amcheck.c:774)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the pg_amcheck.c compilation unit

@@ -24,10 +24,10 @@ The function follows the standard C library comparison contract:
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (for string comparison)
-  - Syn (structure type being compared)
+  - [Syn](../S/Syn.md) (structure type being compared)
 - Called from (representative examples):
-  - dsynonym_init (used with qsort to sort synonym array)
-  - dsynonym_lexize (used with bsearch to find matching synonyms)
+  - [dsynonym_init](../d/dsynonym_init.md) (used with qsort to sort synonym array)
+  - [dsynonym_lexize](../d/dsynonym_lexize.md) (used with bsearch to find matching synonyms)
 
 ## Notes and Other Information
 - This is a static function used internally within the synonym dictionary module

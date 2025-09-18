@@ -26,29 +26,29 @@ Key operations include snapshot management to ensure consistent data visibility,
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject (creates a deep copy of the query structure)
-  - AcquireRewriteLocks (acquires locks needed for query rewriting)
-  - QueryRewrite (rewrites the query according to rules and views)
-  - pg_plan_query (creates an execution plan for the query)
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md) (acquires locks needed for query rewriting)
+  - [QueryRewrite](../Q/QueryRewrite.md) (rewrites the query according to rules and views)
+  - [pg_plan_query](../p/pg_plan_query.md) (creates an execution plan for the query)
   - CURSOR_OPT_PARALLEL_OK (flag to enable parallel query execution)
   - PushCopiedSnapshot, PopActiveSnapshot (snapshot stack management)
   - GetActiveSnapshot (retrieves current transaction snapshot)
   - UpdateActiveSnapshotCommandId (updates snapshot command ID)
-  - CreateQueryDesc (creates query descriptor for execution)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md) (creates query descriptor for execution)
   - InvalidSnapshot (represents invalid snapshot constant)
-  - ExecutorStart (initializes executor state for query)
-  - ExecutorRun (executes the query plan)
+  - [ExecutorStart](../E/ExecutorStart.md) (initializes executor state for query)
+  - [ExecutorRun](../E/ExecutorRun.md) (executes the query plan)
   - ForwardScanDirection (scan direction constant)
-  - ExecutorFinish (finalizes executor state)
-  - ExecutorEnd (cleans up executor state)
-  - FreeQueryDesc (frees query descriptor memory)
+  - [ExecutorFinish](../E/ExecutorFinish.md) (finalizes executor state)
+  - [ExecutorEnd](../E/ExecutorEnd.md) (cleans up executor state)
+  - [FreeQueryDesc](../F/FreeQueryDesc.md) (frees query descriptor memory)
 
 - Called from (representative examples):
-  - RefreshMatViewByOid (main materialized view refresh function)
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md) (main materialized view refresh function)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to the matview.c module
-- Query rewriting should always result in exactly one SELECT query; more or fewer indicates an error
-- Snapshot management ensures that the query sees results from all previously executed queries within the transaction
+- [Query](../Q/Query.md) rewriting should always result in exactly one SELECT query; more or fewer indicates an error
+- [Snapshot](../S/Snapshot.md) management ensures that the query sees results from all previously executed queries within the transaction
 - Parallel execution is enabled through CURSOR_OPT_PARALLEL_OK to improve performance on large datasets
 - The function returns the number of rows processed, which is used for statistics and completion reporting
 - Proper resource cleanup is performed through the executor framework's finish and end functions

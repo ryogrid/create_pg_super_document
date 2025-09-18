@@ -28,18 +28,18 @@ Special handling is provided for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - do_syncfs
-  - walkdir
-  - pre_sync_fname
-  - fsync_fname
+  - [do_syncfs](../d/do_syncfs.md)
+  - [walkdir](../w/walkdir.md)
+  - [pre_sync_fname](../p/pre_sync_fname.md)
+  - [fsync_fname](../f/fsync_fname.md)
   - opendir/readdir/closedir
   - lstat
   - S_ISLNK
 - Called from (representative examples):
-  - main (initdb)
-  - BaseBackup (pg_basebackup)
-  - main (pg_checksums)
-  - sync_target_dir (pg_rewind)
+  - [main](../m/main.md) (initdb)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup)
+  - [main](../m/main.md) (pg_checksums)
+  - [sync_target_dir](sync_target_dir.md) (pg_rewind)
 
 ## Notes and Other Information
 - Handles version compatibility by checking MINIMUM_VERSION_FOR_PG_WAL to use correct WAL directory name

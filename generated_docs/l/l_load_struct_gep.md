@@ -25,11 +25,11 @@ The function automatically determines the correct type for the load operation by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - l_load: Used to load the value from the computed pointer
-  - l_struct_gep: Used to get a pointer to the struct member
+  - [l_load](l_load.md): Used to load the value from the computed pointer
+  - [l_struct_gep](l_struct_gep.md): Used to get a pointer to the struct member
   - LLVMStructGetTypeAtIndex: LLVM API to get the type of the struct member
 - Called from (representative examples):
-  - slot_compile_deform (extensively in llvmjit_deform.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (extensively in llvmjit_deform.c)
   - llvm_compile_expr (extensively in llvmjit_expr.c)
 
 ## Notes and Other Information

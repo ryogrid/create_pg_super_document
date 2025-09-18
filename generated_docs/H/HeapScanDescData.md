@@ -71,16 +71,16 @@ HeapScanDescData serves as the comprehensive state descriptor for heap table sca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDescData
-  - BufferAccessStrategy
-  - HeapTupleData
-  - ReadStream
+  - [TableScanDescData](../T/TableScanDescData.md)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
+  - [HeapTupleData](HeapTupleData.md)
+  - [ReadStream](../R/ReadStream.md)
   - ScanDirection
-  - ParallelBlockTableScanWorkerData
+  - [ParallelBlockTableScanWorkerData](../P/ParallelBlockTableScanWorkerData.md)
   - MaxHeapTuplesPerPage
 - Called from (representative examples):
-  - heap_beginscan
-  - HeapScanDesc
+  - [heap_beginscan](../h/heap_beginscan.md)
+  - [HeapScanDesc](HeapScanDesc.md)
 
 ## Notes and Other Information
 - When rs_cbuf is not InvalidBuffer, the scan holds a pin on that buffer

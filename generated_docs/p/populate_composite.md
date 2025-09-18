@@ -40,16 +40,16 @@ The function supports both NULL handling and soft error reporting through the Er
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - update_cached_tupdesc
-  - JsValueToJsObject
-  - populate_record
-  - HeapTupleHeaderGetDatum
+  - [update_cached_tupdesc](../u/update_cached_tupdesc.md)
+  - [JsValueToJsObject](../J/JsValueToJsObject.md)
+  - [populate_record](populate_record.md)
+  - [HeapTupleHeaderGetDatum](../H/HeapTupleHeaderGetDatum.md)
   - JsObjectFree
   - domain_check_safe
   - SOFT_ERROR_OCCURRED
 - Called from (representative examples):
-  - populate_record_field
-  - populate_record_worker
+  - [populate_record_field](populate_record_field.md)
+  - [populate_record_worker](populate_record_worker.md)
   - JsObjectFree
 
 ## Notes and Other Information

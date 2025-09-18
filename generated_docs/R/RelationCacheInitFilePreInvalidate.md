@@ -23,14 +23,14 @@ The design handles the case where files might not exist (if no backend has start
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unlink_initfile
+  - [unlink_initfile](../u/unlink_initfile.md)
   - LWLockAcquire (RelCacheInitLock)
   - RELCACHE_INIT_FILENAME (constant)
   - DatabasePath (global variable)
 - Called from (representative examples):
-  - ProcessCommittedInvalidationMessages
-  - AtEOXact_Inval
-  - FinishPreparedTransaction
+  - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md)
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 
 ## Notes and Other Information
 - Must be paired with RelationCacheInitFilePostInvalidate to complete the invalidation process

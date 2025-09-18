@@ -27,9 +27,9 @@ The simplicity of this function reflects the design philosophy of transform func
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall1
-  - PointerGetDatum
+  - [PointerGetDatum](PointerGetDatum.md)
 - Called from (representative examples):
-  - PLy_output_setup_func
+  - [PLy_output_setup_func](PLy_output_setup_func.md)
 
 ## Notes and Other Information
 Transform functions represent PostgreSQL's extensibility mechanism for type conversions, particularly useful for complex types that don't fit the standard scalar conversion model. The function maintains the standard PL/Python conversion interface while delegating all conversion logic to the specialized transform function. This design enables extensions to provide highly optimized, type-aware conversions while seamlessly integrating with PL/Python's type system.

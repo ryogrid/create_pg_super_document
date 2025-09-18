@@ -20,9 +20,9 @@ This function is particularly useful when a function needs to modify the content
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTENDED (macro to check if datum is in extended form)
-  - detoast_attr (function to detoast extended datums)
+  - [detoast_attr](../d/detoast_attr.md) (function to detoast extended datums)
   - VARSIZE (macro to get the size of a varlena)
-  - palloc (memory allocation function)
+  - [palloc](palloc.md) (memory allocation function)
   - memcpy (memory copy function)
 - Called from (representative examples):
   - PG_DETOAST_DATUM_COPY (macro)

@@ -21,11 +21,11 @@ This function provides a view of all WAL summary files currently available in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF (initializes set-returning function)
-  - GetWalSummaries (retrieves list of WAL summary files)
-  - Int64GetDatum (converts int64 to Datum)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (initializes set-returning function)
+  - [GetWalSummaries](../G/GetWalSummaries.md) (retrieves list of WAL summary files)
+  - [Int64GetDatum](../I/Int64GetDatum.md) (converts int64 to Datum)
   - LSNGetDatum (converts XLogRecPtr to Datum)
-  - heap_form_tuple (creates heap tuple)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates heap tuple)
   - tuplestore_puttuple (stores tuple in result set)
 - Data types/structures used:
   - ReturnSetInfo (set-returning function metadata)

@@ -328,25 +328,25 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - WindowStatePerFunc
-  - WindowStatePerAgg
-  - WindowObjectData
-  - WindowAggStatus
+  - [ScanState](../S/ScanState.md)
+  - [WindowStatePerFunc](WindowStatePerFunc.md)
+  - [WindowStatePerAgg](WindowStatePerAgg.md)
+  - [WindowObjectData](WindowObjectData.md)
+  - [WindowAggStatus](WindowAggStatus.md)
   - Tuplestorestate
   - ExprState
-  - FmgrInfo
-  - MemoryContext
+  - [FmgrInfo](../F/FmgrInfo.md)
+  - [MemoryContext](../M/MemoryContext.md)
   - TupleTableSlot
 - Called from (representative examples):
-  - ExecWindowAgg
-  - ExecInitWindowAgg
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
   - ExecEndWindowAgg
   - ExecReScanWindowAgg
-  - begin_partition
-  - eval_windowaggregates
-  - update_frameheadpos
-  - update_frametailpos
+  - [begin_partition](../b/begin_partition.md)
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
+  - [update_frameheadpos](../u/update_frameheadpos.md)
+  - [update_frametailpos](../u/update_frametailpos.md)
 
 ## Notes and Other Information
 WindowAggState is one of the most sophisticated execution nodes in PostgreSQL, supporting the full complexity of SQL window functions including multiple frame types (ROWS, RANGE, GROUPS), peer group management, and various optimization strategies. The structure's design enables efficient processing of window functions through intelligent buffering, frame boundary caching, and support for both incremental and batch computation modes. The run condition mechanism allows for query optimization scenarios where window function evaluation can be terminated early or switched to pass-through mode when certain conditions are no longer met.

@@ -24,13 +24,13 @@ This design allows for efficient batch processing when multiple tables match a p
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer: Initialize query buffer for SQL construction
-  - printfPQExpBuffer: Format SQL query into buffer
-  - validateSQLNamePattern: Process and validate the name pattern for SQL
-  - PSQLexec: Execute the table discovery query
-  - describeOneTableDetails: Display detailed information for each individual table
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Format SQL query into buffer
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md): Process and validate the name pattern for SQL
+  - [PSQLexec](../P/PSQLexec.md): Execute the table discovery query
+  - [describeOneTableDetails](describeOneTableDetails.md): Display detailed information for each individual table
   - termPQExpBuffer: Clean up query buffer
 - Called from (representative examples):
-  - exec_command_d: Command dispatcher for \d commands in psql
+  - [exec_command_d](../e/exec_command_d.md): Command dispatcher for \d commands in psql
 
 ## Notes and Other Information
 - The function handles the case where no matching relations are found with appropriate error messages

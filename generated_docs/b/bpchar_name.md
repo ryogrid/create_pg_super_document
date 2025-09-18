@@ -33,8 +33,8 @@ The function uses multi-byte character awareness when clipping oversize input to
   - PG_GETARG_BPCHAR_PP
   - VARSIZE_ANY_EXHDR
   - VARDATA_ANY
-  - pg_mbcliplen
-  - palloc0
+  - [pg_mbcliplen](../p/pg_mbcliplen.md)
+  - [palloc0](../p/palloc0.md)
   - memcpy
   - NameStr
   - PG_RETURN_NAME

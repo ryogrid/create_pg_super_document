@@ -19,12 +19,12 @@ This static function evaluates whether a statistics object contains all the expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat_find_expression
-  - bms_add_member
+  - [stat_find_expression](stat_find_expression.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - StatisticExtInfo
 - Called from (representative examples):
-  - choose_best_statistics
-  - statext_mcv_clauselist_selectivity
+  - [choose_best_statistics](../c/choose_best_statistics.md)
+  - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 This function is part of the extended statistics infrastructure in PostgreSQL and is used to determine if a particular statistics object can provide useful information for a set of expressions. It's typically called during query planning to identify which statistics objects are applicable for selectivity estimation.

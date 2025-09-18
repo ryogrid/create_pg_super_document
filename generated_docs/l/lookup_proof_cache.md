@@ -21,18 +21,18 @@ The function initializes the hash table on first use and registers a syscache ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - hash_search
-  - CacheRegisterSyscacheCallback
-  - InvalidateOprProofCacheCallBack
-  - get_op_btree_interpretation
-  - get_opfamily_member
-  - get_negator
-  - op_volatile
-  - list_free_deep
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
+  - [InvalidateOprProofCacheCallBack](../I/InvalidateOprProofCacheCallBack.md)
+  - [get_op_btree_interpretation](../g/get_op_btree_interpretation.md)
+  - [get_opfamily_member](../g/get_opfamily_member.md)
+  - [get_negator](../g/get_negator.md)
+  - [op_volatile](../o/op_volatile.md)
+  - [list_free_deep](list_free_deep.md)
 - Called from:
-  - operator_same_subexprs_lookup
-  - get_btree_test_op
+  - [operator_same_subexprs_lookup](../o/operator_same_subexprs_lookup.md)
+  - [get_btree_test_op](../g/get_btree_test_op.md)
 
 ## Notes and Other Information
 The cache uses OprProofCacheKey (pred_op, clause_op) as the key and stores separate flags for implication and refutation proofs. The function requires both operators to be in the same btree opfamily and verifies that test operators are immutable. It handles special cases like BTNE (not-equal) strategy by finding the equality operator and its negator.

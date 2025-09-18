@@ -22,9 +22,9 @@ This function is designed to be used as a callback function in conjunction with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_func_leakproof
+  - [get_func_leakproof](../g/get_func_leakproof.md)
 - Called from (representative examples):
-  - contain_leaked_vars_walker
+  - [contain_leaked_vars_walker](contain_leaked_vars_walker.md)
 
 ## Notes and Other Information
 - Returns true if the function is NOT leakproof (i.e., potentially leaky)

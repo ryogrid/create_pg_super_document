@@ -31,7 +31,7 @@ If the networks belong to different IP families, the function returns false as c
   - ip_family (get IP family of network)
   - ip_bits (get prefix length of network)
   - ip_addr (get network address)
-  - bitncmp (bitwise comparison of network addresses)
+  - [bitncmp](../b/bitncmp.md) (bitwise comparison of network addresses)
   - PG_RETURN_BOOL (return boolean result)
 - Called from (representative examples):
   - No direct references found (likely called via SQL operator >>=)

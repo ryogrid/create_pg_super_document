@@ -27,10 +27,10 @@ This function is designed to be used as a callback with PostgreSQL's function ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - func_volatile
+  - [func_volatile](../f/func_volatile.md)
   - PROVOLATILE_IMMUTABLE (constant)
 - Called from (representative examples):
-  - contain_mutable_functions_walker
+  - [contain_mutable_functions_walker](contain_mutable_functions_walker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

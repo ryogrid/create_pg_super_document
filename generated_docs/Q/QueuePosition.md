@@ -20,17 +20,17 @@ The QueuePosition structure serves as a coordinate system for locating specific 
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - QueueBackendStatus
-  - AsyncQueueControl
+  - [QueueBackendStatus](QueueBackendStatus.md)
+  - [AsyncQueueControl](../A/AsyncQueueControl.md)
   - NotificationHash
-  - Exec_ListenPreCommit
-  - asyncQueueAdvance
-  - asyncQueueAddEntries
-  - asyncQueueFillWarning
-  - SignalBackends
-  - asyncQueueReadAllNotifications
-  - asyncQueueProcessPageEntries
-  - asyncQueueAdvanceTail
+  - [Exec_ListenPreCommit](../E/Exec_ListenPreCommit.md)
+  - [asyncQueueAdvance](../a/asyncQueueAdvance.md)
+  - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)
+  - [asyncQueueFillWarning](../a/asyncQueueFillWarning.md)
+  - [SignalBackends](../S/SignalBackends.md)
+  - [asyncQueueReadAllNotifications](../a/asyncQueueReadAllNotifications.md)
+  - [asyncQueueProcessPageEntries](../a/asyncQueueProcessPageEntries.md)
+  - [asyncQueueAdvanceTail](../a/asyncQueueAdvanceTail.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's LISTEN/NOTIFY asynchronous messaging system

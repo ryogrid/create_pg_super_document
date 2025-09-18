@@ -22,14 +22,14 @@ The function initializes a PGShmemHeader structure with metadata including creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateAnonymousSegment
-  - AnonymousShmemDetach
-  - on_shmem_exit
-  - SetConfigOption
-  - InternalIpcMemoryCreate
-  - PGSharedMemoryAttach
+  - [CreateAnonymousSegment](../C/CreateAnonymousSegment.md)
+  - [AnonymousShmemDetach](../A/AnonymousShmemDetach.md)
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
+  - [InternalIpcMemoryCreate](../I/InternalIpcMemoryCreate.md)
+  - [PGSharedMemoryAttach](PGSharedMemoryAttach.md)
   - dsm_cleanup_using_control_segment
-  - stat
+  - [stat](../s/stat.md)
   - shmget
   - shmctl
   - shmdt
@@ -43,7 +43,7 @@ The function initializes a PGShmemHeader structure with metadata including creat
   - PGC_S_DYNAMIC_DEFAULT
   - IPC_RMID
 - Called from (representative examples):
-  - CreateSharedMemoryAndSemaphores
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
 
 ## Notes and Other Information
 - Supports both System V and anonymous mmap shared memory types

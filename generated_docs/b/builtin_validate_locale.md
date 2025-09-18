@@ -28,17 +28,17 @@ This validation is crucial for maintaining data integrity and proper collation b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - builtin_locale_encoding
+  - [builtin_locale_encoding](builtin_locale_encoding.md)
   - pg_encoding_to_char
   - strcmp (standard C library function)
   - ereport (for error reporting)
-  - errcode, ERRCODE_WRONG_OBJECT_TYPE
-  - errmsg
+  - [errcode](../e/errcode.md), ERRCODE_WRONG_OBJECT_TYPE
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - DefineCollation
-  - createdb
-  - pg_newlocale_from_collation
-  - CheckMyDatabase
+  - [DefineCollation](../D/DefineCollation.md)
+  - [createdb](../c/createdb.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [CheckMyDatabase](../C/CheckMyDatabase.md)
 
 ## Notes and Other Information
 - Only supports "C" and "C.UTF-8"/"C.UTF8" locales for builtin provider

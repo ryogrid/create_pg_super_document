@@ -35,7 +35,7 @@ The function validates input format, performs range checking, extracts integer a
   - strtod (standard library function for string to double conversion)
   - floor (standard math function for floor operation)
 - Called from (representative examples):
-  - DecodeISO8601Interval (multiple locations in backend and ECPG)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (multiple locations in backend and ECPG)
 
 ## Notes and Other Information
 - This is a static helper function within src/backend/utils/adt/datetime.c

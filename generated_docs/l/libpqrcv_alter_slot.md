@@ -22,12 +22,12 @@ This function constructs and executes an ALTER_REPLICATION_SLOT command to modif
 ## Dependencies
 - Functions called/Symbols referenced:
   - initStringInfo/appendStringInfo: PostgreSQL string manipulation functions for building the command
-  - quote_identifier: PostgreSQL function to safely quote SQL identifiers
-  - libpqrcv_PQexec: Internal wrapper for PQexec with connection management
-  - PQresultStatus: libpq function to check the execution result status
-  - PQclear: libpq function to free result memory
-  - pchomp: PostgreSQL utility function to clean up error message strings
-  - pfree: PostgreSQL memory management function
+  - [quote_identifier](../q/quote_identifier.md): PostgreSQL function to safely quote SQL identifiers
+  - [libpqrcv_PQexec](libpqrcv_PQexec.md): Internal wrapper for PQexec with connection management
+  - [PQresultStatus](../P/PQresultStatus.md): libpq function to check the execution result status
+  - [PQclear](../P/PQclear.md): libpq function to free result memory
+  - [pchomp](../p/pchomp.md): PostgreSQL utility function to clean up error message strings
+  - [pfree](../p/pfree.md): PostgreSQL memory management function
 - Called from (representative examples):
   - Referenced by WalReceiverConn structure function pointers
   - Used by replication management code for slot configuration changes

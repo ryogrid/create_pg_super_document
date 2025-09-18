@@ -33,15 +33,15 @@ The function also addresses the challenge of posting list tuples in cleanup-only
 ## Dependencies
 - Functions called/Symbols referenced:
   - _bt_vacuum_needs_cleanup
-  - palloc0
-  - btvacuumscan
+  - [palloc0](../p/palloc0.md)
+  - [btvacuumscan](btvacuumscan.md)
   - _bt_set_cleanup_info
 - Types used:
-  - IndexVacuumInfo
-  - IndexBulkDeleteResult
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
   - BlockNumber
 - Called from:
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - Returns NULL for ANALYZE ONLY mode operations

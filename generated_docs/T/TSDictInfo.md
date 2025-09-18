@@ -31,8 +31,8 @@ TSDictInfo is part of pg_dump's internal representation of PostgreSQL database o
   - DumpableObject (base structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getTSDictionaries (populates TSDictInfo structures from pg_ts_dict catalog)
-  - dumpTSDictionary (uses TSDictInfo to generate CREATE TEXT SEARCH DICTIONARY statements)
+  - [getTSDictionaries](../g/getTSDictionaries.md) (populates TSDictInfo structures from pg_ts_dict catalog)
+  - [dumpTSDictionary](../d/dumpTSDictionary.md) (uses TSDictInfo to generate CREATE TEXT SEARCH DICTIONARY statements)
   - fmtQualifiedDumpable (formats the dictionary name for output)
 
 ## Notes and Other Information

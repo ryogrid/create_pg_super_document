@@ -25,19 +25,19 @@ The structure is designed to accommodate both simple and complex execution scena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo
+  - [ParamListInfo](../P/ParamListInfo.md)
   - DestReceiver
   - ResourceOwner
 
 - Called from (representative examples):
-  - SPI_execute
-  - SPI_execute_extended
-  - SPI_execute_plan
-  - SPI_execute_plan_extended
-  - SPI_execute_plan_with_paramlist
-  - SPI_execute_snapshot
-  - SPI_execute_with_args
-  - _SPI_execute_plan
+  - [SPI_execute](SPI_execute.md)
+  - [SPI_execute_extended](SPI_execute_extended.md)
+  - [SPI_execute_plan](SPI_execute_plan.md)
+  - [SPI_execute_plan_extended](SPI_execute_plan_extended.md)
+  - [SPI_execute_plan_with_paramlist](SPI_execute_plan_with_paramlist.md)
+  - [SPI_execute_snapshot](SPI_execute_snapshot.md)
+  - [SPI_execute_with_args](SPI_execute_with_args.md)
+  - [_SPI_execute_plan](_SPI_execute_plan.md)
 
 ## Notes and Other Information
 - This structure is the primary mechanism for configuring advanced SPI execution behavior

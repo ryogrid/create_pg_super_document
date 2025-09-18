@@ -22,10 +22,10 @@ This function is primarily used by errtablecol() internally, but can also be use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errtable
-  - err_generic_string (with PG_DIAG_COLUMN_NAME)
+  - [errtable](errtable.md)
+  - [err_generic_string](err_generic_string.md) (with PG_DIAG_COLUMN_NAME)
 - Called from (representative examples):
-  - errtablecol
+  - [errtablecol](errtablecol.md)
 
 ## Notes and Other Information
 - Lower-level function primarily used by errtablecol(), but available for direct use when needed

@@ -20,9 +20,9 @@ When creating new entries, the function initializes all counters to zero. The ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet
-  - hash_search
+  - [hash_search](../h/hash_search.md)
 - Types referenced:
-  - LWLock
+  - [LWLock](../L/LWLock.md)
   - lwlock_stats_key
   - lwlock_stats
 - Constants used:

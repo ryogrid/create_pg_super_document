@@ -26,8 +26,8 @@ This function takes no parameters.
   - MyProcPid (global variable)
   - got_STOPPING (global flag)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler
-  - CRSSnapshotAction
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md)
+  - [CRSSnapshotAction](../C/CRSSnapshotAction.md)
 
 ## Notes and Other Information
 - This function must only be called from within a WAL sender process (asserted by am_walsender check)

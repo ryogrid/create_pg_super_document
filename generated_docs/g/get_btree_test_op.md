@@ -21,10 +21,10 @@ The function acts as a simple accessor to the cached proof information, delegati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_proof_cache
-  - OprProofCacheEntry (accessed fields: refute_test_op, implic_test_op)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md)
+  - [OprProofCacheEntry](../O/OprProofCacheEntry.md) (accessed fields: refute_test_op, implic_test_op)
 - Called from:
-  - operator_predicate_proof
+  - [operator_predicate_proof](../o/operator_predicate_proof.md)
 
 ## Notes and Other Information
 This function provides a clean interface for retrieving test operators without exposing cache implementation details. It returns InvalidOid when no suitable comparison operator can be determined for the given operator pair.

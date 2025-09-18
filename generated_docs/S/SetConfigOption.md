@@ -26,12 +26,12 @@ This is the recommended interface for external code that needs to set GUC parame
   - GucContext, GucSource enums
   - GUC_ACTION_SET
 - Called from (representative examples):
-  - PostmasterMain
-  - InitializeGUCOptions
-  - BootstrapModeMain
-  - AutoVacWorkerMain
-  - process_postgres_switches
-  - CheckMyDatabase
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md)
+  - [process_postgres_switches](../p/process_postgres_switches.md)
+  - [CheckMyDatabase](../C/CheckMyDatabase.md)
 
 ## Notes and Other Information
 - This is the preferred public interface for setting GUC parameters from external code

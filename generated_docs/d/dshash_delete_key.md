@@ -18,17 +18,17 @@ The  function performs a key-based deletion operation on a dynamic shared hash t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_key: Computes hash value for the given key
+  - [hash_key](../h/hash_key.md): Computes hash value for the given key
   - PARTITION_FOR_HASH: Macro to determine partition from hash value
   - PARTITION_LOCK: Macro to get partition lock
   - ensure_valid_bucket_pointers: Ensures bucket pointers are valid
-  - delete_key_from_bucket: Performs actual deletion from the bucket
+  - [delete_key_from_bucket](delete_key_from_bucket.md): Performs actual deletion from the bucket
   - BUCKET_FOR_HASH: Macro to determine bucket from hash value
   - LWLockAcquire: Acquires exclusive lightweight lock
   - LWLockRelease: Releases lightweight lock
 - Called from (representative examples):
   - ApplyLauncherForgetWorkerStartTime: Removing worker startup time records
-  - find_or_make_matching_shared_tupledesc: Type descriptor cleanup operations
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md): Type descriptor cleanup operations
 
 ## Notes and Other Information
 - Always uses exclusive locking to ensure atomicity of the deletion operation

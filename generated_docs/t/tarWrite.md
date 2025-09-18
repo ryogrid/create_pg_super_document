@@ -20,13 +20,13 @@ The tarWrite function serves as a wrapper around the standard C library fwrite()
 ## Dependencies
 - Functions called/Symbols referenced:
   - fwrite (standard C library function)
-  - TAR_MEMBER (structure type)
+  - [TAR_MEMBER](../T/TAR_MEMBER.md) (structure type)
 - Called from (representative examples):
-  - _WriteData
-  - _WriteByte
-  - _WriteBuf
-  - _scriptOut
-  - tarPrintf
+  - [_WriteData](../W/_WriteData.md)
+  - [_WriteByte](../W/_WriteByte.md)
+  - [_WriteBuf](../W/_WriteBuf.md)
+  - [_scriptOut](../s/_scriptOut.md)
+  - [tarPrintf](tarPrintf.md)
 
 ## Notes and Other Information
 - Returns the number of bytes actually written, which may be less than requested if an error occurs

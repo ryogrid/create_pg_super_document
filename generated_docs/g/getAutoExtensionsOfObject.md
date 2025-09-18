@@ -25,14 +25,14 @@ For each matching dependency, the function adds the extension's OID (`refobjid`)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan  
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](../s/systable_beginscan.md)  
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_depend
   - DEPENDENCY_AUTO_EXTENSION
   - lappend_oid
 - Called from (representative examples):
-  - ExecAlterObjectDependsStmt
+  - [ExecAlterObjectDependsStmt](../E/ExecAlterObjectDependsStmt.md)
   - PERFORM_DELETION_CONCURRENT_LOCK
 
 ## Notes and Other Information

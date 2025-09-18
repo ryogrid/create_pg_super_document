@@ -22,15 +22,15 @@ The function follows PostgreSQL's standard input function convention by taking P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_lsn_in_internal (performs the actual parsing)
+  - [pg_lsn_in_internal](pg_lsn_in_internal.md) (performs the actual parsing)
   - PG_GETARG_CSTRING (extracts string argument)
   - ereturn (PostgreSQL error return mechanism)
   - PG_RETURN_LSN (returns LSN value as Datum)
-  - errcode, errmsg (PostgreSQL error reporting functions)
+  - [errcode](../e/errcode.md), errmsg (PostgreSQL error reporting functions)
 
 - Called from (representative examples):
-  - parse_subscription_options
-  - libpqrcv_create_slot
+  - [parse_subscription_options](parse_subscription_options.md)
+  - [libpqrcv_create_slot](../l/libpqrcv_create_slot.md)
 
 ## Notes and Other Information
 - This is the official input function registered in PostgreSQL's type system for pg_lsn

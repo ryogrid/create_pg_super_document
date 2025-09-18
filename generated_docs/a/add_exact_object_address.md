@@ -22,18 +22,18 @@ This is the preferred interface for external callers throughout the PostgreSQL c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (memory reallocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - ObjectAddresses (struct type)
-  - ObjectAddress (struct type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
   - Assert (debugging macro)
 - Called from (representative examples):
-  - heap_create_with_catalog
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
   - index_create
-  - AggregateCreate
-  - ProcedureCreate
-  - CreateConstraintEntry
-  - GenerateTypeDependencies
-  - InsertExtensionTuple
+  - [AggregateCreate](../A/AggregateCreate.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)
+  - [InsertExtensionTuple](../I/InsertExtensionTuple.md)
 
 ## Notes and Other Information
 - Public function (non-static) - available to external callers

@@ -19,18 +19,18 @@ This function takes no parameters and operates on shared memory structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_iter
+  - [dlist_iter](../d/dlist_iter.md)
   - LWLockHeldByMe
-  - pg_atomic_read_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - dlist_foreach
   - dlist_container
-  - pg_atomic_unlocked_test_flag
-  - pg_atomic_write_u32
+  - [pg_atomic_unlocked_test_flag](../p/pg_atomic_unlocked_test_flag.md)
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
   - Assert
-  - WorkerInfoData (struct type)
-  - WorkerInfo (typedef)
+  - [WorkerInfoData](../W/WorkerInfoData.md) (struct type)
+  - [WorkerInfo](../W/WorkerInfo.md) (typedef)
 - Called from (representative examples):
-  - do_autovacuum
+  - [do_autovacuum](../d/do_autovacuum.md)
 
 ## Notes and Other Information
 The function must be called with AutovacuumLock held in at least shared mode, as documented in the function comment and enforced by the Assert statement. The atomic operations ensure thread-safe access to the shared counter without requiring exclusive locks. The function's design minimizes performance impact by only updating the shared counter when the worker count actually changes, avoiding unnecessary cache invalidation in multi-worker scenarios. The wi_dobalance flag mechanism allows fine-grained control over which workers participate in cost balancing.

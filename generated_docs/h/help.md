@@ -76,7 +76,7 @@ The function uses internationalization support through the  macro for translatab
   - PACKAGE_NAME (build-time constant for package name)
   - PACKAGE_URL (build-time constant for package URL)
 - Called from:
-  - main (in various PostgreSQL utilities and the main server)
+  - [main](../m/main.md) (in various PostgreSQL utilities and the main server)
   - Multiple PostgreSQL command-line utilities for help display
 
 ## Notes and Other Information

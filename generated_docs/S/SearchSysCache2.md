@@ -24,15 +24,15 @@ This function is extensively used throughout PostgreSQL for accessing commonly-n
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - SearchCatCache2
+  - [SearchCatCache2](SearchCatCache2.md)
 - Called from (representative examples):
-  - expand_all_col_privileges
-  - ExecGrant_Attribute
-  - pg_attribute_aclmask_ext
-  - get_attname
-  - get_atttype
-  - SearchSysCacheAttName
-  - SearchSysCacheAttNum
+  - [expand_all_col_privileges](../e/expand_all_col_privileges.md)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [pg_attribute_aclmask_ext](../p/pg_attribute_aclmask_ext.md)
+  - [get_attname](../g/get_attname.md)
+  - [get_atttype](../g/get_atttype.md)
+  - [SearchSysCacheAttName](SearchSysCacheAttName.md)
+  - [SearchSysCacheAttNum](SearchSysCacheAttNum.md)
 
 ## Notes and Other Information
 - Enforces two-key cache constraint through assertion (cc_nkeys == 2)

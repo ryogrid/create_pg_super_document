@@ -21,12 +21,12 @@ This static function is responsible for freeing snapshots that were created by t
 - Functions called/Symbols referenced:
   - Assert (multiple validation checks)
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
   - SNAPSHOT_HISTORIC_MVCC
   - FirstCommandId
 - Called from (representative examples):
-  - SnapBuildSnapDecRefcount
-  - SnapBuild structure's freefunc field
+  - [SnapBuildSnapDecRefcount](SnapBuildSnapDecRefcount.md)
+  - [SnapBuild](SnapBuild.md) structure's freefunc field
 
 ## Notes and Other Information
 The function enforces strict invariants about snapshot state: the snapshot must be of type SNAPSHOT_HISTORIC_MVCC, have curcid set to FirstCommandId, not be suboverflowed or taken during recovery, have zero registered count, not be copied, and not be active. These checks ensure that only snapshots created and managed by the logical replication snapshot building system are freed through this function, preventing accidental freeing of external or system snapshots. The function uses both compile-time assertions (Assert) for debugging and runtime checks (elog) for critical validation.

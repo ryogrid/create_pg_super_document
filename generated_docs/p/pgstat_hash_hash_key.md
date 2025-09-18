@@ -23,7 +23,7 @@ This function serves as a hash value generator for dshash and simplehash hashtab
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_HashKey (type referenced for size validation)
-  - fasthash32 (fast hash algorithm function)
+  - [fasthash32](../f/fasthash32.md) (fast hash algorithm function)
   - Assert (macro for debug assertions)
 - Called from (representative examples):
   - SH_HASH_KEY macro in pgstat.c

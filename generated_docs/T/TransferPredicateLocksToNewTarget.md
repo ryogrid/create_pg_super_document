@@ -31,19 +31,19 @@ The function is essential for maintaining serializable isolation during index ma
   - PredicateLockHashPartitionLock
   - RemoveScratchTarget
   - LWLockAcquire
-  - hash_search_with_hash_value
-  - dlist_init
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [dlist_init](../d/dlist_init.md)
   - dlist_foreach_modify
   - dlist_container
-  - dlist_delete
+  - [dlist_delete](../d/dlist_delete.md)
   - PredicateLockHashCodeFromTargetHashCode
-  - dlist_push_tail
-  - DeleteLockTarget
-  - RemoveTargetIfNoLongerUsed
-  - RestoreScratchTarget
+  - [dlist_push_tail](../d/dlist_push_tail.md)
+  - [DeleteLockTarget](../D/DeleteLockTarget.md)
+  - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
+  - [RestoreScratchTarget](../R/RestoreScratchTarget.md)
 - Called from (representative examples):
-  - PredicateLockPageSplit
-  - SerialControl
+  - [PredicateLockPageSplit](../P/PredicateLockPageSplit.md)
+  - [SerialControl](../S/SerialControl.md)
 
 ## Notes and Other Information
 - Static function - internal to predicate locking subsystem

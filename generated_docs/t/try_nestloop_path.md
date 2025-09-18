@@ -25,21 +25,21 @@ The function validates parameterization constraints, checks for dangerous outer 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member
-  - calc_nestloop_required_outer
-  - bms_overlap
-  - allow_star_schema_join
-  - have_dangerous_phv
-  - have_unsafe_outer_join_ref
+  - [bms_is_member](../b/bms_is_member.md)
+  - [calc_nestloop_required_outer](../c/calc_nestloop_required_outer.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [allow_star_schema_join](../a/allow_star_schema_join.md)
+  - [have_dangerous_phv](../h/have_dangerous_phv.md)
+  - [have_unsafe_outer_join_ref](../h/have_unsafe_outer_join_ref.md)
   - PATH_PARAM_BY_PARENT
   - path_is_reparameterizable_by_child
-  - initial_cost_nestloop
-  - add_path_precheck
-  - create_nestloop_path
-  - add_path
-  - bms_free
+  - [initial_cost_nestloop](../i/initial_cost_nestloop.md)
+  - [add_path_precheck](../a/add_path_precheck.md)
+  - [create_nestloop_path](../c/create_nestloop_path.md)
+  - [add_path](../a/add_path.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - match_unsorted_outer
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
 
 ## Notes and Other Information
 - The function implements sophisticated parameterization validation to ensure the resulting join path is valid and efficient

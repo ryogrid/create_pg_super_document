@@ -24,16 +24,16 @@ This mapping data is typically written to temporary files during the rewrite ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (relation file identification)
-  - ItemPointerData (tuple location identification)
+  - [RelFileLocator](../R/RelFileLocator.md) (relation file identification)
+  - [ItemPointerData](../I/ItemPointerData.md) (tuple location identification)
 
 - Called from (representative examples):
-  - RewriteMappingDataEntry (internal mapping structure)
-  - logical_heap_rewrite_flush_mappings (writing mappings to disk)
-  - logical_rewrite_log_mapping (logging mapping operations)
-  - logical_rewrite_heap_tuple (tuple rewriting with mapping)
+  - [RewriteMappingDataEntry](../R/RewriteMappingDataEntry.md) (internal mapping structure)
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (writing mappings to disk)
+  - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md) (logging mapping operations)
+  - [logical_rewrite_heap_tuple](../l/logical_rewrite_heap_tuple.md) (tuple rewriting with mapping)
   - heap_xlog_logical_rewrite (WAL replay of logical rewrites)
-  - ApplyLogicalMappingFile (applying mappings during logical replication)
+  - [ApplyLogicalMappingFile](../A/ApplyLogicalMappingFile.md) (applying mappings during logical replication)
 
 ## Notes and Other Information
 - This structure is specifically designed for on-disk storage and has a fixed binary format

@@ -22,23 +22,23 @@ The function also handles memory management by freeing previously allocated data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - free_db_and_rel_infos
-  - get_template0_info
-  - get_db_infos
-  - get_rel_infos
-  - get_old_cluster_logical_slot_infos
-  - pg_log
-  - print_db_infos
+  - [free_db_and_rel_infos](../f/free_db_and_rel_infos.md)
+  - [get_template0_info](get_template0_info.md)
+  - [get_db_infos](get_db_infos.md)
+  - [get_rel_infos](get_rel_infos.md)
+  - [get_old_cluster_logical_slot_infos](get_old_cluster_logical_slot_infos.md)
+  - [pg_log](../p/pg_log.md)
+  - [print_db_infos](../p/print_db_infos.md)
 - Data structures used:
   - ClusterInfo
-  - DbInfo
+  - [DbInfo](../D/DbInfo.md)
 - Global variables accessed:
   - old_cluster
   - log_opts
 - Called from (representative examples):
-  - check_and_dump_old_cluster
-  - check_new_cluster
-  - create_new_objects
+  - [check_and_dump_old_cluster](../c/check_and_dump_old_cluster.md)
+  - [check_new_cluster](../c/check_new_cluster.md)
+  - [create_new_objects](../c/create_new_objects.md)
 
 ## Notes and Other Information
 - Performs memory cleanup by freeing existing database arrays before repopulating them

@@ -17,16 +17,16 @@ This function serves as the main entry point for allocating parallel apply worke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pa_can_start
-  - pa_launch_parallel_worker
-  - hash_create
-  - hash_search
+  - [pa_can_start](pa_can_start.md)
+  - [pa_launch_parallel_worker](pa_launch_parallel_worker.md)
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
   - MemSet
   - SpinLockAcquire
   - SpinLockRelease
   - elog
 - Called from:
-  - apply_handle_stream_start
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)
 
 ## Notes and Other Information
 - Performs pa_can_start() check before attempting worker allocation to ensure conditions are appropriate

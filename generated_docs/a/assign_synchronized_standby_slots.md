@@ -18,7 +18,7 @@ This function serves as a GUC (Grand Unified Configuration) assign hook for the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SyncStandbySlotsConfigData (configuration structure type)
+  - [SyncStandbySlotsConfigData](../S/SyncStandbySlotsConfigData.md) (configuration structure type)
   - ss_oldest_flush_lsn (global variable for cached oldest LSN)
   - InvalidXLogRecPtr (constant for invalid LSN)
   - synchronized_standby_slots_config (global configuration pointer)

@@ -29,7 +29,7 @@ If the networks belong to different IP families, the function returns false as c
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP (extract INET arguments)
   - ip_family (get IP family of network)
-  - bitncmp (bitwise comparison of network addresses)
+  - [bitncmp](../b/bitncmp.md) (bitwise comparison of network addresses)
   - ip_addr (get network address)
   - ip_bits (get prefix length of network)
   - Min (get minimum of two values)

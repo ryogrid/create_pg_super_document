@@ -21,25 +21,25 @@ The function ensures data consistency by acquiring exclusive locks and maintaini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForRenameTrigger
-  - relation_open
-  - find_all_inheritors
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForRenameTrigger](../R/RangeVarCallbackForRenameTrigger.md)
+  - [relation_open](relation_open.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - get_partition_parent
-  - get_rel_name
-  - renametrig_internal
-  - RelationGetPartitionDesc
-  - renametrig_partition
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [get_partition_parent](../g/get_partition_parent.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [renametrig_internal](renametrig_internal.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [renametrig_partition](renametrig_partition.md)
   - ObjectAddressSet
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - relation_close
+  - [relation_close](relation_close.md)
 - Called from (representative examples):
-  - ExecRenameStmt
+  - [ExecRenameStmt](../E/ExecRenameStmt.md)
 
 ## Notes and Other Information
 - Acquires AccessExclusiveLock on the target relation and holds it until transaction end

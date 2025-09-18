@@ -25,13 +25,13 @@ The function intelligently chooses between two execution paths: one optimized fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - ExecReScan
-  - ExecScan
-  - IndexNextWithReorder
-  - IndexNext
-  - IndexRecheck
+  - [ExecReScan](ExecReScan.md)
+  - [ExecScan](ExecScan.md)
+  - [IndexNextWithReorder](../I/IndexNextWithReorder.md)
+  - [IndexNext](../I/IndexNext.md)
+  - [IndexRecheck](../I/IndexRecheck.md)
 - Called from (representative examples):
-  - ExecInitIndexScan (assigned as the scan method during initialization)
+  - [ExecInitIndexScan](ExecInitIndexScan.md) (assigned as the scan method during initialization)
 
 ## Notes and Other Information
 - Part of PostgreSQL's executor node framework for plan execution

@@ -31,12 +31,12 @@ For Unicode tokens, it processes escape sequences using either a specified escap
 - Functions called/Symbols referenced:
   - pg_yyget_extra
   - core_yylex
-  - check_uescapechar
-  - str_udeescape  
-  - truncate_identifier
+  - [check_uescapechar](../c/check_uescapechar.md)
+  - [str_udeescape](../s/str_udeescape.md)  
+  - [truncate_identifier](../t/truncate_identifier.md)
   - scanner_yyerror
 - Called from (representative examples):
-  - filtered_base_yylex (in ECPG preprocessor)
+  - [filtered_base_yylex](../f/filtered_base_yylex.md) (in ECPG preprocessor)
 
 ## Notes and Other Information
 - Implements careful location tracking for error reporting, ensuring errors point to the correct token position

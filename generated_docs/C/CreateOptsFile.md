@@ -26,9 +26,9 @@ The function performs error handling for both file creation and writing operatio
   - fputs (string output to file) 
   - fclose (file closing)
   - ereport (PostgreSQL error reporting)
-  - errcode_for_file_access (PostgreSQL error code helper)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (PostgreSQL error code helper)
 - Called from (representative examples):
-  - PostmasterMain (main postmaster initialization)
+  - [PostmasterMain](../P/PostmasterMain.md) (main postmaster initialization)
   - SignalChildren (for process restart scenarios)
 
 ## Notes and Other Information

@@ -22,12 +22,12 @@ The function operates in an infinite loop, handling pipe creation, client connec
   - snprintf
   - GetCurrentProcessId (Windows API)
   - CreateNamedPipe (Windows API)
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
   - SleepEx (Windows API)
   - ConnectNamedPipe (Windows API)
   - GetLastError (Windows API)
   - ReadFile (Windows API)
-  - pg_queue_signal
+  - [pg_queue_signal](pg_queue_signal.md)
   - WriteFile (Windows API)
   - FlushFileBuffers (Windows API)
   - DisconnectNamedPipe (Windows API)
@@ -35,7 +35,7 @@ The function operates in an infinite loop, handling pipe creation, client connec
 - Global variables accessed:
   - pgwin32_initial_signal_pipe
 - Called from (representative examples):
-  - pgwin32_signal_initialize (in signal.c:103)
+  - [pgwin32_signal_initialize](pgwin32_signal_initialize.md) (in signal.c:103)
 
 ## Notes and Other Information
 - Runs as a Windows thread with WINAPI calling convention

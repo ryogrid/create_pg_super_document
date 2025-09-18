@@ -25,18 +25,18 @@ This is the counterpart to wal_segment_open and is called automatically by the X
 - Functions called/Symbols referenced:
   - close (system call to close file descriptor)
 - Called from (representative examples):
-  - XlogReadTwoPhaseData
-  - InitWalRecovery
-  - SummarizeWAL
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
+  - [InitWalRecovery](../I/InitWalRecovery.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
   - LogicalReplicationSlotHasPendingWal
-  - LogicalSlotAdvanceAndCheckSnapState
-  - pg_logical_slot_get_changes_guts
-  - create_logical_replication_slot
-  - WalSndErrorCleanup
-  - StartReplication
-  - CreateReplicationSlot
-  - StartLogicalReplication
-  - XLogSendPhysical
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
+  - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)
+  - [StartReplication](../S/StartReplication.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
 
 ## Notes and Other Information
 - File descriptor is reset to -1 after closing to indicate no open file

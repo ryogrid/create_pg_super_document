@@ -35,15 +35,15 @@ The parsing process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - uri_prefix_length
-  - conninfo_storeval
-  - conninfo_uri_parse_params
-  - libpq_append_error
+  - [uri_prefix_length](../u/uri_prefix_length.md)
+  - [conninfo_storeval](conninfo_storeval.md)
+  - [conninfo_uri_parse_params](conninfo_uri_parse_params.md)
+  - [libpq_append_error](../l/libpq_append_error.md)
   - initPQExpBuffer/termPQExpBuffer
-  - appendPQExpBufferStr/appendPQExpBufferChar
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)/appendPQExpBufferChar
   - PQExpBufferDataBroken
 - Called from (representative examples):
-  - conninfo_uri_parse
+  - [conninfo_uri_parse](conninfo_uri_parse.md)
   - internalPQconninfoOption
 
 ## Notes and Other Information

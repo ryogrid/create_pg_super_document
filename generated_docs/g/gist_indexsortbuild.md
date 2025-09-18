@@ -27,17 +27,17 @@ Key aspects of the algorithm include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_start_rel: Initialize bulk writing for the index relation
-  - GistSortedBuildLevelState: Level state structure for managing page batches
-  - gistinitpage: Initialize a new GiST page with appropriate flags
-  - tuplesort_getindextuple: Retrieve next sorted tuple from tuplesort
-  - gist_indexsortbuild_levelstate_add: Add tuple to current level state
-  - gist_indexsortbuild_levelstate_flush: Write completed pages and propagate to parent
-  - smgr_bulk_get_buf: Get buffer for bulk writing
-  - smgr_bulk_write: Write page using bulk writer
-  - smgr_bulk_finish: Complete bulk writing operation
+  - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md): Initialize bulk writing for the index relation
+  - [GistSortedBuildLevelState](../G/GistSortedBuildLevelState.md): Level state structure for managing page batches
+  - [gistinitpage](gistinitpage.md): Initialize a new GiST page with appropriate flags
+  - [tuplesort_getindextuple](../t/tuplesort_getindextuple.md): Retrieve next sorted tuple from tuplesort
+  - [gist_indexsortbuild_levelstate_add](gist_indexsortbuild_levelstate_add.md): Add tuple to current level state
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md): Write completed pages and propagate to parent
+  - [smgr_bulk_get_buf](../s/smgr_bulk_get_buf.md): Get buffer for bulk writing
+  - [smgr_bulk_write](../s/smgr_bulk_write.md): Write page using bulk writer
+  - [smgr_bulk_finish](../s/smgr_bulk_finish.md): Complete bulk writing operation
 - Called from (representative examples):
-  - gistbuild: Main GiST build function during sorted build mode
+  - [gistbuild](gistbuild.md): Main GiST build function during sorted build mode
 
 ## Notes and Other Information
 - This function is only called when using GIST_SORTED_BUILD mode with pre-sorted tuples

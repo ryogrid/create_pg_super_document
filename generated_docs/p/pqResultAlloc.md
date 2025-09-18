@@ -28,15 +28,15 @@ pqResultAlloc is the core memory allocation function for PGresult objects. It im
   - PGRESULT_DATA_BLOCKSIZE
   - malloc
 - Called from (representative examples):
-  - PQresultAlloc
-  - PQsetvalue
-  - pqResultStrdup
-  - pqInternalNotice
-  - pqSaveMessageField
-  - pqRowProcessor
-  - getRowDescriptions
-  - getParamDescriptions
-  - getCopyStart
+  - [PQresultAlloc](../P/PQresultAlloc.md)
+  - [PQsetvalue](../P/PQsetvalue.md)
+  - [pqResultStrdup](pqResultStrdup.md)
+  - [pqInternalNotice](pqInternalNotice.md)
+  - [pqSaveMessageField](pqSaveMessageField.md)
+  - [pqRowProcessor](pqRowProcessor.md)
+  - [getRowDescriptions](../g/getRowDescriptions.md)
+  - [getParamDescriptions](../g/getParamDescriptions.md)
+  - [getCopyStart](../g/getCopyStart.md)
 
 ## Notes and Other Information
 - Implements block-based memory management with linked list of data blocks

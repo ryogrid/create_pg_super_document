@@ -22,13 +22,13 @@ This function replaced the older IsBinaryCompatible() function, which was symmet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsBinaryCoercibleWithCast
+  - [IsBinaryCoercibleWithCast](IsBinaryCoercibleWithCast.md)
 - Called from (representative examples):
-  - check_hash_func_signature (src/backend/access/hash/hashvalidate.c:308)
-  - AggregateCreate (src/backend/catalog/pg_aggregate.c:263, 306)
-  - compatible_oper (src/backend/parser/parse_oper.c:463, 464)
-  - ExecInitAgg (src/backend/executor/nodeAgg.c:3932)
-  - ri_HashCompareOp (src/backend/utils/adt/ri_triggers.c:2978)
+  - [check_hash_func_signature](../c/check_hash_func_signature.md) (src/backend/access/hash/hashvalidate.c:308)
+  - [AggregateCreate](../A/AggregateCreate.md) (src/backend/catalog/pg_aggregate.c:263, 306)
+  - [compatible_oper](../c/compatible_oper.md) (src/backend/parser/parse_oper.c:463, 464)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (src/backend/executor/nodeAgg.c:3932)
+  - [ri_HashCompareOp](../r/ri_HashCompareOp.md) (src/backend/utils/adt/ri_triggers.c:2978)
 
 ## Notes and Other Information
 - Introduced in PostgreSQL 7.3 to replace the hardwired binary compatibility system

@@ -19,17 +19,17 @@ Unlike LookupExplicitNamespace (which checks for USAGE rights), this function sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AccessTempTableNamespace (for pg_temp initialization)
-  - get_namespace_oid (to resolve namespace name to OID)
-  - object_aclcheck (to verify CREATE permissions)
-  - aclcheck_error (to report permission errors)
-  - GetUserId (implicitly called for permission check)
+  - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md) (for pg_temp initialization)
+  - [get_namespace_oid](../g/get_namespace_oid.md) (to resolve namespace name to OID)
+  - [object_aclcheck](../o/object_aclcheck.md) (to verify CREATE permissions)
+  - [aclcheck_error](../a/aclcheck_error.md) (to report permission errors)
+  - [GetUserId](../G/GetUserId.md) (implicitly called for permission check)
 - Called from (representative examples):
-  - ExecAlterObjectSchemaStmt
-  - make_new_heap
+  - [ExecAlterObjectSchemaStmt](../E/ExecAlterObjectSchemaStmt.md)
+  - [make_new_heap](../m/make_new_heap.md)
   - AlterExtensionNamespace
-  - ImportForeignSchema
-  - AlterTypeNamespace
+  - [ImportForeignSchema](../I/ImportForeignSchema.md)
+  - [AlterTypeNamespace](../A/AlterTypeNamespace.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

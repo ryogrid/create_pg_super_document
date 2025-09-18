@@ -22,19 +22,19 @@ The function uses Perl's XS API extensively, managing the Perl stack for argumen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_func_signature
-  - plperl_hash_from_datum
-  - plperl_ref_from_pg_array
-  - get_transform_fromsql
+  - [get_func_signature](../g/get_func_signature.md)
+  - [plperl_hash_from_datum](plperl_hash_from_datum.md)
+  - [plperl_ref_from_pg_array](plperl_ref_from_pg_array.md)
+  - [get_transform_fromsql](../g/get_transform_fromsql.md)
   - OidFunctionCall1
-  - OutputFunctionCall
-  - cstr2sv
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
+  - [cstr2sv](../c/cstr2sv.md)
   - call_sv
-  - strip_trailing_ws
-  - sv2cstr
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md)
 - Called from:
-  - plperl_inline_handler
-  - plperl_func_handler
+  - [plperl_inline_handler](plperl_inline_handler.md)
+  - [plperl_func_handler](plperl_func_handler.md)
 
 ## Notes and Other Information
 - Uses Perl XS macros (dTHX, dSP, ENTER, SAVETMPS, etc.) for proper Perl API integration

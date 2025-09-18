@@ -21,7 +21,7 @@ This function is the extended version of hashname that accepts an additional see
   - PG_GETARG_NAME: Extract Name argument from function call
   - PG_GETARG_INT64: Extract int64 seed argument from function call
   - NameStr: Macro to extract string from Name data type
-  - hash_any_extended: Generic extended hash function for binary data with seed
+  - [hash_any_extended](hash_any_extended.md): Generic extended hash function for binary data with seed
   - strlen: Calculate string length
 - Called from (representative examples):
   - No direct callers found in the codebase

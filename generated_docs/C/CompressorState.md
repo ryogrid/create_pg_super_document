@@ -35,17 +35,17 @@ CompressorState serves as a unified interface for different compression algorith
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_compress_specification
-  - ArchiveHandle
+  - [pg_compress_specification](../p/pg_compress_specification.md)
+  - [ArchiveHandle](../A/ArchiveHandle.md)
   - ReadFunc
   - WriteFunc
 - Called from (representative examples):
-  - AllocateCompressor (src/bin/pg_dump/compress_io.c:127)
-  - EndCompressor (src/bin/pg_dump/compress_io.c:149)
-  - InitCompressorGzip (src/bin/pg_dump/compress_gzip.c:425)
-  - InitCompressorLZ4 (src/bin/pg_dump/compress_lz4.c:797)
-  - InitCompressorZstd (src/bin/pg_dump/compress_zstd.c:212)
-  - InitCompressorNone (src/bin/pg_dump/compress_none.c:66)
+  - [AllocateCompressor](../A/AllocateCompressor.md) (src/bin/pg_dump/compress_io.c:127)
+  - [EndCompressor](../E/EndCompressor.md) (src/bin/pg_dump/compress_io.c:149)
+  - [InitCompressorGzip](../I/InitCompressorGzip.md) (src/bin/pg_dump/compress_gzip.c:425)
+  - [InitCompressorLZ4](../I/InitCompressorLZ4.md) (src/bin/pg_dump/compress_lz4.c:797)
+  - [InitCompressorZstd](../I/InitCompressorZstd.md) (src/bin/pg_dump/compress_zstd.c:212)
+  - [InitCompressorNone](../I/InitCompressorNone.md) (src/bin/pg_dump/compress_none.c:66)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_dump/compress_io.h:49-88

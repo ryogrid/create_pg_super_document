@@ -23,13 +23,13 @@ The function works by iterating through each scan key, fetching the next item th
 ## Dependencies
 - Functions called/Symbols referenced:
   - ItemPointerSetMin
-  - keyGetItem
+  - [keyGetItem](../k/keyGetItem.md)
   - ItemPointerIsLossyPage
   - GinItemPointerGetBlockNumber
-  - ItemPointerSet
-  - ginCompareItemPointers
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
 - Called from (representative examples):
-  - gingetbitmap
+  - [gingetbitmap](../g/gingetbitmap.md)
 
 ## Notes and Other Information
 Critical for GIN bitmap scan performance as it coordinates multiple entry streams. The function assumes that key streams maintain proper ordering and don't contain conflicting exact/lossy pointers for the same page. The recheck flag is set when any key requires rechecking, which happens when lossy page references are involved or when the consistent function indicates uncertainty.

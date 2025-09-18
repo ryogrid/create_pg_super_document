@@ -19,12 +19,12 @@ This structure serves as a context parameter for sorting and deduplicating array
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (struct type)
+  - [FmgrInfo](../F/FmgrInfo.md) (struct type)
   - Oid (type)
 - Called from (representative examples):
-  - _bt_sort_array_elements
-  - _bt_merge_arrays
-  - _bt_compare_array_elements
+  - [_bt_sort_array_elements](../b/_bt_sort_array_elements.md)
+  - [_bt_merge_arrays](../b/_bt_merge_arrays.md)
+  - [_bt_compare_array_elements](../b/_bt_compare_array_elements.md)
 
 ## Notes and Other Information
 - This context structure is specifically designed for use with qsort_arg and qunique_arg functions, which require a void pointer argument to pass additional context to comparison functions

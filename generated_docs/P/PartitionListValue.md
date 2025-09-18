@@ -26,8 +26,8 @@ PartitionListValue is a structure that encapsulates a single value from a list p
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)
 - Called from (representative examples):
-  - create_list_bounds (multiple references)
-  - qsort_partition_list_value_cmp
+  - [create_list_bounds](../c/create_list_bounds.md) (multiple references)
+  - [qsort_partition_list_value_cmp](../q/qsort_partition_list_value_cmp.md)
 
 ## Notes and Other Information
 This structure is part of the internal machinery for list partitioning in PostgreSQL. The Datum type allows it to store values of any PostgreSQL data type. The structure is used during the sorting process to maintain the association between partition values and their corresponding partition indices.

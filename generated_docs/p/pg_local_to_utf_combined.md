@@ -21,8 +21,8 @@ The pg_local_to_utf_combined structure is used in PostgreSQL's character encodin
 - Functions called/Symbols referenced:
   - None (this is a data structure definition)
 - Called from (representative examples):
-  - compare4 (for sorting/searching in conversion tables)
-  - LocalToUtf (main conversion function that uses these mappings)
+  - [compare4](../c/compare4.md) (for sorting/searching in conversion tables)
+  - [LocalToUtf](../L/LocalToUtf.md) (main conversion function that uses these mappings)
 
 ## Notes and Other Information
 - This structure is specifically designed for local code to UTF-8 conversion scenarios

@@ -24,11 +24,11 @@ The function is designed to be safe to call multiple times and handles cases whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_destroy (for cleaning up RelationSyncCache)
+  - [hash_destroy](../h/hash_destroy.md) (for cleaning up RelationSyncCache)
   - RelationSyncCache (global variable)
   - pubctx (global variable)
 - Called from (representative examples):
-  - _PG_output_plugin_init (as callback registration)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (as callback registration)
 
 ## Notes and Other Information
 - Memory contexts like data->context, data->cachectx, and pubctx are automatically cleaned up by the logical decoding framework

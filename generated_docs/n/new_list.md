@@ -21,22 +21,22 @@ This function creates a fresh List with optimized memory allocation. It allocate
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - pg_nextpower2_32 (calculates next power of 2)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (calculates next power of 2)
   - LIST_HEADER_OVERHEAD (macro for header size calculation)
-  - palloc (PostgreSQL memory allocator)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocator)
   - offsetof (standard C macro)
   - Max (macro for maximum value)
   - DEBUG_LIST_MEMORY_USAGE (conditional compilation flag)
 
 - Called from (representative examples):
-  - list_make1_impl
-  - list_make2_impl  
+  - [list_make1_impl](../l/list_make1_impl.md)
+  - [list_make2_impl](../l/list_make2_impl.md)  
   - lappend
-  - lcons
-  - list_concat_copy
-  - list_copy
-  - pg_parse_query
-  - pg_rewrite_query
+  - [lcons](../l/lcons.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [list_copy](../l/list_copy.md)
+  - [pg_parse_query](../p/pg_parse_query.md)
+  - [pg_rewrite_query](../p/pg_rewrite_query.md)
 
 ## Notes and Other Information
 - Static function internal to list.c, not part of the public API

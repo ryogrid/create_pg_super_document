@@ -21,16 +21,16 @@ The function performs size calculations in a safe manner using PostgreSQL's over
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (standard C macro)
-  - add_size (PostgreSQL safe arithmetic)
-  - mul_size (PostgreSQL safe arithmetic)
+  - [add_size](../a/add_size.md) (PostgreSQL safe arithmetic)
+  - [mul_size](../m/mul_size.md) (PostgreSQL safe arithmetic)
   - MaxBackends (global configuration variable)
   - max_prepared_xacts (global configuration variable)
   - EnableHotStandby (global configuration variable)
-  - ProcArrayStruct (main structure type)
+  - [ProcArrayStruct](ProcArrayStruct.md) (main structure type)
   - TransactionId (transaction ID type)
   - PGPROC_MAX_CACHED_SUBXIDS (constant)
 - Called from:
-  - CalculateShmemSize (during shared memory initialization)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (during shared memory initialization)
 
 ## Notes and Other Information
 - PROCARRAY_MAXPROCS is defined as (MaxBackends + max_prepared_xacts) to account for all possible processes

@@ -19,10 +19,10 @@ This is a static inline convenience wrapper around the generic ResourceOwnerReme
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerRemember
-  - PointerGetDatum (implicit)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicit)
   - tupdesc_resowner_desc (resource descriptor)
 - Called from (representative examples):
-  - IncrTupleDescRefCount
+  - [IncrTupleDescRefCount](../I/IncrTupleDescRefCount.md)
 
 ## Notes and Other Information
 - This is a static inline function, so it's only visible within the tupdesc.c compilation unit

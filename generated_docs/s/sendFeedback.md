@@ -23,14 +23,14 @@ The feedback mechanism is crucial for preventing  from killing the connection an
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - fe_sendint64
-  - PQputCopyData
-  - PQflush
+  - [fe_sendint64](../f/fe_sendint64.md)
+  - [PQputCopyData](../P/PQputCopyData.md)
+  - [PQflush](../P/PQflush.md)
 - Called from (representative examples):
-  - StreamLogicalLog
-  - flushAndSendFeedback
-  - HandleCopyStream
-  - ProcessKeepaliveMsg
+  - [StreamLogicalLog](../S/StreamLogicalLog.md)
+  - [flushAndSendFeedback](../f/flushAndSendFeedback.md)
+  - [HandleCopyStream](../H/HandleCopyStream.md)
+  - [ProcessKeepaliveMsg](../P/ProcessKeepaliveMsg.md)
 
 ## Notes and Other Information
 - Uses static variables to track last_written_lsn and last_fsync_lsn to avoid redundant messages

@@ -24,9 +24,9 @@ The function acts as a wrapper around the platform-specific implementation pg_at
   - AssertPointerAlignment (for pointer alignment verification when not using simulation)
   - Assert (for runtime assertion checking)
   - PG_INT64_MIN (minimum 64-bit signed integer constant)
-  - pg_atomic_fetch_sub_u64_impl (platform-specific implementation)
+  - [pg_atomic_fetch_sub_u64_impl](pg_atomic_fetch_sub_u64_impl.md) (platform-specific implementation)
 - Called from (representative examples):
-  - test_atomic_uint64 (regression testing)
+  - [test_atomic_uint64](../t/test_atomic_uint64.md) (regression testing)
 
 ## Notes and Other Information
 - Returns the original value before the subtraction, not the result after subtraction

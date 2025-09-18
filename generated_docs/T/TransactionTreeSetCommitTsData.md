@@ -29,14 +29,14 @@ The algorithm splits the transaction IDs into groups where each group contains t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToCTsPage (to determine which page contains each transaction)
-  - SetXidCommitTsInPage (to actually write timestamp data to a page)
-  - TransactionIdPrecedes (to compare transaction ID ordering)
+  - [TransactionIdToCTsPage](TransactionIdToCTsPage.md) (to determine which page contains each transaction)
+  - [SetXidCommitTsInPage](../S/SetXidCommitTsInPage.md) (to actually write timestamp data to a page)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md) (to compare transaction ID ordering)
   - RepOriginId (type for replication origin identification)
 - Called from (representative examples):
-  - RecordTransactionCommit (during normal transaction commit)
-  - RecordTransactionCommitPrepared (during two-phase commit)
-  - xact_redo_commit (during WAL replay)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (during normal transaction commit)
+  - [RecordTransactionCommitPrepared](../R/RecordTransactionCommitPrepared.md) (during two-phase commit)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (during WAL replay)
 
 ## Notes and Other Information
 - Returns early if commit timestamp tracking is not active (commitTsShared->commitTsActive is false)

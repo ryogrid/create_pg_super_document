@@ -21,10 +21,10 @@ This function extracts and returns the total count of states from the NFA struct
 - Functions called/Symbols referenced:
   - `regex_t` (structure type)
   - `REMAGIC` (magic number constant)
-  - `guts` (internal regex structure)
-  - `cnfa` (compiled NFA structure)
+  - `[guts](../g/guts.md)` (internal regex structure)
+  - `[cnfa](../c/cnfa.md)` (compiled NFA structure)
 - Called from (representative examples):
-  - `regex_arc_t` (referenced in regexport.h)
+  - `[regex_arc_t](../r/regex_arc_t.md)` (referenced in regexport.h)
 
 ## Notes and Other Information
 - The function includes an assertion to validate that the regex pointer is not NULL and that the regex has the correct magic number (REMAGIC)

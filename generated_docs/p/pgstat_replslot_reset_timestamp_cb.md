@@ -23,7 +23,7 @@ This callback ensures that consumers of replication slot statistics can determin
 ## Dependencies
 - Types referenced:
   - PgStatShared_Common
-  - PgStatShared_ReplSlot
+  - [PgStatShared_ReplSlot](../P/PgStatShared_ReplSlot.md)
   - TimestampTz
 - Called from (representative examples):
   - Statistics reset operations (via SH_DECLARE macro in pgstat.c:316)

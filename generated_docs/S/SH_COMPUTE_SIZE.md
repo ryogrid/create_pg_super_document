@@ -18,7 +18,7 @@ SH_COMPUTE_SIZE is a macro that generates a function name for computing optimal 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Max (macro for maximum value)
-  - pg_nextpower2_64 (rounds up to next power of 2)
+  - [pg_nextpower2_64](../p/pg_nextpower2_64.md) (rounds up to next power of 2)
   - Assert (assertion macro)
   - SIZE_MAX (maximum size_t value)
   - SH_MAX_SIZE (maximum hash table size constant)
@@ -26,9 +26,9 @@ SH_COMPUTE_SIZE is a macro that generates a function name for computing optimal 
   - sh_error (error reporting function)
   - unlikely (branch prediction hint)
 - Called from (representative examples):
-  - SH_UPDATE_PARAMETERS
+  - [SH_UPDATE_PARAMETERS](SH_UPDATE_PARAMETERS.md)
   - SH_CREATE
-  - SH_GROW
+  - [SH_GROW](SH_GROW.md)
 
 ## Notes and Other Information
 - Always returns a power of 2 size, which is essential for the hash table's bucketing algorithm

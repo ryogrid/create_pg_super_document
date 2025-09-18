@@ -25,9 +25,9 @@ The function delegates the actual setting management to the `do_pset` function, 
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option` - Parse optional parameter from command line
   - `do_pset` - Set the tuples_only print option
-  - `ignore_slash_options` - Skip option parsing when not in active branch
+  - `[ignore_slash_options](../i/ignore_slash_options.md)` - Skip option parsing when not in active branch
 - Called from:
-  - `exec_command` - Main command dispatcher for `\t` command
+  - `[exec_command](exec_command.md)` - Main command dispatcher for `\t` command
 
 ## Notes and Other Information
 - Controls the "tuples_only" print option which affects all subsequent query output

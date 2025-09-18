@@ -22,9 +22,9 @@ This function is a tree walker that implements the core logic for detecting wind
 - Functions called/Symbols referenced:
   - WindowFunc (node type check)
   - expression_tree_walker (recursive traversal)
-  - contain_windowfuncs_walker (recursive self-call)
+  - [contain_windowfuncs_walker](contain_windowfuncs_walker.md) (recursive self-call)
 - Called from (representative examples):
-  - contain_windowfuncs
+  - [contain_windowfuncs](contain_windowfuncs.md)
   - expression_tree_walker (during recursive traversal)
 
 ## Notes and Other Information

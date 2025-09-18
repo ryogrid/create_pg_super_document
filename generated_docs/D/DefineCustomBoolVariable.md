@@ -38,12 +38,12 @@ This function provides the public interface for PostgreSQL extensions to create 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_custom_variable
-  - define_custom_variable
+  - [init_custom_variable](../i/init_custom_variable.md)
+  - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_BOOL (config type constant)
   - config_bool (structure type)
 - Called from (representative examples):
-  - _PG_init functions in various extensions
+  - [_PG_init](../P/_PG_init.md) functions in various extensions
   - plperl module initialization
   - test_oat_hooks module initialization
 
@@ -52,7 +52,7 @@ This function provides the public interface for PostgreSQL extensions to create 
 - The valueAddr parameter must point to a variable with sufficient lifetime (typically static/global)
 - The bootValue is used as both the initial value and reset value
 - Hook functions are optional and can be NULL
-- Variable names should follow the pattern 'extension_name.variable_name' to avoid conflicts
+- [Variable](../V/Variable.md) names should follow the pattern 'extension_name.variable_name' to avoid conflicts
 - All custom variables are grouped under CUSTOM_OPTIONS in pg_settings
 - The function performs security checks inherited from init_custom_variable
 - Memory for the config structure is allocated via guc_malloc and managed by the GUC system

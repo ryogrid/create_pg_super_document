@@ -22,7 +22,7 @@ This struct is conditionally defined only when the system doesn't already provid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flag (member variable reference)
+  - [flag](../f/flag.md) (member variable reference)
 - Called from (representative examples):
   - getopt_long (primary function that uses this struct)
   - Multiple PostgreSQL utilities including:

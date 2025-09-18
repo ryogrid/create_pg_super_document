@@ -21,7 +21,7 @@ The addtt function is a utility function within the PostgreSQL timezone compiler
   - growalloc (for dynamic array management)
   - zic_t (timestamp type definition)
 - Called from (representative examples):
-  - years_of_observations (multiple calls at lines 3123, 3269, 3291, 3336)
+  - [years_of_observations](../y/years_of_observations.md) (multiple calls at lines 3123, 3269, 3291, 3336)
 
 ## Notes and Other Information
 - This is a static function local to the zic.c file, used internally by the timezone compiler

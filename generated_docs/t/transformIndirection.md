@@ -18,15 +18,15 @@ src/backend/parser/parse_expr.c: 438 - 509
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse (transforms the base expression)
-  - transformContainerSubscripts (handles array/container subscripting)
-  - ParseFuncOrColumn (attempts field selection resolution)
-  - unknown_attribute (generates appropriate error messages for failed field access)
-  - exprLocation, exprType, exprTypmod (expression utility functions)
-  - A_Indices, A_Star, String (node type checking)
+  - [transformExprRecurse](transformExprRecurse.md) (transforms the base expression)
+  - [transformContainerSubscripts](transformContainerSubscripts.md) (handles array/container subscripting)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (attempts field selection resolution)
+  - [unknown_attribute](../u/unknown_attribute.md) (generates appropriate error messages for failed field access)
+  - [exprLocation](../e/exprLocation.md), exprType, exprTypmod (expression utility functions)
+  - [A_Indices](../A/A_Indices.md), A_Star, String (node type checking)
 
 - Called from (representative examples):
-  - transformExprRecurse (as part of the main expression transformation dispatch)
+  - [transformExprRecurse](transformExprRecurse.md) (as part of the main expression transformation dispatch)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parse_expr.c module

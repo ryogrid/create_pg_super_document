@@ -21,12 +21,12 @@ The function ensures consistency in error message wording across the codebase, a
 - Functions called/Symbols referenced:
   - XactReadOnly (global variable indicating read-only transaction state)
   - ereport (error reporting mechanism)
-  - errcode, errmsg (error handling macros)
+  - [errcode](../e/errcode.md), errmsg (error handling macros)
 - Called from (representative examples):
-  - DoCopy (src/backend/commands/copy.c:301)
-  - nextval_internal (src/backend/commands/sequence.c:659)
-  - ExecCheckXactReadOnly (src/backend/executor/execMain.c:810)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:578)
+  - [DoCopy](../D/DoCopy.md) (src/backend/commands/copy.c:301)
+  - [nextval_internal](../n/nextval_internal.md) (src/backend/commands/sequence.c:659)
+  - [ExecCheckXactReadOnly](../E/ExecCheckXactReadOnly.md) (src/backend/executor/execMain.c:810)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:578)
 
 ## Notes and Other Information
 - Uses ERRCODE_READ_ONLY_SQL_TRANSACTION error code for consistent error classification

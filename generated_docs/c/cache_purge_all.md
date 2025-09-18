@@ -21,12 +21,12 @@ This approach is particularly efficient for large caches as it avoids the overhe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset (efficiently frees all memory in the table context)
-  - dlist_init (reinitializes the LRU list)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (efficiently frees all memory in the table context)
+  - [dlist_init](../d/dlist_init.md) (reinitializes the LRU list)
 - Types referenced:
-  - MemoizeState
+  - [MemoizeState](../M/MemoizeState.md)
 - Called from:
-  - ExecReScanMemoize (during plan node rescanning operations)
+  - [ExecReScanMemoize](../E/ExecReScanMemoize.md) (during plan node rescanning operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeMemoize.c

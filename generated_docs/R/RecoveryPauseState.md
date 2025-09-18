@@ -23,8 +23,8 @@ Recovery pause is controlled through PostgreSQL's recovery control system and is
 - Functions called/Symbols referenced:
   - (This is an enum type with no function calls)
 - Called from (representative examples):
-  - GetRecoveryPauseState (src/backend/access/transam/xlogrecovery.c:3072)
-  - XLogRecoveryCtlData.recoveryPauseState (src/backend/access/transam/xlogrecovery.c:358)
+  - [GetRecoveryPauseState](../G/GetRecoveryPauseState.md) (src/backend/access/transam/xlogrecovery.c:3072)
+  - [XLogRecoveryCtlData](../X/XLogRecoveryCtlData.md).recoveryPauseState (src/backend/access/transam/xlogrecovery.c:358)
   - SetRecoveryPauseState functions
   - Recovery pause management functions in xlogfuncs.c
 

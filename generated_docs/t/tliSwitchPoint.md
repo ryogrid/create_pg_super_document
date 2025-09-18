@@ -32,12 +32,12 @@ This function is crucial for determining branch points during timeline switches 
 - Functions called/Symbols referenced:
   - TimeLineHistoryEntry (structure access)
 - Called from (representative examples):
-  - InitWalRecovery (src/backend/access/transam/xlogrecovery.c:847)
-  - XLogReadDetermineTimeline (src/backend/access/transam/xlogutils.c:801)
-  - WalSummarizerMain (src/backend/postmaster/walsummarizer.c:383)
-  - summarizer_read_local_xlog_page (src/backend/postmaster/walsummarizer.c:1564)
-  - StartReplication (src/backend/replication/walsender.c:897)
-  - XLogSendPhysical (src/backend/replication/walsender.c:3182)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:847)
+  - [XLogReadDetermineTimeline](../X/XLogReadDetermineTimeline.md) (src/backend/access/transam/xlogutils.c:801)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md) (src/backend/postmaster/walsummarizer.c:383)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md) (src/backend/postmaster/walsummarizer.c:1564)
+  - [StartReplication](../S/StartReplication.md) (src/backend/replication/walsender.c:897)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md) (src/backend/replication/walsender.c:3182)
 
 ## Notes and Other Information
 - Returns InvalidXLogRecPtr for the current timeline (indicating no branch point exists yet)

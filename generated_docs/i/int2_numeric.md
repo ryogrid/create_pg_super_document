@@ -21,10 +21,10 @@ This function is a PostgreSQL SQL-callable function that converts an int2 (16-bi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16 (macro to extract int16 from function arguments)
-  - int64_to_numeric (internal conversion function from int64 to numeric)
+  - [int64_to_numeric](int64_to_numeric.md) (internal conversion function from int64 to numeric)
   - PG_RETURN_NUMERIC (macro to return numeric as Datum)
 - Called from (representative examples):
-  - JsonItemFromDatum (in JSON processing for type conversions)
+  - [JsonItemFromDatum](../J/JsonItemFromDatum.md) (in JSON processing for type conversions)
 
 ## Notes and Other Information
 - This is a SQL-callable function that can be invoked from PostgreSQL SQL statements

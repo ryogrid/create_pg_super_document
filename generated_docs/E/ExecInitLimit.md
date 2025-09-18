@@ -31,20 +31,20 @@ The function ensures compatibility with the execution framework by properly init
 - Functions called/Symbols referenced:
   - makeNode (creates LimitState structure)
   - ExecAssignExprContext (sets up expression evaluation context)  
-  - ExecInitNode (initializes child plan recursively)
-  - ExecInitExpr (initializes LIMIT/OFFSET expressions)
-  - ExecInitResultTypeTL (sets up result tuple descriptor)
-  - ExecGetResultSlotOps (gets tuple slot operations)
-  - ExecGetResultType (gets child plan's result type)
-  - ExecInitExtraTupleSlot (creates slot for WITH TIES boundary tuple)
+  - [ExecInitNode](ExecInitNode.md) (initializes child plan recursively)
+  - [ExecInitExpr](ExecInitExpr.md) (initializes LIMIT/OFFSET expressions)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (sets up result tuple descriptor)
+  - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (gets tuple slot operations)
+  - [ExecGetResultType](ExecGetResultType.md) (gets child plan's result type)
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md) (creates slot for WITH TIES boundary tuple)
   - execTuplesMatchPrepare (prepares tuple comparison for WITH TIES)
 - Called from (representative examples):
-  - ExecInitNode (as part of plan tree initialization)
+  - [ExecInitNode](ExecInitNode.md) (as part of plan tree initialization)
 
 ## Notes and Other Information
 - Does not support EXEC_FLAG_MARK execution flag (would be used for mark/restore functionality)
 - Sets ps_ProjInfo to NULL since Limit nodes perform no projection
 - WITH TIES support requires additional initialization of comparison infrastructure
 - The limit/offset expressions are not evaluated during initialization since parameters may not be available yet
-- Result slot operations are inherited from the child plan for efficiency
+- [Result](../R/Result.md) slot operations are inherited from the child plan for efficiency
 - Expression context is required even though Limit nodes don't use ExecQual or ExecProject

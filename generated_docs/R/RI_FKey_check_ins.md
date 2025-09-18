@@ -26,12 +26,12 @@ This function follows PostgreSQL's trigger function interface:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_CheckTrigger
+  - [ri_CheckTrigger](../r/ri_CheckTrigger.md)
   - RI_FKey_check
   - RI_TRIGTYPE_INSERT (constant)
   - TriggerData (type cast)
 - Called from (representative examples):
-  - validateForeignKeyConstraint (src/backend/commands/tablecmds.c:12318)
+  - [validateForeignKeyConstraint](../v/validateForeignKeyConstraint.md) (src/backend/commands/tablecmds.c:12318)
 
 ## Notes and Other Information
 - This function is typically installed as a trigger function on foreign key tables

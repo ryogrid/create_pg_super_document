@@ -22,24 +22,24 @@ The function creates a temporary PGresult with PGRES_NONFATAL_ERROR status to en
 ## Dependencies
 - Functions called/Symbols referenced:
   - vsnprintf
-  - libpq_gettext
-  - PQmakeEmptyPGresult
-  - pqSaveMessageField
-  - pqResultAlloc
-  - PQclear
+  - [libpq_gettext](../l/libpq_gettext.md)
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
+  - [pqSaveMessageField](pqSaveMessageField.md)
+  - [pqResultAlloc](pqResultAlloc.md)
+  - [PQclear](../P/PQclear.md)
 - Constants used:
   - PGRES_NONFATAL_ERROR
   - PG_DIAG_MESSAGE_PRIMARY
   - PG_DIAG_SEVERITY
   - PG_DIAG_SEVERITY_NONLOCALIZED
 - Called from (representative examples):
-  - PQsetvalue
-  - check_field_number
-  - check_tuple_field_number
-  - check_param_number
-  - PQcmdTuples
-  - pqGetInt
-  - pqPutInt
+  - [PQsetvalue](../P/PQsetvalue.md)
+  - [check_field_number](../c/check_field_number.md)
+  - [check_tuple_field_number](../c/check_tuple_field_number.md)
+  - [check_param_number](../c/check_param_number.md)
+  - [PQcmdTuples](../P/PQcmdTuples.md)
+  - [pqGetInt](pqGetInt.md)
+  - [pqPutInt](pqPutInt.md)
 
 ## Notes and Other Information
 - The function uses a fixed 1024-byte buffer for message formatting, with safety measures to ensure null termination

@@ -23,17 +23,17 @@ Like `lcons`, this function has O(n) time complexity proportional to the length 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IsIntegerList`: Validates that the list contains integer elements
-  - `new_list`: Creates a new list structure with T_IntList type and initial capacity
-  - `new_head_cell`: Internal helper function to create space for a new head element
+  - `[new_list](../n/new_list.md)`: Creates a new list structure with T_IntList type and initial capacity
+  - `[new_head_cell](../n/new_head_cell.md)`: Internal helper function to create space for a new head element
   - `linitial_int`: Macro to access/set the first integer element of the list
-  - `check_list_invariants`: Debug function to verify list structural integrity
+  - `[check_list_invariants](../c/check_list_invariants.md)`: Debug function to verify list structural integrity
 
 - Called from (representative examples):
-  - `ExplainOpenGroup`: Query explanation grouping operations
-  - `ExplainOpenSetAsideGroup`: Explanation output management
-  - `ExplainRestoreGroup`: Explanation group restoration
-  - `ExplainBeginOutput`: Query plan output initialization
-  - `ExecInitAgg`: Aggregate node initialization in executor
+  - `[ExplainOpenGroup](../E/ExplainOpenGroup.md)`: Query explanation grouping operations
+  - `[ExplainOpenSetAsideGroup](../E/ExplainOpenSetAsideGroup.md)`: Explanation output management
+  - `[ExplainRestoreGroup](../E/ExplainRestoreGroup.md)`: Explanation group restoration
+  - `[ExplainBeginOutput](../E/ExplainBeginOutput.md)`: Query plan output initialization
+  - `[ExecInitAgg](../E/ExecInitAgg.md)`: Aggregate node initialization in executor
   - `forfive`: Macro for five-way list iteration
 
 ## Notes and Other Information

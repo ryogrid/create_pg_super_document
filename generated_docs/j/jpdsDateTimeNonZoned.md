@@ -28,7 +28,7 @@ This is an enumeration constant with no parameters or member variables.
 ## Dependencies
 - Functions called/Symbols referenced: None (enumeration constant)
 - Called from (representative examples):
-  - jspIsMutableWalker (src/backend/utils/adt/jsonpath.c:1350, 1457, 1503, 1509)
+  - [jspIsMutableWalker](jspIsMutableWalker.md) (src/backend/utils/adt/jsonpath.c:1350, 1457, 1503, 1509)
 
 ## Notes and Other Information
 - Part of the JsonPathDatatypeStatus enum used for JSON path mutability analysis

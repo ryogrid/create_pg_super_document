@@ -40,7 +40,7 @@ The function parses the format string character by character, handling literal t
   - , ,  - Type system integration
   - , ,  - Type conversions
   -  - Apply formatting to converted values
-  - ,  - Result generation
+  - ,  - [Result](../R/Result.md) generation
   -  - Multibyte character handling
   - ,  - Memory management
 - Called from (representative examples):

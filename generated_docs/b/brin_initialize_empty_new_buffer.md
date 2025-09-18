@@ -30,20 +30,20 @@ The critical section ensures atomicity of the page initialization and WAL loggin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to access the page from buffer)
-  - BufferGetBlockNumber (to get the page's block number for logging and FSM)
-  - brin_page_init (to initialize the page structure)
+  - [BufferGetPage](../B/BufferGetPage.md) (to access the page from buffer)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (to get the page's block number for logging and FSM)
+  - [brin_page_init](brin_page_init.md) (to initialize the page structure)
   - MarkBufferDirty (to mark the buffer as modified)
-  - log_newpage_buffer (to create a WAL record with full page image)
+  - [log_newpage_buffer](../l/log_newpage_buffer.md) (to create a WAL record with full page image)
   - RecordPageWithFreeSpace (to register the page in FSM)
-  - br_page_get_freespace (to calculate available free space)
+  - [br_page_get_freespace](br_page_get_freespace.md) (to calculate available free space)
   - START_CRIT_SECTION/END_CRIT_SECTION (for critical section management)
   - BRIN_PAGETYPE_REGULAR (page type constant)
   - BRIN_elog, DEBUG2 (for debug logging)
 - Called from:
-  - brin_doupdate (when initializing pages during tuple updates)
-  - brin_page_cleanup (when handling uninitialized pages during vacuum)
-  - brin_getinsertbuffer (when extending the relation for new insertions)
+  - [brin_doupdate](brin_doupdate.md) (when initializing pages during tuple updates)
+  - [brin_page_cleanup](brin_page_cleanup.md) (when handling uninitialized pages during vacuum)
+  - [brin_getinsertbuffer](brin_getinsertbuffer.md) (when extending the relation for new insertions)
 
 ## Notes and Other Information
 - This is a static function internal to brin_pageops.c

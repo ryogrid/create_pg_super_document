@@ -21,15 +21,15 @@ The function acquires a spinlock for consistency even though, in theory, no othe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTParallelScanDesc (type)
-  - ParallelIndexScanDesc (type)
+  - [BTParallelScanDesc](../B/BTParallelScanDesc.md) (type)
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md) (type)
   - OffsetToPointer (function)
   - SpinLockAcquire (function)
   - InvalidBlockNumber (constant)
   - BTPARALLEL_NOT_INITIALIZED (constant)
   - SpinLockRelease (function)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - The function assumes that parallel_scan is not NULL (enforced by Assert)

@@ -23,12 +23,12 @@ If the process is found to be in a synchronous replication queue, the function p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node_is_detached (checks if process is queued)
+  - [dlist_node_is_detached](../d/dlist_node_is_detached.md) (checks if process is queued)
   - LWLockAcquire (acquires SyncRepLock exclusively)
   - LWLockRelease (releases SyncRepLock)
-  - dlist_delete_thoroughly (removes and reinitializes list node)
+  - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md) (removes and reinitializes list node)
 - Called from (representative examples):
-  - ProcKill (during process termination)
+  - [ProcKill](../P/ProcKill.md) (during process termination)
 
 ## Notes and Other Information
 The function implements an important optimization for process exit performance by avoiding lock acquisition in the common case where the process is not waiting for synchronous replication. The double-check pattern is essential to handle race conditions with WAL sender processes that may concurrently remove processes from wait queues. This cleanup is crucial for maintaining queue integrity and preventing memory leaks or dangling references in shared memory structures.

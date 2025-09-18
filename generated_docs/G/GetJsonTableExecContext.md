@@ -24,13 +24,13 @@ The `GetJsonTableExecContext` function serves as a critical validation and extra
   - IsA (PostgreSQL type checking macro)
   - elog (error logging function)
   - JSON_TABLE_EXEC_CONTEXT_MAGIC (validation constant)
-  - TableFuncScanState (type)
-  - JsonTableExecContext (type)
+  - [TableFuncScanState](../T/TableFuncScanState.md) (type)
+  - [JsonTableExecContext](../J/JsonTableExecContext.md) (type)
 - Called from (representative examples):
-  - JsonTableDestroyOpaque
-  - JsonTableSetDocument
-  - JsonTableFetchRow
-  - JsonTableGetValue
+  - [JsonTableDestroyOpaque](../J/JsonTableDestroyOpaque.md)
+  - [JsonTableSetDocument](../J/JsonTableSetDocument.md)
+  - [JsonTableFetchRow](../J/JsonTableFetchRow.md)
+  - [JsonTableGetValue](../J/JsonTableGetValue.md)
 
 ## Notes and Other Information
 - Returns a validated JsonTableExecContext pointer on success

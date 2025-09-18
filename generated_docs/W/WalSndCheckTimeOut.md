@@ -23,11 +23,11 @@ The function includes sophisticated timing logic to handle edge cases where serv
 - Functions called/Symbols referenced:
   - TimestampTzPlusMilliseconds
   - COMMERROR
-  - WalSndShutdown
+  - [WalSndShutdown](WalSndShutdown.md)
 - Called from:
-  - ProcessPendingWrites (src/backend/replication/walsender.c:1628)
-  - WalSndWaitForWal (src/backend/replication/walsender.c:1947)
-  - WalSndLoop (src/backend/replication/walsender.c:2874)
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md) (src/backend/replication/walsender.c:1628)
+  - [WalSndWaitForWal](WalSndWaitForWal.md) (src/backend/replication/walsender.c:1947)
+  - [WalSndLoop](WalSndLoop.md) (src/backend/replication/walsender.c:2874)
 
 ## Notes and Other Information
 - Returns early if `last_reply_timestamp` is not set (≤ 0), indicating no timeout enforcement needed

@@ -33,9 +33,9 @@ The structure stores the essential metadata needed to properly set up both bucke
   - uint16 (type) 
   - uint8 (type)
 - Called from (representative examples):
-  - hash_xlog_split_allocate_page (WAL replay function)
-  - _hash_expandtable (hash table expansion implementation)
-  - hash_desc (WAL record description function)
+  - [hash_xlog_split_allocate_page](../h/hash_xlog_split_allocate_page.md) (WAL replay function)
+  - [_hash_expandtable](../h/_hash_expandtable.md) (hash table expansion implementation)
+  - [hash_desc](../h/hash_desc.md) (WAL record description function)
   - SizeOfHashSplitAllocPage (macro for size calculation)
 
 ## Notes and Other Information

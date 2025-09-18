@@ -29,13 +29,13 @@ This function takes no parameters.
   - TransactionState (type for CurrentTransactionState)
   - TRANS_INPROGRESS (transaction state constant)
 - Called from (representative examples):
-  - check_default_table_access_method
-  - SetMultiXactIdLimit
-  - SetTransactionIdLimit
-  - IsSubxactTopXidLogPending
-  - check_transaction_read_only
-  - SearchCatCacheInternal
-  - RelationIdGetRelation
+  - [check_default_table_access_method](../c/check_default_table_access_method.md)
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
+  - [SetTransactionIdLimit](../S/SetTransactionIdLimit.md)
+  - [IsSubxactTopXidLogPending](IsSubxactTopXidLogPending.md)
+  - [check_transaction_read_only](../c/check_transaction_read_only.md)
+  - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md)
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
 
 ## Notes and Other Information
 - This is a fundamental safety check used throughout PostgreSQL to ensure operations are only performed within valid transaction contexts

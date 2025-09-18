@@ -19,12 +19,12 @@ The function handles graceful shutdown when either an explicit shutdown is reque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessProcSignalBarrier
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md)
   - ProcessConfigFile
   - ereport
-  - errmsg_internal
-  - proc_exit
-  - ProcessLogMemoryContextInterrupt
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [proc_exit](../p/proc_exit.md)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md)
   - PGC_SIGHUP (constant)
   - DEBUG1 (constant)
 - Global variables accessed:
@@ -34,10 +34,10 @@ The function handles graceful shutdown when either an explicit shutdown is reque
   - summarize_wal
   - LogMemoryContextPending
 - Called from (representative examples):
-  - WalSummarizerMain
-  - SummarizeWAL
-  - summarizer_read_local_xlog_page
-  - MaybeRemoveOldWalSummaries
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md)
+  - [MaybeRemoveOldWalSummaries](../M/MaybeRemoveOldWalSummaries.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within walsummarizer.c

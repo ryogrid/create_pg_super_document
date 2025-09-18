@@ -28,13 +28,13 @@ This deferred sync mechanism is crucial for PostgreSQLs crash safety - it ensure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (struct type for relation identification)
+  - [RelFileLocator](../R/RelFileLocator.md) (struct type for relation identification)
 
 - Called from (representative examples):
-  - AddPendingSync (src/backend/catalog/storage.c:87, 96)
-  - RelationPreTruncate (src/backend/catalog/storage.c:451)
-  - SerializePendingSyncs (src/backend/catalog/storage.c:589, 607)
-  - smgrDoPendingSyncs (src/backend/catalog/storage.c:732, 762)
+  - [AddPendingSync](../A/AddPendingSync.md) (src/backend/catalog/storage.c:87, 96)
+  - [RelationPreTruncate](../R/RelationPreTruncate.md) (src/backend/catalog/storage.c:451)
+  - [SerializePendingSyncs](../S/SerializePendingSyncs.md) (src/backend/catalog/storage.c:589, 607)
+  - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md) (src/backend/catalog/storage.c:732, 762)
 
 ## Notes and Other Information
 - Used as hash table entries in the global `pendingSyncHash` hash table

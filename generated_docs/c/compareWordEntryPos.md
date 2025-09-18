@@ -19,11 +19,11 @@ This function serves as a comparator for qsort operations on arrays of WordEntry
 ## Dependencies
 - Functions called/Symbols referenced:
   - WEP_GETPOS (macro to extract position from WordEntryPos)
-  - pg_cmp_s32 (PostgreSQL's 32-bit signed integer comparison function)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's 32-bit signed integer comparison function)
   - WordEntryPos (structure type)
 - Called from (representative examples):
-  - uniquePos (for sorting positions before removing duplicates)
-  - checkcondition_str (in tsvector operations)
+  - [uniquePos](../u/uniquePos.md) (for sorting positions before removing duplicates)
+  - [checkcondition_str](checkcondition_str.md) (in tsvector operations)
 
 ## Notes and Other Information
 - Returns negative, zero, or positive value if the first position is less than, equal to, or greater than the second position respectively

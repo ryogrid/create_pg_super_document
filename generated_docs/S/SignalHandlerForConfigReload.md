@@ -22,16 +22,16 @@ This design pattern allows PostgreSQL processes to handle configuration reload s
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIGNAL_ARGS (signal handler parameter macro)
-  - SetLatch (to wake up the process)
+  - [SetLatch](SetLatch.md) (to wake up the process)
 - Called from (representative examples):
-  - AutoVacWorkerMain (src/backend/postmaster/autovacuum.c:1383)
-  - BackgroundWriterMain (src/backend/postmaster/bgwriter.c:102)
-  - CheckpointerMain (src/backend/postmaster/checkpointer.c:196)
-  - PgArchiverMain (src/backend/postmaster/pgarch.c:228)
-  - SysLoggerMain (src/backend/postmaster/syslogger.c:279)
-  - WalSummarizerMain (src/backend/postmaster/walsummarizer.c:247)
-  - WalWriterMain (src/backend/postmaster/walwriter.c:107)
-  - PostgresMain (src/backend/tcop/postgres.c:4272)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (src/backend/postmaster/autovacuum.c:1383)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (src/backend/postmaster/bgwriter.c:102)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (src/backend/postmaster/checkpointer.c:196)
+  - [PgArchiverMain](../P/PgArchiverMain.md) (src/backend/postmaster/pgarch.c:228)
+  - [SysLoggerMain](SysLoggerMain.md) (src/backend/postmaster/syslogger.c:279)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md) (src/backend/postmaster/walsummarizer.c:247)
+  - [WalWriterMain](../W/WalWriterMain.md) (src/backend/postmaster/walwriter.c:107)
+  - [PostgresMain](../P/PostgresMain.md) (src/backend/tcop/postgres.c:4272)
   - Various replication workers and other background processes
 
 ## Notes and Other Information

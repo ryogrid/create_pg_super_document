@@ -21,13 +21,13 @@ This function is invoked during SP-GiST index scans to determine which child nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgInnerConsistentIn, spgInnerConsistentOut (SP-GiST framework structures)
-  - lc_collate_is_c, PG_GET_COLLATION (collation handling)
+  - [spgInnerConsistentIn](spgInnerConsistentIn.md), spgInnerConsistentOut (SP-GiST framework structures)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md), PG_GET_COLLATION (collation handling)
   - DatumGetTextPP, DatumGetInt16 (datum conversion functions)
   - SET_VARSIZE, VARDATA (text/varlena manipulation macros)
   - SPG_IS_COLLATION_AWARE_STRATEGY (strategy testing macro)
   - BTLessStrategyNumber, BTEqualStrategyNumber, etc. (comparison strategy constants)
-  - datumCopy (creates deep copy of datum)
+  - [datumCopy](../d/datumCopy.md) (creates deep copy of datum)
 - Called from (representative examples):
   - SP-GiST framework during index scans (no direct references found)
 

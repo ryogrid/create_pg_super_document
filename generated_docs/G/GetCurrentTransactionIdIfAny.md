@@ -24,9 +24,9 @@ The function works by extracting the XID portion from the current transaction st
   - XidFromFullTransactionId
   - CurrentTransactionState->fullTransactionId
 - Called from (representative examples):
-  - IsSubxactTopXidLogPending (src/backend/access/transam/xact.c:575)
-  - RecordTransactionAbort (src/backend/access/transam/xact.c:1725)
-  - XLogRecordAssemble (src/backend/access/transam/xloginsert.c:926)
+  - [IsSubxactTopXidLogPending](../I/IsSubxactTopXidLogPending.md) (src/backend/access/transam/xact.c:575)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (src/backend/access/transam/xact.c:1725)
+  - [XLogRecordAssemble](../X/XLogRecordAssemble.md) (src/backend/access/transam/xloginsert.c:926)
   - CHANGES_THRESHOLD (src/backend/replication/logical/reorderbuffer.c:2570)
 
 ## Notes and Other Information

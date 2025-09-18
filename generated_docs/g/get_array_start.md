@@ -25,13 +25,13 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetState (struct type for casting state parameter)
+  - [GetState](../G/GetState.md) (struct type for casting state parameter)
   - JsonParseErrorType (return type and error handling)
-  - json_count_array_elements (counts elements in array for negative index conversion)
-  - json_errsave_error (error reporting function)
+  - [json_count_array_elements](../j/json_count_array_elements.md) (counts elements in array for negative index conversion)
+  - [json_errsave_error](../j/json_errsave_error.md) (error reporting function)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
-  - get_worker (JSON extraction worker function)
+  - [get_worker](get_worker.md) (JSON extraction worker function)
   - JsObjectFree (JSON object processing)
 
 ## Notes and Other Information

@@ -21,13 +21,13 @@ This phase normally should have no work to do if the parallel phase completed su
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_debug (logging function for debug messages)
-  - ConnectDatabase (establishes database connection for the parent process)
-  - _doSetFixedOutputState (re-establishes fixed database state settings)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (establishes database connection for the parent process)
+  - [_doSetFixedOutputState](../d/_doSetFixedOutputState.md) (re-establishes fixed database state settings)
   - pg_log_info (logging function for informational messages about missed items)
-  - restore_toc_entry (processes individual TOC entry restoration)
-  - RestoreOptions (structure containing restoration configuration parameters)
+  - [restore_toc_entry](restore_toc_entry.md) (processes individual TOC entry restoration)
+  - [RestoreOptions](../R/RestoreOptions.md) (structure containing restoration configuration parameters)
 - Called from (representative examples):
-  - RestoreArchive (main restore orchestration function)
+  - [RestoreArchive](../R/RestoreArchive.md) (main restore orchestration function)
 
 ## Notes and Other Information
 - Third and final phase of the three-phase parallel restore system

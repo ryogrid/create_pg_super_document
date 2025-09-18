@@ -21,7 +21,7 @@ The function uses PostgreSQL's errcontext() mechanism to append context informat
 - Functions called/Symbols referenced:
   - errcontext (PostgreSQL error context reporting function)
 - Called from (representative examples):
-  - compile_plperl_function (during PL/Perl function compilation process)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (during PL/Perl function compilation process)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the plperl.c file

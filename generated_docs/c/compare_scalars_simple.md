@@ -19,10 +19,10 @@ This function serves as a qsort-compatible comparison wrapper that extracts Datu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_datums_simple
+  - [compare_datums_simple](compare_datums_simple.md)
   - SortSupport (type)
 - Called from (representative examples):
-  - statext_mcv_serialize (src/backend/statistics/mcv.c:696, 958)
+  - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (src/backend/statistics/mcv.c:696, 958)
 
 ## Notes and Other Information
 - Follows the standard qsort() comparison function interface signature

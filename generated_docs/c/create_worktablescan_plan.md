@@ -25,15 +25,15 @@ This function creates a WorkTableScan plan node for accessing the working table 
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_worktablescan
-  - copy_generic_path_info
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_worktablescan](../m/make_worktablescan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - WorkTableScan (return type)
   - RTE_CTE (constant)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - The function assumes the scan_relid corresponds to a self-referencing CTE (RTE_CTE with self_reference = true)

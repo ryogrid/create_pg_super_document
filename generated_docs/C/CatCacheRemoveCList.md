@@ -28,15 +28,15 @@ The function handles both normal operation and CATCACHE_FORCE_RELEASE mode, wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatCacheRemoveCTup (for removing unreferenced member entries)
-  - dlist_delete (for unlinking from doubly-linked list)
-  - CatCacheFreeKeys (for deallocating key memory)
-  - pfree (for memory deallocation)
+  - [CatCacheRemoveCTup](CatCacheRemoveCTup.md) (for removing unreferenced member entries)
+  - [dlist_delete](../d/dlist_delete.md) (for unlinking from doubly-linked list)
+  - [CatCacheFreeKeys](CatCacheFreeKeys.md) (for deallocating key memory)
+  - [pfree](../p/pfree.md) (for memory deallocation)
 - Called from (representative examples):
-  - CatCacheRemoveCTup (recursive relationship)
-  - CatCacheInvalidate
-  - ResetCatalogCache
-  - ReleaseCatCacheListWithOwner
+  - [CatCacheRemoveCTup](CatCacheRemoveCTup.md) (recursive relationship)
+  - [CatCacheInvalidate](CatCacheInvalidate.md)
+  - [ResetCatalogCache](../R/ResetCatalogCache.md)
+  - [ReleaseCatCacheListWithOwner](../R/ReleaseCatCacheListWithOwner.md)
 
 ## Notes and Other Information
 - Function is declared as static, making it internal to the catcache.c module

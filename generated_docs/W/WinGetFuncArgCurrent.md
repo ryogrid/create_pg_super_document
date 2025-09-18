@@ -29,11 +29,11 @@ This function is specifically designed for "ordinary" window function arguments 
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
   - ExecEvalExpr
-  - list_nth
+  - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
-  - window_ntile
-  - leadlag_common
-  - window_nth_value
+  - [window_ntile](../w/window_ntile.md)
+  - [leadlag_common](../l/leadlag_common.md)
+  - [window_nth_value](../w/window_nth_value.md)
 
 ## Notes and Other Information
 - This is the most efficient way to evaluate arguments on the current row as it doesn't require tuple fetching

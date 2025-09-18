@@ -30,8 +30,8 @@ The Node struct works in conjunction with the makeNode() macro for node creation
 - Related functions/macros:
   - makeNode(): Creates new nodes with proper NodeTag initialization
   - castNode(): Performs type-safe casting with runtime type checking
-  - newNode(): Low-level node allocation function
-  - castNodeImpl(): Implementation function for type checking
+  - [newNode](../n/newNode.md)(): Low-level node allocation function
+  - [castNodeImpl](../c/castNodeImpl.md)(): Implementation function for type checking
 
 ## Notes and Other Information
 - The Node struct is never used directly but always as the first member of more specific node structures

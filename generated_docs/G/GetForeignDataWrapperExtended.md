@@ -20,20 +20,20 @@ GetForeignDataWrapperExtended is the core function for looking up foreign-data w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure extraction)
-  - palloc (memory allocation)
-  - pstrdup (string duplication)
-  - SysCacheGetAttr (attribute extraction)
-  - untransformRelOptions (options parsing)
-  - ReleaseSysCache (cache cleanup)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (attribute extraction)
+  - [untransformRelOptions](../u/untransformRelOptions.md) (options parsing)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_foreign_data_wrapper (catalog form structure)
   - FDW_MISSING_OK (flag constant)
 - Called from (representative examples):
-  - GetForeignDataWrapper
-  - getObjectDescription
-  - getObjectIdentityParts
+  - [GetForeignDataWrapper](GetForeignDataWrapper.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md)
 
 ## Notes and Other Information
 - Located in src/backend/foreign/foreign.c:49-95

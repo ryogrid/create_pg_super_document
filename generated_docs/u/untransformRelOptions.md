@@ -19,15 +19,15 @@ This function performs the reverse transformation of , taking the internal text-
 - Functions called/Symbols referenced:
   - PointerIsValid
   - DatumGetArrayTypeP
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
-  - makeString
+  - [makeString](../m/makeString.md)
   - makeDefElem
 - Called from (representative examples):
-  - transformGenericOptions (foreign data wrapper handling)
-  - ATExecSetRelOptions (ALTER TABLE operations)
-  - GetForeignDataWrapperExtended (foreign wrapper introspection)
-  - pg_options_to_table (option display functions)
+  - [transformGenericOptions](../t/transformGenericOptions.md) (foreign data wrapper handling)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md) (ALTER TABLE operations)
+  - [GetForeignDataWrapperExtended](../G/GetForeignDataWrapperExtended.md) (foreign wrapper introspection)
+  - [pg_options_to_table](../p/pg_options_to_table.md) (option display functions)
 
 ## Notes and Other Information
 - Returns NIL (empty list) if input options is NULL or invalid

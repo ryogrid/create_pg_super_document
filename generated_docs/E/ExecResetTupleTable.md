@@ -32,14 +32,14 @@ The function handles different slot types appropriately, distinguishing between 
   - TupleTableSlotOps->release
   - ReleaseTupleDesc
   - TTS_FIXED (macro)
-  - pfree
-  - list_free
+  - [pfree](../p/pfree.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - CopyFrom
-  - afterTriggerInvokeEvents
-  - ExecEndPlan
-  - EvalPlanQualEnd
-  - finish_edata
+  - [CopyFrom](../C/CopyFrom.md)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
+  - [ExecEndPlan](ExecEndPlan.md)
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md)
+  - [finish_edata](../f/finish_edata.md)
 
 ## Notes and Other Information
 - Expected to be called by ExecEndPlan() during query execution cleanup

@@ -26,14 +26,14 @@ The algorithm uses PostgreSQL's global pseudo-random number generator () for ran
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_NDIM, ARR_DIMS, ARR_LBOUND
-  - construct_empty_array
-  - deconstruct_array
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
   - pg_prng_uint64_range
-  - construct_md_array
-  - pfree
+  - [construct_md_array](../c/construct_md_array.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - array_shuffle
-  - array_sample
+  - [array_shuffle](array_shuffle.md)
+  - [array_sample](array_sample.md)
 
 ## Notes and Other Information
 - Static helper function not directly exposed to SQL

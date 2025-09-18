@@ -22,17 +22,17 @@ This function performs a straightforward bulk insertion of index tuples into a G
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsEmpty
-  - PageGetMaxOffsetNumber
+  - [PageIsEmpty](../P/PageIsEmpty.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - OffsetNumberNext
   - IndexTupleSize
   - PageAddItem
   - FirstOffsetNumber
   - InvalidOffsetNumber
 - Called from (representative examples):
-  - gistplacetopage
-  - gist_indexsortbuild_levelstate_add
-  - gistRedoPageSplitRecord
+  - [gistplacetopage](gistplacetopage.md)
+  - [gist_indexsortbuild_levelstate_add](gist_indexsortbuild_levelstate_add.md)
+  - [gistRedoPageSplitRecord](gistRedoPageSplitRecord.md)
 
 ## Notes and Other Information
 This is a low-level utility function that assumes the caller has already verified that sufficient space exists on the page. It's primarily used during page splits, bulk loading operations, and WAL replay where space calculations have been done beforehand. The function will terminate the entire operation with an ERROR if any single tuple cannot be inserted, making it unsuitable for scenarios where graceful handling of space exhaustion is required.

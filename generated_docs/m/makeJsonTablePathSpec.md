@@ -24,7 +24,7 @@ The `makeJsonTablePathSpec` function is a constructor that creates and initializ
 - Functions called/Symbols referenced:
   - makeNode (PostgreSQL node allocation macro)
   - makeStringConst (function to create string constant nodes)
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - Assert (PostgreSQL assertion macro)
   - JsonTablePathSpec (node type structure)
 - Called from (representative examples):

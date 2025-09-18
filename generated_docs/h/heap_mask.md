@@ -22,14 +22,14 @@ The function systematically processes each tuple on the page and masks various f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mask_page_lsn_and_checksum (masks LSN and checksum fields)
-  - mask_page_hint_bits (masks page-level hint bits)  
-  - mask_unused_space (masks unused space in page)
-  - PageGetMaxOffsetNumber (gets highest offset number on page)
-  - PageGetItemId (retrieves item identifier)
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md) (masks LSN and checksum fields)
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md) (masks page-level hint bits)  
+  - [mask_unused_space](../m/mask_unused_space.md) (masks unused space in page)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (gets highest offset number on page)
+  - [PageGetItemId](../P/PageGetItemId.md) (retrieves item identifier)
   - ItemIdGetOffset, ItemIdIsNormal, ItemIdHasStorage, ItemIdGetLength (item identifier operations)
   - HeapTupleHeaderXminFrozen, HeapTupleHeaderIsSpeculative (tuple header checks)
-  - ItemPointerSet (sets tuple CTID)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (sets tuple CTID)
 - Called from:
   - WAL consistency checking infrastructure (not directly referenced)
 

@@ -39,7 +39,7 @@ This function takes no parameters and returns void.
     - DB_SHUTDOWNED, WAL_LEVEL_MINIMAL
     - Architecture constants (MAXIMUM_ALIGNOF, BLCKSZ, etc.)
 - Called from:
-  - main (in pg_resetwal.c:384)
+  - [main](../m/main.md) (in pg_resetwal.c:384)
 
 ## Notes and Other Information
 - This is a static function, accessible only within pg_resetwal.c

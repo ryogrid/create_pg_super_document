@@ -26,7 +26,7 @@ Examples of behavior:
   - elog (debug logging when DEBUG_TO_FROM_CHAR is enabled)
   - DEBUG_elog_output (debug level constant)
 - Called from (representative examples):
-  - NUM_processor (formatting.c:5925)
+  - [NUM_processor](../N/NUM_processor.md) (formatting.c:5925)
   - DCH_ZONED (formatting.c:1078)
 
 ## Notes and Other Information

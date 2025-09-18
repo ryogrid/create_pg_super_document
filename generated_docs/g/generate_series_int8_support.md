@@ -25,11 +25,11 @@ This support function is part of PostgreSQL's cost-based optimization system, wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - SupportRequestRows (structure for row estimation requests)
-  - is_funcclause (check if node is a function call)
+  - [is_funcclause](../i/is_funcclause.md) (check if node is a function call)
   - FuncExpr (function expression structure)
-  - estimate_expression_value (estimate constant values in expressions)
+  - [estimate_expression_value](../e/estimate_expression_value.md) (estimate constant values in expressions)
   - linitial, lsecond, lthird (list access macros)
-  - DatumGetInt64 (extract int64 value from Datum)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (extract int64 value from Datum)
   - IsA (type checking macro)
   - Const (constant value node)
 

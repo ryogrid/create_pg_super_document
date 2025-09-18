@@ -33,19 +33,19 @@ The cost model accounts for BRIN's two-phase access pattern: first reading the r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_quals_from_indexclauses
+  - [get_quals_from_indexclauses](../g/get_quals_from_indexclauses.md)
   - planner_rt_fetch
-  - get_tablespace_page_costs
-  - index_open
-  - brinGetStats
-  - index_close
-  - SearchSysCache3
-  - get_attstatsslot
-  - clauselist_selectivity
-  - index_other_operands_eval_cost
+  - [get_tablespace_page_costs](../g/get_tablespace_page_costs.md)
+  - [index_open](../i/index_open.md)
+  - [brinGetStats](brinGetStats.md)
+  - [index_close](../i/index_close.md)
+  - [SearchSysCache3](../S/SearchSysCache3.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [clauselist_selectivity](../c/clauselist_selectivity.md)
+  - [index_other_operands_eval_cost](../i/index_other_operands_eval_cost.md)
   - CLAMP_PROBABILITY
 - Called from (representative examples):
-  - brinhandler (in src/backend/access/brin/brin.c:281)
+  - [brinhandler](brinhandler.md) (in src/backend/access/brin/brin.c:281)
 
 ## Notes and Other Information
 - BRIN indexes have unique cost characteristics due to their range-based storage model

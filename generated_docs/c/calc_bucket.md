@@ -18,10 +18,10 @@ This internal function maps a hash value to the appropriate bucket number within
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHHDR (hash table header structure)
+  - [HASHHDR](../H/HASHHDR.md) (hash table header structure)
 - Called from (representative examples):
-  - expand_table
-  - hash_initial_lookup
+  - [expand_table](../e/expand_table.md)
+  - [hash_initial_lookup](../h/hash_initial_lookup.md)
 
 ## Notes and Other Information
 - Declared as static inline for performance optimization

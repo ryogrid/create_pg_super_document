@@ -28,8 +28,8 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
 - Called from (representative examples):
   - RT_HANDLE (uses this in function declarations)
 - Related symbols:
-  - RT_ATTACH (uses the handle to attach to shared memory tree)
-  - RT_DETACH (detaches from shared memory tree)
+  - [RT_ATTACH](RT_ATTACH.md) (uses the handle to attach to shared memory tree)
+  - [RT_DETACH](RT_DETACH.md) (detaches from shared memory tree)
 
 ## Notes and Other Information
 - Only available when RT_SHMEM preprocessing directive is defined

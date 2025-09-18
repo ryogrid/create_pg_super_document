@@ -29,9 +29,9 @@ The function includes an optimization for cases where a  structure is available,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumRelids (when rinfo is not available)
+  - [NumRelids](../N/NumRelids.md) (when rinfo is not available)
 - Called from (representative examples):
-  - clause_selectivity_ext (multiple locations in clausesel.c)
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md) (multiple locations in clausesel.c)
 
 ## Notes and Other Information
 - The function is marked  for performance optimization

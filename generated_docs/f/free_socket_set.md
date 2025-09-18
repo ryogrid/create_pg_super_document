@@ -24,7 +24,7 @@ This function should always be called to properly clean up socket set resources 
   -  (PostgreSQL's memory deallocation function)
   -  type (structure being deallocated)
 - Called from (representative examples):
-  - threadRun() function at src/bin/pgbench/pgbench.c:7726
+  - [threadRun](../t/threadRun.md)() function at src/bin/pgbench/pgbench.c:7726
 
 ## Notes and Other Information
 - This function is identical in both POLL_USING_PPOLL and POLL_USING_SELECT implementations

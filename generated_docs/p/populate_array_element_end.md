@@ -18,17 +18,17 @@ This function serves as a JSON semantic action callback that is invoked when the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateArrayState (state structure)
-  - PopulateArrayContext (context structure)
-  - JsValue (value representation structure)
+  - [PopulateArrayState](../P/PopulateArrayState.md) (state structure)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md) (context structure)
+  - [JsValue](../J/JsValue.md) (value representation structure)
   - JSON_TOKEN_NULL (token constant)
-  - populate_array_element (element processing function)
+  - [populate_array_element](populate_array_element.md) (element processing function)
   - JSON_SEM_ACTION_FAILED (error return value)
   - JSON_SUCCESS (success return value)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
   - JsObjectFree
-  - populate_array_json
+  - [populate_array_json](populate_array_json.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, indicating it's an internal implementation detail

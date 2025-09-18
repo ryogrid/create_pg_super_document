@@ -22,17 +22,17 @@ The `interval_in` function is the input conversion function for PostgreSQL's int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime (initial parsing attempt)
-  - DecodeInterval (decode parsed fields into interval)
-  - DecodeISO8601Interval (fallback ISO8601 parsing)
-  - itmin2interval (convert internal time structure to Interval)
-  - AdjustIntervalForTypmod (apply type modifier constraints)
+  - [ParseDateTime](../P/ParseDateTime.md) (initial parsing attempt)
+  - [DecodeInterval](../D/DecodeInterval.md) (decode parsed fields into interval)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (fallback ISO8601 parsing)
+  - [itmin2interval](itmin2interval.md) (convert internal time structure to Interval)
+  - [AdjustIntervalForTypmod](../A/AdjustIntervalForTypmod.md) (apply type modifier constraints)
   - DateTimeParseError (error reporting)
   - INTERVAL_RANGE, INTERVAL_FULL_RANGE (typmod handling)
   - INTERVAL_NOEND, INTERVAL_NOBEGIN (special infinity values)
 - Called from (representative examples):
-  - check_timezone (src/backend/commands/variable.c:299)
-  - flatten_set_variable_args (src/backend/utils/misc/guc_funcs.c:276)
+  - [check_timezone](../c/check_timezone.md) (src/backend/commands/variable.c:299)
+  - [flatten_set_variable_args](../f/flatten_set_variable_args.md) (src/backend/utils/misc/guc_funcs.c:276)
 
 ## Notes and Other Information
 - Supports multiple input formats: standard PostgreSQL syntax and ISO8601 intervals

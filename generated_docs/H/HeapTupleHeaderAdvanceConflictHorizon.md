@@ -33,14 +33,14 @@ The caller must initialize the snapshotConflictHorizon to InvalidTransactionId (
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderXminCommitted
   - HeapTupleHeaderXminInvalid
-  - TransactionIdPrecedes
-  - TransactionIdFollows
-  - TransactionIdDidCommit
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - HEAP_MOVED
 - Called from (representative examples):
-  - heap_index_delete_tuples
-  - heap_page_prune_and_freeze
-  - heap_prune_chain
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md)
+  - [heap_prune_chain](../h/heap_prune_chain.md)
 
 ## Notes and Other Information
 - Essential for maintaining consistency during hot standby operations where concurrent read-only queries may conflict with tuple removal

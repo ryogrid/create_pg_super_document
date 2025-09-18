@@ -22,15 +22,15 @@ This function sets a typed value to a pgbench variable within the specified cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookupCreateVariable
+  - [lookupCreateVariable](../l/lookupCreateVariable.md)
   - free
-  - Variables (type)
+  - [Variables](../V/Variables.md) (type)
   - PgBenchValue (type)
-  - Variable (type)
+  - [Variable](../V/Variable.md) (type)
 - Called from:
-  - putVariableInt (src/bin/pgbench/pgbench.c:1877)
-  - executeMetaCommand (src/bin/pgbench/pgbench.c:4357)
-  - main (src/bin/pgbench/pgbench.c:7219)
+  - [putVariableInt](putVariableInt.md) (src/bin/pgbench/pgbench.c:1877)
+  - [executeMetaCommand](../e/executeMetaCommand.md) (src/bin/pgbench/pgbench.c:4357)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:7219)
 
 ## Notes and Other Information
 - Returns false if the variable name is invalid or creation fails

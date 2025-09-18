@@ -24,7 +24,7 @@ The function provides a clean interface for external code to properly dispose of
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function)
 - Called from (representative examples):
   - External stemming libraries cleanup routines
   - Text processing systems shutdown procedures  

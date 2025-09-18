@@ -29,11 +29,11 @@ This function is typically called from the ALTER SUBSCRIPTION OWNER TO SQL comma
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy2: Looks up subscription by name in system cache
-  - AlterSubscriptionOwner_internal: Performs the actual ownership change logic
+  - [AlterSubscriptionOwner_internal](AlterSubscriptionOwner_internal.md): Performs the actual ownership change logic
   - ObjectAddressSet: Constructs return address for the modified object
-  - heap_freetuple: Frees memory allocated for the heap tuple
+  - [heap_freetuple](../h/heap_freetuple.md): Frees memory allocated for the heap tuple
 - Called from (representative examples):
-  - ExecAlterOwnerStmt: Generic ALTER OWNER statement processor in alter.c:860
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md): Generic ALTER OWNER statement processor in alter.c:860
 
 ## Notes and Other Information
 - Public interface function declared in subscriptioncmds.h header

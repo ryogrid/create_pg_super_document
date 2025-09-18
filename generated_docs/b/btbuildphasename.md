@@ -32,7 +32,7 @@ The function supports five distinct phases of B-tree index building:
   - PROGRESS_BTREE_PHASE_PERFORMSORT_2 (constant)
   - PROGRESS_BTREE_PHASE_LEAF_LOAD (constant)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's progress reporting infrastructure, introduced to provide users with visibility into long-running index creation operations. The phase names returned are designed to be informative for database administrators monitoring index builds. The function returns NULL for unrecognized phase numbers, allowing for graceful handling of unknown phases.

@@ -23,16 +23,16 @@ The function includes sophisticated error classification logic that recognizes v
 - Functions called/Symbols referenced:
   - semget (system call)
   - ereport
-  - errmsg
-  - errdetail
-  - errhint
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
+  - [errhint](../e/errhint.md)
 - Constants referenced:
   - IPC_CREAT
   - IPC_EXCL
   - IPCProtection
   - EEXIST, EACCES, EINVAL, EIDRM, ENOSPC (errno values)
 - Called from (representative examples):
-  - IpcSemaphoreCreate
+  - [IpcSemaphoreCreate](IpcSemaphoreCreate.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_sema.c file

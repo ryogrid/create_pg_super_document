@@ -20,19 +20,19 @@ The function uses a full page image approach rather than tracking fine-grained c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (get page from buffer)
+  - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)
   - GinPageIsData (check if page is data page)
   - GinPageIsLeaf (check if page is leaf page) 
   - RelationNeedsWAL (check if relation requires WAL)
-  - XLogBeginInsert (start WAL record creation)
-  - XLogRegisterBuffer (register buffer for WAL)
-  - XLogInsert (insert WAL record)
-  - PageSetLSN (set page LSN)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md) (start WAL record creation)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md) (register buffer for WAL)
+  - [XLogInsert](../X/XLogInsert.md) (insert WAL record)
+  - [PageSetLSN](../P/PageSetLSN.md) (set page LSN)
   - REGBUF_FORCE_IMAGE (force full page image)
   - REGBUF_STANDARD (standard buffer registration)
   - XLOG_GIN_VACUUM_PAGE (WAL record type)
 - Called from (representative examples):
-  - ginbulkdelete
+  - [ginbulkdelete](../g/ginbulkdelete.md)
 
 ## Notes and Other Information
 - Static function, only accessible within ginvacuum.c

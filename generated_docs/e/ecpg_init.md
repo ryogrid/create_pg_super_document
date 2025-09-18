@@ -29,18 +29,18 @@ The function implements proper error handling by raising appropriate ECPG errors
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca (retrieves current SQLCA)
-  - ecpg_init_sqlca (initializes SQLCA fields)
-  - ecpg_raise (error reporting mechanism)
+  - [ecpg_init_sqlca](ecpg_init_sqlca.md) (initializes SQLCA fields)
+  - [ecpg_raise](ecpg_raise.md) (error reporting mechanism)
   - ecpg_gettext (internationalization support)
 - Error constants:
   - ECPG_OUT_OF_MEMORY, ECPG_SQLSTATE_ECPG_OUT_OF_MEMORY
   - ECPG_NO_CONN, ECPG_SQLSTATE_CONNECTION_DOES_NOT_EXIST
 - Called from (examples):
-  - ECPGsetcommit (transaction control)
-  - ECPGsetconn (connection management)
-  - ECPGdisconnect (connection termination)
+  - [ECPGsetcommit](../E/ECPGsetcommit.md) (transaction control)
+  - [ECPGsetconn](../E/ECPGsetconn.md) (connection management)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md) (connection termination)
   - ecpg_do_prologue (SQL execution setup)
-  - ECPGstatus, ECPGtrans (various ECPG operations)
+  - [ECPGstatus](../E/ECPGstatus.md), ECPGtrans (various ECPG operations)
   - ECPGprepare, ECPGdeallocate (prepared statement management)
 
 ## Notes and Other Information

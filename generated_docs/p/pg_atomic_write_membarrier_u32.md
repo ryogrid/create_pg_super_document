@@ -21,9 +21,9 @@ The function includes pointer alignment verification and provides full barrier s
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for 4-byte alignment verification)
-  - pg_atomic_write_membarrier_u32_impl (platform-specific implementation with barrier semantics)
+  - [pg_atomic_write_membarrier_u32_impl](pg_atomic_write_membarrier_u32_impl.md) (platform-specific implementation with barrier semantics)
 - Called from (representative examples):
-  - PgArchForceDirScan (PostgreSQL archiver directory scanning)
+  - [PgArchForceDirScan](../P/PgArchForceDirScan.md) (PostgreSQL archiver directory scanning)
 
 ## Notes and Other Information
 - Provides full memory barrier semantics, ensuring proper memory ordering

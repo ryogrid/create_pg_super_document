@@ -19,7 +19,7 @@ This function serves as a critical safety mechanism in PostgreSQL's internationa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_error_recursion_trouble
+  - [in_error_recursion_trouble](../i/in_error_recursion_trouble.md)
   - gettext (when ENABLE_NLS is defined)
 - Called from (representative examples):
   - \_ macro (aliased throughout elog.c module)

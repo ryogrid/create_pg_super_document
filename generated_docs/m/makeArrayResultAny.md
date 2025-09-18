@@ -25,10 +25,10 @@ This function finalizes the array construction process by converting the accumul
 - Functions called/Symbols referenced:
   - makeMdArrayResult (for creating multi-dimensional arrays from scalar state)
   - makeArrayResultArr (for finalizing array-input based construction)
-  - ArrayBuildStateAny (state structure type)
+  - [ArrayBuildStateAny](../A/ArrayBuildStateAny.md) (state structure type)
 - Called from (representative examples):
-  - ExecScanSubPlan (in nodeSubplan.c:466)
-  - ExecSetParamPlan (in nodeSubplan.c:1216)
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md) (in nodeSubplan.c:466)
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md) (in nodeSubplan.c:1216)
 
 ## Notes and Other Information
 - This function is the counterpart to accumArrayResultAny for finalizing array construction

@@ -38,14 +38,14 @@ The function handles various error conditions gracefully, ensuring proper cleanu
   - QuerySecurityContextToken (Windows SSPI API)
   - GetTokenInformation (Windows API)
   - LookupAccountSid (Windows API)
-  - pg_SSPI_error
-  - pg_SSPI_make_upn
-  - pq_startmsgread
-  - pq_getbyte
+  - [pg_SSPI_error](pg_SSPI_error.md)
+  - [pg_SSPI_make_upn](pg_SSPI_make_upn.md)
+  - [pq_startmsgread](pq_startmsgread.md)
+  - [pq_getbyte](pq_getbyte.md)
   - pq_getmessage
-  - sendAuthRequest
-  - set_authn_id
-  - check_usermap
+  - [sendAuthRequest](../s/sendAuthRequest.md)
+  - [set_authn_id](../s/set_authn_id.md)
+  - [check_usermap](../c/check_usermap.md)
   - malloc/free
 - Called from (representative examples):
   - LDAP_OPT_DIAGNOSTIC_MESSAGE context

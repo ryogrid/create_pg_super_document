@@ -29,12 +29,12 @@ Key architectural features include comprehensive object address tracking for eve
 ## Dependencies
 - Functions called/Symbols referenced:
   - Event trigger infrastructure (EventTriggerBeginCompleteQuery, EventTriggerDDLCommandStart, EventTriggerCollectSimpleCommand, EventTriggerDDLCommandEnd)
-  - Command-specific execution functions (CreateSchemaCommand, DefineRelation, AlterTable, CreateExtension, etc.)
+  - [Command](../C/Command.md)-specific execution functions (CreateSchemaCommand, DefineRelation, AlterTable, CreateExtension, etc.)
   - Transaction control (PreventInTransactionBlock, CommandCounterIncrement)
   - Parse analysis and transformation functions (transformCreateStmt, transformIndexStmt, transformStatsStmt)
   - Object relationship management (find_all_inheritors, RangeVarGetRelidExtended)
 - Called from (representative examples):
-  - standard_ProcessUtility (for commands supporting event triggers)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (for commands supporting event triggers)
 
 ## Notes and Other Information
 - This function is static to utility.c, serving as an internal implementation detail of the utility processing system

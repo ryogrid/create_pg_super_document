@@ -35,18 +35,18 @@ The function ensures proper cleanup while maintaining referential integrity and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationHasReferenceCountZero
-  - RelationClearRelation
+  - [RelationClearRelation](../R/RelationClearRelation.md)
   - RelationGetRelationName
   - elog
 - Constants used:
   - InvalidSubTransactionId
-- Relation fields modified:
+- [Relation](../R/Relation.md) fields modified:
   - rd_createSubid
   - rd_newRelfilelocatorSubid
   - rd_firstRelfilelocatorSubid
   - rd_droppedSubid
 - Called from:
-  - AtEOSubXact_RelationCache (in two different code paths)
+  - [AtEOSubXact_RelationCache](AtEOSubXact_RelationCache.md) (in two different code paths)
 
 ## Notes and Other Information
 - This is a static (internal) function within relcache.c

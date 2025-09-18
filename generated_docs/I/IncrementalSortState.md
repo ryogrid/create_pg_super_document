@@ -288,19 +288,19 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base executor state structure)
-  - IncrementalSortExecutionStatus (execution phase enumeration)
+  - [ScanState](../S/ScanState.md) (base executor state structure)
+  - [IncrementalSortExecutionStatus](IncrementalSortExecutionStatus.md) (execution phase enumeration)
   - Tuplesortstate (sorting state from tuplesort.c)
-  - PresortedKeyData (presorted key information structure)
-  - IncrementalSortInfo (instrumentation data structure)
+  - [PresortedKeyData](../P/PresortedKeyData.md) (presorted key information structure)
+  - [IncrementalSortInfo](IncrementalSortInfo.md) (instrumentation data structure)
   - TupleTableSlot (tuple storage slots)
-  - SharedIncrementalSortInfo (parallel execution shared data)
+  - [SharedIncrementalSortInfo](../S/SharedIncrementalSortInfo.md) (parallel execution shared data)
 - Called from (representative examples):
   - ExecIncrementalSort (src/backend/executor/nodeIncrementalSort.c:497, 975)
-  - ExecInitIncrementalSort (src/backend/executor/nodeIncrementalSort.c:978, 990)
-  - ExecEndIncrementalSort (src/backend/executor/nodeIncrementalSort.c:1077)
-  - ExecReScanIncrementalSort (src/backend/executor/nodeIncrementalSort.c:1107)
-  - show_incremental_sort_info (src/backend/commands/explain.c:3150)
+  - [ExecInitIncrementalSort](../E/ExecInitIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:978, 990)
+  - [ExecEndIncrementalSort](../E/ExecEndIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:1077)
+  - [ExecReScanIncrementalSort](../E/ExecReScanIncrementalSort.md) (src/backend/executor/nodeIncrementalSort.c:1107)
+  - [show_incremental_sort_info](../s/show_incremental_sort_info.md) (src/backend/commands/explain.c:3150)
 
 ## Notes and Other Information
 - The structure supports both serial and parallel execution modes, with shared memory coordination for parallel workers

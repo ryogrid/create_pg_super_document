@@ -28,16 +28,16 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetOrigin
-  - ReorderBufferRememberPrepareInfo
-  - SnapBuildCurrentState
-  - ReorderBufferSkipPrepare
-  - DecodeTXNNeedSkip
-  - ReorderBufferInvalidate
-  - ReorderBufferCommitChild
-  - ReorderBufferPrepare
+  - [ReorderBufferRememberPrepareInfo](../R/ReorderBufferRememberPrepareInfo.md)
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md)
+  - [ReorderBufferSkipPrepare](../R/ReorderBufferSkipPrepare.md)
+  - [DecodeTXNNeedSkip](DecodeTXNNeedSkip.md)
+  - [ReorderBufferInvalidate](../R/ReorderBufferInvalidate.md)
+  - [ReorderBufferCommitChild](../R/ReorderBufferCommitChild.md)
+  - [ReorderBufferPrepare](../R/ReorderBufferPrepare.md)
   - UpdateDecodingStats
 - Called from (representative examples):
-  - xact_decode
+  - [xact_decode](../x/xact_decode.md)
 
 ## Notes and Other Information
 - The function includes extensive comments explaining why prepare records are not skipped during concurrent aborts, emphasizing the complexity of handling streaming transactions and subscriber consistency

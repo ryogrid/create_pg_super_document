@@ -20,13 +20,13 @@ The conversion process iterates through each possible output column position and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (checks if a column is present in the input bitmap)
-  - bms_add_member (adds a column to the output bitmap)
-  - AttrMap (attribute mapping structure)
+  - [bms_is_member](../b/bms_is_member.md) (checks if a column is present in the input bitmap)
+  - [bms_add_member](../b/bms_add_member.md) (adds a column to the output bitmap)
+  - [AttrMap](../A/AttrMap.md) (attribute mapping structure)
   - FirstLowInvalidHeapAttributeNumber (system constant for column numbering offset)
 - Called from (representative examples):
-  - ExecGetInsertedCols (src/backend/executor/execUtils.c:1280)
-  - ExecGetUpdatedCols (src/backend/executor/execUtils.c:1301)
+  - [ExecGetInsertedCols](../E/ExecGetInsertedCols.md) (src/backend/executor/execUtils.c:1280)
+  - [ExecGetUpdatedCols](../E/ExecGetUpdatedCols.md) (src/backend/executor/execUtils.c:1301)
 
 ## Notes and Other Information
 - The function includes a fast path optimization for NULL input, returning NULL immediately

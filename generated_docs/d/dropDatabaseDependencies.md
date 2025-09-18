@@ -19,14 +19,14 @@ This function performs a comprehensive cleanup of shared dependencies when a dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan (initiates system catalog scan)
-  - systable_getnext (retrieves next tuple from scan)
-  - CatalogTupleDelete (removes individual dependency tuples)
-  - shdepDropDependency (removes dependencies on the database object itself)
-  - SysScanDesc (system catalog scan descriptor)
+  - [systable_beginscan](../s/systable_beginscan.md) (initiates system catalog scan)
+  - [systable_getnext](../s/systable_getnext.md) (retrieves next tuple from scan)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (removes individual dependency tuples)
+  - [shdepDropDependency](../s/shdepDropDependency.md) (removes dependencies on the database object itself)
+  - [SysScanDesc](../S/SysScanDesc.md) (system catalog scan descriptor)
   - SHARED_DEPENDENCY_INVALID (dependency type constant)
 - Called from (representative examples):
-  - dropdb (database deletion in dbcommands.c:1772)
+  - [dropdb](dropdb.md) (database deletion in dbcommands.c:1772)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock on SharedDependRelationId to ensure exclusive access during dependency cleanup

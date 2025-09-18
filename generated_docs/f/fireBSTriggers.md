@@ -17,16 +17,16 @@ The fireBSTriggers function is responsible for firing BEFORE EACH STATEMENT trig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecBSInsertTriggers
-  - ExecBSUpdateTriggers
-  - ExecBSDeleteTriggers
-  - ModifyTable (plan structure)
+  - [ExecBSInsertTriggers](../E/ExecBSInsertTriggers.md)
+  - [ExecBSUpdateTriggers](../E/ExecBSUpdateTriggers.md)
+  - [ExecBSDeleteTriggers](../E/ExecBSDeleteTriggers.md)
+  - [ModifyTable](../M/ModifyTable.md) (plan structure)
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE (operation constants)
   - ONCONFLICT_UPDATE (conflict action constant)
   - MERGE_INSERT, MERGE_UPDATE, MERGE_DELETE (merge subcommand flags)
 - Called from (representative examples):
-  - ExecModifyTable (at src/backend/executor/nodeModifyTable.c:3995, 3997, 3998)
-  - ExecInitModifyTable (at src/backend/executor/nodeModifyTable.c:4489)
+  - [ExecModifyTable](../E/ExecModifyTable.md) (at src/backend/executor/nodeModifyTable.c:3995, 3997, 3998)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md) (at src/backend/executor/nodeModifyTable.c:4489)
 
 ## Notes and Other Information
 - This function specifically handles BEFORE EACH STATEMENT triggers, which are executed once per SQL statement before any rows are processed

@@ -28,8 +28,8 @@ The function handles shutdown scenarios gracefully by escalating the error level
   - replication_active (indicates if replication is currently active)
   - MyReplicationSlot (current process replication slot)
 - Called from (representative examples):
-  - NeedToWaitForWal (higher-level wait logic coordinator)
-  - WalSndWaitForWal (main WAL sender wait loop)
+  - [NeedToWaitForWal](NeedToWaitForWal.md) (higher-level wait logic coordinator)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md) (main WAL sender wait loop)
 
 ## Notes and Other Information
 - Only applies to logical failover slots (`MyReplicationSlot->data.failover` must be true)

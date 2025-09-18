@@ -29,9 +29,9 @@ For packable types with short varlena capability, it calculates the converted sh
   - VARATT_CONVERTED_SHORT_SIZE
   - att_align_datum
   - att_addlength_datum
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
-  - range_serialize
+  - [range_serialize](../r/range_serialize.md)
 
 ## Notes and Other Information
 This is a static function specifically designed for range type serialization. It optimizes storage by checking if variable-length types can be stored in short varlena format, which saves space by avoiding alignment padding. The function is critical for efficient range type storage and is called twice in range_serialize for both lower and upper bound values.

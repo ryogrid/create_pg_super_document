@@ -22,15 +22,15 @@ ATSimpleRecursion implements the standard recursion pattern for ALTER TABLE oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_all_inheritors
-  - relation_open
-  - CheckAlterTableIsSafe
-  - ATPrepCmd
-  - relation_close
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [relation_open](../r/relation_open.md)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
+  - [ATPrepCmd](ATPrepCmd.md)
+  - [relation_close](../r/relation_close.md)
   - RelationGetRelid
 - Called from (representative examples):
-  - ATPrepCmd (for various ALTER TABLE command types)
-  - ATPrepSetNotNull
+  - [ATPrepCmd](ATPrepCmd.md) (for various ALTER TABLE command types)
+  - [ATPrepSetNotNull](ATPrepSetNotNull.md)
 
 ## Notes and Other Information
 - Only processes recursion when the recurse flag is true and the relation has child tables (relhassubclass)

@@ -21,17 +21,17 @@ AlterRoleSet handles the ALTER ROLE ... SET syntax that allows setting configura
 - Functions called/Symbols referenced:
   - check_rolespec_name
   - get_rolespec_tuple
-  - shdepLockAndCheckObject
+  - [shdepLockAndCheckObject](../s/shdepLockAndCheckObject.md)
   - superuser
-  - have_createrole_privilege
+  - [have_createrole_privilege](../h/have_createrole_privilege.md)
   - is_admin_of_role
-  - GetUserId
-  - get_database_oid
-  - object_ownercheck
-  - aclcheck_error
-  - AlterSetting
+  - [GetUserId](../G/GetUserId.md)
+  - [get_database_oid](../g/get_database_oid.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [AlterSetting](AlterSetting.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Returns the OID of the role being modified, or InvalidOid if no role specified

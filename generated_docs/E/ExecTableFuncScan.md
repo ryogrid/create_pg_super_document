@@ -19,12 +19,12 @@ The function serves as the bridge between the plan execution engine and the tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableFuncScanState (struct type)
-  - ExecScan (generic scan execution framework)
-  - TableFuncNext (tuple access method)
-  - TableFuncRecheck (tuple recheck method)
+  - [TableFuncScanState](../T/TableFuncScanState.md) (struct type)
+  - [ExecScan](ExecScan.md) (generic scan execution framework)
+  - [TableFuncNext](../T/TableFuncNext.md) (tuple access method)
+  - [TableFuncRecheck](../T/TableFuncRecheck.md) (tuple recheck method)
 - Called from:
-  - ExecInitTableFuncScan (assigned as execution function)
+  - [ExecInitTableFuncScan](ExecInitTableFuncScan.md) (assigned as execution function)
 
 ## Notes and Other Information
 - Uses PostgreSQL's standard ExecScan framework for consistency with other scan node types

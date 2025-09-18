@@ -20,19 +20,19 @@ This function processes the parameter list passed to the pgoutput plugin and pop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGOutputData (output plugin data structure)
+  - [PGOutputData](../P/PGOutputData.md) (output plugin data structure)
   - LOGICALREP_STREAM_OFF (streaming mode constant)
-  - DefElem (definition element structure)
+  - [DefElem](../D/DefElem.md) (definition element structure)
   - String (PostgreSQL string node type)
   - PG_UINT32_MAX (maximum uint32 value constant)
   - SplitIdentifierString (utility function to parse comma-separated identifiers)
-  - defGetBoolean (utility function to extract boolean values from DefElem)
-  - defGetStreamingMode (utility function to extract streaming mode from DefElem)
-  - defGetString (utility function to extract string values from DefElem)
+  - [defGetBoolean](../d/defGetBoolean.md) (utility function to extract boolean values from DefElem)
+  - [defGetStreamingMode](../d/defGetStreamingMode.md) (utility function to extract streaming mode from DefElem)
+  - [defGetString](../d/defGetString.md) (utility function to extract string values from DefElem)
   - LOGICALREP_ORIGIN_NONE (origin filtering constant for no origin)
   - LOGICALREP_ORIGIN_ANY (origin filtering constant for any origin)
 - Called from:
-  - pgoutput_startup (plugin startup function)
+  - [pgoutput_startup](pgoutput_startup.md) (plugin startup function)
 
 ## Notes and Other Information
 - Validates that required parameters "proto_version" and "publication_names" are provided

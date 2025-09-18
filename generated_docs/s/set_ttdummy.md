@@ -24,7 +24,7 @@ set_ttdummy is a PostgreSQL function that controls the global state of the tempo
   - PG_RETURN_INT32 (returns int32 result)
   - ttoff (global boolean variable controlling temporal state)
 - Called from (representative examples):
-  - ttdummy (references this function in error messages)
+  - [ttdummy](../t/ttdummy.md) (references this function in error messages)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's regression test suite for testing temporal table functionality

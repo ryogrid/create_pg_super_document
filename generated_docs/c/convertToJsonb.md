@@ -21,11 +21,11 @@ The `convertToJsonb` function is the primary converter that transforms in-memory
   - Jsonb (structure type)  
   - jbvBinary (enum value)
   - initStringInfo
-  - reserveFromBuffer
-  - convertJsonbValue
+  - [reserveFromBuffer](../r/reserveFromBuffer.md)
+  - [convertJsonbValue](convertJsonbValue.md)
   - SET_VARSIZE
 - Called from (representative examples):
-  - JsonbValueToJsonb
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the jsonb_util.c compilation unit

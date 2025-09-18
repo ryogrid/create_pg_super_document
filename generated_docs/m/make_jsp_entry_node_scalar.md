@@ -20,12 +20,12 @@ This is commonly used in JSONB GIN index extraction to create indexable nodes fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_jsp_entry_node (creates the JsonPathGinNode wrapper)
-  - make_scalar_key (converts JsonbValue to indexable Datum format)
+  - [make_jsp_entry_node](make_jsp_entry_node.md) (creates the JsonPathGinNode wrapper)
+  - [make_scalar_key](make_scalar_key.md) (converts JsonbValue to indexable Datum format)
   - JsonPathGinNode (return type structure)
 
 - Called from:
-  - jsonb_ops__extract_nodes (multiple calls for extracting various scalar types during index creation)
+  - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md) (multiple calls for extracting various scalar types during index creation)
 
 ## Notes and Other Information
 The iskey parameter is crucial as it affects how the scalar value is processed by make_scalar_key - keys and values may be indexed differently to support various query patterns in JSONB GIN indexes.

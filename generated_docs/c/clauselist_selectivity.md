@@ -36,22 +36,22 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clauselist_selectivity_ext
+  - [clauselist_selectivity_ext](clauselist_selectivity_ext.md)
   - JoinType
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
 - Called from (representative examples):
-  - cost_tidrangescan
-  - cost_subqueryscan
-  - cost_agg
-  - cost_group
-  - compute_semi_anti_join_factors
-  - set_baserel_size_estimates
-  - get_parameterized_baserel_size
-  - calc_joinrel_size_estimate
-  - genericcostestimate
-  - btcostestimate
-  - gincostestimate
-  - brincostestimate
+  - [cost_tidrangescan](cost_tidrangescan.md)
+  - [cost_subqueryscan](cost_subqueryscan.md)
+  - [cost_agg](cost_agg.md)
+  - [cost_group](cost_group.md)
+  - [compute_semi_anti_join_factors](compute_semi_anti_join_factors.md)
+  - [set_baserel_size_estimates](../s/set_baserel_size_estimates.md)
+  - [get_parameterized_baserel_size](../g/get_parameterized_baserel_size.md)
+  - [calc_joinrel_size_estimate](calc_joinrel_size_estimate.md)
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [btcostestimate](../b/btcostestimate.md)
+  - [gincostestimate](../g/gincostestimate.md)
+  - [brincostestimate](../b/brincostestimate.md)
 
 ## Notes and Other Information
 This function serves as the primary interface for selectivity estimation in PostgreSQL's cost-based optimizer. It's heavily used throughout the costing system for estimating row counts and query execution costs. The function is designed to be a simple wrapper that enables extended statistics by default, delegating complex logic to `clauselist_selectivity_ext`. The selectivity value returned (0.0 to 1.0) represents the fraction of rows expected to pass the combined clause conditions.

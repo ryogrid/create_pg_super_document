@@ -14,15 +14,15 @@ The printVersion function prints a version banner for pgbench that includes both
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion - Gets numeric server version from PostgreSQL connection
+  - [PQserverVersion](../P/PQserverVersion.md) - Gets numeric server version from PostgreSQL connection
   - PQparameterStatus - Retrieves server parameter values including version string
-  - formatPGVersionNumber - Formats numeric version into readable string
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md) - Formats numeric version into readable string
   - printf - Output formatting function
   - fflush - Forces output buffer flush
   - PG_VERSION_NUM - Compile-time client version number
   - PG_VERSION - Compile-time client version string
 - Called from (representative examples):
-  - main - Called during pgbench startup to display version information
+  - [main](../m/main.md) - Called during pgbench startup to display version information
 
 ## Notes and Other Information
 - Only displays server version when it differs from client version to highlight potential compatibility issues

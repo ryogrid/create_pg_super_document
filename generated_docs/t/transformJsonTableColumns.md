@@ -29,17 +29,17 @@ The function integrates with the broader JSON_TABLE execution framework by creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameTypeIdAndMod (type resolution)
-  - transformJsonTableColumn (individual column transformation)
-  - transformExpr (expression transformation)
-  - assign_expr_collations (collation assignment)
-  - transformJsonTableNestedColumns (recursive nested processing)
-  - makeJsonTablePathScan (scan plan creation)
-  - isCompositeType (type checking)
+  - [typenameTypeIdAndMod](typenameTypeIdAndMod.md) (type resolution)
+  - [transformJsonTableColumn](transformJsonTableColumn.md) (individual column transformation)
+  - [transformExpr](transformExpr.md) (expression transformation)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (collation assignment)
+  - [transformJsonTableNestedColumns](transformJsonTableNestedColumns.md) (recursive nested processing)
+  - [makeJsonTablePathScan](../m/makeJsonTablePathScan.md) (scan plan creation)
+  - [isCompositeType](../i/isCompositeType.md) (type checking)
   - exprType, exprTypmod, exprCollation (expression metadata)
 - Called from (representative examples):
-  - transformJsonTable (root level processing)
-  - transformJsonTableNestedColumns (recursive nested processing)
+  - [transformJsonTable](transformJsonTable.md) (root level processing)
+  - [transformJsonTableNestedColumns](transformJsonTableNestedColumns.md) (recursive nested processing)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parse_jsontable.c module

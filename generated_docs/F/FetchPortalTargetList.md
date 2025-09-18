@@ -19,15 +19,15 @@ FetchPortalTargetList retrieves the target list (list of output columns and expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Portal (parameter type)
+  - [Portal](../P/Portal.md) (parameter type)
   - PORTAL_MULTI_QUERY (strategy constant)
-  - FetchStatementTargetList
+  - [FetchStatementTargetList](FetchStatementTargetList.md)
   - PortalGetPrimaryStmt
   - NIL (empty list constant)
 - Called from (representative examples):
-  - printtup_startup
-  - exec_describe_portal_message
-  - FetchStatementTargetList
+  - [printtup_startup](../p/printtup_startup.md)
+  - [exec_describe_portal_message](../e/exec_describe_portal_message.md)
+  - [FetchStatementTargetList](FetchStatementTargetList.md)
 
 ## Notes and Other Information
 The function returns NIL (empty list) if the portal doesn't have a determinable target list, which occurs for PORTAL_MULTI_QUERY strategies. The returned list should not be modified by the caller as indicated in the function comments. This function is essential for describing portal results to clients and setting up appropriate output formatting. The target list contains TargetEntry nodes that describe each output column's name, type, and expression.

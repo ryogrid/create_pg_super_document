@@ -21,18 +21,18 @@ The function filters results based on dump options and only processes relationsh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery - executes the catalog query
-  - findPublicationByOid - looks up publication info by OID
-  - findTableByOid - looks up table info by OID
-  - AssignDumpId - assigns unique dump ID to the object
-  - selectDumpablePublicationObject - determines if object should be dumped
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) - executes the catalog query
+  - [findPublicationByOid](../f/findPublicationByOid.md) - looks up publication info by OID
+  - [findTableByOid](../f/findTableByOid.md) - looks up table info by OID
+  - [AssignDumpId](../A/AssignDumpId.md) - assigns unique dump ID to the object
+  - [selectDumpablePublicationObject](../s/selectDumpablePublicationObject.md) - determines if object should be dumped
   - pg_malloc - allocates memory for publication relation info array
   - atooid - converts string to OID
-  - parsePGArray - parses PostgreSQL array format for column lists
-  - fmtId - formats identifiers safely
-  - pg_strdup - duplicates strings safely
+  - [parsePGArray](../p/parsePGArray.md) - parses PostgreSQL array format for column lists
+  - [fmtId](../f/fmtId.md) - formats identifiers safely
+  - [pg_strdup](../p/pg_strdup.md) - duplicates strings safely
 - Called from (representative examples):
-  - getSchemaData - part of the schema discovery process
+  - [getSchemaData](getSchemaData.md) - part of the schema discovery process
 
 ## Notes and Other Information
 - Only active when  option is not set and PostgreSQL version >= 10.0

@@ -34,27 +34,27 @@ The test demonstrates:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsocket - Get connection socket descriptor
-  - PQsetnonblocking - Enable non-blocking mode
-  - PQexec - Execute immediate SQL commands
-  - PQprepare - Prepare a statement
+  - [PQsocket](../P/PQsocket.md) - Get connection socket descriptor
+  - [PQsetnonblocking](../P/PQsetnonblocking.md) - Enable non-blocking mode
+  - [PQexec](../P/PQexec.md) - Execute immediate SQL commands
+  - [PQprepare](../P/PQprepare.md) - Prepare a statement
   - PQenterPipelineMode - Enter pipeline mode
-  - PQisBusy - Check if connection is busy
-  - PQgetResult - Retrieve query results
-  - PQconsumeInput - Read available input from server
-  - PQsendQueryPrepared - Execute prepared statements
-  - PQsendFlushRequest - Send flush request
-  - PQflush - Flush outgoing data
-  - process_result - Helper function to process individual results
+  - [PQisBusy](../P/PQisBusy.md) - Check if connection is busy
+  - [PQgetResult](../P/PQgetResult.md) - Retrieve query results
+  - [PQconsumeInput](../P/PQconsumeInput.md) - Read available input from server
+  - [PQsendQueryPrepared](../P/PQsendQueryPrepared.md) - Execute prepared statements
+  - [PQsendFlushRequest](../P/PQsendFlushRequest.md) - Send flush request
+  - [PQflush](../P/PQflush.md) - Flush outgoing data
+  - [process_result](../p/process_result.md) - Helper function to process individual results
   - select - System call for I/O multiplexing
   - FD_ZERO, FD_SET, FD_ISSET - File descriptor set macros
-  - PQresultStatus - Get result status
-  - PQerrorMessage - Get error message
-  - PGRES_COMMAND_OK - Command executed successfully
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status
+  - [PQerrorMessage](../P/PQerrorMessage.md) - Get error message
+  - PGRES_COMMAND_OK - [Command](../C/Command.md) executed successfully
   - MAXINT8LEN - Maximum length of int8 string representation
   - EINTR - Interrupted system call error code
 - Called from (representative examples):
-  - main - Main test driver function
+  - [main](../m/main.md) - Main test driver function
 
 ## Notes and Other Information
 - This is an advanced test for non-blocking pipeline I/O with error handling

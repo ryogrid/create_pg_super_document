@@ -26,7 +26,7 @@ The  function serves as a callback for the TS_execute function during text searc
   - TS_YES: Return value indicating the operand exists in the document
   - MAXQROPOS: Maximum number of positions that can be stored per operand
 - Called from (representative examples):
-  - Cover: Uses this callback during cover distance calculations to check operand matches
+  - [Cover](../C/Cover.md): Uses this callback during cover distance calculations to check operand matches
 
 ## Notes and Other Information
 - Returns TSTernaryValue: TS_NO if operand doesn't exist, TS_YES if it does

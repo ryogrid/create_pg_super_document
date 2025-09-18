@@ -27,16 +27,16 @@ This conversion is essential for bridging the gap between SPI's simplified param
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeParamList
-  - ParamListInfo
+  - [makeParamList](../m/makeParamList.md)
+  - [ParamListInfo](../P/ParamListInfo.md)
   - ParamExternData  
   - PARAM_FLAG_CONST
 - Called from (representative examples):
-  - SPI_execute_plan
-  - SPI_execute_snapshot
-  - SPI_execute_with_args
-  - SPI_cursor_open
-  - SPI_cursor_open_with_args
+  - [SPI_execute_plan](SPI_execute_plan.md)
+  - [SPI_execute_snapshot](SPI_execute_snapshot.md)
+  - [SPI_execute_with_args](SPI_execute_with_args.md)
+  - [SPI_cursor_open](SPI_cursor_open.md)
+  - [SPI_cursor_open_with_args](SPI_cursor_open_with_args.md)
 
 ## Notes and Other Information
 - Returns NULL if nargs is 0 (no parameters)

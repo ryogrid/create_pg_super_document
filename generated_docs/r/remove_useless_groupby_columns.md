@@ -43,13 +43,13 @@ This function performs an important query optimization by eliminating redundant 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupclause_tle
-  - get_primary_key_attnos
-  - bms_add_member, bms_membership, bms_subset_compare, bms_difference, bms_is_member
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
+  - [get_primary_key_attnos](../g/get_primary_key_attnos.md)
+  - [bms_add_member](../b/bms_add_member.md), bms_membership, bms_subset_compare, bms_difference, bms_is_member
   - SortGroupClause node handling
   - FirstLowInvalidHeapAttributeNumber constant
 - Called from:
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
   - standard_qp_extra
 
 ## Notes and Other Information

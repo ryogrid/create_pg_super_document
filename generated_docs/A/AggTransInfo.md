@@ -30,11 +30,11 @@ AggTransInfo is a critical optimization structure in PostgreSQL's aggregate proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initValue
+  - [initValue](../i/initValue.md)
 - Called from (representative examples):
-  - preprocess_aggref
-  - find_compatible_trans
-  - get_agg_clause_costs
+  - [preprocess_aggref](../p/preprocess_aggref.md)
+  - [find_compatible_trans](../f/find_compatible_trans.md)
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
 
 ## Notes and Other Information
 - This structure is fundamental to PostgreSQL's aggregate optimization strategy, enabling efficient resource sharing

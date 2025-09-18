@@ -18,17 +18,17 @@ CreateEventTrigger is the main function responsible for creating event triggers 
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser() - checks if current user has superuser privileges
-  - error_duplicate_filter_variable() - reports error for duplicate filter variables
-  - validate_ddl_tags() - validates tag filters for DDL events
-  - validate_table_rewrite_tags() - validates tag filters for table rewrite events
-  - SearchSysCache1() - searches system catalog for existing triggers
-  - LookupFuncName() - looks up the trigger function
-  - get_func_rettype() - gets the return type of the function
-  - insert_event_trigger_tuple() - inserts the new trigger into catalogs
-  - CStringGetDatum() - converts C string to Datum
-  - NameListToString() - converts function name list to string
+  - [error_duplicate_filter_variable](../e/error_duplicate_filter_variable.md)() - reports error for duplicate filter variables
+  - [validate_ddl_tags](../v/validate_ddl_tags.md)() - validates tag filters for DDL events
+  - [validate_table_rewrite_tags](../v/validate_table_rewrite_tags.md)() - validates tag filters for table rewrite events
+  - [SearchSysCache1](../S/SearchSysCache1.md)() - searches system catalog for existing triggers
+  - [LookupFuncName](../L/LookupFuncName.md)() - looks up the trigger function
+  - [get_func_rettype](../g/get_func_rettype.md)() - gets the return type of the function
+  - [insert_event_trigger_tuple](../i/insert_event_trigger_tuple.md)() - inserts the new trigger into catalogs
+  - [CStringGetDatum](CStringGetDatum.md)() - converts C string to Datum
+  - [NameListToString](../N/NameListToString.md)() - converts function name list to string
 - Called from (representative examples):
-  - standard_ProcessUtility() - main utility command processing function
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)() - [main](../m/main.md) utility command processing function
 
 ## Notes and Other Information
 - Requires superuser privileges to create event triggers due to privilege escalation risks

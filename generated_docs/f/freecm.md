@@ -29,7 +29,7 @@ The function is designed to be safe to call even if some allocations failed duri
 - Functions called/Symbols referenced:
   - FREE (memory deallocation macro)
 - Called from (representative examples):
-  - rfree (in regcomp.c)
+  - [rfree](../r/rfree.md) (in regcomp.c)
 
 ## Notes and Other Information
 - The function safely handles partial initialization scenarios where some allocations may have failed

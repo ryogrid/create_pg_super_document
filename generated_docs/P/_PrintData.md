@@ -19,13 +19,13 @@ _PrintData is a utility function in the custom archive format that handles the r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AllocateCompressor
-  - _CustomReadFunc
-  - EndCompressor
-  - CompressorState (type)
+  - [AllocateCompressor](../A/AllocateCompressor.md)
+  - [_CustomReadFunc](../C/_CustomReadFunc.md)
+  - [EndCompressor](../E/EndCompressor.md)
+  - [CompressorState](../C/CompressorState.md) (type)
 - Called from (representative examples):
-  - _PrintTocData (for regular data blocks)
-  - _LoadLOs (during large object restoration)
+  - [_PrintTocData](_PrintTocData.md) (for regular data blocks)
+  - [_LoadLOs](../L/_LoadLOs.md) (during large object restoration)
 
 ## Notes and Other Information
 This function is designed to work at the current file position and assumes that the caller has already positioned the file pointer correctly. It handles the full lifecycle of compression state management, from allocation through cleanup, ensuring no resource leaks occur during data restoration operations.

@@ -23,7 +23,7 @@ This function implements the equality comparison operator for mixed-precision fl
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
-  - float8_eq: Performs the actual float8 equality comparison
+  - [float8_eq](float8_eq.md): Performs the actual float8 equality comparison
   - PG_RETURN_BOOL: Returns the boolean result
 - Called from (representative examples):
   - No direct references found in the codebase

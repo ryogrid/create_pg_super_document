@@ -24,8 +24,8 @@ The implementation uses a hybrid approach: first processing elements in vectoriz
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (vector data type for SIMD operations)
-  - vector8_load (loads data into vector register)
-  - vector8_has_le (checks if vector contains any value less than or equal to key)
+  - [vector8_load](../v/vector8_load.md) (loads data into vector register)
+  - [vector8_has_le](../v/vector8_has_le.md) (checks if vector contains any value less than or equal to key)
 - Called from (representative examples):
   - test_lfind8_le_internal (in test modules)
 

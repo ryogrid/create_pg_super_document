@@ -17,29 +17,29 @@ This function performs comprehensive page defragmentation for heap pages followi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](PageGetItemId.md)
   - ItemIdIsUsed
   - ItemIdHasStorage
   - ItemIdGetOffset
   - ItemIdGetLength
   - ItemIdSetUnused
-  - compactify_tuples
-  - PageSetHasFreeLinePointers
-  - PageClearHasFreeLinePointers
+  - [compactify_tuples](../c/compactify_tuples.md)
+  - [PageSetHasFreeLinePointers](PageSetHasFreeLinePointers.md)
+  - [PageClearHasFreeLinePointers](PageClearHasFreeLinePointers.md)
   - ereport (for error reporting)
 - Data types used:
   - Offset
   - PageHeader
-  - itemIdCompactData
+  - [itemIdCompactData](../i/itemIdCompactData.md)
   - itemIdCompact
   - ItemId
   - OffsetNumber
   - MaxHeapTuplesPerPage
   - SizeOfPageHeaderData
-  - ItemIdData
+  - [ItemIdData](../I/ItemIdData.md)
 - Called from:
-  - heap_page_prune_execute (main heap pruning function)
+  - [heap_page_prune_execute](../h/heap_page_prune_execute.md) (main heap pruning function)
   - PageIsVerified (for page verification)
 
 ## Notes and Other Information

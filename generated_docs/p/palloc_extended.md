@@ -30,10 +30,10 @@ The function integrates with Valgrind memory debugging tools and handles allocat
   - MCXT_ALLOC_ZERO
   - MemSetAligned
 - Called from (representative examples):
-  - XLogReaderAllocate
-  - BackendStartup
-  - StartAutovacuumWorker
-  - assign_backendlist_entry
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md)
+  - [BackendStartup](../B/BackendStartup.md)
+  - [StartAutovacuumWorker](../S/StartAutovacuumWorker.md)
+  - [assign_backendlist_entry](../a/assign_backendlist_entry.md)
   - pg_clean_ascii
 
 ## Notes and Other Information

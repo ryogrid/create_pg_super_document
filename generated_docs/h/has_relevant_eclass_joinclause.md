@@ -20,11 +20,11 @@ The function examines equivalence classes that mention the given relation and ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_eclass_indexes_for_relids
-  - bms_next_member
-  - list_nth
+  - [get_eclass_indexes_for_relids](../g/get_eclass_indexes_for_relids.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth](../l/list_nth.md)
   - list_length
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
 - Called from (representative examples):
   - build_join_rel
 

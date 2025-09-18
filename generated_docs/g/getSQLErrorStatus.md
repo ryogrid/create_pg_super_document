@@ -25,7 +25,7 @@ This function examines the SQL state error code returned from PostgreSQL and map
   - ESTATUS_DEADLOCK_ERROR (return value enum)
   - ESTATUS_OTHER_SQL_ERROR (return value enum)
 - Called from (representative examples):
-  - readCommandResponse
+  - [readCommandResponse](../r/readCommandResponse.md)
 
 ## Notes and Other Information
 - Returns ESTATUS_OTHER_SQL_ERROR for NULL input or unrecognized error codes

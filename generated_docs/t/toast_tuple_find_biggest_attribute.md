@@ -29,7 +29,7 @@ The function returns the array index of the largest qualifying attribute, enabli
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - VARATT_IS_EXTERNAL
   - VARATT_IS_COMPRESSED
   - MAXALIGN
@@ -40,7 +40,7 @@ The function returns the array index of the largest qualifying attribute, enabli
   - TYPSTORAGE_EXTENDED  
   - TYPSTORAGE_EXTERNAL
 - Called from (representative examples):
-  - heap_toast_insert_or_update (multiple calls for different phases)
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md) (multiple calls for different phases)
 
 ## Notes and Other Information
 - Returns -1 if no suitable attribute is found

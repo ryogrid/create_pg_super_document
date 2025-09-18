@@ -24,23 +24,23 @@ The caching mechanism invalidates all stored procedures when the sub-type change
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc
-  - InclusionOpaque
+  - [BrinDesc](../B/BrinDesc.md)
+  - [InclusionOpaque](../I/InclusionOpaque.md)
   - RTMaxStrategyNumber
   - TupleDescAttr
-  - SearchSysCache4
-  - ObjectIdGetDatum
+  - [SearchSysCache4](../S/SearchSysCache4.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Int16GetDatum
   - HeapTupleIsValid
-  - DatumGetObjectId
-  - SysCacheGetAttrNotNull
-  - ReleaseSysCache
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - RegProcedureIsValid
-  - get_opcode
-  - fmgr_info_cxt
+  - [get_opcode](../g/get_opcode.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
 
 - Called from (representative examples):
-  - brin_inclusion_consistent (multiple calls for different strategy operations)
+  - [brin_inclusion_consistent](../b/brin_inclusion_consistent.md) (multiple calls for different strategy operations)
 
 ## Notes and Other Information
 - This function mirrors the design of  and changes should be synchronized between both implementations

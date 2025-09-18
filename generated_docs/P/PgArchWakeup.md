@@ -19,12 +19,12 @@ This function provides a mechanism to wake up the sleeping archiver process when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch: Sets the process latch to wake up the target process
+  - [SetLatch](../S/SetLatch.md): Sets the process latch to wake up the target process
   - INVALID_PROC_NUMBER: Constant indicating invalid process number
   - PgArch: Global shared memory structure containing archiver state
   - ProcGlobal: Global process array structure
 - Called from (representative examples):
-  - XLogArchiveNotify: Notifies archiver when new WAL files are ready
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md): Notifies archiver when new WAL files are ready
 
 ## Notes and Other Information
 - Does not acquire ProcArrayLock for performance reasons

@@ -25,13 +25,13 @@ This function is the core initialization routine for JsonPathItem structures, re
   - All jpi* enumeration constants for different node types
   - elog (for error reporting on unrecognized types)
 - Called from (representative examples):
-  - printJsonPathItem
-  - jspInit
-  - jspGetArg
-  - jspGetNext
-  - jspGetLeftArg, jspGetRightArg
-  - jspGetArraySubscript
-  - jspIsMutableWalker
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [jspInit](jspInit.md)
+  - [jspGetArg](jspGetArg.md)
+  - [jspGetNext](jspGetNext.md)
+  - [jspGetLeftArg](jspGetLeftArg.md), jspGetRightArg
+  - [jspGetArraySubscript](jspGetArraySubscript.md)
+  - [jspIsMutableWalker](jspIsMutableWalker.md)
 
 ## Notes and Other Information
 - Handles proper memory alignment using INTALIGN for cross-platform compatibility

@@ -25,19 +25,19 @@ The function creates a new RangeTblEntry for the join, constructs a JoinExpr tha
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for creating RangeTblEntry, JoinExpr, RangeTblRef, FromExpr, NullTest)
-  - makeAlias
-  - makeFromExpr  
+  - [makeAlias](../m/makeAlias.md)
+  - [makeFromExpr](../m/makeFromExpr.md)  
   - makeWholeRowVar
-  - add_nulling_relids
-  - bms_make_singleton
+  - [add_nulling_relids](../a/add_nulling_relids.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
   - rt_fetch
-  - make_and_qual
+  - [make_and_qual](../m/make_and_qual.md)
   - foreach_node macro
   - lappend, linitial, list_make1, list_length
   - IsA macro
   - elog, Assert
 - Called from (representative examples):
-  - subquery_planner (in src/backend/optimizer/plan/planner.c:700)
+  - [subquery_planner](../s/subquery_planner.md) (in src/backend/optimizer/plan/planner.c:700)
 
 ## Notes and Other Information
 - Only processes queries with commandType == CMD_MERGE, returns early otherwise

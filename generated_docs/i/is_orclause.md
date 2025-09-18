@@ -21,11 +21,11 @@ This function is a type-checking utility that determines whether a given clause 
   - OR_EXPR (enum value)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - pull_ors
-  - extract_or_clause
-  - simplify_or_arguments
-  - predicate_classify
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [pull_ors](../p/pull_ors.md)
+  - [extract_or_clause](../e/extract_or_clause.md)
+  - [simplify_or_arguments](../s/simplify_or_arguments.md)
+  - [predicate_classify](../p/predicate_classify.md)
 
 ## Notes and Other Information
 - This is an inline function defined in a header file for performance

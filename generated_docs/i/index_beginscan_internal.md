@@ -24,14 +24,14 @@ This static function serves as the unified backend for all index scan initializa
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (macro for relation validation)
   - CHECK_REL_PROCEDURE (macro to verify ambeginscan procedure exists)
-  - PredicateLockRelation (predicate locking for serializable isolation)
-  - RelationIncrementReferenceCount (reference count management)
-  - ParallelIndexScanDesc (parallel scan descriptor type)
-  - IndexScanDesc (return type structure)
+  - [PredicateLockRelation](../P/PredicateLockRelation.md) (predicate locking for serializable isolation)
+  - [RelationIncrementReferenceCount](../R/RelationIncrementReferenceCount.md) (reference count management)
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md) (parallel scan descriptor type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (return type structure)
 - Called from (representative examples):
-  - index_beginscan (src/backend/access/index/indexam.c:265)
-  - index_beginscan_bitmap (src/backend/access/index/indexam.c:295)
-  - index_beginscan_parallel (src/backend/access/index/indexam.c:550)
+  - [index_beginscan](index_beginscan.md) (src/backend/access/index/indexam.c:265)
+  - [index_beginscan_bitmap](index_beginscan_bitmap.md) (src/backend/access/index/indexam.c:295)
+  - [index_beginscan_parallel](index_beginscan_parallel.md) (src/backend/access/index/indexam.c:550)
 
 ## Notes and Other Information
 - This is a static function providing shared implementation for public index scan functions

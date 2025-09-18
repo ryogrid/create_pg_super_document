@@ -29,11 +29,11 @@ When writing statistics during normal shutdown, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_stat
-  - pgstat_write_statsfile
+  - [pgstat_report_stat](pgstat_report_stat.md)
+  - [pgstat_write_statsfile](pgstat_write_statsfile.md)
 - Called from (representative examples):
-  - CheckpointerMain (src/backend/postmaster/checkpointer.c:223)
-  - InitPostgres (src/backend/utils/init/postinit.c:809)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (src/backend/postmaster/checkpointer.c:223)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:809)
 
 ## Notes and Other Information
 - Must be called by exactly one process during shutdown to avoid conflicts

@@ -32,16 +32,16 @@ The state structure is designed to handle the incremental parsing of JSON arrays
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext (JSON parsing and lexical analysis)
-  - PopulateArrayContext (array construction context)
-  - JsonTokenType (enumeration for JSON token types)
+  - [JsonLexContext](../J/JsonLexContext.md) (JSON parsing and lexical analysis)
+  - [PopulateArrayContext](PopulateArrayContext.md) (array construction context)
+  - [JsonTokenType](../J/JsonTokenType.md) (enumeration for JSON token types)
 - Called from (representative examples):
-  - populate_array_object_start
-  - populate_array_array_end
-  - populate_array_element_start
-  - populate_array_element_end
-  - populate_array_scalar
-  - populate_array_json
+  - [populate_array_object_start](../p/populate_array_object_start.md)
+  - [populate_array_array_end](../p/populate_array_array_end.md)
+  - [populate_array_element_start](../p/populate_array_element_start.md)
+  - [populate_array_element_end](../p/populate_array_element_end.md)
+  - [populate_array_scalar](../p/populate_array_scalar.md)
+  - [populate_array_json](../p/populate_array_json.md)
 
 ## Notes and Other Information
 - Specifically designed for populate_array_json() function and closely tied to JSON text parsing

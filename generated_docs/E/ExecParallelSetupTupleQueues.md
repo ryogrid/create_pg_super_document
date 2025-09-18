@@ -35,18 +35,18 @@ The function ensures that parallel workers have a reliable mechanism to stream r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - shm_toc_allocate (allocate shared memory space)
-  - shm_toc_lookup (find existing shared memory space)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (find existing shared memory space)
   - shm_toc_insert (register shared memory space)
-  - shm_mq_create (create message queue)
-  - shm_mq_set_receiver (set queue receiver process)
-  - shm_mq_attach (attach to queue for communication)
-  - mul_size (safe size multiplication)
+  - [shm_mq_create](../s/shm_mq_create.md) (create message queue)
+  - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md) (set queue receiver process)
+  - [shm_mq_attach](../s/shm_mq_attach.md) (attach to queue for communication)
+  - [mul_size](../m/mul_size.md) (safe size multiplication)
   - PARALLEL_TUPLE_QUEUE_SIZE, PARALLEL_KEY_TUPLE_QUEUE (constants)
 - Called from:
-  - ExecInitParallelPlan (during initial parallel plan setup)
-  - ExecParallelReinitialize (when reinitializing parallel execution)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md) (during initial parallel plan setup)
+  - [ExecParallelReinitialize](ExecParallelReinitialize.md) (when reinitializing parallel execution)
 
 ## Notes and Other Information
 - Returns NULL if no workers are configured (pcxt->nworkers == 0)

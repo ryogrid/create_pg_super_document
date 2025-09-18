@@ -20,14 +20,14 @@ This function checks whether a doubly-linked count list (dclist) contains any el
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty (used in assertion for consistency checking)
-  - dclist_head (parameter type)
+  - [dlist_is_empty](dlist_is_empty.md) (used in assertion for consistency checking)
+  - [dclist_head](dclist_head.md) (parameter type)
 - Called from (representative examples):
-  - RemoveFromWaitQueue (src/backend/storage/lmgr/lock.c:1919)
+  - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md) (src/backend/storage/lmgr/lock.c:1919)
   - ProcSleep (src/backend/storage/lmgr/proc.c:1130)
   - ProcLockWakeup (src/backend/storage/lmgr/proc.c:1717)
-  - dclist_head_element_off (src/include/lib/ilist.h:890)
-  - dclist_tail_element_off (src/include/lib/ilist.h:911)
+  - [dclist_head_element_off](dclist_head_element_off.md) (src/include/lib/ilist.h:890)
+  - [dclist_tail_element_off](dclist_tail_element_off.md) (src/include/lib/ilist.h:911)
 
 ## Notes and Other Information
 - Provides O(1) performance compared to O(n) traversal of standard dlist

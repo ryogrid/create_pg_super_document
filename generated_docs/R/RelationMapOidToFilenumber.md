@@ -24,13 +24,13 @@ This design ensures that uncommitted mapping changes are visible during transact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapFile (structure type used for mapping tables)
+  - [RelMapFile](RelMapFile.md) (structure type used for mapping tables)
   - InvalidRelFileNumber (returned when no mapping is found)
 - Called from (representative examples):
-  - swap_relation_files (cluster.c:1166, 1170)
-  - pg_relation_filenode (dbsize.c:896)
-  - pg_relation_filepath (dbsize.c:982)
-  - RelationInitPhysicalAddr (relcache.c:1375)
+  - [swap_relation_files](../s/swap_relation_files.md) (cluster.c:1166, 1170)
+  - [pg_relation_filenode](../p/pg_relation_filenode.md) (dbsize.c:896)
+  - [pg_relation_filepath](../p/pg_relation_filepath.md) (dbsize.c:982)
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md) (relcache.c:1375)
 
 ## Notes and Other Information
 - Returns InvalidRelFileNumber when the OID is not found, which should never happen in normal operation

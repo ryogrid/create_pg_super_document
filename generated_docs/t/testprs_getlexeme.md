@@ -22,7 +22,7 @@ The testprs_getlexeme function is the core parsing function that extracts indivi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParserState (structure for maintaining parser state)
+  - [ParserState](../P/ParserState.md) (structure for maintaining parser state)
   - PG_GETARG_POINTER, PG_RETURN_INT32 (PostgreSQL function argument/return macros)
 - Called from (representative examples):
   - LexDescr (referenced in test parser lexical description)

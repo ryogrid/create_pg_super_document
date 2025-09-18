@@ -18,17 +18,17 @@ The BaseBackupTargetHandle structure serves as a concrete instance of a backup t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BaseBackupTargetType (target type definition)
-  - initialize_target_list
-  - blackhole_get_sink
+  - [BaseBackupTargetType](BaseBackupTargetType.md) (target type definition)
+  - [initialize_target_list](../i/initialize_target_list.md)
+  - [blackhole_get_sink](../b/blackhole_get_sink.md)
   - bbsink
-  - server_get_sink
-  - reject_target_detail
-  - server_check_detail
+  - [server_get_sink](../s/server_get_sink.md)
+  - [reject_target_detail](../r/reject_target_detail.md)
+  - [server_check_detail](../s/server_check_detail.md)
 - Called from (representative examples):
-  - BaseBackupAddTarget
-  - BaseBackupGetTargetHandle
-  - BaseBackupGetSink
+  - [BaseBackupAddTarget](BaseBackupAddTarget.md)
+  - [BaseBackupGetTargetHandle](BaseBackupGetTargetHandle.md)
+  - [BaseBackupGetSink](BaseBackupGetSink.md)
 
 ## Notes and Other Information
 This structure is part of the handle-based design pattern used in PostgreSQL's backup system, where handles provide a level of indirection between the backup logic and specific target implementations. The detail_arg member allows each target type to store custom configuration data while maintaining a uniform interface. The handle is typically created during target registration and used throughout the backup process to manage target-specific operations.

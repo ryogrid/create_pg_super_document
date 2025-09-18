@@ -19,7 +19,7 @@ The avlBalance function computes the balance factor of a given AVL tree node, wh
 - Functions called/Symbols referenced:
   - avl_node
 - Called from (representative examples):
-  - avlAdjustBalance
+  - [avlAdjustBalance](avlAdjustBalance.md)
 
 ## Notes and Other Information
 This function is a key component of AVL tree maintenance in PostgreSQL's crosstab view implementation. The balance factor is used by avlAdjustBalance to determine when and what type of rotations are needed to maintain tree balance. The function assumes that the node and its children are properly initialized with valid height values, which are maintained by avlUpdateHeight after tree modifications.

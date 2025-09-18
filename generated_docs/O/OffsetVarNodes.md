@@ -21,13 +21,13 @@ This function serves as the main entry point for offsetting variable node refere
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
   - query_tree_walker (for Query node traversal)
-  - OffsetVarNodes_walker (for actual node processing)
+  - [OffsetVarNodes_walker](OffsetVarNodes_walker.md) (for actual node processing)
   - OffsetVarNodes_context (context structure)
   - RowMarkClause (for rowMarks processing)
 - Called from (representative examples):
-  - convert_EXISTS_sublink_to_join
-  - pull_up_simple_subquery
-  - rewriteRuleAction
+  - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
 
 ## Notes and Other Information
 - This is a public function exported in rewriteManip.h

@@ -21,18 +21,18 @@ This function performs a conversion from a timestamp with timezone data type to 
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP: Macro to extract TimestampTz argument from function call
   - TIMESTAMP_NOT_FINITE: Macro to check if timestamp is infinite
-  - timestamp2tm: Function to convert timestamp to broken-down time structure
-  - palloc: Memory allocation function
-  - tm2timetz: Function to convert broken-down time to TimeTzADT
+  - [timestamp2tm](timestamp2tm.md): Function to convert timestamp to broken-down time structure
+  - [palloc](../p/palloc.md): Memory allocation function
+  - [tm2timetz](tm2timetz.md): Function to convert broken-down time to TimeTzADT
   - PG_RETURN_TIMETZADT_P: Macro to return TimeTzADT result
   - ereport/errcode/errmsg: Error reporting functions
 - Types used:
   - TimestampTz: Timestamp with timezone data type
   - TimeTzADT: Time with timezone data type
-  - pg_tm: Broken-down time structure
+  - [pg_tm](../p/pg_tm.md): Broken-down time structure
   - fsec_t: Fractional seconds type
 - Called from (representative examples):
-  - executeDateTimeMethod: Used in JSON path execution for datetime method processing
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md): Used in JSON path execution for datetime method processing
 
 ## Notes and Other Information
 - Returns NULL for infinite timestamps (both positive and negative infinity)

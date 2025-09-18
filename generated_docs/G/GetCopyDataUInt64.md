@@ -21,11 +21,11 @@ This function is primarily used for reading numeric data fields in COPY protocol
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReportCopyDataParseError
+  - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)
   - pg_ntoh64
   - memcpy (standard library function)
 - Called from (representative examples):
-  - ReceiveArchiveStreamChunk
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)
   - CompressionLocation
 
 ## Notes and Other Information

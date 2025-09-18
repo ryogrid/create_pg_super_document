@@ -21,7 +21,7 @@ The  function is responsible for expanding the hicolormap array horizontally. It
   - REALLOC (memory reallocation macro)
   - REG_ESPACE (error code constant)
 - Called from (representative examples):
-  - subcolorcvec (at line 587)
+  - [subcolorcvec](../s/subcolorcvec.md) (at line 587)
 
 ## Notes and Other Information
 - Does not return a value (void function)

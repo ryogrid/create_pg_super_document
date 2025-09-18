@@ -27,11 +27,11 @@ The function is specifically designed for nodeFunctionscan.c and handles the ini
 - Functions called/Symbols referenced:
   - makeNode (SetExprState creation)
   - IsA (type checking for FuncExpr)
-  - ExecInitExprList (argument initialization)
-  - init_sexpr (function call setup)
-  - ExecInitExpr (fallback expression initialization)
+  - [ExecInitExprList](ExecInitExprList.md) (argument initialization)
+  - [init_sexpr](../i/init_sexpr.md) (function call setup)
+  - [ExecInitExpr](ExecInitExpr.md) (fallback expression initialization)
 - Called from (representative examples):
-  - ExecInitFunctionScan (src/backend/executor/nodeFunctionscan.c:349)
+  - [ExecInitFunctionScan](ExecInitFunctionScan.md) (src/backend/executor/nodeFunctionscan.c:349)
 
 ## Notes and Other Information
 - The function assumes that table function references are normally FuncExpr nodes, but provides fallback handling for optimized cases

@@ -23,11 +23,11 @@ This filtering mechanism is essential in multi-master replication scenarios wher
 ## Dependencies
 - Functions called/Symbols referenced:
   - RepOriginId
-  - LogicalDecodingContext
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
   - LogicalErrorCallbackState
   - output_plugin_error_callback
 - Called from (representative examples):
-  - FilterByOrigin
+  - [FilterByOrigin](../F/FilterByOrigin.md)
 
 ## Notes and Other Information
 - This function is only called when `ctx->fast_forward` is false, ensuring it's not used during fast-forward mode

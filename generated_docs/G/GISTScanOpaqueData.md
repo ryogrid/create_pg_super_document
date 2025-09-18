@@ -33,18 +33,18 @@ The design accommodates both distance-ordered searches (using ORDER BY clauses) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE
-  - pairingheap
-  - IndexOrderByDistance
+  - [GISTSTATE](GISTSTATE.md)
+  - [pairingheap](../p/pairingheap.md)
+  - [IndexOrderByDistance](../I/IndexOrderByDistance.md)
   - GistNSN
-  - GISTSearchHeapItem
-  - IndexTupleData
-  - MemoryContext
+  - [GISTSearchHeapItem](GISTSearchHeapItem.md)
+  - [IndexTupleData](../I/IndexTupleData.md)
+  - [MemoryContext](../M/MemoryContext.md)
   - Oid
   - OffsetNumber
   - BlockNumber
 - Called from (representative examples):
-  - gistbeginscan
+  - [gistbeginscan](../g/gistbeginscan.md)
   - GISTScanOpaque (typedef)
 
 ## Notes and Other Information

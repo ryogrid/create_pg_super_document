@@ -24,7 +24,7 @@ The comparison is performed element-by-element using the appropriate comparison 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_cmp (internal comparison function)
+  - [array_cmp](array_cmp.md) (internal comparison function)
   - PG_RETURN_BOOL (macro for returning boolean result)
 - Called from (representative examples):
   - SQL queries using <= operator between arrays

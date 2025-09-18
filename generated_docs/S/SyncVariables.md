@@ -21,22 +21,22 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQclientEncoding()
-  - PQserverVersion()
-  - setFmtEncoding()
-  - PQdb()
+  - [PQclientEncoding](../P/PQclientEncoding.md)()
+  - [PQserverVersion](../P/PQserverVersion.md)()
+  - [setFmtEncoding](../s/setFmtEncoding.md)()
+  - [PQdb](../P/PQdb.md)()
   - SetVariable() (multiple calls)
-  - PQuser()
-  - PQhost()
-  - PQport()
+  - [PQuser](../P/PQuser.md)()
+  - [PQhost](../P/PQhost.md)()
+  - [PQport](../P/PQport.md)()
   - pg_encoding_to_char()
   - PQparameterStatus()
-  - formatPGVersionNumber()
-  - PQsetErrorVerbosity()
-  - PQsetErrorContextVisibility()
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md)()
+  - [PQsetErrorVerbosity](../P/PQsetErrorVerbosity.md)()
+  - [PQsetErrorContextVisibility](../P/PQsetErrorContextVisibility.md)()
 - Called from:
-  - do_connect (at src/bin/psql/command.c:3794)
-  - CheckConnection (at src/bin/psql/common.c:383)
+  - [do_connect](../d/do_connect.md) (at src/bin/psql/command.c:3794)
+  - [CheckConnection](../C/CheckConnection.md) (at src/bin/psql/common.c:383)
   - Various locations in startup.c
 
 ## Notes and Other Information

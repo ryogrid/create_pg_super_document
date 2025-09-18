@@ -19,10 +19,10 @@ The function promotes a timestamp (without timezone information) to a timestampt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timestamp2timestamptz_opt_overflow
+  - [timestamp2timestamptz_opt_overflow](timestamp2timestamptz_opt_overflow.md)
 - Called from (representative examples):
-  - make_timestamptz (in src/backend/utils/adt/timestamp.c:687)
-  - timestamp_timestamptz (in src/backend/utils/adt/timestamp.c:6290)
+  - [make_timestamptz](../m/make_timestamptz.md) (in src/backend/utils/adt/timestamp.c:687)
+  - [timestamp_timestamptz](timestamp_timestamptz.md) (in src/backend/utils/adt/timestamp.c:6290)
   - Referenced in context of IA_TOTAL_COUNT (in src/backend/utils/adt/timestamp.c:94)
 
 ## Notes and Other Information

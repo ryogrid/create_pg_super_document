@@ -20,11 +20,11 @@ The function calls rfmtlong() to perform the actual formatting, then examines th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rfmtlong
+  - [rfmtlong](../r/rfmtlong.md)
   - printf
-  - check_return
+  - [check_return](../c/check_return.md)
 - Called from (representative examples):
-  - main (multiple times in test scenarios)
+  - [main](../m/main.md) (multiple times in test scenarios)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within its compilation unit

@@ -22,12 +22,12 @@ The function works by obtaining the current list of lock holders that conflict w
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG (data structure)
-  - WaitForLockersMultiple (core waiting logic)
+  - [WaitForLockersMultiple](WaitForLockersMultiple.md) (core waiting logic)
   - list_make1 (create single-element list)
-  - list_free (cleanup list)
+  - [list_free](../l/list_free.md) (cleanup list)
 - Called from (representative examples):
-  - index_drop (src/backend/catalog/index.c:2272, 2288)
-  - DefineIndex (src/backend/commands/indexcmds.c:1642, 1689)
+  - [index_drop](../i/index_drop.md) (src/backend/catalog/index.c:2272, 2288)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:1642, 1689)
 
 ## Notes and Other Information
 - This is essentially a convenience wrapper that simplifies the interface for single lock tag waiting

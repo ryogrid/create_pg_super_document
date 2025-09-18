@@ -30,18 +30,18 @@ The function performs extensive width calculations to determine optimal formatti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_line_style
-  - footers_with_default
-  - IsPagerNeeded
-  - pg_wcssize
-  - pg_wcsformat
-  - print_aligned_vertical_line
+  - [get_line_style](../g/get_line_style.md)
+  - [footers_with_default](../f/footers_with_default.md)
+  - [IsPagerNeeded](../I/IsPagerNeeded.md)
+  - [pg_wcssize](pg_wcssize.md)
+  - [pg_wcsformat](pg_wcsformat.md)
+  - [print_aligned_vertical_line](print_aligned_vertical_line.md)
   - strlen_max_width
-  - ClosePager
+  - [ClosePager](../C/ClosePager.md)
   - pg_malloc
 - Called from (representative examples):
-  - print_aligned_text
-  - printTable
+  - [print_aligned_text](print_aligned_text.md)
+  - [printTable](printTable.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's frontend utility library and is primarily used by psql for displaying query results in expanded format. The function handles complex edge cases like mixed multiline headers and data, terminal width detection via ioctl, and proper memory management for formatting structures. It respects various display options including tuples_only mode, column width limits, and environmental variables like COLUMNS for width detection.

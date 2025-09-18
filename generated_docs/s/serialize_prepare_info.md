@@ -19,15 +19,15 @@ This function sets up the necessary function lookup information for serializing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation)
-  - palloc0 (zero-initialized memory allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - TupleDescAttr (tuple descriptor access macro)
-  - getTypeOutputInfo (type system function for text output)
-  - getTypeBinaryOutputInfo (type system function for binary output)
-  - fmgr_info (function manager info initialization)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md) (type system function for text output)
+  - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md) (type system function for binary output)
+  - [fmgr_info](../f/fmgr_info.md) (function manager info initialization)
   - ereport (error reporting)
 - Called from (representative examples):
-  - serializeAnalyzeReceive
+  - [serializeAnalyzeReceive](serializeAnalyzeReceive.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the explain.c file

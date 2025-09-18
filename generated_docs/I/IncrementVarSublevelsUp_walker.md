@@ -30,10 +30,10 @@ The function includes special error handling for CurrentOfExpr nodes, which cann
   - expression_tree_walker
   - IsA (macro for node type checking)
   - elog (for error reporting)
-  - QTW_EXAMINE_RTES_BEFORE (flag for query tree walking)
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md) (flag for query tree walking)
 - Called from (representative examples):
-  - IncrementVarSublevelsUp (recursive self-call through walker infrastructure)
-  - IncrementVarSublevelsUp_rtable (for range table processing)
+  - [IncrementVarSublevelsUp](IncrementVarSublevelsUp.md) (recursive self-call through walker infrastructure)
+  - [IncrementVarSublevelsUp_rtable](IncrementVarSublevelsUp_rtable.md) (for range table processing)
   - query_tree_walker (for subquery traversal)
   - expression_tree_walker (for expression traversal)
 

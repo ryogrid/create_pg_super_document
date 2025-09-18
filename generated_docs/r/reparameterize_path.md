@@ -26,16 +26,16 @@ The function intentionally does not pass created paths to add_path() since these
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset (checks if parameterization can be increased)
+  - [bms_is_subset](../b/bms_is_subset.md) (checks if parameterization can be increased)
   - PATH_REQ_OUTER (extracts required outer relations from path)
-  - create_seqscan_path, create_samplescan_path, create_bitmap_heap_path (path creation functions)
+  - [create_seqscan_path](../c/create_seqscan_path.md), create_samplescan_path, create_bitmap_heap_path (path creation functions)
   - get_baserel_parampathinfo (retrieves parameterization info for base relations)
-  - cost_index (recalculates index scan costs)
-  - create_subqueryscan_path, create_resultscan_path, create_append_path (specialized path creators)
-  - create_material_path, create_memoize_path (utility path creators)
+  - [cost_index](../c/cost_index.md) (recalculates index scan costs)
+  - [create_subqueryscan_path](../c/create_subqueryscan_path.md), create_resultscan_path, create_append_path (specialized path creators)
+  - [create_material_path](../c/create_material_path.md), create_memoize_path (utility path creators)
 - Called from (representative examples):
-  - get_cheapest_parameterized_child_path (src/backend/optimizer/path/allpaths.c:2047)
-  - reparameterize_path (recursive calls for composite paths)
+  - [get_cheapest_parameterized_child_path](../g/get_cheapest_parameterized_child_path.md) (src/backend/optimizer/path/allpaths.c:2047)
+  - [reparameterize_path](reparameterize_path.md) (recursive calls for composite paths)
 
 ## Notes and Other Information
 - Can only increase parameterization, never decrease it

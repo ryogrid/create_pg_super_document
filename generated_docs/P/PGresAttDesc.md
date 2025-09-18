@@ -25,18 +25,18 @@ The structure serves as the foundation for result set introspection, enabling cl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconnectStart
-  - PQconnectStartParams
-  - PQconnectPoll
+  - [PQconnectStart](PQconnectStart.md)
+  - [PQconnectStartParams](PQconnectStartParams.md)
+  - [PQconnectPoll](PQconnectPoll.md)
   - PostgresPollingStatusType
-  - PQconnectdb
-  - PQconnectdbParams
+  - [PQconnectdb](PQconnectdb.md)
+  - [PQconnectdbParams](PQconnectdbParams.md)
   - PQsetdbLogin
 - Called from (representative examples):
-  - PQsetResultAttrs
-  - getRowDescriptions
-  - getCopyStart
-  - pg_result (as part of result structure)
+  - [PQsetResultAttrs](PQsetResultAttrs.md)
+  - [getRowDescriptions](../g/getRowDescriptions.md)
+  - [getCopyStart](../g/getCopyStart.md)
+  - [pg_result](../p/pg_result.md) (as part of result structure)
 
 ## Notes and Other Information
 - This structure is used internally by libpq to store column metadata received from the PostgreSQL server

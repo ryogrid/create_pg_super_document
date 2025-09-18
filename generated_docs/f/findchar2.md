@@ -24,7 +24,7 @@ The primary use case is in parsing Hunspell affix files, specifically for findin
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq (macro for character comparison, defined in ts_locale.h)
-  - pg_mblen (function for getting multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (function for getting multibyte character length)
   - TOUCHAR (macro used internally by t_iseq)
 - Called from:
   - NIImportAffixes (src/backend/tsearch/spell.c:1464) - for case-insensitive flag parsing

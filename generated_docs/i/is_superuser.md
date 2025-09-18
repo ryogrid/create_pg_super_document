@@ -21,7 +21,7 @@ The function returns  if the connected user is a superuser (when the parameter v
 - Functions called/Symbols referenced:
   - PQparameterStatus (libpq function to query server parameters)
 - Called from (representative examples):
-  - getSubscriptions (for dumping subscription information)
+  - [getSubscriptions](../g/getSubscriptions.md) (for dumping subscription information)
   - Various functions in variable.c for session authorization checks
   - User management functions in miscinit.c
 

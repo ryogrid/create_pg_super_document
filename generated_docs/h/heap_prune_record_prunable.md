@@ -22,10 +22,10 @@ The function follows the same logic as the PageSetPrunable macro but operates on
 - Functions called/Symbols referenced:
   - PruneState (structure)
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - TransactionIdIsValid
 - Called from (representative examples):
-  - heap_prune_record_unchanged_lp_normal
+  - [heap_prune_record_unchanged_lp_normal](heap_prune_record_unchanged_lp_normal.md)
 
 ## Notes and Other Information
 - The function includes an assertion that the XID must be normal (not frozen or invalid)

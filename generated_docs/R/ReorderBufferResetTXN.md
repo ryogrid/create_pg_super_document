@@ -26,16 +26,16 @@ ReorderBufferResetTXN handles the complex scenario where a streaming transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer (struct type)
-  - ReorderBufferTXN (struct type)
+  - [ReorderBuffer](ReorderBuffer.md) (struct type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (struct type)
   - CommandId (type)
-  - ReorderBufferChange (struct type)
-  - ReorderBufferTruncateTXN (truncate transaction changes)
+  - [ReorderBufferChange](ReorderBufferChange.md) (struct type)
+  - [ReorderBufferTruncateTXN](ReorderBufferTruncateTXN.md) (truncate transaction changes)
   - rbtxn_prepared (check if transaction is prepared)
-  - ReorderBufferToastReset (reset toast reconstruction)
-  - ReorderBufferReturnChange (return change to pool)
+  - [ReorderBufferToastReset](ReorderBufferToastReset.md) (reset toast reconstruction)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (return change to pool)
   - rbtxn_is_streamed (check if transaction is streamed)
-  - ReorderBufferSaveTXNSnapshot (save snapshot state)
+  - [ReorderBufferSaveTXNSnapshot](ReorderBufferSaveTXNSnapshot.md) (save snapshot state)
 - Called from (representative examples):
   - CHANGES_THRESHOLD (streaming threshold handling)
 

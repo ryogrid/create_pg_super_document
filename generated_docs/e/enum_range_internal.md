@@ -28,18 +28,18 @@ Key implementation details:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open/table_close
-  - index_open/index_close
-  - systable_beginscan_ordered/systable_endscan_ordered
-  - systable_getnext_ordered
-  - check_safe_enum_use
-  - palloc/repalloc/pfree
-  - construct_array
-  - ObjectIdGetDatum
+  - [index_open](../i/index_open.md)/index_close
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)/systable_endscan_ordered
+  - [systable_getnext_ordered](../s/systable_getnext_ordered.md)
+  - [check_safe_enum_use](../c/check_safe_enum_use.md)
+  - [palloc](../p/palloc.md)/repalloc/pfree
+  - [construct_array](../c/construct_array.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from:
-  - enum_range_bounds (2-argument enum_range variant)
-  - enum_range_all (1-argument enum_range variant)
+  - [enum_range_bounds](enum_range_bounds.md) (2-argument enum_range variant)
+  - [enum_range_all](enum_range_all.md) (1-argument enum_range variant)
 
 ## Notes and Other Information
 - Uses pg_enum_typid_sortorder_index for ordered scanning, not syscache

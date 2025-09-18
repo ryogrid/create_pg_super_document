@@ -23,13 +23,13 @@ For hash partitions, it leverages the fact that if indexes arrays match, the bou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumIsEqual
+  - [datumIsEqual](../d/datumIsEqual.md)
 - Data types used:
-  - PartitionBoundInfo
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
   - PARTITION_STRATEGY_HASH
   - PARTITION_RANGE_DATUM_VALUE
 - Called from:
-  - compute_partition_bounds
+  - [compute_partition_bounds](../c/compute_partition_bounds.md)
   - partition_bound_has_default
 
 ## Notes and Other Information

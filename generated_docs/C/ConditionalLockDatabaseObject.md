@@ -25,16 +25,16 @@ When a lock is successfully acquired (and it wasn't already held in clear state)
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG (data structure for lock identification)
-  - LOCALLOCK (backend's local view of a lock)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (backend's local view of a lock)
   - LockAcquireResult (enumeration for lock acquisition results)
   - SET_LOCKTAG_OBJECT (macro to initialize object lock tag)
-  - LockAcquireExtended (extended lock acquisition function with non-blocking option)
+  - [LockAcquireExtended](../L/LockAcquireExtended.md) (extended lock acquisition function with non-blocking option)
   - LOCKACQUIRE_NOT_AVAIL (result indicating lock not available)
   - LOCKACQUIRE_ALREADY_CLEAR (result indicating lock was already held in clear state)
-  - AcceptInvalidationMessages (system cache invalidation handling)
-  - MarkLockClear (mark local lock as having processed invalidations)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (system cache invalidation handling)
+  - [MarkLockClear](../M/MarkLockClear.md) (mark local lock as having processed invalidations)
 - Called from (representative examples):
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:2208)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2208)
 
 ## Notes and Other Information
 - Returns true if lock was acquired, false if lock was not available without blocking

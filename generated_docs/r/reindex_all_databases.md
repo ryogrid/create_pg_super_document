@@ -30,17 +30,17 @@ The function respects the hierarchy of reindexing operations and ensures that mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectMaintenanceDatabase
-  - executeQuery
-  - PQfinish
-  - reindex_one_database
+  - [connectMaintenanceDatabase](../c/connectMaintenanceDatabase.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [reindex_one_database](reindex_one_database.md)
   - REINDEX_SYSTEM
   - REINDEX_SCHEMA
   - REINDEX_INDEX
   - REINDEX_TABLE
   - REINDEX_DATABASE
 - Called from (representative examples):
-  - main (in reindexdb.c)
+  - [main](../m/main.md) (in reindexdb.c)
 
 ## Notes and Other Information
 - This is a static function internal to the reindexdb utility

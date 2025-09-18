@@ -17,12 +17,12 @@ This function provides cleanup and reset functionality for heap index fetch oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid (macro to check buffer validity)
+  - [BufferIsValid](../B/BufferIsValid.md) (macro to check buffer validity)
   - ReleaseBuffer (function to release a pinned buffer)
   - InvalidBuffer (constant representing invalid buffer state)
-  - IndexFetchHeapData (heap-specific index fetch data structure)
+  - [IndexFetchHeapData](../I/IndexFetchHeapData.md) (heap-specific index fetch data structure)
 - Called from (representative examples):
-  - heapam_index_fetch_end (cleanup during scan termination)
+  - [heapam_index_fetch_end](heapam_index_fetch_end.md) (cleanup during scan termination)
   - Part of TableAmRoutine structure as a callback function
 
 ## Notes and Other Information

@@ -24,10 +24,10 @@ The function provides a simple wrapper around the  system call with appropriate 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - link
-  - pg_fatal
+  - [link](link.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - transfer_relfile
+  - [transfer_relfile](../t/transfer_relfile.md)
 
 ## Notes and Other Information
 - Hard links can only be created on the same filesystem as the source file

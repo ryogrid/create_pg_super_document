@@ -22,7 +22,7 @@ This function is part of PostgreSQL's comprehensive collection of datatype-speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32: Generic hash function for 32-bit unsigned integers
+  - [hash_uint32](hash_uint32.md): Generic hash function for 32-bit unsigned integers
   - PG_GETARG_INT16: Macro to extract 16-bit integer argument from function call context
 
 - Called from (representative examples):

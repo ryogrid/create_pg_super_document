@@ -32,8 +32,8 @@ The function implements a double-checked locking pattern to handle concurrent ac
   - elog, ereport, errcode, errmsg (error reporting functions)
   - LWLockAcquire, LWLockRelease (lightweight lock functions)
   - SpinLockAcquire, SpinLockRelease (spinlock functions)
-  - hash_search (hash table search/insert function)
-  - pgstat_get_wait_event_type (wait event type name retrieval)
+  - [hash_search](../h/hash_search.md) (hash table search/insert function)
+  - [pgstat_get_wait_event_type](../p/pgstat_get_wait_event_type.md) (wait event type name retrieval)
   - WaitEventCustomEntryByName, WaitEventCustomEntryByInfo (hash entry types)
   - Various constants: NAMEDATALEN, WAIT_EVENT_CLASS_MASK, WAIT_EVENT_CUSTOM_HASH_MAX_SIZE
   - Hash operation flags: HASH_FIND, HASH_ENTER
@@ -41,8 +41,8 @@ The function implements a double-checked locking pattern to handle concurrent ac
   - Error codes: ERRCODE_DUPLICATE_OBJECT, ERRCODE_PROGRAM_LIMIT_EXCEEDED
 
 - Called from (representative examples):
-  - WaitEventExtensionNew (for extension wait events)
-  - WaitEventInjectionPointNew (for injection point wait events)
+  - [WaitEventExtensionNew](WaitEventExtensionNew.md) (for extension wait events)
+  - [WaitEventInjectionPointNew](WaitEventInjectionPointNew.md) (for injection point wait events)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside of wait_event.c

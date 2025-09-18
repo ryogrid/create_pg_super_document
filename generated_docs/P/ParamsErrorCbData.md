@@ -20,12 +20,12 @@ The structure is primarily used in PostgreSQL's frontend/backend protocol handli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo
+  - [ParamListInfo](ParamListInfo.md)
 
 - Called from (representative examples):
-  - ParamsErrorCallback (parameter error callback function)
-  - exec_bind_message (Bind message processing in postgres.c)
-  - exec_execute_message (Execute message processing in postgres.c)
+  - [ParamsErrorCallback](ParamsErrorCallback.md) (parameter error callback function)
+  - [exec_bind_message](../e/exec_bind_message.md) (Bind message processing in postgres.c)
+  - [exec_execute_message](../e/exec_execute_message.md) (Execute message processing in postgres.c)
 
 ## Notes and Other Information
 - Used exclusively for error callback context in parameter processing

@@ -26,11 +26,11 @@ This function computes a common type modifier for expressions that have already 
   - exprTypmod (to get expression type modifier)
 
 - Called from (representative examples):
-  - transformSetOperationTree (set operations like UNION)
-  - transformValuesClause (VALUES clause processing)
-  - buildMergedJoinVar (join variable creation)
-  - analyzeCTE (Common Table Expression analysis)
-  - unify_hypothetical_args (hypothetical aggregate argument unification)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (set operations like UNION)
+  - [transformValuesClause](../t/transformValuesClause.md) (VALUES clause processing)
+  - [buildMergedJoinVar](../b/buildMergedJoinVar.md) (join variable creation)
+  - [analyzeCTE](../a/analyzeCTE.md) (Common Table Expression analysis)
+  - [unify_hypothetical_args](../u/unify_hypothetical_args.md) (hypothetical aggregate argument unification)
 
 ## Notes and Other Information
 - Returns -1 if expressions don't all have the same typmod or if any expression has wrong type

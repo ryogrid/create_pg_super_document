@@ -23,7 +23,7 @@ This is a core utility function used during JSON_TABLE parsing to enforce the un
   - strcmp (standard C string comparison function)
   - foreach, lfirst (PostgreSQL list traversal macros)
 - Called from (representative examples):
-  - CheckDuplicateColumnOrPathNames (called twice for path names and column names)
+  - [CheckDuplicateColumnOrPathNames](../C/CheckDuplicateColumnOrPathNames.md) (called twice for path names and column names)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the parse_jsontable.c module

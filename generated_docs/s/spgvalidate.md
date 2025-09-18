@@ -27,22 +27,22 @@ Some validation checks are performed across the entire operator family and may b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - SearchSysCacheList1
-  - identify_opfamily_groups
-  - check_amproc_signature
-  - check_amoptsproc_signature
-  - check_amop_signature
+  - [identify_opfamily_groups](../i/identify_opfamily_groups.md)
+  - [check_amproc_signature](../c/check_amproc_signature.md)
+  - [check_amoptsproc_signature](../c/check_amoptsproc_signature.md)
+  - [check_amop_signature](../c/check_amop_signature.md)
   - OidFunctionCall2
-  - get_op_rettype
-  - opfamily_can_sort_type
-  - format_procedure
-  - format_operator
-  - format_type_be
-  - ReleaseCatCacheList
-  - ReleaseSysCache
+  - [get_op_rettype](../g/get_op_rettype.md)
+  - [opfamily_can_sort_type](../o/opfamily_can_sort_type.md)
+  - [format_procedure](../f/format_procedure.md)
+  - [format_operator](../f/format_operator.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [ReleaseCatCacheList](../R/ReleaseCatCacheList.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - spghandler (in spgutils.c:82)
+  - [spghandler](spghandler.md) (in spgutils.c:82)
 
 ## Notes and Other Information
 - Returns `true` if the operator class is valid, `false` if validation errors are found

@@ -28,14 +28,14 @@ The algorithm works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbound_bsearch
-  - get_position
-  - range_cmp_bounds
-  - get_distance
-  - calc_length_hist_frac
+  - [rbound_bsearch](../r/rbound_bsearch.md)
+  - [get_position](../g/get_position.md)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md)
+  - [get_distance](../g/get_distance.md)
+  - [calc_length_hist_frac](calc_length_hist_frac.md)
   - RangeBound
 - Called from (representative examples):
-  - calc_hist_selectivity
+  - [calc_hist_selectivity](calc_hist_selectivity.md)
 
 ## Notes and Other Information
 - Implements selectivity estimation for the contained-by operator (<@) on range types

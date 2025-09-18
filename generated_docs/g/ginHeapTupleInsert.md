@@ -27,11 +27,11 @@ This function is designed for "normal" insertion mode, as opposed to fast-update
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginExtractEntries
-  - ginEntryInsert
+  - [ginExtractEntries](ginExtractEntries.md)
+  - [ginEntryInsert](ginEntryInsert.md)
   - GinNullCategory
 - Called from (representative examples):
-  - gininsert
+  - [gininsert](gininsert.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within gininsert.c

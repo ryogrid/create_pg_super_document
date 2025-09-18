@@ -31,15 +31,15 @@ The function uses a Bitmapset during processing to efficiently check for duplica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_attnum
+  - [get_attnum](../g/get_attnum.md)
   - AttrNumberIsForUserDefinedAttr
-  - bms_is_member
-  - bms_add_member
-  - compare_int16
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [compare_int16](../c/compare_int16.md)
   - qsort
-  - bms_free
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - publication_add_relation (src/backend/catalog/pg_publication.c:403)
+  - [publication_add_relation](publication_add_relation.md) (src/backend/catalog/pg_publication.c:403)
   - published_rel (src/backend/catalog/pg_publication.c:51)
 
 ## Notes and Other Information

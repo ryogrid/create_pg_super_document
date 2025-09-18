@@ -24,16 +24,16 @@ The extracted prefix is converted from the internal wide character representatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RE_compile_and_cache
-  - pg_regprefix
-  - pg_regerror
-  - pg_database_encoding_max_length
-  - pg_wchar2mb_with_len
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md)
+  - [pg_regprefix](../p/pg_regprefix.md)
+  - [pg_regerror](../p/pg_regerror.md)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
+  - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
   - regex_t (type)
   - REG_ADVANCED, REG_ICASE, REG_NOSUB (constants)
   - REG_NOMATCH, REG_PREFIX, REG_EXACT (result codes)
 - Called from (representative examples):
-  - regex_fixed_prefix (in src/backend/utils/adt/like_support.c)
+  - [regex_fixed_prefix](regex_fixed_prefix.md) (in src/backend/utils/adt/like_support.c)
 
 ## Notes and Other Information
 - Returns NULL if no fixed prefix can be extracted from the pattern

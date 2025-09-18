@@ -19,17 +19,17 @@ The function is a wrapper around the standard gettext dgettext() function, addin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_binddomain
+  - [libpq_binddomain](libpq_binddomain.md)
   - dgettext (gettext function)
   - PG_TEXTDOMAIN
 - Called from (representative examples):
-  - pg_fe_scram_build_secret
-  - pg_GSS_continue
-  - auth_method_description
-  - emitHostIdentityInfo
-  - PQerrorMessage
-  - pqSetResultError
-  - libpq_append_error
+  - [pg_fe_scram_build_secret](../p/pg_fe_scram_build_secret.md)
+  - [pg_GSS_continue](../p/pg_GSS_continue.md)
+  - [auth_method_description](../a/auth_method_description.md)
+  - [emitHostIdentityInfo](../e/emitHostIdentityInfo.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [pqSetResultError](../p/pqSetResultError.md)
+  - [libpq_append_error](libpq_append_error.md)
 
 ## Notes and Other Information
 - This function is central to libpq's internationalization infrastructure

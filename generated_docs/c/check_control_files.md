@@ -36,7 +36,7 @@ The function processes control files in reverse order (latest backup first) and 
   - pg_log_warning (warning message logging)
   - pg_log_warning_hint (warning hint message logging)
 - Called from (representative examples):
-  - main (backup validation workflow)
+  - [main](../m/main.md) (backup validation workflow)
 
 ## Notes and Other Information
 - Located in src/bin/pg_combinebackup/pg_combinebackup.c:594-670

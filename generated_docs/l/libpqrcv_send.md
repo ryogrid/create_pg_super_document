@@ -19,9 +19,9 @@ This function serves as a low-level communication primitive for WAL replication 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputCopyData: libpq function to queue data for sending through a COPY stream
-  - PQflush: libpq function to flush any queued output data to the server
-  - pchomp: PostgreSQL utility function to remove trailing whitespace from error messages
+  - [PQputCopyData](../P/PQputCopyData.md): libpq function to queue data for sending through a COPY stream
+  - [PQflush](../P/PQflush.md): libpq function to flush any queued output data to the server
+  - [pchomp](../p/pchomp.md): PostgreSQL utility function to remove trailing whitespace from error messages
   - ereport: PostgreSQL error reporting framework function
 - Called from (representative examples):
   - Used internally within libpqwalreceiver.c for WAL streaming operations

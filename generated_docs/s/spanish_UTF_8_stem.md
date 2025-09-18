@@ -31,13 +31,13 @@ The function works backwards from the end of the word (right-to-left processing)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions
-  - r_attached_pronoun
-  - r_standard_suffix
-  - r_y_verb_suffix
-  - r_verb_suffix
-  - r_residual_suffix
-  - r_postlude
+  - [r_mark_regions](../r/r_mark_regions.md)
+  - [r_attached_pronoun](../r/r_attached_pronoun.md)
+  - [r_standard_suffix](../r/r_standard_suffix.md)
+  - [r_y_verb_suffix](../r/r_y_verb_suffix.md)
+  - [r_verb_suffix](../r/r_verb_suffix.md)
+  - [r_residual_suffix](../r/r_residual_suffix.md)
+  - [r_postlude](../r/r_postlude.md)
 - Called from (representative examples):
   - No direct callers found (likely called through function pointer or external interface)
 

@@ -24,7 +24,7 @@ This function is essential for accurate pattern matching in databases that store
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen (used to determine multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (used to determine multibyte character length)
 - Called from (representative examples):
   - Used via CHAREQ macro in like.c pattern matching routines
 

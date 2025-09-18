@@ -32,14 +32,14 @@ This function is intentionally designed to be shared between relation deletion (
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens pg_class catalog for modification)
-  - SearchSysCache1 (looks up relation tuple in RELOID cache)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (looks up relation tuple in RELOID cache)
   - HeapTupleIsValid (validates tuple lookup success)
-  - CatalogTupleDelete (deletes tuple from pg_class catalog)
-  - ReleaseSysCache (releases cached tuple)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (deletes tuple from pg_class catalog)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cached tuple)
   - table_close (closes pg_class catalog relation)
 - Called from (representative examples):
-  - heap_drop_with_catalog (during table deletion)
-  - index_drop (during index deletion)
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md) (during table deletion)
+  - [index_drop](../i/index_drop.md) (during index deletion)
 
 ## Notes and Other Information
 - This function is explicitly documented as shared between relation and index deletion, and is not intended for use in other contexts

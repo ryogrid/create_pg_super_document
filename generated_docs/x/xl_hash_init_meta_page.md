@@ -26,9 +26,9 @@ The operation involves 1 backup block:
   - double (type)
   - uint16 (type)
 - Called from (representative examples):
-  - hash_xlog_init_meta_page (WAL replay function for metapage initialization)
-  - _hash_init (hash index initialization function)
-  - hash_desc (hash WAL record description function)
+  - [hash_xlog_init_meta_page](../h/hash_xlog_init_meta_page.md) (WAL replay function for metapage initialization)
+  - [_hash_init](../h/_hash_init.md) (hash index initialization function)
+  - [hash_desc](../h/hash_desc.md) (hash WAL record description function)
   - SizeOfHashInitMetaPage (macro for calculating structure size)
 
 ## Notes and Other Information

@@ -23,13 +23,13 @@ JoinState serves as the base structure for all join execution state nodes in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited base structure)
+  - [PlanState](../P/PlanState.md) (inherited base structure)
   - JoinType (enum for join types)
   - ExprState (for join qualification expressions)
 - Called from (representative examples):
-  - NestLoopState (inherits from JoinState)
-  - MergeJoinState (inherits from JoinState)
-  - HashJoinState (inherits from JoinState)
+  - [NestLoopState](../N/NestLoopState.md) (inherits from JoinState)
+  - [MergeJoinState](../M/MergeJoinState.md) (inherits from JoinState)
+  - [HashJoinState](../H/HashJoinState.md) (inherits from JoinState)
 
 ## Notes and Other Information
 - This is an abstract base structure - actual join execution uses specific subclasses like NestLoopState, MergeJoinState, or HashJoinState

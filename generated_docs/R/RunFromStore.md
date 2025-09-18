@@ -20,14 +20,14 @@ RunFromStore is a specialized function that retrieves tuples from a portal's tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakeSingleTupleTableSlot
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - ScanDirectionIsNoMovement
   - ScanDirectionIsForward
-  - tuplestore_gettupleslot
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - ExecClearTuple
-  - ExecDropSingleTupleTableSlot
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
 - Called from (representative examples):
-  - PortalRunSelect
+  - [PortalRunSelect](../P/PortalRunSelect.md)
 
 ## Notes and Other Information
 - This function is static and only used within pquery.c

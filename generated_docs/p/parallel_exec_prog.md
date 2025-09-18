@@ -24,19 +24,19 @@ The function ensures proper stdio state before forking and includes comprehensiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exec_prog
-  - reap_child
-  - win32_exec_prog (Windows only)
+  - [exec_prog](../e/exec_prog.md)
+  - [reap_child](../r/reap_child.md)
+  - [win32_exec_prog](../w/win32_exec_prog.md) (Windows only)
   - vsnprintf
   - pg_malloc
   - pg_malloc0
-  - pg_free
-  - pg_strdup
+  - [pg_free](pg_free.md)
+  - [pg_strdup](pg_strdup.md)
   - fork (Unix)
   - _beginthreadex (Windows)
 - Called from (representative examples):
-  - generate_old_dump
-  - create_new_objects
+  - [generate_old_dump](../g/generate_old_dump.md)
+  - [create_new_objects](../c/create_new_objects.md)
 
 ## Notes and Other Information
 - Platform-specific implementation: Uses fork() on Unix systems and _beginthreadex() on Windows

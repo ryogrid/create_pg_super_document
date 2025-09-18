@@ -19,7 +19,7 @@ The function uses PyUnicode_FromFormat to create a Unicode string with the forma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (structure type cast)
+  - [PLyResultObject](PLyResultObject.md) (structure type cast)
   - PyUnicode_FromFormat (Python C API function)
   - Py_TYPE (Python C API macro)
 - Called from (representative examples):

@@ -21,11 +21,11 @@ The function accesses the centralized object property system to retrieve the uni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
+  - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (struct)
 - Called from (representative examples):
   - pg_identify_object
-  - EventTriggerSQLDropAddObject
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

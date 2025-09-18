@@ -25,14 +25,14 @@ The function handles special characters as follows:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - appendPQExpBufferChar
 - Called from (representative examples):
-  - test_gb18030_page_multiple
-  - test_gb18030_json
-  - test_psql_parse
-  - test_one_vector_escape
+  - [test_gb18030_page_multiple](../t/test_gb18030_page_multiple.md)
+  - [test_gb18030_json](../t/test_gb18030_json.md)
+  - [test_psql_parse](../t/test_psql_parse.md)
+  - [test_one_vector_escape](../t/test_one_vector_escape.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the test_escape.c file

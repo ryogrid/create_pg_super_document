@@ -28,14 +28,14 @@ This function is particularly useful when callers need to modify the tuple descr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_rowtype_tupdesc_internal
-  - CreateTupleDescCopyConstr
+  - [lookup_rowtype_tupdesc_internal](lookup_rowtype_tupdesc_internal.md)
+  - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
 - Called from (representative examples):
-  - ExecInitExprRec
-  - ExecMakeTableFunctionResult
-  - get_expr_result_type
-  - internal_get_result_type
-  - TypeGetTupleDesc
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md)
+  - [get_expr_result_type](../g/get_expr_result_type.md)
+  - [internal_get_result_type](../i/internal_get_result_type.md)
+  - [TypeGetTupleDesc](../T/TypeGetTupleDesc.md)
 
 ## Notes and Other Information
 - This is a public API function that provides copy semantics for tuple descriptors

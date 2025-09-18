@@ -18,8 +18,8 @@ This function configures the TCP keepalive idle time for a port connection. The 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getkeepalivesidle (to retrieve defaults)
-  - pq_setkeepaliveswin32 (Windows implementation)
+  - [pq_getkeepalivesidle](pq_getkeepalivesidle.md) (to retrieve defaults)
+  - [pq_setkeepaliveswin32](pq_setkeepaliveswin32.md) (Windows implementation)
   - setsockopt (system socket API, Unix/Linux only)
   - ereport (PostgreSQL logging)
   - STATUS_OK (PostgreSQL status constant)
@@ -27,8 +27,8 @@ This function configures the TCP keepalive idle time for a port connection. The 
   - PG_TCP_KEEPALIVE_IDLE (platform-specific constant)
   - PG_TCP_KEEPALIVE_IDLE_STR (string representation for logging)
 - Called from (representative examples):
-  - pq_init
-  - assign_tcp_keepalives_idle
+  - [pq_init](pq_init.md)
+  - [assign_tcp_keepalives_idle](../a/assign_tcp_keepalives_idle.md)
 
 ## Notes and Other Information
 - Platform-dependent implementation with conditional compilation

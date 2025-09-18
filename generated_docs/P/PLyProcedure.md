@@ -64,19 +64,19 @@ PLyProcedure serves as the comprehensive cache and execution context for PL/Pyth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (for result output conversion)
-  - PLyDatumToOb (for argument input conversion and trigger result input)
-  - PLySavedArgs (for argument stack management)
+  - [PLyObToDatum](PLyObToDatum.md) (for result output conversion)
+  - [PLyDatumToOb](PLyDatumToOb.md) (for argument input conversion and trigger result input)
+  - [PLySavedArgs](PLySavedArgs.md) (for argument stack management)
 - Called from (representative examples):
-  - PLy_exec_function (executes regular functions)
-  - PLy_exec_trigger (executes trigger functions)
-  - PLy_procedure_get (retrieves cached procedures)
-  - PLy_procedure_create (creates new procedure instances)
-  - PLy_procedure_compile (compiles procedure code)
-  - PLy_procedure_delete (removes procedures from cache)
-  - PLy_procedure_valid (validates cached procedures)
-  - PLyExecutionContext (execution context management)
-  - PLyProcedureEntry (procedure cache entry management)
+  - [PLy_exec_function](PLy_exec_function.md) (executes regular functions)
+  - [PLy_exec_trigger](PLy_exec_trigger.md) (executes trigger functions)
+  - [PLy_procedure_get](PLy_procedure_get.md) (retrieves cached procedures)
+  - [PLy_procedure_create](PLy_procedure_create.md) (creates new procedure instances)
+  - [PLy_procedure_compile](PLy_procedure_compile.md) (compiles procedure code)
+  - [PLy_procedure_delete](PLy_procedure_delete.md) (removes procedures from cache)
+  - [PLy_procedure_valid](PLy_procedure_valid.md) (validates cached procedures)
+  - [PLyExecutionContext](PLyExecutionContext.md) (execution context management)
+  - [PLyProcedureEntry](PLyProcedureEntry.md) (procedure cache entry management)
 
 ## Notes and Other Information
 - This structure is the cornerstone of PL/Python's caching mechanism, avoiding recompilation on each call

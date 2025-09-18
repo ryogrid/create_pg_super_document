@@ -32,15 +32,15 @@ This function serves as a high-level interface for converting JSON/JSONB values 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetTextPP
-  - DatumGetJsonbP
-  - JsonbUnquote
-  - MemoryContextAllocZero
-  - populate_record_field
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
+  - [JsonbUnquote](../J/JsonbUnquote.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [populate_record_field](../p/populate_record_field.md)
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR
   - VARSIZE
 - Called from (representative examples):
-  - ExecEvalJsonCoercion
+  - [ExecEvalJsonCoercion](../E/ExecEvalJsonCoercion.md)
   - JsonTypeCategory
 
 ## Notes and Other Information

@@ -23,13 +23,13 @@ This function executes a SQL query and generates an XML Schema Definition that d
   - text_to_cstring
   - PG_GETARG_BOOL
   - SPI_connect
-  - SPI_prepare
-  - SPI_cursor_open
-  - _SPI_strdup
-  - map_sql_table_to_xmlschema
-  - SPI_cursor_close
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
+  - [_SPI_strdup](../S/_SPI_strdup.md)
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
   - SPI_finish
-  - cstring_to_xmltype
+  - [cstring_to_xmltype](../c/cstring_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:
   - Available as SQL function (no direct C callers found)

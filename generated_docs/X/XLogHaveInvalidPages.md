@@ -19,9 +19,9 @@ The `XLogHaveInvalidPages` function provides a simple boolean check to determine
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_get_num_entries
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
 - Called from (representative examples):
-  - RecoveryRestartPoint
+  - [RecoveryRestartPoint](../R/RecoveryRestartPoint.md)
   - InHotStandby
 
 ## Notes and Other Information

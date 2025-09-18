@@ -20,10 +20,10 @@ The function handles memory management by allocating new chunks when the current
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StateFileChunk
+  - [StateFileChunk](../S/StateFileChunk.md)
 - Called from (representative examples):
-  - StartPrepare (multiple calls for different state components)
-  - RegisterTwoPhaseRecord
+  - [StartPrepare](../S/StartPrepare.md) (multiple calls for different state components)
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md)
 
 ## Notes and Other Information
 - Each data block is padded to MAXALIGN boundaries, which must be accounted for when reading the file later

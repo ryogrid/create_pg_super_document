@@ -21,8 +21,8 @@ LocalSetXLogInsertAllowed is a static function that provides a mechanism to over
   - LocalXLogInsertAllowed (static variable manipulation)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - StartupXLOG
-  - CreateCheckPoint
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
 
 ## Notes and Other Information
 - Static function with internal linkage (file-scope only)

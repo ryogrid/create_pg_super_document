@@ -26,14 +26,14 @@ TidStoreSetBlockOffsets creates or replaces an entry in the TidStore for the spe
   - shared_ts_set (radix tree generated function)
   - local_ts_set (radix tree generated function)
   - MaxBlocktableEntrySize
-  - BlocktableEntry
+  - [BlocktableEntry](../B/BlocktableEntry.md)
   - NUM_FULL_OFFSETS
   - BITS_PER_BITMAPWORD
   - WORDNUM, BITNUM, WORDS_PER_PAGE (macros)
   - InvalidOffsetNumber, MAX_OFFSET_IN_BITMAP
 - Called from (representative examples):
-  - dead_items_add (in vacuumlazy.c)
-  - do_set_block_offsets (in test_tidstore.c)
+  - [dead_items_add](../d/dead_items_add.md) (in vacuumlazy.c)
+  - [do_set_block_offsets](../d/do_set_block_offsets.md) (in test_tidstore.c)
 
 ## Notes and Other Information
 - The offset numbers must be sorted in ascending order

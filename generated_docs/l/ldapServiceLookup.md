@@ -23,14 +23,14 @@ The function performs comprehensive LDAP URL validation, parsing the scheme, hos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_error
-  - pg_strncasecmp
+  - [libpq_append_error](libpq_append_error.md)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md)
   - ldap_init, ldap_search_st, ldap_unbind (LDAP library functions)
   - malloc, strdup, strchr (standard C library functions)
   - ld_is_sp_tab, ld_is_nl_cr (libpq helper macros)
   - LDAP_DEF_PORT, PGLDAP_TIMEOUT, DefaultHost (constants)
 - Called from (representative examples):
-  - parseServiceFile
+  - [parseServiceFile](../p/parseServiceFile.md)
 
 ## Notes and Other Information
 - Returns 0 on success, 1 for search failure, 2 for connection failure, 3 for fatal errors

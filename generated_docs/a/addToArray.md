@@ -24,11 +24,11 @@ This function maintains a dynamically sized array of timezone entries in sorted 
   - strcmp
   - GUC_check_errmsg
   - GUC_check_errdetail
-  - repalloc
+  - [repalloc](../r/repalloc.md)
   - memmove
   - memcpy
 - Called from (representative examples):
-  - ParseTzFile
+  - [ParseTzFile](../P/ParseTzFile.md)
 
 ## Notes and Other Information
 The function returns the new array length on success, or -1 on error. It uses strcmp() to ensure the sort order matches what datetime.c expects. Duplicate checking considers both the abbreviation and the associated timezone data (offset, zone name, DST flag) to determine if entries are truly identical.

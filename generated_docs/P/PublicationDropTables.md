@@ -28,12 +28,12 @@ The function ensures data integrity by validating that only valid operations are
 - Functions called/Symbols referenced:
   - GetSysCacheOid2 (looks up publication-relation mapping)
   - ObjectAddressSet (sets up object address for deletion)
-  - performDeletion (performs catalog deletion with cascade)
+  - [performDeletion](../p/performDeletion.md) (performs catalog deletion with cascade)
   - RelationGetRelid (gets relation OID)
   - RelationGetRelationName (gets relation name for error messages)
 - Called from (representative examples):
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1109)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1229)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1109)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1229)
 
 ## Notes and Other Information
 - Strict validation prevents column lists and WHERE clauses in DROP operations to maintain clear syntax semantics

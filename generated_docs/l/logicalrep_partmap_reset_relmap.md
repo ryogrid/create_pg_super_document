@@ -21,17 +21,17 @@ The function uses hash table iteration to find matching entries based on the rem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search  
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)  
   - logicalrep_relmap_free_entry
   - memset
 - Types referenced:
-  - LogicalRepRelation
+  - [LogicalRepRelation](../L/LogicalRepRelation.md)
   - HASH_SEQ_STATUS
-  - LogicalRepPartMapEntry
-  - LogicalRepRelMapEntry
+  - [LogicalRepPartMapEntry](../L/LogicalRepPartMapEntry.md)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md)
 - Called from (representative examples):
-  - apply_handle_relation
+  - [apply_handle_relation](../a/apply_handle_relation.md)
 
 ## Notes and Other Information
 - The function safely handles the case where LogicalRepPartMap is NULL by returning early

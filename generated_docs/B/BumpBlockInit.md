@@ -26,8 +26,8 @@ This function performs the essential initialization of a bump memory block after
   - VALGRIND_MAKE_MEM_NOACCESS (Valgrind integration for memory debugging)
 - Called from (representative examples):
   - ExternalChunkGetBlock (for external chunk block initialization)
-  - BumpContextCreate (for initial block setup)
-  - BumpAllocFromNewBlock (for new block initialization)
+  - [BumpContextCreate](BumpContextCreate.md) (for initial block setup)
+  - [BumpAllocFromNewBlock](BumpAllocFromNewBlock.md) (for new block initialization)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization

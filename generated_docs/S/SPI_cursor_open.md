@@ -30,19 +30,19 @@ This approach provides a convenient interface for applications that work with th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_convert_params (convert parameters to internal format)
-  - SPI_cursor_open_internal (internal portal creation)
-  - pfree (free converted parameter list)
+  - [_SPI_convert_params](_SPI_convert_params.md) (convert parameters to internal format)
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md) (internal portal creation)
+  - [pfree](../p/pfree.md) (free converted parameter list)
 - Called from (representative examples):
-  - tsquery_rewrite_query (text search query rewriting)
-  - ts_stat_sql (text search statistics)
-  - query_to_xmlschema (XML schema generation)
-  - plperl_spi_query (Perl procedural language)
-  - PLy_cursor_query (Python procedural language)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (text search query rewriting)
+  - [ts_stat_sql](../t/ts_stat_sql.md) (text search statistics)
+  - [query_to_xmlschema](../q/query_to_xmlschema.md) (XML schema generation)
+  - [plperl_spi_query](../p/plperl_spi_query.md) (Perl procedural language)
+  - [PLy_cursor_query](../P/PLy_cursor_query.md) (Python procedural language)
 
 ## Notes and Other Information
 - The function creates a transient ParamListInfo structure that is immediately freed after use, making it safe for repeated calls.
-- Portal names must be unique within a transaction; using duplicate names will result in an error.
+- [Portal](../P/Portal.md) names must be unique within a transaction; using duplicate names will result in an error.
 - Read-only cursors provide better performance and safety for queries that don't modify data.
 - The returned Portal can be used with SPI_cursor_fetch to retrieve results incrementally.
 - This function is commonly used in procedural languages and applications that need to process large result sets without loading everything into memory.

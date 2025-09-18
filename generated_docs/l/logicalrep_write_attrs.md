@@ -31,19 +31,19 @@ The replica identity handling is particularly important - it determines which co
 - Functions called/Symbols referenced:
   - RelationGetDescr: Gets the tuple descriptor for the relation
   - TupleDescAttr: Accesses individual attribute information
-  - column_in_column_list: Checks if a column should be included
-  - RelationGetIdentityKeyBitmap: Gets bitmap of replica identity key columns
-  - pq_sendint16: Writes count of live attributes
-  - pq_sendbyte: Writes flags for each attribute
-  - pq_sendstring: Writes attribute names
-  - pq_sendint32: Writes type OID and type modifier
-  - bms_is_member: Checks if attribute is in identity key bitmap
-  - bms_free: Releases memory for identity key bitmap
+  - [column_in_column_list](../c/column_in_column_list.md): Checks if a column should be included
+  - [RelationGetIdentityKeyBitmap](../R/RelationGetIdentityKeyBitmap.md): Gets bitmap of replica identity key columns
+  - [pq_sendint16](../p/pq_sendint16.md): Writes count of live attributes
+  - [pq_sendbyte](../p/pq_sendbyte.md): Writes flags for each attribute
+  - [pq_sendstring](../p/pq_sendstring.md): Writes attribute names
+  - [pq_sendint32](../p/pq_sendint32.md): Writes type OID and type modifier
+  - [bms_is_member](../b/bms_is_member.md): Checks if attribute is in identity key bitmap
+  - [bms_free](../b/bms_free.md): Releases memory for identity key bitmap
   - REPLICA_IDENTITY_FULL: Constant for full replica identity mode
   - LOGICALREP_IS_REPLICA_IDENTITY: Flag constant for identity columns
 
 - Called from (representative examples):
-  - logicalrep_write_rel: When writing complete relation definitions
+  - [logicalrep_write_rel](logicalrep_write_rel.md): When writing complete relation definitions
 
 ## Notes and Other Information
 - Static function, only accessible within the logical replication protocol module

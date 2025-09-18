@@ -23,8 +23,8 @@ This function queries the `pg_subscription` system catalog to gather information
 - Functions called/Symbols referenced:
   - DumpOptions
   - SubscriptionInfo
-  - is_superuser
-  - ExecuteSqlQuery
+  - [is_superuser](../i/is_superuser.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK
   - pg_log_warning
   - LOGICALREP_TWOPHASE_STATE_DISABLED
@@ -32,13 +32,13 @@ This function queries the `pg_subscription` system catalog to gather information
   - pg_malloc
   - DO_SUBSCRIPTION
   - atooid
-  - AssignDumpId
-  - getRoleName
-  - PQgetisnull
-  - selectDumpableObject
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [getRoleName](getRoleName.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
 - Called from (representative examples):
-  - getSchemaData
-  - SubRelInfo
+  - [getSchemaData](getSchemaData.md)
+  - [SubRelInfo](../S/SubRelInfo.md)
 
 ## Notes and Other Information
 - Only works with PostgreSQL 10.0 and later (when subscriptions were introduced)

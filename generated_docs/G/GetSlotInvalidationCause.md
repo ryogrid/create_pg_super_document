@@ -17,7 +17,7 @@ This function takes a string representation of a replication slot invalidation r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotInvalidationCause (enum type)
+  - [ReplicationSlotInvalidationCause](../R/ReplicationSlotInvalidationCause.md) (enum type)
   - RS_INVAL_NONE (enum constant)
   - RS_INVAL_MAX_CAUSES (enum constant) 
   - SlotInvalidationCauses (array for string lookup)

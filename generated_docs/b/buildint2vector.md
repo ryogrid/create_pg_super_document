@@ -20,15 +20,15 @@ buildint2vector is a utility function that constructs a PostgreSQL int2vector fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - int2vector (type)
+  - [int2vector](../i/int2vector.md) (type)
   - Int2VectorSize
   - SET_VARSIZE
 - Called from (representative examples):
-  - StorePartitionKey
+  - [StorePartitionKey](../S/StorePartitionKey.md)
   - UpdateIndexRelation
-  - publication_add_relation
-  - CreateStatistics
-  - CreateTriggerFiringOn
+  - [publication_add_relation](../p/publication_add_relation.md)
+  - [CreateStatistics](../C/CreateStatistics.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
 
 ## Notes and Other Information
 - Used primarily in PostgreSQL system catalog operations

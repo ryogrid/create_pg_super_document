@@ -27,15 +27,15 @@ The copying process ensures that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - zero_var (initializes numeric variable to zero)
-  - alloc_var (allocates memory for numeric digits)
-  - numeric (type definition)
+  - [zero_var](../z/zero_var.md) (initializes numeric variable to zero)
+  - [alloc_var](../a/alloc_var.md) (allocates memory for numeric digits)
+  - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
   - ecpg_get_data (ECPG data retrieval)
   - ecpg_store_input (ECPG input storage)
-  - PGTYPESnumeric_to_asc (numeric to string conversion)
-  - PGTYPESnumeric_from_double (double to numeric conversion)
-  - numericvar_to_double (numeric to double conversion)
+  - [PGTYPESnumeric_to_asc](PGTYPESnumeric_to_asc.md) (numeric to string conversion)
+  - [PGTYPESnumeric_from_double](PGTYPESnumeric_from_double.md) (double to numeric conversion)
+  - [numericvar_to_double](../n/numericvar_to_double.md) (numeric to double conversion)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure (typically due to NULL destination pointer or memory allocation failure)

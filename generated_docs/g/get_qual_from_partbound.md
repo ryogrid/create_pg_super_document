@@ -22,16 +22,16 @@ The generated constraint expressions are used internally by PostgreSQL to enforc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
-  - get_qual_for_hash
-  - get_qual_for_list  
-  - get_qual_for_range
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [get_qual_for_hash](get_qual_for_hash.md)
+  - [get_qual_for_list](get_qual_for_list.md)  
+  - [get_qual_for_range](get_qual_for_range.md)
   - PARTITION_STRATEGY_HASH
   - PARTITION_STRATEGY_LIST
   - PARTITION_STRATEGY_RANGE
 - Called from (representative examples):
-  - ATExecAttachPartition (src/backend/commands/tablecmds.c:18706)
-  - generate_partition_qual (src/backend/utils/cache/partcache.c:381)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md) (src/backend/commands/tablecmds.c:18706)
+  - [generate_partition_qual](generate_partition_qual.md) (src/backend/utils/cache/partcache.c:381)
 
 ## Notes and Other Information
 - The function uses assertions to verify that the partition bound specification strategy matches the parent relation's partitioning strategy

@@ -28,27 +28,27 @@ The function manages the complete lifecycle of archive processing, from initiali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCopyDataByte
-  - GetCopyDataString
-  - GetCopyDataUInt64
-  - GetCopyDataEnd
-  - progress_report
-  - bbstreamer_finalize
-  - bbstreamer_free
-  - bbstreamer_content
-  - CreateBackupStreamer
-  - ReportCopyDataParseError
-  - appendPQExpBuffer
+  - [GetCopyDataByte](../G/GetCopyDataByte.md)
+  - [GetCopyDataString](../G/GetCopyDataString.md)
+  - [GetCopyDataUInt64](../G/GetCopyDataUInt64.md)
+  - [GetCopyDataEnd](../G/GetCopyDataEnd.md)
+  - [progress_report](../p/progress_report.md)
+  - [bbstreamer_finalize](../b/bbstreamer_finalize.md)
+  - [bbstreamer_free](../b/bbstreamer_free.md)
+  - [bbstreamer_content](../b/bbstreamer_content.md)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
+  - [ReportCopyDataParseError](ReportCopyDataParseError.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - createPQExpBuffer
   - fopen
   - fwrite
 - Called from (representative examples):
-  - ReceiveArchiveStream
+  - [ReceiveArchiveStream](ReceiveArchiveStream.md)
   - CompressionLocation
 
 ## Notes and Other Information
 - This function implements a state machine that processes different phases of archive reception
-- Archive name validation prevents directory traversal and ensures safe file handling
+- [Archive](../A/Archive.md) name validation prevents directory traversal and ensures safe file handling
 - Progress reporting is forced on each tablespace transition and server progress message
 - Manifest data can be either buffered in memory for injection into tarfiles or written directly to disk
 - The function assumes PostgreSQL v15+ protocol features (recovery GUCs support)

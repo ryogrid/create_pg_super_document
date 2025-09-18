@@ -30,17 +30,17 @@ The statistics format expects the last two numbers to contain minimum and maximu
 ## Dependencies
 - Functions called/Symbols referenced:
   - tsquery_opr_selec_no_stats: Fallback when statistics format is invalid
-  - palloc: Memory allocation for lookup structure
+  - [palloc](../p/palloc.md): Memory allocation for lookup structure
   - VARATT_IS_COMPRESSED/VARATT_IS_EXTERNAL: Validation macros for variable-length data
-  - DatumGetPointer: Converts Datum to pointer for text data
-  - tsquery_opr_selec: Core selectivity computation function
+  - [DatumGetPointer](../D/DatumGetPointer.md): Converts Datum to pointer for text data
+  - [tsquery_opr_selec](../t/tsquery_opr_selec.md): Core selectivity computation function
   - GETQUERY/GETOPERAND: Macros to extract query components from TSQuery
-  - pfree: Memory deallocation
+  - [pfree](../p/pfree.md): Memory deallocation
 - Data structures used:
-  - TextFreq: Structure pairing text elements with their frequencies
+  - [TextFreq](../T/TextFreq.md): Structure pairing text elements with their frequencies
   - TSQuery: Text search query representation
 - Called from (representative examples):
-  - tsquerysel: Main selectivity estimation function
+  - [tsquerysel](../t/tsquerysel.md): Main selectivity estimation function
 
 ## Notes and Other Information
 - Expects statistics in a specific format with exactly nmcelem + 2 numbers

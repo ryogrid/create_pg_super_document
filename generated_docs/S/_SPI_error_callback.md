@@ -19,17 +19,17 @@ The function uses the SPICallbackArg structure to access the query string and pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geterrposition: Gets current error position information
-  - errposition: Sets error position to zero (clears external position)
-  - internalerrposition: Sets internal error position for syntax errors
-  - internalerrquery: Sets the query text for internal syntax errors
+  - [geterrposition](../g/geterrposition.md): Gets current error position information
+  - [errposition](../e/errposition.md): Sets error position to zero (clears external position)
+  - [internalerrposition](../i/internalerrposition.md): Sets internal error position for syntax errors
+  - [internalerrquery](../i/internalerrquery.md): Sets the query text for internal syntax errors
   - errcontext: Adds contextual information to error messages
 - Called from (representative examples):
-  - SPI_cursor_open_internal: Cursor opening operations
-  - SPI_plan_get_cached_plan: Plan retrieval operations
-  - _SPI_prepare_plan: Plan preparation operations
-  - _SPI_prepare_oneshot_plan: One-shot plan preparation
-  - _SPI_execute_plan: Plan execution operations
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md): Cursor opening operations
+  - [SPI_plan_get_cached_plan](SPI_plan_get_cached_plan.md): Plan retrieval operations
+  - [_SPI_prepare_plan](_SPI_prepare_plan.md): Plan preparation operations
+  - [_SPI_prepare_oneshot_plan](_SPI_prepare_oneshot_plan.md): One-shot plan preparation
+  - [_SPI_execute_plan](_SPI_execute_plan.md): Plan execution operations
 
 ## Notes and Other Information
 - Returns early if query string is NULL to handle uninitialized callback arguments

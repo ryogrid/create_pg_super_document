@@ -38,13 +38,13 @@ The freeze plan contains the target transaction ID and tuple header flags that w
 - Functions called/Symbols referenced:
   - TransactionId (transaction identifier type)
 - Called from (representative examples):
-  - heap_xlog_prune_freeze (src/backend/access/heap/heapam.c:9271)
-  - heap_log_freeze_eq (src/backend/access/heap/pruneheap.c:1896)
-  - heap_log_freeze_new_plan (src/backend/access/heap/pruneheap.c:1958)
-  - heap_log_freeze_plan (src/backend/access/heap/pruneheap.c:1979)
-  - log_heap_prune_and_freeze (src/backend/access/heap/pruneheap.c:2067, 2099)
-  - plan_elem_desc (src/backend/access/rmgrdesc/heapdesc.c:77)
-  - xlhp_freeze_plans (src/include/access/heapam_xlog.h:367)
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md) (src/backend/access/heap/heapam.c:9271)
+  - [heap_log_freeze_eq](../h/heap_log_freeze_eq.md) (src/backend/access/heap/pruneheap.c:1896)
+  - [heap_log_freeze_new_plan](../h/heap_log_freeze_new_plan.md) (src/backend/access/heap/pruneheap.c:1958)
+  - [heap_log_freeze_plan](../h/heap_log_freeze_plan.md) (src/backend/access/heap/pruneheap.c:1979)
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md) (src/backend/access/heap/pruneheap.c:2067, 2099)
+  - [plan_elem_desc](../p/plan_elem_desc.md) (src/backend/access/rmgrdesc/heapdesc.c:77)
+  - [xlhp_freeze_plans](xlhp_freeze_plans.md) (src/include/access/heapam_xlog.h:367)
 
 ## Notes and Other Information
 - Used within xlhp_freeze_plans sub-records of xl_heap_prune WAL records

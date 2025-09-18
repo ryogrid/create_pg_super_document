@@ -17,19 +17,19 @@ This inline function provides a convenient way to convert a Jsonb pointer back t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - Jsonb (type)
 - Called from (representative examples):
-  - ExecEvalJsonExprPath
-  - ExecGetJsonValueItemString
-  - datum_to_jsonb
-  - jsonb_build_object_worker
-  - jsonb_build_array_worker
-  - populate_scalar
-  - jsonb_path_query_internal
-  - JsonItemFromDatum
-  - JsonPathQuery
-  - JsonTablePlanScanNextRow
+  - [ExecEvalJsonExprPath](../E/ExecEvalJsonExprPath.md)
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md)
+  - [datum_to_jsonb](../d/datum_to_jsonb.md)
+  - [jsonb_build_object_worker](../j/jsonb_build_object_worker.md)
+  - [jsonb_build_array_worker](../j/jsonb_build_array_worker.md)
+  - [populate_scalar](../p/populate_scalar.md)
+  - [jsonb_path_query_internal](../j/jsonb_path_query_internal.md)
+  - [JsonItemFromDatum](JsonItemFromDatum.md)
+  - [JsonPathQuery](JsonPathQuery.md)
+  - [JsonTablePlanScanNextRow](JsonTablePlanScanNextRow.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/utils/jsonb.h

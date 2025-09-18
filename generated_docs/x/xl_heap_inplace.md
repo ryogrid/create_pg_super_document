@@ -26,10 +26,10 @@ This type of update is used in specific scenarios where MVCC versioning is not r
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - heap_inplace_update_and_unlock
-  - heap_inplace_update
-  - heap_xlog_inplace
-  - heap_desc
+  - [heap_inplace_update_and_unlock](../h/heap_inplace_update_and_unlock.md)
+  - [heap_inplace_update](../h/heap_inplace_update.md)
+  - [heap_xlog_inplace](../h/heap_xlog_inplace.md)
+  - [heap_desc](../h/heap_desc.md)
   - SizeOfHeapInplace
 
 ## Notes and Other Information

@@ -24,9 +24,9 @@ This function is essential for path processing logic that needs to behave differ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip_drive (on Windows platforms only)
+  - [skip_drive](../s/skip_drive.md) (on Windows platforms only)
 - Called from (representative examples):
-  - process_file (in src/bin/psql/command.c)
+  - [process_file](../p/process_file.md) (in src/bin/psql/command.c)
 
 ## Notes and Other Information
 - This is a public function declared in the port header files

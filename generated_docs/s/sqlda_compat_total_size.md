@@ -21,11 +21,11 @@ This function provides the total memory footprint needed to allocate a complete 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlda_compat_empty_size (calculate empty structure size)
-  - sqlda_common_total_size (calculate data storage size)
+  - [sqlda_compat_empty_size](sqlda_compat_empty_size.md) (calculate empty structure size)
+  - [sqlda_common_total_size](sqlda_common_total_size.md) (calculate data storage size)
   - COMPAT_MODE (enum type)
 - Called from (representative examples):
-  - ecpg_build_compat_sqlda
+  - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md)
 
 ## Notes and Other Information
 This function is a key component in ECPG's compatibility-mode SQLDA implementation, providing memory allocation planning for complete SQLDA structures. The ability to handle negative row indices allows for flexible memory allocation scenarios where only metadata storage is needed initially. It's specifically designed for compatibility-mode SQLDAs, which maintain backward compatibility with older SQLDA interfaces. The function ensures that all memory requirements are properly calculated before allocation, preventing buffer overruns and ensuring adequate space for both structure and data.

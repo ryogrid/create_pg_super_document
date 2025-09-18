@@ -26,7 +26,7 @@ This environment must be created before any Indonesian stemming operations can b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

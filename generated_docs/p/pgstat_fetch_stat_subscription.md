@@ -19,9 +19,9 @@ The function returns a pointer to the statistics structure containing various co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_entry
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
   - PGSTAT_KIND_SUBSCRIPTION
-  - PgStat_StatSubEntry
+  - [PgStat_StatSubEntry](../P/PgStat_StatSubEntry.md)
 - Called from (representative examples):
   - PG_STAT_GET_SUBSCRIPTION_STATS_COLS
 

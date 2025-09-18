@@ -23,7 +23,7 @@ This function constructs a BitmapHeapScan plan node, which is the second stage o
 - Functions called/Symbols referenced:
   - makeNode (to create the BitmapHeapScan node)
 - Called from (representative examples):
-  - create_bitmap_scan_plan
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal plan construction

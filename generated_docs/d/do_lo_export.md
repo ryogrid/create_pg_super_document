@@ -20,17 +20,17 @@ This function implements the \\lo_export psql command functionality, which expor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - start_lo_xact (initialize transaction for large object operation)
+  - [start_lo_xact](../s/start_lo_xact.md) (initialize transaction for large object operation)
   - atooid (convert string OID to numeric OID)
-  - lo_export (libpq function to export large object to file)
-  - SetCancelConn/ResetCancelConn (cancellation handling utilities)
-  - fail_lo_xact (cleanup after failure)
-  - finish_lo_xact (cleanup after success)
-  - print_lo_result (output success message)
+  - [lo_export](../l/lo_export.md) (libpq function to export large object to file)
+  - [SetCancelConn](../S/SetCancelConn.md)/ResetCancelConn (cancellation handling utilities)
+  - [fail_lo_xact](../f/fail_lo_xact.md) (cleanup after failure)
+  - [finish_lo_xact](../f/finish_lo_xact.md) (cleanup after success)
+  - [print_lo_result](../p/print_lo_result.md) (output success message)
   - pg_log_info (error logging)
-  - PQerrorMessage (get detailed error message from libpq)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (get detailed error message from libpq)
 - Called from (representative examples):
-  - exec_command_lo (psql command dispatcher)
+  - [exec_command_lo](../e/exec_command_lo.md) (psql command dispatcher)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

@@ -32,7 +32,7 @@ Bitmap scans are typically used when an index scan would return a significant po
   - SO_NEED_TUPLES (conditionally set based on need_tuple parameter)
   - rd_tableam->scan_begin (table access method function)
 - Called from (representative examples):
-  - BitmapHeapNext
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
 
 ## Notes and Other Information
 - Specifically designed for bitmap heap scan operations, which combine benefits of index and sequential scans

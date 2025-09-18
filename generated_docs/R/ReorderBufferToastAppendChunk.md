@@ -20,16 +20,16 @@ This function handles the processing of individual TOAST chunks as they are enco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferToastInitHash (initializes toast hash table if needed)
-  - IsToastRelation (validates the relation is a TOAST table)
-  - fastgetattr (extracts chunk_id, chunk_seq, and chunk_data from tuple)
-  - hash_search (finds or creates hash entry for chunk_id)
-  - DatumGetObjectId, DatumGetInt32 (converts tuple attributes to proper types)
+  - [ReorderBufferToastInitHash](ReorderBufferToastInitHash.md) (initializes toast hash table if needed)
+  - [IsToastRelation](../I/IsToastRelation.md) (validates the relation is a TOAST table)
+  - [fastgetattr](../f/fastgetattr.md) (extracts chunk_id, chunk_seq, and chunk_data from tuple)
+  - [hash_search](../h/hash_search.md) (finds or creates hash entry for chunk_id)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md), DatumGetInt32 (converts tuple attributes to proper types)
   - VARATT_IS_EXTENDED, VARATT_IS_SHORT (checks varlena format)
   - VARSIZE, VARSIZE_SHORT (gets size of varlena data)
-  - dlist_init, dlist_push_tail (manages linked list of chunks)
+  - [dlist_init](../d/dlist_init.md), dlist_push_tail (manages linked list of chunks)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN (during transaction processing)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (during transaction processing)
 
 ## Notes and Other Information
 - Validates that chunks arrive in strictly sequential order (0, 1, 2, ...)

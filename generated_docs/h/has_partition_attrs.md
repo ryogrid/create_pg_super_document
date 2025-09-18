@@ -26,18 +26,18 @@ The function iterates through all partition key columns and expressions, checkin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - get_partition_natts
   - get_partition_exprs
   - get_partition_col_attnum
-  - bms_is_member
-  - pull_varattnos
-  - bms_overlap
+  - [bms_is_member](../b/bms_is_member.md)
+  - [pull_varattnos](../p/pull_varattnos.md)
+  - [bms_overlap](../b/bms_overlap.md)
   - list_head, lnext
 - Called from (representative examples):
-  - ATExecDropColumn
-  - ATPrepAlterColumnType
-  - expand_partitioned_rtentry
+  - [ATExecDropColumn](../A/ATExecDropColumn.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md)
 
 ## Notes and Other Information
 - Returns false immediately if attnums is NULL or if the relation is not a partitioned table

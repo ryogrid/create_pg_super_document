@@ -19,21 +19,21 @@ RemoveInheritance implements the core logic for breaking inheritance relationshi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeleteInheritsTuple
+  - [DeleteInheritsTuple](../D/DeleteInheritsTuple.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - SearchSysCacheExistsAttName
-  - heap_copytuple
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - drop_parent_dependency
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [SearchSysCacheExistsAttName](../S/SearchSysCacheExistsAttName.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [drop_parent_dependency](../d/drop_parent_dependency.md)
   - child_dependency_type
   - InvokeObjectPostAlterHookArg
 - Called from (representative examples):
-  - ATExecDropInherit
-  - ATExecDetachPartition
-  - DetachPartitionFinalize
+  - [ATExecDropInherit](../A/ATExecDropInherit.md)
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
 
 ## Notes and Other Information
 - Used by both ATExecDropInherit (regular inheritance) and ATExecDetachPartition (partition detachment)

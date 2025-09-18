@@ -19,15 +19,15 @@ The function performs a system cache lookup on the TYPEOID cache to efficiently 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - typeInheritsFrom (src/backend/catalog/pg_inherits.c:420)
-  - transformAssignmentIndirection (src/backend/parser/parse_target.c:775)
+  - [typeInheritsFrom](typeInheritsFrom.md) (src/backend/catalog/pg_inherits.c:420)
+  - [transformAssignmentIndirection](transformAssignmentIndirection.md) (src/backend/parser/parse_target.c:775)
 
 ## Notes and Other Information
 - Returns InvalidOid for non-composite types

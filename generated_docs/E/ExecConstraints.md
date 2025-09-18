@@ -23,22 +23,22 @@ ExecConstraints is the primary function for enforcing traditional table constrai
 ## Dependencies
 - Functions called/Symbols referenced:
   - slot_attisnull
-  - build_attrmap_by_name_if_req
-  - execute_attr_map_slot
-  - MakeTupleTableSlot
-  - ExecGetInsertedCols
-  - ExecGetUpdatedCols
-  - bms_union
-  - ExecBuildSlotValueDescription
-  - ExecRelCheck
-  - errtablecol
-  - errtableconstraint
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)
+  - [ExecGetInsertedCols](ExecGetInsertedCols.md)
+  - [ExecGetUpdatedCols](ExecGetUpdatedCols.md)
+  - [bms_union](../b/bms_union.md)
+  - [ExecBuildSlotValueDescription](ExecBuildSlotValueDescription.md)
+  - [ExecRelCheck](ExecRelCheck.md)
+  - [errtablecol](../e/errtablecol.md)
+  - [errtableconstraint](../e/errtableconstraint.md)
 - Called from (representative examples):
-  - CopyFrom
-  - ExecSimpleRelationInsert
-  - ExecSimpleRelationUpdate
-  - ExecInsert
-  - ExecUpdateAct
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md)
+  - [ExecSimpleRelationUpdate](ExecSimpleRelationUpdate.md)
+  - [ExecInsert](ExecInsert.md)
+  - [ExecUpdateAct](ExecUpdateAct.md)
 
 ## Notes and Other Information
 - Explicitly excludes partition constraint validation, which is handled by ExecPartitionCheck

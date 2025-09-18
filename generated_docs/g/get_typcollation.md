@@ -21,17 +21,17 @@ This function is widely used throughout PostgreSQL's parser, optimizer, and exec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (extract struct from heap tuple)
   - Form_pg_type (pg_type catalog structure)
-  - ReleaseSysCache (release cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache reference)
 - Called from (representative examples):
-  - assign_collations_walker (parser collation assignment)
-  - transformAssignmentSubscripts (parse target processing)
-  - GetColumnDefCollation (type parsing utilities)
-  - resolve_polymorphic_tupdesc (function API utilities)
-  - type_is_collatable (collation capability checking)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (parser collation assignment)
+  - [transformAssignmentSubscripts](../t/transformAssignmentSubscripts.md) (parse target processing)
+  - [GetColumnDefCollation](../G/GetColumnDefCollation.md) (type parsing utilities)
+  - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md) (function API utilities)
+  - [type_is_collatable](../t/type_is_collatable.md) (collation capability checking)
 
 ## Notes and Other Information
 - Returns InvalidOid if the type OID is not found in the system catalog, providing graceful error handling

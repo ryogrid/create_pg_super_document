@@ -31,17 +31,17 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsObjectIsEmpty
-  - allocate_record_info
+  - [allocate_record_info](../a/allocate_record_info.md)
   - MemSet
-  - heap_deform_tuple
-  - JsObjectGetField
-  - populate_record_field
-  - heap_form_tuple
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [JsObjectGetField](../J/JsObjectGetField.md)
+  - [populate_record_field](populate_record_field.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - HeapTupleHeaderGetDatumLength
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
 - Called from (representative examples):
-  - populate_composite
-  - populate_recordset_record
+  - [populate_composite](populate_composite.md)
+  - [populate_recordset_record](populate_recordset_record.md)
 
 ## Notes and Other Information
 - This is a static function used internally by JSON processing functions

@@ -18,14 +18,14 @@ This function determines if a RestrictInfo represents a range comparison clause 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsBinaryTidClause (validates binary TID clause structure)
+  - [IsBinaryTidClause](IsBinaryTidClause.md) (validates binary TID clause structure)
   - OpExpr (cast to access operator information)
   - TIDLessOperator (constant for TID < operator)
   - TIDLessEqOperator (constant for TID <= operator)
   - TIDGreaterOperator (constant for TID > operator)
   - TIDGreaterEqOperator (constant for TID >= operator)
 - Called from (representative examples):
-  - TidRangeQualFromRestrictInfoList
+  - [TidRangeQualFromRestrictInfoList](../T/TidRangeQualFromRestrictInfoList.md)
 
 ## Notes and Other Information
 The function supports four range operators for TID comparisons: less than, less than or equal, greater than, and greater than or equal. Like IsTidEqualClause, it uses a layered approach by first calling IsBinaryTidClause to ensure proper structure, then checking for specific range operators. This enables the query optimizer to consider TID range scans when appropriate range conditions are present.

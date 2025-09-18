@@ -30,16 +30,16 @@ The function preserves existing NULL value information even when operator classe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getprocinfo: Retrieves the addvalue function for each indexed column
-  - FunctionCall4Coll: Calls the operator class specific addvalue function with collation
-  - DatumGetBool: Extracts boolean result from the addvalue function call
+  - [index_getprocinfo](../i/index_getprocinfo.md): Retrieves the addvalue function for each indexed column
+  - [FunctionCall4Coll](../F/FunctionCall4Coll.md): Calls the operator class specific addvalue function with collation
+  - [DatumGetBool](../D/DatumGetBool.md): Extracts boolean result from the addvalue function call
   - BRIN_PROCNUM_ADDVALUE: Procedure number for the addvalue function in BRIN operator classes
-  - BrinDesc, BrinMemTuple, BrinValues: Core BRIN data structures
+  - [BrinDesc](../B/BrinDesc.md), BrinMemTuple, BrinValues: Core BRIN data structures
 
 - Called from (representative examples):
-  - brininsert: During insertion of new tuples into BRIN-indexed tables
-  - brinbuildCallback: During sequential BRIN index construction
-  - brinbuildCallbackParallel: During parallel BRIN index construction
+  - [brininsert](../b/brininsert.md): During insertion of new tuples into BRIN-indexed tables
+  - [brinbuildCallback](../b/brinbuildCallback.md): During sequential BRIN index construction
+  - [brinbuildCallbackParallel](../b/brinbuildCallbackParallel.md): During parallel BRIN index construction
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

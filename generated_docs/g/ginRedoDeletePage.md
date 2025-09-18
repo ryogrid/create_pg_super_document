@@ -32,26 +32,26 @@ Key functionality:
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogReadBufferForRedo
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsData
   - GinPageGetOpaque
   - GinPageSetDeleted
   - GinPageSetDeleteXid
   - GinPageIsLeaf
-  - GinPageDeletePostingItem
-  - PageSetLSN
+  - [GinPageDeletePostingItem](../G/GinPageDeletePostingItem.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Data structures used:
-  - ginxlogDeletePage
+  - [ginxlogDeletePage](ginxlogDeletePage.md)
 
 - Constants used:
   - BLK_NEEDS_REDO
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - Handles three related pages in a specific order: left sibling first, then deleted page, then parent page

@@ -22,19 +22,19 @@ This function retrieves and opens all indexes associated with a TOAST relation. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - index_open
-  - list_free
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [index_open](../i/index_open.md)
+  - [list_free](../l/list_free.md)
   - lfirst_oid
-  - palloc
+  - [palloc](../p/palloc.md)
   - elog
   - RelationGetRelid
 - Called from (representative examples):
-  - toast_save_datum (in toast_internals.c)
-  - toast_delete_datum (in toast_internals.c)
-  - toastrel_valueid_exists (in toast_internals.c)
-  - toast_get_valid_index (in toast_internals.c)
-  - heap_fetch_toast_slice (in heaptoast.c)
+  - [toast_save_datum](toast_save_datum.md) (in toast_internals.c)
+  - [toast_delete_datum](toast_delete_datum.md) (in toast_internals.c)
+  - [toastrel_valueid_exists](toastrel_valueid_exists.md) (in toast_internals.c)
+  - [toast_get_valid_index](toast_get_valid_index.md) (in toast_internals.c)
+  - [heap_fetch_toast_slice](../h/heap_fetch_toast_slice.md) (in heaptoast.c)
 
 ## Notes and Other Information
 - The function allocates memory for the index array using palloc, and the caller must free this memory

@@ -23,7 +23,7 @@ This is an optimized shortcut that performs the equivalent of calling multirange
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multirange_get_bounds_offset
+  - [multirange_get_bounds_offset](multirange_get_bounds_offset.md)
   - MultirangeGetFlagsPtr
   - MultirangeGetBoundariesPtr
   - RANGE_EMPTY
@@ -35,12 +35,12 @@ This is an optimized shortcut that performs the equivalent of calling multirange
   - RANGE_LB_INF, RANGE_LB_INC
   - RANGE_UB_INF, RANGE_UB_INC
 - Called from (representative examples):
-  - multirange_get_union_range
-  - multirange_bsearch_match
-  - multirange_lower
-  - multirange_upper
-  - multirange_overlaps_multirange_internal
-  - range_contains_multirange_internal
+  - [multirange_get_union_range](multirange_get_union_range.md)
+  - [multirange_bsearch_match](multirange_bsearch_match.md)
+  - [multirange_lower](multirange_lower.md)
+  - [multirange_upper](multirange_upper.md)
+  - [multirange_overlaps_multirange_internal](multirange_overlaps_multirange_internal.md)
+  - [range_contains_multirange_internal](../r/range_contains_multirange_internal.md)
 
 ## Notes and Other Information
 - The function validates the index with an Assert to ensure it's within bounds

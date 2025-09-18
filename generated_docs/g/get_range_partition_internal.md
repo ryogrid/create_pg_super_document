@@ -36,10 +36,10 @@ The function handles the complex scenario where upper bounds of one partition ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (struct type)
-  - PartitionRangeBound (struct type for bound representation)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (struct type)
+  - [PartitionRangeBound](../P/PartitionRangeBound.md) (struct type for bound representation)
 - Called from (representative examples):
-  - get_range_partition (wrapper function)
+  - [get_range_partition](get_range_partition.md) (wrapper function)
   - compare_range_bounds
 
 ## Notes and Other Information

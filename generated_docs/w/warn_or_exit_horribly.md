@@ -23,14 +23,14 @@ The  function serves as the central error handling mechanism for the PostgreSQL 
   - pg_log_info
   - pg_log_generic_v
   - PG_LOG_ERROR, PG_LOG_PRIMARY
-  - exit_nicely
+  - [exit_nicely](../e/exit_nicely.md)
 - Called from (representative examples):
-  - dump_lo_buf
-  - _selectOutputSchema
-  - _selectTablespace
-  - _selectTableAccessMethod
-  - ExecuteSqlCommand
-  - EndDBCopyMode
+  - [dump_lo_buf](../d/dump_lo_buf.md)
+  - [_selectOutputSchema](../s/_selectOutputSchema.md)
+  - [_selectTablespace](../s/_selectTablespace.md)
+  - [_selectTableAccessMethod](../s/_selectTableAccessMethod.md)
+  - [ExecuteSqlCommand](../E/ExecuteSqlCommand.md)
+  - [EndDBCopyMode](../E/EndDBCopyMode.md)
 
 ## Notes and Other Information
 - Tracks error state to avoid duplicate contextual messages for the same stage/TOC entry

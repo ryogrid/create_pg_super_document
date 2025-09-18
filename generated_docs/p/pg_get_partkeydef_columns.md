@@ -19,9 +19,9 @@ This function is an internal version of the partition key definition retrieval t
 ## Dependencies
 - Functions called/Symbols referenced:
   - GET_PRETTY_FLAGS (macro to convert boolean to formatting flags)
-  - pg_get_partkeydef_worker (core worker function that handles partition key definition generation)
+  - [pg_get_partkeydef_worker](pg_get_partkeydef_worker.md) (core worker function that handles partition key definition generation)
 - Called from (representative examples):
-  - ExecBuildSlotPartitionKeyDescription (in executor for building partition key descriptions)
+  - [ExecBuildSlotPartitionKeyDescription](../E/ExecBuildSlotPartitionKeyDescription.md) (in executor for building partition key descriptions)
   - RULE_INDEXDEF_KEYS_ONLY (constant definition in ruleutils.h)
 
 ## Notes and Other Information

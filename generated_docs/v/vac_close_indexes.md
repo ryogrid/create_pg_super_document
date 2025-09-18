@@ -19,12 +19,12 @@ This function is the cleanup counterpart to vac_open_indexes. It iterates throug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_close
-  - pfree
+  - [index_close](../i/index_close.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - do_analyze_rel
-  - parallel_vacuum_main
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [do_analyze_rel](../d/do_analyze_rel.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
 
 ## Notes and Other Information
 - The function safely handles NULL input by returning early if Irel is NULL

@@ -21,7 +21,7 @@ The function iterates through all OID values in the oidvector, formatting each a
 ## Dependencies
 - Functions called/Symbols referenced:
   - oidvector (data type)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - sprintf (string formatting)
   - PG_RETURN_CSTRING (macro to return C-string result)
 - Called from (representative examples):

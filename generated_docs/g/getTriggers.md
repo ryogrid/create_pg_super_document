@@ -28,21 +28,21 @@ The function also ensures that partition triggers are included when their enable
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableInfo, TriggerInfo (struct types)
+  - [TableInfo](../T/TableInfo.md), TriggerInfo (struct types)
   - createPQExpBuffer, appendPQExpBufferChar, appendPQExpBuffer (query building)
-  - ExecuteSqlQuery (query execution)
-  - PQntuples, PQfnumber, PQgetvalue (libpq result processing)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (query execution)
+  - [PQntuples](../P/PQntuples.md), PQfnumber, PQgetvalue (libpq result processing)
   - pg_malloc (memory allocation)
   - atooid (OID conversion)
-  - AssignDumpId (dump ID assignment)
-  - pg_strdup (string duplication)
+  - [AssignDumpId](../A/AssignDumpId.md) (dump ID assignment)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
   - destroyPQExpBuffer (cleanup)
   - DUMP_COMPONENT_DEFINITION (dump component flag)
   - DO_TRIGGER (object type enum)
   - PGRES_TUPLES_OK (result status)
 
 - Called from (representative examples):
-  - getSchemaData (primary caller during schema data collection)
+  - [getSchemaData](getSchemaData.md) (primary caller during schema data collection)
 
 ## Notes and Other Information
 - The function does not return trigger data directly; instead, it populates the triggers and numTriggers fields in the corresponding TableInfo structures

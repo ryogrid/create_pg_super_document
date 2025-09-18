@@ -20,14 +20,14 @@ The function uses accessor macros to extract and compare the block and offset co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber: Extracts the block number component from an ItemPointer
-  - ItemPointerGetOffsetNumber: Extracts the offset number component from an ItemPointer
+  - [ItemPointerGetBlockNumber](ItemPointerGetBlockNumber.md): Extracts the block number component from an ItemPointer
+  - [ItemPointerGetOffsetNumber](ItemPointerGetOffsetNumber.md): Extracts the offset number component from an ItemPointer
 - Called from (representative examples):
-  - heap_get_latest_tid: Used in tuple version chain traversal
-  - heap_delete: Used to verify tuple identity before deletion
-  - heap_update: Used to verify tuple identity before updates
-  - index_getnext_slot: Used in index scan operations
-  - SearchCatCacheList: Used in system catalog cache operations
+  - [heap_get_latest_tid](../h/heap_get_latest_tid.md): Used in tuple version chain traversal
+  - [heap_delete](../h/heap_delete.md): Used to verify tuple identity before deletion
+  - [heap_update](../h/heap_update.md): Used to verify tuple identity before updates
+  - [index_getnext_slot](../i/index_getnext_slot.md): Used in index scan operations
+  - [SearchCatCacheList](../S/SearchCatCacheList.md): Used in system catalog cache operations
 
 ## Notes and Other Information
 - The function asserts that both disk item pointers are valid before performing the comparison

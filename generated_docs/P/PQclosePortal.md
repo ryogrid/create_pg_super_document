@@ -20,12 +20,12 @@ The function sends a Close message ('C') with portal type ('P') to the PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendTypedCommand  
-  - PQexecFinish
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendTypedCommand](PQsendTypedCommand.md)  
+  - [PQexecFinish](PQexecFinish.md)
   - PqMsg_Close
 - Called from (representative examples):
-  - test_prepared (in libpq_pipeline test module)
+  - [test_prepared](../t/test_prepared.md) (in libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns a PGresult object that should be freed with PQclear when no longer needed

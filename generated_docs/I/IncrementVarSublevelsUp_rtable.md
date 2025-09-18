@@ -23,11 +23,11 @@ The function uses the range_table_walker infrastructure to traverse the range ta
 - Functions called/Symbols referenced:
   - IncrementVarSublevelsUp_context (context structure)
   - range_table_walker (range table traversal function)
-  - IncrementVarSublevelsUp_walker (walker function for processing nodes)
-  - QTW_EXAMINE_RTES_BEFORE (walker flag constant)
+  - [IncrementVarSublevelsUp_walker](IncrementVarSublevelsUp_walker.md) (walker function for processing nodes)
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md) (walker flag constant)
 - Called from (representative examples):
-  - pull_up_simple_union_all (in query optimization)
-  - ReplaceVarsNoMatchOption (in rewrite operations)
+  - [pull_up_simple_union_all](../p/pull_up_simple_union_all.md) (in query optimization)
+  - [ReplaceVarsNoMatchOption](../R/ReplaceVarsNoMatchOption.md) (in rewrite operations)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:873-896

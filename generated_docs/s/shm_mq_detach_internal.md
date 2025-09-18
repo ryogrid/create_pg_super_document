@@ -23,11 +23,11 @@ The function is designed to be safe for use in cleanup callbacks where the local
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease  
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - MyProc (global variable)
 - Called from (representative examples):
-  - shm_mq_detach
-  - shm_mq_detach_callback
+  - [shm_mq_detach](shm_mq_detach.md)
+  - [shm_mq_detach_callback](shm_mq_detach_callback.md)
 
 ## Notes and Other Information
 - Operates under spinlock protection to ensure atomic updates of queue state

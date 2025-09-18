@@ -24,24 +24,24 @@ After obtaining the qualified name, it formats it properly using fmtQualifiedIdE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - splitTableColumnsSpec
-  - PQclientEncoding
+  - [splitTableColumnsSpec](../s/splitTableColumnsSpec.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
   - initPQExpBuffer
-  - appendPQExpBufferStr
-  - appendStringLiteralConn
-  - executeCommand
-  - executeQuery
-  - PQntuples
-  - PQgetvalue
-  - fmtQualifiedIdEnc
-  - PQclear
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)
+  - [appendStringLiteralConn](appendStringLiteralConn.md)
+  - [executeCommand](../e/executeCommand.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [fmtQualifiedIdEnc](../f/fmtQualifiedIdEnc.md)
+  - [PQclear](../P/PQclear.md)
   - termPQExpBuffer
-  - pg_free
+  - [pg_free](../p/pg_free.md)
   - ALWAYS_SECURE_SEARCH_PATH_SQL
 - Called from (representative examples):
-  - cluster_one_database
-  - gen_reindex_command
-  - get_parallel_object_list
+  - [cluster_one_database](../c/cluster_one_database.md)
+  - [gen_reindex_command](../g/gen_reindex_command.md)
+  - [get_parallel_object_list](../g/get_parallel_object_list.md)
 
 ## Notes and Other Information
 - The function exits the program on failure if the table cannot be resolved or if an unexpected number of rows is returned

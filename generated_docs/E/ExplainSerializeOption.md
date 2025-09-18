@@ -24,8 +24,8 @@ The enum works in conjunction with ExplainState to control data serialization be
   - Used within ExplainState struct
   - Referenced in explain.c for serialization logic
 - Called from (representative examples):
-  - ExplainQuery parsing logic (lines 233-248 in explain.c)
-  - CreateExplainSerializeDestReceiver function (around line 5498 in explain.c)
+  - [ExplainQuery](ExplainQuery.md) parsing logic (lines 233-248 in explain.c)
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md) function (around line 5498 in explain.c)
 
 ## Notes and Other Information
 - The serialization option is typically set during EXPLAIN statement parsing based on command options

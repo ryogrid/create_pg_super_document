@@ -36,18 +36,18 @@ The function is highly recursive through its interaction with other explain func
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag
-  - ExplainCreateWorkersState
-  - ExplainOpenGroup/ExplainCloseGroup
-  - ExplainPropertyText/ExplainPropertyBool/ExplainPropertyFloat/ExplainPropertyInteger
-  - ExplainIndentText
-  - InstrEndLoop
-  - show_plan_tlist
-  - show_scan_qual
-  - show_upper_qual
+  - [ExplainCreateWorkersState](ExplainCreateWorkersState.md)
+  - [ExplainOpenGroup](ExplainOpenGroup.md)/ExplainCloseGroup
+  - [ExplainPropertyText](ExplainPropertyText.md)/ExplainPropertyBool/ExplainPropertyFloat/ExplainPropertyInteger
+  - [ExplainIndentText](ExplainIndentText.md)
+  - [InstrEndLoop](../I/InstrEndLoop.md)
+  - [show_plan_tlist](../s/show_plan_tlist.md)
+  - [show_scan_qual](../s/show_scan_qual.md)
+  - [show_upper_qual](../s/show_upper_qual.md)
   - Various node-specific show functions
 - Called from (representative examples):
-  - ExplainPrintPlan
-  - ExplainSubPlans
+  - [ExplainPrintPlan](ExplainPrintPlan.md)
+  - [ExplainSubPlans](ExplainSubPlans.md)
 
 ## Notes and Other Information
 - Function exceeds 1000 lines due to comprehensive handling of all PostgreSQL plan node types

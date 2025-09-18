@@ -21,8 +21,8 @@ The `set_unicode_line_style` function serves as a parser and validator for Unico
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strncasecmp (PostgreSQL case-insensitive string comparison function)
-  - unicode_linestyle (enum type for line styles)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (PostgreSQL case-insensitive string comparison function)
+  - [unicode_linestyle](../u/unicode_linestyle.md) (enum type for line styles)
   - UNICODE_LINESTYLE_SINGLE, UNICODE_LINESTYLE_DOUBLE (enum values)
 - Called from (representative examples):
   - fmt (formatting command handler in command.c for setting border styles)

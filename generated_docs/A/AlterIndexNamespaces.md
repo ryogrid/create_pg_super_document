@@ -24,13 +24,13 @@ This function handles the namespace relocation of all indexes belonging to a rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - object_address_present
-  - AlterRelationNamespaceInternal
-  - add_exact_object_address
-  - list_free
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [object_address_present](../o/object_address_present.md)
+  - [AlterRelationNamespaceInternal](AlterRelationNamespaceInternal.md)
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - AlterTableNamespaceInternal
+  - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md)
 
 ## Notes and Other Information
 - Indexes do not have their own namespace dependencies, so changeDependencyFor is not needed

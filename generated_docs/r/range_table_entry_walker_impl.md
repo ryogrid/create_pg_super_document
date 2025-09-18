@@ -35,10 +35,10 @@ Security qualifiers (Row Level Security expressions) are always visited regardle
 - Functions called/Symbols referenced:
   - WALK (macro for calling walker callback)
   - RTE_RELATION, RTE_SUBQUERY, RTE_JOIN, RTE_FUNCTION, RTE_TABLEFUNC, RTE_VALUES, RTE_CTE, RTE_NAMEDTUPLESTORE, RTE_RESULT (RTE kind constants)
-  - QTW_EXAMINE_RTES_BEFORE, QTW_EXAMINE_RTES_AFTER, QTW_IGNORE_RT_SUBQUERIES, QTW_IGNORE_JOINALIASES (flag constants)
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md), QTW_EXAMINE_RTES_AFTER, QTW_IGNORE_RT_SUBQUERIES, QTW_IGNORE_JOINALIASES (flag constants)
 - Called from (representative examples):
   - range_table_entry_walker (inline wrapper)
-  - range_table_walker_impl
+  - [range_table_walker_impl](range_table_walker_impl.md)
   - planstate_tree_walker
 
 ## Notes and Other Information

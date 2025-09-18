@@ -27,7 +27,7 @@ The function uses a precomputed index array (fmgr_builtin_oid_index) that maps O
   - fmgr_builtin_oid_index (global index array for fast Oid-to-index mapping)
   - fmgr_builtins (global array containing builtin function metadata)
 - Called from (representative examples):
-  - fmgr_info_cxt_security (when setting up function call information with security context)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (when setting up function call information with security context)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the fmgr.c file

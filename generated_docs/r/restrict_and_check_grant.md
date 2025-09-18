@@ -26,9 +26,9 @@ This static function performs comprehensive privilege validation and restriction
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_aclmask
-  - aclcheck_error
-  - aclcheck_error_col
+  - [pg_aclmask](../p/pg_aclmask.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [aclcheck_error_col](../a/aclcheck_error_col.md)
   - ereport
   - elog
 - Macros used:
@@ -42,11 +42,11 @@ This static function performs comprehensive privilege validation and restriction
   - ACLCHECK_NO_PRIV
 - Called from:
   - InternalDefaultACL
-  - ExecGrant_Attribute
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - ExecGrant_Largeobject
-  - ExecGrant_Parameter
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [ExecGrant_Largeobject](../E/ExecGrant_Largeobject.md)
+  - [ExecGrant_Parameter](../E/ExecGrant_Parameter.md)
 
 ## Notes and Other Information
 - Implements SQL standard compliance for privilege warnings - warns when no privileges are granted/revoked or when only partial privileges are processed

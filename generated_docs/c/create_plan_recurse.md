@@ -24,41 +24,41 @@ The function includes stack depth checking to prevent overflow from overly compl
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - create_scan_plan
-  - create_join_plan
-  - create_append_plan
-  - create_merge_append_plan
-  - create_projection_plan
-  - create_minmaxagg_plan
-  - create_group_result_plan
-  - create_project_set_plan
-  - create_material_plan
-  - create_memoize_plan
-  - create_unique_plan
-  - create_upper_unique_plan
-  - create_gather_plan
-  - create_gather_merge_plan
-  - create_sort_plan
-  - create_incrementalsort_plan
-  - create_group_plan
-  - create_agg_plan
-  - create_groupingsets_plan
-  - create_windowagg_plan
-  - create_setop_plan
-  - create_recursiveunion_plan
-  - create_lockrows_plan
-  - create_modifytable_plan
-  - create_limit_plan
+  - [create_scan_plan](create_scan_plan.md)
+  - [create_join_plan](create_join_plan.md)
+  - [create_append_plan](create_append_plan.md)
+  - [create_merge_append_plan](create_merge_append_plan.md)
+  - [create_projection_plan](create_projection_plan.md)
+  - [create_minmaxagg_plan](create_minmaxagg_plan.md)
+  - [create_group_result_plan](create_group_result_plan.md)
+  - [create_project_set_plan](create_project_set_plan.md)
+  - [create_material_plan](create_material_plan.md)
+  - [create_memoize_plan](create_memoize_plan.md)
+  - [create_unique_plan](create_unique_plan.md)
+  - [create_upper_unique_plan](create_upper_unique_plan.md)
+  - [create_gather_plan](create_gather_plan.md)
+  - [create_gather_merge_plan](create_gather_merge_plan.md)
+  - [create_sort_plan](create_sort_plan.md)
+  - [create_incrementalsort_plan](create_incrementalsort_plan.md)
+  - [create_group_plan](create_group_plan.md)
+  - [create_agg_plan](create_agg_plan.md)
+  - [create_groupingsets_plan](create_groupingsets_plan.md)
+  - [create_windowagg_plan](create_windowagg_plan.md)
+  - [create_setop_plan](create_setop_plan.md)
+  - [create_recursiveunion_plan](create_recursiveunion_plan.md)
+  - [create_lockrows_plan](create_lockrows_plan.md)
+  - [create_modifytable_plan](create_modifytable_plan.md)
+  - [create_limit_plan](create_limit_plan.md)
 - Called from (representative examples):
-  - create_plan
-  - create_append_plan
-  - create_merge_append_plan
-  - create_material_plan
-  - create_unique_plan
-  - create_sort_plan
-  - create_nestloop_plan
-  - create_mergejoin_plan
-  - create_hashjoin_plan
+  - [create_plan](create_plan.md)
+  - [create_append_plan](create_append_plan.md)
+  - [create_merge_append_plan](create_merge_append_plan.md)
+  - [create_material_plan](create_material_plan.md)
+  - [create_unique_plan](create_unique_plan.md)
+  - [create_sort_plan](create_sort_plan.md)
+  - [create_nestloop_plan](create_nestloop_plan.md)
+  - [create_mergejoin_plan](create_mergejoin_plan.md)
+  - [create_hashjoin_plan](create_hashjoin_plan.md)
 
 ## Notes and Other Information
 - Handles all PostgreSQL path types including scans, joins, sorts, aggregates, window functions, and modify operations

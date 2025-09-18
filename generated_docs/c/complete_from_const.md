@@ -20,8 +20,8 @@ This function is designed to return exactly one fixed string during tab completi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for duplicating the completion string)
-  - pg_strdup_keyword_case (for case-adjusted string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for duplicating the completion string)
+  - [pg_strdup_keyword_case](../p/pg_strdup_keyword_case.md) (for case-adjusted string duplication)
 - Global variables used:
   - completion_charp (the single string to be returned)
   - completion_case_sensitive (case sensitivity flag)

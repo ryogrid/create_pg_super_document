@@ -25,7 +25,7 @@ The function iterates through each element in the array sequentially, performing
 - Functions called/Symbols referenced:
   - USE_NO_SIMD (compilation flag/macro reference)
 - Called from (representative examples):
-  - pg_lfind32 (main 32-bit search function - used as fallback)
+  - [pg_lfind32](pg_lfind32.md) (main 32-bit search function - used as fallback)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for performance optimization

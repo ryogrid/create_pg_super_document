@@ -27,8 +27,8 @@ This design separates the pause request (handled by SetRecoveryPause) from the p
   - RECOVERY_PAUSED
   - XLogRecoveryCtl (global structure)
 - Called from (representative examples):
-  - recoveryPausesHere
-  - RecoveryRequiresIntParameter
+  - [recoveryPausesHere](../r/recoveryPausesHere.md)
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
 
 ## Notes and Other Information
 - This is a static function within xlogrecovery.c, not exposed as a public API

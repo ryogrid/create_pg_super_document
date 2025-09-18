@@ -22,7 +22,7 @@ The function follows PostgreSQL's function call convention, taking arguments thr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_substring
+  - [text_substring](text_substring.md)
   - PG_RETURN_TEXT_P
   - PG_GETARG_DATUM
   - PG_GETARG_INT32

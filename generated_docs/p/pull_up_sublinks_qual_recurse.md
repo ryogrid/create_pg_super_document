@@ -38,16 +38,16 @@ After successful SubLink conversion, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_ANY_sublink_to_join
-  - convert_EXISTS_sublink_to_join  
-  - pull_up_sublinks_jointree_recurse
-  - is_notclause, get_notclausearg
-  - is_andclause, make_andclause
+  - [convert_ANY_sublink_to_join](../c/convert_ANY_sublink_to_join.md)
+  - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md)  
+  - [pull_up_sublinks_jointree_recurse](pull_up_sublinks_jointree_recurse.md)
+  - [is_notclause](../i/is_notclause.md), get_notclausearg
+  - [is_andclause](../i/is_andclause.md), make_andclause
   - lappend, lfirst, linitial, list_length
   - IsA macro
   - ANY_SUBLINK, EXISTS_SUBLINK constants
 - Called from (representative examples):
-  - pull_up_sublinks_jointree_recurse (in multiple locations for processing join and fromexpr quals)
+  - [pull_up_sublinks_jointree_recurse](pull_up_sublinks_jointree_recurse.md) (in multiple locations for processing join and fromexpr quals)
   - Self-recursive calls for processing AND clauses and pulled-up subquery quals
 
 ## Notes and Other Information

@@ -21,18 +21,18 @@ This function serves as the public interface for clause compatibility checking w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_andclause
+  - [is_andclause](../i/is_andclause.md)
   - IsA (macro for type checking)
-  - bms_get_singleton_member
-  - statext_is_compatible_clause_internal
-  - bms_next_member
-  - bms_add_member
-  - pull_varattnos
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [statext_is_compatible_clause_internal](statext_is_compatible_clause_internal.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [pull_varattnos](../p/pull_varattnos.md)
   - all_rows_selectable
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - statext_is_compatible_clause (recursive calls for AND clauses)
-  - statext_mcv_clauselist_selectivity
+  - [statext_is_compatible_clause](statext_is_compatible_clause.md) (recursive calls for AND clauses)
+  - [statext_mcv_clauselist_selectivity](statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 The function implements important security measures by checking column-level permissions when non-leakproof operators are present, preventing information leakage through statistics. It handles the impedance mismatch between different attribute numbering schemes used internally. Special handling for AND clauses is necessary because the restrictinfo machinery doesn't create RestrictInfos for top-level AND operations. The permission checking is particularly important for inheritance hierarchies where parent table permissions don't guarantee child table column access.

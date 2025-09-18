@@ -25,8 +25,8 @@ This is essential for correct Turkish morphological analysis, as suffix attachme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping_b_U (called 12 times for vowel group checking)
-  - eq_s_b (called 3 times for string equality checking)
+  - [out_grouping_b_U](../o/out_grouping_b_U.md) (called 12 times for vowel group checking)
+  - [eq_s_b](../e/eq_s_b.md) (called 3 times for string equality checking)
   - Various vowel groups: g_vowel, g_vowel1, g_vowel2, g_vowel3, g_vowel4, g_vowel5, g_vowel6
   - String constants: s_0, s_1, s_2
 
@@ -39,18 +39,18 @@ This is essential for correct Turkish morphological analysis, as suffix attachme
   - r_mark_nA
   - r_mark_DA
   - r_mark_ndA
-  - r_mark_DAn
-  - r_mark_ndAn
-  - r_mark_ylA
-  - r_mark_ncA
-  - r_mark_yUm
-  - r_mark_sUn
-  - r_mark_yUz
-  - r_mark_lAr
-  - r_mark_nUz
-  - r_mark_DUr
-  - r_mark_yDU
-  - r_mark_ymUs_
+  - [r_mark_DAn](r_mark_DAn.md)
+  - [r_mark_ndAn](r_mark_ndAn.md)
+  - [r_mark_ylA](r_mark_ylA.md)
+  - [r_mark_ncA](r_mark_ncA.md)
+  - [r_mark_yUm](r_mark_yUm.md)
+  - [r_mark_sUn](r_mark_sUn.md)
+  - [r_mark_yUz](r_mark_yUz.md)
+  - [r_mark_lAr](r_mark_lAr.md)
+  - [r_mark_nUz](r_mark_nUz.md)
+  - [r_mark_DUr](r_mark_DUr.md)
+  - [r_mark_yDU](r_mark_yDU.md)
+  - [r_mark_ymUs_](r_mark_ymUs_.md)
 
 ## Notes and Other Information
 - Returns 1 if vowel harmony is satisfied, 0 if violated

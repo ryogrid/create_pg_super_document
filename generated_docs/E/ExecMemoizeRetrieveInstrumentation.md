@@ -21,14 +21,14 @@ This transfer is necessary because the shared memory segment may be deallocated 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocates private memory from PostgreSQL's memory context)
+  - [palloc](../p/palloc.md) (allocates private memory from PostgreSQL's memory context)
   - memcpy (copies memory contents from shared to private memory)
 - Types referenced:
-  - MemoizeState (memoize execution state structure)
-  - SharedMemoizeInfo (shared memory structure containing consolidated statistics)
-  - MemoizeInstrumentation (individual worker instrumentation data)
+  - [MemoizeState](../M/MemoizeState.md) (memoize execution state structure)
+  - [SharedMemoizeInfo](../S/SharedMemoizeInfo.md) (shared memory structure containing consolidated statistics)
+  - [MemoizeInstrumentation](../M/MemoizeInstrumentation.md) (individual worker instrumentation data)
 - Called from:
-  - ExecParallelRetrieveInstrumentation (main parallel instrumentation retrieval function)
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md) (main parallel instrumentation retrieval function)
 
 ## Notes and Other Information
 - Only performs the transfer if shared_info is not NULL (i.e., parallel execution with instrumentation was used)

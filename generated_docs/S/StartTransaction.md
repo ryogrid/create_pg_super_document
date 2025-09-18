@@ -17,7 +17,7 @@ StartTransaction is a straightforward utility function in the pg_dump restoratio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlCommand
+  - [ExecuteSqlCommand](../E/ExecuteSqlCommand.md)
 - Called from (representative examples):
   - Various restoration functions that need transaction control
 

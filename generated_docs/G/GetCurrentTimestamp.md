@@ -37,12 +37,12 @@ This function takes no parameters.
   - `USECS_PER_SEC`: Constant for microseconds per second conversion
 
 - Called from (representative examples):
-  - `clock_timestamp`: SQL function for current timestamp
-  - `SetCurrentStatementStartTimestamp`: Transaction timing
-  - `StartTransaction`: Transaction management
-  - `CreateCheckPoint`: WAL checkpoint operations
-  - `pgstat_report_activity`: Statistics reporting
-  - `WalSndLoop`: WAL sender operations
+  - `[clock_timestamp](../c/clock_timestamp.md)`: SQL function for current timestamp
+  - `[SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md)`: Transaction timing
+  - `[StartTransaction](../S/StartTransaction.md)`: Transaction management
+  - `[CreateCheckPoint](../C/CreateCheckPoint.md)`: WAL checkpoint operations
+  - `[pgstat_report_activity](../p/pgstat_report_activity.md)`: Statistics reporting
+  - `[WalSndLoop](../W/WalSndLoop.md)`: WAL sender operations
   - Many other timing-critical operations throughout PostgreSQL
 
 ## Notes and Other Information

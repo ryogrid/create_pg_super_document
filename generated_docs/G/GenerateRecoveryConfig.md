@@ -21,24 +21,24 @@ The function builds a primary_conninfo string by iterating through the connectio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion
-  - PQconninfo
-  - PQconninfoFree
+  - [PQserverVersion](../P/PQserverVersion.md)
+  - [PQconninfo](../P/PQconninfo.md)
+  - [PQconninfoFree](../P/PQconninfoFree.md)
   - createPQExpBuffer
   - initPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - appendPQExpBuffer
-  - appendConnStrVal
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendConnStrVal](../a/appendConnStrVal.md)
   - termPQExpBuffer
   - PQExpBufferDataBroken
   - PQExpBufferBroken
-  - escape_quotes
-  - pg_fatal
+  - [escape_quotes](../e/escape_quotes.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - BaseBackup (pg_basebackup.c:1819)
-  - setup_recovery (pg_createsubscriber.c:1205)
-  - main (pg_rewind.c:454, 531)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup.c:1819)
+  - [setup_recovery](../s/setup_recovery.md) (pg_createsubscriber.c:1205)
+  - [main](../m/main.md) (pg_rewind.c:454, 531)
 
 ## Notes and Other Information
 - Handles PostgreSQL version differences: adds 'standby_mode = on' for versions prior to 12

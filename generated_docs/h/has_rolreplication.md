@@ -19,14 +19,14 @@ This function determines if a given role has replication privileges in PostgreSQ
 - Functions called/Symbols referenced:
   - superuser_arg (checks if role is a superuser)
   - Form_pg_authid (structure representing pg_authid catalog entries)
-  - SearchSysCache1, HeapTupleIsValid, ReleaseSysCache (system catalog access functions)
+  - [SearchSysCache1](../S/SearchSysCache1.md), HeapTupleIsValid, ReleaseSysCache (system catalog access functions)
   - AUTHOID, ObjectIdGetDatum, GETSTRUCT (catalog access macros)
 - Called from (representative examples):
-  - CreateRole (src/backend/commands/user.c:333)
-  - AlterRole (src/backend/commands/user.c:806)
-  - CheckSlotPermissions (src/backend/replication/slot.c:1386)
-  - binary_upgrade_logical_slot_has_caught_up (src/backend/utils/adt/pg_upgrade_support.c:297)
-  - InitPostgres (src/backend/utils/init/postinit.c:977)
+  - [CreateRole](../C/CreateRole.md) (src/backend/commands/user.c:333)
+  - [AlterRole](../A/AlterRole.md) (src/backend/commands/user.c:806)
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md) (src/backend/replication/slot.c:1386)
+  - [binary_upgrade_logical_slot_has_caught_up](../b/binary_upgrade_logical_slot_has_caught_up.md) (src/backend/utils/adt/pg_upgrade_support.c:297)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:977)
   - INIT_PG_OVERRIDE_ROLE_LOGIN (src/include/miscadmin.h:515)
 
 ## Notes and Other Information

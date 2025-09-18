@@ -25,8 +25,8 @@ The function is part of PostgreSQL's type system infrastructure and is automatic
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
   - InvalidOid
-  - pstrdup
-  - format_procedure
+  - [pstrdup](../p/pstrdup.md)
+  - [format_procedure](../f/format_procedure.md)
   - PG_RETURN_CSTRING
   - RegProcedure (type)
 - Called from:

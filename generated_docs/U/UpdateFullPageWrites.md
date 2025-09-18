@@ -26,20 +26,20 @@ This function takes no parameters but works with:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - START_CRIT_SECTION
   - END_CRIT_SECTION
-  - WALInsertLockAcquireExclusive
-  - WALInsertLockRelease
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)
+  - [WALInsertLockRelease](../W/WALInsertLockRelease.md)
   - XLogStandbyInfoActive
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
-  - XLogCtlInsert (struct type)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [XLogCtlInsert](../X/XLogCtlInsert.md) (struct type)
   - XLOG_FPW_CHANGE (record type)
 - Called from (representative examples):
-  - StartupXLOG (during startup processing)
-  - UpdateSharedMemoryConfig (when configuration changes)
+  - [StartupXLOG](../S/StartupXLOG.md) (during startup processing)
+  - [UpdateSharedMemoryConfig](UpdateSharedMemoryConfig.md) (when configuration changes)
 
 ## Notes and Other Information
 - This function assumes no concurrent processes are updating full_page_writes, allowing safe lock-free reads

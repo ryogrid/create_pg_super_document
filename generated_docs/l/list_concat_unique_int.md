@@ -23,10 +23,10 @@ This function is optimized for integer operations and provides better performanc
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList
-  - list_member_int
+  - [list_member_int](list_member_int.md)
   - lfirst_int
   - lappend_int
-  - check_list_invariants
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
   - forfive
 

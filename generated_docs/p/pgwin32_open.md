@@ -30,13 +30,13 @@ For frontend applications (FRONTEND defined), the function ensures that if neith
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_open_handle
+  - [pgwin32_open_handle](pgwin32_open_handle.md)
   - _open_osfhandle
   - _setmode
   - _close
   - CloseHandle
 - Called from (representative examples):
-  - pgwin32_fopen
+  - [pgwin32_fopen](pgwin32_fopen.md)
   - System open() calls (through macro redefinition)
 
 ## Notes and Other Information

@@ -28,17 +28,17 @@ The function handles both posting lists (stored directly in index tuples) and po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_create (creates the match bitmap)
-  - moveRightIfItNeeded (page navigation helper)
-  - gintuple_get_attrnum, gintuple_get_key (tuple access functions)
-  - scanPostingTree (for scanning posting trees)
-  - ginReadTuple, tbm_add_tuples (for direct posting list processing)
-  - ginCompareEntries (for key comparison during re-find)
-  - datumCopy (for value copying during tree scans)
-  - PredicateLockPage (for predicate locking)
+  - [tbm_create](../t/tbm_create.md) (creates the match bitmap)
+  - [moveRightIfItNeeded](../m/moveRightIfItNeeded.md) (page navigation helper)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md), gintuple_get_key (tuple access functions)
+  - [scanPostingTree](../s/scanPostingTree.md) (for scanning posting trees)
+  - [ginReadTuple](../g/ginReadTuple.md), tbm_add_tuples (for direct posting list processing)
+  - [ginCompareEntries](../g/ginCompareEntries.md) (for key comparison during re-find)
+  - [datumCopy](../d/datumCopy.md) (for value copying during tree scans)
+  - [PredicateLockPage](../P/PredicateLockPage.md) (for predicate locking)
   - Various GIN constants (GIN_CAT_NORM_KEY, GIN_SEARCH_MODE_ALL, etc.)
 - Called from:
-  - startScanEntry (src/backend/access/gin/ginget.c:365)
+  - [startScanEntry](../s/startScanEntry.md) (src/backend/access/gin/ginget.c:365)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ginget.c file

@@ -21,11 +21,11 @@ This WAL record manages three backup blocks: backup block 0 contains the new pag
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (type)
-  - xl_brin_insert (embedded structure)
+  - [xl_brin_insert](xl_brin_insert.md) (embedded structure)
 - Called from (representative examples):
-  - brin_doupdate (in src/backend/access/brin/brin_pageops.c:271)
-  - brin_xlog_update (in src/backend/access/brin/brin_xlog.c:138)
-  - brin_desc (in src/backend/access/rmgrdesc/brindesc.c:44)
+  - [brin_doupdate](../b/brin_doupdate.md) (in src/backend/access/brin/brin_pageops.c:271)
+  - [brin_xlog_update](../b/brin_xlog_update.md) (in src/backend/access/brin/brin_xlog.c:138)
+  - [brin_desc](../b/brin_desc.md) (in src/backend/access/rmgrdesc/brindesc.c:44)
   - SizeOfBrinUpdate (macro in src/include/access/brin_xlog.h:95)
 
 ## Notes and Other Information

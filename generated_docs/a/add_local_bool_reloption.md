@@ -21,8 +21,8 @@ This public function creates and adds a boolean reloption to a local reloption s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_bool_reloption (for boolean reloption initialization with RELOPT_KIND_LOCAL)
-  - add_local_reloption (for adding to the local reloption list)
+  - [init_bool_reloption](../i/init_bool_reloption.md) (for boolean reloption initialization with RELOPT_KIND_LOCAL)
+  - [add_local_reloption](add_local_reloption.md) (for adding to the local reloption list)
   - RELOPT_KIND_LOCAL (constant for local reloption type)
 - Called from (representative examples):
   - Various access method implementations that need local boolean options

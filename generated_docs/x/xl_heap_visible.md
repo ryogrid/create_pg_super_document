@@ -23,9 +23,9 @@ The structure contains the minimum information necessary to replay visibility ma
   - TransactionId (type)
   - uint8 (type)
 - Called from (representative examples):
-  - log_heap_visible (src/backend/access/heap/heapam.c:8785)
-  - heap_xlog_visible (src/backend/access/heap/heapam.c:9366)
-  - heap2_desc (src/backend/access/rmgrdesc/heapdesc.c:340)
+  - [log_heap_visible](../l/log_heap_visible.md) (src/backend/access/heap/heapam.c:8785)
+  - [heap_xlog_visible](../h/heap_xlog_visible.md) (src/backend/access/heap/heapam.c:9366)
+  - [heap2_desc](../h/heap2_desc.md) (src/backend/access/rmgrdesc/heapdesc.c:340)
   - SizeOfHeapVisible (src/include/access/heapam_xlog.h:444)
 
 ## Notes and Other Information

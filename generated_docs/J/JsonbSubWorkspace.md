@@ -25,10 +25,10 @@ The structure is particularly important for handling mixed subscript types (inte
 - Functions called/Symbols referenced:
   - (No direct function calls from the struct definition)
 - Called from (representative examples):
-  - jsonb_subscript_check_subscripts (src/backend/utils/adt/jsonbsubs.c:180)
-  - jsonb_subscript_fetch (src/backend/utils/adt/jsonbsubs.c:240)
-  - jsonb_subscript_assign (src/backend/utils/adt/jsonbsubs.c:266)
-  - jsonb_exec_setup (src/backend/utils/adt/jsonbsubs.c:357, 363, 366)
+  - [jsonb_subscript_check_subscripts](../j/jsonb_subscript_check_subscripts.md) (src/backend/utils/adt/jsonbsubs.c:180)
+  - [jsonb_subscript_fetch](../j/jsonb_subscript_fetch.md) (src/backend/utils/adt/jsonbsubs.c:240)
+  - [jsonb_subscript_assign](../j/jsonb_subscript_assign.md) (src/backend/utils/adt/jsonbsubs.c:266)
+  - [jsonb_exec_setup](../j/jsonb_exec_setup.md) (src/backend/utils/adt/jsonbsubs.c:357, 363, 366)
 
 ## Notes and Other Information
 - The workspace is allocated with additional memory beyond the basic struct size to accommodate variable-length arrays for indexOid and index members

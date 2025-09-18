@@ -22,8 +22,8 @@ The structure is used during the statistical analysis phase where PostgreSQL sor
 - Functions called/Symbols referenced:
   - Used within compute_scalar_stats function for MCV analysis
 - Called from (representative examples):
-  - compute_scalar_stats (allocated and used for MCV tracking)
-  - compare_mcvs (used in qsort comparison function)
+  - [compute_scalar_stats](../c/compute_scalar_stats.md) (allocated and used for MCV tracking)
+  - [compare_mcvs](../c/compare_mcvs.md) (used in qsort comparison function)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's internal statistics collection system and is not exposed to user-level SQL

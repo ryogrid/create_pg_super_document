@@ -28,7 +28,7 @@ The conversion transforms Big5 multibyte characters into MIC format, which uses 
   - PG_GETARG_INT32 (macro for extracting integer arguments)
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validates source and target encodings)
-  - big52mic (performs the actual character conversion)
+  - [big52mic](big52mic.md) (performs the actual character conversion)
   - PG_RETURN_INT32 (macro for returning integer result)
   - PG_BIG5 (encoding constant)
   - PG_MULE_INTERNAL (encoding constant)

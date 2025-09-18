@@ -19,9 +19,9 @@ This static function compares a given coordinate value against either the X or Y
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (structure type)
+  - [Point](../P/Point.md) (structure type)
 - Called from (representative examples):
-  - spg_kd_choose (at src/backend/access/spgist/spgkdtreeproc.c:71)
+  - [spg_kd_choose](../s/spg_kd_choose.md) (at src/backend/access/spgist/spgkdtreeproc.c:71)
 
 ## Notes and Other Information
 - Returns 0 if coordinates are equal, 1 if coord > test coordinate, -1 if coord < test coordinate

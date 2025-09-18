@@ -28,12 +28,12 @@ The function only considers segments associated with the intended DataDir to avo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGSharedMemoryAttach
+  - [PGSharedMemoryAttach](PGSharedMemoryAttach.md)
   - shmdt (System V IPC function)
   - elog (PostgreSQL logging)
   - IpcMemoryState enum values (SHMSTATE_ENOENT, SHMSTATE_FOREIGN, etc.)
 - Called from (representative examples):
-  - CreateLockFile
+  - [CreateLockFile](../C/CreateLockFile.md)
 
 ## Notes and Other Information
 - This is a public function accessible from other PostgreSQL modules

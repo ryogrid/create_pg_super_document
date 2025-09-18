@@ -26,7 +26,7 @@ This cleanup is critical for preventing access to freed or invalid shared memory
   - pq_mq_handle (global variable)
   - whereToSendOutput (global variable)
 - Called from (representative examples):
-  - pq_redirect_to_shm_mq (registered as DSM detach callback)
+  - [pq_redirect_to_shm_mq](pq_redirect_to_shm_mq.md) (registered as DSM detach callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pqmq.c file

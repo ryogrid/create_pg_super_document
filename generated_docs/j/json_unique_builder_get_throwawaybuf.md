@@ -22,14 +22,14 @@ The function implements lazy initialization - if the buffer hasn't been created 
 ## Dependencies
 - Functions called/Symbols referenced:
   - initStringInfo
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Data structures used:
   - JsonUniqueBuilderState
   - StringInfo
-  - MemoryContext
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):
-  - json_object_agg_transfn_worker
-  - json_build_object_worker
+  - [json_object_agg_transfn_worker](json_object_agg_transfn_worker.md)
+  - [json_build_object_worker](json_build_object_worker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the json.c compilation unit

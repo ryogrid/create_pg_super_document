@@ -22,12 +22,12 @@ The function iterates through all placeholders and checks if the evaluation can 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PlaceHolderInfo (struct type for placeholder information)
-  - bms_get_singleton_member (checks if a bitmap has exactly one member)
-  - bms_nonempty_difference (checks for non-empty set difference)
-  - find_base_rel (finds base relation by relation number)
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md) (checks if a bitmap has exactly one member)
+  - [bms_nonempty_difference](../b/bms_nonempty_difference.md) (checks for non-empty set difference)
+  - [find_base_rel](../f/find_base_rel.md) (finds base relation by relation number)
   - copyObject (creates a copy of the placeholder variable)
 - Called from (representative examples):
-  - query_planner (src/backend/optimizer/plan/planmain.c:238)
+  - [query_planner](../q/query_planner.md) (src/backend/optimizer/plan/planmain.c:238)
 
 ## Notes and Other Information
 - This function must be executed after fix_placeholder_input_needed_levels but before join relations are formed

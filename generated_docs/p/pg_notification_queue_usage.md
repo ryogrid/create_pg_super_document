@@ -17,9 +17,9 @@ This function provides a way for SQL queries to monitor the utilization of Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asyncQueueAdvanceTail (advances tail to get accurate measurement)
+  - [asyncQueueAdvanceTail](../a/asyncQueueAdvanceTail.md) (advances tail to get accurate measurement)
   - LWLockAcquire (acquires NotifyQueueLock in LW_SHARED mode)
-  - asyncQueueUsage (calculates actual queue usage fraction)
+  - [asyncQueueUsage](../a/asyncQueueUsage.md) (calculates actual queue usage fraction)
   - LWLockRelease (releases NotifyQueueLock)
   - PG_RETURN_FLOAT8 (returns double as PostgreSQL Datum)
 - Called from:

@@ -27,9 +27,9 @@ This policy-setting subroutine determines whether an error/log message should be
   - INFO (constant)
   - ERROR (constant)
 - Called from (representative examples):
-  - message_level_is_interesting
-  - errstart
-  - pg_re_throw
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
+  - [errstart](../e/errstart.md)
+  - [pg_re_throw](../p/pg_re_throw.md)
 
 ## Notes and Other Information
 - This function is declared as `static inline` for performance optimization during frequent error processing

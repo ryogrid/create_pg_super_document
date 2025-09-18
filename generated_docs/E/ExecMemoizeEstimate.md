@@ -20,15 +20,15 @@ The function performs memory size calculations using PostgreSQL's safe arithmeti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safe multiplication for memory size calculations)
-  - add_size (safe addition for memory size calculations) 
+  - [mul_size](../m/mul_size.md) (safe multiplication for memory size calculations)
+  - [add_size](../a/add_size.md) (safe addition for memory size calculations) 
   - shm_toc_estimate_chunk (estimates shared memory chunk requirements)
   - shm_toc_estimate_keys (estimates shared memory key requirements)
 - Types referenced:
-  - MemoizeState (memoize execution state structure)
-  - ParallelContext (parallel execution context)
-  - MemoizeInstrumentation (memoize statistics structure)
-  - SharedMemoizeInfo (shared memory info structure)
+  - [MemoizeState](../M/MemoizeState.md) (memoize execution state structure)
+  - [ParallelContext](../P/ParallelContext.md) (parallel execution context)
+  - [MemoizeInstrumentation](../M/MemoizeInstrumentation.md) (memoize statistics structure)
+  - [SharedMemoizeInfo](../S/SharedMemoizeInfo.md) (shared memory info structure)
 - Called from:
   - ExecParallelEstimate (main parallel execution estimator)
 

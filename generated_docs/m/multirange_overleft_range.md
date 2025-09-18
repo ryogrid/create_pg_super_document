@@ -25,11 +25,11 @@ The function extracts the bounds of both the multirange and range, then compares
   - `PG_GETARG_RANGE_P` - Extract range argument
   - `MultirangeIsEmpty` - Check if multirange is empty
   - `RangeIsEmpty` - Check if range is empty
-  - `multirange_get_typcache` - Get type cache information
+  - `[multirange_get_typcache](multirange_get_typcache.md)` - Get type cache information
   - `MultirangeTypeGetOid` - Get OID of multirange type
-  - `multirange_get_bounds` - Extract bounds from multirange
-  - `range_deserialize` - Extract bounds from range
-  - `range_cmp_bounds` - Compare range bounds
+  - `[multirange_get_bounds](multirange_get_bounds.md)` - Extract bounds from multirange
+  - `[range_deserialize](../r/range_deserialize.md)` - Extract bounds from range
+  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare range bounds
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)
 

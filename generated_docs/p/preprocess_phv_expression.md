@@ -20,10 +20,10 @@ The function serves as a specialized wrapper around preprocess_expression, using
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - preprocess_expression
+  - [preprocess_expression](preprocess_expression.md)
   - EXPRKIND_PHV
 - Called from (representative examples):
-  - extract_lateral_references
+  - [extract_lateral_references](../e/extract_lateral_references.md)
 
 ## Notes and Other Information
 - This function is part of the LATERAL subquery handling mechanism in PostgreSQL's optimizer

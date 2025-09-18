@@ -19,16 +19,16 @@ The function carefully manages memory by freeing the current line buffer (if it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
   - FreeFile
   - error_context_stack (global variable)
 - Called from (representative examples):
-  - dsynonym_init
-  - thesaurusRead
-  - NIImportDictionary
+  - [dsynonym_init](../d/dsynonym_init.md)
+  - [thesaurusRead](thesaurusRead.md)
+  - [NIImportDictionary](../N/NIImportDictionary.md)
   - NIImportOOAffixes
   - NIImportAffixes
-  - readstoplist
+  - [readstoplist](../r/readstoplist.md)
 
 ## Notes and Other Information
 - Must be called to properly clean up resources after tsearch_readline operations

@@ -23,17 +23,17 @@ The function implements an optimization where if the input value already fits wi
   - PG_GETARG_NUMERIC: Extracts numeric argument from function call
   - PG_GETARG_INT32: Extracts integer argument from function call
   - NUMERIC_IS_SPECIAL: Checks if numeric is NaN or infinity
-  - apply_typmod_special: Handles special values (NaN/infinity)
-  - duplicate_numeric: Creates a copy of numeric value
-  - is_valid_numeric_typmod: Validates type modifier
-  - numeric_typmod_precision: Extracts precision from typmod
-  - numeric_typmod_scale: Extracts scale from typmod
+  - [apply_typmod_special](../a/apply_typmod_special.md): Handles special values (NaN/infinity)
+  - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of numeric value
+  - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md): Validates type modifier
+  - [numeric_typmod_precision](numeric_typmod_precision.md): Extracts precision from typmod
+  - [numeric_typmod_scale](numeric_typmod_scale.md): Extracts scale from typmod
   - NUMERIC_CAN_BE_SHORT: Checks if value can use short representation
   - init_var: Initializes NumericVar structure
-  - set_var_from_num: Converts Numeric to NumericVar
-  - apply_typmod: Applies type modifier constraints
-  - make_result: Converts NumericVar back to Numeric
-  - free_var: Frees NumericVar memory
+  - [set_var_from_num](../s/set_var_from_num.md): Converts Numeric to NumericVar
+  - [apply_typmod](../a/apply_typmod.md): Applies type modifier constraints
+  - [make_result](../m/make_result.md): Converts NumericVar back to Numeric
+  - [free_var](../f/free_var.md): Frees NumericVar memory
   - PG_RETURN_NUMERIC: Returns numeric result
 
 - Called from (representative examples):

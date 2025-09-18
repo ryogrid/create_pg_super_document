@@ -22,7 +22,7 @@ This structure contains the Unicode characters used for formatting table columns
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure definition)
 - Called from (representative examples):
-  - unicodeStyleFormat (at src/fe_utils/print.c:129)
+  - [unicodeStyleFormat](unicodeStyleFormat.md) (at src/fe_utils/print.c:129)
   - refresh_utf8format (at src/fe_utils/print.c:3697)
 
 ## Notes and Other Information

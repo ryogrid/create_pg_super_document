@@ -19,11 +19,11 @@ The function is designed specifically for the parallel dumping architecture wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_connection (performs the actual connection configuration)
+  - [setup_connection](setup_connection.md) (performs the actual connection configuration)
   - pg_encoding_to_char (converts encoding ID back to string representation)
 - Called from (representative examples):
-  - main (when setting up parallel dump workers)
-  - CreateArchive (during parallel worker initialization)
+  - [main](../m/main.md) (when setting up parallel dump workers)
+  - [CreateArchive](../C/CreateArchive.md) (during parallel worker initialization)
 
 ## Notes and Other Information
 - Function is marked static, limiting scope to pg_dump.c file

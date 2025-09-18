@@ -19,16 +19,16 @@ AlterTSConfiguration implements the ALTER TEXT SEARCH CONFIGURATION SQL command 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTSConfigTuple (finds configuration by name)
-  - object_ownercheck (verifies ownership permission)
-  - NameListToString (formats names for error messages)
-  - MakeConfigurationMapping (adds token-dictionary mappings)
-  - DropConfigurationMapping (removes token-dictionary mappings)
-  - makeConfigurationDependencies (updates all dependencies)
+  - [GetTSConfigTuple](../G/GetTSConfigTuple.md) (finds configuration by name)
+  - [object_ownercheck](../o/object_ownercheck.md) (verifies ownership permission)
+  - [NameListToString](../N/NameListToString.md) (formats names for error messages)
+  - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md) (adds token-dictionary mappings)
+  - [DropConfigurationMapping](../D/DropConfigurationMapping.md) (removes token-dictionary mappings)
+  - [makeConfigurationDependencies](../m/makeConfigurationDependencies.md) (updates all dependencies)
   - InvokeObjectPostAlterHook (triggers post-alter hooks)
   - ObjectAddressSet (constructs return address)
 - Called from (representative examples):
-  - ProcessUtilitySlow (SQL command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (SQL command processing)
 
 ## Notes and Other Information
 - Requires ownership of the configuration being altered

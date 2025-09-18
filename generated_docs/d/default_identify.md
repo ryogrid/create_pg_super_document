@@ -21,7 +21,7 @@ The `default_identify` function serves as a fallback identification function for
 - Functions called/Symbols referenced:
   - None (simply returns NULL)
 - Called from:
-  - initialize_custom_rmgrs (assigned as the identification function for custom resource managers)
+  - [initialize_custom_rmgrs](../i/initialize_custom_rmgrs.md) (assigned as the identification function for custom resource managers)
 
 ## Notes and Other Information
 - This function is static and only used within rmgrdesc.c

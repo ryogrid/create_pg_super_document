@@ -25,9 +25,9 @@ Currently, the function only retains multicolumn FKs that are fully matched to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_eclasses_to_foreign_key_col (matches FK columns to equivalence classes)
-  - get_leftop/get_rightop (extract operands from expressions)
-  - get_commutator (finds commutator operators)
+  - [match_eclasses_to_foreign_key_col](match_eclasses_to_foreign_key_col.md) (matches FK columns to equivalence classes)
+  - [get_leftop](../g/get_leftop.md)/get_rightop (extract operands from expressions)
+  - [get_commutator](../g/get_commutator.md) (finds commutator operators)
   - lappend (list manipulation)
   - ForeignKeyOptInfo (structure containing FK optimization information)
   - EquivalenceClass (structure for equivalence class management)
@@ -35,7 +35,7 @@ Currently, the function only retains multicolumn FKs that are fully matched to t
   - RelabelType (type relabeling expression node)
   - RELOPT_BASEREL (enumeration for base relation types)
 - Called from:
-  - query_planner (main query planning entry point)
+  - [query_planner](../q/query_planner.md) (main query planning entry point)
 
 ## Notes and Other Information
 - The function performs extensive validation to ensure both the constraining and referenced relations are base relations present in the query

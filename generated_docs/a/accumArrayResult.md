@@ -30,17 +30,17 @@ The function ensures that pass-by-reference data is copied into the build contex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initArrayResult (initializes state when astate is NULL)
+  - [initArrayResult](../i/initArrayResult.md) (initializes state when astate is NULL)
   - AllocSizeIsValid (validates allocation size limits)
-  - repalloc (reallocates arrays when growth is needed)
+  - [repalloc](../r/repalloc.md) (reallocates arrays when growth is needed)
   - PG_DETOAST_DATUM_COPY (detoasts and copies varlena values)
-  - datumCopy (copies fixed-length pass-by-reference values)
+  - [datumCopy](../d/datumCopy.md) (copies fixed-length pass-by-reference values)
 - Called from (representative examples):
-  - array_agg_transfn (array aggregation function)
-  - array_positions (finding element positions)
-  - range_agg_transfn (range aggregation)
-  - parse_ident (identifier parsing)
-  - regexp_split_to_array (regular expression splitting)
+  - [array_agg_transfn](array_agg_transfn.md) (array aggregation function)
+  - [array_positions](array_positions.md) (finding element positions)
+  - [range_agg_transfn](../r/range_agg_transfn.md) (range aggregation)
+  - [parse_ident](../p/parse_ident.md) (identifier parsing)
+  - [regexp_split_to_array](../r/regexp_split_to_array.md) (regular expression splitting)
 
 ## Notes and Other Information
 - Supports both older (NULL astate) and newer (initialized astate) usage patterns

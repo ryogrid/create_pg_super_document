@@ -18,12 +18,12 @@ This function implements path matching logic to determine if a file or directory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - verifier_context (structure type)
-  - SimpleStringListCell (structure type for linked list nodes)
+  - [verifier_context](../v/verifier_context.md) (structure type)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md) (structure type for linked list nodes)
 - Called from (representative examples):
-  - verify_backup_directory
-  - report_extra_backup_files
-  - verify_backup_checksums
+  - [verify_backup_directory](../v/verify_backup_directory.md)
+  - [report_extra_backup_files](../r/report_extra_backup_files.md)
+  - [verify_backup_checksums](../v/verify_backup_checksums.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within pg_verifybackup.c

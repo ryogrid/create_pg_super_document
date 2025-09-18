@@ -31,19 +31,19 @@ The function is optimized for bulk operations during index creation, using the B
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginExtractEntries: Extract indexable keys from the input value using type-specific logic
-  - ginInsertBAEntries: Add extracted entries to BuildAccumulator for batched insertion
-  - MemoryContextSwitchTo: Switch memory contexts for clean memory management
-  - MemoryContextReset: Reset temporary memory context to prevent accumulation
+  - [ginExtractEntries](ginExtractEntries.md): Extract indexable keys from the input value using type-specific logic
+  - [ginInsertBAEntries](ginInsertBAEntries.md): Add extracted entries to BuildAccumulator for batched insertion
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switch memory contexts for clean memory management
+  - [MemoryContextReset](../M/MemoryContextReset.md): Reset temporary memory context to prevent accumulation
 
 - Called from (representative examples):
-  - ginBuildCallback: Main callback function during index build operations
+  - [ginBuildCallback](ginBuildCallback.md): Main callback function during index build operations
 
 ## Notes and Other Information
 - Used exclusively during initial index creation, not for regular insertions
 - The static keyword indicates this is an internal implementation detail
 - Memory context switching ensures that extraction operations don't leak memory during bulk operations
-- BuildAccumulator pattern allows for efficient batching of insertions during index build
+- [BuildAccumulator](../B/BuildAccumulator.md) pattern allows for efficient batching of insertions during index build
 - Updates indtuples counter to track total number of index entries being created
 - Part of PostgreSQL's strategy for efficient bulk index creation
 - The funcCtx memory context is reset after each tuple to prevent memory bloat during large index builds

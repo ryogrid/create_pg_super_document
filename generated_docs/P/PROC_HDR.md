@@ -43,15 +43,15 @@ The structure also manages process lifecycle through multiple free lists organiz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGPROC (main process structure type)
+  - [PGPROC](PGPROC.md) (main process structure type)
   - XidCacheStatus (subtransaction cache status enumeration)
-  - dlist_head (doubly-linked list head for free process lists)
-  - pg_atomic_uint32 (atomic integer for group processing chains)
-  - Latch (process signaling mechanism)
+  - [dlist_head](../d/dlist_head.md) (doubly-linked list head for free process lists)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (atomic integer for group processing chains)
+  - [Latch](../L/Latch.md) (process signaling mechanism)
 - Called from (representative examples):
   - InitProcGlobal (global process system initialization)
   - ProcGlobalShmemSize (shared memory size calculation)
-  - ProcArrayGroupClearXid (group transaction clearing)
+  - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md) (group transaction clearing)
   - TransactionGroupUpdateXidStatus (group transaction status updates)
 
 ## Notes and Other Information

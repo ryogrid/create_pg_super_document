@@ -27,11 +27,11 @@ Key features include distributed tracing support (TRACE_POSTGRESQL_SMGR_MD_READ_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _mdfd_getseg (obtains file descriptor for appropriate segment)
-  - buffers_to_iovec (converts buffer array to iovec structures)
+  - [_mdfd_getseg](_mdfd_getseg.md) (obtains file descriptor for appropriate segment)
+  - [buffers_to_iovec](../b/buffers_to_iovec.md) (converts buffer array to iovec structures)
   - FileReadV (performs vectored file read)
-  - compute_remaining_iovec (adjusts iovec after short reads)
-  - FilePathName (gets file path for error reporting)
+  - [compute_remaining_iovec](../c/compute_remaining_iovec.md) (adjusts iovec after short reads)
+  - [FilePathName](../F/FilePathName.md) (gets file path for error reporting)
   - ereport/errcode_for_file_access (error reporting)
   - TRACE_POSTGRESQL_SMGR_MD_READ_START/DONE (distributed tracing)
   - memset (zero-fills buffers when needed)

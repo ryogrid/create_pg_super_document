@@ -29,14 +29,14 @@ The function iterates through each RewriteMappingFile in the hash table, process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init, hash_seq_search (hash table iteration)
-  - dclist_count, dclist_foreach_modify, dclist_container, dclist_delete_from (doubly-linked list operations)
-  - FileWrite (file I/O)
-  - XLogBeginInsert, XLogRegisterData, XLogInsert (WAL logging)
+  - [hash_seq_init](../h/hash_seq_init.md), hash_seq_search (hash table iteration)
+  - [dclist_count](../d/dclist_count.md), dclist_foreach_modify, dclist_container, dclist_delete_from (doubly-linked list operations)
+  - [FileWrite](../F/FileWrite.md) (file I/O)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert (WAL logging)
   - RelationGetRelid (relation utilities)
 - Called from (representative examples):
-  - logical_end_heap_rewrite
-  - logical_rewrite_log_mapping
+  - [logical_end_heap_rewrite](logical_end_heap_rewrite.md)
+  - [logical_rewrite_log_mapping](logical_rewrite_log_mapping.md)
 
 ## Notes and Other Information
 - This is a static function internal to the rewriteheap.c module

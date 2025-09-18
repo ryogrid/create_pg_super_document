@@ -20,15 +20,15 @@ The function navigates up the planner hierarchy to find the appropriate query le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlaceHolderVar (structure handling)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md) (structure handling)
   - PlannerParamItem (structure creation)
   - copyObject (deep copy of the PlaceHolderVar node)
-  - IncrementVarSublevelsUp (adjust variable level references)
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (adjust variable level references)
   - makeNode (node creation)
   - lappend_oid (append OID to list)
   - exprType (get expression type)
 - Called from (representative examples):
-  - replace_outer_placeholdervar
+  - [replace_outer_placeholdervar](../r/replace_outer_placeholdervar.md)
 
 ## Notes and Other Information
 - The function assumes that comparing PHIDs (PlaceHolderVar IDs) is sufficient for matching

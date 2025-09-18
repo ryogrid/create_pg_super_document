@@ -285,12 +285,12 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (structure type)
+  - [PredIterInfo](../P/PredIterInfo.md) (structure type)
   - lfirst (macro to get the data from a ListCell)
-  - lnext (function to get the next ListCell in the list)
+  - [lnext](lnext.md) (function to get the next ListCell in the list)
 - Called from (representative examples):
   - iterate_end (during predicate classification)
-  - predicate_classify (multiple locations in predicate analysis logic)
+  - [predicate_classify](../p/predicate_classify.md) (multiple locations in predicate analysis logic)
 
 ## Notes and Other Information
 - Returns NULL when the end of the list is reached, indicating iteration completion

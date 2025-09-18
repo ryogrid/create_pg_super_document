@@ -31,8 +31,8 @@ Key behaviors:
   - VARBITPAD (get padding information)
   - BITS_PER_BYTE (bits per byte constant)
   - ereport/ERROR (error reporting)
-  - errcode/ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE (error codes)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md)/ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE (error codes)
+  - [errmsg](../e/errmsg.md) (error message formatting)
   - PG_RETURN_INT32 (return result)
 - Called from (representative examples):
   - No direct references found in the codebase

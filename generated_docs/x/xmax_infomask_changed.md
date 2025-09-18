@@ -22,9 +22,9 @@ This inline static function performs a focused comparison of tuple infomask valu
   - HEAP_XMAX_LOCK_ONLY (bit flag for lock-only operations)
   - HEAP_LOCK_MASK (bit mask for lock type information)
 - Called from:
-  - heap_delete (multiple call sites)
-  - heap_update (multiple call sites)  
-  - heap_lock_tuple (multiple call sites)
+  - [heap_delete](../h/heap_delete.md) (multiple call sites)
+  - [heap_update](../h/heap_update.md) (multiple call sites)  
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (multiple call sites)
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance and only accessible within heapam.c

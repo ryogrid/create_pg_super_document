@@ -23,13 +23,13 @@ This function acquires a session-level lock on a shared database object, similar
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_OBJECT
-  - LockAcquire
+  - [LockAcquire](LockAcquire.md)
 - Types used:
   - LOCKTAG
 - Called from (representative examples):
-  - movedb
-  - dbase_redo
-  - XLTW_Oper
+  - [movedb](../m/movedb.md)
+  - [dbase_redo](../d/dbase_redo.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - Acquires session-level locks that persist until session end, not transaction end

@@ -23,14 +23,14 @@ The `pg_strncoll_icu` function serves as the primary interface for ICU-based str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - ucol_strcollUTF8
   - u_errorName
   - ereport
-  - pg_strncoll_icu_no_utf8
+  - [pg_strncoll_icu_no_utf8](pg_strncoll_icu_no_utf8.md)
 - Called from (representative examples):
-  - pg_strcoll
-  - pg_strncoll
+  - [pg_strcoll](pg_strcoll.md)
+  - [pg_strncoll](pg_strncoll.md)
 
 ## Notes and Other Information
 - Static function serving as the main ICU collation dispatcher

@@ -22,7 +22,7 @@ The function name suggests it's used for operations that involve two float8 para
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - int8inc (the underlying increment function)
+  - [int8inc](int8inc.md) (the underlying increment function)
 - Called from (representative examples):
   - No direct references found in codebase (likely used through PostgreSQL's aggregate system)
 

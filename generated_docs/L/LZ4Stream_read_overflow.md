@@ -27,14 +27,14 @@ This static function manages the overflow buffer mechanism used in LZ4 decompres
   - memcpy (standard C library function for memory copying)
   - memmove (standard C library function for overlapping memory moves)
 - Types referenced:
-  - LZ4State
+  - [LZ4State](LZ4State.md)
 - Called from:
-  - LZ4Stream_read_internal (at compress_lz4.c:480)
+  - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (at compress_lz4.c:480)
 
 ## Notes and Other Information
 - This function implements part of the buffering strategy for LZ4 decompression, allowing the system to handle cases where decompression produces more data than immediately needed
 - The overflow buffer management is crucial for maintaining data integrity across multiple read operations
-- When eol_flag is set and a newline is found, the function includes the newline character in the returned data (readlen = p - state->overflowbuf + 1)
+- When eol_flag is set and a newline is found, the function includes the newline character in the returned data (readlen = p - [state](../s/state.md)->overflowbuf + 1)
 - The function uses memmove() instead of memcpy() for buffer compaction because the source and destination memory regions may overlap
 - Returns 0 when the overflow buffer is empty, allowing callers to determine when fresh decompression is needed
 - The buffer compaction ensures efficient memory usage by keeping unread data at the beginning of the buffer

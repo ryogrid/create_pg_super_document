@@ -22,17 +22,17 @@ The function ensures proper resource cleanup and prevents memory leaks by freein
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeflateCompressorCommon (to flush remaining data)
+  - [DeflateCompressorCommon](DeflateCompressorCommon.md) (to flush remaining data)
   - deflateEnd (zlib function to finalize deflate stream)
-  - pg_free (PostgreSQL memory deallocation function)
-  - pg_fatal (for fatal error reporting)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
+  - [pg_fatal](../p/pg_fatal.md) (for fatal error reporting)
 - Types referenced:
-  - ArchiveHandle
-  - CompressorState  
-  - GzipCompressorState
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [CompressorState](../C/CompressorState.md)  
+  - [GzipCompressorState](../G/GzipCompressorState.md)
   - z_streamp
 - Called from (representative examples):
-  - EndCompressorGzip (at src/bin/pg_dump/compress_gzip.c:148)
+  - [EndCompressorGzip](../E/EndCompressorGzip.md) (at src/bin/pg_dump/compress_gzip.c:148)
 
 ## Notes and Other Information
 - Sets zlib stream input pointers to NULL/0 before final flush to ensure no additional input is processed

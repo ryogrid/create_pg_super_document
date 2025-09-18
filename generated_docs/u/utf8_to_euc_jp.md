@@ -29,7 +29,7 @@ The conversion process involves parsing the source UTF-8 encoded string, mapping
   - `PG_GETARG_INT32`: Extract integer arguments from PostgreSQL function call
   - `PG_GETARG_BOOL`: Extract boolean arguments from PostgreSQL function call
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validate encoding conversion arguments
-  - `UtfToLocal`: Core conversion function that performs the actual encoding transformation
+  - `[UtfToLocal](../U/UtfToLocal.md)`: Core conversion function that performs the actual encoding transformation
   - `PG_RETURN_INT32`: Return integer result to PostgreSQL
 - Constants referenced:
   - `PG_UTF8`: PostgreSQL encoding identifier for UTF-8

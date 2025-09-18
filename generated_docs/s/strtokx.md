@@ -33,12 +33,12 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - PQmblenBounded
-  - strip_quotes
+  - [PQmblenBounded](../P/PQmblenBounded.md)
+  - [strip_quotes](strip_quotes.md)
 - Called from (representative examples):
-  - parse_slash_copy
-  - complete_from_files
-  - dequote_file_name
+  - [parse_slash_copy](../p/parse_slash_copy.md)
+  - [complete_from_files](../c/complete_from_files.md)
+  - [dequote_file_name](../d/dequote_file_name.md)
 
 ## Notes and Other Information
 - Uses static internal storage to maintain state between calls

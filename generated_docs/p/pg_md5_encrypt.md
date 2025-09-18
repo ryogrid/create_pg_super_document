@@ -24,16 +24,16 @@ The function allocates a temporary buffer to hold the concatenated password and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - pg_md5_hash
+  - [pg_md5_hash](pg_md5_hash.md)
   - strlen
   - memcpy
   - strcpy
   - free
 - Called from (representative examples):
-  - encrypt_password
-  - md5_crypt_verify
-  - plain_crypt_verify
-  - pg_password_sendauth
+  - [encrypt_password](../e/encrypt_password.md)
+  - [md5_crypt_verify](../m/md5_crypt_verify.md)
+  - [plain_crypt_verify](plain_crypt_verify.md)
+  - [pg_password_sendauth](pg_password_sendauth.md)
   - PQencryptPassword
 
 ## Notes and Other Information

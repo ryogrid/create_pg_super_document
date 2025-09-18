@@ -32,13 +32,13 @@ The parsed components are then typically passed to parse_compress_specification(
 - Functions called/Symbols referenced:
   - strtol
   - strchr
-  - pstrdup
-  - palloc
+  - [pstrdup](pstrdup.md)
+  - [palloc](palloc.md)
   - memcpy
 - Called from (representative examples):
-  - backup_parse_compress_options (src/bin/pg_basebackup/pg_basebackup.c:1006)
-  - main (src/bin/pg_basebackup/pg_receivewal.c:728)
-  - main (src/bin/pg_dump/pg_dump.c:603)
+  - [backup_parse_compress_options](../b/backup_parse_compress_options.md) (src/bin/pg_basebackup/pg_basebackup.c:1006)
+  - [main](../m/main.md) (src/bin/pg_basebackup/pg_receivewal.c:728)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:603)
 
 ## Notes and Other Information
 - The function allocates memory for the algorithm and detail strings using pstrdup() and palloc()

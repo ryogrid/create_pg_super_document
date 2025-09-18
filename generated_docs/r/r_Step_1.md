@@ -40,10 +40,10 @@ This step is crucial for Serbian text processing as it handles the rich morpholo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Backward suffix matching against suffix array `a_1`
-  - `slice_from_s`: Replaces matched suffix with root form
+  - `[find_among_b](../f/find_among_b.md)`: Backward suffix matching against suffix array `a_1`
+  - `[slice_from_s](../s/slice_from_s.md)`: Replaces matched suffix with root form
 - Called from (representative examples):
-  - `serbian_UTF_8_stem`: Main Serbian stemming function
+  - `[serbian_UTF_8_stem](../s/serbian_UTF_8_stem.md)`: Main Serbian stemming function
 
 ## Notes and Other Information
 - Auto-generated function from Snowball stemming language specification

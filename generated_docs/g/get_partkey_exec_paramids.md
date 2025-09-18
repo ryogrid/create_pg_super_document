@@ -22,11 +22,11 @@ This function is essential for determining which runtime parameters affect parti
   - foreach (macro for list iteration)
   - lfirst (macro for list cell access)
   - IsA (macro for type checking)
-  - bms_join
-  - pull_exec_paramids
+  - [bms_join](../b/bms_join.md)
+  - [pull_exec_paramids](../p/pull_exec_paramids.md)
   - Types: PartitionPruneStepOp, Expr, Const
 - Called from:
-  - make_partitionedrel_pruneinfo
+  - [make_partitionedrel_pruneinfo](../m/make_partitionedrel_pruneinfo.md)
 
 ## Notes and Other Information
 - This is a static function used within the partition pruning infrastructure

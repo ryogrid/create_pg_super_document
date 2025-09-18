@@ -32,12 +32,12 @@ Key validation steps include:
   - SSL_get_verify_result (certificate verification status)
   - SSL_get0_alpn_selected (ALPN protocol verification)
   - SSL_get_peer_certificate (server certificate retrieval)
-  - SSLerrmessage / SSLerrfree (libpq SSL error utilities)
-  - pgtls_close (cleanup function)
-  - pq_verify_peer_name_matches_certificate (hostname verification)
+  - [SSLerrmessage](../S/SSLerrmessage.md) / SSLerrfree (libpq SSL error utilities)
+  - [pgtls_close](../p/pgtls_close.md) (cleanup function)
+  - [pq_verify_peer_name_matches_certificate](../p/pq_verify_peer_name_matches_certificate.md) (hostname verification)
   - SOCK_ERRNO_SET / SOCK_ERRNO / SOCK_STRERROR (socket error handling)
 - Called from:
-  - pgtls_open_client
+  - [pgtls_open_client](../p/pgtls_open_client.md)
 
 ## Notes and Other Information
 - Returns PostgresPollingStatusType values:

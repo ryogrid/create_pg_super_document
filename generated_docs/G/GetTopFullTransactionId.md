@@ -22,11 +22,11 @@ The function works by checking if XactTopFullTransactionId is valid, and if not,
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid
-  - AssignTransactionId
+  - [AssignTransactionId](../A/AssignTransactionId.md)
   - XactTopFullTransactionId (global variable)
   - TopTransactionStateData (global variable)
 - Called from (representative examples):
-  - pg_current_xact_id (src/backend/utils/adt/xid8funcs.c:344)
+  - [pg_current_xact_id](../p/pg_current_xact_id.md) (src/backend/utils/adt/xid8funcs.c:344)
 
 ## Notes and Other Information
 - Must be called only inside a valid transaction context

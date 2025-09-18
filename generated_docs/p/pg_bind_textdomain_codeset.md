@@ -23,16 +23,16 @@ The function handles the SQL_ASCII encoding specially and includes fallback logi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding (gets current database encoding)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current database encoding)
   - setlocale (system locale function)
-  - pg_strcasecmp (case-insensitive string comparison)
-  - raw_pg_bind_textdomain_codeset (performs actual binding)
+  - [pg_strcasecmp](pg_strcasecmp.md) (case-insensitive string comparison)
+  - [raw_pg_bind_textdomain_codeset](../r/raw_pg_bind_textdomain_codeset.md) (performs actual binding)
   - pg_get_encoding_from_locale (derives encoding from locale)
-  - GetMessageEncoding (gets current message encoding)
+  - [GetMessageEncoding](../G/GetMessageEncoding.md) (gets current message encoding)
   - PG_SQL_ASCII (ASCII encoding constant)
 - Called from (representative examples):
-  - pg_perm_setlocale (src/backend/utils/adt/pg_locale.c:259)
-  - pg_bindtextdomain (src/backend/utils/init/miscinit.c:1944)
+  - [pg_perm_setlocale](pg_perm_setlocale.md) (src/backend/utils/adt/pg_locale.c:259)
+  - [pg_bindtextdomain](pg_bindtextdomain.md) (src/backend/utils/init/miscinit.c:1944)
 
 ## Notes and Other Information
 - Returns the MessageEncoding ID that should be used for the configured domain

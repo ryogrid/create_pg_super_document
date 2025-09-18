@@ -28,7 +28,7 @@ The function implements proper error handling by checking if the key is within t
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
-  - RT_DELETE_RECURSIVE (internal recursive deletion function)
+  - [RT_DELETE_RECURSIVE](RT_DELETE_RECURSIVE.md) (internal recursive deletion function)
   - RT_PTR_ALLOC_IS_VALID (validates pointer allocation)
   - Assert (debugging assertion macro)
 

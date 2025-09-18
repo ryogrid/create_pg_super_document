@@ -29,15 +29,15 @@ The function includes numerous assertions to verify the process is actually wait
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCK_LOCKMETHOD (macro)
-  - dclist_delete_from_thoroughly (doubly-linked list operation)
+  - [dclist_delete_from_thoroughly](../d/dclist_delete_from_thoroughly.md) (doubly-linked list operation)
   - LOCKBIT_OFF (macro)
-  - CleanUpLock
+  - [CleanUpLock](../C/CleanUpLock.md)
   - Assert (assertion macro)
-  - dclist_is_empty
+  - [dclist_is_empty](../d/dclist_is_empty.md)
   - lengthof (array length macro)
   - PROC_WAIT_STATUS_WAITING/PROC_WAIT_STATUS_ERROR (status constants)
 - Called from (representative examples):
-  - LockErrorCleanup
+  - [LockErrorCleanup](../L/LockErrorCleanup.md)
   - ProcSleep
   - CheckDeadLock
   - LockHashPartitionLockByProc

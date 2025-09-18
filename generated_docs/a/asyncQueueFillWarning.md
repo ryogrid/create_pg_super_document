@@ -17,17 +17,17 @@ This function serves as a monitoring and alerting mechanism for the asynchronous
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asyncQueueUsage (gets current queue utilization)
-  - GetCurrentTimestamp (gets current time for rate limiting)
-  - TimestampDifferenceExceeds (checks if enough time has passed since last warning)
+  - [asyncQueueUsage](asyncQueueUsage.md) (gets current queue utilization)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current time for rate limiting)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md) (checks if enough time has passed since last warning)
   - QUEUE_FULL_WARN_INTERVAL (constant defining minimum time between warnings)
-  - QueuePosition, QUEUE_HEAD (queue position tracking)
+  - [QueuePosition](../Q/QueuePosition.md), QUEUE_HEAD (queue position tracking)
   - QUEUE_FIRST_LISTENER, QUEUE_NEXT_LISTENER (iterate through listening backends)
   - QUEUE_BACKEND_PID, QUEUE_BACKEND_POS (access backend information)
   - QUEUE_POS_MIN, QUEUE_POS_EQUAL (queue position comparison macros)
   - ereport (PostgreSQL error/warning reporting system)
 - Called from:
-  - PreCommit_Notify (checks for queue fill warnings before committing notifications)
+  - [PreCommit_Notify](../P/PreCommit_Notify.md) (checks for queue fill warnings before committing notifications)
   - NotificationHash (context reference in async.c)
 
 ## Notes and Other Information

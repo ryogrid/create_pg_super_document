@@ -36,19 +36,19 @@ The function uses the standard PostgreSQL short-circuit tree walker pattern, ret
   - expression_tree_walker (for recursing into expression nodes)
 - Referenced node types:
   - Var
-  - CurrentOfExpr
-  - PlaceHolderVar
-  - Query
+  - [CurrentOfExpr](../C/CurrentOfExpr.md)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
+  - [Query](../Q/Query.md)
 - Data structures used:
-  - locate_var_of_level_context
+  - [locate_var_of_level_context](locate_var_of_level_context.md)
 - Called from:
-  - locate_var_of_level (main entry point)
-  - locate_var_of_level_walker (recursive self-calls)
+  - [locate_var_of_level](locate_var_of_level.md) (main entry point)
+  - [locate_var_of_level_walker](locate_var_of_level_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static helper function, not part of the public API
 - Only considers Vars with valid location information (location >= 0)
 - Unlike the corresponding `contain_vars_of_level_walker()`, this function doesn't need special CurrentOfExpr handling since CurrentOfExpr nodes don't carry parse location data
-- PlaceHolderVar nodes are handled more simply than in the contain variant - no level checking, just traversal of contained expressions
+- [PlaceHolderVar](../P/PlaceHolderVar.md) nodes are handled more simply than in the contain variant - no level checking, just traversal of contained expressions
 - The context structure is modified in-place when managing subquery nesting levels
 - Returns the location of the first matching Var encountered during traversal

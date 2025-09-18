@@ -22,7 +22,7 @@ This function compares two Interval values and returns an integer result indicat
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INTERVAL_P`: Extracts Interval arguments from function call context
-  - `interval_cmp_internal`: Performs the actual interval comparison logic
+  - `[interval_cmp_internal](interval_cmp_internal.md)`: Performs the actual interval comparison logic
   - `PG_RETURN_INT32`: Returns integer result to PostgreSQL function call context
   - `Interval`: PostgreSQL interval data type structure
 

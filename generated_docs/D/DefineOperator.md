@@ -28,20 +28,20 @@ The function processes various operator attributes including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace
-  - object_aclcheck (multiple calls for permission checking)
-  - defGetTypeName, defGetQualifiedName, defGetBoolean (parameter parsing)
-  - typenameTypeId (type name resolution)
-  - LookupFuncName (function lookup)
-  - ValidateRestrictionEstimator
-  - ValidateJoinEstimator  
-  - OperatorCreate (final creation step)
-  - get_func_rettype
-  - NameListToString
-  - aclcheck_error, aclcheck_error_type
-  - get_namespace_name
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [object_aclcheck](../o/object_aclcheck.md) (multiple calls for permission checking)
+  - [defGetTypeName](../d/defGetTypeName.md), defGetQualifiedName, defGetBoolean (parameter parsing)
+  - [typenameTypeId](../t/typenameTypeId.md) (type name resolution)
+  - [LookupFuncName](../L/LookupFuncName.md) (function lookup)
+  - [ValidateRestrictionEstimator](../V/ValidateRestrictionEstimator.md)
+  - [ValidateJoinEstimator](../V/ValidateJoinEstimator.md)  
+  - [OperatorCreate](../O/OperatorCreate.md) (final creation step)
+  - [get_func_rettype](../g/get_func_rettype.md)
+  - [NameListToString](../N/NameListToString.md)
+  - [aclcheck_error](../a/aclcheck_error.md), aclcheck_error_type
+  - [get_namespace_name](../g/get_namespace_name.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (main utility command dispatcher)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main utility command dispatcher)
 
 ## Notes and Other Information
 - Requires CREATE permission on the target namespace

@@ -36,17 +36,17 @@ The function maintains the tree structure while creating copies where necessary 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - copyVar
-  - fix_param_node
-  - find_minmax_agg_replacement_param
+  - [copyVar](../c/copyVar.md)
+  - [fix_param_node](fix_param_node.md)
+  - [find_minmax_agg_replacement_param](find_minmax_agg_replacement_param.md)
   - copyObject
-  - fix_alternative_subplan
-  - fix_expr_common
+  - [fix_alternative_subplan](fix_alternative_subplan.md)
+  - [fix_expr_common](fix_expr_common.md)
   - expression_tree_mutator
 - Called from (representative examples):
   - fix_scan_list
-  - fix_scan_expr
-  - fix_scan_expr_mutator (recursive calls)
+  - [fix_scan_expr](fix_scan_expr.md)
+  - [fix_scan_expr_mutator](fix_scan_expr_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - This function implements the copy-and-modify approach used when transformations are necessary, as opposed to the in-place modification used by fix_scan_expr_walker

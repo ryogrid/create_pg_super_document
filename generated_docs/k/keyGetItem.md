@@ -26,30 +26,30 @@ The consistency evaluation uses temporary memory contexts and supports both trad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareItemPointers
-  - entryGetItem
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
+  - [entryGetItem](../e/entryGetItem.md)
   - ItemPointerSetMax
-  - ItemPointerSet
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - ItemPointerSetLossyPage
   - ItemPointerIsLossyPage
   - GinItemPointerGetBlockNumber
   - GinItemPointerGetOffsetNumber
   - OffsetNumberPrev
   - OffsetNumberNext
-  - MemoryContextSwitchTo
-  - MemoryContextReset
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Data types used:
-  - GinState
-  - GinScanKey
-  - GinScanEntry
+  - [GinState](../G/GinState.md)
+  - [GinScanKey](../G/GinScanKey.md)
+  - [GinScanEntry](../G/GinScanEntry.md)
   - GinTernaryValue
-  - ItemPointerData
-  - MemoryContext
+  - [ItemPointerData](../I/ItemPointerData.md)
+  - [MemoryContext](../M/MemoryContext.md)
 - Constants:
   - GIN_TRUE, GIN_FALSE, GIN_MAYBE
   - InvalidOffsetNumber
 - Called from:
-  - scanGetItem
+  - [scanGetItem](../s/scanGetItem.md)
 
 ## Notes and Other Information
 - Implements sophisticated lossy page pointer handling to avoid returning both exact and lossy pointers for the same page

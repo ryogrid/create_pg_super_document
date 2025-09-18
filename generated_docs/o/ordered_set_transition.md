@@ -23,8 +23,8 @@ The function maintains a count of non-null rows processed, which can be used lat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ordered_set_startup
-  - tuplesort_putdatum
+  - [ordered_set_startup](ordered_set_startup.md)
+  - [tuplesort_putdatum](../t/tuplesort_putdatum.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_GETARG_DATUM

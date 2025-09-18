@@ -42,18 +42,18 @@ The function operates within a critical section and must be careful about resour
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - heap_log_freeze_plan
-  - XLogRegisterBufData
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [heap_log_freeze_plan](../h/heap_log_freeze_plan.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
   - RelationIsAccessibleInLogicalDecoding
-  - XLogRegisterData
-  - XLogInsert
-  - PageSetLSN
-  - BufferGetPage
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
-  - lazy_vacuum_heap_page
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md)
+  - [lazy_vacuum_heap_page](lazy_vacuum_heap_page.md)
 
 ## Notes and Other Information
 This function is called within a critical section, so it must be efficient and avoid operations that could fail. The function destructively sorts the frozen tuples array through heap_log_freeze_plan. The unified record format allows for efficient WAL logging when multiple operations occur on the same page, which is common during vacuum operations. Different prune reasons result in different WAL record subtypes but use the same underlying record structure.

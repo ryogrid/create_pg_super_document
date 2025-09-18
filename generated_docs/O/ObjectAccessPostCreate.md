@@ -22,9 +22,9 @@ The struct is passed to object access hook functions to provide context about th
 ## Dependencies
 - Functions called/Symbols referenced: None (this is a data structure)
 - Called from (representative examples):
-  - RunObjectPostCreateHook
-  - RunObjectPostCreateHookStr
-  - accesstype_arg_to_string
+  - [RunObjectPostCreateHook](../R/RunObjectPostCreateHook.md)
+  - [RunObjectPostCreateHookStr](../R/RunObjectPostCreateHookStr.md)
+  - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
 
 ## Notes and Other Information
 - This struct is specifically used with OAT_POST_CREATE hook events

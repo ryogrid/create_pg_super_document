@@ -32,9 +32,9 @@ The function supports both explicit closes (with relname parameter) and implicit
   - table_close
   - NoLock (locking constant)
 - Called from (representative examples):
-  - boot_openrel (to close previously opened relations)
-  - DefineAttr (during attribute definition)
-  - cleanup (during bootstrap cleanup)
+  - [boot_openrel](../b/boot_openrel.md) (to close previously opened relations)
+  - [DefineAttr](../D/DefineAttr.md) (during attribute definition)
+  - [cleanup](cleanup.md) (during bootstrap cleanup)
 
 ## Notes and Other Information
 - Uses global variable boot_reldesc to track the currently opened relation

@@ -20,9 +20,9 @@ The function is useful for determining whether a query has external parameter de
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_tree_walker
-  - query_contains_extern_params_walker
+  - [query_contains_extern_params_walker](query_contains_extern_params_walker.md)
 - Called from (representative examples):
-  - transformCreateTableAsStmt
+  - [transformCreateTableAsStmt](../t/transformCreateTableAsStmt.md)
 
 ## Notes and Other Information
 - Returns true if any PARAM_EXTERN parameters are found, false otherwise

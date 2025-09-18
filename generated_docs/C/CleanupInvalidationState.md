@@ -28,25 +28,25 @@ The function ensures that the shared invalidation system maintains an accurate l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - Assert
   - PointerIsValid
   - LWLockAcquire
   - LWLockRelease
   - elog
 - Data types referenced:
-  - SISeg
-  - ProcState
+  - [SISeg](../S/SISeg.md)
+  - [ProcState](../P/ProcState.md)
   - Datum
 - Constants referenced:
   - LW_EXCLUSIVE
   - PANIC
-- Variables referenced:
+- [Variables](../V/Variables.md) referenced:
   - MyProcNumber
   - nextLocalTransactionId
   - SInvalWriteLock
 - Called from (representative examples):
-  - on_shmem_exit (automatic callback during process exit)
+  - [on_shmem_exit](../o/on_shmem_exit.md) (automatic callback during process exit)
 
 ## Notes and Other Information
 - This is a static function only used internally within the sinvaladt.c module

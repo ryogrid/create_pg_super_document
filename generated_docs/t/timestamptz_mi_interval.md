@@ -23,7 +23,7 @@ This function is a PostgreSQL built-in function that implements the subtraction 
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMPTZ (macro for extracting timestamptz argument)
   - PG_GETARG_INTERVAL_P (macro for extracting interval pointer argument)
-  - timestamptz_mi_interval_internal (internal implementation function)
+  - [timestamptz_mi_interval_internal](timestamptz_mi_interval_internal.md) (internal implementation function)
   - PG_RETURN_TIMESTAMP (macro for returning timestamp result)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through SQL operator '-')

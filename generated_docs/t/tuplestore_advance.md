@@ -23,11 +23,11 @@ The implementation leverages the existing `tuplestore_gettuple` infrastructure b
 ## Dependencies
 - Functions called/Symbols referenced:
   - tuplestore_gettuple
-  - pfree (when should_free is true)
+  - [pfree](../p/pfree.md) (when should_free is true)
 - Called from (representative examples):
-  - CteScanNext
-  - ExecMaterial
-  - window_gettupleslot
+  - [CteScanNext](../C/CteScanNext.md)
+  - [ExecMaterial](../E/ExecMaterial.md)
+  - [window_gettupleslot](../w/window_gettupleslot.md)
 
 ## Notes and Other Information
 - Returns true if a tuple was available and the position was successfully advanced, false if no more tuples are available

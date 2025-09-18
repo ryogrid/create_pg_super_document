@@ -47,13 +47,13 @@ The structure supports various allocation flags including MCXT_ALLOC_HUGE for la
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextCounters
-  - MemoryContext
+  - [MemoryContextCounters](MemoryContextCounters.md)
+  - [MemoryContext](MemoryContext.md)
   - MemoryStatsPrintFunc
   - Size
   - MEMORY_CONTEXT_CHECKING (conditional compilation)
 - Called from (representative examples):
-  - MemoryContextData (memnodes.h:126)
+  - [MemoryContextData](MemoryContextData.md) (memnodes.h:126)
   - BOGUS_MCTX (mcxt.c:46)
 
 ## Notes and Other Information

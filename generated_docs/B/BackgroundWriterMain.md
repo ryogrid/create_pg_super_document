@@ -29,21 +29,21 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
   - BgBufferSync
-  - SignalHandlerForConfigReload
-  - SignalHandlerForShutdownRequest
-  - procsignal_sigusr1_handler
+  - [SignalHandlerForConfigReload](../S/SignalHandlerForConfigReload.md)
+  - [SignalHandlerForShutdownRequest](../S/SignalHandlerForShutdownRequest.md)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md)
   - AllocSetContextCreate
-  - WritebackContextInit
-  - GetCurrentTimestamp
-  - pgstat_report_bgwriter
+  - [WritebackContextInit](../W/WritebackContextInit.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pgstat_report_bgwriter](../p/pgstat_report_bgwriter.md)
   - pgstat_report_wal
-  - FirstCallSinceLastCheckpoint
-  - smgrdestroyall
+  - [FirstCallSinceLastCheckpoint](../F/FirstCallSinceLastCheckpoint.md)
+  - [smgrdestroyall](../s/smgrdestroyall.md)
   - XLogStandbyInfoActive
   - LogStandbySnapshot
-  - WaitLatch
+  - [WaitLatch](../W/WaitLatch.md)
   - StrategyNotifyBgWriter
   - Various memory management and error handling functions
 

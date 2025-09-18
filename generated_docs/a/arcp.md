@@ -202,14 +202,14 @@ v_str ESTAB   0      0                                               *:633275480
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sset (destination state structure)
+  - [sset](../s/sset.md) (destination state structure)
   - color (character class type)
 - Called from (representative examples):
-  - newdfa (DFA construction)
-  - getvacant (state management)
+  - [newdfa](../n/newdfa.md) (DFA construction)
+  - [getvacant](../g/getvacant.md) (state management)
   - NOPROGRESS (progress tracking)
-  - dfa (DFA execution)
-  - smalldfa (small DFA execution)
+  - [dfa](../d/dfa.md) (DFA execution)
+  - [smalldfa](../s/smalldfa.md) (small DFA execution)
 
 ## Notes and Other Information
 The arcp structure is designed for memory efficiency in the lazy-DFA implementation, storing only a state set pointer and color rather than full arc information. This allows the regex engine to minimize memory usage while maintaining the ability to traverse the automaton during pattern matching operations.

@@ -28,7 +28,7 @@ Returns:
   -  (lines 1497, 1501, 1504) - places raw bytes into the send buffer
   -  (line 1500) - converts 32-bit integer to network byte order
 - Global variables accessed:
-  -  - flag to prevent reentrant calls and message interleaving
+  -  - [flag](../f/flag.md) to prevent reentrant calls and message interleaving
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pqcomm.c file

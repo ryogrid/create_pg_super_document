@@ -22,14 +22,14 @@ The function also handles backward compatibility with older archive versions. Pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadOffset (archiver utility function for reading offset data)
+  - [ReadOffset](ReadOffset.md) (archiver utility function for reading offset data)
   - pg_malloc0 (memory allocation for new context)
-  - ReadInt (archiver utility for reading integer values, used for compatibility)
+  - [ReadInt](ReadInt.md) (archiver utility for reading integer values, used for compatibility)
   - lclTocEntry (local TOC entry structure type)
   - K_VERS_1_7 (version constant for compatibility checking)
 
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (assigned as ReadExtraTocPtr function pointer)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (assigned as ReadExtraTocPtr function pointer)
   - Referenced by InitArchiveFmt_Directory (directory format also uses this pattern)
 
 ## Notes and Other Information

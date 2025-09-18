@@ -17,7 +17,7 @@ This function provides the implementation for Python's len() builtin function wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (cast target type)
+  - [PLyResultObject](PLyResultObject.md) (cast target type)
   - PyList_Size (Python list size function)
 - Called from:
   - Python runtime when len() is called on a result object

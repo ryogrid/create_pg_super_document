@@ -25,13 +25,13 @@ The function uses the rangeTableEntry_used_walker to perform the actual traversa
 - Functions called/Symbols referenced:
   - rangeTableEntry_used_context (context structure for walker)
   - query_or_expression_tree_walker (tree traversal function)
-  - rangeTableEntry_used_walker (worker function that does the actual checking)
+  - [rangeTableEntry_used_walker](rangeTableEntry_used_walker.md) (worker function that does the actual checking)
 - Called from (representative examples):
-  - transformRuleStmt (during rule statement transformation)
-  - rewriteRuleAction (during rule action rewriting)
-  - matchLocks (during rule lock matching)
-  - fireRIRrules (during rules in rules processing)
-  - ReplaceVarsNoMatchOption (during variable replacement operations)
+  - [transformRuleStmt](../t/transformRuleStmt.md) (during rule statement transformation)
+  - [rewriteRuleAction](rewriteRuleAction.md) (during rule action rewriting)
+  - [matchLocks](../m/matchLocks.md) (during rule lock matching)
+  - [fireRIRrules](../f/fireRIRrules.md) (during rules in rules processing)
+  - [ReplaceVarsNoMatchOption](../R/ReplaceVarsNoMatchOption.md) (during variable replacement operations)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:967-998

@@ -23,14 +23,14 @@ SplitPageLayout serves as a container for all data needed during GiST index page
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistxlogPage
-  - IndexTupleData
+  - [gistxlogPage](../g/gistxlogPage.md)
+  - [IndexTupleData](../I/IndexTupleData.md)
 - Called from (representative examples):
-  - gistplacetopage
-  - gistfinishsplit
-  - gistSplit
-  - gist_indexsortbuild_levelstate_flush
-  - gistXLogSplit
+  - [gistplacetopage](../g/gistplacetopage.md)
+  - [gistfinishsplit](../g/gistfinishsplit.md)
+  - [gistSplit](../g/gistSplit.md)
+  - [gist_indexsortbuild_levelstate_flush](../g/gist_indexsortbuild_levelstate_flush.md)
+  - [gistXLogSplit](../g/gistXLogSplit.md)
 
 ## Notes and Other Information
 This structure is critical for maintaining ACID properties during GiST index modifications, as it ensures all necessary information is available for both the immediate operation and potential recovery scenarios. The linked list design allows for efficient handling of cascading splits that may occur when parent pages also need to be split to accommodate new entries.

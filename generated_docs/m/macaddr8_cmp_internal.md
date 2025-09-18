@@ -28,13 +28,13 @@ The comparison is performed using two utility macros:
   - lobits (macro for extracting low-order bits)
   - macaddr8 (structure type)
 - Called from (representative examples):
-  - macaddr8_cmp
-  - macaddr8_lt
-  - macaddr8_le
-  - macaddr8_eq
-  - macaddr8_ge
-  - macaddr8_gt
-  - macaddr8_ne
+  - [macaddr8_cmp](macaddr8_cmp.md)
+  - [macaddr8_lt](macaddr8_lt.md)
+  - [macaddr8_le](macaddr8_le.md)
+  - [macaddr8_eq](macaddr8_eq.md)
+  - [macaddr8_ge](macaddr8_ge.md)
+  - [macaddr8_gt](macaddr8_gt.md)
+  - [macaddr8_ne](macaddr8_ne.md)
 
 ## Notes and Other Information
 - Returns -1 if a1 < a2, 0 if a1 == a2, and 1 if a1 > a2

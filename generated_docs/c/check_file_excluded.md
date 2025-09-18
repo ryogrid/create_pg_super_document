@@ -29,14 +29,14 @@ The exclusion rules are maintained in sync with basebackup.c to ensure consisten
   - PG_TEMP_FILES_DIR (constant for temporary files directory)
   - excludeFiles (static array of exclude_list_item structures)
   - excludeDirContents (static array of directory names to exclude)
-  - last_dir_separator (function to find last directory separator in path)
+  - [last_dir_separator](../l/last_dir_separator.md) (function to find last directory separator in path)
   - pg_log_debug (logging function)
   - strstr (string search function)
   - strncmp (string comparison function)
   - strlen (string length function)
   - snprintf (formatted string printing function)
 - Called from (representative examples):
-  - decide_file_action (in filemap.c:718)
+  - [decide_file_action](../d/decide_file_action.md) (in filemap.c:718)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the filemap.c file

@@ -17,9 +17,9 @@ This is a simple cleanup function that serves as the rDestroy callback for tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - CreateTuplestoreDestReceiver (sets this as the rDestroy callback)
+  - [CreateTuplestoreDestReceiver](../C/CreateTuplestoreDestReceiver.md) (sets this as the rDestroy callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the tstoreReceiver.c file

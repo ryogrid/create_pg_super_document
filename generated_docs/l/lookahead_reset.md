@@ -25,7 +25,7 @@ This function takes no parameters but modifies several global variables:
 - Functions called/Symbols referenced:
   - (No function calls - only manipulates global variables)
 - Called from (representative examples):
-  - is_func_definition (in lexi.c to restart function definition parsing)
+  - [is_func_definition](../i/is_func_definition.md) (in lexi.c to restart function definition parsing)
 
 ## Notes and Other Information
 - Essential companion function to lookahead() for proper lookahead buffer management

@@ -22,23 +22,23 @@ This function provides a centralized mechanism for checking object ownership acr
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser_arg
-  - get_object_catcache_oid
-  - get_object_class_descr
-  - SysCacheGetAttrNotNull
-  - DatumGetObjectId
-  - get_object_attnum_owner
-  - get_object_attnum_oid
-  - systable_beginscan
-  - get_object_oid_index
-  - systable_getnext
-  - heap_getattr
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
+  - [get_object_class_descr](../g/get_object_class_descr.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [get_object_attnum_owner](../g/get_object_attnum_owner.md)
+  - [get_object_attnum_oid](../g/get_object_attnum_oid.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [get_object_oid_index](../g/get_object_oid_index.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [heap_getattr](../h/heap_getattr.md)
   - has_privs_of_role
 - Called from (representative examples):
-  - check_object_ownership
-  - ATSimplePermissions
-  - AlterFunction
-  - DropTableSpace
-  - DefineType
+  - [check_object_ownership](../c/check_object_ownership.md)
+  - [ATSimplePermissions](../A/ATSimplePermissions.md)
+  - [AlterFunction](../A/AlterFunction.md)
+  - [DropTableSpace](../D/DropTableSpace.md)
+  - [DefineType](../D/DefineType.md)
   - vacuum_is_permitted_for_relation
 
 ## Notes and Other Information

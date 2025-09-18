@@ -24,16 +24,16 @@ The  function handles the complex process of splitting leaf tuple chains in SP-G
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkAllTheSame
-  - spgFormLeafTuple  
-  - spgFormInnerTuple
-  - spgFormNodeTuple
-  - SpGistGetBuffer
-  - SpGistPageAddNewItem
-  - saveNodeLink
-  - setRedirectionTuple
+  - [checkAllTheSame](../c/checkAllTheSame.md)
+  - [spgFormLeafTuple](../s/spgFormLeafTuple.md)  
+  - [spgFormInnerTuple](../s/spgFormInnerTuple.md)
+  - [spgFormNodeTuple](../s/spgFormNodeTuple.md)
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md)
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md)
+  - [saveNodeLink](../s/saveNodeLink.md)
+  - [setRedirectionTuple](../s/setRedirectionTuple.md)
 - Called from (representative examples):
-  - spgdoinsert
+  - [spgdoinsert](../s/spgdoinsert.md)
 
 ## Notes and Other Information
 Returns true if the new leaf tuple was successfully inserted during the split operation, false if the caller needs to retry (typically due to space constraints or unbalanced splits). The function handles WAL logging for crash recovery and manages buffer locking to prevent deadlocks. Special handling is required for root page splits, which transform a leaf page into an inner page. The algorithm may require multiple iterations if the picksplit result is highly unbalanced or if prefix stripping is insufficient to make tuples fit.

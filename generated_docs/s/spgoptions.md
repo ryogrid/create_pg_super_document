@@ -22,14 +22,14 @@ The fillfactor parameter determines the target percentage of each index page tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
   - relopt_parse_elt (struct)
-  - SpGistOptions (struct)
+  - [SpGistOptions](../S/SpGistOptions.md) (struct)
   - RELOPT_TYPE_INT (constant)
   - RELOPT_KIND_SPGIST (constant)
   - lengthof (macro)
 - Called from (representative examples):
-  - spghandler
+  - [spghandler](spghandler.md)
 
 ## Notes and Other Information
 - Currently only supports the 'fillfactor' option for SP-GiST indexes

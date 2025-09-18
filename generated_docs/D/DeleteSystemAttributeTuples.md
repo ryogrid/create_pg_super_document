@@ -38,11 +38,11 @@ This function is highly specialized and is only used in the specific context of 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens pg_attribute catalog for modification)
-  - ScanKeyInit (initializes scan keys for relation ID and attribute number conditions)
-  - systable_beginscan (begins indexed scan on pg_attribute with dual conditions)
-  - systable_getnext (retrieves next matching system attribute tuple)
-  - CatalogTupleDelete (deletes system attribute tuple from catalog)
-  - systable_endscan (ends the system catalog scan)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (initializes scan keys for relation ID and attribute number conditions)
+  - [systable_beginscan](../s/systable_beginscan.md) (begins indexed scan on pg_attribute with dual conditions)
+  - [systable_getnext](../s/systable_getnext.md) (retrieves next matching system attribute tuple)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (deletes system attribute tuple from catalog)
+  - [systable_endscan](../s/systable_endscan.md) (ends the system catalog scan)
   - table_close (closes pg_attribute catalog relation)
 - Called from (representative examples):
   - Currently no direct callers found in the codebase (may be used in table-to-view conversion logic)

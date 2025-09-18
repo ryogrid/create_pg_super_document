@@ -21,9 +21,9 @@ The function is designed to be called when the WAL receiver is shutting down or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfinish (to close the libpq connection)
-  - PQfreemem (to free the receive buffer allocated by libpq)
-  - pfree (to free the connection structure)
+  - [PQfinish](../P/PQfinish.md) (to close the libpq connection)
+  - [PQfreemem](../P/PQfreemem.md) (to free the receive buffer allocated by libpq)
+  - [pfree](../p/pfree.md) (to free the connection structure)
 - Used by:
   - WAL receiver connection management functions
   - Connection cleanup routines during shutdown or error conditions

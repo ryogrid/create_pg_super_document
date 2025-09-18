@@ -30,23 +30,23 @@ The function uses the expression_tree_mutator framework for efficient tree trave
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_subplan
-  - is_andclause
-  - is_orclause
-  - make_andclause
-  - make_orclause  
+  - [make_subplan](../m/make_subplan.md)
+  - [is_andclause](../i/is_andclause.md)
+  - [is_orclause](../i/is_orclause.md)
+  - [make_andclause](../m/make_andclause.md)
+  - [make_orclause](../m/make_orclause.md)  
   - expression_tree_mutator
-  - list_concat
+  - [list_concat](../l/list_concat.md)
 - Data types referenced:
   - SubLink
-  - PlaceHolderVar
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - Aggref
   - GroupingFunc
   - BoolExpr
-  - process_sublinks_context
+  - [process_sublinks_context](process_sublinks_context.md)
 - Called from (representative examples):
-  - SS_process_sublinks
-  - process_sublinks_mutator (recursive calls)
+  - [SS_process_sublinks](../S/SS_process_sublinks.md)
+  - [process_sublinks_mutator](process_sublinks_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the subselect.c file

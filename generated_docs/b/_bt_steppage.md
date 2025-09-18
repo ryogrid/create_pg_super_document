@@ -20,17 +20,17 @@ This function manages page transitions during B-tree index scans. It handles sev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_killitems (process killed items)
-  - _bt_parallel_seize (coordinate with parallel scans)
-  - _bt_readnextpage (read and setup next page)
-  - _bt_drop_lock_and_maybe_pin (manage buffer locks/pins)
+  - [_bt_killitems](_bt_killitems.md) (process killed items)
+  - [_bt_parallel_seize](_bt_parallel_seize.md) (coordinate with parallel scans)
+  - [_bt_readnextpage](_bt_readnextpage.md) (read and setup next page)
+  - [_bt_drop_lock_and_maybe_pin](_bt_drop_lock_and_maybe_pin.md) (manage buffer locks/pins)
   - BTScanPosIsValid, BTScanPosIsPinned, BTScanPosUnpinIfPinned, BTScanPosInvalidate (scan position state management)
-  - IncrBufferRefCount (buffer reference counting)
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md) (buffer reference counting)
   - ScanDirectionIsForward (direction checking)
 - Called from (representative examples):
-  - _bt_first (initial scan setup)
-  - _bt_next (scan continuation)
-  - _bt_endpoint (scan termination)
+  - [_bt_first](_bt_first.md) (initial scan setup)
+  - [_bt_next](_bt_next.md) (scan continuation)
+  - [_bt_endpoint](_bt_endpoint.md) (scan termination)
 
 ## Notes and Other Information
 - Returns true if successfully stepped to a valid next page, false if scan has ended

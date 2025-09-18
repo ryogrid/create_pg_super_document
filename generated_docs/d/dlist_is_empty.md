@@ -17,16 +17,16 @@ The  function determines if a doubly-linked list contains any elements by checki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (structure type)
-  - dlist_check (integrity validation function)
+  - [dlist_head](dlist_head.md) (structure type)
+  - [dlist_check](dlist_check.md) (integrity validation function)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf (src/backend/access/gin/gindatapage.c:499)
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md) (src/backend/access/gin/gindatapage.c:499)
   - ParallelContextActive (src/backend/access/transam/parallel.c:1022)
-  - AtEOSubXact_Parallel (src/backend/access/transam/parallel.c:1252)
-  - launcher_determine_sleep (src/backend/postmaster/autovacuum.c:805)
+  - [AtEOSubXact_Parallel](../A/AtEOSubXact_Parallel.md) (src/backend/access/transam/parallel.c:1252)
+  - [launcher_determine_sleep](../l/launcher_determine_sleep.md) (src/backend/postmaster/autovacuum.c:805)
   - ReorderBufferGetOldestTXN (src/backend/replication/logical/reorderbuffer.c:1046)
-  - SetupLockInTable (src/backend/storage/lmgr/lock.c:1253)
-  - CleanUpLock (src/backend/storage/lmgr/lock.c:1669)
+  - [SetupLockInTable](../S/SetupLockInTable.md) (src/backend/storage/lmgr/lock.c:1253)
+  - [CleanUpLock](../C/CleanUpLock.md) (src/backend/storage/lmgr/lock.c:1669)
   - InitProcess (src/backend/storage/lmgr/proc.c:336)
 
 ## Notes and Other Information

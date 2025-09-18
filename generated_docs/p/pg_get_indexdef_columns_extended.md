@@ -25,7 +25,7 @@ The function extracts specific flag values to determine formatting (RULE_INDEXDE
   - RULE_INDEXDEF_PRETTY (flag constant for pretty formatting)
   - RULE_INDEXDEF_KEYS_ONLY (flag constant for keys-only output)
   - GET_PRETTY_FLAGS (macro for converting boolean to formatting flags)
-  - pg_get_indexdef_worker (core worker function)
+  - [pg_get_indexdef_worker](pg_get_indexdef_worker.md) (core worker function)
 - Called from (representative examples):
   - Referenced by RULE_INDEXDEF_KEYS_ONLY constant definition (in src/include/utils/ruleutils.h)
 

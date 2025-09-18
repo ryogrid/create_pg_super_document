@@ -22,9 +22,9 @@ This struct is part of the ECPG preprocessor test infrastructure, specifically t
 - Functions called/Symbols referenced:
   - None (basic struct definition)
 - Called from (representative examples):
-  - varchar_1 (test variable)
-  - personal_indicator (test variable)
-  - varchar_6 (test variable)
+  - [varchar_1](../v/varchar_1.md) (test variable)
+  - [personal_indicator](../p/personal_indicator.md) (test variable)
+  - [varchar_6](../v/varchar_6.md) (test variable)
 
 ## Notes and Other Information
 - This is a test structure used specifically in ECPG preprocessor testing

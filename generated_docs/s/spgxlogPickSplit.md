@@ -29,12 +29,12 @@ This structure represents a WAL record for SP-GiST pick-split operations, one of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgxlogState
+  - [spgxlogState](spgxlogState.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - doPickSplit (src/backend/access/spgist/spgdoinsert.c:709)
-  - spgRedoPickSplit (src/backend/access/spgist/spgxlog.c:533)
-  - spg_desc (src/backend/access/rmgrdesc/spgdesc.c:85)
+  - [doPickSplit](../d/doPickSplit.md) (src/backend/access/spgist/spgdoinsert.c:709)
+  - [spgRedoPickSplit](spgRedoPickSplit.md) (src/backend/access/spgist/spgxlog.c:533)
+  - [spg_desc](spg_desc.md) (src/backend/access/rmgrdesc/spgdesc.c:85)
   - SizeOfSpgxlogPickSplit (src/include/access/spgxlog.h:199)
 
 ## Notes and Other Information

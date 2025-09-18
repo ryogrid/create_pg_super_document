@@ -33,13 +33,13 @@ The function performs thorough validation to detect and prevent inconsistent ope
   - CommandCounterIncrement (ensures transaction visibility)
   - table_open/table_close (catalog relation access)
   - SearchSysCacheCopy1 (retrieves operator tuples)
-  - CatalogTupleUpdate (updates catalog tuples)
-  - get_opname (gets operator name for error messages)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates catalog tuples)
+  - [get_opname](../g/get_opname.md) (gets operator name for error messages)
   - Form_pg_operator (operator tuple structure)
 - Called from (representative examples):
-  - OperatorCreate (at src/backend/catalog/pg_operator.c:534)
-  - RemoveOperatorById (at src/backend/commands/operatorcmds.c:434)
-  - AlterOperator (at src/backend/commands/operatorcmds.c:694)
+  - [OperatorCreate](OperatorCreate.md) (at src/backend/catalog/pg_operator.c:534)
+  - [RemoveOperatorById](../R/RemoveOperatorById.md) (at src/backend/commands/operatorcmds.c:434)
+  - [AlterOperator](../A/AlterOperator.md) (at src/backend/commands/operatorcmds.c:694)
 
 ## Notes and Other Information
 - Uses RowExclusiveLock when opening the pg_operator catalog to ensure exclusive update access

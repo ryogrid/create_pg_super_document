@@ -26,14 +26,14 @@ This comprehensive error checking ensures data integrity for WAL summary files, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - WalSummaryIO (structure type)
-  - FileWrite (PostgreSQL file I/O function)
-  - FilePathName (PostgreSQL file utility function)
+  - [FileWrite](../F/FileWrite.md) (PostgreSQL file I/O function)
+  - [FilePathName](../F/FilePathName.md) (PostgreSQL file utility function)
   - ereport (PostgreSQL error reporting function)
-  - errcode_for_file_access (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
-  - errhint (PostgreSQL error hint function)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
+  - [errhint](../e/errhint.md) (PostgreSQL error hint function)
 - Called from:
-  - SummarizeWAL
+  - [SummarizeWAL](../S/SummarizeWAL.md)
 
 ## Notes and Other Information
 - Returns the actual number of bytes written, which should always equal the requested length on success

@@ -24,12 +24,12 @@ JitContext serves as the primary coordination structure for PostgreSQL's JIT com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JitInstrumentation (embedded structure for performance tracking)
+  - [JitInstrumentation](JitInstrumentation.md) (embedded structure for performance tracking)
 - Called from (representative examples):
-  - jit_release_context
-  - llvm_release_context
-  - JitProviderCallbacks (as function parameter type)
-  - EState (embedded in execution state)
+  - [jit_release_context](../j/jit_release_context.md)
+  - [llvm_release_context](../l/llvm_release_context.md)
+  - [JitProviderCallbacks](JitProviderCallbacks.md) (as function parameter type)
+  - [EState](../E/EState.md) (embedded in execution state)
 
 ## Notes and Other Information
 - Typically embedded within EState (execution state) to provide JIT context for query execution

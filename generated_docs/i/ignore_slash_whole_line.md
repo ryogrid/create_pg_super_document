@@ -24,14 +24,14 @@ The function makes a single call to `psql_scan_slash_option()` with the OT_WHOLE
 ## Dependencies
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option`: Scans for the next slash command option from the input with specified type
-  - `OT_WHOLE_LINE`: Option type constant for whole-line command arguments
-  - `PsqlScanState`: Scanner state structure type
+  - `[OT_WHOLE_LINE](../O/OT_WHOLE_LINE.md)`: Option type constant for whole-line command arguments
+  - `[PsqlScanState](../P/PsqlScanState.md)`: Scanner state structure type
 
 - Called from (representative examples):
-  - `exec_command_copy`: When \copy commands are in inactive branches
-  - `exec_command_help`: When \help commands are in inactive branches  
-  - `exec_command_shell_escape`: When shell escape commands are in inactive branches
-  - `exec_command_ef_ev`: When \ef/\ev commands are in inactive branches
+  - `[exec_command_copy](../e/exec_command_copy.md)`: When \copy commands are in inactive branches
+  - `[exec_command_help](../e/exec_command_help.md)`: When \help commands are in inactive branches  
+  - `[exec_command_shell_escape](../e/exec_command_shell_escape.md)`: When shell escape commands are in inactive branches
+  - `[exec_command_ef_ev](../e/exec_command_ef_ev.md)`: When \ef/\ev commands are in inactive branches
 
 ## Notes and Other Information
 - This function is essential for maintaining parser state consistency when processing whole-line arguments

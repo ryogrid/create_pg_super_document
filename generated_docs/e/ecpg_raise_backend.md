@@ -21,15 +21,15 @@ The  function processes errors that originate from the PostgreSQL backend server
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_log
+  - [ecpg_log](ecpg_log.md)
   - ECPGfree_auto_mem
-  - PQresultErrorField (to extract error fields from result)
-  - PQerrorMessage (fallback for connection errors)
+  - [PQresultErrorField](../P/PQresultErrorField.md) (to extract error fields from result)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (fallback for connection errors)
   - PQstatus (to check connection status)
   - ecpg_gettext (for localized messages)
   - snprintf, strlen, strncpy, strncmp
 - Called from (representative examples):
-  - ecpg_check_PQresult
+  - [ecpg_check_PQresult](ecpg_check_PQresult.md)
   - ecpg_process_output
 
 ## Notes and Other Information

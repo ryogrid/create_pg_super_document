@@ -32,21 +32,21 @@ For indirection cases, the function distinguishes between INSERT and UPDATE oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - attnumTypeId
+  - [attnumTypeId](../a/attnumTypeId.md)
   - TupleDescAttr
   - IsA
-  - makeNullConst
+  - [makeNullConst](../m/makeNullConst.md)
   - makeVar
-  - transformAssignmentIndirection
-  - coerce_to_target_type
+  - [transformAssignmentIndirection](transformAssignmentIndirection.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
   - exprType
-  - exprLocation
-  - format_type_be
+  - [exprLocation](../e/exprLocation.md)
+  - [format_type_be](../f/format_type_be.md)
   - list_head
   - Constants: EXPR_KIND_NONE, COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST
 - Called from:
-  - transformInsertRow (analyze.c)
-  - updateTargetListEntry (parse_target.c)
+  - [transformInsertRow](transformInsertRow.md) (analyze.c)
+  - [updateTargetListEntry](../u/updateTargetListEntry.md) (parse_target.c)
 
 ## Notes and Other Information
 - The function temporarily modifies pstate->p_expr_kind during processing and restores it before returning

@@ -24,11 +24,11 @@ The function handles different relation forks (main data, free space map, visibi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open
-  - calculate_relation_size
+  - [try_relation_open](../t/try_relation_open.md)
+  - [calculate_relation_size](../c/calculate_relation_size.md)
   - text_to_cstring
-  - forkname_to_number
-  - relation_close
+  - [forkname_to_number](../f/forkname_to_number.md)
+  - [relation_close](../r/relation_close.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - PG_RETURN_NULL
@@ -38,11 +38,11 @@ The function handles different relation forks (main data, free space map, visibi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open
-  - calculate_relation_size
+  - [try_relation_open](../t/try_relation_open.md)
+  - [calculate_relation_size](../c/calculate_relation_size.md)
   - text_to_cstring
-  - forkname_to_number
-  - relation_close
+  - [forkname_to_number](../f/forkname_to_number.md)
+  - [relation_close](../r/relation_close.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - PG_RETURN_NULL

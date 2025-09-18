@@ -25,23 +25,23 @@ The function is designed to be called multiple times during expression evaluatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_TUPDESC
-  - lookup_rowtype_tupdesc
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - ReleaseTupleDesc
   - ExprEvalRowtypeCache (structure access)
 - Called from (representative examples):
   - EEO_JUMP (macro expansion)
-  - ExecEvalRowNullInt
-  - ExecEvalFieldSelect
-  - ExecEvalFieldStoreDeForm
-  - ExecEvalFieldStoreForm
-  - ExecEvalConvertRowtype
+  - [ExecEvalRowNullInt](../E/ExecEvalRowNullInt.md)
+  - [ExecEvalFieldSelect](../E/ExecEvalFieldSelect.md)
+  - [ExecEvalFieldStoreDeForm](../E/ExecEvalFieldStoreDeForm.md)
+  - [ExecEvalFieldStoreForm](../E/ExecEvalFieldStoreForm.md)
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExprInterp.c:2084-2149
 - The returned TupleDesc is not guaranteed pinned; caller must pin it for operations that might trigger cache invalidation
-- TupleDesc is always refcounted, so use IncrTupleDescRefCount for pinning
+- [TupleDesc](../T/TupleDesc.md) is always refcounted, so use IncrTupleDescRefCount for pinning
 - Must handle the possibility of composite type content changes during execution
 - Cannot be called just once during initialization due to potential type changes
 - Uses unlikely() optimization hints for cache miss scenarios

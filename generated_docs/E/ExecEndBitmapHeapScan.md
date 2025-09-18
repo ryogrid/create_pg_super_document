@@ -19,18 +19,18 @@ The function follows a systematic cleanup approach: first it shuts down child no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState (macro to get outer plan)
-  - tbm_end_iterate
-  - tbm_end_shared_iterate
-  - tbm_free
+  - [tbm_end_iterate](../t/tbm_end_iterate.md)
+  - [tbm_end_shared_iterate](../t/tbm_end_shared_iterate.md)
+  - [tbm_free](../t/tbm_free.md)
   - ReleaseBuffer
-  - table_endscan
+  - [table_endscan](../t/table_endscan.md)
 - Data types referenced:
-  - BitmapHeapScanState
-  - TableScanDesc
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
 - Called from:
-  - ExecEndNode (src/backend/executor/execProcnode.c:647)
+  - [ExecEndNode](ExecEndNode.md) (src/backend/executor/execProcnode.c:647)
 - Referenced in headers:
   - src/include/executor/nodeBitmapHeapscan.h:21
 

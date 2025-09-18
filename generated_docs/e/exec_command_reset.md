@@ -21,13 +21,13 @@ When executed, the function performs two main operations: it resets the query bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - psql_scan_reset
-  - PsqlScanState (type)
-  - backslashResult (return type)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
+  - [backslashResult](../b/backslashResult.md) (return type)
   - PSQL_CMD_SKIP_LINE (return value)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

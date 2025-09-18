@@ -26,12 +26,12 @@ The function allows changes when not in an active transaction, similar to other 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - IsSubTransaction
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [IsSubTransaction](../I/IsSubTransaction.md)
   - GUC_check_errcode
   - GUC_check_errmsg
   - GUC_check_errhint
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XACT_SERIALIZABLE (constant)
   - GucSource (enum type)
 - Called from (representative examples):

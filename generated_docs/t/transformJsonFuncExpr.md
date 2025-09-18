@@ -20,25 +20,25 @@ The transformJsonFuncExpr function is a comprehensive transformation handler for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonValueExpr
-  - transformExprRecurse
-  - coerce_to_target_type
-  - transformJsonPassingArgs
-  - transformJsonOutput
-  - transformJsonBehavior
+  - [transformJsonValueExpr](transformJsonValueExpr.md)
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [transformJsonPassingArgs](transformJsonPassingArgs.md)
+  - [transformJsonOutput](transformJsonOutput.md)
+  - [transformJsonBehavior](transformJsonBehavior.md)
   - makeNode
-  - get_typtype
-  - DomainHasConstraints
+  - [get_typtype](../g/get_typtype.md)
+  - [DomainHasConstraints](../D/DomainHasConstraints.md)
   - ereport
-  - parser_errposition
-  - exprLocation
+  - [parser_errposition](../p/parser_errposition.md)
+  - [exprLocation](../e/exprLocation.md)
   - exprType
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - Various JSON behavior constants (JSON_BEHAVIOR_ERROR, JSON_BEHAVIOR_NULL, etc.)
   - Various JSON format constants (JS_FORMAT_JSONB, JS_FORMAT_DEFAULT, etc.)
   - JSON operation constants (JSON_EXISTS_OP, JSON_QUERY_OP, JSON_VALUE_OP, JSON_TABLE_OP)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 This is one of the most complex transformation functions in PostgreSQL's JSON support, handling multiple function types with different semantics. It includes extensive validation logic for behavior clauses, ensuring that each JSON function only accepts appropriate ON EMPTY/ON ERROR behaviors. The function handles type coercion strategies differently for each operation type and manages format specifications and quote behavior. Located at src/backend/parser/parse_expr.c:4271-4636.

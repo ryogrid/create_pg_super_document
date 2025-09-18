@@ -29,7 +29,7 @@ The function processes three arguments: the current state (StringInfo), the new 
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_GETARG_BYTEA_PP
-  - makeStringAggState
+  - [makeStringAggState](../m/makeStringAggState.md)
   - appendBinaryStringInfo
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR

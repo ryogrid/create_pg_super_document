@@ -22,12 +22,12 @@ The function provides flexible error handling through the missing_ok parameter -
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid2 (system cache lookup)
-  - format_type_be (error message formatting)
-  - get_language_name (error message formatting)
+  - [format_type_be](../f/format_type_be.md) (error message formatting)
+  - [get_language_name](get_language_name.md) (error message formatting)
 - Called from (representative examples):
-  - get_object_address
-  - ProcedureCreate
-  - CreateFunction
+  - [get_object_address](get_object_address.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [CreateFunction](../C/CreateFunction.md)
 
 ## Notes and Other Information
 - Uses the TRFTYPELANG system cache for efficient lookups

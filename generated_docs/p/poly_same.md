@@ -24,7 +24,7 @@ This function is part of PostgreSQL's geometric operators and is used to test co
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P: Extracts polygon arguments from function call
-  - plist_same: Performs detailed point-by-point comparison handling directional variations
+  - [plist_same](plist_same.md): Performs detailed point-by-point comparison handling directional variations
   - PG_FREE_IF_COPY: Frees memory for toasted inputs
   - PG_RETURN_BOOL: Returns boolean result
 - Called from (representative examples):

@@ -23,16 +23,16 @@ The function uses the libpq protocol to send the command and expects exactly one
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpqrcv_PQexec (for sending the TIMELINE_HISTORY command)
-  - PQresultStatus (for checking command result status)
-  - PQnfields (for validating response structure)
-  - PQntuples (for validating response structure) 
-  - PQgetvalue (for extracting result data)
-  - PQgetlength (for getting content length)
-  - PQclear (for cleaning up result)
-  - pstrdup (for copying filename)
-  - palloc (for allocating content buffer)
-  - pchomp (for error message formatting)
+  - [libpqrcv_PQexec](libpqrcv_PQexec.md) (for sending the TIMELINE_HISTORY command)
+  - [PQresultStatus](../P/PQresultStatus.md) (for checking command result status)
+  - [PQnfields](../P/PQnfields.md) (for validating response structure)
+  - [PQntuples](../P/PQntuples.md) (for validating response structure) 
+  - [PQgetvalue](../P/PQgetvalue.md) (for extracting result data)
+  - [PQgetlength](../P/PQgetlength.md) (for getting content length)
+  - [PQclear](../P/PQclear.md) (for cleaning up result)
+  - [pstrdup](../p/pstrdup.md) (for copying filename)
+  - [palloc](../p/palloc.md) (for allocating content buffer)
+  - [pchomp](../p/pchomp.md) (for error message formatting)
 - Called from (representative examples):
   - Used internally by WAL receiver functions during timeline history retrieval
 

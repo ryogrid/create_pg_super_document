@@ -22,17 +22,17 @@ The function is designed to provide user-friendly error reporting by filtering o
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer (PostgreSQL utility function)
-  - PQresultErrorField (libpq function)
-  - printfPQExpBuffer (PostgreSQL utility function)  
-  - appendPQExpBufferStr (PostgreSQL utility function)
+  - [PQresultErrorField](../P/PQresultErrorField.md) (libpq function)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (PostgreSQL utility function)  
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (PostgreSQL utility function)
   - appendPQExpBufferChar (PostgreSQL utility function)
   - pg_log_error (PostgreSQL logging function)
   - destroyPQExpBuffer (PostgreSQL utility function)
   - PG_DIAG_SEVERITY (PostgreSQL diagnostic field constant)
   - PG_DIAG_MESSAGE_PRIMARY (PostgreSQL diagnostic field constant)
 - Called from (representative examples):
-  - lookup_object_oid (in src/bin/psql/command.c:5651)
-  - get_create_object_cmd (in src/bin/psql/command.c:5806)
+  - [lookup_object_oid](../l/lookup_object_oid.md) (in src/bin/psql/command.c:5651)
+  - [get_create_object_cmd](../g/get_create_object_cmd.md) (in src/bin/psql/command.c:5806)
 
 ## Notes and Other Information
 - Uses PQExpBuffer for safe string construction and memory management

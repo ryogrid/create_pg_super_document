@@ -18,15 +18,15 @@ This function manages buffer transitions during heap scanning by coordinating wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
+  - [BufferIsValid](../B/BufferIsValid.md)
   - ReleaseBuffer
   - CHECK_FOR_INTERRUPTS
   - read_stream_reset
   - read_stream_next_buffer
-  - BufferGetBlockNumber
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
 - Called from (representative examples):
-  - heapgettup
-  - heapgettup_pagemode
+  - [heapgettup](heapgettup.md)
+  - [heapgettup_pagemode](heapgettup_pagemode.md)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization

@@ -21,10 +21,10 @@ The function accesses the LogicalDecodingContext through the reorder buffer's pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext (accessed via rb->private_data)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (accessed via rb->private_data)
 - Called from (representative examples):
-  - ReorderBufferCanStartStreaming (streaming capability check)
-  - ReorderBufferProcessPartialChange (partial change processing)
+  - [ReorderBufferCanStartStreaming](ReorderBufferCanStartStreaming.md) (streaming capability check)
+  - [ReorderBufferProcessPartialChange](ReorderBufferProcessPartialChange.md) (partial change processing)
   - IsInsertOrUpdate (change type determination)
 
 ## Notes and Other Information

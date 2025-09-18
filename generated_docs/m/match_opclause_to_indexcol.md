@@ -42,20 +42,20 @@ When standard operator matching fails, the function falls back to planner suppor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_index_to_operand
-  - bms_is_member
-  - contain_volatile_functions
+  - [match_index_to_operand](match_index_to_operand.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
   - IndexCollMatchesExprColl
-  - op_in_opfamily
-  - get_commutator
-  - commute_restrictinfo
+  - [op_in_opfamily](../o/op_in_opfamily.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [commute_restrictinfo](../c/commute_restrictinfo.md)
   - set_opfuncid
-  - get_index_clause_from_support
+  - [get_index_clause_from_support](../g/get_index_clause_from_support.md)
   - linitial/lsecond (list access)
   - makeNode (IndexClause creation)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - match_clause_to_indexcol
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md)
 
 ## Notes and Other Information
 - Only processes binary operators (expressions with exactly 2 arguments)

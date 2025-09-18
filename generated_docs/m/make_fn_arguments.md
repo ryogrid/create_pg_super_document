@@ -22,15 +22,15 @@ The function handles both regular expressions and NamedArgExpr nodes specially -
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - coerce_type
+  - [coerce_type](../c/coerce_type.md)
   - NamedArgExpr (struct)
   - COERCION_IMPLICIT (constant)
   - COERCE_IMPLICIT_CAST (constant)
 - Called from (representative examples):
-  - ParseFuncOrColumn
-  - make_op
-  - make_scalar_array_op
-  - recheck_cast_function_args
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [make_op](make_op.md)
+  - [make_scalar_array_op](make_scalar_array_op.md)
+  - [recheck_cast_function_args](../r/recheck_cast_function_args.md)
 
 ## Notes and Other Information
 - The function assumes that type casting compatibility has already been verified by the caller

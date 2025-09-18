@@ -19,22 +19,22 @@ SlabAllocFromNewBlock is called when the slab allocator needs to obtain memory f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext
-  - SlabBlock
+  - [SlabContext](SlabContext.md)
+  - [SlabBlock](SlabBlock.md)
   - MemoryChunk
-  - dclist_count
-  - dclist_pop_head_node
+  - [dclist_count](../d/dclist_count.md)
+  - [dclist_pop_head_node](../d/dclist_pop_head_node.md)
   - dlist_container
-  - SlabGetNextFreeChunk
+  - [SlabGetNextFreeChunk](SlabGetNextFreeChunk.md)
   - malloc
-  - MemoryContextAllocationFailure
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
   - SlabBlockGetChunk
-  - SlabBlocklistIndex
-  - dlist_is_empty
-  - dlist_push_head
-  - SlabAllocSetupNewChunk
+  - [SlabBlocklistIndex](SlabBlocklistIndex.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [SlabAllocSetupNewChunk](SlabAllocSetupNewChunk.md)
 - Called from (representative examples):
-  - SlabAlloc (src/backend/utils/mmgr/slab.c:656)
+  - [SlabAlloc](SlabAlloc.md) (src/backend/utils/mmgr/slab.c:656)
 
 ## Notes and Other Information
 - Marked with pg_noinline to prevent inlining, likely for debugging or performance profiling purposes

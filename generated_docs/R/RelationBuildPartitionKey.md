@@ -29,18 +29,18 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (catalog lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (catalog lookup)
   - AllocSetContextCreate (memory context creation)
-  - SysCacheGetAttrNotNull (retrieving operator classes and collations)
-  - stringToNode (parsing partition expressions)
-  - eval_const_expressions (optimizing expressions)
-  - fix_opfuncids (fixing operator function IDs)
-  - get_opfamily_proc (finding support functions)
-  - fmgr_info_cxt (caching function information)
-  - get_typlenbyvalalign (type information)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (retrieving operator classes and collations)
+  - [stringToNode](../s/stringToNode.md) (parsing partition expressions)
+  - [eval_const_expressions](../e/eval_const_expressions.md) (optimizing expressions)
+  - [fix_opfuncids](../f/fix_opfuncids.md) (fixing operator function IDs)
+  - [get_opfamily_proc](../g/get_opfamily_proc.md) (finding support functions)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (caching function information)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md) (type information)
   - MemoryContextSetParent (memory management)
 - Called from:
-  - RelationGetPartitionKey (when rd_partkey is NULL)
+  - [RelationGetPartitionKey](RelationGetPartitionKey.md) (when rd_partkey is NULL)
 
 ## Notes and Other Information
 - Function is static (internal to partcache.c)

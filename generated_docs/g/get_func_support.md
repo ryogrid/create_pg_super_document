@@ -19,18 +19,18 @@ This function retrieves the support function OID for a PostgreSQL function from 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_proc
   - InvalidOid
 - Called from (representative examples):
-  - find_window_run_conditions
-  - get_index_clause_from_support
-  - optimize_window_clauses
-  - function_selectivity
+  - [find_window_run_conditions](../f/find_window_run_conditions.md)
+  - [get_index_clause_from_support](get_index_clause_from_support.md)
+  - [optimize_window_clauses](../o/optimize_window_clauses.md)
+  - [function_selectivity](../f/function_selectivity.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the function is not found in the system cache or if no support function is defined

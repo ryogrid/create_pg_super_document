@@ -22,7 +22,7 @@ The visibility check considers the current search path and ensures that the oper
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID: Extracts OID argument from function call
-  - OpfamilyIsVisibleExt: Internal function that performs the actual visibility check
+  - [OpfamilyIsVisibleExt](../O/OpfamilyIsVisibleExt.md): Internal function that performs the actual visibility check
   - PG_RETURN_NULL: Returns NULL value to SQL caller
   - PG_RETURN_BOOL: Returns boolean value to SQL caller
 - Called from (representative examples):

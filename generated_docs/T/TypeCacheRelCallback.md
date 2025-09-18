@@ -22,15 +22,15 @@ The function also handles domain types over composite types by resetting their o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - FreeTupleDesc
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
   - TYPTYPE_COMPOSITE
   - TYPTYPE_DOMAIN
   - TCFLAGS_OPERATOR_FLAGS
   - TCFLAGS_DOMAIN_BASE_IS_COMPOSITE
 - Called from (representative examples):
-  - lookup_type_cache (registers the callback)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (registers the callback)
 
 ## Notes and Other Information
 - Registered as a relcache invalidation callback during type cache initialization

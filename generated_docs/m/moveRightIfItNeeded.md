@@ -23,15 +23,15 @@ The function handles the boundary condition when scanning reaches the end of a p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - GinPageRightMost
-  - ginStepRight
-  - BufferGetBlockNumber
-  - PredicateLockPage
+  - [ginStepRight](../g/ginStepRight.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
   - GIN_SHARE (lock mode constant)
   - FirstOffsetNumber (constant)
 - Called from:
-  - collectMatchBitmap (src/backend/access/gin/ginget.c:157, 268)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md) (src/backend/access/gin/ginget.c:157, 268)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ginget.c file

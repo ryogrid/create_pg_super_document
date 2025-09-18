@@ -26,13 +26,13 @@ This validation is crucial for ensuring that join clauses can be properly used b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset: Checks if one bitmap set is a subset of another (used to verify relid containment)
+  - [bms_is_subset](../b/bms_is_subset.md): Checks if one bitmap set is a subset of another (used to verify relid containment)
 
 - Called from (representative examples):
-  - hash_inner_and_outer: Hash join path creation
-  - select_mergejoin_clauses: Merge join clause selection
-  - join_is_removable: Join elimination analysis
-  - is_innerrel_unique_for: Uniqueness analysis for join removal
+  - [hash_inner_and_outer](../h/hash_inner_and_outer.md): Hash join path creation
+  - [select_mergejoin_clauses](../s/select_mergejoin_clauses.md): Merge join clause selection
+  - [join_is_removable](../j/join_is_removable.md): Join elimination analysis
+  - [is_innerrel_unique_for](../i/is_innerrel_unique_for.md): Uniqueness analysis for join removal
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance due to frequent usage in join planning

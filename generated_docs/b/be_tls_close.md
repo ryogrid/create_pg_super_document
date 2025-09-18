@@ -28,10 +28,10 @@ All operations include null-pointer checks to ensure safe cleanup even if some r
   - SSL_shutdown (SSL connection termination)
   - SSL_free (SSL object cleanup)
   - X509_free (certificate object cleanup)
-  - pfree (PostgreSQL memory deallocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 
 - Called from (representative examples):
-  - secure_close (in be-secure.c:167)
+  - [secure_close](../s/secure_close.md) (in be-secure.c:167)
 
 ## Notes and Other Information
 - This function is idempotent and safe to call multiple times on the same port

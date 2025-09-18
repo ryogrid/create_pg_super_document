@@ -21,10 +21,10 @@ The function is a simple wrapper around _hash_init, calling it with 0 tuples to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_init
+  - [_hash_init](_hash_init.md)
   - INIT_FORKNUM (constant for initialization fork)
 - Called from:
-  - hashhandler (as amroutine->ambuildempty callback)
+  - [hashhandler](hashhandler.md) (as amroutine->ambuildempty callback)
   - Database initialization and recovery systems
 
 ## Notes and Other Information

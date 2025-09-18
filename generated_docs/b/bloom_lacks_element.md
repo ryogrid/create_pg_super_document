@@ -27,9 +27,9 @@ The function uses the same bit manipulation techniques as `bloom_add_element` to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `k_hashes`: Computes k independent hash values for the element
+  - `[k_hashes](../k/k_hashes.md)`: Computes k independent hash values for the element
   - `MAX_HASH_FUNCS`: Maximum number of hash functions supported
-  - `bloom_filter`: The filter structure type
+  - `[bloom_filter](bloom_filter.md)`: The filter structure type
 
 - Called from (representative examples):
   - `roles_list_append`: Testing for duplicate role additions in ACL processing

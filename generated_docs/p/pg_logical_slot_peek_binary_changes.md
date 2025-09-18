@@ -39,7 +39,7 @@ This "peek" functionality is useful for inspecting upcoming changes without comm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_logical_slot_get_changes_guts
+  - [pg_logical_slot_get_changes_guts](pg_logical_slot_get_changes_guts.md)
 - Called from (representative examples):
   - Direct SQL function calls from applications
   - Logical replication monitoring tools

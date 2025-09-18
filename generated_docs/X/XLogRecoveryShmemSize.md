@@ -17,11 +17,11 @@ XLogRecoveryShmemSize is a utility function that computes the amount of shared m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecoveryCtlData (struct type for size calculation)
+  - [XLogRecoveryCtlData](XLogRecoveryCtlData.md) (struct type for size calculation)
 - Called from (representative examples):
-  - XLogRecoveryShmemInit (for memory initialization)
-  - CalculateShmemSize (during shared memory size calculation)
-  - RecoveryPauseState (in recovery pause state management)
+  - [XLogRecoveryShmemInit](XLogRecoveryShmemInit.md) (for memory initialization)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (during shared memory size calculation)
+  - [RecoveryPauseState](../R/RecoveryPauseState.md) (in recovery pause state management)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's shared memory management system

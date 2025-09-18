@@ -30,18 +30,18 @@ The function manages transaction counting for bulk operations by counting semico
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry, RestoreOptions (struct types)
-  - _becomeOwner, _selectOutputSchema, _selectTablespace, _selectTableAccessMethod
-  - ahprintf (formatted output to archive)
-  - sanitize_line (comment sanitization)
-  - fmtId (identifier quoting)
-  - IssueCommandPerBlob, IssueACLPerBlob (special BLOB handling)
-  - _getObjectDescription (object description generation)
+  - [TocEntry](../T/TocEntry.md), RestoreOptions (struct types)
+  - [_becomeOwner](../b/_becomeOwner.md), _selectOutputSchema, _selectTablespace, _selectTableAccessMethod
+  - [ahprintf](../a/ahprintf.md) (formatted output to archive)
+  - [sanitize_line](../s/sanitize_line.md) (comment sanitization)
+  - [fmtId](../f/fmtId.md) (identifier quoting)
+  - [IssueCommandPerBlob](../I/IssueCommandPerBlob.md), IssueACLPerBlob (special BLOB handling)
+  - [_getObjectDescription](../g/_getObjectDescription.md) (object description generation)
   - initPQExpBuffer, termPQExpBuffer (buffer management)
-  - _printTableAccessMethodNoStorage (partitioned table handling)
-  - _tocEntryIsACL (ACL entry detection)
+  - [_printTableAccessMethodNoStorage](_printTableAccessMethodNoStorage.md) (partitioned table handling)
+  - [_tocEntryIsACL](../t/_tocEntryIsACL.md) (ACL entry detection)
 - Called from:
-  - restore_toc_entry (main restoration function, multiple call sites)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (main restoration function, multiple call sites)
 
 ## Notes and Other Information
 - Function is static and only used within pg_backup_archiver.c

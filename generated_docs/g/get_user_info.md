@@ -18,11 +18,11 @@ get_user_info serves as a wrapper function that obtains information about the cu
 ## Dependencies
 - Functions called/Symbols referenced:
   - geteuid (gets effective user ID on Unix systems)
-  - get_user_name (retrieves username as a string)
-  - pg_fatal (handles fatal errors and exits)
-  - pg_strdup (safely duplicates strings with error handling)
+  - [get_user_name](get_user_name.md) (retrieves username as a string)
+  - [pg_fatal](../p/pg_fatal.md) (handles fatal errors and exits)
+  - [pg_strdup](../p/pg_strdup.md) (safely duplicates strings with error handling)
 - Called from (representative examples):
-  - parseCommandLine (during command-line processing in pg_upgrade)
+  - [parseCommandLine](../p/parseCommandLine.md) (during command-line processing in pg_upgrade)
   - fopen_priv (for privilege-related file operations)
 
 ## Notes and Other Information

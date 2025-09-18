@@ -28,7 +28,7 @@ The function never returns GIN_TRUE directly, only GIN_MAYBE or GIN_FALSE, becau
   - PG_GETARG_POINTER
   - PG_GETARG_UINT16  
   - PG_GETARG_INT32
-  - execute_jsp_gin_node
+  - [execute_jsp_gin_node](../e/execute_jsp_gin_node.md)
   - PG_RETURN_GIN_TERNARY_VALUE
   - elog
 - Types and constants:

@@ -21,11 +21,11 @@ This function provides a comparison mechanism for SortItem objects when sorting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ApplySortComparator
+  - [ApplySortComparator](../A/ApplySortComparator.md)
   - SortSupport (type)
-  - SortItem (type)
+  - [SortItem](../S/SortItem.md) (type)
 - Called from (representative examples):
-  - build_column_frequencies
+  - [build_column_frequencies](../b/build_column_frequencies.md)
 
 ## Notes and Other Information
 - Designed for single-column sorting operations (uses values[0] and isnull[0])

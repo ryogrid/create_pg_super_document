@@ -35,19 +35,19 @@ The function returns true if a freeze plan was prepared, false if no action is n
   - HeapTupleHeaderGetXmin
   - HeapTupleHeaderGetXvac
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
-  - TransactionIdPrecedesOrEquals
-  - FreezeMultiXactId
-  - GetMultiXactIdHintBits
-  - heap_tuple_should_freeze
-  - MultiXactIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md)
+  - [GetMultiXactIdHintBits](../G/GetMultiXactIdHintBits.md)
+  - [heap_tuple_should_freeze](heap_tuple_should_freeze.md)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
   - MultiXactIdIsValid
   - HEAP_XMAX_IS_MULTI
   - HEAP_XMAX_IS_LOCKED_ONLY
   - HEAP_MOVED_OFF
 - Called from:
-  - heap_freeze_tuple
-  - heap_prune_record_unchanged_lp_normal
+  - [heap_freeze_tuple](heap_freeze_tuple.md)
+  - [heap_prune_record_unchanged_lp_normal](heap_prune_record_unchanged_lp_normal.md)
   - HeapScanIsValid (via header inclusion)
 
 ## Notes and Other Information

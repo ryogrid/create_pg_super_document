@@ -19,11 +19,11 @@ The callback enhances error messages by adding contextual information such as "P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyExecutionContext: Structure containing execution context information
+  - [PLyExecutionContext](../P/PLyExecutionContext.md): Structure containing execution context information
   - errcontext: PostgreSQL function for adding context information to error reports
-  - PLy_procedure_name: Function to retrieve the name of the current procedure
+  - [PLy_procedure_name](../P/PLy_procedure_name.md): Function to retrieve the name of the current procedure
 - Called from (representative examples):
-  - plpython3_call_handler: Registered as error callback during function execution
+  - [plpython3_call_handler](plpython3_call_handler.md): Registered as error callback during function execution
 
 ## Notes and Other Information
 - Located in src/pl/plpython/plpy_main.c:345-360

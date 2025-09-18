@@ -29,22 +29,22 @@ The design follows a reference-counting pattern where multiple parts of the syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintCache
-  - MemoryContextCallback
-  - TypeCacheEntry (indirectly through tcache field)
-  - List (for constraints field)
+  - [DomainConstraintCache](DomainConstraintCache.md)
+  - [MemoryContextCallback](../M/MemoryContextCallback.md)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (indirectly through tcache field)
+  - [List](../L/List.md) (for constraints field)
 - Called from (representative examples):
-  - ExecInitCoerceToDomain (src/backend/executor/execExpr.c:3349)
-  - DomainIOData (src/backend/utils/adt/domains.c:59)
-  - InitDomainConstraintRef (src/backend/utils/cache/typcache.c:1313)
-  - UpdateDomainConstraintRef (src/backend/utils/cache/typcache.c:1351)
-  - dccref_deletion_callback (src/backend/utils/cache/typcache.c:1256)
+  - [ExecInitCoerceToDomain](../E/ExecInitCoerceToDomain.md) (src/backend/executor/execExpr.c:3349)
+  - [DomainIOData](DomainIOData.md) (src/backend/utils/adt/domains.c:59)
+  - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md) (src/backend/utils/cache/typcache.c:1313)
+  - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md) (src/backend/utils/cache/typcache.c:1351)
+  - [dccref_deletion_callback](../d/dccref_deletion_callback.md) (src/backend/utils/cache/typcache.c:1256)
 
 ## Notes and Other Information
 - This structure is specifically designed for callers who need to maintain long-lived references to domain constraints
 - The management fields (dcc and callback) are private to typcache.c and should not be accessed directly by other modules
 - Use InitDomainConstraintRef() to initialize and UpdateDomainConstraintRef() to maintain the reference
 - The callback mechanism ensures automatic cleanup when the memory context is destroyed, preventing memory leaks
-- DomainConstraintState nodes are considered executable expressions and are defined in execnodes.h
+- [DomainConstraintState](DomainConstraintState.md) nodes are considered executable expressions and are defined in execnodes.h
 - The reference counting mechanism allows multiple parts of the system to safely share access to the same constraint information
 - Memory management is critical: the refctx field tracks the context containing this structure for proper cleanup coordination

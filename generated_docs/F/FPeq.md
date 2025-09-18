@@ -21,12 +21,12 @@ FPeq implements a fuzzy equality comparison for double-precision floating-point 
   - EPSILON (constant defining the tolerance threshold)
   - fabs (standard library function for absolute value)
 - Called from (representative examples):
-  - gist_point_consistent_internal
-  - box_eq
-  - line_eq
-  - point_eq_point
-  - circle_eq
-  - lseg_parallel
+  - [gist_point_consistent_internal](../g/gist_point_consistent_internal.md)
+  - [box_eq](../b/box_eq.md)
+  - [line_eq](../l/line_eq.md)
+  - [point_eq_point](../p/point_eq_point.md)
+  - [circle_eq](../c/circle_eq.md)
+  - [lseg_parallel](../l/lseg_parallel.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's geometric data type infrastructure and is extensively used throughout the geometric operations module. The epsilon-based comparison is crucial for reliable geometric computations where floating-point precision limitations could otherwise cause incorrect results. The function is defined as static inline in the header file for optimal performance in frequently called geometric operations.

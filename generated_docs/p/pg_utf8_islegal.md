@@ -22,11 +22,11 @@ The validation process includes checking continuation byte ranges (0x80-0xBF) an
 - Functions called/Symbols referenced:
   - (None - implements validation logic directly)
 - Called from (representative examples):
-  - chr (Oracle compatibility function)
-  - UtfToLocal (character encoding conversion)
-  - utf8_to_iso8859_1 (character set conversion)
-  - pg_utf8_string_len (SASL string processing)
-  - pg_utf8_verifychar (character verification)
+  - [chr](../c/chr.md) (Oracle compatibility function)
+  - [UtfToLocal](../U/UtfToLocal.md) (character encoding conversion)
+  - [utf8_to_iso8859_1](../u/utf8_to_iso8859_1.md) (character set conversion)
+  - [pg_utf8_string_len](pg_utf8_string_len.md) (SASL string processing)
+  - [pg_utf8_verifychar](pg_utf8_verifychar.md) (character verification)
 
 ## Notes and Other Information
 - Assumes length parameter has been validated by pg_utf_mblen() and that sufficient bytes are available in the buffer

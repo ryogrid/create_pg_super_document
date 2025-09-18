@@ -21,15 +21,15 @@ This function is essential for implementing non-blocking query processing patter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseInput
+  - [parseInput](../p/parseInput.md)
   - CONNECTION_BAD
   - PGASYNC_BUSY
 - Called from (representative examples):
-  - libpqrcv_PQgetResult
-  - advanceConnectionState
-  - wait_on_slots
-  - libpqsrv_get_result
-  - try_complete_step
+  - [libpqrcv_PQgetResult](../l/libpqrcv_PQgetResult.md)
+  - [advanceConnectionState](../a/advanceConnectionState.md)
+  - [wait_on_slots](../w/wait_on_slots.md)
+  - [libpqsrv_get_result](../l/libpqsrv_get_result.md)
+  - [try_complete_step](../t/try_complete_step.md)
 
 ## Notes and Other Information
 - Returns false if conn is NULL for safety

@@ -22,16 +22,16 @@ The function is designed to be called by various XML table processing functions 
 - Functions called/Symbols referenced:
   - IsA (PostgreSQL type checking macro)
   - elog (PostgreSQL error logging function)
-  - XmlTableBuilderData (structure type)
+  - [XmlTableBuilderData](../X/XmlTableBuilderData.md) (structure type)
   - XMLTABLE_CONTEXT_MAGIC (validation magic number)
 - Called from (representative examples):
-  - XmlTableSetDocument
-  - XmlTableSetNamespace
-  - XmlTableSetRowFilter
-  - XmlTableSetColumnFilter
-  - XmlTableFetchRow
-  - XmlTableGetValue
-  - XmlTableDestroyOpaque
+  - [XmlTableSetDocument](../X/XmlTableSetDocument.md)
+  - [XmlTableSetNamespace](../X/XmlTableSetNamespace.md)
+  - [XmlTableSetRowFilter](../X/XmlTableSetRowFilter.md)
+  - [XmlTableSetColumnFilter](../X/XmlTableSetColumnFilter.md)
+  - [XmlTableFetchRow](../X/XmlTableFetchRow.md)
+  - [XmlTableGetValue](../X/XmlTableGetValue.md)
+  - [XmlTableDestroyOpaque](../X/XmlTableDestroyOpaque.md)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization since it's called frequently

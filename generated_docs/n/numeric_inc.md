@@ -29,9 +29,9 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC, PG_RETURN_NUMERIC
   - NUMERIC_IS_SPECIAL, duplicate_numeric
-  - init_var_from_num, free_var
-  - add_var (with const_one constant)
-  - make_result
+  - [init_var_from_num](../i/init_var_from_num.md), free_var
+  - [add_var](../a/add_var.md) (with const_one constant)
+  - [make_result](../m/make_result.md)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function dispatch)
 

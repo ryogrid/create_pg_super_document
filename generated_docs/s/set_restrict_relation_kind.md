@@ -21,16 +21,16 @@ The function constructs and executes a SQL query that searches for the parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBuffer
-  - ExecuteSqlQuery
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK
-  - PQclear
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
   - fmtQualifiedDumpable
-  - setup_connection
-  - dumpTableData_copy
-  - dumpTableData_insert
+  - [setup_connection](setup_connection.md)
+  - [dumpTableData_copy](../d/dumpTableData_copy.md)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md)
 
 ## Notes and Other Information
 - This function is specifically designed for minor version compatibility where new configuration parameters are introduced

@@ -20,11 +20,11 @@ The function handles different datum sizes: on 64-bit systems, it returns the fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP (extracts Box pointer from Datum)
-  - point_zorder_internal (computes Z-order value from point coordinates)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (extracts Box pointer from Datum)
+  - [point_zorder_internal](../p/point_zorder_internal.md) (computes Z-order value from point coordinates)
   - SIZEOF_DATUM (compile-time constant for datum size)
 - Called from (representative examples):
-  - gist_point_sortsupport (configures this as abbreviation converter)
+  - [gist_point_sortsupport](gist_point_sortsupport.md) (configures this as abbreviation converter)
 
 ## Notes and Other Information
 - Uses the lower-left point of the bounding box for Z-order calculation

@@ -19,9 +19,9 @@ This function performs a comprehensive search through an expression tree to loca
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowFuncLists
-  - find_window_functions_walker
+  - [find_window_functions_walker](find_window_functions_walker.md)
 - Called from (representative examples):
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
   - WindowFuncLists
 
 ## Notes and Other Information

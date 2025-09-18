@@ -24,7 +24,7 @@ The function uses shared locking to ensure consistent reads of the xmin values w
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease (for process array synchronization with shared lock)
 - Called from (representative examples):
-  - logical_begin_heap_rewrite (in rewriteheap.c)
+  - [logical_begin_heap_rewrite](../l/logical_begin_heap_rewrite.md) (in rewriteheap.c)
 
 ## Notes and Other Information
 - Uses shared locking (LW_SHARED) to allow concurrent reads without blocking other readers

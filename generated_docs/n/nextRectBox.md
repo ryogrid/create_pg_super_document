@@ -29,10 +29,10 @@ The algorithm either sets a low boundary (if the bit is set) or a high boundary 
 - Functions called/Symbols referenced:
   - RectBox (4D rectangular constraint structure)
   - RangeBox (4D range representation structure)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (memory copy function)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within geo_spgist.c

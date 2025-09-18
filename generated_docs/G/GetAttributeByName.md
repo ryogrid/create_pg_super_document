@@ -25,14 +25,14 @@ When the attribute is not found, the function raises an ERROR rather than return
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetTypeId (get tuple type OID)
   - HeapTupleHeaderGetTypMod (get tuple type modifier)
-  - lookup_rowtype_tupdesc (get tuple descriptor)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md) (get tuple descriptor)
   - namestrcmp (compare attribute names)
-  - heap_getattr (extract attribute value)
+  - [heap_getattr](../h/heap_getattr.md) (extract attribute value)
   - ReleaseTupleDesc (release tuple descriptor)
 - Called from (representative examples):
   - exec_rt_fetch (runtime tuple access)
-  - overpaid (regression test function)
-  - c_overpaid (tutorial example function)
+  - [overpaid](../o/overpaid.md) (regression test function)
+  - [c_overpaid](../c/c_overpaid.md) (tutorial example function)
 
 ## Notes and Other Information
 This function is relatively slow due to the type cache lookup and linear search through attributes on each call. For performance-critical code accessing the same tuple type repeatedly, caching the tuple descriptor and using GetAttributeByNum may be more efficient. The function is designed primarily for user-defined functions where convenience is more important than performance.

@@ -33,16 +33,16 @@ For each non-dropped attribute in the parent relation, the function:
   - RelationGetDescr
   - TupleDescAttr
   - NameStr
-  - SearchSysCacheCopyAttName
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - ereport
   - RelationGetRelationName
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Called from (representative examples):
-  - CreateInheritance
+  - [CreateInheritance](../C/CreateInheritance.md)
   - child_dependency_type
 
 ## Notes and Other Information

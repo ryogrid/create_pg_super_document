@@ -29,13 +29,13 @@ The function ensures that the source transaction remains open so that importing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionOrTransactionBlock
-  - StartTransactionCommand
-  - SnapBuildInitialSnapshot
-  - ExportSnapshot
-  - errmsg_plural
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [StartTransactionCommand](StartTransactionCommand.md)
+  - [SnapBuildInitialSnapshot](SnapBuildInitialSnapshot.md)
+  - [ExportSnapshot](../E/ExportSnapshot.md)
+  - [errmsg_plural](../e/errmsg_plural.md)
 - Called from (representative examples):
-  - CreateReplicationSlot
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 - Must be called outside of any existing transaction or transaction block

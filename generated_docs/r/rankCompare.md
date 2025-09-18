@@ -20,9 +20,9 @@ The implementation delegates to PostgreSQL's internal pg_cmp_s32() utility funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_s32 (PostgreSQL's 32-bit signed integer comparison utility)
+  - [pg_cmp_s32](../p/pg_cmp_s32.md) (PostgreSQL's 32-bit signed integer comparison utility)
 - Called from (representative examples):
-  - rankSort (for sorting rank values in pivot field processing)
+  - [rankSort](rankSort.md) (for sorting rank values in pivot field processing)
 
 ## Notes and Other Information
 - Returns negative value if *a < *b, zero if *a == *b, positive value if *a > *b

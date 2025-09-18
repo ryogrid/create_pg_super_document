@@ -28,9 +28,9 @@ The callback execution order (reverse of registration) ensures that cleanup oper
   - exit() (standard library function)
   - _endthreadex() (Windows-specific thread exit function)
 - Called from (representative examples):
-  - set_dump_section (pg_backup_utils.c:56)
-  - pg_fatal (macro in pg_backup_utils.h:38)
-  - main functions in pg_dump.c, pg_restore.c, pg_dumpall.c
+  - [set_dump_section](../s/set_dump_section.md) (pg_backup_utils.c:56)
+  - [pg_fatal](../p/pg_fatal.md) (macro in pg_backup_utils.h:38)
+  - [main](../m/main.md) functions in pg_dump.c, pg_restore.c, pg_dumpall.c
   - Various error handling locations throughout pg_dump utilities
 
 ## Notes and Other Information

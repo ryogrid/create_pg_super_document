@@ -28,8 +28,8 @@ SerializedTransactionState provides a serialized representation of transaction s
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
   - SerializedTransactionStateHeaderSize
-  - SerializeTransactionState
-  - StartParallelWorkerTransaction
+  - [SerializeTransactionState](SerializeTransactionState.md)
+  - [StartParallelWorkerTransaction](StartParallelWorkerTransaction.md)
 
 ## Notes and Other Information
 This structure is specifically designed for parallel query execution, where the main backend needs to share transaction state with worker processes. The use of FLEXIBLE_ARRAY_MEMBER for parallelCurrentXids allows the structure to accommodate varying numbers of transaction IDs without requiring additional pointer indirection or separate memory allocations. The structure omits transaction state information that is not relevant to parallel workers, keeping the serialized representation as compact as possible for efficient shared memory usage.

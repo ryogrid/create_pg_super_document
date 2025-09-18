@@ -27,7 +27,7 @@ This function is specifically designed for B-tree index support operations where
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_cmp (internal comparison function)
+  - [array_cmp](../a/array_cmp.md) (internal comparison function)
   - PG_RETURN_INT32 (macro for returning integer result)
 - Called from (representative examples):
   - B-tree index operations for array sorting

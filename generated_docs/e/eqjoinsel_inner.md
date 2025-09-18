@@ -37,13 +37,13 @@ The MCV approach provides significantly higher accuracy for skewed distributions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
+  - [fmgr_info](../f/fmgr_info.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - CLAMP_PROBABILITY
   - LOCAL_FCINFO
 - Called from (representative examples):
-  - eqjoinsel
+  - [eqjoinsel](eqjoinsel.md)
 
 ## Notes and Other Information
 - The function assumes each MCV matches at most one member of the other MCV list for performance and mathematical consistency

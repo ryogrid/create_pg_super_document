@@ -26,14 +26,14 @@ Returns:  if the nodes are equal,  otherwise
   -  (general node equality comparison function)
   -  (macro for comparing location fields)
 - Called from (representative examples):
-  - Node equality framework (indirectly through function pointers)
+  - [Node](../N/Node.md) equality framework (indirectly through function pointers)
 
 ## Notes and Other Information
 - This function is marked as , meaning it's only accessible within the equalfuncs.c file
-- A_Const represents parse-time constants, distinct from runtime Const nodes
+- [A_Const](../A/A_Const.md) represents parse-time constants, distinct from runtime Const nodes
 - The function includes a performance optimization ("hack") for the inline val field using union ValUnion
 - Values are only compared when both nodes are non-null, since null values don't have valid val content
 - The ValUnion can contain different node types (Integer, Float, Boolean, String, BitString) and the equal() function handles the type-specific comparison
 - Part of the custom equality checking for nodes that have the  attribute
-- A_Const nodes are used during parsing and are typically transformed into Const nodes during later processing stages
+- [A_Const](../A/A_Const.md) nodes are used during parsing and are typically transformed into Const nodes during later processing stages
 - The location field tracks the position in the original SQL text for error reporting and debugging purposes

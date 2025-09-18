@@ -30,17 +30,17 @@ The function handles complex calculations for derived units like quarters, decad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - downcase_truncate_identifier (unit string processing)
-  - DecodeUnits, DecodeSpecial (unit parsing)
-  - NonFiniteTimestampTzPart (infinite timestamp handling)
-  - timestamp2tm (timestamp decomposition)
-  - date2isoweek, date2isoyear (ISO date calculations)
-  - date2j, j2day (Julian day conversions)
-  - SetEpochTimestamp (epoch calculations)
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md) (unit string processing)
+  - [DecodeUnits](../D/DecodeUnits.md), DecodeSpecial (unit parsing)
+  - [NonFiniteTimestampTzPart](../N/NonFiniteTimestampTzPart.md) (infinite timestamp handling)
+  - [timestamp2tm](timestamp2tm.md) (timestamp decomposition)
+  - [date2isoweek](../d/date2isoweek.md), date2isoyear (ISO date calculations)
+  - [date2j](../d/date2j.md), j2day (Julian day conversions)
+  - [SetEpochTimestamp](../S/SetEpochTimestamp.md) (epoch calculations)
   - Various numeric functions (int64_to_numeric, numeric_div_opt_error, etc.)
 - Called from (representative examples):
-  - timestamp_part
-  - extract_timestamp
+  - [timestamp_part](timestamp_part.md)
+  - [extract_timestamp](../e/extract_timestamp.md)
 
 ## Notes and Other Information
 - Static function serving as common implementation for multiple user-facing functions

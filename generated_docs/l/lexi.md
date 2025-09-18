@@ -17,14 +17,14 @@ This is the central lexical analysis function that scans the input buffer and id
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fill_buffer (refills input buffer when needed)
-  - strcmp_type (comparison function for binary search)
-  - is_func_definition (determines if parentheses indicate function definition)
-  - diag2 (diagnostic message output)
+  - [fill_buffer](../f/fill_buffer.md) (refills input buffer when needed)
+  - [strcmp_type](../s/strcmp_type.md) (comparison function for binary search)
+  - [is_func_definition](../i/is_func_definition.md) (determines if parentheses indicate function definition)
+  - [diag2](../d/diag2.md) (diagnostic message output)
   - CHECK_SIZE_TOKEN (macro to ensure token buffer space)
 - Called from (representative examples):
-  - main (at src/tools/pg_bsd_indent/indent.c:269)
-  - main (at src/tools/pg_bsd_indent/indent.c:448)
+  - [main](../m/main.md) (at src/tools/pg_bsd_indent/indent.c:269)
+  - [main](../m/main.md) (at src/tools/pg_bsd_indent/indent.c:448)
 
 ## Notes and Other Information
 - Returns various token type codes: ident, decl, funcname, comment, newline, etc.

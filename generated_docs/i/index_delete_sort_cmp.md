@@ -22,11 +22,11 @@ The function uses an inlineable design to minimize function call overhead during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - TM_IndexDelete (structure type)
 - Called from (representative examples):
-  - index_delete_sort
+  - [index_delete_sort](index_delete_sort.md)
 
 ## Notes and Other Information
 - The function is declared as static inline for performance optimization

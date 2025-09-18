@@ -21,20 +21,20 @@ After loading all constraints, the function sorts them by name to ensure determi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - ScanKeyInit  
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)  
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - fastgetattr
+  - [fastgetattr](../f/fastgetattr.md)
   - TextDatumGetCString
-  - MemoryContextStrdup
-  - CheckConstraintCmp
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
+  - [CheckConstraintCmp](CheckConstraintCmp.md)
   - qsort
 - Called from (representative examples):
-  - RelationBuildTupleDesc
+  - [RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md)
 
 ## Notes and Other Information
 - Uses CacheMemoryContext for memory allocation to ensure constraint data persists with the relation cache

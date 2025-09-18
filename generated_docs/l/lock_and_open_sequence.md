@@ -24,11 +24,11 @@ The function checks if a lock has already been acquired for the sequence in the 
   - SeqTable (sequence table entry structure)
   - LocalTransactionId (transaction identifier type)
   - ResourceOwner (resource ownership management)
-  - LockRelationOid (acquires lock on relation by OID)
-  - sequence_open (opens sequence relation)
+  - [LockRelationOid](../L/LockRelationOid.md) (acquires lock on relation by OID)
+  - [sequence_open](../s/sequence_open.md) (opens sequence relation)
 - Called from (representative examples):
-  - lastval
-  - init_sequence
+  - [lastval](lastval.md)
+  - [init_sequence](../i/init_sequence.md)
 
 ## Notes and Other Information
 - The function uses RowExclusiveLock to ensure exclusive access for sequence modifications

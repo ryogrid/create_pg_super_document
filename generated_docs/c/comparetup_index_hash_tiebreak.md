@@ -23,7 +23,7 @@ The function immediately asserts false if called, indicating a programming error
 - Functions called/Symbols referenced:
   - Assert (terminates execution if called)
 - Called from (representative examples):
-  - tuplesort_begin_index_hash
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

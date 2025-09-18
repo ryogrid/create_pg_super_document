@@ -32,7 +32,7 @@ The function includes safeguards to clamp the result within reasonable bounds (b
 - Functions called/Symbols referenced:
   - floor (standard C math function for rounding down)
 - Called from:
-  - ndistinct_for_combination (estimates distinct values for column combinations)
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (estimates distinct values for column combinations)
 
 ## Notes and Other Information
 - This is the standard Duj1 estimator used throughout PostgreSQL for n-distinct calculations

@@ -44,21 +44,21 @@ The function uses ShmemInitStruct() to either create new shared memory (postmast
   - SlruCtl, SlruShared (control structure types)
   - SyncRequestHandler (function pointer type)
   - SLRU_BANK_SIZE, SLRU_MAX_ALLOWED_BUFFERS (constants)
-  - ShmemInitStruct (shared memory allocation)
-  - SimpleLruShmemSize (memory size calculation)
-  - SlruSharedData, SlruPageStatus (data structure types)
+  - [ShmemInitStruct](ShmemInitStruct.md) (shared memory allocation)
+  - [SimpleLruShmemSize](SimpleLruShmemSize.md) (memory size calculation)
+  - [SlruSharedData](SlruSharedData.md), SlruPageStatus (data structure types)
   - LWLockPadded, LWLockInitialize (locking infrastructure)
-  - pg_atomic_init_u64 (atomic operations)
-  - pgstat_get_slru_index (statistics system)
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md) (atomic operations)
+  - [pgstat_get_slru_index](../p/pgstat_get_slru_index.md) (statistics system)
   - SLRU_PAGE_EMPTY (page status constant)
   - strlcpy (string operations)
 
 - Called from (representative examples):
-  - CLOGShmemInit
+  - [CLOGShmemInit](../C/CLOGShmemInit.md)
   - CommitTsShmemInit
-  - MultiXactShmemInit
+  - [MultiXactShmemInit](../M/MultiXactShmemInit.md)
   - SUBTRANSShmemInit
-  - AsyncShmemInit
+  - [AsyncShmemInit](../A/AsyncShmemInit.md)
   - SerialInit
 
 ## Notes and Other Information
@@ -66,7 +66,7 @@ The function uses ShmemInitStruct() to either create new shared memory (postmast
 - The banking system (nbanks = nslots / SLRU_BANK_SIZE) improves concurrency by partitioning locks
 - Memory layout is carefully calculated to ensure proper alignment and efficient access patterns
 - The function validates shared memory size matches expectations with an assertion
-- Backend processes skip initialization and only attach to existing shared memory
+- [Backend](../B/Backend.md) processes skip initialization and only attach to existing shared memory
 - The sync_handler parameter enables integration with PostgreSQL's checkpoint and sync mechanisms
 - Long segment names are used for high-volume SLRUs to avoid filename space exhaustion
 - Each SLRU gets its own statistics tracking via pgstat_get_slru_index()

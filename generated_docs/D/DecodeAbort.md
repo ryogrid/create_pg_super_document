@@ -24,12 +24,12 @@ For two-phase transactions, it calls ReorderBufferFinishPrepared with a false co
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetOrigin
-  - DecodeTXNNeedSkip
-  - ReorderBufferFinishPrepared
-  - ReorderBufferAbort
+  - [DecodeTXNNeedSkip](DecodeTXNNeedSkip.md)
+  - [ReorderBufferFinishPrepared](../R/ReorderBufferFinishPrepared.md)
+  - [ReorderBufferAbort](../R/ReorderBufferAbort.md)
   - UpdateDecodingStats
 - Called from (representative examples):
-  - xact_decode
+  - [xact_decode](../x/xact_decode.md)
 
 ## Notes and Other Information
 - Handles both regular transaction aborts and rollback prepared operations for two-phase commit

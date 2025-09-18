@@ -20,17 +20,17 @@ This function processes SQL JSON() expressions during parsing, creating JsonCons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonReturning
-  - transformJsonParseArg  
-  - transformJsonValueExpr
-  - makeJsonConstructorExpr
+  - [transformJsonReturning](transformJsonReturning.md)
+  - [transformJsonParseArg](transformJsonParseArg.md)  
+  - [transformJsonValueExpr](transformJsonValueExpr.md)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
   - list_make1
   - ereport
-  - errcode
-  - errmsg
-  - parser_errposition
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - transformExprRecurse (src/backend/parser/parse_expr.c:360)
+  - [transformExprRecurse](transformExprRecurse.md) (src/backend/parser/parse_expr.c:360)
 
 ## Notes and Other Information
 - Creates JSCTOR_JSON_PARSE type JsonConstructorExpr nodes for JSON validation

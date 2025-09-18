@@ -19,14 +19,14 @@ The  function is a callback used in PostgreSQL's logical replication system to h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginUpdateProgress
-  - OutputPluginPrepareWrite
-  - logicalrep_write_stream_commit
-  - OutputPluginWrite
-  - cleanup_rel_sync_cache
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_stream_commit](../l/logicalrep_write_stream_commit.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
+  - [cleanup_rel_sync_cache](../c/cleanup_rel_sync_cache.md)
   - rbtxn_is_streamed
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as callback)
 
 ## Notes and Other Information
 - The function includes assertions to ensure it's called outside of a streaming block (!data->in_streaming) and that the transaction is marked as streamed (rbtxn_is_streamed(txn))

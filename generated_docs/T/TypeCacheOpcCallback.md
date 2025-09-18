@@ -23,12 +23,12 @@ The function intentionally does not monitor updates to pg_amop or pg_amproc cata
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - HASH_SEQ_STATUS
   - TCFLAGS_OPERATOR_FLAGS
 - Called from (representative examples):
-  - lookup_type_cache (callback registration)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (callback registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

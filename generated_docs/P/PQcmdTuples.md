@@ -19,11 +19,11 @@ PQcmdTuples parses the command status string from a PGresult to extract the coun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqInternalNotice
+  - [pqInternalNotice](../p/pqInternalNotice.md)
   - strncmp (standard C library)
   - isdigit (standard C library)
 - Called from (representative examples):
-  - SetResultVariables (src/bin/psql/common.c:465)
+  - [SetResultVariables](../S/SetResultVariables.md) (src/bin/psql/common.c:465)
   - ecpg_process_output (src/interfaces/ecpg/ecpglib/execute.c:1868)
 
 ## Notes and Other Information

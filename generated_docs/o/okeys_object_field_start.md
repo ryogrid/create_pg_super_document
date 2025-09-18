@@ -21,12 +21,12 @@ The function implements a selective key collection strategy, ignoring nested obj
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OkeysState (cast from state parameter)
-  - repalloc (for dynamic array resizing)
-  - pstrdup (for string duplication)
+  - [OkeysState](../O/OkeysState.md) (cast from state parameter)
+  - [repalloc](../r/repalloc.md) (for dynamic array resizing)
+  - [pstrdup](../p/pstrdup.md) (for string duplication)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - json_object_keys (assigned as semantic action callback)
+  - [json_object_keys](../j/json_object_keys.md) (assigned as semantic action callback)
   - JsObjectFree
 
 ## Notes and Other Information

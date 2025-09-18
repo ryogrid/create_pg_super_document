@@ -25,11 +25,11 @@ The dshash_table_item struct serves as a wrapper around user-defined data entrie
   - ENTRY_FROM_ITEM (macro for accessing user data)
   - ITEM_FROM_ENTRY (macro for getting item from user data)
   - find_in_bucket
-  - insert_item_into_bucket
-  - delete_item_from_bucket
-  - dshash_find
-  - dshash_find_or_insert
-  - dshash_delete_entry
+  - [insert_item_into_bucket](../i/insert_item_into_bucket.md)
+  - [delete_item_from_bucket](delete_item_from_bucket.md)
+  - [dshash_find](dshash_find.md)
+  - [dshash_find_or_insert](dshash_find_or_insert.md)
+  - [dshash_delete_entry](dshash_delete_entry.md)
 
 ## Notes and Other Information
 - The user's actual data follows immediately after this struct in memory, creating a single allocation that contains both the hash table metadata and the user data

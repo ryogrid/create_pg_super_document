@@ -23,7 +23,7 @@ The function properly manages memory by freeing copied tsquery objects after the
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY_COPY
-  - CompareTSQ
+  - [CompareTSQ](../C/CompareTSQ.md)
   - PG_FREE_IF_COPY
   - PG_RETURN_INT32
 - Data structures used:

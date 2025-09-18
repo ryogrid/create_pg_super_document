@@ -25,9 +25,9 @@ The function is essential for preparing parameter values when executing referent
 ## Dependencies
 - Functions called/Symbols referenced:
   - slot_getattr
-  - RI_ConstraintInfo (structure access)
+  - [RI_ConstraintInfo](../R/RI_ConstraintInfo.md) (structure access)
 - Called from (representative examples):
-  - ri_PerformCheck (called multiple times to extract old and new tuple values)
+  - [ri_PerformCheck](ri_PerformCheck.md) (called multiple times to extract old and new tuple values)
 
 ## Notes and Other Information
 - Uses different attribute number arrays (pk_attnums vs fk_attnums) based on the rel_is_pk parameter

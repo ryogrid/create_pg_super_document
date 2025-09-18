@@ -23,13 +23,13 @@ This static function serves as a constructor for enumeration-type relation optio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocate_reloption
+  - [allocate_reloption](../a/allocate_reloption.md)
   - RELOPT_TYPE_ENUM
-  - relopt_enum_elt_def
+  - [relopt_enum_elt_def](../r/relopt_enum_elt_def.md)
   - bits32
 - Called from (representative examples):
-  - add_enum_reloption
-  - add_local_enum_reloption
+  - [add_enum_reloption](../a/add_enum_reloption.md)
+  - [add_local_enum_reloption](../a/add_local_enum_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the reloptions.c file

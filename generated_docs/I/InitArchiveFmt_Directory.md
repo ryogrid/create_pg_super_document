@@ -27,17 +27,17 @@ The function supports both dump creation (write mode) and dump restoration (read
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _ArchiveEntry, _StartData, _WriteData, _EndData
-  - _WriteByte, _ReadByte, _WriteBuf, _ReadBuf
-  - _CloseArchive, _ReopenArchive, _PrintTocData
-  - _ReadExtraToc, _WriteExtraToc, _PrintExtraToc
-  - _StartLOs, _StartLO, _EndLO, _EndLOs
-  - _PrepParallelRestore, _Clone, _DeClone
-  - _WorkerJobRestoreDirectory, _WorkerJobDumpDirectory
+  - [_ArchiveEntry](../A/_ArchiveEntry.md), _StartData, _WriteData, _EndData
+  - [_WriteByte](../W/_WriteByte.md), _ReadByte, _WriteBuf, _ReadBuf
+  - [_CloseArchive](../C/_CloseArchive.md), _ReopenArchive, _PrintTocData
+  - [_ReadExtraToc](../R/_ReadExtraToc.md), _WriteExtraToc, _PrintExtraToc
+  - [_StartLOs](../S/_StartLOs.md), _StartLO, _EndLO, _EndLOs
+  - [_PrepParallelRestore](../P/_PrepParallelRestore.md), _Clone, _DeClone
+  - [_WorkerJobRestoreDirectory](../W/_WorkerJobRestoreDirectory.md), _WorkerJobDumpDirectory
   - pg_malloc0, setFilePath, InitDiscoverCompressFileHandle
-  - ReadHead, ReadToc, EndCompressFileHandle
+  - [ReadHead](../R/ReadHead.md), ReadToc, EndCompressFileHandle
 - Called from:
-  - _allocAH (in pg_backup_archiver.c:2457)
+  - [_allocAH](../a/_allocAH.md) (in pg_backup_archiver.c:2457)
 
 ## Notes and Other Information
 - The directory format stores each database object as a separate file within a directory structure

@@ -22,19 +22,19 @@ The function also handles dumping of associated comments, security labels, and a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findFuncByOid
-  - fmtId
+  - [findFuncByOid](../f/findFuncByOid.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
   - createPQExpBuffer
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Returns early if dataOnly dump mode is specified since languages are schema constructs

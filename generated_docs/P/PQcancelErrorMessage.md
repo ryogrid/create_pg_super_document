@@ -19,12 +19,12 @@ PQcancelErrorMessage returns the error message associated with the most recent o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQerrorMessage
+  - [PQerrorMessage](PQerrorMessage.md)
   - PGcancelConn (type)
 - Called from (representative examples):
-  - test_cancel (multiple instances in libpq_pipeline test module)
-  - libpqsrv_cancel (libpq backend-frontend helpers)
-  - try_complete_step (isolation tester)
+  - [test_cancel](../t/test_cancel.md) (multiple instances in libpq_pipeline test module)
+  - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (libpq backend-frontend helpers)
+  - [try_complete_step](../t/try_complete_step.md) (isolation tester)
 
 ## Notes and Other Information
 - Returns a pointer to a null-terminated string containing the error message

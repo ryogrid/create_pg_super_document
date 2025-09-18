@@ -19,10 +19,10 @@ The  function is the binary output function for PostgreSQL's Numeric data type. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC
-  - init_var_from_num
-  - pq_begintypsend
-  - pq_sendint16
-  - pq_endtypsend
+  - [init_var_from_num](../i/init_var_from_num.md)
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from:
   - Used as a PostgreSQL type output function (registered in system catalogs)

@@ -28,26 +28,26 @@ The function implements deadlock prevention by locking only one page at a time a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistcheckpage
+  - [gistcheckpage](gistcheckpage.md)
   - GistFollowRight
   - GistPageGetNSN
   - GistPageGetOpaque
   - GistPageIsDeleted
   - GistPageIsLeaf
-  - BufferGetLSNAtomic
-  - ReadBuffer
-  - LockBuffer
-  - UnlockReleaseBuffer
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
-  - ItemPointerGetBlockNumber
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - list_make1
   - list_delete_first
-  - lcons
+  - [lcons](../l/lcons.md)
   - lappend
 - Called from (representative examples):
-  - gistFindCorrectParent
+  - [gistFindCorrectParent](gistFindCorrectParent.md)
 
 ## Notes and Other Information
 - Uses breadth-first search rather than depth-first to ensure leaf pages are encountered after all internal pages

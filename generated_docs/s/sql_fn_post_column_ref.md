@@ -19,17 +19,17 @@ This function serves as a post-processing callback for column references encount
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ColumnRef
+  - [ColumnRef](../C/ColumnRef.md)
   - SQLFunctionParseInfoPtr
-  - A_Star
+  - [A_Star](../A/A_Star.md)
   - llast
   - lsecond
-  - sql_fn_resolve_param_name
+  - [sql_fn_resolve_param_name](sql_fn_resolve_param_name.md)
   - lthird
   - String
-  - ParseFuncOrColumn
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
 - Called from (representative examples):
-  - sql_fn_parser_setup (src/backend/executor/functions.c:268)
+  - [sql_fn_parser_setup](sql_fn_parser_setup.md) (src/backend/executor/functions.c:268)
 
 ## Notes and Other Information
 - Supports multiple syntax forms: A (parameter name), A.B (function.parameter or parameter.field), A.B.C (function.parameter.field), A.* and A.B.* (whole-row references)

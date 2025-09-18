@@ -29,18 +29,18 @@ The TransformJsonStringValuesState structure serves as the central state managem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
   - StringInfo
   - JsonTransformStringValuesAction
 - Called from (representative examples):
-  - transform_json_string_values
-  - transform_string_values_object_start
-  - transform_string_values_object_end
-  - transform_string_values_array_start
-  - transform_string_values_array_end
-  - transform_string_values_object_field_start
-  - transform_string_values_array_element_start
-  - transform_string_values_scalar
+  - [transform_json_string_values](../t/transform_json_string_values.md)
+  - [transform_string_values_object_start](../t/transform_string_values_object_start.md)
+  - [transform_string_values_object_end](../t/transform_string_values_object_end.md)
+  - [transform_string_values_array_start](../t/transform_string_values_array_start.md)
+  - [transform_string_values_array_end](../t/transform_string_values_array_end.md)
+  - [transform_string_values_object_field_start](../t/transform_string_values_object_field_start.md)
+  - [transform_string_values_array_element_start](../t/transform_string_values_array_element_start.md)
+  - [transform_string_values_scalar](../t/transform_string_values_scalar.md)
 
 ## Notes and Other Information
 This structure is specifically designed for JSON transformation operations where the original JSON structure is preserved but string values are modified according to the provided action function. The StringInfo buffer efficiently handles the dynamic construction of the resulting JSON document. The structure is used extensively in PostgreSQL JSON transformation functions and provides a clean separation between parsing logic, transformation logic, and output generation.

@@ -27,16 +27,16 @@ The function includes extensive comments explaining why the transaction wrapper 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionOrTransactionBlock (checks current transaction state)
-  - AcceptInvalidationMessages (processes invalidation messages when inside transaction)
-  - StartTransactionCommand (begins transaction when outside transaction context)
-  - CommitTransactionCommand (commits transaction when outside transaction context)  
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md) (checks current transaction state)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md) (processes invalidation messages when inside transaction)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (begins transaction when outside transaction context)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commits transaction when outside transaction context)  
   - MemoryContextIsValid (validates memory context preservation)
   - catchupInterruptPending (global flag variable, checked in loop)
   - CurrentMemoryContext (current memory context, preserved across transaction)
 - Called from (representative examples):
-  - HandleAutoVacLauncherInterrupts (in autovacuum launcher)
-  - ProcessClientReadInterrupt (in backend client read processing)
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md) (in autovacuum launcher)
+  - [ProcessClientReadInterrupt](ProcessClientReadInterrupt.md) (in backend client read processing)
 
 ## Notes and Other Information
 - This function runs outside of signal handler context, unlike HandleCatchupInterrupt

@@ -20,18 +20,18 @@ The conversion process ensures that the integer value is accurately represented 
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var
-  - int64_to_numericvar
-  - make_result
-  - free_var
+  - [int64_to_numericvar](int64_to_numericvar.md)
+  - [make_result](../m/make_result.md)
+  - [free_var](../f/free_var.md)
   - Numeric (type)
 - Called from (representative examples):
-  - cash_numeric
-  - extract_date
-  - int4_numeric
-  - int8_numeric
-  - int2_numeric
-  - timestamp_part_common
-  - interval_part_common
+  - [cash_numeric](../c/cash_numeric.md)
+  - [extract_date](../e/extract_date.md)
+  - [int4_numeric](int4_numeric.md)
+  - [int8_numeric](int8_numeric.md)
+  - [int2_numeric](int2_numeric.md)
+  - [timestamp_part_common](../t/timestamp_part_common.md)
+  - [interval_part_common](interval_part_common.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's type conversion system located in src/backend/utils/adt/numeric.c:4299-4319

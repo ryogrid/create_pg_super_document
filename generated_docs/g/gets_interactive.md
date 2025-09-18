@@ -28,11 +28,11 @@ When readline is not available, it falls back to a simple prompt display followe
 ## Dependencies
 - Functions called/Symbols referenced:
   - USE_READLINE (preprocessor macro)
-  - gets_fromFile
+  - [gets_fromFile](gets_fromFile.md)
   - readline (when USE_READLINE is enabled)
   - rl_reset_screen_size (when HAVE_RL_RESET_SCREEN_SIZE is defined)
 - Called from (representative examples):
-  - MainLoop
+  - [MainLoop](../M/MainLoop.md)
 
 ## Notes and Other Information
 - The caller must have set up sigint_interrupt_jmp before calling this function

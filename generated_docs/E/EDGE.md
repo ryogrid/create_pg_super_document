@@ -23,17 +23,17 @@ The structure includes workspace fields (pred and link) that are used by the top
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGPROC
+  - [PGPROC](../P/PGPROC.md)
   - LOCK
 - Called from (representative examples):
   - DEADLOCK_INFO
-  - InitDeadLockChecking
-  - TestConfiguration
+  - [InitDeadLockChecking](../I/InitDeadLockChecking.md)
+  - [TestConfiguration](../T/TestConfiguration.md)
   - FindLockCycle
-  - FindLockCycleRecurse
-  - FindLockCycleRecurseMember
-  - ExpandConstraints
-  - TopoSort
+  - [FindLockCycleRecurse](../F/FindLockCycleRecurse.md)
+  - [FindLockCycleRecurseMember](../F/FindLockCycleRecurseMember.md)
+  - [ExpandConstraints](ExpandConstraints.md)
+  - [TopoSort](../T/TopoSort.md)
 
 ## Notes and Other Information
 The EDGE structure is defined in src/backend/storage/lmgr/deadlock.c:53-60 and is primarily used within the deadlock detection subsystem. The pred and link fields are temporary workspace variables used during graph traversal algorithms and do not represent persistent state. This structure is essential for PostgreSQL's ability to detect and resolve deadlock situations in a multi-user environment where concurrent transactions may create circular waiting dependencies.

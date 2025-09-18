@@ -18,40 +18,40 @@ This comprehensive function handles dumping all aspects of a database definition
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - GetConnection
-  - ExecuteSqlQueryForSingleRow
-  - PQfnumber
-  - PQgetvalue
-  - PQgetisnull
+  - [GetConnection](../G/GetConnection.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
   - atooid
-  - getRoleName
-  - pg_strdup
-  - fmtId
+  - [getRoleName](../g/getRoleName.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
-  - createDumpId
-  - ArchiveEntry
-  - buildShSecLabelQuery
-  - ExecuteSqlQuery
-  - emitShSecLabels
-  - dumpACL
-  - dumpDatabaseConfig
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [buildShSecLabelQuery](../b/buildShSecLabelQuery.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [emitShSecLabels](../e/emitShSecLabels.md)
+  - [dumpACL](dumpACL.md)
+  - [dumpDatabaseConfig](dumpDatabaseConfig.md)
   - destroyPQExpBuffer
-  - PQclear
+  - [PQclear](../P/PQclear.md)
   - free
 - Types referenced:
-  - Archive
+  - [Archive](../A/Archive.md)
   - DumpOptions
   - PQExpBuffer
   - PGconn
   - PGresult
-  - CatalogId
+  - [CatalogId](../C/CatalogId.md)
   - DumpId
   - DumpableAcl
   - SECTION_PRE_DATA
   - SECTION_NONE
   - InvalidDumpId
 - Called from:
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Handles version-specific SQL generation for PostgreSQL versions 9.3+ (datminmxid), 15.0+ (ICU locale), 16.0+ (ICU rules), and 17.0+ (locale provider)

@@ -20,12 +20,12 @@ The structure is designed to be accessed from multiple processes in a PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32
-  - InjectionPointEntry
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
+  - [InjectionPointEntry](InjectionPointEntry.md)
   - MAX_INJECTION_POINTS (128)
 - Called from (representative examples):
-  - InjectionPointShmemSize
-  - InjectionPointShmemInit
+  - [InjectionPointShmemSize](InjectionPointShmemSize.md)
+  - [InjectionPointShmemInit](InjectionPointShmemInit.md)
 
 ## Notes and Other Information
 The structure is allocated in shared memory and must be accessed using appropriate atomic operations for the max_inuse field. The fixed array size of 128 injection points provides a reasonable upper bound for the testing and debugging scenarios where injection points are typically used. The max_inuse optimization is particularly important in production systems where injection points are rarely used, allowing fast early exit from scanning operations.

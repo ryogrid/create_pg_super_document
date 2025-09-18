@@ -22,9 +22,9 @@ BufTagGetForkNum is an inline accessor function that retrieves the fork number c
 - Called from (representative examples):
   - ReleaseAndReadBuffer
   - BufferSync
-  - FlushBuffer
-  - DropRelationBuffers
-  - buffertag_comparator
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [DropRelationBuffers](../D/DropRelationBuffers.md)
+  - [buffertag_comparator](../b/buffertag_comparator.md)
 
 ## Notes and Other Information
 - This is an inline function defined in buf_internals.h for performance efficiency

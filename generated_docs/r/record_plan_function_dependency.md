@@ -31,9 +31,9 @@ For performance optimization, built-in functions (those with OIDs less than Firs
   - GetSysCacheHashValue1 (syscache hash function)
   - lappend (list append function)
 - Called from (representative examples):
-  - fix_expr_common (multiple calls for different expression types)
-  - inline_function
-  - inline_set_returning_function
+  - [fix_expr_common](../f/fix_expr_common.md) (multiple calls for different expression types)
+  - [inline_function](../i/inline_function.md)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md)
 
 ## Notes and Other Information
 - This is an exported function (not static) so that function inlining code can record dependencies on functions removed from the plan tree

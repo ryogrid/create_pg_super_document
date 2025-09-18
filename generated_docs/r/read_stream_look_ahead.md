@@ -20,11 +20,11 @@ This function is the core of the ReadStream's read-ahead mechanism. It repeatedl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadStream (structure type)
-  - read_stream_start_pending_read (function to initiate I/O operations)
-  - get_per_buffer_data (function to get per-buffer data pointer)
-  - read_stream_get_block (function to get next block number from callback)
-  - read_stream_unget_block (function to defer block processing)
+  - [ReadStream](../R/ReadStream.md) (structure type)
+  - [read_stream_start_pending_read](read_stream_start_pending_read.md) (function to initiate I/O operations)
+  - [get_per_buffer_data](../g/get_per_buffer_data.md) (function to get per-buffer data pointer)
+  - [read_stream_get_block](read_stream_get_block.md) (function to get next block number from callback)
+  - [read_stream_unget_block](read_stream_unget_block.md) (function to defer block processing)
   - InvalidBlockNumber (constant for end-of-stream sentinel)
 - Called from (representative examples):
   - read_stream_next_buffer (multiple call sites)

@@ -21,7 +21,7 @@ This operation allows for comparing MAC addresses based solely on their manufact
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR8_P (macro for extracting macaddr8 argument)
-  - palloc0 (PostgreSQL memory allocation function)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation function)
   - PG_RETURN_MACADDR8_P (macro for returning macaddr8 result)
   - macaddr8 (data structure type)
 - Called from (representative examples):

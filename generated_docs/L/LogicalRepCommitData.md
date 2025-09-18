@@ -24,11 +24,11 @@ The commit_lsn represents the exact point where the transaction was committed, w
   - XLogRecPtr (PostgreSQL log sequence number type)
   - TimestampTz (PostgreSQL timestamp with timezone type)
 - Called from (representative examples):
-  - logicalrep_read_commit
-  - logicalrep_read_stream_commit
-  - apply_handle_commit
-  - apply_handle_stream_commit
-  - apply_handle_commit_internal
+  - [logicalrep_read_commit](../l/logicalrep_read_commit.md)
+  - [logicalrep_read_stream_commit](../l/logicalrep_read_stream_commit.md)
+  - [apply_handle_commit](../a/apply_handle_commit.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
+  - [apply_handle_commit_internal](../a/apply_handle_commit_internal.md)
 
 ## Notes and Other Information
 - This structure marks the end of a transaction in the logical replication stream

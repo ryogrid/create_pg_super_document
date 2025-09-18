@@ -30,9 +30,9 @@ This function is part of the GIN B-tree navigation infrastructure and ensures ef
   - GinDataPageGetRightBound
   - GinPageRightMost
   - GinPageIsDeleted
-  - ginCompareItemPointers
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
 - Called from (representative examples):
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

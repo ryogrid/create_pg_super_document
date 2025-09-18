@@ -25,11 +25,11 @@ The function performs a two-step validation:
 - Functions called/Symbols referenced:
   - list_length (to check list size)
   - linitial_node (to extract first PlannedStmt from list)
-  - PlannedStmt (structure type for planned statements)
+  - [PlannedStmt](../P/PlannedStmt.md) (structure type for planned statements)
   - CMD_UTILITY (command type constant)
-  - IsTransactionExitStmt (to check if utility statement is transaction exit)
+  - [IsTransactionExitStmt](IsTransactionExitStmt.md) (to check if utility statement is transaction exit)
 - Called from (representative examples):
-  - exec_execute_message (in src/backend/tcop/postgres.c:2231)
+  - [exec_execute_message](../e/exec_execute_message.md) (in src/backend/tcop/postgres.c:2231)
 
 ## Notes and Other Information
 - This is a static function within postgres.c, making it internal to the query execution module

@@ -25,19 +25,19 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetForeignServerByName: Retrieves foreign server definition
-  - object_aclcheck: Checks ACL permissions on the foreign server
-  - aclcheck_error: Reports ACL permission errors
-  - LookupCreationNamespace: Validates and retrieves the target schema
-  - GetForeignDataWrapper: Retrieves FDW definition
-  - GetFdwRoutine: Gets the FDW's function pointers
-  - import_error_callback: Error context callback for better error reporting
-  - pg_parse_query: Parses SQL commands returned by the FDW
-  - IsImportableForeignTable: Filters tables based on LIMIT TO/EXCEPT clauses
-  - ProcessUtility: Executes the CREATE FOREIGN TABLE statements
+  - [GetForeignServerByName](../G/GetForeignServerByName.md): Retrieves foreign server definition
+  - [object_aclcheck](../o/object_aclcheck.md): Checks ACL permissions on the foreign server
+  - [aclcheck_error](../a/aclcheck_error.md): Reports ACL permission errors
+  - [LookupCreationNamespace](../L/LookupCreationNamespace.md): Validates and retrieves the target schema
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md): Retrieves FDW definition
+  - [GetFdwRoutine](../G/GetFdwRoutine.md): Gets the FDW's function pointers
+  - [import_error_callback](../i/import_error_callback.md): Error context callback for better error reporting
+  - [pg_parse_query](../p/pg_parse_query.md): Parses SQL commands returned by the FDW
+  - [IsImportableForeignTable](IsImportableForeignTable.md): Filters tables based on LIMIT TO/EXCEPT clauses
+  - [ProcessUtility](../P/ProcessUtility.md): Executes the CREATE FOREIGN TABLE statements
   - CommandCounterIncrement: Ensures visibility of created tables between commands
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command dispatcher
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command dispatcher
 
 ## Notes and Other Information
 - The function sets up error context callbacks to provide better error messages when parsing or executing FDW-generated SQL fails
@@ -45,4 +45,4 @@ The function performs several key operations:
 - The function supports multiple CREATE FOREIGN TABLE commands per string returned by the FDW
 - Table filtering is applied using IsImportableForeignTable based on the statement's options
 - All created foreign tables are placed in the schema specified by the local_schema parameter
-- Command counter incrementation ensures that each newly created table is visible to subsequent commands in the same transaction
+- [Command](../C/Command.md) counter incrementation ensures that each newly created table is visible to subsequent commands in the same transaction

@@ -19,24 +19,24 @@ This function computes the total shared memory size needed for PostgreSQL's Writ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLOGChooseNumBuffers
-  - SetConfigOption
-  - add_size
-  - mul_size
+  - [XLOGChooseNumBuffers](XLOGChooseNumBuffers.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
   - snprintf
 - Constants and types referenced:
   - PGC_POSTMASTER
   - PGC_S_DYNAMIC_DEFAULT
   - PGC_S_OVERRIDE
-  - XLogCtlData
+  - [XLogCtlData](XLogCtlData.md)
   - WALInsertLockPadded
   - NUM_XLOGINSERT_LOCKS
-  - pg_atomic_uint64
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - XLOG_BLCKSZ
   - PG_IO_ALIGN_SIZE
 - Called from (representative examples):
-  - XLOGShmemInit
-  - CalculateShmemSize
+  - [XLOGShmemInit](XLOGShmemInit.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - Handles auto-tuning of wal_buffers when configured as -1

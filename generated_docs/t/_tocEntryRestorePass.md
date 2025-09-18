@@ -19,14 +19,14 @@ This ordering is critical because ACLs depend on the existence of their target o
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp/strncmp (C standard library string comparison functions)
-  - RestorePass (enum type defining restore pass constants)
+  - [RestorePass](../R/RestorePass.md) (enum type defining restore pass constants)
   - RESTORE_PASS_ACL, RESTORE_PASS_POST_ACL, RESTORE_PASS_MAIN (enum values)
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - RestoreArchive (main restoration orchestration function)
-  - restore_toc_entries_prefork (parallel restoration setup)
-  - move_to_ready_heap (dependency resolution for parallel processing)
-  - reduce_dependencies (dependency management during restoration)
+  - [RestoreArchive](../R/RestoreArchive.md) (main restoration orchestration function)
+  - [restore_toc_entries_prefork](../r/restore_toc_entries_prefork.md) (parallel restoration setup)
+  - [move_to_ready_heap](../m/move_to_ready_heap.md) (dependency resolution for parallel processing)
+  - [reduce_dependencies](../r/reduce_dependencies.md) (dependency management during restoration)
 
 ## Notes and Other Information
 - Returns one of three RestorePass enum values: MAIN, ACL, or POST_ACL

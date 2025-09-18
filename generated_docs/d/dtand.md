@@ -22,8 +22,8 @@ The  function implements the tangent function for degree-based input, following 
   - get_float8_nan: Returns NaN value for float8 type  
   - isinf: Checks for infinite input values
   - INIT_DEGREE_CONSTANTS: Initializes degree calculation constants
-  - sind_q1: Computes sine for first quadrant (0-90 degrees)
-  - cosd_q1: Computes cosine for first quadrant (0-90 degrees)
+  - [sind_q1](../s/sind_q1.md): Computes sine for first quadrant (0-90 degrees)
+  - [cosd_q1](../c/cosd_q1.md): Computes cosine for first quadrant (0-90 degrees)
 - Called from: No direct references found in the codebase
 
 ## Notes and Other Information

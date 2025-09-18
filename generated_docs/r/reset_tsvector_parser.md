@@ -20,8 +20,8 @@ This function allows reusing an existing TSVectorParseState object to parse a di
 - Functions called/Symbols referenced:
   - TSVectorParseState
 - Called from (representative examples):
-  - gettoken_query_standard (src/backend/utils/adt/tsquery.c:324)
-  - gettoken_query_websearch (src/backend/utils/adt/tsquery.c:453)
+  - [gettoken_query_standard](../g/gettoken_query_standard.md) (src/backend/utils/adt/tsquery.c:324)
+  - [gettoken_query_websearch](../g/gettoken_query_websearch.md) (src/backend/utils/adt/tsquery.c:453)
 
 ## Notes and Other Information
 This function is designed for efficiency when parsing multiple related strings with the same parsing configuration. It avoids the overhead of destroying and recreating parser state objects. The original bufstart is preserved for consistent error reporting that references the initial input context.

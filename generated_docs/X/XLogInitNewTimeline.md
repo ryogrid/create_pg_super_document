@@ -31,17 +31,17 @@ This timeline initialization is crucial for maintaining WAL integrity and ensuri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UpdateMinRecoveryPoint: Updates minimum recovery point tracking
+  - [UpdateMinRecoveryPoint](../U/UpdateMinRecoveryPoint.md): Updates minimum recovery point tracking
   - XLByteToPrevSeg: Calculates the previous segment number from WAL position
   - XLByteToSeg: Calculates segment number from WAL position
-  - XLogFileCopy: Copies WAL data between segments on different timelines
+  - [XLogFileCopy](XLogFileCopy.md): Copies WAL data between segments on different timelines
   - XLogSegmentOffset: Calculates offset within a WAL segment
-  - XLogFileInit: Creates and initializes a new WAL segment file
-  - XLogFileName: Generates WAL filename for given timeline and segment
-  - XLogArchiveCleanup: Removes archive status files for a WAL segment
+  - [XLogFileInit](XLogFileInit.md): Creates and initializes a new WAL segment file
+  - [XLogFileName](XLogFileName.md): Generates WAL filename for given timeline and segment
+  - [XLogArchiveCleanup](XLogArchiveCleanup.md): Removes archive status files for a WAL segment
 
 - Called from (representative examples):
-  - StartupXLOG: Called during recovery completion to establish new timeline
+  - [StartupXLOG](../S/StartupXLOG.md): Called during recovery completion to establish new timeline
 
 ## Notes and Other Information
 - This is a static function internal to the xlog.c module

@@ -18,9 +18,9 @@ AllocSetGetChunkContext takes a memory pointer and returns the associated Memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkIsExternal
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
   - ExternalChunkGetBlock
-  - MemoryChunkGetBlock
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - AllocBlockIsValid
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS

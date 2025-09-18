@@ -19,11 +19,11 @@ This inline function provides efficient access to local buffer descriptors, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type for buffer descriptors)
+  - [BufferDesc](../B/BufferDesc.md) (structure type for buffer descriptors)
   - LocalBufferDescriptors (global array containing local buffer descriptors)
 - Called from (representative examples):
-  - ReadRecentBuffer
-  - ZeroAndLockBuffer
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
   - LocalBufferAlloc
   - GetLocalVictimBuffer
   - MarkLocalBufferDirty

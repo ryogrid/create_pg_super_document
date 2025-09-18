@@ -26,13 +26,13 @@ The function handles three cases:
   - GETSIGLEN (macro to get signature length)
   - ISALLTRUE (macro to check if signature represents all-true state)
   - SIGLENBIT (macro to calculate total bits in signature)
-  - sizebitvec (function to count set bits in signature)
+  - [sizebitvec](../s/sizebitvec.md) (function to count set bits in signature)
   - GETSIGN (macro to get signature data)
-  - hemdistsign (function to calculate Hamming distance between signatures)
+  - [hemdistsign](hemdistsign.md) (function to calculate Hamming distance between signatures)
 - Called from:
-  - gtsvector_penalty
-  - gtsquery_penalty
-  - gtsquery_picksplit
+  - [gtsvector_penalty](../g/gtsvector_penalty.md)
+  - [gtsquery_penalty](../g/gtsquery_penalty.md)
+  - [gtsquery_picksplit](../g/gtsquery_picksplit.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within the tsgistidx.c compilation unit

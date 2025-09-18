@@ -29,7 +29,7 @@ This function takes no parameters.
 
 - Called from:
   -  (src/backend/commands/async.c:998) - Main commit-time notification handler
-  -  (src/backend/commands/async.c:825) - Backend exit cleanup handler
+  -  (src/backend/commands/async.c:825) - [Backend](../B/Backend.md) exit cleanup handler
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's LISTEN/NOTIFY asynchronous messaging system

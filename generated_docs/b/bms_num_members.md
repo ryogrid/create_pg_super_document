@@ -19,18 +19,18 @@ This function efficiently counts the number of set bits across all words in a bi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
+  - [bms_is_valid_set](bms_is_valid_set.md)
   - bitmapword
   - bmw_popcount
 - Called from (representative examples):
-  - ExecCheckPermissions (src/backend/executor/execMain.c:606)
-  - find_hash_columns (src/backend/executor/nodeAgg.c:1628)
-  - ExecInitAppend (src/backend/executor/nodeAppend.c:151)
-  - get_memoize_path (src/backend/optimizer/path/joinpath.c:655)
-  - adjust_group_pathkeys_for_groupagg (src/backend/optimizer/plan/planner.c:3382, 3468)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md) (src/backend/executor/execMain.c:606)
+  - [find_hash_columns](../f/find_hash_columns.md) (src/backend/executor/nodeAgg.c:1628)
+  - [ExecInitAppend](../E/ExecInitAppend.md) (src/backend/executor/nodeAppend.c:151)
+  - [get_memoize_path](../g/get_memoize_path.md) (src/backend/optimizer/path/joinpath.c:655)
+  - [adjust_group_pathkeys_for_groupagg](../a/adjust_group_pathkeys_for_groupagg.md) (src/backend/optimizer/plan/planner.c:3382, 3468)
   - build_join_rel (src/backend/optimizer/util/relnode.c:859)
-  - make_partition_pruneinfo (src/backend/partitioning/partprune.c:346)
-  - BuildRelationExtStatistics (src/backend/statistics/extended_stats.c:186)
+  - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md) (src/backend/partitioning/partprune.c:346)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (src/backend/statistics/extended_stats.c:186)
 
 ## Notes and Other Information
 - Returns 0 for NULL (empty) bitmapsets

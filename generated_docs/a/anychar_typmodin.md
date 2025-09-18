@@ -18,13 +18,13 @@ This function serves as common code for both bpchartypmodin and varchartypmodin 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayGetIntegerTypmods
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md)
   - MaxAttrSize
   - ereport (for error reporting)
   - VARHDRSZ (variable header size constant)
 - Called from (representative examples):
-  - bpchartypmodin
-  - varchartypmodin
+  - [bpchartypmodin](../b/bpchartypmodin.md)
+  - [varchartypmodin](../v/varchartypmodin.md)
 
 ## Notes and Other Information
 - The function enforces that exactly one type modifier must be provided

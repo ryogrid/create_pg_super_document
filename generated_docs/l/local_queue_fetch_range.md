@@ -24,11 +24,11 @@ Unlike local_queue_fetch_file which copies entire files, this function is design
 - Functions called/Symbols referenced:
   - snprintf
   - open
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - lseek
-  - open_target_file
+  - [open_target_file](../o/open_target_file.md)
   - read
-  - write_target_range
+  - [write_target_range](../w/write_target_range.md)
   - close
 - Called from (representative examples):
   - Via function pointer in rewind_source interface

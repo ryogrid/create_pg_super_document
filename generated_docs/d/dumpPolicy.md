@@ -40,11 +40,11 @@ The function also generates the corresponding DROP statement for cleanup during 
   - `DumpOptions`, `TableInfo` (data structures)
   - `createPQExpBuffer`, `appendPQExpBuffer` series (query building)
   - `fmtQualifiedDumpable`, `fmtId` (identifier formatting)
-  - `ArchiveEntry` (archive entry creation)
-  - `dumpComment`, `dumpSecLabel` (auxiliary object dumping)
+  - `[ArchiveEntry](../A/ArchiveEntry.md)` (archive entry creation)
+  - `[dumpComment](dumpComment.md)`, `dumpSecLabel` (auxiliary object dumping)
   - `DUMP_COMPONENT_DEFINITION`, `SECTION_POST_DATA` (component flags)
 - Called from (representative examples):
-  - `dumpDumpableObject` (main dump dispatch function)
+  - `[dumpDumpableObject](dumpDumpableObject.md)` (main dump dispatch function)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode

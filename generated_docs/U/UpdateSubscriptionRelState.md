@@ -22,10 +22,10 @@ The function delegates all actual work to UpdateSubscriptionRelStateEx, maintain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UpdateSubscriptionRelStateEx
+  - [UpdateSubscriptionRelStateEx](UpdateSubscriptionRelStateEx.md)
 - Called from (representative examples):
-  - process_syncing_tables_for_sync
-  - LogicalRepSyncTableStart
+  - [process_syncing_tables_for_sync](../p/process_syncing_tables_for_sync.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
 
 ## Notes and Other Information
 - Provides a simplified interface for the most common subscription state update scenarios

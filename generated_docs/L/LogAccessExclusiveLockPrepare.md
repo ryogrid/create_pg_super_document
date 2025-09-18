@@ -21,9 +21,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionId
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](LockAcquireExtended.md)
 
 ## Notes and Other Information
 - This function must be called before LogAccessExclusiveLock() to ensure proper transaction ID assignment

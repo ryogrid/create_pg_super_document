@@ -23,18 +23,18 @@ This function implements the core hash table expansion algorithm that creates a 
   - _hash_checkpage
   - HashPageGetMeta
   - BUCKET_TO_BLKNO
-  - _hash_getbuf_with_condlock_cleanup
-  - _hash_finish_split
-  - _hash_dropbuf
-  - hashbucketcleanup
-  - _hash_spareindex
+  - [_hash_getbuf_with_condlock_cleanup](_hash_getbuf_with_condlock_cleanup.md)
+  - [_hash_finish_split](_hash_finish_split.md)
+  - [_hash_dropbuf](_hash_dropbuf.md)
+  - [hashbucketcleanup](hashbucketcleanup.md)
+  - [_hash_spareindex](_hash_spareindex.md)
   - _hash_get_totalbuckets
-  - _hash_alloc_buckets
-  - _hash_getnewbuf
-  - _hash_splitbucket
+  - [_hash_alloc_buckets](_hash_alloc_buckets.md)
+  - [_hash_getnewbuf](_hash_getnewbuf.md)
+  - [_hash_splitbucket](_hash_splitbucket.md)
   - Various WAL logging functions (XLogInsert, XLogRegisterBuffer, etc.)
 - Called from (representative examples):
-  - _hash_doinsert
+  - [_hash_doinsert](_hash_doinsert.md)
 
 ## Notes and Other Information
 - Silently does nothing if cleanup locks cannot be acquired on old or new buckets

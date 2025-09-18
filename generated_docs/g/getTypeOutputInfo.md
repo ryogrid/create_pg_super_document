@@ -30,27 +30,27 @@ This function is essential for all operations that need to display, print, or tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - Form_pg_type
   - elog
   - ereport
-  - errcode
-  - errmsg
-  - format_type_be
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
   - OidIsValid
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - printtup_prepare_info
-  - DoCopyTo
-  - ExecBuildSlotValueDescription
-  - SPI_getvalue
-  - json_categorize_type
-  - record_out
-  - text_format
-  - PLy_input_setup_func
+  - [printtup_prepare_info](../p/printtup_prepare_info.md)
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [ExecBuildSlotValueDescription](../E/ExecBuildSlotValueDescription.md)
+  - [SPI_getvalue](../S/SPI_getvalue.md)
+  - [json_categorize_type](../j/json_categorize_type.md)
+  - [record_out](../r/record_out.md)
+  - [text_format](../t/text_format.md)
+  - [PLy_input_setup_func](../P/PLy_input_setup_func.md)
 
 ## Notes and Other Information
 - Raises ERROR if the type does not exist in the system catalog

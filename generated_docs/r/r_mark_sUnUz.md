@@ -24,10 +24,10 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b
+  - [find_among_b](../f/find_among_b.md)
   - a_15 (static array containing suffix patterns: "siniz", "sunuz", "sınız", "sünüz")
 - Called from (representative examples):
-  - r_stem_nominal_verb_suffixes (at lines 941, 1052, 1105)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md) (at lines 941, 1052, 1105)
 
 ## Notes and Other Information
 - The `a_15` array contains 4 suffix variations: "siniz" (5 chars), "sunuz" (5 chars), "sınız" (7 UTF-8 bytes with dotless ı), and "sünüz" (7 UTF-8 bytes with ü)

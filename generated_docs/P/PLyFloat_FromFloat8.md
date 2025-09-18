@@ -20,10 +20,10 @@ The function follows the standard PLy conversion pattern used throughout the PL/
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat8: Extracts the float8 value from the PostgreSQL Datum
+  - [DatumGetFloat8](../D/DatumGetFloat8.md): Extracts the float8 value from the PostgreSQL Datum
   - PyFloat_FromDouble: Python C API function to create a Python float object from a C double
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for various PostgreSQL data types
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for various PostgreSQL data types
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the plpy_typeio.c file

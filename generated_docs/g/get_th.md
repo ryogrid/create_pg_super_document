@@ -29,15 +29,15 @@ The function validates that the input string represents a valid number and handl
   - isdigit
   - ereport
   - ERROR
-  - errcode
+  - [errcode](../e/errcode.md)
   - ERRCODE_INVALID_TEXT_REPRESENTATION
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - TH_UPPER
   - numTH (array containing uppercase suffixes)
   - numth (array containing lowercase suffixes)
 - Called from (representative examples):
-  - str_numth
-  - NUM_processor
+  - [str_numth](../s/str_numth.md)
+  - [NUM_processor](../N/NUM_processor.md)
   - DCH_ZONED
 
 ## Notes and Other Information

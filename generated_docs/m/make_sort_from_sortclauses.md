@@ -21,12 +21,12 @@ The function allocates arrays to hold the sorting specification and iterates thr
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortGroupClause (struct type)
-  - get_sortgroupclause_tle
-  - exprCollation
-  - make_sort
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [make_sort](make_sort.md)
   - Sort (return type)
 - Called from (representative examples):
-  - create_unique_plan
+  - [create_unique_plan](../c/create_unique_plan.md)
 
 ## Notes and Other Information
 - The function performs memory allocation for four arrays: sortColIdx, sortOperators, collations, and nullsFirst

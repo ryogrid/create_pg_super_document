@@ -20,13 +20,13 @@ This function manages block selection and positioning during sample scans of hea
 - Functions called/Symbols referenced:
   - TsmRoutine.NextSampleBlock (custom sampling method)
   - ReleaseBuffer (buffer management)
-  - ss_report_location (scan synchronization)
+  - [ss_report_location](../s/ss_report_location.md) (scan synchronization)
   - CHECK_FOR_INTERRUPTS (interrupt handling)
-  - ReadBufferExtended (buffer reading)
-  - heap_prepare_pagescan (page preparation for scanning)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (buffer reading)
+  - [heap_prepare_pagescan](heap_prepare_pagescan.md) (page preparation for scanning)
   - Various block number and buffer validation functions
 - Called from (representative examples):
-  - SampleHeapTupleVisible (as part of table access method interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (as part of table access method interface)
 
 ## Notes and Other Information
 - Supports pluggable sampling methods through the TSM (Table Sampling Method) interface

@@ -24,12 +24,12 @@ The `onechr` function creates NFA arcs for a single character, providing an opti
 - Functions called/Symbols referenced:
   - REG_ICASE (flag for case-insensitive matching)
   - COLORLESS (color constant)
-  - subcoloronechr (creates arc for single character)
-  - subcolorcvec (creates arcs for character vector)
+  - [subcoloronechr](../s/subcoloronechr.md) (creates arc for single character)
+  - [subcolorcvec](../s/subcolorcvec.md) (creates arcs for character vector)
   - allcases (generates all case variants of a character)
 - Called from:
   - ARCV (main arc processing function)
-  - brackpart (for single characters in bracket expressions)
+  - [brackpart](../b/brackpart.md) (for single characters in bracket expressions)
 
 ## Notes and Other Information
 - Provides performance optimization for the common case of single character matching

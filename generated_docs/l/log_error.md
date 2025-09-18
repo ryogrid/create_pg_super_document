@@ -21,16 +21,16 @@ This macro is primarily used within PostgreSQL's common utility functions, parti
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - errmsg_internal
+  - [errmsg_internal](../e/errmsg_internal.md)
   - LOG (error level constant)
 - Called from (representative examples):
   - find_my_exec
   - normalize_exec_path
-  - pipe_read_line
-  - pclose_check
-  - AddUserToTokenDacl
+  - [pipe_read_line](../p/pipe_read_line.md)
+  - [pclose_check](../p/pclose_check.md)
+  - [AddUserToTokenDacl](../A/AddUserToTokenDacl.md)
   - GetTokenUser
-  - pgwin32_is_admin
+  - [pgwin32_is_admin](../p/pgwin32_is_admin.md)
 
 ## Notes and Other Information
 - This macro is defined in  and is used extensively throughout PostgreSQL's common utility functions

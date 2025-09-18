@@ -25,15 +25,15 @@ The function includes an assertion to ensure it is only called on systems that a
   - XLogCtl (global WAL control structure)
   - LogwrtResult (global write result structure)
 - Called from (representative examples):
-  - pg_current_wal_flush_lsn
-  - read_local_xlog_page_guts
-  - GetLatestLSN
-  - pg_logical_slot_get_changes_guts
-  - IdentifySystem
-  - StartReplication
-  - WalSndWaitForWal
-  - XLogSendPhysical
-  - XLogSendLogical
+  - [pg_current_wal_flush_lsn](../p/pg_current_wal_flush_lsn.md)
+  - [read_local_xlog_page_guts](../r/read_local_xlog_page_guts.md)
+  - [GetLatestLSN](GetLatestLSN.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [IdentifySystem](../I/IdentifySystem.md)
+  - [StartReplication](../S/StartReplication.md)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
+  - [XLogSendLogical](../X/XLogSendLogical.md)
 
 ## Notes and Other Information
 - Should only be used on systems not in recovery (enforced by assertion)

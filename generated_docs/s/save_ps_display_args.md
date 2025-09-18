@@ -27,11 +27,11 @@ The preserved arguments allow PostgreSQL processes to show meaningful status inf
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (memory allocation)
-  - write_stderr (error output)
+  - [write_stderr](../w/write_stderr.md) (error output)
   - strdup (string duplication)
   - _NSGetArgv (macOS-specific argv pointer access)
 - Called from (representative examples):
-  - main (in src/backend/main/main.c:91)
+  - [main](../m/main.md) (in src/backend/main/main.c:91)
 
 ## Notes and Other Information
 - Must be called before any code that might rely on getenv() results, as environment strings may be relocated

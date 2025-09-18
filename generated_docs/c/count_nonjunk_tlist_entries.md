@@ -21,8 +21,8 @@ The `count_nonjunk_tlist_entries` function iterates through a target list and co
 - Called from (representative examples):
   - transformMultiAssignRef
   - transformSubLink
-  - transformJsonArrayQueryConstructor
-  - get_update_query_targetlist_def
+  - [transformJsonArrayQueryConstructor](../t/transformJsonArrayQueryConstructor.md)
+  - [get_update_query_targetlist_def](../g/get_update_query_targetlist_def.md)
 
 ## Notes and Other Information
 - Returns an integer count of non-resjunk entries

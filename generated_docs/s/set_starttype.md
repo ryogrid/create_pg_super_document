@@ -25,13 +25,13 @@ The function validates the input and terminates the program with an error messag
 - Functions called/Symbols referenced:
   - strcmp (string comparison)
   - SERVICE_AUTO_START, SERVICE_DEMAND_START (Windows service constants)
-  - write_stderr (error output function)
-  - do_advice (help/advice function)
+  - [write_stderr](../w/write_stderr.md) (error output function)
+  - [do_advice](../d/do_advice.md) (help/advice function)
   - exit (program termination)
   - pgctl_start_type (global variable)
 
 - Called from (representative examples):
-  - main (when processing -S start-type option during service registration)
+  - [main](../m/main.md) (when processing -S start-type option during service registration)
 
 ## Notes and Other Information
 - This function is Windows-specific and relates to the service registration functionality of pg_ctl

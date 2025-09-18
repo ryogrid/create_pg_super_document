@@ -22,12 +22,12 @@ The buffer management system uses a hash-table-like approach with  (256) lists t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StringInfoData (for data member)
+  - [StringInfoData](../S/StringInfoData.md) (for data member)
   - int32 (for pid member)
 
 - Called from (representative examples):
-  - process_pipe_input (allocates and manages save_buffer instances)
-  - flush_pipe_input (iterates through save_buffer instances to flush remaining data)
+  - [process_pipe_input](../p/process_pipe_input.md) (allocates and manages save_buffer instances)
+  - [flush_pipe_input](../f/flush_pipe_input.md) (iterates through save_buffer instances to flush remaining data)
 
 ## Notes and Other Information
 - Buffers are organized in 256 hash buckets () to distribute load based on PID

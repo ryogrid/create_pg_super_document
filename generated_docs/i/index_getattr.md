@@ -34,18 +34,18 @@ The function is designed to be called frequently during index operations, hence 
   - IndexTupleHasNulls (macro)
   - TupleDescAttr (accessor macro)
   - fetchatt (attribute extraction function)
-  - IndexInfoFindDataOffset (offset calculation function)
-  - nocache_index_getattr (fallback extraction function)
+  - [IndexInfoFindDataOffset](../I/IndexInfoFindDataOffset.md) (offset calculation function)
+  - [nocache_index_getattr](../n/nocache_index_getattr.md) (fallback extraction function)
   - att_isnull (null bitmap check function)
-  - IndexTupleData (struct type)
+  - [IndexTupleData](../I/IndexTupleData.md) (struct type)
   - bits8 (type)
 - Called from (representative examples):
-  - gintuple_get_attrnum (GIN index operations)
-  - gintuple_get_key (GIN key extraction)
-  - gistindex_keytest (GiST index testing)
-  - _hash_checkqual (Hash index qualification)
-  - _bt_compare (B-tree comparison operations)
-  - tuplesort_putindextuplevalues (sorting operations)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md) (GIN index operations)
+  - [gintuple_get_key](../g/gintuple_get_key.md) (GIN key extraction)
+  - [gistindex_keytest](../g/gistindex_keytest.md) (GiST index testing)
+  - [_hash_checkqual](../h/_hash_checkqual.md) (Hash index qualification)
+  - [_bt_compare](../b/_bt_compare.md) (B-tree comparison operations)
+  - [tuplesort_putindextuplevalues](../t/tuplesort_putindextuplevalues.md) (sorting operations)
 
 ## Notes and Other Information
 - This is a static inline function providing maximum performance for frequent index attribute access

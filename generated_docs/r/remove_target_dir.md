@@ -21,9 +21,9 @@ This is a static helper function within the pg_rewind utility's file operations 
 - Functions called/Symbols referenced:
   - rmdir (system call)
   - snprintf (standard library)
-  - pg_fatal (PostgreSQL error handling)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
 - Called from (representative examples):
-  - remove_target (src/bin/pg_rewind/file_ops.c:138)
+  - [remove_target](remove_target.md) (src/bin/pg_rewind/file_ops.c:138)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the file_ops.c module

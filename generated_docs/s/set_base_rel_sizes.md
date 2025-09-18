@@ -22,10 +22,10 @@ The sequencing is critical: parallel considerations must be evaluated before set
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELOPT_BASEREL (enum value)
-  - set_rel_consider_parallel
-  - set_rel_size
+  - [set_rel_consider_parallel](set_rel_consider_parallel.md)
+  - [set_rel_size](set_rel_size.md)
 - Called from (representative examples):
-  - make_one_rel
+  - [make_one_rel](../m/make_one_rel.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/allpaths.c:290-332

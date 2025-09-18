@@ -20,9 +20,9 @@ The range_merge function implements a relaxed version of range union that does n
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](range_get_typcache.md)
   - RangeTypeGetOid
-  - range_union_internal
+  - [range_union_internal](range_union_internal.md)
   - PG_RETURN_RANGE_P
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)

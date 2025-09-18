@@ -21,14 +21,14 @@ The `decadd` function implements decimal addition for Informix compatibility in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deccall3
-  - PGTYPESnumeric_add
+  - [deccall3](deccall3.md)
+  - [PGTYPESnumeric_add](../P/PGTYPESnumeric_add.md)
   - PGTYPES_NUM_OVERFLOW
   - PGTYPES_NUM_UNDERFLOW
   - ECPG_INFORMIX_NUM_OVERFLOW
   - ECPG_INFORMIX_NUM_UNDERFLOW
 - Called from (representative examples):
-  - main (in test programs)
+  - [main](../m/main.md) (in test programs)
   - ECPG applications using Informix decimal compatibility
 
 ## Notes and Other Information

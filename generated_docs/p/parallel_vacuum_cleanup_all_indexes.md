@@ -23,10 +23,10 @@ The function assumes that indexes are more interested in the number of surviving
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - parallel_vacuum_process_all_indexes
-  - ParallelVacuumState
+  - [parallel_vacuum_process_all_indexes](parallel_vacuum_process_all_indexes.md)
+  - [ParallelVacuumState](../P/ParallelVacuumState.md)
 - Called from (representative examples):
-  - lazy_cleanup_all_indexes
+  - [lazy_cleanup_all_indexes](../l/lazy_cleanup_all_indexes.md)
 
 ## Notes and Other Information
 - This function must not be called from a parallel worker (enforced by Assert(!IsParallelWorker()))

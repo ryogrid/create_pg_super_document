@@ -25,34 +25,34 @@ The function manages complex state transitions, file cleanup, and synchronizatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_tablesync_worker
-  - logicalrep_read_stream_prepare
-  - set_apply_error_context_xact
-  - get_transaction_apply_action
-  - apply_spooled_messages
-  - apply_handle_prepare_internal
-  - CommitTransactionCommand
-  - store_flush_position
-  - stream_cleanup_files
+  - [am_tablesync_worker](am_tablesync_worker.md)
+  - [logicalrep_read_stream_prepare](../l/logicalrep_read_stream_prepare.md)
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)
+  - [get_transaction_apply_action](../g/get_transaction_apply_action.md)
+  - [apply_spooled_messages](apply_spooled_messages.md)
+  - [apply_handle_prepare_internal](apply_handle_prepare_internal.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [store_flush_position](../s/store_flush_position.md)
+  - [stream_cleanup_files](../s/stream_cleanup_files.md)
   - pa_send_data
-  - pa_xact_finish
-  - pa_switch_to_partial_serialize
-  - stream_open_and_write_change
-  - pa_set_fileset_state
-  - stream_close_file
-  - begin_replication_step
-  - end_replication_step
-  - pa_set_xact_state
-  - pa_unlock_transaction
-  - pa_reset_subtrans
-  - pgstat_report_stat
-  - process_syncing_tables
-  - stop_skipping_changes
-  - clear_subscription_skip_lsn
-  - pgstat_report_activity
-  - reset_apply_error_context_info
+  - [pa_xact_finish](../p/pa_xact_finish.md)
+  - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
+  - [stream_open_and_write_change](../s/stream_open_and_write_change.md)
+  - [pa_set_fileset_state](../p/pa_set_fileset_state.md)
+  - [stream_close_file](../s/stream_close_file.md)
+  - [begin_replication_step](../b/begin_replication_step.md)
+  - [end_replication_step](../e/end_replication_step.md)
+  - [pa_set_xact_state](../p/pa_set_xact_state.md)
+  - [pa_unlock_transaction](../p/pa_unlock_transaction.md)
+  - [pa_reset_subtrans](../p/pa_reset_subtrans.md)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md)
+  - [process_syncing_tables](../p/process_syncing_tables.md)
+  - [stop_skipping_changes](../s/stop_skipping_changes.md)
+  - [clear_subscription_skip_lsn](../c/clear_subscription_skip_lsn.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [reset_apply_error_context_info](../r/reset_apply_error_context_info.md)
 - Called from:
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - This function is central to PostgreSQL's large transaction streaming support in logical replication

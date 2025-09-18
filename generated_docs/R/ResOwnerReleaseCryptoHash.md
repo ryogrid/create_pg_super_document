@@ -21,9 +21,9 @@ The function first clears the resource owner reference in the context to prevent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_free (cleanup function for hash contexts)
-  - pg_cryptohash_ctx (context structure type)
-  - DatumGetPointer (macro to extract pointer from Datum)
+  - [pg_cryptohash_free](../p/pg_cryptohash_free.md) (cleanup function for hash contexts)
+  - [pg_cryptohash_ctx](../p/pg_cryptohash_ctx.md) (context structure type)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)
 - Called from (representative examples):
   - PostgreSQL resource owner system during resource cleanup
   - Referenced by pg_cryptohash_ctx structure initialization

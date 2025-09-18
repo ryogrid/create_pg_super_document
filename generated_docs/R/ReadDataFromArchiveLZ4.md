@@ -26,9 +26,9 @@ This function implements the decompression logic for LZ4-compressed archive data
   - LZ4F_isError
   - LZ4F_getErrorName
   - pg_malloc0
-  - pg_free
-  - ahwrite
-  - pg_fatal
+  - [pg_free](../p/pg_free.md)
+  - [ahwrite](../a/ahwrite.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Constants used:
   - DEFAULT_IO_BUFFER_SIZE
   - LZ4F_VERSION

@@ -29,14 +29,14 @@ The overlap calculation is sophisticated: when subtype_diff is available, it com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - call_subtype_diff
+  - [call_subtype_diff](../c/call_subtype_diff.md)
   - LIMIT_RATIO (constant)
-  - ConsiderSplitContext (struct)
+  - [ConsiderSplitContext](../C/ConsiderSplitContext.md) (struct)
   - RangeBound (struct)
   - float4 (type)
   - Min (macro)
 - Called from (representative examples):
-  - range_gist_double_sorting_split
+  - [range_gist_double_sorting_split](range_gist_double_sorting_split.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rangetypes_gist.c file

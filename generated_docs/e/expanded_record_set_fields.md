@@ -22,12 +22,12 @@ The function handles proper memory management by copying non-by-value fields int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_expanded_record
+  - [deconstruct_expanded_record](../d/deconstruct_expanded_record.md)
   - VARATT_IS_EXTERNAL
-  - detoast_external_attr
-  - datumCopy
-  - get_short_term_cxt
-  - domain_check
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [get_short_term_cxt](../g/get_short_term_cxt.md)
+  - [domain_check](../d/domain_check.md)
   - ExpandedRecordGetRODatum
 - Called from (representative examples):
   - No direct callers found in codebase

@@ -28,9 +28,9 @@ The function ensures that aborted subtransactions do not leave dangling snapshot
 - Functions called/Symbols referenced:
   - ActiveSnapshotElt
   - FreeSnapshot
-  - SnapshotResetXmin
+  - [SnapshotResetXmin](../S/SnapshotResetXmin.md)
 - Called from (representative examples):
-  - AbortSubTransaction
+  - [AbortSubTransaction](AbortSubTransaction.md)
   - IsMVCCSnapshot (via header inclusion)
 
 ## Notes and Other Information

@@ -33,7 +33,7 @@ This function is typically used as a final function in PostgreSQL's aggregate sy
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P
-  - check_float8_array
+  - [check_float8_array](../c/check_float8_array.md)
 - Called from (representative examples):
   - Used as aggregate final function in PostgreSQL's REGR_R2 aggregate
 

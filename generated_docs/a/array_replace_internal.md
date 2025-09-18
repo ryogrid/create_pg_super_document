@@ -30,17 +30,17 @@ For remove operations on multi-dimensional arrays, the function raises an error 
 - Functions called/Symbols referenced:
   - ARR_ELEMTYPE, ARR_NDIM, ARR_DIMS, ARR_DATA_PTR, ARR_NULLBITMAP
   - ArrayGetNItems
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - PG_DETOAST_DATUM
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - fetch_att, att_addlength_datum, att_align_nominal
-  - construct_empty_array
-  - CopyArrayEls
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [CopyArrayEls](../C/CopyArrayEls.md)
   - AllocSizeIsValid
 - Called from (representative examples):
-  - array_remove (src/backend/utils/adt/arrayfuncs.c:6637)
-  - array_replace (src/backend/utils/adt/arrayfuncs.c:6661)
+  - [array_remove](array_remove.md) (src/backend/utils/adt/arrayfuncs.c:6637)
+  - [array_replace](array_replace.md) (src/backend/utils/adt/arrayfuncs.c:6661)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside arrayfuncs.c

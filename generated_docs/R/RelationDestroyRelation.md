@@ -33,17 +33,17 @@ The function includes special handling for tuple descriptors during transactions
   - RelationHasReferenceCountZero
   - RelationCloseSmgr
   - pgstat_unlink_relation
-  - RememberToFreeTupleDescAtEOX
-  - FreeTupleDesc
-  - FreeTriggerDesc
-  - list_free_deep
-  - list_free
-  - bms_free
-  - MemoryContextDelete
+  - [RememberToFreeTupleDescAtEOX](RememberToFreeTupleDescAtEOX.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [FreeTriggerDesc](../F/FreeTriggerDesc.md)
+  - [list_free_deep](../l/list_free_deep.md)
+  - [list_free](../l/list_free.md)
+  - [bms_free](../b/bms_free.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
   - RelationCacheInsert
-  - RelationBuildDesc
-  - RelationClearRelation
+  - [RelationBuildDesc](RelationBuildDesc.md)
+  - [RelationClearRelation](RelationClearRelation.md)
 
 ## Notes and Other Information
 - Caller must ensure relation has zero reference count before calling

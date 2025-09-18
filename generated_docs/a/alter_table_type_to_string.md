@@ -17,10 +17,10 @@ This function serves as a mapping utility that translates internal ALTER TABLE o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTableType (enum parameter)
+  - [AlterTableType](../A/AlterTableType.md) (enum parameter)
   - All AT_* enumeration constants (AT_AddColumn, AT_DropColumn, AT_AddConstraint, etc.)
 - Called from (representative examples):
-  - ATSimplePermissions
+  - [ATSimplePermissions](../A/ATSimplePermissions.md)
 
 ## Notes and Other Information
 - Returns NULL for certain internal operation types that don't correspond to actual SQL grammar (marked with comments like "not real grammar")

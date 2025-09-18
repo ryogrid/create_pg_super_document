@@ -24,9 +24,9 @@ This structure is primarily used within the context of full-text search operatio
 - Functions called/Symbols referenced:
   - Used in DictSyn structure as an array element
 - Called from (representative examples):
-  - compareSyn (for sorting/searching synonym arrays)
-  - dsynonym_init (during dictionary initialization from config files)
-  - dsynonym_lexize (during actual text search lexicalization)
+  - [compareSyn](../c/compareSyn.md) (for sorting/searching synonym arrays)
+  - [dsynonym_init](../d/dsynonym_init.md) (during dictionary initialization from config files)
+  - [dsynonym_lexize](../d/dsynonym_lexize.md) (during actual text search lexicalization)
 
 ## Notes and Other Information
 - The Syn structures are typically stored in sorted arrays within DictSyn for efficient binary search operations

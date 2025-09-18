@@ -28,7 +28,7 @@ The function also handles skew optimization parameters, which can improve perfor
   - makeNode (to create the Hash node)
   - Hash (plan node structure)
 - Called from (representative examples):
-  - create_hashjoin_plan (in createplan.c:4878)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (in createplan.c:4878)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the plan creation subsystem

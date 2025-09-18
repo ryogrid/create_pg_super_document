@@ -21,16 +21,16 @@ This function builds the effective reference (eref) column name list for a relat
 - Functions called/Symbols referenced:
   - list_head (list manipulation)
   - list_length (list manipulation) 
-  - lnext (list traversal)
+  - [lnext](../l/lnext.md) (list traversal)
   - lappend (list building)
-  - makeString (string creation)
-  - pstrdup (string duplication)
+  - [makeString](../m/makeString.md) (string creation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
   - ereport (error reporting)
 - Called from (representative examples):
-  - addRangeTableEntry
-  - addRangeTableEntryForRelation
-  - addRangeTableEntryForFunction
-  - addRangeTableEntryForENR
+  - [addRangeTableEntry](../a/addRangeTableEntry.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
+  - [addRangeTableEntryForENR](../a/addRangeTableEntryForENR.md)
 
 ## Notes and Other Information
 - The function modifies both the eref->colnames list (output) and rebuilds alias->colnames for consistency

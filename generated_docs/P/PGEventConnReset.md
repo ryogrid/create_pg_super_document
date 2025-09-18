@@ -19,8 +19,8 @@ PGEventConnReset is used as the event information structure when the libpq event
 - Functions called/Symbols referenced:
   - PGconn (PostgreSQL connection structure)
 - Called from (representative examples):
-  - PQreset (creates and passes this structure to event callbacks at fe-connect.c:4907)
-  - PQresetPoll (creates and passes this structure to event callbacks at fe-connect.c:4959)
+  - [PQreset](PQreset.md) (creates and passes this structure to event callbacks at fe-connect.c:4907)
+  - [PQresetPoll](PQresetPoll.md) (creates and passes this structure to event callbacks at fe-connect.c:4959)
 
 ## Notes and Other Information
 - This structure is specifically used for PGEVT_CONNRESET events and is passed to event callback functions as the evtInfo parameter

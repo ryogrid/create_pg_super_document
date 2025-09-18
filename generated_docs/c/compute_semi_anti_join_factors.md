@@ -35,13 +35,13 @@ For ANTI joins, it filters out "pushed down" clauses that won't affect match log
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clauselist_selectivity
-  - init_dummy_sjinfo
+  - [clauselist_selectivity](clauselist_selectivity.md)
+  - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
   - IS_OUTER_JOIN
   - RINFO_IS_PUSHED_DOWN
-  - list_free
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - add_paths_to_joinrel
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
 
 ## Notes and Other Information
 - The estimates computed are path-independent and used across all join cost estimation functions

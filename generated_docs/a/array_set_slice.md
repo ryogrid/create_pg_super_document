@@ -37,19 +37,19 @@ The function handles both ordinary varlena arrays and provides comprehensive bou
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
-  - deconstruct_array
-  - construct_md_array
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [construct_md_array](../c/construct_md_array.md)
   - ArrayGetNItems
   - ArrayCheckBounds
-  - mda_get_range
-  - array_nelems_size
-  - array_slice_size
-  - array_insert_slice
-  - array_bitmap_copy
-  - pg_sub_s32_overflow
-  - pg_add_s32_overflow
+  - [mda_get_range](../m/mda_get_range.md)
+  - [array_nelems_size](array_nelems_size.md)
+  - [array_slice_size](array_slice_size.md)
+  - [array_insert_slice](array_insert_slice.md)
+  - [array_bitmap_copy](array_bitmap_copy.md)
+  - [pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
 - Called from:
-  - array_subscript_assign_slice
+  - [array_subscript_assign_slice](array_subscript_assign_slice.md)
 
 ## Notes and Other Information
 - Fixed-length arrays are not currently supported for slice operations

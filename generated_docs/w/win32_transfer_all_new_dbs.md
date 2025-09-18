@@ -24,10 +24,10 @@ Unlike win32_exec_prog, this function always returns 0 (success) as the transfer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transfer_all_new_dbs
+  - [transfer_all_new_dbs](../t/transfer_all_new_dbs.md)
   - transfer_thread_arg (struct type)
 - Called from (representative examples):
-  - parallel_transfer_all_new_dbs
+  - [parallel_transfer_all_new_dbs](../p/parallel_transfer_all_new_dbs.md)
   - transfer_thread_arg
 
 ## Notes and Other Information

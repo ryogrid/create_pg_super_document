@@ -18,11 +18,11 @@ This function provides the total row count for the current partition being proce
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - spool_tuples
+  - [spool_tuples](../s/spool_tuples.md)
 - Called from (representative examples):
-  - window_percent_rank
-  - window_cume_dist
-  - window_ntile
+  - [window_percent_rank](../w/window_percent_rank.md)
+  - [window_cume_dist](../w/window_cume_dist.md)
+  - [window_ntile](../w/window_ntile.md)
 
 ## Notes and Other Information
 - Returns int64 representing the total number of rows in the current partition

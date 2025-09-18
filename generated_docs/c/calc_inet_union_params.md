@@ -33,11 +33,11 @@ The algorithm initializes using the first key's values, then iterates through re
 - Functions called/Symbols referenced:
   - DatumGetInetKeyP
   - gk_ip_family, gk_ip_minbits, gk_ip_commonbits, gk_ip_addr
-  - bitncommon
+  - [bitncommon](../b/bitncommon.md)
   - Assert
 - Called from (representative examples):
-  - inet_gist_union
-  - inet_gist_picksplit
+  - [inet_gist_union](../i/inet_gist_union.md)
+  - [inet_gist_picksplit](../i/inet_gist_picksplit.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within network_gist.c

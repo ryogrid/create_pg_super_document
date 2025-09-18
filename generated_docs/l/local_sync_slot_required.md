@@ -36,7 +36,7 @@ In all other cases, it returns true, meaning the local slot should be retained.
   - SpinLockRelease
   - RS_INVAL_NONE (invalidation status constant)
 - Called from:
-  - drop_local_obsolete_slots
+  - [drop_local_obsolete_slots](../d/drop_local_obsolete_slots.md)
 
 ## Notes and Other Information
 - Uses spinlock protection when accessing the local slot's invalidation status to ensure thread safety

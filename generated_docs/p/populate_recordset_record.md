@@ -20,16 +20,16 @@ The `populate_recordset_record` function is responsible for converting a single 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - update_cached_tupdesc
-  - populate_record
+  - [update_cached_tupdesc](../u/update_cached_tupdesc.md)
+  - [populate_record](populate_record.md)
   - domain_check_safe
-  - HeapTupleHeaderGetDatum
+  - [HeapTupleHeaderGetDatum](../H/HeapTupleHeaderGetDatum.md)
   - HeapTupleHeaderGetDatumLength
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - tuplestore_puttuple
 - Called from (representative examples):
-  - populate_recordset_worker
-  - populate_recordset_object_end
+  - [populate_recordset_worker](populate_recordset_worker.md)
+  - [populate_recordset_object_end](populate_recordset_object_end.md)
 
 ## Notes and Other Information
 - Located at src/backend/utils/adt/jsonfuncs.c:4000-4038

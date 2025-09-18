@@ -19,7 +19,7 @@ This function directly delegates to pg_ls_dir by passing through the entire fcin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ls_dir (the main implementation function that performs the actual directory listing)
+  - [pg_ls_dir](pg_ls_dir.md) (the main implementation function that performs the actual directory listing)
 - Called from (representative examples):
   - No direct references found (likely called through SQL function dispatch)
 

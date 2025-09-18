@@ -26,22 +26,22 @@ This optimization avoids creating redundant expression nodes and helps maintain 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeBoolConst (to create TRUE constant for empty lists)
-  - make_andclause (to create AND expression for multiple clauses)
+  - [makeBoolConst](makeBoolConst.md) (to create TRUE constant for empty lists)
+  - [make_andclause](make_andclause.md) (to create AND expression for multiple clauses)
   - list_length (to check list size)
   - linitial (to get first element of single-element list)
 - Called from (representative examples):
   - UpdateIndexRelation
-  - get_proposed_default_constraint
-  - show_qual (in query explanation)
-  - ATExecAttachPartition
-  - DetachAddConstraintIfNeeded
-  - ExecInitCheck
-  - create_bitmap_subplan
-  - convert_EXISTS_to_ANY
-  - extract_or_clause
-  - check_default_partition_contents
-  - get_qual_for_list
+  - [get_proposed_default_constraint](../g/get_proposed_default_constraint.md)
+  - [show_qual](../s/show_qual.md) (in query explanation)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
+  - [DetachAddConstraintIfNeeded](../D/DetachAddConstraintIfNeeded.md)
+  - [ExecInitCheck](../E/ExecInitCheck.md)
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md)
+  - [convert_EXISTS_to_ANY](../c/convert_EXISTS_to_ANY.md)
+  - [extract_or_clause](../e/extract_or_clause.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
+  - [get_qual_for_list](../g/get_qual_for_list.md)
 
 ## Notes and Other Information
 - An empty list is considered equivalent to TRUE, which is a fundamental principle in boolean logic

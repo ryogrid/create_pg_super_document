@@ -23,21 +23,21 @@ The function also resets the volatility status to unknown when adding a new expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathTarget (data structure)
+  - [PathTarget](../P/PathTarget.md) (data structure)
   - lappend (list append)
   - list_length (list utility)
-  - repalloc (memory reallocation)
-  - palloc0 (zero-initialized memory allocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - VOLATILITY_NOVOLATILE (volatility constant)
   - VOLATILITY_UNKNOWN (volatility constant)
 - Called from (representative examples):
-  - create_one_window_path
-  - make_group_input_target
-  - make_partial_grouping_target
-  - make_window_input_target
-  - make_sort_input_target
-  - add_new_column_to_pathtarget
-  - add_sp_item_to_pathtarget
+  - [create_one_window_path](../c/create_one_window_path.md)
+  - [make_group_input_target](../m/make_group_input_target.md)
+  - [make_partial_grouping_target](../m/make_partial_grouping_target.md)
+  - [make_window_input_target](../m/make_window_input_target.md)
+  - [make_sort_input_target](../m/make_sort_input_target.md)
+  - [add_new_column_to_pathtarget](add_new_column_to_pathtarget.md)
+  - [add_sp_item_to_pathtarget](add_sp_item_to_pathtarget.md)
 
 ## Notes and Other Information
 - Dynamically manages sortgrouprefs array expansion as needed

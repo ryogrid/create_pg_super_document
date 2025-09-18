@@ -28,22 +28,22 @@ The function supports both concurrent and standard reindexing modes, automatical
 ## Dependencies
 - Functions called/Symbols referenced:
   - PopActiveSnapshot
-  - CommitTransactionCommand
-  - StartTransactionCommand
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - PushActiveSnapshot
   - GetTransactionSnapshot
   - SearchSysCacheExists1
-  - object_aclcheck
-  - get_rel_relkind
-  - get_rel_persistence
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [get_rel_persistence](../g/get_rel_persistence.md)
   - ReindexRelationConcurrently
-  - reindex_index
-  - reindex_relation
-  - get_namespace_name
-  - get_rel_name
+  - [reindex_index](../r/reindex_index.md)
+  - [reindex_relation](../r/reindex_relation.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - ReindexMultipleTables
-  - ReindexPartitions
+  - [ReindexMultipleTables](ReindexMultipleTables.md)
+  - [ReindexPartitions](ReindexPartitions.md)
 
 ## Notes and Other Information
 - The function is static (internal to indexcmds.c) and designed for internal use within the reindexing subsystem

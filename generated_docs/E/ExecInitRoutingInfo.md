@@ -25,14 +25,14 @@ The function manages dynamic arrays that track all initialized partitions, growi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetRootToChildMap
-  - table_slot_create
-  - palloc
-  - repalloc
-  - MemoryContextSwitchTo
+  - [ExecGetRootToChildMap](ExecGetRootToChildMap.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - ExecFindPartition (in execPartition.c:367)
-  - ExecInitPartitionInfo (in execPartition.c:674)
+  - [ExecFindPartition](ExecFindPartition.md) (in execPartition.c:367)
+  - [ExecInitPartitionInfo](ExecInitPartitionInfo.md) (in execPartition.c:674)
 
 ## Notes and Other Information
 This is a static helper function that handles the common routing setup tasks needed when a partition is first accessed. It optimizes memory usage by only creating partition-specific tuple slots when tuple format conversion is actually required. The function supports foreign table partitions by invoking appropriate FDW callbacks for initialization and batch size determination. The dynamic array management uses an exponential growth strategy (doubling) to efficiently handle workloads with varying numbers of accessed partitions. The function operates within the partition routing memory context to ensure proper memory lifecycle management.

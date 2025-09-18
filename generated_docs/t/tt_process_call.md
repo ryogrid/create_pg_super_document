@@ -25,13 +25,13 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildTupleFromCStrings
-  - HeapTupleGetDatum
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - sprintf
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ts_token_type_byid
-  - ts_token_type_byname
+  - [ts_token_type_byid](ts_token_type_byid.md)
+  - [ts_token_type_byname](ts_token_type_byname.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wparser.c module

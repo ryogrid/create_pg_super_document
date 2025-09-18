@@ -21,7 +21,7 @@ This structure is designed to support error reporting mechanisms in PostgreSQL's
 - Functions called/Symbols referenced:
   - core_yyscan_t
 - Called from (representative examples):
-  - str_udeescape
+  - [str_udeescape](../s/str_udeescape.md)
 
 ## Notes and Other Information
 This structure is primarily used for error handling and diagnostics in the PostgreSQL parser. It enables the scanner to provide precise error location information when reporting parsing problems, which is crucial for debugging SQL statements and providing meaningful error messages to users. The callback mechanism allows for flexible error handling strategies depending on the parsing context.

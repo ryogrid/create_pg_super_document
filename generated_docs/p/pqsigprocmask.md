@@ -36,10 +36,10 @@ Key behaviors:
   - SIG_BLOCK (add signals to mask)
   - SIG_UNBLOCK (remove signals from mask) 
   - SIG_SETMASK (replace entire mask)
-  - pgwin32_dispatch_queued_signals (dispatch unblocked signals)
+  - [pgwin32_dispatch_queued_signals](pgwin32_dispatch_queued_signals.md) (dispatch unblocked signals)
   - EINVAL (errno constant)
 - Called from (representative examples):
-  - sigaction (via header mapping)
+  - [sigaction](../s/sigaction.md) (via header mapping)
   - sigprocmask (via header mapping)
 
 ## Notes and Other Information

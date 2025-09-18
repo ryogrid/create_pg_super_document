@@ -21,15 +21,15 @@ This static function serves as a support routine for the has_type_privilege fami
 - Functions called/Symbols referenced:
   - text_to_cstring: Converts PostgreSQL text to C string
   - DirectFunctionCall1: Calls PostgreSQL internal function directly
-  - regtypein: PostgreSQL function that converts type name string to OID
-  - CStringGetDatum: Converts C string to PostgreSQL Datum
-  - DatumGetObjectId: Extracts OID from Datum result
+  - [regtypein](../r/regtypein.md): PostgreSQL function that converts type name string to OID
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum
+  - [DatumGetObjectId](../D/DatumGetObjectId.md): Extracts OID from Datum result
   - OidIsValid: Checks if OID is valid
   - ereport: Reports error if type does not exist
 - Called from (representative examples):
-  - has_type_privilege_name_name: Privilege check with role name and type name
-  - has_type_privilege_name: Privilege check with current user and type name  
-  - has_type_privilege_id_name: Privilege check with role OID and type name
+  - [has_type_privilege_name_name](../h/has_type_privilege_name_name.md): Privilege check with role name and type name
+  - [has_type_privilege_name](../h/has_type_privilege_name.md): Privilege check with current user and type name  
+  - [has_type_privilege_id_name](../h/has_type_privilege_id_name.md): Privilege check with role OID and type name
 
 ## Notes and Other Information
 - This is a static (internal) function, not exposed outside acl.c

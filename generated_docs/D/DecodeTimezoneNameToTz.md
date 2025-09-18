@@ -19,12 +19,12 @@ This function serves as a simple wrapper around DecodeTimezoneName that ensures 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeTimezoneName
-  - pg_tzset_offset
+  - [DecodeTimezoneName](DecodeTimezoneName.md)
+  - [pg_tzset_offset](../p/pg_tzset_offset.md)
   - TZNAME_FIXED_OFFSET
-  - pg_tz
+  - [pg_tz](../p/pg_tz.md)
 - Called from (representative examples):
-  - lookup_timezone
+  - [lookup_timezone](../l/lookup_timezone.md)
 
 ## Notes and Other Information
 - This function flips the sign convention when creating fixed-offset timezones to conform to POSIX standards

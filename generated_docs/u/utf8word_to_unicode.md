@@ -27,7 +27,7 @@ The function uses bit shifting and masking operations to extract the payload bit
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
-  - conv_utf8_to_18030 (src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:157)
+  - [conv_utf8_to_18030](../c/conv_utf8_to_18030.md) (src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:157)
 
 ## Notes and Other Information
 This function is the mathematical inverse of `unicode_to_utf8word` and ensures that `utf8word_to_unicode(unicode_to_utf8word(x)) == x` for any valid Unicode code point. The function is used in the UTF-8 to GB18030 conversion process within PostgreSQL's character encoding system. It assumes the input word contains valid UTF-8 sequences and does not perform extensive validation. The function is declared as `static inline` for performance optimization in character conversion operations.

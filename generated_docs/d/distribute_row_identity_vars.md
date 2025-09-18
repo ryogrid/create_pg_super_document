@@ -23,14 +23,14 @@ The function includes special handling for edge cases where constraint exclusion
 - Functions called/Symbols referenced:
   - rt_fetch: Retrieves range table entries from the parse tree
   - table_open/table_close: Opens and closes relation descriptors
-  - add_row_identity_columns: Adds standard row identity columns for edge case handling
-  - build_base_rel_tlists: Rebuilds base relation target lists
-  - find_base_rel: Locates the base relation information
+  - [add_row_identity_columns](../a/add_row_identity_columns.md): Adds standard row identity columns for edge case handling
+  - [build_base_rel_tlists](../b/build_base_rel_tlists.md): Rebuilds base relation target lists
+  - [find_base_rel](../f/find_base_rel.md): Locates the base relation information
   - copyObject: Creates deep copies of ROWID_VAR expressions
   - lappend: Appends expressions to target relation lists
 
 - Called from (representative examples):
-  - query_planner: As part of the main query planning process
+  - [query_planner](../q/query_planner.md): As part of the main query planning process
 
 ## Notes and Other Information
 - Only operates on inherited UPDATE/DELETE/MERGE queries (returns early for non-inherited or non-DML operations)

@@ -20,12 +20,12 @@ The `index_reloptions` function serves as a generic wrapper for parsing index re
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (macro)
-  - DatumGetPointer (macro)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro)
   - Assert (macro)
 - Called from (representative examples):
-  - extractRelOptions
-  - DefineIndex
-  - ATExecSetRelOptions
+  - [extractRelOptions](../e/extractRelOptions.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md)
 
 ## Notes and Other Information
 - This function acts as a thin wrapper that provides a consistent interface for all index access methods

@@ -20,14 +20,14 @@ This function provides a formatted timestamp string representing when the curren
   - pg_time_t (timestamp type)
   - FORMATTED_TS_LEN (buffer size constant)
   - pg_strftime (PostgreSQL's strftime implementation)
-  - pg_localtime (PostgreSQL's localtime implementation)
+  - [pg_localtime](../p/pg_localtime.md) (PostgreSQL's localtime implementation)
   - MyStartTime (global variable for backend start time)
   - log_timezone (global timezone setting)
   - formatted_start_time (static buffer variable)
 - Called from (representative examples):
-  - write_csvlog (src/backend/utils/error/csvlog.c:148)
-  - log_status_format (src/backend/utils/error/elog.c:3035)
-  - write_jsonlog (src/backend/utils/error/jsonlog.c:193)
+  - [write_csvlog](../w/write_csvlog.md) (src/backend/utils/error/csvlog.c:148)
+  - [log_status_format](../l/log_status_format.md) (src/backend/utils/error/elog.c:3035)
+  - [write_jsonlog](../w/write_jsonlog.md) (src/backend/utils/error/jsonlog.c:193)
 
 ## Notes and Other Information
 - Returns a pointer to a static buffer that should not be modified or freed by the caller

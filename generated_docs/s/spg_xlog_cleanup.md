@@ -17,7 +17,7 @@ Cleans up the SP-GiST temporary memory context used during WAL record replay ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete (deletes the memory context and all its allocated memory)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (deletes the memory context and all its allocated memory)
 - Called from (representative examples):
   - SizeOfSpgxlogVacuumRedirect (referenced in spgxlog.h)
 

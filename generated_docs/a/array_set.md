@@ -32,8 +32,8 @@ The function converts the input ArrayType pointer to a Datum, calls  to perform 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_set_element (performs the actual element assignment)
-  - PointerGetDatum (converts ArrayType* to Datum)
+  - [array_set_element](array_set_element.md) (performs the actual element assignment)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts ArrayType* to Datum)
   - DatumGetArrayTypeP (converts result Datum back to ArrayType*)
 - Called from:
   - pg_extension_config_dump

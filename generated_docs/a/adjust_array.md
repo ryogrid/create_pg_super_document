@@ -37,7 +37,7 @@ The function performs several key operations:
   - atoi (string to integer conversion)
   - mmfatal (fatal error reporting)
   - ngettext (internationalization function)
-  - mm_strdup (memory-managed string duplication)
+  - [mm_strdup](../m/mm_strdup.md) (memory-managed string duplication)
   - strcmp (string comparison)
   - PARSE_ERROR (error constant)
   - ECPGt_struct, ECPGt_union, ECPGt_varchar, ECPGt_bytea (enum values)

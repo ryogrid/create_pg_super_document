@@ -23,12 +23,12 @@ None - this is a parameter-less function.
 - Functions called/Symbols referenced:
   - DatabaseEncoding (global structure containing encoding information)
 - Called from (representative examples):
-  - get_collation_oid (src/backend/catalog/namespace.c:4017)
-  - check_client_encoding (src/backend/commands/variable.c:715)
-  - libpqrcv_connect (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:180)
-  - CheckMyDatabase (src/backend/utils/init/postinit.c:399)
-  - InitializeClientEncoding (src/backend/utils/mb/mbutils.c:299)
-  - locate_stem_module (src/backend/snowball/dict_snowball.c:216)
+  - [get_collation_oid](../g/get_collation_oid.md) (src/backend/catalog/namespace.c:4017)
+  - [check_client_encoding](../c/check_client_encoding.md) (src/backend/commands/variable.c:715)
+  - [libpqrcv_connect](../l/libpqrcv_connect.md) (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:180)
+  - [CheckMyDatabase](../C/CheckMyDatabase.md) (src/backend/utils/init/postinit.c:399)
+  - [InitializeClientEncoding](../I/InitializeClientEncoding.md) (src/backend/utils/mb/mbutils.c:299)
+  - [locate_stem_module](../l/locate_stem_module.md) (src/backend/snowball/dict_snowball.c:216)
 
 ## Notes and Other Information
 - Returns a const char* pointing to a static string - should not be freed or modified

@@ -28,10 +28,10 @@ The size class system is a key innovation that decouples the concept of node typ
   - RT_PREFIX
 - Called from (representative examples):
   - RT_CREATE
-  - RT_STATS
+  - [RT_STATS](RT_STATS.md)
   - RT_SIZE_CLASS_INFO (static array initialization)
-  - RT_ALLOC_NODE (for allocation size lookup)
-  - RT_FREE_NODE (for debugging statistics)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (for allocation size lookup)
+  - [RT_FREE_NODE](RT_FREE_NODE.md) (for debugging statistics)
 
 ## Notes and Other Information
 The RT_SIZE_CLASS_ELEM structure is used to populate the RT_SIZE_CLASS_INFO static array, which contains metadata for all five size classes:

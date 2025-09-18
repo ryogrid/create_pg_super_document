@@ -19,9 +19,9 @@ This function generates a hash value for an oidvector by hashing its entire arra
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER: Extract pointer argument from function call
   - oidvector: PostgreSQL data type for OID vectors
-  - hash_any: Generic hash function for binary data
+  - [hash_any](hash_any.md): Generic hash function for binary data
 - Called from (representative examples):
-  - oidvectorhashfast: Fast hash function used in catalog cache (src/backend/utils/cache/catcache.c:269)
+  - [oidvectorhashfast](../o/oidvectorhashfast.md): Fast hash function used in catalog cache (src/backend/utils/cache/catcache.c:269)
 
 ## Notes and Other Information
 - Part of PostgreSQL's hash index infrastructure for oidvector data types

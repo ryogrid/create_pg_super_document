@@ -25,7 +25,7 @@ The heuristic checks if RecentXmin has changed since the last update. If the old
   - ComputeXidHorizonsResultLastXmin
   - RecentXmin
 - Called from:
-  - GlobalVisTestIsRemovableFullXid
+  - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within procarray.c

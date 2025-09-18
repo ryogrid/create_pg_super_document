@@ -20,11 +20,11 @@ The function follows a hierarchical comparison strategy: primary sorting by lexe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmpLexeme (primary comparison by lexeme string)
-  - cmpLexemeInfo (secondary comparison by LexemeInfo properties)
-  - TheLexeme (structure type for casting)
+  - [cmpLexeme](cmpLexeme.md) (primary comparison by lexeme string)
+  - [cmpLexemeInfo](cmpLexemeInfo.md) (secondary comparison by LexemeInfo properties)
+  - [TheLexeme](../T/TheLexeme.md) (structure type for casting)
 - Called from (representative examples):
-  - compileTheLexeme
+  - [compileTheLexeme](compileTheLexeme.md)
 
 ## Notes and Other Information
 - Uses qsort-compatible function signature with void pointers

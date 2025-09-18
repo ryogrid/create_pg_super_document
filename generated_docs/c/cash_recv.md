@@ -23,7 +23,7 @@ This function is part of PostgreSQL's binary I/O system for the Cash data type. 
 - Functions called/Symbols referenced:
   - Cash (data type)
   - StringInfo (buffer type)
-  - pq_getmsgint64 (function to read 64-bit integer from binary message)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (function to read 64-bit integer from binary message)
   - PG_RETURN_CASH (return macro for Cash values)
 - Called from:
   - This appears to be a top-level receive function, likely called by PostgreSQL's type system during binary deserialization

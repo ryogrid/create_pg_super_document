@@ -36,11 +36,11 @@ The  function provides access to the checkpoint information stored in PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_result_type: Validates return type
+  - [get_call_result_type](../g/get_call_result_type.md): Validates return type
   - LWLockAcquire/LWLockRelease: Manages concurrent access to control file
   - get_controlfile: Reads and parses the control file
   - XLByteToSeg: Converts LSN to WAL segment number
-  - XLogFileName: Generates WAL filename from timeline and segment
+  - [XLogFileName](../X/XLogFileName.md): Generates WAL filename from timeline and segment
   - LSNGetDatum: Converts LSN to PostgreSQL Datum
   - Various converter functions (TransactionIdGetDatum, ObjectIdGetDatum, etc.)
   - EpochFromFullTransactionId/XidFromFullTransactionId: Extract XID components

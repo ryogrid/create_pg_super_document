@@ -29,12 +29,12 @@ The function performs the following key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_statistic_ext (system catalog structure)
-  - ArrayBuildState (array construction)
-  - heap_attisnull, SysCacheGetAttrNotNull (catalog access)
+  - [ArrayBuildState](../A/ArrayBuildState.md) (array construction)
+  - [heap_attisnull](../h/heap_attisnull.md), SysCacheGetAttrNotNull (catalog access)
   - TextDatumGetCString, stringToNode (expression deserialization)
-  - deparse_context_for, get_relation_name (context setup)
-  - deparse_expression_pretty (expression formatting)
-  - accumArrayResult, cstring_to_text, makeArrayResult (array building)
+  - [deparse_context_for](../d/deparse_context_for.md), get_relation_name (context setup)
+  - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (expression formatting)
+  - [accumArrayResult](../a/accumArrayResult.md), cstring_to_text, makeArrayResult (array building)
   - PG_RETURN_DATUM (result return)
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface)

@@ -40,17 +40,17 @@ The function performs extensive validation including type compatibility checks, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - construct_md_array: Construct multidimensional array from values
-  - construct_empty_array: Create an empty array of specified type
+  - [construct_md_array](../c/construct_md_array.md): Construct multidimensional array from values
+  - [construct_empty_array](../c/construct_empty_array.md): Create an empty array of specified type
   - DatumGetArrayTypeP: Extract ArrayType from Datum
   - ArrayGetNItems: Calculate total number of items in array
   - ArrayCheckBounds: Validate array bounds
-  - array_bitmap_copy: Copy null bitmap between arrays
+  - [array_bitmap_copy](../a/array_bitmap_copy.md): Copy null bitmap between arrays
   - Various ARR_* macros for array access and manipulation
   - Memory allocation functions (palloc, palloc0)
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter loop
-  - FunctionReturningBool: JIT compilation type definitions
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter loop
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type definitions
 
 ## Notes and Other Information
 - The function always sets *op->resnull to false since array construction never produces NULL

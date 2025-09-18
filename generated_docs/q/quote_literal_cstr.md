@@ -17,12 +17,12 @@ The `quote_literal_cstr` function provides a C-level interface for quoting strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `quote_literal_internal` - Core function that performs the actual quoting and escaping logic
+  - `[quote_literal_internal](quote_literal_internal.md)` - Core function that performs the actual quoting and escaping logic
 - Called from (representative examples):
-  - `get_publications_str` - Function for formatting publication names in subscription commands
-  - `fetch_remote_table_info` - Function in table synchronization for quoting table and schema names
-  - `text_format_string_conversion` - Function in string formatting utilities
-  - `PLy_quote_literal` - Python language extension function for literal quoting
+  - `[get_publications_str](../g/get_publications_str.md)` - Function for formatting publication names in subscription commands
+  - `[fetch_remote_table_info](../f/fetch_remote_table_info.md)` - Function in table synchronization for quoting table and schema names
+  - `[text_format_string_conversion](../t/text_format_string_conversion.md)` - Function in string formatting utilities
+  - `[PLy_quote_literal](../P/PLy_quote_literal.md)` - Python language extension function for literal quoting
   - Various replication and logical synchronization functions
 
 ## Notes and Other Information

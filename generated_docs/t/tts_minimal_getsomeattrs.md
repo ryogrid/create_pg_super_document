@@ -22,9 +22,9 @@ The function is specifically designed for minimal tuple table slots, which store
 - Functions called/Symbols referenced:
   - MinimalTupleTableSlot (type cast)
   - TTS_EMPTY (macro for checking if slot is empty)
-  - slot_deform_heap_tuple (function that performs the actual tuple deformation)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (function that performs the actual tuple deformation)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the execTuples.c compilation unit

@@ -23,9 +23,9 @@ Although the function is designed primarily for tablespace links, the implementa
 ## Dependencies
 - Functions called/Symbols referenced:
   - symlink
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - bbstreamer_extractor_content
+  - [bbstreamer_extractor_content](../b/bbstreamer_extractor_content.md)
 
 ## Notes and Other Information
 - This is a static function specific to the bbstreamer file extraction implementation

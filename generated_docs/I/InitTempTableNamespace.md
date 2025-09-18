@@ -38,25 +38,25 @@ This function takes no parameters and operates on global state variables and sys
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (constant)
-  - object_aclcheck
+  - [object_aclcheck](../o/object_aclcheck.md)
   - ACL_CREATE_TEMP
-  - get_database_name
-  - RecoveryInProgress
+  - [get_database_name](../g/get_database_name.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - IsParallelWorker
-  - get_namespace_oid
-  - NamespaceCreate
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [NamespaceCreate](../N/NamespaceCreate.md)
   - CommandCounterIncrement
-  - RemoveTempRelations
+  - [RemoveTempRelations](../R/RemoveTempRelations.md)
   - InvalidSubTransactionId
-  - GetCurrentSubTransactionId
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
 - Called from (representative examples):
-  - AccessTempTableNamespace
+  - [AccessTempTableNamespace](../A/AccessTempTableNamespace.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within namespace.c
 - Uses BOOTSTRAP_SUPERUSERID as the owner to ensure security isolation between backends
 - The namespace naming scheme (`pg_temp_N`) ensures uniqueness across concurrent backends
-- Command counter increments ensure namespace visibility within the same transaction
+- [Command](../C/Command.md) counter increments ensure namespace visibility within the same transaction
 - Critical for transaction cleanup via AtEOXact_Namespace through the recorded subtransaction ID
 - Implements lazy initialization - namespaces are only created when actually needed
 - Handles crash recovery by cleaning up leftover temporary relations from previous sessions

@@ -27,14 +27,14 @@ The function allocates memory for the maximum possible number of indexes but onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexList
-  - index_open
-  - index_close
-  - list_free
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - do_analyze_rel
-  - parallel_vacuum_main
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [do_analyze_rel](../d/do_analyze_rel.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
 
 ## Notes and Other Information
 - The function asserts that lockmode is not NoLock to ensure proper locking semantics

@@ -27,20 +27,20 @@ The process includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - UpdateMinRecoveryPoint
-  - CheckPointGuts
-  - KeepLogSeg
-  - GetWalRcvFlushRecPtr
-  - GetXLogReplayRecPtr
-  - InvalidateObsoleteReplicationSlots
-  - RemoveOldXlogFiles
-  - PreallocXlogFiles
-  - TruncateSUBTRANS
-  - ExecuteRecoveryCommand
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [UpdateMinRecoveryPoint](../U/UpdateMinRecoveryPoint.md)
+  - [CheckPointGuts](CheckPointGuts.md)
+  - [KeepLogSeg](../K/KeepLogSeg.md)
+  - [GetWalRcvFlushRecPtr](../G/GetWalRcvFlushRecPtr.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
+  - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
+  - [PreallocXlogFiles](../P/PreallocXlogFiles.md)
+  - [TruncateSUBTRANS](../T/TruncateSUBTRANS.md)
+  - [ExecuteRecoveryCommand](../E/ExecuteRecoveryCommand.md)
 - Called from (representative examples):
-  - CheckpointerMain (in checkpointer process)
-  - ShutdownXLOG (during shutdown)
+  - [CheckpointerMain](CheckpointerMain.md) (in checkpointer process)
+  - [ShutdownXLOG](../S/ShutdownXLOG.md) (during shutdown)
 
 ## Notes and Other Information
 - This function must be called by the checkpointer process (B_CHECKPOINTER)

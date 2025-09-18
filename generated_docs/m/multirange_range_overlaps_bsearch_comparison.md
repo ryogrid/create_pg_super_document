@@ -32,10 +32,10 @@ This enables efficient O(log n) searching through the sorted ranges in a multira
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `range_cmp_bounds` - Compare range bounds using the type's comparison function
+  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare range bounds using the type's comparison function
   - `RangeBound` - Structure representing range boundary values
 - Called from (representative examples):
-  - `range_overlaps_multirange_internal` - Uses this function with `multirange_bsearch_match`
+  - `[range_overlaps_multirange_internal](../r/range_overlaps_multirange_internal.md)` - Uses this function with `multirange_bsearch_match`
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed outside the compilation unit

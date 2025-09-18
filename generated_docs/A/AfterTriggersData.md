@@ -44,11 +44,11 @@ AfterTriggersData serves as the central control structure for PostgreSQL's defer
 - Functions called/Symbols referenced:
   - CommandId (for firing_counter)
   - SetConstraintState (for constraint state management)
-  - AfterTriggerEventList (for events storage)
-  - AfterTriggersQueryData (for query stack entries)
-  - AfterTriggersTransData (for transaction stack entries)
+  - [AfterTriggerEventList](AfterTriggerEventList.md) (for events storage)
+  - [AfterTriggersQueryData](AfterTriggersQueryData.md) (for query stack entries)
+  - [AfterTriggersTransData](AfterTriggersTransData.md) (for transaction stack entries)
 - Called from (representative examples):
-  - AfterTriggersTableData (context field)
+  - [AfterTriggersTableData](AfterTriggersTableData.md) (context field)
 
 ## Notes and Other Information
 This structure represents the global state for the entire deferred trigger system and is typically stored in static memory or as part of the session state. The dual-stack design (query and transaction) allows PostgreSQL to properly handle complex scenarios involving nested queries, stored procedures, and subtransactions while maintaining trigger event isolation and rollback capabilities. The memory context management ensures efficient cleanup of trigger events when transactions complete or abort.

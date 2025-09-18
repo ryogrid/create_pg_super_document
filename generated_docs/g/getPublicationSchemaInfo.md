@@ -25,15 +25,15 @@ Both returned strings (pubname and nspname) are palloc'd and must be freed by th
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_publication_namespace (catalog form structure)
-  - SearchSysCache1, ReleaseSysCache (system cache operations)
-  - get_publication_name (publication name lookup)
-  - get_namespace_name (namespace name lookup)  
-  - ObjectIdGetDatum, HeapTupleIsValid, GETSTRUCT (tuple handling)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (system cache operations)
+  - [get_publication_name](get_publication_name.md) (publication name lookup)
+  - [get_namespace_name](get_namespace_name.md) (namespace name lookup)  
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md), HeapTupleIsValid, GETSTRUCT (tuple handling)
   - elog, ERROR (error reporting)
-  - pfree (memory management)
+  - [pfree](../p/pfree.md) (memory management)
 - Called from (representative examples):
-  - getObjectDescription
-  - getObjectIdentityParts
+  - [getObjectDescription](getObjectDescription.md)
+  - [getObjectIdentityParts](getObjectIdentityParts.md)
 
 ## Notes and Other Information
 - Static function internal to objectaddress.c for publication schema object handling

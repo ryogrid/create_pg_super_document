@@ -22,17 +22,17 @@ The function includes assertions to verify the page is deleted and not new. For 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsNew
+  - [PageIsNew](../P/PageIsNew.md)
   - BTPageGetOpaque
   - P_ISDELETED
   - P_HAS_FULLXID
-  - PageGetContents
+  - [PageGetContents](../P/PageGetContents.md)
   - BTPageOpaque (type)
-  - BTDeletedPageData (type)
+  - [BTDeletedPageData](BTDeletedPageData.md) (type)
   - FirstNormalFullTransactionId (constant)
 - Called from (representative examples):
-  - _bt_allocbuf
-  - BTPageIsRecyclable
+  - [_bt_allocbuf](../b/_bt_allocbuf.md)
+  - [BTPageIsRecyclable](BTPageIsRecyclable.md)
 
 ## Notes and Other Information
 This function is essential for B-tree page recycling logic and MVCC compliance. It handles backward compatibility with older PostgreSQL versions where deleted pages didn't store full transaction IDs. The returned transaction ID is used to determine if it's safe to reuse the page by comparing it with the oldest active transaction. The function assumes the page has already been verified as deleted and includes debug assertions to catch programming errors.

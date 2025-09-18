@@ -26,9 +26,9 @@ The size constraint (8+2 bytes) is mentioned in the source comments as being imp
   - TimestampTz (type)
 - Called from (representative examples):
   - SizeOfCommitTimestampEntry (macro/constant definition)
-  - CommitTimestampShared (struct member)
-  - TransactionIdSetCommitTs (function)
-  - TransactionIdGetCommitTsData (function)
+  - [CommitTimestampShared](CommitTimestampShared.md) (struct member)
+  - [TransactionIdSetCommitTs](../T/TransactionIdSetCommitTs.md) (function)
+  - [TransactionIdGetCommitTsData](../T/TransactionIdGetCommitTsData.md) (function)
 
 ## Notes and Other Information
 - The structure size is carefully designed to be exactly 10 bytes to optimize storage in PostgreSQL's SLRU buffer system

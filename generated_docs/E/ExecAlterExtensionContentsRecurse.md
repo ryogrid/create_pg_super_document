@@ -33,23 +33,23 @@ The recursive behavior ensures that type hierarchies and table relationships mai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getExtensionOfObject
-  - getObjectDescription
-  - get_extension_name
-  - get_extension_schema
-  - get_namespace_name
-  - recordDependencyOn
-  - recordExtObjInitPriv
-  - deleteDependencyRecordsForClass
+  - [getExtensionOfObject](../g/getExtensionOfObject.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [get_extension_name](../g/get_extension_name.md)
+  - [get_extension_schema](../g/get_extension_schema.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordExtObjInitPriv](../r/recordExtObjInitPriv.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
   - extension_config_remove
-  - removeExtObjInitPriv
-  - get_array_type
-  - type_is_range
-  - get_range_multirange
-  - get_rel_type_id
+  - [removeExtObjInitPriv](../r/removeExtObjInitPriv.md)
+  - [get_array_type](../g/get_array_type.md)
+  - [type_is_range](../t/type_is_range.md)
+  - [get_range_multirange](../g/get_range_multirange.md)
+  - [get_rel_type_id](../g/get_rel_type_id.md)
 - Called from (representative examples):
-  - ExecAlterExtensionContentsStmt (main entry point)
-  - ExecAlterExtensionContentsRecurse (recursive calls for dependent objects)
+  - [ExecAlterExtensionContentsStmt](ExecAlterExtensionContentsStmt.md) (main entry point)
+  - [ExecAlterExtensionContentsRecurse](ExecAlterExtensionContentsRecurse.md) (recursive calls for dependent objects)
 
 ## Notes and Other Information
 - This is a static internal function within extension.c

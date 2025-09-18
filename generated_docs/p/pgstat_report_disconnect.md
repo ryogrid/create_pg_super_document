@@ -27,14 +27,14 @@ Like other connection statistics functions, this only operates for normal backen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_should_report_connstat
-  - pgstat_prep_database_pending
-  - PgStat_StatDBEntry (data structure)
+  - [pgstat_should_report_connstat](pgstat_should_report_connstat.md)
+  - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md) (data structure)
   - SessionEndType enum (DISCONNECT_NOT_YET, DISCONNECT_NORMAL, DISCONNECT_CLIENT_EOF, DISCONNECT_FATAL, DISCONNECT_KILLED)
   - pgStatSessionEndCause (global variable)
   - MyDatabaseId (global variable)
 - Called from (representative examples):
-  - pgstat_shutdown_hook (in src/backend/utils/activity/pgstat.c:515)
+  - [pgstat_shutdown_hook](pgstat_shutdown_hook.md) (in src/backend/utils/activity/pgstat.c:515)
 
 ## Notes and Other Information
 - Only reports statistics for normal backend processes (B_BACKEND)

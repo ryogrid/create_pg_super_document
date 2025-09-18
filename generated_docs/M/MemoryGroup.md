@@ -32,7 +32,7 @@ This organization allows the memory manager to efficiently track memory state tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeMemBlock (used within FreeMem member)
+  - [FreeMemBlock](../F/FreeMemBlock.md) (used within FreeMem member)
   - SmallVector (LLVM container type)
   - sys::MemoryBlock (LLVM memory block type)
 - Called from (representative examples):

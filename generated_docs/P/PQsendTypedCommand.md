@@ -24,24 +24,24 @@ The function constructs protocol messages according to the PostgreSQL wire proto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQueryStart
-  - pqAllocCmdQueueEntry
-  - pqPutMsgStart
-  - pqPutc
-  - pqPuts
-  - pqPutMsgEnd
-  - pqPipelineFlush
-  - pqAppendCmdQueueEntry
-  - pqRecycleCmdQueueEntry
+  - [PQsendQueryStart](PQsendQueryStart.md)
+  - [pqAllocCmdQueueEntry](../p/pqAllocCmdQueueEntry.md)
+  - [pqPutMsgStart](../p/pqPutMsgStart.md)
+  - [pqPutc](../p/pqPutc.md)
+  - [pqPuts](../p/pqPuts.md)
+  - [pqPutMsgEnd](../p/pqPutMsgEnd.md)
+  - [pqPipelineFlush](../p/pqPipelineFlush.md)
+  - [pqAppendCmdQueueEntry](../p/pqAppendCmdQueueEntry.md)
+  - [pqRecycleCmdQueueEntry](../p/pqRecycleCmdQueueEntry.md)
 - Called from (representative examples):
-  - PQdescribePrepared
-  - PQdescribePortal
-  - PQsendDescribePrepared
-  - PQsendDescribePortal
-  - PQclosePrepared
-  - PQclosePortal
-  - PQsendClosePrepared
-  - PQsendClosePortal
+  - [PQdescribePrepared](PQdescribePrepared.md)
+  - [PQdescribePortal](PQdescribePortal.md)
+  - [PQsendDescribePrepared](PQsendDescribePrepared.md)
+  - [PQsendDescribePortal](PQsendDescribePortal.md)
+  - [PQclosePrepared](PQclosePrepared.md)
+  - [PQclosePortal](PQclosePortal.md)
+  - [PQsendClosePrepared](PQsendClosePrepared.md)
+  - [PQsendClosePortal](PQsendClosePortal.md)
 
 ## Notes and Other Information
 - Returns 1 on success, 0 on failure (with error message set in conn->errorMessage)

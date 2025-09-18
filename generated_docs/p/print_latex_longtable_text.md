@@ -18,13 +18,13 @@ This function generates LaTeX code using the longtable package, which is designe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - latex_escaped_print (for escaping special LaTeX characters in content)
-  - printTableContent (data structure)
+  - [latex_escaped_print](../l/latex_escaped_print.md) (for escaping special LaTeX characters in content)
+  - [printTableContent](printTableContent.md) (data structure)
   - cancel_pressed (global variable for interrupt handling)
   - LONGTABLE_WHITESPACE (macro defining whitespace characters)
   - strspn, strcspn, fwrite (standard C library functions for string processing)
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function)
+  - [printTable](printTable.md) (main table printing dispatcher function)
 
 ## Notes and Other Information
 - This is a static function within print.c used internally for LaTeX longtable formatting

@@ -23,18 +23,18 @@ This function compiles Perl source code into an executable subroutine using Post
 - Functions called/Symbols referenced:
   - dTHX (Perl threading macro)
   - NAMEDATALEN (PostgreSQL constant)
-  - hv_store_string
-  - cstr2sv
+  - [hv_store_string](../h/hv_store_string.md)
+  - [cstr2sv](../c/cstr2sv.md)
   - newRV_noinc
   - PL_sv_no
   - call_pv (calls PostgreSQL::InServer::mkfunc)
   - newRV_inc
   - ERRSV
-  - strip_trailing_ws
-  - sv2cstr
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md)
 - Called from (representative examples):
-  - plperl_inline_handler
-  - compile_plperl_function
+  - [plperl_inline_handler](plperl_inline_handler.md)
+  - [compile_plperl_function](../c/compile_plperl_function.md)
 
 ## Notes and Other Information
 - Generates unique subroutine names using format: `{proname}__{fn_oid}`

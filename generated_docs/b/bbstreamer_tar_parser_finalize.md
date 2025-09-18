@@ -19,9 +19,9 @@ This function handles the finalization phase of tar parsing when the input strea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_content
-  - bbstreamer_finalize
-  - pg_fatal
+  - [bbstreamer_content](bbstreamer_content.md)
+  - [bbstreamer_finalize](bbstreamer_finalize.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - BBSTREAMER_ARCHIVE_TRAILER
   - BBSTREAMER_MEMBER_HEADER
 - Called from (representative examples):

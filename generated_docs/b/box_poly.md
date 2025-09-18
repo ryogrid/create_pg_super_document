@@ -21,9 +21,9 @@ The `box_poly` function converts a BOX geometric type to a POLYGON by mapping th
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract BOX argument)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - SET_VARSIZE (macro to set variable-length type size)
-  - box_construct (constructs bounding box from two points)
+  - [box_construct](box_construct.md) (constructs bounding box from two points)
   - PG_RETURN_POLYGON_P (macro to return POLYGON result)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

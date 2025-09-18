@@ -25,7 +25,7 @@ displayStruct serves as a filtering mechanism for PostgreSQL's configuration hel
 - Types referenced:
   - mixedStruct
 - Called from (representative examples):
-  - GucInfoMain
+  - [GucInfoMain](../G/GucInfoMain.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/misc/help_config.c:74-86

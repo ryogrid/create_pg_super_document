@@ -21,12 +21,12 @@ This is a static utility function that implements reference counting for snapsho
 - Functions called/Symbols referenced:
   - (No external functions called - simple increment operation)
 - Called from (representative examples):
-  - SnapBuild (various snapshot building functions)
-  - SnapBuildGetOrBuildSnapshot
-  - SnapBuildProcessChange
-  - SnapBuildDistributeSnapshotAndInval
+  - [SnapBuild](SnapBuild.md) (various snapshot building functions)
+  - [SnapBuildGetOrBuildSnapshot](SnapBuildGetOrBuildSnapshot.md)
+  - [SnapBuildProcessChange](SnapBuildProcessChange.md)
+  - [SnapBuildDistributeSnapshotAndInval](SnapBuildDistributeSnapshotAndInval.md)
   - SnapBuildCommitTxn
-  - SnapBuildRestore
+  - [SnapBuildRestore](SnapBuildRestore.md)
 
 ## Notes and Other Information
 - Static function, only accessible within snapbuild.c

@@ -33,11 +33,11 @@ The function processes text from right to left (standard Snowball approach) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_initial_morph (handles Irish initial consonant mutations)
-  - r_mark_regions (identifies R1, R2, and RV linguistic regions)
-  - r_noun_sfx (removes noun suffixes)
-  - r_deriv (processes derivational suffixes with transformations)
-  - r_verb_sfx (removes verb suffixes)
+  - [r_initial_morph](../r/r_initial_morph.md) (handles Irish initial consonant mutations)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies R1, R2, and RV linguistic regions)
+  - [r_noun_sfx](../r/r_noun_sfx.md) (removes noun suffixes)
+  - [r_deriv](../r/r_deriv.md) (processes derivational suffixes with transformations)
+  - [r_verb_sfx](../r/r_verb_sfx.md) (removes verb suffixes)
 - Called from:
   - External stemming interfaces (as this is an extern function)
   - PostgreSQL text search subsystem for Irish language processing

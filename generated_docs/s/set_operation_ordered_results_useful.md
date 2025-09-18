@@ -27,7 +27,7 @@ This optimization decision impacts how the query planner builds execution paths,
   - SETOP_UNION (enum constant)
   - SetOperationStmt (structure access)
 - Called from (representative examples):
-  - standard_qp_callback (src/backend/optimizer/plan/planner.c:3631)
+  - [standard_qp_callback](standard_qp_callback.md) (src/backend/optimizer/plan/planner.c:3631)
 
 ## Notes and Other Information
 - This function currently only optimizes UNION operations without the ALL modifier

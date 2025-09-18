@@ -20,7 +20,7 @@ The function performs a simple memory allocation for an interval structure and r
 ## Dependencies
 - Functions called/Symbols referenced:
   - interval (interval data structure type)
-  - pgtypes_alloc (PostgreSQL types memory allocation function)
+  - [pgtypes_alloc](../p/pgtypes_alloc.md) (PostgreSQL types memory allocation function)
 - Called from (representative examples):
   - Various ECPG client applications and test programs
   - Referenced in pgtypes_interval.h header file

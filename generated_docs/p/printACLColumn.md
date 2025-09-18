@@ -26,22 +26,22 @@ This standardized approach ensures consistent privilege display across all psql 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBuffer (for building the SQL expression)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (for building the SQL expression)
   - gettext_noop (for internationalization of text strings)
 - Called from (representative examples):
-  - describeTablespaces
-  - describeFunctions
-  - describeTypes
-  - listAllDbs
-  - permissionsList
-  - listDefaultACLs
-  - listLanguages
-  - listDomains
-  - describeConfigurationParameters
-  - listSchemas
-  - listForeignDataWrappers
-  - listForeignServers
-  - listLargeObjects
+  - [describeTablespaces](../d/describeTablespaces.md)
+  - [describeFunctions](../d/describeFunctions.md)
+  - [describeTypes](../d/describeTypes.md)
+  - [listAllDbs](../l/listAllDbs.md)
+  - [permissionsList](permissionsList.md)
+  - [listDefaultACLs](../l/listDefaultACLs.md)
+  - [listLanguages](../l/listLanguages.md)
+  - [listDomains](../l/listDomains.md)
+  - [describeConfigurationParameters](../d/describeConfigurationParameters.md)
+  - [listSchemas](../l/listSchemas.md)
+  - [listForeignDataWrappers](../l/listForeignDataWrappers.md)
+  - [listForeignServers](../l/listForeignServers.md)
+  - [listLargeObjects](../l/listLargeObjects.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the describe.c file

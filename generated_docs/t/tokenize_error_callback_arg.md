@@ -28,8 +28,8 @@ The structure is specifically designed to work with PostgreSQL's error context c
 - Functions called/Symbols referenced:
   - (This is a data structure with no function calls)
 - Called from (representative examples):
-  - tokenize_error_callback
-  - tokenize_auth_file
+  - [tokenize_error_callback](tokenize_error_callback.md)
+  - [tokenize_auth_file](tokenize_auth_file.md)
 
 ## Notes and Other Information
 - This structure is used in conjunction with PostgreSQL's ErrorContextCallback mechanism to provide detailed error location information

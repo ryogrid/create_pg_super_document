@@ -23,13 +23,13 @@ The function is designed to be safe to call multiple times or on portals that do
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCachedPlan
-  - Portal (type)
+  - [ReleaseCachedPlan](../R/ReleaseCachedPlan.md)
+  - [Portal](Portal.md) (type)
 - Called from (representative examples):
   - PortalDrop
-  - HoldPortal
-  - AtAbort_Portals
-  - AtSubAbort_Portals
+  - [HoldPortal](../H/HoldPortal.md)
+  - [AtAbort_Portals](../A/AtAbort_Portals.md)
+  - [AtSubAbort_Portals](../A/AtSubAbort_Portals.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within portalmem.c

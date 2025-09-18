@@ -21,9 +21,9 @@ The function delegates the core array access logic to array_get_element, which h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_get_element (performs the actual array element extraction using the computed subscripts and type information)
+  - [array_get_element](array_get_element.md) (performs the actual array element extraction using the computed subscripts and type information)
 - Called from (representative examples):
-  - array_exec_setup (configures this function as part of the expression evaluation sequence)
+  - [array_exec_setup](array_exec_setup.md) (configures this function as part of the expression evaluation sequence)
 
 ## Notes and Other Information
 - This is a static function internal to the array subscripting module
@@ -32,5 +32,5 @@ The function delegates the core array access logic to array_get_element, which h
 - Part of PostgreSQL's expression evaluation framework, following the ExprEvalStep function signature pattern
 - Works in conjunction with array_subscript_check_subscripts which must be called first to prepare the workspace
 - The Assert statement documents the assumption that NULL handling has been done in prior steps
-- Result handling (including NULL detection for out-of-bounds access) is delegated to array_get_element
+- [Result](../R/Result.md) handling (including NULL detection for out-of-bounds access) is delegated to array_get_element
 - Performance-optimized by pre-validating inputs and using workspace storage for subscripts

@@ -18,8 +18,8 @@ get_transaction_apply_action is a critical decision-making function in PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_parallel_apply_worker (check if current process is parallel worker)
-  - pa_find_worker (find parallel worker for transaction)
+  - [am_parallel_apply_worker](../a/am_parallel_apply_worker.md) (check if current process is parallel worker)
+  - [pa_find_worker](../p/pa_find_worker.md) (find parallel worker for transaction)
   - TRANS_PARALLEL_APPLY (return value enum)
   - TRANS_LEADER_PARTIAL_SERIALIZE (return value enum) 
   - TRANS_LEADER_SEND_TO_PARALLEL (return value enum)
@@ -27,12 +27,12 @@ get_transaction_apply_action is a critical decision-making function in PostgreSQ
   - TRANS_LEADER_APPLY (return value enum)
   - in_streamed_transaction (global variable)
 - Called from (representative examples):
-  - handle_streamed_transaction (src/backend/replication/logical/worker.c:568)
-  - apply_handle_stream_prepare (src/backend/replication/logical/worker.c:1296)
-  - apply_handle_stream_start (src/backend/replication/logical/worker.c:1503)
-  - apply_handle_stream_stop (src/backend/replication/logical/worker.c:1638)
-  - apply_handle_stream_abort (src/backend/replication/logical/worker.c:1841)
-  - apply_handle_stream_commit (src/backend/replication/logical/worker.c:2151)
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md) (src/backend/replication/logical/worker.c:568)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md) (src/backend/replication/logical/worker.c:1296)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md) (src/backend/replication/logical/worker.c:1503)
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md) (src/backend/replication/logical/worker.c:1638)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md) (src/backend/replication/logical/worker.c:1841)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md) (src/backend/replication/logical/worker.c:2151)
 
 ## Notes and Other Information
 - This function is static and only used within the worker.c file as part of the internal logical replication infrastructure

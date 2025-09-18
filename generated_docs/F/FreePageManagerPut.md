@@ -27,16 +27,16 @@ The function includes debug assertions to verify data structure consistency when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreePageManagerPutInternal
-  - FreePageBtreeCleanup
-  - FreePageManagerUpdateLargest
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
+  - [FreePageManagerUpdateLargest](FreePageManagerUpdateLargest.md)
   - sum_free_pages (debug only)
   - FreePageManagerLargestContiguous (debug only)
 - Called from (representative examples):
   - dsm_shmem_init
-  - dsm_create
-  - dsm_detach
-  - dsa_free
+  - [dsm_create](../d/dsm_create.md)
+  - [dsm_detach](../d/dsm_detach.md)
+  - [dsa_free](../d/dsa_free.md)
   - make_new_segment
 
 ## Notes and Other Information

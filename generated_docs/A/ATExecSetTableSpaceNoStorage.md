@@ -23,13 +23,13 @@ The function validates that the relation indeed has no storage using the RELKIND
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELKIND_HAS_STORAGE: Macro to check if relation kind has physical storage
-  - CheckRelationTableSpaceMove: Validates whether the tablespace move is allowed
-  - SetRelationTableSpace: Updates the pg_class catalog with new tablespace information
+  - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md): Validates whether the tablespace move is allowed
+  - [SetRelationTableSpace](../S/SetRelationTableSpace.md): Updates the pg_class catalog with new tablespace information
   - InvokeObjectPostAlterHook: Triggers post-alter hooks for dependency tracking
   - CommandCounterIncrement: Makes catalog changes visible to subsequent operations
 
 - Called from (representative examples):
-  - ATExecCmd: Main ALTER TABLE command execution dispatcher
+  - [ATExecCmd](ATExecCmd.md): Main ALTER TABLE command execution dispatcher
 
 ## Notes and Other Information
 - Only processes relations without storage (e.g., views, foreign tables, partitioned tables)

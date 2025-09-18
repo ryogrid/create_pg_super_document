@@ -22,7 +22,7 @@ Resource managers in PostgreSQL are responsible for handling different types of 
   - RM_MAX_BUILTIN_ID (constant defining the maximum built-in resource manager ID)
 - Called from (representative examples):
   - PG_GET_RESOURCE_MANAGERS_COLS (in rmgr.c)
-  - GetRmgrDesc (in pg_waldump/rmgrdesc.c)
+  - [GetRmgrDesc](../G/GetRmgrDesc.md) (in pg_waldump/rmgrdesc.c)
   - RmgrIdIsValid (macro in rmgr.h)
 
 ## Notes and Other Information

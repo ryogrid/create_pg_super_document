@@ -22,9 +22,9 @@ The BgwHandleStatus enumeration provides a comprehensive way to track the curren
 - Functions called/Symbols referenced:
   - (No direct references - this is an enum definition)
 - Called from (representative examples):
-  - GetBackgroundWorkerPid
-  - WaitForBackgroundWorkerStartup
-  - WaitForBackgroundWorkerShutdown
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [WaitForBackgroundWorkerStartup](../W/WaitForBackgroundWorkerStartup.md)
+  - [WaitForBackgroundWorkerShutdown](../W/WaitForBackgroundWorkerShutdown.md)
   - WaitForParallelWorkersToAttach
   - WaitForParallelWorkersToExit
 

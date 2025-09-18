@@ -22,10 +22,10 @@ The function is part of pg_dump's archiver module, which manages the output form
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteData
+  - [WriteData](../W/WriteData.md)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - dumpTableData_insert
+  - [dumpTableData_insert](../d/dumpTableData_insert.md)
 
 ## Notes and Other Information
 - This function is specifically designed for dump mode operations

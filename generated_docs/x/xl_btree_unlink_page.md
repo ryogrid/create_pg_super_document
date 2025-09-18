@@ -29,9 +29,9 @@ The deletion process updates sibling links to bypass the target page, marks the 
   - SizeOfBtreeUnlinkPage (size calculation macro)
   - xl_btree_metadata (optional trailing metadata)
 - Called from (representative examples):
-  - _bt_unlink_halfdead_page (src/backend/access/nbtree/nbtpage.c:2672)
-  - btree_xlog_unlink_page (src/backend/access/nbtree/nbtxlog.c:801)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:95)
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md) (src/backend/access/nbtree/nbtpage.c:2672)
+  - [btree_xlog_unlink_page](../b/btree_xlog_unlink_page.md) (src/backend/access/nbtree/nbtxlog.c:801)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:95)
 
 ## Notes and Other Information
 - This is the second stage of page deletion, following xl_btree_mark_page_halfdead

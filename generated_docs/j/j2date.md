@@ -24,11 +24,11 @@ The function employs unsigned integer arithmetic to handle the complex calculati
 - Functions called/Symbols referenced:
   - MONTHS_PER_YEAR (constant defining 12 months per year)
 - Called from (representative examples):
-  - date_out (date output formatting)
-  - DecodeDateTime (date/time parsing operations)
-  - timestamp2tm (timestamp to tm structure conversion)
-  - extract_date (date component extraction)
-  - isoweek2date (ISO week to date conversion)
+  - [date_out](../d/date_out.md) (date output formatting)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (date/time parsing operations)
+  - [timestamp2tm](../t/timestamp2tm.md) (timestamp to tm structure conversion)
+  - [extract_date](../e/extract_date.md) (date component extraction)
+  - [isoweek2date](../i/isoweek2date.md) (ISO week to date conversion)
   - ValidateDate (date validation)
 
 ## Notes and Other Information

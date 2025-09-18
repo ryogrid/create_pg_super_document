@@ -21,23 +21,23 @@ The  function is an extensive unit test that systematically validates all atomic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32: Type definition for 32-bit atomic unsigned integer
-  - pg_atomic_init_u32: Initializes atomic uint32 variable
-  - pg_atomic_read_u32: Atomically reads current value
-  - pg_atomic_write_u32: Atomically writes new value
-  - pg_atomic_fetch_add_u32: Atomically adds and returns old value
-  - pg_atomic_add_fetch_u32: Atomically adds and returns new value
-  - pg_atomic_fetch_sub_u32: Atomically subtracts and returns old value
-  - pg_atomic_sub_fetch_u32: Atomically subtracts and returns new value
-  - pg_atomic_exchange_u32: Atomically exchanges values
-  - pg_atomic_compare_exchange_u32: Atomic compare-and-swap operation
-  - pg_atomic_fetch_or_u32: Atomic bitwise OR with fetch
-  - pg_atomic_fetch_and_u32: Atomic bitwise AND with fetch
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md): Type definition for 32-bit atomic unsigned integer
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md): Initializes atomic uint32 variable
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md): Atomically reads current value
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md): Atomically writes new value
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md): Atomically adds and returns old value
+  - [pg_atomic_add_fetch_u32](../p/pg_atomic_add_fetch_u32.md): Atomically adds and returns new value
+  - [pg_atomic_fetch_sub_u32](../p/pg_atomic_fetch_sub_u32.md): Atomically subtracts and returns old value
+  - [pg_atomic_sub_fetch_u32](../p/pg_atomic_sub_fetch_u32.md): Atomically subtracts and returns new value
+  - [pg_atomic_exchange_u32](../p/pg_atomic_exchange_u32.md): Atomically exchanges values
+  - [pg_atomic_compare_exchange_u32](../p/pg_atomic_compare_exchange_u32.md): Atomic compare-and-swap operation
+  - [pg_atomic_fetch_or_u32](../p/pg_atomic_fetch_or_u32.md): Atomic bitwise OR with fetch
+  - [pg_atomic_fetch_and_u32](../p/pg_atomic_fetch_and_u32.md): Atomic bitwise AND with fetch
   - EXPECT_EQ_U32: Test assertion macro for uint32 equality
   - EXPECT_TRUE: Test assertion macro for boolean conditions
   - Constants: INT_MAX, UINT_MAX, PG_INT16_MAX, PG_INT16_MIN
 - Called from (representative examples):
-  - test_atomic_ops: Main atomic operations test function
+  - [test_atomic_ops](test_atomic_ops.md): Main atomic operations test function
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

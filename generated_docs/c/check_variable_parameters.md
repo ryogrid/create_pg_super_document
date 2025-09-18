@@ -20,12 +20,12 @@ The function operates by accessing the VarParamState from the ParseState's refer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VarParamState
+  - [VarParamState](../V/VarParamState.md)
   - query_tree_walker
-  - check_parameter_resolution_walker
+  - [check_parameter_resolution_walker](check_parameter_resolution_walker.md)
 - Called from (representative examples):
-  - parse_analyze_varparams
-  - transformExplainStmt
+  - [parse_analyze_varparams](../p/parse_analyze_varparams.md)
+  - [transformExplainStmt](../t/transformExplainStmt.md)
 
 ## Notes and Other Information
 - This function is part of the variable parameter resolution system in PostgreSQL's parser

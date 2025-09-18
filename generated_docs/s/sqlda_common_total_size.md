@@ -22,18 +22,18 @@ Special handling is provided for the numeric type, which requires deconstructing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields (get number of fields)
-  - sqlda_dynamic_type (map PostgreSQL types to ECPG types)
+  - [PQnfields](../P/PQnfields.md) (get number of fields)
+  - [sqlda_dynamic_type](sqlda_dynamic_type.md) (map PostgreSQL types to ECPG types)
   - PQftype (get field type)
-  - ecpg_sqlda_align_add_size (alignment calculations)
-  - PQgetisnull (check for NULL values)
-  - PQgetvalue (get field value as string)
-  - PGTYPESnumeric_from_asc (parse numeric values)
-  - PGTYPESnumeric_free (free numeric resources)
+  - [ecpg_sqlda_align_add_size](../e/ecpg_sqlda_align_add_size.md) (alignment calculations)
+  - [PQgetisnull](../P/PQgetisnull.md) (check for NULL values)
+  - [PQgetvalue](../P/PQgetvalue.md) (get field value as string)
+  - [PGTYPESnumeric_from_asc](../P/PGTYPESnumeric_from_asc.md) (parse numeric values)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md) (free numeric resources)
   - Various ECPG type constants (ECPGt_short, ECPGt_int, etc.)
 - Called from (representative examples):
-  - sqlda_compat_total_size
-  - sqlda_native_total_size
+  - [sqlda_compat_total_size](sqlda_compat_total_size.md)
+  - [sqlda_native_total_size](sqlda_native_total_size.md)
 
 ## Notes and Other Information
 This function is central to ECPG's SQLDA memory management, ensuring that sufficient space is allocated for data storage while maintaining proper alignment. The comprehensive type handling covers all standard SQL data types and their C equivalents. The numeric type handling is particularly complex due to its variable-length nature. The function is used by both compatibility and native SQLDA implementations, making it a shared utility for different SQLDA modes. Memory alignment is critical for performance and correctness, especially on architectures with strict alignment requirements.

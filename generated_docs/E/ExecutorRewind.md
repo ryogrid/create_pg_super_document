@@ -19,12 +19,12 @@ The function performs a rescan operation on the plan state, which recursively re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - ExecReScan
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [ExecReScan](ExecReScan.md)
   - CMD_SELECT (assertion check)
 - Called from (representative examples):
-  - PersistHoldablePortal
-  - DoPortalRewind
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
+  - [DoPortalRewind](../D/DoPortalRewind.md)
 
 ## Notes and Other Information
 - Only works with SELECT operations (assertion enforces queryDesc->operation == CMD_SELECT)

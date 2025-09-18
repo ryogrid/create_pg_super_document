@@ -19,9 +19,9 @@ This function performs a complete synchronization of the target data directory t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sync_pgdata (PostgreSQL data directory sync utility)
+  - [sync_pgdata](sync_pgdata.md) (PostgreSQL data directory sync utility)
 - Called from (representative examples):
-  - main (pg_rewind.c:526)
+  - [main](../m/main.md) (pg_rewind.c:526)
 - Declared in:
   - file_ops.h:22
 

@@ -18,14 +18,14 @@ This static function is responsible for parsing and converting text-based initia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTypeInputInfo
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
   - TextDatumGetCString
-  - OidInputFunctionCall
-  - pfree
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ExecInitAgg (src/backend/executor/nodeAgg.c:3872)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (src/backend/executor/nodeAgg.c:3872)
   - initialize_peragg (src/backend/executor/nodeWindowAgg.c:2959)
-  - preprocess_aggref (src/backend/optimizer/prep/prepagg.c:214)
+  - [preprocess_aggref](../p/preprocess_aggref.md) (src/backend/optimizer/prep/prepagg.c:214)
 
 ## Notes and Other Information
 - This is a static function within nodeAgg.c, indicating it's used internally for aggregate initialization

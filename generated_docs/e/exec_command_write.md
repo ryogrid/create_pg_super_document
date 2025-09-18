@@ -22,16 +22,16 @@ This function handles the execution of the \w command in psql, which writes the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the filename/pipe argument
-  - expand_tilde: Expands ~ in file paths
-  - canonicalize_path_enc: Normalizes file paths with proper encoding
-  - disable_sigpipe_trap/restore_sigpipe_trap: Manages signal handling for pipes
+  - [expand_tilde](expand_tilde.md): Expands ~ in file paths
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md): Normalizes file paths with proper encoding
+  - [disable_sigpipe_trap](../d/disable_sigpipe_trap.md)/restore_sigpipe_trap: Manages signal handling for pipes
   - popen/pclose: Opens and closes pipe processes
   - fopen/fclose: Opens and closes regular files
-  - SetShellResultVariables: Sets result variables for pipe commands
+  - [SetShellResultVariables](../S/SetShellResultVariables.md): Sets result variables for pipe commands
   - wait_result_to_str: Converts process exit codes to strings
-  - ignore_slash_filepipe: Skips parsing when in inactive branch
+  - [ignore_slash_filepipe](../i/ignore_slash_filepipe.md): Skips parsing when in inactive branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Supports both file output and pipe output (filename starting with '|')

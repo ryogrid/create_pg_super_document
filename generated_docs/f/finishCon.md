@@ -17,11 +17,11 @@ This function provides a safe wrapper around PostgreSQL's PQfinish() function to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfinish (PostgreSQL libpq function for closing connections)
-  - CState (client state structure type)
+  - [PQfinish](../P/PQfinish.md) (PostgreSQL libpq function for closing connections)
+  - [CState](../C/CState.md) (client state structure type)
 - Called from (representative examples):
-  - advanceConnectionState (at lines 4245 and 4286)
-  - disconnect_all (at line 4725)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (at lines 4245 and 4286)
+  - [disconnect_all](../d/disconnect_all.md) (at line 4725)
 
 ## Notes and Other Information
 - Performs null check before calling PQfinish to avoid segmentation faults

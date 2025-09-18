@@ -44,14 +44,14 @@ LC_ALL=: Locale specification for transformation rules
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strxfrm_libc
-  - palloc
-  - pfree
+  - [pg_strxfrm_libc](pg_strxfrm_libc.md)
+  - [palloc](palloc.md)
+  - [pfree](pfree.md)
   - memcpy
   - TEXTBUFLEN
   - COLLPROVIDER_LIBC
 - Called from (representative examples):
-  - pg_strnxfrm (src/backend/utils/adt/pg_locale.c:2446)
+  - [pg_strnxfrm](pg_strnxfrm.md) (src/backend/utils/adt/pg_locale.c:2446)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_locale.c

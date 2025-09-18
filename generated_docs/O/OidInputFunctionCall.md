@@ -24,16 +24,16 @@ The function is part of PostgreSQL's type input/output system, converting string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - InputFunctionCall
+  - [fmgr_info](../f/fmgr_info.md)
+  - [InputFunctionCall](../I/InputFunctionCall.md)
 - Called from (representative examples):
-  - InsertOneValue
-  - DefineAggregate
-  - GetAggInitVal
-  - stringTypeDatum
-  - slot_store_data
-  - exec_bind_message
-  - get_typdefault
+  - [InsertOneValue](../I/InsertOneValue.md)
+  - [DefineAggregate](../D/DefineAggregate.md)
+  - [GetAggInitVal](../G/GetAggInitVal.md)
+  - [stringTypeDatum](../s/stringTypeDatum.md)
+  - [slot_store_data](../s/slot_store_data.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [get_typdefault](../g/get_typdefault.md)
 
 ## Notes and Other Information
 - This function is slow and leaks memory, so it should only be used in seldom-executed code paths

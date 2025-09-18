@@ -24,14 +24,14 @@ For infinite intervals, the function calls NonFiniteIntervalPart to determine wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NonFiniteIntervalPart (for infinite interval handling)
-  - downcase_truncate_identifier (unit name processing)
-  - DecodeUnits, DecodeSpecial (unit parsing)
-  - interval2itm (interval to time structure conversion)
-  - int64_div_fast_to_numeric, int64_to_numeric (numeric conversions)
-  - numeric_add_opt_error (numeric arithmetic)
+  - [NonFiniteIntervalPart](../N/NonFiniteIntervalPart.md) (for infinite interval handling)
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md) (unit name processing)
+  - [DecodeUnits](../D/DecodeUnits.md), DecodeSpecial (unit parsing)
+  - [interval2itm](interval2itm.md) (interval to time structure conversion)
+  - [int64_div_fast_to_numeric](int64_div_fast_to_numeric.md), int64_to_numeric (numeric conversions)
+  - [numeric_add_opt_error](../n/numeric_add_opt_error.md) (numeric arithmetic)
   - DirectFunctionCall3 (for numeric infinity values)
-  - pg_mul_s64_overflow, pg_add_s64_overflow (overflow checking)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md), pg_add_s64_overflow (overflow checking)
 - Constants referenced:
   - DTK_* constants (time unit identifiers)
   - UNITS, RESERV, UNKNOWN_FIELD (unit type categories)
@@ -41,8 +41,8 @@ For infinite intervals, the function calls NonFiniteIntervalPart to determine wh
   - PG_GETARG_TEXT_PP, PG_GETARG_INTERVAL_P (argument extraction)
   - PG_RETURN_NUMERIC, PG_RETURN_FLOAT8, PG_RETURN_NULL (return values)
 - Called from:
-  - interval_part
-  - extract_interval
+  - [interval_part](interval_part.md)
+  - [extract_interval](../e/extract_interval.md)
 
 ## Notes and Other Information
 The function includes careful overflow handling for epoch calculations, falling back to numeric arithmetic when int64 operations would overflow. Division operations for decade, century, and millennium extraction include comments about potential negative remainders in C division. The implementation prioritizes accuracy for numeric return types while maintaining performance for float8 operations.

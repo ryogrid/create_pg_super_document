@@ -26,16 +26,16 @@ ExecutorRun handles various execution scenarios, from simple tuple retrieval to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - standard_ExecutorRun (default implementation when no hook is present)
+  - [standard_ExecutorRun](../s/standard_ExecutorRun.md) (default implementation when no hook is present)
   - QueryDesc (parameter structure)
   - ScanDirection (enumerated type for scan direction)
 - Called from (representative examples):
-  - DoCopyTo (src/backend/commands/copyto.c:883)
-  - ExecCreateTableAs (src/backend/commands/createas.c:324)
-  - ExplainOnePlan (src/backend/commands/explain.c:702)
-  - ProcessQuery (src/backend/tcop/pquery.c:160)
-  - PortalRunSelect (src/backend/tcop/pquery.c:922)
-  - _SPI_pquery (src/backend/executor/spi.c:2932)
+  - [DoCopyTo](../D/DoCopyTo.md) (src/backend/commands/copyto.c:883)
+  - [ExecCreateTableAs](ExecCreateTableAs.md) (src/backend/commands/createas.c:324)
+  - [ExplainOnePlan](ExplainOnePlan.md) (src/backend/commands/explain.c:702)
+  - [ProcessQuery](../P/ProcessQuery.md) (src/backend/tcop/pquery.c:160)
+  - [PortalRunSelect](../P/PortalRunSelect.md) (src/backend/tcop/pquery.c:922)
+  - [_SPI_pquery](../S/_SPI_pquery.md) (src/backend/executor/spi.c:2932)
 
 ## Notes and Other Information
 - Must be called after ExecutorStart has properly initialized the query execution context

@@ -30,20 +30,20 @@ The function supports both simple XML output and XML Schema-aware output, and ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - map_sql_identifier_to_xml_name
-  - get_namespace_name
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - makeStringInfo
-  - xmldata_root_element_start
+  - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
   - SPI_connect
-  - schema_get_xml_visible_tables
-  - table_to_xml_internal
+  - [schema_get_xml_visible_tables](schema_get_xml_visible_tables.md)
+  - [table_to_xml_internal](../t/table_to_xml_internal.md)
   - appendBinaryStringInfo
   - SPI_finish
-  - xmldata_root_element_end
+  - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
 - Called from (representative examples):
-  - schema_to_xml
-  - schema_to_xml_and_xmlschema
-  - database_to_xml_internal
+  - [schema_to_xml](schema_to_xml.md)
+  - [schema_to_xml_and_xmlschema](schema_to_xml_and_xmlschema.md)
+  - [database_to_xml_internal](../d/database_to_xml_internal.md)
 
 ## Notes and Other Information
 - This is a static internal function, not directly accessible from SQL

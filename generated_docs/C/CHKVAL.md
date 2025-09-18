@@ -22,11 +22,11 @@ The structure enables binary search algorithms to efficiently locate matching te
 - Functions called/Symbols referenced:
   - TSTernaryValue (return type for callback functions)
 - Called from (representative examples):
-  - checkcondition_arr (in tsgistidx.c:287-288)
-  - gtsvector_consistent (in tsgistidx.c:362)
-  - checkclass_str (in tsvector_op.c:1189)
-  - checkcondition_str (in tsvector_op.c:1297)
-  - ts_match_vq (in tsvector_op.c:2218)
+  - [checkcondition_arr](../c/checkcondition_arr.md) (in tsgistidx.c:287-288)
+  - [gtsvector_consistent](../g/gtsvector_consistent.md) (in tsgistidx.c:362)
+  - [checkclass_str](../c/checkclass_str.md) (in tsvector_op.c:1189)
+  - [checkcondition_str](../c/checkcondition_str.md) (in tsvector_op.c:1297)
+  - [ts_match_vq](../t/ts_match_vq.md) (in tsvector_op.c:2218)
 
 ## Notes and Other Information
 - This structure is designed for use with the TS_execute callback mechanism in PostgreSQL's text search infrastructure

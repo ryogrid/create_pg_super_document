@@ -26,12 +26,12 @@ This design ensures that the PostgreSQL query planner will never select the dumm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (structure type)
-  - IndexPath (structure type)
+  - [PlannerInfo](../P/PlannerInfo.md) (structure type)
+  - [IndexPath](../I/IndexPath.md) (structure type)
   - Cost (type alias)
   - Selectivity (type alias)
 - Called from (representative examples):
-  - dihandler (dummy index AM handler registration)
+  - [dihandler](dihandler.md) (dummy index AM handler registration)
 
 ## Notes and Other Information
 - This is a test module function designed to prevent actual usage in query planning

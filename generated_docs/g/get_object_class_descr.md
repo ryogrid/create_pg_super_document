@@ -21,15 +21,15 @@ The function is commonly used in error reporting, logging, and user-facing messa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
+  - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (structure access)
 - Called from (representative examples):
-  - ExecGrant_common (src/backend/catalog/aclchk.c:2194)
-  - object_aclmask_ext (src/backend/catalog/aclchk.c:3163)
-  - object_ownercheck (src/backend/catalog/aclchk.c:4170, 4201)
-  - recordExtObjInitPriv (src/backend/catalog/aclchk.c:4553)
-  - RemoveRoleFromInitPriv (src/backend/catalog/aclchk.c:4992)
-  - DropObjectById (src/backend/catalog/dependency.c:1207, 1230)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (src/backend/catalog/aclchk.c:2194)
+  - [object_aclmask_ext](../o/object_aclmask_ext.md) (src/backend/catalog/aclchk.c:3163)
+  - [object_ownercheck](../o/object_ownercheck.md) (src/backend/catalog/aclchk.c:4170, 4201)
+  - [recordExtObjInitPriv](../r/recordExtObjInitPriv.md) (src/backend/catalog/aclchk.c:4553)
+  - [RemoveRoleFromInitPriv](../R/RemoveRoleFromInitPriv.md) (src/backend/catalog/aclchk.c:4992)
+  - [DropObjectById](../D/DropObjectById.md) (src/backend/catalog/dependency.c:1207, 1230)
 
 ## Notes and Other Information
 - Returns a constant string pointer that should not be modified or freed

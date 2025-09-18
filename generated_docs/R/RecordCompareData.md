@@ -26,16 +26,16 @@ The dual-type design (record1_type and record2_type) enables PostgreSQL to handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ColumnCompareData
+  - [ColumnCompareData](../C/ColumnCompareData.md)
   - FLEXIBLE_ARRAY_MEMBER
 
 - Called from (representative examples):
-  - record_cmp (src/backend/utils/adt/rowtypes.c:838)
-  - record_eq (src/backend/utils/adt/rowtypes.c:1082)
-  - record_image_cmp (src/backend/utils/adt/rowtypes.c:1346)
-  - record_image_eq (src/backend/utils/adt/rowtypes.c:1592)
-  - hash_record (src/backend/utils/adt/rowtypes.c:1803)
-  - hash_record_extended (src/backend/utils/adt/rowtypes.c:1924)
+  - [record_cmp](../r/record_cmp.md) (src/backend/utils/adt/rowtypes.c:838)
+  - [record_eq](../r/record_eq.md) (src/backend/utils/adt/rowtypes.c:1082)
+  - [record_image_cmp](../r/record_image_cmp.md) (src/backend/utils/adt/rowtypes.c:1346)
+  - [record_image_eq](../r/record_image_eq.md) (src/backend/utils/adt/rowtypes.c:1592)
+  - [hash_record](../h/hash_record.md) (src/backend/utils/adt/rowtypes.c:1803)
+  - [hash_record_extended](../h/hash_record_extended.md) (src/backend/utils/adt/rowtypes.c:1924)
 
 ## Notes and Other Information
 - Supports heterogeneous record comparisons with separate type information for each operand

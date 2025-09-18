@@ -20,14 +20,14 @@ The function handles three main cases: deleting a node with no children, one chi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rbt_copy_data
-  - rbt_delete_fixup
+  - [rbt_copy_data](rbt_copy_data.md)
+  - [rbt_delete_fixup](rbt_delete_fixup.md)
   - RBTNIL (sentinel node constant)
   - RBTBLACK (color constant)
-  - RBTree (tree structure type)
-  - RBTNode (node structure type)
+  - [RBTree](../R/RBTree.md) (tree structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)
 - Called from (representative examples):
-  - rbt_delete
+  - [rbt_delete](rbt_delete.md)
 
 ## Notes and Other Information
 - The function includes paranoia checking to ensure it's only called on valid nodes

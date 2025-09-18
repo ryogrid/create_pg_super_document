@@ -30,16 +30,16 @@ The function is designed to be called after dataBeginPlaceToPageInternal has con
 - Functions called/Symbols referenced:
   - GinDataPageGetPostingItem
   - PostingItemSetBlockNumber
-  - GinDataPageAddPostingItem
+  - [GinDataPageAddPostingItem](../G/GinDataPageAddPostingItem.md)
   - MarkBufferDirty
   - RelationNeedsWAL
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - PostingItem (struct)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [PostingItem](../P/PostingItem.md) (struct)
   - ginxlogInsertDataInternal (struct)
   - REGBUF_STANDARD (constant)
 - Called from:
-  - dataExecPlaceToPage
+  - [dataExecPlaceToPage](dataExecPlaceToPage.md)
 
 ## Notes and Other Information
 - This function operates within a critical section and modifies the page buffer directly

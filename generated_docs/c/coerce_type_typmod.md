@@ -35,18 +35,18 @@ The function specifically excludes domain types from processing, as domain typmo
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprTypmod
-  - hide_coercion_node
-  - find_typmod_coercion_function
-  - build_coercion_expression
+  - [hide_coercion_node](../h/hide_coercion_node.md)
+  - [find_typmod_coercion_function](../f/find_typmod_coercion_function.md)
+  - [build_coercion_expression](../b/build_coercion_expression.md)
   - applyRelabelType
-  - exprCollation
-  - CoercionPathType (enum)
+  - [exprCollation](../e/exprCollation.md)
+  - [CoercionPathType](../C/CoercionPathType.md) (enum)
   - CoercionContext (enum)
   - CoercionForm (enum)
   - COERCION_PATH_NONE
 - Called from (representative examples):
-  - coerce_to_target_type
-  - coerce_to_domain
+  - [coerce_to_target_type](coerce_to_target_type.md)
+  - [coerce_to_domain](coerce_to_domain.md)
 
 ## Notes and Other Information
 - Declared as static function, only used within parse_coerce.c

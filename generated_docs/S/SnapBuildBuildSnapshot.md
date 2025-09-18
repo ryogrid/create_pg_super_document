@@ -19,21 +19,21 @@ This static function is the core snapshot creation mechanism in PostgreSQL's log
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild
+  - [SnapBuild](SnapBuild.md)
   - SNAPBUILD_FULL_SNAPSHOT
-  - SnapshotData
-  - MemoryContextAllocZero
+  - [SnapshotData](SnapshotData.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - SNAPSHOT_HISTORIC_MVCC
   - TransactionIdIsNormal
-  - xidComparator
+  - [xidComparator](../x/xidComparator.md)
   - qsort
   - FirstCommandId
 - Called from (representative examples):
-  - SnapBuildInitialSnapshot
-  - SnapBuildGetOrBuildSnapshot
-  - SnapBuildProcessChange
+  - [SnapBuildInitialSnapshot](SnapBuildInitialSnapshot.md)
+  - [SnapBuildGetOrBuildSnapshot](SnapBuildGetOrBuildSnapshot.md)
+  - [SnapBuildProcessChange](SnapBuildProcessChange.md)
   - SnapBuildCommitTxn
-  - SnapBuildRestore
+  - [SnapBuildRestore](SnapBuildRestore.md)
 
 ## Notes and Other Information
 - Static function only accessible within snapbuild.c

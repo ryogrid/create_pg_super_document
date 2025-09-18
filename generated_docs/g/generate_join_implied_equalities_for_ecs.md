@@ -33,11 +33,11 @@ Currently assumes sjinfo == NULL (no outer-join filter clauses), though this res
 - Functions called/Symbols referenced:
   - IS_OTHER_REL
   - bms_is_empty
-  - bms_union
-  - bms_overlap
-  - generate_join_implied_equalities_normal
-  - generate_join_implied_equalities_broken
-  - list_concat
+  - [bms_union](../b/bms_union.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [generate_join_implied_equalities_normal](generate_join_implied_equalities_normal.md)
+  - [generate_join_implied_equalities_broken](generate_join_implied_equalities_broken.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
   - get_joinrel_parampathinfo (src/backend/optimizer/util/relnode.c:1803)
 

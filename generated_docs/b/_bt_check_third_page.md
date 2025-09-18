@@ -35,14 +35,14 @@ For internal pages, oversized tuples indicate a serious inconsistency since leaf
   - BTMaxItemSizeNoHeapTid
   - BTPageGetOpaque
   - P_ISLEAF
-  - BTreeTupleGetHeapTID
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - RelationGetRelationName
   - ereport/elog (error reporting)
   - Constants: BTREE_VERSION, BTREE_NOVAC_VERSION
 - Called from (representative examples):
-  - _bt_findinsertloc
+  - [_bt_findinsertloc](_bt_findinsertloc.md)
   - _bt_buildadd
 
 ## Notes and Other Information

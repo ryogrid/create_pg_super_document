@@ -19,7 +19,7 @@ The `date_recv` function is responsible for converting date values from PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint: Extracts integer values from the message buffer
+  - [pq_getmsgint](../p/pq_getmsgint.md): Extracts integer values from the message buffer
   - DATE_NOT_FINITE: Macro to check for special infinite date values
   - IS_VALID_DATE: Macro to validate date values are within acceptable range
   - ereport: PostgreSQL error reporting function

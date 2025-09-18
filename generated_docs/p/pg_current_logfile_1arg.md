@@ -19,7 +19,7 @@ The underlying functionality reads the LOG_METAINFO_DATAFILE to find the current
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_current_logfile
+  - [pg_current_logfile](pg_current_logfile.md)
 - Called from (representative examples):
   - SQL function calls: 
 

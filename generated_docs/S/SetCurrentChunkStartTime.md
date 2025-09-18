@@ -23,7 +23,7 @@ This function stores the timestamp that marks the start time of the current chun
   - SpinLockRelease (for thread-safe access)
   - XLogRecoveryCtl (global recovery control structure)
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the xlogrecovery.c file

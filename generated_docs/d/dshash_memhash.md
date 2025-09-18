@@ -23,7 +23,7 @@ dshash_memhash serves as a wrapper function around PostgreSQL's tag_hash functio
 - Functions called/Symbols referenced:
   - tag_hash (PostgreSQL's internal hashing function)
 - Called from (representative examples):
-  - shared_record_table_hash (in src/backend/utils/cache/typcache.c:270)
+  - [shared_record_table_hash](../s/shared_record_table_hash.md) (in src/backend/utils/cache/typcache.c:270)
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison and hashing. The unused `arg` parameter maintains compatibility with the expected function signature for dshash hash functions, allowing for potential future extensions or use cases where additional context might be needed. The function returns a dshash_hash type value, which is used as the hash key for dynamic shared hash table operations. The tag_hash function it calls is PostgreSQL's standard hashing function optimized for performance and hash distribution quality.

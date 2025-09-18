@@ -20,14 +20,14 @@ static void allocate_recordbuf(XLogReaderState *state, uint32 reclength)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - XLOG_BLCKSZ (WAL block size constant)
   - BLCKSZ (database block size constant)
   - Max (maximum value macro)
 - Called from (representative examples):
-  - XLogReaderAllocate (initial allocation with size 0)
-  - XLogDecodeNextRecord (when larger buffer is needed)
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md) (initial allocation with size 0)
+  - [XLogDecodeNextRecord](../X/XLogDecodeNextRecord.md) (when larger buffer is needed)
 
 ## Notes and Other Information
 - This is a static function, only callable within xlogreader.c

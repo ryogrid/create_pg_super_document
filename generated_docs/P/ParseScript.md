@@ -23,12 +23,12 @@ The function uses PostgreSQL's psql scanner infrastructure to properly parse SQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParsedScript (structure for storing parsed results)
-  - PsqlScanState (PostgreSQL's scanner state for parsing)
-  - PQExpBufferData (buffer for line processing)
+  - [ParsedScript](ParsedScript.md) (structure for storing parsed results)
+  - [PsqlScanState](PsqlScanState.md) (PostgreSQL's scanner state for parsing)
+  - [PQExpBufferData](PQExpBufferData.md) (buffer for line processing)
 - Called from (representative examples):
-  - process_file() at src/bin/pgbench/pgbench.c:6130
-  - process_builtin() at src/bin/pgbench/pgbench.c:6139
+  - [process_file](../p/process_file.md)() at src/bin/pgbench/pgbench.c:6130
+  - [process_builtin](../p/process_builtin.md)() at src/bin/pgbench/pgbench.c:6139
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the pgbench.c file

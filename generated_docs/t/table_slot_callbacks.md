@@ -31,12 +31,12 @@ The function centralizes the knowledge of which slot type is appropriate for eac
   - RELKIND_PARTITIONED_TABLE (constant)
 
 - Called from (representative examples):
-  - table_slot_create
-  - ATRewriteTable
-  - ExecGetTriggerOldSlot
-  - ExecGetTriggerNewSlot
-  - ExecInitSeqScan
-  - ExecInitIndexScan
+  - [table_slot_create](table_slot_create.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ExecGetTriggerOldSlot](../E/ExecGetTriggerOldSlot.md)
+  - [ExecGetTriggerNewSlot](../E/ExecGetTriggerNewSlot.md)
+  - [ExecInitSeqScan](../E/ExecInitSeqScan.md)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md)
 
 ## Notes and Other Information
 - The function maintains backward compatibility for FDWs by providing heap tuple slots even though virtual slots might be more efficient

@@ -17,7 +17,7 @@ This function orchestrates the unloading of all node buffers that currently have
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistUnloadNodeBuffer
+  - [gistUnloadNodeBuffer](gistUnloadNodeBuffer.md)
 - Called from (representative examples):
   - gistProcessEmptyingQueue
 

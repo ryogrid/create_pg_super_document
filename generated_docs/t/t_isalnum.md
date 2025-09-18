@@ -21,13 +21,13 @@ The function combines the functionality of both alphabetic and numeric character
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen
-  - char2wchar
+  - [pg_mblen](../p/pg_mblen.md)
+  - [char2wchar](../c/char2wchar.md)
   - isalnum (standard C library)
   - iswalnum (standard C library)
   - TOUCHAR
 - Called from (representative examples):
-  - parse_or_operator (tsquery parsing)
+  - [parse_or_operator](../p/parse_or_operator.md) (tsquery parsing)
   - COPYCHAR
 
 ## Notes and Other Information

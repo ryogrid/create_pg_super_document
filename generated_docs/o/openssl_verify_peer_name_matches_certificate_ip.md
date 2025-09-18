@@ -25,8 +25,8 @@ The function handles the GEN_IPADD type from Subject Alternative Names (SAN), wh
 - Functions called/Symbols referenced:
   - ASN1_STRING_get0_data (OpenSSL 1.1.0+) or ASN1_STRING_data (legacy)
   - ASN1_STRING_length
-  - pq_verify_peer_name_matches_certificate_ip (generic IP verification function)
-  - libpq_append_conn_error (for error reporting)
+  - [pq_verify_peer_name_matches_certificate_ip](../p/pq_verify_peer_name_matches_certificate_ip.md) (generic IP verification function)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from (representative examples):
   - pgtls_verify_peer_name_matches_certificate_guts (during SAN IP address processing)
 

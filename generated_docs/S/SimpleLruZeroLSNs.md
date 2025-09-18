@@ -22,8 +22,8 @@ The function checks if the SLRU control structure has any LSN groups configured 
 - Functions called/Symbols referenced:
   - MemSet (memory zeroing operation)
 - Called from (representative examples):
-  - SimpleLruZeroPage (when creating new pages)
-  - SimpleLruReadPage (when reading pages from disk)
+  - [SimpleLruZeroPage](SimpleLruZeroPage.md) (when creating new pages)
+  - [SimpleLruReadPage](SimpleLruReadPage.md) (when reading pages from disk)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the slru.c file

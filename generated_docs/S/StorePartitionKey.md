@@ -38,25 +38,25 @@ The function properly handles both column-based and expression-based partition k
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildint2vector
-  - buildoidvector
-  - nodeToString
+  - [buildint2vector](../b/buildint2vector.md)
+  - [buildoidvector](../b/buildoidvector.md)
+  - [nodeToString](../n/nodeToString.md)
   - CStringGetTextDatum
   - table_open
-  - heap_form_tuple
-  - CatalogTupleInsert
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
   - table_close
-  - new_object_addresses
+  - [new_object_addresses](../n/new_object_addresses.md)
   - ObjectAddressSet
   - ObjectAddressSubSet
-  - add_exact_object_address
-  - record_object_address_dependencies
-  - free_object_addresses
-  - recordDependencyOn
-  - recordDependencyOnSingleRelExpr
-  - CacheInvalidateRelcache
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnSingleRelExpr](../r/recordDependencyOnSingleRelExpr.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
 - Called from (representative examples):
-  - DefineRelation
+  - [DefineRelation](../D/DefineRelation.md)
 
 ## Notes and Other Information
 - Only works with relations of kind RELKIND_PARTITIONED_TABLE

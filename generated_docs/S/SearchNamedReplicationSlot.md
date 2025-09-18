@@ -22,9 +22,9 @@ SearchNamedReplicationSlot performs a linear search through the max_replication_
   - strcmp for name comparison
   - NameStr macro for accessing slot names
 - Called from (representative examples):
-  - ReplicationSlotAcquire
-  - synchronize_one_slot
-  - validate_sync_standby_slots
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
+  - [validate_sync_standby_slots](../v/validate_sync_standby_slots.md)
   - StandbySlotsHaveCaughtup
 
 ## Notes and Other Information

@@ -24,16 +24,16 @@ The resulting list of InferenceElem structures contains the transformed expressi
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode: Creates a new PostgreSQL node structure (for InferenceElem and ColumnRef)
-  - makeString: Creates a string value node
-  - transformExpr: Transforms a raw expression using standard expression transformation
-  - LookupCollation: Resolves collation names to OIDs
-  - get_opclass_oid: Resolves operator class names to OIDs for B-tree access method
-  - exprLocation: Gets parse location of expressions for error reporting
+  - [makeString](../m/makeString.md): Creates a string value node
+  - [transformExpr](../t/transformExpr.md): Transforms a raw expression using standard expression transformation
+  - [LookupCollation](../L/LookupCollation.md): Resolves collation names to OIDs
+  - [get_opclass_oid](../g/get_opclass_oid.md): Resolves operator class names to OIDs for B-tree access method
+  - [exprLocation](../e/exprLocation.md): Gets parse location of expressions for error reporting
   - InferClause, IndexElem, InferenceElem, ColumnRef: Node structures for inference processing
   - EXPR_KIND_INDEX_EXPRESSION: Expression kind constant that restricts allowed expression types
   - SORTBY_DEFAULT, SORTBY_NULLS_DEFAULT: Constants for default sort ordering
 - Called from (representative examples):
-  - transformOnConflictArbiter: Main function that processes ON CONFLICT arbiter specifications
+  - [transformOnConflictArbiter](../t/transformOnConflictArbiter.md): Main function that processes ON CONFLICT arbiter specifications
 
 ## Notes and Other Information
 - This is a static function, only used within parse_clause.c for ON CONFLICT processing

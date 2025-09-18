@@ -28,16 +28,16 @@ The `longest` function is the core longest-preferred matching engine for DFA-bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dfa_backref (for handling backreferences)
-  - initialize (for setting up initial DFA state)
-  - miss (for handling state transitions)
+  - [dfa_backref](../d/dfa_backref.md) (for handling backreferences)
+  - [initialize](../i/initialize.md) (for setting up initial DFA state)
+  - [miss](../m/miss.md) (for handling state transitions)
   - GETCOLOR (for character-to-color mapping)
   - FDEBUG (for debug tracing)
 - Called from (representative examples):
   - LOFF (regex execution offset function)
   - find (main regex search function)
   - cfindloop (complex find loop)
-  - ccondissect, caltdissect, citerdissect (dissection functions)
+  - [ccondissect](../c/ccondissect.md), caltdissect, citerdissect (dissection functions)
 
 ## Notes and Other Information
 - Contains specialized fast paths for backref patterns and MATCHALL NFAs

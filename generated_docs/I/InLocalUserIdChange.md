@@ -24,8 +24,8 @@ None - this function takes no parameters and returns a boolean value.
   - SecurityRestrictionContext (global variable)
   - SECURITY_LOCAL_USERID_CHANGE (macro constant: 0x0001)
 - Called from (representative examples):
-  - GetUserIdAndContext
-  - set_config_with_handle
+  - [GetUserIdAndContext](../G/GetUserIdAndContext.md)
+  - [set_config_with_handle](../s/set_config_with_handle.md)
   - AmSpecialWorkerProcess
 
 ## Notes and Other Information

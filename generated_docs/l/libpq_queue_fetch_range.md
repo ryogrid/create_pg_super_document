@@ -26,14 +26,14 @@ The function uses pointer equality for path comparison, which is sufficient for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - process_queued_fetch_requests (processes the queue when it becomes full)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (processes the queue when it becomes full)
   - Min (macro to find minimum of two values)
   - MAX_CHUNK_SIZE (constant defining maximum bytes per chunk)
   - MAX_CHUNKS_PER_QUERY (constant defining maximum requests per query batch)
-  - fetch_range_request (struct type for individual fetch requests)
+  - [fetch_range_request](../f/fetch_range_request.md) (struct type for individual fetch requests)
 - Called from:
-  - libpq_queue_fetch_file (for complete file fetch operations)
-  - init_libpq_source (as part of libpq_source function table initialization)
+  - [libpq_queue_fetch_file](libpq_queue_fetch_file.md) (for complete file fetch operations)
+  - [init_libpq_source](../i/init_libpq_source.md) (as part of libpq_source function table initialization)
 
 ## Notes and Other Information
 - The function uses pointer equality comparison for file paths, which works correctly given consistent pointer usage by callers but might miss merge opportunities if different pointers to identical strings were used

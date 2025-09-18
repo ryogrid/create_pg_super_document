@@ -25,13 +25,13 @@ The structure is used within the sync.c module as part of the broader synchroniz
 - Functions called/Symbols referenced:
   - FileTag (structure for file identification)
   - CycleCtr (typedef for cycle counter)
-  - HTAB (hash table infrastructure)
+  - [HTAB](../H/HTAB.md) (hash table infrastructure)
 - Called from (representative examples):
-  - SyncPostCheckpoint (processes pending unlinks after checkpoint)
-  - RememberSyncRequest (adds new unlink requests to the pending list)
+  - [SyncPostCheckpoint](../S/SyncPostCheckpoint.md) (processes pending unlinks after checkpoint)
+  - [RememberSyncRequest](../R/RememberSyncRequest.md) (adds new unlink requests to the pending list)
 
 ## Notes and Other Information
-- PendingUnlinkEntry is used specifically for non-temporary relations, as temporary files don't require the same careful deletion coordination
+- [PendingUnlinkEntry](PendingUnlinkEntry.md) is used specifically for non-temporary relations, as temporary files don't require the same careful deletion coordination
 - The structure is managed through a linked list (pendingUnlinks) rather than a hash table, unlike fsync operations, because duplicate unlink requests are not expected
 - The pending unlink mechanism ensures crash recovery safety by preventing premature file deletion
 - This is part of the larger synchronization system that coordinates between regular backends and the checkpointer process

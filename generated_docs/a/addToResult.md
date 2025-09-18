@@ -23,11 +23,11 @@ The function performs bounds checking against MAX_NORM to prevent buffer overflo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (PostgreSQL string duplication function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication function)
   - strcmp (string comparison function)
   - MAX_NORM (maximum number of normalized forms constant, value 1024)
 - Called from (representative examples):
-  - NormalizeSubWord (3 times at lines 2221, 2246, 2266)
+  - [NormalizeSubWord](../N/NormalizeSubWord.md) (3 times at lines 2221, 2246, 2266)
 
 ## Notes and Other Information
 - Returns 1 if the word was successfully added, 0 if not added (duplicate or array full)

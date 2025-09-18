@@ -27,7 +27,7 @@ Unlike some other index types, BRIN rescan is relatively lightweight since BRIN 
 - Functions called/Symbols referenced:
   - memmove: Copies new scan keys into the scan descriptor
 - Called from (representative examples):
-  - brinhandler: BRIN access method handler registration
+  - [brinhandler](brinhandler.md): BRIN access method handler registration
 
 ## Notes and Other Information
 - Order-by parameters are not used since BRIN indexes don't support ordered scans

@@ -19,9 +19,9 @@ This function serves as the public API for registering custom scan node types in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterExtensibleNodeEntry
+  - [RegisterExtensibleNodeEntry](RegisterExtensibleNodeEntry.md)
 - Data types used:
-  - CustomScanMethods
+  - [CustomScanMethods](../C/CustomScanMethods.md)
 - Called from (representative examples):
   - (No direct references found - likely called from extension modules providing custom scan methods)
 

@@ -23,9 +23,9 @@ The function is designed to address a specific Windows limitation where CMD.EXE'
 - Functions called/Symbols referenced:
   - (None - uses only standard C operations)
 - Called from (representative examples):
-  - shell_archive_file
-  - main (in initdb)
-  - pgwin32_CommandLine
+  - [shell_archive_file](../s/shell_archive_file.md)
+  - [main](main.md) (in initdb)
+  - [pgwin32_CommandLine](../p/pgwin32_CommandLine.md)
   - BuildRestoreCommand
 
 ## Notes and Other Information

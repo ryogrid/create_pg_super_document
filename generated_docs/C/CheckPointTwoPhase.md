@@ -26,13 +26,13 @@ For qualifying transactions, it reads the transaction data from WAL, recreates t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XlogReadTwoPhaseData
-  - RecreateTwoPhaseFile
-  - fsync_fname
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
+  - [RecreateTwoPhaseFile](../R/RecreateTwoPhaseFile.md)
+  - [fsync_fname](../f/fsync_fname.md)
   - LWLockAcquire/LWLockRelease
-  - errmsg_plural
+  - [errmsg_plural](../e/errmsg_plural.md)
 - Called from:
-  - CheckPointGuts
+  - [CheckPointGuts](CheckPointGuts.md)
 
 ## Notes and Other Information
 - Deliberately runs late in the checkpoint sequence to allow short-lived prepared transactions to complete

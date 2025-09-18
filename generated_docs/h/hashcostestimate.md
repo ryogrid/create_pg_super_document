@@ -34,9 +34,9 @@ The function currently uses the generic cost model without hash-specific adjustm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - genericcostestimate
+  - [genericcostestimate](../g/genericcostestimate.md)
 - Called from (representative examples):
-  - hashhandler (Hash access method handler)
+  - [hashhandler](hashhandler.md) (Hash access method handler)
 
 ## Notes and Other Information
 - Currently uses the generic cost model without hash-specific modifications

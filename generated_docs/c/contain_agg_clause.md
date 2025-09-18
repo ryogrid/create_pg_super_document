@@ -17,10 +17,10 @@ This function provides a convenient wrapper around  to detect the presence of ag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_agg_clause_walker
+  - [contain_agg_clause_walker](contain_agg_clause_walker.md)
 - Called from (representative examples):
-  - get_eclass_for_sort_expr
-  - subquery_planner
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
+  - [subquery_planner](../s/subquery_planner.md)
   - WindowFuncLists
 
 ## Notes and Other Information

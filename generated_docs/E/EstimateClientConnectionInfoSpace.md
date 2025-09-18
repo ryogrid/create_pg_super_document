@@ -19,11 +19,11 @@ This function takes no parameters and operates on the global `MyClientConnection
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `add_size` - Safe integer addition function that handles overflow
-  - `SerializedClientConnectionInfo` - Structure type for serialized connection info
+  - `[add_size](../a/add_size.md)` - Safe integer addition function that handles overflow
+  - `[SerializedClientConnectionInfo](../S/SerializedClientConnectionInfo.md)` - Structure type for serialized connection info
   - `MyClientConnectionInfo` - Global variable containing current client connection info
 - Called from (representative examples):
-  - `InitializeParallelDSM` - When setting up parallel query execution
+  - `[InitializeParallelDSM](../I/InitializeParallelDSM.md)` - When setting up parallel query execution
   - `INIT_PG_OVERRIDE_ROLE_LOGIN` - In role login override scenarios
 
 ## Notes and Other Information

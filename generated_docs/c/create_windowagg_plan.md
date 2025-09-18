@@ -20,14 +20,14 @@ The `create_windowagg_plan` function constructs a WindowAgg plan node that imple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - build_path_tlist
-  - get_sortgroupclause_tle
-  - exprCollation
-  - make_windowagg
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [make_windowagg](../m/make_windowagg.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, used only within createplan.c

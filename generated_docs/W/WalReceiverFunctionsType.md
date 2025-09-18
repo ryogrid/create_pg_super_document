@@ -75,7 +75,7 @@ The structure encapsulates all the essential operations needed for establishing 
   - walrcv_disconnect_fn
 
 - Called from (representative examples):
-  - WalReceiverConn (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:91)
+  - [WalReceiverConn](WalReceiverConn.md) (src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:91)
 
 ## Notes and Other Information
 - This structure implements the Strategy pattern, allowing different WAL receiver implementations to be plugged into the system

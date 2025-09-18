@@ -32,23 +32,23 @@ The function includes sophisticated retry logic to handle concurrent modificatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open (to open the index relation)
-  - GetRelationIdentityOrPK (to check if index is primary key/replica identity)
+  - [index_open](../i/index_open.md) (to open the index relation)
+  - [GetRelationIdentityOrPK](../G/GetRelationIdentityOrPK.md) (to check if index is primary key/replica identity)
   - InitDirtySnapshot (to initialize snapshot for scanning)
-  - build_replindex_scan_key (to build the scan key)
-  - index_beginscan (to start the index scan)
-  - index_rescan (to restart scan with keys)
-  - index_getnext_slot (to retrieve tuples from index)
-  - tuples_equal (to compare tuples when needed)
+  - [build_replindex_scan_key](../b/build_replindex_scan_key.md) (to build the scan key)
+  - [index_beginscan](../i/index_beginscan.md) (to start the index scan)
+  - [index_rescan](../i/index_rescan.md) (to restart scan with keys)
+  - [index_getnext_slot](../i/index_getnext_slot.md) (to retrieve tuples from index)
+  - [tuples_equal](../t/tuples_equal.md) (to compare tuples when needed)
   - ExecMaterializeSlot (to materialize the output slot)
-  - XactLockTableWait (to wait for blocking transactions)
+  - [XactLockTableWait](../X/XactLockTableWait.md) (to wait for blocking transactions)
   - table_tuple_lock (to lock the found tuple)
-  - GetCurrentCommandId (to get current command ID for locking)
-  - index_endscan (to end the index scan)
-  - index_close (to close the index relation)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md) (to get current command ID for locking)
+  - [index_endscan](../i/index_endscan.md) (to end the index scan)
+  - [index_close](../i/index_close.md) (to close the index relation)
 
 - Called from (representative examples):
-  - FindReplTupleInLocalRel
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
   - exec_rt_fetch
 
 ## Notes and Other Information

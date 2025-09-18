@@ -34,10 +34,10 @@ The structure supports a flexible callback-based architecture where different re
 - Functions called/Symbols referenced:
   - replace_rte_variables_callback (typedef)
 - Called from (representative examples):
-  - replace_rte_variables (src/backend/rewrite/rewriteManip.c:1352)
-  - replace_rte_variables_mutator (src/backend/rewrite/rewriteManip.c:1394)
-  - ReplaceVarsFromTargetList_callback (src/backend/rewrite/rewriteManip.c:1670)
-  - pullup_replace_vars_callback (src/backend/optimizer/prep/prepjointree.c:2485)
+  - [replace_rte_variables](replace_rte_variables.md) (src/backend/rewrite/rewriteManip.c:1352)
+  - [replace_rte_variables_mutator](replace_rte_variables_mutator.md) (src/backend/rewrite/rewriteManip.c:1394)
+  - [ReplaceVarsFromTargetList_callback](../R/ReplaceVarsFromTargetList_callback.md) (src/backend/rewrite/rewriteManip.c:1670)
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md) (src/backend/optimizer/prep/prepjointree.c:2485)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's query rewriting infrastructure and is essential for operations like view expansion, rule processing, and query optimization. The callback-based design allows for different replacement strategies while maintaining a consistent traversal framework. The `inserted_sublink` flag is crucial for maintaining the correct hasSubLinks state in Query nodes after transformation.

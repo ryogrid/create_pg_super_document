@@ -18,7 +18,7 @@ The  function serves as the cleanup function for PostgreSQL's default text searc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (type cast for parser instance)
+  - [TParser](../T/TParser.md) (type cast for parser instance)
   - TParserClose (closes and cleans up the parser)
   - PG_RETURN_VOID (PostgreSQL macro for returning void from a function)
 - Called from (representative examples):

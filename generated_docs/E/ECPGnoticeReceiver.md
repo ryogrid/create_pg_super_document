@@ -20,13 +20,13 @@ ECPGnoticeReceiver serves as a notice processor callback for PostgreSQL connecti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultErrorField
+  - [PQresultErrorField](../P/PQresultErrorField.md)
   - ECPGget_sqlca
-  - ecpg_log
+  - [ecpg_log](../e/ecpg_log.md)
   - ecpg_gettext
   - strncmp/strcmp/strlen
 - Called from (representative examples):
-  - ECPGconnect (registered as notice receiver)
+  - [ECPGconnect](ECPGconnect.md) (registered as notice receiver)
 
 ## Notes and Other Information
 - Static function, only accessible within the connect.c file

@@ -27,10 +27,10 @@ Unlike , this function deliberately ignores many pg_attribute fields that define
 - Functions called/Symbols referenced:
   - None (uses only basic comparison operations and TupleDescAttr macro)
 - Called from (representative examples):
-  - ProcedureCreate (validating function return types)
-  - shared_record_table_compare (type cache comparisons)
-  - RevalidateCachedQuery (plan cache validation)
-  - record_type_typmod_compare (type modifier comparisons)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (validating function return types)
+  - [shared_record_table_compare](../s/shared_record_table_compare.md) (type cache comparisons)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md) (plan cache validation)
+  - [record_type_typmod_compare](../r/record_type_typmod_compare.md) (type modifier comparisons)
 
 ## Notes and Other Information
 - More permissive than  as it focuses only on logical row type compatibility

@@ -23,13 +23,13 @@ This function implements the core waiting logic for reading data from shared mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u64
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - pg_read_barrier
-  - shm_mq_inc_bytes_read
-  - WaitLatch
-  - ResetLatch
+  - [shm_mq_inc_bytes_read](shm_mq_inc_bytes_read.md)
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
 - Called from (representative examples):
-  - shm_mq_receive
+  - [shm_mq_receive](shm_mq_receive.md)
 
 ## Notes and Other Information
 - Uses atomic operations to read queue metadata without locks

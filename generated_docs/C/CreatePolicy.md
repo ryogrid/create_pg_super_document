@@ -32,16 +32,16 @@ The function ensures atomicity through catalog locking and maintains referential
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_policy_command (command type parsing)
-  - policy_role_list_to_array, construct_array_builtin (role array construction)
-  - make_parsestate, transformWhereClause (expression parsing)
-  - RangeVarGetRelidExtended, relation_open (table access and permissions)
-  - systable_beginscan, systable_getnext (catalog scanning)
-  - CatalogTupleInsert, heap_form_tuple (catalog modifications)
-  - recordDependencyOn, recordDependencyOnExpr, recordSharedDependencyOn (dependency tracking)
+  - [parse_policy_command](../p/parse_policy_command.md) (command type parsing)
+  - [policy_role_list_to_array](../p/policy_role_list_to_array.md), construct_array_builtin (role array construction)
+  - [make_parsestate](../m/make_parsestate.md), transformWhereClause (expression parsing)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md), relation_open (table access and permissions)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext (catalog scanning)
+  - [CatalogTupleInsert](CatalogTupleInsert.md), heap_form_tuple (catalog modifications)
+  - [recordDependencyOn](../r/recordDependencyOn.md), recordDependencyOnExpr, recordSharedDependencyOn (dependency tracking)
   - InvokeObjectPostCreateHook, CacheInvalidateRelcache (event hooks and cache management)
 - Called from:
-  - ProcessUtilitySlow (main utility command dispatcher)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main utility command dispatcher)
 
 ## Notes and Other Information
 - Requires AccessExclusiveLock on target table to prevent concurrent DDL operations

@@ -19,14 +19,14 @@ PQcancelFinish performs the final cleanup of a cancel connection by closing the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfinish
+  - [PQfinish](PQfinish.md)
   - PGcancelConn (type)
   - PGcancel (related type)
 - Called from (representative examples):
-  - test_cancel (in libpq_pipeline test module)
-  - libpqsrv_cancel (libpq backend-frontend helpers)
-  - try_complete_step (isolation tester)
-  - disconnectDatabase (connect utilities)
+  - [test_cancel](../t/test_cancel.md) (in libpq_pipeline test module)
+  - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (libpq backend-frontend helpers)
+  - [try_complete_step](../t/try_complete_step.md) (isolation tester)
+  - [disconnectDatabase](../d/disconnectDatabase.md) (connect utilities)
 
 ## Notes and Other Information
 - This function should be called when the cancel connection is no longer needed

@@ -26,11 +26,11 @@ The output format shows each valid transaction ID with its array index position,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct
+  - [ProcArrayStruct](../P/ProcArrayStruct.md)
   - initStringInfo
   - appendStringInfo
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - xc_slow_answer_inc
   - ProcArrayApplyRecoveryInfo

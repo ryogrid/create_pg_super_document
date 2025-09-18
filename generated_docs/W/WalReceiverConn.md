@@ -26,33 +26,33 @@ The structure is primarily used within the libpqwalreceiver.c module, which prov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpqrcv_connect
-  - libpqrcv_disconnect  
-  - libpqrcv_startstreaming
-  - libpqrcv_endstreaming
-  - libpqrcv_receive
-  - libpqrcv_send
-  - libpqrcv_create_slot
-  - libpqrcv_alter_slot
-  - libpqrcv_exec
-  - libpqrcv_get_conninfo
-  - libpqrcv_get_senderinfo
-  - libpqrcv_identify_system
-  - libpqrcv_server_version
-  - libpqrcv_readtimelinehistoryfile
-  - libpqrcv_get_backend_pid
+  - [libpqrcv_connect](../l/libpqrcv_connect.md)
+  - [libpqrcv_disconnect](../l/libpqrcv_disconnect.md)  
+  - [libpqrcv_startstreaming](../l/libpqrcv_startstreaming.md)
+  - [libpqrcv_endstreaming](../l/libpqrcv_endstreaming.md)
+  - [libpqrcv_receive](../l/libpqrcv_receive.md)
+  - [libpqrcv_send](../l/libpqrcv_send.md)
+  - [libpqrcv_create_slot](../l/libpqrcv_create_slot.md)
+  - [libpqrcv_alter_slot](../l/libpqrcv_alter_slot.md)
+  - [libpqrcv_exec](../l/libpqrcv_exec.md)
+  - [libpqrcv_get_conninfo](../l/libpqrcv_get_conninfo.md)
+  - [libpqrcv_get_senderinfo](../l/libpqrcv_get_senderinfo.md)
+  - [libpqrcv_identify_system](../l/libpqrcv_identify_system.md)
+  - [libpqrcv_server_version](../l/libpqrcv_server_version.md)
+  - [libpqrcv_readtimelinehistoryfile](../l/libpqrcv_readtimelinehistoryfile.md)
+  - [libpqrcv_get_backend_pid](../l/libpqrcv_get_backend_pid.md)
   - PGconn (libpq connection structure)
-  - WalRcvStreamOptions
-  - WalRcvExecResult
+  - [WalRcvStreamOptions](WalRcvStreamOptions.md)
+  - [WalRcvExecResult](WalRcvExecResult.md)
 
 - Called from (representative examples):
-  - CreateSubscription (for logical replication setup)
-  - AlterSubscription (for subscription modifications)
-  - DropSubscription (for subscription cleanup)
+  - [CreateSubscription](../C/CreateSubscription.md) (for logical replication setup)
+  - [AlterSubscription](../A/AlterSubscription.md) (for subscription modifications)
+  - [DropSubscription](../D/DropSubscription.md) (for subscription cleanup)
   - synchronize_slots (for slot synchronization)
-  - ReplSlotSyncWorkerMain (for slot sync worker)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (for slot sync worker)
   - SyncReplicationSlots (for replication slot synchronization)
-  - TransApplyAction (for transaction application)
+  - [TransApplyAction](../T/TransApplyAction.md) (for transaction application)
 
 ## Notes and Other Information
 - This structure is part of the libpqwalreceiver module, which is PostgreSQL's default WAL receiver implementation using libpq

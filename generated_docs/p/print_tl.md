@@ -24,7 +24,7 @@ Each target entry is printed on a separate line with tab-separated fields showin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TargetEntry (structure type)
+  - [TargetEntry](../T/TargetEntry.md) (structure type)
   - print_expr (function to print individual expressions)
 - Called from (representative examples):
   - nodeDisplay (via print.h header inclusion)

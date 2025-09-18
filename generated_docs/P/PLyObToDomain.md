@@ -20,9 +20,9 @@ The structure serves as a bridge between Python objects and PostgreSQL's domain 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (base type conversion structure)
+  - [PLyObToDatum](PLyObToDatum.md) (base type conversion structure)
 - Called from (representative examples):
-  - PLyObToDatum (as part of union in conversion structure)
+  - [PLyObToDatum](PLyObToDatum.md) (as part of union in conversion structure)
 
 ## Notes and Other Information
 - This structure is part of the PL/Python type conversion framework located in src/pl/plpython/plpy_typeio.h

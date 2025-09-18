@@ -23,15 +23,15 @@ This comprehensive function serves as the central dispatcher for testing various
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_prop_name (convert property name to enum)
-  - SearchSysCache1, ReleaseSysCache (system cache operations)
-  - GetIndexAmRoutineByAmId (retrieve AM routine structure)
-  - test_indoption (test column-level indoption bits)
-  - index_open, index_close, index_can_return (index access for returnable property)
+  - [lookup_prop_name](../l/lookup_prop_name.md) (convert property name to enum)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (system cache operations)
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md) (retrieve AM routine structure)
+  - [test_indoption](../t/test_indoption.md) (test column-level indoption bits)
+  - [index_open](index_open.md), index_close, index_can_return (index access for returnable property)
 - Called from (representative examples):
-  - pg_indexam_has_property
-  - pg_index_has_property
-  - pg_index_column_has_property
+  - [pg_indexam_has_property](../p/pg_indexam_has_property.md)
+  - [pg_index_has_property](../p/pg_index_has_property.md)
+  - [pg_index_column_has_property](../p/pg_index_column_has_property.md)
 
 ## Notes and Other Information
 - The function is static and serves as common implementation for multiple SQL-visible functions

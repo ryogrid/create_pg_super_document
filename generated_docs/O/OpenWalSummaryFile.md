@@ -26,11 +26,11 @@ The constructed filename follows the pattern: `XLOGDIR/summaries/TTTTTTTTSSSSSSS
   - PathNameOpenFile
   - LSN_FORMAT_ARGS
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - Returns a File descriptor for successful opens, negative value for missing files when missing_ok=true

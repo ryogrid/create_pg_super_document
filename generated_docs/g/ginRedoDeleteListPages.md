@@ -36,17 +36,17 @@ The function implements a specific locking strategy during replay that differs f
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogInitBufferForRedo
-  - BufferGetBlockNumber
-  - BufferGetPage
-  - GinInitMetabuffer
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
   - GinPageGetMeta
-  - GinInitBuffer
-  - PageSetLSN
+  - [GinInitBuffer](../G/GinInitBuffer.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN WAL recovery system

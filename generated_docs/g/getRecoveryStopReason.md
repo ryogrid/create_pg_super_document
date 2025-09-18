@@ -22,8 +22,8 @@ The function examines the global recovery target settings and recovery stop info
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf: Formats the reason string based on recovery target type
-  - timestamptz_to_str: Converts timestamp to human-readable string
-  - pstrdup: Creates a palloc'd copy of the reason string
+  - [timestamptz_to_str](../t/timestamptz_to_str.md): Converts timestamp to human-readable string
+  - [pstrdup](../p/pstrdup.md): Creates a palloc'd copy of the reason string
 - Constants used:
   - RECOVERY_TARGET_XID: Recovery target type for specific transaction ID
   - RECOVERY_TARGET_TIME: Recovery target type for specific timestamp
@@ -39,7 +39,7 @@ The function examines the global recovery target settings and recovery stop info
   - recoveryStopLSN: LSN position where recovery stopped (for LSN targets)
   - recoveryStopName: Name of restore point where recovery stopped (for name targets)
 - Called from:
-  - FinishWalRecovery: Uses this to generate timeline history entries
+  - [FinishWalRecovery](../F/FinishWalRecovery.md): Uses this to generate timeline history entries
 
 ## Notes and Other Information
 - This is a static function, only accessible within xlogrecovery.c

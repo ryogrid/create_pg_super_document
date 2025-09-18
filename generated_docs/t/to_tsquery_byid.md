@@ -23,15 +23,15 @@ This function creates a TSQuery from input text using a specified text search co
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - TSQuery
-  - MorphOpaque
+  - [MorphOpaque](../M/MorphOpaque.md)
   - OP_PHRASE
-  - parse_tsquery
+  - [parse_tsquery](../p/parse_tsquery.md)
   - text_to_cstring
-  - pushval_morph
-  - PointerGetDatum
+  - [pushval_morph](../p/pushval_morph.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - PG_RETURN_TSQUERY
 - Called from (representative examples):
-  - to_tsquery
+  - [to_tsquery](to_tsquery.md)
 
 ## Notes and Other Information
 - Uses OP_PHRASE as the default operator for connecting morphological variants, ensuring precise positional matching

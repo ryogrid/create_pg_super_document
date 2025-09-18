@@ -24,9 +24,9 @@ The function takes a void pointer to an OffsetNumber, casts it appropriately, de
   - appendStringInfo
   - OffsetNumber (data type)
 - Called from (representative examples):
-  - plan_elem_desc
-  - heap2_desc
-  - delvacuum_desc
+  - [plan_elem_desc](../p/plan_elem_desc.md)
+  - [heap2_desc](../h/heap2_desc.md)
+  - [delvacuum_desc](../d/delvacuum_desc.md)
 
 ## Notes and Other Information
 - This is a callback function specifically designed for use with array_desc

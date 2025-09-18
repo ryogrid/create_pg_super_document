@@ -22,15 +22,15 @@ The storage strategy determines how PostgreSQL stores variable-length data types
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheCopyAttName
-  - GetAttributeStorage
-  - CatalogTupleUpdate
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [GetAttributeStorage](../G/GetAttributeStorage.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - SetIndexStorageProperties
-  - heap_freetuple
+  - [SetIndexStorageProperties](../S/SetIndexStorageProperties.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ObjectAddressSubSet
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
 
 ## Notes and Other Information

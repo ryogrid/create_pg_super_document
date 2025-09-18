@@ -28,7 +28,7 @@ This approach allows for efficient cache invalidation without the overhead of co
 - Functions called/Symbols referenced:
   - RelationCloseSmgr
 - Called from (representative examples):
-  - RelationFlushRelation
+  - [RelationFlushRelation](RelationFlushRelation.md)
 
 ## Notes and Other Information
 - Lighter weight alternative to complete relation destruction

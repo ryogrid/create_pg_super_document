@@ -19,10 +19,10 @@ The function includes a TODO comment indicating that future versions may support
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - am_tablesync_worker
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [am_tablesync_worker](am_tablesync_worker.md)
 - Called from:
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - This function currently serves primarily for protocol validation rather than functional origin tracking

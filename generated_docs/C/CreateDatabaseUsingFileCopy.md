@@ -24,16 +24,16 @@ Two critical checkpoints are performed: one before copying to ensure all dirty b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RequestCheckpoint
+  - [RequestCheckpoint](../R/RequestCheckpoint.md)
   - table_open, table_beginscan_catalog, table_endscan, table_close
-  - heap_getnext
-  - GetDatabasePath
+  - [heap_getnext](../h/heap_getnext.md)
+  - [GetDatabasePath](../G/GetDatabasePath.md)
   - copydir
-  - directory_is_empty
-  - XLogBeginInsert, XLogRegisterData, XLogInsert
+  - [directory_is_empty](../d/directory_is_empty.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert
   - xl_dbase_create_file_copy_rec
 - Called from (representative examples):
-  - createdb
+  - [createdb](../c/createdb.md)
 
 ## Notes and Other Information
 - This strategy is more efficient for large databases as it reduces WAL generation compared to WAL-logging strategies

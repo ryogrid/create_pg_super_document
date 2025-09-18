@@ -31,9 +31,9 @@ The function implements careful memory management for Python objects, using prop
   - elog (PostgreSQL logging function)
 
 - Called from (representative examples):
-  - PLy_commit (transaction commit handling)
-  - PLy_rollback (transaction rollback handling) 
-  - PLy_spi_subtransaction_abort (subtransaction abort handling)
+  - [PLy_commit](PLy_commit.md) (transaction commit handling)
+  - [PLy_rollback](PLy_rollback.md) (transaction rollback handling) 
+  - [PLy_spi_subtransaction_abort](PLy_spi_subtransaction_abort.md) (subtransaction abort handling)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (plpy_spi.c)

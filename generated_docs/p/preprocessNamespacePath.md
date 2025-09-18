@@ -23,13 +23,13 @@ This function parses a comma-separated string of namespace names and converts th
 - Functions called/Symbols referenced:
   - SplitIdentifierString
   - Form_pg_authid
-  - get_namespace_oid
-  - object_aclcheck
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - ACL_USAGE
   - lappend_oid
-  - list_free
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - cachedNamespacePath
+  - [cachedNamespacePath](../c/cachedNamespacePath.md)
 
 ## Notes and Other Information
 - Silently excludes namespaces that don't exist or are inaccessible to avoid errors

@@ -25,12 +25,12 @@ The function allocates memory for the ReorderTuple and copies the heap tuple fro
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecCopySlotHeapTuple
-  - palloc
-  - datumCopy
+  - [palloc](../p/palloc.md)
+  - [datumCopy](../d/datumCopy.md)
   - pairingheap_add
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - IndexNextWithReorder
+  - [IndexNextWithReorder](../I/IndexNextWithReorder.md)
 
 ## Notes and Other Information
 - Operates within the query memory context (es_query_cxt) for proper memory management

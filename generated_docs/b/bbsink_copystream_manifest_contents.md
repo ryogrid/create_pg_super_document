@@ -18,7 +18,7 @@ This function transmits manifest content data by sending CopyData protocol messa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbsink_copystream (structure cast)
+  - [bbsink_copystream](bbsink_copystream.md) (structure cast)
   - pq_putmessage
 - Called from (representative examples):
   - Used as callback function during manifest data transmission in bbsink copystream operations

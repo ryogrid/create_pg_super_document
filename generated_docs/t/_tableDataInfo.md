@@ -19,9 +19,9 @@ The  structure is a specialized container used by pg_dump to represent table dat
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
-  - _tableInfo (referenced in the dataObj field)
+  - [_tableInfo](_tableInfo.md) (referenced in the dataObj field)
 
 ## Notes and Other Information
 This structure is crucial for pg_dump's modular approach to database dumping, where table schemas and table data are treated as separate dumpable entities. This design allows for sophisticated dump strategies such as schema-only dumps, data-only dumps, or carefully ordered dumps where data is inserted after all schema objects are created. The  pointer ensures that the data dumping process has access to all necessary table metadata, including column information, data types, and constraints that may affect how the data should be formatted and inserted during restoration.

@@ -26,7 +26,7 @@ The actual log rotation is performed later by the main syslogger loop when it de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch (wakes up the main syslogger event loop)
+  - [SetLatch](../S/SetLatch.md) (wakes up the main syslogger event loop)
   - SIGNAL_ARGS (macro that expands to `int postgres_signal_arg`)
 - Global variables modified:
   - rotation_requested (volatile sig_atomic_t flag set to true)

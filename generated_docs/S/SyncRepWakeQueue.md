@@ -33,15 +33,15 @@ The function assumes the queue is ordered by LSN and leverages this for efficien
 - Functions called/Symbols referenced:
   - dlist_foreach_modify (doubly-linked list iteration)
   - dlist_container (container access macro)
-  - dlist_delete_thoroughly (list element removal)
+  - [dlist_delete_thoroughly](../d/dlist_delete_thoroughly.md) (list element removal)
   - pg_write_barrier (memory barrier for ordering)
-  - SetLatch (process awakening)
+  - [SetLatch](SetLatch.md) (process awakening)
   - LWLockHeldByMeInMode (lock assertion)
-  - SyncRepQueueIsOrderedByLSN (queue validation)
+  - [SyncRepQueueIsOrderedByLSN](SyncRepQueueIsOrderedByLSN.md) (queue validation)
 - Called from (representative examples):
   - SyncStandbysDefined (src/backend/replication/syncrep.c:102)
-  - SyncRepReleaseWaiters (src/backend/replication/syncrep.c:554, 559, 564)
-  - SyncRepUpdateSyncStandbysDefined (src/backend/replication/syncrep.c:983)
+  - [SyncRepReleaseWaiters](SyncRepReleaseWaiters.md) (src/backend/replication/syncrep.c:554, 559, 564)
+  - [SyncRepUpdateSyncStandbysDefined](SyncRepUpdateSyncStandbysDefined.md) (src/backend/replication/syncrep.c:983)
 
 ## Notes and Other Information
 - Requires SyncRepLock to be held in exclusive mode by the caller

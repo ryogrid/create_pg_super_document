@@ -26,14 +26,14 @@ This adjustment is crucial for accurate cost estimation in parameterized paths, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (to check relation membership in join sides)
-  - approximate_joinrel_size (to estimate raw size of semijoin RHS)
-  - estimate_num_groups (to estimate number of unique groups after semijoin)
+  - [bms_is_member](../b/bms_is_member.md) (to check relation membership in join sides)
+  - [approximate_joinrel_size](approximate_joinrel_size.md) (to estimate raw size of semijoin RHS)
+  - [estimate_num_groups](../e/estimate_num_groups.md) (to estimate number of unique groups after semijoin)
   - JOIN_SEMI (constant for semijoin type identification)
-  - SpecialJoinInfo (struct containing join metadata)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct containing join metadata)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - get_loop_count
+  - [get_loop_count](../g/get_loop_count.md)
 
 ## Notes and Other Information
 - Only processes semijoins (JOIN_SEMI) from the join_info_list

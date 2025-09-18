@@ -21,20 +21,20 @@ The function strategically adds values in a specific order: the target value is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntegerSet (data structure)
-  - intset_create
-  - intset_add_member
-  - intset_num_entries
-  - intset_begin_iterate
-  - intset_iterate_next
-  - intset_memory_usage
-  - check_with_filler (helper function for boundary testing)
+  - [IntegerSet](../I/IntegerSet.md) (data structure)
+  - [intset_create](../i/intset_create.md)
+  - [intset_add_member](../i/intset_add_member.md)
+  - [intset_num_entries](../i/intset_num_entries.md)
+  - [intset_begin_iterate](../i/intset_begin_iterate.md)
+  - [intset_iterate_next](../i/intset_iterate_next.md)
+  - [intset_memory_usage](../i/intset_memory_usage.md)
+  - [check_with_filler](../c/check_with_filler.md) (helper function for boundary testing)
   - PG_UINT64_MAX
   - UINT64_FORMAT
   - NOTICE (logging level)
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - test_integerset (called multiple times with various boundary value combinations)
+  - [test_integerset](test_integerset.md) (called multiple times with various boundary value combinations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_integerset.c file

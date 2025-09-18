@@ -21,11 +21,11 @@ BufTagSetRelForkDetails is an inline utility function that simultaneously sets b
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferTag (structure type)
-  - RelFileNumber (type)
-  - ForkNumber (type)
+  - [RelFileNumber](../R/RelFileNumber.md) (type)
+  - [ForkNumber](../F/ForkNumber.md) (type)
 - Called from (representative examples):
-  - ClearBufferTag
-  - InitBufferTag
+  - [ClearBufferTag](../C/ClearBufferTag.md)
+  - [InitBufferTag](../I/InitBufferTag.md)
 
 ## Notes and Other Information
 - This is an inline function defined in buf_internals.h for performance efficiency

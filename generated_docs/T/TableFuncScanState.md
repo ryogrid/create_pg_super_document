@@ -294,24 +294,24 @@ v_str ESTAB      0      0                                               *:633275
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base structure)
+  - [ScanState](../S/ScanState.md) (base structure)
   - ExprState (expression evaluation state)
   - TableFuncRoutine (pluggable table builder interface)
   - Tuplestorestate (tuple storage)
-  - FmgrInfo (function manager info)
-  - MemoryContext (memory management)
-  - Bitmapset (bit manipulation)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
+  - [Bitmapset](../B/Bitmapset.md) (bit manipulation)
 
 - Called from (representative examples):
-  - ExecInitTableFuncScan (initialization)
-  - ExecTableFuncScan (tuple retrieval)
-  - ExecEndTableFuncScan (cleanup)
-  - ExecReScanTableFuncScan (rescan operations)
-  - TableFuncNext (next tuple fetch)
-  - tfuncInitialize (table function initialization)
-  - tfuncLoadRows (row loading)
-  - JsonTableInitOpaque (JSON table initialization)
-  - XmlTableInitOpaque (XML table initialization)
+  - [ExecInitTableFuncScan](../E/ExecInitTableFuncScan.md) (initialization)
+  - [ExecTableFuncScan](../E/ExecTableFuncScan.md) (tuple retrieval)
+  - [ExecEndTableFuncScan](../E/ExecEndTableFuncScan.md) (cleanup)
+  - [ExecReScanTableFuncScan](../E/ExecReScanTableFuncScan.md) (rescan operations)
+  - [TableFuncNext](TableFuncNext.md) (next tuple fetch)
+  - [tfuncInitialize](../t/tfuncInitialize.md) (table function initialization)
+  - [tfuncLoadRows](../t/tfuncLoadRows.md) (row loading)
+  - [JsonTableInitOpaque](../J/JsonTableInitOpaque.md) (JSON table initialization)
+  - [XmlTableInitOpaque](../X/XmlTableInitOpaque.md) (XML table initialization)
 
 ## Notes and Other Information
 This executor node implements PostgreSQL's support for SQL/XML XMLTABLE and SQL/JSON JSON_TABLE functionality. The pluggable architecture through TableFuncRoutine allows different document types to be supported with type-specific implementations. The XML implementation handles XPath expressions and namespace management, while the JSON implementation handles JSONPath expressions. The tupstore member enables efficient rescanning and complex query operations. The ordinal field helps with debugging and error reporting by tracking the current row position in the document processing.

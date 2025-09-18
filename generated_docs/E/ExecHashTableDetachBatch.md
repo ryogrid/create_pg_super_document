@@ -21,16 +21,16 @@ The function also tracks peak memory usage statistics that can be reported by EX
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sts_end_parallel_scan
+  - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md)
   - BarrierPhase
   - BarrierArriveAndDetachExceptLast
   - BarrierArriveAndDetach
   - DsaPointerIsValid
-  - dsa_get_address
-  - dsa_free
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [dsa_free](../d/dsa_free.md)
   - Max
 - Data types used:
-  - HashJoinTable
+  - [HashJoinTable](../H/HashJoinTable.md)
   - ParallelHashJoinBatch
   - HashMemoryChunk
   - dsa_pointer
@@ -40,8 +40,8 @@ The function also tracks peak memory usage statistics that can be reported by EX
   - PHJ_BATCH_SCAN
   - PHJ_BATCH_FREE
 - Called from (representative examples):
-  - ExecParallelPrepHashTableForUnmatched
-  - ExecParallelHashJoinNewBatch
+  - [ExecParallelPrepHashTableForUnmatched](ExecParallelPrepHashTableForUnmatched.md)
+  - [ExecParallelHashJoinNewBatch](ExecParallelHashJoinNewBatch.md)
   - ExecShutdownHashJoin
   - ExecHashJoinReInitializeDSM
 

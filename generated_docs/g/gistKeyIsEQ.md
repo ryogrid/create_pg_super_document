@@ -22,11 +22,11 @@ The function is essential for various GiST operations that need to determine if 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (GiST state structure type)
-  - FunctionCall3Coll (calls equality function with collation support)
-  - PointerGetDatum (converts pointer to Datum for passing result location)
+  - [GISTSTATE](../G/GISTSTATE.md) (GiST state structure type)
+  - [FunctionCall3Coll](../F/FunctionCall3Coll.md) (calls equality function with collation support)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum for passing result location)
 - Called from (representative examples):
-  - gistUserPicksplit (in gistsplit.c:497)
+  - [gistUserPicksplit](gistUserPicksplit.md) (in gistsplit.c:497)
   - gistgetadjusted (in gistutil.c:351)
 
 ## Notes and Other Information

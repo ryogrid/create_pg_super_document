@@ -32,11 +32,11 @@ This function is primarily used by PostgreSQL's WAL inspection tools and logging
   - XLogRecGetData
   - XLogRecGetInfo  
   - XLogRecGetOrigin
-  - xact_desc_commit
-  - xact_desc_abort
-  - xact_desc_prepare
-  - xact_desc_assignment
-  - standby_desc_invalidations
+  - [xact_desc_commit](xact_desc_commit.md)
+  - [xact_desc_abort](xact_desc_abort.md)
+  - [xact_desc_prepare](xact_desc_prepare.md)
+  - [xact_desc_assignment](xact_desc_assignment.md)
+  - [standby_desc_invalidations](../s/standby_desc_invalidations.md)
   - appendStringInfo
 - Called from (representative examples):
   - WAL description framework (no direct references found in current analysis)

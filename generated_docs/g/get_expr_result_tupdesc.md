@@ -31,19 +31,19 @@ The function includes the same warning as `get_expr_result_type` about being cau
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_expr_result_type
+  - [get_expr_result_type](get_expr_result_type.md)
   - exprType
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - ereport
   - TYPEFUNC_COMPOSITE
   - TYPEFUNC_COMPOSITE_DOMAIN
 - Called from (representative examples):
-  - process_function_rte_ref
-  - ParseComplexProjection
-  - get_rte_attribute_is_dropped
-  - ExpandRowReference
-  - expandRecordVariable
-  - get_name_for_var_field
+  - [process_function_rte_ref](../p/process_function_rte_ref.md)
+  - [ParseComplexProjection](../P/ParseComplexProjection.md)
+  - [get_rte_attribute_is_dropped](get_rte_attribute_is_dropped.md)
+  - [ExpandRowReference](../E/ExpandRowReference.md)
+  - [expandRecordVariable](../e/expandRecordVariable.md)
+  - [get_name_for_var_field](get_name_for_var_field.md)
 
 ## Notes and Other Information
 - Provides a simpler interface compared to get_expr_result_type when only TupleDesc is needed

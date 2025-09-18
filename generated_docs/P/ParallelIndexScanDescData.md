@@ -24,10 +24,10 @@ The structure is designed to be extensible - different index access methods (B-t
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - index_parallelscan_estimate
-  - index_parallelscan_initialize
-  - ParallelIndexScanDesc (typedef pointer)
-  - IndexScanDescData (contains pointer to this structure)
+  - [index_parallelscan_estimate](../i/index_parallelscan_estimate.md)
+  - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md)
+  - [ParallelIndexScanDesc](ParallelIndexScanDesc.md) (typedef pointer)
+  - [IndexScanDescData](../I/IndexScanDescData.md) (contains pointer to this structure)
 
 ## Notes and Other Information
 - The structure uses a flexible array member pattern to accommodate variable-length snapshot data and access method-specific information

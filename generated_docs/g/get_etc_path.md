@@ -18,11 +18,11 @@ The  function calculates the absolute path to PostgreSQL's configuration directo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
 - Called from (representative examples):
-  - process_psqlrc (src/bin/psql/startup.c:785)
-  - get_configdata (src/common/config_info.c:114)
-  - set_pglocale_pgservice (src/common/exec.c:482)
+  - [process_psqlrc](../p/process_psqlrc.md) (src/bin/psql/startup.c:785)
+  - [get_configdata](get_configdata.md) (src/common/config_info.c:114)
+  - [set_pglocale_pgservice](../s/set_pglocale_pgservice.md) (src/common/exec.c:482)
 
 ## Notes and Other Information
 - This function assumes that the caller has provided a sufficiently large buffer in ret_path to hold the resulting path

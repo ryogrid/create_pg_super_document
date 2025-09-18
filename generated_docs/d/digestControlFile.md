@@ -26,16 +26,16 @@ The function is essential for ensuring that pg_rewind operates on valid control 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - memcpy
   - IsValidWalSegSize
   - ngettext
   - pg_log_error
   - pg_log_error_detail
-  - checkControlFile
+  - [checkControlFile](../c/checkControlFile.md)
 - Called from (representative examples):
-  - main (multiple calls in pg_rewind.c)
-  - perform_rewind
+  - [main](../m/main.md) (multiple calls in pg_rewind.c)
+  - [perform_rewind](../p/perform_rewind.md)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

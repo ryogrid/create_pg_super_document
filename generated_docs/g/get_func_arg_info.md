@@ -24,21 +24,21 @@ The function does not perform any interpretation of polymorphic types - it simpl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
   - Form_pg_proc
-  - palloc, memcpy
+  - [palloc](../p/palloc.md), memcpy
 - Called from (representative examples):
-  - MatchNamedCall
-  - print_function_arguments
-  - pg_get_function_arg_default
-  - print_function_sqlbody
-  - plperl_validator
-  - PLy_procedure_create
-  - plsample_func_handler
+  - [MatchNamedCall](../M/MatchNamedCall.md)
+  - [print_function_arguments](../p/print_function_arguments.md)
+  - [pg_get_function_arg_default](../p/pg_get_function_arg_default.md)
+  - [print_function_sqlbody](../p/print_function_sqlbody.md)
+  - [plperl_validator](../p/plperl_validator.md)
+  - [PLy_procedure_create](../P/PLy_procedure_create.md)
+  - [plsample_func_handler](../p/plsample_func_handler.md)
 
 ## Notes and Other Information
 - Returns the total number of function arguments (including OUT parameters)

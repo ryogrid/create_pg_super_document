@@ -25,11 +25,11 @@ The function safely handles cases where some resources may not have been allocat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - free_conversion_map
-  - ExecDropSingleTupleTableSlot
+  - [pfree](../p/pfree.md)
+  - [free_conversion_map](../f/free_conversion_map.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
 - Called from (representative examples):
-  - CreateTuplestoreDestReceiver
+  - [CreateTuplestoreDestReceiver](../C/CreateTuplestoreDestReceiver.md)
 
 ## Notes and Other Information
 - This is a static function used as a cleanup callback within the tuplestore receiver framework

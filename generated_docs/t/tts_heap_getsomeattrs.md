@@ -23,9 +23,9 @@ This function implements the getsomeattrs callback for heap tuple table slots wi
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (cast target type)
   - TTS_EMPTY (macro to check if slot is empty)
-  - slot_deform_heap_tuple (function that performs the actual attribute extraction)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (function that performs the actual attribute extraction)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (indirectly through TupleTableSlotOps structure)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (indirectly through TupleTableSlotOps structure)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's lazy attribute extraction system for performance optimization

@@ -20,7 +20,7 @@ This static function iterates through the logical replication worker pool to cou
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockHeldByMe
-  - LogicalRepWorker
+  - [LogicalRepWorker](../L/LogicalRepWorker.md)
   - isParallelApplyWorker
 - Called from (representative examples):
   - logicalrep_worker_launch

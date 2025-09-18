@@ -18,7 +18,7 @@ The `tablespace_reloptions` function is a specialized option parser for PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
   - relopt_parse_elt (structure)
   - RELOPT_TYPE_REAL (constant)
   - RELOPT_TYPE_INT (constant)
@@ -26,9 +26,9 @@ The `tablespace_reloptions` function is a specialized option parser for PostgreS
   - TableSpaceOpts (structure)
   - lengthof (macro)
 - Called from (representative examples):
-  - CreateTableSpace
-  - AlterTableSpaceOptions
-  - get_tablespace
+  - [CreateTableSpace](../C/CreateTableSpace.md)
+  - [AlterTableSpaceOptions](../A/AlterTableSpaceOptions.md)
+  - [get_tablespace](../g/get_tablespace.md)
 
 ## Notes and Other Information
 - The random_page_cost option sets the cost estimate for random page access, allowing optimization for different storage types (typically lower for SSDs)

@@ -23,7 +23,7 @@ The generate_series_timestamp_fctx structure is used as a function context (fctx
   - Timestamp
   - Interval
 - Called from (representative examples):
-  - generate_series_timestamp (at src/backend/utils/adt/timestamp.c:6509)
+  - [generate_series_timestamp](generate_series_timestamp.md) (at src/backend/utils/adt/timestamp.c:6509)
 
 ## Notes and Other Information
 - This struct is allocated using palloc() in the multi-call memory context to persist across function calls

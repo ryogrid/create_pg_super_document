@@ -23,10 +23,10 @@ This function is a PostgreSQL built-in function that computes the point on the b
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINT_P` - Extracts point argument from function parameters
   - `PG_GETARG_BOX_P` - Extracts box argument from function parameters
-  - `Point` - Point data type definition
-  - `BOX` - Box data type definition
-  - `palloc` - PostgreSQL memory allocation function
-  - `box_closept_point` - Core geometric function that performs the closest point calculation
+  - `[Point](../P/Point.md)` - [Point](../P/Point.md) data type definition
+  - `[BOX](../B/BOX.md)` - Box data type definition
+  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation function
+  - `[box_closept_point](../b/box_closept_point.md)` - Core geometric function that performs the closest point calculation
   - `isnan` - Standard C library function to check for NaN values
   - `PG_RETURN_POINT_P` - Returns point result from PostgreSQL function
 - Called from (representative examples):

@@ -18,10 +18,10 @@ This function allocates memory for an edge table that is used in the ERX crossov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
   - Edge (data structure type)
 - Called from (representative examples):
-  - geqo (main genetic algorithm function)
+  - [geqo](../g/geqo.md) (main genetic algorithm function)
 
 ## Notes and Other Information
 - The function allocates one extra Edge structure to enable 1-based indexing

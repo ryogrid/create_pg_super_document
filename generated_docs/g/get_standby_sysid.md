@@ -22,12 +22,12 @@ This local approach is more efficient than establishing a database connection an
   - ControlFileData (PostgreSQL structure representing control file contents)
   - pg_log_info (logging function for informational messages)
   - get_controlfile (utility function to read and parse the control file)
-  - pg_fatal (function to log fatal error and exit program)
-  - pg_free (PostgreSQL memory deallocation function)
+  - [pg_fatal](../p/pg_fatal.md) (function to log fatal error and exit program)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
 
 - Called from (representative examples):
-  - main (primary entry point of pg_createsubscriber)
-  - LogicalRepInfo structure initialization
+  - [main](../m/main.md) (primary entry point of pg_createsubscriber)
+  - [LogicalRepInfo](../L/LogicalRepInfo.md) structure initialization
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c

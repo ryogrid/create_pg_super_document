@@ -21,12 +21,12 @@ The function specifically configures the credential storage to use a memory cach
 - Functions called/Symbols referenced:
   - gss_store_cred_into (GSS-API function for storing credentials into a specific cache)
   - gss_release_cred (GSS-API function for releasing credential handles)
-  - pg_GSS_error (PostgreSQL's GSS-API error reporting function)
+  - [pg_GSS_error](pg_GSS_error.md) (PostgreSQL's GSS-API error reporting function)
   - setenv (standard C library function for setting environment variables)
   - GSS_MEMORY_CACHE (GSS-API constant specifying memory-based credential cache)
 - Called from (representative examples):
-  - pg_GSS_recvauth (during GSS-API authentication processing)
-  - secure_open_gssapi (during secure GSS-API connection establishment)
+  - [pg_GSS_recvauth](pg_GSS_recvauth.md) (during GSS-API authentication processing)
+  - [secure_open_gssapi](../s/secure_open_gssapi.md) (during secure GSS-API connection establishment)
 
 ## Notes and Other Information
 - Uses memory-based credential cache () for security - credentials are automatically cleaned up when the process exits

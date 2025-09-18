@@ -27,7 +27,7 @@ The function includes a notable design consideration: it excludes all tables cre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsCatalogRelationOid
+  - [IsCatalogRelationOid](../I/IsCatalogRelationOid.md)
 - Constants referenced:
   - RELKIND_RELATION
   - RELKIND_PARTITIONED_TABLE
@@ -36,10 +36,10 @@ The function includes a notable design consideration: it excludes all tables cre
 - Types used:
   - Form_pg_class
 - Called from:
-  - is_publishable_relation
-  - pg_relation_is_publishable
-  - GetAllTablesPublicationRelations
-  - GetSchemaPublicationRelations
+  - [is_publishable_relation](is_publishable_relation.md)
+  - [pg_relation_is_publishable](../p/pg_relation_is_publishable.md)
+  - [GetAllTablesPublicationRelations](../G/GetAllTablesPublicationRelations.md)
+  - [GetSchemaPublicationRelations](../G/GetSchemaPublicationRelations.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_publication.c

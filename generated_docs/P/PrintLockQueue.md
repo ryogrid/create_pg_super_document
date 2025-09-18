@@ -295,7 +295,7 @@ Text creation and manipulation
   - printf
   - fflush
 - Called from (representative examples):
-  - DeadLockCheck
+  - [DeadLockCheck](../D/DeadLockCheck.md)
 
 ## Notes and Other Information
 - Used exclusively for debugging and diagnostic purposes

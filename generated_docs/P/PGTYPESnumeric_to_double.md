@@ -26,11 +26,11 @@ The function performs:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numericvar_to_double (internal conversion function)
-  - numeric (type definition)
+  - [numericvar_to_double](../n/numericvar_to_double.md) (internal conversion function)
+  - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
-  - dectodbl (in informix compatibility library)
-  - main (in test programs for numeric functionality)
+  - [dectodbl](../d/dectodbl.md) (in informix compatibility library)
+  - [main](../m/main.md) (in test programs for numeric functionality)
   - decimal (in test programs)
 
 ## Notes and Other Information

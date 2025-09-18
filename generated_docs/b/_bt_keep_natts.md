@@ -33,14 +33,14 @@ The function may return a value one greater than the number of key attributes, i
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
-  - index_getattr
-  - FunctionCall2Coll
-  - DatumGetInt32
-  - _bt_keep_natts_fast
+  - [index_getattr](../i/index_getattr.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [_bt_keep_natts_fast](_bt_keep_natts_fast.md)
   - BTScanInsert (type)
   - ScanKey (type)
 - Called from (representative examples):
-  - _bt_truncate
+  - [_bt_truncate](_bt_truncate.md)
 
 ## Notes and Other Information
 This function is critical for B-tree suffix truncation optimization. It ensures that truncated pivot tuples retain just enough information to maintain correct ordering while maximizing space savings. The function includes an assertion to verify consistency with _bt_keep_natts_fast() for indexes that support fast equality image comparisons. The heapkeyspace requirement reflects the need for proper handling of truncated attributes in comparison operations.

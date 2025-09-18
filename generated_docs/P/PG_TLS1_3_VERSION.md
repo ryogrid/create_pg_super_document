@@ -19,8 +19,8 @@ This is an enumeration constant with no parameters or member variables. Its nume
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ssl_protocol_version_to_openssl (converts to OpenSSL TLS1_3_VERSION)
-  - ssl_protocol_version_to_string (converts to "TLSv1.3" string)
+  - [ssl_protocol_version_to_openssl](../s/ssl_protocol_version_to_openssl.md) (converts to OpenSSL TLS1_3_VERSION)
+  - [ssl_protocol_version_to_string](../s/ssl_protocol_version_to_string.md) (converts to "TLSv1.3" string)
 - Called from (representative examples):
   - ssl_protocol_versions_info (configuration enum table)
   - ssl_min_protocol_version/ssl_max_protocol_version configuration variables

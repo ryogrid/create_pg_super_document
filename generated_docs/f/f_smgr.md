@@ -36,8 +36,8 @@ The struct encompasses all fundamental storage operations including initializati
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelation
-  - RelFileLocatorBackend
-  - ForkNumber
+  - [RelFileLocatorBackend](../R/RelFileLocatorBackend.md)
+  - [ForkNumber](../F/ForkNumber.md)
   - BlockNumber
 - Called from (representative examples):
   - Storage manager implementations (like md.c for magnetic disk storage)

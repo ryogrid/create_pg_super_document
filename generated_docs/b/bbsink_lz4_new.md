@@ -21,10 +21,10 @@ The function includes compile-time conditional compilation - if PostgreSQL is bu
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting)
-  - palloc0 (memory allocation)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - Assert (assertion checking)
 - Called from (representative examples):
-  - SendBaseBackup (src/backend/backup/basebackup.c:1044)
+  - [SendBaseBackup](../S/SendBaseBackup.md) (src/backend/backup/basebackup.c:1044)
   - bbsink_cleanup (src/include/backup/basebackup_sink.h:288)
 
 ## Notes and Other Information

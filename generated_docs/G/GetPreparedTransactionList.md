@@ -18,13 +18,13 @@ GetPreparedTransactionList is a static function that provides a snapshot of all 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease (for shared lock on TwoPhaseStateLock)  
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - memcpy (for copying transaction data)
 - Data structures accessed:
   - TwoPhaseState (global two-phase commit state)
   - GlobalTransaction/GlobalTransactionData (transaction structure types)
 - Called from:
-  - pg_prepared_xact (system view function)
+  - [pg_prepared_xact](../p/pg_prepared_xact.md) (system view function)
 
 ## Notes and Other Information
 - Returns the number of prepared transactions as the function result

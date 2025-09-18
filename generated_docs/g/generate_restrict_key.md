@@ -19,15 +19,15 @@ This function takes no parameters and returns a dynamically allocated string.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc: Allocates memory for the restrict key string
-  - pg_strong_random: Generates cryptographically strong random bytes
+  - [palloc](../p/palloc.md): Allocates memory for the restrict key string
+  - [pg_strong_random](../p/pg_strong_random.md): Generates cryptographically strong random bytes
   - strlen: Calculates the length of the restrict_chars array
   - restrict_chars: Static constant string containing valid characters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
 - Called from (representative examples):
-  - main (pg_dump): Used in the main function of pg_dump utility
-  - main (pg_dumpall): Used in the main function of pg_dumpall utility  
-  - main (pg_restore): Used in the main function of pg_restore utility
+  - [main](../m/main.md) (pg_dump): Used in the main function of pg_dump utility
+  - [main](../m/main.md) (pg_dumpall): Used in the main function of pg_dumpall utility  
+  - [main](../m/main.md) (pg_restore): Used in the main function of pg_restore utility
 
 ## Notes and Other Information
 - Returns NULL if pg_strong_random fails to generate random data

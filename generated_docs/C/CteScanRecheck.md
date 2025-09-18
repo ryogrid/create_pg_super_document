@@ -22,7 +22,7 @@ For CTE scans, this function currently performs no actual rechecking and always 
 - Functions called/Symbols referenced:
   - (none - function immediately returns true)
 - Called from (representative examples):
-  - ExecCteScan: Called during EvalPlanQual processing
+  - [ExecCteScan](../E/ExecCteScan.md): Called during EvalPlanQual processing
 
 ## Notes and Other Information
 - Always returns true indicating the tuple passes rechecking

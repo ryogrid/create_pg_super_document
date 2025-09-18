@@ -17,8 +17,8 @@ The to_jsonb_is_immutable function evaluates whether a PostgreSQL data type prod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_categorize_type
-  - func_volatile
+  - [json_categorize_type](../j/json_categorize_type.md)
+  - [func_volatile](../f/func_volatile.md)
   - JsonTypeCategory
   - JSONTYPE_NULL, JSONTYPE_BOOL, JSONTYPE_JSON, JSONTYPE_JSONB
   - JSONTYPE_DATE, JSONTYPE_TIMESTAMP, JSONTYPE_TIMESTAMPTZ
@@ -26,7 +26,7 @@ The to_jsonb_is_immutable function evaluates whether a PostgreSQL data type prod
   - JSONTYPE_NUMERIC, JSONTYPE_CAST, JSONTYPE_OTHER
   - PROVOLATILE_IMMUTABLE
 - Called from (representative examples):
-  - contain_mutable_functions_walker
+  - [contain_mutable_functions_walker](../c/contain_mutable_functions_walker.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

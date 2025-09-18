@@ -27,13 +27,13 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon (standard auxiliary process setup)
-  - GetOldestUnsummarizedLSN (determines starting position)
-  - GetLatestLSN (finds latest available WAL position)
-  - SummarizeWAL (core WAL summarization logic)
-  - HandleWalSummarizerInterrupts (signal processing)
-  - MaybeRemoveOldWalSummaries (cleanup old files)
-  - WalSummarizerShutdown (cleanup on exit)
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md) (standard auxiliary process setup)
+  - [GetOldestUnsummarizedLSN](../G/GetOldestUnsummarizedLSN.md) (determines starting position)
+  - [GetLatestLSN](../G/GetLatestLSN.md) (finds latest available WAL position)
+  - [SummarizeWAL](../S/SummarizeWAL.md) (core WAL summarization logic)
+  - [HandleWalSummarizerInterrupts](../H/HandleWalSummarizerInterrupts.md) (signal processing)
+  - [MaybeRemoveOldWalSummaries](../M/MaybeRemoveOldWalSummaries.md) (cleanup old files)
+  - [WalSummarizerShutdown](WalSummarizerShutdown.md) (cleanup on exit)
   - Various PostgreSQL utility functions for memory, locking, signals
 - Called from (representative examples):
   - child_process_kind (in src/backend/postmaster/launch_backend.c:207)

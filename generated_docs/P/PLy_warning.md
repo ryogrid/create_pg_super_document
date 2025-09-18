@@ -23,7 +23,7 @@ The function delegates all its work to PLy_output, passing the WARNING log level
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_output (the core logging function that handles message formatting and PostgreSQL integration)
+  - [PLy_output](PLy_output.md) (the core logging function that handles message formatting and PostgreSQL integration)
   - WARNING (log level constant defined as 19 in src/include/utils/elog.h:46)
 - Called from (representative examples):
   - Available to Python code as plpy.warning() when imported in PL/Python functions

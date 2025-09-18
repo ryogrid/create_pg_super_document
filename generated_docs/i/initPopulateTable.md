@@ -21,15 +21,15 @@ This function is responsible for efficiently populating pgbench tables with larg
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer/termPQExpBuffer: PostgreSQL buffer management functions
-  - PQserverVersion: Gets PostgreSQL server version for feature detection
-  - PQexec: Executes the COPY statement
+  - [PQserverVersion](../P/PQserverVersion.md): Gets PostgreSQL server version for feature detection
+  - [PQexec](../P/PQexec.md): Executes the COPY statement
   - PQputline/PQendcopy: COPY protocol functions for data streaming
-  - pg_time_now/PG_TIME_GET_DOUBLE: Time measurement utilities for progress reporting
-  - pg_snprintf: Safe string formatting
+  - [pg_time_now](../p/pg_time_now.md)/PG_TIME_GET_DOUBLE: Time measurement utilities for progress reporting
+  - [pg_snprintf](../p/pg_snprintf.md): Safe string formatting
   - PGRES_COPY_IN: Result status constant
   - LOG_STEP_SECONDS: Constant for progress reporting intervals
 - Called from (representative examples):
-  - initGenerateDataClientSide: Uses this function to populate branches, tellers, and accounts tables
+  - [initGenerateDataClientSide](initGenerateDataClientSide.md): Uses this function to populate branches, tellers, and accounts tables
 
 ## Notes and Other Information
 - Automatically detects PostgreSQL 14+ and uses COPY FREEZE for better performance

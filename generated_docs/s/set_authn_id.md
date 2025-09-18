@@ -22,22 +22,22 @@ The authenticated identity and method are logged if connection logging is enable
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextStrdup (for copying the ID string to permanent memory)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (for copying the ID string to permanent memory)
   - ereport (for logging and error reporting)
-  - errdetail_log (for detailed error logging)
-  - hba_authname (for converting auth method to string name)
+  - [errdetail_log](../e/errdetail_log.md) (for detailed error logging)
+  - [hba_authname](../h/hba_authname.md) (for converting auth method to string name)
 - Called from (representative examples):
-  - CheckPasswordAuth (password authentication)
-  - CheckPWChallengeAuth (password challenge authentication)
-  - pg_GSS_checkauth (GSSAPI authentication)
-  - pg_SSPI_recvauth (SSPI authentication)
-  - ident_inet (Ident authentication)
-  - auth_peer (Peer authentication)
-  - CheckPAMAuth (PAM authentication)
-  - CheckBSDAuth (BSD authentication)
-  - CheckLDAPAuth (LDAP authentication)
-  - CheckCertAuth (Certificate authentication)
-  - CheckRADIUSAuth (RADIUS authentication)
+  - [CheckPasswordAuth](../C/CheckPasswordAuth.md) (password authentication)
+  - [CheckPWChallengeAuth](../C/CheckPWChallengeAuth.md) (password challenge authentication)
+  - [pg_GSS_checkauth](../p/pg_GSS_checkauth.md) (GSSAPI authentication)
+  - [pg_SSPI_recvauth](../p/pg_SSPI_recvauth.md) (SSPI authentication)
+  - [ident_inet](../i/ident_inet.md) (Ident authentication)
+  - [auth_peer](../a/auth_peer.md) (Peer authentication)
+  - [CheckPAMAuth](../C/CheckPAMAuth.md) (PAM authentication)
+  - [CheckBSDAuth](../C/CheckBSDAuth.md) (BSD authentication)
+  - [CheckLDAPAuth](../C/CheckLDAPAuth.md) (LDAP authentication)
+  - [CheckCertAuth](../C/CheckCertAuth.md) (Certificate authentication)
+  - [CheckRADIUSAuth](../C/CheckRADIUSAuth.md) (RADIUS authentication)
 
 ## Notes and Other Information
 - The function must be called exactly once per successful authentication

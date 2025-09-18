@@ -26,8 +26,8 @@ Range types support various operations like overlap detection, containment check
   - SET_VARSIZE macro (for varlena size setting)
   - PG_DETOAST_DATUM (via DatumGetRangeTypeP)
 - Called from (representative examples):
-  - range_deserialize (extracts bounds from RangeType)
-  - range_serialize (creates RangeType from bounds)
+  - [range_deserialize](../r/range_deserialize.md) (extracts bounds from RangeType)
+  - [range_serialize](../r/range_serialize.md) (creates RangeType from bounds)
   - Various range operation functions (range_eq_internal, range_contains_internal, etc.)
 
 ## Notes and Other Information

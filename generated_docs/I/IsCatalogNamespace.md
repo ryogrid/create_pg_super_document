@@ -23,10 +23,10 @@ The function performs a direct comparison against the PG_CATALOG_NAMESPACE const
 - Functions called/Symbols referenced:
   - PG_CATALOG_NAMESPACE (constant: OID 11, representing the pg_catalog namespace)
 - Called from (representative examples):
-  - heap_create (src/backend/catalog/heap.c:321)
-  - check_publication_add_schema (src/backend/catalog/pg_publication.c:101)
-  - AlterTableMoveAll (src/backend/commands/tablecmds.c:15470)
-  - RelationBuildLocalRelation (src/backend/utils/cache/relcache.c:3678)
+  - [heap_create](../h/heap_create.md) (src/backend/catalog/heap.c:321)
+  - [check_publication_add_schema](../c/check_publication_add_schema.md) (src/backend/catalog/pg_publication.c:101)
+  - [AlterTableMoveAll](../A/AlterTableMoveAll.md) (src/backend/commands/tablecmds.c:15470)
+  - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md) (src/backend/utils/cache/relcache.c:3678)
 
 ## Notes and Other Information
 - Does not perform any catalog accesses, making it very fast

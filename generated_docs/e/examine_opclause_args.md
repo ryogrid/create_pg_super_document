@@ -26,7 +26,7 @@ This utility function analyzes operator clause arguments to identify expressions
   - linitial
   - IsA
 - Called from (representative examples):
-  - statext_is_compatible_clause_internal
+  - [statext_is_compatible_clause_internal](../s/statext_is_compatible_clause_internal.md)
   - mcv_get_match_bitmap
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ The function delegates to the underlying table access method's relation_toast_am
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_toast_am (table access method function pointer)
 - Called from (representative examples):
-  - create_toast_table (in src/backend/catalog/toasting.c:254)
+  - [create_toast_table](../c/create_toast_table.md) (in src/backend/catalog/toasting.c:254)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam header file for efficient access

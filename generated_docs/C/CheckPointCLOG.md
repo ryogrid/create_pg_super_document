@@ -22,12 +22,12 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TRACE_POSTGRESQL_CLOG_CHECKPOINT_START
-  - SimpleLruWriteAll
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
   - TRACE_POSTGRESQL_CLOG_CHECKPOINT_DONE
 - Global variables accessed:
   - XactCtl
 - Called from:
-  - CheckPointGuts (src/backend/access/transam/xlog.c:7515)
+  - [CheckPointGuts](CheckPointGuts.md) (src/backend/access/transam/xlog.c:7515)
 
 ## Notes and Other Information
 - Can be called during both shutdown checkpoints and on-the-fly checkpoints

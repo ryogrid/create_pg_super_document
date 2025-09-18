@@ -35,16 +35,16 @@ LZ4State serves as the central state management structure for LZ4 compression op
   - LZ4F_decompressionContext_t
   - FILE
 - Called from (representative examples):
-  - LZ4State_compression_init
-  - WriteDataToArchiveLZ4
-  - EndCompressorLZ4
-  - LZ4Stream_eof
-  - LZ4Stream_init
-  - LZ4Stream_read_overflow
-  - LZ4Stream_write
-  - LZ4Stream_read
-  - LZ4Stream_open
-  - LZ4Stream_close
+  - [LZ4State_compression_init](LZ4State_compression_init.md)
+  - [WriteDataToArchiveLZ4](../W/WriteDataToArchiveLZ4.md)
+  - [EndCompressorLZ4](../E/EndCompressorLZ4.md)
+  - [LZ4Stream_eof](LZ4Stream_eof.md)
+  - [LZ4Stream_init](LZ4Stream_init.md)
+  - [LZ4Stream_read_overflow](LZ4Stream_read_overflow.md)
+  - [LZ4Stream_write](LZ4Stream_write.md)
+  - [LZ4Stream_read](LZ4Stream_read.md)
+  - [LZ4Stream_open](LZ4Stream_open.md)
+  - [LZ4Stream_close](LZ4Stream_close.md)
 
 ## Notes and Other Information
 - The structure is designed to be versatile, supporting both streaming operations (through file pointers) and direct buffer operations

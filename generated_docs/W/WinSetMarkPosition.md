@@ -19,14 +19,14 @@ This function establishes a lower bound for tuple access within a partition by s
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - tuplestore_select_read_pointer
-  - tuplestore_skiptuples
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md)
+  - [tuplestore_skiptuples](../t/tuplestore_skiptuples.md)
 - Called from (representative examples):
-  - eval_windowaggregates
-  - WinGetFuncArgInPartition
-  - WinGetFuncArgInFrame
-  - rank_up
-  - window_row_number
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
+  - [WinGetFuncArgInPartition](WinGetFuncArgInPartition.md)
+  - [WinGetFuncArgInFrame](WinGetFuncArgInFrame.md)
+  - [rank_up](../r/rank_up.md)
+  - [window_row_number](../w/window_row_number.md)
 
 ## Notes and Other Information
 - Mark position can only move forward, never backward (enforced with error check)

@@ -19,8 +19,8 @@ This function provides the timestamp of the most recent checksum verification fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DataChecksumsEnabled
-  - pgstat_fetch_stat_dbentry  
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
+  - [pgstat_fetch_stat_dbentry](pgstat_fetch_stat_dbentry.md)  
   - PG_RETURN_TIMESTAMPTZ
 - Called from (representative examples):
   - SQL queries via pg_stat_get_db_checksum_last_failure() function

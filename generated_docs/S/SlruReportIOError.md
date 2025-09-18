@@ -19,18 +19,18 @@ SlruReportIOError is a static internal function that handles error reporting aft
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruFileName
+  - [SlruFileName](SlruFileName.md)
   - ereport/elog (error reporting functions)
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - data_sync_elevel
 - Constants used:
   - SLRU_PAGES_PER_SEGMENT
   - SLRU_OPEN_FAILED, SLRU_SEEK_FAILED, SLRU_READ_FAILED, SLRU_WRITE_FAILED, SLRU_FSYNC_FAILED, SLRU_CLOSE_FAILED
 - Called from:
-  - SimpleLruReadPage
-  - SlruInternalWritePage
-  - SimpleLruDoesPhysicalPageExist
-  - SimpleLruWriteAll
+  - [SimpleLruReadPage](SimpleLruReadPage.md)
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
+  - [SimpleLruDoesPhysicalPageExist](SimpleLruDoesPhysicalPageExist.md)
+  - [SimpleLruWriteAll](SimpleLruWriteAll.md)
 
 ## Notes and Other Information
 - This function relies on global variables `slru_errno` and `slru_errcause` to determine the specific error type and system errno value

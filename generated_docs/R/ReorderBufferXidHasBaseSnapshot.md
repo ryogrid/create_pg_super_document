@@ -18,11 +18,11 @@ This function determines whether a given transaction has already been assigned a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - rbtxn_is_known_subxact
 - Called from (representative examples):
-  - SnapBuildProcessChange
-  - SnapBuildDistributeSnapshotAndInval
+  - [SnapBuildProcessChange](../S/SnapBuildProcessChange.md)
+  - [SnapBuildDistributeSnapshotAndInval](../S/SnapBuildDistributeSnapshotAndInval.md)
   - SnapBuildCommitTxn
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ The function uses simple string comparisons with `strcmp()` to check each of the
   - `strcmp`: Standard C library string comparison function
 
 - Called from (representative examples):
-  - `exec_command`: Used to determine whether to show "command ignored" warnings in interactive mode when processing commands in inactive conditional branches
+  - `[exec_command](../e/exec_command.md)`: Used to determine whether to show "command ignored" warnings in interactive mode when processing commands in inactive conditional branches
 
 ## Notes and Other Information
 - The function is static to the command.c file, indicating it's an internal utility for command processing

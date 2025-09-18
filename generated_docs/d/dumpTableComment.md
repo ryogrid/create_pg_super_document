@@ -24,16 +24,16 @@ The function generates appropriate COMMENT ON TABLE/VIEW or COMMENT ON COLUMN st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findComments
-  - resetPQExpBuffer
-  - fmtId
+  - [findComments](../f/findComments.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
   - appendStringLiteralAH
-  - createDumpId
-  - ArchiveEntry
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - ARCHIVE_OPTS
 - Called from (representative examples):
-  - dumpTableSchema
+  - [dumpTableSchema](dumpTableSchema.md)
 
 ## Notes and Other Information
 - Respects --no-comments and --data-only dump options

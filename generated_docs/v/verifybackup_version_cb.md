@@ -20,10 +20,10 @@ The function extracts the private_data from the parsing context (which contains 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonManifestParseContext (parsing context structure)
-  - manifest_data (structure for storing manifest information)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (parsing context structure)
+  - [manifest_data](../m/manifest_data.md) (structure for storing manifest information)
 - Called from:
-  - parse_manifest_file (in src/bin/pg_verifybackup/pg_verifybackup.c:422)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (in src/bin/pg_verifybackup/pg_verifybackup.c:422)
 
 ## Notes and Other Information
 - Located in src/bin/pg_verifybackup/pg_verifybackup.c:522-534

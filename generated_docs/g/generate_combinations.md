@@ -19,13 +19,13 @@ This is the main interface function for combination generation within PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CombinationGenerator (structure)
-  - generate_combinations_recurse (core recursive function)
-  - palloc0 (PostgreSQL memory allocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [CombinationGenerator](../C/CombinationGenerator.md) (structure)
+  - [generate_combinations_recurse](generate_combinations_recurse.md) (core recursive function)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 
 - Called from (representative examples):
-  - generator_init
+  - [generator_init](generator_init.md)
 
 ## Notes and Other Information
 - Manages memory allocation and deallocation for the working combination array

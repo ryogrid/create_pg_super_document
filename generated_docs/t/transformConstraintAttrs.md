@@ -28,15 +28,15 @@ Currently, constraint attributes are only supported for FOREIGN KEY, UNIQUE, EXC
 - Functions called/Symbols referenced:
   - CreateStmtContext (structure)
   - Constraint (structure)
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - lfirst (list iteration macro)
   - IsA (node type checking macro)
   - elog (error logging function)
   - ereport (error reporting function)
-  - parser_errposition (parser error position function)
+  - [parser_errposition](../p/parser_errposition.md) (parser error position function)
 
 - Called from (representative examples):
-  - transformColumnDefinition (src/backend/parser/parse_utilcmd.c:673)
+  - [transformColumnDefinition](transformColumnDefinition.md) (src/backend/parser/parse_utilcmd.c:673)
 
 ## Notes and Other Information
 - The function uses a macro  to check if a constraint type supports attributes

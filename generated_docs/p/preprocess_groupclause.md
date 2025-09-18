@@ -42,16 +42,16 @@ This function performs a crucial optimization by rearranging the GROUP BY clause
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupref_clause
+  - [get_sortgroupref_clause](../g/get_sortgroupref_clause.md)
   - lfirst_int, list_copy, list_member_ptr
-  - equal (node comparison)
+  - [equal](../e/equal.md) (node comparison)
   - OidIsValid
   - SortGroupClause node handling
 - Called from:
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
   - standard_qp_extra  
-  - preprocess_grouping_sets
-  - consider_groupingsets_paths
+  - [preprocess_grouping_sets](preprocess_grouping_sets.md)
+  - [consider_groupingsets_paths](../c/consider_groupingsets_paths.md)
 
 ## Notes and Other Information
 - **Return Value**: Fresh List containing reordered SortGroupClause elements (same objects as input)

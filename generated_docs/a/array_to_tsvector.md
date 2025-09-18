@@ -24,14 +24,14 @@ The resulting TSVector contains lexemes without position or weight information (
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P - Extract array argument
-  - deconstruct_array_builtin - Decompose array into elements
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md) - Decompose array into elements
   - VARSIZE - Get size of variable-length data
   - ereport - Report errors for validation failures
   - qsort - Sort lexemes alphabetically
-  - qunique - Remove duplicate lexemes
-  - compare_text_lexemes - Comparison function for lexeme sorting
+  - [qunique](../q/qunique.md) - Remove duplicate lexemes
+  - [compare_text_lexemes](../c/compare_text_lexemes.md) - Comparison function for lexeme sorting
   - CALCDATASIZE - Calculate required TSVector size
-  - palloc0 - Allocate zero-initialized memory
+  - [palloc0](../p/palloc0.md) - Allocate zero-initialized memory
   - SET_VARSIZE - Set PostgreSQL variable size
   - ARRPTR - Get pointer to WordEntry array
   - STRPTR - Get pointer to string data area

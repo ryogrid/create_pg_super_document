@@ -19,14 +19,14 @@ The  function provides safe addition of two Cash values (64-bit signed integers 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Cash (type)
-  - pg_add_s64_overflow (overflow-safe addition)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (overflow-safe addition)
   - ereport (error reporting)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
   - ERROR (error level constant)
   - ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE (specific error code)
 - Called from (representative examples):
-  - cash_pl
+  - [cash_pl](cash_pl.md)
 
 ## Notes and Other Information
 - Declared as  for performance optimization in arithmetic operations

@@ -23,18 +23,18 @@ This function takes no parameters and operates on global MultiXact state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdToOffsetPage
-  - SimpleLruGetBankLock
+  - [MultiXactIdToOffsetPage](MultiXactIdToOffsetPage.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire
-  - SimpleLruDoesPhysicalPageExist
-  - ZeroMultiXactOffsetPage
-  - SimpleLruWritePage
+  - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
+  - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
   - LWLockRelease
 - Global variables accessed:
   - MultiXactState
   - MultiXactOffsetCtl
 - Called from:
-  - MultiXactSetNextMXact
+  - [MultiXactSetNextMXact](MultiXactSetNextMXact.md)
 
 ## Notes and Other Information
 - Function is static and only accessible within the multixact.c module

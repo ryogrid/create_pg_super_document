@@ -19,14 +19,14 @@ This function returns all tables, materialized views, and views in the current d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - query_to_oid_list
+  - [query_to_oid_list](../q/query_to_oid_list.md)
   - RELKIND_RELATION
   - RELKIND_MATVIEW
   - RELKIND_VIEW
   - CppAsString2
   - XML_VISIBLE_SCHEMAS (macro for schema visibility filter)
 - Called from (representative examples):
-  - database_to_xmlschema_internal
+  - [database_to_xmlschema_internal](database_to_xmlschema_internal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xml.c file

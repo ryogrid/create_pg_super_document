@@ -34,24 +34,24 @@ The dependency analysis phase passes the complete objects list as pendingObjects
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - new_object_addresses
-  - AcquireDeletionLock
-  - findDependentObjects
-  - reportDependentObjects
-  - deleteObjectsInList
-  - free_object_addresses
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [AcquireDeletionLock](../A/AcquireDeletionLock.md)
+  - [findDependentObjects](../f/findDependentObjects.md)
+  - [reportDependentObjects](../r/reportDependentObjects.md)
+  - [deleteObjectsInList](../d/deleteObjectsInList.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
   - table_close
 - Data structures used:
   - ObjectAddresses
-  - ObjectAddress
+  - [ObjectAddress](../O/ObjectAddress.md)
   - DropBehavior
   - DEPFLAG_ORIGINAL
 - Called from (representative examples):
-  - shdepDropOwned
-  - RemoveObjects
-  - RemoveRelations
-  - ATExecDropColumn
-  - tryAttachPartitionForeignKey
+  - [shdepDropOwned](../s/shdepDropOwned.md)
+  - [RemoveObjects](../R/RemoveObjects.md)
+  - [RemoveRelations](../R/RemoveRelations.md)
+  - [ATExecDropColumn](../A/ATExecDropColumn.md)
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md)
 
 ## Notes and Other Information
 - This is a public function accessible throughout the PostgreSQL backend

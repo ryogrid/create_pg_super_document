@@ -33,25 +33,25 @@ The function implements several optimizations and special cases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializationNeededForRead
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
   - SxactIsDoomed
   - TransactionIdEquals
-  - GetTopTransactionIdIfAny
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
   - LWLockAcquire
   - LWLockRelease
-  - hash_search
-  - SerialGetMinConflictCommitSeqNo
+  - [hash_search](../h/hash_search.md)
+  - [SerialGetMinConflictCommitSeqNo](../S/SerialGetMinConflictCommitSeqNo.md)
   - SxactIsReadOnly
   - SxactHasSummaryConflictIn
   - SxactHasSummaryConflictOut
   - SxactIsCommitted
   - SxactIsPrepared
   - SxactHasConflictOut
-  - XidIsConcurrent
-  - RWConflictExists
-  - FlagRWConflict
+  - [XidIsConcurrent](../X/XidIsConcurrent.md)
+  - [RWConflictExists](../R/RWConflictExists.md)
+  - [FlagRWConflict](../F/FlagRWConflict.md)
 - Called from:
-  - HeapCheckForSerializableConflictOut
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
   - SerializableXactHandle (via include)
 
 ## Notes and Other Information

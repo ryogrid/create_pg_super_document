@@ -39,15 +39,15 @@ Iterator functionality allows efficient sequential access to all integers in the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_node, intset_leaf_node (tree node structures)
+  - [intset_node](../i/intset_node.md), intset_leaf_node (tree node structures)
   - MAX_TREE_LEVELS (11), MAX_BUFFERED_VALUES, MAX_VALUES_PER_LEAF_ITEM (capacity constants)
-  - simple8b_encode, simple8b_decode, simple8b_contains (compression functions)
-  - intset_binsrch_uint64, intset_binsrch_leaf (search functions)
+  - [simple8b_encode](../s/simple8b_encode.md), simple8b_decode, simple8b_contains (compression functions)
+  - [intset_binsrch_uint64](../i/intset_binsrch_uint64.md), intset_binsrch_leaf (search functions)
 - Referenced by:
-  - intset_create
-  - intset_add_member, intset_is_member
-  - intset_begin_iterate, intset_iterate_next
-  - intset_num_entries, intset_memory_usage
+  - [intset_create](../i/intset_create.md)
+  - [intset_add_member](../i/intset_add_member.md), intset_is_member
+  - [intset_begin_iterate](../i/intset_begin_iterate.md), intset_iterate_next
+  - [intset_num_entries](../i/intset_num_entries.md), intset_memory_usage
   - Various test functions
 
 ## Notes and Other Information

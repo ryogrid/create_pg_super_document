@@ -29,17 +29,17 @@ The function asserts that newState->nins == 0 to enforce that it should only be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createarc (creates new arc)
-  - arc (struct type)
+  - [createarc](createarc.md) (creates new arc)
+  - [arc](../a/arc.md) (struct type)
   - BULK_ARC_OP_USE_SORT (macro, ifdef'd out)
-  - cparc (copy arc function, ifdef'd out)
-  - sortins (sort function, ifdef'd out)
-  - sortins_cmp (comparison function, ifdef'd out)
+  - [cparc](cparc.md) (copy arc function, ifdef'd out)
+  - [sortins](../s/sortins.md) (sort function, ifdef'd out)
+  - [sortins_cmp](../s/sortins_cmp.md) (comparison function, ifdef'd out)
   - INTERRUPT (cancellation check, ifdef'd out)
   - NISERR (error checking, ifdef'd out)
   - NOTREACHED (assertion, ifdef'd out)
 - Called from (representative examples):
-  - pull (src/backend/regex/regc_nfa.c:1749)
+  - [pull](../p/pull.md) (src/backend/regex/regc_nfa.c:1749)
 
 ## Notes and Other Information
 - This is a static function local to the regc_nfa.c file

@@ -28,19 +28,19 @@ The function includes an optimization for pure ASCII input (no processing needed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_utf8_string_len (UTF-8 validation and length calculation)
+  - [pg_utf8_string_len](pg_utf8_string_len.md) (UTF-8 validation and length calculation)
   - pg_is_ascii (ASCII optimization check)
-  - utf8_to_unicode (UTF-8 to Unicode codepoint conversion)
+  - [utf8_to_unicode](../u/utf8_to_unicode.md) (UTF-8 to Unicode codepoint conversion)
   - unicode_normalize (Unicode NFKC normalization)
   - unicode_to_utf8 (Unicode codepoint to UTF-8 conversion)
   - pg_utf_mblen (UTF-8 multibyte length calculation)
   - IS_CODE_IN_TABLE (codepoint range checking macro)
   - Memory allocation/deallocation macros (ALLOC, FREE, STRDUP)
 - Called from (representative examples):
-  - pg_be_scram_build_secret (backend SCRAM authentication)
-  - scram_verify_plain_password (password verification)
-  - pg_fe_scram_build_secret (frontend SCRAM authentication)
-  - scram_init (SCRAM initialization)
+  - [pg_be_scram_build_secret](pg_be_scram_build_secret.md) (backend SCRAM authentication)
+  - [scram_verify_plain_password](../s/scram_verify_plain_password.md) (password verification)
+  - [pg_fe_scram_build_secret](pg_fe_scram_build_secret.md) (frontend SCRAM authentication)
+  - [scram_init](../s/scram_init.md) (SCRAM initialization)
 
 ## Notes and Other Information
 - Returns pg_saslprep_rc enum values: SASLPREP_SUCCESS, SASLPREP_INVALID_UTF8, SASLPREP_PROHIBITED, or SASLPREP_OOM

@@ -27,19 +27,19 @@ The visibility flags (p_rel_visible and p_cols_visible) implement SQL's complex 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Alias (for p_names field)
-  - RangeTblEntry (for p_rte field)
-  - RTEPermissionInfo (for p_perminfo field)
-  - ParseNamespaceColumn (for p_nscolumns array)
+  - [Alias](../A/Alias.md) (for p_names field)
+  - [RangeTblEntry](../R/RangeTblEntry.md) (for p_rte field)
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (for p_perminfo field)
+  - [ParseNamespaceColumn](ParseNamespaceColumn.md) (for p_nscolumns array)
 
 - Called from (representative examples):
-  - buildNSItemFromTupleDesc
-  - buildNSItemFromLists
-  - addRangeTableEntry functions
-  - scanNameSpaceForRefname
-  - refnameNamespaceItem
-  - transformFromClauseItem
-  - setNamespaceColumnVisibility
+  - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md)
+  - [buildNSItemFromLists](../b/buildNSItemFromLists.md)
+  - [addRangeTableEntry](../a/addRangeTableEntry.md) functions
+  - [scanNameSpaceForRefname](../s/scanNameSpaceForRefname.md)
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md)
+  - [setNamespaceColumnVisibility](../s/setNamespaceColumnVisibility.md)
 
 ## Notes and Other Information
 ParseNamespaceItem implements sophisticated visibility semantics required by SQL standards. The separation of p_rel_visible and p_cols_visible flags handles cases like:

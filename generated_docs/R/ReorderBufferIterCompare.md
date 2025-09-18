@@ -25,10 +25,10 @@ The k-way merge approach assumes that changes within individual transactions are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (extracts integer values from Datum parameters)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (extracts integer values from Datum parameters)
   - ReorderBufferIterTXNState (iterator state structure type)
 - Called from (representative examples):
-  - ReorderBufferIterTXNInit (during iterator initialization)
+  - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md) (during iterator initialization)
 
 ## Notes and Other Information
 - This is a static function used internally for binary heap operations

@@ -28,14 +28,14 @@ The printTextFormat structure represents a complete formatting theme for text-ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTextLineFormat (embedded structure)
+  - [printTextLineFormat](printTextLineFormat.md) (embedded structure)
 - Called from (representative examples):
-  - _print_horizontal_line (src/fe_utils/print.c:595)
-  - print_aligned_text (src/fe_utils/print.c:640)
-  - print_aligned_vertical (src/fe_utils/print.c:1329)
-  - setDecimalLocale (src/fe_utils/print.c:3676)
+  - [_print_horizontal_line](_print_horizontal_line.md) (src/fe_utils/print.c:595)
+  - [print_aligned_text](print_aligned_text.md) (src/fe_utils/print.c:640)
+  - [print_aligned_vertical](print_aligned_vertical.md) (src/fe_utils/print.c:1329)
+  - [setDecimalLocale](../s/setDecimalLocale.md) (src/fe_utils/print.c:3676)
   - refresh_utf8format (src/fe_utils/print.c:3693)
-  - printTableOpt (src/include/fe_utils/print.h:131)
+  - [printTableOpt](printTableOpt.md) (src/include/fe_utils/print.h:131)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's table formatting system and enables the creation of visually appealing, readable table output. The array of printTextLineFormat structures allows different formatting for different parts of the table (top, middle, bottom, data). The wrap and newline handling features make it suitable for complex data display scenarios where content may exceed column widths or contain embedded newlines.

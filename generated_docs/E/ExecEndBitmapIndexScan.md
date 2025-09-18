@@ -21,10 +21,10 @@ The function follows the standard cleanup pattern used throughout the PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_endscan (to properly terminate the index scan)
-  - index_close (to close the index relation without lock release)
+  - [index_endscan](../i/index_endscan.md) (to properly terminate the index scan)
+  - [index_close](../i/index_close.md) (to close the index relation without lock release)
 - Called from (representative examples):
-  - ExecEndNode (from the general executor cleanup framework)
+  - [ExecEndNode](ExecEndNode.md) (from the general executor cleanup framework)
 
 ## Notes and Other Information
 - Part of the standard executor node lifecycle (Init -> Exec -> End)

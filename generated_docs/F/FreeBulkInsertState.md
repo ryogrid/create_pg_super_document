@@ -23,14 +23,14 @@ The cleanup process involves three key steps: releasing any active buffer that m
 - Functions called/Symbols referenced:
   - ReleaseBuffer
   - FreeAccessStrategy
-  - pfree
+  - [pfree](../p/pfree.md)
   - InvalidBuffer (for comparison)
 - Called from (representative examples):
-  - CopyMultiInsertBufferCleanup
-  - CopyFrom
-  - intorel_shutdown
-  - transientrel_shutdown
-  - ATRewriteTable
+  - [CopyMultiInsertBufferCleanup](../C/CopyMultiInsertBufferCleanup.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [intorel_shutdown](../i/intorel_shutdown.md)
+  - [transientrel_shutdown](../t/transientrel_shutdown.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
 
 ## Notes and Other Information
 - Must be called for every BulkInsertState created with GetBulkInsertState to avoid memory leaks

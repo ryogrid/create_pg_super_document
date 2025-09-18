@@ -24,15 +24,15 @@ The function uses PostgreSQL's latch-based waiting mechanism to efficiently wait
 - Functions called/Symbols referenced:
   - ReleaseExternalFD
   - PQstatus
-  - PQsocket
-  - PQconnectPoll
-  - PQfinish
-  - WaitLatchOrSocket
-  - ResetLatch
+  - [PQsocket](../P/PQsocket.md)
+  - [PQconnectPoll](../P/PQconnectPoll.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - libpqsrv_connect
-  - libpqsrv_connect_params
+  - [libpqsrv_connect](libpqsrv_connect.md)
+  - [libpqsrv_connect_params](libpqsrv_connect_params.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/libpq/libpq-be-fe-helpers.h:160-255

@@ -18,9 +18,9 @@ This function is a specialized accessor for MinimalTupleTableSlot that ensures t
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTupleTableSlot (struct type cast)
-  - tts_minimal_materialize
+  - [tts_minimal_materialize](tts_minimal_materialize.md)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to execTuples.c

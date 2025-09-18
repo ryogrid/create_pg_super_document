@@ -22,8 +22,8 @@ The function is designed to be used with standard library functions like qsort()
 - Functions called/Symbols referenced:
   - strcmp (standard string comparison function)
 - Called from (representative examples):
-  - printCrosstab (for sorting pivot field arrays)
-  - avlInsertNode (for maintaining AVL tree ordering)
+  - [printCrosstab](printCrosstab.md) (for sorting pivot field arrays)
+  - [avlInsertNode](../a/avlInsertNode.md) (for maintaining AVL tree ordering)
 
 ## Notes and Other Information
 - Returns 0 if both names are equal (including both being null)

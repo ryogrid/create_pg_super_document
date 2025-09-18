@@ -19,12 +19,12 @@ The function is primarily used internally by libpq to handle asynchronous messag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqParseInput3
+  - [pqParseInput3](pqParseInput3.md)
 - Called from (representative examples):
-  - PQisBusy
-  - PQgetResult
-  - PQnotifies
-  - PQputCopyData
+  - [PQisBusy](../P/PQisBusy.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [PQnotifies](../P/PQnotifies.md)
+  - [PQputCopyData](../P/PQputCopyData.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public libpq API

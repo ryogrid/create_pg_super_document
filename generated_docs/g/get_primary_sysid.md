@@ -21,18 +21,18 @@ The function includes comprehensive error handling for connection failures, quer
 - Functions called/Symbols referenced:
   - pg_log_info (logging function for informational messages)
   - connect_database (utility function to establish database connection)
-  - PQexec (libpq function for executing SQL queries)
+  - [PQexec](../P/PQexec.md) (libpq function for executing SQL queries)
   - PGRES_TUPLES_OK (libpq constant for successful SELECT result)
-  - PQresultErrorMessage (libpq function to get error message from result)
-  - PQntuples (libpq function to get number of rows in result)
-  - PQgetvalue (libpq function to get field value from result)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (libpq function to get error message from result)
+  - [PQntuples](../P/PQntuples.md) (libpq function to get number of rows in result)
+  - [PQgetvalue](../P/PQgetvalue.md) (libpq function to get field value from result)
   - strtou64 (PostgreSQL utility function to convert string to uint64)
-  - PQclear (libpq function to free result memory)
-  - disconnect_database (utility function for connection cleanup)
+  - [PQclear](../P/PQclear.md) (libpq function to free result memory)
+  - [disconnect_database](../d/disconnect_database.md) (utility function for connection cleanup)
 
 - Called from (representative examples):
-  - main (primary entry point of pg_createsubscriber)
-  - LogicalRepInfo structure initialization
+  - [main](../m/main.md) (primary entry point of pg_createsubscriber)
+  - [LogicalRepInfo](../L/LogicalRepInfo.md) structure initialization
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c

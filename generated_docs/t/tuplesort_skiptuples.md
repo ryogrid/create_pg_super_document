@@ -24,14 +24,14 @@ The function currently only supports forward skipping, though the API is designe
 ## Dependencies
 - Functions called/Symbols referenced:
   - WORKER (macro to verify non-worker process context)
-  - MemoryContextSwitchTo (switches memory context for temporary operations)
-  - tuplesort_gettuple_common (called for tape-based and merge scenarios)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory context for temporary operations)
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md) (called for tape-based and merge scenarios)
   - CHECK_FOR_INTERRUPTS (allows query cancellation during long operations)
 - Called from (representative examples):
-  - percentile_disc_final
-  - percentile_cont_final_common
-  - percentile_disc_multi_final
-  - percentile_cont_multi_final_common
+  - [percentile_disc_final](../p/percentile_disc_final.md)
+  - [percentile_cont_final_common](../p/percentile_cont_final_common.md)
+  - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md)
+  - [percentile_cont_multi_final_common](../p/percentile_cont_multi_final_common.md)
 
 ## Notes and Other Information
 - Currently only supports forward skipping; backward skipping would require additional implementation

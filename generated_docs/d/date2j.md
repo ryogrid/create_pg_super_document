@@ -23,11 +23,11 @@ The algorithm uses a sophisticated calculation that accounts for leap years and 
 - Functions called/Symbols referenced:
   - None (uses only basic arithmetic operations)
 - Called from (representative examples):
-  - date_in (date input parsing)
-  - make_date (date construction function)
-  - DecodeDateTime (date/time parsing)
-  - timestamp_part_common (timestamp extraction)
-  - date2isoweek (ISO week calculations)
+  - [date_in](date_in.md) (date input parsing)
+  - [make_date](../m/make_date.md) (date construction function)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (date/time parsing)
+  - [timestamp_part_common](../t/timestamp_part_common.md) (timestamp extraction)
+  - [date2isoweek](date2isoweek.md) (ISO week calculations)
   - ValidateDate (date validation)
 
 ## Notes and Other Information

@@ -31,8 +31,8 @@ Internal variables:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (macro for extracting array arguments)
-  - get_fn_expr_argtype (determines argument data type)
-  - array_fill_internal (performs actual array construction)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md) (determines argument data type)
+  - [array_fill_internal](array_fill_internal.md) (performs actual array construction)
   - PG_RETURN_ARRAYTYPE_P (macro for returning array result)
 - Called from (representative examples):
   - Used as PostgreSQL function implementation (no direct code references found)

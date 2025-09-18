@@ -29,13 +29,13 @@ This function serves as a wrapper that iterates through a list of qualification 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - distribute_qual_to_rels
-  - JoinTreeItem
-  - SpecialJoinInfo
+  - [distribute_qual_to_rels](distribute_qual_to_rels.md)
+  - [JoinTreeItem](../J/JoinTreeItem.md)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
 - Called from (representative examples):
-  - deconstruct_distribute
-  - process_security_barrier_quals
-  - deconstruct_distribute_oj_quals
+  - [deconstruct_distribute](deconstruct_distribute.md)
+  - [process_security_barrier_quals](../p/process_security_barrier_quals.md)
+  - [deconstruct_distribute_oj_quals](deconstruct_distribute_oj_quals.md)
 
 ## Notes and Other Information
 This function is a static helper function within the query planner's initialization phase. It simplifies the code by providing a batch processing interface for qualification distribution, eliminating the need for callers to manually iterate through clause lists. The function preserves all the complex parameter passing required by distribute_qual_to_rels, ensuring that each clause is processed with the same context and constraints.

@@ -25,12 +25,12 @@ The search uses `range_cmp_bounds()` to compare range bounds, respecting the typ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_cmp_bounds
+  - [range_cmp_bounds](range_cmp_bounds.md)
   - RangeBound
 - Called from (representative examples):
-  - calc_hist_selectivity_scalar
-  - calc_hist_selectivity_contained
-  - calc_hist_selectivity_contains
+  - [calc_hist_selectivity_scalar](../c/calc_hist_selectivity_scalar.md)
+  - [calc_hist_selectivity_contained](../c/calc_hist_selectivity_contained.md)
+  - [calc_hist_selectivity_contains](../c/calc_hist_selectivity_contains.md)
 
 ## Notes and Other Information
 - Returns -1 if all histogram bounds are greater than (or greater than or equal to) the target value

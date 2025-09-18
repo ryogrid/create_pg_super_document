@@ -24,14 +24,14 @@ The function ensures proper cleanup during both successful subtransaction commit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
   - DestroyParallelContext
   - elog
 
 - Called from (representative examples):
-  - CommitSubTransaction
-  - AbortSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
+  - [AbortSubTransaction](AbortSubTransaction.md)
   - IsParallelWorker (referenced in header)
 
 ## Notes and Other Information

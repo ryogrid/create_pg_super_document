@@ -24,9 +24,9 @@ The structure is similar to IndexElem used in utility commands, but InferenceEle
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - infer_arbiter_indexes (src/backend/optimizer/util/plancat.c:751)
-  - resolve_unique_index_expr (src/backend/parser/parse_clause.c:3210)
-  - infer_collation_opclass_match (src/backend/optimizer/util/plancat.c:978)
+  - [infer_arbiter_indexes](../i/infer_arbiter_indexes.md) (src/backend/optimizer/util/plancat.c:751)
+  - [resolve_unique_index_expr](../r/resolve_unique_index_expr.md) (src/backend/parser/parse_clause.c:3210)
+  - [infer_collation_opclass_match](../i/infer_collation_opclass_match.md) (src/backend/optimizer/util/plancat.c:978)
   - exprType/exprCollation/exprLocation (src/backend/nodes/nodeFuncs.c)
 
 ## Notes and Other Information

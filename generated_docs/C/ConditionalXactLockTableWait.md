@@ -24,17 +24,17 @@ This makes it particularly useful in scenarios where the calling code needs to m
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TRANSACTION (constructs transaction-specific lock tag)
-  - LockAcquire (attempts to acquire ShareLock with dontWait=true)
-  - LockRelease (releases the ShareLock if acquired)
+  - [LockAcquire](../L/LockAcquire.md) (attempts to acquire ShareLock with dontWait=true)
+  - [LockRelease](../L/LockRelease.md) (releases the ShareLock if acquired)
   - TransactionIdIsInProgress (checks if transaction is still running)
-  - SubTransGetTopmostTransaction (finds topmost parent transaction)
-  - GetTopTransactionIdIfAny (gets current transaction's XID for comparison)
-  - pg_usleep (sleep function for retry logic)
+  - [SubTransGetTopmostTransaction](../S/SubTransGetTopmostTransaction.md) (finds topmost parent transaction)
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md) (gets current transaction's XID for comparison)
+  - [pg_usleep](../p/pg_usleep.md) (sleep function for retry logic)
   - LOCKACQUIRE_NOT_AVAIL (constant indicating lock unavailable)
 - Called from (representative examples):
-  - heap_lock_tuple (heap tuple locking with fallback strategies)
-  - heapam_tuple_lock (heap access method tuple locking)
-  - Do_MultiXactIdWait (multi-transaction waiting logic)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (heap tuple locking with fallback strategies)
+  - [heapam_tuple_lock](../h/heapam_tuple_lock.md) (heap access method tuple locking)
+  - [Do_MultiXactIdWait](../D/Do_MultiXactIdWait.md) (multi-transaction waiting logic)
 
 ## Notes and Other Information
 - Returns true if the transaction has completed (lock acquired and released), false if still running

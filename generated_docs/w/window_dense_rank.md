@@ -29,8 +29,8 @@ Key characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_WINDOW_OBJECT (macro to get WindowObject)
-  - rank_up (utility function to check if rank should increase)
-  - WinGetPartitionLocalMemory (allocates partition-local memory)
+  - [rank_up](../r/rank_up.md) (utility function to check if rank should increase)
+  - [WinGetPartitionLocalMemory](../W/WinGetPartitionLocalMemory.md) (allocates partition-local memory)
   - PG_RETURN_INT64 (macro to return 64-bit integer result)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in SQL execution)

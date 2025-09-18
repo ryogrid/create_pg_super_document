@@ -34,18 +34,18 @@ This function takes no parameters and operates on global WAL sender state variab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
-  - pq_startmsgread, pq_endmsgread, pq_getbyte_if_available, pq_getmessage, pq_putmessage_noblock
-  - ProcessStandbyMessage
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pq_startmsgread](../p/pq_startmsgread.md), pq_endmsgread, pq_getbyte_if_available, pq_getmessage, pq_putmessage_noblock
+  - [ProcessStandbyMessage](ProcessStandbyMessage.md)
   - resetStringInfo
-  - proc_exit
+  - [proc_exit](../p/proc_exit.md)
   - Message type constants: PqMsg_CopyData, PqMsg_CopyDone, PqMsg_Terminate
   - Size limit constants: PQ_LARGE_MESSAGE_LIMIT, PQ_SMALL_MESSAGE_LIMIT
   - Error codes: COMMERROR, ERRCODE_PROTOCOL_VIOLATION
 - Called from (representative examples):
-  - ProcessPendingWrites (at src/backend/replication/walsender.c:1625)
-  - WalSndWaitForWal (at src/backend/replication/walsender.c:1864)
-  - WalSndLoop (at src/backend/replication/walsender.c:2817)
+  - [ProcessPendingWrites](ProcessPendingWrites.md) (at src/backend/replication/walsender.c:1625)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md) (at src/backend/replication/walsender.c:1864)
+  - [WalSndLoop](../W/WalSndLoop.md) (at src/backend/replication/walsender.c:2817)
 
 ## Notes and Other Information
 - This is a static function within walsender.c, serving as an internal utility for managing standby communication

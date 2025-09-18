@@ -20,8 +20,8 @@ This function calculates and returns a pointer to the content area of a page by 
   - SizeOfPageHeaderData (macro defining size of page header without line pointers)
   - MAXALIGN (macro for ensuring maximum alignment of memory addresses)
 - Called from (representative examples):
-  - brinGetStats (in src/backend/access/brin/brin.c:1648)
-  - visibilitymap_clear (in src/backend/access/heap/visibilitymap.c:159)
+  - [brinGetStats](../b/brinGetStats.md) (in src/backend/access/brin/brin.c:1648)
+  - [visibilitymap_clear](../v/visibilitymap_clear.md) (in src/backend/access/heap/visibilitymap.c:159)
   - fsm_set_avail (in src/backend/storage/freespace/fsmpage.c:66)
   - GinPageGetMeta (in src/include/access/ginblock.h:106)
   - HashPageGetMeta (in src/include/access/hash.h:324)

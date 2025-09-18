@@ -24,11 +24,11 @@ The function follows a three-step validation process:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony: Validates Turkish vowel harmony rules
-  - find_among_b: Performs backward pattern matching from array a_20 (32 patterns)
-  - r_mark_suffix_with_optional_y_consonant: Handles optional 'y' consonant processing
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md): Validates Turkish vowel harmony rules
+  - [find_among_b](../f/find_among_b.md): Performs backward pattern matching from array a_20 (32 patterns)
+  - [r_mark_suffix_with_optional_y_consonant](r_mark_suffix_with_optional_y_consonant.md): Handles optional 'y' consonant processing
 - Called from:
-  - r_stem_nominal_verb_suffixes: Used three times in the Turkish nominal and verb suffix stemming process (lines 913, 1003, and 1035)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md): Used three times in the Turkish nominal and verb suffix stemming process (lines 913, 1003, and 1035)
 
 ## Notes and Other Information
 - This function is part of the Turkish language-specific stemming rules

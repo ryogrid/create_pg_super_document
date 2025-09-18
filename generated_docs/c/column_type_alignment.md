@@ -32,8 +32,8 @@ The function uses a switch statement to categorize data types, explicitly listin
     - CIDOID (command id)
     - MONEYOID (money type)
 - Called from (representative examples):
-  - printQuery (when setting up column headers)
-  - printCrosstab (for crosstab view column alignment)
+  - [printQuery](../p/printQuery.md) (when setting up column headers)
+  - [printCrosstab](../p/printCrosstab.md) (for crosstab view column alignment)
 
 ## Notes and Other Information
 - The function follows the common convention that numeric data should be right-aligned for easier visual comparison and reading of values

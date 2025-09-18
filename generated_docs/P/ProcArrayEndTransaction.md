@@ -31,16 +31,16 @@ The function ensures that transaction visibility changes are atomic with respect
   - LWLockRelease
   - LWLockAcquire
   - LWLockHeldByMe
-  - ProcArrayEndTransactionInternal
-  - ProcArrayGroupClearXid
+  - [ProcArrayEndTransactionInternal](ProcArrayEndTransactionInternal.md)
+  - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md)
   - InvalidLocalTransactionId
   - InvalidTransactionId
   - PROC_VACUUM_STATE_MASK
   - ProcGlobal
 
 - Called from (representative examples):
-  - CommitTransaction
-  - AbortTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [AbortTransaction](../A/AbortTransaction.md)
 
 ## Notes and Other Information
 - Uses conditional lock acquisition to optimize for the common case of low contention

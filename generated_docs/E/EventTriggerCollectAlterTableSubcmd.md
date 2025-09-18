@@ -28,7 +28,7 @@ The function only operates when event trigger context is active and command coll
   -  - Memory context switching
   -  - Memory allocation in current context
   -  - Deep copy of parse tree nodes
-  -  - List append operation
+  -  - [List](../L/List.md) append operation
 - Called from (representative examples):
   -  - ALTER TABLE command execution
 

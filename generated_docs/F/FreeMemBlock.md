@@ -27,7 +27,7 @@ This optimization is particularly important in JIT compilation scenarios where m
 - Functions called/Symbols referenced:
   - sys::MemoryBlock (LLVM memory block type)
 - Called from (representative examples):
-  - MemoryGroup (used within FreeMem member)
+  - [MemoryGroup](../M/MemoryGroup.md) (used within FreeMem member)
 
 ## Notes and Other Information
 - This struct is private to the SectionMemoryManager class and not exposed to external users

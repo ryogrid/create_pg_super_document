@@ -27,11 +27,11 @@ The algorithm:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `init_var`: Initialize a new `NumericVar` structure
-  - `set_var_from_var`: Copy one `NumericVar` to another
-  - `trunc_var`: Truncate a numeric value to specified decimal places
-  - `cmp_var`: Compare two `NumericVar` values
-  - `add_var`: Add two `NumericVar` values
-  - `free_var`: Free memory associated with a `NumericVar`
+  - `[set_var_from_var](../s/set_var_from_var.md)`: Copy one `NumericVar` to another
+  - `[trunc_var](../t/trunc_var.md)`: Truncate a numeric value to specified decimal places
+  - `[cmp_var](cmp_var.md)`: Compare two `NumericVar` values
+  - `[add_var](../a/add_var.md)`: Add two `NumericVar` values
+  - `[free_var](../f/free_var.md)`: Free memory associated with a `NumericVar`
   - `NUMERIC_POS`: Constant representing positive sign
   - `const_one`: Predefined `NumericVar` constant representing value 1
 

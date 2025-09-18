@@ -19,10 +19,10 @@ This function serves as a comparison callback for sorting operations on shared T
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PagetableEntry (struct type)
+  - [PagetableEntry](../P/PagetableEntry.md) (struct type)
 - Called from (representative examples):
-  - tbm_prepare_shared_iterate
-  - TBMSharedIterator (context)
+  - [tbm_prepare_shared_iterate](tbm_prepare_shared_iterate.md)
+  - [TBMSharedIterator](../T/TBMSharedIterator.md) (context)
 
 ## Notes and Other Information
 - This is a static function used internally within the tidbitmap module

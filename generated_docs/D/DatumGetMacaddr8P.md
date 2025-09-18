@@ -17,10 +17,10 @@ DatumGetMacaddr8P is a type conversion utility function that extracts a macaddr8
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (indirectly through type cast)
+  - [DatumGetPointer](DatumGetPointer.md) (indirectly through type cast)
   - macaddr8 (struct type)
 - Called from (representative examples):
-  - convert_network_to_scalar
+  - [convert_network_to_scalar](../c/convert_network_to_scalar.md)
   - PG_GETARG_MACADDR8_P
 
 ## Notes and Other Information

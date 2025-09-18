@@ -19,12 +19,12 @@ The `bbstreamer_extractor_new` function creates and initializes a new bbstreamer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `palloc0` (PostgreSQL zero-initialized memory allocation)
-  - `pstrdup` (PostgreSQL string duplication function)
+  - `[palloc0](../p/palloc0.md)` (PostgreSQL zero-initialized memory allocation)
+  - `[pstrdup](../p/pstrdup.md)` (PostgreSQL string duplication function)
   - `bbstreamer_extractor_ops` (operations vtable for extractor)
 - Called from (representative examples):
-  - `bbstreamer_buffer_until` at src/bin/pg_basebackup/bbstreamer.h:205
-  - `CreateBackupStreamer` at src/bin/pg_basebackup/pg_basebackup.c:1163
+  - `[bbstreamer_buffer_until](bbstreamer_buffer_until.md)` at src/bin/pg_basebackup/bbstreamer.h:205
+  - `[CreateBackupStreamer](../C/CreateBackupStreamer.md)` at src/bin/pg_basebackup/pg_basebackup.c:1163
 
 ## Notes and Other Information
 - Returns a pointer to the base bbstreamer structure, allowing polymorphic use

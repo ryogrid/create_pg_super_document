@@ -39,14 +39,14 @@ This function creates a NestPath node representing a nested loop join operation.
 - Functions called/Symbols referenced:
   - makeNode (to create NestPath)
   - PATH_REQ_OUTER (to extract required outer relations)
-  - bms_overlap (to check parameterization relationships)
+  - [bms_overlap](../b/bms_overlap.md) (to check parameterization relationships)
   - get_param_path_clause_serials (to identify enforced clauses)
-  - bms_is_member (to check clause enforcement)
+  - [bms_is_member](../b/bms_is_member.md) (to check clause enforcement)
   - get_joinrel_parampathinfo (to set up parameterization info)
-  - final_cost_nestloop (to compute final costs)
+  - [final_cost_nestloop](../f/final_cost_nestloop.md) (to compute final costs)
 - Called from (representative examples):
-  - try_nestloop_path (in joinpath.c)
-  - try_partial_nestloop_path (in joinpath.c)
+  - [try_nestloop_path](../t/try_nestloop_path.md) (in joinpath.c)
+  - [try_partial_nestloop_path](../t/try_partial_nestloop_path.md) (in joinpath.c)
 
 ## Notes and Other Information
 - The function handles parameterized inner paths by removing restrict clauses already enforced in the inner path to avoid double-application

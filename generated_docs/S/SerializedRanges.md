@@ -24,13 +24,13 @@ SerializedRanges is the persistent storage format for BRIN minmax-multi index su
 - Constants referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Used by functions:
-  - range_deduplicate_values
-  - brin_range_serialize/deserialize
-  - brin_minmax_multi_serialize
-  - brin_minmax_multi_add_value
-  - brin_minmax_multi_consistent
-  - brin_minmax_multi_union
-  - brin_minmax_multi_summary_out
+  - [range_deduplicate_values](../r/range_deduplicate_values.md)
+  - [brin_range_serialize](../b/brin_range_serialize.md)/deserialize
+  - [brin_minmax_multi_serialize](../b/brin_minmax_multi_serialize.md)
+  - [brin_minmax_multi_add_value](../b/brin_minmax_multi_add_value.md)
+  - [brin_minmax_multi_consistent](../b/brin_minmax_multi_consistent.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
+  - [brin_minmax_multi_summary_out](../b/brin_minmax_multi_summary_out.md)
 
 ## Notes and Other Information
 - Designed as the on-disk counterpart to the in-memory Ranges structure

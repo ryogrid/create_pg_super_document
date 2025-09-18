@@ -26,18 +26,18 @@ Sampling is distributed proportionally based on each child's block count, ensuri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_all_inheritors
-  - acquire_sample_rows
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [acquire_sample_rows](acquire_sample_rows.md)
   - CommandCounterIncrement
-  - SetRelationHasSubclass
-  - GetFdwRoutineForRelation
-  - equalRowTypes
-  - convert_tuples_by_name
-  - execute_attr_map_tuple
-  - free_conversion_map
-  - heap_freetuple
+  - [SetRelationHasSubclass](../S/SetRelationHasSubclass.md)
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
+  - [equalRowTypes](../e/equalRowTypes.md)
+  - [convert_tuples_by_name](../c/convert_tuples_by_name.md)
+  - [execute_attr_map_tuple](../e/execute_attr_map_tuple.md)
+  - [free_conversion_map](../f/free_conversion_map.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - do_analyze_rel
+  - [do_analyze_rel](../d/do_analyze_rel.md)
 
 ## Notes and Other Information
 - Fails if no analyzable child tables exist in the inheritance hierarchy

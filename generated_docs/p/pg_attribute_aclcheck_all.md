@@ -22,15 +22,15 @@ The `pg_attribute_aclcheck_all` function is an exported routine that verifies wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_attribute_aclcheck_all_ext
+  - [pg_attribute_aclcheck_all_ext](pg_attribute_aclcheck_all_ext.md)
   - AclMaskHow
   - AclResult
 - Called from (representative examples):
-  - ExecCheckOneRelPerms
-  - ExecCheckPermissionsModified
-  - has_any_column_privilege_name_name
-  - has_any_column_privilege_name
-  - has_any_column_privilege_id_name
+  - [ExecCheckOneRelPerms](../E/ExecCheckOneRelPerms.md)
+  - [ExecCheckPermissionsModified](../E/ExecCheckPermissionsModified.md)
+  - [has_any_column_privilege_name_name](../h/has_any_column_privilege_name_name.md)
+  - [has_any_column_privilege_name](../h/has_any_column_privilege_name.md)
+  - [has_any_column_privilege_id_name](../h/has_any_column_privilege_id_name.md)
   - all_rows_selectable
 
 ## Notes and Other Information

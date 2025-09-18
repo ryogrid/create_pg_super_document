@@ -25,7 +25,7 @@ This function is parallel to  in nodeAgg.c and handles the final step of window 
   - MakeExpandedObjectReadOnly
   - FunctionCallInvoke
 - Called from (representative examples):
-  - eval_windowaggregates
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
 
 ## Notes and Other Information
 - If no final function exists ( is invalid), returns the transition value directly as the result

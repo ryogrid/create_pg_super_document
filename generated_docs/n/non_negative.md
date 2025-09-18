@@ -21,7 +21,7 @@ The function handles both negative values and NaN (Not a Number) values by repla
 - Functions called/Symbols referenced:
   - None (uses only basic arithmetic comparison)
 - Called from (representative examples):
-  - g_box_consider_split (called twice at lines 436 and 438)
+  - [g_box_consider_split](../g/g_box_consider_split.md) (called twice at lines 436 and 438)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the same compilation unit and will likely be inlined by the compiler for performance

@@ -24,17 +24,17 @@ The function uses PostgreSQL's safe arithmetic functions (add_size and mul_size)
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (standard C macro)
-  - add_size
-  - mul_size
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
 - Data types referenced:
-  - SISeg
-  - ProcState
+  - [SISeg](SISeg.md)
+  - [ProcState](../P/ProcState.md)
   - Size
-- Variables referenced:
+- [Variables](../V/Variables.md) referenced:
   - NumProcStateSlots
 - Called from (representative examples):
-  - CalculateShmemSize
-  - CreateSharedInvalidationState
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
+  - [CreateSharedInvalidationState](../C/CreateSharedInvalidationState.md)
 
 ## Notes and Other Information
 - This function is part of the shared memory initialization process and must be called before allocating shared memory for the invalidation subsystem

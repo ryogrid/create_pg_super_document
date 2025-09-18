@@ -24,7 +24,7 @@ The function handles three types of blockers: PSB_ONCE (handled specially elsewh
   - PSB_ONCE, PSB_OTHER_STEP, PSB_NUM_NOTICES (blocker type constants)
   - conns global array (connection information)
 - Called from (representative examples):
-  - try_complete_step
+  - [try_complete_step](../t/try_complete_step.md)
 
 ## Notes and Other Information
 - Returns true if any blocker condition is unsatisfied, false if all conditions are met

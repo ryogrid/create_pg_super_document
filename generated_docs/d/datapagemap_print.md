@@ -17,12 +17,12 @@ This function provides a debugging aid for examining the contents of a datapagem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datapagemap_iterate (to create the iterator)
-  - datapagemap_next (to traverse set bits)
+  - [datapagemap_iterate](datapagemap_iterate.md) (to create the iterator)
+  - [datapagemap_next](datapagemap_next.md) (to traverse set bits)
   - pg_log_debug (for debug output)
-  - pg_free (to clean up the iterator)
+  - [pg_free](../p/pg_free.md) (to clean up the iterator)
 - Called from (representative examples):
-  - print_filemap (in filemap.c:555)
+  - [print_filemap](../p/print_filemap.md) (in filemap.c:555)
 
 ## Notes and Other Information
 - Used for debugging and development purposes only

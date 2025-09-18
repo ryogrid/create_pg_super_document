@@ -30,15 +30,15 @@ The function determines the oldest available WAL segment by first checking the l
   - XLogRecPtrIsInvalid
   - SpinLockAcquire
   - SpinLockRelease
-  - ReplicationSlotsComputeRequiredLSN
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)
   - XLByteToSeg
-  - XLogGetLastRemovedSegno
-  - GetWalRcvFlushRecPtr
-  - XLogGetOldestSegno
+  - [XLogGetLastRemovedSegno](../X/XLogGetLastRemovedSegno.md)
+  - [GetWalRcvFlushRecPtr](../G/GetWalRcvFlushRecPtr.md)
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md)
   - XLogSegNoOffsetToRecPtr
   - elog
 - Called from:
-  - synchronize_one_slot
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
 
 ## Notes and Other Information
 - Operates on MyReplicationSlot (the currently active slot)

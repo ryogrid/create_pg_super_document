@@ -26,8 +26,8 @@ This function is a static implementation of the file existence check operation f
   - close (system function)
   - PG_BINARY (PostgreSQL macro)
 - Data structures used:
-  - WalWriteMethod
-  - DirectoryMethodData
+  - [WalWriteMethod](../W/WalWriteMethod.md)
+  - [DirectoryMethodData](../D/DirectoryMethodData.md)
 - Called from:
   - Used as a function pointer in WAL writing method operations
 

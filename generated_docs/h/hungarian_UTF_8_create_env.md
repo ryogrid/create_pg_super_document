@@ -19,7 +19,7 @@ This is part of PostgreSQL's full-text search functionality, specifically the Sn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (creates the actual Snowball environment with 0 string arrays and 1 integer array)
+  - [SN_create_env](../S/SN_create_env.md) (creates the actual Snowball environment with 0 string arrays and 1 integer array)
 
 - Called from (representative examples):
   - No direct references found in the current codebase

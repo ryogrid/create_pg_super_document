@@ -22,11 +22,11 @@ The function follows the standard C comparison convention, returning negative, z
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LexemeInfo: Structure containing lexeme metadata including substitution rule information
+  - [LexemeInfo](../L/LexemeInfo.md): Structure containing lexeme metadata including substitution rule information
 
 - Called from (representative examples):
-  - cmpTheLexeme: Lexeme comparison function used in sorting operations
-  - compileTheLexeme: Dictionary compilation function that needs to organize lexeme data
+  - [cmpTheLexeme](cmpTheLexeme.md): Lexeme comparison function used in sorting operations
+  - [compileTheLexeme](compileTheLexeme.md): Dictionary compilation function that needs to organize lexeme data
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dict_thesaurus.c file

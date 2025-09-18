@@ -24,9 +24,9 @@ The cleanOpStack function implements operator precedence handling in tsquery par
   - OperatorElement (stack element structure)
   - OP_PRIORITY (macro for operator precedence)
   - OP_NOT (NOT operator constant)
-  - pushOperator (function to output operators in postfix form)
+  - [pushOperator](../p/pushOperator.md) (function to output operators in postfix form)
 - Called from (representative examples):
-  - makepol (multiple times during parsing)
+  - [makepol](../m/makepol.md) (multiple times during parsing)
 
 ## Notes and Other Information
 - Implements proper operator precedence rules for tsquery expressions

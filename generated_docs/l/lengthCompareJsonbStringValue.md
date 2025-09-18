@@ -24,13 +24,13 @@ This comparator is specifically optimized for sorting JSONB object keys where th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lengthCompareJsonbString (performs the actual string comparison logic)
+  - [lengthCompareJsonbString](lengthCompareJsonbString.md) (performs the actual string comparison logic)
 - Constants used:
   - jbvString (JsonbValue string type constant for assertions)
 - Called from:
-  - equalsJsonbScalarValue (for string equality testing)
-  - lengthCompareJsonbPair (for comparing JsonbPair structures)
-  - uniqueifyJsonbObject (for sorting object keys during deduplication)
+  - [equalsJsonbScalarValue](../e/equalsJsonbScalarValue.md) (for string equality testing)
+  - [lengthCompareJsonbPair](lengthCompareJsonbPair.md) (for comparing JsonbPair structures)
+  - [uniqueifyJsonbObject](../u/uniqueifyJsonbObject.md) (for sorting object keys during deduplication)
 
 ## Notes and Other Information
 - Returns standard qsort() comparator values: negative, zero, or positive integer

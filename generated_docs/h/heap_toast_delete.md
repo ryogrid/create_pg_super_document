@@ -23,14 +23,14 @@ The function includes safety checks to ensure it's only called on appropriate re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_deform_tuple
-  - toast_delete_external
+  - [heap_deform_tuple](heap_deform_tuple.md)
+  - [toast_delete_external](../t/toast_delete_external.md)
   - MaxHeapAttributeNumber
   - RELKIND_RELATION
   - RELKIND_MATVIEW
 - Called from (representative examples):
-  - heap_delete
-  - heap_abort_speculative
+  - [heap_delete](heap_delete.md)
+  - [heap_abort_speculative](heap_abort_speculative.md)
 
 ## Notes and Other Information
 - Only operates on plain relations (RELKIND_RELATION) and materialized views (RELKIND_MATVIEW)

@@ -25,7 +25,7 @@ PGEventId serves as the event type identifier in PostgreSQL's libpq event notifi
   - (None - this is an enumeration definition)
 - Called from (representative examples):
   - PGEventProc (as parameter to event callback functions)
-  - PQregisterEventProc (used in event registration)
+  - [PQregisterEventProc](PQregisterEventProc.md) (used in event registration)
 
 ## Notes and Other Information
 - This enumeration is part of the libpq events API, which is primarily used by applications that need to track connection and result lifecycles

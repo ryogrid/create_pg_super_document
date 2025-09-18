@@ -20,7 +20,7 @@ This function is essential for schema evolution scenarios where existing tuples 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_tuple (internal expansion function)
+  - [expand_tuple](../e/expand_tuple.md) (internal expansion function)
   - HeapTuple (return type)
 - Called from (representative examples):
   - HeapTupleClearHeapOnly

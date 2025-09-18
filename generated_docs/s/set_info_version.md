@@ -32,14 +32,14 @@ This function takes no parameters and operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (PostgreSQL string duplication function)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication function)
   - strlen (standard C library function)
   - strtol (standard C library function for string to long conversion)
   - snprintf (standard C library function for formatted string output)
   - PG_VERSION (compile-time constant containing PostgreSQL version)
 
 - Called from:
-  - main (initdb main function during initialization)
+  - [main](../m/main.md) (initdb main function during initialization)
 
 ## Notes and Other Information
 - The function allocates memory using pg_strdup() but does not explicitly free it, relying on process termination cleanup

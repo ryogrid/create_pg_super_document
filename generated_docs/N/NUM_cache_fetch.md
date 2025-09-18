@@ -17,8 +17,8 @@ This function serves as the primary interface for obtaining a cached numeric for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NUM_cache_search
-  - NUM_cache_getnew
+  - [NUM_cache_search](NUM_cache_search.md)
+  - [NUM_cache_getnew](NUM_cache_getnew.md)
   - zeroize_NUM
   - parse_format
   - NUM_keywords (global array)
@@ -26,7 +26,7 @@ This function serves as the primary interface for obtaining a cached numeric for
   - NUM_FLAG (constant)
   - NUMCacheEntry (struct type)
 - Called from (representative examples):
-  - NUM_cache
+  - [NUM_cache](NUM_cache.md)
 
 ## Notes and Other Information
 - Implements cache-first strategy for performance optimization

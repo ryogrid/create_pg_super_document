@@ -24,7 +24,7 @@ This function takes no parameters and returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Generic Snowball environment creation function (called with parameters 0, 3)
+  - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function (called with parameters 0, 3)
 - Called from (representative examples):
   - No direct references found (likely called via external stemming library interface)
 

@@ -25,15 +25,15 @@ This information is essential for PostgreSQL's parallel query execution feature,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - set_rel_consider_parallel (src/backend/optimizer/path/allpaths.c:628)
-  - max_parallel_hazard_checker (src/backend/optimizer/util/clauses.c:824)
+  - [set_rel_consider_parallel](../s/set_rel_consider_parallel.md) (src/backend/optimizer/path/allpaths.c:628)
+  - [max_parallel_hazard_checker](../m/max_parallel_hazard_checker.md) (src/backend/optimizer/util/clauses.c:824)
 
 ## Notes and Other Information
 - Part of the lsyscache.c module which provides convenient access functions for system catalog information

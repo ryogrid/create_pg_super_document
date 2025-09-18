@@ -27,9 +27,9 @@ The function directly accesses the pre-computed values and null indicators from 
   - TTS_IS_VIRTUAL (macro to check if slot is virtual)
   - TTS_FIXED (macro to check if slot layout is fixed)
 - Called from (representative examples):
-  - ExecJustInnerVarVirt (wrapper for inner relation variables)
-  - ExecJustOuterVarVirt (wrapper for outer relation variables)
-  - ExecJustScanVarVirt (wrapper for scan relation variables)
+  - [ExecJustInnerVarVirt](ExecJustInnerVarVirt.md) (wrapper for inner relation variables)
+  - [ExecJustOuterVarVirt](ExecJustOuterVarVirt.md) (wrapper for outer relation variables)
+  - [ExecJustScanVarVirt](ExecJustScanVarVirt.md) (wrapper for scan relation variables)
 
 ## Notes and Other Information
 - This is a static function marked with pg_attribute_always_inline for maximum performance

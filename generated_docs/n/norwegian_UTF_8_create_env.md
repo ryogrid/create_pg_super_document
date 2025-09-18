@@ -19,7 +19,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (from src/backend/snowball/libstemmer/api.c:3)
+  - [SN_create_env](../S/SN_create_env.md) (from src/backend/snowball/libstemmer/api.c:3)
 - Called from (representative examples):
   - No direct references found in the codebase
 

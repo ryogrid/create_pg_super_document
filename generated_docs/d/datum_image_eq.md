@@ -32,21 +32,21 @@ This function provides true content equality checking, making it suitable for ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
-  - toast_raw_datum_size
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
   - PG_DETOAST_DATUM_PACKED
   - VARDATA_ANY
   - VARHDRSZ (constant for varlena header size)
-  - DatumGetCString
+  - [DatumGetCString](../D/DatumGetCString.md)
   - memcmp
   - strlen
-  - pfree
+  - [pfree](../p/pfree.md)
   - elog
 - Called from (representative examples):
-  - _bt_keep_natts_fast
-  - MemoizeHash_equal
-  - ri_KeysEqual
-  - record_image_eq
+  - [_bt_keep_natts_fast](../b/_bt_keep_natts_fast.md)
+  - [MemoizeHash_equal](../M/MemoizeHash_equal.md)
+  - [ri_KeysEqual](../r/ri_KeysEqual.md)
+  - [record_image_eq](../r/record_image_eq.md)
 
 ## Notes and Other Information
 - This function properly handles TOAST, making it more reliable than  for variable-length data

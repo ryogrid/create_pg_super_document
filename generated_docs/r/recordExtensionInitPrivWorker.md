@@ -22,24 +22,24 @@ The function uses a systematic approach: it first searches for existing entries,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - aclmembers
+  - [aclmembers](../a/aclmembers.md)
   - table_open/table_close
-  - systable_beginscan/systable_endscan/systable_getnext
-  - heap_getattr
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
+  - [heap_getattr](../h/heap_getattr.md)
   - DatumGetAclP
-  - updateInitAclDependencies
+  - [updateInitAclDependencies](../u/updateInitAclDependencies.md)
   - ACL_NUM
-  - heap_modify_tuple
-  - CatalogTupleUpdate/CatalogTupleDelete/CatalogTupleInsert
-  - heap_form_tuple
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)/CatalogTupleDelete/CatalogTupleInsert
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - CommandCounterIncrement
   - INITPRIVS_EXTENSION
-  - CharGetDatum
+  - [CharGetDatum](../C/CharGetDatum.md)
 - Called from (representative examples):
   - InternalDefaultACL
-  - recordExtObjInitPriv
-  - removeExtObjInitPriv
-  - recordExtensionInitPriv
+  - [recordExtObjInitPriv](recordExtObjInitPriv.md)
+  - [removeExtObjInitPriv](removeExtObjInitPriv.md)
+  - [recordExtensionInitPriv](recordExtensionInitPriv.md)
 
 ## Notes and Other Information
 - Performs wholesale replacement of ACL entries, requiring complete ACL specification

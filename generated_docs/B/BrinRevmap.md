@@ -32,17 +32,17 @@ The reverse mapping is essential for BRIN index operations as it allows the syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - revmap_get_blkno
-  - revmap_get_buffer  
-  - revmap_extend_and_get_blkno
-  - revmap_physical_extend
+  - [revmap_get_blkno](../r/revmap_get_blkno.md)
+  - [revmap_get_buffer](../r/revmap_get_buffer.md)  
+  - [revmap_extend_and_get_blkno](../r/revmap_extend_and_get_blkno.md)
+  - [revmap_physical_extend](../r/revmap_physical_extend.md)
 - Called from (representative examples):
-  - brinRevmapInitialize
-  - brinRevmapTerminate
-  - brinRevmapExtend
-  - brinLockRevmapPageForUpdate
-  - brinGetTupleForHeapBlock
-  - brinRevmapDesummarizeRange
+  - [brinRevmapInitialize](../b/brinRevmapInitialize.md)
+  - [brinRevmapTerminate](../b/brinRevmapTerminate.md)
+  - [brinRevmapExtend](../b/brinRevmapExtend.md)
+  - [brinLockRevmapPageForUpdate](../b/brinLockRevmapPageForUpdate.md)
+  - [brinGetTupleForHeapBlock](../b/brinGetTupleForHeapBlock.md)
+  - [brinRevmapDesummarizeRange](../b/brinRevmapDesummarizeRange.md)
 
 ## Notes and Other Information
 - The BrinRevmap structure is allocated and initialized via brinRevmapInitialize() and must be freed using brinRevmapTerminate()

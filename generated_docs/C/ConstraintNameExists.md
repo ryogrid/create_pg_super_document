@@ -19,16 +19,16 @@ This function searches the pg_constraint catalog to determine if a constraint na
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
   - HeapTupleIsValid
-  - CStringGetDatum
-  - ObjectIdGetDatum
+  - [CStringGetDatum](CStringGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - ChooseRelationName
+  - [ChooseRelationName](ChooseRelationName.md)
 
 ## Notes and Other Information
 - Returns true if a constraint with the specified name exists in the namespace, false otherwise

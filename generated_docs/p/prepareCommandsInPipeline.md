@@ -29,12 +29,12 @@ The function uses the \startpipeline command's prepared flag as a marker to trac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocCStatePrepared (for lazy allocation of tracking array)
-  - prepareCommand (to prepare individual SQL commands)
-  - Command (command structure)
+  - [allocCStatePrepared](../a/allocCStatePrepared.md) (for lazy allocation of tracking array)
+  - [prepareCommand](prepareCommand.md) (to prepare individual SQL commands)
+  - [Command](../C/Command.md) (command structure)
   - META_COMMAND, META_STARTPIPELINE, META_ENDPIPELINE (meta-command types)
 - Called from (representative examples):
-  - executeMetaCommand
+  - [executeMetaCommand](../e/executeMetaCommand.md)
 
 ## Notes and Other Information
 - This function is essential for pgbench's pipeline mode functionality introduced in PostgreSQL 14

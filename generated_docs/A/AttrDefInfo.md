@@ -22,17 +22,17 @@ AttrDefInfo encapsulates information about column default value expressions stor
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
-  - pg_get_expr
-  - AssignDumpId
-  - addObjectDependency
+  - [TableInfo](../T/TableInfo.md)
+  - [pg_get_expr](../p/pg_get_expr.md)
+  - [AssignDumpId](AssignDumpId.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
 - Called from (representative examples):
-  - getTableAttrs (src/bin/pg_dump/pg_dump.c:9083)
-  - dumpAttrDef (src/bin/pg_dump/pg_dump.c:16876)
-  - flagInhAttrs (src/bin/pg_dump/common.c:563)
+  - [getTableAttrs](../g/getTableAttrs.md) (src/bin/pg_dump/pg_dump.c:9083)
+  - [dumpAttrDef](../d/dumpAttrDef.md) (src/bin/pg_dump/pg_dump.c:16876)
+  - [flagInhAttrs](../f/flagInhAttrs.md) (src/bin/pg_dump/common.c:563)
 
 ## Notes and Other Information
-- AttrDefInfo objects are created during table attribute analysis in getTableAttrs() function
+- [AttrDefInfo](AttrDefInfo.md) objects are created during table attribute analysis in getTableAttrs() function
 - Default expressions are retrieved using pg_get_expr() to get the decompiled, readable form
 - The separate flag is set based on dependency analysis - defaults referencing user-defined objects require separate dumping
 - Column numbers are 1-based to match PostgreSQL's internal numbering system

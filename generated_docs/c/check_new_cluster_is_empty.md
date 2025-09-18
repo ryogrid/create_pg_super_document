@@ -25,11 +25,11 @@ This function takes no parameters and operates on global cluster state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (for error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
   - strcmp (for string comparison)
   - RelInfoArr (relation information array structure)
 - Called from (representative examples):
-  - check_new_cluster (main cluster validation function)
+  - [check_new_cluster](check_new_cluster.md) (main cluster validation function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the check.c compilation unit

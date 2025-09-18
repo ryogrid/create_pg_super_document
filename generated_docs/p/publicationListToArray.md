@@ -27,13 +27,13 @@ The function ensures proper memory management by using a dedicated memory contex
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate: Creates temporary memory context for allocations
-  - MemoryContextSwitchTo/MemoryContextDelete: Memory context management
-  - check_duplicates_in_publist: Validates publication list and populates Datum array
-  - construct_array_builtin: Constructs PostgreSQL array from Datum values
-  - PointerGetDatum: Converts ArrayType pointer to Datum
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)/MemoryContextDelete: Memory context management
+  - [check_duplicates_in_publist](../c/check_duplicates_in_publist.md): Validates publication list and populates Datum array
+  - [construct_array_builtin](../c/construct_array_builtin.md): Constructs PostgreSQL array from Datum values
+  - [PointerGetDatum](../P/PointerGetDatum.md): Converts ArrayType pointer to Datum
 - Called from (representative examples):
-  - CreateSubscription: When storing publication list in pg_subscription catalog
-  - AlterSubscription: When updating publication list during subscription modification
+  - [CreateSubscription](../C/CreateSubscription.md): When storing publication list in pg_subscription catalog
+  - [AlterSubscription](../A/AlterSubscription.md): When updating publication list during subscription modification
 
 ## Notes and Other Information
 - The function creates a temporary memory context to isolate allocations during conversion

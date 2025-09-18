@@ -21,15 +21,15 @@ The structure is allocated in the function's memory context and stored in the Fu
 
 ## Dependencies
 - Types referenced:
-  - TypeCacheEntry (from type cache system)
-  - FmgrInfo (from function manager)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (from type cache system)
+  - [FmgrInfo](../F/FmgrInfo.md) (from function manager)
   - Oid (object identifier type)
 - Used by (functions that create/access RangeIOData):
-  - range_in (src/backend/utils/adt/rangetypes.c:95)
-  - range_out (src/backend/utils/adt/rangetypes.c:141)
-  - range_recv (src/backend/utils/adt/rangetypes.c:183)
-  - range_send (src/backend/utils/adt/rangetypes.c:265)
-  - get_range_io_data (src/backend/utils/adt/rangetypes.c:319)
+  - [range_in](../r/range_in.md) (src/backend/utils/adt/rangetypes.c:95)
+  - [range_out](../r/range_out.md) (src/backend/utils/adt/rangetypes.c:141)
+  - [range_recv](../r/range_recv.md) (src/backend/utils/adt/rangetypes.c:183)
+  - [range_send](../r/range_send.md) (src/backend/utils/adt/rangetypes.c:265)
+  - [get_range_io_data](../g/get_range_io_data.md) (src/backend/utils/adt/rangetypes.c:319)
 
 ## Notes and Other Information
 - This structure is specifically designed for range I/O functions and stores more cached information than other range functions typically need

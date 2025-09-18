@@ -21,11 +21,11 @@ The function skips indexes where no statistics were collected (NULL) or where th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vac_update_relstats
+  - [vac_update_relstats](../v/vac_update_relstats.md)
   - InvalidTransactionId
   - InvalidMultiXactId
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within vacuumlazy.c

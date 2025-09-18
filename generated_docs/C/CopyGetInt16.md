@@ -18,10 +18,10 @@ CopyGetInt16 is a utility function for reading 16-bit integers from binary COPY 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyReadBinaryData (read raw binary data from input)
+  - [CopyReadBinaryData](CopyReadBinaryData.md) (read raw binary data from input)
   - pg_ntoh16 (convert from network to host byte order)
 - Called from (representative examples):
-  - NextCopyFrom (src/backend/commands/copyfromparse.c:1023)
+  - [NextCopyFrom](../N/NextCopyFrom.md) (src/backend/commands/copyfromparse.c:1023)
 
 ## Notes and Other Information
 - Returns true on successful read, false on EOF or insufficient data

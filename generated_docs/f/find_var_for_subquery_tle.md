@@ -28,7 +28,7 @@ This is crucial for pathkey conversion, as it prevents the creation of pathkeys 
 - Functions called/Symbols referenced:
   - copyObject (to create a safe copy of the Var node)
 - Called from (representative examples):
-  - convert_subquery_pathkeys (multiple calls for pathkey conversion)
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md) (multiple calls for pathkey conversion)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the pathkeys module

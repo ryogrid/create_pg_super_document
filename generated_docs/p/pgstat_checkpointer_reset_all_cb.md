@@ -20,7 +20,7 @@ This function implements the statistics reset callback for checkpointer statisti
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Checkpointer (structure type)
-  - pgstat_copy_changecounted_stats
+  - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
   - LWLockAcquire (implicitly via lock operations)
   - LWLockRelease (implicitly via lock operations)
 - Called from (representative examples):

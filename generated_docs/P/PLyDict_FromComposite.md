@@ -18,21 +18,21 @@ This function takes a PostgreSQL composite type value stored as a Datum and conv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyDatumToOb (type structure)
+  - [PLyDatumToOb](PLyDatumToOb.md) (type structure)
   - HeapTupleHeader (type definition)
-  - HeapTupleData (type structure)
+  - [HeapTupleData](../H/HeapTupleData.md) (type structure)
   - DatumGetHeapTupleHeader (extracts tuple header from datum)
   - HeapTupleHeaderGetTypeId (gets the tuple's type OID)
   - HeapTupleHeaderGetTypMod (gets the tuple's type modifier)
-  - lookup_rowtype_tupdesc (looks up tuple descriptor for the row type)
-  - PLy_input_setup_tuple (sets up input conversion functions for tuple attributes)
-  - PLy_current_execution_context (gets current PL/Python execution context)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md) (looks up tuple descriptor for the row type)
+  - [PLy_input_setup_tuple](PLy_input_setup_tuple.md) (sets up input conversion functions for tuple attributes)
+  - [PLy_current_execution_context](PLy_current_execution_context.md) (gets current PL/Python execution context)
   - HeapTupleHeaderGetDatumLength (gets the length of tuple data)
-  - PLyDict_FromTuple (performs actual tuple to dictionary conversion)
+  - [PLyDict_FromTuple](PLyDict_FromTuple.md) (performs actual tuple to dictionary conversion)
   - ReleaseTupleDesc (releases the tuple descriptor)
 - Called from:
-  - PLy_input_setup_tuple (during conversion function setup)
-  - PLy_input_setup_func (during function setup for composite types)
+  - [PLy_input_setup_tuple](PLy_input_setup_tuple.md) (during conversion function setup)
+  - [PLy_input_setup_func](PLy_input_setup_func.md) (during function setup for composite types)
 
 ## Notes and Other Information
 This function serves as a bridge between PostgreSQL's internal composite type representation and Python dictionaries. It handles the complex task of extracting type metadata from the composite value's header and setting up the necessary conversion infrastructure. The function properly manages PostgreSQL's reference-counted tuple descriptors by calling ReleaseTupleDesc. The actual field-by-field conversion is delegated to PLyDict_FromTuple, which handles the details of extracting individual attribute values and converting them to appropriate Python objects.

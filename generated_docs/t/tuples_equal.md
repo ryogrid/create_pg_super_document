@@ -35,15 +35,15 @@ The function is optimized for replication workloads where the same tuple structu
 - Functions called/Symbols referenced:
   - slot_getallattrs (to extract all attribute values from slots)
   - TupleDescAttr (to access attribute metadata)
-  - lookup_type_cache (to get type-specific equality operator information)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (to get type-specific equality operator information)
   - TYPECACHE_EQ_OPR_FINFO (flag for caching equality operator function info)
-  - format_type_be (for error message formatting)
-  - FunctionCall2Coll (to invoke equality operator with collation)
-  - DatumGetBool (to convert result to boolean)
+  - [format_type_be](../f/format_type_be.md) (for error message formatting)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (to invoke equality operator with collation)
+  - [DatumGetBool](../D/DatumGetBool.md) (to convert result to boolean)
 
 - Called from (representative examples):
-  - RelationFindReplTupleByIndex
-  - RelationFindReplTupleSeq
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within execReplication.c

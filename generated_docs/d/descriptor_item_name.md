@@ -28,15 +28,15 @@ The function uses a comprehensive switch statement to handle all descriptor item
 ## Dependencies
 - Functions called/Symbols referenced:
   - enum ECPGdtype (enumeration type for descriptor items)
-  - ECPGd_cardinality, ECPGd_count, ECPGd_data (descriptor type constants)
+  - [ECPGd_cardinality](../E/ECPGd_cardinality.md), ECPGd_count, ECPGd_data (descriptor type constants)
   - ECPGd_di_code, ECPGd_di_precision (datetime interval constants)
   - ECPGd_indicator, ECPGd_key_member, ECPGd_length (descriptor metadata constants)
   - ECPGd_name, ECPGd_nullable, ECPGd_octet (name and nullability constants)
   - ECPGd_precision, ECPGd_ret_length, ECPGd_ret_octet (precision and return length constants)
   - ECPGd_scale, ECPGd_type (scale and type constants)
 - Called from (representative examples):
-  - output_set_descr at src/interfaces/ecpg/preproc/descriptor.c:292
-  - output_set_descr at src/interfaces/ecpg/preproc/descriptor.c:302
+  - [output_set_descr](../o/output_set_descr.md) at src/interfaces/ecpg/preproc/descriptor.c:292
+  - [output_set_descr](../o/output_set_descr.md) at src/interfaces/ecpg/preproc/descriptor.c:302
 
 ## Notes and Other Information
 - This is a static function, only accessible within the descriptor.c file

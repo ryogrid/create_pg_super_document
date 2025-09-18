@@ -21,15 +21,15 @@ This function is commonly used in hash functions, partitioning operations, and o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (on pass-by-reference platforms)
+  - [DatumGetPointer](DatumGetPointer.md) (on pass-by-reference platforms)
   - USE_FLOAT8_BYVAL (preprocessor flag)
 - Called from (representative examples):
-  - k_hashes (bloom filter implementation)
-  - JumbleQuery (query fingerprinting)
-  - compute_partition_hash_value (partitioning)
-  - hash_array_extended (array hashing)
-  - JsonbHashScalarValueExtended (JSONB hashing)
-  - DatumGetFullTransactionId (transaction ID handling)
+  - [k_hashes](../k/k_hashes.md) (bloom filter implementation)
+  - [JumbleQuery](../J/JumbleQuery.md) (query fingerprinting)
+  - [compute_partition_hash_value](../c/compute_partition_hash_value.md) (partitioning)
+  - [hash_array_extended](../h/hash_array_extended.md) (array hashing)
+  - [JsonbHashScalarValueExtended](../J/JsonbHashScalarValueExtended.md) (JSONB hashing)
+  - [DatumGetFullTransactionId](DatumGetFullTransactionId.md) (transaction ID handling)
 
 ## Notes and Other Information
 - This function provides the same platform abstraction as DatumGetInt64 but for unsigned values

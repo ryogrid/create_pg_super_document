@@ -22,13 +22,13 @@ The function uses a fixed DateStyle of 1 (USE_ISO_DATES) and allocates a new str
 ## Dependencies
 - Functions called/Symbols referenced:
   - TIMESTAMP_NOT_FINITE (macro to check for special timestamp values)
-  - EncodeSpecialTimestamp (encodes infinity values to strings)
-  - timestamp2tm (converts timestamp to broken-down time structure)
-  - EncodeDateTime (formats datetime as string)
-  - pgtypes_strdup (allocates and duplicates string)
+  - [EncodeSpecialTimestamp](../E/EncodeSpecialTimestamp.md) (encodes infinity values to strings)
+  - [timestamp2tm](../t/timestamp2tm.md) (converts timestamp to broken-down time structure)
+  - [EncodeDateTime](../E/EncodeDateTime.md) (formats datetime as string)
+  - [pgtypes_strdup](../p/pgtypes_strdup.md) (allocates and duplicates string)
   - MAXDATELEN (constant defining maximum date string length)
 - Called from (representative examples):
-  - dttoasc (Informix compatibility function)
+  - [dttoasc](../d/dttoasc.md) (Informix compatibility function)
   - ecpg_store_input (ECPG input storage function)
   - Extensive usage in test programs (dt_test, dt_test2, array tests)
 

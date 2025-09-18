@@ -28,15 +28,15 @@ The child process will start execution in SubPostmasterMain() which reads the pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - save_backend_variables (to serialize state)
+  - [save_backend_variables](../s/save_backend_variables.md) (to serialize state)
   - SizeOfBackendParameters (for memory allocation)
-  - fork_process (Unix: for forking)
+  - [fork_process](../f/fork_process.md) (Unix: for forking)
   - execv (Unix: to execute new process)
   - CreateProcess (Windows: to create new process)
   - AllocateFile/FreeFile (Unix: for temp file I/O)
   - CreateFileMapping/MapViewOfFile (Windows: for shared memory)
 - Called from (representative examples):
-  - postmaster_child_launch (when EXEC_BACKEND is defined)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (when EXEC_BACKEND is defined)
 
 ## Notes and Other Information
 - This is a static function only available when EXEC_BACKEND is compiled in

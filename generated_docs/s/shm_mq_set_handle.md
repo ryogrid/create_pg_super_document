@@ -24,8 +24,8 @@ The function performs a simple assignment operation but includes an assertion to
 - Functions called/Symbols referenced:
   - Assert (validation macro)
 - Called from (representative examples):
-  - LaunchParallelWorkers (parallel query execution)
-  - ExecParallelCreateReaders (parallel execution setup)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md) (parallel query execution)
+  - [ExecParallelCreateReaders](../E/ExecParallelCreateReaders.md) (parallel execution setup)
 
 ## Notes and Other Information
 - The function requires that no handle was previously set (mqh->mqh_handle must be NULL)

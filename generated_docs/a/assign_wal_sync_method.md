@@ -28,10 +28,10 @@ The function only takes action when the new method differs from the current one,
 - Functions called/Symbols referenced:
   - pgstat_report_wait_start
   - pg_fsync
-  - XLogFileName
+  - [XLogFileName](../X/XLogFileName.md)
   - pgstat_report_wait_end
-  - get_sync_bit
-  - XLogFileClose
+  - [get_sync_bit](../g/get_sync_bit.md)
+  - [XLogFileClose](../X/XLogFileClose.md)
   - MAXFNAMELEN
   - PANIC
 - Called from (representative examples):

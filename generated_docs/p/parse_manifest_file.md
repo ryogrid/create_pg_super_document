@@ -20,25 +20,25 @@ The function sets up a JsonManifestParseContext with appropriate callback functi
 ## Dependencies
 - Functions called/Symbols referenced:
   - open (open the manifest file)
-  - report_fatal_error (error reporting for file operations)
+  - [report_fatal_error](../r/report_fatal_error.md) (error reporting for file operations)
   - fstat (get file statistics)
   - manifest_files_create (create hash table for manifest files)
   - pg_malloc0 (allocate and zero-initialize memory for result)
-  - verifybackup_version_cb (callback for version information)
-  - verifybackup_system_identifier (callback for system identifier)
-  - verifybackup_per_file_cb (callback for per-file data)
-  - verifybackup_per_wal_range_cb (callback for WAL range data)
-  - report_manifest_error (callback for parsing errors)
+  - [verifybackup_version_cb](../v/verifybackup_version_cb.md) (callback for version information)
+  - [verifybackup_system_identifier](../v/verifybackup_system_identifier.md) (callback for system identifier)
+  - [verifybackup_per_file_cb](../v/verifybackup_per_file_cb.md) (callback for per-file data)
+  - [verifybackup_per_wal_range_cb](../v/verifybackup_per_wal_range_cb.md) (callback for WAL range data)
+  - [report_manifest_error](../r/report_manifest_error.md) (callback for parsing errors)
   - pg_malloc (allocate memory for buffer)
   - read (read file content)
   - close (close file descriptor)
-  - json_parse_manifest (parse manifest in single chunk)
-  - json_parse_manifest_incremental_init (initialize incremental parsing)
-  - json_parse_manifest_incremental_chunk (parse manifest chunk)
-  - json_parse_manifest_incremental_shutdown (cleanup incremental parsing)
-  - pfree (free allocated buffer memory)
+  - [json_parse_manifest](../j/json_parse_manifest.md) (parse manifest in single chunk)
+  - [json_parse_manifest_incremental_init](../j/json_parse_manifest_incremental_init.md) (initialize incremental parsing)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md) (parse manifest chunk)
+  - [json_parse_manifest_incremental_shutdown](../j/json_parse_manifest_incremental_shutdown.md) (cleanup incremental parsing)
+  - [pfree](pfree.md) (free allocated buffer memory)
 - Called from:
-  - main (in src/bin/pg_verifybackup/pg_verifybackup.c:345)
+  - [main](../m/main.md) (in src/bin/pg_verifybackup/pg_verifybackup.c:345)
 
 ## Notes and Other Information
 - Located in src/bin/pg_verifybackup/pg_verifybackup.c:390-506

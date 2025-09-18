@@ -26,14 +26,14 @@ The function is critical for R-tree split algorithms and insertion penalty calcu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type)
-  - float8_le (for comparing coordinates to detect zero-width cases)
+  - [BOX](../B/BOX.md) (data type)
+  - [float8_le](../f/float8_le.md) (for comparing coordinates to detect zero-width cases)
   - isnan (for detecting NaN values)
   - get_float8_infinity (for returning infinite area)
-  - float8_mul (for multiplying width and height)
-  - float8_mi (for subtracting coordinates to get width and height)
+  - [float8_mul](../f/float8_mul.md) (for multiplying width and height)
+  - [float8_mi](../f/float8_mi.md) (for subtracting coordinates to get width and height)
 - Called from (representative examples):
-  - box_penalty
+  - [box_penalty](../b/box_penalty.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within gistproc.c

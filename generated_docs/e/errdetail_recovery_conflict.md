@@ -29,9 +29,9 @@ Each conflict type has a specific explanation to help users understand the under
   - PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT (logical replication slot conflict)
   - PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK (startup deadlock conflict)
   - PROCSIG_RECOVERY_CONFLICT_DATABASE (database conflict)
-  - errdetail (adds detail to error messages)
+  - [errdetail](errdetail.md) (adds detail to error messages)
 - Called from (representative examples):
-  - ProcessRecoveryConflictInterrupt (when processing recovery conflict interrupts)
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md) (when processing recovery conflict interrupts)
 
 ## Notes and Other Information
 - Returns 0 in all cases (return value appears to be unused)

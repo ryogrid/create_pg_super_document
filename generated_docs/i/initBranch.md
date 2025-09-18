@@ -20,11 +20,11 @@ The initBranch function generates one row of data for the pgbench_branches table
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (buffer structure for building strings)
-  - printfPQExpBuffer (formats and writes data to the buffer)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for building strings)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formats and writes data to the buffer)
   - INT64_FORMAT (format macro for 64-bit integers)
 - Called from (representative examples):
-  - initGenerateDataClientSide (during client-side data generation for branches)
+  - [initGenerateDataClientSide](initGenerateDataClientSide.md) (during client-side data generation for branches)
 
 ## Notes and Other Information
 - Generates tab-separated values suitable for PostgreSQL COPY command

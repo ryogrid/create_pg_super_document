@@ -20,11 +20,11 @@ ExecReScanTidScan performs a rescan operation on a TID scan node, resetting all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (to free the TID list memory)
-  - table_rescan (to reset the table scan descriptor)
-  - ExecScanReScan (generic scan state reset function)
+  - [pfree](../p/pfree.md) (to free the TID list memory)
+  - [table_rescan](../t/table_rescan.md) (to reset the table scan descriptor)
+  - [ExecScanReScan](ExecScanReScan.md) (generic scan state reset function)
 - Called from (representative examples):
-  - ExecReScan (generic executor rescan dispatch function)
+  - [ExecReScan](ExecReScan.md) (generic executor rescan dispatch function)
   - NODETIDSCAN_H (header file declaration)
 
 ## Notes and Other Information

@@ -24,17 +24,17 @@ For soft deadlocks, the function identifies one arbitrary soft cycle and returns
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandConstraints
+  - [ExpandConstraints](../E/ExpandConstraints.md)
   - FindLockCycle  
-  - PGPROC (struct type)
-  - EDGE (struct type)
+  - [PGPROC](../P/PGPROC.md) (struct type)
+  - [EDGE](../E/EDGE.md) (struct type)
   - curConstraints (global array)
   - possibleConstraints (global array)
   - nCurConstraints (global variable)
   - nPossibleConstraints (global variable)
   - maxPossibleConstraints (global variable)
 - Called from (representative examples):
-  - DeadLockCheckRecurse
+  - [DeadLockCheckRecurse](../D/DeadLockCheckRecurse.md)
 
 ## Notes and Other Information
 - The function is static (internal to deadlock.c) and part of the deadlock detection algorithm

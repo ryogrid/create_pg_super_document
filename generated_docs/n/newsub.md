@@ -26,15 +26,15 @@ This design allows multiple characters or character ranges to be moved into the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newcolor (allocates a new color)
+  - [newcolor](newcolor.md) (allocates a new color)
   - NOSUB (constant indicating no subcolor exists)
   - COLORLESS (constant representing no color/error state)
   - CISERR (macro to check for compilation errors)
 - Called from (representative examples):
-  - subcolor (at src/backend/regex/regc_color.c:344)
-  - subcolorhi (at src/backend/regex/regc_color.c:372)
-  - EventTriggerCollectAlterTableSubcmd (at src/backend/commands/event_trigger.c:1681+)
-  - maybe_reread_subscription (at src/backend/replication/logical/worker.c:3878+)
+  - [subcolor](../s/subcolor.md) (at src/backend/regex/regc_color.c:344)
+  - [subcolorhi](../s/subcolorhi.md) (at src/backend/regex/regc_color.c:372)
+  - [EventTriggerCollectAlterTableSubcmd](../E/EventTriggerCollectAlterTableSubcmd.md) (at src/backend/commands/event_trigger.c:1681+)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (at src/backend/replication/logical/worker.c:3878+)
 
 ## Notes and Other Information
 - Implements important optimization: avoids creating subcolors for singly-referenced colors

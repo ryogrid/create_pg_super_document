@@ -20,18 +20,18 @@ The  function performs safe multiplication of two Size values (typically size_t)
 - Functions called/Symbols referenced:
   - ereport (for error reporting when overflow detected)
   - ERROR (error level constant)
-  - errcode (for setting ERRCODE_PROGRAM_LIMIT_EXCEEDED)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for setting ERRCODE_PROGRAM_LIMIT_EXCEEDED)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 
 - Called from (representative examples):
-  - BTreeShmemSize (B-tree shared memory size calculation)
-  - XLOGShmemSize (transaction log shared memory sizing)
+  - [BTreeShmemSize](../B/BTreeShmemSize.md) (B-tree shared memory size calculation)
+  - [XLOGShmemSize](../X/XLOGShmemSize.md) (transaction log shared memory sizing)
   - BufferShmemSize (buffer pool shared memory sizing)
-  - hash_estimate_size (hash table size estimation)
-  - tuplesort_estimate_shared (tuple sorting shared memory estimation)
-  - ExecInitParallelPlan (parallel execution plan initialization)
-  - CreateSharedProcArray (shared process array creation)
-  - LWLockShmemSize (lightweight lock shared memory sizing)
+  - [hash_estimate_size](../h/hash_estimate_size.md) (hash table size estimation)
+  - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md) (tuple sorting shared memory estimation)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (parallel execution plan initialization)
+  - [CreateSharedProcArray](../C/CreateSharedProcArray.md) (shared process array creation)
+  - [LWLockShmemSize](../L/LWLockShmemSize.md) (lightweight lock shared memory sizing)
 
 ## Notes and Other Information
 - The function assumes that Size is an unsigned type, which is critical for the overflow detection logic to work correctly

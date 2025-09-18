@@ -35,8 +35,8 @@ The compiler uses this information to:
 - Called from (representative examples):
   - `error_multiple_recovery_targets` (src/backend/access/transam/xlogrecovery.c:4769)
   - `finish_sync_worker` (src/backend/replication/logical/tablesync.c:143)
-  - `WalSndShutdown` (src/backend/replication/walsender.c:244)
-  - `pg_fatal` (src/bin/pg_upgrade/pg_upgrade.h:474)
+  - `[WalSndShutdown](../W/WalSndShutdown.md)` (src/backend/replication/walsender.c:244)
+  - `[pg_fatal](pg_fatal.md)` (src/bin/pg_upgrade/pg_upgrade.h:474)
   - Various error handling and exit functions throughout PostgreSQL
 
 ## Notes and Other Information

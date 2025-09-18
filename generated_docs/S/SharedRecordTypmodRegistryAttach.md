@@ -24,9 +24,9 @@ A cleanup hook is registered to ensure proper detachment when the worker process
   - IsParallelWorker
   - dshash_attach
   - on_dsm_detach
-  - shared_record_typmod_registry_detach
+  - [shared_record_typmod_registry_detach](../s/shared_record_typmod_registry_detach.md)
 - Called from (representative examples):
-  - AttachSession
+  - [AttachSession](../A/AttachSession.md)
 
 ## Notes and Other Information
 - Must be called by parallel worker processes only (asserts IsParallelWorker())

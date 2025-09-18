@@ -21,7 +21,7 @@ This function serves as a comprehensive errno-to-symbol mapping utility that con
 - Functions called/Symbols referenced:
   - Various errno constants (E2BIG, EACCES, EADDRINUSE, etc.) - approximately 50+ different errno values with conditional compilation for platform compatibility
 - Called from (representative examples):
-  - pg_strerror_r (when standard error functions fail)
+  - [pg_strerror_r](../p/pg_strerror_r.md) (when standard error functions fail)
   - strerror_r (alias reference at src/port/strerror.c:25)
 
 ## Notes and Other Information

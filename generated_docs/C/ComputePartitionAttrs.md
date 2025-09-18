@@ -32,17 +32,17 @@ The function determines appropriate operator classes based on partitioning strat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName - Looks up column information by name
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) - Looks up column information by name
   - exprType, exprCollation - Extract expression type and collation
-  - CheckAttributeType - Validates type suitability for partition keys
-  - pull_varattnos - Extracts attribute references from expressions
-  - expression_planner - Preprocesses expressions for mutability analysis
-  - contain_mutable_functions - Checks for non-immutable functions
-  - get_collation_oid - Resolves collation names to OIDs
-  - type_is_collatable - Determines if type supports collation
-  - GetDefaultOpClass, ResolveOpClass - Operator class resolution
+  - [CheckAttributeType](CheckAttributeType.md) - Validates type suitability for partition keys
+  - [pull_varattnos](../p/pull_varattnos.md) - Extracts attribute references from expressions
+  - [expression_planner](../e/expression_planner.md) - Preprocesses expressions for mutability analysis
+  - [contain_mutable_functions](../c/contain_mutable_functions.md) - Checks for non-immutable functions
+  - [get_collation_oid](../g/get_collation_oid.md) - Resolves collation names to OIDs
+  - [type_is_collatable](../t/type_is_collatable.md) - Determines if type supports collation
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md), ResolveOpClass - Operator class resolution
 - Called from (representative examples):
-  - DefineRelation (src/backend/commands/tablecmds.c:1172)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:1172)
 
 ## Notes and Other Information
 - Static function scope limits visibility to tablecmds.c module

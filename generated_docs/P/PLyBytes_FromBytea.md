@@ -25,7 +25,7 @@ PLyBytes_FromBytea is a conversion function within PostgreSQL's PL/Python extens
   - VARSIZE_ANY_EXHDR: Macro to get size of variable-length data excluding header
   - PyBytes_FromStringAndSize: Creates Python bytes object from data pointer and size
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for PostgreSQL to Python data conversion
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for PostgreSQL to Python data conversion
 
 ## Notes and Other Information
 - This is a static function within the PL/Python type conversion system

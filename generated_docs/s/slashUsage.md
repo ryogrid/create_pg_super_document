@@ -17,18 +17,18 @@ This function generates and displays detailed help text for all psql backslash (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (buffer structure for building output)
-  - PQdb (get current database name)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (buffer structure for building output)
+  - [PQdb](../P/PQdb.md) (get current database name)
   - initPQExpBuffer (initialize the output buffer)
   - HELP0/HELPN (macros for adding help text)
   - ON (macro for displaying on/off status)
-  - PageOutput (handle paginated output)
-  - ClosePager (close the pager when done)
+  - [PageOutput](../P/PageOutput.md) (handle paginated output)
+  - [ClosePager](../C/ClosePager.md) (close the pager when done)
   - termPQExpBuffer (cleanup the buffer)
   - Various pset variables for current settings display
 - Called from (representative examples):
-  - exec_command_slash_command_help (in src/bin/psql/command.c:3080, 3086)
-  - parse_psql_options (in src/bin/psql/startup.c:704)
+  - [exec_command_slash_command_help](../e/exec_command_slash_command_help.md) (in src/bin/psql/command.c:3080, 3086)
+  - [parse_psql_options](../p/parse_psql_options.md) (in src/bin/psql/startup.c:704)
 
 ## Notes and Other Information
 - This function is part of psql's interactive help system

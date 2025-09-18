@@ -31,7 +31,7 @@ The function includes validation to ensure the provided block number corresponds
   - _hash_get_totalbuckets (calculates total bucket count for a split level)
   - ereport/errcode/errmsg (error reporting)
 - Called from (representative examples):
-  - _hash_freeovflpage (when freeing overflow pages)
+  - [_hash_freeovflpage](_hash_freeovflpage.md) (when freeing overflow pages)
   - HASHNProcs (hash index procedure definitions)
 
 ## Notes and Other Information

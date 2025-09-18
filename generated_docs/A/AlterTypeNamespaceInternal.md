@@ -22,22 +22,22 @@ AlterTypeNamespaceInternal is the workhorse function that performs the actual ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_address_present
+  - [object_address_present](../o/object_address_present.md)
   - SearchSysCacheCopy1
-  - CheckSetNamespace
+  - [CheckSetNamespace](../C/CheckSetNamespace.md)
   - SearchSysCacheExists2
-  - get_rel_relkind
-  - CatalogTupleUpdate
-  - AlterRelationNamespaceInternal
-  - AlterConstraintNamespaces
-  - changeDependencyFor
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [AlterRelationNamespaceInternal](AlterRelationNamespaceInternal.md)
+  - [AlterConstraintNamespaces](AlterConstraintNamespaces.md)
+  - [changeDependencyFor](../c/changeDependencyFor.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
-  - add_exact_object_address
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [add_exact_object_address](../a/add_exact_object_address.md)
 - Called from (representative examples):
-  - AlterTypeNamespace_oid
-  - AlterTableNamespaceInternal
-  - AlterTypeNamespaceInternal (recursive call)
+  - [AlterTypeNamespace_oid](AlterTypeNamespace_oid.md)
+  - [AlterTableNamespaceInternal](AlterTableNamespaceInternal.md)
+  - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md) (recursive call)
 
 ## Notes and Other Information
 - Automatically recurses to process associated array types when moving a base type

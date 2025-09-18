@@ -17,10 +17,10 @@ ExecEndUnique is responsible for the orderly shutdown of a UNIQUE plan node duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode: Recursively shut down the outer subplan node
+  - [ExecEndNode](ExecEndNode.md): Recursively shut down the outer subplan node
   - outerPlanState: Access the outer plan state from the UniqueState structure
 - Called from:
-  - ExecEndNode: During query execution cleanup
+  - [ExecEndNode](ExecEndNode.md): During query execution cleanup
   - nodeUnique.h: Header declaration
 
 ## Notes and Other Information

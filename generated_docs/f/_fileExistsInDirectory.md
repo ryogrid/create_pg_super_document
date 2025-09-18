@@ -22,14 +22,14 @@ This function constructs a full path by concatenating a directory path and filen
 - Functions called/Symbols referenced:
   - S_ISREG (macro for checking regular file type)
   - snprintf (standard C library function)
-  - stat (POSIX system call)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [stat](../s/stat.md) (POSIX system call)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
 - Called from (representative examples):
-  - _discoverArchiveFormat
+  - [_discoverArchiveFormat](../d/_discoverArchiveFormat.md)
 
 ## Notes and Other Information
 - Static function, only accessible within pg_backup_archiver.c
 - Uses MAXPGPATH constant to limit path length and prevent buffer overflows
 - Returns true only for regular files, not directories, symlinks, or other file types
 - Used primarily in archive format detection logic to check for specific marker files
-- Path construction uses forward slash separator, appropriate for Unix-like systems
+- [Path](../P/Path.md) construction uses forward slash separator, appropriate for Unix-like systems

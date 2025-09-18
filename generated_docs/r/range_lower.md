@@ -20,9 +20,9 @@ The `range_lower` function is a range accessor function that extracts and return
 - Functions called/Symbols referenced:
   - `PG_GETARG_RANGE_P` - Extracts range argument from function parameters
   - `RangeBound` - Structure representing range boundary information
-  - `range_get_typcache` - Retrieves type cache entry for the range type
+  - `[range_get_typcache](range_get_typcache.md)` - Retrieves type cache entry for the range type
   - `RangeTypeGetOid` - Gets the OID of the range type
-  - `range_deserialize` - Deserializes range into boundary components
+  - `[range_deserialize](range_deserialize.md)` - Deserializes range into boundary components
   - `PG_RETURN_DATUM` - Returns the lower bound value as a PostgreSQL Datum
 - Called from (representative examples):
   - SQL queries using the `lower()` function on range types

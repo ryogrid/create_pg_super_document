@@ -22,9 +22,9 @@ For INSERT_POST operations (posting list splits), additional data follows the st
   - OffsetNumber (type)
 
 - Called from (representative examples):
-  - _bt_insertonpg (src/backend/access/nbtree/nbtinsert.c:1314)
-  - btree_xlog_insert (src/backend/access/nbtree/nbtxlog.c:164)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:36)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md) (src/backend/access/nbtree/nbtinsert.c:1314)
+  - [btree_xlog_insert](../b/btree_xlog_insert.md) (src/backend/access/nbtree/nbtxlog.c:164)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:36)
   - SizeOfBtreeInsert (src/include/access/nbtxlog.h:87)
 
 ## Notes and Other Information

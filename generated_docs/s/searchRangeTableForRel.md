@@ -26,18 +26,18 @@ The function checks for matches in the following order:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scanNameSpaceForCTE
-  - scanNameSpaceForENR
+  - [scanNameSpaceForCTE](scanNameSpaceForCTE.md)
+  - [scanNameSpaceForENR](scanNameSpaceForENR.md)
   - RangeVarGetRelid
   - strcmp/lfirst (list operations)
 - Types referenced:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - CommonTableExpr
   - RTE_RELATION
   - RTE_CTE
   - RTE_NAMEDTUPLESTORE
 - Called from (representative examples):
-  - errorMissingRTE (src/backend/parser/parse_relation.c:3604)
+  - [errorMissingRTE](../e/errorMissingRTE.md) (src/backend/parser/parse_relation.c:3604)
 
 ## Notes and Other Information
 - This is a static function, not exposed in public headers

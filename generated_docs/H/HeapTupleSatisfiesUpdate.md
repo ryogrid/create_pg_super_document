@@ -35,18 +35,18 @@ The function examines both the tuple's insertion transaction (xmin) and modifica
   - HeapTupleHeaderGetRawXmax
   - HeapTupleHeaderGetCmin
   - HeapTupleHeaderGetCmax
-  - HeapTupleGetUpdateXid
-  - TransactionIdIsCurrentTransactionId
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
-  - MultiXactIdIsRunning
-  - SetHintBits
-  - ItemPointerEquals
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [MultiXactIdIsRunning](../M/MultiXactIdIsRunning.md)
+  - [SetHintBits](../S/SetHintBits.md)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
 - Called from (representative examples):
-  - heap_delete
-  - heap_update
-  - heap_lock_tuple
-  - heap_inplace_lock
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heap_inplace_lock](../h/heap_inplace_lock.md)
 
 ## Notes and Other Information
 The function returns one of six TM_Result values:

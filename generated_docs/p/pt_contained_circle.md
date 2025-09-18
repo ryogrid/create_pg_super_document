@@ -18,11 +18,11 @@ This function determines if a point lies within a circle by calculating the dist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (type definition)
+  - [Point](../P/Point.md) (type definition)
   - CIRCLE (type definition)
   - PG_GETARG_POINT_P (parameter extraction macro)
   - PG_GETARG_CIRCLE_P (parameter extraction macro)
-  - point_dt (distance between two points)
+  - [point_dt](point_dt.md) (distance between two points)
   - PG_RETURN_BOOL (boolean return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -23,7 +23,7 @@ The printXheaderWidthType enumeration controls how header lines are formatted an
 - Functions called/Symbols referenced:
   - None (enumeration type definition)
 - Called from (representative examples):
-  - printTableOpt (src/include/fe_utils/print.h:116) - used as member variable expanded_header_width_type
+  - [printTableOpt](printTableOpt.md) (src/include/fe_utils/print.h:116) - used as member variable expanded_header_width_type
 
 ## Notes and Other Information
 - This enumeration is specifically designed for PostgreSQL's expanded output mode, which displays query results in a vertical format rather than traditional table format

@@ -21,11 +21,11 @@ This function efficiently resets a bump memory block to its initial empty state 
   - USE_VALGRIND (conditional compilation for Valgrind support)
   - CLOBBER_FREED_MEMORY (conditional compilation for memory wiping)
   - Bump_BLOCKHDRSZ (size of block header constant)
-  - wipe_mem (clears memory with debugging pattern)
+  - [wipe_mem](../w/wipe_mem.md) (clears memory with debugging pattern)
   - VALGRIND_MAKE_MEM_NOACCESS (Valgrind integration for memory debugging)
 - Called from (representative examples):
   - ExternalChunkGetBlock (to reset blocks for reuse)
-  - BumpReset (to reset all blocks in context)
+  - [BumpReset](BumpReset.md) (to reset all blocks in context)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization in frequent resets

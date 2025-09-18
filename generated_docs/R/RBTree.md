@@ -27,18 +27,18 @@ The implementation is based on Thomas Niemann's "Sorting and Searching Algorithm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTNode
+  - [RBTNode](RBTNode.md)
   - rbt_comparator
   - rbt_combiner
   - rbt_allocfunc
   - rbt_freefunc
 - Called from (representative examples):
-  - rbt_create
-  - rbt_find
-  - rbt_insert
-  - rbt_delete
-  - rbt_begin_iterate
-  - rbt_leftmost
+  - [rbt_create](../r/rbt_create.md)
+  - [rbt_find](../r/rbt_find.md)
+  - [rbt_insert](../r/rbt_insert.md)
+  - [rbt_delete](../r/rbt_delete.md)
+  - [rbt_begin_iterate](../r/rbt_begin_iterate.md)
+  - [rbt_leftmost](../r/rbt_leftmost.md)
 
 ## Notes and Other Information
 - The structure is opaque to callers - they should only access it through the provided API functions
@@ -48,4 +48,4 @@ The implementation is based on Thomas Niemann's "Sorting and Searching Algorithm
 - The combiner function's right-hand argument will be a "proposed" node where RBTNode fields may not be valid
 - The freefunc should only handle node deallocation, not subsidiary data cleanup
 - Typically destroyed by resetting or deleting the memory context rather than explicit cleanup
-- Node size must be greater than sizeof(RBTNode) to accommodate caller's additional data fields
+- [Node](../N/Node.md) size must be greater than sizeof(RBTNode) to accommodate caller's additional data fields

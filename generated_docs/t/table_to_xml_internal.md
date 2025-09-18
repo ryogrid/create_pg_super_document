@@ -26,16 +26,16 @@ This function serves as the core table-to-XML conversion mechanism in PostgreSQL
 - Functions called/Symbols referenced:
   - initStringInfo
   - appendStringInfo
-  - regclassout
+  - [regclassout](../r/regclassout.md)
   - DirectFunctionCall1
-  - DatumGetCString
-  - ObjectIdGetDatum
-  - query_to_xml_internal
-  - get_rel_name
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [query_to_xml_internal](../q/query_to_xml_internal.md)
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - table_to_xml
-  - table_to_xml_and_xmlschema
-  - schema_to_xml_internal
+  - [table_to_xml](table_to_xml.md)
+  - [table_to_xml_and_xmlschema](table_to_xml_and_xmlschema.md)
+  - [schema_to_xml_internal](../s/schema_to_xml_internal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xml.c file

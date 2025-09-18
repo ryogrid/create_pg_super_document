@@ -21,7 +21,7 @@ The `hashenumextended` function is the extended version of the `hashenum` hash f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32_extended
+  - [hash_uint32_extended](hash_uint32_extended.md)
   - PG_GETARG_INT64
 - Called from (representative examples):
   - No direct references found in the codebase

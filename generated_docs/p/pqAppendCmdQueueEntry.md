@@ -31,11 +31,11 @@ The function maintains the integrity of the command queue as a linked list by pr
   - PQ_PIPELINE_OFF, PQ_PIPELINE_ON, PQ_PIPELINE_ABORTED (pipeline status constants)
   - PGASYNC_IDLE, PGASYNC_BUSY, PGASYNC_PIPELINE_IDLE (async status constants)
 - Called from (representative examples):
-  - PQsendQueryInternal
-  - PQsendPrepare
-  - PQsendQueryGuts
-  - PQsendTypedCommand
-  - pqPipelineSyncInternal
+  - [PQsendQueryInternal](../P/PQsendQueryInternal.md)
+  - [PQsendPrepare](../P/PQsendPrepare.md)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md)
+  - [PQsendTypedCommand](../P/PQsendTypedCommand.md)
+  - [pqPipelineSyncInternal](pqPipelineSyncInternal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-exec.c

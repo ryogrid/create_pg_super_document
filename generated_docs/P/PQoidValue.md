@@ -23,7 +23,7 @@ PQoidValue serves as a more robust and type-safe version of PQoidStatus by parsi
   - strtoul (standard C library)
   - InvalidOid (PostgreSQL constant)
 - Called from (representative examples):
-  - PrintQueryStatus (src/bin/psql/common.c:989)
+  - [PrintQueryStatus](PrintQueryStatus.md) (src/bin/psql/common.c:989)
   - ecpg_process_output (src/interfaces/ecpg/ecpglib/execute.c:1867)
 
 ## Notes and Other Information

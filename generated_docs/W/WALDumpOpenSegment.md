@@ -25,14 +25,14 @@ The function integrates with the XLogReaderState structure to maintain file hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFileName
-  - open_file_in_directory
-  - pg_usleep
-  - pg_fatal
+  - [XLogFileName](../X/XLogFileName.md)
+  - [open_file_in_directory](../o/open_file_in_directory.md)
+  - [pg_usleep](../p/pg_usleep.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - XLogSegNo (type)
   - TimeLineID (type)
 - Called from (representative examples):
-  - main (assigned as callback to XLogReaderRoutine)
+  - [main](../m/main.md) (assigned as callback to XLogReaderRoutine)
 
 ## Notes and Other Information
 - Implements the segment_open callback interface required by XLogReaderRoutine

@@ -21,31 +21,31 @@ Special handling is provided for grouping sets scenarios where certain variables
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_cols
+  - [find_cols](find_cols.md)
   - outerPlanState
-  - bms_union
-  - bms_copy
-  - bms_is_member
-  - bms_del_member
-  - bms_add_member
-  - bms_next_member
-  - bms_num_members
-  - bms_free
-  - list_nth
-  - list_free
+  - [bms_union](../b/bms_union.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_del_member](../b/bms_del_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_free](../b/bms_free.md)
+  - [list_nth](../l/list_nth.md)
+  - [list_free](../l/list_free.md)
   - lfirst_int
-  - ExecTypeFromTL
+  - [ExecTypeFromTL](../E/ExecTypeFromTL.md)
   - execTuplesHashPrepare
-  - ExecAllocTableSlot
+  - [ExecAllocTableSlot](../E/ExecAllocTableSlot.md)
 - Types referenced:
-  - AggState
-  - AggStatePerHash
-  - Bitmapset
-  - TupleDesc
+  - [AggState](../A/AggState.md)
+  - [AggStatePerHash](../A/AggStatePerHash.md)
+  - [Bitmapset](../B/Bitmapset.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - AttrNumber
-  - EState
+  - [EState](../E/EState.md)
 - Called from (representative examples):
-  - ExecInitAgg
+  - [ExecInitAgg](../E/ExecInitAgg.md)
 
 ## Notes and Other Information
 - Critical for hash aggregation performance as it minimizes hash table entry size by eliminating unused columns

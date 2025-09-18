@@ -22,9 +22,9 @@ This is a static helper function used in logical replication that prepares the o
 - Functions called/Symbols referenced:
   - resetStringInfo (resets the output buffer)
 - Data types used:
-  - LogicalDecodingContext (context structure for logical decoding)
+  - [LogicalDecodingContext](LogicalDecodingContext.md) (context structure for logical decoding)
 - Called from:
-  - pg_logical_slot_get_changes_guts (main function for retrieving logical changes)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md) (main function for retrieving logical changes)
 
 ## Notes and Other Information
 - This is a static function, only accessible within logicalfuncs.c

@@ -30,13 +30,13 @@ The OkeysState structure is used internally by PostgreSQL JSON processing functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
 - Called from (representative examples):
-  - jsonb_object_keys
-  - json_object_keys
-  - okeys_object_field_start
-  - okeys_array_start
-  - okeys_scalar
+  - [jsonb_object_keys](../j/jsonb_object_keys.md)
+  - [json_object_keys](../j/json_object_keys.md)
+  - [okeys_object_field_start](../o/okeys_object_field_start.md)
+  - [okeys_array_start](../o/okeys_array_start.md)
+  - [okeys_scalar](../o/okeys_scalar.md)
 
 ## Notes and Other Information
 This structure is specifically designed for the json_object_keys functionality and is used in both JSON and JSONB variants. The structure supports incremental key discovery and maintains separate counters for allocated space, actual results, and sent results, allowing for efficient memory management and result tracking during JSON parsing operations.

@@ -31,26 +31,26 @@ The function is designed to be conservative and only updates parts of the planne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_base_rel: Locates the RelOptInfo for the target relation
-  - bms_union, bms_add_member, bms_del_member: Bitmap set manipulation functions
-  - bms_copy: Creates copies of bitmap sets to avoid modifying shared structures
-  - bms_is_member, bms_is_subset, bms_is_empty: Bitmap set query functions
+  - [find_base_rel](../f/find_base_rel.md): Locates the RelOptInfo for the target relation
+  - [bms_union](../b/bms_union.md), bms_add_member, bms_del_member: Bitmap set manipulation functions
+  - [bms_copy](../b/bms_copy.md): Creates copies of bitmap sets to avoid modifying shared structures
+  - [bms_is_member](../b/bms_is_member.md), bms_is_subset, bms_is_empty: Bitmap set query functions
   - foreach_delete_current: Safe deletion during list iteration
-  - remove_join_clause_from_rels: Removes join clauses from relation join lists
-  - remove_rel_from_restrictinfo: Updates RestrictInfo relation references
-  - distribute_restrictinfo_to_rels: Redistributes join clauses after modification
-  - remove_rel_from_eclass: Removes relation from equivalence classes
-  - pull_varnos: Extracts variable relation IDs for debugging assertions
+  - [remove_join_clause_from_rels](remove_join_clause_from_rels.md): Removes join clauses from relation join lists
+  - [remove_rel_from_restrictinfo](remove_rel_from_restrictinfo.md): Updates RestrictInfo relation references
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md): Redistributes join clauses after modification
+  - [remove_rel_from_eclass](remove_rel_from_eclass.md): Removes relation from equivalence classes
+  - [pull_varnos](../p/pull_varnos.md): Extracts variable relation IDs for debugging assertions
   - RINFO_IS_PUSHED_DOWN: Macro to identify pushed-down restrictions
 
 - Called from (representative examples):
-  - remove_useless_joins: Main join elimination function
+  - [remove_useless_joins](remove_useless_joins.md): Main join elimination function
 
 ## Notes and Other Information
 - The function is not "terribly thorough" by design - it only updates data structures that will be consulted later in planning
 - Special care is taken with PlaceHolderVars, distinguishing between those used at partner relations versus those used in join qualifiers
 - The function handles cloned join clauses that may result from outer join commutation rules
-- SpecialJoinInfo structures require copying before modification since they may share relid sets with other structures
+- [SpecialJoinInfo](../S/SpecialJoinInfo.md) structures require copying before modification since they may share relid sets with other structures
 - The target relation's RelOptInfo is freed at the end to prevent any further access
 - Includes debug assertions to verify that redistributed clauses don't reference the eliminated relation
 - Foreign key references are left for match_foreign_keys_to_quals() to clean up later

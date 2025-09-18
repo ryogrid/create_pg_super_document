@@ -17,14 +17,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSnd (struct type)
+  - [WalSnd](WalSnd.md) (struct type)
   - SpinLockAcquire
   - SpinLockRelease
   - max_wal_senders (global variable)
   - WalSndCtl (global control structure)
 - Called from (representative examples):
-  - KeepFileRestoredFromArchive
-  - CRSSnapshotAction
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md)
+  - [CRSSnapshotAction](../C/CRSSnapshotAction.md)
 
 ## Notes and Other Information
 - The function safely accesses shared memory using spinlocks to prevent race conditions

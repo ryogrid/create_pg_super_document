@@ -24,26 +24,26 @@ The function performs careful validation to ensure exactly one subscription reco
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - PQescapeLiteral
-  - appendPQExpBuffer
-  - PQexec
-  - PQresultStatus
-  - PQresultErrorMessage
-  - PQntuples
-  - PQgetvalue
-  - PQclear
-  - resetPQExpBuffer
+  - [PQescapeLiteral](../P/PQescapeLiteral.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - pg_log_info
   - pg_log_debug
   - pg_log_error
-  - disconnect_database
-  - PQfreemem
-  - pg_free
+  - [disconnect_database](../d/disconnect_database.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [pg_free](../p/pg_free.md)
   - destroyPQExpBuffer
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - strtoul
 - Called from (representative examples):
-  - setup_subscriber
+  - [setup_subscriber](setup_subscriber.md)
 
 ## Notes and Other Information
 - Must be called after create_subscription() since it requires the subscription OID

@@ -23,7 +23,7 @@ This function serves as the public interface for JSONPath array query operations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_query_array_internal (with timezone=false)
+  - [jsonb_path_query_array_internal](jsonb_path_query_array_internal.md) (with timezone=false)
 - Called from (representative examples):
   - SQL function calls via PostgreSQL's function manager
 

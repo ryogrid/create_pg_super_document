@@ -23,14 +23,14 @@ For normal (non-EPQ) operations, the function simply delegates to the lower-leve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_markpos
+  - [index_markpos](../i/index_markpos.md)
 - Types used:
-  - IndexOnlyScanState
-  - EState
-  - EPQState
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [EState](EState.md)
+  - [EPQState](EPQState.md)
   - Scan
 - Called from (representative examples):
-  - ExecMarkPos
+  - [ExecMarkPos](ExecMarkPos.md)
 
 ## Notes and Other Information
 - The function assumes that at least one tuple has been read before marking, ensuring ioss_ScanDesc is not NULL

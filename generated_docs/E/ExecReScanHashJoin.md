@@ -24,14 +24,14 @@ The function implements a key optimization where single-batch hash tables are re
   - outerPlanState
   - innerPlanState
   - HJ_FILL_INNER
-  - ExecHashTableResetMatchFlags
+  - [ExecHashTableResetMatchFlags](ExecHashTableResetMatchFlags.md)
   - castNode
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - ExecHashAccumInstrumentation
   - ExecHashTableDestroy
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 - Called from (representative examples):
-  - ExecReScan (generic executor rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (generic executor rescan dispatcher)
 
 ## Notes and Other Information
 - Implements hash table reuse optimization for single-batch joins without parameter changes

@@ -22,14 +22,14 @@ The function supports both exact and approximate matching using fuzzy string mat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuzzyAttrMatchState
-  - varstr_levenshtein_less_equal
-  - scanRTEForColumn
+  - [FuzzyAttrMatchState](../F/FuzzyAttrMatchState.md)
+  - [varstr_levenshtein_less_equal](../v/varstr_levenshtein_less_equal.md)
+  - [scanRTEForColumn](scanRTEForColumn.md)
   - MAX_FUZZY_DISTANCE
   - RTE_JOIN
   - InvalidAttrNumber
 - Called from (representative examples):
-  - errorMissingColumn
+  - [errorMissingColumn](../e/errorMissingColumn.md)
 
 ## Notes and Other Information
 - This function is intended ONLY for error reporting heuristics, not normal column resolution

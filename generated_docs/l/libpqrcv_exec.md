@@ -20,18 +20,18 @@ The  function provides a unified interface for executing SQL queries and command
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpqrcv_PQexec
-  - libpqrcv_processTuples
-  - PQresultStatus
-  - PQerrorMessage
-  - PQresultErrorField
-  - PQclear
-  - pchomp
+  - [libpqrcv_PQexec](libpqrcv_PQexec.md)
+  - [libpqrcv_processTuples](libpqrcv_processTuples.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQresultErrorField](../P/PQresultErrorField.md)
+  - [PQclear](../P/PQclear.md)
+  - [pchomp](../p/pchomp.md)
   - MAKE_SQLSTATE
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - ereport
 - Called from (representative examples):
-  - WalReceiverConn functions (line 85, 107)
+  - [WalReceiverConn](../W/WalReceiverConn.md) functions (line 85, 107)
 
 ## Notes and Other Information
 - This function can only be called from a process connected to a database (MyDatabaseId != InvalidOid)

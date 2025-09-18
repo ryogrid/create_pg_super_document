@@ -20,13 +20,13 @@ This function determines whether bitmapset 'a' contains any members that are not
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
+  - [bms_is_valid_set](bms_is_valid_set.md)
 - Called from (representative examples):
-  - ExecReScanMemoize (src/backend/executor/nodeMemoize.c:1162)
-  - bms_difference (src/backend/nodes/bitmapset.c:365)
-  - allow_star_schema_join (src/backend/optimizer/path/joinpath.c:372)
-  - use_physical_tlist (src/backend/optimizer/plan/createplan.c:935)
-  - add_placeholders_to_base_rels (src/backend/optimizer/util/placeholder.c:340)
+  - [ExecReScanMemoize](../E/ExecReScanMemoize.md) (src/backend/executor/nodeMemoize.c:1162)
+  - [bms_difference](bms_difference.md) (src/backend/nodes/bitmapset.c:365)
+  - [allow_star_schema_join](../a/allow_star_schema_join.md) (src/backend/optimizer/path/joinpath.c:372)
+  - [use_physical_tlist](../u/use_physical_tlist.md) (src/backend/optimizer/plan/createplan.c:935)
+  - [add_placeholders_to_base_rels](../a/add_placeholders_to_base_rels.md) (src/backend/optimizer/util/placeholder.c:340)
   - build_joinrel_tlist (src/backend/optimizer/util/relnode.c:1136, 1205)
 
 ## Notes and Other Information

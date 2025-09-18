@@ -27,7 +27,7 @@ These operations are commonly used in SQL for finding the maximum or minimum val
   - (No direct references from this enum)
 - Called from (representative examples):
   - MinMaxExpr struct (uses MinMaxOp as op field)
-  - ExecEvalMinMax function
+  - [ExecEvalMinMax](../E/ExecEvalMinMax.md) function
   - ExprEvalStep struct
 
 ## Notes and Other Information

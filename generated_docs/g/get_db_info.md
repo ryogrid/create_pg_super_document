@@ -44,21 +44,21 @@ The function supports extracting a comprehensive set of database properties incl
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - LockSharedObject/UnlockSharedObject
-  - SearchSysCache1
-  - SysCacheGetAttr/SysCacheGetAttrNotNull
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [LockSharedObject](../L/LockSharedObject.md)/UnlockSharedObject
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)/SysCacheGetAttrNotNull
   - TextDatumGetCString
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - table_close
 - Called from (representative examples):
-  - createdb
-  - dropdb
-  - RenameDatabase
-  - movedb
+  - [createdb](../c/createdb.md)
+  - [dropdb](../d/dropdb.md)
+  - [RenameDatabase](../R/RenameDatabase.md)
+  - [movedb](../m/movedb.md)
 
 ## Notes and Other Information
 - Static function used internally within dbcommands.c for database operations

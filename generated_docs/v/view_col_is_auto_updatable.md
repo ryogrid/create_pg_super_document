@@ -21,13 +21,13 @@ The function is part of the view updatability analysis system and focuses solely
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTblRef (structure representing range table references)
-  - TargetEntry (structure representing target list entries)
+  - [TargetEntry](../T/TargetEntry.md) (structure representing target list entries)
   - Var (node type for variable references)
   - IsA (macro for type checking)
   - gettext_noop (macro for marking translatable strings)
 - Called from (representative examples):
-  - view_query_is_auto_updatable (in src/backend/rewrite/rewriteHandler.c:2732)
-  - view_cols_are_auto_updatable (in src/backend/rewrite/rewriteHandler.c:2801)
+  - [view_query_is_auto_updatable](view_query_is_auto_updatable.md) (in src/backend/rewrite/rewriteHandler.c:2732)
+  - [view_cols_are_auto_updatable](view_cols_are_auto_updatable.md) (in src/backend/rewrite/rewriteHandler.c:2801)
 
 ## Notes and Other Information
 - Returns NULL for updatable columns, or a const char* error message for non-updatable columns

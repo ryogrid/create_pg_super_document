@@ -34,14 +34,14 @@ BackendType is a comprehensive enumeration that categorizes all PostgreSQL proce
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - PostmasterChildName
-  - postmaster_child_launch
-  - SubPostmasterMain
+  - [PostmasterChildName](../P/PostmasterChildName.md)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md)
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
   - SignalChildren
-  - StartChildProcess
-  - pgstat_bktype_io_stats_valid
-  - pgstat_tracks_io_bktype
-  - GetBackendTypeDesc
+  - [StartChildProcess](../S/StartChildProcess.md)
+  - [pgstat_bktype_io_stats_valid](../p/pgstat_bktype_io_stats_valid.md)
+  - [pgstat_tracks_io_bktype](../p/pgstat_tracks_io_bktype.md)
+  - [GetBackendTypeDesc](../G/GetBackendTypeDesc.md)
 
 ## Notes and Other Information
 - The global variable MyBackendType (of type BackendType) indicates the current process type

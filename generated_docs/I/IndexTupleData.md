@@ -26,15 +26,15 @@ The design philosophy emphasizes space efficiency while maintaining the necessar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (for t_tid member)
+  - [ItemPointerData](ItemPointerData.md) (for t_tid member)
   - MAXALIGN (for data alignment requirements)
 - Called from (representative examples):
-  - index_form_tuple_context (src/backend/access/common/indextuple.c:178)
-  - nocache_index_getattr (src/backend/access/common/indextuple.c:273)
-  - index_deform_tuple (src/backend/access/common/indextuple.c:463)
-  - _bt_pgaddtup (src/backend/access/nbtree/nbtinsert.c:2636)
+  - [index_form_tuple_context](../i/index_form_tuple_context.md) (src/backend/access/common/indextuple.c:178)
+  - [nocache_index_getattr](../n/nocache_index_getattr.md) (src/backend/access/common/indextuple.c:273)
+  - [index_deform_tuple](../i/index_deform_tuple.md) (src/backend/access/common/indextuple.c:463)
+  - [_bt_pgaddtup](../b/_bt_pgaddtup.md) (src/backend/access/nbtree/nbtinsert.c:2636)
   - _bt_sortaddtup (src/backend/access/nbtree/nbtsort.c:720)
-  - gistjoinvector (src/backend/access/gist/gistutil.c:125)
+  - [gistjoinvector](../g/gistjoinvector.md) (src/backend/access/gist/gistutil.c:125)
 
 ## Notes and Other Information
 - The comment "MORE DATA FOLLOWS AT END OF STRUCT" indicates that this is a variable-length structure with additional data appended after the fixed header.

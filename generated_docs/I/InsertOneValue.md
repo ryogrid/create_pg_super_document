@@ -31,11 +31,11 @@ This function works in conjunction with InsertOneNull and InsertOneTuple to buil
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (accesses attribute information from tuple descriptor)
-  - boot_get_type_io_data (retrieves type I/O function information)
-  - OidInputFunctionCall (calls type-specific input function for conversion)
-  - OidOutputFunctionCall (calls type-specific output function for debug logging)
+  - [boot_get_type_io_data](../b/boot_get_type_io_data.md) (retrieves type I/O function information)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md) (calls type-specific input function for conversion)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md) (calls type-specific output function for debug logging)
   - ereport (structured error/debug reporting)
-  - errmsg_internal (internal error message formatting)
+  - [errmsg_internal](../e/errmsg_internal.md) (internal error message formatting)
   - MAXATTR (maximum number of attributes constant)
   - DEBUG4 (debug logging level)
 - Called from (representative examples):

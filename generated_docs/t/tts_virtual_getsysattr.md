@@ -26,8 +26,8 @@ The function first asserts that the slot is not empty, then reports a user-frien
   - TTS_EMPTY (macro to check if slot is empty)
   - Assert (debugging assertion)
   - ereport (error reporting function)
-  - errcode (error code specification)
-  - errmsg (error message specification)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message specification)
   - ERRCODE_FEATURE_NOT_SUPPORTED (specific error code)
 - Called from (representative examples):
   - System attribute access operations throughout the executor

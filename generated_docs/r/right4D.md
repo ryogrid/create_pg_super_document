@@ -18,11 +18,11 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - higher2D
+  - [higher2D](../h/higher2D.md)
   - RectBox (struct)
   - RangeBox (struct)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. It provides the complement to left4D, checking for strict right positioning relative to a query boundary. Along with other directional predicates (left4D, overLeft4D, overRight4D, below4D), it enables efficient spatial indexing and query processing for PostgreSQL's geometric data types. The function is declared static for internal use within geo_spgist.c.

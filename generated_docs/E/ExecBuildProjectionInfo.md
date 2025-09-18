@@ -30,17 +30,17 @@ ExecBuildProjectionInfo creates a ProjectionInfo node that efficiently evaluates
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create ProjectionInfo)
-  - ExecCreateExprSetupSteps (expression setup)
-  - ExecInitExprRec (expression compilation)
-  - ExprEvalPushStep (step compilation)
-  - ExecReadyExpr (finalize expression)
-  - get_typlen (type length checking)
+  - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md) (expression setup)
+  - [ExecInitExprRec](ExecInitExprRec.md) (expression compilation)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (step compilation)
+  - [ExecReadyExpr](ExecReadyExpr.md) (finalize expression)
+  - [get_typlen](../g/get_typlen.md) (type length checking)
   - TupleDescAttr (tuple descriptor access)
 - Called from (representative examples):
-  - ExecAssignProjectionInfo
-  - ExecInitInsertProjection
-  - ExecInitPartitionInfo
-  - ExecInitSubPlan
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md)
+  - [ExecInitInsertProjection](ExecInitInsertProjection.md)
+  - [ExecInitPartitionInfo](ExecInitPartitionInfo.md)
+  - [ExecInitSubPlan](ExecInitSubPlan.md)
 
 ## Notes and Other Information
 - **Version compatibility**: Prior to PostgreSQL v10, targetList was a list of ExprStates; now it should be the planner-created target list since compilation happens in this function

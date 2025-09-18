@@ -27,15 +27,15 @@ The function uses interrupt handling to ensure safe processing of network messag
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_CANCEL_INTERRUPTS
-  - pq_startmsgread
-  - pq_getbyte
+  - [pq_startmsgread](../p/pq_startmsgread.md)
+  - [pq_getbyte](../p/pq_getbyte.md)
   - pq_getmessage
   - RESUME_CANCEL_INTERRUPTS
-  - AppendIncrementalManifestData
-  - pq_getmsgstring
+  - [AppendIncrementalManifestData](../A/AppendIncrementalManifestData.md)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md)
   - ereport
 - Called from:
-  - UploadManifest
+  - [UploadManifest](../U/UploadManifest.md)
 
 ## Notes and Other Information
 - The function is static and only used within the walsender module

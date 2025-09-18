@@ -22,12 +22,12 @@ The function delegates the actual conversion work to `float_to_shortest_decimal_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float_to_shortest_decimal_bufn (core conversion function)
+  - [float_to_shortest_decimal_bufn](float_to_shortest_decimal_bufn.md) (core conversion function)
   - FLOAT_SHORTEST_DECIMAL_LEN (buffer size constant)
   - Assert (debugging macro)
 - Called from:
-  - float4out (PostgreSQL float4 output function)
-  - float_to_shortest_decimal (convenience wrapper)
+  - [float4out](float4out.md) (PostgreSQL float4 output function)
+  - [float_to_shortest_decimal](float_to_shortest_decimal.md) (convenience wrapper)
   - FLOAT_SHORTEST_DECIMAL_LEN (macro context)
 
 ## Notes and Other Information

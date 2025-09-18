@@ -19,12 +19,12 @@ This function traverses an expression tree to find the first window function cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - locate_windowfunc_context (context structure)
+  - [locate_windowfunc_context](locate_windowfunc_context.md) (context structure)
   - query_or_expression_tree_walker (tree traversal function)
-  - locate_windowfunc_walker (helper walker function)
+  - [locate_windowfunc_walker](locate_windowfunc_walker.md) (helper walker function)
 - Called from (representative examples):
-  - transformWindowFuncCall
-  - checkTargetlistEntrySQL92
+  - [transformWindowFuncCall](../t/transformWindowFuncCall.md)
+  - [checkTargetlistEntrySQL92](../c/checkTargetlistEntrySQL92.md)
 
 ## Notes and Other Information
 - Returns -1 if no window function is found or if parse locations are unknown

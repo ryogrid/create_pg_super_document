@@ -19,16 +19,16 @@ The function is part of PostgreSQL's text search locale handling infrastructure,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen
-  - char2wchar
+  - [pg_mblen](../p/pg_mblen.md)
+  - [char2wchar](../c/char2wchar.md)
   - isdigit (standard C library)
   - iswdigit (standard C library)
   - TOUCHAR
 - Called from (representative examples):
-  - getNextFlagFromString
-  - NISortDictionary
-  - PHRASE_FINISH
-  - gettoken_tsvector
+  - [getNextFlagFromString](../g/getNextFlagFromString.md)
+  - [NISortDictionary](../N/NISortDictionary.md)
+  - [PHRASE_FINISH](../P/PHRASE_FINISH.md)
+  - [gettoken_tsvector](../g/gettoken_tsvector.md)
   - COPYCHAR
 
 ## Notes and Other Information

@@ -17,11 +17,11 @@ ExecEstimateCacheEntryOverheadBytes is a utility function designed specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeEntry (struct size calculation)
-  - MemoizeKey (struct size calculation) 
-  - MemoizeTuple (struct size calculation)
+  - [MemoizeEntry](../M/MemoizeEntry.md) (struct size calculation)
+  - [MemoizeKey](../M/MemoizeKey.md) (struct size calculation) 
+  - [MemoizeTuple](../M/MemoizeTuple.md) (struct size calculation)
 - Called from (representative examples):
-  - cost_memoize_rescan (query planner cost estimation)
+  - [cost_memoize_rescan](../c/cost_memoize_rescan.md) (query planner cost estimation)
 
 ## Notes and Other Information
 - Used exclusively during query planning phase, not during execution

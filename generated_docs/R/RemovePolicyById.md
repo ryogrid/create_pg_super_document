@@ -33,18 +33,18 @@ The function is designed to maintain transactional consistency and handles both 
 - Functions called/Symbols referenced:
   - table_open (relation opening)
   - table_close (relation closing)
-  - ScanKeyInit (scan key initialization)
-  - systable_beginscan (system catalog scan)
-  - systable_getnext (scan result retrieval)
-  - systable_endscan (scan cleanup)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (scan key initialization)
+  - [systable_beginscan](../s/systable_beginscan.md) (system catalog scan)
+  - [systable_getnext](../s/systable_getnext.md) (scan result retrieval)
+  - [systable_endscan](../s/systable_endscan.md) (scan cleanup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
   - elog (error logging)
   - ereport (error reporting)
-  - CatalogTupleDelete (catalog tuple deletion)
-  - CacheInvalidateRelcache (cache invalidation)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (catalog tuple deletion)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md) (cache invalidation)
   - RelationGetRelationName (relation name retrieval)
-  - IsSystemRelation (system relation detection)
+  - [IsSystemRelation](../I/IsSystemRelation.md) (system relation detection)
   - PolicyRelationId (pg_policy catalog OID)
   - PolicyOidIndexId (policy OID index)
   - AccessExclusiveLock (exclusive locking constant)
@@ -52,7 +52,7 @@ The function is designed to maintain transactional consistency and handles both 
   - NoLock (no lock constant)
 
 - Called from:
-  - doDeletion (dependency system for cascaded deletions)
+  - [doDeletion](../d/doDeletion.md) (dependency system for cascaded deletions)
   - Policy management operations
 
 ## Notes and Other Information

@@ -24,13 +24,13 @@ This structure contains the essential metadata needed to manage the tree: a coun
   - avl_node (for root and end node pointers)
 - Called from (representative examples):
   - avl_tree (function declarations and usage)
-  - PrintResultInCrosstab (for crosstab processing)
-  - avlInit (for tree initialization)
-  - avlFree (for memory cleanup)
-  - avlAdjustBalance (for balancing operations)
-  - avlInsertNode (for node insertion)
-  - avlMergeValue (for value merging)
-  - avlCollectFields (for field collection and traversal)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (for crosstab processing)
+  - [avlInit](avlInit.md) (for tree initialization)
+  - [avlFree](avlFree.md) (for memory cleanup)
+  - [avlAdjustBalance](avlAdjustBalance.md) (for balancing operations)
+  - [avlInsertNode](avlInsertNode.md) (for node insertion)
+  - [avlMergeValue](avlMergeValue.md) (for value merging)
+  - [avlCollectFields](avlCollectFields.md) (for field collection and traversal)
 
 ## Notes and Other Information
 - Part of psql's crosstabview AVL tree implementation located in src/bin/psql/crosstabview.c:73-77

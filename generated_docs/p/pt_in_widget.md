@@ -22,12 +22,12 @@ pt_in_widget is a PostgreSQL function that implements a geometric containment te
   - PG_GETARG_POINT_P (extracts Point from function arguments)
   - PG_GETARG_POINTER (extracts WIDGET pointer from function arguments)
   - DirectFunctionCall2 (calls point_distance function)
-  - point_distance (calculates Euclidean distance between two points)
-  - DatumGetFloat8 (converts Datum to float8)
-  - PointPGetDatum (converts Point pointer to Datum)
+  - [point_distance](point_distance.md) (calculates Euclidean distance between two points)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md) (converts Datum to float8)
+  - [PointPGetDatum](../P/PointPGetDatum.md) (converts Point pointer to Datum)
   - PG_RETURN_BOOL (returns boolean result)
 - Called from (representative examples):
-  - widget_out
+  - [widget_out](../w/widget_out.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's regression test suite, demonstrating how to implement custom geometric operations

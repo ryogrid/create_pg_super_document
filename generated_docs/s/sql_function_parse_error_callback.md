@@ -26,11 +26,11 @@ This callback is particularly useful during function validation where parse erro
 ## Dependencies
 - Functions called/Symbols referenced:
   - parse_error_callback_arg: Structure type for callback arguments
-  - function_parse_error_transpose: Attempts to transpose syntax errors to CREATE FUNCTION context
+  - [function_parse_error_transpose](../f/function_parse_error_transpose.md): Attempts to transpose syntax errors to CREATE FUNCTION context
   - errcontext: Adds context information to error messages
 
 - Called from (representative examples):
-  - fmgr_sql_validator: Registers this callback during SQL function validation
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md): Registers this callback during SQL function validation
   - parse_error_callback_arg: Used as part of the argument structure for this callback
 
 ## Notes and Other Information

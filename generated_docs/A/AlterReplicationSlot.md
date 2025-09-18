@@ -23,10 +23,10 @@ Currently, the primary use case for slot alteration is modifying the failover pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseAlterReplSlotOptions
-  - ReplicationSlotAlter
+  - [ParseAlterReplSlotOptions](../P/ParseAlterReplSlotOptions.md)
+  - [ReplicationSlotAlter](../R/ReplicationSlotAlter.md)
 - Called from (representative examples):
-  - exec_replication_command
+  - [exec_replication_command](../e/exec_replication_command.md)
 
 ## Notes and Other Information
 - This function acts as a bridge between replication command processing and slot management

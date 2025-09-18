@@ -21,18 +21,18 @@ The gincost_pattern function analyzes a specific GIN (Generalized Inverted Index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_op_opfamily_properties
-  - get_opfamily_proc
-  - get_rel_name
-  - fmgr_info
-  - set_fn_opclass_options
-  - FunctionCall7Coll
+  - [get_op_opfamily_properties](get_op_opfamily_properties.md)
+  - [get_opfamily_proc](get_opfamily_proc.md)
+  - [get_rel_name](get_rel_name.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [set_fn_opclass_options](../s/set_fn_opclass_options.md)
+  - [FunctionCall7Coll](../F/FunctionCall7Coll.md)
   - GIN_EXTRACTQUERY_PROC
   - GIN_SEARCH_MODE_DEFAULT
   - GIN_SEARCH_MODE_INCLUDE_EMPTY
 - Called from (representative examples):
-  - gincost_opexpr
-  - gincost_scalararrayopexpr
+  - [gincost_opexpr](gincost_opexpr.md)
+  - [gincost_scalararrayopexpr](gincost_scalararrayopexpr.md)
 
 ## Notes and Other Information
 - Uses a heuristic estimate of 100 matched entries for partial matches

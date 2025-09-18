@@ -18,11 +18,11 @@ Async_Unlisten is the entry point function for the SQL UNLISTEN command. It prov
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)
-  - queue_listen
+  - [queue_listen](../q/queue_listen.md)
   - LISTEN_UNLISTEN (enum constant)
   - DEBUG1 (logging level)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Includes optimization to skip queueing when no listening is possible

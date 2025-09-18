@@ -23,13 +23,13 @@ SpGistLeafTupleData defines the on-disk format for leaf tuples in SP-GiST indexe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (implicitly referenced)
+  - [ItemPointerData](../I/ItemPointerData.md) (implicitly referenced)
 - Called from (representative examples):
-  - spgFormLeafTuple
-  - spgDeformLeafTuple
-  - spgRedoAddLeaf
-  - spgRedoMoveLeafs
-  - spgRedoPickSplit
+  - [spgFormLeafTuple](../s/spgFormLeafTuple.md)
+  - [spgDeformLeafTuple](../s/spgDeformLeafTuple.md)
+  - [spgRedoAddLeaf](../s/spgRedoAddLeaf.md)
+  - [spgRedoMoveLeafs](../s/spgRedoMoveLeafs.md)
+  - [spgRedoPickSplit](../s/spgRedoPickSplit.md)
   - SpGistLeafTuple
   - SGLTHDRSZ
 

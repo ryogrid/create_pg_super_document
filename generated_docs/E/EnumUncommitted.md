@@ -19,11 +19,11 @@ The function performs a simple hash table lookup and returns immediately if no u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search: Performs hash table lookup to find the enum value ID
+  - [hash_search](../h/hash_search.md): Performs hash table lookup to find the enum value ID
   - HASH_FIND: Hash operation flag indicating a search operation
   - uncommitted_enum_values: Global hash table tracking uncommitted enum values
 - Called from (representative examples):
-  - check_safe_enum_use: Validates whether enum values can be safely used in operations
+  - [check_safe_enum_use](../c/check_safe_enum_use.md): Validates whether enum values can be safely used in operations
 
 ## Notes and Other Information
 - This is a public function (not static), making it accessible from other compilation units

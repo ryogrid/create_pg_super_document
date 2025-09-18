@@ -39,7 +39,7 @@ Return value: Pointer to the hash table element containing the key
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (macro for name generation)
   - insert_hash (base name for the operation)
-  - SH_INSERT_HASH_INTERNAL (for performing the actual insertion)
+  - [SH_INSERT_HASH_INTERNAL](SH_INSERT_HASH_INTERNAL.md) (for performing the actual insertion)
 
 - Called from (representative examples):
   - No direct references found in the current codebase (typically called by user code)

@@ -22,10 +22,10 @@ The atomic rename operation (via durable_rename) also ensures the file is proper
 ## Dependencies
 - Functions called/Symbols referenced:
   - FileClose: Closes the temporary manifest file
-  - psprintf: Constructs the temporary and final filenames 
-  - durable_rename: Atomically renames the file and ensures it's synced to disk
-  - pfree: Frees the allocated filename strings
-  - bbsink_forward_end_manifest: Forwards the end manifest signal to chained sinks
+  - [psprintf](../p/psprintf.md): Constructs the temporary and final filenames 
+  - [durable_rename](../d/durable_rename.md): Atomically renames the file and ensures it's synced to disk
+  - [pfree](../p/pfree.md): Frees the allocated filename strings
+  - [bbsink_forward_end_manifest](bbsink_forward_end_manifest.md): Forwards the end manifest signal to chained sinks
 - Called from (representative examples):
   - This is a static function used as a callback in the bbsink interface (no direct callers found)
 

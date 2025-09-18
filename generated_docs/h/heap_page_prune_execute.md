@@ -40,15 +40,15 @@ After applying changes, it repairs page fragmentation and validates redirect int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage, PageGetItemId, PageGetItem (page access functions)
+  - [BufferGetPage](../B/BufferGetPage.md), PageGetItemId, PageGetItem (page access functions)
   - ItemIdSetRedirect, ItemIdSetDead, ItemIdSetUnused (line pointer modification)
   - ItemIdIsRedirected, ItemIdHasStorage, ItemIdIsNormal, ItemIdIsDead, ItemIdIsUsed (line pointer state checks)
   - HeapTupleHeaderIsHeapOnly (tuple header checks)
-  - PageRepairFragmentation, PageTruncateLinePointerArray (page maintenance)
-  - page_verify_redirects (validation)
+  - [PageRepairFragmentation](../P/PageRepairFragmentation.md), PageTruncateLinePointerArray (page maintenance)
+  - [page_verify_redirects](../p/page_verify_redirects.md) (validation)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
-  - heap_xlog_prune_freeze (during WAL replay)
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
+  - [heap_xlog_prune_freeze](heap_xlog_prune_freeze.md) (during WAL replay)
 
 ## Notes and Other Information
 - This is a public function (not static) as it's used by WAL replay mechanisms

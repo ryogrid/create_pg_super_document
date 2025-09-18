@@ -40,13 +40,13 @@ The LATERAL reference checking is particularly sophisticated, ensuring that late
   - IsA (type checking macro)
   - elog (error logging)
   - get_relids_in_jointree
-  - jointree_contains_lateral_outer_refs
-  - pull_varnos_of_level
-  - bms_is_subset
-  - contain_volatile_functions
+  - [jointree_contains_lateral_outer_refs](../j/jointree_contains_lateral_outer_refs.md)
+  - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
 - Called from (representative examples):
-  - pull_up_subqueries_recurse
-  - pull_up_simple_subquery
+  - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)
 
 ## Notes and Other Information
 - The function is static, limiting its scope to the prepjointree.c compilation unit

@@ -23,13 +23,13 @@ The structure is designed to handle lazy evaluation where the string form may be
 - Functions called/Symbols referenced:
   - PgBenchValue (union type for typed values)
 - Called from (representative examples):
-  - compareVariableNames (for variable comparison operations)
-  - lookupVariable (for variable lookup operations)
-  - getVariable (for variable retrieval)
-  - putVariable (for variable assignment)
-  - evaluateExpr (for expression evaluation)
-  - enlargeVariables (for dynamic array expansion)
-  - makeVariableValue (for value construction)
+  - [compareVariableNames](../c/compareVariableNames.md) (for variable comparison operations)
+  - [lookupVariable](../l/lookupVariable.md) (for variable lookup operations)
+  - [getVariable](../g/getVariable.md) (for variable retrieval)
+  - [putVariable](../p/putVariable.md) (for variable assignment)
+  - [evaluateExpr](../e/evaluateExpr.md) (for expression evaluation)
+  - [enlargeVariables](../e/enlargeVariables.md) (for dynamic array expansion)
+  - [makeVariableValue](../m/makeVariableValue.md) (for value construction)
 
 ## Notes and Other Information
 - Located in src/bin/pgbench/pgbench.c at lines 322-327
@@ -37,4 +37,4 @@ The structure is designed to handle lazy evaluation where the string form may be
 - Supports lazy string conversion where svalue may be NULL until string representation is needed
 - The PgBenchValue member can store int64, double, or boolean values through its union structure
 - Part of pgbench's comprehensive variable management system for benchmark script execution
-- Variables are typically managed in sorted arrays for efficient lookup operations
+- [Variables](Variables.md) are typically managed in sorted arrays for efficient lookup operations

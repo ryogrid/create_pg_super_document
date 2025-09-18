@@ -26,20 +26,20 @@ The function requires the caller to hold an appropriate lock on the relation bei
 - Functions called/Symbols referenced:
   - table_open
   - SearchSysCacheCopy1
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - CatalogTupleUpdate
-  - CacheInvalidateRelcacheByTuple
-  - heap_freetuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Types used:
   - Form_pg_class
-  - Relation
+  - [Relation](../R/Relation.md)
   - HeapTuple
 - Called from (representative examples):
-  - DefineQueryRewrite
+  - [DefineQueryRewrite](../D/DefineQueryRewrite.md)
 
 ## Notes and Other Information
 - The caller must hold an appropriate lock on the relation before calling this function

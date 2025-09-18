@@ -30,23 +30,23 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_readtup_alloc
+  - [tuplesort_readtup_alloc](../t/tuplesort_readtup_alloc.md)
   - TuplesortstateGetPublic
   - LogicalTapeReadExact
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
 - Data structures used:
   - TuplesortPublic
   - MinimalTuple
-  - LogicalTape
+  - [LogicalTape](../L/LogicalTape.md)
   - SortTuple
-  - HeapTupleData
+  - [HeapTupleData](../H/HeapTupleData.md)
   - HeapTupleHeader
 - Constants referenced:
   - MINIMAL_TUPLE_DATA_OFFSET
   - MINIMAL_TUPLE_OFFSET
   - TUPLESORT_RANDOMACCESS
 - Called from (representative examples):
-  - tuplesort_begin_heap
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
   - tuplestore_begin_heap
 
 ## Notes and Other Information

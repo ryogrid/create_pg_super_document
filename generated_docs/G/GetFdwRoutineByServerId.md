@@ -21,25 +21,25 @@ The function includes comprehensive error handling for missing servers, missing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - OidIsValid
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - NameStr
-  - GetFdwRoutine
+  - [GetFdwRoutine](GetFdwRoutine.md)
   - Form_pg_foreign_data_wrapper
   - Form_pg_foreign_server
 - Called from (representative examples):
-  - ExecuteTruncateGuts
-  - truncate_check_rel
-  - ExecInitForeignScan
-  - GetFdwRoutineByRelId
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
+  - [truncate_check_rel](../t/truncate_check_rel.md)
+  - [ExecInitForeignScan](../E/ExecInitForeignScan.md)
+  - [GetFdwRoutineByRelId](GetFdwRoutineByRelId.md)
 
 ## Notes and Other Information
 - Performs cascading catalog lookups: server → FDW → handler function

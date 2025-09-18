@@ -20,9 +20,9 @@ The function calls  to determine how many leading pathkeys from the query's  are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pathkeys_count_contained_in (function to count common pathkeys)
+  - [pathkeys_count_contained_in](pathkeys_count_contained_in.md) (function to count common pathkeys)
 - Called from (representative examples):
-  - truncate_useless_pathkeys
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)
 
 ## Notes and Other Information
 - The function takes advantage of PostgreSQL's incremental sort feature introduced to optimize partially ordered data

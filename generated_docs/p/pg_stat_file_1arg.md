@@ -18,7 +18,7 @@ This function serves as a wrapper around the main  function, providing a single-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_stat_file (main implementation function, called with fcinfo parameter)
+  - [pg_stat_file](pg_stat_file.md) (main implementation function, called with fcinfo parameter)
 - Called from (representative examples):
   - No direct references found (likely called through SQL function interface)
 

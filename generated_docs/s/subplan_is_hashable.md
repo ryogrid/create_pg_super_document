@@ -23,11 +23,11 @@ The memory estimation uses heap tuple overhead even though the actual storage us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_hash_memory_limit` (returns the hash_mem limit)
+  - `[get_hash_memory_limit](../g/get_hash_memory_limit.md)` (returns the hash_mem limit)
   - `SizeofHeapTupleHeader` (constant for tuple header size)
   - `MAXALIGN` (macro for memory alignment)
 - Called from (representative examples):
-  - `build_subplan` (src/backend/optimizer/plan/subselect.c:518)
+  - `[build_subplan](../b/build_subplan.md)` (src/backend/optimizer/plan/subselect.c:518)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's subplan optimization strategy for ANY/IN subqueries. Hash-based execution can provide significant performance improvements when the subquery result is small enough to fit in memory, as it eliminates the need for repeated subquery execution. The memory calculation includes safety margins through the use of heap tuple overhead and alignment, ensuring the actual memory usage doesn't exceed limits. This check is performed during query planning to decide between different subplan execution strategies.

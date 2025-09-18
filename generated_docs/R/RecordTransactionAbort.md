@@ -23,19 +23,19 @@ After recording the abort, it marks the transaction tree as aborted in clog and,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionIdIfAny (check for valid transaction ID)
-  - TransactionIdDidCommit (verify transaction not already committed)
-  - smgrGetPendingDeletes (fetch pending file deletions)
-  - xactGetCommittedChildren (retrieve committed child transactions)
+  - [GetCurrentTransactionIdIfAny](../G/GetCurrentTransactionIdIfAny.md) (check for valid transaction ID)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md) (verify transaction not already committed)
+  - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md) (fetch pending file deletions)
+  - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md) (retrieve committed child transactions)
   - pgstat_get_transactional_drops (get dropped statistics)
-  - XactLogAbortRecord (write abort record to WAL)
-  - TransactionIdAbortTree (mark transaction tree as aborted in clog)
-  - TransactionIdLatest (compute latest XID in transaction tree)
-  - XidCacheRemoveRunningXids (remove failed XIDs from cache)
-  - GetCurrentTransactionStopTimestamp/GetCurrentTimestamp (timestamp handling)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (write abort record to WAL)
+  - [TransactionIdAbortTree](../T/TransactionIdAbortTree.md) (mark transaction tree as aborted in clog)
+  - [TransactionIdLatest](../T/TransactionIdLatest.md) (compute latest XID in transaction tree)
+  - [XidCacheRemoveRunningXids](../X/XidCacheRemoveRunningXids.md) (remove failed XIDs from cache)
+  - [GetCurrentTransactionStopTimestamp](../G/GetCurrentTransactionStopTimestamp.md)/GetCurrentTimestamp (timestamp handling)
 - Called from:
-  - AbortTransaction (main transaction abort at src/backend/access/transam/xact.c:2871)
-  - AbortSubTransaction (subtransaction abort at src/backend/access/transam/xact.c:5267)
+  - [AbortTransaction](../A/AbortTransaction.md) (main transaction abort at src/backend/access/transam/xact.c:2871)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md) (subtransaction abort at src/backend/access/transam/xact.c:5267)
 
 ## Notes and Other Information
 - Returns the latest XID among the transaction and its children, or InvalidTransactionId if no XID was assigned

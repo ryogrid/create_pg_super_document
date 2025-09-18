@@ -22,8 +22,8 @@ This structure is primarily used within the larger XLogStats framework to provid
 ## Dependencies
 - Functions called/Symbols referenced: (This is a data structure with no direct function calls)
 - Called from (representative examples):
-  - XLogStats (used as member in arrays within XLogStats structure)
-  - XLogRecStoreStats (indirectly through XLogStats structure)
+  - [XLogStats](XLogStats.md) (used as member in arrays within XLogStats structure)
+  - [XLogRecStoreStats](XLogRecStoreStats.md) (indirectly through XLogStats structure)
 
 ## Notes and Other Information
 - This structure is defined in src/include/access/xlogstats.h as part of the WAL statistics subsystem

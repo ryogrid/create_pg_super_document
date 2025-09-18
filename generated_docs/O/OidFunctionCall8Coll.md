@@ -28,8 +28,8 @@ This function provides a convenient wrapper for calling PostgreSQL functions ide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - FunctionCall8Coll
+  - [fmgr_info](../f/fmgr_info.md)
+  - [FunctionCall8Coll](../F/FunctionCall8Coll.md)
 - Called from (representative examples):
   - OidFunctionCall8 (macro)
 

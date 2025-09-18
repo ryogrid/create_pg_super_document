@@ -28,7 +28,7 @@ The function includes special handling for /dev/null as a history file destinati
 - Functions called/Symbols referenced:
   - strcmp (string comparison for /dev/null check)
   - DEVNULL (constant representing /dev/null path)
-  - encode_history (encodes newlines before saving)
+  - [encode_history](../e/encode_history.md) (encodes newlines before saving)
   - history_truncate_file (truncates existing history file - if available)
   - append_history (appends new history entries - if available)
   - open (creates file if it doesn't exist)
@@ -41,7 +41,7 @@ The function includes special handling for /dev/null as a history file destinati
   - history_lines_added (global counter of lines added in current session)
 
 - Called from (representative examples):
-  - finishInput (cleanup function called on program exit)
+  - [finishInput](../f/finishInput.md) (cleanup function called on program exit)
 
 ## Notes and Other Information
 - Returns true on successful save, false on failure

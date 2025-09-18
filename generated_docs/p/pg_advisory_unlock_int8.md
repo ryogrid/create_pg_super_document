@@ -22,15 +22,15 @@ The pg_advisory_unlock_int8 function provides a mechanism to release exclusive a
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: Extracts the 64-bit integer argument
   - SET_LOCKTAG_INT64: Sets up the lock tag structure with the key
-  - LockRelease: Core lock release function
+  - [LockRelease](../L/LockRelease.md): Core lock release function
   - ExclusiveLock: Lock mode constant for exclusive locks
 - Called from (representative examples):
-  - delay_execution_planner: Used in test module for synchronization
+  - [delay_execution_planner](../d/delay_execution_planner.md): Used in test module for synchronization
 
 ## Notes and Other Information
 - Returns boolean: true if lock was successfully released, false if no lock was held
 - Only releases exclusive locks (not shared locks - use pg_advisory_unlock_shared_int8 for those)
-- Session-scoped: only the session that acquired the lock can release it
+- [Session](../S/Session.md)-scoped: only the session that acquired the lock can release it
 - Will fail if the session doesn't hold an exclusive lock on the specified key
 - Part of PostgreSQL's advisory locking system for application-level coordination
 - Commonly used through SQL interface as pg_advisory_unlock(bigint)

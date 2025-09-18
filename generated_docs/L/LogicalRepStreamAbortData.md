@@ -32,9 +32,9 @@ This structure encapsulates the essential information required for handling stre
   - XLogRecPtr
   - TimestampTz
 - Used by functions:
-  - pa_stream_abort
-  - logicalrep_read_stream_abort
-  - apply_handle_stream_abort
+  - [pa_stream_abort](../p/pa_stream_abort.md)
+  - [logicalrep_read_stream_abort](../l/logicalrep_read_stream_abort.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 This structure is specifically designed for streaming replication scenarios where large transactions are transmitted incrementally. The presence of both main transaction ID and subtransaction ID allows for fine-grained control over which parts of a complex transaction hierarchy should be aborted. This is essential for maintaining ACID properties even when dealing with partial transaction streams that need to be rolled back.

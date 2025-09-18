@@ -29,19 +29,19 @@ The division result is stored in the provided result NumericVar, with proper han
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - zero_var (for handling zero dividend)
+  - [zero_var](../z/zero_var.md) (for handling zero dividend)
   - digitbuf_alloc (memory allocation for result digits)
   - digitbuf_free (memory deallocation)
-  - round_var (rounding result to specified scale)
-  - trunc_var (truncating result to specified scale)
-  - strip_var (removing leading/trailing zeros)
+  - [round_var](../r/round_var.md) (rounding result to specified scale)
+  - [trunc_var](../t/trunc_var.md) (truncating result to specified scale)
+  - [strip_var](../s/strip_var.md) (removing leading/trailing zeros)
   - NumericDigit, NUMERIC_POS, NUMERIC_NEG, DEC_DIGITS, NBASE (numeric system constants)
 
 - Called from (representative examples):
-  - div_var (general numeric division)
-  - div_var_fast (optimized division path)
-  - exp_var (exponential function implementation)
-  - ln_var (natural logarithm implementation)
+  - [div_var](div_var.md) (general numeric division)
+  - [div_var_fast](div_var_fast.md) (optimized division path)
+  - [exp_var](../e/exp_var.md) (exponential function implementation)
+  - [ln_var](../l/ln_var.md) (natural logarithm implementation)
 
 ## Notes and Other Information
 - Guards against division by zero with appropriate error reporting

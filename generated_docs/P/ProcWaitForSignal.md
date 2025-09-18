@@ -17,8 +17,8 @@ ProcWaitForSignal implements a generic inter-process signaling mechanism using P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitLatch
-  - ResetLatch
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
   - WL_LATCH_SET
   - WL_EXIT_ON_PM_DEATH

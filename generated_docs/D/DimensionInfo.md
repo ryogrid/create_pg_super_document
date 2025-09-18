@@ -24,8 +24,8 @@ DimensionInfo serves as a metadata container that tracks important information n
   - (No direct symbol references from this struct)
 - Called from (representative examples):
   - SizeOfMCVList (src/backend/statistics/mcv.c:70)
-  - statext_mcv_serialize (src/backend/statistics/mcv.c:628, 649, 820, 859, 860)
-  - statext_mcv_deserialize (src/backend/statistics/mcv.c:1008, 1100, 1102, 1103)
+  - [statext_mcv_serialize](../s/statext_mcv_serialize.md) (src/backend/statistics/mcv.c:628, 649, 820, 859, 860)
+  - [statext_mcv_deserialize](../s/statext_mcv_deserialize.md) (src/backend/statistics/mcv.c:1008, 1100, 1102, 1103)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's extended statistics internal implementation

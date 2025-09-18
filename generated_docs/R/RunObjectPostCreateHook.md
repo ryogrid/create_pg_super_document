@@ -22,14 +22,14 @@ The function constructs an ObjectAccessPostCreate structure with the provided pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAccessPostCreate (struct type)
+  - [ObjectAccessPostCreate](../O/ObjectAccessPostCreate.md) (struct type)
   - OAT_POST_CREATE (enum value)
   - object_access_hook (global function pointer)
   - Assert (assertion macro)
   - memset (memory initialization function)
 
 - Called from (representative examples):
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
   - InvokeObjectPostCreateHookArg
 
 ## Notes and Other Information

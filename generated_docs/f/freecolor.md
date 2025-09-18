@@ -29,7 +29,7 @@ The function includes special handling for the WHITE color, which cannot be free
   - NOSUB (constant indicating no subcolor)
   - FREECOL (flag indicating a free color)
 - Called from (representative examples):
-  - okcolors (at src/backend/regex/regc_color.c:961)
+  - [okcolors](../o/okcolors.md) (at src/backend/regex/regc_color.c:961)
 
 ## Notes and Other Information
 - The function includes multiple assertions to ensure the color is in a valid state before freeing

@@ -23,8 +23,8 @@ The function uses PostgreSQL's portable byte-swapping infrastructure (pg_ntoh64)
 - Functions called/Symbols referenced:
   - pg_ntoh64 (converts network to host byte order for 64-bit values)
 - Called from (representative examples):
-  - StreamLogicalLog (in pg_recvlogical.c)
-  - ProcessXLogDataMsg (in receivelog.c)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (in pg_recvlogical.c)
+  - [ProcessXLogDataMsg](../P/ProcessXLogDataMsg.md) (in receivelog.c)
 
 ## Notes and Other Information
 - The function assumes the input buffer contains at least 8 bytes of valid data

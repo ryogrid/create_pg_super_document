@@ -19,7 +19,7 @@ CashGetDatum performs the conversion from Cash type to Datum type by delegating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum
+  - [Int64GetDatum](../I/Int64GetDatum.md)
   - Cash (type)
 - Called from (representative examples):
   - PG_RETURN_CASH

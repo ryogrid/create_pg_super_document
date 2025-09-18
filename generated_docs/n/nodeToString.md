@@ -17,15 +17,15 @@ nodeToString is one of the main externally visible entry points for converting P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToStringInternal
+  - [nodeToStringInternal](nodeToStringInternal.md)
 - Called from (representative examples):
-  - StoreRelCheck (src/backend/catalog/heap.c:2143)
+  - [StoreRelCheck](../S/StoreRelCheck.md) (src/backend/catalog/heap.c:2143)
   - UpdateIndexRelation (src/backend/catalog/index.c:604)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:332)
-  - CreatePolicy (src/backend/commands/policy.c:701)
-  - CreateTriggerFiringOn (src/backend/commands/trigger.c:671)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:332)
+  - [CreatePolicy](../C/CreatePolicy.md) (src/backend/commands/policy.c:701)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md) (src/backend/commands/trigger.c:671)
   - ExecSerializePlan (src/backend/executor/execParallel.c:216)
-  - InsertRule (src/backend/rewrite/rewriteDefine.c:60)
+  - [InsertRule](../I/InsertRule.md) (src/backend/rewrite/rewriteDefine.c:60)
 
 ## Notes and Other Information
 - This is the standard function used throughout PostgreSQL for node-to-string conversion

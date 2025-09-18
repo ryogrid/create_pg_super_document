@@ -39,26 +39,26 @@ PlanState is the fundamental abstract base class for all execution state structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Plan
-  - EState
+  - [Plan](Plan.md)
+  - [EState](../E/EState.md)
   - ExecProcNodeMtd
   - Instrumentation
   - WorkerInstrumentation
-  - SharedJitInstrumentation
+  - [SharedJitInstrumentation](../S/SharedJitInstrumentation.md)
   - ExprState
-  - List
-  - Bitmapset
-  - TupleDesc
+  - [List](../L/List.md)
+  - [Bitmapset](../B/Bitmapset.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - TupleTableSlot
   - ExprContext
-  - ProjectionInfo
+  - [ProjectionInfo](ProjectionInfo.md)
   - TupleTableSlotOps
 - Called from (representative examples):
   - All specific plan state structures (SeqScanState, NestLoopState, etc.)
-  - ExecInitNode
+  - [ExecInitNode](../E/ExecInitNode.md)
   - ExecProcNode
-  - ExecReScan
-  - ExecEndNode
+  - [ExecReScan](../E/ExecReScan.md)
+  - [ExecEndNode](../E/ExecEndNode.md)
 
 ## Notes and Other Information
 PlanState is never directly instantiated but serves as the common foundation for all executor node types. The structure includes sophisticated slot type management to optimize expression compilation and tuple processing. The async_capable flag enables PostgreSQL's asynchronous execution capabilities for improved parallelism. The instrumentation fields support PostgreSQL's query performance monitoring and EXPLAIN ANALYZE functionality. The dual function pointer design (ExecProcNode/ExecProcNodeReal) allows for wrapper functions that can add instrumentation or other cross-cutting concerns without affecting the core processing logic.

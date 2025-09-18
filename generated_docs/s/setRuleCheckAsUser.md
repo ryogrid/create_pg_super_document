@@ -18,14 +18,14 @@ setRuleCheckAsUser modifies the permission checking context within query trees b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setRuleCheckAsUser_walker (internal helper function)
+  - [setRuleCheckAsUser_walker](setRuleCheckAsUser_walker.md) (internal helper function)
 - Referenced by RTEPermissionInfo structure modification through:
-  - setRuleCheckAsUser_Query (processes Query nodes)
+  - [setRuleCheckAsUser_Query](setRuleCheckAsUser_Query.md) (processes Query nodes)
   - expression_tree_walker (traverses expression trees)
   - query_tree_walker (traverses query trees)
 - Called from (representative examples):
-  - get_row_security_policies
-  - RelationBuildRuleLock
+  - [get_row_security_policies](../g/get_row_security_policies.md)
+  - [RelationBuildRuleLock](../R/RelationBuildRuleLock.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's security infrastructure for rules and views

@@ -32,19 +32,19 @@ Some object types like default ACLs and user mappings are explicitly ignored as 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlterTypeOwner_oid - Changes ownership of user-defined types
-  - AlterSchemaOwner_oid - Changes ownership of schemas
-  - ATExecChangeOwner - Changes ownership of relations (tables, views, etc.)
-  - AlterForeignServerOwner_oid - Changes ownership of foreign servers
-  - AlterForeignDataWrapperOwner_oid - Changes ownership of foreign data wrappers
-  - AlterEventTriggerOwner_oid - Changes ownership of event triggers
-  - AlterPublicationOwner_oid - Changes ownership of publications
-  - AlterSubscriptionOwner_oid - Changes ownership of subscriptions
-  - AlterObjectOwner_internal - Generic ownership change function for many object types
+  - [AlterTypeOwner_oid](../A/AlterTypeOwner_oid.md) - Changes ownership of user-defined types
+  - [AlterSchemaOwner_oid](../A/AlterSchemaOwner_oid.md) - Changes ownership of schemas
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md) - Changes ownership of relations (tables, views, etc.)
+  - [AlterForeignServerOwner_oid](../A/AlterForeignServerOwner_oid.md) - Changes ownership of foreign servers
+  - [AlterForeignDataWrapperOwner_oid](../A/AlterForeignDataWrapperOwner_oid.md) - Changes ownership of foreign data wrappers
+  - [AlterEventTriggerOwner_oid](../A/AlterEventTriggerOwner_oid.md) - Changes ownership of event triggers
+  - [AlterPublicationOwner_oid](../A/AlterPublicationOwner_oid.md) - Changes ownership of publications
+  - [AlterSubscriptionOwner_oid](../A/AlterSubscriptionOwner_oid.md) - Changes ownership of subscriptions
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md) - Generic ownership change function for many object types
   - AccessExclusiveLock - Lock level constant used for relation ownership changes
 
 - Called from (representative examples):
-  - shdepReassignOwned (src/backend/catalog/pg_shdepend.c:1611)
+  - [shdepReassignOwned](shdepReassignOwned.md) (src/backend/catalog/pg_shdepend.c:1611)
   - ShDependObjectInfo (src/backend/catalog/pg_shdepend.c:106)
 
 ## Notes and Other Information

@@ -32,21 +32,21 @@ Special consideration is given to WAL summarization - if WAL summarization is ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteRecoveryCommand: Executes the recovery_end_command script
-  - RemoveNonParentXlogFiles: Removes WAL files not part of new timeline history
+  - [ExecuteRecoveryCommand](../E/ExecuteRecoveryCommand.md): Executes the recovery_end_command script
+  - [RemoveNonParentXlogFiles](../R/RemoveNonParentXlogFiles.md): Removes WAL files not part of new timeline history
   - XLogSegmentOffset: Calculates offset within a WAL segment
   - XLogArchivingActive: Checks if WAL archiving is currently enabled
   - XLByteToPrevSeg: Calculates segment number from WAL position
-  - XLogFileName: Generates WAL filename for given timeline and segment
-  - XLogArchiveIsReadyOrDone: Checks archive status of a WAL segment
-  - WaitForWalSummarization: Waits for WAL summarization to complete
+  - [XLogFileName](../X/XLogFileName.md): Generates WAL filename for given timeline and segment
+  - [XLogArchiveIsReadyOrDone](../X/XLogArchiveIsReadyOrDone.md): Checks archive status of a WAL segment
+  - [WaitForWalSummarization](../W/WaitForWalSummarization.md): Waits for WAL summarization to complete
   - XLogFilePath: Constructs full path to WAL file
-  - XLogArchiveCleanup: Removes archive status files
-  - durable_rename: Performs atomic file rename with error handling
-  - XLogArchiveNotify: Creates archive notification for a WAL segment
+  - [XLogArchiveCleanup](../X/XLogArchiveCleanup.md): Removes archive status files
+  - [durable_rename](../d/durable_rename.md): Performs atomic file rename with error handling
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md): Creates archive notification for a WAL segment
 
 - Called from (representative examples):
-  - StartupXLOG: Called during recovery completion phase
+  - [StartupXLOG](../S/StartupXLOG.md): Called during recovery completion phase
   - RefreshXLogWriteResult: Called when updating WAL write results
 
 ## Notes and Other Information

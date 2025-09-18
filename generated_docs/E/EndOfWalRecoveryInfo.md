@@ -33,9 +33,9 @@ This information is essential for properly initializing the database system afte
 - Functions called/Symbols referenced:
   - Used as return type for FinishWalRecovery()
 - Called from (representative examples):
-  - StartupXLOG (src/backend/access/transam/xlog.c:5396)
-  - FinishWalRecovery (src/backend/access/transam/xlogrecovery.c:1460)
-  - read_tablespace_map (indirectly via FinishWalRecovery)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5396)
+  - [FinishWalRecovery](../F/FinishWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1460)
+  - [read_tablespace_map](../r/read_tablespace_map.md) (indirectly via FinishWalRecovery)
 
 ## Notes and Other Information
 - The structure is allocated using palloc() in FinishWalRecovery()

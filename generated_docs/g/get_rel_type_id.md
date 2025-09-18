@@ -19,17 +19,17 @@ It's crucial to note that not all pg_class entries have associated pg_type OIDs,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (pg_class catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
-  - ExecAlterExtensionContentsRecurse
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md)
   - makeWholeRowVar
-  - serialize_expr_stats
+  - [serialize_expr_stats](../s/serialize_expr_stats.md)
 
 ## Notes and Other Information
 - Not all pg_class entries have associated pg_type OIDs - callers must handle InvalidOid

@@ -20,12 +20,12 @@ This function provides a wrapper around pg_encoding_dsplen() to determine how ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_dsplen
+  - [pg_encoding_dsplen](../p/pg_encoding_dsplen.md)
 - Called from (representative examples):
   - MAX_PROMPT_SIZE (src/bin/psql/prompt.c:370)
-  - pg_wcswidth (src/fe_utils/mbprint.c:190)
-  - pg_wcssize (src/fe_utils/mbprint.c:226)
-  - pg_wcsformat (src/fe_utils/mbprint.c:307)
+  - [pg_wcswidth](../p/pg_wcswidth.md) (src/fe_utils/mbprint.c:190)
+  - [pg_wcssize](../p/pg_wcssize.md) (src/fe_utils/mbprint.c:226)
+  - [pg_wcsformat](../p/pg_wcsformat.md) (src/fe_utils/mbprint.c:307)
   - strlen_max_width (src/fe_utils/print.c:3754)
 
 ## Notes and Other Information

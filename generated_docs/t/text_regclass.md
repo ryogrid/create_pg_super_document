@@ -22,12 +22,12 @@ The function parses the input text as a qualified name (potentially schema.relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVarFromNameList
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - textToQualifiedNameList  
   - RangeVarGetRelid
   - PG_RETURN_OID
 - Types used:
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
 - Called from (representative examples):
   - Used internally by PostgreSQL's type system for text-to-regclass conversions
   - Not directly referenced by other user-visible functions

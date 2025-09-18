@@ -30,15 +30,15 @@ Returns NULL if the message encoding is SQL_ASCII (no conversion possible) or if
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `GetMessageEncoding`: Gets the current message encoding ID
+  - `[GetMessageEncoding](../G/GetMessageEncoding.md)`: Gets the current message encoding ID
   - `PG_SQL_ASCII`: Constant for ASCII encoding (conversion not supported)
-  - `IsTransactionState`: Checks if a database transaction is currently active
-  - `pg_do_encoding_conversion`: Converts between different character encodings
+  - `[IsTransactionState](../I/IsTransactionState.md)`: Checks if a database transaction is currently active
+  - `[pg_do_encoding_conversion](pg_do_encoding_conversion.md)`: Converts between different character encodings
   - `PG_UTF8`: Constant for UTF-8 encoding
 
 - Called from (representative examples):
-  - `write_eventlog` (src/backend/utils/error/elog.c:2545): For writing log messages to Windows Event Log
-  - `write_console` (src/backend/utils/error/elog.c:2606): For writing messages to Windows console
+  - `[write_eventlog](../w/write_eventlog.md)` (src/backend/utils/error/elog.c:2545): For writing log messages to Windows Event Log
+  - `[write_console](../w/write_console.md)` (src/backend/utils/error/elog.c:2606): For writing messages to Windows console
 
 ## Notes and Other Information
 - This function is Windows-specific and part of PostgreSQL's Windows platform abstraction layer

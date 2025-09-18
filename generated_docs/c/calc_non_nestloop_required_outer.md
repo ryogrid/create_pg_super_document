@@ -21,13 +21,13 @@ This function calculates the set of relations that must be provided as parameter
 ## Dependencies
 - Functions called/Symbols referenced:
   - PATH_REQ_OUTER (macro to extract required outer relations from a path)
-  - bms_overlap (to validate no cross-dependencies between input paths)
-  - bms_union (to combine parameter requirements from both paths)
+  - [bms_overlap](../b/bms_overlap.md) (to validate no cross-dependencies between input paths)
+  - [bms_union](../b/bms_union.md) (to combine parameter requirements from both paths)
   - Assert (for debugging constraint validation)
   - PG_USED_FOR_ASSERTS_ONLY (annotation for debug-only variables)
 - Called from (representative examples):
-  - try_mergejoin_path (in joinpath.c)
-  - try_hashjoin_path (in joinpath.c)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md) (in joinpath.c)
+  - [try_hashjoin_path](../t/try_hashjoin_path.md) (in joinpath.c)
 
 ## Notes and Other Information
 - This function is used for both merge joins and hash joins, which have similar parameter passing constraints

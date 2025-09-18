@@ -23,10 +23,10 @@ The function is particularly important in pg_dump's dependency resolution and lo
   - DumpableObject (structure type for dumpable objects)
   - DumpId (type for dump object identifiers)
 - Called from (representative examples):
-  - repairTypeFuncLoop (in src/bin/pg_dump/pg_dump_sort.c:932)
-  - repairViewRuleLoop (in src/bin/pg_dump/pg_dump_sort.c:962)
-  - repairViewRuleMultiLoop (in src/bin/pg_dump/pg_dump_sort.c:985)
-  - repairDependencyLoop (in src/bin/pg_dump/pg_dump_sort.c:1418,1443,1445,1463,1465)
+  - [repairTypeFuncLoop](repairTypeFuncLoop.md) (in src/bin/pg_dump/pg_dump_sort.c:932)
+  - [repairViewRuleLoop](repairViewRuleLoop.md) (in src/bin/pg_dump/pg_dump_sort.c:962)
+  - [repairViewRuleMultiLoop](repairViewRuleMultiLoop.md) (in src/bin/pg_dump/pg_dump_sort.c:985)
+  - [repairDependencyLoop](repairDependencyLoop.md) (in src/bin/pg_dump/pg_dump_sort.c:1418,1443,1445,1463,1465)
   - Multiple other repair functions for handling dependency loops
 
 ## Notes and Other Information

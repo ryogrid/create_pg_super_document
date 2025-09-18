@@ -32,13 +32,13 @@ The function is critical for implementing file synchronization operations like f
 ## Dependencies
 - Functions called/Symbols referenced:
   - opendir/readdir/closedir
-  - get_dirent_type
+  - [get_dirent_type](../g/get_dirent_type.md)
   - PGFILETYPE_REG
   - PGFILETYPE_DIR
-  - walkdir (recursive calls)
+  - [walkdir](walkdir.md) (recursive calls)
 - Called from (representative examples):
-  - sync_pgdata
-  - sync_dir_recurse
+  - [sync_pgdata](../s/sync_pgdata.md)
+  - [sync_dir_recurse](../s/sync_dir_recurse.md)
 
 ## Notes and Other Information
 - The function is declared , making it internal to file_utils.c

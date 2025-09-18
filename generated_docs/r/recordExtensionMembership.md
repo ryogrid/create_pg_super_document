@@ -22,11 +22,11 @@ This function is a crucial part of the pg_dump utility's extension membership tr
 - Functions called/Symbols referenced:
   - catalogid_insert (hash table insertion function)
   - catalogIdHash (global hash table variable)
-  - CatalogId (struct)
-  - ExtensionInfo (struct)
-  - CatalogIdMapEntry (struct)
+  - [CatalogId](../C/CatalogId.md) (struct)
+  - [ExtensionInfo](../E/ExtensionInfo.md) (struct)
+  - [CatalogIdMapEntry](../C/CatalogIdMapEntry.md) (struct)
 - Called from (representative examples):
-  - getExtensionMembership (src/bin/pg_dump/pg_dump.c:18332)
+  - [getExtensionMembership](../g/getExtensionMembership.md) (src/bin/pg_dump/pg_dump.c:18332)
 
 ## Notes and Other Information
 - The function assumes that the catalogIdHash table has been properly initialized

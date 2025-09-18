@@ -51,15 +51,15 @@ Key capabilities include:
   - `lstat` (file system status function)
   - `snprintf`, `strcmp`, `strncmp`, `strlen` (standard C string functions)
   - `strchr`, `strlcpy`, `atoi` (string manipulation and parsing functions)
-  - `skipfile` (local function to check file exclusions)
-  - `scan_file` (local function to process individual data files)
-  - `pg_fatal` (PostgreSQL error reporting function)
+  - `[skipfile](skipfile.md)` (local function to check file exclusions)
+  - `[scan_file](scan_file.md)` (local function to process individual data files)
+  - `[pg_fatal](../p/pg_fatal.md)` (PostgreSQL error reporting function)
   - `S_ISREG`, `S_ISDIR`, `S_ISLNK` (POSIX file type macros)
   - `PG_TEMP_FILE_PREFIX`, `PG_TEMP_FILES_DIR`, `TABLESPACE_VERSION_DIRECTORY` (PostgreSQL constants)
   - Global variable: `only_filenode` (for filenode filtering)
 
 - Called from (representative examples):
-  - `main` function in pg_checksums.c for initial directory processing
+  - `[main](../m/main.md)` function in pg_checksums.c for initial directory processing
   - Self-recursive calls for subdirectories and tablespace processing
 
 ## Notes and Other Information

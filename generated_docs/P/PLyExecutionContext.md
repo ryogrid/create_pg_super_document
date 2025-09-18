@@ -21,19 +21,19 @@ The structure serves as a crucial component in the PL/Python language handler, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyProcedure (procedure metadata structure)
-  - PLyExecutionContext (self-reference for stack linking)
-  - MemoryContext (PostgreSQL memory management)
+  - [PLyProcedure](PLyProcedure.md) (procedure metadata structure)
+  - [PLyExecutionContext](PLyExecutionContext.md) (self-reference for stack linking)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
 
 - Called from (representative examples):
-  - PLy_push_execution_context (context stack management)
-  - PLy_pop_execution_context (context stack management)
-  - PLy_get_scratch_context (memory context access)
-  - plpython3_call_handler (main function call handler)
-  - plpython3_inline_handler (inline code execution)
-  - PLy_cursor_query (cursor operations)
-  - PLy_spi_prepare (SPI prepared statements)
-  - PLy_input_convert (type conversion operations)
+  - [PLy_push_execution_context](PLy_push_execution_context.md) (context stack management)
+  - [PLy_pop_execution_context](PLy_pop_execution_context.md) (context stack management)
+  - [PLy_get_scratch_context](PLy_get_scratch_context.md) (memory context access)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md) (main function call handler)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md) (inline code execution)
+  - [PLy_cursor_query](PLy_cursor_query.md) (cursor operations)
+  - [PLy_spi_prepare](PLy_spi_prepare.md) (SPI prepared statements)
+  - [PLy_input_convert](PLy_input_convert.md) (type conversion operations)
 
 ## Notes and Other Information
 - The execution context stack is essential for proper error handling and cleanup in nested Python function calls

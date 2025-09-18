@@ -19,10 +19,10 @@ This handler is responsible for executing Tcl functions that have been defined w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pltcl_handler (the core handler function)
+  - [pltcl_handler](pltcl_handler.md) (the core handler function)
   - PG_FUNCTION_INFO_V1 (PostgreSQL function info macro)
 - Called from (representative examples):
-  - start_proc_error_callback
+  - [start_proc_error_callback](../s/start_proc_error_callback.md)
 
 ## Notes and Other Information
 - This function is marked as "keep non-static" indicating it needs external visibility

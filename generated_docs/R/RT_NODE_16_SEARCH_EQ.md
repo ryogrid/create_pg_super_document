@@ -24,14 +24,14 @@ RT_NODE_16_SEARCH_EQ is part of PostgreSQL's templated radix tree implementation
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - vector8_broadcast (SIMD function for replicating values)
-  - vector8_load (SIMD function for loading vector data)
-  - vector8_eq (SIMD function for parallel comparison)
-  - vector8_highbit_mask (SIMD function for extracting comparison results)
-  - pg_rightmost_one_pos32 (utility function for bit position finding)
+  - [vector8_broadcast](../v/vector8_broadcast.md) (SIMD function for replicating values)
+  - [vector8_load](../v/vector8_load.md) (SIMD function for loading vector data)
+  - [vector8_eq](../v/vector8_eq.md) (SIMD function for parallel comparison)
+  - [vector8_highbit_mask](../v/vector8_highbit_mask.md) (SIMD function for extracting comparison results)
+  - [pg_rightmost_one_pos32](../p/pg_rightmost_one_pos32.md) (utility function for bit position finding)
   - Assert (debug assertion macro)
 - Called from (representative examples):
-  - RT_NODE_SEARCH (general node search dispatcher)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md) (general node search dispatcher)
 
 ## Notes and Other Information
 - Implements dual code paths: optimized SIMD version and scalar fallback for compatibility

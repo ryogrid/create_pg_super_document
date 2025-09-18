@@ -20,17 +20,17 @@ This static function resolves references to specific members within operator fam
 ## Dependencies
 - Functions called/Symbols referenced:
   - llast (extracts last element from list)
-  - list_copy_head (creates list copy excluding last element)
-  - get_object_address_opcf (resolves operator family address)
+  - [list_copy_head](../l/list_copy_head.md) (creates list copy excluding last element)
+  - [get_object_address_opcf](get_object_address_opcf.md) (resolves operator family address)
   - lsecond (extracts second element from list)
-  - get_object_address_type (resolves operand type addresses)
+  - [get_object_address_type](get_object_address_type.md) (resolves operand type addresses)
   - ObjectAddressSet (sets ObjectAddress fields)
-  - SearchSysCache4 (performs 4-way system catalog lookup)
-  - TypeNameToString (converts TypeName to string for error messages)
-  - getObjectDescription (generates object description for error messages)
-  - ReleaseSysCache (releases system cache entries)
+  - [SearchSysCache4](../S/SearchSysCache4.md) (performs 4-way system catalog lookup)
+  - [TypeNameToString](../T/TypeNameToString.md) (converts TypeName to string for error messages)
+  - [getObjectDescription](getObjectDescription.md) (generates object description for error messages)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases system cache entries)
 - Called from (representative examples):
-  - get_object_address (main object address resolution function)
+  - [get_object_address](get_object_address.md) (main object address resolution function)
 
 ## Notes and Other Information
 - Handles complex nested object specifications with operator families, types, and member numbers

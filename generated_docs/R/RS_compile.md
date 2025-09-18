@@ -24,10 +24,10 @@ The compiled pattern is stored in the Regis structure, which tracks whether it's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newRegisNode (create new pattern nodes)
-  - t_isalpha (check if character is alphabetic)
+  - [newRegisNode](../n/newRegisNode.md) (create new pattern nodes)
+  - [t_isalpha](../t/t_isalpha.md) (check if character is alphabetic)
   - t_iseq (check character equality)
-  - pg_mblen (get multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (get multibyte character length)
   - COPYCHAR (copy multibyte character)
   - memset (memory initialization)
   - strlen (string length)
@@ -38,7 +38,7 @@ The compiled pattern is stored in the Regis structure, which tracks whether it's
   - RSF_ONEOF, RSF_NONEOF (pattern type flags)
   - State constants: RS_IN_WAIT, RS_IN_ONEOF, RS_IN_ONEOF_IN, RS_IN_NONEOF
 - Called from:
-  - NIAddAffix (in spell.c:710)
+  - [NIAddAffix](../N/NIAddAffix.md) (in spell.c:710)
 
 ## Notes and Other Information
 - Initializes the Regis structure with memset before compilation

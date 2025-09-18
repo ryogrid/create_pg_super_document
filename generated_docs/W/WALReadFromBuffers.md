@@ -24,14 +24,14 @@ The function will only operate on the current timeline and refuses to read durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - GetWALInsertionTimeLine
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetWALInsertionTimeLine](../G/GetWALInsertionTimeLine.md)
   - XLogRecPtrIsInvalid
-  - pg_atomic_read_u64
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
   - XLogRecPtrToBufIdx
   - pg_read_barrier
 - Called from (representative examples):
-  - XLogSendPhysical (WAL sender process)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md) (WAL sender process)
 
 ## Notes and Other Information
 - Returns 0 immediately if recovery is in progress or if the timeline doesn't match the current WAL insertion timeline

@@ -22,19 +22,19 @@ The function first validates that the buffer contains a page of the expected siz
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPageSize
-  - BufferGetPage
-  - SpGistInitPage
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [SpGistInitPage](SpGistInitPage.md)
 - Called from (representative examples):
-  - doPickSplit
-  - spgbuild
-  - allocNewBuffer
-  - SpGistGetBuffer
-  - spgRedoAddLeaf
-  - spgRedoMoveLeafs
-  - spgRedoAddNode
-  - spgRedoSplitTuple
-  - spgRedoPickSplit
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgbuild](../s/spgbuild.md)
+  - [allocNewBuffer](../a/allocNewBuffer.md)
+  - [SpGistGetBuffer](SpGistGetBuffer.md)
+  - [spgRedoAddLeaf](../s/spgRedoAddLeaf.md)
+  - [spgRedoMoveLeafs](../s/spgRedoMoveLeafs.md)
+  - [spgRedoAddNode](../s/spgRedoAddNode.md)
+  - [spgRedoSplitTuple](../s/spgRedoSplitTuple.md)
+  - [spgRedoPickSplit](../s/spgRedoPickSplit.md)
 
 ## Notes and Other Information
 - Includes an assertion to validate that the buffer's page size matches BLCKSZ

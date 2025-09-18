@@ -18,7 +18,7 @@ PQsslInUse is a simple utility function that checks if SSL encryption is active 
 ## Dependencies
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
-  - printSSLInfo (in src/bin/psql/command.c:3978)
+  - [printSSLInfo](../p/printSSLInfo.md) (in src/bin/psql/command.c:3978)
   - Referenced in PQsetdb header (src/interfaces/libpq/libpq-fe.h:408)
 
 ## Notes and Other Information

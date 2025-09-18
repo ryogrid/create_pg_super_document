@@ -59,19 +59,19 @@ GISTBuildState serves as the central context structure for GiST index building o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE
-  - GistBuildMode
-  - GISTBuildBuffers
-  - HTAB
+  - [GISTSTATE](GISTSTATE.md)
+  - [GistBuildMode](GistBuildMode.md)
+  - [GISTBuildBuffers](GISTBuildBuffers.md)
+  - [HTAB](../H/HTAB.md)
   - Tuplesortstate
-  - BulkWriteState
+  - [BulkWriteState](../B/BulkWriteState.md)
 - Called from (representative examples):
-  - gistbuild
-  - gistBuildCallback
-  - gistSortedBuildCallback
-  - gist_indexsortbuild
-  - gistInitBuffering
-  - gistBufferingBuildInsert
+  - [gistbuild](../g/gistbuild.md)
+  - [gistBuildCallback](../g/gistBuildCallback.md)
+  - [gistSortedBuildCallback](../g/gistSortedBuildCallback.md)
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md)
+  - [gistInitBuffering](../g/gistInitBuffering.md)
+  - [gistBufferingBuildInsert](../g/gistBufferingBuildInsert.md)
 
 ## Notes and Other Information
 The structure is designed to accommodate different build strategies efficiently. The buffering-specific fields (gfbb, parentMap, indtuplesSize) are only used when buildMode indicates buffering, while sortstate is only used for sorted builds. This design allows the same structure to support multiple build algorithms without unnecessary memory overhead.

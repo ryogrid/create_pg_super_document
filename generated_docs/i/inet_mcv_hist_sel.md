@@ -30,9 +30,9 @@ The result represents the selectivity for the MCV portion of the join and still 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inet_hist_value_sel
+  - [inet_hist_value_sel](inet_hist_value_sel.md)
 - Called from (representative examples):
-  - networkjoinsel_inner
+  - [networkjoinsel_inner](../n/networkjoinsel_inner.md)
 
 ## Notes and Other Information
 - Commutes the operator by negating opr_codenum to match inet_hist_value_sel's expected parameter order

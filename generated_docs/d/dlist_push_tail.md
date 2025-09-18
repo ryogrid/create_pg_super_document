@@ -18,18 +18,18 @@ The  function adds a new node to the back of a doubly-linked list by updating th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (structure type)
-  - dlist_node (structure type)
-  - dlist_init (initialization function)
-  - dlist_check (integrity validation function)
+  - [dlist_head](dlist_head.md) (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
+  - [dlist_init](dlist_init.md) (initialization function)
+  - [dlist_check](dlist_check.md) (integrity validation function)
 - Called from (representative examples):
-  - disassembleLeaf (src/backend/access/gin/gindatapage.c:1396)
-  - addItemsToLeaf (src/backend/access/gin/gindatapage.c:1463)
-  - cache_lookup (src/backend/executor/nodeMemoize.c:571)
-  - ReorderBufferTXNByXid (src/backend/replication/logical/reorderbuffer.c:710)
-  - ReorderBufferQueueChange (src/backend/replication/logical/reorderbuffer.c:849)
-  - SetupLockInTable (src/backend/storage/lmgr/lock.c:1286)
-  - CreatePredXact (src/backend/storage/lmgr/predicate.c:591)
+  - [disassembleLeaf](disassembleLeaf.md) (src/backend/access/gin/gindatapage.c:1396)
+  - [addItemsToLeaf](../a/addItemsToLeaf.md) (src/backend/access/gin/gindatapage.c:1463)
+  - [cache_lookup](../c/cache_lookup.md) (src/backend/executor/nodeMemoize.c:571)
+  - [ReorderBufferTXNByXid](../R/ReorderBufferTXNByXid.md) (src/backend/replication/logical/reorderbuffer.c:710)
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md) (src/backend/replication/logical/reorderbuffer.c:849)
+  - [SetupLockInTable](../S/SetupLockInTable.md) (src/backend/storage/lmgr/lock.c:1286)
+  - [CreatePredXact](../C/CreatePredXact.md) (src/backend/storage/lmgr/predicate.c:591)
   - InitProcGlobal (src/backend/storage/lmgr/proc.c:244)
 
 ## Notes and Other Information

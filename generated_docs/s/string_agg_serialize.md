@@ -29,11 +29,11 @@ The serialization format consists of:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate execution context)
-  - pq_begintypsend (initializes binary output buffer)
-  - pq_sendint (sends 4-byte integer to buffer)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate execution context)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initializes binary output buffer)
+  - [pq_sendint](../p/pq_sendint.md) (sends 4-byte integer to buffer)
   - pq_sendbytes (sends byte array to buffer)
-  - pq_endtypsend (finalizes binary output and returns bytea)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalizes binary output and returns bytea)
   - PG_GETARG_POINTER, PG_RETURN_BYTEA_P (PostgreSQL argument/return macros)
 
 - Called from:

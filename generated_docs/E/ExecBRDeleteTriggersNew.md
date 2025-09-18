@@ -38,16 +38,16 @@ For MERGE operations, the function skips EPQ rechecking and delegates additional
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetTriggerOldSlot
-  - GetTupleForTrigger
-  - ExecFetchSlotHeapTuple
-  - ExecForceStoreHeapTuple
-  - ExecCallTriggerFunc
-  - TriggerEnabled
+  - [ExecGetTriggerOldSlot](ExecGetTriggerOldSlot.md)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
+  - [ExecFetchSlotHeapTuple](ExecFetchSlotHeapTuple.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - TRIGGER_TYPE_MATCHES
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Constants used:
   - TRIGGER_EVENT_DELETE
   - TRIGGER_EVENT_ROW
@@ -57,15 +57,15 @@ For MERGE operations, the function skips EPQ rechecking and delegates additional
   - TRIGGER_TYPE_DELETE
   - LockTupleExclusive
 - Data structures used:
-  - EPQState
+  - [EPQState](EPQState.md)
   - TriggerDesc
   - TriggerData
   - Trigger
   - TM_Result
   - TM_FailureData
 - Called from (representative examples):
-  - ExecBRDeleteTriggers
-  - ExecDeletePrologue
+  - [ExecBRDeleteTriggers](ExecBRDeleteTriggers.md)
+  - [ExecDeletePrologue](ExecDeletePrologue.md)
 
 ## Notes and Other Information
 - Returns false if any trigger cancels the delete or if concurrent updates require caller attention

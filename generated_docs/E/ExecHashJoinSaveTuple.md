@@ -24,12 +24,12 @@ This function is responsible for spilling tuples to disk when they cannot be pro
 - Functions called/Symbols referenced:
   - BufFileCreateTemp
   - BufFileWrite
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - ExecHashIncreaseNumBatches
   - ExecHashTableInsert
   - ExecHashRemoveNextSkewBucket
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - Uses lazy file creation - batch files are only created when the first tuple is written

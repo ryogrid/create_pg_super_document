@@ -31,11 +31,11 @@ The non-blocking I/O approach ensures that the worker can respond promptly to in
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (PostgreSQL interrupt processing macro)
-  - shm_mq_receive (receive message from input queue)
-  - shm_mq_send (send message to output queue)
+  - [shm_mq_receive](../s/shm_mq_receive.md) (receive message from input queue)
+  - [shm_mq_send](../s/shm_mq_send.md) (send message to output queue)
   - SHM_MQ_SUCCESS (success result constant)
 - Called from (representative examples):
-  - test_shm_mq_main (after worker initialization is complete)
+  - [test_shm_mq_main](../t/test_shm_mq_main.md) (after worker initialization is complete)
 
 ## Notes and Other Information
 - This function is static (internal to worker.c) and represents the application-specific processing logic

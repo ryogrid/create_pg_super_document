@@ -20,10 +20,10 @@ This function serves as a convenient entry point for traversing all files within
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recurse_dir (main recursive directory traversal function)
+  - [recurse_dir](../r/recurse_dir.md) (main recursive directory traversal function)
 - Called from (representative examples):
-  - local_traverse_files (local_source.c:62)
-  - main (pg_rewind.c:478)
+  - [local_traverse_files](../l/local_traverse_files.md) (local_source.c:62)
+  - [main](../m/main.md) (pg_rewind.c:478)
 - Declared in:
   - file_ops.h:27
 

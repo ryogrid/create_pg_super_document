@@ -23,17 +23,17 @@ The function handles several edge cases: if all values in a column are NULL, the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTSTATE (GiST state structure type)
-  - GistEntryVector (structure for holding GIST entries)
-  - GISTENTRY (individual GIST entry type)
+  - [GISTSTATE](../G/GISTSTATE.md) (GiST state structure type)
+  - [GistEntryVector](../G/GistEntryVector.md) (structure for holding GIST entries)
+  - [GISTENTRY](../G/GISTENTRY.md) (individual GIST entry type)
   - GEVHDRSZ (GistEntryVector header size constant)
-  - index_getattr (extracts attribute value from IndexTuple)
+  - [index_getattr](../i/index_getattr.md) (extracts attribute value from IndexTuple)
   - gistdentryinit (initializes a GIST entry)
-  - FunctionCall2Coll (calls a function with collation support)
-  - palloc (PostgreSQL memory allocation)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (calls a function with collation support)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
 - Called from (representative examples):
-  - gistunionsubkeyvec (in gistsplit.c:64)
-  - gistunion (in gistutil.c:223)
+  - [gistunionsubkeyvec](gistunionsubkeyvec.md) (in gistsplit.c:64)
+  - [gistunion](gistunion.md) (in gistutil.c:223)
 
 ## Notes and Other Information
 - The function processes each index column independently, creating separate union operations for multi-column indexes

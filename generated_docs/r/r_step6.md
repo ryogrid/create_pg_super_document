@@ -30,15 +30,15 @@ The function uses a sophisticated backtracking mechanism to handle optional tran
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward suffix matching)
-  - slice_from_s (insert substring)
-  - slice_del (delete substring)
+  - [find_among_b](../f/find_among_b.md) (backward suffix matching)
+  - [slice_from_s](../s/slice_from_s.md) (insert substring)
+  - [slice_del](../s/slice_del.md) (delete substring)
 - Arrays used:
   - a_65 (3 Greek patterns: ματος, ματα, ματων)
   - a_66 (84 diverse Greek morphological endings and suffixes)
   - s_106 (Greek replacement "μα")
 - Called from:
-  - greek_UTF_8_stem at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3655
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md) at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3655
 
 ## Notes and Other Information
 - Returns 1 on successful processing, 0 if no transformation was applied or if I[0] is not set

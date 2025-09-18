@@ -26,18 +26,18 @@ The WAL record includes the original page's right link and NSN (Next Split Numbe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterData
-  - XLogRegisterBufData
-  - XLogInsert
-  - BufferIsValid
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [BufferIsValid](../B/BufferIsValid.md)
   - REGBUF_STANDARD
   - REGBUF_WILL_INIT
   - XLOG_GIST_PAGE_SPLIT
   - RM_GIST_ID
 - Called from (representative examples):
-  - gistplacetopage (main GiST insertion/split logic)
+  - [gistplacetopage](gistplacetopage.md) (main GiST insertion/split logic)
   - Referenced in GISTPageSplitInfo structure
 
 ## Notes and Other Information

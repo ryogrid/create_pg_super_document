@@ -19,10 +19,10 @@ This function is typically called during the planning phase of parallel query ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelBlockTableScanDescData (struct type)
+  - [ParallelBlockTableScanDescData](../P/ParallelBlockTableScanDescData.md) (struct type)
   - sizeof operator
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

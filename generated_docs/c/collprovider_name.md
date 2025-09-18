@@ -24,9 +24,9 @@ The  function provides a simple mapping from single-character collation provider
   - COLLPROVIDER_ICU
   - COLLPROVIDER_LIBC
 - Called from (representative examples):
-  - createdb
-  - setlocales
-  - setup_locale_encoding
+  - [createdb](createdb.md)
+  - [setlocales](../s/setlocales.md)
+  - [setup_locale_encoding](../s/setup_locale_encoding.md)
 
 ## Notes and Other Information
 - Returns "???" for any unrecognized provider code, providing a safe fallback

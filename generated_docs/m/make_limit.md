@@ -28,10 +28,10 @@ The Limit node is essential for implementing query result pagination and limitin
 - Functions called/Symbols referenced:
   - makeNode (creates a new Limit node)
   - Limit (the plan node type being created)
-  - LimitOption (enumeration for limit behavior options)
+  - [LimitOption](../L/LimitOption.md) (enumeration for limit behavior options)
 - Called from (representative examples):
-  - create_limit_plan
-  - create_minmaxagg_plan
+  - [create_limit_plan](../c/create_limit_plan.md)
+  - [create_minmaxagg_plan](../c/create_minmaxagg_plan.md)
   - DEFAULT_CURSOR_TUPLE_FRACTION
 
 ## Notes and Other Information

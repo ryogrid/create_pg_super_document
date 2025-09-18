@@ -23,12 +23,12 @@ The function chooses to create an actual BitmapAndPath rather than just performi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_bitmap_and_path
-  - bitmap_scan_cost_est
+  - [create_bitmap_and_path](../c/create_bitmap_and_path.md)
+  - [bitmap_scan_cost_est](bitmap_scan_cost_est.md)
   - BitmapAndPath
   - PathClauseUsage
 - Called from (representative examples):
-  - choose_bitmap_and
+  - [choose_bitmap_and](../c/choose_bitmap_and.md)
 
 ## Notes and Other Information
 - This is a static function local to indxpath.c

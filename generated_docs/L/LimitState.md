@@ -31,14 +31,14 @@ LimitState manages the execution state for Limit nodes, which implement SQL LIMI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LimitOption
-  - LimitStateCond
+  - [LimitOption](LimitOption.md)
+  - [LimitStateCond](LimitStateCond.md)
 - Called from (representative examples):
-  - ExecLimit
-  - ExecInitLimit
-  - ExecEndLimit
-  - recompute_limits
-  - compute_tuples_needed
+  - [ExecLimit](../E/ExecLimit.md)
+  - [ExecInitLimit](../E/ExecInitLimit.md)
+  - [ExecEndLimit](../E/ExecEndLimit.md)
+  - [recompute_limits](../r/recompute_limits.md)
+  - [compute_tuples_needed](../c/compute_tuples_needed.md)
 
 ## Notes and Other Information
 - Implements a state machine with conditions like LIMIT_INITIAL, LIMIT_INWINDOW, LIMIT_WINDOWEND_TIES

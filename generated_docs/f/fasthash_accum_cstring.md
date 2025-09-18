@@ -28,14 +28,14 @@ The function includes debugging assertions when `USE_ASSERT_CHECKING` is enabled
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `fasthash_state` (hash state structure)
+  - `[fasthash_state](fasthash_state.md)` (hash state structure)
   - `fasthash_accum_cstring_aligned` (optimized aligned processing)
-  - `fasthash_accum_cstring_unaligned` (general unaligned processing)
+  - `[fasthash_accum_cstring_unaligned](fasthash_accum_cstring_unaligned.md)` (general unaligned processing)
   - `PointerIsAligned` (alignment checking macro)
   - `memcpy` (for debug state copying)
 - Called from (representative examples):
-  - `spcachekey_hash` (in src/backend/catalog/namespace.c:268)
-  - `hash_string` (in src/include/common/hashfn_unstable.h:402)
+  - `[spcachekey_hash](../s/spcachekey_hash.md)` (in src/backend/catalog/namespace.c:268)
+  - `[hash_string](../h/hash_string.md)` (in src/include/common/hashfn_unstable.h:402)
 
 ## Notes and Other Information
 - Returns the length of the processed string (excluding null terminator)

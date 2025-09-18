@@ -24,11 +24,11 @@ This function processes attribute data for GiST index entries by applying compre
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
   - gistentryinit
-  - FunctionCall1Coll
-  - GISTENTRY (struct)
-  - GISTSTATE (struct)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [GISTENTRY](../G/GISTENTRY.md) (struct)
+  - [GISTSTATE](../G/GISTSTATE.md) (struct)
 - Called from (representative examples):
-  - gistSortedBuildCallback
+  - [gistSortedBuildCallback](gistSortedBuildCallback.md)
   - gistFormTuple
 
 ## Notes and Other Information

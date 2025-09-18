@@ -24,19 +24,19 @@ The structure provides both automatic state management (call counters, memory co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttInMetadata (struct type)
-  - MemoryContext (type)
-  - TupleDesc (type)
+  - [AttInMetadata](../A/AttInMetadata.md) (struct type)
+  - [MemoryContext](../M/MemoryContext.md) (type)
+  - [TupleDesc](../T/TupleDesc.md) (type)
 - Called from (representative examples):
-  - init_MultiFuncCall
-  - per_MultiFuncCall
-  - end_MultiFuncCall
+  - [init_MultiFuncCall](../i/init_MultiFuncCall.md)
+  - [per_MultiFuncCall](../p/per_MultiFuncCall.md)
+  - [end_MultiFuncCall](../e/end_MultiFuncCall.md)
   - generate_series functions
-  - pg_lock_status
-  - tsvector_unnest
-  - array_unnest functions
-  - regexp_matches
-  - jsonb_object_keys
+  - [pg_lock_status](../p/pg_lock_status.md)
+  - [tsvector_unnest](../t/tsvector_unnest.md)
+  - [array_unnest](../a/array_unnest.md) functions
+  - [regexp_matches](../r/regexp_matches.md)
+  - [jsonb_object_keys](../j/jsonb_object_keys.md)
 
 ## Notes and Other Information
 - Central to PostgreSQL's Set Returning Function infrastructure

@@ -20,15 +20,15 @@ The function operates in read mode (archModeRead) and configures the archive to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _allocAH
-  - ArchiveFormat
-  - pg_compress_specification
+  - [_allocAH](../a/_allocAH.md)
+  - [ArchiveFormat](../A/ArchiveFormat.md)
+  - [pg_compress_specification](../p/pg_compress_specification.md)
   - PG_COMPRESSION_NONE
   - archModeRead
-  - setupRestoreWorker
+  - [setupRestoreWorker](../s/setupRestoreWorker.md)
   - DATA_DIR_SYNC_METHOD_FSYNC
 - Called from (representative examples):
-  - main (in pg_restore.c)
+  - [main](../m/main.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - This function is used specifically for restoration operations, as indicated by the archModeRead parameter

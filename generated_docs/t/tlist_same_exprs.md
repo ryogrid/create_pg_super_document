@@ -22,13 +22,13 @@ This design choice allows the optimizer to make more aggressive optimizations by
 - Functions called/Symbols referenced:
   - list_length (implicit via list operations)
   - forboth (macro for iterating over two lists simultaneously)
-  - equal (for comparing expression trees)
-  - TargetEntry (struct type)
+  - [equal](../e/equal.md) (for comparing expression trees)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
 - Called from (representative examples):
-  - create_projection_plan
-  - change_plan_targetlist
+  - [create_projection_plan](../c/create_projection_plan.md)
+  - [change_plan_targetlist](../c/change_plan_targetlist.md)
   - standard_qp_extra
-  - apply_scanjoin_target_to_paths
+  - [apply_scanjoin_target_to_paths](../a/apply_scanjoin_target_to_paths.md)
 
 ## Notes and Other Information
 - Returns false immediately if the two lists have different lengths

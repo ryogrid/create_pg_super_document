@@ -18,10 +18,10 @@ PQfmod extracts the type modifier (atttypmod) for a given field from a PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number
+  - [check_field_number](../c/check_field_number.md)
 - Called from (representative examples):
-  - DescribeQuery (src/bin/psql/common.c:1387)
-  - ECPGget_desc (src/interfaces/ecpg/ecpglib/descriptor.c:350, 356, 360, 366, 380, 386)
+  - [DescribeQuery](../D/DescribeQuery.md) (src/bin/psql/common.c:1387)
+  - [ECPGget_desc](../E/ECPGget_desc.md) (src/interfaces/ecpg/ecpglib/descriptor.c:350, 356, 360, 366, 380, 386)
 
 ## Notes and Other Information
 - Returns 0 for invalid field numbers or when attribute descriptors are not available

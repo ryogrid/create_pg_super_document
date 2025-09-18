@@ -19,17 +19,17 @@ The function reads the server's protocol version, then reads a list of unsupport
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetInt
+  - [pqGetInt](pqGetInt.md)
   - initPQExpBuffer
-  - pqGets
+  - [pqGets](pqGets.md)
   - termPQExpBuffer
   - appendPQExpBufferChar
-  - appendPQExpBufferStr
-  - libpq_append_conn_error
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - PG_PROTOCOL_MAJOR
   - PG_PROTOCOL_MINOR
-  - appendPQExpBuffer
-  - libpq_ngettext
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [libpq_ngettext](../l/libpq_ngettext.md)
 - Called from (representative examples):
   - Connection negotiation routines (indirectly referenced from libpq-int.h)
 

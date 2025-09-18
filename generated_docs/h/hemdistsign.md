@@ -27,10 +27,10 @@ This function computes the Hamming distance between two bit vector signatures by
   - pg_number_of_ones (lookup table for counting bits in a byte)
   - BITVECP (typedef for bit vector pointer)
 - Called from (representative examples):
-  - hemdist (higher-level Hamming distance function)
-  - gtsvector_penalty (for penalty calculations in index operations)
-  - hemdistcache (for cached distance calculations)
-  - gtsvector_picksplit (for page splitting decisions)
+  - [hemdist](hemdist.md) (higher-level Hamming distance function)
+  - [gtsvector_penalty](../g/gtsvector_penalty.md) (for penalty calculations in index operations)
+  - [hemdistcache](hemdistcache.md) (for cached distance calculations)
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md) (for page splitting decisions)
 
 ## Notes and Other Information
 This is a static helper function optimized for byte-wise Hamming distance calculation. The implementation deliberately uses a lookup table approach rather than popcount functions, as indicated by the inline comment. This choice reflects performance considerations specific to the typical signature sizes and usage patterns in TSVector GiST indexes. The function is fundamental to many GiST operations that need to measure signature similarity.

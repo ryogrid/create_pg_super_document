@@ -19,18 +19,18 @@ This function performs a critical compatibility check during pg_upgrade by testi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer (connect to new cluster)
-  - prep_status (status reporting)
+  - [connectToServer](connectToServer.md) (connect to new cluster)
+  - [prep_status](../p/prep_status.md) (status reporting)
   - qsort (sorting libraries)
-  - library_name_compare (comparison function)
-  - PQescapeStringConn, PQexec, PQclear, PQfinish (PostgreSQL operations)
+  - [library_name_compare](../l/library_name_compare.md) (comparison function)
+  - [PQescapeStringConn](../P/PQescapeStringConn.md), PQexec, PQclear, PQfinish (PostgreSQL operations)
   - fopen_priv (secure file opening)
-  - pg_fatal, pg_log (error reporting)
-  - check_ok (success reporting)
-  - LibraryInfo (structure type)
+  - [pg_fatal](../p/pg_fatal.md), pg_log (error reporting)
+  - [check_ok](check_ok.md) (success reporting)
+  - [LibraryInfo](../L/LibraryInfo.md) (structure type)
   - PGRES_COMMAND_OK, PG_REPORT (constants)
 - Called from (representative examples):
-  - check_new_cluster
+  - [check_new_cluster](check_new_cluster.md)
 
 ## Notes and Other Information
 - Uses template1 database for testing library loads in the new cluster

@@ -25,18 +25,18 @@ The old tuple data is stored separately in the record after the heap update stru
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - FilterByOrigin
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - XLogRecGetOrigin
-  - ReorderBufferGetChange
-  - XLogRecGetBlockData
-  - ReorderBufferGetTupleBuf
-  - DecodeXLogTuple
+  - [ReorderBufferGetChange](../R/ReorderBufferGetChange.md)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [ReorderBufferGetTupleBuf](../R/ReorderBufferGetTupleBuf.md)
+  - [DecodeXLogTuple](DecodeXLogTuple.md)
   - XLogRecGetDataLen
-  - ReorderBufferQueueChange
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md)
   - XLogRecGetXid
 - Called from (representative examples):
-  - heap_decode
+  - [heap_decode](../h/heap_decode.md)
 
 ## Notes and Other Information
 - Handles both regular updates (XLOG_HEAP_UPDATE) and HOT updates (XLOG_HEAP_HOT_UPDATE) which have identical record layouts

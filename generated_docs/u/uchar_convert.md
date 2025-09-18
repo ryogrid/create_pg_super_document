@@ -27,10 +27,10 @@ The function wraps ICU's ucnv_toUChars() function with PostgreSQL-style error ha
   - u_errorName (ICU function to get error name string for error reporting)
 - Called from (representative examples):
   - collation_cache_entry (during collation setup)
-  - pg_strncoll_icu_no_utf8 (string comparison operations)
-  - pg_strnxfrm_icu (string transformation operations)
-  - pg_strnxfrm_prefix_icu_no_utf8 (prefix transformation)
-  - icu_to_uchar (character conversion helper)
+  - [pg_strncoll_icu_no_utf8](../p/pg_strncoll_icu_no_utf8.md) (string comparison operations)
+  - [pg_strnxfrm_icu](../p/pg_strnxfrm_icu.md) (string transformation operations)
+  - [pg_strnxfrm_prefix_icu_no_utf8](../p/pg_strnxfrm_prefix_icu_no_utf8.md) (prefix transformation)
+  - [icu_to_uchar](../i/icu_to_uchar.md) (character conversion helper)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_locale.c file

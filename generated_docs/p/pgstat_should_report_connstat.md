@@ -20,9 +20,9 @@ This function serves as a filter to determine which types of backend processes s
   - B_BACKEND (backend type constant)
   - MyBackendType (global variable indicating current backend type)
 - Called from (representative examples):
-  - pgstat_report_connect (from src/backend/utils/activity/pgstat_database.c:195)
-  - pgstat_report_disconnect (from src/backend/utils/activity/pgstat_database.c:212)
-  - pgstat_update_dbstats (from src/backend/utils/activity/pgstat_database.c:292)
+  - [pgstat_report_connect](pgstat_report_connect.md) (from src/backend/utils/activity/pgstat_database.c:195)
+  - [pgstat_report_disconnect](pgstat_report_disconnect.md) (from src/backend/utils/activity/pgstat_database.c:212)
+  - [pgstat_update_dbstats](pgstat_update_dbstats.md) (from src/backend/utils/activity/pgstat_database.c:292)
 
 ## Notes and Other Information
 - The function is declared as static, meaning it's only accessible within the pgstat_database.c source file

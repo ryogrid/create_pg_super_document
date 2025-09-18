@@ -30,7 +30,7 @@ The function formats the output to show:
   - appendStringInfo
   - appendStringInfoString
 - Called from (representative examples):
-  - standby_desc
+  - [standby_desc](standby_desc.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the standbydesc.c file

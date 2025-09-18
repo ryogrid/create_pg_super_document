@@ -27,10 +27,10 @@ Unlike the automatic closure that occurs in plperl_spi_fetchrow when no more row
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - SPI_cursor_find
-  - UnpinPortal
-  - SPI_cursor_close
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [SPI_cursor_find](../S/SPI_cursor_find.md)
+  - [UnpinPortal](../U/UnpinPortal.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
 - Called from (representative examples):
   - PL_PERL_H header (src/pl/plperl/plperl.h:36)
 

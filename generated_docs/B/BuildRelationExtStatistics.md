@@ -25,19 +25,19 @@ The function operates in a temporary memory context to manage memory efficiently
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_statentries_for_relation
-  - lookup_var_attr_stats
-  - statext_compute_stattarget
-  - make_build_data
+  - [fetch_statentries_for_relation](../f/fetch_statentries_for_relation.md)
+  - [lookup_var_attr_stats](../l/lookup_var_attr_stats.md)
+  - [statext_compute_stattarget](../s/statext_compute_stattarget.md)
+  - [make_build_data](../m/make_build_data.md)
   - statext_ndistinct_build
-  - statext_dependencies_build
-  - statext_mcv_build
-  - compute_expr_stats
-  - statext_store
+  - [statext_dependencies_build](../s/statext_dependencies_build.md)
+  - [statext_mcv_build](../s/statext_mcv_build.md)
+  - [compute_expr_stats](../c/compute_expr_stats.md)
+  - [statext_store](../s/statext_store.md)
   - AllocSetContextCreate
-  - pgstat_progress_update_multi_param
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md)
 - Called from:
-  - do_analyze_rel (in src/backend/commands/analyze.c:605)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (in src/backend/commands/analyze.c:605)
 
 ## Notes and Other Information
 - Returns early if no columns are being analyzed (natts == 0)

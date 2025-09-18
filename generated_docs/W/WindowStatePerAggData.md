@@ -97,11 +97,11 @@ The structure supports both regular aggregation (using transition and final func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initValue
+  - [initValue](../i/initValue.md)
 - Called from (representative examples):
-  - ExecInitWindowAgg
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
   - ExecReScanWindowAgg
-  - WindowStatePerAgg (typedef)
+  - [WindowStatePerAgg](WindowStatePerAgg.md) (typedef)
 
 ## Notes and Other Information
 - This structure is only used for plain aggregates functioning as window functions, not for specialized window functions

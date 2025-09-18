@@ -30,15 +30,15 @@ The function performs extensive validation including operator family membership 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_boolean_partition_clause
-  - gen_partprune_steps_internal
-  - get_op_opfamily_properties
+  - [match_boolean_partition_clause](match_boolean_partition_clause.md)
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md)
+  - [get_op_opfamily_properties](../g/get_op_opfamily_properties.md)
   - PartCollMatchesExprColl
-  - contain_var_clause
-  - contain_volatile_functions
-  - pull_exec_paramids
+  - [contain_var_clause](../c/contain_var_clause.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [pull_exec_paramids](../p/pull_exec_paramids.md)
 - Called from:
-  - gen_partprune_steps_internal
+  - [gen_partprune_steps_internal](../g/gen_partprune_steps_internal.md)
 
 ## Notes and Other Information
 The function returns different PartClauseMatchStatus values indicating the match result:

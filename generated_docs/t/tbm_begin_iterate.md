@@ -19,19 +19,19 @@ This function sets up the necessary data structures and state for iterating thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TBMIterator (structure type)
+  - [TBMIterator](../T/TBMIterator.md) (structure type)
   - TBM_ITERATING_SHARED (constant)
   - MAX_TUPLES_PER_PAGE (constant)
   - TBM_HASH (constant)
   - TBM_NOT_ITERATING (constant)
-  - PagetableEntry (structure type)
-  - MemoryContextAlloc (function)
+  - [PagetableEntry](../P/PagetableEntry.md) (structure type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (function)
   - qsort (function)
   - tbm_comparator (function)
   - TBM_ITERATING_PRIVATE (constant)
 - Called from (representative examples):
-  - startScanEntry (src/backend/access/gin/ginget.c:388)
-  - BitmapHeapNext (src/backend/executor/nodeBitmapHeapscan.c:116, 122)
+  - [startScanEntry](../s/startScanEntry.md) (src/backend/access/gin/ginget.c:388)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (src/backend/executor/nodeBitmapHeapscan.c:116, 122)
 
 ## Notes and Other Information
 - The iterator is created in the callers memory context and includes trailing space for tuple offsets

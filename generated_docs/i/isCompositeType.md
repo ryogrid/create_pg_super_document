@@ -19,9 +19,9 @@ The determination affects whether PostgreSQL will use JSON_VALUE() (for scalar t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typtype: Gets the type category of a given type OID
+  - [get_typtype](../g/get_typtype.md): Gets the type category of a given type OID
   - type_is_array: Checks if the type is an array type
-  - getBaseType: Gets the base type of a domain type
+  - [getBaseType](../g/getBaseType.md): Gets the base type of a domain type
   - TYPTYPE_COMPOSITE: Constant for composite type category
   - TYPTYPE_DOMAIN: Constant for domain type category
   - JSONOID: OID constant for json type
@@ -29,8 +29,8 @@ The determination affects whether PostgreSQL will use JSON_VALUE() (for scalar t
   - RECORDOID: OID constant for record type
 
 - Called from (representative examples):
-  - transformJsonTableColumns: Uses this function to determine JSON function choice
-  - AlterTypeNamespaceInternal: Called during type namespace alteration operations
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md): Uses this function to determine JSON function choice
+  - [AlterTypeNamespaceInternal](../A/AlterTypeNamespaceInternal.md): Called during type namespace alteration operations
 
 ## Notes and Other Information
 - The function is recursive when handling domain types, calling itself on the base type

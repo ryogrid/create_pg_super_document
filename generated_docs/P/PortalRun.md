@@ -26,17 +26,17 @@ The function manages global context carefully to support utility commands like V
 ## Dependencies
 - Functions called/Symbols referenced:
   - MarkPortalActive
-  - FillPortalStore
-  - PortalRunSelect
-  - PortalRunMulti
+  - [FillPortalStore](../F/FillPortalStore.md)
+  - [PortalRunSelect](PortalRunSelect.md)
+  - [PortalRunMulti](PortalRunMulti.md)
   - MarkPortalDone
   - MarkPortalFailed
-  - InitializeQueryCompletion
+  - [InitializeQueryCompletion](../I/InitializeQueryCompletion.md)
   - CopyQueryCompletion
 - Called from (representative examples):
-  - ExecuteQuery
-  - exec_simple_query
-  - exec_execute_message
+  - [ExecuteQuery](../E/ExecuteQuery.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
 
 ## Notes and Other Information
 - Returns true if portal execution is complete, false if suspended due to count exhaustion

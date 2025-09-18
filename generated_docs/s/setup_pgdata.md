@@ -24,19 +24,19 @@ The function includes comprehensive error handling and user guidance when no dat
 - Functions called/Symbols referenced:
   - getenv (C standard library)
   - strlen (C standard library)
-  - pg_strdup (PostgreSQL memory allocation utility)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL memory allocation utility)
   - pg_log_error (PostgreSQL logging function)
   - pg_log_error_hint (PostgreSQL logging function with hints)
-  - canonicalize_path (PostgreSQL path utility)
+  - [canonicalize_path](../c/canonicalize_path.md) (PostgreSQL path utility)
   - setenv (POSIX environment function)
-  - pg_fatal (PostgreSQL fatal error function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error function)
   - exit (C standard library)
 - Called from (representative examples):
-  - main (src/bin/initdb/initdb.c:3418, 3447)
+  - [main](../m/main.md) (src/bin/initdb/initdb.c:3418, 3447)
 
 ## Notes and Other Information
 - The function terminates the program (exit(1)) if no data directory can be determined
 - Both original and canonical paths are preserved to handle different use cases
 - The PGDATA environment variable is explicitly set to avoid command-line quoting issues on Windows
 - The function provides helpful error messages guiding users to use either the -D option or PGDATA environment variable
-- Path canonicalization ensures consistent handling of relative paths, symbolic links, and path separators across platforms
+- [Path](../P/Path.md) canonicalization ensures consistent handling of relative paths, symbolic links, and path separators across platforms

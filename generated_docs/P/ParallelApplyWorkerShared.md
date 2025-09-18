@@ -25,17 +25,17 @@ ParallelApplyWorkerShared serves as the primary communication mechanism between 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t
+  - [slock_t](../s/slock_t.md)
   - ParallelTransState
-  - pg_atomic_uint32
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
   - PartialFileSetState
-  - FileSet
+  - [FileSet](../F/FileSet.md)
 - Called from (representative examples):
-  - pa_setup_dsm
-  - ParallelApplyWorkerMain
-  - pa_set_xact_state
-  - pa_get_xact_state
-  - pa_set_fileset_state
+  - [pa_setup_dsm](../p/pa_setup_dsm.md)
+  - [ParallelApplyWorkerMain](ParallelApplyWorkerMain.md)
+  - [pa_set_xact_state](../p/pa_set_xact_state.md)
+  - [pa_get_xact_state](../p/pa_get_xact_state.md)
+  - [pa_set_fileset_state](../p/pa_set_fileset_state.md)
 
 ## Notes and Other Information
 This structure is allocated in dynamic shared memory (DSM) and is crucial for maintaining transactional consistency in parallel apply scenarios. The fileset mechanism allows for spilling large transactions to disk when memory pressure occurs, ensuring that parallel processing can continue even with very large streaming transactions. The atomic pending_stream_count helps optimize worker waiting patterns and reduces unnecessary wake-ups.

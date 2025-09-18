@@ -23,16 +23,16 @@ The function handles two distinct scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - smgropen
-  - XLogDropRelation
-  - smgrdounlinkall
-  - smgrclose
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [smgropen](../s/smgropen.md)
+  - [XLogDropRelation](../X/XLogDropRelation.md)
+  - [smgrdounlinkall](../s/smgrdounlinkall.md)
+  - [smgrclose](../s/smgrclose.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - FinishPreparedTransaction (src/backend/access/transam/twophase.c:1606)
-  - xact_redo_commit (src/backend/access/transam/xact.c:6177)
-  - xact_redo_abort (src/backend/access/transam/xact.c:6288)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (src/backend/access/transam/twophase.c:1606)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (src/backend/access/transam/xact.c:6177)
+  - [xact_redo_abort](../x/xact_redo_abort.md) (src/backend/access/transam/xact.c:6288)
 
 ## Notes and Other Information
 - The function uses temporary memory allocation (palloc/pfree) to manage the array of SMgrRelation pointers

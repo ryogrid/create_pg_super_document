@@ -39,14 +39,14 @@ The function includes stack depth checking to prevent stack overflow from deeply
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (prevents stack overflow in deep recursion)
-  - regex_selectivity_sub (recursive self-calls for subpatterns and alternatives)
+  - [regex_selectivity_sub](regex_selectivity_sub.md) (recursive self-calls for subpatterns and alternatives)
   - CHAR_RANGE_SEL (selectivity constant for character classes)
   - ANY_CHAR_SEL (selectivity constant for dot metacharacter)
   - PARTIAL_WILDCARD_SEL (selectivity constant for quantifiers)
   - FIXED_CHAR_SEL (selectivity constant for literal characters)
 - Called from:
-  - regex_selectivity (main entry point for regex selectivity estimation)
-  - regex_selectivity_sub (recursive calls for subpatterns)
+  - [regex_selectivity](regex_selectivity.md) (main entry point for regex selectivity estimation)
+  - [regex_selectivity_sub](regex_selectivity_sub.md) (recursive calls for subpatterns)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, not exposed in the public API

@@ -20,13 +20,13 @@ The datum_to_jsonb function performs the actual conversion of PostgreSQL Datum v
 ## Dependencies
 - Functions called/Symbols referenced:
   - datum_to_jsonb_internal
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
-  - JsonbInState
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
+  - [JsonbInState](../J/JsonbInState.md)
   - JsonTypeCategory
 - Called from (representative examples):
-  - to_jsonb
-  - ExecEvalJsonConstructor
+  - [to_jsonb](../t/to_jsonb.md)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md)
   - JsonTypeCategory
 
 ## Notes and Other Information

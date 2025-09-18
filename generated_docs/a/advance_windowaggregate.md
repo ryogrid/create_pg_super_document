@@ -20,15 +20,15 @@ This function is parallel to  in nodeAgg.c and handles the core logic for advanc
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecEvalExpr
-  - datumCopy
+  - [datumCopy](../d/datumCopy.md)
   - InitFunctionCallInfoData
   - FunctionCallInvoke
   - DatumIsReadWriteExpandedObject
   - DatumGetEOHP
   - MemoryContextGetParent
-  - DeleteExpandedObject
+  - [DeleteExpandedObject](../D/DeleteExpandedObject.md)
 - Called from (representative examples):
-  - eval_windowaggregates
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
 
 ## Notes and Other Information
 - Handles FILTER clauses by evaluating the filter expression and skipping filtered-out tuples

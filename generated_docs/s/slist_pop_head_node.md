@@ -19,21 +19,21 @@ The operation runs in O(1) constant time and includes safety checks to ensure th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_is_empty (to verify list is not empty before popping)
-  - slist_check (for list integrity validation)
+  - [slist_is_empty](slist_is_empty.md) (to verify list is not empty before popping)
+  - [slist_check](slist_check.md) (for list integrity validation)
 - Data types used:
-  - slist_head
-  - slist_node
+  - [slist_head](slist_head.md)
+  - [slist_node](slist_node.md)
 - Called from (representative examples):
-  - dsm_detach (src/backend/storage/ipc/dsm.c:821)
-  - reset_on_dsm_detach (src/backend/storage/ipc/dsm.c:1184)
+  - [dsm_detach](../d/dsm_detach.md) (src/backend/storage/ipc/dsm.c:821)
+  - [reset_on_dsm_detach](../r/reset_on_dsm_detach.md) (src/backend/storage/ipc/dsm.c:1184)
 
 ## Notes and Other Information
 - This is an inline function for maximum performance in list operations  
 - The function requires that the list contains at least one node (enforced by Assert)
 - The caller is responsible for handling the returned node (e.g., processing its data, freeing memory)
 - The returned node is no longer part of the list after this operation
-- List integrity is validated through slist_check() in debug builds
+- [List](../L/List.md) integrity is validated through slist_check() in debug builds
 - Part of PostgreSQL's efficient intrusive list implementation
 - The function will cause assertion failure in debug builds if called on an empty list
 - Primarily used in dynamic shared memory (DSM) management for cleanup operations

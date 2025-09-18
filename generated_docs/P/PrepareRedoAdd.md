@@ -21,14 +21,14 @@ PrepareRedoAdd is a critical function in PostgreSQL's two-phase commit recovery 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockHeldByMeInMode
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogRecPtrIsInvalid
-  - TwoPhaseFilePath
+  - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
   - access
-  - replorigin_advance
+  - [replorigin_advance](../r/replorigin_advance.md)
 - Called from (representative examples):
-  - restoreTwoPhaseData
-  - xact_redo
+  - [restoreTwoPhaseData](../r/restoreTwoPhaseData.md)
+  - [xact_redo](../x/xact_redo.md)
 
 ## Notes and Other Information
 The function requires exclusive access to TwoPhaseStateLock and can only be called during recovery. It performs careful duplicate detection by checking for existing files when processing WAL records, preventing corruption during crash recovery scenarios. The function allocates global transaction structures from the free list and properly initializes all necessary fields including prepare timestamps, LSN positions, and state flags. Error handling distinguishes between consistency-reached and pre-consistency states. Location: src/backend/access/transam/twophase.c:2470-2571

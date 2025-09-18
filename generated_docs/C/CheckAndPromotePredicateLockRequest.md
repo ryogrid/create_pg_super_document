@@ -22,15 +22,15 @@ When promotion is determined necessary, the function acquires the coarsest eligi
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetParentPredicateLockTag
-  - hash_search
-  - MaxPredicateChildLocks
-  - PredicateLockAcquire
+  - [hash_search](../h/hash_search.md)
+  - [MaxPredicateChildLocks](../M/MaxPredicateChildLocks.md)
+  - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
   - HASH_ENTER
-  - PREDICATELOCKTARGETTAG (data structure)
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (data structure)
   - LOCALPREDICATELOCK (data structure)
 - Called from (representative examples):
-  - SerialControl
-  - PredicateLockAcquire
+  - [SerialControl](../S/SerialControl.md)
+  - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the predicate.c file

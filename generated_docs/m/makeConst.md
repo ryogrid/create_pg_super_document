@@ -30,14 +30,14 @@ The function performs important normalization by ensuring variable-length (varle
 - Functions called/Symbols referenced:
   - makeNode (macro for node allocation)
   - PG_DETOAST_DATUM (macro for detoasting varlena values)
-  - PointerGetDatum (macro for converting pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (macro for converting pointer to Datum)
   - Const (node type being created)
 - Called from (representative examples):
-  - makeNullConst (same file)
-  - makeBoolConst (same file)
-  - make_const (parser)
-  - eval_const_expressions_mutator (optimizer)
-  - build_coercion_expression (parser)
+  - [makeNullConst](makeNullConst.md) (same file)
+  - [makeBoolConst](makeBoolConst.md) (same file)
+  - [make_const](make_const.md) (parser)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (optimizer)
+  - [build_coercion_expression](../b/build_coercion_expression.md) (parser)
 
 ## Notes and Other Information
 - Automatically detoasts varlena values (constlen == -1) to ensure consistent representation

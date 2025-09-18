@@ -31,7 +31,7 @@ Since ParamListInfo is a typedef pointer to ParamListInfoData, the actual member
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfoData
+  - [ParamListInfoData](ParamListInfoData.md)
   - ParamExternData
   - ParamFetchHook
   - ParamCompileHook
@@ -40,12 +40,12 @@ Since ParamListInfo is a typedef pointer to ParamListInfoData, the actual member
   - ExprState
 
 - Called from (representative examples):
-  - ExecuteQuery (prepared statements)
-  - ExplainQuery (query explanation)
-  - SPI_execute_plan_with_paramlist (SPI interface)
-  - CreateQueryDesc (query descriptor creation)
-  - BuildCachedPlan (plan caching)
-  - ExecInitExprWithParams (expression initialization)
+  - [ExecuteQuery](../E/ExecuteQuery.md) (prepared statements)
+  - [ExplainQuery](../E/ExplainQuery.md) (query explanation)
+  - [SPI_execute_plan_with_paramlist](../S/SPI_execute_plan_with_paramlist.md) (SPI interface)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md) (query descriptor creation)
+  - [BuildCachedPlan](../B/BuildCachedPlan.md) (plan caching)
+  - [ExecInitExprWithParams](../E/ExecInitExprWithParams.md) (expression initialization)
 
 ## Notes and Other Information
 - Used extensively throughout PostgreSQL's query execution pipeline

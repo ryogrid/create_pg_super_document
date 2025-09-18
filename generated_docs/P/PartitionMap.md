@@ -35,13 +35,13 @@ PartitionMap is a critical data structure used in PostgreSQL's partition-wise jo
   - (No direct function calls - this is a data structure)
 - Called from (representative examples):
   - compare_range_bounds (multiple references for partition comparison)
-  - merge_list_bounds
-  - merge_range_bounds
-  - init_partition_map
-  - free_partition_map
-  - merge_matching_partitions
-  - process_outer_partition
-  - process_inner_partition
+  - [merge_list_bounds](../m/merge_list_bounds.md)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
+  - [init_partition_map](../i/init_partition_map.md)
+  - [free_partition_map](../f/free_partition_map.md)
+  - [merge_matching_partitions](../m/merge_matching_partitions.md)
+  - [process_outer_partition](../p/process_outer_partition.md)
+  - [process_inner_partition](../p/process_inner_partition.md)
 
 ## Notes and Other Information
 This structure is essential for partition-wise join operations, allowing PostgreSQL to efficiently join partitioned tables by operating on corresponding partitions. The remapping functionality handles cases where partition indexes need to be adjusted during the merge process. The distinction between merged and non-merged partitions helps optimize the join by avoiding unnecessary work on empty or dummy partitions.

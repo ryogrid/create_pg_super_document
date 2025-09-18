@@ -21,15 +21,15 @@ This function is commonly used throughout the PostgreSQL query planner when conv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_pathkeys_for_sortclauses_extended
+  - [make_pathkeys_for_sortclauses_extended](make_pathkeys_for_sortclauses_extended.md)
 - Called from (representative examples):
-  - minmax_qp_callback
-  - grouping_planner
-  - adjust_group_pathkeys_for_groupagg
-  - standard_qp_callback
-  - make_pathkeys_for_window
-  - generate_union_paths
-  - generate_nonunion_paths
+  - [minmax_qp_callback](minmax_qp_callback.md)
+  - [grouping_planner](../g/grouping_planner.md)
+  - [adjust_group_pathkeys_for_groupagg](../a/adjust_group_pathkeys_for_groupagg.md)
+  - [standard_qp_callback](../s/standard_qp_callback.md)
+  - [make_pathkeys_for_window](make_pathkeys_for_window.md)
+  - [generate_union_paths](../g/generate_union_paths.md)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md)
 
 ## Notes and Other Information
 - This is a simplified interface to the more flexible `make_pathkeys_for_sortclauses_extended` function

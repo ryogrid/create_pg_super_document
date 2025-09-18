@@ -22,12 +22,12 @@ This function handles the execution of the \i (include) and \ir (include relativ
   - psql_scan_slash_option (extracts filename argument from input)
   - pg_log_error (logs error messages for missing arguments)
   - strcmp (compares command strings to determine relative vs absolute behavior)
-  - expand_tilde (expands ~ character in file paths)
-  - process_file (reads and executes SQL from the specified file)
-  - ignore_slash_options (skips processing when in inactive branch)
+  - [expand_tilde](expand_tilde.md) (expands ~ character in file paths)
+  - [process_file](../p/process_file.md) (reads and executes SQL from the specified file)
+  - [ignore_slash_options](../i/ignore_slash_options.md) (skips processing when in inactive branch)
   - free (deallocates memory for filename string)
 - Called from (representative examples):
-  - exec_command (main command dispatcher in psql)
+  - [exec_command](exec_command.md) (main command dispatcher in psql)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure

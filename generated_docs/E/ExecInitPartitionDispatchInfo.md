@@ -24,20 +24,20 @@ The function manages the partition directory for tracking partition metadata and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreatePartitionDirectory
+  - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md)
   - IsolationUsesXactSnapshot
   - table_open
-  - PartitionDirectoryLookup
-  - RelationGetPartitionKey
-  - build_attrmap_by_name_if_req
-  - MakeSingleTupleTableSlot
-  - palloc
-  - repalloc
+  - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
   - makeNode
-  - InitResultRelInfo
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
 - Called from (representative examples):
-  - ExecSetupPartitionTupleRouting (in execPartition.c:236)
-  - ExecFindPartition (in execPartition.c:410)
+  - [ExecSetupPartitionTupleRouting](ExecSetupPartitionTupleRouting.md) (in execPartition.c:236)
+  - [ExecFindPartition](ExecFindPartition.md) (in execPartition.c:410)
 
 ## Notes and Other Information
 This is a static function that handles the complex initialization of partition dispatch infrastructure. It implements sophisticated memory management with dynamically growing arrays using a doubling strategy for efficient scaling. The function handles tuple format conversion between parent and child partitioned tables when their tuple descriptors differ, which is essential for correct partition key evaluation in hierarchical partitioning schemes. The partition directory integration helps optimize partition metadata lookup and handles concurrency scenarios involving partition detachment operations.

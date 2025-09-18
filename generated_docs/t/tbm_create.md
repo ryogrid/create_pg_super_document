@@ -21,15 +21,15 @@ The created bitmap starts in an empty state and can grow up to the specified mem
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - tbm_calculate_entries
-  - TIDBitmap (struct type)
+  - [tbm_calculate_entries](tbm_calculate_entries.md)
+  - [TIDBitmap](../T/TIDBitmap.md) (struct type)
   - TBM_EMPTY (enum value)
   - InvalidDsaPointer (constant)
   - dsa_area (struct type)
 - Called from (representative examples):
-  - collectMatchBitmap
-  - MultiExecBitmapIndexScan
-  - MultiExecBitmapOr
+  - [collectMatchBitmap](../c/collectMatchBitmap.md)
+  - [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
 
 ## Notes and Other Information
 - The bitmap lives in the memory context that is current at the time of the call

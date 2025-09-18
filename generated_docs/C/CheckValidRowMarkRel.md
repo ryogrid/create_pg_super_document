@@ -18,11 +18,11 @@ CheckValidRowMarkRel performs runtime validation of row marking (locking) operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFdwRoutineForRelation
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - RelationGetRelationName
   - ereport/errcode/errmsg (error reporting)
 - Called from (representative examples):
-  - InitPlan (src/backend/executor/execMain.c:893)
+  - [InitPlan](../I/InitPlan.md) (src/backend/executor/execMain.c:893)
 
 ## Notes and Other Information
 - Allows regular tables and partitioned tables without restriction

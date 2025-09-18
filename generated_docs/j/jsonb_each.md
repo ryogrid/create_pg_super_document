@@ -25,7 +25,7 @@ This is a set-returning function (SRF) that can be used in SQL queries to extrac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - each_worker_jsonb (the core implementation function for JSONB, called with "jsonb_each" name and false parameter)
+  - [each_worker_jsonb](../e/each_worker_jsonb.md) (the core implementation function for JSONB, called with "jsonb_each" name and false parameter)
   - PG_FUNCTION_ARGS (PostgreSQL function argument macro)
   - Datum (PostgreSQL return type)
 - Called from (representative examples):

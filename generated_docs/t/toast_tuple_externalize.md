@@ -23,15 +23,15 @@ After externalization, the attribute is marked as TOASTCOL_IGNORE since no furth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_save_datum
-  - pfree
-  - DatumGetPointer
+  - [toast_save_datum](toast_save_datum.md)
+  - [pfree](../p/pfree.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - TOASTCOL_IGNORE
   - TOASTCOL_NEEDS_FREE
   - TOAST_NEEDS_CHANGE
   - TOAST_NEEDS_FREE
 - Called from (representative examples):
-  - heap_toast_insert_or_update (called during externalization phase)
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md) (called during externalization phase)
 
 ## Notes and Other Information
 - This is the last resort in TOAST processing, used when compression cannot reduce the attribute size sufficiently

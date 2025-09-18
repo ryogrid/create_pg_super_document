@@ -31,13 +31,13 @@ The structure is designed to be passed to the ReceiveXlogStream() function and o
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgsocket
-  - WalWriteMethod
+  - [WalWriteMethod](../W/WalWriteMethod.md)
 - Called from (representative examples):
-  - LogStreamerMain (src/bin/pg_basebackup/pg_basebackup.c:547)
-  - StreamLog (src/bin/pg_basebackup/pg_receivewal.c:504)
-  - ReceiveXlogStream (src/bin/pg_basebackup/receivelog.c:453)
-  - HandleCopyStream (src/bin/pg_basebackup/receivelog.c:745)
-  - ProcessXLogDataMsg (src/bin/pg_basebackup/receivelog.c:1040)
+  - [LogStreamerMain](../L/LogStreamerMain.md) (src/bin/pg_basebackup/pg_basebackup.c:547)
+  - [StreamLog](StreamLog.md) (src/bin/pg_basebackup/pg_receivewal.c:504)
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md) (src/bin/pg_basebackup/receivelog.c:453)
+  - [HandleCopyStream](../H/HandleCopyStream.md) (src/bin/pg_basebackup/receivelog.c:745)
+  - [ProcessXLogDataMsg](../P/ProcessXLogDataMsg.md) (src/bin/pg_basebackup/receivelog.c:1040)
 
 ## Notes and Other Information
 - This structure is primarily used in PostgreSQL's client-side replication utilities

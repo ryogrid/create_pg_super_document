@@ -27,17 +27,17 @@ Only regular files (FILE_TYPE_REGULAR) are included in the calculations, as dire
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filemap_t (struct type)
-  - file_entry_t (struct type)
+  - [filemap_t](../f/filemap_t.md) (struct type)
+  - [file_entry_t](../f/file_entry_t.md) (struct type)
   - FILE_TYPE_REGULAR
   - FILE_ACTION_COPY
   - FILE_ACTION_COPY_TAIL
-  - datapagemap_iterator_t
-  - datapagemap_iterate
-  - datapagemap_next
-  - pg_free
+  - [datapagemap_iterator_t](../d/datapagemap_iterator_t.md)
+  - [datapagemap_iterate](../d/datapagemap_iterate.md)
+  - [datapagemap_next](../d/datapagemap_next.md)
+  - [pg_free](../p/pg_free.md)
 - Called from (representative examples):
-  - main (in pg_rewind.c)
+  - [main](../m/main.md) (in pg_rewind.c)
 
 ## Notes and Other Information
 - The calculated totals are stored directly in the filemap structure's total_size and fetch_size fields

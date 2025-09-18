@@ -19,15 +19,15 @@ This function is a parser-specific wrapper around table_openrv_extended() that e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_parser_errposition_callback (error position tracking)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md) (error position tracking)
   - table_openrv_extended (actual table opening)
-  - cancel_parser_errposition_callback (cleanup error tracking)
-  - isFutureCTE (forward CTE reference detection)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md) (cleanup error tracking)
+  - [isFutureCTE](../i/isFutureCTE.md) (forward CTE reference detection)
   - ereport (error reporting)
-  - ParseCallbackState (error callback state management)
+  - [ParseCallbackState](../P/ParseCallbackState.md) (error callback state management)
 - Called from (representative examples):
-  - setTargetTable
-  - addRangeTableEntry
+  - [setTargetTable](../s/setTargetTable.md)
+  - [addRangeTableEntry](../a/addRangeTableEntry.md)
   - (Also exported via parse_relation.h)
 
 ## Notes and Other Information

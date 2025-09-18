@@ -22,8 +22,8 @@ The aclitem_match function performs a comparison between two AclItem structures 
 - Functions called/Symbols referenced:
   - Direct field access to ai_grantee and ai_grantor members of AclItem
 - Called from (representative examples):
-  - aclupdate (src/backend/utils/adt/acl.c:1025)
-  - aclnewowner (src/backend/utils/adt/acl.c:1187)
+  - [aclupdate](aclupdate.md) (src/backend/utils/adt/acl.c:1025)
+  - [aclnewowner](aclnewowner.md) (src/backend/utils/adt/acl.c:1187)
 
 ## Notes and Other Information
 - This is a static (internal) helper function within the ACL module

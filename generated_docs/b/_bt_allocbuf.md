@@ -30,18 +30,18 @@ The function handles edge cases like all-zeroes pages (from crashed backends) an
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetFreeIndexPage (queries FSM for free pages)
-  - ReadBuffer (reads candidate pages into buffer pool)
-  - _bt_conditionallockbuf (attempts conditional locking to avoid deadlocks)
-  - PageIsNew (checks for all-zeroes pages)
-  - BTPageIsRecyclable (verifies page can be safely reused)
-  - XLogBeginInsert, XLogRegisterData, XLogInsert (WAL logging for page reuse)
-  - ExtendBufferedRel (extends relation when no reusable pages available)
-  - _bt_pageinit (initializes allocated pages)
-  - _bt_relbuf (releases non-suitable pages)
+  - [ReadBuffer](../R/ReadBuffer.md) (reads candidate pages into buffer pool)
+  - [_bt_conditionallockbuf](_bt_conditionallockbuf.md) (attempts conditional locking to avoid deadlocks)
+  - [PageIsNew](../P/PageIsNew.md) (checks for all-zeroes pages)
+  - [BTPageIsRecyclable](../B/BTPageIsRecyclable.md) (verifies page can be safely reused)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert (WAL logging for page reuse)
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (extends relation when no reusable pages available)
+  - [_bt_pageinit](_bt_pageinit.md) (initializes allocated pages)
+  - [_bt_relbuf](_bt_relbuf.md) (releases non-suitable pages)
 - Called from (representative examples):
-  - _bt_split (during page splitting operations)
-  - _bt_newlevel (when creating new B-tree levels)
-  - _bt_getroot (when allocating initial root page)
+  - [_bt_split](_bt_split.md) (during page splitting operations)
+  - [_bt_newlevel](_bt_newlevel.md) (when creating new B-tree levels)
+  - [_bt_getroot](_bt_getroot.md) (when allocating initial root page)
 
 ## Notes and Other Information
 - Uses conditional locking strategy to prevent deadlocks with concurrent operations

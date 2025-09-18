@@ -25,18 +25,18 @@ This function is essential for maintaining data structure integrity during devel
 - Functions called/Symbols referenced:
   - IsA (macro for node type checking)
 - Called from (representative examples):
-  - bms_copy
-  - bms_equal
-  - bms_compare
-  - bms_union
-  - bms_intersect
-  - bms_difference
-  - bms_is_subset
-  - bms_subset_compare
-  - bms_is_member
-  - bms_overlap
-  - bms_add_member
-  - bms_del_member
+  - [bms_copy](bms_copy.md)
+  - [bms_equal](bms_equal.md)
+  - [bms_compare](bms_compare.md)
+  - [bms_union](bms_union.md)
+  - [bms_intersect](bms_intersect.md)
+  - [bms_difference](bms_difference.md)
+  - [bms_is_subset](bms_is_subset.md)
+  - [bms_subset_compare](bms_subset_compare.md)
+  - [bms_is_member](bms_is_member.md)
+  - [bms_overlap](bms_overlap.md)
+  - [bms_add_member](bms_add_member.md)
+  - [bms_del_member](bms_del_member.md)
 
 ## Notes and Other Information
 - This is a static function, only available within the bitmapset.c file

@@ -29,12 +29,12 @@ Global variables modified:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32: Extract integer worker slot from Datum parameter
-  - SetupApplyOrSyncWorker: Perform common worker initialization and setup
-  - run_apply_worker: Execute the main replication processing loop
-  - proc_exit: Clean process termination with exit code 0
+  - [DatumGetInt32](../D/DatumGetInt32.md): Extract integer worker slot from Datum parameter
+  - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md): Perform common worker initialization and setup
+  - [run_apply_worker](../r/run_apply_worker.md): Execute the main replication processing loop
+  - [proc_exit](../p/proc_exit.md): Clean process termination with exit code 0
 - Called from:
-  - BackgroundWorkerHandle: PostgreSQL's background worker management system
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md): PostgreSQL's background worker management system
   - LOGICALWORKER_H: Referenced in header file for external declarations
 
 ## Notes and Other Information

@@ -20,11 +20,11 @@ This function extends the functionality of AppendPlainCommandOption by adding su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendPlainCommandOption
-  - PQescapeStringConn
+  - [AppendPlainCommandOption](AppendPlainCommandOption.md)
+  - [PQescapeStringConn](../P/PQescapeStringConn.md)
 - Called from (representative examples):
-  - BaseBackup (multiple calls in pg_basebackup.c)
-  - CreateReplicationSlot
+  - [BaseBackup](../B/BaseBackup.md) (multiple calls in pg_basebackup.c)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 - The function safely handles NULL option values by checking before processing

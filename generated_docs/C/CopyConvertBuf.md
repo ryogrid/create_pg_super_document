@@ -23,14 +23,14 @@ The function implements sophisticated error handling, deferring error reporting 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_verifymbstr
-  - pg_encoding_max_length  
-  - pg_do_encoding_conversion_buf
-  - GetDatabaseEncoding
+  - [pg_encoding_verifymbstr](../p/pg_encoding_verifymbstr.md)
+  - [pg_encoding_max_length](../p/pg_encoding_max_length.md)  
+  - [pg_do_encoding_conversion_buf](../p/pg_do_encoding_conversion_buf.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - MAX_CONVERSION_INPUT_LENGTH
   - CopyFromState
 - Called from (representative examples):
-  - CopyLoadInputBuf
+  - [CopyLoadInputBuf](CopyLoadInputBuf.md)
 
 ## Notes and Other Information
 - The function handles two buffer management strategies: when no transcoding is needed, input_buf and raw_buf point to the same memory; when transcoding is required, they are separate buffers

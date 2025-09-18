@@ -29,15 +29,15 @@ The function handles six different regex strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_char_properties (character property lookup table)
-  - pg_u_isalpha (built-in Unicode alphabetic test)
+  - [pg_u_isalpha](pg_u_isalpha.md) (built-in Unicode alphabetic test)
   - iswalpha (system wide character alphabetic test)
   - isalpha (standard single-byte alphabetic test)
   - iswalpha_l (locale-specific wide character alphabetic test)
   - isalpha_l (locale-specific single-byte alphabetic test)
   - u_isalpha (ICU alphabetic classification)
 - Called from (representative examples):
-  - cclasscvec (src/backend/regex/regc_locale.c:603)
-  - cclass_column_index (src/backend/regex/regc_locale.c:686)
+  - [cclasscvec](../c/cclasscvec.md) (src/backend/regex/regc_locale.c:603)
+  - [cclass_column_index](../c/cclass_column_index.md) (src/backend/regex/regc_locale.c:686)
   - REPLACEARC (src/backend/regex/regcomp.c:253)
   - iscalpha (src/include/regex/regcustom.h:92)
 

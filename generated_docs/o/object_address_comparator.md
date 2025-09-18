@@ -25,11 +25,11 @@ The unsigned casting of objectSubId ensures that subId 0 (representing the whole
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAddress (struct type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
 - Called from (representative examples):
-  - eliminate_duplicate_dependencies
-  - sort_object_addresses
-  - findDependentObjects
+  - [eliminate_duplicate_dependencies](../e/eliminate_duplicate_dependencies.md)
+  - [sort_object_addresses](../s/sort_object_addresses.md)
+  - [findDependentObjects](../f/findDependentObjects.md)
   - find_expr_references_context
 
 ## Notes and Other Information

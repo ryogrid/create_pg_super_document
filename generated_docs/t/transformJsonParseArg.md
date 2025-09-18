@@ -22,17 +22,17 @@ This function processes JSON document arguments used in JSON parsing operations.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
   - exprType
-  - makeJsonByteaToTextConversion
-  - makeJsonValueExpr
-  - get_type_category_preferred
-  - coerce_to_target_type
-  - exprLocation
+  - [makeJsonByteaToTextConversion](../m/makeJsonByteaToTextConversion.md)
+  - [makeJsonValueExpr](../m/makeJsonValueExpr.md)
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [exprLocation](../e/exprLocation.md)
   - ereport
 - Called from (representative examples):
-  - transformJsonIsPredicate (src/backend/parser/parse_expr.c:4093)
-  - transformJsonParseExpr (src/backend/parser/parse_expr.c:4170)
+  - [transformJsonIsPredicate](transformJsonIsPredicate.md) (src/backend/parser/parse_expr.c:4093)
+  - [transformJsonParseExpr](transformJsonParseExpr.md) (src/backend/parser/parse_expr.c:4170)
 
 ## Notes and Other Information
 - Handles special case for BYTEAOID inputs by converting to text format

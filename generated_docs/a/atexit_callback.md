@@ -17,7 +17,7 @@ atexit_callback implements a safety mechanism for handling improper process term
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proc_exit_prepare
+  - [proc_exit_prepare](../p/proc_exit_prepare.md)
 - Called from (representative examples):
   - Registered as atexit handler in on_proc_exit
   - Registered as atexit handler in before_shmem_exit  

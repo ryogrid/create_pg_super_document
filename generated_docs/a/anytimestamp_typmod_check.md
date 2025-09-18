@@ -23,9 +23,9 @@ The function enforces that precision values are non-negative and do not exceed M
   - MAX_TIMESTAMP_PRECISION (constant defining maximum allowed precision)
   - ereport (for error and warning reporting)
 - Called from:
-  - anytimestamp_typmodin (src/backend/utils/adt/timestamp.c:118)
+  - [anytimestamp_typmodin](anytimestamp_typmodin.md) (src/backend/utils/adt/timestamp.c:118)
   - transformSQLValueFunction (src/backend/parser/parse_expr.c:2325, 2339)
-  - executeDateTimeMethod (src/backend/utils/adt/jsonpath_exec.c:2671, 2752)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (src/backend/utils/adt/jsonpath_exec.c:2671, 2752)
   - TimestampTzPlusSeconds (src/include/utils/timestamp.h:98)
 
 ## Notes and Other Information

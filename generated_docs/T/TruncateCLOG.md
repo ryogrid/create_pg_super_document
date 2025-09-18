@@ -24,16 +24,16 @@ Since CLOG segments contain many transactions, actual removal opportunities are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage
-  - SlruScanDirectory
-  - SlruScanDirCbReportPresence
-  - AdvanceOldestClogXid
-  - WriteTruncateXlogRec
-  - SimpleLruTruncate
+  - [TransactionIdToPage](TransactionIdToPage.md)
+  - [SlruScanDirectory](../S/SlruScanDirectory.md)
+  - [SlruScanDirCbReportPresence](../S/SlruScanDirCbReportPresence.md)
+  - [AdvanceOldestClogXid](../A/AdvanceOldestClogXid.md)
+  - [WriteTruncateXlogRec](../W/WriteTruncateXlogRec.md)
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
 - Global variables accessed:
   - XactCtl
 - Called from:
-  - vac_truncate_clog (src/backend/commands/vacuum.c:1936)
+  - [vac_truncate_clog](../v/vac_truncate_clog.md) (src/backend/commands/vacuum.c:1936)
 
 ## Notes and Other Information
 - Only performs truncation if removable segments are found via SlruScanDirectory

@@ -25,17 +25,17 @@ This approach ensures optimal performance by avoiding redundant dependency recor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eliminate_duplicate_dependencies (deduplication function)
-  - recordMultipleDependencies (batch dependency recording function)
+  - [eliminate_duplicate_dependencies](../e/eliminate_duplicate_dependencies.md) (deduplication function)
+  - [recordMultipleDependencies](recordMultipleDependencies.md) (batch dependency recording function)
   - ObjectAddresses (struct type)
   - DependencyType (enum type)
 - Called from (representative examples):
-  - heap_create_with_catalog (src/backend/catalog/heap.c:1484)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1484)
   - index_create (src/backend/catalog/index.c:1148, 1189)
-  - AggregateCreate (src/backend/catalog/pg_aggregate.c:808)
-  - CreateConstraintEntry (src/backend/catalog/pg_constraint.c:281, 356)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:640)
-  - GenerateTypeDependencies (src/backend/catalog/pg_type.c:706)
+  - [AggregateCreate](../A/AggregateCreate.md) (src/backend/catalog/pg_aggregate.c:808)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (src/backend/catalog/pg_constraint.c:281, 356)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:640)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md) (src/backend/catalog/pg_type.c:706)
 
 ## Notes and Other Information
 - This function is widely used throughout the PostgreSQL system during object creation operations

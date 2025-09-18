@@ -22,7 +22,7 @@ This function implements the PostgreSQL advisory locking mechanism for transacti
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (to extract function arguments)
   - SET_LOCKTAG_INT32 (to construct lock tag from the two keys)
-  - LockAcquire (to attempt lock acquisition with ShareLock mode, transaction-scoped)
+  - [LockAcquire](../L/LockAcquire.md) (to attempt lock acquisition with ShareLock mode, transaction-scoped)
   - PG_RETURN_BOOL (to return boolean result)
 - Types used:
   - LOCKTAG (lock identifier structure)

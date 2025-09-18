@@ -21,19 +21,19 @@ This function handles the opening of logical groups in explain output, providing
 ## Dependencies
 - Functions called/Symbols referenced:
   - EXPLAIN_FORMAT_TEXT, EXPLAIN_FORMAT_XML, EXPLAIN_FORMAT_JSON, EXPLAIN_FORMAT_YAML (format constants)
-  - ExplainXMLTag (for XML tag generation with X_OPENING parameter)
-  - ExplainJSONLineEnding (for JSON line ending management)
+  - [ExplainXMLTag](ExplainXMLTag.md) (for XML tag generation with X_OPENING parameter)
+  - [ExplainJSONLineEnding](ExplainJSONLineEnding.md) (for JSON line ending management)
   - appendStringInfoSpaces (for JSON indentation)
-  - escape_json (for JSON string escaping)
+  - [escape_json](../e/escape_json.md) (for JSON string escaping)
   - appendStringInfoString, appendStringInfoChar (for string building)
-  - ExplainYAMLLineStarting (for YAML line starting management)
-  - lcons_int (for maintaining integer stacks for grouping state)
+  - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md) (for YAML line starting management)
+  - [lcons_int](../l/lcons_int.md) (for maintaining integer stacks for grouping state)
 - Called from (representative examples):
-  - ExplainOnePlan (for planning and execution groupings)
-  - ExplainPrintSettings, ExplainPrintTriggers, ExplainPrintJIT (for various information groups)
-  - ExplainNode (for node-specific groupings)
-  - show_grouping_sets, show_incremental_sort_group_info (for specialized data groupings)
-  - ExplainFlushWorkersState (for parallel worker information)
+  - [ExplainOnePlan](ExplainOnePlan.md) (for planning and execution groupings)
+  - [ExplainPrintSettings](ExplainPrintSettings.md), ExplainPrintTriggers, ExplainPrintJIT (for various information groups)
+  - [ExplainNode](ExplainNode.md) (for node-specific groupings)
+  - [show_grouping_sets](../s/show_grouping_sets.md), show_incremental_sort_group_info (for specialized data groupings)
+  - [ExplainFlushWorkersState](ExplainFlushWorkersState.md) (for parallel worker information)
 
 ## Notes and Other Information
 - Critical function for maintaining proper hierarchical structure in explain output

@@ -26,10 +26,10 @@ Event triggers are primarily used for auditing, logging, or enforcing policies o
   - get_sv (to access main::_TD global variable)
   - save_item (for local variable scoping)
   - call_sv (executes the Perl subroutine)
-  - strip_trailing_ws
-  - sv2cstr
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md)
 - Called from:
-  - plperl_event_trigger_handler
+  - [plperl_event_trigger_handler](plperl_event_trigger_handler.md)
 
 ## Notes and Other Information
 - Return type is void since event triggers cannot affect command execution

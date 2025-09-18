@@ -28,13 +28,13 @@ The implementation guarantees that it will never throw `elog(ERROR)`, making it 
   - mix (internal hash mixing function)
   - final (final hash value computation)
 - Called from (representative examples):
-  - missing_hash (src/backend/access/common/heaptuple.c:104)
-  - hash_string_pointer (src/backend/backup/basebackup_incremental.c:925)
-  - datum_image_hash (src/backend/utils/adt/datum.c:344,346,355,368)
-  - json_unique_hash (src/backend/utils/adt/json.c:896)
-  - string_hash (src/common/hashfn.c:670)
+  - [missing_hash](../m/missing_hash.md) (src/backend/access/common/heaptuple.c:104)
+  - [hash_string_pointer](hash_string_pointer.md) (src/backend/backup/basebackup_incremental.c:925)
+  - [datum_image_hash](../d/datum_image_hash.md) (src/backend/utils/adt/datum.c:344,346,355,368)
+  - [json_unique_hash](../j/json_unique_hash.md) (src/backend/utils/adt/json.c:896)
+  - [string_hash](../s/string_hash.md) (src/common/hashfn.c:670)
   - tag_hash (src/common/hashfn.c:679)
-  - hash_any (src/include/common/hashfn.h:33)
+  - [hash_any](hash_any.md) (src/include/common/hashfn.h:33)
 
 ## Notes and Other Information
 - The function provides excellent hash distribution with avalanche properties for cryptographic-quality hashing

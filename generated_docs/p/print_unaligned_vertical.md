@@ -18,11 +18,11 @@ This function renders tabular data in a vertical (record-oriented) format where 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - print_separator (for field and record separation)
+  - [print_separator](print_separator.md) (for field and record separation)
   - fputs (standard C library function for string output)
   - fputc (standard C library function for character output)
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function)
+  - [printTable](printTable.md) (main table printing dispatcher function)
 
 ## Notes and Other Information
 - Uses vertical format where each field appears as "header<fieldSep>value" on its own line

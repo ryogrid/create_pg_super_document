@@ -27,8 +27,8 @@ The  function promotes a PostgreSQL date to a timestamp with sophisticated overf
   - USECS_PER_DAY: Microseconds per day conversion constant
   - ereport: Error reporting function
 - Called from (representative examples):
-  - date2timestamp: Wrapper function without overflow handling
-  - date_cmp_timestamp_internal: Date-timestamp comparison function
+  - [date2timestamp](date2timestamp.md): Wrapper function without overflow handling
+  - [date_cmp_timestamp_internal](date_cmp_timestamp_internal.md): Date-timestamp comparison function
   - PG_RETURN_TIMETZADT_P: Header macro usage
 
 ## Notes and Other Information

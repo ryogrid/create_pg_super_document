@@ -19,35 +19,35 @@ Additionally, it performs standard checks such as verifying the installation use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_rel_and_slot_infos
-  - check_new_cluster_is_empty
-  - check_loadable_libraries
-  - check_file_clone
-  - check_copy_file_range
-  - check_hard_link
-  - check_is_install_user
-  - check_for_prepared_transactions
-  - check_for_new_tablespace_dir
-  - check_new_cluster_logical_replication_slots
-  - check_new_cluster_subscription_configuration
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md)
+  - [check_new_cluster_is_empty](check_new_cluster_is_empty.md)
+  - [check_loadable_libraries](check_loadable_libraries.md)
+  - [check_file_clone](check_file_clone.md)
+  - [check_copy_file_range](check_copy_file_range.md)
+  - [check_hard_link](check_hard_link.md)
+  - [check_is_install_user](check_is_install_user.md)
+  - [check_for_prepared_transactions](check_for_prepared_transactions.md)
+  - [check_for_new_tablespace_dir](check_for_new_tablespace_dir.md)
+  - [check_new_cluster_logical_replication_slots](check_new_cluster_logical_replication_slots.md)
+  - [check_new_cluster_subscription_configuration](check_new_cluster_subscription_configuration.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_rel_and_slot_infos
-  - check_new_cluster_is_empty
-  - check_loadable_libraries
-  - check_file_clone
-  - check_copy_file_range  
-  - check_hard_link
-  - check_is_install_user
-  - check_for_prepared_transactions
-  - check_for_new_tablespace_dir
-  - check_new_cluster_logical_replication_slots
-  - check_new_cluster_subscription_configuration
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md)
+  - [check_new_cluster_is_empty](check_new_cluster_is_empty.md)
+  - [check_loadable_libraries](check_loadable_libraries.md)
+  - [check_file_clone](check_file_clone.md)
+  - [check_copy_file_range](check_copy_file_range.md)  
+  - [check_hard_link](check_hard_link.md)
+  - [check_is_install_user](check_is_install_user.md)
+  - [check_for_prepared_transactions](check_for_prepared_transactions.md)
+  - [check_for_new_tablespace_dir](check_for_new_tablespace_dir.md)
+  - [check_new_cluster_logical_replication_slots](check_new_cluster_logical_replication_slots.md)
+  - [check_new_cluster_subscription_configuration](check_new_cluster_subscription_configuration.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Operates on the global new_cluster variable

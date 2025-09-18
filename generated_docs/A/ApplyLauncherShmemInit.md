@@ -20,14 +20,14 @@ This function sets up the shared memory infrastructure for the logical replicati
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalRepCtxStruct
-  - ShmemInitStruct
-  - ApplyLauncherShmemSize
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [ApplyLauncherShmemSize](ApplyLauncherShmemSize.md)
   - DSA_HANDLE_INVALID
   - DSHASH_HANDLE_INVALID
-  - LogicalRepWorker
+  - [LogicalRepWorker](../L/LogicalRepWorker.md)
   - SpinLockInit
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
   - LOGICALLAUNCHER_H
 
 ## Notes and Other Information

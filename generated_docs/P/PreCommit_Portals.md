@@ -24,10 +24,10 @@ The function also enforces constraints such as preventing PREPARE TRANSACTION wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - hash_seq_term
-  - HoldPortal
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_seq_term](../h/hash_seq_term.md)
+  - [HoldPortal](../H/HoldPortal.md)
   - PortalDrop
   - UnregisterSnapshotFromOwner
   - PORTAL_ACTIVE
@@ -35,8 +35,8 @@ The function also enforces constraints such as preventing PREPARE TRANSACTION wh
   - CURSOR_OPT_HOLD
   - InvalidSubTransactionId
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](PrepareTransaction.md)
 
 ## Notes and Other Information
 - Returns true if any portals changed state (potentially triggering user-defined code), false otherwise

@@ -21,11 +21,11 @@ When ORDINALITY is specified in a function call, PostgreSQL adds an ordinal colu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_expression_pathkey
-  - add_path
-  - create_functionscan_path
+  - [build_expression_pathkey](../b/build_expression_pathkey.md)
+  - [add_path](../a/add_path.md)
+  - [create_functionscan_path](../c/create_functionscan_path.md)
 - Called from (representative examples):
-  - set_rel_pathlist
+  - [set_rel_pathlist](set_rel_pathlist.md)
 
 ## Notes and Other Information
 - Function scans do not support pushing join clauses into their quals, but they can still have required parameterization due to LATERAL references in the function expression

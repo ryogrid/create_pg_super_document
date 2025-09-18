@@ -23,7 +23,7 @@ The callback uses a simple but effective approach: if the cache is currently val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - ETCS_VALID, ETCS_NEEDS_REBUILD (cache state constants)
 - Called from (representative examples):
   - Registered as callback in BuildEventTriggerCache (src/backend/utils/cache/evtcache.c:109)

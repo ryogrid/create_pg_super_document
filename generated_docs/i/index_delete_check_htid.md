@@ -33,18 +33,18 @@ When corruption is detected, the function reports detailed error messages includ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetOffsetNumber
-  - ItemPointerGetBlockNumber
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - OffsetNumberIsValid
-  - PageGetItemId
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
   - ItemIdHasStorage
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - HeapTupleHeaderIsHeapOnly
   - RelationGetRelationName
 - Called from (representative examples):
-  - heap_index_delete_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
 
 ## Notes and Other Information
 - This is a static inline helper function designed specifically for heap_index_delete_tuples

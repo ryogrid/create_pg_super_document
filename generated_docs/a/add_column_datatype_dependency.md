@@ -23,11 +23,11 @@ The function constructs two ObjectAddress structures: one representing the colum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recordDependencyOn (creates the dependency record in pg_depend)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (creates the dependency record in pg_depend)
   - DEPENDENCY_NORMAL (dependency type constant)
 - Called from (representative examples):
-  - ATExecAddColumn (when adding new columns to tables)
-  - ATExecAlterColumnType (when changing column data types)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (when adding new columns to tables)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md) (when changing column data types)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within tablecmds.c

@@ -20,9 +20,9 @@ The function is registered with PostgreSQL's error reporting system during inlin
 ## Dependencies
 - Functions called/Symbols referenced:
   - errcontext: PostgreSQL function for adding context information to error reports
-  - PLyExecutionContext: Referenced in the function signature for consistency, though not used in current implementation
+  - [PLyExecutionContext](../P/PLyExecutionContext.md): Referenced in the function signature for consistency, though not used in current implementation
 - Called from (representative examples):
-  - plpython3_inline_handler: Registered as error callback during inline block execution
+  - [plpython3_inline_handler](plpython3_inline_handler.md): Registered as error callback during inline block execution
 
 ## Notes and Other Information
 - Located in src/pl/plpython/plpy_main.c:361-366

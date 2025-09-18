@@ -20,11 +20,11 @@ The function handles null pointer cases and compares the number of rules before 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RuleLock (structure type)
-  - RewriteRule (structure type) 
-  - equal (function for comparing Node structures)
+  - [RuleLock](../R/RuleLock.md) (structure type)
+  - [RewriteRule](../R/RewriteRule.md) (structure type) 
+  - [equal](equal.md) (function for comparing Node structures)
 - Called from (representative examples):
-  - RelationClearRelation
+  - [RelationClearRelation](../R/RelationClearRelation.md)
 
 ## Notes and Other Information
 - The comment suggests this function should probably be moved to the rules code module rather than relcache.c

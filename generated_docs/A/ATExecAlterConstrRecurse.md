@@ -31,21 +31,21 @@ Key operations include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - heap_copytuple
-  - heap_freetuple
-  - CatalogTupleUpdate
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - CacheInvalidateRelcache
-  - systable_beginscan
-  - systable_getnext
-  - list_append_unique_oid
-  - get_rel_relkind
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [list_append_unique_oid](../l/list_append_unique_oid.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
   - table_open
   - table_close
-  - ATExecAlterConstrRecurse (recursive self-call)
+  - [ATExecAlterConstrRecurse](ATExecAlterConstrRecurse.md) (recursive self-call)
 - Called from (representative examples):
-  - ATExecAlterConstraint (main constraint alteration function)
-  - ATExecAlterConstrRecurse (recursive calls for child constraints)
+  - [ATExecAlterConstraint](ATExecAlterConstraint.md) (main constraint alteration function)
+  - [ATExecAlterConstrRecurse](ATExecAlterConstrRecurse.md) (recursive calls for child constraints)
 
 ## Notes and Other Information
 - Only updates specific trigger types (RI_FKey_noaction_del, RI_FKey_noaction_upd, RI_FKey_check_ins, RI_FKey_check_upd)

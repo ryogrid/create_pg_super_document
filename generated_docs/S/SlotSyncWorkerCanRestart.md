@@ -23,7 +23,7 @@ This function takes no parameters and returns a boolean value.
   - SlotSyncCtx->last_start_time (timestamp of last restart attempt)
 
 - Called from (representative examples):
-  - MaybeStartSlotSyncWorker (src/backend/postmaster/postmaster.c:4095)
+  - [MaybeStartSlotSyncWorker](../M/MaybeStartSlotSyncWorker.md) (src/backend/postmaster/postmaster.c:4095)
   - Referenced in SLOTSYNC_H header (src/include/replication/slotsync.h:32)
 
 ## Notes and Other Information

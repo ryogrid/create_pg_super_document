@@ -20,7 +20,7 @@ This function is a PostgreSQL built-in function that implements the '+' operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH: Macro to extract cash values from function arguments
-  - cash_pl_cash: Internal static function that performs the actual addition with overflow checking
+  - [cash_pl_cash](cash_pl_cash.md): Internal static function that performs the actual addition with overflow checking
   - PG_RETURN_CASH: Macro to return cash result as Datum
 - Called from (representative examples):
   - No direct references found (likely called through operator system)

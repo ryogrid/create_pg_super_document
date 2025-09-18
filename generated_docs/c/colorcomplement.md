@@ -29,15 +29,15 @@ The function ensures NFA connectivity is maintained even when the complement set
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findarc (to check for RAINBOW arcs)
-  - newarc (to create new arcs)
-  - CDEND (color descriptor end marker)
+  - [findarc](../f/findarc.md) (to check for RAINBOW arcs)
+  - [newarc](../n/newarc.md) (to create new arcs)
+  - [CDEND](../C/CDEND.md) (color descriptor end marker)
   - UNUSEDCOLOR (macro to check if color is unused)
   - CISERR (macro to check for compilation errors)
 - Called from (representative examples):
-  - nonword (src/backend/regex/regcomp.c:1468)
-  - charclasscomplement (src/backend/regex/regcomp.c:1544)
-  - cbracket (src/backend/regex/regcomp.c:1752)
+  - [nonword](../n/nonword.md) (src/backend/regex/regcomp.c:1468)
+  - [charclasscomplement](charclasscomplement.md) (src/backend/regex/regcomp.c:1544)
+  - [cbracket](cbracket.md) (src/backend/regex/regcomp.c:1752)
   - processlacon (src/backend/regex/regcomp.c:2058, 2076)
 
 ## Notes and Other Information

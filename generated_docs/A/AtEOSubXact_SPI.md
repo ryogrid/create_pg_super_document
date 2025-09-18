@@ -29,19 +29,19 @@ The function uses subtransaction IDs to determine which resources belong to the 
 - Functions called/Symbols referenced:
   - SubTransactionId (type)
   - _SPI_connection (struct type)
-  - MemoryContextDelete (memory management function)
-  - MemoryContextReset (memory management function)
-  - slist_mutable_iter (list iteration type)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (memory management function)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (memory management function)
+  - [slist_mutable_iter](../s/slist_mutable_iter.md) (list iteration type)
   - slist_foreach_modify (list iteration macro)
   - slist_container (list container macro)
-  - slist_delete_current (list deletion macro)
-  - SPITupleTable (struct type)
+  - [slist_delete_current](../s/slist_delete_current.md) (list deletion macro)
+  - [SPITupleTable](../S/SPITupleTable.md) (struct type)
   - InvalidSubTransactionId (constant)
   - ereport (error reporting function)
 
 - Called from (representative examples):
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5128)
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5292)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5128)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5292)
 
 ## Notes and Other Information
 - More complex than AtEOXact_SPI due to need to handle partial cleanup within ongoing transactions

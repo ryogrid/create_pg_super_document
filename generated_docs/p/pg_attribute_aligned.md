@@ -21,8 +21,8 @@ This macro wraps GCC's  functionality to ensure that variables or structures are
 - Called from (representative examples):
   - PGIOAlignedBlock (used for I/O buffer alignment)
   - PGAlignedXLogBlock (used for WAL buffer alignment)
-  - pg_atomic_uint64 (used for atomic variable alignment)
-  - ItemPointerData (used for tuple identifier alignment)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (used for atomic variable alignment)
+  - [ItemPointerData](../I/ItemPointerData.md) (used for tuple identifier alignment)
 
 ## Notes and Other Information
 - This macro is essential for ensuring proper alignment of data structures that require specific memory boundaries

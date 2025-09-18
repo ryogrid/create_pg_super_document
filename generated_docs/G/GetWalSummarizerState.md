@@ -24,7 +24,7 @@ This function provides a thread-safe way to query the current state of the WAL s
   - INVALID_PROC_NUMBER (constant for invalid process number)
   - GetPGProcByNumber (converts process number to process structure)
 - Called from (representative examples):
-  - pg_get_wal_summarizer_state (in src/backend/backup/walsummaryfuncs.c:188)
+  - [pg_get_wal_summarizer_state](../p/pg_get_wal_summarizer_state.md) (in src/backend/backup/walsummaryfuncs.c:188)
 
 ## Notes and Other Information
 - Uses shared locking to allow concurrent reads of the state

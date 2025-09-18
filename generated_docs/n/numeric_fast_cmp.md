@@ -26,11 +26,11 @@ The function carefully manages memory by checking if the numeric pointers differ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetNumeric (datum to numeric conversion)
-  - cmp_numerics (core numeric comparison logic)
-  - pfree (memory deallocation for detoasted values)
+  - [DatumGetNumeric](../D/DatumGetNumeric.md) (datum to numeric conversion)
+  - [cmp_numerics](../c/cmp_numerics.md) (core numeric comparison logic)
+  - [pfree](../p/pfree.md) (memory deallocation for detoasted values)
 - Called from (representative examples):
-  - numeric_sortsupport (as primary comparator)
+  - [numeric_sortsupport](numeric_sortsupport.md) (as primary comparator)
 
 ## Notes and Other Information
 - This is a static function internal to numeric.c module

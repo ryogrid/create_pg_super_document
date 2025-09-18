@@ -17,13 +17,13 @@ This is a simple wrapper function that determines if the currently connected use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_createrole_privilege
-  - GetUserId
+  - [has_createrole_privilege](has_createrole_privilege.md)
+  - [GetUserId](../G/GetUserId.md)
 - Called from (representative examples):
-  - AlterRole
-  - AlterRoleSet
-  - DropRole
-  - RenameRole
+  - [AlterRole](../A/AlterRole.md)
+  - [AlterRoleSet](../A/AlterRoleSet.md)
+  - [DropRole](../D/DropRole.md)
+  - [RenameRole](../R/RenameRole.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the user.c source file

@@ -22,12 +22,12 @@ Similar to `GlobalVisCheckRemovableFullXid()` but works with 32-bit transaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalVisTestFor
-  - GlobalVisTestIsRemovableXid
-  - GlobalVisState (type)
+  - [GlobalVisTestFor](GlobalVisTestFor.md)
+  - [GlobalVisTestIsRemovableXid](GlobalVisTestIsRemovableXid.md)
+  - [GlobalVisState](GlobalVisState.md) (type)
   - FullTransactionId (type)
 - Called from (representative examples):
-  - GinPageIsRecyclable
+  - [GinPageIsRecyclable](GinPageIsRecyclable.md)
 
 ## Notes and Other Information
 - This is a convenience function that simplifies the two-step process of getting visibility state and testing removability for 32-bit transaction IDs

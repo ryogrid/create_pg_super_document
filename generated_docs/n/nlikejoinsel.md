@@ -21,10 +21,10 @@ The function is a thin wrapper around the generic `patternjoinsel` function, spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `patternjoinsel`: Core pattern matching join selectivity function
+  - `[patternjoinsel](../p/patternjoinsel.md)`: Core pattern matching join selectivity function
   - `Pattern_Type_Like`: Enum value indicating LIKE pattern type
 - Called from (representative examples):
-  - Query planner when estimating costs for joins with NOT LIKE conditions
+  - [Query](../Q/Query.md) planner when estimating costs for joins with NOT LIKE conditions
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's cost-based optimizer infrastructure

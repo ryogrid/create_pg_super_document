@@ -21,10 +21,10 @@ This function implements a priority-based algorithm to determine the best column
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (type checking macro)
-  - get_func_result_name (retrieves named OUT parameter)
+  - [get_func_result_name](../g/get_func_result_name.md) (retrieves named OUT parameter)
   - FuncExpr (function expression node type)
 - Called from (representative examples):
-  - addRangeTableEntryForFunction
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
 
 ## Notes and Other Information
 - The chosen name may be overridden later if user-given aliases include column alias names

@@ -21,17 +21,17 @@ The function follows the same pattern as PredicateLockRelation but targets a spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializationNeededForRead
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
   - SET_PREDICATELOCKTARGETTAG_PAGE
-  - PredicateLockAcquire
-  - PREDICATELOCKTARGETTAG (struct)
+  - [PredicateLockAcquire](PredicateLockAcquire.md)
+  - [PREDICATELOCKTARGETTAG](PREDICATELOCKTARGETTAG.md) (struct)
   - BlockNumber (type)
 - Called from (representative examples):
-  - gistScanPage
-  - _bt_first, _bt_readnextpage, _bt_endpoint (B-tree operations)
-  - _hash_first, _hash_readnext (hash index operations)
+  - [gistScanPage](../g/gistScanPage.md)
+  - [_bt_first](../b/_bt_first.md), _bt_readnextpage, _bt_endpoint (B-tree operations)
+  - [_hash_first](../h/_hash_first.md), _hash_readnext (hash index operations)
   - GIN index operations (moveRightIfItNeeded, collectMatchBitmap, etc.)
-  - IndexOnlyNext
+  - [IndexOnlyNext](../I/IndexOnlyNext.md)
 
 ## Notes and Other Information
 - Provides intermediate granularity between relation-level and tuple-level predicate locks

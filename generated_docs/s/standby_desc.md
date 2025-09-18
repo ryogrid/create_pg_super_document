@@ -28,8 +28,8 @@ This function is part of PostgreSQL's WAL record description infrastructure, use
   - XLogRecGetInfo
   - XLR_INFO_MASK
   - appendStringInfo
-  - standby_desc_running_xacts
-  - standby_desc_invalidations
+  - [standby_desc_running_xacts](standby_desc_running_xacts.md)
+  - [standby_desc_invalidations](standby_desc_invalidations.md)
   - xl_standby_locks (struct type)
   - xl_running_xacts (struct type)
   - xl_invalidations (struct type)

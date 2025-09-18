@@ -19,12 +19,12 @@ This function is primarily used in GiST index operations where TSQuerySign value
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64 (extracts int64 from Datum)
+  - [DatumGetInt64](DatumGetInt64.md) (extracts int64 from Datum)
   - TSQuerySign (typedef for uint64)
 - Called from (representative examples):
   - GETENTRY macro (src/backend/utils/adt/tsquery_gist.c:23)
-  - gtsquery_consistent (src/backend/utils/adt/tsquery_gist.c:61)
-  - gtsquery_penalty (src/backend/utils/adt/tsquery_gist.c:141, 142)
+  - [gtsquery_consistent](../g/gtsquery_consistent.md) (src/backend/utils/adt/tsquery_gist.c:61)
+  - [gtsquery_penalty](../g/gtsquery_penalty.md) (src/backend/utils/adt/tsquery_gist.c:141, 142)
   - PG_GETARG_TSQUERYSIGN macro (src/include/tsearch/ts_utils.h:266)
 
 ## Notes and Other Information

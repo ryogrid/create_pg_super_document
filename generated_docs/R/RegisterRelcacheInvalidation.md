@@ -26,14 +26,14 @@ The function is part of PostgreSQL's cache invalidation system and ensures that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddRelcacheInvalidationMessage
-  - GetCurrentCommandId
-  - RelationIdIsInInitFile
+  - [AddRelcacheInvalidationMessage](../A/AddRelcacheInvalidationMessage.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [RelationIdIsInInitFile](RelationIdIsInInitFile.md)
 - Called from (representative examples):
-  - CacheInvalidateHeapTuple
-  - CacheInvalidateRelcache
-  - CacheInvalidateRelcacheAll
-  - CacheInvalidateRelcacheByTuple
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [CacheInvalidateRelcacheAll](../C/CacheInvalidateRelcacheAll.md)
+  - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to the invalidation system

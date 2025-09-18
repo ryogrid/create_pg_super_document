@@ -34,19 +34,19 @@ The function ensures proper page structure and tuple placement for GIN list page
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogInitBufferForRedo
-  - BufferGetPage
-  - GinInitBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [GinInitBuffer](../G/GinInitBuffer.md)
   - GinPageGetOpaque
   - GinPageSetFullRow
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - IndexTupleSize
   - PageAddItem
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN WAL recovery system

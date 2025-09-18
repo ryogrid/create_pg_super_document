@@ -20,17 +20,17 @@ The function performs validation to ensure the requested kind is valid and repre
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_is_kind_valid
-  - pgstat_get_kind_info
-  - pgstat_clear_snapshot
-  - pgstat_build_snapshot
-  - pgstat_build_snapshot_fixed
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)
+  - [pgstat_build_snapshot](pgstat_build_snapshot.md)
+  - [pgstat_build_snapshot_fixed](pgstat_build_snapshot_fixed.md)
   - PGSTAT_FETCH_CONSISTENCY_SNAPSHOT
 - Called from (representative examples):
-  - pgstat_fetch_stat_archiver
-  - pgstat_fetch_stat_bgwriter
-  - pgstat_fetch_stat_checkpointer
-  - pgstat_fetch_stat_io
-  - pgstat_fetch_slru
+  - [pgstat_fetch_stat_archiver](pgstat_fetch_stat_archiver.md)
+  - [pgstat_fetch_stat_bgwriter](pgstat_fetch_stat_bgwriter.md)
+  - [pgstat_fetch_stat_checkpointer](pgstat_fetch_stat_checkpointer.md)
+  - [pgstat_fetch_stat_io](pgstat_fetch_stat_io.md)
+  - [pgstat_fetch_slru](pgstat_fetch_slru.md)
   - pgstat_fetch_stat_wal
 
 ## Notes and Other Information

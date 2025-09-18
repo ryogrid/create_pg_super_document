@@ -24,11 +24,11 @@ This is part of PostgreSQL's support for SQL standard array comparison operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse (for recursively transforming operands)
-  - make_scalar_array_op (for creating the scalar array operation node)
-  - A_Expr (expression node type)
+  - [transformExprRecurse](transformExprRecurse.md) (for recursively transforming operands)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md) (for creating the scalar array operation node)
+  - [A_Expr](../A/A_Expr.md) (expression node type)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - This function is static and only used within the parse_expr.c module

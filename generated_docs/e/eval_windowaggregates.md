@@ -17,21 +17,21 @@ This is the core function for evaluating window aggregates and differs significa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - update_frameheadpos
-  - window_gettupleslot
-  - advance_windowaggregate_base
+  - [update_frameheadpos](../u/update_frameheadpos.md)
+  - [window_gettupleslot](../w/window_gettupleslot.md)
+  - [advance_windowaggregate_base](../a/advance_windowaggregate_base.md)
   - ResetExprContext
   - ExecClearTuple
-  - WinSetMarkPosition
-  - MemoryContextReset
-  - initialize_windowaggregate
+  - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [initialize_windowaggregate](../i/initialize_windowaggregate.md)
   - TupIsNull
-  - row_is_in_frame
-  - advance_windowaggregate
-  - finalize_windowaggregate
-  - datumCopy
+  - [row_is_in_frame](../r/row_is_in_frame.md)
+  - [advance_windowaggregate](../a/advance_windowaggregate.md)
+  - [finalize_windowaggregate](../f/finalize_windowaggregate.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - ExecWindowAgg
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
 
 ## Notes and Other Information
 - Implements multiple optimization strategies: incremental aggregation for UNBOUNDED_PRECEDING frames, inverse transitions for moving frames, and frame result reuse for identical frames

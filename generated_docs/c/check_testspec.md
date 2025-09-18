@@ -28,22 +28,22 @@ The function serves as a critical validation phase that ensures the test specifi
 - Functions called/Symbols referenced:
   - pg_malloc (memory allocation)
   - qsort (sorting step array)
-  - step_qsort_cmp (comparison function for sorting steps)
+  - [step_qsort_cmp](../s/step_qsort_cmp.md) (comparison function for sorting steps)
   - bsearch (binary search for step lookup)
-  - step_bsearch_cmp (comparison function for binary search)
+  - [step_bsearch_cmp](../s/step_bsearch_cmp.md) (comparison function for binary search)
   - fprintf/stderr (error reporting)
   - exit (program termination on validation errors)
   - free (memory deallocation)
 - Data structures used:
-  - TestSpec (main test specification structure)
-  - Step (individual test step)
-  - Session (session containing steps)
-  - Permutation (sequence of steps)
-  - PermutationStep (step within a permutation)
+  - [TestSpec](../T/TestSpec.md) (main test specification structure)
+  - [Step](../S/Step.md) (individual test step)
+  - [Session](../S/Session.md) (session containing steps)
+  - [Permutation](../P/Permutation.md) (sequence of steps)
+  - [PermutationStep](../P/PermutationStep.md) (step within a permutation)
   - PermutationStepBlocker (blocking dependency)
   - PSB_ONCE (blocker type constant)
 - Called from:
-  - main (in isolationtester.c)
+  - [main](../m/main.md) (in isolationtester.c)
 
 ## Notes and Other Information
 - Function terminates the program with exit(1) if validation errors are found

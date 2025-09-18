@@ -19,7 +19,7 @@ int2in is a PostgreSQL input function that serves as the string-to-int2 conversi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strtoint16_safe
+  - [pg_strtoint16_safe](../p/pg_strtoint16_safe.md)
   - PG_RETURN_INT16
 - Called from (representative examples):
   - No direct references found in the codebase

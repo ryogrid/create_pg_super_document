@@ -24,18 +24,18 @@ The function handles the complexity of composite types by delegating to ATExecCh
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCache1
-  - ATExecChangeOwner
-  - AlterTypeOwnerInternal
-  - changeDependencyOnOwner
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ATExecChangeOwner](ATExecChangeOwner.md)
+  - [AlterTypeOwnerInternal](AlterTypeOwnerInternal.md)
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)
   - InvokeObjectPostAlterHook
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - table_close
   - TYPTYPE_COMPOSITE
   - AccessExclusiveLock
 - Called from (representative examples):
-  - AlterTypeOwner
-  - shdepReassignOwned_Owner
+  - [AlterTypeOwner](AlterTypeOwner.md)
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md)
 
 ## Notes and Other Information
 - This is a void function that assumes all validation has been performed by the caller

@@ -32,15 +32,15 @@ This optimization is particularly valuable for scan nodes where the output often
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tlist_matches_tupdesc (checks if target list matches input descriptor)
-  - ExecInitResultSlot (initializes result slot if needed)
-  - ExecAssignProjectionInfo (sets up projection when needed)
+  - [tlist_matches_tupdesc](../t/tlist_matches_tupdesc.md) (checks if target list matches input descriptor)
+  - [ExecInitResultSlot](ExecInitResultSlot.md) (initializes result slot if needed)
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md) (sets up projection when needed)
   - TTSOpsVirtual (virtual tuple table slot operations)
 - Called from (representative examples):
-  - ExecAssignScanProjectionInfo (execScan.c:275)
-  - ExecAssignScanProjectionInfoWithVarno (execScan.c:287)
-  - ExecInitGather (nodeGather.c:102)
-  - ExecInitGatherMerge (nodeGatherMerge.c:127)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md) (execScan.c:275)
+  - [ExecAssignScanProjectionInfoWithVarno](ExecAssignScanProjectionInfoWithVarno.md) (execScan.c:287)
+  - [ExecInitGather](ExecInitGather.md) (nodeGather.c:102)
+  - [ExecInitGatherMerge](ExecInitGatherMerge.md) (nodeGatherMerge.c:127)
 
 ## Notes and Other Information
 - Key optimization that eliminates projection overhead when target list matches input exactly

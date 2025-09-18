@@ -20,10 +20,10 @@ This function simplifies the process of recording tablespace dependencies in Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddressSet
-  - recordSharedDependencyOn
+  - [recordSharedDependencyOn](recordSharedDependencyOn.md)
   - SHARED_DEPENDENCY_TABLESPACE (dependency type constant)
 - Called from (representative examples):
-  - heap_create
+  - [heap_create](../h/heap_create.md)
   - (Limited usage - primarily during table creation with explicit tablespace)
 
 ## Notes and Other Information

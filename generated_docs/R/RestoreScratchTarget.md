@@ -22,12 +22,12 @@ The function ensures proper locking semantics by checking if the caller already 
   - LWLockHeldByMe
   - LWLockAcquire
   - LWLockRelease
-  - hash_search_with_hash_value
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - HASH_ENTER
 - Called from (representative examples):
-  - SerialControl
-  - TransferPredicateLocksToNewTarget
-  - DropAllPredicateLocksFromTable
+  - [SerialControl](../S/SerialControl.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
+  - [DropAllPredicateLocksFromTable](../D/DropAllPredicateLocksFromTable.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the predicate.c file

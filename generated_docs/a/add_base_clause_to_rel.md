@@ -30,15 +30,15 @@ The function performs these optimizations while preserving the semantic correctn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_base_rel
-  - bms_membership
+  - [find_base_rel](../f/find_base_rel.md)
+  - [bms_membership](../b/bms_membership.md)
   - BMS_SINGLETON
-  - restriction_is_always_true
-  - restriction_is_always_false
-  - make_restrictinfo
-  - makeBoolConst
+  - [restriction_is_always_true](../r/restriction_is_always_true.md)
+  - [restriction_is_always_false](../r/restriction_is_always_false.md)
+  - [make_restrictinfo](../m/make_restrictinfo.md)
+  - [makeBoolConst](../m/makeBoolConst.md)
 - Called from (representative examples):
-  - distribute_restrictinfo_to_rels
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md)
 
 ## Notes and Other Information
 Key aspects of the function's behavior:

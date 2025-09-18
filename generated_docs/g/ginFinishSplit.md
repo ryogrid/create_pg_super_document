@@ -31,14 +31,14 @@ The function handles buffer management based on the freestack parameter - either
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer, UnlockReleaseBuffer, BufferGetPage
+  - [LockBuffer](../L/LockBuffer.md), UnlockReleaseBuffer, BufferGetPage
   - GinPageIsIncompleteSplit, GinPageRightMost, GinPageGetOpaque
-  - ginFinishOldSplit, ginFindParents, ginStepRight
-  - ginPlaceToPage, freeGinBtreeStack
+  - [ginFinishOldSplit](ginFinishOldSplit.md), ginFindParents, ginStepRight
+  - [ginPlaceToPage](ginPlaceToPage.md), freeGinBtreeStack
   - btree->findChildPtr, btree->prepareDownlink
 - Called from:
-  - ginFinishOldSplit (src/backend/access/gin/ginbtree.c:800)
-  - ginInsertValue (src/backend/access/gin/ginbtree.c:834)
+  - [ginFinishOldSplit](ginFinishOldSplit.md) (src/backend/access/gin/ginbtree.c:800)
+  - [ginInsertValue](ginInsertValue.md) (src/backend/access/gin/ginbtree.c:834)
 
 ## Notes and Other Information
 The function includes injection points for testing incomplete split scenarios. It handles the complex case where parent pages themselves may be incompletely split, ensuring all incomplete splits are resolved before proceeding. The right-movement logic handles the case where concurrent splits may have moved the target child to a different parent page. When freestack is false, only the bottom page remains locked for caller use.

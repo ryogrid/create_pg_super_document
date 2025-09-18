@@ -21,18 +21,18 @@ The function intentionally encapsulates the simple makeNode() call to provide a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathTarget (data structure)
+  - [PathTarget](../P/PathTarget.md) (data structure)
   - makeNode (node creation)
 - Called from (representative examples):
-  - make_group_input_target
-  - make_partial_grouping_target
-  - make_window_input_target
-  - make_sort_input_target
-  - build_simple_rel
+  - [make_group_input_target](../m/make_group_input_target.md)
+  - [make_partial_grouping_target](../m/make_partial_grouping_target.md)
+  - [make_window_input_target](../m/make_window_input_target.md)
+  - [make_sort_input_target](../m/make_sort_input_target.md)
+  - [build_simple_rel](../b/build_simple_rel.md)
   - build_join_rel
   - build_child_join_rel
   - fetch_upper_rel
-  - split_pathtarget_at_srfs
+  - [split_pathtarget_at_srfs](../s/split_pathtarget_at_srfs.md)
 
 ## Notes and Other Information
 - Returns a PathTarget with no expressions and zero cost/width

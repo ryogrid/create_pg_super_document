@@ -34,11 +34,11 @@ The function implements a two-phase pause mechanism where requesting a pause onl
   - ConditionVariableBroadcast
   - XLogRecoveryCtl (global structure)
 - Called from (representative examples):
-  - pg_wal_replay_pause
-  - pg_wal_replay_resume
-  - PerformWalRecovery
-  - SetPromoteIsTriggered
-  - RecoveryRequiresIntParameter
+  - [pg_wal_replay_pause](../p/pg_wal_replay_pause.md)
+  - [pg_wal_replay_resume](../p/pg_wal_replay_resume.md)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
+  - [SetPromoteIsTriggered](SetPromoteIsTriggered.md)
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
 
 ## Notes and Other Information
 - Thread-safe implementation using spinlocks for atomic state updates

@@ -21,13 +21,13 @@ The function follows PostgreSQL's standard function calling convention using PG_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enum_cmp_internal (core comparison logic)
+  - [enum_cmp_internal](enum_cmp_internal.md) (core comparison logic)
   - PG_GETARG_OID (argument extraction macro)
   - PG_RETURN_BOOL (result return macro)
 - Called from:
   - SQL queries using < operator with enum types
   - System catalog functions
-  - Query optimizer and executor
+  - [Query](../Q/Query.md) optimizer and executor
 
 ## Notes and Other Information
 - Part of PostgreSQL's operator implementation framework for enum types

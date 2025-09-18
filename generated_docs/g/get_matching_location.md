@@ -23,9 +23,9 @@ The function takes a sort group reference number and searches through parallel l
 - Functions called/Symbols referenced:
   - forboth: Macro for iterating over two lists simultaneously
   - lfirst_int: Macro to get integer value from current list cell
-  - exprLocation: Gets the parse location of an expression node
+  - [exprLocation](../e/exprLocation.md): Gets the parse location of an expression node
 - Called from (representative examples):
-  - transformDistinctOnClause: Used when reporting errors about mismatched DISTINCT ON and ORDER BY expressions
+  - [transformDistinctOnClause](../t/transformDistinctOnClause.md): Used when reporting errors about mismatched DISTINCT ON and ORDER BY expressions
 
 ## Notes and Other Information
 - This is a static function, only used within parse_clause.c

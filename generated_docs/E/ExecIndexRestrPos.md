@@ -21,10 +21,10 @@ For normal execution contexts, the function delegates to the lower-level index_r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_restrpos
+  - [index_restrpos](../i/index_restrpos.md)
   - elog (for error reporting)
 - Called from (representative examples):
-  - ExecRestrPos (in execAmi.c:380)
+  - [ExecRestrPos](ExecRestrPos.md) (in execAmi.c:380)
 
 ## Notes and Other Information
 - This function is the counterpart to ExecIndexMarkPos and must be used in conjunction with it

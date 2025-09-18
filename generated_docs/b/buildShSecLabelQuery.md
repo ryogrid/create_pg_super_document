@@ -19,10 +19,10 @@ This function constructs a SQL query that retrieves security labels (provider an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
 - Called from (representative examples):
-  - dumpDatabase (src/bin/pg_dump/pg_dump.c:3333)
-  - buildShSecLabels (src/bin/pg_dump/pg_dumpall.c:1738)
+  - [dumpDatabase](../d/dumpDatabase.md) (src/bin/pg_dump/pg_dump.c:3333)
+  - [buildShSecLabels](buildShSecLabels.md) (src/bin/pg_dump/pg_dumpall.c:1738)
 
 ## Notes and Other Information
 - Used specifically for shared objects that exist at the PostgreSQL cluster level

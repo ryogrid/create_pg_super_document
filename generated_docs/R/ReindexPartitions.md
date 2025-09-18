@@ -30,19 +30,19 @@ This function handles reindexing operations on partitioned relations by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_relkind
-  - get_rel_name  
-  - get_rel_namespace
-  - get_namespace_name
-  - reindex_error_callback
-  - PreventInTransactionBlock
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [get_rel_name](../g/get_rel_name.md)  
+  - [get_rel_namespace](../g/get_rel_namespace.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [reindex_error_callback](../r/reindex_error_callback.md)
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md)
   - AllocSetContextCreate
-  - find_all_inheritors
-  - ReindexMultipleInternal
-  - MemoryContextDelete
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [ReindexMultipleInternal](ReindexMultipleInternal.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from:
-  - ReindexIndex
-  - ReindexTable
+  - [ReindexIndex](ReindexIndex.md)
+  - [ReindexTable](ReindexTable.md)
 
 ## Notes and Other Information
 - The function uses ShareLock to prevent schema modifications during partition discovery

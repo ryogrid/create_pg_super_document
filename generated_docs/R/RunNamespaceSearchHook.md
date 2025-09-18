@@ -22,7 +22,7 @@ The function constructs an ObjectAccessNamespaceSearch structure with the provid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAccessNamespaceSearch (struct type)
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md) (struct type)
   - OAT_NAMESPACE_SEARCH (enum value)
   - NamespaceRelationId (constant - OID of pg_namespace catalog, value 2615)
   - object_access_hook (global function pointer)
@@ -30,7 +30,7 @@ The function constructs an ObjectAccessNamespaceSearch structure with the provid
   - memset (memory initialization function)
 
 - Called from (representative examples):
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
   - InvokeNamespaceSearchHook
 
 ## Notes and Other Information

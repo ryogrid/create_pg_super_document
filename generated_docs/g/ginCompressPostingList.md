@@ -29,19 +29,19 @@ The function ensures the output is short-aligned and includes padding bytes as n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - itemptr_to_uint64
-  - encode_varbyte
-  - palloc
+  - [itemptr_to_uint64](../i/itemptr_to_uint64.md)
+  - [encode_varbyte](../e/encode_varbyte.md)
+  - [palloc](../p/palloc.md)
   - SHORTALIGN_DOWN
   - SHORTALIGN
   - MaxBytesPerInteger
   - SizeOfGinPostingList
-  - ginPostingListDecode (in debug builds)
+  - [ginPostingListDecode](ginPostingListDecode.md) (in debug builds)
 - Called from (representative examples):
-  - ginVacuumPostingTreeLeaf
-  - leafRepackItems
-  - addItemPointersToLeafTuple
-  - buildFreshLeafTuple
+  - [ginVacuumPostingTreeLeaf](ginVacuumPostingTreeLeaf.md)
+  - [leafRepackItems](../l/leafRepackItems.md)
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md)
+  - [buildFreshLeafTuple](../b/buildFreshLeafTuple.md)
 
 ## Notes and Other Information
 - Returns a palloc'd GinPostingList that must be freed by the caller

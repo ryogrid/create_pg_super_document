@@ -35,18 +35,18 @@ Key operations include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - simplify_EXISTS_query
-  - subquery_planner
+  - [simplify_EXISTS_query](../s/simplify_EXISTS_query.md)
+  - [subquery_planner](../s/subquery_planner.md)
   - fetch_upper_rel
-  - get_cheapest_fractional_path
-  - create_plan
-  - build_subplan
-  - convert_EXISTS_to_ANY
-  - subpath_is_hashable
+  - [get_cheapest_fractional_path](../g/get_cheapest_fractional_path.md)
+  - [create_plan](../c/create_plan.md)
+  - [build_subplan](../b/build_subplan.md)
+  - [convert_EXISTS_to_ANY](../c/convert_EXISTS_to_ANY.md)
+  - [subpath_is_hashable](../s/subpath_is_hashable.md)
   - makeNode
   - list_make2
 - Called from (representative examples):
-  - process_sublinks_mutator
+  - [process_sublinks_mutator](../p/process_sublinks_mutator.md)
 
 ## Notes and Other Information
 - The function implements sophisticated optimization logic for EXISTS sublinks, potentially creating both a regular SubPlan and a hash-based ANY SubPlan alternative

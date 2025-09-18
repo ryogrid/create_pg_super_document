@@ -27,10 +27,10 @@ This initialization must be called during the creation of any relation descripto
   - MyDatabaseId
   - InvalidOid
 - Called from (representative examples):
-  - RelationBuildDesc (src/backend/utils/cache/relcache.c:1252)
-  - formrdesc (src/backend/utils/cache/relcache.c:2004)
-  - RelationBuildLocalRelation (src/backend/utils/cache/relcache.c:3709)
-  - load_relcache_init_file (src/backend/utils/cache/relcache.c:6412)
+  - [RelationBuildDesc](RelationBuildDesc.md) (src/backend/utils/cache/relcache.c:1252)
+  - [formrdesc](../f/formrdesc.md) (src/backend/utils/cache/relcache.c:2004)
+  - [RelationBuildLocalRelation](RelationBuildLocalRelation.md) (src/backend/utils/cache/relcache.c:3709)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md) (src/backend/utils/cache/relcache.c:6412)
 
 ## Notes and Other Information
 - Must be called by relcache.c during creation of any relation descriptor

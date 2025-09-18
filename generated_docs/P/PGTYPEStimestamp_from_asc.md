@@ -22,15 +22,15 @@ The function includes robust error handling, setting errno to PGTYPES_TS_BAD_TIM
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseDateTime (parses date/time string into fields)
-  - DecodeDateTime (interprets parsed fields into structured time)
-  - tm2timestamp (converts tm structure to timestamp)
-  - SetEpochTimestamp (creates epoch timestamp)
+  - [ParseDateTime](ParseDateTime.md) (parses date/time string into fields)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (interprets parsed fields into structured time)
+  - [tm2timestamp](../t/tm2timestamp.md) (converts tm structure to timestamp)
+  - [SetEpochTimestamp](../S/SetEpochTimestamp.md) (creates epoch timestamp)
   - TIMESTAMP_NOEND (macro to set positive infinity)
   - TIMESTAMP_NOBEGIN (macro to set negative infinity)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - dtcvasc (Informix compatibility function)
+  - [dtcvasc](../d/dtcvasc.md) (Informix compatibility function)
   - ecpg_get_data (ECPG data retrieval function)
   - Various test programs (dt_test, dt_test2, array tests)
 

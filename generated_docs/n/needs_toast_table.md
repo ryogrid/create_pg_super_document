@@ -20,10 +20,10 @@ The function first checks for partitioned tables, which don't need TOAST tables 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - IsCatalogRelation  
-  - table_relation_needs_toast_table
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)  
+  - [table_relation_needs_toast_table](../t/table_relation_needs_toast_table.md)
 - Called from (representative examples):
-  - create_toast_table
+  - [create_toast_table](../c/create_toast_table.md)
 
 ## Notes and Other Information
 - Returns true if the relation should have a TOAST table, false otherwise

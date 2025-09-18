@@ -27,12 +27,12 @@ The function works in conjunction with appendValue to complete the key-value pai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (PostgreSQL memory reallocation)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation)
   - ereport/errcode/errmsg (PostgreSQL error reporting)
   - JSONB_MAX_PAIRS (maximum allowed pairs constant)
-  - JsonbPair (structure type for key-value pairs)
+  - [JsonbPair](../J/JsonbPair.md) (structure type for key-value pairs)
 - Called from (representative examples):
-  - pushJsonbValueScalar (when processing WJB_KEY tokens)
+  - [pushJsonbValueScalar](../p/pushJsonbValueScalar.md) (when processing WJB_KEY tokens)
 
 ## Notes and Other Information
 - This is a static function internal to jsonb_util.c, not exposed in the public API

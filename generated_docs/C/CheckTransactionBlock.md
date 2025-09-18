@@ -21,15 +21,15 @@ The function implements a hierarchical check system: it first verifies if the co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionBlock
-  - IsSubTransaction
+  - [IsTransactionBlock](../I/IsTransactionBlock.md)
+  - [IsSubTransaction](../I/IsSubTransaction.md)
   - ereport (for error/warning reporting)
 - Constants referenced:
   - ERROR, WARNING (severity levels)
   - ERRCODE_NO_ACTIVE_SQL_TRANSACTION
 - Called from:
-  - WarnNoTransactionBlock (with throwError = false)
-  - RequireTransactionBlock (with throwError = true)
+  - [WarnNoTransactionBlock](../W/WarnNoTransactionBlock.md) (with throwError = false)
+  - [RequireTransactionBlock](../R/RequireTransactionBlock.md) (with throwError = true)
 
 ## Notes and Other Information
 This static function is the shared implementation that enables the distinction between warning and error behaviors for transaction block validation. The function design allows for graceful handling of different execution contexts - it silently returns when appropriate contexts are detected (transaction blocks, subtransactions, or function calls), only reporting issues when commands are executed in inappropriate contexts at the top level. The error message format is consistent across all callers, providing clear guidance to users about transaction block requirements.

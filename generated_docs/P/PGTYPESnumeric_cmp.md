@@ -20,13 +20,13 @@ This function performs comparison between two numeric variables by analyzing the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_abs (compares absolute values of numeric variables)
+  - [cmp_abs](../c/cmp_abs.md) (compares absolute values of numeric variables)
   - NUMERIC_POS/NUMERIC_NEG (sign constants)
   - PGTYPES_NUM_BAD_NUMERIC (error constant)
-  - numeric (numeric type)
+  - [numeric](../n/numeric.md) (numeric type)
 - Called from (representative examples):
-  - deccmp (in ECPG Informix compatibility layer)
-  - main (in various pgtypes test programs)
+  - [deccmp](../d/deccmp.md) (in ECPG Informix compatibility layer)
+  - [main](../m/main.md) (in various pgtypes test programs)
 
 ## Notes and Other Information
 - Returns -1 if var1 < var2, 0 if var1 == var2, 1 if var1 > var2

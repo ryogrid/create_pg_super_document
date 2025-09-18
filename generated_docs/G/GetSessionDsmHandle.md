@@ -31,23 +31,23 @@ This function takes no parameters and returns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_segment_handle
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - shm_toc_initialize_estimator
   - shm_toc_estimate_keys
   - shm_toc_estimate_chunk
-  - SharedRecordTypmodRegistryEstimate
-  - shm_toc_estimate
-  - dsm_create
+  - [SharedRecordTypmodRegistryEstimate](../S/SharedRecordTypmodRegistryEstimate.md)
+  - [shm_toc_estimate](../s/shm_toc_estimate.md)
+  - [dsm_create](../d/dsm_create.md)
   - shm_toc_create
   - dsm_segment_address
   - shm_toc_allocate
   - dsa_create_in_place
   - shm_toc_insert
-  - SharedRecordTypmodRegistryInit
+  - [SharedRecordTypmodRegistryInit](../S/SharedRecordTypmodRegistryInit.md)
   - dsm_pin_mapping
-  - dsa_pin_mapping
+  - [dsa_pin_mapping](../d/dsa_pin_mapping.md)
 - Called from (representative examples):
-  - InitializeParallelDSM (in src/backend/access/transam/parallel.c:251)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (in src/backend/access/transam/parallel.c:251)
 
 ## Notes and Other Information
 - Creates a reusable DSM segment that persists across multiple parallel queries in the same session

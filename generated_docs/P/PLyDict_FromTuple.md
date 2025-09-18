@@ -20,13 +20,13 @@ This function performs the core work of converting a PostgreSQL tuple to a Pytho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyDatumToOb (type structure and attribute array)
+  - [PLyDatumToOb](PLyDatumToOb.md) (type structure and attribute array)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling macros)
-  - heap_getattr (extracts attribute value from tuple)
+  - [heap_getattr](../h/heap_getattr.md) (extracts attribute value from tuple)
   - PG_RE_THROW (re-throws caught exceptions)
 - Called from:
-  - PLy_input_from_tuple (main tuple input conversion entry point)
-  - PLyDict_FromComposite (composite type conversion)
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md) (main tuple input conversion entry point)
+  - [PLyDict_FromComposite](PLyDict_FromComposite.md) (composite type conversion)
 
 ## Notes and Other Information
 The function includes comprehensive error handling using PostgreSQL's exception system to ensure that partially constructed Python objects are properly cleaned up if an error occurs during conversion. It respects PostgreSQL's attribute metadata, properly skipping dropped attributes and handling generated columns according to the caller's preference. The function manages Python reference counting correctly, decrementing references for converted values after adding them to the dictionary. NULL values in the PostgreSQL tuple are represented as Python None objects in the resulting dictionary.

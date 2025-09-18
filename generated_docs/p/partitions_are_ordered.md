@@ -20,21 +20,21 @@ This function analyzes partition bounds to determine if the partitions can be sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
   - PARTITION_STRATEGY_RANGE
   - partition_bound_has_default
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
   - PARTITION_STRATEGY_LIST
-  - bms_overlap
+  - [bms_overlap](../b/bms_overlap.md)
   - PARTITION_STRATEGY_HASH
 - Called from (representative examples):
-  - generate_orderedappend_paths
-  - build_partition_pathkeys
+  - [generate_orderedappend_paths](../g/generate_orderedappend_paths.md)
+  - [build_partition_pathkeys](../b/build_partition_pathkeys.md)
 
 ## Notes and Other Information
 - Returns true only when partitions guarantee sequential ordering of data
 - RANGE partitions provide natural ordering except when DEFAULT partitions are involved
 - LIST partitions can provide ordering when interleaved partitions are excluded
-- HASH partitions never provide ordering due to their distribution strategy
+- [HASH](../H/HASH.md) partitions never provide ordering due to their distribution strategy
 - Critical for PostgreSQL's query optimization to choose efficient execution plans
 - Located in src/backend/partitioning/partbounds.c:2852-2895

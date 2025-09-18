@@ -19,11 +19,11 @@ The set_errdata_field function is a low-level utility function used internally w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextData (structure type)
-  - MemoryContextStrdup (memory allocation function)
+  - [MemoryContextData](../M/MemoryContextData.md) (structure type)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (memory allocation function)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - err_generic_string (multiple times for different field types)
+  - [err_generic_string](../e/err_generic_string.md) (multiple times for different field types)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the elog.c source file

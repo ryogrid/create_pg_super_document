@@ -23,21 +23,21 @@ The function uses a local PQExpBuffer for intermediate processing and returns th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `fmtIdEnc` (called twice - once for schema, once for id)
+  - `[fmtIdEnc](fmtIdEnc.md)` (called twice - once for schema, once for id)
   - `createPQExpBuffer`
-  - `appendPQExpBuffer`
-  - `appendPQExpBufferStr`
+  - `[appendPQExpBuffer](../a/appendPQExpBuffer.md)`
+  - `[appendPQExpBufferStr](../a/appendPQExpBufferStr.md)`
   - `getLocalPQExpBuffer`
   - `destroyPQExpBuffer`
 - Called from (representative examples):
-  - `appendQualifiedRelation` (src/bin/scripts/common.c:115)
-  - `get_parallel_object_list` (src/bin/scripts/reindexdb.c:791, 805)
-  - `vacuum_one_database` (src/bin/scripts/vacuumdb.c:788)
-  - `fmtQualifiedId` (src/fe_utils/string_utils.c:298)
+  - `[appendQualifiedRelation](../a/appendQualifiedRelation.md)` (src/bin/scripts/common.c:115)
+  - `[get_parallel_object_list](../g/get_parallel_object_list.md)` (src/bin/scripts/reindexdb.c:791, 805)
+  - `[vacuum_one_database](../v/vacuum_one_database.md)` (src/bin/scripts/vacuumdb.c:788)
+  - `[fmtQualifiedId](fmtQualifiedId.md)` (src/fe_utils/string_utils.c:298)
 
 ## Notes and Other Information
 - The function gracefully handles NULL or empty schema names by omitting the schema prefix
 - Uses temporary PQExpBuffer to avoid conflicts with the global buffer used by `fmtIdEnc`
-- Result should be used immediately as it may be overwritten by subsequent calls
+- [Result](../R/Result.md) should be used immediately as it may be overwritten by subsequent calls
 - Part of the frontend utilities string formatting infrastructure
 - Encoding parameter allows for proper character handling in different database encodings

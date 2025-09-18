@@ -19,10 +19,10 @@ EnableStandbyMode is a static function that configures PostgreSQL to operate in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - disable_startup_progress_timeout (disables startup progress reporting)
+  - [disable_startup_progress_timeout](../d/disable_startup_progress_timeout.md) (disables startup progress reporting)
 - Called from (representative examples):
-  - InitWalRecovery (during WAL recovery initialization at lines 604 and 760)
-  - ReadRecord (during record reading operations at line 3242)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization at lines 604 and 760)
+  - [ReadRecord](../R/ReadRecord.md) (during record reading operations at line 3242)
 
 ## Notes and Other Information
 - Static function, only accessible within xlogrecovery.c

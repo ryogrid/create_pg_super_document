@@ -28,17 +28,17 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_stack_entry_location
-  - matches_backtrace_functions
-  - set_backtrace
+  - [set_stack_entry_location](../s/set_stack_entry_location.md)
+  - [matches_backtrace_functions](../m/matches_backtrace_functions.md)
+  - [set_backtrace](../s/set_backtrace.md)
   - PG_RE_THROW
-  - EmitErrorReport
-  - FreeErrorDataContents
-  - proc_exit
+  - [EmitErrorReport](../E/EmitErrorReport.md)
+  - [FreeErrorDataContents](../F/FreeErrorDataContents.md)
+  - [proc_exit](../p/proc_exit.md)
 - Called from (representative examples):
-  - errsave_finish
-  - ThrowErrorData
-  - pg_re_throw
+  - [errsave_finish](errsave_finish.md)
+  - [ThrowErrorData](../T/ThrowErrorData.md)
+  - [pg_re_throw](../p/pg_re_throw.md)
   - ereport_domain
 
 ## Notes and Other Information

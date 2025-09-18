@@ -20,7 +20,7 @@ This mechanism prevents snapshot reference leaks by ensuring that all registered
 ## Dependencies
 - Functions called/Symbols referenced:
   - UnregisterSnapshotNoOwner (performs the actual snapshot unregistration)
-  - DatumGetPointer (extracts pointer from Datum wrapper)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (extracts pointer from Datum wrapper)
 - Called from (representative examples):
   - Resource owner cleanup routines (automatically invoked by resource management system)
 

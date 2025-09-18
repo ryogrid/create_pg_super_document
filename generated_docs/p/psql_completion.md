@@ -19,13 +19,13 @@ The `psql_completion` function is the central completion handler for psql's read
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_previous_words (parses command line into word array)
+  - [get_previous_words](../g/get_previous_words.md) (parses command line into word array)
   - COMPLETE_WITH_LIST_CS (completion macro for case-sensitive lists)
-  - complete_from_variables (handles variable interpolation completion)
+  - [complete_from_variables](../c/complete_from_variables.md) (handles variable interpolation completion)
   - TailMatches, HeadMatches, Matches (pattern matching macros)
   - Various completion helper functions for different SQL constructs
 - Called from (representative examples):
-  - initialize_readline (registered as readline completion function)
+  - [initialize_readline](../i/initialize_readline.md) (registered as readline completion function)
 
 ## Notes and Other Information
 - Function spans approximately 3400+ lines, making it one of the largest functions in PostgreSQL

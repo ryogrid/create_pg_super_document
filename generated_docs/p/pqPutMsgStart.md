@@ -22,14 +22,14 @@ This function works in conjunction with `pqPutMsgEnd` to implement a message con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqCheckOutBufferSpace (ensures sufficient buffer space for the message header)
+  - [pqCheckOutBufferSpace](pqCheckOutBufferSpace.md) (ensures sufficient buffer space for the message header)
 - Called from (representative examples):
-  - PQsendQueryInternal (sending SQL queries)
-  - PQsendPrepare (sending prepared statement definitions)
-  - PQsendQueryGuts (sending parameterized queries)
-  - pqFunctionCall3 (sending function call requests)
-  - PQputCopyData (sending COPY data)
-  - sendTerminateConn (sending connection termination)
+  - [PQsendQueryInternal](../P/PQsendQueryInternal.md) (sending SQL queries)
+  - [PQsendPrepare](../P/PQsendPrepare.md) (sending prepared statement definitions)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md) (sending parameterized queries)
+  - [pqFunctionCall3](pqFunctionCall3.md) (sending function call requests)
+  - [PQputCopyData](../P/PQputCopyData.md) (sending COPY data)
+  - [sendTerminateConn](../s/sendTerminateConn.md) (sending connection termination)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on error (buffer allocation failure)

@@ -23,7 +23,7 @@ The function configures the index to use CIDR (Classless Inter-Domain Routing) f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (structure type for output configuration)
+  - [spgConfigOut](../s/spgConfigOut.md) (structure type for output configuration)
   - PG_RETURN_VOID (macro for returning void from PostgreSQL function)
 - Called from (representative examples):
   - SP-GiST index creation process

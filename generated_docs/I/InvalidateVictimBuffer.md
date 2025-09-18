@@ -33,16 +33,16 @@ The function returns true if invalidation succeeded (buffer can be reused) or fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPrivateRefCount
-  - BufferDescriptorGetBuffer
-  - BufTableHashCode
-  - BufMappingPartitionLock
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
+  - [BufTableHashCode](../B/BufTableHashCode.md)
+  - [BufMappingPartitionLock](../B/BufMappingPartitionLock.md)
   - LockBufHdr
-  - UnlockBufHdr
-  - BufferTagsEqual
-  - ClearBufferTag
-  - BufTableDelete
-  - pg_atomic_read_u32
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
+  - [BufferTagsEqual](../B/BufferTagsEqual.md)
+  - [ClearBufferTag](../C/ClearBufferTag.md)
+  - [BufTableDelete](../B/BufTableDelete.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - BUF_STATE_GET_REFCOUNT
 - Constants used:
   - LW_EXCLUSIVE
@@ -52,8 +52,8 @@ The function returns true if invalidation succeeded (buffer can be reused) or fa
   - BUF_FLAG_MASK
   - BUF_USAGECOUNT_MASK
 - Called from (representative examples):
-  - GetVictimBuffer
-  - EvictUnpinnedBuffer
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [EvictUnpinnedBuffer](../E/EvictUnpinnedBuffer.md)
 
 ## Notes and Other Information
 - Designed specifically for buffer replacement scenarios, not relation drops

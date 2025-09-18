@@ -20,14 +20,14 @@ The function is part of PostgreSQL's lowest-level numeric operations that work o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_abs_common (performs the actual comparison using digit arrays)
+  - [cmp_abs_common](cmp_abs_common.md) (performs the actual comparison using digit arrays)
 - Called from (representative examples):
-  - add_var (addition operations need magnitude comparison)
-  - sub_var (subtraction operations need magnitude comparison)
-  - div_mod_var (division operations)
-  - gcd_var (greatest common divisor calculations)
-  - PGTYPESnumeric_add, PGTYPESnumeric_sub, PGTYPESnumeric_div (ECPG interface)
-  - PGTYPESnumeric_cmp (ECPG comparison interface)
+  - [add_var](../a/add_var.md) (addition operations need magnitude comparison)
+  - [sub_var](../s/sub_var.md) (subtraction operations need magnitude comparison)
+  - [div_mod_var](../d/div_mod_var.md) (division operations)
+  - [gcd_var](../g/gcd_var.md) (greatest common divisor calculations)
+  - [PGTYPESnumeric_add](../P/PGTYPESnumeric_add.md), PGTYPESnumeric_sub, PGTYPESnumeric_div (ECPG interface)
+  - [PGTYPESnumeric_cmp](../P/PGTYPESnumeric_cmp.md) (ECPG comparison interface)
 
 ## Notes and Other Information
 - Returns -1 if |var1| < |var2|, 0 if |var1| == |var2|, and 1 if |var1| > |var2|

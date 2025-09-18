@@ -22,16 +22,16 @@ This function implements a simple linked list append operation for string lists.
 - Functions called/Symbols referenced:
   - _stringlist (structure type for list nodes)
   - pg_malloc (PostgreSQL memory allocation)
-  - pg_strdup (PostgreSQL string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication)
 - Called from (representative examples):
-  - main (in src/bin/initdb/initdb.c:3262, 3263)
-  - ecpg_start_test (in src/interfaces/ecpg/test/pg_regress_ecpg.c:198-208)
-  - isolation_start_test (in src/test/isolation/isolation_main.c:75, 76)
-  - isolation_init (in src/test/isolation/isolation_main.c:133)
-  - split_to_stringlist (in src/test/regress/pg_regress.c:241)
-  - regression_main (in src/test/regress/pg_regress.c:2170, 2202, 2211, 2235)
-  - psql_start_test (in src/test/regress/pg_regress_main.c:62, 63)
-  - psql_init (in src/test/regress/pg_regress_main.c:107)
+  - [main](../m/main.md) (in src/bin/initdb/initdb.c:3262, 3263)
+  - [ecpg_start_test](../e/ecpg_start_test.md) (in src/interfaces/ecpg/test/pg_regress_ecpg.c:198-208)
+  - [isolation_start_test](../i/isolation_start_test.md) (in src/test/isolation/isolation_main.c:75, 76)
+  - [isolation_init](../i/isolation_init.md) (in src/test/isolation/isolation_main.c:133)
+  - [split_to_stringlist](../s/split_to_stringlist.md) (in src/test/regress/pg_regress.c:241)
+  - [regression_main](../r/regression_main.md) (in src/test/regress/pg_regress.c:2170, 2202, 2211, 2235)
+  - [psql_start_test](../p/psql_start_test.md) (in src/test/regress/pg_regress_main.c:62, 63)
+  - [psql_init](../p/psql_init.md) (in src/test/regress/pg_regress_main.c:107)
 
 ## Notes and Other Information
 - Creates a copy of the input string, so the original can be safely freed

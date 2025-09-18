@@ -21,22 +21,22 @@ This function generates appropriate error handling code based on the ECPG WHENEV
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - output_line_number
+  - [output_line_number](../o/output_line_number.md)
   - fprintf
-  - print_action
+  - [print_action](../p/print_action.md)
   - fputc
   - base_yyout (global output file pointer)
   - W_NOTHING (enumeration constant)
   - when_nf, when_warn, when_error (global when structures)
 - Called from:
-  - output_get_descr_header (src/interfaces/ecpg/preproc/descriptor.c:177)
-  - output_get_descr (src/interfaces/ecpg/preproc/descriptor.c:210)
-  - output_set_descr_header (src/interfaces/ecpg/preproc/descriptor.c:229)
-  - output_set_descr (src/interfaces/ecpg/preproc/descriptor.c:326)
-  - output_simple_statement (src/interfaces/ecpg/preproc/output.c:23)
-  - output_statement (src/interfaces/ecpg/preproc/output.c:165)
-  - output_prepare_statement (src/interfaces/ecpg/preproc/output.c:177)
-  - output_deallocate_prepare_statement (src/interfaces/ecpg/preproc/output.c:195)
+  - [output_get_descr_header](../o/output_get_descr_header.md) (src/interfaces/ecpg/preproc/descriptor.c:177)
+  - [output_get_descr](../o/output_get_descr.md) (src/interfaces/ecpg/preproc/descriptor.c:210)
+  - [output_set_descr_header](../o/output_set_descr_header.md) (src/interfaces/ecpg/preproc/descriptor.c:229)
+  - [output_set_descr](../o/output_set_descr.md) (src/interfaces/ecpg/preproc/descriptor.c:326)
+  - [output_simple_statement](../o/output_simple_statement.md) (src/interfaces/ecpg/preproc/output.c:23)
+  - [output_statement](../o/output_statement.md) (src/interfaces/ecpg/preproc/output.c:165)
+  - [output_prepare_statement](../o/output_prepare_statement.md) (src/interfaces/ecpg/preproc/output.c:177)
+  - [output_deallocate_prepare_statement](../o/output_deallocate_prepare_statement.md) (src/interfaces/ecpg/preproc/output.c:195)
 
 ## Notes and Other Information
 - Core component of ECPG's WHENEVER statement implementation

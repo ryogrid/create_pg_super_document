@@ -21,8 +21,8 @@ This function provides a comprehensive binary file reading interface that mirror
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_and_check_filename: Security validation and filename conversion
-  - read_binary_file: Core binary file reading functionality
+  - [convert_and_check_filename](../c/convert_and_check_filename.md): Security validation and filename conversion
+  - [read_binary_file](../r/read_binary_file.md): Core binary file reading functionality
   - ereport: Error reporting for invalid parameters
 - Called from (representative examples):
   - PostgreSQL SQL functions that need to read binary files

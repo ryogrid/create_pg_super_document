@@ -34,7 +34,7 @@ When called without arguments, it returns the first log file found in the metada
   - cstring_to_text
   - LOG_METAINFO_DATAFILE (constant for metadata file path)
 - Called from (representative examples):
-  - pg_current_logfile_1arg (wrapper function)
+  - [pg_current_logfile_1arg](pg_current_logfile_1arg.md) (wrapper function)
 
 ## Notes and Other Information
 - This is a PostgreSQL SQL-callable function (available as pg_current_logfile in SQL)

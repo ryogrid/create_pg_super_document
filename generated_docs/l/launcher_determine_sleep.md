@@ -19,11 +19,11 @@ This function determines how long the autovacuum launcher should sleep before ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty
-  - GetCurrentTimestamp
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - dlist_tail_element
-  - TimestampDifference
-  - rebuild_database_list
+  - [TimestampDifference](../T/TimestampDifference.md)
+  - [rebuild_database_list](../r/rebuild_database_list.md)
 - Global variables accessed:
   - DatabaseList
   - autovacuum_naptime

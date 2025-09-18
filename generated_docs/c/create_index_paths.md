@@ -29,18 +29,18 @@ All generated paths are added to the relation's pathlist via add_path() for cost
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - match_restriction_clauses_to_index
-  - get_index_paths
-  - match_join_clauses_to_index
-  - match_eclass_clauses_to_index
-  - consider_index_join_clauses
-  - generate_bitmap_or_paths
-  - choose_bitmap_and
-  - create_bitmap_heap_path
-  - create_partial_bitmap_paths
-  - add_path
+  - [match_restriction_clauses_to_index](../m/match_restriction_clauses_to_index.md)
+  - [get_index_paths](../g/get_index_paths.md)
+  - [match_join_clauses_to_index](../m/match_join_clauses_to_index.md)
+  - [match_eclass_clauses_to_index](../m/match_eclass_clauses_to_index.md)
+  - [consider_index_join_clauses](consider_index_join_clauses.md)
+  - [generate_bitmap_or_paths](../g/generate_bitmap_or_paths.md)
+  - [choose_bitmap_and](choose_bitmap_and.md)
+  - [create_bitmap_heap_path](create_bitmap_heap_path.md)
+  - [create_partial_bitmap_paths](create_partial_bitmap_paths.md)
+  - [add_path](../a/add_path.md)
 - Called from (representative examples):
-  - set_plain_rel_pathlist
+  - [set_plain_rel_pathlist](../s/set_plain_rel_pathlist.md)
 
 ## Notes and Other Information
 - Skips processing if the relation has no indexes (rel->indexlist == NIL)

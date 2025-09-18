@@ -31,14 +31,14 @@ This function is critical for maintaining the integrity of the predicate locking
   - LWLockAcquire
   - dlist_foreach_modify
   - dlist_container
-  - dlist_delete
-  - hash_search_with_hash_value
+  - [dlist_delete](../d/dlist_delete.md)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - PredicateLockHashCodeFromTargetHashCode
   - LWLockRelease
-  - RemoveTargetIfNoLongerUsed
+  - [RemoveTargetIfNoLongerUsed](../R/RemoveTargetIfNoLongerUsed.md)
 - Called from (representative examples):
-  - SerialControl
-  - TransferPredicateLocksToNewTarget
+  - [SerialControl](../S/SerialControl.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
 
 ## Notes and Other Information
 - Static function - internal to the predicate locking subsystem

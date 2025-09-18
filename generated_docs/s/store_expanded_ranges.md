@@ -21,14 +21,14 @@ The function ensures proper organization of the output data structure by setting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - count_values (for assertion validation)
+  - [count_values](../c/count_values.md) (for assertion validation)
 - Types referenced:
-  - Ranges
-  - ExpandedRange
+  - [Ranges](../R/Ranges.md)
+  - [ExpandedRange](../E/ExpandedRange.md)
 - Called from:
-  - ensure_free_space_in_buffer
-  - compactify_ranges
-  - brin_minmax_multi_union
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - Modifies the ranges structure in-place to contain the converted data

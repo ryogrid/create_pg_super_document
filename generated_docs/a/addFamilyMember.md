@@ -18,18 +18,18 @@ This function safely adds a new OpFamilyMember to a list while ensuring uniquene
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpFamilyMember (type)
+  - [OpFamilyMember](../O/OpFamilyMember.md) (type)
   - foreach
   - lfirst
   - ereport
-  - errcode
-  - errmsg
-  - format_type_be
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
   - lappend
 - Called from (representative examples):
-  - DefineOpClass
-  - AlterOpFamilyAdd
-  - AlterOpFamilyDrop
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
+  - [AlterOpFamilyDrop](../A/AlterOpFamilyDrop.md)
 
 ## Notes and Other Information
 - Enforces uniqueness constraint: one member per (number, lefttype, righttype) combination

@@ -32,14 +32,14 @@ ReorderBufferFinishPrepared processes the final phase of two-phase commit transa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - RBTXN_PREPARE (flag constant)
-  - ReorderBufferReplay
-  - ReorderBufferExecuteInvalidations
-  - ReorderBufferCleanupTXN
+  - [ReorderBufferReplay](ReorderBufferReplay.md)
+  - [ReorderBufferExecuteInvalidations](ReorderBufferExecuteInvalidations.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
 - Called from (representative examples):
-  - DecodeCommit
-  - DecodeAbort
+  - [DecodeCommit](../D/DecodeCommit.md)
+  - [DecodeAbort](../D/DecodeAbort.md)
 
 ## Notes and Other Information
 This function implements sophisticated logic to handle transactions that may not have been decoded at prepare time, comparing the transactions final_lsn with two_phase_at to determine if replay is needed. The preservation of prepare-time information (prepare_end_lsn and prepare_time) ensures accurate rollback processing. The function serves as the central dispatch point for finalizing two-phase transactions in PostgreSQL logical replication system.

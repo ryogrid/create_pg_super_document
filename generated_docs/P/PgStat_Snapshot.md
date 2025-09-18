@@ -53,12 +53,12 @@ The structure includes validation flags to track which fixed statistics are vali
   - PgStat_ArchiverStats
   - PgStat_BgWriterStats
   - PgStat_CheckpointerStats
-  - PgStat_IO
-  - PgStat_SLRUStats
+  - [PgStat_IO](PgStat_IO.md)
+  - [PgStat_SLRUStats](PgStat_SLRUStats.md)
   - SLRU_NUM_ELEMENTS
-  - PgStat_WalStats
+  - [PgStat_WalStats](PgStat_WalStats.md)
 - Called from (representative examples):
-  - PgStat_LocalState
+  - [PgStat_LocalState](PgStat_LocalState.md)
 
 ## Notes and Other Information
 - Located in src/include/utils/pgstat_internal.h:461-485

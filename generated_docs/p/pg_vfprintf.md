@@ -20,12 +20,12 @@ pg_vfprintf provides a portable alternative to the standard vfprintf function. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct for managing output formatting and stream state)
-  - dopr (internal function that performs the actual formatting work)
-  - flushbuffer (internal function to write buffer contents to stream)
+  - [dopr](../d/dopr.md) (internal function that performs the actual formatting work)
+  - [flushbuffer](../f/flushbuffer.md) (internal function to write buffer contents to stream)
 - Called from (representative examples):
-  - pg_fprintf (wrapper function for fprintf functionality)
-  - pg_vprintf (for printing to stdout)
-  - pg_printf (indirectly through pg_fprintf)
+  - [pg_fprintf](pg_fprintf.md) (wrapper function for fprintf functionality)
+  - [pg_vprintf](pg_vprintf.md) (for printing to stdout)
+  - [pg_printf](pg_printf.md) (indirectly through pg_fprintf)
   - vfprintf (when PostgreSQL's implementation replaces system's)
 
 ## Notes and Other Information

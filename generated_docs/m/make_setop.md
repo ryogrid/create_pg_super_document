@@ -27,12 +27,12 @@ The SetOp node assumes its input is already sorted according to the distinctList
 - Functions called/Symbols referenced:
   - makeNode (creates a new SetOp node)
   - list_length (gets the number of columns to compare)
-  - palloc (allocates memory for operator arrays)
-  - get_sortgroupclause_tle (extracts target entry from sort clause)
-  - exprCollation (gets collation for expression comparison)
-  - SetOpCmd, SetOpStrategy, SortGroupClause (related data types)
+  - [palloc](../p/palloc.md) (allocates memory for operator arrays)
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (extracts target entry from sort clause)
+  - [exprCollation](../e/exprCollation.md) (gets collation for expression comparison)
+  - [SetOpCmd](../S/SetOpCmd.md), SetOpStrategy, SortGroupClause (related data types)
 - Called from (representative examples):
-  - create_setop_plan
+  - [create_setop_plan](../c/create_setop_plan.md)
   - CP_IGNORE_TLIST
 
 ## Notes and Other Information

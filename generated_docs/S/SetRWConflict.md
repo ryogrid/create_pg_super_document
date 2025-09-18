@@ -18,20 +18,20 @@ This function establishes a new read-write conflict relationship between a reade
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RWConflictExists
-  - dlist_is_empty
+  - [RWConflictExists](../R/RWConflictExists.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
-  - dlist_delete
-  - dlist_push_tail
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - ereport
 - Types referenced:
-  - SERIALIZABLEXACT
-  - RWConflict
-  - RWConflictData
+  - [SERIALIZABLEXACT](SERIALIZABLEXACT.md)
+  - [RWConflict](../R/RWConflict.md)
+  - [RWConflictData](../R/RWConflictData.md)
 - Global variables accessed:
   - RWConflictPool
 - Called from (representative examples):
-  - FlagRWConflict
+  - [FlagRWConflict](../F/FlagRWConflict.md)
 
 ## Notes and Other Information
 - Asserts that reader and writer are different transactions

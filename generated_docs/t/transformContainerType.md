@@ -24,14 +24,14 @@ The function modifies the provided type OID and typmod in-place, allowing the ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseTypeAndTypmod() (resolves domain types to base types)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)() (resolves domain types to base types)
   - INT2VECTOROID (type OID constant for int2vector)
   - INT2ARRAYOID (type OID constant for int2[])
   - OIDVECTOROID (type OID constant for oidvector) 
   - OIDARRAYOID (type OID constant for oid[])
 - Called from (representative examples):
-  - transformContainerSubscripts() (processes subscript expressions)
-  - transformAssignmentSubscripts() (handles assignment to subscripted targets)
+  - [transformContainerSubscripts](transformContainerSubscripts.md)() (processes subscript expressions)
+  - [transformAssignmentSubscripts](transformAssignmentSubscripts.md)() (handles assignment to subscripted targets)
 
 ## Notes and Other Information
 - The function works in-place, modifying the passed pointers rather than returning new values

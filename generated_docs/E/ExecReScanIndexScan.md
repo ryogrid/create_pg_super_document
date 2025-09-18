@@ -22,14 +22,14 @@ The function first evaluates any runtime keys - these are scan key values that d
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext
-  - ExecIndexEvalRuntimeKeys
+  - [ExecIndexEvalRuntimeKeys](ExecIndexEvalRuntimeKeys.md)
   - pairingheap_is_empty
-  - reorderqueue_pop
-  - heap_freetuple
-  - index_rescan
-  - ExecScanReScan
+  - [reorderqueue_pop](../r/reorderqueue_pop.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [index_rescan](../i/index_rescan.md)
+  - [ExecScanReScan](ExecScanReScan.md)
 - Called from (representative examples):
-  - ExecReScan (generic plan node rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (generic plan node rescan dispatcher)
 
 ## Notes and Other Information
 - Part of PostgreSQL's executor node framework for plan execution

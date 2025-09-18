@@ -19,15 +19,15 @@ This function generates the body of a SQL CTE that transforms pattern informatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr
-  - appendPQExpBuffer  
-  - appendStringLiteralConn
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](appendPQExpBuffer.md)  
+  - [appendStringLiteralConn](appendStringLiteralConn.md)
   - appendPQExpBufferChar
-  - PatternInfoArray
-  - PatternInfo
+  - [PatternInfoArray](../P/PatternInfoArray.md)
+  - [PatternInfo](../P/PatternInfo.md)
 - Called from (representative examples):
-  - compile_relation_list_one_db (at src/bin/pg_amcheck/pg_amcheck.c:1900)
-  - compile_relation_list_one_db (at src/bin/pg_amcheck/pg_amcheck.c:1910)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md) (at src/bin/pg_amcheck/pg_amcheck.c:1900)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md) (at src/bin/pg_amcheck/pg_amcheck.c:1910)
 
 ## Notes and Other Information
 - Generates six-column CTE: pattern_id, db_regex, nsp_regex, rel_regex, heap_only, btree_only

@@ -29,7 +29,7 @@ The function maintains the same optimization paths as its error-throwing counter
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_valid_unicode_codepoint (Unicode validation)
-  - GetDatabaseEncoding (database encoding detection)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding detection)
   - unicode_to_utf8 (Unicode to UTF-8 conversion)
   - pg_utf_mblen (UTF-8 character length calculation)
   - FunctionCall6/DatumGetInt32 (PostgreSQL function call interface)

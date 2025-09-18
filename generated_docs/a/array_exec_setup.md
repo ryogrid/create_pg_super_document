@@ -26,20 +26,20 @@ This function serves as the setup phase for array subscript operations within Po
   - SubscriptingRef (struct)
   - SubscriptingRefState (struct)
   - SubscriptExecSteps (struct)
-  - ArraySubWorkspace (struct)
+  - [ArraySubWorkspace](../A/ArraySubWorkspace.md) (struct)
   - MAXDIM (constant)
-  - get_typlen
-  - get_typlenbyvalalign
-  - array_subscript_check_subscripts
-  - array_subscript_fetch_slice
-  - array_subscript_assign_slice
-  - array_subscript_fetch_old_slice
-  - array_subscript_fetch
-  - array_subscript_assign
-  - array_subscript_fetch_old
+  - [get_typlen](../g/get_typlen.md)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [array_subscript_check_subscripts](array_subscript_check_subscripts.md)
+  - [array_subscript_fetch_slice](array_subscript_fetch_slice.md)
+  - [array_subscript_assign_slice](array_subscript_assign_slice.md)
+  - [array_subscript_fetch_old_slice](array_subscript_fetch_old_slice.md)
+  - [array_subscript_fetch](array_subscript_fetch.md)
+  - [array_subscript_assign](array_subscript_assign.md)
+  - [array_subscript_fetch_old](array_subscript_fetch_old.md)
 - Called from (representative examples):
-  - array_subscript_handler
-  - raw_array_subscript_handler
+  - [array_subscript_handler](array_subscript_handler.md)
+  - [raw_array_subscript_handler](../r/raw_array_subscript_handler.md)
 
 ## Notes and Other Information
 - Enforces MAXDIM limit on array dimensions to prevent excessive resource usage

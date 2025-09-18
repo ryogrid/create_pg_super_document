@@ -18,9 +18,9 @@ This function performs a field-by-field comparison between a standard C library 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tm (PostgreSQL time structure type)
+  - [pg_tm](../p/pg_tm.md) (PostgreSQL time structure type)
 - Called from (representative examples):
-  - score_timezone
+  - [score_timezone](../s/score_timezone.md)
 
 ## Notes and Other Information
 - This function is marked as , indicating it's only used within the findtimezone.c file

@@ -22,8 +22,8 @@ The function is specifically intended for DSA areas created in shared memory tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_release_in_place
-  - DatumGetPointer
+  - [dsa_release_in_place](dsa_release_in_place.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
 - Called from (representative examples):
   - Referenced in DSA_HANDLE_INVALID (src/include/utils/dsa.h:151)
 

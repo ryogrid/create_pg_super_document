@@ -20,18 +20,18 @@ The function returns true if an exact match is found, and false otherwise. In bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsLeaf
   - GinPageIsData
   - FirstOffsetNumber
-  - PageGetMaxOffsetNumber
-  - PageGetItem
-  - PageGetItemId
-  - gintuple_get_attrnum
-  - gintuple_get_key
-  - ginCompareAttEntries
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md)
+  - [gintuple_get_key](../g/gintuple_get_key.md)
+  - [ginCompareAttEntries](../g/ginCompareAttEntries.md)
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GIN entry page implementation

@@ -17,7 +17,7 @@ The basque_UTF_8_close_env function serves as a specialized destructor for Basqu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment destructor)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment destructor)
 - Called from (representative examples):
   - External stemming interface (no direct references found in indexed code)
 

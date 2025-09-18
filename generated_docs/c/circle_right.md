@@ -35,9 +35,9 @@ The function serves as the implementation for PostgreSQL's `>>` operator for cir
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P: Extracts CIRCLE arguments from function call
-  - float8_mi: Subtracts floating-point values (center.x - radius for circle1)
-  - float8_pl: Adds floating-point values (center.x + radius for circle2)
-  - FPgt: Floating-point strictly greater-than comparison
+  - [float8_mi](../f/float8_mi.md): Subtracts floating-point values (center.x - radius for circle1)
+  - [float8_pl](../f/float8_pl.md): Adds floating-point values (center.x + radius for circle2)
+  - [FPgt](../F/FPgt.md): Floating-point strictly greater-than comparison
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using the `>>` operator for circles

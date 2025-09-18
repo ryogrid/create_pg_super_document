@@ -27,12 +27,12 @@ Slots that are dropped due to local invalidation will be recreated in the next s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_local_synced_slots
-  - local_sync_slot_required
-  - LockSharedObject
-  - UnlockSharedObject
-  - ReplicationSlotAcquire
-  - ReplicationSlotDropAcquired
+  - [get_local_synced_slots](../g/get_local_synced_slots.md)
+  - [local_sync_slot_required](../l/local_sync_slot_required.md)
+  - [LockSharedObject](../L/LockSharedObject.md)
+  - [UnlockSharedObject](../U/UnlockSharedObject.md)
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
+  - [ReplicationSlotDropAcquired](../R/ReplicationSlotDropAcquired.md)
   - foreach_ptr (macro)
   - SpinLockAcquire
   - SpinLockRelease

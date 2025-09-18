@@ -27,18 +27,18 @@ The underlying WindowStatePerFuncData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowStatePerFuncData
-  - WindowFuncExprState
+  - [WindowStatePerFuncData](WindowStatePerFuncData.md)
+  - [WindowFuncExprState](WindowFuncExprState.md)
   - WindowFunc
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
   - WindowObject
 - Called from (representative examples):
-  - initialize_windowaggregate
-  - advance_windowaggregate
-  - finalize_windowaggregate
-  - eval_windowfunction
-  - begin_partition
-  - ExecInitWindowAgg
+  - [initialize_windowaggregate](../i/initialize_windowaggregate.md)
+  - [advance_windowaggregate](../a/advance_windowaggregate.md)
+  - [finalize_windowaggregate](../f/finalize_windowaggregate.md)
+  - [eval_windowfunction](../e/eval_windowfunction.md)
+  - [begin_partition](../b/begin_partition.md)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
 
 ## Notes and Other Information
 This structure is essential for PostgreSQL's window function implementation, providing the necessary state management for complex window operations. The distinction between plain aggregates and true window functions is handled through the plain_agg flag, allowing the system to optimize execution for aggregate functions that don't need full window function capabilities. The WindowObject member provides the API interface that window functions use to access frame data and perform window-specific operations.

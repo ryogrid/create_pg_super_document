@@ -29,24 +29,24 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heapgettup_continue_page
-  - heap_fetch_next_buffer
-  - heapgettup_start_page
-  - LockBuffer
-  - BufferGetBlockNumber
-  - PageGetItemId
+  - [heapgettup_continue_page](heapgettup_continue_page.md)
+  - [heap_fetch_next_buffer](heap_fetch_next_buffer.md)
+  - [heapgettup_start_page](heapgettup_start_page.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
-  - ItemPointerSet
-  - HeapTupleSatisfiesVisibility
-  - HeapCheckForSerializableConflictOut
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md)
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
   - HeapKeyTest
   - ReleaseBuffer
 - Called from (representative examples):
-  - heap_getnext
-  - heap_getnextslot
-  - heap_getnextslot_tidrange
+  - [heap_getnext](heap_getnext.md)
+  - [heap_getnextslot](heap_getnextslot.md)
+  - [heap_getnextslot_tidrange](heap_getnextslot_tidrange.md)
 
 ## Notes and Other Information
 - The function can be called with nkeys/key parameters separate from those in the scan descriptor when the caller doesn't want scan key checking

@@ -23,7 +23,7 @@ This function generates a list of psql variable names for tab completion by iter
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (for allocating the variable names array)
-  - append_variable_names (for adding formatted variable names to array)
+  - [append_variable_names](../a/append_variable_names.md) (for adding formatted variable names to array)
   - COMPLETE_WITH_LIST_CS (macro for case-sensitive completion processing)
   - free (for memory cleanup)
 - Data structures used:

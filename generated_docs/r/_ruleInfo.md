@@ -25,11 +25,11 @@ Special handling is required for view rules (ON SELECT rules) which need to be d
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - TableInfo (for table association)
+  - [TableInfo](../T/TableInfo.md) (for table association)
   
 - Called from (representative examples):
-  - getRules() (creates RuleInfo objects by querying pg_rewrite system catalog)
-  - dumpRule() (generates CREATE RULE SQL statements during dump)
+  - [getRules](../g/getRules.md)() (creates RuleInfo objects by querying pg_rewrite system catalog)
+  - [dumpRule](../d/dumpRule.md)() (generates CREATE RULE SQL statements during dump)
   - Dependency sorting functions in pg_dump_sort.c (for handling view rule ordering)
 
 ## Notes and Other Information

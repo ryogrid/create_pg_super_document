@@ -20,11 +20,11 @@ PLyUnicode_FromScalar is a generic conversion function within PostgreSQL's PL/Py
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputFunctionCall: Calls the PostgreSQL type's output function to convert datum to string
-  - PLyUnicode_FromString: Converts the resulting C string to a Python unicode object
-  - pfree: Frees the temporary string allocated by OutputFunctionCall
+  - [OutputFunctionCall](../O/OutputFunctionCall.md): Calls the PostgreSQL type's output function to convert datum to string
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md): Converts the resulting C string to a Python unicode object
+  - [pfree](../p/pfree.md): Frees the temporary string allocated by OutputFunctionCall
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for PostgreSQL to Python data conversion
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for PostgreSQL to Python data conversion
 
 ## Notes and Other Information
 - This is a static function within the PL/Python type conversion system

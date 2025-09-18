@@ -30,10 +30,10 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
   - likely
-  - ss_report_location
+  - [ss_report_location](../s/ss_report_location.md)
   - SO_ALLOW_SYNC
 - Called from (representative examples):
-  - heap_scan_stream_read_next_serial
+  - [heap_scan_stream_read_next_serial](heap_scan_stream_read_next_serial.md)
 
 ## Notes and Other Information
 - Assumes non-parallel scans (rs_parallel == NULL)

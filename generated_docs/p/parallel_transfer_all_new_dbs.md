@@ -25,17 +25,17 @@ The function ensures proper stdio state before forking and includes comprehensiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transfer_all_new_dbs
-  - reap_child
-  - win32_transfer_all_new_dbs (Windows only)
+  - [transfer_all_new_dbs](../t/transfer_all_new_dbs.md)
+  - [reap_child](../r/reap_child.md)
+  - [win32_transfer_all_new_dbs](../w/win32_transfer_all_new_dbs.md) (Windows only)
   - pg_malloc
   - pg_malloc0
-  - pg_free
-  - pg_strdup
+  - [pg_free](pg_free.md)
+  - [pg_strdup](pg_strdup.md)
   - fork (Unix)
   - _beginthreadex (Windows)
 - Called from (representative examples):
-  - transfer_all_new_tablespaces
+  - [transfer_all_new_tablespaces](../t/transfer_all_new_tablespaces.md)
 
 ## Notes and Other Information
 - Platform-specific implementation: Uses fork() on Unix systems and _beginthreadex() on Windows

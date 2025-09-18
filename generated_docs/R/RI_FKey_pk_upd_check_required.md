@@ -28,9 +28,9 @@ The function implements several optimization strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_FetchConstraintInfo
-  - ri_NullCheck
-  - ri_KeysEqual
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
+  - [ri_NullCheck](../r/ri_NullCheck.md)
+  - [ri_KeysEqual](../r/ri_KeysEqual.md)
   - RI_KEYS_NONE_NULL
 - Called from (representative examples):
   - AfterTriggerSaveEvent

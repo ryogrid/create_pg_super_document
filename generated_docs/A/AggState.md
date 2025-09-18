@@ -329,27 +329,27 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
+  - [ScanState](../S/ScanState.md)
   - AggStrategy
   - AggSplit
-  - AggStatePerPhase
-  - AggStatePerAgg
-  - AggStatePerTrans
-  - AggStatePerGroup
-  - AggStatePerHash
-  - HashAggSpill
-  - LogicalTapeSet
-  - SharedAggInfo
+  - [AggStatePerPhase](AggStatePerPhase.md)
+  - [AggStatePerAgg](AggStatePerAgg.md)
+  - [AggStatePerTrans](AggStatePerTrans.md)
+  - [AggStatePerGroup](AggStatePerGroup.md)
+  - [AggStatePerHash](AggStatePerHash.md)
+  - [HashAggSpill](../H/HashAggSpill.md)
+  - [LogicalTapeSet](../L/LogicalTapeSet.md)
+  - [SharedAggInfo](../S/SharedAggInfo.md)
   - Tuplesortstate
   - ExprContext
 - Called from (representative examples):
-  - ExecAgg
-  - ExecInitAgg
-  - ExecEndAgg
-  - ExecReScanAgg
-  - AggCheckCallContext
-  - advance_aggregates
-  - finalize_aggregates
+  - [ExecAgg](../E/ExecAgg.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [ExecEndAgg](../E/ExecEndAgg.md)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md)
+  - [AggCheckCallContext](AggCheckCallContext.md)
+  - [advance_aggregates](../a/advance_aggregates.md)
+  - [finalize_aggregates](../f/finalize_aggregates.md)
 
 ## Notes and Other Information
 AggState is one of the most complex execution node structures in PostgreSQL, supporting multiple aggregation strategies and advanced features like intelligent memory management with spill-to-disk capabilities. The structure is designed to handle everything from simple aggregations to complex grouping sets with parallel execution. The hash spilling mechanism allows PostgreSQL to process datasets larger than available memory by partitioning data across temporary files. The multi-phase execution capability enables efficient processing of complex grouping set queries by organizing computation into optimal phases.

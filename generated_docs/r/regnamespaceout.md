@@ -24,8 +24,8 @@ If the OID doesn't correspond to any existing namespace in the system catalog, t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_RETURN_CSTRING (returns the result string)
-  - get_namespace_name (looks up namespace name by OID)
-  - quote_identifier (properly quotes namespace names)
+  - [get_namespace_name](../g/get_namespace_name.md) (looks up namespace name by OID)
+  - [quote_identifier](../q/quote_identifier.md) (properly quotes namespace names)
   - NAMEDATALEN (constant for maximum name length)
 - Called from (representative examples):
   - This function is typically invoked by PostgreSQL's type system when text output is needed for regnamespace values

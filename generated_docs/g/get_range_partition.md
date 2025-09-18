@@ -35,14 +35,14 @@ This filtering mechanism is crucial during partition-wise joins where some parti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (struct type)
-  - PartitionRangeBound (struct type)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (struct type)
+  - [PartitionRangeBound](../P/PartitionRangeBound.md) (struct type)
   - PARTITION_STRATEGY_RANGE (constant for validation)
-  - get_range_partition_internal (core partition lookup function)
-  - is_dummy_partition (dummy partition checker)
+  - [get_range_partition_internal](get_range_partition_internal.md) (core partition lookup function)
+  - [is_dummy_partition](../i/is_dummy_partition.md) (dummy partition checker)
 - Called from (representative examples):
   - compare_range_bounds
-  - merge_range_bounds (multiple call sites)
+  - [merge_range_bounds](../m/merge_range_bounds.md) (multiple call sites)
 
 ## Notes and Other Information
 - This is a static function, accessible only within partbounds.c

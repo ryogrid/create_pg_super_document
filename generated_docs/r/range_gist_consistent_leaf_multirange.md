@@ -27,21 +27,21 @@ The function handles the asymmetric nature of range-to-multirange comparisons by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_before_multirange_internal
-  - range_overleft_multirange_internal
-  - range_overlaps_multirange_internal
-  - range_overright_multirange_internal
-  - range_after_multirange_internal
-  - range_adjacent_multirange_internal
-  - range_contains_multirange_internal
-  - multirange_contains_range_internal
-  - multirange_union_range_equal
+  - [range_before_multirange_internal](range_before_multirange_internal.md)
+  - [range_overleft_multirange_internal](range_overleft_multirange_internal.md)
+  - [range_overlaps_multirange_internal](range_overlaps_multirange_internal.md)
+  - [range_overright_multirange_internal](range_overright_multirange_internal.md)
+  - [range_after_multirange_internal](range_after_multirange_internal.md)
+  - [range_adjacent_multirange_internal](range_adjacent_multirange_internal.md)
+  - [range_contains_multirange_internal](range_contains_multirange_internal.md)
+  - [multirange_contains_range_internal](../m/multirange_contains_range_internal.md)
+  - [multirange_union_range_equal](../m/multirange_union_range_equal.md)
   - RANGESTRAT_* constants
   - elog (for error handling)
 - Called from (representative examples):
   - rangeCopy
-  - range_gist_consistent
-  - multirange_gist_consistent
+  - [range_gist_consistent](range_gist_consistent.md)
+  - [multirange_gist_consistent](../m/multirange_gist_consistent.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation

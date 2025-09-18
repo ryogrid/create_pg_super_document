@@ -27,14 +27,14 @@ The function is implemented as an inline wrapper around the platform-specific im
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_atomic_compare_exchange_u64_impl`
+  - `[pg_atomic_compare_exchange_u64_impl](pg_atomic_compare_exchange_u64_impl.md)`
   - `AssertPointerAlignment` (when PG_HAVE_ATOMIC_U64_SIMULATION is not defined)
-  - `pg_atomic_uint64` (type)
+  - `[pg_atomic_uint64](pg_atomic_uint64.md)` (type)
   - `PG_HAVE_ATOMIC_U64_SIMULATION` (macro)
 - Called from (representative examples):
   - `pg_atomic_monotonic_advance_u64` (src/include/port/atomics.h:597)
   - `dsa_pointer_atomic_compare_exchange` (src/include/utils/dsa.h:68)
-  - `test_atomic_uint64` (src/test/regress/regress.c:820)
+  - `[test_atomic_uint64](../t/test_atomic_uint64.md)` (src/test/regress/regress.c:820)
 
 ## Notes and Other Information
 - This is the fundamental building block for lock-free algorithms and atomic operations

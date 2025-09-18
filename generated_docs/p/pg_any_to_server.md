@@ -29,17 +29,17 @@ The function implements several optimization paths and special cases:
 ## Dependencies
 - Functions called/Symbols referenced:
   - unconstify (removes const qualifier safely)
-  - pg_verify_mbstr (validates multibyte string)
+  - [pg_verify_mbstr](pg_verify_mbstr.md) (validates multibyte string)
   - PG_VALID_BE_ENCODING (validates backend encoding)
   - IS_HIGHBIT_SET (checks for high-bit characters)
-  - perform_default_encoding_conversion (cached client conversion)
-  - pg_do_encoding_conversion (general conversion routine)
+  - [perform_default_encoding_conversion](perform_default_encoding_conversion.md) (cached client conversion)
+  - [pg_do_encoding_conversion](pg_do_encoding_conversion.md) (general conversion routine)
 - Called from (representative examples):
-  - read_extension_script_file (extension script processing)
-  - X509_NAME_to_cstring (SSL certificate processing)
-  - dsnowball_lexize (text search dictionary)
-  - pg_client_to_server (client encoding conversion wrapper)
-  - PLyUnicode_Bytes (Python language interface)
+  - [read_extension_script_file](../r/read_extension_script_file.md) (extension script processing)
+  - [X509_NAME_to_cstring](../X/X509_NAME_to_cstring.md) (SSL certificate processing)
+  - [dsnowball_lexize](../d/dsnowball_lexize.md) (text search dictionary)
+  - [pg_client_to_server](pg_client_to_server.md) (client encoding conversion wrapper)
+  - [PLyUnicode_Bytes](../P/PLyUnicode_Bytes.md) (Python language interface)
 
 ## Notes and Other Information
 - Always validates input data, even when no encoding conversion is required

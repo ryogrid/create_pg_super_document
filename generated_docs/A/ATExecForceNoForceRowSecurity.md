@@ -36,13 +36,13 @@ This setting only has an effect when row-level security is also enabled for the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy1: Retrieves a copy of the relation's pg_class catalog entry
-  - CatalogTupleUpdate: Updates the modified tuple in the pg_class catalog
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the modified tuple in the pg_class catalog
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
-  - heap_freetuple: Frees the heap tuple memory
+  - [heap_freetuple](../h/heap_freetuple.md): Frees the heap tuple memory
   - Form_pg_class: Structure representing pg_class catalog entries
 
 - Called from (representative examples):
-  - ATExecCmd: Main ALTER TABLE command execution dispatcher
+  - [ATExecCmd](ATExecCmd.md): Main ALTER TABLE command execution dispatcher
 
 ## Notes and Other Information
 - This setting is independent of the basic RLS enable/disable setting (relrowsecurity)

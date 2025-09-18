@@ -22,12 +22,12 @@ The hash table is configured to use partition OIDs as keys and stores LogicalRep
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - hash_create
-  - CacheRegisterRelcacheCallback
+  - [hash_create](../h/hash_create.md)
+  - [CacheRegisterRelcacheCallback](../C/CacheRegisterRelcacheCallback.md)
   - logicalrep_partmap_invalidate_cb
 - Types referenced:
   - HASHCTL
-  - LogicalRepPartMapEntry
+  - [LogicalRepPartMapEntry](../L/LogicalRepPartMapEntry.md)
 - Global variables:
   - LogicalRepPartMapContext
   - LogicalRepPartMap  
@@ -37,7 +37,7 @@ The hash table is configured to use partition OIDs as keys and stores LogicalRep
   - HASH_BLOBS
   - HASH_CONTEXT
 - Called from (representative examples):
-  - logicalrep_partition_open
+  - [logicalrep_partition_open](logicalrep_partition_open.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relation.c file

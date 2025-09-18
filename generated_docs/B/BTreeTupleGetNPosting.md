@@ -17,18 +17,18 @@ This function retrieves the count of heap tuple identifiers (TIDs) stored in a p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPosting
-  - ItemPointerGetOffsetNumberNoCheck
+  - [BTreeTupleIsPosting](BTreeTupleIsPosting.md)
+  - [ItemPointerGetOffsetNumberNoCheck](../I/ItemPointerGetOffsetNumberNoCheck.md)
 - Constants used:
   - BT_OFFSET_MASK
 - Called from (representative examples):
-  - _bt_dedup_start_pending
-  - _bt_dedup_save_htid
+  - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
+  - [_bt_dedup_save_htid](../b/_bt_dedup_save_htid.md)
   - _bt_update_posting
-  - _bt_check_unique
-  - btvacuumpage
-  - _bt_binsrch_posting
-  - BTreeTupleGetMaxHeapTID
+  - [_bt_check_unique](../b/_bt_check_unique.md)
+  - [btvacuumpage](../b/btvacuumpage.md)
+  - [_bt_binsrch_posting](../b/_bt_binsrch_posting.md)
+  - [BTreeTupleGetMaxHeapTID](BTreeTupleGetMaxHeapTID.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify the tuple is actually a posting tuple

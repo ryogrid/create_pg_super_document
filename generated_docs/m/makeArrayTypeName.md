@@ -22,19 +22,19 @@ The name generation process leverages makeObjectName() with an empty first compo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeObjectName
+  - [makeObjectName](makeObjectName.md)
   - SearchSysCacheExists2
-  - CStringGetDatum, ObjectIdGetDatum
-  - pfree
+  - [CStringGetDatum](../C/CStringGetDatum.md), ObjectIdGetDatum
+  - [pfree](../p/pfree.md)
   - snprintf
 - Called from (representative examples):
-  - heap_create_with_catalog (src/backend/catalog/heap.c:1357)
-  - RenameTypeInternal (src/backend/catalog/pg_type.c:825)
-  - moveArrayTypeName (src/backend/catalog/pg_type.c:926)
-  - DefineType (src/backend/commands/typecmds.c:610)
-  - DefineDomain (src/backend/commands/typecmds.c:1060)
-  - DefineEnum (src/backend/commands/typecmds.c:1226)
-  - DefineRange (src/backend/commands/typecmds.c:1637, 1676)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1357)
+  - [RenameTypeInternal](../R/RenameTypeInternal.md) (src/backend/catalog/pg_type.c:825)
+  - [moveArrayTypeName](moveArrayTypeName.md) (src/backend/catalog/pg_type.c:926)
+  - [DefineType](../D/DefineType.md) (src/backend/commands/typecmds.c:610)
+  - [DefineDomain](../D/DefineDomain.md) (src/backend/commands/typecmds.c:1060)
+  - [DefineEnum](../D/DefineEnum.md) (src/backend/commands/typecmds.c:1226)
+  - [DefineRange](../D/DefineRange.md) (src/backend/commands/typecmds.c:1637, 1676)
 
 ## Notes and Other Information
 - Follows PostgreSQL's ancient tradition of prefixing array type names with underscore

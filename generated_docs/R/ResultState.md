@@ -23,15 +23,15 @@ ResultState maintains the execution state for Result nodes, which are used in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (inherited base structure)
+  - [PlanState](../P/PlanState.md) (inherited base structure)
   - ExprState (for qualification expression state)
 - Called from (representative examples):
-  - ExecResult
-  - ExecInitResult
-  - ExecEndResult
-  - ExecReScanResult
-  - ExecResultMarkPos
-  - ExecResultRestrPos
+  - [ExecResult](../E/ExecResult.md)
+  - [ExecInitResult](../E/ExecInitResult.md)
+  - [ExecEndResult](../E/ExecEndResult.md)
+  - [ExecReScanResult](../E/ExecReScanResult.md)
+  - [ExecResultMarkPos](../E/ExecResultMarkPos.md)
+  - [ExecResultRestrPos](../E/ExecResultRestrPos.md)
 
 ## Notes and Other Information
 Result nodes are fundamental components in PostgreSQL's execution engine, often used for simple queries that don't require complex table operations. The rs_done flag is crucial for ensuring that Result nodes produce the correct number of tuples, while rs_checkqual optimizes execution by determining whether qualification checking is necessary. This state structure is primarily manipulated by functions in nodeResult.c and is part of the broader PlanState hierarchy used throughout PostgreSQL's executor.

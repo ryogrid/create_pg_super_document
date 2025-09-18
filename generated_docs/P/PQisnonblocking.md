@@ -26,8 +26,8 @@ The function returns a boolean-style integer where:
   - CONNECTION_BAD (connection status constant)  
   - pqIsnonblocking (internal function that returns the actual blocking status)
 - Called from (representative examples):
-  - test_disallowed_in_pipeline (in libpq_pipeline test module)
-  - test_simple_pipeline (in libpq_pipeline test module)
+  - [test_disallowed_in_pipeline](../t/test_disallowed_in_pipeline.md) (in libpq_pipeline test module)
+  - [test_simple_pipeline](../t/test_simple_pipeline.md) (in libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns false (0) if the connection is NULL or in CONNECTION_BAD state

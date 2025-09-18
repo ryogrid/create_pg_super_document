@@ -30,16 +30,16 @@ The function performs extensive validation to ensure constraint semantics are pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open (opens existing index for validation)
-  - get_index_constraint (checks if index already has a constraint)
-  - GetDefaultOpClass (validates operator class requirements)
-  - get_relname_relid (looks up existing index by name)
-  - SystemAttributeByName (validates system column references)
+  - [index_open](../i/index_open.md) (opens existing index for validation)
+  - [get_index_constraint](../g/get_index_constraint.md) (checks if index already has a constraint)
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md) (validates operator class requirements)
+  - [get_relname_relid](../g/get_relname_relid.md) (looks up existing index by name)
+  - [SystemAttributeByName](../S/SystemAttributeByName.md) (validates system column references)
   - table_openrv (opens inherited tables for column lookup)
-  - relation_close (closes opened relations)
+  - [relation_close](../r/relation_close.md) (closes opened relations)
   - makeNode, makeString, copyObject (node construction utilities)
 - Called from (representative examples):
-  - transformIndexConstraints (processes all index constraints for a table)
+  - [transformIndexConstraints](transformIndexConstraints.md) (processes all index constraints for a table)
 
 ## Notes and Other Information
 - This is a static function in parse_utilcmd.c, part of the constraint transformation infrastructure

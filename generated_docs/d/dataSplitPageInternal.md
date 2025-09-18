@@ -31,19 +31,19 @@ The split strategy varies based on whether this is an index build operation on a
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinPageGetOpaque
-  - PageGetPageSize
+  - [PageGetPageSize](../P/PageGetPageSize.md)
   - GinDataPageGetRightBound
   - PageGetTempPage
-  - GinInitPage
+  - [GinInitPage](../G/GinInitPage.md)
   - GinDataPageGetPostingItem
   - PostingItemSetBlockNumber
   - GinPageRightMost
   - GinNonLeafDataPageGetFreeSpace
   - GinDataPageSetDataSize
-  - PostingItem (struct)
+  - [PostingItem](../P/PostingItem.md) (struct)
   - FirstOffsetNumber (constant)
 - Called from:
-  - dataBeginPlaceToPageInternal
+  - [dataBeginPlaceToPageInternal](dataBeginPlaceToPageInternal.md)
   - leafSegmentInfo
 
 ## Notes and Other Information

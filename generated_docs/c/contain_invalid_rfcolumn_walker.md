@@ -22,15 +22,15 @@ For each Var node encountered, it checks if the column's attribute number (adjus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_attname
-  - get_attnum
-  - bms_is_member
+  - [get_attname](../g/get_attname.md)
+  - [get_attnum](../g/get_attnum.md)
+  - [bms_is_member](../b/bms_is_member.md)
   - expression_tree_walker
   - FirstLowInvalidHeapAttributeNumber
-  - rf_context
+  - [rf_context](../r/rf_context.md)
 - Called from (representative examples):
-  - contain_invalid_rfcolumn_walker (recursive)
-  - pub_rf_contains_invalid_column
+  - [contain_invalid_rfcolumn_walker](contain_invalid_rfcolumn_walker.md) (recursive)
+  - [pub_rf_contains_invalid_column](../p/pub_rf_contains_invalid_column.md)
 
 ## Notes and Other Information
 - Returns true if any referenced column is NOT in the replica identity, false otherwise

@@ -29,15 +29,15 @@ Like its input counterpart, the function is designed to handle re-initialization
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObject_ToComposite (validation)
-  - MemoryContextAllocZero
-  - PLy_output_setup_func
-  - pfree
+  - [PLyObject_ToComposite](PLyObject_ToComposite.md) (validation)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [PLy_output_setup_func](PLy_output_setup_func.md)
+  - [pfree](../p/pfree.md)
   - TupleDescAttr
 - Called from (representative examples):
-  - PLy_exec_trigger
-  - PLy_output_setup_record
-  - PLyObject_ToComposite
+  - [PLy_exec_trigger](PLy_exec_trigger.md)
+  - [PLy_output_setup_record](PLy_output_setup_record.md)
+  - [PLyObject_ToComposite](PLyObject_ToComposite.md)
 
 ## Notes and Other Information
 - This function is the output conversion counterpart to PLy_input_setup_tuple

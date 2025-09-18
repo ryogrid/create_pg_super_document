@@ -28,19 +28,19 @@ The function ensures proper resource management by unpinning and closing cursors
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - BeginInternalSubTransaction
-  - SPI_cursor_find
-  - SPI_cursor_fetch
-  - UnpinPortal
-  - SPI_cursor_close
-  - plperl_hash_from_tuple
-  - SPI_freetuptable
-  - ReleaseCurrentSubTransaction
-  - CopyErrorData
-  - FlushErrorState
-  - RollbackAndReleaseCurrentSubTransaction
-  - croak_cstr
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [SPI_cursor_find](../S/SPI_cursor_find.md)
+  - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)
+  - [UnpinPortal](../U/UnpinPortal.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
+  - [plperl_hash_from_tuple](plperl_hash_from_tuple.md)
+  - [SPI_freetuptable](../S/SPI_freetuptable.md)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [croak_cstr](../c/croak_cstr.md)
 - Called from (representative examples):
   - PL_PERL_H header (src/pl/plperl/plperl.h:31)
 

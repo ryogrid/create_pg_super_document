@@ -28,17 +28,17 @@ After materialization, the function sets up the slot's tuple header structure to
   - MinimalTupleTableSlot (type cast)
   - TTS_EMPTY (macro for checking if slot is empty)
   - TTS_SHOULDFREE (macro for checking if tuple should be freed)
-  - MemoryContextSwitchTo (memory context management)
-  - heap_form_minimal_tuple (creates minimal tuple from values)
-  - heap_copy_minimal_tuple (creates copy of existing minimal tuple)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
+  - [heap_form_minimal_tuple](../h/heap_form_minimal_tuple.md) (creates minimal tuple from values)
+  - [heap_copy_minimal_tuple](../h/heap_copy_minimal_tuple.md) (creates copy of existing minimal tuple)
   - TTS_FLAG_SHOULDFREE (flag indicating tuple ownership)
   - MINIMAL_TUPLE_OFFSET (offset constant for layout adjustment)
   - HeapTupleHeader (type cast)
 - Called from (representative examples):
-  - tts_minimal_get_minimal_tuple
-  - tts_minimal_copy_heap_tuple
-  - tts_minimal_copy_minimal_tuple
-  - slot_deform_heap_tuple
+  - [tts_minimal_get_minimal_tuple](tts_minimal_get_minimal_tuple.md)
+  - [tts_minimal_copy_heap_tuple](tts_minimal_copy_heap_tuple.md)
+  - [tts_minimal_copy_minimal_tuple](tts_minimal_copy_minimal_tuple.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execTuples.c

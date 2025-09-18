@@ -26,7 +26,7 @@ This function takes no parameters and returns:
   - max_notify_queue_pages (configuration parameter)
 
 - Called from:
-  - PreCommit_Notify (to check if notifications can be added before commit)
+  - [PreCommit_Notify](../P/PreCommit_Notify.md) (to check if notifications can be added before commit)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

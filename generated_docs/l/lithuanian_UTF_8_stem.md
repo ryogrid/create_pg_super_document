@@ -17,15 +17,15 @@ This function implements the complete Lithuanian stemming algorithm using the Sn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - len_utf8 (UTF-8 string length calculation)
-  - skip_utf8 (UTF-8 character navigation)
-  - out_grouping_U (vowel/consonant group checking)
-  - in_grouping_U (vowel/consonant group checking)
-  - r_fix_conflicts (morphological conflict resolution)
-  - r_step1 (primary suffix removal)
-  - r_fix_chdz (ch/dz phonetic pattern fixes)
-  - r_step2 (secondary suffix removal)
-  - r_fix_gd (gd phonetic pattern fixes)
+  - [len_utf8](len_utf8.md) (UTF-8 string length calculation)
+  - [skip_utf8](../s/skip_utf8.md) (UTF-8 character navigation)
+  - [out_grouping_U](../o/out_grouping_U.md) (vowel/consonant group checking)
+  - [in_grouping_U](../i/in_grouping_U.md) (vowel/consonant group checking)
+  - [r_fix_conflicts](../r/r_fix_conflicts.md) (morphological conflict resolution)
+  - [r_step1](../r/r_step1.md) (primary suffix removal)
+  - [r_fix_chdz](../r/r_fix_chdz.md) (ch/dz phonetic pattern fixes)
+  - [r_step2](../r/r_step2.md) (secondary suffix removal)
+  - [r_fix_gd](../r/r_fix_gd.md) (gd phonetic pattern fixes)
   - g_v (vowel grouping array)
 - Called from (representative examples):
   - External stemming interfaces (not shown in current symbol references)

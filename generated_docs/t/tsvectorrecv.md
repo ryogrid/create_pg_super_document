@@ -20,13 +20,13 @@ The function performs extensive validation during deserialization, checking lexe
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER: Extract StringInfo buffer from function arguments
-  - pq_getmsgint: Read integer from binary message buffer
-  - pq_getmsgstring: Read null-terminated string from binary message buffer
-  - palloc0: Allocate zero-initialized memory
-  - repalloc: Reallocate memory with larger size
+  - [pq_getmsgint](../p/pq_getmsgint.md): Read integer from binary message buffer
+  - [pq_getmsgstring](../p/pq_getmsgstring.md): Read null-terminated string from binary message buffer
+  - [palloc0](../p/palloc0.md): Allocate zero-initialized memory
+  - [repalloc](../r/repalloc.md): Reallocate memory with larger size
   - STRPTR: Get pointer to string data in TSVector
   - POSDATAPTR: Get pointer to position data
-  - compareentry: Compare function for WordEntry sorting
+  - [compareentry](../c/compareentry.md): Compare function for WordEntry sorting
   - qsort_arg: Sort function with custom comparison
   - ARRPTR: Get pointer to word entries array
   - SHORTALIGN: Align to 2-byte boundary

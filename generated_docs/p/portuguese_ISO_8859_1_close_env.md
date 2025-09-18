@@ -27,7 +27,7 @@ Since Portuguese stemming was configured with S_size = 0 (no additional string a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (line 960): Generic environment cleanup function that handles memory deallocation and performs null pointer safety checks
+  - [SN_close_env](../S/SN_close_env.md) (line 960): Generic environment cleanup function that handles memory deallocation and performs null pointer safety checks
 - Called from:
   - External stemming interface (not referenced within this codebase)
 

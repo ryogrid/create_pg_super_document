@@ -23,18 +23,18 @@ This function is essential for generating syntactically correct view creation st
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer: Creates buffers for query construction and result storage
-  - appendPQExpBuffer: Constructs parameterized query to get view definition
-  - ExecuteSqlQuery: Executes the pg_get_viewdef query against the database
-  - PQntuples: Checks that exactly one result row was returned
-  - PQgetlength: Gets the length of the view definition string
-  - PQgetvalue: Extracts the view definition from query results
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md): Constructs parameterized query to get view definition
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the pg_get_viewdef query against the database
+  - [PQntuples](../P/PQntuples.md): Checks that exactly one result row was returned
+  - [PQgetlength](../P/PQgetlength.md): Gets the length of the view definition string
+  - [PQgetvalue](../P/PQgetvalue.md): Extracts the view definition from query results
   - appendBinaryPQExpBuffer: Copies view definition minus semicolon to result buffer
-  - PQclear: Frees query result memory
+  - [PQclear](../P/PQclear.md): Frees query result memory
   - destroyPQExpBuffer: Cleans up query buffer
-  - pg_fatal: Reports fatal errors if view definition is missing or invalid
+  - [pg_fatal](../p/pg_fatal.md): Reports fatal errors if view definition is missing or invalid
 - Called from:
-  - dumpTableSchema: Used when dumping view and materialized view schema definitions
-  - dumpRule: Used when dumping rules that involve view-like constructs
+  - [dumpTableSchema](../d/dumpTableSchema.md): Used when dumping view and materialized view schema definitions
+  - [dumpRule](../d/dumpRule.md): Used when dumping rules that involve view-like constructs
 
 ## Notes and Other Information
 - Returns a new PQExpBuffer that must be freed by the caller

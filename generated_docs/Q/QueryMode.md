@@ -33,6 +33,6 @@ NUM_QUERYMODE serves as a count of available query modes and is used for validat
 
 ## Notes and Other Information
 - The default query mode is QUERY_SIMPLE as set in the global variable declaration
-- Query mode affects performance characteristics significantly, with prepared statements typically offering the best performance for repeated queries
+- [Query](Query.md) mode affects performance characteristics significantly, with prepared statements typically offering the best performance for repeated queries
 - The QUERYMODE string array provides human-readable names corresponding to each enum value for command-line interface and logging purposes
 - Located in src/bin/pgbench/pgbench.c:705-711

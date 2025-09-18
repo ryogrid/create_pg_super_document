@@ -30,13 +30,13 @@ The function notes that built-in access methods do not currently support ACLs, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership
-  - AccessMethodInfo (structure)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
+  - [AccessMethodInfo](../A/AccessMethodInfo.md) (structure)
   - DUMP_COMPONENT_NONE (constant)
   - DUMP_COMPONENT_ALL (constant)
   - g_last_builtin_oid (global variable)
 - Called from (representative examples):
-  - getAccessMethods
+  - [getAccessMethods](../g/getAccessMethods.md)
 
 ## Notes and Other Information
 - Access methods were introduced in PostgreSQL 9.6, hence the version check

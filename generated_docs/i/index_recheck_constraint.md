@@ -24,9 +24,9 @@ For each key attribute, the function calls the exclusion operator using the inde
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
-  - OidFunctionCall2Coll
+  - [OidFunctionCall2Coll](../O/OidFunctionCall2Coll.md)
 - Called from (representative examples):
-  - check_exclusion_or_unique_constraint
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the execIndexing.c file

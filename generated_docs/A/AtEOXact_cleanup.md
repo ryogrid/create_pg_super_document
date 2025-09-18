@@ -32,12 +32,12 @@ The function is designed to be idempotent since EOXactListAdd() doesn't prevent 
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
   - RelationHasReferenceCountZero
-  - RelationClearRelation
+  - [RelationClearRelation](../R/RelationClearRelation.md)
   - RelationGetRelationName
   - elog
 - Constants used:
   - InvalidSubTransactionId
-- Relation fields accessed:
+- [Relation](../R/Relation.md) fields accessed:
   - rd_refcnt
   - rd_isnailed
   - rd_createSubid
@@ -45,7 +45,7 @@ The function is designed to be idempotent since EOXactListAdd() doesn't prevent 
   - rd_firstRelfilelocatorSubid
   - rd_droppedSubid
 - Called from:
-  - AtEOXact_RelationCache (twice in different code paths)
+  - [AtEOXact_RelationCache](AtEOXact_RelationCache.md) (twice in different code paths)
 
 ## Notes and Other Information
 - This is a static (internal) function within relcache.c

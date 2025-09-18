@@ -21,7 +21,7 @@ byteatrim is a PostgreSQL built-in function that performs bidirectional trimming
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (PostgreSQL macro for getting bytea arguments)
-  - dobyteatrim (core binary trimming logic function)
+  - [dobyteatrim](../d/dobyteatrim.md) (core binary trimming logic function)
   - PG_RETURN_BYTEA_P (PostgreSQL macro for returning bytea values)
 - Called from (representative examples):
   - No direct references found in the codebase

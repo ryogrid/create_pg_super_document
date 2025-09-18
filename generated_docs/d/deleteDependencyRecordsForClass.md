@@ -30,22 +30,22 @@ Each matching record is deleted from the catalog, and the function returns a cou
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
-  - CatalogTupleDelete
-  - systable_endscan
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
 
 - Called from (representative examples):
-  - index_constraint_create (src/backend/catalog/index.c:1932)
-  - ConstraintSetParentConstraint (src/backend/catalog/pg_constraint.c:878,881)
-  - ApplyExtensionUpdates (src/backend/commands/extension.c:3244)
-  - IndexSetParentIndex (src/backend/commands/indexcmds.c:4418,4421)
-  - TriggerSetParentTrigger (src/backend/commands/trigger.c:1270,1273)
+  - [index_constraint_create](../i/index_constraint_create.md) (src/backend/catalog/index.c:1932)
+  - [ConstraintSetParentConstraint](../C/ConstraintSetParentConstraint.md) (src/backend/catalog/pg_constraint.c:878,881)
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md) (src/backend/commands/extension.c:3244)
+  - [IndexSetParentIndex](../I/IndexSetParentIndex.md) (src/backend/commands/indexcmds.c:4418,4421)
+  - [TriggerSetParentTrigger](../T/TriggerSetParentTrigger.md) (src/backend/commands/trigger.c:1270,1273)
 
 ## Notes and Other Information
 - The function acquires a RowExclusiveLock on the pg_depend relation during the operation

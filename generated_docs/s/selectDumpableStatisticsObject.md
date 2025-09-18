@@ -20,12 +20,12 @@ The current implementation assumes statistics objects operate on a single table,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
   - DUMP_COMPONENT_DEFINITION
   - DUMP_COMPONENT_NONE
-  - StatsExtInfo (struct)
+  - [StatsExtInfo](../S/StatsExtInfo.md) (struct)
 - Called from (representative examples):
-  - getExtendedStatistics
+  - [getExtendedStatistics](../g/getExtendedStatistics.md)
 
 ## Notes and Other Information
 - Extended statistics objects are only dumped when both their schema and table are being dumped

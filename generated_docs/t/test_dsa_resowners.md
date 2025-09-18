@@ -23,14 +23,14 @@ This function tests the interaction between PostgreSQL's resource ownership syst
   - dsa_create: Creates a new DSA area
   - ResourceOwnerCreate: Creates a child resource owner
   - dsa_allocate: Allocates memory blocks within the DSA
-  - dsa_get_address: Translates DSA pointers to virtual addresses
-  - dsa_free: Frees allocated memory blocks
+  - [dsa_get_address](../d/dsa_get_address.md): Translates DSA pointers to virtual addresses
+  - [dsa_free](../d/dsa_free.md): Frees allocated memory blocks
   - ResourceOwnerRelease: Releases resources managed by a resource owner
-  - ResourceOwnerDelete: Deletes a resource owner
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md): Deletes a resource owner
   - dsa_detach: Detaches from and cleans up the DSA area
   - PG_RETURN_VOID: PostgreSQL macro for returning void from functions
 - Called from (representative examples):
-  - test_dsa_basic: Referenced in the same file (cross-reference)
+  - [test_dsa_basic](test_dsa_basic.md): Referenced in the same file (cross-reference)
 
 ## Notes and Other Information
 - Tests resource ownership integration with a much larger allocation count (10,000) compared to test_dsa_basic (100)

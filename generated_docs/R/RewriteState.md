@@ -35,19 +35,19 @@ As an opaque pointer type, RewriteState does not expose member variables directl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RewriteStateData (underlying structure)
-  - begin_heap_rewrite (initialization)
-  - end_heap_rewrite (cleanup)
-  - rewrite_heap_tuple (tuple processing)
-  - rewrite_heap_dead_tuple (dead tuple handling)
+  - [RewriteStateData](RewriteStateData.md) (underlying structure)
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md) (initialization)
+  - [end_heap_rewrite](../e/end_heap_rewrite.md) (cleanup)
+  - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md) (tuple processing)
+  - [rewrite_heap_dead_tuple](../r/rewrite_heap_dead_tuple.md) (dead tuple handling)
   - MultiXactId (transaction management)
 
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
-  - reform_and_rewrite_tuple
-  - logical_begin_heap_rewrite
-  - logical_end_heap_rewrite
-  - logical_rewrite_heap_tuple
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
+  - [reform_and_rewrite_tuple](../r/reform_and_rewrite_tuple.md)
+  - [logical_begin_heap_rewrite](../l/logical_begin_heap_rewrite.md)
+  - [logical_end_heap_rewrite](../l/logical_end_heap_rewrite.md)
+  - [logical_rewrite_heap_tuple](../l/logical_rewrite_heap_tuple.md)
 
 ## Notes and Other Information
 - The struct definition is intentionally private to rewriteheap.c to maintain encapsulation

@@ -23,10 +23,10 @@ The function is designed to fail gracefully when transaction information is requ
 - Functions called/Symbols referenced:
   - TTS_EMPTY (macro for checking if slot is empty)
   - ereport (error reporting function)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execTuples.c

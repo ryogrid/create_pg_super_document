@@ -25,22 +25,22 @@ The function ensures that all expressions within the ForeignScan node properly r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index
-  - fix_upper_expr
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [fix_upper_expr](../f/fix_upper_expr.md)
   - fix_scan_list
-  - offset_relid_set
-  - pfree
+  - [offset_relid_set](../o/offset_relid_set.md)
+  - [pfree](../p/pfree.md)
   - NUM_EXEC_TLIST
   - NUM_EXEC_QUAL
   - INDEX_VAR
   - NRM_EQUAL
 - Called from (representative examples):
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
   - fix_scan_list
 
 ## Notes and Other Information
 - This is a static function within setrefs.c, indicating it's used internally for plan reference adjustment
 - The function handles both custom FDW scan tuple formats and standard relation scanning scenarios
 - All FDW-specific expression lists (fdw_exprs, fdw_recheck_quals) are properly adjusted
-- Relation ID sets (fs_relids, fs_base_relids) are offset to maintain proper relation references
+- [Relation](../R/Relation.md) ID sets (fs_relids, fs_base_relids) are offset to maintain proper relation references
 - The resultRelation field is also adjusted if it represents a valid relation

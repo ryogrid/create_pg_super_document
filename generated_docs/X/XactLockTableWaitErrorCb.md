@@ -23,15 +23,15 @@ The callback formats human-readable error messages that include the specific tup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - RelationIsValid
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - RelationGetRelationName
   - errcontext
   - gettext_noop (for internationalization)
 - Called from (representative examples):
-  - XactLockTableWait (in lmgr.c:678)
+  - [XactLockTableWait](XactLockTableWait.md) (in lmgr.c:678)
 
 ## Notes and Other Information
 - This is a static function, only used within the lmgr.c module

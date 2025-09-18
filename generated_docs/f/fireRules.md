@@ -32,16 +32,16 @@ The function also tracks whether any unqualified INSTEAD rules are found (which 
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - CopyAndAddInvertedQual
-  - rewriteRuleAction
+  - [CopyAndAddInvertedQual](../C/CopyAndAddInvertedQual.md)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
   - lappend
-  - RewriteRule (struct)
+  - [RewriteRule](../R/RewriteRule.md) (struct)
   - QuerySource (enum)
   - CmdType (enum)
   - QSRC_QUAL_INSTEAD_RULE, QSRC_INSTEAD_RULE, QSRC_NON_INSTEAD_RULE (constants)
   - CMD_NOTHING (constant)
 - Called from (representative examples):
-  - RewriteQuery
+  - [RewriteQuery](../R/RewriteQuery.md)
 
 ## Notes and Other Information
 - Central function for processing rule locks and generating rewritten query actions

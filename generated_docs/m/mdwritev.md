@@ -24,14 +24,14 @@ The function processes blocks in segments, respecting PostgreSQL's file segmenta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdnblocks
-  - _mdfd_getseg
-  - buffers_to_iovec
+  - [mdnblocks](mdnblocks.md)
+  - [_mdfd_getseg](_mdfd_getseg.md)
+  - [buffers_to_iovec](../b/buffers_to_iovec.md)
   - FileWriteV
-  - FilePathName
-  - compute_remaining_iovec
+  - [FilePathName](../F/FilePathName.md)
+  - [compute_remaining_iovec](../c/compute_remaining_iovec.md)
   - SmgrIsTemp
-  - register_dirty_segment
+  - [register_dirty_segment](../r/register_dirty_segment.md)
 - Called from (representative examples):
   - Storage manager layer functions (via MD_H interface)
 

@@ -30,13 +30,13 @@ LimitPath is a path node that implements LIMIT and OFFSET clause functionality i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - Node (for limit expressions)
-  - LimitOption (limit behavior enum)
+  - [Path](../P/Path.md) (base structure)
+  - [Node](../N/Node.md) (for limit expressions)
+  - [LimitOption](LimitOption.md) (limit behavior enum)
 - Called from (representative examples):
-  - create_limit_path (pathnode.c:3832)
-  - create_limit_plan (createplan.c:2856)
-  - create_plan_recurse (createplan.c:538)
+  - [create_limit_path](../c/create_limit_path.md) (pathnode.c:3832)
+  - [create_limit_plan](../c/create_limit_plan.md) (createplan.c:2856)
+  - [create_plan_recurse](../c/create_plan_recurse.md) (createplan.c:538)
 
 ## Notes and Other Information
 - Preserves pathkeys from the subpath since LIMIT requires stable ordering for deterministic results

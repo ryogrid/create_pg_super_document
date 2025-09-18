@@ -26,10 +26,10 @@ The structure uses a flexible array member for the  field, allowing it to store 
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro)
 - Called from (representative examples):
-  - cmpspell (comparison function for sorting)
-  - cmpspellaffix (comparison function for affix sorting)
-  - NIAddSpell (adds spell entries to dictionary)
-  - NISortDictionary (sorts dictionary entries)
+  - [cmpspell](../c/cmpspell.md) (comparison function for sorting)
+  - [cmpspellaffix](../c/cmpspellaffix.md) (comparison function for affix sorting)
+  - [NIAddSpell](../N/NIAddSpell.md) (adds spell entries to dictionary)
+  - [NISortDictionary](../N/NISortDictionary.md) (sorts dictionary entries)
 
 ## Notes and Other Information
 - The SPELLHDRSZ macro defines the header size offset for this structure

@@ -19,9 +19,9 @@ This ensures that the reconstructed file will be large enough to contain both th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rfile (structure access)
+  - [rfile](../r/rfile.md) (structure access)
 - Called from (representative examples):
-  - reconstruct_from_incremental_file
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md)
 
 ## Notes and Other Information
 The function implements a simple algorithm that ensures the reconstructed file will accommodate all blocks present in the incremental backup. It handles cases where incremental backups contain blocks beyond the original file's truncation point, which can happen when a file is extended after the base backup was taken.

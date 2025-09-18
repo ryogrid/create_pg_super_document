@@ -21,10 +21,10 @@ The function extracts the relnamespace field from the pg_class tuple and passes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsToastNamespace (checks if a namespace OID is a TOAST namespace)
+  - [IsToastNamespace](IsToastNamespace.md) (checks if a namespace OID is a TOAST namespace)
   - Form_pg_class (typedef for FormData_pg_class pointer, representing a pg_class tuple)
 - Called from:
-  - IsSystemClass (src/backend/catalog/catalog.c:88 - used in system relation classification)
+  - [IsSystemClass](IsSystemClass.md) (src/backend/catalog/catalog.c:88 - used in system relation classification)
 
 ## Notes and Other Information
 - More efficient than IsToastRelation when working directly with pg_class tuples

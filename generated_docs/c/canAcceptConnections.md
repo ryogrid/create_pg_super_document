@@ -37,8 +37,8 @@ canAcceptConnections serves as the gatekeeper for all new database connections, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CountChildren
-  - MaxLivePostmasterChildren
+  - [CountChildren](../C/CountChildren.md)
+  - [MaxLivePostmasterChildren](../M/MaxLivePostmasterChildren.md)
 - Return values/Constants used:
   - CAC_OK (connections allowed)
   - CAC_SHUTDOWN (shutdown in progress)
@@ -52,10 +52,10 @@ canAcceptConnections serves as the gatekeeper for all new database connections, 
   - FatalError (error state flag)
   - connsAllowed (smart shutdown flag)
 - Called from:
-  - BackendStartup
-  - StartAutovacuumWorker
-  - assign_backendlist_entry
-  - BackendMain
+  - [BackendStartup](../B/BackendStartup.md)
+  - [StartAutovacuumWorker](../S/StartAutovacuumWorker.md)
+  - [assign_backendlist_entry](../a/assign_backendlist_entry.md)
+  - [BackendMain](../B/BackendMain.md)
 
 ## Notes and Other Information
 - The function implements a defense-in-depth approach with multiple validation layers

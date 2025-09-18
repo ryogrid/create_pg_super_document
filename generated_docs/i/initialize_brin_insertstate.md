@@ -29,15 +29,15 @@ The returned `BrinInsertState` structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `MemoryContextSwitchTo()` (memory context management)
-  - `palloc0()` (zero-initialized memory allocation)
-  - `brin_build_desc()` (creates BRIN descriptor)
-  - `brinRevmapInitialize()` (initializes revmap access)
-  - `BrinInsertState` (structure type)
+  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)()` (memory context management)
+  - `[palloc0](../p/palloc0.md)()` (zero-initialized memory allocation)
+  - `[brin_build_desc](../b/brin_build_desc.md)()` (creates BRIN descriptor)
+  - `[brinRevmapInitialize](../b/brinRevmapInitialize.md)()` (initializes revmap access)
+  - `[BrinInsertState](../B/BrinInsertState.md)` (structure type)
   - `IndexInfo` (structure type)
 
 - Called from (representative examples):
-  - `brininsert()` (when insertion state is not already initialized)
+  - `[brininsert](../b/brininsert.md)()` (when insertion state is not already initialized)
 
 ## Notes and Other Information
 - This is a static function, meaning it is only callable within the same source file

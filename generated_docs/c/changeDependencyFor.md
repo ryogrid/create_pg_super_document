@@ -31,29 +31,29 @@ The function processes all matching dependency records, including those with sub
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isObjectPinned
-  - recordDependencyOn
+  - [isObjectPinned](../i/isObjectPinned.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
-  - CatalogTupleDelete
-  - heap_copytuple
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - systable_endscan
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
   - DEPENDENCY_NORMAL
 
 - Called from (representative examples):
-  - AlterObjectNamespace_internal (src/backend/commands/alter.c:811)
-  - swap_relation_files (src/backend/commands/cluster.c:1275,1283)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (src/backend/commands/alter.c:811)
+  - [swap_relation_files](../s/swap_relation_files.md) (src/backend/commands/cluster.c:1275,1283)
   - AlterExtensionNamespace (src/backend/commands/extension.c:2971)
-  - AlterFunction (src/backend/commands/functioncmds.c:1449)
-  - AlterRelationNamespaceInternal (src/backend/commands/tablecmds.c:17365)
+  - [AlterFunction](../A/AlterFunction.md) (src/backend/commands/functioncmds.c:1449)
+  - [AlterRelationNamespaceInternal](../A/AlterRelationNamespaceInternal.md) (src/backend/commands/tablecmds.c:17365)
 
 ## Notes and Other Information
 - Returns the number of records updated; zero indicates a potential problem since at least one record should normally exist

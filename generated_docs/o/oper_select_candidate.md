@@ -20,13 +20,13 @@ The `oper_select_candidate` function attempts to resolve conflicts when multiple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - func_match_argtypes (filters incompatible candidates)
-  - func_select_candidate (applies disambiguation heuristics)
+  - [func_match_argtypes](../f/func_match_argtypes.md) (filters incompatible candidates)
+  - [func_select_candidate](../f/func_select_candidate.md) (applies disambiguation heuristics)
   - FuncCandidateList (candidate list data structure)
   - FUNCDETAIL_NOTFOUND, FUNCDETAIL_NORMAL, FUNCDETAIL_MULTIPLE (result codes)
 - Called from (representative examples):
-  - oper (main operator resolution function)
-  - left_oper (left unary operator resolution)
+  - [oper](oper.md) (main operator resolution function)
+  - [left_oper](../l/left_oper.md) (left unary operator resolution)
 
 ## Notes and Other Information
 - Returns FuncDetailCode indicating success, failure, or ambiguity

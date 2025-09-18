@@ -24,17 +24,17 @@ The function performs extensive validation of input parameters, allocates the in
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc
-  - MemoryContextStats
-  - MemoryContextCreate
-  - dlist_init
-  - dlist_push_head
+  - [MemoryContextStats](../M/MemoryContextStats.md)
+  - [MemoryContextCreate](../M/MemoryContextCreate.md)
+  - [dlist_init](../d/dlist_init.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
   - KeeperBlock
-  - BumpBlockInit
+  - [BumpBlockInit](BumpBlockInit.md)
   - StaticAssertDecl
   - AllocHugeSizeIsValid
 - Called from (representative examples):
-  - TidStoreCreateLocal
-  - tuplesort_begin_batch
+  - [TidStoreCreateLocal](../T/TidStoreCreateLocal.md)
+  - [tuplesort_begin_batch](../t/tuplesort_begin_batch.md)
 
 ## Notes and Other Information
 - The initial block layout is unique compared to other Bump blocks as it starts with the context header followed by the block header

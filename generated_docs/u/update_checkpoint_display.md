@@ -25,8 +25,8 @@ The function constructs descriptive messages that indicate the type of operation
   - CHECKPOINT_END_OF_RECOVERY (constant)
   - CHECKPOINT_IS_SHUTDOWN (constant)
 - Called from (representative examples):
-  - CreateCheckPoint
-  - CreateRestartPoint
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
 
 ## Notes and Other Information
 - The function only updates the display for end-of-recovery and shutdown operations, filtering out routine checkpoints to avoid unnecessary overhead

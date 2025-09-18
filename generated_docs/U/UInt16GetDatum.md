@@ -19,10 +19,10 @@ UInt16GetDatum is a static inline function that provides a type-safe conversion 
 - Functions called/Symbols referenced:
   - (None - simple cast operation)
 - Called from (representative examples):
-  - GinFormTuple (src/backend/access/gin/ginentrypage.c:62)
-  - collectMatchBitmap (src/backend/access/gin/ginget.c:197)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:315-316)
-  - pg_lock_status (src/backend/utils/adt/lockfuncs.c:285)
+  - [GinFormTuple](../G/GinFormTuple.md) (src/backend/access/gin/ginentrypage.c:62)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md) (src/backend/access/gin/ginget.c:197)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:315-316)
+  - [pg_lock_status](../p/pg_lock_status.md) (src/backend/utils/adt/lockfuncs.c:285)
   - PG_RETURN_UINT16 macro (src/include/fmgr.h:357)
 
 ## Notes and Other Information

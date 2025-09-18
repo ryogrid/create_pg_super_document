@@ -23,19 +23,19 @@ The preprocessed targetlist is stored in , and for UPDATE operations, the target
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_insert_targetlist
-  - extract_update_targetlist_colnos
-  - add_row_identity_columns
+  - [expand_insert_targetlist](../e/expand_insert_targetlist.md)
+  - [extract_update_targetlist_colnos](../e/extract_update_targetlist_colnos.md)
+  - [add_row_identity_columns](../a/add_row_identity_columns.md)
   - rt_fetch
   - table_open/table_close
-  - makeTargetEntry
+  - [makeTargetEntry](../m/makeTargetEntry.md)
   - makeVar
   - makeWholeRowVar
-  - pull_var_clause
-  - tlist_member
-  - list_concat_copy
+  - [pull_var_clause](pull_var_clause.md)
+  - [tlist_member](../t/tlist_member.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
 - Called from (representative examples):
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1470)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1470)
 
 ## Notes and Other Information
 This function is located in src/backend/optimizer/prep/preptlist.c:64-347 and serves as a critical component in PostgreSQL's query planning phase. It must handle the complexities of different SQL command types while ensuring the targetlist is properly formatted for the executor. The function carefully manages memory and maintains proper reference relationships between query elements.

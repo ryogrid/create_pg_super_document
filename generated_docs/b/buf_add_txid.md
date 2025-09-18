@@ -21,9 +21,9 @@ This function is responsible for adding a transaction ID to a snapshot buffer du
   - appendBinaryStringInfo
 - Types referenced:
   - FullTransactionId
-  - pg_snapshot
+  - [pg_snapshot](../p/pg_snapshot.md)
 - Called from (representative examples):
-  - parse_snapshot
+  - [parse_snapshot](../p/parse_snapshot.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/xid8funcs.c

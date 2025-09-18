@@ -18,13 +18,13 @@ The  function performs a linear search through a target list to find the first  
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal (for deep expression comparison)
+  - [equal](../e/equal.md) (for deep expression comparison)
 - Called from (representative examples):
-  - create_unique_plan
-  - search_indexed_tlist_for_non_var  
-  - preprocess_targetlist
-  - add_to_flat_tlist
-  - apply_pathtarget_labeling_to_tlist
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [search_indexed_tlist_for_non_var](../s/search_indexed_tlist_for_non_var.md)  
+  - [preprocess_targetlist](../p/preprocess_targetlist.md)
+  - [add_to_flat_tlist](../a/add_to_flat_tlist.md)
+  - [apply_pathtarget_labeling_to_tlist](../a/apply_pathtarget_labeling_to_tlist.md)
 
 ## Notes and Other Information
 - Returns the first matching TargetEntry or NULL if no match is found

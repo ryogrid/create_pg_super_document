@@ -23,15 +23,15 @@ The `mic2euc_tw` function performs the reverse conversion of `euc_tw2mic`, conve
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IS_HIGHBIT_SET`: Macro to check if high bit is set in a byte (used with negation)
-  - `pg_encoding_verifymbchar`: Verify multibyte character validity for PG_MULE_INTERNAL
-  - `report_invalid_encoding`: Report invalid encoding sequences
-  - `report_untranslatable_char`: Report characters that cannot be converted
+  - `[pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)`: Verify multibyte character validity for PG_MULE_INTERNAL
+  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Report invalid encoding sequences
+  - `[report_untranslatable_char](../r/report_untranslatable_char.md)`: Report characters that cannot be converted
   - `SS2`: Single Shift 2 character constant for plane switching
   - `LC_CNS11643_1`, `LC_CNS11643_2`, `LC_CNS11643_3`, `LC_CNS11643_7`: CNS character plane constants
   - `LCPRV2_B`: MULE private charset code for extended planes
   - `PG_MULE_INTERNAL`, `PG_EUC_TW`: Encoding identifier constants
 - Called from:
-  - `mic_to_euc_tw`: Main wrapper function for MIC to EUC-TW conversion
+  - `[mic_to_euc_tw](mic_to_euc_tw.md)`: Main wrapper function for MIC to EUC-TW conversion
 
 ## Notes and Other Information
 - Handles ASCII characters (single-byte) by passing them through unchanged

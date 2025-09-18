@@ -25,19 +25,19 @@ Additionally, this function recursively processes any child plan nodes within th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index
-  - fix_upper_expr
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [fix_upper_expr](../f/fix_upper_expr.md)
   - fix_scan_list
-  - set_plan_refs
-  - offset_relid_set
-  - pfree
+  - [set_plan_refs](set_plan_refs.md)
+  - [offset_relid_set](../o/offset_relid_set.md)
+  - [pfree](../p/pfree.md)
   - lfirst
   - NUM_EXEC_TLIST
   - NUM_EXEC_QUAL
   - INDEX_VAR
   - NRM_EQUAL
 - Called from (representative examples):
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
   - fix_scan_list
 
 ## Notes and Other Information

@@ -24,9 +24,9 @@ This function iterates through all connection options defined in PQconninfoOptio
   - internalPQconninfoOption (structure type)
   - strdup (standard library function for string duplication)
   - free (standard library function for memory deallocation)
-  - libpq_append_conn_error (for error reporting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from (representative examples):
-  - PQcancelCreate
+  - [PQcancelCreate](../P/PQcancelCreate.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

@@ -20,17 +20,17 @@ The function is implemented as a static inline function for performance reasons,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (struct type)
-  - dlist_node (struct type)
-  - dlist_has_next (function to verify next node exists)
+  - [dlist_head](dlist_head.md) (struct type)
+  - [dlist_node](dlist_node.md) (struct type)
+  - [dlist_has_next](dlist_has_next.md) (function to verify next node exists)
   - Assert (macro for debug assertions)
 - Called from (representative examples):
-  - dataPlaceToPageLeafSplit (src/backend/access/gin/gindatapage.c:1058, 1061, 1082)
-  - addItemsToLeaf (src/backend/access/gin/gindatapage.c:1485)
-  - leafRepackItems (src/backend/access/gin/gindatapage.c:1597, 1716)
-  - ReorderBufferIterTXNNext (src/backend/replication/logical/reorderbuffer.c:1440)
+  - [dataPlaceToPageLeafSplit](dataPlaceToPageLeafSplit.md) (src/backend/access/gin/gindatapage.c:1058, 1061, 1082)
+  - [addItemsToLeaf](../a/addItemsToLeaf.md) (src/backend/access/gin/gindatapage.c:1485)
+  - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1597, 1716)
+  - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (src/backend/replication/logical/reorderbuffer.c:1440)
   - pgstat_flush_pending_entries (src/backend/utils/activity/pgstat.c:1219)
-  - dclist_next_node (src/include/lib/ilist.h:871)
+  - [dclist_next_node](dclist_next_node.md) (src/include/lib/ilist.h:871)
 
 ## Notes and Other Information
 - The function assumes that the caller has verified a next node exists, enforced by the assertion

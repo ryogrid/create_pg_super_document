@@ -19,7 +19,7 @@ The function supports various integer types including signed and unsigned varian
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_variable (variable lookup function)
+  - [find_variable](../f/find_variable.md) (variable lookup function)
   - fputs (outputs name to base_yyout stream)
   - mmerror (error reporting function)
   - ECPGt_short, ECPGt_int, ECPGt_long, ECPGt_long_long (signed integer types)
@@ -27,8 +27,8 @@ The function supports various integer types including signed and unsigned varian
   - ECPGt_const (const qualified type)
   - PARSE_ERROR, ET_ERROR (error reporting constants)
 - Called from (representative examples):
-  - output_get_descr_header
-  - output_set_descr_header
+  - [output_get_descr_header](../o/output_get_descr_header.md)
+  - [output_set_descr_header](../o/output_set_descr_header.md)
 
 ## Notes and Other Information
 - Static function with file-local scope in descriptor.c

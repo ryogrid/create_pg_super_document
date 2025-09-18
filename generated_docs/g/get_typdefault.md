@@ -17,20 +17,20 @@ This function performs a system catalog lookup to retrieve the default value for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - SysCacheGetAttr
-  - stringToNode
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [stringToNode](../s/stringToNode.md)
   - TextDatumGetCString
-  - OidInputFunctionCall
-  - getTypeIOParam
-  - makeConst
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)
+  - [getTypeIOParam](getTypeIOParam.md)
+  - [makeConst](../m/makeConst.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Form_pg_type
 - Called from (representative examples):
-  - build_column_default
+  - [build_column_default](../b/build_column_default.md)
 
 ## Notes and Other Information
 - Returns a palloc'd expression node tree that must be freed by the caller when no longer needed

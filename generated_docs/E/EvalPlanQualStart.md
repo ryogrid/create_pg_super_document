@@ -30,24 +30,24 @@ This setup allows EPQ to re-execute portions of a query plan with specific tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
-  - ExecSetParamPlanMulti  
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md)  
   - GetPerTupleExprContext
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
   - palloc_array
   - palloc0_array
   - lfirst_int
-  - ParamExecData
-  - ExecAuxRowMark
+  - [ParamExecData](../P/ParamExecData.md)
+  - [ExecAuxRowMark](ExecAuxRowMark.md)
   - ForwardScanDirection
 
 - Called from (representative examples):
-  - EvalPlanQualBegin
+  - [EvalPlanQualBegin](EvalPlanQualBegin.md)
 
 ## Notes and Other Information
 - This function is static and only used internally within execMain.c
 - The created EState shares most state with the parent but maintains separate copies of local state like tuple tables and parameter execution values
-- Result relations in the EPQ context are marked as blocked initially
+- [Result](../R/Result.md) relations in the EPQ context are marked as blocked initially
 - All subplans from the parent planned statement are initialized even if not all will be used
 - The function operates within the es_query_cxt memory context of the newly created EState
 - EPQ is primarily used in ModifyTable and LockRows operations to handle concurrent tuple modifications

@@ -21,17 +21,17 @@ For the last data item in the archive, the function can determine its length by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext (local context structure type)
-  - TocEntry (table of contents entry structure)
+  - [lclContext](../l/lclContext.md) (local context structure type)
+  - [TocEntry](../T/TocEntry.md) (table of contents entry structure)
   - lclTocEntry (local TOC entry extension)
   - K_OFFSET_POS_SET (constant indicating valid data position)
   - pgoff_t (PostgreSQL offset type)
   - fseeko (seeks to specific file position)
   - ftello (gets current file position)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (custom format initialization)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (custom format initialization)
   - lclTocEntry (directory format TOC entry handling)
-  - InitArchiveFmt_Directory (directory format initialization)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (directory format initialization)
 
 ## Notes and Other Information
 - This is a static function specific to the custom archive format implementation

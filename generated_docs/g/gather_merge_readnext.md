@@ -30,15 +30,15 @@ The function builds a TupleTableSlot from the retrieved MinimalTuple, making it 
   - outerPlanState
   - ExecProcNode
   - TupIsNull
-  - gm_readnext_tuple
-  - load_tuple_array
-  - ExecStoreMinimalTuple
-  - GatherMergeState
-  - GMReaderTupleBuffer
+  - [gm_readnext_tuple](gm_readnext_tuple.md)
+  - [load_tuple_array](../l/load_tuple_array.md)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
+  - [GatherMergeState](../G/GatherMergeState.md)
+  - [GMReaderTupleBuffer](../G/GMReaderTupleBuffer.md)
   - MinimalTuple
 - Called from (representative examples):
-  - gather_merge_init
-  - gather_merge_getnext
+  - [gather_merge_init](gather_merge_init.md)
+  - [gather_merge_getnext](gather_merge_getnext.md)
 
 ## Notes and Other Information
 - Returns true if a tuple was successfully retrieved and stored, false otherwise

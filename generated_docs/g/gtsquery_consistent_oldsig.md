@@ -23,7 +23,7 @@ The function simply delegates all calls to the current gtsquery_consistent funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gtsquery_consistent (delegates all functionality to this function)
+  - [gtsquery_consistent](gtsquery_consistent.md) (delegates all functionality to this function)
   - fcinfo (PostgreSQL function call info, passed through to gtsquery_consistent)
 - Called from:
   - No direct references found (likely called through GiST function table for legacy opclass declarations)

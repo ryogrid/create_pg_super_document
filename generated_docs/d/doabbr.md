@@ -30,15 +30,15 @@ The function intelligently handles the daylight saving time context, selecting a
 ## Dependencies
 - Functions called/Symbols referenced:
   - strchr (to find slash separator in format)
-  - abbroffset (to generate numeric offset strings)
+  - [abbroffset](../a/abbroffset.md) (to generate numeric offset strings)
   - sprintf (for format string substitution)
   - strcpy, memcpy (for string copying)
   - strlen (for string length calculation)
   - is_alpha (to check if abbreviation is alphabetic)
   - memmove (for string manipulation when adding quotes)
 - Called from (representative examples):
-  - stringzone (in src/timezone/zic.c:2900, 2910)
-  - years_of_observations (in src/timezone/zic.c:3117, 3232, 3243, 3253)
+  - [stringzone](../s/stringzone.md) (in src/timezone/zic.c:2900, 2910)
+  - [years_of_observations](../y/years_of_observations.md) (in src/timezone/zic.c:3117, 3232, 3243, 3253)
 
 ## Notes and Other Information
 - Returns the length of the generated abbreviation

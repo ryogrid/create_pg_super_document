@@ -20,14 +20,14 @@ The structure is designed for concurrent access in a multi-process environment, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
-  - PgStat_SLRUStats
+  - [LWLock](../L/LWLock.md)
+  - [PgStat_SLRUStats](PgStat_SLRUStats.md)
   - SLRU_NUM_ELEMENTS
 - Called from (representative examples):
   - pgstat_slru_flush
-  - pgstat_slru_snapshot_cb
-  - pgstat_reset_slru_counter_internal
-  - PgStat_ShmemControl (as a member)
+  - [pgstat_slru_snapshot_cb](../p/pgstat_slru_snapshot_cb.md)
+  - [pgstat_reset_slru_counter_internal](../p/pgstat_reset_slru_counter_internal.md)
+  - [PgStat_ShmemControl](PgStat_ShmemControl.md) (as a member)
 
 ## Notes and Other Information
 - SLRU_NUM_ELEMENTS is defined as lengthof(slru_names) where slru_names contains 8 SLRU types: commit_timestamp, multixact_member, multixact_offset, notify, serializable, subtransaction, transaction, and other

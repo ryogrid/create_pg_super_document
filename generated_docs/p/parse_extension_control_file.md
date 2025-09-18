@@ -26,23 +26,23 @@ The function enforces rules about which parameters can appear in auxiliary files
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_extension_aux_control_filename
-  - get_extension_control_filename
+  - [get_extension_aux_control_filename](../g/get_extension_aux_control_filename.md)
+  - [get_extension_control_filename](../g/get_extension_control_filename.md)
   - AllocateFile
   - FreeFile
   - ParseConfigFp
   - FreeConfigVariables
-  - pstrdup
-  - parse_bool
-  - pg_valid_server_encoding
+  - [pstrdup](pstrdup.md)
+  - [parse_bool](parse_bool.md)
+  - [pg_valid_server_encoding](pg_valid_server_encoding.md)
   - SplitIdentifierString
   - ereport
 - Types referenced:
-  - ExtensionControlFile
+  - [ExtensionControlFile](../E/ExtensionControlFile.md)
   - ConfigVariable
 - Called from (representative examples):
-  - read_extension_control_file
-  - read_extension_aux_control_file
+  - [read_extension_control_file](../r/read_extension_control_file.md)
+  - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the extension.c source file

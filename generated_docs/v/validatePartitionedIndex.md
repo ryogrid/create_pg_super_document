@@ -28,24 +28,24 @@ The function ensures that a partitioned index is only considered valid when all 
 - Functions called/Symbols referenced:
   - table_open
   - table_close
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - SearchSysCache1
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - SearchSysCacheCopy1
-  - ReleaseSysCache
-  - RelationGetPartitionDesc
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - CommandCounterIncrement
-  - get_partition_parent
-  - relation_open
-  - relation_close
-  - validatePartitionedIndex (recursive call)
+  - [get_partition_parent](../g/get_partition_parent.md)
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
+  - [validatePartitionedIndex](validatePartitionedIndex.md) (recursive call)
 - Called from (representative examples):
-  - ATExecAttachPartitionIdx
-  - validatePartitionedIndex (recursive self-call)
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
+  - [validatePartitionedIndex](validatePartitionedIndex.md) (recursive self-call)
 
 ## Notes and Other Information
 - This function is called after each partition index attachment to check if the parent can be marked valid

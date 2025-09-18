@@ -23,12 +23,12 @@ The function follows a two-step process:
 - Functions called/Symbols referenced:
   - ResourceOwnerEnlarge
   - IsBootstrapProcessingMode
-  - ResourceOwnerRememberRelationRef
+  - [ResourceOwnerRememberRelationRef](ResourceOwnerRememberRelationRef.md)
 - Called from (representative examples):
-  - heap_beginscan
-  - index_beginscan_internal
-  - PartitionDirectoryLookup
-  - RelationIdGetRelation
+  - [heap_beginscan](../h/heap_beginscan.md)
+  - [index_beginscan_internal](../i/index_beginscan_internal.md)
+  - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
+  - [RelationIdGetRelation](RelationIdGetRelation.md)
 
 ## Notes and Other Information
 - Bootstrap mode has special handling where reference count ownership tracking is disabled due to different relation lifecycle management during database initialization

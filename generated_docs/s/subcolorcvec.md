@@ -20,18 +20,18 @@ The  function is a key component of PostgreSQL's regex compilation system. It pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subcoloronechr (processes individual characters)
-  - subcoloronerange (processes character ranges)
-  - subcolor (gets subcolor for simple characters)
-  - subcolorhi (gets subcolor for high colormap entries)
-  - newarc (creates NFA arcs)
-  - newhicolorcols (expands hicolormap columns)
+  - [subcoloronechr](subcoloronechr.md) (processes individual characters)
+  - [subcoloronerange](subcoloronerange.md) (processes character ranges)
+  - [subcolor](subcolor.md) (gets subcolor for simple characters)
+  - [subcolorhi](subcolorhi.md) (gets subcolor for high colormap entries)
+  - [newarc](../n/newarc.md) (creates NFA arcs)
+  - [newhicolorcols](../n/newhicolorcols.md) (expands hicolormap columns)
   - NOERR (error checking macro)
 - Called from (representative examples):
-  - charclass (at line 1507)
-  - charclasscomplement (at line 1536)
-  - brackpart (at lines 1810, 1876)
-  - onechr (at line 1925)
+  - [charclass](../c/charclass.md) (at line 1507)
+  - [charclasscomplement](../c/charclasscomplement.md) (at line 1536)
+  - [brackpart](../b/brackpart.md) (at lines 1810, 1876)
+  - [onechr](../o/onechr.md) (at line 1925)
   - wordchrs (at line 2011)
 
 ## Notes and Other Information

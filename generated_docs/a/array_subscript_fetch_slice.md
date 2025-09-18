@@ -23,9 +23,9 @@ Array slices in PostgreSQL are guaranteed to never return NULL - even an empty o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_get_slice (performs the actual array slicing operation using upper/lower bounds and type information)
+  - [array_get_slice](array_get_slice.md) (performs the actual array slicing operation using upper/lower bounds and type information)
 - Called from (representative examples):
-  - array_exec_setup (configures this function as part of the expression evaluation sequence for slice operations)
+  - [array_exec_setup](array_exec_setup.md) (configures this function as part of the expression evaluation sequence for slice operations)
 
 ## Notes and Other Information
 - This is a static function internal to the array subscripting module

@@ -20,10 +20,10 @@ BuildSpeculativeIndexInfo extends an existing IndexInfo structure with specializ
 - Functions called/Symbols referenced:
   - IndexInfo (structure type)
   - IndexRelationGetNumberOfKeyAttributes (function)
-  - get_opfamily_member (function) 
-  - get_opcode (function)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (function) 
+  - [get_opcode](../g/get_opcode.md) (function)
 - Called from (representative examples):
-  - ExecOpenIndices
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
 
 ## Notes and Other Information
 - Only supports B-tree indexes (BTREE_AM_OID) and will error for other access methods

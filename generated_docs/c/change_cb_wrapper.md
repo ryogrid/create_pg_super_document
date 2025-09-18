@@ -22,10 +22,10 @@ The function sets up an error callback context that will provide detailed inform
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer
-  - ReorderBufferTXN
-  - ReorderBufferChange
-  - LogicalDecodingContext
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [ReorderBufferChange](../R/ReorderBufferChange.md)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
   - LogicalErrorCallbackState
   - output_plugin_error_callback
 - Called from (representative examples):

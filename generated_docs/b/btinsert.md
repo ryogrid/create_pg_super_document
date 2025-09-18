@@ -26,13 +26,13 @@ This function is part of PostgreSQL's index access method interface and is calle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_form_tuple (creates index tuple from values)
+  - [index_form_tuple](../i/index_form_tuple.md) (creates index tuple from values)
   - RelationGetDescr (gets relation descriptor)
-  - _bt_doinsert (performs the actual B-tree insertion)
-  - pfree (frees allocated memory)
+  - [_bt_doinsert](_bt_doinsert.md) (performs the actual B-tree insertion)
+  - [pfree](../p/pfree.md) (frees allocated memory)
   - IndexUniqueCheck, IndexInfo (type definitions)
 - Called from (representative examples):
-  - bthandler (registered as aminsert callback)
+  - [bthandler](bthandler.md) (registered as aminsert callback)
   - Index maintenance operations during INSERT/UPDATE queries
 
 ## Notes and Other Information

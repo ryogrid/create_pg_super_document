@@ -21,8 +21,8 @@ The function allocates a 32-byte buffer for the output string, which is sufficie
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4 (argument extraction)
-  - palloc (memory allocation)
-  - float_to_shortest_decimal_buf (shortest decimal conversion)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [float_to_shortest_decimal_buf](float_to_shortest_decimal_buf.md) (shortest decimal conversion)
   - pg_strfromd (formatted string conversion)
   - PG_RETURN_CSTRING (return value macro)
 - Called from (representative examples):

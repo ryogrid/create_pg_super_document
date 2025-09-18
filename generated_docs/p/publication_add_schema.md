@@ -30,20 +30,20 @@ Similar to publication_add_relation, this function considers partition hierarchi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPublication
+  - [GetPublication](../G/GetPublication.md)
   - SearchSysCacheExists2
-  - get_namespace_name
-  - check_publication_add_schema
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [check_publication_add_schema](../c/check_publication_add_schema.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - GetSchemaPublicationRelations
-  - InvalidatePublicationRels
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [GetSchemaPublicationRelations](../G/GetSchemaPublicationRelations.md)
+  - [InvalidatePublicationRels](../I/InvalidatePublicationRels.md)
 - Called from (representative examples):
-  - PublicationAddSchemas (src/backend/commands/publicationcmds.c:1838)
+  - [PublicationAddSchemas](../P/PublicationAddSchemas.md) (src/backend/commands/publicationcmds.c:1838)
 
 ## Notes and Other Information
 - The function uses RowExclusiveLock on the pg_publication_namespace catalog to ensure consistency

@@ -30,7 +30,7 @@ The function completes the string_agg operation by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate execution context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate execution context)
   - cstring_to_text_with_len (converts C string to PostgreSQL text with specified length)
   - PG_ARGISNULL, PG_GETARG_POINTER (PostgreSQL argument macros)
   - PG_RETURN_TEXT_P, PG_RETURN_NULL (PostgreSQL return macros)

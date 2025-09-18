@@ -30,7 +30,7 @@ The function validates the encoding conversion arguments and iterates through a 
   - PG_GETARG_CSTRING
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
-  - UtfToLocal
+  - [UtfToLocal](../U/UtfToLocal.md)
   - lengthof
   - ereport/ERROR
 - Called from (representative examples):

@@ -19,7 +19,7 @@ The `rtoday` function is part of PostgreSQL's ECPG date handling compatibility l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESdate_today
+  - [PGTYPESdate_today](../P/PGTYPESdate_today.md)
   - date (type)
 - Called from (representative examples):
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)

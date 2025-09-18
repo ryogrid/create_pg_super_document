@@ -28,16 +28,16 @@ The function supports both AGG_HASHED and AGG_MIXED strategies, selecting the ap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState
-  - AggStatePerPhase
+  - [AggState](../A/AggState.md)
+  - [AggStatePerPhase](../A/AggStatePerPhase.md)
   - AGG_HASHED
   - AGG_MIXED
   - TupleTableSlotOps
-  - ExecBuildAggTrans
+  - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md)
 - Called from (representative examples):
-  - hash_agg_enter_spill_mode
-  - agg_refill_hash_table
-  - ExecReScanAgg
+  - [hash_agg_enter_spill_mode](hash_agg_enter_spill_mode.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md)
 
 ## Notes and Other Information
 - Uses a 2x2 cache matrix (evaltrans_cache[i][j]) to store compiled expressions for different execution contexts

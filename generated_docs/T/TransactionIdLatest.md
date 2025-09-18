@@ -21,13 +21,13 @@ The function is essential for transaction management operations where the system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes (determines transaction ID precedence using modular arithmetic)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md) (determines transaction ID precedence using modular arithmetic)
 - Called from (representative examples):
-  - FinishPreparedTransaction (two-phase commit completion)
-  - RecordTransactionCommit (transaction commit recording)
-  - RecordTransactionAbort (transaction abort recording)
-  - xact_redo_commit (WAL replay for commit records)
-  - xact_redo_abort (WAL replay for abort records)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (two-phase commit completion)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (transaction commit recording)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (transaction abort recording)
+  - [xact_redo_commit](../x/xact_redo_commit.md) (WAL replay for commit records)
+  - [xact_redo_abort](../x/xact_redo_abort.md) (WAL replay for abort records)
   - ProcArrayApplyXidAssignment (process array transaction assignment)
 
 ## Notes and Other Information

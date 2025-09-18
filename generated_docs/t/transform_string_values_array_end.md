@@ -21,7 +21,7 @@ The function is part of the comprehensive semantic action callback system that p
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro
 - Called from (representative examples):
-  - transform_json_string_values (set as sem->array_end callback)
+  - [transform_json_string_values](transform_json_string_values.md) (set as sem->array_end callback)
 
 ## Notes and Other Information
 - Returns JSON_SUCCESS to indicate successful processing

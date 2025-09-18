@@ -20,16 +20,16 @@ This function is the central WAL replay handler for database operations during P
   - XLogRecGetInfo (WAL record info extraction)
   - XLogRecGetData (WAL record data extraction)  
   - XLogRecHasAnyBlockRefs (block reference checking)
-  - GetDatabasePath (database path construction)
-  - recovery_create_dbdir (missing directory creation)
+  - [GetDatabasePath](../G/GetDatabasePath.md) (database path construction)
+  - [recovery_create_dbdir](../r/recovery_create_dbdir.md) (missing directory creation)
   - FlushDatabaseBuffers/DropDatabaseBuffers (buffer management)
   - copydir (directory copying)
   - rmtree (recursive directory removal)
-  - CreateDirAndVersionFile (database directory setup)
-  - ReplicationSlotsDropDBSlots (replication cleanup)
-  - LockSharedObjectForSession/UnlockSharedObjectForSession (hot standby locking)
-  - ResolveRecoveryConflictWithDatabase (conflict resolution)
-  - EmitProcSignalBarrier/WaitForProcSignalBarrier (backend coordination)
+  - [CreateDirAndVersionFile](../C/CreateDirAndVersionFile.md) (database directory setup)
+  - [ReplicationSlotsDropDBSlots](../R/ReplicationSlotsDropDBSlots.md) (replication cleanup)
+  - [LockSharedObjectForSession](../L/LockSharedObjectForSession.md)/UnlockSharedObjectForSession (hot standby locking)
+  - [ResolveRecoveryConflictWithDatabase](../R/ResolveRecoveryConflictWithDatabase.md) (conflict resolution)
+  - [EmitProcSignalBarrier](../E/EmitProcSignalBarrier.md)/WaitForProcSignalBarrier (backend coordination)
 - Called from (representative examples):
   - WAL resource manager framework during recovery
 

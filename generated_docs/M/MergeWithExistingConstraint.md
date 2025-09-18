@@ -32,21 +32,21 @@ The merging logic handles complex inheritance scenarios, including special handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - CStringGetDatum
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_constraint
   - CONSTRAINT_CHECK
-  - fastgetattr
-  - equal
-  - stringToNode
+  - [fastgetattr](../f/fastgetattr.md)
+  - [equal](../e/equal.md)
+  - [stringToNode](../s/stringToNode.md)
   - TextDatumGetCString
   - ERRCODE_DUPLICATE_OBJECT
-  - heap_copytuple
-  - CatalogTupleUpdate
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
 - Called from (representative examples):
-  - AddRelationNewConstraints
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
 
 ## Notes and Other Information
 - Returns true if constraint was merged (is a duplicate), false if it has a unique name, or throws error on conflicts

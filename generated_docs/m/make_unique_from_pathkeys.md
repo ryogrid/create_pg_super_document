@@ -22,19 +22,19 @@ This static function constructs a Unique plan node using pathkeys to determine w
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create Unique node)
-  - palloc (to allocate arrays for column information)
-  - get_sortgroupref_tle (to find target entry by sort group reference for volatile ECs)
-  - find_ec_member_matching_expr (to match expressions in equivalence classes)
-  - get_opfamily_member (to find equality operator for pathkey's operator family)
+  - [palloc](../p/palloc.md) (to allocate arrays for column information)
+  - [get_sortgroupref_tle](../g/get_sortgroupref_tle.md) (to find target entry by sort group reference for volatile ECs)
+  - [find_ec_member_matching_expr](../f/find_ec_member_matching_expr.md) (to match expressions in equivalence classes)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (to find equality operator for pathkey's operator family)
   - elog (for error reporting)
 - Types referenced:
   - Unique (the uniqueness filtering plan node structure)
   - PathKey (structure representing sort/group ordering)
   - EquivalenceClass (class of equivalent expressions for ordering)
-  - EquivalenceMember (member expression within an equivalence class)
-  - TargetEntry (structure representing output columns)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (member expression within an equivalence class)
+  - [TargetEntry](../T/TargetEntry.md) (structure representing output columns)
 - Called from (representative examples):
-  - create_upper_unique_plan
+  - [create_upper_unique_plan](../c/create_upper_unique_plan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the createplan.c file

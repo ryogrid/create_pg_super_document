@@ -35,16 +35,16 @@ The function handles edge cases efficiently, returning single paths unchanged an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - classify_index_clause_usage
-  - cost_bitmap_tree_node
-  - bitmap_scan_cost_est
-  - bitmap_and_cost_est
-  - create_bitmap_and_path
-  - predicate_implied_by
-  - path_usage_comparator
+  - [classify_index_clause_usage](classify_index_clause_usage.md)
+  - [cost_bitmap_tree_node](cost_bitmap_tree_node.md)
+  - [bitmap_scan_cost_est](../b/bitmap_scan_cost_est.md)
+  - [bitmap_and_cost_est](../b/bitmap_and_cost_est.md)
+  - [create_bitmap_and_path](create_bitmap_and_path.md)
+  - [predicate_implied_by](../p/predicate_implied_by.md)
+  - [path_usage_comparator](../p/path_usage_comparator.md)
 - Called from (representative examples):
-  - generate_bitmap_or_paths
-  - create_index_paths
+  - [generate_bitmap_or_paths](../g/generate_bitmap_or_paths.md)
+  - [create_index_paths](create_index_paths.md)
 
 ## Notes and Other Information
 - Returns either a single input path or a new BitmapAndPath combining multiple inputs

@@ -25,12 +25,12 @@ The function includes important safety mechanisms to prevent data loss scenarios
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotAcquire
-  - RecoveryInProgress
-  - ReplicationSlotDropAcquired
+  - [ReplicationSlotAcquire](ReplicationSlotAcquire.md)
+  - [RecoveryInProgress](RecoveryInProgress.md)
+  - [ReplicationSlotDropAcquired](ReplicationSlotDropAcquired.md)
 - Called from (representative examples):
-  - pg_drop_replication_slot
-  - DropReplicationSlot
+  - [pg_drop_replication_slot](../p/pg_drop_replication_slot.md)
+  - [DropReplicationSlot](../D/DropReplicationSlot.md)
 
 ## Notes and Other Information
 - Requires that MyReplicationSlot be NULL before calling (no slot currently held)

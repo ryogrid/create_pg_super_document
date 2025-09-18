@@ -30,20 +30,20 @@ The function handles the complex interaction between PostgreSQL's parser infrast
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem
-  - PublicationRelInfo
-  - make_parsestate
-  - addRangeTableEntryForRelation
-  - addNSItemToQuery
-  - transformWhereClause
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [PublicationRelInfo](../P/PublicationRelInfo.md)
+  - [make_parsestate](../m/make_parsestate.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
+  - [transformWhereClause](../t/transformWhereClause.md)
   - copyObject
   - EXPR_KIND_WHERE
-  - assign_expr_collations
-  - check_simple_rowfilter_expr
-  - free_parsestate
+  - [assign_expr_collations](../a/assign_expr_collations.md)
+  - [check_simple_rowfilter_expr](../c/check_simple_rowfilter_expr.md)
+  - [free_parsestate](../f/free_parsestate.md)
 - Called from:
-  - CreatePublication
-  - AlterPublicationTables
+  - [CreatePublication](../C/CreatePublication.md)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md)
 
 ## Notes and Other Information
 - This is a static function used internally within publicationcmds.c

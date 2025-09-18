@@ -18,12 +18,12 @@ This function implements the iteration logic for traversing set bits in a datapa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datapagemap_iterator_t (iterator structure access)
-  - datapagemap_t (bitmap structure access)
+  - [datapagemap_iterator_t](datapagemap_iterator_t.md) (iterator structure access)
+  - [datapagemap_t](datapagemap_t.md) (bitmap structure access)
 - Called from (representative examples):
-  - datapagemap_print (in datapagemap.c:123)
-  - calculate_totals (in filemap.c:531)
-  - perform_rewind (in pg_rewind.c:584)
+  - [datapagemap_print](datapagemap_print.md) (in datapagemap.c:123)
+  - [calculate_totals](../c/calculate_totals.md) (in filemap.c:531)
+  - [perform_rewind](../p/perform_rewind.md) (in pg_rewind.c:584)
 
 ## Notes and Other Information
 - Returns true if a set block number is found, false if iteration is complete

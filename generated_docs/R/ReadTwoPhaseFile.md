@@ -18,7 +18,7 @@ ReadTwoPhaseFile is responsible for securely reading two-phase commit state file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseFilePath
+  - [TwoPhaseFilePath](../T/TwoPhaseFilePath.md)
   - OpenTransientFile
   - fstat
   - pgstat_report_wait_start
@@ -29,10 +29,10 @@ ReadTwoPhaseFile is responsible for securely reading two-phase commit state file
   - FIN_CRC32C
   - EQ_CRC32C
 - Called from (representative examples):
-  - StandbyTransactionIdIsPrepared
-  - FinishPreparedTransaction
-  - ProcessTwoPhaseBuffer
-  - LookupGXact
+  - [StandbyTransactionIdIsPrepared](../S/StandbyTransactionIdIsPrepared.md)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
+  - [LookupGXact](../L/LookupGXact.md)
 
 ## Notes and Other Information
 - Static function (internal to twophase.c module)

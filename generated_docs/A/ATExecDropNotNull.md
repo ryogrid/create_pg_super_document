@@ -24,27 +24,27 @@ The function returns the ObjectAddress of the modified column if the constraint 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens system catalog tables)
-  - SearchSysCacheCopyAttName (searches for attribute by name)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md) (searches for attribute by name)
   - HeapTupleIsValid (validates heap tuple)
   - RelationGetRelid (gets relation OID)
   - RelationGetRelationName (gets relation name)
   - GETSTRUCT (extracts structure from heap tuple)
   - ereport/errmsg (error reporting)
-  - RelationGetIndexList (gets list of indexes on relation)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md) (gets list of indexes on relation)
   - foreach_oid (iterates over OID list)
-  - SearchSysCache1 (searches system cache)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (searches system cache)
   - elog (error logging)
-  - ReleaseSysCache (releases system cache entries)
-  - list_free (frees list memory)
-  - get_partition_parent (gets parent of partition)
-  - get_attnum (gets attribute number by name)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases system cache entries)
+  - [list_free](../l/list_free.md) (frees list memory)
+  - [get_partition_parent](../g/get_partition_parent.md) (gets parent of partition)
+  - [get_attnum](../g/get_attnum.md) (gets attribute number by name)
   - TupleDescAttr (accesses tuple descriptor attributes)
-  - CatalogTupleUpdate (updates system catalog)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates system catalog)
   - ObjectAddressSubSet (sets object address components)
   - InvokeObjectPostAlterHook (triggers post-alter hooks)
   - table_close (closes system catalog tables)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command execution dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command execution dispatcher)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within tablecmds.c

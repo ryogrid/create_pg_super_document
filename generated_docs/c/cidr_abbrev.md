@@ -19,7 +19,7 @@ The cidr_abbrev function provides an abbreviated representation of a cidr value 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP (to extract inet/cidr argument)
-  - pg_inet_cidr_ntop (to format the CIDR address with proper host bit zeroing)
+  - [pg_inet_cidr_ntop](../p/pg_inet_cidr_ntop.md) (to format the CIDR address with proper host bit zeroing)
   - ip_family (to get address family)
   - ip_addr (to get address data)
   - ip_bits (to get the netmask length)

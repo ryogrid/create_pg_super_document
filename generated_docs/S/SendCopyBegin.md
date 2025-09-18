@@ -19,14 +19,14 @@ This function is responsible for starting the frontend copy-out operation by sen
 - Functions called/Symbols referenced:
   - list_length (to get number of attributes)
   - pq_beginmessage (to start building the protocol message)
-  - pq_sendbyte (to send the overall format byte)
-  - pq_sendint16 (to send column count and per-column formats)
-  - pq_endmessage (to finalize and send the message)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (to send the overall format byte)
+  - [pq_sendint16](../p/pq_sendint16.md) (to send column count and per-column formats)
+  - [pq_endmessage](../p/pq_endmessage.md) (to finalize and send the message)
   - PqMsg_CopyOutResponse (message type constant)
   - COPY_FRONTEND (destination type constant)
 - Called from (representative examples):
   - DR_copy (in copyto.c:118)
-  - DoCopyTo (in copyto.c:757)
+  - [DoCopyTo](../D/DoCopyTo.md) (in copyto.c:757)
 
 ## Notes and Other Information
 - The function sets the copy destination to COPY_FRONTEND after sending the begin message

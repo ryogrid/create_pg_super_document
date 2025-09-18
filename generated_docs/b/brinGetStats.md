@@ -18,18 +18,18 @@ This function reads the metadata page of a BRIN index to extract essential stati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
-  - LockBuffer 
-  - BufferGetPage
-  - PageGetContents
-  - UnlockReleaseBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md) 
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetContents](../P/PageGetContents.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - BRIN_METAPAGE_BLKNO (constant)
   - BUFFER_LOCK_SHARE (constant)
 - Types referenced:
-  - BrinStatsData
-  - BrinMetaPageData
+  - [BrinStatsData](../B/BrinStatsData.md)
+  - [BrinMetaPageData](../B/BrinMetaPageData.md)
 - Called from (representative examples):
-  - brincostestimate
+  - [brincostestimate](brincostestimate.md)
   - BrinGetAutoSummarize
 
 ## Notes and Other Information

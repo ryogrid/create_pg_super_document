@@ -37,14 +37,14 @@ The function uses sophisticated optimization to select the best member combinati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
-  - select_equality_operator
-  - op_hashjoinable
-  - create_join_clause
-  - list_concat
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [select_equality_operator](../s/select_equality_operator.md)
+  - [op_hashjoinable](../o/op_hashjoinable.md)
+  - [create_join_clause](../c/create_join_clause.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - generate_join_implied_equalities (src/backend/optimizer/path/equivclass.c:1446)
-  - generate_join_implied_equalities_for_ecs (src/backend/optimizer/path/equivclass.c:1522)
+  - [generate_join_implied_equalities](generate_join_implied_equalities.md) (src/backend/optimizer/path/equivclass.c:1446)
+  - [generate_join_implied_equalities_for_ecs](generate_join_implied_equalities_for_ecs.md) (src/backend/optimizer/path/equivclass.c:1522)
 
 ## Notes and Other Information
 - Sets ec_broken flag and returns NIL if no compatible equality operator can be found

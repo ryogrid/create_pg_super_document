@@ -34,9 +34,9 @@ The function fills out a LogicalRewriteMappingData structure with the old and ne
   - HeapTupleHeaderGetXmin, HeapTupleHeaderGetUpdateXid (tuple header access)
   - TransactionIdIsNormal, TransactionIdPrecedes, TransactionIdEquals (transaction utilities)
   - HEAP_XMAX_IS_LOCKED_ONLY (tuple visibility macro)
-  - logical_rewrite_log_mapping (creates mapping entries)
+  - [logical_rewrite_log_mapping](logical_rewrite_log_mapping.md) (creates mapping entries)
 - Called from (representative examples):
-  - rewrite_heap_tuple
+  - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to the rewriteheap.c module

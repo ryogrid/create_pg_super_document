@@ -18,11 +18,11 @@ This function performs a rescan operation on a foreign table by calling the fore
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecReScan
-  - ExecScanReScan
-  - ForeignScanState.fdwroutine->ReScanForeignScan
+  - [ExecReScan](ExecReScan.md)
+  - [ExecScanReScan](ExecScanReScan.md)
+  - [ForeignScanState](../F/ForeignScanState.md).fdwroutine->ReScanForeignScan
 - Called from (representative examples):
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 
 ## Notes and Other Information
 - The function checks for EvalPlanQual activity and skips non-SELECT operations during EPQ processing

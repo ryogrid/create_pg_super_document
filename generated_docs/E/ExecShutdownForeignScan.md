@@ -21,11 +21,11 @@ The function is part of PostgreSQL's extensible foreign data wrapper architectur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ForeignScanState (structure)
-  - FdwRoutine (structure)
+  - [ForeignScanState](../F/ForeignScanState.md) (structure)
+  - [FdwRoutine](../F/FdwRoutine.md) (structure)
   - ShutdownForeignScan (FDW callback function)
 - Called from (representative examples):
-  - ExecShutdownNode_walker (in execProcnode.c)
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md) (in execProcnode.c)
 
 ## Notes and Other Information
 - This function is optional for FDWs to implement - it only calls the shutdown callback if the FDW provides one

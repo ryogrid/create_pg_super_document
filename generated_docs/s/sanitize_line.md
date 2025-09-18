@@ -22,14 +22,14 @@ The function allocates a new string using pg_strdup and modifies it in place, en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for memory allocation and string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for memory allocation and string duplication)
 
 - Called from (representative examples):
-  - PrintTOCSummary (in pg_backup_archiver.c)
-  - _printTocEntry (in pg_backup_archiver.c)
-  - dumpTableData (in pg_dump.c)
-  - dumpUserConfig (in pg_dumpall.c)
-  - dumpDatabases (in pg_dumpall.c)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md) (in pg_backup_archiver.c)
+  - [_printTocEntry](../p/_printTocEntry.md) (in pg_backup_archiver.c)
+  - [dumpTableData](../d/dumpTableData.md) (in pg_dump.c)
+  - [dumpUserConfig](../d/dumpUserConfig.md) (in pg_dumpall.c)
+  - [dumpDatabases](../d/dumpDatabases.md) (in pg_dumpall.c)
 
 ## Notes and Other Information
 - The function currently doesn't quote names, meaning the name fields in TOC listings aren't automatically parseable

@@ -30,7 +30,7 @@ This function is typically registered in PostgreSQL's system catalogs as the imp
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INET_PP`: Macro to extract inet pointer from function arguments
-  - `network_cmp_internal`: Core network comparison function that returns ordering (-1, 0, 1)
+  - `[network_cmp_internal](network_cmp_internal.md)`: Core network comparison function that returns ordering (-1, 0, 1)
   - `PG_RETURN_BOOL`: Macro to return boolean result from PostgreSQL function
 
 - Called from (representative examples):

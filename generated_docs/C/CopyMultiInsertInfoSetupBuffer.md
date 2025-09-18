@@ -24,13 +24,13 @@ This function is essential for the multi-insert optimization in COPY FROM operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertInfo (struct type)
-  - CopyMultiInsertBuffer (struct type)  
-  - CopyMultiInsertBufferInit (buffer initialization function)
+  - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct type)
+  - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (struct type)  
+  - [CopyMultiInsertBufferInit](CopyMultiInsertBufferInit.md) (buffer initialization function)
   - lappend (list append function)
 - Called from (representative examples):
-  - CopyMultiInsertInfoInit (at src/backend/commands/copyfrom.c:276)
-  - CopyFrom (at src/backend/commands/copyfrom.c:1082)
+  - [CopyMultiInsertInfoInit](CopyMultiInsertInfoInit.md) (at src/backend/commands/copyfrom.c:276)
+  - [CopyFrom](CopyFrom.md) (at src/backend/commands/copyfrom.c:1082)
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance within the copyfrom.c file

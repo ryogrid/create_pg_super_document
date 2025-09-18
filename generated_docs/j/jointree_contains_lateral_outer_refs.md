@@ -36,14 +36,14 @@ A key rule enforced is that outer joins (LEFT, RIGHT, FULL) disallow any upper l
   - RangeTblRef
   - FromExpr  
   - JoinExpr
-  - bms_is_subset
-  - pull_varnos_of_level
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
   - JOIN_INNER
   - nodeTag
-  - jointree_contains_lateral_outer_refs (recursive calls)
+  - [jointree_contains_lateral_outer_refs](jointree_contains_lateral_outer_refs.md) (recursive calls)
 - Called from:
-  - is_simple_subquery
-  - jointree_contains_lateral_outer_refs (recursive)
+  - [is_simple_subquery](../i/is_simple_subquery.md)
+  - [jointree_contains_lateral_outer_refs](jointree_contains_lateral_outer_refs.md) (recursive)
 
 ## Notes and Other Information
 - Enforces SQL LATERAL scoping rules to prevent illegal cross-references

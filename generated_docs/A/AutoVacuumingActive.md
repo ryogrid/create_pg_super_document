@@ -27,10 +27,10 @@ None - this function takes no parameters.
   - autovacuum_start_daemon (GUC variable)
   - pgstat_track_counts (GUC variable)
 - Called from (representative examples):
-  - HandleAutoVacLauncherInterrupts
-  - relation_needs_vacanalyze
-  - ServerLoop
-  - process_pm_child_exit
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md)
+  - [relation_needs_vacanalyze](../r/relation_needs_vacanalyze.md)
+  - [ServerLoop](../S/ServerLoop.md)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
 
 ## Notes and Other Information
 - This is a simple but critical gatekeeper function for the entire autovacuum system

@@ -17,10 +17,10 @@ ResetDecoder provides a clean slate for XLog reading operations by completely re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodedXLogRecord (structure type)
-  - pfree (for freeing oversized records)
+  - [DecodedXLogRecord](../D/DecodedXLogRecord.md) (structure type)
+  - [pfree](../p/pfree.md) (for freeing oversized records)
 - Called from (representative examples):
-  - XLogBeginRead
+  - [XLogBeginRead](../X/XLogBeginRead.md)
 
 ## Notes and Other Information
 - This is a private static function within xlogreader.c, not exposed to external modules

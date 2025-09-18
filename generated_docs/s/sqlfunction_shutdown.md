@@ -23,7 +23,7 @@ The function follows the standard DestReceiver shutdown callback signature but d
 - Functions called/Symbols referenced:
   - DestReceiver (parameter type)
 - Called from (representative examples):
-  - CreateSQLFunctionDestReceiver (sets this as shutdown callback)
+  - [CreateSQLFunctionDestReceiver](../C/CreateSQLFunctionDestReceiver.md) (sets this as shutdown callback)
   - Used within SQLFunctionCachePtr context
 
 ## Notes and Other Information

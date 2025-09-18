@@ -30,13 +30,13 @@ The function includes several safety checks to prevent simplification when inapp
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc (function catalog entry structure)
-  - makeNullConst (creates NULL constant nodes)
+  - [makeNullConst](../m/makeNullConst.md) (creates NULL constant nodes)
   - PROVOLATILE_IMMUTABLE, PROVOLATILE_STABLE (volatility constants)
   - FuncExpr (function expression node type)
   - COERCE_EXPLICIT_CALL (coercion type constant)
-  - evaluate_expr (actually evaluates the expression)
+  - [evaluate_expr](evaluate_expr.md) (actually evaluates the expression)
 - Called from:
-  - simplify_function (main function simplification routine)
+  - [simplify_function](../s/simplify_function.md) (main function simplification routine)
 
 ## Notes and Other Information
 - Returns NULL if the function cannot be simplified, otherwise returns a simplified Expr

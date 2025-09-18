@@ -20,10 +20,10 @@ ReorderBufferSkipPrepare sets the RBTXN_SKIPPED_PREPARE flag on a transaction to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
   - RBTXN_SKIPPED_PREPARE (flag constant)
 - Called from (representative examples):
-  - DecodePrepare
+  - [DecodePrepare](../D/DecodePrepare.md)
 
 ## Notes and Other Information
 This function is called from DecodePrepare when certain conditions prevent normal prepare processing. The RBTXN_SKIPPED_PREPARE flag is later checked during commit prepared processing to determine the appropriate handling. This mechanism ensures that transactions maintain proper state tracking even when their prepare phase cannot be immediately processed during logical replication.

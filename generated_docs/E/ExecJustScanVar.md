@@ -21,11 +21,11 @@ The function serves as a thin wrapper around ExecJustVarImpl, specifically confi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustVarImpl
+  - [ExecJustVarImpl](ExecJustVarImpl.md)
   - pg_attribute_always_inline
 - Called from (representative examples):
   - EEO_JUMP (via expression evaluation dispatch)
-  - ExecReadyInterpretedExpr (during expression setup)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (during expression setup)
 
 ## Notes and Other Information
 - This function is marked as static and is inlined for maximum performance

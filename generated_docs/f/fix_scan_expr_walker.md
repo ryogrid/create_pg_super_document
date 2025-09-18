@@ -26,13 +26,13 @@ The walker pattern allows the function to visit all nodes in the expression tree
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_expr_common
+  - [fix_expr_common](fix_expr_common.md)
   - expression_tree_walker
-  - fix_scan_expr_walker (recursive calls)
+  - [fix_scan_expr_walker](fix_scan_expr_walker.md) (recursive calls)
 - Called from (representative examples):
   - fix_scan_list
-  - fix_scan_expr
-  - fix_scan_expr_walker (recursive calls)
+  - [fix_scan_expr](fix_scan_expr.md)
+  - [fix_scan_expr_walker](fix_scan_expr_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This function represents an important optimization in PostgreSQL's expression processing: when no structural changes are needed, it processes expressions in-place rather than creating copies

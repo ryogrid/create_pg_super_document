@@ -29,9 +29,9 @@ This function is typically called during query execution interruption or when st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecShutdownNode_walker (performs the actual tree traversal and shutdown operations)
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md) (performs the actual tree traversal and shutdown operations)
 - Called from (representative examples):
-  - ExecutePlan (during query execution control)
+  - [ExecutePlan](ExecutePlan.md) (during query execution control)
   - EvalPlanQualSetSlot (EPQ operation management)
 
 ## Notes and Other Information

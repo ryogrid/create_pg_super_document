@@ -30,21 +30,21 @@ This function is extensively used throughout the radix tree implementation durin
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for generating function names)
   - Assert (debugging assertion macro)
-  - RT_NODE_48_IS_CHUNK_USED (checks if a chunk is used in node48)
+  - [RT_NODE_48_IS_CHUNK_USED](RT_NODE_48_IS_CHUNK_USED.md) (checks if a chunk is used in node48)
   - RT_BM_IDX (bitmap index calculation)
   - RT_BM_BIT (bitmap bit calculation)
   - bmw_popcount (bitmap word population count)
 
 - Called from (representative examples):
-  - RT_ITER (during iterator operations)
-  - RT_ADD_CHILD_256 (after adding children to 256-node)
-  - RT_ADD_CHILD_48 (after adding children to 48-node)
-  - RT_GROW_NODE_16 (after growing 16-node)
-  - RT_ADD_CHILD_16 (after adding children to 16-node)
-  - RT_GROW_NODE_4 (after growing 4-node)
-  - RT_ADD_CHILD_4 (after adding children to 4-node)
-  - RT_SHRINK_NODE_48 (after shrinking 48-node)
-  - RT_SHRINK_NODE_16 (after shrinking 16-node)
+  - [RT_ITER](RT_ITER.md) (during iterator operations)
+  - [RT_ADD_CHILD_256](RT_ADD_CHILD_256.md) (after adding children to 256-node)
+  - [RT_ADD_CHILD_48](RT_ADD_CHILD_48.md) (after adding children to 48-node)
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md) (after growing 16-node)
+  - [RT_ADD_CHILD_16](RT_ADD_CHILD_16.md) (after adding children to 16-node)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md) (after growing 4-node)
+  - [RT_ADD_CHILD_4](RT_ADD_CHILD_4.md) (after adding children to 4-node)
+  - [RT_SHRINK_NODE_48](RT_SHRINK_NODE_48.md) (after shrinking 48-node)
+  - [RT_SHRINK_NODE_16](RT_SHRINK_NODE_16.md) (after shrinking 16-node)
 
 ## Notes and Other Information
 - Only compiled and active when USE_ASSERT_CHECKING is defined

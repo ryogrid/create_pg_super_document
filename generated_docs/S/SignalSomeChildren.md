@@ -20,14 +20,14 @@ This function iterates through the BackendList and sends a signal to child proce
 - Functions called/Symbols referenced:
   - dlist_foreach (list iteration)
   - dlist_container (container access)
-  - IsPostmasterChildWalSender (WAL sender identification)
+  - [IsPostmasterChildWalSender](../I/IsPostmasterChildWalSender.md) (WAL sender identification)
   - ereport (logging)
-  - signal_child (actual signal sending)
-  - Backend struct and BackendList
+  - [signal_child](../s/signal_child.md) (actual signal sending)
+  - [Backend](../B/Backend.md) struct and BackendList
   - BACKEND_TYPE constants
 - Called from (representative examples):
   - SignalChildren (wrapper function)
-  - PostmasterStateMachine (state management)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md) (state management)
 
 ## Notes and Other Information
 - Returns true if at least one process was signaled, false otherwise

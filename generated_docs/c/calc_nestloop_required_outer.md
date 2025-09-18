@@ -25,13 +25,13 @@ This function calculates the set of relations that must be provided as parameter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap (to check for invalid parameter dependencies)
-  - bms_copy (to copy parameter sets)
-  - bms_union (to combine parameter requirements)
-  - bms_del_members (to remove satisfied parameters)
+  - [bms_overlap](../b/bms_overlap.md) (to check for invalid parameter dependencies)
+  - [bms_copy](../b/bms_copy.md) (to copy parameter sets)
+  - [bms_union](../b/bms_union.md) (to combine parameter requirements)
+  - [bms_del_members](../b/bms_del_members.md) (to remove satisfied parameters)
   - Assert (for debugging parameter constraint validation)
 - Called from (representative examples):
-  - try_nestloop_path (in joinpath.c)
+  - [try_nestloop_path](../t/try_nestloop_path.md) (in joinpath.c)
 
 ## Notes and Other Information
 - The function enforces the constraint that outer paths cannot depend on inner relations through an assertion

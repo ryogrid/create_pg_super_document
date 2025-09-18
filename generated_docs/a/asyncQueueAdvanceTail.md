@@ -27,11 +27,11 @@ This function takes no parameters and operates on global shared memory structure
   - QUEUE_BACKEND_PID/QUEUE_BACKEND_POS: Accesses per-backend queue state
   - QUEUE_POS_MIN: Finds minimum queue position
   - QUEUE_POS_PAGE: Extracts page number from queue position
-  - asyncQueuePagePrecedes: Compares page positions for ordering
-  - SimpleLruTruncate: Physically removes old SLRU segments
+  - [asyncQueuePagePrecedes](asyncQueuePagePrecedes.md): Compares page positions for ordering
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md): Physically removes old SLRU segments
 - Called from:
-  - AtCommit_Notify: Transaction commit processing
-  - pg_notification_queue_usage: Queue usage reporting
+  - [AtCommit_Notify](../A/AtCommit_Notify.md): Transaction commit processing
+  - [pg_notification_queue_usage](../p/pg_notification_queue_usage.md): Queue usage reporting
 
 ## Notes and Other Information
 - Called during CommitTransaction(), requiring very low probability of failure

@@ -25,9 +25,9 @@ dobyteatrim is a helper function that implements the common trimming logic for b
   - SET_VARSIZE (set the size of a variable-length PostgreSQL data type)
   - VARDATA (get pointer to the actual data within a variable-length type)
 - Called from (representative examples):
-  - byteatrim (bidirectional bytea trimming)
-  - bytealtrim (left-side bytea trimming)
-  - byteartrim (right-side bytea trimming)
+  - [byteatrim](../b/byteatrim.md) (bidirectional bytea trimming)
+  - [bytealtrim](../b/bytealtrim.md) (left-side bytea trimming)
+  - [byteartrim](../b/byteartrim.md) (right-side bytea trimming)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/oracle_compat.c:534-616

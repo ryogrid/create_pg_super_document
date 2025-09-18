@@ -19,9 +19,9 @@ This function implements PostgreSQL's logic for determining when parentheses can
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_simple_binary_op_name
+  - [get_simple_binary_op_name](../g/get_simple_binary_op_name.md)
   - nodeTag
-  - isSimpleNode (recursive calls)
+  - [isSimpleNode](isSimpleNode.md) (recursive calls)
   - FieldSelect
   - FieldStore
   - CoerceToDomain
@@ -37,14 +37,14 @@ This function implements PostgreSQL's logic for determining when parentheses can
   - COERCE_IMPLICIT_CAST
   - COERCE_SQL_SYNTAX
   - BoolExpr
-  - BoolExprType
+  - [BoolExprType](../B/BoolExprType.md)
   - NOT_EXPR
   - AND_EXPR
   - OR_EXPR
   - JsonValueExpr
 - Called from (representative examples):
   - get_rule_expr_paren
-  - isSimpleNode (recursive calls)
+  - [isSimpleNode](isSimpleNode.md) (recursive calls)
 
 ## Notes and Other Information
 - Returns true if the node is considered simple and doesn't need parentheses

@@ -22,23 +22,23 @@ This function implements the CREATE FOREIGN DATA WRAPPER SQL command by creating
 - Functions called/Symbols referenced:
   - CreateFdwStmt
   - superuser
-  - GetForeignDataWrapperByName
-  - GetNewOidWithIndex
+  - [GetForeignDataWrapperByName](../G/GetForeignDataWrapperByName.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - namein
   - DirectFunctionCall1
-  - CStringGetDatum
-  - parse_func_options
-  - transformGenericOptions
+  - [CStringGetDatum](CStringGetDatum.md)
+  - [parse_func_options](../p/parse_func_options.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
   - PointerIsValid
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Requires superuser privileges to execute; regular users cannot create FDWs

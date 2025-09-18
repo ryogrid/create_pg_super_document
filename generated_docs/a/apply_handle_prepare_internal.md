@@ -20,14 +20,14 @@ This function performs the core work of preparing a two-phase transaction during
 ## Dependencies
 - Functions called/Symbols referenced:
   - GIDSIZE (constant defining maximum GID size)
-  - TwoPhaseTransactionGid (generates unique GID for two-phase transactions)
-  - IsTransactionBlock (checks if currently in a transaction block)
-  - BeginTransactionBlock (starts a new transaction block)
-  - CommitTransactionCommand (commits the begin command)
-  - PrepareTransactionBlock (performs the actual prepare operation)
+  - [TwoPhaseTransactionGid](../T/TwoPhaseTransactionGid.md) (generates unique GID for two-phase transactions)
+  - [IsTransactionBlock](../I/IsTransactionBlock.md) (checks if currently in a transaction block)
+  - [BeginTransactionBlock](../B/BeginTransactionBlock.md) (starts a new transaction block)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commits the begin command)
+  - [PrepareTransactionBlock](../P/PrepareTransactionBlock.md) (performs the actual prepare operation)
 - Called from:
-  - apply_handle_prepare (handles PREPARE messages)
-  - apply_handle_stream_prepare (handles streaming prepare messages)
+  - [apply_handle_prepare](apply_handle_prepare.md) (handles PREPARE messages)
+  - [apply_handle_stream_prepare](apply_handle_stream_prepare.md) (handles streaming prepare messages)
 
 ## Notes and Other Information
 - Generates unique GIDs using subscription OID and transaction XID to prevent deadlocks with multiple subscriptions

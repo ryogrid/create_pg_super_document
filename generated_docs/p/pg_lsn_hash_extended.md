@@ -22,7 +22,7 @@ The function uses PostgreSQL's standard function argument mechanism:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashint8extended
+  - [hashint8extended](../h/hashint8extended.md)
 - Called from (representative examples):
   - No direct callers found (typically invoked through PostgreSQL's function call mechanism)
 

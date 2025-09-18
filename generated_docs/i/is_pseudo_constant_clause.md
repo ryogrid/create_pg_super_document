@@ -25,13 +25,13 @@ Important limitation: This function does not check for aggregates (Aggrefs) or w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_var_clause (checks for variables in the expression)
-  - contain_volatile_functions (checks for volatile functions in the expression)
+  - [contain_var_clause](../c/contain_var_clause.md) (checks for variables in the expression)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for volatile functions in the expression)
 - Called from (representative examples):
-  - find_window_run_conditions
-  - clauselist_selectivity_ext
-  - dependency_is_compatible_clause
-  - dependency_is_compatible_expression
+  - [find_window_run_conditions](../f/find_window_run_conditions.md)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md)
+  - [dependency_is_compatible_clause](../d/dependency_is_compatible_clause.md)
+  - [dependency_is_compatible_expression](../d/dependency_is_compatible_expression.md)
 
 ## Notes and Other Information
 - Designed primarily for WHERE clause analysis in query optimization

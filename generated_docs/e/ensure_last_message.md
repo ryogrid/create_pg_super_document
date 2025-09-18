@@ -24,16 +24,16 @@ The function operates within replication steps (begin_replication_step/end_repli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState (assertion check)
-  - begin_replication_step
-  - changes_filename (constructs file path)
+  - [IsTransactionState](../I/IsTransactionState.md) (assertion check)
+  - [begin_replication_step](../b/begin_replication_step.md)
+  - [changes_filename](../c/changes_filename.md) (constructs file path)
   - BufFileOpenFileSet
   - BufFileSeek
   - BufFileTell  
   - BufFileClose
-  - end_replication_step
+  - [end_replication_step](end_replication_step.md)
 - Called from (representative examples):
-  - apply_spooled_messages
+  - [apply_spooled_messages](../a/apply_spooled_messages.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication worker

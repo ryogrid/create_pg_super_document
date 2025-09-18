@@ -32,9 +32,9 @@ Each selection within a priority tier is made randomly to maintain genetic diver
 - Functions called/Symbols referenced:
   - Edge (type)
   - Gene (type)
-  - geqo_randint (random number generation function)
+  - [geqo_randint](../g/geqo_randint.md) (random number generation function)
 - Called from (representative examples):
-  - gimme_tour
+  - [gimme_tour](../g/gimme_tour.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geqo_erx.c file

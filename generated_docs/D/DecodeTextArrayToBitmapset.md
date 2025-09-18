@@ -23,13 +23,13 @@ The resulting bitmapset provides an efficient representation for testing whether
 - Functions called/Symbols referenced:
   - DatumGetArrayTypeP
   - ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
-  - GetCommandTagEnum
-  - bms_add_member
-  - pfree
+  - [GetCommandTagEnum](../G/GetCommandTagEnum.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - BuildEventTriggerCache (src/backend/utils/cache/evtcache.c:183)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md) (src/backend/utils/cache/evtcache.c:183)
 
 ## Notes and Other Information
 - Validates input array is 1-dimensional, contains no nulls, and has TEXTOID element type

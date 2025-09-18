@@ -24,9 +24,9 @@ The bootstrap context means this function operates in a controlled environment w
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_openrv
-  - makeRangeVar
+  - [makeRangeVar](../m/makeRangeVar.md)
   - AccessExclusiveLock
-  - create_toast_table
+  - [create_toast_table](../c/create_toast_table.md)
   - RELKIND_RELATION
   - RELKIND_MATVIEW
 - Called from (representative examples):

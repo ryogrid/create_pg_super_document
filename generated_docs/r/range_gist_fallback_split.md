@@ -27,8 +27,8 @@ The function calculates a split index as the midpoint of the entries and assigns
   - RangeTypePGetDatum
   - FirstOffsetNumber (constant)
 - Called from (representative examples):
-  - range_gist_picksplit
-  - range_gist_double_sorting_split
+  - [range_gist_picksplit](range_gist_picksplit.md)
+  - [range_gist_double_sorting_split](range_gist_double_sorting_split.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rangetypes_gist.c file

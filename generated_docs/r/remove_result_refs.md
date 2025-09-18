@@ -33,11 +33,11 @@ Note that PlanRowMark cleanup is deferred to the caller (remove_useless_result_r
 - Functions called/Symbols referenced:
   - get_relids_in_jointree (to determine available relations at new location)
   - bms_is_empty (to validate that the new location has relations)
-  - substitute_phv_relids (to update PHV relation references)
-  - fix_append_rel_relids (to handle append relation adjustments)
+  - [substitute_phv_relids](../s/substitute_phv_relids.md) (to update PHV relation references)
+  - [fix_append_rel_relids](../f/fix_append_rel_relids.md) (to handle append relation adjustments)
 
 - Called from (representative examples):
-  - remove_useless_results_recurse (5 different locations for various join scenarios)
+  - [remove_useless_results_recurse](remove_useless_results_recurse.md) (5 different locations for various join scenarios)
 
 ## Notes and Other Information
 - This is a static function, only accessible within prepjointree.c

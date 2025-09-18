@@ -33,7 +33,7 @@ The comparison follows PostgreSQL's established multirange ordering rules:
 - Called from (representative examples):
   - SQL queries using > operator on multirange columns
   - B-tree index operations during inequality searches
-  - Query planner optimization for multirange predicate evaluation
+  - [Query](../Q/Query.md) planner optimization for multirange predicate evaluation
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's comprehensive multirange type system for handling collections of ranges

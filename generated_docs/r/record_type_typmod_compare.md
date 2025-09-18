@@ -21,10 +21,10 @@ The function follows the standard comparison function interface required by Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equalRowTypes
-  - RecordCacheEntry (struct type)
+  - [equalRowTypes](../e/equalRowTypes.md)
+  - [RecordCacheEntry](../R/RecordCacheEntry.md) (struct type)
 - Called from (representative examples):
-  - assign_record_type_typmod (src/backend/utils/cache/typcache.c:1970)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md) (src/backend/utils/cache/typcache.c:1970)
 
 ## Notes and Other Information
 - This is a static function internal to typcache.c, not exposed to external modules

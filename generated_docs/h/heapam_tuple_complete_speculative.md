@@ -24,9 +24,9 @@ The function retrieves the heap tuple from the slot, then delegates to either `h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTuple
-  - heap_finish_speculative
-  - heap_abort_speculative
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
+  - [heap_finish_speculative](heap_finish_speculative.md)
+  - [heap_abort_speculative](heap_abort_speculative.md)
 - Called from (representative examples):
   - Used through table access method interface (no direct callers found in indexed code)
 

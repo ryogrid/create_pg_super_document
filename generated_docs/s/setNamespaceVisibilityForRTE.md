@@ -28,10 +28,10 @@ The function performs a linear search through the namespace list to locate the m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem (struct type)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md) (struct type)
   - Standard list iteration functions (foreach, lfirst)
 - Called from (representative examples):
-  - setNamespaceForMergeWhen (multiple calls to control visibility for different MERGE action types)
+  - [setNamespaceForMergeWhen](setNamespaceForMergeWhen.md) (multiple calls to control visibility for different MERGE action types)
 
 ## Notes and Other Information
 - This is a static helper function used exclusively within the MERGE statement parsing context

@@ -18,16 +18,16 @@ The transformJsonScalarExpr function is responsible for transforming JSON_SCALAR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse
-  - transformJsonReturning
-  - coerce_to_specific_type
-  - makeJsonConstructorExpr
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [transformJsonReturning](transformJsonReturning.md)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md)
   - exprType
   - JsonOutput
   - JsonReturning
   - JSCTOR_JSON_SCALAR
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's SQL/JSON support implementation. It handles the transformation of JSON_SCALAR() expressions which are used to convert SQL scalar values to JSON format. The function ensures proper type coercion for unknown types and integrates with the broader JSON expression transformation framework. Located at src/backend/parser/parse_expr.c:4202-4224.

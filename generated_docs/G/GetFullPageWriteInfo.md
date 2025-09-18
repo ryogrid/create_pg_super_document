@@ -21,15 +21,15 @@ GetFullPageWriteInfo provides cached backend-private copies of two critical piec
   - RedoRecPtr (backend-private cached variable)
   - doPageWrites (backend-private cached variable)
 - Called from (representative examples):
-  - XLogInsert
-  - XLogCheckBufferNeedsBackup
-  - WALAvailability
+  - [XLogInsert](../X/XLogInsert.md)
+  - [XLogCheckBufferNeedsBackup](../X/XLogCheckBufferNeedsBackup.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - Returns cached values that may be stale or uninitialized for performance
-- XLogInsertRecord re-validates these values under WAL insert lock
+- [XLogInsertRecord](../X/XLogInsertRecord.md) re-validates these values under WAL insert lock
 - Critical for full-page write decision making in WAL generation
-- Backend-private cached values avoid expensive shared memory access during initial checks
+- [Backend](../B/Backend.md)-private cached values avoid expensive shared memory access during initial checks
 - Values are refreshed by XLogInsertRecord when holding appropriate locks
 - Located in src/backend/access/transam/xlog.c:6446-6460
 - Part of the optimization strategy for WAL insertion performance

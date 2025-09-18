@@ -31,8 +31,8 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
   - Functions that previously called RT_LOCK_SHARE
   - Cleanup and error handling routines
 - Related symbols:
-  - RT_LOCK_EXCLUSIVE (acquires exclusive lock)
-  - RT_LOCK_SHARE (acquires shared lock)
+  - [RT_LOCK_EXCLUSIVE](RT_LOCK_EXCLUSIVE.md) (acquires exclusive lock)
+  - [RT_LOCK_SHARE](RT_LOCK_SHARE.md) (acquires shared lock)
 
 ## Notes and Other Information
 - Only available when RT_SHMEM preprocessing directive is defined

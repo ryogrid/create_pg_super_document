@@ -19,13 +19,13 @@ This function parses and validates the ON_ERROR option value for COPY statements
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString
-  - pg_strcasecmp
+  - [defGetString](defGetString.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - ereport
-  - parser_errposition
+  - [parser_errposition](../p/parser_errposition.md)
   - COPY_ON_ERROR_STOP/IGNORE constants
 - Called from (representative examples):
-  - ProcessCopyOptions
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md)
 
 ## Notes and Other Information
 - Restricted exclusively to COPY FROM operations; generates a descriptive error for COPY TO usage attempts

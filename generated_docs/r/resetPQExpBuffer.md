@@ -27,11 +27,11 @@ This function is essential for buffer reuse and recovery from error conditions, 
 - Functions called/Symbols referenced:
   - initPQExpBuffer
 - Called from (representative examples):
-  - prepare_heap_command (pg_amcheck)
-  - StreamLogicalLog (pg_recvlogical)
-  - dumpTableData_insert (pg_dump)
-  - exec_command_reset (psql)
-  - printfPQExpBuffer (pqexpbuffer)
+  - [prepare_heap_command](../p/prepare_heap_command.md) (pg_amcheck)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (pg_recvlogical)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md) (pg_dump)
+  - [exec_command_reset](../e/exec_command_reset.md) (psql)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (pqexpbuffer)
 
 ## Notes and Other Information
 - This function is NULL-safe - it checks if the input pointer is valid before proceeding

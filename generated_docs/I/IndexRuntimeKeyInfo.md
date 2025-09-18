@@ -23,14 +23,14 @@ Runtime keys are essential for supporting parameterized queries, subplan results
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyData (structure for index scan keys)
+  - [ScanKeyData](../S/ScanKeyData.md) (structure for index scan keys)
   - ExprState (expression evaluation state)
 - Called from (representative examples):
-  - ExecIndexEvalRuntimeKeys
-  - ExecIndexBuildScanKeys
-  - IndexScanState
-  - IndexOnlyScanState
-  - BitmapIndexScanState
+  - [ExecIndexEvalRuntimeKeys](../E/ExecIndexEvalRuntimeKeys.md)
+  - [ExecIndexBuildScanKeys](../E/ExecIndexBuildScanKeys.md)
+  - [IndexScanState](IndexScanState.md)
+  - [IndexOnlyScanState](IndexOnlyScanState.md)
+  - [BitmapIndexScanState](../B/BitmapIndexScanState.md)
 
 ## Notes and Other Information
 - Primarily used in src/backend/executor/nodeIndexscan.c for dynamic index scan key evaluation

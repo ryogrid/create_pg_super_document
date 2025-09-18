@@ -21,11 +21,11 @@ The function performs interrupt checking before reading input and processes clie
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS() (PostgreSQL interrupt handling macro)
   - getc() (standard C library function)
-  - ProcessClientReadInterrupt() (PostgreSQL interrupt processing)
+  - [ProcessClientReadInterrupt](../P/ProcessClientReadInterrupt.md)() (PostgreSQL interrupt processing)
   - stdin (standard input stream)
 
 - Called from (representative examples):
-  - InteractiveBackend (src/backend/tcop/postgres.c:263)
+  - [InteractiveBackend](../I/InteractiveBackend.md) (src/backend/tcop/postgres.c:263)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the postgres.c compilation unit

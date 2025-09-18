@@ -33,7 +33,7 @@ This function serves as a SQL-callable wrapper around the internal acldefault() 
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR: PostgreSQL function argument extraction macro
   - PG_GETARG_OID: PostgreSQL OID argument extraction macro
-  - acldefault: Core function that generates default ACL
+  - [acldefault](acldefault.md): Core function that generates default ACL
   - PG_RETURN_ACL_P: PostgreSQL ACL return macro
   - ObjectType enumeration and its constants (OBJECT_COLUMN, OBJECT_TABLE, etc.)
 - Called from (representative examples):

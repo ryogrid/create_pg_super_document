@@ -21,10 +21,10 @@ DropDatabase serves as the entry point for DROP DATABASE statement execution, pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - DropdbStmt: Statement structure containing database drop parameters
-  - DefElem: Definition element structure for parsing options
-  - dropdb: Core function that performs the actual database deletion operation
+  - [DefElem](DefElem.md): Definition element structure for parsing options
+  - [dropdb](../d/dropdb.md): Core function that performs the actual database deletion operation
 - Called from (representative examples):
-  - standard_ProcessUtility: Main utility statement processing function
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md): Main utility statement processing function
 
 ## Notes and Other Information
 - Currently recognizes only the 'force' option which allows terminating existing connections

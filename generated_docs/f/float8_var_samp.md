@@ -35,7 +35,7 @@ The function returns NULL for datasets with 0 or 1 values (N ≤ 1) since sample
 - Returns NULL for datasets with N ≤ 1 since sample variance requires at least 2 values
 - Uses Bessel's correction (divides by N-1) to provide unbiased population variance estimation
 - Uses first and third elements of transition array (N and Sxx), ignores Sx (sum)
-- Result is guaranteed to be non-negative due to mathematical properties of variance
+- [Result](../R/Result.md) is guaranteed to be non-negative due to mathematical properties of variance
 - Implements unbiased sample variance, unlike VAR_POP which computes biased population variance
 - Part of PostgreSQL's statistical aggregate infrastructure  
 - Located in src/backend/utils/adt/float.c:3160-3181

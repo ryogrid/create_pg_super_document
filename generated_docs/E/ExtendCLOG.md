@@ -23,10 +23,10 @@ When extension is needed, the function creates a new zeroed CLOG page and genera
 - Functions called/Symbols referenced:
   - TransactionIdToPgIndex
   - TransactionIdEquals
-  - TransactionIdToPage
-  - SimpleLruGetBankLock
+  - [TransactionIdToPage](../T/TransactionIdToPage.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire
-  - ZeroCLOGPage
+  - [ZeroCLOGPage](../Z/ZeroCLOGPage.md)
   - LWLockRelease
 - Global variables accessed:
   - FirstNormalTransactionId

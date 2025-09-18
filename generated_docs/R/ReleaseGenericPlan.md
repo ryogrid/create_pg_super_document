@@ -21,15 +21,15 @@ The function plays a crucial role in memory management for cached plans, particu
 - Functions called/Symbols referenced:
   - CachedPlan
   - CACHEDPLAN_MAGIC
-  - ReleaseCachedPlan
+  - [ReleaseCachedPlan](ReleaseCachedPlan.md)
 
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation (src/backend/utils/cache/plancache.c:102)
-  - SaveCachedPlan (src/backend/utils/cache/plancache.c:500)
-  - DropCachedPlan (src/backend/utils/cache/plancache.c:538)
-  - RevalidateCachedQuery (src/backend/utils/cache/plancache.c:682)
-  - CheckCachedPlan (src/backend/utils/cache/plancache.c:884)
-  - GetCachedPlan (src/backend/utils/cache/plancache.c:1201)
+  - [SaveCachedPlan](../S/SaveCachedPlan.md) (src/backend/utils/cache/plancache.c:500)
+  - [DropCachedPlan](../D/DropCachedPlan.md) (src/backend/utils/cache/plancache.c:538)
+  - [RevalidateCachedQuery](RevalidateCachedQuery.md) (src/backend/utils/cache/plancache.c:682)
+  - [CheckCachedPlan](../C/CheckCachedPlan.md) (src/backend/utils/cache/plancache.c:884)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (src/backend/utils/cache/plancache.c:1201)
 
 ## Notes and Other Information
 - This is a static function internal to the plancache.c module

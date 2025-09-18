@@ -22,10 +22,10 @@ This approach ensures efficient handling of nested scenarios where the same hash
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState - macro to get the outer plan state from the Hash node
-  - ExecReScan - general-purpose rescan function for plan nodes
-  - PlanState - base structure for plan node execution state
+  - [ExecReScan](ExecReScan.md) - general-purpose rescan function for plan nodes
+  - [PlanState](../P/PlanState.md) - base structure for plan node execution state
 - Called from (representative examples):
-  - ExecReScan - generic executor rescan dispatcher function
+  - [ExecReScan](ExecReScan.md) - generic executor rescan dispatcher function
 
 ## Notes and Other Information
 - Part of PostgreSQL's executor rescan infrastructure for plan nodes

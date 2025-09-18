@@ -35,13 +35,13 @@ Key operations include:
   - PySequence_Length (Python API length retrieval)
   - PySequence_GetItem (Python API element access)
   - PyList_Check (Python type checking)
-  - initArrayResult (creates ArrayBuildState)
-  - accumArrayResult (adds elements to array)
+  - [initArrayResult](../i/initArrayResult.md) (creates ArrayBuildState)
+  - [accumArrayResult](../a/accumArrayResult.md) (adds elements to array)
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling)
   - Py_XDECREF (Python reference counting)
 - Called from (representative examples):
-  - PLySequence_ToArray (src/pl/plpython/plpy_typeio.c:1167)
-  - PLySequence_ToArray_recurse (src/pl/plpython/plpy_typeio.c:1240) - recursive self-call
+  - [PLySequence_ToArray](PLySequence_ToArray.md) (src/pl/plpython/plpy_typeio.c:1167)
+  - [PLySequence_ToArray_recurse](PLySequence_ToArray_recurse.md) (src/pl/plpython/plpy_typeio.c:1240) - recursive self-call
 
 ## Notes and Other Information
 - Uses lazy initialization of ArrayBuildState to avoid creating it until scalars are found

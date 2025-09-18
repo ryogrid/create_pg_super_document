@@ -24,11 +24,11 @@ The function is designed to be called by external code (outside of snapbuild.c) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildRestore
-  - SnapBuildSerialize
+  - [SnapBuildRestore](SnapBuildRestore.md)
+  - [SnapBuildSerialize](SnapBuildSerialize.md)
   - SNAPBUILD_CONSISTENT (enum constant)
 - Called from (representative examples):
-  - xlog_decode (in decode.c:142)
+  - [xlog_decode](../x/xlog_decode.md) (in decode.c:142)
 
 ## Notes and Other Information
 - This function acts as a state-based dispatcher, making the decision between restoration and serialization transparent to the caller

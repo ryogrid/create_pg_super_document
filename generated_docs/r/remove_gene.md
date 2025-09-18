@@ -25,7 +25,7 @@ The removal process involves finding the gene in each edge list and replacing it
   - Edge (type)
   - Gene (type)
 - Called from (representative examples):
-  - gimme_tour
+  - [gimme_tour](../g/gimme_tour.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geqo_erx.c file

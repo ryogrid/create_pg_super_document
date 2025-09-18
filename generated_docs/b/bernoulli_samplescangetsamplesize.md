@@ -27,12 +27,12 @@ This function performs sample size estimation for the Bernoulli tablesample meth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimate_expression_value (evaluates parameter expressions)
-  - DatumGetFloat4 (extracts float4 value from Datum)
+  - [estimate_expression_value](../e/estimate_expression_value.md) (evaluates parameter expressions)
+  - [DatumGetFloat4](../D/DatumGetFloat4.md) (extracts float4 value from Datum)
   - isnan (checks for NaN values)
-  - clamp_row_est (ensures row estimate is within valid bounds)
+  - [clamp_row_est](../c/clamp_row_est.md) (ensures row estimate is within valid bounds)
 - Called from (representative examples):
-  - tsm_bernoulli_handler (sets this as SampleScanGetSampleSize callback)
+  - [tsm_bernoulli_handler](../t/tsm_bernoulli_handler.md) (sets this as SampleScanGetSampleSize callback)
 
 ## Notes and Other Information
 - Always visits all pages of the baserel since Bernoulli sampling examines every tuple

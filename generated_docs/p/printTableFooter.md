@@ -18,25 +18,25 @@ The printTableFooter structure implements a singly-linked list for managing tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableFooter (self-reference for linked list structure)
+  - [printTableFooter](printTableFooter.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - print_separator (src/fe_utils/print.c:397)
-  - print_unaligned_text (src/fe_utils/print.c:478)
-  - print_unaligned_vertical (src/fe_utils/print.c:564)
-  - print_aligned_text (src/fe_utils/print.c:1181)
-  - print_aligned_vertical (src/fe_utils/print.c:1357)
-  - print_html_text (src/fe_utils/print.c:2058)
-  - print_html_vertical (src/fe_utils/print.c:2146)
-  - print_asciidoc_text (src/fe_utils/print.c:2277)
-  - print_asciidoc_vertical (src/fe_utils/print.c:2372)
-  - print_latex_text (src/fe_utils/print.c:2531)
-  - print_latex_vertical (src/fe_utils/print.c:2790)
-  - print_troff_ms_text (src/fe_utils/print.c:2897)
-  - print_troff_ms_vertical (src/fe_utils/print.c:3011)
-  - printTableAddFooter (src/fe_utils/print.c:3312)
-  - printTableCleanup (src/fe_utils/print.c:3385)
-  - IsPagerNeeded (src/fe_utils/print.c:3417)
-  - printTableContent (src/include/fe_utils/print.h:176)
+  - [print_separator](print_separator.md) (src/fe_utils/print.c:397)
+  - [print_unaligned_text](print_unaligned_text.md) (src/fe_utils/print.c:478)
+  - [print_unaligned_vertical](print_unaligned_vertical.md) (src/fe_utils/print.c:564)
+  - [print_aligned_text](print_aligned_text.md) (src/fe_utils/print.c:1181)
+  - [print_aligned_vertical](print_aligned_vertical.md) (src/fe_utils/print.c:1357)
+  - [print_html_text](print_html_text.md) (src/fe_utils/print.c:2058)
+  - [print_html_vertical](print_html_vertical.md) (src/fe_utils/print.c:2146)
+  - [print_asciidoc_text](print_asciidoc_text.md) (src/fe_utils/print.c:2277)
+  - [print_asciidoc_vertical](print_asciidoc_vertical.md) (src/fe_utils/print.c:2372)
+  - [print_latex_text](print_latex_text.md) (src/fe_utils/print.c:2531)
+  - [print_latex_vertical](print_latex_vertical.md) (src/fe_utils/print.c:2790)
+  - [print_troff_ms_text](print_troff_ms_text.md) (src/fe_utils/print.c:2897)
+  - [print_troff_ms_vertical](print_troff_ms_vertical.md) (src/fe_utils/print.c:3011)
+  - [printTableAddFooter](printTableAddFooter.md) (src/fe_utils/print.c:3312)
+  - [printTableCleanup](printTableCleanup.md) (src/fe_utils/print.c:3385)
+  - [IsPagerNeeded](../I/IsPagerNeeded.md) (src/fe_utils/print.c:3417)
+  - [printTableContent](printTableContent.md) (src/include/fe_utils/print.h:176)
 
 ## Notes and Other Information
 This structure is designed for flexibility and ease of use when building table footers dynamically. The linked list implementation eliminates the need to pre-allocate footer arrays or track footer counts, making it convenient for functions that generate varying numbers of footer lines based on table content or metadata. The structure is used across all table output formats supported by PostgreSQL frontend utilities, including text, HTML, AsciiDoc, LaTeX, and troff formats.

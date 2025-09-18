@@ -27,7 +27,7 @@ This helper function is used in the PostgreSQL query optimizer to unwrap single-
   - MergeAppendPath (struct type)
 - Called from (representative examples):
   - pushdown_safe_type
-  - generate_orderedappend_paths
+  - [generate_orderedappend_paths](generate_orderedappend_paths.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (allpaths.c)

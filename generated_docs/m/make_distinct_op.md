@@ -23,14 +23,14 @@ The `make_distinct_op` function constructs a DistinctExpr node to handle IS DIST
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_op
+  - [make_op](make_op.md)
   - NodeSetTag
-  - parser_errposition
-  - errcode
-  - errmsg
+  - [parser_errposition](../p/parser_errposition.md)
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
   - transformAExprDistinct
-  - make_row_distinct_op
+  - [make_row_distinct_op](make_row_distinct_op.md)
 
 ## Notes and Other Information
 - Relies on the structural equivalence between DistinctExpr and OpExpr nodes

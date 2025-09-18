@@ -21,12 +21,12 @@ When a soft error is detected, the function examines the JsonExprState to determ
 ## Dependencies
 - Functions called/Symbols referenced:
   - SOFT_ERROR_OCCURRED
-  - DatumGetBool
+  - [DatumGetBool](../D/DatumGetBool.md)
   - ereport
-  - GetJsonBehaviorValueString
-  - BoolGetDatum
+  - [GetJsonBehaviorValueString](../G/GetJsonBehaviorValueString.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
 - Called from (representative examples):
-  - ExecInterpExpr (main expression interpreter loop)
+  - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter loop)
 
 ## Notes and Other Information
 - This function implements SQL/JSON standard error handling semantics

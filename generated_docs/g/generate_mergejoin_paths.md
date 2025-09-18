@@ -46,18 +46,18 @@ The function performs several operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_mergeclauses_for_outer_pathkeys
-  - make_inner_pathkeys_for_merge
-  - try_mergejoin_path
-  - pathkeys_contained_in
-  - get_cheapest_path_for_pathkeys
-  - compare_path_costs
-  - trim_mergeclauses_for_inner_pathkeys
-  - list_truncate
-  - list_copy
+  - [find_mergeclauses_for_outer_pathkeys](../f/find_mergeclauses_for_outer_pathkeys.md)
+  - [make_inner_pathkeys_for_merge](../m/make_inner_pathkeys_for_merge.md)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [get_cheapest_path_for_pathkeys](get_cheapest_path_for_pathkeys.md)
+  - [compare_path_costs](../c/compare_path_costs.md)
+  - [trim_mergeclauses_for_inner_pathkeys](../t/trim_mergeclauses_for_inner_pathkeys.md)
+  - [list_truncate](../l/list_truncate.md)
+  - [list_copy](../l/list_copy.md)
 - Called from (representative examples):
-  - match_unsorted_outer
-  - consider_parallel_mergejoin
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
+  - [consider_parallel_mergejoin](../c/consider_parallel_mergejoin.md)
 
 ## Notes and Other Information
 - This is a static function within joinpath.c specifically for mergejoin path generation

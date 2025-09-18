@@ -22,12 +22,12 @@ After ensuring that runtime keys are ready, the function calls ExecScan with spe
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode: PostgreSQL macro for safe type casting with debug assertions
-  - ExecReScan: Re-initializes the scan with current runtime key values
-  - ExecScan: Generic executor scan framework that coordinates tuple retrieval
-  - IndexOnlyNext: Access method function for retrieving the next tuple
-  - IndexOnlyRecheck: Access method function for EvalPlanQual rechecking (always errors)
+  - [ExecReScan](ExecReScan.md): Re-initializes the scan with current runtime key values
+  - [ExecScan](ExecScan.md): Generic executor scan framework that coordinates tuple retrieval
+  - [IndexOnlyNext](../I/IndexOnlyNext.md): Access method function for retrieving the next tuple
+  - [IndexOnlyRecheck](../I/IndexOnlyRecheck.md): Access method function for EvalPlanQual rechecking (always errors)
 - Called from (representative examples):
-  - ExecInitIndexOnlyScan: Sets this as the execution function during node initialization
+  - [ExecInitIndexOnlyScan](ExecInitIndexOnlyScan.md): Sets this as the execution function during node initialization
 
 ## Notes and Other Information
 - This function implements the standard PostgreSQL executor node interface

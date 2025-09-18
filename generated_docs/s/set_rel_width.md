@@ -25,24 +25,24 @@ Width estimates are clamped using `clamp_width_est` to prevent integer overflow 
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - get_attavgwidth
-  - get_typavgwidth
-  - find_placeholder_info
-  - cost_qual_eval_node
-  - get_relation_data_width
-  - clamp_width_est
+  - [get_attavgwidth](../g/get_attavgwidth.md)
+  - [get_typavgwidth](../g/get_typavgwidth.md)
+  - [find_placeholder_info](../f/find_placeholder_info.md)
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
+  - [get_relation_data_width](../g/get_relation_data_width.md)
+  - [clamp_width_est](../c/clamp_width_est.md)
   - exprType
   - exprTypmod
 - Types used:
-  - PlaceHolderVar
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - PlaceHolderInfo
   - QualCost
-  - PathTarget
+  - [PathTarget](../P/PathTarget.md)
 - Constants used:
   - SizeofHeapTupleHeader
 - Called from (representative examples):
-  - set_baserel_size_estimates
-  - set_foreign_size_estimates
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
+  - [set_foreign_size_estimates](set_foreign_size_estimates.md)
 
 ## Notes and Other Information
 - Works best on plain relations with real Vars; less accurate for subqueries and other relation types

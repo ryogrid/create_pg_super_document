@@ -25,12 +25,12 @@ The function serves as a critical safety mechanism in PostgreSQL's character pro
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro for testing high bit in byte)
   - PG_GB18030 (GB18030 encoding constant)
-  - pg_encoding_mblen (core length determination function)
+  - [pg_encoding_mblen](pg_encoding_mblen.md) (core length determination function)
 - Called from (representative examples):
-  - report_invalid_encoding (error reporting for invalid characters)
-  - report_untranslatable_char (error reporting for untranslatable characters)
-  - PQescapeStringInternal (libpq string escaping with safety checks)
-  - PQescapeInternal (libpq internal escaping routines)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting for invalid characters)
+  - [report_untranslatable_char](../r/report_untranslatable_char.md) (error reporting for untranslatable characters)
+  - [PQescapeStringInternal](../P/PQescapeStringInternal.md) (libpq string escaping with safety checks)
+  - [PQescapeInternal](../P/PQescapeInternal.md) (libpq internal escaping routines)
 
 ## Notes and Other Information
 - Returns INT_MAX as a sentinel value when insufficient bytes are available for length determination

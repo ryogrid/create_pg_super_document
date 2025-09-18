@@ -21,9 +21,9 @@ This function serves as a helper routine for the kqueue-based event waiting mech
 ## Dependencies
 - Functions called/Symbols referenced:
   - AccessWaitEvent (macro for accessing WaitEvent from kevent)
-  - WaitEvent (structure type)
+  - [WaitEvent](WaitEvent.md) (structure type)
 - Called from (representative examples):
-  - WaitEventAdjustKqueue (multiple times at lines 1313, 1316, 1319, 1322)
+  - [WaitEventAdjustKqueue](WaitEventAdjustKqueue.md) (multiple times at lines 1313, 1316, 1319, 1322)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only available within the latch.c compilation unit and will be inlined at call sites for performance

@@ -25,15 +25,15 @@ This function traverses a hash bucket's linked list to find an entry with a key 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DsaPointerIsValid
-  - dsa_get_address
-  - equal_keys
-  - dsa_free
+  - [dsa_get_address](dsa_get_address.md)
+  - [equal_keys](../e/equal_keys.md)
+  - [dsa_free](dsa_free.md)
   - ENTRY_FROM_ITEM
-  - dshash_table (type)
+  - [dshash_table](dshash_table.md) (type)
   - dsa_pointer (type)
-  - dshash_table_item (type)
+  - [dshash_table_item](dshash_table_item.md) (type)
 - Called from (representative examples):
-  - dshash_delete_key
+  - [dshash_delete_key](dshash_delete_key.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within dshash.c

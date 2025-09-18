@@ -17,9 +17,9 @@ This function is specifically designed to handle the case where  is called witho
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbInState (struct)
-  - pushJsonbValue
-  - JsonbValueToJsonb
+  - [JsonbInState](../J/JsonbInState.md) (struct)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - WJB_BEGIN_ARRAY
   - WJB_END_ARRAY
   - PG_RETURN_POINTER

@@ -18,11 +18,11 @@ This function applies the ROT13 cipher transformation to a given password string
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (to get input password length)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - strlcpy (safe string copying)
 - Called from (representative examples):
-  - _PG_init (via ldap_password_hook assignment in ldap_password_func module)
-  - set_rot13 (via SSL_CTX_set_default_passwd_cb in ssl_passphrase_callback module)
+  - [_PG_init](../P/_PG_init.md) (via ldap_password_hook assignment in ldap_password_func module)
+  - [set_rot13](../s/set_rot13.md) (via SSL_CTX_set_default_passwd_cb in ssl_passphrase_callback module)
   - LDAP authentication system (when ldap_password_hook is triggered)
 
 ## Notes and Other Information

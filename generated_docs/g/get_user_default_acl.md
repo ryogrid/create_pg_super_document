@@ -24,16 +24,16 @@ The function includes a bootstrap mode check to avoid accessing pg_default_acl d
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
-  - get_default_acl_internal (retrieves ACL entries from pg_default_acl)
-  - acldefault (gets hard-wired default ACL for object type)
+  - [get_default_acl_internal](get_default_acl_internal.md) (retrieves ACL entries from pg_default_acl)
+  - [acldefault](../a/acldefault.md) (gets hard-wired default ACL for object type)
   - aclmerge (merges global and schema-specific ACLs)
   - aclitemsort (sorts ACL entries for comparison)
-  - aclequal (compares two ACLs for equality)
+  - [aclequal](../a/aclequal.md) (compares two ACLs for equality)
 - Called from:
-  - heap_create_with_catalog (for tables and sequences)
-  - NamespaceCreate (for schemas)
-  - ProcedureCreate (for functions)
-  - TypeCreate (for types)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (for tables and sequences)
+  - [NamespaceCreate](../N/NamespaceCreate.md) (for schemas)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (for functions)
+  - [TypeCreate](../T/TypeCreate.md) (for types)
 
 ## Notes and Other Information
 - Returns NULL during bootstrap mode to avoid catalog access issues

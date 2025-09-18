@@ -22,14 +22,14 @@ The function serves as a clean API boundary between the cache invalidation logic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SIInsertDataEntries (handles actual insertion into shared invalidation queue)
+  - [SIInsertDataEntries](SIInsertDataEntries.md) (handles actual insertion into shared invalidation queue)
   - SharedInvalidationMessage (message structure type)
 - Called from (representative examples):
-  - FinishPreparedTransaction (during two-phase commit completion)
-  - ProcessCommittedInvalidationMessages (when processing committed invalidations)  
-  - AtEOXact_Inval (at end-of-transaction invalidation processing)
-  - CacheInvalidateSmgr (for storage manager cache invalidation)
-  - CacheInvalidateRelmap (for relation mapping cache invalidation)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md) (during two-phase commit completion)
+  - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md) (when processing committed invalidations)  
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md) (at end-of-transaction invalidation processing)
+  - [CacheInvalidateSmgr](../C/CacheInvalidateSmgr.md) (for storage manager cache invalidation)
+  - [CacheInvalidateRelmap](../C/CacheInvalidateRelmap.md) (for relation mapping cache invalidation)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's shared invalidation system that ensures cache consistency across multiple backend processes

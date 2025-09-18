@@ -22,11 +22,11 @@ The function uses ProcStructLock to ensure thread-safe access to the free proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_iter (iterator type)
+  - [dlist_iter](../d/dlist_iter.md) (iterator type)
   - dlist_foreach (macro for iterating)
 
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - Designed with the assumption that N will generally be small for optimal performance

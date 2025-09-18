@@ -23,11 +23,11 @@ This function provides range-based comparison functionality for PostgreSQL windo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_range_int4_int4 (main implementation function)
+  - [in_range_int4_int4](in_range_int4_int4.md) (main implementation function)
   - DirectFunctionCall5 (PostgreSQL direct function call mechanism)
   - PG_GETARG_DATUM (macro to extract datum arguments)
   - PG_GETARG_INT16 (macro to extract int2 argument)
-  - Int32GetDatum (macro to convert int32 to Datum)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (macro to convert int32 to Datum)
 - Called from (representative examples):
   - No direct references found in the codebase
 

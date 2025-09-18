@@ -31,13 +31,13 @@ This is specifically designed for Hungarian morphology where certain vowel endin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1: Tests if current position is within R1 region
-  - find_among_b: Backward suffix matching function
-  - slice_from_s: String replacement function
+  - [r_R1](r_R1.md): Tests if current position is within R1 region
+  - [find_among_b](../f/find_among_b.md): Backward suffix matching function
+  - [slice_from_s](../s/slice_from_s.md): String replacement function
   - a_1: Suffix array containing 2 vowel ending patterns
   - s_0, s_1: Replacement strings for the matched patterns
 - Called from (representative examples):
-  - r_case (Hungarian case suffix processing)
+  - [r_case](r_case.md) (Hungarian case suffix processing)
 
 ## Notes and Other Information
 - This function is specific to Hungarian stemming and handles accented vowel transformations

@@ -24,9 +24,9 @@ The function returns a FILE pointer that can be used by the calling code to writ
 - Functions called/Symbols referenced:
   - fopen
   - chmod (non-Windows only)
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - bbstreamer_extractor_content
+  - [bbstreamer_extractor_content](../b/bbstreamer_extractor_content.md)
 
 ## Notes and Other Information
 - This is a static function specific to the bbstreamer file extraction implementation  

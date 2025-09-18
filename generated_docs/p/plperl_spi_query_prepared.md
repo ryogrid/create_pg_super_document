@@ -23,18 +23,18 @@ The function follows similar validation and parameter conversion logic as plperl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - BeginInternalSubTransaction
-  - hash_search (to find prepared query)
-  - plperl_sv_to_datum (parameter conversion)
-  - SPI_cursor_open (create cursor/portal)
-  - SPI_result_code_string (error reporting)
-  - cstr2sv (convert portal name to Perl scalar)
-  - PinPortal (prevent automatic portal closure)
-  - ReleaseCurrentSubTransaction
-  - RollbackAndReleaseCurrentSubTransaction
-  - CopyErrorData, FlushErrorState (error handling)
-  - croak_cstr (Perl error propagation)
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [hash_search](../h/hash_search.md) (to find prepared query)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md) (parameter conversion)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md) (create cursor/portal)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md) (error reporting)
+  - [cstr2sv](../c/cstr2sv.md) (convert portal name to Perl scalar)
+  - [PinPortal](../P/PinPortal.md) (prevent automatic portal closure)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [CopyErrorData](../C/CopyErrorData.md), FlushErrorState (error handling)
+  - [croak_cstr](../c/croak_cstr.md) (Perl error propagation)
 - Called from (representative examples):
   - PL_PERL_H (header declaration)
 

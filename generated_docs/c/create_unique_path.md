@@ -32,18 +32,18 @@ The function caches its result in the relation's cheapest_unique_path field sinc
 - Functions called/Symbols referenced:
   - makeNode (to create the UniquePath node)
   - copyObject (to copy semijoin operators and expressions)
-  - relation_has_unique_index_for (to check for existing unique indexes)
-  - query_supports_distinctness/query_is_distinct_for (to check subquery uniqueness)
-  - translate_sub_tlist (to translate subquery target list columns)
-  - estimate_num_groups (to estimate output row count)
-  - cost_sort (to cost sort-based uniqueness strategy)
-  - cost_agg (to cost hash-based uniqueness strategy)
-  - bms_equal (to compare relation ID sets)
+  - [relation_has_unique_index_for](../r/relation_has_unique_index_for.md) (to check for existing unique indexes)
+  - [query_supports_distinctness](../q/query_supports_distinctness.md)/query_is_distinct_for (to check subquery uniqueness)
+  - [translate_sub_tlist](../t/translate_sub_tlist.md) (to translate subquery target list columns)
+  - [estimate_num_groups](../e/estimate_num_groups.md) (to estimate output row count)
+  - [cost_sort](cost_sort.md) (to cost sort-based uniqueness strategy)
+  - [cost_agg](cost_agg.md) (to cost hash-based uniqueness strategy)
+  - [bms_equal](../b/bms_equal.md) (to compare relation ID sets)
 - Called from (representative examples):
-  - sort_inner_and_outer (during sort-merge join planning)
-  - match_unsorted_outer (during nested loop join planning)
-  - hash_inner_and_outer (during hash join planning)
-  - join_is_legal (when checking join legality for semijoins)
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md) (during sort-merge join planning)
+  - [match_unsorted_outer](../m/match_unsorted_outer.md) (during nested loop join planning)
+  - [hash_inner_and_outer](../h/hash_inner_and_outer.md) (during hash join planning)
+  - [join_is_legal](../j/join_is_legal.md) (when checking join legality for semijoins)
 
 ## Notes and Other Information
 - The function asserts that the subpath is the cheapest_total_path and that the SpecialJoinInfo represents a semijoin

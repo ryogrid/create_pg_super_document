@@ -26,17 +26,17 @@ The function supports flexible memory management by allowing the caller to eithe
 - Functions called/Symbols referenced:
   - JsonContainerIsObject
   - JsonContainerSize
-  - getJsonbOffset
-  - getJsonbLength
-  - lengthCompareJsonbString
-  - fillJsonbValue
+  - [getJsonbOffset](getJsonbOffset.md)
+  - [getJsonbLength](getJsonbLength.md)
+  - [lengthCompareJsonbString](../l/lengthCompareJsonbString.md)
+  - [fillJsonbValue](../f/fillJsonbValue.md)
 - Called from (representative examples):
-  - findJsonbValueFromContainer
-  - JsonbDeepContains
-  - jsonb_object_field
-  - jsonb_object_field_text
-  - jsonb_get_element
-  - JsObjectGetField
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md)
+  - [JsonbDeepContains](../J/JsonbDeepContains.md)
+  - [jsonb_object_field](../j/jsonb_object_field.md)
+  - [jsonb_object_field_text](../j/jsonb_object_field_text.md)
+  - [jsonb_get_element](../j/jsonb_get_element.md)
+  - [JsObjectGetField](../J/JsObjectGetField.md)
 
 ## Notes and Other Information
 - Uses binary search algorithm for O(log n) lookup performance on sorted JSONB object keys

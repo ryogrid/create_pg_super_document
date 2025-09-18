@@ -23,15 +23,15 @@ The implementation is architecture-aware, with optimized versions for x86, Power
 - Functions called/Symbols referenced:
   - uint32 (base type)
 - Called from (representative examples):
-  - pg_atomic_init_u32
-  - pg_atomic_read_u32
-  - pg_atomic_write_u32
-  - pg_atomic_compare_exchange_u32
-  - pg_atomic_fetch_add_u32
-  - pg_atomic_exchange_u32
-  - LWLock (lightweight lock state)
-  - PGPROC (process control block linking)
-  - BufferDesc (buffer management)
+  - [pg_atomic_init_u32](pg_atomic_init_u32.md)
+  - [pg_atomic_read_u32](pg_atomic_read_u32.md)
+  - [pg_atomic_write_u32](pg_atomic_write_u32.md)
+  - [pg_atomic_compare_exchange_u32](pg_atomic_compare_exchange_u32.md)
+  - [pg_atomic_fetch_add_u32](pg_atomic_fetch_add_u32.md)
+  - [pg_atomic_exchange_u32](pg_atomic_exchange_u32.md)
+  - [LWLock](../L/LWLock.md) (lightweight lock state)
+  - [PGPROC](../P/PGPROC.md) (process control block linking)
+  - [BufferDesc](../B/BufferDesc.md) (buffer management)
   - ParallelHashJoinState (parallel query execution)
 
 ## Notes and Other Information

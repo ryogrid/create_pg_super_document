@@ -23,31 +23,31 @@ A key feature is its table locking mechanism that acquires ACCESS SHARE locks on
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
-  - ExecuteSqlQuery
-  - PQntuples
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
   - pg_malloc0
-  - PQfnumber
-  - resetPQExpBuffer
-  - appendStringLiteralConn
-  - ExecuteSqlStatement
-  - PQgetvalue
+  - [PQfnumber](../P/PQfnumber.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - AssignDumpId
-  - pg_strdup
-  - findNamespace
-  - getRoleName
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
   - atoi
   - strcmp
-  - PQgetisnull
-  - selectDumpableTable
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [selectDumpableTable](../s/selectDumpableTable.md)
   - fmtQualifiedDumpable
-  - GetConnection
-  - PQclear
+  - [GetConnection](../G/GetConnection.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Retrieves all relkinds including relations, sequences, views, composite types, materialized views, foreign tables, and partitioned tables

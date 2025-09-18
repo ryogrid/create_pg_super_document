@@ -30,7 +30,7 @@ This transition is essential for ensuring that archive recovery can proceed safe
   - DB_IN_ARCHIVE_RECOVERY (control file state constant)
   - RECOVERY_STATE_ARCHIVE (shared memory recovery state)
 - Called from (representative examples):
-  - ReadRecord (when switching recovery modes during WAL reading)
+  - [ReadRecord](../R/ReadRecord.md) (when switching recovery modes during WAL reading)
 
 ## Notes and Other Information
 - Called as a callback during WAL recovery when transitioning between recovery modes

@@ -23,14 +23,14 @@ The function uses the PUBLICATIONNAME system cache to efficiently retrieve the p
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid1
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - OidIsValid
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - get_object_address_unqualified
-  - GetPublicationByName
+  - [get_object_address_unqualified](get_object_address_unqualified.md)
+  - [GetPublicationByName](../G/GetPublicationByName.md)
 
 ## Notes and Other Information
 - This function is part of the logical replication infrastructure in PostgreSQL

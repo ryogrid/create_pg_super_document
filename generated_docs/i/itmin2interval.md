@@ -29,9 +29,9 @@ The function serves as a more permissive alternative to itm2interval, specifical
   - MONTHS_PER_YEAR (constant for year/month conversion)
   - INT_MAX, INT_MIN (limits for month field validation)
 - Called from (representative examples):
-  - interval_in (interval input parsing)
-  - pg_timezone_abbrevs (timezone abbreviation functions)
-  - pg_timezone_names (timezone name functions)
+  - [interval_in](interval_in.md) (interval input parsing)
+  - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md) (timezone abbreviation functions)
+  - [pg_timezone_names](../p/pg_timezone_names.md) (timezone name functions)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 only on month field overflow (not infinite intervals)

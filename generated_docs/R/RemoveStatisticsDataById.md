@@ -23,12 +23,12 @@ The function takes both a statistics object OID and an inheritance flag to handl
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens StatisticExtDataRelationId with RowExclusiveLock)
-  - SearchSysCache2 (looks up row by STATEXTDATASTXOID cache)
-  - CatalogTupleDelete (removes the tuple if found)
+  - [SearchSysCache2](../S/SearchSysCache2.md) (looks up row by STATEXTDATASTXOID cache)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (removes the tuple if found)
   - table_close (closes the catalog relation)
 - Called from (representative examples):
-  - RemoveStatisticsById (src/backend/commands/statscmds.c:777-778)
-  - statext_store (src/backend/statistics/extended_stats.c:819)
+  - [RemoveStatisticsById](RemoveStatisticsById.md) (src/backend/commands/statscmds.c:777-778)
+  - [statext_store](../s/statext_store.md) (src/backend/statistics/extended_stats.c:819)
 
 ## Notes and Other Information
 - Does not error if the target row doesn't exist, making it safe for cleanup operations

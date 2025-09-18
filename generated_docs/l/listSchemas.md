@@ -43,7 +43,7 @@ The query can optionally exclude system schemas (those starting with 'pg_' and '
 - Uses error handling with goto for cleanup on validation failures
 - System schema filtering logic: excludes schemas matching '^pg_' regex pattern and 'information_schema'
 - For PostgreSQL 15+, when a specific pattern is provided, displays publication information as footers
-- Publication footer shows which publications include the matched schema for logical replication
+- [Publication](../P/Publication.md) footer shows which publications include the matched schema for logical replication
 - Memory management includes proper cleanup of dynamically allocated footer strings
 - Results are ordered by schema name
 - ACL information shows permissions granted to different roles when verbose mode is enabled

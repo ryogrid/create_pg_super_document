@@ -26,14 +26,14 @@ TidExpr is a fundamental data structure used in TID scan operations within Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CurrentOfExpr (alternative expression type for cursor-based TID access)
+  - [CurrentOfExpr](../C/CurrentOfExpr.md) (alternative expression type for cursor-based TID access)
   - ExprState (expression state for compiled TID expressions)
 - Called from (representative examples):
   - TidListEval (evaluates TidExpr list to compute TIDs for scanning)
-  - TidExprListCreate (creates and initializes TidExpr structures)
+  - [TidExprListCreate](TidExprListCreate.md) (creates and initializes TidExpr structures)
 
 ## Notes and Other Information
-- TidExpr is specifically designed for TID scan operations where direct tuple access is needed based on physical tuple identifiers
+- [TidExpr](TidExpr.md) is specifically designed for TID scan operations where direct tuple access is needed based on physical tuple identifiers
 - The structure supports both simple expressions that return single TIDs and more complex expressions that return arrays of TIDs
 - CURRENT OF functionality allows referencing the current position of a cursor, providing an alternative way to specify which tuple to access
 - Used internally by the PostgreSQL executor for optimizing queries that can benefit from direct tuple access via TID values

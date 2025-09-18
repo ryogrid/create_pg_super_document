@@ -22,7 +22,7 @@ The function performs a direct lookup into the tag_behavior array to retrieve th
   - CommandTag (enum type)
   - tag_behavior (static array of CommandTagBehavior structs)
 - Called from (representative examples):
-  - BuildQueryCompletionString (src/backend/tcop/cmdtag.c:146)
+  - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (src/backend/tcop/cmdtag.c:146)
   - CopyQueryCompletion (src/include/tcop/cmdtag.h:55)
 
 ## Notes and Other Information

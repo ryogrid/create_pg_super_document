@@ -29,16 +29,16 @@ The filtering step is critical for freezing operations - it removes dead members
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactIdIsValid
-  - GetMultiXactIdMembers
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
   - TransactionIdEquals
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
   - ISUPDATE_from_mxstatus
-  - MultiXactIdCreateFromMembers
+  - [MultiXactIdCreateFromMembers](MultiXactIdCreateFromMembers.md)
   - debug_elog5, debug_elog4, debug_elog3
-  - mxstatus_to_string
+  - [mxstatus_to_string](../m/mxstatus_to_string.md)
 - Called from (representative examples):
-  - compute_new_xmax_infomask (src/backend/access/heap/heapam.c:5393)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (src/backend/access/heap/heapam.c:5393)
 
 ## Notes and Other Information
 - The function requires that MultiXactIdSetOldestMember() has been called previously

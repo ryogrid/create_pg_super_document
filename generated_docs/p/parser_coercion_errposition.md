@@ -25,12 +25,12 @@ The function serves as a specialized wrapper around `parser_errposition`, design
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parser_errposition (called twice with different locations)
-  - exprLocation
+  - [parser_errposition](parser_errposition.md) (called twice with different locations)
+  - [exprLocation](../e/exprLocation.md)
 - Called from (representative examples):
-  - coerce_record_to_complex (src/backend/parser/parse_coerce.c:1053, 1092, 1113, 1125)
-  - transformTypeCast (src/backend/parser/parse_expr.c:2765)
-  - coerceJsonFuncExpr (src/backend/parser/parse_expr.c:3645)
+  - [coerce_record_to_complex](../c/coerce_record_to_complex.md) (src/backend/parser/parse_coerce.c:1053, 1092, 1113, 1125)
+  - [transformTypeCast](../t/transformTypeCast.md) (src/backend/parser/parse_expr.c:2765)
+  - [coerceJsonFuncExpr](../c/coerceJsonFuncExpr.md) (src/backend/parser/parse_expr.c:3645)
 
 ## Notes and Other Information
 - Designed specifically for coercion error reporting but could potentially be generalized for other parser error contexts

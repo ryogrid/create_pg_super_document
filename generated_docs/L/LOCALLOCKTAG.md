@@ -23,10 +23,10 @@ This local tracking mechanism enables multiple requests for the same lock to be 
   - LOCKTAG
   - LOCKMODE
 - Called from (representative examples):
-  - LockAcquireExtended
-  - LockRelease
-  - LockHeldByMe
-  - LockHasWaiters
+  - [LockAcquireExtended](LockAcquireExtended.md)
+  - [LockRelease](LockRelease.md)
+  - [LockHeldByMe](LockHeldByMe.md)
+  - [LockHasWaiters](LockHasWaiters.md)
   - InitLocks
 
 ## Notes and Other Information

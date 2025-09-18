@@ -23,15 +23,15 @@ The function supports different aggregation modes: combine operations (for paral
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expr_setup_walker (to analyze expression slot requirements)
-  - ExecPushExprSetupSteps (to emit slot deforming steps)
-  - ExecInitExprRec (to initialize sub-expressions for filters and arguments)
-  - ExprEvalPushStep (to add execution steps)
-  - ExecBuildAggTransCall (to generate transition function calls)
-  - ExecReadyExpr (to finalize the expression for execution)
+  - [expr_setup_walker](../e/expr_setup_walker.md) (to analyze expression slot requirements)
+  - [ExecPushExprSetupSteps](ExecPushExprSetupSteps.md) (to emit slot deforming steps)
+  - [ExecInitExprRec](ExecInitExprRec.md) (to initialize sub-expressions for filters and arguments)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (to add execution steps)
+  - [ExecBuildAggTransCall](ExecBuildAggTransCall.md) (to generate transition function calls)
+  - [ExecReadyExpr](ExecReadyExpr.md) (to finalize the expression for execution)
 - Called from (representative examples):
-  - ExecInitAgg (during aggregate node initialization)
-  - hashagg_recompile_expressions (when recompiling for hash aggregation)
+  - [ExecInitAgg](ExecInitAgg.md) (during aggregate node initialization)
+  - [hashagg_recompile_expressions](../h/hashagg_recompile_expressions.md) (when recompiling for hash aggregation)
 
 ## Notes and Other Information
 - Handles both combine and regular transition modes based on aggsplit setting

@@ -23,21 +23,21 @@ The function returns a "perfect penalty" value that represents the theoretical b
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes
-  - _bt_interval_edges
-  - _bt_split_lastleft
-  - _bt_split_firstright
-  - _bt_keep_natts_fast
-  - PageGetItemId
-  - PageGetItem
+  - [_bt_interval_edges](_bt_interval_edges.md)
+  - [_bt_split_lastleft](_bt_split_lastleft.md)
+  - [_bt_split_firstright](_bt_split_firstright.md)
+  - [_bt_keep_natts_fast](_bt_keep_natts_fast.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
 - Structures/Types/Constants referenced:
   - FindSplitData
   - SplitPoint
   - FindSplitStrat
   - SPLIT_DEFAULT, SPLIT_MANY_DUPLICATES, SPLIT_SINGLE_VALUE
-  - IndexTuple, ItemId
+  - [IndexTuple](../I/IndexTuple.md), ItemId
   - P_HIKEY
 - Called from (representative examples):
-  - _bt_findsplitloc
+  - [_bt_findsplitloc](_bt_findsplitloc.md)
 
 ## Notes and Other Information
 - This is a static function used only within nbtsplitloc.c for B-tree split strategy selection

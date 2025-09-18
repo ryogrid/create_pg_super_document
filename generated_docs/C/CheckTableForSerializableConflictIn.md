@@ -32,17 +32,17 @@ An important optimization allows early exit when no serializable transactions ar
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - SerializationNeededForWrite
-  - hash_seq_init
-  - hash_seq_search
+  - [SerializationNeededForWrite](../S/SerializationNeededForWrite.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - GET_PREDICATELOCKTARGETTAG_RELATION
   - GET_PREDICATELOCKTARGETTAG_DB
-  - RWConflictExists
-  - FlagRWConflict
+  - [RWConflictExists](../R/RWConflictExists.md)
+  - [FlagRWConflict](../F/FlagRWConflict.md)
   - PredicateLockHashPartitionLockByIndex
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - ExecuteTruncateGuts
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 - This is a public function exported via predicate.h for use by DDL operations

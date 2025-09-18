@@ -26,8 +26,8 @@ The function includes progress reporting and error handling, logging any failure
   - ereport
 - Called from (representative examples):
   - SyncDataDirectory
-  - sync_pgdata
-  - sync_dir_recurse
+  - [sync_pgdata](../s/sync_pgdata.md)
+  - [sync_dir_recurse](../s/sync_dir_recurse.md)
 
 ## Notes and Other Information
 - This function is Linux-specific due to its use of the  system call

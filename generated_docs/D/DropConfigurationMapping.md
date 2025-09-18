@@ -21,15 +21,15 @@ This function removes token-to-dictionary mappings from the pg_ts_config_map cat
 - Functions called/Symbols referenced:
   - AlterTSConfigurationStmt
   - Form_pg_ts_config
-  - getTokenTypes
+  - [getTokenTypes](../g/getTokenTypes.md)
   - TSTokenTypeItem
-  - ScanKeyInit
-  - systable_beginscan, systable_getnext, systable_endscan
-  - CatalogTupleDelete
-  - EventTriggerCollectAlterTSConfig
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [EventTriggerCollectAlterTSConfig](../E/EventTriggerCollectAlterTSConfig.md)
   - ereport (for error and notice reporting)
 - Called from (representative examples):
-  - AlterTSConfiguration
+  - [AlterTSConfiguration](../A/AlterTSConfiguration.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsearchcmds.c file

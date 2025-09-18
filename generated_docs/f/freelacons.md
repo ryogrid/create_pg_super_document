@@ -25,11 +25,11 @@ The iteration starts from index 1 because index 0 is intentionally unused in the
 ## Dependencies
 - Functions called/Symbols referenced:
   - NULLCNFA - Macro to check if cnfa structure is null/empty
-  - freecnfa - Frees compiled NFA structures
+  - [freecnfa](freecnfa.md) - Frees compiled NFA structures
   - FREE - Deallocates main array memory
 - Called from (representative examples):
-  - freev - Main vars structure cleanup function
-  - rfree - Regex structure cleanup function
+  - [freev](freev.md) - Main vars structure cleanup function
+  - [rfree](../r/rfree.md) - Regex structure cleanup function
 
 ## Notes and Other Information
 - Skips index 0 in the array as it's intentionally unused in the lacon design

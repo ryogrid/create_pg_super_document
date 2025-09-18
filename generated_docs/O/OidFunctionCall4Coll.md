@@ -26,10 +26,10 @@ This function is used for complex operations that require four parameters, such 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info (initializes function manager information)
-  - FunctionCall4Coll (performs the actual function call with collation and four arguments)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager information)
+  - [FunctionCall4Coll](../F/FunctionCall4Coll.md) (performs the actual function call with collation and four arguments)
 - Called from (representative examples):
-  - restriction_selectivity (query optimization selectivity estimation)
+  - [restriction_selectivity](../r/restriction_selectivity.md) (query optimization selectivity estimation)
 
 ## Notes and Other Information
 - This function is part of the function manager (fmgr) subsystem in PostgreSQL

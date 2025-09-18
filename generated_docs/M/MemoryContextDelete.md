@@ -22,12 +22,12 @@ The implementation avoids using MemoryContextTraverseNext() because it modifies 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid
-  - MemoryContextDeleteOnly
+  - [MemoryContextDeleteOnly](MemoryContextDeleteOnly.md)
 - Called from (representative examples):
-  - brininsert
-  - FreeExecutorState
+  - [brininsert](../b/brininsert.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
   - SPI_finish
-  - AtCommit_Memory
+  - [AtCommit_Memory](../A/AtCommit_Memory.md)
   - PortalDrop
 
 ## Notes and Other Information

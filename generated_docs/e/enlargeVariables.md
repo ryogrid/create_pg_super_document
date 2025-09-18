@@ -22,10 +22,10 @@ The  function manages the dynamic growth of the Variables array structure. When 
 - Constants referenced:
   - VARIABLES_ALLOC_MARGIN
 - Types referenced:
-  - Variables
-  - Variable
+  - [Variables](../V/Variables.md)
+  - [Variable](../V/Variable.md)
 - Called from (representative examples):
-  - lookupCreateVariable
+  - [lookupCreateVariable](../l/lookupCreateVariable.md)
 
 ## Notes and Other Information
 - Does not return a value; modifies the Variables structure in-place

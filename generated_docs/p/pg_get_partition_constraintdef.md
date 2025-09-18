@@ -19,9 +19,9 @@ This function serves as a SQL-callable interface to retrieve the partition const
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID, PG_RETURN_NULL, PG_RETURN_TEXT_P (PostgreSQL function interface macros)
-  - get_partition_qual_relid (retrieves the partition constraint expression)
-  - deparse_context_for, get_relation_name (context setup for deparsing)
-  - deparse_expression_pretty (converts expression tree to formatted SQL string)
+  - [get_partition_qual_relid](../g/get_partition_qual_relid.md) (retrieves the partition constraint expression)
+  - [deparse_context_for](../d/deparse_context_for.md), get_relation_name (context setup for deparsing)
+  - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (converts expression tree to formatted SQL string)
   - string_to_text (converts C string to PostgreSQL text type)
   - PRETTYFLAG_INDENT (formatting constant for indented output)
 - Called from (representative examples):

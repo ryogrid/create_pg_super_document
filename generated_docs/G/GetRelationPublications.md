@@ -27,10 +27,10 @@ The function uses the PUBLICATIONRELMAP system cache to perform the lookup, whic
   - Form_pg_publication_rel
   - CatCList
 - Called from (representative examples):
-  - GetTopMostAncestorInPublication
-  - ATPrepChangePersistence
-  - get_rel_sync_entry
-  - RelationBuildPublicationDesc
+  - [GetTopMostAncestorInPublication](GetTopMostAncestorInPublication.md)
+  - [ATPrepChangePersistence](../A/ATPrepChangePersistence.md)
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
 
 ## Notes and Other Information
 - Uses system cache for efficient catalog lookup via PUBLICATIONRELMAP

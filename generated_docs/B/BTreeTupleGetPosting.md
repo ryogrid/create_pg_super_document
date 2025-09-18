@@ -17,15 +17,15 @@ This function calculates and returns a pointer to the beginning of the heap TID 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleGetPostingOffset
+  - [BTreeTupleGetPostingOffset](BTreeTupleGetPostingOffset.md)
 - Called from (representative examples):
-  - _bt_dedup_start_pending
-  - _bt_dedup_save_htid
+  - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
+  - [_bt_dedup_save_htid](../b/_bt_dedup_save_htid.md)
   - _bt_form_posting
   - _bt_update_posting
-  - btreevacuumposting
-  - BTreeTupleGetPostingN
-  - BTreeTupleGetHeapTID
+  - [btreevacuumposting](../b/btreevacuumposting.md)
+  - [BTreeTupleGetPostingN](BTreeTupleGetPostingN.md)
+  - [BTreeTupleGetHeapTID](BTreeTupleGetHeapTID.md)
 
 ## Notes and Other Information
 - Returns an ItemPointer which can be treated as an array of ItemPointer structures

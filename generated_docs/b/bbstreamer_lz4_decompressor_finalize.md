@@ -21,8 +21,8 @@ The function uses the BBSTREAMER_UNKNOWN context when forwarding final data sinc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_content (forwards remaining buffered data to next streamer)
-  - bbstreamer_finalize (finalizes the next streamer in the chain)
+  - [bbstreamer_content](bbstreamer_content.md) (forwards remaining buffered data to next streamer)
+  - [bbstreamer_finalize](bbstreamer_finalize.md) (finalizes the next streamer in the chain)
   - BBSTREAMER_UNKNOWN (archive context constant for unknown/unspecified context)
 - Called from (representative examples):
   - Referenced indirectly through bbstreamer function pointer mechanism during stream finalization

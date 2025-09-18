@@ -29,12 +29,12 @@ This careful namespace management ensures that JOIN ON clauses can only referenc
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinExpr
-  - setNamespaceLateralState
-  - transformWhereClause
+  - [setNamespaceLateralState](../s/setNamespaceLateralState.md)
+  - [transformWhereClause](transformWhereClause.md)
   - EXPR_KIND_JOIN_ON
-  - ParseNamespaceItem
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - This is a static (internal) function within parse_clause.c, not exposed in the public API

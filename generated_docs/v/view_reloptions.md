@@ -18,7 +18,7 @@ The `view_reloptions` function is a specialized option parser for PostgreSQL vie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
   - relopt_parse_elt (structure)
   - RELOPT_TYPE_BOOL (constant)
   - RELOPT_TYPE_ENUM (constant) 
@@ -26,9 +26,9 @@ The `view_reloptions` function is a specialized option parser for PostgreSQL vie
   - ViewOptions (structure)
   - lengthof (macro)
 - Called from (representative examples):
-  - extractRelOptions
-  - DefineRelation
-  - ATExecSetRelOptions
+  - [extractRelOptions](../e/extractRelOptions.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md)
 
 ## Notes and Other Information
 - The function defines three view-specific options in a static parsing table: security_barrier (boolean), security_invoker (boolean), and check_option (enum)

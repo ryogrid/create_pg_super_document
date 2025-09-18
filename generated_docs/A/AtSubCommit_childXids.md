@@ -21,11 +21,11 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - Functions called/Symbols referenced:
   - TransactionState (current transaction state access)
   - MaxAllocSize (memory allocation limit)
-  - MemoryContextAlloc (memory allocation for new arrays)
-  - repalloc (memory reallocation for existing arrays)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory allocation for new arrays)
+  - [repalloc](../r/repalloc.md) (memory reallocation for existing arrays)
   - XidFromFullTransactionId (XID extraction from full transaction ID)
 - Called from:
-  - CommitSubTransaction (during subtransaction commit at src/backend/access/transam/xact.c:5089)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (during subtransaction commit at src/backend/access/transam/xact.c:5089)
 
 ## Notes and Other Information
 - The function maintains XID ordering by design - child XIDs always follow parent XIDs chronologically

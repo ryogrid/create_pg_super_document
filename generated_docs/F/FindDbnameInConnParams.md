@@ -17,11 +17,11 @@ FindDbnameInConnParams is a static helper function that searches through an arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - strcmp
-  - PQconninfoOption (type)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (type)
 - Called from (representative examples):
-  - GetDbnameFromConnectionOptions
+  - [GetDbnameFromConnectionOptions](../G/GetDbnameFromConnectionOptions.md)
 
 ## Notes and Other Information
 - Returns a strdup'd copy of the dbname value, requiring the caller to free the memory

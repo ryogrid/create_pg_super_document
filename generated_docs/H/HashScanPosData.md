@@ -26,12 +26,12 @@ The design efficiently handles bucket chain traversal by maintaining links to pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashScanPosItem
+  - [HashScanPosItem](HashScanPosItem.md)
   - MaxIndexTuplesPerPage
   - Buffer
   - BlockNumber
 - Called from (representative examples):
-  - HashScanOpaqueData
+  - [HashScanOpaqueData](HashScanOpaqueData.md)
 
 ## Notes and Other Information
 The items array is always kept in index order (increasing indexoffset), but can be filled in different directions depending on scan direction. For backward scans, the array is filled from back to front for efficiency. The requirement that items[] be the last field in the structure is likely related to potential variable-length allocation strategies or memory layout optimizations. The dual indexing system (firstItem/lastItem plus itemIndex) provides flexible navigation through the matched items while supporting bidirectional scanning operations.

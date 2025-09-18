@@ -27,18 +27,18 @@ The function uses binary search to efficiently check whether individual values a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AssertArrayOrder
-  - FunctionCall2Coll
+  - [AssertArrayOrder](AssertArrayOrder.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
   - bsearch_arg
-  - compare_values
+  - [compare_values](../c/compare_values.md)
 - Data structures referenced:
-  - Ranges
-  - compare_context
+  - [Ranges](../R/Ranges.md)
+  - [compare_context](../c/compare_context.md)
 - Called from (representative examples):
-  - range_deduplicate_values
-  - ensure_free_space_in_buffer
-  - range_add_value
-  - compactify_ranges
+  - [range_deduplicate_values](../r/range_deduplicate_values.md)
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [range_add_value](../r/range_add_value.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
 
 ## Notes and Other Information
 - This function only executes when USE_ASSERT_CHECKING is defined (debug builds)

@@ -23,15 +23,15 @@ The function implements a loop that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginRead
-  - XLogReadRecord
-  - LogicalDecodingProcessRecord
+  - [XLogBeginRead](../X/XLogBeginRead.md)
+  - [XLogReadRecord](../X/XLogReadRecord.md)
+  - [LogicalDecodingProcessRecord](../L/LogicalDecodingProcessRecord.md)
   - DecodingContextReady
   - CHECK_FOR_INTERRUPTS
   - SpinLockAcquire/SpinLockRelease
 - Called from (representative examples):
-  - create_logical_replication_slot
-  - CreateReplicationSlot
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 - This function is essential for establishing a consistent starting point for logical replication

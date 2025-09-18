@@ -24,15 +24,15 @@ The virtual tuple approach avoids data copying by allowing direct manipulation o
   - TTS_EMPTY (macro to check if slot is empty)
   - TTS_FLAG_EMPTY (flag constant for empty slot state)
 - Called from (representative examples):
-  - execute_attr_map_slot
-  - CopyFrom
-  - ExecForceStoreHeapTuple
-  - ExecForceStoreMinimalTuple
-  - ExecStoreAllNullTuple
-  - prepare_hash_slot
-  - FunctionNext
-  - ExecComputeStoredGenerated
-  - ValuesNext
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [ExecForceStoreMinimalTuple](ExecForceStoreMinimalTuple.md)
+  - [ExecStoreAllNullTuple](ExecStoreAllNullTuple.md)
+  - [prepare_hash_slot](../p/prepare_hash_slot.md)
+  - [FunctionNext](../F/FunctionNext.md)
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md)
+  - [ValuesNext](../V/ValuesNext.md)
 
 ## Notes and Other Information
 - This function is part of a three-step protocol for virtual tuple storage: ExecClearTuple → populate data arrays → ExecStoreVirtualTuple

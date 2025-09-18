@@ -20,21 +20,21 @@ This static callback function is invoked during the relation lock acquisition pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - ereport/errcode/errmsg
-  - errdetail_relkind_not_supported
-  - IsSystemClass
-  - object_ownercheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - get_rel_relkind
-  - GetUserId
-  - ReleaseSysCache
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [IsSystemClass](../I/IsSystemClass.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [GetUserId](../G/GetUserId.md)
+  - [ReleaseSysCache](ReleaseSysCache.md)
 - Called from (representative examples):
-  - RenameRewriteRule (via RangeVarGetRelidExtended)
+  - [RenameRewriteRule](RenameRewriteRule.md) (via RangeVarGetRelidExtended)
 
 ## Notes and Other Information
 - Handles concurrent relation drops gracefully by checking tuple validity

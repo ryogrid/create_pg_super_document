@@ -32,15 +32,15 @@ The function ensures prepared statements are created when needed in QUERY_PREPAR
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prepareCommand (for preparing statements in QUERY_PREPARED mode)
-  - assignVariables (for variable substitution in simple mode)
-  - getQueryParams (for parameter extraction in extended/prepared modes)
-  - PQsendQuery, PQsendQueryParams, PQsendQueryPrepared (PostgreSQL libpq functions)
+  - [prepareCommand](../p/prepareCommand.md) (for preparing statements in QUERY_PREPARED mode)
+  - [assignVariables](../a/assignVariables.md) (for variable substitution in simple mode)
+  - [getQueryParams](../g/getQueryParams.md) (for parameter extraction in extended/prepared modes)
+  - [PQsendQuery](../P/PQsendQuery.md), PQsendQueryParams, PQsendQueryPrepared (PostgreSQL libpq functions)
   - pg_log_debug (for debug logging)
   - QUERY_SIMPLE, QUERY_EXTENDED, QUERY_PREPARED (query mode constants)
   - MAX_ARGS (maximum parameter count)
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - This function is central to pgbench's query execution mechanism

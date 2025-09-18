@@ -28,16 +28,16 @@ NOTE: This function modifies nodes in-place, which is safe because the tree was 
 ## Dependencies
 - Functions called/Symbols referenced:
   - substitute_phv_relids_context (context structure)
-  - PlaceHolderVar (node type for placeholder variables)
-  - bms_is_member (checks if relation ID is in bitmapset)
-  - bms_union (combines two bitmapsets)
-  - bms_del_member (removes relation ID from bitmapset)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md) (node type for placeholder variables)
+  - [bms_is_member](../b/bms_is_member.md) (checks if relation ID is in bitmapset)
+  - [bms_union](../b/bms_union.md) (combines two bitmapsets)
+  - [bms_del_member](../b/bms_del_member.md) (removes relation ID from bitmapset)
   - bms_is_empty (checks if bitmapset is empty)
   - query_tree_walker (recursively processes subqueries)
   - expression_tree_walker (recursively processes expressions)
 - Called from (representative examples):
-  - substitute_phv_relids_walker (recursive self-calls for subqueries and expressions)
-  - substitute_phv_relids (main entry point function)
+  - [substitute_phv_relids_walker](substitute_phv_relids_walker.md) (recursive self-calls for subqueries and expressions)
+  - [substitute_phv_relids](substitute_phv_relids.md) (main entry point function)
 
 ## Notes and Other Information
 - This function is static and only used within prepjointree.c

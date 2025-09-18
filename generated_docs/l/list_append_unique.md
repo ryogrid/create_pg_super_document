@@ -22,12 +22,12 @@ The function performs a simple linear search through the list to check for membe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `list_member` - Checks if datum is already in the list using equal() comparison
+  - `[list_member](list_member.md)` - Checks if datum is already in the list using equal() comparison
   - `lappend` - Appends the datum to the list if not already present
 - Called from (representative examples):
-  - `check_publications_origin` (src/backend/commands/subscriptioncmds.c:2095)
-  - `create_index_paths` (src/backend/optimizer/path/indxpath.c:371)
-  - `add_security_quals` (src/backend/rewrite/rowsecurity.c:750, 765)
+  - `[check_publications_origin](../c/check_publications_origin.md)` (src/backend/commands/subscriptioncmds.c:2095)
+  - `[create_index_paths](../c/create_index_paths.md)` (src/backend/optimizer/path/indxpath.c:371)
+  - `[add_security_quals](../a/add_security_quals.md)` (src/backend/rewrite/rowsecurity.c:750, 765)
   - `QUAL_FOR_WCO` (src/backend/rewrite/rowsecurity.c:860, 885)
 
 ## Notes and Other Information

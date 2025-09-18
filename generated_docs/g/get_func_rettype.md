@@ -17,16 +17,16 @@ This function retrieves the return type OID for a specified function by performi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches the system cache for the function entry
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the function entry
   - HeapTupleIsValid: Validates the returned heap tuple
   - elog: Logs error if function not found
   - GETSTRUCT: Extracts the struct from the heap tuple
-  - ReleaseSysCache: Releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache entry
   - Form_pg_proc: PostgreSQL system catalog structure for procedures/functions
 - Called from (representative examples):
-  - OperatorCreate: Used in operator creation to validate function return types
-  - CreateConversionCommand: Used in conversion command creation
-  - CreateEventTrigger: Used in event trigger creation
+  - [OperatorCreate](../O/OperatorCreate.md): Used in operator creation to validate function return types
+  - [CreateConversionCommand](../C/CreateConversionCommand.md): Used in conversion command creation
+  - [CreateEventTrigger](../C/CreateEventTrigger.md): Used in event trigger creation
   - Various type validation functions in typecmds.c
   - Access method and foreign data wrapper handlers
 

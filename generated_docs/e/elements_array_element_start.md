@@ -18,11 +18,11 @@ This function serves as a semantic action callback in PostgreSQL's JSON parsing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ElementsState: State structure for tracking parsing progress and configuration
+  - [ElementsState](../E/ElementsState.md): State structure for tracking parsing progress and configuration
   - JSON_TOKEN_STRING: Token type constant for JSON string literals
   - JSON_SUCCESS: Return value indicating successful processing
 - Called from:
-  - elements_worker: Sets this function as the array_element_start semantic action callback
+  - [elements_worker](elements_worker.md): Sets this function as the array_element_start semantic action callback
   - PostgreSQL's JSON parser infrastructure during array processing
 
 ## Notes and Other Information

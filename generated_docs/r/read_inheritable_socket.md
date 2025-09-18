@@ -22,15 +22,15 @@ This Windows-specific function is the counterpart to write_inheritable_socket().
 - Functions called/Symbols referenced:
   - WSASocket (Windows Socket API)
   - WSAGetLastError (Windows Socket API)
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
   - closesocket
   - exit
-  - InheritableSocket (structure type)
+  - [InheritableSocket](../I/InheritableSocket.md) (structure type)
   - PGINVALID_SOCKET (constant)
   - INVALID_SOCKET (constant)
   - FROM_PROTOCOL_INFO (constant)
 - Called from (representative examples):
-  - restore_backend_variables
+  - [restore_backend_variables](restore_backend_variables.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function that complements write_inheritable_socket()

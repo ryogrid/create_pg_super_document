@@ -33,23 +33,23 @@ For identity columns, special handling ensures the sequence is properly associat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy
-  - errorConflictingDefElem
-  - makeRangeVarFromNameList
+  - [list_copy](../l/list_copy.md)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - RelationGetNamespace
-  - RangeVarGetCreationNamespace
-  - get_namespace_name
-  - ChooseRelationName
+  - [RangeVarGetCreationNamespace](../R/RangeVarGetCreationNamespace.md)
+  - [get_namespace_name](get_namespace_name.md)
+  - [ChooseRelationName](../C/ChooseRelationName.md)
   - makeNode (CreateSeqStmt, AlterSeqStmt)
-  - makeRangeVar
+  - [makeRangeVar](../m/makeRangeVar.md)
   - makeDefElem
   - makeTypeNameFromOid
   - list_make3
-  - makeString
+  - [makeString](../m/makeString.md)
 - Called from (representative examples):
-  - transformColumnDefinition
-  - transformTableLikeClause
-  - transformAlterTableStmt
+  - [transformColumnDefinition](../t/transformColumnDefinition.md)
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
 
 ## Notes and Other Information
 The function handles several important edge cases: sequence name conflicts (though not guaranteed to be eliminated), persistence inheritance from the parent table, and proper ownership assignment for ALTER TABLE operations. The sequence name generation uses ChooseRelationName to minimize conflicts, but with very long column names, conflicts are still theoretically possible. The function carefully manages the execution order by placing CREATE SEQUENCE statements in the blist (before-table commands) and ALTER SEQUENCE OWNED BY statements in either blist or alist depending on whether the column already exists.

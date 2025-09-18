@@ -26,9 +26,9 @@ The function first asserts that the sort state has valid datum1 values available
   - SortTuple (generic sort tuple structure)
   - Tuplesortstate (sort state management structure)
   - TuplesortstateGetPublic (accessor for public sort state)
-  - DatumGetUInt32 (macro to extract uint32 from Datum)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (macro to extract uint32 from Datum)
 - Called from (representative examples):
-  - tuplesort_begin_index_brin (BRIN sort initialization)
+  - [tuplesort_begin_index_brin](../t/tuplesort_begin_index_brin.md) (BRIN sort initialization)
   - CLUSTER_SORT (clustering sort operations)
 
 ## Notes and Other Information

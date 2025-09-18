@@ -20,16 +20,16 @@ This function combines the functionality of pg_encoding_mblen() with strnlen() t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_mblen
+  - [pg_encoding_mblen](../p/pg_encoding_mblen.md)
   - strnlen
 - Called from (representative examples):
-  - skip_white_space (src/bin/psql/common.c:1839, 1876)
-  - command_no_begin (src/bin/psql/common.c:1911, 1942, 1976, 1992, 2003, 2020, 2043, 2058, 2077, 2097)
-  - strtokx (src/bin/psql/stringutils.c:146)
-  - strip_quotes (src/bin/psql/stringutils.c:265)
-  - quote_if_needed (src/bin/psql/stringutils.c:327)
-  - parse_identifier (src/bin/psql/tab-complete.c:6054)
-  - patternToSQLRegex (src/fe_utils/string_utils.c:1357)
+  - [skip_white_space](../s/skip_white_space.md) (src/bin/psql/common.c:1839, 1876)
+  - [command_no_begin](../c/command_no_begin.md) (src/bin/psql/common.c:1911, 1942, 1976, 1992, 2003, 2020, 2043, 2058, 2077, 2097)
+  - [strtokx](../s/strtokx.md) (src/bin/psql/stringutils.c:146)
+  - [strip_quotes](../s/strip_quotes.md) (src/bin/psql/stringutils.c:265)
+  - [quote_if_needed](../q/quote_if_needed.md) (src/bin/psql/stringutils.c:327)
+  - [parse_identifier](../p/parse_identifier.md) (src/bin/psql/tab-complete.c:6054)
+  - [patternToSQLRegex](../p/patternToSQLRegex.md) (src/fe_utils/string_utils.c:1357)
 
 ## Notes and Other Information
 - Returns the actual byte length of the multibyte character, bounded by the string length

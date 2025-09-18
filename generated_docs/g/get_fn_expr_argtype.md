@@ -24,7 +24,7 @@ This functionality is essential for PostgreSQL's flexible type system, particula
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_expr_argtype (performs the actual argument type extraction)
+  - [get_call_expr_argtype](get_call_expr_argtype.md) (performs the actual argument type extraction)
   - InvalidOid (constant representing an invalid OID)
 - Called from (representative examples):
   - Array aggregate functions (array_agg_transfn, array_agg_array_transfn)

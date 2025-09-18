@@ -26,8 +26,8 @@ The enum serves as a mechanism to provide better error diagnostics by identifyin
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Used by:
-  - LVRelState (as phase member at src/backend/access/heap/vacuumlazy.c:174)
-  - LVSavedErrInfo (as phase member at src/backend/access/heap/vacuumlazy.c:226)
+  - [LVRelState](../L/LVRelState.md) (as phase member at src/backend/access/heap/vacuumlazy.c:174)
+  - [LVSavedErrInfo](../L/LVSavedErrInfo.md) (as phase member at src/backend/access/heap/vacuumlazy.c:226)
 
 ## Notes and Other Information
 - This enum is specifically designed for error callback phases during vacuum operations

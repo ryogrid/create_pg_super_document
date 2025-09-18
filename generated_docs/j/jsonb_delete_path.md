@@ -25,13 +25,13 @@ The function validates input parameters to ensure the path array is one-dimensio
   - ARR_NDIM: Get number of array dimensions
   - JB_ROOT_IS_SCALAR: Check if JSONB root is scalar
   - JB_ROOT_COUNT: Get count of root elements
-  - deconstruct_array_builtin: Deconstruct PostgreSQL array
-  - JsonbIteratorInit: Initialize JSONB iterator
-  - setPath: Internal function to modify value at path (with JB_PATH_DELETE mode)
-  - JsonbValueToJsonb: Convert JsonbValue to Jsonb
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md): Deconstruct PostgreSQL array
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md): Initialize JSONB iterator
+  - [setPath](../s/setPath.md): Internal function to modify value at path (with JB_PATH_DELETE mode)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md): Convert JsonbValue to Jsonb
   - PG_RETURN_JSONB_P: Return JSONB value from function
 - Called from (representative examples):
-  - jsonb_set_lax: Called when null_value_treatment is "delete_key"
+  - [jsonb_set_lax](jsonb_set_lax.md): Called when null_value_treatment is "delete_key"
 
 ## Notes and Other Information
 - Only accepts one-dimensional path arrays

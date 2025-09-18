@@ -33,16 +33,16 @@ The percentile calculation uses the formula: `position = percentile * (n-1)` whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (validates aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (validates aggregate context)
   - PG_GETARG_FLOAT8 (extracts percentile parameter)
   - tuplesort_performsort (performs the sorting operation)
   - tuplesort_rescan (resets sort state for re-reading)
-  - tuplesort_skiptuples (skips to the target row position)
-  - tuplesort_getdatum (retrieves sorted values)
+  - [tuplesort_skiptuples](../t/tuplesort_skiptuples.md) (skips to the target row position)
+  - [tuplesort_getdatum](../t/tuplesort_getdatum.md) (retrieves sorted values)
   - isnan (checks for NaN percentile values)
 - Called from (representative examples):
-  - percentile_cont_float8_final
-  - percentile_cont_interval_final
+  - [percentile_cont_float8_final](percentile_cont_float8_final.md)
+  - [percentile_cont_interval_final](percentile_cont_interval_final.md)
 
 ## Notes and Other Information
 - This is a static helper function that centralizes the complex logic of continuous percentile calculation

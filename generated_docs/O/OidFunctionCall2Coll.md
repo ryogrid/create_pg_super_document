@@ -24,11 +24,11 @@ This function is particularly useful in comparison operations, constraint checki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info (initializes function manager information)
-  - FunctionCall2Coll (performs the actual function call with collation and two arguments)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager information)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (performs the actual function call with collation and two arguments)
 - Called from (representative examples):
-  - _bt_compare_scankey_args (B-tree scan key comparison operations)
-  - index_recheck_constraint (index constraint rechecking)
+  - [_bt_compare_scankey_args](../b/_bt_compare_scankey_args.md) (B-tree scan key comparison operations)
+  - [index_recheck_constraint](../i/index_recheck_constraint.md) (index constraint rechecking)
 
 ## Notes and Other Information
 - This function is part of the function manager (fmgr) subsystem in PostgreSQL

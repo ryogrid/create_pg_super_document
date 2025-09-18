@@ -19,15 +19,15 @@ The function combines WAL receiver shutdown with the cleanup of associated state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShutdownWalRcv
+  - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
   - LWLockAcquire
   - LWLockRelease
   - XLogCtl (global control structure)
   - ControlFileLock
   - LW_EXCLUSIVE (lock mode constant)
 - Called from (representative examples):
-  - FinishWalRecovery (in xlogrecovery.c)
-  - WaitForWALToBecomeAvailable (in xlogrecovery.c)
+  - [FinishWalRecovery](../F/FinishWalRecovery.md) (in xlogrecovery.c)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (in xlogrecovery.c)
 
 ## Notes and Other Information
 - This function is part of the WAL recovery and streaming replication infrastructure

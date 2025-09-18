@@ -22,15 +22,15 @@ The function handles the special case of timeline 1 (master timeline) by immedia
 ## Dependencies
 - Functions called/Symbols referenced:
   - TLHistoryFileName - constructs timeline history filename
-  - RestoreArchivedFile - attempts to restore archived file during recovery
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) - attempts to restore archived file during recovery
   - TLHistoryFilePath - constructs local path to history file
   - AllocateFile - attempts to open the history file
   - FreeFile - closes the file if successfully opened
   - MAXFNAMELEN - constant for maximum filename length
 - Called from (representative examples):
-  - findNewestTimeLine - when searching for the newest available timeline
-  - validateRecoveryParameters - during recovery parameter validation
-  - WalRcvFetchTimeLineHistoryFiles - during WAL receiver operations
+  - [findNewestTimeLine](../f/findNewestTimeLine.md) - when searching for the newest available timeline
+  - [validateRecoveryParameters](../v/validateRecoveryParameters.md) - during recovery parameter validation
+  - [WalRcvFetchTimeLineHistoryFiles](../W/WalRcvFetchTimeLineHistoryFiles.md) - during WAL receiver operations
 
 ## Notes and Other Information
 - Timeline 1 (master timeline) always returns false as it has no history file

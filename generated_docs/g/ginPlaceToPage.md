@@ -29,15 +29,15 @@ The function maintains ACID properties through proper use of critical sections a
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - BufferGetPage, BufferGetBlockNumber
+  - [BufferGetPage](../B/BufferGetPage.md), BufferGetBlockNumber
   - GinPageIsData, GinPageIsLeaf, GinPageGetOpaque
-  - GinNewBuffer, GinInitPage
-  - XLogBeginInsert, XLogRegisterBuffer, XLogInsert
+  - [GinNewBuffer](../G/GinNewBuffer.md), GinInitPage
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogInsert
   - PageGetTempPage, PredicateLockPageSplit
   - START_CRIT_SECTION, END_CRIT_SECTION
 - Called from:
-  - ginFinishSplit (src/backend/access/gin/ginbtree.c:736)
-  - ginInsertValue (src/backend/access/gin/ginbtree.c:825)
+  - [ginFinishSplit](ginFinishSplit.md) (src/backend/access/gin/ginbtree.c:736)
+  - [ginInsertValue](ginInsertValue.md) (src/backend/access/gin/ginbtree.c:825)
 
 ## Notes and Other Information
 The function returns true when insertion is complete, false when a parent update is needed after a split. Root splits always return true since they don't require further parent updates. The function handles both data pages and entry pages, with different WAL record types (XLOG_GIN_INSERT vs XLOG_GIN_SPLIT). Memory management uses a temporary context to ensure cleanup of intermediate allocations during split operations.

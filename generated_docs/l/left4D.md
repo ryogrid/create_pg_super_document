@@ -18,11 +18,11 @@ This function is part of PostgreSQL's SP-GiST (Space-Partitioned Generalized Sea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lower2D
+  - [lower2D](lower2D.md)
   - RectBox (struct)
   - RangeBox (struct)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. It specifically checks the x-axis positioning relationship and is part of a set of directional predicates (left4D, right4D, overLeft4D, overRight4D, below4D) used for efficient spatial indexing and query processing. The function is declared static, indicating it's only used within the geo_spgist.c file.

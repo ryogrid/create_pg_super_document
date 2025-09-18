@@ -20,15 +20,15 @@ For oneshot plans, the function only performs cleanup operations that don't invo
 ## Dependencies
 - Functions called/Symbols referenced:
   - CACHEDPLANSOURCE_MAGIC
-  - dlist_delete
-  - ReleaseGenericPlan
-  - MemoryContextDelete
+  - [dlist_delete](../d/dlist_delete.md)
+  - [ReleaseGenericPlan](../R/ReleaseGenericPlan.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 
 - Called from (representative examples):
-  - DropPreparedStatement (src/backend/commands/prepare.c:526)
-  - DropAllPreparedStatements (src/backend/commands/prepare.c:551)
-  - SPI_freeplan (src/backend/executor/spi.c:1037)
-  - drop_unnamed_stmt (src/backend/tcop/postgres.c:2885)
+  - [DropPreparedStatement](DropPreparedStatement.md) (src/backend/commands/prepare.c:526)
+  - [DropAllPreparedStatements](DropAllPreparedStatements.md) (src/backend/commands/prepare.c:551)
+  - [SPI_freeplan](../S/SPI_freeplan.md) (src/backend/executor/spi.c:1037)
+  - [drop_unnamed_stmt](../d/drop_unnamed_stmt.md) (src/backend/tcop/postgres.c:2885)
 
 ## Notes and Other Information
 - The function only destroys the CachedPlanSource, not necessarily the associated CachedPlan objects

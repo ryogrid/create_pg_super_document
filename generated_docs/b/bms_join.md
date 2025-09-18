@@ -20,16 +20,16 @@ This approach is more flexible than functions like bms_add_members or bms_int_me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation of both inputs)
-  - bms_copy_and_free (conditional memory management)
-  - pfree (memory deallocation of unused input)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation of both inputs)
+  - [bms_copy_and_free](bms_copy_and_free.md) (conditional memory management)
+  - [pfree](../p/pfree.md) (memory deallocation of unused input)
   
 - Called from (representative examples):
-  - add_paths_to_joinrel (join path creation)
-  - process_equivalence (equivalence class processing)
-  - finalize_primnode (primitive node finalization)
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md) (join path creation)
+  - [process_equivalence](../p/process_equivalence.md) (equivalence class processing)
+  - [finalize_primnode](../f/finalize_primnode.md) (primitive node finalization)
   - build_joinrel_tlist (join relation target list construction)
-  - pull_varnos_walker (variable number extraction)
+  - [pull_varnos_walker](../p/pull_varnos_walker.md) (variable number extraction)
 
 ## Notes and Other Information
 - Returns the non-NULL input if the other input is NULL

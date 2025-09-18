@@ -22,10 +22,10 @@ This function adds a new datum-category pair to an existing KeyArray structure. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - repalloc_array (for resizing memory arrays)
-  - KeyArray (structure type)
+  - [KeyArray](../K/KeyArray.md) (structure type)
   - GinNullCategory (enumeration type)
 - Called from (representative examples):
-  - processPendingPage (at src/backend/access/gin/ginfast.c:757)
+  - [processPendingPage](../p/processPendingPage.md) (at src/backend/access/gin/ginfast.c:757)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the ginfast.c file

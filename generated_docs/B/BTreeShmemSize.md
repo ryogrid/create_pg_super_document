@@ -22,14 +22,14 @@ None - this is a parameter-less function that returns a size calculation.
 ## Dependencies
 - Functions called/Symbols referenced:
   - offsetof (macro for structure member offset)
-  - add_size (safe addition function)
-  - mul_size (safe multiplication function)
+  - [add_size](../a/add_size.md) (safe addition function)
+  - [mul_size](../m/mul_size.md) (safe multiplication function)
   - MaxBackends (global configuration variable)
-  - BTVacInfo (structure type)
-  - BTOneVacInfo (structure type)
+  - [BTVacInfo](BTVacInfo.md) (structure type)
+  - [BTOneVacInfo](BTOneVacInfo.md) (structure type)
 - Called from (representative examples):
-  - CalculateShmemSize (during system initialization)
-  - BTreeShmemInit (for validation)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (during system initialization)
+  - [BTreeShmemInit](BTreeShmemInit.md) (for validation)
 
 ## Notes and Other Information
 - Uses safe arithmetic functions to prevent integer overflow

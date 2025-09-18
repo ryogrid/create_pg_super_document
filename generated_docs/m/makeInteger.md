@@ -22,8 +22,8 @@ The Integer node type is specifically designed to represent integer literals fou
   - makeNode (macro for node allocation and initialization)
   - Integer (struct type definition)
 - Called from (representative examples):
-  - buildDefItem (in tsearchcmds.c)
-  - nodeRead (in read.c for deserialization)
+  - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c)
+  - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
   - strVal (referenced in value.h header)
 
 ## Notes and Other Information

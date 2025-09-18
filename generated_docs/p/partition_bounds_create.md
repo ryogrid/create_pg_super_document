@@ -28,15 +28,15 @@ The function acts as a dispatcher, delegating to strategy-specific functions (cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_hash_bounds
-  - create_list_bounds
-  - create_range_bounds
+  - [create_hash_bounds](../c/create_hash_bounds.md)
+  - [create_list_bounds](../c/create_list_bounds.md)
+  - [create_range_bounds](../c/create_range_bounds.md)
   - PARTITION_STRATEGY_HASH
   - PARTITION_STRATEGY_LIST
   - PARTITION_STRATEGY_RANGE
-  - palloc
+  - [palloc](palloc.md)
 - Called from (representative examples):
-  - RelationBuildPartitionDesc (src/backend/partitioning/partdesc.c:311)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md) (src/backend/partitioning/partdesc.c:311)
 
 ## Notes and Other Information
 - All returned objects are allocated in the current memory context

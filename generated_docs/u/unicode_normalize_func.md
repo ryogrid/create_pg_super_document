@@ -21,13 +21,13 @@ The `unicode_normalize_func` function performs Unicode normalization on input te
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - unicode_norm_form_from_string
-  - pg_mbstrlen_with_len
-  - utf8_to_unicode
+  - [unicode_norm_form_from_string](unicode_norm_form_from_string.md)
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [utf8_to_unicode](utf8_to_unicode.md)
   - pg_utf_mblen
   - unicode_normalize
   - unicode_to_utf8
-  - palloc
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - PG_RETURN_TEXT_P
 - Types referenced:

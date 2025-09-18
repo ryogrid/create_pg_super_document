@@ -19,10 +19,10 @@ The function supports conditional dropping through the global if_exists flag, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeQuery: Executes SQL query to retrieve tablespace information
-  - fmtId: Formats tablespace names as proper SQL identifiers
+  - [executeQuery](../e/executeQuery.md): Executes SQL query to retrieve tablespace information
+  - [fmtId](../f/fmtId.md): Formats tablespace names as proper SQL identifiers
 - Called from (representative examples):
-  - main: Primary entry point in pg_dumpall utility when performing clean restore operations
+  - [main](../m/main.md): Primary entry point in pg_dumpall utility when performing clean restore operations
 
 ## Notes and Other Information
 - Only processes user-defined tablespaces, filtering out system tablespaces with pg_ prefix

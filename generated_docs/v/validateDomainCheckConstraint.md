@@ -22,18 +22,18 @@ The validation process uses the PostgreSQL executor infrastructure to evaluate t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stringToNode (parse constraint expression)
-  - CreateExecutorState (create execution context)
+  - [stringToNode](../s/stringToNode.md) (parse constraint expression)
+  - [CreateExecutorState](../C/CreateExecutorState.md) (create execution context)
   - GetPerTupleExprContext (get expression evaluation context)
-  - ExecPrepareExpr (prepare expression for execution)
-  - get_rels_with_domain (find relations using the domain)
-  - table_beginscan/table_scan_getnextslot/table_endscan (table scanning)
+  - [ExecPrepareExpr](../E/ExecPrepareExpr.md) (prepare expression for execution)
+  - [get_rels_with_domain](../g/get_rels_with_domain.md) (find relations using the domain)
+  - [table_beginscan](../t/table_beginscan.md)/table_scan_getnextslot/table_endscan (table scanning)
   - ExecEvalExprSwitchContext (evaluate constraint expression)
-  - ExecDropSingleTupleTableSlot (cleanup tuple slot)
-  - FreeExecutorState (cleanup execution state)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleanup tuple slot)
+  - [FreeExecutorState](../F/FreeExecutorState.md) (cleanup execution state)
 - Called from:
-  - AlterDomainAddConstraint (when adding new constraints)
-  - AlterDomainValidateConstraint (when validating existing constraints)
+  - [AlterDomainAddConstraint](../A/AlterDomainAddConstraint.md) (when adding new constraints)
+  - [AlterDomainValidateConstraint](../A/AlterDomainValidateConstraint.md) (when validating existing constraints)
 
 ## Notes and Other Information
 - Uses ShareLock on relations to prevent concurrent data modifications during validation

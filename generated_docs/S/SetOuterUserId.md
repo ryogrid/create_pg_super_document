@@ -26,13 +26,13 @@ This function ensures that role changes maintain consistency across all user ID 
 - Functions called/Symbols referenced:
   - Assert (macro for debugging assertions)
   - OidIsValid (macro to validate the user ID)
-  - SetConfigOption (function to update GUC parameters)
+  - [SetConfigOption](SetConfigOption.md) (function to update GUC parameters)
   - SecurityRestrictionContext (global security context variable)
   - OuterUserId (static variable to update)
   - CurrentUserId (static variable to synchronize)
 - Called from (representative examples):
-  - SetSessionAuthorization (when SET SESSION AUTHORIZATION is executed)
-  - SetCurrentRoleId (when SET ROLE is executed)
+  - [SetSessionAuthorization](SetSessionAuthorization.md) (when SET SESSION AUTHORIZATION is executed)
+  - [SetCurrentRoleId](SetCurrentRoleId.md) (when SET ROLE is executed)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed in the public API

@@ -27,17 +27,17 @@ This approach ensures that if an error occurs during deletion, the system mainta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerDelete (recursive call for child deletion)
-  - ResourceOwnerNewParent (to unlink from parent before deletion)
+  - [ResourceOwnerDelete](ResourceOwnerDelete.md) (recursive call for child deletion)
+  - [ResourceOwnerNewParent](ResourceOwnerNewParent.md) (to unlink from parent before deletion)
   - MAX_RESOWNER_LOCKS (constant for lock overflow detection)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 - Called from (representative examples):
-  - CommitTransaction (transaction cleanup)
-  - PrepareTransaction (prepared transaction cleanup)
-  - CleanupTransaction (transaction error recovery)
-  - CommitSubTransaction (subtransaction cleanup)
+  - [CommitTransaction](../C/CommitTransaction.md) (transaction cleanup)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (prepared transaction cleanup)
+  - [CleanupTransaction](../C/CleanupTransaction.md) (transaction error recovery)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (subtransaction cleanup)
   - PortalDrop (portal cleanup)
-  - WalSndResourceCleanup (WAL sender cleanup)
+  - [WalSndResourceCleanup](../W/WalSndResourceCleanup.md) (WAL sender cleanup)
 
 ## Notes and Other Information
 - Must not delete CurrentResourceOwner (enforced by assertion)

@@ -34,15 +34,15 @@ The function properly handles parameter passing for correlated subqueries, memor
 - Functions called/Symbols referenced:
   - initArrayResultAny/accumArrayResultAny/makeArrayResultAny (array building for ARRAY_SUBLINK)
   - ExecEvalExprSwitchContext (parameter evaluation with context switching)
-  - ExecReScan (resetting subplan for re-execution)
+  - [ExecReScan](ExecReScan.md) (resetting subplan for re-execution)
   - ExecProcNode (fetching tuples from subplan)
   - ExecCopySlotHeapTuple (copying tuples for pass-by-ref data)
-  - heap_getattr (extracting column values from tuples)
-  - heap_freetuple (freeing copied tuples)
+  - [heap_getattr](../h/heap_getattr.md) (extracting column values from tuples)
+  - [heap_freetuple](../h/heap_freetuple.md) (freeing copied tuples)
   - slot_getattr (extracting values from tuple slots)
-  - ParamExecData (parameter execution data structure)
+  - [ParamExecData](../P/ParamExecData.md) (parameter execution data structure)
 - Called from (representative examples):
-  - ExecSubPlan (in nodeSubplan.c:89)
+  - [ExecSubPlan](ExecSubPlan.md) (in nodeSubplan.c:89)
 
 ## Notes and Other Information
 - Switches to per-query memory context for subplan execution to ensure proper memory management

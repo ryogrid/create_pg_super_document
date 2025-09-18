@@ -29,7 +29,7 @@ This function is almost the inverse of XLogArchiveCheckDone but differs in that 
   - StatusFilePath
   - XLOGDIR
 - Called from (representative examples):
-  - do_pg_backup_stop
+  - [do_pg_backup_stop](../d/do_pg_backup_stop.md)
 
 ## Notes and Other Information
 - Handles race conditions between archiver completion and checkpoint deletion

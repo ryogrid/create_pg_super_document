@@ -21,11 +21,11 @@ The peer authentication method is particularly useful for local connections wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getpeereid (system call to get peer credentials)
+  - [getpeereid](../g/getpeereid.md) (system call to get peer credentials)
   - getpwuid (system call to get user information by uid)  
-  - set_authn_id (sets the authenticated identity for the connection)
-  - check_usermap (validates the authenticated user against the configured usermap)
-  - errcode_for_socket_access (error code helper for socket operations)
+  - [set_authn_id](../s/set_authn_id.md) (sets the authenticated identity for the connection)
+  - [check_usermap](../c/check_usermap.md) (validates the authenticated user against the configured usermap)
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md) (error code helper for socket operations)
   - strerror (standard C library error message function)
 - Called from (representative examples):
   - IDENT_PORT (referenced in auth.c:79)

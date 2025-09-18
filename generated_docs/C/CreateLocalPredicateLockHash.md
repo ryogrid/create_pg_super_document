@@ -23,14 +23,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (PostgreSQL's hash table creation function)
+  - [hash_create](../h/hash_create.md) (PostgreSQL's hash table creation function)
   - HASHCTL (hash table control structure)
-  - PREDICATELOCKTARGETTAG (key type for predicate lock targets)
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (key type for predicate lock targets)
   - LOCALPREDICATELOCK (entry type for local lock information)
   - HASH_ELEM, HASH_BLOBS (hash table configuration flags)
 - Called from (representative examples):
-  - GetSerializableTransactionSnapshotInt (during serializable transaction setup)
-  - AttachSerializableXact (when attaching to existing serializable transaction)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (during serializable transaction setup)
+  - [AttachSerializableXact](../A/AttachSerializableXact.md) (when attaching to existing serializable transaction)
 
 ## Notes and Other Information
 - Static function - only used internally within predicate.c

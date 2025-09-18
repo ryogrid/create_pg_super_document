@@ -20,11 +20,11 @@ This function constructs the path to the PG_VERSION file within the given direct
 ## Dependencies
 - Functions called/Symbols referenced:
   - open (system call for file opening)
-  - slurp_file (utility function to read file contents into StringInfo)
+  - [slurp_file](../s/slurp_file.md) (utility function to read file contents into StringInfo)
   - close (system call for file closing)
   - pg_log_debug (logging function for debug output)
 - Called from (representative examples):
-  - main (in src/bin/pg_combinebackup/pg_combinebackup.c:269)
+  - [main](../m/main.md) (in src/bin/pg_combinebackup/pg_combinebackup.c:269)
 
 ## Notes and Other Information
 - This is a static function used specifically within pg_combinebackup utility

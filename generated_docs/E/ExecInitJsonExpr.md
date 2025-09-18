@@ -43,24 +43,24 @@ The function carefully manages jump targets and implements complex control flow 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - get_typtype
-  - ExecInitExprRec
+  - [palloc0](../p/palloc0.md)
+  - [get_typtype](../g/get_typtype.md)
+  - [ExecInitExprRec](ExecInitExprRec.md)
   - lappend_int
-  - ExprEvalPushStep
+  - [ExprEvalPushStep](ExprEvalPushStep.md)
   - lappend
-  - getTypeInputInfo
-  - fmgr_info
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info](../f/fmgr_info.md)
   - fmgr_info_set_expr
   - InitFunctionCallInfoData
   - SizeForFunctionCallInfo
-  - ObjectIdGetDatum
-  - Int32GetDatum
-  - ExecInitJsonCoercion
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
+  - [ExecInitJsonCoercion](ExecInitJsonCoercion.md)
   - lfirst_int
-  - JsonExprState
+  - [JsonExprState](../J/JsonExprState.md)
   - JsonPathVariable
-  - ErrorSaveContext
+  - [ErrorSaveContext](ErrorSaveContext.md)
   - EEOP_JUMP_IF_NULL
   - EEOP_JSONEXPR_PATH
   - EEOP_CONST
@@ -71,7 +71,7 @@ The function carefully manages jump targets and implements complex control flow 
   - JSON_EXISTS_OP
   - TYPTYPE_DOMAIN
 - Called from (representative examples):
-  - ExecInitExprRec
+  - [ExecInitExprRec](ExecInitExprRec.md)
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExpr.c (lines 4236-4537)

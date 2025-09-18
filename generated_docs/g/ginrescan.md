@@ -27,10 +27,10 @@ The function is relatively simple but critical for performance in scenarios wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ginFreeScanKeys`: Frees existing scan key data structures and associated memory
+  - `[ginFreeScanKeys](ginFreeScanKeys.md)`: Frees existing scan key data structures and associated memory
   - `memmove`: Copies new scan key data into the scan descriptor
 - Called from (representative examples):
-  - `ginhandler`: Part of the index access method interface
+  - `[ginhandler](ginhandler.md)`: Part of the index access method interface
 
 ## Notes and Other Information
 - GIN indexes do not support ordered scans, so the `orderbys` and `norderbys` parameters are effectively ignored

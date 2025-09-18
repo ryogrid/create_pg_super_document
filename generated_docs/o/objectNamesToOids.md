@@ -20,19 +20,19 @@ This static function performs comprehensive name-to-OID resolution for all Postg
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeVarGetRelid
-  - get_database_oid
-  - typenameTypeId
+  - [get_database_oid](../g/get_database_oid.md)
+  - [typenameTypeId](../t/typenameTypeId.md)
   - makeTypeNameFromNameList
-  - LookupFuncWithArgs
-  - get_language_oid
-  - oidparse
-  - LargeObjectExists
-  - get_namespace_oid
-  - get_tablespace_oid
-  - get_foreign_data_wrapper_oid
-  - get_foreign_server_oid
-  - ParameterAclLookup
-  - ParameterAclCreate
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [get_language_oid](../g/get_language_oid.md)
+  - [oidparse](oidparse.md)
+  - [LargeObjectExists](../L/LargeObjectExists.md)
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [get_tablespace_oid](../g/get_tablespace_oid.md)
+  - [get_foreign_data_wrapper_oid](../g/get_foreign_data_wrapper_oid.md)
+  - [get_foreign_server_oid](../g/get_foreign_server_oid.md)
+  - [ParameterAclLookup](../P/ParameterAclLookup.md)
+  - [ParameterAclCreate](../P/ParameterAclCreate.md)
   - CommandCounterIncrement
   - lappend_oid
   - strVal
@@ -41,13 +41,13 @@ This static function performs comprehensive name-to-OID resolution for all Postg
   - elog
 - Types and structures:
   - ObjectType
-  - RangeVar
+  - [RangeVar](../R/RangeVar.md)
   - ObjectWithArgs
 - Constants used:
   - All OBJECT_* type constants
   - NoLock
 - Called from:
-  - ExecuteGrantStmt
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md)
   - InternalDefaultACL
 
 ## Notes and Other Information

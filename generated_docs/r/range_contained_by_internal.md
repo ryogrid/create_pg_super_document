@@ -23,11 +23,11 @@ This design pattern avoids code duplication by leveraging the symmetry of the co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_contains_internal (core containment testing function with swapped arguments)
+  - [range_contains_internal](range_contains_internal.md) (core containment testing function with swapped arguments)
 - Called from (representative examples):
-  - range_contained_by (public SQL-callable function)
-  - range_gist_consistent_leaf_range (GiST index support)
-  - spg_range_quad_leaf_consistent (SP-GiST index support)
+  - [range_contained_by](range_contained_by.md) (public SQL-callable function)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md) (GiST index support)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md) (SP-GiST index support)
   - RANGESTRAT_EQ (macro for range strategy operations)
 
 ## Notes and Other Information

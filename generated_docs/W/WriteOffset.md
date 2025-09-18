@@ -23,7 +23,7 @@ WriteOffset is a utility function in pg_dump's archiver module that writes a Pos
   - AH->WriteBytePtr (function pointer for writing single bytes)
 - Called from (representative examples):
   - appendByteaLiteralAHX
-  - _WriteExtraToc
+  - [_WriteExtraToc](_WriteExtraToc.md)
 
 ## Notes and Other Information
 - Returns the total number of bytes written (sizeof(pgoff_t) + 1)

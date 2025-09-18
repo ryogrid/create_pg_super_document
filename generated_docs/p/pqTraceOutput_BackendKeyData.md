@@ -38,9 +38,9 @@ The message format includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputInt32 (for both process ID and secret key)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (for both process ID and secret key)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This is a static function internal to the fe-trace.c module

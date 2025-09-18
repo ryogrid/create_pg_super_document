@@ -31,12 +31,12 @@ For performance reasons, the function includes an early exit for states with one
   - NERR (error reporting macro)
   - REG_ESPACE (out of memory error constant)
   - qsort (standard library sorting function)
-  - sortins_cmp (comparison function for arc sorting)
+  - [sortins_cmp](sortins_cmp.md) (comparison function for arc sorting)
   - FREE (memory deallocation macro)
 - Called from (representative examples):
-  - moveins (in regc_nfa.c:822, 823)
-  - copyins (in regc_nfa.c:922, 923)
-  - mergeins (in regc_nfa.c:990)
+  - [moveins](../m/moveins.md) (in regc_nfa.c:822, 823)
+  - [copyins](../c/copyins.md) (in regc_nfa.c:922, 923)
+  - [mergeins](../m/mergeins.md) (in regc_nfa.c:990)
 
 ## Notes and Other Information
 - This is a static function internal to the regex NFA construction module

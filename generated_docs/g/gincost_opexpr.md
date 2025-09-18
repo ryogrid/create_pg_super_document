@@ -22,13 +22,13 @@ The gincost_opexpr function processes operator expressions in GIN index cost est
 ## Dependencies
 - Functions called/Symbols referenced:
   - lsecond
-  - estimate_expression_value
+  - [estimate_expression_value](../e/estimate_expression_value.md)
   - RelabelType
-  - gincost_pattern
+  - [gincost_pattern](gincost_pattern.md)
   - IsA (macro)
   - Const
 - Called from (representative examples):
-  - gincostestimate
+  - [gincostestimate](gincostestimate.md)
 
 ## Notes and Other Information
 - Aggressively reduces operands to constants using estimate_expression_value for more accurate cost estimation

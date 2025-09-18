@@ -27,9 +27,9 @@ This function implements the filtering logic for event triggers, deciding whethe
   - TRIGGER_FIRES_ON_ORIGIN (trigger firing mode constant)
   - TRIGGER_FIRES_ON_REPLICA (trigger firing mode constant)
   - bms_is_empty (bitmap set emptiness check)
-  - bms_is_member (bitmap set membership test)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test)
 - Called from (representative examples):
-  - EventTriggerCommonSetup
+  - [EventTriggerCommonSetup](../E/EventTriggerCommonSetup.md)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed outside event_trigger.c

@@ -25,7 +25,7 @@ The function uses `snprintf` with the "%02x" format specifier to ensure each byt
   - `macaddr8`: The input data structure containing the MAC address bytes
   - `PG_GETARG_MACADDR8_P`: PostgreSQL macro for extracting macaddr8 arguments
   - `PG_RETURN_CSTRING`: PostgreSQL macro for returning C string values
-  - `palloc`: PostgreSQL memory allocation function (allocates 32 bytes for the output string)
+  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function (allocates 32 bytes for the output string)
   - `snprintf`: Standard C library function for formatted string output
 - Called from:
   - PostgreSQL type system (automatically called for macaddr8-to-string conversions)

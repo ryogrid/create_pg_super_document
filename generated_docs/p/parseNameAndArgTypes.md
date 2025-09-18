@@ -32,17 +32,17 @@ The parser is robust enough to handle PostgreSQL's full type syntax, including a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (string duplication)
-  - stringToQualifiedNameList (qualified name parsing)
-  - scanner_isspace (whitespace detection)
-  - parseTypeString (type name resolution)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pstrdup](pstrdup.md) (string duplication)
+  - [stringToQualifiedNameList](../s/stringToQualifiedNameList.md) (qualified name parsing)
+  - [scanner_isspace](../s/scanner_isspace.md) (whitespace detection)
+  - [parseTypeString](parseTypeString.md) (type name resolution)
+  - [pg_strcasecmp](pg_strcasecmp.md) (case-insensitive string comparison)
   - ereturn (soft error return macro)
   - FUNC_MAX_ARGS (maximum function arguments constant)
   - InvalidOid (PostgreSQL constant)
 - Called from (representative examples):
-  - regprocedurein (procedure input function)
-  - regoperatorin (operator input function)
+  - [regprocedurein](../r/regprocedurein.md) (procedure input function)
+  - [regoperatorin](../r/regoperatorin.md) (operator input function)
 
 ## Notes and Other Information
 - This function is static and only accessible within regproc.c

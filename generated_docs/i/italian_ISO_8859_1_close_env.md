@@ -21,7 +21,7 @@ The function ensures that all dynamically allocated memory within the Snowball e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup with parameter 0)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup with parameter 0)
 - Called from:
   - No direct references found in the codebase (likely used through external stemming interface)
 

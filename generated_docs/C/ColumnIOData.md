@@ -25,21 +25,21 @@ ColumnIOData serves as a comprehensive metadata cache structure for column type 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TypeCat
-  - ScalarIOData
-  - ArrayIOData
-  - CompositeIOData
-  - DomainIOData
+  - [ScalarIOData](../S/ScalarIOData.md)
+  - [ArrayIOData](../A/ArrayIOData.md)
+  - [CompositeIOData](CompositeIOData.md)
+  - [DomainIOData](../D/DomainIOData.md)
 - Called from (representative examples):
-  - ArrayIOData (nested reference)
-  - DomainIOData (nested reference)
-  - RecordIOData
-  - PopulateRecordCache
+  - [ArrayIOData](../A/ArrayIOData.md) (nested reference)
+  - [DomainIOData](../D/DomainIOData.md) (nested reference)
+  - [RecordIOData](../R/RecordIOData.md)
+  - [PopulateRecordCache](../P/PopulateRecordCache.md)
   - JsObjectFree
-  - prepare_column_cache
-  - json_populate_type
-  - populate_record_field
-  - allocate_record_info
-  - populate_record
+  - [prepare_column_cache](../p/prepare_column_cache.md)
+  - [json_populate_type](../j/json_populate_type.md)
+  - [populate_record_field](../p/populate_record_field.md)
+  - [allocate_record_info](../a/allocate_record_info.md)
+  - [populate_record](../p/populate_record.md)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/jsonfuncs.c at lines 210-226

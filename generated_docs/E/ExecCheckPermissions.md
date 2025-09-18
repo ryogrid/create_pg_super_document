@@ -21,20 +21,20 @@ The function includes extensive assertion checking to ensure consistency between
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getRTEPermissionInfo
-  - ExecCheckOneRelPerms
-  - aclcheck_error
-  - get_relkind_objtype
-  - get_rel_relkind
-  - get_rel_name
-  - bms_is_member
-  - bms_add_member
-  - bms_num_members
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
+  - [ExecCheckOneRelPerms](ExecCheckOneRelPerms.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_num_members](../b/bms_num_members.md)
   - ExecutorCheckPerms_hook (function pointer)
 - Called from (representative examples):
-  - DoCopy
-  - InitPlan
-  - RI_Initial_Check
+  - [DoCopy](../D/DoCopy.md)
+  - [InitPlan](../I/InitPlan.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
 
 ## Notes and Other Information
 - Does NOT address row-level security (RLS) policies - separate RLS checking is required

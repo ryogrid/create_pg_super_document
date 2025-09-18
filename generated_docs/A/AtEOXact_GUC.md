@@ -28,15 +28,15 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - slist_foreach_modify, slist_container, slist_delete_current, slist_push_head (list management)
-  - discard_stack_value, set_extra_field, set_string_field (value management)
-  - set_guc_source (source tracking)
+  - [discard_stack_value](../d/discard_stack_value.md), set_extra_field, set_string_field (value management)
+  - [set_guc_source](../s/set_guc_source.md) (source tracking)
   - GUC state enums: GUC_SAVE, GUC_SET, GUC_LOCAL, GUC_SET_LOCAL
   - GUC type structs: config_bool, config_int, config_real, config_string, config_enum
   - GUC reporting flags: GUC_REPORT, GUC_NEEDS_REPORT
 - Called from (representative examples):
-  - CommitTransaction, AbortTransaction (main transaction boundaries)
-  - CommitSubTransaction, AbortSubTransaction (subtransaction boundaries)  
-  - fmgr_security_definer (function execution cleanup)
+  - [CommitTransaction](../C/CommitTransaction.md), AbortTransaction (main transaction boundaries)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md), AbortSubTransaction (subtransaction boundaries)  
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (function execution cleanup)
   - Various DDL operations (index creation, schema operations, etc.)
 
 ## Notes and Other Information

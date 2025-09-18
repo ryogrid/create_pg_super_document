@@ -26,13 +26,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId (extracts XID from FullTransactionId)
-  - TransactionIdToPage (maps transaction ID to CLOG page number)
-  - pg_atomic_write_u64 (atomic write operation)
+  - [TransactionIdToPage](../T/TransactionIdToPage.md) (maps transaction ID to CLOG page number)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md) (atomic write operation)
 - Global variables:
   - TransamVariables->nextXid (next transaction ID to be assigned)
   - XactCtl (CLOG SLRU control structure)
 - Called from:
-  - StartupXLOG (during WAL recovery and startup)
+  - [StartupXLOG](StartupXLOG.md) (during WAL recovery and startup)
 
 ## Notes and Other Information
 - This function must be called exactly once during server startup

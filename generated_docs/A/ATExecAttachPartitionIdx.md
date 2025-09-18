@@ -31,23 +31,23 @@ The function is designed to be idempotent - if the attachment already exists in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForAttachIndex
-  - relation_open
-  - relation_close
-  - get_partition_parent
-  - refuseDupeIndexAttach
-  - RelationGetPartitionDesc
-  - BuildIndexInfo
-  - CompareIndexInfo
-  - build_attrmap_by_name
-  - free_attrmap
-  - get_relation_idx_constraint_oid
-  - IndexSetParentIndex
-  - ConstraintSetParentConstraint
-  - validatePartitionedIndex
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForAttachIndex](../R/RangeVarCallbackForAttachIndex.md)
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
+  - [get_partition_parent](../g/get_partition_parent.md)
+  - [refuseDupeIndexAttach](../r/refuseDupeIndexAttach.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [CompareIndexInfo](../C/CompareIndexInfo.md)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
+  - [free_attrmap](../f/free_attrmap.md)
+  - [get_relation_idx_constraint_oid](../g/get_relation_idx_constraint_oid.md)
+  - [IndexSetParentIndex](../I/IndexSetParentIndex.md)
+  - [ConstraintSetParentConstraint](../C/ConstraintSetParentConstraint.md)
+  - [validatePartitionedIndex](../v/validatePartitionedIndex.md)
 - Called from (representative examples):
-  - ATExecCmd (as part of ALTER TABLE command processing)
+  - [ATExecCmd](ATExecCmd.md) (as part of ALTER TABLE command processing)
 
 ## Notes and Other Information
 - This function implements the core logic for ALTER INDEX ATTACH PARTITION DDL command

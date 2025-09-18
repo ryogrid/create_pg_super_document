@@ -27,8 +27,8 @@ For non-finite timestamps (infinity, -infinity), the function simply passes the 
   -  - decomposes timestamptz to time components with timezone consideration
   -  - reconstructs time components into a plain timestamp
   -  - PostgreSQL error reporting function
-  -  - error code specification
-  -  - error message formatting
+  -  - [error](../e/error.md) code specification
+  -  - [error](../e/error.md) message formatting
 - Called from (representative examples):
   -  - SQL function wrapper
   -  - utility for getting local SQL timestamp

@@ -17,11 +17,11 @@ This function determines if a given Unicode code point has the White_Space prope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_prop_white_space
+  - [pg_u_prop_white_space](pg_u_prop_white_space.md)
 - Called from (representative examples):
   - pg_wc_isspace (in regex locale handling)
-  - icu_test (in Unicode category tests)
-  - pg_u_isgraph (complementary character classification)
+  - [icu_test](../i/icu_test.md) (in Unicode category tests)
+  - [pg_u_isgraph](pg_u_isgraph.md) (complementary character classification)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's internal Unicode character classification system

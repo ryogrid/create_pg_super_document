@@ -21,12 +21,12 @@ This function takes no parameters as it operates on global lock manager data str
 - Functions called/Symbols referenced:
   - LOCK_PRINT (macro for printing lock information)
   - PROCLOCK_PRINT (macro for printing process lock information)
-  - hash_seq_init (initialize hash table sequential scan)
-  - hash_seq_search (get next entry in hash table scan)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table sequential scan)
+  - [hash_seq_search](../h/hash_seq_search.md) (get next entry in hash table scan)
   - elog (error logging function)
 - Data structures used:
-  - PGPROC (process structure)
-  - PROCLOCK (process lock structure)
+  - [PGPROC](../P/PGPROC.md) (process structure)
+  - [PROCLOCK](../P/PROCLOCK.md) (process lock structure)
   - LOCK (lock structure)
   - HASH_SEQ_STATUS (hash table sequential scan status)
 - Global variables accessed:

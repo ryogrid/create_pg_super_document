@@ -21,28 +21,28 @@ This function constructs a comprehensive list of databases to be checked by pg_a
 - Functions called/Symbols referenced:
   - pg_malloc0
   - pg_log_info  
-  - pstrdup
-  - simple_ptr_list_append
+  - [pstrdup](../p/pstrdup.md)
+  - [simple_ptr_list_append](../s/simple_ptr_list_append.md)
   - initPQExpBuffer
-  - append_db_pattern_cte
+  - [append_db_pattern_cte](../a/append_db_pattern_cte.md)
   - termPQExpBuffer
-  - appendPQExpBufferStr
-  - executeQuery
-  - PQresultStatus
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [executeQuery](../e/executeQuery.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - pg_log_error
   - pg_log_error_detail
-  - disconnectDatabase
-  - PQntuples
-  - PQgetisnull
-  - PQgetvalue
+  - [disconnectDatabase](../d/disconnectDatabase.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - log_no_match
-  - PQclear
-  - DatabaseInfo
-  - SimplePtrList
-  - PQExpBufferData
+  - [PQclear](../P/PQclear.md)
+  - [DatabaseInfo](../D/DatabaseInfo.md)
+  - [SimplePtrList](../S/SimplePtrList.md)
+  - [PQExpBufferData](../P/PQExpBufferData.md)
 - Called from (representative examples):
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:499)
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:513)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:499)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:513)
 
 ## Notes and Other Information
 - Constructs a complex SQL query using multiple CTEs: include_raw, exclude_raw, database, include_pat, and filtered_databases

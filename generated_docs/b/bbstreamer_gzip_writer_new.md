@@ -21,15 +21,15 @@ The function requires libz (zlib) support at compile time. If libz is not availa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - pstrdup
+  - [palloc0](../p/palloc0.md)
+  - [pstrdup](../p/pstrdup.md)
   - gzopen
   - gzdopen
   - gzsetparams
-  - get_gz_error
-  - pg_fatal
+  - [get_gz_error](../g/get_gz_error.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - CreateBackupStreamer (in pg_basebackup.c:1196)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (in pg_basebackup.c:1196)
 
 ## Notes and Other Information
 - Requires HAVE_LIBZ compilation flag for zlib support

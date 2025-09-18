@@ -19,7 +19,7 @@ This function follows the PostgreSQL function calling convention:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - provider_init
+  - [provider_init](provider_init.md)
   - PG_RETURN_BOOL (macro)
 - Called from (representative examples):
   - No direct references found (exposed as SQL function)

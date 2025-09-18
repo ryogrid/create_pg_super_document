@@ -21,15 +21,15 @@ This function handles the removal of operator entries from an existing operator 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid4
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Int16GetDatum
   - OidIsValid
   - ereport
-  - format_type_be
-  - NameListToString
-  - performDeletion
+  - [format_type_be](../f/format_type_be.md)
+  - [NameListToString](../N/NameListToString.md)
+  - [performDeletion](../p/performDeletion.md)
 - Called from (representative examples):
-  - AlterOpFamilyDrop (src/backend/commands/opclasscmds.c:1095)
+  - [AlterOpFamilyDrop](../A/AlterOpFamilyDrop.md) (src/backend/commands/opclasscmds.c:1095)
 
 ## Notes and Other Information
 - Only supports RESTRICT deletion behavior, which prevents cascading deletions that could affect dependent objects

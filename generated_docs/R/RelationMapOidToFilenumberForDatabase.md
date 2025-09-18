@@ -22,12 +22,12 @@ The function directly reads the relmap file from the target database directory a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapFile (structure type for holding mapping data)
-  - read_relmap_file (function to read mapping file from disk)
+  - [RelMapFile](RelMapFile.md) (structure type for holding mapping data)
+  - [read_relmap_file](../r/read_relmap_file.md) (function to read mapping file from disk)
   - InvalidRelFileNumber (returned when no mapping is found)
 - Called from (representative examples):
-  - ScanSourceDatabasePgClass (dbcommands.c:265)
-  - ScanSourceDatabasePgClassTuple (dbcommands.c:423)
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md) (dbcommands.c:265)
+  - [ScanSourceDatabasePgClassTuple](../S/ScanSourceDatabasePgClassTuple.md) (dbcommands.c:423)
 
 ## Notes and Other Information
 - Does not consider active updates or pending transactions since it reads directly from the persistent mapping file

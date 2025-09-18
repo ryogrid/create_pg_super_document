@@ -20,8 +20,8 @@ This function combines the version-awareness of complete_from_versioned_query wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _complete_from_query
-  - SchemaQuery (struct type)
+  - [_complete_from_query](_complete_from_query.md)
+  - [SchemaQuery](../S/SchemaQuery.md) (struct type)
 - Called from (representative examples):
   - COMPLETE_WITH_VERSIONED_SCHEMA_QUERY_LIST
   - THING_NO_SHOW

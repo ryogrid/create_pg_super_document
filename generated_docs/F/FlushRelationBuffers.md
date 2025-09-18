@@ -23,36 +23,36 @@ The caller should typically hold AccessExclusiveLock on the target relation to p
 - Functions called/Symbols referenced:
   - RelationGetSmgr
   - RelationUsesLocalBuffers
-  - GetLocalBufferDescriptor
-  - BufTagMatchesRelFileLocator
-  - pg_atomic_read_u32
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - LocalBufHdrGetBlock
-  - PageSetChecksumInplace
-  - pgstat_prepare_io_time
+  - [PageSetChecksumInplace](../P/PageSetChecksumInplace.md)
+  - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
   - smgrwrite
-  - BufTagGetForkNum
-  - pgstat_count_io_op_time
-  - pg_atomic_unlocked_write_u32
-  - GetBufferDescriptor
-  - ReservePrivateRefCountEntry
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
+  - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [ReservePrivateRefCountEntry](../R/ReservePrivateRefCountEntry.md)
   - ResourceOwnerEnlarge
   - LockBufHdr
   - PinBuffer_Locked
-  - BufferDescriptorGetContentLock
-  - FlushBuffer
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
+  - [FlushBuffer](FlushBuffer.md)
   - UnpinBuffer
-  - UnlockBufHdr
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
 - Constants used:
   - BM_VALID, BM_DIRTY, BM_JUST_DIRTIED
   - IOOBJECT_TEMP_RELATION, IOOBJECT_RELATION
   - IOCONTEXT_NORMAL, IOOP_WRITE
   - LW_SHARED
 - Types used:
-  - BufferDesc, SMgrRelation, instr_time
+  - [BufferDesc](../B/BufferDesc.md), SMgrRelation, instr_time
 - Called from (representative examples):
-  - heapam_relation_copy_data
-  - fill_seq_with_data
-  - index_copy_data
+  - [heapam_relation_copy_data](../h/heapam_relation_copy_data.md)
+  - [fill_seq_with_data](../f/fill_seq_with_data.md)
+  - [index_copy_data](../i/index_copy_data.md)
 
 ## Notes and Other Information
 - Currently uses sequential search through buffer pools, which is noted as suboptimal but acceptable since the function is not used in performance-critical paths

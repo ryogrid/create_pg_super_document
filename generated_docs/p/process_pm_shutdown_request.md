@@ -31,13 +31,13 @@ This function takes no parameters but operates on several global state variables
 ## Dependencies
 - Functions called/Symbols referenced:
   - `ereport` - Logging functionality
-  - `AddToDataDirLockFile` - Updates lock file with status
-  - `PostmasterStateMachine` - Advances state machine
-  - `SetQuitSignalReason` - Sets reason for quit signals
-  - `TerminateChildren` - Sends termination signals to child processes
+  - `[AddToDataDirLockFile](../A/AddToDataDirLockFile.md)` - Updates lock file with status
+  - `[PostmasterStateMachine](../P/PostmasterStateMachine.md)` - Advances state machine
+  - `[SetQuitSignalReason](../S/SetQuitSignalReason.md)` - Sets reason for quit signals
+  - `[TerminateChildren](../T/TerminateChildren.md)` - Sends termination signals to child processes
   - `time` - Gets current time for abort timeout
 - Called from (representative examples):
-  - `ServerLoop` - Main postmaster event loop
+  - `[ServerLoop](../S/ServerLoop.md)` - Main postmaster event loop
 
 ## Notes and Other Information
 - The function handles multiple concurrent shutdown requests by prioritizing the most severe (immediate > fast > smart)

@@ -34,7 +34,7 @@ The function handles NULL values by treating them as non-matchable - NULL elemen
   -  - Extract elements from regular array format
   -  - Calculate total number of elements in array1
   -  /  - Get array dimensions for element count
-  -  - Initialize iterator for array1
+  -  - [Initialize](../I/Initialize.md) iterator for array1
   -  - Get next element from array1
   -  - Set up function call for equality operator
   -  - Call equality operator on element pairs

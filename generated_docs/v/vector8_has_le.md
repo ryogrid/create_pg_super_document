@@ -23,13 +23,13 @@ The function includes assertion checking in debug builds to verify correctness o
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (type)
-  - vector8_broadcast
-  - vector8_has_zero (when SIMD available)
-  - vector8_ssub (when SIMD available)
+  - [vector8_broadcast](vector8_broadcast.md)
+  - [vector8_has_zero](vector8_has_zero.md) (when SIMD available)
+  - [vector8_ssub](vector8_ssub.md) (when SIMD available)
   - USE_NO_SIMD (preprocessor condition)
 - Called from (representative examples):
-  - pg_lfind8_le
-  - vector8_has_zero
+  - [pg_lfind8_le](../p/pg_lfind8_le.md)
+  - [vector8_has_zero](vector8_has_zero.md)
 
 ## Notes and Other Information
 - Implemented as a static inline function for performance optimization

@@ -19,24 +19,24 @@ The function performs a system cache lookup on the pg_class catalog using the re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (pg_class catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
-  - doDeletion
-  - RangeVarGetAndCheckCreationNamespace
-  - get_object_type
-  - ReindexIndex
-  - LockTableCommand
-  - RenameRelation
-  - CreateTriggerFiringOn
-  - ExecCheckPermissions
-  - has_sequence_privilege_name_name
-  - pg_get_triggerdef_worker
+  - [doDeletion](../d/doDeletion.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [get_object_type](get_object_type.md)
+  - [ReindexIndex](../R/ReindexIndex.md)
+  - [LockTableCommand](../L/LockTableCommand.md)
+  - [RenameRelation](../R/RenameRelation.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
+  - [has_sequence_privilege_name_name](../h/has_sequence_privilege_name_name.md)
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md)
 
 ## Notes and Other Information
 - Returns '\0' (null character) if the relation does not exist

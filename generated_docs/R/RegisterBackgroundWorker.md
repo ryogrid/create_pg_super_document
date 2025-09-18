@@ -20,9 +20,9 @@ The function ensures that workers are only registered at appropriate times (befo
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport, elog, errmsg, errcode, errmsg_internal, errdetail_plural, errhint (error reporting)
-  - SanityCheckBackgroundWorker (worker validation)
-  - MemoryContextAllocExtended (memory allocation)
-  - slist_push_head (list management)
+  - [SanityCheckBackgroundWorker](../S/SanityCheckBackgroundWorker.md) (worker validation)
+  - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md) (memory allocation)
+  - [slist_push_head](../s/slist_push_head.md) (list management)
 - Constants referenced:
   - LOG, DEBUG1, ERROR (error levels)
   - ERRCODE_FEATURE_NOT_SUPPORTED, ERRCODE_CONFIGURATION_LIMIT_EXCEEDED, ERRCODE_OUT_OF_MEMORY
@@ -35,10 +35,10 @@ The function ensures that workers are only registered at appropriate times (befo
   - PostmasterContext (memory context)
   - BackgroundWorkerList (worker list)
 - Data structures used:
-  - RegisteredBgWorker (worker registration entry)
+  - [RegisteredBgWorker](RegisteredBgWorker.md) (worker registration entry)
 - Called from:
-  - ApplyLauncherRegister (logical replication)
-  - _PG_init functions in extension modules
+  - [ApplyLauncherRegister](../A/ApplyLauncherRegister.md) (logical replication)
+  - [_PG_init](../P/_PG_init.md) functions in extension modules
 
 ## Notes and Other Information
 - This function is for static workers only - dynamic workers use RegisterDynamicBackgroundWorker

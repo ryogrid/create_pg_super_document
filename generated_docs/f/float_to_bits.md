@@ -24,7 +24,7 @@ The function is essential for floating-point algorithms that need to examine or 
   - memcpy (for safe type conversion)
   - sizeof (for determining float size)
 - Called from (representative examples):
-  - float_to_shortest_decimal_bufn (in src/common/f2s.c at line 748)
+  - [float_to_shortest_decimal_bufn](float_to_shortest_decimal_bufn.md) (in src/common/f2s.c at line 748)
 
 ## Notes and Other Information
 - Uses memcpy for standards-compliant type punning, avoiding undefined behavior of direct pointer casting

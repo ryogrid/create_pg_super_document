@@ -35,13 +35,13 @@ The function implements a special rule for EquivalenceClass clauses: since claus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member
+  - [list_member](../l/list_member.md)
   - MemSet
-  - bms_is_subset
-  - list_concat
-  - get_index_paths
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [list_concat](../l/list_concat.md)
+  - [get_index_paths](get_index_paths.md)
 - Called from (representative examples):
-  - consider_index_join_outer_rels
+  - [consider_index_join_outer_rels](../c/consider_index_join_outer_rels.md)
 
 ## Notes and Other Information
 - Acts as the workhorse for consider_index_join_clauses, implementing the core clause collection logic

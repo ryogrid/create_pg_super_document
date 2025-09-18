@@ -19,11 +19,11 @@ A_Star is a simple node structure that represents the asterisk ('*') symbol in P
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)
 - Called from (representative examples):
-  - transformIndirection (src/backend/parser/parse_expr.c:457)
-  - transformTargetList (src/backend/parser/parse_target.c:149, 163)
-  - transformExpressionList (src/backend/parser/parse_target.c:239, 252)
-  - sql_fn_post_column_ref (src/backend/executor/functions.c:317)
-  - ProcessCopyOptions (src/backend/commands/copy.c:553, 568, 583)
+  - [transformIndirection](../t/transformIndirection.md) (src/backend/parser/parse_expr.c:457)
+  - [transformTargetList](../t/transformTargetList.md) (src/backend/parser/parse_target.c:149, 163)
+  - [transformExpressionList](../t/transformExpressionList.md) (src/backend/parser/parse_target.c:239, 252)
+  - [sql_fn_post_column_ref](../s/sql_fn_post_column_ref.md) (src/backend/executor/functions.c:317)
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md) (src/backend/commands/copy.c:553, 568, 583)
 
 ## Notes and Other Information
 - This node type is fundamental to SQL's SELECT * functionality

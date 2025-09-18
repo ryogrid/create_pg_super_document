@@ -30,21 +30,21 @@ This function takes no parameters and operates on global variables set during co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_signals: Sets up signal handlers
-  - create_data_directory: Creates the main data directory
-  - create_xlog_or_symlink: Creates pg_wal directory or symlink
-  - write_version_file: Creates PG_VERSION files
-  - set_null_conf: Sets initial configuration defaults
+  - [setup_signals](../s/setup_signals.md): Sets up signal handlers
+  - [create_data_directory](../c/create_data_directory.md): Creates the main data directory
+  - [create_xlog_or_symlink](../c/create_xlog_or_symlink.md): Creates pg_wal directory or symlink
+  - [write_version_file](../w/write_version_file.md): Creates PG_VERSION files
+  - [set_null_conf](../s/set_null_conf.md): Sets initial configuration defaults
   - test_config_settings: Validates configuration settings
-  - setup_config: Generates configuration files
-  - bootstrap_template1: Initializes template1 database
-  - setup_auth: Configures authentication settings
-  - setup_depend: Creates system dependencies
-  - setup_privileges: Sets up initial privileges
-  - make_template0: Creates template0 database
-  - make_postgres: Creates postgres database
+  - [setup_config](../s/setup_config.md): Generates configuration files
+  - [bootstrap_template1](../b/bootstrap_template1.md): Initializes template1 database
+  - [setup_auth](../s/setup_auth.md): Configures authentication settings
+  - [setup_depend](../s/setup_depend.md): Creates system dependencies
+  - [setup_privileges](../s/setup_privileges.md): Sets up initial privileges
+  - [make_template0](../m/make_template0.md): Creates template0 database
+  - [make_postgres](../m/make_postgres.md): Creates postgres database
 - Called from:
-  - main (in initdb.c): The primary entry point for initdb utility
+  - [main](../m/main.md) (in initdb.c): The primary entry point for initdb utility
 
 ## Notes and Other Information
 - This function is called only once during the lifetime of a PostgreSQL cluster

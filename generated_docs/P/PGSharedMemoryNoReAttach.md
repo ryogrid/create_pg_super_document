@@ -26,9 +26,9 @@ This function takes no parameters but modifies global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGSharedMemoryDetach (for Cygwin cleanup)
+  - [PGSharedMemoryDetach](PGSharedMemoryDetach.md) (for Cygwin cleanup)
 - Called from:
-  - SubPostmasterMain
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
 
 ## Notes and Other Information
 - Only used in EXEC_BACKEND configurations, similar to PGSharedMemoryReAttach()

@@ -19,13 +19,13 @@ The function is part of PostgreSQL's table access method (TAM) abstraction layer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (scan descriptor type)
+  - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)
   - scan->rs_rd->rd_tableam->scan_end (table access method scan termination function)
 - Called from (representative examples):
-  - systable_endscan (src/backend/access/index/genam.c:612)
-  - acquire_sample_rows (src/backend/commands/analyze.c:1264)
-  - ExecEndSeqScan (src/backend/executor/nodeSeqscan.c:197)
-  - ExecEndBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:674)
+  - [systable_endscan](../s/systable_endscan.md) (src/backend/access/index/genam.c:612)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1264)
+  - [ExecEndSeqScan](../E/ExecEndSeqScan.md) (src/backend/executor/nodeSeqscan.c:197)
+  - [ExecEndBitmapHeapScan](../E/ExecEndBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:674)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header file

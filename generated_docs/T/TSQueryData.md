@@ -41,10 +41,10 @@ This design enables efficient storage and processing of complex text search quer
 
 - Called from (representative examples):
   - TSQuery (typedef pointer to TSQueryData)
-  - TSQueryGetDatum (conversion function)
+  - [TSQueryGetDatum](TSQueryGetDatum.md) (conversion function)
 
 ## Notes and Other Information
-- TSQueryData uses PostgreSQL's flexible array member pattern for efficient memory layout
+- [TSQueryData](TSQueryData.md) uses PostgreSQL's flexible array member pattern for efficient memory layout
 - The structure is 4-byte aligned to ensure proper access to QueryItem elements
 - Total size can be computed using the COMPUTESIZE macro: HDRSIZETQ + (size * sizeof(QueryItem)) + length_of_operands
 - Access macros are provided: GETQUERY(x) for QueryItem array, GETOPERAND(x) for operand strings

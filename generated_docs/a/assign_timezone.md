@@ -21,7 +21,7 @@ This function is called by the GUC system after successful validation to make th
 ## Dependencies
 - Functions called/Symbols referenced:
   - session_timezone: Global variable storing the current session's timezone context
-  - pg_tz: PostgreSQL timezone object type
+  - [pg_tz](../p/pg_tz.md): PostgreSQL timezone object type
 
 - Called from (representative examples):
   - GUC system during timezone configuration assignment after successful validation

@@ -23,13 +23,13 @@ The function handles edge cases like  errors (which can occur with very large fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (POSIX system call for file information)
+  - [stat](../s/stat.md) (POSIX system call for file information)
   - S_ISDIR (macro to test directory status, if available)
   - emalloc (memory allocation function)
   - strlen, memcpy, strcpy, free (standard C library functions)
 - Called from:
-  - dolink (at line 1014 in src/timezone/zic.c)
-  - mkdirs (at line 3987 in src/timezone/zic.c)
+  - [dolink](../d/dolink.md) (at line 1014 in src/timezone/zic.c)
+  - [mkdirs](../m/mkdirs.md) (at line 3987 in src/timezone/zic.c)
 
 ## Notes and Other Information
 - This is a static function local to src/timezone/zic.c, part of PostgreSQL's timezone handling code

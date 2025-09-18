@@ -21,12 +21,12 @@ The execution strategy adapts based on runtime conditions: if no workers are lau
 - Functions called/Symbols referenced:
   - castNode (safely casts PlanState to GatherState)
   - CHECK_FOR_INTERRUPTS (allows query cancellation)
-  - ExecInitParallelPlan (sets up parallel execution infrastructure)
-  - ExecParallelReinitialize (reinitializes parallel context for reuse)
-  - LaunchParallelWorkers (starts the actual worker processes)
-  - ExecParallelCreateReaders (sets up tuple queue readers)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md) (sets up parallel execution infrastructure)
+  - [ExecParallelReinitialize](ExecParallelReinitialize.md) (reinitializes parallel context for reuse)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md) (starts the actual worker processes)
+  - [ExecParallelCreateReaders](ExecParallelCreateReaders.md) (sets up tuple queue readers)
   - ResetExprContext (cleans up per-tuple memory)
-  - gather_getnext (retrieves next tuple from workers/local)
+  - [gather_getnext](../g/gather_getnext.md) (retrieves next tuple from workers/local)
   - TupIsNull (checks for end-of-data condition)
   - ExecProject (applies projection if needed)
 - Called from (representative examples):

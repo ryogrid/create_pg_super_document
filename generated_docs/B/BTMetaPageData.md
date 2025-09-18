@@ -34,20 +34,20 @@ The structure also includes versioning information to support backward compatibi
   - BTREE_VERSION (version constant)
   - BTREE_NOVAC_VERSION (version threshold)
 - Called from (representative examples):
-  - _bt_insertonpg
-  - _bt_finish_split
-  - _bt_newlevel
+  - [_bt_insertonpg](../b/_bt_insertonpg.md)
+  - [_bt_finish_split](../b/_bt_finish_split.md)
+  - [_bt_newlevel](../b/_bt_newlevel.md)
   - _bt_initmetapage
   - _bt_upgrademetapage
   - _bt_getmeta
   - _bt_vacuum_needs_cleanup
   - _bt_set_cleanup_info
-  - _bt_getroot
-  - _bt_gettrueroot
-  - _bt_getrootheight
-  - _bt_metaversion
-  - _bt_unlink_halfdead_page
-  - _bt_restore_meta
+  - [_bt_getroot](../b/_bt_getroot.md)
+  - [_bt_gettrueroot](../b/_bt_gettrueroot.md)
+  - [_bt_getrootheight](../b/_bt_getrootheight.md)
+  - [_bt_metaversion](../b/_bt_metaversion.md)
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
+  - [_bt_restore_meta](../b/_bt_restore_meta.md)
   - BTPageGetMeta
 
 ## Notes and Other Information

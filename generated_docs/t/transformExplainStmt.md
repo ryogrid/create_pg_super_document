@@ -25,14 +25,14 @@ The transformation allows SELECT INTO statements within the explained query, unl
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode, lfirst, strcmp
-  - defGetBoolean, setup_parse_variable_parameters
-  - transformOptionalSelectInto, check_variable_parameters
+  - [defGetBoolean](../d/defGetBoolean.md), setup_parse_variable_parameters
+  - [transformOptionalSelectInto](transformOptionalSelectInto.md), check_variable_parameters
 - Types referenced:
-  - DefElem, ListCell, Oid
+  - [DefElem](../D/DefElem.md), ListCell, Oid
 - Constants referenced:
   - CMD_UTILITY
 - Called from (representative examples):
-  - transformStmt
+  - [transformStmt](transformStmt.md)
 
 ## Notes and Other Information
 - Supports the GENERIC_PLAN option for parameter type inference when no external parameter source exists

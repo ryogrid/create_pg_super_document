@@ -17,17 +17,17 @@ This function implements a worker pool management strategy for parallel apply wo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pa_setup_dsm
+  - [pa_setup_dsm](pa_setup_dsm.md)
   - logicalrep_worker_launch
   - dsm_segment_handle
-  - pa_free_worker_info
-  - MemoryContextSwitchTo
-  - palloc0
-  - pfree
+  - [pa_free_worker_info](pa_free_worker_info.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](palloc0.md)
+  - [pfree](pfree.md)
   - lappend
   - lfirst
 - Called from:
-  - pa_allocate_worker
+  - [pa_allocate_worker](pa_allocate_worker.md)
 
 ## Notes and Other Information
 - Implements a worker pool pattern to reuse existing parallel apply workers when possible

@@ -28,14 +28,14 @@ This design optimizes memory usage by using summary flags when one transaction h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OnConflict_CheckForSerializationFailure
-  - SetRWConflict
+  - [OnConflict_CheckForSerializationFailure](../O/OnConflict_CheckForSerializationFailure.md)
+  - [SetRWConflict](../S/SetRWConflict.md)
   - SXACT_FLAG_SUMMARY_CONFLICT_IN
   - SXACT_FLAG_SUMMARY_CONFLICT_OUT
 - Called from (representative examples):
-  - CheckForSerializableConflictOut
-  - CheckTargetForConflictsIn
-  - CheckTableForSerializableConflictIn
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
+  - [CheckTableForSerializableConflictIn](../C/CheckTableForSerializableConflictIn.md)
 
 ## Notes and Other Information
 - This is a static function internal to predicate.c, part of the SSI conflict detection system

@@ -28,10 +28,10 @@ The function assumes that lateral reference checks have been performed upstream 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset (bitmap subset test)
-  - bms_overlap (bitmap overlap test)
+  - [bms_is_subset](../b/bms_is_subset.md) (bitmap subset test)
+  - [bms_overlap](../b/bms_overlap.md) (bitmap overlap test)
 - Called from (representative examples):
-  - has_indexed_join_quals
+  - [has_indexed_join_quals](../h/has_indexed_join_quals.md)
   - get_baserel_parampathinfo
   - get_joinrel_parampathinfo
   - make_simple_restrictinfo

@@ -24,20 +24,20 @@ This function implements the ALTER FOREIGN DATA WRAPPER SQL command by modifying
   - Form_pg_foreign_data_wrapper
   - superuser
   - SearchSysCacheCopy1
-  - CStringGetDatum
-  - parse_func_options
-  - SysCacheGetAttr
-  - transformGenericOptions
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [parse_func_options](../p/parse_func_options.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
   - PointerIsValid
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ObjectAddressSet
-  - deleteDependencyRecordsForClass
-  - recordDependencyOn
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - InvokeObjectPostAlterHook
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Requires superuser privileges to execute; regular users cannot alter FDWs

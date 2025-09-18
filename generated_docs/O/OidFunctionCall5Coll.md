@@ -23,10 +23,10 @@ This function provides a convenient wrapper for calling PostgreSQL functions ide
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - FunctionCall5Coll
+  - [fmgr_info](../f/fmgr_info.md)
+  - [FunctionCall5Coll](../F/FunctionCall5Coll.md)
 - Called from (representative examples):
-  - join_selectivity
+  - [join_selectivity](../j/join_selectivity.md)
   - OidFunctionCall5 (macro)
 
 ## Notes and Other Information

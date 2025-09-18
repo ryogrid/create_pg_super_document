@@ -29,16 +29,16 @@ The function automatically determines appropriate scales for intermediate comput
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numericvar_to_int64 (for integer conversion)
-  - power_var_int (for integer exponent optimization)
-  - estimate_ln_dweight (for precision estimation)
-  - ln_var (for natural logarithm computation)
-  - exp_var (for exponential computation)
-  - cmp_var (for comparisons)
+  - [numericvar_to_int64](../n/numericvar_to_int64.md) (for integer conversion)
+  - [power_var_int](power_var_int.md) (for integer exponent optimization)
+  - [estimate_ln_dweight](../e/estimate_ln_dweight.md) (for precision estimation)
+  - [ln_var](../l/ln_var.md) (for natural logarithm computation)
+  - [exp_var](../e/exp_var.md) (for exponential computation)
+  - [cmp_var](../c/cmp_var.md) (for comparisons)
   - init_var, free_var, set_var_from_var (variable management)
-  - mul_var (for multiplication)
-  - zero_var (for zero assignment)
-  - numericvar_to_double_no_overflow (for overflow testing)
+  - [mul_var](../m/mul_var.md) (for multiplication)
+  - [zero_var](../z/zero_var.md) (for zero assignment)
+  - [numericvar_to_double_no_overflow](../n/numericvar_to_double_no_overflow.md) (for overflow testing)
 - Constants used:
   - NUMERIC_POS, NUMERIC_NEG (sign indicators)
   - NUMERIC_MIN_SIG_DIGITS (minimum significant digits)
@@ -46,7 +46,7 @@ The function automatically determines appropriate scales for intermediate comput
   - NUMERIC_MAX_RESULT_SCALE (overflow threshold)
   - PG_INT32_MIN, PG_INT32_MAX (integer limits)
 - Called from:
-  - numeric_power (main power SQL function)
+  - [numeric_power](../n/numeric_power.md) (main power SQL function)
 
 ## Notes and Other Information
 - This is a static function within the numeric.c module

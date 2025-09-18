@@ -25,7 +25,7 @@ The function maintains the same owner privilege handling as , where owners impli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl
+  - [check_acl](../c/check_acl.md)
   - ACL_NUM
   - ACL_DAT
   - ACLITEM_ALL_GOPTION_BITS

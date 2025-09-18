@@ -19,28 +19,28 @@ This function implements the core non-blocking connection establishment mechanis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pqReadData`: Reads incoming data from the connection
-  - `libpq_append_conn_error`: Appends error messages to connection
-  - `release_conn_addrinfo`: Releases address information for previous host
-  - `pqParseIntParam`: Parses integer parameters like port numbers
+  - `[pqReadData](../p/pqReadData.md)`: Reads incoming data from the connection
+  - `[libpq_append_conn_error](../l/libpq_append_conn_error.md)`: Appends error messages to connection
+  - `[release_conn_addrinfo](../r/release_conn_addrinfo.md)`: Releases address information for previous host
+  - `[pqParseIntParam](../p/pqParseIntParam.md)`: Parses integer parameters like port numbers
   - `pg_getaddrinfo_all`: Resolves hostnames to network addresses
-  - `store_conn_addrinfo`: Stores address information in connection structure
+  - `[store_conn_addrinfo](../s/store_conn_addrinfo.md)`: Stores address information in connection structure
   - `pg_freeaddrinfo_all`: Frees address information
   - `pg_prng_uint64_range`: Generates random numbers for load balancing
-  - `pqDropConnection`: Closes existing connection
-  - `pqDropServerData`: Clears server-specific data
-  - `pqClearAsyncResult`: Clears asynchronous result data
+  - `[pqDropConnection](../p/pqDropConnection.md)`: Closes existing connection
+  - `[pqDropServerData](../p/pqDropServerData.md)`: Clears server-specific data
+  - `[pqClearAsyncResult](../p/pqClearAsyncResult.md)`: Clears asynchronous result data
   - Connection state constants: CONNECTION_BAD, CONNECTION_OK, CONNECTION_NEEDED, etc.
   - Polling status constants: PGRES_POLLING_OK, PGRES_POLLING_READING, PGRES_POLLING_WRITING, PGRES_POLLING_FAILED
 
 - Called from (representative examples):
-  - `pqConnectDBComplete`: Blocking connection completion
-  - `PQresetPoll`: Connection reset polling
-  - `pqConnectDBStart`: Connection startup
-  - `PQcancelPoll`: Connection cancellation polling
-  - `libpqrcv_connect`: Replication connection establishment
-  - `wait_until_connected`: psql connection waiting
-  - `libpqsrv_connect_internal`: Server-side connection helper
+  - `[pqConnectDBComplete](../p/pqConnectDBComplete.md)`: Blocking connection completion
+  - `[PQresetPoll](PQresetPoll.md)`: Connection reset polling
+  - `[pqConnectDBStart](../p/pqConnectDBStart.md)`: Connection startup
+  - `[PQcancelPoll](PQcancelPoll.md)`: Connection cancellation polling
+  - `[libpqrcv_connect](../l/libpqrcv_connect.md)`: Replication connection establishment
+  - `[wait_until_connected](../w/wait_until_connected.md)`: psql connection waiting
+  - `[libpqsrv_connect_internal](../l/libpqsrv_connect_internal.md)`: Server-side connection helper
 
 ## Notes and Other Information
 This is a public API function that applications can call directly to implement non-blocking connection establishment. It should be used in conjunction with `PQconnectStart()` and requires the application to use `select()` or similar mechanisms to determine when to call it based on socket readiness. The function returns different PostgresPollingStatusType values: PGRES_POLLING_OK (connection complete), PGRES_POLLING_READING (waiting for socket readable), PGRES_POLLING_WRITING (waiting for socket writable), or PGRES_POLLING_FAILED (connection failed). Applications must call `PQfinish()` regardless of success or failure. The function includes important caveats about blocking behavior with hostname resolution, Kerberos authentication, and tracing operations.

@@ -24,7 +24,7 @@ The function ensures proper null-termination of the output string and tracks the
 - Functions called/Symbols referenced:
   - SPRINTF (macro for formatted string output)
 - Called from (representative examples):
-  - inet_net_ntop_ipv6
+  - [inet_net_ntop_ipv6](../i/inet_net_ntop_ipv6.md)
 
 ## Notes and Other Information
 - Returns the number of characters written to dst, or 0 on buffer overflow

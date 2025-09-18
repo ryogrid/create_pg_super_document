@@ -24,7 +24,7 @@ This structure contains the Unicode characters used for formatting the outer bor
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure definition)
 - Called from (representative examples):
-  - unicodeStyleFormat (at src/fe_utils/print.c:130)
+  - [unicodeStyleFormat](unicodeStyleFormat.md) (at src/fe_utils/print.c:130)
   - refresh_utf8format (at src/fe_utils/print.c:3695)
 
 ## Notes and Other Information

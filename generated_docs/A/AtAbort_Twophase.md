@@ -26,14 +26,14 @@ The function uses exclusive locking on TwoPhaseStateLock to ensure atomic update
 - Functions called/Symbols referenced:
   - LWLockAcquire (acquires TwoPhaseStateLock in exclusive mode)
   - LWLockRelease (releases TwoPhaseStateLock)
-  - RemoveGXact (removes invalid transaction entries from shared memory)
+  - [RemoveGXact](../R/RemoveGXact.md) (removes invalid transaction entries from shared memory)
   - INVALID_PROC_NUMBER (constant indicating no backend owns the lock)
 - Global variables accessed:
   - MyLockedGxact (current process's locked global transaction)
   - TwoPhaseStateLock (lightweight lock protecting two-phase state)
 - Called from:
-  - AtProcExit_Twophase (in twophase.c:297) - process exit cleanup
-  - AbortTransaction (in xact.c:2862) - transaction abort handling
+  - [AtProcExit_Twophase](AtProcExit_Twophase.md) (in twophase.c:297) - process exit cleanup
+  - [AbortTransaction](AbortTransaction.md) (in xact.c:2862) - transaction abort handling
 
 ## Notes and Other Information
 - Early return if MyLockedGxact is NULL (no locked transaction to clean up)

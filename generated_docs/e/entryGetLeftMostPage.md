@@ -22,13 +22,13 @@ The function includes several assertions to ensure it operates on a valid non-le
 - Functions called/Symbols referenced:
   - GinPageIsLeaf
   - GinPageIsData
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - FirstOffsetNumber
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - GinGetDownlink
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GIN entry page implementation

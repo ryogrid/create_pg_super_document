@@ -20,14 +20,14 @@ The lo_create function creates a new large object in the PostgreSQL database wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
+  - [lo_initialize](lo_initialize.md)
   - PQfn
   - PQArgBlock
   - PGRES_COMMAND_OK
   - InvalidOid
 - Called from (representative examples):
-  - StartRestoreLO
-  - lo_import_internal
+  - [StartRestoreLO](../S/StartRestoreLO.md)
+  - [lo_import_internal](lo_import_internal.md)
 
 ## Notes and Other Information
 - Returns the OID of the newly created large object, or InvalidOid on failure

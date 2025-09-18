@@ -23,15 +23,15 @@ For functions, it constructs queries using regproc (for simple function names) o
 - Functions called/Symbols referenced:
   - EditableObjectType (enum defining supported object types for editing)
   - EditableFunction, EditableView (enum values for different object types)
-  - appendStringLiteralConn (safely quotes string literals for SQL queries)
-  - echo_hidden_command (displays query if ECHO_HIDDEN is enabled)
-  - PQexec (executes the lookup query against the database)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md) (safely quotes string literals for SQL queries)
+  - [echo_hidden_command](../e/echo_hidden_command.md) (displays query if ECHO_HIDDEN is enabled)
+  - [PQexec](../P/PQexec.md) (executes the lookup query against the database)
   - PGRES_TUPLES_OK (PostgreSQL result status indicating successful tuple retrieval)
   - atooid (converts string representation to OID)
-  - minimal_error_message (displays error information for failed queries)
+  - [minimal_error_message](../m/minimal_error_message.md) (displays error information for failed queries)
 - Called from (representative examples):
-  - exec_command_ef_ev (handles \ef and \ev commands for editing functions/views)
-  - exec_command_sf_sv (handles \sf and \sv commands for showing function/view definitions)
+  - [exec_command_ef_ev](../e/exec_command_ef_ev.md) (handles \ef and \ev commands for editing functions/views)
+  - [exec_command_sf_sv](../e/exec_command_sf_sv.md) (handles \sf and \sv commands for showing function/view definitions)
 
 ## Notes and Other Information
 - Fails for non-existent objects, multiple matching candidates, or syntactically invalid object descriptions

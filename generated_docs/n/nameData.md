@@ -32,7 +32,7 @@ The actual usable length for identifiers is `NAMEDATALEN - 1` bytes because spac
 - Constants used:
   - `NAMEDATALEN`: Defines the size of the data array (64 bytes by default, defined in pg_config_manual.h)
 - Related types:
-  - `NameData`: The typedef alias for the struct
+  - `[NameData](../N/NameData.md)`: The typedef alias for the struct
   - `Name`: Pointer type to NameData (NameData *)
 - Related macros:
   - `NameStr(name)`: Macro to access the data field as a C string

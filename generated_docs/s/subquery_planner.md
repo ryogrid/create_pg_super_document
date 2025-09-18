@@ -45,22 +45,22 @@ After preprocessing, it delegates the core planning work to grouping_planner, th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SS_process_ctes (WITH clause processing)
-  - transform_MERGE_to_join (MERGE transformation)
-  - pull_up_sublinks (SubLink optimization)
-  - pull_up_subqueries (subquery pullup)
-  - preprocess_expression (expression preprocessing)
-  - preprocess_qual_conditions (WHERE/JOIN condition processing)
-  - grouping_planner (main planning logic)
-  - reduce_outer_joins (outer join optimization)
-  - SS_identify_outer_params (parameter identification)
-  - has_subclass (inheritance checking)
+  - [SS_process_ctes](../S/SS_process_ctes.md) (WITH clause processing)
+  - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md) (MERGE transformation)
+  - [pull_up_sublinks](../p/pull_up_sublinks.md) (SubLink optimization)
+  - [pull_up_subqueries](../p/pull_up_subqueries.md) (subquery pullup)
+  - [preprocess_expression](../p/preprocess_expression.md) (expression preprocessing)
+  - [preprocess_qual_conditions](../p/preprocess_qual_conditions.md) (WHERE/JOIN condition processing)
+  - [grouping_planner](../g/grouping_planner.md) (main planning logic)
+  - [reduce_outer_joins](../r/reduce_outer_joins.md) (outer join optimization)
+  - [SS_identify_outer_params](../S/SS_identify_outer_params.md) (parameter identification)
+  - [has_subclass](../h/has_subclass.md) (inheritance checking)
 - Called from (representative examples):
-  - standard_planner (top-level planning)
-  - set_subquery_pathlist (subquery planning)
-  - make_subplan (subplan creation)
-  - SS_process_ctes (CTE processing)
-  - recurse_set_operations (set operation handling)
+  - [standard_planner](standard_planner.md) (top-level planning)
+  - [set_subquery_pathlist](set_subquery_pathlist.md) (subquery planning)
+  - [make_subplan](../m/make_subplan.md) (subplan creation)
+  - [SS_process_ctes](../S/SS_process_ctes.md) (CTE processing)
+  - [recurse_set_operations](../r/recurse_set_operations.md) (set operation handling)
 
 ## Notes and Other Information
 - Returns PlannerInfo containing all planning results, with final paths in UPPERREL_FINAL upperrel

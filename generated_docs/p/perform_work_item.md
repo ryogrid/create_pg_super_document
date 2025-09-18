@@ -27,14 +27,14 @@ The function includes comprehensive error handling to ensure that failures in on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_name/get_namespace_name/get_database_name (relation name resolution)
-  - autovac_report_workitem (progress reporting)
-  - brin_summarize_range (BRIN index summarization via DirectFunctionCall2)
-  - MemoryContextReset/MemoryContextSwitchTo (memory management)
-  - AbortOutOfAnyTransaction/StartTransactionCommand (transaction management)
-  - EmitErrorReport/FlushErrorState (error handling)
+  - [get_rel_name](../g/get_rel_name.md)/get_namespace_name/get_database_name (relation name resolution)
+  - [autovac_report_workitem](../a/autovac_report_workitem.md) (progress reporting)
+  - [brin_summarize_range](../b/brin_summarize_range.md) (BRIN index summarization via DirectFunctionCall2)
+  - [MemoryContextReset](../M/MemoryContextReset.md)/MemoryContextSwitchTo (memory management)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)/StartTransactionCommand (transaction management)
+  - [EmitErrorReport](../E/EmitErrorReport.md)/FlushErrorState (error handling)
 - Called from (representative examples):
-  - do_autovacuum (main autovacuum processing loop)
+  - [do_autovacuum](../d/do_autovacuum.md) (main autovacuum processing loop)
 
 ## Notes and Other Information
 - Currently supports only AVW_BRINSummarizeRange work item type, with extensible switch statement for future types

@@ -21,10 +21,10 @@ The function is part of PostgreSQL's resource management system that ensures pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerRemember
-  - PointerGetDatum (implicit conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicit conversion)
   - relref_resowner_desc (resource descriptor)
 - Called from (representative examples):
-  - RelationIncrementReferenceCount
+  - [RelationIncrementReferenceCount](RelationIncrementReferenceCount.md)
 
 ## Notes and Other Information
 - This is a static inline function, so it gets inlined at compile time for efficiency

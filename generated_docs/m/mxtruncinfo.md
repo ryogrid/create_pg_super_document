@@ -26,8 +26,8 @@ The structure is designed for use with SLRU directory scanning functions, partic
 - Functions called/Symbols referenced:
   - int64 (standard integer type for page numbers)
 - Called from (representative examples):
-  - SlruScanDirCbFindEarliest (callback function that uses this structure to track earliest page)
-  - TruncateMultiXact (main truncation function that utilizes this structure)
+  - [SlruScanDirCbFindEarliest](../S/SlruScanDirCbFindEarliest.md) (callback function that uses this structure to track earliest page)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md) (main truncation function that utilizes this structure)
 
 ## Notes and Other Information
 This structure is specifically designed for callback-based directory scanning operations in the SLRU system. The earliestExistingPage field uses -1 as a sentinel value to indicate that no page has been found yet during the scanning process. The simplicity of this structure reflects its focused purpose as a data container for a specific phase of multixact truncation operations.

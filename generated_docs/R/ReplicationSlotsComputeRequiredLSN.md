@@ -23,17 +23,17 @@ This function takes no parameters.
   - LWLockRelease
   - SpinLockAcquire
   - SpinLockRelease
-  - XLogSetReplicationSlotMinimumLSN
-  - ReplicationSlot (struct access)
+  - [XLogSetReplicationSlotMinimumLSN](../X/XLogSetReplicationSlotMinimumLSN.md)
+  - [ReplicationSlot](ReplicationSlot.md) (struct access)
   - RS_INVAL_NONE (invalidation state constant)
 
 - Called from (representative examples):
   - LogicalConfirmReceivedLocation
-  - ReplicationSlotDropPtr
-  - ReplicationSlotReserveWal
-  - InvalidateObsoleteReplicationSlots
-  - StartupReplicationSlots
-  - PhysicalConfirmReceivedLocation
+  - [ReplicationSlotDropPtr](ReplicationSlotDropPtr.md)
+  - [ReplicationSlotReserveWal](ReplicationSlotReserveWal.md)
+  - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)
+  - [StartupReplicationSlots](../S/StartupReplicationSlots.md)
+  - [PhysicalConfirmReceivedLocation](../P/PhysicalConfirmReceivedLocation.md)
 
 ## Notes and Other Information
 - The function specifically notes that max_slot_wal_keep_size is theoretically relevant but not accounted for because the module doesn't know what to compare against

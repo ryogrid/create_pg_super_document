@@ -19,11 +19,11 @@ The  function serves as a bulk operation wrapper around . It iterates through al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapFile (structure)
-  - apply_map_update (function)
+  - [RelMapFile](../R/RelMapFile.md) (structure)
+  - [apply_map_update](../a/apply_map_update.md) (function)
 - Called from (representative examples):
-  - AtCCI_RelationMap
-  - perform_relmap_update
+  - [AtCCI_RelationMap](../A/AtCCI_RelationMap.md)
+  - [perform_relmap_update](../p/perform_relmap_update.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relmapper.c file

@@ -17,19 +17,19 @@ The  function queries the pg_largeobject_metadata table to retrieve information 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery (executes the LO metadata query)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md) (executes the LO metadata query)
   - createPQExpBuffer/destroyPQExpBuffer (query string management)
   - pg_log_info (logs the operation)
   - atooid (converts string OID to Oid type)
   - pg_malloc/pg_strdup (memory allocation and string duplication)
-  - AssignDumpId (assigns unique dump IDs to objects)
-  - getRoleName (resolves owner name from OID)
-  - recordAdditionalCatalogID (enables lookup by secondary OIDs)
+  - [AssignDumpId](../A/AssignDumpId.md) (assigns unique dump IDs to objects)
+  - [getRoleName](getRoleName.md) (resolves owner name from OID)
+  - [recordAdditionalCatalogID](../r/recordAdditionalCatalogID.md) (enables lookup by secondary OIDs)
   - DumpOptions/LoInfo/DumpableObject/CatalogId (data structures)
   - DO_LARGE_OBJECT/DO_LARGE_OBJECT_DATA (object type constants)
   - DUMP_COMPONENT_DATA/DUMP_COMPONENT_ACL (component flags)
 - Called from (representative examples):
-  - main (pg_dump main function)
+  - [main](../m/main.md) (pg_dump main function)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

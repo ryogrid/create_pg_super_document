@@ -22,12 +22,12 @@ Like ExtendMultiXactOffset, this function is called while holding MultiXactGenLo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MXOffsetToFlagsOffset
-  - MXOffsetToFlagsBitShift
-  - MXOffsetToMemberPage
-  - SimpleLruGetBankLock
+  - [MXOffsetToFlagsOffset](../M/MXOffsetToFlagsOffset.md)
+  - [MXOffsetToFlagsBitShift](../M/MXOffsetToFlagsBitShift.md)
+  - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockAcquire
-  - ZeroMultiXactMemberPage
+  - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
   - LWLockRelease
   - MAX_MEMBERS_IN_LAST_MEMBERS_PAGE
   - MaxMultiXactOffset

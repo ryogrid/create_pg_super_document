@@ -22,11 +22,11 @@ The function follows PostgreSQL's exit callback pattern, where cleanup functions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (macro)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro)
   - walrcv_disconnect
-  - WalReceiverConn (type)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (type)
 - Called from (representative examples):
-  - ReplSlotSyncWorkerMain (registered as exit callback at src/backend/replication/logical/slotsync.c:1475)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (registered as exit callback at src/backend/replication/logical/slotsync.c:1475)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the slotsync.c compilation unit

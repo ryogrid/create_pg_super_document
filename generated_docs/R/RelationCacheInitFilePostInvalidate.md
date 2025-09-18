@@ -21,9 +21,9 @@ The function is called after invalidation message processing is complete to allo
 - Functions called/Symbols referenced:
   - LWLockRelease (implicitly called on RelCacheInitLock)
 - Called from (representative examples):
-  - FinishPreparedTransaction
-  - ProcessCommittedInvalidationMessages
-  - AtEOXact_Inval
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md)
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md)
 
 ## Notes and Other Information
 - This function must be called in conjunction with RelationCacheInitFilePreInvalidate to ensure proper lock management

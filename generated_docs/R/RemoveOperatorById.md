@@ -24,14 +24,14 @@ The function operates at the catalog level and assumes all dependency checking a
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close (catalog table access)
-  - SearchSysCache1, ReleaseSysCache (system cache operations) 
-  - OperatorUpd (commutator/negator link maintenance)
-  - CatalogTupleDelete (tuple deletion from catalog)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (system cache operations) 
+  - [OperatorUpd](../O/OperatorUpd.md) (commutator/negator link maintenance)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (tuple deletion from catalog)
   - Form_pg_operator (operator catalog structure)
   - HeapTupleIsValid, GETSTRUCT (tuple validation and access)
-  - ObjectIdGetDatum (OID conversion for cache lookup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID conversion for cache lookup)
 - Called from (representative examples):
-  - doDeletion (dependency system during DROP OPERATOR)
+  - [doDeletion](../d/doDeletion.md) (dependency system during DROP OPERATOR)
 
 ## Notes and Other Information
 - This is the core deletion function called by the dependency system

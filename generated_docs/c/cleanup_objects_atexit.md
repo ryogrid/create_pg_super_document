@@ -33,12 +33,12 @@ This function takes no parameters but operates on several global variables:
   - pg_log_warning
   - pg_log_warning_hint
   - connect_database
-  - drop_publication
-  - drop_replication_slot
-  - disconnect_database
-  - stop_standby_server
+  - [drop_publication](../d/drop_publication.md)
+  - [drop_replication_slot](../d/drop_replication_slot.md)
+  - [disconnect_database](../d/disconnect_database.md)
+  - [stop_standby_server](../s/stop_standby_server.md)
 - Called from (representative examples):
-  - main (registered as atexit handler)
+  - [main](../m/main.md) (registered as atexit handler)
 
 ## Notes and Other Information
 - This is a static function specific to pg_createsubscriber utility

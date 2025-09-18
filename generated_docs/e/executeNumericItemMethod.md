@@ -24,17 +24,17 @@ The `executeNumericItemMethod` function provides a generic implementation for nu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeItemUnwrapTargetArray: Handles array unwrapping logic
-  - getScalar: Converts JsonbValue to numeric scalar
-  - jspOperationName: Gets operation name for error messages
+  - [executeItemUnwrapTargetArray](executeItemUnwrapTargetArray.md): Handles array unwrapping logic
+  - [getScalar](../g/getScalar.md): Converts JsonbValue to numeric scalar
+  - [jspOperationName](../j/jspOperationName.md): Gets operation name for error messages
   - DirectFunctionCall1: Calls PostgreSQL function with single argument
-  - NumericGetDatum/DatumGetNumeric: Convert between Numeric and Datum types
-  - jspGetNext: Gets next item in JSON path
-  - executeNextItem: Continues JSON path execution
-  - JsonbType: Gets type of JsonbValue
-  - palloc: PostgreSQL memory allocation
+  - [NumericGetDatum](../N/NumericGetDatum.md)/DatumGetNumeric: Convert between Numeric and Datum types
+  - [jspGetNext](../j/jspGetNext.md): Gets next item in JSON path
+  - [executeNextItem](executeNextItem.md): Continues JSON path execution
+  - [JsonbType](../J/JsonbType.md): Gets type of JsonbValue
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget: Main item execution dispatcher for numeric methods
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md): Main item execution dispatcher for numeric methods
   - RETURN_ERROR: Error handling macro
 
 ## Notes and Other Information

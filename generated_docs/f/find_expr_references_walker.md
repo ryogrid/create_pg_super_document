@@ -31,16 +31,16 @@ The walker uses the standard PostgreSQL expression_tree_walker framework and mai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_object_address (primary dependency recording function)
+  - [add_object_address](../a/add_object_address.md) (primary dependency recording function)
   - expression_tree_walker (recursive tree traversal framework)
   - query_tree_walker (for Query node traversal)
-  - process_function_rte_ref (for function RTE column analysis)
-  - getBaseType, get_typ_typrelid (type analysis utilities)
+  - [process_function_rte_ref](../p/process_function_rte_ref.md) (for function RTE column analysis)
+  - [getBaseType](../g/getBaseType.md), get_typ_typrelid (type analysis utilities)
   - SearchSysCacheExists1 (catalog existence checks)
   - Various list manipulation functions (list_nth, lcons, etc.)
 - Called from (representative examples):
-  - recordDependencyOnExpr (main entry point)
-  - recordDependencyOnSingleRelExpr (single-relation variant)
+  - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md) (main entry point)
+  - [recordDependencyOnSingleRelExpr](../r/recordDependencyOnSingleRelExpr.md) (single-relation variant)
   - Self-recursion for complex nested structures
 
 ## Notes and Other Information

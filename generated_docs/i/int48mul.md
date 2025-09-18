@@ -23,7 +23,7 @@ The `int48mul` function performs multiplication between a 32-bit integer and a 6
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32: Retrieves the first 32-bit integer argument
   - PG_GETARG_INT64: Retrieves the second 64-bit integer argument
-  - pg_mul_s64_overflow: Performs 64-bit multiplication with overflow detection
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md): Performs 64-bit multiplication with overflow detection
   - ereport: Reports error when overflow occurs
   - PG_RETURN_INT64: Returns the 64-bit result
 - Called from (representative examples):

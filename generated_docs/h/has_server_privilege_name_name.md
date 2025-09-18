@@ -25,9 +25,9 @@ This function supports checking privileges for foreign servers, which are part o
   - PG_GETARG_NAME
   - PG_GETARG_TEXT_PP
   - get_role_oid_or_public
-  - convert_server_name
-  - convert_server_priv_string
-  - object_aclcheck
+  - [convert_server_name](../c/convert_server_name.md)
+  - [convert_server_priv_string](../c/convert_server_priv_string.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - PG_RETURN_BOOL
   - Name (type)
   - AclResult (type)

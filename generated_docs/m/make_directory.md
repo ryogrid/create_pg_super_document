@@ -206,8 +206,8 @@ write_data_to_archive_lz4_doc.md: A null-terminated string containing the path o
   - bail (PostgreSQL regression test function for fatal error handling)
 - Called from (representative examples):
   - TAPtype (used in TAP test type setup)
-  - open_result_files (used to create result directories before opening files)
-  - regression_main (used to create various test directories during setup)
+  - [open_result_files](../o/open_result_files.md) (used to create result directories before opening files)
+  - [regression_main](../r/regression_main.md) (used to create various test directories during setup)
 
 ## Notes and Other Information
 - Creates directories with mode 0777 (read/write/execute for owner, group, and others)

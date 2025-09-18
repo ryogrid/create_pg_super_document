@@ -19,10 +19,10 @@ The function operates by calling get_slru_entry() to retrieve the statistics ent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_slru_entry
-  - PgStat_SLRUStats
+  - [get_slru_entry](../g/get_slru_entry.md)
+  - [PgStat_SLRUStats](../P/PgStat_SLRUStats.md)
 - Called from (representative examples):
-  - SimpleLruTruncate
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

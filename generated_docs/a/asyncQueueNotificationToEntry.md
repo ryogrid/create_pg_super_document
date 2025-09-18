@@ -25,7 +25,7 @@ The function applies proper alignment (QUEUEALIGN) to ensure efficient memory ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionId (to get current transaction ID)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md) (to get current transaction ID)
   - QUEUEALIGN (alignment macro for queue entries)
   - AsyncQueueEntryEmptySize (base size of empty queue entry)
   - NAMEDATALEN (maximum channel name length)
@@ -35,7 +35,7 @@ The function applies proper alignment (QUEUEALIGN) to ensure efficient memory ac
   - memcpy (to copy channel and payload data)
 
 - Called from:
-  - asyncQueueAddEntries (when adding notifications to the queue)
+  - [asyncQueueAddEntries](asyncQueueAddEntries.md) (when adding notifications to the queue)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

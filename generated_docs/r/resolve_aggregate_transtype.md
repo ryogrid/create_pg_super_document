@@ -31,12 +31,12 @@ The function handles VARIADIC ANY aggregates correctly by allowing more actual a
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IsPolymorphicType()` (checks if type is polymorphic)
-  - `get_func_signature()` (retrieves function's declared argument types)
-  - `enforce_generic_type_consistency()` (resolves polymorphic types)
-  - `pfree()` (memory cleanup)
+  - `[get_func_signature](../g/get_func_signature.md)()` (retrieves function's declared argument types)
+  - `[enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)()` (resolves polymorphic types)
+  - `[pfree](../p/pfree.md)()` (memory cleanup)
 - Called from (representative examples):
   - `initialize_peragg` (in nodeWindowAgg.c)
-  - `preprocess_aggref` (in prepagg.c)
+  - `[preprocess_aggref](../p/preprocess_aggref.md)` (in prepagg.c)
 
 ## Notes and Other Information
 - All existing callers already have the aggtranstype value available, so it's passed as a parameter rather than fetched internally

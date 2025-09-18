@@ -19,17 +19,17 @@ The  function performs essential validation of PostgreSQL data directory structu
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (for path construction)
-  - stat (for file system information)
+  - [stat](../s/stat.md) (for file system information)
   - report_status (with PG_FATAL for error reporting)
   - S_ISDIR (macro for checking if the path is a directory)
 - Called from (representative examples):
-  - check_data_dir (called multiple times to validate various PostgreSQL subdirectories)
+  - [check_data_dir](check_data_dir.md) (called multiple times to validate various PostgreSQL subdirectories)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the exec.c file
 - Handles Windows-specific path issues by avoiding trailing slashes in stat() calls
 - The function is used extensively by check_data_dir to validate multiple essential PostgreSQL directories
-- Path construction logic handles both empty subdir (for base directory checking) and non-empty subdir cases
+- [Path](../P/Path.md) construction logic handles both empty subdir (for base directory checking) and non-empty subdir cases
 - Fatal errors from this function will terminate the entire pg_upgrade process
 - Part of the comprehensive directory validation system in PostgreSQL's pg_upgrade utility
 - Essential for ensuring data directory integrity before attempting major version upgrades

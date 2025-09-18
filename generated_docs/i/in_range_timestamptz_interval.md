@@ -28,12 +28,12 @@ The function handles special cases involving infinite timestamps and intervals, 
   - PG_GETARG_TIMESTAMPTZ
   - PG_GETARG_INTERVAL_P
   - PG_GETARG_BOOL
-  - interval_sign
+  - [interval_sign](interval_sign.md)
   - INTERVAL_IS_NOEND
   - TIMESTAMP_IS_NOBEGIN
   - TIMESTAMP_IS_NOEND
-  - timestamptz_mi_interval_internal
-  - timestamptz_pl_interval_internal
+  - [timestamptz_mi_interval_internal](../t/timestamptz_mi_interval_internal.md)
+  - [timestamptz_pl_interval_internal](../t/timestamptz_pl_interval_internal.md)
 - Called from:
   - No direct references found (likely called via function catalog)
 

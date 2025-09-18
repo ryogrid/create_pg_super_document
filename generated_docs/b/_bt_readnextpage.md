@@ -21,16 +21,16 @@ This function is responsible for navigating to and reading the next page of data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_parallel_done, _bt_parallel_seize, _bt_parallel_release (parallel scan coordination)
-  - _bt_getbuf, _bt_relbuf, _bt_lockbuf (buffer management)
-  - _bt_readpage (page content processing)
-  - _bt_walk_left (backward page navigation)
+  - [_bt_parallel_done](_bt_parallel_done.md), _bt_parallel_seize, _bt_parallel_release (parallel scan coordination)
+  - [_bt_getbuf](_bt_getbuf.md), _bt_relbuf, _bt_lockbuf (buffer management)
+  - [_bt_readpage](_bt_readpage.md) (page content processing)
+  - [_bt_walk_left](_bt_walk_left.md) (backward page navigation)
   - BTScanPosInvalidate, BTScanPosUnpinIfPinned, BTScanPosIsPinned (scan position management)
-  - PredicateLockPage (isolation/locking)
+  - [PredicateLockPage](../P/PredicateLockPage.md) (isolation/locking)
   - Various page and buffer utility functions
 - Called from (representative examples):
-  - _bt_steppage (primary page stepping logic)
-  - _bt_parallel_readpage (parallel scan context)
+  - [_bt_steppage](_bt_steppage.md) (primary page stepping logic)
+  - [_bt_parallel_readpage](_bt_parallel_readpage.md) (parallel scan context)
 
 ## Notes and Other Information
 - Returns true if a valid next page with matching data was found, false if the scan has reached its end

@@ -17,7 +17,7 @@ This function serves as the cleanup counterpart to basque_ISO_8859_1_create_env,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment destructor with parameter 0)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment destructor with parameter 0)
 - Called from (representative examples):
   - Client code finishing Basque stemming operations
   - Cleanup routines in stemming applications

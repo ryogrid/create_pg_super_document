@@ -24,8 +24,8 @@ This function takes no parameters.
   - unlink (system call to remove files)
   - LOGROTATE_SIGNAL_FILE (macro defining the signal file name "logrotate")
 - Called from (representative examples):
-  - PostmasterMain (src/backend/postmaster/postmaster.c:1042)
-  - process_pm_pmsignal (src/backend/postmaster/postmaster.c:3784)
+  - [PostmasterMain](../P/PostmasterMain.md) (src/backend/postmaster/postmaster.c:1042)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md) (src/backend/postmaster/postmaster.c:3784)
 
 ## Notes and Other Information
 - The signal file is located in the PostgreSQL data directory ($PGDATA)

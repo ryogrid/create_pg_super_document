@@ -23,23 +23,23 @@ The function works by processing a pattern string where '1' characters represent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntegerSet (data structure)
-  - intset_create
-  - intset_add_member
-  - intset_is_member
-  - intset_num_entries
-  - intset_begin_iterate
-  - intset_iterate_next
-  - intset_memory_usage
+  - [IntegerSet](../I/IntegerSet.md) (data structure)
+  - [intset_create](../i/intset_create.md)
+  - [intset_add_member](../i/intset_add_member.md)
+  - [intset_is_member](../i/intset_is_member.md)
+  - [intset_num_entries](../i/intset_num_entries.md)
+  - [intset_begin_iterate](../i/intset_begin_iterate.md)
+  - [intset_iterate_next](../i/intset_iterate_next.md)
+  - [intset_memory_usage](../i/intset_memory_usage.md)
   - AllocSetContextCreate
   - MemoryContextSetIdentifier
-  - MemoryContextDelete
-  - MemoryContextStats
-  - GetCurrentTimestamp
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [MemoryContextStats](../M/MemoryContextStats.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - pg_prng_uint64_range
   - UINT64_FORMAT
 - Called from (representative examples):
-  - test_integerset (main test entry point)
+  - [test_integerset](test_integerset.md) (main test entry point)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_integerset.c file

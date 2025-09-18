@@ -24,8 +24,8 @@ The caching mechanism works by storing procedures for a specific subtype. When t
 - Functions called/Symbols referenced:
   - BTMaxStrategyNumber (constant defining maximum strategy number as 5)
 - Called from (representative examples):
-  - brin_minmax_opcinfo (allocates and initializes MinmaxOpaque)
-  - minmax_get_strategy_procinfo (accesses cached procedure information)
+  - [brin_minmax_opcinfo](../b/brin_minmax_opcinfo.md) (allocates and initializes MinmaxOpaque)
+  - [minmax_get_strategy_procinfo](../m/minmax_get_strategy_procinfo.md) (accesses cached procedure information)
 
 ## Notes and Other Information
 - This structure is internal to the BRIN min/max implementation and should not be accessed directly by external code

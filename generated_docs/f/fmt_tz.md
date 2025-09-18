@@ -21,10 +21,10 @@ The fmt_tz structure is a simple container used specifically by the do_to_timest
   - (None - this is a simple data structure)
 - Called from (representative examples):
   - DCH_ZONED
-  - to_timestamp
-  - to_date  
-  - parse_datetime
-  - do_to_timestamp
+  - [to_timestamp](../t/to_timestamp.md)
+  - [to_date](../t/to_date.md)  
+  - [parse_datetime](../p/parse_datetime.md)
+  - [do_to_timestamp](../d/do_to_timestamp.md)
 
 ## Notes and Other Information
 This structure is used internally by PostgreSQL's datetime formatting and parsing system, specifically in src/backend/utils/adt/formatting.c. It's designed to be a lightweight container for timezone information extracted during the parsing of datetime strings with timezone components. The gmtoffset is stored in seconds to provide precise timezone offset calculations.

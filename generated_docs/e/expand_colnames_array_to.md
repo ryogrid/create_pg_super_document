@@ -26,9 +26,9 @@ The function uses PostgreSQL's memory management functions (palloc0_array and re
   - palloc0_array (PostgreSQL memory allocator with zero initialization)
   - repalloc0_array (PostgreSQL memory reallocator with zero initialization)
 - Called from (representative examples):
-  - set_using_names (multiple calls at lines 4197, 4204, 4241, 4274, 4281)
-  - set_relation_column_names (at line 4405)
-  - set_join_column_names (at line 4533)
+  - [set_using_names](../s/set_using_names.md) (multiple calls at lines 4197, 4204, 4241, 4274, 4281)
+  - [set_relation_column_names](../s/set_relation_column_names.md) (at line 4405)
+  - [set_join_column_names](../s/set_join_column_names.md) (at line 4533)
 
 ## Notes and Other Information
 - This is a static function, only accessible within ruleutils.c

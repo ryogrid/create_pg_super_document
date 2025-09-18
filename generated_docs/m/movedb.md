@@ -20,23 +20,23 @@ movedb performs a complete database tablespace relocation operation involving fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_info: Retrieves database information and locks
-  - LockSharedObjectForSession: Acquires session-level exclusive lock
-  - object_ownercheck: Validates database ownership
-  - get_tablespace_oid: Resolves tablespace name to OID
-  - object_aclcheck: Checks tablespace CREATE permissions
-  - CountOtherDBBackends: Ensures no active database sessions
-  - GetDatabasePath: Constructs source and destination paths
-  - RequestCheckpoint: Forces checkpoint for consistency
-  - DropDatabaseBuffers: Clears database buffers from shared memory
+  - [get_db_info](../g/get_db_info.md): Retrieves database information and locks
+  - [LockSharedObjectForSession](../L/LockSharedObjectForSession.md): Acquires session-level exclusive lock
+  - [object_ownercheck](../o/object_ownercheck.md): Validates database ownership
+  - [get_tablespace_oid](../g/get_tablespace_oid.md): Resolves tablespace name to OID
+  - [object_aclcheck](../o/object_aclcheck.md): Checks tablespace CREATE permissions
+  - [CountOtherDBBackends](../C/CountOtherDBBackends.md): Ensures no active database sessions
+  - [GetDatabasePath](../G/GetDatabasePath.md): Constructs source and destination paths
+  - [RequestCheckpoint](../R/RequestCheckpoint.md): Forces checkpoint for consistency
+  - [DropDatabaseBuffers](../D/DropDatabaseBuffers.md): Clears database buffers from shared memory
   - copydir: Physically copies database files
-  - XLogBeginInsert/XLogRegisterData/XLogInsert: WAL logging operations
-  - CatalogTupleUpdate: Updates pg_database tablespace reference
-  - ForceSyncCommit: Ensures synchronous transaction commit
-  - CommitTransactionCommand/StartTransactionCommand: Transaction boundaries
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert: WAL logging operations
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates pg_database tablespace reference
+  - [ForceSyncCommit](../F/ForceSyncCommit.md): Ensures synchronous transaction commit
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)/StartTransactionCommand: Transaction boundaries
   - rmtree: Removes old database directory
 - Called from (representative examples):
-  - AlterDatabase: Database alteration command handler
+  - [AlterDatabase](../A/AlterDatabase.md): Database alteration command handler
 
 ## Notes and Other Information
 - Uses session-level locking to prevent concurrent operations during the move

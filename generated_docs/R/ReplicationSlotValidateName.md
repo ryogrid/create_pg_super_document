@@ -29,17 +29,17 @@ If validation fails, appropriate error messages are reported using the specified
 - Functions called/Symbols referenced:
   - strlen (implicit)
   - ereport
-  - errcode
-  - errmsg
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
   - NAMEDATALEN (constant)
   - ERRCODE_INVALID_NAME (constant)
   - ERRCODE_NAME_TOO_LONG (constant)
 - Called from (representative examples):
-  - ReplicationSlotCreate
-  - check_primary_slot_name
-  - parse_subscription_options
-  - StartupReorderBuffer
+  - [ReplicationSlotCreate](ReplicationSlotCreate.md)
+  - [check_primary_slot_name](../c/check_primary_slot_name.md)
+  - [parse_subscription_options](../p/parse_subscription_options.md)
+  - [StartupReorderBuffer](../S/StartupReorderBuffer.md)
 
 ## Notes and Other Information
 - Returns true if the name is valid, false if invalid

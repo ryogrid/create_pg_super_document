@@ -23,11 +23,11 @@ The function includes a prominent comment warning that it's called by a signal h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch (wakes up the process to handle the pending interrupt)
+  - [SetLatch](../S/SetLatch.md) (wakes up the process to handle the pending interrupt)
   - catchupInterruptPending (global flag variable, set to true)
   - MyLatch (process's latch for inter-process communication)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler (main signal dispatcher for SIGUSR1 signals)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (main signal dispatcher for SIGUSR1 signals)
 
 ## Notes and Other Information
 - This function must be signal-safe since it runs in signal handler context

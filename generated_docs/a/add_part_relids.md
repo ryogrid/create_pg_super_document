@@ -24,11 +24,11 @@ This organization is essential for efficient partition pruning as it groups rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
-  - bms_add_members
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_add_members](../b/bms_add_members.md)
   - lappend
 - Called from (representative examples):
-  - make_partition_pruneinfo
+  - [make_partition_pruneinfo](../m/make_partition_pruneinfo.md)
 
 ## Notes and Other Information
 - Uses the property that parent partitions have lower RT indexes than children to identify topmost parents

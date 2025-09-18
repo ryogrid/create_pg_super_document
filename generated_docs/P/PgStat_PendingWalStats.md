@@ -37,7 +37,7 @@ This structure serves as an intermediate accumulation buffer for WAL statistics 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_Counter (used for counter fields)
-  - instr_time (used for timing fields to optimize accumulation)
+  - [instr_time](../i/instr_time.md) (used for timing fields to optimize accumulation)
 - Called from (representative examples):
   - pgstat_count_buffer_hit
 

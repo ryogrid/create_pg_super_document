@@ -21,7 +21,7 @@ This static helper function processes padding specifications within PostgreSQL's
 - Functions called/Symbols referenced:
   - None (uses only basic C operations)
 - Called from (representative examples):
-  - log_status_format (src/backend/utils/error/elog.c:2877)
+  - [log_status_format](../l/log_status_format.md) (src/backend/utils/error/elog.c:2877)
 
 ## Notes and Other Information
 - Static function only accessible within elog.c

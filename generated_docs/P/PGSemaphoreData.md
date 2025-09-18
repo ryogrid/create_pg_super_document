@@ -26,9 +26,9 @@ The typedef  is defined as a pointer to this structure (), providing the public 
   - PG_CACHE_LINE_SIZE (PostgreSQL cache line size constant)
 
 - Referenced by:
-  - PGSemaphoreShmemSize (calculates shared memory needed for semaphores)
-  - IpcSemaphoreCreate (creates semaphores in System V implementation)
-  - PGSemaphore (typedef pointer to this structure)
+  - [PGSemaphoreShmemSize](PGSemaphoreShmemSize.md) (calculates shared memory needed for semaphores)
+  - [IpcSemaphoreCreate](../I/IpcSemaphoreCreate.md) (creates semaphores in System V implementation)
+  - [PGSemaphore](PGSemaphore.md) (typedef pointer to this structure)
 
 ## Notes and Other Information
 - This implementation is specific to POSIX semaphore-based platforms (when USE_WIN32_SEMAPHORES is not defined)

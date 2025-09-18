@@ -29,14 +29,14 @@ The function also sets up null tuple slots for outer joins (LEFT and ANTI joins)
 - Functions called/Symbols referenced:
   - makeNode: Creates a new NestLoopState node
   - ExecAssignExprContext: Creates expression evaluation context
-  - ExecInitNode: Recursively initializes outer and inner child plan nodes
-  - ExecInitResultTupleSlotTL: Initializes result tuple slot and type information
-  - ExecAssignProjectionInfo: Sets up projection infrastructure for result tuples
-  - ExecInitQual: Compiles qualification and join condition expressions
-  - ExecInitNullTupleSlot: Creates null tuple slot for outer join handling
-  - ExecGetResultType: Gets result tuple descriptor from inner plan
+  - [ExecInitNode](ExecInitNode.md): Recursively initializes outer and inner child plan nodes
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md): Initializes result tuple slot and type information
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md): Sets up projection infrastructure for result tuples
+  - [ExecInitQual](ExecInitQual.md): Compiles qualification and join condition expressions
+  - [ExecInitNullTupleSlot](ExecInitNullTupleSlot.md): Creates null tuple slot for outer join handling
+  - [ExecGetResultType](ExecGetResultType.md): Gets result tuple descriptor from inner plan
 - Called from (representative examples):
-  - ExecInitNode: As part of plan tree initialization process
+  - [ExecInitNode](ExecInitNode.md): As part of plan tree initialization process
 
 ## Notes and Other Information
 - Uses NL1_printf debug macros for initialization tracing

@@ -18,13 +18,13 @@ The `output_set_descr` function is part of the ECPG preprocessor that handles SQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_variable
-  - descriptor_item_name
-  - get_dtype
-  - ECPGdump_a_type
-  - mm_strdup
-  - drop_assignments
-  - whenever_action
+  - [find_variable](../f/find_variable.md)
+  - [descriptor_item_name](../d/descriptor_item_name.md)
+  - [get_dtype](../g/get_dtype.md)
+  - [ECPGdump_a_type](../E/ECPGdump_a_type.md)
+  - [mm_strdup](../m/mm_strdup.md)
+  - [drop_assignments](../d/drop_assignments.md)
+  - [whenever_action](../w/whenever_action.md)
   - mmfatal
 - Called from (representative examples):
   - No direct callers found in the analyzed codebase

@@ -26,10 +26,10 @@ The generated code follows this pattern:
 - Functions called/Symbols referenced:
   - struct assignment (assignment structure for descriptor operations)
   - ECPGd_count (enumeration value for descriptor count)
-  - ECPGnumeric_lvalue (function to handle numeric left-values)
+  - [ECPGnumeric_lvalue](../E/ECPGnumeric_lvalue.md) (function to handle numeric left-values)
   - mmerror (error reporting with PARSE_ERROR and ET_WARNING)
-  - drop_assignments (function to clean up assignment list)
-  - whenever_action (function to handle WHENEVER clause processing)
+  - [drop_assignments](../d/drop_assignments.md) (function to clean up assignment list)
+  - [whenever_action](../w/whenever_action.md) (function to handle WHENEVER clause processing)
 - Called from (representative examples):
   - No direct callers found in current analysis
 

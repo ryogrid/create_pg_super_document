@@ -29,15 +29,15 @@ This function is essential for multi-column GIN indexes where entries from diffe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareEntries: Core comparison function for same-column entries
-  - GinState: Structure containing GIN index state and comparison functions
+  - [ginCompareEntries](ginCompareEntries.md): Core comparison function for same-column entries
+  - [GinState](../G/GinState.md): Structure containing GIN index state and comparison functions
   - GinNullCategory: Enumeration for categorizing null and special values
 
 - Called from (representative examples):
-  - cmpEntryAccumulator: During bulk loading operations for sorting entries
-  - entryIsMoveRight: When determining page navigation in entry pages
-  - entryLocateEntry: During binary search operations in entry pages
-  - entryLocateLeafEntry: When locating entries in leaf pages
+  - [cmpEntryAccumulator](../c/cmpEntryAccumulator.md): During bulk loading operations for sorting entries
+  - [entryIsMoveRight](../e/entryIsMoveRight.md): When determining page navigation in entry pages
+  - [entryLocateEntry](../e/entryLocateEntry.md): During binary search operations in entry pages
+  - [entryLocateLeafEntry](../e/entryLocateLeafEntry.md): When locating entries in leaf pages
 
 ## Notes and Other Information
 - Returns negative, zero, or positive integer following standard comparison conventions

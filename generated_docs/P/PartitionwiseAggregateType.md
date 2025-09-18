@@ -26,9 +26,9 @@ The choice between these methods depends on factors such as the type of aggregat
   - (This is an enum, so it doesn't directly reference other symbols)
 
 - Called from (representative examples):
-  - create_ordinary_grouping_paths (in planner.c for grouping path creation)
-  - create_partitionwise_grouping_paths (in planner.c for partitioned aggregation)
-  - GroupPathExtraData structure (as patype field)
+  - [create_ordinary_grouping_paths](../c/create_ordinary_grouping_paths.md) (in planner.c for grouping path creation)
+  - [create_partitionwise_grouping_paths](../c/create_partitionwise_grouping_paths.md) (in planner.c for partitioned aggregation)
+  - [GroupPathExtraData](../G/GroupPathExtraData.md) structure (as patype field)
   - Foreign data wrapper implementations (postgres_fdw)
 
 ## Notes and Other Information

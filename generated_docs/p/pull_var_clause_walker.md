@@ -56,13 +56,13 @@ The function maintains the invariant that upper-level references (levelsup > 0) 
   - PVC_INCLUDE_AGGREGATES, PVC_RECURSE_AGGREGATES
   - PVC_INCLUDE_WINDOWFUNCS, PVC_RECURSE_WINDOWFUNCS
   - PVC_INCLUDE_PLACEHOLDERS, PVC_RECURSE_PLACEHOLDERS
-- Node types handled:
+- [Node](../N/Node.md) types handled:
   - Var, Aggref, GroupingFunc, WindowFunc, PlaceHolderVar
 - Data structures used:
   - pull_var_clause_context
 - Called from:
-  - pull_var_clause (main entry point)
-  - pull_var_clause_walker (recursive self-calls via expression_tree_walker)
+  - [pull_var_clause](pull_var_clause.md) (main entry point)
+  - [pull_var_clause_walker](pull_var_clause_walker.md) (recursive self-calls via expression_tree_walker)
 
 ## Notes and Other Information
 - This is a static helper function, not part of the public API

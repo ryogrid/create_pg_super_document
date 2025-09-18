@@ -23,14 +23,14 @@ TidStore is PostgreSQL's primary mechanism for storing collections of tuple iden
 - Functions called/Symbols referenced:
   - dsa_area (data type for shared memory management)
 - Called from (representative examples):
-  - TidStoreCreateLocal
-  - TidStoreCreateShared
-  - TidStoreAttach
-  - TidStoreDetach
-  - TidStoreDestroy
-  - TidStoreSetBlockOffsets
-  - TidStoreIsMember
-  - TidStoreBeginIterate
+  - [TidStoreCreateLocal](TidStoreCreateLocal.md)
+  - [TidStoreCreateShared](TidStoreCreateShared.md)
+  - [TidStoreAttach](TidStoreAttach.md)
+  - [TidStoreDetach](TidStoreDetach.md)
+  - [TidStoreDestroy](TidStoreDestroy.md)
+  - [TidStoreSetBlockOffsets](TidStoreSetBlockOffsets.md)
+  - [TidStoreIsMember](TidStoreIsMember.md)
+  - [TidStoreBeginIterate](TidStoreBeginIterate.md)
 
 ## Notes and Other Information
 - The union design allows efficient switching between local and shared storage modes without code duplication

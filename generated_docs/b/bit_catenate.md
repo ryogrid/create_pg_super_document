@@ -26,12 +26,12 @@ This internal function concatenates two variable-length bit strings by allocatin
   - VARBITS (gets pointer to bit data)
   - VARBITEND (gets pointer to end of bit data)
   - SET_VARSIZE (sets PostgreSQL variable-length data size)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - memcpy (memory copy operation)
   - ereport/ERROR (PostgreSQL error reporting)
 - Called from:
-  - bitcat (at src/backend/utils/adt/varbit.c:973)
-  - bit_overlay (at src/backend/utils/adt/varbit.c:1199, 1200)
+  - [bitcat](bitcat.md) (at src/backend/utils/adt/varbit.c:973)
+  - [bit_overlay](bit_overlay.md) (at src/backend/utils/adt/varbit.c:1199, 1200)
 
 ## Notes and Other Information
 - This is a static function defined in src/backend/utils/adt/varbit.c at lines 977-1037

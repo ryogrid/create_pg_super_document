@@ -21,12 +21,12 @@ This function updates the archiver statistics in shared memory based on the outc
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Archiver
-  - GetCurrentTimestamp
-  - pgstat_begin_changecount_write
-  - pgstat_end_changecount_write
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pgstat_begin_changecount_write](pgstat_begin_changecount_write.md)
+  - [pgstat_end_changecount_write](pgstat_end_changecount_write.md)
   - PgStat_ArchiverStats
 - Called from (representative examples):
-  - pgarch_ArchiverCopyLoop
+  - [pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md)
 
 ## Notes and Other Information
 The function uses the changecount mechanism to ensure atomic updates to shared memory statistics, preventing readers from seeing inconsistent intermediate states during updates. The statistics are maintained separately for successful and failed archival attempts, with each category tracking count, last WAL file name, and timestamp.

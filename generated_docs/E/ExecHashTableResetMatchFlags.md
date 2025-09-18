@@ -26,9 +26,9 @@ The function traverses both regular hash buckets and skew buckets (used for hand
   - HeapTupleHeaderClearMatch - clears the match flag on individual tuple headers
   - HJTUPLE_MINTUPLE - macro to extract minimal tuple from hash join tuple structure
   - HashSkewBucket - structure for handling skew bucket data
-  - HashJoinTuple - tuple structure used in hash tables
+  - [HashJoinTuple](../H/HashJoinTuple.md) - tuple structure used in hash tables
 - Called from (representative examples):
-  - ExecReScanHashJoin - rescans hash join operations, requiring flag reset
+  - [ExecReScanHashJoin](ExecReScanHashJoin.md) - rescans hash join operations, requiring flag reset
 
 ## Notes and Other Information
 - Essential for proper hash join rescanning functionality

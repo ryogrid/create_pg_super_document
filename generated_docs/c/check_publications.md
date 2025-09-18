@@ -27,20 +27,20 @@ This validation helps prevent subscription creation with non-existent publicatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_publications_str: Formats publication list for SQL query
+  - [get_publications_str](../g/get_publications_str.md): Formats publication list for SQL query
   - walrcv_exec: Executes SQL query on publisher via WAL receiver
   - makeStringInfo/destroyStringInfo: String buffer management
-  - MakeSingleTupleTableSlot/ExecDropSingleTupleTableSlot: Tuple processing utilities
-  - tuplestore_gettupleslot: Retrieves query result tuples
-  - list_copy/list_delete: List manipulation for tracking missing publications
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)/ExecDropSingleTupleTableSlot: Tuple processing utilities
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md): Retrieves query result tuples
+  - [list_copy](../l/list_copy.md)/list_delete: List manipulation for tracking missing publications
   - TextDatumGetCString: Extracts string data from query results
 - Called from (representative examples):
-  - CreateSubscription: During subscription creation to validate publication list
+  - [CreateSubscription](../C/CreateSubscription.md): During subscription creation to validate publication list
 
 ## Notes and Other Information
 - The function issues warnings rather than errors for missing publications, allowing subscription creation to proceed
 - Uses errmsg_plural to provide grammatically correct error messages for single vs multiple missing publications
 - The SQL query targets pg_catalog.pg_publication to ensure it works across PostgreSQL versions
 - Creates a copy of the original publication list to track which publications are found during result processing
-- Query results are processed using tuple table slots for efficient data access
+- [Query](../Q/Query.md) results are processed using tuple table slots for efficient data access
 - WAL receiver connection must be established and valid before calling this function

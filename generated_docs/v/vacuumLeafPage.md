@@ -34,15 +34,15 @@ Chain management is sophisticated - the function processes entire chains to main
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgAddPendingTID: Adds redirect targets to pending list
-  - spgPageIndexMultiDelete: Performs bulk tuple state changes
-  - BufferGetPage, PageGetItem, PageGetItemId: Page access functions
-  - TransactionIdFollowsOrEquals: Transaction visibility check
+  - [spgAddPendingTID](../s/spgAddPendingTID.md): Adds redirect targets to pending list
+  - [spgPageIndexMultiDelete](../s/spgPageIndexMultiDelete.md): Performs bulk tuple state changes
+  - [BufferGetPage](../B/BufferGetPage.md), PageGetItem, PageGetItemId: Page access functions
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md): Transaction visibility check
   - XLog functions: WAL logging (XLogBeginInsert, XLogInsert, etc.)
   - Various SP-GiST tuple access macros (SGLT_GET_NEXTOFFSET, etc.)
 - Called from (representative examples):
-  - spgvacuumpage: Main vacuum entry point for sequential page processing
-  - spgprocesspending: Called when processing pending redirect targets
+  - [spgvacuumpage](../s/spgvacuumpage.md): Main vacuum entry point for sequential page processing
+  - [spgprocesspending](../s/spgprocesspending.md): Called when processing pending redirect targets
 
 ## Notes and Other Information
 - This is a static function within the spgvacuum.c file

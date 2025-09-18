@@ -20,10 +20,10 @@ This function takes no parameters.
   - LockHashPartitionLockByProc
   - LWLockAcquire
   - LWLockRelease
-  - dlist_push_head
-  - LWLock
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [LWLock](../L/LWLock.md)
 - Called from (representative examples):
-  - LaunchParallelWorkers
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
 
 ## Notes and Other Information
 - Idempotent operation - can be safely called multiple times on the same process

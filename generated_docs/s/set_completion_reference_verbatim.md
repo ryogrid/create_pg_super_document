@@ -17,7 +17,7 @@ This function is a utility in PostgreSQL's psql tab completion system that confi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for duplicating the word string)
+  - [pg_strdup](../p/pg_strdup.md) (for duplicating the word string)
 - Global variables modified:
   - completion_ref_schema (set to NULL)
   - completion_ref_object (set to duplicated word)

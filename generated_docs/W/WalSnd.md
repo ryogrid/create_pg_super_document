@@ -39,21 +39,21 @@ The struct is designed to support both physical and logical replication through 
   - WalSndState
   - XLogRecPtr
   - TimeOffset
-  - slock_t
-  - Latch
+  - [slock_t](../s/slock_t.md)
+  - [Latch](../L/Latch.md)
   - TimestampTz
   - ReplicationKind
 
 - Called from (representative examples):
-  - SyncRepGetCandidateStandbys
-  - ProcessStandbyReplyMessage
-  - ProcessStandbyHSFeedbackMessage
-  - InitWalSenderSlot
-  - WalSndKill
-  - XLogSendPhysical
-  - XLogSendLogical
-  - WalSndSetState
-  - WalSndShmemInit
+  - [SyncRepGetCandidateStandbys](../S/SyncRepGetCandidateStandbys.md)
+  - [ProcessStandbyReplyMessage](../P/ProcessStandbyReplyMessage.md)
+  - [ProcessStandbyHSFeedbackMessage](../P/ProcessStandbyHSFeedbackMessage.md)
+  - [InitWalSenderSlot](../I/InitWalSenderSlot.md)
+  - [WalSndKill](WalSndKill.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
+  - [XLogSendLogical](../X/XLogSendLogical.md)
+  - [WalSndSetState](WalSndSetState.md)
+  - [WalSndShmemInit](WalSndShmemInit.md)
 
 ## Notes and Other Information
 - The structure is protected by a spinlock mutex, but some members are only written by the walsender process itself and can be read without holding the spinlock

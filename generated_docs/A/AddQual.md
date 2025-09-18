@@ -33,13 +33,13 @@ The function is primarily used during rule processing where additional condition
   - CMD_UTILITY (command type constant)
   - NotifyStmt (utility statement type)
   - copyObject (deep copy function for parse tree nodes)
-  - make_and_qual (creates AND combination of qualifiers)
-  - contain_aggs_of_level (checks for aggregate functions)
-  - checkExprHasSubLink (detects sublinks in expressions)
+  - [make_and_qual](../m/make_and_qual.md) (creates AND combination of qualifiers)
+  - [contain_aggs_of_level](../c/contain_aggs_of_level.md) (checks for aggregate functions)
+  - [checkExprHasSubLink](../c/checkExprHasSubLink.md) (detects sublinks in expressions)
 - Called from (representative examples):
-  - rewriteRuleAction (during rule action processing)
-  - rewriteTargetView (during view rewriting)
-  - AddInvertedQual (for adding inverted qualifiers)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md) (during rule action processing)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (during view rewriting)
+  - [AddInvertedQual](AddInvertedQual.md) (for adding inverted qualifiers)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:1057-1124

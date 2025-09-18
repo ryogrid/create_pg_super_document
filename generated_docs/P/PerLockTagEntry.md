@@ -31,8 +31,8 @@ When both sessLock and xactLock flags are true for the same LOCKTAG, it indicate
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG (as member type)
-  - hash_search (for hash table operations)
-  - hash_create (for creating temporary hash table)
+  - [hash_search](../h/hash_search.md) (for hash table operations)
+  - [hash_create](../h/hash_create.md) (for creating temporary hash table)
   - HASH_ENTER (hash operation flag)
 - Called from (representative examples):
   - CheckForSessionAndXactLocks (only usage context)

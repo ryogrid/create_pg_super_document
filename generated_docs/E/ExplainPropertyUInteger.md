@@ -21,11 +21,11 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 ## Dependencies
 - Functions called/Symbols referenced:
   - UINT64_FORMAT (macro for formatting 64-bit unsigned integers)
-  - ExplainProperty (generic property explanation function)
+  - [ExplainProperty](ExplainProperty.md) (generic property explanation function)
 - Called from (representative examples):
   - ExplainPrintSerialize (for serialization/deserialization sizes)
-  - show_hash_info (for hash bucket counts and memory sizes)
-  - show_wal_usage (for WAL byte counts)
+  - [show_hash_info](../s/show_hash_info.md) (for hash bucket counts and memory sizes)
+  - [show_wal_usage](../s/show_wal_usage.md) (for WAL byte counts)
 
 ## Notes and Other Information
 - Less frequently used than ExplainPropertyInteger, but essential for values that must be non-negative

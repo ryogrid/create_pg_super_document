@@ -23,16 +23,16 @@ The function searches through the object's dependencies to find its parent exten
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByDumpId
-  - fmtId
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [findObjectByDumpId](../f/findObjectByDumpId.md)
+  - [fmtId](../f/fmtId.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from (representative examples):
-  - dumpNamespace
-  - dumpFunc
-  - dumpTableSchema
-  - dumpSequence
-  - dumpCollation
+  - [dumpNamespace](../d/dumpNamespace.md)
+  - [dumpFunc](../d/dumpFunc.md)
+  - [dumpTableSchema](../d/dumpTableSchema.md)
+  - [dumpSequence](../d/dumpSequence.md)
+  - [dumpCollation](../d/dumpCollation.md)
 
 ## Notes and Other Information
 - Only processes objects that are extension members (dobj->ext_member must be true)

@@ -28,11 +28,11 @@ This validation ensures that cached function pointers remain valid even if the f
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (extract struct from HeapTuple)
-  - hash_search (search hash table)
+  - [hash_search](../h/hash_search.md) (search hash table)
   - HeapTupleHeaderGetRawXmin (get transaction ID from tuple header)
-  - ItemPointerEquals (compare tuple identifiers)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md) (compare tuple identifiers)
 - Called from (representative examples):
-  - fmgr_info_C_lang (during function setup to check cache)
+  - [fmgr_info_C_lang](../f/fmgr_info_C_lang.md) (during function setup to check cache)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's performance optimization for C function loading

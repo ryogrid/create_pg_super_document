@@ -26,20 +26,20 @@ The function uses prepared statements for efficiency and includes extensive vers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlStatement
-  - ExecuteSqlQueryForSingleRow  
-  - format_function_arguments
-  - format_aggregate_signature
-  - format_function_signature
-  - getFormattedOperatorName
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)  
+  - [format_function_arguments](../f/format_function_arguments.md)
+  - [format_aggregate_signature](../f/format_aggregate_signature.md)
+  - [format_function_signature](../f/format_function_signature.md)
+  - [getFormattedOperatorName](../g/getFormattedOperatorName.md)
   - appendStringLiteralAH
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
-  - binary_upgrade_extension_member
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Only operates in schema dump mode (skipped when dopt->dataOnly is true)

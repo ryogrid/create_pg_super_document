@@ -24,9 +24,9 @@ The function follows PostgreSQL's standard function calling convention using `PG
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_MULTIRANGE_P` - Extract multirange from function arguments
-  - `multirange_get_typcache` - Get type cache entry for multirange operations
+  - `[multirange_get_typcache](multirange_get_typcache.md)` - Get type cache entry for multirange operations
   - `MultirangeTypeGetOid` - Get the OID of the multirange type
-  - `multirange_overlaps_multirange_internal` - Internal overlap checking implementation
+  - `[multirange_overlaps_multirange_internal](multirange_overlaps_multirange_internal.md)` - Internal overlap checking implementation
   - `PG_RETURN_BOOL` - Return boolean result to PostgreSQL
 - Called from (representative examples):
   - SQL queries using the `&&` operator on multirange types

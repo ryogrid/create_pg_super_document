@@ -20,12 +20,12 @@ GXactLoadSubxactData is responsible for populating the subtransaction informatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - GlobalTransaction
-  - PGPROC
+  - [PGPROC](../P/PGPROC.md)
   - GetPGProcByNumber
   - PGPROC_MAX_CACHED_SUBXIDS
 - Called from (representative examples):
-  - StartPrepare
-  - RecoverPreparedTransactions
+  - [StartPrepare](../S/StartPrepare.md)
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the two-phase commit system

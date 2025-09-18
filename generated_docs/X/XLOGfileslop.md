@@ -27,7 +27,7 @@ The algorithm calculates segment boundaries for both minimum and maximum limits,
   - ConvertToXSegs (converts MB to segment count)
   - XLogSegNo (WAL segment number type)
 - Called from:
-  - RemoveOldXlogFiles
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
 
 ## Notes and Other Information
 - Returns the highest segment number that should be preallocated, not the count of segments

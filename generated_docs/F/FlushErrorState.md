@@ -19,19 +19,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset (memory context cleanup)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (memory context cleanup)
   - errordata_stack_depth (global variable)
   - recursion_depth (global variable)
   - ErrorContext (global memory context)
 
 - Called from (representative examples):
   - _SPI_commit
-  - _SPI_rollback
-  - PostgresMain
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - plperl_spi_exec
-  - PLy_output
+  - [_SPI_rollback](../S/_SPI_rollback.md)
+  - [PostgresMain](../P/PostgresMain.md)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [plperl_spi_exec](../p/plperl_spi_exec.md)
+  - [PLy_output](../P/PLy_output.md)
   - pltcl_elog
 
 ## Notes and Other Information

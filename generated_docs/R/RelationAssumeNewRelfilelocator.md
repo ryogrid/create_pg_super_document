@@ -25,13 +25,13 @@ The timing of this call is crucial for WAL consistency. It must be positioned ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentSubTransactionId
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
   - EOXactListAdd
 - Called from (representative examples):
-  - RelationSetNewRelfilenumber
-  - reindex_index
-  - swap_relation_files
-  - ATExecSetTableSpace
+  - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md)
+  - [reindex_index](../r/reindex_index.md)
+  - [swap_relation_files](../s/swap_relation_files.md)
+  - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md)
 
 ## Notes and Other Information
 - Must be called for any code that modifies pg_class.reltablespace or pg_class.relfilenode

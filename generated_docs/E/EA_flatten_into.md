@@ -28,7 +28,7 @@ The function ensures all padding is zero-filled and handles both arrays with and
   - SET_VARSIZE
   - ARR_DIMS
   - ARR_LBOUND
-  - CopyArrayEls
+  - [CopyArrayEls](../C/CopyArrayEls.md)
   - memcpy
   - memset
 - Called from (representative examples):

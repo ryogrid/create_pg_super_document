@@ -25,8 +25,8 @@ This function is essential for 64-bit large object operations that need to commu
 - Functions called/Symbols referenced:
   - pg_hton32 (called twice for high and low 32-bit halves)
 - Called from (representative examples):
-  - lo_truncate64
-  - lo_lseek64
+  - [lo_truncate64](lo_truncate64.md)
+  - [lo_lseek64](lo_lseek64.md)
 
 ## Notes and Other Information
 - Returns the 64-bit integer converted to network byte order

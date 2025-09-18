@@ -27,12 +27,12 @@ The function operates through these steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_itm_in (PostgreSQL internal time structure type)
-  - pg_add_s32_overflow (overflow-safe 32-bit integer addition)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (overflow-safe 32-bit integer addition)
   - AdjustFractMicroseconds (handles fractional day remainder)
   - USECS_PER_DAY (constant defining microseconds per day)
 - Called from (representative examples):
-  - DecodeInterval (multiple locations in backend)
-  - DecodeISO8601Interval (multiple locations in backend and ECPG)
+  - [DecodeInterval](../D/DecodeInterval.md) (multiple locations in backend)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md) (multiple locations in backend and ECPG)
 
 ## Notes and Other Information
 - This is a static function within src/backend/utils/adt/datetime.c

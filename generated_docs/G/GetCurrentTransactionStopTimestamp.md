@@ -23,13 +23,13 @@ This function takes no parameters.
   - TransactionState (type)
   - PG_USED_FOR_ASSERTS_ONLY (macro)
   - TRANS_DEFAULT, TRANS_COMMIT, TRANS_ABORT, TRANS_PREPARE (transaction state constants)
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](GetCurrentTimestamp.md)
   - xactStopTimestamp (global variable)
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - RecordTransactionAbort
-  - pgstat_report_stat
-  - pgstat_relation_flush_cb
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md)
+  - [pgstat_relation_flush_cb](../p/pgstat_relation_flush_cb.md)
 
 ## Notes and Other Information
 - The function uses lazy initialization to set the stop timestamp only when first needed

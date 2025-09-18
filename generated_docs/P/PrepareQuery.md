@@ -21,14 +21,14 @@ PrepareQuery processes a PREPARE SQL statement by creating a cached plan source 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates RawStmt)
-  - CreateCachedPlan (creates cached plan source)
-  - CreateCommandTag (generates command tag)
-  - typenameTypeId (resolves type names to OIDs)
-  - pg_analyze_and_rewrite_varparams (performs analysis and rewriting)
-  - CompleteCachedPlan (finalizes cached plan)
-  - StorePreparedStatement (stores the prepared statement)
+  - [CreateCachedPlan](../C/CreateCachedPlan.md) (creates cached plan source)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (generates command tag)
+  - [typenameTypeId](../t/typenameTypeId.md) (resolves type names to OIDs)
+  - [pg_analyze_and_rewrite_varparams](../p/pg_analyze_and_rewrite_varparams.md) (performs analysis and rewriting)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md) (finalizes cached plan)
+  - [StorePreparedStatement](../S/StorePreparedStatement.md) (stores the prepared statement)
 - Called from (representative examples):
-  - standard_ProcessUtility (utility command processing)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (utility command processing)
 
 ## Notes and Other Information
 - Disallows empty statement names to avoid conflicts with protocol-level unnamed statements

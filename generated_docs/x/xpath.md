@@ -22,9 +22,9 @@ This function implements PostgreSQL's xpath() SQL function, which evaluates XPat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xpath_internal
-  - initArrayResult
-  - makeArrayResult
+  - [xpath_internal](xpath_internal.md)
+  - [initArrayResult](../i/initArrayResult.md)
+  - [makeArrayResult](../m/makeArrayResult.md)
   - PG_GETARG_TEXT_PP, PG_GETARG_XML_P, PG_GETARG_ARRAYTYPE_P (PostgreSQL argument extraction)
   - PG_RETURN_DATUM
   - NO_XML_SUPPORT (fallback when libxml2 not available)
@@ -37,5 +37,5 @@ This function implements PostgreSQL's xpath() SQL function, which evaluates XPat
 - Returns array of XML values rather than XQuery sequences (which PostgreSQL doesn't support)
 - Part of PostgreSQL's SQL/XML standard implementation
 - Function signature follows PostgreSQL's V1 calling convention
-- Result array elements maintain their XML type for further XML processing
+- [Result](../R/Result.md) array elements maintain their XML type for further XML processing
 - Provides the primary interface for XPath functionality in PostgreSQL SQL

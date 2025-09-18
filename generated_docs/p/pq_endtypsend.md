@@ -22,10 +22,10 @@ This function assumes that the buffer's data is already properly aligned for use
   - SET_VARSIZE (macro to set the PostgreSQL variable-length header)
   - Assert (for debugging verification)
 - Called from (representative examples):
-  - array_send (src/backend/utils/adt/arrayfuncs.c:1644)
-  - boolsend (src/backend/utils/adt/bool.c:194)
-  - numeric_send (src/backend/utils/adt/numeric.c:1179)
-  - textsend (src/backend/utils/adt/varlena.c:626)
+  - [array_send](../a/array_send.md) (src/backend/utils/adt/arrayfuncs.c:1644)
+  - [boolsend](../b/boolsend.md) (src/backend/utils/adt/bool.c:194)
+  - [numeric_send](../n/numeric_send.md) (src/backend/utils/adt/numeric.c:1179)
+  - [textsend](../t/textsend.md) (src/backend/utils/adt/varlena.c:626)
   - Many other type output functions across the codebase
 
 ## Notes and Other Information

@@ -18,9 +18,9 @@ The  function is a simple wrapper around the standard C library's  function. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - feof (standard C library function)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
-  - InitCompressFileHandleNone (used to initialize function pointer)
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md) (used to initialize function pointer)
 
 ## Notes and Other Information
 - This function is part of the "none" compression implementation, which handles uncompressed files

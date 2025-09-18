@@ -24,19 +24,19 @@ This function serves as the core mechanism for registering extensible nodes in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - hash_search
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
   - elog
   - ereport
   - strlen
 - Data types used:
-  - HTAB
+  - [HTAB](../H/HTAB.md)
   - ExtensibleNodeEntry
   - HASHCTL
   - EXTNODENAME_MAX_LEN
 - Called from (representative examples):
-  - RegisterExtensibleNodeMethods
-  - RegisterCustomScanMethods
+  - [RegisterExtensibleNodeMethods](RegisterExtensibleNodeMethods.md)
+  - [RegisterCustomScanMethods](RegisterCustomScanMethods.md)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed in the public API

@@ -21,12 +21,12 @@ This function parses a textual representation of a range value and converts it t
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Stack overflow protection for recursive calls
-  - get_range_io_data: Retrieves I/O function cache data for the range type
-  - range_parse: Parses the string representation into components
-  - InputFunctionCallSafe: Safely calls the element type's input function
-  - make_range: Constructs and canonicalizes the final RangeType structure
+  - [get_range_io_data](../g/get_range_io_data.md): Retrieves I/O function cache data for the range type
+  - [range_parse](range_parse.md): Parses the string representation into components
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md): Safely calls the element type's input function
+  - [make_range](../m/make_range.md): Constructs and canonicalizes the final RangeType structure
 - Data structures used:
-  - RangeIOData: Cache structure for I/O functions
+  - [RangeIOData](../R/RangeIOData.md): Cache structure for I/O functions
   - RangeBound: Structure representing range boundaries
   - IOFunc_input: Enum value for input function type
 - Macros used:

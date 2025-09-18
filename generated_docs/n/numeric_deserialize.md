@@ -23,17 +23,17 @@ The reconstructed state is allocated in the current memory context and can be us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext: Validates aggregate context
+  - [AggCheckCallContext](../A/AggCheckCallContext.md): Validates aggregate context
   - PG_GETARG_BYTEA_PP: Retrieves the serialized bytea argument
   - init_var: Initializes temporary NumericVar
-  - initReadOnlyStringInfo: Sets up buffer for reading binary data
-  - makeNumericAggStateCurrentContext: Creates new NumericAggState in current context
-  - pq_getmsgint64: Deserializes 64-bit integers (N, maxScaleCount, NaNcount, pInfcount, nInfcount)
-  - numericvar_deserialize: Deserializes numeric values (called twice for sumX and sumX2)
-  - accum_sum_add: Adds deserialized sums to the aggregate state (called twice)
-  - pq_getmsgint: Deserializes 32-bit integer (maxScale)
-  - pq_getmsgend: Validates end of message buffer
-  - free_var: Cleans up temporary variable
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md): Sets up buffer for reading binary data
+  - [makeNumericAggStateCurrentContext](../m/makeNumericAggStateCurrentContext.md): Creates new NumericAggState in current context
+  - [pq_getmsgint64](../p/pq_getmsgint64.md): Deserializes 64-bit integers (N, maxScaleCount, NaNcount, pInfcount, nInfcount)
+  - [numericvar_deserialize](numericvar_deserialize.md): Deserializes numeric values (called twice for sumX and sumX2)
+  - [accum_sum_add](../a/accum_sum_add.md): Adds deserialized sums to the aggregate state (called twice)
+  - [pq_getmsgint](../p/pq_getmsgint.md): Deserializes 32-bit integer (maxScale)
+  - [pq_getmsgend](../p/pq_getmsgend.md): Validates end of message buffer
+  - [free_var](../f/free_var.md): Cleans up temporary variable
 - Called from (representative examples):
   - Not directly referenced by other symbols (used by aggregate framework)
 

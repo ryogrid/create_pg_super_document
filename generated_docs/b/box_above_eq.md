@@ -22,9 +22,9 @@ This function is the counterpart to box_below_eq and suffers from the same issue
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract BOX argument from function args)
-  - FPge (floating-point greater than or equal comparison)
+  - [FPge](../F/FPge.md) (floating-point greater than or equal comparison)
   - PG_RETURN_BOOL (macro to return boolean result)
-  - BOX (box data structure)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
   - No current references found (function is deprecated)
 

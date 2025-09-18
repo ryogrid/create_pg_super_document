@@ -278,16 +278,16 @@ v_str ESTAB      0      0                                               *:633275
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base structure)
+  - [ScanState](../S/ScanState.md) (base structure)
   - ExprContext (expression evaluation context)
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
 
 - Called from (representative examples):
-  - ExecInitValuesScan (initialization)
-  - ExecValuesScan (tuple retrieval)
-  - ExecReScanValuesScan (rescan operations)
-  - ValuesNext (next tuple fetch)
-  - ValuesRecheck (tuple rechecking)
+  - [ExecInitValuesScan](../E/ExecInitValuesScan.md) (initialization)
+  - [ExecValuesScan](../E/ExecValuesScan.md) (tuple retrieval)
+  - [ExecReScanValuesScan](../E/ExecReScanValuesScan.md) (rescan operations)
+  - [ValuesNext](ValuesNext.md) (next tuple fetch)
+  - [ValuesRecheck](ValuesRecheck.md) (tuple rechecking)
 
 ## Notes and Other Information
 The ValuesScanState implements an important optimization for memory management: the rowcontext is reset between rows to prevent memory leakage over large VALUES lists. However, sublists containing SubPlans require special treatment because SubPlans must remain connected to the outer plan tree. This dual approach (resettable context for simple expressions, persistent state for SubPlans) ensures both memory efficiency and correct SubPlan execution. The ss.ps.ps_ExprContext is used for evaluating any qual or projection expressions attached to the node, separate from the row-specific expression evaluation.

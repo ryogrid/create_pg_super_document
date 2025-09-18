@@ -25,15 +25,15 @@ The function assumes that ownership of the table provides sufficient rights to p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - drop_parent_dependency: Removes the dependency relationship between table and type
+  - [drop_parent_dependency](../d/drop_parent_dependency.md): Removes the dependency relationship between table and type
   - SearchSysCacheCopy1: Retrieves a copy of the relation's catalog tuple
-  - CatalogTupleUpdate: Updates the modified tuple in the pg_class catalog
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the modified tuple in the pg_class catalog
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
-  - heap_freetuple: Frees the heap tuple memory
+  - [heap_freetuple](../h/heap_freetuple.md): Frees the heap tuple memory
   - DEPENDENCY_NORMAL: Constant indicating normal dependency type
 
 - Called from (representative examples):
-  - ATExecCmd: Main ALTER TABLE command execution dispatcher
+  - [ATExecCmd](ATExecCmd.md): Main ALTER TABLE command execution dispatcher
 
 ## Notes and Other Information
 - The function performs validation to ensure the table is actually typed before attempting detachment

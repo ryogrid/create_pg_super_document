@@ -21,7 +21,7 @@ PQescapeByteaConn provides a connection-aware interface for bytea escaping that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqClearConnErrorState
-  - PQescapeByteaInternal
+  - [PQescapeByteaInternal](PQescapeByteaInternal.md)
 - Called from (representative examples):
   - Various libpq client applications (referenced in libpq-fe.h)
 

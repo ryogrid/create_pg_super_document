@@ -29,8 +29,8 @@ The function iterates through all allocated file descriptors and processes those
   - FreeDesc (to free file descriptors on abort)
   - SubTransactionId (type used for subtransaction identification)
 - Called from (representative examples):
-  - CommitSubTransaction (in src/backend/access/transam/xact.c:5133)
-  - AbortSubTransaction (in src/backend/access/transam/xact.c:5297)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (in src/backend/access/transam/xact.c:5133)
+  - [AbortSubTransaction](AbortSubTransaction.md) (in src/backend/access/transam/xact.c:5297)
 
 ## Notes and Other Information
 - The function uses a careful iteration pattern (i--) after calling FreeDesc because freeing a descriptor can shift the array contents

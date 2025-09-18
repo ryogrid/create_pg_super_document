@@ -20,18 +20,18 @@ The partition directory is particularly useful in scenarios where multiple parti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc
-  - hash_create
-  - PartitionDirectoryData (structure type)
-  - PartitionDirectoryEntry (hash table entry type)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [hash_create](../h/hash_create.md)
+  - [PartitionDirectoryData](../P/PartitionDirectoryData.md) (structure type)
+  - [PartitionDirectoryEntry](../P/PartitionDirectoryEntry.md) (hash table entry type)
   - HASHCTL (hash table control structure)
   - HASH_ELEM, HASH_BLOBS, HASH_CONTEXT (hash table flags)
 
 - Called from:
-  - ExecInitPartitionDispatchInfo
-  - CreatePartitionPruneState  
-  - set_relation_partition_info
+  - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)
+  - [CreatePartitionPruneState](CreatePartitionPruneState.md)  
+  - [set_relation_partition_info](../s/set_relation_partition_info.md)
 
 ## Notes and Other Information
 - The function creates a hash table with 256 initial buckets for partition directory entries

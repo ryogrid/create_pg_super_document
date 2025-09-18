@@ -27,9 +27,9 @@ The structure handles two types of tablespaces: normal tablespaces that need exp
   - MAXPGPATH (constant for maximum path length)
   - (Self-referential structure member)
 - Called from (representative examples):
-  - main
-  - reset_directory_cleanup_list
-  - scan_for_existing_tablespaces
+  - [main](../m/main.md)
+  - [reset_directory_cleanup_list](../r/reset_directory_cleanup_list.md)
+  - [scan_for_existing_tablespaces](../s/scan_for_existing_tablespaces.md)
 
 ## Notes and Other Information
 - Part of pg_combinebackup's tablespace discovery and management system

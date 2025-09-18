@@ -23,20 +23,20 @@ Restriction selectivity is used for conditions like "column op constant" where t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (operator catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (invalid OID constant)
   - RegProcedure (procedure identifier type)
 
 - Called from (representative examples):
-  - clauselist_selectivity_ext (selectivity estimation for clause lists)
-  - restriction_selectivity (core selectivity estimation)
-  - dependency_is_compatible_clause (statistics dependency analysis)
-  - statext_is_compatible_clause_internal (extended statistics compatibility)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md) (selectivity estimation for clause lists)
+  - [restriction_selectivity](../r/restriction_selectivity.md) (core selectivity estimation)
+  - [dependency_is_compatible_clause](../d/dependency_is_compatible_clause.md) (statistics dependency analysis)
+  - [statext_is_compatible_clause_internal](../s/statext_is_compatible_clause_internal.md) (extended statistics compatibility)
   - scalararraysel (scalar array selectivity estimation)
 
 ## Notes and Other Information

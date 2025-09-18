@@ -19,11 +19,11 @@ This function is part of the state machine logic that handles URL and host parsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1354)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1368)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1392)
+  - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1354)
+  - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1368)
+  - [p_isspecial](p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1392)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the wparser_def.c file

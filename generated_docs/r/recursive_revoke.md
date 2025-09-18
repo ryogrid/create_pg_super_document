@@ -23,14 +23,14 @@ This function implements the cascading revocation logic that maintains the integ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl: Validates ACL structure
-  - aclmask: Computes remaining grant options the grantee might have via other grantors
-  - aclupdate: Recursively removes dependent privileges
+  - [check_acl](../c/check_acl.md): Validates ACL structure
+  - [aclmask](../a/aclmask.md): Computes remaining grant options the grantee might have via other grantors
+  - [aclupdate](../a/aclupdate.md): Recursively removes dependent privileges
   - ACL manipulation macros (ACL_NUM, ACL_DAT, ACLITEM_GET_PRIVS, etc.)
   - Error reporting functions (ereport, errcode, errmsg, errhint)
   - Memory management (pfree)
 - Called from (representative examples):
-  - aclupdate: During privilege revocation operations that remove grant options
+  - [aclupdate](../a/aclupdate.md): During privilege revocation operations that remove grant options
 
 ## Notes and Other Information
 - Static function, only accessible within the ACL module

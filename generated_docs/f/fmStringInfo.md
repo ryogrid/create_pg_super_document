@@ -17,7 +17,7 @@ fmStringInfo is a forward declaration typedef defined in fmgr.h that creates a p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StringInfoData (struct - forward declaration only)
+  - [StringInfoData](../S/StringInfoData.md) (struct - forward declaration only)
 - Called from (representative examples):
   - OidFunctionCall9 (function call interface)
 

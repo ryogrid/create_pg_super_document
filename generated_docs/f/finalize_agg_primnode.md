@@ -32,12 +32,12 @@ This specialized processing is necessary for hashed aggregation plans because th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - finalize_primnode (processes aggregate arguments and filters)
+  - [finalize_primnode](finalize_primnode.md) (processes aggregate arguments and filters)
   - expression_tree_walker (general expression traversal)
-  - Node type checking macros (IsA)
+  - [Node](../N/Node.md) type checking macros (IsA)
 - Called from (representative examples):
-  - finalize_plan (specifically for AGG_HASHED plans in Agg node processing)
-  - finalize_agg_primnode (recursive calls)
+  - [finalize_plan](finalize_plan.md) (specifically for AGG_HASHED plans in Agg node processing)
+  - [finalize_agg_primnode](finalize_agg_primnode.md) (recursive calls)
 
 ## Notes and Other Information
 - Returns false to continue tree walking (standard expression_tree_walker protocol)

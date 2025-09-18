@@ -22,14 +22,14 @@ XmlSerialize represents the parsed form of the XMLSERIALIZE function call in SQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XmlOptionType (enum defining DOCUMENT vs CONTENT serialization)
-  - TypeName (structure representing the target type specification)
+  - [XmlOptionType](XmlOptionType.md) (enum defining DOCUMENT vs CONTENT serialization)
+  - [TypeName](../T/TypeName.md) (structure representing the target type specification)
   - ParseLoc (type for tracking source location)
 - Called from (representative examples):
-  - transformExprRecurse (processes expressions during parse analysis)
+  - [transformExprRecurse](../t/transformExprRecurse.md) (processes expressions during parse analysis)
   - transformXmlSerialize (transforms XMLSERIALIZE into executable form)
-  - exprLocation (determines expression source location)
-  - raw_expression_tree_walker_impl (traverses raw expression trees)
+  - [exprLocation](../e/exprLocation.md) (determines expression source location)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md) (traverses raw expression trees)
 
 ## Notes and Other Information
 XmlSerialize is specific to PostgreSQL's XML functionality and appears only in the raw parse tree before being transformed into other node types during semantic analysis. The xmloption field affects how XML declarations and document structure are handled during serialization. The DOCUMENT option preserves complete XML document structure while CONTENT option extracts just the content portion. This structure is part of PostgreSQL's SQL/XML standard compliance features.

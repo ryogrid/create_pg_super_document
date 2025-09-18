@@ -22,12 +22,12 @@ The function extracts the hash function information from the index relation's me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getprocinfo (retrieves hash function information from index metadata)
+  - [index_getprocinfo](../i/index_getprocinfo.md) (retrieves hash function information from index metadata)
   - HASHSTANDARD_PROC (constant identifying the primary hash function)
-  - FunctionCall1Coll (calls the hash function with collation support)
-  - DatumGetUInt32 (extracts uint32 result from function call)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md) (calls the hash function with collation support)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (extracts uint32 result from function call)
 - Called from (representative examples):
-  - _hash_first (in hashsearch.c at line 340)
+  - [_hash_first](_hash_first.md) (in hashsearch.c at line 340)
   - _hash_convert_tuple (in hashutil.c at line 331)
 
 ## Notes and Other Information

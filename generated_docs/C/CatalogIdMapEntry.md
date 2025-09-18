@@ -31,15 +31,15 @@ The structure uses a hash table implementation (likely simplehash) to provide fa
 
 ## Dependencies
 - Types referenced:
-  - CatalogId (from pg_backup.h)
+  - [CatalogId](CatalogId.md) (from pg_backup.h)
   - DumpableObject (from pg_dump.h)
-  - ExtensionInfo (from pg_dump.h)
+  - [ExtensionInfo](../E/ExtensionInfo.md) (from pg_dump.h)
 - Used by functions:
-  - AssignDumpId (src/bin/pg_dump/common.c:685)
-  - recordAdditionalCatalogID (src/bin/pg_dump/common.c:710)
-  - findObjectByCatalogId (src/bin/pg_dump/common.c:769)
-  - recordExtensionMembership (src/bin/pg_dump/common.c:1054)
-  - findOwningExtension (src/bin/pg_dump/common.c:1078)
+  - [AssignDumpId](../A/AssignDumpId.md) (src/bin/pg_dump/common.c:685)
+  - [recordAdditionalCatalogID](../r/recordAdditionalCatalogID.md) (src/bin/pg_dump/common.c:710)
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md) (src/bin/pg_dump/common.c:769)
+  - [recordExtensionMembership](../r/recordExtensionMembership.md) (src/bin/pg_dump/common.c:1054)
+  - [findOwningExtension](../f/findOwningExtension.md) (src/bin/pg_dump/common.c:1078)
 
 ## Notes and Other Information
 - This structure is used as SH_ELEMENT_TYPE in a hash table implementation (referenced at src/bin/pg_dump/common.c:69)

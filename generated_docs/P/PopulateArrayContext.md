@@ -40,22 +40,22 @@ This context structure is designed to handle arrays of arbitrary dimensionality,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayBuildState (array construction state management)
-  - ArrayIOData (array I/O metadata caching)
-  - Node (for error context handling)
+  - [ArrayBuildState](../A/ArrayBuildState.md) (array construction state management)
+  - [ArrayIOData](../A/ArrayIOData.md) (array I/O metadata caching)
+  - [Node](../N/Node.md) (for error context handling)
 - Called from (representative examples):
-  - PopulateArrayState (contains this as a member)
+  - [PopulateArrayState](PopulateArrayState.md) (contains this as a member)
   - JsObjectFree (for cleanup and memory management)
-  - populate_array_report_expected_array
-  - populate_array_assign_ndims
-  - populate_array_check_dimension
-  - populate_array_element
-  - populate_array_array_end
-  - populate_array_element_end
-  - populate_array_scalar
-  - populate_array_json
-  - populate_array_dim_jsonb
-  - populate_array
+  - [populate_array_report_expected_array](../p/populate_array_report_expected_array.md)
+  - [populate_array_assign_ndims](../p/populate_array_assign_ndims.md)
+  - [populate_array_check_dimension](../p/populate_array_check_dimension.md)
+  - [populate_array_element](../p/populate_array_element.md)
+  - [populate_array_array_end](../p/populate_array_array_end.md)
+  - [populate_array_element_end](../p/populate_array_element_end.md)
+  - [populate_array_scalar](../p/populate_array_scalar.md)
+  - [populate_array_json](../p/populate_array_json.md)
+  - [populate_array_dim_jsonb](../p/populate_array_dim_jsonb.md)
+  - [populate_array](../p/populate_array.md)
 
 ## Notes and Other Information
 - Shared between populate_array_json() and populate_array_dim_jsonb() to maintain consistency across different JSON array processing approaches

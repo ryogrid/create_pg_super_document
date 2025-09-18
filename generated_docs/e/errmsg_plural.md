@@ -30,15 +30,15 @@ The function operates within PostgreSQL's error handling framework, managing mem
   - ErrorData (error data structure)
   - CHECK_STACK_DEPTH (recursion safety check)
   - EVALUATE_MESSAGE_PLURAL (plural message processing macro)
-  - MemoryContextSwitchTo (memory management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 
 - Called from (representative examples):
-  - GetNewMultiXactId (transaction ID management)
-  - SetMultiXactIdLimit (multixact limit warnings)
-  - ReadTwoPhaseFile (two-phase commit processing)
-  - perform_base_backup (backup operations)
-  - CopyFrom (COPY command processing)
-  - ParseFuncOrColumn (function parsing with argument counts)
+  - [GetNewMultiXactId](../G/GetNewMultiXactId.md) (transaction ID management)
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md) (multixact limit warnings)
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md) (two-phase commit processing)
+  - [perform_base_backup](../p/perform_base_backup.md) (backup operations)
+  - [CopyFrom](../C/CopyFrom.md) (COPY command processing)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md) (function parsing with argument counts)
 
 ## Notes and Other Information
 - Returns 0 (return value is not meaningful)

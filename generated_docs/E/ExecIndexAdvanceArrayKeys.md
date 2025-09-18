@@ -26,13 +26,13 @@ The iteration continues until all combinations have been exhausted, at which poi
 
 ## Dependencies
 - Data types used:
-  - IndexArrayKeyInfo  
+  - [IndexArrayKeyInfo](../I/IndexArrayKeyInfo.md)  
   - ScanKey
 - Constants used:
   - SK_ISNULL
 
 ## Called From
-- MultiExecBitmapIndexScan (src/backend/executor/nodeBitmapIndexscan.c:108)
+- [MultiExecBitmapIndexScan](../M/MultiExecBitmapIndexScan.md) (src/backend/executor/nodeBitmapIndexscan.c:108)
 
 ## Notes and Other Information
 - Implements rightmost-advance strategy for better index locality of access

@@ -17,9 +17,9 @@ This function serves as an assignment hook in psql's variable management system,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseVariableBool (boolean value parsing and validation)
+  - [ParseVariableBool](../P/ParseVariableBool.md) (boolean value parsing and validation)
 - Called from (representative examples):
-  - EstablishVariableSpace (variable registration during initialization)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (variable registration during initialization)
 
 ## Notes and Other Information
 - Part of psql's variable hook system that ensures special variables have proper validation and side effects

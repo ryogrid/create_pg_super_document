@@ -20,13 +20,13 @@ This function is called from the autovacuum process to report the startup of an 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_get_entry_ref_locked
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - pgstat_unlock_entry
   - PGSTAT_KIND_DATABASE
   - PgStat_EntryRef
-  - PgStatShared_Database
+  - [PgStatShared_Database](../P/PgStatShared_Database.md)
 - Called from (representative examples):
-  - AutoVacWorkerMain (in src/backend/postmaster/autovacuum.c:1549)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (in src/backend/postmaster/autovacuum.c:1549)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's statistics collection system

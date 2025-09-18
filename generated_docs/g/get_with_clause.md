@@ -27,8 +27,8 @@ For recursive CTEs, it uses "WITH RECURSIVE" instead of just "WITH". The functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - quote_identifier
-  - get_query_def
+  - [quote_identifier](../q/quote_identifier.md)
+  - [get_query_def](get_query_def.md)
   - get_rule_expr
   - appendContextKeyword
   - appendStringInfoString
@@ -39,13 +39,13 @@ For recursive CTEs, it uses "WITH RECURSIVE" instead of just "WITH". The functio
   - CTEMaterializeDefault, CTEMaterializeAlways, CTEMaterializeNever
   - CommonTableExpr
   - castNode
-  - DatumGetBool
+  - [DatumGetBool](../D/DatumGetBool.md)
 - Called from (representative examples):
-  - get_select_query_def
-  - get_insert_query_def
-  - get_update_query_def
-  - get_delete_query_def
-  - get_merge_query_def
+  - [get_select_query_def](get_select_query_def.md)
+  - [get_insert_query_def](get_insert_query_def.md)
+  - [get_update_query_def](get_update_query_def.md)
+  - [get_delete_query_def](get_delete_query_def.md)
+  - [get_merge_query_def](get_merge_query_def.md)
 
 ## Notes and Other Information
 This function implements support for PostgreSQL's comprehensive CTE feature set, including SQL:1999 standard recursive CTEs and PostgreSQL-specific extensions. The SEARCH clause allows controlling traversal order in recursive queries (breadth-first vs depth-first), while the CYCLE clause enables automatic cycle detection with customizable mark values. The materialization hints control PostgreSQL's query optimizer behavior for CTE evaluation. The function carefully handles proper SQL syntax generation, including comma separation between multiple CTEs and correct parentheses placement around nested queries and column lists.

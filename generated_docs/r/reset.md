@@ -22,7 +22,7 @@ The function is typically called at the beginning of each test case within the e
   - memset (C standard library function to set memory to specified value)
   - References global arrays: f1, f2, f3 (implicitly through memset operations)
 - Called from:
-  - execute_test (multiple times at src/interfaces/ecpg/test/expected/sql-declare.c:235, 304, 372, 409)
+  - [execute_test](../e/execute_test.md) (multiple times at src/interfaces/ecpg/test/expected/sql-declare.c:235, 304, 372, 409)
   - Various other PostgreSQL internal functions (shown in extensive reference list)
 
 ## Notes and Other Information

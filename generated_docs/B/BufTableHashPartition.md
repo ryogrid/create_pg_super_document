@@ -24,7 +24,7 @@ The function ensures that the same hash code will always map to the same partiti
 - Functions called/Symbols referenced:
   - NUM_BUFFER_PARTITIONS (constant, currently 128)
 - Called from (representative examples):
-  - BufMappingPartitionLock
+  - [BufMappingPartitionLock](BufMappingPartitionLock.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization in frequent buffer operations

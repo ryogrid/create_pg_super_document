@@ -18,16 +18,16 @@ This function serves as a helper routine in PostgreSQL's statistics system to ob
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStat_EntryRef (statistics entry reference structure)
-  - pgstat_prep_pending_entry (general function for preparing pending statistics entries)
+  - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md) (general function for preparing pending statistics entries)
   - PGSTAT_KIND_DATABASE (constant indicating database-level statistics)
 - Called from (representative examples):
-  - pgstat_report_recovery_conflict (from src/backend/utils/activity/pgstat_database.c:89)
-  - pgstat_report_deadlock (from src/backend/utils/activity/pgstat_database.c:132)
-  - pgstat_report_tempfile (from src/backend/utils/activity/pgstat_database.c:182)
-  - pgstat_report_connect (from src/backend/utils/activity/pgstat_database.c:200)
-  - pgstat_report_disconnect (from src/backend/utils/activity/pgstat_database.c:215)
-  - pgstat_update_dbstats (from src/backend/utils/activity/pgstat_database.c:281)
-  - pgstat_relation_flush_cb (from src/backend/utils/activity/pgstat_relation.c:872)
+  - [pgstat_report_recovery_conflict](pgstat_report_recovery_conflict.md) (from src/backend/utils/activity/pgstat_database.c:89)
+  - [pgstat_report_deadlock](pgstat_report_deadlock.md) (from src/backend/utils/activity/pgstat_database.c:132)
+  - [pgstat_report_tempfile](pgstat_report_tempfile.md) (from src/backend/utils/activity/pgstat_database.c:182)
+  - [pgstat_report_connect](pgstat_report_connect.md) (from src/backend/utils/activity/pgstat_database.c:200)
+  - [pgstat_report_disconnect](pgstat_report_disconnect.md) (from src/backend/utils/activity/pgstat_database.c:215)
+  - [pgstat_update_dbstats](pgstat_update_dbstats.md) (from src/backend/utils/activity/pgstat_database.c:281)
+  - [pgstat_relation_flush_cb](pgstat_relation_flush_cb.md) (from src/backend/utils/activity/pgstat_relation.c:872)
 
 ## Notes and Other Information
 - The function includes an assertion that prevents reporting statistics before establishing a database connection

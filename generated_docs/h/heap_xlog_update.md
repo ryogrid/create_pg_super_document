@@ -28,14 +28,14 @@ The function supports space optimization techniques like prefix/suffix compressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecGetBlockTag, XLogRecGetBlockTagExtended (block information extraction)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md), XLogRecGetBlockTagExtended (block information extraction)
   - XLogReadBufferForRedo, XLogInitBufferForRedo (buffer management during redo)
-  - visibilitymap_pin, visibilitymap_clear (visibility map maintenance)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map maintenance)
   - PageAddItem, PageSetLSN, PageSetPrunable (page-level operations)
   - HeapTupleHeaderSetXmin, HeapTupleHeaderSetXmax, HeapTupleHeaderSetCmin (tuple header management)
-  - fix_infomask_from_infobits (tuple visibility state reconstruction)
+  - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md) (tuple visibility state reconstruction)
 - Called from (representative examples):
-  - heap_redo (main heap WAL replay dispatcher)
+  - [heap_redo](heap_redo.md) (main heap WAL replay dispatcher)
 
 ## Notes and Other Information
 - **Recovery Safety**: The function carefully manages buffer locking order to prevent deadlocks during recovery, though this is less critical during WAL replay than normal operations

@@ -34,12 +34,12 @@ The xl_xact_commit structure is the main WAL record format for transaction commi
 - Functions called/Symbols referenced:
   - TimestampTz (data type)
 - Called from (representative examples):
-  - ParseCommitRecord (in xactdesc.c)
-  - xact_desc_commit (in xactdesc.c) 
-  - XactLogCommitRecord (in xact.c)
-  - xact_redo (in xact.c)
-  - xact_decode (in decode.c)
-  - getRecordTimestamp (in xlogrecovery.c)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (in xactdesc.c)
+  - [xact_desc_commit](xact_desc_commit.md) (in xactdesc.c) 
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md) (in xact.c)
+  - [xact_redo](xact_redo.md) (in xact.c)
+  - [xact_decode](xact_decode.md) (in decode.c)
+  - [getRecordTimestamp](../g/getRecordTimestamp.md) (in xlogrecovery.c)
   - MinSizeOfXactCommit (minimum size calculation)
 
 ## Notes and Other Information

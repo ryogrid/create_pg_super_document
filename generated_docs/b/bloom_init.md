@@ -20,15 +20,15 @@ The function validates input parameters and rejects filters that exceed BloomMax
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bloom_filter_size: Calculates optimal filter parameters
-  - BloomFilter: The bloom filter data structure
+  - [bloom_filter_size](bloom_filter_size.md): Calculates optimal filter parameters
+  - [BloomFilter](../B/BloomFilter.md): The bloom filter data structure
   - BloomMaxFilterSize: Maximum allowed filter size constant
-  - palloc0: PostgreSQL memory allocation function (initializes to zero)
+  - [palloc0](../p/palloc0.md): PostgreSQL memory allocation function (initializes to zero)
   - SET_VARSIZE: Macro to set the size of a varlena structure
   - Assert: Assertion macro for parameter validation
   - elog: PostgreSQL logging/error function
 - Called from (representative examples):
-  - brin_bloom_add_value
+  - [brin_bloom_add_value](brin_bloom_add_value.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the brin_bloom.c file

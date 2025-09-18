@@ -28,29 +28,29 @@ If the insertion involves metadata changes (ismeta=true), the function also upda
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_clear_incomplete_split
+  - [_bt_clear_incomplete_split](_bt_clear_incomplete_split.md)
   - XLogRecGetData
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - PageAddItem
-  - PageGetItemId
-  - PageGetItem
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
   - OffsetNumberPrev
-  - CopyIndexTuple
-  - _bt_swap_posting
-  - PageSetLSN
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
+  - [_bt_swap_posting](_bt_swap_posting.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
-  - _bt_restore_meta
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [_bt_restore_meta](_bt_restore_meta.md)
 - Data types used:
-  - xl_btree_insert
+  - [xl_btree_insert](../x/xl_btree_insert.md)
   - ItemId
-  - IndexTuple
+  - [IndexTuple](../I/IndexTuple.md)
 - Constants used:
   - BLK_NEEDS_REDO
   - InvalidOffsetNumber
 - Called from (representative examples):
-  - btree_redo (multiple call sites for different insertion types)
+  - [btree_redo](btree_redo.md) (multiple call sites for different insertion types)
 
 ## Notes and Other Information
 - This is a static function used internally within nbtxlog.c for B-tree WAL recovery

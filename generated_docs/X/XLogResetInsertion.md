@@ -27,10 +27,10 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - XLogRecData: Referenced when resetting mainrdata_last pointer
 - Called from (representative examples):
-  - XLogInsert: Called after successful WAL record insertion to clean up state
-  - XLogInsert: Called on error paths to ensure cleanup even when insertion fails
-  - AbortTransaction: Called during transaction abort to clean up any pending WAL state
-  - AbortSubTransaction: Called during subtransaction abort for cleanup
+  - [XLogInsert](XLogInsert.md): Called after successful WAL record insertion to clean up state
+  - [XLogInsert](XLogInsert.md): Called on error paths to ensure cleanup even when insertion fails
+  - [AbortTransaction](../A/AbortTransaction.md): Called during transaction abort to clean up any pending WAL state
+  - [AbortSubTransaction](../A/AbortSubTransaction.md): Called during subtransaction abort for cleanup
 
 ## Notes and Other Information
 - Essential for proper WAL state management - must be called after every WAL record construction cycle

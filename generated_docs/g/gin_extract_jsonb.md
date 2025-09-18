@@ -30,14 +30,14 @@ The function uses an intelligent pre-allocation strategy, initially allocating s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_gin_entries (initializes entry buffer)
-  - add_gin_entry (adds entries to buffer)
-  - make_scalar_key (converts JsonbValue to indexable Datum)
-  - JsonbIteratorInit (initializes JSONB iterator)
-  - JsonbIteratorNext (advances through JSONB structure)
+  - [init_gin_entries](../i/init_gin_entries.md) (initializes entry buffer)
+  - [add_gin_entry](../a/add_gin_entry.md) (adds entries to buffer)
+  - [make_scalar_key](../m/make_scalar_key.md) (converts JsonbValue to indexable Datum)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md) (initializes JSONB iterator)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md) (advances through JSONB structure)
   - JB_ROOT_COUNT (counts root-level elements)
 - Called from (representative examples):
-  - gin_extract_jsonb_query (at src/backend/utils/adt/jsonb_gin.c:859)
+  - [gin_extract_jsonb_query](gin_extract_jsonb_query.md) (at src/backend/utils/adt/jsonb_gin.c:859)
   - System-level GIN index operations (via opclass registration)
 
 ## Notes and Other Information

@@ -20,10 +20,10 @@ The function recursively traverses the query tree and applies boolean logic rule
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - tsquery_requires_match (recursive calls)
+  - [tsquery_requires_match](tsquery_requires_match.md) (recursive calls)
 - Called from (representative examples):
-  - gin_extract_tsquery
-  - tsquery_requires_match (recursive calls)
+  - [gin_extract_tsquery](../g/gin_extract_tsquery.md)
+  - [tsquery_requires_match](tsquery_requires_match.md) (recursive calls)
 
 ## Notes and Other Information
 - Includes stack overflow protection for deep recursion

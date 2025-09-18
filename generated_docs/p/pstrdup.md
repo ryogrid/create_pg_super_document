@@ -19,7 +19,7 @@ The function relies on MemoryContextStrdup to perform the actual work, passing t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
   - CurrentMemoryContext (global variable)
 - Called from (representative examples):
   - Various PostgreSQL functions that need string duplication (no direct references found in symbol analysis)

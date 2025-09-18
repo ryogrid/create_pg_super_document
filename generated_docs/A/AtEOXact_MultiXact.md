@@ -20,18 +20,18 @@ This function is called at the end of every top-level transaction, regardless of
 ## Dependencies
 - Functions called/Symbols referenced:
   - InvalidMultiXactId (constant)
-  - dclist_init
+  - [dclist_init](../d/dclist_init.md)
 - Global variables modified:
   - OldestMemberMXactId[MyProcNumber]
   - OldestVisibleMXactId[MyProcNumber]
   - MXactContext
   - MXactCache
 - Called from (representative examples):
-  - CommitTransaction
-  - AbortTransaction
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [AbortTransaction](AbortTransaction.md)
 
 ## Notes and Other Information
-- Called at both transaction commit and abort - cleanup is identical for both cases
+- Called at both transaction commit and abort - [cleanup](../c/cleanup.md) is identical for both cases
 - Assumes that storing a MultiXactId is atomic, so no locking is required
 - The MultiXact cache is automatically cleaned up due to memory context hierarchy
 - Essential for maintaining proper MultiXact visibility and preventing resource leaks

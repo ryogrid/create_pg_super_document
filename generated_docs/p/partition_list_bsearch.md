@@ -25,13 +25,13 @@ This function implements a binary search algorithm specifically designed for lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (partition boundary structure)
-  - FunctionCall2Coll (calls comparison function with collation)
-  - DatumGetInt32 (extracts int32 from comparison result)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (partition boundary structure)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (calls comparison function with collation)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (extracts int32 from comparison result)
 - Called from:
-  - get_partition_for_tuple (at src/backend/executor/execPartition.c:1472)
-  - check_new_partition_bound (at src/backend/partitioning/partbounds.c:3073)
-  - get_matching_list_bounds (at src/backend/partitioning/partprune.c:2809, 2840, 2857, 2892)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md) (at src/backend/executor/execPartition.c:1472)
+  - [check_new_partition_bound](../c/check_new_partition_bound.md) (at src/backend/partitioning/partbounds.c:3073)
+  - [get_matching_list_bounds](../g/get_matching_list_bounds.md) (at src/backend/partitioning/partprune.c:2809, 2840, 2857, 2892)
   - partition_bound_has_default (at src/include/partitioning/partbounds.h:135)
 
 ## Notes and Other Information

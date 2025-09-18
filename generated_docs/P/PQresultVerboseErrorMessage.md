@@ -22,19 +22,19 @@ The function handles memory allocation failures gracefully by returning appropri
 ## Dependencies
 - Functions called/Symbols referenced:
   - strdup
-  - libpq_gettext
+  - [libpq_gettext](../l/libpq_gettext.md)
   - initPQExpBuffer
-  - pqBuildErrorMessage3
+  - [pqBuildErrorMessage3](../p/pqBuildErrorMessage3.md)
   - PQExpBufferDataBroken
   - termPQExpBuffer
 - Types referenced:
   - PGVerbosity
   - PGContextVisibility
-  - PQExpBufferData
+  - [PQExpBufferData](PQExpBufferData.md)
   - PGRES_FATAL_ERROR
   - PGRES_NONFATAL_ERROR
 - Called from (representative examples):
-  - exec_command_errverbose (psql command processing)
+  - [exec_command_errverbose](../e/exec_command_errverbose.md) (psql command processing)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

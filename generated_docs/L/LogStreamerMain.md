@@ -26,11 +26,11 @@ static int LogStreamerMain(logstreamer_param *param)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - reached_end_position (callback function for stopping condition)
-  - CreateWalDirectoryMethod (creates directory-based WAL storage method)
-  - CreateWalTarMethod (creates tar-based WAL storage method)
-  - ReceiveXlogStream (performs the actual WAL streaming)
-  - PQfinish (closes database connection)
+  - [reached_end_position](../r/reached_end_position.md) (callback function for stopping condition)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (creates directory-based WAL storage method)
+  - [CreateWalTarMethod](../C/CreateWalTarMethod.md) (creates tar-based WAL storage method)
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md) (performs the actual WAL streaming)
+  - [PQfinish](../P/PQfinish.md) (closes database connection)
   - pg_log_error (error logging function)
 - Global variables accessed:
   - in_log_streamer (flag indicating running in log streamer process)
@@ -38,7 +38,7 @@ static int LogStreamerMain(logstreamer_param *param)
   - standby_message_timeout, format, replication_slot
   - bgchild_exited (Windows-specific exit flag)
 - Called from (representative examples):
-  - StartLogStreamer function in pg_basebackup.c at lines 725 and 735
+  - [StartLogStreamer](../S/StartLogStreamer.md) function in pg_basebackup.c at lines 725 and 735
 
 ## Notes and Other Information
 - Returns 0 on successful completion, 1 on error

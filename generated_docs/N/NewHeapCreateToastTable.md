@@ -22,9 +22,9 @@ The function allows passing an old TOAST table OID, which can be useful for oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckAndCreateToastTable
+  - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)
 - Called from (representative examples):
-  - make_new_heap (in src/backend/commands/cluster.c:795)
+  - [make_new_heap](../m/make_new_heap.md) (in src/backend/commands/cluster.c:795)
 
 ## Notes and Other Information
 - This function is specifically designed for new heap creation scenarios, distinguishing it from ALTER TABLE operations

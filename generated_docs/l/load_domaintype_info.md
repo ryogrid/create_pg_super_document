@@ -30,25 +30,25 @@ The function optimizes for the common case of no constraints by deferring memory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - decr_dcc_refcount
+  - [decr_dcc_refcount](../d/decr_dcc_refcount.md)
   - table_open
-  - SearchSysCache1
-  - systable_beginscan
-  - systable_getnext
-  - fastgetattr
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [fastgetattr](../f/fastgetattr.md)
   - TextDatumGetCString
   - AllocSetContextCreate
-  - MemoryContextAlloc
-  - stringToNode
-  - expression_planner
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [expression_planner](../e/expression_planner.md)
   - makeNode
   - qsort
-  - dcs_cmp
-  - lcons
+  - [dcs_cmp](../d/dcs_cmp.md)
+  - [lcons](lcons.md)
   - MemoryContextSetParent
 - Called from (representative examples):
-  - lookup_type_cache
-  - UpdateDomainConstraintRef
+  - [lookup_type_cache](lookup_type_cache.md)
+  - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

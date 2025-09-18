@@ -28,16 +28,16 @@ The deserialized tuple is integrated into the sorting framework by setting the S
 - Functions called/Symbols referenced:
   - Tuplesortstate (sort state management structure)
   - SortTuple (generic sort tuple structure)
-  - LogicalTape (tape abstraction for external sorting)
-  - BrinSortTuple (BRIN-specific tuple structure)
+  - [LogicalTape](../L/LogicalTape.md) (tape abstraction for external sorting)
+  - [BrinSortTuple](../B/BrinSortTuple.md) (BRIN-specific tuple structure)
   - TuplesortPublic (public sort state structure)
   - TuplesortstateGetPublic (accessor for public sort state)
-  - tuplesort_readtup_alloc (memory allocation for tuple reading)
+  - [tuplesort_readtup_alloc](../t/tuplesort_readtup_alloc.md) (memory allocation for tuple reading)
   - BRINSORTTUPLE_SIZE (macro to calculate BRIN tuple size)
   - LogicalTapeReadExact (function to read exact amount from tape)
   - TUPLESORT_RANDOMACCESS (flag for random access requirement)
 - Called from (representative examples):
-  - tuplesort_begin_index_brin (BRIN sort initialization)
+  - [tuplesort_begin_index_brin](../t/tuplesort_begin_index_brin.md) (BRIN sort initialization)
   - CLUSTER_SORT (clustering sort operations)
 
 ## Notes and Other Information

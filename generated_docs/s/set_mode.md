@@ -25,13 +25,13 @@ The function supports three shutdown modes:
   - strcmp (string comparison)
   - SMART_MODE, FAST_MODE, IMMEDIATE_MODE (shutdown mode constants)
   - SIGTERM, SIGINT, SIGQUIT (signal constants)
-  - write_stderr (error output function)
-  - do_advice (help/advice function)
+  - [write_stderr](../w/write_stderr.md) (error output function)
+  - [do_advice](../d/do_advice.md) (help/advice function)
   - exit (program termination)
   - shutdown_mode, sig (global variables)
 
 - Called from (representative examples):
-  - main (when processing -m/--mode command-line options)
+  - [main](../m/main.md) (when processing -m/--mode command-line options)
 
 ## Notes and Other Information
 - The function modifies global variables  and  that are used throughout the pg_ctl program

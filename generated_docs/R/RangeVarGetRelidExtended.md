@@ -31,20 +31,20 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_name
-  - LookupExplicitNamespace  
-  - get_relname_relid
-  - RelnameGetRelid
-  - LockRelationOid
-  - ConditionalLockRelationOid
-  - UnlockRelationOid
-  - AcceptInvalidationMessages
+  - [get_database_name](../g/get_database_name.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)  
+  - [get_relname_relid](../g/get_relname_relid.md)
+  - [RelnameGetRelid](RelnameGetRelid.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
 - Called from (representative examples):
   - RangeVarGetRelid (inline wrapper)
-  - cluster
-  - LockTableCommand
-  - RemoveRelations
-  - ExecuteTruncate
+  - [cluster](../c/cluster.md)
+  - [LockTableCommand](../L/LockTableCommand.md)
+  - [RemoveRelations](RemoveRelations.md)
+  - [ExecuteTruncate](../E/ExecuteTruncate.md)
 
 ## Notes and Other Information
 - Returns InvalidOid when relation is not found and RVR_MISSING_OK flag is set

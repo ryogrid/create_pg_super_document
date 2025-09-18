@@ -19,12 +19,12 @@ This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGdo (ECPG runtime function for executing SQL statements)
+  - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for executing SQL statements)
   - ECPGget_var (ECPG runtime function for variable access)
-  - dosqlprint (error reporting function)
+  - [dosqlprint](../d/dosqlprint.md) (error reporting function)
 - Called from (representative examples):
-  - main (called once during test execution)
-  - ECPGdebug (called during debugging setup)
+  - [main](../m/main.md) (called once during test execution)
+  - [ECPGdebug](../E/ECPGdebug.md) (called during debugging setup)
 
 ## Notes and Other Information
 - This is a static function with internal linkage, only visible within the compilation unit

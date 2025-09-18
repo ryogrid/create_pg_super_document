@@ -21,16 +21,16 @@ The function uses PostgreSQL's hash table infrastructure to efficiently track ke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - strlen
 - Data structures used:
   - JsonUniqueCheckState
   - JsonUniqueHashEntry
   - HASH_ENTER
 - Called from (representative examples):
-  - json_object_agg_transfn_worker
-  - json_build_object_worker
-  - json_unique_object_field_start
+  - [json_object_agg_transfn_worker](json_object_agg_transfn_worker.md)
+  - [json_build_object_worker](json_build_object_worker.md)
+  - [json_unique_object_field_start](json_unique_object_field_start.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the json.c compilation unit

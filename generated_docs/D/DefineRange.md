@@ -34,15 +34,15 @@ The function ensures proper alignment, storage characteristics, and maintains co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace (namespace resolution)
-  - TypeCreate (creates type catalog entries)
-  - RangeCreate (creates pg_range entry)
-  - makeArrayTypeName, makeRangeConstructors, makeMultirangeConstructors (helper functions)
-  - CastCreate (creates type casting relationships)
-  - moveArrayTypeName (handles type name conflicts)
-  - findRangeSubOpclass, findRangeCanonicalFunction, findRangeSubtypeDiffFunction (parameter resolution)
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md) (namespace resolution)
+  - [TypeCreate](../T/TypeCreate.md) (creates type catalog entries)
+  - [RangeCreate](../R/RangeCreate.md) (creates pg_range entry)
+  - [makeArrayTypeName](../m/makeArrayTypeName.md), makeRangeConstructors, makeMultirangeConstructors (helper functions)
+  - [CastCreate](../C/CastCreate.md) (creates type casting relationships)
+  - [moveArrayTypeName](../m/moveArrayTypeName.md) (handles type name conflicts)
+  - [findRangeSubOpclass](../f/findRangeSubOpclass.md), findRangeCanonicalFunction, findRangeSubtypeDiffFunction (parameter resolution)
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Creates a complete family of four related types: range, multirange, range[], and multirange[]

@@ -24,15 +24,15 @@ The function uses string comparisons to determine the object type from the TOC e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
-  - fmtId (for identifier quoting)
-  - appendPQExpBuffer (for formatted string appending)
-  - appendPQExpBufferStr (for string appending)
-  - pg_strdup (for string duplication)
-  - pg_fatal (for error reporting)
+  - [TocEntry](../T/TocEntry.md) (struct type)
+  - [fmtId](../f/fmtId.md) (for identifier quoting)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (for formatted string appending)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (for string appending)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
   - strcmp (for string comparison)
 - Called from:
-  - _printTocEntry (main caller for generating owner change statements)
+  - [_printTocEntry](../p/_printTocEntry.md) (main caller for generating owner change statements)
 
 ## Notes and Other Information
 - Function is static and only used within pg_backup_archiver.c

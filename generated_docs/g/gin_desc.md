@@ -26,20 +26,20 @@ The function handles multiple GIN operation types including tree creation, inser
   - appendStringInfoString
   - XLogRecHasBlockImage
   - XLogRecBlockImageApply
-  - XLogRecGetBlockData
-  - BlockIdGetBlockNumber
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [BlockIdGetBlockNumber](../B/BlockIdGetBlockNumber.md)
   - PostingItemGetBlockNumber
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - desc_recompress_leaf
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [desc_recompress_leaf](../d/desc_recompress_leaf.md)
 - Types referenced:
-  - ginxlogInsert
-  - ginxlogInsertEntry
+  - [ginxlogInsert](ginxlogInsert.md)
+  - [ginxlogInsertEntry](ginxlogInsertEntry.md)
   - ginxlogRecompressDataLeaf
   - ginxlogInsertDataInternal
-  - ginxlogSplit
-  - ginxlogVacuumDataLeafPage
-  - ginxlogDeleteListPages
+  - [ginxlogSplit](ginxlogSplit.md)
+  - [ginxlogVacuumDataLeafPage](ginxlogVacuumDataLeafPage.md)
+  - [ginxlogDeleteListPages](ginxlogDeleteListPages.md)
 - Constants used:
   - XLOG_GIN_CREATE_PTREE
   - XLOG_GIN_INSERT

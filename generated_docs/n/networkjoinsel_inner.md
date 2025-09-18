@@ -28,16 +28,16 @@ Each calculation is properly weighted by the population fractions represented by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_attstatsslot
-  - mcv_population  
-  - inet_opr_codenum
-  - inet_mcv_join_sel
-  - inet_mcv_hist_sel
-  - inet_hist_inclusion_join_sel
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [mcv_population](../m/mcv_population.md)  
+  - [inet_opr_codenum](../i/inet_opr_codenum.md)
+  - [inet_mcv_join_sel](../i/inet_mcv_join_sel.md)
+  - [inet_mcv_hist_sel](../i/inet_mcv_hist_sel.md)
+  - [inet_hist_inclusion_join_sel](../i/inet_hist_inclusion_join_sel.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - DEFAULT_SEL
 - Called from (representative examples):
-  - networkjoinsel
+  - [networkjoinsel](networkjoinsel.md)
 
 ## Notes and Other Information
 - Handles cases where statistics are unavailable by falling back to default selectivity with null fraction adjustments

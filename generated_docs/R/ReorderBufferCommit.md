@@ -28,10 +28,10 @@ ReorderBufferCommit is a wrapper function that handles the commit of a logical r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
-  - ReorderBufferReplay
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
+  - [ReorderBufferReplay](ReorderBufferReplay.md)
 - Called from (representative examples):
-  - DecodeCommit
+  - [DecodeCommit](../D/DecodeCommit.md)
 
 ## Notes and Other Information
 This function is part of the logical replication subsystem and is called during WAL replay when a commit record is encountered. It serves as a simple dispatch mechanism that locates the transaction and hands off the actual work to ReorderBufferReplay, which handles both regular commits and prepare operations.

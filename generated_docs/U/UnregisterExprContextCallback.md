@@ -22,10 +22,10 @@ The function is typically used when a resource or operation that registered a cl
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExprContext_CB (callback structure type)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - fmgr_sql (SQL function execution cleanup)
-  - end_MultiFuncCall (multi-function call cleanup)
+  - [fmgr_sql](../f/fmgr_sql.md) (SQL function execution cleanup)
+  - [end_MultiFuncCall](../e/end_MultiFuncCall.md) (multi-function call cleanup)
   - exec_rt_fetch (runtime tuple fetch cleanup)
 
 ## Notes and Other Information

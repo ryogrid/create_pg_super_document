@@ -23,7 +23,7 @@ The cost parameters are essential for PostgreSQL's cost-based query optimizer to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tablespace: Retrieve cached tablespace entry for the given OID
+  - [get_tablespace](get_tablespace.md): Retrieve cached tablespace entry for the given OID
   - Assert: Debug assertion to ensure cache entry is valid
 - Global variables referenced:
   - random_page_cost: Global default for random page access cost
@@ -32,15 +32,15 @@ The cost parameters are essential for PostgreSQL's cost-based query optimizer to
   - TableSpaceCacheEntry: Cache entry containing tablespace options
   - TableSpaceOpts: Structure containing tablespace-specific cost parameters
 - Called from:
-  - cost_seqscan: Sequential scan cost estimation
-  - cost_samplescan: Sample scan cost estimation  
-  - cost_index: Index scan cost estimation
-  - cost_bitmap_heap_scan: Bitmap heap scan cost estimation
-  - cost_tidscan: TID scan cost estimation
-  - cost_tidrangescan: TID range scan cost estimation
-  - genericcostestimate: Generic index cost estimation
-  - gincostestimate: GIN index cost estimation
-  - brincostestimate: BRIN index cost estimation
+  - [cost_seqscan](../c/cost_seqscan.md): Sequential scan cost estimation
+  - [cost_samplescan](../c/cost_samplescan.md): Sample scan cost estimation  
+  - [cost_index](../c/cost_index.md): Index scan cost estimation
+  - [cost_bitmap_heap_scan](../c/cost_bitmap_heap_scan.md): Bitmap heap scan cost estimation
+  - [cost_tidscan](../c/cost_tidscan.md): TID scan cost estimation
+  - [cost_tidrangescan](../c/cost_tidrangescan.md): TID range scan cost estimation
+  - [genericcostestimate](genericcostestimate.md): Generic index cost estimation
+  - [gincostestimate](gincostestimate.md): GIN index cost estimation
+  - [brincostestimate](../b/brincostestimate.md): BRIN index cost estimation
 
 ## Notes and Other Information
 - This is a public function accessible throughout the PostgreSQL backend

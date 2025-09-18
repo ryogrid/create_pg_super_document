@@ -22,16 +22,16 @@ The returned IndexAmRoutine struct is palloc'd in the caller's context and conta
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidFunctionCall0
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - IsA
   - elog
-  - IndexAmRoutine (struct type)
+  - [IndexAmRoutine](../I/IndexAmRoutine.md) (struct type)
 - Called from (representative examples):
-  - GetIndexAmRoutineByAmId
-  - CheckIndexCompatible
-  - DefineIndex
-  - pg_get_indexdef_worker
-  - InitIndexAmRoutine
+  - [GetIndexAmRoutineByAmId](GetIndexAmRoutineByAmId.md)
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
+  - [DefineIndex](../D/DefineIndex.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [InitIndexAmRoutine](../I/InitIndexAmRoutine.md)
 
 ## Notes and Other Information
 - Bootstrap-safe: Can be used during system catalog initialization since built-in handlers don't require catalog access

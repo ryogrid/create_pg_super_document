@@ -23,20 +23,20 @@ The function works by first calling  to get the list of variables and column nam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expandNSItemVars
-  - makeTargetEntry
-  - markVarForSelectPriv
+  - [expandNSItemVars](expandNSItemVars.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [markVarForSelectPriv](../m/markVarForSelectPriv.md)
   - forboth (macro)
   - RTE_RELATION
   - ACL_SELECT
 - Called from (representative examples):
-  - transformValuesClause
-  - ExpandAllTables
-  - ExpandSingleTable
+  - [transformValuesClause](../t/transformValuesClause.md)
+  - [ExpandAllTables](../E/ExpandAllTables.md)
+  - [ExpandSingleTable](../E/ExpandSingleTable.md)
 
 ## Notes and Other Information
 - The function automatically handles permission checking for table access, marking the relation as requiring ACL_SELECT permission
 - For relations (not joins), it ensures SELECT permission is granted even if the table has zero columns
 - The function maintains assertion checks to ensure the names and variables lists have matching lengths
-- Result numbers are automatically assigned and incremented via 
+- [Result](../R/Result.md) numbers are automatically assigned and incremented via 
 - This function is essential for implementing SQL's "*" wildcard functionality in SELECT statements

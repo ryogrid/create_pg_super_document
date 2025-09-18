@@ -21,14 +21,14 @@ The walker returns false to indicate that traversal should continue, which is th
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - expression_tree_walker
-  - pull_exec_paramids_walker (recursive call)
+  - [pull_exec_paramids_walker](pull_exec_paramids_walker.md) (recursive call)
   - Constants: PARAM_EXEC
   - Types: Param, Node
 - Called from:
-  - pull_exec_paramids
-  - pull_exec_paramids_walker (recursive)
+  - [pull_exec_paramids](pull_exec_paramids.md)
+  - [pull_exec_paramids_walker](pull_exec_paramids_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static utility function implementing the walker pattern common in PostgreSQL

@@ -20,15 +20,15 @@ This function takes a string containing space-separated numeric values and conve
 ## Dependencies
 - Functions called/Symbols referenced:
   - atooid (converts string to Oid)
-  - pg_fatal (error reporting)
+  - [pg_fatal](pg_fatal.md) (error reporting)
   - isdigit (character validation)
 - Constants used:
   - InvalidOid
 - Called from (representative examples):
-  - getAggregates
-  - getFuncs
-  - getIndexes
-  - dumpFunc
+  - [getAggregates](../g/getAggregates.md)
+  - [getFuncs](../g/getFuncs.md)
+  - [getIndexes](../g/getIndexes.md)
+  - [dumpFunc](../d/dumpFunc.md)
 
 ## Notes and Other Information
 - Uses a fixed-size temporary buffer (100 characters) for individual number parsing

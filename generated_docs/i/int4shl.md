@@ -32,5 +32,5 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - This function is located in src/backend/utils/adt/int.c:1420-1428
 - Part of PostgreSQL's arithmetic and bitwise operations for the int4 data type
 - The left shift operation multiplies the value by 2^n where n is the shift amount
-- Result follows standard C left shift semantics for 32-bit signed integers
+- [Result](../R/Result.md) follows standard C left shift semantics for 32-bit signed integers
 - Behavior is undefined for negative shift amounts or shift amounts >= 32

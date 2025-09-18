@@ -29,12 +29,12 @@ The function maintains state through the AggState structure and continues proces
 - Functions called/Symbols referenced:
   - castNode
   - CHECK_FOR_INTERRUPTS
-  - agg_fill_hash_table
-  - agg_retrieve_hash_table
-  - agg_retrieve_direct
+  - [agg_fill_hash_table](../a/agg_fill_hash_table.md)
+  - [agg_retrieve_hash_table](../a/agg_retrieve_hash_table.md)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
   - TupIsNull
 - Called from (representative examples):
-  - ExecInitAgg (sets this as the execution function)
+  - [ExecInitAgg](ExecInitAgg.md) (sets this as the execution function)
 
 ## Notes and Other Information
 - This is a static function within nodeAgg.c, serving as the execution callback for aggregate nodes

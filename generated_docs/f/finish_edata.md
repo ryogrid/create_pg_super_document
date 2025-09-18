@@ -27,15 +27,15 @@ The function deliberately avoids calling ExecCloseResultRelations() because the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEndQuery
-  - ExecCleanupTupleRouting
-  - ExecResetTupleTable
-  - FreeExecutorState
-  - pfree
+  - [AfterTriggerEndQuery](../A/AfterTriggerEndQuery.md)
+  - [ExecCleanupTupleRouting](../E/ExecCleanupTupleRouting.md)
+  - [ExecResetTupleTable](../E/ExecResetTupleTable.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
+  - [apply_handle_insert](../a/apply_handle_insert.md)
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication worker

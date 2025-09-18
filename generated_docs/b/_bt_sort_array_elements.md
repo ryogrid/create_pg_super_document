@@ -23,13 +23,13 @@ The function is optimized to handle the case where there are one or fewer elemen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTSortArrayContext
-  - _bt_compare_array_elements
+  - [BTSortArrayContext](../B/BTSortArrayContext.md)
+  - [_bt_compare_array_elements](_bt_compare_array_elements.md)
   - qsort_arg
-  - qunique_arg
+  - [qunique_arg](../q/qunique_arg.md)
   - ScanKey
 - Called from (representative examples):
-  - _bt_preprocess_array_keys
+  - [_bt_preprocess_array_keys](_bt_preprocess_array_keys.md)
 
 ## Notes and Other Information
 - Returns the new number of elements after duplicate removal

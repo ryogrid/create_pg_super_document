@@ -28,14 +28,14 @@ The structure is specifically used in tuplesortvariants.c as part of PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinTuple
+  - [BrinTuple](BrinTuple.md)
 - Called from (representative examples):
   - BRINSORTTUPLE_SIZE (macro for size calculation)
-  - tuplesort_putbrintuple
-  - tuplesort_getbrintuple
-  - removeabbrev_index_brin
-  - writetup_index_brin
-  - readtup_index_brin
+  - [tuplesort_putbrintuple](../t/tuplesort_putbrintuple.md)
+  - [tuplesort_getbrintuple](../t/tuplesort_getbrintuple.md)
+  - [removeabbrev_index_brin](../r/removeabbrev_index_brin.md)
+  - [writetup_index_brin](../w/writetup_index_brin.md)
+  - [readtup_index_brin](../r/readtup_index_brin.md)
 
 ## Notes and Other Information
 - The structure is specifically designed for internal use within the tuple sorting subsystem and is not exposed to external callers

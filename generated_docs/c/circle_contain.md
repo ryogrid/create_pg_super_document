@@ -22,9 +22,9 @@ This is the inverse operation of circle_contained. The containment test uses the
 - Functions called/Symbols referenced:
   - CIRCLE (type definition)
   - PG_GETARG_CIRCLE_P (argument extraction macro)
-  - point_dt (distance calculation between two points)
-  - FPle (floating-point less-than-or-equal comparison)
-  - float8_mi (floating-point subtraction)
+  - [point_dt](../p/point_dt.md) (distance calculation between two points)
+  - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison)
+  - [float8_mi](../f/float8_mi.md) (floating-point subtraction)
   - PG_RETURN_BOOL (return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

@@ -22,7 +22,7 @@ float8div is a PostgreSQL built-in function wrapper that implements the division
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Macro to extract float8 arguments from function call
-  - float8_div: Inline helper function that performs the actual division with comprehensive error checking
+  - [float8_div](float8_div.md): Inline helper function that performs the actual division with comprehensive error checking
   - PG_RETURN_FLOAT8: Macro to return float8 result as Datum
 - Called from (representative examples):
   - No direct references found (likely called through SQL operator dispatch)

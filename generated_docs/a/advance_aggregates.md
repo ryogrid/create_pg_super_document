@@ -23,11 +23,11 @@ The input tuple is expected to be stored in tmpcontext->ecxt_outertuple before c
 - Functions called/Symbols referenced:
   - ExecEvalExprSwitchContext
 - Data types used:
-  - AggState
+  - [AggState](../A/AggState.md)
 - Called from (representative examples):
-  - agg_retrieve_direct
-  - agg_fill_hash_table
-  - agg_refill_hash_table
+  - [agg_retrieve_direct](agg_retrieve_direct.md)
+  - [agg_fill_hash_table](agg_fill_hash_table.md)
+  - [agg_refill_hash_table](agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - The function expects to be called when CurrentMemoryContext is the per-query context

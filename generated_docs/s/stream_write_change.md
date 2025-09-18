@@ -22,10 +22,10 @@ This function writes logical replication change data to the currently open strea
 - Functions called/Symbols referenced:
   - BufFileWrite (called three times for length, action, and data)
 - Called from (representative examples):
-  - handle_streamed_transaction
-  - apply_handle_stream_start  
-  - apply_handle_stream_stop
-  - stream_open_and_write_change
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)  
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md)
+  - [stream_open_and_write_change](stream_open_and_write_change.md)
 
 ## Notes and Other Information
 - This is a static function, visible only within the worker.c compilation unit

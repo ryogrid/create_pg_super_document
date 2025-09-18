@@ -20,13 +20,13 @@ The function performs validation by checking that the flags field contains only 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
-  - pq_getmsgbyte
-  - pq_getmsgint64
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
   - elog (for error reporting)
-  - LogicalRepCommitData (data structure)
+  - [LogicalRepCommitData](../L/LogicalRepCommitData.md) (data structure)
 - Called from (representative examples):
-  - apply_handle_stream_commit
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - Returns the transaction ID extracted from the message

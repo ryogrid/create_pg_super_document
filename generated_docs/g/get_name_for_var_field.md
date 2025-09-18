@@ -38,18 +38,18 @@ The function maintains proper namespace context throughout recursive calls and h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_param_referent (for PARAM resolution)
-  - get_expr_result_tupdesc (for final tuple descriptor extraction)
-  - get_tle_by_resno (target list entry retrieval)
-  - push_child_plan/pop_child_plan (context management)
-  - push_ancestor_plan/pop_ancestor_plan (parameter context handling)
-  - set_deparse_for_query (subquery namespace setup)
-  - get_rte_attribute_name (system column names)
+  - [find_param_referent](../f/find_param_referent.md) (for PARAM resolution)
+  - [get_expr_result_tupdesc](get_expr_result_tupdesc.md) (for final tuple descriptor extraction)
+  - [get_tle_by_resno](get_tle_by_resno.md) (target list entry retrieval)
+  - [push_child_plan](../p/push_child_plan.md)/pop_child_plan (context management)
+  - [push_ancestor_plan](../p/push_ancestor_plan.md)/pop_ancestor_plan (parameter context handling)
+  - [set_deparse_for_query](../s/set_deparse_for_query.md) (subquery namespace setup)
+  - [get_rte_attribute_name](get_rte_attribute_name.md) (system column names)
   - GetCTETargetList (CTE target list access)
-  - get_name_for_var_field (recursive self-calls)
+  - [get_name_for_var_field](get_name_for_var_field.md) (recursive self-calls)
 - Called from (representative examples):
   - get_rule_expr (for FieldSelect expressions)
-  - get_name_for_var_field (recursive calls)
+  - [get_name_for_var_field](get_name_for_var_field.md) (recursive calls)
 
 ## Notes and Other Information
 - Returns const char* pointing to the field name, which may be allocated in various memory contexts depending on the resolution path

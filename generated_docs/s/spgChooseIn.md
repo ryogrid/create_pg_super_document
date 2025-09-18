@@ -25,15 +25,15 @@ spgChooseIn is an input structure used in the SP-GiST (Space-Partitioned General
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL generic data value type)
-  - bool (PostgreSQL boolean type)
+  - [bool](../b/bool.md) (PostgreSQL boolean type)
 - Called from (representative examples):
-  - spgdoinsert (src/backend/access/spgist/spgdoinsert.c:2160)
-  - spg_kd_choose (src/backend/access/spgist/spgkdtreeproc.c:56)
-  - spg_quad_choose (src/backend/access/spgist/spgquadtreeproc.c:117)
-  - spg_text_choose (src/backend/access/spgist/spgtextproc.c:186)
-  - spg_box_quad_choose (src/backend/utils/adt/geo_spgist.c:419)
-  - inet_spg_choose (src/backend/utils/adt/network_spgist.c:70)
-  - spg_range_quad_choose (src/backend/utils/adt/rangetypes_spgist.c:133)
+  - [spgdoinsert](spgdoinsert.md) (src/backend/access/spgist/spgdoinsert.c:2160)
+  - [spg_kd_choose](spg_kd_choose.md) (src/backend/access/spgist/spgkdtreeproc.c:56)
+  - [spg_quad_choose](spg_quad_choose.md) (src/backend/access/spgist/spgquadtreeproc.c:117)
+  - [spg_text_choose](spg_text_choose.md) (src/backend/access/spgist/spgtextproc.c:186)
+  - [spg_box_quad_choose](spg_box_quad_choose.md) (src/backend/utils/adt/geo_spgist.c:419)
+  - [inet_spg_choose](../i/inet_spg_choose.md) (src/backend/utils/adt/network_spgist.c:70)
+  - [spg_range_quad_choose](spg_range_quad_choose.md) (src/backend/utils/adt/rangetypes_spgist.c:133)
 
 ## Notes and Other Information
 - This struct is part of the SP-GiST index access method interface

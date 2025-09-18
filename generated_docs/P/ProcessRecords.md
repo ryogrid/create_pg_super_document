@@ -19,12 +19,12 @@ This static function serves as a generic processor for two-phase commit records 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseRecordOnDisk
+  - [TwoPhaseRecordOnDisk](../T/TwoPhaseRecordOnDisk.md)
   - TWOPHASE_RM_MAX_ID
   - TWOPHASE_RM_END_ID
 - Called from (representative examples):
-  - FinishPreparedTransaction
-  - RecoverPreparedTransactions
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the twophase.c module

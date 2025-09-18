@@ -22,7 +22,7 @@ The function serves as a thin wrapper around nextval_internal(), directly passin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (to get OID argument)
-  - nextval_internal
+  - [nextval_internal](nextval_internal.md)
   - PG_RETURN_INT64
 - Called from (representative examples):
   - No current references found in the analyzed codebase

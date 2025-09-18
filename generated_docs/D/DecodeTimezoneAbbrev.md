@@ -33,19 +33,19 @@ The function implements a field-based cache mechanism to optimize repeated looku
 ## Dependencies
 - Functions called/Symbols referenced:
   - strncmp (standard C library)
-  - datebsearch (binary search function for date tokens)
-  - FetchDynamicTimeZone (dynamic timezone resolver)
+  - [datebsearch](../d/datebsearch.md) (binary search function for date tokens)
+  - [FetchDynamicTimeZone](../F/FetchDynamicTimeZone.md) (dynamic timezone resolver)
   - datetkn (date token structure type)
-  - pg_tz (PostgreSQL timezone type)
+  - [pg_tz](../p/pg_tz.md) (PostgreSQL timezone type)
   - DateTimeErrorExtra (error information structure)
   - TOKMAXLEN (maximum token length constant)
   - UNKNOWN_FIELD, DYNTZ (field type constants)
   - DTERR_BAD_ZONE_ABBREV (error constant)
 
 - Called from (representative examples):
-  - DecodeDateTime (main date/time parsing function)
-  - DecodeTimeOnly (time-only parsing function)
-  - DecodeTimezoneName (timezone name resolution function)
+  - [DecodeDateTime](DecodeDateTime.md) (main date/time parsing function)
+  - [DecodeTimeOnly](DecodeTimeOnly.md) (time-only parsing function)
+  - [DecodeTimezoneName](DecodeTimezoneName.md) (timezone name resolution function)
 
 ## Notes and Other Information
 - Returns 0 on success, DTERR codes on failure

@@ -27,11 +27,11 @@ The function uses pg_malloc0 to ensure the boolean array is zero-initialized, me
 - Functions called/Symbols referenced:
   - pg_malloc (for allocating the script pointer array)
   - pg_malloc0 (for allocating zero-initialized boolean arrays)
-  - CState (client state structure)
-  - ParsedScript (script structure containing commands)
+  - [CState](../C/CState.md) (client state structure)
+  - [ParsedScript](../P/ParsedScript.md) (script structure containing commands)
 - Called from (representative examples):
-  - prepareCommand
-  - prepareCommandsInPipeline
+  - [prepareCommand](../p/prepareCommand.md)
+  - [prepareCommandsInPipeline](../p/prepareCommandsInPipeline.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the prepared array is not already allocated, preventing memory leaks

@@ -32,17 +32,17 @@ For Vars, it validates that the referenced relation (varno) is in curOuterRels. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - lfirst_node: Safely extracts PlannerParamItem from list cells
-  - bms_is_member: Checks if a relation ID is present in the curOuterRels bitmap set
-  - bms_is_subset: Checks if PlaceHolderVar evaluation requirements are satisfied by curOuterRels
-  - find_placeholder_info: Retrieves metadata about PlaceHolderVar evaluation requirements
-  - equal: Tests structural equality between parameter values
+  - [bms_is_member](../b/bms_is_member.md): Checks if a relation ID is present in the curOuterRels bitmap set
+  - [bms_is_subset](../b/bms_is_subset.md): Checks if PlaceHolderVar evaluation requirements are satisfied by curOuterRels
+  - [find_placeholder_info](../f/find_placeholder_info.md): Retrieves metadata about PlaceHolderVar evaluation requirements
+  - [equal](../e/equal.md): Tests structural equality between parameter values
   - makeNode: Creates new NestLoopParam nodes
   - copyObject: Creates deep copies of Var and PlaceHolderVar expressions
   - lappend: Adds new NestLoopParam entries to the curOuterParams list
   - elog: Reports errors for invalid parameter types or non-LATERAL references
 
 - Called from (representative examples):
-  - create_subqueryscan_plan: Invoked during SubqueryScan plan node creation to register required parameters
+  - [create_subqueryscan_plan](../c/create_subqueryscan_plan.md): Invoked during SubqueryScan plan node creation to register required parameters
 
 ## Notes and Other Information
 - Specifically designed for subqueries-in-FROM, which must use LATERAL references for outer column access

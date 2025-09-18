@@ -24,8 +24,8 @@ The function covers all possible JSONB value types including null, string, numer
 - Functions called/Symbols referenced:
   - gettext_noop (for internationalization)
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
   - elog (for fallback error reporting)
   - lengthof (for array length calculation)
 - Types/Constants referenced:
@@ -33,10 +33,10 @@ The function covers all possible JSONB value types including null, string, numer
     - jbvNull, jbvString, jbvNumeric, jbvBool, jbvArray, jbvObject, jbvBinary
   - ERRCODE_INVALID_PARAMETER_VALUE
 - Called from (representative examples):
-  - jsonb_bool
-  - jsonb_numeric
-  - jsonb_int2, jsonb_int4, jsonb_int8
-  - jsonb_float4, jsonb_float8
+  - [jsonb_bool](../j/jsonb_bool.md)
+  - [jsonb_numeric](../j/jsonb_numeric.md)
+  - [jsonb_int2](../j/jsonb_int2.md), jsonb_int4, jsonb_int8
+  - [jsonb_float4](../j/jsonb_float4.md), jsonb_float8
 
 ## Notes and Other Information
 - Static function, only accessible within the same source file

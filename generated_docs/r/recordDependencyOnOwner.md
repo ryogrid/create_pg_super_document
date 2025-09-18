@@ -19,19 +19,19 @@ This function simplifies the process of recording ownership relationships in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recordSharedDependencyOn
+  - [recordSharedDependencyOn](recordSharedDependencyOn.md)
   - SHARED_DEPENDENCY_OWNER (dependency type constant)
 - Called from (representative examples):
-  - createdb
-  - heap_create_with_catalog
-  - CollationCreate
-  - ConversionCreate
-  - NamespaceCreate
-  - ProcedureCreate
-  - CreateTableSpace
-  - CreateSubscription
-  - CreatePublication
-  - CreateForeignDataWrapper
+  - [createdb](../c/createdb.md)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md)
+  - [CollationCreate](../C/CollationCreate.md)
+  - [ConversionCreate](../C/ConversionCreate.md)
+  - [NamespaceCreate](../N/NamespaceCreate.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [CreateTableSpace](../C/CreateTableSpace.md)
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [CreatePublication](../C/CreatePublication.md)
+  - [CreateForeignDataWrapper](../C/CreateForeignDataWrapper.md)
 
 ## Notes and Other Information
 - It's the caller's responsibility to ensure no owner entry already exists for the object

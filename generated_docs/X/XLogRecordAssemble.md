@@ -25,10 +25,10 @@ The function creates a structured record with header, block references with opti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetLSN, XLogCompressBackupBlock, GetTopTransactionIdIfAny
+  - [PageGetLSN](../P/PageGetLSN.md), XLogCompressBackupBlock, GetTopTransactionIdIfAny
   - INIT_CRC32C, COMP_CRC32C, RelFileLocatorEquals
 - Called from:
-  - XLogInsert (main insertion pathway)
+  - [XLogInsert](XLogInsert.md) (main insertion pathway)
 
 ## Notes and Other Information
 - Static internal function not exposed externally

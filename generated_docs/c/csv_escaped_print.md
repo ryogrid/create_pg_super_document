@@ -24,7 +24,7 @@ The function processes the input string character by character, writing each cha
 - Functions called/Symbols referenced:
   - fputc (standard C library function)
 - Called from (representative examples):
-  - csv_print_field
+  - [csv_print_field](csv_print_field.md)
 
 ## Notes and Other Information
 This is a utility function used internally by PostgreSQL's CSV output formatting system. The function assumes the input string is null-terminated and handles empty strings correctly by outputting just the wrapping double quotes. The escaping follows the standard CSV convention where double quotes within field values are escaped by doubling them, making the output compatible with standard CSV parsers and spreadsheet applications.

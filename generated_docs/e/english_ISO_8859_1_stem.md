@@ -26,18 +26,18 @@ The function uses a sophisticated control flow with labels and gotos to handle t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_exception1 (handles first set of exception words)
-  - r_prelude (preprocessing operations)
-  - r_mark_regions (identifies R1, R2, RV regions)  
-  - r_Step_1a (suffix removal step 1a)
-  - r_exception2 (handles second set of exception words)
-  - r_Step_1b (suffix removal step 1b)
-  - r_Step_1c (suffix removal step 1c)
-  - r_Step_2 (suffix removal step 2)
-  - r_Step_3 (suffix removal step 3)
-  - r_Step_4 (suffix removal step 4)
-  - r_Step_5 (suffix removal step 5)
-  - r_postlude (post-processing cleanup)
+  - [r_exception1](../r/r_exception1.md) (handles first set of exception words)
+  - [r_prelude](../r/r_prelude.md) (preprocessing operations)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies R1, R2, RV regions)  
+  - [r_Step_1a](../r/r_Step_1a.md) (suffix removal step 1a)
+  - [r_exception2](../r/r_exception2.md) (handles second set of exception words)
+  - [r_Step_1b](../r/r_Step_1b.md) (suffix removal step 1b)
+  - [r_Step_1c](../r/r_Step_1c.md) (suffix removal step 1c)
+  - [r_Step_2](../r/r_Step_2.md) (suffix removal step 2)
+  - [r_Step_3](../r/r_Step_3.md) (suffix removal step 3)
+  - [r_Step_4](../r/r_Step_4.md) (suffix removal step 4)
+  - [r_Step_5](../r/r_Step_5.md) (suffix removal step 5)
+  - [r_postlude](../r/r_postlude.md) (post-processing cleanup)
 - Called from:
   - No direct references found in the current codebase (likely called via function pointer or external interface)
 

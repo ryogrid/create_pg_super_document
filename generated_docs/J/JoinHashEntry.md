@@ -25,9 +25,9 @@ The hash table using JoinHashEntry is built on-demand when the planner needs to 
   - Relids (typedef for Bitmapset*)
   - RelOptInfo
 - Called from (representative examples):
-  - build_join_rel_hash (creates hash entries for existing join relations)
-  - find_join_rel (searches for existing join relations using hash lookup)
-  - add_join_rel (adds new join relations to the hash table)
+  - [build_join_rel_hash](../b/build_join_rel_hash.md) (creates hash entries for existing join relations)
+  - [find_join_rel](../f/find_join_rel.md) (searches for existing join relations using hash lookup)
+  - [add_join_rel](../a/add_join_rel.md) (adds new join relations to the hash table)
 
 ## Notes and Other Information
 - The join_relids field is marked with a comment indicating it must be first, which is a requirement for the hash table implementation used by PostgreSQL

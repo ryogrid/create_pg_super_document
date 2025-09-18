@@ -30,9 +30,9 @@ The function maintains the singly-linked list structure used for child managemen
 - Functions called/Symbols referenced:
   - ResourceOwner (structure type for ownership hierarchy)
 - Called from (representative examples):
-  - AtSubCommit_Portals (portal management during subtransaction commit)
-  - AtSubAbort_Portals (portal management during subtransaction abort) 
-  - ResourceOwnerDelete (unlinking before deletion to prevent corruption)
+  - [AtSubCommit_Portals](../A/AtSubCommit_Portals.md) (portal management during subtransaction commit)
+  - [AtSubAbort_Portals](../A/AtSubAbort_Portals.md) (portal management during subtransaction abort) 
+  - [ResourceOwnerDelete](ResourceOwnerDelete.md) (unlinking before deletion to prevent corruption)
 
 ## Notes and Other Information
 - Handles both reparenting to a new parent and orphaning (setting parent to NULL)

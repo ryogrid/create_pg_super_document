@@ -21,11 +21,11 @@ The QueueBackendStatus structure maintains the state of a backend process that i
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcNumber
-  - QueuePosition
+  - [QueuePosition](QueuePosition.md)
 - Called from (representative examples):
-  - AsyncQueueControl
-  - AsyncShmemSize
-  - AsyncShmemInit
+  - [AsyncQueueControl](../A/AsyncQueueControl.md)
+  - [AsyncShmemSize](../A/AsyncShmemSize.md)
+  - [AsyncShmemInit](../A/AsyncShmemInit.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's LISTEN/NOTIFY mechanism for inter-backend communication

@@ -20,11 +20,11 @@ The  function implements the core timer thread for PostgreSQL's Windows port tim
   - WaitForSingleObjectEx (Windows API)
   - EnterCriticalSection/LeaveCriticalSection (Windows API)
   - ResetEvent/SetEvent (Windows API)
-  - pg_queue_signal
+  - [pg_queue_signal](pg_queue_signal.md)
   - SIGALRM
   - timerCommArea (global communication structure)
 - Called from (representative examples):
-  - setitimer (via CreateThread)
+  - [setitimer](../s/setitimer.md) (via CreateThread)
 
 ## Notes and Other Information
 - Windows-specific implementation using Win32 API

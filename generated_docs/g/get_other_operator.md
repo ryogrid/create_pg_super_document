@@ -35,15 +35,15 @@ The function also performs permission checks to ensure the user has CREATE privi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OperatorLookup (looks up existing operators)
-  - QualifiedNameGetCreationNamespace (resolves namespace from qualified name)
-  - object_aclcheck (checks permissions)
-  - aclcheck_error (reports permission errors)
-  - get_namespace_name (gets namespace name for error messages)
-  - OperatorShellMake (creates shell operator entries)
+  - [OperatorLookup](../O/OperatorLookup.md) (looks up existing operators)
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md) (resolves namespace from qualified name)
+  - [object_aclcheck](../o/object_aclcheck.md) (checks permissions)
+  - [aclcheck_error](../a/aclcheck_error.md) (reports permission errors)
+  - [get_namespace_name](get_namespace_name.md) (gets namespace name for error messages)
+  - [OperatorShellMake](../O/OperatorShellMake.md) (creates shell operator entries)
 - Called from (representative examples):
-  - OperatorCreate (at src/backend/catalog/pg_operator.c:400)
-  - OperatorCreate (at src/backend/catalog/pg_operator.c:425)
+  - [OperatorCreate](../O/OperatorCreate.md) (at src/backend/catalog/pg_operator.c:400)
+  - [OperatorCreate](../O/OperatorCreate.md) (at src/backend/catalog/pg_operator.c:425)
 
 ## Notes and Other Information
 - Returns InvalidOid for self-references, which the caller must handle appropriately

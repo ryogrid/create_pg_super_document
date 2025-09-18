@@ -23,21 +23,21 @@ The function performs bounds checking using check_tuple_field_number() before ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_tuple_field_number
+  - [check_tuple_field_number](../c/check_tuple_field_number.md)
   - NULL_LEN
 - Called from (representative examples):
-  - libpqrcv_create_slot
-  - libpqrcv_processTuples
-  - verify_heap_slot_handler
-  - compile_database_list
-  - compile_relation_list_one_db
-  - BaseBackup
-  - dumpTableData_insert
-  - dumpDatabase
-  - dumpRoles
-  - run_simple_query
-  - StoreQueryTuple
-  - printQuery
+  - [libpqrcv_create_slot](../l/libpqrcv_create_slot.md)
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
+  - [verify_heap_slot_handler](../v/verify_heap_slot_handler.md)
+  - [compile_database_list](../c/compile_database_list.md)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md)
+  - [BaseBackup](../B/BaseBackup.md)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md)
+  - [dumpDatabase](../d/dumpDatabase.md)
+  - [dumpRoles](../d/dumpRoles.md)
+  - [run_simple_query](../r/run_simple_query.md)
+  - [StoreQueryTuple](../S/StoreQueryTuple.md)
+  - [printQuery](../p/printQuery.md)
   - ecpg_get_data
 
 ## Notes and Other Information

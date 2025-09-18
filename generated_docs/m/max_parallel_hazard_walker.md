@@ -37,17 +37,17 @@ The function uses PostgreSQL's standard tree walking infrastructure ( and ) to e
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_functions_in_node
-  - max_parallel_hazard_checker
-  - max_parallel_hazard_test
+  - [max_parallel_hazard_checker](max_parallel_hazard_checker.md)
+  - [max_parallel_hazard_test](max_parallel_hazard_test.md)
   - expression_tree_walker
   - query_tree_walker
-  - list_concat_copy
-  - list_free
-  - list_member_int
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [list_free](../l/list_free.md)
+  - [list_member_int](../l/list_member_int.md)
 - Called from (representative examples):
-  - max_parallel_hazard
-  - is_parallel_safe
-  - max_parallel_hazard_walker (recursive calls)
+  - [max_parallel_hazard](max_parallel_hazard.md)
+  - [is_parallel_safe](../i/is_parallel_safe.md)
+  - [max_parallel_hazard_walker](max_parallel_hazard_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function that serves as the core implementation for all parallel safety checking

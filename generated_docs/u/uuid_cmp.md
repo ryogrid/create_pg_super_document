@@ -22,9 +22,9 @@ The `uuid_cmp` function is specifically designed as a handler for B-tree index o
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_UUID_P`: Macro to extract UUID arguments from function call
-  - `uuid_internal_cmp`: Internal function performing the actual UUID comparison
+  - `[uuid_internal_cmp](uuid_internal_cmp.md)`: Internal function performing the actual UUID comparison
   - `PG_RETURN_INT32`: Macro to return 32-bit integer result
-  - `pg_uuid_t`: UUID data type structure
+  - `[pg_uuid_t](../p/pg_uuid_t.md)`: UUID data type structure
 - Called from (representative examples):
   - B-tree index operations during INSERT, UPDATE, DELETE
   - ORDER BY clauses on UUID columns

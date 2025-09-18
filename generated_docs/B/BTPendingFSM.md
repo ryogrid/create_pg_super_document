@@ -25,9 +25,9 @@ The structure is used internally by the B-tree vacuum process and is exported to
   - FullTransactionId (transaction identifier type)
   - BlockNumber (for page references)
 - Called from (representative examples):
-  - _bt_pendingfsm_init (initialize pending FSM tracking)
-  - _bt_pendingfsm_add (add a page to pending FSM list)
-  - BTVacState (contains array of BTPendingFSM structures)
+  - [_bt_pendingfsm_init](../b/_bt_pendingfsm_init.md) (initialize pending FSM tracking)
+  - [_bt_pendingfsm_add](../b/_bt_pendingfsm_add.md) (add a page to pending FSM list)
+  - [BTVacState](BTVacState.md) (contains array of BTPendingFSM structures)
 
 ## Notes and Other Information
 - This structure is private to nbtree.c but exported for use by page deletion code in nbtpage.c

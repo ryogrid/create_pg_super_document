@@ -22,16 +22,16 @@ The function delegates to compare_pathkeys and returns true if the comparison re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_pathkeys (performs the actual comparison)
+  - [compare_pathkeys](../c/compare_pathkeys.md) (performs the actual comparison)
   - PATHKEYS_EQUAL (comparison result constant)  
   - PATHKEYS_BETTER2 (comparison result constant)
 - Called from (representative examples):
-  - generate_orderedappend_paths
-  - cost_append
-  - try_mergejoin_path
-  - get_useful_group_keys_orderings
-  - get_cheapest_path_for_pathkeys
-  - create_append_plan
+  - [generate_orderedappend_paths](../g/generate_orderedappend_paths.md)
+  - [cost_append](../c/cost_append.md)
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md)
+  - [get_cheapest_path_for_pathkeys](../g/get_cheapest_path_for_pathkeys.md)
+  - [create_append_plan](../c/create_append_plan.md)
 
 ## Notes and Other Information
 This function is frequently used in path generation and costing to determine if existing sort orders can be leveraged to avoid additional sort operations. It plays a crucial role in merge join optimization, append path generation, and general pathkey compatibility checking throughout the query planner.

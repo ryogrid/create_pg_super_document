@@ -21,20 +21,20 @@ The function can return NULL if the attempted join is not valid, which commonly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap
-  - bms_union
-  - join_is_legal
-  - add_outer_joins_to_relids
-  - init_dummy_sjinfo
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_union](../b/bms_union.md)
+  - [join_is_legal](../j/join_is_legal.md)
+  - [add_outer_joins_to_relids](../a/add_outer_joins_to_relids.md)
+  - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
   - build_join_rel
-  - is_dummy_rel
-  - populate_joinrel_with_paths
-  - bms_free
+  - [is_dummy_rel](../i/is_dummy_rel.md)
+  - [populate_joinrel_with_paths](../p/populate_joinrel_with_paths.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - join_search_one_level
-  - make_rels_by_clause_joins
-  - make_rels_by_clauseless_joins
-  - merge_clump
+  - [join_search_one_level](../j/join_search_one_level.md)
+  - [make_rels_by_clause_joins](make_rels_by_clause_joins.md)
+  - [make_rels_by_clauseless_joins](make_rels_by_clauseless_joins.md)
+  - [merge_clump](merge_clump.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify that the two input relations do not have overlapping base relation sets

@@ -17,11 +17,11 @@ The function determines if a record type has hashing support by checking if all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_record_field_properties
+  - [cache_record_field_properties](../c/cache_record_field_properties.md)
   - TCFLAGS_CHECKED_FIELD_PROPERTIES (flag)
   - TCFLAGS_HAVE_FIELD_HASHING (flag)
 - Called from (representative examples):
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
 
 ## Notes and Other Information
 - This is a static function only used within typcache.c

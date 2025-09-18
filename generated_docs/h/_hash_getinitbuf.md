@@ -26,12 +26,12 @@ This is more efficient than reading an existing page and then overwriting it, si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferExtended (extended buffer read with special flags)
-  - _hash_pageinit (initializes basic page structure)
-  - BufferGetPage, BufferGetPageSize (buffer access utilities)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (extended buffer read with special flags)
+  - [_hash_pageinit](_hash_pageinit.md) (initializes basic page structure)
+  - [BufferGetPage](../B/BufferGetPage.md), BufferGetPageSize (buffer access utilities)
   - MAIN_FORKNUM, RBM_ZERO_AND_LOCK, P_NEW (constants)
 - Called from (representative examples):
-  - _hash_addovflpage (when setting up new overflow pages)
+  - [_hash_addovflpage](_hash_addovflpage.md) (when setting up new overflow pages)
 
 ## Notes and Other Information
 - Uses RBM_ZERO_AND_LOCK for efficiency - avoids reading old page content from disk

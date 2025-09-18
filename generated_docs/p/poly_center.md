@@ -21,8 +21,8 @@ The `poly_center` function calculates the center point of a polygon by utilizing
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (macro to extract POLYGON argument)
-  - palloc (memory allocation for result Point)
-  - poly_to_circle (converts polygon to equivalent circle)
+  - [palloc](palloc.md) (memory allocation for result Point)
+  - [poly_to_circle](poly_to_circle.md) (converts polygon to equivalent circle)
   - PG_RETURN_POINT_P (macro to return Point result)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

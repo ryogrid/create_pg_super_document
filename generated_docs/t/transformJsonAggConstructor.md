@@ -34,16 +34,16 @@ The function centralizes the common logic between JSON_OBJECTAGG and JSON_ARRAYA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformWhereClause (for processing FILTER clauses)
+  - [transformWhereClause](transformWhereClause.md) (for processing FILTER clauses)
   - makeNode (for creating WindowFunc and Aggref nodes)
-  - transformWindowFuncCall (for window function processing)
-  - transformAggregateCall (for standard aggregate processing)
-  - makeJsonConstructorExpr (for creating the final JSON constructor expression)
+  - [transformWindowFuncCall](transformWindowFuncCall.md) (for window function processing)
+  - [transformAggregateCall](transformAggregateCall.md) (for standard aggregate processing)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md) (for creating the final JSON constructor expression)
   - EXPR_KIND_FILTER (expression kind constant for filters)
   - AGGKIND_NORMAL, AGGSPLIT_SIMPLE (aggregate processing constants)
 - Called from (representative examples):
-  - transformJsonObjectAgg (for JSON_OBJECTAGG transformation)
-  - transformJsonArrayAgg (for JSON_ARRAYAGG transformation)
+  - [transformJsonObjectAgg](transformJsonObjectAgg.md) (for JSON_OBJECTAGG transformation)
+  - [transformJsonArrayAgg](transformJsonArrayAgg.md) (for JSON_ARRAYAGG transformation)
 
 ## Notes and Other Information
 - The function enforces that ORDER BY clauses are not supported in window function contexts for JSON aggregates

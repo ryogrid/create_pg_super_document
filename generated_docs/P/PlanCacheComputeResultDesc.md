@@ -19,19 +19,19 @@ This function analyzes a list of statement queries to determine what type of res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ChoosePortalStrategy
+  - [ChoosePortalStrategy](../C/ChoosePortalStrategy.md)
   - PORTAL_ONE_SELECT
   - PORTAL_ONE_MOD_WITH
   - linitial_node
-  - ExecCleanTypeFromTL
+  - [ExecCleanTypeFromTL](../E/ExecCleanTypeFromTL.md)
   - PORTAL_ONE_RETURNING
-  - QueryListGetPrimaryStmt
+  - [QueryListGetPrimaryStmt](../Q/QueryListGetPrimaryStmt.md)
   - PORTAL_UTIL_SELECT
   - UtilityTupleDescriptor
   - PORTAL_MULTI_QUERY
 - Called from (representative examples):
-  - CompleteCachedPlan
-  - RevalidateCachedQuery
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md)
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md)
 
 ## Notes and Other Information
 - The function handles different portal strategies: single SELECT, single statement with RETURNING, utility statements, and multi-query scenarios

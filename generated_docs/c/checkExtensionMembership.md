@@ -29,19 +29,19 @@ The function implements version-specific behavior because PostgreSQL 9.6 introdu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findOwningExtension (to locate the owning extension)
-  - addObjectDependency (to record dependency relationships)
+  - [findOwningExtension](../f/findOwningExtension.md) (to locate the owning extension)
+  - [addObjectDependency](../a/addObjectDependency.md) (to record dependency relationships)
   - DUMP_COMPONENT_NONE, DUMP_COMPONENT_ACL (dump component flags)
 - Called from (representative examples):
-  - selectDumpableNamespace
-  - selectDumpableTable
-  - selectDumpableType
-  - selectDumpableCast
-  - selectDumpableProcLang
-  - selectDumpableAccessMethod
-  - selectDumpablePublicationObject
-  - selectDumpableStatisticsObject
-  - selectDumpableObject
+  - [selectDumpableNamespace](../s/selectDumpableNamespace.md)
+  - [selectDumpableTable](../s/selectDumpableTable.md)
+  - [selectDumpableType](../s/selectDumpableType.md)
+  - [selectDumpableCast](../s/selectDumpableCast.md)
+  - [selectDumpableProcLang](../s/selectDumpableProcLang.md)
+  - [selectDumpableAccessMethod](../s/selectDumpableAccessMethod.md)
+  - [selectDumpablePublicationObject](../s/selectDumpablePublicationObject.md)
+  - [selectDumpableStatisticsObject](../s/selectDumpableStatisticsObject.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c used internally for extension membership processing

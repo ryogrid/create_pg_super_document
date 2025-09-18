@@ -27,7 +27,7 @@ The function uses PostgreSQL's PG_FUNCTION_ARGS macro and extracts:
   - PG_GETARG_INT32 (PostgreSQL argument extraction macro)
   - PG_GETARG_BOOL (PostgreSQL argument extraction macro)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - euc_cn2mic (core conversion function)
+  - [euc_cn2mic](euc_cn2mic.md) (core conversion function)
   - PG_RETURN_INT32 (PostgreSQL return macro)
 - Called from:
   - PostgreSQL encoding conversion system (no direct references found)

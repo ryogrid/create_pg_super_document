@@ -32,10 +32,10 @@ The function handles the complete lifecycle of the operation including:
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_ITEMPOINTER
-  - makeRangeVarFromNameList
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
   - textToQualifiedNameList
   - table_openrv
-  - currtid_internal
+  - [currtid_internal](currtid_internal.md)
   - table_close
   - PG_RETURN_ITEMPOINTER
 - Called from (representative examples):
@@ -44,7 +44,7 @@ The function handles the complete lifecycle of the operation including:
 ## Notes and Other Information
 - This is a public PostgreSQL built-in function accessible from SQL
 - The function signature follows PostgreSQL's function call convention using PG_FUNCTION_ARGS
-- Relation name parsing supports schema-qualified names (e.g., "schema.table")
+- [Relation](../R/Relation.md) name parsing supports schema-qualified names (e.g., "schema.table")
 - The function uses AccessShareLock for safe concurrent access to the relation
 - Proper resource management ensures relations are closed and locks released even in error cases
 - The function is part of PostgreSQL's system function catalog and can be called directly from SQL queries

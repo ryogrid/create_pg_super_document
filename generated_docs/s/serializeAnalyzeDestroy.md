@@ -19,9 +19,9 @@ This function performs the final step in the SerializeDestReceiver lifecycle by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CreateExplainSerializeDestReceiver
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
 
 ## Notes and Other Information
 - This is the final step in the DestReceiver lifecycle: startup -> [use] -> shutdown -> destroy

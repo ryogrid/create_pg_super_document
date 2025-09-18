@@ -23,14 +23,14 @@ The function returns true if the flag is unlocked (available), and false if the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_unlocked_test_flag_impl
+  - [pg_atomic_unlocked_test_flag_impl](pg_atomic_unlocked_test_flag_impl.md)
 - Structures referenced:
-  - pg_atomic_flag
+  - [pg_atomic_flag](pg_atomic_flag.md)
 - Called from (representative examples):
-  - VacuumUpdateCosts (src/backend/postmaster/autovacuum.c:1690)
-  - AutoVacuumUpdateCostLimit (src/backend/postmaster/autovacuum.c:1728)
-  - autovac_recalculate_workers_for_balance (src/backend/postmaster/autovacuum.c:1768)
-  - test_atomic_flag (src/test/regress/regress.c:717, 719, 722)
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md) (src/backend/postmaster/autovacuum.c:1690)
+  - [AutoVacuumUpdateCostLimit](../A/AutoVacuumUpdateCostLimit.md) (src/backend/postmaster/autovacuum.c:1728)
+  - [autovac_recalculate_workers_for_balance](../a/autovac_recalculate_workers_for_balance.md) (src/backend/postmaster/autovacuum.c:1768)
+  - [test_atomic_flag](../t/test_atomic_flag.md) (src/test/regress/regress.c:717, 719, 722)
 
 ## Notes and Other Information
 - This function provides no memory barrier semantics, making it suitable for optimistic polling operations

@@ -24,12 +24,12 @@ This function works in conjunction with _bt_split_firstright to provide the boun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
+  - [PageGetItemId](../P/PageGetItemId.md)
   - OffsetNumberPrev
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
 - Called from (representative examples):
-  - _bt_split_penalty
-  - _bt_strategy
+  - [_bt_split_penalty](_bt_split_penalty.md)
+  - [_bt_strategy](_bt_strategy.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance during B-tree split operations

@@ -36,10 +36,10 @@ Return value:
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (for name generation)
   - SH_HASH_KEY (computes hash value for the key)
-  - SH_INITIAL_BUCKET (calculates starting bucket)
+  - [SH_INITIAL_BUCKET](SH_INITIAL_BUCKET.md) (calculates starting bucket)
   - SH_COMPARE_KEYS (compares keys for equality)
-  - SH_NEXT (moves to next bucket in probe sequence)
-  - SH_ENTRY_HASH (gets hash value from entry)
+  - [SH_NEXT](SH_NEXT.md) (moves to next bucket in probe sequence)
+  - [SH_ENTRY_HASH](SH_ENTRY_HASH.md) (gets hash value from entry)
 - Called from (representative examples):
   - PostgreSQL subsystems that need to remove entries from hash tables
 

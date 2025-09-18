@@ -25,13 +25,13 @@ The function includes special handling for timeline history files, which receive
   - AllocateFile: Opens a file for writing 
   - FreeFile: Closes and flushes the file
   - IsTLHistoryFileName: Checks if the file is a timeline history file
-  - PgArchForceDirScan: Forces immediate archiver directory scan for timeline history files
-  - PgArchWakeup: Wakes up the archiver process when running under postmaster
+  - [PgArchForceDirScan](../P/PgArchForceDirScan.md): Forces immediate archiver directory scan for timeline history files
+  - [PgArchWakeup](../P/PgArchWakeup.md): Wakes up the archiver process when running under postmaster
 - Called from (representative examples):
-  - XLogArchiveNotifySeg: For individual WAL segment archival notifications
-  - writeTimeLineHistory: When creating timeline history files
-  - KeepFileRestoredFromArchive: After restoring files from archive
-  - WalReceiverMain: During WAL reception in streaming replication
+  - [XLogArchiveNotifySeg](XLogArchiveNotifySeg.md): For individual WAL segment archival notifications
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md): When creating timeline history files
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md): After restoring files from archive
+  - [WalReceiverMain](../W/WalReceiverMain.md): During WAL reception in streaming replication
 
 ## Notes and Other Information
 - Creates empty .ready files as notifications - the file content is not significant, only its existence

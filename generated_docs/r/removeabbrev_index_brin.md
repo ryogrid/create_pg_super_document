@@ -23,9 +23,9 @@ The function iterates through each SortTuple in the provided array, extracts the
 - Functions called/Symbols referenced:
   - Tuplesortstate (sort state management structure)
   - SortTuple (generic sort tuple structure)
-  - BrinSortTuple (BRIN-specific tuple structure)
+  - [BrinSortTuple](../B/BrinSortTuple.md) (BRIN-specific tuple structure)
 - Called from (representative examples):
-  - tuplesort_begin_index_brin (BRIN sort initialization)
+  - [tuplesort_begin_index_brin](../t/tuplesort_begin_index_brin.md) (BRIN sort initialization)
   - CLUSTER_SORT (clustering sort operations)
 
 ## Notes and Other Information

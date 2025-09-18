@@ -27,7 +27,7 @@ The compression is performed iteratively until all input data is processed. The 
   - ZSTD_compressStream2
   - ZSTD_isError
   - ZSTD_getErrorName
-  - bbstreamer_content
+  - [bbstreamer_content](bbstreamer_content.md)
   - pg_log_error
 - Called from (representative examples):
   - This function is typically called through the bbstreamer operations table as part of the streaming pipeline

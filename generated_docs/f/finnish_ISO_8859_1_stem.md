@@ -29,14 +29,14 @@ The function uses the I[2] flag to track whether certain morphological transform
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (identifies morphological regions)
-  - r_particle_etc (removes particles and clitics)
-  - r_possessive (removes possessive suffixes)
-  - r_case_ending (removes case endings)
-  - r_other_endings (removes other morphological endings)
-  - r_i_plural (handles 'i'/'j' plural markers)
-  - r_t_plural (handles 't' plural markers)
-  - r_tidy (performs final cleanup)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies morphological regions)
+  - [r_particle_etc](../r/r_particle_etc.md) (removes particles and clitics)
+  - [r_possessive](../r/r_possessive.md) (removes possessive suffixes)
+  - [r_case_ending](../r/r_case_ending.md) (removes case endings)
+  - [r_other_endings](../r/r_other_endings.md) (removes other morphological endings)
+  - [r_i_plural](../r/r_i_plural.md) (handles 'i'/'j' plural markers)
+  - [r_t_plural](../r/r_t_plural.md) (handles 't' plural markers)
+  - [r_tidy](../r/r_tidy.md) (performs final cleanup)
 - Called from (representative examples):
   - External stemming interfaces (library entry point)
 

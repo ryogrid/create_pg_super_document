@@ -24,19 +24,19 @@ The conversion process involves decomposing the timestamp into components, deter
 ## Dependencies
 - Functions called/Symbols referenced:
   - TIMESTAMP_NOT_FINITE
-  - timestamp2tm
+  - [timestamp2tm](timestamp2tm.md)
   - DetermineTimeZoneOffset
-  - dt2local
+  - [dt2local](../d/dt2local.md)
   - IS_VALID_TIMESTAMP
   - TIMESTAMP_NOBEGIN
   - TIMESTAMP_NOEND
   - session_timezone
-  - pg_tm
+  - [pg_tm](../p/pg_tm.md)
   - fsec_t
   - MIN_TIMESTAMP
 - Called from (representative examples):
-  - timestamp_cmp_timestamptz_internal (in src/backend/utils/adt/timestamp.c:2330)
-  - timestamp2timestamptz (in src/backend/utils/adt/timestamp.c:6358)
+  - [timestamp_cmp_timestamptz_internal](timestamp_cmp_timestamptz_internal.md) (in src/backend/utils/adt/timestamp.c:2330)
+  - [timestamp2timestamptz](timestamp2timestamptz.md) (in src/backend/utils/adt/timestamp.c:6358)
   - timestamptz_cmp_internal (in src/include/utils/timestamp.h:133)
 
 ## Notes and Other Information

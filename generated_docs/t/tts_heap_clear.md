@@ -22,13 +22,13 @@ This function implements the clear callback for heap tuple table slots within th
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (cast target type)
   - TTS_SHOULDFREE (macro to check if tuple should be freed)
-  - heap_freetuple (function to free heap tuple memory)
+  - [heap_freetuple](../h/heap_freetuple.md) (function to free heap tuple memory)
   - TTS_FLAG_SHOULDFREE (flag indicating tuple memory ownership)
   - TTS_FLAG_EMPTY (flag indicating empty slot state)
-  - ItemPointerSetInvalid (function to invalidate tuple identifier)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md) (function to invalidate tuple identifier)
 - Called from (representative examples):
-  - tts_heap_store_tuple
-  - slot_deform_heap_tuple (indirectly through TupleTableSlotOps structure)
+  - [tts_heap_store_tuple](tts_heap_store_tuple.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (indirectly through TupleTableSlotOps structure)
 
 ## Notes and Other Information
 - This function properly manages memory by checking the TTS_SHOULDFREE flag before calling heap_freetuple

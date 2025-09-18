@@ -23,13 +23,13 @@ The commit operation follows PostgreSQL's transaction logging protocol where sub
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdSetTreeStatus
+  - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)
   - TRANSACTION_STATUS_COMMITTED
   - InvalidXLogRecPtr
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - RecordTransactionCommitPrepared
-  - xact_redo_commit
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [RecordTransactionCommitPrepared](../R/RecordTransactionCommitPrepared.md)
+  - [xact_redo_commit](../x/xact_redo_commit.md)
 
 ## Notes and Other Information
 - This operation is not guaranteed to be atomic at the individual transaction level, but subtransactions are correctly marked first

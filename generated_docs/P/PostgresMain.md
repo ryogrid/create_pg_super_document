@@ -28,18 +28,18 @@ The function includes sophisticated timeout management for idle sessions and idl
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetProcessingMode (set backend processing mode)
-  - WalSndSignals/pqsignal (signal handler setup)
-  - BaseInit (basic backend initialization)
-  - InitPostgres (database connection and initialization)
-  - ReadCommand (read client commands from network)
-  - exec_simple_query/exec_parse_message/exec_bind_message/exec_execute_message (command execution)
-  - forbidden_in_wal_sender (check if command is allowed in WAL sender)
-  - AbortCurrentTransaction (transaction abort and cleanup)
-  - pgstat_report_activity (activity reporting for monitoring)
-  - EventTriggerOnLogin (login event trigger processing)
+  - [WalSndSignals](../W/WalSndSignals.md)/pqsignal (signal handler setup)
+  - [BaseInit](../B/BaseInit.md) (basic backend initialization)
+  - [InitPostgres](../I/InitPostgres.md) (database connection and initialization)
+  - [ReadCommand](../R/ReadCommand.md) (read client commands from network)
+  - [exec_simple_query](../e/exec_simple_query.md)/exec_parse_message/exec_bind_message/exec_execute_message (command execution)
+  - [forbidden_in_wal_sender](../f/forbidden_in_wal_sender.md) (check if command is allowed in WAL sender)
+  - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md) (transaction abort and cleanup)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (activity reporting for monitoring)
+  - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md) (login event trigger processing)
 - Called from (representative examples):
-  - BackendMain (in src/backend/tcop/backend_startup.c:105)
-  - PostgresSingleUserMain (in src/backend/tcop/postgres.c:4223)
+  - [BackendMain](../B/BackendMain.md) (in src/backend/tcop/backend_startup.c:105)
+  - [PostgresSingleUserMain](PostgresSingleUserMain.md) (in src/backend/tcop/postgres.c:4223)
 
 ## Notes and Other Information
 - Uses setjmp/longjmp for error recovery rather than PG_TRY/PG_CATCH to maintain exception handling during error recovery itself

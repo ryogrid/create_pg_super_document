@@ -22,12 +22,12 @@ This function takes no parameters and operates on the global variable:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call)
+  - [stat](../s/stat.md) (system call)
   - S_ISDIR (macro for checking directory type)
   - pg_log_error (PostgreSQL logging function)
   - exit (standard library function)
 - Called from (representative examples):
-  - main (in src/bin/pg_archivecleanup/pg_archivecleanup.c:380)
+  - [main](../m/main.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c:380)
 
 ## Notes and Other Information
 - The function is marked as `static`, making it internal to the pg_archivecleanup.c file

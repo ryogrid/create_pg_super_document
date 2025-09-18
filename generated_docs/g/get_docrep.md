@@ -28,15 +28,15 @@ This function processes a TSVector document and builds a DocRepresentation array
   - DocRepresentation (document representation structure)
   - QueryOperand (query operand structure)
   - QI_VAL (query item value type)
-  - find_wordentry (find word entries function)
+  - [find_wordentry](../f/find_wordentry.md) (find word entries function)
   - POSDATALEN (position data length macro)
   - POSDATAPTR (position data pointer macro)
-  - repalloc (memory reallocation function)
+  - [repalloc](../r/repalloc.md) (memory reallocation function)
   - WEP_GETWEIGHT (extract weight from position)
-  - compareDocR (comparison function for sorting)
+  - [compareDocR](../c/compareDocR.md) (comparison function for sorting)
   - qsort (standard sorting function)
 - Called from (representative examples):
-  - calc_rank_cd (called at line 879)
+  - [calc_rank_cd](../c/calc_rank_cd.md) (called at line 879)
 
 ## Notes and Other Information
 This function performs several key optimizations: dynamic memory allocation that grows as needed, weight-based filtering of positions, and consolidation of multiple query items at the same position. The sorting step is crucial for subsequent algorithms like Cover that depend on position-ordered data. The function returns NULL if no matching terms are found and handles memory cleanup appropriately. The consolidation phase groups multiple query items that occur at the same document position into single DocRepresentation entries.

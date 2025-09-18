@@ -19,9 +19,9 @@ The function is responsible for releasing the ZSTD compression context that was 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_free
+  - [bbstreamer_free](bbstreamer_free.md)
   - ZSTD_freeCCtx
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - This function is typically called through the bbstreamer operations table as part of the streaming pipeline cleanup
 

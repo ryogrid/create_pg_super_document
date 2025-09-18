@@ -23,22 +23,22 @@ MarkAsPreparingGuts is an internal helper function that performs the low-level i
 ## Dependencies
 - Functions called/Symbols referenced:
   - GlobalTransaction
-  - PGPROC
+  - [PGPROC](../P/PGPROC.md)
   - LWLockHeldByMeInMode
   - GetPGProcByNumber
   - MemSet
-  - dlist_node_init
+  - [dlist_node_init](../d/dlist_node_init.md)
   - PROC_WAIT_STATUS_OK
   - LocalTransactionIdIsValid
   - AmStartupProcess
   - INVALID_PROC_NUMBER
   - LW_WS_NOT_WAITING
-  - pg_atomic_init_u64
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
   - NUM_LOCK_PARTITIONS
-  - dlist_init
+  - [dlist_init](../d/dlist_init.md)
 - Called from (representative examples):
-  - MarkAsPreparing
-  - RecoverPreparedTransactions
+  - [MarkAsPreparing](MarkAsPreparing.md)
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the two-phase commit system

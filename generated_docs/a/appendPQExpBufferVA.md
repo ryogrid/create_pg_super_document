@@ -33,12 +33,12 @@ The function uses an optimization strategy where it only attempts formatting if 
 - Functions called/Symbols referenced:
   - vsnprintf (C standard library)
   - markPQExpBufferBroken
-  - enlargePQExpBuffer
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md)
 - Called from (representative examples):
-  - printfPQExpBuffer (buffer replacement formatting)
-  - appendPQExpBuffer (buffer append formatting)
-  - libpq_append_error (error message formatting)
-  - libpq_append_conn_error (connection error formatting)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (buffer replacement formatting)
+  - [appendPQExpBuffer](appendPQExpBuffer.md) (buffer append formatting)
+  - [libpq_append_error](../l/libpq_append_error.md) (error message formatting)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (connection error formatting)
 
 ## Notes and Other Information
 - Returns true when operation is complete (success or failure), false when retry is needed

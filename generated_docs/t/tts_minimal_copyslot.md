@@ -27,11 +27,11 @@ The memory context switching ensures that the copied minimal tuple is allocated 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple (type definition)
-  - MemoryContextSwitchTo (memory context management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
   - ExecCopySlotMinimalTuple (extracts minimal tuple from any slot type)
-  - ExecStoreMinimalTuple (stores minimal tuple in destination slot)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md) (stores minimal tuple in destination slot)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execTuples.c

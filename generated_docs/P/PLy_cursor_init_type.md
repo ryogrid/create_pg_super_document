@@ -23,7 +23,7 @@ This function takes no parameters.
   - elog (PostgreSQL logging)
   - PLy_CursorType (static type object)
 - Called from (representative examples):
-  - PLy_init_plpy
+  - [PLy_init_plpy](PLy_init_plpy.md)
 
 ## Notes and Other Information
 - This function must be called during PL/Python initialization before any cursor objects can be created

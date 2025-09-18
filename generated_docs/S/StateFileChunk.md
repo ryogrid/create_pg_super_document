@@ -33,12 +33,12 @@ The linked list structure facilitates easy traversal during the writing phase, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StateFileChunk (self-reference for linked list structure)
+  - [StateFileChunk](StateFileChunk.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - xllist (global variable maintaining the chunk list)
-  - save_state_data (for adding new chunks to the state data)
-  - StartPrepare (for initializing the chunk list during prepare)
-  - EndPrepare (for processing and writing the assembled chunks)
+  - [xllist](../x/xllist.md) (global variable maintaining the chunk list)
+  - [save_state_data](../s/save_state_data.md) (for adding new chunks to the state data)
+  - [StartPrepare](StartPrepare.md) (for initializing the chunk list during prepare)
+  - [EndPrepare](../E/EndPrepare.md) (for processing and writing the assembled chunks)
 
 ## Notes and Other Information
 - This is a temporary in-memory structure used only during the prepare phase of two-phase commit

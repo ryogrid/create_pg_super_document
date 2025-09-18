@@ -25,10 +25,10 @@ This function prepares a hash slot by transferring only the needed grouping colu
 - Functions called/Symbols referenced:
   - slot_getsomeattrs
   - ExecClearTuple
-  - ExecStoreVirtualTuple
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
 - Called from (representative examples):
-  - lookup_hash_entries
-  - agg_refill_hash_table
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
 
 ## Notes and Other Information
 - Marked as inline for performance optimization since it's called frequently during hash operations

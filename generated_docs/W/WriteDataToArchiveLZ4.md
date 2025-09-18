@@ -25,12 +25,12 @@ This function implements the compression logic for writing data to LZ4-compresse
   - LZ4F_compressUpdate
   - LZ4F_isError
   - LZ4F_getErrorName
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Constants used:
   - DEFAULT_IO_BUFFER_SIZE
 - Types used:
-  - LZ4State
-  - CompressorState
+  - [LZ4State](../L/LZ4State.md)
+  - [CompressorState](../C/CompressorState.md)
 - Called from (representative examples):
   - No direct references found (likely used via function pointer)
 

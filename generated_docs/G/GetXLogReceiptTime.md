@@ -26,8 +26,8 @@ This function retrieves information about when the current chunk of WAL (Write-A
   - XLogReceiptSource (global variable storing source type)
   - XLOG_FROM_STREAM (constant for stream source identification)
 - Called from (representative examples):
-  - GetStandbyLimitTime
-  - EndOfWalRecoveryInfo
+  - [GetStandbyLimitTime](GetStandbyLimitTime.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md)
 
 ## Notes and Other Information
 - Must be called only from the startup process during recovery (enforced by Assert(InRecovery))

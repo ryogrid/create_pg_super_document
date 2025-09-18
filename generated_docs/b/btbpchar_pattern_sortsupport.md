@@ -24,8 +24,8 @@ The function operates within the appropriate memory context by switching to the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `MemoryContextSwitchTo`: Memory context management
-  - `varstr_sortsupport`: Generic string sort support function
+  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)`: Memory context management
+  - `[varstr_sortsupport](../v/varstr_sortsupport.md)`: Generic string sort support function
   - `PG_GETARG_POINTER`: Argument extraction macro
   - `PG_RETURN_VOID`: Return value macro
 - Called from (representative examples):

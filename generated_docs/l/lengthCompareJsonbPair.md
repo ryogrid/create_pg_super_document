@@ -21,10 +21,10 @@ The function also provides an optional binary equality check through the binequa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lengthCompareJsonbStringValue
-  - JsonbPair (struct type)
+  - [lengthCompareJsonbStringValue](lengthCompareJsonbStringValue.md)
+  - [JsonbPair](../J/JsonbPair.md) (struct type)
 - Called from (representative examples):
-  - uniqueifyJsonbObject
+  - [uniqueifyJsonbObject](../u/uniqueifyJsonbObject.md)
 
 ## Notes and Other Information
 - This is a static function within jsonb_util.c, not exposed to other modules

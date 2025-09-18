@@ -27,15 +27,15 @@ The function validates that the offset interval is non-negative per SQL specific
 - Functions called/Symbols referenced:
   - PG_GETARG_INTERVAL_P
   - PG_GETARG_BOOL
-  - interval_sign
+  - [interval_sign](interval_sign.md)
   - INTERVAL_IS_NOEND
   - INTERVAL_IS_NOBEGIN
   - DatumGetIntervalP
   - DirectFunctionCall2
-  - interval_mi
-  - interval_pl
-  - IntervalPGetDatum
-  - interval_cmp_internal
+  - [interval_mi](interval_mi.md)
+  - [interval_pl](interval_pl.md)
+  - [IntervalPGetDatum](../I/IntervalPGetDatum.md)
+  - [interval_cmp_internal](interval_cmp_internal.md)
 - Called from:
   - No direct references found (likely called via function catalog)
 

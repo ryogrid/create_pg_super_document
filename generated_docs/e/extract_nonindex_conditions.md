@@ -22,13 +22,13 @@ The function filters out pseudoconstant conditions (which can be dropped) and co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_redundant_with_indexclauses
+  - [is_redundant_with_indexclauses](../i/is_redundant_with_indexclauses.md)
   - NIL (constant)
   - lfirst_node (macro)
   - lappend (function)
-  - RestrictInfo (structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (structure)
 - Called from (representative examples):
-  - cost_index
+  - [cost_index](../c/cost_index.md)
   - cost_qual_eval_context
 
 ## Notes and Other Information

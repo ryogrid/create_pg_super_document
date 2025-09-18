@@ -27,10 +27,10 @@ This function executes the external command specified by the `ssl_passphrase_com
   - ClosePipeStream
   - explicit_bzero
   - wait_result_to_str
-  - errdetail_internal
+  - [errdetail_internal](../e/errdetail_internal.md)
   - pg_strip_crlf
 - Called from (representative examples):
-  - ssl_external_passwd_cb
+  - [ssl_external_passwd_cb](../s/ssl_external_passwd_cb.md)
 
 ## Notes and Other Information
 - The function performs secure memory handling by using explicit_bzero() to clear sensitive data

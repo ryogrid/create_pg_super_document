@@ -21,7 +21,7 @@ The function delegates to `record_cmp` for the actual comparison and returns the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - record_cmp
+  - [record_cmp](../r/record_cmp.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

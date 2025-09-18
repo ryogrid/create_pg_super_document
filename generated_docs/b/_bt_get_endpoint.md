@@ -21,23 +21,23 @@ The algorithm ensures that only live pages are returned by stepping right when e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getroot
-  - _bt_gettrueroot
-  - _bt_relandgetbuf
+  - [_bt_getroot](_bt_getroot.md)
+  - [_bt_gettrueroot](_bt_gettrueroot.md)
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md)
   - BTPageGetOpaque
   - P_IGNORE
   - P_RIGHTMOST
   - P_FIRSTDATAKEY
-  - PageGetMaxOffsetNumber
-  - PageGetItem
-  - PageGetItemId
-  - BTreeTupleGetDownLink
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [BTreeTupleGetDownLink](../B/BTreeTupleGetDownLink.md)
   - BTPageOpaque (type)
   - BT_READ (constant)
   - P_NONE (constant)
 - Called from (representative examples):
-  - _bt_insert_parent
-  - _bt_endpoint
+  - [_bt_insert_parent](_bt_insert_parent.md)
+  - [_bt_endpoint](_bt_endpoint.md)
 
 ## Notes and Other Information
 - Returns InvalidBuffer if the index is empty, otherwise always returns a valid, live page

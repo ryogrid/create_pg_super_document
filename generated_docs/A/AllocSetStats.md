@@ -26,7 +26,7 @@ AllocSetStats performs a detailed analysis of memory usage within an AllocSet co
   - AllocSetIsValid
   - GetChunkSizeFromFreeListIdx
   - GetFreeListLink
-  - MemoryChunkGetValue
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
   - snprintf

@@ -28,15 +28,15 @@ This ensures that the split operation can be properly replayed during crash reco
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationNeedsWAL (checks if relation requires WAL logging)
-  - XLogBeginInsert (starts a new WAL insert operation)
-  - XLogRegisterBuffer (registers the buffer for WAL logging)
-  - XLogInsert (inserts the WAL record)
-  - PageSetLSN (sets the LSN on the page)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md) (starts a new WAL insert operation)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md) (registers the buffer for WAL logging)
+  - [XLogInsert](../X/XLogInsert.md) (inserts the WAL record)
+  - [PageSetLSN](../P/PageSetLSN.md) (sets the LSN on the page)
   - REGBUF_FORCE_IMAGE (flag to force full page image)
   - REGBUF_STANDARD (standard buffer registration flag)
   - XLOG_HASH_SPLIT_PAGE (WAL record type for hash split operations)
 - Called from (representative examples):
-  - _hash_splitbucket (during bucket split operations when pages become full)
+  - [_hash_splitbucket](../h/_hash_splitbucket.md) (during bucket split operations when pages become full)
 
 ## Notes and Other Information
 - This is a static function, only used within the hashpage.c module

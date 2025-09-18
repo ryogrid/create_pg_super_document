@@ -25,8 +25,8 @@ This function is essential for receiving 64-bit values (positions, offsets, size
 - Functions called/Symbols referenced:
   - pg_ntoh32 (called twice for high and low 32-bit halves)
 - Called from (representative examples):
-  - lo_lseek64
-  - lo_tell64
+  - [lo_lseek64](lo_lseek64.md)
+  - [lo_tell64](lo_tell64.md)
 
 ## Notes and Other Information
 - Returns the 64-bit integer converted to host byte order

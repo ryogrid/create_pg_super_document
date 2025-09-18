@@ -20,11 +20,11 @@ This utility function provides a mechanism for psql slash commands to reuse the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr (libpq function)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (libpq function)
 - Called from (representative examples):
-  - exec_command
-  - exec_command_edit
-  - exec_command_watch
+  - [exec_command](../e/exec_command.md)
+  - [exec_command_edit](../e/exec_command_edit.md)
+  - [exec_command_watch](../e/exec_command_watch.md)
 
 ## Notes and Other Information
 - This is a static function used internally within psql's command processing

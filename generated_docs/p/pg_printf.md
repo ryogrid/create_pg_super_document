@@ -22,7 +22,7 @@ The function is designed to ensure consistent printf-style formatting behavior a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_vfprintf
+  - [pg_vfprintf](pg_vfprintf.md)
 - Called from (representative examples):
   - printf (via macro redefinition in src/include/port.h:219)
   - printf (via macro redefinition in src/include/port.h:245)

@@ -22,18 +22,18 @@ The function handles both small manifests (loaded entirely into memory) and larg
   - open, fstat, read, close (system calls)
   - manifest_files_create
   - pg_malloc0, pg_malloc, pfree
-  - json_parse_manifest
-  - json_parse_manifest_incremental_init
-  - json_parse_manifest_incremental_chunk  
-  - json_parse_manifest_incremental_shutdown
-  - combinebackup_version_cb
-  - combinebackup_system_identifier_cb
-  - combinebackup_per_file_cb
-  - combinebackup_per_wal_range_cb
-  - report_manifest_error
+  - [json_parse_manifest](../j/json_parse_manifest.md)
+  - [json_parse_manifest_incremental_init](../j/json_parse_manifest_incremental_init.md)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)  
+  - [json_parse_manifest_incremental_shutdown](../j/json_parse_manifest_incremental_shutdown.md)
+  - [combinebackup_version_cb](../c/combinebackup_version_cb.md)
+  - [combinebackup_system_identifier_cb](../c/combinebackup_system_identifier_cb.md)
+  - [combinebackup_per_file_cb](../c/combinebackup_per_file_cb.md)
+  - [combinebackup_per_wal_range_cb](../c/combinebackup_per_wal_range_cb.md)
+  - [report_manifest_error](../r/report_manifest_error.md)
 - Called from:
   - load_backup_manifests (src/bin/pg_combinebackup/load_manifest.c:90)
-  - main function in pg_combinebackup via load_backup_manifests
+  - [main](../m/main.md) function in pg_combinebackup via load_backup_manifests
 
 ## Notes and Other Information
 - Returns NULL if the backup_manifest file doesn't exist (logs warning)

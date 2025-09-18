@@ -28,7 +28,7 @@ The implementation includes careful handling of multibyte character encodings by
   - atoi (standard C library)
   - pg_log_error (PostgreSQL logging function)
 - Called from (representative examples):
-  - exec_command_ef_ev (in src/bin/psql/command.c:1199)
+  - [exec_command_ef_ev](../e/exec_command_ef_ev.md) (in src/bin/psql/command.c:1199)
 
 ## Notes and Other Information
 - Returns -1 if no line number is present in the input

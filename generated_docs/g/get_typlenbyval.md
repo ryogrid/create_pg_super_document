@@ -25,21 +25,21 @@ The function is widely used throughout PostgreSQL's executor, optimizer, and uti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from heap tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - elog (error logging and reporting)
   - Form_pg_type (type catalog structure)
 - Called from (representative examples):
   - EstimateParamExecSpace (parallel execution parameter estimation)
   - SerializeParamExecParams (parameter serialization)
-  - init_sql_fcache (SQL function cache initialization)
-  - ExecInitAgg (aggregate node initialization)
-  - build_pertrans_for_aggref (aggregate transition setup)
-  - ExecInitIndexScan (index scan initialization)
-  - ExecWindowAgg (window function execution)
-  - makeNullConst (null constant creation)
+  - [init_sql_fcache](../i/init_sql_fcache.md) (SQL function cache initialization)
+  - [ExecInitAgg](../E/ExecInitAgg.md) (aggregate node initialization)
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md) (aggregate transition setup)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md) (index scan initialization)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md) (window function execution)
+  - [makeNullConst](../m/makeNullConst.md) (null constant creation)
   - tupleso rt_begin_datum (datum tuple sorting)
 
 ## Notes and Other Information

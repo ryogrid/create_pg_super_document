@@ -21,18 +21,18 @@ This internal function encapsulates the common logic for deserializing PREPARE m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte
-  - pq_getmsgint64
-  - pq_getmsgint
-  - pq_getmsgstring
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md)
   - strlcpy
   - elog
   - InvalidXLogRecPtr
   - InvalidTransactionId
-  - LogicalRepPreparedTxnData
+  - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md)
 - Called from (representative examples):
   - logicalrep_read_prepare
-  - logicalrep_read_stream_prepare
+  - [logicalrep_read_stream_prepare](logicalrep_read_stream_prepare.md)
 
 ## Notes and Other Information
 - Static function internal to proto.c, not exposed in header files

@@ -22,10 +22,10 @@ This function works in conjunction with `gzip_palloc` to provide complete memory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL's memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function)
 - Called from (representative examples):
-  - bbsink_gzip_begin_archive (assigned to zs->zfree)
-  - bbstreamer_gzip_decompressor_new (assigned to zs->zfree)
+  - [bbsink_gzip_begin_archive](../b/bbsink_gzip_begin_archive.md) (assigned to zs->zfree)
+  - [bbstreamer_gzip_decompressor_new](../b/bbstreamer_gzip_decompressor_new.md) (assigned to zs->zfree)
 
 ## Notes and Other Information
 - This is a static function with identical implementations in two separate files

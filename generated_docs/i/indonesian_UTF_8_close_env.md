@@ -21,7 +21,7 @@ The function is part of the standard lifecycle management for Snowball stemmer e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SN_close_env`: Generic Snowball environment cleanup function, called with the environment pointer and parameter 0
+  - `[SN_close_env](../S/SN_close_env.md)`: Generic Snowball environment cleanup function, called with the environment pointer and parameter 0
 - Called from: This is a cleanup function for Indonesian stemmer environments and is not called by other functions in the codebase
 
 ## Notes and Other Information

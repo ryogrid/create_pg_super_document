@@ -36,14 +36,14 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readTimeLineHistory
-  - tliOfPointInHistory
-  - tliSwitchPoint
-  - list_free_deep
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [tliOfPointInHistory](../t/tliOfPointInHistory.md)
+  - [tliSwitchPoint](../t/tliSwitchPoint.md)
+  - [list_free_deep](../l/list_free_deep.md)
   - DEBUG3 (logging)
 - Called from (representative examples):
-  - read_local_xlog_page_guts
-  - logical_read_xlog_page
+  - [read_local_xlog_page_guts](../r/read_local_xlog_page_guts.md)
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md)
 
 ## Notes and Other Information
 - Callers MUST NOT assume currTLI matches the page's xlp_tli as pages may begin on older timelines

@@ -32,15 +32,15 @@ Special handling is provided for inheritance scenarios - when inhparent is true,
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close
-  - estimate_rel_size
-  - RecoveryInProgress
-  - RelationGetIndexList
-  - index_open, index_close
-  - get_relation_foreign_keys
-  - GetFdwRoutineForRelation
-  - build_index_tlist
+  - [estimate_rel_size](../e/estimate_rel_size.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [index_open](../i/index_open.md), index_close
+  - [get_relation_foreign_keys](get_relation_foreign_keys.md)
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
+  - [build_index_tlist](../b/build_index_tlist.md)
 - Called from (representative examples):
-  - build_simple_rel
+  - [build_simple_rel](../b/build_simple_rel.md)
 
 ## Notes and Other Information
 - Requires the relation to already be locked by the rewriter or expand_inherited_rtentry()

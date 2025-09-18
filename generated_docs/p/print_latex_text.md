@@ -18,13 +18,13 @@ This function generates LaTeX code for displaying tabular data using the standar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - latex_escaped_print (for escaping special LaTeX characters in content)
-  - footers_with_default (to get footer information with defaults applied)
-  - printTableContent (data structure)
-  - printTableFooter (data structure)
+  - [latex_escaped_print](../l/latex_escaped_print.md) (for escaping special LaTeX characters in content)
+  - [footers_with_default](../f/footers_with_default.md) (to get footer information with defaults applied)
+  - [printTableContent](printTableContent.md) (data structure)
+  - [printTableFooter](printTableFooter.md) (data structure)
   - cancel_pressed (global variable for interrupt handling)
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function)
+  - [printTable](printTable.md) (main table printing dispatcher function)
 
 ## Notes and Other Information
 - This is a static function within print.c used internally for LaTeX table formatting

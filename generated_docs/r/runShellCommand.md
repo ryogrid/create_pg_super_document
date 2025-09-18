@@ -26,11 +26,11 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getVariable
-  - putVariableInt
+  - [getVariable](../g/getVariable.md)
+  - [putVariableInt](../p/putVariableInt.md)
   - system
   - popen
-  - pclose
+  - [pclose](../p/pclose.md)
   - fgets
   - strtol
   - strlen
@@ -40,19 +40,19 @@ Key features include:
   - pg_log_error
   - pg_log_debug
 - Types used:
-  - Variables
+  - [Variables](../V/Variables.md)
   - FILE
 - Constants used:
   - SHELL_COMMAND_SIZE
 - Global variables referenced:
   - timer_exceeded
 - Called from (representative examples):
-  - executeMetaCommand
+  - [executeMetaCommand](../e/executeMetaCommand.md)
 
 ## Notes and Other Information
 - The function is declared as static, indicating it's for internal use within the pgbench module
 - Supports special argument syntax: ':var' for variables, '::name' for literal strings starting with ':'
-- Command size is limited to prevent buffer overflow attacks
+- [Command](../C/Command.md) size is limited to prevent buffer overflow attacks
 - Only integer outputs are supported for variable assignment - string outputs cause errors
 - Uses `fflush(NULL)` before command execution to ensure proper output synchronization
 - The fast path (`system()`) is used when no output capture is needed for better performance

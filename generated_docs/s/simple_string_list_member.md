@@ -22,12 +22,12 @@ This function performs a linear search through a SimpleStringList to determine i
 - Functions called/Symbols referenced:
   - strcmp (for string comparison)
 - Data structures used:
-  - SimpleStringList (the list container structure)
-  - SimpleStringListCell (individual list node structure)
+  - [SimpleStringList](../S/SimpleStringList.md) (the list container structure)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md) (individual list node structure)
 - Called from (representative examples):
-  - main functions in pg_createsubscriber (src/bin/pg_basebackup/pg_createsubscriber.c:1969, 2010, 2022, 2034)
-  - _tocEntryRequired (src/bin/pg_dump/pg_backup_archiver.c:3069, 3075, 3092, 3100, 3110, 3118)
-  - dumpDatabases (src/bin/pg_dump/pg_dumpall.c:1618)
+  - [main](../m/main.md) functions in pg_createsubscriber (src/bin/pg_basebackup/pg_createsubscriber.c:1969, 2010, 2022, 2034)
+  - [_tocEntryRequired](../t/_tocEntryRequired.md) (src/bin/pg_dump/pg_backup_archiver.c:3069, 3075, 3092, 3100, 3110, 3118)
+  - [dumpDatabases](../d/dumpDatabases.md) (src/bin/pg_dump/pg_dumpall.c:1618)
 
 ## Notes and Other Information
 - Performs O(n) linear search through the list using string comparison

@@ -29,17 +29,17 @@ The main difference from btree_xlog_vacuum is the conflict resolution step and t
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - ResolveRecoveryConflictWithSnapshot
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
-  - btree_xlog_updates
-  - PageIndexMultiDelete
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [btree_xlog_updates](btree_xlog_updates.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - BTPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally for B-tree WAL recovery

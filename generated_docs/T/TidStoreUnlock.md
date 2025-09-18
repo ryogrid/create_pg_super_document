@@ -22,8 +22,8 @@ TidStoreUnlock releases any lock previously acquired on a TidStore object. The f
   - TidStoreIsShared (macro)
   - shared_ts_unlock (radix tree generated function)
 - Called from (representative examples):
-  - do_set_block_offsets (in test_tidstore.c)
-  - check_set_block_offsets (in test_tidstore.c)
+  - [do_set_block_offsets](../d/do_set_block_offsets.md) (in test_tidstore.c)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md) (in test_tidstore.c)
 
 ## Notes and Other Information
 - Only performs unlocking operations on shared TidStores (when ts->area != NULL)

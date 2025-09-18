@@ -17,21 +17,21 @@ This function constructs a detailed CSV log entry based on the provided ErrorDat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendCSVLiteral (frequently used for CSV-formatting string fields)
-  - reset_formatted_start_time (resets time formatting for new processes)
-  - get_formatted_log_time (gets current timestamp string)
-  - get_formatted_start_time (gets process start time string)
+  - [appendCSVLiteral](../a/appendCSVLiteral.md) (frequently used for CSV-formatting string fields)
+  - [reset_formatted_start_time](../r/reset_formatted_start_time.md) (resets time formatting for new processes)
+  - [get_formatted_log_time](../g/get_formatted_log_time.md) (gets current timestamp string)
+  - [get_formatted_start_time](../g/get_formatted_start_time.md) (gets process start time string)
   - get_ps_display (gets process status display string)
-  - GetTopTransactionIdIfAny (gets current transaction ID)
-  - error_severity (converts error level to severity string)
-  - unpack_sql_state (converts SQL error code to state string)
-  - check_log_of_query (determines if query should be logged)
-  - get_backend_type_for_log (gets backend type string)
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md) (gets current transaction ID)
+  - [error_severity](../e/error_severity.md) (converts error level to severity string)
+  - [unpack_sql_state](../u/unpack_sql_state.md) (converts SQL error code to state string)
+  - [check_log_of_query](../c/check_log_of_query.md) (determines if query should be logged)
+  - [get_backend_type_for_log](../g/get_backend_type_for_log.md) (gets backend type string)
   - pgstat_get_my_query_id (gets current query ID)
-  - write_syslogger_file (writes directly to log file in syslogger process)
-  - write_pipe_chunks (writes through pipe in other processes)
+  - [write_syslogger_file](write_syslogger_file.md) (writes directly to log file in syslogger process)
+  - [write_pipe_chunks](write_pipe_chunks.md) (writes through pipe in other processes)
 - Called from (representative examples):
-  - send_message_to_server_log (main error logging pathway)
+  - [send_message_to_server_log](../s/send_message_to_server_log.md) (main error logging pathway)
 
 ## Notes and Other Information
 - Maintains static per-process line numbering that resets when process ID changes

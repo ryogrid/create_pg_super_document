@@ -23,11 +23,11 @@ This function performs the initial setup required before sending query results t
 - Functions called/Symbols referenced:
   - initStringInfo (I/O buffer initialization)
   - AllocSetContextCreate (memory context creation)
-  - SendRowDescriptionMessage (row description transmission)
-  - FetchPortalTargetList (portal target list retrieval)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md) (row description transmission)
+  - [FetchPortalTargetList](../F/FetchPortalTargetList.md) (portal target list retrieval)
   - ALLOCSET_DEFAULT_SIZES (memory context sizing constant)
 - Called from (representative examples):
-  - printtup_create_DR (as rStartup callback)
+  - [printtup_create_DR](printtup_create_DR.md) (as rStartup callback)
 
 ## Notes and Other Information
 - The I/O buffer is created outside the temporary context to allow reuse across multiple rows

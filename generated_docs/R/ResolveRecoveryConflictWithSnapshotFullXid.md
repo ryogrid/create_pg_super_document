@@ -30,11 +30,11 @@ When conflicts are possible, the function truncates the FullTransactionId to a s
   - ReadNextFullTransactionId
   - U64FromFullTransactionId
   - XidFromFullTransactionId
-  - ResolveRecoveryConflictWithSnapshot
+  - [ResolveRecoveryConflictWithSnapshot](ResolveRecoveryConflictWithSnapshot.md)
   - MaxTransactionId
 - Called from (representative examples):
-  - gistRedoPageReuse
-  - btree_xlog_reuse_page
+  - [gistRedoPageReuse](../g/gistRedoPageReuse.md)
+  - [btree_xlog_reuse_page](../b/btree_xlog_reuse_page.md)
 
 ## Notes and Other Information
 - This function provides a bridge between the newer 64-bit FullTransactionId system and the existing 32-bit conflict resolution infrastructure

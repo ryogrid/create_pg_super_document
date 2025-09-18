@@ -21,7 +21,7 @@ When the flag is set, pgstat_report_stat() will ignore its normal timing constra
 - Functions called/Symbols referenced:
   - pgStatForceNextFlush (global variable assignment)
 - Called from (representative examples):
-  - pg_stat_force_next_flush (SQL-callable function)
+  - [pg_stat_force_next_flush](pg_stat_force_next_flush.md) (SQL-callable function)
 
 ## Notes and Other Information
 - This function is primarily intended for testing infrastructure where deterministic statistics behavior is needed

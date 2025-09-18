@@ -23,21 +23,21 @@ The supported object types include access methods, databases, extensions, tables
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_am_oid (for access methods)
-  - get_database_oid (for databases)
-  - get_extension_oid (for extensions)
-  - get_tablespace_oid (for tablespaces)
+  - [get_am_oid](get_am_oid.md) (for access methods)
+  - [get_database_oid](get_database_oid.md) (for databases)
+  - [get_extension_oid](get_extension_oid.md) (for extensions)
+  - [get_tablespace_oid](get_tablespace_oid.md) (for tablespaces)
   - get_role_oid (for roles)
-  - get_namespace_oid (for schemas)
-  - get_language_oid (for languages)
-  - get_foreign_data_wrapper_oid (for foreign data wrappers)
-  - get_foreign_server_oid (for foreign servers)
-  - get_event_trigger_oid (for event triggers)
-  - ParameterAclLookup (for parameter ACLs)
-  - get_publication_oid (for publications)
-  - get_subscription_oid (for subscriptions)
+  - [get_namespace_oid](get_namespace_oid.md) (for schemas)
+  - [get_language_oid](get_language_oid.md) (for languages)
+  - [get_foreign_data_wrapper_oid](get_foreign_data_wrapper_oid.md) (for foreign data wrappers)
+  - [get_foreign_server_oid](get_foreign_server_oid.md) (for foreign servers)
+  - [get_event_trigger_oid](get_event_trigger_oid.md) (for event triggers)
+  - [ParameterAclLookup](../P/ParameterAclLookup.md) (for parameter ACLs)
+  - [get_publication_oid](get_publication_oid.md) (for publications)
+  - [get_subscription_oid](get_subscription_oid.md) (for subscriptions)
 - Called from (representative examples):
-  - get_object_address
+  - [get_object_address](get_object_address.md)
 
 ## Notes and Other Information
 This function is marked static, indicating it's only used within the objectaddress.c module as a helper function. It handles objects that don't require schema qualification because they exist in global namespaces. The function follows a consistent pattern for all object types, making it easy to add new unqualified object types in the future. Each lookup function called by this function is responsible for its own error handling when missing_ok is false.

@@ -27,14 +27,14 @@ This is particularly useful for debugging connection issues, logging actual conn
 - Functions called/Symbols referenced:
   - initPQExpBuffer
   - PQExpBufferDataBroken
-  - conninfo_init
-  - conninfo_storeval
+  - [conninfo_init](../c/conninfo_init.md)
+  - [conninfo_storeval](../c/conninfo_storeval.md)
   - termPQExpBuffer
 - Called from (representative examples):
-  - libpqrcv_get_conninfo
-  - do_connect (psql)
-  - GenerateRecoveryConfig
-  - copy_connection (test code)
+  - [libpqrcv_get_conninfo](../l/libpqrcv_get_conninfo.md)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [GenerateRecoveryConfig](../G/GenerateRecoveryConfig.md)
+  - [copy_connection](../c/copy_connection.md) (test code)
 
 ## Notes and Other Information
 - This is a public libpq API function exposed to client applications

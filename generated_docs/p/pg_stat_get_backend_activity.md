@@ -19,14 +19,14 @@ This function retrieves the current activity string for a PostgreSQL backend pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_beentry_by_proc_number: Retrieves backend status entry by process number
-  - PgBackendStatus: Structure containing backend status information including st_activity_raw
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md): Retrieves backend status entry by process number
+  - [PgBackendStatus](../P/PgBackendStatus.md): Structure containing backend status information including st_activity_raw
   - HAS_PGSTAT_PERMISSIONS: Macro checking if current user has permissions to view statistics
-  - pgstat_clip_activity: Function to properly clip/truncate activity strings for display
+  - [pgstat_clip_activity](pgstat_clip_activity.md): Function to properly clip/truncate activity strings for display
   - cstring_to_text: Converts C string to PostgreSQL text type
   - PG_GETARG_INT32: Macro to extract int32 argument from function call
   - PG_RETURN_TEXT_P: Macro to return text value from PostgreSQL function
-  - pfree: Memory deallocation function
+  - [pfree](pfree.md): Memory deallocation function
 
 ## Notes and Other Information
 - Returns different messages based on various conditions:

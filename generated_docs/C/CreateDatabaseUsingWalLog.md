@@ -29,15 +29,15 @@ The function ensures proper locking to prevent concurrent modifications and hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabasePath: Gets filesystem path for database directory
-  - CreateDirAndVersionFile: Creates database directory and version file
-  - RelationMapCopy: Copies relation mapping file between databases
-  - ScanSourceDatabasePgClass: Scans pg_class to get list of relations to copy
-  - LockRelationId/UnlockRelationId: Acquires and releases relation locks
+  - [GetDatabasePath](../G/GetDatabasePath.md): Gets filesystem path for database directory
+  - [CreateDirAndVersionFile](CreateDirAndVersionFile.md): Creates database directory and version file
+  - [RelationMapCopy](../R/RelationMapCopy.md): Copies relation mapping file between databases
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md): Scans pg_class to get list of relations to copy
+  - [LockRelationId](../L/LockRelationId.md)/UnlockRelationId: Acquires and releases relation locks
   - CreateAndCopyRelationData: Copies actual relation data between locators
-  - list_free_deep: Frees allocated list memory
+  - [list_free_deep](../l/list_free_deep.md): Frees allocated list memory
 - Called from (representative examples):
-  - createdb: Main database creation function in dbcommands.c
+  - [createdb](../c/createdb.md): Main database creation function in dbcommands.c
 
 ## Notes and Other Information
 - This is a static function within dbcommands.c, not exposed publicly

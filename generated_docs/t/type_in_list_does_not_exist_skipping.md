@@ -19,12 +19,12 @@ This function is used when a specification for objects that involve datatypes (f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeNameOid: Looks up type by name, returns InvalidOid if not found
-  - schema_does_not_exist_skipping: Checks if the type's schema exists
-  - TypeNameToString: Converts TypeName to string for error messages
+  - [LookupTypeNameOid](../L/LookupTypeNameOid.md): Looks up type by name, returns InvalidOid if not found
+  - [schema_does_not_exist_skipping](../s/schema_does_not_exist_skipping.md): Checks if the type's schema exists
+  - [TypeNameToString](../T/TypeNameToString.md): Converts TypeName to string for error messages
 
 - Called from (representative examples):
-  - does_not_exist_skipping: Used for function, cast, aggregate, and operator object types
+  - [does_not_exist_skipping](../d/does_not_exist_skipping.md): Used for function, cast, aggregate, and operator object types
 
 ## Notes and Other Information
 - This is a static function internal to dropcmds.c

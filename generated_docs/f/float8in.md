@@ -21,10 +21,10 @@ The function extracts the input string from the function arguments and passes it
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (argument extraction)
-  - float8in_internal (core parsing logic)
+  - [float8in_internal](float8in_internal.md) (core parsing logic)
   - PG_RETURN_FLOAT8 (return value macro)
 - Called from (representative examples):
-  - numeric_float8 (from numeric.c:4663)
+  - [numeric_float8](../n/numeric_float8.md) (from numeric.c:4663)
 
 ## Notes and Other Information
 - Registered in PostgreSQL's system catalogs as the standard input function for float8/double precision type

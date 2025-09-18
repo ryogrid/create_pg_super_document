@@ -30,22 +30,22 @@ The implementation uses a stable insertion sort rather than qsort() to preserve 
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length
-  - palloc
-  - cost_qual_eval_node
+  - [palloc](../p/palloc.md)
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
   - lfirst
   - IsA
   - lappend
   - NIL
   - cpu_operator_cost
 - Called from (representative examples):
-  - get_gating_quals
-  - create_group_result_plan
-  - create_seqscan_plan
-  - create_indexscan_plan
-  - create_bitmap_scan_plan
-  - create_nestloop_plan
-  - create_mergejoin_plan
-  - create_hashjoin_plan
+  - [get_gating_quals](../g/get_gating_quals.md)
+  - [create_group_result_plan](../c/create_group_result_plan.md)
+  - [create_seqscan_plan](../c/create_seqscan_plan.md)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md)
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md)
   - Various other plan creation functions
 
 ## Notes and Other Information

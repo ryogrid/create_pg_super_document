@@ -24,13 +24,13 @@ This function is part of PostgreSQL's multivariate distinct statistics system, s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CombinationGenerator (structure)
-  - generate_combinations_recurse (recursive self-call)
+  - [CombinationGenerator](../C/CombinationGenerator.md) (structure)
+  - [generate_combinations_recurse](generate_combinations_recurse.md) (recursive self-call)
   - memcpy (for copying completed combinations)
 
 - Called from (representative examples):
-  - generate_combinations_recurse (recursive calls)
-  - generate_combinations
+  - [generate_combinations_recurse](generate_combinations_recurse.md) (recursive calls)
+  - [generate_combinations](generate_combinations.md)
 
 ## Notes and Other Information
 - Uses lexicographic ordering to avoid generating duplicate permutations

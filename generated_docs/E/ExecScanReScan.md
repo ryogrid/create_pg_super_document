@@ -20,23 +20,23 @@ The function handles two distinct scenarios for EPQ state management: simple sca
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple (clears the scan tuple slot)
-  - bms_next_member (iterates through relation bitmap for multi-relation scans)
+  - [bms_next_member](../b/bms_next_member.md) (iterates through relation bitmap for multi-relation scans)
   - IsA (type checking macros for ForeignScan and CustomScan)
   - nodeTag (node type identification)
   - elog (error logging for unexpected scan types)
 - Data structures used:
-  - ScanState
-  - EState
-  - EPQState
+  - [ScanState](../S/ScanState.md)
+  - [EState](EState.md)
+  - [EPQState](EPQState.md)
   - Scan (plan node)
   - ForeignScan
   - CustomScan
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - ExecReScanSeqScan (sequential scan rescan)
-  - ExecReScanIndexScan (index scan rescan)
-  - ExecReScanBitmapHeapScan (bitmap heap scan rescan)
-  - ExecReScanForeignScan (foreign scan rescan)
+  - [ExecReScanSeqScan](ExecReScanSeqScan.md) (sequential scan rescan)
+  - [ExecReScanIndexScan](ExecReScanIndexScan.md) (index scan rescan)
+  - [ExecReScanBitmapHeapScan](ExecReScanBitmapHeapScan.md) (bitmap heap scan rescan)
+  - [ExecReScanForeignScan](ExecReScanForeignScan.md) (foreign scan rescan)
   - All other scan node rescan functions
 
 ## Notes and Other Information

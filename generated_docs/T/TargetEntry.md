@@ -36,12 +36,12 @@ The structure supports complex query processing through several key mechanisms:
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (for column numbering)
-  - Expr (base expression structure)
+  - [Expr](../E/Expr.md) (base expression structure)
 - Called from (representative examples):
   - Used extensively throughout query processing
   - Target list construction and manipulation
   - Expression evaluation and planning
-  - Result set formatting
+  - [Result](../R/Result.md) set formatting
 
 ## Notes and Other Information
 - Core component of PostgreSQL's target list representation

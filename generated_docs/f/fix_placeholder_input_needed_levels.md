@@ -22,14 +22,14 @@ The function iterates through all placeholders in the planner's placeholder list
 ## Dependencies
 - Functions called/Symbols referenced:
   - PlaceHolderInfo (struct type)
-  - pull_var_clause (extracts variables from expression nodes)
+  - [pull_var_clause](../p/pull_var_clause.md) (extracts variables from expression nodes)
   - PVC_RECURSE_AGGREGATES (flag for variable extraction)
   - PVC_RECURSE_WINDOWFUNCS (flag for variable extraction)
   - PVC_INCLUDE_PLACEHOLDERS (flag for variable extraction)
-  - add_vars_to_targetlist (adds variables to target list at specified level)
-  - list_free (memory cleanup)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md) (adds variables to target list at specified level)
+  - [list_free](../l/list_free.md) (memory cleanup)
 - Called from (representative examples):
-  - query_planner (src/backend/optimizer/plan/planmain.c:218)
+  - [query_planner](../q/query_planner.md) (src/backend/optimizer/plan/planmain.c:218)
 
 ## Notes and Other Information
 - This function can have side-effects on the ph_needed sets of other PlaceHolderInfos, but this is acceptable because the function doesn't examine ph_needed itself, avoiding ordering issues

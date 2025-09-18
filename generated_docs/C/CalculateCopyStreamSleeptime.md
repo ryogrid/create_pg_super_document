@@ -21,9 +21,9 @@ When a standby message timeout is configured and streaming is active, the functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - feTimestampDifference
+  - [feTimestampDifference](../f/feTimestampDifference.md)
 - Called from (representative examples):
-  - HandleCopyStream
+  - [HandleCopyStream](../H/HandleCopyStream.md)
 
 ## Notes and Other Information
 - This is a static function internal to receivelog.c, used in WAL streaming contexts

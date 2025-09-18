@@ -20,10 +20,10 @@ The function takes a TIMETZ value and packs its components (time and timezone of
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P: Extracts TIMETZ argument from function args
-  - pq_begintypsend: Initializes binary output buffer
-  - pq_sendint64: Sends 64-bit integer (time component)
-  - pq_sendint32: Sends 32-bit integer (timezone offset)
-  - pq_endtypsend: Finalizes binary output buffer
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes binary output buffer
+  - [pq_sendint64](../p/pq_sendint64.md): Sends 64-bit integer (time component)
+  - [pq_sendint32](../p/pq_sendint32.md): Sends 32-bit integer (timezone offset)
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes binary output buffer
   - PG_RETURN_BYTEA_P: Returns binary data as bytea
 - Called from (representative examples):
   - PostgreSQL protocol handlers (indirectly through function registry)

@@ -27,11 +27,11 @@ The function ensures that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - file_entry_t (struct)
+  - [file_entry_t](file_entry_t.md) (struct)
   - FILE_ACTION_REMOVE (enum value)  
   - strcmp (standard library function)
 - Called from (representative examples):
-  - decide_file_actions (via qsort)
+  - [decide_file_actions](../d/decide_file_actions.md) (via qsort)
 
 ## Notes and Other Information
 - This is a static function internal to filemap.c

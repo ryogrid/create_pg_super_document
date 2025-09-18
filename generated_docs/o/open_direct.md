@@ -27,8 +27,8 @@ This function attempts to open a file with direct I/O enabled to bypass the oper
   - O_DIRECT (Linux direct I/O flag)
   - F_NOCACHE (BSD/macOS cache bypass flag)
 - Called from (representative examples):
-  - test_sync (filesystem sync testing function)
-  - test_open_sync (open+sync testing function)
+  - [test_sync](../t/test_sync.md) (filesystem sync testing function)
+  - [test_open_sync](../t/test_open_sync.md) (open+sync testing function)
 
 ## Notes and Other Information
 - Returns file descriptor on success, -1 on failure (standard POSIX convention)

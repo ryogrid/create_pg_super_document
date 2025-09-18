@@ -26,10 +26,10 @@ This function is part of the ECPG compatibility layer for Informix, providing a 
   - sprintf
   - fprintf  
   - printf
-  - ECPGtrans (for rollback operation)
+  - [ECPGtrans](../E/ECPGtrans.md) (for rollback operation)
   - exit
 - Called from (representative examples):
-  - main (multiple locations in test_informix2.c at lines 178, 193, 201, 211, 225, 244, 259, 274)
+  - [main](../m/main.md) (multiple locations in test_informix2.c at lines 178, 193, 201, 211, 225, 244, 259, 274)
 
 ## Notes and Other Information
 - This is a static function local to the test file, indicating it's designed for internal error handling within specific test scenarios

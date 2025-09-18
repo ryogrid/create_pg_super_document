@@ -20,14 +20,14 @@ This function is a callback implementation of the DestReceiver interface specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotMinimalTuple
-  - shm_mq_send
-  - pfree
+  - [ExecFetchSlotMinimalTuple](../E/ExecFetchSlotMinimalTuple.md)
+  - [shm_mq_send](../s/shm_mq_send.md)
+  - [pfree](../p/pfree.md)
   - ereport
   - SHM_MQ_DETACHED
   - SHM_MQ_SUCCESS
 - Called from (representative examples):
-  - CreateTupleQueueDestReceiver (assigned as receiveSlot callback)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md) (assigned as receiveSlot callback)
 
 ## Notes and Other Information
 - Returns true on successful transmission, false if the shared memory queue has been detached

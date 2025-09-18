@@ -24,11 +24,11 @@ The function is designed to enforce restrictions on publication WHERE clauses by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - func_volatile
+  - [func_volatile](../f/func_volatile.md)
   - PROVOLATILE_IMMUTABLE
   - FirstNormalObjectId
 - Called from:
-  - check_simple_rowfilter_expr_walker
+  - [check_simple_rowfilter_expr_walker](check_simple_rowfilter_expr_walker.md)
 
 ## Notes and Other Information
 - This is a static function used internally within publicationcmds.c

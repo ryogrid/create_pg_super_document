@@ -18,11 +18,11 @@ The oid_cmp function provides a standardized comparison mechanism for Oid values
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32
+  - [pg_cmp_u32](../p/pg_cmp_u32.md)
 - Called from (representative examples):
-  - EnumValuesCreate
-  - find_inheritance_children_extended
-  - aclmembers
+  - [EnumValuesCreate](../E/EnumValuesCreate.md)
+  - [find_inheritance_children_extended](../f/find_inheritance_children_extended.md)
+  - [aclmembers](../a/aclmembers.md)
 
 ## Notes and Other Information
 This function is specifically designed as a qsort comparison callback, hence the void pointer parameters and integer return type following the standard comparison function contract. The function is used in various parts of PostgreSQL where Oid arrays need to be sorted, such as in enum value creation, inheritance hierarchy processing, and ACL member handling.

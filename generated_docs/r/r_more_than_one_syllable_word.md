@@ -26,9 +26,9 @@ This check is crucial because many Turkish stemming operations should only be ap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping_U (Snowball function for forward vowel group testing using g_vowel character group)
+  - [out_grouping_U](../o/out_grouping_U.md) (Snowball function for forward vowel group testing using g_vowel character group)
 - Called from:
-  - turkish_UTF_8_stem (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2068)
+  - [turkish_UTF_8_stem](../t/turkish_UTF_8_stem.md) (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2068)
 
 ## Notes and Other Information
 - This is a static function within the Turkish stemmer implementation

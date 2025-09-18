@@ -20,14 +20,14 @@ This dual behavior is essential for logical decoding functionality, as it allows
 ## Dependencies
 - Functions called/Symbols referenced:
   - HistoricSnapshotActive
-  - GetNonHistoricCatalogSnapshot
+  - [GetNonHistoricCatalogSnapshot](GetNonHistoricCatalogSnapshot.md)
   - HistoricSnapshot
 - Called from (representative examples):
-  - systable_beginscan
-  - systable_recheck_tuple
-  - systable_beginscan_ordered
-  - table_beginscan_catalog
-  - process_settings
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_recheck_tuple](../s/systable_recheck_tuple.md)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [process_settings](../p/process_settings.md)
 
 ## Notes and Other Information
 - Critical for logical decoding: ensures catalog scans see appropriate historical state

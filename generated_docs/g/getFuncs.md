@@ -23,27 +23,27 @@ Each function is represented by a FuncInfo structure containing comprehensive me
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - ExecuteSqlQuery
-  - PQntuples
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
   - pg_malloc0
-  - PQfnumber
-  - PQgetvalue
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - AssignDumpId
-  - pg_strdup
-  - findNamespace
-  - getRoleName
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
   - atoi
-  - parseOidArray
-  - selectDumpableObject
-  - PQgetisnull
-  - PQclear
+  - [parseOidArray](../p/parseOidArray.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Excludes aggregate functions (handled separately by getAggregates)

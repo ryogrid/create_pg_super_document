@@ -34,20 +34,20 @@ The running state during construction is kept in a BrinMemTuple (bs_dtuple), whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinRevmap
-  - BrinDesc
-  - BrinMemTuple
-  - BrinTuple
-  - BrinLeader
+  - [BrinRevmap](BrinRevmap.md)
+  - [BrinDesc](BrinDesc.md)
+  - [BrinMemTuple](BrinMemTuple.md)
+  - [BrinTuple](BrinTuple.md)
+  - [BrinLeader](BrinLeader.md)
   - Tuplesortstate
 - Called from (representative examples):
-  - brinbuildCallback
-  - brinbuild
-  - initialize_brin_buildstate
-  - terminate_brin_buildstate
-  - summarize_range
-  - _brin_begin_parallel
-  - _brin_parallel_heapscan
+  - [brinbuildCallback](../b/brinbuildCallback.md)
+  - [brinbuild](../b/brinbuild.md)
+  - [initialize_brin_buildstate](../i/initialize_brin_buildstate.md)
+  - [terminate_brin_buildstate](../t/terminate_brin_buildstate.md)
+  - [summarize_range](../s/summarize_range.md)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md)
+  - [_brin_parallel_heapscan](../b/_brin_parallel_heapscan.md)
 
 ## Notes and Other Information
 The bs_leader field is only present during parallel index builds and only in the leader process. Worker processes do not have a BrinBuildState structure. The sortstate is used by all participants (workers and leader) in parallel builds and must be part of the build state since it's the primary structure passed to build callbacks. The structure manages both the low-level buffer operations and high-level coordination needed for efficient BRIN index construction.

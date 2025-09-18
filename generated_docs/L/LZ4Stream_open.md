@@ -26,8 +26,8 @@ The function serves as the initialization step for LZ4 stream operations, establ
   - dup (duplicates file descriptor)
   - fopen (opens file by path)
 - Types referenced:
-  - CompressFileHandle (compression file handle structure)
-  - LZ4State (LZ4 compression state structure)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (compression file handle structure)
+  - [LZ4State](LZ4State.md) (LZ4 compression state structure)
 - Called from (representative examples):
   - No direct callers found in the current codebase
 

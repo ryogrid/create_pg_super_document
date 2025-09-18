@@ -23,7 +23,7 @@ The function is part of PostgreSQL's SQL standard compliance for the SIMILAR TO 
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP` (macro for extracting text arguments)
-  - `similar_escape_internal` (performs the actual pattern conversion with NULL escape parameter)
+  - `[similar_escape_internal](similar_escape_internal.md)` (performs the actual pattern conversion with NULL escape parameter)
   - `PG_RETURN_TEXT_P` (macro for returning text result)
 - Called from:
   - SQL queries using `similar_to_escape(pattern)` function

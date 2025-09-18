@@ -35,18 +35,18 @@ The function handles special cases including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parsePGArray (for parsing ACL arrays)
-  - parseAclItem (for parsing individual ACL entries)
+  - [parsePGArray](../p/parsePGArray.md) (for parsing ACL arrays)
+  - [parseAclItem](../p/parseAclItem.md) (for parsing individual ACL entries)
   - pg_malloc (for memory allocation)
-  - fmtId (for identifier quoting)
-  - printfPQExpBuffer (for string formatting)
+  - [fmtId](../f/fmtId.md) (for identifier quoting)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (for string formatting)
   - createPQExpBuffer/destroyPQExpBuffer (for buffer management)
 
 - Called from (representative examples):
-  - buildDefaultACLCommands (in dumputils.c)
-  - dumpACL (in pg_dump.c)
-  - dumpRoleGUCPrivs (in pg_dumpall.c)
-  - dumpTablespaces (in pg_dumpall.c)
+  - [buildDefaultACLCommands](buildDefaultACLCommands.md) (in dumputils.c)
+  - [dumpACL](../d/dumpACL.md) (in pg_dump.c)
+  - [dumpRoleGUCPrivs](../d/dumpRoleGUCPrivs.md) (in pg_dumpall.c)
+  - [dumpTablespaces](../d/dumpTablespaces.md) (in pg_dumpall.c)
 
 ## Notes and Other Information
 - Returns true on success, false if ACL parsing fails

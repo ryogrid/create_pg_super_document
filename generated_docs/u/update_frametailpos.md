@@ -34,19 +34,19 @@ The function maintains frame tail tracking through  and , ensures proper tuple s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spool_tuples (tuple buffering to ensure data availability)
-  - MemoryContextSwitchTo (memory management)
-  - tuplestore_select_read_pointer (tuple store navigation)
-  - tuplestore_gettupleslot (tuple retrieval from buffer)
+  - [spool_tuples](../s/spool_tuples.md) (tuple buffering to ensure data availability)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md) (tuple store navigation)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (tuple retrieval from buffer)
   - are_peers (peer comparison for RANGE/GROUPS modes)
   - slot_getattr (tuple attribute extraction for RANGE mode)
-  - FunctionCall5Coll (in_range function calls for RANGE mode)
+  - [FunctionCall5Coll](../F/FunctionCall5Coll.md) (in_range function calls for RANGE mode)
   - ExecCopySlot/ExecClearTuple (tuple slot management in GROUPS mode)
-  - DatumGetInt64 (offset value extraction)
+  - [DatumGetInt64](../D/DatumGetInt64.md) (offset value extraction)
 - Called from (representative examples):
-  - row_is_in_frame (for frame membership testing)
-  - ExecWindowAgg (main window aggregation execution)
-  - WinGetFuncArgInFrame (window function argument retrieval)
+  - [row_is_in_frame](../r/row_is_in_frame.md) (for frame membership testing)
+  - [ExecWindowAgg](../E/ExecWindowAgg.md) (main window aggregation execution)
+  - [WinGetFuncArgInFrame](../W/WinGetFuncArgInFrame.md) (window function argument retrieval)
 
 ## Notes and Other Information
 - The function may clobber  during GROUPS mode processing

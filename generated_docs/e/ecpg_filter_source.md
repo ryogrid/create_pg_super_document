@@ -25,7 +25,7 @@ The function processes the input file line by line, detecting lines that start w
   - initStringInfo, pfree (PostgreSQL string utilities)
   - Standard C string functions (strstr, strchr, memmove, strlen)
 - Called from:
-  - ecpg_start_test (main test execution function)
+  - [ecpg_start_test](ecpg_start_test.md) (main test execution function)
 
 ## Notes and Other Information
 - This is a static function used internally within the ECPG test framework

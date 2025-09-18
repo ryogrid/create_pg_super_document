@@ -27,7 +27,7 @@ The function performs a linear search through the state's outgoing arc chain (`o
   - struct state (data structure)
   - color (type definition)
 - Called from (representative examples):
-  - colorcomplement (in regc_color.c:1085)
+  - [colorcomplement](../c/colorcomplement.md) (in regc_color.c:1085)
 
 ## Notes and Other Information
 - This is a static function internal to the regex NFA construction module

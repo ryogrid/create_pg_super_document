@@ -22,15 +22,15 @@ The function extracts type information from the tuple header, decomposes the tup
   - check_stack_depth: Stack overflow protection for recursive calls
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple header
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple header
-  - lookup_rowtype_tupdesc: Retrieves tuple descriptor for the record type
-  - heap_deform_tuple: Extracts individual column values from tuple
-  - pq_begintypsend: Initializes binary output buffer
-  - pq_sendint32: Sends 32-bit integers to binary buffer
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the record type
+  - [heap_deform_tuple](../h/heap_deform_tuple.md): Extracts individual column values from tuple
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes binary output buffer
+  - [pq_sendint32](../p/pq_sendint32.md): Sends 32-bit integers to binary buffer
   - pq_sendbytes: Sends byte data to binary buffer
-  - pq_endtypsend: Finalizes binary output buffer
-  - getTypeBinaryOutputInfo: Gets binary output function info for column types
-  - SendFunctionCall: Calls type-specific binary send functions
-  - MemoryContextAlloc: Memory allocation in function context
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes binary output buffer
+  - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md): Gets binary output function info for column types
+  - [SendFunctionCall](../S/SendFunctionCall.md): Calls type-specific binary send functions
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in function context
   - ReleaseTupleDesc: Releases tuple descriptor reference
 
 - Called from (representative examples):

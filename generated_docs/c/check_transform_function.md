@@ -27,13 +27,13 @@ These constraints ensure transform functions can reliably convert data between S
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - PROVOLATILE_VOLATILE
   - PROKIND_FUNCTION
   - INTERNALOID
 - Called from (representative examples):
-  - CreateTransform (functioncmds.c:1892, 1917)
+  - [CreateTransform](../C/CreateTransform.md) (functioncmds.c:1892, 1917)
 
 ## Notes and Other Information
 - This is a static function used internally within functioncmds.c

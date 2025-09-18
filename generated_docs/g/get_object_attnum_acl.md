@@ -21,14 +21,14 @@ The function leverages the centralized object property system to maintain consis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
+  - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (struct)
   - ObjectType (enum)
 - Called from (representative examples):
-  - ExecGrant_common
-  - object_aclmask_ext
-  - recordExtObjInitPriv
-  - AlterObjectOwner_internal
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [object_aclmask_ext](../o/object_aclmask_ext.md)
+  - [recordExtObjInitPriv](../r/recordExtObjInitPriv.md)
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

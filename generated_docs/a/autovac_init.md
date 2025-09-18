@@ -20,13 +20,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for warning message reporting)
-  - errmsg (error message formatting)
-  - errhint (hint message formatting)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [errhint](../e/errhint.md) (hint message formatting)
 - Global variables checked:
   - autovacuum_start_daemon (configuration variable)
   - pgstat_track_counts (configuration variable)
 - Called from:
-  - PostmasterMain (at src/backend/postmaster/postmaster.c:1301)
+  - [PostmasterMain](../P/PostmasterMain.md) (at src/backend/postmaster/postmaster.c:1301)
 
 ## Notes and Other Information
 - This function is part of the autovacuum subsystem initialization sequence

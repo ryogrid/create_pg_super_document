@@ -25,16 +25,16 @@ For set-returning functions, it supports two modes: explicit calls to `return_ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPI_connect_ext / SPI_finish (SPI connection management)
-  - compile_plperl_function (function compilation)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation)
   - increment_prodesc_refcount (reference counting)
-  - activate_interpreter (Perl interpreter management)
-  - plperl_call_perl_func (actual Perl execution)
-  - plperl_sv_to_datum (result conversion)
-  - get_perl_array_ref (array handling for SRFs)
-  - plperl_return_next_internal (set-returning function support)
-  - plperl_exec_callback (error context)
+  - [activate_interpreter](../a/activate_interpreter.md) (Perl interpreter management)
+  - [plperl_call_perl_func](plperl_call_perl_func.md) (actual Perl execution)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md) (result conversion)
+  - [get_perl_array_ref](../g/get_perl_array_ref.md) (array handling for SRFs)
+  - [plperl_return_next_internal](plperl_return_next_internal.md) (set-returning function support)
+  - [plperl_exec_callback](plperl_exec_callback.md) (error context)
 - Called from:
-  - plperl_call_handler
+  - [plperl_call_handler](plperl_call_handler.md)
 
 ## Notes and Other Information
 - Handles both atomic and non-atomic execution contexts appropriately

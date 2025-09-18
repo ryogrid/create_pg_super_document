@@ -23,7 +23,7 @@ The restoration process includes reading various types of statistics such as arc
 - Functions called/Symbols referenced:
   - pgstat_read_statsfile
 - Called from (representative examples):
-  - StartupXLOG (src/backend/access/transam/xlog.c:5640)
+  - [StartupXLOG](../S/StartupXLOG.md) (src/backend/access/transam/xlog.c:5640)
 
 ## Notes and Other Information
 - This function is part of the PostgreSQL statistics collection system

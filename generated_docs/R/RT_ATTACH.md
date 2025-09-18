@@ -20,9 +20,9 @@ This function attaches a backend process to an existing radix tree stored in sha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - CurrentMemoryContext
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
   - AllocSetContextCreate
   - RT_STR
   - RT_PREFIX

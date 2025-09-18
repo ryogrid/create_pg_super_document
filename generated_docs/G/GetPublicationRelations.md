@@ -25,23 +25,23 @@ The function opens the PublicationRelRelationId catalog table with AccessShareLo
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - GetPubPartitionOptionRelations
-  - list_sort
-  - list_oid_cmp
-  - list_deduplicate_oid
+  - [GetPubPartitionOptionRelations](GetPubPartitionOptionRelations.md)
+  - [list_sort](../l/list_sort.md)
+  - [list_oid_cmp](../l/list_oid_cmp.md)
+  - [list_deduplicate_oid](../l/list_deduplicate_oid.md)
   - Form_pg_publication_rel
-  - SysScanDesc
-  - PublicationPartOpt
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [PublicationPartOpt](../P/PublicationPartOpt.md)
 - Called from (representative examples):
   - NUM_PUBLICATION_TABLES_ELEM
-  - AlterPublicationOptions
-  - AlterPublicationTables
-  - AlterPublicationSchemas
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md)
+  - [AlterPublicationSchemas](../A/AlterPublicationSchemas.md)
 
 ## Notes and Other Information
 - Specifically for FOR TABLE publications only - do not use for FOR ALL TABLES publications

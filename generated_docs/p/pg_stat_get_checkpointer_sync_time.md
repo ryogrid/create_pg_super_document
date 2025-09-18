@@ -19,7 +19,7 @@ This SQL-callable function provides access to the checkpointer's sync time stati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_fetch_stat_checkpointer
+  - [pgstat_fetch_stat_checkpointer](pgstat_fetch_stat_checkpointer.md)
   - PG_RETURN_FLOAT8
 - Called from (representative examples):
   - SQL queries via the PostgreSQL function call interface

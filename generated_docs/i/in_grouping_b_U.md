@@ -30,13 +30,13 @@ This backward processing capability is crucial for stemming algorithms that need
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_b_utf8 (for backward UTF-8 character decoding)
-  - repeat (parameter used in control flow)
+  - [get_b_utf8](../g/get_b_utf8.md) (for backward UTF-8 character decoding)
+  - [repeat](../r/repeat.md) (parameter used in control flow)
 - Called from (representative examples):
-  - r_main_suffix (in various language stemmers)
-  - r_shortv (in English and Porter stemmers)
-  - r_Step_2 (in English stemmer)
-  - r_standard_suffix (in French, German, Yiddish stemmers)
+  - [r_main_suffix](../r/r_main_suffix.md) (in various language stemmers)
+  - [r_shortv](../r/r_shortv.md) (in English and Porter stemmers)
+  - [r_Step_2](../r/r_Step_2.md) (in English stemmer)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (in French, German, Yiddish stemmers)
 
 ## Notes and Other Information
 - Returns 0 on successful completion when repeat is true and all consecutive characters match

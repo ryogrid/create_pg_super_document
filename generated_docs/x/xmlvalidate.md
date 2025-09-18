@@ -21,8 +21,8 @@ This function was originally designed to validate XML documents against a Docume
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
   - ERROR (error level constant)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
   - ERRCODE_FEATURE_NOT_SUPPORTED (specific error code)
 - Called from (representative examples):
   - No current callers (function is disabled)

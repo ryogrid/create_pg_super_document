@@ -20,14 +20,14 @@ The returned pointer points to memory owned by the PGresult object and should no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGMessageField (struct type for error field storage)
+  - [PGMessageField](PGMessageField.md) (struct type for error field storage)
 - Called from (representative examples):
-  - libpqrcv_exec (replication error handling)
-  - BaseBackup (pg_basebackup error processing)
-  - minimal_error_message (psql error formatting)
-  - SetResultVariables (psql variable setting)
-  - pqBuildErrorMessage3 (internal error message construction)
-  - ecpg_raise_backend (ECPG error handling)
+  - [libpqrcv_exec](../l/libpqrcv_exec.md) (replication error handling)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup error processing)
+  - [minimal_error_message](../m/minimal_error_message.md) (psql error formatting)
+  - [SetResultVariables](../S/SetResultVariables.md) (psql variable setting)
+  - [pqBuildErrorMessage3](../p/pqBuildErrorMessage3.md) (internal error message construction)
+  - [ecpg_raise_backend](../e/ecpg_raise_backend.md) (ECPG error handling)
 
 ## Notes and Other Information
 - Returns NULL if the result is NULL or if the requested field code is not found

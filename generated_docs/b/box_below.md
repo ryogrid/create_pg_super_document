@@ -23,13 +23,13 @@ The function uses PostgreSQL's floating-point comparison function FPlt() to hand
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro for extracting BOX arguments)
-  - FPlt (floating-point less-than comparison)
+  - [FPlt](../F/FPlt.md) (floating-point less-than comparison)
   - PG_RETURN_BOOL (macro for returning boolean result)
-  - BOX (geometric box type)
+  - [BOX](../B/BOX.md) (geometric box type)
 - Called from (representative examples):
-  - gist_box_leaf_consistent (GiST index consistency checking)
-  - rtree_internal_consistent (R-tree internal node consistency)
-  - spg_box_quad_leaf_consistent (SP-GiST quad-tree leaf consistency)
+  - [gist_box_leaf_consistent](../g/gist_box_leaf_consistent.md) (GiST index consistency checking)
+  - [rtree_internal_consistent](../r/rtree_internal_consistent.md) (R-tree internal node consistency)
+  - [spg_box_quad_leaf_consistent](../s/spg_box_quad_leaf_consistent.md) (SP-GiST quad-tree leaf consistency)
 
 ## Notes and Other Information
 - This is one of the directional positioning operators for PostgreSQL's box geometric type

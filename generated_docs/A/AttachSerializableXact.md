@@ -21,10 +21,10 @@ The function performs validation to ensure the worker doesn't already have an ac
 - Functions called/Symbols referenced:
   - MySerializableXact (global variable)
   - InvalidSerializableXact (constant)
-  - SERIALIZABLEXACT (type cast)
-  - CreateLocalPredicateLockHash (function call)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md) (type cast)
+  - [CreateLocalPredicateLockHash](../C/CreateLocalPredicateLockHash.md) (function call)
 - Called from (representative examples):
-  - ParallelWorkerMain (in src/backend/access/transam/parallel.c:1538)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (in src/backend/access/transam/parallel.c:1538)
 
 ## Notes and Other Information
 - The function includes an Assert to ensure MySerializableXact is InvalidSerializableXact, meaning the worker must not already have an active serializable transaction

@@ -24,11 +24,11 @@ When creating a modified copy, the function updates all type-dependent attribute
 - Functions called/Symbols referenced:
   - RelationGetDescr (get relation's tuple descriptor)
   - TupleDescAttr (access tuple descriptor attributes)
-  - CreateTupleDescCopy (create copy of tuple descriptor)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (create copy of tuple descriptor)
   - Constants: spgKeyColumn, spgFirstIncludeColumn, InvalidCompressionMethod, InvalidOid
 - Called from (representative examples):
-  - spgbeginscan (at src/backend/access/spgist/spgscan.c:333)
-  - initSpGistState (at src/backend/access/spgist/spgutils.c:356)
+  - [spgbeginscan](../s/spgbeginscan.md) (at src/backend/access/spgist/spgscan.c:333)
+  - [initSpGistState](../i/initSpGistState.md) (at src/backend/access/spgist/spgutils.c:356)
 
 ## Notes and Other Information
 - Located in src/backend/access/spgist/spgutils.c:309-339

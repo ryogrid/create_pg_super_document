@@ -29,14 +29,14 @@ The implementation works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
+  - [bms_is_valid_set](bms_is_valid_set.md)
   - bmw_leftmost_one_pos
   - WORDNUM (macro)
   - BITNUM (macro)  
   - BITS_PER_BITMAPWORD (constant)
   - bitmapword (type)
 - Called from (examples):
-  - choose_next_subplan_locally
+  - [choose_next_subplan_locally](../c/choose_next_subplan_locally.md)
   - bms_is_empty (header usage)
 
 ## Notes and Other Information

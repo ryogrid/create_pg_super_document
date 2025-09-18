@@ -21,11 +21,11 @@ For MD5 authentication, the function performs double MD5 hashing: first hashing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetnchar
+  - [pqGetnchar](pqGetnchar.md)
   - malloc
-  - pg_md5_encrypt
-  - pqPacketSend
-  - libpq_append_conn_error
+  - [pg_md5_encrypt](pg_md5_encrypt.md)
+  - [pqPacketSend](pqPacketSend.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - free
   - strlen
 - Constants used:

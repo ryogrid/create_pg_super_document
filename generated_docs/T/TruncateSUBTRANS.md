@@ -22,12 +22,12 @@ All SUBTRANS pages before the cutoff page are removed using SimpleLruTruncate, f
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdRetreat
-  - TransactionIdToPage  
-  - SimpleLruTruncate
+  - [TransactionIdToPage](TransactionIdToPage.md)  
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md)
   - SubTransCtl
 - Called from (representative examples):
-  - CreateCheckPoint (during regular checkpoints)
-  - CreateRestartPoint (during recovery restart points)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (during regular checkpoints)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (during recovery restart points)
 
 ## Notes and Other Information
 - Only called during checkpoint operations for safety

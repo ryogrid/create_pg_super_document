@@ -21,13 +21,13 @@ The cleanup process traverses the singly-linked list of footers, freeing both th
 - Functions called/Symbols referenced:
   - free (standard C library function)
   - unconstify (PostgreSQL utility macro for removing const qualifiers)
-  - printTableFooter (structure type for footer cleanup)
+  - [printTableFooter](printTableFooter.md) (structure type for footer cleanup)
 - Called from (representative examples):
-  - printCrosstab (crosstabview.c)
-  - describeOneTableDetails (describe.c)
-  - describeRoles (describe.c)
-  - describePublications (describe.c)
-  - printQuery (print.c)
+  - [printCrosstab](printCrosstab.md) (crosstabview.c)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (describe.c)
+  - [describeRoles](../d/describeRoles.md) (describe.c)
+  - [describePublications](../d/describePublications.md) (describe.c)
+  - [printQuery](printQuery.md) (print.c)
 
 ## Notes and Other Information
 - Handles selective cell cleanup using the cellmustfree array to determine which cells need freeing

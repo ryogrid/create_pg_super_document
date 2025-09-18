@@ -25,24 +25,24 @@ This function handles the critical task of re-creating database objects (indexes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - raw_parser
-  - transformIndexStmt
-  - transformAlterTableStmt
-  - transformStatsStmt
-  - list_concat
-  - relation_open
-  - relation_close
-  - ATGetQueueEntry
-  - TryReuseIndex
-  - TryReuseForeignKey
-  - GetComment
-  - RebuildConstraintComment
-  - get_constraint_index
+  - [raw_parser](../r/raw_parser.md)
+  - [transformIndexStmt](../t/transformIndexStmt.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
+  - [transformStatsStmt](../t/transformStatsStmt.md)
+  - [list_concat](../l/list_concat.md)
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)
+  - [ATGetQueueEntry](ATGetQueueEntry.md)
+  - [TryReuseIndex](../T/TryReuseIndex.md)
+  - [TryReuseForeignKey](../T/TryReuseForeignKey.md)
+  - [GetComment](../G/GetComment.md)
+  - [RebuildConstraintComment](../R/RebuildConstraintComment.md)
+  - [get_constraint_index](../g/get_constraint_index.md)
   - makeNode
   - castNode
   - Various node types (IndexStmt, AlterTableStmt, CreateStatsStmt, etc.)
 - Called from (representative examples):
-  - ATPostAlterTypeCleanup (multiple calls)
+  - [ATPostAlterTypeCleanup](ATPostAlterTypeCleanup.md) (multiple calls)
   - child_dependency_type
 
 ## Notes and Other Information

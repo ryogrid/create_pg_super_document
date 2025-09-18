@@ -22,18 +22,18 @@ The function ensures that all variable references have been properly processed b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - expression_tree_walker
-  - find_cols_walker (recursive)
+  - [find_cols_walker](find_cols_walker.md) (recursive)
 - Types referenced:
-  - Node
-  - FindColsContext
+  - [Node](../N/Node.md)
+  - [FindColsContext](../F/FindColsContext.md)
   - Var
   - Aggref
   - OUTER_VAR
 - Called from (representative examples):
-  - find_cols
-  - find_cols_walker (recursive calls)
+  - [find_cols](find_cols.md)
+  - [find_cols_walker](find_cols_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - Follows PostgreSQL's standard tree walker pattern by returning false to continue traversal

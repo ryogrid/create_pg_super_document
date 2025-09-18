@@ -18,10 +18,10 @@ The `slice_check` function is a validation utility that verifies the integrity o
 ## Dependencies
 - Functions called/Symbols referenced:
   - SIZE (macro for getting buffer size)
-  - debug (debugging function, conditionally compiled)
+  - [debug](../d/debug.md) (debugging function, conditionally compiled)
 - Called from (representative examples):
-  - slice_from_s
-  - slice_to
+  - [slice_from_s](slice_from_s.md)
+  - [slice_to](slice_to.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the utilities.c file

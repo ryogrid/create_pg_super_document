@@ -28,14 +28,14 @@ The implementation leverages the fact that all supported server encodings allow 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pnstrdup`: Creates a duplicate string with maximum length limit
-  - `pg_mbcliplen`: Determines safe clipping position for multi-byte strings
+  - `[pnstrdup](pnstrdup.md)`: Creates a duplicate string with maximum length limit
+  - `[pg_mbcliplen](pg_mbcliplen.md)`: Determines safe clipping position for multi-byte strings
   - `pgstat_track_activity_query_size`: Global variable defining the maximum activity string size
 
 - Called from (representative examples):
   - `pgstat_get_backend_current_activity` (src/backend/utils/activity/backend_status.c:935)
   - `PG_STAT_GET_ACTIVITY_COLS` (src/backend/utils/adt/pgstatfuncs.c:392)
-  - `pg_stat_get_backend_activity` (src/backend/utils/adt/pgstatfuncs.c:758)
+  - `[pg_stat_get_backend_activity](pg_stat_get_backend_activity.md)` (src/backend/utils/adt/pgstatfuncs.c:758)
 
 ## Notes and Other Information
 - The returned string is allocated in the caller's memory context and may be freed by the caller

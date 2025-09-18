@@ -52,18 +52,18 @@ JsonLexContext is the core lexical context structure used throughout PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTokenType
+  - [JsonTokenType](JsonTokenType.md)
   - bits32
   - JsonParserStack
   - JsonIncrementalState
 - Called from (representative examples):
-  - makeJsonLexContextCstringLen
+  - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md)
   - makeJsonLexContextIncremental
-  - pg_parse_json
+  - [pg_parse_json](../p/pg_parse_json.md)
   - json_lex
-  - parse_scalar
-  - json_in
-  - jsonb_from_cstring
+  - [parse_scalar](../p/parse_scalar.md)
+  - [json_in](../j/json_in.md)
+  - [jsonb_from_cstring](../j/jsonb_from_cstring.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's JSON processing capabilities and is used across multiple modules including json.c, jsonb.c, jsonfuncs.c, and the common jsonapi.c. It supports both complete and incremental parsing modes, with the incremental flag and inc_state member enabling streaming JSON processing. The structure includes comprehensive error tracking with line numbers and position information for detailed error reporting. The pstack member enables proper handling of nested JSON structures by maintaining the parsing context stack.

@@ -38,14 +38,14 @@ The rows field typically matches parent->rows for simple paths but may be less f
 - Functions called/Symbols referenced:
   - NodeTag (for type and pathtype identification)
   - RelOptInfo (parent relation information)
-  - PathTarget (output column specifications)
-  - ParamPathInfo (parameterization information)
+  - [PathTarget](PathTarget.md) (output column specifications)
+  - [ParamPathInfo](ParamPathInfo.md) (parameterization information)
   - Cardinality (rowcount estimates)
   - Cost (cost estimation values)
-  - List (PostgreSQL's list structure for pathkeys)
+  - [List](../L/List.md) (PostgreSQL's list structure for pathkeys)
 
 - Called from (representative examples):
-  - Path is a base structure used throughout the optimizer
+  - [Path](Path.md) is a base structure used throughout the optimizer
   - Extended by specialized path types like IndexPath, NestPath, HashPath, etc.
   - Used in cost estimation functions across src/backend/optimizer/path/costsize.c
   - Referenced in path creation functions in src/backend/optimizer/util/pathnode.c

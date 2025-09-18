@@ -30,23 +30,23 @@ The function intelligently handles parallel execution by determining the optimal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - accumulate_append_subpath (accumulates paths from children for append path creation)
-  - get_cheapest_parallel_safe_total_inner (finds cheapest parallel-safe non-partial path)
+  - [accumulate_append_subpath](accumulate_append_subpath.md) (accumulates paths from children for append path creation)
+  - [get_cheapest_parallel_safe_total_inner](../g/get_cheapest_parallel_safe_total_inner.md) (finds cheapest parallel-safe non-partial path)
   - PATH_REQ_OUTER (macro to extract required outer relations from path)
-  - compare_pathkeys (compares two pathkey lists for equivalence)
-  - create_append_path (creates AppendPath node with specified subpaths)
-  - generate_orderedappend_paths (creates ordered append paths for different orderings)
-  - get_cheapest_parameterized_child_path (finds cheapest path with specific parameterization)
-  - add_path/add_partial_path (adds paths to relation's pathlist)
+  - [compare_pathkeys](../c/compare_pathkeys.md) (compares two pathkey lists for equivalence)
+  - [create_append_path](../c/create_append_path.md) (creates AppendPath node with specified subpaths)
+  - [generate_orderedappend_paths](../g/generate_orderedappend_paths.md) (creates ordered append paths for different orderings)
+  - [get_cheapest_parameterized_child_path](../g/get_cheapest_parameterized_child_path.md) (finds cheapest path with specific parameterization)
+  - [add_path](add_path.md)/add_partial_path (adds paths to relation's pathlist)
 - Called from (representative examples):
-  - set_append_rel_pathlist (main append relation path generation)
-  - generate_partitionwise_join_paths (partitionwise join optimization)
-  - create_partitionwise_grouping_paths (partitionwise grouping optimization)
+  - [set_append_rel_pathlist](../s/set_append_rel_pathlist.md) (main append relation path generation)
+  - [generate_partitionwise_join_paths](../g/generate_partitionwise_join_paths.md) (partitionwise join optimization)
+  - [create_partitionwise_grouping_paths](../c/create_partitionwise_grouping_paths.md) (partitionwise grouping optimization)
 
 ## Notes and Other Information
 - The function implements sophisticated parallel execution planning by calculating optimal worker counts using logarithmic scaling based on child count
 - It handles both pure partial paths and mixed partial/non-partial paths for parallel append execution
 - Special optimization exists for single-child append relations to inherit ordering from child paths
 - The function collects all unique parameterizations and orderings from children to avoid redundant path creation
-- Path validation ensures that only feasible combinations of child paths are used in append path construction
+- [Path](../P/Path.md) validation ensures that only feasible combinations of child paths are used in append path construction
 - Parallel append is enabled when both the global setting and relation's parallel safety allow it

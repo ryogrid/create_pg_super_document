@@ -27,7 +27,7 @@ The underlying comparison logic in `float8_lt` implements the rule that:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 arguments)
-  - float8_lt (inline helper function for the actual comparison)
+  - [float8_lt](float8_lt.md) (inline helper function for the actual comparison)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):
   - SQL queries using the < operator with float8 operands

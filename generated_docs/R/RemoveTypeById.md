@@ -25,15 +25,15 @@ This function is typically called indirectly through the dependency management s
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_type system catalog with appropriate locking
-  - SearchSysCache1: Locates the type tuple in the system cache
-  - CatalogTupleDelete: Removes the type tuple from the catalog
-  - EnumValuesDelete: Removes pg_enum entries for enum types
-  - RangeDelete: Removes pg_range entries for range types
-  - ReleaseSysCache: Releases the cached tuple
+  - [SearchSysCache1](../S/SearchSysCache1.md): Locates the type tuple in the system cache
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Removes the type tuple from the catalog
+  - [EnumValuesDelete](../E/EnumValuesDelete.md): Removes pg_enum entries for enum types
+  - [RangeDelete](RangeDelete.md): Removes pg_range entries for range types
+  - [ReleaseSysCache](ReleaseSysCache.md): Releases the cached tuple
   - table_close: Closes the catalog relation
 
 - Called from (representative examples):
-  - doDeletion: Main dependency system deletion handler
+  - [doDeletion](../d/doDeletion.md): Main dependency system deletion handler
 
 ## Notes and Other Information
 - This is a low-level catalog manipulation function that should not be called directly

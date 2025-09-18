@@ -28,20 +28,20 @@ This approach ensures that database resources are properly released and that no 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQtransactionStatus (check transaction state)
-  - PQcancelCreate (create cancellation handle)
-  - PQcancelBlocking (execute cancellation)
-  - PQcancelFinish (cleanup cancellation handle)
-  - PQfinish (close connection)
+  - [PQcancelCreate](../P/PQcancelCreate.md) (create cancellation handle)
+  - [PQcancelBlocking](../P/PQcancelBlocking.md) (execute cancellation)
+  - [PQcancelFinish](../P/PQcancelFinish.md) (cleanup cancellation handle)
+  - [PQfinish](../P/PQfinish.md) (close connection)
   - Assert (debug assertion)
   - PQTRANS_ACTIVE (transaction status constant)
   - PGcancelConn (cancellation connection type)
 - Called from (representative examples):
-  - main (in pg_amcheck - multiple locations)
-  - compile_database_list
-  - compile_relation_list_one_db
-  - ParallelSlotsGetIdle
-  - ParallelSlotsAdoptConn
-  - ParallelSlotsTerminate
+  - [main](../m/main.md) (in pg_amcheck - multiple locations)
+  - [compile_database_list](../c/compile_database_list.md)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md)
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md)
+  - [ParallelSlotsAdoptConn](../P/ParallelSlotsAdoptConn.md)
+  - [ParallelSlotsTerminate](../P/ParallelSlotsTerminate.md)
 
 ## Notes and Other Information
 - Essential for preventing connection leaks in PostgreSQL client applications

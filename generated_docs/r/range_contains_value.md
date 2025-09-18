@@ -31,17 +31,17 @@ The function can operate in two modes controlled by the  parameter:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_matching_range
-  - minmax_multi_get_strategy_procinfo
+  - [has_matching_range](../h/has_matching_range.md)
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
   - bsearch_arg
-  - compare_values
-  - FunctionCall2Coll
-  - BrinDesc
-  - Ranges
-  - compare_context
+  - [compare_values](../c/compare_values.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [BrinDesc](../B/BrinDesc.md)
+  - [Ranges](../R/Ranges.md)
+  - [compare_context](../c/compare_context.md)
 
 - Called from (representative examples):
-  - range_add_value
+  - [range_add_value](range_add_value.md)
 
 ## Notes and Other Information
 - Uses a threshold of 16 sorted values to switch between linear and binary search

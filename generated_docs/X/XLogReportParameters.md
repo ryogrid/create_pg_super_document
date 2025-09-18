@@ -30,16 +30,16 @@ This function takes no parameters but monitors these critical GUC parameters:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogIsNeeded
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
-  - XLogFlush
+  - [XLogBeginInsert](XLogBeginInsert.md)
+  - [XLogRegisterData](XLogRegisterData.md)
+  - [XLogInsert](XLogInsert.md)
+  - [XLogFlush](XLogFlush.md)
   - UpdateControlFile
-  - xl_parameter_change (struct type)
+  - [xl_parameter_change](../x/xl_parameter_change.md) (struct type)
   - XLOG_PARAMETER_CHANGE (record type)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - This function is static and only called internally within the WAL subsystem

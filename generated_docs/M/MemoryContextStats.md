@@ -19,11 +19,11 @@ This function serves as a convenient wrapper around MemoryContextStatsDetail, pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextStatsDetail
+  - [MemoryContextStatsDetail](MemoryContextStatsDetail.md)
 - Called from (representative examples):
-  - finish_xact_command (transaction cleanup debugging)
-  - MemoryContextAllocationFailure (error reporting)
-  - AllocSetContextCreateInternal (context creation debugging)
+  - [finish_xact_command](../f/finish_xact_command.md) (transaction cleanup debugging)
+  - [MemoryContextAllocationFailure](MemoryContextAllocationFailure.md) (error reporting)
+  - [AllocSetContextCreateInternal](../A/AllocSetContextCreateInternal.md) (context creation debugging)
   - Various test functions for memory validation
 
 ## Notes and Other Information

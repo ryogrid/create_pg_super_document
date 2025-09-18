@@ -18,13 +18,13 @@ The oidout function is responsible for converting PostgreSQL's internal OID repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc: PostgreSQL memory allocation function to allocate space for the result string
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function to allocate space for the result string
   - snprintf: Standard C library function to format the OID as a decimal string
   - PG_RETURN_CSTRING: Macro to return the formatted string result
 - Called from (representative examples):
-  - plperl_trigger_build_args: Used in PL/Perl trigger argument construction
-  - PLy_trigger_build_args: Used in PL/Python trigger argument construction
-  - pltcl_trigger_handler: Used in PL/Tcl trigger handling
+  - [plperl_trigger_build_args](../p/plperl_trigger_build_args.md): Used in PL/Perl trigger argument construction
+  - [PLy_trigger_build_args](../P/PLy_trigger_build_args.md): Used in PL/Python trigger argument construction
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md): Used in PL/Tcl trigger handling
 
 ## Notes and Other Information
 - This function is registered as the output function for the OID data type in PostgreSQL's type system

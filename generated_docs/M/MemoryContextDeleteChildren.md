@@ -22,13 +22,13 @@ This function is commonly used in cleanup scenarios where the main context needs
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemoryContextIsValid
-  - MemoryContextDelete
+  - [MemoryContextDelete](MemoryContextDelete.md)
 - Called from (representative examples):
-  - PersistHoldablePortal
-  - PortalRunMulti
-  - RelationCloseCleanup
-  - MemoryContextReset
-  - AtAbort_Portals
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
+  - [PortalRunMulti](../P/PortalRunMulti.md)
+  - [RelationCloseCleanup](../R/RelationCloseCleanup.md)
+  - [MemoryContextReset](MemoryContextReset.md)
+  - [AtAbort_Portals](../A/AtAbort_Portals.md)
 
 ## Notes and Other Information
 - The function includes an assertion to validate that the input context is valid before proceeding

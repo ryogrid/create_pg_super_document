@@ -32,29 +32,29 @@ The function builds a processing pipeline by chaining together appropriate bbstr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_extractor_new (creates directory extraction streamer)
-  - bbstreamer_plain_writer_new (creates plain file writer)
-  - bbstreamer_gzip_writer_new (creates gzip compression writer)
-  - bbstreamer_lz4_compressor_new (creates lz4 compressor)
-  - bbstreamer_zstd_compressor_new (creates zstd compressor)
-  - bbstreamer_tar_archiver_new (creates tar archive writer)
-  - bbstreamer_tar_parser_new (creates tar parser)
-  - bbstreamer_tar_terminator_new (creates tar terminator)
-  - bbstreamer_gzip_decompressor_new (creates gzip decompressor)
-  - bbstreamer_lz4_decompressor_new (creates lz4 decompressor)
-  - bbstreamer_zstd_decompressor_new (creates zstd decompressor)
-  - bbstreamer_recovery_injector_new (creates recovery configuration injector)
-  - get_tablespace_mapping (maps tablespace paths)
+  - [bbstreamer_extractor_new](../b/bbstreamer_extractor_new.md) (creates directory extraction streamer)
+  - [bbstreamer_plain_writer_new](../b/bbstreamer_plain_writer_new.md) (creates plain file writer)
+  - [bbstreamer_gzip_writer_new](../b/bbstreamer_gzip_writer_new.md) (creates gzip compression writer)
+  - [bbstreamer_lz4_compressor_new](../b/bbstreamer_lz4_compressor_new.md) (creates lz4 compressor)
+  - [bbstreamer_zstd_compressor_new](../b/bbstreamer_zstd_compressor_new.md) (creates zstd compressor)
+  - [bbstreamer_tar_archiver_new](../b/bbstreamer_tar_archiver_new.md) (creates tar archive writer)
+  - [bbstreamer_tar_parser_new](../b/bbstreamer_tar_parser_new.md) (creates tar parser)
+  - [bbstreamer_tar_terminator_new](../b/bbstreamer_tar_terminator_new.md) (creates tar terminator)
+  - [bbstreamer_gzip_decompressor_new](../b/bbstreamer_gzip_decompressor_new.md) (creates gzip decompressor)
+  - [bbstreamer_lz4_decompressor_new](../b/bbstreamer_lz4_decompressor_new.md) (creates lz4 decompressor)
+  - [bbstreamer_zstd_decompressor_new](../b/bbstreamer_zstd_decompressor_new.md) (creates zstd decompressor)
+  - [bbstreamer_recovery_injector_new](../b/bbstreamer_recovery_injector_new.md) (creates recovery configuration injector)
+  - [get_tablespace_mapping](../g/get_tablespace_mapping.md) (maps tablespace paths)
   - is_absolute_path (checks if path is absolute)
-  - progress_update_filename (updates progress reporting filename)
+  - [progress_update_filename](../p/progress_update_filename.md) (updates progress reporting filename)
   - strlcat (string concatenation function)
   - pg_log_error (error logging function)
   - pg_log_error_hint (error hint logging function)
   - pg_log_error_detail (error detail logging function)
 - Called from (representative examples):
   - CompressionLocation
-  - ReceiveArchiveStreamChunk
-  - ReceiveTarFile
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)
+  - [ReceiveTarFile](../R/ReceiveTarFile.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within pg_basebackup.c

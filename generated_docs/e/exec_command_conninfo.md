@@ -20,16 +20,16 @@ When connected via Unix socket, it displays the socket path, but if a hostaddr i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQdb: Gets the database name from the connection
-  - PQhost: Gets the host name from the connection
-  - PQhostaddr: Gets the host address from the connection
-  - PQuser: Gets the username from the connection
-  - PQport: Gets the port from the connection
-  - is_unixsock_path: Checks if the host path is a Unix socket
-  - printSSLInfo: Displays SSL connection information
-  - printGSSInfo: Displays GSS authentication information
+  - [PQdb](../P/PQdb.md): Gets the database name from the connection
+  - [PQhost](../P/PQhost.md): Gets the host name from the connection
+  - [PQhostaddr](../P/PQhostaddr.md): Gets the host address from the connection
+  - [PQuser](../P/PQuser.md): Gets the username from the connection
+  - [PQport](../P/PQport.md): Gets the port from the connection
+  - [is_unixsock_path](../i/is_unixsock_path.md): Checks if the host path is a Unix socket
+  - [printSSLInfo](../p/printSSLInfo.md): Displays SSL connection information
+  - [printGSSInfo](../p/printGSSInfo.md): Displays GSS authentication information
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Always returns PSQL_CMD_SKIP_LINE regardless of success/failure

@@ -32,15 +32,15 @@ The function performs careful overflow checking when computing dimension sizes t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadDimensionInt
-  - scanner_isspace
-  - pg_sub_s32_overflow
-  - pg_add_s32_overflow
+  - [ReadDimensionInt](ReadDimensionInt.md)
+  - [scanner_isspace](../s/scanner_isspace.md)
+  - [pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
   - ereturn (error handling macros)
   - MAXDIM
   - MaxArraySize
 - Called from (representative examples):
-  - array_in
+  - [array_in](../a/array_in.md)
 
 ## Notes and Other Information
 - Static function internal to arrayfuncs.c

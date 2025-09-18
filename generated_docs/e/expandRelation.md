@@ -31,15 +31,15 @@ This design encapsulates the relation access logic and provides a clean interfac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open (opens relation with specified lock)
-  - relation_close (closes relation and releases lock)
-  - expandTupleDesc (performs actual tuple descriptor expansion)
+  - [relation_open](../r/relation_open.md) (opens relation with specified lock)
+  - [relation_close](../r/relation_close.md) (closes relation and releases lock)
+  - [expandTupleDesc](expandTupleDesc.md) (performs actual tuple descriptor expansion)
 - Data structures used:
-  - Relation (relation descriptor)
-  - Alias (alias information)
-  - TupleDesc (accessed via rel->rd_att)
+  - [Relation](../R/Relation.md) (relation descriptor)
+  - [Alias](../A/Alias.md) (alias information)
+  - [TupleDesc](../T/TupleDesc.md) (accessed via rel->rd_att)
 - Called from:
-  - expandRTE (for RTE_RELATION case processing)
+  - [expandRTE](expandRTE.md) (for RTE_RELATION case processing)
 
 ## Notes and Other Information
 - Uses AccessShareLock which is the lightest lock level, appropriate for reading metadata without blocking concurrent operations

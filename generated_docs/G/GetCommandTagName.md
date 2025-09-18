@@ -22,11 +22,11 @@ The function performs a direct array lookup using the commandTag as an index int
   - CommandTag (enum type)
   - tag_behavior (static array of CommandTagBehavior structs)
 - Called from (representative examples):
-  - EventTriggerCommonSetup (src/backend/commands/event_trigger.c:669, 674)
-  - interpret_AS_clause (src/backend/commands/functioncmds.c:940, 959)
-  - SPI_cursor_open_internal (src/backend/executor/spi.c:1608)
-  - _SPI_execute_plan (src/backend/executor/spi.c:2566)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:578, 580, 582)
+  - [EventTriggerCommonSetup](../E/EventTriggerCommonSetup.md) (src/backend/commands/event_trigger.c:669, 674)
+  - [interpret_AS_clause](../i/interpret_AS_clause.md) (src/backend/commands/functioncmds.c:940, 959)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (src/backend/executor/spi.c:1608)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md) (src/backend/executor/spi.c:2566)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:578, 580, 582)
   - CopyQueryCompletion (src/include/tcop/cmdtag.h:53)
 
 ## Notes and Other Information

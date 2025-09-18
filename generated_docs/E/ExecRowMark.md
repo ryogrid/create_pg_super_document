@@ -27,13 +27,13 @@ ExecRowMark manages row locking during the execution of queries with FOR [KEY] U
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowMarkType (enum type)
+  - [RowMarkType](../R/RowMarkType.md) (enum type)
   - LockClauseStrength (enum type)
   - LockWaitPolicy (enum type)
 - Called from (representative examples):
-  - InitPlan (src/backend/executor/execMain.c:855)
-  - ExecFindRowMark (src/backend/executor/execMain.c:2384)
-  - ExecLockRows (src/backend/executor/nodeLockRows.c:78)
+  - [InitPlan](../I/InitPlan.md) (src/backend/executor/execMain.c:855)
+  - [ExecFindRowMark](ExecFindRowMark.md) (src/backend/executor/execMain.c:2384)
+  - [ExecLockRows](ExecLockRows.md) (src/backend/executor/nodeLockRows.c:78)
 
 ## Notes and Other Information
 ExecRowMark is essential for implementing PostgreSQL's multi-version concurrency control (MVCC) locking semantics. It works closely with the row locking infrastructure to ensure proper isolation levels are maintained during concurrent access. The structure is designed to handle complex scenarios including inheritance hierarchies, foreign tables (via ermExtra), and various lock strengths and wait policies. Virtual relations like subqueries have a NULL relation pointer but still participate in the locking protocol for consistency.

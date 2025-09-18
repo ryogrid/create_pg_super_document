@@ -26,19 +26,19 @@ The function examines both incoming and outgoing foreign key relationships and e
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelationName
-  - GetRelationPublications
+  - [GetRelationPublications](../G/GetRelationPublications.md)
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - relation_open
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [relation_open](../r/relation_open.md)
   - RelationIsPermanent
-  - relation_close
-  - systable_endscan
+  - [relation_close](../r/relation_close.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 
 - Called from (representative examples):
-  - ATPrepCmd (ALTER TABLE command preparation phase)
+  - [ATPrepCmd](ATPrepCmd.md) (ALTER TABLE command preparation phase)
 
 ## Notes and Other Information
 - Returns false if the operation is a no-op, true if the change should proceed
@@ -48,4 +48,4 @@ The function examines both incoming and outgoing foreign key relationships and e
 - The function maintains PostgreSQL's invariant that permanent tables cannot reference unlogged tables
 - Uses AccessShareLock when examining constraint and foreign table information
 - Self-referencing foreign keys are explicitly allowed and ignored during validation
-- Publication membership is only checked when changing to UNLOGGED since that's the restriction
+- [Publication](../P/Publication.md) membership is only checked when changing to UNLOGGED since that's the restriction

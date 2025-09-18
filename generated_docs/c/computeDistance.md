@@ -30,13 +30,13 @@ This optimization is crucial for efficient index traversal during distance-order
 ## Dependencies
 - Functions called/Symbols referenced:
   - `point_point_distance`: Calculates Euclidean distance between two points
-  - `float8_mi`: Floating-point subtraction utility function
-  - `BOX`: Bounding box structure type
-  - `Point`: Point coordinate structure type
+  - `[float8_mi](../f/float8_mi.md)`: Floating-point subtraction utility function
+  - `[BOX](../B/BOX.md)`: Bounding box structure type
+  - `[Point](../P/Point.md)`: Point coordinate structure type
   - `elog`: Error logging for consistency checks
 - Called from (representative examples):
-  - `gist_point_distance`: Distance calculation for point queries
-  - `gist_bbox_distance`: Distance calculation for bounding box queries
+  - `[gist_point_distance](../g/gist_point_distance.md)`: Distance calculation for point queries
+  - `[gist_bbox_distance](../g/gist_bbox_distance.md)`: Distance calculation for bounding box queries
 
 ## Notes and Other Information
 - Uses different algorithms optimized for leaf vs. internal node distance calculation

@@ -20,22 +20,22 @@ This function performs the recovery replay of transaction commit operations duri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdLatest
+  - [TransactionIdLatest](../T/TransactionIdLatest.md)
   - AdvanceNextFullTransactionIdPastXid
-  - TransactionTreeSetCommitTsData
-  - TransactionIdCommitTree
-  - RecordKnownAssignedTransactionIds
-  - TransactionIdAsyncCommitTree
+  - [TransactionTreeSetCommitTsData](../T/TransactionTreeSetCommitTsData.md)
+  - [TransactionIdCommitTree](../T/TransactionIdCommitTree.md)
+  - [RecordKnownAssignedTransactionIds](../R/RecordKnownAssignedTransactionIds.md)
+  - [TransactionIdAsyncCommitTree](../T/TransactionIdAsyncCommitTree.md)
   - ExpireTreeKnownAssignedTransactionIds
-  - ProcessCommittedInvalidationMessages
+  - [ProcessCommittedInvalidationMessages](../P/ProcessCommittedInvalidationMessages.md)
   - StandbyReleaseLockTree
-  - replorigin_advance
-  - DropRelationFiles
+  - [replorigin_advance](../r/replorigin_advance.md)
+  - [DropRelationFiles](../D/DropRelationFiles.md)
   - pgstat_execute_transactional_drops
-  - XLogFlush
-  - XLogRequestWalReceiverReply
+  - [XLogFlush](../X/XLogFlush.md)
+  - [XLogRequestWalReceiverReply](../X/XLogRequestWalReceiverReply.md)
 - Called from (representative examples):
-  - xact_redo (for both XLOG_XACT_COMMIT and XLOG_XACT_COMMIT_PREPARED)
+  - [xact_redo](xact_redo.md) (for both XLOG_XACT_COMMIT and XLOG_XACT_COMMIT_PREPARED)
 
 ## Notes and Other Information
 The function's execution order is critical, as noted in the comment that it was much shorter before version 9.0. During hot standby recovery, it uses async commit protocol to ensure consistency with hint bits and maintains proper ordering of clog updates before ProcArray updates. The function includes special handling for forced sync commits and apply feedback for synchronous replication scenarios. File drops and statistics operations are protected by XLogFlush calls to maintain WAL-first rule compliance.

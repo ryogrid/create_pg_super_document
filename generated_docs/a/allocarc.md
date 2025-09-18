@@ -29,7 +29,7 @@ The allocarc function implements a sophisticated memory allocation strategy for 
   - MAXABSIZE (maximum arc batch size constant)
   - ARCBATCHSIZE (macro for calculating batch size)
 - Called from (representative examples):
-  - createarc (the primary caller for arc creation)
+  - [createarc](../c/createarc.md) (the primary caller for arc creation)
 
 ## Notes and Other Information
 - Uses a three-tier memory allocation strategy for optimal performance

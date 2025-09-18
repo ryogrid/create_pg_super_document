@@ -21,21 +21,21 @@ The function also handles proper file closure and optional file synchronization 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext (local context structure type)
+  - [lclContext](../l/lclContext.md) (local context structure type)
   - pgoff_t (PostgreSQL offset type)
   - archModeWrite (archive mode constant)
-  - WriteHead (writes archive header)
+  - [WriteHead](../W/WriteHead.md) (writes archive header)
   - ftello (gets current file position)
-  - WriteToc (writes table of contents)
-  - WriteDataChunks (writes all data and large objects)
+  - [WriteToc](../W/WriteToc.md) (writes table of contents)
+  - [WriteDataChunks](../W/WriteDataChunks.md) (writes all data and large objects)
   - fseeko (seeks to specific file position)
   - fclose (closes the file)
-  - fsync_fname (synchronizes file to disk)
+  - [fsync_fname](../f/fsync_fname.md) (synchronizes file to disk)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (custom format initialization)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (custom format initialization)
   - lclTocEntry (directory format TOC entry handling)
-  - InitArchiveFmt_Directory (directory format initialization)  
-  - InitArchiveFmt_Null (null format initialization)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (directory format initialization)  
+  - [InitArchiveFmt_Null](../I/InitArchiveFmt_Null.md) (null format initialization)
 
 ## Notes and Other Information
 - This is a static function specific to the custom archive format implementation

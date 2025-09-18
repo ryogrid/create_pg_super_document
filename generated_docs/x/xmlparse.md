@@ -24,11 +24,11 @@ If parsing fails, the xml_parse function will report appropriate errors. If pars
 ## Dependencies
 - Functions called/Symbols referenced:
   - xml_parse (core XML parsing and validation)
-  - GetDatabaseEncoding (database encoding retrieval)
-  - xmltype (data type for XML values)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding retrieval)
+  - [xmltype](xmltype.md) (data type for XML values)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (expression evaluation in executor)
-  - texttoxml (text to XML conversion function)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (expression evaluation in executor)
+  - [texttoxml](../t/texttoxml.md) (text to XML conversion function)
   - PG_RETURN_XML_P (via macro usage)
 
 ## Notes and Other Information

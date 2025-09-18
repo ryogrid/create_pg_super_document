@@ -24,11 +24,11 @@ The `get_next_fragment` function is designed to intelligently split text search 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeadlineParsedText (headline parsed text structure)
+  - [HeadlineParsedText](../H/HeadlineParsedText.md) (headline parsed text structure)
   - INTERESTINGWORD (macro to check if a word index contains query-matching content)
   - NONWORDTOKEN (macro to check if a token type represents non-word content)
 - Called from (representative examples):
-  - mark_hl_fragments (src/backend/tsearch/wparser_def.c:2316)
+  - [mark_hl_fragments](../m/mark_hl_fragments.md) (src/backend/tsearch/wparser_def.c:2316)
 
 ## Notes and Other Information
 - Ensures fragments start and end with interesting (query-matching) words for better context

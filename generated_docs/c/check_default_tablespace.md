@@ -19,8 +19,8 @@ This function serves as a validation hook for PostgreSQL's default_tablespace co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState: Checks if currently in a valid transaction
-  - get_tablespace_oid: Retrieves OID of tablespace by name, with option to suppress errors
+  - [IsTransactionState](../I/IsTransactionState.md): Checks if currently in a valid transaction
+  - [get_tablespace_oid](../g/get_tablespace_oid.md): Retrieves OID of tablespace by name, with option to suppress errors
   - ereport: PostgreSQL error/notice reporting function
   - GUC_check_errdetail: Sets detailed error message for GUC validation failures
   - MyDatabaseId: Global variable containing current database OID

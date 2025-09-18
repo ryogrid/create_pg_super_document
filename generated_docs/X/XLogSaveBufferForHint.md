@@ -18,16 +18,16 @@ XLogSaveBufferForHint handles WAL logging for hint bit modifications on pages th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRedoRecPtr (gets current recovery checkpoint pointer)
-  - BufferGetLSNAtomic (atomically reads page LSN with buffer header lock)
-  - BufferGetBlock (gets page data pointer)
-  - BufferGetTag (extracts buffer's relation/fork/block info)
-  - XLogBeginInsert (starts WAL record construction)
-  - XLogRegisterBlock (registers page data with WAL record)
-  - XLogInsert (finalizes and writes WAL record)
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md) (gets current recovery checkpoint pointer)
+  - [BufferGetLSNAtomic](../B/BufferGetLSNAtomic.md) (atomically reads page LSN with buffer header lock)
+  - [BufferGetBlock](../B/BufferGetBlock.md) (gets page data pointer)
+  - [BufferGetTag](../B/BufferGetTag.md) (extracts buffer's relation/fork/block info)
+  - [XLogBeginInsert](XLogBeginInsert.md) (starts WAL record construction)
+  - [XLogRegisterBlock](XLogRegisterBlock.md) (registers page data with WAL record)
+  - [XLogInsert](XLogInsert.md) (finalizes and writes WAL record)
   - DELAY_CHKPT_START (checkpoint delay flag)
 - Called from:
-  - MarkBufferDirtyHint (when marking buffer dirty due to hint changes)
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md) (when marking buffer dirty due to hint changes)
 
 ## Notes and Other Information
 - Works with shared buffer locks unlike normal backup block mechanism

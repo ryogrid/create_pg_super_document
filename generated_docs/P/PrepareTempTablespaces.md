@@ -27,15 +27,15 @@ None (void function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - TempTablespacesAreSet
-  - IsTransactionState
+  - [IsTransactionState](../I/IsTransactionState.md)
   - SplitIdentifierString
-  - get_tablespace_oid
-  - object_aclcheck
+  - [get_tablespace_oid](../g/get_tablespace_oid.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
   - SetTempTablespaces
-  - MemoryContextAlloc
-  - list_free
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - GetDefaultTablespace (src/backend/commands/tablespace.c:1150)
+  - [GetDefaultTablespace](../G/GetDefaultTablespace.md) (src/backend/commands/tablespace.c:1150)
   - ExecHashTableCreate (src/backend/executor/nodeHash.c:586)
   - BufFileCreateTemp (src/backend/storage/file/buffile.c:207)
   - inittapestate (src/backend/utils/sort/tuplesort.c:1965)

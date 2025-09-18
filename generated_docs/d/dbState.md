@@ -33,7 +33,7 @@ The function covers the complete lifecycle of database states:
   - DB_IN_PRODUCTION constant
   - _() macro for internationalization
 - Called from (representative examples):
-  - main function in pg_controldata.c for displaying control file information
+  - [main](../m/main.md) function in pg_controldata.c for displaying control file information
 
 ## Notes and Other Information
 - This is a static function local to pg_controldata.c

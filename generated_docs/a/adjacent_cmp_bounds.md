@@ -25,10 +25,10 @@ The logic incorporates adjacency checking using  to handle edge cases where boun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_cmp_bounds
-  - bounds_adjacent
+  - [range_cmp_bounds](../r/range_cmp_bounds.md)
+  - [bounds_adjacent](../b/bounds_adjacent.md)
 - Called from (representative examples):
-  - adjacent_inner_consistent
+  - [adjacent_inner_consistent](adjacent_inner_consistent.md)
 
 ## Notes and Other Information
 - Returns -1 for "left" case (arg < centroid) and 1 for "right" case (arg >= centroid)

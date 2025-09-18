@@ -41,17 +41,17 @@ For hash aggregation spilling, the function performs sophisticated analysis usin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_agg_entry_size (estimates memory per hash table entry)
-  - hash_agg_set_limits (calculates memory and group count limits)
-  - relation_byte_size (calculates total bytes for tuples)
-  - cost_qual_eval (evaluates HAVING clause costs)
-  - clamp_row_est (ensures row estimates are within reasonable bounds)
-  - clauselist_selectivity (calculates selectivity of HAVING clauses)
+  - [hash_agg_entry_size](../h/hash_agg_entry_size.md) (estimates memory per hash table entry)
+  - [hash_agg_set_limits](../h/hash_agg_set_limits.md) (calculates memory and group count limits)
+  - [relation_byte_size](../r/relation_byte_size.md) (calculates total bytes for tuples)
+  - [cost_qual_eval](cost_qual_eval.md) (evaluates HAVING clause costs)
+  - [clamp_row_est](clamp_row_est.md) (ensures row estimates are within reasonable bounds)
+  - [clauselist_selectivity](clauselist_selectivity.md) (calculates selectivity of HAVING clauses)
   - AggStrategy, AggClauseCosts (data types for aggregation parameters)
 - Called from (representative examples):
-  - create_agg_path (in pathnode.c:3206)
-  - create_groupingsets_path (in pathnode.c:3312, 3337, 3362)
-  - create_unique_path (in pathnode.c:1828)
+  - [create_agg_path](create_agg_path.md) (in pathnode.c:3206)
+  - [create_groupingsets_path](create_groupingsets_path.md) (in pathnode.c:3312, 3337, 3362)
+  - [create_unique_path](create_unique_path.md) (in pathnode.c:1828)
 
 ## Notes and Other Information
 - AGG_SORTED and AGG_HASHED are designed to have identical total CPU costs with different startup costs

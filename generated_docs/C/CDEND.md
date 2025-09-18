@@ -25,13 +25,13 @@ This follows the common C idiom of using one-past-the-end pointers for range ite
 - Functions called/Symbols referenced:
   - color (color type used in array indexing)
   - NUM_CCLASSES (referenced in the broader context)
-  - colormaprange (referenced in the broader context)
+  - [colormaprange](../c/colormaprange.md) (referenced in the broader context)
 
 - Called from (representative examples):
-  - okcolors (color validation)
-  - rainbow (color assignment)
-  - colorcomplement (color complementing)
-  - dumpcolors (debugging output)
+  - [okcolors](../o/okcolors.md) (color validation)
+  - [rainbow](../r/rainbow.md) (color assignment)
+  - [colorcomplement](../c/colorcomplement.md) (color complementing)
+  - [dumpcolors](../d/dumpcolors.md) (debugging output)
   - optimizebracket (bracket optimization)
 
 ## Notes and Other Information

@@ -22,10 +22,10 @@ This structure is part of PostgreSQL's statistics collection system, specificall
   - PgStat_Counter (used for counter fields)
   - TimestampTz (used for timestamp field)
 - Called from (representative examples):
-  - pgstat_drop_subscription
-  - pgstat_fetch_stat_subscription
+  - [pgstat_drop_subscription](../p/pgstat_drop_subscription.md)
+  - [pgstat_fetch_stat_subscription](../p/pgstat_fetch_stat_subscription.md)
   - PG_STAT_GET_SUBSCRIPTION_STATS_COLS
-  - PgStatShared_Subscription
+  - [PgStatShared_Subscription](PgStatShared_Subscription.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/pgstat.h at lines 392-397

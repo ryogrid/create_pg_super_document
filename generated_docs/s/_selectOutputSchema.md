@@ -28,15 +28,15 @@ When restoring to a live database connection, it executes the SET search_path co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `fmtId` - Formats PostgreSQL identifiers with proper quoting
-  - `RestoringToDB` - Checks if restoring directly to database vs script
-  - `PQexec` - Executes SQL command on database connection
-  - `warn_or_exit_horribly` - Error handling for restore operations
-  - `ahprintf` - Outputs formatted text to archive handle
+  - `[fmtId](../f/fmtId.md)` - Formats PostgreSQL identifiers with proper quoting
+  - `[RestoringToDB](../R/RestoringToDB.md)` - Checks if restoring directly to database vs script
+  - `[PQexec](../P/PQexec.md)` - Executes SQL command on database connection
+  - `[warn_or_exit_horribly](../w/warn_or_exit_horribly.md)` - Error handling for restore operations
+  - `[ahprintf](../a/ahprintf.md)` - Outputs formatted text to archive handle
 - Called from (representative examples):
-  - `RestoreArchive` - Main restore orchestration function
-  - `restore_toc_entry` - Individual object restore function
-  - `_printTocEntry` - TOC entry output function
+  - `[RestoreArchive](../R/RestoreArchive.md)` - Main restore orchestration function
+  - `[restore_toc_entry](../r/restore_toc_entry.md)` - Individual object restore function
+  - `[_printTocEntry](../p/_printTocEntry.md)` - TOC entry output function
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_backup_archiver.c

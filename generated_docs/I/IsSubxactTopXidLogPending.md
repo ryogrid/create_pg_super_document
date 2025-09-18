@@ -29,12 +29,12 @@ Only when all these conditions are satisfied does the function return true, indi
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogLogicalInfoActive
-  - IsTransactionState  
-  - IsSubTransaction
-  - GetCurrentTransactionIdIfAny
+  - [IsTransactionState](IsTransactionState.md)  
+  - [IsSubTransaction](IsSubTransaction.md)
+  - [GetCurrentTransactionIdIfAny](../G/GetCurrentTransactionIdIfAny.md)
 - Called from (representative examples):
-  - MarkSubxactTopXidLogged
-  - XLogRecordAssemble
+  - [MarkSubxactTopXidLogged](../M/MarkSubxactTopXidLogged.md)
+  - [XLogRecordAssemble](../X/XLogRecordAssemble.md)
 
 ## Notes and Other Information
 - Critical for logical replication and logical decoding functionality

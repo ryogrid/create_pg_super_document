@@ -28,7 +28,7 @@ XLogCompressBackupBlock attempts to compress a backup block image using the conf
   - SizeOfXLogRecordBlockCompressHeader (header size constant)
   - COMPRESS_BUFSIZE (compression buffer size)
 - Called from:
-  - XLogRecordAssemble (during WAL record assembly)
+  - [XLogRecordAssemble](XLogRecordAssemble.md) (during WAL record assembly)
 
 ## Notes and Other Information
 - Returns false if compression fails or doesn't provide space savings

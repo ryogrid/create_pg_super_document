@@ -27,13 +27,13 @@ The function notes that built-in casts do not currently support ACLs, so ACL-onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership
-  - CastInfo (structure)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
+  - [CastInfo](../C/CastInfo.md) (structure)
   - DUMP_COMPONENT_ALL (constant)
   - DUMP_COMPONENT_NONE (constant)
   - g_last_builtin_oid (global variable)
 - Called from (representative examples):
-  - getCasts
+  - [getCasts](../g/getCasts.md)
 
 ## Notes and Other Information
 - Casts are unique among database objects in that they have no namespace or identifiable owner

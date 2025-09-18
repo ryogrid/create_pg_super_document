@@ -22,22 +22,22 @@ The function supports weight filtering through the ws parameter, allowing analys
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - SPI_prepare
-  - SPI_cursor_open
-  - SPI_cursor_fetch
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
+  - [SPI_cursor_fetch](../S/SPI_cursor_fetch.md)
   - SPI_gettypeid
-  - IsBinaryCoercible
-  - MemoryContextAllocZero
-  - pg_mblen
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [pg_mblen](../p/pg_mblen.md)
   - SPI_getbinval
   - ts_accum
-  - SPI_freetuptable
-  - SPI_cursor_close
-  - SPI_freeplan
+  - [SPI_freetuptable](../S/SPI_freetuptable.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
+  - [SPI_freeplan](../S/SPI_freeplan.md)
   - elog/ereport
 - Called from (representative examples):
-  - ts_stat1
-  - ts_stat2
+  - [ts_stat1](ts_stat1.md)
+  - [ts_stat2](ts_stat2.md)
 
 ## Notes and Other Information
 - Uses SPI cursor interface for memory-efficient processing of large result sets

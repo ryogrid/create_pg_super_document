@@ -28,19 +28,19 @@ Results are ordered by referenced object ID to optimize processing when multiple
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQfnumber
-  - PQgetvalue
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - findExtensionByOid
-  - recordExtensionMembership
+  - [findExtensionByOid](../f/findExtensionByOid.md)
+  - [recordExtensionMembership](../r/recordExtensionMembership.md)
   - pg_log_warning
-  - PQclear
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from:
-  - getSchemaData (in src/bin/pg_dump/common.c:140)
+  - [getSchemaData](getSchemaData.md) (in src/bin/pg_dump/common.c:140)
 
 ## Notes and Other Information
 - Early termination if numExtensions is 0 for efficiency

@@ -25,12 +25,12 @@ XLogRecGetBlockTagExtended provides comprehensive access to block reference info
   - XLogRecHasBlockRef
   - DecodedBkpBlock (structure access)
 - Called from (representative examples):
-  - heap_xlog_update
-  - btree_xlog_split
-  - XLogRecGetBlockRefInfo
-  - XLogRecGetBlockTag
-  - xlog_block_info
-  - verifyBackupPageConsistency
+  - [heap_xlog_update](../h/heap_xlog_update.md)
+  - [btree_xlog_split](../b/btree_xlog_split.md)
+  - [XLogRecGetBlockRefInfo](XLogRecGetBlockRefInfo.md)
+  - [XLogRecGetBlockTag](XLogRecGetBlockTag.md)
+  - [xlog_block_info](../x/xlog_block_info.md)
+  - [verifyBackupPageConsistency](../v/verifyBackupPageConsistency.md)
   - XLogReadBufferForRedoExtended
 
 ## Notes and Other Information

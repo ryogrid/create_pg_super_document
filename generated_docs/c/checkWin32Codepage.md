@@ -24,7 +24,7 @@ This function takes no parameters.
   - printf()
   - _() (localization macro)
 - Called from:
-  - connection_warnings (at src/bin/psql/command.c:3957)
+  - [connection_warnings](connection_warnings.md) (at src/bin/psql/command.c:3957)
 
 ## Notes and Other Information
 - This function is conditionally compiled only on Windows platforms (enclosed in #ifdef WIN32)

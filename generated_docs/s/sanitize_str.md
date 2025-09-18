@@ -21,7 +21,7 @@ The function uses a static buffer to store the sanitized result, making it suita
 - Functions called/Symbols referenced:
   - (No external function calls - uses only basic C operations)
 - Called from (representative examples):
-  - read_client_first_message (at src/backend/libpq/auth-scram.c:1045)
+  - [read_client_first_message](../r/read_client_first_message.md) (at src/backend/libpq/auth-scram.c:1045)
   - scram_state (at src/backend/libpq/auth-scram.c:184)
 
 ## Notes and Other Information

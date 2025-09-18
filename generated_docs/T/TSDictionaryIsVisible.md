@@ -21,10 +21,10 @@ Visibility in PostgreSQL's namespace system determines whether an object can be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSDictionaryIsVisibleExt
+  - [TSDictionaryIsVisibleExt](TSDictionaryIsVisibleExt.md)
 - Called from (representative examples):
-  - getObjectDescription
-  - regdictionaryout
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [regdictionaryout](../r/regdictionaryout.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

@@ -26,18 +26,18 @@ For compound expressions (AND/OR types), the function populates the PredIterInfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_andclause (tests for AND boolean expressions)
-  - is_orclause (tests for OR boolean expressions)  
-  - list_startup_fn, list_next_fn, list_cleanup_fn (iteration functions for lists)
-  - boolexpr_startup_fn (startup function for boolean expressions)
-  - arrayconst_startup_fn, arrayconst_next_fn, arrayconst_cleanup_fn (iteration functions for constant arrays)
-  - arrayexpr_startup_fn, arrayexpr_next_fn, arrayexpr_cleanup_fn (iteration functions for array expressions)
+  - [is_andclause](../i/is_andclause.md) (tests for AND boolean expressions)
+  - [is_orclause](../i/is_orclause.md) (tests for OR boolean expressions)  
+  - [list_startup_fn](../l/list_startup_fn.md), list_next_fn, list_cleanup_fn (iteration functions for lists)
+  - [boolexpr_startup_fn](../b/boolexpr_startup_fn.md) (startup function for boolean expressions)
+  - [arrayconst_startup_fn](../a/arrayconst_startup_fn.md), arrayconst_next_fn, arrayconst_cleanup_fn (iteration functions for constant arrays)
+  - [arrayexpr_startup_fn](../a/arrayexpr_startup_fn.md), arrayexpr_next_fn, arrayexpr_cleanup_fn (iteration functions for array expressions)
   - DatumGetArrayTypeP, ArrayGetNItems, ARR_NDIM, ARR_DIMS (array processing functions)
   - lsecond (gets second list element)
   - MAX_SAOP_ARRAY_SIZE (size limit constant)
 - Called from (representative examples):
-  - predicate_implied_by_recurse (for implication testing)
-  - predicate_refuted_by_recurse (for refutation testing)
+  - [predicate_implied_by_recurse](predicate_implied_by_recurse.md) (for implication testing)
+  - [predicate_refuted_by_recurse](predicate_refuted_by_recurse.md) (for refutation testing)
 
 ## Notes and Other Information
 - Static function - internal implementation detail of predtest.c

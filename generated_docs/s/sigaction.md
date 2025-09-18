@@ -23,9 +23,9 @@ The structure is part of PostgreSQL's effort to maintain consistent signal handl
 - Functions called/Symbols referenced:
   - sigset_t
 - Called from (representative examples):
-  - pqsigaction
-  - pgwin32_dispatch_queued_signals
-  - pqsignal
+  - [pqsigaction](../p/pqsigaction.md)
+  - [pgwin32_dispatch_queued_signals](../p/pgwin32_dispatch_queued_signals.md)
+  - [pqsignal](../p/pqsignal.md)
 
 ## Notes and Other Information
 - This structure is only defined when compiling on Windows (within #ifdef WIN32 blocks)

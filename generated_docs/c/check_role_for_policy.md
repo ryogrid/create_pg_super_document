@@ -25,7 +25,7 @@ The function performs a quick optimization for policies that apply to all roles 
   - ARR_DIMS (macro to access array dimensions)
   - has_privs_of_role (function to check role privilege inheritance)
 - Called from (representative examples):
-  - get_policies_for_relation (multiple call sites at lines 599, 636, 650)
+  - [get_policies_for_relation](../g/get_policies_for_relation.md) (multiple call sites at lines 599, 636, 650)
 
 ## Notes and Other Information
 - This is a static function within the row security module, indicating it's an internal helper function not exposed to other modules

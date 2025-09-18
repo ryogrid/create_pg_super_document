@@ -22,19 +22,19 @@ The function validates that the requested column number is within the valid rang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup with INDEXRELID)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup with INDEXRELID)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
-  - SysCacheGetAttrNotNull (attribute extraction from cached tuple)
-  - DatumGetPointer (datum to pointer conversion)
-  - ReleaseSysCache (cache cleanup)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md) (attribute extraction from cached tuple)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (datum to pointer conversion)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_index (pg_index catalog structure)
   - oidvector (array type for storing OIDs)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (constant for invalid OID)
 - Called from (representative examples):
   - gistproperty
-  - spgproperty
+  - [spgproperty](../s/spgproperty.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the index OID is invalid or not found

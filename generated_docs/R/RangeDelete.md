@@ -28,14 +28,14 @@ This function is typically called as part of the DROP TYPE command processing fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from (representative examples):
-  - RemoveTypeById
+  - [RemoveTypeById](RemoveTypeById.md)
 
 ## Notes and Other Information
 - The function uses the RangeTypidIndexId index to efficiently locate range entries by type OID

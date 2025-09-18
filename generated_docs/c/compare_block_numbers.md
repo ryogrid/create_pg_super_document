@@ -21,10 +21,10 @@ This function implements a comparator for use with quicksort algorithms, specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32
+  - [pg_cmp_u32](../p/pg_cmp_u32.md)
 - Called from (representative examples):
-  - GetFileBackupMethod (src/backend/backup/basebackup_incremental.c:836)
-  - dump_one_relation (src/bin/pg_walsummary/pg_walsummary.c:184)
+  - [GetFileBackupMethod](../G/GetFileBackupMethod.md) (src/backend/backup/basebackup_incremental.c:836)
+  - [dump_one_relation](../d/dump_one_relation.md) (src/bin/pg_walsummary/pg_walsummary.c:184)
 
 ## Notes and Other Information
 - This is a static function local to basebackup_incremental.c

@@ -19,25 +19,25 @@ The function operates on up to 5 different buffers: the new overflow page (block
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_hash_add_ovfl_page (WAL record structure)
+  - [xl_hash_add_ovfl_page](../x/xl_hash_add_ovfl_page.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
-  - XLogRecGetBlockTag (gets block information)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block information)
   - XLogInitBufferForRedo (initializes buffer for redo)
-  - XLogRecGetBlockData (gets block data)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data)
   - XLogReadBufferForRedo (reads buffer for redo)
   - XLogRecHasBlockRef (checks if record has block reference)
-  - _hash_initbuf (initializes hash page buffer)
-  - _hash_initbitmapbuffer (initializes bitmap buffer)
+  - [_hash_initbuf](_hash_initbuf.md) (initializes hash page buffer)
+  - [_hash_initbitmapbuffer](_hash_initbitmapbuffer.md) (initializes bitmap buffer)
   - HashPageGetOpaque (gets page opaque data)
   - HashPageGetBitmap (gets bitmap from page)
   - HashPageGetMeta (gets metapage metadata)
-  - BufferGetBlockNumber (gets buffer block number)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets buffer block number)
   - BLK_NEEDS_REDO (indicates block needs redo)
   - LH_OVERFLOW_PAGE (overflow page type)
   - SETBIT (sets bit in bitmap)
   - BlockNumberIsValid (validates block number)
 - Called from:
-  - hash_redo (main hash WAL replay function)
+  - [hash_redo](hash_redo.md) (main hash WAL replay function)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

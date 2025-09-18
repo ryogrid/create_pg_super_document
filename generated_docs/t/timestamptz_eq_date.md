@@ -25,7 +25,7 @@ The comparison is performed by delegating to `date_cmp_timestamptz_internal(date
 - Functions called/Symbols referenced:
   - `PG_GETARG_TIMESTAMPTZ` - Extracts timestamp with timezone argument
   - `PG_GETARG_DATEADT` - Extracts date argument  
-  - `date_cmp_timestamptz_internal` - Performs the actual comparison
+  - `[date_cmp_timestamptz_internal](../d/date_cmp_timestamptz_internal.md)` - Performs the actual comparison
   - `PG_RETURN_BOOL` - Returns boolean result
 - Called from (representative examples):
   - No direct references found (likely called via SQL operator system)

@@ -40,26 +40,26 @@ The function performs extensive validation and field mask checking to ensure con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeDate
-  - DecodeTime
-  - DecodeTimezone
-  - DecodeNumberField
-  - DecodeNumber
-  - DecodeSpecial
-  - DecodeTimezoneAbbrev
+  - [DecodeDate](DecodeDate.md)
+  - [DecodeTime](DecodeTime.md)
+  - [DecodeTimezone](DecodeTimezone.md)
+  - [DecodeNumberField](DecodeNumberField.md)
+  - [DecodeNumber](DecodeNumber.md)
+  - [DecodeSpecial](DecodeSpecial.md)
+  - [DecodeTimezoneAbbrev](DecodeTimezoneAbbrev.md)
   - DetermineTimeZoneOffset
-  - DetermineTimeZoneAbbrevOffset
+  - [DetermineTimeZoneAbbrevOffset](DetermineTimeZoneAbbrevOffset.md)
   - ValidateDate
-  - pg_tzset
-  - pg_get_timezone_offset
+  - [pg_tzset](../p/pg_tzset.md)
+  - [pg_get_timezone_offset](../p/pg_get_timezone_offset.md)
   - GetCurrentTimeUsec
-  - GetCurrentDateTime
-  - j2date (Julian to date conversion)
-  - dt2time (day time to time components)
-  - time_overflows
+  - [GetCurrentDateTime](../G/GetCurrentDateTime.md)
+  - [j2date](../j/j2date.md) (Julian to date conversion)
+  - [dt2time](../d/dt2time.md) (day time to time components)
+  - [time_overflows](../t/time_overflows.md)
 - Called from (representative examples):
-  - time_in
-  - timetz_in
+  - [time_in](../t/time_in.md)
+  - [timetz_in](../t/timetz_in.md)
 
 ## Notes and Other Information
 - Designed specifically for SQL TIME WITH TIME ZONE support, with notable limitations due to SQL standard ambiguities

@@ -24,18 +24,18 @@ This function takes no parameters and returns a BulkInsertState object with the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - GetAccessStrategy
   - BAS_BULKWRITE
-  - BulkInsertStateData
+  - [BulkInsertStateData](../B/BulkInsertStateData.md)
   - InvalidBuffer
   - InvalidBlockNumber
 - Called from (representative examples):
-  - CopyMultiInsertBufferInit
-  - CopyFrom
-  - intorel_startup
-  - transientrel_startup
-  - ATRewriteTable
+  - [CopyMultiInsertBufferInit](../C/CopyMultiInsertBufferInit.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [intorel_startup](../i/intorel_startup.md)
+  - [transientrel_startup](../t/transientrel_startup.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
 
 ## Notes and Other Information
 - The returned BulkInsertState must be freed using FreeBulkInsertState when no longer needed

@@ -26,22 +26,22 @@ For locks that conflict with the fast-path mechanism, it transfers existing fast
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetupLockInTable (creates/finds shared lock and proclock entries)
-  - LockCheckConflicts (checks for conflicts with existing locks)
-  - GrantLock, GrantLockLocal (grants locks in shared and local tables)
-  - WaitOnLock (handles waiting for lock availability)
-  - FastPathGrantRelationLock (attempts fast-path acquisition)
-  - FastPathTransferRelationLocks (migrates fast-path locks to shared table)
-  - LogAccessExclusiveLock (WAL logging for standby replay)
-  - RecoveryInProgress (recovery state checking)
+  - [SetupLockInTable](../S/SetupLockInTable.md) (creates/finds shared lock and proclock entries)
+  - [LockCheckConflicts](LockCheckConflicts.md) (checks for conflicts with existing locks)
+  - [GrantLock](../G/GrantLock.md), GrantLockLocal (grants locks in shared and local tables)
+  - [WaitOnLock](../W/WaitOnLock.md) (handles waiting for lock availability)
+  - [FastPathGrantRelationLock](../F/FastPathGrantRelationLock.md) (attempts fast-path acquisition)
+  - [FastPathTransferRelationLocks](../F/FastPathTransferRelationLocks.md) (migrates fast-path locks to shared table)
+  - [LogAccessExclusiveLock](LogAccessExclusiveLock.md) (WAL logging for standby replay)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state checking)
 - Data structures used:
-  - LOCALLOCK, LOCK, PROCLOCK (core lock structures)
-  - LOCALLOCKOWNER (ownership tracking)
+  - [LOCALLOCK](LOCALLOCK.md), LOCK, PROCLOCK (core lock structures)
+  - [LOCALLOCKOWNER](LOCALLOCKOWNER.md) (ownership tracking)
   - LockMethods array (lock method configuration)
 - Called from (representative examples):
-  - LockAcquire (public API wrapper)
-  - LockRelationOid, LockRelation (relation locking)
-  - ConditionalLockRelation (non-blocking relation locks)
+  - [LockAcquire](LockAcquire.md) (public API wrapper)
+  - [LockRelationOid](LockRelationOid.md), LockRelation (relation locking)
+  - [ConditionalLockRelation](../C/ConditionalLockRelation.md) (non-blocking relation locks)
 
 ## Notes and Other Information
 - Returns LOCKACQUIRE_OK on success, LOCKACQUIRE_ALREADY_HELD for existing locks, LOCKACQUIRE_NOT_AVAIL when unavailable

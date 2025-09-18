@@ -23,7 +23,7 @@ This function serves as a bridge between PostgreSQL's text and XML data types, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xmlparse
+  - [xmlparse](../x/xmlparse.md)
   - PG_RETURN_XML_P
 - Called from (representative examples):
   - No direct references found in codebase (likely used via SQL interface)

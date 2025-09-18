@@ -38,14 +38,14 @@ The function ensures proper initialization and, in the OpenSSL version, integrat
   - ResourceOwnerEnlarge (OpenSSL version, backend only)
   - ERR_clear_error (OpenSSL function)
   - EVP_MD_CTX_create (OpenSSL function)
-  - ResourceOwnerRememberCryptoHash (OpenSSL version, backend only)
+  - [ResourceOwnerRememberCryptoHash](../R/ResourceOwnerRememberCryptoHash.md) (OpenSSL version, backend only)
 - Called from (representative examples):
-  - InitializeBackupManifest
-  - scram_mock_salt
-  - cryptohash_internal
+  - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
+  - [scram_mock_salt](../s/scram_mock_salt.md)
+  - [cryptohash_internal](../c/cryptohash_internal.md)
   - pg_checksum_init
-  - pg_hmac_create
-  - pg_md5_hash
+  - [pg_hmac_create](pg_hmac_create.md)
+  - [pg_md5_hash](pg_md5_hash.md)
   - scram_H
 
 ## Notes and Other Information

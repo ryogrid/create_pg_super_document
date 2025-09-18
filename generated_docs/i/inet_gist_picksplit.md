@@ -34,15 +34,15 @@ After determining the split, the function computes optimized union keys for both
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calc_inet_union_params: Analyzes union parameters for a set of inet entries
-  - calc_inet_union_params_indexed: Analyzes union parameters for indexed entries
-  - build_inet_union_key: Constructs a union key from parameters
+  - [calc_inet_union_params](../c/calc_inet_union_params.md): Analyzes union parameters for a set of inet entries
+  - [calc_inet_union_params_indexed](../c/calc_inet_union_params_indexed.md): Analyzes union parameters for indexed entries
+  - [build_inet_union_key](../b/build_inet_union_key.md): Constructs a union key from parameters
   - DatumGetInetKeyP: Extracts GistInetKey from Datum
   - gk_ip_family: Gets IP family from GistInetKey
   - gk_ip_addr: Gets address buffer from GistInetKey
   - ip_family_maxbits: Gets maximum bits for IP family (32 for IPv4, 128 for IPv6)
   - FirstOffsetNumber/OffsetNumberNext: Index iteration macros
-  - palloc: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
 
 - Called from (representative examples):
   - GiST index operations (indirectly through function pointer in operator class)

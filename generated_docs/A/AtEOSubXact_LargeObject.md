@@ -29,12 +29,12 @@ This mechanism ensures that large objects opened in subtransactions are properly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - closeLOfd
-  - LargeObjectDesc (struct type)
+  - [closeLOfd](../c/closeLOfd.md)
+  - [LargeObjectDesc](../L/LargeObjectDesc.md) (struct type)
   - SubTransactionId (type)
 - Called from (representative examples):
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5095)
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5262)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5095)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5262)
 
 ## Notes and Other Information
 - Only operates if `fscxt` is not NULL, indicating large object operations occurred in the transaction

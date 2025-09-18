@@ -22,7 +22,7 @@ PageValidateSpecialPointer performs assertion-based validation of the pd_special
   - BLCKSZ (maximum block size constant)
   - SizeOfPageHeaderData (minimum size for page header)
 - Called from (representative examples):
-  - PageGetSpecialPointer (before accessing special space)
+  - [PageGetSpecialPointer](PageGetSpecialPointer.md) (before accessing special space)
 
 ## Notes and Other Information
 - This is an inline function that only executes assertions in debug builds

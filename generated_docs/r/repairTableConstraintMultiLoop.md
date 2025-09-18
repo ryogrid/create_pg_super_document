@@ -29,13 +29,13 @@ This approach ensures that the table can be created first, followed by the const
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency (removes the table-to-constraint dependency)
-  - addObjectDependency (establishes constraint-to-table and constraint-to-postdata dependencies)
+  - [removeObjectDependency](removeObjectDependency.md) (removes the table-to-constraint dependency)
+  - [addObjectDependency](../a/addObjectDependency.md) (establishes constraint-to-table and constraint-to-postdata dependencies)
   - postDataBoundId (global variable marking the post-data phase boundary)
   - DumpableObject (base structure for dumpable database objects)  
-  - ConstraintInfo (structure containing constraint-specific information)
+  - [ConstraintInfo](../C/ConstraintInfo.md) (structure containing constraint-specific information)
 - Called from:
-  - repairDependencyLoop (main dependency loop repair dispatcher)
+  - [repairDependencyLoop](repairDependencyLoop.md) (main dependency loop repair dispatcher)
 
 ## Notes and Other Information
 - This function is used when simple constraint loop repair (repairTableConstraintLoop) is insufficient due to additional objects in the dependency cycle

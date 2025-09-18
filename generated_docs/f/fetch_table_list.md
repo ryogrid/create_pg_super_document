@@ -20,25 +20,25 @@ This function queries the publisher database to obtain a comprehensive list of a
 - Functions called/Symbols referenced:
   - walrcv_server_version
   - initStringInfo
-  - get_publications_str
+  - [get_publications_str](../g/get_publications_str.md)
   - appendStringInfo
   - appendStringInfoString
   - appendStringInfoChar
-  - pfree
+  - [pfree](../p/pfree.md)
   - walrcv_exec
   - ereport
-  - MakeSingleTupleTableSlot
-  - tuplestore_gettupleslot
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
   - slot_getattr
   - TextDatumGetCString
-  - makeRangeVar
-  - list_member
+  - [makeRangeVar](../m/makeRangeVar.md)
+  - [list_member](../l/list_member.md)
   - lappend
   - ExecClearTuple
-  - ExecDropSingleTupleTableSlot
-  - walrcv_clear_result
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [walrcv_clear_result](../w/walrcv_clear_result.md)
 - Called from (representative examples):
-  - CreateSubscription
+  - [CreateSubscription](../C/CreateSubscription.md)
 
 ## Notes and Other Information
 - Uses version-aware SQL queries to optimize performance on newer PostgreSQL versions (16+)

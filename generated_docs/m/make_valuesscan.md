@@ -31,7 +31,7 @@ This scan type is commonly used for queries that provide literal data inline, ta
   - makeNode (to allocate ValuesScan node)
   - ValuesScan (node type)
 - Called from (representative examples):
-  - create_valuesscan_plan
+  - [create_valuesscan_plan](../c/create_valuesscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's an internal helper for plan creation

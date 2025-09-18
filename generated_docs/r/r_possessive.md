@@ -39,15 +39,15 @@ Each case performs pattern matching against different suffix arrays (a_1, a_2, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function
-  - eq_s_b: Backward string equality test
-  - slice_del: Function to delete matched substring
-  - slice_from_s: Function to replace substring with new content
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function
+  - [eq_s_b](../e/eq_s_b.md): Backward string equality test
+  - [slice_del](../s/slice_del.md): Function to delete matched substring
+  - [slice_from_s](../s/slice_from_s.md): Function to replace substring with new content
   - a_1, a_2, a_3, a_4: Arrays containing possessive suffix patterns
   - s_0, s_1: String constants for pattern replacement
 - Called from (representative examples):
-  - finnish_ISO_8859_1_stem: Main Finnish stemming function
-  - finnish_UTF_8_stem: UTF-8 version of Finnish stemming
+  - [finnish_ISO_8859_1_stem](../f/finnish_ISO_8859_1_stem.md): Main Finnish stemming function
+  - [finnish_UTF_8_stem](../f/finnish_UTF_8_stem.md): UTF-8 version of Finnish stemming
 
 ## Notes and Other Information
 This function is highly specific to Finnish morphology, reflecting the complex possessive system of the Finnish language. Finnish possessive suffixes can trigger vowel harmony changes and consonant gradation, which is why the function includes multiple cases with vowel-specific requirements. The function handles both simple removal and morphological transformations (case 2 with replacement). The character codes used (97='a', 228='ä', 101='e') reflect the ISO-8859-1 encoding for Finnish vowels. This function typically runs after particle removal but before case suffix processing in the Finnish stemming pipeline.

@@ -19,12 +19,12 @@ This function is essential for preventing runtime errors and ensuring reliable s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion
+  - [PQserverVersion](../P/PQserverVersion.md)
   - PQparameterStatus
 - Called from (representative examples):
-  - BaseBackup
-  - StreamLog  
-  - ReceiveXlogStream
+  - [BaseBackup](../B/BaseBackup.md)
+  - [StreamLog](../S/StreamLog.md)  
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md)
 
 ## Notes and Other Information
 - Minimum supported server version is 9.3 (version number 903) due to streaming replication message format changes

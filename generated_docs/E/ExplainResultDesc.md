@@ -20,12 +20,12 @@ The function iterates through all format options in the statement (not breaking 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExplainStmt (struct type)
-  - DefElem (struct type)
-  - defGetString
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
+  - [DefElem](../D/DefElem.md) (struct type)
+  - [defGetString](../d/defGetString.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
 - Called from (representative examples):
-  - ExplainQuery
+  - [ExplainQuery](ExplainQuery.md)
   - UtilityTupleDescriptor
 
 ## Notes and Other Information

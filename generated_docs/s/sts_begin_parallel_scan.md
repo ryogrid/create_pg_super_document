@@ -20,11 +20,11 @@ The function optimizes reading by starting with the file that the current backen
 ## Dependencies
 - Functions called/Symbols referenced:
   - SharedTuplestoreAccessor (structure type)
-  - sts_end_parallel_scan (function to end any existing scan)
+  - [sts_end_parallel_scan](sts_end_parallel_scan.md) (function to end any existing scan)
   - PG_USED_FOR_ASSERTS_ONLY (macro for assertion-only variables)
 - Called from (representative examples):
-  - ExecParallelHashRepartitionRest (in nodeHash.c:1408)
-  - ExecParallelHashJoinNewBatch (in nodeHashjoin.c:1229, 1258)
+  - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md) (in nodeHash.c:1408)
+  - [ExecParallelHashJoinNewBatch](../E/ExecParallelHashJoinNewBatch.md) (in nodeHashjoin.c:1229, 1258)
 
 ## Notes and Other Information
 - Automatically ends any existing scan in progress before beginning the new scan

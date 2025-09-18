@@ -22,11 +22,11 @@ This function serves as a wrapper around `ts_headline_json_byid_opt` that automa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ts_headline_json_byid_opt`: Core function that performs the actual JSON headline generation
+  - `[ts_headline_json_byid_opt](ts_headline_json_byid_opt.md)`: Core function that performs the actual JSON headline generation
   - `DirectFunctionCall4`: PostgreSQL internal function to call another function with 4 arguments
-  - `getTSCurrentConfig`: Retrieves the current default text search configuration OID
+  - `[getTSCurrentConfig](../g/getTSCurrentConfig.md)`: Retrieves the current default text search configuration OID
   - `PG_RETURN_DATUM`: PostgreSQL macro for returning a Datum value
-  - `ObjectIdGetDatum`: Converts OID to Datum format
+  - `[ObjectIdGetDatum](../O/ObjectIdGetDatum.md)`: Converts OID to Datum format
   - `PG_GETARG_DATUM`: PostgreSQL macro for extracting function arguments
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL function interface)

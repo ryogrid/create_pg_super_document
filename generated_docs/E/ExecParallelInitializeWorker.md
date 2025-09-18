@@ -24,25 +24,25 @@ The function uses a switch statement based on the nodeTag to identify the specif
 - Functions called/Symbols referenced:
   - nodeTag
   - planstate_tree_walker
-  - ExecSeqScanInitializeWorker
-  - ExecIndexScanInitializeWorker
-  - ExecIndexOnlyScanInitializeWorker
-  - ExecForeignScanInitializeWorker
-  - ExecAppendInitializeWorker
-  - ExecCustomScanInitializeWorker
-  - ExecBitmapHeapInitializeWorker
-  - ExecHashJoinInitializeWorker
+  - [ExecSeqScanInitializeWorker](ExecSeqScanInitializeWorker.md)
+  - [ExecIndexScanInitializeWorker](ExecIndexScanInitializeWorker.md)
+  - [ExecIndexOnlyScanInitializeWorker](ExecIndexOnlyScanInitializeWorker.md)
+  - [ExecForeignScanInitializeWorker](ExecForeignScanInitializeWorker.md)
+  - [ExecAppendInitializeWorker](ExecAppendInitializeWorker.md)
+  - [ExecCustomScanInitializeWorker](ExecCustomScanInitializeWorker.md)
+  - [ExecBitmapHeapInitializeWorker](ExecBitmapHeapInitializeWorker.md)
+  - [ExecHashJoinInitializeWorker](ExecHashJoinInitializeWorker.md)
   - ExecHashInitializeWorker
-  - ExecSortInitializeWorker
-  - ExecIncrementalSortInitializeWorker
-  - ExecAggInitializeWorker
-  - ExecMemoizeInitializeWorker
+  - [ExecSortInitializeWorker](ExecSortInitializeWorker.md)
+  - [ExecIncrementalSortInitializeWorker](ExecIncrementalSortInitializeWorker.md)
+  - [ExecAggInitializeWorker](ExecAggInitializeWorker.md)
+  - [ExecMemoizeInitializeWorker](ExecMemoizeInitializeWorker.md)
 - Types used:
-  - PlanState (and various specific subtypes)
-  - ParallelWorkerContext
+  - [PlanState](../P/PlanState.md) (and various specific subtypes)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
 - Called from:
-  - ParallelQueryMain
-  - ExecParallelInitializeWorker (recursive self-call via planstate_tree_walker)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (recursive self-call via planstate_tree_walker)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execParallel.c

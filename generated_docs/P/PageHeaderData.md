@@ -29,13 +29,13 @@ The structure supports PostgreSQL's fundamental storage architecture by maintain
 - Functions called/Symbols referenced:
   - PageXLogRecPtr
   - LocationIndex
-  - ItemIdData
+  - [ItemIdData](../I/ItemIdData.md)
   - TransactionId
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
   - PageHeader (typedef pointer to PageHeaderData)
   - SizeOfPageHeaderData (size calculation macro)
-  - rewriteVisibilityMap (in pg_upgrade utilities)
+  - [rewriteVisibilityMap](../r/rewriteVisibilityMap.md) (in pg_upgrade utilities)
 
 ## Notes and Other Information
 - Page sizes must be multiples of 256 bytes, with the low 8 bits of pd_pagesize_version used for version numbering

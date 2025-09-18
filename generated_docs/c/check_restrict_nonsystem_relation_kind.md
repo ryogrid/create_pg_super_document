@@ -19,12 +19,12 @@ This function serves as a validation hook for the  GUC parameter. It parses a co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup: Creates a modifiable copy of the input string
+  - [pstrdup](../p/pstrdup.md): Creates a modifiable copy of the input string
   - SplitIdentifierString: Parses comma-separated identifiers into a list
   - GUC_check_errdetail: Provides detailed error messages for GUC validation failures
-  - pg_strcasecmp: Case-insensitive string comparison
-  - list_free: Frees memory allocated for the list
-  - guc_malloc: Allocates memory in GUC context
+  - [pg_strcasecmp](../p/pg_strcasecmp.md): Case-insensitive string comparison
+  - [list_free](../l/list_free.md): Frees memory allocated for the list
+  - [guc_malloc](../g/guc_malloc.md): Allocates memory in GUC context
   - RESTRICT_RELKIND_VIEW: Flag constant for view restrictions
   - RESTRICT_RELKIND_FOREIGN_TABLE: Flag constant for foreign table restrictions
 - Called from (representative examples):

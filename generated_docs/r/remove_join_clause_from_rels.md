@@ -25,12 +25,12 @@ The function includes an assertion to verify that the restrictinfo exists in eac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
-  - find_base_rel_ignore_join
-  - list_member_ptr
-  - list_delete_ptr
+  - [bms_next_member](../b/bms_next_member.md)
+  - [find_base_rel_ignore_join](../f/find_base_rel_ignore_join.md)
+  - [list_member_ptr](../l/list_member_ptr.md)
+  - [list_delete_ptr](../l/list_delete_ptr.md)
 - Called from (representative examples):
-  - remove_rel_from_query
+  - [remove_rel_from_query](remove_rel_from_query.md)
 
 ## Notes and Other Information
 - This function reverses the effect of add_join_clause_to_rels

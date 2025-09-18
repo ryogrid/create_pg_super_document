@@ -20,7 +20,7 @@ The function acts as a thin wrapper around , delegating the actual socket option
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_settcpusertimeout
+  - [pq_settcpusertimeout](../p/pq_settcpusertimeout.md)
   - MyProcPort (global variable representing the current connection port)
 - Called from (representative examples):
   - GUC system infrastructure (referenced in guc_hooks.h)

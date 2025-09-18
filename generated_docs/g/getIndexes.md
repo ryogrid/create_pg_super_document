@@ -19,22 +19,22 @@ The getIndexes function performs a sophisticated query against PostgreSQL system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableInfo (structure type)
-  - IndxInfo (structure type)
+  - [TableInfo](../T/TableInfo.md) (structure type)
+  - [IndxInfo](../I/IndxInfo.md) (structure type)
   - appendPQExpBufferChar
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK (constant)
   - pg_malloc
   - atooid
   - DO_INDEX (enum value)
-  - AssignDumpId
-  - parseOidArray
-  - SimplePtrList (structure type)
-  - ConstraintInfo (structure type)
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [parseOidArray](../p/parseOidArray.md)
+  - [SimplePtrList](../S/SimplePtrList.md) (structure type)
+  - [ConstraintInfo](../C/ConstraintInfo.md) (structure type)
   - DO_CONSTRAINT (enum value)
 - Called from (representative examples):
-  - getSchemaData
-  - SubRelInfo (referenced in header)
+  - [getSchemaData](getSchemaData.md)
+  - [SubRelInfo](../S/SubRelInfo.md) (referenced in header)
 
 ## Notes and Other Information
 - Only processes tables that have the hasindex flag set and are marked as interesting

@@ -25,7 +25,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - PgStatShared_BgWriter (type for shared memory statistics structure)
   - PgStat_BgWriterStats (type for statistics data)
-  - pgstat_copy_changecounted_stats (atomic copy function with changecount)
+  - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md) (atomic copy function with changecount)
   - LWLockAcquire (lightweight lock acquisition)
   - LWLockRelease (lightweight lock release)
   - LW_SHARED (shared lock mode constant)

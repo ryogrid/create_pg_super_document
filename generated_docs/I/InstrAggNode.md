@@ -19,11 +19,11 @@ InstrAggNode is a utility function that merges instrumentation data from a sourc
 ## Dependencies
 - Functions called/Symbols referenced:
   - INSTR_TIME_ADD (macro for adding time values)
-  - BufferUsageAdd (function for aggregating buffer usage statistics)
-  - WalUsageAdd (function for aggregating WAL usage statistics)
+  - [BufferUsageAdd](../B/BufferUsageAdd.md) (function for aggregating buffer usage statistics)
+  - [WalUsageAdd](../W/WalUsageAdd.md) (function for aggregating WAL usage statistics)
 - Called from (representative examples):
-  - ExecParallelRetrieveInstrumentation (in execParallel.c for retrieving parallel execution stats)
-  - ExecParallelReportInstrumentation (in execParallel.c for reporting parallel execution stats)
+  - [ExecParallelRetrieveInstrumentation](../E/ExecParallelRetrieveInstrumentation.md) (in execParallel.c for retrieving parallel execution stats)
+  - [ExecParallelReportInstrumentation](../E/ExecParallelReportInstrumentation.md) (in execParallel.c for reporting parallel execution stats)
 
 ## Notes and Other Information
 - Handles running state propagation: if destination is not running but source is, destination becomes running

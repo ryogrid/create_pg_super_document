@@ -27,15 +27,15 @@ The function is designed to be lightweight and efficient, avoiding the overhead 
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset (standard C library function)
-  - palloc0 (PostgreSQL memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
   - SpGistState (structure type)
-  - spgxlogState (structure type)
+  - [spgxlogState](../s/spgxlogState.md) (structure type)
   - SGDTSIZE (macro for dead tuple storage size)
 - Called from (representative examples):
-  - spgRedoMoveLeafs
-  - spgRedoAddNode
-  - spgRedoPickSplit
-  - spgRedoVacuumLeaf
+  - [spgRedoMoveLeafs](../s/spgRedoMoveLeafs.md)
+  - [spgRedoAddNode](../s/spgRedoAddNode.md)
+  - [spgRedoPickSplit](../s/spgRedoPickSplit.md)
+  - [spgRedoVacuumLeaf](../s/spgRedoVacuumLeaf.md)
 
 ## Notes and Other Information
 - This is a static function used only within the SP-GiST WAL replay module (spgxlog.c)

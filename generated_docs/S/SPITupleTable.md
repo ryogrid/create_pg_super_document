@@ -28,21 +28,21 @@ The structure supports efficient memory management through its dedicated memory 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_node
+  - [slist_node](../s/slist_node.md)
   - SubTransactionId
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
   - HeapTuple
-  - MemoryContext
+  - [MemoryContext](../M/MemoryContext.md)
 
 - Called from (representative examples):
-  - AtEOSubXact_SPI
-  - SPI_freetuptable
-  - spi_dest_startup
-  - spi_printtup
-  - _SPI_execute_plan
+  - [AtEOSubXact_SPI](../A/AtEOSubXact_SPI.md)
+  - [SPI_freetuptable](SPI_freetuptable.md)
+  - [spi_dest_startup](../s/spi_dest_startup.md)
+  - [spi_printtup](../s/spi_printtup.md)
+  - [_SPI_execute_plan](_SPI_execute_plan.md)
   - _SPI_checktuples
-  - plperl_spi_execute_fetch_result
-  - PLy_spi_execute_fetch_result
+  - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md)
+  - [PLy_spi_execute_fetch_result](../P/PLy_spi_execute_fetch_result.md)
   - pltcl_process_SPI_result
 
 ## Notes and Other Information

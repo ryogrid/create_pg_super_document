@@ -22,9 +22,9 @@ Two ranges are considered adjacent if they touch at exactly one boundary point w
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
-  - range_get_typcache
+  - [range_get_typcache](range_get_typcache.md)
   - RangeTypeGetOid
-  - range_adjacent_internal
+  - [range_adjacent_internal](range_adjacent_internal.md)
 - Called from (representative examples):
   - No direct callers found (SQL operator function)
 

@@ -27,7 +27,7 @@ This static function transitions a tuplesort operation from in-memory sorting to
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEADER/WORKER (macros for checking parallel sort process roles)
-  - tuplesort_merge_order (calculates optimal merge order based on available memory)
+  - [tuplesort_merge_order](../t/tuplesort_merge_order.md) (calculates optimal merge order based on available memory)
   - MINORDER (constant defining minimum merge order for simple cases)
   - inittapestate (initializes internal tape state structures)
   - LogicalTapeSetCreate (creates the underlying tape set for file I/O)

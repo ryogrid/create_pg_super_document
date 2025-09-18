@@ -24,14 +24,14 @@ The output format is consistent:  where length is the total size in bytes, follo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumGetSize
-  - DatumGetPointer  
+  - [datumGetSize](../d/datumGetSize.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)  
   - PointerIsValid
   - appendStringInfo
   - appendStringInfoChar
   - appendStringInfoString
 - Called from (representative examples):
-  - _outConst
+  - [_outConst](_outConst.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's node output system and is primarily used for debugging and plan visualization. The raw byte representation allows developers to inspect the actual memory contents of PostgreSQL data values, which is particularly useful when debugging type-related issues or understanding how different data types are stored internally. The function handles null pointers gracefully by outputting "0 [ ]" for invalid pointers in pass-by-reference types.

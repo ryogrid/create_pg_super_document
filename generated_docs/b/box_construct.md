@@ -21,14 +21,14 @@ This function is a fundamental building block used internally by other geometric
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float8_gt (floating-point comparison function)
-  - BOX (box data structure)
-  - Point (point data structure)
+  - [float8_gt](../f/float8_gt.md) (floating-point comparison function)
+  - [BOX](../B/BOX.md) (box data structure)
+  - [Point](../P/Point.md) (point data structure)
 - Called from (representative examples):
-  - points_box (constructs box from two points)
-  - box_mul (box multiplication operation)
-  - box_div (box division operation)
-  - box_poly (converts box to polygon)
+  - [points_box](../p/points_box.md) (constructs box from two points)
+  - [box_mul](box_mul.md) (box multiplication operation)
+  - [box_div](box_div.md) (box division operation)
+  - [box_poly](box_poly.md) (converts box to polygon)
 
 ## Notes and Other Information
 - The function is declared as `static inline` for performance optimization since it's frequently used internally

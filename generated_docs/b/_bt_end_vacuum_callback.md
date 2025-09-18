@@ -20,10 +20,10 @@ The function converts the generic  argument back to a  pointer and calls  to per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_end_vacuum
-  - DatumGetPointer (macro for converting Datum to pointer)
+  - [_bt_end_vacuum](_bt_end_vacuum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro for converting Datum to pointer)
 - Called from (representative examples):
-  - btbulkdelete (via error cleanup mechanism)
+  - [btbulkdelete](btbulkdelete.md) (via error cleanup mechanism)
   - Error cleanup infrastructure (PG_ENSURE_ERROR_CLEANUP)
 
 ## Notes and Other Information

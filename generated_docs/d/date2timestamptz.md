@@ -17,10 +17,10 @@ The  function provides a simplified interface for date-to-timestamptz conversion
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2timestamptz_opt_overflow: Core conversion function with timezone and overflow handling
+  - [date2timestamptz_opt_overflow](date2timestamptz_opt_overflow.md): Core conversion function with timezone and overflow handling
   - DateADT: PostgreSQL internal date type
 - Called from (representative examples):
-  - date_timestamptz: SQL function for date to timestamptz conversion
+  - [date_timestamptz](date_timestamptz.md): SQL function for date to timestamptz conversion
 
 ## Notes and Other Information
 - Static function scope limits usage to date.c module internal operations

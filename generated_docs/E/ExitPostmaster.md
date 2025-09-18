@@ -21,13 +21,13 @@ The function includes a platform-specific check for multithreading on systems th
 - Functions called/Symbols referenced:
   - pthread_is_threaded_np (conditional, platform-specific)
   - ereport (for logging warnings)
-  - proc_exit (for actual process termination)
+  - [proc_exit](../p/proc_exit.md) (for actual process termination)
 - Called from (representative examples):
-  - PostmasterMain (multiple exit points)
-  - process_pm_child_exit
-  - PostmasterStateMachine
-  - checkControlFile
-  - StartChildProcess
+  - [PostmasterMain](../P/PostmasterMain.md) (multiple exit points)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md)
+  - [checkControlFile](../c/checkControlFile.md)
+  - [StartChildProcess](../S/StartChildProcess.md)
 
 ## Notes and Other Information
 - This function must be used instead of calling exit() directly to ensure proper postmaster cleanup

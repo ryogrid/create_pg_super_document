@@ -22,16 +22,16 @@ This approach ensures that positive numbers are rounded up when the fractional p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericGetDatum: Converts Numeric to Datum
-  - int64_to_numeric: Converts int64 to Numeric
+  - [NumericGetDatum](../N/NumericGetDatum.md): Converts Numeric to Datum
+  - [int64_to_numeric](../i/int64_to_numeric.md): Converts int64 to Numeric
   - DirectFunctionCall2: PostgreSQL function call interface
-  - numeric_ge: Numeric greater-than-or-equal comparison
-  - numeric_add: Numeric addition
-  - numeric_sub: Numeric subtraction  
-  - numeric_div_trunc: Numeric truncated division
-  - DatumGetNumeric: Converts Datum to Numeric
+  - [numeric_ge](numeric_ge.md): Numeric greater-than-or-equal comparison
+  - [numeric_add](numeric_add.md): Numeric addition
+  - [numeric_sub](numeric_sub.md): Numeric subtraction  
+  - [numeric_div_trunc](numeric_div_trunc.md): Numeric truncated division
+  - [DatumGetNumeric](../D/DatumGetNumeric.md): Converts Datum to Numeric
 - Called from (representative examples):
-  - pg_size_pretty_numeric
+  - [pg_size_pretty_numeric](../p/pg_size_pretty_numeric.md)
 
 ## Notes and Other Information
 This function is specifically designed for use in database size formatting operations. The half-rounding behavior is tailored for displaying human-readable size values where consistent rounding behavior is important for user experience. The function is located in .

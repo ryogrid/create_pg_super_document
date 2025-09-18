@@ -22,12 +22,12 @@ This function takes no parameters and returns a newly allocated VariableSpace.
   - pg_malloc (PostgreSQL memory allocation function)
   - struct _variable (internal variable structure)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
   - VariableSpace (typedef reference)
 
 ## Notes and Other Information
 - The returned structure serves as a list header, not an actual variable entry
-- Variables in the space are kept sorted by name for consistent output ordering
+- [Variables](../V/Variables.md) in the space are kept sorted by name for consistent output ordering
 - Memory is allocated using pg_malloc, which provides error handling for allocation failures
 - The header node has all fields (name, value, hooks, next) initialized to NULL
 - This is part of psql's variable management system for storing user-defined and built-in variables

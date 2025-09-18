@@ -23,15 +23,15 @@ This function takes raw PL/Python source code and transforms it into executable 
   - PyDict_Copy (Python dictionary duplication)
   - PyDict_New (Python dictionary creation)
   - PyDict_SetItemString (Python dictionary manipulation)
-  - PLy_procedure_munge_source (source code transformation)
-  - MemoryContextStrdup (memory-context aware string duplication)
+  - [PLy_procedure_munge_source](PLy_procedure_munge_source.md) (source code transformation)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (memory-context aware string duplication)
   - PyRun_String (Python source compilation)
   - Py_CompileString (Python expression compilation)
   - PLy_elog (PL/Python error reporting)
   - Py_DECREF (Python reference counting)
 - Called from (representative examples):
-  - PLy_procedure_create (during procedure creation)
-  - plpython3_inline_handler (for inline code blocks)
+  - [PLy_procedure_create](PLy_procedure_create.md) (during procedure creation)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md) (for inline code blocks)
 
 ## Notes and Other Information
 - Creates isolated execution environment by copying global interpreter state

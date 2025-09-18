@@ -25,13 +25,13 @@ This function implements the newer scheme for array building where you always ge
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initArrayResultWithSize (performs the actual initialization with specified size)
+  - [initArrayResultWithSize](initArrayResultWithSize.md) (performs the actual initialization with specified size)
 - Called from (representative examples):
-  - array_agg_transfn (aggregate function for building arrays)
-  - array_positions (finds positions of elements in arrays)
-  - accumArrayResult (when initializing from NULL state)
-  - range_agg_transfn (range aggregation function)
-  - xpath (XML path expression function)
+  - [array_agg_transfn](../a/array_agg_transfn.md) (aggregate function for building arrays)
+  - [array_positions](../a/array_positions.md) (finds positions of elements in arrays)
+  - [accumArrayResult](../a/accumArrayResult.md) (when initializing from NULL state)
+  - [range_agg_transfn](../r/range_agg_transfn.md) (range aggregation function)
+  - [xpath](../x/xpath.md) (XML path expression function)
 
 ## Notes and Other Information
 - This function implements the preferred newer scheme for array building compared to the older NULL-pointer scheme

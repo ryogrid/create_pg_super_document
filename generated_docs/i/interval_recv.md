@@ -21,10 +21,10 @@ The `interval_recv` function is the binary input conversion function for Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocate memory for Interval structure)
-  - pq_getmsgint64 (read 64-bit integer from binary buffer)
-  - pq_getmsgint (read integer from binary buffer)
-  - AdjustIntervalForTypmod (apply type modifier constraints)
+  - [palloc](../p/palloc.md) (allocate memory for Interval structure)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (read 64-bit integer from binary buffer)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (read integer from binary buffer)
+  - [AdjustIntervalForTypmod](../A/AdjustIntervalForTypmod.md) (apply type modifier constraints)
   - PG_RETURN_INTERVAL_P (macro for returning Interval pointer result)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system for binary protocol handling)

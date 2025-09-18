@@ -20,14 +20,14 @@ This static inline function is used during chunk iteration to efficiently locate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PagetableEntry (structure type)
+  - [PagetableEntry](../P/PagetableEntry.md) (structure type)
   - PAGES_PER_CHUNK (constant)
   - WORDNUM (macro)
   - BITNUM (macro)
   - bitmapword (type)
 - Called from (representative examples):
-  - tbm_iterate (src/backend/nodes/tidbitmap.c:987)
-  - tbm_shared_iterate (src/backend/nodes/tidbitmap.c:1079)
+  - [tbm_iterate](tbm_iterate.md) (src/backend/nodes/tidbitmap.c:987)
+  - [tbm_shared_iterate](tbm_shared_iterate.md) (src/backend/nodes/tidbitmap.c:1079)
 
 ## Notes and Other Information
 - This is a static inline function optimized for performance during bitmap iteration

@@ -28,9 +28,9 @@ The function handles NULL values correctly by considering two NULL boxes as equa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (geometric box data structure)
+  - [BOX](../B/BOX.md) (geometric box data structure)
   - PG_GETARG_BOX_P (macro to extract box pointer from function arguments)
-  - float8_eq (exact double-precision floating-point equality comparison)
+  - [float8_eq](../f/float8_eq.md) (exact double-precision floating-point equality comparison)
   - PG_RETURN_POINTER (macro to return pointer result)
 - Called from (representative examples):
   - No direct references found (likely called via GiST operator class function pointers)

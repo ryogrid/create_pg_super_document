@@ -33,7 +33,7 @@ This enables a pattern where formatting state can be temporarily set aside, cont
   - linitial_int (to retrieve the first integer from the grouping stack)
   - list_delete_first (to remove the top item from the grouping stack)
 - Called from (representative examples):
-  - ExplainCloseWorker
+  - [ExplainCloseWorker](ExplainCloseWorker.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

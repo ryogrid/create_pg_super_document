@@ -33,19 +33,19 @@ This function takes no parameters and operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_pgpid - retrieves the postmaster process ID from the PID file
-  - get_control_dbstate - checks the current database state from control file
+  - [get_pgpid](../g/get_pgpid.md) - retrieves the postmaster process ID from the PID file
+  - [get_control_dbstate](../g/get_control_dbstate.md) - checks the current database state from control file
   - fopen/fclose - creates and closes the promote signal file
   - kill - sends SIGUSR1 signal to trigger promotion
-  - wait_for_postmaster_promote - waits for promotion completion (if do_wait is true)
+  - [wait_for_postmaster_promote](../w/wait_for_postmaster_promote.md) - waits for promotion completion (if do_wait is true)
   - unlink - removes the promote file if signal sending fails
-  - write_stderr - outputs error messages
-  - print_msg - outputs status messages
+  - [write_stderr](../w/write_stderr.md) - outputs error messages
+  - [print_msg](../p/print_msg.md) - outputs status messages
   - DB_IN_ARCHIVE_RECOVERY - database state constant for standby mode
   - SIGUSR1 - signal used to trigger promotion
 
 - Called from (representative examples):
-  - main - main entry point of pg_ctl when promote action is requested
+  - [main](../m/main.md) - [main](../m/main.md) entry point of pg_ctl when promote action is requested
 
 ## Notes and Other Information
 - Only works on servers that are in standby/archive recovery mode - will fail on primary servers

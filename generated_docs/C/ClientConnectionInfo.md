@@ -22,7 +22,7 @@ The structure serves as a lightweight container for authentication state that ca
 - Functions called/Symbols referenced:
   - UserAuth (enum/type for authentication methods)
 - Called from (representative examples):
-  - GetUserNameFromId (in src/backend/utils/init/miscinit.c:1064)
+  - [GetUserNameFromId](../G/GetUserNameFromId.md) (in src/backend/utils/init/miscinit.c:1064)
   - Referenced in libpq-be.h header definitions
 
 ## Notes and Other Information

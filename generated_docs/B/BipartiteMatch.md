@@ -21,14 +21,14 @@ The algorithm validates input sizes to ensure they don't exceed SHRT_MAX limits,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BipartiteMatchState (struct type)
-  - hk_breadth_search (builds level structure for augmenting paths)
-  - hk_depth_search (finds actual augmenting paths using DFS)
-  - palloc, palloc0 (PostgreSQL memory allocation)
+  - [BipartiteMatchState](BipartiteMatchState.md) (struct type)
+  - [hk_breadth_search](../h/hk_breadth_search.md) (builds level structure for augmenting paths)
+  - [hk_depth_search](../h/hk_depth_search.md) (finds actual augmenting paths using DFS)
+  - [palloc](../p/palloc.md), palloc0 (PostgreSQL memory allocation)
   - elog (PostgreSQL error logging)
   - CHECK_FOR_INTERRUPTS (PostgreSQL interrupt handling)
 - Called from (representative examples):
-  - extract_rollup_sets (in query planning for ROLLUP operations)
+  - [extract_rollup_sets](../e/extract_rollup_sets.md) (in query planning for ROLLUP operations)
 
 ## Notes and Other Information
 - Implements the Hopcroft-Karp algorithm which achieves O(E√V) time complexity for maximum bipartite matching

@@ -20,18 +20,18 @@ This function performs cleanup by identifying and removing failover replication 
 ## Dependencies
 - Functions called/Symbols referenced:
   - connect_database (connects to subscriber server, with non-fatal connection flag)
-  - PQexec (executes query to find failover replication slots)
-  - PQresultStatus/PGRES_TUPLES_OK (checks query execution success)
-  - PQntuples (gets number of result rows)
-  - PQgetvalue (retrieves slot names from query results)
-  - drop_replication_slot (removes individual replication slots)
-  - PQclear (frees query result memory)
-  - disconnect_database (closes database connection)
+  - [PQexec](../P/PQexec.md) (executes query to find failover replication slots)
+  - [PQresultStatus](../P/PQresultStatus.md)/PGRES_TUPLES_OK (checks query execution success)
+  - [PQntuples](../P/PQntuples.md) (gets number of result rows)
+  - [PQgetvalue](../P/PQgetvalue.md) (retrieves slot names from query results)
+  - [drop_replication_slot](drop_replication_slot.md) (removes individual replication slots)
+  - [PQclear](../P/PQclear.md) (frees query result memory)
+  - [disconnect_database](disconnect_database.md) (closes database connection)
   - pg_log_warning (logs warning messages for failures)
-  - PQresultErrorMessage (gets error details from failed queries)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (gets error details from failed queries)
   - pg_log_warning_hint (provides helpful hints for manual cleanup)
 - Called from:
-  - main (primary entry point of pg_createsubscriber utility)
+  - [main](../m/main.md) (primary entry point of pg_createsubscriber utility)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c

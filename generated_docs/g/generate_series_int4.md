@@ -19,7 +19,7 @@ The `generate_series_int4` function serves as a non-persistent numeric series ge
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `generate_series_step_int4` - The actual implementation that handles series generation with step support
+  - `[generate_series_step_int4](generate_series_step_int4.md)` - The actual implementation that handles series generation with step support
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL function dispatch)
 

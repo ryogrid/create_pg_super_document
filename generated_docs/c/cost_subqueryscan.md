@@ -21,13 +21,13 @@ The `cost_subqueryscan` function calculates the cost of scanning a subquery by b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clamp_row_est
-  - clauselist_selectivity
-  - list_concat_copy
-  - get_restriction_qual_cost
+  - [clamp_row_est](clamp_row_est.md)
+  - [clauselist_selectivity](clauselist_selectivity.md)
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md)
   - JOIN_INNER (constant)
 - Called from (representative examples):
-  - create_subqueryscan_path
+  - [create_subqueryscan_path](create_subqueryscan_path.md)
 
 ## Notes and Other Information
 - Only applies to base relations that are subqueries (RTE_SUBQUERY)

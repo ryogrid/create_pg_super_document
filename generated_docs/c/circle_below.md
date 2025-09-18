@@ -22,9 +22,9 @@ This ensures that there is no vertical overlap between the two circles - circle1
 - Functions called/Symbols referenced:
   - CIRCLE (type definition)
   - PG_GETARG_CIRCLE_P (argument extraction macro)
-  - float8_pl (floating-point addition)
-  - float8_mi (floating-point subtraction)
-  - FPlt (floating-point less-than comparison)
+  - [float8_pl](../f/float8_pl.md) (floating-point addition)
+  - [float8_mi](../f/float8_mi.md) (floating-point subtraction)
+  - [FPlt](../F/FPlt.md) (floating-point less-than comparison)
   - PG_RETURN_BOOL (return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

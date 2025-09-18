@@ -18,9 +18,9 @@ This function is a PostgreSQL built-in function that verifies if the current use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId(): Gets the current user's OID
-  - convert_function_priv_string(): Converts privilege string to AclMode bitmask
-  - object_aclcheck_ext(): Performs the actual privilege check against the ACL
+  - [GetUserId](../G/GetUserId.md)(): Gets the current user's OID
+  - [convert_function_priv_string](../c/convert_function_priv_string.md)(): Converts privilege string to AclMode bitmask
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)(): Performs the actual privilege check against the ACL
   - AclResult: Enum type for ACL check results
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

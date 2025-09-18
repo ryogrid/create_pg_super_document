@@ -43,16 +43,16 @@ The function implements comprehensive error handling for different tuple states 
 - Functions called/Symbols referenced:
   - table_tuple_lock
   - table_tuple_fetch_row_version
-  - EvalPlanQual
+  - [EvalPlanQual](../E/EvalPlanQual.md)
   - IsolationUsesXactSnapshot
   - TupIsNull
   - SnapshotAny
   - TUPLE_LOCK_FLAG_FIND_LAST_VERSION
 - Called from (representative examples):
-  - ExecBRDeleteTriggersNew
-  - ExecARDeleteTriggers
-  - ExecBRUpdateTriggersNew
-  - ExecARUpdateTriggers
+  - [ExecBRDeleteTriggersNew](../E/ExecBRDeleteTriggersNew.md)
+  - [ExecARDeleteTriggers](../E/ExecARDeleteTriggers.md)
+  - [ExecBRUpdateTriggersNew](../E/ExecBRUpdateTriggersNew.md)
+  - [ExecARUpdateTriggers](../E/ExecARUpdateTriggers.md)
 
 ## Notes and Other Information
 - The function returns true if a valid tuple was fetched, false if the tuple should be skipped

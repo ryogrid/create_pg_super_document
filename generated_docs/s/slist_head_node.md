@@ -20,9 +20,9 @@ This function provides access to the first node in a singly-linked list by retur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_head_element_off (with offset 0)
-  - slist_head (structure type)
-  - slist_node (structure type)
+  - [slist_head_element_off](slist_head_element_off.md) (with offset 0)
+  - [slist_head](slist_head.md) (structure type)
+  - [slist_node](slist_node.md) (structure type)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

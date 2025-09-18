@@ -19,11 +19,11 @@ A utility function that deallocates all prepared statements associated with a sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deallocate_one (perform deallocation of individual statements)
+  - [deallocate_one](../d/deallocate_one.md) (perform deallocation of individual statements)
   - COMPAT_MODE (compatibility mode enumeration)
 - Called from (representative examples):
-  - ecpg_finish (during connection cleanup)
-  - ECPGdeallocate_all (public API for deallocating all statements)
+  - [ecpg_finish](ecpg_finish.md) (during connection cleanup)
+  - [ECPGdeallocate_all](../E/ECPGdeallocate_all.md) (public API for deallocating all statements)
 
 ## Notes and Other Information
 - Returns true if all statements were successfully deallocated, false if any deallocation failed

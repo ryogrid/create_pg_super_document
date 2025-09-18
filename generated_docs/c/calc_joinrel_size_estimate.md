@@ -45,22 +45,22 @@ The estimation process follows these key steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_foreign_key_join_selectivity
+  - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md)
   - IS_OUTER_JOIN
   - RINFO_IS_PUSHED_DOWN  
-  - clauselist_selectivity
-  - list_free
-  - clamp_row_est
+  - [clauselist_selectivity](clauselist_selectivity.md)
+  - [list_free](../l/list_free.md)
+  - [clamp_row_est](clamp_row_est.md)
   - JoinType, SpecialJoinInfo (types)
   - JOIN_INNER, JOIN_LEFT, JOIN_FULL, JOIN_SEMI, JOIN_ANTI (enum values)
 - Called from (representative examples):
-  - set_joinrel_size_estimates (src/backend/optimizer/path/costsize.c:5327)
-  - get_parameterized_joinrel_size (src/backend/optimizer/path/costsize.c:5370)
+  - [set_joinrel_size_estimates](../s/set_joinrel_size_estimates.md) (src/backend/optimizer/path/costsize.c:5327)
+  - [get_parameterized_joinrel_size](../g/get_parameterized_joinrel_size.md) (src/backend/optimizer/path/costsize.c:5370)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the costsize.c module
 - Handles the complexity of distinguishing join conditions from pushed-down predicates in outer joins
 - Foreign key relationships receive special treatment for improved estimation accuracy
-- Result clamping prevents unrealistic estimates that could mislead the optimizer
+- [Result](../R/Result.md) clamping prevents unrealistic estimates that could mislead the optimizer
 - The function carefully manages memory by freeing temporary lists to prevent leaks
 - Different join types have fundamentally different cardinality semantics that are properly reflected in the calculations

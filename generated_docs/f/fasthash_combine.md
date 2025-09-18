@@ -28,11 +28,11 @@ This two-step process ensures that each chunk of input thoroughly influences the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `fasthash_mix` (applies core mixing algorithm to the accumulated input)
-  - `fasthash_state` (structure type being operated on)
+  - `[fasthash_mix](fasthash_mix.md)` (applies core mixing algorithm to the accumulated input)
+  - `[fasthash_state](fasthash_state.md)` (structure type being operated on)
 - Called from (representative examples):
-  - `spcachekey_hash` (src/backend/catalog/namespace.c:262)
-  - `fasthash_accum` (src/include/common/hashfn_unstable.h:210)
+  - `[spcachekey_hash](../s/spcachekey_hash.md)` (src/backend/catalog/namespace.c:262)
+  - `[fasthash_accum](fasthash_accum.md)` (src/include/common/hashfn_unstable.h:210)
   - Functions marked with `pg_attribute_no_sanitize_address` (src/include/common/hashfn_unstable.h:274)
 
 ## Notes and Other Information

@@ -26,7 +26,7 @@ The function initializes a StringInfo buffer, sets up pretty-printing flags base
 - Functions called/Symbols referenced:
   - GET_PRETTY_FLAGS (macro for converting boolean pretty flag to internal formatting flags)
   - initStringInfo (initializes string buffer for output)
-  - get_query_def (core function that performs the actual query decompilation)
+  - [get_query_def](../g/get_query_def.md) (core function that performs the actual query decompilation)
   - WRAP_COLUMN_DEFAULT (constant defining default column wrapping behavior)
 - Called from (representative examples):
   - Referenced by RULE_INDEXDEF_KEYS_ONLY constant (in src/include/utils/ruleutils.h)

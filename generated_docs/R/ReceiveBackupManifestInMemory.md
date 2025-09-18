@@ -22,11 +22,11 @@ The function leverages the same streaming data reception mechanism as its file-b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReceiveCopyData (PostgreSQL utility function for receiving streamed data)
-  - ReceiveBackupManifestInMemoryChunk (callback function for processing manifest chunks into memory)
+  - [ReceiveCopyData](ReceiveCopyData.md) (PostgreSQL utility function for receiving streamed data)
+  - [ReceiveBackupManifestInMemoryChunk](ReceiveBackupManifestInMemoryChunk.md) (callback function for processing manifest chunks into memory)
 
 - Called from (representative examples):
-  - ReceiveTarFile (when manifest data needs to be processed in memory during tar file reception)
+  - [ReceiveTarFile](ReceiveTarFile.md) (when manifest data needs to be processed in memory during tar file reception)
 
 ## Notes and Other Information
 - Uses PQExpBuffer for efficient dynamic string/binary data management

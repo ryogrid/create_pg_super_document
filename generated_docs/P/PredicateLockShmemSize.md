@@ -33,13 +33,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - NPREDICATELOCKTARGETENTS
-  - hash_estimate_size
-  - add_size
-  - mul_size
-  - SimpleLruShmemSize
+  - [hash_estimate_size](../h/hash_estimate_size.md)
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
+  - [SimpleLruShmemSize](../S/SimpleLruShmemSize.md)
   - Various size constants (PredXactListDataSize, RWConflictPoolHeaderDataSize, etc.)
 - Called from (representative examples):
-  - CalculateShmemSize
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - This is a public function accessible outside predicate.c

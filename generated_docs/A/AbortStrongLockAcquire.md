@@ -28,10 +28,10 @@ The function first checks if there's actually a strong lock acquisition in progr
   - StrongLockInProgress
   - FastPathStrongRelationLocks
 - Data structures used:
-  - LOCALLOCK
+  - [LOCALLOCK](../L/LOCALLOCK.md)
 - Called from (representative examples):
-  - LockAcquireExtended (on error paths)
-  - LockErrorCleanup
+  - [LockAcquireExtended](../L/LockAcquireExtended.md) (on error paths)
+  - [LockErrorCleanup](../L/LockErrorCleanup.md)
 
 ## Notes and Other Information
 - Unlike other strong lock functions, this one is not static and can be called from other modules

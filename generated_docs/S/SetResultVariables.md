@@ -18,8 +18,8 @@ SetResultVariables is a static function that maintains psql's special variables 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQcmdTuples (PostgreSQL libpq function for row count)
-  - PQresultErrorField (PostgreSQL libpq function for error details)
+  - [PQcmdTuples](../P/PQcmdTuples.md) (PostgreSQL libpq function for row count)
+  - [PQresultErrorField](../P/PQresultErrorField.md) (PostgreSQL libpq function for error details)
   - SetVariable (psql variable management function)
 - Constants referenced:
   - PG_DIAG_SQLSTATE (PostgreSQL diagnostic field identifier)
@@ -27,8 +27,8 @@ SetResultVariables is a static function that maintains psql's special variables 
 - Global variables accessed:
   - pset.vars (psql variable storage)
 - Called from:
-  - DescribeQuery (src/bin/psql/common.c:1341, 1415)
-  - ExecQueryAndProcessResults (src/bin/psql/common.c:1545, 1801)
+  - [DescribeQuery](../D/DescribeQuery.md) (src/bin/psql/common.c:1341, 1415)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1545, 1801)
 
 ## Notes and Other Information
 This function implements psql's policy of tracking query status only for user-entered queries, not for internal slash commands. The special variables it manages (ERROR, SQLSTATE, ROW_COUNT, LAST_ERROR_SQLSTATE, LAST_ERROR_MESSAGE) are essential for script automation and conditional logic in psql. The function gracefully handles edge cases where error information may be incomplete, particularly for connection-level errors detected by libpq rather than the PostgreSQL server. The ROW_COUNT variable uses the result of PQcmdTuples, which returns affected rows for modification commands and returned rows for SELECT queries.

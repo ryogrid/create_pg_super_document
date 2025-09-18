@@ -30,7 +30,7 @@ This function is essential for maintaining consistency in READ COMMITTED isolati
   - ExecQualAndReset
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:61)
-  - ExecIndexScan (nodeIndexscan.c:532, 536)
+  - [ExecIndexScan](../E/ExecIndexScan.md) (nodeIndexscan.c:532, 536)
 
 ## Notes and Other Information
 - This is a static function used internally within the index scan executor

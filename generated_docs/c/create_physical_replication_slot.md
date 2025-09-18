@@ -23,16 +23,16 @@ This function creates a new physical replication slot used for streaming replica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotCreate
+  - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md)
   - XLogRecPtrIsInvalid
-  - ReplicationSlotReserveWal
-  - ReplicationSlotMarkDirty
-  - ReplicationSlotSave
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md)
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)
+  - [ReplicationSlotSave](../R/ReplicationSlotSave.md)
   - RS_PERSISTENT
   - RS_TEMPORARY
 - Called from (representative examples):
-  - pg_create_physical_replication_slot
-  - copy_replication_slot
+  - [pg_create_physical_replication_slot](../p/pg_create_physical_replication_slot.md)
+  - [copy_replication_slot](copy_replication_slot.md)
 
 ## Notes and Other Information
 - Asserts that MyReplicationSlot is NULL before execution

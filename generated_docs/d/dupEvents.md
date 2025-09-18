@@ -26,8 +26,8 @@ The function carefully manages memory allocation, including tracking the total a
   - free
   - strlen
 - Called from (representative examples):
-  - PQmakeEmptyPGresult
-  - PQcopyResult
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
+  - [PQcopyResult](../P/PQcopyResult.md)
 
 ## Notes and Other Information
 - Returns NULL if source events is NULL, count is zero, or memory allocation fails

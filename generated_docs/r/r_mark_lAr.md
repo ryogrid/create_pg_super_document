@@ -25,13 +25,13 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony
-  - find_among_b
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md)
+  - [find_among_b](../f/find_among_b.md)
   - a_16 (static array containing suffix patterns: "lar", "ler")
 - Called from (representative examples):
-  - r_stem_nominal_verb_suffixes (at lines 948, 985, 1112)
-  - r_stem_suffix_chain_before_ki (at lines 1175, 1204, 1270, 1325)
-  - r_stem_noun_suffixes (at multiple lines: 1357, 1420, 1439, 1496, 1549, 1598, 1616, 1669, 1705, 1793, 1803, 1844)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md) (at lines 948, 985, 1112)
+  - [r_stem_suffix_chain_before_ki](r_stem_suffix_chain_before_ki.md) (at lines 1175, 1204, 1270, 1325)
+  - [r_stem_noun_suffixes](r_stem_noun_suffixes.md) (at multiple lines: 1357, 1420, 1439, 1496, 1549, 1598, 1616, 1669, 1705, 1793, 1803, 1844)
 
 ## Notes and Other Information
 - The `a_16` array contains only 2 suffix variations: "lar" (back vowel harmony) and "ler" (front vowel harmony)

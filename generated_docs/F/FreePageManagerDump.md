@@ -30,8 +30,8 @@ The function constructs the output using PostgreSQL's StringInfo buffer mechanis
   - FreePageSpanLeader (struct type)
   - FreePageBtree (struct type)
   - relptr_access
-  - FreePageManagerDumpBtree
-  - FreePageManagerDumpSpans
+  - [FreePageManagerDumpBtree](FreePageManagerDumpBtree.md)
+  - [FreePageManagerDumpSpans](FreePageManagerDumpSpans.md)
   - FPM_NUM_FREELISTS (constant)
 - Called from (representative examples):
   - fpm_largest (likely a debugging/testing function)

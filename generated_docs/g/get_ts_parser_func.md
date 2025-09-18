@@ -25,13 +25,13 @@ The function handles five different types of parser functions:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetQualifiedName: Extracts qualified function name from DefElem
-  - LookupFuncName: Looks up function OID by name and signature
-  - get_func_rettype: Gets the return type of a function
-  - func_signature_string: Formats function signature for error messages
-  - format_type_be: Formats type name for error messages
+  - [defGetQualifiedName](../d/defGetQualifiedName.md): Extracts qualified function name from DefElem
+  - [LookupFuncName](../L/LookupFuncName.md): Looks up function OID by name and signature
+  - [get_func_rettype](get_func_rettype.md): Gets the return type of a function
+  - [func_signature_string](../f/func_signature_string.md): Formats function signature for error messages
+  - [format_type_be](../f/format_type_be.md): Formats type name for error messages
 - Called from (representative examples):
-  - DefineTSParser: Used to validate and retrieve OIDs for all parser function types
+  - [DefineTSParser](../D/DefineTSParser.md): Used to validate and retrieve OIDs for all parser function types
 
 ## Notes and Other Information
 - This is a static function, only accessible within tsearchcmds.c

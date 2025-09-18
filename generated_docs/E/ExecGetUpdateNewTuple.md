@@ -32,10 +32,10 @@ Unlike the INSERT case, UPDATE operations always require projection due to the c
   - TTS_EMPTY (macro)
   - ExecProject
 - Called from (representative examples):
-  - ExecBRUpdateTriggersNew
-  - ExecCrossPartitionUpdate
-  - ExecUpdate
-  - ExecModifyTable
+  - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md)
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md)
+  - [ExecUpdate](ExecUpdate.md)
+  - [ExecModifyTable](ExecModifyTable.md)
 
 ## Notes and Other Information
 - Unlike ExecGetInsertNewTuple, this is a public function (not static) used across multiple modules

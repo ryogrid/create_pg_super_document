@@ -23,19 +23,19 @@ PointPGetDatum is part of PostgreSQL's function manager (fmgr) interface functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (geometric point data type)
-  - PointerGetDatum (implicit, through direct function call)
+  - [Point](Point.md) (geometric point data type)
+  - [PointerGetDatum](PointerGetDatum.md) (implicit, through direct function call)
 - Called from (representative examples):
   - point_point_distance
-  - gist_point_consistent
-  - spg_kd_choose
-  - spg_kd_picksplit
+  - [gist_point_consistent](../g/gist_point_consistent.md)
+  - [spg_kd_choose](../s/spg_kd_choose.md)
+  - [spg_kd_picksplit](../s/spg_kd_picksplit.md)
   - point_point_distance
   - SPTEST
-  - spg_quad_choose
-  - spg_quad_picksplit
+  - [spg_quad_choose](../s/spg_quad_choose.md)
+  - [spg_quad_picksplit](../s/spg_quad_picksplit.md)
   - PG_RETURN_POINT_P
-  - pt_in_widget
+  - [pt_in_widget](../p/pt_in_widget.md)
 
 ## Notes and Other Information
 This function is defined as a static inline function in src/include/utils/geo_decls.h:181-184. It is widely used in spatial indexing implementations and geometric operations throughout PostgreSQL. The function takes a const pointer, indicating that it does not modify the Point data. It is commonly used in conjunction with PG_RETURN_POINT_P macro and in various geometric functions that need to return Point results. The function assumes the input pointer is valid and points to a properly initialized Point structure.

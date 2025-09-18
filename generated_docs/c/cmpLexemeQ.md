@@ -20,10 +20,10 @@ This design pattern is commonly used in C to make type-specific comparison funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmpLexeme (the underlying comparison function)
-  - TheLexeme (structure type for casting)
+  - [cmpLexeme](cmpLexeme.md) (the underlying comparison function)
+  - [TheLexeme](../T/TheLexeme.md) (structure type for casting)
 - Called from (representative examples):
-  - findTheLexeme
+  - [findTheLexeme](../f/findTheLexeme.md)
 
 ## Notes and Other Information
 - This function follows the standard qsort/bsearch comparator function signature

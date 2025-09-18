@@ -19,27 +19,27 @@ This function converts a PostgreSQL type OID into a human-readable, formatted ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTypeByOid
+  - [findTypeByOid](../f/findTypeByOid.md)
   - createPQExpBuffer
-  - appendPQExpBuffer
-  - ExecuteSqlQueryForSingleRow
-  - PQgetvalue
-  - pg_strdup
-  - PQclear
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Types used:
-  - TypeInfo
-  - OidOptions
+  - [TypeInfo](../T/TypeInfo.md)
+  - [OidOptions](../O/OidOptions.md)
   - zeroAsStar
   - zeroAsNone
 - Called from (representative examples):
-  - dumpBaseType
-  - format_function_signature
-  - dumpFunc
-  - dumpCast
-  - dumpTransform
-  - format_aggregate_signature
-  - dumpTableSchema
+  - [dumpBaseType](../d/dumpBaseType.md)
+  - [format_function_signature](../f/format_function_signature.md)
+  - [dumpFunc](../d/dumpFunc.md)
+  - [dumpCast](../d/dumpCast.md)
+  - [dumpTransform](../d/dumpTransform.md)
+  - [format_aggregate_signature](../f/format_aggregate_signature.md)
+  - [dumpTableSchema](../d/dumpTableSchema.md)
 
 ## Notes and Other Information
 - Results are cached in TypeInfo->ftypname to avoid repeated queries

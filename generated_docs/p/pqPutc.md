@@ -22,10 +22,10 @@ pqPutc is part of the message construction infrastructure in libpq and is used i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPutMsgBytes (adds bytes to the outgoing message buffer)
+  - [pqPutMsgBytes](pqPutMsgBytes.md) (adds bytes to the outgoing message buffer)
 - Called from (representative examples):
-  - PQsendQueryGuts (query message construction)
-  - PQsendTypedCommand (typed command message construction)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md) (query message construction)
+  - [PQsendTypedCommand](../P/PQsendTypedCommand.md) (typed command message construction)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on error

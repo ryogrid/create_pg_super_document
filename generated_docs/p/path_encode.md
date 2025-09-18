@@ -22,16 +22,16 @@ The  function converts an array of Point structures into a properly formatted st
   - initStringInfo
   - appendStringInfoChar
   - pair_encode
-  - Point (struct)
+  - [Point](../P/Point.md) (struct)
   - path_delim (enum)
   - PATH_CLOSED, PATH_OPEN, PATH_NONE (enum values)
   - LDELIM, RDELIM, LDELIM_EP, RDELIM_EP, DELIM (delimiter constants)
 - Called from (representative examples):
-  - box_out
-  - path_out
-  - point_out
-  - lseg_out
-  - poly_out
+  - [box_out](../b/box_out.md)
+  - [path_out](path_out.md)
+  - [point_out](point_out.md)
+  - [lseg_out](../l/lseg_out.md)
+  - [poly_out](poly_out.md)
 
 ## Notes and Other Information
 This is a static utility function used internally by various geometric output functions in PostgreSQL. The function handles three distinct formatting styles for paths depending on whether they represent closed polygons, open line segments, or raw coordinate sequences. The resulting string follows PostgreSQL's standard geometric data type output format.

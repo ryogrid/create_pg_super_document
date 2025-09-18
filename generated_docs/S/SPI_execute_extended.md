@@ -23,10 +23,10 @@ The function creates a temporary execution plan, executes it with the provided o
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call (initializes SPI execution context)
-  - _SPI_prepare_oneshot_plan (parses and plans the query)
-  - _SPI_execute_plan (executes the prepared plan)
+  - [_SPI_prepare_oneshot_plan](_SPI_prepare_oneshot_plan.md) (parses and plans the query)
+  - [_SPI_execute_plan](_SPI_execute_plan.md) (executes the prepared plan)
   - _SPI_end_call (cleans up SPI execution context)
-  - SPIExecuteOptions (options structure type)
+  - [SPIExecuteOptions](SPIExecuteOptions.md) (options structure type)
   - _SPI_plan (internal plan structure)
 - Called from (representative examples):
   - Referenced in SPI header definitions

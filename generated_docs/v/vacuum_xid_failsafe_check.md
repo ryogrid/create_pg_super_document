@@ -25,13 +25,13 @@ The function uses configurable thresholds (vacuum_failsafe_age and vacuum_multix
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReadNextTransactionId
-  - ReadNextMultiXactId
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
 - Called from (representative examples):
-  - lazy_check_wraparound_failsafe (src/backend/access/heap/vacuumlazy.c:2306)
+  - [lazy_check_wraparound_failsafe](../l/lazy_check_wraparound_failsafe.md) (src/backend/access/heap/vacuumlazy.c:2306)
 
 ## Notes and Other Information
 - Returns true when failsafe should be triggered, false otherwise

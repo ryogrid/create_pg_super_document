@@ -28,10 +28,10 @@ Important behavioral notes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList (validation)
-  - list_member (check membership using equal())
+  - [list_member](list_member.md) (check membership using equal())
   - lfirst (extract pointer values)
   - lappend (append pointer values)
-  - check_list_invariants (validation)
+  - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
   - forfive (pg_list.h:650)
 

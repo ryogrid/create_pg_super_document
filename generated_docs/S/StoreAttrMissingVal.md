@@ -19,12 +19,12 @@ This function stores a missing value for a specified attribute when adding a col
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - construct_array
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [SearchSysCache2](SearchSysCache2.md)
+  - [construct_array](../c/construct_array.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
 - Called from (representative examples):
-  - ATExecAddColumn
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
 
 ## Notes and Other Information
 - Only supported for plain tables (RELKIND_RELATION), enforced by assertion

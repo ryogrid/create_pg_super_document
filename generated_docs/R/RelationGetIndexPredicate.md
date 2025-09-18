@@ -34,22 +34,22 @@ The optimization and canonicalization steps are essential because the planner co
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - heap_attisnull
-  - heap_getattr
-  - GetPgIndexDescriptor
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [GetPgIndexDescriptor](../G/GetPgIndexDescriptor.md)
   - TextDatumGetCString
-  - stringToNode
-  - eval_const_expressions
-  - canonicalize_qual
-  - make_ands_implicit
-  - fix_opfuncids
+  - [stringToNode](../s/stringToNode.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [canonicalize_qual](../c/canonicalize_qual.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
+  - [fix_opfuncids](../f/fix_opfuncids.md)
 - Called from (representative examples):
-  - BuildIndexInfo
-  - is_usable_unique_index
-  - ATExecReplicaIdentity
-  - plan_create_index_workers
-  - get_relation_info
-  - infer_arbiter_indexes
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [is_usable_unique_index](../i/is_usable_unique_index.md)
+  - [ATExecReplicaIdentity](../A/ATExecReplicaIdentity.md)
+  - [plan_create_index_workers](../p/plan_create_index_workers.md)
+  - [get_relation_info](../g/get_relation_info.md)
+  - [infer_arbiter_indexes](../i/infer_arbiter_indexes.md)
 
 ## Notes and Other Information
 - Returns NIL for relations that are not indexes or indexes without predicates (full indexes)

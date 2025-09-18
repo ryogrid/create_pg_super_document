@@ -23,20 +23,20 @@ SortBy nodes are fundamental components of PostgreSQL's ORDER BY clause processi
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited structure member)
-  - Node (base type for sort expression)
-  - SortByDir (enumeration for sort direction)
+  - [Node](../N/Node.md) (base type for sort expression)
+  - [SortByDir](SortByDir.md) (enumeration for sort direction)
   - SortByNulls (enumeration for null ordering)
-  - List (for operator names in USING clause)
+  - [List](../L/List.md) (for operator names in USING clause)
   - ParseLoc (for source location tracking)
 - Called from (representative examples):
-  - transformSortClause (src/backend/parser/parse_clause.c:2743)
-  - addTargetToSortList (src/backend/parser/parse_clause.c:3394)
-  - transformAggregateCall (src/backend/parser/parse_agg.c:139)
+  - [transformSortClause](../t/transformSortClause.md) (src/backend/parser/parse_clause.c:2743)
+  - [addTargetToSortList](../a/addTargetToSortList.md) (src/backend/parser/parse_clause.c:3394)
+  - [transformAggregateCall](../t/transformAggregateCall.md) (src/backend/parser/parse_agg.c:139)
   - transformFuncCall (src/backend/parser/parse_expr.c:1466)
 
 ## Notes and Other Information
-- SortBy nodes are created during SQL parsing and are later processed to generate sort specifications for query execution
+- [SortBy](SortBy.md) nodes are created during SQL parsing and are later processed to generate sort specifications for query execution
 - The useOp field is only populated when using custom sorting operators with the USING clause
 - Location tracking helps provide meaningful error messages when sort specifications are invalid
-- SortBy supports both simple column sorting and complex expression-based sorting
+- [SortBy](SortBy.md) supports both simple column sorting and complex expression-based sorting
 - File location: src/include/nodes/parsenodes.h:543-551

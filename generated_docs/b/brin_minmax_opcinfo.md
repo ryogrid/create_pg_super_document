@@ -21,11 +21,11 @@ The function sets up the operator class to store exactly 2 values per range (min
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinOpcInfo (structure type)
+  - [BrinOpcInfo](../B/BrinOpcInfo.md) (structure type)
   - SizeofBrinOpcInfo (macro for calculating structure size)
-  - MinmaxOpaque (structure type for opaque data)
-  - lookup_type_cache (function to get type cache information)
-  - palloc0 (memory allocation function)
+  - [MinmaxOpaque](../M/MinmaxOpaque.md) (structure type for opaque data)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (function to get type cache information)
+  - [palloc0](../p/palloc0.md) (memory allocation function)
   - MAXALIGN (memory alignment macro)
 
 - Called from (representative examples):

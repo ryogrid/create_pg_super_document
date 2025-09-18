@@ -18,11 +18,11 @@ This function serves as a callback for processing parameter references (, , etc.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamRef
+  - [ParamRef](../P/ParamRef.md)
   - SQLFunctionParseInfoPtr
-  - sql_fn_make_param
+  - [sql_fn_make_param](sql_fn_make_param.md)
 - Called from (representative examples):
-  - sql_fn_parser_setup (src/backend/executor/functions.c:269)
+  - [sql_fn_parser_setup](sql_fn_parser_setup.md) (src/backend/executor/functions.c:269)
 
 ## Notes and Other Information
 - Validates parameter numbers are positive and within the function's argument count (1 to nargs)

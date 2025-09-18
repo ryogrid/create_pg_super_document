@@ -23,12 +23,12 @@ This function sets up kqueue-based monitoring for postmaster process death detec
 - Functions called/Symbols referenced:
   - PostmasterPid (global variable containing the postmaster process ID)
   - AccessWaitEvent (macro for associating WaitEvent with kevent)
-  - WaitEvent (structure type)
+  - [WaitEvent](WaitEvent.md) (structure type)
   - EVFILT_PROC (kqueue filter for process events)
   - EV_ADD (kqueue flag to add the event)
   - NOTE_EXIT (kqueue flag to monitor process exit)
 - Called from (representative examples):
-  - WaitEventAdjustKqueue (at line 1290)
+  - [WaitEventAdjustKqueue](WaitEventAdjustKqueue.md) (at line 1290)
 
 ## Notes and Other Information
 - This function only supports adding postmaster death monitoring, not removing it, as indicated by the comment

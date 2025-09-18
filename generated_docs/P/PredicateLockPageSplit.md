@@ -28,17 +28,17 @@ The function handles the case where the predicate lock table becomes full by pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredicateLockingNeededForRelation
+  - [PredicateLockingNeededForRelation](PredicateLockingNeededForRelation.md)
   - BlockNumberIsValid
   - SET_PREDICATELOCKTARGETTAG_PAGE
-  - TransferPredicateLocksToNewTarget
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
   - GetParentPredicateLockTag
   - LWLockAcquire/LWLockRelease
 - Called from (representative examples):
-  - ginPlaceToPage (GIN index splits)
-  - gistplacetopage (GiST index splits)
-  - _hash_splitbucket (hash index splits)
-  - _bt_insertonpg (B-tree index splits)
+  - [ginPlaceToPage](../g/ginPlaceToPage.md) (GIN index splits)
+  - [gistplacetopage](../g/gistplacetopage.md) (GiST index splits)
+  - [_hash_splitbucket](../h/_hash_splitbucket.md) (hash index splits)
+  - [_bt_insertonpg](../b/_bt_insertonpg.md) (B-tree index splits)
 
 ## Notes and Other Information
 - This function affects ALL serializable transactions, regardless of the isolation level of the transaction performing the page split

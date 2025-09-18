@@ -22,15 +22,15 @@ The function delegates all initialization work to CreateExprContextInternal() wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExprContextInternal
+  - [CreateExprContextInternal](CreateExprContextInternal.md)
   - ALLOCSET_DEFAULT_SIZES
 
 - Called from (representative examples):
-  - ExecuteCallStmt
+  - [ExecuteCallStmt](../E/ExecuteCallStmt.md)
   - MakePerTupleExprContext  
   - ExecAssignExprContext
   - ExecInitMergeJoin
-  - ExecInitSubPlan
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
   - do_text_output_oneline
 
 ## Notes and Other Information

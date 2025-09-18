@@ -20,11 +20,11 @@ This function is a convenience wrapper around `dlist_tail_element_off` that retu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_tail_element_off
-  - dlist_node (return type)
-  - dlist_head (parameter type)
+  - [dlist_tail_element_off](dlist_tail_element_off.md)
+  - [dlist_node](dlist_node.md) (return type)
+  - [dlist_head](dlist_head.md) (parameter type)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf (src/backend/access/gin/gindatapage.c:502)
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md) (src/backend/access/gin/gindatapage.c:502)
 
 ## Notes and Other Information
 - This function should only be called when the list is known to contain at least one element

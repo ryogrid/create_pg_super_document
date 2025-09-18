@@ -19,12 +19,12 @@ PrepareRedoRemove is the cleanup counterpart to PrepareRedoAdd, responsible for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockHeldByMeInMode
-  - RecoveryInProgress
-  - RemoveTwoPhaseFile
-  - RemoveGXact
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [RemoveTwoPhaseFile](../R/RemoveTwoPhaseFile.md)
+  - [RemoveGXact](../R/RemoveGXact.md)
 - Called from (representative examples):
-  - ProcessTwoPhaseBuffer
-  - xact_redo
+  - [ProcessTwoPhaseBuffer](ProcessTwoPhaseBuffer.md)
+  - [xact_redo](../x/xact_redo.md)
 
 ## Notes and Other Information
 The function requires exclusive access to TwoPhaseStateLock and can only be called during recovery (RecoveryInProgress must be true). It gracefully handles cases where the transaction entry doesn't exist, which is expected during normal WAL replay scenarios. When a matching entry is found, it verifies the inredo flag is set (confirming it was added during recovery) before proceeding with cleanup. The function performs both memory cleanup via RemoveGXact and optional disk cleanup via RemoveTwoPhaseFile depending on the ondisk flag. Location: src/backend/access/transam/twophase.c:2572-2623

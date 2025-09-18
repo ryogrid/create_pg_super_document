@@ -20,8 +20,8 @@ This function implements complex number multiplication for PostgreSQL Point data
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P (argument extraction)
-  - palloc (memory allocation)
-  - point_mul_point (performs the actual multiplication)
+  - [palloc](palloc.md) (memory allocation)
+  - [point_mul_point](point_mul_point.md) (performs the actual multiplication)
   - PG_RETURN_POINT_P (return value packaging)
 - Called from (representative examples):
   - No direct callers found in the codebase

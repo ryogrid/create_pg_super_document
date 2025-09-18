@@ -19,15 +19,15 @@ This function safely closes a pager process that was previously opened by PageOu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pclose (close pipe to pager process)
-  - restore_sigpipe_trap (restore SIGPIPE signal handling)
+  - [pclose](../p/pclose.md) (close pipe to pager process)
+  - [restore_sigpipe_trap](../r/restore_sigpipe_trap.md) (restore SIGPIPE signal handling)
 - Called from (representative examples):
-  - exec_command_sf_sv (src/bin/psql/command.c:2589)
-  - ExecQueryAndProcessResults (src/bin/psql/common.c:1718, 1745)
-  - usage, slashUsage, helpVariables (various help functions)
-  - printHistory (src/bin/psql/input.c:527)
-  - print_aligned_text (src/fe_utils/print.c:1220)
-  - printTable (src/fe_utils/print.c:3536)
+  - [exec_command_sf_sv](../e/exec_command_sf_sv.md) (src/bin/psql/command.c:2589)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1718, 1745)
+  - [usage](../u/usage.md), slashUsage, helpVariables (various help functions)
+  - [printHistory](../p/printHistory.md) (src/bin/psql/input.c:527)
+  - [print_aligned_text](../p/print_aligned_text.md) (src/fe_utils/print.c:1220)
+  - [printTable](../p/printTable.md) (src/fe_utils/print.c:3536)
 
 ## Notes and Other Information
 - Safe to call with stdout - function will detect this and do nothing

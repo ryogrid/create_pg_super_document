@@ -24,17 +24,17 @@ The function first records the offset in the MultiXactOffsetCtl SLRU, then itera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdToOffsetPage, MultiXactIdToOffsetEntry (page/entry calculation)
-  - SimpleLruGetBankLock (SLRU bank locking)
-  - SimpleLruReadPage (SLRU page reading)
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md), MultiXactIdToOffsetEntry (page/entry calculation)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (SLRU bank locking)
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md) (SLRU page reading)
   - LWLockAcquire, LWLockRelease (locking primitives)
   - ConditionVariableBroadcast (notification mechanism)
-  - MXOffsetToMemberPage, MXOffsetToMemberOffset (member page/offset calculation)
-  - MXOffsetToFlagsOffset, MXOffsetToFlagsBitShift (flags manipulation)
+  - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md), MXOffsetToMemberOffset (member page/offset calculation)
+  - [MXOffsetToFlagsOffset](../M/MXOffsetToFlagsOffset.md), MXOffsetToFlagsBitShift (flags manipulation)
   - MultiXactOffsetCtl, MultiXactMemberCtl (SLRU control structures)
 - Called from (representative examples):
-  - MultiXactIdCreateFromMembers (during normal MultiXact creation)
-  - multixact_redo (during WAL replay operations)
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md) (during normal MultiXact creation)
+  - [multixact_redo](../m/multixact_redo.md) (during WAL replay operations)
 
 ## Notes and Other Information
 - Function is marked static and used internally within the MultiXact subsystem

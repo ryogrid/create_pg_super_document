@@ -28,20 +28,20 @@ None (void function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransInvalidationInfo (struct type)
-  - GetCurrentTransactionNestLevel
-  - MemoryContextAllocZero
+  - [TransInvalidationInfo](../T/TransInvalidationInfo.md) (struct type)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - NumMessagesInGroup
   - SetGroupToFollow
   - CatCacheMsgs
   - RelCacheMsgs
 - Called from (representative examples):
-  - CacheInvalidateHeapTuple
-  - CacheInvalidateCatalog
-  - CacheInvalidateRelcache
-  - CacheInvalidateRelcacheAll
-  - CacheInvalidateRelcacheByTuple
-  - CacheInvalidateRelcacheByRelid
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
+  - [CacheInvalidateCatalog](../C/CacheInvalidateCatalog.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [CacheInvalidateRelcacheAll](../C/CacheInvalidateRelcacheAll.md)
+  - [CacheInvalidateRelcacheByTuple](../C/CacheInvalidateRelcacheByTuple.md)
+  - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md)
 
 ## Notes and Other Information
 - This is a static function internal to the invalidation system

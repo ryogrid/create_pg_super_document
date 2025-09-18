@@ -24,7 +24,7 @@ The calculated size is stored in the IndexScanState's iss_PscanLen field for lat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_parallelscan_estimate
+  - [index_parallelscan_estimate](../i/index_parallelscan_estimate.md)
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
 - Called from (representative examples):

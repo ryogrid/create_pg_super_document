@@ -25,8 +25,8 @@ The function extracts the same parameters as the non-timezone version but proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_query_first_internal
-  - JsonPathExecResult (referenced in extended function body)
+  - [jsonb_path_query_first_internal](jsonb_path_query_first_internal.md)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (referenced in extended function body)
 - Called from (representative examples):
   - Direct SQL function calls (no internal PostgreSQL callers found)
 

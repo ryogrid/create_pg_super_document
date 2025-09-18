@@ -24,14 +24,14 @@ The function also handles special cases like incomplete page splits and dead/ign
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_relandgetbuf: Releases current buffer and acquires new one with specified lock
-  - _bt_finish_split: Completes any incomplete page splits encountered
-  - _bt_relbuf: Releases buffer lock and pin
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md): Releases current buffer and acquires new one with specified lock
+  - [_bt_finish_split](_bt_finish_split.md): Completes any incomplete page splits encountered
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer lock and pin
   - P_INCOMPLETE_SPLIT: Checks if page has incomplete split
   - P_IGNORE: Checks if page should be ignored (dead)
   - P_RIGHTMOST: Checks if page is rightmost in tree
 - Called from (representative examples):
-  - _bt_findinsertloc: When searching for optimal insertion location
+  - [_bt_findinsertloc](_bt_findinsertloc.md): When searching for optimal insertion location
 
 ## Notes and Other Information
 - Updates insertstate->buf to point to the new buffer and invalidates cached bounds

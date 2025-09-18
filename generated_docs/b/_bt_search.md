@@ -25,24 +25,24 @@ The returned buffer is locked according to the access parameter, and in write mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getroot
-  - _bt_moveright
-  - _bt_binsrch
-  - _bt_relandgetbuf
-  - _bt_unlockbuf
-  - _bt_lockbuf
-  - BufferGetBlockNumber
-  - BufferGetPage
+  - [_bt_getroot](_bt_getroot.md)
+  - [_bt_moveright](_bt_moveright.md)
+  - [_bt_binsrch](_bt_binsrch.md)
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md)
+  - [_bt_unlockbuf](_bt_unlockbuf.md)
+  - [_bt_lockbuf](_bt_lockbuf.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - BTPageGetOpaque
   - P_ISLEAF
-  - PageGetItemId
-  - PageGetItem
-  - BTreeTupleIsPivot
-  - BTreeTupleGetDownLink
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [BTreeTupleGetDownLink](../B/BTreeTupleGetDownLink.md)
 - Called from (representative examples):
-  - _bt_search_insert
-  - _bt_pagedel
-  - _bt_first
+  - [_bt_search_insert](_bt_search_insert.md)
+  - [_bt_pagedel](_bt_pagedel.md)
+  - [_bt_first](_bt_first.md)
 
 ## Notes and Other Information
 The function implements several important concurrency considerations:

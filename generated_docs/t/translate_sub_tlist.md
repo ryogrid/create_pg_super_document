@@ -29,7 +29,7 @@ This conservative approach ensures that uniqueness determinations are only made 
   - lappend_int (to append integer values to the result list)
   - NIL (constant representing empty list)
 - Called from (representative examples):
-  - create_unique_path (when analyzing subquery uniqueness for unique path optimization)
+  - [create_unique_path](../c/create_unique_path.md) (when analyzing subquery uniqueness for unique path optimization)
 
 ## Notes and Other Information
 - The function is declared as static, meaning it's only used within the pathnode.c file

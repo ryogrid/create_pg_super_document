@@ -28,13 +28,13 @@ The function allocates memory for the returned string, which the caller must fre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_active (to check if in active \if branch)
-  - GetVariable (to retrieve variable value from pset.vars)
-  - pg_strdup (for plain string duplication)
-  - PQescapeLiteral (for SQL literal escaping)
-  - PQescapeIdentifier (for SQL identifier escaping)
-  - PQfreemem (to free libpq-allocated memory)
-  - appendShellStringNoError (for shell argument escaping)
+  - [conditional_active](../c/conditional_active.md) (to check if in active \if branch)
+  - [GetVariable](../G/GetVariable.md) (to retrieve variable value from pset.vars)
+  - [pg_strdup](pg_strdup.md) (for plain string duplication)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md) (for SQL literal escaping)
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md) (for SQL identifier escaping)
+  - [PQfreemem](../P/PQfreemem.md) (to free libpq-allocated memory)
+  - [appendShellStringNoError](../a/appendShellStringNoError.md) (for shell argument escaping)
   - initPQExpBuffer (for buffer initialization)
   - pg_log_error/pg_log_info (for error reporting)
 - Called from (representative examples):
@@ -44,6 +44,6 @@ The function allocates memory for the returned string, which the caller must fre
 - Returns malloc'd string that caller must free, or NULL on error/non-existence
 - SQL escaping requires an active database connection for proper encoding handling
 - Shell argument escaping rejects values containing newlines or carriage returns for security
-- Variable expansion is suppressed entirely in inactive \if conditional branches
+- [Variable](../V/Variable.md) expansion is suppressed entirely in inactive \if conditional branches
 - The function is encoding-aware for SQL contexts but encoding-agnostic for shell contexts
 - Memory management involves extra strdup() calls to maintain consistent free() semantics across different libpq functions

@@ -27,23 +27,23 @@ The function connects to the first database in the dbinfo array and executes a c
 - Functions called/Symbols referenced:
   - pg_log_info
   - connect_database
-  - server_is_in_recovery
-  - disconnect_database
-  - PQexec
+  - [server_is_in_recovery](../s/server_is_in_recovery.md)
+  - [disconnect_database](../d/disconnect_database.md)
+  - [PQexec](../P/PQexec.md)
   - PGRES_TUPLES_OK
-  - PQresultErrorMessage
-  - pg_strdup
-  - PQgetvalue
-  - PQclear
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
   - atoi
   - pg_log_debug
   - pg_log_error
   - pg_log_error_hint
   - pg_log_warning
   - pg_log_warning_detail
-  - pg_free
+  - [pg_free](../p/pg_free.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Terminates the program if any validation fails

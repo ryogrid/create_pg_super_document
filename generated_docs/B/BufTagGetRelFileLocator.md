@@ -19,14 +19,14 @@ BufTagGetRelFileLocator is an inline utility function that extracts the file loc
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferTag (structure type)
-  - BufTagGetRelNumber (function)
-  - RelFileLocator (structure type)
+  - [BufTagGetRelNumber](BufTagGetRelNumber.md) (function)
+  - [RelFileLocator](../R/RelFileLocator.md) (structure type)
 - Called from (representative examples):
-  - DebugPrintBufferRefcount
-  - BufferGetTag
-  - FlushBuffer
-  - buffertag_comparator
-  - IssuePendingWritebacks
+  - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md)
+  - [BufferGetTag](BufferGetTag.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [buffertag_comparator](../b/buffertag_comparator.md)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md)
 
 ## Notes and Other Information
 - This is an inline function defined in buf_internals.h for performance efficiency

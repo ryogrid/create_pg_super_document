@@ -19,20 +19,20 @@ This structure represents what the B-tree access method remembers about each mat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData
+  - [ItemPointerData](../I/ItemPointerData.md)
   - OffsetNumber
   - LocationIndex
 - Called from (representative examples):
-  - btrestrpos
-  - _bt_first
-  - _bt_next
-  - _bt_saveitem
-  - _bt_setuppostingitems
-  - _bt_savepostingitem
-  - _bt_steppage
-  - _bt_endpoint
-  - _bt_killitems
-  - BTScanPosData
+  - [btrestrpos](../b/btrestrpos.md)
+  - [_bt_first](../b/_bt_first.md)
+  - [_bt_next](../b/_bt_next.md)
+  - [_bt_saveitem](../b/_bt_saveitem.md)
+  - [_bt_setuppostingitems](../b/_bt_setuppostingitems.md)
+  - [_bt_savepostingitem](../b/_bt_savepostingitem.md)
+  - [_bt_steppage](../b/_bt_steppage.md)
+  - [_bt_endpoint](../b/_bt_endpoint.md)
+  - [_bt_killitems](../b/_bt_killitems.md)
+  - [BTScanPosData](BTScanPosData.md)
 
 ## Notes and Other Information
 - Used in both regular index scans and index-only scans

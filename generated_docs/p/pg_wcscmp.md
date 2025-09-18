@@ -19,7 +19,7 @@ The pg_wcscmp function performs a lexicographic comparison of two wide character
 ## Dependencies
 - Functions called/Symbols referenced: (none - uses only basic pointer arithmetic and comparison)
 - Called from (representative examples):
-  - main (in norm_test.c)
+  - [main](../m/main.md) (in norm_test.c)
 
 ## Notes and Other Information
 - This function is declared as static, making it local to the norm_test.c file

@@ -21,11 +21,11 @@ This function performs a comparison between a date and timestamp value by delega
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date_cmp_timestamp_internal (core comparison function)
+  - [date_cmp_timestamp_internal](../d/date_cmp_timestamp_internal.md) (core comparison function)
   - DateADT (date data type)
   - Timestamp (timestamp data type)
 - Called from (representative examples):
-  - compareDatetime (multiple locations for datetime comparisons)
+  - [compareDatetime](compareDatetime.md) (multiple locations for datetime comparisons)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/jsonpath_exec.c:3690-3698

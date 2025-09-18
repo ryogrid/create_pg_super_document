@@ -24,7 +24,7 @@ The function is called when an unused line pointer is encountered that should re
   - PruneState (structure used to track pruning state)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pruneheap.c file

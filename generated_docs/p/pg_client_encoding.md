@@ -21,7 +21,7 @@ This function takes no parameters (proargtypes => '' in pg_proc.dat).
 - Functions called/Symbols referenced:
   - DirectFunctionCall1 - PostgreSQL function call framework
   - namein - converts C string to PostgreSQL name type  
-  - CStringGetDatum - converts C string to PostgreSQL Datum
+  - [CStringGetDatum](../C/CStringGetDatum.md) - converts C string to PostgreSQL Datum
   - ClientEncoding - global variable pointing to current client encoding info
 
 - Called from (representative examples):

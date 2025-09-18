@@ -18,13 +18,13 @@ This function changes the session authorization user ID while PostgreSQL is runn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetSessionUserId
-  - SetOuterUserId
+  - [SetSessionUserId](SetSessionUserId.md)
+  - [SetOuterUserId](SetOuterUserId.md)
   - SetRoleIsActive (global variable check)
 - Called from (representative examples):
-  - assign_session_authorization (in variable command processing)
-  - ParallelWorkerMain (during parallel worker initialization)
-  - InitializeSessionUserIdStandalone (during standalone initialization)
+  - [assign_session_authorization](../a/assign_session_authorization.md) (in variable command processing)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (during parallel worker initialization)
+  - [InitializeSessionUserIdStandalone](../I/InitializeSessionUserIdStandalone.md) (during standalone initialization)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's role and authorization management system

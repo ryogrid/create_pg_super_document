@@ -22,28 +22,28 @@ The function iterates through each expression in the path's pathtarget, creates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_nestloop_params
-  - makeTargetEntry
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
 - Called from (representative examples):
-  - create_scan_plan
-  - create_gating_plan
-  - create_append_plan
-  - create_merge_append_plan
-  - create_group_result_plan
-  - create_project_set_plan
-  - create_unique_plan
-  - create_gather_plan
-  - create_gather_merge_plan
-  - create_projection_plan
-  - create_group_plan
-  - create_agg_plan
-  - create_groupingsets_plan
-  - create_minmaxagg_plan
-  - create_windowagg_plan
-  - create_recursiveunion_plan
-  - create_nestloop_plan
-  - create_mergejoin_plan
-  - create_hashjoin_plan
+  - [create_scan_plan](../c/create_scan_plan.md)
+  - [create_gating_plan](../c/create_gating_plan.md)
+  - [create_append_plan](../c/create_append_plan.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
+  - [create_group_result_plan](../c/create_group_result_plan.md)
+  - [create_project_set_plan](../c/create_project_set_plan.md)
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [create_gather_plan](../c/create_gather_plan.md)
+  - [create_gather_merge_plan](../c/create_gather_merge_plan.md)
+  - [create_projection_plan](../c/create_projection_plan.md)
+  - [create_group_plan](../c/create_group_plan.md)
+  - [create_agg_plan](../c/create_agg_plan.md)
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md)
+  - [create_minmaxagg_plan](../c/create_minmaxagg_plan.md)
+  - [create_windowagg_plan](../c/create_windowagg_plan.md)
+  - [create_recursiveunion_plan](../c/create_recursiveunion_plan.md)
+  - [create_nestloop_plan](../c/create_nestloop_plan.md)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md)
 
 ## Notes and Other Information
 - Almost equivalent to make_tlist_from_pathtarget() but includes special handling for nestloop parameter replacement

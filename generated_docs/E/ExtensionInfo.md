@@ -26,13 +26,13 @@ The structure is populated by the getExtensions() function, which queries the pg
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
 - Called from (representative examples):
-  - getExtensions (creates and populates ExtensionInfo arrays)
-  - findExtensionByOid (searches for ExtensionInfo by OID)
-  - selectDumpableExtension (determines if extension should be dumped)
-  - dumpExtension (outputs CREATE EXTENSION statements)
-  - checkExtensionMembership (checks if objects belong to extensions)
-  - recordExtensionMembership (records object-extension relationships)
-  - getExtensionMembership (retrieves extension membership data)
+  - [getExtensions](../g/getExtensions.md) (creates and populates ExtensionInfo arrays)
+  - [findExtensionByOid](../f/findExtensionByOid.md) (searches for ExtensionInfo by OID)
+  - [selectDumpableExtension](../s/selectDumpableExtension.md) (determines if extension should be dumped)
+  - [dumpExtension](../d/dumpExtension.md) (outputs CREATE EXTENSION statements)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md) (checks if objects belong to extensions)
+  - [recordExtensionMembership](../r/recordExtensionMembership.md) (records object-extension relationships)
+  - [getExtensionMembership](../g/getExtensionMembership.md) (retrieves extension membership data)
 
 ## Notes and Other Information
 - Unlike many other dumpable objects, ExtensionInfo does not include DumpableAcl since extensions themselves do not have ACLs

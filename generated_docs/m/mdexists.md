@@ -18,7 +18,7 @@ This function determines if a physical file exists for a given relation fork by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mdclose (closes the fork to ensure fresh state)
+  - [mdclose](mdclose.md) (closes the fork to ensure fresh state)
   - mdopenfork (attempts to open the fork to test existence)
   - EXTENSION_RETURN_NULL (flag for mdopenfork to return NULL instead of extending)
   - InRecovery (global variable indicating recovery mode)

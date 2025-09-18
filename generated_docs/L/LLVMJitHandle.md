@@ -29,9 +29,9 @@ The handle is primarily used to:
 - Functions called/Symbols referenced:
   - No direct function calls (struct definition)
 - Called from (representative examples):
-  - llvm_release_context (src/backend/jit/llvm/llvmjit.c:294)
-  - llvm_get_function (src/backend/jit/llvm/llvmjit.c:404, 435)
-  - llvm_compile_module (src/backend/jit/llvm/llvmjit.c:735, 790, 791)
+  - [llvm_release_context](../l/llvm_release_context.md) (src/backend/jit/llvm/llvmjit.c:294)
+  - [llvm_get_function](../l/llvm_get_function.md) (src/backend/jit/llvm/llvmjit.c:404, 435)
+  - [llvm_compile_module](../l/llvm_compile_module.md) (src/backend/jit/llvm/llvmjit.c:735, 790, 791)
 
 ## Notes and Other Information
 - The structure uses conditional compilation (#if LLVM_VERSION_MAJOR > 11) to maintain compatibility across different LLVM versions

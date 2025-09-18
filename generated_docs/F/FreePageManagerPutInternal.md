@@ -25,13 +25,13 @@ This complex function handles returning freed pages to the Free Page Manager wit
   - fpm_segment_base
   - fpm_page_to_pointer
   - FreePagePushSpanLeader
-  - FreePagePopSpanLeader
+  - [FreePagePopSpanLeader](FreePagePopSpanLeader.md)
   - FreePageBtreeGetRecycled
-  - FreePageManagerGetInternal
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
   - FreePageBtreeSearch
   - FreePageBtreeFindRightSibling
   - FreePageBtreeRemove
-  - FreePageBtreeAdjustAncestorKeys
+  - [FreePageBtreeAdjustAncestorKeys](FreePageBtreeAdjustAncestorKeys.md)
   - FreePageBtreeRecycle
   - FreePageBtreeSplitPage
   - FreePageBtreeInsertLeaf
@@ -42,8 +42,8 @@ This complex function handles returning freed pages to the Free Page Manager wit
   - relptr_store
   - relptr_access
 - Called from (representative examples):
-  - FreePageManagerPut
-  - FreePageBtreeCleanup
+  - [FreePageManagerPut](FreePageManagerPut.md)
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
 
 ## Notes and Other Information
 - Returns 0 if soft flag prevented insertion, otherwise returns size of consolidated span

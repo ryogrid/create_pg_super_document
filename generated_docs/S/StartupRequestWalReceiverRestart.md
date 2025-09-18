@@ -25,12 +25,12 @@ If both conditions are met, it sets the `pendingWalRcvRestart` flag to true and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalRcvRunning
+  - [WalRcvRunning](../W/WalRcvRunning.md)
   - XLOG_FROM_STREAM (constant)
   - ereport/LOG (logging)
 - Called from (representative examples):
-  - StartupRereadConfig
-  - EndOfWalRecoveryInfo (header reference)
+  - [StartupRereadConfig](StartupRereadConfig.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md) (header reference)
 
 ## Notes and Other Information
 - This is a public function (not static), accessible from other modules

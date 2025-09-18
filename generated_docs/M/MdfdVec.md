@@ -25,28 +25,28 @@ The structure is designed for efficient segment file management, allowing the st
   - File (type from src/include/storage/fd.h)
   - BlockNumber (PostgreSQL block number type)
 - Called from (representative examples):
-  - mdcreate
+  - [mdcreate](../m/mdcreate.md)
   - mdextend
   - mdzeroextend
   - mdopenfork
-  - mdclose
-  - mdprefetch
-  - mdreadv
-  - mdwritev
-  - mdwriteback
-  - mdnblocks
-  - mdtruncate
-  - mdregistersync
-  - mdimmedsync
-  - register_dirty_segment
-  - _fdvec_resize
-  - _mdfd_segpath
-  - _mdfd_openseg
-  - _mdfd_getseg
-  - _mdnblocks
+  - [mdclose](../m/mdclose.md)
+  - [mdprefetch](../m/mdprefetch.md)
+  - [mdreadv](../m/mdreadv.md)
+  - [mdwritev](../m/mdwritev.md)
+  - [mdwriteback](../m/mdwriteback.md)
+  - [mdnblocks](../m/mdnblocks.md)
+  - [mdtruncate](../m/mdtruncate.md)
+  - [mdregistersync](../m/mdregistersync.md)
+  - [mdimmedsync](../m/mdimmedsync.md)
+  - [register_dirty_segment](../r/register_dirty_segment.md)
+  - [_fdvec_resize](../f/_fdvec_resize.md)
+  - [_mdfd_segpath](../m/_mdfd_segpath.md)
+  - [_mdfd_openseg](../m/_mdfd_openseg.md)
+  - [_mdfd_getseg](../m/_mdfd_getseg.md)
+  - [_mdnblocks](../m/_mdnblocks.md)
 
 ## Notes and Other Information
-- MdfdVec objects are allocated in the MdCxt memory context for centralized memory management
+- [MdfdVec](MdfdVec.md) objects are allocated in the MdCxt memory context for centralized memory management
 - This structure is central to PostgreSQL's approach of handling large files by splitting them into manageable segments
 - The virtual file descriptor system (fd.c) allows PostgreSQL to manage more files than the OS would normally allow by recycling file descriptors
 - Each segment typically represents 1GB of data (RELSEG_SIZE blocks), though the last segment may be smaller

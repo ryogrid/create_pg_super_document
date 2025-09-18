@@ -25,7 +25,7 @@ This function is typically used by PostgreSQL's sorting and indexing infrastruct
 - Functions called/Symbols referenced:
   - PG_GETARG_DATEADT
   - PG_GETARG_TIMESTAMPTZ
-  - date_cmp_timestamptz_internal
+  - [date_cmp_timestamptz_internal](date_cmp_timestamptz_internal.md)
   - PG_RETURN_INT32
 - Called from (representative examples):
   - No direct callers found (likely called through SQL comparison infrastructure)

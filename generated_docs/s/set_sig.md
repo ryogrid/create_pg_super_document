@@ -29,13 +29,13 @@ The function supports the following signals that are commonly used for PostgreSQ
 - Functions called/Symbols referenced:
   - strcmp (string comparison)
   - SIGHUP, SIGINT, SIGQUIT, SIGABRT, SIGKILL, SIGTERM, SIGUSR1, SIGUSR2 (signal constants)
-  - write_stderr (error output function)
-  - do_advice (help/advice function)
+  - [write_stderr](../w/write_stderr.md) (error output function)
+  - [do_advice](../d/do_advice.md) (help/advice function)
   - exit (program termination)
   - sig (global variable)
 
 - Called from (representative examples):
-  - main (when processing kill command with signal names)
+  - [main](../m/main.md) (when processing kill command with signal names)
 
 ## Notes and Other Information
 - The function modifies the global  variable that is used by the kill functionality

@@ -35,16 +35,16 @@ The structure is populated by the getTypes() function which queries pg_type and 
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
   - DumpableAcl (ACL data structure)
-  - ShellTypeInfo (shell type structure)
-  - ConstraintInfo (constraint structure)
+  - [ShellTypeInfo](../S/ShellTypeInfo.md) (shell type structure)
+  - [ConstraintInfo](../C/ConstraintInfo.md) (constraint structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getTypes (creates and populates TypeInfo arrays)
-  - findTypeByOid (searches for TypeInfo by OID)
-  - selectDumpableType (determines if type should be dumped)
-  - dumpType, dumpBaseType, dumpDomain, dumpCompositeType, dumpEnumType, dumpRangeType (output type definitions)
-  - getFormattedTypeName (formats type names for output)
-  - getDomainConstraints (retrieves domain constraints)
+  - [getTypes](../g/getTypes.md) (creates and populates TypeInfo arrays)
+  - [findTypeByOid](../f/findTypeByOid.md) (searches for TypeInfo by OID)
+  - [selectDumpableType](../s/selectDumpableType.md) (determines if type should be dumped)
+  - [dumpType](../d/dumpType.md), dumpBaseType, dumpDomain, dumpCompositeType, dumpEnumType, dumpRangeType (output type definitions)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md) (formats type names for output)
+  - [getDomainConstraints](../g/getDomainConstraints.md) (retrieves domain constraints)
 
 ## Notes and Other Information
 - Includes both user-defined and built-in types, with built-in types filtered during dump output

@@ -25,15 +25,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - PointerIsValid
   - PortalDrop
   - elog
   - PORTAL_ACTIVE
   - InvalidSubTransactionId
 - Called from (representative examples):
-  - CleanupTransaction
+  - [CleanupTransaction](../C/CleanupTransaction.md)
 
 ## Notes and Other Information
 - Called after AtAbort_Portals as part of the complete transaction cleanup sequence

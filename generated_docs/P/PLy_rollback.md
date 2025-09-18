@@ -18,13 +18,13 @@ PLy_rollback implements transaction rollback functionality for PL/Python by wrap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context: Gets current PL/Python execution context
-  - SPI_rollback: PostgreSQL SPI function to rollback current transaction
-  - CopyErrorData: Copies error information for exception handling
-  - FlushErrorState: Clears the current error state
-  - hash_search: Searches for appropriate Python exception based on SQL error code
-  - PLy_spi_exception_set: Sets up Python exception with PostgreSQL error data
-  - FreeErrorData: Releases error data memory
+  - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current PL/Python execution context
+  - [SPI_rollback](../S/SPI_rollback.md): PostgreSQL SPI function to rollback current transaction
+  - [CopyErrorData](../C/CopyErrorData.md): Copies error information for exception handling
+  - [FlushErrorState](../F/FlushErrorState.md): Clears the current error state
+  - [hash_search](../h/hash_search.md): Searches for appropriate Python exception based on SQL error code
+  - [PLy_spi_exception_set](PLy_spi_exception_set.md): Sets up Python exception with PostgreSQL error data
+  - [FreeErrorData](../F/FreeErrorData.md): Releases error data memory
 - Called from (representative examples):
   - Referenced in plpy_spi.h header file for external access
 

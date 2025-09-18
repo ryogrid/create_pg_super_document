@@ -30,7 +30,7 @@ Similar to , the function includes a note that the approach has limitations for 
   - Pattern matching utilities (SB_lower_char, patternToSQLRegex)
   - libpq field name lookup (PQfnumber)
   - psql keyword case conversion (pg_strdup_keyword_case)
-  - Path comparison (dir_strcmp)
+  - [Path](../P/Path.md) comparison (dir_strcmp)
 
 ## Notes and Other Information
 - Returns the lowercase version of the input character, or the original character if not uppercase

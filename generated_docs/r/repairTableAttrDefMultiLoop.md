@@ -18,12 +18,12 @@ This function handles more complex circular dependency scenarios involving table
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency
-  - addObjectDependency
+  - [removeObjectDependency](removeObjectDependency.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
   - DumpableObject (struct type)
-  - AttrDefInfo (struct type)
+  - [AttrDefInfo](../A/AttrDefInfo.md) (struct type)
 - Called from (representative examples):
-  - repairDependencyLoop (at pg_dump_sort.c:1353)
+  - [repairDependencyLoop](repairDependencyLoop.md) (at pg_dump_sort.c:1353)
 
 ## Notes and Other Information
 - This is a static function within pg_dump_sort.c for internal dependency sorting use

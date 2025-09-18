@@ -28,14 +28,14 @@ The function returns 0 (InvalidSerCommitSeqNo) if the transaction doesn't exist 
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
   - LWLockAcquire/LWLockRelease
-  - TransactionIdPrecedes
-  - TransactionIdFollows
-  - SimpleLruReadPage_ReadOnly
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
+  - [SimpleLruReadPage_ReadOnly](SimpleLruReadPage_ReadOnly.md)
   - SerialPage
   - SerialValue
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
 - Called from (representative examples):
-  - CheckForSerializableConflictOut
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the predicate.c file

@@ -28,15 +28,15 @@ The function optimizes performance by returning tuples directly from subplans wi
 - Functions called/Symbols referenced:
   - castNode (for type casting to AppendState)
   - ExecClearTuple (for returning empty results)
-  - ExecAppendAsyncBegin (for async subplan initialization)
-  - ExecAppendAsyncGetNext (for async tuple retrieval)
-  - ExecAppendAsyncEventWait (for async event processing)
+  - [ExecAppendAsyncBegin](ExecAppendAsyncBegin.md) (for async subplan initialization)
+  - [ExecAppendAsyncGetNext](ExecAppendAsyncGetNext.md) (for async tuple retrieval)
+  - [ExecAppendAsyncEventWait](ExecAppendAsyncEventWait.md) (for async event processing)
   - ExecProcNode (for synchronous subplan execution)
   - TupIsNull (for null tuple checking)
   - bms_is_empty (for bitmap set operations)
   - CHECK_FOR_INTERRUPTS (for query cancellation support)
 - Called from (representative examples):
-  - ExecInitAppend (set as ExecProcNode function pointer)
+  - [ExecInitAppend](ExecInitAppend.md) (set as ExecProcNode function pointer)
   - PostgreSQL executor framework through function pointer calls
 
 ## Notes and Other Information
@@ -45,4 +45,4 @@ The function optimizes performance by returning tuples directly from subplans wi
 - The function handles partition pruning by working with dynamically determined valid subplans  
 - Async execution allows for parallel processing of subplans that support it
 - The execution strategy is pluggable via the choose_next_subplan function pointer
-- Query interruption is supported through CHECK_FOR_INTERRUPTS() macro calls
+- [Query](../Q/Query.md) interruption is supported through CHECK_FOR_INTERRUPTS() macro calls

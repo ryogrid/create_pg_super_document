@@ -25,12 +25,12 @@ The function handles three distinct scenarios:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ObjectAddresses (struct type)
-  - ObjectAddress (struct type)
+  - [ObjectAddress](../O/ObjectAddress.md) (struct type)
   - ObjectAddressExtra (struct type)
   - DEPFLAG_SUBOBJECT (flag constant)
 - Called from (representative examples):
   - find_expr_references_context (src/backend/catalog/dependency.c:171)
-  - findDependentObjects (src/backend/catalog/dependency.c:487, 720)
+  - [findDependentObjects](../f/findDependentObjects.md) (src/backend/catalog/dependency.c:487, 720)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dependency.c module

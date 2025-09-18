@@ -22,11 +22,11 @@ The function is part of PostgreSQL's access control system and is used throughou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclmask_ext
+  - [pg_class_aclmask_ext](pg_class_aclmask_ext.md)
   - AclMaskHow (enum type)
 - Called from (representative examples):
-  - pg_aclmask
-  - ExecCheckOneRelPerms
+  - [pg_aclmask](pg_aclmask.md)
+  - [ExecCheckOneRelPerms](../E/ExecCheckOneRelPerms.md)
   - AclResult
 
 ## Notes and Other Information

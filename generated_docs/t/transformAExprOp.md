@@ -30,15 +30,15 @@ The function preserves location information for error reporting and maintains pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - exprIsNullConstant
-  - transformExprRecurse
-  - make_row_comparison_op
-  - make_op
+  - [exprIsNullConstant](../e/exprIsNullConstant.md)
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [make_row_comparison_op](../m/make_row_comparison_op.md)
+  - [make_op](../m/make_op.md)
   - makeNode (for NullTest creation)
-  - A_Expr, NullTest, RowExpr, SubLink, CaseTestExpr (node types)
+  - [A_Expr](../A/A_Expr.md), NullTest, RowExpr, SubLink, CaseTestExpr (node types)
   - IS_NULL, EXPR_SUBLINK, ROWCOMPARE_SUBLINK (constants)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - This function is static and only used within the parse_expr.c module

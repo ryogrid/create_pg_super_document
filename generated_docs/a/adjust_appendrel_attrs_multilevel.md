@@ -20,15 +20,15 @@ This function manages the complex scenario where a child relation is separated f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - adjust_appendrel_attrs_multilevel (recursive calls for multi-level traversal)
-  - find_appinfos_by_relids (locates AppendRelInfo structures by relation IDs)
-  - adjust_appendrel_attrs (performs single-level variable translation)
-  - pfree (frees allocated memory)
+  - [adjust_appendrel_attrs_multilevel](adjust_appendrel_attrs_multilevel.md) (recursive calls for multi-level traversal)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md) (locates AppendRelInfo structures by relation IDs)
+  - [adjust_appendrel_attrs](adjust_appendrel_attrs.md) (performs single-level variable translation)
+  - [pfree](../p/pfree.md) (frees allocated memory)
 - Called from (representative examples):
-  - generate_join_implied_equalities_broken
-  - add_child_rel_equivalences
-  - grouping_planner
-  - get_translated_update_targetlist
+  - [generate_join_implied_equalities_broken](../g/generate_join_implied_equalities_broken.md)
+  - [add_child_rel_equivalences](add_child_rel_equivalences.md)
+  - [grouping_planner](../g/grouping_planner.md)
+  - [get_translated_update_targetlist](../g/get_translated_update_targetlist.md)
 
 ## Notes and Other Information
 - Recursively processes inheritance hierarchy by working from child up to ultimate parent

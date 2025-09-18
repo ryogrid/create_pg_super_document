@@ -26,16 +26,16 @@ The structure includes state management fields to track whether the item is in u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AutoVacuumWorkItemType (enum for work item types)
+  - [AutoVacuumWorkItemType](AutoVacuumWorkItemType.md) (enum for work item types)
   - Oid (PostgreSQL object identifier type)
   - BlockNumber (block number type for storage management)
 
 - Called from (representative examples):
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:2518)
-  - perform_work_item (src/backend/postmaster/autovacuum.c:2588)
-  - autovac_report_workitem (src/backend/postmaster/autovacuum.c:3193)
-  - AutoVacuumRequestWork (src/backend/postmaster/autovacuum.c:3258)
-  - AutoVacuumShmemInit (src/backend/postmaster/autovacuum.c:3340)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2518)
+  - [perform_work_item](../p/perform_work_item.md) (src/backend/postmaster/autovacuum.c:2588)
+  - [autovac_report_workitem](../a/autovac_report_workitem.md) (src/backend/postmaster/autovacuum.c:3193)
+  - [AutoVacuumRequestWork](AutoVacuumRequestWork.md) (src/backend/postmaster/autovacuum.c:3258)
+  - [AutoVacuumShmemInit](AutoVacuumShmemInit.md) (src/backend/postmaster/autovacuum.c:3340)
 
 ## Notes and Other Information
 - The work item array is stored in shared memory as part of the AutoVacuumShmem structure

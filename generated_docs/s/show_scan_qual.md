@@ -27,10 +27,10 @@ The function implements intelligent prefixing logic: it uses table prefixes when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - show_qual
+  - [show_qual](show_qual.md)
   - SubqueryScan (type check via IsA macro)
 - Called from (representative examples):
-  - ExplainNode (multiple scan node types)
+  - [ExplainNode](../E/ExplainNode.md) (multiple scan node types)
 
 ## Notes and Other Information
 - This function serves as an intelligent adapter between scan-specific requirements and general qualification display

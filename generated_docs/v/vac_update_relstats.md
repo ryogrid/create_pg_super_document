@@ -37,19 +37,19 @@ Special handling is provided for "future" transaction IDs that appear corrupt, w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_inplace_update_begin
-  - systable_inplace_update_finish
-  - systable_inplace_update_cancel
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)
+  - [systable_inplace_update_finish](../s/systable_inplace_update_finish.md)
+  - [systable_inplace_update_cancel](../s/systable_inplace_update_cancel.md)
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - ReadNextTransactionId
   - MultiXactIdIsValid
-  - MultiXactIdPrecedes
-  - ReadNextMultiXactId
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - update_relstats_all_indexes
-  - do_analyze_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [update_relstats_all_indexes](../u/update_relstats_all_indexes.md)
+  - [do_analyze_rel](../d/do_analyze_rel.md)
 
 ## Notes and Other Information
 - This function is shared by both VACUUM and ANALYZE operations

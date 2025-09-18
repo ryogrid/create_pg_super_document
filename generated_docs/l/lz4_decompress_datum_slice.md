@@ -23,9 +23,9 @@ The implementation uses LZ4's  function to perform the actual decompression, whi
 ## Dependencies
 - Functions called/Symbols referenced:
   - NO_LZ4_SUPPORT (macro for error handling when LZ4 support is unavailable)
-  - lz4_decompress_datum (fallback for older LZ4 versions)
+  - [lz4_decompress_datum](lz4_decompress_datum.md) (fallback for older LZ4 versions)
   - LZ4_versionNumber (LZ4 library version check)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - LZ4_decompress_safe_partial (LZ4 library partial decompression)
   - ereport (PostgreSQL error reporting)
   - SET_VARSIZE (macro to set varlena size)
@@ -33,7 +33,7 @@ The implementation uses LZ4's  function to perform the actual decompression, whi
   - ERRCODE_DATA_CORRUPTED (PostgreSQL error code)
 
 - Called from (representative examples):
-  - toast_decompress_datum_slice (primary caller for TOAST decompression)
+  - [toast_decompress_datum_slice](../t/toast_decompress_datum_slice.md) (primary caller for TOAST decompression)
 
 ## Notes and Other Information
 - Requires LZ4 library version 1.8.3 or later for partial decompression support

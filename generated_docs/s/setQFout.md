@@ -27,15 +27,15 @@ The function ensures atomic behavior - either the output redirection succeeds co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - openQueryOutputFile (to open and validate the new output destination)
-  - SetShellResultVariables (to capture pipe command exit status)
-  - pclose (to close pipe outputs)
+  - [openQueryOutputFile](../o/openQueryOutputFile.md) (to open and validate the new output destination)
+  - [SetShellResultVariables](../S/SetShellResultVariables.md) (to capture pipe command exit status)
+  - [pclose](../p/pclose.md) (to close pipe outputs)
   - fclose (to close regular file outputs)
-  - set_sigpipe_trap_state (to configure signal handling for pipes)
-  - restore_sigpipe_trap (to apply signal handling changes)
+  - [set_sigpipe_trap_state](set_sigpipe_trap_state.md) (to configure signal handling for pipes)
+  - [restore_sigpipe_trap](../r/restore_sigpipe_trap.md) (to apply signal handling changes)
 - Called from (representative examples):
-  - exec_command_out (for \o command processing)
-  - parse_psql_options (for -o command line option)
+  - [exec_command_out](../e/exec_command_out.md) (for \o command processing)
+  - [parse_psql_options](../p/parse_psql_options.md) (for -o command line option)
 
 ## Notes and Other Information
 - Returns false on error without changing pset state, true on success

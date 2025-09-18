@@ -19,12 +19,12 @@ This function serves as a locale name normalizer that converts Windows-style loc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_iso_localename
-  - pg_strcasecmp
+  - [get_iso_localename](../g/get_iso_localename.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - strcpy
 - Called from (representative examples):
   - collation_cache_entry
-  - pg_perm_setlocale
+  - [pg_perm_setlocale](../p/pg_perm_setlocale.md)
 
 ## Notes and Other Information
 - Returns a pointer to a static buffer, so the result should be used immediately or copied

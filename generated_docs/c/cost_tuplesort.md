@@ -31,13 +31,13 @@ The function assumes disk traffic is 3/4 sequential and 1/4 random accesses, and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_byte_size
-  - tuplesort_merge_order
+  - [relation_byte_size](../r/relation_byte_size.md)
+  - [tuplesort_merge_order](../t/tuplesort_merge_order.md)
   - LOG2
   - Cost (type)
 - Called from (representative examples):
-  - cost_incremental_sort
-  - cost_sort
+  - [cost_incremental_sort](cost_incremental_sort.md)
+  - [cost_sort](cost_sort.md)
 
 ## Notes and Other Information
 - Ensures sort cost is never estimated as zero by setting minimum tuple count to 2.0

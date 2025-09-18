@@ -20,9 +20,9 @@ The function ensures data integrity by verifying that all requested bytes are su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileWrite: Performs the actual file write operation
-  - FilePathName: Retrieves the file path for error messages
-  - bbsink_forward_manifest_contents: Forwards manifest contents to chained sinks
+  - [FileWrite](../F/FileWrite.md): Performs the actual file write operation
+  - [FilePathName](../F/FilePathName.md): Retrieves the file path for error messages
+  - [bbsink_forward_manifest_contents](bbsink_forward_manifest_contents.md): Forwards manifest contents to chained sinks
   - ereport: Reports errors with appropriate error codes and messages
 - Called from (representative examples):
   - This is a static function used as a callback in the bbsink interface (no direct callers found)

@@ -20,10 +20,10 @@ The function exists to satisfy the function pointer assignment in the node state
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for error reporting)
-  - BitmapOrState (structure type referenced in context)
+  - [BitmapOrState](../B/BitmapOrState.md) (structure type referenced in context)
 
 - Called from (representative examples):
-  - ExecInitBitmapOr (assigned as function pointer during initialization)
+  - [ExecInitBitmapOr](ExecInitBitmapOr.md) (assigned as function pointer during initialization)
 
 ## Notes and Other Information
 - This is a static function within nodeBitmapOr.c and is not exported

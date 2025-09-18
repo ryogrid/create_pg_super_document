@@ -23,8 +23,8 @@ The structure is defined in src/backend/utils/activity/pgstat.c at lines 132-137
 - Functions called/Symbols referenced:
   - PgStat_HashKey
 - Called from (representative examples):
-  - pgstat_fetch_entry (multiple references)
-  - pgstat_build_snapshot
+  - [pgstat_fetch_entry](../p/pgstat_fetch_entry.md) (multiple references)
+  - [pgstat_build_snapshot](../p/pgstat_build_snapshot.md)
   - SH_ELEMENT_TYPE (simplehash macro)
 
 ## Notes and Other Information

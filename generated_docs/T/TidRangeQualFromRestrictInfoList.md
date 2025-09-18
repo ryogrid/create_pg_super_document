@@ -28,10 +28,10 @@ This function is simpler than its counterpart TidQualFromRestrictInfoList becaus
 ## Dependencies
 - Functions called/Symbols referenced:
   - AMFLAG_HAS_TID_RANGE (access method flag)
-  - IsTidRangeClause
+  - [IsTidRangeClause](../I/IsTidRangeClause.md)
   - lappend
 - Called from (representative examples):
-  - create_tidscan_paths
+  - [create_tidscan_paths](../c/create_tidscan_paths.md)
 
 ## Notes and Other Information
 - Static function accessible only within tidpath.c

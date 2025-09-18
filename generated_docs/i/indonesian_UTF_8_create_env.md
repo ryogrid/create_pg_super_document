@@ -22,7 +22,7 @@ The function is part of the public interface for the Indonesian Snowball stemmer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SN_create_env`: Generic Snowball environment creation function, called with parameters (0, 2)
+  - `[SN_create_env](../S/SN_create_env.md)`: Generic Snowball environment creation function, called with parameters (0, 2)
 - Called from: This is an entry point function for creating Indonesian stemmer environments and is not called by other functions in the codebase
 
 ## Notes and Other Information

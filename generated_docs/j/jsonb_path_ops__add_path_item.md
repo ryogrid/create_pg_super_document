@@ -24,15 +24,15 @@ The function returns false for unsupported path item types (wildcards, item meth
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetString (extracts string value from JSON path item)
-  - JsonbHashScalarValue (computes hash for JSONB scalar values)
+  - [jspGetString](jspGetString.md) (extracts string value from JSON path item)
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md) (computes hash for JSONB scalar values)
   - JsonPathGinPath (path tracking structure)
   - JsonPathItem (individual path element structure)
   - JSON path item type constants (jpiRoot, jpiKey, jpiIndexArray, jpiAnyArray)
-  - JsonbValue and jbvString (JSONB value representation)
+  - [JsonbValue](../J/JsonbValue.md) and jbvString (JSONB value representation)
 
 - Called from:
-  - extract_jsp_query (main query extraction function for JSONB GIN indexing)
+  - [extract_jsp_query](../e/extract_jsp_query.md) (main query extraction function for JSONB GIN indexing)
 
 ## Notes and Other Information
 This function is specifically designed for the jsonb_path_ops GIN operator class, which provides path-aware indexing capabilities. It only supports a subset of JSON path operations that can be efficiently indexed. Complex path expressions with wildcards or method calls are not supported and will cause the function to return false, indicating the query cannot be optimized using this index strategy.

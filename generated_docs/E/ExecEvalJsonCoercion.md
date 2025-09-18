@@ -33,12 +33,12 @@ This function performs type coercion for JSON expression results, converting JSO
 - Functions called/Symbols referenced:
   - domain_check_safe
   - DirectFunctionCall1 (bool_int4, jsonb_in)
-  - DatumGetBool
-  - CStringGetDatum
-  - json_populate_type
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [json_populate_type](../j/json_populate_type.md)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Handles special case for boolean-to-integer coercion to avoid input function limitations
@@ -48,5 +48,5 @@ This function performs type coercion for JSON expression results, converting JSO
 - Works in conjunction with EEOP_JSONEXPR_COERCION_FINISH for error checking
 - Part of the SQL/JSON coercion pipeline following path evaluation
 - Critical for JSON_TABLE column type conversion and JSON_VALUE RETURNING clause handling
-- ErrorSaveContext enables ON ERROR behavior implementation in parent JSON expressions
+- [ErrorSaveContext](ErrorSaveContext.md) enables ON ERROR behavior implementation in parent JSON expressions
 - Optimized path for common JSON_EXISTS to integer conversion in JSON_TABLE contexts

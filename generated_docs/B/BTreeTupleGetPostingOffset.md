@@ -17,16 +17,16 @@ This function retrieves the byte offset that points to the actual posting list d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPosting
-  - ItemPointerGetBlockNumberNoCheck
+  - [BTreeTupleIsPosting](BTreeTupleIsPosting.md)
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
 - Called from (representative examples):
-  - _bt_dedup_start_pending
+  - [_bt_dedup_start_pending](../b/_bt_dedup_start_pending.md)
   - _bt_form_posting
   - _bt_update_posting
-  - _bt_setuppostingitems
+  - [_bt_setuppostingitems](../b/_bt_setuppostingitems.md)
   - _bt_sort_dedup_finish_pending
-  - _bt_recsplitloc
-  - BTreeTupleGetPosting
+  - [_bt_recsplitloc](../b/_bt_recsplitloc.md)
+  - [BTreeTupleGetPosting](BTreeTupleGetPosting.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify the tuple is actually a posting tuple

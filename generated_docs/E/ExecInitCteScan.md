@@ -33,21 +33,21 @@ The function uses a parameter execution slot to coordinate between multiple CTE 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode: Create new CteScanState node
-  - list_nth: Retrieve CTE plan state from estate's subplan list
+  - [list_nth](../l/list_nth.md): Retrieve CTE plan state from estate's subplan list
   - castNode: Safely cast parameter value to CteScanState
   - tuplestore_begin_heap: Create new tuplestore for leader
   - tuplestore_set_eflags: Configure tuplestore execution flags
   - tuplestore_alloc_read_pointer: Allocate read pointer for follower
-  - tuplestore_select_read_pointer: Select active read pointer
-  - tuplestore_rescan: Reset read pointer to beginning
+  - [tuplestore_select_read_pointer](../t/tuplestore_select_read_pointer.md): Select active read pointer
+  - [tuplestore_rescan](../t/tuplestore_rescan.md): Reset read pointer to beginning
   - ExecAssignExprContext: Set up expression evaluation context
-  - ExecInitScanTupleSlot: Initialize scan tuple slot
-  - ExecGetResultType: Get result tuple descriptor from CTE plan
-  - ExecInitResultTypeTL: Initialize result type from target list
-  - ExecAssignScanProjectionInfo: Set up projection information
-  - ExecInitQual: Initialize qualification expressions
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md): Initialize scan tuple slot
+  - [ExecGetResultType](ExecGetResultType.md): Get result tuple descriptor from CTE plan
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md): Initialize result type from target list
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md): Set up projection information
+  - [ExecInitQual](ExecInitQual.md): Initialize qualification expressions
 - Called from (representative examples):
-  - ExecInitNode: Called during plan tree initialization
+  - [ExecInitNode](ExecInitNode.md): Called during plan tree initialization
 
 ## Notes and Other Information
 - Forces EXEC_FLAG_REWIND to allow rescanning, even if not requested by upper levels (marked as XXX FIXME for potential optimization)

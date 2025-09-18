@@ -24,7 +24,7 @@ The caller is responsible for ensuring that the str parameter is a palloc'd (Pos
   - makeNode (macro for node allocation and initialization)
   - BitString (struct type definition)
 - Called from (representative examples):
-  - nodeRead (in read.c for deserialization)
+  - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
   - Referenced in strVal macro (in value.h header)
 
 ## Notes and Other Information

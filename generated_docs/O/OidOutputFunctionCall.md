@@ -22,18 +22,18 @@ The function is widely used throughout PostgreSQL for debugging, logging, error 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - OutputFunctionCall
+  - [fmgr_info](../f/fmgr_info.md)
+  - [OutputFunctionCall](OutputFunctionCall.md)
 - Called from (representative examples):
-  - brin_minmax_multi_summary_out
-  - debugtup
-  - BuildIndexValueDescription
-  - ExecBuildSlotValueDescription
-  - SPI_getvalue
+  - [brin_minmax_multi_summary_out](../b/brin_minmax_multi_summary_out.md)
+  - [debugtup](../d/debugtup.md)
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md)
+  - [ExecBuildSlotValueDescription](../E/ExecBuildSlotValueDescription.md)
+  - [SPI_getvalue](../S/SPI_getvalue.md)
   - BildParamLogString
-  - logicalrep_write_tuple
-  - datum_to_json_internal
-  - ri_ReportViolation
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
+  - [datum_to_json_internal](../d/datum_to_json_internal.md)
+  - [ri_ReportViolation](../r/ri_ReportViolation.md)
   - get_const_expr
 
 ## Notes and Other Information

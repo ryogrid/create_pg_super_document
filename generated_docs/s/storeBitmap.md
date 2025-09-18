@@ -24,11 +24,11 @@ This function serves as a storeRes callback specifically for bitmap index scans 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_add_tuples
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
   - SpGistScanOpaque
   - SpGistLeafTuple
 - Called from (representative examples):
-  - spggetbitmap (via spgWalk)
+  - [spggetbitmap](spggetbitmap.md) (via spgWalk)
 
 ## Notes and Other Information
 - This is a static function internal to spgscan.c

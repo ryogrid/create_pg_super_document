@@ -32,7 +32,7 @@ The function is crucial for PostgreSQL's constraint enforcement mechanism, allow
   - AfterTriggerShared (type)
   - afterTriggers (global state structure)
 - Called from (representative examples):
-  - afterTriggerMarkEvents
+  - [afterTriggerMarkEvents](afterTriggerMarkEvents.md)
 
 ## Notes and Other Information
 - The function is static and used internally within the after-trigger system

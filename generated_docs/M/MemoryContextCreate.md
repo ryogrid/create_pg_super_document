@@ -32,10 +32,10 @@ The function initializes all standard fields of the memory context header, estab
   - MemoryContextMethodID (for method dispatch table access)
   - VALGRIND_CREATE_MEMPOOL (for memory debugging integration)
 - Called from (representative examples):
-  - AllocSetContextCreateInternal
-  - BumpContextCreate
-  - GenerationContextCreate
-  - SlabContextCreate
+  - [AllocSetContextCreateInternal](../A/AllocSetContextCreateInternal.md)
+  - [BumpContextCreate](../B/BumpContextCreate.md)
+  - [GenerationContextCreate](../G/GenerationContextCreate.md)
+  - [SlabContextCreate](../S/SlabContextCreate.md)
 
 ## Notes and Other Information
 - This function assumes it cannot fail and uses Assert rather than elog/ereport for error conditions

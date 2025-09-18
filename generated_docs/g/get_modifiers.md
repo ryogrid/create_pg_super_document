@@ -26,9 +26,9 @@ The weight system uses a bitmask where:
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq
-  - pg_mblen
+  - [pg_mblen](../p/pg_mblen.md)
 - Called from (representative examples):
-  - gettoken_query_standard
+  - [gettoken_query_standard](gettoken_query_standard.md)
 
 ## Notes and Other Information
 - The function only processes single-byte characters for modifiers

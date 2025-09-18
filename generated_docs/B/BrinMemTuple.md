@@ -33,19 +33,19 @@ BrinMemTuple represents the in-memory form of a BRIN index tuple and serves as t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinValues (embedded structure)
+  - [BrinValues](BrinValues.md) (embedded structure)
   - FLEXIBLE_ARRAY_MEMBER (macro)
   - BlockNumber (data type)
-  - MemoryContext (data type)
+  - [MemoryContext](../M/MemoryContext.md) (data type)
   - Datum (data type)
 - Called from (representative examples):
-  - brin_form_tuple
-  - brin_new_memtuple
-  - brin_memtuple_initialize
-  - brin_deform_tuple
-  - union_tuples
-  - add_values_to_range
-  - brin_build_empty_tuple
+  - [brin_form_tuple](../b/brin_form_tuple.md)
+  - [brin_new_memtuple](../b/brin_new_memtuple.md)
+  - [brin_memtuple_initialize](../b/brin_memtuple_initialize.md)
+  - [brin_deform_tuple](../b/brin_deform_tuple.md)
+  - [union_tuples](../u/union_tuples.md)
+  - [add_values_to_range](../a/add_values_to_range.md)
+  - [brin_build_empty_tuple](../b/brin_build_empty_tuple.md)
 
 ## Notes and Other Information
 - Values can only be meaningfully decoded with an appropriate BrinDesc structure

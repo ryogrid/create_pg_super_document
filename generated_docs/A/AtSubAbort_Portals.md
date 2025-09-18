@@ -27,25 +27,25 @@ The function ensures that no portal remains in an inconsistent state that could 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - MarkPortalFailed
-  - ResourceOwnerNewParent
+  - [ResourceOwnerNewParent](../R/ResourceOwnerNewParent.md)
   - PointerIsValid
-  - PortalReleaseCachedPlan
-  - MemoryContextDeleteChildren
+  - [PortalReleaseCachedPlan](../P/PortalReleaseCachedPlan.md)
+  - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)
 - Data types/Constants used:
   - SubTransactionId
   - ResourceOwner
   - HASH_SEQ_STATUS
   - PortalHashEnt
-  - Portal
+  - [Portal](../P/Portal.md)
   - PORTAL_ACTIVE
   - PORTAL_FAILED
   - PORTAL_READY
 - Called from:
-  - AbortOutOfAnyTransaction (src/backend/access/transam/xact.c:4893)
-  - AbortSubTransaction (src/backend/access/transam/xact.c:5258)
+  - [AbortOutOfAnyTransaction](AbortOutOfAnyTransaction.md) (src/backend/access/transam/xact.c:4893)
+  - [AbortSubTransaction](AbortSubTransaction.md) (src/backend/access/transam/xact.c:5258)
 
 ## Notes and Other Information
 - This function does not destroy portal data structures; that is handled later in AtSubCleanup_Portals

@@ -34,11 +34,11 @@ The function abstracts the complexity of spill handling from the executor, provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - agg_retrieve_hash_table_in_memory
-  - agg_refill_hash_table
+  - [agg_retrieve_hash_table_in_memory](agg_retrieve_hash_table_in_memory.md)
+  - [agg_refill_hash_table](agg_refill_hash_table.md)
 - Called from (representative examples):
-  - ExecAgg (for AGG_HASHED and AGG_MIXED strategies)
-  - agg_retrieve_direct (when switching to hash mode in AGG_MIXED)
+  - [ExecAgg](../E/ExecAgg.md) (for AGG_HASHED and AGG_MIXED strategies)
+  - [agg_retrieve_direct](agg_retrieve_direct.md) (when switching to hash mode in AGG_MIXED)
 
 ## Notes and Other Information
 - This function provides a unified interface for hash table retrieval regardless of spill status

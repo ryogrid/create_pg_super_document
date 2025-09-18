@@ -30,8 +30,8 @@ The function sets both dump and dump_contains flags to the same value, ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - simple_oid_list_member
-  - ExtensionInfo (structure)
+  - [simple_oid_list_member](simple_oid_list_member.md)
+  - [ExtensionInfo](../E/ExtensionInfo.md) (structure)
   - DumpOptions (structure)
   - DUMP_COMPONENT_ACL (constant)
   - DUMP_COMPONENT_ALL (constant)
@@ -40,7 +40,7 @@ The function sets both dump and dump_contains flags to the same value, ensuring 
   - extension_exclude_oids (global variable)
   - g_last_builtin_oid (global variable)
 - Called from (representative examples):
-  - getExtensions
+  - [getExtensions](../g/getExtensions.md)
 
 ## Notes and Other Information
 - Built-in extensions are identified by OID range and treated specially since they're assumed to exist in target databases

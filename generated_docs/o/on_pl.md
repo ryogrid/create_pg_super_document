@@ -25,10 +25,10 @@ This function is typically invoked through SQL queries using geometric operators
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P (extracts Point argument from PostgreSQL function args)
   - PG_GETARG_LINE_P (extracts LINE argument from PostgreSQL function args)
-  - line_contain_point (performs the actual geometric containment test)
+  - [line_contain_point](../l/line_contain_point.md) (performs the actual geometric containment test)
   - PG_RETURN_BOOL (returns boolean result to PostgreSQL)
 - Data types used:
-  - Point (geometric point type)
+  - [Point](../P/Point.md) (geometric point type)
   - LINE (geometric line type)
   - Datum (PostgreSQL's generic data type for function returns)
 - Called from:

@@ -26,11 +26,11 @@ This function is typically called during query termination, whether due to norma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
   - outerPlanState
-  - ExecShutdownGatherMerge
+  - [ExecShutdownGatherMerge](ExecShutdownGatherMerge.md)
 - Called from:
-  - ExecEndNode (main executor cleanup dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (main executor cleanup dispatcher)
 
 ## Notes and Other Information
 - Follows the standard executor cleanup pattern of child-first cleanup

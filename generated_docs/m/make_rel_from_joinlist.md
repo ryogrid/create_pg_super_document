@@ -24,14 +24,14 @@ The function recursively processes nested joinlists, converting RangeTblRef node
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_base_rel: Retrieves base relation information
-  - make_rel_from_joinlist: Recursive calls for sub-joinlists  
-  - geqo: Genetic Query Optimizer for complex joins
-  - standard_join_search: Standard dynamic programming join search
+  - [find_base_rel](../f/find_base_rel.md): Retrieves base relation information
+  - [make_rel_from_joinlist](make_rel_from_joinlist.md): Recursive calls for sub-joinlists  
+  - [geqo](../g/geqo.md): Genetic Query Optimizer for complex joins
+  - [standard_join_search](../s/standard_join_search.md): Standard dynamic programming join search
   - nodeTag: Node type identification
 - Called from (representative examples):
-  - make_one_rel: Main entry point for relation optimization
-  - make_rel_from_joinlist: Recursive self-calls
+  - [make_one_rel](make_one_rel.md): Main entry point for relation optimization
+  - [make_rel_from_joinlist](make_rel_from_joinlist.md): Recursive self-calls
 
 ## Notes and Other Information
 - Uses dynamic programming with depth determined by joinlist length

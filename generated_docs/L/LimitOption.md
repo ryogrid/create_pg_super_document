@@ -20,13 +20,13 @@ LimitOption specifies the semantics of LIMIT operations in PostgreSQL queries, p
 - Functions called/Symbols referenced:
   - (This is an enum type with no function calls)
 - Called from (representative examples):
-  - make_limit (src/backend/optimizer/plan/createplan.c:6962)
-  - create_limit_path (src/backend/optimizer/util/pathnode.c:3829)
-  - transformLimitClause (src/backend/parser/parse_clause.c:1883)
-  - LimitState (src/include/nodes/execnodes.h:2841)
-  - Query (src/include/nodes/parsenodes.h:215)
+  - [make_limit](../m/make_limit.md) (src/backend/optimizer/plan/createplan.c:6962)
+  - [create_limit_path](../c/create_limit_path.md) (src/backend/optimizer/util/pathnode.c:3829)
+  - [transformLimitClause](../t/transformLimitClause.md) (src/backend/parser/parse_clause.c:1883)
+  - [LimitState](LimitState.md) (src/include/nodes/execnodes.h:2841)
+  - [Query](../Q/Query.md) (src/include/nodes/parsenodes.h:215)
   - SelectStmt (src/include/nodes/parsenodes.h:2151)
-  - LimitPath (src/include/nodes/pathnodes.h:2406)
+  - [LimitPath](LimitPath.md) (src/include/nodes/pathnodes.h:2406)
   - Limit (src/include/nodes/plannodes.h:1281)
 
 ## Notes and Other Information

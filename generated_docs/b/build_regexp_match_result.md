@@ -28,13 +28,13 @@ The function supports both single-byte and multi-byte character encodings, choos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_wchar2mb_with_len
+  - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
   - cstring_to_text_with_len  
-  - text_substr (via DirectFunctionCall3)
-  - construct_md_array
+  - [text_substr](../t/text_substr.md) (via DirectFunctionCall3)
+  - [construct_md_array](../c/construct_md_array.md)
 - Called from (representative examples):
-  - regexp_match
-  - regexp_matches
+  - [regexp_match](../r/regexp_match.md)
+  - [regexp_matches](../r/regexp_matches.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/regexp.c at lines 1646-1701

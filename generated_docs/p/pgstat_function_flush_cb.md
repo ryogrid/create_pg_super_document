@@ -24,7 +24,7 @@ This function serves as a callback in PostgreSQL's statistics system to transfer
   - pgstat_unlock_entry
   - INSTR_TIME_GET_MICROSEC
   - PgStat_FunctionCounts (type)
-  - PgStatShared_Function (type)
+  - [PgStatShared_Function](../P/PgStatShared_Function.md) (type)
 - Called from (representative examples):
   - SH_DECLARE (statistics hash table infrastructure in src/backend/utils/activity/pgstat.c:301)
 

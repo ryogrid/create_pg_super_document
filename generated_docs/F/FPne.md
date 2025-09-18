@@ -26,7 +26,7 @@ FPne implements a fuzzy inequality comparison for double-precision floating-poin
   - EPSILON (constant defining the tolerance threshold)
   - fabs (standard library function for absolute value)
 - Called from (representative examples):
-  - circle_ne
+  - [circle_ne](../c/circle_ne.md)
 
 ## Notes and Other Information
 This function is the complement of FPeq and is used less frequently in PostgreSQL's geometric operations. The dual condition (A != B && fabs(A - B) > EPSILON) ensures that both the direct inequality check passes and the difference is meaningful beyond floating-point precision errors. This approach prevents false positives where tiny rounding errors might otherwise be interpreted as significant differences.

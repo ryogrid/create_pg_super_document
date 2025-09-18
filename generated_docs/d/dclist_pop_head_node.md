@@ -21,11 +21,11 @@ This is a convenience function that combines node removal with count management,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_pop_head_node
-  - dclist_head (structure type)
-  - dlist_node (structure type)
+  - [dlist_pop_head_node](dlist_pop_head_node.md)
+  - [dclist_head](dclist_head.md) (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
-  - SlabAllocFromNewBlock (src/backend/utils/mmgr/slab.c:550)
+  - [SlabAllocFromNewBlock](../S/SlabAllocFromNewBlock.md) (src/backend/utils/mmgr/slab.c:550)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

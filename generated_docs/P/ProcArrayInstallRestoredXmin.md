@@ -28,7 +28,7 @@ The function requires exclusive ProcArrayLock access (unlike the shared lock use
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal (validates transaction ID format)
-  - TransactionIdPrecedesOrEquals (checks xmin coverage)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md) (checks xmin coverage)
   - UINT32_ACCESS_ONCE (atomic read of transaction ID)
   - LWLockAcquire/LWLockRelease (ProcArrayLock with LW_EXCLUSIVE mode)
   - PROC_XMIN_FLAGS (status flag mask for xmin-related flags)

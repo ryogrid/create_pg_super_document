@@ -23,8 +23,8 @@ The function includes a precondition that the input value must be less than 1,00
 - Functions called/Symbols referenced:
   - Assert (for precondition checking)
 - Called from (representative examples):
-  - to_chars (in f2s.c at line 569)
-  - to_chars (in d2s.c at line 793)
+  - [to_chars](../t/to_chars.md) (in f2s.c at line 569)
+  - [to_chars](../t/to_chars.md) (in d2s.c at line 793)
 
 ## Notes and Other Information
 - This is an inline static function for performance optimization

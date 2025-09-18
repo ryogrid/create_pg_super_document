@@ -21,7 +21,7 @@ The function handles the special case where there are no regular rows by returni
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hypothetical_rank_common: Computes the rank position of the hypothetical row
+  - [hypothetical_rank_common](hypothetical_rank_common.md): Computes the rank position of the hypothetical row
   - PG_RETURN_FLOAT8: PostgreSQL macro to return a double precision value
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's aggregate function dispatch mechanism)

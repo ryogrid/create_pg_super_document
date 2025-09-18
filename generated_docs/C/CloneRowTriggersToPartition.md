@@ -37,14 +37,14 @@ The function creates new triggers on the partition using CreateTriggerFiringOn, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan, systable_getnext, AllocSetContextCreate
-  - heap_getattr, stringToNode, TextDatumGetCString
-  - map_partition_varattnos (for OLD and NEW variable mapping)
-  - makeString, DatumGetByteaPP, makeNode
-  - CreateTriggerFiringOn, MemoryContextReset, MemoryContextDelete
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, AllocSetContextCreate
+  - [heap_getattr](../h/heap_getattr.md), stringToNode, TextDatumGetCString
+  - [map_partition_varattnos](../m/map_partition_varattnos.md) (for OLD and NEW variable mapping)
+  - [makeString](../m/makeString.md), DatumGetByteaPP, makeNode
+  - [CreateTriggerFiringOn](CreateTriggerFiringOn.md), MemoryContextReset, MemoryContextDelete
 - Called from (representative examples):
-  - ATExecAttachPartition
-  - DefineRelation
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
+  - [DefineRelation](../D/DefineRelation.md)
   - child_dependency_type
 
 ## Notes and Other Information

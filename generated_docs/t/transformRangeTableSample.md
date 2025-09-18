@@ -19,19 +19,19 @@ The transformRangeTableSample function handles the transformation of TABLESAMPLE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName
-  - get_func_rettype  
-  - GetTsmRoutine
+  - [LookupFuncName](../L/LookupFuncName.md)
+  - [get_func_rettype](../g/get_func_rettype.md)  
+  - [GetTsmRoutine](../G/GetTsmRoutine.md)
   - makeNode
-  - transformExpr
-  - coerce_to_specific_type
-  - assign_expr_collations
-  - NameListToString
+  - [transformExpr](transformExpr.md)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md)
+  - [assign_expr_collations](../a/assign_expr_collations.md)
+  - [NameListToString](../N/NameListToString.md)
   - TSM_HANDLEROID
   - EXPR_KIND_FROM_FUNCTION
   - FLOAT8OID
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - Tablesample method names are looked up as functions with specific signature: one INTERNAL argument returning tsm_handler type

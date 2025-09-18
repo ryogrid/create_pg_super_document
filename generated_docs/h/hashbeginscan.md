@@ -23,13 +23,13 @@ The function allocates a HashScanOpaque structure that maintains hash-specific s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexScan
-  - palloc
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
+  - [palloc](../p/palloc.md)
   - HashScanPosInvalidate
-  - HashScanOpaqueData (structure)
+  - [HashScanOpaqueData](../H/HashScanOpaqueData.md) (structure)
   - InvalidBuffer (constant)
 - Called from (representative examples):
-  - hashhandler (hash access method handler)
+  - [hashhandler](hashhandler.md) (hash access method handler)
   - Referenced in HASHNProcs (hash index procedure array)
 
 ## Notes and Other Information

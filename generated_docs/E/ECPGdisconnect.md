@@ -21,12 +21,12 @@ ECPGdisconnect handles the termination of PostgreSQL database connections in ECP
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca
-  - ecpg_raise
-  - pthread_mutex_lock/unlock
-  - ecpg_init_sqlca
-  - ecpg_get_connection_nr
-  - ecpg_init
-  - ecpg_finish
+  - [ecpg_raise](../e/ecpg_raise.md)
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)/unlock
+  - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md)
+  - [ecpg_get_connection_nr](../e/ecpg_get_connection_nr.md)
+  - [ecpg_init](../e/ecpg_init.md)
+  - [ecpg_finish](../e/ecpg_finish.md)
 - Called from (representative examples):
   - ECPG-generated code for connection cleanup
   - Test programs and applications using ECPG

@@ -18,16 +18,16 @@ This function provides extended operator visibility checking with enhanced error
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - Form_pg_operator
-  - recomputeNamespacePath
-  - list_member_oid
-  - OpernameGetOprid
-  - makeString
-  - ReleaseSysCache
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [OpernameGetOprid](OpernameGetOprid.md)
+  - [makeString](../m/makeString.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - OperatorIsVisible
-  - pg_operator_is_visible
+  - [OperatorIsVisible](OperatorIsVisible.md)
+  - [pg_operator_is_visible](../p/pg_operator_is_visible.md)
 
 ## Notes and Other Information
 - Performs a two-stage visibility check: namespace membership and name resolution precedence

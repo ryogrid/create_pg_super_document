@@ -27,16 +27,16 @@ The isRedo parameter allows the function to handle cases during WAL replay where
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DropRelationsAllBuffers (drops buffers without writing)
-  - palloc/pfree (memory allocation/deallocation)
-  - RelFileLocatorBackend (relation file locator structure)
-  - CacheInvalidateSmgr (sends invalidation messages to other backends)
+  - [DropRelationsAllBuffers](../D/DropRelationsAllBuffers.md) (drops buffers without writing)
+  - [palloc](../p/palloc.md)/pfree (memory allocation/deallocation)
+  - [RelFileLocatorBackend](../R/RelFileLocatorBackend.md) (relation file locator structure)
+  - [CacheInvalidateSmgr](../C/CacheInvalidateSmgr.md) (sends invalidation messages to other backends)
   - smgrsw (storage manager switch table for close and unlink operations)
   - MAX_FORKNUM (maximum fork number constant)
 - Called from (representative examples):
-  - smgrDoPendingDeletes (performs pending deletion operations)
-  - DropRelationFiles (drops relation files)
-  - RelationSetNewRelfilenumber (changes relation file numbers)
+  - [smgrDoPendingDeletes](smgrDoPendingDeletes.md) (performs pending deletion operations)
+  - [DropRelationFiles](../D/DropRelationFiles.md) (drops relation files)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md) (changes relation file numbers)
   - SmgrIsTemp (via header inclusion)
 
 ## Notes and Other Information

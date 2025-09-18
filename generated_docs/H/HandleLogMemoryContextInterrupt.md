@@ -22,7 +22,7 @@ This function serves as a signal handler for memory context logging requests. It
   - InterruptPending (global variable)
   - LogMemoryContextPending (global variable)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md)
 
 ## Notes and Other Information
 - Designed to be signal-safe by avoiding complex operations within the handler

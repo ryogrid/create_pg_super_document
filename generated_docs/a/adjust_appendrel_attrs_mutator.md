@@ -19,22 +19,22 @@ This function implements a comprehensive expression tree walker that handles the
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject (creates deep copies of nodes)
-  - list_nth (accesses list elements)
-  - get_rel_name (retrieves relation names for error messages)
-  - makeNullConst (creates NULL constants)
+  - [list_nth](../l/list_nth.md) (accesses list elements)
+  - [get_rel_name](../g/get_rel_name.md) (retrieves relation names for error messages)
+  - [makeNullConst](../m/makeNullConst.md) (creates NULL constants)
   - expression_tree_mutator (recursively processes expression trees)
-  - adjust_child_relids (adjusts relation ID sets)
+  - [adjust_child_relids](adjust_child_relids.md) (adjusts relation ID sets)
   - rt_fetch (retrieves range table entries)
-  - bms_is_member (tests bitmap membership)
+  - [bms_is_member](../b/bms_is_member.md) (tests bitmap membership)
 - Called from (representative examples):
-  - adjust_appendrel_attrs
-  - adjust_appendrel_attrs_mutator (recursive calls)
+  - [adjust_appendrel_attrs](adjust_appendrel_attrs.md)
+  - [adjust_appendrel_attrs_mutator](adjust_appendrel_attrs_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - Handles Var nodes by looking up translations in AppendRelInfo->translated_vars
 - Special processing for whole-row Vars (varattno == 0) with tuple layout conversion
 - ROWID_VAR placeholders are resolved to specific leaf relation variables when possible
-- RestrictInfo nodes require special handling to preserve optimizer metadata
+- [RestrictInfo](../R/RestrictInfo.md) nodes require special handling to preserve optimizer metadata
 - Includes extensive assertions to prevent processing of inappropriate node types
 - Maintains varnullingrels information for outer join semantics
 - Returns NULL constants when child relations cannot provide requested row identity values

@@ -21,7 +21,7 @@ This function calculates how many transactions have occurred since a given trans
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TRANSACTIONID (macro for extracting TransactionId arguments)
-  - GetStableLatestTransactionId (function to get the latest stable transaction ID)
+  - [GetStableLatestTransactionId](../G/GetStableLatestTransactionId.md) (function to get the latest stable transaction ID)
   - TransactionIdIsNormal (macro to check if XID is a normal transaction ID)
   - PG_RETURN_INT32 (macro for returning 32-bit integer values)
 - Called from (representative examples):

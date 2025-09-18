@@ -19,12 +19,12 @@ The function handles two different operational contexts based on the `isServerSt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - be_tls_init (when USE_SSL is defined)
+  - [be_tls_init](../b/be_tls_init.md) (when USE_SSL is defined)
   - USE_SSL (compile-time macro check)
 - Called from (representative examples):
-  - PostmasterMain (during server initialization)
-  - process_pm_reload_request (during configuration reload)
-  - BackendMain (during backend process startup)
+  - [PostmasterMain](../P/PostmasterMain.md) (during server initialization)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md) (during configuration reload)
+  - [BackendMain](../B/BackendMain.md) (during backend process startup)
   - FeBeWaitSetNEvents (referenced in libpq.h)
 
 ## Notes and Other Information

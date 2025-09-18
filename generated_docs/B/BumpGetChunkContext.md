@@ -18,7 +18,7 @@ BumpGetChunkContext is an intentionally non-functional implementation of the mem
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (error logging function)
-  - MemoryContext (return type, though never reached)
+  - [MemoryContext](../M/MemoryContext.md) (return type, though never reached)
 - Called from (representative examples):
   - BOGUS_MCTX (via function pointer in memory context methods)
   - Referenced in MEMUTILS_INTERNAL_H header

@@ -47,7 +47,7 @@ TransactionStateData serves as the comprehensive state container for PostgreSQL'
 - Called from (representative examples):
   - TransactionState (typedef)
   - SerializedTransactionStateHeaderSize
-  - PushTransaction
+  - [PushTransaction](../P/PushTransaction.md)
 
 ## Notes and Other Information
 The parallelModeLevel field counts unmatched EnterParallelMode calls at this transaction level, while parallelChildXact tracks if any upper transaction level has nonzero parallelModeLevel. This design enables proper parallel execution context management across nested transactions. The structure forms a linked list through the parent pointer, allowing PostgreSQL to maintain a complete transaction stack for proper rollback and resource cleanup operations.

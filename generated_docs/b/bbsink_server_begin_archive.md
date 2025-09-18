@@ -20,13 +20,13 @@ The function includes safety assertions to verify that no file is currently open
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - PathNameOpenFile
-  - pfree
+  - [pfree](../p/pfree.md)
   - ereport
-  - errcode_for_file_access
-  - errmsg
-  - bbsink_forward_begin_archive
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
+  - [bbsink_forward_begin_archive](bbsink_forward_begin_archive.md)
 - Called from (representative examples):
   - Referenced through bbsink_server_ops function table
 

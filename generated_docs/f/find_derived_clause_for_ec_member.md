@@ -26,11 +26,11 @@ The search relies on the fact that non-constant members are placed on the left s
 ## Dependencies
 - Functions called/Symbols referenced:
   - EquivalenceClass (struct type)
-  - EquivalenceMember (struct type)  
-  - RestrictInfo (struct type)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (struct type)  
+  - [RestrictInfo](../R/RestrictInfo.md) (struct type)
   - lfirst (list iteration macro)
 - Called from (representative examples):
-  - get_foreign_key_join_selectivity
+  - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md)
   - Referenced in paths.h header
 
 ## Notes and Other Information

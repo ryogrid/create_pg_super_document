@@ -19,17 +19,17 @@ The function allocates memory for the entire notification structure in a single 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetInt
-  - pqGets
+  - [pqGetInt](../p/pqGetInt.md)
+  - [pqGets](../p/pqGets.md)
   - strdup
   - free
   - strlen
   - malloc
   - strcpy
 - Called from (representative examples):
-  - pqParseInput3
-  - getCopyDataMessage
-  - pqFunctionCall3
+  - [pqParseInput3](../p/pqParseInput3.md)
+  - [getCopyDataMessage](getCopyDataMessage.md)
+  - [pqFunctionCall3](../p/pqFunctionCall3.md)
 
 ## Notes and Other Information
 - Returns 0 on successful message consumption, EOF if insufficient data available or memory allocation failure

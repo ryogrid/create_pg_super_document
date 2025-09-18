@@ -56,23 +56,23 @@ Key features:
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes: Gets number of key attributes in the index
   - InitDirtySnapshot: Initializes snapshot for seeing uncommitted changes
-  - ScanKeyEntryInitialize: Sets up scan keys for index scanning
-  - table_slot_create: Creates tuple table slot for existing tuples
+  - [ScanKeyEntryInitialize](../S/ScanKeyEntryInitialize.md): Sets up scan keys for index scanning
+  - [table_slot_create](../t/table_slot_create.md): Creates tuple table slot for existing tuples
   - GetPerTupleExprContext: Gets expression evaluation context
-  - index_beginscan/index_rescan: Initiates and configures index scans
-  - index_getnext_slot: Retrieves tuples from index scan
-  - FormIndexDatum: Extracts index values from heap tuples
-  - index_recheck_constraint: Rechecks constraints for lossy index scans
-  - TransactionIdPrecedes: Compares transaction IDs for ordering
-  - GetCurrentTransactionId: Gets current transaction ID
-  - SpeculativeInsertionWait: Waits for speculative insertions to complete
-  - XactLockTableWait: Waits for transaction to complete
-  - BuildIndexValueDescription: Creates human-readable descriptions of index values for error messages
-  - ExecDropSingleTupleTableSlot: Cleans up tuple table slot
+  - [index_beginscan](../i/index_beginscan.md)/index_rescan: Initiates and configures index scans
+  - [index_getnext_slot](../i/index_getnext_slot.md): Retrieves tuples from index scan
+  - [FormIndexDatum](../F/FormIndexDatum.md): Extracts index values from heap tuples
+  - [index_recheck_constraint](../i/index_recheck_constraint.md): Rechecks constraints for lossy index scans
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md): Compares transaction IDs for ordering
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md): Gets current transaction ID
+  - [SpeculativeInsertionWait](../S/SpeculativeInsertionWait.md): Waits for speculative insertions to complete
+  - [XactLockTableWait](../X/XactLockTableWait.md): Waits for transaction to complete
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md): Creates human-readable descriptions of index values for error messages
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md): Cleans up tuple table slot
 - Called from (representative examples):
-  - ExecInsertIndexTuples: Checks exclusion constraints during index tuple insertion
-  - ExecCheckIndexConstraints: Performs pre-insertion conflict detection
-  - check_exclusion_constraint: Higher-level exclusion constraint checking
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md): Checks exclusion constraints during index tuple insertion
+  - [ExecCheckIndexConstraints](../E/ExecCheckIndexConstraints.md): Performs pre-insertion conflict detection
+  - [check_exclusion_constraint](check_exclusion_constraint.md): Higher-level exclusion constraint checking
 
 ## Notes and Other Information
 - This is a static function, internal to the execIndexing.c module

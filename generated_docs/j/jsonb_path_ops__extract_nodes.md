@@ -24,14 +24,14 @@ This function handles node extraction for the jsonb_path_ops GIN operator class,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbHashScalarValue
-  - make_jsp_entry_node
-  - UInt32GetDatum
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md)
+  - [make_jsp_entry_node](../m/make_jsp_entry_node.md)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md)
   - lappend
   - JsonPathGinContext
   - JsonPathGinPath
 - Called from (representative examples):
-  - extract_jsp_query
+  - [extract_jsp_query](../e/extract_jsp_query.md)
 
 ## Notes and Other Information
 - This is a static function within the JSONB GIN indexing module

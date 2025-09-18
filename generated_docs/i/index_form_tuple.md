@@ -23,15 +23,15 @@ The function is part of PostgreSQL's index tuple interface routines and provides
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_form_tuple_context
+  - [index_form_tuple_context](index_form_tuple_context.md)
   - CurrentMemoryContext (global variable)
 - Called from (representative examples):
-  - index_truncate_tuple (src/backend/access/common/indextuple.c:597)
-  - GinFormTuple (src/backend/access/gin/ginentrypage.c:68)
+  - [index_truncate_tuple](index_truncate_tuple.md) (src/backend/access/common/indextuple.c:597)
+  - [GinFormTuple](../G/GinFormTuple.md) (src/backend/access/gin/ginentrypage.c:68)
   - gistFormTuple (src/backend/access/gist/gistutil.c:582)
-  - hashbuildCallback (src/backend/access/hash/hash.c:234)
-  - hashinsert (src/backend/access/hash/hash.c:268)
-  - btinsert (src/backend/access/nbtree/nbtree.c:192)
+  - [hashbuildCallback](../h/hashbuildCallback.md) (src/backend/access/hash/hash.c:234)
+  - [hashinsert](../h/hashinsert.md) (src/backend/access/hash/hash.c:268)
+  - [btinsert](../b/btinsert.md) (src/backend/access/nbtree/nbtree.c:192)
 
 ## Notes and Other Information
 - This is a thin wrapper function that delegates all actual work to `index_form_tuple_context`

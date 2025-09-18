@@ -24,14 +24,14 @@ The function is a lightweight wrapper that performs early validation checks and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIsNew
-  - DataChecksumsEnabled
-  - pg_checksum_page
+  - [PageIsNew](PageIsNew.md)
+  - [DataChecksumsEnabled](../D/DataChecksumsEnabled.md)
+  - [pg_checksum_page](../p/pg_checksum_page.md)
 - Called from (representative examples):
-  - _hash_alloc_buckets (Hash index bucket allocation)
-  - FlushRelationBuffers (Relation buffer flushing)
+  - [_hash_alloc_buckets](../h/_hash_alloc_buckets.md) (Hash index bucket allocation)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md) (Relation buffer flushing)
   - GetLocalVictimBuffer (Local buffer management)
-  - smgr_bulk_flush (Bulk storage manager flush operations)
+  - [smgr_bulk_flush](../s/smgr_bulk_flush.md) (Bulk storage manager flush operations)
 
 ## Notes and Other Information
 - **Critical safety requirement**: Only use when no concurrent modifications possible

@@ -24,11 +24,11 @@ The function builds a qualified name list by prepending the relation name, schem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lcons (for list construction)
-  - makeString (for creating String nodes)
-  - get_object_address (main object resolution function)
+  - [lcons](../l/lcons.md) (for list construction)
+  - [makeString](../m/makeString.md) (for creating String nodes)
+  - [get_object_address](get_object_address.md) (main object resolution function)
 - Called from (representative examples):
-  - ExecAlterObjectDependsStmt
+  - [ExecAlterObjectDependsStmt](../E/ExecAlterObjectDependsStmt.md)
 
 ## Notes and Other Information
 This function is essentially a helper that transforms RangeVar-based specifications into the list format expected by . It handles the common case where object names need to be qualified with relation information, making it easier for callers to work with relation-dependent objects. All other behavior, including locking and error handling, is identical to  since it delegates to that function after name construction.

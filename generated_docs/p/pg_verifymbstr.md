@@ -29,19 +29,19 @@ By using the current database encoding, it ensures that all text data conforms t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding (retrieves current database encoding)
-  - pg_verify_mbstr (performs the actual encoding validation)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (retrieves current database encoding)
+  - [pg_verify_mbstr](pg_verify_mbstr.md) (performs the actual encoding validation)
 - Called from (representative examples):
-  - spg_text_leaf_consistent
-  - CopyReadAttributesText
-  - read_text_file
-  - char2wchar
-  - plperl_spi_exec
-  - plperl_spi_query
-  - PLy_cursor_query
-  - PLy_output
-  - PLy_spi_prepare
-  - PLyObject_AsString
+  - [spg_text_leaf_consistent](../s/spg_text_leaf_consistent.md)
+  - [CopyReadAttributesText](../C/CopyReadAttributesText.md)
+  - [read_text_file](../r/read_text_file.md)
+  - [char2wchar](../c/char2wchar.md)
+  - [plperl_spi_exec](plperl_spi_exec.md)
+  - [plperl_spi_query](plperl_spi_query.md)
+  - [PLy_cursor_query](../P/PLy_cursor_query.md)
+  - [PLy_output](../P/PLy_output.md)
+  - [PLy_spi_prepare](../P/PLy_spi_prepare.md)
+  - [PLyObject_AsString](../P/PLyObject_AsString.md)
 
 ## Notes and Other Information
 - Returns true if the string is valid in the current database encoding, false otherwise

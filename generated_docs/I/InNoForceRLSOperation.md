@@ -24,7 +24,7 @@ None - this function takes no parameters and returns a boolean value.
   - SecurityRestrictionContext (global variable)
   - SECURITY_NOFORCE_RLS (macro constant: 0x0004)
 - Called from (representative examples):
-  - check_enable_rls
+  - [check_enable_rls](../c/check_enable_rls.md)
   - AmSpecialWorkerProcess
 
 ## Notes and Other Information

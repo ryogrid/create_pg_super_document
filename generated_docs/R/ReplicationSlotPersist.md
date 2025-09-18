@@ -23,15 +23,15 @@ This operation is particularly important during logical replication setup, where
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - ReplicationSlotMarkDirty
-  - ReplicationSlotSave
+  - [ReplicationSlotMarkDirty](ReplicationSlotMarkDirty.md)
+  - [ReplicationSlotSave](ReplicationSlotSave.md)
   - RS_PERSISTENT (enum value)
-  - ReplicationSlot (struct type)
+  - [ReplicationSlot](ReplicationSlot.md) (struct type)
 - Called from (representative examples):
-  - pg_create_logical_replication_slot
-  - copy_replication_slot
-  - CreateReplicationSlot
-  - update_and_persist_local_synced_slot
+  - [pg_create_logical_replication_slot](../p/pg_create_logical_replication_slot.md)
+  - [copy_replication_slot](../c/copy_replication_slot.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
+  - [update_and_persist_local_synced_slot](../u/update_and_persist_local_synced_slot.md)
 
 ## Notes and Other Information
 - Requires that MyReplicationSlot is not NULL (verified by Assert)

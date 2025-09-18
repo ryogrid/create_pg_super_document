@@ -17,10 +17,10 @@ LoadPublications is a utility function in the pgoutput logical replication outpu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPublicationByName
-  - Publication (structure type)
+  - [GetPublicationByName](../G/GetPublicationByName.md)
+  - [Publication](../P/Publication.md) (structure type)
 - Called from (representative examples):
-  - get_rel_sync_entry
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pgoutput.c file

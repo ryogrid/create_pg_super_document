@@ -24,12 +24,12 @@ This function automatically sets the SQLSTATE error code for the current error b
   - CHECK_STACK_DEPTH (macro for stack depth validation)
   - ALL_CONNECTION_FAILURE_ERRNOS (macro defining connection failure errno values)
 - Called from (representative examples):
-  - ident_inet (authentication function)
-  - be_tls_open_server (TLS server setup)
-  - ListenServerPort (server port listening)
-  - AcceptConnection (connection acceptance)
-  - pq_recvbuf (packet receiving)
-  - SysLoggerMain (system logger)
+  - [ident_inet](../i/ident_inet.md) (authentication function)
+  - [be_tls_open_server](../b/be_tls_open_server.md) (TLS server setup)
+  - [ListenServerPort](../L/ListenServerPort.md) (server port listening)
+  - [AcceptConnection](../A/AcceptConnection.md) (connection acceptance)
+  - [pq_recvbuf](../p/pq_recvbuf.md) (packet receiving)
+  - [SysLoggerMain](../S/SysLoggerMain.md) (system logger)
 
 ## Notes and Other Information
 - The primary error message string should generally include %m when this function is used

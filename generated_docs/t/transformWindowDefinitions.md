@@ -19,23 +19,23 @@ This function processes WINDOW clause definitions and inline window specificatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findWindowClause
-  - transformSortClause
-  - transformGroupClause
-  - transformFrameOffset
+  - [findWindowClause](../f/findWindowClause.md)
+  - [transformSortClause](transformSortClause.md)
+  - [transformGroupClause](transformGroupClause.md)
+  - [transformFrameOffset](transformFrameOffset.md)
   - copyObject
   - makeNode
-  - get_sortgroupclause_expr
-  - get_ordering_op_properties
-  - exprCollation
+  - [get_sortgroupclause_expr](../g/get_sortgroupclause_expr.md)
+  - [get_ordering_op_properties](../g/get_ordering_op_properties.md)
+  - [exprCollation](../e/exprCollation.md)
   - linitial_node
-  - WindowDef, WindowClause, SortGroupClause (struct types)
+  - [WindowDef](../W/WindowDef.md), WindowClause, SortGroupClause (struct types)
   - EXPR_KIND_WINDOW_ORDER, EXPR_KIND_WINDOW_PARTITION (enum values)
   - FRAMEOPTION_DEFAULTS, FRAMEOPTION_RANGE, FRAMEOPTION_GROUPS, FRAMEOPTION_START_OFFSET, FRAMEOPTION_END_OFFSET (frame option constants)
   - BTLessStrategyNumber (B-tree strategy constant)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformPLAssignStmt
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformPLAssignStmt](transformPLAssignStmt.md)
 
 ## Notes and Other Information
 - This is a public function declared in parse_clause.h

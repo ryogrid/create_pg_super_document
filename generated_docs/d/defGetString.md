@@ -19,27 +19,27 @@ The function performs type checking on the argument node and converts different 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (for type checking)
   - intVal (to extract integer values)
   - Float (cast node type)
   - boolVal (to extract boolean values)
-  - TypeNameToString (to convert TypeName to string)
-  - TypeName (structure type)
-  - NameListToString (to convert List to string)
-  - psprintf (for formatted string creation)
+  - [TypeNameToString](../T/TypeNameToString.md) (to convert TypeName to string)
+  - [TypeName](../T/TypeName.md) (structure type)
+  - [NameListToString](../N/NameListToString.md) (to convert List to string)
+  - [psprintf](../p/psprintf.md) (for formatted string creation)
   - strVal (to extract string values)
-  - pstrdup (for string duplication)
+  - [pstrdup](../p/pstrdup.md) (for string duplication)
   - ereport/elog (for error reporting)
   
 - Called from (representative examples):
-  - transformRelOptions (src/backend/access/common/reloptions.c:1286)
-  - parse_basebackup_options (src/backend/backup/basebackup.c:734)
-  - DefineAggregate (src/backend/commands/aggregatecmds.c:182)
-  - DefineCollation (src/backend/commands/collationcmds.c:201)
-  - ProcessCopyOptions (src/backend/commands/copy.c:488)
-  - createdb (src/backend/commands/dbcommands.c:871)
-  - CreateExtension (src/backend/commands/extension.c:1823)
+  - [transformRelOptions](../t/transformRelOptions.md) (src/backend/access/common/reloptions.c:1286)
+  - [parse_basebackup_options](../p/parse_basebackup_options.md) (src/backend/backup/basebackup.c:734)
+  - [DefineAggregate](../D/DefineAggregate.md) (src/backend/commands/aggregatecmds.c:182)
+  - [DefineCollation](../D/DefineCollation.md) (src/backend/commands/collationcmds.c:201)
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md) (src/backend/commands/copy.c:488)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:871)
+  - [CreateExtension](../C/CreateExtension.md) (src/backend/commands/extension.c:1823)
 
 ## Notes and Other Information
 - The function handles type conversion from various PostgreSQL node types to strings

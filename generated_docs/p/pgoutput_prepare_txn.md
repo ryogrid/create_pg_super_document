@@ -19,12 +19,12 @@ This function is the prepare callback for the pgoutput logical replication plugi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginUpdateProgress
-  - OutputPluginPrepareWrite
-  - logicalrep_write_prepare
-  - OutputPluginWrite
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_prepare](../l/logicalrep_write_prepare.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as prepare callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as prepare callback)
 
 ## Notes and Other Information
 - This is a static function internal to the pgoutput plugin

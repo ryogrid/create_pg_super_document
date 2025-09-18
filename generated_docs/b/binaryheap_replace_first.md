@@ -28,11 +28,11 @@ This operation is more efficient than removing the first element and then insert
 ## Dependencies
 - Functions called/Symbols referenced:
   - binaryheap_empty (heap validation)
-  - sift_down (heap rebalancing downward)
+  - [sift_down](../s/sift_down.md) (heap rebalancing downward)
 - Called from (representative examples):
-  - gather_merge_getnext (executor/nodeGatherMerge.c:563)
+  - [gather_merge_getnext](../g/gather_merge_getnext.md) (executor/nodeGatherMerge.c:563)
   - ExecMergeAppend (executor/nodeMergeAppend.c:250)
-  - ReorderBufferIterTXNNext (replication/logical/reorderbuffer.c:1448, 1484)
+  - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (replication/logical/reorderbuffer.c:1448, 1484)
   - BufferSync (storage/buffer/bufmgr.c:3135)
 
 ## Notes and Other Information

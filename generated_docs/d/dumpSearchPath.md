@@ -17,18 +17,18 @@ The  function captures the current database's search path and stores it as a res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQueryForSingleRow (executes current_schemas() query)
-  - parsePGArray (parses the PostgreSQL array result into C array)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (executes current_schemas() query)
+  - [parsePGArray](../p/parsePGArray.md) (parses the PostgreSQL array result into C array)
   - createPQExpBuffer/appendPQExpBufferStr/destroyPQExpBuffer (string buffer management)
-  - fmtId (properly quotes schema names as SQL identifiers)
+  - [fmtId](../f/fmtId.md) (properly quotes schema names as SQL identifiers)
   - appendStringLiteralAH (safely quotes the search path as SQL literal)
   - pg_log_info (logs the search path being saved)
-  - createDumpId (generates unique dump ID)
-  - ArchiveEntry (creates archive entry with SQL command)
+  - [createDumpId](../c/createDumpId.md) (generates unique dump ID)
+  - [ArchiveEntry](../A/ArchiveEntry.md) (creates archive entry with SQL command)
   - ARCHIVE_OPTS/SECTION_PRE_DATA (archive configuration macros)
-  - pg_strdup (duplicates string for storage in AH->searchpath)
+  - [pg_strdup](../p/pg_strdup.md) (duplicates string for storage in AH->searchpath)
 - Called from (representative examples):
-  - main (pg_dump main function)
+  - [main](../m/main.md) (pg_dump main function)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

@@ -40,10 +40,10 @@ LC_ALL=: The desired locale string to set (e.g., "en_US.UTF-8", "C", or empty st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_perm_setlocale (attempts to permanently set the locale for the given category)
+  - [pg_perm_setlocale](../p/pg_perm_setlocale.md) (attempts to permanently set the locale for the given category)
   - elog (logs fatal error if both locale attempts fail)
 - Called from:
-  - main (multiple times for different locale categories during startup)
+  - [main](../m/main.md) (multiple times for different locale categories during startup)
 
 ## Notes and Other Information
 - This function is static and only accessible within the main.c source file

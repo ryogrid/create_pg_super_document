@@ -19,18 +19,18 @@ The function includes error handling for fork failures - if forking fails for a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - postmaster_child_launch (performs the actual process forking)
-  - PostmasterChildName (gets human-readable name for error reporting)
-  - ExitPostmaster (terminates postmaster on critical failures)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (performs the actual process forking)
+  - [PostmasterChildName](../P/PostmasterChildName.md) (gets human-readable name for error reporting)
+  - [ExitPostmaster](../E/ExitPostmaster.md) (terminates postmaster on critical failures)
   - ereport (error reporting system)
 - Called from (representative examples):
-  - PostmasterMain (initial process startup)
-  - ServerLoop (process lifecycle management)
-  - PostmasterStateMachine (state-driven process management)
-  - StartAutovacuumWorker (autovacuum worker creation)
-  - MaybeStartWalReceiver (WAL receiver startup)
-  - MaybeStartWalSummarizer (WAL summarizer startup)
-  - MaybeStartSlotSyncWorker (slot sync worker startup)
+  - [PostmasterMain](../P/PostmasterMain.md) (initial process startup)
+  - [ServerLoop](ServerLoop.md) (process lifecycle management)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md) (state-driven process management)
+  - [StartAutovacuumWorker](StartAutovacuumWorker.md) (autovacuum worker creation)
+  - [MaybeStartWalReceiver](../M/MaybeStartWalReceiver.md) (WAL receiver startup)
+  - [MaybeStartWalSummarizer](../M/MaybeStartWalSummarizer.md) (WAL summarizer startup)
+  - [MaybeStartSlotSyncWorker](../M/MaybeStartSlotSyncWorker.md) (slot sync worker startup)
 
 ## Notes and Other Information
 - Returns the child process PID on success, or 0 on failure

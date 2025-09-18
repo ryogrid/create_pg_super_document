@@ -22,15 +22,15 @@ For each transaction, the function opens an appropriate spool file and, if this 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - begin_replication_step
+  - [begin_replication_step](../b/begin_replication_step.md)
   - FileSetInit
-  - stream_open_file
-  - subxact_info_read
-  - end_replication_step
+  - [stream_open_file](stream_open_file.md)
+  - [subxact_info_read](subxact_info_read.md)
+  - [end_replication_step](../e/end_replication_step.md)
 - Called from:
-  - pa_switch_to_partial_serialize
-  - apply_handle_stream_start
-  - stream_open_and_write_change
+  - [pa_switch_to_partial_serialize](../p/pa_switch_to_partial_serialize.md)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md)
+  - [stream_open_and_write_change](stream_open_and_write_change.md)
 
 ## Notes and Other Information
 - Implements lazy initialization pattern for FileSet to avoid unnecessary resource allocation

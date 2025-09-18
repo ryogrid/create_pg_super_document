@@ -24,10 +24,10 @@ The function validates that it's being called in an aggregate context using AggC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
-  - palloc
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - memcpy
   - VARDATA

@@ -33,11 +33,11 @@ For system catalogs, the function ensures collation-aware columns use C collatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - closerel (closes any open relations)
-  - AllocateAttribute (allocates attribute structure)
+  - [closerel](../c/closerel.md) (closes any open relations)
+  - [AllocateAttribute](../A/AllocateAttribute.md) (allocates attribute structure)
   - MemSet (clears attribute structure)
   - namestrcpy (copies attribute name)
-  - gettype (resolves type information)
+  - [gettype](../g/gettype.md) (resolves type information)
   - ATTRIBUTE_FIXED_PART_SIZE (constant for structure size)
   - InvalidCompressionMethod (default compression setting)
   - BOOTCOL_NULL_* constants (nullability options)

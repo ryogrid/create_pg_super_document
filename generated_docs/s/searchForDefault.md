@@ -26,9 +26,9 @@ This information is crucial for the rewrite system to determine whether default 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetToDefault
+  - [SetToDefault](../S/SetToDefault.md)
 - Called from (representative examples):
-  - rewriteValuesRTE
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md)
 
 ## Notes and Other Information
 - Returns true as soon as the first SetToDefault node is found (early termination)

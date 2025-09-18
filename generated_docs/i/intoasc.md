@@ -20,7 +20,7 @@ The function allocates temporary memory for the conversion, copies the result to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESinterval_to_asc (performs the actual interval-to-string conversion)
+  - [PGTYPESinterval_to_asc](../P/PGTYPESinterval_to_asc.md) (performs the actual interval-to-string conversion)
   - strcpy (copies the result string to the output buffer)
   - free (frees the temporary string allocated by PGTYPESinterval_to_asc)
 - Called from (representative examples):

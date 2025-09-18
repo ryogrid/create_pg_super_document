@@ -20,10 +20,10 @@ This mechanism is essential for coordinating the restore process, particularly i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - restore_toc_entry
-  - mark_restore_job_done
+  - [restore_toc_entry](../r/restore_toc_entry.md)
+  - [mark_restore_job_done](mark_restore_job_done.md)
 
 ## Notes and Other Information
 - Only operates if there is a corresponding DATA entry (tableDataId mapping exists and is non-zero)

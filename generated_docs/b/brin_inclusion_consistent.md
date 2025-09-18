@@ -23,9 +23,9 @@ This function is the consistent handler for BRIN inclusion operator classes, imp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inclusion_get_strategy_procinfo
-  - FunctionCall2Coll  
-  - DatumGetBool
+  - [inclusion_get_strategy_procinfo](../i/inclusion_get_strategy_procinfo.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)  
+  - [DatumGetBool](../D/DatumGetBool.md)
   - PG_GET_COLLATION
   - PG_NARGS
   - PG_RETURN_BOOL
@@ -37,10 +37,10 @@ This function is the consistent handler for BRIN inclusion operator classes, imp
   - INCLUSION_CONTAINS_EMPTY
   - Strategy number constants (RT*StrategyNumber)
 - Data structures:
-  - BrinDesc
-  - BrinValues  
+  - [BrinDesc](../B/BrinDesc.md)
+  - [BrinValues](../B/BrinValues.md)  
   - ScanKey
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
 - Called from (representative examples):
   - No direct references found (typically called via BRIN framework during index scans)
 

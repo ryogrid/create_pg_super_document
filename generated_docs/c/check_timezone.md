@@ -32,14 +32,14 @@ Upon successful validation, the function creates a pg_tz timezone object and sto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strncasecmp: Case-insensitive string comparison for parsing INTERVAL keyword
+  - [pg_strncasecmp](../p/pg_strncasecmp.md): Case-insensitive string comparison for parsing INTERVAL keyword
   - DatumGetIntervalP, DirectFunctionCall3, interval_in: PostgreSQL interval parsing functions
-  - CStringGetDatum, ObjectIdGetDatum, Int32GetDatum: PostgreSQL datum conversion functions
-  - pg_tzset_offset: Creates timezone object from GMT offset in seconds
-  - pg_tzset: Loads timezone by name from system timezone database
-  - pg_tz_acceptable: Validates that timezone doesn't use leap seconds
+  - [CStringGetDatum](../C/CStringGetDatum.md), ObjectIdGetDatum, Int32GetDatum: PostgreSQL datum conversion functions
+  - [pg_tzset_offset](../p/pg_tzset_offset.md): Creates timezone object from GMT offset in seconds
+  - [pg_tzset](../p/pg_tzset.md): Loads timezone by name from system timezone database
+  - [pg_tz_acceptable](../p/pg_tz_acceptable.md): Validates that timezone doesn't use leap seconds
   - GUC_check_errdetail, GUC_check_errmsg: GUC error reporting functions
-  - guc_malloc: GUC memory allocation function
+  - [guc_malloc](../g/guc_malloc.md): GUC memory allocation function
   - USECS_PER_SEC, SECS_PER_HOUR: Time conversion constants
 
 - Called from (representative examples):

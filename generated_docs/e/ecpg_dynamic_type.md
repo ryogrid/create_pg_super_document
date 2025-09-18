@@ -25,7 +25,7 @@ The function handles basic data types like integers, floating-point numbers, cha
   - BOOLOID, INT2OID, INT4OID, TEXTOID, FLOAT4OID, FLOAT8OID, BPCHAROID, VARCHAROID, DATEOID, TIMEOID, TIMESTAMPOID, NUMERICOID (PostgreSQL OID constants)
   - SQL3_BOOLEAN, SQL3_SMALLINT, SQL3_INTEGER, SQL3_CHARACTER, SQL3_REAL, SQL3_DOUBLE_PRECISION, SQL3_CHARACTER_VARYING, SQL3_DATE_TIME_TIMESTAMP, SQL3_NUMERIC (SQL3 type constants)
 - Called from (representative examples):
-  - ECPGget_desc (in descriptor.c:390, 396)
+  - [ECPGget_desc](../E/ECPGget_desc.md) (in descriptor.c:390, 396)
   - not_an_array_in_ecpg (in execute.c:282, 283)
 
 ## Notes and Other Information

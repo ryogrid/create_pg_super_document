@@ -28,11 +28,11 @@ When a matching field is found, the function populates the ExpandedRecordFieldIn
   - expanded_record_get_tupdesc
   - TupleDescAttr (macro)
   - namestrcmp
-  - SystemAttributeByName
+  - [SystemAttributeByName](../S/SystemAttributeByName.md)
 - Types referenced:
   - ExpandedRecordHeader
-  - ExpandedRecordFieldInfo
-  - TupleDesc
+  - [ExpandedRecordFieldInfo](../E/ExpandedRecordFieldInfo.md)
+  - [TupleDesc](../T/TupleDesc.md)
   - Form_pg_attribute
   - FormData_pg_attribute
 - Called from (representative examples):

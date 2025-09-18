@@ -25,19 +25,19 @@ The caller is responsible for calling `PQclear()` on the returned result to free
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec
-  - PQresultStatus
-  - die_on_query_failure
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [die_on_query_failure](../d/die_on_query_failure.md)
   - ExecStatusType (type)
 
 - Called from (representative examples):
-  - ExecuteSqlQueryForSingleRow
-  - expand_schema_name_patterns
-  - dumpTableData_copy
-  - getNamespaces
-  - getTables
-  - getConstraints
-  - dumpDatabase
+  - [ExecuteSqlQueryForSingleRow](ExecuteSqlQueryForSingleRow.md)
+  - [expand_schema_name_patterns](../e/expand_schema_name_patterns.md)
+  - [dumpTableData_copy](../d/dumpTableData_copy.md)
+  - [getNamespaces](../g/getNamespaces.md)
+  - [getTables](../g/getTables.md)
+  - [getConstraints](../g/getConstraints.md)
+  - [dumpDatabase](../d/dumpDatabase.md)
 
 ## Notes and Other Information
 - This function is part of the public API for pg_dump modules, declared in pg_backup_db.h

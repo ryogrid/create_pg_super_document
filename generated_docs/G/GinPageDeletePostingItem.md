@@ -25,9 +25,9 @@ This function removes a PostingItem from a non-leaf GIN data page at the specifi
   - FirstOffsetNumber
   - memmove
 - Called from (representative examples):
-  - ginDeletePage
-  - ginRedoDeletePage
-  - GinBtreeDataLeafInsertData
+  - [ginDeletePage](../g/ginDeletePage.md)
+  - [ginRedoDeletePage](../g/ginRedoDeletePage.md)
+  - [GinBtreeDataLeafInsertData](GinBtreeDataLeafInsertData.md)
 
 ## Notes and Other Information
 - Only operates on non-leaf GIN data pages (verified by assertion)

@@ -28,10 +28,10 @@ The buffering approach groups tuples by their target locations in the index tree
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistProcessItup
+  - [gistProcessItup](gistProcessItup.md)
   - gistProcessEmptyingQueue
 - Called from (representative examples):
-  - gistBuildCallback
+  - [gistBuildCallback](gistBuildCallback.md)
 
 ## Notes and Other Information
 - This function is only called when the build is in GIST_BUFFERING_ACTIVE mode

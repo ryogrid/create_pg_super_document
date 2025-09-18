@@ -22,14 +22,14 @@ The function includes graceful error handling - when is_missing is provided, it 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (to look up collation details)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (to look up collation details)
   - Form_pg_collation (system catalog structure)
-  - recomputeNamespacePath (to ensure search path is current)
-  - list_member_oid (to check if namespace is in search path)
-  - CollationGetCollid (to perform full resolution check)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to ensure search path is current)
+  - [list_member_oid](../l/list_member_oid.md) (to check if namespace is in search path)
+  - [CollationGetCollid](CollationGetCollid.md) (to perform full resolution check)
 - Called from (representative examples):
-  - CollationIsVisible (the simple wrapper)
-  - pg_collation_is_visible (SQL function interface)
+  - [CollationIsVisible](CollationIsVisible.md) (the simple wrapper)
+  - [pg_collation_is_visible](../p/pg_collation_is_visible.md) (SQL function interface)
 
 ## Notes and Other Information
 - This is a static function, only visible within namespace.c

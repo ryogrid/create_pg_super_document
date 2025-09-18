@@ -21,7 +21,7 @@ This function implements timestamp-interval subtraction using a simple but effec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_add_interval
+  - [PGTYPEStimestamp_add_interval](PGTYPEStimestamp_add_interval.md)
 - Called from (representative examples):
   - (Referenced in header file but no direct callers found in codebase)
 

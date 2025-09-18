@@ -17,12 +17,12 @@ fmNodePtr is a forward declaration typedef defined in fmgr.h that creates a poin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Node (struct - forward declaration only)
+  - [Node](../N/Node.md) (struct - forward declaration only)
 - Called from (representative examples):
-  - FmgrInfo (uses as fn_expr field type)
-  - FunctionCallInfoBaseData (uses as context and resultinfo field types)
-  - InputFunctionCallSafe
-  - DirectInputFunctionCallSafe
+  - [FmgrInfo](../F/FmgrInfo.md) (uses as fn_expr field type)
+  - [FunctionCallInfoBaseData](../F/FunctionCallInfoBaseData.md) (uses as context and resultinfo field types)
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
+  - [DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md)
   - OidFunctionCall9
 
 ## Notes and Other Information

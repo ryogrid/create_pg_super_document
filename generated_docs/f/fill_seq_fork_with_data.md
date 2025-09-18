@@ -38,25 +38,25 @@ The function performs these operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRel
-  - BufferGetBlockNumber
-  - BufferGetPage
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - PageInit
-  - PageGetSpecialPointer
+  - [PageGetSpecialPointer](../P/PageGetSpecialPointer.md)
   - HeapTupleHeaderSetXmin
   - HeapTupleHeaderSetXminFrozen
   - HeapTupleHeaderSetCmin
   - HeapTupleHeaderSetXmax
-  - GetTopTransactionId
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)
   - PageAddItem
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterData
-  - XLogInsert
-  - PageSetLSN
-  - UnlockReleaseBuffer
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - fill_seq_with_data (src/backend/commands/sequence.c:340, 349)
+  - [fill_seq_with_data](fill_seq_with_data.md) (src/backend/commands/sequence.c:340, 349)
 
 ## Notes and Other Information
 - This is a static function used internally within sequence.c

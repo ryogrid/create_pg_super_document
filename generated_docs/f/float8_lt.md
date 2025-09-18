@@ -24,15 +24,15 @@ The implementation first checks that val1 is not NaN (since NaN cannot be less t
 - Functions called/Symbols referenced:
   - isnan (standard C library function for NaN detection)
 - Called from (representative examples):
-  - float8lt (SQL-callable less-than function)
-  - float8smaller (minimum value function)
-  - float8_cmp_internal (comparison utility function)
-  - float48lt (mixed precision less-than function)
-  - float84lt (mixed precision less-than function)
-  - adjustBox (GiST index operations)
-  - gist_box_picksplit (GiST index operations)
+  - [float8lt](float8lt.md) (SQL-callable less-than function)
+  - [float8smaller](float8smaller.md) (minimum value function)
+  - [float8_cmp_internal](float8_cmp_internal.md) (comparison utility function)
+  - [float48lt](float48lt.md) (mixed precision less-than function)
+  - [float84lt](float84lt.md) (mixed precision less-than function)
+  - [adjustBox](../a/adjustBox.md) (GiST index operations)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md) (GiST index operations)
   - Various geometric functions (box_in, path_distance, etc.)
-  - float8_min (inline minimum function)
+  - [float8_min](float8_min.md) (inline minimum function)
 
 ## Notes and Other Information
 - This is an inline function defined in utils/float.h for performance

@@ -25,13 +25,13 @@ The function is typically called early in the process lifecycle, immediately aft
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - archive_close_connection (cleanup function to be called on exit)
-  - on_exit_nicely (PostgreSQL utility function for registering exit handlers)
+  - [archive_close_connection](../a/archive_close_connection.md) (cleanup function to be called on exit)
+  - [on_exit_nicely](on_exit_nicely.md) (PostgreSQL utility function for registering exit handlers)
 
 - Called from (representative examples):
-  - main (in src/bin/pg_dump/pg_dump.c:838)
-  - main (in src/bin/pg_dump/pg_restore.c:434)
-  - _tocEntry (referenced in src/bin/pg_dump/pg_backup_archiver.h:387)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:838)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_restore.c:434)
+  - [_tocEntry](../t/_tocEntry.md) (referenced in src/bin/pg_dump/pg_backup_archiver.h:387)
 
 ## Notes and Other Information
 - This function is called by both pg_dump and pg_restore utilities

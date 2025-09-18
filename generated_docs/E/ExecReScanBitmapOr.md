@@ -21,11 +21,11 @@ This approach avoids unnecessary rescan operations while ensuring that all relev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UpdateChangedParamSet (propagates parameter changes to child subplans)
-  - ExecReScan (conditionally rescans child subplans)
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (propagates parameter changes to child subplans)
+  - [ExecReScan](ExecReScan.md) (conditionally rescans child subplans)
 
 - Called from (representative examples):
-  - ExecReScan (part of the general rescan dispatch system)
+  - [ExecReScan](ExecReScan.md) (part of the general rescan dispatch system)
 
 ## Notes and Other Information
 - Manually handles parameter change signaling since ExecReScan doesn't know about BitmapOr's subplans

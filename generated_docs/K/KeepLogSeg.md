@@ -30,12 +30,12 @@ The function operates by "retreating" the segment number to ensure all retention
 - Functions called/Symbols referenced:
   - XLByteToSeg
   - ConvertToXSegs
-  - GetOldestUnsummarizedLSN
+  - [GetOldestUnsummarizedLSN](../G/GetOldestUnsummarizedLSN.md)
   - IsBinaryUpgrade
 - Called from (representative examples):
-  - CreateCheckPoint (during checkpoint processing)
-  - CreateRestartPoint (during restart point creation)
-  - GetWALAvailability (for availability analysis)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (during checkpoint processing)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (during restart point creation)
+  - [GetWALAvailability](../G/GetWALAvailability.md) (for availability analysis)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

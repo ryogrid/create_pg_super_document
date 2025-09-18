@@ -27,16 +27,16 @@ ParallelSlot serves as the central data structure for managing parallel worker p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - T_WorkerStatus
+  - [T_WorkerStatus](../T/T_WorkerStatus.md)
   - ParallelCompletionPtr
-  - ArchiveHandle
+  - [ArchiveHandle](../A/ArchiveHandle.md)
   - pid_t
 - Called from (representative examples):
-  - init_parallel_dump_utils
-  - ParallelBackupStart
-  - ListenToWorkers
-  - WaitForTerminatingWorkers
-  - ParallelSlotsSetup
+  - [init_parallel_dump_utils](../i/init_parallel_dump_utils.md)
+  - [ParallelBackupStart](ParallelBackupStart.md)
+  - [ListenToWorkers](../L/ListenToWorkers.md)
+  - [WaitForTerminatingWorkers](../W/WaitForTerminatingWorkers.md)
+  - [ParallelSlotsSetup](ParallelSlotsSetup.md)
 
 ## Notes and Other Information
 - The structure is designed for cross-platform compatibility with separate implementations for Windows (thread-based) and Unix-like systems (process-based)

@@ -30,11 +30,11 @@ The callback will NOT be called on error paths, so aggregate functions should no
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - AggState (aggregate execution state structure)
-  - RegisterExprContextCallback (registers the callback with the expression context)
+  - [AggState](AggState.md) (aggregate execution state structure)
+  - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md) (registers the callback with the expression context)
   - elog (error logging function)
 - Called from (representative examples):
-  - ordered_set_startup (in orderedsetaggs.c)
+  - [ordered_set_startup](../o/ordered_set_startup.md) (in orderedsetaggs.c)
   - AGG_CONTEXT_WINDOW (referenced in include/fmgr.h)
 
 ## Notes and Other Information

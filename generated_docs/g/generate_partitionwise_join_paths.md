@@ -25,17 +25,17 @@ Key safety measures include stack depth checking to prevent infinite recursion i
   - IS_JOIN_REL (macro checking if relation is a join)
   - IS_PARTITIONED_REL (macro checking if relation is partitioned)
   - check_stack_depth (guards against stack overflow)
-  - generate_partitionwise_join_paths (recursive call for child partitions)
-  - set_cheapest (identifies cheapest path for child relations)
+  - [generate_partitionwise_join_paths](generate_partitionwise_join_paths.md) (recursive call for child partitions)
+  - [set_cheapest](../s/set_cheapest.md) (identifies cheapest path for child relations)
   - IS_DUMMY_REL (macro checking if relation produces no rows)
   - pprint (debug printing function)
-  - mark_dummy_rel (marks relation as producing no rows)
-  - add_paths_to_append_rel (combines child paths into append paths)
-  - list_free (deallocates list memory)
+  - [mark_dummy_rel](../m/mark_dummy_rel.md) (marks relation as producing no rows)
+  - [add_paths_to_append_rel](../a/add_paths_to_append_rel.md) (combines child paths into append paths)
+  - [list_free](../l/list_free.md) (deallocates list memory)
 - Called from (representative examples):
-  - merge_clump (in GEQO genetic query optimization)
-  - standard_join_search (in standard dynamic programming join search)
-  - generate_partitionwise_join_paths (recursive calls for nested partitions)
+  - [merge_clump](../m/merge_clump.md) (in GEQO genetic query optimization)
+  - [standard_join_search](../s/standard_join_search.md) (in standard dynamic programming join search)
+  - [generate_partitionwise_join_paths](generate_partitionwise_join_paths.md) (recursive calls for nested partitions)
 
 ## Notes and Other Information
 - Must be called after all child-join paths are complete to avoid path deletion issues

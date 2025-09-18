@@ -19,8 +19,8 @@ DatumGetTransactionId performs a simple type cast from a Datum to a TransactionI
 - Functions called/Symbols referenced:
   - (None - performs direct cast)
 - Called from (representative examples):
-  - ExecCheckTupleVisible (tuple visibility checking in modify operations)
-  - ExecOnConflictUpdate (handling conflicts during updates)
+  - [ExecCheckTupleVisible](../E/ExecCheckTupleVisible.md) (tuple visibility checking in modify operations)
+  - [ExecOnConflictUpdate](../E/ExecOnConflictUpdate.md) (handling conflicts during updates)
   - SLOTSYNC_COLUMN_COUNT (replication slot synchronization)
   - PG_GETARG_TRANSACTIONID (function argument extraction macro)
 

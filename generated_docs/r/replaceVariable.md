@@ -27,8 +27,8 @@ This function performs in-place replacement of variable placeholders in SQL stri
   - memmove
   - memcpy
 - Called from:
-  - assignVariables (src/bin/pgbench/pgbench.c:1965)
-  - parseQuery (src/bin/pgbench/pgbench.c:5490)
+  - [assignVariables](../a/assignVariables.md) (src/bin/pgbench/pgbench.c:1965)
+  - [parseQuery](../p/parseQuery.md) (src/bin/pgbench/pgbench.c:5490)
 
 ## Notes and Other Information
 - Returns a pointer to the position immediately after the replaced text

@@ -25,15 +25,15 @@ The function performs type-specific handling to format values appropriately:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShowGUCOption
+  - [ShowGUCOption](../S/ShowGUCOption.md)
   - get_config_unit_name
   - config_enum_get_options
   - config_enum_lookup_by_value
   - has_privs_of_role
-  - GetUserId
-  - pstrdup
+  - [GetUserId](GetUserId.md)
+  - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):
-  - show_all_settings
+  - [show_all_settings](../s/show_all_settings.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the GUC (Grand Unified Configuration) system

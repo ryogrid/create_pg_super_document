@@ -24,7 +24,7 @@ The structure is used with PostgreSQL's simplehash.h hash table implementation, 
   - Datum (PostgreSQL's universal data type)
   - Uses simplehash.h infrastructure (SH_ELEMENT_TYPE macro)
 - Called from (representative examples):
-  - ExecEvalHashedScalarArrayOp (creates and populates hash table with these entries)
+  - [ExecEvalHashedScalarArrayOp](../E/ExecEvalHashedScalarArrayOp.md) (creates and populates hash table with these entries)
   - saophash_insert (inserts entries during hash table construction)
   - saophash_lookup (searches for entries during scalar comparison)
 

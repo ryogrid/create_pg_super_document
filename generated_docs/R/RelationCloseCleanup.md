@@ -26,12 +26,12 @@ The function is designed to be efficient, checking for the existence of child me
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationHasReferenceCountZero
-  - MemoryContextDeleteChildren
+  - [MemoryContextDeleteChildren](../M/MemoryContextDeleteChildren.md)
   - InvalidSubTransactionId
-  - RelationClearRelation
+  - [RelationClearRelation](RelationClearRelation.md)
 - Called from (representative examples):
-  - RelationClose
-  - ResOwnerReleaseRelation
+  - [RelationClose](RelationClose.md)
+  - [ResOwnerReleaseRelation](ResOwnerReleaseRelation.md)
 
 ## Notes and Other Information
 - This is a static function, only callable from within relcache.c

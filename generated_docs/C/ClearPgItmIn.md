@@ -21,8 +21,8 @@ This is a simple utility function that initializes a pg_itm_in structure to a cl
 - Functions called/Symbols referenced:
   - pg_itm_in
 - Called from (representative examples):
-  - DecodeInterval
-  - DecodeISO8601Interval
+  - [DecodeInterval](../D/DecodeInterval.md)
+  - [DecodeISO8601Interval](../D/DecodeISO8601Interval.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the datetime.c compilation unit

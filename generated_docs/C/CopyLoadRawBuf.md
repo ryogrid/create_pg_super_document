@@ -27,13 +27,13 @@ The function handles the critical transition from having data to reaching EOF by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyGetData
-  - pgstat_progress_update_param
+  - [CopyGetData](CopyGetData.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - PROGRESS_COPY_BYTES_PROCESSED
   - CopyFromState
 - Called from (representative examples):
-  - CopyLoadInputBuf
-  - CopyReadBinaryData
+  - [CopyLoadInputBuf](CopyLoadInputBuf.md)
+  - [CopyReadBinaryData](CopyReadBinaryData.md)
 
 ## Notes and Other Information
 - The function includes assertions to verify buffer consistency when raw_buf and input_buf point to the same memory (no transcoding case)

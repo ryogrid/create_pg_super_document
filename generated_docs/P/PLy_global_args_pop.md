@@ -20,12 +20,12 @@ This function is the counterpart to PLy_global_args_push(), responsible for rest
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro for debugging)
-  - PLy_function_restore_args (restores argument values from saved state)
-  - PLyProcedure (procedure structure type)
-  - PLySavedArgs (saved arguments structure type)
+  - [PLy_function_restore_args](PLy_function_restore_args.md) (restores argument values from saved state)
+  - [PLyProcedure](PLyProcedure.md) (procedure structure type)
+  - [PLySavedArgs](PLySavedArgs.md) (saved arguments structure type)
 - Called from (representative examples):
-  - PLy_exec_function (at src/pl/plpython/plpy_exec.c:258, 287)
-  - PLy_exec_trigger (at src/pl/plpython/plpy_exec.c:423)
+  - [PLy_exec_function](PLy_exec_function.md) (at src/pl/plpython/plpy_exec.c:258, 287)
+  - [PLy_exec_trigger](PLy_exec_trigger.md) (at src/pl/plpython/plpy_exec.c:423)
 
 ## Notes and Other Information
 - This is a static function internal to plpy_exec.c

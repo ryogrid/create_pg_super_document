@@ -20,9 +20,9 @@ SeqRecheck is part of PostgreSQL's EvalPlanQual (EPQ) mechanism, which is used t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SeqScanState
+  - [SeqScanState](SeqScanState.md)
 - Called from (representative examples):
-  - ExecSeqScan
+  - [ExecSeqScan](../E/ExecSeqScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeSeqscan.c

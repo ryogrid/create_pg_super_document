@@ -26,12 +26,12 @@ This simple approach ensures that any page can be split when other methods fail,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
 - Types referenced:
-  - GIST_SPLITVEC
+  - [GIST_SPLITVEC](../G/GIST_SPLITVEC.md)
   - OffsetNumber
 - Called from:
-  - gistSplitByKey
+  - [gistSplitByKey](gistSplitByKey.md)
 
 ## Notes and Other Information
 - This is a fallback method used when other splitting strategies are not available or appropriate

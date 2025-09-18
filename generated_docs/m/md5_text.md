@@ -23,7 +23,7 @@ This function implements PostgreSQLs MD5() SQL function for text input. It takes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_md5_hash
+  - [pg_md5_hash](../p/pg_md5_hash.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
 - Constants referenced:

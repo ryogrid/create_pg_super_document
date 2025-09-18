@@ -29,32 +29,32 @@ The function handles both current and historic timeline requests, performing ext
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderAllocate
-  - WalSndSegmentOpen
-  - ReplicationSlotAcquire
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md)
+  - [WalSndSegmentOpen](../W/WalSndSegmentOpen.md)
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - SlotIsLogical
-  - RecoveryInProgress
-  - GetStandbyFlushRecPtr
-  - GetFlushRecPtr
-  - readTimeLineHistory
-  - tliSwitchPoint
-  - WalSndSetState
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetStandbyFlushRecPtr](../G/GetStandbyFlushRecPtr.md)
+  - [GetFlushRecPtr](../G/GetFlushRecPtr.md)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [tliSwitchPoint](../t/tliSwitchPoint.md)
+  - [WalSndSetState](../W/WalSndSetState.md)
   - pq_beginmessage
-  - pq_sendbyte
-  - pq_sendint16
-  - pq_endmessage
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
   - pq_flush
-  - SyncRepInitConfig
-  - WalSndLoop
-  - XLogSendPhysical
-  - ReplicationSlotRelease
-  - CreateTemplateTupleDesc
-  - begin_tup_output_tupdesc
-  - do_tup_output
-  - end_tup_output
-  - EndReplicationCommand
+  - [SyncRepInitConfig](SyncRepInitConfig.md)
+  - [WalSndLoop](../W/WalSndLoop.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [begin_tup_output_tupdesc](../b/begin_tup_output_tupdesc.md)
+  - [do_tup_output](../d/do_tup_output.md)
+  - [end_tup_output](../e/end_tup_output.md)
+  - [EndReplicationCommand](../E/EndReplicationCommand.md)
 - Called from:
-  - exec_replication_command
+  - [exec_replication_command](../e/exec_replication_command.md)
 
 ## Notes and Other Information
 - The function never returns normally during active replication; only ereport(ERROR) returns to the main loop

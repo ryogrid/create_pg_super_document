@@ -30,12 +30,12 @@ The function also sets the flagMode and value fields of the entry to match the p
 - Functions called/Symbols referenced:
   - strtol: Standard C library function for string to long conversion
   - ereport: PostgreSQL error reporting function
-  - cpstrdup: Dictionary-specific string duplication function
+  - [cpstrdup](../c/cpstrdup.md): Dictionary-specific string duplication function
   - FM_NUM: Flag mode constant for numeric flags
   - FLAGNUM_MAXSIZE: Maximum allowed value for numeric flags
 - Called from (representative examples):
-  - addCompoundAffixFlagValue: Adds new compound affix flag entries
-  - getCompoundAffixFlagValue: Retrieves compound affix flag values
+  - [addCompoundAffixFlagValue](../a/addCompoundAffixFlagValue.md): Adds new compound affix flag entries
+  - [getCompoundAffixFlagValue](../g/getCompoundAffixFlagValue.md): Retrieves compound affix flag values
 
 ## Notes and Other Information
 - Validates numeric flags are within acceptable range and properly formatted

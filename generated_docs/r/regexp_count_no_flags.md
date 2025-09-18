@@ -19,7 +19,7 @@ The comment in the source indicates this separation is specifically to keep the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_count: The main function that performs the actual regular expression counting logic
+  - [regexp_count](regexp_count.md): The main function that performs the actual regular expression counting logic
 
 - Called from (representative examples):
   - SQL function dispatcher (no direct C code references found)

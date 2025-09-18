@@ -33,13 +33,13 @@ This design allows parallel workers to efficiently coordinate chunk processing w
   - LWLockAcquire
   - LWLockRelease  
   - DsaPointerIsValid
-  - dsa_get_address
-  - HashJoinTable (type)
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [HashJoinTable](../H/HashJoinTable.md) (type)
   - dsa_pointer (type)
   - ParallelHashJoinState (type)
   - HashMemoryChunk (type)
 - Called from:
-  - ExecParallelHashRepartitionFirst
+  - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md)
   - ExecParallelHashIncreaseNumBuckets
 
 ## Notes and Other Information

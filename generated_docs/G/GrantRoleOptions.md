@@ -24,11 +24,11 @@ This structure is used throughout PostgreSQL's role management system to track t
   - GRANT_ROLE_SPECIFIED_INHERIT (0x0002) 
   - GRANT_ROLE_SPECIFIED_SET (0x0004)
 - Called from (representative examples):
-  - CreateRole (src/backend/commands/user.c:171, 543)
-  - AlterRole (src/backend/commands/user.c:649)
-  - GrantRole (src/backend/commands/user.c:1486)
-  - AddRoleMems (src/backend/commands/user.c:1683)
-  - DelRoleMems (src/backend/commands/user.c:1980)
+  - [CreateRole](../C/CreateRole.md) (src/backend/commands/user.c:171, 543)
+  - [AlterRole](../A/AlterRole.md) (src/backend/commands/user.c:649)
+  - [GrantRole](GrantRole.md) (src/backend/commands/user.c:1486)
+  - [AddRoleMems](../A/AddRoleMems.md) (src/backend/commands/user.c:1683)
+  - [DelRoleMems](../D/DelRoleMems.md) (src/backend/commands/user.c:1980)
   - plan_single_revoke (src/backend/commands/user.c:2320)
   - InitGrantRoleOptions (src/backend/commands/user.c:2503)
 

@@ -19,7 +19,7 @@ This function serves as the public interface for PostgreSQL's  function when app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - time_part_common (with retnumeric=false)
+  - [time_part_common](time_part_common.md) (with retnumeric=false)
 - Called from (representative examples):
   - No direct references found (likely called via SQL date_part() function system)
 

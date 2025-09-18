@@ -22,8 +22,8 @@ This function locates and returns the CommonTableExpr structure that defines a C
   - RTE_CTE (constant for RTE kind checking)
   - CommonTableExpr (structure type)
 - Called from (representative examples):
-  - markTargetListOrigin
-  - expandRecordVariable
+  - [markTargetListOrigin](../m/markTargetListOrigin.md)
+  - [expandRecordVariable](../e/expandRecordVariable.md)
 
 ## Notes and Other Information
 - Function includes assertion to ensure the RTE is of type RTE_CTE

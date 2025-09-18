@@ -27,8 +27,8 @@ The function continues iterating through all slots even after finding and cleari
   - FAST_PATH_GET_BITS: Macro to extract lock bits from fast-path slot for usage counting
   - FP_LOCK_SLOTS_PER_BACKEND: Constant defining the number of fast-path slots per backend
 - Called from (representative examples):
-  - LockRelease: Main lock release function
-  - LockReleaseAll: Function to release all locks held by a backend
+  - [LockRelease](../L/LockRelease.md): Main lock release function
+  - [LockReleaseAll](../L/LockReleaseAll.md): Function to release all locks held by a backend
   - ConflictsWithRelationFastPath: Function checking for lock conflicts
 
 ## Notes and Other Information

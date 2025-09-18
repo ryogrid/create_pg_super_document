@@ -19,12 +19,12 @@ The function operates within a critical section to ensure thread-safe access to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQcancel
-  - write_stderr
-  - ParallelSlot (type)
+  - [PQcancel](../P/PQcancel.md)
+  - [write_stderr](../w/write_stderr.md)
+  - [ParallelSlot](../P/ParallelSlot.md) (type)
 - Called from (representative examples):
-  - set_cancel_handler (pg_dump)
-  - setup_cancel_handler (fe_utils)
+  - [set_cancel_handler](../s/set_cancel_handler.md) (pg_dump)
+  - [setup_cancel_handler](../s/setup_cancel_handler.md) (fe_utils)
 
 ## Notes and Other Information
 - Windows-specific function (WIN32 only) using WINAPI calling convention

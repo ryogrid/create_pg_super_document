@@ -22,13 +22,13 @@ The function iterates through all buffer lists (NBUFFER_LISTS), examining each s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - write_syslogger_file
+  - [write_syslogger_file](../w/write_syslogger_file.md)
   - LOG_DESTINATION_STDERR
   - NBUFFER_LISTS
-  - save_buffer
+  - [save_buffer](../s/save_buffer.md)
 - Called from (representative examples):
-  - SysLoggerMain
-  - pipeThread
+  - [SysLoggerMain](../S/SysLoggerMain.md)
+  - [pipeThread](../p/pipeThread.md)
 
 ## Notes and Other Information
 - This is a static function only used within the syslogger module

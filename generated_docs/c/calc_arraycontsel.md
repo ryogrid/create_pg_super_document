@@ -27,15 +27,15 @@ The function validates the element type compatibility, extracts the constant arr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - DatumGetArrayTypeP
   - statistic_proc_security_check
-  - get_attstatsslot
-  - mcelem_array_selec
-  - free_attstatsslot
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [mcelem_array_selec](../m/mcelem_array_selec.md)
+  - [free_attstatsslot](../f/free_attstatsslot.md)
   - DEFAULT_SEL
 - Called from:
-  - arraycontsel (src/backend/utils/adt/array_selfuncs.c:302)
+  - [arraycontsel](../a/arraycontsel.md) (src/backend/utils/adt/array_selfuncs.c:302)
 
 ## Notes and Other Information
 - Static function (internal to array_selfuncs.c)

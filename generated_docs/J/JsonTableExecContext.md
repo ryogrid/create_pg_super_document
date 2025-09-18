@@ -33,14 +33,14 @@ JsonTableExecContext serves as the master coordination structure for PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlanState (used for both root plan state and column plan states)
+  - [JsonTablePlanState](JsonTablePlanState.md) (used for both root plan state and column plan states)
 - Called from (representative examples):
-  - JsonTableInitOpaque
-  - JsonTableDestroyOpaque  
-  - JsonTableSetDocument
-  - JsonTableFetchRow
-  - JsonTableGetValue
-  - GetJsonTableExecContext
+  - [JsonTableInitOpaque](JsonTableInitOpaque.md)
+  - [JsonTableDestroyOpaque](JsonTableDestroyOpaque.md)  
+  - [JsonTableSetDocument](JsonTableSetDocument.md)
+  - [JsonTableFetchRow](JsonTableFetchRow.md)
+  - [JsonTableGetValue](JsonTableGetValue.md)
+  - [GetJsonTableExecContext](../G/GetJsonTableExecContext.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's JSON_TABLE execution framework

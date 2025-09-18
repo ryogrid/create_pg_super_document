@@ -19,16 +19,16 @@ The function uses critical sections on Windows to ensure thread safety during th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfreeCancel
-  - PQgetCancel
+  - [PQfreeCancel](../P/PQfreeCancel.md)
+  - [PQgetCancel](../P/PQgetCancel.md)
   - PGcancel (type)
 - Called from (representative examples):
-  - runInitSteps (pgbench)
-  - PSQLexec (psql)
-  - PSQLexecWatch (psql)
-  - HandleCopyResult (psql)
-  - SendQuery (psql)
-  - consumeQueryResult (parallel_slot)
+  - [runInitSteps](../r/runInitSteps.md) (pgbench)
+  - [PSQLexec](../P/PSQLexec.md) (psql)
+  - [PSQLexecWatch](../P/PSQLexecWatch.md) (psql)
+  - [HandleCopyResult](../H/HandleCopyResult.md) (psql)
+  - [SendQuery](SendQuery.md) (psql)
+  - [consumeQueryResult](../c/consumeQueryResult.md) (parallel_slot)
 
 ## Notes and Other Information
 - Uses Windows-specific critical sections (EnterCriticalSection/LeaveCriticalSection) for thread safety on WIN32 platforms

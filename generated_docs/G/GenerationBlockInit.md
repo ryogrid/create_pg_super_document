@@ -28,8 +28,8 @@ The function establishes the memory layout by setting freeptr to point immediate
   - VALGRIND_MAKE_MEM_NOACCESS (marks memory as inaccessible for debugging)
 - Called from (representative examples):
   - IsKeeperBlock (when setting up keeper blocks)
-  - GenerationContextCreate (during context initialization)
-  - GenerationAllocFromNewBlock (when creating new blocks)
+  - [GenerationContextCreate](GenerationContextCreate.md) (during context initialization)
+  - [GenerationAllocFromNewBlock](GenerationAllocFromNewBlock.md) (when creating new blocks)
 
 ## Notes and Other Information
 - Marked as static inline for performance optimization due to frequent usage

@@ -25,24 +25,24 @@ The initialization process is comprehensive, covering all aspects of DML operati
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (ResultRelInfo creation)
-  - InitResultRelInfo
-  - CheckValidResultRel
-  - ExecOpenIndices
-  - build_attrmap_by_name
-  - map_variable_attnos
-  - ExecInitQual
-  - ExecBuildProjectionInfo
-  - ExecInitRoutingInfo
-  - RelationGetIndexList
-  - get_partition_ancestors
-  - ExecGetRootToChildMap
-  - table_slot_create
-  - ExecBuildUpdateProjection
-  - ExecInitMergeTupleSlots
-  - adjust_partition_colnos
-  - adjust_partition_colnos_using_map
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
+  - [CheckValidResultRel](../C/CheckValidResultRel.md)
+  - [ExecOpenIndices](ExecOpenIndices.md)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
+  - [map_variable_attnos](../m/map_variable_attnos.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
+  - [ExecInitRoutingInfo](ExecInitRoutingInfo.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [get_partition_ancestors](../g/get_partition_ancestors.md)
+  - [ExecGetRootToChildMap](ExecGetRootToChildMap.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
+  - [ExecInitMergeTupleSlots](ExecInitMergeTupleSlots.md)
+  - [adjust_partition_colnos](../a/adjust_partition_colnos.md)
+  - [adjust_partition_colnos_using_map](../a/adjust_partition_colnos_using_map.md)
 - Called from (representative examples):
-  - ExecFindPartition (in execPartition.c:373)
+  - [ExecFindPartition](ExecFindPartition.md) (in execPartition.c:373)
 
 ## Notes and Other Information
 This is a static function that handles the complete initialization of partition execution state. It's designed to be called lazily when a partition is first accessed, supporting efficient partition pruning. The function handles complex attribute mapping scenarios when partitions have different tuple descriptors from their parent tables. It also manages proper memory context switching to ensure allocations are made in the appropriate context for the partition routing infrastructure. The function supports all DML operations (INSERT, UPDATE, DELETE, MERGE) and their associated features like conflict resolution and constraint checking.

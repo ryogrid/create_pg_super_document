@@ -21,15 +21,15 @@ This function creates and initializes a BulkWriteState structure for bulk write 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - smgrnblocks
-  - GetRedoRecPtr
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
   - SMgrRelation
-  - BulkWriteState
+  - [BulkWriteState](../B/BulkWriteState.md)
   - CurrentMemoryContext
 - Called from (representative examples):
-  - RelationCopyStorage
-  - smgr_bulk_start_rel
+  - [RelationCopyStorage](../R/RelationCopyStorage.md)
+  - [smgr_bulk_start_rel](smgr_bulk_start_rel.md)
 
 ## Notes and Other Information
 - This is the lower-level interface compared to smgr_bulk_start_rel, providing more direct control over bulk write parameters

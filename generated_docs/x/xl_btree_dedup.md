@@ -27,12 +27,12 @@ The WAL record contains the number of deduplication intervals and is followed by
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)
-  - BTDedupInterval (struct array that follows)
+  - [BTDedupInterval](../B/BTDedupInterval.md) (struct array that follows)
 
 - Called from (representative examples):
-  - _bt_dedup_pass (src/backend/access/nbtree/nbtdedup.c:249)
-  - btree_xlog_dedup (src/backend/access/nbtree/nbtxlog.c:467)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:53)
+  - [_bt_dedup_pass](../b/_bt_dedup_pass.md) (src/backend/access/nbtree/nbtdedup.c:249)
+  - [btree_xlog_dedup](../b/btree_xlog_dedup.md) (src/backend/access/nbtree/nbtxlog.c:467)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:53)
   - SizeOfBtreeDedup (src/include/access/nbtxlog.h:177)
 
 ## Notes and Other Information

@@ -25,11 +25,11 @@ The parsing is done with `P_TSQ_WEB` flag, which enables web-style query parsing
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP`: Extracts text argument from function args
-  - `getTSCurrentConfig`: Retrieves the current default text search configuration OID
+  - `[getTSCurrentConfig](../g/getTSCurrentConfig.md)`: Retrieves the current default text search configuration OID
   - `DirectFunctionCall2`: Calls another PostgreSQL function directly
-  - `websearch_to_tsquery_byid`: Performs the actual query parsing with configuration ID
-  - `ObjectIdGetDatum`: Converts OID to Datum
-  - `PointerGetDatum`: Converts pointer to Datum
+  - `[websearch_to_tsquery_byid](websearch_to_tsquery_byid.md)`: Performs the actual query parsing with configuration ID
+  - `[ObjectIdGetDatum](../O/ObjectIdGetDatum.md)`: Converts OID to Datum
+  - `[PointerGetDatum](../P/PointerGetDatum.md)`: Converts pointer to Datum
   - `PG_RETURN_DATUM`: Returns the result as a Datum
 
 - Called from (representative examples):

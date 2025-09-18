@@ -22,11 +22,11 @@ The function is part of PostgreSQL's access control system for configuration par
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring (converts PostgreSQL text to C string)
-  - pg_parameter_aclcheck (performs the actual ACL check)
+  - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md) (performs the actual ACL check)
 - Called from (representative examples):
-  - has_parameter_privilege_name_name
-  - has_parameter_privilege_name
-  - has_parameter_privilege_id_name
+  - [has_parameter_privilege_name_name](has_parameter_privilege_name_name.md)
+  - [has_parameter_privilege_name](has_parameter_privilege_name.md)
+  - [has_parameter_privilege_id_name](has_parameter_privilege_id_name.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (src/backend/utils/adt/acl.c)

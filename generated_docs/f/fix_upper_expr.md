@@ -31,16 +31,16 @@ The function is designed to work with subplans whose target lists were generated
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fix_upper_expr_mutator (the actual tree mutator that performs the work)
-  - fix_upper_expr_context (context structure initialization)
+  - [fix_upper_expr_mutator](fix_upper_expr_mutator.md) (the actual tree mutator that performs the work)
+  - [fix_upper_expr_context](fix_upper_expr_context.md) (context structure initialization)
 - Called from (representative examples):
   - fix_scan_list
-  - set_indexonlyscan_references
-  - set_foreignscan_references
-  - set_customscan_references
-  - set_hash_references
-  - set_join_references
-  - set_upper_references
+  - [set_indexonlyscan_references](../s/set_indexonlyscan_references.md)
+  - [set_foreignscan_references](../s/set_foreignscan_references.md)
+  - [set_customscan_references](../s/set_customscan_references.md)
+  - [set_hash_references](../s/set_hash_references.md)
+  - [set_join_references](../s/set_join_references.md)
+  - [set_upper_references](../s/set_upper_references.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's plan reference fixing infrastructure in setrefs.c

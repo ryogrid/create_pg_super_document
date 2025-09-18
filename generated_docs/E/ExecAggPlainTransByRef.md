@@ -24,15 +24,15 @@ ExecAggPlainTransByRef is the pass-by-reference counterpart to ExecAggPlainTrans
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCallInvoke
-  - ExecAggCopyTransValue
-  - DatumGetPointer
-  - MemoryContextSwitchTo
-  - AggState (struct)
-  - AggStatePerTrans (struct)
-  - AggStatePerGroup (struct)  
-  - FunctionCallInfo (struct)
+  - [ExecAggCopyTransValue](ExecAggCopyTransValue.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [AggState](../A/AggState.md) (struct)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct)
+  - [AggStatePerGroup](../A/AggStatePerGroup.md) (struct)  
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (struct)
 - Called from (representative examples):
-  - ExecInterpExpr (multiple call sites)
+  - [ExecInterpExpr](ExecInterpExpr.md) (multiple call sites)
   - EEO_JUMP (via jump table mechanism)
 
 ## Notes and Other Information

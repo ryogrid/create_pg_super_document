@@ -21,16 +21,16 @@ This function performs TAR archive navigation to locate and position to a specif
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0_object (zero-initialized memory allocation)
-  - _tarReadRaw (raw TAR archive reading)
-  - _tarGetHeader (TAR header parsing)
-  - TocIDRequired (checks data requirements)
-  - tarPaddingBytesRequired (calculates block padding)
+  - [_tarReadRaw](_tarReadRaw.md) (raw TAR archive reading)
+  - [_tarGetHeader](_tarGetHeader.md) (TAR header parsing)
+  - [TocIDRequired](../T/TocIDRequired.md) (checks data requirements)
+  - [tarPaddingBytesRequired](tarPaddingBytesRequired.md) (calculates block padding)
   - pg_log_debug (debug logging)
-  - lclContext (local context struct type)
-  - TAR_MEMBER (TAR member struct type)
+  - [lclContext](../l/lclContext.md) (local context struct type)
+  - [TAR_MEMBER](../T/TAR_MEMBER.md) (TAR member struct type)
   - TAR_BLOCK_SIZE/REQ_DATA (constants)
 - Called from (representative examples):
-  - tarOpen (during archive opening/reading)
+  - [tarOpen](tarOpen.md) (during archive opening/reading)
 
 ## Notes and Other Information
 - Returns a newly allocated TAR_MEMBER structure on success, NULL if no more members

@@ -20,10 +20,10 @@ The function serves as the strict counterpart to WarnNoTransactionBlock - it's u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckTransactionBlock (with isTopLevel, true, stmtType parameters)
+  - [CheckTransactionBlock](../C/CheckTransactionBlock.md) (with isTopLevel, true, stmtType parameters)
 - Called from:
-  - PerformCursorOpen (for DECLARE CURSOR statements)
-  - standard_ProcessUtility (for various statement types that require transaction contexts)
+  - [PerformCursorOpen](../P/PerformCursorOpen.md) (for DECLARE CURSOR statements)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (for various statement types that require transaction contexts)
 
 ## Notes and Other Information
 This function implements the 'strict' approach to transaction block validation, using errors instead of warnings when commands are executed outside transaction blocks. It's typically used for commands like DECLARE CURSOR that are fundamentally meaningless outside of a transaction context. The boolean 'true' parameter passed to CheckTransactionBlock distinguishes this from the warning-only behavior of WarnNoTransactionBlock.

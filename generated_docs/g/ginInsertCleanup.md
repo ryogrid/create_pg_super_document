@@ -23,21 +23,21 @@ This function performs the critical task of transferring entries from the GIN pe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockPage, ConditionalLockPage, UnlockPage (page locking functions)
-  - ReadBuffer, LockBuffer, UnlockReleaseBuffer (buffer management)
+  - [LockPage](../L/LockPage.md), ConditionalLockPage, UnlockPage (page locking functions)
+  - [ReadBuffer](../R/ReadBuffer.md), LockBuffer, UnlockReleaseBuffer (buffer management)
   - GinPageGetMeta, GinPageGetOpaque (GIN page access functions)
   - AllocSetContextCreate, MemoryContextSwitchTo, MemoryContextReset (memory management)
-  - initKeyArray, ginInitBA (initialization functions)
-  - processPendingPage (process individual pending pages)
-  - ginBeginBAScan, ginGetBAEntry (build accumulator scanning)
-  - ginEntryInsert (insert entries into main index)
-  - shiftList (remove processed pages from pending list)
+  - [initKeyArray](../i/initKeyArray.md), ginInitBA (initialization functions)
+  - [processPendingPage](../p/processPendingPage.md) (process individual pending pages)
+  - [ginBeginBAScan](ginBeginBAScan.md), ginGetBAEntry (build accumulator scanning)
+  - [ginEntryInsert](ginEntryInsert.md) (insert entries into main index)
+  - [shiftList](../s/shiftList.md) (remove processed pages from pending list)
   - IndexFreeSpaceMapVacuum (FSM maintenance)
 - Called from (representative examples):
-  - ginHeapTupleFastInsert (at src/backend/access/gin/ginfast.c:471)
-  - gin_clean_pending_list (at src/backend/access/gin/ginfast.c:1080)
-  - ginbulkdelete (at src/backend/access/gin/ginvacuum.c:593)
-  - ginvacuumcleanup (at src/backend/access/gin/ginvacuum.c:707, 720)
+  - [ginHeapTupleFastInsert](ginHeapTupleFastInsert.md) (at src/backend/access/gin/ginfast.c:471)
+  - [gin_clean_pending_list](gin_clean_pending_list.md) (at src/backend/access/gin/ginfast.c:1080)
+  - [ginbulkdelete](ginbulkdelete.md) (at src/backend/access/gin/ginvacuum.c:593)
+  - [ginvacuumcleanup](ginvacuumcleanup.md) (at src/backend/access/gin/ginvacuum.c:707, 720)
 
 ## Notes and Other Information
 - This is a public function accessible from other GIN modules

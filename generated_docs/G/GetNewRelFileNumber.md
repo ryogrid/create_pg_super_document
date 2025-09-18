@@ -20,8 +20,8 @@ This function generates a unique relfile number for database relations by combin
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcNumberForTempRelations
-  - GetNewOidWithIndex (when pg_class is provided)
-  - GetNewObjectId (when pg_class is NULL)
+  - [GetNewOidWithIndex](GetNewOidWithIndex.md) (when pg_class is provided)
+  - [GetNewObjectId](GetNewObjectId.md) (when pg_class is NULL)
   - relpath
   - access (filesystem access check)
   - RELPERSISTENCE_TEMP, RELPERSISTENCE_UNLOGGED, RELPERSISTENCE_PERMANENT
@@ -30,10 +30,10 @@ This function generates a unique relfile number for database relations by combin
   - GLOBALTABLESPACE_OID
   - MAIN_FORKNUM, F_OK
 - Called from (representative examples):
-  - heap_create_with_catalog (src/backend/catalog/heap.c:1249)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1249)
   - index_create (src/backend/catalog/index.c:965)
-  - ATExecSetTableSpace (src/backend/commands/tablecmds.c:15290)
-  - RelationSetNewRelfilenumber (src/backend/utils/cache/relcache.c:3783)
+  - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md) (src/backend/commands/tablecmds.c:15290)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md) (src/backend/utils/cache/relcache.c:3783)
 
 ## Notes and Other Information
 - Not supported in bootstrap mode since all bootstrap relations have preassigned OIDs

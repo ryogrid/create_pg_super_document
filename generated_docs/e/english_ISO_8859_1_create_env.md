@@ -20,7 +20,7 @@ The function calls the underlying  function with specific parameters optimized f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function, called with parameters 0 and 3)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function, called with parameters 0 and 3)
 - Called from:
   - No direct references found in the current codebase (likely called by external clients or through function pointers)
 

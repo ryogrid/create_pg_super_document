@@ -26,7 +26,7 @@ This mechanism is crucial for ensuring that ongoing I/O operations are properly 
 - Functions called/Symbols referenced:
   - ResourceOwner (structure type)
   - ResourceOwnerRemember (generic resource tracking function)
-  - Int32GetDatum (conversion function)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (conversion function)
   - buffer_io_resowner_desc (resource descriptor for buffer I/O operations)
 - Called from (representative examples):
   - StartBufferIO

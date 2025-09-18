@@ -17,22 +17,22 @@ This function serves as a debugging helper that produces comprehensive diagnosti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (buffer descriptor structure)
+  - [BufferDesc](../B/BufferDesc.md) (buffer descriptor structure)
   - ProcNumber (process number type)
   - BufferIsLocal (checks if buffer is local)
-  - GetLocalBufferDescriptor (gets local buffer descriptor)
-  - GetBufferDescriptor (gets shared buffer descriptor)
-  - GetPrivateRefCount (gets private reference count)
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md) (gets local buffer descriptor)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md) (gets shared buffer descriptor)
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md) (gets private reference count)
   - INVALID_PROC_NUMBER (constant for invalid process number)
   - relpathbackend (generates file path for relation)
-  - BufTagGetRelFileLocator (extracts file locator from buffer tag)
-  - BufTagGetForkNum (extracts fork number from buffer tag)
-  - pg_atomic_read_u32 (atomically reads buffer state)
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md) (extracts file locator from buffer tag)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md) (extracts fork number from buffer tag)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md) (atomically reads buffer state)
   - BUF_FLAG_MASK (mask for buffer flags)
   - BUF_STATE_GET_REFCOUNT (extracts reference count from state)
 - Called from (representative examples):
-  - CheckForBufferLeaks
-  - ResOwnerPrintBufferPin
+  - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
+  - [ResOwnerPrintBufferPin](../R/ResOwnerPrintBufferPin.md)
   - CheckForLocalBufferLeaks
 
 ## Notes and Other Information

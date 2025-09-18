@@ -21,15 +21,15 @@ The function allocates memory for the maximum possible compressed output size pl
 - Functions called/Symbols referenced:
   - VARSIZE_ANY_EXHDR (macro to get data size excluding header)
   - PGLZ_strategy_default (compression strategy settings)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
   - PGLZ_MAX_OUTPUT (macro to calculate max compressed size)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)
   - pglz_compress (core PGLZ compression function)
   - VARDATA_ANY (macro to get data portion of varlena)
-  - pfree (PostgreSQL memory deallocation)
+  - [pfree](pfree.md) (PostgreSQL memory deallocation)
   - SET_VARSIZE_COMPRESSED (macro to set compressed size header)
 - Called from (representative examples):
-  - toast_compress_datum (in src/backend/access/common/toast_internals.c:67)
+  - [toast_compress_datum](../t/toast_compress_datum.md) (in src/backend/access/common/toast_internals.c:67)
   - Referenced in CompressionMethodIsValid (in src/include/access/toast_compression.h:57)
 
 ## Notes and Other Information

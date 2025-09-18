@@ -25,12 +25,12 @@ The function is typically used during the bulk deletion phase of vacuum operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `TidStore`: Data structure type for efficiently storing and managing collections of tuple identifiers
-  - `TidStoreIsMember`: Function to check if a specific TID exists in the TidStore collection
+  - `[TidStore](../T/TidStore.md)`: Data structure type for efficiently storing and managing collections of tuple identifiers
+  - `[TidStoreIsMember](../T/TidStoreIsMember.md)`: Function to check if a specific TID exists in the TidStore collection
   - `ItemPointer`: PostgreSQL type representing a tuple identifier (block number + offset)
 
 - Called from (representative examples):
-  - `vac_bulkdel_one_index`: Uses this function as a callback during index bulk deletion operations
+  - `[vac_bulkdel_one_index](vac_bulkdel_one_index.md)`: Uses this function as a callback during index bulk deletion operations
 
 ## Notes and Other Information
 - The function is declared as static, indicating it's only used within the vacuum.c compilation unit

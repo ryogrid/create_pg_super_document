@@ -26,15 +26,15 @@ The function is designed to be safe with NULL pointers and handles partial clean
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lose_s (deallocates symbol structures)
+  - [lose_s](../l/lose_s.md) (deallocates symbol structures)
   - free (standard memory deallocation)
 
 - Called from (representative examples):
-  - SN_create_env (error cleanup path)
+  - [SN_create_env](SN_create_env.md) (error cleanup path)
   - Language-specific environment cleanup functions across all Snowball stemmers
-  - basque_ISO_8859_1_close_env
-  - english_UTF_8_close_env
-  - german_UTF_8_close_env
+  - [basque_ISO_8859_1_close_env](../b/basque_ISO_8859_1_close_env.md)
+  - [english_UTF_8_close_env](../e/english_UTF_8_close_env.md)
+  - [german_UTF_8_close_env](../g/german_UTF_8_close_env.md)
   - (and 40+ other language-specific stemmer cleanup functions)
 
 ## Notes and Other Information

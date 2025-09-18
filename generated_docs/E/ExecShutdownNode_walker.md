@@ -36,14 +36,14 @@ The function follows the PostgreSQL convention of returning false to continue tr
   - InstrStartNode/InstrStopNode (query instrumentation management)
   - planstate_tree_walker (recursive tree traversal framework)
   - nodeTag (node type identification)
-  - ExecShutdownGather, ExecShutdownGatherMerge (parallel execution shutdown)
-  - ExecShutdownForeignScan (foreign data wrapper cleanup)
-  - ExecShutdownCustomScan (custom scan provider cleanup)
+  - [ExecShutdownGather](ExecShutdownGather.md), ExecShutdownGatherMerge (parallel execution shutdown)
+  - [ExecShutdownForeignScan](ExecShutdownForeignScan.md) (foreign data wrapper cleanup)
+  - [ExecShutdownCustomScan](ExecShutdownCustomScan.md) (custom scan provider cleanup)
   - ExecShutdownHash, ExecShutdownHashJoin (hash table cleanup)
-  - ExecShutdownNode_walker (recursive self-reference)
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md) (recursive self-reference)
 - Called from (representative examples):
-  - ExecShutdownNode (entry point wrapper)
-  - ExecShutdownNode_walker (recursive calls during tree traversal)
+  - [ExecShutdownNode](ExecShutdownNode.md) (entry point wrapper)
+  - [ExecShutdownNode_walker](ExecShutdownNode_walker.md) (recursive calls during tree traversal)
 
 ## Notes and Other Information
 - Implements the visitor pattern for plan tree traversal with selective node processing

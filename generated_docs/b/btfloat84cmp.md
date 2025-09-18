@@ -21,7 +21,7 @@ This function performs a three-way comparison between a float8 and a float4 valu
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro for extracting float8 arguments)
   - PG_GETARG_FLOAT4 (macro for extracting float4 arguments)
-  - float8_cmp_internal (performs the actual comparison after type promotion)
+  - [float8_cmp_internal](../f/float8_cmp_internal.md) (performs the actual comparison after type promotion)
   - PG_RETURN_INT32 (macro for returning int32 result)
 
 - Called from (representative examples):

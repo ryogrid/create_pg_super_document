@@ -19,16 +19,16 @@ This function sets up the tuple storage infrastructure needed for logical replic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDescCopyConstr
-  - MakeSingleTupleTableSlot
-  - RelationIdGetRelation
+  - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
   - RelationGetDescr
   - RelationGetRelid
-  - build_attrmap_by_name_if_req
-  - RelationClose
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [RelationClose](../R/RelationClose.md)
   - TTSOpsHeapTuple (tuple slot operations)
 - Called from (representative examples):
-  - get_rel_sync_entry
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information
 - Creates persistent tuple descriptors by copying with constraints to ensure they live as long as the cache

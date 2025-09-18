@@ -23,10 +23,10 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - siglongjmp
   - ErrorData (type)
-  - should_output_to_server
-  - should_output_to_client
-  - errfinish
-  - ExceptionalCondition
+  - [should_output_to_server](../s/should_output_to_server.md)
+  - [should_output_to_client](../s/should_output_to_client.md)
+  - [errfinish](../e/errfinish.md)
+  - [ExceptionalCondition](../E/ExceptionalCondition.md)
 
 - Called from (representative examples):
   - PG_RE_THROW (macro)

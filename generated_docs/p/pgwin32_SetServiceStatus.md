@@ -24,8 +24,8 @@ This function provides a simplified interface for updating the PostgreSQL servic
   - `status` (SERVICE_STATUS structure)
   - `hStatus` (service status handle)
 - Called from (representative examples):
-  - pgwin32_ServiceHandler
-  - pgwin32_ServiceMain
+  - [pgwin32_ServiceHandler](pgwin32_ServiceHandler.md)
+  - [pgwin32_ServiceMain](pgwin32_ServiceMain.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function used only in pg_ctl on Windows platforms

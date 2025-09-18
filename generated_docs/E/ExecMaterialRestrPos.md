@@ -19,11 +19,11 @@ The function is the counterpart to ExecMaterialMarkPos and provides the restore 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MaterialState
+  - [MaterialState](../M/MaterialState.md)
   - EXEC_FLAG_MARK
-  - tuplestore_copy_read_pointer
+  - [tuplestore_copy_read_pointer](../t/tuplestore_copy_read_pointer.md)
 - Called from (representative examples):
-  - ExecRestrPos
+  - [ExecRestrPos](ExecRestrPos.md)
 
 ## Notes and Other Information
 - Requires EXEC_FLAG_MARK to be set during node initialization, same as ExecMaterialMarkPos

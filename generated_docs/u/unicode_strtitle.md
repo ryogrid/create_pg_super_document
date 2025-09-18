@@ -32,12 +32,12 @@ The function uses a callback mechanism (wbnext) to identify word boundaries, whi
   - WordBoundaryNext (callback function type)
   - ssize_t (signed size type)
 - Called from (representative examples):
-  - str_initcap (string initialization capitalization functions)
+  - [str_initcap](../s/str_initcap.md) (string initialization capitalization functions)
 
 ## Notes and Other Information
 - Returns the total length of the result string (not including NUL terminator)
 - If dstsize is 0, dst may be NULL - useful for calculating required buffer size
-- Result is NUL-terminated only if dstsize is greater than result length
+- [Result](../R/Result.md) is NUL-terminated only if dstsize is greater than result length
 - Requires word boundary callback for proper titlecase conversion
 - The wbnext callback should return 0 for first boundary, then each word boundary offset, then total string length for final boundary
 - Caller is responsible for initializing and freeing the wbstate callback state

@@ -28,8 +28,8 @@ The function explicitly handles:
   - isnan (to check for NaN values)
   - isinf (to check for infinity values)
   - exp (standard C library exponential function)
-  - float_overflow_error (PostgreSQL error handling)
-  - float_underflow_error (PostgreSQL error handling)
+  - [float_overflow_error](../f/float_overflow_error.md) (PostgreSQL error handling)
+  - [float_underflow_error](../f/float_underflow_error.md) (PostgreSQL error handling)
 - Called from: 
   - No direct references found in the codebase (likely called through SQL function dispatch)
 

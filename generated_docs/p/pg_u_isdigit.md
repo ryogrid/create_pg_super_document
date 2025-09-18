@@ -23,12 +23,12 @@ This dual-mode approach allows applications to choose between strict ASCII compa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category (function to get Unicode general category)
+  - [unicode_category](../u/unicode_category.md) (function to get Unicode general category)
   - PG_U_DECIMAL_NUMBER (constant for Decimal_Number category)
 - Called from (representative examples):
-  - pg_wc_isdigit (regex locale compatibility function)
-  - icu_test (in test code)
-  - pg_u_isalnum (alphanumeric character detection)
+  - [pg_wc_isdigit](pg_wc_isdigit.md) (regex locale compatibility function)
+  - [icu_test](../i/icu_test.md) (in test code)
+  - [pg_u_isalnum](pg_u_isalnum.md) (alphanumeric character detection)
   - Referenced in pg_unicode_category header
 
 ## Notes and Other Information

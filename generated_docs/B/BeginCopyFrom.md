@@ -36,28 +36,28 @@ The function handles complex setup tasks including validating column specificati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessCopyOptions
-  - CopyGetAttnums
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md)
+  - [CopyGetAttnums](../C/CopyGetAttnums.md)
   - makeNode (ErrorSaveContext)
-  - pg_get_client_encoding
-  - GetDatabaseEncoding
-  - FindDefaultConversionProc
-  - getTypeBinaryInputInfo
-  - getTypeInputInfo
-  - fmgr_info
-  - build_column_default
-  - expression_planner
-  - ExecInitExpr
-  - contain_volatile_functions_not_nextval
-  - pgstat_progress_start_command
-  - ReceiveCopyBegin
+  - [pg_get_client_encoding](../p/pg_get_client_encoding.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [FindDefaultConversionProc](../F/FindDefaultConversionProc.md)
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [build_column_default](../b/build_column_default.md)
+  - [expression_planner](../e/expression_planner.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
+  - [contain_volatile_functions_not_nextval](../c/contain_volatile_functions_not_nextval.md)
+  - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md)
+  - [ReceiveCopyBegin](../R/ReceiveCopyBegin.md)
   - OpenPipeStream
   - AllocateFile
-  - ReceiveCopyBinaryHeader
+  - [ReceiveCopyBinaryHeader](../R/ReceiveCopyBinaryHeader.md)
   - AllocSetContextCreate
 - Called from (representative examples):
-  - DoCopy (main COPY command processing)
-  - copy_table (logical replication)
+  - [DoCopy](../D/DoCopy.md) (main COPY command processing)
+  - [copy_table](../c/copy_table.md) (logical replication)
 
 ## Notes and Other Information
 - Creates a dedicated "COPY" memory context to avoid leaks during repeated use

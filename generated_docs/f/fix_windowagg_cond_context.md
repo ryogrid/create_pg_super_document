@@ -23,11 +23,11 @@ This context is used by specialized expression mutator functions that handle the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (planner's main state structure)
-  - indexed_tlist (indexed target list structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (planner's main state structure)
+  - [indexed_tlist](../i/indexed_tlist.md) (indexed target list structure)
 - Called from (representative examples):
-  - fix_windowagg_condition_expr_mutator
-  - fix_windowagg_condition_expr
+  - [fix_windowagg_condition_expr_mutator](fix_windowagg_condition_expr_mutator.md)
+  - [fix_windowagg_condition_expr](fix_windowagg_condition_expr.md)
 
 ## Notes and Other Information
 - Specialized for WindowAgg run condition expressions specifically

@@ -21,7 +21,7 @@ The btoidsortsupport function is a PostgreSQL sort support initialization functi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER: Extracts pointer argument from function call
-  - btoidfastcmp: The optimized OID comparison function to be used
+  - [btoidfastcmp](btoidfastcmp.md): The optimized OID comparison function to be used
   - SortSupport: Type for the sort support structure
   - PG_RETURN_VOID: Returns void from PostgreSQL function
 

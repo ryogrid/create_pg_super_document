@@ -24,15 +24,15 @@ The function returns an ObjectAddress that identifies the renamed column, making
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
   - AccessExclusiveLock
   - RVR_MISSING_OK
-  - RangeVarCallbackForRenameAttribute
-  - renameatt_internal
+  - [RangeVarCallbackForRenameAttribute](../R/RangeVarCallbackForRenameAttribute.md)
+  - [renameatt_internal](renameatt_internal.md)
   - ObjectAddressSubSet
   - ereport/NOTICE
 - Called from (representative examples):
-  - ExecRenameStmt (in src/backend/commands/alter.c)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (in src/backend/commands/alter.c)
 
 ## Notes and Other Information
 - Uses AccessExclusiveLock to prevent concurrent modifications during the rename operation

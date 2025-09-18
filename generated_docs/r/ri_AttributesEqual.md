@@ -26,11 +26,11 @@ The comparison is performed using the PostgreSQL function call interface with co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_HashCompareOp (retrieves cached comparison operator information)
+  - [ri_HashCompareOp](ri_HashCompareOp.md) (retrieves cached comparison operator information)
   - FunctionCall3 (performs type casting when required)
-  - FunctionCall2Coll (executes the equality comparison with collation)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (executes the equality comparison with collation)
 - Called from (representative examples):
-  - ri_KeysEqual (when comparing foreign key attributes for equality)
+  - [ri_KeysEqual](ri_KeysEqual.md) (when comparing foreign key attributes for equality)
 
 ## Notes and Other Information
 - Assumes both input values are non-NULL (caller responsibility to check)

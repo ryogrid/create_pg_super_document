@@ -19,7 +19,7 @@ pqsecure_open_client is an internal function that manages the SSL/TLS handshake 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtls_open_client
+  - [pgtls_open_client](pgtls_open_client.md)
   - USE_SSL (conditional compilation flag)
   - PGRES_POLLING_FAILED
 - Called from (representative examples):

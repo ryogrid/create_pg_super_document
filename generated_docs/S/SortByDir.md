@@ -22,8 +22,8 @@ SortByDir provides a standardized way to represent sort direction options in Pos
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - SortBy (in sortby_dir field)
-  - IndexElem (in ordering field)
+  - [SortBy](SortBy.md) (in sortby_dir field)
+  - [IndexElem](../I/IndexElem.md) (in ordering field)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:44-50

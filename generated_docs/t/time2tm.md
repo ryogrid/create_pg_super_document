@@ -26,12 +26,12 @@ The time2tm function performs the inverse operation of tm2time, converting Postg
   - USECS_PER_SEC (constant)
 - Types used:
   - TimeADT (time abstract data type)
-  - pg_tm (struct)
+  - [pg_tm](../p/pg_tm.md) (struct)
   - fsec_t (fractional seconds type)
 - Called from (representative examples):
-  - time_out
-  - time_part_common
-  - time_timetz
+  - [time_out](time_out.md)
+  - [time_part_common](time_part_common.md)
+  - [time_timetz](time_timetz.md)
   - JsonEncodeDateTime
   - PG_RETURN_TIMETZADT_P
 

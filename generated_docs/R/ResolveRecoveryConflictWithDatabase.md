@@ -28,9 +28,9 @@ The function assumes that AccessExclusiveLock has already been acquired on the d
   - CountDBBackends
   - CancelDBBackends
   - PROCSIG_RECOVERY_CONFLICT_DATABASE
-  - pg_usleep
+  - [pg_usleep](../p/pg_usleep.md)
 - Called from (representative examples):
-  - dbase_redo
+  - [dbase_redo](../d/dbase_redo.md)
 
 ## Notes and Other Information
 - This function uses a fundamentally different approach from other recovery conflict resolution functions by not waiting for transaction completion

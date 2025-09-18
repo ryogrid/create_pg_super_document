@@ -31,10 +31,10 @@ It essentially converts the ArrayType pointer to a Datum and delegates all actua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_get_element (delegates all actual work)
-  - PointerGetDatum (converts ArrayType* to Datum)
+  - [array_get_element](array_get_element.md) (delegates all actual work)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts ArrayType* to Datum)
 - Called from:
-  - pg_get_functiondef
+  - [pg_get_functiondef](../p/pg_get_functiondef.md)
   - TransformGUCArray
   - GUCArrayAdd
   - GUCArrayDelete

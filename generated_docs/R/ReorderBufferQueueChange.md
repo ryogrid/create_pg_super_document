@@ -21,20 +21,20 @@ This function is the primary interface for adding changes to transactions during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid (gets or creates transaction)
-  - ReorderBufferReturnChange (returns change if transaction aborted)
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md) (gets or creates transaction)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (returns change if transaction aborted)
   - rbtxn_get_toptxn (gets top-level transaction)
-  - dlist_push_tail (adds change to transaction's change list)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (adds change to transaction's change list)
   - ReorderBufferChangeMemoryUpdate (updates memory accounting)
-  - ReorderBufferChangeSize (calculates change memory size)
-  - ReorderBufferProcessPartialChange (handles partial change processing)
-  - ReorderBufferCheckMemoryLimit (enforces memory limits)
+  - [ReorderBufferChangeSize](ReorderBufferChangeSize.md) (calculates change memory size)
+  - [ReorderBufferProcessPartialChange](ReorderBufferProcessPartialChange.md) (handles partial change processing)
+  - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (enforces memory limits)
 - Called from (representative examples):
-  - DecodeInsert (for INSERT operations)
-  - DecodeUpdate (for UPDATE operations)
-  - DecodeDelete (for DELETE operations)
-  - DecodeTruncate (for TRUNCATE operations)
-  - ReorderBufferQueueMessage (for logical messages)
+  - [DecodeInsert](../D/DecodeInsert.md) (for INSERT operations)
+  - [DecodeUpdate](../D/DecodeUpdate.md) (for UPDATE operations)
+  - [DecodeDelete](../D/DecodeDelete.md) (for DELETE operations)
+  - [DecodeTruncate](../D/DecodeTruncate.md) (for TRUNCATE operations)
+  - [ReorderBufferQueueMessage](ReorderBufferQueueMessage.md) (for logical messages)
 
 ## Notes and Other Information
 - Automatically creates transactions if they don't exist, marking them as top-level transactions

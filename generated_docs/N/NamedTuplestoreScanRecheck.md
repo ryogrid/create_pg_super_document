@@ -25,7 +25,7 @@ This function exists to conform to the standard scan method interface expected b
 - Functions called/Symbols referenced:
   - None (function performs no operations)
 - Called from (representative examples):
-  - ExecNamedTuplestoreScan: Main execution function that may call this for EvalPlanQual operations
+  - [ExecNamedTuplestoreScan](../E/ExecNamedTuplestoreScan.md): Main execution function that may call this for EvalPlanQual operations
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeNamedtuplestorescan.c

@@ -28,12 +28,12 @@ The structure is designed to be lightweight and contains only the essential info
 - Functions called/Symbols referenced:
   - RawParseMode (enumeration type for specifying parse modes)
 - Called from (representative examples):
-  - SPI_cursor_open_internal
-  - SPI_plan_get_cached_plan  
-  - _SPI_prepare_plan
-  - _SPI_prepare_oneshot_plan
-  - _SPI_execute_plan
-  - _SPI_error_callback
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md)
+  - [SPI_plan_get_cached_plan](SPI_plan_get_cached_plan.md)  
+  - [_SPI_prepare_plan](_SPI_prepare_plan.md)
+  - [_SPI_prepare_oneshot_plan](_SPI_prepare_oneshot_plan.md)
+  - [_SPI_execute_plan](_SPI_execute_plan.md)
+  - [_SPI_error_callback](_SPI_error_callback.md)
 
 ## Notes and Other Information
 - This structure is defined as a static typedef in src/backend/executor/spi.c:53-57

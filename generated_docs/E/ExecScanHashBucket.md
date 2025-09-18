@@ -30,15 +30,15 @@ The function maintains scan state in hjstate->hj_CurTuple to support resuming th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinState (struct type)
-  - HashJoinTable (struct type) 
-  - HashJoinTuple (struct type)
+  - [HashJoinState](../H/HashJoinState.md) (struct type)
+  - [HashJoinTable](../H/HashJoinTable.md) (struct type) 
+  - [HashJoinTuple](../H/HashJoinTuple.md) (struct type)
   - INVALID_SKEW_BUCKET_NO (constant)
-  - ExecStoreMinimalTuple (tuple storage function)
+  - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md) (tuple storage function)
   - HJTUPLE_MINTUPLE (tuple extraction macro)
   - ExecQualAndReset (clause evaluation function)
 - Called from (representative examples):
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - The outer tuple must be pre-loaded in econtext->ecxt_outertuple before calling

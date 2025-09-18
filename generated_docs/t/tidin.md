@@ -31,8 +31,8 @@ The function expects input in the format "(block_number,offset_number)" where:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `strtoul`: Standard library function for string to unsigned long conversion
-  - `palloc`: PostgreSQL memory allocation function
-  - `ItemPointerSet`: Sets block and offset in ItemPointer structure
+  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - `[ItemPointerSet](../I/ItemPointerSet.md)`: Sets block and offset in ItemPointer structure
   - `PG_RETURN_ITEMPOINTER`: PostgreSQL macro to return ItemPointer datum
   - `ereturn`: Error return function with context support
 - Constants used:

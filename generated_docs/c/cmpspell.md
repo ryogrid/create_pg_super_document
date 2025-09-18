@@ -21,10 +21,10 @@ This function compares two SPELL structures by comparing their word fields lexic
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
-  - SPELL (struct type)
-  - word (member field of SPELL structure)
+  - [SPELL](../S/SPELL.md) (struct type)
+  - [word](../w/word.md) (member field of SPELL structure)
 - Called from (representative examples):
-  - NISortDictionary
+  - [NISortDictionary](../N/NISortDictionary.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spell.c compilation unit

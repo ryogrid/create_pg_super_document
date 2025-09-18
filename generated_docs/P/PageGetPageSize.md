@@ -19,13 +19,13 @@ PageGetPageSize extracts the page size from a formatted page by reading the pd_p
 - Functions called/Symbols referenced:
   - PageHeader (type cast to access page header structure)
 - Called from (representative examples):
-  - dataSplitPageInternal
-  - entrySplitPage
+  - [dataSplitPageInternal](../d/dataSplitPageInternal.md)
+  - [entrySplitPage](../e/entrySplitPage.md)
   - _bt_singleval_fillfactor
-  - _bt_findsplitloc
+  - [_bt_findsplitloc](../b/_bt_findsplitloc.md)
   - PageGetTempPage
   - PageGetTempPageCopy
-  - PageGetSpecialSize
+  - [PageGetSpecialSize](PageGetSpecialSize.md)
 
 ## Notes and Other Information
 - This is an inline function defined in bufpage.h for performance

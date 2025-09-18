@@ -21,14 +21,14 @@ The `ginoptions` function is the option parsing handler for GIN indexes that pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - `relopt_parse_elt` (structure defining option parsing specifications)
-  - `GinOptions` (structure containing parsed GIN-specific options)
-  - `build_reloptions` (generic function for parsing relation options)
+  - `[GinOptions](../G/GinOptions.md)` (structure containing parsed GIN-specific options)
+  - `[build_reloptions](../b/build_reloptions.md)` (generic function for parsing relation options)
   - `RELOPT_TYPE_BOOL`, `RELOPT_TYPE_INT` (constants for option data types)
   - `RELOPT_KIND_GIN` (constant identifying GIN-specific options)
   - `lengthof` (macro to get array length)
   - `offsetof` (macro to get structure member offsets)
 - Called from (representative examples):
-  - `ginhandler` (main GIN access method handler function)
+  - `[ginhandler](ginhandler.md)` (main GIN access method handler function)
 
 ## Notes and Other Information
 - Returns a palloc'd bytea structure containing the parsed options

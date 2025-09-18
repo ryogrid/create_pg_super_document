@@ -20,11 +20,11 @@ StartReadBuffer is a convenience function that provides a streamlined interface 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartReadBuffersImpl
-  - ReadBuffersOperation (structure)
+  - [StartReadBuffersImpl](StartReadBuffersImpl.md)
+  - [ReadBuffersOperation](../R/ReadBuffersOperation.md) (structure)
 - Called from (representative examples):
   - read_stream_next_buffer
-  - ReadBuffer_common
+  - [ReadBuffer_common](../R/ReadBuffer_common.md)
   - BUFFER_LOCK_EXCLUSIVE (from buffer management header)
 
 ## Notes and Other Information

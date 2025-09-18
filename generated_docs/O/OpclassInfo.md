@@ -23,10 +23,10 @@ OpclassInfo stores metadata about PostgreSQL operator classes for the dump and r
   - Oid (PostgreSQL object identifier type)
 
 - Called from (representative examples):
-  - getOpclasses (src/bin/pg_dump/pg_dump.c:6326, 6349)
-  - dumpOpclass (src/bin/pg_dump/pg_dump.c:13342)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10562)
-  - DOTypeNameCompare (src/bin/pg_dump/pg_dump_sort.c:302, 303)
+  - [getOpclasses](../g/getOpclasses.md) (src/bin/pg_dump/pg_dump.c:6326, 6349)
+  - [dumpOpclass](../d/dumpOpclass.md) (src/bin/pg_dump/pg_dump.c:13342)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10562)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (src/bin/pg_dump/pg_dump_sort.c:302, 303)
 
 ## Notes and Other Information
 - Operator classes are fundamental to PostgreSQL's indexing system, defining how data types can be indexed and searched

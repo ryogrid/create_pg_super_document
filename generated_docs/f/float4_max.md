@@ -20,7 +20,7 @@ The function performs a simple conditional selection: if val1 is greater than va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float4_gt (for greater-than comparison with NaN handling)
+  - [float4_gt](float4_gt.md) (for greater-than comparison with NaN handling)
   - float4 (single-precision floating-point type)
 - Called from (representative examples):
   - Currently no direct references found in the codebase

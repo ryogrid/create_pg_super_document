@@ -19,8 +19,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AtCCI_RelationMap
-  - CommandEndInvalidationMessages
+  - [AtCCI_RelationMap](AtCCI_RelationMap.md)
+  - [CommandEndInvalidationMessages](../C/CommandEndInvalidationMessages.md)
 - Called from (representative examples):
   - CommandCounterIncrement
 

@@ -23,13 +23,13 @@ The iterator is specifically designed for use with  and has strict limitations o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slist_node (used for all three pointer members)
+  - [slist_node](slist_node.md) (used for all three pointer members)
 - Called from (representative examples):
   - slist_foreach_modify (macro that uses this iterator for modifiable traversal)
-  - slist_delete_current (function that safely deletes the current node)
-  - AtEOSubXact_SPI (for cleaning up SPI resources)
-  - ForgetBackgroundWorker (for removing background worker registrations)
-  - AtEOXact_GUC (for transaction-end GUC cleanup)
+  - [slist_delete_current](slist_delete_current.md) (function that safely deletes the current node)
+  - [AtEOSubXact_SPI](../A/AtEOSubXact_SPI.md) (for cleaning up SPI resources)
+  - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md) (for removing background worker registrations)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (for transaction-end GUC cleanup)
 
 ## Notes and Other Information
 - Designed specifically for iterations where deletion of the current node is required

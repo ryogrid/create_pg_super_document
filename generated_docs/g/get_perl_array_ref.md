@@ -24,11 +24,11 @@ The function performs validation to ensure the input is a valid reference and th
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
-  - hv_fetch_string (fetches values from Perl hashes by string key)
+  - [hv_fetch_string](../h/hv_fetch_string.md) (fetches values from Perl hashes by string key)
 - Called from (representative examples):
-  - array_to_datum_internal
-  - plperl_sv_to_datum
-  - plperl_func_handler
+  - [array_to_datum_internal](../a/array_to_datum_internal.md)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md)
+  - [plperl_func_handler](../p/plperl_func_handler.md)
 
 ## Notes and Other Information
 - Returns NULL if the input SV is not a valid array reference or PostgreSQL::InServer::ARRAY object

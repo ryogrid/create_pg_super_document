@@ -26,16 +26,16 @@ The function also performs binary compatibility checks to ensure the data type c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDefaultOpClass (for default operator class resolution)
-  - DeconstructQualifiedName (for parsing qualified names)
-  - LookupExplicitNamespace (for schema-qualified operator class lookup)
-  - OpclassnameGetOpcid (for unqualified operator class lookup)
-  - SearchSysCache3, SearchSysCache1 (for catalog lookups)
-  - IsBinaryCoercible (for type compatibility checking)
-  - NameListToString (for error message formatting)
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md) (for default operator class resolution)
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md) (for parsing qualified names)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md) (for schema-qualified operator class lookup)
+  - [OpclassnameGetOpcid](../O/OpclassnameGetOpcid.md) (for unqualified operator class lookup)
+  - [SearchSysCache3](../S/SearchSysCache3.md), SearchSysCache1 (for catalog lookups)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (for type compatibility checking)
+  - [NameListToString](../N/NameListToString.md) (for error message formatting)
 - Called from (representative examples):
-  - ComputeIndexAttrs (during index attribute processing)
-  - ComputePartitionAttrs (during partition key processing)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md) (during index attribute processing)
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md) (during partition key processing)
 
 ## Notes and Other Information
 - Supports both schema-qualified and unqualified operator class names

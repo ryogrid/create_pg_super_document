@@ -20,8 +20,8 @@ WALSegmentContext is a configuration structure that encapsulates the essential p
 - Functions called/Symbols referenced:
   - MAXPGPATH (constant defining maximum path length)
 - Called from (representative examples):
-  - WALOpenSegmentInit (uses context during segment initialization)
-  - XLogReaderState (embedded within reader state structure)
+  - [WALOpenSegmentInit](WALOpenSegmentInit.md) (uses context during segment initialization)
+  - [XLogReaderState](../X/XLogReaderState.md) (embedded within reader state structure)
 
 ## Notes and Other Information
 This structure provides the environmental context needed for WAL operations, separating configuration concerns from the actual segment state. The segment size parameter is particularly important as it can be configured during PostgreSQL installation and affects how WAL records are distributed across segment files. The directory path allows WAL reading operations to work with segments stored in different locations, which is useful for backup restoration and replication scenarios.

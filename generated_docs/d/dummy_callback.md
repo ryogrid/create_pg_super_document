@@ -22,7 +22,7 @@ This callback is specifically designed for use with `spgvacuumcleanup` when the 
 - Functions called/Symbols referenced:
   - (None - simple return statement)
 - Called from (representative examples):
-  - spgvacuumcleanup
+  - [spgvacuumcleanup](../s/spgvacuumcleanup.md)
 
 ## Notes and Other Information
 - Part of the IndexBulkDeleteCallback interface contract

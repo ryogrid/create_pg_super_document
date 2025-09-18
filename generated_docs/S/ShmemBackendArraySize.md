@@ -23,12 +23,12 @@ The calculation uses mul_size() for safe multiplication that prevents integer ov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MaxLivePostmasterChildren (returns maximum concurrent child processes)
-  - mul_size (safe multiplication function)
-  - Backend (structure type for size calculation)
+  - [MaxLivePostmasterChildren](../M/MaxLivePostmasterChildren.md) (returns maximum concurrent child processes)
+  - [mul_size](../m/mul_size.md) (safe multiplication function)
+  - [Backend](../B/Backend.md) (structure type for size calculation)
 - Called from (representative examples):
-  - ShmemBackendArrayAllocation
-  - CalculateShmemSize
+  - [ShmemBackendArrayAllocation](ShmemBackendArrayAllocation.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
   - POSTMASTER_FD_OWN (referenced in header)
 
 ## Notes and Other Information

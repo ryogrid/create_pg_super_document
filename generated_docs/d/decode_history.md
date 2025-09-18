@@ -26,7 +26,7 @@ This function takes no parameters.
   - NL_IN_HISTORY (constant: 0x01, used as newline placeholder)
 
 - Called from (representative examples):
-  - initializeInput (in src/bin/psql/input.c:394)
+  - [initializeInput](../i/initializeInput.md) (in src/bin/psql/input.c:394)
 
 ## Notes and Other Information
 - This function assumes that NL_IN_HISTORY (0x01) will never be entered by the user or appear inside multi-byte strings

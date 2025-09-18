@@ -17,18 +17,18 @@ This function implements the core deletion logic for PostgreSQL extensions. It p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_extension_name
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - systable_endscan
+  - [get_extension_name](../g/get_extension_name.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_open
   - table_close
 - Global variables referenced:
   - CurrentExtensionObject
 - Called from (representative examples):
-  - doDeletion
+  - [doDeletion](../d/doDeletion.md)
 
 ## Notes and Other Information
 - This function is called by the dependency management system rather than directly by DROP EXTENSION commands

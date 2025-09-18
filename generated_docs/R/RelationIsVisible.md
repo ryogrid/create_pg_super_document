@@ -17,10 +17,10 @@ RelationIsVisible is a convenience wrapper function that checks if a relation is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationIsVisibleExt
+  - [RelationIsVisibleExt](RelationIsVisibleExt.md)
 - Called from (representative examples):
-  - getRelationDescription (src/backend/catalog/objectaddress.c:4106)
-  - regclassout (src/backend/utils/adt/regproc.c:976)
+  - [getRelationDescription](../g/getRelationDescription.md) (src/backend/catalog/objectaddress.c:4106)
+  - [regclassout](../r/regclassout.md) (src/backend/utils/adt/regproc.c:976)
   - generate_relation_name (src/backend/utils/adt/ruleutils.c:12862)
   - RangeVarGetRelid (src/include/catalog/namespace.h:94)
 

@@ -24,13 +24,13 @@ For index relations, the function reconstructs complex index-specific data struc
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocateFile
-  - CreateTemplateTupleDesc  
-  - InitIndexAmRoutine
-  - RelationInitTableAccessMethod
-  - RelationInitLockInfo
-  - RelationInitPhysicalAddr
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)  
+  - [InitIndexAmRoutine](../I/InitIndexAmRoutine.md)
+  - [RelationInitTableAccessMethod](../R/RelationInitTableAccessMethod.md)
+  - [RelationInitLockInfo](../R/RelationInitLockInfo.md)
+  - [RelationInitPhysicalAddr](../R/RelationInitPhysicalAddr.md)
   - RelationCacheInsert
-  - MemoryContextAlloc/MemoryContextAllocZero
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)/MemoryContextAllocZero
   - AllocSetContextCreate
 - Called from (representative examples):
   - RelationCacheInitializePhase2

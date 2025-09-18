@@ -18,15 +18,15 @@ freeGinBtreeStack is a cleanup utility function that traverses and deallocates a
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReleaseBuffer (buffer deallocation)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - InvalidBuffer (buffer validity check constant)
 - Called from (representative examples):
-  - ginFinishSplit
-  - ginInsertValue
-  - scanPostingTree
-  - startScanEntry
-  - entryLoadMoreItems
-  - ginEntryInsert
+  - [ginFinishSplit](../g/ginFinishSplit.md)
+  - [ginInsertValue](../g/ginInsertValue.md)
+  - [scanPostingTree](../s/scanPostingTree.md)
+  - [startScanEntry](../s/startScanEntry.md)
+  - [entryLoadMoreItems](../e/entryLoadMoreItems.md)
+  - [ginEntryInsert](../g/ginEntryInsert.md)
 
 ## Notes and Other Information
 The function implements a safe traversal pattern that handles the stack destruction without corrupting the linked list structure. It checks for InvalidBuffer before attempting to release buffers, ensuring robustness when dealing with partially constructed stacks or error conditions. This function is essential for preventing resource leaks in GIN operations and is called whenever a GinBtreeStack is no longer needed, regardless of whether the operation completed successfully or encountered an error.

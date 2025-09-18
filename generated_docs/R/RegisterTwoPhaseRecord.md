@@ -23,14 +23,14 @@ The function serves as a bridge between various PostgreSQL subsystems (locks, mu
 ## Dependencies
 - Functions called/Symbols referenced:
   - TwoPhaseRmgrId (type for resource manager identification)
-  - TwoPhaseRecordOnDisk (header structure for each record)
-  - save_state_data (appends data to two-phase state records)
+  - [TwoPhaseRecordOnDisk](../T/TwoPhaseRecordOnDisk.md) (header structure for each record)
+  - [save_state_data](../s/save_state_data.md) (appends data to two-phase state records)
 - Called from (representative examples):
-  - AtPrepare_MultiXact (multixact subsystem preparation)
-  - AtPrepare_Locks (lock manager preparation)
+  - [AtPrepare_MultiXact](../A/AtPrepare_MultiXact.md) (multixact subsystem preparation)
+  - [AtPrepare_Locks](../A/AtPrepare_Locks.md) (lock manager preparation)
   - AtPrepare_PredicateLocks (predicate lock preparation)
-  - AtPrepare_PgStat_Relations (statistics subsystem preparation)
-  - EndPrepare (main preparation coordination)
+  - [AtPrepare_PgStat_Relations](../A/AtPrepare_PgStat_Relations.md) (statistics subsystem preparation)
+  - [EndPrepare](../E/EndPrepare.md) (main preparation coordination)
 
 ## Notes and Other Information
 - This function is called during the PREPARE phase of two-phase commit transactions

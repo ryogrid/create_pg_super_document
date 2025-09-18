@@ -20,15 +20,15 @@ ChoosePortalStrategy examines a list of Query or PlannedStmt nodes to determine 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalStrategy (return type)
-  - List operations (list_length, linitial, foreach, lfirst)
-  - Query and PlannedStmt structures
+  - [List](../L/List.md) operations (list_length, linitial, foreach, lfirst)
+  - [Query](../Q/Query.md) and PlannedStmt structures
   - UtilityReturnsTuples
   - nodeTag
-  - Portal strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_MOD_WITH, PORTAL_UTIL_SELECT, PORTAL_ONE_RETURNING, PORTAL_MULTI_QUERY)
-  - Command type constants (CMD_SELECT, CMD_UTILITY)
+  - [Portal](../P/Portal.md) strategy constants (PORTAL_ONE_SELECT, PORTAL_ONE_MOD_WITH, PORTAL_UTIL_SELECT, PORTAL_ONE_RETURNING, PORTAL_MULTI_QUERY)
+  - [Command](Command.md) type constants (CMD_SELECT, CMD_UTILITY)
 - Called from (representative examples):
-  - PortalStart
-  - PlanCacheComputeResultDesc
+  - [PortalStart](../P/PortalStart.md)
+  - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
 
 ## Notes and Other Information
 The function handles both Query and PlannedStmt nodes, making it useful for both portal management and plan cache operations. The decision logic prioritizes more specific strategies (like PORTAL_ONE_SELECT) over general ones (PORTAL_MULTI_QUERY). Single-statement portals receive more optimal strategies, while multi-statement scenarios typically fall back to PORTAL_MULTI_QUERY unless they meet specific criteria for PORTAL_ONE_RETURNING. The canSetTag field is crucial for determining which statements contribute to the portal's completion tag.

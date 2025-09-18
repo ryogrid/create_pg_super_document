@@ -21,11 +21,11 @@ As part of a test module, this function doesn't perform any actual indexing work
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexScan
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
 - Data types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
 - Called from (representative examples):
-  - dihandler
+  - [dihandler](dihandler.md)
 
 ## Notes and Other Information
 - This is a static function within the dummy_index_am test module

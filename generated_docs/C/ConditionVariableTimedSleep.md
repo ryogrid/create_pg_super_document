@@ -30,20 +30,20 @@ The implementation uses a loop to handle spurious wakeups, only returning when e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionVariablePrepareToSleep (prepares sleep if not already prepared)
-  - WaitLatch (underlying blocking mechanism using latch system)
-  - ResetLatch (clears the latch after waking up)
+  - [ConditionVariablePrepareToSleep](ConditionVariablePrepareToSleep.md) (prepares sleep if not already prepared)
+  - [WaitLatch](../W/WaitLatch.md) (underlying blocking mechanism using latch system)
+  - [ResetLatch](../R/ResetLatch.md) (clears the latch after waking up)
   - proclist_contains (checks if process is still in wait list)
   - proclist_push_tail (re-adds process to wait list after signaling)
   - INSTR_TIME_* macros (time measurement for timeout calculation)
   - CHECK_FOR_INTERRUPTS (handles interrupts during wait)
 - Called from (representative examples):
-  - recoveryPausesHere
-  - RecoveryRequiresIntParameter
-  - WaitForWalSummarization
+  - [recoveryPausesHere](../r/recoveryPausesHere.md)
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
+  - [WaitForWalSummarization](../W/WaitForWalSummarization.md)
   - WaitForStandbyConfirmation
-  - WaitForProcSignalBarrier
-  - ConditionVariableSleep (as the underlying implementation)
+  - [WaitForProcSignalBarrier](../W/WaitForProcSignalBarrier.md)
+  - [ConditionVariableSleep](ConditionVariableSleep.md) (as the underlying implementation)
 
 ## Notes and Other Information
 - Returns true on timeout, false when signaled or interrupted

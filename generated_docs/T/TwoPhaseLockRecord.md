@@ -23,10 +23,10 @@ The structure is designed to be compact and contains only the essential informat
   - LOCKTAG
   - LOCKMODE
 - Called from (representative examples):
-  - AtPrepare_Locks
-  - lock_twophase_recover
-  - lock_twophase_standby_recover
-  - lock_twophase_postcommit
+  - [AtPrepare_Locks](../A/AtPrepare_Locks.md)
+  - [lock_twophase_recover](../l/lock_twophase_recover.md)
+  - [lock_twophase_standby_recover](../l/lock_twophase_standby_recover.md)
+  - [lock_twophase_postcommit](../l/lock_twophase_postcommit.md)
 
 ## Notes and Other Information
 - This structure is specifically used in two-phase commit scenarios where transactions must be prepared and can be committed or aborted at a later time

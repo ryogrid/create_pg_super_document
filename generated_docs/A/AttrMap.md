@@ -29,17 +29,17 @@ The structure is designed to handle the full attribute space of the output relat
   - AttrNumber (attribute number type)
 
 - Called from (representative examples):
-  - make_attrmap (creates and initializes AttrMap structures)
-  - free_attrmap (deallocates AttrMap structures)
-  - build_attrmap_by_position (builds mapping based on positional correspondence)
-  - build_attrmap_by_name (builds mapping based on column name matching)
-  - execute_attr_map_tuple (applies attribute mapping to tuples)
-  - execute_attr_map_slot (applies attribute mapping to tuple slots)
-  - ExecFindPartition (used in partition routing)
-  - logicalrep_partition_open (used in logical replication)
+  - [make_attrmap](../m/make_attrmap.md) (creates and initializes AttrMap structures)
+  - [free_attrmap](../f/free_attrmap.md) (deallocates AttrMap structures)
+  - [build_attrmap_by_position](../b/build_attrmap_by_position.md) (builds mapping based on positional correspondence)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md) (builds mapping based on column name matching)
+  - [execute_attr_map_tuple](../e/execute_attr_map_tuple.md) (applies attribute mapping to tuples)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md) (applies attribute mapping to tuple slots)
+  - [ExecFindPartition](../E/ExecFindPartition.md) (used in partition routing)
+  - [logicalrep_partition_open](../l/logicalrep_partition_open.md) (used in logical replication)
 
 ## Notes and Other Information
-- AttrMap is primarily used in scenarios involving table inheritance, partitioning, and logical replication where column layouts may differ between related tables
+- [AttrMap](AttrMap.md) is primarily used in scenarios involving table inheritance, partitioning, and logical replication where column layouts may differ between related tables
 - The structure is allocated using PostgreSQL's memory management functions (palloc/palloc0)
 - Memory management functions like make_attrmap() and free_attrmap() are provided for proper allocation and deallocation
 - The mapping is unidirectional from input to output relation

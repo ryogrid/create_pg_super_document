@@ -29,10 +29,10 @@ The function respects several configuration options including syslog_split_messa
   - openlog (system call)
   - syslog (system call)
   - strlen, strchr, memcpy (standard C library)
-  - pg_mbcliplen (PostgreSQL multibyte utility)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (PostgreSQL multibyte utility)
   - PG_SYSLOG_LIMIT (constant defining maximum syslog message size)
 - Called from (representative examples):
-  - send_message_to_server_log
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
 
 ## Notes and Other Information
 - The function maintains static state including openlog_done flag and sequence counter

@@ -23,12 +23,12 @@ When pg_dump encounters extended statistics objects in the database, it creates 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - TableInfo (for table association)
+  - [TableInfo](../T/TableInfo.md) (for table association)
   
 - Called from (representative examples):
-  - getExtendedStatistics() (creates StatsExtInfo objects by querying pg_statistic_ext)
-  - selectDumpableStatisticsObject() (determines if object should be dumped)
-  - dumpStatisticsExt() (generates CREATE STATISTICS SQL during dump)
+  - [getExtendedStatistics](../g/getExtendedStatistics.md)() (creates StatsExtInfo objects by querying pg_statistic_ext)
+  - [selectDumpableStatisticsObject](selectDumpableStatisticsObject.md)() (determines if object should be dumped)
+  - [dumpStatisticsExt](../d/dumpStatisticsExt.md)() (generates CREATE STATISTICS SQL during dump)
 
 ## Notes and Other Information
 - Extended statistics were introduced in PostgreSQL 10, so this structure is only used when dumping from servers with version 100000 or higher

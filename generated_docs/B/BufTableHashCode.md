@@ -19,15 +19,15 @@ BufTableHashCode calculates the hash value for a given BufferTag using the share
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_hash_value
+  - [get_hash_value](../g/get_hash_value.md)
   - BufferTag
 - Called from (representative examples):
-  - PrefetchSharedBuffer
-  - BufferAlloc
-  - InvalidateBuffer
-  - InvalidateVictimBuffer
-  - ExtendBufferedRelShared
-  - FindAndDropRelationBuffers
+  - [PrefetchSharedBuffer](../P/PrefetchSharedBuffer.md)
+  - [BufferAlloc](BufferAlloc.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
 
 ## Notes and Other Information
 The hash computation is performed once and reused across multiple operations to optimize performance, since hash_any (the underlying hash function) can be computationally expensive. The hash code is essential for the partitioned locking scheme used in the buffer management system, allowing multiple processes to work on different buffer partitions concurrently without contention.

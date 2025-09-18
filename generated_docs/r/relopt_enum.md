@@ -29,15 +29,15 @@ The `relopt_enum` structure represents a complete enumerated relation option def
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relopt_gen (Line 125)
-  - relopt_enum_elt_def (Line 126)
+  - [relopt_gen](relopt_gen.md) (Line 125)
+  - [relopt_enum_elt_def](relopt_enum_elt_def.md) (Line 126)
 - Called from (representative examples):
-  - allocate_reloption (src/backend/access/common/reloptions.c:799)
-  - init_enum_reloption (src/backend/access/common/reloptions.c:993, 995)
-  - add_enum_reloption (src/backend/access/common/reloptions.c:1022)
-  - add_local_enum_reloption (src/backend/access/common/reloptions.c:1040)
-  - parse_one_reloption (src/backend/access/common/reloptions.c:1651)
-  - fillRelOptions (src/backend/access/common/reloptions.c:1792)
+  - [allocate_reloption](../a/allocate_reloption.md) (src/backend/access/common/reloptions.c:799)
+  - [init_enum_reloption](../i/init_enum_reloption.md) (src/backend/access/common/reloptions.c:993, 995)
+  - [add_enum_reloption](../a/add_enum_reloption.md) (src/backend/access/common/reloptions.c:1022)
+  - [add_local_enum_reloption](../a/add_local_enum_reloption.md) (src/backend/access/common/reloptions.c:1040)
+  - [parse_one_reloption](../p/parse_one_reloption.md) (src/backend/access/common/reloptions.c:1651)
+  - [fillRelOptions](../f/fillRelOptions.md) (src/backend/access/common/reloptions.c:1792)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's type-safe relation options system. The members array must be null-terminated to indicate the end of valid enum values. The detailmsg field provides user-friendly error messages when validation fails, helping users understand what values are acceptable for the enum option.

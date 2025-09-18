@@ -21,17 +21,17 @@ The colvalues array contains the actual data for each column in StringInfo forma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StringInfoData (data structure)
+  - [StringInfoData](../S/StringInfoData.md) (data structure)
 - Called from (representative examples):
   - logicalrep_read_insert
   - logicalrep_read_update  
   - logicalrep_read_delete
-  - logicalrep_read_tuple
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
-  - slot_store_data
-  - slot_modify_data
+  - [logicalrep_read_tuple](../l/logicalrep_read_tuple.md)
+  - [apply_handle_insert](../a/apply_handle_insert.md)
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
+  - [slot_store_data](../s/slot_store_data.md)
+  - [slot_modify_data](../s/slot_modify_data.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for logical replication and should not be confused with regular HeapTuple structures used elsewhere in PostgreSQL

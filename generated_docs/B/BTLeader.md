@@ -26,16 +26,16 @@ The structure includes pointers to both primary and secondary shared tuplesort s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelContext
-  - BTShared
+  - [ParallelContext](../P/ParallelContext.md)
+  - [BTShared](BTShared.md)
   - Sharedsort
   - WalUsage
   - BufferUsage
 - Called from (representative examples):
-  - BTBuildState
-  - _bt_begin_parallel
-  - _bt_end_parallel
-  - _bt_leader_participate_as_worker
+  - [BTBuildState](BTBuildState.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
+  - [_bt_end_parallel](../b/_bt_end_parallel.md)
+  - [_bt_leader_participate_as_worker](../b/_bt_leader_participate_as_worker.md)
 
 ## Notes and Other Information
 BTLeader is specifically designed for the leader process in parallel index builds and provides convenience pointers to avoid repeated TOC lookups during the build process. The nparticipanttuplesorts field accounts for both worker processes and the leader if it participates as a worker, with the leader participation controlled by the DISABLE_LEADER_PARTICIPATION build configuration. The structure maintains separate sharedsort and sharedsort2 pointers to handle the additional sorting requirements of unique indexes.

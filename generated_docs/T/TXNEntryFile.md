@@ -21,9 +21,9 @@ This structure encapsulates a virtual file descriptor along with offset tracking
   - File (PostgreSQL virtual file descriptor type)
   - off_t (POSIX file offset type)
 - Called from (representative examples):
-  - ReorderBufferIterTXNEntry (at src/backend/replication/logical/reorderbuffer.c:163)
+  - [ReorderBufferIterTXNEntry](../R/ReorderBufferIterTXNEntry.md) (at src/backend/replication/logical/reorderbuffer.c:163)
   - IsInsertOrUpdate (at src/backend/replication/logical/reorderbuffer.c:269)
-  - ReorderBufferRestoreChanges (at src/backend/replication/logical/reorderbuffer.c:4388)
+  - [ReorderBufferRestoreChanges](../R/ReorderBufferRestoreChanges.md) (at src/backend/replication/logical/reorderbuffer.c:4388)
 
 ## Notes and Other Information
 This structure is used when the reorder buffer needs to spill transaction data to temporary files on disk, typically when processing large transactions that exceed memory limits. The virtual file descriptor approach allows PostgreSQL to manage file resources efficiently, including automatic cleanup and resource limit enforcement. The offset tracking is crucial for maintaining the correct file position during sequential operations without requiring explicit seek operations for every read/write.

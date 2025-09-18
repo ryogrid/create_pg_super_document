@@ -25,17 +25,17 @@ This is essential for maintaining data consistency in replication scenarios - wi
   - LWLockRelease
   - SpinLockAcquire/SpinLockRelease
   - TransactionIdIsValid
-  - TransactionIdPrecedes
-  - ProcArraySetReplicationSlotXmin
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [ProcArraySetReplicationSlotXmin](../P/ProcArraySetReplicationSlotXmin.md)
   - RS_INVAL_NONE (enum value)
-  - ReplicationSlot (struct type)
+  - [ReplicationSlot](ReplicationSlot.md) (struct type)
 - Called from (representative examples):
   - CreateInitDecodingContext
   - LogicalConfirmReceivedLocation
-  - ReplicationSlotRelease
-  - ReplicationSlotDropPtr
-  - InvalidateObsoleteReplicationSlots
-  - PhysicalReplicationSlotNewXmin
+  - [ReplicationSlotRelease](ReplicationSlotRelease.md)
+  - [ReplicationSlotDropPtr](ReplicationSlotDropPtr.md)
+  - [InvalidateObsoleteReplicationSlots](../I/InvalidateObsoleteReplicationSlots.md)
+  - [PhysicalReplicationSlotNewXmin](../P/PhysicalReplicationSlotNewXmin.md)
 
 ## Notes and Other Information
 - Skips invalidated slots (those marked with invalidation reasons other than RS_INVAL_NONE)

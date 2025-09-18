@@ -29,16 +29,16 @@ This function takes no parameters but operates on several important local variab
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransactionCommand/CommitTransactionCommand (transaction management)
-  - table_beginscan_catalog/table_endscan/heap_getnext (catalog scanning)
-  - extract_autovac_opts (extract autovacuum options from relation)
-  - relation_needs_vacanalyze (determine if table needs maintenance)
-  - table_recheck_autovac (recheck table maintenance needs)
-  - perform_work_item (process additional work items)
-  - autovacuum_do_vac_analyze (perform actual vacuum/analyze)
-  - AbortOutOfAnyTransaction (error recovery)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand (transaction management)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)/table_endscan/heap_getnext (catalog scanning)
+  - [extract_autovac_opts](../e/extract_autovac_opts.md) (extract autovacuum options from relation)
+  - [relation_needs_vacanalyze](../r/relation_needs_vacanalyze.md) (determine if table needs maintenance)
+  - [table_recheck_autovac](../t/table_recheck_autovac.md) (recheck table maintenance needs)
+  - [perform_work_item](../p/perform_work_item.md) (process additional work items)
+  - [autovacuum_do_vac_analyze](../a/autovacuum_do_vac_analyze.md) (perform actual vacuum/analyze)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md) (error recovery)
 - Called from (representative examples):
-  - AutoVacWorkerMain (main autovacuum worker entry point)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (main autovacuum worker entry point)
 
 ## Notes and Other Information
 - Uses memory contexts (AutovacMemCxt, PortalContext) to manage memory allocation across transactions

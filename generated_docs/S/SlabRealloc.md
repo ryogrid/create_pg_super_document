@@ -30,7 +30,7 @@ The function is designed to be "gentle" by allowing realloc calls with the same 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkGetBlock  
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)  
   - SlabBlockIsValid
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS

@@ -26,13 +26,13 @@ This function takes no parameters but processes data from the global  buffer con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64, pq_getmsgint (message parsing)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md), pq_getmsgint (message parsing)
   - TransactionIdIsNormal, TransactionIdInRecentPast (validation)
-  - PhysicalReplicationSlotNewXmin (slot-based xmin updates)
-  - TransactionIdPrecedes (transaction ID comparison)
-  - timestamptz_to_str (debug logging)
+  - [PhysicalReplicationSlotNewXmin](PhysicalReplicationSlotNewXmin.md) (slot-based xmin updates)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md) (transaction ID comparison)
+  - [timestamptz_to_str](../t/timestamptz_to_str.md) (debug logging)
 - Called from (representative examples):
-  - ProcessStandbyMessage
+  - [ProcessStandbyMessage](ProcessStandbyMessage.md)
 
 ## Notes and Other Information
 - Critical for preventing recovery conflicts between primary VACUUM and standby queries

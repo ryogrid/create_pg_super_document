@@ -24,16 +24,16 @@ This function constructs an IndexTuple from arrays of attribute values and null 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - index_form_tuple_context
+  - [index_form_tuple_context](../i/index_form_tuple_context.md)
   - RelationGetDescr
-  - index_getattr
+  - [index_getattr](../i/index_getattr.md)
   - TupleSortUseBumpTupleCxt
   - GetMemoryChunkSpace
   - tuplesort_puttuple_common
 - Called from (representative examples):
-  - gistSortedBuildCallback
-  - _h_spool
-  - _bt_spool
+  - [gistSortedBuildCallback](../g/gistSortedBuildCallback.md)
+  - [_h_spool](../h/_h_spool.md)
+  - [_bt_spool](../b/_bt_spool.md)
 
 ## Notes and Other Information
 - Constructs IndexTuple using index_form_tuple_context for proper memory context allocation

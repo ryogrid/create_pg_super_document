@@ -34,18 +34,18 @@ All comparisons are exact (no recheck required), and the function returns true o
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetRangeTypeP
-  - range_get_typcache
+  - [range_get_typcache](../r/range_get_typcache.md)
   - RangeTypeGetOid
-  - range_before_internal
-  - range_overleft_internal
-  - range_overlaps_internal
-  - range_overright_internal
-  - range_after_internal
-  - range_adjacent_internal
-  - range_contains_internal
-  - range_contained_by_internal
-  - range_contains_elem_internal
-  - range_eq_internal
+  - [range_before_internal](../r/range_before_internal.md)
+  - [range_overleft_internal](../r/range_overleft_internal.md)
+  - [range_overlaps_internal](../r/range_overlaps_internal.md)
+  - [range_overright_internal](../r/range_overright_internal.md)
+  - [range_after_internal](../r/range_after_internal.md)
+  - [range_adjacent_internal](../r/range_adjacent_internal.md)
+  - [range_contains_internal](../r/range_contains_internal.md)
+  - [range_contained_by_internal](../r/range_contained_by_internal.md)
+  - [range_contains_elem_internal](../r/range_contains_elem_internal.md)
+  - [range_eq_internal](../r/range_eq_internal.md)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in SP-GiST operator class)
 

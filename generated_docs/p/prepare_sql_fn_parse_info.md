@@ -23,14 +23,14 @@ This function creates and initializes a SQLFunctionParseInfo structure that cont
   - Form_pg_proc
   - SQLFunctionParseInfo
   - IsPolymorphicType
-  - get_call_expr_argtype
-  - SysCacheGetAttr
-  - get_func_input_arg_names
+  - [get_call_expr_argtype](../g/get_call_expr_argtype.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [get_func_input_arg_names](../g/get_func_input_arg_names.md)
 - Called from (representative examples):
-  - fmgr_sql_validator (src/backend/catalog/pg_proc.c:933)
-  - init_sql_fcache (src/backend/executor/functions.c:657)
-  - inline_function (src/backend/optimizer/util/clauses.c:4671)
-  - inline_set_returning_function (src/backend/optimizer/util/clauses.c:5229)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md) (src/backend/catalog/pg_proc.c:933)
+  - [init_sql_fcache](../i/init_sql_fcache.md) (src/backend/executor/functions.c:657)
+  - [inline_function](../i/inline_function.md) (src/backend/optimizer/util/clauses.c:4671)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md) (src/backend/optimizer/util/clauses.c:5229)
 
 ## Notes and Other Information
 - The function handles polymorphic type resolution by examining the call expression to determine actual argument types

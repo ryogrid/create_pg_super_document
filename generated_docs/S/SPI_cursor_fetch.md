@@ -21,16 +21,16 @@ The function handles both forward and backward cursor navigation, converting the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_cursor_operation (internal cursor operation handler)
-  - CreateDestReceiver (creates destination for query results)
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md) (internal cursor operation handler)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md) (creates destination for query results)
   - DestSPI (SPI destination receiver type)
   - FETCH_FORWARD/FETCH_BACKWARD (fetch direction constants)
 - Called from (representative examples):
-  - tsquery_rewrite_query (text search query rewriting)
-  - ts_stat_sql (text search statistics)
-  - cursor_to_xml (XML generation from cursors)
-  - plperl_spi_fetchrow (PL/Perl cursor operations)
-  - PLy_cursor_fetch (PL/Python cursor operations)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (text search query rewriting)
+  - [ts_stat_sql](../t/ts_stat_sql.md) (text search statistics)
+  - [cursor_to_xml](../c/cursor_to_xml.md) (XML generation from cursors)
+  - [plperl_spi_fetchrow](../p/plperl_spi_fetchrow.md) (PL/Perl cursor operations)
+  - [PLy_cursor_fetch](../P/PLy_cursor_fetch.md) (PL/Python cursor operations)
 
 ## Notes and Other Information
 - Results are stored in global SPI variables: SPI_tuptable contains the fetched rows, SPI_processed contains the actual number of rows fetched

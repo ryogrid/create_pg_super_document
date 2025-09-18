@@ -33,10 +33,10 @@ The custom BIO method replaces the default socket read and write operations with
   - BIO_meth_free
   - malloc
   - memcpy
-  - my_sock_write
-  - my_sock_read
+  - [my_sock_write](my_sock_write.md)
+  - [my_sock_read](my_sock_read.md)
 - Called from (representative examples):
-  - my_SSL_set_fd
+  - [my_SSL_set_fd](my_SSL_set_fd.md)
 
 ## Notes and Other Information
 - Uses a static global variable my_bio_methods to implement singleton pattern

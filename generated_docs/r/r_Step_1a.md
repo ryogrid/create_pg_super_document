@@ -37,19 +37,19 @@ For plural suffixes, it applies these rules:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches backwards for matching suffixes)
-  - slice_del (deletes the marked substring)
-  - slice_from_s (replaces marked substring with specified string)
-  - out_grouping_b (checks if character is outside specified group)
+  - [find_among_b](../f/find_among_b.md) (searches backwards for matching suffixes)
+  - [slice_del](../s/slice_del.md) (deletes the marked substring)
+  - [slice_from_s](../s/slice_from_s.md) (replaces marked substring with specified string)
+  - [out_grouping_b](../o/out_grouping_b.md) (checks if character is outside specified group)
   - a_1 (array of possessive suffixes: ', 's', 's)
   - a_2 (array of plural suffixes: ied, s, ies, sses, ss, us)
   - s_2, s_3, s_4 (replacement strings: "ss", "i", "ie")
   - g_v (vowel character group for validation)
 - Called from (representative examples):
-  - english_ISO_8859_1_stem
-  - porter_ISO_8859_1_stem
-  - english_UTF_8_stem
-  - porter_UTF_8_stem
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md)
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md)
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md)
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful completion, 0 if no changes were made, or negative values on error

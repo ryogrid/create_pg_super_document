@@ -21,11 +21,11 @@ This function validates that a collation identifier (OID) is valid and properly 
   - ereport (error reporting function)
   - ERROR, ERRCODE_INDETERMINATE_COLLATION (error constants)
 - Called from (representative examples):
-  - bpchareq, bpcharne (bpchar comparison functions)
-  - texteq, textne (text comparison functions) 
-  - text_starts_with (text prefix checking)
-  - varstr_cmp (variable string comparison)
-  - varstr_sortsupport (sort support for variable strings)
+  - [bpchareq](../b/bpchareq.md), bpcharne (bpchar comparison functions)
+  - [texteq](../t/texteq.md), textne (text comparison functions) 
+  - [text_starts_with](../t/text_starts_with.md) (text prefix checking)
+  - [varstr_cmp](../v/varstr_cmp.md) (variable string comparison)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md) (sort support for variable strings)
 
 ## Notes and Other Information
 - This is a static function, accessible only within varchar.c

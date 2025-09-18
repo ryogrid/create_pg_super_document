@@ -23,15 +23,15 @@ The ForeignDataWrapper structure encapsulates all the metadata needed to define 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)
-  - List (PostgreSQL list structure)
-  - DefElem (option definition element)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [DefElem](../D/DefElem.md) (option definition element)
 - Called from (representative examples):
-  - GetForeignDataWrapper
-  - GetForeignDataWrapperExtended
-  - CreateForeignServer
-  - AlterForeignServer
-  - CreateUserMapping
-  - CreateForeignTable
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
+  - [GetForeignDataWrapperExtended](../G/GetForeignDataWrapperExtended.md)
+  - [CreateForeignServer](../C/CreateForeignServer.md)
+  - [AlterForeignServer](../A/AlterForeignServer.md)
+  - [CreateUserMapping](../C/CreateUserMapping.md)
+  - [CreateForeignTable](../C/CreateForeignTable.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/foreign/foreign.h and is fundamental to PostgreSQL's FDW architecture

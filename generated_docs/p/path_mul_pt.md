@@ -26,7 +26,7 @@ This is one of PostgreSQL's geometric transformation operators, allowing complex
   - PG_GETARG_PATH_P_COPY (macro for retrieving and copying PATH argument)
   - PG_GETARG_POINT_P (macro for retrieving Point argument)
   - PG_RETURN_PATH_P (macro for returning PATH result)  
-  - point_mul_point (function for multiplying two points using complex arithmetic)
+  - [point_mul_point](point_mul_point.md) (function for multiplying two points using complex arithmetic)
 - Called from:
   - No direct references found in the codebase
 
@@ -34,6 +34,6 @@ This is one of PostgreSQL's geometric transformation operators, allowing complex
 - Uses PG_GETARG_PATH_P_COPY to work on a copy of the input path, ensuring the original is not modified
 - Applies the same transformation to all points in the path uniformly
 - The transformation can combine scaling and rotation in a single operation
-- Point multiplication follows complex number arithmetic rules
+- [Point](../P/Point.md) multiplication follows complex number arithmetic rules
 - Part of PostgreSQL's geometric transformation system alongside translation operators
 - Preserves path topology while allowing complex shape transformations

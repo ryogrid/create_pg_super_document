@@ -23,11 +23,11 @@ The interpolation formula used is: `result = lo + pct * (hi - lo)`, which gives 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat8 (converts Datum to double)
-  - Float8GetDatum (converts double to Datum)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md) (converts Datum to double)
+  - [Float8GetDatum](../F/Float8GetDatum.md) (converts double to Datum)
 - Called from (representative examples):
-  - percentile_cont_float8_final
-  - percentile_cont_float8_multi_final
+  - [percentile_cont_float8_final](../p/percentile_cont_float8_final.md)
+  - [percentile_cont_float8_multi_final](../p/percentile_cont_float8_multi_final.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the ordered-set aggregates module

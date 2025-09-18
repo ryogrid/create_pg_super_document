@@ -25,15 +25,15 @@ Unlike ginbuild, this function doesn't scan any heap data and creates only the m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtendBufferedRel
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md)
   - BMR_REL 
-  - GinInitMetabuffer
-  - GinInitBuffer
-  - log_newpage_buffer
+  - [GinInitMetabuffer](../G/GinInitMetabuffer.md)
+  - [GinInitBuffer](../G/GinInitBuffer.md)
+  - [log_newpage_buffer](../l/log_newpage_buffer.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - ginhandler (via access method handler)
+  - [ginhandler](ginhandler.md) (via access method handler)
 
 ## Notes and Other Information
 - Creates exactly two pages: one meta page and one root page (leaf type)

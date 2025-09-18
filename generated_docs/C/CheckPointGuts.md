@@ -22,23 +22,23 @@ The ordering is critical for consistency - two-phase commit checkpointing is del
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckPointRelationMap (relation mapping tables)
-  - CheckPointReplicationSlots (replication slot state)
-  - CheckPointSnapBuild (snapshot building state)
+  - [CheckPointRelationMap](CheckPointRelationMap.md) (relation mapping tables)
+  - [CheckPointReplicationSlots](CheckPointReplicationSlots.md) (replication slot state)
+  - [CheckPointSnapBuild](CheckPointSnapBuild.md) (snapshot building state)
   - CheckPointLogicalRewriteHeap (logical replication heap)
-  - CheckPointReplicationOrigin (replication origin state)
-  - CheckPointCLOG (commit log SLRU)
-  - CheckPointCommitTs (commit timestamp SLRU)
-  - CheckPointSUBTRANS (subtransaction SLRU)
-  - CheckPointMultiXact (multixact SLRU)
-  - CheckPointPredicate (predicate lock state)
-  - CheckPointBuffers (main buffer pool)
-  - ProcessSyncRequests (fsync request processing)
-  - CheckPointTwoPhase (two-phase commit state)
-  - GetCurrentTimestamp (timing statistics)
+  - [CheckPointReplicationOrigin](CheckPointReplicationOrigin.md) (replication origin state)
+  - [CheckPointCLOG](CheckPointCLOG.md) (commit log SLRU)
+  - [CheckPointCommitTs](CheckPointCommitTs.md) (commit timestamp SLRU)
+  - [CheckPointSUBTRANS](CheckPointSUBTRANS.md) (subtransaction SLRU)
+  - [CheckPointMultiXact](CheckPointMultiXact.md) (multixact SLRU)
+  - [CheckPointPredicate](CheckPointPredicate.md) (predicate lock state)
+  - [CheckPointBuffers](CheckPointBuffers.md) (main buffer pool)
+  - [ProcessSyncRequests](../P/ProcessSyncRequests.md) (fsync request processing)
+  - [CheckPointTwoPhase](CheckPointTwoPhase.md) (two-phase commit state)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (timing statistics)
 - Called from (representative examples):
-  - CreateCheckPoint
-  - CreateRestartPoint
+  - [CreateCheckPoint](CreateCheckPoint.md)
+  - [CreateRestartPoint](CreateRestartPoint.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information
@@ -46,7 +46,7 @@ The ordering is critical for consistency - two-phase commit checkpointing is del
 - Includes comprehensive performance instrumentation with timing statistics
 - Two-phase commit checkpointing is intentionally performed last for consistency
 - Handles both SLRU (Simple LRU) subsystems and the main buffer pool
-- ProcessSyncRequests ensures all pending fsync operations complete before returning
+- [ProcessSyncRequests](../P/ProcessSyncRequests.md) ensures all pending fsync operations complete before returning
 - Order of operations is critical for maintaining data consistency guarantees
 - Performance tracing points enable monitoring of checkpoint I/O patterns
 - The function represents the most I/O-intensive part of checkpoint processing

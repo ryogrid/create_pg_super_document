@@ -27,10 +27,10 @@ This function is especially valuable for Bloom filters and other probabilistic d
   - mix (internal hash mixing function)
   - final (final hash value computation)
 - Called from (representative examples):
-  - bloom_add_value (src/backend/access/brin/brin_bloom.c:377,378)
-  - bloom_contains_value (src/backend/access/brin/brin_bloom.c:414,415)
+  - [bloom_add_value](../b/bloom_add_value.md) (src/backend/access/brin/brin_bloom.c:377,378)
+  - [bloom_contains_value](../b/bloom_contains_value.md) (src/backend/access/brin/brin_bloom.c:414,415)
   - ROTATE_HIGH_AND_LOW_32BITS (src/include/common/hashfn.h:27)
-  - hash_uint32_extended (src/include/common/hashfn.h:51)
+  - [hash_uint32_extended](hash_uint32_extended.md) (src/include/common/hashfn.h:51)
 
 ## Notes and Other Information
 - Combines the performance benefits of direct uint32 hashing with extended 64-bit output and seeding

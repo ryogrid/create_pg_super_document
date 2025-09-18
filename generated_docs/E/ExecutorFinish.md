@@ -25,15 +25,15 @@ The function is a critical part of the executor lifecycle: ExecutorStart → Exe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - standard_ExecutorFinish (default implementation when no hook is present)
+  - [standard_ExecutorFinish](../s/standard_ExecutorFinish.md) (default implementation when no hook is present)
   - QueryDesc (parameter structure)
 - Called from (representative examples):
-  - EndCopyTo (src/backend/commands/copyto.c:731)
-  - ExecCreateTableAs (src/backend/commands/createas.c:334)
-  - ExplainOnePlan (src/backend/commands/explain.c:705)
-  - ProcessQuery (src/backend/tcop/pquery.c:193)
-  - PortalCleanup (src/backend/commands/portalcmds.c:298)
-  - _SPI_pquery (src/backend/executor/spi.c:2943)
+  - [EndCopyTo](EndCopyTo.md) (src/backend/commands/copyto.c:731)
+  - [ExecCreateTableAs](ExecCreateTableAs.md) (src/backend/commands/createas.c:334)
+  - [ExplainOnePlan](ExplainOnePlan.md) (src/backend/commands/explain.c:705)
+  - [ProcessQuery](../P/ProcessQuery.md) (src/backend/tcop/pquery.c:193)
+  - [PortalCleanup](../P/PortalCleanup.md) (src/backend/commands/portalcmds.c:298)
+  - [_SPI_pquery](../S/_SPI_pquery.md) (src/backend/executor/spi.c:2943)
 
 ## Notes and Other Information
 - Must be called after all ExecutorRun calls are complete but before ExecutorEnd

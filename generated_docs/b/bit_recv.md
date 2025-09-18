@@ -35,13 +35,13 @@ This function is critical for client-server communication when using prepared st
 ## Dependencies
 - Functions called/Symbols referenced:
   - VarBit (type definition)
-  - pq_getmsgint (binary protocol integer reading)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (binary protocol integer reading)
   - VARBITMAXLEN (maximum bit string length constant)
   - VARBITTOTALLEN (macro for calculating storage size)
   - SET_VARSIZE, VARBITLEN, VARBITS, VARBITBYTES (VarBit manipulation macros)
-  - pq_copymsgbytes (binary protocol data copying)
+  - [pq_copymsgbytes](../p/pq_copymsgbytes.md) (binary protocol data copying)
   - VARBIT_PAD (zero-padding macro)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - ereport (error reporting)
   - PG_RETURN_VARBIT_P (return macro)
 - Called from (representative examples):

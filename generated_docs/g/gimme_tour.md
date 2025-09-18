@@ -20,14 +20,14 @@ This function creates a new tour (offspring) by constructing a path through all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geqo_randint (random number generation for initial city selection)
-  - remove_gene (removes city from edge lists)
-  - gimme_gene (selects next city from available edges)
-  - edge_failure (handles cases when no valid edges available)
+  - [geqo_randint](geqo_randint.md) (random number generation for initial city selection)
+  - [remove_gene](../r/remove_gene.md) (removes city from edge lists)
+  - [gimme_gene](gimme_gene.md) (selects next city from available edges)
+  - [edge_failure](../e/edge_failure.md) (handles cases when no valid edges available)
   - Edge (edge table data structure)
   - Gene (genetic algorithm gene data type)
 - Called from (representative examples):
-  - geqo (main genetic algorithm function during crossover)
+  - [geqo](geqo.md) (main genetic algorithm function during crossover)
 
 ## Notes and Other Information
 - Implements the tour construction phase of ERX crossover algorithm

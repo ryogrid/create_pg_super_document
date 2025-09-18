@@ -19,17 +19,17 @@ The  function creates dump archive entries for large object metadata. It generat
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer/appendPQExpBuffer/destroyPQExpBuffer (string buffer management)
-  - ArchiveEntry (creates archive entry for BLOB metadata)
-  - dumpComment (dumps individual BLOB comments)
-  - dumpSecLabel (dumps individual BLOB security labels)
-  - dumpACL (dumps ACL permissions for BLOBs)
+  - [ArchiveEntry](../A/ArchiveEntry.md) (creates archive entry for BLOB metadata)
+  - [dumpComment](dumpComment.md) (dumps individual BLOB comments)
+  - [dumpSecLabel](dumpSecLabel.md) (dumps individual BLOB security labels)
+  - [dumpACL](dumpACL.md) (dumps ACL permissions for BLOBs)
   - ARCHIVE_OPTS (archive entry configuration macro)
   - DUMP_COMPONENT_* constants (component flags for selective dumping)
   - SECTION_DATA (archive section designation)
-  - CatalogId (catalog identifier structure)
+  - [CatalogId](../C/CatalogId.md) (catalog identifier structure)
   - InvalidDumpId (null dump ID constant)
 - Called from (representative examples):
-  - dumpDumpableObject (main dump dispatcher function)
+  - [dumpDumpableObject](dumpDumpableObject.md) (main dump dispatcher function)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

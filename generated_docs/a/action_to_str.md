@@ -27,7 +27,7 @@ The function uses a simple switch statement to map each file action constant to 
   - FILE_ACTION_CREATE
   - FILE_ACTION_REMOVE
 - Called from (representative examples):
-  - print_filemap
+  - [print_filemap](../p/print_filemap.md)
 
 ## Notes and Other Information
 - This is a static function, so it's only visible within the filemap.c compilation unit

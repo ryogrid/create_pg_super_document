@@ -20,19 +20,19 @@ This function serves as the core parsing routine for both INET and CIDR data typ
 ## Dependencies
 - Functions called/Symbols referenced:
   - inet (data type)
-  - palloc0 (memory allocation)
+  - [palloc0](../p/palloc0.md) (memory allocation)
   - strchr (string search)
-  - pg_inet_net_pton (network address parsing)
+  - [pg_inet_net_pton](../p/pg_inet_net_pton.md) (network address parsing)
   - ip_family, ip_addr, ip_bits, ip_addrsize, ip_maxbits (inet accessor macros)
-  - addressOK (CIDR validation)
+  - [addressOK](../a/addressOK.md) (CIDR validation)
   - SET_INET_VARSIZE (size setting macro)
   - ereturn (error return macro)
   - PGSQL_AF_INET, PGSQL_AF_INET6 (address family constants)
 - Called from (representative examples):
-  - inet_in (INET type input function)
-  - cidr_in (CIDR type input function)
-  - inet_client_addr (client address retrieval)
-  - inet_server_addr (server address retrieval)
+  - [inet_in](../i/inet_in.md) (INET type input function)
+  - [cidr_in](../c/cidr_in.md) (CIDR type input function)
+  - [inet_client_addr](../i/inet_client_addr.md) (client address retrieval)
+  - [inet_server_addr](../i/inet_server_addr.md) (server address retrieval)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's an internal helper function within the network.c module

@@ -26,14 +26,14 @@ The function uses the locale-specific `frac_digits` setting to determine how man
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PGLC_localeconv`: Get locale conversion information
-  - `int64_to_numeric`: Convert int64 to numeric type
-  - `NumericGetDatum`: Convert numeric to Datum
-  - `numeric_mul`: Multiply two numeric values
+  - `[PGLC_localeconv](../P/PGLC_localeconv.md)`: Get locale conversion information
+  - `[int64_to_numeric](../i/int64_to_numeric.md)`: Convert int64 to numeric type
+  - `[NumericGetDatum](../N/NumericGetDatum.md)`: Convert numeric to Datum
+  - `[numeric_mul](numeric_mul.md)`: Multiply two numeric values
   - `DirectFunctionCall2`: Call a 2-argument PostgreSQL function
-  - `numeric_int8`: Convert numeric to int8 (with rounding)
+  - `[numeric_int8](numeric_int8.md)`: Convert numeric to int8 (with rounding)
   - `DirectFunctionCall1`: Call a 1-argument PostgreSQL function
-  - `DatumGetInt64`: Extract int64 from Datum
+  - `[DatumGetInt64](../D/DatumGetInt64.md)`: Extract int64 from Datum
   - `PG_RETURN_CASH`: Return a Cash value
 - Called from (representative examples):
   - No direct references found in codebase

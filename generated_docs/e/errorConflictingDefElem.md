@@ -23,20 +23,20 @@ The function generates a syntax error with the standard error code `ERRCODE_SYNT
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting function)
-  - errcode (error code specification)
-  - errmsg (error message specification)  
-  - parser_errposition (parser position reporting)
-  - DefElem (structure type for definition elements)
-  - ParseState (structure type for parse state)
+  - [errcode](errcode.md) (error code specification)
+  - [errmsg](errmsg.md) (error message specification)  
+  - [parser_errposition](../p/parser_errposition.md) (parser position reporting)
+  - [DefElem](../D/DefElem.md) (structure type for definition elements)
+  - [ParseState](../P/ParseState.md) (structure type for parse state)
 - Called from (representative examples):
-  - createdb (database creation)
-  - CreateRole (role creation)
-  - ProcessCopyOptions (COPY command option processing)
-  - CreateExtension (extension creation)
-  - DefineCollation (collation definition)
-  - parse_subscription_options (subscription option parsing)
-  - compute_function_attributes (function attribute computation)
-  - init_params (sequence parameter initialization)
+  - [createdb](../c/createdb.md) (database creation)
+  - [CreateRole](../C/CreateRole.md) (role creation)
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md) (COPY command option processing)
+  - [CreateExtension](../C/CreateExtension.md) (extension creation)
+  - [DefineCollation](../D/DefineCollation.md) (collation definition)
+  - [parse_subscription_options](../p/parse_subscription_options.md) (subscription option parsing)
+  - [compute_function_attributes](../c/compute_function_attributes.md) (function attribute computation)
+  - [init_params](../i/init_params.md) (sequence parameter initialization)
 
 ## Notes and Other Information
 - This function never returns - it always throws an ERROR that terminates the current transaction

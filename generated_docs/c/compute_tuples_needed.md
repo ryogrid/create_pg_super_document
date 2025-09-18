@@ -25,7 +25,7 @@ For normal LIMIT/OFFSET operations, it returns the sum of count + offset, which 
 - Functions called/Symbols referenced:
   - None (simple arithmetic and field access)
 - Called from (representative examples):
-  - recompute_limits (to set tuple bound for child node)
+  - [recompute_limits](../r/recompute_limits.md) (to set tuple bound for child node)
 
 ## Notes and Other Information
 - Used for query optimization by informing child nodes of tuple requirements

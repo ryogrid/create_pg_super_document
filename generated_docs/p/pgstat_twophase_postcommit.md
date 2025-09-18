@@ -290,7 +290,7 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_relation_pending
+  - [pgstat_prep_relation_pending](pgstat_prep_relation_pending.md)
   - TwoPhasePgStatRecord (data structure)
   - PgStat_TableStatus (data structure)
 - Called from (representative examples):

@@ -28,11 +28,11 @@ The actual cleanup of these TupleDescs happens during transaction cleanup, ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - palloc
-  - repalloc
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
 - Called from (representative examples):
-  - RelationDestroyRelation
+  - [RelationDestroyRelation](RelationDestroyRelation.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relcache.c module

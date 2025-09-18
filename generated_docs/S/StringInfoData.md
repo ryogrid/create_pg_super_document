@@ -25,8 +25,8 @@ The structure supports two operational modes:
 ## Dependencies
 - Functions called/Symbols referenced: (None directly)
 - Called from (representative examples):
-  - initReadOnlyStringInfo (initializes read-only instances)
-  - initStringInfoFromString (initializes from existing string)
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md) (initializes read-only instances)
+  - [initStringInfoFromString](../i/initStringInfoFromString.md) (initializes from existing string)
   - makeStringInfo (creates new instances)
   - appendStringInfo family of functions
 

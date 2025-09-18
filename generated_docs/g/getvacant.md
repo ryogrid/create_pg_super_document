@@ -22,12 +22,12 @@ The cleanup process involves two main phases: first, it clears all incoming arcs
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pickss (to obtain a candidate state set)
+  - [pickss](../p/pickss.md) (to obtain a candidate state set)
   - FDEBUG (debugging macro for tracing operations)
   - assert (assertion macro for runtime checks)
 - Called from (representative examples):
-  - initialize (during DFA initialization)
-  - miss (when handling cache misses)
+  - [initialize](../i/initialize.md) (during DFA initialization)
+  - [miss](../m/miss.md) (when handling cache misses)
   - LOFF (in regex execution engine)
 
 ## Notes and Other Information

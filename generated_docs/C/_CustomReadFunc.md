@@ -21,12 +21,12 @@ The function follows a two-step process: first reading the length of the compres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadInt (reads the block length from archive)
+  - [ReadInt](../R/ReadInt.md) (reads the block length from archive)
   - pg_malloc (allocates memory for larger buffers)
-  - _ReadBuf (reads the actual data block from archive)
+  - [_ReadBuf](../R/_ReadBuf.md) (reads the actual data block from archive)
 - Called from (representative examples):
   - lclTocEntry (function pointer assignment at line 92)
-  - _PrintData (passed to AllocateCompressor at line 574)
+  - [_PrintData](../P/_PrintData.md) (passed to AllocateCompressor at line 574)
 
 ## Notes and Other Information
 - This is a static function internal to the pg_backup_custom.c module

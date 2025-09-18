@@ -18,14 +18,14 @@ This internal function iterates through all locks held by a specific transaction
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION
-  - LockRelease
-  - hash_search
-  - RecoveryLockEntry
+  - [LockRelease](../L/LockRelease.md)
+  - [hash_search](../h/hash_search.md)
+  - [RecoveryLockEntry](../R/RecoveryLockEntry.md)
   - LOCKTAG
   - AccessExclusiveLock
   - HASH_REMOVE
 - Called from (representative examples):
-  - StandbyReleaseLocks (src/backend/storage/ipc/standby.c:1075)
+  - [StandbyReleaseLocks](StandbyReleaseLocks.md) (src/backend/storage/ipc/standby.c:1075)
   - StandbyReleaseAllLocks (src/backend/storage/ipc/standby.c:1115)
   - StandbyReleaseOldLocks (src/backend/storage/ipc/standby.c:1145)
 

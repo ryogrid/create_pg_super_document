@@ -144,11 +144,11 @@ write_data_to_archive_lz4_doc.md: Current scan direction (forward or backward)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_verify_keys_with_arraykeys
+  - [_bt_verify_keys_with_arraykeys](_bt_verify_keys_with_arraykeys.md)
   - ScanDirectionIsForward
   - ScanDirectionIsBackward
 - Called from (representative examples):
-  - _bt_start_prim_scan
+  - [_bt_start_prim_scan](_bt_start_prim_scan.md)
 
 ## Notes and Other Information
 - This is primarily a debugging/assertion function used to catch array state inconsistencies

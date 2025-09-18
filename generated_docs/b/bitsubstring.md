@@ -28,15 +28,15 @@ This internal function performs the actual substring extraction from bit strings
   - VARBITEND (gets pointer to end of bit data)
   - VARBIT_PAD (ensures proper padding of last byte)
   - SET_VARSIZE (sets PostgreSQL variable-length data size)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - memcpy (memory copy operation)
-  - pg_add_s32_overflow (overflow-safe addition)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (overflow-safe addition)
   - ereport/ERROR (PostgreSQL error reporting)
   - Max/Min (utility macros)
 - Called from:
-  - bitsubstr (at src/backend/utils/adt/varbit.c:1040)
-  - bitsubstr_no_len (at src/backend/utils/adt/varbit.c:1049)
-  - bit_overlay (at src/backend/utils/adt/varbit.c:1197, 1198)
+  - [bitsubstr](bitsubstr.md) (at src/backend/utils/adt/varbit.c:1040)
+  - [bitsubstr_no_len](bitsubstr_no_len.md) (at src/backend/utils/adt/varbit.c:1049)
+  - [bit_overlay](bit_overlay.md) (at src/backend/utils/adt/varbit.c:1197, 1198)
 
 ## Notes and Other Information
 - This is a static function defined in src/backend/utils/adt/varbit.c at lines 1055-1152

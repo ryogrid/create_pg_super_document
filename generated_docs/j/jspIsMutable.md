@@ -26,14 +26,14 @@ The analysis considers factors such as datetime operations, function calls, and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonPath (structure type)
-  - JsonPathMutableContext (structure type)
+  - [JsonPathMutableContext](../J/JsonPathMutableContext.md) (structure type)
   - JsonPathItem (structure type)
   - jpdsNonDateTime (enum constant)
   - JSONPATH_LAX (constant)
-  - jspInit (function)
-  - jspIsMutableWalker (function)
+  - [jspInit](jspInit.md) (function)
+  - [jspIsMutableWalker](jspIsMutableWalker.md) (function)
 - Called from (representative examples):
-  - contain_mutable_functions_walker
+  - [contain_mutable_functions_walker](../c/contain_mutable_functions_walker.md)
   - jspHasNext
 
 ## Notes and Other Information

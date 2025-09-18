@@ -31,12 +31,12 @@ The function modifies the input line pointer to advance past the processed token
 ## Dependencies
 - Functions called/Symbols referenced:
   - resetStringInfo (clears the output buffer)
-  - pg_isblank (tests for whitespace characters)
+  - [pg_isblank](../p/pg_isblank.md) (tests for whitespace characters)
   - appendStringInfoChar (appends characters to the buffer)
 - Called from (representative examples):
-  - next_field_expand (in src/backend/libpq/hba.c)
-  - base_yylex (in src/backend/parser/parser.c)
-  - filtered_base_yylex (in src/interfaces/ecpg/preproc/parser.c)
+  - [next_field_expand](next_field_expand.md) (in src/backend/libpq/hba.c)
+  - [base_yylex](../b/base_yylex.md) (in src/backend/parser/parser.c)
+  - [filtered_base_yylex](../f/filtered_base_yylex.md) (in src/interfaces/ecpg/preproc/parser.c)
 
 ## Notes and Other Information
 - This is a static function, only visible within the hba.c file

@@ -26,12 +26,12 @@ The function uses `memset` to efficiently fill the buffer with the specified cha
   - `memset` - Standard C library function for memory filling
   - No other PostgreSQL-specific dependencies
 - Called from (representative examples):
-  - `int_to_roman` - Roman numeral conversion
-  - `numeric_to_char` - Numeric to string formatting
-  - `int4_to_char` - Integer formatting
-  - `int8_to_char` - Long integer formatting
-  - `float4_to_char` - Float formatting
-  - `float8_to_char` - Double formatting
+  - `[int_to_roman](../i/int_to_roman.md)` - Roman numeral conversion
+  - `[numeric_to_char](../n/numeric_to_char.md)` - Numeric to string formatting
+  - `[int4_to_char](../i/int4_to_char.md)` - Integer formatting
+  - `[int8_to_char](../i/int8_to_char.md)` - Long integer formatting
+  - `[float4_to_char](float4_to_char.md)` - Float formatting
+  - `[float8_to_char](float8_to_char.md)` - Double formatting
 
 ## Notes and Other Information
 - This function is part of the "NUMBER version part" section of the formatting system, as indicated by the comment above its definition

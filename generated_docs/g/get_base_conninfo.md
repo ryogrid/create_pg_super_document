@@ -27,14 +27,14 @@ Key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconninfoOption (libpq structure for connection options)
-  - PQconninfoParse (parses connection string into options array)
-  - PQfreemem (frees libpq-allocated memory)
-  - appendConnStrItem (helper to build connection string items)
-  - PQconninfoFree (frees connection options array)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (libpq structure for connection options)
+  - [PQconninfoParse](../P/PQconninfoParse.md) (parses connection string into options array)
+  - [PQfreemem](../P/PQfreemem.md) (frees libpq-allocated memory)
+  - [appendConnStrItem](../a/appendConnStrItem.md) (helper to build connection string items)
+  - [PQconninfoFree](../P/PQconninfoFree.md) (frees connection options array)
   - pg_log_error, pg_strdup, createPQExpBuffer, destroyPQExpBuffer
 - Called from (representative examples):
-  - main (in pg_createsubscriber main function)
+  - [main](../m/main.md) (in pg_createsubscriber main function)
 
 ## Notes and Other Information
 - This is a static function specific to pg_createsubscriber utility

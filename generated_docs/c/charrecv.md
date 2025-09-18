@@ -23,7 +23,7 @@ This function is used when data is sent in PostgreSQL's binary format (format co
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract the StringInfo buffer)
-  - pq_getmsgbyte (to read a single byte from the message buffer)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md) (to read a single byte from the message buffer)
   - PG_RETURN_CHAR (to return the character result)
 - Called from (representative examples):
   - PostgreSQL binary protocol handling

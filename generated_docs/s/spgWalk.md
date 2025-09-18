@@ -20,27 +20,27 @@ This function is the main tree traversal engine for SP-GiST index scans. It proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgGetNextQueueItem
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - ReadBuffer
-  - LockBuffer
-  - BufferGetBlockNumber
-  - UnlockReleaseBuffer
-  - BufferGetPage
+  - [spgGetNextQueueItem](spgGetNextQueueItem.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - SpGistPageStoresNulls
   - SpGistPageIsLeaf
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - SpGistBlockIsRoot
-  - spgTestLeafTuple
-  - PageGetItem
-  - PageGetItemId
-  - spgInnerTest
-  - spgFreeSearchItem
-  - MemoryContextReset
+  - [spgTestLeafTuple](spgTestLeafTuple.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [spgInnerTest](spgInnerTest.md)
+  - [spgFreeSearchItem](spgFreeSearchItem.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
 - Called from (representative examples):
-  - spggetbitmap
-  - spggettuple
+  - [spggetbitmap](spggetbitmap.md)
+  - [spggettuple](spggettuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to spgscan.c

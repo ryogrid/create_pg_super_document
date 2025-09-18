@@ -20,10 +20,10 @@ The function returns immediately after sending the command, and the application 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendTypedCommand
+  - [PQsendTypedCommand](PQsendTypedCommand.md)
   - PqMsg_Describe
 - Called from (representative examples):
-  - test_prepared (src/test/modules/libpq_pipeline/libpq_pipeline.c:1351)
+  - [test_prepared](../t/test_prepared.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:1351)
 
 ## Notes and Other Information
 - This is the asynchronous version of PQdescribePortal

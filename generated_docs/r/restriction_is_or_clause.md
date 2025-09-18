@@ -18,14 +18,14 @@ This function provides a simple boolean test to determine if a RestrictInfo cont
 ## Dependencies
 - Functions called/Symbols referenced: (none - direct field access only)
 - Called from (representative examples):
-  - generate_bitmap_or_paths
-  - match_join_clauses_to_index
-  - TidQualFromRestrictInfoList
-  - remove_rel_from_restrictinfo
-  - restriction_is_always_true
-  - restriction_is_always_false
-  - extract_restriction_or_clauses
-  - extract_or_clause
+  - [generate_bitmap_or_paths](../g/generate_bitmap_or_paths.md)
+  - [match_join_clauses_to_index](../m/match_join_clauses_to_index.md)
+  - [TidQualFromRestrictInfoList](../T/TidQualFromRestrictInfoList.md)
+  - [remove_rel_from_restrictinfo](remove_rel_from_restrictinfo.md)
+  - [restriction_is_always_true](restriction_is_always_true.md)
+  - [restriction_is_always_false](restriction_is_always_false.md)
+  - [extract_restriction_or_clauses](../e/extract_restriction_or_clauses.md)
+  - [extract_or_clause](../e/extract_or_clause.md)
   - make_simple_restrictinfo
 
 ## Notes and Other Information

@@ -29,7 +29,7 @@ The structure serves as the foundation for connection parameter management, supp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconninfoOption (public counterpart structure)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (public counterpart structure)
   - PGconn (connection structure where values are stored)
 - Called from (representative examples):
   - Connection parameter processing functions

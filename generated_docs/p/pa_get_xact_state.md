@@ -23,12 +23,12 @@ Being declared as static, this function is only accessible within the applyparal
 - Functions called/Symbols referenced:
   - SpinLockAcquire (spinlock acquisition)
   - SpinLockRelease (spinlock release)
-  - ParallelApplyWorkerShared (shared worker state structure)
+  - [ParallelApplyWorkerShared](../P/ParallelApplyWorkerShared.md) (shared worker state structure)
   - ParallelTransState (transaction state enumeration)
 - Called from (representative examples):
-  - pa_free_worker
-  - pa_wait_for_xact_state
-  - pa_wait_for_xact_finish
+  - [pa_free_worker](pa_free_worker.md)
+  - [pa_wait_for_xact_state](pa_wait_for_xact_state.md)
+  - [pa_wait_for_xact_finish](pa_wait_for_xact_finish.md)
 
 ## Notes and Other Information
 - This function is located in src/backend/replication/logical/applyparallelworker.c:1319-1333

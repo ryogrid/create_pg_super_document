@@ -21,7 +21,7 @@ This function determines whether a specific socket file descriptor has input dat
 - Functions called/Symbols referenced:
   - FD_ISSET (system macro)
 - Called from (representative examples):
-  - threadRun (for checking socket readiness after select() in pgbench)
+  - [threadRun](../t/threadRun.md) (for checking socket readiness after select() in pgbench)
 
 ## Notes and Other Information
 - Returns true if the socket has input data available, false otherwise

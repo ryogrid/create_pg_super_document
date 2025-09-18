@@ -23,19 +23,19 @@ The function performs error checking to ensure the SQL query succeeds and return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecParams (executes parameterized SQL query)
-  - PQresultStatus (checks query result status)
-  - PQresultErrorMessage (gets error message from failed query)
-  - PQntuples (gets number of result tuples)
-  - PQgetisnull (checks if result value is NULL)
-  - PQgetlength (gets length of result value)
-  - PQgetvalue (gets result value data)
-  - PQclear (cleans up result)
+  - [PQexecParams](../P/PQexecParams.md) (executes parameterized SQL query)
+  - [PQresultStatus](../P/PQresultStatus.md) (checks query result status)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (gets error message from failed query)
+  - [PQntuples](../P/PQntuples.md) (gets number of result tuples)
+  - [PQgetisnull](../P/PQgetisnull.md) (checks if result value is NULL)
+  - [PQgetlength](../P/PQgetlength.md) (gets length of result value)
+  - [PQgetvalue](../P/PQgetvalue.md) (gets result value data)
+  - [PQclear](../P/PQclear.md) (cleans up result)
   - pg_malloc (PostgreSQL memory allocation)
-  - pg_fatal (PostgreSQL fatal error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error reporting)
   - pg_log_debug (PostgreSQL debug logging)
 - Called from (representative examples):
-  - init_libpq_source (src/bin/pg_rewind/libpq_source.c:91)
+  - [init_libpq_source](../i/init_libpq_source.md) (src/bin/pg_rewind/libpq_source.c:91)
 
 ## Notes and Other Information
 - This is a static function used internally within the pg_rewind utility

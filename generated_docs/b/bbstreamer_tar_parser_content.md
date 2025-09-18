@@ -25,12 +25,12 @@ This function implements the core parsing logic for the tar parser, operating as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_buffer_until
-  - bbstreamer_tar_header
-  - bbstreamer_content
-  - bbstreamer_buffer_bytes
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md)
+  - [bbstreamer_tar_header](bbstreamer_tar_header.md)
+  - [bbstreamer_content](bbstreamer_content.md)
+  - [bbstreamer_buffer_bytes](bbstreamer_buffer_bytes.md)
   - TAR_BLOCK_SIZE
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in ops structure)
 

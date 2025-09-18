@@ -32,18 +32,18 @@ Key features include:
   - HeapTupleHeaderGetRawXmax
   - HeapTupleHeaderXminInvalid
   - HeapTupleHeaderXminCommitted
-  - TransactionIdInArray
-  - TransactionIdDidCommit
-  - TransactionIdPrecedes
-  - TransactionIdFollowsOrEquals
-  - ResolveCminCmaxDuringDecoding
+  - [TransactionIdInArray](../T/TransactionIdInArray.md)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md)
+  - [ResolveCminCmaxDuringDecoding](../R/ResolveCminCmaxDuringDecoding.md)
   - HistoricSnapshotGetTupleCids
-  - HeapTupleGetUpdateXid
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
   - HeapTupleHeaderGetRawCommandId
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - HEAP_XMAX_INVALID, HEAP_XMAX_IS_LOCKED_ONLY, HEAP_XMAX_IS_MULTI, HEAP_XMAX_COMMITTED (macros)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the heapam_visibility.c file

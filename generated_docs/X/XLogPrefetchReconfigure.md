@@ -23,9 +23,9 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - XLogPrefetchReconfigureCount (global variable)
 - Called from (representative examples):
-  - assign_recovery_prefetch
-  - ApplyWalRecord
-  - assign_maintenance_io_concurrency
+  - [assign_recovery_prefetch](../a/assign_recovery_prefetch.md)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md)
+  - [assign_maintenance_io_concurrency](../a/assign_maintenance_io_concurrency.md)
 
 ## Notes and Other Information
 - This function is called whenever GUC parameters affecting prefetching are changed

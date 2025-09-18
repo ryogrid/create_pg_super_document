@@ -33,10 +33,10 @@ Unlike TupleDescInitEntry which can handle any type by consulting the catalog, t
   - Storage method constants (TYPSTORAGE_EXTENDED, TYPSTORAGE_PLAIN)
   - InvalidCompressionMethod constant
 - Called from (representative examples):
-  - SendXlogRecPtrResult (basebackup functionality)
-  - IdentifySystem (replication protocol)
+  - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (basebackup functionality)
+  - [IdentifySystem](../I/IdentifySystem.md) (replication protocol)
   - ShowGUCConfigOption (configuration display)
-  - CreateReplicationSlot (replication slot management)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (replication slot management)
 
 ## Notes and Other Information
 - Only supports TEXT, TEXTARRAY, BOOL, INT4, INT8, and OID types; attempting to use other types will result in an ERROR

@@ -27,7 +27,7 @@ The function handles interrupts (EINTR) by retrying the operation, and reports f
   - errno constants: EAGAIN, EDEADLK, EINTR
 - Called from (representative examples):
   - InitProcess (process initialization)
-  - InitAuxiliaryProcess (auxiliary process initialization)
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (auxiliary process initialization)
 
 ## Notes and Other Information
 - Uses a "ratcheting down" approach since POSIX provides no direct reset API

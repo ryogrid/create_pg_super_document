@@ -22,14 +22,14 @@ This function modifies a tuple slot in preparation for result projection based o
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_EMPTY
-  - ExecStoreAllNullTuple
+  - [ExecStoreAllNullTuple](../E/ExecStoreAllNullTuple.md)
   - slot_getsomeattrs
   - linitial_int
   - lfirst_int
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
-  - agg_retrieve_direct
-  - agg_retrieve_hash_table_in_memory
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
 
 ## Notes and Other Information
 - Relies on the assumption that nothing will extract the whole tuple from the slot, only reference individual attributes

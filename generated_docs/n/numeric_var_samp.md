@@ -24,10 +24,10 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericAggState (aggregate state structure)
-  - numeric_stddev_internal (core variance/stddev computation function)
+  - [NumericAggState](../N/NumericAggState.md) (aggregate state structure)
+  - [numeric_stddev_internal](numeric_stddev_internal.md) (core variance/stddev computation function)
 - Called from (representative examples):
-  - numeric_poly_var_samp
+  - [numeric_poly_var_samp](numeric_poly_var_samp.md)
 
 ## Notes and Other Information
 - Returns NULL when there are fewer than 2 non-null input values (sample variance is mathematically undefined for N <= 1)

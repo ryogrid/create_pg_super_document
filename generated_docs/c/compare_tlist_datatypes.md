@@ -26,15 +26,15 @@ The function assumes that typmod differences are acceptable as long as the base 
   - list_head
   - lfirst
   - lfirst_oid
-  - lnext
+  - [lnext](../l/lnext.md)
   - exprType
   - elog
 - Types referenced:
-  - pushdown_safety_info
-  - TargetEntry
+  - [pushdown_safety_info](../p/pushdown_safety_info.md)
+  - [TargetEntry](../T/TargetEntry.md)
   - UNSAFE_TYPE_MISMATCH (constant)
 - Called from (representative examples):
-  - subquery_is_pushdown_safe (src/backend/optimizer/path/allpaths.c:3627)
+  - [subquery_is_pushdown_safe](../s/subquery_is_pushdown_safe.md) (src/backend/optimizer/path/allpaths.c:3627)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c, used specifically for set operation qualifier pushdown safety analysis

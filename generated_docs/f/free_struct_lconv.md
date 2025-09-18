@@ -24,7 +24,7 @@ Importantly, this function only frees the string contents pointed to by the stru
 - Functions called/Symbols referenced:
   - free (standard C library function for memory deallocation)
 - Called from (representative examples):
-  - PGLC_localeconv (at lines 566 and 727 in pg_locale.c)
+  - [PGLC_localeconv](../P/PGLC_localeconv.md) (at lines 566 and 727 in pg_locale.c)
 
 ## Notes and Other Information
 - The function is declared as , making it internal to pg_locale.c

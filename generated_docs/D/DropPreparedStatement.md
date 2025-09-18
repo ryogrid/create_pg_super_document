@@ -18,12 +18,12 @@ DropPreparedStatement is the core implementation function for removing individua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FetchPreparedStatement (locates the statement in the hash table)
-  - DropCachedPlan (releases plancache resources)
-  - hash_search (removes entry from hash table with HASH_REMOVE)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (locates the statement in the hash table)
+  - [DropCachedPlan](DropCachedPlan.md) (releases plancache resources)
+  - [hash_search](../h/hash_search.md) (removes entry from hash table with HASH_REMOVE)
 - Called from (representative examples):
-  - DeallocateQuery (user-initiated DEALLOCATE commands)
-  - PostgresMain (session cleanup)
+  - [DeallocateQuery](DeallocateQuery.md) (user-initiated DEALLOCATE commands)
+  - [PostgresMain](../P/PostgresMain.md) (session cleanup)
 
 ## Notes and Other Information
 - Performs proper resource cleanup by releasing cached plans before removing hash table entries

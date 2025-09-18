@@ -26,7 +26,7 @@ The reset operation does not actually clear the array contents but rather resets
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcArrayStruct
+  - [ProcArrayStruct](../P/ProcArrayStruct.md)
   - LWLockAcquire
   - LWLockRelease
   - ProcArrayLock

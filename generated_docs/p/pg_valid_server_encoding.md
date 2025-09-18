@@ -20,13 +20,13 @@ This function validates an encoding name string to determine if it represents a 
   - pg_char_to_encoding (converts encoding name string to internal encoding ID)
   - PG_VALID_BE_ENCODING (macro for validating backend/server encodings)
 - Called from (representative examples):
-  - createdb (src/backend/commands/dbcommands.c:883, 893)
-  - parse_extension_control_file (src/backend/commands/extension.c:590)
-  - get_encoding_id (src/bin/initdb/initdb.c:849)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:883, 893)
+  - [parse_extension_control_file](parse_extension_control_file.md) (src/backend/commands/extension.c:590)
+  - [get_encoding_id](../g/get_encoding_id.md) (src/bin/initdb/initdb.c:849)
 
 ## Notes and Other Information
 - Returns the encoding ID (positive integer) if valid, or -1 if invalid
-- Backend encodings are those suitable for server-side database storage and operations
+- [Backend](../B/Backend.md) encodings are those suitable for server-side database storage and operations
 - Used for validating database encoding settings during CREATE DATABASE operations
 - Also used by initdb and extension loading to validate encoding specifications
 - Located in src/common/encnames.c:499-512

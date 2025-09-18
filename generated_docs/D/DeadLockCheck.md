@@ -26,17 +26,17 @@ The caller must already hold locks on all partitions of the lock tables before c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeadLockCheckRecurse
+  - [DeadLockCheckRecurse](DeadLockCheckRecurse.md)
   - FindLockCycle
-  - dclist_count
-  - dclist_init
-  - dclist_push_tail
+  - [dclist_count](../d/dclist_count.md)
+  - [dclist_init](../d/dclist_init.md)
+  - [dclist_push_tail](../d/dclist_push_tail.md)
   - GetLocksMethodTable
   - ProcLockWakeup
-  - PrintLockQueue (debug only)
+  - [PrintLockQueue](../P/PrintLockQueue.md) (debug only)
   - LOCK (struct type)
-  - PGPROC (struct type)
-  - dclist_head (struct type)
+  - [PGPROC](../P/PGPROC.md) (struct type)
+  - [dclist_head](../d/dclist_head.md) (struct type)
 - Called from (representative examples):
   - CheckDeadLock
   - LockHashPartitionLockByProc

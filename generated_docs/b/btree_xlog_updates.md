@@ -30,17 +30,17 @@ Key operations performed:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
-  - PageGetItem
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
   - _bt_update_posting
   - IndexTupleSize
-  - PageIndexTupleOverwrite
-  - palloc
-  - pfree
+  - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md)
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - memcpy
 - Called from (representative examples):
-  - btree_xlog_vacuum
-  - btree_xlog_delete
+  - [btree_xlog_vacuum](btree_xlog_vacuum.md)
+  - [btree_xlog_delete](btree_xlog_delete.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally during B-tree WAL recovery

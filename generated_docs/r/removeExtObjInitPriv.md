@@ -22,13 +22,13 @@ The function follows the same object type logic as its recording counterpart, sk
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recordExtensionInitPrivWorker (worker function called with NULL ACL to delete entries)
-  - SearchSysCache1, SearchSysCache2 (system catalog lookups)
+  - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md) (worker function called with NULL ACL to delete entries)
+  - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCache2 (system catalog lookups)
   - HeapTupleIsValid (validates tuple existence)
-  - ReleaseSysCache (releases system cache references)
-  - ObjectIdGetDatum, Int16GetDatum (datum conversion functions)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases system cache references)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md), Int16GetDatum (datum conversion functions)
 - Called from:
-  - ExecAlterExtensionContentsRecurse (during ALTER EXTENSION DROP operations)
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md) (during ALTER EXTENSION DROP operations)
 
 ## Notes and Other Information
 - Counterpart function to recordExtObjInitPriv() for extension cleanup

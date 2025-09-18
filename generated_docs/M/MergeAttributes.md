@@ -30,15 +30,15 @@ The function maintains PostgreSQL's inheritance semantics where attributes appea
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeColumnDef (creates column definition structures)
-  - findAttrByName (locates columns by name in inheritance hierarchy)
-  - MergeInheritedAttribute (merges column definitions from multiple parents)
-  - MergeChildAttribute (merges child and inherited column definitions)
-  - MergeCheckConstraint (merges inherited CHECK constraints)
-  - make_attrmap/free_attrmap (manages attribute number mapping)
-  - map_variable_attnos (adjusts variable references in expressions)
-  - CheckTableNotInUse (validates table availability for operations)
+  - [findAttrByName](../f/findAttrByName.md) (locates columns by name in inheritance hierarchy)
+  - [MergeInheritedAttribute](MergeInheritedAttribute.md) (merges column definitions from multiple parents)
+  - [MergeChildAttribute](MergeChildAttribute.md) (merges child and inherited column definitions)
+  - [MergeCheckConstraint](MergeCheckConstraint.md) (merges inherited CHECK constraints)
+  - [make_attrmap](../m/make_attrmap.md)/free_attrmap (manages attribute number mapping)
+  - [map_variable_attnos](../m/map_variable_attnos.md) (adjusts variable references in expressions)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md) (validates table availability for operations)
 - Called from (representative examples):
-  - DefineRelation (main table creation function)
+  - [DefineRelation](../D/DefineRelation.md) (main table creation function)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, central to PostgreSQL's DDL processing

@@ -23,7 +23,7 @@ The function is automatically invoked when pg_dependencies values need to be sen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byteasend (PostgreSQL's standard binary output function for bytea type)
+  - [byteasend](../b/byteasend.md) (PostgreSQL's standard binary output function for bytea type)
 
 - Called from (representative examples):
   - Not directly called (registered as type binary output function in system catalogs)

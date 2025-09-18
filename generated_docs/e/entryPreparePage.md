@@ -27,15 +27,15 @@ The function ensures the page is properly prepared for subsequent insertion oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIndexTupleDelete
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - GinPageIsData
   - GinPageIsLeaf
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - GinSetDownlink
 - Called from (representative examples):
-  - entryExecPlaceToPage
-  - entrySplitPage
+  - [entryExecPlaceToPage](entryExecPlaceToPage.md)
+  - [entrySplitPage](entrySplitPage.md)
 
 ## Notes and Other Information
 - This is a static function, used internally within ginentrypage.c

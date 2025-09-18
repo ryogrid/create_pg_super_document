@@ -21,15 +21,15 @@ The  function is a specialized version of subcolor processing that handles indiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - subcolor (gets subcolor for simple characters)
-  - newarc (creates NFA arcs)
-  - newhicolorrow (creates new rows in hicolormap)
-  - subcoloronerow (processes a row for subcolor allocation)
+  - [subcolor](subcolor.md) (gets subcolor for simple characters)
+  - [newarc](../n/newarc.md) (creates NFA arcs)
+  - [newhicolorrow](../n/newhicolorrow.md) (creates new rows in hicolormap)
+  - [subcoloronerow](subcoloronerow.md) (processes a row for subcolor allocation)
   - MALLOC/FREE (memory allocation/deallocation)
   - NOERR/CERR (error checking/reporting macros)
 - Called from (representative examples):
-  - subcolorcvec (at lines 539, 571)
-  - onechr (at line 1920)
+  - [subcolorcvec](subcolorcvec.md) (at lines 539, 571)
+  - [onechr](../o/onechr.md) (at line 1920)
 
 ## Notes and Other Information
 - Does not return a value (void function)

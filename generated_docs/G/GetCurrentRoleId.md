@@ -21,9 +21,9 @@ This function reports the current role ID following the semantics of PostgreSQL'
   - OuterUserId (global variable access)
   - InvalidOid (constant return value)
 - Called from (representative examples):
-  - check_role (in variable command processing)
-  - show_role (for displaying current role)
-  - InitializeParallelDSM (during parallel query setup)
+  - [check_role](../c/check_role.md) (in variable command processing)
+  - [show_role](../s/show_role.md) (for displaying current role)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (during parallel query setup)
 
 ## Notes and Other Information
 - Returns InvalidOid when no role is currently active (equivalent to SET ROLE NONE)

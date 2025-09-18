@@ -20,10 +20,10 @@ This callback function handles reading data from WAL summary files through a sta
 ## Dependencies
 - Functions called/Symbols referenced:
   - read (POSIX file read system call)
-  - pg_fatal (PostgreSQL fatal error reporting function)
-  - ws_file_info (file information structure type)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error reporting function)
+  - [ws_file_info](ws_file_info.md) (file information structure type)
 - Called from:
-  - CreateBlockRefTableReader (in pg_walsummary.c:111 as read callback)
+  - [CreateBlockRefTableReader](../C/CreateBlockRefTableReader.md) (in pg_walsummary.c:111 as read callback)
 
 ## Notes and Other Information
 - Function follows standard callback interface for file reading operations

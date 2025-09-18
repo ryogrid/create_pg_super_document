@@ -18,14 +18,14 @@ This function safely closes the currently open target file managed by the file o
 ## Dependencies
 - Functions called/Symbols referenced:
   - close (system call)
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Global variables used:
   - dstfd (static file descriptor)
   - dstpath (static path buffer for error reporting)
 - Called from (representative examples):
-  - open_target_file
-  - perform_rewind
-  - createBackupLabel
+  - [open_target_file](../o/open_target_file.md)
+  - [perform_rewind](../p/perform_rewind.md)
+  - [createBackupLabel](createBackupLabel.md)
 
 ## Notes and Other Information
 - Part of pg_rewind utility's file operations module (src/bin/pg_rewind/file_ops.c)

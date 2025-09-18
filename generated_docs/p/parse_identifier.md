@@ -24,16 +24,16 @@ The parser correctly handles escape sequences within quoted identifiers (double 
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen
-  - pg_encoding_max_length
+  - [pg_encoding_max_length](pg_encoding_max_length.md)
   - pg_malloc
   - IS_HIGHBIT_SET
-  - PQmblenBounded
+  - [PQmblenBounded](../P/PQmblenBounded.md)
   - free
   - tolower
   - isupper
 - Called from (representative examples):
-  - _complete_from_query
-  - set_completion_reference
+  - [_complete_from_query](../c/_complete_from_query.md)
+  - [set_completion_reference](../s/set_completion_reference.md)
   - THING_NO_SHOW completion system
 
 ## Notes and Other Information

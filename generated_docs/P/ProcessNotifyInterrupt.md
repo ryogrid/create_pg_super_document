@@ -27,11 +27,11 @@ The function is called in two main scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionOrTransactionBlock
-  - ProcessIncomingNotify
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [ProcessIncomingNotify](ProcessIncomingNotify.md)
 - Called from (representative examples):
-  - ProcessClientReadInterrupt
-  - PostgresMain
+  - [ProcessClientReadInterrupt](ProcessClientReadInterrupt.md)
+  - [PostgresMain](PostgresMain.md)
 
 ## Notes and Other Information
 - **Transaction Safety**: Only processes notifications when outside transaction blocks to avoid interference with ongoing transactions

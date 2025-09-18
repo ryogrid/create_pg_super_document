@@ -24,8 +24,8 @@ The validation includes checking for leading zeros to prevent octal interpretati
 - Functions called/Symbols referenced:
   - Standard C library function: strchr
 - Called from (representative examples):
-  - getv4 (src/backend/utils/adt/inet_net_pton.c:413)
-  - inet_cidr_pton_ipv6 (src/backend/utils/adt/inet_net_pton.c:513)
+  - [getv4](getv4.md) (src/backend/utils/adt/inet_net_pton.c:413)
+  - [inet_cidr_pton_ipv6](../i/inet_cidr_pton_ipv6.md) (src/backend/utils/adt/inet_net_pton.c:513)
 
 ## Notes and Other Information
 - Returns 1 on successful parsing, 0 on failure

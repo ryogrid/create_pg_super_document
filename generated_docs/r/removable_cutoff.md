@@ -31,7 +31,7 @@ The function is part of the injection_points test module and is primarily used f
   - `table_open`: Opens a relation with specified lock mode
   - `table_close`: Closes a relation and releases lock
   - `ReadNextFullTransactionId`: Reads the next transaction ID to be assigned
-  - `GetOldestNonRemovableTransactionId`: Core function to determine oldest non-removable XID
+  - `[GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)`: Core function to determine oldest non-removable XID
   - `FullTransactionIdEquals`: Compares two FullTransactionId values for equality
   - `FullTransactionIdFromAllowableAt`: Creates a FullTransactionId with proper epoch
   - `PG_RETURN_FULLTRANSACTIONID`: Returns a FullTransactionId to the SQL caller

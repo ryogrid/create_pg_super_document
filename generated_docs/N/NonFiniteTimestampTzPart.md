@@ -33,10 +33,10 @@ The function ensures error handling consistency with finite timestamp extraction
   - Various DTK_* constants (time unit definitions)
   - UNITS, RESERV (unit type constants)
   - ereport, errcode, errmsg (error reporting functions)
-  - format_type_be (type formatting for error messages)
+  - [format_type_be](../f/format_type_be.md) (type formatting for error messages)
 - Called from (representative examples):
-  - timestamp_part_common
-  - timestamptz_part_common
+  - [timestamp_part_common](../t/timestamp_part_common.md)
+  - [timestamptz_part_common](../t/timestamptz_part_common.md)
 
 ## Notes and Other Information
 - Static function used internally by timestamp part extraction functions

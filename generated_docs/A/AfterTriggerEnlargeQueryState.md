@@ -22,12 +22,12 @@ This function takes no parameters and operates on global state:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggersQueryData (struct type)
-  - MemoryContextAlloc (for initial allocation)
-  - repalloc (for reallocation)
+  - [AfterTriggersQueryData](AfterTriggersQueryData.md) (struct type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (for initial allocation)
+  - [repalloc](../r/repalloc.md) (for reallocation)
   - SetConstraintState (referenced but not called directly)
 - Called from:
-  - MakeTransitionCaptureState (src/backend/commands/trigger.c:5020)
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md) (src/backend/commands/trigger.c:5020)
   - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6177)  
   - before_stmt_triggers_fired (src/backend/commands/trigger.c:6556)
 

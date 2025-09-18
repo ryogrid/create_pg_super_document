@@ -28,16 +28,16 @@ The function opens and locks the target sequence, reads its current state from t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
-  - init_sequence
-  - pg_class_aclcheck
-  - GetUserId
+  - [init_sequence](../i/init_sequence.md)
+  - [pg_class_aclcheck](pg_class_aclcheck.md)
+  - [GetUserId](../G/GetUserId.md)
   - RelationGetRelationName
   - RELATION_IS_OTHER_TEMP
   - RelationIsPermanent
-  - RecoveryInProgress
-  - read_seq_tuple
-  - UnlockReleaseBuffer
-  - sequence_close
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [read_seq_tuple](../r/read_seq_tuple.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [sequence_close](../s/sequence_close.md)
   - PG_RETURN_INT64
   - PG_RETURN_NULL
 - Called from:

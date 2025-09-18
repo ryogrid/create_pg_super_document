@@ -17,13 +17,13 @@ The  function determines an appropriate text search configuration based on the l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup: PostgreSQL utility for string duplication
-  - pg_strcasecmp: PostgreSQL case-insensitive string comparison function
+  - [pg_strdup](../p/pg_strdup.md): PostgreSQL utility for string duplication
+  - [pg_strcasecmp](../p/pg_strcasecmp.md): PostgreSQL case-insensitive string comparison function
   - free: Standard C library function for memory deallocation
 - Global variables accessed:
   - tsearch_config_languages: Array containing language to text search configuration mappings
 - Called from (representative examples):
-  - setup_text_search: Used twice during text search configuration setup
+  - [setup_text_search](../s/setup_text_search.md): Used twice during text search configuration setup
 
 ## Notes and Other Information
 - Returns the configuration name string if a match is found, NULL otherwise

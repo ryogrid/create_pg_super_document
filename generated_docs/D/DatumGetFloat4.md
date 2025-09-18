@@ -21,17 +21,17 @@ The function first extracts the int32 representation using DatumGetInt32(), then
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (extracts the int32 representation from the Datum)
+  - [DatumGetInt32](DatumGetInt32.md) (extracts the int32 representation from the Datum)
   - float4 (PostgreSQL's 4-byte floating point type)
 - Called from (representative examples):
-  - bernoulli_samplescangetsamplesize
-  - bernoulli_beginsamplescan
-  - system_samplescangetsamplesize
-  - system_beginsamplescan
-  - btfloat4fastcmp
+  - [bernoulli_samplescangetsamplesize](../b/bernoulli_samplescangetsamplesize.md)
+  - [bernoulli_beginsamplescan](../b/bernoulli_beginsamplescan.md)
+  - [system_samplescangetsamplesize](../s/system_samplescangetsamplesize.md)
+  - [system_beginsamplescan](../s/system_beginsamplescan.md)
+  - [btfloat4fastcmp](../b/btfloat4fastcmp.md)
   - convert_numeric_to_scalar
   - PG_GETARG_FLOAT4
-  - PLyFloat_FromFloat4
+  - [PLyFloat_FromFloat4](../P/PLyFloat_FromFloat4.md)
 
 ## Notes and Other Information
 - Implemented as an inline function rather than a macro to handle machine-specific differences in parameter passing

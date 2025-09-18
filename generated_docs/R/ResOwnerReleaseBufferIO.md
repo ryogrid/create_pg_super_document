@@ -19,7 +19,7 @@ This function is part of PostgreSQL's resource management infrastructure, ensuri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - AbortBufferIO
 - Called from (representative examples):
   - ResourceOwner system (callback mechanism)

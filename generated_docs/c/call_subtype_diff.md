@@ -23,13 +23,13 @@ The subtype_diff function is used in GiST index operations to calculate penaltie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll
-  - DatumGetFloat8
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
 - Called from (representative examples):
   - rangeCopy
-  - range_gist_penalty
-  - range_gist_double_sorting_split
-  - range_gist_consider_split
+  - [range_gist_penalty](../r/range_gist_penalty.md)
+  - [range_gist_double_sorting_split](../r/range_gist_double_sorting_split.md)
+  - [range_gist_consider_split](../r/range_gist_consider_split.md)
 
 ## Notes and Other Information
 - This is a static function defined in src/backend/utils/adt/rangetypes_gist.c:1788-1799

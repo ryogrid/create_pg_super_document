@@ -23,26 +23,26 @@ This mapping is crucial for index operations, as indexes point to root tuples, a
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
   - ItemIdIsDead
   - ItemIdIsNormal
   - ItemIdIsRedirected
   - ItemIdGetRedirect
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - HeapTupleHeaderIsHeapOnly
   - HeapTupleHeaderIsHotUpdated
   - HeapTupleHeaderIndicatesMovedPartitions
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - HeapTupleHeaderGetUpdateXid
   - HeapTupleHeaderGetXmin
   - TransactionIdEquals
   - FirstOffsetNumber
   - OffsetNumberNext
 - Called from (representative examples):
-  - heapam_index_build_range_scan
-  - heapam_index_validate_scan
+  - [heapam_index_build_range_scan](heapam_index_build_range_scan.md)
+  - [heapam_index_validate_scan](heapam_index_validate_scan.md)
 
 ## Notes and Other Information
 - Requires at least share lock on the buffer to prevent concurrent prune operations

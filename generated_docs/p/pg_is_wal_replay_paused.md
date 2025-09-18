@@ -26,8 +26,8 @@ This function is useful for monitoring scripts, administrative tools, or applica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress: Checks if database is in recovery mode
-  - GetRecoveryPauseState: Retrieves the current recovery pause state
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if database is in recovery mode
+  - [GetRecoveryPauseState](../G/GetRecoveryPauseState.md): Retrieves the current recovery pause state
   - RECOVERY_NOT_PAUSED: Constant representing the non-paused state
   - PG_RETURN_BOOL: Returns boolean value from SQL function
 

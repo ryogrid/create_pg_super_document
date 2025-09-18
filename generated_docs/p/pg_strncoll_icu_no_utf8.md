@@ -23,14 +23,14 @@ The `pg_strncoll_icu_no_utf8` function handles ICU-based string collation for ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_icu_converter
-  - uchar_length
-  - uchar_convert
+  - [init_icu_converter](../i/init_icu_converter.md)
+  - [uchar_length](../u/uchar_length.md)
+  - [uchar_convert](../u/uchar_convert.md)
   - ucol_strcoll
-  - palloc
-  - pfree
+  - [palloc](palloc.md)
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - pg_strncoll_icu
+  - [pg_strncoll_icu](pg_strncoll_icu.md)
 
 ## Notes and Other Information
 - Static function used internally within PostgreSQL's ICU collation system

@@ -32,12 +32,12 @@ The function:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_regexec (core PostgreSQL regex execution function)
-  - pg_regerror (gets error message for failed execution)
+  - [pg_regerror](../p/pg_regerror.md) (gets error message for failed execution)
   - ereport/ERROR (PostgreSQL error reporting)
   - REG_OKAY (successful match result constant)
   - REG_NOMATCH (no match found result constant)
 - Called from (representative examples):
-  - setup_test_matches (sets up regex matching context)
+  - [setup_test_matches](../s/setup_test_matches.md) (sets up regex matching context)
 
 ## Notes and Other Information
 - This is a static (internal) function within the test_regex module

@@ -35,7 +35,7 @@ The binary tree is not perfect due to page header overhead, meaning some right-m
   - fsm_get_avail() (retrieves values from FSM page structure)
 
 ## Notes and Other Information
-- FSMPageData is the fundamental building block of PostgreSQL's scalable Free Space Map implementation introduced in version 8.4
+- [FSMPageData](FSMPageData.md) is the fundamental building block of PostgreSQL's scalable Free Space Map implementation introduced in version 8.4
 - The structure supports up to 2^32-1 heap pages through a three-level tree hierarchy
 - Free space is quantized to 256 levels (0-255) where each unit represents BLCKSZ/256 bytes
 - The fp_next_slot field is updated even under shared locks as it serves as a hint and corruption can be easily recovered

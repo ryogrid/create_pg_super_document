@@ -22,18 +22,18 @@ The function is designed to be called by the RangeVar resolution mechanism befor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - errdetail_relkind_not_supported
-  - object_ownercheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - get_rel_relkind
-  - IsSystemClass
-  - ReleaseSysCache
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [IsSystemClass](../I/IsSystemClass.md)
+  - [ReleaseSysCache](ReleaseSysCache.md)
 - Called from (representative examples):
-  - renametrig
+  - [renametrig](../r/renametrig.md)
 
 ## Notes and Other Information
 - Only allows trigger operations on relations of kind RELKIND_RELATION, RELKIND_VIEW, RELKIND_FOREIGN_TABLE, and RELKIND_PARTITIONED_TABLE

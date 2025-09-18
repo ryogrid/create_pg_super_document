@@ -22,11 +22,11 @@ The function ensures that partitioned hash tables have proper mutex initializati
 - Functions called/Symbols referenced:
   - IS_PARTITIONED (macro to check if hash table is partitioned)
   - SpinLockInit (initializes spinlock mutexes for partitioned tables)
-  - next_pow2_int (calculates next power of two for bucket sizing)
-  - seg_alloc (allocates memory segments for the hash table)
-  - choose_nelem_alloc (determines optimal element allocation count)
+  - [next_pow2_int](../n/next_pow2_int.md) (calculates next power of two for bucket sizing)
+  - [seg_alloc](../s/seg_alloc.md) (allocates memory segments for the hash table)
+  - [choose_nelem_alloc](../c/choose_nelem_alloc.md) (determines optimal element allocation count)
 - Called from (representative examples):
-  - hash_create (during hash table creation process)
+  - [hash_create](../h/hash_create.md) (during hash table creation process)
 
 ## Notes and Other Information
 - This is a static function, only accessible within dynahash.c

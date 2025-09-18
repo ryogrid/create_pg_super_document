@@ -21,9 +21,9 @@ This function serves as a comparison callback for the red-black tree implementat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareAttEntries
+  - [ginCompareAttEntries](../g/ginCompareAttEntries.md)
 - Called from (representative examples):
-  - ginInitBA
+  - [ginInitBA](../g/ginInitBA.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN bulk loading module

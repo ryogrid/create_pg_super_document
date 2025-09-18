@@ -28,8 +28,8 @@ The function includes optimization considerations, specifically designed to leve
   - MCXT_METHOD (macro for calling memory context method implementations)
   - VALGRIND_MEMPOOL_CHANGE (Valgrind integration for memory pool tracking)
 - Called from (representative examples):
-  - guc_realloc (GUC configuration value reallocation)
-  - repalloc_huge (huge memory reallocation wrapper)
+  - [guc_realloc](../g/guc_realloc.md) (GUC configuration value reallocation)
+  - [repalloc_huge](repalloc_huge.md) (huge memory reallocation wrapper)
   - REALLOC (regex library reallocation macro)
 
 ## Notes and Other Information

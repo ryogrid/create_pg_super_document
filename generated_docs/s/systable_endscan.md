@@ -23,13 +23,13 @@ The bsysscan flag reset is specifically related to transaction monitoring during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecDropSingleTupleTableSlot (slot cleanup)
-  - index_endscan (index scan cleanup)
-  - index_close (index relation cleanup)
-  - table_endscan (heap scan cleanup)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (slot cleanup)
+  - [index_endscan](../i/index_endscan.md) (index scan cleanup)
+  - [index_close](../i/index_close.md) (index relation cleanup)
+  - [table_endscan](../t/table_endscan.md) (heap scan cleanup)
   - UnregisterSnapshot (snapshot cleanup)
   - TransactionIdIsValid (transaction validation)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
   - Extensively used throughout PostgreSQL codebase wherever systable_beginscan is used
   - Found in over 20 files including utils/cache, commands, replication, and catalog modules

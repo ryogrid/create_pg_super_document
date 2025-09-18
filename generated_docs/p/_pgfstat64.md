@@ -27,9 +27,9 @@ For non-disk files (pipes and character devices), the function sets minimal stat
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgwin32_get_file_type
-  - fileinfo_to_stat
+  - [fileinfo_to_stat](../f/fileinfo_to_stat.md)
 - Called from (representative examples):
-  - stat (via macro in src/include/port/win32_port.h:277)
+  - [stat](../s/stat.md) (via macro in src/include/port/win32_port.h:277)
   - fstat (via macro in src/include/port/win32_port.h:281)
 
 ## Notes and Other Information

@@ -20,11 +20,11 @@ This function prepares a test buffer by filling it with random data and setting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DEFAULT_XLOG_SEG_SIZE (default WAL segment size constant)
-  - pg_prng_int32 (PostgreSQL pseudo-random number generator)
+  - [pg_prng_int32](pg_prng_int32.md) (PostgreSQL pseudo-random number generator)
   - TYPEALIGN (PostgreSQL alignment macro)
   - pg_global_prng_state (global PRNG state)
 - Called from (representative examples):
-  - main (pg_test_fsync main function)
+  - [main](../m/main.md) (pg_test_fsync main function)
 
 ## Notes and Other Information
 - Operates on global variables full_buf and buf

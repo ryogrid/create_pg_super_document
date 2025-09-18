@@ -26,11 +26,11 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus (gets the result status type)
-  - PQcmdStatus (retrieves the command status string)
-  - PQoidValue (extracts OID value from result)
+  - [PQresultStatus](PQresultStatus.md) (gets the result status type)
+  - [PQcmdStatus](PQcmdStatus.md) (retrieves the command status string)
+  - [PQoidValue](PQoidValue.md) (extracts OID value from result)
   - strncmp (compares command prefixes)
-  - html_escaped_print (escapes HTML special characters)
+  - [html_escaped_print](../h/html_escaped_print.md) (escapes HTML special characters)
   - fprintf/fputs (output functions)
   - fflush (flushes output stream)
   - snprintf (formats OID string)
@@ -45,8 +45,8 @@ Key features:
   - pset.logfile (log file stream)
   - pset.vars (psql variables collection)
 - Called from:
-  - PrintQueryResult (in src/bin/psql/common.c:1033, 1039)
-  - ExecQueryAndProcessResults (in src/bin/psql/common.c:1724)
+  - [PrintQueryResult](PrintQueryResult.md) (in src/bin/psql/common.c:1033, 1039)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (in src/bin/psql/common.c:1724)
 
 ## Notes and Other Information
 - This is a static function internal to psql's common.c module

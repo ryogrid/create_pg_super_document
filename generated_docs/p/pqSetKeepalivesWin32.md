@@ -25,8 +25,8 @@ The function enables keepalives and configures both the idle time (how long to w
   - SIO_KEEPALIVE_VALS (Windows socket control code for keepalive configuration)
   - pgsocket (PostgreSQL socket type definition)
 - Called from (representative examples):
-  - PQcancel (connection cancellation functionality)
-  - prepKeepalivesWin32 (keepalive preparation function)
+  - [PQcancel](../P/PQcancel.md) (connection cancellation functionality)
+  - [prepKeepalivesWin32](prepKeepalivesWin32.md) (keepalive preparation function)
   - ROOT_CRL_FILE (SSL certificate revocation list processing)
 
 ## Notes and Other Information

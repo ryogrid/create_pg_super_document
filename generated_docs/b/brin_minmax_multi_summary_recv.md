@@ -23,8 +23,8 @@ This function follows the PostgreSQL function calling convention using `PG_FUNCT
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL's type system when binary input is attempted)

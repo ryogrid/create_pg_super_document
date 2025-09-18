@@ -27,11 +27,11 @@ This synchronization is crucial for maintaining consistency between primary and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActivateCommitTs
-  - DeactivateCommitTs
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
+  - [DeactivateCommitTs](../D/DeactivateCommitTs.md)
   - commitTsShared (global shared memory structure)
 - Called from (representative examples):
-  - xlog_redo
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
 - This function only runs during recovery processing, not during normal operation

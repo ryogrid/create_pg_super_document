@@ -25,10 +25,10 @@ The HashAggBatch structure serves as a work item in the hash aggregation's multi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - HashAggBatch (structure type)
+  - [palloc0](../p/palloc0.md)
+  - [HashAggBatch](../H/HashAggBatch.md) (structure type)
 - Called from (representative examples):
-  - hashagg_spill_finish
+  - [hashagg_spill_finish](hashagg_spill_finish.md)
 
 ## Notes and Other Information
 - The function performs a simple allocation and initialization of the HashAggBatch structure

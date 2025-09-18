@@ -21,11 +21,11 @@ The  structure serves as a registry entry for Snowball stemmer algorithms in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_enc (PostgreSQL encoding enumeration)
+  - [pg_enc](../p/pg_enc.md) (PostgreSQL encoding enumeration)
   - close (function pointer for cleanup operations)
 - Called from (representative examples):
   - STEMMER_MODULE (macro that creates stemmer_module instances)
-  - locate_stem_module (function that searches for appropriate stemmer modules)
+  - [locate_stem_module](../l/locate_stem_module.md) (function that searches for appropriate stemmer modules)
 
 ## Notes and Other Information
 - This structure is typically populated using the  macro which automatically generates the correct function names based on language and encoding parameters

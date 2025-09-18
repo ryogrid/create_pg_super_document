@@ -27,15 +27,15 @@ The returned buffer is both "locked and pinned" - meaning it has an incremented 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer (buffer manager function to read a page)
-  - LockBuffer (applies lock to buffer)
+  - [ReadBuffer](../R/ReadBuffer.md) (buffer manager function to read a page)
+  - [LockBuffer](../L/LockBuffer.md) (applies lock to buffer)
   - _hash_checkpage (validates page contents and type)
   - P_NEW, HASH_NOLOCK (constants)
 - Called from (representative examples):
-  - _hash_doinsert (during tuple insertion)
-  - _hash_next/_hash_first (during index scans)
-  - _hash_splitbucket (during bucket splitting)
-  - _hash_addovflpage/_hash_freeovflpage (overflow page management)
+  - [_hash_doinsert](_hash_doinsert.md) (during tuple insertion)
+  - [_hash_next](_hash_next.md)/_hash_first (during index scans)
+  - [_hash_splitbucket](_hash_splitbucket.md) (during bucket splitting)
+  - [_hash_addovflpage](_hash_addovflpage.md)/_hash_freeovflpage (overflow page management)
 
 ## Notes and Other Information
 - This function explicitly prevents extending the hash index - use _hash_getnewbuf for that purpose

@@ -19,16 +19,16 @@ CreateAccessMethod processes a CREATE ACCESS METHOD statement by inserting a new
 - Functions called/Symbols referenced:
   - superuser: Checks if current user has superuser privileges
   - GetSysCacheOid1: Looks up existing access method by name
-  - lookup_am_handler_func: Validates and retrieves handler function OID
-  - GetNewOidWithIndex: Generates new OID for the access method
-  - heap_form_tuple: Creates heap tuple for catalog insertion
-  - CatalogTupleInsert: Inserts tuple into pg_am catalog
-  - heap_freetuple: Frees tuple memory
-  - recordDependencyOn: Records dependency on handler function
-  - recordDependencyOnCurrentExtension: Records extension membership
+  - [lookup_am_handler_func](../l/lookup_am_handler_func.md): Validates and retrieves handler function OID
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generates new OID for the access method
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates heap tuple for catalog insertion
+  - [CatalogTupleInsert](CatalogTupleInsert.md): Inserts tuple into pg_am catalog
+  - [heap_freetuple](../h/heap_freetuple.md): Frees tuple memory
+  - [recordDependencyOn](../r/recordDependencyOn.md): Records dependency on handler function
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md): Records extension membership
   - InvokeObjectPostCreateHook: Triggers post-creation hooks
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command processor
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command processor
 
 ## Notes and Other Information
 - Requires superuser privileges to execute

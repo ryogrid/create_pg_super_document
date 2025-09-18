@@ -93,15 +93,15 @@ update_symbol_types.py: ScanDirection indicating the current scan direction (for
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
   - BTScanOpaque (structure)
-  - BTArrayKeyInfo (structure)
-  - IndexScanDesc (structure)
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md) (structure)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (structure)
   - ScanDirection (enum)
   - ScanKey (structure)
   - SK_SEARCHARRAY (flag)
   - SK_BT_REQFWD (flag)
   - SK_BT_REQBKWD (flag)
 - Called from (representative examples):
-  - _bt_advance_array_keys
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md)
 
 ## Notes and Other Information
 - Only affects non-required arrays (those without SK_BT_REQFWD or SK_BT_REQBKWD flags)

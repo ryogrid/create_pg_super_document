@@ -18,13 +18,13 @@ The  function retrieves a variable by name from a Variables collection and retur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookupVariable
+  - [lookupVariable](../l/lookupVariable.md)
   - snprintf
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - Assert
 - Types referenced:
-  - Variables
-  - Variable
+  - [Variables](../V/Variables.md)
+  - [Variable](../V/Variable.md)
   - PGBT_NO_VALUE
   - PGBT_NULL
   - PGBT_BOOLEAN
@@ -32,10 +32,10 @@ The  function retrieves a variable by name from a Variables collection and retur
   - PGBT_DOUBLE
   - INT64_FORMAT
 - Called from (representative examples):
-  - assignVariables
-  - getQueryParams
-  - runShellCommand
-  - evaluateSleep
+  - [assignVariables](../a/assignVariables.md)
+  - [getQueryParams](getQueryParams.md)
+  - [runShellCommand](../r/runShellCommand.md)
+  - [evaluateSleep](../e/evaluateSleep.md)
 
 ## Notes and Other Information
 - Returns NULL if the variable is not found

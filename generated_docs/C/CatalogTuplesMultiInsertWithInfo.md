@@ -24,19 +24,19 @@ The function handles the conversion from TupleTableSlots to HeapTuples as needed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_multi_insert
-  - GetCurrentCommandId
-  - ExecFetchSlotHeapTuple
-  - CatalogIndexInsert
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
+  - [CatalogIndexInsert](CatalogIndexInsert.md)
   - TU_All
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - InsertPgAttributeTuples
-  - recordMultipleDependencies
-  - EnumValuesCreate
-  - copyTemplateDependencies
-  - DefineTSConfiguration
-  - MakeConfigurationMapping
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md)
+  - [recordMultipleDependencies](../r/recordMultipleDependencies.md)
+  - [EnumValuesCreate](../E/EnumValuesCreate.md)
+  - [copyTemplateDependencies](../c/copyTemplateDependencies.md)
+  - [DefineTSConfiguration](../D/DefineTSConfiguration.md)
+  - [MakeConfigurationMapping](../M/MakeConfigurationMapping.md)
 
 ## Notes and Other Information
 - Returns early if ntuples <= 0, providing safe handling of empty insertion requests

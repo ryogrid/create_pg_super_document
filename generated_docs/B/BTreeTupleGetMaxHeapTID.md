@@ -23,15 +23,15 @@ The function includes an assertion to ensure it is only called with non-pivot tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleIsPivot (used in assertion)
-  - BTreeTupleIsPosting
-  - BTreeTupleGetNPosting
-  - BTreeTupleGetPostingN
+  - [BTreeTupleIsPivot](BTreeTupleIsPivot.md) (used in assertion)
+  - [BTreeTupleIsPosting](BTreeTupleIsPosting.md)
+  - [BTreeTupleGetNPosting](BTreeTupleGetNPosting.md)
+  - [BTreeTupleGetPostingN](BTreeTupleGetPostingN.md)
 - Called from (representative examples):
   - _bt_bottomupdel_finish_pending
-  - _bt_swap_posting
-  - _bt_compare
-  - _bt_truncate
+  - [_bt_swap_posting](../b/_bt_swap_posting.md)
+  - [_bt_compare](../b/_bt_compare.md)
+  - [_bt_truncate](../b/_bt_truncate.md)
 
 ## Notes and Other Information
 - This is an inline function defined in nbtree.h for performance optimization

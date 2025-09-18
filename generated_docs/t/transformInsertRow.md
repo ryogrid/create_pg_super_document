@@ -39,14 +39,14 @@ Key design aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformAssignedExpr (main expression transformation with indirection handling)
-  - count_rowexpr_columns (for detecting RowExpr usage in error cases)
-  - exprLocation (for error position reporting)
-  - list_nth (for accessing list elements during validation)
+  - [transformAssignedExpr](transformAssignedExpr.md) (main expression transformation with indirection handling)
+  - [count_rowexpr_columns](../c/count_rowexpr_columns.md) (for detecting RowExpr usage in error cases)
+  - [exprLocation](../e/exprLocation.md) (for error position reporting)
+  - [list_nth](../l/list_nth.md) (for accessing list elements during validation)
 
 - Called from (representative examples):
-  - transformInsertStmt (multiple times for different INSERT variants)
-  - transformMergeStmt (for MERGE statement processing)
+  - [transformInsertStmt](transformInsertStmt.md) (multiple times for different INSERT variants)
+  - [transformMergeStmt](transformMergeStmt.md) (for MERGE statement processing)
 
 ## Notes and Other Information
 - Critical for proper type coercion and default value handling in INSERT operations

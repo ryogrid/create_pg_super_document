@@ -32,14 +32,14 @@ The initialization ensures that the node can handle tuples both from the leader 
 - Functions called/Symbols referenced:
   - makeNode
   - ExecAssignExprContext
-  - ExecInitNode
-  - ExecGetResultType
-  - ExecInitResultTypeTL
-  - ExecConditionalAssignProjectionInfo
+  - [ExecInitNode](ExecInitNode.md)
+  - [ExecGetResultType](ExecGetResultType.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md)
   - PrepareSortSupportFromOrderingOp
-  - gather_merge_setup
+  - [gather_merge_setup](../g/gather_merge_setup.md)
 - Called from:
-  - ExecInitNode (main executor initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (main executor initialization dispatcher)
 
 ## Notes and Other Information
 - GatherMerge nodes do not support qual conditions as it is more efficient to apply them in child nodes

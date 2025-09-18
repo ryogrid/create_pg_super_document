@@ -26,12 +26,12 @@ This function is responsible for creating new memory blocks in the bump memory a
   - Bump_BLOCKHDRSZ (block header size constant)
   - pg_nextpower2_size_t (rounds size up to next power of 2)
   - malloc (system memory allocation)
-  - MemoryContextAllocationFailure (handles allocation failures)
-  - BumpBlockInit (initializes the new block)
-  - dlist_push_head (adds block to doubly-linked list)
-  - BumpAllocChunkFromBlock (allocates chunk from the new block)
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md) (handles allocation failures)
+  - [BumpBlockInit](BumpBlockInit.md) (initializes the new block)
+  - [dlist_push_head](../d/dlist_push_head.md) (adds block to doubly-linked list)
+  - [BumpAllocChunkFromBlock](BumpAllocChunkFromBlock.md) (allocates chunk from the new block)
 - Called from (representative examples):
-  - BumpAlloc (when current block lacks sufficient space)
+  - [BumpAlloc](BumpAlloc.md) (when current block lacks sufficient space)
 
 ## Notes and Other Information
 - Marked with pg_noinline to avoid stack frame overhead in the common allocation path

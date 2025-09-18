@@ -23,7 +23,7 @@ This function performs a linear search through a list of TSTokenTypeItem structu
   - strcmp (standard C string comparison)
   - foreach (PostgreSQL list iteration macro)
 - Called from (representative examples):
-  - getTokenTypes
+  - [getTokenTypes](../g/getTokenTypes.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsearchcmds.c file

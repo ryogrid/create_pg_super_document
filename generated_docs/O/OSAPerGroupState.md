@@ -23,20 +23,20 @@ This structure serves as the internal-type transition state datum that is return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OSAPerQueryState
+  - [OSAPerQueryState](OSAPerQueryState.md)
   - Tuplesortstate
 - Called from (representative examples):
-  - ordered_set_startup
-  - ordered_set_shutdown
-  - ordered_set_transition
-  - ordered_set_transition_multi
-  - percentile_disc_final
-  - percentile_cont_final_common
-  - percentile_disc_multi_final
-  - percentile_cont_multi_final_common
-  - mode_final
-  - hypothetical_rank_common
-  - hypothetical_dense_rank_final
+  - [ordered_set_startup](../o/ordered_set_startup.md)
+  - [ordered_set_shutdown](../o/ordered_set_shutdown.md)
+  - [ordered_set_transition](../o/ordered_set_transition.md)
+  - [ordered_set_transition_multi](../o/ordered_set_transition_multi.md)
+  - [percentile_disc_final](../p/percentile_disc_final.md)
+  - [percentile_cont_final_common](../p/percentile_cont_final_common.md)
+  - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md)
+  - [percentile_cont_multi_final_common](../p/percentile_cont_multi_final_common.md)
+  - [mode_final](../m/mode_final.md)
+  - [hypothetical_rank_common](../h/hypothetical_rank_common.md)
+  - [hypothetical_dense_rank_final](../h/hypothetical_dense_rank_final.md)
 
 ## Notes and Other Information
 - This structure is allocated in a per-group memory context that is separate from the per-query context

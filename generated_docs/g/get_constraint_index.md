@@ -19,11 +19,11 @@ The function performs a system catalog lookup using the constraint OID and retur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_constraint
   - CONSTRAINT_UNIQUE
   - CONSTRAINT_PRIMARY
@@ -31,9 +31,9 @@ The function performs a system catalog lookup using the constraint OID and retur
   - InvalidOid
 
 - Called from (representative examples):
-  - RememberConstraintForRebuilding (src/backend/commands/tablecmds.c:13746)
-  - ATPostAlterTypeParse (src/backend/commands/tablecmds.c:14130)
-  - infer_arbiter_indexes (src/backend/optimizer/util/plancat.c:780)
+  - [RememberConstraintForRebuilding](../R/RememberConstraintForRebuilding.md) (src/backend/commands/tablecmds.c:13746)
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md) (src/backend/commands/tablecmds.c:14130)
+  - [infer_arbiter_indexes](../i/infer_arbiter_indexes.md) (src/backend/optimizer/util/plancat.c:780)
 
 ## Notes and Other Information
 - Only returns index OIDs for constraints that "own" their indexes (unique, primary-key, exclusion)

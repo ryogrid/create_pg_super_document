@@ -24,23 +24,23 @@ The function uses a copy-on-write strategy where it works with the original page
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageGetMaxOffsetNumber
-  - PageGetItem
-  - PageGetItemId
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - GinIsPostingTree
   - GinGetDownlink
   - GinGetNPosting
   - GinItupIsCompressed
-  - ginPostingListDecode
-  - ginVacuumItemPointers
-  - ginCompressPostingList
+  - [ginPostingListDecode](ginPostingListDecode.md)
+  - [ginVacuumItemPointers](ginVacuumItemPointers.md)
+  - [ginCompressPostingList](ginCompressPostingList.md)
   - PageGetTempPageCopy
-  - GinFormTuple
-  - PageIndexTupleDelete
+  - [GinFormTuple](../G/GinFormTuple.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
   - PageAddItem
 - Called from (representative examples):
-  - ginbulkdelete
+  - [ginbulkdelete](ginbulkdelete.md)
 
 ## Notes and Other Information
 - Returns modified page or NULL if no modifications were made

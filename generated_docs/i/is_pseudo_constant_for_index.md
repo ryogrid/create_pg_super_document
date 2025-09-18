@@ -21,16 +21,16 @@ This function determines if an expression is suitable for use as a comparison va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (bitmap set membership test)
-  - pull_varnos (extracts relation IDs of all Vars in an expression)
-  - contain_volatile_functions (checks for volatile function calls in expression tree)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test)
+  - [pull_varnos](../p/pull_varnos.md) (extracts relation IDs of all Vars in an expression)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for volatile function calls in expression tree)
 - Called from (representative examples):
   - Referenced in src/include/optimizer/optimizer.h:98 (header declaration)
 
 ## Notes and Other Information
 - This function is exported for use by planner support functions that have IndexOptInfo available but lack RestrictInfo infrastructure
 - The function is optimized by checking variable membership first (via pull_varnos) before the more expensive volatility check
-- Variables from other tables are permitted, enabling parameterized index scans where the parameter comes from a different relation
+- [Variables](../V/Variables.md) from other tables are permitted, enabling parameterized index scans where the parameter comes from a different relation
 - This is a weaker test than is_pseudo_constant_clause(), which would reject any non-constant expressions
 - Essential for index scan planning where the comparison value must be stable for the duration of the scan
 - Used in conjunction with other index matching functions during query optimization

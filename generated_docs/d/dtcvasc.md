@@ -22,7 +22,7 @@ The function performs validation to ensure the entire input string is consumed d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_from_asc
+  - [PGTYPEStimestamp_from_asc](../P/PGTYPEStimestamp_from_asc.md)
   - ECPG_INFORMIX_EXTRA_CHARS
 - Called from (representative examples):
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)

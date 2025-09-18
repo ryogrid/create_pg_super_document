@@ -19,11 +19,11 @@ This function serves as the destruction callback for TQueueDestReceiver objects,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TQueueDestReceiver (cast type)
-  - shm_mq_detach
-  - pfree
+  - [TQueueDestReceiver](../T/TQueueDestReceiver.md) (cast type)
+  - [shm_mq_detach](../s/shm_mq_detach.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CreateTupleQueueDestReceiver (assigned as rDestroy callback)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md) (assigned as rDestroy callback)
 
 ## Notes and Other Information
 - Implements defensive programming by checking and detaching from queue even if already detached

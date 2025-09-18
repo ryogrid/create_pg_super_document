@@ -28,8 +28,8 @@ This is a helper function that could logically belong in other parts of the code
   - foreach macro (for list iteration)
   - lfirst (list cell access)
 - Called from (representative examples):
-  - check_index_predicates (src/backend/optimizer/path/indxpath.c:3331)
-  - expand_inherited_rtentry (src/backend/optimizer/util/inherit.c:129)
+  - [check_index_predicates](../c/check_index_predicates.md) (src/backend/optimizer/path/indxpath.c:3331)
+  - [expand_inherited_rtentry](../e/expand_inherited_rtentry.md) (src/backend/optimizer/util/inherit.c:129)
 
 ## Notes and Other Information
 This function is located in src/backend/optimizer/prep/preptlist.c:526-538. Despite being a simple utility function, it plays an important role in PostgreSQL's concurrency control and query planning infrastructure. The comment in the source acknowledges that this function "probably ought to be elsewhere", suggesting it might be moved to a more appropriate location in future versions. The function's simplicity makes it efficient for the typical use cases where the rowmarks list is small.

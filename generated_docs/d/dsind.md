@@ -32,8 +32,8 @@ The `dsind` function implements the sine function for degree-based input in Post
   - isnan, isinf (special value checks)
   - get_float8_nan (NaN handling)
   - INIT_DEGREE_CONSTANTS (initialization)
-  - sind_q1 (first quadrant sine calculation)
-  - float_overflow_error (error reporting)
+  - [sind_q1](../s/sind_q1.md) (first quadrant sine calculation)
+  - [float_overflow_error](../f/float_overflow_error.md) (error reporting)
 - Called from: (No direct callers - SQL-callable function)
 
 ## Notes and Other Information

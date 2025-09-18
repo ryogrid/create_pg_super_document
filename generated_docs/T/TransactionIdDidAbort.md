@@ -25,19 +25,19 @@ The function is particularly important for distinguishing between transactions t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionLogFetch
-  - TransactionIdPrecedes  
-  - SubTransGetParent
+  - [TransactionLogFetch](TransactionLogFetch.md)
+  - [TransactionIdPrecedes](TransactionIdPrecedes.md)  
+  - [SubTransGetParent](../S/SubTransGetParent.md)
   - TransactionIdIsValid
-  - TransactionIdDidAbort (recursive call)
+  - [TransactionIdDidAbort](TransactionIdDidAbort.md) (recursive call)
   - XidStatus
   - TRANSACTION_STATUS_ABORTED
   - TRANSACTION_STATUS_SUB_COMMITTED
 - Called from (representative examples):
-  - heap_update
-  - test_lockmode_for_conflict
-  - heap_lock_updated_tuple_rec
-  - DoesMultiXactIdConflict
+  - [heap_update](../h/heap_update.md)
+  - [test_lockmode_for_conflict](../t/test_lockmode_for_conflict.md)
+  - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
+  - [DoesMultiXactIdConflict](../D/DoesMultiXactIdConflict.md)
   - TransactionIdIsInProgress
 
 ## Notes and Other Information

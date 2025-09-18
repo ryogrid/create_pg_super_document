@@ -22,16 +22,16 @@ This function serves as a final type resolution step in PostgreSQL's query parsi
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType
-  - coerce_type
+  - [coerce_type](../c/coerce_type.md)
   - lfirst (macro)
   - UNKNOWNOID
   - TEXTOID
   - COERCION_IMPLICIT
   - COERCE_IMPLICIT_CAST
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformReturnStmt
-  - transformReturningList
+  - [transformSelectStmt](../t/transformSelectStmt.md)
+  - [transformReturnStmt](../t/transformReturnStmt.md)
+  - [transformReturningList](../t/transformReturningList.md)
 
 ## Notes and Other Information
 - Used as a last resort after all other type resolution methods have been attempted

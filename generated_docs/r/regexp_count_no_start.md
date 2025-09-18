@@ -26,7 +26,7 @@ This is a common pattern in PostgreSQL where multiple function signatures are ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `regexp_count` (the main implementation function)
+  - `[regexp_count](regexp_count.md)` (the main implementation function)
 - Called from:
   - SQL queries using `regexp_count(string, pattern, flags)` function signature
 

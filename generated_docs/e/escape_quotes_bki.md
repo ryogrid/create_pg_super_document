@@ -19,12 +19,12 @@ This function prepares string values for insertion into BKI data files, which ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - escape_quotes (applies basic quote escaping)
+  - [escape_quotes](escape_quotes.md) (applies basic quote escaping)
   - pg_malloc (PostgreSQL memory allocation)
   - free (memory deallocation)
 - Called from (representative examples):
   - AUTHTRUST_WARNING (in src/bin/initdb/initdb.c:295)
-  - bootstrap_template1 (in src/bin/initdb/initdb.c:1569, 1575, 1578, 1581, 1584)
+  - [bootstrap_template1](../b/bootstrap_template1.md) (in src/bin/initdb/initdb.c:1569, 1575, 1578, 1581, 1584)
 
 ## Notes and Other Information
 - Specifically designed for BKI data file format used during database bootstrapping

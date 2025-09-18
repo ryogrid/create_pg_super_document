@@ -24,10 +24,10 @@ The function implements a simple loop that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadInt: Reads integer values (OIDs) from the archive
-  - _skipData: Skips data blocks associated with each Large Object
+  - [ReadInt](../R/ReadInt.md): Reads integer values (OIDs) from the archive
+  - [_skipData](_skipData.md): Skips data blocks associated with each Large Object
 - Called from (representative examples):
-  - _PrintTocData: Used during table of contents processing in custom format archives
+  - [_PrintTocData](../P/_PrintTocData.md): Used during table of contents processing in custom format archives
 
 ## Notes and Other Information
 - This is a static function specific to the custom format archive handling

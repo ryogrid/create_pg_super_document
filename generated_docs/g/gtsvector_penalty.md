@@ -30,13 +30,13 @@ For ALLTRUE original signatures (highly compressed), it uses a specialized formu
   - GET_SIGLEN (macro to get signature length)
   - GETSIGN (macro to get signature bit vector)
   - ISARRKEY (macro to check if entry is array-based)
-  - makesign (function to create signature from array)
+  - [makesign](../m/makesign.md) (function to create signature from array)
   - ISALLTRUE (macro to check if signature is in ALLTRUE state)
   - SIGLENBIT (macro to get bit length of signature)
-  - sizebitvec (function to count set bits)
-  - hemdistsign (function for Hamming distance between bit vectors)
-  - hemdist (function for Hamming distance between signatures)
-  - palloc/pfree (memory allocation functions)
+  - [sizebitvec](../s/sizebitvec.md) (function to count set bits)
+  - [hemdistsign](../h/hemdistsign.md) (function for Hamming distance between bit vectors)
+  - [hemdist](../h/hemdist.md) (function for Hamming distance between signatures)
+  - [palloc](../p/palloc.md)/pfree (memory allocation functions)
 - Called from:
   - Not directly called (used as GiST support function via function pointer)
 

@@ -17,21 +17,21 @@ This function converts a PostgreSQL NumericVar structure to a double-precision f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_str_from_var: Convert NumericVar to string representation
+  - [get_str_from_var](../g/get_str_from_var.md): Convert NumericVar to string representation
   - strtod: Standard C library function for string to double conversion
   - ereport: PostgreSQL error reporting function
-  - errcode: Error code specification function
-  - errmsg: Error message formatting function
-  - pfree: PostgreSQL memory deallocation function
+  - [errcode](../e/errcode.md): Error code specification function
+  - [errmsg](../e/errmsg.md): Error message formatting function
+  - [pfree](../p/pfree.md): PostgreSQL memory deallocation function
   - ERRCODE_INVALID_TEXT_REPRESENTATION: Error code constant
   - HUGE_VAL: IEEE floating-point infinity representation
 
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT: Numeric optimization checking
-  - numeric_exp: Exponential function implementation
-  - numeric_float8_no_overflow: Public interface for overflow-safe conversion
-  - exp_var: Variable exponential calculations
-  - power_var: Power function calculations
+  - [numeric_exp](numeric_exp.md): Exponential function implementation
+  - [numeric_float8_no_overflow](numeric_float8_no_overflow.md): Public interface for overflow-safe conversion
+  - [exp_var](../e/exp_var.md): Variable exponential calculations
+  - [power_var](../p/power_var.md): Power function calculations
 
 ## Notes and Other Information
 - Returns +/- HUGE_VAL for out-of-range values instead of raising overflow errors

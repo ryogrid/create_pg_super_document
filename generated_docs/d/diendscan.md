@@ -19,9 +19,9 @@ In a real index access method, this function would typically free any allocated 
 
 ## Dependencies
 - Data types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
 - Called from (representative examples):
-  - dihandler
+  - [dihandler](dihandler.md)
 
 ## Notes and Other Information
 - This is a static function within the dummy_index_am test module

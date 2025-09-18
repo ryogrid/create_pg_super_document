@@ -26,8 +26,8 @@ TwoPhaseGetGXact is a static function that searches for and returns the GlobalTr
   - GlobalTransaction (transaction structure type)
   - Static cache variables: cached_xid, cached_gxact
 - Called from:
-  - TwoPhaseGetDummyProcNumber
-  - TwoPhaseGetDummyProc
+  - [TwoPhaseGetDummyProcNumber](TwoPhaseGetDummyProcNumber.md)
+  - [TwoPhaseGetDummyProc](TwoPhaseGetDummyProc.md)
 
 ## Notes and Other Information
 - Implements a simple cache to optimize repeated lookups of the same XID

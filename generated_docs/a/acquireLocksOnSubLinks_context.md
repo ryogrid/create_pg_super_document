@@ -19,12 +19,12 @@ The  structure serves as a context container that carries state information duri
 - Functions called/Symbols referenced:
   - (None directly referenced)
 - Called from (representative examples):
-  - AcquireRewriteLocks
-  - acquireLocksOnSubLinks
-  - rewriteRuleAction
-  - fireRIRrules
-  - CopyAndAddInvertedQual
-  - rewriteTargetView
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md)
+  - [acquireLocksOnSubLinks](acquireLocksOnSubLinks.md)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
+  - [fireRIRrules](../f/fireRIRrules.md)
+  - [CopyAndAddInvertedQual](../C/CopyAndAddInvertedQual.md)
+  - [rewriteTargetView](../r/rewriteTargetView.md)
 
 ## Notes and Other Information
 - Used as a context parameter in tree walking functions during lock acquisition

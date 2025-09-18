@@ -19,12 +19,12 @@ This utility function processes handler function specifications from SQL DDL com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName: Resolve function name list to OID with signature checking
-  - get_func_rettype: Retrieve the return type OID of a function
-  - NameListToString: Convert function name list to string for error messages
+  - [LookupFuncName](../L/LookupFuncName.md): Resolve function name list to OID with signature checking
+  - [get_func_rettype](../g/get_func_rettype.md): Retrieve the return type OID of a function
+  - [NameListToString](../N/NameListToString.md): Convert function name list to string for error messages
   - FDW_HANDLEROID: Constant representing the fdw_handler type OID
 - Called from (representative examples):
-  - parse_func_options: Parser helper for processing FDW creation options
+  - [parse_func_options](../p/parse_func_options.md): Parser helper for processing FDW creation options
 
 ## Notes and Other Information
 - Returns InvalidOid if handler is NULL or handler->arg is NULL, indicating no handler specified

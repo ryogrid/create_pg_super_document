@@ -27,18 +27,18 @@ The function uses specific flags to optimize the recovery process: -F (disable f
   - find_other_exec
   - find_my_exec
   - strlcpy
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - pg_log_info
   - createPQExpBuffer
-  - appendShellString
-  - appendPQExpBufferStr
+  - [appendShellString](../a/appendShellString.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - fflush
   - system
   - pg_log_error
   - pg_log_error_detail
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - main (pg_rewind.c)
+  - [main](../m/main.md) (pg_rewind.c)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

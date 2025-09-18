@@ -18,12 +18,12 @@ The numeric_absolute function computes the absolute value of a PostgreSQL Numeri
 ## Dependencies
 - Functions called/Symbols referenced:
   - Numeric (PostgreSQL numeric data type)
-  - NumericGetDatum (converts Numeric to Datum format)
+  - [NumericGetDatum](../N/NumericGetDatum.md) (converts Numeric to Datum format)
   - DirectFunctionCall1 (calls a PostgreSQL function with one argument)
-  - numeric_abs (the standard numeric absolute value function)
-  - DatumGetNumeric (extracts Numeric result from Datum)
+  - [numeric_abs](numeric_abs.md) (the standard numeric absolute value function)
+  - [DatumGetNumeric](../D/DatumGetNumeric.md) (extracts Numeric result from Datum)
 - Called from (representative examples):
-  - pg_size_pretty_numeric (calculates absolute values during size formatting)
+  - [pg_size_pretty_numeric](../p/pg_size_pretty_numeric.md) (calculates absolute values during size formatting)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

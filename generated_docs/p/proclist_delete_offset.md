@@ -19,12 +19,12 @@ This function removes a specified process from a doubly-linked process list. It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proclist_node_get (to access node structures at specified offsets)
+  - [proclist_node_get](proclist_node_get.md) (to access node structures at specified offsets)
   - proclist_head (list header structure)
   - proclist_node (node structure within processes)
   - INVALID_PROC_NUMBER (constant indicating invalid process number)
 - Called from (representative examples):
-  - proclist_pop_head_node_offset
+  - [proclist_pop_head_node_offset](proclist_pop_head_node_offset.md)
   - proclist_delete
 
 ## Notes and Other Information

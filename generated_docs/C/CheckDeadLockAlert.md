@@ -17,10 +17,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - ProcessRecoveryConflictInterrupt
-  - InitPostgres
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md)
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - Runs inside a signal handler, so it must be async-signal-safe

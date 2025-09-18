@@ -21,10 +21,10 @@ The structure is designed to support the sorting operations required by GIN inde
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)
-  - bool (standard boolean type)
+  - [bool](../b/bool.md) (standard boolean type)
 - Called from (representative examples):
-  - cmpEntries (used in sorting comparison function at src/backend/access/gin/ginutil.c:445-446)
-  - ginExtractEntries (main usage for sorting keys at src/backend/access/gin/ginutil.c:543, 546, 556)
+  - [cmpEntries](../c/cmpEntries.md) (used in sorting comparison function at src/backend/access/gin/ginutil.c:445-446)
+  - [ginExtractEntries](../g/ginExtractEntries.md) (main usage for sorting keys at src/backend/access/gin/ginutil.c:543, 546, 556)
 
 ## Notes and Other Information
 - This structure is used only for internal sorting operations within GIN index key extraction

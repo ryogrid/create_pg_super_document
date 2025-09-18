@@ -31,10 +31,10 @@ For any other utility statement type, the function raises an error, as only NOTI
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendContextKeyword
-  - quote_identifier
+  - [quote_identifier](../q/quote_identifier.md)
   - simple_quote_literal
 - Called from:
-  - get_query_def
+  - [get_query_def](get_query_def.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, part of PostgreSQL's rule decompilation system

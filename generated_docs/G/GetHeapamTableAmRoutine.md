@@ -31,8 +31,8 @@ This function is used by PostgreSQL's table access method infrastructure to obta
 - Functions called/Symbols referenced:
   - heapam_methods (static TableAmRoutine structure)
 - Called from (representative examples):
-  - heap_getnext
-  - formrdesc
+  - [heap_getnext](../h/heap_getnext.md)
+  - [formrdesc](../f/formrdesc.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

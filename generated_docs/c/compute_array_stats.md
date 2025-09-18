@@ -23,15 +23,15 @@ This function implements the Lossy Counting algorithm to compute statistics for 
 ## Dependencies
 - Functions called/Symbols referenced:
   - std_compute_stats (via extra_data)
-  - element_hash
-  - element_match
-  - prune_element_hashtable
-  - hash_create
-  - hash_search
-  - deconstruct_array
-  - datumCopy
+  - [element_hash](../e/element_hash.md)
+  - [element_match](../e/element_match.md)
+  - [prune_element_hashtable](../p/prune_element_hashtable.md)
+  - [hash_create](../h/hash_create.md)
+  - [hash_search](../h/hash_search.md)
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - array_typanalyze (sets this as compute_stats callback)
+  - [array_typanalyze](../a/array_typanalyze.md) (sets this as compute_stats callback)
 
 ## Notes and Other Information
 - Uses Lossy Counting algorithm with parameters s = 0.07/K, epsilon = s/10 where K is statistics_target * 10

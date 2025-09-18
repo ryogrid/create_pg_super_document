@@ -23,12 +23,12 @@ This function is essentially a wrapper around PQescapeStringInternal with NULL c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeStringInternal
+  - [PQescapeStringInternal](PQescapeStringInternal.md)
   - static_client_encoding (global variable)
   - static_std_strings (global variable)
 - Called from (representative examples):
-  - quote_postgres
-  - escape_string (in test modules)
+  - [quote_postgres](../q/quote_postgres.md)
+  - [escape_string](../e/escape_string.md) (in test modules)
 
 ## Notes and Other Information
 - This function is less safe than PQescapeStringConn because it uses static default settings

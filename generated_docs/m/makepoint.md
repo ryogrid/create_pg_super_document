@@ -22,12 +22,12 @@ The `makepoint` function is a PostgreSQL C function that takes two Point argumen
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINT_P`: Macro to extract a Point argument (used twice for both parameters)
-  - `Point`: PostgreSQL's built-in geometric Point data type
-  - `palloc`: PostgreSQL's memory allocation function
+  - `[Point](../P/Point.md)`: PostgreSQL's built-in geometric Point data type
+  - `[palloc](../p/palloc.md)`: PostgreSQL's memory allocation function
   - `PG_RETURN_POINT_P`: Macro to return a Point value
   - `PG_FUNCTION_INFO_V1`: Macro for function metadata (referenced at line 61)
 - Called from (representative examples):
-  - `add_one_float8`: Referenced from the add_one_float8 function context
+  - `[add_one_float8](../a/add_one_float8.md)`: Referenced from the add_one_float8 function context
 
 ## Notes and Other Information
 - Located in `src/tutorial/funcs.c:47-63`

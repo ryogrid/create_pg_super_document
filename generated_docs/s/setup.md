@@ -27,16 +27,16 @@ The function ensures that no postmaster processes interfere with the upgrade pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_pghost_envvar (environment validation)
+  - [check_pghost_envvar](../c/check_pghost_envvar.md) (environment validation)
   - find_my_exec (executable path resolution) 
-  - last_dir_separator (path manipulation)
-  - canonicalize_path (path normalization)
-  - verify_directories (directory validation)
-  - pid_lock_file_exists (postmaster detection)
-  - start_postmaster (server startup)
-  - stop_postmaster (server shutdown)
+  - [last_dir_separator](../l/last_dir_separator.md) (path manipulation)
+  - [canonicalize_path](../c/canonicalize_path.md) (path normalization)
+  - [verify_directories](../v/verify_directories.md) (directory validation)
+  - [pid_lock_file_exists](../p/pid_lock_file_exists.md) (postmaster detection)
+  - [start_postmaster](start_postmaster.md) (server startup)
+  - [stop_postmaster](stop_postmaster.md) (server shutdown)
 - Called from:
-  - main (from pg_upgrade.c:126)
+  - [main](../m/main.md) (from pg_upgrade.c:126)
 
 ## Notes and Other Information
 - Critical for ensuring upgrade environment integrity before proceeding

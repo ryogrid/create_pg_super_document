@@ -20,14 +20,14 @@ This function serves as the public API for looking up extensible node methods in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetExtensibleNodeEntry
+  - [GetExtensibleNodeEntry](GetExtensibleNodeEntry.md)
 - Data types used:
-  - ExtensibleNodeMethods
+  - [ExtensibleNodeMethods](../E/ExtensibleNodeMethods.md)
 - Called from (representative examples):
-  - _copyExtensibleNode
-  - _equalExtensibleNode
-  - _outExtensibleNode
-  - _readExtensibleNode
+  - [_copyExtensibleNode](../c/_copyExtensibleNode.md)
+  - [_equalExtensibleNode](../e/_equalExtensibleNode.md)
+  - [_outExtensibleNode](../o/_outExtensibleNode.md)
+  - [_readExtensibleNode](../r/_readExtensibleNode.md)
 
 ## Notes and Other Information
 - This is the primary lookup function used by PostgreSQL's node processing infrastructure

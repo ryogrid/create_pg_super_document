@@ -25,18 +25,18 @@ The function includes sophisticated timing and reporting logic, tracking wait ti
 ## Dependencies
 - Functions called/Symbols referenced:
   - VirtualTransactionIdIsValid
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - VirtualXactLock
-  - WaitExceedsMaxStandbyDelay
+  - [WaitExceedsMaxStandbyDelay](../W/WaitExceedsMaxStandbyDelay.md)
   - CancelVirtualTransaction
-  - pg_usleep
-  - TimestampDifferenceExceeds
-  - set_ps_display_suffix
-  - LogRecoveryConflict
-  - set_ps_display_remove_suffix
+  - [pg_usleep](../p/pg_usleep.md)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
+  - [set_ps_display_suffix](../s/set_ps_display_suffix.md)
+  - [LogRecoveryConflict](../L/LogRecoveryConflict.md)
+  - [set_ps_display_remove_suffix](../s/set_ps_display_remove_suffix.md)
 - Called from (representative examples):
-  - ResolveRecoveryConflictWithSnapshot
-  - ResolveRecoveryConflictWithTablespace
+  - [ResolveRecoveryConflictWithSnapshot](ResolveRecoveryConflictWithSnapshot.md)
+  - [ResolveRecoveryConflictWithTablespace](ResolveRecoveryConflictWithTablespace.md)
   - ResolveRecoveryConflictWithLock
 
 ## Notes and Other Information

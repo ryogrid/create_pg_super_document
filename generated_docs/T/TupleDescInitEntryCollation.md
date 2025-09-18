@@ -28,11 +28,11 @@ The function performs minimal validation and directly sets the attcollation fiel
   - PointerIsValid (validation macro)
   - TupleDescAttr (tuple descriptor accessor macro)
 - Called from (representative examples):
-  - BuildDescFromLists (tuple descriptor construction)
-  - initGinState (GIN index initialization)
-  - ExecTypeFromTLInternal (executor type handling)
-  - addRangeTableEntryForFunction (function relation handling)
-  - resolve_polymorphic_tupdesc (polymorphic type resolution)
+  - [BuildDescFromLists](../B/BuildDescFromLists.md) (tuple descriptor construction)
+  - [initGinState](../i/initGinState.md) (GIN index initialization)
+  - [ExecTypeFromTLInternal](../E/ExecTypeFromTLInternal.md) (executor type handling)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md) (function relation handling)
+  - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md) (polymorphic type resolution)
 
 ## Notes and Other Information
 - This function must be called on an already initialized tuple descriptor entry

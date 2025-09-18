@@ -21,13 +21,13 @@ This function serves as a bridge between the optimized direct-threaded execution
 ## Dependencies
 - Functions called/Symbols referenced:
   - bsearch (for binary search in reverse lookup table)
-  - dispatch_compare_ptr (comparator function for binary search)
+  - [dispatch_compare_ptr](../d/dispatch_compare_ptr.md) (comparator function for binary search)
   - EEO_FLAG_DIRECT_THREADED (flag constant)
   - EEOP_LAST (constant for array size)
-  - ExprEvalOpLookup (structure type)
-  - ExprEvalOp (enumeration type)
+  - [ExprEvalOpLookup](ExprEvalOpLookup.md) (structure type)
+  - [ExprEvalOp](ExprEvalOp.md) (enumeration type)
 - Called from (representative examples):
-  - CheckExprStillValid (at line 1949)
+  - [CheckExprStillValid](../C/CheckExprStillValid.md) (at line 1949)
   - llvm_compile_expr (in LLVM JIT compilation)
 
 ## Notes and Other Information

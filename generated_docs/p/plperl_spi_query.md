@@ -29,28 +29,28 @@ The function handles errors by rolling back the subtransaction and propagating t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - BeginInternalSubTransaction
-  - pg_verifymbstr
-  - SPI_prepare
-  - SPI_result_code_string
-  - SPI_cursor_open
-  - SPI_freeplan
-  - cstr2sv
-  - PinPortal
-  - ReleaseCurrentSubTransaction
-  - CopyErrorData
-  - FlushErrorState
-  - RollbackAndReleaseCurrentSubTransaction
-  - croak_cstr
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [pg_verifymbstr](pg_verifymbstr.md)
+  - [SPI_prepare](../S/SPI_prepare.md)
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
+  - [SPI_freeplan](../S/SPI_freeplan.md)
+  - [cstr2sv](../c/cstr2sv.md)
+  - [PinPortal](../P/PinPortal.md)
+  - [ReleaseCurrentSubTransaction](../R/ReleaseCurrentSubTransaction.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md)
+  - [croak_cstr](../c/croak_cstr.md)
 - Called from (representative examples):
   - PL_PERL_H header (src/pl/plperl/plperl.h:30)
 
 ## Notes and Other Information
 - Uses subtransaction isolation to ensure clean error recovery
 - The returned cursor name can be used with other SPI cursor functions
-- Portal is pinned to prevent garbage collection until explicitly closed
-- Query parameter validation ensures proper encoding before execution
+- [Portal](../P/Portal.md) is pinned to prevent garbage collection until explicitly closed
+- [Query](../Q/Query.md) parameter validation ensures proper encoding before execution
 - Memory context management preserves function-level allocations
 - Error propagation uses Perl's croak mechanism for consistent exception handling
 - No query parameters are supported (uses 0 parameters in SPI_prepare)

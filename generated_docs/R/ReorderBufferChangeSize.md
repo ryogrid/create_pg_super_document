@@ -21,18 +21,18 @@ The function performs a switch statement on the change action type and adds the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferChange (structure type)
-  - HeapTupleData (structure type)
-  - SnapshotData (structure type) 
+  - [ReorderBufferChange](ReorderBufferChange.md) (structure type)
+  - [HeapTupleData](../H/HeapTupleData.md) (structure type)
+  - [SnapshotData](../S/SnapshotData.md) (structure type) 
   - SharedInvalidationMessage (structure type)
   - REORDER_BUFFER_CHANGE_* constants (various change type enums)
 - Called from (representative examples):
-  - ReorderBufferReturnChange
-  - ReorderBufferQueueChange
-  - ReorderBufferCleanupTXN
-  - ReorderBufferTruncateTXN
-  - ReorderBufferRestoreChange
-  - ReorderBufferToastReplace
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
+  - [ReorderBufferTruncateTXN](ReorderBufferTruncateTXN.md)
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
+  - [ReorderBufferToastReplace](ReorderBufferToastReplace.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the reorderbuffer.c module

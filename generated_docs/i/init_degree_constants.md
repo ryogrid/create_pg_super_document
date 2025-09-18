@@ -22,8 +22,8 @@ This function takes no parameters and returns no value.
   - asin (standard C library arcsine function)
   - acos (standard C library arccosine function)
   - atan (standard C library arctangent function)
-  - sind_q1 (PostgreSQL degree-based sine function for first quadrant)
-  - cosd_q1 (PostgreSQL degree-based cosine function for first quadrant)
+  - [sind_q1](../s/sind_q1.md) (PostgreSQL degree-based sine function for first quadrant)
+  - [cosd_q1](../c/cosd_q1.md) (PostgreSQL degree-based cosine function for first quadrant)
   - RADIANS_PER_DEGREE (conversion constant)
 - Called from (representative examples):
   - INIT_DEGREE_CONSTANTS (macro at src/backend/utils/adt/float.c:2027)

@@ -32,8 +32,8 @@ The parser supports the special "::" notation for zero compression, which can ap
   - strchr (standard C library)
   - memset (standard C library) 
   - memcpy (standard C library)
-  - getv4 (for parsing IPv4-mapped addresses)
-  - getbits (for parsing CIDR prefix notation)
+  - [getv4](../g/getv4.md) (for parsing IPv4-mapped addresses)
+  - [getbits](../g/getbits.md) (for parsing CIDR prefix notation)
 - Constants referenced:
   - NS_IN6ADDRSZ (16 - size of IPv6 address)
   - NS_INT16SZ (2 - size of 16-bit integer)
@@ -41,8 +41,8 @@ The parser supports the special "::" notation for zero compression, which can ap
   - EMSGSIZE (errno value for insufficient buffer size)
   - ENOENT (errno value for invalid input)
 - Called from (representative examples):
-  - pg_inet_net_pton
-  - inet_net_pton_ipv6
+  - [pg_inet_net_pton](../p/pg_inet_net_pton.md)
+  - [inet_net_pton_ipv6](inet_net_pton_ipv6.md)
 
 ## Notes and Other Information
 - Returns the number of network bits specified by CIDR notation, or 128 if no prefix is specified

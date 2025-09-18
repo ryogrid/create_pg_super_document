@@ -26,7 +26,7 @@ This function takes no parameters.
   - elog (for warning messages)
   - GUCNestLevel (global variable)
 - Called from (representative examples):
-  - StartTransaction (transaction management)
+  - [StartTransaction](../S/StartTransaction.md) (transaction management)
   - Functions that initialize transaction state
 
 ## Notes and Other Information

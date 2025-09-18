@@ -22,13 +22,13 @@ This approach maintains backwards compatibility and simplifies initialization co
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_asciiformat (default ASCII line style format structure)
-  - printTableOpt (table options structure type)
+  - [printTableOpt](../p/printTableOpt.md) (table options structure type)
 - Called from (representative examples):
-  - print_aligned_text (for horizontal aligned table output)
-  - print_aligned_vertical (for vertical aligned table output)  
-  - print_aligned_vertical_line (for specific line formatting in vertical mode)
-  - printPsetInfo (for displaying psql settings)
-  - pset_value_string (for formatting setting values)
+  - [print_aligned_text](../p/print_aligned_text.md) (for horizontal aligned table output)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md) (for vertical aligned table output)  
+  - [print_aligned_vertical_line](../p/print_aligned_vertical_line.md) (for specific line formatting in vertical mode)
+  - [printPsetInfo](../p/printPsetInfo.md) (for displaying psql settings)
+  - [pset_value_string](../p/pset_value_string.md) (for formatting setting values)
 
 ## Notes and Other Information
 - The function exists primarily to preserve the zero-initialization convention for printTableOpt structures

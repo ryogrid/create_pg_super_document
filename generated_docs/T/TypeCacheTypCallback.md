@@ -23,12 +23,12 @@ Specifically, it invalidates TCFLAGS_HAVE_PG_TYPE_DATA to force reloading of bas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - TCFLAGS_HAVE_PG_TYPE_DATA
   - TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS
 - Called from (representative examples):
-  - lookup_type_cache (registers the callback)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (registers the callback)
 
 ## Notes and Other Information
 - Registered as a syscache invalidation callback during type cache initialization

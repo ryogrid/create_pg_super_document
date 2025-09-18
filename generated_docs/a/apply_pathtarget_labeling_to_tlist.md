@@ -22,12 +22,12 @@ The function includes error checking to ensure that sortgroupref labels are appl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tlist_member_match_var (used for weakened matching of Var expressions)
-  - tlist_member (used for exact matching of non-Var expressions)
-  - PathTarget (source of sortgrouprefs data)
+  - [tlist_member_match_var](../t/tlist_member_match_var.md) (used for weakened matching of Var expressions)
+  - [tlist_member](../t/tlist_member.md) (used for exact matching of non-Var expressions)
+  - [PathTarget](../P/PathTarget.md) (source of sortgrouprefs data)
 - Called from (representative examples):
-  - create_scan_plan (in src/backend/optimizer/plan/createplan.c:655, 669)
-  - create_projection_plan (in src/backend/optimizer/plan/createplan.c:2049)
+  - [create_scan_plan](../c/create_scan_plan.md) (in src/backend/optimizer/plan/createplan.c:655, 669)
+  - [create_projection_plan](../c/create_projection_plan.md) (in src/backend/optimizer/plan/createplan.c:2049)
 
 ## Notes and Other Information
 - Does not assume one-for-one correspondence between tlist entries and PathTarget expressions

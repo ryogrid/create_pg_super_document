@@ -21,18 +21,18 @@ The function uses PostgreSQL's system cache mechanism for efficient lookups of f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - AggregateCreate (src/backend/catalog/pg_aggregate.c:393, 436, 551)
-  - check_and_push_window_quals (src/backend/optimizer/path/allpaths.c:2431)
-  - process_equivalence (src/backend/optimizer/path/equivclass.c:186)
-  - hash_ok_operator (src/backend/optimizer/plan/subselect.c:857)
-  - contain_nonstrict_functions_checker (src/backend/optimizer/util/clauses.c:1001)
+  - [AggregateCreate](../A/AggregateCreate.md) (src/backend/catalog/pg_aggregate.c:393, 436, 551)
+  - [check_and_push_window_quals](../c/check_and_push_window_quals.md) (src/backend/optimizer/path/allpaths.c:2431)
+  - [process_equivalence](../p/process_equivalence.md) (src/backend/optimizer/path/equivclass.c:186)
+  - [hash_ok_operator](../h/hash_ok_operator.md) (src/backend/optimizer/plan/subselect.c:857)
+  - [contain_nonstrict_functions_checker](../c/contain_nonstrict_functions_checker.md) (src/backend/optimizer/util/clauses.c:1001)
 
 ## Notes and Other Information
 - Part of the lsyscache.c module which provides convenient access functions for system catalog information

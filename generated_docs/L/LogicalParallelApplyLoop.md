@@ -24,18 +24,18 @@ When no messages are immediately available, the worker processes any spooled mes
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - ProcessParallelApplyInterrupts
-  - shm_mq_receive
-  - initReadOnlyStringInfo
-  - pq_getmsgbyte
-  - apply_dispatch
-  - pa_process_spooled_messages_if_required
-  - WaitLatch
-  - ResetLatch
-  - MemoryContextReset
-  - MemoryContextSwitchTo
+  - [ProcessParallelApplyInterrupts](../P/ProcessParallelApplyInterrupts.md)
+  - [shm_mq_receive](../s/shm_mq_receive.md)
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [apply_dispatch](../a/apply_dispatch.md)
+  - [pa_process_spooled_messages_if_required](../p/pa_process_spooled_messages_if_required.md)
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - ParallelApplyWorkerMain
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within applyparallelworker.c

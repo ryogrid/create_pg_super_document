@@ -20,20 +20,20 @@ The function uses a temporary memory context (gvs->tmpCxt) for each leaf page va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferExtended (read pages into buffers)
-  - LockBuffer (acquire/release buffer locks with GIN_SHARE, GIN_EXCLUSIVE, GIN_UNLOCK)
-  - BufferGetPage (get page from buffer)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (read pages into buffers)
+  - [LockBuffer](../L/LockBuffer.md) (acquire/release buffer locks with GIN_SHARE, GIN_EXCLUSIVE, GIN_UNLOCK)
+  - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)
   - GinPageIsData/GinPageIsLeaf (page type verification)
-  - PageGetMaxOffsetNumber (get maximum offset)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (get maximum offset)
   - GinDataPageGetPostingItem (get posting item from page)
   - PostingItemGetBlockNumber (extract block number from posting item)
-  - ginVacuumPostingTreeLeaf (vacuum individual leaf page)
-  - MemoryContextSwitchTo/MemoryContextReset (memory context management)
+  - [ginVacuumPostingTreeLeaf](ginVacuumPostingTreeLeaf.md) (vacuum individual leaf page)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)/MemoryContextReset (memory context management)
   - GinDataLeafPageIsEmpty (check if leaf page is empty)
   - GinPageGetOpaque (access page opaque data for rightlink)
-  - UnlockReleaseBuffer (release buffer and lock)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (release buffer and lock)
 - Called from (representative examples):
-  - ginVacuumPostingTree
+  - [ginVacuumPostingTree](ginVacuumPostingTree.md)
 
 ## Notes and Other Information
 - Static function, only accessible within ginvacuum.c

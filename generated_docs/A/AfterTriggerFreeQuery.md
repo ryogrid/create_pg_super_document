@@ -21,16 +21,16 @@ The function is designed to be safe when interrupted by errors and called again 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggersQueryData (query-level trigger state structure)
+  - [AfterTriggersQueryData](AfterTriggersQueryData.md) (query-level trigger state structure)
   - Tuplestorestate (tuple storage state structure)
-  - afterTriggerFreeEventList (frees trigger event list)
-  - tuplestore_end (closes tuple storage)
-  - AfterTriggersTableData (per-table trigger data structure)
-  - ExecDropSingleTupleTableSlot (releases tuple slot)
-  - list_free_deep (deep frees list and contents)
+  - [afterTriggerFreeEventList](../a/afterTriggerFreeEventList.md) (frees trigger event list)
+  - [tuplestore_end](../t/tuplestore_end.md) (closes tuple storage)
+  - [AfterTriggersTableData](AfterTriggersTableData.md) (per-table trigger data structure)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (releases tuple slot)
+  - [list_free_deep](../l/list_free_deep.md) (deep frees list and contents)
 - Called from:
-  - AfterTriggerEndQuery (in src/backend/commands/trigger.c:5202)
-  - AfterTriggerEndSubXact (in src/backend/commands/trigger.c:5478)
+  - [AfterTriggerEndQuery](AfterTriggerEndQuery.md) (in src/backend/commands/trigger.c:5202)
+  - [AfterTriggerEndSubXact](AfterTriggerEndSubXact.md) (in src/backend/commands/trigger.c:5478)
 
 ## Notes and Other Information
 - Designed for exception safety - can be safely called multiple times for the same query level

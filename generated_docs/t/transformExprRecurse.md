@@ -21,16 +21,16 @@ src/backend/parser/parse_expr.c: 138 - 391
   - check_stack_depth (stack overflow protection)
   - nodeTag (node type identification)
   - transformColumnRef, transformParamRef, transformIndirection (basic expression types)
-  - transformAExprOp, transformAExprOpAny, transformAExprOpAll (operator expressions)  
+  - [transformAExprOp](transformAExprOp.md), transformAExprOpAny, transformAExprOpAll (operator expressions)  
   - transformFuncCall, transformSubLink, transformCaseExpr (complex expressions)
-  - transformJsonObjectConstructor, transformJsonArrayConstructor (JSON expressions)
-  - make_const, type_is_rowtype (utility functions)
+  - [transformJsonObjectConstructor](transformJsonObjectConstructor.md), transformJsonArrayConstructor (JSON expressions)
+  - [make_const](../m/make_const.md), type_is_rowtype (utility functions)
   - Various AEXPR_* and T_* constants for node type matching
 
 - Called from (representative examples):
-  - transformExpr (main entry point)
-  - transformExprRecurse (recursive self-calls for nested expressions)
-  - transformIndirection, transformAExprOp, transformCaseExpr (specialized transformers)
+  - [transformExpr](transformExpr.md) (main entry point)
+  - [transformExprRecurse](transformExprRecurse.md) (recursive self-calls for nested expressions)
+  - [transformIndirection](transformIndirection.md), transformAExprOp, transformCaseExpr (specialized transformers)
   - transformFuncCall, transformBoolExpr (for argument processing)
 
 ## Notes and Other Information

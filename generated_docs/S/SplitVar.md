@@ -24,7 +24,7 @@ The structure is primarily used during the word normalization process where comp
 - Functions called/Symbols referenced:
   - Self-reference in next pointer field
 - Called from (representative examples):
-  - CheckCompoundAffixes
+  - [CheckCompoundAffixes](../C/CheckCompoundAffixes.md)
   - CopyVar
   - AddStem
   - SplitToVariants

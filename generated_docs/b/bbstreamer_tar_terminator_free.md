@@ -21,8 +21,8 @@ The function is called when the TAR terminator bbstreamer is no longer needed, t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_free
-  - pfree
+  - [bbstreamer_free](bbstreamer_free.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - Set as callback in bbstreamer_tar_terminator_ops.free
 

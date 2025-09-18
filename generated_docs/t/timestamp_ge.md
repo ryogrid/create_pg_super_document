@@ -20,7 +20,7 @@ This function implements the greater-than-or-equal-to comparison operator (>=) f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP (macro to extract timestamp arguments)
-  - timestamp_cmp_internal (internal comparison function)
+  - [timestamp_cmp_internal](timestamp_cmp_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):
   - No direct references found in codebase

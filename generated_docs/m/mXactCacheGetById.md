@@ -23,12 +23,12 @@ The caller is responsible for freeing the allocated memory returned through the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - dclist_foreach, dclist_container, dclist_move_head (doubly-linked list operations)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copying)
   - debug_elog3, debug_elog2 (debugging output)
-  - mxid_to_string (debugging helper)
+  - [mxid_to_string](mxid_to_string.md) (debugging helper)
 - Called from (representative examples):
-  - GetMultiXactIdMembers (main usage for retrieving MultiXact composition)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md) (main usage for retrieving MultiXact composition)
   - debug_elog6 (debugging context)
 
 ## Notes and Other Information

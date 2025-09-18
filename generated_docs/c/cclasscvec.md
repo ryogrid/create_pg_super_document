@@ -33,13 +33,13 @@ The function supports all standard POSIX character classes: alnum, alpha, blank,
   - getcvec (allocate new character vector)
   - addrange (add character range to cvec)
   - addchr (add individual character to cvec)
-  - pg_wc_isprint, pg_wc_isalnum, pg_wc_isalpha, etc. (character classification functions)
+  - [pg_wc_isprint](../p/pg_wc_isprint.md), pg_wc_isalnum, pg_wc_isalpha, etc. (character classification functions)
   - ERR (error reporting macro)
   - REG_ESPACE (out of memory error code)
   - CC_* constants (character class identifiers)
 - Called from (representative examples):
-  - charclass (in regcomp.c:1503)
-  - charclasscomplement (in regcomp.c:1532)
+  - [charclass](charclass.md) (in regcomp.c:1503)
+  - [charclasscomplement](charclasscomplement.md) (in regcomp.c:1532)
   - wordchrs (in regcomp.c:2007)
 
 ## Notes and Other Information

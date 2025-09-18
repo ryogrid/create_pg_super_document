@@ -20,12 +20,12 @@ The function parses command arguments sequentially, handles the optional reuse-p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_connect_arg: Reads connection arguments from the command line
-  - ParseVariableBool: Parses boolean values for the reuse-previous option
-  - do_connect: Performs the actual database connection
-  - ignore_slash_options: Skips parsing when not in active branch
+  - [read_connect_arg](../r/read_connect_arg.md): Reads connection arguments from the command line
+  - [ParseVariableBool](../P/ParseVariableBool.md): Parses boolean values for the reuse-previous option
+  - [do_connect](../d/do_connect.md): Performs the actual database connection
+  - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when not in active branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Supports flexible parameter specification where '-' means "use current value"

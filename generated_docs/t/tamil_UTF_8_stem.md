@@ -55,7 +55,7 @@ Each stage preserves the original cursor position using save/restore patterns, a
 - Declared with  linkage, making it accessible to external modules
 - Implements the complete Tamil morphological analysis as defined by Tamil linguistic rules
 - Each processing stage uses position save/restore to ensure non-destructive operation
-- The sequential ordering of operations is linguistically significant - prefixes are removed before suffixes, and suffix removal follows morphological precedence
+- The sequential ordering of operations is linguistically significant - [prefixes](../p/prefixes.md) are removed before suffixes, and suffix removal follows morphological precedence
 - Essential component of PostgreSQL's multilingual full-text search capabilities for Tamil content
 - Supports UTF-8 encoded Tamil text with proper Unicode handling
 - Forms part of the broader Snowball stemming framework used across multiple languages in PostgreSQL

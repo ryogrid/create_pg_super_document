@@ -34,12 +34,12 @@ Since ArchiveHandle is a typedef, it inherits all members from :
 ## Dependencies
 - Functions called/Symbols referenced:
   - _archiveHandle (underlying structure)
-  - Archive (public interface structure)
-  - TocEntry (table of contents entries)
+  - [Archive](Archive.md) (public interface structure)
+  - [TocEntry](../T/TocEntry.md) (table of contents entries)
   
 - Called from (representative examples):
   - Used throughout pg_dump and pg_restore utilities
-  - Archive format handlers (custom, tar, plain text)
+  - [Archive](Archive.md) format handlers (custom, tar, plain text)
   - Parallel worker processes
 
 ## Notes and Other Information

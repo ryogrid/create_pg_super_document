@@ -25,9 +25,9 @@ Like other internal subtransaction functions, it does not require CommitTransact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbortSubTransaction
-  - CleanupSubTransaction
-  - BlockStateAsString
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)
+  - [CleanupSubTransaction](../C/CleanupSubTransaction.md)
+  - [BlockStateAsString](../B/BlockStateAsString.md)
   - elog
 - Transaction state constants:
   - TBLOCK_SUBINPROGRESS
@@ -38,10 +38,10 @@ Like other internal subtransaction functions, it does not require CommitTransact
   - CurrentTransactionState
 - Called from:
   - CHANGES_THRESHOLD (logical replication buffer management)
-  - ReorderBufferImmediateInvalidation (logical replication)
+  - [ReorderBufferImmediateInvalidation](ReorderBufferImmediateInvalidation.md) (logical replication)
   - plperl_spi_* functions (PL/Perl error handling)
-  - PLy_abort_open_subtransactions (PL/Python cleanup)
-  - PLy_spi_subtransaction_abort (PL/Python)
+  - [PLy_abort_open_subtransactions](../P/PLy_abort_open_subtransactions.md) (PL/Python cleanup)
+  - [PLy_spi_subtransaction_abort](../P/PLy_spi_subtransaction_abort.md) (PL/Python)
   - pltcl_subtrans_abort (PL/Tcl)
 
 ## Notes and Other Information

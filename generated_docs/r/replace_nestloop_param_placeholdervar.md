@@ -29,17 +29,17 @@ A key difference from the Var version is that type information must be extracted
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - equal: Tests structural equality between the input PlaceHolderVar and existing paramval entries
+  - [equal](../e/equal.md): Tests structural equality between the input PlaceHolderVar and existing paramval entries
   - makeNode: Creates new Param and NestLoopParam nodes
   - exprType: Extracts the data type from the PlaceHolderVar's phexpr
   - exprTypmod: Extracts the type modifier from the PlaceHolderVar's phexpr  
-  - exprCollation: Extracts the collation information from the PlaceHolderVar's phexpr
-  - generate_new_exec_param: Allocates a new execution parameter slot with proper type information
+  - [exprCollation](../e/exprCollation.md): Extracts the collation information from the PlaceHolderVar's phexpr
+  - [generate_new_exec_param](../g/generate_new_exec_param.md): Allocates a new execution parameter slot with proper type information
   - copyObject: Creates a deep copy of the PlaceHolderVar for storage in the NestLoopParam
   - lappend: Adds the new NestLoopParam to the curOuterParams list
 
 - Called from (representative examples):
-  - replace_nestloop_params_mutator: Used during plan tree creation to parameterize PlaceHolderVars in nested loop contexts
+  - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md): Used during plan tree creation to parameterize PlaceHolderVars in nested loop contexts
 
 ## Notes and Other Information
 - Functionally identical to replace_nestloop_param_var but specialized for PlaceHolderVar expressions

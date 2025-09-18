@@ -23,13 +23,13 @@ The returned string is palloc'd and must be freed by the caller.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - flatten_set_variable_args
-  - GetConfigOptionByName
+  - [flatten_set_variable_args](../f/flatten_set_variable_args.md)
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
 - Called from (representative examples):
-  - ExecSetVariableStmt (in src/backend/utils/misc/guc_funcs.c:63)
-  - AlterSetting (in src/backend/catalog/pg_db_role_setting.c:32)
-  - update_proconfig_value (in src/backend/commands/functioncmds.c:657)
-  - AlterSystemSetConfigFile (in src/backend/utils/misc/guc.c:4634)
+  - [ExecSetVariableStmt](ExecSetVariableStmt.md) (in src/backend/utils/misc/guc_funcs.c:63)
+  - [AlterSetting](../A/AlterSetting.md) (in src/backend/catalog/pg_db_role_setting.c:32)
+  - [update_proconfig_value](../u/update_proconfig_value.md) (in src/backend/commands/functioncmds.c:657)
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md) (in src/backend/utils/misc/guc.c:4634)
 
 ## Notes and Other Information
 - This function is exported and used by various ALTER commands like ALTER ROLE SET

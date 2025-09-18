@@ -26,11 +26,11 @@ Note that while this function initializes the tuple slots, it does not initializ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_slot_create
-  - ModifyTableState
+  - [table_slot_create](../t/table_slot_create.md)
+  - [ModifyTableState](../M/ModifyTableState.md)
 - Called from (representative examples):
-  - ExecInitMerge
-  - ExecInitPartitionInfo
+  - [ExecInitMerge](ExecInitMerge.md)
+  - [ExecInitPartitionInfo](ExecInitPartitionInfo.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure it's not called multiple times on the same ResultRelInfo (ri_projectNewInfoValid must be false)

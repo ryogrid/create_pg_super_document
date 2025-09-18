@@ -23,7 +23,7 @@ XLogFileNameById constructs a WAL segment file name by directly combining the pr
   - MAXFNAMELEN
   - snprintf (standard C library)
 - Called from (representative examples):
-  - SetWALFileNameForCleanup (in pg_archivecleanup)
+  - [SetWALFileNameForCleanup](../S/SetWALFileNameForCleanup.md) (in pg_archivecleanup)
 
 ## Notes and Other Information
 - This is an inline function defined in xlog_internal.h for performance

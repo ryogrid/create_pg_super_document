@@ -17,13 +17,13 @@ sql_exec_error_callback serves as PostgreSQL's error context callback specifical
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - geterrposition
-  - errposition
-  - internalerrposition
-  - internalerrquery
+  - [geterrposition](../g/geterrposition.md)
+  - [errposition](../e/errposition.md)
+  - [internalerrposition](../i/internalerrposition.md)
+  - [internalerrquery](../i/internalerrquery.md)
   - errcontext
 - Called from (representative examples):
-  - fmgr_sql (registered as error callback)
+  - [fmgr_sql](../f/fmgr_sql.md) (registered as error callback)
 
 ## Notes and Other Information
 - Registered as an error context callback in fmgr_sql to provide enhanced error reporting during SQL function execution

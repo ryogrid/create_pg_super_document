@@ -20,14 +20,14 @@ This is a blocking operation that combines the functionality of sending the desc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendTypedCommand
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendTypedCommand](PQsendTypedCommand.md)
   - PqMsg_Describe
-  - PQexecFinish
+  - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - DescribeQuery (src/bin/psql/common.c:1347)
-  - ECPGdescribe (src/interfaces/ecpg/ecpglib/descriptor.c:912,929,957)
-  - test_prepared (src/test/modules/libpq_pipeline/libpq_pipeline.c:1335)
+  - [DescribeQuery](../D/DescribeQuery.md) (src/bin/psql/common.c:1347)
+  - [ECPGdescribe](../E/ECPGdescribe.md) (src/interfaces/ecpg/ecpglib/descriptor.c:912,929,957)
+  - [test_prepared](../t/test_prepared.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:1335)
 
 ## Notes and Other Information
 - This is a synchronous wrapper around the asynchronous PQsendDescribePrepared/PQgetResult pattern

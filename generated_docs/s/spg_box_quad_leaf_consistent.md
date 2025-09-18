@@ -28,13 +28,13 @@ This function implements the leaf consistency check for SP-GiST quadtree indexes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spg_box_quad_get_scankey_bbox
-  - BoxPGetDatum
+  - [spg_box_quad_get_scankey_bbox](spg_box_quad_get_scankey_bbox.md)
+  - [BoxPGetDatum](../B/BoxPGetDatum.md)
   - DirectFunctionCall2
-  - box_overlap, box_contain, box_contained, box_same
-  - box_left, box_overleft, box_right, box_overright
-  - box_above, box_overabove, box_below, box_overbelow
-  - spg_key_orderbys_distances
+  - [box_overlap](../b/box_overlap.md), box_contain, box_contained, box_same
+  - [box_left](../b/box_left.md), box_overleft, box_right, box_overright
+  - [box_above](../b/box_above.md), box_overabove, box_below, box_overbelow
+  - [spg_key_orderbys_distances](spg_key_orderbys_distances.md)
 - Called from (representative examples):
   - Used as SP-GiST leaf consistent function in operator class definitions
 

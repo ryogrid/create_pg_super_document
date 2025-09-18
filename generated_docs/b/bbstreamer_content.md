@@ -23,19 +23,19 @@ The function performs a basic assertion to ensure the streamer is not NULL befor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (struct type)
+  - [bbstreamer](bbstreamer.md) (struct type)
   - bbstreamer_member (struct type)
-  - bbstreamer_archive_context (enum type)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (enum type)
   - Assert (assertion macro)
 
 - Called from (representative examples):
-  - bbstreamer_gzip_decompressor_content
-  - bbstreamer_recovery_injector_content
-  - bbstreamer_lz4_compressor_content
-  - bbstreamer_tar_parser_content
-  - bbstreamer_zstd_compressor_content
-  - ReceiveArchiveStreamChunk
-  - ReceiveTarCopyChunk
+  - [bbstreamer_gzip_decompressor_content](bbstreamer_gzip_decompressor_content.md)
+  - [bbstreamer_recovery_injector_content](bbstreamer_recovery_injector_content.md)
+  - [bbstreamer_lz4_compressor_content](bbstreamer_lz4_compressor_content.md)
+  - [bbstreamer_tar_parser_content](bbstreamer_tar_parser_content.md)
+  - [bbstreamer_zstd_compressor_content](bbstreamer_zstd_compressor_content.md)
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)
+  - [ReceiveTarCopyChunk](../R/ReceiveTarCopyChunk.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in bbstreamer.h, making it available to all bbstreamer implementations

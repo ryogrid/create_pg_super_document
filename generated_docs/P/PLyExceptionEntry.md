@@ -22,11 +22,11 @@ The structure is designed to work with PostgreSQL's hash table implementation, w
 - Functions called/Symbols referenced:
   - PyObject (Python C API type)
 - Called from (representative examples):
-  - PLy_add_exceptions (creates hash table using this structure)
-  - PLy_generate_spi_exceptions (populates hash table entries)
-  - PLy_commit (used for exception handling during transaction commit)
-  - PLy_rollback (used for exception handling during transaction rollback)
-  - PLy_spi_subtransaction_abort (used for exception handling during subtransaction abort)
+  - [PLy_add_exceptions](PLy_add_exceptions.md) (creates hash table using this structure)
+  - [PLy_generate_spi_exceptions](PLy_generate_spi_exceptions.md) (populates hash table entries)
+  - [PLy_commit](PLy_commit.md) (used for exception handling during transaction commit)
+  - [PLy_rollback](PLy_rollback.md) (used for exception handling during transaction rollback)
+  - [PLy_spi_subtransaction_abort](PLy_spi_subtransaction_abort.md) (used for exception handling during subtransaction abort)
 
 ## Notes and Other Information
 - The structure is specifically designed for use with PostgreSQL's hash table implementation, requiring the hash key (sqlstate) to be the first field

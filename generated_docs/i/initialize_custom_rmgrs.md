@@ -22,11 +22,11 @@ The `initialize_custom_rmgrs` function sets up resource manager descriptors for 
   - RM_N_CUSTOM_IDS (constant defining number of custom resource manager slots)
   - CUSTOM_NUMERIC_NAME_LEN (constant defining length of numeric names)
   - RM_MIN_CUSTOM_ID (constant defining the minimum custom resource manager ID)
-  - default_desc (assigned as the description function)
-  - default_identify (assigned as the identification function)
-  - RmgrDescData (structure type used for resource manager descriptors)
+  - [default_desc](../d/default_desc.md) (assigned as the description function)
+  - [default_identify](../d/default_identify.md) (assigned as the identification function)
+  - [RmgrDescData](../R/RmgrDescData.md) (structure type used for resource manager descriptors)
 - Called from:
-  - GetRmgrDesc (called to initialize custom resource managers when first needed)
+  - [GetRmgrDesc](../G/GetRmgrDesc.md) (called to initialize custom resource managers when first needed)
 
 ## Notes and Other Information
 - This function is static and only used within rmgrdesc.c

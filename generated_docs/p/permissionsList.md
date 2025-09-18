@@ -23,16 +23,16 @@ The query excludes indexes and toast tables as they have no meaningful access ri
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer (initialize query buffer)
-  - printfPQExpBuffer (format base SQL query)
-  - printACLColumn (format access control list for table-level privileges)
-  - validateSQLNamePattern (validate and apply name pattern filtering)
-  - PSQLexec (execute the constructed SQL query)
-  - printQuery (display formatted results with translation support)
+  - [printfPQExpBuffer](printfPQExpBuffer.md) (format base SQL query)
+  - [printACLColumn](printACLColumn.md) (format access control list for table-level privileges)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and apply name pattern filtering)
+  - [PSQLexec](../P/PSQLexec.md) (execute the constructed SQL query)
+  - [printQuery](printQuery.md) (display formatted results with translation support)
   - termPQExpBuffer (cleanup query buffer)
   - RELKIND constants (RELKIND_RELATION, RELKIND_VIEW, RELKIND_MATVIEW, etc.)
 - Called from (representative examples):
-  - exec_command_d (src/bin/psql/command.c:903) - handles \dp command variant
-  - exec_command_z (src/bin/psql/command.c:3036) - handles \z command
+  - [exec_command_d](../e/exec_command_d.md) (src/bin/psql/command.c:903) - handles \dp command variant
+  - [exec_command_z](../e/exec_command_z.md) (src/bin/psql/command.c:3036) - handles \z command
   - Declared in DESCRIBE_H (src/bin/psql/describe.h:44)
 
 ## Notes and Other Information

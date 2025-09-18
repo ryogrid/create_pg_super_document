@@ -27,7 +27,7 @@ The function uses PostgreSQLs `PG_FUNCTION_ARGS` macro to access arguments:
   - `PG_EUC_JP`: Encoding constant for EUC-JP
   - `PG_SJIS`: Encoding constant for Shift_JIS
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validates encoding conversion parameters
-  - `sjis2euc_jp`: Core conversion function that performs the actual character-by-character conversion
+  - `[sjis2euc_jp](sjis2euc_jp.md)`: Core conversion function that performs the actual character-by-character conversion
   - `PG_RETURN_INT32`: Returns integer result to PostgreSQL
 - Called from (representative examples):
   - `PGEUCALTCODE`: Referenced in the same source file

@@ -29,13 +29,13 @@ For BitmapHeapScan paths, only simple bitmap scans are accepted, not complex AND
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - join_clause_is_movable_into
-  - is_redundant_with_indexclauses
+  - [join_clause_is_movable_into](../j/join_clause_is_movable_into.md)
+  - [is_redundant_with_indexclauses](../i/is_redundant_with_indexclauses.md)
   - JoinPath
-  - IndexPath  
+  - [IndexPath](../I/IndexPath.md)  
   - BitmapHeapPath
 - Called from (representative examples):
-  - final_cost_nestloop
+  - [final_cost_nestloop](../f/final_cost_nestloop.md)
   - cost_qual_eval_context
 
 ## Notes and Other Information

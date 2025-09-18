@@ -21,16 +21,16 @@ The 'dirty' flag indicates the slot has changes that need to be saved, while 'ju
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - ReplicationSlot (struct type)
+  - [ReplicationSlot](ReplicationSlot.md) (struct type)
 - Called from (representative examples):
   - CreateInitDecodingContext
   - CreateDecodingContext
   - LogicalConfirmReceivedLocation
-  - LogicalSlotAdvanceAndCheckSnapState
-  - pg_logical_slot_get_changes_guts
-  - ReplicationSlotAlter
-  - PhysicalConfirmReceivedLocation
-  - PhysicalReplicationSlotNewXmin
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [ReplicationSlotAlter](ReplicationSlotAlter.md)
+  - [PhysicalConfirmReceivedLocation](../P/PhysicalConfirmReceivedLocation.md)
+  - [PhysicalReplicationSlotNewXmin](../P/PhysicalReplicationSlotNewXmin.md)
 
 ## Notes and Other Information
 - Requires that MyReplicationSlot is not NULL (verified by Assert)

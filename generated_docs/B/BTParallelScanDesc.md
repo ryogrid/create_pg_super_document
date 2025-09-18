@@ -20,14 +20,14 @@ This is a pointer type, so it points to a BTParallelScanDescData structure conta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTParallelScanDescData (the underlying structure type)
+  - [BTParallelScanDescData](BTParallelScanDescData.md) (the underlying structure type)
 - Called from (representative examples):
-  - btinitparallelscan (initializes parallel scan descriptor)
-  - btparallelrescan (resets parallel scan state)  
-  - _bt_parallel_seize (acquires parallel scan control)
-  - _bt_parallel_release (releases parallel scan control)
-  - _bt_parallel_done (marks parallel scan as complete)
-  - _bt_parallel_primscan_schedule (schedules primitive scans)
+  - [btinitparallelscan](../b/btinitparallelscan.md) (initializes parallel scan descriptor)
+  - [btparallelrescan](../b/btparallelrescan.md) (resets parallel scan state)  
+  - [_bt_parallel_seize](../b/_bt_parallel_seize.md) (acquires parallel scan control)
+  - [_bt_parallel_release](../b/_bt_parallel_release.md) (releases parallel scan control)
+  - [_bt_parallel_done](../b/_bt_parallel_done.md) (marks parallel scan as complete)
+  - [_bt_parallel_primscan_schedule](../b/_bt_parallel_primscan_schedule.md) (schedules primitive scans)
 
 ## Notes and Other Information
 This typedef follows PostgreSQL's naming convention where the structure name ends with 'Data' and the pointer typedef uses the same base name without 'Data'. The pointer is typically used to reference shared memory structures that coordinate parallel operations across multiple worker processes. Functions receiving this type should assume the pointed-to structure may be accessed concurrently by other processes and use appropriate synchronization mechanisms.

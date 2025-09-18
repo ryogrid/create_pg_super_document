@@ -22,10 +22,10 @@ This optimization is crucial for enum comparison performance, as it allows the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member
-  - TypeCacheEnumData
+  - [bms_is_member](../b/bms_is_member.md)
+  - [TypeCacheEnumData](../T/TypeCacheEnumData.md)
 - Called from (representative examples):
-  - compare_values_of_enum
+  - [compare_values_of_enum](../c/compare_values_of_enum.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance, only accessible within typcache.c

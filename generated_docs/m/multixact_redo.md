@@ -26,21 +26,21 @@ The function ensures proper locking, advances internal counters, and maintains c
   - XLogRecGetInfo
   - XLogRecHasAnyBlockRefs
   - XLogRecGetData
-  - SimpleLruGetBankLock
-  - ZeroMultiXactOffsetPage
-  - ZeroMultiXactMemberPage
-  - SimpleLruWritePage
-  - RecordNewMultiXact
-  - MultiXactAdvanceNextMXact
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [ZeroMultiXactOffsetPage](../Z/ZeroMultiXactOffsetPage.md)
+  - [ZeroMultiXactMemberPage](../Z/ZeroMultiXactMemberPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [MultiXactAdvanceNextMXact](../M/MultiXactAdvanceNextMXact.md)
   - XLogRecGetXid
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - AdvanceNextFullTransactionIdPastXid
-  - SetMultiXactIdLimit
-  - PerformMembersTruncation
-  - PerformOffsetsTruncation
-  - MultiXactIdToOffsetSegment
-  - MXOffsetToMemberSegment
-  - MultiXactIdToOffsetPage
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
+  - [PerformMembersTruncation](../P/PerformMembersTruncation.md)
+  - [PerformOffsetsTruncation](../P/PerformOffsetsTruncation.md)
+  - [MultiXactIdToOffsetSegment](../M/MultiXactIdToOffsetSegment.md)
+  - [MXOffsetToMemberSegment](../M/MXOffsetToMemberSegment.md)
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
 - Called from:
   - Referenced by SizeOfMultiXactTruncate in src/include/access/multixact.h
 

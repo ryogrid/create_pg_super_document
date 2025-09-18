@@ -20,7 +20,7 @@ This function serves as a fallback mechanism for loading DH parameters when the 
 - Functions called/Symbols referenced:
   - unconstify (removes const qualifier for OpenSSL compatibility)
   - DEBUG2 (logging level constant)
-  - SSLerrmessage (formats SSL error messages)
+  - [SSLerrmessage](../S/SSLerrmessage.md) (formats SSL error messages)
   - BIO_new_mem_buf (OpenSSL function to create memory BIO)
   - PEM_read_bio_DHparams (OpenSSL function to read DH parameters from BIO)
   - BIO_free (OpenSSL function to free BIO structure)

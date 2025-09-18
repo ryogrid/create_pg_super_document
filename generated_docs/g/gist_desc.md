@@ -29,11 +29,11 @@ The function handles six different types of GiST WAL operations:
   - XLogRecGetData
   - XLogRecGetInfo
   - XLR_INFO_MASK
-  - out_gistxlogPageUpdate
-  - out_gistxlogPageReuse
-  - out_gistxlogDelete
-  - out_gistxlogPageSplit
-  - out_gistxlogPageDelete
+  - [out_gistxlogPageUpdate](../o/out_gistxlogPageUpdate.md)
+  - [out_gistxlogPageReuse](../o/out_gistxlogPageReuse.md)
+  - [out_gistxlogDelete](../o/out_gistxlogDelete.md)
+  - [out_gistxlogPageSplit](../o/out_gistxlogPageSplit.md)
+  - [out_gistxlogPageDelete](../o/out_gistxlogPageDelete.md)
   - XLOG_GIST_PAGE_UPDATE
   - XLOG_GIST_PAGE_REUSE
   - XLOG_GIST_DELETE

@@ -20,10 +20,10 @@ The structure serves as a bridge between the catalog system's constraints and th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NullableDatum
+  - [NullableDatum](../N/NullableDatum.md)
 - Called from (representative examples):
-  - InsertPgAttributeTuples (src/backend/catalog/heap.c:706, 728)
-  - AppendAttributeTuples (src/backend/catalog/index.c:515, 519)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md) (src/backend/catalog/heap.c:706, 728)
+  - [AppendAttributeTuples](../A/AppendAttributeTuples.md) (src/backend/catalog/index.c:515, 519)
 
 ## Notes and Other Information
 - This structure is specifically designed for DDL code usage

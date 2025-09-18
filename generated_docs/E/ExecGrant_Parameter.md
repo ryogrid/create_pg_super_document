@@ -20,19 +20,19 @@ The function includes an optimization where if the new ACL matches the default p
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close (with ParameterAclRelationId)
-  - SearchSysCache1, ReleaseSysCache (with PARAMETERACLOID)
-  - SysCacheGetAttr, SysCacheGetAttrNotNull
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (with PARAMETERACLOID)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md), SysCacheGetAttrNotNull
   - TextDatumGetCString (for parameter name extraction)
-  - acldefault, aclmembers, aclequal
+  - [acldefault](../a/acldefault.md), aclmembers, aclequal
   - select_best_grantor
-  - restrict_and_check_grant (with OBJECT_PARAMETER_ACL)
-  - merge_acl_with_grant
-  - heap_modify_tuple, CatalogTupleUpdate, CatalogTupleDelete
-  - updateAclDependencies
-  - recordExtensionInitPriv
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md) (with OBJECT_PARAMETER_ACL)
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md), CatalogTupleUpdate, CatalogTupleDelete
+  - [updateAclDependencies](../u/updateAclDependencies.md)
+  - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
   - CommandCounterIncrement
 - Called from:
-  - ExecGrantStmt_oids (when processing parameter privileges)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (when processing parameter privileges)
 
 ## Notes and Other Information
 - All parameters are treated as owned by BOOTSTRAP_SUPERUSERID regardless of who created them

@@ -26,7 +26,7 @@ The function follows PostgreSQL's exit callback pattern, accepting status and ar
   - AnonymousShmem
   - AnonymousShmemSize
 - Called from (representative examples):
-  - PGSharedMemoryCreate (registers as callback)
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md) (registers as callback)
 
 ## Notes and Other Information
 - Static function only used within sysv_shmem.c

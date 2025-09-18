@@ -22,7 +22,7 @@ The function processes each character of the input string sequentially, checking
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro (used to append individual characters to the buffer)
 - Called from (representative examples):
-  - process_queued_fetch_requests (src/bin/pg_rewind/libpq_source.c:461)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (src/bin/pg_rewind/libpq_source.c:461)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same translation unit (libpq_source.c)

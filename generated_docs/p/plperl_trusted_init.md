@@ -29,14 +29,14 @@ This function takes no parameters.
   - dTHX (Perl threading macro)
   - PL_ppaddr (Perl opcode address table)
   - eval_pv (evaluate Perl code)
-  - strip_trailing_ws
-  - sv2cstr (convert Perl scalar to C string)
-  - pp_require_safe (safe require opcode handler)
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md) (convert Perl scalar to C string)
+  - [pp_require_safe](pp_require_safe.md) (safe require opcode handler)
   - isGV_with_GP (check if glob has GP structure)
   - GvCV_set (set code value in glob)
   - ereport/errcode/errmsg/errcontext (PostgreSQL error reporting)
 - Called from:
-  - select_perl_context (when setting up trusted Perl context)
+  - [select_perl_context](../s/select_perl_context.md) (when setting up trusted Perl context)
 
 ## Notes and Other Information
 - This function is critical for PL/Perl security as it implements the trusted execution environment

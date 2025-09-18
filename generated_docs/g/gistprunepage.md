@@ -27,20 +27,20 @@ The function also handles Write-Ahead Logging (WAL) requirements for crash recov
 ## Dependencies
 - Functions called/Symbols referenced:
   - GistPageIsLeaf
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsDead
   - XLogStandbyInfoActive
   - RelationNeedsWAL
-  - index_compute_xid_horizon_for_tuples
-  - PageIndexMultiDelete
+  - [index_compute_xid_horizon_for_tuples](../i/index_compute_xid_horizon_for_tuples.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - GistClearPageHasGarbage
   - MarkBufferDirty
-  - gistXLogDelete
+  - [gistXLogDelete](gistXLogDelete.md)
   - gistGetFakeLSN
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
 - Called from (representative examples):
-  - gistplacetopage
+  - [gistplacetopage](gistplacetopage.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gist.c file

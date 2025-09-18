@@ -19,16 +19,16 @@ This function serves as the output conversion routine for PostgreSQL's DATE data
 ## Dependencies
 - Functions called/Symbols referenced:
   - DATE_NOT_FINITE (checks if date is infinite)
-  - EncodeSpecialDate (formats infinite date values)
-  - j2date (converts Julian day to calendar date components)
-  - EncodeDateOnly (formats finite date according to DateStyle)
-  - pstrdup (duplicates formatted string)
+  - [EncodeSpecialDate](../E/EncodeSpecialDate.md) (formats infinite date values)
+  - [j2date](../j/j2date.md) (converts Julian day to calendar date components)
+  - [EncodeDateOnly](../E/EncodeDateOnly.md) (formats finite date according to DateStyle)
+  - [pstrdup](../p/pstrdup.md) (duplicates formatted string)
   - PG_RETURN_CSTRING (returns C-string result)
 - Data types and constants:
   - DateADT, pg_tm
   - MAXDATELEN, POSTGRES_EPOCH_JDATE, DateStyle
 - Called from (representative examples):
-  - ExecGetJsonValueItemString (src/backend/executor/execExprInterp.c:4513)
+  - [ExecGetJsonValueItemString](../E/ExecGetJsonValueItemString.md) (src/backend/executor/execExprInterp.c:4513)
   - PostgreSQL type system as output function for DATE type (registered in system catalogs)
 
 ## Notes and Other Information

@@ -37,18 +37,18 @@ This ordering is crucial for RelationBuildPartitionDesc() which relies on the fa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll (comparison function invocation)
-  - DatumGetInt32 (result extraction)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (comparison function invocation)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (result extraction)
   - PARTITION_RANGE_DATUM_VALUE (constant)
 - Called from (representative examples):
   - compare_range_bounds
-  - add_merged_range_bounds
-  - check_new_partition_bound
-  - partition_range_bsearch
+  - [add_merged_range_bounds](../a/add_merged_range_bounds.md)
+  - [check_new_partition_bound](../c/check_new_partition_bound.md)
+  - [partition_range_bsearch](partition_range_bsearch.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the partbounds.c file
 - The function handles unbounded values (MINVALUE/MAXVALUE) specially without invoking comparison procedures
-- PartitionRangeDatumKind enum values are designed to compare correctly when cast to integers
+- [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md) enum values are designed to compare correctly when cast to integers
 - The boundary type comparison (upper vs lower) is essential for maintaining the partition descriptor's invariant that only upper bounds are stored for contiguous partitions
 - Return value encoding allows callers to identify both the ordering and the specific column where the difference occurred

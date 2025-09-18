@@ -20,13 +20,13 @@ LockRowsPath is a specialized path node in PostgreSQL's query planner that repre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
-  - List (for rowMarks)
+  - [Path](../P/Path.md) (base structure)
+  - [List](List.md) (for rowMarks)
   - PlanRowMark (referenced in rowMarks list)
 - Called from (representative examples):
-  - create_lockrows_path (pathnode.c:3665)
-  - create_lockrows_plan (createplan.c:2792)
-  - create_plan_recurse (createplan.c:529)
+  - [create_lockrows_path](../c/create_lockrows_path.md) (pathnode.c:3665)
+  - [create_lockrows_plan](../c/create_lockrows_plan.md) (createplan.c:2792)
+  - [create_plan_recurse](../c/create_plan_recurse.md) (createplan.c:529)
 
 ## Notes and Other Information
 - The path's pathkeys are set to NIL because locking operations can potentially modify sort key columns, making the result order unpredictable

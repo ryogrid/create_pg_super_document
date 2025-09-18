@@ -23,10 +23,10 @@ The function uses POSIX sign convention for the input (positive values meaning w
 - Functions called/Symbols referenced:
   - SECS_PER_HOUR (constant for seconds per hour conversion)
   - SECS_PER_MINUTE (constant for seconds per minute conversion)  
-  - pg_tzset (loads timezone from POSIX timezone string)
+  - [pg_tzset](pg_tzset.md) (loads timezone from POSIX timezone string)
 - Called from (representative examples):
-  - check_timezone (in variable.c for timezone validation)
-  - DecodeTimezoneNameToTz (in datetime.c for timezone parsing)
+  - [check_timezone](../c/check_timezone.md) (in variable.c for timezone validation)
+  - [DecodeTimezoneNameToTz](../D/DecodeTimezoneNameToTz.md) (in datetime.c for timezone parsing)
 
 ## Notes and Other Information
 - Can return NULL if the specified offset is outside the range allowed by the zic library

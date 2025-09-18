@@ -22,7 +22,7 @@ The structure is designed specifically for hash table usage - the relationOid fi
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - ExecLookupResultRelByOid (uses this structure in hash table lookups)
+  - [ExecLookupResultRelByOid](../E/ExecLookupResultRelByOid.md) (uses this structure in hash table lookups)
 
 ## Notes and Other Information
 - This optimization is only used when there are many target relations; for few relations, a simple linear search through resultRelInfo[] is performed instead

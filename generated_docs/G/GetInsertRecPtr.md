@@ -23,10 +23,10 @@ The function operates by acquiring the info_lck spinlock to safely read the Logw
   - SpinLockRelease
   - XLogCtl (global structure)
 - Called from (representative examples):
-  - gistvacuumscan
-  - CheckpointerMain
-  - IsCheckpointOnSchedule
-  - WALAvailability
+  - [gistvacuumscan](../g/gistvacuumscan.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [IsCheckpointOnSchedule](../I/IsCheckpointOnSchedule.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - The returned position lags behind the actual insert position by at most 1 page

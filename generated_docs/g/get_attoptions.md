@@ -20,19 +20,19 @@ The function uses the PostgreSQL system cache mechanism (ATTNUM cache) to perfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 (performs system cache lookup)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [SearchSysCache2](../S/SearchSysCache2.md) (performs system cache lookup)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - Int16GetDatum (converts int16 to Datum)
-  - SysCacheGetAttr (extracts attribute from cached tuple)
-  - datumCopy (creates a copy of the datum)
-  - ReleaseSysCache (releases cache reference)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (extracts attribute from cached tuple)
+  - [datumCopy](../d/datumCopy.md) (creates a copy of the datum)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
 - Called from (representative examples):
   - index_concurrently_create_copy
-  - CheckIndexCompatible
-  - generateClonedIndexStmt
-  - transformIndexConstraint
-  - pg_get_indexdef_worker
-  - RelationGetIndexAttOptions
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md)
+  - [generateClonedIndexStmt](generateClonedIndexStmt.md)
+  - [transformIndexConstraint](../t/transformIndexConstraint.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
+  - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md)
 
 ## Notes and Other Information
 - The function will throw an ERROR if the specified attribute does not exist in the system cache

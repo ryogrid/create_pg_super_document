@@ -17,14 +17,14 @@ This function performs a linear search through the numeric formatting cache to f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NUM_prevent_counter_overflow
+  - [NUM_prevent_counter_overflow](NUM_prevent_counter_overflow.md)
   - strcmp
   - NUMCounter (global variable)
   - NUMCache (global array)
   - n_NUMCache (global variable)
   - NUMCacheEntry (struct type)
 - Called from (representative examples):
-  - NUM_cache_fetch
+  - [NUM_cache_fetch](NUM_cache_fetch.md)
 
 ## Notes and Other Information
 - Performs linear search through cache entries - acceptable given small cache size (20 entries)

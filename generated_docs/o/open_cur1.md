@@ -19,15 +19,15 @@ This function showcases the complex parameter passing required for ECPG cursor o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGdo (ECPG runtime function for SQL execution)
+  - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for SQL execution)
   - ECPGget_var (ECPG runtime function to retrieve variable addresses)
-  - MYTYPE (custom data type structure)
-  - MYNULLTYPE (custom null indicator structure)  
-  - mytype (structure type reference)
+  - [MYTYPE](../M/MYTYPE.md) (custom data type structure)
+  - [MYNULLTYPE](../M/MYNULLTYPE.md) (custom null indicator structure)  
+  - [mytype](../m/mytype.md) (structure type reference)
   - mynulltype (structure type reference)
   - ECPGt_int, ECPGt_char, ECPGt_double (ECPG type constants)
 - Called from (representative examples):
-  - main (in the same test file)
+  - [main](../m/main.md) (in the same test file)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

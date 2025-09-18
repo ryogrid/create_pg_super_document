@@ -22,10 +22,10 @@ On Linux systems, it reads  to determine the default huge page size. If an expli
 - Functions called/Symbols referenced:
   - AllocateFile
   - FreeFile  
-  - pg_ceil_log2_64
+  - [pg_ceil_log2_64](../p/pg_ceil_log2_64.md)
 - Called from (representative examples):
-  - CreateAnonymousSegment
-  - InitializeShmemGUCs
+  - [CreateAnonymousSegment](../C/CreateAnonymousSegment.md)
+  - [InitializeShmemGUCs](../I/InitializeShmemGUCs.md)
 
 ## Notes and Other Information
 - Only functional on systems with MAP_HUGETLB support (primarily Linux)

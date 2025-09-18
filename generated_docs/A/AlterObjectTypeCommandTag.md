@@ -24,7 +24,7 @@ The function uses a comprehensive switch statement to handle over 30 different o
   - CMDTAG_ALTER_* constants (various ALTER command tags)
   - CMDTAG_UNKNOWN (fallback tag)
 - Called from (representative examples):
-  - CreateCommandTag (multiple call sites in utility.c:2677, 2683, 2687, 2691, 2695, 2699)
+  - [CreateCommandTag](../C/CreateCommandTag.md) (multiple call sites in utility.c:2677, 2683, 2687, 2691, 2695, 2699)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the utility.c file

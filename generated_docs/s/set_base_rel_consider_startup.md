@@ -19,13 +19,13 @@ The logic recognizes that while parameterized paths are typically used on the in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpecialJoinInfo (struct type)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct type)
   - JOIN_SEMI (enum value)
   - JOIN_ANTI (enum value) 
-  - bms_get_singleton_member
-  - find_base_rel
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [find_base_rel](../f/find_base_rel.md)
 - Called from (representative examples):
-  - make_one_rel
+  - [make_one_rel](../m/make_one_rel.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/path/allpaths.c:247-289

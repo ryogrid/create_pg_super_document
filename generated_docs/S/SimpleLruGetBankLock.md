@@ -21,18 +21,18 @@ The function calculates which bank a given page belongs to using a modulo operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlruCtl (control structure type)
-  - LWLock (lightweight lock type)
-  - SlruCtlData.shared (shared data structure)
-  - SlruCtlData.nbanks (number of banks)
-  - SlruSharedData.bank_locks (array of bank locks)
+  - [LWLock](../L/LWLock.md) (lightweight lock type)
+  - [SlruCtlData](SlruCtlData.md).shared (shared data structure)
+  - [SlruCtlData](SlruCtlData.md).nbanks (number of banks)
+  - [SlruSharedData](SlruSharedData.md).bank_locks (array of bank locks)
 
 - Called from (representative examples):
-  - TransactionIdSetPageStatus (clog.c:305)
+  - [TransactionIdSetPageStatus](../T/TransactionIdSetPageStatus.md) (clog.c:305)
   - TransactionIdGetStatus (clog.c:755)
-  - RecordNewMultiXact (multixact.c:925)
-  - SimpleLruZeroPage (slru.c:380)
-  - SimpleLruReadPage (slru.c:506)
-  - SubTransSetParent (subtrans.c:96)
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md) (multixact.c:925)
+  - [SimpleLruZeroPage](SimpleLruZeroPage.md) (slru.c:380)
+  - [SimpleLruReadPage](SimpleLruReadPage.md) (slru.c:506)
+  - [SubTransSetParent](SubTransSetParent.md) (subtrans.c:96)
   - SerialAdd (predicate.c:870)
 
 ## Notes and Other Information

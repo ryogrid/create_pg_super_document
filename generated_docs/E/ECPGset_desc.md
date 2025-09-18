@@ -32,9 +32,9 @@ For data items, it calls ecpg_store_input to convert and format the input data, 
   - ecpg_find_desc
   - ecpg_alloc, ecpg_free
   - ecpg_store_input
-  - set_desc_attr, set_int_item
-  - ecpg_raise
-  - descriptor, descriptor_item (struct types)
+  - [set_desc_attr](../s/set_desc_attr.md), set_int_item
+  - [ecpg_raise](../e/ecpg_raise.md)
+  - [descriptor](../d/descriptor.md), descriptor_item (struct types)
   - ECPGdtype, ECPGttype (enum types)
 - Called from (representative examples):
   - ECPG test programs (sql-desc.c, sql-bytea.c)

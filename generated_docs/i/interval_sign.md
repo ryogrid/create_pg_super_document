@@ -17,17 +17,17 @@ The  function is a static helper function that evaluates the sign of an interval
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - interval_cmp_value
-  - int64_to_int128
-  - int128_compare
+  - [interval_cmp_value](interval_cmp_value.md)
+  - [int64_to_int128](int64_to_int128.md)
+  - [int128_compare](int128_compare.md)
   - INT128 (data type)
 - Called from (representative examples):
-  - interval_mul
-  - in_range_timestamptz_interval
-  - in_range_timestamp_interval
-  - in_range_interval_interval
-  - generate_series_timestamp
-  - generate_series_timestamptz_internal
+  - [interval_mul](interval_mul.md)
+  - [in_range_timestamptz_interval](in_range_timestamptz_interval.md)
+  - [in_range_timestamp_interval](in_range_timestamp_interval.md)
+  - [in_range_interval_interval](in_range_interval_interval.md)
+  - [generate_series_timestamp](../g/generate_series_timestamp.md)
+  - [generate_series_timestamptz_internal](../g/generate_series_timestamptz_internal.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the timestamp.c file

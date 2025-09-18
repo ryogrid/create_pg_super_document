@@ -19,14 +19,14 @@ This function creates a new database connection for a parallel slot using stored
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectDatabase (establishes the database connection)
-  - PQsocket (gets socket file descriptor from connection)
+  - [connectDatabase](connectDatabase.md) (establishes the database connection)
+  - [PQsocket](../P/PQsocket.md) (gets socket file descriptor from connection)
   - pg_log_error (logs error messages)
   - pg_log_error_hint (logs error hints)
-  - executeCommand (executes initialization commands)
-  - ParallelSlot (slot structure type)
+  - [executeCommand](../e/executeCommand.md) (executes initialization commands)
+  - [ParallelSlot](../P/ParallelSlot.md) (slot structure type)
 - Called from (representative examples):
-  - ParallelSlotsGetIdle (called twice for slot connection)
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md) (called twice for slot connection)
 
 ## Notes and Other Information
 - Temporarily overrides the database name in connection parameters if dbname is provided

@@ -20,18 +20,18 @@ This hook function handles parameter references ($1, $2, etc.) when parameter ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - VarParamState (structure type)
-  - ParamRef (node type)
+  - [VarParamState](../V/VarParamState.md) (structure type)
+  - [ParamRef](../P/ParamRef.md) (node type)
   - Param (node type)
   - PARAM_EXTERN (parameter kind constant)
-  - get_typcollation (function to get type collation)
+  - [get_typcollation](../g/get_typcollation.md) (function to get type collation)
   - makeNode (macro for creating nodes)
   - repalloc0_array (memory reallocation with zero-fill)
   - palloc0_array (memory allocation with zero-fill)
   - EXPR_KIND_CALL_ARGUMENT (expression kind constant)
   - UNKNOWNOID/VOIDOID/InvalidOid (type OID constants)
 - Called from (representative examples):
-  - setup_parse_variable_parameters (installed as hook)
+  - [setup_parse_variable_parameters](../s/setup_parse_variable_parameters.md) (installed as hook)
 
 ## Notes and Other Information
 - This is a static function used exclusively as a callback hook

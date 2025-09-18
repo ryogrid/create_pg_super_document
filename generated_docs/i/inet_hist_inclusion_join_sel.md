@@ -31,10 +31,10 @@ The approach is asymmetric (it samples from hist2 and tests against hist1), and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inet_hist_value_sel
+  - [inet_hist_value_sel](inet_hist_value_sel.md)
   - MAX_CONSIDERED_ELEMS
 - Called from (representative examples):
-  - networkjoinsel_inner
+  - [networkjoinsel_inner](../n/networkjoinsel_inner.md)
 
 ## Notes and Other Information
 - Returns 0.0 when hist2_nvalues <= 2, as there are no interior elements to sample

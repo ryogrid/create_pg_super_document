@@ -22,7 +22,7 @@ This utility function reads the complete contents of an open file descriptor int
   - fread (standard C library)
   - BUFSIZ (standard C constant)
 - Called from:
-  - process_file (src/bin/pgbench/pgbench.c:6122)
+  - [process_file](../p/process_file.md) (src/bin/pgbench/pgbench.c:6122)
 
 ## Notes and Other Information
 - Returns a malloc'd buffer that must be freed by the caller

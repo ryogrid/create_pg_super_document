@@ -26,14 +26,14 @@ CreateSubscriberOptions serves as the central configuration structure for the pg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleStringList (used for storing lists of names)
+  - [SimpleStringList](../S/SimpleStringList.md) (used for storing lists of names)
 - Called from (representative examples):
-  - get_sub_conninfo (src/bin/pg_basebackup/pg_createsubscriber.c:315)
+  - [get_sub_conninfo](../g/get_sub_conninfo.md) (src/bin/pg_basebackup/pg_createsubscriber.c:315)
   - store_pub_sub_info (src/bin/pg_basebackup/pg_createsubscriber.c:433)
-  - modify_subscriber_sysid (src/bin/pg_basebackup/pg_createsubscriber.c:629)
-  - start_standby_server (src/bin/pg_basebackup/pg_createsubscriber.c:1443)
-  - wait_for_end_recovery (src/bin/pg_basebackup/pg_createsubscriber.c:1511)
-  - main (src/bin/pg_basebackup/pg_createsubscriber.c:1897)
+  - [modify_subscriber_sysid](../m/modify_subscriber_sysid.md) (src/bin/pg_basebackup/pg_createsubscriber.c:629)
+  - [start_standby_server](../s/start_standby_server.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1443)
+  - [wait_for_end_recovery](../w/wait_for_end_recovery.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1511)
+  - [main](../m/main.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1897)
 
 ## Notes and Other Information
 This structure is specifically designed for the pg_createsubscriber utility and is not used elsewhere in the PostgreSQL codebase. The struct uses SimpleStringList for managing multiple database, publication, subscription, and replication slot names, allowing for flexible configuration of multiple objects in a single operation. The structure is closely related to LogicalRepInfo, which uses CreateSubscriberOptions as a member to store configuration data alongside runtime information during the subscriber creation process.

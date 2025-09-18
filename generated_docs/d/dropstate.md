@@ -18,17 +18,17 @@ The  function performs complete removal of a state from an NFA structure. It sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - freearc
-  - freestate
+  - [freearc](../f/freearc.md)
+  - [freestate](../f/freestate.md)
 - Called from (representative examples):
-  - pullback (in regc_nfa.c)
-  - pushfwd (in regc_nfa.c)
+  - [pullback](../p/pullback.md) (in regc_nfa.c)
+  - [pushfwd](../p/pushfwd.md) (in regc_nfa.c)
   - fixempties (in regc_nfa.c)
   - fixconstraintloops (in regc_nfa.c)
   - clonesuccessorstates (in regc_nfa.c)
-  - cleanup (in regc_nfa.c)
-  - charclasscomplement (in regcomp.c)
-  - cbracket (in regcomp.c)
+  - [cleanup](../c/cleanup.md) (in regc_nfa.c)
+  - [charclasscomplement](../c/charclasscomplement.md) (in regcomp.c)
+  - [cbracket](../c/cbracket.md) (in regcomp.c)
 
 ## Notes and Other Information
 - Essential for NFA optimization and cleanup operations

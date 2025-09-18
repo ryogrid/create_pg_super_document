@@ -22,9 +22,9 @@ Named tuplestores are commonly used in scenarios like stored procedures, trigger
 - Functions called/Symbols referenced:
   - planner_rt_fetch
   - RTE_NAMEDTUPLESTORE
-  - set_baserel_size_estimates
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
 - Called from (representative examples):
-  - set_namedtuplestore_pathlist
+  - [set_namedtuplestore_pathlist](set_namedtuplestore_pathlist.md)
 
 ## Notes and Other Information
 - Uses the  field from the range table entry when available (>= 0)

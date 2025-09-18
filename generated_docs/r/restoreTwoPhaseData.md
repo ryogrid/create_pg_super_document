@@ -33,12 +33,12 @@ This function takes no parameters and operates on global TwoPhaseState.
   - FreeDir
   - FullTransactionIdFromU64
   - XidFromFullTransactionId
-  - ProcessTwoPhaseBuffer
-  - PrepareRedoAdd
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
+  - [PrepareRedoAdd](../P/PrepareRedoAdd.md)
   - LWLockAcquire/LWLockRelease
   - strtou64
 - Called from:
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Called only once during startup recovery to avoid repeated directory scans

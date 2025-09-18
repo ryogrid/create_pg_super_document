@@ -21,15 +21,15 @@ DomainConstraintState manages the runtime validation of domain constraints when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintType
+  - [DomainConstraintType](DomainConstraintType.md)
   - NodeTag
-  - Expr
+  - [Expr](../E/Expr.md)
   - ExprState
 - Called from (representative examples):
-  - ExecInitCoerceToDomain
-  - domain_check_input
-  - load_domaintype_info
-  - prep_domain_constraints
+  - [ExecInitCoerceToDomain](../E/ExecInitCoerceToDomain.md)
+  - [domain_check_input](../d/domain_check_input.md)
+  - [load_domaintype_info](../l/load_domaintype_info.md)
+  - [prep_domain_constraints](../p/prep_domain_constraints.md)
 
 ## Notes and Other Information
 DomainConstraintState is considered part of an ExprState tree despite not having a directly associated plan-tree node, following PostgreSQL's naming convention for execution state structures. The structure is optimized for repeated constraint checking during query execution, with the check_exprstate providing compiled expression evaluation for CHECK constraints. Domain constraints are evaluated during type coercion operations, ensuring data integrity at the type system level.

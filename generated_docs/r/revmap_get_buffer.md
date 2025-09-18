@@ -25,13 +25,13 @@ The function includes an optimization that reuses the current buffer when consec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - revmap_get_blkno
-  - BufferGetBlockNumber
+  - [revmap_get_blkno](revmap_get_blkno.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - ReleaseBuffer
-  - ReadBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
   - BRIN_METAPAGE_BLKNO (constant)
 - Called from (representative examples):
-  - brinLockRevmapPageForUpdate
+  - [brinLockRevmapPageForUpdate](../b/brinLockRevmapPageForUpdate.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin_revmap.c file

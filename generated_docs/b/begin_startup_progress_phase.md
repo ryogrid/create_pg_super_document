@@ -23,14 +23,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called:
-  - `disable_startup_progress_timeout()` (disables current timeout)
-  - `enable_startup_progress_timeout()` (enables new timeout with current timestamp)
+  - `[disable_startup_progress_timeout](../d/disable_startup_progress_timeout.md)()` (disables current timeout)
+  - `[enable_startup_progress_timeout](../e/enable_startup_progress_timeout.md)()` (enables new timeout with current timestamp)
 
-- Variables accessed:
+- [Variables](../V/Variables.md) accessed:
   - `log_startup_progress_interval` (configuration variable for feature enable/disable check)
 
 - Called from:
-  - PerformWalRecovery (src/backend/access/transam/xlogrecovery.c:1745)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:1745)
   - SyncDataDirectory (src/backend/storage/file/fd.c:3582, 3608, 3622)
   - ResetUnloggedRelations (src/backend/storage/file/reinit.c:70)
   - ereport_startup_progress (referenced in src/include/postmaster/startup.h:37)

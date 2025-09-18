@@ -32,10 +32,10 @@ The function returns a standard 3-way comparison result: negative for less-than,
   - ssup->comparator (function pointer)
 - Called from (representative examples):
   - _bt_load (src/backend/access/nbtree/nbtsort.c:1214)
-  - compare_scalars (src/backend/commands/analyze.c:2894)
-  - heap_compare_slots (src/backend/executor/nodeGatherMerge.c:771)
-  - MJCompare (src/backend/executor/nodeMergejoin.c:420)
-  - comparetup_heap (src/backend/utils/sort/tuplesortvariants.c:1093)
+  - [compare_scalars](../c/compare_scalars.md) (src/backend/commands/analyze.c:2894)
+  - [heap_compare_slots](../h/heap_compare_slots.md) (src/backend/executor/nodeGatherMerge.c:771)
+  - [MJCompare](../M/MJCompare.md) (src/backend/executor/nodeMergejoin.c:420)
+  - [comparetup_heap](../c/comparetup_heap.md) (src/backend/utils/sort/tuplesortvariants.c:1093)
 
 ## Notes and Other Information
 This is a critical utility function used throughout PostgreSQL's sorting infrastructure. It ensures consistent NULL handling and sort direction behavior across all sorting operations. The function is declared as inline for performance reasons since it's called frequently during sort operations. The NULL comparison logic follows SQL standard semantics where NULLs can be ordered either first or last depending on the sort specification.

@@ -37,11 +37,11 @@ The structure uses an array of freelists (FreeListData) to reduce contention in 
   - FreeListData (structure containing mutex, nentries, and freeList)
 - Called from (representative examples):
   - ShmemInitHash
-  - HTAB
-  - hash_create
-  - hash_estimate_size
-  - hash_get_shared_size
-  - element_alloc
+  - [HTAB](HTAB.md)
+  - [hash_create](../h/hash_create.md)
+  - [hash_estimate_size](../h/hash_estimate_size.md)
+  - [hash_get_shared_size](../h/hash_get_shared_size.md)
+  - [element_alloc](../e/element_alloc.md)
 
 ## Notes and Other Information
 - In shared-memory configurations, HASHHDR exists in shared memory while HTAB structures remain local to each backend

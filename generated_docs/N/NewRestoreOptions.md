@@ -20,15 +20,15 @@ The function ensures consistent initialization of restore options across differe
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc0 (allocates zero-initialized memory)
-  - RestoreOptions (structure type)
+  - [RestoreOptions](../R/RestoreOptions.md) (structure type)
   - archUnknown (format default)
   - TRI_DEFAULT (tri-state password prompt default)
   - DUMP_UNSECTIONED (dump sections default)
   - PG_COMPRESSION_NONE (compression algorithm default)
 - Called from (representative examples):
-  - main (in pg_dump.c)
-  - main (in pg_restore.c)
-  - _CloseArchive
+  - [main](../m/main.md) (in pg_dump.c)
+  - [main](../m/main.md) (in pg_restore.c)
+  - [_CloseArchive](../C/_CloseArchive.md)
 
 ## Notes and Other Information
 - Returns a heap-allocated RestoreOptions structure that must be freed by the caller

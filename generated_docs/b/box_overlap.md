@@ -22,13 +22,13 @@ The function follows PostgreSQL's standard pattern of extracting arguments, call
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (retrieves BOX arguments)
-  - box_ov (performs actual overlap calculation)
+  - [box_ov](box_ov.md) (performs actual overlap calculation)
   - PG_RETURN_BOOL (returns boolean result)
-  - BOX (box data structure)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
-  - gist_box_leaf_consistent (GiST index consistency checking)
-  - rtree_internal_consistent (R-tree index operations)
-  - spg_box_quad_leaf_consistent (SP-GiST index consistency checking)
+  - [gist_box_leaf_consistent](../g/gist_box_leaf_consistent.md) (GiST index consistency checking)
+  - [rtree_internal_consistent](../r/rtree_internal_consistent.md) (R-tree index operations)
+  - [spg_box_quad_leaf_consistent](../s/spg_box_quad_leaf_consistent.md) (SP-GiST index consistency checking)
 
 ## Notes and Other Information
 - This is the SQL-callable interface for the && (overlap) operator between BOX types

@@ -21,11 +21,11 @@ IsXLogFileName checks if a filename conforms to the PostgreSQL WAL segment namin
   - strlen (standard C library)
   - strspn (standard C library)
 - Called from (representative examples):
-  - XLogGetOldestSegno
-  - RemoveOldXlogFiles
-  - perform_base_backup
-  - CleanupPriorWALFiles
-  - search_directory
+  - [XLogGetOldestSegno](../X/XLogGetOldestSegno.md)
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [CleanupPriorWALFiles](../C/CleanupPriorWALFiles.md)
+  - [search_directory](../s/search_directory.md)
 
 ## Notes and Other Information
 - This is an inline function defined in xlog_internal.h for performance

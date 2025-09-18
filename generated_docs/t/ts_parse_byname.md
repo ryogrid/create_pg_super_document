@@ -25,14 +25,14 @@ This function is essentially identical to ts_parse_byid except that it accepts a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncCallContext (PostgreSQL SRF context structure)
+  - [FuncCallContext](../F/FuncCallContext.md) (PostgreSQL SRF context structure)
   - SRF_IS_FIRSTCALL (macro to check if this is the first call)
   - SRF_FIRSTCALL_INIT (macro to initialize first call context)
-  - get_ts_parser_oid (resolves parser name to OID)
+  - [get_ts_parser_oid](../g/get_ts_parser_oid.md) (resolves parser name to OID)
   - textToQualifiedNameList (converts text to qualified name list)
-  - prs_setup_firstcall (initializes parser and tokenizes text)
+  - [prs_setup_firstcall](../p/prs_setup_firstcall.md) (initializes parser and tokenizes text)
   - SRF_PERCALL_SETUP (macro to set up per-call context)
-  - prs_process_call (processes individual tokens)
+  - [prs_process_call](../p/prs_process_call.md) (processes individual tokens)
   - SRF_RETURN_NEXT (macro to return next result)
   - SRF_RETURN_DONE (macro to signal completion)
 

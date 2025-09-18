@@ -22,8 +22,8 @@ This function performs character validation for UHC encoding, which is a Korean 
   - NONUTF8_INVALID_BYTE0
   - NONUTF8_INVALID_BYTE1
 - Called from (representative examples):
-  - pg_uhc_verifystr
-  - pg_encoding_set_invalid
+  - [pg_uhc_verifystr](pg_uhc_verifystr.md)
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the length of the validated character in bytes on success, or -1 on failure

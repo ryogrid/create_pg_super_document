@@ -22,14 +22,14 @@ This function iterates through all items in a TSQuery structure and extracts the
 - Functions called/Symbols referenced:
   - GETQUERY (macro to access query items array)
   - GETOPERAND (macro to access operand data)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard C memory copy function)
 - Types referenced:
   - TSQuery (text search query structure)
   - QueryItem (individual query element structure)  
   - QI_VAL (query item type constant for values)
 - Called from (representative examples):
-  - tsq_mcontains (at src/backend/utils/adt/tsquery_op.c:318-319)
+  - [tsq_mcontains](../t/tsq_mcontains.md) (at src/backend/utils/adt/tsquery_op.c:318-319)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsquery_op.c module

@@ -22,20 +22,20 @@ Note that if the transaction was prepared in a parallel apply worker, no additio
 ## Dependencies
 - Functions called/Symbols referenced:
   - logicalrep_read_commit_prepared
-  - set_apply_error_context_xact
-  - TwoPhaseTransactionGid
-  - begin_replication_step
-  - FinishPreparedTransaction
-  - end_replication_step
-  - CommitTransactionCommand
-  - pgstat_report_stat
-  - store_flush_position
-  - process_syncing_tables
-  - clear_subscription_skip_lsn
-  - pgstat_report_activity
-  - reset_apply_error_context_info
+  - [set_apply_error_context_xact](../s/set_apply_error_context_xact.md)
+  - [TwoPhaseTransactionGid](../T/TwoPhaseTransactionGid.md)
+  - [begin_replication_step](../b/begin_replication_step.md)
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
+  - [end_replication_step](../e/end_replication_step.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md)
+  - [store_flush_position](../s/store_flush_position.md)
+  - [process_syncing_tables](../p/process_syncing_tables.md)
+  - [clear_subscription_skip_lsn](../c/clear_subscription_skip_lsn.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [reset_apply_error_context_info](../r/reset_apply_error_context_info.md)
 - Called from:
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's logical replication two-phase commit support

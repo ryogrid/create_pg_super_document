@@ -20,11 +20,11 @@ The design intentionally avoids complications with temporary namespace initializ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - foreach (macro)
   - lfirst_oid (macro)
 - Called from (representative examples):
-  - make_oper_cache_key
+  - [make_oper_cache_key](../m/make_oper_cache_key.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

@@ -31,16 +31,16 @@ This ensures that the copied data represents a consistent snapshot of the statis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_begin_changecount_read (initiate read sequence)
-  - pgstat_end_changecount_read (validate read consistency)
+  - [pgstat_begin_changecount_read](pgstat_begin_changecount_read.md) (initiate read sequence)
+  - [pgstat_end_changecount_read](pgstat_end_changecount_read.md) (validate read consistency)
   - memcpy (perform the actual data copy)
 - Called from (representative examples):
-  - pgstat_archiver_reset_all_cb
-  - pgstat_archiver_snapshot_cb
-  - pgstat_bgwriter_reset_all_cb
-  - pgstat_bgwriter_snapshot_cb
-  - pgstat_checkpointer_reset_all_cb
-  - pgstat_checkpointer_snapshot_cb
+  - [pgstat_archiver_reset_all_cb](pgstat_archiver_reset_all_cb.md)
+  - [pgstat_archiver_snapshot_cb](pgstat_archiver_snapshot_cb.md)
+  - [pgstat_bgwriter_reset_all_cb](pgstat_bgwriter_reset_all_cb.md)
+  - [pgstat_bgwriter_snapshot_cb](pgstat_bgwriter_snapshot_cb.md)
+  - [pgstat_checkpointer_reset_all_cb](pgstat_checkpointer_reset_all_cb.md)
+  - [pgstat_checkpointer_snapshot_cb](pgstat_checkpointer_snapshot_cb.md)
 
 ## Notes and Other Information
 - This is a higher-level convenience function that implements the complete reader-side protocol

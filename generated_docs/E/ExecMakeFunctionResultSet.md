@@ -37,15 +37,15 @@ The function uses a restart mechanism to seamlessly transition between reading c
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - tuplestore_gettupleslot, tuplestore_end (tuplestore management)
-  - ExecFetchSlotHeapTupleDatum, slot_getattr (tuple/scalar extraction)
-  - ExecEvalFuncArgs (argument evaluation)  
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md), tuplestore_end (tuplestore management)
+  - [ExecFetchSlotHeapTupleDatum](ExecFetchSlotHeapTupleDatum.md), slot_getattr (tuple/scalar extraction)
+  - [ExecEvalFuncArgs](ExecEvalFuncArgs.md) (argument evaluation)  
   - FunctionCallInvoke (function execution)
-  - pgstat_init_function_usage, pgstat_end_function_usage (statistics tracking)
-  - RegisterExprContextCallback, ShutdownSetExpr (cleanup management)
-  - ExecPrepareTuplestoreResult (materialize protocol setup)
+  - [pgstat_init_function_usage](../p/pgstat_init_function_usage.md), pgstat_end_function_usage (statistics tracking)
+  - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md), ShutdownSetExpr (cleanup management)
+  - [ExecPrepareTuplestoreResult](ExecPrepareTuplestoreResult.md) (materialize protocol setup)
 - Called from (representative examples):
-  - ExecProjectSRF (src/backend/executor/nodeProjectSet.c:182)
+  - [ExecProjectSRF](ExecProjectSRF.md) (src/backend/executor/nodeProjectSet.c:182)
 
 ## Notes and Other Information
 - Designed specifically for nodeProjectSet.c which handles multiple SRFs in target lists

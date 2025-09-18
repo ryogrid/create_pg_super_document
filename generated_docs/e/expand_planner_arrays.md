@@ -27,11 +27,11 @@ A notable behavior is that this function ensures append_rel_array is allocated e
   - Assert (for parameter validation)
 - Data structures used:
   - RelOptInfo
-  - RangeTblEntry  
-  - AppendRelInfo
+  - [RangeTblEntry](../R/RangeTblEntry.md)  
+  - [AppendRelInfo](../A/AppendRelInfo.md)
 - Called from (representative examples):
-  - expand_inherited_rtentry (src/backend/optimizer/util/inherit.c:184)
-  - expand_partitioned_rtentry (src/backend/optimizer/util/inherit.c:363)
+  - [expand_inherited_rtentry](expand_inherited_rtentry.md) (src/backend/optimizer/util/inherit.c:184)
+  - [expand_partitioned_rtentry](expand_partitioned_rtentry.md) (src/backend/optimizer/util/inherit.c:363)
 
 ## Notes and Other Information
 - The function maintains data integrity by preserving existing array contents during expansion

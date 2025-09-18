@@ -32,17 +32,17 @@ Different relation types require different horizon strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ComputeXidHorizons
-  - GlobalVisHorizonKindForRel
-  - ComputeXidHorizonsResult (struct type)
+  - [GlobalVisHorizonKindForRel](GlobalVisHorizonKindForRel.md)
+  - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md) (struct type)
   - VISHORIZON_SHARED, VISHORIZON_CATALOG, VISHORIZON_DATA, VISHORIZON_TEMP (enum values)
   - InvalidTransactionId (fallback return value)
 - Called from:
-  - heapam_index_build_range_scan
-  - _bt_pendingfsm_finalize
-  - acquire_sample_rows
-  - vacuum_get_cutoffs
-  - vac_update_datfrozenxid
-  - removable_cutoff (test module)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [_bt_pendingfsm_finalize](../b/_bt_pendingfsm_finalize.md)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
+  - [removable_cutoff](../r/removable_cutoff.md) (test module)
 
 ## Notes and Other Information
 - This is the main entry point for VACUUM operations to determine what tuples can be safely removed

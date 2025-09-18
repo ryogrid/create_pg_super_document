@@ -21,19 +21,19 @@ The function cannot operate when parameter fetch hooks are active or during abor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (parameter type)
-  - IsAbortedTransactionBlockState (to check transaction state)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter type)
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md) (to check transaction state)
   - AllocSetContextCreate (for temporary memory context)
   - ALLOCSET_DEFAULT_SIZES (memory context configuration)
   - ParamExternData (individual parameter structure)
-  - appendStringInfoStringQuoted (for formatted output with quoting)
-  - getTypeOutputInfo (to get type output function)
-  - OidOutputFunctionCall (to convert values to text)
-  - MemoryContextDelete (cleanup)
+  - [appendStringInfoStringQuoted](../a/appendStringInfoStringQuoted.md) (for formatted output with quoting)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md) (to get type output function)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md) (to convert values to text)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (cleanup)
 - Called from (representative examples):
   - ExplainQueryParameters (for EXPLAIN command output)
-  - exec_bind_message (for query execution logging)
-  - errdetail_params (for error message parameter details)
+  - [exec_bind_message](../e/exec_bind_message.md) (for query execution logging)
+  - [errdetail_params](../e/errdetail_params.md) (for error message parameter details)
 
 ## Notes and Other Information
 - Returns NULL if parameter fetch hooks are active or in aborted transactions

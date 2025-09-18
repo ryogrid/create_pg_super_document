@@ -26,16 +26,16 @@ This information is essential for distinguishing between different types of call
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - RemoveObjects (src/backend/commands/dropcmds.c:93)
-  - LookupFuncNameInternal (src/backend/parser/parse_func.c:2092, 2097)
-  - LookupFuncWithArgs (src/backend/parser/parse_func.c:2355, 2365, 2375)
+  - [RemoveObjects](../R/RemoveObjects.md) (src/backend/commands/dropcmds.c:93)
+  - [LookupFuncNameInternal](../L/LookupFuncNameInternal.md) (src/backend/parser/parse_func.c:2092, 2097)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md) (src/backend/parser/parse_func.c:2355, 2365, 2375)
 
 ## Notes and Other Information
 - Part of the lsyscache.c module which provides convenient access functions for system catalog information

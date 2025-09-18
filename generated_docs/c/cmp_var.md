@@ -20,22 +20,22 @@ This is a convenience wrapper that simplifies the interface for comparing comple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_var_common: Core comparison function that performs the actual comparison logic
+  - [cmp_var_common](cmp_var_common.md): Core comparison function that performs the actual comparison logic
 
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT: Numeric optimization checking
   - generate_series_step_numeric: Series generation with numeric steps
-  - compute_bucket: Bucketing operations for histograms
-  - in_range_numeric_numeric: Range checking for numeric values
-  - numeric_power: Power function calculations
-  - numeric_stddev_internal: Standard deviation computations
-  - ceil_var: Ceiling function implementation
-  - floor_var: Floor function implementation
-  - sqrt_var: Square root calculations
-  - estimate_ln_dweight: Natural logarithm weight estimation
-  - ln_var: Natural logarithm calculations
-  - power_var: Power function variable operations
-  - random_var: Random number generation
+  - [compute_bucket](compute_bucket.md): Bucketing operations for histograms
+  - [in_range_numeric_numeric](../i/in_range_numeric_numeric.md): Range checking for numeric values
+  - [numeric_power](../n/numeric_power.md): Power function calculations
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md): Standard deviation computations
+  - [ceil_var](ceil_var.md): Ceiling function implementation
+  - [floor_var](../f/floor_var.md): Floor function implementation
+  - [sqrt_var](../s/sqrt_var.md): Square root calculations
+  - [estimate_ln_dweight](../e/estimate_ln_dweight.md): Natural logarithm weight estimation
+  - [ln_var](../l/ln_var.md): Natural logarithm calculations
+  - [power_var](../p/power_var.md): Power function variable operations
+  - [random_var](../r/random_var.md): Random number generation
 
 ## Notes and Other Information
 - Returns negative value if var1 < var2, zero if var1 == var2, positive if var1 > var2

@@ -21,8 +21,8 @@ This function converts EUC-JP encoded Japanese text to Mule Internal Code format
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET: Check if character has high bit set
-  - pg_encoding_verifymbchar: Validate EUC-JP character sequence length
-  - report_invalid_encoding: Report encoding conversion errors
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md): Validate EUC-JP character sequence length
+  - [report_invalid_encoding](../r/report_invalid_encoding.md): Report encoding conversion errors
   - SS2: Single Shift 2 byte (0x8E) indicating JIS X0201 katakana
   - SS3: Single Shift 3 byte (0x8F) indicating JIS X0212 characters
   - LC_JISX0201K: Language character code for JIS X0201 katakana
@@ -30,7 +30,7 @@ This function converts EUC-JP encoded Japanese text to Mule Internal Code format
   - LC_JISX0212: Language character code for JIS X0212
   - PG_EUC_JP: PostgreSQL encoding constant for EUC-JP
 - Called from (representative examples):
-  - euc_jp_to_mic: PostgreSQL function wrapper for EUC-JP to MIC conversion
+  - [euc_jp_to_mic](euc_jp_to_mic.md): PostgreSQL function wrapper for EUC-JP to MIC conversion
   - PGEUCALTCODE: Referenced in encoding conversion system
 
 ## Notes and Other Information

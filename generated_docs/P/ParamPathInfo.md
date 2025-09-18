@@ -28,13 +28,13 @@ The ppi_serials field contains rinfo_serial numbers for quals enforced by the pa
   - NodeTag (for type identification)
   - Relids (bitmap of relation IDs)
   - Cardinality (rowcount estimate type)
-  - List (PostgreSQL's list structure)
-  - Bitmapset (bitmap data structure)
+  - [List](../L/List.md) (PostgreSQL's list structure)
+  - [Bitmapset](../B/Bitmapset.md) (bitmap data structure)
 
 - Called from (representative examples):
-  - cost_seqscan (src/backend/optimizer/path/costsize.c:285)
-  - cost_bitmap_heap_scan (src/backend/optimizer/path/costsize.c:1014)
-  - get_restriction_qual_cost (src/backend/optimizer/path/costsize.c:4966)
+  - [cost_seqscan](../c/cost_seqscan.md) (src/backend/optimizer/path/costsize.c:285)
+  - [cost_bitmap_heap_scan](../c/cost_bitmap_heap_scan.md) (src/backend/optimizer/path/costsize.c:1014)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (src/backend/optimizer/path/costsize.c:4966)
   - get_baserel_parampathinfo (src/backend/optimizer/util/relnode.c:1560-1670)
   - get_joinrel_parampathinfo (src/backend/optimizer/util/relnode.c:1678-1867)
 

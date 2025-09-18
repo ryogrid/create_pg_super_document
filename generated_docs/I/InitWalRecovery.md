@@ -23,18 +23,18 @@ InitWalRecovery is a comprehensive function that coordinates the initialization 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readRecoverySignalFile (reads recovery signal files)
-  - validateRecoveryParameters (validates recovery configuration)
-  - XLogReaderAllocate (creates WAL reader)
-  - XLogPrefetcherAllocate (creates WAL prefetcher)
-  - read_backup_label (processes backup label file)
-  - ReadCheckpointRecord (reads checkpoint records)
-  - EnableStandbyMode (enables standby mode when required)
-  - OwnLatch (takes ownership of recovery wakeup latch)
-  - tliOfPointInHistory (validates timeline consistency)
-  - read_tablespace_map (processes tablespace mappings)
+  - [readRecoverySignalFile](../r/readRecoverySignalFile.md) (reads recovery signal files)
+  - [validateRecoveryParameters](../v/validateRecoveryParameters.md) (validates recovery configuration)
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md) (creates WAL reader)
+  - [XLogPrefetcherAllocate](../X/XLogPrefetcherAllocate.md) (creates WAL prefetcher)
+  - [read_backup_label](../r/read_backup_label.md) (processes backup label file)
+  - [ReadCheckpointRecord](../R/ReadCheckpointRecord.md) (reads checkpoint records)
+  - [EnableStandbyMode](../E/EnableStandbyMode.md) (enables standby mode when required)
+  - [OwnLatch](../O/OwnLatch.md) (takes ownership of recovery wakeup latch)
+  - [tliOfPointInHistory](../t/tliOfPointInHistory.md) (validates timeline consistency)
+  - [read_tablespace_map](../r/read_tablespace_map.md) (processes tablespace mappings)
 - Called from (representative examples):
-  - StartupXLOG (main startup sequence coordinator)
+  - [StartupXLOG](../S/StartupXLOG.md) (main startup sequence coordinator)
 
 ## Notes and Other Information
 - Central function in PostgreSQL's recovery initialization process

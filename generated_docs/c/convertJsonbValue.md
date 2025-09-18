@@ -23,16 +23,16 @@ The `convertJsonbValue` function is the central recursive workhorse of JSONB ser
   - JEntry (structure type)
   - check_stack_depth
   - IsAJsonbScalar
-  - convertJsonbScalar
+  - [convertJsonbScalar](convertJsonbScalar.md)
   - jbvArray (enum value)
-  - convertJsonbArray
+  - [convertJsonbArray](convertJsonbArray.md)
   - jbvObject (enum value)  
-  - convertJsonbObject
+  - [convertJsonbObject](convertJsonbObject.md)
   - elog (for error reporting)
 - Called from (representative examples):
-  - convertToJsonb
-  - convertJsonbArray (recursive)
-  - convertJsonbObject (recursive)
+  - [convertToJsonb](convertToJsonb.md)
+  - [convertJsonbArray](convertJsonbArray.md) (recursive)
+  - [convertJsonbObject](convertJsonbObject.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the jsonb_util.c compilation unit

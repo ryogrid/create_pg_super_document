@@ -31,14 +31,14 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogRecGetBlockTag
-  - FilterByOrigin
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - XLogRecGetOrigin
-  - ReorderBufferGetChange
-  - ReorderBufferQueueChange
+  - [ReorderBufferGetChange](../R/ReorderBufferGetChange.md)
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md)
   - XLogRecGetXid
 - Called from (representative examples):
-  - heap_decode
+  - [heap_decode](../h/heap_decode.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's speculative insertion mechanism used by INSERT ... ON CONFLICT

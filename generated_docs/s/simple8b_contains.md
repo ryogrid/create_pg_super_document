@@ -29,7 +29,7 @@ The algorithm stops early when it finds the target value or determines it cannot
   - simple8b_modes (array defining encoding parameters for each selector mode)
 
 - Called from (representative examples):
-  - intset_is_member (main entry point for integer set membership testing)
+  - [intset_is_member](../i/intset_is_member.md) (main entry point for integer set membership testing)
 
 ## Notes and Other Information
 - This is a static function internal to the integerset module, not exposed in the public API

@@ -19,25 +19,25 @@ This function generates a unique OID for use in system catalogs by repeatedly ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSystemRelation
+  - [IsSystemRelation](../I/IsSystemRelation.md)
   - IsBootstrapProcessingMode
-  - GetNewObjectId
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [GetNewObjectId](GetNewObjectId.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - SnapshotAny
   - GETNEWOID_LOG_THRESHOLD
   - GETNEWOID_LOG_MAX_INTERVAL
 - Called from (representative examples):
-  - toast_save_datum (src/backend/access/common/toast_internals.c:230, 284)
-  - GetNewRelFileNumber (src/backend/catalog/catalog.c:577)
-  - TypeCreate (src/backend/catalog/pg_type.c:481)
-  - ProcedureCreate (src/backend/catalog/pg_proc.c:576)
-  - OperatorCreate (src/backend/catalog/pg_operator.c:505)
-  - CreateConstraintEntry (src/backend/catalog/pg_constraint.c:174)
-  - createdb (src/backend/commands/dbcommands.c:1405)
-  - CreateRole (src/backend/commands/user.c:475)
-  - CreateTableSpace (src/backend/commands/tablespace.c:326)
+  - [toast_save_datum](../t/toast_save_datum.md) (src/backend/access/common/toast_internals.c:230, 284)
+  - [GetNewRelFileNumber](GetNewRelFileNumber.md) (src/backend/catalog/catalog.c:577)
+  - [TypeCreate](../T/TypeCreate.md) (src/backend/catalog/pg_type.c:481)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (src/backend/catalog/pg_proc.c:576)
+  - [OperatorCreate](../O/OperatorCreate.md) (src/backend/catalog/pg_operator.c:505)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (src/backend/catalog/pg_constraint.c:174)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1405)
+  - [CreateRole](../C/CreateRole.md) (src/backend/commands/user.c:475)
+  - [CreateTableSpace](../C/CreateTableSpace.md) (src/backend/commands/tablespace.c:326)
 
 ## Notes and Other Information
 - Only works with system relations (enforced by assertion)

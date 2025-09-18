@@ -19,10 +19,10 @@ The  structure serves as a parameter context for the  function during the proces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Query (structure)
+  - [Query](../Q/Query.md) (structure)
 - Called from (representative examples):
-  - inline_cte (src/backend/optimizer/plan/subselect.c:1140)
-  - inline_cte_walker (src/backend/optimizer/plan/subselect.c:1151)
+  - [inline_cte](inline_cte.md) (src/backend/optimizer/plan/subselect.c:1140)
+  - [inline_cte_walker](inline_cte_walker.md) (src/backend/optimizer/plan/subselect.c:1151)
 
 ## Notes and Other Information
 - This context structure is part of PostgreSQL's CTE optimization infrastructure, specifically for inlining non-recursive CTEs

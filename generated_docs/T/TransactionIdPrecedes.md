@@ -22,13 +22,13 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
 - Called from (representative examples):
-  - heap_abort_speculative
-  - FreezeMultiXactId
-  - heap_prepare_freeze_tuple
-  - HeapTupleSatisfiesVacuum
-  - TransactionIdDidCommit
+  - [heap_abort_speculative](../h/heap_abort_speculative.md)
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md)
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
+  - [TransactionIdDidCommit](TransactionIdDidCommit.md)
   - TransactionIdIsInProgress
-  - xidLogicalComparator
+  - [xidLogicalComparator](../x/xidLogicalComparator.md)
 
 ## Notes and Other Information
 - Critical for handling PostgreSQL's transaction ID wraparound problem - transaction IDs are 32-bit values that eventually wrap around

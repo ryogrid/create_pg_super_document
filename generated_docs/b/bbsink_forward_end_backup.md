@@ -28,7 +28,7 @@ The forwarding of endptr and endtli is crucial as these parameters contain the e
   - XLogRecPtr (type)
   - TimeLineID (type)
 - Called from (representative examples):
-  - bbsink_zstd_end_backup
+  - [bbsink_zstd_end_backup](bbsink_zstd_end_backup.md)
 
 ## Notes and Other Information
 - This is the final callback in the backup process, indicating complete backup termination

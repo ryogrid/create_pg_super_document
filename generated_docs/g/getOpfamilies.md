@@ -21,22 +21,22 @@ The function allocates memory for an array of OpfamilyInfo structures and initia
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQuery
-  - PQntuples
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
   - pg_malloc
-  - PQfnumber
-  - PQgetvalue
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - AssignDumpId
-  - pg_strdup
-  - findNamespace
-  - getRoleName
-  - selectDumpableObject
-  - PQclear
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - The function queries the pg_opfamily system catalog to retrieve operator family metadata

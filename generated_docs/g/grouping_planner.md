@@ -32,13 +32,13 @@ The function works by creating a series of upper relations (upperrels) that repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - preprocess_limit, plan_set_operations, preprocess_grouping_sets
-  - preprocess_targetlist, preprocess_aggrefs, find_window_functions
-  - query_planner, create_pathtarget, create_grouping_paths
-  - create_window_paths, create_distinct_paths, create_ordered_paths
-  - create_lockrows_path, create_limit_path, create_modifytable_path
+  - [preprocess_limit](../p/preprocess_limit.md), plan_set_operations, preprocess_grouping_sets
+  - [preprocess_targetlist](../p/preprocess_targetlist.md), preprocess_aggrefs, find_window_functions
+  - [query_planner](../q/query_planner.md), create_pathtarget, create_grouping_paths
+  - [create_window_paths](../c/create_window_paths.md), create_distinct_paths, create_ordered_paths
+  - [create_lockrows_path](../c/create_lockrows_path.md), create_limit_path, create_modifytable_path
 - Called from (representative examples):
-  - subquery_planner
+  - [subquery_planner](../s/subquery_planner.md)
 
 ## Notes and Other Information
 - Located in src/backend/optimizer/plan/planner.c:1335-2076

@@ -23,7 +23,7 @@ The subtraction operation computes ts1 - ts2, meaning ts2 is subtracted from ts1
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_sub
+  - [PGTYPEStimestamp_sub](../P/PGTYPEStimestamp_sub.md)
   - interval (data type)
 - Called from (representative examples):
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)

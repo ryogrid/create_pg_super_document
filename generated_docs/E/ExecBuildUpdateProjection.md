@@ -41,18 +41,18 @@ ExecBuildUpdateProjection creates a specialized ProjectionInfo for UPDATE operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (ProjectionInfo creation)
-  - bms_add_member, bms_is_member (bitmap set operations)
-  - expr_setup_walker (expression analysis)
-  - ExecPushExprSetupSteps (setup step generation)
-  - ExecInitExprRec (expression compilation)
-  - ExprEvalPushStep (evaluation step creation)
-  - ExecReadyExpr (finalization)
-  - format_type_be (error reporting)
+  - [bms_add_member](../b/bms_add_member.md), bms_is_member (bitmap set operations)
+  - [expr_setup_walker](../e/expr_setup_walker.md) (expression analysis)
+  - [ExecPushExprSetupSteps](ExecPushExprSetupSteps.md) (setup step generation)
+  - [ExecInitExprRec](ExecInitExprRec.md) (expression compilation)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (evaluation step creation)
+  - [ExecReadyExpr](ExecReadyExpr.md) (finalization)
+  - [format_type_be](../f/format_type_be.md) (error reporting)
 - Called from (representative examples):
-  - ExecInitUpdateProjection
-  - ExecInitPartitionInfo
-  - ExecInitMerge
-  - ExecInitModifyTable
+  - [ExecInitUpdateProjection](ExecInitUpdateProjection.md)
+  - [ExecInitPartitionInfo](ExecInitPartitionInfo.md)
+  - [ExecInitMerge](ExecInitMerge.md)
+  - [ExecInitModifyTable](ExecInitModifyTable.md)
 
 ## Notes and Other Information
 - **Specialized variant**: This is a specialized version of ExecBuildProjectionInfo specifically designed for UPDATE operations

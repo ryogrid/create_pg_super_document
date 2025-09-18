@@ -25,16 +25,16 @@ After a worker is detected as terminated on either platform, the function update
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HasEveryWorkerTerminated (checks if all workers have finished)
+  - [HasEveryWorkerTerminated](../H/HasEveryWorkerTerminated.md) (checks if all workers have finished)
   - wait (Unix: waits for child process termination)
   - WaitForMultipleObjects (Windows: waits for multiple thread handles)
   - CloseHandle (Windows: closes thread handles)
   - pg_malloc (allocates memory for handle array)
   - WORKER_IS_RUNNING (macro to check worker status)
 - Called from (representative examples):
-  - write_stderr (error handling context)
-  - ShutdownWorkersHard (forced shutdown scenario)
-  - ParallelBackupEnd (normal cleanup at end of parallel backup)
+  - [write_stderr](../w/write_stderr.md) (error handling context)
+  - [ShutdownWorkersHard](../S/ShutdownWorkersHard.md) (forced shutdown scenario)
+  - [ParallelBackupEnd](../P/ParallelBackupEnd.md) (normal cleanup at end of parallel backup)
 
 ## Notes and Other Information
 - This is a static function, only used within the parallel.c module

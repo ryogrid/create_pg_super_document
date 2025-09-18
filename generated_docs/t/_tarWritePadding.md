@@ -20,14 +20,14 @@ This function ensures TAR format compliance by padding file data with zero bytes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tarPaddingBytesRequired
+  - [tarPaddingBytesRequired](tarPaddingBytesRequired.md)
   - MemSet
   - bbsink_archive_contents
   - TAR_BLOCK_SIZE
   - bbsink
 - Called from (representative examples):
-  - sendFileWithContent
-  - sendFile
+  - [sendFileWithContent](../s/sendFileWithContent.md)
+  - [sendFile](../s/sendFile.md)
 
 ## Notes and Other Information
 - Static function used only within the basebackup.c module

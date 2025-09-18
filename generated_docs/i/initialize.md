@@ -28,15 +28,15 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getvacant (allocates a new state set)
+  - [getvacant](../g/getvacant.md) (allocates a new state set)
   - BSET (macro to set a bit in the state bitvector)
-  - HASH (macro to compute hash of state bitvector)
+  - [HASH](../H/HASH.md) (macro to compute hash of state bitvector)
   - STARTER, LOCKED, NOPROGRESS (flag constants)
-  - sset, dfa, chr, cnfa (struct types)
+  - [sset](../s/sset.md), dfa, chr, cnfa (struct types)
 - Called from (representative examples):
-  - longest (longest match function)
-  - shortest (shortest match function)
-  - matchuntil (match until function)
+  - [longest](../l/longest.md) (longest match function)
+  - [shortest](../s/shortest.md) (shortest match function)
+  - [matchuntil](../m/matchuntil.md) (match until function)
   - LOFF (regex execution function)
 
 ## Notes and Other Information

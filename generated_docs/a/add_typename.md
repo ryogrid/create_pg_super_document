@@ -21,9 +21,9 @@ This function manages the dynamic typenames array by adding new type names while
   - strcmp (compares strings for sorting and duplicate detection)  
   - strdup (creates a persistent copy of the key string)
   - memmove (shifts array elements for insertion)
-  - err (error reporting and program termination)
+  - [err](../e/err.md) (error reporting and program termination)
 - Called from (representative examples):
-  - set_option (at src/tools/pg_bsd_indent/args.c:296)
+  - [set_option](../s/set_option.md) (at src/tools/pg_bsd_indent/args.c:296)
   - add_typedefs_from_file (at src/tools/pg_bsd_indent/args.c:347)
 
 ## Notes and Other Information

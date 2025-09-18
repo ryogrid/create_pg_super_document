@@ -28,7 +28,7 @@ The function implements a two-threshold system:
   - TRACE_SORT (conditional compilation macro)
   - INT64_FORMAT (printf format macro)
 - Called from (representative examples):
-  - uuid_sortsupport (as abort callback assignment)
+  - [uuid_sortsupport](uuid_sortsupport.md) (as abort callback assignment)
 
 ## Notes and Other Information
 - The function only begins evaluation after 10,000 tuples and 10,000 input values to ensure statistical significance

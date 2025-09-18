@@ -28,10 +28,10 @@ The cleanup is performed without error checking - failure to remove the files is
   - StatusFilePath (constructs full path to status files in archive_status directory)
   - unlink (system call to remove files)
 - Called from (representative examples):
-  - RemoveXlogFile (src/backend/access/transam/xlog.c:4059)
+  - [RemoveXlogFile](../R/RemoveXlogFile.md) (src/backend/access/transam/xlog.c:4059)
   - CleanupBackupHistory (src/backend/access/transam/xlog.c:4156)
-  - XLogInitNewTimeline (src/backend/access/transam/xlog.c:5237)
-  - CleanupAfterArchiveRecovery (src/backend/access/transam/xlog.c:5323)
+  - [XLogInitNewTimeline](XLogInitNewTimeline.md) (src/backend/access/transam/xlog.c:5237)
+  - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md) (src/backend/access/transam/xlog.c:5323)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's WAL archiving mechanism that tracks which segments have been archived

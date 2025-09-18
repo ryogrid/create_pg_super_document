@@ -29,11 +29,11 @@ The structure is designed to be portable across different platforms while provid
   - pid_t (process ID type)
   - dsm_handle (dynamic shared memory handle type)
 - Called from (representative examples):
-  - PGSharedMemoryCreate (creates and initializes the header)
-  - PGSharedMemoryAttach (reads and validates the header)
-  - PGSharedMemoryReAttach (reattaches using header information)
-  - CreateSharedMemoryAndSemaphores (uses header during initialization)
-  - InitShmemAccess (accesses header for shared memory setup)
+  - [PGSharedMemoryCreate](PGSharedMemoryCreate.md) (creates and initializes the header)
+  - [PGSharedMemoryAttach](PGSharedMemoryAttach.md) (reads and validates the header)
+  - [PGSharedMemoryReAttach](PGSharedMemoryReAttach.md) (reattaches using header information)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md) (uses header during initialization)
+  - [InitShmemAccess](../I/InitShmemAccess.md) (accesses header for shared memory setup)
 
 ## Notes and Other Information
 - The magic number PGShmemMagic (679834894) is used as a signature to validate that a shared memory segment belongs to PostgreSQL

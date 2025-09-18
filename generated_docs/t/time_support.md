@@ -19,7 +19,7 @@ The time_support function serves as a planner support function specifically desi
 ## Dependencies
 - Functions called/Symbols referenced:
   - SupportRequestSimplify (struct type for simplification requests)
-  - TemporalSimplify (function that performs the actual temporal simplification)
+  - [TemporalSimplify](../T/TemporalSimplify.md) (function that performs the actual temporal simplification)
   - MAX_TIME_PRECISION (constant defining maximum time precision)
 - Called from (representative examples):
   - No direct references found in the codebase (likely registered as a support function)

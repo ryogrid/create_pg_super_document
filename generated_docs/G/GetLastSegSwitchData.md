@@ -21,7 +21,7 @@ This function returns the time when the last WAL (Write-Ahead Log) segment switc
   - LWLockRelease
   - XLogCtl (global control structure access)
 - Called from (representative examples):
-  - CheckArchiveTimeout (in checkpointer.c:645)
+  - [CheckArchiveTimeout](../C/CheckArchiveTimeout.md) (in checkpointer.c:645)
 
 ## Notes and Other Information
 - Requires WALWriteLock but uses shared mode for read-only access

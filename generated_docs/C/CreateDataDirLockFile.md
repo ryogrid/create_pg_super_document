@@ -17,12 +17,12 @@ This function creates the data directory lock file using the standard DIRECTORY_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateLockFile
+  - [CreateLockFile](CreateLockFile.md)
   - DIRECTORY_LOCK_FILE (constant)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
 
 ## Notes and Other Information
 - Must be called after switching working directory to DataDir for security

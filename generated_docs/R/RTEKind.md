@@ -27,13 +27,13 @@ RTEKind is used to classify range table entries (RTEs) in PostgreSQL's query tre
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - _outRangeTblEntry (src/backend/nodes/outfuncs.c:502)
-  - _readRangeTblEntry (src/backend/nodes/readfuncs.c:353)
-  - RangeTblEntry (src/include/nodes/parsenodes.h:1054)
+  - [_outRangeTblEntry](../o/_outRangeTblEntry.md) (src/backend/nodes/outfuncs.c:502)
+  - [_readRangeTblEntry](../r/_readRangeTblEntry.md) (src/backend/nodes/readfuncs.c:353)
+  - [RangeTblEntry](RangeTblEntry.md) (src/include/nodes/parsenodes.h:1054)
   - RelOptInfo (src/include/nodes/pathnodes.h:916)
 
 ## Notes and Other Information
-- RTEKind is fundamental to PostgreSQL's query processing architecture
+- [RTEKind](RTEKind.md) is fundamental to PostgreSQL's query processing architecture
 - The RTE_RESULT type is specifically added by the planner and not present during initial parsing
 - Different RTE types require different handling strategies in query planning and execution
 - The enumeration is part of the parse tree node structure defined in parsenodes.h

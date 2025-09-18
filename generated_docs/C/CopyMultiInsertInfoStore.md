@@ -27,10 +27,10 @@ This function works in conjunction with CopyMultiInsertInfoNextFreeSlot to manag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertInfo (struct)
-  - CopyMultiInsertBuffer (struct)
+  - [CopyMultiInsertInfo](CopyMultiInsertInfo.md) (struct)
+  - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (struct)
 - Called from (representative examples):
-  - CopyFrom (at line 1220)
+  - [CopyFrom](CopyFrom.md) (at line 1220)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

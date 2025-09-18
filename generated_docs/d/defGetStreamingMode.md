@@ -26,16 +26,16 @@ The function handles various input formats including integers, strings, and miss
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem
+  - [DefElem](../D/DefElem.md)
   - LOGICALREP_STREAM_ON
   - nodeTag
   - intVal
   - LOGICALREP_STREAM_OFF
-  - defGetString
+  - [defGetString](defGetString.md)
   - LOGICALREP_STREAM_PARALLEL
 - Called from (representative examples):
-  - parse_subscription_options
-  - parse_output_parameters
+  - [parse_subscription_options](../p/parse_subscription_options.md)
+  - [parse_output_parameters](../p/parse_output_parameters.md)
   - SUBSCRIPTIONCMDS_H
 
 ## Notes and Other Information

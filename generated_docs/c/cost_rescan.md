@@ -29,14 +29,14 @@ The function accounts for spilling to disk when materialized results exceed work
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_byte_size
-  - cost_memoize_rescan
+  - [relation_byte_size](../r/relation_byte_size.md)
+  - [cost_memoize_rescan](cost_memoize_rescan.md)
   - Cost (type)
   - HashPath (type)
   - MemoizePath (type)
 - Called from (representative examples):
   - cost_qual_eval_context
-  - initial_cost_nestloop
+  - [initial_cost_nestloop](../i/initial_cost_nestloop.md)
 
 ## Notes and Other Information
 - This is a static function within costsize.c, used internally by the cost estimation system

@@ -30,10 +30,10 @@ The function operates during various recovery modes and ensures that the replayi
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo, XLogRecGetData, XLogRecHasAnyBlockRefs
-  - MultiXactSetNextMXact, MultiXactAdvanceOldest, MultiXactAdvanceNextMXact
-  - SetTransactionIdLimit, TransactionIdPrecedes, TransactionIdRetreat
-  - GetCurrentReplayRecPtr, RecoveryRestartPoint
-  - PrescanPreparedTransactions, StandbyRecoverPreparedTransactions
+  - [MultiXactSetNextMXact](../M/MultiXactSetNextMXact.md), MultiXactAdvanceOldest, MultiXactAdvanceNextMXact
+  - [SetTransactionIdLimit](../S/SetTransactionIdLimit.md), TransactionIdPrecedes, TransactionIdRetreat
+  - [GetCurrentReplayRecPtr](../G/GetCurrentReplayRecPtr.md), RecoveryRestartPoint
+  - [PrescanPreparedTransactions](../P/PrescanPreparedTransactions.md), StandbyRecoverPreparedTransactions
   - ProcArrayApplyRecoveryInfo, InvalidateObsoleteReplicationSlots
   - XLogReadBufferForRedo, CommitTsParameterChange
   - UpdateControlFile, CheckRequiredParameterValues

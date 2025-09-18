@@ -18,7 +18,7 @@ This function serves as a simple wrapper around the main regexp_match function. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_match
+  - [regexp_match](regexp_match.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

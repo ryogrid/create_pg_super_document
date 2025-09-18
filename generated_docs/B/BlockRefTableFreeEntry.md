@@ -21,7 +21,7 @@ This is a complementary function to CreateBlockRefTableEntry and should be calle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - Functions that need to clean up BlockRefTableEntry structures
 

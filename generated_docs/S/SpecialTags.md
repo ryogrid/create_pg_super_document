@@ -25,13 +25,13 @@ This is crucial for HTML document parsing where script and style content should 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
-  - pg_strncasecmp (for case-insensitive string comparison)
+  - [TParser](../T/TParser.md) (structure type)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (for case-insensitive string comparison)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1227)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1228)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1245)
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1261)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1227)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1228)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1245)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1261)
 
 ## Notes and Other Information
 - Uses case-insensitive comparison via pg_strncasecmp to handle various HTML tag capitalizations

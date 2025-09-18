@@ -21,13 +21,13 @@ This function serves as the primary input conversion routine for tsvector data t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_tsvector_parser (initialize parser state)
-  - gettoken_tsvector (extract tokens from input)
-  - close_tsvector_parser (cleanup parser resources)
-  - uniqueentry (remove duplicates and merge positions)
-  - palloc/palloc0 (PostgreSQL memory allocation)
-  - repalloc (PostgreSQL memory reallocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [init_tsvector_parser](../i/init_tsvector_parser.md) (initialize parser state)
+  - [gettoken_tsvector](../g/gettoken_tsvector.md) (extract tokens from input)
+  - [close_tsvector_parser](../c/close_tsvector_parser.md) (cleanup parser resources)
+  - [uniqueentry](../u/uniqueentry.md) (remove duplicates and merge positions)
+  - [palloc](../p/palloc.md)/palloc0 (PostgreSQL memory allocation)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - ereturn (error return with context)
   - SOFT_ERROR_OCCURRED (check for parsing errors)
   - CALCDATASIZE (calculate total TSVector size)

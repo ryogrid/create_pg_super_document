@@ -19,17 +19,17 @@ checkDataDir performs comprehensive validation of the PostgreSQL data directory 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call for file information)
+  - [stat](../s/stat.md) (system call for file information)
   - S_ISDIR (macro to check if path is directory)
   - PG_MODE_MASK_GROUP (permission mask constant)
   - SetDataDirectoryCreatePerm (sets file creation permissions)
-  - ValidatePgVersion (verifies PostgreSQL version compatibility)
+  - [ValidatePgVersion](../V/ValidatePgVersion.md) (verifies PostgreSQL version compatibility)
   - ereport, errcode_for_file_access, errmsg (error reporting functions)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - SubPostmasterMain
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
   - AmSpecialWorkerProcess
 
 ## Notes and Other Information

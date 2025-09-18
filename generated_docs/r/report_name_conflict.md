@@ -21,13 +21,13 @@ This function generates appropriate error messages for duplicate object names ba
   - gettext_noop (for internationalization)
   - elog (for error logging)
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
   - ERRCODE_DUPLICATE_OBJECT (error code constant)
 
 - Called from (representative examples):
-  - AlterObjectRename_internal (src/backend/commands/alter.c:298)
-  - AlterObjectRename_internal (src/backend/commands/alter.c:322)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (src/backend/commands/alter.c:298)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (src/backend/commands/alter.c:322)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (src/backend/commands/alter.c)

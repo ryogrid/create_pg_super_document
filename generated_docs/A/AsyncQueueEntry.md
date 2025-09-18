@@ -26,10 +26,10 @@ The AsyncQueueEntry structure represents a single notification entry in PostgreS
 - Called from (representative examples):
   - AsyncQueueEntryEmptySize
   - NotificationHash
-  - asyncQueueNotificationToEntry
-  - asyncQueueAddEntries
-  - asyncQueueReadAllNotifications
-  - asyncQueueProcessPageEntries
+  - [asyncQueueNotificationToEntry](../a/asyncQueueNotificationToEntry.md)
+  - [asyncQueueAddEntries](../a/asyncQueueAddEntries.md)
+  - [asyncQueueReadAllNotifications](../a/asyncQueueReadAllNotifications.md)
+  - [asyncQueueProcessPageEntries](../a/asyncQueueProcessPageEntries.md)
 
 ## Notes and Other Information
 - The data area size is calculated as NAMEDATALEN + NOTIFY_PAYLOAD_MAX_LENGTH, representing the maximum possible channel name and payload size

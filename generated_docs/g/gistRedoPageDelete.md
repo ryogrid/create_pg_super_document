@@ -26,15 +26,15 @@ Both pages are only modified if they need redo (determined by LSN comparison), e
   - XLogRecGetData: Extract WAL record data
   - XLogReadBufferForRedo: Read buffers and determine if redo is needed
   - BLK_NEEDS_REDO: Constant indicating buffer needs redo
-  - GistPageSetDeleted: Mark page as deleted with deletion XID
-  - PageIndexTupleDelete: Remove tuple from page at specified offset
-  - BufferGetPage: Get page from buffer
-  - PageSetLSN: Set page LSN
+  - [GistPageSetDeleted](../G/GistPageSetDeleted.md): Mark page as deleted with deletion XID
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md): Remove tuple from page at specified offset
+  - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer
+  - [PageSetLSN](../P/PageSetLSN.md): Set page LSN
   - MarkBufferDirty: Mark buffer as dirty
-  - BufferIsValid: Check if buffer is valid
-  - UnlockReleaseBuffer: Unlock and release buffer
+  - [BufferIsValid](../B/BufferIsValid.md): Check if buffer is valid
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md): Unlock and release buffer
 - Called from:
-  - gist_redo: Main GiST WAL redo dispatcher
+  - [gist_redo](gist_redo.md): Main GiST WAL redo dispatcher
 
 ## Notes and Other Information
 - This is a static function used internally within the GiST WAL recovery system

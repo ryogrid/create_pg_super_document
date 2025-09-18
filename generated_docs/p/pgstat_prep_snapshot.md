@@ -19,15 +19,15 @@ The function handles forced snapshot clearing, checks fetch consistency settings
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_clear_snapshot
+  - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)
   - AllocSetContextCreate
   - pgstat_snapshot_create (macro/function)
   - PGSTAT_FETCH_CONSISTENCY_NONE
   - ALLOCSET_SMALL_SIZES
   - PGSTAT_SNAPSHOT_HASH_SIZE
 - Called from (representative examples):
-  - pgstat_fetch_entry
-  - pgstat_build_snapshot
+  - [pgstat_fetch_entry](pgstat_fetch_entry.md)
+  - [pgstat_build_snapshot](pgstat_build_snapshot.md)
 
 ## Notes and Other Information
 - Static function for internal use within the pgstat module

@@ -24,20 +24,20 @@ The function is designed to integrate seamlessly with PostgreSQLs error reportin
 - Functions called/Symbols referenced:
   - PyTuple_Size, PyArg_UnpackTuple, PyObject_Str (Python C API)
   - PLy_elog (PL/Python error handling)
-  - PLyUnicode_AsString (PL/Python string conversion)
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md) (PL/Python string conversion)
   - dgettext, TEXTDOMAIN (internationalization)
-  - object_to_string (string conversion utility)
-  - PLy_exception_set (PL/Python exception handling)
+  - [object_to_string](../o/object_to_string.md) (string conversion utility)
+  - [PLy_exception_set](PLy_exception_set.md) (PL/Python exception handling)
   - MAKE_SQLSTATE (PostgreSQL SQL state handling)
-  - pg_verifymbstr (PostgreSQL string validation)
+  - [pg_verifymbstr](../p/pg_verifymbstr.md) (PostgreSQL string validation)
   - ereport, errcode, errmsg_internal, errdetail_internal, errhint (PostgreSQL error reporting)
-  - err_generic_string with PG_DIAG_* constants (PostgreSQL diagnostic fields)
+  - [err_generic_string](../e/err_generic_string.md) with PG_DIAG_* constants (PostgreSQL diagnostic fields)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling)
-  - CopyErrorData, FlushErrorState, FreeErrorData (PostgreSQL error data management)
-  - PLy_exception_set_with_details (PL/Python detailed exception handling)
+  - [CopyErrorData](../C/CopyErrorData.md), FlushErrorState, FreeErrorData (PostgreSQL error data management)
+  - [PLy_exception_set_with_details](PLy_exception_set_with_details.md) (PL/Python detailed exception handling)
 - Called from (representative examples):
-  - PLy_debug, PLy_log, PLy_info, PLy_notice, PLy_warning, PLy_error, PLy_fatal
-  - PLy_generate_spi_exceptions
+  - [PLy_debug](PLy_debug.md), PLy_log, PLy_info, PLy_notice, PLy_warning, PLy_error, PLy_fatal
+  - [PLy_generate_spi_exceptions](PLy_generate_spi_exceptions.md)
 
 ## Notes and Other Information
 - Supports both single argument and multiple argument message formatting

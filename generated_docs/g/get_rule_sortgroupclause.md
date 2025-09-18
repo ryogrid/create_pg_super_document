@@ -30,16 +30,16 @@ Special handling ensures that expressions won't be misinterpreted during reparsi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupref_tle (retrieve TargetEntry by reference number)
+  - [get_sortgroupref_tle](get_sortgroupref_tle.md) (retrieve TargetEntry by reference number)
   - get_const_expr (format constant expressions with explicit casting)
-  - get_variable (format variable expressions with conflict checking)
+  - [get_variable](get_variable.md) (format variable expressions with conflict checking)
   - get_rule_expr (format general expressions)
   - PRETTY_PAREN (check formatting preference for parentheses)
 - Called from (representative examples):
-  - get_basic_select_query (src/backend/utils/adt/ruleutils.c:5949, 5994)
-  - get_rule_groupingset (src/backend/utils/adt/ruleutils.c:6412)
-  - get_rule_orderby (src/backend/utils/adt/ruleutils.c:6464)
-  - get_rule_windowspec (src/backend/utils/adt/ruleutils.c:6564)
+  - [get_basic_select_query](get_basic_select_query.md) (src/backend/utils/adt/ruleutils.c:5949, 5994)
+  - [get_rule_groupingset](get_rule_groupingset.md) (src/backend/utils/adt/ruleutils.c:6412)
+  - [get_rule_orderby](get_rule_orderby.md) (src/backend/utils/adt/ruleutils.c:6464)
+  - [get_rule_windowspec](get_rule_windowspec.md) (src/backend/utils/adt/ruleutils.c:6564)
 
 ## Notes and Other Information
 - Returns the expression Node for caller convenience (avoids duplicate lookups)

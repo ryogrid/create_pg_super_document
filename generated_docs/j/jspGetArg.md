@@ -20,16 +20,16 @@ This function extracts the single argument from unary JSON path operations that 
 - Functions called/Symbols referenced:
   - JsonPathItem (struct type)
   - jpi* enumeration constants for unary operations (jpiNot, jpiIsUnknown, jpiPlus, jpiMinus, jpiFilter, jpiExists, jpiDatetime, jpiTime, jpiTimeTz, jpiTimestamp, jpiTimestampTz)
-  - jspInitByBuffer (core buffer initialization function)
+  - [jspInitByBuffer](jspInitByBuffer.md) (core buffer initialization function)
   - Assert (debugging macro for validation)
 - Called from (representative examples):
-  - extract_jsp_path_expr_nodes, extract_jsp_bool_expr
-  - printJsonPathItem (multiple locations)
-  - jspIsMutableWalker
-  - executeItemOptUnwrapTarget
-  - executeBoolItem
-  - executeUnaryArithmExpr
-  - executeDateTimeMethod
+  - [extract_jsp_path_expr_nodes](../e/extract_jsp_path_expr_nodes.md), extract_jsp_bool_expr
+  - [printJsonPathItem](../p/printJsonPathItem.md) (multiple locations)
+  - [jspIsMutableWalker](jspIsMutableWalker.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeBoolItem](../e/executeBoolItem.md)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
 
 ## Notes and Other Information
 - Only works with unary operations that store their single argument in the content.arg field

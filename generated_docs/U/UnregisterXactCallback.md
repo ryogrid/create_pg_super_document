@@ -22,9 +22,9 @@ This is the counterpart to RegisterXactCallback and is typically used by dynamic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XactCallbackItem (structure type)
+  - [XactCallbackItem](../X/XactCallbackItem.md) (structure type)
   - Xact_callbacks (global linked list head)
-  - pfree (for deallocating callback item memory)
+  - [pfree](../p/pfree.md) (for deallocating callback item memory)
 - Called from (representative examples):
   - No direct references found in the codebase (used by dynamically loaded modules)
 

@@ -27,26 +27,26 @@ The algorithm considers splits where the left group has an upper bound and the r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_deserialize
+  - [range_deserialize](range_deserialize.md)
   - qsort_arg
-  - interval_cmp_lower
-  - interval_cmp_upper
-  - range_cmp_bounds
-  - range_gist_consider_split
-  - range_gist_fallback_split
-  - call_subtype_diff
-  - common_entry_cmp
+  - [interval_cmp_lower](../i/interval_cmp_lower.md)
+  - [interval_cmp_upper](../i/interval_cmp_upper.md)
+  - [range_cmp_bounds](range_cmp_bounds.md)
+  - [range_gist_consider_split](range_gist_consider_split.md)
+  - [range_gist_fallback_split](range_gist_fallback_split.md)
+  - [call_subtype_diff](../c/call_subtype_diff.md)
+  - [common_entry_cmp](../c/common_entry_cmp.md)
   - DatumGetRangeTypeP
   - PLACE_LEFT (macro)
   - PLACE_RIGHT (macro)
   - FirstOffsetNumber (constant)
   - OffsetNumberNext
-  - ConsiderSplitContext (struct)
-  - NonEmptyRange (struct)
+  - [ConsiderSplitContext](../C/ConsiderSplitContext.md) (struct)
+  - [NonEmptyRange](../N/NonEmptyRange.md) (struct)
   - CommonEntry (struct)
   - RangeBound (struct)
 - Called from (representative examples):
-  - range_gist_picksplit
+  - [range_gist_picksplit](range_gist_picksplit.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rangetypes_gist.c file

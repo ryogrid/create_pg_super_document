@@ -24,18 +24,18 @@ The function uses the SecLabelObjectIndexId index for efficient lookups and hand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSharedRelation
-  - GetSharedSecurityLabel
-  - ScanKeyInit
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [GetSharedSecurityLabel](GetSharedSecurityLabel.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - heap_getattr
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [heap_getattr](../h/heap_getattr.md)
   - TextDatumGetCString
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - ObjectIdGetDatum
-  - Int32GetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [Int32GetDatum](../I/Int32GetDatum.md)
   - CStringGetTextDatum
   - RelationGetDescr
   - HeapTupleIsValid

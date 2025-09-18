@@ -17,18 +17,18 @@ This function performs a complete cleanup of a tuple descriptor by deallocating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AttrDefault
+  - [AttrDefault](../A/AttrDefault.md)
   - AttrMissing
-  - ConstrCheck
+  - [ConstrCheck](../C/ConstrCheck.md)
 - Called from (representative examples):
-  - DecrTupleDescRefCount
-  - ResOwnerReleaseTupleDesc
-  - spgendscan
-  - AddNewAttributeTuples
-  - ExecMakeTableFunctionResult
-  - RelationDestroyRelation
-  - AtEOXact_RelationCache
-  - TypeCacheRelCallback
+  - [DecrTupleDescRefCount](../D/DecrTupleDescRefCount.md)
+  - [ResOwnerReleaseTupleDesc](../R/ResOwnerReleaseTupleDesc.md)
+  - [spgendscan](../s/spgendscan.md)
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
+  - [ExecMakeTableFunctionResult](../E/ExecMakeTableFunctionResult.md)
+  - [RelationDestroyRelation](../R/RelationDestroyRelation.md)
+  - [AtEOXact_RelationCache](../A/AtEOXact_RelationCache.md)
+  - [TypeCacheRelCallback](../T/TypeCacheRelCallback.md)
 
 ## Notes and Other Information
 - Validates tdrefcount <= 0 before freeing (should not free active references)

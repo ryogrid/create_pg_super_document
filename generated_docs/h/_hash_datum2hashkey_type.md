@@ -23,14 +23,14 @@ The function is more expensive than `_hash_datum2hashkey` because it must perfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opfamily_proc (looks up hash function for the specified type in operator family)
+  - [get_opfamily_proc](../g/get_opfamily_proc.md) (looks up hash function for the specified type in operator family)
   - HASHSTANDARD_PROC (constant identifying the primary hash function)
   - RegProcedureIsValid (validates that a hash function was found)
-  - OidFunctionCall1Coll (calls the hash function by OID with collation support)
-  - DatumGetUInt32 (extracts uint32 result from function call)
+  - [OidFunctionCall1Coll](../O/OidFunctionCall1Coll.md) (calls the hash function by OID with collation support)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (extracts uint32 result from function call)
   - RelationGetRelationName (gets relation name for error messages)
 - Called from (representative examples):
-  - _hash_first (in hashsearch.c at line 342)
+  - [_hash_first](_hash_first.md) (in hashsearch.c at line 342)
 
 ## Notes and Other Information
 - More expensive than `_hash_datum2hashkey` due to dynamic function lookup

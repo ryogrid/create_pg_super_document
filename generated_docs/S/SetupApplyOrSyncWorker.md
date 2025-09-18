@@ -33,20 +33,20 @@ Global variables accessed:
 ## Dependencies
 - Functions called/Symbols referenced:
   - logicalrep_worker_attach: Attach to logical replication worker slot
-  - am_tablesync_worker/am_leader_apply_worker: Worker type identification functions
-  - pqsignal: Register signal handlers for SIGHUP and SIGTERM
-  - SignalHandlerForConfigReload/die: Signal handler functions
-  - BackgroundWorkerUnblockSignals: Enable signal processing
-  - GetCurrentTimestamp: Initialize communication timestamps
-  - load_file: Load libpqwalreceiver library
-  - InitializeLogRepWorker: Common worker initialization
-  - before_shmem_exit: Register shutdown callback
-  - replorigin_reset: Origin state cleanup callback
-  - CacheRegisterSyscacheCallback: Register for catalog change notifications
-  - invalidate_syncing_table_states: Cache invalidation callback
+  - [am_tablesync_worker](../a/am_tablesync_worker.md)/am_leader_apply_worker: Worker type identification functions
+  - [pqsignal](../p/pqsignal.md): Register signal handlers for SIGHUP and SIGTERM
+  - [SignalHandlerForConfigReload](SignalHandlerForConfigReload.md)/die: Signal handler functions
+  - [BackgroundWorkerUnblockSignals](../B/BackgroundWorkerUnblockSignals.md): Enable signal processing
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md): Initialize communication timestamps
+  - [load_file](../l/load_file.md): Load libpqwalreceiver library
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md): Common worker initialization
+  - [before_shmem_exit](../b/before_shmem_exit.md): Register shutdown callback
+  - [replorigin_reset](../r/replorigin_reset.md): Origin state cleanup callback
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md): Register for catalog change notifications
+  - [invalidate_syncing_table_states](../i/invalidate_syncing_table_states.md): Cache invalidation callback
 - Called from:
-  - TablesyncWorkerMain: Table synchronization worker main function
-  - ApplyWorkerMain: Apply worker main function
+  - [TablesyncWorkerMain](../T/TablesyncWorkerMain.md): Table synchronization worker main function
+  - [ApplyWorkerMain](../A/ApplyWorkerMain.md): Apply worker main function
 
 ## Notes and Other Information
 - This is a public function that can be called from other source files

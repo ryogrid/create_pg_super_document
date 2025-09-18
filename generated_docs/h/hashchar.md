@@ -20,7 +20,7 @@ This function is also utilized by catcache operations without any direct connect
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32: Generic hash function for 32-bit unsigned integers
+  - [hash_uint32](hash_uint32.md): Generic hash function for 32-bit unsigned integers
   - PG_GETARG_CHAR: Macro to extract char argument from function call context
 
 - Called from (representative examples):

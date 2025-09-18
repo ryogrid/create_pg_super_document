@@ -32,7 +32,7 @@ The function implementation performs a classic three-step swap using a temporary
   - ST_SORT (base sort name prefix)
 - Called from (representative examples):
   - DO_SWAP (wrapper macro that invokes the generated function)
-  - ST_SWAPN (uses ST_SWAP internally for multi-element swapping)
+  - [ST_SWAPN](ST_SWAPN.md) (uses ST_SWAP internally for multi-element swapping)
 
 ## Notes and Other Information
 - This macro is only defined when ST_DEFINE is set, indicating template instantiation

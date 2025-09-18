@@ -21,12 +21,12 @@ RI_QueryKey provides a composite key mechanism for the query plan cache used in 
   - Oid (PostgreSQL object identifier type)
   - int32 (32-bit integer type)
 - Called from (representative examples):
-  - RI_QueryHashEntry (as a member)
-  - ri_BuildQueryKey
-  - ri_FetchPreparedPlan
-  - ri_HashPreparedPlan
-  - ri_PlanCheck
-  - ri_PerformCheck
+  - [RI_QueryHashEntry](RI_QueryHashEntry.md) (as a member)
+  - [ri_BuildQueryKey](../r/ri_BuildQueryKey.md)
+  - [ri_FetchPreparedPlan](../r/ri_FetchPreparedPlan.md)
+  - [ri_HashPreparedPlan](../r/ri_HashPreparedPlan.md)
+  - [ri_PlanCheck](../r/ri_PlanCheck.md)
+  - [ri_PerformCheck](../r/ri_PerformCheck.md)
 
 ## Notes and Other Information
 The constr_queryno field references various RI_PLAN_XXX constants that define different types of referential integrity queries:

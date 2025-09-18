@@ -18,15 +18,15 @@ This function serves as a memory allocation callback for pagetable hash structur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TIDBitmap (struct type)
-  - PTEntryArray (struct type)
-  - MemoryContextAllocExtended (function)
+  - [TIDBitmap](../T/TIDBitmap.md) (struct type)
+  - [PTEntryArray](../P/PTEntryArray.md) (struct type)
+  - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md) (function)
   - MCXT_ALLOC_HUGE (constant)
   - MCXT_ALLOC_ZERO (constant)
-  - dsa_allocate_extended (function)
+  - [dsa_allocate_extended](../d/dsa_allocate_extended.md) (function)
   - DSA_ALLOC_HUGE (constant)
   - DSA_ALLOC_ZERO (constant)
-  - dsa_get_address (function)
+  - [dsa_get_address](../d/dsa_get_address.md) (function)
 - Called from (representative examples):
   - Used as callback in hash table operations (not directly referenced)
 

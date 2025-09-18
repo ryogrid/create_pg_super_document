@@ -20,15 +20,15 @@ The function uses bitwise operations to efficiently remove bits, applying the bi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation of both inputs)
-  - bms_copy_and_free (conditional memory management)
-  - pfree (memory deallocation when result becomes empty)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation of both inputs)
+  - [bms_copy_and_free](bms_copy_and_free.md) (conditional memory management)
+  - [pfree](../p/pfree.md) (memory deallocation when result becomes empty)
   
 - Called from (representative examples):
-  - make_outerjoininfo (outer join information processing)
-  - check_index_predicates (index predicate analysis)
-  - get_join_domain_min_rels (join domain relation calculation)
-  - finalize_plan (plan finalization)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md) (outer join information processing)
+  - [check_index_predicates](../c/check_index_predicates.md) (index predicate analysis)
+  - [get_join_domain_min_rels](../g/get_join_domain_min_rels.md) (join domain relation calculation)
+  - [finalize_plan](../f/finalize_plan.md) (plan finalization)
   - build_join_rel (join relation construction)
 
 ## Notes and Other Information

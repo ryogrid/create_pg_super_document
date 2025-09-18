@@ -34,13 +34,13 @@ The comment indicates this function is intended to eventually be phased out once
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ordering_op_properties (operator property extraction)
+  - [get_ordering_op_properties](../g/get_ordering_op_properties.md) (operator property extraction)
   - elog (error logging)
-  - exprCollation (collation extraction from expressions)
-  - make_pathkey_from_sortinfo (core PathKey creation)
+  - [exprCollation](../e/exprCollation.md) (collation extraction from expressions)
+  - [make_pathkey_from_sortinfo](make_pathkey_from_sortinfo.md) (core PathKey creation)
   - BTGreaterStrategyNumber (strategy constant for comparison)
 - Called from (representative examples):
-  - make_pathkeys_for_sortclauses_extended
+  - [make_pathkeys_for_sortclauses_extended](make_pathkeys_for_sortclauses_extended.md)
 
 ## Notes and Other Information
 - Intended as a temporary compatibility function pending SortGroupClause restructuring

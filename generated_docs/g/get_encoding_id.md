@@ -17,11 +17,11 @@ The  function validates a server encoding name and returns its corresponding int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_valid_server_encoding: PostgreSQL function to validate server encoding and return ID
-  - pg_fatal: PostgreSQL function to log fatal error and terminate program
+  - [pg_valid_server_encoding](../p/pg_valid_server_encoding.md): PostgreSQL function to validate server encoding and return ID
+  - [pg_fatal](../p/pg_fatal.md): PostgreSQL function to log fatal error and terminate program
 - Called from (representative examples):
   - AUTHTRUST_WARNING: Used in authentication warning message generation
-  - setup_locale_encoding: Used during locale and encoding setup
+  - [setup_locale_encoding](../s/setup_locale_encoding.md): Used during locale and encoding setup
 
 ## Notes and Other Information
 - This function never returns an invalid encoding ID - it either returns a valid ID or terminates the program

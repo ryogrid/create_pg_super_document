@@ -30,16 +30,16 @@ This design is advantageous because it avoids the need to set up the full state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionOrTransactionBlock
-  - BeginInternalSubTransaction
-  - AbortCurrentTransaction
-  - LocalExecuteInvalidationMessage
-  - RollbackAndReleaseCurrentSubTransaction
+  - [IsTransactionOrTransactionBlock](../I/IsTransactionOrTransactionBlock.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
+  - [AbortCurrentTransaction](../A/AbortCurrentTransaction.md)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
+  - [RollbackAndReleaseCurrentSubTransaction](RollbackAndReleaseCurrentSubTransaction.md)
 - Called from (representative examples):
-  - xact_decode (in decode.c)
-  - ReorderBufferAbort
-  - ReorderBufferForget
-  - ReorderBufferInvalidate
+  - [xact_decode](../x/xact_decode.md) (in decode.c)
+  - [ReorderBufferAbort](ReorderBufferAbort.md)
+  - [ReorderBufferForget](ReorderBufferForget.md)
+  - [ReorderBufferInvalidate](ReorderBufferInvalidate.md)
 
 ## Notes and Other Information
 - Handles both xid-less commits and invalidations from uninteresting transactions

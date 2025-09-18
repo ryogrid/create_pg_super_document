@@ -28,15 +28,15 @@ The structure is designed to support incremental aggregation operations, allowin
   - IA_TOTAL_COUNT (macro to get total count including infinities)
 
 - Called from (representative examples):
-  - makeIntervalAggState (allocation/initialization)
-  - interval_avg_accum (accumulation for AVG aggregate)
-  - interval_avg_combine (combining partial states)
-  - interval_avg_serialize/deserialize (serialization for parallel processing)
-  - interval_avg_accum_inv (inverse accumulation for moving windows)
-  - interval_avg (final result computation for AVG)
-  - interval_sum (final result computation for SUM)
-  - do_interval_accum (core accumulation logic)
-  - do_interval_discard (removal logic for moving windows)
+  - [makeIntervalAggState](../m/makeIntervalAggState.md) (allocation/initialization)
+  - [interval_avg_accum](../i/interval_avg_accum.md) (accumulation for AVG aggregate)
+  - [interval_avg_combine](../i/interval_avg_combine.md) (combining partial states)
+  - [interval_avg_serialize](../i/interval_avg_serialize.md)/deserialize (serialization for parallel processing)
+  - [interval_avg_accum_inv](../i/interval_avg_accum_inv.md) (inverse accumulation for moving windows)
+  - [interval_avg](../i/interval_avg.md) (final result computation for AVG)
+  - [interval_sum](../i/interval_sum.md) (final result computation for SUM)
+  - [do_interval_accum](../d/do_interval_accum.md) (core accumulation logic)
+  - [do_interval_discard](../d/do_interval_discard.md) (removal logic for moving windows)
 
 ## Notes and Other Information
 - The structure is allocated in the aggregate's memory context to ensure proper lifetime management during query execution

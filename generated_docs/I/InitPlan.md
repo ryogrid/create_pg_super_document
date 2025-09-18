@@ -32,18 +32,18 @@ The function handles different query types and execution modes, setting appropri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCheckPermissions
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
   - ExecInitRangeTable
-  - ExecGetRangeTableRelation
-  - ExecInitNode
-  - ExecGetResultType
-  - ExecInitExtraTupleSlot
+  - [ExecGetRangeTableRelation](../E/ExecGetRangeTableRelation.md)
+  - [ExecInitNode](../E/ExecInitNode.md)
+  - [ExecGetResultType](../E/ExecGetResultType.md)
+  - [ExecInitExtraTupleSlot](../E/ExecInitExtraTupleSlot.md)
   - ExecInitJunkFilter
-  - CheckValidRowMarkRel
+  - [CheckValidRowMarkRel](../C/CheckValidRowMarkRel.md)
   - exec_rt_fetch
-  - bms_is_member
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
-  - standard_ExecutorStart
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md)
 
 ## Notes and Other Information
 - This is a static function only called from within execMain.c during executor startup

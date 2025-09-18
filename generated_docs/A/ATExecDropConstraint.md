@@ -23,18 +23,18 @@ This function implements constraint deletion for ALTER TABLE operations. Unlike 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ATSimplePermissions (permission checking)
+  - [ATSimplePermissions](ATSimplePermissions.md) (permission checking)
   - table_open/table_close (relation access)
-  - systable_beginscan/systable_endscan (catalog scanning)
-  - CheckAlterTableIsSafe (safety validation)
-  - performDeletion (dependency-based deletion)
-  - find_inheritance_children (inheritance hierarchy)
-  - CatalogTupleUpdate (catalog updates)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan (catalog scanning)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md) (safety validation)
+  - [performDeletion](../p/performDeletion.md) (dependency-based deletion)
+  - [find_inheritance_children](../f/find_inheritance_children.md) (inheritance hierarchy)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog updates)
   - CommandCounterIncrement (visibility control)
-  - heap_copytuple/heap_freetuple (tuple management)
+  - [heap_copytuple](../h/heap_copytuple.md)/heap_freetuple (tuple management)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE executor)
-  - ATExecDropConstraint (recursive self-calls)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE executor)
+  - [ATExecDropConstraint](ATExecDropConstraint.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Cannot use normal ALTER TABLE recursion due to special inheritance handling requirements

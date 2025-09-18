@@ -29,13 +29,13 @@ Returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size (safe size multiplication utility)
-  - PGSemaphoreData (semaphore data structure)
+  - [mul_size](../m/mul_size.md) (safe size multiplication utility)
+  - [PGSemaphoreData](PGSemaphoreData.md) (semaphore data structure)
   - sizeof (C operator for structure size)
 
 - Called from:
-  - PGReserveSemaphores (shared memory allocation for semaphores)
-  - CalculateShmemSize (total shared memory calculation during startup)
+  - [PGReserveSemaphores](PGReserveSemaphores.md) (shared memory allocation for semaphores)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (total shared memory calculation during startup)
 
 ## Notes and Other Information
 - Part of PostgreSQL's platform abstraction layer for semaphore management

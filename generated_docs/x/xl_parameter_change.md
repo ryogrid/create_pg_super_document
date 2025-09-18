@@ -28,11 +28,11 @@ This structure is written to the WAL when parameter changes are detected, using 
 - Functions called/Symbols referenced:
   - (No direct symbol references - primitive types only)
 - Called from (representative examples):
-  - XLogReportParameters (writes parameter changes to WAL)
-  - xlog_redo (processes parameter change records during recovery)
-  - xlog_desc (describes parameter change records for debugging)
-  - SummarizeXlogRecord (summarizes parameter changes in WAL)
-  - xlog_decode (decodes parameter changes for logical replication)
+  - [XLogReportParameters](../X/XLogReportParameters.md) (writes parameter changes to WAL)
+  - [xlog_redo](xlog_redo.md) (processes parameter change records during recovery)
+  - [xlog_desc](xlog_desc.md) (describes parameter change records for debugging)
+  - [SummarizeXlogRecord](../S/SummarizeXlogRecord.md) (summarizes parameter changes in WAL)
+  - [xlog_decode](xlog_decode.md) (decodes parameter changes for logical replication)
 
 ## Notes and Other Information
 - Associated with WAL record type XLOG_PARAMETER_CHANGE (0x60)

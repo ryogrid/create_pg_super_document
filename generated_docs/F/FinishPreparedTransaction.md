@@ -18,21 +18,21 @@ This function performs the complete finalization of a prepared transaction ident
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockGXact
-  - ReadTwoPhaseFile
-  - XlogReadTwoPhaseData
-  - TransactionIdLatest
-  - RecordTransactionCommitPrepared
-  - RecordTransactionAbortPrepared
-  - ProcArrayRemove
-  - ProcessRecords
-  - RemoveTwoPhaseFile
-  - DropRelationFiles
-  - SendSharedInvalidMessages
+  - [LockGXact](../L/LockGXact.md)
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md)
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
+  - [TransactionIdLatest](../T/TransactionIdLatest.md)
+  - [RecordTransactionCommitPrepared](../R/RecordTransactionCommitPrepared.md)
+  - [RecordTransactionAbortPrepared](../R/RecordTransactionAbortPrepared.md)
+  - [ProcArrayRemove](../P/ProcArrayRemove.md)
+  - [ProcessRecords](../P/ProcessRecords.md)
+  - [RemoveTwoPhaseFile](../R/RemoveTwoPhaseFile.md)
+  - [DropRelationFiles](../D/DropRelationFiles.md)
+  - [SendSharedInvalidMessages](../S/SendSharedInvalidMessages.md)
 - Called from (representative examples):
-  - standard_ProcessUtility (for COMMIT/ROLLBACK PREPARED statements)
-  - apply_handle_commit_prepared
-  - apply_handle_rollback_prepared
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (for COMMIT/ROLLBACK PREPARED statements)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
 
 ## Notes and Other Information
 - Uses critical sections with HOLD_INTERRUPTS/RESUME_INTERRUPTS to prevent interruption during cleanup

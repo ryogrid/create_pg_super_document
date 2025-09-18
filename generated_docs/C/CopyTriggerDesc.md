@@ -35,13 +35,13 @@ The function is crucial for scenarios where trigger descriptors need to exist in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc: Memory allocation in current context
+  - [palloc](../p/palloc.md): Memory allocation in current context
   - memcpy: Memory copying for structures and arrays
-  - pstrdup: String duplication with proper memory management
+  - [pstrdup](../p/pstrdup.md): String duplication with proper memory management
 
 - Called from (representative examples):
-  - RelationBuildTriggers: When copying trigger descriptor to cache memory
-  - InitResultRelInfo: When initializing result relation information
+  - [RelationBuildTriggers](../R/RelationBuildTriggers.md): When copying trigger descriptor to cache memory
+  - [InitResultRelInfo](../I/InitResultRelInfo.md): When initializing result relation information
 
 ## Notes and Other Information
 - Returns NULL if input is NULL or contains no triggers

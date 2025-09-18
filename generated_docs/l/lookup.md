@@ -20,7 +20,7 @@ The structure is typically used in arrays to create lookup tables for various ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - word
+  - [word](../w/word.md)
   - byword
   - LC_RULE, LC_ZONE, LC_LINK, LC_LEAP, LC_EXPIRES (rule type constants)
   - TM_JANUARY through TM_DECEMBER (month constants)
@@ -30,7 +30,7 @@ The structure is typically used in arrays to create lookup tables for various ca
 
 - Called from (representative examples):
   - byword (lookup function)
-  - infile (file parsing)
+  - [infile](../i/infile.md) (file parsing)
   - getleapdatetime
   - inleap
   - rulesub

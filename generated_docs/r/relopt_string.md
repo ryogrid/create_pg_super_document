@@ -32,15 +32,15 @@ The `relopt_string` structure represents a string-valued relation option definit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relopt_gen (Line 141)
+  - [relopt_gen](relopt_gen.md) (Line 141)
 - Called from (representative examples):
   - GET_STRING_RELOPTION_LEN (src/backend/access/common/reloptions.c:571)
-  - allocate_reloption (src/backend/access/common/reloptions.c:802)
-  - init_string_reloption (src/backend/access/common/reloptions.c:1059, 1065)
-  - add_string_reloption (src/backend/access/common/reloptions.c:1102)
-  - add_local_string_reloption (src/backend/access/common/reloptions.c:1123)
-  - parse_one_reloption (src/backend/access/common/reloptions.c:1682)
-  - fillRelOptions (src/backend/access/common/reloptions.c:1768, 1795)
+  - [allocate_reloption](../a/allocate_reloption.md) (src/backend/access/common/reloptions.c:802)
+  - [init_string_reloption](../i/init_string_reloption.md) (src/backend/access/common/reloptions.c:1059, 1065)
+  - [add_string_reloption](../a/add_string_reloption.md) (src/backend/access/common/reloptions.c:1102)
+  - [add_local_string_reloption](../a/add_local_string_reloption.md) (src/backend/access/common/reloptions.c:1123)
+  - [parse_one_reloption](../p/parse_one_reloption.md) (src/backend/access/common/reloptions.c:1682)
+  - [fillRelOptions](../f/fillRelOptions.md) (src/backend/access/common/reloptions.c:1768, 1795)
 
 ## Notes and Other Information
 The callback functions (validate_cb and fill_cb) provide extensibility for custom string processing. The default_len field is crucial for proper memory management and bounds checking. The default_isnull flag allows distinguishing between empty strings and NULL values, which is important for proper SQL semantics.

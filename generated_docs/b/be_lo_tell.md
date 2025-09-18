@@ -22,10 +22,10 @@ This function implements the backend support for PostgreSQL's lo_tell() large ob
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (parameter extraction macro)
-  - inv_tell (internal large object position query function)
+  - [inv_tell](../i/inv_tell.md) (internal large object position query function)
   - PG_RETURN_INT32 (32-bit return value macro)
   - ereport/ERROR (error reporting for invalid descriptors and overflow)
-  - errcode (error code functions for specific error types)
+  - [errcode](../e/errcode.md) (error code functions for specific error types)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL function call mechanism)
 

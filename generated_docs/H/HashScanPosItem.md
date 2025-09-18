@@ -20,15 +20,15 @@ The structure supports PostgreSQL's MVCC (Multi-Version Concurrency Control) sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData
+  - [ItemPointerData](../I/ItemPointerData.md)
   - OffsetNumber
 - Called from (representative examples):
-  - hashgetbitmap
-  - _hash_next
-  - _hash_first
-  - _hash_saveitem
-  - _hash_kill_items
-  - HashScanPosData
+  - [hashgetbitmap](../h/hashgetbitmap.md)
+  - [_hash_next](../h/_hash_next.md)
+  - [_hash_first](../h/_hash_first.md)
+  - [_hash_saveitem](../h/_hash_saveitem.md)
+  - [_hash_kill_items](../h/_hash_kill_items.md)
+  - [HashScanPosData](HashScanPosData.md)
 
 ## Notes and Other Information
 This structure is typically used as part of larger scan state management structures, particularly in HashScanPosData arrays. The separation of heap TID and index offset allows for efficient tuple identification while maintaining the ability to perform page-level operations on the index itself. This design is particularly important for handling dead tuple cleanup and maintaining index consistency during concurrent operations.

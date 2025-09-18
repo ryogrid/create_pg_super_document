@@ -31,19 +31,19 @@ The function guarantees to return a live (not deleted or half-dead) page that is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_getbuf: Acquires buffer for specified block number
+  - [_bt_getbuf](_bt_getbuf.md): Acquires buffer for specified block number
   - _bt_getmeta: Gets metadata from metapage
-  - _bt_allocbuf: Allocates new buffer for page creation
-  - _bt_relbuf: Releases buffer
-  - _bt_lockbuf/_bt_unlockbuf: Buffer locking operations
-  - _bt_relandgetbuf: Releases and reacquires buffer for different page
-  - BufferGetBlockNumber: Gets block number from buffer
+  - [_bt_allocbuf](_bt_allocbuf.md): Allocates new buffer for page creation
+  - [_bt_relbuf](_bt_relbuf.md): Releases buffer
+  - [_bt_lockbuf](_bt_lockbuf.md)/_bt_unlockbuf: Buffer locking operations
+  - [_bt_relandgetbuf](_bt_relandgetbuf.md): Releases and reacquires buffer for different page
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md): Gets block number from buffer
   - BTPageGetOpaque: Gets B-tree page opaque area
-  - XLogBeginInsert/XLogInsert: WAL logging functions
-  - XLogRegisterBuffer/XLogRegisterData: WAL record construction
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogInsert: WAL logging functions
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)/XLogRegisterData: WAL record construction
 - Called from (representative examples):
-  - _bt_search: Main B-tree search entry point
-  - _bt_get_endpoint: Finds leftmost/rightmost leaf pages
+  - [_bt_search](_bt_search.md): Main B-tree search entry point
+  - [_bt_get_endpoint](_bt_get_endpoint.md): Finds leftmost/rightmost leaf pages
 
 ## Notes and Other Information
 - The returned root may be a "fast root" rather than the true root for performance reasons

@@ -25,7 +25,7 @@ The default strategy of setting generations equal to pool size ensures that less
 - Functions called/Symbols referenced:
   - Geqo_generations: Global configuration variable for explicit generation count
 - Called from (representative examples):
-  - geqo: Main GEQO function during genetic algorithm parameter setup
+  - [geqo](geqo.md): Main GEQO function during genetic algorithm parameter setup
 
 ## Notes and Other Information
 - Default strategy ensures adequate evolutionary pressure for population turnover

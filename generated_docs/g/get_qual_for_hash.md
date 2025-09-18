@@ -20,16 +20,16 @@ The generated constraint ensures that rows are properly distributed among hash p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
-  - makeConst
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [makeConst](../m/makeConst.md)
   - list_make3
   - list_head
   - makeVar
   - copyObject
-  - lnext
+  - [lnext](../l/lnext.md)
   - makeFuncExpr
 - Called from (representative examples):
-  - get_qual_from_partbound
+  - [get_qual_from_partbound](get_qual_from_partbound.md)
 
 ## Notes and Other Information
 - The function always creates a constraint using the F_SATISFIES_HASH_PARTITION function

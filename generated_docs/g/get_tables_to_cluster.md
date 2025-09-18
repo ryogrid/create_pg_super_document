@@ -20,17 +20,17 @@ The function performs a catalog scan on the IndexRelationId relation, filtering 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - table_beginscan_catalog
-  - heap_getnext
-  - cluster_is_permitted_for_relation
-  - MemoryContextSwitchTo
-  - palloc
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [cluster_is_permitted_for_relation](../c/cluster_is_permitted_for_relation.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
   - lappend
-  - table_endscan
-  - relation_close
+  - [table_endscan](../t/table_endscan.md)
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - cluster
+  - [cluster](../c/cluster.md)
 
 ## Notes and Other Information
 - This is a static function internal to cluster.c

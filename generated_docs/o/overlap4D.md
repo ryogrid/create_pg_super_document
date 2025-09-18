@@ -20,11 +20,11 @@ This static helper function extends the 2D overlap test to 4D space for rectangu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - overlap2D (called twice for X and Y dimensions)
+  - [overlap2D](overlap2D.md) (called twice for X and Y dimensions)
   - RectBox (structure type)
   - RangeBox (structure type)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - This function is part of the SP-GiST implementation for geometric data types, specifically for rectangle operations

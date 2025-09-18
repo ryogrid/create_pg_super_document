@@ -21,24 +21,24 @@ This function is essential for index operations, type validation, and ensuring c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_opclass
 
 - Called from (representative examples):
-  - hashadjustmembers (src/backend/access/hash/hashvalidate.c:385)
-  - btadjustmembers (src/backend/access/nbtree/nbtvalidate.c:326)
-  - CheckIndexCompatible (src/backend/commands/indexcmds.c:298)
-  - findRangeSubOpclass (src/backend/commands/typecmds.c:2295)
-  - build_replindex_scan_key (src/backend/executor/execReplication.c:133)
-  - infer_collation_opclass_match (src/backend/optimizer/util/plancat.c:999)
+  - [hashadjustmembers](../h/hashadjustmembers.md) (src/backend/access/hash/hashvalidate.c:385)
+  - [btadjustmembers](../b/btadjustmembers.md) (src/backend/access/nbtree/nbtvalidate.c:326)
+  - [CheckIndexCompatible](../C/CheckIndexCompatible.md) (src/backend/commands/indexcmds.c:298)
+  - [findRangeSubOpclass](../f/findRangeSubOpclass.md) (src/backend/commands/typecmds.c:2295)
+  - [build_replindex_scan_key](../b/build_replindex_scan_key.md) (src/backend/executor/execReplication.c:133)
+  - [infer_collation_opclass_match](../i/infer_collation_opclass_match.md) (src/backend/optimizer/util/plancat.c:999)
   - get_rule_expr (src/backend/utils/adt/ruleutils.c:10112)
-  - lookup_type_cache (src/backend/utils/cache/typcache.c:489, 530)
-  - load_rangetype_info (src/backend/utils/cache/typcache.c:944)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:489, 530)
+  - [load_rangetype_info](../l/load_rangetype_info.md) (src/backend/utils/cache/typcache.c:944)
 
 ## Notes and Other Information
 - Part of the OPCLASS CACHE section in lsyscache.c

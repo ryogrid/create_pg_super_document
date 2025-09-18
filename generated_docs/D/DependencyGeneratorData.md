@@ -35,7 +35,7 @@ The generator works with the concept that for a dependency of size k from n poss
   - AttrNumber (int16 typedef for attribute numbers)
 - Called from (representative examples):
   - DependencyGenerator (typedef pointer to this structure)
-  - DependencyGenerator_init (initializes and allocates this structure)
+  - [DependencyGenerator_init](DependencyGenerator_init.md) (initializes and allocates this structure)
 
 ## Notes and Other Information
 - This structure is always accessed through the `DependencyGenerator` typedef, which is a pointer to `DependencyGeneratorData`

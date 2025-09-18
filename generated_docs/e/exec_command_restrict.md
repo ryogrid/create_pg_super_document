@@ -22,16 +22,16 @@ When executed in an active branch, the function parses the required key argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - pg_log_error
-  - ignore_slash_options
-  - PsqlScanState (type)
-  - backslashResult (return type)
+  - [ignore_slash_options](../i/ignore_slash_options.md)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
+  - [backslashResult](../b/backslashResult.md) (return type)
   - OT_NORMAL (option type)
   - PSQL_CMD_ERROR (error return value)
   - PSQL_CMD_SKIP_LINE (success return value)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

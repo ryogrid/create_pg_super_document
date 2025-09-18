@@ -21,16 +21,16 @@ This function handles command-line argument parsing for the pg_test_fsync utilit
 ## Dependencies
 - Functions called/Symbols referenced:
   - getopt_long (GNU option parsing)
-  - pg_strdup (PostgreSQL string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication)
   - strtoul (string to unsigned long conversion)
   - pg_log_error (PostgreSQL error logging)
   - pg_log_error_hint (PostgreSQL error hint logging)
-  - pg_fatal (PostgreSQL fatal error)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error)
   - ngettext (internationalization pluralization)
   - O_DIRECT (direct I/O flag checking)
 - Called from (representative examples):
-  - main (pg_test_fsync main function)
-  - main (pg_test_timing main function)
+  - [main](../m/main.md) (pg_test_fsync main function)
+  - [main](../m/main.md) (pg_test_timing main function)
 
 ## Notes and Other Information
 - Supports both short (-f, -s) and long (--filename, --secs-per-test) option formats

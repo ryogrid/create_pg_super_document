@@ -20,7 +20,7 @@ This function has an empty implementation because virtual tuple table slots do n
 ## Dependencies
 - Functions called/Symbols referenced: None (empty function body)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (via TTSOpsVirtual.release callback)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (via TTSOpsVirtual.release callback)
   - Slot destruction routines throughout the executor
 
 ## Notes and Other Information

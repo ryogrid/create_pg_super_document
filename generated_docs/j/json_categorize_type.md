@@ -27,21 +27,21 @@ The function also handles special logic for JSONB types and can discover explici
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonTypeCategory (enum for JSON type classification)
-  - getBaseType (function to resolve domain types to base types)
-  - getTypeOutputInfo (function to get type output function information)
-  - get_element_type (function to check if type is an array)
-  - type_is_rowtype (function to check if type is a composite/row type)
-  - find_coercion_pathway (function to find cast functions)
+  - [getBaseType](../g/getBaseType.md) (function to resolve domain types to base types)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md) (function to get type output function information)
+  - [get_element_type](../g/get_element_type.md) (function to check if type is an array)
+  - [type_is_rowtype](../t/type_is_rowtype.md) (function to check if type is a composite/row type)
+  - [find_coercion_pathway](../f/find_coercion_pathway.md) (function to find cast functions)
   - Various JSONTYPE_* constants (JSONTYPE_BOOL, JSONTYPE_NUMERIC, etc.)
   - Various function OIDs (F_BOOLOUT, F_DATE_OUT, etc.)
   - FirstNormalObjectId (constant distinguishing built-in from user types)
   - COERCION_EXPLICIT and COERCION_PATH_FUNC (coercion type constants)
 - Called from (representative examples):
-  - ExecInitExprRec (expression initialization in executor)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization in executor)
   - array_to_json_internal (array to JSON conversion)
   - composite_to_json (composite type to JSON conversion)
   - add_json, add_jsonb (JSON value addition functions)
-  - to_json, to_jsonb (main JSON conversion functions)
+  - [to_json](../t/to_json.md), to_jsonb (main JSON conversion functions)
   - Various JSON aggregation functions
 
 ## Notes and Other Information

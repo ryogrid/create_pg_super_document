@@ -19,13 +19,13 @@ For ASCII characters (code < 0x80), the function uses a pre-computed lookup tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_prop_alphabetic
+  - [pg_u_prop_alphabetic](pg_u_prop_alphabetic.md)
 - Called from (representative examples):
-  - pg_wc_isalpha (regex locale support)
-  - pg_u_isalnum (alphanumeric character test)
-  - pg_u_isword (word character test)
-  - pg_u_ispunct (punctuation character test)
-  - icu_test (Unicode category testing)
+  - [pg_wc_isalpha](pg_wc_isalpha.md) (regex locale support)
+  - [pg_u_isalnum](pg_u_isalnum.md) (alphanumeric character test)
+  - [pg_u_isword](pg_u_isword.md) (word character test)
+  - [pg_u_ispunct](pg_u_ispunct.md) (punctuation character test)
+  - [icu_test](../i/icu_test.md) (Unicode category testing)
 
 ## Notes and Other Information
 - Returns true if the character is alphabetic, false otherwise

@@ -38,7 +38,7 @@ Key optimizations include:
   - att_align_nominal, att_align_pointer (handle data alignment)
   - att_addlength_pointer (calculate variable-length attribute sizes)
 - Called from (representative examples):
-  - fastgetattr (primary caller - inline macro)
+  - [fastgetattr](../f/fastgetattr.md) (primary caller - inline macro)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

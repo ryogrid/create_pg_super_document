@@ -34,11 +34,11 @@ The function iterates through all catalog caches, identifies those that contain 
   - PointerIsValid (validates function pointer)
   - RelationGetRelid (gets relation OID)
   - slist_foreach (iterates through cache list)
-  - CatalogCacheInitializeCache (initializes cache if needed)
-  - CatalogCacheComputeTupleHashValue (computes hash for tuple)
+  - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md) (initializes cache if needed)
+  - [CatalogCacheComputeTupleHashValue](../C/CatalogCacheComputeTupleHashValue.md) (computes hash for tuple)
   - CACHE_elog (debug logging)
 - Called from (representative examples):
-  - CacheInvalidateHeapTuple (src/backend/utils/cache/inval.c:1250)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md) (src/backend/utils/cache/inval.c:1250)
 
 ## Notes and Other Information
 - Part of PostgreSQL's sophisticated cache invalidation system that ensures consistency across concurrent transactions

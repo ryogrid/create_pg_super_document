@@ -36,18 +36,18 @@ Unlike traditional inheritance, partitioned tables don't need RTEs for the paren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionDirectoryLookup
-  - prune_append_rel_partitions  
-  - has_partition_attrs
-  - expand_single_inheritance_child
-  - build_simple_rel
-  - translate_col_privs
+  - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
+  - [prune_append_rel_partitions](../p/prune_append_rel_partitions.md)  
+  - [has_partition_attrs](../h/has_partition_attrs.md)
+  - [expand_single_inheritance_child](expand_single_inheritance_child.md)
+  - [build_simple_rel](../b/build_simple_rel.md)
+  - [translate_col_privs](../t/translate_col_privs.md)
   - try_table_open
-  - expand_planner_arrays
+  - [expand_planner_arrays](expand_planner_arrays.md)
   - check_stack_depth
 - Called from (representative examples):
-  - expand_inherited_rtentry
-  - expand_partitioned_rtentry (recursive)
+  - [expand_inherited_rtentry](expand_inherited_rtentry.md)
+  - [expand_partitioned_rtentry](expand_partitioned_rtentry.md) (recursive)
 
 ## Notes and Other Information
 - Uses try_table_open to gracefully handle recently dropped partitions by removing them from live_parts

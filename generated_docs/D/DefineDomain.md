@@ -36,19 +36,19 @@ The function uses specialized domain I/O functions (domain_in, domain_recv) that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeCreate: Creates the actual domain and array type entries
-  - typenameType: Resolves the base type name to a type tuple
-  - moveArrayTypeName: Handles array type name conflicts
-  - makeArrayTypeName: Generates array type names
-  - AssignTypeArrayOid: Allocates OID for the array type
-  - QualifiedNameGetCreationNamespace: Parses qualified names
-  - cookDefault: Processes default value expressions
-  - domainAddCheckConstraint: Adds domain-specific check constraints
-  - domainAddNotNullConstraint: Adds domain-specific NOT NULL constraints
-  - get_collation_oid: Resolves collation names
+  - [TypeCreate](../T/TypeCreate.md): Creates the actual domain and array type entries
+  - [typenameType](../t/typenameType.md): Resolves the base type name to a type tuple
+  - [moveArrayTypeName](../m/moveArrayTypeName.md): Handles array type name conflicts
+  - [makeArrayTypeName](../m/makeArrayTypeName.md): Generates array type names
+  - [AssignTypeArrayOid](../A/AssignTypeArrayOid.md): Allocates OID for the array type
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md): Parses qualified names
+  - [cookDefault](../c/cookDefault.md): Processes default value expressions
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md): Adds domain-specific check constraints
+  - [domainAddNotNullConstraint](../d/domainAddNotNullConstraint.md): Adds domain-specific NOT NULL constraints
+  - [get_collation_oid](../g/get_collation_oid.md): Resolves collation names
 
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main DDL command processing
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main DDL command processing
 
 ## Notes and Other Information
 - Domains inherit most physical properties from their base type but can override logical constraints

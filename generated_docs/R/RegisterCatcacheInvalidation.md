@@ -23,14 +23,14 @@ When called, the function adds the invalidation message to the CurrentCmdInvalid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddCatcacheInvalidationMessage (creates and adds the actual invalidation message)
+  - [AddCatcacheInvalidationMessage](../A/AddCatcacheInvalidationMessage.md) (creates and adds the actual invalidation message)
 - Global variables referenced:
   - transInvalInfo (current transaction's invalidation information structure)
 - Types referenced:
-  - TransInvalidationInfo (transaction-level invalidation context)
-  - InvalidationMsgsGroup (message group for organizing invalidations)
+  - [TransInvalidationInfo](../T/TransInvalidationInfo.md) (transaction-level invalidation context)
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md) (message group for organizing invalidations)
 - Called from:
-  - CacheInvalidateHeapTuple (when heap tuple changes require cache invalidation)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md) (when heap tuple changes require cache invalidation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c module

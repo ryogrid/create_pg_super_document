@@ -30,10 +30,10 @@ This function is fundamental for vectorized search operations, pattern matching,
   - `vceqq_u8` (NEON intrinsic for equality comparison)
   - Vector8 type
 - Called from (representative examples):
-  - `RT_NODE_16_SEARCH_EQ` (radix tree node search)
-  - `RT_NODE_16_GET_INSERTPOS` (radix tree insertion position finding)
-  - `vector8_has` (vector element search helper)
-  - `is_valid_ascii` (ASCII validation utility)
+  - `[RT_NODE_16_SEARCH_EQ](../R/RT_NODE_16_SEARCH_EQ.md)` (radix tree node search)
+  - `[RT_NODE_16_GET_INSERTPOS](../R/RT_NODE_16_GET_INSERTPOS.md)` (radix tree insertion position finding)
+  - `[vector8_has](vector8_has.md)` (vector element search helper)
+  - `[is_valid_ascii](../i/is_valid_ascii.md)` (ASCII validation utility)
 
 ## Notes and Other Information
 - Defined as static inline for optimal performance

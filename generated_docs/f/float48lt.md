@@ -23,7 +23,7 @@ This function implements the less-than comparison operator for mixed-precision f
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
-  - float8_lt: Performs the actual float8 less-than comparison
+  - [float8_lt](float8_lt.md): Performs the actual float8 less-than comparison
   - PG_RETURN_BOOL: Returns the boolean result
 - Called from (representative examples):
   - No direct references found in the codebase

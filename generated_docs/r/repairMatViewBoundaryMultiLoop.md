@@ -27,13 +27,13 @@ The function may be called multiple times for interconnected matviews, progressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency (removes the problematic dependency relationship)
+  - [removeObjectDependency](removeObjectDependency.md) (removes the problematic dependency relationship)
   - DO_TABLE (constant identifying table-type objects)
   - RELKIND_MATVIEW (constant identifying materialized view relation kind)
   - DumpableObject (base structure for dumpable database objects)
-  - TableInfo (structure containing table/view-specific information)
+  - [TableInfo](../T/TableInfo.md) (structure containing table/view-specific information)
 - Called from:
-  - repairDependencyLoop (main dependency loop repair dispatcher)
+  - [repairDependencyLoop](repairDependencyLoop.md) (main dependency loop repair dispatcher)
 
 ## Notes and Other Information
 - This is explicitly described as a "stopgap" solution since the proper rule-splitting approach used for regular views doesn't work for materialized views

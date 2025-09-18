@@ -34,19 +34,19 @@ The function builds evaluation steps that:
   - makeNode
   - list_length
   - TupleDescAttr
-  - ExecComputeSlotInfo
-  - ExprEvalPushStep
-  - object_aclcheck
-  - aclcheck_error
-  - get_func_name
+  - [ExecComputeSlotInfo](ExecComputeSlotInfo.md)
+  - [ExprEvalPushStep](ExprEvalPushStep.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_func_name](../g/get_func_name.md)
   - InvokeFunctionExecuteHook
-  - fmgr_info
+  - [fmgr_info](../f/fmgr_info.md)
   - fmgr_info_set_expr
   - InitFunctionCallInfoData
   - SizeForFunctionCallInfo
   - lappend_int
   - lfirst_int
-  - ExecReadyExpr
+  - [ExecReadyExpr](ExecReadyExpr.md)
   - EEOP_INNER_FETCHSOME
   - EEOP_OUTER_FETCHSOME
   - EEOP_INNER_VAR
@@ -55,7 +55,7 @@ The function builds evaluation steps that:
   - EEOP_QUAL
   - EEOP_DONE
 - Called from (representative examples):
-  - ExecInitMemoize
+  - [ExecInitMemoize](ExecInitMemoize.md)
 
 ## Notes and Other Information
 - Located in src/backend/executor/execExpr.c (lines 4114-4235)

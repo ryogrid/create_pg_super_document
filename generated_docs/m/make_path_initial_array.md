@@ -22,7 +22,7 @@ This static helper function takes a RowExpr and wraps it in an ArrayExpr to crea
   - makeNode (to create ArrayExpr)
   - list_make1 (to create single-element list)
 - Called from:
-  - rewriteSearchAndCycle (at lines 329 and 344)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (at lines 329 and 344)
 
 ## Notes and Other Information
 - This is a static helper function only used within rewriteSearchCycle.c

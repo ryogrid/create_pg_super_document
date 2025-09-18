@@ -23,8 +23,8 @@ The algorithm adds 8 * ' ' (8 times the ASCII value of space, which is 32) to ac
 - Functions called/Symbols referenced: None (uses only basic arithmetic operations)
 - Called from (representative examples):
   - tar_close (in walmethods.c for finalizing tar archives)
-  - isValidTarHeader (for header validation in pg_backup_tar.c)
-  - _tarGetHeader (for header processing during tar extraction)
+  - [isValidTarHeader](../i/isValidTarHeader.md) (for header validation in pg_backup_tar.c)
+  - [_tarGetHeader](_tarGetHeader.md) (for header processing during tar extraction)
   - tarCreateHeader (for setting the checksum when creating new headers)
 
 ## Notes and Other Information

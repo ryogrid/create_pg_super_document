@@ -36,7 +36,7 @@ This function takes no parameters.
   - IsBootstrapProcessingMode (macro to verify bootstrap mode)
   - LWLockAcquire (acquiring RelationMappingLock in LW_EXCLUSIVE mode)
   - LWLockRelease (releasing RelationMappingLock)
-  - write_relmap_file (called twice - once for shared map, once for local map)
+  - [write_relmap_file](../w/write_relmap_file.md) (called twice - once for shared map, once for local map)
   - Assert (for debugging verification of state)
 - Global variables accessed:
   - shared_map (static RelMapFile structure containing shared catalog mappings)
@@ -49,7 +49,7 @@ This function takes no parameters.
   - MyDatabaseTableSpace (tablespace OID for local mapping file)
   - DatabasePath (file system path for local mapping file)
 - Called from (representative examples):
-  - BootstrapModeMain (in src/backend/bootstrap/bootstrap.c)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (in src/backend/bootstrap/bootstrap.c)
 
 ## Notes and Other Information
 - This function is only called once during the entire lifecycle of a PostgreSQL cluster - at the end of initdb

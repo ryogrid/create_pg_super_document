@@ -28,8 +28,8 @@ PartitionHashBound is a structure that encapsulates the essential information ne
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)
 - Called from (representative examples):
-  - create_hash_bounds (multiple references)
-  - qsort_partition_hbound_cmp
+  - [create_hash_bounds](../c/create_hash_bounds.md) (multiple references)
+  - [qsort_partition_hbound_cmp](../q/qsort_partition_hbound_cmp.md)
 
 ## Notes and Other Information
 This structure is specifically used during the sorting process of partition bounds and is part of PostgreSQL's internal partitioning implementation. The modulus and remainder values work together to implement hash partitioning where hash(partition_key) % modulus = remainder determines partition assignment.

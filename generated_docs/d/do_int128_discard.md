@@ -20,11 +20,11 @@ This function performs the inverse accumulation operation for 128-bit aggregate 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Int128AggState`: The state structure type being modified
+  - `[Int128AggState](../I/Int128AggState.md)`: The state structure type being modified
 - Called from (representative examples):
-  - `int2_accum_inv`: Removes smallint values from accumulation
-  - `int4_accum_inv`: Removes integer values from accumulation
-  - `int8_avg_accum_inv`: Removes bigint values from average calculation
+  - `[int2_accum_inv](../i/int2_accum_inv.md)`: Removes smallint values from accumulation
+  - `[int4_accum_inv](../i/int4_accum_inv.md)`: Removes integer values from accumulation
+  - `[int8_avg_accum_inv](../i/int8_avg_accum_inv.md)`: Removes bigint values from average calculation
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within the numeric.c file

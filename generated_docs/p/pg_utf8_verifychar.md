@@ -18,10 +18,10 @@ This function performs character validation for UTF-8 encoding by first determin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_utf8_islegal
+  - [pg_utf8_islegal](pg_utf8_islegal.md)
 - Called from (representative examples):
   - STRIDE_LENGTH
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
 
 ## Notes and Other Information
 - Returns the length of the validated character in bytes (1-4) on success, or -1 on failure

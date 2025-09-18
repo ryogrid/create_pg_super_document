@@ -26,14 +26,14 @@ AfterTriggersQueryData represents the trigger state for a single query execution
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEventList (for events storage)
+  - [AfterTriggerEventList](AfterTriggerEventList.md) (for events storage)
   - Tuplestorestate (for FDW tuple storage)
 - Called from (representative examples):
-  - AfterTriggersData (query_stack field)
-  - GetAfterTriggersTableData
-  - AfterTriggerEndQuery
-  - AfterTriggerFreeQuery
-  - AfterTriggerEnlargeQueryState
+  - [AfterTriggersData](AfterTriggersData.md) (query_stack field)
+  - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md)
+  - [AfterTriggerEndQuery](AfterTriggerEndQuery.md)
+  - [AfterTriggerFreeQuery](AfterTriggerFreeQuery.md)
+  - [AfterTriggerEnlargeQueryState](AfterTriggerEnlargeQueryState.md)
   - cancel_prior_stmt_triggers
 
 ## Notes and Other Information

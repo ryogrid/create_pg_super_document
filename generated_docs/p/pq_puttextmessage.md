@@ -21,12 +21,12 @@ The function first attempts to convert the string from the server encoding to th
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (to determine string length)
-  - pg_server_to_client (for character encoding conversion)
+  - [pg_server_to_client](pg_server_to_client.md) (for character encoding conversion)
   - pq_putmessage (for actual message transmission)
-  - pfree (to free converted string buffer when needed)
+  - [pfree](pfree.md) (to free converted string buffer when needed)
 - Called from (representative examples):
-  - bbsink_copystream_begin_backup (src/backend/backup/basebackup_copy.c:155)
-  - SendXlogRecPtrResult (src/backend/backup/basebackup_copy.c:371)
+  - [bbsink_copystream_begin_backup](../b/bbsink_copystream_begin_backup.md) (src/backend/backup/basebackup_copy.c:155)
+  - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md) (src/backend/backup/basebackup_copy.c:371)
 
 ## Notes and Other Information
 - Automatically handles character set conversion between server and client encodings

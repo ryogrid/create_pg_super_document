@@ -30,18 +30,18 @@ The function validates index readiness, extracts appropriate column values using
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleIsHeapOnly (checks if tuple is HOT)
-  - MakeSingleTupleTableSlot (creates temporary slot)
-  - ExecStoreHeapTuple (stores tuple in slot)
-  - FormIndexDatum (extracts index column values)
-  - index_insert (performs actual index insertion)
-  - ExecDropSingleTupleTableSlot (cleanup temporary slot)
-  - ReindexIsProcessingIndex (assertion checking during reindex)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates temporary slot)
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md) (stores tuple in slot)
+  - [FormIndexDatum](../F/FormIndexDatum.md) (extracts index column values)
+  - [index_insert](../i/index_insert.md) (performs actual index insertion)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleanup temporary slot)
+  - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md) (assertion checking during reindex)
 - Called from (representative examples):
-  - CatalogTupleInsert
-  - CatalogTupleInsertWithInfo
-  - CatalogTuplesMultiInsertWithInfo
-  - CatalogTupleUpdate
-  - CatalogTupleUpdateWithInfo
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [CatalogTupleInsertWithInfo](CatalogTupleInsertWithInfo.md)
+  - [CatalogTuplesMultiInsertWithInfo](CatalogTuplesMultiInsertWithInfo.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [CatalogTupleUpdateWithInfo](CatalogTupleUpdateWithInfo.md)
 
 ## Notes and Other Information
 - This is a static function, only used internally within the indexing.c module

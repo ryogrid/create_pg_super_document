@@ -17,15 +17,15 @@ This function performs a system catalog lookup to retrieve the storage strategy 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Form_pg_type
   - TYPSTORAGE_PLAIN
 - Called from (representative examples):
-  - GetAttributeStorage
+  - [GetAttributeStorage](../G/GetAttributeStorage.md)
   - TypeIsToastable
 
 ## Notes and Other Information

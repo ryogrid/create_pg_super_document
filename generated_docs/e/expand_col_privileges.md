@@ -28,14 +28,14 @@ The function performs column name validation and converts column names to attrib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_attnum
-  - get_rel_name
+  - [get_attnum](../g/get_attnum.md)
+  - [get_rel_name](../g/get_rel_name.md)
   - strVal
   - lfirst
   - InvalidAttrNumber
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - ExecGrant_Relation
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
 
 ## Notes and Other Information
 - This is a static function only used within aclchk.c

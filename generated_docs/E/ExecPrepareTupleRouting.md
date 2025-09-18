@@ -29,13 +29,13 @@ The ExecPrepareTupleRouting function handles the complex process of routing tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFindPartition
-  - ExecGetRootToChildMap
-  - execute_attr_map_slot
+  - [ExecFindPartition](ExecFindPartition.md)
+  - [ExecGetRootToChildMap](ExecGetRootToChildMap.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - TupleConversionMap (structure)
-  - PartitionTupleRouting (structure)
+  - [PartitionTupleRouting](../P/PartitionTupleRouting.md) (structure)
 - Called from (representative examples):
-  - ExecInsert (at src/backend/executor/nodeModifyTable.c:806)
+  - [ExecInsert](ExecInsert.md) (at src/backend/executor/nodeModifyTable.c:806)
 
 ## Notes and Other Information
 - Returns a TupleTableSlot containing the tuple formatted for the target partition's rowtype

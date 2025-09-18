@@ -20,11 +20,11 @@ The function leverages the underlying dlist_push_head implementation for the act
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_init
-  - dlist_push_head
+  - [dclist_init](dclist_init.md)
+  - [dlist_push_head](dlist_push_head.md)
 - Called from (representative examples):
-  - mXactCachePut (src/backend/access/transam/multixact.c:1729)
-  - SlabFree (src/backend/utils/mmgr/slab.c:788)
+  - [mXactCachePut](../m/mXactCachePut.md) (src/backend/access/transam/multixact.c:1729)
+  - [SlabFree](../S/SlabFree.md) (src/backend/utils/mmgr/slab.c:788)
 
 ## Notes and Other Information
 - The function automatically handles list initialization if the list header indicates a NULL state

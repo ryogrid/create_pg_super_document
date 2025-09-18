@@ -19,7 +19,7 @@ The  structure serves as an entry in the relation cache hash table (). It implem
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (built-in type)
-  - Relation (type from relation cache system)
+  - [Relation](../R/Relation.md) (type from relation cache system)
 - Called from (representative examples):
   - Used internally by RelationIdCache hash table operations
   - Referenced by relation cache management functions

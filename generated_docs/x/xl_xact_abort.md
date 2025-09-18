@@ -34,12 +34,12 @@ The xl_xact_abort structure is the main WAL record format for transaction aborts
 - Functions called/Symbols referenced:
   - TimestampTz (data type)
 - Called from (representative examples):
-  - ParseAbortRecord (in xactdesc.c)
-  - xact_desc_abort (in xactdesc.c)
-  - XactLogAbortRecord (in xact.c)
-  - xact_redo (in xact.c)
-  - xact_decode (in decode.c)
-  - getRecordTimestamp (in xlogrecovery.c)
+  - [ParseAbortRecord](../P/ParseAbortRecord.md) (in xactdesc.c)
+  - [xact_desc_abort](xact_desc_abort.md) (in xactdesc.c)
+  - [XactLogAbortRecord](../X/XactLogAbortRecord.md) (in xact.c)
+  - [xact_redo](xact_redo.md) (in xact.c)
+  - [xact_decode](xact_decode.md) (in decode.c)
+  - [getRecordTimestamp](../g/getRecordTimestamp.md) (in xlogrecovery.c)
   - MinSizeOfXactAbort (minimum size calculation)
 
 ## Notes and Other Information

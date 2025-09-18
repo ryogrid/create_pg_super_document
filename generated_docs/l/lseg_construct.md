@@ -22,12 +22,12 @@ The `lseg_construct` function is a PostgreSQL function that constructs a line se
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINT_P` - macro to extract Point arguments (called twice)
-  - `palloc` - PostgreSQL memory allocation function
-  - `statlseg_construct` - helper function that performs the actual line segment construction
+  - `[palloc](../p/palloc.md)` - PostgreSQL memory allocation function
+  - `[statlseg_construct](../s/statlseg_construct.md)` - helper function that performs the actual line segment construction
   - `PG_RETURN_LSEG_P` - macro to return LSEG pointer result
 - Data types used:
-  - `Point` - geometric point data type
-  - `LSEG` - line segment data type
+  - `[Point](../P/Point.md)` - geometric point data type
+  - `[LSEG](../L/LSEG.md)` - line segment data type
 
 ## Notes and Other Information
 - This function acts as a wrapper around `statlseg_construct`, providing a SQL-callable interface

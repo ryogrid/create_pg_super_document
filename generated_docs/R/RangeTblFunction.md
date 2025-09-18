@@ -29,17 +29,17 @@ During query planning, the funcparams bitmapset is populated to track PARAM_EXEC
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - Node
-  - List
-  - Bitmapset
+  - [Node](../N/Node.md)
+  - [List](../L/List.md)
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - addRangeTableEntryForFunction
-  - ExecInitFunctionScan
-  - ExecReScanFunctionScan
-  - expandRTE
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)
+  - [ExecReScanFunctionScan](../E/ExecReScanFunctionScan.md)
+  - [expandRTE](../e/expandRTE.md)
   - get_from_clause_item
-  - inline_set_returning_function
-  - set_function_size_estimates
+  - [inline_set_returning_function](../i/inline_set_returning_function.md)
+  - [set_function_size_estimates](../s/set_function_size_estimates.md)
 
 ## Notes and Other Information
 - Only the funcexpr field is included in query jumbling for performance optimization

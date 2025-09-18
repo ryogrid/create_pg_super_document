@@ -25,7 +25,7 @@ The function manages memory context switching to ensure proper memory allocation
   - ErrorData (struct type)
   - CHECK_STACK_DEPTH (macro)
   - EVALUATE_MESSAGE (macro)
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - Used throughout PostgreSQL codebase in PL/pgSQL, PL/Python modules
   - Found in test modules and various backend components

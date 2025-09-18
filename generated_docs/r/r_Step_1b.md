@@ -39,22 +39,22 @@ The function uses bit manipulation for efficient character class checking and em
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches backwards for matching suffixes)
-  - r_R1 (tests if position is in R1 region)
-  - slice_from_s (replaces marked substring with specified string)
-  - slice_del (deletes the marked substring)
-  - out_grouping_b (checks if character is outside specified group)
-  - r_shortv (tests if word ends with a short syllable)
-  - insert_s (inserts string at specified position)
+  - [find_among_b](../f/find_among_b.md) (searches backwards for matching suffixes)
+  - [r_R1](r_R1.md) (tests if position is in R1 region)
+  - [slice_from_s](../s/slice_from_s.md) (replaces marked substring with specified string)
+  - [slice_del](../s/slice_del.md) (deletes the marked substring)
+  - [out_grouping_b](../o/out_grouping_b.md) (checks if character is outside specified group)
+  - [r_shortv](r_shortv.md) (tests if word ends with a short syllable)
+  - [insert_s](../i/insert_s.md) (inserts string at specified position)
   - a_4 (array of suffixes: ed, eed, ing, edly, eedly, ingly)
   - a_3 (array for post-processing patterns)
   - s_5, s_6, s_7 (replacement strings: "ee", "e", "e")
   - g_v (vowel character group)
 - Called from (representative examples):
-  - english_ISO_8859_1_stem
-  - porter_ISO_8859_1_stem
-  - english_UTF_8_stem  
-  - porter_UTF_8_stem
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md)
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md)
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md)  
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful completion, 0 if no changes were made, or negative values on error

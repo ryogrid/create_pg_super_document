@@ -21,12 +21,12 @@ This function provides a mapping from JsonPathItemType enumeration values to the
   - All jpi* enumeration constants (jpiAnd, jpiOr, jpiEqual, etc.)
   - elog (for error reporting)
 - Called from (representative examples):
-  - printJsonPathItem
-  - executeItemOptUnwrapTarget
-  - executeBinaryArithmExpr
-  - executeUnaryArithmExpr
-  - executeNumericItemMethod
-  - executeDateTimeMethod
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeBinaryArithmExpr](../e/executeBinaryArithmExpr.md)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md)
+  - [executeNumericItemMethod](../e/executeNumericItemMethod.md)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md)
 
 ## Notes and Other Information
 - The function uses a comprehensive switch statement covering all JsonPathItemType values

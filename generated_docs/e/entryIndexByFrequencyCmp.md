@@ -23,9 +23,9 @@ This is a classic query optimization technique where more selective (less freque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanKey (structure type for accessing scan entries array)
+  - [GinScanKey](../G/GinScanKey.md) (structure type for accessing scan entries array)
 - Called from:
-  - startScanKey (src/backend/access/gin/ginget.c:557)
+  - [startScanKey](../s/startScanKey.md) (src/backend/access/gin/ginget.c:557)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ginget.c file  

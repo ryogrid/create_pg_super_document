@@ -27,22 +27,22 @@ The function ensures proper isolation between different users' Perl code while o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
-  - hash_search
-  - hash_create
-  - activate_interpreter
-  - plperl_trusted_init
-  - plperl_untrusted_init
-  - plperl_init_interp
-  - set_interp_require
-  - on_proc_exit
-  - plperl_fini
+  - [GetUserId](../G/GetUserId.md)
+  - [hash_search](../h/hash_search.md)
+  - [hash_create](../h/hash_create.md)
+  - [activate_interpreter](../a/activate_interpreter.md)
+  - [plperl_trusted_init](../p/plperl_trusted_init.md)
+  - [plperl_untrusted_init](../p/plperl_untrusted_init.md)
+  - [plperl_init_interp](../p/plperl_init_interp.md)
+  - [set_interp_require](set_interp_require.md)
+  - [on_proc_exit](../o/on_proc_exit.md)
+  - [plperl_fini](../p/plperl_fini.md)
   - eval_pv
-  - strip_trailing_ws
-  - sv2cstr
+  - [strip_trailing_ws](strip_trailing_ws.md)
+  - [sv2cstr](sv2cstr.md)
 - Called from (representative examples):
-  - plperl_inline_handler
-  - compile_plperl_function
+  - [plperl_inline_handler](../p/plperl_inline_handler.md)
+  - [compile_plperl_function](../c/compile_plperl_function.md)
 
 ## Notes and Other Information
 - Uses a hashtable to manage multiple interpreter instances indexed by user ID

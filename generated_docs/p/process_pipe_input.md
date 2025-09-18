@@ -32,15 +32,15 @@ The protocol uses a header structure (PipeProtoHeader) that includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - write_syslogger_file (outputs complete messages to appropriate log files)
+  - [write_syslogger_file](../w/write_syslogger_file.md) (outputs complete messages to appropriate log files)
   - appendBinaryStringInfo (accumulates partial message chunks)
   - initStringInfo (initializes string buffers for new messages)
-  - PipeProtoHeader (protocol header structure)
+  - [PipeProtoHeader](../P/PipeProtoHeader.md) (protocol header structure)
   - PIPE_PROTO_DEST_* constants (destination flags)
   - LOG_DESTINATION_* constants (log file destinations)
 - Called from (representative examples):
-  - SysLoggerMain (main Unix/Linux processing loop)
-  - pipeThread (Windows background thread)
+  - [SysLoggerMain](../S/SysLoggerMain.md) (main Unix/Linux processing loop)
+  - [pipeThread](pipeThread.md) (Windows background thread)
 
 ## Notes and Other Information
 - Implements a sophisticated buffering system using hash tables to track partial messages from different processes

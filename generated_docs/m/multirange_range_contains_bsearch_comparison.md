@@ -25,11 +25,11 @@ This function serves as a specialized comparison function for binary search oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `range_cmp_bounds` - Compare range bounds for ordering
-  - `range_bounds_contains` - Check if one range fully contains another
+  - `[range_cmp_bounds](../r/range_cmp_bounds.md)` - Compare range bounds for ordering
+  - `[range_bounds_contains](../r/range_bounds_contains.md)` - Check if one range fully contains another
   - `RangeBound` - Structure representing range boundaries
 - Called from (representative examples):
-  - `multirange_contains_range_internal` - Uses this function in binary search for containment checking
+  - `[multirange_contains_range_internal](multirange_contains_range_internal.md)` - Uses this function in binary search for containment checking
 
 ## Notes and Other Information
 - This is a static function, only accessible within the multirangetypes.c file

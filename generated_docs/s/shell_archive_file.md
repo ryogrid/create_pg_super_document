@@ -31,8 +31,8 @@ The function distinguishes between different types of failures: signal terminati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (memory allocation for path copy)
-  - make_native_path (path format conversion)
+  - [pstrdup](../p/pstrdup.md) (memory allocation for path copy)
+  - [make_native_path](../m/make_native_path.md) (path format conversion)
   - replace_percent_placeholders (placeholder substitution)
   - ereport/errmsg/errdetail (error reporting)
   - fflush (ensure output flushing)
@@ -41,7 +41,7 @@ The function distinguishes between different types of failures: signal terminati
   - wait_result_is_any_signal (signal detection)
   - WIFEXITED, WIFSIGNALED, WEXITSTATUS, WTERMSIG (wait status macros)
   - pg_strsignal (signal name resolution on Unix)
-  - pfree (memory cleanup)
+  - [pfree](../p/pfree.md) (memory cleanup)
   - elog (debug logging)
 - Called from (representative examples):
   - Referenced indirectly through shell_archive_callbacks structure
@@ -49,7 +49,7 @@ The function distinguishes between different types of failures: signal terminati
 ## Notes and Other Information
 - This is a static function, only accessible within the shell_archive.c module
 - The function is assigned to the `archive_file_cb` member of the shell_archive_callbacks structure
-- Command placeholders: `%f` is replaced with the file name, `%p` with the full path
+- [Command](../C/Command.md) placeholders: `%f` is replaced with the file name, `%p` with the full path
 - The function uses FATAL error level for signal-related failures to ensure the archiver process is restarted
 - Platform differences: Windows reports exception codes while Unix systems report signal numbers and names
 - Wait events are reported to PostgreSQL's statistics system for monitoring archive command duration

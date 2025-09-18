@@ -25,8 +25,8 @@ The function is registered as a callback in the PostgreSQL statistics infrastruc
   - pgstat_lock_entry
   - pgstat_unlock_entry
   - PgStat_EntryRef
-  - PgStatShared_Database
-  - PgStat_StatDBEntry
+  - [PgStatShared_Database](../P/PgStatShared_Database.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
 - Called from (representative examples):
   - Statistics infrastructure via PGSTAT_KIND_DATABASE configuration in pgstat.c
 

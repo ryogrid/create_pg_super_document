@@ -27,11 +27,11 @@ The function implements proper concurrency control by acquiring a shared lock on
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (type cast)
   - TTS_IS_BUFFERTUPLE (assertion check)
-  - BufferIsValid (assertion check)
-  - LockBuffer (buffer locking with BUFFER_LOCK_SHARE and BUFFER_LOCK_UNLOCK)
-  - HeapTupleSatisfiesVisibility (core visibility checking)
+  - [BufferIsValid](../B/BufferIsValid.md) (assertion check)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking with BUFFER_LOCK_SHARE and BUFFER_LOCK_UNLOCK)
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md) (core visibility checking)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
 
 ## Notes and Other Information
 - This is a static function serving as a callback in the table access method interface

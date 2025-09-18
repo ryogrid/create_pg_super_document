@@ -20,14 +20,14 @@ The  function provides formatted text output functionality for PostgreSQL's pg_d
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - pvsnprintf
-  - ahwrite
+  - [pvsnprintf](../p/pvsnprintf.md)
+  - [ahwrite](ahwrite.md)
 - Called from (representative examples):
-  - RestoreArchive
-  - restore_toc_entry
-  - PrintTOCSummary
-  - dump_lo_buf
-  - _printTocEntry
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [restore_toc_entry](../r/restore_toc_entry.md)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md)
+  - [dump_lo_buf](../d/dump_lo_buf.md)
+  - [_printTocEntry](../p/_printTocEntry.md)
 
 ## Notes and Other Information
 - Uses dynamic buffer allocation with automatic resizing to handle strings of any length

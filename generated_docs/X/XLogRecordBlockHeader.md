@@ -22,12 +22,12 @@ XLogRecordBlockHeader serves as a descriptor for block-specific data within WAL 
   - (No direct symbol references)
 
 - Called from (representative examples):
-  - XLogRecordAssemble
+  - [XLogRecordAssemble](XLogRecordAssemble.md)
   - SizeOfXLogRecordBlockHeader
 
 ## Notes and Other Information
 - The structure is intentionally not aligned for space efficiency, requiring copying to aligned storage before use
-- Variable-length data follows this header based on flag bits: XLogRecordBlockImageHeader, RelFileLocator, and BlockNumber
+- [Variable](../V/Variable.md)-length data follows this header based on flag bits: XLogRecordBlockImageHeader, RelFileLocator, and BlockNumber
 - The data_length field specifically excludes the size of any full page image that may be included
 - This header is part of the variable-length portion of WAL records that follows the fixed XLogRecord header
 - Multiple XLogRecordBlockHeader structures can appear in a single WAL record when multiple blocks are affected

@@ -21,7 +21,7 @@ This utility function iterates through the contents of a PQExpBuffer and counts 
 - Functions called/Symbols referenced:
   - strchr (standard C library function for finding characters)
 - Called from (representative examples):
-  - exec_command_sf_sv (in src/bin/psql/command.c:2565)
+  - [exec_command_sf_sv](../e/exec_command_sf_sv.md) (in src/bin/psql/command.c:2565)
 
 ## Notes and Other Information
 - Returns the total number of lines found in the buffer

@@ -32,7 +32,7 @@ All components are properly aligned according to the element type's alignment re
   - MultirangeType (the structure whose size is being calculated)
   - Max (macro for maximum value calculation)
 - Called from (representative examples):
-  - make_multirange
+  - [make_multirange](make_multirange.md)
 
 ## Notes and Other Information
 - This is a static function used internally for memory allocation planning

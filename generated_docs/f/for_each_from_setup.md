@@ -20,7 +20,7 @@ The function performs a basic validation check to ensure the starting index is n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ForEachState (struct type)
+  - [ForEachState](../F/ForEachState.md) (struct type)
   - Assert (for validation)
 - Called from (representative examples):
   - for_each_from (macro)

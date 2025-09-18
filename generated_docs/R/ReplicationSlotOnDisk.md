@@ -22,13 +22,13 @@ ReplicationSlotOnDisk represents the binary format used to store replication slo
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_crc32c
-  - ReplicationSlotPersistentData
+  - [ReplicationSlotPersistentData](ReplicationSlotPersistentData.md)
 - Called from (representative examples):
   - ReplicationSlotOnDiskConstantSize
   - ReplicationSlotOnDiskNotChecksummedSize 
   - ReplicationSlotOnDiskChecksummedSize
-  - SaveSlotToPath
-  - RestoreSlotFromDisk
+  - [SaveSlotToPath](../S/SaveSlotToPath.md)
+  - [RestoreSlotFromDisk](RestoreSlotFromDisk.md)
 
 ## Notes and Other Information
 The structure is designed with version independence as a key principle, with the first part being stable across versions. The separation of checksummed and non-checksummed data allows for efficient integrity verification. The variable-length design accommodates future extensions to the slot data format while maintaining backward compatibility. This structure is fundamental to PostgreSQL's replication slot persistence mechanism, ensuring reliable storage and retrieval of replication state across server restarts.

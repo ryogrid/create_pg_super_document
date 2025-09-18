@@ -23,7 +23,7 @@ The function accepts an additional namespaces parameter (as an array) that allow
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xpath_internal
+  - [xpath_internal](xpath_internal.md)
   - PG_GETARG_TEXT_PP
   - PG_GETARG_XML_P
   - PG_GETARG_ARRAYTYPE_P

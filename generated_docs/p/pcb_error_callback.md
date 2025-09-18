@@ -19,12 +19,12 @@ The callback extracts the ParseState and location information from the ParseCall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseCallbackState (structure for callback state)
-  - geterrcode() (gets the current error code)
-  - parser_errposition() (adds location info to error)
+  - [ParseCallbackState](../P/ParseCallbackState.md) (structure for callback state)
+  - [geterrcode](../g/geterrcode.md)() (gets the current error code)
+  - [parser_errposition](parser_errposition.md)() (adds location info to error)
   - ERRCODE_QUERY_CANCELED (error code constant)
 - Called from (representative examples):
-  - setup_parser_errposition_callback (installs this callback)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md) (installs this callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_node.c

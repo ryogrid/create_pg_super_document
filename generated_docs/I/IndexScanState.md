@@ -299,20 +299,20 @@ v_str ESTAB      0      0                                               *:633275
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - IndexRuntimeKeyInfo
-  - IndexScanDescData
-  - pairingheap
+  - [ScanState](../S/ScanState.md)
+  - [IndexRuntimeKeyInfo](IndexRuntimeKeyInfo.md)
+  - [IndexScanDescData](IndexScanDescData.md)
+  - [pairingheap](../p/pairingheap.md)
   - SortSupport
 - Called from (representative examples):
-  - ExecIndexScan
-  - ExecInitIndexScan
-  - ExecEndIndexScan
-  - ExecReScanIndexScan
-  - ExecIndexMarkPos
-  - ExecIndexRestrPos
-  - IndexNext
-  - IndexNextWithReorder
+  - [ExecIndexScan](../E/ExecIndexScan.md)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md)
+  - [ExecEndIndexScan](../E/ExecEndIndexScan.md)
+  - [ExecReScanIndexScan](../E/ExecReScanIndexScan.md)
+  - [ExecIndexMarkPos](../E/ExecIndexMarkPos.md)
+  - [ExecIndexRestrPos](../E/ExecIndexRestrPos.md)
+  - [IndexNext](IndexNext.md)
+  - [IndexNextWithReorder](IndexNextWithReorder.md)
 
 ## Notes and Other Information
 - Central to PostgreSQL's index scanning implementation in src/backend/executor/nodeIndexscan.c

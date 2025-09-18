@@ -19,14 +19,14 @@ The function is simpler than its compression counterpart since decompression doe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - initStringInfo
   - enlargeStringInfo
   - ZSTD_createDCtx
   - ZSTD_DStreamOutSize
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - CreateBackupStreamer (src/bin/pg_basebackup/pg_basebackup.c:1271)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (src/bin/pg_basebackup/pg_basebackup.c:1271)
 
 ## Notes and Other Information
 - The function is only available when PostgreSQL is compiled with USE_ZSTD support; otherwise it calls pg_fatal

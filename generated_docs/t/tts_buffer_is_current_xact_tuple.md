@@ -20,9 +20,9 @@ tts_buffer_is_current_xact_tuple checks if a tuple stored in a buffer-backed hea
   - BufferHeapTupleTableSlot (cast target type)
   - TTS_EMPTY (slot state check macro)
   - HeapTupleHeaderGetRawXmin (transaction ID extraction function)
-  - TransactionIdIsCurrentTransactionId (transaction comparison function)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md) (transaction comparison function)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (as part of vtable operations)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (as part of vtable operations)
 
 ## Notes and Other Information
 - This is a static function, accessible only within execTuples.c

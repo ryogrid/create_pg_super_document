@@ -24,12 +24,12 @@ If compaction is insufficient, the function employs the same two-phase reallocat
 - Functions called/Symbols referenced:
   - memmove (standard C library function for safe memory copying)
   - realloc (standard C library function for memory reallocation)
-  - appendPQExpBufferStr (adds error message to connection's error buffer)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (adds error message to connection's error buffer)
 - Called from (representative examples):
-  - pqReadData (when reading data from the network)
-  - pqParseInput3 (during protocol message parsing)
-  - getCopyDataMessage (when handling COPY data)
-  - pqFunctionCall3 (during function call processing)
+  - [pqReadData](pqReadData.md) (when reading data from the network)
+  - [pqParseInput3](pqParseInput3.md) (during protocol message parsing)
+  - [getCopyDataMessage](../g/getCopyDataMessage.md) (when handling COPY data)
+  - [pqFunctionCall3](pqFunctionCall3.md) (during function call processing)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure (memory allocation error)

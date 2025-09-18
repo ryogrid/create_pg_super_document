@@ -24,16 +24,16 @@ The function supports two modes of operation based on the owner parameter:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResourceOwnerForgetPlanCacheRef
-  - MemoryContextDelete
+  - [ResourceOwnerForgetPlanCacheRef](ResourceOwnerForgetPlanCacheRef.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - CACHEDPLAN_MAGIC (validation constant)
 - Called from (representative examples):
-  - ExplainExecuteQuery
-  - SPI_cursor_open_internal
-  - _SPI_execute_plan
-  - ReleaseGenericPlan
-  - ResOwnerReleaseCachedPlan
-  - PortalReleaseCachedPlan
+  - [ExplainExecuteQuery](../E/ExplainExecuteQuery.md)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [ReleaseGenericPlan](ReleaseGenericPlan.md)
+  - [ResOwnerReleaseCachedPlan](ResOwnerReleaseCachedPlan.md)
+  - [PortalReleaseCachedPlan](../P/PortalReleaseCachedPlan.md)
 
 ## Notes and Other Information
 - The function includes safety checks using magic numbers to ensure plan validity

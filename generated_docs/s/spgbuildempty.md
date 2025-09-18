@@ -17,16 +17,16 @@ This function creates the minimal SP-GiST index structure required for an empty 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - smgr_bulk_start_rel
-  - smgr_bulk_get_buf
-  - SpGistInitMetapage
-  - SpGistInitPage
-  - smgr_bulk_write
-  - smgr_bulk_finish
-  - BulkWriteState
+  - [smgr_bulk_start_rel](smgr_bulk_start_rel.md)
+  - [smgr_bulk_get_buf](smgr_bulk_get_buf.md)
+  - [SpGistInitMetapage](../S/SpGistInitMetapage.md)
+  - [SpGistInitPage](../S/SpGistInitPage.md)
+  - [smgr_bulk_write](smgr_bulk_write.md)
+  - [smgr_bulk_finish](smgr_bulk_finish.md)
+  - [BulkWriteState](../B/BulkWriteState.md)
   - BulkWriteBuffer
 - Called from (representative examples):
-  - spghandler
+  - [spghandler](spghandler.md)
 
 ## Notes and Other Information
 Uses the bulk write API for efficient page creation and writes to the INIT_FORKNUM. The function ensures all three required SP-GiST pages are created with proper initialization and written to their designated block numbers (SPGIST_METAPAGE_BLKNO, SPGIST_ROOT_BLKNO, SPGIST_NULL_BLKNO).

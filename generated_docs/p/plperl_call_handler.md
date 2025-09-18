@@ -17,19 +17,19 @@ This function serves as the primary dispatcher for all PL/Perl function invocati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - plperl_call_data (structure for call state management)
-  - plperl_interp_desc (Perl interpreter descriptor)
+  - [plperl_call_data](plperl_call_data.md) (structure for call state management)
+  - [plperl_interp_desc](plperl_interp_desc.md) (Perl interpreter descriptor)
   - MemSet (memory initialization)
   - CALLED_AS_TRIGGER (macro to detect trigger context)
   - CALLED_AS_EVENT_TRIGGER (macro to detect event trigger context)
-  - plperl_trigger_handler (handler for regular triggers)
-  - plperl_event_trigger_handler (handler for event triggers)
-  - plperl_func_handler (handler for regular functions)
-  - activate_interpreter (Perl interpreter management)
+  - [plperl_trigger_handler](plperl_trigger_handler.md) (handler for regular triggers)
+  - [plperl_event_trigger_handler](plperl_event_trigger_handler.md) (handler for event triggers)
+  - [plperl_func_handler](plperl_func_handler.md) (handler for regular functions)
+  - [activate_interpreter](../a/activate_interpreter.md) (Perl interpreter management)
   - decrement_prodesc_refcount (reference counting for function descriptors)
   - PG_TRY, PG_FINALLY, PG_END_TRY (PostgreSQL exception handling)
 - Called from (representative examples):
-  - plperlu_call_handler
+  - [plperlu_call_handler](plperlu_call_handler.md)
 
 ## Notes and Other Information
 - Uses PostgreSQL's structured exception handling to ensure proper cleanup

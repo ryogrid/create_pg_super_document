@@ -17,9 +17,9 @@ This function executes VACUUM ANALYZE commands on all four standard pgbench tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeStatement: Executes VACUUM ANALYZE SQL commands for each table
+  - [executeStatement](../e/executeStatement.md): Executes VACUUM ANALYZE SQL commands for each table
 - Called from (representative examples):
-  - runInitSteps: Main initialization workflow that invokes vacuum as a final optimization step
+  - [runInitSteps](../r/runInitSteps.md): Main initialization workflow that invokes vacuum as a final optimization step
 
 ## Notes and Other Information
 - Executes VACUUM ANALYZE rather than just VACUUM to both reclaim space and update statistics

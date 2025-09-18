@@ -21,12 +21,12 @@ The function handles only base relations (not outer joins themselves) and update
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
-  - bms_is_member
-  - bms_add_member
-  - SpecialJoinInfo (struct)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct)
 - Called from (representative examples):
-  - deconstruct_recurse (multiple times)
+  - [deconstruct_recurse](../d/deconstruct_recurse.md) (multiple times)
 
 ## Notes and Other Information
 - The function only processes actual base relations, skipping over outer join relations found in the lower_rels set

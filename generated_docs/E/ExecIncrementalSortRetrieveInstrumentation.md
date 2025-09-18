@@ -25,14 +25,14 @@ This function is typically called at the end of a parallel incremental sort oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - memcpy (memory copy operation)
   - offsetof (macro for calculating structure member offsets)
 - Data types referenced:
-  - SharedIncrementalSortInfo
-  - IncrementalSortInfo
+  - [SharedIncrementalSortInfo](../S/SharedIncrementalSortInfo.md)
+  - [IncrementalSortInfo](../I/IncrementalSortInfo.md)
 - Called from (representative examples):
-  - ExecParallelRetrieveInstrumentation (src/backend/executor/execParallel.c:1068)
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md) (src/backend/executor/execParallel.c:1068)
 
 ## Notes and Other Information
 - This function gracefully handles cases where no shared instrumentation exists by returning early if shared_info is NULL

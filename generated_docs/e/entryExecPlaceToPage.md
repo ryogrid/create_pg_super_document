@@ -38,17 +38,17 @@ The function ensures atomic insertion with proper logging for durability and con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - entryPreparePage
-  - BufferGetPage
+  - [entryPreparePage](entryPreparePage.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - PageAddItem
   - IndexTupleSize
   - MarkBufferDirty
   - RelationNeedsWAL
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
   - RelationGetRelationName (for error reporting)
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This function executes within a critical section where no errors should occur

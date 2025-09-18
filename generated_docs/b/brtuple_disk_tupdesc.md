@@ -19,13 +19,13 @@ The function iterates through each attribute in the BRIN descriptor and for each
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc (structure type)
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
-  - BrinTuple (structure type)
+  - [BrinDesc](../B/BrinDesc.md) (structure type)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
+  - [BrinTuple](../B/BrinTuple.md) (structure type)
 - Called from:
-  - brin_form_tuple (src/backend/access/brin/brin_tuple.c:283, 302)
-  - brin_deconstruct_tuple (src/backend/access/brin/brin_tuple.c:685)
+  - [brin_form_tuple](brin_form_tuple.md) (src/backend/access/brin/brin_tuple.c:283, 302)
+  - [brin_deconstruct_tuple](brin_deconstruct_tuple.md) (src/backend/access/brin/brin_tuple.c:685)
 
 ## Notes and Other Information
 - This is a static function, only accessible within brin_tuple.c

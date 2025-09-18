@@ -38,7 +38,7 @@ ColumnsHashData is a specialized structure designed to cache and store all the n
 - Functions called/Symbols referenced:
   - PARTITION_MAX_KEYS (constant defining maximum partition keys)
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array members)
-  - FmgrInfo (function manager information structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager information structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
   - (No direct references found - likely used internally within partitioning functions)

@@ -27,13 +27,13 @@ Currently, windowing is implemented using sorting only. In the future, hashing m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - grouping_is_sortable
-  - make_pathkeys_for_sortclauses_extended
-  - make_pathkeys_for_sortclauses
-  - append_pathkeys
+  - [grouping_is_sortable](../g/grouping_is_sortable.md)
+  - [make_pathkeys_for_sortclauses_extended](make_pathkeys_for_sortclauses_extended.md)
+  - [make_pathkeys_for_sortclauses](make_pathkeys_for_sortclauses.md)
+  - [append_pathkeys](../a/append_pathkeys.md)
 - Called from:
-  - create_one_window_path (src/backend/optimizer/plan/planner.c:4699)
-  - standard_qp_callback (src/backend/optimizer/plan/planner.c:3592)
+  - [create_one_window_path](../c/create_one_window_path.md) (src/backend/optimizer/plan/planner.c:4699)
+  - [standard_qp_callback](../s/standard_qp_callback.md) (src/backend/optimizer/plan/planner.c:3592)
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:217)
 
 ## Notes and Other Information

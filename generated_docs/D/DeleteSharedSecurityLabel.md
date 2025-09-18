@@ -24,14 +24,14 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
 - Called from (representative examples):
-  - dropdb
-  - DeleteSecurityLabel
-  - DropTableSpace
-  - DropRole
+  - [dropdb](../d/dropdb.md)
+  - [DeleteSecurityLabel](DeleteSecurityLabel.md)
+  - [DropTableSpace](DropTableSpace.md)
+  - [DropRole](DropRole.md)
 
 ## Notes and Other Information
 - This function is specifically for shared objects - regular database objects use DeleteSecurityLabel instead

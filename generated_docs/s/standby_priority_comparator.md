@@ -28,7 +28,7 @@ The tie-breaking mechanism using walsnd_index is noted as "utterly bogus" in the
   - SyncRepStandbyData (structure being compared)
 - Called from (representative examples):
   - SyncStandbysDefined (src/backend/replication/syncrep.c:120)
-  - SyncRepGetCandidateStandbys (src/backend/replication/syncrep.c:821)
+  - [SyncRepGetCandidateStandbys](../S/SyncRepGetCandidateStandbys.md) (src/backend/replication/syncrep.c:821)
 
 ## Notes and Other Information
 - Returns negative value if a < b, positive if a > b, zero if equal

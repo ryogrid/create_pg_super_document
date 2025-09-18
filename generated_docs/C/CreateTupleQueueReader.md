@@ -17,11 +17,11 @@ This function allocates and initializes a TupleQueueReader structure that wraps 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - shm_mq_handle (shared memory queue handle type)
-  - TupleQueueReader (struct type)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [shm_mq_handle](../s/shm_mq_handle.md) (shared memory queue handle type)
+  - [TupleQueueReader](../T/TupleQueueReader.md) (struct type)
 - Called from (representative examples):
-  - ExecParallelCreateReaders
+  - [ExecParallelCreateReaders](../E/ExecParallelCreateReaders.md)
 
 ## Notes and Other Information
 - The returned TupleQueueReader should be freed using DestroyTupleQueueReader() when no longer needed

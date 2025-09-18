@@ -24,11 +24,11 @@ This batching approach is crucial for performance when dealing with large transa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage
-  - TransactionIdSetPageStatus
+  - [TransactionIdToPage](../T/TransactionIdToPage.md)
+  - [TransactionIdSetPageStatus](../T/TransactionIdSetPageStatus.md)
   - XidStatus
 - Called from (representative examples):
-  - TransactionIdSetTreeStatus (called twice in different phases)
+  - [TransactionIdSetTreeStatus](../T/TransactionIdSetTreeStatus.md) (called twice in different phases)
 
 ## Notes and Other Information
 - This is a static helper function, not intended for direct external use

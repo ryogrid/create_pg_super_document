@@ -36,20 +36,20 @@ WHERE pk.key IS NULL AND (fk.key IS NOT NULL [AND/OR ...])
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_FetchConstraintInfo
-  - ExecCheckPermissions
-  - has_bypassrls_privilege
-  - object_ownercheck
-  - quoteOneName
-  - quoteRelationName
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
+  - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [quoteOneName](../q/quoteOneName.md)
+  - [quoteRelationName](../q/quoteRelationName.md)
   - RIAttName, RIAttType, RIAttCollation
-  - ri_GenerateQual, ri_GenerateQualCollation
+  - [ri_GenerateQual](../r/ri_GenerateQual.md), ri_GenerateQualCollation
   - SPI_connect, SPI_prepare, SPI_execute_snapshot, SPI_finish
-  - MakeSingleTupleTableSlot, ExecDropSingleTupleTableSlot
-  - ri_ReportViolation
-  - ri_NullCheck
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md), ExecDropSingleTupleTableSlot
+  - [ri_ReportViolation](../r/ri_ReportViolation.md)
+  - [ri_NullCheck](../r/ri_NullCheck.md)
 - Called from (representative examples):
-  - validateForeignKeyConstraint
+  - [validateForeignKeyConstraint](../v/validateForeignKeyConstraint.md)
 
 ## Notes and Other Information
 - This is NOT a trigger function but a utility for constraint validation during DDL

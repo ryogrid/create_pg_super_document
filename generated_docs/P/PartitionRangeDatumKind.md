@@ -21,7 +21,7 @@ PartitionRangeDatumKind defines the three types of boundary values that can appe
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - PartitionRangeDatum (in kind field)
+  - [PartitionRangeDatum](PartitionRangeDatum.md) (in kind field)
   - PartitionBoundInfoData (in kind array field)
   - Various partitioning functions in partbounds.c
 

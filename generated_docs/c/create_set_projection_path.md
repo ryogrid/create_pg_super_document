@@ -26,11 +26,11 @@ This function constructs a ProjectSetPath node specifically designed to handle p
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - is_parallel_safe
-  - expression_returns_set_rows
+  - [is_parallel_safe](../i/is_parallel_safe.md)
+  - [expression_returns_set_rows](../e/expression_returns_set_rows.md)
   - lfirst
 - Called from (representative examples):
-  - adjust_paths_for_srfs
+  - [adjust_paths_for_srfs](../a/adjust_paths_for_srfs.md)
 
 ## Notes and Other Information
 The function estimates output cardinality by finding the maximum number of rows returned by any SRF in the target list. Cost calculation uses a heuristic from PostgreSQL 9.6: cpu_tuple_cost per input row plus half cpu_tuple_cost for each additional output row. The pathkeys are preserved from the subpath, though this may need revisiting. Like other projection paths, it assumes no parameterization above joins.

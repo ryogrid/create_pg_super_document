@@ -20,11 +20,11 @@ The function is designed to be conservative, occasionally returning true when re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
-  - bms_equal
-  - bms_overlap
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [bms_overlap](../b/bms_overlap.md)
 - Called from (representative examples):
-  - join_search_one_level (multiple locations)
+  - [join_search_one_level](../j/join_search_one_level.md) (multiple locations)
 
 ## Notes and Other Information
 - Function is static to joinrels.c and not exposed externally

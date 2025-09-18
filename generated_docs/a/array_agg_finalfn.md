@@ -20,8 +20,8 @@ The function deliberately does not release the ArrayBuildState memory, as aggreg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - ArrayBuildState
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [ArrayBuildState](../A/ArrayBuildState.md)
   - makeMdArrayResult
   - PG_RETURN_DATUM
   - PG_ARGISNULL

@@ -22,16 +22,16 @@ The function includes comprehensive error handling, reporting syntax errors when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (macro to get node type)
   - intVal (macro to extract integer value)
-  - oidin (input function for OID type)
+  - [oidin](../o/oidin.md) (input function for OID type)
   - DirectFunctionCall1 (function manager interface)
-  - DatumGetObjectId (macro to extract OID from Datum)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md) (macro to extract OID from Datum)
   - Float (node type)
-  - CStringGetDatum (conversion function)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (conversion function)
 - Called from (representative examples):
-  - createdb (database creation command)
+  - [createdb](../c/createdb.md) (database creation command)
   - Functions declared in defrem.h
 
 ## Notes and Other Information

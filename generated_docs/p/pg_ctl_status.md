@@ -32,8 +32,8 @@ On any failure, the function logs detailed error information including the origi
   - exit (standard library function for program termination)
 
 - Called from (representative examples):
-  - start_standby_server
-  - stop_standby_server
+  - [start_standby_server](../s/start_standby_server.md)
+  - [stop_standby_server](../s/stop_standby_server.md)
 
 ## Notes and Other Information
 - This is a static function specific to the pg_createsubscriber utility

@@ -21,10 +21,10 @@ This function retrieves the next HeapTuple from a completed sorting operation, p
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - tuplesort_gettuple_common
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 
 ## Notes and Other Information
 - Returns NULL if no more tuples are available

@@ -21,8 +21,8 @@ The function uses ereport() to emit an ERROR level message, which will abort the
 - Functions called/Symbols referenced:
   - RmgrId
   - ereport
-  - errmsg
-  - errhint
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
 - Called from (representative examples):
   - GetRmgr
 

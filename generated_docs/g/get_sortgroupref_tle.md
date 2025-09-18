@@ -25,15 +25,15 @@ This is a utility function that's essential for connecting the abstract sorting/
   - foreach (macro for list iteration)
   - lfirst (to extract list cell content)
   - elog (for error reporting)
-  - TargetEntry (struct type)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
   - Index (type alias)
 - Called from (representative examples):
-  - convert_subquery_pathkeys
-  - prepare_sort_from_pathkeys
-  - make_unique_from_pathkeys
-  - get_sortgroupclause_tle
-  - transformDistinctOnClause
-  - get_rule_sortgroupclause
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
+  - [make_unique_from_pathkeys](../m/make_unique_from_pathkeys.md)
+  - [get_sortgroupclause_tle](get_sortgroupclause_tle.md)
+  - [transformDistinctOnClause](../t/transformDistinctOnClause.md)
+  - [get_rule_sortgroupclause](get_rule_sortgroupclause.md)
 
 ## Notes and Other Information
 - Throws an ERROR if the sortref is not found, which should never happen in correct code

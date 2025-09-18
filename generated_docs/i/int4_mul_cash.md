@@ -22,7 +22,7 @@ The function follows PostgreSQL's standard function calling convention and ensur
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Extracts int32 value from function arguments
   - `PG_GETARG_CASH`: Extracts Cash value from function arguments
-  - `cash_mul_int64`: Internal helper function for safe Cash multiplication
+  - `[cash_mul_int64](../c/cash_mul_int64.md)`: Internal helper function for safe Cash multiplication
   - `PG_RETURN_CASH`: Returns Cash value as function result
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL operator interface)

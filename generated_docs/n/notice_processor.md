@@ -22,8 +22,8 @@ The function follows the standard PostgreSQL notice processor callback signature
 - Functions called/Symbols referenced:
   - pg_log_info (logging function for informational messages)
 - Called from (representative examples):
-  - ConnectDatabase (at src/bin/pg_dump/pg_backup_db.c:214)
-  - test_pipeline_idle (at src/test/modules/libpq_pipeline/libpq_pipeline.c:1430)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (at src/bin/pg_dump/pg_backup_db.c:214)
+  - [test_pipeline_idle](../t/test_pipeline_idle.md) (at src/test/modules/libpq_pipeline/libpq_pipeline.c:1430)
 
 ## Notes and Other Information
 - Designed to be used as a callback function with PQsetNoticeProcessor()

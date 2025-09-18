@@ -27,13 +27,13 @@ This is a crucial step in query planning for partitioned tables and inheritance 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_inherited_rtentry
+  - [expand_inherited_rtentry](../e/expand_inherited_rtentry.md)
   - RELOPT_BASEREL (constant)
 - Data structures used:
   - RelOptInfo
-  - RangeTblEntry
+  - [RangeTblEntry](../R/RangeTblEntry.md)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - This function is called after add_base_rels_to_query() has completed

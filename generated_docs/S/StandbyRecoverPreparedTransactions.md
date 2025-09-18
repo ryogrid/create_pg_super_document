@@ -27,15 +27,15 @@ This function takes no parameters and operates on the global TwoPhaseState.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessTwoPhaseBuffer
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
   - LWLockAcquire/LWLockRelease
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from:
-  - StartupXLOG
-  - xlog_redo
+  - [StartupXLOG](StartupXLOG.md)
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
-- Never called at the end of recovery - RecoverPreparedTransactions is used instead
+- Never called at the end of recovery - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md) is used instead
 - Specifically designed for hot standby scenarios during ongoing recovery
 - Updates pg_subtrans to maintain proper subtransaction visibility
 - Ensures prepared transactions appear active in snapshots during standby queries

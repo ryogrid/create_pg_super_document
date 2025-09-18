@@ -21,7 +21,7 @@ The returned value is a null-terminated string representation of the field data.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_tuple_field_number
+  - [check_tuple_field_number](../c/check_tuple_field_number.md)
 - Called from (representative examples):
   - (No direct references found in the codebase - typically called by client applications)
 

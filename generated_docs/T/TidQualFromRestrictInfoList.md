@@ -29,16 +29,16 @@ The function's recursive nature allows it to handle arbitrarily nested boolean e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restriction_is_or_clause
+  - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
   - BoolExpr (node type)
-  - is_andclause
-  - TidQualFromRestrictInfoList (recursive self-call)
-  - RestrictInfoIsTidQual
-  - IsCurrentOfClause
-  - list_concat
+  - [is_andclause](../i/is_andclause.md)
+  - [TidQualFromRestrictInfoList](TidQualFromRestrictInfoList.md) (recursive self-call)
+  - [RestrictInfoIsTidQual](../R/RestrictInfoIsTidQual.md)
+  - [IsCurrentOfClause](../I/IsCurrentOfClause.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - TidQualFromRestrictInfoList (recursive)
-  - create_tidscan_paths
+  - [TidQualFromRestrictInfoList](TidQualFromRestrictInfoList.md) (recursive)
+  - [create_tidscan_paths](../c/create_tidscan_paths.md)
 
 ## Notes and Other Information
 - Static function accessible only within tidpath.c

@@ -25,20 +25,20 @@ This comprehensive function orchestrates the complete attribute renaming process
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - renameatt_check
-  - find_all_inheritors
-  - find_inheritance_children
-  - find_typed_table_dependencies
-  - SearchSysCacheCopyAttName
-  - check_for_column_name_collision
-  - CatalogTupleUpdate
+  - [relation_open](relation_open.md)
+  - [renameatt_check](renameatt_check.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [find_typed_table_dependencies](../f/find_typed_table_dependencies.md)
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [check_for_column_name_collision](../c/check_for_column_name_collision.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
-  - relation_close
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [relation_close](relation_close.md)
 - Called from (representative examples):
-  - renameatt_internal (recursive calls)
-  - renameatt
+  - [renameatt_internal](renameatt_internal.md) (recursive calls)
+  - [renameatt](renameatt.md)
 
 ## Notes and Other Information
 - Returns the attribute number (attnum) of the renamed attribute

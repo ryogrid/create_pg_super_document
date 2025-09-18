@@ -26,14 +26,14 @@ The function first extracts the lock relation ID from the relation structure, th
 - Functions called/Symbols referenced:
   - LockRelId (type)
   - MAX_LOCKMODES (constant)
-  - RelationClose
-  - UnlockRelationId
+  - [RelationClose](../R/RelationClose.md)
+  - [UnlockRelationId](../U/UnlockRelationId.md)
 - Called from (representative examples):
-  - toast_close_indexes
-  - systable_endscan
+  - [toast_close_indexes](../t/toast_close_indexes.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - index_create
-  - ExecCloseIndices
-  - get_relation_info
+  - [ExecCloseIndices](../E/ExecCloseIndices.md)
+  - [get_relation_info](../g/get_relation_info.md)
 
 ## Notes and Other Information
 - The relcache (`RelationClose`) does the real work of closing the relation

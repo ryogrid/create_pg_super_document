@@ -35,23 +35,23 @@ The function includes version compatibility checks for concurrent reindexing (Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectDatabase
-  - PQserverVersion
-  - PQfinish
-  - get_parallel_object_list
-  - ParallelSlotsSetup
-  - ParallelSlotsAdoptConn
-  - ParallelSlotsGetIdle
-  - ParallelSlotSetHandler
-  - gen_reindex_command
-  - run_reindex_command
-  - ParallelSlotsWaitCompletion
-  - ParallelSlotsTerminate
-  - simple_string_list_append
-  - simple_string_list_destroy
+  - [connectDatabase](../c/connectDatabase.md)
+  - [PQserverVersion](../P/PQserverVersion.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [get_parallel_object_list](../g/get_parallel_object_list.md)
+  - [ParallelSlotsSetup](../P/ParallelSlotsSetup.md)
+  - [ParallelSlotsAdoptConn](../P/ParallelSlotsAdoptConn.md)
+  - [ParallelSlotsGetIdle](../P/ParallelSlotsGetIdle.md)
+  - [ParallelSlotSetHandler](../P/ParallelSlotSetHandler.md)
+  - [gen_reindex_command](../g/gen_reindex_command.md)
+  - [run_reindex_command](run_reindex_command.md)
+  - [ParallelSlotsWaitCompletion](../P/ParallelSlotsWaitCompletion.md)
+  - [ParallelSlotsTerminate](../P/ParallelSlotsTerminate.md)
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [simple_string_list_destroy](../s/simple_string_list_destroy.md)
 - Called from (representative examples):
-  - main (reindexdb.c:241, 246, 251, 256, 266)
-  - reindex_all_databases (reindexdb.c:850, 855, 860, 865, 875)
+  - [main](../m/main.md) (reindexdb.c:241, 246, 251, 256, 266)
+  - [reindex_all_databases](reindex_all_databases.md) (reindexdb.c:850, 855, 860, 865, 875)
 
 ## Notes and Other Information
 - Exits with status 1 if any reindex operation fails

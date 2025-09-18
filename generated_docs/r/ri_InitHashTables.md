@@ -19,23 +19,23 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - CacheRegisterSyscacheCallback
-  - InvalidateConstraintCacheCallBack
-  - RI_ConstraintInfo (structure type)
-  - RI_QueryKey (structure type)
-  - RI_QueryHashEntry (structure type)
-  - RI_CompareKey (structure type)
-  - RI_CompareHashEntry (structure type)
+  - [hash_create](../h/hash_create.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
+  - [InvalidateConstraintCacheCallBack](../I/InvalidateConstraintCacheCallBack.md)
+  - [RI_ConstraintInfo](../R/RI_ConstraintInfo.md) (structure type)
+  - [RI_QueryKey](../R/RI_QueryKey.md) (structure type)
+  - [RI_QueryHashEntry](../R/RI_QueryHashEntry.md) (structure type)
+  - [RI_CompareKey](../R/RI_CompareKey.md) (structure type)
+  - [RI_CompareHashEntry](../R/RI_CompareHashEntry.md) (structure type)
   - RI_INIT_CONSTRAINTHASHSIZE (constant)
   - RI_INIT_QUERYHASHSIZE (constant)
   - HASH_ELEM (flag)
   - HASH_BLOBS (flag)
 - Called from (representative examples):
-  - ri_LoadConstraintInfo
-  - ri_FetchPreparedPlan
-  - ri_HashPreparedPlan
-  - ri_HashCompareOp
+  - [ri_LoadConstraintInfo](ri_LoadConstraintInfo.md)
+  - [ri_FetchPreparedPlan](ri_FetchPreparedPlan.md)
+  - [ri_HashPreparedPlan](ri_HashPreparedPlan.md)
+  - [ri_HashCompareOp](ri_HashCompareOp.md)
 
 ## Notes and Other Information
 - Creates three separate hash tables: ri_constraint_cache, ri_query_cache, and ri_compare_cache

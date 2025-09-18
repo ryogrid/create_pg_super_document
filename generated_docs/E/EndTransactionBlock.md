@@ -22,14 +22,14 @@ This complex function handles the execution of COMMIT commands across all possib
   - TBlockState enumeration values (TBLOCK_INPROGRESS, TBLOCK_END, etc.)
   - ereport (error reporting function)
   - elog (logging function)
-  - BlockStateAsString (utility function for debugging)
-  - errcode (error code definition)
-  - errmsg (error message formatting)
+  - [BlockStateAsString](../B/BlockStateAsString.md) (utility function for debugging)
+  - [errcode](../e/errcode.md) (error code definition)
+  - [errmsg](../e/errmsg.md) (error message formatting)
 - Called from (representative examples):
-  - PrepareTransactionBlock (at src/backend/access/transam/xact.c:3947)
-  - pa_stream_abort (at src/backend/replication/logical/applyparallelworker.c:1452)
-  - apply_handle_commit_internal (at src/backend/replication/logical/worker.c:2276)
-  - standard_ProcessUtility (at src/backend/tcop/utility.c:631)
+  - [PrepareTransactionBlock](../P/PrepareTransactionBlock.md) (at src/backend/access/transam/xact.c:3947)
+  - [pa_stream_abort](../p/pa_stream_abort.md) (at src/backend/replication/logical/applyparallelworker.c:1452)
+  - [apply_handle_commit_internal](../a/apply_handle_commit_internal.md) (at src/backend/replication/logical/worker.c:2276)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (at src/backend/tcop/utility.c:631)
 
 ## Notes and Other Information
 - Returns true for COMMIT operations, false for ROLLBACK operations

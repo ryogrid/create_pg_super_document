@@ -28,11 +28,11 @@ The function maintains state across multiple calls, handling partial reads/write
   - gss_init_sec_context (primary GSSAPI negotiation function)
   - gss_wrap_size_limit (determines maximum packet size for encryption)
   - gss_release_buffer, gss_release_cred (GSSAPI resource cleanup)
-  - pg_GSS_load_servicename (loads Kerberos service principal)
-  - pg_GSS_have_cred_cache (acquires cached credentials for delegation)
-  - pg_GSS_error (error reporting)
-  - gss_read (internal wrapper for receiving data)
-  - pqsecure_raw_write (low-level socket write)
+  - [pg_GSS_load_servicename](pg_GSS_load_servicename.md) (loads Kerberos service principal)
+  - [pg_GSS_have_cred_cache](pg_GSS_have_cred_cache.md) (acquires cached credentials for delegation)
+  - [pg_GSS_error](pg_GSS_error.md) (error reporting)
+  - [gss_read](../g/gss_read.md) (internal wrapper for receiving data)
+  - [pqsecure_raw_write](pqsecure_raw_write.md) (low-level socket write)
   - pg_hton32, pg_ntoh32 (network byte order conversion)
 - Called from:
   - CONNECTION_FAILED state handler in fe-connect.c during connection establishment

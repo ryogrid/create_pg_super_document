@@ -24,10 +24,10 @@ The function includes a safety check to only perform the truncation on IPv6 addr
 - Functions called/Symbols referenced:
   - strchr (standard C library function)
 - Called from (representative examples):
-  - fill_hba_line
-  - inet_client_addr
-  - inet_server_addr
-  - pg_stat_get_backend_client_addr
+  - [fill_hba_line](../f/fill_hba_line.md)
+  - [inet_client_addr](../i/inet_client_addr.md)
+  - [inet_server_addr](../i/inet_server_addr.md)
+  - [pg_stat_get_backend_client_addr](../p/pg_stat_get_backend_client_addr.md)
   - PG_STAT_GET_ACTIVITY_COLS
 
 ## Notes and Other Information

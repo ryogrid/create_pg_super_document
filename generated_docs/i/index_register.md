@@ -26,10 +26,10 @@ The function creates a deep copy of the IndexInfo structure and stores it in a s
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (creates memory context for persistent storage)
-  - palloc (allocates memory for IndexList and IndexInfo copies)
+  - [palloc](../p/palloc.md) (allocates memory for IndexList and IndexInfo copies)
   - memcpy (copies IndexInfo structure)
   - copyObject (deep copies expressions and predicates)
-  - MemoryContextSwitchTo (switches memory contexts)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
   - ALLOCSET_DEFAULT_SIZES (default memory context configuration)
   - IndexList (linked list structure for storing index registrations)
   - IndexInfo (structure containing index specification)

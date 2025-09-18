@@ -22,12 +22,12 @@ pqSetResultError copies an error message from a PQExpBuffer into a PGresult's er
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQExpBufferBroken
-  - pqResultStrdup
-  - libpq_gettext
+  - [pqResultStrdup](pqResultStrdup.md)
+  - [libpq_gettext](../l/libpq_gettext.md)
 - Called from (representative examples):
-  - PQmakeEmptyPGresult
-  - pqPrepareAsyncResult
-  - pqGetErrorNotice3
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
+  - [pqPrepareAsyncResult](pqPrepareAsyncResult.md)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md)
 
 ## Notes and Other Information
 - Provides robust error handling with fallback to constant string for OOM scenarios

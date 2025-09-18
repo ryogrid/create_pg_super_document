@@ -27,20 +27,20 @@ This function follows the PostgreSQL function calling convention using `PG_FUNCT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializedRanges (struct type)
-  - Ranges (struct type)
+  - [SerializedRanges](../S/SerializedRanges.md) (struct type)
+  - [Ranges](../R/Ranges.md) (struct type)
   - PG_DETOAST_DATUM
-  - getTypeOutputInfo
-  - fmgr_info
-  - brin_range_deserialize
-  - OutputFunctionCall
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [brin_range_deserialize](brin_range_deserialize.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
   - cstring_to_text_with_len
-  - accumArrayResult
-  - makeArrayResult
-  - OidOutputFunctionCall
+  - [accumArrayResult](../a/accumArrayResult.md)
+  - [makeArrayResult](../m/makeArrayResult.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
   - FunctionCall1
   - cstring_to_text
-  - DatumGetCString
+  - [DatumGetCString](../D/DatumGetCString.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL's type system)

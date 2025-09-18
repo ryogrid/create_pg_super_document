@@ -28,9 +28,9 @@ The function includes assertions to ensure LOCK variants are only used for relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferExtended
-  - BufferGetBlockNumber
-  - IncrBufferRefCount
+  - [ReadBufferExtended](ReadBufferExtended.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
   - ReleaseBuffer
 - Constants/Types referenced:
   - MAIN_FORKNUM
@@ -38,7 +38,7 @@ The function includes assertions to ensure LOCK variants are only used for relat
   - RBM_ZERO_AND_LOCK
   - RBM_ZERO_AND_CLEANUP_LOCK
 - Called from:
-  - RelationGetBufferForTuple
+  - [RelationGetBufferForTuple](RelationGetBufferForTuple.md)
 
 ## Notes and Other Information
 - Static function within hio.c, not exposed to external modules

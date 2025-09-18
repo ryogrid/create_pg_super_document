@@ -21,7 +21,7 @@ This function performs a linear search through the configured synchronized stand
   - strcmp (for string comparison)
   - strlen (for string length calculation)
 - Called from (representative examples):
-  - PhysicalWakeupLogicalWalSnd (in walsender.c)
+  - [PhysicalWakeupLogicalWalSnd](../P/PhysicalWakeupLogicalWalSnd.md) (in walsender.c)
 
 ## Notes and Other Information
 - Returns false immediately if synchronized_standby_slots_config is NULL (no slots configured)

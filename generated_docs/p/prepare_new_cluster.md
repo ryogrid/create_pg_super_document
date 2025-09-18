@@ -23,13 +23,13 @@ No parameters - operates on the global new_cluster structure.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting)
-  - exec_prog (external program execution)
-  - cluster_conn_opts (connection options formatting)
-  - check_ok (status verification)
+  - [prep_status](prep_status.md) (status reporting)
+  - [exec_prog](../e/exec_prog.md) (external program execution)
+  - [cluster_conn_opts](../c/cluster_conn_opts.md) (connection options formatting)
+  - [check_ok](../c/check_ok.md) (status verification)
   - UTILITY_LOG_FILE (log file constant)
 - Called from:
-  - main (from pg_upgrade.c:153)
+  - [main](../m/main.md) (from pg_upgrade.c:153)
 
 ## Notes and Other Information
 - Critical for post-upgrade performance and transaction ID management

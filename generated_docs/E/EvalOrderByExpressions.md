@@ -28,13 +28,13 @@ The function provides the recalculated ORDER BY values that can be compared with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - ExecEvalExpr
   - lfirst (list iteration macro)
   - foreach (list iteration macro)
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:60)
-  - IndexNextWithReorder (nodeIndexscan.c:292)
+  - [IndexNextWithReorder](../I/IndexNextWithReorder.md) (nodeIndexscan.c:292)
 
 ## Notes and Other Information
 - This is a static function used internally within the index scan executor

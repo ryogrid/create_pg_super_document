@@ -21,8 +21,8 @@ This function is part of PostgreSQL's WAL record description system, specificall
   - XLogRecGetData
   - XLogRecGetInfo
   - XLogRecHasBlockData
-  - XLogRecGetBlockData
-  - delvacuum_desc
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [delvacuum_desc](../d/delvacuum_desc.md)
   - appendStringInfo
   - EpochFromFullTransactionId
   - XidFromFullTransactionId

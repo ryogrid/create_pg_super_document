@@ -39,14 +39,14 @@ The function is inherently racy due to lock releases for syscalls, requiring car
   - LWLockHeldByMeInMode/LWLockRelease/LWLockAcquire
   - SlotIsLogical
   - TransactionIdIsValid/TransactionIdPrecedesOrEquals
-  - ConditionVariablePrepareToSleep/ConditionVariableSleep
-  - ReportSlotInvalidation
-  - SendProcSignal
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)/ConditionVariableSleep
+  - [ReportSlotInvalidation](../R/ReportSlotInvalidation.md)
+  - [SendProcSignal](../S/SendProcSignal.md)
   - kill
-  - ReplicationSlotMarkDirty/ReplicationSlotSave/ReplicationSlotRelease
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)/ReplicationSlotSave/ReplicationSlotRelease
   - pg_unreachable
 - Called from (representative examples):
-  - InvalidateObsoleteReplicationSlots
+  - [InvalidateObsoleteReplicationSlots](InvalidateObsoleteReplicationSlots.md)
 
 ## Notes and Other Information
 This function implements PostgreSQL's slot invalidation strategy, balancing the need to free resources with minimizing disruption to active replication. The retry mechanism and careful lock management prevent race conditions while the process termination logic ensures that obsolete slots don't indefinitely block resource cleanup. The function's return value indicates whether locks were released, signaling the caller to restart its iteration.

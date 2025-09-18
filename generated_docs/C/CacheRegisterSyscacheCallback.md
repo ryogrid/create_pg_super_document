@@ -37,11 +37,11 @@ The function maintains a global callback list and uses a link array to organize 
   - syscache_callback_list (global array storing callback information)
   - elog (error logging function)
 - Called from (representative examples):
-  - InitializeSearchPath (src/backend/catalog/namespace.c:4766,4771,4776,4781)
-  - lookup_proof_cache (src/backend/optimizer/util/predtest.c:2128)
-  - find_oper_cache_entry (src/backend/parser/parse_oper.c:996,999)
-  - InitPlanCache (src/backend/utils/cache/plancache.c:158-164)
-  - lookup_type_cache (src/backend/utils/cache/typcache.c:363-365)
+  - [InitializeSearchPath](../I/InitializeSearchPath.md) (src/backend/catalog/namespace.c:4766,4771,4776,4781)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md) (src/backend/optimizer/util/predtest.c:2128)
+  - [find_oper_cache_entry](../f/find_oper_cache_entry.md) (src/backend/parser/parse_oper.c:996,999)
+  - [InitPlanCache](../I/InitPlanCache.md) (src/backend/utils/cache/plancache.c:158-164)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:363-365)
 
 ## Notes and Other Information
 - The callback registration is permanent for the lifetime of the backend process

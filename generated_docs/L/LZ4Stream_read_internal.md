@@ -23,8 +23,8 @@ This is the primary workhorse function for LZ4 decompression in PostgreSQL's pg_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LZ4Stream_init (internal initialization function)
-  - LZ4Stream_read_overflow (overflow buffer management function)
+  - [LZ4Stream_init](LZ4Stream_init.md) (internal initialization function)
+  - [LZ4Stream_read_overflow](LZ4Stream_read_overflow.md) (overflow buffer management function)
   - LZ4F_decompress (LZ4 library decompression function)
   - LZ4F_isError (LZ4 library error checking function)
   - LZ4F_getErrorName (LZ4 library error message function)
@@ -36,14 +36,14 @@ This is the primary workhorse function for LZ4 decompression in PostgreSQL's pg_
   - memset (standard C library memory initialization function)
   - pg_malloc (PostgreSQL memory allocation function)
   - pg_realloc (PostgreSQL memory reallocation function)
-  - pg_free (PostgreSQL memory deallocation function)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory deallocation function)
   - pg_log_error (PostgreSQL logging function)
 - Types referenced:
-  - LZ4State
+  - [LZ4State](LZ4State.md)
 - Called from:
-  - LZ4Stream_read (at compress_lz4.c:615)
-  - LZ4Stream_getc (at compress_lz4.c:630) 
-  - LZ4Stream_gets (at compress_lz4.c:650)
+  - [LZ4Stream_read](LZ4Stream_read.md) (at compress_lz4.c:615)
+  - [LZ4Stream_getc](LZ4Stream_getc.md) (at compress_lz4.c:630) 
+  - [LZ4Stream_gets](LZ4Stream_gets.md) (at compress_lz4.c:650)
 
 ## Notes and Other Information
 - This function implements sophisticated buffer management, including dynamic buffer resizing and overflow handling to accommodate varying decompression ratios

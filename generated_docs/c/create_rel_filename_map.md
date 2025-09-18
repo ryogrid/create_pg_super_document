@@ -27,11 +27,11 @@ The function preserves critical identifiers like database OID and relation file 
 - Functions called/Symbols referenced:
   - (Uses global variables old_cluster.tablespace_suffix and new_cluster.tablespace_suffix)
 - Data structures used:
-  - DbInfo
-  - RelInfo
+  - [DbInfo](../D/DbInfo.md)
+  - [RelInfo](../R/RelInfo.md)
   - FileNameMap
 - Called from (representative examples):
-  - gen_db_file_maps
+  - [gen_db_file_maps](../g/gen_db_file_maps.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the same source file (info.c)

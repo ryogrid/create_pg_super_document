@@ -18,10 +18,10 @@ This function initializes a parallel worker process that will participate in a f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - FdwRoutine.InitializeWorkerForeignScan (if available)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [FdwRoutine](../F/FdwRoutine.md).InitializeWorkerForeignScan (if available)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md)
 
 ## Notes and Other Information
 - Only performs initialization if the foreign data wrapper provides an InitializeWorkerForeignScan routine

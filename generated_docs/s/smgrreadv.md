@@ -24,7 +24,7 @@ The smgrreadv function is a storage manager interface for performing vectorized 
   - smgrsw[].smgr_readv (storage manager implementation function)
   - SMgrRelation (relation structure)
 - Called from (representative examples):
-  - WaitReadBuffers (buffer read completion handling)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md) (buffer read completion handling)
   - smgrread (single block read wrapper function)
 
 ## Notes and Other Information

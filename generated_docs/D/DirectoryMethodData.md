@@ -24,15 +24,15 @@ DirectoryMethodData is a concrete implementation of the WAL writing method for d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalWriteMethod (base structure)
+  - [WalWriteMethod](../W/WalWriteMethod.md) (base structure)
 - Called from (representative examples):
-  - dir_open_for_write (creates and uses DirectoryMethodData instances)
-  - dir_close (accesses DirectoryMethodData for file operations)
-  - dir_get_file_size (uses DirectoryMethodData for file size queries)
-  - dir_existsfile (checks file existence using DirectoryMethodData)
-  - dir_finish (finalizes DirectoryMethodData operations)
-  - dir_free (deallocates DirectoryMethodData)
-  - CreateWalDirectoryMethod (instantiates DirectoryMethodData)
+  - [dir_open_for_write](../d/dir_open_for_write.md) (creates and uses DirectoryMethodData instances)
+  - [dir_close](../d/dir_close.md) (accesses DirectoryMethodData for file operations)
+  - [dir_get_file_size](../d/dir_get_file_size.md) (uses DirectoryMethodData for file size queries)
+  - [dir_existsfile](../d/dir_existsfile.md) (checks file existence using DirectoryMethodData)
+  - [dir_finish](../d/dir_finish.md) (finalizes DirectoryMethodData operations)
+  - [dir_free](../d/dir_free.md) (deallocates DirectoryMethodData)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (instantiates DirectoryMethodData)
 
 ## Notes and Other Information
 - This structure follows PostgreSQL's object-oriented programming pattern in C, where the base structure is embedded as the first member

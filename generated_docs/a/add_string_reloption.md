@@ -22,13 +22,13 @@ This function registers a new string-type reloption in PostgreSQL's reloption sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_string_reloption
-  - add_reloption
-  - relopt_string
-  - relopt_gen
+  - [init_string_reloption](../i/init_string_reloption.md)
+  - [add_reloption](add_reloption.md)
+  - [relopt_string](../r/relopt_string.md)
+  - [relopt_gen](../r/relopt_gen.md)
 - Called from (representative examples):
   - GET_STRING_RELOPTION (macro)
-  - create_reloptions_table (test module)
+  - [create_reloptions_table](../c/create_reloptions_table.md) (test module)
 
 ## Notes and Other Information
 - The validator function, if provided, must call elog(ERROR) when the string value is invalid

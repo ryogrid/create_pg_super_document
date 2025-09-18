@@ -31,24 +31,24 @@ The algorithm preserves segments from parent timelines to avoid premature remova
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLByteToSeg
-  - XLOGfileslop
-  - XLogFileName
+  - [XLOGfileslop](../X/XLOGfileslop.md)
+  - [XLogFileName](../X/XLogFileName.md)
   - AllocateDir
   - ReadDir
   - FreeDir
-  - IsXLogFileName
-  - IsPartialXLogFileName
-  - XLogArchiveCheckDone
-  - UpdateLastRemovedPtr
-  - RemoveXlogFile
+  - [IsXLogFileName](../I/IsXLogFileName.md)
+  - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md)
+  - [XLogArchiveCheckDone](../X/XLogArchiveCheckDone.md)
+  - [UpdateLastRemovedPtr](../U/UpdateLastRemovedPtr.md)
+  - [RemoveXlogFile](RemoveXlogFile.md)
   - elog
 - Constants used:
   - XLOGDIR
   - DEBUG2
   - MAXFNAMELEN
 - Called from:
-  - CreateCheckPoint
-  - CreateRestartPoint
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

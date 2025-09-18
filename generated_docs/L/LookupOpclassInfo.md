@@ -21,16 +21,16 @@ This static function implements a caching mechanism for operator class informati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create, hash_search
-  - CreateCacheMemoryContext, MemoryContextAllocZero
-  - ScanKeyInit, table_open, table_close
-  - systable_beginscan, systable_endscan, systable_getnext
+  - [hash_create](../h/hash_create.md), hash_search
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md), MemoryContextAllocZero
+  - [ScanKeyInit](../S/ScanKeyInit.md), table_open, table_close
+  - [systable_beginscan](../s/systable_beginscan.md), systable_endscan, systable_getnext
   - HeapTupleIsValid, GETSTRUCT
-  - ObjectIdGetDatum, F_OIDEQ, BTEqualStrategyNumber
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md), F_OIDEQ, BTEqualStrategyNumber
   - elog, Assert
   - OpClassCacheEnt, HASHCTL, SysScanDesc, Form_pg_opclass, Form_pg_amproc (types)
 - Called from:
-  - IndexSupportInitialize
+  - [IndexSupportInitialize](../I/IndexSupportInitialize.md)
 
 ## Notes and Other Information
 - Implements a persistent cache that is never flushed (acceptable since operator classes are rarely modified)

@@ -18,11 +18,11 @@ This function creates a complete data structure that PL/Perl trigger functions r
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall1
-  - oidout
-  - DatumGetCString
-  - cstr2sv
-  - hv_store_string
-  - plperl_hash_from_tuple
+  - [oidout](../o/oidout.md)
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [cstr2sv](../c/cstr2sv.md)
+  - [hv_store_string](../h/hv_store_string.md)
+  - [plperl_hash_from_tuple](plperl_hash_from_tuple.md)
   - newRV_noinc
   - SPI_getrelname
   - SPI_getnspname
@@ -30,7 +30,7 @@ This function creates a complete data structure that PL/Perl trigger functions r
   - TRIGGER_FIRED_FOR_ROW/STATEMENT
   - TRIGGER_FIRED_BEFORE/AFTER/INSTEAD
 - Called from (representative examples):
-  - plperl_trigger_handler
+  - [plperl_trigger_handler](plperl_trigger_handler.md)
 
 ## Notes and Other Information
 - Returns a hash reference with keys: name, relid, event, argc, args, relname, table_name, table_schema, when, level, old, new

@@ -39,11 +39,11 @@ The spgxlogSplitTuple structure is used in SP-GiST WAL records to capture operat
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (PostgreSQL offset type)
-  - bool (boolean type)
+  - [bool](../b/bool.md) (boolean type)
 - Called from (representative examples):
-  - spg_desc (in spgdesc.c:72)
-  - spgSplitNodeAction (in spgdoinsert.c:1726)
-  - spgRedoSplitTuple (in spgxlog.c:455, 464)
+  - [spg_desc](spg_desc.md) (in spgdesc.c:72)
+  - [spgSplitNodeAction](spgSplitNodeAction.md) (in spgdoinsert.c:1726)
+  - [spgRedoSplitTuple](spgRedoSplitTuple.md) (in spgxlog.c:455, 464)
 
 ## Notes and Other Information
 - This structure represents a key operation in SP-GiST index maintenance where complex inner tuples are split for better tree organization

@@ -18,10 +18,10 @@ RemoveReindexPending is a static function that removes a specific index from the
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsInParallelMode
-  - list_delete_oid
+  - [list_delete_oid](../l/list_delete_oid.md)
 - Called from (representative examples):
-  - SetReindexProcessing
-  - reindex_relation
+  - [SetReindexProcessing](../S/SetReindexProcessing.md)
+  - [reindex_relation](../r/reindex_relation.md)
   - SerializedReindexState
 
 ## Notes and Other Information

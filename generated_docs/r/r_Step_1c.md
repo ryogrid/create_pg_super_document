@@ -34,15 +34,15 @@ The function uses a branching approach to check both lowercase 'y' and uppercase
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping_b (checks if character is outside vowel group)
-  - slice_from_s (replaces marked substring with specified string)
+  - [out_grouping_b](../o/out_grouping_b.md) (checks if character is outside vowel group)
+  - [slice_from_s](../s/slice_from_s.md) (replaces marked substring with specified string)
   - g_v (vowel character group: a,e,i,o,u,y range 97-121)
   - s_8 (replacement string: "i")
 - Called from (representative examples):
-  - english_ISO_8859_1_stem
-  - porter_ISO_8859_1_stem
-  - english_UTF_8_stem
-  - porter_UTF_8_stem
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md)
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md)
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md)
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful transformation, 0 if no changes were made, or negative values on error

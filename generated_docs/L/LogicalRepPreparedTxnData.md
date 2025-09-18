@@ -26,14 +26,14 @@ This structure encapsulates essential information about prepared transactions in
   - TransactionId
   - GIDSIZE
 - Used by functions:
-  - logicalrep_read_begin_prepare
-  - logicalrep_read_prepare_common
+  - [logicalrep_read_begin_prepare](../l/logicalrep_read_begin_prepare.md)
+  - [logicalrep_read_prepare_common](../l/logicalrep_read_prepare_common.md)
   - logicalrep_read_prepare
-  - logicalrep_read_stream_prepare
-  - apply_handle_begin_prepare
-  - apply_handle_prepare_internal
-  - apply_handle_prepare
-  - apply_handle_stream_prepare
+  - [logicalrep_read_stream_prepare](../l/logicalrep_read_stream_prepare.md)
+  - [apply_handle_begin_prepare](../a/apply_handle_begin_prepare.md)
+  - [apply_handle_prepare_internal](../a/apply_handle_prepare_internal.md)
+  - [apply_handle_prepare](../a/apply_handle_prepare.md)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
 
 ## Notes and Other Information
 This structure is part of the logical replication protocol implementation and is essential for supporting two-phase commit in logical replication scenarios. It ensures that prepared transaction information is properly communicated between replication participants, maintaining ACID properties in distributed environments.

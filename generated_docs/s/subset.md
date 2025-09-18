@@ -26,13 +26,13 @@ Debug information is also logged when MDEBUG is enabled, showing the subexpressi
 - Functions called/Symbols referenced:
   - struct vars (regex execution variables structure)
   - struct subre (subexpression tree node structure)
-  - chr (character type)
+  - [chr](../c/chr.md) (character type)
   - LOFF (macro for converting pointer to offset for debugging)
   - MDEBUG (debug logging macro)
   - OFF (macro for converting character pointer to offset)
 - Called from (representative examples):
   - LOFF (macro/function at src/backend/regex/regexec.c:148)
-  - cdissect (function at src/backend/regex/regexec.c:820)
+  - [cdissect](../c/cdissect.md) (function at src/backend/regex/regexec.c:820)
 
 ## Notes and Other Information
 - This is a static function, only accessible within regexec.c

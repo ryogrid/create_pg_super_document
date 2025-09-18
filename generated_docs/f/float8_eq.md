@@ -24,12 +24,12 @@ The implementation uses a conditional expression that first checks if val1 is Na
 - Functions called/Symbols referenced:
   - isnan (standard C library function for NaN detection)
 - Called from (representative examples):
-  - float8eq (SQL-callable equality function)
-  - float48eq (mixed precision equality function)
-  - float84eq (mixed precision equality function) 
-  - gist_box_same (GiST index operations)
-  - line_eq (geometric line equality)
-  - point_eq_point (geometric point equality)
+  - [float8eq](float8eq.md) (SQL-callable equality function)
+  - [float48eq](float48eq.md) (mixed precision equality function)
+  - [float84eq](float84eq.md) (mixed precision equality function) 
+  - [gist_box_same](../g/gist_box_same.md) (GiST index operations)
+  - [line_eq](../l/line_eq.md) (geometric line equality)
+  - [point_eq_point](../p/point_eq_point.md) (geometric point equality)
 
 ## Notes and Other Information
 - This is an inline function defined in utils/float.h for performance

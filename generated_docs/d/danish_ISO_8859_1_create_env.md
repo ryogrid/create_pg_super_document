@@ -21,7 +21,7 @@ The function initializes the environment with parameters specific to Danish lang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (called with parameters 1, 2)
+  - [SN_create_env](../S/SN_create_env.md) (called with parameters 1, 2)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

@@ -22,7 +22,7 @@ This function implements a year adjustment algorithm that converts partial year 
   - None (uses only basic arithmetic operations)
 - Called from (representative examples):
   - DCH_ZONED
-  - DCH_from_char
+  - [DCH_from_char](../D/DCH_from_char.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/formatting.c

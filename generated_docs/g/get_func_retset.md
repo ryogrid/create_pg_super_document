@@ -19,15 +19,15 @@ The function uses PostgreSQL's system cache mechanism (SearchSysCache1) for effi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - make_op (src/backend/parser/parse_oper.c:747)
-  - make_scalar_array_op (src/backend/parser/parse_oper.c:846)
+  - [make_op](../m/make_op.md) (src/backend/parser/parse_oper.c:747)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md) (src/backend/parser/parse_oper.c:846)
 
 ## Notes and Other Information
 - Part of the lsyscache.c module which provides convenient access functions for system catalog information

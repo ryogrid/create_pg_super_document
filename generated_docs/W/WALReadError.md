@@ -23,16 +23,16 @@ The structure is primarily populated by low-level WAL reading functions like pg_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WALOpenSegment (for segment information storage)
+  - [WALOpenSegment](WALOpenSegment.md) (for segment information storage)
 
 - Called from (representative examples):
-  - WALRead (src/backend/access/transam/xlogreader.c:1515)
-  - read_local_xlog_page_guts (src/backend/access/transam/xlogutils.c:893)
-  - WALReadRaiseError (src/backend/access/transam/xlogutils.c:1020)
-  - summarizer_read_local_xlog_page (src/backend/postmaster/walsummarizer.c:1502)
-  - logical_read_xlog_page (src/backend/replication/walsender.c:1060)
-  - XLogSendPhysical (src/backend/replication/walsender.c:3107)
-  - WALDumpReadPage (src/bin/pg_waldump/pg_waldump.c:394)
+  - [WALRead](WALRead.md) (src/backend/access/transam/xlogreader.c:1515)
+  - [read_local_xlog_page_guts](../r/read_local_xlog_page_guts.md) (src/backend/access/transam/xlogutils.c:893)
+  - [WALReadRaiseError](WALReadRaiseError.md) (src/backend/access/transam/xlogutils.c:1020)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md) (src/backend/postmaster/walsummarizer.c:1502)
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md) (src/backend/replication/walsender.c:1060)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md) (src/backend/replication/walsender.c:3107)
+  - [WALDumpReadPage](WALDumpReadPage.md) (src/bin/pg_waldump/pg_waldump.c:394)
 
 ## Notes and Other Information
 - This structure is designed to work across both backend and frontend contexts, making it suitable for use in standalone utilities like pg_waldump as well as server processes

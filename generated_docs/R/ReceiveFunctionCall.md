@@ -25,14 +25,14 @@ This function provides the binary counterpart to InputFunctionCall, handling con
   - LOCAL_FCINFO (macro for local function call info)
   - InitFunctionCallInfoData (initializes function call structure)
   - FunctionCallInvoke (invokes the actual function)
-  - PointerGetDatum (converts pointer to Datum - implicitly used)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum - implicitly used)
 - Called from (representative examples):
-  - CopyReadBinaryAttribute
-  - ReadArrayBinary
-  - domain_recv
-  - range_recv
-  - record_recv
-  - OidReceiveFunctionCall
+  - [CopyReadBinaryAttribute](../C/CopyReadBinaryAttribute.md)
+  - [ReadArrayBinary](ReadArrayBinary.md)
+  - [domain_recv](../d/domain_recv.md)
+  - [range_recv](../r/range_recv.md)
+  - [record_recv](../r/record_recv.md)
+  - [OidReceiveFunctionCall](../O/OidReceiveFunctionCall.md)
 
 ## Notes and Other Information
 - Binary counterpart to InputFunctionCall - handles binary format instead of text format

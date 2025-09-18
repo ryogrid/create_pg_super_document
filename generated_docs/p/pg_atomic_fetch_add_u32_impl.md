@@ -24,13 +24,13 @@ This implementation is part of PostgreSQL's portable atomic operations layer, wh
 - Functions called/Symbols referenced:
   - `SpinLockAcquire` (PostgreSQL spinlock function)
   - `SpinLockRelease` (PostgreSQL spinlock function)
-  - `slock_t` (PostgreSQL spinlock type)
-  - `pg_atomic_uint32` (PostgreSQL atomic type)
+  - `[slock_t](../s/slock_t.md)` (PostgreSQL spinlock type)
+  - `[pg_atomic_uint32](pg_atomic_uint32.md)` (PostgreSQL atomic type)
 - Called from (representative examples):
-  - `pg_atomic_fetch_add_u32`
-  - `pg_atomic_fetch_sub_u32_impl`
-  - `pg_atomic_add_fetch_u32_impl`
-  - `pg_atomic_read_membarrier_u32_impl`
+  - `[pg_atomic_fetch_add_u32](pg_atomic_fetch_add_u32.md)`
+  - `[pg_atomic_fetch_sub_u32_impl](pg_atomic_fetch_sub_u32_impl.md)`
+  - `[pg_atomic_add_fetch_u32_impl](pg_atomic_add_fetch_u32_impl.md)`
+  - `[pg_atomic_read_membarrier_u32_impl](pg_atomic_read_membarrier_u32_impl.md)`
 
 ## Notes and Other Information
 - This is a fallback implementation used when hardware atomic operations are not available

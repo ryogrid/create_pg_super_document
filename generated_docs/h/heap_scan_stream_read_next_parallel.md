@@ -26,12 +26,12 @@ The function uses PostgreSQL's parallel scan infrastructure to ensure that multi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
-  - table_block_parallelscan_startblock_init
-  - table_block_parallelscan_nextpage
-  - ParallelBlockTableScanDesc (type cast)
-  - HeapScanDesc (type cast)
+  - [table_block_parallelscan_startblock_init](../t/table_block_parallelscan_startblock_init.md)
+  - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md)
+  - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (type cast)
+  - [HeapScanDesc](../H/HeapScanDesc.md) (type cast)
 - Called from (representative examples):
-  - heap_beginscan (src/backend/access/heap/heapam.c:1178)
+  - [heap_beginscan](heap_beginscan.md) (src/backend/access/heap/heapam.c:1178)
 
 ## Notes and Other Information
 - This function only works with forward sequential scans (asserted via ScanDirectionIsForward)

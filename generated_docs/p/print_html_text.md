@@ -18,12 +18,12 @@ This function generates HTML table output from PostgreSQL query results stored i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - html_escaped_print (for escaping HTML content)
-  - footers_with_default (for retrieving table footers)
+  - [html_escaped_print](../h/html_escaped_print.md) (for escaping HTML content)
+  - [footers_with_default](../f/footers_with_default.md) (for retrieving table footers)
   - fprintf, fputs, fputc (standard C library functions)
   - strspn (standard C library function)
 - Called from:
-  - printTable (src/fe_utils/print.c:3503)
+  - [printTable](printTable.md) (src/fe_utils/print.c:3503)
 
 ## Notes and Other Information
 - Generates complete HTML table markup with configurable border and table attributes

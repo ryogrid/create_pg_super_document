@@ -20,10 +20,10 @@ This static function serves as a wrapper that validates and sanitizes network in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - callback (function pointer parameter)
-  - pg_sockaddr_cidr_mask
+  - [callback](../c/callback.md) (function pointer parameter)
+  - [pg_sockaddr_cidr_mask](../p/pg_sockaddr_cidr_mask.md)
 - Called from (representative examples):
-  - pg_foreach_ifaddr
+  - [pg_foreach_ifaddr](../p/pg_foreach_ifaddr.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

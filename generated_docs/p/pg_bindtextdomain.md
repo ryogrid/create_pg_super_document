@@ -23,13 +23,13 @@ This function is typically called during PostgreSQL initialization phases and by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `get_locale_path`: Constructs the locale directory path based on the executable location
+  - `[get_locale_path](../g/get_locale_path.md)`: Constructs the locale directory path based on the executable location
   - `bindtextdomain`: Standard gettext function that binds a domain to a directory
-  - `pg_bind_textdomain_codeset`: Sets the appropriate character encoding for the text domain
+  - `[pg_bind_textdomain_codeset](pg_bind_textdomain_codeset.md)`: Sets the appropriate character encoding for the text domain
 - Called from (representative examples):
-  - `_PG_init` (in plperl.c): PL/Perl language initialization  
-  - `_PG_init` (in plpy_main.c): PL/Python language initialization
-  - `_PG_init` (in pltcl.c): PL/Tcl language initialization
+  - `[_PG_init](../P/_PG_init.md)` (in plperl.c): PL/Perl language initialization  
+  - `[_PG_init](../P/_PG_init.md)` (in plpy_main.c): PL/Python language initialization
+  - `[_PG_init](../P/_PG_init.md)` (in pltcl.c): PL/Tcl language initialization
   - `INIT_PG_OVERRIDE_ROLE_LOGIN`: Role login override macro
 
 ## Notes and Other Information

@@ -21,15 +21,15 @@ This function creates and initializes an index scan descriptor for scanning an i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_beginscan_internal (internal scan initialization)
+  - [index_beginscan_internal](index_beginscan_internal.md) (internal scan initialization)
   - table_index_fetch_begin (heap fetch preparation)
   - InvalidSnapshot (constant for validation)
-  - IndexScanDesc (return type structure)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (return type structure)
 - Called from (representative examples):
-  - systable_beginscan (src/backend/access/index/genam.c:442)
-  - systable_beginscan_ordered (src/backend/access/index/genam.c:700)
-  - IndexNext (src/backend/executor/nodeIndexscan.c:109)
-  - IndexOnlyNext (src/backend/executor/nodeIndexonlyscan.c:92)
+  - [systable_beginscan](../s/systable_beginscan.md) (src/backend/access/index/genam.c:442)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md) (src/backend/access/index/genam.c:700)
+  - [IndexNext](../I/IndexNext.md) (src/backend/executor/nodeIndexscan.c:109)
+  - [IndexOnlyNext](../I/IndexOnlyNext.md) (src/backend/executor/nodeIndexonlyscan.c:92)
 
 ## Notes and Other Information
 - Part of PostgreSQL's index access method abstraction layer

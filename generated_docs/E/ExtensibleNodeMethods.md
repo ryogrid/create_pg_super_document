@@ -37,17 +37,17 @@ The core system handles the standard fields (type and extnodename) automatically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtensibleNode (referenced in callback signatures)
+  - [ExtensibleNode](ExtensibleNode.md) (referenced in callback signatures)
   - Size (for node_size field)
-  - StringInfoData (for nodeOut callback)
-  - nodeRead (function pointer type)
+  - [StringInfoData](../S/StringInfoData.md) (for nodeOut callback)
+  - [nodeRead](../n/nodeRead.md) (function pointer type)
 - Called from (representative examples):
-  - RegisterExtensibleNodeMethods (registration function)
-  - GetExtensibleNodeMethods (lookup function)
-  - _copyExtensibleNode (copy operations)
-  - _equalExtensibleNode (equality operations)
-  - _outExtensibleNode (output operations)
-  - _readExtensibleNode (read operations)
+  - [RegisterExtensibleNodeMethods](../R/RegisterExtensibleNodeMethods.md) (registration function)
+  - [GetExtensibleNodeMethods](../G/GetExtensibleNodeMethods.md) (lookup function)
+  - [_copyExtensibleNode](../c/_copyExtensibleNode.md) (copy operations)
+  - [_equalExtensibleNode](../e/_equalExtensibleNode.md) (equality operations)
+  - [_outExtensibleNode](../o/_outExtensibleNode.md) (output operations)
+  - [_readExtensibleNode](../r/_readExtensibleNode.md) (read operations)
 
 ## Notes and Other Information
 - All callback functions are mandatory - extensions must provide implementations for all of them

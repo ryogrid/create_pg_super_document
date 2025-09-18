@@ -36,10 +36,10 @@ This provides more precise control over timezone handling than the session-based
   - PG_GETARG_INT32 (macro)
   - PG_GETARG_FLOAT8 (macro)
   - PG_GETARG_TEXT_PP (macro)
-  - make_timestamp_internal
-  - timestamp2tm
-  - parse_sane_timezone
-  - dt2local
+  - [make_timestamp_internal](make_timestamp_internal.md)
+  - [timestamp2tm](../t/timestamp2tm.md)
+  - [parse_sane_timezone](../p/parse_sane_timezone.md)
+  - [dt2local](../d/dt2local.md)
   - IS_VALID_TIMESTAMP
   - PG_RETURN_TIMESTAMPTZ (macro)
 - Called from:

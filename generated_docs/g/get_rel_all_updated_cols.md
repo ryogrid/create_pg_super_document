@@ -29,11 +29,11 @@ This function is essential for UPDATE planning in inheritance hierarchies and en
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - getRTEPermissionInfo
-  - find_base_rel
-  - translate_col_privs_multilevel
-  - get_dependent_generated_columns
-  - bms_union
+  - [getRTEPermissionInfo](getRTEPermissionInfo.md)
+  - [find_base_rel](../f/find_base_rel.md)
+  - [translate_col_privs_multilevel](../t/translate_col_privs_multilevel.md)
+  - [get_dependent_generated_columns](get_dependent_generated_columns.md)
+  - [bms_union](../b/bms_union.md)
   - IS_SIMPLE_REL, IS_OTHER_REL macros
 - Called from (representative examples):
   - Referenced in header file INHERIT_H

@@ -36,15 +36,15 @@ The function uses a goto-based reread loop to handle the transition from nowait 
 - Functions called/Symbols referenced:
   - castNode
   - ExecClearTuple
-  - binaryheap_reset
+  - [binaryheap_reset](../b/binaryheap_reset.md)
   - TupIsNull
-  - gather_merge_readnext
-  - binaryheap_add_unordered
-  - load_tuple_array
-  - binaryheap_build
+  - [gather_merge_readnext](gather_merge_readnext.md)
+  - [binaryheap_add_unordered](../b/binaryheap_add_unordered.md)
+  - [load_tuple_array](../l/load_tuple_array.md)
+  - [binaryheap_build](../b/binaryheap_build.md)
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
-  - gather_merge_getnext
+  - [gather_merge_getnext](gather_merge_getnext.md)
 
 ## Notes and Other Information
 - Uses a two-phase reading strategy (nowait then wait) to optimize for responsive sources while ensuring all sources are checked

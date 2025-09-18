@@ -20,19 +20,19 @@ The function includes additional error checking to ensure that the  server funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
+  - [lo_initialize](lo_initialize.md)
   - PQfn
-  - PQclear
-  - PQresultStatus
-  - lo_ntoh64
-  - libpq_append_conn_error
+  - [PQclear](../P/PQclear.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [lo_ntoh64](lo_ntoh64.md)
+  - [libpq_append_conn_error](libpq_append_conn_error.md)
 - Types referenced:
   - pg_int64
   - PQArgBlock
   - PGresult
   - PGRES_COMMAND_OK
 - Called from (representative examples):
-  - pickout (in testlo64.c test program)
+  - [pickout](../p/pickout.md) (in testlo64.c test program)
   - Client applications requiring large object support > 2GB
 
 ## Notes and Other Information
@@ -40,5 +40,5 @@ The function includes additional error checking to ensure that the  server funct
 - Supports large objects up to theoretical 64-bit size limits
 - Includes specific error checking for function availability on older PostgreSQL servers
 - Performs network byte order conversion for proper cross-platform 64-bit integer handling
-- Result length must be exactly 8 bytes for the operation to be considered successful
+- [Result](../R/Result.md) length must be exactly 8 bytes for the operation to be considered successful
 - Part of PostgreSQL's extended large object interface for handling very large objects

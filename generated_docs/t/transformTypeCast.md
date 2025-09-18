@@ -18,15 +18,15 @@ The  function is responsible for processing explicit type cast operations in SQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameTypeIdAndMod
-  - getBaseTypeAndTypmod  
-  - get_element_type
+  - [typenameTypeIdAndMod](typenameTypeIdAndMod.md)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)  
+  - [get_element_type](../g/get_element_type.md)
   - transformArrayExpr
-  - transformExprRecurse
-  - coerce_to_target_type
-  - parser_coercion_errposition
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [parser_coercion_errposition](../p/parser_coercion_errposition.md)
 - Called from (representative examples):
-  - transformExprRecurse
+  - [transformExprRecurse](transformExprRecurse.md)
 
 ## Notes and Other Information
 - The function prioritizes the location of the :: or CAST symbol for error reporting, falling back to the type name location if unavailable

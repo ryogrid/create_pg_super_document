@@ -20,11 +20,11 @@ This function selects a random uint32 uniformly from the full range [0, PG_UINT3
   - xoroshiro128ss (the core PRNG algorithm)
   - pg_prng_state (state structure type)
 - Called from (representative examples):
-  - _bt_findinsertloc (B-tree insertion)
-  - acquire_sample_rows (table sampling)
-  - ExecInitSampleScan (sample scan initialization)
-  - dsm_create (dynamic shared memory)
-  - CatalogCacheCreateEntry (catalog cache)
+  - [_bt_findinsertloc](../b/_bt_findinsertloc.md) (B-tree insertion)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (table sampling)
+  - [ExecInitSampleScan](../E/ExecInitSampleScan.md) (sample scan initialization)
+  - [dsm_create](../d/dsm_create.md) (dynamic shared memory)
+  - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md) (catalog cache)
   - Multiple sampling and random selection functions
 
 ## Notes and Other Information

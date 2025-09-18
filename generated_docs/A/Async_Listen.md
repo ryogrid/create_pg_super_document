@@ -18,11 +18,11 @@ Async_Listen is the entry point function for the SQL LISTEN command. It provides
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)
-  - queue_listen
+  - [queue_listen](../q/queue_listen.md)
   - LISTEN_LISTEN (enum constant)
   - DEBUG1 (logging level)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Provides debug logging with process ID when Trace_notify is enabled

@@ -18,17 +18,17 @@ Async_Notify is the core function that implements PostgreSQL's asynchronous noti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
   - IsParallelWorker
-  - MemoryContextSwitchTo
-  - MemoryContextAlloc
-  - AsyncExistsPendingNotify
-  - AddEventToPendingNotifies
-  - Notification (struct)
-  - NotificationList (struct)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [AsyncExistsPendingNotify](AsyncExistsPendingNotify.md)
+  - [AddEventToPendingNotifies](AddEventToPendingNotifies.md)
+  - [Notification](../N/Notification.md) (struct)
+  - [NotificationList](../N/NotificationList.md) (struct)
 - Called from (representative examples):
-  - pg_notify
-  - standard_ProcessUtility
+  - [pg_notify](../p/pg_notify.md)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Prevents execution from parallel workers due to shared memory constraints

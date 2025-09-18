@@ -37,7 +37,7 @@ The function initializes extensive merge-specific metadata including merge famil
   - MergeJoin (plan node structure)
   - JoinType (enumeration for join types)
 - Called from (representative examples):
-  - create_mergejoin_plan (in createplan.c:4726)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (in createplan.c:4726)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the plan creation subsystem

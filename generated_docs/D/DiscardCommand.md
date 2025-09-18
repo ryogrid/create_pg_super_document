@@ -26,14 +26,14 @@ The function is designed to handle different levels of session cleanup, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DiscardAll
-  - ResetPlanCache
-  - ResetSequenceCaches
-  - ResetTempTableNamespace
+  - [DiscardAll](DiscardAll.md)
+  - [ResetPlanCache](../R/ResetPlanCache.md)
+  - [ResetSequenceCaches](../R/ResetSequenceCaches.md)
+  - [ResetTempTableNamespace](../R/ResetTempTableNamespace.md)
   - DiscardStmt (structure)
   - DISCARD_ALL, DISCARD_PLANS, DISCARD_SEQUENCES, DISCARD_TEMP (enum values)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - The function uses a switch statement to handle different discard targets efficiently

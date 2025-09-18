@@ -27,12 +27,12 @@ Key authorization rules enforced:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserNameFromId
+  - [GetUserNameFromId](../G/GetUserNameFromId.md)
   - superuser_arg
   - is_admin_of_role
 - Called from (representative examples):
-  - CreateRole
-  - GrantRole
+  - [CreateRole](../C/CreateRole.md)
+  - [GrantRole](../G/GrantRole.md)
 
 ## Notes and Other Information
 - Throws ERROR with appropriate SQLSTATE codes when authorization fails

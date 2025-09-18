@@ -23,17 +23,17 @@ The function allocates memory for the result string using PostgreSQL's memory ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `format_procedure_extended`: Core formatting function with extended options
+  - `[format_procedure_extended](format_procedure_extended.md)`: Core formatting function with extended options
 - Called from (representative examples):
-  - `brinvalidate`: BRIN index validation error messages
-  - `ginvalidate`: GIN index validation error messages  
-  - `gistvalidate`: GiST index validation error messages
-  - `hashvalidate`: Hash index validation error messages
-  - `btvalidate`: B-tree index validation error messages
-  - `spgvalidate`: SP-GiST index validation error messages
-  - `getObjectDescription`: Object description formatting
-  - `ProcedureCreate`: Procedure creation validation and errors
-  - `regprocedureout`: Output function for regprocedure type
+  - `[brinvalidate](../b/brinvalidate.md)`: BRIN index validation error messages
+  - `[ginvalidate](../g/ginvalidate.md)`: GIN index validation error messages  
+  - `[gistvalidate](../g/gistvalidate.md)`: GiST index validation error messages
+  - `[hashvalidate](../h/hashvalidate.md)`: Hash index validation error messages
+  - `[btvalidate](../b/btvalidate.md)`: B-tree index validation error messages
+  - `[spgvalidate](../s/spgvalidate.md)`: SP-GiST index validation error messages
+  - `[getObjectDescription](../g/getObjectDescription.md)`: Object description formatting
+  - `[ProcedureCreate](../P/ProcedureCreate.md)`: Procedure creation validation and errors
+  - `[regprocedureout](../r/regprocedureout.md)`: Output function for regprocedure type
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be managed within PostgreSQL's memory context system

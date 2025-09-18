@@ -21,9 +21,9 @@ The cleanup sequence is important for avoiding memory leaks and ensuring that al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_free (recursively frees the next streamer in the processing chain)
+  - [bbstreamer_free](bbstreamer_free.md) (recursively frees the next streamer in the processing chain)
   - LZ4F_freeDecompressionContext (external LZ4 library function for context cleanup)
-  - pfree (PostgreSQL memory management function for buffer and object deallocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory management function for buffer and object deallocation)
 - Called from (representative examples):
   - Referenced indirectly through bbstreamer function pointer mechanism during cleanup
 

@@ -22,7 +22,7 @@ This function provides a variant of bytea substring extraction that only require
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM (to extract bytea argument as Datum)
   - PG_GETARG_INT32 (to extract starting position)
-  - bytea_substring (performs the actual substring extraction with no_len=true)
+  - [bytea_substring](bytea_substring.md) (performs the actual substring extraction with no_len=true)
   - PG_RETURN_BYTEA_P (returns the result bytea)
 - Called from (representative examples):
   - No direct callers found in the codebase

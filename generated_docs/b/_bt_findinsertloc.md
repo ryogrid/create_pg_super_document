@@ -26,14 +26,14 @@ The function includes space optimization logic, attempting deletion and deduplic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_check_third_page: Validates 1/3 page size restriction
-  - _bt_compare: Compares scan key with page high key
-  - _bt_stepright: Moves to next sibling page
-  - _bt_delete_or_dedup_one_page: Attempts space reclamation through deletion/deduplication
-  - _bt_binsrch_insert: Performs binary search for exact insertion offset
-  - pg_prng_uint32: Generates random numbers for probabilistic page selection
+  - [_bt_check_third_page](_bt_check_third_page.md): Validates 1/3 page size restriction
+  - [_bt_compare](_bt_compare.md): Compares scan key with page high key
+  - [_bt_stepright](_bt_stepright.md): Moves to next sibling page
+  - [_bt_delete_or_dedup_one_page](_bt_delete_or_dedup_one_page.md): Attempts space reclamation through deletion/deduplication
+  - [_bt_binsrch_insert](_bt_binsrch_insert.md): Performs binary search for exact insertion offset
+  - [pg_prng_uint32](../p/pg_prng_uint32.md): Generates random numbers for probabilistic page selection
 - Called from (representative examples):
-  - _bt_doinsert: Main insertion routine after uniqueness checking
+  - [_bt_doinsert](_bt_doinsert.md): Main insertion routine after uniqueness checking
 
 ## Notes and Other Information
 - Returns OffsetNumber indicating exact insertion position within the chosen page

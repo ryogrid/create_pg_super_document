@@ -21,9 +21,9 @@ CTEs (WITH clauses) contain their own subqueries, and this flag provides a mecha
 
 ## Dependencies
 - Used by:
-  - query_tree_walker_impl (src/backend/nodes/nodeFuncs.c:2770)
-  - query_tree_mutator_impl (src/backend/nodes/nodeFuncs.c:3826)
-  - assign_query_collations (src/backend/parser/parse_collate.c:113)
+  - [query_tree_walker_impl](../q/query_tree_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2770)
+  - [query_tree_mutator_impl](../q/query_tree_mutator_impl.md) (src/backend/nodes/nodeFuncs.c:3826)
+  - [assign_query_collations](../a/assign_query_collations.md) (src/backend/parser/parse_collate.c:113)
 - Part of the QTW flag system defined in src/include/nodes/nodeFuncs.h
 
 ## Notes and Other Information

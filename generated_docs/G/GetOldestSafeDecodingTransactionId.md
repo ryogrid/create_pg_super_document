@@ -34,18 +34,18 @@ Returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - LWLockHeldByMe
   - LWLockAcquire/LWLockRelease
   - XidFromFullTransactionId
   - TransactionIdIsValid
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - TransactionIdIsNormal
   - UINT32_ACCESS_ONCE
 - Called from (representative examples):
   - CreateInitDecodingContext (src/backend/replication/logical/logical.c:427)
-  - synchronize_one_slot (src/backend/replication/logical/slotsync.c:764)
-  - SnapBuildInitialSnapshot (src/backend/replication/logical/snapbuild.c:618)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md) (src/backend/replication/logical/slotsync.c:764)
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) (src/backend/replication/logical/snapbuild.c:618)
 
 ## Notes and Other Information
 - Must be called with ProcArrayLock held (shared or exclusive mode)

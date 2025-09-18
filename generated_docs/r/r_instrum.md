@@ -25,14 +25,14 @@ The function follows the standard Hungarian stemming rules where instrumental ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches for suffixes from array a_3 containing 'al', 'el')
-  - r_R1 (checks if position is in R1 region)
-  - r_double (detects doubled consonants)
-  - slice_del (removes the matched suffix)
-  - r_undouble (removes doubled consonants)
+  - [find_among_b](../f/find_among_b.md) (searches for suffixes from array a_3 containing 'al', 'el')
+  - [r_R1](r_R1.md) (checks if position is in R1 region)
+  - [r_double](r_double.md) (detects doubled consonants)
+  - [slice_del](../s/slice_del.md) (removes the matched suffix)
+  - [r_undouble](r_undouble.md) (removes doubled consonants)
 - Called from (representative examples):
-  - hungarian_ISO_8859_2_stem
-  - hungarian_UTF_8_stem
+  - [hungarian_ISO_8859_2_stem](../h/hungarian_ISO_8859_2_stem.md)
+  - [hungarian_UTF_8_stem](../h/hungarian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function specifically handles the Hungarian instrumental case, which is formed by adding '-val/-vel' suffixes that can appear as '-al/-el' after certain consonants

@@ -30,22 +30,22 @@ The function supports two dependency types: DEPENDENCY_AUTO for regular sequence
   - list_length
   - strVal
   - linitial
-  - list_copy_head
+  - [list_copy_head](../l/list_copy_head.md)
   - llast
-  - makeRangeVarFromNameList
-  - relation_openrv
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
+  - [relation_openrv](../r/relation_openrv.md)
   - RelationGetRelationName
   - RelationGetNamespace
-  - get_attnum
+  - [get_attnum](../g/get_attnum.md)
   - RelationGetRelid
-  - sequenceIsOwned
-  - get_rel_name
-  - deleteDependencyRecordsForClass
-  - recordDependencyOn
-  - relation_close
+  - [sequenceIsOwned](../s/sequenceIsOwned.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [relation_close](../r/relation_close.md)
 - Called from:
-  - DefineSequence
-  - AlterSequence
+  - [DefineSequence](../D/DefineSequence.md)
+  - [AlterSequence](../A/AlterSequence.md)
 
 ## Notes and Other Information
 - This function is critical for maintaining referential integrity between sequences and their owning tables

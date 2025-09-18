@@ -24,18 +24,18 @@ The structure supports reading files that are expected to be in UTF-8 format and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StringInfoData (from lib/stringinfo.h)
+  - [StringInfoData](../S/StringInfoData.md) (from lib/stringinfo.h)
   - ErrorContextCallback (from utils/elog.h)
   - FILE (from standard C library)
 
 - Called from (representative examples):
-  - tsearch_readline_begin (initializes the state)
-  - tsearch_readline (reads next line using the state) 
-  - tsearch_readline_end (cleans up the state)
-  - dsynonym_init (dictionary synonym initialization)
-  - thesaurusRead (thesaurus dictionary reading)
-  - NIImportDictionary (Ispell dictionary import)
-  - readstoplist (stop word list reading)
+  - [tsearch_readline_begin](tsearch_readline_begin.md) (initializes the state)
+  - [tsearch_readline](tsearch_readline.md) (reads next line using the state) 
+  - [tsearch_readline_end](tsearch_readline_end.md) (cleans up the state)
+  - [dsynonym_init](../d/dsynonym_init.md) (dictionary synonym initialization)
+  - [thesaurusRead](thesaurusRead.md) (thesaurus dictionary reading)
+  - [NIImportDictionary](../N/NIImportDictionary.md) (Ispell dictionary import)
+  - [readstoplist](../r/readstoplist.md) (stop word list reading)
 
 ## Notes and Other Information
 This structure must be used with the complete tsearch_readline family of functions: begin with , read lines with , and clean up with . The filename pointer passed to the begin function must remain valid throughout the entire reading session. The structure automatically manages encoding conversion from UTF-8 to database encoding and provides comprehensive error context for debugging configuration file issues. Memory management is handled automatically, but callers should always call the end function to ensure proper cleanup of file handles and allocated memory.

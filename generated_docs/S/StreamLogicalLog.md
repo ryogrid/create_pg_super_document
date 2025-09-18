@@ -37,13 +37,13 @@ None - this function operates on global variables including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetConnection, OutputFsync, sendFeedback, flushAndSendFeedback
+  - [GetConnection](../G/GetConnection.md), OutputFsync, sendFeedback, flushAndSendFeedback
   - PostgreSQL libpq functions: PQexec, PQgetCopyData, PQputCopyData, etc.
   - System calls: open, write, close, fstat, select
   - Utility functions: feGetCurrentTimestamp, feTimestampDifferenceExceeds
   - Logging functions: pg_log_info, pg_log_error
 - Called from (representative examples):
-  - main (in pg_recvlogical.c:996) as the primary streaming function
+  - [main](../m/main.md) (in pg_recvlogical.c:996) as the primary streaming function
 
 ## Notes and Other Information
 - Static function serving as the core of pg_recvlogical functionality

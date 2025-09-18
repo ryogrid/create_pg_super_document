@@ -41,14 +41,14 @@ Each step uses backtracking to attempt transformations without commitment - if a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_tolower (case normalization)
-  - r_has_min_length (length validation)
-  - r_step1, r_steps1-r_steps10 (basic morphological steps)
-  - r_step2a, r_step2b, r_step2c, r_step2d (secondary steps)
-  - r_step3, r_step4 (intermediate steps)  
-  - r_step5a through r_step5m (extensive suffix processing)
-  - r_step6 (conditional transformations)
-  - r_step7 (comparative/superlative handling)
+  - [r_tolower](../r/r_tolower.md) (case normalization)
+  - [r_has_min_length](../r/r_has_min_length.md) (length validation)
+  - [r_step1](../r/r_step1.md), r_steps1-r_steps10 (basic morphological steps)
+  - [r_step2a](../r/r_step2a.md), r_step2b, r_step2c, r_step2d (secondary steps)
+  - [r_step3](../r/r_step3.md), r_step4 (intermediate steps)  
+  - [r_step5a](../r/r_step5a.md) through r_step5m (extensive suffix processing)
+  - [r_step6](../r/r_step6.md) (conditional transformations)
+  - [r_step7](../r/r_step7.md) (comparative/superlative handling)
 - Called from:
   - External interface (no internal references found)
 
@@ -59,6 +59,6 @@ Each step uses backtracking to attempt transformations without commitment - if a
 - Handles complex Greek morphology including verb conjugations, noun declensions, and adjective forms
 - Uses UTF-8 encoding throughout for proper Greek character handling
 - The backtracking mechanism (m1-m33) ensures that failed transformations don't affect the text
-- Step counter (I[0]) creates dependencies between steps for proper morphological analysis
+- [Step](../S/Step.md) counter (I[0]) creates dependencies between steps for proper morphological analysis
 - This is the main public interface for Greek stemming in PostgreSQL's text search system
 - Part of the libstemmer library integrated into PostgreSQL for multilingual full-text search support

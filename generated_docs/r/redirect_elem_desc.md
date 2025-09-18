@@ -24,7 +24,7 @@ The function expects the input to be a pointer to an array of two OffsetNumber v
   - appendStringInfo
   - OffsetNumber (data type)
 - Called from (representative examples):
-  - heap2_desc
+  - [heap2_desc](../h/heap2_desc.md)
 
 ## Notes and Other Information
 - This is a callback function specifically designed for use with array_desc

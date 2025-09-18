@@ -19,7 +19,7 @@ The function ensures that relation statistics are preserved across the prepare/c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterTwoPhaseRecord (registers 2PC record with the system)
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md) (registers 2PC record with the system)
   - TwoPhasePgStatRecord (structure for 2PC statistics record)
   - TWOPHASE_RM_PGSTAT_ID (resource manager ID for statistics)
   - PgStat_SubXactStatus (subtransaction status structure)

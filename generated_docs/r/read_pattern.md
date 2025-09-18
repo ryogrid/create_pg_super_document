@@ -21,16 +21,16 @@ This function parses valid PostgreSQL object identifiers from input text, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log_filter_error
-  - exit_nicely (via fstate function pointer)
+  - [pg_log_filter_error](../p/pg_log_filter_error.md)
+  - [exit_nicely](../e/exit_nicely.md) (via fstate function pointer)
   - appendPQExpBufferChar
-  - appendPQExpBufferStr
-  - read_quoted_string
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [read_quoted_string](read_quoted_string.md)
   - isspace (standard C library)
   - strchr (standard C library)
   - FilterStateData (struct type)
 - Called from (representative examples):
-  - filter_read_item (at src/bin/pg_dump/filter.c:456)
+  - [filter_read_item](../f/filter_read_item.md) (at src/bin/pg_dump/filter.c:456)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the filter.c file

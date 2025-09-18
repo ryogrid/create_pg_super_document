@@ -39,9 +39,9 @@ This function takes no parameters but operates on several global variables:
   - rmtree (for recursive directory removal)
   - pg_log_error (for error logging when removal fails)
 - Called from (representative examples):
-  - main (in initdb.c via atexit registration)
-  - main (in pg_basebackup.c via atexit registration)
-  - main (in pg_combinebackup.c via atexit registration)
+  - [main](../m/main.md) (in initdb.c via atexit registration)
+  - [main](../m/main.md) (in pg_basebackup.c via atexit registration)
+  - [main](../m/main.md) (in pg_combinebackup.c via atexit registration)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage within initdb.c

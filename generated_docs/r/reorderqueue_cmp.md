@@ -23,12 +23,12 @@ The function extracts ReorderTuple structures from the pairing heap nodes and co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_orderbyvals
+  - [cmp_orderbyvals](../c/cmp_orderbyvals.md)
   - ReorderTuple (struct)
-  - IndexScanState (struct)
-  - pairingheap_node (struct)
+  - [IndexScanState](../I/IndexScanState.md) (struct)
+  - [pairingheap_node](../p/pairingheap_node.md) (struct)
 - Called from (representative examples):
-  - ExecInitIndexScan (during pairing heap initialization)
+  - [ExecInitIndexScan](../E/ExecInitIndexScan.md) (during pairing heap initialization)
 
 ## Notes and Other Information
 - This function is specifically designed for KNN (K-nearest neighbor) index scans

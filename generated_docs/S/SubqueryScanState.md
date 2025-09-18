@@ -276,16 +276,16 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState (base structure)
-  - PlanState (subquery execution state)
+  - [ScanState](ScanState.md) (base structure)
+  - [PlanState](../P/PlanState.md) (subquery execution state)
 
 - Called from (representative examples):
-  - ExecInitSubqueryScan (initialization)
-  - ExecSubqueryScan (tuple retrieval)
-  - ExecEndSubqueryScan (cleanup)
-  - ExecReScanSubqueryScan (rescan operations)
-  - SubqueryNext (next tuple fetch)
-  - SubqueryRecheck (tuple rechecking)
+  - [ExecInitSubqueryScan](../E/ExecInitSubqueryScan.md) (initialization)
+  - [ExecSubqueryScan](../E/ExecSubqueryScan.md) (tuple retrieval)
+  - [ExecEndSubqueryScan](../E/ExecEndSubqueryScan.md) (cleanup)
+  - [ExecReScanSubqueryScan](../E/ExecReScanSubqueryScan.md) (rescan operations)
+  - [SubqueryNext](SubqueryNext.md) (next tuple fetch)
+  - [SubqueryRecheck](SubqueryRecheck.md) (tuple rechecking)
 
 ## Notes and Other Information
 This executor node is essential for handling subqueries in FROM clauses, CTEs (Common Table Expressions), and other contexts where a subquery appears as a data source. The subplan member points to the complete execution tree of the subquery, allowing the SubqueryScanState to manage the subquery's execution lifecycle. The structure integrates subquery execution with PostgreSQL's standard scan interface, making subqueries appear as regular table scans to parent operators in the execution tree.

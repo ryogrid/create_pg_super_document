@@ -19,9 +19,9 @@ This function emulates PQexec()'s behavior by continuously calling libpqsrv_get_
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_TRY
-  - libpqsrv_get_result
-  - PQclear
-  - PQresultStatus
+  - [libpqsrv_get_result](libpqsrv_get_result.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - PQstatus
   - PGRES_COPY_IN
   - PGRES_COPY_OUT
@@ -31,8 +31,8 @@ This function emulates PQexec()'s behavior by continuously calling libpqsrv_get_
   - PG_RE_THROW
   - PG_END_TRY
 - Called from (representative examples):
-  - libpqsrv_exec
-  - libpqsrv_exec_params
+  - [libpqsrv_exec](libpqsrv_exec.md)
+  - [libpqsrv_exec_params](libpqsrv_exec_params.md)
 
 ## Notes and Other Information
 - Ensures no PGresult objects are leaked during error conditions through exception handling

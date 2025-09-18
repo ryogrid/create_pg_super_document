@@ -27,11 +27,11 @@ This function is called as part of the tuplesort cleanup process to ensure that 
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
   - GetPerTupleExprContext
-  - ExecDropSingleTupleTableSlot
-  - FreeExecutorState
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
 - Called from (representative examples):
   - CLUSTER_SORT operations cleanup
-  - tuplesort_begin_cluster cleanup phase
+  - [tuplesort_begin_cluster](../t/tuplesort_begin_cluster.md) cleanup phase
 
 ## Notes and Other Information
 - This function only performs cleanup if an executor state was actually created (arg->estate != NULL check)

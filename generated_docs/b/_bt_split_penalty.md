@@ -24,13 +24,13 @@ The function is designed as a subroutine to support the overall B-tree page spli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdGetLength
-  - _bt_split_lastleft
-  - _bt_split_firstright
-  - _bt_keep_natts_fast
+  - [_bt_split_lastleft](_bt_split_lastleft.md)
+  - [_bt_split_firstright](_bt_split_firstright.md)
+  - [_bt_keep_natts_fast](_bt_keep_natts_fast.md)
 - Called from (representative examples):
-  - _bt_bestsplitloc
+  - [_bt_bestsplitloc](_bt_bestsplitloc.md)
   - FindSplitData (structure usage)
 
 ## Notes and Other Information

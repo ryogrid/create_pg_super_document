@@ -20,14 +20,14 @@ This function is commonly used during tuple deletion, cleanup operations, error 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (assertion validation)
-  - BlockIdSet (sets block ID to InvalidBlockNumber)
+  - [BlockIdSet](../B/BlockIdSet.md) (sets block ID to InvalidBlockNumber)
   - InvalidOffsetNumber (constant for invalid offset)
 - Called from (representative examples):
-  - heap_form_tuple
-  - entryGetItem
-  - toast_flatten_tuple_to_datum
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [entryGetItem](../e/entryGetItem.md)
+  - [toast_flatten_tuple_to_datum](../t/toast_flatten_tuple_to_datum.md)
   - AfterTriggerSaveEvent
-  - ExecCheckIndexConstraints
+  - [ExecCheckIndexConstraints](../E/ExecCheckIndexConstraints.md)
 
 ## Notes and Other Information
 - This is an inline function defined in itemptr.h for optimal performance

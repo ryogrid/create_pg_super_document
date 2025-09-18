@@ -22,13 +22,13 @@ The function includes comprehensive error checking to validate that each attribu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (structure type)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)
   - lfirst_int (extracts integer from list cell)
-  - get_rel_name (gets relation name for error messages)
-  - list_nth (retrieves nth element from list)
+  - [get_rel_name](../g/get_rel_name.md) (gets relation name for error messages)
+  - [list_nth](../l/list_nth.md) (retrieves nth element from list)
   - lappend_int (appends integer to list)
 - Called from (representative examples):
-  - adjust_inherited_attnums_multilevel
+  - [adjust_inherited_attnums_multilevel](adjust_inherited_attnums_multilevel.md)
 
 ## Notes and Other Information
 - Specifically designed for inheritance cases, not UNION ALL operations (validated by assertion)

@@ -25,10 +25,10 @@ The function sets the is_oneshot flag to true, which signals to other parts of t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - CACHEDPLANSOURCE_MAGIC (for structure validation)
 - Called from (representative examples):
-  - _SPI_prepare_oneshot_plan (SPI interface for one-shot execution)
+  - [_SPI_prepare_oneshot_plan](../S/_SPI_prepare_oneshot_plan.md) (SPI interface for one-shot execution)
 
 ## Notes and Other Information
 - Performance optimization: no data copying occurs, all references point to caller's memory

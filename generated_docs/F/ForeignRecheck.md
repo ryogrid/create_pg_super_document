@@ -28,7 +28,7 @@ The expression context is properly set up with the tuple as the scan tuple and r
   - ExecQual
   - RecheckForeignScan (via fdwroutine callback)
 - Called from:
-  - ExecForeignScan
+  - [ExecForeignScan](../E/ExecForeignScan.md)
 
 ## Notes and Other Information
 - This function is only called during EvalPlanQual processing when tuples need to be re-evaluated

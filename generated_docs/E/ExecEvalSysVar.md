@@ -23,8 +23,8 @@ This function is part of PostgreSQL expression evaluation infrastructure and spe
   - slot_getsysattr
   - elog
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (in JIT compilation context)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in JIT compilation context)
 
 ## Notes and Other Information
 - The function relies on slot_getsysattr having sufficient defenses against invalid attribute numbers

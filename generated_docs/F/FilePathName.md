@@ -22,11 +22,11 @@ The returned string points to an internal buffer that remains valid until the fi
   - FileIsValid (validates the file descriptor)
   - VfdCache (global virtual file descriptor cache array)
 - Called from (representative examples):
-  - PrepareForIncrementalBackup (incremental backup operations)
-  - bbsink_server_archive_contents (backup sink operations)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md) (incremental backup operations)
+  - [bbsink_server_archive_contents](../b/bbsink_server_archive_contents.md) (backup sink operations)
   - BufFileLoadBuffer (buffered file I/O operations)
   - mdextend (magnetic disk storage manager operations)
-  - mdreadv/mdwritev (storage manager read/write operations)
+  - [mdreadv](../m/mdreadv.md)/mdwritev (storage manager read/write operations)
 
 ## Notes and Other Information
 - The function includes an assertion to validate the file descriptor using FileIsValid

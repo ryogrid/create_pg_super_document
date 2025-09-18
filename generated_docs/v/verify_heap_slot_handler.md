@@ -23,19 +23,19 @@ The function also manages memory cleanup for the RelationInfo context and determ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationInfo (struct type)
-  - PQresultStatus
+  - [RelationInfo](../R/RelationInfo.md) (struct type)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - PGRES_TUPLES_OK
-  - PQntuples
-  - PQgetisnull
-  - PQgetvalue
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - printf (with internationalization via _())
-  - indent_lines
-  - PQerrorMessage
+  - [indent_lines](../i/indent_lines.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - FREE_AND_SET_NULL
-  - should_processing_continue
+  - [should_processing_continue](../s/should_processing_continue.md)
 - Called from:
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:776)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:776)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_amcheck.c

@@ -25,14 +25,14 @@ The function performs a simple indexed lookup using the LargeObjectMetadataOidIn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc (system scan descriptor type)
-  - systable_beginscan (begins system table scan)
-  - systable_getnext (gets next tuple from system scan)
+  - [SysScanDesc](../S/SysScanDesc.md) (system scan descriptor type)
+  - [systable_beginscan](../s/systable_beginscan.md) (begins system table scan)
+  - [systable_getnext](../s/systable_getnext.md) (gets next tuple from system scan)
 - Called from (representative examples):
-  - objectNamesToOids (from src/backend/catalog/aclchk.c:735)
-  - get_object_address (from src/backend/catalog/objectaddress.c:1049)
-  - getObjectDescription (from src/backend/catalog/objectaddress.c:3134)
-  - getObjectIdentityParts (from src/backend/catalog/objectaddress.c:5026)
+  - [objectNamesToOids](../o/objectNamesToOids.md) (from src/backend/catalog/aclchk.c:735)
+  - [get_object_address](../g/get_object_address.md) (from src/backend/catalog/objectaddress.c:1049)
+  - [getObjectDescription](../g/getObjectDescription.md) (from src/backend/catalog/objectaddress.c:3134)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md) (from src/backend/catalog/objectaddress.c:5026)
 
 ## Notes and Other Information
 - Returns boolean value: true if large object exists, false otherwise

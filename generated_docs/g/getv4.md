@@ -23,10 +23,10 @@ The parsing stops when a slash is encountered (indicating CIDR notation) or when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getbits (for parsing CIDR prefix lengths)
+  - [getbits](getbits.md) (for parsing CIDR prefix lengths)
   - Standard C library function: strchr
 - Called from (representative examples):
-  - inet_cidr_pton_ipv6 (src/backend/utils/adt/inet_net_pton.c:507)
+  - [inet_cidr_pton_ipv6](../i/inet_cidr_pton_ipv6.md) (src/backend/utils/adt/inet_net_pton.c:507)
 
 ## Notes and Other Information
 - Returns 1 on successful parsing, 0 on failure

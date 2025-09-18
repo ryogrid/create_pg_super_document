@@ -29,18 +29,18 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck (validates current user owns the schema)
+  - [object_ownercheck](../o/object_ownercheck.md) (validates current user owns the schema)
   - check_can_set_role (ensures user can become the target role)
-  - object_aclcheck (verifies CREATE privilege on database)
-  - SysCacheGetAttr (retrieves current ACL from catalog tuple)
-  - aclnewowner (computes new ACL with updated ownership)
-  - heap_modify_tuple (creates updated catalog tuple)
-  - CatalogTupleUpdate (persists changes to catalog)
-  - changeDependencyOnOwner (updates shared dependency records)
+  - [object_aclcheck](../o/object_aclcheck.md) (verifies CREATE privilege on database)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (retrieves current ACL from catalog tuple)
+  - [aclnewowner](../a/aclnewowner.md) (computes new ACL with updated ownership)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (creates updated catalog tuple)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (persists changes to catalog)
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md) (updates shared dependency records)
   - InvokeObjectPostAlterHook (triggers post-alter processing)
 - Called from (representative examples):
-  - AlterSchemaOwner (name-based ownership change interface)
-  - AlterSchemaOwner_oid (OID-based ownership change interface)
+  - [AlterSchemaOwner](AlterSchemaOwner.md) (name-based ownership change interface)
+  - [AlterSchemaOwner_oid](AlterSchemaOwner_oid.md) (OID-based ownership change interface)
 
 ## Notes and Other Information
 - Static function providing the core implementation for both public ownership change interfaces

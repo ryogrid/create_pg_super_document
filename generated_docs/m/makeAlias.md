@@ -21,14 +21,14 @@ The `makeAlias` function creates an Alias node that stores alias information for
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - pstrdup
-  - Alias (struct type)
+  - [pstrdup](../p/pstrdup.md)
+  - [Alias](../A/Alias.md) (struct type)
 - Called from (representative examples):
-  - addRangeTableEntry
-  - transformInsertStmt
-  - transformSetOperationTree
-  - addRangeTableEntryForRelation
-  - addRangeTableEntryForSubquery
+  - [addRangeTableEntry](../a/addRangeTableEntry.md)
+  - [transformInsertStmt](../t/transformInsertStmt.md)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md)
 
 ## Notes and Other Information
 - The aliasname parameter is copied using pstrdup() to ensure memory safety

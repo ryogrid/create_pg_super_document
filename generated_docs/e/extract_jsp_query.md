@@ -25,16 +25,16 @@ The function configures different extraction behaviors for the two supported ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspInit (initializes jsonpath item from JsonPath structure)
-  - extract_jsp_path_expr (extracts path existence expressions)
-  - extract_jsp_bool_expr (extracts boolean expressions)
-  - emit_jsp_gin_entries (collects GIN entries from the query tree)
-  - jsonb_ops__add_path_item, jsonb_path_ops__add_path_item (operator class-specific path handlers)
-  - jsonb_ops__extract_nodes, jsonb_path_ops__extract_nodes (operator class-specific node extractors)
-  - palloc0 (memory allocation)
+  - [jspInit](../j/jspInit.md) (initializes jsonpath item from JsonPath structure)
+  - [extract_jsp_path_expr](extract_jsp_path_expr.md) (extracts path existence expressions)
+  - [extract_jsp_bool_expr](extract_jsp_bool_expr.md) (extracts boolean expressions)
+  - [emit_jsp_gin_entries](emit_jsp_gin_entries.md) (collects GIN entries from the query tree)
+  - [jsonb_ops__add_path_item](../j/jsonb_ops__add_path_item.md), jsonb_path_ops__add_path_item (operator class-specific path handlers)
+  - [jsonb_ops__extract_nodes](../j/jsonb_ops__extract_nodes.md), jsonb_path_ops__extract_nodes (operator class-specific node extractors)
+  - [palloc0](../p/palloc0.md) (memory allocation)
 - Called from (representative examples):
-  - gin_extract_jsonb_query (main GIN extraction entry point for jsonb_ops)
-  - gin_extract_jsonb_query_path (main GIN extraction entry point for jsonb_path_ops)
+  - [gin_extract_jsonb_query](../g/gin_extract_jsonb_query.md) (main GIN extraction entry point for jsonb_ops)
+  - [gin_extract_jsonb_query_path](../g/gin_extract_jsonb_query_path.md) (main GIN extraction entry point for jsonb_path_ops)
 
 ## Notes and Other Information
 - Returns NULL if no extractable entries are found, indicating the query cannot be optimized using GIN indexes

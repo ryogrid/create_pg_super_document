@@ -23,14 +23,14 @@ The function maintains hashkey ordering when inserting moved tuples and uses WAL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage, HashPageGetOpaque
+  - [BufferGetPage](../B/BufferGetPage.md), HashPageGetOpaque
   - BlockNumberIsValid, LockBuffer  
-  - _hash_relbuf, _hash_getbuf_with_strategy
-  - PageGetMaxOffsetNumber, PageGetItem, PageGetItemId
+  - [_hash_relbuf](_hash_relbuf.md), _hash_getbuf_with_strategy
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItem, PageGetItemId
   - ItemIdIsDead, IndexTupleSize
-  - PageGetFreeSpaceForMultipleTuples
-  - _hash_pgaddmultitup, PageIndexMultiDelete
-  - CopyIndexTuple, _hash_freeovflpage
+  - [PageGetFreeSpaceForMultipleTuples](../P/PageGetFreeSpaceForMultipleTuples.md)
+  - [_hash_pgaddmultitup](_hash_pgaddmultitup.md), PageIndexMultiDelete
+  - [CopyIndexTuple](../C/CopyIndexTuple.md), _hash_freeovflpage
   - WAL functions: XLogEnsureRecordSpace, XLogBeginInsert, XLogRegisterData, XLogInsert
 - Types/Constants referenced:
   - HashPageOpaque, IndexTuple, OffsetNumber
@@ -38,7 +38,7 @@ The function maintains hashkey ordering when inserting moved tuples and uses WAL
   - HASH_WRITE, LH_OVERFLOW_PAGE
   - XLOG_HASH_MOVE_PAGE_CONTENTS
 - Called from:
-  - hashbucketcleanup (primary caller during VACUUM)
+  - [hashbucketcleanup](hashbucketcleanup.md) (primary caller during VACUUM)
 
 ## Notes and Other Information
 - Requires cleanup lock on primary bucket page to exclude concurrent scans

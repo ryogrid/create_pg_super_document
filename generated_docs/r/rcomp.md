@@ -23,9 +23,9 @@ This function is part of the timezone compilation infrastructure in PostgreSQL, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
-  - rule (struct type accessed for r_name member)
+  - [rule](rule.md) (struct type accessed for r_name member)
 - Called from (representative examples):
-  - associate
+  - [associate](../a/associate.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the src/timezone/zic.c file

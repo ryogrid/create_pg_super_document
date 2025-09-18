@@ -22,22 +22,22 @@ This function is the primary connection establishment routine for PostgreSQL dum
 ## Dependencies
 - Functions called/Symbols referenced:
   - simple_prompt (interactive password prompting)
-  - PQconnectdbParams (PostgreSQL connection establishment)
+  - [PQconnectdbParams](../P/PQconnectdbParams.md) (PostgreSQL connection establishment)
   - PQstatus (connection status checking)
-  - PQconnectionNeedsPassword (authentication requirement checking)
-  - PQfinish (connection cleanup)
-  - ExecuteSqlQueryForSingleRow (SQL execution for security setup)
-  - PQconnectionUsedPassword (password usage detection)
-  - PQpass (password retrieval)
-  - _check_database_version (version compatibility validation)
-  - PQsetNoticeProcessor (notice handling setup)
-  - set_archive_cancel_info (signal handler configuration)
+  - [PQconnectionNeedsPassword](../P/PQconnectionNeedsPassword.md) (authentication requirement checking)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (SQL execution for security setup)
+  - [PQconnectionUsedPassword](../P/PQconnectionUsedPassword.md) (password usage detection)
+  - [PQpass](../P/PQpass.md) (password retrieval)
+  - [_check_database_version](../c/_check_database_version.md) (version compatibility validation)
+  - [PQsetNoticeProcessor](../P/PQsetNoticeProcessor.md) (notice handling setup)
+  - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (signal handler configuration)
 - Called from (representative examples):
-  - RestoreArchive
-  - ReconnectToServer
-  - CloneArchive
-  - main (pg_dump.c)
-  - restore_toc_entries_postfork
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [ReconnectToServer](../R/ReconnectToServer.md)
+  - [CloneArchive](CloneArchive.md)
+  - [main](../m/main.md) (pg_dump.c)
+  - [restore_toc_entries_postfork](../r/restore_toc_entries_postfork.md)
 
 ## Notes and Other Information
 - Implements password caching in AH->savedPassword for subsequent connections

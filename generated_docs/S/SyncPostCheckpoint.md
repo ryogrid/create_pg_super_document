@@ -21,16 +21,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbsorbSyncRequests (periodically absorb incoming sync requests during processing)
+  - [AbsorbSyncRequests](../A/AbsorbSyncRequests.md) (periodically absorb incoming sync requests during processing)
   - UNLINKS_PER_ABSORB (constant defining how often to absorb sync requests)
-  - PendingUnlinkEntry (structure representing files to be deleted)
+  - [PendingUnlinkEntry](../P/PendingUnlinkEntry.md) (structure representing files to be deleted)
   - syncsw[].sync_unlinkfiletag (handler-specific file deletion function)
-  - list_free_deep (free entire list and its contents)
-  - list_cell_number (get position of cell in list)
-  - list_nth (get nth element of list)
+  - [list_free_deep](../l/list_free_deep.md) (free entire list and its contents)
+  - [list_cell_number](../l/list_cell_number.md) (get position of cell in list)
+  - [list_nth](../l/list_nth.md) (get nth element of list)
   - list_delete_first_n (remove first n elements from list)
 - Called from (representative examples):
-  - CreateCheckPoint (main checkpoint creation function in xlog.c:7288)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (main checkpoint creation function in xlog.c:7288)
 
 ## Notes and Other Information
 - Only processes entries from previous checkpoint cycles (cycle_ctr < checkpoint_cycle_ctr) to ensure safe deletion timing

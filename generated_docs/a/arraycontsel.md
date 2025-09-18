@@ -29,8 +29,8 @@ Uses PostgreSQL's standard function argument interface:
   - get_restriction_variable
   - ReleaseVariableStats  
   - DEFAULT_SEL
-  - get_base_element_type
-  - calc_arraycontsel
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [calc_arraycontsel](../c/calc_arraycontsel.md)
   - CLAMP_PROBABILITY
 - Called from:
   - (No direct references found - likely registered as operator selectivity function)

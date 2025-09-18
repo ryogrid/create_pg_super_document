@@ -20,9 +20,9 @@ The structure is straightforward, containing only the essential information need
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (data type)
+  - [RelFileNumber](RelFileNumber.md) (data type)
 - Called from (representative examples):
-  - RelMapFile (used as array element type)
+  - [RelMapFile](RelMapFile.md) (used as array element type)
 
 ## Notes and Other Information
 - This structure is the fundamental building block of PostgreSQL's relation mapping system

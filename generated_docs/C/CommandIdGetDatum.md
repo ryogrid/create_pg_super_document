@@ -22,7 +22,7 @@ CommandIdGetDatum is a static inline function that performs a simple type cast f
   - CommandId (type)
   - Datum (type)
 - Called from (representative examples):
-  - heap_getsysattr
+  - [heap_getsysattr](../h/heap_getsysattr.md)
   - PG_RETURN_COMMANDID
 
 ## Notes and Other Information

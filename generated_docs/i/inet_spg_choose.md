@@ -35,16 +35,16 @@ The function uses bit-level comparison to determine common prefixes and employs 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP (datum to inet conversion)
+  - [DatumGetInetPP](../D/DatumGetInetPP.md) (datum to inet conversion)
   - ip_family (extract address family)
   - ip_bits (extract prefix length)
   - ip_addr (extract address bits)
-  - bitncmp (bitwise comparison)
-  - bitncommon (find common prefix bits)
-  - inet_spg_node_number (calculate node number)
-  - cidr_set_masklen_internal (set network mask length)
-  - InetPGetDatum (inet to datum conversion)
-  - spgChooseIn/spgChooseOut (SP-GiST structures)
+  - [bitncmp](../b/bitncmp.md) (bitwise comparison)
+  - [bitncommon](../b/bitncommon.md) (find common prefix bits)
+  - [inet_spg_node_number](inet_spg_node_number.md) (calculate node number)
+  - [cidr_set_masklen_internal](../c/cidr_set_masklen_internal.md) (set network mask length)
+  - [InetPGetDatum](../I/InetPGetDatum.md) (inet to datum conversion)
+  - [spgChooseIn](../s/spgChooseIn.md)/spgChooseOut (SP-GiST structures)
 - Called from (representative examples):
   - SP-GiST insertion process
   - Index tree navigation during updates
@@ -55,4 +55,4 @@ The function uses bit-level comparison to determine common prefixes and employs 
 - Creates 2-node tuples for address family splits and 4-node tuples for prefix-based splits
 - The function ensures that addresses from different families never coexist under the same inner node
 - Supports the allTheSame optimization where all values in a subtree are identical
-- Node numbering follows a specific pattern based on address bits for consistent tree structure
+- [Node](../N/Node.md) numbering follows a specific pattern based on address bits for consistent tree structure

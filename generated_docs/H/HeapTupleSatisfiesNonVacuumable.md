@@ -23,13 +23,13 @@ The function returns true if the tuple might be visible to some transaction, and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleSatisfiesVacuumHorizon
-  - GlobalVisTestIsRemovableXid
+  - [HeapTupleSatisfiesVacuumHorizon](HeapTupleSatisfiesVacuumHorizon.md)
+  - [GlobalVisTestIsRemovableXid](../G/GlobalVisTestIsRemovableXid.md)
   - HTSV_Result (enum type)
   - HEAPTUPLE_RECENTLY_DEAD (enum value)
   - HEAPTUPLE_DEAD (enum value)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the heapam_visibility.c file

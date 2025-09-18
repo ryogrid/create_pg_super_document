@@ -38,13 +38,13 @@ LC_ALL=: Locale information specifying the collation provider and rules to use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strnxfrm_prefix_icu
+  - [pg_strnxfrm_prefix_icu](pg_strnxfrm_prefix_icu.md)
   - PGLOCALE_SUPPORT_ERROR
   - COLLPROVIDER_ICU
   - COLLPROVIDER_LIBC
   - pg_locale_t
 - Called from (representative examples):
-  - varstr_abbrev_convert
+  - [varstr_abbrev_convert](../v/varstr_abbrev_convert.md)
 
 ## Notes and Other Information
 - The function currently only supports ICU collation provider; LIBC provider results in an error

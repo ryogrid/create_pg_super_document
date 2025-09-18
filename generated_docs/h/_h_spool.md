@@ -20,10 +20,10 @@ This function serves as an interface to add index tuples to the sorting mechanis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HSpool (structure type)
-  - tuplesort_putindextuplevalues (adds tuple to sort state)
+  - [HSpool](../H/HSpool.md) (structure type)
+  - [tuplesort_putindextuplevalues](../t/tuplesort_putindextuplevalues.md) (adds tuple to sort state)
 - Called from (representative examples):
-  - hashbuildCallback
+  - [hashbuildCallback](hashbuildCallback.md)
 
 ## Notes and Other Information
 - Called repeatedly during the table scan phase of hash index construction

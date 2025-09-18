@@ -46,9 +46,9 @@ Like VersionedQuery, SchemaQuery supports server version-dependent variations th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _complete_from_query (primary function that processes SchemaQuery)
-  - complete_from_schema_query (wrapper for single SchemaQuery)
-  - complete_from_versioned_schema_query (wrapper for SchemaQuery arrays)
+  - [_complete_from_query](../c/_complete_from_query.md) (primary function that processes SchemaQuery)
+  - [complete_from_schema_query](../c/complete_from_schema_query.md) (wrapper for single SchemaQuery)
+  - [complete_from_versioned_schema_query](../c/complete_from_versioned_schema_query.md) (wrapper for SchemaQuery arrays)
 - Called from (representative examples):
   - Query_for_list_of_tables (static SchemaQuery definition)
   - Query_for_list_of_functions (versioned SchemaQuery array)

@@ -23,9 +23,9 @@ After either operation, the function resets both the head and tail pointers of t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
-  - LexizeExec (at lines 240, 332, 345 in ts_parse.c)
+  - [LexizeExec](../L/LexizeExec.md) (at lines 240, 332, 345 in ts_parse.c)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ts_parse.c compilation unit

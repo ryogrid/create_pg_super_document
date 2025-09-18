@@ -20,15 +20,15 @@ MultiXactShmemInit is responsible for setting up all shared memory components ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - debug_elog2
-  - SimpleLruInit (called twice)
-  - SlruPagePrecedesUnitTests
-  - ShmemInitStruct
+  - [SimpleLruInit](../S/SimpleLruInit.md) (called twice)
+  - [SlruPagePrecedesUnitTests](../S/SlruPagePrecedesUnitTests.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
   - MemSet
-  - ConditionVariableInit
-  - MultiXactOffsetPagePrecedes
-  - MultiXactMemberPagePrecedes
+  - [ConditionVariableInit](../C/ConditionVariableInit.md)
+  - [MultiXactOffsetPagePrecedes](MultiXactOffsetPagePrecedes.md)
+  - [MultiXactMemberPagePrecedes](MultiXactMemberPagePrecedes.md)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
   - Referenced in SizeOfMultiXactTruncate
 
 ## Notes and Other Information

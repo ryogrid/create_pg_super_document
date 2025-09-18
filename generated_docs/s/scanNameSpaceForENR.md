@@ -20,11 +20,11 @@ This function serves as a wrapper around `name_matches_visible_ENR` to check if 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - name_matches_visible_ENR
+  - [name_matches_visible_ENR](../n/name_matches_visible_ENR.md)
 - Called from (representative examples):
-  - setTargetTable (src/backend/parser/parse_clause.c:190)
-  - getNSItemForSpecialRelationTypes (src/backend/parser/parse_clause.c:1028)
-  - searchRangeTableForRel (src/backend/parser/parse_relation.c:381)
+  - [setTargetTable](setTargetTable.md) (src/backend/parser/parse_clause.c:190)
+  - [getNSItemForSpecialRelationTypes](../g/getNSItemForSpecialRelationTypes.md) (src/backend/parser/parse_clause.c:1028)
+  - [searchRangeTableForRel](searchRangeTableForRel.md) (src/backend/parser/parse_relation.c:381)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parser namespace resolution mechanism

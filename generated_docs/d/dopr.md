@@ -38,9 +38,9 @@ The function includes extensive formatting control support, including field widt
   - strerror_r
   - dopr_outch
 - Called from (representative examples):
-  - pg_vsnprintf
-  - pg_vsprintf
-  - pg_vfprintf
+  - [pg_vsnprintf](../p/pg_vsnprintf.md)
+  - [pg_vsprintf](../p/pg_vsprintf.md)
+  - [pg_vfprintf](../p/pg_vfprintf.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/port/snprintf.c

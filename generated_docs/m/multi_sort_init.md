@@ -26,12 +26,12 @@ The resulting structure provides a framework for setting up sort operations acro
 - Functions called/Symbols referenced:
   - MultiSortSupport, MultiSortSupportData (type definitions for sort support)
   - SortSupportData (individual column sort support structure)
-  - palloc0 (zero-initialized memory allocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
   - offsetof (structure offset calculation macro)
 - Called from (representative examples):
-  - dependency_degree (functional dependency computation)
-  - build_mss (MCV list building)
-  - ndistinct_for_combination (n-distinct statistics calculation)
+  - [dependency_degree](../d/dependency_degree.md) (functional dependency computation)
+  - [build_mss](../b/build_mss.md) (MCV list building)
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (n-distinct statistics calculation)
 
 ## Notes and Other Information
 - Requires at least 2 dimensions (enforced by Assert)

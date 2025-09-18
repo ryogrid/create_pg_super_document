@@ -27,28 +27,28 @@ The function implements sophisticated formatting logic, including proper escapin
   - appendStringInfoString
   - appendStringInfoChar
   - appendStringInfo
-  - escape_json
-  - jspGetString
-  - jspGetNumeric
-  - jspGetBool
+  - [escape_json](../e/escape_json.md)
+  - [jspGetString](../j/jspGetString.md)
+  - [jspGetNumeric](../j/jspGetNumeric.md)
+  - [jspGetBool](../j/jspGetBool.md)
   - jspHasNext
-  - jspGetNext
-  - jspGetLeftArg
-  - jspGetRightArg
-  - jspGetArg
-  - jspGetArraySubscript
-  - jspInitByBuffer
-  - jspOperationName
-  - operationPriority
+  - [jspGetNext](../j/jspGetNext.md)
+  - [jspGetLeftArg](../j/jspGetLeftArg.md)
+  - [jspGetRightArg](../j/jspGetRightArg.md)
+  - [jspGetArg](../j/jspGetArg.md)
+  - [jspGetArraySubscript](../j/jspGetArraySubscript.md)
+  - [jspInitByBuffer](../j/jspInitByBuffer.md)
+  - [jspOperationName](../j/jspOperationName.md)
+  - [operationPriority](../o/operationPriority.md)
   - DirectFunctionCall1
-  - DatumGetCString
-  - NumericGetDatum
-  - numeric_out
+  - [DatumGetCString](../D/DatumGetCString.md)
+  - [NumericGetDatum](../N/NumericGetDatum.md)
+  - [numeric_out](../n/numeric_out.md)
   - elog
   - Various JsonPath item type constants and regex flags
 - Called from (representative examples):
-  - jsonPathToCstring
-  - printJsonPathItem (recursive calls)
+  - [jsonPathToCstring](../j/jsonPathToCstring.md)
+  - [printJsonPathItem](printJsonPathItem.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath.c and critical for JsonPath output operations

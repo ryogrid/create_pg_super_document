@@ -23,11 +23,11 @@ Relation extension locks are special locks used when extending relations (adding
   - LOCALLOCK_LOCKTAG (macro to extract lock tag from LOCALLOCK)
   - LOCKTAG_RELATION_EXTEND (constant identifying relation extension locks)
 - Data structures used:
-  - LOCALLOCK (local lock table entry)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (local lock table entry)
   - IsRelationExtensionLockHeld (global state flag)
 - Called from (representative examples):
-  - GrantLockLocal (when acquiring locks locally)
-  - RemoveLocalLock (when releasing locks locally)
+  - [GrantLockLocal](../G/GrantLockLocal.md) (when acquiring locks locally)
+  - [RemoveLocalLock](../R/RemoveLocalLock.md) (when releasing locks locally)
 
 ## Notes and Other Information
 - Only compiled and active when USE_ASSERT_CHECKING is defined

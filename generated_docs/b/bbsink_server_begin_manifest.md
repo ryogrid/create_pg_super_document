@@ -19,13 +19,13 @@ The function creates the temporary file with exclusive creation flags to prevent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - PathNameOpenFile
-  - pfree
+  - [pfree](../p/pfree.md)
   - ereport
-  - errcode_for_file_access
-  - errmsg
-  - bbsink_forward_begin_manifest
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
+  - [bbsink_forward_begin_manifest](bbsink_forward_begin_manifest.md)
 - Called from (representative examples):
   - Referenced through bbsink_server_ops function table
 

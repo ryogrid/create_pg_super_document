@@ -26,12 +26,12 @@ When the primary sort key comparison returns non-zero (indicating the tuples are
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - ApplySortComparator
-  - comparetup_heap_tiebreak
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [comparetup_heap_tiebreak](comparetup_heap_tiebreak.md)
   - SortSupport (type)
   - TuplesortPublic (struct type)
 - Called from (representative examples):
-  - tuplesort_begin_heap (via CLUSTER_SORT macro)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (via CLUSTER_SORT macro)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tuplesortvariants.c file

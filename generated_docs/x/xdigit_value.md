@@ -21,7 +21,7 @@ The `xdigit_value` function is a simple character-to-digit conversion utility th
 - Functions called/Symbols referenced:
   - None (uses only basic character arithmetic)
 - Called from (representative examples):
-  - set_var_from_non_decimal_integer_str
+  - [set_var_from_non_decimal_integer_str](../s/set_var_from_non_decimal_integer_str.md)
 
 ## Notes and Other Information
 This is a pure utility function with no side effects. It uses character arithmetic to efficiently convert digits by subtracting the character code of '0' for decimal digits, and adjusting by adding 10 for alphabetic hex digits. The function returns -1 for invalid characters, which allows callers to easily detect and handle invalid hexadecimal input. The inline designation suggests this function is expected to be called frequently enough that inlining provides a measurable performance benefit.

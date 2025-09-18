@@ -23,10 +23,10 @@ This static function provides the core implementation for extracting various tim
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Macro to extract text argument
   - PG_GETARG_TIMETZADT_P: Macro to extract TimeTzADT argument
-  - downcase_truncate_identifier: Function to normalize unit strings
-  - DecodeUnits/DecodeSpecial: Functions to parse time unit specifications
-  - timetz2tm: Function to convert TimeTzADT to broken-down time structure
-  - int64_div_fast_to_numeric/int64_to_numeric: Numeric conversion functions
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md): Function to normalize unit strings
+  - [DecodeUnits](../D/DecodeUnits.md)/DecodeSpecial: Functions to parse time unit specifications
+  - [timetz2tm](timetz2tm.md): Function to convert TimeTzADT to broken-down time structure
+  - [int64_div_fast_to_numeric](../i/int64_div_fast_to_numeric.md)/int64_to_numeric: Numeric conversion functions
   - PG_RETURN_NUMERIC/PG_RETURN_FLOAT8: Macros to return results
   - ereport/errcode/errmsg: Error reporting functions
 - Constants used:
@@ -37,11 +37,11 @@ This static function provides the core implementation for extracting various tim
   - INT64CONST: 64-bit integer constant macro
 - Types used:
   - TimeTzADT: Time with timezone data type
-  - pg_tm: Broken-down time structure
+  - [pg_tm](../p/pg_tm.md): Broken-down time structure
   - fsec_t: Fractional seconds type
 - Called from (representative examples):
-  - timetz_part: Public function for EXTRACT() with float8 return
-  - extract_timetz: Public function for EXTRACT() with numeric return
+  - [timetz_part](timetz_part.md): Public function for EXTRACT() with float8 return
+  - [extract_timetz](../e/extract_timetz.md): Public function for EXTRACT() with numeric return
 
 ## Notes and Other Information
 - This is a static (internal) function shared by timetz_part and extract_timetz

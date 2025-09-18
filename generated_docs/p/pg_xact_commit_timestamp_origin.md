@@ -21,12 +21,12 @@ This function provides a SQL-callable interface to retrieve both the commit time
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TRANSACTIONID
-  - TransactionIdGetCommitTsData
-  - get_call_result_type
+  - [TransactionIdGetCommitTsData](../T/TransactionIdGetCommitTsData.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
   - TimestampTzGetDatum
-  - ObjectIdGetDatum
-  - heap_form_tuple
-  - HeapTupleGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
   - PG_RETURN_DATUM
 - Called from (representative examples):
   - SQL queries via PostgreSQL's function call mechanism

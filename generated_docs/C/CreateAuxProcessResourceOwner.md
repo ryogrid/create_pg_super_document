@@ -22,15 +22,15 @@ The function includes safety assertions to ensure it's only called when no resou
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerCreate
-  - on_shmem_exit
-  - ReleaseAuxProcessResourcesCallback
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [ReleaseAuxProcessResourcesCallback](../R/ReleaseAuxProcessResourcesCallback.md)
   - Assert (debugging macro)
   - AuxProcessResourceOwner (global variable)
   - CurrentResourceOwner (global variable)
 
 - Called from (representative examples):
-  - AuxiliaryProcessMainCommon (in src/backend/postmaster/auxprocess.c:80)
-  - InitPostgres (in src/backend/utils/init/postinit.c:797)
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md) (in src/backend/postmaster/auxprocess.c:80)
+  - [InitPostgres](../I/InitPostgres.md) (in src/backend/utils/init/postinit.c:797)
 
 ## Notes and Other Information
 - Must be called only when AuxProcessResourceOwner and CurrentResourceOwner are both NULL

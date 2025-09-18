@@ -32,16 +32,16 @@ The SIMD implementation is more complex as it works around the lack of unsigned 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion)
-  - vector8_broadcast (SIMD version)
-  - vector8_load (SIMD version)
-  - vector8_min (SIMD version)
-  - vector8_eq (SIMD version)
-  - vector8_highbit_mask (SIMD version)
-  - pg_rightmost_one_pos32 (SIMD version)
+  - [vector8_broadcast](../v/vector8_broadcast.md) (SIMD version)
+  - [vector8_load](../v/vector8_load.md) (SIMD version)
+  - [vector8_min](../v/vector8_min.md) (SIMD version)
+  - [vector8_eq](../v/vector8_eq.md) (SIMD version)
+  - [vector8_highbit_mask](../v/vector8_highbit_mask.md) (SIMD version)
+  - [pg_rightmost_one_pos32](../p/pg_rightmost_one_pos32.md) (SIMD version)
   - Assert
 - Called from (representative examples):
-  - RT_GROW_NODE_16
-  - RT_ADD_CHILD_16
+  - [RT_GROW_NODE_16](RT_GROW_NODE_16.md)
+  - [RT_ADD_CHILD_16](RT_ADD_CHILD_16.md)
 
 ## Notes and Other Information
 - Returns an integer index (0 to count) where the new chunk should be inserted

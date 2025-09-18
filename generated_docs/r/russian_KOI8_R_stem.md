@@ -19,16 +19,16 @@ The function operates on the input string in reverse (from end to beginning) to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slice_from_s (character replacement)
-  - r_mark_regions (region boundary identification)
-  - r_perfective_gerund (perfective gerund suffix removal)
-  - r_reflexive (reflexive suffix removal)  
-  - r_adjectival (adjectival ending removal)
-  - r_verb (verbal ending removal)
-  - r_noun (nominal ending removal)
-  - slice_del (suffix deletion)
-  - r_derivational (derivational suffix processing)
-  - r_tidy_up (final cleanup operations)
+  - [slice_from_s](../s/slice_from_s.md) (character replacement)
+  - [r_mark_regions](r_mark_regions.md) (region boundary identification)
+  - [r_perfective_gerund](r_perfective_gerund.md) (perfective gerund suffix removal)
+  - [r_reflexive](r_reflexive.md) (reflexive suffix removal)  
+  - [r_adjectival](r_adjectival.md) (adjectival ending removal)
+  - [r_verb](r_verb.md) (verbal ending removal)
+  - [r_noun](r_noun.md) (nominal ending removal)
+  - [slice_del](../s/slice_del.md) (suffix deletion)
+  - [r_derivational](r_derivational.md) (derivational suffix processing)
+  - [r_tidy_up](r_tidy_up.md) (final cleanup operations)
 - Called from (representative examples):
   - No direct callers found in codebase
 

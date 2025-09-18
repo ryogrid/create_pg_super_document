@@ -25,12 +25,12 @@ The function preserves the caller's isnull array unchanged but creates a modifie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - detoast_external_attr
-  - heap_form_tuple
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - VARATT_IS_EXTERNAL
   - MaxTupleAttributeNumber
 - Called from (representative examples):
-  - ExecEvalWholeRowVar
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md)
 
 ## Notes and Other Information
 - Similar to `heap_form_tuple` but with automatic expansion of external TOAST references

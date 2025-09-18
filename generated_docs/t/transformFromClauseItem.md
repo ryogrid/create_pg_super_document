@@ -24,24 +24,24 @@ This is a central recursive function in PostgreSQL's FROM clause processing that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getNSItemForSpecialRelationTypes
-  - transformTableEntry
-  - transformRangeSubselect
-  - transformRangeFunction
-  - transformJsonTable
-  - transformRangeTableFunc
-  - transformRangeTableSample
-  - buildVarFromNSColumn
-  - buildMergedJoinVar
-  - markRelsAsNulledBy
-  - addRangeTableEntryForJoin
-  - checkNameSpaceConflicts
-  - setNamespaceLateralState
-  - transformJoinUsingClause
-  - transformJoinOnClause
+  - [getNSItemForSpecialRelationTypes](../g/getNSItemForSpecialRelationTypes.md)
+  - [transformTableEntry](transformTableEntry.md)
+  - [transformRangeSubselect](transformRangeSubselect.md)
+  - [transformRangeFunction](transformRangeFunction.md)
+  - [transformJsonTable](transformJsonTable.md)
+  - [transformRangeTableFunc](transformRangeTableFunc.md)
+  - [transformRangeTableSample](transformRangeTableSample.md)
+  - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md)
+  - [buildMergedJoinVar](../b/buildMergedJoinVar.md)
+  - [markRelsAsNulledBy](../m/markRelsAsNulledBy.md)
+  - [addRangeTableEntryForJoin](../a/addRangeTableEntryForJoin.md)
+  - [checkNameSpaceConflicts](../c/checkNameSpaceConflicts.md)
+  - [setNamespaceLateralState](../s/setNamespaceLateralState.md)
+  - [transformJoinUsingClause](transformJoinUsingClause.md)
+  - [transformJoinOnClause](transformJoinOnClause.md)
 - Called from (representative examples):
-  - transformFromClause (main entry point)
-  - transformFromClauseItem (recursive calls for join processing)
+  - [transformFromClause](transformFromClause.md) (main entry point)
+  - [transformFromClauseItem](transformFromClauseItem.md) (recursive calls for join processing)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c used internally for FROM clause processing

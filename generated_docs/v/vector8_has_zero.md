@@ -22,8 +22,8 @@ This function is commonly used in string processing and data validation operatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (type)
-  - vector8_has_le (when USE_NO_SIMD is defined)
-  - vector8_has (when SIMD is available)
+  - [vector8_has_le](vector8_has_le.md) (when USE_NO_SIMD is defined)
+  - [vector8_has](vector8_has.md) (when SIMD is available)
   - USE_NO_SIMD (preprocessor condition)
 - Called from (representative examples):
   - Various string processing functions that need to detect null terminators

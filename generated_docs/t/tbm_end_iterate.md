@@ -19,15 +19,15 @@ This function is essential for proper memory management in bitmap scan operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - TBMIterator
+  - [pfree](../p/pfree.md)
+  - [TBMIterator](../T/TBMIterator.md)
 - Called from (representative examples):
-  - startScanEntry (src/backend/access/gin/ginget.c:376)
-  - entryGetItem (src/backend/access/gin/ginget.c:842)
-  - ginFreeScanKeys (src/backend/access/gin/ginscan.c:254)
-  - BitmapPrefetch (src/backend/executor/nodeBitmapHeapscan.c:481)
-  - ExecReScanBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:605, 607)
-  - ExecEndBitmapHeapScan (src/backend/executor/nodeBitmapHeapscan.c:658, 660)
+  - [startScanEntry](../s/startScanEntry.md) (src/backend/access/gin/ginget.c:376)
+  - [entryGetItem](../e/entryGetItem.md) (src/backend/access/gin/ginget.c:842)
+  - [ginFreeScanKeys](../g/ginFreeScanKeys.md) (src/backend/access/gin/ginscan.c:254)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md) (src/backend/executor/nodeBitmapHeapscan.c:481)
+  - [ExecReScanBitmapHeapScan](../E/ExecReScanBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:605, 607)
+  - [ExecEndBitmapHeapScan](../E/ExecEndBitmapHeapScan.md) (src/backend/executor/nodeBitmapHeapscan.c:658, 660)
 
 ## Notes and Other Information
 This is a simple but important cleanup function that could be extended in future versions to provide more sophisticated iterator management. Always pair with  to ensure proper resource management. For shared iterators, use  instead.

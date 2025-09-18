@@ -20,14 +20,14 @@ The `create_minmaxagg_plan` function implements an optimization for queries cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan
-  - make_limit
-  - SS_make_initplan_from_plan
-  - build_path_tlist
-  - make_result
-  - copy_generic_path_info
+  - [create_plan](create_plan.md)
+  - [make_limit](../m/make_limit.md)
+  - [SS_make_initplan_from_plan](../S/SS_make_initplan_from_plan.md)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [make_result](../m/make_result.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, used only within createplan.c

@@ -19,17 +19,17 @@ This function is an extended version of JsonbHashScalarValue that produces 64-bi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any_extended (for string values with seed)
-  - DatumGetUInt64 (for 64-bit datum conversion)
+  - [hash_any_extended](../h/hash_any_extended.md) (for string values with seed)
+  - [DatumGetUInt64](../D/DatumGetUInt64.md) (for 64-bit datum conversion)
   - DirectFunctionCall2 (for calling extended hash functions)
-  - hash_numeric_extended (for numeric values with seed)
-  - NumericGetDatum (for numeric datum conversion)
-  - UInt64GetDatum (for 64-bit datum conversion)
-  - hashcharextended (for boolean values with seed)
-  - BoolGetDatum (for boolean datum conversion)
+  - [hash_numeric_extended](../h/hash_numeric_extended.md) (for numeric values with seed)
+  - [NumericGetDatum](../N/NumericGetDatum.md) (for numeric datum conversion)
+  - [UInt64GetDatum](../U/UInt64GetDatum.md) (for 64-bit datum conversion)
+  - [hashcharextended](../h/hashcharextended.md) (for boolean values with seed)
+  - [BoolGetDatum](../B/BoolGetDatum.md) (for boolean datum conversion)
   - ROTATE_HIGH_AND_LOW_32BITS (for hash combination)
 - Called from (representative examples):
-  - jsonb_hash_extended
+  - [jsonb_hash_extended](../j/jsonb_hash_extended.md)
 
 ## Notes and Other Information
 The function uses ROTATE_HIGH_AND_LOW_32BITS macro for hash combination instead of the simple left rotation used in the 32-bit version. This provides better mixing properties for 64-bit hash values. The seed parameter allows for creating different hash families, which is useful for hash table resizing and reducing hash collisions. Boolean handling is more sophisticated than the basic version, using the extended hash infrastructure when a seed is present.

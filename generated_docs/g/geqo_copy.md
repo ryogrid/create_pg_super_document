@@ -22,8 +22,8 @@ The  function performs a complete deep copy of chromosome data from one chromoso
 - Functions called/Symbols referenced:
   - Chromosome (struct type)
 - Called from (representative examples):
-  - spread_chromo
-  - geqo_selection
+  - [spread_chromo](../s/spread_chromo.md)
+  - [geqo_selection](geqo_selection.md)
 
 ## Notes and Other Information
 - This is a utility function that performs a straightforward array copy operation plus fitness value transfer

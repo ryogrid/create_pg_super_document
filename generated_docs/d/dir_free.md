@@ -19,10 +19,10 @@ This function is a static implementation of the cleanup operation for the direct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_free (PostgreSQL memory management function)
+  - [pg_free](../p/pg_free.md) (PostgreSQL memory management function)
 - Data structures used:
-  - WalWriteMethod
-  - DirectoryMethodData
+  - [WalWriteMethod](../W/WalWriteMethod.md)
+  - [DirectoryMethodData](../D/DirectoryMethodData.md)
 - Called from:
   - Used as a function pointer in WAL writing method operations during cleanup
 

@@ -24,15 +24,15 @@ The bi_hi and bi_lo fields together represent a single block number, with bi_hi 
 - Functions called/Symbols referenced:
   - (None - this is a basic data structure)
 - Called from (representative examples):
-  - ItemPointerData (as ip_blkid member)
+  - [ItemPointerData](../I/ItemPointerData.md) (as ip_blkid member)
   - BlockId (pointer typedef)
-  - BlockIdSet (function parameter)
-  - BlockIdEquals (function parameter)
-  - BlockIdGetBlockNumber (function parameter)
-  - ginPlaceToPage
-  - ginRedoInsert
-  - hashtid
-  - hashtidextended
+  - [BlockIdSet](BlockIdSet.md) (function parameter)
+  - [BlockIdEquals](BlockIdEquals.md) (function parameter)
+  - [BlockIdGetBlockNumber](BlockIdGetBlockNumber.md) (function parameter)
+  - [ginPlaceToPage](../g/ginPlaceToPage.md)
+  - [ginRedoInsert](../g/ginRedoInsert.md)
+  - [hashtid](../h/hashtid.md)
+  - [hashtidextended](../h/hashtidextended.md)
 
 ## Notes and Other Information
 - The separation between BlockIdData (storage) and BlockNumber (computation) exists primarily for alignment optimization

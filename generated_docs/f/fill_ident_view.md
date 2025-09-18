@@ -27,16 +27,16 @@ The function handles both valid configuration entries and lines with errors, ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - open_auth_file
-  - tokenize_auth_file  
+  - [open_auth_file](../o/open_auth_file.md)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md)  
   - AllocSetContextCreate
-  - parse_ident_line
-  - fill_ident_line
-  - free_auth_file
-  - MemoryContextSwitchTo
-  - MemoryContextDelete
+  - [parse_ident_line](../p/parse_ident_line.md)
+  - [fill_ident_line](fill_ident_line.md)
+  - [free_auth_file](free_auth_file.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - pg_ident_file_mappings
+  - [pg_ident_file_mappings](../p/pg_ident_file_mappings.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used exclusively by the pg_ident_file_mappings SQL function

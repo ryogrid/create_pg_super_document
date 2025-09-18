@@ -24,14 +24,14 @@ In parallel mode, the function is more restrictive and prevents any command that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isTempNamespace
-  - get_rel_namespace
-  - PreventCommandIfReadOnly
-  - PreventCommandIfParallelMode
+  - [isTempNamespace](../i/isTempNamespace.md)
+  - [get_rel_namespace](../g/get_rel_namespace.md)
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
+  - [PreventCommandIfParallelMode](../P/PreventCommandIfParallelMode.md)
   - CreateCommandName
   - lfirst_node
 - Called from (representative examples):
-  - standard_ExecutorStart
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md)
 
 ## Notes and Other Information
 - This is a static function only called from within execMain.c

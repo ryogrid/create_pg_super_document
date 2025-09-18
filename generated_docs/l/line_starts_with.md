@@ -26,8 +26,8 @@ This function is essential for parsing backup label files where specific line pr
 - Functions called/Symbols referenced:
   - None (uses only basic string operations)
 - Called from (representative examples):
-  - parse_backup_label (multiple times for different line types)
-  - write_backup_label (for filtering incremental backup lines)
+  - [parse_backup_label](../p/parse_backup_label.md) (multiple times for different line types)
+  - [write_backup_label](../w/write_backup_label.md) (for filtering incremental backup lines)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the backup_label.c source file

@@ -33,10 +33,10 @@ GISTBuildBuffers implements a sophisticated buffering system for efficient GiST 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufFile
-  - HTAB
+  - [HTAB](../H/HTAB.md)
   - GISTNodeBuffer
 - Called from (representative examples):
-  - gistProcessItup
+  - [gistProcessItup](../g/gistProcessItup.md)
   - gistbufferinginserttuples
   - gistProcessEmptyingQueue
   - gistEmptyAllBuffers
@@ -44,9 +44,9 @@ GISTBuildBuffers implements a sophisticated buffering system for efficient GiST 
   - gistGetNodeBuffer
   - gistAllocateNewPageBuffer
   - gistLoadNodeBuffer
-  - gistUnloadNodeBuffer
-  - gistPushItupToNodeBuffer
-  - gistPopItupFromNodeBuffer
+  - [gistUnloadNodeBuffer](../g/gistUnloadNodeBuffer.md)
+  - [gistPushItupToNodeBuffer](../g/gistPushItupToNodeBuffer.md)
+  - [gistPopItupFromNodeBuffer](../g/gistPopItupFromNodeBuffer.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's buffering build algorithm for GiST indexes, which significantly improves performance for large index construction by reducing random I/O operations. The multi-level approach allows the system to balance memory usage with build efficiency, while the temporary file mechanism ensures that even very large indexes can be built within memory constraints. The buffer emptying queue provides controlled scheduling of I/O operations to maintain consistent performance throughout the build process.

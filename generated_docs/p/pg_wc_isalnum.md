@@ -29,16 +29,16 @@ The function handles six different regex strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_char_properties (character property lookup table)
-  - pg_u_isalnum (built-in Unicode alphanumeric test)
+  - [pg_u_isalnum](pg_u_isalnum.md) (built-in Unicode alphanumeric test)
   - iswalnum (system wide character alphanumeric test)
   - isalnum (standard single-byte alphanumeric test)
   - iswalnum_l (locale-specific wide character alphanumeric test)
   - isalnum_l (locale-specific single-byte alphanumeric test)
   - u_isalnum (ICU alphanumeric classification)
 - Called from (representative examples):
-  - cclasscvec (src/backend/regex/regc_locale.c:600)
-  - cclass_column_index (src/backend/regex/regc_locale.c:684)
-  - pg_wc_isword (src/backend/regex/regc_pg_locale.c:401)
+  - [cclasscvec](../c/cclasscvec.md) (src/backend/regex/regc_locale.c:600)
+  - [cclass_column_index](../c/cclass_column_index.md) (src/backend/regex/regc_locale.c:684)
+  - [pg_wc_isword](pg_wc_isword.md) (src/backend/regex/regc_pg_locale.c:401)
   - REPLACEARC (src/backend/regex/regcomp.c:254)
   - iscalnum (src/include/regex/regcustom.h:91)
 

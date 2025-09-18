@@ -32,13 +32,13 @@ The function is specifically designed for code paths that don't have direct acce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - HASH_FIND (constant)
   - pendingSyncHash (global variable)
 - Called from (representative examples):
-  - MarkBufferDirtyHint
-  - RelationInitPhysicalAddr
-  - AssertPendingSyncConsistency
+  - [MarkBufferDirtyHint](../M/MarkBufferDirtyHint.md)
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)
+  - [AssertPendingSyncConsistency](../A/AssertPendingSyncConsistency.md)
 
 ## Notes and Other Information
 - Part of the "Skipping WAL for New RelFileLocator" optimization system

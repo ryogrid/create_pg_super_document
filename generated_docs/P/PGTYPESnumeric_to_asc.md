@@ -20,13 +20,13 @@ This function converts a numeric value to its string representation. It creates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_new (for creating working copy)
-  - PGTYPESnumeric_copy (for copying numeric value)
-  - PGTYPESnumeric_free (for cleanup)
-  - get_str_from_var (for string conversion)
-  - numeric (type definition)
+  - [PGTYPESnumeric_new](PGTYPESnumeric_new.md) (for creating working copy)
+  - [PGTYPESnumeric_copy](PGTYPESnumeric_copy.md) (for copying numeric value)
+  - [PGTYPESnumeric_free](PGTYPESnumeric_free.md) (for cleanup)
+  - [get_str_from_var](../g/get_str_from_var.md) (for string conversion)
+  - [numeric](../n/numeric.md) (type definition)
 - Called from (representative examples):
-  - dectoasc (Informix compatibility function)
+  - [dectoasc](../d/dectoasc.md) (Informix compatibility function)
   - ecpg_store_input (ECPG input processing)
   - PGTYPESnumeric_to_long (numeric conversion)
   - Various test functions

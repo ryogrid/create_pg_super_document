@@ -20,12 +20,12 @@ This function serves as a hash function callback for the hash table used in arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall1Coll
-  - DatumGetUInt32
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
   - array_extra_data (global static variable for hash function and collation info)
 - Called from (representative examples):
-  - compute_array_stats (registered as hash table hash function)
-  - hash_record (in rowtypes.c for record hashing)
+  - [compute_array_stats](../c/compute_array_stats.md) (registered as hash table hash function)
+  - [hash_record](../h/hash_record.md) (in rowtypes.c for record hashing)
 
 ## Notes and Other Information
 - Uses the element type's hash procedure stored in array_extra_data->hash

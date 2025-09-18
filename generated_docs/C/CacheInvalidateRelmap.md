@@ -30,9 +30,9 @@ The function constructs a SharedInvalidationMessage with the SHAREDINVALRELMAP_I
   - SharedInvalidationMessage (message structure)
   - SHAREDINVALRELMAP_ID (message type identifier)
   - VALGRIND_MAKE_MEM_DEFINED (memory debugging macro)
-  - SendSharedInvalidMessages (message transmission function)
+  - [SendSharedInvalidMessages](../S/SendSharedInvalidMessages.md) (message transmission function)
 - Called from (representative examples):
-  - write_relmap_file (src/backend/utils/cache/relmapper.c:1001)
+  - [write_relmap_file](../w/write_relmap_file.md) (src/backend/utils/cache/relmapper.c:1001)
 
 ## Notes and Other Information
 - Must be accompanied by relcache invalidation messages for the specific relations affected to ensure complete cache coherency

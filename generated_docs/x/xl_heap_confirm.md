@@ -26,9 +26,9 @@ When a speculative insertion is confirmed (meaning no conflicts were detected), 
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - heap_finish_speculative
-  - heap_xlog_confirm
-  - heap_desc
+  - [heap_finish_speculative](../h/heap_finish_speculative.md)
+  - [heap_xlog_confirm](../h/heap_xlog_confirm.md)
+  - [heap_desc](../h/heap_desc.md)
   - SizeOfHeapConfirm
 
 ## Notes and Other Information

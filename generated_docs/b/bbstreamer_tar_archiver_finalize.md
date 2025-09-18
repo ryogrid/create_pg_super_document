@@ -21,7 +21,7 @@ The function is part of the bbstreamer_tar_archiver_ops operation table and is c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_finalize (finalizes the next streamer in chain)
+  - [bbstreamer_finalize](bbstreamer_finalize.md) (finalizes the next streamer in chain)
 - Called from (representative examples):
   - Via bbstreamer_tar_archiver_ops.finalize function pointer
   - Through general bbstreamer finalization mechanisms

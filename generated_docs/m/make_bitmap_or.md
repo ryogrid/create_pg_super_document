@@ -22,7 +22,7 @@ The function initializes a new BitmapOr node with standard plan node fields set 
   - makeNode (to create the BitmapOr node)
   - BitmapOr (plan node structure)
 - Called from (representative examples):
-  - create_bitmap_subplan (in createplan.c:3433)
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md) (in createplan.c:3433)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's used internally by the plan creation subsystem

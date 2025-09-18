@@ -31,7 +31,7 @@ Currently, this function is primarily used by eval_const_expressions when it rem
   - GetSysCacheHashValue1 (syscache hash function)
   - lappend (list append function)
 - Called from (representative examples):
-  - eval_const_expressions_mutator
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md)
 
 ## Notes and Other Information
 - This is an exported function (not static) to allow eval_const_expressions to record type dependencies

@@ -20,11 +20,11 @@ The function performs an insertion operation similar to the main file hash table
 ## Dependencies
 - Functions called/Symbols referenced:
   - keepwal_insert
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - Assert (macro)
-  - keepwal_entry (structure type)
+  - [keepwal_entry](keepwal_entry.md) (structure type)
 - Called from (representative examples):
-  - findLastCheckpoint (src/bin/pg_rewind/parsexlog.c:238)
+  - [findLastCheckpoint](../f/findLastCheckpoint.md) (src/bin/pg_rewind/parsexlog.c:238)
 
 ## Notes and Other Information
 - Requires keepwal hash table to be initialized via  before use

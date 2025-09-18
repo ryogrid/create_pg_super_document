@@ -24,11 +24,11 @@ The function uses PostgreSQL's standard hash combining functions ( and ) to crea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32 (hashes individual 32-bit values)
+  - [hash_uint32](hash_uint32.md) (hashes individual 32-bit values)
   - hash_combine (combines hash values into a composite hash)
 - Called from (representative examples):
-  - shared_record_table_hash (for type cache hash table operations)
-  - record_type_typmod_hash (for type modifier hash operations)
+  - [shared_record_table_hash](../s/shared_record_table_hash.md) (for type cache hash table operations)
+  - [record_type_typmod_hash](../r/record_type_typmod_hash.md) (for type modifier hash operations)
   - ReleaseTupleDesc (in release optimization logic)
 
 ## Notes and Other Information

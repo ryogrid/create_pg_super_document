@@ -19,7 +19,7 @@ The `smgrpin` function implements a reference counting mechanism to control the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete
+  - [dlist_delete](../d/dlist_delete.md)
   - SMgrRelation (type)
 - Called from (representative examples):
   - RelationGetSmgr (src/include/utils/rel.h:572)

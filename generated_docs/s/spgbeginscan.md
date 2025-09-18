@@ -23,27 +23,27 @@ The function also prepares function manager info for the inner and leaf consiste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexScan
-  - palloc0/palloc
-  - initSpGistState
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
+  - [palloc0](../p/palloc0.md)/palloc
+  - [initSpGistState](../i/initSpGistState.md)
   - AllocSetContextCreate
-  - getSpGistTupleDesc
+  - [getSpGistTupleDesc](../g/getSpGistTupleDesc.md)
   - get_float8_infinity
-  - fmgr_info_copy
-  - index_getprocinfo
+  - [fmgr_info_copy](../f/fmgr_info_copy.md)
+  - [index_getprocinfo](../i/index_getprocinfo.md)
   - SPGIST_INNER_CONSISTENT_PROC (constant)
   - SPGIST_LEAF_CONSISTENT_PROC (constant)
   - ALLOCSET_DEFAULT_SIZES (constant)
 - Called from:
-  - spghandler (src/backend/access/spgist/spgutils.c:84)
+  - [spghandler](spghandler.md) (src/backend/access/spgist/spgutils.c:84)
 
 ## Dependencies
 - Types used:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - SpGistScanOpaque
   - SpGistScanOpaqueData
   - ScanKey
-  - Relation
+  - [Relation](../R/Relation.md)
 
 ## Notes and Other Information
 - Creates two separate memory contexts: one for temporary search operations and another for traversal values

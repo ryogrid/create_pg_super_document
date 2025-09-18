@@ -21,11 +21,11 @@ This cleanup function is the counterpart to XLogPrefetcherAllocate and ensures n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lrq_free (releases LSN read queue resources)
-  - hash_destroy (destroys the filter hash table)
-  - pfree (releases the main prefetcher structure)
+  - [lrq_free](../l/lrq_free.md) (releases LSN read queue resources)
+  - [hash_destroy](../h/hash_destroy.md) (destroys the filter hash table)
+  - [pfree](../p/pfree.md) (releases the main prefetcher structure)
 - Called from (representative examples):
-  - ShutdownWalRecovery (during WAL recovery shutdown)
+  - [ShutdownWalRecovery](../S/ShutdownWalRecovery.md) (during WAL recovery shutdown)
 
 ## Notes and Other Information
 - The cleanup order is important: streaming_read resources are freed first, followed by the filter_table, and finally the prefetcher structure itself

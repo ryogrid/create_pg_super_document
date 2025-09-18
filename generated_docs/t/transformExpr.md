@@ -19,15 +19,15 @@ The  function is the main entry point for analyzing and transforming SQL express
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse (the actual recursive transformation logic)
-  - ParseExprKind (enum type for expression contexts)
+  - [transformExprRecurse](transformExprRecurse.md) (the actual recursive transformation logic)
+  - [ParseExprKind](../P/ParseExprKind.md) (enum type for expression contexts)
   - EXPR_KIND_NONE (enum value used for validation)
 
 - Called from (representative examples):
-  - cookDefault (for column default expressions)
-  - transformWhereClause (for WHERE clause expressions)  
-  - transformTargetEntry (for SELECT list expressions)
-  - transformReturnStmt (for RETURN statement expressions)
+  - [cookDefault](../c/cookDefault.md) (for column default expressions)
+  - [transformWhereClause](transformWhereClause.md) (for WHERE clause expressions)  
+  - [transformTargetEntry](transformTargetEntry.md) (for SELECT list expressions)
+  - [transformReturnStmt](transformReturnStmt.md) (for RETURN statement expressions)
   - transformFuncCall (for function call expressions)
 
 ## Notes and Other Information

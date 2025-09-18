@@ -23,17 +23,17 @@ The key design feature is the lock-free access pattern: readers check the genera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint64
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - INJ_NAME_MAXLEN (64)
   - INJ_LIB_MAXLEN (128)
   - INJ_FUNC_MAXLEN (128)
   - INJ_PRIVATE_MAXLEN (1024)
 - Called from (representative examples):
-  - InjectionPointsCtl
-  - injection_point_cache_load
-  - InjectionPointAttach
-  - InjectionPointDetach
-  - InjectionPointCacheRefresh
+  - [InjectionPointsCtl](InjectionPointsCtl.md)
+  - [injection_point_cache_load](../i/injection_point_cache_load.md)
+  - [InjectionPointAttach](InjectionPointAttach.md)
+  - [InjectionPointDetach](InjectionPointDetach.md)
+  - [InjectionPointCacheRefresh](InjectionPointCacheRefresh.md)
 
 ## Notes and Other Information
 The structure implements a lock-free reading protocol that requires careful attention to memory ordering. Readers must:

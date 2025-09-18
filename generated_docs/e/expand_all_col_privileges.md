@@ -28,17 +28,17 @@ The function iterates through all possible attribute numbers from FirstLowInvali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - ReleaseSysCache
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - GETSTRUCT
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - Int16GetDatum
   - HeapTupleIsValid
   - FirstLowInvalidHeapAttributeNumber
   - InvalidAttrNumber
   - RELKIND_VIEW
 - Called from (representative examples):
-  - ExecGrant_Relation
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
 
 ## Notes and Other Information
 - This is a static function only used within aclchk.c

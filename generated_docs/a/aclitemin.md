@@ -22,8 +22,8 @@ The aclitemin function is a PostgreSQL input function that converts a text strin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (macro to extract C string argument)
-  - palloc (PostgreSQL memory allocation)
-  - aclparse (function to parse ACL string into AclItem)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [aclparse](aclparse.md) (function to parse ACL string into AclItem)
   - isspace (standard library character classification)
   - ereturn (PostgreSQL error return with context)
   - PG_RETURN_ACLITEM_P (macro to return AclItem as Datum)

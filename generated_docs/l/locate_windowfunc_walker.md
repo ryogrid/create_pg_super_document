@@ -20,12 +20,12 @@ This function implements the core logic for locating window function parse locat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - locate_windowfunc_context (context structure type)
+  - [locate_windowfunc_context](locate_windowfunc_context.md) (context structure type)
   - WindowFunc (node type and location field access)
   - expression_tree_walker (recursive traversal)
-  - locate_windowfunc_walker (recursive self-call)
+  - [locate_windowfunc_walker](locate_windowfunc_walker.md) (recursive self-call)
 - Called from (representative examples):
-  - locate_windowfunc
+  - [locate_windowfunc](locate_windowfunc.md)
   - expression_tree_walker (during recursive traversal)
 
 ## Notes and Other Information

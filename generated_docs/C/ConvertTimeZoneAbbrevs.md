@@ -28,19 +28,19 @@ The result is a single guc_malloc'd memory chunk containing the complete timezon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_malloc (GUC memory allocation)
+  - [guc_malloc](../g/guc_malloc.md) (GUC memory allocation)
   - strlcpy (safe string copy with truncation)
   - strcpy (string copy)
   - strlen (string length)
   - MAXALIGN (memory alignment macro)
-  - CheckDateTokenTable (debug validation function)
+  - [CheckDateTokenTable](CheckDateTokenTable.md) (debug validation function)
 - Data structures referenced:
   - tzEntry (input timezone entry structure)
   - TimeZoneAbbrevTable (output table structure)
   - datetkn (timezone token structure)
   - DynamicZoneAbbrev (dynamic timezone abbreviation structure)
 - Called from (representative examples):
-  - load_tzoffsets (src/backend/utils/misc/tzparser.c:475)
+  - [load_tzoffsets](../l/load_tzoffsets.md) (src/backend/utils/misc/tzparser.c:475)
 
 ## Notes and Other Information
 - Returns NULL only on memory allocation failure; no other error conditions are defined

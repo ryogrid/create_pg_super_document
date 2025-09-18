@@ -22,11 +22,11 @@ The function delegates to specialized iteration functions based on whether the T
   - TidStoreIsShared
   - shared_ts_iterate_next
   - local_ts_iterate_next
-  - tidstore_iter_extract_tids
-  - BlocktableEntry
+  - [tidstore_iter_extract_tids](../t/tidstore_iter_extract_tids.md)
+  - [BlocktableEntry](../B/BlocktableEntry.md)
 - Called from (representative examples):
-  - lazy_vacuum_heap_rel
-  - check_set_block_offsets
+  - [lazy_vacuum_heap_rel](../l/lazy_vacuum_heap_rel.md)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md)
 
 ## Notes and Other Information
 - Returns NULL when the iteration is complete (no more blocks to process)

@@ -22,11 +22,11 @@ This function reinitializes the Dynamic Shared Memory (DSM) structures used for 
 - Functions called/Symbols referenced:
   - table_parallelscan_reinitialize
 - Types referenced:
-  - SeqScanState
-  - ParallelContext
-  - ParallelTableScanDesc
+  - [SeqScanState](../S/SeqScanState.md)
+  - [ParallelContext](../P/ParallelContext.md)
+  - [ParallelTableScanDesc](../P/ParallelTableScanDesc.md)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM (in execParallel.c)
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md) (in execParallel.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution infrastructure

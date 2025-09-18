@@ -20,20 +20,20 @@ The function iterates through each string in the input list, converts each strin
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (to get the number of elements)
-  - palloc (to allocate memory for the Datum array)
+  - [palloc](../p/palloc.md) (to allocate memory for the Datum array)
   - strVal (to extract string value from String nodes)
-  - pstrdup (to duplicate strings for modification)
-  - pg_ascii_toupper (to convert characters to uppercase)
+  - [pstrdup](../p/pstrdup.md) (to duplicate strings for modification)
+  - [pg_ascii_toupper](../p/pg_ascii_toupper.md) (to convert characters to uppercase)
   - cstring_to_text (to convert C strings to PostgreSQL text type)
-  - PointerGetDatum (to convert pointers to Datum)
-  - construct_array_builtin (to construct PostgreSQL array from Datum array)
-  - pfree (to free allocated memory)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (to convert pointers to Datum)
+  - [construct_array_builtin](../c/construct_array_builtin.md) (to construct PostgreSQL array from Datum array)
+  - [pfree](../p/pfree.md) (to free allocated memory)
 - Called from (representative examples):
-  - insert_event_trigger_tuple
+  - [insert_event_trigger_tuple](../i/insert_event_trigger_tuple.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within the event_trigger.c file
-- Command tags are stored in uppercase in the catalog for consistency
+- [Command](../C/Command.md) tags are stored in uppercase in the catalog for consistency
 - The function handles memory management by allocating space for the Datum array and freeing temporary string duplicates
 - The conversion to text arrays allows efficient storage and querying of filter conditions in the PostgreSQL catalog
 - Future case-sensitive filter variables might require modifications to this function's uppercase conversion logic

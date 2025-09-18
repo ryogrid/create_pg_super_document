@@ -20,14 +20,14 @@ The  function normalizes a NumericVar by removing unnecessary leading and traili
   - NumericDigit (type for individual digits)
   - NUMERIC_POS (positive sign constant for zero normalization)
 - Called from (representative examples):
-  - set_var_from_str (parsing numeric strings)
-  - numericvar_to_int64, numericvar_to_uint64, numericvar_to_int128 (numeric conversions)
-  - mul_var (multiplication operations)
-  - div_var, div_var_fast, div_var_int, div_var_int64 (division operations)
-  - sqrt_var (square root calculation)
-  - random_var (random number generation)
-  - add_abs, sub_abs (absolute value arithmetic)
-  - accum_sum_final (sum accumulation finalization)
+  - [set_var_from_str](set_var_from_str.md) (parsing numeric strings)
+  - [numericvar_to_int64](../n/numericvar_to_int64.md), numericvar_to_uint64, numericvar_to_int128 (numeric conversions)
+  - [mul_var](../m/mul_var.md) (multiplication operations)
+  - [div_var](../d/div_var.md), div_var_fast, div_var_int, div_var_int64 (division operations)
+  - [sqrt_var](sqrt_var.md) (square root calculation)
+  - [random_var](../r/random_var.md) (random number generation)
+  - [add_abs](../a/add_abs.md), sub_abs (absolute value arithmetic)
+  - [accum_sum_final](../a/accum_sum_final.md) (sum accumulation finalization)
 
 ## Notes and Other Information
 - Critical for maintaining canonical representation of numeric values

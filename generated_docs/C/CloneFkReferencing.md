@@ -30,19 +30,19 @@ The function includes an optimization to avoid duplicate constraints by first tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetFKeyList: Get list of FK constraints for a relation
-  - build_attrmap_by_name: Map attributes between parent and partition
+  - [RelationGetFKeyList](../R/RelationGetFKeyList.md): Get list of FK constraints for a relation
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md): Map attributes between parent and partition
   - copyObject: Deep copy the partition's FK list
-  - DeconstructFkConstraintRow: Extract FK constraint details from catalog tuple
-  - GetForeignKeyCheckTriggers: Retrieve check trigger OIDs for constraint
-  - tryAttachPartitionForeignKey: Attempt to attach existing FK constraint to parent
-  - addFkConstraint: Create new FK constraint on partition
-  - addFkRecurseReferencing: Recursively handle sub-partitions
-  - find_all_inheritors: Lock all partitions of referenced partitioned table
-  - get_constraint_name: Get constraint name for error reporting
+  - [DeconstructFkConstraintRow](../D/DeconstructFkConstraintRow.md): Extract FK constraint details from catalog tuple
+  - [GetForeignKeyCheckTriggers](../G/GetForeignKeyCheckTriggers.md): Retrieve check trigger OIDs for constraint
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md): Attempt to attach existing FK constraint to parent
+  - [addFkConstraint](../a/addFkConstraint.md): Create new FK constraint on partition
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md): Recursively handle sub-partitions
+  - [find_all_inheritors](../f/find_all_inheritors.md): Lock all partitions of referenced partitioned table
+  - [get_constraint_name](../g/get_constraint_name.md): Get constraint name for error reporting
 
 - Called from:
-  - CloneForeignKeyConstraints: Main entry point for cloning FK constraints during partition operations
+  - [CloneForeignKeyConstraints](CloneForeignKeyConstraints.md): Main entry point for cloning FK constraints during partition operations
 
 ## Notes and Other Information
 - Includes protection against circular FK relationships by preventing attachment of tables that the parent already references

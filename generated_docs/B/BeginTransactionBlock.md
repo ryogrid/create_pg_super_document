@@ -22,13 +22,13 @@ This function handles the execution of a BEGIN command by examining the current 
   - TBlockState enumeration values (TBLOCK_STARTED, TBLOCK_BEGIN, etc.)
   - ereport (error reporting function)
   - elog (logging function)
-  - BlockStateAsString (utility function for debugging)
-  - errcode (error code definition)
-  - errmsg (error message formatting)
+  - [BlockStateAsString](BlockStateAsString.md) (utility function for debugging)
+  - [errcode](../e/errcode.md) (error code definition)
+  - [errmsg](../e/errmsg.md) (error message formatting)
 - Called from (representative examples):
-  - pa_start_subtrans (at src/backend/replication/logical/applyparallelworker.c:1381)
-  - apply_handle_prepare_internal (at src/backend/replication/logical/worker.c:1092)
-  - standard_ProcessUtility (at src/backend/tcop/utility.c:609)
+  - [pa_start_subtrans](../p/pa_start_subtrans.md) (at src/backend/replication/logical/applyparallelworker.c:1381)
+  - [apply_handle_prepare_internal](../a/apply_handle_prepare_internal.md) (at src/backend/replication/logical/worker.c:1092)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (at src/backend/tcop/utility.c:609)
 
 ## Notes and Other Information
 - Supports both new transaction blocks and conversion of implicit transactions to explicit ones

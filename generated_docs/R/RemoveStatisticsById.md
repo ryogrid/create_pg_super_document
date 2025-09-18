@@ -27,12 +27,12 @@ Key operations performed:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens catalogs with appropriate locks)
-  - SearchSysCache1 (retrieves statistics object metadata by OID)
-  - RemoveStatisticsDataById (removes statistical data for both inheritance modes)
-  - CacheInvalidateRelcacheByRelid (invalidates cached plans for affected table)
-  - CatalogTupleDelete (removes the main catalog entry)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (retrieves statistics object metadata by OID)
+  - [RemoveStatisticsDataById](RemoveStatisticsDataById.md) (removes statistical data for both inheritance modes)
+  - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md) (invalidates cached plans for affected table)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md) (removes the main catalog entry)
 - Called from (representative examples):
-  - doDeletion (src/backend/catalog/dependency.c:1420)
+  - [doDeletion](../d/doDeletion.md) (src/backend/catalog/dependency.c:1420)
 
 ## Notes and Other Information
 - Called through PostgreSQL's dependency deletion mechanism, ensuring proper cascade handling

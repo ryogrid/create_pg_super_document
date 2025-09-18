@@ -23,18 +23,18 @@ The function reads the buffer for the specified block, checks if redo is needed,
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogReadBufferForRedo
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Constants used:
   - BLK_NEEDS_REDO
   - GIN_INCOMPLETE_SPLIT
 - Called from:
-  - ginRedoInsert
-  - ginRedoSplit
+  - [ginRedoInsert](ginRedoInsert.md)
+  - [ginRedoSplit](ginRedoSplit.md)
 
 ## Notes and Other Information
 - This is a static function only used within the GIN WAL replay subsystem

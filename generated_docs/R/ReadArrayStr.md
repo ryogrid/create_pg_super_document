@@ -45,16 +45,16 @@ The function handles NULL values explicitly through ATOK_ELEM_NULL tokens and ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadArrayToken
+  - [ReadArrayToken](ReadArrayToken.md)
   - palloc_array
   - repalloc_array
-  - InputFunctionCallSafe
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
   - initStringInfo
   - MaxArraySize
   - MAXDIM
   - ArrayToken types (ATOK_LEVEL_START, ATOK_LEVEL_END, etc.)
 - Called from (representative examples):
-  - array_in
+  - [array_in](../a/array_in.md)
 
 ## Notes and Other Information
 - Static function internal to arrayfuncs.c

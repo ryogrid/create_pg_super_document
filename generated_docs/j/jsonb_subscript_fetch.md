@@ -23,10 +23,10 @@ The  mode is set to true for this operation, meaning that NULL source containers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetJsonbP
-  - jsonb_get_element
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
+  - [jsonb_get_element](jsonb_get_element.md)
 - Called from:
-  - jsonb_exec_setup
+  - [jsonb_exec_setup](jsonb_exec_setup.md)
 
 ## Notes and Other Information
 - Assumes the source JSONB value is not NULL (enforced by fetch_strict=true setting)

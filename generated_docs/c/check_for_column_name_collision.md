@@ -21,18 +21,18 @@ The function deliberately ignores dropped columns (attisdropped) during the chec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 (searches pg_attribute by relation OID and column name)
-  - ObjectIdGetDatum
-  - PointerGetDatum
+  - [SearchSysCache2](../S/SearchSysCache2.md) (searches pg_attribute by relation OID and column name)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - HeapTupleIsValid
   - RelationGetRelid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - ereport (for error and notice reporting)
   - RelationGetRelationName
 - Called from (representative examples):
-  - ATExecAddColumn (when adding new columns)
-  - renameatt_internal (when renaming existing columns)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (when adding new columns)
+  - [renameatt_internal](../r/renameatt_internal.md) (when renaming existing columns)
 
 ## Notes and Other Information
 - Returns true if no collision exists or collision is handled gracefully

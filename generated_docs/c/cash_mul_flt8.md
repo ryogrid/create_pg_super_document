@@ -22,7 +22,7 @@ This function implements the PostgreSQL SQL operator for multiplying a money amo
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH
   - PG_GETARG_FLOAT8
-  - cash_mul_float8
+  - [cash_mul_float8](cash_mul_float8.md)
   - PG_RETURN_CASH
 - Called from (representative examples):
   - No direct callers found in codebase
@@ -30,5 +30,5 @@ This function implements the PostgreSQL SQL operator for multiplying a money amo
 ## Notes and Other Information
 - Delegates actual multiplication logic to cash_mul_float8 helper function
 - The helper function performs range checking and raises errors for out-of-range results
-- Result is rounded to nearest integer to maintain Cash type precision
+- [Result](../R/Result.md) is rounded to nearest integer to maintain Cash type precision
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c

@@ -35,10 +35,10 @@ This structure is particularly important in aggregation operations where multipl
   - MinimalTuple (tuple representation)
 - Called from (representative examples):
   - BuildTupleHashTableExt (src/backend/executor/execGrouping.c:166)
-  - LookupTupleHashEntry_internal (src/backend/executor/execGrouping.c:497)
-  - hash_agg_entry_size (src/backend/executor/nodeAgg.c:1716)
-  - setop_fill_hash_table (src/backend/executor/nodeSetOp.c:367)
-  - setop_retrieve_hash_table (src/backend/executor/nodeSetOp.c:427)
+  - [LookupTupleHashEntry_internal](../L/LookupTupleHashEntry_internal.md) (src/backend/executor/execGrouping.c:497)
+  - [hash_agg_entry_size](../h/hash_agg_entry_size.md) (src/backend/executor/nodeAgg.c:1716)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md) (src/backend/executor/nodeSetOp.c:367)
+  - [setop_retrieve_hash_table](../s/setop_retrieve_hash_table.md) (src/backend/executor/nodeSetOp.c:427)
 
 ## Notes and Other Information
 - Used as SH_ELEMENT_TYPE in the underlying hash table implementation, indicating it serves as the element type for the specialized hash table

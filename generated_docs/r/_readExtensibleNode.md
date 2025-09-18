@@ -27,10 +27,10 @@ This function takes no parameters and returns a pointer to a newly allocated Ext
 ## Dependencies
 - Functions called/Symbols referenced:
   - READ_TEMP_LOCALS (macro for temporary local variable setup)
-  - pg_strtok (tokenizer function)
-  - nullable_string (helper function to process string tokens)
-  - GetExtensibleNodeMethods (retrieves method structure for extensible node type)
-  - newNode (allocates new node with specified size and type)
+  - [pg_strtok](../p/pg_strtok.md) (tokenizer function)
+  - [nullable_string](../n/nullable_string.md) (helper function to process string tokens)
+  - [GetExtensibleNodeMethods](../G/GetExtensibleNodeMethods.md) (retrieves method structure for extensible node type)
+  - [newNode](../n/newNode.md) (allocates new node with specified size and type)
   - methods->nodeRead (extension-specific deserialization callback)
   - READ_DONE (macro for cleanup)
   - elog (error logging function)

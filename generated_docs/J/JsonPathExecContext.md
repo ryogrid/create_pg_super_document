@@ -42,19 +42,19 @@ JsonPathExecContext serves as the central state container for executing JSON pat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonBaseObjectInfo
+  - [JsonBaseObjectInfo](JsonBaseObjectInfo.md)
   - JsonPathGetVarCallback
-  - JsonbValue
+  - [JsonbValue](JsonbValue.md)
 - Called from (representative examples):
-  - executeJsonPath
-  - executeItem
-  - executeItemOptUnwrapTarget
-  - executeBoolItem
-  - executeKeyValueMethod
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [executeItem](../e/executeItem.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeBoolItem](../e/executeBoolItem.md)
+  - [executeKeyValueMethod](../e/executeKeyValueMethod.md)
 
 ## Notes and Other Information
 - This context structure is passed through nearly all JSON path execution functions
 - The lax vs strict mode significantly affects error handling and type coercion behavior
-- Variable substitution mechanism allows for parameterized JSON path queries
+- [Variable](../V/Variable.md) substitution mechanism allows for parameterized JSON path queries
 - The baseObject and lastGeneratedObjectId are specifically for supporting the .keyvalue() method
 - Error handling is highly configurable through the various boolean flags

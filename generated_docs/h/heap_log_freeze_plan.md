@@ -27,13 +27,13 @@ The function maintains an array of canonical freeze plans in `plans_out` and tra
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort
-  - heap_log_freeze_cmp
-  - heap_log_freeze_new_plan
-  - heap_log_freeze_eq
-  - HeapTupleFreeze
-  - xlhp_freeze_plan
+  - [heap_log_freeze_cmp](heap_log_freeze_cmp.md)
+  - [heap_log_freeze_new_plan](heap_log_freeze_new_plan.md)
+  - [heap_log_freeze_eq](heap_log_freeze_eq.md)
+  - [HeapTupleFreeze](../H/HeapTupleFreeze.md)
+  - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md)
 - Called from (representative examples):
-  - log_heap_prune_and_freeze
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md)
 
 ## Notes and Other Information
 The function ensures that freeze plans are stored in a canonical form to minimize WAL record size and improve recovery performance. The sorting and deduplication process is critical for efficient WAL logging of freeze operations on multiple tuples within the same page. The output maintains strict ordering requirements that the REDO routine depends on during crash recovery.

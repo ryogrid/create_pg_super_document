@@ -23,10 +23,10 @@ The function uses the same planref_resowner_desc descriptor as its counterpart t
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForget
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - planref_resowner_desc (static descriptor)
 - Called from (representative examples):
-  - ReleaseCachedPlan
+  - [ReleaseCachedPlan](ReleaseCachedPlan.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within plancache.c and will be inlined at call sites for performance

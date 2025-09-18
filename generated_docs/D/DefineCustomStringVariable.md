@@ -39,16 +39,16 @@ The function initializes all necessary metadata for the string variable includin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_custom_variable
-  - define_custom_variable
+  - [init_custom_variable](../i/init_custom_variable.md)
+  - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_STRING
   - config_string
   - GucContext
 - Called from (representative examples):
-  - _PG_init (plperl.c:418, plperl.c:440, plperl.c:448)
-  - _PG_init (pltcl.c:465, pltcl.c:472)
-  - _PG_init (ssl_passphrase_func.c:38)
-  - _PG_init (worker_spi.c:329, worker_spi.c:338)
+  - [_PG_init](../P/_PG_init.md) (plperl.c:418, plperl.c:440, plperl.c:448)
+  - [_PG_init](../P/_PG_init.md) (pltcl.c:465, pltcl.c:472)
+  - [_PG_init](../P/_PG_init.md) (ssl_passphrase_func.c:38)
+  - [_PG_init](../P/_PG_init.md) (worker_spi.c:329, worker_spi.c:338)
 
 ## Notes and Other Information
 The variable remains registered for the lifetime of the process. The valueAddr pointer must remain valid throughout the process lifetime, and the GUC system will automatically manage the string memory pointed to by *valueAddr. The boot value is used both as the initial value and as the reset value when the configuration is reset to defaults. String values are automatically copied and managed by the GUC system, so the bootValue parameter can be a static string or temporary value.

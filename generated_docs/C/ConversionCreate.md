@@ -29,19 +29,19 @@ ConversionCreate is responsible for creating new encoding conversions in Postgre
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists2
-  - FindDefaultConversion
+  - [FindDefaultConversion](../F/FindDefaultConversion.md)
   - pg_encoding_to_char
   - namestrcpy
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - recordDependencyOn
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - CreateConversionCommand
+  - [CreateConversionCommand](CreateConversionCommand.md)
 
 ## Notes and Other Information
 - Returns ObjectAddress of the newly created conversion for dependency tracking

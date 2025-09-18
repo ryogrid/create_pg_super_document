@@ -26,18 +26,18 @@ The function can handle both bare expression trees and complete Query structures
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ChangeVarNodes_walker
+  - [ChangeVarNodes_walker](ChangeVarNodes_walker.md)
   - query_tree_walker
   - RowMarkClause
   - ChangeVarNodes_context (structure)
   - IsA (macro for node type checking)
 - Called from (representative examples):
-  - TriggerEnabled (trigger.c)
-  - get_relation_info (plancat.c)
-  - rewriteRuleAction (rewriteHandler.c)
-  - ApplyRetrieveRule (rewriteHandler.c)
-  - rewriteTargetView (rewriteHandler.c)
-  - add_security_quals (rowsecurity.c)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (trigger.c)
+  - [get_relation_info](../g/get_relation_info.md) (plancat.c)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md) (rewriteHandler.c)
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md) (rewriteHandler.c)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (rewriteHandler.c)
+  - [add_security_quals](../a/add_security_quals.md) (rowsecurity.c)
 
 ## Notes and Other Information
 - This is a public function declared in rewrite/rewriteManip.h

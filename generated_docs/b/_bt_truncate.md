@@ -29,19 +29,19 @@ The algorithm determines the minimum number of attributes needed by calling _bt_
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_keep_natts
-  - index_truncate_tuple
-  - BTreeTupleIsPivot
-  - BTreeTupleIsPosting
-  - BTreeTupleSetNAtts
-  - BTreeTupleGetHeapTID
-  - BTreeTupleGetMaxHeapTID
-  - ItemPointerCopy
-  - ItemPointerCompare
+  - [_bt_keep_natts](_bt_keep_natts.md)
+  - [index_truncate_tuple](../i/index_truncate_tuple.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [BTreeTupleSetNAtts](../B/BTreeTupleSetNAtts.md)
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
+  - [BTreeTupleGetMaxHeapTID](../B/BTreeTupleGetMaxHeapTID.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
   - IndexRelationGetNumberOfKeyAttributes
   - IndexRelationGetNumberOfAttributes
 - Called from (representative examples):
-  - _bt_split
+  - [_bt_split](_bt_split.md)
   - _bt_buildadd
 
 ## Notes and Other Information

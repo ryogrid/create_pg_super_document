@@ -26,13 +26,13 @@ The union design allows for efficient storage of different value types while mai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relopt_gen
+  - [relopt_gen](relopt_gen.md)
 - Called from (representative examples):
-  - parseRelOptionsInternal
-  - parseRelOptions
-  - parse_one_reloption
-  - allocateReloptStruct
-  - fillRelOptions
+  - [parseRelOptionsInternal](../p/parseRelOptionsInternal.md)
+  - [parseRelOptions](../p/parseRelOptions.md)
+  - [parse_one_reloption](../p/parse_one_reloption.md)
+  - [allocateReloptStruct](../a/allocateReloptStruct.md)
+  - [fillRelOptions](../f/fillRelOptions.md)
 
 ## Notes and Other Information
 This structure is central to the relation options processing workflow, serving as the bridge between raw option strings and typed option values. The string_val member requires separate memory allocation and deallocation. The structure is typically used in arrays when processing multiple options simultaneously, with the isset flag helping distinguish between user-provided and default values.

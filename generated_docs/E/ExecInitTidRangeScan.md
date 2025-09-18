@@ -26,15 +26,15 @@ The function follows PostgreSQL's standard executor initialization pattern, ensu
   - makeNode (creates new TidRangeScanState structure)
   - ExecAssignExprContext (creates expression context for the node)
   - ExecOpenScanRelation (opens the relation to be scanned)
-  - ExecInitScanTupleSlot (initializes the scan tuple slot)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (initializes the scan tuple slot)
   - RelationGetDescr (gets relation descriptor)
-  - table_slot_callbacks (gets table slot callbacks)
-  - ExecInitResultTypeTL (initializes result type and target list)
-  - ExecAssignScanProjectionInfo (sets up projection information)
-  - ExecInitQual (initializes qualifier expressions)
-  - TidExprListCreate (creates and processes TID expression list)
+  - [table_slot_callbacks](../t/table_slot_callbacks.md) (gets table slot callbacks)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (initializes result type and target list)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md) (sets up projection information)
+  - [ExecInitQual](ExecInitQual.md) (initializes qualifier expressions)
+  - [TidExprListCreate](../T/TidExprListCreate.md) (creates and processes TID expression list)
 - Called from (representative examples):
-  - ExecInitNode (generic plan node initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (generic plan node initialization dispatcher)
 
 ## Notes and Other Information
 - The function sets `trss_inScan` to false, indicating the scan is not yet in progress

@@ -25,12 +25,12 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - t_isspace
-  - pg_mblen
+  - [t_isspace](../t/t_isspace.md)
+  - [pg_mblen](../p/pg_mblen.md)
   - t_iseq
   - TSL_PREFIX
 - Called from (representative examples):
-  - dsynonym_init (twice - for parsing input and output words from synonym file)
+  - [dsynonym_init](../d/dsynonym_init.md) (twice - for parsing input and output words from synonym file)
 
 ## Notes and Other Information
 - This is a static function used internally within the synonym dictionary module

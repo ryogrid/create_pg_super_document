@@ -17,17 +17,17 @@ This function orchestrates the creation of a new backend process to serve a clie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc_extended (memory allocation with no-OOM option)
-  - RandomCancelKey (generates unique cancel key)
-  - canAcceptConnections (checks if new connections are allowed)
-  - AssignPostmasterChildSlot (assigns child slot for tracking)
-  - postmaster_child_launch (performs actual process forking)
-  - ReleasePostmasterChildSlot (releases slot on failure)
-  - report_fork_failure_to_client (notifies client of fork failure)
-  - dlist_push_head (adds backend to list)
-  - ShmemBackendArrayAdd (shared memory registration, EXEC_BACKEND only)
+  - [palloc_extended](../p/palloc_extended.md) (memory allocation with no-OOM option)
+  - [RandomCancelKey](../R/RandomCancelKey.md) (generates unique cancel key)
+  - [canAcceptConnections](../c/canAcceptConnections.md) (checks if new connections are allowed)
+  - [AssignPostmasterChildSlot](../A/AssignPostmasterChildSlot.md) (assigns child slot for tracking)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (performs actual process forking)
+  - [ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md) (releases slot on failure)
+  - [report_fork_failure_to_client](../r/report_fork_failure_to_client.md) (notifies client of fork failure)
+  - [dlist_push_head](../d/dlist_push_head.md) (adds backend to list)
+  - [ShmemBackendArrayAdd](../S/ShmemBackendArrayAdd.md) (shared memory registration, EXEC_BACKEND only)
 - Called from (representative examples):
-  - ServerLoop (main postmaster loop when accepting connections)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster loop when accepting connections)
 
 ## Notes and Other Information
 - Returns STATUS_OK on success, STATUS_ERROR on failure

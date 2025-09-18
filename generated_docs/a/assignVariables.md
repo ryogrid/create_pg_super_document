@@ -18,15 +18,15 @@ The  function is responsible for variable substitution in pgbench SQL commands. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseVariable - Parses variable name from placeholder and returns bytes consumed
-  - getVariable - Retrieves variable value from the Variables store
-  - replaceVariable - Performs text replacement of placeholder with actual value
-  - Variables - Structure type for storing variable name-value pairs
+  - [parseVariable](../p/parseVariable.md) - Parses variable name from placeholder and returns bytes consumed
+  - [getVariable](../g/getVariable.md) - Retrieves variable value from the Variables store
+  - [replaceVariable](../r/replaceVariable.md) - Performs text replacement of placeholder with actual value
+  - [Variables](../V/Variables.md) - Structure type for storing variable name-value pairs
 - Called from (representative examples):
-  - sendCommand - Uses assignVariables to prepare SQL before execution
+  - [sendCommand](../s/sendCommand.md) - Uses assignVariables to prepare SQL before execution
 
 ## Notes and Other Information
-- Variable placeholders must start with ':' followed by a valid variable name
+- [Variable](../V/Variable.md) placeholders must start with ':' followed by a valid variable name
 - If a variable is not found in the store, the placeholder remains unchanged
 - The function modifies the input SQL string in place through replaceVariable calls
 - Memory management is handled properly with free() calls for temporary variable names

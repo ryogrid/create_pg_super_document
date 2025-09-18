@@ -18,15 +18,15 @@ This function provides a descriptive string identifying the current PostgreSQL b
 ## Dependencies
 - Functions called/Symbols referenced:
   - B_BG_WORKER (background worker backend type constant)
-  - GetBackendTypeDesc (function to get backend type description)
+  - [GetBackendTypeDesc](../G/GetBackendTypeDesc.md) (function to get backend type description)
   - MyProcPid (global variable for current process ID)
   - PostmasterPid (global variable for postmaster process ID)
   - MyBackendType (global variable for current backend type)
   - MyBgworkerEntry (global variable for background worker entry)
 - Called from (representative examples):
-  - write_csvlog (src/backend/utils/error/csvlog.c:233)
-  - log_status_format (src/backend/utils/error/elog.c:2902)
-  - write_jsonlog (src/backend/utils/error/jsonlog.c:270)
+  - [write_csvlog](../w/write_csvlog.md) (src/backend/utils/error/csvlog.c:233)
+  - [log_status_format](../l/log_status_format.md) (src/backend/utils/error/elog.c:2902)
+  - [write_jsonlog](../w/write_jsonlog.md) (src/backend/utils/error/jsonlog.c:270)
 
 ## Notes and Other Information
 - Returns a pointer to static or global string data that should not be modified or freed by the caller

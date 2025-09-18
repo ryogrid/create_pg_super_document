@@ -31,20 +31,20 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
   - XidFromFullTransactionId
-  - TransactionIdToCTsPage
-  - pg_atomic_write_u64
+  - [TransactionIdToCTsPage](../T/TransactionIdToCTsPage.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
   - ReadNextTransactionId
-  - SimpleLruDoesPhysicalPageExist
-  - SimpleLruGetBankLock
-  - ZeroCommitTsPage
-  - SimpleLruWritePage
+  - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md)
   - CommitTsCtl
   - TransamVariables
   - commitTsShared
 - Called from (representative examples):
-  - StartupCommitTs
-  - CompleteCommitTsInitialization
-  - CommitTsParameterChange
+  - [StartupCommitTs](../S/StartupCommitTs.md)
+  - [CompleteCommitTsInitialization](../C/CompleteCommitTsInitialization.md)
+  - [CommitTsParameterChange](../C/CommitTsParameterChange.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the commit_ts.c module

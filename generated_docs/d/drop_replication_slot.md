@@ -29,15 +29,15 @@ The function is designed to be resilient - if dropping fails, it marks the slot 
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer, destroyPQExpBuffer, appendPQExpBuffer (PQExpBuffer utilities)
-  - PQescapeLiteral, PQfreemem (libpq string escaping)
-  - PQexec, PQresultStatus, PQresultErrorMessage, PQclear (libpq query execution)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md), PQfreemem (libpq string escaping)
+  - [PQexec](../P/PQexec.md), PQresultStatus, PQresultErrorMessage, PQclear (libpq query execution)
   - pg_log_info, pg_log_debug, pg_log_error (logging functions)
   - PGRES_TUPLES_OK (result status constant)
 
 - Called from (representative examples):
-  - cleanup_objects_atexit
-  - drop_primary_replication_slot
-  - drop_failover_replication_slots
+  - [cleanup_objects_atexit](../c/cleanup_objects_atexit.md)
+  - [drop_primary_replication_slot](drop_primary_replication_slot.md)
+  - [drop_failover_replication_slots](drop_failover_replication_slots.md)
 
 ## Notes and Other Information
 - This is a static function specific to the pg_createsubscriber utility

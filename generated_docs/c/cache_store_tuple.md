@@ -22,23 +22,23 @@ The function assumes that a cache entry has already been established via cache_l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocates memory for new MemoizeTuple structure)
+  - [palloc](../p/palloc.md) (allocates memory for new MemoizeTuple structure)
   - ExecCopySlotMinimalTuple (creates a minimal tuple copy from the slot)
-  - cache_reduce_memory (evicts entries if memory limit is exceeded)
-  - prepare_probe_slot (prepares hash lookup after eviction)
+  - [cache_reduce_memory](cache_reduce_memory.md) (evicts entries if memory limit is exceeded)
+  - [prepare_probe_slot](../p/prepare_probe_slot.md) (prepares hash lookup after eviction)
   - memoize_lookup (re-finds entry after potential hash table reorganization)
-  - MemoryContextSwitchTo (manages memory context for allocations)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (manages memory context for allocations)
   - CACHE_TUPLE_BYTES (calculates memory usage for tuple storage)
   - Assert (debugging assertions)
 - Types referenced:
-  - MemoizeState
+  - [MemoizeState](../M/MemoizeState.md)
   - TupleTableSlot
-  - MemoizeTuple
-  - MemoizeEntry
-  - MemoizeKey
-  - MemoryContext
+  - [MemoizeTuple](../M/MemoizeTuple.md)
+  - [MemoizeEntry](../M/MemoizeEntry.md)
+  - [MemoizeKey](../M/MemoizeKey.md)
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from:
-  - ExecMemoize (multiple locations during tuple processing)
+  - [ExecMemoize](../E/ExecMemoize.md) (multiple locations during tuple processing)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeMemoize.c

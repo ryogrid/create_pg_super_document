@@ -21,9 +21,9 @@ This function converts special characters in an input string to their correspond
   - fputs (standard C library function)
   - fputc (standard C library function)
 - Called from:
-  - PrintQueryStatus (src/bin/psql/common.c:978)
-  - print_html_text (src/fe_utils/print.c:2015, 2026, 2048, 2070)
-  - print_html_vertical (src/fe_utils/print.c:2105, 2126, 2134, 2151)
+  - [PrintQueryStatus](../P/PrintQueryStatus.md) (src/bin/psql/common.c:978)
+  - [print_html_text](../p/print_html_text.md) (src/fe_utils/print.c:2015, 2026, 2048, 2070)
+  - [print_html_vertical](../p/print_html_vertical.md) (src/fe_utils/print.c:2105, 2126, 2134, 2151)
 
 ## Notes and Other Information
 - Converts '&' to '&amp;', '<' to '&lt;', '>' to '&gt;', '"' to '&quot;'

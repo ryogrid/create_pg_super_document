@@ -23,18 +23,18 @@ The function was authored by Paul Vixie (ISC) in October 1998 and is part of Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inet_net_ntop_ipv4
-  - inet_net_ntop_ipv6
+  - [inet_net_ntop_ipv4](../i/inet_net_ntop_ipv4.md)
+  - [inet_net_ntop_ipv6](../i/inet_net_ntop_ipv6.md)
   - PGSQL_AF_INET
   - PGSQL_AF_INET6
   - EAFNOSUPPORT
 - Called from (representative examples):
-  - network_out
-  - network_host
-  - network_show
-  - inet_abbrev
+  - [network_out](../n/network_out.md)
+  - [network_host](../n/network_host.md)
+  - [network_show](../n/network_show.md)
+  - [inet_abbrev](../i/inet_abbrev.md)
   - getHostaddr
-  - pq_verify_peer_name_matches_certificate_ip
+  - [pq_verify_peer_name_matches_certificate_ip](pq_verify_peer_name_matches_certificate_ip.md)
 
 ## Notes and Other Information
 - Returns pointer to dst on success, or NULL on error (check errno)

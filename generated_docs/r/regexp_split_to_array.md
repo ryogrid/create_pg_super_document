@@ -22,13 +22,13 @@ This function implements array-based string splitting using regular expressions.
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP, PG_GETARG_TEXT_PP_IF_EXISTS
   - PG_GET_COLLATION, PG_RETURN_DATUM
-  - parse_re_flags
-  - setup_regexp_matches
-  - build_regexp_split_result
-  - accumArrayResult, makeArrayResult
-  - ArrayBuildState, pg_re_flags, regexp_matches_ctx
+  - [parse_re_flags](../p/parse_re_flags.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
+  - [build_regexp_split_result](../b/build_regexp_split_result.md)
+  - [accumArrayResult](../a/accumArrayResult.md), makeArrayResult
+  - [ArrayBuildState](../A/ArrayBuildState.md), pg_re_flags, regexp_matches_ctx
 - Called from:
-  - regexp_split_to_array_no_flags
+  - [regexp_split_to_array_no_flags](regexp_split_to_array_no_flags.md)
 
 ## Notes and Other Information
 - Prohibits 'g' flag in user input but internally enables global matching

@@ -30,17 +30,17 @@ The `verifier_context` structure encapsulates all the state and configuration ne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - manifest_data
-  - SimpleStringList
+  - [manifest_data](../m/manifest_data.md)
+  - [SimpleStringList](../S/SimpleStringList.md)
 
 - Called from (representative examples):
-  - main (src/bin/pg_verifybackup/pg_verifybackup.c:192)
-  - verify_backup_directory (src/bin/pg_verifybackup/pg_verifybackup.c:610)
-  - verify_backup_file (src/bin/pg_verifybackup/pg_verifybackup.c:675)
-  - report_extra_backup_files (src/bin/pg_verifybackup/pg_verifybackup.c:791)
-  - verify_backup_checksums (src/bin/pg_verifybackup/pg_verifybackup.c:811)
-  - parse_required_wal (src/bin/pg_verifybackup/pg_verifybackup.c:952)
-  - report_backup_error (src/bin/pg_verifybackup/pg_verifybackup.c:983)
+  - [main](../m/main.md) (src/bin/pg_verifybackup/pg_verifybackup.c:192)
+  - [verify_backup_directory](verify_backup_directory.md) (src/bin/pg_verifybackup/pg_verifybackup.c:610)
+  - [verify_backup_file](verify_backup_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:675)
+  - [report_extra_backup_files](../r/report_extra_backup_files.md) (src/bin/pg_verifybackup/pg_verifybackup.c:791)
+  - [verify_backup_checksums](verify_backup_checksums.md) (src/bin/pg_verifybackup/pg_verifybackup.c:811)
+  - [parse_required_wal](../p/parse_required_wal.md) (src/bin/pg_verifybackup/pg_verifybackup.c:952)
+  - [report_backup_error](../r/report_backup_error.md) (src/bin/pg_verifybackup/pg_verifybackup.c:983)
 
 ## Notes and Other Information
 This structure is central to the pg_verifybackup tool workflow, providing thread-safe state management and configuration throughout the verification process. The ignore_list feature allows users to exclude certain files from verification, which is useful for temporary or variable files that may not be included in the manifest. The error handling flags provide flexibility in verification behavior, allowing both fail-fast and comprehensive verification modes.

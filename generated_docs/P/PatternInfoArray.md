@@ -24,15 +24,15 @@ The PatternInfoArray structure implements a simple dynamic array container speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PatternInfo (as array element type)
+  - [PatternInfo](PatternInfo.md) (as array element type)
 - Called from (representative examples):
-  - AmcheckOptions (contains PatternInfoArray members)
-  - extend_pattern_info_array
-  - append_database_pattern
-  - append_schema_pattern
-  - append_relation_pattern_helper
-  - append_heap_pattern
-  - append_btree_pattern
+  - [AmcheckOptions](../A/AmcheckOptions.md) (contains PatternInfoArray members)
+  - [extend_pattern_info_array](../e/extend_pattern_info_array.md)
+  - [append_database_pattern](../a/append_database_pattern.md)
+  - [append_schema_pattern](../a/append_schema_pattern.md)
+  - [append_relation_pattern_helper](../a/append_relation_pattern_helper.md)
+  - [append_heap_pattern](../a/append_heap_pattern.md)
+  - [append_btree_pattern](../a/append_btree_pattern.md)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_amcheck/pg_amcheck.c:47-51

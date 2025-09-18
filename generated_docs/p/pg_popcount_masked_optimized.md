@@ -28,8 +28,8 @@ Like other optimized popcount functions, this becomes a function pointer when TR
   - pg_popcount_masked_slow
   - bits8 (type reference)
 - Called from (representative examples):
-  - pg_popcount_masked (inline function in pg_bitutils.h)
-  - choose_popcount_functions (during function pointer initialization)
+  - [pg_popcount_masked](pg_popcount_masked.md) (inline function in pg_bitutils.h)
+  - [choose_popcount_functions](../c/choose_popcount_functions.md) (during function pointer initialization)
 
 ## Notes and Other Information
 - When TRY_POPCNT_FAST is defined, this function becomes a function pointer that can be dynamically assigned to optimized implementations including hardware-accelerated POPCNT or AVX-512 routines

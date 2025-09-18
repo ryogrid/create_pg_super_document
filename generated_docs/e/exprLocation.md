@@ -29,7 +29,7 @@ The function handles over 50 different node types, from simple literals to compl
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine expression type)
-  - leftmostLoc (helper function to find leftmost of two locations)
+  - [leftmostLoc](../l/leftmostLoc.md) (helper function to find leftmost of two locations)
   - Recursive calls to exprLocation for nested expressions
   - Various node type constants (T_Var, T_Const, T_FuncExpr, etc.)
 
@@ -37,7 +37,7 @@ The function handles over 50 different node types, from simple literals to compl
   - Various parser functions for error reporting (parse_clause.c, parse_expr.c, etc.)
   - Expression transformation functions
   - Error handling routines throughout the parser
-  - Query analysis functions
+  - [Query](../Q/Query.md) analysis functions
 
 ## Notes and Other Information
 - Returns -1 if the location cannot be determined or if expr is NULL

@@ -20,20 +20,20 @@ This function implements heap truncation logic during vacuum operations by remov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_param
-  - update_vacuum_error_info
-  - ConditionalLockRelation
-  - WaitLatch
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [update_vacuum_error_info](../u/update_vacuum_error_info.md)
+  - [ConditionalLockRelation](../C/ConditionalLockRelation.md)
+  - [WaitLatch](../W/WaitLatch.md)
   - RelationGetNumberOfBlocks
-  - count_nondeletable_pages
-  - RelationTruncate
-  - UnlockRelation
+  - [count_nondeletable_pages](../c/count_nondeletable_pages.md)
+  - [RelationTruncate](../R/RelationTruncate.md)
+  - [UnlockRelation](../U/UnlockRelation.md)
   - PROGRESS_VACUUM_PHASE_TRUNCATE
   - VACUUM_ERRCB_PHASE_TRUNCATE
   - VACUUM_TRUNCATE_LOCK_TIMEOUT
   - VACUUM_TRUNCATE_LOCK_WAIT_INTERVAL
 - Called from (representative examples):
-  - heap_vacuum_rel
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
 
 ## Notes and Other Information
 The function uses a non-blocking approach to lock acquisition to avoid deadlocks, since it already holds lower-grade locks. It includes sophisticated timeout and retry logic to balance truncation success against avoiding disruption to other backends. The function carefully validates that pages are still empty even after acquiring exclusive lock, since concurrent backends may have added tuples during the vacuum process. Progress reporting and error tracking are maintained throughout the operation to provide visibility into potentially long-running truncation operations.

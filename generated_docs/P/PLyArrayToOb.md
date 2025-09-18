@@ -17,10 +17,10 @@ PLyArrayToOb handles the conversion of PostgreSQL arrays to Python lists. It use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyDatumToOb (for element type conversion)
+  - [PLyDatumToOb](PLyDatumToOb.md) (for element type conversion)
 - Called from (representative examples):
-  - PLyDatumToOb (as part of the union)
-  - PLyList_FromArray functions
+  - [PLyDatumToOb](PLyDatumToOb.md) (as part of the union)
+  - [PLyList_FromArray](PLyList_FromArray.md) functions
 
 ## Notes and Other Information
 This struct enables PostgreSQL's multidimensional arrays to be properly converted to nested Python lists. The recursive nature allows for arrays of any supported PostgreSQL type, including arrays of composite types or other arrays.

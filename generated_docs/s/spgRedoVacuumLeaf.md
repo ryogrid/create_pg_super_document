@@ -26,18 +26,18 @@ The function processes arrays of offset numbers for each operation type and appl
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - fillFakeState
+  - [fillFakeState](../f/fillFakeState.md)
   - XLogReadBufferForRedo
-  - spgPageIndexMultiDelete
-  - PageGetItemId
-  - PageGetItem
+  - [spgPageIndexMultiDelete](spgPageIndexMultiDelete.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
   - SGLT_SET_NEXTOFFSET
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferGetPage
-  - UnlockReleaseBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
-  - spg_redo (main SP-GiST redo dispatcher)
+  - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)
 
 ## Notes and Other Information
 - Processes multiple types of tuple state changes: DEAD, PLACEHOLDER, and tuple movement

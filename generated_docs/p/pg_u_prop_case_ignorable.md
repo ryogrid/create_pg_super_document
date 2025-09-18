@@ -22,10 +22,10 @@ The function uses a two-tier approach for efficiency:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_CASE_IGNORABLE (constant/macro)
-  - range_search (function for binary search in Unicode ranges)
+  - [range_search](../r/range_search.md) (function for binary search in Unicode ranges)
   - lengthof (macro to get array length)
 - Called from (representative examples):
-  - icu_test (in test code)
+  - [icu_test](../i/icu_test.md) (in test code)
   - Referenced in pg_unicode_category header
 
 ## Notes and Other Information

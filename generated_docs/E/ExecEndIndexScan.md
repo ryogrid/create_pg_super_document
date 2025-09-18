@@ -21,17 +21,17 @@ The function safely handles cases where the index scan descriptor or index relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_endscan
-  - index_close
+  - [index_endscan](../i/index_endscan.md)
+  - [index_close](../i/index_close.md)
 - Data types used:
-  - IndexScanState
-  - IndexScanDesc
-  - Relation
+  - [IndexScanState](../I/IndexScanState.md)
+  - [IndexScanDesc](../I/IndexScanDesc.md)
+  - [Relation](../R/Relation.md)
 - Constants used:
   - NoLock
 
 ## Called From
-- ExecEndNode (src/backend/executor/execProcnode.c:635)
+- [ExecEndNode](ExecEndNode.md) (src/backend/executor/execProcnode.c:635)
 
 ## Notes and Other Information
 - Part of the standard executor node cleanup protocol

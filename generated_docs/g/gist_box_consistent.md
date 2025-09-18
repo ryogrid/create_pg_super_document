@@ -32,15 +32,15 @@ The consistent method is fundamental to GiST index operation, as it prunes the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTENTRY (GiST entry structure)
-  - BOX (box data type)
+  - [GISTENTRY](../G/GISTENTRY.md) (GiST entry structure)
+  - [BOX](../B/BOX.md) (box data type)
   - PG_GETARG_BOX_P (macro for extracting box arguments)
   - StrategyNumber (enumeration for query strategies)
   - PG_GETARG_UINT16 (macro for extracting integer arguments)
-  - DatumGetBoxP (macro for converting Datum to BOX pointer)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (macro for converting Datum to BOX pointer)
   - GIST_LEAF (macro to check if entry is a leaf node)
-  - gist_box_leaf_consistent (for leaf-level consistency checking)
-  - rtree_internal_consistent (for internal-level consistency checking)
+  - [gist_box_leaf_consistent](gist_box_leaf_consistent.md) (for leaf-level consistency checking)
+  - [rtree_internal_consistent](../r/rtree_internal_consistent.md) (for internal-level consistency checking)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager system)
 

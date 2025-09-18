@@ -31,17 +31,17 @@ The optimization is conservative - it only handles simple Const expressions rath
 ## Dependencies
 - Functions called/Symbols referenced:
   - linitial_node
-  - get_expr_result_type  
-  - makeTargetEntry
-  - perform_pullup_replace_vars
+  - [get_expr_result_type](../g/get_expr_result_type.md)  
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [perform_pullup_replace_vars](perform_pullup_replace_vars.md)
   - TYPEFUNC_SCALAR
   - RTE_RESULT
 - Called from:
-  - pull_up_subqueries_recurse
+  - [pull_up_subqueries_recurse](pull_up_subqueries_recurse.md)
 
 ## Notes and Other Information
 - The pulled-up constant may need to be wrapped in a PlaceHolderVar if the RTE is below an outer join or part of an appendrel
-- PlaceHolderVar wrapping is also required when the parent query uses grouping sets
+- [PlaceHolderVar](../P/PlaceHolderVar.md) wrapping is also required when the parent query uses grouping sets
 - The function is conservative in only handling Const expressions to avoid performance issues from multiple evaluations
 - The main benefit is enabling further constant folding optimizations in the parent query
 - Located in src/backend/optimizer/prep/prepjointree.c:1954-2071

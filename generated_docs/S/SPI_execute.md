@@ -26,23 +26,23 @@ The execution uses default parsing mode (RAW_PARSE_DEFAULT) and enables parallel
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_plan (struct type for execution plans)
-  - SPIExecuteOptions (struct type for execution options)
+  - [SPIExecuteOptions](SPIExecuteOptions.md) (struct type for execution options)
   - SPI_ERROR_ARGUMENT (error code constant)
   - _SPI_begin_call (function to start SPI call context)
   - _SPI_PLAN_MAGIC (magic number for plan validation)
   - RAW_PARSE_DEFAULT (parsing mode constant)
   - CURSOR_OPT_PARALLEL_OK (cursor option constant)
-  - _SPI_prepare_oneshot_plan (function to prepare temporary plan)
-  - _SPI_execute_plan (function to execute prepared plan)
+  - [_SPI_prepare_oneshot_plan](_SPI_prepare_oneshot_plan.md) (function to prepare temporary plan)
+  - [_SPI_execute_plan](_SPI_execute_plan.md) (function to execute prepared plan)
   - InvalidSnapshot (snapshot constant)
   - _SPI_end_call (function to end SPI call context)
 
 - Called from (representative examples):
-  - refresh_by_match_merge (src/backend/commands/matview.c:653)
-  - SPI_exec (src/backend/executor/spi.c:632)
-  - query_to_oid_list (src/backend/utils/adt/xml.c:2792)
-  - plperl_spi_exec (src/pl/plperl/plperl.c:3156)
-  - PLy_spi_execute_query (src/pl/plpython/plpy_spi.c:315)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (src/backend/commands/matview.c:653)
+  - [SPI_exec](SPI_exec.md) (src/backend/executor/spi.c:632)
+  - [query_to_oid_list](../q/query_to_oid_list.md) (src/backend/utils/adt/xml.c:2792)
+  - [plperl_spi_exec](../p/plperl_spi_exec.md) (src/pl/plperl/plperl.c:3156)
+  - [PLy_spi_execute_query](../P/PLy_spi_execute_query.md) (src/pl/plpython/plpy_spi.c:315)
 
 ## Notes and Other Information
 - Higher-level alternative to SPI_execute_plan for simple query execution

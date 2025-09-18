@@ -25,7 +25,7 @@ The implementation uses a conditional expression that first checks if val1 is Na
   - isnan (standard C library function for NaN detection)
   - float4 (typedef for single-precision floating-point)
 - Called from (representative examples):
-  - float4ne (SQL-callable inequality function)
+  - [float4ne](float4ne.md) (SQL-callable inequality function)
 
 ## Notes and Other Information
 - This is an inline function defined in utils/float.h for performance

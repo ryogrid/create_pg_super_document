@@ -19,11 +19,11 @@ _DeClone is a cleanup function specifically designed for the custom archive form
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lclContext (structure type)
+  - [lclContext](../l/lclContext.md) (structure type)
   - free (standard library function)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom
-  - InitArchiveFmt_Directory (through function pointer assignment)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (through function pointer assignment)
 
 ## Notes and Other Information
 - This is a static function internal to pg_backup_custom.c

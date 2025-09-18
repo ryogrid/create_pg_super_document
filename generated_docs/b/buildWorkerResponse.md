@@ -25,7 +25,7 @@ buildWorkerResponse constructs standardized response messages that worker proces
   - snprintf (formatted string construction)
   - WORKER_IGNORED_ERRORS (status constant for conditional error reporting)
 - Called from (representative examples):
-  - WaitForCommands (src/bin/pg_dump/parallel.c:1372)
+  - [WaitForCommands](../W/WaitForCommands.md) (src/bin/pg_dump/parallel.c:1372)
 
 ## Notes and Other Information
 - Response format is "OK <dumpId> <status> <errorCount>"

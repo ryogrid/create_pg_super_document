@@ -31,26 +31,26 @@ The function is used in both normal operations (during index maintenance) and WA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - PageGetContents
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetContents](../P/PageGetContents.md)
   - HEAPBLK_TO_REVMAP_INDEX
-  - ItemPointerIsValid
-  - ItemPointerSet
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - ItemPointerSetInvalid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
 - Types referenced:
-  - RevmapContents
-  - ItemPointerData
+  - [RevmapContents](../R/RevmapContents.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
   - Page
   - Buffer
   - BlockNumber
 - Called from:
-  - brin_doupdate
-  - brin_doinsert
-  - brinRevmapDesummarizeRange
-  - brin_xlog_insert_update
-  - brin_xlog_desummarize_page
+  - [brin_doupdate](brin_doupdate.md)
+  - [brin_doinsert](brin_doinsert.md)
+  - [brinRevmapDesummarizeRange](brinRevmapDesummarizeRange.md)
+  - [brin_xlog_insert_update](brin_xlog_insert_update.md)
+  - [brin_xlog_desummarize_page](brin_xlog_desummarize_page.md)
 
 ## Notes and Other Information
 - The caller must ensure the buffer is properly locked before calling this function

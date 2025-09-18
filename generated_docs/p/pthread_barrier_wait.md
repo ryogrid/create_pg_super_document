@@ -19,8 +19,8 @@ The implementation uses a sense-reversing algorithm where the `sense` field alte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
+  - [pthread_mutex_lock](pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](pthread_mutex_unlock.md)
   - pthread_cond_wait
   - pthread_cond_broadcast
   - PTHREAD_BARRIER_SERIAL_THREAD

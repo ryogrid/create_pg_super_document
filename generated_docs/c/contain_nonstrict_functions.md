@@ -26,10 +26,10 @@ The caller typically uses this function after verifying that the expression cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_nonstrict_functions_walker
+  - [contain_nonstrict_functions_walker](contain_nonstrict_functions_walker.md)
 - Called from (representative examples):
-  - pullup_replace_vars_callback
-  - inline_function
+  - [pullup_replace_vars_callback](../p/pullup_replace_vars_callback.md)
+  - [inline_function](../i/inline_function.md)
 
 ## Notes and Other Information
 - This is a public interface function that provides a clean API for nonstrict function detection

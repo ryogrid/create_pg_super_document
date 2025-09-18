@@ -28,7 +28,7 @@ The enum provides four compression options ranging from no compression to modern
   - parse_compress_algorithm
   - get_compress_algorithm_name
   - parse_compress_specification
-  - pg_compress_specification (as a member type)
+  - [pg_compress_specification](pg_compress_specification.md) (as a member type)
   - Various backup and compression modules
 
 ## Notes and Other Information

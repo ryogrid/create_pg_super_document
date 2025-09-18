@@ -22,15 +22,15 @@ This function is essential for dynamic attribute access in stored procedures and
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)
   - namestrcmp (for comparing attribute names)
-  - SystemAttributeByName (for looking up system attributes)
+  - [SystemAttributeByName](SystemAttributeByName.md) (for looking up system attributes)
 - Called from (representative examples):
-  - make_ruledef (rule utilities)
-  - make_viewdef (view definition utilities)
-  - tsvector_update_trigger (text search triggers)
-  - plperl_build_tuple_result (Perl procedural language)
-  - PLy_modify_tuple (Python procedural language)
+  - [make_ruledef](../m/make_ruledef.md) (rule utilities)
+  - [make_viewdef](../m/make_viewdef.md) (view definition utilities)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (text search triggers)
+  - [plperl_build_tuple_result](../p/plperl_build_tuple_result.md) (Perl procedural language)
+  - [PLy_modify_tuple](../P/PLy_modify_tuple.md) (Python procedural language)
   - pltcl_build_tuple_result (Tcl procedural language)
-  - ttdummy (regression test trigger)
+  - [ttdummy](../t/ttdummy.md) (regression test trigger)
 
 ## Notes and Other Information
 - Returns 1-based attribute numbers for regular attributes (1, 2, 3, ...)

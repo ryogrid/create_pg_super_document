@@ -18,20 +18,20 @@ fetch_fp_info is responsible for safely retrieving and validating function metad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fp_info
+  - [fp_info](fp_info.md)
   - Form_pg_proc
   - MemSet
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - PROKIND_FUNCTION
   - FUNC_MAX_ARGS
   - NAMEDATALEN
   - strlcpy
-  - ReleaseSysCache
-  - fmgr_info
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [fmgr_info](fmgr_info.md)
 - Called from (representative examples):
-  - HandleFunctionRequest
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the fast-path protocol implementation

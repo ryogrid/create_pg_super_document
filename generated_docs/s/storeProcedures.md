@@ -24,19 +24,19 @@ This function is responsible for inserting procedure entries into the pg_amproc 
   - table_open
   - SearchSysCacheExists4
   - ereport
-  - format_type_be
-  - NameListToString
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
-  - typeDepNeeded
+  - [format_type_be](../f/format_type_be.md)
+  - [NameListToString](../N/NameListToString.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [typeDepNeeded](../t/typeDepNeeded.md)
   - InvokeObjectPostCreateHook
   - table_close
 - Called from (representative examples):
-  - DefineOpClass (src/backend/commands/opclasscmds.c:711)
-  - AlterOpFamilyAdd (src/backend/commands/opclasscmds.c:1018)
+  - [DefineOpClass](../D/DefineOpClass.md) (src/backend/commands/opclasscmds.c:711)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md) (src/backend/commands/opclasscmds.c:1018)
 
 ## Notes and Other Information
 - The function uses RowExclusiveLock when opening the pg_amproc relation to ensure exclusive access during modification

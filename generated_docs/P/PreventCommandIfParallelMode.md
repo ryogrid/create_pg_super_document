@@ -21,12 +21,12 @@ The function ensures consistency in error message wording across the PostgreSQL 
 - Functions called/Symbols referenced:
   - IsInParallelMode (function to check if currently in parallel mode)
   - ereport (error reporting mechanism)
-  - errcode, errmsg (error handling macros)
+  - [errcode](../e/errcode.md), errmsg (error handling macros)
 - Called from (representative examples):
-  - nextval_internal (src/backend/commands/sequence.c:666)
-  - do_setval (src/backend/commands/sequence.c:983)
-  - ExecCheckXactReadOnly (src/backend/executor/execMain.c:814)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:580)
+  - [nextval_internal](../n/nextval_internal.md) (src/backend/commands/sequence.c:666)
+  - [do_setval](../d/do_setval.md) (src/backend/commands/sequence.c:983)
+  - [ExecCheckXactReadOnly](../E/ExecCheckXactReadOnly.md) (src/backend/executor/execMain.c:814)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:580)
 
 ## Notes and Other Information
 - Uses ERRCODE_INVALID_TRANSACTION_STATE error code for parallel mode violations

@@ -26,12 +26,12 @@ The conditional rescanning logic optimizes performance by avoiding redundant res
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - ExecReScan
+  - [ExecReScan](ExecReScan.md)
 - Called from (representative examples):
-  - ExecReScan (as part of plan tree rescanning)
+  - [ExecReScan](ExecReScan.md) (as part of plan tree rescanning)
 
 ## Notes and Other Information
 - The chgParam check prevents double-rescanning when parameters have changed
 - Resetting pending_srf_tuples is crucial for SRF correctness across rescans
 - Part of the standard executor rescan protocol used throughout PostgreSQL's executor
-- ProjectSet nodes don't maintain complex state that requires extensive cleanup during rescan
+- [ProjectSet](../P/ProjectSet.md) nodes don't maintain complex state that requires extensive cleanup during rescan

@@ -35,16 +35,16 @@ The ordering reflects Hungarian morphological structure, processing more specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (region boundary identification)
-  - r_instrum (instrumental case suffix handling)
-  - r_case (general case suffix handling)
-  - r_case_special (special case suffix handling)
-  - r_case_other (other case suffix handling)
-  - r_factive (factive case suffix handling)
-  - r_owned (possessive suffix handling)
-  - r_sing_owner (singular possessor suffix handling)
-  - r_plur_owner (plural possessor suffix handling)
-  - r_plural (plural suffix handling)
+  - [r_mark_regions](../r/r_mark_regions.md) (region boundary identification)
+  - [r_instrum](../r/r_instrum.md) (instrumental case suffix handling)
+  - [r_case](../r/r_case.md) (general case suffix handling)
+  - [r_case_special](../r/r_case_special.md) (special case suffix handling)
+  - [r_case_other](../r/r_case_other.md) (other case suffix handling)
+  - [r_factive](../r/r_factive.md) (factive case suffix handling)
+  - [r_owned](../r/r_owned.md) (possessive suffix handling)
+  - [r_sing_owner](../r/r_sing_owner.md) (singular possessor suffix handling)
+  - [r_plur_owner](../r/r_plur_owner.md) (plural possessor suffix handling)
+  - [r_plural](../r/r_plural.md) (plural suffix handling)
 - Called from (representative examples):
   - External stemming applications (this is a public API function)
 

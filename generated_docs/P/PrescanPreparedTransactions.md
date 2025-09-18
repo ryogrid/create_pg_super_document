@@ -28,13 +28,13 @@ The function processes each prepared transaction by calling ProcessTwoPhaseBuffe
 ## Dependencies
 - Functions called/Symbols referenced:
   - XidFromFullTransactionId
-  - ProcessTwoPhaseBuffer
-  - TransactionIdPrecedes
+  - [ProcessTwoPhaseBuffer](ProcessTwoPhaseBuffer.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - LWLockAcquire/LWLockRelease
-  - palloc/repalloc/pfree
+  - [palloc](../p/palloc.md)/repalloc/pfree
 - Called from:
-  - StartupXLOG
-  - xlog_redo
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [xlog_redo](../x/xlog_redo.md)
 
 ## Notes and Other Information
 - Returns the oldest valid XID, or TransamVariables->nextXid if no prepared transactions exist

@@ -28,23 +28,23 @@ The retry mechanism is essential because other processes might be updating the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - IsInParallelMode
-  - IsInplaceUpdateRelation
-  - IsSystemRelation
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - heap_inplace_lock
-  - heap_copytuple
+  - [IsInplaceUpdateRelation](../I/IsInplaceUpdateRelation.md)
+  - [IsSystemRelation](../I/IsSystemRelation.md)
+  - [systable_beginscan](systable_beginscan.md)
+  - [systable_getnext](systable_getnext.md)
+  - [systable_endscan](systable_endscan.md)
+  - [heap_inplace_lock](../h/heap_inplace_lock.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
   - ScanKey, SysScanDesc, BufferHeapTupleTableSlot (types)
 - Called from (representative examples):
-  - index_update_stats
-  - create_toast_table
-  - dropdb
-  - EventTriggerOnLogin
-  - vac_update_relstats
-  - vac_update_datfrozenxid
+  - [index_update_stats](../i/index_update_stats.md)
+  - [create_toast_table](../c/create_toast_table.md)
+  - [dropdb](../d/dropdb.md)
+  - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md)
+  - [vac_update_relstats](../v/vac_update_relstats.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
 
 ## Notes and Other Information
 - Violates MVCC and transactional safety by design - use only when absolutely necessary

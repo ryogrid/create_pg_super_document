@@ -17,18 +17,18 @@ This function takes a JsonValueList containing multiple JsonbValue items and con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonValueList (structure for holding lists of JsonbValues)
-  - JsonbParseState (PostgreSQL's JSONB construction state)
-  - JsonValueListIterator (iterator for traversing JsonValueList)
+  - [JsonValueList](../J/JsonValueList.md) (structure for holding lists of JsonbValues)
+  - [JsonbParseState](../J/JsonbParseState.md) (PostgreSQL's JSONB construction state)
+  - [JsonValueListIterator](../J/JsonValueListIterator.md) (iterator for traversing JsonValueList)
   - WJB_BEGIN_ARRAY (token for starting array construction)
-  - pushJsonbValue (function to add elements during JSONB construction)
-  - JsonValueListInitIterator (function to initialize the iterator)
-  - JsonValueListNext (function to get next item from iterator)
+  - [pushJsonbValue](../p/pushJsonbValue.md) (function to add elements during JSONB construction)
+  - [JsonValueListInitIterator](../J/JsonValueListInitIterator.md) (function to initialize the iterator)
+  - [JsonValueListNext](../J/JsonValueListNext.md) (function to get next item from iterator)
   - WJB_ELEM (token for array elements)
   - WJB_END_ARRAY (token for ending array construction)
 - Called from (representative examples):
-  - jsonb_path_query_array_internal (for collecting query results)
-  - JsonPathQuery (for query result aggregation)
+  - [jsonb_path_query_array_internal](../j/jsonb_path_query_array_internal.md) (for collecting query results)
+  - [JsonPathQuery](../J/JsonPathQuery.md) (for query result aggregation)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c, not exposed in the public API

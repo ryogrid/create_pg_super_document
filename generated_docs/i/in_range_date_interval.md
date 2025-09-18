@@ -30,9 +30,9 @@ The function supports both addition and subtraction of intervals from the base d
   - `PG_GETARG_DATEADT` - Extracts date arguments
   - `PG_GETARG_INTERVAL_P` - Extracts interval argument
   - `PG_GETARG_BOOL` - Extracts boolean arguments
-  - `date2timestamp` - Converts date to timestamp
+  - `[date2timestamp](../d/date2timestamp.md)` - Converts date to timestamp
   - `DirectFunctionCall5` - Direct function call mechanism
-  - `in_range_timestamp_interval` - Timestamp interval range function
+  - `[in_range_timestamp_interval](in_range_timestamp_interval.md)` - Timestamp interval range function
   - `TimestampGetDatum`, `IntervalPGetDatum`, `BoolGetDatum` - Datum conversion functions
   - `DateADT`, `Interval`, `Timestamp` - Data type definitions
 - Called from (representative examples):

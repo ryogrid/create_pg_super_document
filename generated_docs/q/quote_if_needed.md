@@ -25,10 +25,10 @@ The function implements proper escaping by doubling quote and escape characters 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - PQmblenBounded
+  - [PQmblenBounded](../P/PQmblenBounded.md)
 - Called from (representative examples):
-  - complete_from_files
-  - quote_file_name
+  - [complete_from_files](../c/complete_from_files.md)
+  - [quote_file_name](quote_file_name.md)
 
 ## Notes and Other Information
 - Returns NULL if no quoting is needed, otherwise returns a malloc'd copy that must be freed by caller

@@ -26,10 +26,10 @@ The implementation uses short-circuit evaluation: first check that val2 is not N
   - float4 (type definition for single-precision float)
   - isnan (standard library function for NaN detection)
 - Called from (representative examples):
-  - float4larger (max function implementation)
-  - float4_cmp_internal (internal comparison function)
-  - float4gt (wrapper function in src/backend/utils/adt/float.c:860)
-  - float4_max (maximum value computation macro)
+  - [float4larger](float4larger.md) (max function implementation)
+  - [float4_cmp_internal](float4_cmp_internal.md) (internal comparison function)
+  - [float4gt](float4gt.md) (wrapper function in src/backend/utils/adt/float.c:860)
+  - [float4_max](float4_max.md) (maximum value computation macro)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

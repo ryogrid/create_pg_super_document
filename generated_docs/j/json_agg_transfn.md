@@ -21,7 +21,7 @@ This function acts as a simple wrapper around json_agg_transfn_worker, providing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_agg_transfn_worker (with absent_on_null=false)
+  - [json_agg_transfn_worker](json_agg_transfn_worker.md) (with absent_on_null=false)
 - Called from:
   - PostgreSQL aggregate execution engine (no direct internal callers)
 

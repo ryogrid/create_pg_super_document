@@ -22,15 +22,15 @@ The pattern matching supports filtering by either schema name or role name, maki
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer (initialize query buffer)
-  - printfPQExpBuffer (format SQL query with object type mapping)
-  - printACLColumn (format the default access control list)
-  - validateSQLNamePattern (validate and apply name pattern filtering)
-  - PSQLexec (execute the constructed SQL query)
-  - printQuery (display formatted results with translation support)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query with object type mapping)
+  - [printACLColumn](../p/printACLColumn.md) (format the default access control list)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and apply name pattern filtering)
+  - [PSQLexec](../P/PSQLexec.md) (execute the constructed SQL query)
+  - [printQuery](../p/printQuery.md) (display formatted results with translation support)
   - termPQExpBuffer (cleanup query buffer)
   - DEFACLOBJ constants (DEFACLOBJ_RELATION, DEFACLOBJ_SEQUENCE, DEFACLOBJ_FUNCTION, DEFACLOBJ_TYPE, DEFACLOBJ_NAMESPACE)
 - Called from (representative examples):
-  - exec_command_d (src/bin/psql/command.c:856) - handles \ddp command
+  - [exec_command_d](../e/exec_command_d.md) (src/bin/psql/command.c:856) - handles \ddp command
   - Declared in DESCRIBE_H (src/bin/psql/describe.h:47)
 
 ## Notes and Other Information

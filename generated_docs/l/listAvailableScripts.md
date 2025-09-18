@@ -23,8 +23,8 @@ The `listAvailableScripts` function provides a user-friendly way to display all 
   - lengthof (macro)
   - builtin_script (global array of BuiltinScript structures)
 - Called from (representative examples):
-  - findBuiltin (src/bin/pgbench/pgbench.c:6182)
-  - main (src/bin/pgbench/pgbench.c:6782)
+  - [findBuiltin](../f/findBuiltin.md) (src/bin/pgbench/pgbench.c:6182)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:6782)
 
 ## Notes and Other Information
 - Output is directed to stderr rather than stdout, following Unix convention for informational messages

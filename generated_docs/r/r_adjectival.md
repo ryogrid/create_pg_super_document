@@ -33,13 +33,13 @@ The function uses sophisticated backtracking logic to handle cases where the sec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_adjective (processes standard adjectival suffixes first)
-  - find_among_b (matches patterns from suffix array a_2)
-  - slice_del (removes identified suffixes)
+  - [r_adjective](r_adjective.md) (processes standard adjectival suffixes first)
+  - [find_among_b](../f/find_among_b.md) (matches patterns from suffix array a_2)
+  - [slice_del](../s/slice_del.md) (removes identified suffixes)
   - a_2 (array containing 8 additional adjectival/participial patterns)
 - Called from (representative examples):
-  - russian_KOI8_R_stem (main Russian stemming function for KOI8-R encoding)
-  - russian_UTF_8_stem (main Russian stemming function for UTF-8 encoding)
+  - [russian_KOI8_R_stem](russian_KOI8_R_stem.md) (main Russian stemming function for KOI8-R encoding)
+  - [russian_UTF_8_stem](russian_UTF_8_stem.md) (main Russian stemming function for UTF-8 encoding)
 
 ## Notes and Other Information
 - This function exemplifies the hierarchical approach needed for morphologically rich languages like Russian

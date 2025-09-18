@@ -20,20 +20,20 @@ This function provides the core comparison logic for interval data types in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - interval_cmp_value (converts interval to linear 128-bit representation)
+  - [interval_cmp_value](interval_cmp_value.md) (converts interval to linear 128-bit representation)
   - INT128 (128-bit integer type)
-  - int128_compare (128-bit integer comparison function)
+  - [int128_compare](int128_compare.md) (128-bit integer comparison function)
 - Called from:
-  - interval_eq (equality comparison operator)
-  - interval_ne (not-equal comparison operator)
-  - interval_lt (less-than comparison operator)
-  - interval_gt (greater-than comparison operator)
-  - interval_le (less-than-or-equal comparison operator)
-  - interval_ge (greater-than-or-equal comparison operator)
-  - interval_cmp (public comparison function)
-  - interval_smaller (returns smaller of two intervals)
-  - interval_larger (returns larger of two intervals)
-  - in_range_interval_interval (range checking function)
+  - [interval_eq](interval_eq.md) (equality comparison operator)
+  - [interval_ne](interval_ne.md) (not-equal comparison operator)
+  - [interval_lt](interval_lt.md) (less-than comparison operator)
+  - [interval_gt](interval_gt.md) (greater-than comparison operator)
+  - [interval_le](interval_le.md) (less-than-or-equal comparison operator)
+  - [interval_ge](interval_ge.md) (greater-than-or-equal comparison operator)
+  - [interval_cmp](interval_cmp.md) (public comparison function)
+  - [interval_smaller](interval_smaller.md) (returns smaller of two intervals)
+  - [interval_larger](interval_larger.md) (returns larger of two intervals)
+  - [in_range_interval_interval](in_range_interval_interval.md) (range checking function)
 
 ## Notes and Other Information
 - Static function used internally within PostgreSQL's interval comparison system

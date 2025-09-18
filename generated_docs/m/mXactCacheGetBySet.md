@@ -26,9 +26,9 @@ The cache comparison assumes that cached entries are already sorted and that unu
   - dclist_foreach, dclist_container, dclist_move_head (doubly-linked list operations)
   - memcmp (for member array comparison)
   - debug_elog3, debug_elog2 (debugging output)
-  - mxid_to_string (debugging helper)
+  - [mxid_to_string](mxid_to_string.md) (debugging helper)
 - Called from (representative examples):
-  - MultiXactIdCreateFromMembers (main usage for MultiXact creation optimization)
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md) (main usage for MultiXact creation optimization)
   - debug_elog6 (debugging context)
 
 ## Notes and Other Information

@@ -22,17 +22,17 @@ ExecInitSubqueryScan is responsible for the complete initialization of a subquer
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new SubqueryScanState structure)
-  - ExecSubqueryScan (sets as the execution function)
+  - [ExecSubqueryScan](ExecSubqueryScan.md) (sets as the execution function)
   - ExecAssignExprContext (creates expression evaluation context)
-  - ExecInitNode (recursively initializes the subplan)
-  - ExecInitScanTupleSlot (initializes scan tuple slot)
-  - ExecGetResultType (gets result tuple descriptor from subplan)
-  - ExecGetResultSlotOps (gets slot operations from subplan)
-  - ExecInitResultTypeTL (initializes result type from target list)
-  - ExecAssignScanProjectionInfo (sets up projection information)
-  - ExecInitQual (initializes qualification expressions)
+  - [ExecInitNode](ExecInitNode.md) (recursively initializes the subplan)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md) (initializes scan tuple slot)
+  - [ExecGetResultType](ExecGetResultType.md) (gets result tuple descriptor from subplan)
+  - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (gets slot operations from subplan)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (initializes result type from target list)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md) (sets up projection information)
+  - [ExecInitQual](ExecInitQual.md) (initializes qualification expressions)
 - Called from (representative examples):
-  - ExecInitNode (part of the general executor node initialization framework)
+  - [ExecInitNode](ExecInitNode.md) (part of the general executor node initialization framework)
 
 ## Notes and Other Information
 - Returns a fully initialized SubqueryScanState structure ready for execution

@@ -19,17 +19,17 @@ This is a static internal helper function that provides the core comparison logi
 ## Dependencies
 - Functions called/Symbols referenced:
   - memcmp (standard C library function)
-  - pg_uuid_t (UUID data type structure)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (UUID data type structure)
   - UUID_LEN (constant defining UUID length as 16 bytes)
 - Called from (representative examples):
-  - uuid_lt
-  - uuid_le 
-  - uuid_eq
-  - uuid_ge
-  - uuid_gt
-  - uuid_ne
-  - uuid_cmp
-  - uuid_fast_cmp
+  - [uuid_lt](uuid_lt.md)
+  - [uuid_le](uuid_le.md) 
+  - [uuid_eq](uuid_eq.md)
+  - [uuid_ge](uuid_ge.md)
+  - [uuid_gt](uuid_gt.md)
+  - [uuid_ne](uuid_ne.md)
+  - [uuid_cmp](uuid_cmp.md)
+  - [uuid_fast_cmp](uuid_fast_cmp.md)
 
 ## Notes and Other Information
 This function is marked as static and is only used internally within the uuid.c module. All public UUID comparison functions delegate to this internal implementation, ensuring consistent comparison semantics across all UUID operations. The lexicographic byte comparison means that UUID ordering is based purely on the binary representation, not on any semantic interpretation of UUID structure or version.

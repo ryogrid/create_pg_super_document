@@ -21,11 +21,11 @@ This is the primary entry point for resolving unqualified collation names in SQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding (to get current database encoding)
-  - recomputeNamespacePath (to ensure search path is current)
-  - lookup_collation (to perform actual collation lookup in each namespace)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (to get current database encoding)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to ensure search path is current)
+  - [lookup_collation](../l/lookup_collation.md) (to perform actual collation lookup in each namespace)
 - Called from (representative examples):
-  - CollationIsVisibleExt
+  - [CollationIsVisibleExt](CollationIsVisibleExt.md)
   - RangeVarGetRelid (via header inclusion)
 
 ## Notes and Other Information

@@ -21,13 +21,13 @@ The function serves as a validation step when processing database object pattern
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQdb (libpq function to get database name from connection)
-  - pg_fatal (error reporting function)
+  - [PQdb](../P/PQdb.md) (libpq function to get database name from connection)
+  - [pg_fatal](pg_fatal.md) (error reporting function)
   - strcmp (standard C string comparison)
 - Called from (representative examples):
   - fmtQualifiedDumpable
-  - expand_schema_name_patterns  
-  - expand_table_name_patterns
+  - [expand_schema_name_patterns](../e/expand_schema_name_patterns.md)  
+  - [expand_table_name_patterns](../e/expand_table_name_patterns.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c, indicating it's only used internally within that module

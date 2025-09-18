@@ -36,7 +36,7 @@ Note: This function is not re-entrant due to its use of a static result buffer f
 - Constants referenced:
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM
 - Called from (representative examples):
-  - check_datestyle
+  - [check_datestyle](../c/check_datestyle.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

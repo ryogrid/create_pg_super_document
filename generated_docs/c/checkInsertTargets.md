@@ -28,16 +28,16 @@ The function maintains two bitmapsets to track column usage:  for complete colum
   - RelationGetNumberOfAttributes
   - TupleDescAttr
   - makeNode
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - lappend
   - lappend_int
-  - attnameAttNum
-  - bms_is_member
-  - bms_add_member
+  - [attnameAttNum](../a/attnameAttNum.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - ereport
 - Called from (representative examples):
-  - transformInsertStmt (src/backend/parser/analyze.c:672)
-  - transformMergeStmt (src/backend/parser/parse_merge.c:312)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (src/backend/parser/analyze.c:672)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (src/backend/parser/parse_merge.c:312)
 
 ## Notes and Other Information
 - The function ensures that dropped columns (attr->attisdropped) are skipped when generating default column lists

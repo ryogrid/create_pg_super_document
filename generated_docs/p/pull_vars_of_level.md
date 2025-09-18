@@ -20,14 +20,14 @@ The function uses a walker pattern with  to recursively traverse the node tree. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_vars_context (context structure)
+  - [pull_vars_context](pull_vars_context.md) (context structure)
   - query_or_expression_tree_walker (tree traversal function)
-  - pull_vars_walker (callback function for tree walking)
+  - [pull_vars_walker](pull_vars_walker.md) (callback function for tree walking)
 - Called from (representative examples):
-  - extract_lateral_references (multiple calls in src/backend/optimizer/plan/initsplan.c)
+  - [extract_lateral_references](../e/extract_lateral_references.md) (multiple calls in src/backend/optimizer/plan/initsplan.c)
 
 ## Notes and Other Information
 - The function is designed to handle both Query nodes and bare expression trees
-- Variables in the returned list are not copied, only linked, so callers should be careful about modifying them
+- [Variables](../V/Variables.md) in the returned list are not copied, only linked, so callers should be careful about modifying them
 - Used primarily in lateral reference analysis and subquery optimization
 - Part of PostgreSQL's variable analysis utilities in the optimizer

@@ -19,20 +19,20 @@ This function implements the core logic of GIN's fast insertion mechanism by add
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationNeedsWAL
-  - ReadBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
   - GinPageGetMeta
-  - makeSublist
-  - CheckForSerializableConflictIn
+  - [makeSublist](../m/makeSublist.md)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
   - GinPageGetOpaque
   - PageAddItem
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - GinGetPendingListCleanupSize
-  - ginInsertCleanup
+  - [ginInsertCleanup](ginInsertCleanup.md)
 - Called from (representative examples):
-  - gininsert
+  - [gininsert](gininsert.md)
 
 ## Notes and Other Information
 - Returns early if collector->ntuples == 0 to avoid unnecessary work

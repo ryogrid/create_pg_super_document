@@ -21,7 +21,7 @@ The function then calls bbsink_begin_backup() on the next sink in the chain, pas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - bbsink_begin_backup (forwards initialization to next sink)
 - Called from (representative examples):
   - Used as callback function in bbsink_gzip_ops structure

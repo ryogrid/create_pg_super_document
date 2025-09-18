@@ -19,10 +19,10 @@ This function handles the cleanup of secure connections in libpq. It is a wrappe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pgtls_close` (when USE_SSL is defined)
+  - `[pgtls_close](pgtls_close.md)` (when USE_SSL is defined)
   - `USE_SSL` (preprocessor macro)
 - Called from (representative examples):
-  - `pqDropConnection` (in fe-connect.c:474)
+  - `[pqDropConnection](pqDropConnection.md)` (in fe-connect.c:474)
   - `pgunlock_thread` (referenced in libpq-int.h:767)
 
 ## Notes and Other Information

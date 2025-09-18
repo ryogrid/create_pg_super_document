@@ -27,18 +27,18 @@ The structure maintains references to both the catalog relation being scanned an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDescData (the actual structure definition)
-  - TableScanDescData (for heap scan operations)
-  - IndexScanDescData (for index scan operations)
-  - SnapshotData (for snapshot management)
+  - [SysScanDescData](SysScanDescData.md) (the actual structure definition)
+  - [TableScanDescData](../T/TableScanDescData.md) (for heap scan operations)
+  - [IndexScanDescData](../I/IndexScanDescData.md) (for index scan operations)
+  - [SnapshotData](SnapshotData.md) (for snapshot management)
   - TupleTableSlot (for tuple storage)
 - Called from (representative examples):
-  - systable_beginscan/systable_endscan (generic system table scan functions)
-  - systable_beginscan_ordered/systable_endscan_ordered (ordered system table scans)
-  - systable_getnext/systable_getnext_ordered (retrieving next tuple from system scans)
-  - SearchCatCacheMiss (catalog cache miss handling)
-  - RelationBuildTupleDesc/RelationBuildRuleLock (relation cache building)
-  - GetDatabaseTuple/GetDatabaseTupleByOid (database metadata access)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan (generic system table scan functions)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)/systable_endscan_ordered (ordered system table scans)
+  - [systable_getnext](../s/systable_getnext.md)/systable_getnext_ordered (retrieving next tuple from system scans)
+  - [SearchCatCacheMiss](SearchCatCacheMiss.md) (catalog cache miss handling)
+  - [RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md)/RelationBuildRuleLock (relation cache building)
+  - [GetDatabaseTuple](../G/GetDatabaseTuple.md)/GetDatabaseTupleByOid (database metadata access)
 
 ## Notes and Other Information
 - This is defined in src/include/access/genam.h as a pointer typedef, with the actual structure in src/include/access/relscan.h

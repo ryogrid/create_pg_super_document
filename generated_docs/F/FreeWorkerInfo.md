@@ -22,12 +22,12 @@ The function performs several critical cleanup tasks: it removes the worker from
 - Functions called/Symbols referenced:
   - LWLockAcquire
   - LWLockRelease
-  - dlist_delete
-  - dlist_push_head
-  - pg_atomic_clear_flag
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [pg_atomic_clear_flag](../p/pg_atomic_clear_flag.md)
   - AutoVacRebalance (signal enum value)
 - Called from (representative examples):
-  - AutoVacWorkerMain
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md)
 
 ## Notes and Other Information
 This function is designed to be registered as an exit callback, which explains why it follows the standard callback signature with code and arg parameters that are not used in the implementation. The function carefully handles the race condition where the launcher's PID might change between reading and signaling by relying on the process cleanup mechanism to send the actual signal. The rebalancing signal ensures that remaining workers can adjust their cost limits optimally after a worker terminates.

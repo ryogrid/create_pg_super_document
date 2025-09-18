@@ -24,21 +24,21 @@ The design accommodates the specific needs of logical replication where full row
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_equal_strategy_number_for_am
+  - [get_equal_strategy_number_for_am](../g/get_equal_strategy_number_for_am.md)
   - AttributeNumberIsValid
   - AttrNumberGetAttrOffset
-  - GetIndexAmRoutineByAmId (in assertion code)
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md) (in assertion code)
 - Types referenced:
   - IndexInfo
-  - AttrMap
+  - [AttrMap](../A/AttrMap.md)
   - AttrNumber
-  - IndexAmRoutine (in assertion code)
+  - [IndexAmRoutine](IndexAmRoutine.md) (in assertion code)
 - Constants referenced:
   - InvalidStrategy
   - NIL
 - Called from (representative examples):
-  - FindUsableIndexForReplicaIdentityFull
-  - FindReplTupleInLocalRel
+  - [FindUsableIndexForReplicaIdentityFull](../F/FindUsableIndexForReplicaIdentityFull.md)
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
 
 ## Notes and Other Information
 - Only supports btree and hash indexes due to fixed equality strategy requirements and default operator class availability

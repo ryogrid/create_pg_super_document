@@ -26,7 +26,7 @@ The structure uses a flexible array member for the data payload, allowing variab
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array syntax)
   - PIPE_CHUNK_SIZE (defines the total chunk size including header)
 - Called from (representative examples):
-  - process_pipe_input (in src/backend/postmaster/syslogger.c)
+  - [process_pipe_input](../p/process_pipe_input.md) (in src/backend/postmaster/syslogger.c)
   - PIPE_HEADER_SIZE (macro using offsetof with this structure)
 
 ## Notes and Other Information

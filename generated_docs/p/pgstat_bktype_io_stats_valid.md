@@ -28,15 +28,15 @@ For each combination, it checks whether the backend type should track that speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_tracks_io_op
+  - [pgstat_tracks_io_op](pgstat_tracks_io_op.md)
   - PgStat_BktypeIO
-  - BackendType
+  - [BackendType](../B/BackendType.md)
   - IOOBJECT_NUM_TYPES
   - IOCONTEXT_NUM_TYPES  
   - IOOP_NUM_TYPES
 - Called from (representative examples):
-  - pgstat_flush_io
-  - pg_stat_get_io
+  - [pgstat_flush_io](pgstat_flush_io.md)
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - The caller is responsible for providing appropriate locking for the backend_io structure if needed

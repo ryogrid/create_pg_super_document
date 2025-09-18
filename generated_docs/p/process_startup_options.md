@@ -22,21 +22,21 @@ For command-line options, the function parses the cmdline_options string using p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_split_opts
-  - process_postgres_switches
+  - [pg_split_opts](pg_split_opts.md)
+  - [process_postgres_switches](process_postgres_switches.md)
   - list_head
-  - lnext
-  - SetConfigOption
+  - [lnext](../l/lnext.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
   - PGC_SU_BACKEND
   - PGC_BACKEND
   - PGC_S_CLIENT
 - Called from (representative examples):
-  - InitPostgres (twice - for WAL senders and regular database connections)
+  - [InitPostgres](../I/InitPostgres.md) (twice - for WAL senders and regular database connections)
 
 ## Notes and Other Information
 - This is a static function, only callable within the same source file
 - Security is enforced through GUC context levels - superusers can modify more parameters than regular users
-- Command-line options are processed first, followed by explicit GUC settings
+- [Command](../C/Command.md)-line options are processed first, followed by explicit GUC settings
 - The function uses palloc for memory allocation of the argument vector
 - GUC options are processed as name-value pairs from a linked list structure
 - All settings are applied with PGC_S_CLIENT source priority to indicate they came from the client

@@ -29,7 +29,7 @@ The function is marked as "obsolescent" in the source code comments, indicating 
 
 ## Notes and Other Information
 - This is an inline function defined in src/include/utils/inet.h
-- Marked as "obsolescent" - DatumGetInetPP is preferred for read-only access
+- Marked as "obsolescent" - [DatumGetInetPP](DatumGetInetPP.md) is preferred for read-only access
 - Performs full detoasting, which may create unnecessary copies of data
 - Returns a modifiable pointer, unlike the read-only pointer from DatumGetInetPP
 - The PG_GETARG_INET_P macro provides the only remaining usage of this function

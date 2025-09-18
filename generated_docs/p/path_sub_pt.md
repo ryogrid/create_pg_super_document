@@ -26,7 +26,7 @@ This translation operator allows paths to be repositioned in 2D space while main
   - PG_GETARG_PATH_P_COPY (macro for retrieving and copying PATH argument)
   - PG_GETARG_POINT_P (macro for retrieving Point argument)  
   - PG_RETURN_PATH_P (macro for returning PATH result)
-  - point_sub_point (function for subtracting two points)
+  - [point_sub_point](point_sub_point.md) (function for subtracting two points)
 - Called from:
   - No direct references found in the codebase
 

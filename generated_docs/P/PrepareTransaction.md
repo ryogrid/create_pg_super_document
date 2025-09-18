@@ -31,16 +31,16 @@ This function takes no parameters but operates on:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionId (obtains the current XID)
-  - MarkAsPreparing (reserves GID and creates global transaction entry)
-  - StartPrepare/EndPrepare (manages two-phase state file creation)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md) (obtains the current XID)
+  - [MarkAsPreparing](../M/MarkAsPreparing.md) (reserves GID and creates global transaction entry)
+  - [StartPrepare](../S/StartPrepare.md)/EndPrepare (manages two-phase state file creation)
   - AtPrepare_* functions (collect data for two-phase state file)
   - PostPrepare_* functions (clean up after preparation)
-  - PostPrepare_Twophase (completes transaction detachment)
-  - ProcArrayClearTransaction (removes from process array)
+  - [PostPrepare_Twophase](PostPrepare_Twophase.md) (completes transaction detachment)
+  - [ProcArrayClearTransaction](ProcArrayClearTransaction.md) (removes from process array)
   
 - Called from (representative examples):
-  - CommitTransactionCommandInternal (when processing PREPARE TRANSACTION command)
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md) (when processing PREPARE TRANSACTION command)
 
 ## Notes and Other Information
 - Contains the same warning as CommitTransaction about coordinating changes between the two functions

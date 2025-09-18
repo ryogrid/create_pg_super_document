@@ -40,20 +40,20 @@ The function protects against zero row counts and uses clamp_row_est to ensure r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_sort
-  - cached_scansel
-  - clamp_row_est
-  - bms_is_subset
-  - JoinCostWorkspace
+  - [cost_sort](../c/cost_sort.md)
+  - [cached_scansel](../c/cached_scansel.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [JoinCostWorkspace](../J/JoinCostWorkspace.md)
   - JoinType
-  - JoinPathExtraData
+  - [JoinPathExtraData](../J/JoinPathExtraData.md)
   - PathKey
-  - MergeScanSelCache
+  - [MergeScanSelCache](../M/MergeScanSelCache.md)
   - Cost
   - JOIN_FULL, JOIN_LEFT, JOIN_ANTI, JOIN_RIGHT, JOIN_RIGHT_ANTI
 - Called from (representative examples):
-  - try_mergejoin_path
-  - try_partial_mergejoin_path
+  - [try_mergejoin_path](../t/try_mergejoin_path.md)
+  - [try_partial_mergejoin_path](../t/try_partial_mergejoin_path.md)
 
 ## Notes and Other Information
 - This is the first phase of a two-phase merge join costing process

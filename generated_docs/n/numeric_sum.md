@@ -25,14 +25,14 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericAggState (aggregate state structure)
+  - [NumericAggState](../N/NumericAggState.md) (aggregate state structure)
   - NA_TOTAL_COUNT (macro to get total count from state)
-  - make_result (creates Numeric from NumericVar)
+  - [make_result](../m/make_result.md) (creates Numeric from NumericVar)
   - init_var (initializes NumericVar)
-  - accum_sum_final (finalizes accumulated sum)
-  - free_var (frees NumericVar memory)
+  - [accum_sum_final](../a/accum_sum_final.md) (finalizes accumulated sum)
+  - [free_var](../f/free_var.md) (frees NumericVar memory)
 - Called from (representative examples):
-  - numeric_poly_sum
+  - [numeric_poly_sum](numeric_poly_sum.md)
 
 ## Notes and Other Information
 - Returns NULL if there were no non-null input values

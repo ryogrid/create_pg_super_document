@@ -24,15 +24,15 @@ This PostgreSQL SQL function creates a physical replication slot used for stream
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
-  - get_call_result_type
-  - CheckSlotPermissions
-  - CheckSlotRequirements
-  - create_physical_replication_slot
-  - NameGetDatum
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md)
+  - [CheckSlotRequirements](../C/CheckSlotRequirements.md)
+  - [create_physical_replication_slot](../c/create_physical_replication_slot.md)
+  - [NameGetDatum](../N/NameGetDatum.md)
   - LSNGetDatum
-  - heap_form_tuple
-  - HeapTupleGetDatum
-  - ReplicationSlotRelease
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
   - PG_RETURN_DATUM
   - TYPEFUNC_COMPOSITE
 - Called from:

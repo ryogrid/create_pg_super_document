@@ -26,11 +26,11 @@ OprCacheEntry represents a complete cache entry in PostgreSQL's operator lookup 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OprCacheKey
+  - [OprCacheKey](OprCacheKey.md)
 - Called from (representative examples):
-  - find_oper_cache_entry
-  - make_oper_cache_entry
-  - InvalidateOprCacheCallBack
+  - [find_oper_cache_entry](../f/find_oper_cache_entry.md)
+  - [make_oper_cache_entry](../m/make_oper_cache_entry.md)
+  - [InvalidateOprCacheCallBack](../I/InvalidateOprCacheCallBack.md)
 
 ## Notes and Other Information
 - The hash lookup key (OprCacheKey) must be the first field in the structure for PostgreSQL's hash table implementation to work correctly

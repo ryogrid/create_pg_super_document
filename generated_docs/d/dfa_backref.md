@@ -30,12 +30,12 @@ The `dfa_backref` function provides an optimized path for matching backreference
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare (string comparison function from regex globals)
-  - shortest (called recursively for some backref scenarios)
+  - [compare](../c/compare.md) (string comparison function from regex globals)
+  - [shortest](../s/shortest.md) (called recursively for some backref scenarios)
   - DUPINF (infinity constant for unlimited repetitions)
 - Called from (representative examples):
-  - longest (longest-match engine for backref optimization)
-  - shortest (shortest-match engine for backref optimization)
+  - [longest](../l/longest.md) (longest-match engine for backref optimization)
+  - [shortest](../s/shortest.md) (shortest-match engine for backref optimization)
   - LOFF (regex execution offset function)
 
 ## Notes and Other Information

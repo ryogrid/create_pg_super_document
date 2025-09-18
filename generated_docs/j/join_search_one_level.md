@@ -24,17 +24,17 @@ The function uses join clauses, equivalence classes, and join order restrictions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_join_restriction
+  - [has_join_restriction](../h/has_join_restriction.md)
   - foreach_current_index
-  - make_rels_by_clause_joins
-  - make_rels_by_clauseless_joins
+  - [make_rels_by_clause_joins](../m/make_rels_by_clause_joins.md)
+  - [make_rels_by_clauseless_joins](../m/make_rels_by_clauseless_joins.md)
   - for_each_from
-  - bms_overlap
-  - have_relevant_joinclause
-  - have_join_order_restriction
-  - make_join_rel
+  - [bms_overlap](../b/bms_overlap.md)
+  - [have_relevant_joinclause](../h/have_relevant_joinclause.md)
+  - [have_join_order_restriction](../h/have_join_order_restriction.md)
+  - [make_join_rel](../m/make_join_rel.md)
 - Called from (representative examples):
-  - standard_join_search
+  - [standard_join_search](../s/standard_join_search.md)
 
 ## Notes and Other Information
 - The function modifies  to ensure new joinrels are added to the proper list

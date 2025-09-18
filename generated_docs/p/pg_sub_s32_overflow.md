@@ -27,13 +27,13 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
   - PG_INT32_MIN (constant defining minimum 32-bit signed integer value)
   - `__builtin_sub_overflow` (compiler built-in, when available)
 - Called from (representative examples):
-  - int4mi (32-bit integer subtraction operator function)
-  - int24mi (mixed 16-bit and 32-bit integer subtraction)
-  - int42mi (mixed 32-bit and 16-bit integer subtraction)
-  - array_prepend (array prepend operations)
+  - [int4mi](../i/int4mi.md) (32-bit integer subtraction operator function)
+  - [int24mi](../i/int24mi.md) (mixed 16-bit and 32-bit integer subtraction)
+  - [int42mi](../i/int42mi.md) (mixed 32-bit and 16-bit integer subtraction)
+  - [array_prepend](../a/array_prepend.md) (array prepend operations)
   - Various array manipulation functions (array_set_element, array_set_slice)
-  - interval_um_internal (interval unary minus operations)
-  - finite_interval_mi (finite interval subtraction)
+  - [interval_um_internal](../i/interval_um_internal.md) (interval unary minus operations)
+  - [finite_interval_mi](../f/finite_interval_mi.md) (finite interval subtraction)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/common/int.h for performance

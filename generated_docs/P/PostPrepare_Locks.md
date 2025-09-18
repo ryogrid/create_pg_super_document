@@ -33,26 +33,26 @@ The entire operation runs in a critical section to ensure atomicity and consiste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetDummyProc
-  - hash_seq_init
-  - hash_seq_search
-  - RemoveLocalLock
+  - [TwoPhaseGetDummyProc](../T/TwoPhaseGetDummyProc.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [RemoveLocalLock](../R/RemoveLocalLock.md)
   - LOCKBIT_ON
   - LockHashPartitionLockByIndex
   - dlist_foreach_modify
   - dlist_container
-  - hash_update_hash_key
-  - dlist_push_tail
+  - [hash_update_hash_key](../h/hash_update_hash_key.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](PrepareTransaction.md)
 
 ## Notes and Other Information
 - The function operates within a critical section to prevent interruption during lock transfer
 - Lock group leaders cannot be prepared - only individual processes or group leaders themselves
 - Virtual transaction (VXID) locks are excluded from transfer as they are not meaningful after restart
 - The function assumes that fast-path locks were already moved to the main table during AtPrepare_Locks()
-- PROCLOCK hash keys are updated in-place rather than creating new entries to avoid out-of-memory issues
+- [PROCLOCK](PROCLOCK.md) hash keys are updated in-place rather than creating new entries to avoid out-of-memory issues
 - After transfer, the dummy PGPROC will hold all the locks until COMMIT PREPARED or ROLLBACK PREPARED
 - Dangling pointers in the transaction's resource owner are acceptable since resowner.c doesn't free locks at toplevel commit/abort
 - The releaseMask and holdMask should be equal for all locks being transferred (no partial releases)

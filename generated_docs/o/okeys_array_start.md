@@ -19,15 +19,15 @@ The function performs a simple but critical validation: if an array is encounter
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OkeysState (cast from state parameter)
+  - [OkeysState](../O/OkeysState.md) (cast from state parameter)
   - ereport (for error reporting)
   - ERROR (error level constant)
-  - errcode (for error code specification)
+  - [errcode](../e/errcode.md) (for error code specification)
   - ERRCODE_INVALID_PARAMETER_VALUE
-  - errmsg (for error message formatting)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
   - JSON_SUCCESS (return value)
 - Called from (representative examples):
-  - json_object_keys (assigned as semantic action callback)
+  - [json_object_keys](../j/json_object_keys.md) (assigned as semantic action callback)
   - JsObjectFree
 
 ## Notes and Other Information

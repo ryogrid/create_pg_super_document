@@ -29,20 +29,20 @@ The function includes comprehensive error handling for undefined columns and pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformTargetList (standard target list transformation)
+  - [transformTargetList](transformTargetList.md) (standard target list transformation)
   - EXPR_KIND_UPDATE_SOURCE (expression context for UPDATE sources)
   - RelationGetNumberOfAttributes (gets column count from relation)
   - list_head (gets first list cell)
-  - attnameAttNum (resolves column name to attribute number)
+  - [attnameAttNum](../a/attnameAttNum.md) (resolves column name to attribute number)
   - InvalidAttrNumber (invalid attribute constant)
-  - updateTargetListEntry (updates target entry with column info)
-  - bms_add_member (adds column to permission bitmap)
+  - [updateTargetListEntry](../u/updateTargetListEntry.md) (updates target entry with column info)
+  - [bms_add_member](../b/bms_add_member.md) (adds column to permission bitmap)
   - FirstLowInvalidHeapAttributeNumber (heap attribute numbering base)
-  - lnext (advances to next list cell)
+  - [lnext](../l/lnext.md) (advances to next list cell)
 - Called from (representative examples):
-  - transformUpdateStmt (UPDATE statement processing)
-  - transformOnConflictClause (INSERT...ON CONFLICT UPDATE processing)  
-  - transformMergeStmt (MERGE statement processing)
+  - [transformUpdateStmt](transformUpdateStmt.md) (UPDATE statement processing)
+  - [transformOnConflictClause](transformOnConflictClause.md) (INSERT...ON CONFLICT UPDATE processing)  
+  - [transformMergeStmt](transformMergeStmt.md) (MERGE statement processing)
 
 ## Notes and Other Information
 This function is central to UPDATE operation processing across multiple statement types including standard UPDATE, MERGE, and INSERT...ON CONFLICT UPDATE. It ensures that resjunk entries (system-generated columns) receive result numbers that don't conflict with actual table columns, which is critical for the rewriter and planner. The permission tracking through updatedCols bitmap is essential for PostgreSQL's security model, ensuring proper column-level UPDATE privileges are enforced. The function provides detailed error reporting with location information and helpful hints for common user mistakes like qualifying SET target columns with relation names.

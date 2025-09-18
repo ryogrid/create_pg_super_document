@@ -22,7 +22,7 @@ float4eq is a PostgreSQL built-in function wrapper that implements the equality 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4: Macro to extract float4 arguments from function call
-  - float4_eq: Inline helper function that performs the actual equality comparison with NaN handling
+  - [float4_eq](float4_eq.md): Inline helper function that performs the actual equality comparison with NaN handling
   - PG_RETURN_BOOL: Macro to return boolean result as Datum
 - Called from (representative examples):
   - No direct references found (likely called through SQL operator dispatch)

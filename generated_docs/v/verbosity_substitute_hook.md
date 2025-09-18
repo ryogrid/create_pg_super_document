@@ -17,7 +17,7 @@ This substitute hook function is called before the main verbosity_hook when the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (PostgreSQL string duplication function)
+  - [pg_strdup](../p/pg_strdup.md) (PostgreSQL string duplication function)
 - Called from (representative examples):
   - SetVariableHooks registration in EstablishVariableSpace (as substitute hook for VERBOSITY)
 

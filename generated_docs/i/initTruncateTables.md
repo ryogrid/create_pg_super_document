@@ -19,10 +19,10 @@ The initTruncateTables function removes all existing data from the four standard
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeStatement (for executing the SQL truncate command)
+  - [executeStatement](../e/executeStatement.md) (for executing the SQL truncate command)
 - Called from (representative examples):
-  - initGenerateDataClientSide (before generating data on client side)
-  - initGenerateDataServerSide (before generating data on server side)
+  - [initGenerateDataClientSide](initGenerateDataClientSide.md) (before generating data on client side)
+  - [initGenerateDataServerSide](initGenerateDataServerSide.md) (before generating data on server side)
 
 ## Notes and Other Information
 - Uses a single TRUNCATE statement to handle all tables simultaneously

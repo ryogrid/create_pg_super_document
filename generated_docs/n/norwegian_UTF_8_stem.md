@@ -31,10 +31,10 @@ Each processing step uses the test-and-restore pattern to ensure cursor consiste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (identifies morphological regions)
-  - r_main_suffix (removes primary suffixes)
-  - r_consonant_pair (handles consonant doubling)
-  - r_other_suffix (secondary suffix processing)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies morphological regions)
+  - [r_main_suffix](../r/r_main_suffix.md) (removes primary suffixes)
+  - [r_consonant_pair](../r/r_consonant_pair.md) (handles consonant doubling)
+  - [r_other_suffix](../r/r_other_suffix.md) (secondary suffix processing)
 - Called from (representative examples):
   - External calling code (no internal references found)
   - Likely called by PostgreSQL's text search infrastructure

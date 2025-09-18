@@ -21,7 +21,7 @@ The function performs a safety check using  to verify that a transaction ID exis
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid
 - Called from (representative examples):
-  - XLogInsertRecord
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's transaction logging infrastructure

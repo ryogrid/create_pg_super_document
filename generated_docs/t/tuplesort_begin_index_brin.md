@@ -19,15 +19,15 @@ This function creates and configures a tuplesort state specifically optimized fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
-  - removeabbrev_index_brin
-  - comparetup_index_brin
-  - writetup_index_brin
-  - readtup_index_brin
+  - [removeabbrev_index_brin](../r/removeabbrev_index_brin.md)
+  - [comparetup_index_brin](../c/comparetup_index_brin.md)
+  - [writetup_index_brin](../w/writetup_index_brin.md)
+  - [readtup_index_brin](../r/readtup_index_brin.md)
 - Called from (representative examples):
-  - brinbuild
-  - _brin_parallel_scan_and_build
+  - [brinbuild](../b/brinbuild.md)
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md)
 
 ## Notes and Other Information
 - Configures nKeys = 1 since BRIN indexes primarily sort by block number only

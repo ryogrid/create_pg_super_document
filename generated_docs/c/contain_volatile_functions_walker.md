@@ -34,12 +34,12 @@ The function deliberately excludes certain node types (MinMaxExpr, XmlExpr, Coer
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_functions_in_node
-  - contain_volatile_functions_checker
+  - [contain_volatile_functions_checker](contain_volatile_functions_checker.md)
   - query_tree_walker
   - expression_tree_walker
   - VOLATILITY_NOVOLATILE/VOLATILITY_VOLATILE constants
 - Called from (representative examples):
-  - contain_volatile_functions
+  - [contain_volatile_functions](contain_volatile_functions.md)
   - max_parallel_hazard_context (indirectly)
 
 ## Notes and Other Information

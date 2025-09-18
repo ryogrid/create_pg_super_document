@@ -19,24 +19,24 @@ This function processes an operator that is being added to an operator family, d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpFamilyMember (type)
+  - [OpFamilyMember](../O/OpFamilyMember.md) (type)
   - Operator (type)
   - Form_pg_operator (type)
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - OidIsValid
-  - GetIndexAmRoutineByAmId
-  - IndexAmRoutine (type)
-  - get_am_name
-  - ReleaseSysCache
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
+  - [IndexAmRoutine](../I/IndexAmRoutine.md) (type)
+  - [get_am_name](../g/get_am_name.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - DefineOpClass
-  - AlterOpFamilyAdd
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
 
 ## Notes and Other Information
 - Enforces that all opfamily operators must be binary (oprkind = 'b')

@@ -26,12 +26,12 @@ The function handles all three categories of buffer usage (shared, local, and te
   - INSTR_TIME_ACCUM_DIFF (macro for computing and accumulating timing differences)
   - BufferUsage (struct type definition)
 - Called from (representative examples):
-  - heap_vacuum_rel
-  - standard_ExplainOneQuery
-  - serializeAnalyzeReceive
-  - ExplainExecuteQuery
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md)
+  - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [ExplainExecuteQuery](../E/ExplainExecuteQuery.md)
   - InstrStopNode
-  - InstrEndParallelQuery
+  - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
 
 ## Notes and Other Information
 - This is a public function (non-static), making it accessible from other compilation units

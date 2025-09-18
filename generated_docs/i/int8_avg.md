@@ -27,9 +27,9 @@ The function validates the input array structure and returns NULL if no values w
   - ARR_SIZE
   - ARR_OVERHEAD_NONULLS
   - ARR_DATA_PTR
-  - int64_to_numeric
-  - NumericGetDatum
-  - numeric_div
+  - [int64_to_numeric](int64_to_numeric.md)
+  - [NumericGetDatum](../N/NumericGetDatum.md)
+  - [numeric_div](../n/numeric_div.md)
   - DirectFunctionCall2
   - PG_RETURN_DATUM
 - Called from (representative examples):

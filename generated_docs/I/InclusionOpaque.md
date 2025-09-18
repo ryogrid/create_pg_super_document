@@ -24,13 +24,13 @@ The structure is part of the BRIN (Block Range Index) inclusion operator class i
 - Functions called/Symbols referenced:
   - INCLUSION_MAX_PROCNUMS (constant: 4)
   - RTMaxStrategyNumber (constant for maximum strategy numbers)
-  - FmgrInfo (function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info structure)
   - Oid (object identifier type)
 
 - Called from (representative examples):
-  - brin_inclusion_opcinfo
-  - inclusion_get_procinfo
-  - inclusion_get_strategy_procinfo
+  - [brin_inclusion_opcinfo](../b/brin_inclusion_opcinfo.md)
+  - [inclusion_get_procinfo](../i/inclusion_get_procinfo.md)
+  - [inclusion_get_strategy_procinfo](../i/inclusion_get_strategy_procinfo.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/brin/brin_inclusion.c:76-82

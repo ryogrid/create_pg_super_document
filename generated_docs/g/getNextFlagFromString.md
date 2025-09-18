@@ -30,15 +30,15 @@ The function advances through the input string, extracting one flag at a time wh
   - IspellDict (structure type)
   - FM_LONG, FM_CHAR, FM_NUM (flag mode constants)
   - COPYCHAR (macro for copying characters)
-  - pg_mblen (PostgreSQL multi-byte length function)
+  - [pg_mblen](../p/pg_mblen.md) (PostgreSQL multi-byte length function)
   - FLAGNUM_MAXSIZE (maximum flag number constant)
-  - t_isdigit, t_iseq, t_isspace (text processing functions)
+  - [t_isdigit](../t/t_isdigit.md), t_iseq, t_isspace (text processing functions)
   - strtol (standard C library function)
   - sprintf (standard C library function)
   - ereport, elog (PostgreSQL error reporting functions)
 - Called from (representative examples):
-  - IsAffixFlagInUse
-  - getCompoundAffixFlagValue
+  - [IsAffixFlagInUse](../I/IsAffixFlagInUse.md)
+  - [getCompoundAffixFlagValue](getCompoundAffixFlagValue.md)
 
 ## Notes and Other Information
 - Modifies the sflagset pointer to advance to the next flag in the string

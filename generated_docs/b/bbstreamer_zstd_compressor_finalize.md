@@ -23,8 +23,8 @@ The function manages the output buffer similarly to the content function, forwar
   - ZSTD_compressStream2
   - ZSTD_isError
   - ZSTD_getErrorName
-  - bbstreamer_content
-  - bbstreamer_finalize
+  - [bbstreamer_content](bbstreamer_content.md)
+  - [bbstreamer_finalize](bbstreamer_finalize.md)
   - pg_log_error
 - Called from (representative examples):
   - This function is typically called through the bbstreamer operations table as part of the streaming pipeline finalization

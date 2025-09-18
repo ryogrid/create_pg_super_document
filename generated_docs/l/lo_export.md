@@ -23,18 +23,18 @@ The function uses buffered reading (LO_BUFSIZE chunks) for efficient data transf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_open
-  - lo_read
-  - lo_close
+  - [lo_open](lo_open.md)
+  - [lo_read](lo_read.md)
+  - [lo_close](lo_close.md)
   - open (system call)
   - write (system call)
   - close (system call)
   - pqClearConnErrorState
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](libpq_append_conn_error.md)
   - strerror_r
 - Called from (representative examples):
-  - do_lo_export (psql)
-  - main (testlo examples)
+  - [do_lo_export](../d/do_lo_export.md) (psql)
+  - [main](../m/main.md) (testlo examples)
 
 ## Notes and Other Information
 - Returns 1 on success, -1 on failure

@@ -24,12 +24,12 @@ RT_FREE_LEAF is part of PostgreSQL's templated radix tree implementation that ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - dsa_free (for shared memory deallocation when RT_SHMEM is defined)
-  - pfree (for regular memory deallocation)
+  - [dsa_free](../d/dsa_free.md) (for shared memory deallocation when RT_SHMEM is defined)
+  - [pfree](../p/pfree.md) (for regular memory deallocation)
   - Assert (for debug assertions)
 - Called from (representative examples):
-  - RT_SET (when replacing existing leaf values)
-  - RT_DELETE_RECURSIVE (during node deletion operations)
+  - [RT_SET](RT_SET.md) (when replacing existing leaf values)
+  - [RT_DELETE_RECURSIVE](RT_DELETE_RECURSIVE.md) (during node deletion operations)
 
 ## Notes and Other Information
 - Includes an assertion to prevent accidentally freeing the root node

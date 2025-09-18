@@ -39,13 +39,13 @@ The function delegates cost calculation to , which considers factors like index 
 - Functions called/Symbols referenced:
   - makeNode (creates new IndexPath node)
   - get_baserel_parampathinfo (handles parameterization)
-  - cost_index (calculates index scan costs)
-  - IndexOptInfo, ScanDirection, IndexPath (types)
+  - [cost_index](cost_index.md) (calculates index scan costs)
+  - [IndexOptInfo](../I/IndexOptInfo.md), ScanDirection, IndexPath (types)
   - T_IndexScan, T_IndexOnlyScan (pathtype constants)
 
 - Called from (representative examples):
-  - build_index_paths
-  - plan_cluster_use_sort
+  - [build_index_paths](../b/build_index_paths.md)
+  - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md)
 
 ## Notes and Other Information
 - Returns an IndexPath pointer (subclass of Path) rather than a generic Path

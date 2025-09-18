@@ -21,11 +21,11 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - fopen
   - bail
-  - string_matches_pattern
+  - [string_matches_pattern](../s/string_matches_pattern.md)
   - pg_malloc
   - _resultmap (struct type)
 - Called from (representative examples):
-  - initialize_environment
+  - [initialize_environment](../i/initialize_environment.md)
 
 ## Notes and Other Information
 - The resultmap file is optional - the function silently returns if the file doesn't exist

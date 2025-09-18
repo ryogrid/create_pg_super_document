@@ -24,10 +24,10 @@ The function creates properly typed Const nodes with correct type information, i
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall1
-  - jsonb_in
-  - CStringGetDatum
-  - BoolGetDatum
-  - makeConst
+  - [jsonb_in](../j/jsonb_in.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [makeConst](../m/makeConst.md)
   - JSON_BEHAVIOR_EMPTY_ARRAY
   - JSON_BEHAVIOR_EMPTY_OBJECT
   - JSON_BEHAVIOR_TRUE
@@ -38,7 +38,7 @@ The function creates properly typed Const nodes with correct type information, i
   - JSON_BEHAVIOR_DEFAULT
   - JSON_BEHAVIOR_ERROR
 - Called from (representative examples):
-  - transformJsonBehavior
+  - [transformJsonBehavior](../t/transformJsonBehavior.md)
 
 ## Notes and Other Information
 The function uses different constant types depending on the behavior: JSONBOID for empty arrays/objects, BOOLOID for true/false behaviors, and INT4OID for NULL-like behaviors. JSON_BEHAVIOR_DEFAULT and JSON_BEHAVIOR_ERROR cases contain assertions that should never be reached, as these are handled by the caller. The function ensures proper memory representation by setting isbyval and length appropriately for each data type.

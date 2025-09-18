@@ -19,14 +19,14 @@ The function is particularly useful in replication scenarios where the WAL recei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconninfoParse
-  - PQconninfoFree
-  - PQfreemem
-  - pstrdup
-  - pfree
+  - [PQconninfoParse](../P/PQconninfoParse.md)
+  - [PQconninfoFree](../P/PQconninfoFree.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [pfree](../p/pfree.md)
   - strcmp
 - Called from (representative examples):
-  - WalReceiverConn (referenced in connection management routines)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (referenced in connection management routines)
 
 ## Notes and Other Information
 - This is a static function internal to the libpqwalreceiver module

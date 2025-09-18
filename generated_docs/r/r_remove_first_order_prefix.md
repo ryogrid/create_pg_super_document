@@ -17,16 +17,16 @@ This function implements the removal of Indonesian first-order prefixes as part 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among (Snowball framework function for forward string matching)
-  - slice_del (Snowball framework function for string deletion) 
-  - slice_from_s (Snowball framework function for string replacement)
-  - in_grouping (Snowball framework function for character group testing)
+  - [find_among](../f/find_among.md) (Snowball framework function for forward string matching)
+  - [slice_del](../s/slice_del.md) (Snowball framework function for string deletion) 
+  - [slice_from_s](../s/slice_from_s.md) (Snowball framework function for string replacement)
+  - [in_grouping](../i/in_grouping.md) (Snowball framework function for character group testing)
   - a_3 (array defining 12 first-order prefixes with their patterns)
   - s_1, s_2, s_3, s_4 (string constants for consonant restoration)
   - g_vowel (character grouping for vowel testing)
 - Called from (representative examples):
-  - indonesian_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:352)
-  - indonesian_UTF_8_stem (src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:352)
+  - [indonesian_ISO_8859_1_stem](../i/indonesian_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_indonesian.c:352)
+  - [indonesian_UTF_8_stem](../i/indonesian_UTF_8_stem.md) (src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:352)
 
 ## Notes and Other Information
 - Part of PostgreSQL's full-text search Snowball stemming implementation for Indonesian language

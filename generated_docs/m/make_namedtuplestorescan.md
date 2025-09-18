@@ -23,7 +23,7 @@ This function constructs a NamedTuplestoreScan plan node, which is used to scan 
   - makeNode (to allocate NamedTuplestoreScan node)
   - NamedTuplestoreScan (struct type)
 - Called from (representative examples):
-  - create_namedtuplestorescan_plan
+  - [create_namedtuplestorescan_plan](../c/create_namedtuplestorescan_plan.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the createplan.c file

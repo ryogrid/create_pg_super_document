@@ -20,9 +20,9 @@ This function provides a simple, standardized way to display the psql version in
   - puts (standard C library function for string output)
   - PG_VERSION (PostgreSQL version macro)
 - Called from (representative examples):
-  - adhoc_opts
-  - main
-  - parse_psql_options
+  - [adhoc_opts](../a/adhoc_opts.md)
+  - [main](../m/main.md)
+  - [parse_psql_options](../p/parse_psql_options.md)
 
 ## Notes and Other Information
 - The output format follows GNU standards for consistency with other command-line tools

@@ -21,10 +21,10 @@ The function is designed to integrate seamlessly with Perl's exception handling 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
-  - SPI_commit (actual transaction commit)
-  - CopyErrorData, FlushErrorState (error handling)
-  - croak_cstr (Perl error propagation)
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
+  - [SPI_commit](../S/SPI_commit.md) (actual transaction commit)
+  - [CopyErrorData](../C/CopyErrorData.md), FlushErrorState (error handling)
+  - [croak_cstr](../c/croak_cstr.md) (Perl error propagation)
 - Called from (representative examples):
   - PL_PERL_H (header declaration)
 

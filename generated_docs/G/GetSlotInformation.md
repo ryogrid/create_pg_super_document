@@ -21,21 +21,21 @@ This function sends the READ_REPLICATION_SLOT replication protocol command to qu
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer - Create dynamic string buffer
-  - appendPQExpBuffer - Append formatted data to buffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) - Append formatted data to buffer
   - destroyPQExpBuffer - Free buffer memory
-  - PQexec - Execute SQL command
-  - PQresultStatus - Get result status
-  - PQntuples - Get number of result rows
-  - PQnfields - Get number of result fields
-  - PQgetisnull - Check if field is NULL
-  - PQgetvalue - Get field value from result
-  - PQclear - Free result memory
+  - [PQexec](../P/PQexec.md) - Execute SQL command
+  - [PQresultStatus](../P/PQresultStatus.md) - Get result status
+  - [PQntuples](../P/PQntuples.md) - Get number of result rows
+  - [PQnfields](../P/PQnfields.md) - Get number of result fields
+  - [PQgetisnull](../P/PQgetisnull.md) - Check if field is NULL
+  - [PQgetvalue](../P/PQgetvalue.md) - Get field value from result
+  - [PQclear](../P/PQclear.md) - Free result memory
   - pg_log_error - Log error messages
   - strcmp - String comparison
   - sscanf - Parse formatted string
   - atol - Convert string to long integer
 - Called from (representative examples):
-  - StreamLog (pg_receivewal.c:547)
+  - [StreamLog](../S/StreamLog.md) (pg_receivewal.c:547)
 
 ## Notes and Other Information
 - The function expects exactly 1 row with 3 fields in the result (slot_type, restart_lsn, restart_tli)

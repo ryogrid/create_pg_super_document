@@ -27,10 +27,10 @@ The function is designed to be safe to call multiple times and handles errors gr
 ## Dependencies
 - Functions called/Symbols referenced:
   - closesocket: Close individual socket file descriptors
-  - RemoveSocketFiles: Remove Unix domain socket files from filesystem
+  - [RemoveSocketFiles](../R/RemoveSocketFiles.md): Remove Unix domain socket files from filesystem
   - elog: Log error messages for failed socket closures
 - Called from (representative examples):
-  - PostmasterMain: Registered as on_proc_exit callback at line 1090
+  - [PostmasterMain](../P/PostmasterMain.md): Registered as on_proc_exit callback at line 1090
   - Referenced in SIGKILL_CHILDREN_AFTER_SECS context for shutdown sequencing
 
 ## Notes and Other Information

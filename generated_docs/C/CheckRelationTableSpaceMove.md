@@ -25,10 +25,10 @@ This function serves as a gatekeeper for tablespace move operations, ensuring th
   - RelationGetRelationName
   - ereport
 - Called from (representative examples):
-  - reindex_index
-  - SetRelationTableSpace
-  - ATExecSetTableSpace
-  - ATExecSetTableSpaceNoStorage
+  - [reindex_index](../r/reindex_index.md)
+  - [SetRelationTableSpace](../S/SetRelationTableSpace.md)
+  - [ATExecSetTableSpace](../A/ATExecSetTableSpace.md)
+  - [ATExecSetTableSpaceNoStorage](../A/ATExecSetTableSpaceNoStorage.md)
 
 ## Notes and Other Information
 - Returns true if the move is valid and should proceed, false if the move would have no effect (same tablespace)

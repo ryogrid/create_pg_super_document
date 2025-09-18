@@ -22,7 +22,7 @@ The `float4mul` function is a PostgreSQL fmgr-compatible function that multiplie
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4 (macro to extract float4 arguments)
-  - float4_mul (inline helper function that performs the actual multiplication with overflow and underflow checking)
+  - [float4_mul](float4_mul.md) (inline helper function that performs the actual multiplication with overflow and underflow checking)
   - PG_RETURN_FLOAT4 (macro to return float4 result as Datum)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager system for the '*' operator)

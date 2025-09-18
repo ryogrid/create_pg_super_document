@@ -20,11 +20,11 @@ This function provides direct access to the tail (last) node of a doubly-linked 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_tail_element_off (underlying list operation)
-  - dlist_node (return type)
-  - dclist_head (parameter type)
+  - [dlist_tail_element_off](dlist_tail_element_off.md) (underlying list operation)
+  - [dlist_node](dlist_node.md) (return type)
+  - [dclist_head](dclist_head.md) (parameter type)
 - Called from (representative examples):
-  - mXactCachePut (multixact transaction management)
+  - [mXactCachePut](../m/mXactCachePut.md) (multixact transaction management)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

@@ -24,10 +24,10 @@ The implementation uses DirectFunctionCall2 to invoke the numeric_sub function f
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM (macro for extracting Datum arguments)
   - DirectFunctionCall2 (PostgreSQL function call interface)
-  - numeric_sub (numeric subtraction function)
+  - [numeric_sub](numeric_sub.md) (numeric subtraction function)
   - DirectFunctionCall1 (PostgreSQL function call interface)  
-  - numeric_float8 (numeric to float8 conversion function)
-  - DatumGetFloat8 (macro for extracting float8 from Datum)
+  - [numeric_float8](numeric_float8.md) (numeric to float8 conversion function)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md) (macro for extracting float8 from Datum)
   - PG_RETURN_FLOAT8 (macro for returning float8 values)
 
 ## Notes and Other Information

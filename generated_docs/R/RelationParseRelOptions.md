@@ -22,13 +22,13 @@ The function uses a switch statement to determine the appropriate parsing approa
 - Functions called/Symbols referenced:
   - RELKIND_RELATION, RELKIND_TOASTVALUE, RELKIND_VIEW, RELKIND_MATVIEW (relation kind constants)
   - RELKIND_INDEX, RELKIND_PARTITIONED_INDEX (index relation kind constants)
-  - extractRelOptions (extracts and parses relation options from tuple)
-  - GetPgClassDescriptor (provides hardwired pg_class tuple descriptor)
-  - MemoryContextAlloc (allocates memory in CacheMemoryContext)
+  - [extractRelOptions](../e/extractRelOptions.md) (extracts and parses relation options from tuple)
+  - [GetPgClassDescriptor](../G/GetPgClassDescriptor.md) (provides hardwired pg_class tuple descriptor)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory in CacheMemoryContext)
   - VARSIZE (macro for variable-length data size calculation)
 - Called from (representative examples):
-  - RelationBuildDesc (during relation descriptor construction)
-  - RelationReloadIndexInfo (when reloading index information)
+  - [RelationBuildDesc](RelationBuildDesc.md) (during relation descriptor construction)
+  - [RelationReloadIndexInfo](RelationReloadIndexInfo.md) (when reloading index information)
 
 ## Notes and Other Information
 - Only processes relation kinds that support options (tables, indexes, views, materialized views)

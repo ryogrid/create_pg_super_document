@@ -20,11 +20,11 @@ The function is straightforward: it converts the text parameter to a C string an
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring: Converts PostgreSQL text type to C string
-  - get_foreign_data_wrapper_oid: Looks up foreign data wrapper Oid by name
+  - [get_foreign_data_wrapper_oid](../g/get_foreign_data_wrapper_oid.md): Looks up foreign data wrapper Oid by name
 - Called from (representative examples):
-  - has_foreign_data_wrapper_privilege_name_name: Privilege checking with role and FDW names
-  - has_foreign_data_wrapper_privilege_name: Privilege checking with role Oid and FDW name
-  - has_foreign_data_wrapper_privilege_id_name: Privilege checking with role Oid and FDW name
+  - [has_foreign_data_wrapper_privilege_name_name](../h/has_foreign_data_wrapper_privilege_name_name.md): Privilege checking with role and FDW names
+  - [has_foreign_data_wrapper_privilege_name](../h/has_foreign_data_wrapper_privilege_name.md): Privilege checking with role Oid and FDW name
+  - [has_foreign_data_wrapper_privilege_id_name](../h/has_foreign_data_wrapper_privilege_id_name.md): Privilege checking with role Oid and FDW name
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the acl.c compilation unit

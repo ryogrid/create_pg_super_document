@@ -20,11 +20,11 @@ The function is designed for scenarios where a new relation has been created and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckAndCreateToastTable
+  - [CheckAndCreateToastTable](../C/CheckAndCreateToastTable.md)
   - AccessExclusiveLock
 - Called from (representative examples):
-  - create_ctas_internal (in src/backend/commands/createas.c:130)
-  - ProcessUtilitySlow (in src/backend/tcop/utility.c:1192)
+  - [create_ctas_internal](../c/create_ctas_internal.md) (in src/backend/commands/createas.c:130)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (in src/backend/tcop/utility.c:1192)
 
 ## Notes and Other Information
 - This is the simplest interface among the TOAST table creation functions, requiring only relation OID and reloptions

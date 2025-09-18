@@ -28,12 +28,12 @@ The function only considers immutable expressions and clauses that can be evalua
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gen_partprune_steps
-  - get_matching_partitions
-  - bms_add_range
-  - palloc0
+  - [gen_partprune_steps](../g/gen_partprune_steps.md)
+  - [get_matching_partitions](../g/get_matching_partitions.md)
+  - [bms_add_range](../b/bms_add_range.md)
+  - [palloc0](palloc0.md)
 - Called from (representative examples):
-  - expand_partitioned_rtentry
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md)
 
 ## Notes and Other Information
 - Returns a Bitmapset containing partition indexes in the rel's part_rels array

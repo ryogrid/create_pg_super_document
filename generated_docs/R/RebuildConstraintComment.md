@@ -24,13 +24,13 @@ This function is a specialized subroutine used by ATPostAlterTypeParse to preser
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetComment
+  - [GetComment](../G/GetComment.md)
   - makeNode
-  - get_namespace_name
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
   - RelationGetRelationName
-  - makeString
-  - pstrdup
+  - [makeString](../m/makeString.md)
+  - [pstrdup](../p/pstrdup.md)
   - list_make3
   - list_make2
   - makeTypeNameFromNameList
@@ -38,10 +38,10 @@ This function is a specialized subroutine used by ATPostAlterTypeParse to preser
   - lappend
   - CommentStmt (struct)
   - AlterTableCmd (struct)
-  - AlteredTableInfo (struct)
-  - AlterTablePass (enum)
+  - [AlteredTableInfo](../A/AlteredTableInfo.md) (struct)
+  - [AlterTablePass](../A/AlterTablePass.md) (enum)
 - Called from (representative examples):
-  - ATPostAlterTypeParse (multiple calls for different constraint types)
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md) (multiple calls for different constraint types)
   - child_dependency_type
 
 ## Notes and Other Information

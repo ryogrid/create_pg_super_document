@@ -34,21 +34,21 @@ All array fields are validated to ensure they are properly formatted 1-dimension
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttrNotNull
-  - SysCacheGetAttr
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - DatumGetArrayTypeP
   - ARR_NDIM, ARR_DIMS, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
   - INDEX_MAX_KEYS
   - Pointer
   - memcpy
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - CloneFkReferenced
-  - CloneFkReferencing
-  - DetachPartitionFinalize
-  - ri_LoadConstraintInfo
-  - RelationGetFKeyList
-  - ConstraintCategory
+  - [CloneFkReferenced](../C/CloneFkReferenced.md)
+  - [CloneFkReferencing](../C/CloneFkReferencing.md)
+  - [DetachPartitionFinalize](DetachPartitionFinalize.md)
+  - [ri_LoadConstraintInfo](../r/ri_LoadConstraintInfo.md)
+  - [RelationGetFKeyList](../R/RelationGetFKeyList.md)
+  - [ConstraintCategory](../C/ConstraintCategory.md)
 
 ## Notes and Other Information
 - All output arguments except numfks, conkey, and confkey can be passed as NULL if the caller doesn't need them

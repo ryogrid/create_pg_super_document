@@ -21,12 +21,12 @@ This function generates random integers following a Zipfian distribution using t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_double
+  - [pg_prng_double](../p/pg_prng_double.md)
   - pg_prng_state (type)
   - pow (math function)
   - floor (math function)
 - Called from (representative examples):
-  - getZipfianRand
+  - [getZipfianRand](../g/getZipfianRand.md)
 
 ## Notes and Other Information
 - Uses rejection sampling method which may require multiple iterations

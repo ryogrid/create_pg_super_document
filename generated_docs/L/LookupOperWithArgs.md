@@ -20,15 +20,15 @@ LookupOperWithArgs is a wrapper around LookupOperName that extracts operator inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeNameOid
-  - LookupOperName
+  - [LookupTypeNameOid](LookupTypeNameOid.md)
+  - [LookupOperName](LookupOperName.md)
   - linitial_node
   - lsecond_node
 - Called from (representative examples):
-  - get_object_address
-  - DefineOpClass
-  - AlterOpFamilyAdd
-  - AlterOperator
+  - [get_object_address](../g/get_object_address.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
+  - [AlterOperator](../A/AlterOperator.md)
 
 ## Notes and Other Information
 - Requires exactly two arguments in the ObjectWithArgs structure

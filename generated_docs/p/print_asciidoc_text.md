@@ -18,12 +18,12 @@ This function generates AsciiDoc table output from PostgreSQL query results stor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asciidoc_escaped_print (for escaping AsciiDoc content)
-  - footers_with_default (for retrieving table footers)
+  - [asciidoc_escaped_print](../a/asciidoc_escaped_print.md) (for escaping AsciiDoc content)
+  - [footers_with_default](../f/footers_with_default.md) (for retrieving table footers)
   - fprintf, fputs (standard C library functions)
   - strspn (standard C library function)
 - Called from:
-  - printTable (src/fe_utils/print.c:3509)
+  - [printTable](printTable.md) (src/fe_utils/print.c:3509)
 
 ## Notes and Other Information
 - Uses AsciiDoc table block syntax with |==== delimiters

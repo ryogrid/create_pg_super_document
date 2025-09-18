@@ -25,13 +25,13 @@ The function maintains the relationship between parent and child equivalence mem
   - list_head
   - lfirst_node (TargetEntry, PathKey)
   - linitial
-  - add_eq_member
-  - lnext
+  - [add_eq_member](add_eq_member.md)
+  - [lnext](../l/lnext.md)
   - exprType
-  - bms_add_range
+  - [bms_add_range](../b/bms_add_range.md)
   - list_length
 - Called from (representative examples):
-  - build_setop_child_paths
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)
 
 ## Notes and Other Information
 - Specifically designed for set operations (UNION, INTERSECT, EXCEPT)

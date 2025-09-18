@@ -21,14 +21,14 @@ The permission verification follows PostgreSQL's standard access control model w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
-  - pg_class_aclcheck
-  - pg_attribute_aclcheck
-  - aclcheck_error
-  - get_relkind_objtype
+  - [GetUserId](../G/GetUserId.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
   - ACL_REFERENCES
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
 
 ## Notes and Other Information
 - Assumes the user already owns the referencing table (checked elsewhere)

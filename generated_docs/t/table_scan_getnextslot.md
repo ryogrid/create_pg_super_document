@@ -21,7 +21,7 @@ The function sets the table OID in the slot to match the relation being scanned 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (scan descriptor type)
+  - [TableScanDesc](../T/TableScanDesc.md) (scan descriptor type)
   - ScanDirection (direction enumeration)
   - TupleTableSlot (tuple storage slot)
   - ForwardScanDirection (forward scan constant)
@@ -30,10 +30,10 @@ The function sets the table OID in the slot to match the relation being scanned 
   - TransactionIdIsValid (transaction ID validation)
   - sscan->rs_rd->rd_tableam->scan_getnextslot (table access method get next tuple function)
 - Called from (representative examples):
-  - SeqNext (src/backend/executor/nodeSeqscan.c:80)
-  - systable_getnext (src/backend/access/index/genam.c:532)
-  - DoCopyTo (src/backend/commands/copyto.c:859)
-  - ATRewriteTable (src/backend/commands/tablecmds.c:6185)
+  - [SeqNext](../S/SeqNext.md) (src/backend/executor/nodeSeqscan.c:80)
+  - [systable_getnext](../s/systable_getnext.md) (src/backend/access/index/genam.c:532)
+  - [DoCopyTo](../D/DoCopyTo.md) (src/backend/commands/copyto.c:859)
+  - [ATRewriteTable](../A/ATRewriteTable.md) (src/backend/commands/tablecmds.c:6185)
 
 ## Notes and Other Information
 - This is an inline function defined in the table access method header file

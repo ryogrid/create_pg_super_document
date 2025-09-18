@@ -21,9 +21,9 @@ The  function performs complete cleanup of an NFA structure by freeing all alloc
   - FREE
   - ARCBATCHSIZE
 - Called from (representative examples):
-  - newnfa (in regc_nfa.c)
-  - freev (in regcomp.c)
-  - nfanode (in regcomp.c)
+  - [newnfa](../n/newnfa.md) (in regc_nfa.c)
+  - [freev](freev.md) (in regcomp.c)
+  - [nfanode](../n/nfanode.md) (in regcomp.c)
 
 ## Notes and Other Information
 - Safely handles NULL pointers and partially initialized NFAs

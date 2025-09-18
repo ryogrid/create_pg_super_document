@@ -18,8 +18,8 @@ The `dclist_has_prev` function determines whether a specific node in a doubly-li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_has_prev
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_has_prev](dlist_has_prev.md)
 - Called from (representative examples):
   - No direct callers found in codebase
 

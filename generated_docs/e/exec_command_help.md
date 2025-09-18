@@ -20,10 +20,10 @@ This function handles the execution of the \help backslash command in psql. When
 - Functions called/Symbols referenced:
   - psql_scan_slash_option (extracts command arguments from input)
   - helpSQL (displays SQL command help)
-  - ignore_slash_whole_line (skips command processing when in inactive branch)
+  - [ignore_slash_whole_line](../i/ignore_slash_whole_line.md) (skips command processing when in inactive branch)
   - free (deallocates memory for the option string)
 - Called from (representative examples):
-  - exec_command (main command dispatcher in psql)
+  - [exec_command](exec_command.md) (main command dispatcher in psql)
 
 ## Notes and Other Information
 - Returns PSQL_CMD_SKIP_LINE to indicate the entire line has been processed

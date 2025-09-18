@@ -26,11 +26,11 @@ When quoting is required, it properly escapes internal quotes and backslashes. T
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendPQExpBufferChar
-  - appendPQExpBufferStr
-  - pg_strcasecmp
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
 
 - Called from (representative examples):
-  - getNamespaces (src/bin/pg_dump/pg_dump.c:5725, 5729)
+  - [getNamespaces](../g/getNamespaces.md) (src/bin/pg_dump/pg_dump.c:5725, 5729)
 
 ## Notes and Other Information
 - Located in src/fe_utils/string_utils.c:902-965

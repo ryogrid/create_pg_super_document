@@ -33,7 +33,7 @@ The function uses the file_copy strategy instead of wal_log during initdb becaus
   - Template0DbOid (constant defining the fixed OID for template0)
 
 - Called from:
-  - initialize_data_directory (main initialization function in initdb)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (main initialization function in initdb)
 
 ## Notes and Other Information
 - template0 is designed to be an unmodifiable empty database that serves as a pristine template

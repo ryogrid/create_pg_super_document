@@ -19,7 +19,7 @@ The function implementation is straightforward - it delegates all functionality 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidrecv
+  - [oidrecv](../o/oidrecv.md)
 - Called from (representative examples):
   - Used internally by PostgreSQL's type system for binary protocol handling
   - Not directly referenced by other user-visible functions

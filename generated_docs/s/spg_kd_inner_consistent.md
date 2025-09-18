@@ -43,16 +43,16 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat8
-  - DatumGetPointP
-  - DatumGetBoxP
-  - FPlt, FPgt (floating point comparisons)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
+  - [DatumGetPointP](../D/DatumGetPointP.md)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md)
+  - [FPlt](../F/FPlt.md), FPgt (floating point comparisons)
   - get_float8_infinity
-  - box_copy
-  - spg_key_orderbys_distances
-  - BoxPGetDatum
-  - palloc
-  - MemoryContextSwitchTo
+  - [box_copy](../b/box_copy.md)
+  - [spg_key_orderbys_distances](spg_key_orderbys_distances.md)
+  - [BoxPGetDatum](../B/BoxPGetDatum.md)
+  - [palloc](../p/palloc.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - elog, Assert
   - PG_RETURN_VOID
 - Strategy number constants:

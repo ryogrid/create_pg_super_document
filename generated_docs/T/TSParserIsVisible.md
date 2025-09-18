@@ -21,9 +21,9 @@ Visibility in PostgreSQL's namespace system means that an object can be referenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSParserIsVisibleExt
+  - [TSParserIsVisibleExt](TSParserIsVisibleExt.md)
 - Called from (representative examples):
-  - getObjectDescription
+  - [getObjectDescription](../g/getObjectDescription.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

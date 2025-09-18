@@ -23,12 +23,12 @@ This function creates and registers a new local enumeration-type relation option
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_enum_reloption
-  - add_local_reloption
+  - [init_enum_reloption](../i/init_enum_reloption.md)
+  - [add_local_reloption](add_local_reloption.md)
   - RELOPT_KIND_LOCAL
-  - relopt_enum_elt_def
-  - relopt_enum
-  - relopt_gen
+  - [relopt_enum_elt_def](../r/relopt_enum_elt_def.md)
+  - [relopt_enum](../r/relopt_enum.md)
+  - [relopt_gen](../r/relopt_gen.md)
 - Called from (representative examples):
   - Used in reloptions header macros
 

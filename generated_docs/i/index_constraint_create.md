@@ -38,23 +38,23 @@ The function supports various constraint types (PRIMARY KEY, UNIQUE, EXCLUSION) 
 - Functions called/Symbols referenced:
   - RelationGetNamespace
   - IsBootstrapProcessingMode
-  - IsSystemRelation
+  - [IsSystemRelation](../I/IsSystemRelation.md)
   - IsNormalProcessingMode
-  - deleteDependencyRecordsForClass
-  - CreateConstraintEntry
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - CreateTrigger
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [CreateTrigger](../C/CreateTrigger.md)
   - table_open
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
-  - CacheInvalidateRelcache
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - InvokeObjectPostAlterHookArg
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Called from (representative examples):
   - index_create
-  - ATExecAddIndexConstraint
+  - [ATExecAddIndexConstraint](../A/ATExecAddIndexConstraint.md)
 
 ## Notes and Other Information
 - Cannot be used during bootstrap processing mode due to constraint creation limitations

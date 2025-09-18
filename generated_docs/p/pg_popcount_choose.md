@@ -25,8 +25,8 @@ This chooser function enables PostgreSQL to adaptively select between different 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - choose_popcount_functions
-  - pg_popcount_optimized (global function pointer)
+  - [choose_popcount_functions](../c/choose_popcount_functions.md)
+  - [pg_popcount_optimized](pg_popcount_optimized.md) (global function pointer)
 - Called from:
   - No direct references found (likely assigned to function pointer during initialization)
 

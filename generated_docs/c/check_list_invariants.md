@@ -22,13 +22,13 @@ This function performs sanity checks on a List structure to ensure it maintains 
   - T_List, T_IntList, T_OidList, T_XidList (node type constants)
   
 - Called from (representative examples):
-  - list_make1_impl
-  - list_make2_impl
+  - [list_make1_impl](../l/list_make1_impl.md)
+  - [list_make2_impl](../l/list_make2_impl.md)
   - lappend
-  - list_insert_nth
-  - list_concat
-  - list_member
-  - list_delete_nth_cell
+  - [list_insert_nth](../l/list_insert_nth.md)
+  - [list_concat](../l/list_concat.md)
+  - [list_member](../l/list_member.md)
+  - [list_delete_nth_cell](../l/list_delete_nth_cell.md)
 
 ## Notes and Other Information
 - This is a static function internal to list.c, not exposed in the public API

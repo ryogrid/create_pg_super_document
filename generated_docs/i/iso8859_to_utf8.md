@@ -30,11 +30,11 @@ The function follows PostgreSQL's standard conversion procedure interface, accep
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
   - lengthof
-  - LocalToUtf
+  - [LocalToUtf](../L/LocalToUtf.md)
   - PG_RETURN_INT32
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
   - No direct callers found (likely registered as conversion procedure)
 

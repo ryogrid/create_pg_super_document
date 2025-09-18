@@ -23,10 +23,10 @@ The function returns true if val1 is NaN, or if val2 is not NaN and val1 is arit
   - isnan (for NaN detection)
   - float4 (related floating-point type)
 - Called from (representative examples):
-  - float8ge (SQL function wrapper)
-  - float48ge (mixed precision comparison)
-  - float84ge (mixed precision comparison)
-  - gist_box_picksplit (GiST index operations)
+  - [float8ge](float8ge.md) (SQL function wrapper)
+  - [float48ge](float48ge.md) (mixed precision comparison)
+  - [float84ge](float84ge.md) (mixed precision comparison)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md) (GiST index operations)
   - PLACE_RIGHT (geometric operations)
 
 ## Notes and Other Information

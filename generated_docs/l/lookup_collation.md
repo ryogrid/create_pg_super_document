@@ -24,13 +24,13 @@ The function is critical for PostgreSQL's collation resolution mechanism, ensuri
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetSysCacheOid3 (for exact encoding match lookup)
-  - SearchSysCache3 (for any-encoding collation lookup)
-  - is_encoding_supported_by_icu (to validate ICU encoding compatibility)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (for any-encoding collation lookup)
+  - [is_encoding_supported_by_icu](../i/is_encoding_supported_by_icu.md) (to validate ICU encoding compatibility)
   - Form_pg_collation (system catalog structure)
   - COLLPROVIDER_ICU (collation provider constant)
 - Called from (representative examples):
-  - CollationGetCollid
-  - get_collation_oid
+  - [CollationGetCollid](../C/CollationGetCollid.md)
+  - [get_collation_oid](../g/get_collation_oid.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within namespace.c

@@ -22,8 +22,8 @@ The function is straightforward: it returns true if the address is greater than 
   - ShmemBase (global variable - start of shared memory segment)
   - ShmemEnd (global variable - end of shared memory segment)
 - Called from (representative examples):
-  - ShmemInitStruct
-  - ReleasePredXact
+  - [ShmemInitStruct](ShmemInitStruct.md)
+  - [ReleasePredXact](../R/ReleasePredXact.md)
 
 ## Notes and Other Information
 - This is a simple validation utility function that performs no complex operations

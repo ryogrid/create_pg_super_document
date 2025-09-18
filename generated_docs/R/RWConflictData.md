@@ -30,13 +30,13 @@ When not actively tracking a conflict, these structures are maintained on an ava
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node
-  - SERIALIZABLEXACT
+  - [dlist_node](../d/dlist_node.md)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
 - Called from (representative examples):
-  - RWConflictExists
-  - SetRWConflict
-  - SetPossibleUnsafeConflict
-  - OnConflict_CheckForSerializationFailure
+  - [RWConflictExists](RWConflictExists.md)
+  - [SetRWConflict](../S/SetRWConflict.md)
+  - [SetPossibleUnsafeConflict](../S/SetPossibleUnsafeConflict.md)
+  - [OnConflict_CheckForSerializationFailure](../O/OnConflict_CheckForSerializationFailure.md)
 
 ## Notes and Other Information
 - Central to PostgreSQL's implementation of Serializable Snapshot Isolation

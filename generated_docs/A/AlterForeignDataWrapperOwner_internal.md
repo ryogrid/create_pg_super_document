@@ -24,16 +24,16 @@ This static function implements the core logic for changing a foreign data wrapp
   - Form_pg_foreign_data_wrapper (structure for catalog tuple data)
   - superuser (checks if current user is superuser)
   - superuser_arg (checks if specified user is superuser)
-  - heap_getattr (retrieves attribute value from tuple)
-  - aclnewowner (updates ACL ownership)
+  - [heap_getattr](../h/heap_getattr.md) (retrieves attribute value from tuple)
+  - [aclnewowner](../a/aclnewowner.md) (updates ACL ownership)
   - DatumGetAclP (converts Datum to ACL pointer)
-  - heap_modify_tuple (creates modified tuple)
-  - CatalogTupleUpdate (updates catalog with new tuple)
-  - changeDependencyOnOwner (updates dependency tracking)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (creates modified tuple)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (updates catalog with new tuple)
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md) (updates dependency tracking)
   - InvokeObjectPostAlterHook (triggers post-alter notifications)
 - Called from (representative examples):
-  - AlterForeignDataWrapperOwner (src/backend/commands/foreigncmds.c:307)
-  - AlterForeignDataWrapperOwner_oid (src/backend/commands/foreigncmds.c:338)
+  - [AlterForeignDataWrapperOwner](AlterForeignDataWrapperOwner.md) (src/backend/commands/foreigncmds.c:307)
+  - [AlterForeignDataWrapperOwner_oid](AlterForeignDataWrapperOwner_oid.md) (src/backend/commands/foreigncmds.c:338)
 
 ## Notes and Other Information
 - Requires superuser privileges for both current user and new owner due to security implications of FDW ownership

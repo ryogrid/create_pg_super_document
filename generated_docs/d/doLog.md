@@ -24,16 +24,16 @@ This function handles transaction logging in pgbench, supporting both aggregated
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_time_now (timestamp function)
-  - pg_prng_double (random number generation)
-  - getResultString (status string generation)
-  - initStats (statistics initialization)
-  - accumStats (statistics accumulation)
+  - [pg_time_now](../p/pg_time_now.md) (timestamp function)
+  - [pg_prng_double](../p/pg_prng_double.md) (random number generation)
+  - [getResultString](../g/getResultString.md) (status string generation)
+  - [initStats](../i/initStats.md) (statistics initialization)
+  - [accumStats](../a/accumStats.md) (statistics accumulation)
   - Various types: TState, CState, StatsData, pg_time_usec_t
   - Constants: INT64_FORMAT, INT64CONST, ESTATUS_NO_ERROR
 - Called from (representative examples):
-  - processXactStats (at src/bin/pgbench/pgbench.c:4709)
-  - threadRun (at src/bin/pgbench/pgbench.c:7721)
+  - [processXactStats](../p/processXactStats.md) (at src/bin/pgbench/pgbench.c:4709)
+  - [threadRun](../t/threadRun.md) (at src/bin/pgbench/pgbench.c:7721)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pgbench.c

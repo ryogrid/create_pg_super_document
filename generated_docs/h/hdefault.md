@@ -17,14 +17,14 @@ hdefault serves as the default initialization function for HASHHDR structures wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHHDR
+  - [HASHHDR](../H/HASHHDR.md)
   - MemSet
   - DEF_DIRSIZE
   - NO_MAX_DSIZE
   - DEF_SEGSIZE
   - DEF_SEGSIZE_SHIFT
 - Called from (representative examples):
-  - hash_create
+  - [hash_create](hash_create.md)
   - MOD
 
 ## Notes and Other Information

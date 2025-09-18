@@ -26,10 +26,10 @@ MYNULLTYPE serves as a typedef alias for struct mynulltype in the PostgreSQL ECP
 - Functions called/Symbols referenced:
   - mynulltype (underlying struct)
 - Called from (representative examples):
-  - get_var1 (lines 173, 183)
-  - open_cur1 (lines 213, 215, 217, 219, 221)
-  - get_record1 (lines 234, 236, 238, 240, 242)
-  - main (line 265)
+  - [get_var1](../g/get_var1.md) (lines 173, 183)
+  - [open_cur1](../o/open_cur1.md) (lines 213, 215, 217, 219, 221)
+  - [get_record1](../g/get_record1.md) (lines 234, 236, 238, 240, 242)
+  - [main](../m/main.md) (line 265)
 
 ## Notes and Other Information
 - Located in src/interfaces/ecpg/test/expected/preproc-outofscope.c:125

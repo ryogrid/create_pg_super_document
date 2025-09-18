@@ -29,9 +29,9 @@ The implementation includes validation through GenerationBlockIsValid to ensure 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk - converts pointer to chunk header
-  - MemoryChunkIsExternal - determines if chunk is external
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md) - determines if chunk is external
   - ExternalChunkGetBlock - gets block for external chunks  
-  - MemoryChunkGetBlock - gets block for internal chunks
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md) - gets block for internal chunks
   - GenerationBlockIsValid - validates block structure
   - VALGRIND_MAKE_MEM_DEFINED / VALGRIND_MAKE_MEM_NOACCESS - memory access control
 - Called from:

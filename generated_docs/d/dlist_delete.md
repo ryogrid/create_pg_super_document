@@ -25,18 +25,18 @@ This effectively removes the node from the chain while maintaining list integrit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (data structure)
+  - [dlist_node](dlist_node.md) (data structure)
 - Called from (representative examples):
-  - leafRepackItems (src/backend/access/gin/gindatapage.c:1671, 1716, 1717)
+  - [leafRepackItems](../l/leafRepackItems.md) (src/backend/access/gin/gindatapage.c:1671, 1716, 1717)
   - DestroyParallelContext (src/backend/access/transam/parallel.c:956)
-  - XLogPrefetcherAddFilter (src/backend/access/transam/xlogprefetcher.c:883)
-  - CleanupBackgroundWorker (src/backend/postmaster/postmaster.c:2755)
+  - [XLogPrefetcherAddFilter](../X/XLogPrefetcherAddFilter.md) (src/backend/access/transam/xlogprefetcher.c:883)
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md) (src/backend/postmaster/postmaster.c:2755)
   - ReorderBufferAssignChild (src/backend/replication/logical/reorderbuffer.c:1120)
-  - LockAcquireExtended (src/backend/storage/lmgr/lock.c:1105, 1106)
-  - ReleasePredXact (src/backend/storage/lmgr/predicate.c:600)
-  - CatCacheRemoveCTup (src/backend/utils/cache/catcache.c:546)
-  - dlist_delete_from (src/include/lib/ilist.h:432)
-  - dlist_pop_head_node (src/include/lib/ilist.h:456)
+  - [LockAcquireExtended](../L/LockAcquireExtended.md) (src/backend/storage/lmgr/lock.c:1105, 1106)
+  - [ReleasePredXact](../R/ReleasePredXact.md) (src/backend/storage/lmgr/predicate.c:600)
+  - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md) (src/backend/utils/cache/catcache.c:546)
+  - [dlist_delete_from](dlist_delete_from.md) (src/include/lib/ilist.h:432)
+  - [dlist_pop_head_node](dlist_pop_head_node.md) (src/include/lib/ilist.h:456)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization

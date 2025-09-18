@@ -28,19 +28,19 @@ The function performs several key steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - MergeAttributesIntoExisting
-  - MergeConstraintsIntoExisting
-  - StoreCatalogInheritance1
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [MergeAttributesIntoExisting](../M/MergeAttributesIntoExisting.md)
+  - [MergeConstraintsIntoExisting](../M/MergeConstraintsIntoExisting.md)
+  - [StoreCatalogInheritance1](../S/StoreCatalogInheritance1.md)
   - table_close
   - Form_pg_inherits
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):
-  - ATExecAddInherit
-  - ATExecAttachPartition
+  - [ATExecAddInherit](../A/ATExecAddInherit.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - The function acquires RowExclusiveLock on the pg_inherits catalog to ensure safe concurrent access

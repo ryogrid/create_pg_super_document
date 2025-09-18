@@ -25,19 +25,19 @@ This function creates the initial snapshot for a logical replication slot, which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildBuildSnapshot
-  - InvalidateCatalogSnapshot
+  - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
   - HaveRegisteredOrActiveSnapshot
   - HistoricSnapshotActive
-  - GetOldestSafeDecodingTransactionId
-  - GetMaxSnapshotXidCount
-  - TransactionIdFollows
+  - [GetOldestSafeDecodingTransactionId](../G/GetOldestSafeDecodingTransactionId.md)
+  - [GetMaxSnapshotXidCount](../G/GetMaxSnapshotXidCount.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - NormalTransactionIdPrecedes
   - TransactionIdAdvance
-  - xidComparator
+  - [xidComparator](../x/xidComparator.md)
 - Called from (representative examples):
-  - SnapBuildExportSnapshot
-  - CreateReplicationSlot
+  - [SnapBuildExportSnapshot](SnapBuildExportSnapshot.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 - Requires REPEATABLE READ isolation level and SNAPBUILD_CONSISTENT state

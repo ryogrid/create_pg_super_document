@@ -25,16 +25,16 @@ The function is optimized to skip unnecessary work when the portal is already at
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_rescan
+  - [tuplestore_rescan](../t/tuplestore_rescan.md)
   - PushActiveSnapshot
-  - ExecutorRewind  
+  - [ExecutorRewind](../E/ExecutorRewind.md)  
   - PopActiveSnapshot
-  - MemoryContextSwitchTo
-  - Portal structure fields (atStart, atEnd, portalPos, holdStore, holdContext, queryDesc, cursorOptions)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [Portal](../P/Portal.md) structure fields (atStart, atEnd, portalPos, holdStore, holdContext, queryDesc, cursorOptions)
   - QueryDesc structure
   - CURSOR_OPT_NO_SCROLL constant
 - Called from (representative examples):
-  - DoPortalRunFetch (multiple call sites for absolute positioning and optimization)
+  - [DoPortalRunFetch](DoPortalRunFetch.md) (multiple call sites for absolute positioning and optimization)
 
 ## Notes and Other Information
 - Enforces NO SCROLL cursor restrictions by throwing an error if backward scanning is attempted on a forward-only cursor

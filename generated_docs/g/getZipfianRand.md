@@ -22,7 +22,7 @@ This function serves as a wrapper around computeIterativeZipfian to generate Zip
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - computeIterativeZipfian
+  - [computeIterativeZipfian](../c/computeIterativeZipfian.md)
   - pg_prng_state (type)
   - MIN_ZIPFIAN_PARAM (constant)
   - MAX_ZIPFIAN_PARAM (constant)

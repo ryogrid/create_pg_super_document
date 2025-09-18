@@ -22,9 +22,9 @@ The aclequal function performs a byte-by-byte comparison of two ACL structures t
   - ACL_DAT (macro to get ACL data array)
   - memcmp (standard library function for memory comparison)
 - Called from (representative examples):
-  - SetDefaultACL (src/backend/catalog/aclchk.c:1343)
-  - ExecGrant_Parameter (src/backend/catalog/aclchk.c:2572)
-  - get_user_default_acl (src/backend/catalog/aclchk.c:4372)
+  - [SetDefaultACL](../S/SetDefaultACL.md) (src/backend/catalog/aclchk.c:1343)
+  - [ExecGrant_Parameter](../E/ExecGrant_Parameter.md) (src/backend/catalog/aclchk.c:2572)
+  - [get_user_default_acl](../g/get_user_default_acl.md) (src/backend/catalog/aclchk.c:4372)
 
 ## Notes and Other Information
 - Returns true if both ACLs are NULL or empty

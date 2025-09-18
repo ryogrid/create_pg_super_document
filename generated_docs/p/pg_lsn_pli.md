@@ -31,13 +31,13 @@ The function uses PostgreSQL's standard function argument mechanism:
 - Functions called/Symbols referenced:
   - PG_GETARG_LSN (macro for extracting LSN argument)
   - PG_GETARG_NUMERIC (macro for extracting numeric argument)
-  - numeric_is_nan (checks if numeric value is NaN)
+  - [numeric_is_nan](../n/numeric_is_nan.md) (checks if numeric value is NaN)
   - UINT64_FORMAT (format string for 64-bit unsigned integers)
   - DirectFunctionCall3/2/1 (PostgreSQL function call mechanisms)
-  - numeric_in (converts string to numeric type)
-  - numeric_add (adds two numeric values)
-  - numeric_pg_lsn (converts numeric back to LSN type)
-  - CStringGetDatum/NumericGetDatum (type conversion functions)
+  - [numeric_in](../n/numeric_in.md) (converts string to numeric type)
+  - [numeric_add](../n/numeric_add.md) (adds two numeric values)
+  - [numeric_pg_lsn](../n/numeric_pg_lsn.md) (converts numeric back to LSN type)
+  - [CStringGetDatum](../C/CStringGetDatum.md)/NumericGetDatum (type conversion functions)
 - Called from (representative examples):
   - No direct callers found (typically invoked through PostgreSQL's operator mechanism)
 

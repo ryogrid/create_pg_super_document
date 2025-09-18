@@ -28,11 +28,11 @@ The design follows PostgreSQL's general aggregate function pattern where a state
 - Functions called/Symbols referenced:
   - int64 (data type)
 - Called from (representative examples):
-  - makeBoolAggState (creates and initializes instances)
-  - bool_accum (accumulates boolean values into the state)
-  - bool_accum_inv (removes boolean values from state for window functions)
-  - bool_alltrue (final function that returns true if all values were true)
-  - bool_anytrue (final function that returns true if any value was true)
+  - [makeBoolAggState](../m/makeBoolAggState.md) (creates and initializes instances)
+  - [bool_accum](../b/bool_accum.md) (accumulates boolean values into the state)
+  - [bool_accum_inv](../b/bool_accum_inv.md) (removes boolean values from state for window functions)
+  - [bool_alltrue](../b/bool_alltrue.md) (final function that returns true if all values were true)
+  - [bool_anytrue](../b/bool_anytrue.md) (final function that returns true if any value was true)
 
 ## Notes and Other Information
 - Used exclusively for boolean aggregate operations in PostgreSQL

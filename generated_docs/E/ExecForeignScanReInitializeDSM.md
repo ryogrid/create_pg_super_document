@@ -18,10 +18,10 @@ This function reinitializes the coordination data in dynamic shared memory for p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - FdwRoutine.ReInitializeDSMForeignScan (if available)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [FdwRoutine](../F/FdwRoutine.md).ReInitializeDSMForeignScan (if available)
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md)
 
 ## Notes and Other Information
 - Only performs reinitialization if the foreign data wrapper provides a ReInitializeDSMForeignScan routine

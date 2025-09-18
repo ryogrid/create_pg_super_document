@@ -22,7 +22,7 @@ The `path_npoints` function is a conversion operator that extracts and returns t
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P: Macro to extract PATH argument from function call
   - PG_RETURN_INT32: Macro to return 32-bit integer result
-  - PATH: Geometric path data type structure
+  - [PATH](../P/PATH.md): Geometric path data type structure
 
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through SQL function framework)

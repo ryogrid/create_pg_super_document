@@ -21,19 +21,19 @@ The `forget_invalid_pages` function cleans up the invalid page hash table by rem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - RelFileLocatorEquals
-  - message_level_is_interesting
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
   - relpathperm
   - elog
-  - pfree
-  - hash_search
+  - [pfree](../p/pfree.md)
+  - [hash_search](../h/hash_search.md)
   - HASH_SEQ_STATUS
-  - xl_invalid_page
+  - [xl_invalid_page](../x/xl_invalid_page.md)
 - Called from (representative examples):
-  - XLogDropRelation
-  - XLogTruncateRelation
+  - [XLogDropRelation](../X/XLogDropRelation.md)
+  - [XLogTruncateRelation](../X/XLogTruncateRelation.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within xlogutils.c

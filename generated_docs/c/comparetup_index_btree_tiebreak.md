@@ -27,18 +27,18 @@ The function ensures that B-tree indexes maintain their required physical unique
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - index_getattr
-  - ApplySortAbbrevFullComparator
-  - ApplySortComparator
-  - index_deform_tuple
-  - BuildIndexValueDescription
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - errtableconstraint
+  - [index_getattr](../i/index_getattr.md)
+  - [ApplySortAbbrevFullComparator](../A/ApplySortAbbrevFullComparator.md)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [index_deform_tuple](../i/index_deform_tuple.md)
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [errtableconstraint](../e/errtableconstraint.md)
 - Called from (representative examples):
-  - tuplesort_begin_index_btree
-  - tuplesort_begin_index_gist
-  - comparetup_index_btree
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md)
+  - [comparetup_index_btree](comparetup_index_btree.md)
   - CLUSTER_SORT
 
 ## Notes and Other Information

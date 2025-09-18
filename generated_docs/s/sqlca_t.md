@@ -57,12 +57,12 @@ The structure includes fields for error codes, detailed error messages, warning 
   - SQLERRMC_LEN (constant defining error message buffer size)
   - ECPGget_sqlca (function to retrieve SQLCA instance)
 - Called from (representative examples):
-  - ECPGnoticeReceiver (error handling in connect.c:212)
-  - ECPGconnect (connection management in connect.c:262)
-  - ECPGdisconnect (disconnection handling in connect.c:680)
+  - [ECPGnoticeReceiver](../E/ECPGnoticeReceiver.md) (error handling in connect.c:212)
+  - [ECPGconnect](../E/ECPGconnect.md) (connection management in connect.c:262)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md) (disconnection handling in connect.c:680)
   - ecpg_get_data (data retrieval in data.c:211)
-  - ecpg_raise (error reporting in error.c:15)
-  - ecpg_init_sqlca (initialization in misc.c:67-69)
+  - [ecpg_raise](../e/ecpg_raise.md) (error reporting in error.c:15)
+  - [ecpg_init_sqlca](../e/ecpg_init_sqlca.md) (initialization in misc.c:67-69)
   - Various ECPG test files throughout the test suite
 
 ## Notes and Other Information

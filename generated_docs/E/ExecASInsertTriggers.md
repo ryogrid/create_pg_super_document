@@ -36,8 +36,8 @@ The actual trigger execution is handled later by the after-trigger subsystem, wh
 - Constants used:
   - TRIGGER_EVENT_INSERT (event type identifier)
 - Called from (representative examples):
-  - CopyFrom (during COPY FROM operations)
-  - fireASTriggers (from nodeModifyTable executor)
+  - [CopyFrom](../C/CopyFrom.md) (during COPY FROM operations)
+  - [fireASTriggers](../f/fireASTriggers.md) (from nodeModifyTable executor)
 
 ## Notes and Other Information
 - AFTER STATEMENT triggers fire once per SQL statement, after all rows have been processed

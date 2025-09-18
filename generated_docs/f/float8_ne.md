@@ -24,9 +24,9 @@ The implementation uses a conditional expression that first checks if val1 is Na
 - Functions called/Symbols referenced:
   - isnan (standard C library function for NaN detection)
 - Called from (representative examples):
-  - float8ne (SQL-callable inequality function)
-  - float48ne (mixed precision inequality function)
-  - float84ne (mixed precision inequality function)
+  - [float8ne](float8ne.md) (SQL-callable inequality function)
+  - [float48ne](float48ne.md) (mixed precision inequality function)
+  - [float84ne](float84ne.md) (mixed precision inequality function)
 
 ## Notes and Other Information
 - This is an inline function defined in utils/float.h for performance

@@ -28,7 +28,7 @@ The function includes important platform-specific behavior: on Windows, unlike t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - iovec (struct)
+  - [iovec](../i/iovec.md) (struct)
   - ssize_t (type)
   - pread (POSIX function)
   - preadv (POSIX function, if available)

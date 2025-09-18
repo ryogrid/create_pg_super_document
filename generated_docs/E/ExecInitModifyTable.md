@@ -30,28 +30,28 @@ The function performs several key initialization phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitResultRelation
-  - ExecInitNode
-  - EvalPlanQualInit
-  - EvalPlanQualSetPlan
-  - ExecSetupTransitionCaptureState
-  - ExecSetupPartitionTupleRouting
-  - ExecInitResultTupleSlotTL
-  - ExecBuildProjectionInfo
-  - ExecBuildUpdateProjection
-  - ExecInitQual
+  - [ExecInitResultRelation](ExecInitResultRelation.md)
+  - [ExecInitNode](ExecInitNode.md)
+  - [EvalPlanQualInit](EvalPlanQualInit.md)
+  - [EvalPlanQualSetPlan](EvalPlanQualSetPlan.md)
+  - [ExecSetupTransitionCaptureState](ExecSetupTransitionCaptureState.md)
+  - [ExecSetupPartitionTupleRouting](ExecSetupPartitionTupleRouting.md)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md)
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
+  - [ExecInitQual](ExecInitQual.md)
   - ExecFindJunkAttributeInTlist
-  - CheckValidResultRel
-  - ExecInitMerge
+  - [CheckValidResultRel](../C/CheckValidResultRel.md)
+  - [ExecInitMerge](ExecInitMerge.md)
 - Data structures used:
-  - ModifyTableState
-  - ResultRelInfo
-  - OnConflictSetState
+  - [ModifyTableState](../M/ModifyTableState.md)
+  - [ResultRelInfo](../R/ResultRelInfo.md)
+  - [OnConflictSetState](../O/OnConflictSetState.md)
   - PlanRowMark
-  - ExecRowMark
-  - ExecAuxRowMark
+  - [ExecRowMark](ExecRowMark.md)
+  - [ExecAuxRowMark](ExecAuxRowMark.md)
 - Called from:
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - Supports all DML operations: INSERT, UPDATE, DELETE, and MERGE

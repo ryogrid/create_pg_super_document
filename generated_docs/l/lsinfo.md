@@ -28,7 +28,7 @@ The lsinfo struct defines leap second transition information used by PostgreSQL'
 - Called from (representative examples):
   - timesub (time subtraction calculations)
   - leapcorr (leap second correction function)
-  - state struct (as member lsis array)
+  - [state](../s/state.md) struct (as member lsis array)
 
 ## Notes and Other Information
 Leap seconds are relatively rare events, typically occurring at most twice per year. PostgreSQL's timezone library maintains an array of these structures to track all historical and future leap seconds. The correction value is usually +1 second (positive leap second) but could theoretically be -1 second (negative leap second), though no negative leap seconds have been implemented as of recent timezone databases.

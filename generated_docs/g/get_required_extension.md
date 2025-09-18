@@ -22,13 +22,13 @@ This function handles the resolution of extension dependencies during extension 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_extension_oid
-  - check_valid_extension_name
-  - list_copy
-  - CreateExtensionInternal
+  - [get_extension_oid](get_extension_oid.md)
+  - [check_valid_extension_name](../c/check_valid_extension_name.md)
+  - [list_copy](../l/list_copy.md)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
 - Called from (representative examples):
-  - CreateExtensionInternal
-  - ApplyExtensionUpdates
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md)
 
 ## Notes and Other Information
 - This is a static function internal to extension.c that plays a crucial role in dependency management

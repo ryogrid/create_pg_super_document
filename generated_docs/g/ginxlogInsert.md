@@ -21,15 +21,15 @@ The record format is flexible and includes variable-length data that follows the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexTupleData (through associated structures)
-  - BlockIdData (for child page references)
-  - ginxlogInsertEntry (as following data)
+  - [IndexTupleData](../I/IndexTupleData.md) (through associated structures)
+  - [BlockIdData](../B/BlockIdData.md) (for child page references)
+  - [ginxlogInsertEntry](ginxlogInsertEntry.md) (as following data)
   - ginxlogRecompressDataLeaf (as following data)
 
 - Called from (representative examples):
-  - ginPlaceToPage (src/backend/access/gin/ginbtree.c:421, 426)
-  - ginRedoInsert (src/backend/access/gin/ginxlog.c:350, 364) 
-  - gin_desc (src/backend/access/rmgrdesc/gindesc.c:84, 91)
+  - [ginPlaceToPage](ginPlaceToPage.md) (src/backend/access/gin/ginbtree.c:421, 426)
+  - [ginRedoInsert](ginRedoInsert.md) (src/backend/access/gin/ginxlog.c:350, 364) 
+  - [gin_desc](gin_desc.md) (src/backend/access/rmgrdesc/gindesc.c:84, 91)
 
 ## Notes and Other Information
 - The structure is designed with careful attention to memory alignment, requiring that following structures be only 16-bit aligned

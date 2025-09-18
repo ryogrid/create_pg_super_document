@@ -50,16 +50,16 @@ The function validates polymorphic types, ensures proper function signatures mat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_agg_function: Validates and finds component functions
-  - check_valid_polymorphic_signature: Validates polymorphic type signatures
-  - ProcedureCreate: Creates the pg_proc entry for the aggregate
-  - IsBinaryCoercible: Checks type compatibility
-  - LookupOperName: Finds sort operators for ordered-set aggregates
-  - object_aclcheck: Checks permissions on types and functions
-  - record_object_address_dependencies: Establishes dependency relationships
+  - [lookup_agg_function](../l/lookup_agg_function.md): Validates and finds component functions
+  - [check_valid_polymorphic_signature](../c/check_valid_polymorphic_signature.md): Validates polymorphic type signatures
+  - [ProcedureCreate](../P/ProcedureCreate.md): Creates the pg_proc entry for the aggregate
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md): Checks type compatibility
+  - [LookupOperName](../L/LookupOperName.md): Finds sort operators for ordered-set aggregates
+  - [object_aclcheck](../o/object_aclcheck.md): Checks permissions on types and functions
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md): Establishes dependency relationships
 
 - Called from (representative examples):
-  - DefineAggregate: Main entry point from CREATE AGGREGATE command
+  - [DefineAggregate](../D/DefineAggregate.md): Main entry point from CREATE AGGREGATE command
 
 ## Notes and Other Information
 The function performs extensive validation including checking that transition function return types match declared transition types, ensuring polymorphic consistency across all components, and validating that moving-aggregate implementations produce the same result type as regular implementations. It supports parallel aggregation through combine functions and window functions through moving-aggregate implementations with forward/inverse transition functions.

@@ -20,16 +20,16 @@ This function is responsible for actually performing memory context logging afte
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (with LOG_SERVER_ONLY)
-  - errhidestmt
-  - errhidecontext
-  - MemoryContextStatsDetail
+  - [errhidestmt](../e/errhidestmt.md)
+  - [errhidecontext](../e/errhidecontext.md)
+  - [MemoryContextStatsDetail](../M/MemoryContextStatsDetail.md)
   - MyProcPid (global variable)
   - TopMemoryContext (global variable)
 - Called from (representative examples):
   - ProcessInterrupts
-  - HandleMainLoopInterrupts
-  - HandleAutoVacLauncherInterrupts
-  - HandleCheckpointerInterrupts
+  - [HandleMainLoopInterrupts](../H/HandleMainLoopInterrupts.md)
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md)
 
 ## Notes and Other Information
 - Called from CHECK_FOR_INTERRUPTS() macro in backend processes

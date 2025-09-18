@@ -27,9 +27,9 @@ The function includes strict state validation, ensuring it's only called when th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommitSubTransaction
-  - MemoryContextSwitchTo
-  - BlockStateAsString
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [BlockStateAsString](../B/BlockStateAsString.md)
   - elog
 - Transaction state constants:
   - TBLOCK_SUBINPROGRESS
@@ -39,8 +39,8 @@ The function includes strict state validation, ensuring it's only called when th
   - CurTransactionContext
 - Called from:
   - plperl_spi_* functions (PL/Perl SPI operations)
-  - PLy_spi_subtransaction_commit (PL/Python)
-  - PLy_subtransaction_exit (PL/Python)
+  - [PLy_spi_subtransaction_commit](../P/PLy_spi_subtransaction_commit.md) (PL/Python)
+  - [PLy_subtransaction_exit](../P/PLy_subtransaction_exit.md) (PL/Python)
   - pltcl_subtrans_commit (PL/Tcl)
 
 ## Notes and Other Information

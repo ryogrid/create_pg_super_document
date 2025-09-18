@@ -24,7 +24,7 @@ This function takes no explicit parameters but uses the standard PostgreSQL func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  - Initialize materialized set-returning function
+  -  - [Initialize](../I/Initialize.md) materialized set-returning function
   -  - Start timezone enumeration
   -  - Get next timezone in enumeration
   -  - End timezone enumeration

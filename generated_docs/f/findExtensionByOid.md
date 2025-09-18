@@ -19,14 +19,14 @@ This function is part of the pg_dump utility's object lookup system for PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
-  - ExtensionInfo (struct)
+  - [ExtensionInfo](../E/ExtensionInfo.md) (struct)
   - DO_EXTENSION (enum value)
   - ExtensionRelationId (constant)
 - Called from (representative examples):
-  - getExtensionMembership (src/bin/pg_dump/pg_dump.c:18323)
+  - [getExtensionMembership](../g/getExtensionMembership.md) (src/bin/pg_dump/pg_dump.c:18323)
 
 ## Notes and Other Information
 - Returns NULL if the extension with the given OID is not found

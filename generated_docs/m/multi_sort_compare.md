@@ -19,15 +19,15 @@ This function implements a lexicographic comparison for multi-dimensional sortin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ApplySortComparator
+  - [ApplySortComparator](../A/ApplySortComparator.md)
   - MultiSortSupport (type)
-  - SortItem (type)
+  - [SortItem](../S/SortItem.md) (type)
 - Called from (representative examples):
-  - build_sorted_items (src/backend/statistics/extended_stats.c:1108)
-  - statext_mcv_build (src/backend/statistics/mcv.c:326)
-  - count_distinct_groups (src/backend/statistics/mcv.c:388, 390)
-  - build_distinct_groups (src/backend/statistics/mcv.c:440, 443)
-  - ndistinct_for_combination (src/backend/statistics/mvdistinct.c:492, 501)
+  - [build_sorted_items](../b/build_sorted_items.md) (src/backend/statistics/extended_stats.c:1108)
+  - [statext_mcv_build](../s/statext_mcv_build.md) (src/backend/statistics/mcv.c:326)
+  - [count_distinct_groups](../c/count_distinct_groups.md) (src/backend/statistics/mcv.c:388, 390)
+  - [build_distinct_groups](../b/build_distinct_groups.md) (src/backend/statistics/mcv.c:440, 443)
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (src/backend/statistics/mvdistinct.c:492, 501)
 
 ## Notes and Other Information
 - Follows the standard qsort() comparison function interface (const void*, const void*, void*)

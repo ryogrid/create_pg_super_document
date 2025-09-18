@@ -22,9 +22,9 @@ The function uses PostgreSQL's general-purpose `hash_any` function to compute a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_uuid_t (UUID structure type)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (UUID structure type)
   - PG_GETARG_UUID_P (argument extraction macro)
-  - hash_any (general hash function)
+  - [hash_any](../h/hash_any.md) (general hash function)
   - UUID_LEN (UUID length constant - 16 bytes)
 - Called from (representative examples):
   - Hash index operations

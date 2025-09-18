@@ -20,21 +20,21 @@ This function performs a reverse lookup in the pg_amop catalog to find the speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache4 (system cache lookup function with 4 keys)
+  - [SearchSysCache4](../S/SearchSysCache4.md) (system cache lookup function with 4 keys)
   - HeapTupleIsValid (checks if tuple is valid)
   - GETSTRUCT (extracts structure from heap tuple)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - Form_pg_amop (structure type for pg_amop catalog)
   - Int16GetDatum (datum conversion function for int16)
   - InvalidOid (constant representing invalid OID)
 - Called from (representative examples):
-  - _bt_find_extreme_element (src/backend/access/nbtree/nbtutils.c:810)
-  - DefineIndex (src/backend/commands/indexcmds.c:987, 1044)
-  - ATAddForeignKeyConstraint (src/backend/commands/tablecmds.c:9841, 9854, 9859)
-  - select_equality_operator (src/backend/optimizer/path/equivclass.c:1781)
-  - create_indexscan_plan (src/backend/optimizer/plan/createplan.c:3139)
-  - mergejoinscansel (src/backend/utils/adt/selfuncs.c:3025-3106)
-  - lookup_type_cache (src/backend/utils/cache/typcache.c:556-736)
+  - [_bt_find_extreme_element](../b/_bt_find_extreme_element.md) (src/backend/access/nbtree/nbtutils.c:810)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:987, 1044)
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md) (src/backend/commands/tablecmds.c:9841, 9854, 9859)
+  - [select_equality_operator](../s/select_equality_operator.md) (src/backend/optimizer/path/equivclass.c:1781)
+  - [create_indexscan_plan](../c/create_indexscan_plan.md) (src/backend/optimizer/plan/createplan.c:3139)
+  - [mergejoinscansel](../m/mergejoinscansel.md) (src/backend/utils/adt/selfuncs.c:3025-3106)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:556-736)
 
 ## Notes and Other Information
 - Returns InvalidOid when no operator matches the specified criteria

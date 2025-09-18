@@ -24,15 +24,15 @@ This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogPrefetcherComputeStats (finalizes prefetch statistics)
+  - [XLogPrefetcherComputeStats](../X/XLogPrefetcherComputeStats.md) (finalizes prefetch statistics)
   - close (closes open WAL file descriptor)
-  - XLogReaderFree (deallocates xlogreader structure)
-  - XLogPrefetcherFree (deallocates xlogprefetcher structure)
+  - [XLogReaderFree](../X/XLogReaderFree.md) (deallocates xlogreader structure)
+  - [XLogPrefetcherFree](../X/XLogPrefetcherFree.md) (deallocates xlogprefetcher structure)
   - unlink (removes temporary recovery files)
-  - DisownLatch (releases latch ownership)
+  - [DisownLatch](../D/DisownLatch.md) (releases latch ownership)
   - XLOGDIR (WAL directory path constant)
 - Called from:
-  - StartupXLOG (during database startup after recovery completion)
+  - [StartupXLOG](StartupXLOG.md) (during database startup after recovery completion)
 
 ## Notes and Other Information
 - Called after FinishWalRecovery() completes the recovery process

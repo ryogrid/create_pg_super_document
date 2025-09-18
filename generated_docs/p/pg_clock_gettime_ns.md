@@ -21,7 +21,7 @@ This function takes no parameters and returns:
 ## Dependencies
 - Functions called/Symbols referenced:
   - clock_gettime (system call)
-  - instr_time (PostgreSQL time structure)
+  - [instr_time](../i/instr_time.md) (PostgreSQL time structure)
   - PG_INSTR_CLOCK (defined as CLOCK_MONOTONIC_RAW)
   - NS_PER_S (nanoseconds per second constant)
 - Called from (representative examples):

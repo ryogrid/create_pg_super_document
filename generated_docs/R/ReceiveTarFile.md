@@ -30,18 +30,18 @@ The function is designed to handle version compatibility issues, ensuring proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateBackupStreamer
-  - ReceiveCopyData
-  - ReceiveTarCopyChunk
-  - ReceiveBackupManifestInMemory
-  - bbstreamer_inject_file
-  - bbstreamer_finalize
-  - bbstreamer_free
-  - progress_update_filename
-  - progress_report
-  - PQserverVersion
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
+  - [ReceiveCopyData](ReceiveCopyData.md)
+  - [ReceiveTarCopyChunk](ReceiveTarCopyChunk.md)
+  - [ReceiveBackupManifestInMemory](ReceiveBackupManifestInMemory.md)
+  - [bbstreamer_inject_file](../b/bbstreamer_inject_file.md)
+  - [bbstreamer_finalize](../b/bbstreamer_finalize.md)
+  - [bbstreamer_free](../b/bbstreamer_free.md)
+  - [progress_update_filename](../p/progress_update_filename.md)
+  - [progress_report](../p/progress_report.md)
+  - [PQserverVersion](../P/PQserverVersion.md)
 - Called from (representative examples):
-  - BaseBackup
+  - [BaseBackup](../B/BaseBackup.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_basebackup.c compilation unit

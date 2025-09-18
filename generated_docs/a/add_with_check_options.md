@@ -30,23 +30,23 @@ This function creates WithCheckOption nodes that enforce Row Level Security poli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WCOKind (enum type)
+  - [WCOKind](../W/WCOKind.md) (enum type)
   - makeNode
   - RelationGetRelationName
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - lappend
   - copyObject
-  - ChangeVarNodes
-  - list_append_unique
-  - makeBoolExpr
-  - makeConst
-  - BoolGetDatum
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [list_append_unique](../l/list_append_unique.md)
+  - [makeBoolExpr](../m/makeBoolExpr.md)
+  - [makeConst](../m/makeConst.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
 - Called from (representative examples):
-  - get_row_security_policies (multiple call sites for different WCO kinds)
+  - [get_row_security_policies](../g/get_row_security_policies.md) (multiple call sites for different WCO kinds)
 
 ## Notes and Other Information
 - This is a static function within src/backend/rewrite/rowsecurity.c:796-907
 - Uses a macro QUAL_FOR_WCO to determine whether to use WITH CHECK or USING clauses
 - Handles the security model where permissive policies grant access (OR logic) while restrictive policies add additional constraints (AND logic)
 - Critical for enforcing data security in PostgreSQL's Row Level Security feature
-- Variable nodes are adjusted using ChangeVarNodes to reference the correct range table entry
+- [Variable](../V/Variable.md) nodes are adjusted using ChangeVarNodes to reference the correct range table entry

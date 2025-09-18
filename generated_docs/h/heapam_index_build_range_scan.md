@@ -41,16 +41,16 @@ The function performs detailed visibility checks for each tuple, deciding whethe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getnext
-  - heapam_scan_get_blocks_done
-  - HeapTupleSatisfiesVacuum
-  - heap_get_root_tuples
-  - FormIndexDatum
+  - [heap_getnext](heap_getnext.md)
+  - [heapam_scan_get_blocks_done](heapam_scan_get_blocks_done.md)
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
+  - [heap_get_root_tuples](heap_get_root_tuples.md)
+  - [FormIndexDatum](../F/FormIndexDatum.md)
   - ExecQual
-  - table_beginscan_strat
-  - GetOldestNonRemovableTransactionId
+  - [table_beginscan_strat](../t/table_beginscan_strat.md)
+  - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
 
 ## Notes and Other Information
 This function implements sophisticated visibility logic to handle various tuple states during index building. It must balance performance (via synchronized scanning) with correctness (proper visibility checking). The HOT chain handling ensures that index entries maintain proper relationships with heap tuples even after updates. The function supports both snapshot-based visibility (for concurrent builds) and custom visibility logic (for regular builds) to maintain MVCC semantics throughout the index creation process.

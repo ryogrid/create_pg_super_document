@@ -20,9 +20,9 @@ This function iterates through the list of child PlanState nodes associated with
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (determines number of child plans)
-  - ExplainNode (recursively explains each child plan)
+  - [ExplainNode](ExplainNode.md) (recursively explains each child plan)
 - Called from:
-  - ExplainNode (when processing CustomScan nodes)
+  - [ExplainNode](ExplainNode.md) (when processing CustomScan nodes)
 
 ## Notes and Other Information
 - Uses intelligent labeling: 'child' for single child, 'children' for multiple children

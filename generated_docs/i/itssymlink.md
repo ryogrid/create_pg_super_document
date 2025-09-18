@@ -27,7 +27,7 @@ The function uses a minimal approach by only attempting to read one character ra
   - HAVE_SYMLINK (preprocessor macro indicating symbolic link support)
 - Called from:
   - linkat (at line 117 in src/timezone/zic.c)
-  - dolink (at line 1021 in src/timezone/zic.c)
+  - [dolink](../d/dolink.md) (at line 1021 in src/timezone/zic.c)
 
 ## Notes and Other Information
 - This is a static function local to src/timezone/zic.c, part of PostgreSQL's timezone handling code

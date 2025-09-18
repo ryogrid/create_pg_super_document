@@ -29,22 +29,22 @@ Each operation type has specific argument handling and uses specialized XML proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xmlconcat
-  - xmlelement
-  - xmlparse
-  - xmlpi
-  - xmlroot
-  - xmltotext_with_options
-  - xml_is_document
-  - map_sql_value_to_xml_value
+  - [xmlconcat](../x/xmlconcat.md)
+  - [xmlelement](../x/xmlelement.md)
+  - [xmlparse](../x/xmlparse.md)
+  - [xmlpi](../x/xmlpi.md)
+  - [xmlroot](../x/xmlroot.md)
+  - [xmltotext_with_options](../x/xmltotext_with_options.md)
+  - [xml_is_document](../x/xml_is_document.md)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md)
   - cstring_to_text_with_len
   - DatumGetTextPP
-  - DatumGetXmlP
-  - DatumGetInt32
-  - DatumGetBool
+  - [DatumGetXmlP](../D/DatumGetXmlP.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Function initializes result to null and only sets non-null results when operations succeed

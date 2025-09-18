@@ -18,20 +18,20 @@ This function looks up an operator in the pg_amop system catalog to determine it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache3 (system cache lookup function)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup function)
   - HeapTupleIsValid (checks if tuple is valid)
   - GETSTRUCT (extracts structure from heap tuple)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - Form_pg_amop (structure type for pg_amop catalog)
   - AMOP_SEARCH (constant for search operator type)
-  - CharGetDatum (datum conversion function)
+  - [CharGetDatum](../C/CharGetDatum.md) (datum conversion function)
 - Called from (representative examples):
-  - ComputeIndexAttrs (src/backend/commands/indexcmds.c:2103)
-  - match_rowcompare_to_indexcol (src/backend/optimizer/path/indxpath.c:2757)
-  - expand_indexqual_rowcompare (src/backend/optimizer/path/indxpath.c:2880)
-  - get_actual_variable_range (src/backend/utils/adt/selfuncs.c:6205)
-  - btcostestimate (src/backend/utils/adt/selfuncs.c:6963)
-  - RelationGetExclusionInfo (src/backend/utils/cache/relcache.c:5697)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md) (src/backend/commands/indexcmds.c:2103)
+  - [match_rowcompare_to_indexcol](../m/match_rowcompare_to_indexcol.md) (src/backend/optimizer/path/indxpath.c:2757)
+  - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md) (src/backend/optimizer/path/indxpath.c:2880)
+  - [get_actual_variable_range](get_actual_variable_range.md) (src/backend/utils/adt/selfuncs.c:6205)
+  - [btcostestimate](../b/btcostestimate.md) (src/backend/utils/adt/selfuncs.c:6963)
+  - [RelationGetExclusionInfo](../R/RelationGetExclusionInfo.md) (src/backend/utils/cache/relcache.c:5697)
 
 ## Notes and Other Information
 - Strategy numbers are specific to each operator family and define the semantic meaning of operators

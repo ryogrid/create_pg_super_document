@@ -25,17 +25,17 @@ The function handles the special case where obuf is InvalidBuffer, in which case
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid (validates the target block number)
-  - BufferIsValid (checks if old buffer is valid)
-  - _bt_unlockbuf (releases lock on old buffer)
+  - [BufferIsValid](../B/BufferIsValid.md) (checks if old buffer is valid)
+  - [_bt_unlockbuf](_bt_unlockbuf.md) (releases lock on old buffer)
   - ReleaseAndReadBuffer (core buffer manager function for release+read)
-  - _bt_lockbuf (applies appropriate lock to new buffer)
-  - _bt_checkpage (performs sanity checks on the new page)
+  - [_bt_lockbuf](_bt_lockbuf.md) (applies appropriate lock to new buffer)
+  - [_bt_checkpage](_bt_checkpage.md) (performs sanity checks on the new page)
 - Called from (representative examples):
-  - _bt_check_unique (during uniqueness checking)
-  - _bt_stepright (when moving right during insertions)
-  - _bt_search (during B-tree traversal)
-  - _bt_moveright (when navigating rightward)
-  - _bt_get_endpoint (when finding tree endpoints)
+  - [_bt_check_unique](_bt_check_unique.md) (during uniqueness checking)
+  - [_bt_stepright](_bt_stepright.md) (when moving right during insertions)
+  - [_bt_search](_bt_search.md) (during B-tree traversal)
+  - [_bt_moveright](_bt_moveright.md) (when navigating rightward)
+  - [_bt_get_endpoint](_bt_get_endpoint.md) (when finding tree endpoints)
 
 ## Notes and Other Information
 - Combines buffer release and acquisition into a single atomic operation

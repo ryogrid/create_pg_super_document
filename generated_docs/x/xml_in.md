@@ -21,7 +21,7 @@ This function serves as the input conversion function for PostgreSQL's xml data 
   - PG_GETARG_CSTRING
   - cstring_to_text
   - xml_parse
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - xmlFreeDoc
   - PG_RETURN_XML_P
   - NO_XML_SUPPORT (fallback when libxml2 not available)

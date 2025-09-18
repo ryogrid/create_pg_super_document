@@ -36,7 +36,7 @@ Like other encoding incrementers, it's designed for range operations where exhau
   - SS3 (single shift 3 constant, 0x8F)  
   - IS_HIGHBIT_SET (macro to check high bit)
 - Called from (representative examples):
-  - pg_database_encoding_character_incrementer
+  - [pg_database_encoding_character_incrementer](pg_database_encoding_character_incrementer.md)
 
 ## Notes and Other Information
 - Handles three different JIS character sets within EUC-JP encoding

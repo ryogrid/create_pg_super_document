@@ -22,7 +22,7 @@ The `isxdigits_n` function is a static utility function that validates whether t
 - Functions called/Symbols referenced:
   - isxdigit (standard C library function)
 - Called from:
-  - unistr (multiple references at lines 6530, 6531, 6567, 6602)
+  - [unistr](../u/unistr.md) (multiple references at lines 6530, 6531, 6567, 6602)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same translation unit

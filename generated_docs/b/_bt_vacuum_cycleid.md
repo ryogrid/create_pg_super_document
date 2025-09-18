@@ -20,10 +20,10 @@ This function provides coordination between B-tree maintenance operations and ac
   - LWLockAcquire/LWLockRelease
   - BtreeVacuumLock (LWLock)
   - btvacinfo (global vacuum info structure)
-  - BTOneVacInfo (vacuum info structure)
+  - [BTOneVacInfo](../B/BTOneVacInfo.md) (vacuum info structure)
   - BTCycleId (cycle identifier type)
 - Called from (representative examples):
-  - _bt_split
+  - [_bt_split](_bt_split.md)
 
 ## Notes and Other Information
 - Uses shared lock on BtreeVacuumLock since this is a read-only operation

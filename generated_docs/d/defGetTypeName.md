@@ -23,16 +23,16 @@ An important design note: this function deliberately does not accept List argume
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (macro to get node type)
-  - TypeName (structure type for type names)
+  - [TypeName](../T/TypeName.md) (structure type for type names)
   - makeTypeNameFromNameList (function to create TypeName from name list)
   - list_make1 (function to create single-element list)
 - Called from (representative examples):
-  - DefineAggregate (aggregate definition commands)
-  - DefineOperator (operator definition commands)
-  - DefineType (type definition commands)
-  - init_params (sequence parameter initialization)
+  - [DefineAggregate](../D/DefineAggregate.md) (aggregate definition commands)
+  - [DefineOperator](../D/DefineOperator.md) (operator definition commands)
+  - [DefineType](../D/DefineType.md) (type definition commands)
+  - [init_params](../i/init_params.md) (sequence parameter initialization)
 
 ## Notes and Other Information
 - Returns NULL as a fallback to keep the compiler quiet, though this should never be reached due to error handling

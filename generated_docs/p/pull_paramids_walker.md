@@ -23,13 +23,13 @@ This function follows the standard walker function pattern in PostgreSQL, return
 ## Dependencies
 - Functions called/Symbols referenced:
   - Param (type check and cast)
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - expression_tree_walker
-  - pull_paramids_walker (recursive call)
+  - [pull_paramids_walker](pull_paramids_walker.md) (recursive call)
 - Called from (representative examples):
-  - pull_paramids
+  - [pull_paramids](pull_paramids.md)
   - max_parallel_hazard_context
-  - pull_paramids_walker (recursive self-call)
+  - [pull_paramids_walker](pull_paramids_walker.md) (recursive self-call)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same compilation unit (clauses.c)

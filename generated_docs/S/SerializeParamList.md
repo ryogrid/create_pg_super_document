@@ -22,12 +22,12 @@ The function handles dynamic parameters by calling the paramFetch hook if presen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (structure type)
+  - [ParamListInfo](../P/ParamListInfo.md) (structure type)
   - ParamExternData (structure type)
-  - get_typlenbyval (to determine type properties)
-  - datumSerialize (to serialize individual datum values)
+  - [get_typlenbyval](../g/get_typlenbyval.md) (to determine type properties)
+  - [datumSerialize](../d/datumSerialize.md) (to serialize individual datum values)
 - Called from (representative examples):
-  - ExecInitParallelPlan (for parallel query execution setup)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (for parallel query execution setup)
 
 ## Notes and Other Information
 - The serialized format is self-contained and can be restored using RestoreParamList

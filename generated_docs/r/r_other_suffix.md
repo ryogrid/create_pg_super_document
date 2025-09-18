@@ -39,19 +39,19 @@ The function uses test position mechanism to preserve cursor state during the fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s_b (exact backward string matching for s_0 and s_1 patterns)
-  - find_among_b (backward pattern matching against secondary suffix list a_2)
-  - slice_del (suffix deletion operation)
-  - slice_from_s (suffix replacement with s_2 string)
-  - r_consonant_pair (doubled consonant cleanup)
+  - [eq_s_b](../e/eq_s_b.md) (exact backward string matching for s_0 and s_1 patterns)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching against secondary suffix list a_2)
+  - [slice_del](../s/slice_del.md) (suffix deletion operation)
+  - [slice_from_s](../s/slice_from_s.md) (suffix replacement with s_2 string)
+  - [r_consonant_pair](r_consonant_pair.md) (doubled consonant cleanup)
   - s_0, s_1 (2-character string patterns for compound suffix detection)
   - s_2 (3-character replacement string)
   - a_2 (array of 5 secondary suffix patterns)
 - Called from (representative examples):
-  - danish_ISO_8859_1_stem (main Danish stemming function)
-  - norwegian_ISO_8859_1_stem (main Norwegian stemming function) 
-  - swedish_ISO_8859_1_stem (main Swedish stemming function)
-  - danish_UTF_8_stem, norwegian_UTF_8_stem, swedish_UTF_8_stem (UTF-8 variants)
+  - [danish_ISO_8859_1_stem](../d/danish_ISO_8859_1_stem.md) (main Danish stemming function)
+  - [norwegian_ISO_8859_1_stem](../n/norwegian_ISO_8859_1_stem.md) (main Norwegian stemming function) 
+  - [swedish_ISO_8859_1_stem](../s/swedish_ISO_8859_1_stem.md) (main Swedish stemming function)
+  - [danish_UTF_8_stem](../d/danish_UTF_8_stem.md), norwegian_UTF_8_stem, swedish_UTF_8_stem (UTF-8 variants)
 
 ## Notes and Other Information
 - This function runs after r_main_suffix to handle remaining morphological patterns

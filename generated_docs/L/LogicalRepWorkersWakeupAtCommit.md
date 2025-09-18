@@ -32,17 +32,17 @@ This design is commonly used when subscription metadata is modified (e.g., subsc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo (to switch to transaction context)
-  - list_append_unique_oid (to add subscription OID to wakeup list)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (to switch to transaction context)
+  - [list_append_unique_oid](../l/list_append_unique_oid.md) (to add subscription OID to wakeup list)
 - Called from (representative examples):
-  - AlterObjectRename_internal (when subscription is renamed)
-  - AlterSubscription (when subscription is modified)
-  - AlterSubscriptionOwner_internal (when subscription owner changes)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (when subscription is renamed)
+  - [AlterSubscription](../A/AlterSubscription.md) (when subscription is modified)
+  - [AlterSubscriptionOwner_internal](../A/AlterSubscriptionOwner_internal.md) (when subscription owner changes)
 
 ## Notes and Other Information
 - Uses TopTransactionContext to ensure the wakeup list survives until transaction end
 - The on_commit_wakeup_workers_subids global list accumulates subscription OIDs during the transaction
-- list_append_unique_oid ensures no duplicate entries for the same subscription
+- [list_append_unique_oid](../l/list_append_unique_oid.md) ensures no duplicate entries for the same subscription
 - The actual worker wakeup is performed by AtEOXact_LogicalRepWorkers at transaction commit
 - Memory is automatically reclaimed at transaction end
 - This function is declared in src/include/replication/logicalworker.h

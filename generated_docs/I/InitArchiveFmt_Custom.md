@@ -27,17 +27,17 @@ The function supports both sequential and parallel restore operations but only p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _ArchiveEntry, _StartData, _WriteData, _EndData
-  - _WriteByte, _ReadByte, _WriteBuf, _ReadBuf
-  - _CloseArchive, _ReopenArchive, _PrintTocData
-  - _ReadExtraToc, _WriteExtraToc, _PrintExtraToc
-  - _StartLOs, _StartLO, _EndLO, _EndLOs
-  - _PrepParallelRestore, _Clone, _DeClone
-  - _WorkerJobRestoreCustom
+  - [_ArchiveEntry](../A/_ArchiveEntry.md), _StartData, _WriteData, _EndData
+  - [_WriteByte](../W/_WriteByte.md), _ReadByte, _WriteBuf, _ReadBuf
+  - [_CloseArchive](../C/_CloseArchive.md), _ReopenArchive, _PrintTocData
+  - [_ReadExtraToc](../R/_ReadExtraToc.md), _WriteExtraToc, _PrintExtraToc
+  - [_StartLOs](../S/_StartLOs.md), _StartLO, _EndLO, _EndLOs
+  - [_PrepParallelRestore](../P/_PrepParallelRestore.md), _Clone, _DeClone
+  - [_WorkerJobRestoreCustom](../W/_WorkerJobRestoreCustom.md)
   - pg_malloc0, fopen, checkSeek, ReadHead, ReadToc, _getFilePos
 
 - Called from (representative examples):
-  - _allocAH (in pg_backup_archiver.c:2449)
+  - [_allocAH](../a/_allocAH.md) (in pg_backup_archiver.c:2449)
 
 ## Notes and Other Information
 - This function is format-specific and must be declared in pg_backup_archiver.h as it's used by the global archive allocation routine

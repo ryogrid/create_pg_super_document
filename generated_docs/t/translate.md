@@ -22,17 +22,17 @@ The translate function implements character-by-character replacement within a te
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_RETURN_TEXT_P
-  - pg_database_encoding_max_length
-  - pg_mul_s32_overflow
-  - pg_add_s32_overflow
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
+  - [pg_mul_s32_overflow](../p/pg_mul_s32_overflow.md)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
   - AllocSizeIsValid
   - VARDATA
-  - pg_mblen
+  - [pg_mblen](../p/pg_mblen.md)
   - SET_VARSIZE
 - Called from (representative examples):
-  - printTableAddHeader (src/fe_utils/print.c)
-  - printTableAddCell (src/fe_utils/print.c)
-  - printQuery (src/fe_utils/print.c)
+  - [printTableAddHeader](../p/printTableAddHeader.md) (src/fe_utils/print.c)
+  - [printTableAddCell](../p/printTableAddCell.md) (src/fe_utils/print.c)
+  - [printQuery](../p/printQuery.md) (src/fe_utils/print.c)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/oracle_compat.c:797-924

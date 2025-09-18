@@ -23,7 +23,7 @@ The function follows PostgreSQL's convention for SQL-callable functions by takin
 - Functions called/Symbols referenced:
   - DirectFunctionCall1 (PostgreSQL function call mechanism)
   - namein (input function for NAME data type)
-  - CStringGetDatum (converts C string to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - DatabaseEncoding (global structure containing encoding information)
 - Called from (representative examples):
   - No direct references found (typically called through SQL function dispatch mechanism)

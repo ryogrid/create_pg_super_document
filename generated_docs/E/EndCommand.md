@@ -21,16 +21,16 @@ The function uses a switch statement to handle different CommandDest values, wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildQueryCompletionString (builds formatted completion tag)
+  - [BuildQueryCompletionString](../B/BuildQueryCompletionString.md) (builds formatted completion tag)
   - pq_putmessage (sends protocol message to client)
   - CommandDest enum values (DestRemote, DestRemoteExecute, etc.)
   - QueryCompletion struct
   - PqMsg_CommandComplete (protocol message type)
 - Called from (representative examples):
-  - exec_simple_query (in postgres.c)
-  - exec_execute_message (in postgres.c)
-  - StartLogicalReplication (in walsender.c)
-  - WalSndDone (in walsender.c)
+  - [exec_simple_query](../e/exec_simple_query.md) (in postgres.c)
+  - [exec_execute_message](../e/exec_execute_message.md) (in postgres.c)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md) (in walsender.c)
+  - [WalSndDone](../W/WalSndDone.md) (in walsender.c)
 
 ## Notes and Other Information
 - Located in src/backend/tcop/dest.c:169-204

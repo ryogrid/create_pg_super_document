@@ -23,13 +23,13 @@ The function is part of PostgreSQL's function manager (fmgr) system, which handl
   - FunctionCall1
   - DatumGetByteaP
 - Called from (representative examples):
-  - printtup
-  - CopyOneRowTo
-  - serializeAnalyzeReceive
-  - array_send
-  - range_send
-  - record_send
-  - OidSendFunctionCall
+  - [printtup](../p/printtup.md)
+  - [CopyOneRowTo](../C/CopyOneRowTo.md)
+  - [serializeAnalyzeReceive](../s/serializeAnalyzeReceive.md)
+  - [array_send](../a/array_send.md)
+  - [range_send](../r/range_send.md)
+  - [record_send](../r/record_send.md)
+  - [OidSendFunctionCall](../O/OidSendFunctionCall.md)
 
 ## Notes and Other Information
 - This function must not be called with NULL datums

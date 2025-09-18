@@ -22,31 +22,31 @@ index_build is a comprehensive function that manages the entire index building p
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexInfo (structure type)
-  - IndexBuildResult (structure type)
+  - [IndexBuildResult](../I/IndexBuildResult.md) (structure type)
   - RelationIsValid (function)
   - PointerIsValid (function)
   - IsNormalProcessingMode (function)
-  - plan_create_index_workers (function)
-  - GetUserIdAndSecContext (function)
-  - SetUserIdAndSecContext (function)
-  - NewGUCNestLevel (function)
-  - RestrictSearchPath (function)
-  - pgstat_progress_update_multi_param (function)
-  - smgrexists (function)
-  - smgrcreate (function)
-  - log_smgrcreate (function)
+  - [plan_create_index_workers](../p/plan_create_index_workers.md) (function)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md) (function)
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md) (function)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md) (function)
+  - [RestrictSearchPath](../R/RestrictSearchPath.md) (function)
+  - [pgstat_progress_update_multi_param](../p/pgstat_progress_update_multi_param.md) (function)
+  - [smgrexists](../s/smgrexists.md) (function)
+  - [smgrcreate](../s/smgrcreate.md) (function)
+  - [log_smgrcreate](../l/log_smgrcreate.md) (function)
   - SearchSysCacheCopy1 (function)
-  - CatalogTupleUpdate (function)
-  - heap_freetuple (function)
-  - index_update_stats (function)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (function)
+  - [heap_freetuple](../h/heap_freetuple.md) (function)
+  - [index_update_stats](index_update_stats.md) (function)
   - CommandCounterIncrement (function)
-  - IndexCheckExclusion (function)
-  - AtEOXact_GUC (function)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md) (function)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md) (function)
 - Called from (representative examples):
-  - build_indices
+  - [build_indices](../b/build_indices.md)
   - index_create
   - index_concurrently_build
-  - reindex_index
+  - [reindex_index](../r/reindex_index.md)
 
 ## Notes and Other Information
 - Supports parallel index building for B-tree and BRIN access methods with automatic worker planning

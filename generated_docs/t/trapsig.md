@@ -25,13 +25,13 @@ The function is designed with special consideration for Windows platform limitat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsignal (PostgreSQL's signal registration function)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal registration function)
   - postgres_signal_arg (signal argument variable)
   - caught_signal (global boolean flag set when signal is caught)
   - SIGNAL_ARGS (macro defining signal handler parameters)
 
 - Called from:
-  - setup_signals (registers trapsig for multiple signal types)
+  - [setup_signals](../s/setup_signals.md) (registers trapsig for multiple signal types)
   - Self-reference (re-registers itself as handler)
 
 ## Notes and Other Information

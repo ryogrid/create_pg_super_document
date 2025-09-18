@@ -21,11 +21,11 @@ The main public interface function for deallocating a named prepared statement i
 ## Dependencies
 - Functions called/Symbols referenced:
   - ecpg_get_connection (retrieve connection by name)
-  - ecpg_init (initialize connection state)
-  - ecpg_find_prepared_statement (locate statement in connection's statement list)
-  - deallocate_one (perform actual deallocation)
+  - [ecpg_init](../e/ecpg_init.md) (initialize connection state)
+  - [ecpg_find_prepared_statement](../e/ecpg_find_prepared_statement.md) (locate statement in connection's statement list)
+  - [deallocate_one](../d/deallocate_one.md) (perform actual deallocation)
   - INFORMIX_MODE (compatibility mode check)
-  - ecpg_raise (error reporting)
+  - [ecpg_raise](../e/ecpg_raise.md) (error reporting)
 - Called from (representative examples):
   - Various test programs and ECPG-generated code
   - Main application functions using prepared statements

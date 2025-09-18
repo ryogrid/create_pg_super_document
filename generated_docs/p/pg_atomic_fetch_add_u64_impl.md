@@ -28,14 +28,14 @@ The function atomically adds the specified value to the memory location and retu
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease (spinlock implementation)
   - __sync_fetch_and_add (GCC implementation)
-  - pg_atomic_compare_exchange_u64_impl (generic fallback)
-  - pg_atomic_uint64 (type)
-  - slock_t (type)
+  - [pg_atomic_compare_exchange_u64_impl](pg_atomic_compare_exchange_u64_impl.md) (generic fallback)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
+  - [slock_t](../s/slock_t.md) (type)
 - Called from (representative examples):
-  - pg_atomic_fetch_add_u64 (inline wrapper)
-  - pg_atomic_fetch_sub_u64_impl
-  - pg_atomic_add_fetch_u64_impl
-  - pg_atomic_read_membarrier_u64_impl
+  - [pg_atomic_fetch_add_u64](pg_atomic_fetch_add_u64.md) (inline wrapper)
+  - [pg_atomic_fetch_sub_u64_impl](pg_atomic_fetch_sub_u64_impl.md)
+  - [pg_atomic_add_fetch_u64_impl](pg_atomic_add_fetch_u64_impl.md)
+  - [pg_atomic_read_membarrier_u64_impl](pg_atomic_read_membarrier_u64_impl.md)
 
 ## Notes and Other Information
 - Multiple implementations exist for different compilers and platforms

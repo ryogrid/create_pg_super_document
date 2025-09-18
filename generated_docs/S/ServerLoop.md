@@ -43,33 +43,33 @@ The loop uses DetermineSleepTime() to calculate optimal wait durations, balancin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConfigurePostmasterWaitSet
+  - [ConfigurePostmasterWaitSet](../C/ConfigurePostmasterWaitSet.md)
   - WaitEventSetWait
-  - DetermineSleepTime
-  - ResetLatch
-  - AcceptConnection
-  - BackendStartup
-  - StartChildProcess
-  - SysLogger_Start
-  - MaybeStartWalReceiver
-  - MaybeStartWalSummarizer
-  - MaybeStartSlotSyncWorker
+  - [DetermineSleepTime](../D/DetermineSleepTime.md)
+  - [ResetLatch](../R/ResetLatch.md)
+  - [AcceptConnection](../A/AcceptConnection.md)
+  - [BackendStartup](../B/BackendStartup.md)
+  - [StartChildProcess](StartChildProcess.md)
+  - [SysLogger_Start](SysLogger_Start.md)
+  - [MaybeStartWalReceiver](../M/MaybeStartWalReceiver.md)
+  - [MaybeStartWalSummarizer](../M/MaybeStartWalSummarizer.md)
+  - [MaybeStartSlotSyncWorker](../M/MaybeStartSlotSyncWorker.md)
   - maybe_start_bgworkers
-  - TerminateChildren
-  - RecheckDataDirLockFile
-  - TouchSocketFiles
-  - TouchSocketLockFiles
+  - [TerminateChildren](../T/TerminateChildren.md)
+  - [RecheckDataDirLockFile](../R/RecheckDataDirLockFile.md)
+  - [TouchSocketFiles](../T/TouchSocketFiles.md)
+  - [TouchSocketLockFiles](../T/TouchSocketLockFiles.md)
 - Process request handlers:
-  - process_pm_shutdown_request
-  - process_pm_reload_request  
-  - process_pm_child_exit
-  - process_pm_pmsignal
+  - [process_pm_shutdown_request](../p/process_pm_shutdown_request.md)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md)  
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
+  - [process_pm_pmsignal](../p/process_pm_pmsignal.md)
 - Constants used:
   - WL_LATCH_SET, WL_SOCKET_ACCEPT
   - PM_RUN, PM_RECOVERY, PM_HOT_STANDBY, PM_STARTUP
   - B_CHECKPOINTER, B_BG_WRITER, B_WAL_WRITER, B_AUTOVAC_LAUNCHER, B_ARCHIVER
 - Called from:
-  - PostmasterMain
+  - [PostmasterMain](../P/PostmasterMain.md)
 
 ## Notes and Other Information
 - The function runs in an infinite loop until the postmaster shuts down

@@ -24,12 +24,12 @@ The function is simpler than gistgettuple because it doesn't need to maintain co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistScanPage (for processing index pages and collecting TIDs)
-  - getNextGISTSearchItem (for retrieving next search item from queue)
+  - [gistScanPage](gistScanPage.md) (for processing index pages and collecting TIDs)
+  - [getNextGISTSearchItem](getNextGISTSearchItem.md) (for retrieving next search item from queue)
   - pgstat_count_index_scan (for statistics tracking)
-  - MemoryContextReset (for memory management)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (for memory management)
 - Called from (representative examples):
-  - gisthandler (index AM handler setup)
+  - [gisthandler](gisthandler.md) (index AM handler setup)
 
 ## Notes and Other Information
 - Returns the total number of heap TIDs collected in the bitmap

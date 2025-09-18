@@ -20,10 +20,10 @@ The function uses the arc's outchain and outchainRev pointers to navigate throug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumparc (for dumping individual arc information)
-  - arc (struct type for representing transitions)
+  - [dumparc](dumparc.md) (for dumping individual arc information)
+  - [arc](../a/arc.md) (struct type for representing transitions)
 - Called from (representative examples):
-  - dumpstate (src/backend/regex/regc_nfa.c:3707)
+  - [dumpstate](dumpstate.md) (src/backend/regex/regc_nfa.c:3707)
   - REPLACEARC (src/backend/regex/regcomp.c:238)
 
 ## Notes and Other Information

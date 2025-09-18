@@ -29,7 +29,7 @@ Recovery conflicts can occur in hot standby scenarios when replay of WAL records
   - RecoveryConflictPending (general flag indicating any recovery conflict is pending)
   - InterruptPending (general interrupt flag)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler (multiple calls for different conflict types in src/backend/storage/ipc/procsignal.c)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (multiple calls for different conflict types in src/backend/storage/ipc/procsignal.c)
 
 ## Notes and Other Information
 - This function runs in a SIGUSR1 signal handler context and must be async-signal-safe

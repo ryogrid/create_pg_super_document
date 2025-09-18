@@ -24,14 +24,14 @@ The function uses a switch statement to handle different SQLValueFunction operat
 - Functions called/Symbols referenced:
   - SQLValueFunction
   - LOCAL_FCINFO
-  - GetSQLCurrentDate, GetSQLCurrentTime, GetSQLCurrentTimestamp
-  - GetSQLLocalTime, GetSQLLocalTimestamp
-  - current_user, session_user, current_database, current_schema
+  - [GetSQLCurrentDate](../G/GetSQLCurrentDate.md), GetSQLCurrentTime, GetSQLCurrentTimestamp
+  - [GetSQLLocalTime](../G/GetSQLLocalTime.md), GetSQLLocalTimestamp
+  - [current_user](../c/current_user.md), session_user, current_database, current_schema
   - InitFunctionCallInfoData
   - Various ADT conversion functions (DateADTGetDatum, TimeTzADTPGetDatum, etc.)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - Handles all standard SQL value functions in a single implementation

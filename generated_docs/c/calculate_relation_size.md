@@ -27,16 +27,16 @@ Notably, this function can safely be applied to temporary tables from other sess
 - Functions called/Symbols referenced:
   - relpathbackend
   - snprintf
-  - stat
+  - [stat](../s/stat.md)
   - CHECK_FOR_INTERRUPTS
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - pg_relation_size
-  - calculate_toast_table_size
-  - calculate_table_size
-  - calculate_indexes_size
+  - [pg_relation_size](../p/pg_relation_size.md)
+  - [calculate_toast_table_size](calculate_toast_table_size.md)
+  - [calculate_table_size](calculate_table_size.md)
+  - [calculate_indexes_size](calculate_indexes_size.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit (dbsize.c)

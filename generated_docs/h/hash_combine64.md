@@ -24,7 +24,7 @@ The algorithm follows the same design principles as `hash_combine()` but operate
 - Functions called/Symbols referenced:
   - UINT64CONST (macro for 64-bit constants)
 - Called from (representative examples):
-  - compute_partition_hash_value
+  - [compute_partition_hash_value](../c/compute_partition_hash_value.md)
   - hash_resource_elem
 
 ## Notes and Other Information

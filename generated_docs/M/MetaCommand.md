@@ -36,10 +36,10 @@ The commands are grouped into several functional categories: variable operations
 - Functions called/Symbols referenced:
   - (No direct symbol references - used as enum constants)
 - Called from (representative examples):
-  - Command (structure that contains MetaCommand field)
-  - evaluateExpr (for expression evaluation in meta-commands)
-  - getMetaCommand (for parsing and identifying meta-commands)
-  - readCommandResponse (for processing meta-command responses)
+  - [Command](../C/Command.md) (structure that contains MetaCommand field)
+  - [evaluateExpr](../e/evaluateExpr.md) (for expression evaluation in meta-commands)
+  - [getMetaCommand](../g/getMetaCommand.md) (for parsing and identifying meta-commands)
+  - [readCommandResponse](../r/readCommandResponse.md) (for processing meta-command responses)
 
 ## Notes and Other Information
 - Located in src/bin/pgbench/pgbench.c at lines 687-703
@@ -47,7 +47,7 @@ The commands are grouped into several functional categories: variable operations
 - Each meta-command corresponds to a specific backslash command syntax in pgbench scripts
 - Pipeline commands (STARTPIPELINE, SYNCPIPELINE, ENDPIPELINE) enable advanced PostgreSQL pipeline mode for improved performance
 - Conditional commands (IF, ELIF, ELSE, ENDIF) provide branching logic for complex benchmark scenarios
-- Variable commands (SET, SETSHELL, GSET, ASET) enable dynamic benchmark parameterization
+- [Variable](../V/Variable.md) commands (SET, SETSHELL, GSET, ASET) enable dynamic benchmark parameterization
 - SHELL command allows integration with external tools and system commands during benchmarking
 - SLEEP command provides precise timing control for rate-limited or scheduled operations
 - META_NONE serves as a sentinel value for error handling and unknown command detection

@@ -27,9 +27,9 @@ The calculation process:
   - MULTIXACT_MEMBERS_PER_MEMBERGROUP (constant)
   - MXACT_MEMBER_BITS_PER_XACT (constant)
 - Called from (representative examples):
-  - RecordNewMultiXact
-  - GetMultiXactIdMembers
-  - ExtendMultiXactMember
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [ExtendMultiXactMember](../E/ExtendMultiXactMember.md)
 
 ## Notes and Other Information
 - This is a static inline function optimized for frequent use during MultiXact flag manipulation

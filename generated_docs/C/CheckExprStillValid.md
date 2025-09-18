@@ -38,10 +38,10 @@ The function only checks variable operations because these are the primary point
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEvalStepOp (extracts opcode from step, handling computed goto conversion)
-  - CheckVarSlotCompatibility (validates individual variable-slot compatibility)
+  - [ExecEvalStepOp](../E/ExecEvalStepOp.md) (extracts opcode from step, handling computed goto conversion)
+  - [CheckVarSlotCompatibility](CheckVarSlotCompatibility.md) (validates individual variable-slot compatibility)
 - Called from:
-  - ExecInterpExprStillValid (one-time validation wrapper)
+  - [ExecInterpExprStillValid](../E/ExecInterpExprStillValid.md) (one-time validation wrapper)
   - ExecRunCompiledExpr (JIT-compiled expression validation)
 
 ## Notes and Other Information

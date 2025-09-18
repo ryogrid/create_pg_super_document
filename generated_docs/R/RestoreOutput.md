@@ -24,13 +24,13 @@ This mechanism is essential for scenarios where archive output needs to be tempo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EndCompressFileHandle
-  - pg_fatal
+  - [EndCompressFileHandle](../E/EndCompressFileHandle.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Types referenced:
-  - CompressFileHandle
+  - [CompressFileHandle](../C/CompressFileHandle.md)
 - Called from (representative examples):
-  - RestoreArchive
-  - PrintTOCSummary
+  - [RestoreArchive](RestoreArchive.md)
+  - [PrintTOCSummary](../P/PrintTOCSummary.md)
 
 ## Notes and Other Information
 - This is a private static function internal to the archiver routines

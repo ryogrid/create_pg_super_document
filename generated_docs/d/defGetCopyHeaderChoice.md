@@ -20,12 +20,12 @@ This function parses and validates the HEADER option value for COPY statements. 
 - Functions called/Symbols referenced:
   - nodeTag
   - intVal
-  - defGetString
-  - pg_strcasecmp
+  - [defGetString](defGetString.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - ereport
   - COPY_HEADER_TRUE/FALSE/MATCH constants
 - Called from (representative examples):
-  - ProcessCopyOptions
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md)
 
 ## Notes and Other Information
 - The "match" option is restricted to COPY FROM operations only and will generate an error if used with COPY TO

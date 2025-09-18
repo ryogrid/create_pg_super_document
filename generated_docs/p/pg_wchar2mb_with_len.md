@@ -25,10 +25,10 @@ This function converts a wide character string to a multibyte character string w
   - DatabaseEncoding (current database encoding setting)
   - wchar2mb_with_len (encoding-specific conversion function pointer)
 - Called from (representative examples):
-  - build_regexp_match_result (in src/backend/utils/adt/regexp.c:1670)
-  - build_regexp_split_result (in src/backend/utils/adt/regexp.c:1838)
-  - regexp_fixed_prefix (in src/backend/utils/adt/regexp.c:2029)
-  - build_test_match_result (in src/test/modules/test_regex/test_regex.c:726)
+  - [build_regexp_match_result](../b/build_regexp_match_result.md) (in src/backend/utils/adt/regexp.c:1670)
+  - [build_regexp_split_result](../b/build_regexp_split_result.md) (in src/backend/utils/adt/regexp.c:1838)
+  - [regexp_fixed_prefix](../r/regexp_fixed_prefix.md) (in src/backend/utils/adt/regexp.c:2029)
+  - [build_test_match_result](../b/build_test_match_result.md) (in src/test/modules/test_regex/test_regex.c:726)
 
 ## Notes and Other Information
 - Primarily used in regular expression processing and pattern matching operations

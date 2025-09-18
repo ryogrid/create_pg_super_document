@@ -24,13 +24,13 @@ The interpreters are stored in a hash table indexed by userid OID and are kept f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (PostgreSQL hash table type)
+  - [HTAB](../H/HTAB.md) (PostgreSQL hash table type)
 - Called from (representative examples):
-  - plperl_proc_desc (references this structure)
-  - _PG_init (initialization)
-  - select_perl_context (interpreter selection)
-  - activate_interpreter (interpreter activation)
-  - compile_plperl_function (function compilation)
+  - [plperl_proc_desc](plperl_proc_desc.md) (references this structure)
+  - [_PG_init](../P/_PG_init.md) (initialization)
+  - [select_perl_context](../s/select_perl_context.md) (interpreter selection)
+  - [activate_interpreter](../a/activate_interpreter.md) (interpreter activation)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation)
 
 ## Notes and Other Information
 - The user_id field must be first in the structure as it serves as the hash key

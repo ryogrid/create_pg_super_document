@@ -22,14 +22,14 @@ The function includes an important safety feature: it verifies that any existing
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetMemoryChunkContext (for memory context verification)
-  - repalloc_extended (for resizing existing memory)
-  - MemoryContextAllocExtended (for new allocations when old is NULL)
+  - [repalloc_extended](../r/repalloc_extended.md) (for resizing existing memory)
+  - [MemoryContextAllocExtended](../M/MemoryContextAllocExtended.md) (for new allocations when old is NULL)
   - MCXT_ALLOC_NO_OOM (flag for no-OOM allocation)
   - ereport (for error reporting)
-  - errcode, errmsg (for error details)
+  - [errcode](../e/errcode.md), errmsg (for error details)
 
 - Called from (representative examples):
-  - read_string_with_null
+  - [read_string_with_null](../r/read_string_with_null.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

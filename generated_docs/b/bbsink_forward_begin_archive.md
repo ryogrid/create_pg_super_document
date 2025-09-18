@@ -25,7 +25,7 @@ This forwarding mechanism allows multiple bbsink implementations to be chained t
   - bbsink_begin_archive
   - bbsink (type reference)
 - Called from (representative examples):
-  - bbsink_server_begin_archive (src/backend/backup/basebackup_server.c:153)
+  - [bbsink_server_begin_archive](bbsink_server_begin_archive.md) (src/backend/backup/basebackup_server.c:153)
 
 ## Notes and Other Information
 - The function performs an assertion to ensure that bbs_next is properly initialized before forwarding

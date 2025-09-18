@@ -23,13 +23,13 @@ The calculation includes memory requests from loaded extensions (via total_addin
 - Functions called/Symbols referenced:
   - ProcGlobalSemas (process semaphore count)
   - SpinlockSemas (spinlock semaphore count)
-  - PGSemaphoreShmemSize (semaphore data structures size)
-  - add_size (safe size addition utility)
+  - [PGSemaphoreShmemSize](../P/PGSemaphoreShmemSize.md) (semaphore data structures size)
+  - [add_size](../a/add_size.md) (safe size addition utility)
   - Multiple subsystem ShmemSize functions (BufferShmemSize, LockShmemSize, etc.)
-  - hash_estimate_size (shared memory index size estimation)
+  - [hash_estimate_size](../h/hash_estimate_size.md) (shared memory index size estimation)
 - Called from (representative examples):
-  - CreateSharedMemoryAndSemaphores
-  - InitializeShmemGUCs
+  - [CreateSharedMemoryAndSemaphores](CreateSharedMemoryAndSemaphores.md)
+  - [InitializeShmemGUCs](../I/InitializeShmemGUCs.md)
 
 ## Notes and Other Information
 - Uses safe arithmetic via add_size() to prevent overflow in size calculations

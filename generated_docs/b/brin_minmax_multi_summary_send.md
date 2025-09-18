@@ -22,7 +22,7 @@ This function follows the PostgreSQL function calling convention using `PG_FUNCT
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - byteasend (PostgreSQL's standard bytea binary output function)
+  - [byteasend](byteasend.md) (PostgreSQL's standard bytea binary output function)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL's type system during binary output operations)
 

@@ -21,7 +21,7 @@ Like SPI_cursor_fetch, it wraps the internal _SPI_cursor_operation function but 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_cursor_operation (internal cursor operation handler)
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md) (internal cursor operation handler)
   - FETCH_FORWARD/FETCH_BACKWARD (fetch direction constants)
   - None_Receiver (null destination receiver that discards results)
 - Called from (representative examples):

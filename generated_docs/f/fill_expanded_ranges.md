@@ -25,12 +25,12 @@ The function processes ranges first (which are sorted), followed by values (whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandedRange
-  - Ranges
+  - [ExpandedRange](../E/ExpandedRange.md)
+  - [Ranges](../R/Ranges.md)
 
 - Called from (representative examples):
-  - build_expanded_ranges
-  - brin_minmax_multi_union
+  - [build_expanded_ranges](../b/build_expanded_ranges.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - The function includes assertion checks to verify the output array size matches the expected total elements

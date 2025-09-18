@@ -21,12 +21,12 @@ This function remaps subplan indexes within PartitionPruneState structures to ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_next_member
-  - bms_free
-  - bms_add_member
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_free](../b/bms_free.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - bms_is_empty
 - Called from (representative examples):
-  - ExecInitPartitionPruning
+  - [ExecInitPartitionPruning](../E/ExecInitPartitionPruning.md)
 
 ## Notes and Other Information
 - Static function only accessible within execPartition.c

@@ -20,13 +20,13 @@ The function internally calls TwoPhaseGetGXact to locate the global transaction 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetGXact
+  - [TwoPhaseGetGXact](TwoPhaseGetGXact.md)
   - GlobalTransaction
-  - PGPROC
+  - [PGPROC](../P/PGPROC.md)
 - Called from (representative examples):
-  - PostPrepare_MultiXact
-  - multixact_twophase_recover
-  - multixact_twophase_postcommit
+  - [PostPrepare_MultiXact](../P/PostPrepare_MultiXact.md)
+  - [multixact_twophase_recover](../m/multixact_twophase_recover.md)
+  - [multixact_twophase_postcommit](../m/multixact_twophase_postcommit.md)
 
 ## Notes and Other Information
 - Dummy proc numbers start at MaxBackends to avoid conflicts with real backend process numbers

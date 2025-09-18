@@ -27,20 +27,20 @@ The function coordinates the overall EXPLAIN output generation process, delegati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainPreScanNode
-  - select_rtable_names_for_explain
-  - deparse_context_for_plan_tree
-  - ExplainNode
-  - ExplainPrintSettings
-  - ExplainPropertyInteger
+  - [ExplainPreScanNode](ExplainPreScanNode.md)
+  - [select_rtable_names_for_explain](../s/select_rtable_names_for_explain.md)
+  - [deparse_context_for_plan_tree](../d/deparse_context_for_plan_tree.md)
+  - [ExplainNode](ExplainNode.md)
+  - [ExplainPrintSettings](ExplainPrintSettings.md)
+  - [ExplainPropertyInteger](ExplainPropertyInteger.md)
   - outerPlanState
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](ExplainOnePlan.md)
 
 ## Notes and Other Information
 - The function will not work correctly on utility statements (only works with planned queries)
 - Special handling exists for "invisible" Gather nodes to support regression testing with different debug_parallel_query settings
 - The function assumes that ExplainState's basic fields (options, output buffer, formatting state) are already properly initialized
-- Query identifiers are displayed as signed 64-bit integers to match pg_stat_statements output format
-- Plan-tree-specific fields in ExplainState are initialized by this function and used by subsequent explain operations
+- [Query](../Q/Query.md) identifiers are displayed as signed 64-bit integers to match pg_stat_statements output format
+- [Plan](../P/Plan.md)-tree-specific fields in ExplainState are initialized by this function and used by subsequent explain operations
 - The deparse context created here enables proper SQL fragment reconstruction throughout the explanation process

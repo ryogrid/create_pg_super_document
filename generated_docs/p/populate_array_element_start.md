@@ -20,11 +20,11 @@ This function serves as a JSON parsing event handler for the start of array elem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateArrayState (data type)
+  - [PopulateArrayState](../P/PopulateArrayState.md) (data type)
   - JsonParseErrorType (return type) 
   - JSON_SUCCESS (return constant)
 - Called from (representative examples):
-  - populate_array_json
+  - [populate_array_json](populate_array_json.md)
   - JsObjectFree
 
 ## Notes and Other Information

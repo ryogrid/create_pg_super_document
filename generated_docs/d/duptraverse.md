@@ -26,13 +26,13 @@ This function recursively traverses the NFA starting from state s, creating dupl
   - STACK_TOO_DEEP
   - NERR
   - REG_ETOOBIG
-  - newstate
+  - [newstate](../n/newstate.md)
   - NISERR
-  - duptraverse (recursive call)
-  - cparc
+  - [duptraverse](duptraverse.md) (recursive call)
+  - [cparc](../c/cparc.md)
 - Called from (representative examples):
-  - dupnfa
-  - duptraverse (recursive calls)
+  - [dupnfa](dupnfa.md)
+  - [duptraverse](duptraverse.md) (recursive calls)
 
 ## Notes and Other Information
 The function implements stack overflow protection using STACK_TOO_DEEP macro since it's recursive and could potentially exhaust the call stack on deeply nested NFA structures. It carefully manages error states using NISERR checks throughout the traversal. The tmp pointer serves as both a visited marker and a reference to the duplicate state, which is a clever space-efficient design pattern used throughout the NFA duplication process.

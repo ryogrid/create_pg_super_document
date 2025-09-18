@@ -21,10 +21,10 @@ For ASCII characters (code < 0x80), the function uses a pre-computed lookup tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_prop_uppercase
+  - [pg_u_prop_uppercase](pg_u_prop_uppercase.md)
 - Called from (representative examples):
-  - pg_wc_isupper (regex locale support)
-  - icu_test (Unicode category testing)
+  - [pg_wc_isupper](pg_wc_isupper.md) (regex locale support)
+  - [icu_test](../i/icu_test.md) (Unicode category testing)
 
 ## Notes and Other Information
 - Returns true if the character has the uppercase property, false otherwise

@@ -26,7 +26,7 @@ This baseline measurement is essential for calculating the relative overhead of 
   - open
   - pg_pwrite
   - close
-  - die
+  - [die](../d/die.md)
 - Macros used:
   - XLOG_BLCKSZ_K
   - LABEL_FORMAT
@@ -35,7 +35,7 @@ This baseline measurement is essential for calculating the relative overhead of 
   - PG_BINARY
   - XLOG_BLCKSZ
 - Called from:
-  - main (in pg_test_fsync.c)
+  - [main](../m/main.md) (in pg_test_fsync.c)
 
 ## Notes and Other Information
 - Provides the theoretical maximum write performance for the given hardware and filesystem

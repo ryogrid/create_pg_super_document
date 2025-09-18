@@ -30,11 +30,11 @@ The initialized PLyResultObject contains:
   - PyLong_FromLong() (Python C API)
   - PyList_New() (Python C API)
   - Py_DECREF() (Python C API)
-  - PLyResultObject (struct type)
+  - [PLyResultObject](PLyResultObject.md) (struct type)
   - PLy_ResultType (type object)
 - Called from (representative examples):
-  - PLy_cursor_fetch() at src/pl/plpython/plpy_cursorobject.c:395
-  - PLy_spi_execute_fetch_result() at src/pl/plpython/plpy_spi.c:346
+  - [PLy_cursor_fetch](PLy_cursor_fetch.md)() at src/pl/plpython/plpy_cursorobject.c:395
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md)() at src/pl/plpython/plpy_spi.c:346
 
 ## Notes and Other Information
 - Returns NULL if memory allocation fails for either the object itself or the rows list

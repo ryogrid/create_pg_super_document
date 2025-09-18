@@ -29,14 +29,14 @@ The algorithm includes comprehensive error handling for overflow conditions and 
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (macro to extract ArrayType argument)
   - PG_GETARG_FLOAT8 (macro to extract float8 argument)
-  - check_float8_array (validation helper function)
+  - [check_float8_array](../c/check_float8_array.md) (validation helper function)
   - isinf (check for infinite values)
   - isnan (check for NaN values)
-  - float_overflow_error (PostgreSQL error handling)
+  - [float_overflow_error](float_overflow_error.md) (PostgreSQL error handling)
   - get_float8_nan (get NaN float8 value)
-  - AggCheckCallContext (check if called in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (check if called in aggregate context)
   - Float8GetDatumFast (convert float8 to Datum)
-  - construct_array (create new ArrayType)
+  - [construct_array](../c/construct_array.md) (create new ArrayType)
   - PG_RETURN_ARRAYTYPE_P (macro to return ArrayType result)
 - Called from (representative examples):
   - No direct references found in the codebase (used by aggregate system)

@@ -31,11 +31,11 @@ The input length must be a multiple of the chunk size (8 or 16 bytes) as enforce
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (SIMD vector type)
-  - vector8_broadcast
-  - vector8_load
-  - vector8_or
-  - vector8_eq
-  - vector8_is_highbit_set
+  - [vector8_broadcast](../v/vector8_broadcast.md)
+  - [vector8_load](../v/vector8_load.md)
+  - [vector8_or](../v/vector8_or.md)
+  - [vector8_eq](../v/vector8_eq.md)
+  - [vector8_is_highbit_set](../v/vector8_is_highbit_set.md)
 - Called from (representative examples):
   - Used in UTF-8 validation context in src/common/wchar.c:1913
 

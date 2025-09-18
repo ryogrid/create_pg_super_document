@@ -23,10 +23,10 @@ This enumeration is central to PostgreSQL's WAL reading infrastructure, allowing
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - XLogReadRecordAlloc (src/backend/access/transam/xlogreader.c:527)
-  - XLogReadAhead (src/backend/access/transam/xlogreader.c:978) 
-  - XLogPageRead (src/backend/access/transam/xlogrecovery.c:3541)
-  - WaitForWALToBecomeAvailable (referenced in XLogPageRead implementation)
+  - [XLogReadRecordAlloc](XLogReadRecordAlloc.md) (src/backend/access/transam/xlogreader.c:527)
+  - [XLogReadAhead](XLogReadAhead.md) (src/backend/access/transam/xlogreader.c:978) 
+  - [XLogPageRead](XLogPageRead.md) (src/backend/access/transam/xlogrecovery.c:3541)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (referenced in XLogPageRead implementation)
 
 ## Notes and Other Information
 - This enum is specifically designed for use with XLogPageReadCB callback functions (defined at src/include/access/xlogreader.h:62)

@@ -28,10 +28,10 @@ The function performs string comparison to match the key or array element. For o
   - VARSIZE_ANY_EXHDR
   - JB_ROOT_IS_SCALAR
   - JB_ROOT_COUNT
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - JsonbValueToJsonb
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - PG_RETURN_JSONB_P
   - ereport/ERROR
 - Called from (representative examples):

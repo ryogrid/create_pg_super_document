@@ -35,23 +35,23 @@ The function returns false if splitting is complete, or true if don't-care tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll (invokes user picksplit method)
-  - genericPickSplit (fallback split method)
-  - supportSecondarySplit (handles secondary split cleanup)
-  - gistKeyIsEQ (compares union keys for equality)
-  - findDontCares (identifies relocatable tuples)
-  - removeDontCares (removes don't-cares from split arrays)
-  - gistunionsubkey (recomputes union keys)
-  - placeOne (assigns single don't-care tuple)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (invokes user picksplit method)
+  - [genericPickSplit](genericPickSplit.md) (fallback split method)
+  - [supportSecondarySplit](../s/supportSecondarySplit.md) (handles secondary split cleanup)
+  - [gistKeyIsEQ](gistKeyIsEQ.md) (compares union keys for equality)
+  - [findDontCares](../f/findDontCares.md) (identifies relocatable tuples)
+  - [removeDontCares](../r/removeDontCares.md) (removes don't-cares from split arrays)
+  - [gistunionsubkey](gistunionsubkey.md) (recomputes union keys)
+  - [placeOne](../p/placeOne.md) (assigns single don't-care tuple)
   - ereport, errcode, errmsg, errhint (error reporting)
 - Types referenced:
-  - GistEntryVector, GistSplitVector, GIST_SPLITVEC
-  - IndexTuple, GISTSTATE
+  - [GistEntryVector](../G/GistEntryVector.md), GistSplitVector, GIST_SPLITVEC
+  - [IndexTuple](../I/IndexTuple.md), GISTSTATE
   - OffsetNumber
 - Constants used:
   - InvalidOffsetNumber, FirstOffsetNumber, DEBUG1
 - Called from:
-  - gistSplitByKey
+  - [gistSplitByKey](gistSplitByKey.md)
 
 ## Notes and Other Information
 - Handles backward compatibility with old PickSplit API by fixing InvalidOffsetNumber values

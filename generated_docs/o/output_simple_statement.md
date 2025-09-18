@@ -20,9 +20,9 @@ This function processes and outputs a simple SQL statement to the ECPG preproces
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - output_escaped_str
-  - whenever_action
-  - output_line_number
+  - [output_escaped_str](output_escaped_str.md)
+  - [whenever_action](../w/whenever_action.md)
+  - [output_line_number](output_line_number.md)
   - free
 - Called from:
   - No direct references found in the analyzed codebase

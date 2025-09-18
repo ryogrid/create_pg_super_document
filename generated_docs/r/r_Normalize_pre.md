@@ -24,12 +24,12 @@ The function uses a continuous loop to process the entire string, setting bounda
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Searches for patterns in the input string using lookup table a_0
-  - slice_del: Deletes characters between bra and ket positions
-  - slice_from_s: Replaces characters between bra and ket with specified string
-  - skip_utf8: Advances cursor by one UTF-8 character
+  - [find_among](../f/find_among.md): Searches for patterns in the input string using lookup table a_0
+  - [slice_del](../s/slice_del.md): Deletes characters between bra and ket positions
+  - [slice_from_s](../s/slice_from_s.md): Replaces characters between bra and ket with specified string
+  - [skip_utf8](../s/skip_utf8.md): Advances cursor by one UTF-8 character
 - Called from (representative examples):
-  - arabic_UTF_8_stem: Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1425
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1425
 
 ## Notes and Other Information
 This function is automatically generated code from Snowball stemming algorithms and should not be manually modified. It handles Arabic text normalization which is essential for proper stemming of Arabic words. The function processes UTF-8 encoded Arabic text and returns 1 on success or a negative value on error. The numerous case statements correspond to different Arabic character normalization rules specific to the Arabic language stemming algorithm.

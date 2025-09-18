@@ -28,17 +28,17 @@ This design enables efficient resource utilization by allowing the leader to dis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ListenToWorkers (collects and processes worker status messages)
-  - IsEveryWorkerIdle (checks if all workers are in idle state)
-  - GetIdleWorker (finds an available worker slot)
+  - [ListenToWorkers](../L/ListenToWorkers.md) (collects and processes worker status messages)
+  - [IsEveryWorkerIdle](../I/IsEveryWorkerIdle.md) (checks if all workers are in idle state)
+  - [GetIdleWorker](../G/GetIdleWorker.md) (finds an available worker slot)
   - WFW_WaitOption (enumeration defining wait modes)
-  - ParallelState (parallel processing state structure)
+  - [ParallelState](../P/ParallelState.md) (parallel processing state structure)
   - NO_SLOT (constant indicating no worker slot available)
 
 - Called from (representative examples):
-  - DispatchJobForTocEntry (job dispatch and worker coordination)
-  - WriteDataChunks (parallel data writing operations)
-  - restore_toc_entries_parallel (parallel restore coordination)
+  - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md) (job dispatch and worker coordination)
+  - [WriteDataChunks](WriteDataChunks.md) (parallel data writing operations)
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md) (parallel restore coordination)
 
 ## Notes and Other Information
 - Executed exclusively in the leader process for coordinating worker activities

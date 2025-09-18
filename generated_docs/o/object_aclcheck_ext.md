@@ -21,14 +21,14 @@ This function is the core implementation for PostgreSQL object access control ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclmask_ext
+  - [object_aclmask_ext](object_aclmask_ext.md)
   - ACLMASK_ANY (constant)
 - Called from (representative examples):
-  - pg_namespace_aclmask_ext
-  - object_aclcheck
-  - has_database_privilege_name_id (and many other SQL privilege checking functions)
-  - has_function_privilege_id
-  - has_schema_privilege_id
+  - [pg_namespace_aclmask_ext](../p/pg_namespace_aclmask_ext.md)
+  - [object_aclcheck](object_aclcheck.md)
+  - [has_database_privilege_name_id](../h/has_database_privilege_name_id.md) (and many other SQL privilege checking functions)
+  - [has_function_privilege_id](../h/has_function_privilege_id.md)
+  - [has_schema_privilege_id](../h/has_schema_privilege_id.md)
 
 ## Notes and Other Information
 - Uses ACLMASK_ANY mode when calling object_aclmask_ext, meaning it checks if the user has ANY of the requested privileges

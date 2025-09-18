@@ -26,8 +26,8 @@ Only the rows field is set by this function. The reltarget field is handled sepa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calc_joinrel_size_estimate
-  - SpecialJoinInfo (struct type)
+  - [calc_joinrel_size_estimate](../c/calc_joinrel_size_estimate.md)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (struct type)
 - Called from (representative examples):
   - build_join_rel (src/backend/optimizer/util/relnode.c:825)
   - build_child_join_rel (src/backend/optimizer/util/relnode.c:1000)

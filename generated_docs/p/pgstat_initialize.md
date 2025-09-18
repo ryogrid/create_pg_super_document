@@ -33,10 +33,10 @@ The initialization is crucial for enabling all subsequent statistics operations 
 - Functions called/Symbols referenced:
   - pgstat_attach_shmem
   - pgstat_init_wal
-  - before_shmem_exit
-  - pgstat_shutdown_hook
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [pgstat_shutdown_hook](pgstat_shutdown_hook.md)
 - Called from (representative examples):
-  - BaseInit (src/backend/utils/init/postinit.c:668)
+  - [BaseInit](../B/BaseInit.md) (src/backend/utils/init/postinit.c:668)
 
 ## Notes and Other Information
 - Called early in backend initialization from  

@@ -21,7 +21,7 @@ This function is part of the TupleTableSlotOps implementation for MinimalTupleTa
 - Functions called/Symbols referenced:
   - MinimalTupleTableSlot (type cast)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function specific to minimal tuple table slot operations

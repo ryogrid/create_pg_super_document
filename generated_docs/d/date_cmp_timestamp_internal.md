@@ -29,18 +29,18 @@ Special handling for overflow cases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2timestamp_opt_overflow (converts date to timestamp with overflow detection)
+  - [date2timestamp_opt_overflow](date2timestamp_opt_overflow.md) (converts date to timestamp with overflow detection)
   - TIMESTAMP_IS_NOEND (macro to check for positive infinity timestamp)
-  - timestamp_cmp_internal (internal timestamp comparison function)
+  - [timestamp_cmp_internal](../t/timestamp_cmp_internal.md) (internal timestamp comparison function)
   - DateADT (PostgreSQL's date type)
   - Timestamp (PostgreSQL's timestamp type)
 - Called from (representative examples):
-  - date_eq_timestamp (date equality with timestamp)
-  - date_ne_timestamp (date inequality with timestamp)
-  - date_lt_timestamp (date less than timestamp)
-  - date_cmp_timestamp (public comparison interface)
-  - timestamp_eq_date (timestamp equality with date)
-  - cmpDateToTimestamp (JSON path execution)
+  - [date_eq_timestamp](date_eq_timestamp.md) (date equality with timestamp)
+  - [date_ne_timestamp](date_ne_timestamp.md) (date inequality with timestamp)
+  - [date_lt_timestamp](date_lt_timestamp.md) (date less than timestamp)
+  - [date_cmp_timestamp](date_cmp_timestamp.md) (public comparison interface)
+  - [timestamp_eq_date](../t/timestamp_eq_date.md) (timestamp equality with date)
+  - [cmpDateToTimestamp](../c/cmpDateToTimestamp.md) (JSON path execution)
 
 ## Notes and Other Information
 - This is an internal function used as the foundation for all date-timestamp comparison operations

@@ -21,12 +21,12 @@ The function wraps the generic DatumGetPointer() function and casts the result t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
-  - pg_uuid_t
+  - [DatumGetPointer](DatumGetPointer.md)
+  - [pg_uuid_t](../p/pg_uuid_t.md)
 - Called from (representative examples):
-  - brin_minmax_multi_distance_uuid
-  - uuid_fast_cmp
-  - uuid_abbrev_convert
+  - [brin_minmax_multi_distance_uuid](../b/brin_minmax_multi_distance_uuid.md)
+  - [uuid_fast_cmp](../u/uuid_fast_cmp.md)
+  - [uuid_abbrev_convert](../u/uuid_abbrev_convert.md)
   - PG_GETARG_UUID_P
 
 ## Notes and Other Information

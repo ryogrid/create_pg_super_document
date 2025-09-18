@@ -26,13 +26,13 @@ The function handles allocation requests up to a configurable chunk limit, deleg
 - Functions called/Symbols referenced:
   - GenerationIsValid (validates context structure)
   - MAXALIGN (aligns size to platform requirements)
-  - GenerationAllocLarge (handles oversized allocations)
-  - GenerationBlockFreeBytes (checks available space in blocks)
+  - [GenerationAllocLarge](GenerationAllocLarge.md) (handles oversized allocations)
+  - [GenerationBlockFreeBytes](GenerationBlockFreeBytes.md) (checks available space in blocks)
   - GenerationBlockIsEmpty (verifies block emptiness)
-  - GenerationAllocChunkFromBlock (allocates chunk from existing block)
-  - GenerationAllocFromNewBlock (creates new block and allocates)
+  - [GenerationAllocChunkFromBlock](GenerationAllocChunkFromBlock.md) (allocates chunk from existing block)
+  - [GenerationAllocFromNewBlock](GenerationAllocFromNewBlock.md) (creates new block and allocates)
 - Called from (representative examples):
-  - GenerationRealloc (for reallocation operations)
+  - [GenerationRealloc](GenerationRealloc.md) (for reallocation operations)
   - BOGUS_MCTX (memory context interface)
   - MEMUTILS_INTERNAL_H (memory utilities interface)
 

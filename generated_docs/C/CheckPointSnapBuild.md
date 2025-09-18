@@ -34,15 +34,15 @@ None - this function takes no parameters and operates on global state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRedoRecPtr
-  - ReplicationSlotsComputeLogicalRestartLSN
+  - [GetRedoRecPtr](../G/GetRedoRecPtr.md)
+  - [ReplicationSlotsComputeLogicalRestartLSN](../R/ReplicationSlotsComputeLogicalRestartLSN.md)
   - AllocateDir/ReadDir/FreeDir
-  - get_dirent_type
+  - [get_dirent_type](../g/get_dirent_type.md)
   - sscanf
   - unlink
   - ereport/elog
 - Called from (representative examples):
-  - CheckPointGuts (in xlog.c:7508)
+  - [CheckPointGuts](CheckPointGuts.md) (in xlog.c:7508)
 
 ## Notes and Other Information
 - Designed to run during checkpoints as a convenient scheduling point, though not strictly checkpoint-dependent

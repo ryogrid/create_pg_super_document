@@ -23,9 +23,9 @@ This sorting ensures that check constraints are stored and processed in a determ
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp
-  - ConstrCheck (struct type)
+  - [ConstrCheck](ConstrCheck.md) (struct type)
 - Called from (representative examples):
-  - CheckConstraintFetch
+  - [CheckConstraintFetch](CheckConstraintFetch.md)
 
 ## Notes and Other Information
 - Implements the standard qsort comparator interface for ConstrCheck structures

@@ -20,14 +20,14 @@ pqResultStrdup provides string duplication functionality that allocates the new 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqResultAlloc
+  - [pqResultAlloc](pqResultAlloc.md)
   - strlen
   - strcpy
 - Called from (representative examples):
-  - PQsetResultAttrs
-  - pqSetResultError
-  - getRowDescriptions
-  - pqGetErrorNotice3
+  - [PQsetResultAttrs](../P/PQsetResultAttrs.md)
+  - [pqSetResultError](pqSetResultError.md)
+  - [getRowDescriptions](../g/getRowDescriptions.md)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md)
 
 ## Notes and Other Information
 - Uses text allocation (isBinary=false) since strings don't require binary alignment

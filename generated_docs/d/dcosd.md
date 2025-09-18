@@ -32,8 +32,8 @@ The `dcosd` function implements the cosine function for degree-based input in Po
   - isnan, isinf (special value checks)
   - get_float8_nan (NaN handling)
   - INIT_DEGREE_CONSTANTS (initialization)
-  - cosd_q1 (first quadrant cosine calculation)
-  - float_overflow_error (error reporting)
+  - [cosd_q1](../c/cosd_q1.md) (first quadrant cosine calculation)
+  - [float_overflow_error](../f/float_overflow_error.md) (error reporting)
 - Called from: (No direct callers - SQL-callable function)
 
 ## Notes and Other Information

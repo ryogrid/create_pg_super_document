@@ -37,9 +37,9 @@ Special handling exists for posting list splits, where the record may contain an
   - uint16 (type)
 
 - Called from (representative examples):
-  - _bt_split (src/backend/access/nbtree/nbtinsert.c:1969)
-  - btree_xlog_split (src/backend/access/nbtree/nbtxlog.c:254)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:44)
+  - [_bt_split](../b/_bt_split.md) (src/backend/access/nbtree/nbtinsert.c:1969)
+  - [btree_xlog_split](../b/btree_xlog_split.md) (src/backend/access/nbtree/nbtxlog.c:254)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:44)
   - SizeOfBtreeSplit (src/include/access/nbtxlog.h:161)
 
 ## Notes and Other Information

@@ -21,16 +21,16 @@ The visibility check involves two phases: first, a quick check to see if the typ
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_type
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - recomputeNamespacePath
-  - list_member_oid
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
   - SearchSysCacheExists2
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - TypeIsVisible
-  - pg_type_is_visible
+  - [TypeIsVisible](TypeIsVisible.md)
+  - [pg_type_is_visible](../p/pg_type_is_visible.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within namespace.c

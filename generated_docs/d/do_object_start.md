@@ -20,7 +20,7 @@ This function serves as a semantic callback for the JSON parser testing framewor
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (standard library)
-  - DoState (struct type)
+  - [DoState](../D/DoState.md) (struct type)
   - JSON_SUCCESS (return code constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):

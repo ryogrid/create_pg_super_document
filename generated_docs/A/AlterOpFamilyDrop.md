@@ -32,13 +32,13 @@ The function creates OpFamilyMember structures that contain only the information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - processTypesSpec
-  - addFamilyMember
-  - dropOperators
-  - dropProcedures
-  - EventTriggerCollectAlterOpFam
+  - [processTypesSpec](../p/processTypesSpec.md)
+  - [addFamilyMember](../a/addFamilyMember.md)
+  - [dropOperators](../d/dropOperators.md)
+  - [dropProcedures](../d/dropProcedures.md)
+  - [EventTriggerCollectAlterOpFam](../E/EventTriggerCollectAlterOpFam.md)
 - Called from (representative examples):
-  - AlterOpFamily (when isDrop is true)
+  - [AlterOpFamily](AlterOpFamily.md) (when isDrop is true)
 
 ## Notes and Other Information
 - Does not need to lookup actual operator or function OIDs, unlike AlterOpFamilyAdd
@@ -47,5 +47,5 @@ The function creates OpFamilyMember structures that contain only the information
 - The function validates number ranges but doesn't need to validate object existence
 - Event triggers are notified for proper extension dependency tracking
 - No amadjustmembers callback since access methods don't need to validate deletions
-- OpFamilyMember structures contain only identification information, not full object details
+- [OpFamilyMember](../O/OpFamilyMember.md) structures contain only identification information, not full object details
 - Error handling focuses on number validation rather than object existence checking

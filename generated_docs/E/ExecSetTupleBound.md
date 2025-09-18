@@ -34,16 +34,16 @@ The bound can only be set between scans (after initialization or before ExecReSc
 - Functions called/Symbols referenced:
   - IsA (node type checking macro)
   - outerPlanState (access to child plan state)
-  - ExecSetTupleBound (recursive calls for tree propagation)
-  - SortState, IncrementalSortState (sort node state structures)
-  - AppendState, MergeAppendState (append node state structures)
-  - ResultState, SubqueryScanState (scan node state structures)
-  - GatherState, GatherMergeState (parallel execution state structures)
+  - [ExecSetTupleBound](ExecSetTupleBound.md) (recursive calls for tree propagation)
+  - [SortState](../S/SortState.md), IncrementalSortState (sort node state structures)
+  - [AppendState](../A/AppendState.md), MergeAppendState (append node state structures)
+  - [ResultState](../R/ResultState.md), SubqueryScanState (scan node state structures)
+  - [GatherState](../G/GatherState.md), GatherMergeState (parallel execution state structures)
 - Called from (representative examples):
-  - ParallelQueryMain (parallel worker setup)
-  - recompute_limits (LIMIT node optimization)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md) (parallel worker setup)
+  - [recompute_limits](../r/recompute_limits.md) (LIMIT node optimization)
   - EvalPlanQualSetSlot (EPQ optimization)
-  - ExecSetTupleBound (recursive propagation)
+  - [ExecSetTupleBound](ExecSetTupleBound.md) (recursive propagation)
 
 ## Notes and Other Information
 - Critical optimization for TOP-N queries and LIMIT operations where early termination can save significant work

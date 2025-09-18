@@ -18,12 +18,12 @@ This function formats and outputs tabular data in AsciiDoc vertical format, wher
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asciidoc_escaped_print (for escaping special AsciiDoc characters in content)
-  - printTableContent (data structure)
-  - printTableFooter (data structure)
+  - [asciidoc_escaped_print](../a/asciidoc_escaped_print.md) (for escaping special AsciiDoc characters in content)
+  - [printTableContent](printTableContent.md) (data structure)
+  - [printTableFooter](printTableFooter.md) (data structure)
   - cancel_pressed (global variable for interrupt handling)
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function)
+  - [printTable](printTable.md) (main table printing dispatcher function)
 
 ## Notes and Other Information
 - This is a static function within print.c, indicating it's used internally for AsciiDoc formatting

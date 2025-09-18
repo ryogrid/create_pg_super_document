@@ -24,7 +24,7 @@ The function handles both row-level and statement-level triggers across all trig
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPI_connect/SPI_finish (SPI interface management)
-  - SPI_register_trigger_data (transition table registration)
+  - [SPI_register_trigger_data](../S/SPI_register_trigger_data.md) (transition table registration)
   - compile_pltcl_function (function compilation/lookup)
   - pltcl_build_tuple_argument (tuple to Tcl conversion)
   - pltcl_build_tuple_result (Tcl to tuple conversion)
@@ -33,10 +33,10 @@ The function handles both row-level and statement-level triggers across all trig
   - SPI_getrelname/SPI_getnspname (relation metadata)
   - TRIGGER_FIRED_* macros (trigger event detection)
   - throw_tcl_error (error handling)
-  - utf_e2u/utf_u2e (encoding conversion)
+  - [utf_e2u](../u/utf_e2u.md)/utf_u2e (encoding conversion)
   - Tcl library functions (Tcl_EvalObjEx, Tcl_ListObjAppendElement, etc.)
 - Called from (representative examples):
-  - pltcl_handler (main dispatcher)
+  - [pltcl_handler](pltcl_handler.md) (main dispatcher)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside the PL/Tcl module

@@ -28,12 +28,12 @@ Two main implementations exist:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - socket_comm_reset
+  - [socket_comm_reset](../s/socket_comm_reset.md)
   - socket_flush
-  - socket_flush_if_writable
-  - socket_is_send_pending
-  - socket_putmessage
-  - socket_putmessage_noblock
+  - [socket_flush_if_writable](../s/socket_flush_if_writable.md)
+  - [socket_is_send_pending](../s/socket_is_send_pending.md)
+  - [socket_putmessage](../s/socket_putmessage.md)
+  - [socket_putmessage_noblock](../s/socket_putmessage_noblock.md)
   - PqCommMqMethods (alternative implementation)
 - Called from (representative examples):
   - pq_flush (macro)

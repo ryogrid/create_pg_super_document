@@ -17,20 +17,20 @@ This function serves as the central factory for creating destination receiver ob
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printtup_create_DR (creates receivers for client output)
+  - [printtup_create_DR](../p/printtup_create_DR.md) (creates receivers for client output)
   - unconstify (removes const qualifier for static receivers)
-  - CreateTuplestoreDestReceiver (creates tuplestore collectors)
-  - CreateIntoRelDestReceiver (creates table creation receivers)  
-  - CreateCopyDestReceiver (creates COPY command receivers)
-  - CreateSQLFunctionDestReceiver (creates SQL function return receivers)
-  - CreateTransientRelDestReceiver (creates temporary relation receivers)
-  - CreateTupleQueueDestReceiver (creates tuple queue receivers)
-  - CreateExplainSerializeDestReceiver (creates EXPLAIN serialization receivers)
+  - [CreateTuplestoreDestReceiver](CreateTuplestoreDestReceiver.md) (creates tuplestore collectors)
+  - [CreateIntoRelDestReceiver](CreateIntoRelDestReceiver.md) (creates table creation receivers)  
+  - [CreateCopyDestReceiver](CreateCopyDestReceiver.md) (creates COPY command receivers)
+  - [CreateSQLFunctionDestReceiver](CreateSQLFunctionDestReceiver.md) (creates SQL function return receivers)
+  - [CreateTransientRelDestReceiver](CreateTransientRelDestReceiver.md) (creates temporary relation receivers)
+  - [CreateTupleQueueDestReceiver](CreateTupleQueueDestReceiver.md) (creates tuple queue receivers)
+  - [CreateExplainSerializeDestReceiver](CreateExplainSerializeDestReceiver.md) (creates EXPLAIN serialization receivers)
   - pg_unreachable (marks unreachable code)
 - Called from (representative examples):
-  - exec_simple_query (for simple query execution)
-  - exec_execute_message (for prepared statement execution)
-  - SPI_execute_plan (for SPI query execution)
+  - [exec_simple_query](../e/exec_simple_query.md) (for simple query execution)
+  - [exec_execute_message](../e/exec_execute_message.md) (for prepared statement execution)
+  - [SPI_execute_plan](../S/SPI_execute_plan.md) (for SPI query execution)
   - Various replication and backup functions
 
 ## Notes and Other Information

@@ -23,9 +23,9 @@ The  function is a static utility function in the PostgreSQL WAL (Write-Ahead Lo
 - Functions called/Symbols referenced:
   - relpathperm
   - elog
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - log_invalid_page
+  - [log_invalid_page](../l/log_invalid_page.md)
   - XLogCheckInvalidPages
 
 ## Notes and Other Information

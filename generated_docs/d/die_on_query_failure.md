@@ -24,12 +24,12 @@ This function is designed as a fatal error handler - once called, it will always
 - Functions called/Symbols referenced:
   - pg_log_error (implicitly called for error message)
   - pg_log_error_detail
-  - PQerrorMessage (implicitly called to get connection error)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (implicitly called to get connection error)
   - exit
 
 - Called from (representative examples):
-  - ExecuteSqlStatement
-  - ExecuteSqlQuery
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
 
 ## Notes and Other Information
 - This function is declared as static, limiting its scope to the pg_backup_db.c compilation unit

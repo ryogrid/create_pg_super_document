@@ -21,16 +21,16 @@ This function is the workhorse for JSONB array construction in PostgreSQL. It ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbInState (struct)
-  - pushJsonbValue
-  - add_jsonb
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
+  - [JsonbInState](../J/JsonbInState.md) (struct)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [add_jsonb](../a/add_jsonb.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
   - WJB_BEGIN_ARRAY
   - WJB_END_ARRAY
 - Called from (representative examples):
-  - jsonb_build_array
-  - ExecEvalJsonConstructor
+  - [jsonb_build_array](jsonb_build_array.md)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

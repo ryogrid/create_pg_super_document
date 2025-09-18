@@ -27,17 +27,17 @@ A key feature is the provision of two standard TOAST pointers within the header 
 - Functions called/Symbols referenced:
   - ExpandedObjectMethods
   - EXPANDED_POINTER_SIZE
-  - MemoryContext
+  - [MemoryContext](../M/MemoryContext.md)
   - int32
 - Called from (representative examples):
-  - detoast_external_attr
-  - EA_get_flat_size
-  - EA_flatten_into
-  - datumCopy
-  - datumSerialize
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [EA_get_flat_size](EA_get_flat_size.md)
+  - [EA_flatten_into](EA_flatten_into.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [datumSerialize](../d/datumSerialize.md)
   - EOH_init_header
   - MakeExpandedObjectReadOnlyInternal
-  - TransferExpandedObject
+  - [TransferExpandedObject](../T/TransferExpandedObject.md)
 
 ## Notes and Other Information
 - Must be embedded in larger type-specific structures rather than used standalone

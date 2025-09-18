@@ -30,10 +30,10 @@ The isfixed parameter is set to indicate whether the tuple slot uses a fixed tup
   - TTS_FIXED (macro to check if slot uses fixed format)
   - TTSOpsVirtual (default virtual tuple table slot operations)
 - Called from (representative examples):
-  - ExecComputeSlotInfo (execExpr.c:2934, 2954)
-  - ExecInitAgg (nodeAgg.c:3311)
-  - ExecInitGroup (nodeGroup.c:191)
-  - ExecInitHashJoin (nodeHashjoin.c:768)
+  - [ExecComputeSlotInfo](ExecComputeSlotInfo.md) (execExpr.c:2934, 2954)
+  - [ExecInitAgg](ExecInitAgg.md) (nodeAgg.c:3311)
+  - [ExecInitGroup](ExecInitGroup.md) (nodeGroup.c:191)
+  - [ExecInitHashJoin](ExecInitHashJoin.md) (nodeHashjoin.c:768)
   - Various node initialization functions across executor nodes
 
 ## Notes and Other Information

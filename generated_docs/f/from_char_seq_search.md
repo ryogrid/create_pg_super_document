@@ -34,14 +34,14 @@ The function workflow:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - seq_search_ascii (for ASCII string searches)
-  - seq_search_localized (for localized string searches)
-  - scanner_isspace (for whitespace detection in error messages)
+  - [seq_search_ascii](../s/seq_search_ascii.md) (for ASCII string searches)
+  - [seq_search_localized](../s/seq_search_localized.md) (for localized string searches)
+  - [scanner_isspace](../s/scanner_isspace.md) (for whitespace detection in error messages)
   - ereturn (for error handling with context)
-  - pstrdup (for string duplication in error reporting)
+  - [pstrdup](../p/pstrdup.md) (for string duplication in error reporting)
 - Called from (representative examples):
   - DCH_ZONED (formatting.c:1067)
-  - DCH_from_char (multiple locations in formatting.c for various date/time parsing)
+  - [DCH_from_char](../D/DCH_from_char.md) (multiple locations in formatting.c for various date/time parsing)
 
 ## Notes and Other Information
 - This is a static function, only accessible within formatting.c

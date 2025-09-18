@@ -20,9 +20,9 @@ The function includes an important assertion that verifies no two ItemPointers b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareItemPointers (underlying comparison function)
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md) (underlying comparison function)
 - Called from:
-  - ginGetBAEntry (used in qsort call)
+  - [ginGetBAEntry](../g/ginGetBAEntry.md) (used in qsort call)
 
 ## Notes and Other Information
 - Static function with file-local scope

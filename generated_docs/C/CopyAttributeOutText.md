@@ -20,14 +20,14 @@ CopyAttributeOutText processes individual string attributes during text-format C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_any
+  - [pg_server_to_any](../p/pg_server_to_any.md)
   - DUMPSOFAR
-  - CopySendChar
+  - [CopySendChar](CopySendChar.md)
   - IS_HIGHBIT_SET
-  - pg_encoding_mblen
+  - [pg_encoding_mblen](../p/pg_encoding_mblen.md)
 - Called from (representative examples):
-  - DoCopyTo
-  - CopyOneRowTo
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [CopyOneRowTo](CopyOneRowTo.md)
   - DR_copy
 
 ## Notes and Other Information

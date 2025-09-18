@@ -33,17 +33,17 @@ Both error conditions result in ERROR-level reports that terminate the current o
   - PG_BINARY (binary file mode flag)
   - XLogSegNo (WAL segment number type)
 - Called from (representative examples):
-  - XlogReadTwoPhaseData
-  - SummarizeWAL
+  - [XlogReadTwoPhaseData](../X/XlogReadTwoPhaseData.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
   - LogicalReplicationSlotHasPendingWal
-  - LogicalSlotAdvanceAndCheckSnapState
-  - pg_logical_slot_get_changes_guts
-  - create_logical_replication_slot
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
 
 ## Notes and Other Information
 - Uses BasicOpenFile with O_RDONLY | PG_BINARY flags for read-only binary access
 - File descriptor is stored in state->seg.ws_file for subsequent read operations
 - Error handling distinguishes between missing files and other I/O failures
-- Path construction uses the timeline ID and segment size from the XLogReaderState context
+- [Path](../P/Path.md) construction uses the timeline ID and segment size from the XLogReaderState context
 - This callback is specifically designed for local WAL file access, as opposed to streaming or archive recovery
 - The opened file remains in the XLogReaderState until closed by wal_segment_close

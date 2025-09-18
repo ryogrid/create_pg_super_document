@@ -33,17 +33,17 @@ The function uses either FATAL or LOG level error reporting depending on whether
   - SSL_CTX_use_certificate_chain_file (certificate loading)
   - SSL_CTX_use_PrivateKey_file (private key loading)
   - SSL_CTX_check_private_key (key validation)
-  - ssl_protocol_version_to_openssl (protocol version conversion)
-  - SSL_CTX_set_min_proto_version / SSL_CTX_set_max_proto_version (protocol configuration)
+  - [ssl_protocol_version_to_openssl](../s/ssl_protocol_version_to_openssl.md) (protocol version conversion)
+  - [SSL_CTX_set_min_proto_version](../S/SSL_CTX_set_min_proto_version.md) / SSL_CTX_set_max_proto_version (protocol configuration)
   - initialize_dh / initialize_ecdh (key exchange setup)
   - SSL_CTX_set_cipher_list (cipher configuration)
   - SSL_CTX_load_verify_locations (CA certificate loading)
-  - check_ssl_key_file_permissions (key file security check)
-  - SSLerrmessage (error message formatting)
-  - verify_cb (certificate verification callback)
+  - [check_ssl_key_file_permissions](../c/check_ssl_key_file_permissions.md) (key file security check)
+  - [SSLerrmessage](../S/SSLerrmessage.md) (error message formatting)
+  - [verify_cb](../v/verify_cb.md) (certificate verification callback)
 
 - Called from (representative examples):
-  - secure_initialize (in be-secure.c:76)
+  - [secure_initialize](../s/secure_initialize.md) (in be-secure.c:76)
 
 ## Notes and Other Information
 - The function maintains a global SSL_context that is replaced on successful reconfiguration

@@ -37,13 +37,13 @@ The function provides detailed tracking for specific operation types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_count_io_op_n
+  - [pgstat_count_io_op_n](pgstat_count_io_op_n.md)
   - pgstat_count_buffer_write_time
   - pgstat_count_buffer_read_time
-  - IOObject
-  - IOContext
-  - IOOp
-  - instr_time
+  - [IOObject](../I/IOObject.md)
+  - [IOContext](../I/IOContext.md)
+  - [IOOp](../I/IOOp.md)
+  - [instr_time](../i/instr_time.md)
   - INSTR_TIME_SET_CURRENT
   - INSTR_TIME_SUBTRACT
   - INSTR_TIME_ADD
@@ -53,17 +53,17 @@ The function provides detailed tracking for specific operation types:
   - IOOP_EXTEND
   - IOOBJECT_RELATION
   - IOOBJECT_TEMP_RELATION
-  - PgStat_IO
+  - [PgStat_IO](../P/PgStat_IO.md)
 - Called from (representative examples):
-  - WaitReadBuffers
-  - ExtendBufferedRelShared
-  - FlushBuffer
-  - FlushRelationBuffers
-  - IssuePendingWritebacks
+  - [WaitReadBuffers](../W/WaitReadBuffers.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md)
   - GetLocalVictimBuffer
   - ExtendBufferedRelLocal
-  - register_dirty_segment
-  - mdsyncfiletag
+  - [register_dirty_segment](../r/register_dirty_segment.md)
+  - [mdsyncfiletag](../m/mdsyncfiletag.md)
 
 ## Notes and Other Information
 - Timing collection is controlled by the track_io_timing global variable

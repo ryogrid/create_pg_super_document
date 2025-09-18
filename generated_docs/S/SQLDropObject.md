@@ -44,13 +44,13 @@ The structure captures both the technical identifiers (ObjectAddress) and human-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAddress (PostgreSQL object addressing structure)
-  - List (PostgreSQL list type)
-  - slist_node (PostgreSQL singly-linked list node)
+  - [ObjectAddress](../O/ObjectAddress.md) (PostgreSQL object addressing structure)
+  - [List](../L/List.md) (PostgreSQL list type)
+  - [slist_node](../s/slist_node.md) (PostgreSQL singly-linked list node)
 
 - Called from (representative examples):
-  - EventTriggerSQLDropAddObject (src/backend/commands/event_trigger.c:1280, 1296)
-  - pg_event_trigger_dropped_objects (src/backend/commands/event_trigger.c:1417, 1422)
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md) (src/backend/commands/event_trigger.c:1280, 1296)
+  - [pg_event_trigger_dropped_objects](../p/pg_event_trigger_dropped_objects.md) (src/backend/commands/event_trigger.c:1417, 1422)
 
 ## Notes and Other Information
 This structure is central to the `sql_drop` event trigger functionality in PostgreSQL. It provides event trigger functions with comprehensive information about dropped objects through the `pg_event_trigger_dropped_objects()` function. The distinction between `original` and dependent objects allows event triggers to understand the cascade effects of DROP operations. The structure is part of the event trigger infrastructure defined in src/backend/commands/event_trigger.c and is used to build detailed drop reports for event trigger processing. The `objidentity` field is particularly important as it provides a complete, unambiguous identifier that can be used to reconstruct or reference the dropped object in logs or external systems.

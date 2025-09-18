@@ -23,7 +23,7 @@ The key difference from percent_rank is that cume_dist includes equal values in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hypothetical_rank_common: Computes the rank position of the hypothetical row (with flag +1 to sort behind peers)
+  - [hypothetical_rank_common](hypothetical_rank_common.md): Computes the rank position of the hypothetical row (with flag +1 to sort behind peers)
   - PG_RETURN_FLOAT8: PostgreSQL macro to return a double precision value
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's aggregate function dispatch mechanism)

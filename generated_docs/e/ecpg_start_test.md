@@ -34,17 +34,17 @@ The function handles the complete lifecycle of test preparation and launch, retu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_filter_source (source file normalization)
-  - add_stringlist_item (list management)
-  - spawn_process (process creation)
+  - [ecpg_filter_source](ecpg_filter_source.md) (source file normalization)
+  - [add_stringlist_item](../a/add_stringlist_item.md) (list management)
+  - [spawn_process](../s/spawn_process.md) (process creation)
   - setenv/unsetenv (environment variable management)
   - Standard C functions (snprintf, psprintf, free)
 - Called from:
-  - main (primary test execution loop)
+  - [main](../m/main.md) (primary test execution loop)
 - Data types used:
   - PID_TYPE (process identifier type)
   - _stringlist (string list structure)
-  - StringInfoData (PostgreSQL string buffer)
+  - [StringInfoData](../S/StringInfoData.md) (PostgreSQL string buffer)
 
 ## Notes and Other Information
 - This is a static function used internally within the ECPG test framework

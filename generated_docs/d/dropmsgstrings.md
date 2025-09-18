@@ -35,8 +35,8 @@ The dropmsgstrings structure is used to provide context-appropriate error messag
   - Various RELKIND_* constants (RELKIND_RELATION, RELKIND_SEQUENCE, etc.)
   - Various ERRCODE_* constants (ERRCODE_UNDEFINED_TABLE, etc.)
 - Called from (representative examples):
-  - DropErrorMsgNonExistent
-  - DropErrorMsgWrongType
+  - [DropErrorMsgNonExistent](../D/DropErrorMsgNonExistent.md)
+  - [DropErrorMsgWrongType](../D/DropErrorMsgWrongType.md)
 
 ## Notes and Other Information
 - Used specifically for error reporting in DROP operations

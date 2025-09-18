@@ -27,7 +27,7 @@ tfuncInitialize prepares the table function execution environment by configuring
   - TupleDescAttr
   - NameStr
 - Called from (representative examples):
-  - tfuncFetchRows
+  - [tfuncFetchRows](tfuncFetchRows.md)
 
 ## Notes and Other Information
 - Handles namespace setup for XML and JSON processing contexts

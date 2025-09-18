@@ -30,19 +30,19 @@ This callback function implements the core logic for replacing variables with ex
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReplaceVarsFromTargetList_context (struct)
-  - expandRTE
-  - replace_rte_variables_mutator
-  - get_tle_by_resno
+  - [expandRTE](../e/expandRTE.md)
+  - [replace_rte_variables_mutator](../r/replace_rte_variables_mutator.md)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md)
   - copyObject
-  - IncrementVarSublevelsUp
-  - contains_multiexpr_param
-  - get_typlenbyval
-  - coerce_null_to_domain
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md)
+  - [contains_multiexpr_param](../c/contains_multiexpr_param.md)
+  - [get_typlenbyval](../g/get_typlenbyval.md)
+  - [coerce_null_to_domain](../c/coerce_null_to_domain.md)
   - RowExpr (node type)
   - InvalidAttrNumber (constant)
   - Various REPLACEVARS_* constants
 - Called from (representative examples):
-  - ReplaceVarsFromTargetList
+  - [ReplaceVarsFromTargetList](ReplaceVarsFromTargetList.md)
 
 ## Notes and Other Information
 - This is a static function, only used within rewriteManip.c as a callback

@@ -19,8 +19,8 @@ This function provides a SQL-accessible interface to retrieve the formatted SQL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttr
-  - print_function_sqlbody
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [print_function_sqlbody](print_function_sqlbody.md)
   - cstring_to_text_with_len
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

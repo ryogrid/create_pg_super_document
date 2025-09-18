@@ -24,16 +24,16 @@ This function iterates through all item identifiers on a heap page and evaluates
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
   - RelationGetRelid
-  - ItemPointerSet
-  - HeapTupleSatisfiesVisibility
-  - HeapCheckForSerializableConflictOut
+  - [ItemPointerSet](../I/ItemPointerSet.md)
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md)
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
 - Called from (representative examples):
-  - heap_prepare_pagescan (multiple call sites)
+  - [heap_prepare_pagescan](../h/heap_prepare_pagescan.md) (multiple call sites)
 
 ## Notes and Other Information
 - Marked as pg_attribute_always_inline for performance optimization

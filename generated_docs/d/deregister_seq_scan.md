@@ -19,10 +19,10 @@ This function removes a hash table from the global sequential scan tracking arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (struct type)
+  - [HTAB](../H/HTAB.md) (struct type)
 - Called from (representative examples):
   - MOD
-  - hash_seq_term
+  - [hash_seq_term](../h/hash_seq_term.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dynahash.c file

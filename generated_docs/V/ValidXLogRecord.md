@@ -36,10 +36,10 @@ This validation is essential because PostgreSQL does not trust XLOG record conte
   - COMP_CRC32C (CRC computation macro)
   - FIN_CRC32C (CRC finalization macro)
   - EQ_CRC32C (CRC comparison macro)
-  - report_invalid_record (error reporting function)
-  - XLogRecord (struct type being validated)
+  - [report_invalid_record](../r/report_invalid_record.md) (error reporting function)
+  - [XLogRecord](../X/XLogRecord.md) (struct type being validated)
 - Called from (representative examples):
-  - XLogDecodeNextRecord (at lines 845 and 864)
+  - [XLogDecodeNextRecord](../X/XLogDecodeNextRecord.md) (at lines 845 and 864)
 
 ## Notes and Other Information
 - Static function not intended for external use outside xlogreader.c

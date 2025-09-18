@@ -23,10 +23,10 @@ In join operations, the inner tuple typically represents the tuple from the inne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustAssignVarVirtImpl
+  - [ExecJustAssignVarVirtImpl](ExecJustAssignVarVirtImpl.md)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation jump table)
-  - ExecReadyInterpretedExpr (expression preparation)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation)
 
 ## Notes and Other Information
 - This function is marked as static and is only used within the expression interpreter

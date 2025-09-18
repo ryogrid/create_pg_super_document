@@ -22,9 +22,9 @@ The function is a simple pass-through that directly calls SetHintBits with ident
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetHintBits (the core implementation)
+  - [SetHintBits](../S/SetHintBits.md) (the core implementation)
 - Called from (representative examples):
-  - UpdateXmaxHintBits
+  - [UpdateXmaxHintBits](../U/UpdateXmaxHintBits.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

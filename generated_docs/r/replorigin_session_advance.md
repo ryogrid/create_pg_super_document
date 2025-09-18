@@ -25,11 +25,11 @@ The function ensures that LSN values only advance forward (never backward) by ch
   - LWLockAcquire/LWLockRelease (on session state lock)
   - InvalidRepOriginId (for assertions)
 - Called from (representative examples):
-  - EndPrepare
-  - RecordTransactionCommitPrepared
-  - RecordTransactionAbortPrepared
-  - RecordTransactionCommit
-  - RecordTransactionAbort
+  - [EndPrepare](../E/EndPrepare.md)
+  - [RecordTransactionCommitPrepared](../R/RecordTransactionCommitPrepared.md)
+  - [RecordTransactionAbortPrepared](../R/RecordTransactionAbortPrepared.md)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md)
 
 ## Notes and Other Information
 - Requires an active replication origin session (established via replorigin_session_setup())

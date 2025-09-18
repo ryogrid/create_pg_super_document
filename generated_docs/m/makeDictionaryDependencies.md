@@ -23,14 +23,14 @@ Unlike parser dependencies, dictionary dependencies include an ownership depende
 - Functions called/Symbols referenced:
   - Form_pg_ts_dict: Type cast to access dictionary tuple fields
   - ObjectAddressSet: Sets up object address structures
-  - recordDependencyOnOwner: Records ownership dependency between dictionary and owner
-  - recordDependencyOnCurrentExtension: Records extension membership
-  - new_object_addresses: Creates new ObjectAddresses collection
-  - add_exact_object_address: Adds object to dependency collection
-  - record_object_address_dependencies: Records all dependencies with specified strength
-  - free_object_addresses: Cleans up ObjectAddresses collection
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md): Records ownership dependency between dictionary and owner
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md): Records extension membership
+  - [new_object_addresses](../n/new_object_addresses.md): Creates new ObjectAddresses collection
+  - [add_exact_object_address](../a/add_exact_object_address.md): Adds object to dependency collection
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md): Records all dependencies with specified strength
+  - [free_object_addresses](../f/free_object_addresses.md): Cleans up ObjectAddresses collection
 - Called from (representative examples):
-  - DefineTSDictionary: Called after inserting new dictionary tuple to establish dependencies
+  - [DefineTSDictionary](../D/DefineTSDictionary.md): Called after inserting new dictionary tuple to establish dependencies
 
 ## Notes and Other Information
 - This is a static function, only accessible within tsearchcmds.c

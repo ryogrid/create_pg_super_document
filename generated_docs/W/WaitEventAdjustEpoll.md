@@ -33,11 +33,11 @@ All events automatically include EPOLLERR and EPOLLHUP for error detection. The 
 - Functions called/Symbols referenced:
   - epoll_ctl (system call)
   - ereport (error reporting)
-  - errcode_for_socket_access
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md)
 - Called from (representative examples):
   - LatchWaitSetLatchPos
-  - AddWaitEventToSet  
-  - ModifyWaitEvent
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)  
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
 
 ## Notes and Other Information
 - Only compiled and available on Linux systems with WAIT_USE_EPOLL defined

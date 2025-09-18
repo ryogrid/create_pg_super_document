@@ -21,14 +21,14 @@ The function handles memory management carefully by creating copies of strings t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_strdup (ECPG string duplication function)
-  - mm_alloc (ECPG memory allocation function)
+  - [mm_strdup](../m/mm_strdup.md) (ECPG string duplication function)
+  - [mm_alloc](../m/mm_alloc.md) (ECPG memory allocation function)
   - strchr (standard C library function)
   - struct _defines (preprocessor definition structure)
   - defines (global variable maintaining the defines list head)
 
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/preproc/ecpg.c:208)
+  - [main](../m/main.md) (in src/interfaces/ecpg/preproc/ecpg.c:208)
 
 ## Notes and Other Information
 - The function is static and only accessible within the ecpg.c compilation unit

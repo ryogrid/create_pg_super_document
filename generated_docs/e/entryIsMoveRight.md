@@ -21,13 +21,13 @@ The entryIsMoveRight function implements the "move right" logic for GIN entry tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinPageRightMost: Checks if the page is the rightmost page (no right sibling)
-  - getRightMostTuple: Gets the rightmost tuple from the page
-  - gintuple_get_attrnum: Extracts attribute number from the tuple
-  - gintuple_get_key: Extracts key value and category from the tuple
-  - ginCompareAttEntries: Compares attribute entries considering attribute number, key, and category
+  - [getRightMostTuple](../g/getRightMostTuple.md): Gets the rightmost tuple from the page
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md): Extracts attribute number from the tuple
+  - [gintuple_get_key](../g/gintuple_get_key.md): Extracts key value and category from the tuple
+  - [ginCompareAttEntries](../g/ginCompareAttEntries.md): Compares attribute entries considering attribute number, key, and category
 
 - Called from (representative examples):
-  - ginPrepareEntryScan: Preparing entry scan operations
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md): Preparing entry scan operations
 
 ## Notes and Other Information
 - Function is static (internal to ginentrypage.c)

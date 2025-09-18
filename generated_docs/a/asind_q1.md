@@ -22,8 +22,8 @@ The  function calculates the arcsine of a value and returns the result in degree
   - asin_0_5 (cached constant for asin(0.5))
   - acos_0_5 (cached constant for acos(0.5))
 - Called from (representative examples):
-  - dacosd (at src/backend/utils/adt/float.c:2125)
-  - dasind (at src/backend/utils/adt/float.c:2160, 2162)
+  - [dacosd](../d/dacosd.md) (at src/backend/utils/adt/float.c:2125)
+  - [dasind](../d/dasind.md) (at src/backend/utils/adt/float.c:2160, 2162)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/float.c:2041-2073

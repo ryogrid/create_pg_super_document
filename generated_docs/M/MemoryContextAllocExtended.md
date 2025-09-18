@@ -28,10 +28,10 @@ This function serves as the fundamental memory allocation routine in PostgreSQL'
   - VALGRIND_MEMPOOL_ALLOC
   - MemSetAligned
 - Called from (representative examples):
-  - MemoryContextAllocAligned
-  - DynaHashAlloc
-  - guc_malloc
-  - guc_realloc
+  - [MemoryContextAllocAligned](MemoryContextAllocAligned.md)
+  - [DynaHashAlloc](../D/DynaHashAlloc.md)
+  - [guc_malloc](../g/guc_malloc.md)
+  - [guc_realloc](../g/guc_realloc.md)
 
 ## Notes and Other Information
 - Sets context->isReset to false to indicate the context has active allocations

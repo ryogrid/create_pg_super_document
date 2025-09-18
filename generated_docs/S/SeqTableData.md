@@ -38,11 +38,11 @@ The structure enables PostgreSQL to maintain sequence continuity within a sessio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (data type for file numbering)
+  - [RelFileNumber](../R/RelFileNumber.md) (data type for file numbering)
   - LocalTransactionId (data type for transaction tracking)
 - Called from (representative examples):
   - SeqTable (type definition at src/backend/commands/sequence.c:89, 97)
-  - create_seq_hashtable (src/backend/commands/sequence.c:1118)
+  - [create_seq_hashtable](../c/create_seq_hashtable.md) (src/backend/commands/sequence.c:1118)
 
 ## Notes and Other Information
 - This structure is stored in a session-level hash table indexed by sequence OID

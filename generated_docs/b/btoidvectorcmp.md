@@ -28,12 +28,12 @@ The btoidvectorcmp function is a B-tree comparison function for the oidvector da
   - oidvector: The PostgreSQL data type for arrays of OIDs
 
 - Called from (representative examples):
-  - oidvectoreq: OID vector equality comparison function
-  - oidvectorne: OID vector not-equal comparison function  
-  - oidvectorlt: OID vector less-than comparison function
-  - oidvectorle: OID vector less-than-or-equal comparison function
-  - oidvectorge: OID vector greater-than-or-equal comparison function
-  - oidvectorgt: OID vector greater-than comparison function
+  - [oidvectoreq](../o/oidvectoreq.md): OID vector equality comparison function
+  - [oidvectorne](../o/oidvectorne.md): OID vector not-equal comparison function  
+  - [oidvectorlt](../o/oidvectorlt.md): OID vector less-than comparison function
+  - [oidvectorle](../o/oidvectorle.md): OID vector less-than-or-equal comparison function
+  - [oidvectorge](../o/oidvectorge.md): OID vector greater-than-or-equal comparison function
+  - [oidvectorgt](../o/oidvectorgt.md): OID vector greater-than comparison function
 
 ## Notes and Other Information
 - Uses a two-phase comparison strategy: first by length, then by content

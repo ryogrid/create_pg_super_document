@@ -25,7 +25,7 @@ The structure is designed to be compact at only 8 bytes total, which allows it t
   - OffsetNumber (PostgreSQL offset numbering type)
 - Called from (representative examples):
   - GinPageOpaque (macro for accessing page opaque data)
-  - GinInitPage (page initialization)
+  - [GinInitPage](GinInitPage.md) (page initialization)
   - GIN_PAGE_FREESIZE (free space calculation)
   - GinMaxItemSize (maximum item size calculation)
   - GinDataPageMaxDataSize (data page size calculation)

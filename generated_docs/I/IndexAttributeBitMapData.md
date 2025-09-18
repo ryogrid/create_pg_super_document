@@ -32,7 +32,7 @@ This design philosophy balances space efficiency with simplicity - the bitmap si
   - INDEX_MAX_KEYS (constant defining maximum index attributes = 32)
 - Called from (representative examples):
   - IndexAttributeBitMap (src/include/access/itup.h:60)
-  - IndexInfoFindDataOffset (src/include/access/itup.h:104)
+  - [IndexInfoFindDataOffset](IndexInfoFindDataOffset.md) (src/include/access/itup.h:104)
   - SGLTHDRSZ (src/include/access/spgist_private.h:408)
 
 ## Notes and Other Information

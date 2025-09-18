@@ -19,33 +19,33 @@ DoCopyTo performs the core execution of COPY TO operations by coordinating data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SendCopyBegin
+  - [SendCopyBegin](../S/SendCopyBegin.md)
   - makeStringInfo
-  - getTypeBinaryOutputInfo
-  - getTypeOutputInfo
-  - fmgr_info
+  - [getTypeBinaryOutputInfo](../g/getTypeBinaryOutputInfo.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [fmgr_info](../f/fmgr_info.md)
   - AllocSetContextCreate
-  - CopySendData
-  - CopySendInt32
-  - pg_server_to_any
-  - CopySendChar
-  - CopyAttributeOutCSV
-  - CopyAttributeOutText
-  - CopySendEndOfRow
-  - table_beginscan
-  - table_slot_create
-  - table_scan_getnextslot
+  - [CopySendData](../C/CopySendData.md)
+  - [CopySendInt32](../C/CopySendInt32.md)
+  - [pg_server_to_any](../p/pg_server_to_any.md)
+  - [CopySendChar](../C/CopySendChar.md)
+  - [CopyAttributeOutCSV](../C/CopyAttributeOutCSV.md)
+  - [CopyAttributeOutText](../C/CopyAttributeOutText.md)
+  - [CopySendEndOfRow](../C/CopySendEndOfRow.md)
+  - [table_beginscan](../t/table_beginscan.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
   - slot_getallattrs
-  - CopyOneRowTo
-  - pgstat_progress_update_param
-  - ExecDropSingleTupleTableSlot
-  - table_endscan
-  - ExecutorRun
-  - CopySendInt16
-  - MemoryContextDelete
-  - SendCopyEnd
+  - [CopyOneRowTo](../C/CopyOneRowTo.md)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [table_endscan](../t/table_endscan.md)
+  - [ExecutorRun](../E/ExecutorRun.md)
+  - [CopySendInt16](../C/CopySendInt16.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [SendCopyEnd](../S/SendCopyEnd.md)
 - Called from (representative examples):
-  - DoCopy
+  - [DoCopy](DoCopy.md)
   - test_copy_to_callback
 
 ## Notes and Other Information

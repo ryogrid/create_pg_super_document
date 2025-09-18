@@ -22,10 +22,10 @@ This function takes no parameters and operates on global state variables.
   - save_pgBufferUsage (static variable to store baseline buffer usage)
   - save_pgWalUsage (static variable to store baseline WAL usage)
 - Called from (representative examples):
-  - _brin_parallel_build_main (in brin.c for parallel BRIN index building)
-  - _bt_parallel_build_main (in nbtsort.c for parallel B-tree index building)
-  - parallel_vacuum_main (in vacuumparallel.c for parallel vacuum operations)
-  - ParallelQueryMain (in execParallel.c for general parallel query execution)
+  - [_brin_parallel_build_main](../b/_brin_parallel_build_main.md) (in brin.c for parallel BRIN index building)
+  - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md) (in nbtsort.c for parallel B-tree index building)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md) (in vacuumparallel.c for parallel vacuum operations)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md) (in execParallel.c for general parallel query execution)
 
 ## Notes and Other Information
 - This function is called once per parallel worker process during initialization

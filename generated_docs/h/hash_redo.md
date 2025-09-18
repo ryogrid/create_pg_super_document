@@ -24,19 +24,19 @@ This dispatcher pattern ensures that all hash index operations can be properly r
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
-  - hash_xlog_init_meta_page
-  - hash_xlog_init_bitmap_page
-  - hash_xlog_insert
-  - hash_xlog_add_ovfl_page
-  - hash_xlog_split_allocate_page
-  - hash_xlog_split_page
-  - hash_xlog_split_complete
-  - hash_xlog_move_page_contents
-  - hash_xlog_squeeze_page
-  - hash_xlog_delete
-  - hash_xlog_split_cleanup
-  - hash_xlog_update_meta_page
-  - hash_xlog_vacuum_one_page
+  - [hash_xlog_init_meta_page](hash_xlog_init_meta_page.md)
+  - [hash_xlog_init_bitmap_page](hash_xlog_init_bitmap_page.md)
+  - [hash_xlog_insert](hash_xlog_insert.md)
+  - [hash_xlog_add_ovfl_page](hash_xlog_add_ovfl_page.md)
+  - [hash_xlog_split_allocate_page](hash_xlog_split_allocate_page.md)
+  - [hash_xlog_split_page](hash_xlog_split_page.md)
+  - [hash_xlog_split_complete](hash_xlog_split_complete.md)
+  - [hash_xlog_move_page_contents](hash_xlog_move_page_contents.md)
+  - [hash_xlog_squeeze_page](hash_xlog_squeeze_page.md)
+  - [hash_xlog_delete](hash_xlog_delete.md)
+  - [hash_xlog_split_cleanup](hash_xlog_split_cleanup.md)
+  - [hash_xlog_update_meta_page](hash_xlog_update_meta_page.md)
+  - [hash_xlog_vacuum_one_page](hash_xlog_vacuum_one_page.md)
   - elog
 - Constants referenced:
   - XLR_INFO_MASK

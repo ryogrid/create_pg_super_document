@@ -19,12 +19,12 @@ PQescapeLiteral is a wrapper function that calls PQescapeInternal with the  para
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeInternal
+  - [PQescapeInternal](PQescapeInternal.md)
 - Called from (representative examples):
-  - libpqrcv_startstreaming (in libpqwalreceiver.c)
-  - check_and_drop_existing_subscriptions (in pg_createsubscriber.c)
-  - create_logical_replication_slot (in pg_createsubscriber.c)
-  - psql_get_variable (in psql/common.c)
+  - [libpqrcv_startstreaming](../l/libpqrcv_startstreaming.md) (in libpqwalreceiver.c)
+  - [check_and_drop_existing_subscriptions](../c/check_and_drop_existing_subscriptions.md) (in pg_createsubscriber.c)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md) (in pg_createsubscriber.c)
+  - [psql_get_variable](../p/psql_get_variable.md) (in psql/common.c)
   - PQchangePassword (in fe-auth.c)
 
 ## Notes and Other Information

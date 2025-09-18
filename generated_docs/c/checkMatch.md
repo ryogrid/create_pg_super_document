@@ -556,13 +556,13 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - copyTSLexeme
+  - [copyTSLexeme](copyTSLexeme.md)
 - Types referenced:
   - DictThesaurus
-  - LexemeInfo
+  - [LexemeInfo](../L/LexemeInfo.md)
   - TSLexeme
 - Called from (representative examples):
-  - thesaurus_lexize
+  - [thesaurus_lexize](../t/thesaurus_lexize.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the thesaurus dictionary implementation

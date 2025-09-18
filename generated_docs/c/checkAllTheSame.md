@@ -29,9 +29,9 @@ The function includes special handling for cases where the tuple set is too larg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation for node labels array)
+  - [palloc](../p/palloc.md) (memory allocation for node labels array)
 - Called from (representative examples):
-  - doPickSplit (at src/backend/access/spgist/spgdoinsert.c:900)
+  - [doPickSplit](../d/doPickSplit.md) (at src/backend/access/spgist/spgdoinsert.c:900)
 
 ## Notes and Other Information
 - Uses an arbitrary number of 8 child nodes for redistribution

@@ -40,26 +40,26 @@ The function includes extensive error handling, memory management through dedica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_parse_query
-  - pg_analyze_and_rewrite_fixedparams
-  - pg_plan_queries
-  - start_xact_command
-  - finish_xact_command
+  - [pg_parse_query](../p/pg_parse_query.md)
+  - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)
+  - [pg_plan_queries](../p/pg_plan_queries.md)
+  - [start_xact_command](../s/start_xact_command.md)
+  - [finish_xact_command](../f/finish_xact_command.md)
   - CreatePortal
-  - PortalDefineQuery
-  - PortalStart
-  - PortalRun
+  - [PortalDefineQuery](../P/PortalDefineQuery.md)
+  - [PortalStart](../P/PortalStart.md)
+  - [PortalRun](../P/PortalRun.md)
   - PortalDrop
-  - pgstat_report_activity
-  - CreateCommandTag
-  - BeginCommand
-  - EndCommand
-  - IsAbortedTransactionBlockState
-  - BeginImplicitTransactionBlock
-  - EndImplicitTransactionBlock
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
+  - [BeginCommand](../B/BeginCommand.md)
+  - [EndCommand](../E/EndCommand.md)
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
+  - [BeginImplicitTransactionBlock](../B/BeginImplicitTransactionBlock.md)
+  - [EndImplicitTransactionBlock](../E/EndImplicitTransactionBlock.md)
   - Many memory management and utility functions
 - Called from (representative examples):
-  - PostgresMain (multiple call sites)
+  - [PostgresMain](../P/PostgresMain.md) (multiple call sites)
 
 ## Notes and Other Information
 - Core function in PostgreSQL's simple query protocol implementation

@@ -22,19 +22,19 @@ The `deccall3` function is an internal helper in the ECPG Informix compatibility
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - risnull
-  - PGTYPESnumeric_new
-  - PGTYPESnumeric_free
+  - [risnull](../r/risnull.md)
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
   - PGTYPESnumeric_from_decimal
   - PGTYPESnumeric_to_decimal
-  - rsetnull
+  - [rsetnull](../r/rsetnull.md)
   - CDECIMALTYPE
   - ECPG_INFORMIX_OUT_OF_MEMORY
 - Called from (representative examples):
-  - decadd
-  - decdiv
-  - decmul
-  - decsub
+  - [decadd](decadd.md)
+  - [decdiv](decdiv.md)
+  - [decmul](decmul.md)
+  - [decsub](decsub.md)
 
 ## Notes and Other Information
 - Static function internal to the Informix compatibility library

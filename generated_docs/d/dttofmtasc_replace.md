@@ -27,14 +27,14 @@ The function operates recursively for composite format specifiers (like %D which
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_fmt_replace (formats and writes replacement values to output)
+  - [pgtypes_fmt_replace](../p/pgtypes_fmt_replace.md) (formats and writes replacement values to output)
   - strftime (system function for locale-aware formatting)
-  - SetEpochTimestamp (gets epoch timestamp for calculations)
+  - [SetEpochTimestamp](../S/SetEpochTimestamp.md) (gets epoch timestamp for calculations)
   - Various PGTYPES_TYPE_* constants (formatting type specifiers)
   - String arrays: pgtypes_date_weekdays_short, days, months, pgtypes_date_months
 - Called from (representative examples):
   - Self-recursively for composite format specifiers (%D, %r, %R, %T)
-  - PGTYPEStimestamp_fmt_asc (main timestamp formatting function)
+  - [PGTYPEStimestamp_fmt_asc](../P/PGTYPEStimestamp_fmt_asc.md) (main timestamp formatting function)
 
 ## Notes and Other Information
 - Static function - internal implementation detail not exposed in public API

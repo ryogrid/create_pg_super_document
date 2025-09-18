@@ -20,11 +20,11 @@ float4_cmp_internal is an internal utility function that implements three-way co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float4_gt: Inline helper function that performs greater-than comparison with NaN handling
-  - float4_lt: Inline helper function that performs less-than comparison with NaN handling
+  - [float4_gt](float4_gt.md): Inline helper function that performs greater-than comparison with NaN handling
+  - [float4_lt](float4_lt.md): Inline helper function that performs less-than comparison with NaN handling
 - Called from (representative examples):
-  - btfloat4cmp: B-tree comparison function for float4 values
-  - btfloat4fastcmp: Fast B-tree comparison function for float4 values
+  - [btfloat4cmp](../b/btfloat4cmp.md): B-tree comparison function for float4 values
+  - [btfloat4fastcmp](../b/btfloat4fastcmp.md): Fast B-tree comparison function for float4 values
 
 ## Notes and Other Information
 - This function implements standard three-way comparison semantics used by sorting and indexing operations

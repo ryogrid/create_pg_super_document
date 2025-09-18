@@ -19,7 +19,7 @@ DomainConstraintType is used to distinguish between different types of domain co
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a simple enumeration)
 - Called from (representative examples):
-  - DomainConstraintState (used as constrainttype field)
+  - [DomainConstraintState](DomainConstraintState.md) (used as constrainttype field)
   - execExpr.c:ExecEvalCoerceToDomain() (switch cases at lines 3406, 3410)
   - typcache.c:GetDomainConstraints() (assignments at lines 1121, 1200)
   - domains.c:domain_check() (switch cases at lines 153, 164)

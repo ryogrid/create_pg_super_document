@@ -23,7 +23,7 @@ The `regexnesel` function is a SQL-callable selectivity estimation function that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `patternsel`: Core pattern selectivity estimation function
+  - `[patternsel](../p/patternsel.md)`: Core pattern selectivity estimation function
   - `Pattern_Type_Regex`: Enum constant for regular expression pattern type
 - Called from (representative examples):
   - No direct references found in the codebase (likely registered as operator selectivity function)

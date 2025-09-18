@@ -21,13 +21,13 @@ The `bytea_overlay` function implements the core logic for the SQL OVERLAY() ope
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
-  - pg_add_s32_overflow (for safe integer addition)
-  - bytea_substring (for extracting substrings before and after replacement point)
-  - PointerGetDatum (for converting pointers to Datum)
-  - bytea_catenate (for concatenating bytea strings)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (for safe integer addition)
+  - [bytea_substring](bytea_substring.md) (for extracting substrings before and after replacement point)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (for converting pointers to Datum)
+  - [bytea_catenate](bytea_catenate.md) (for concatenating bytea strings)
 - Called from:
-  - byteaoverlay (four-argument variant)
-  - byteaoverlay_no_len (three-argument variant)
+  - [byteaoverlay](byteaoverlay.md) (four-argument variant)
+  - [byteaoverlay_no_len](byteaoverlay_no_len.md) (three-argument variant)
 
 ## Notes and Other Information
 - This is a static function, not exposed outside varlena.c

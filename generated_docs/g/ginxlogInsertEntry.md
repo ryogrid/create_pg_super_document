@@ -29,12 +29,12 @@ This structure is specifically used for entry tree operations (as opposed to pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - OffsetNumber (for page offset positioning)
-  - IndexTupleData (for tuple storage)
+  - [IndexTupleData](../I/IndexTupleData.md) (for tuple storage)
 
 - Called from (representative examples):
-  - entryExecPlaceToPage (src/backend/access/gin/ginentrypage.c:582, 589)
-  - ginRedoInsertEntry (src/backend/access/gin/ginxlog.c:74)
-  - gin_desc (src/backend/access/rmgrdesc/gindesc.c:115)
+  - [entryExecPlaceToPage](../e/entryExecPlaceToPage.md) (src/backend/access/gin/ginentrypage.c:582, 589)
+  - [ginRedoInsertEntry](ginRedoInsertEntry.md) (src/backend/access/gin/ginxlog.c:74)
+  - [gin_desc](gin_desc.md) (src/backend/access/rmgrdesc/gindesc.c:115)
 
 ## Notes and Other Information
 - This structure has only 16-bit alignment when appended to a ginxlogInsert struct

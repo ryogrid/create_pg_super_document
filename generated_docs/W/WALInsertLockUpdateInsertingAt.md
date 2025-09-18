@@ -33,7 +33,7 @@ This mechanism allows other backends to track the progress of WAL insertion and 
   - MyLockNo (backend-specific lock identifier)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - GetXLogBuffer
+  - [GetXLogBuffer](../G/GetXLogBuffer.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlog.c module

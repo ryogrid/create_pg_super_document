@@ -19,7 +19,7 @@ The function serves as a thin wrapper around the  function with the text convers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - elements_worker_jsonb (core worker function that extracts array elements from JSONB and converts to text)
+  - [elements_worker_jsonb](../e/elements_worker_jsonb.md) (core worker function that extracts array elements from JSONB and converts to text)
   - PG_FUNCTION_ARGS (PostgreSQL function calling convention macro)
   - Datum (PostgreSQL data type for function return values)
 - Called from:

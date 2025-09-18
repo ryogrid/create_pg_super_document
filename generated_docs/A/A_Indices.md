@@ -29,14 +29,14 @@ A_Indices is a parse tree node that represents array indexing operations in SQL 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (inherited node type system)
-  - Node (base node type for expressions)
+  - [Node](../N/Node.md) (base node type for expressions)
 - Called from (representative examples):
-  - transformIndirection (src/backend/parser/parse_expr.c:455)
-  - transformContainerSubscripts (src/backend/parser/parse_node.c:285)
-  - transformAssignedExpr (src/backend/parser/parse_target.c:505)
-  - transformAssignmentIndirection (src/backend/parser/parse_target.c:726)
-  - array_subscript_transform (src/backend/utils/adt/arraysubs.c:75)
-  - jsonb_subscript_transform (src/backend/utils/adt/jsonbsubs.c:58)
+  - [transformIndirection](../t/transformIndirection.md) (src/backend/parser/parse_expr.c:455)
+  - [transformContainerSubscripts](../t/transformContainerSubscripts.md) (src/backend/parser/parse_node.c:285)
+  - [transformAssignedExpr](../t/transformAssignedExpr.md) (src/backend/parser/parse_target.c:505)
+  - [transformAssignmentIndirection](../t/transformAssignmentIndirection.md) (src/backend/parser/parse_target.c:726)
+  - [array_subscript_transform](../a/array_subscript_transform.md) (src/backend/utils/adt/arraysubs.c:75)
+  - [jsonb_subscript_transform](../j/jsonb_subscript_transform.md) (src/backend/utils/adt/jsonbsubs.c:58)
 
 ## Notes and Other Information
 - Essential for PostgreSQL's array and container type functionality

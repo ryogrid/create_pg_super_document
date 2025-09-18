@@ -22,9 +22,9 @@ The function ensures that the deparse context is properly restored to its state 
 - Functions called/Symbols referenced:
   - list_delete_first (removes the first element from a list)
 - Called from (representative examples):
-  - get_variable
-  - resolve_special_varno
-  - get_name_for_var_field
+  - [get_variable](../g/get_variable.md)
+  - [resolve_special_varno](../r/resolve_special_varno.md)
+  - [get_name_for_var_field](../g/get_name_for_var_field.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c for internal use within the rule/query deparsing subsystem

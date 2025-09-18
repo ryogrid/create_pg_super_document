@@ -23,22 +23,22 @@ For internal pages, the function recursively processes all child pages. For leaf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DataPageDeleteStack (struct for tracking deletion context)
-  - ReadBufferExtended (read page into buffer)
-  - LockBuffer (acquire/release buffer locks)
-  - BufferGetPage (get page from buffer)
+  - [DataPageDeleteStack](../D/DataPageDeleteStack.md) (struct for tracking deletion context)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (read page into buffer)
+  - [LockBuffer](../L/LockBuffer.md) (acquire/release buffer locks)
+  - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)
   - GinPageIsData/GinPageIsLeaf (page type checks)
   - GinPageGetOpaque (access page opaque data)
   - GinDataPageGetPostingItem (get posting item from page)
   - PostingItemGetBlockNumber (extract block number)
   - GinPageRightMost (check if page is rightmost)
   - GinDataLeafPageIsEmpty (check if leaf page is empty)
-  - ginDeletePage (delete empty page)
-  - BufferGetBlockNumber (get block number from buffer)
-  - UnlockReleaseBuffer/ReleaseBuffer (buffer management)
+  - [ginDeletePage](ginDeletePage.md) (delete empty page)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (get block number from buffer)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)/ReleaseBuffer (buffer management)
 - Called from (representative examples):
-  - ginScanToDelete (recursive self-call)
-  - ginVacuumPostingTree
+  - [ginScanToDelete](ginScanToDelete.md) (recursive self-call)
+  - [ginVacuumPostingTree](ginVacuumPostingTree.md)
 
 ## Notes and Other Information
 - Static function, only accessible within ginvacuum.c

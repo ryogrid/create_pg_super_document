@@ -21,11 +21,11 @@ The function ensures that transaction preparation information is properly serial
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logicalrep_write_prepare_common
+  - [logicalrep_write_prepare_common](logicalrep_write_prepare_common.md)
   - LOGICAL_REP_MSG_STREAM_PREPARE
-  - ReorderBufferTXN (type)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (type)
 - Called from (representative examples):
-  - pgoutput_stream_prepare_txn
+  - [pgoutput_stream_prepare_txn](../p/pgoutput_stream_prepare_txn.md)
 
 ## Notes and Other Information
 - This function is specifically designed for streaming transactions in two-phase commit scenarios

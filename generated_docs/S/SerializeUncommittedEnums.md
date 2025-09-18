@@ -28,14 +28,14 @@ The function includes assertions to ensure the provided space matches the estima
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EstimateUncommittedEnumsSpace (for size validation)
+  - [EstimateUncommittedEnumsSpace](../E/EstimateUncommittedEnumsSpace.md) (for size validation)
   - HASH_SEQ_STATUS (hash table iteration structure)
-  - hash_seq_init (initialize hash table iteration)
-  - hash_seq_search (iterate through hash table entries)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterate through hash table entries)
   - uncommitted_enum_types (global hash table variable)
   - uncommitted_enum_values (global hash table variable)
 - Called from (representative examples):
-  - InitializeParallelDSM (at src/backend/access/transam/parallel.c:441)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (at src/backend/access/transam/parallel.c:441)
 
 ## Notes and Other Information
 - The function uses InvalidOid as terminators to separate enum types from enum values

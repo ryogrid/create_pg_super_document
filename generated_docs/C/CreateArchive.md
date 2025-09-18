@@ -33,20 +33,20 @@ This is a foundational function in the pg_dump architecture, creating the centra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _allocAH: Internal function that performs the actual archive handle allocation and initialization
-  - ArchiveHandle: Internal archive structure containing all operational state
-  - ArchiveFormat: Enum defining supported archive formats
-  - ArchiveMode: Enum defining archive operation modes
-  - pg_compress_specification: Structure specifying compression parameters
-  - DataDirSyncMethod: Enum for data directory synchronization methods
+  - [_allocAH](../a/_allocAH.md): Internal function that performs the actual archive handle allocation and initialization
+  - [ArchiveHandle](../A/ArchiveHandle.md): Internal archive structure containing all operational state
+  - [ArchiveFormat](../A/ArchiveFormat.md): Enum defining supported archive formats
+  - [ArchiveMode](../A/ArchiveMode.md): Enum defining archive operation modes
+  - [pg_compress_specification](../p/pg_compress_specification.md): Structure specifying compression parameters
+  - [DataDirSyncMethod](../D/DataDirSyncMethod.md): Enum for data directory synchronization methods
 - Called from (representative examples):
-  - main: Primary entry point in pg_dump.c creates archives for dump operations
+  - [main](../m/main.md): Primary entry point in pg_dump.c creates archives for dump operations
 
 ## Notes and Other Information
 - The function returns a pointer to the public Archive interface, hiding the internal ArchiveHandle implementation
 - Format-specific initialization is handled by _allocAH, which calls appropriate InitArchiveFmt_* functions
 - Supports stdio operations when FileSpec is NULL
 - The setupDumpWorker parameter enables parallel dump operations by providing worker setup functionality
-- Archive format can be archUnknown, in which case the format is automatically discovered
+- [Archive](../A/Archive.md) format can be archUnknown, in which case the format is automatically discovered
 - The function establishes the foundation for all subsequent dump operations including TOC management, data serialization, and worker coordination
 - Memory allocated by this function should be properly cleaned up using appropriate cleanup functions

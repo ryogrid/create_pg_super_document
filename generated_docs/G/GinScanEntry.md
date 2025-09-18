@@ -21,19 +21,19 @@ This is a typedef pointer, so it has no direct members. It points to a GinScanEn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanEntryData (the structure it points to)
+  - [GinScanEntryData](GinScanEntryData.md) (the structure it points to)
 - Called from (representative examples):
-  - scanPostingTree (src/backend/access/gin/ginget.c:69)
-  - collectMatchBitmap (src/backend/access/gin/ginget.c:122)  
-  - startScanEntry (src/backend/access/gin/ginget.c:319)
-  - startScanKey (src/backend/access/gin/ginget.c:545)
-  - entryLoadMoreItems (src/backend/access/gin/ginget.c:655)
-  - entryGetItem (src/backend/access/gin/ginget.c:810)
-  - keyGetItem (src/backend/access/gin/ginget.c:999)
-  - matchPartialInPendingList (src/backend/access/gin/ginget.c:1543)
-  - ginbeginscan (src/backend/access/gin/ginscan.c:56)
-  - ginFillScanEntry (src/backend/access/gin/ginscan.c:63)
-  - ginNewScanKey (src/backend/access/gin/ginscan.c:293)
+  - [scanPostingTree](../s/scanPostingTree.md) (src/backend/access/gin/ginget.c:69)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md) (src/backend/access/gin/ginget.c:122)  
+  - [startScanEntry](../s/startScanEntry.md) (src/backend/access/gin/ginget.c:319)
+  - [startScanKey](../s/startScanKey.md) (src/backend/access/gin/ginget.c:545)
+  - [entryLoadMoreItems](../e/entryLoadMoreItems.md) (src/backend/access/gin/ginget.c:655)
+  - [entryGetItem](../e/entryGetItem.md) (src/backend/access/gin/ginget.c:810)
+  - [keyGetItem](../k/keyGetItem.md) (src/backend/access/gin/ginget.c:999)
+  - [matchPartialInPendingList](../m/matchPartialInPendingList.md) (src/backend/access/gin/ginget.c:1543)
+  - [ginbeginscan](../g/ginbeginscan.md) (src/backend/access/gin/ginscan.c:56)
+  - [ginFillScanEntry](../g/ginFillScanEntry.md) (src/backend/access/gin/ginscan.c:63)
+  - [ginNewScanKey](../g/ginNewScanKey.md) (src/backend/access/gin/ginscan.c:293)
 
 ## Notes and Other Information
 - Defined in src/include/access/gin_private.h:266-267

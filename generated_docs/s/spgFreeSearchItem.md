@@ -20,12 +20,12 @@ The function follows PostgreSQL's memory management conventions, using pfree() f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (PostgreSQL utility to extract pointer from Datum)
-  - pfree (PostgreSQL memory deallocation function)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (PostgreSQL utility to extract pointer from Datum)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - SpGistScanOpaque (scan context structure type)
   - SpGistSearchItem (search item structure type)
 - Called from (representative examples):
-  - spgWalk (main search traversal function that cleans up processed items)
+  - [spgWalk](spgWalk.md) (main search traversal function that cleans up processed items)
 
 ## Notes and Other Information
 - The value field type depends on whether the item is a leaf node (attType) or inner node (attLeafType) - note the confusing but intentional reversal mentioned in comments

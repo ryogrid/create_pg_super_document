@@ -23,7 +23,7 @@ This function serves as the startup callback implementation for TQueueDestReceiv
 - Functions called/Symbols referenced:
   - DestReceiver (parameter type only)
 - Called from (representative examples):
-  - CreateTupleQueueDestReceiver (assigned as rStartup callback)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md) (assigned as rStartup callback)
 
 ## Notes and Other Information
 - This is a minimal implementation that does nothing, as indicated by the "do nothing" comment

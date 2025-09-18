@@ -26,13 +26,13 @@ The output is wrapped in a "Triggers" group for structured formats (JSON, XML, Y
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainOpenGroup
-  - ExplainCloseGroup  
-  - report_triggers
+  - [ExplainOpenGroup](ExplainOpenGroup.md)
+  - [ExplainCloseGroup](ExplainCloseGroup.md)  
+  - [report_triggers](../r/report_triggers.md)
   - list_length
   - lfirst
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](ExplainOnePlan.md)
 
 ## Notes and Other Information
 - This function is only called during EXPLAIN ANALYZE operations when triggers have actually been executed

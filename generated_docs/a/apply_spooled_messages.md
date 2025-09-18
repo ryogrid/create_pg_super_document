@@ -23,20 +23,20 @@ The function tracks progress with debug logging and ensures proper cleanup by va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_parallel_apply_worker
-  - maybe_start_skipping_changes
-  - begin_replication_step/end_replication_step
-  - changes_filename
+  - [am_parallel_apply_worker](am_parallel_apply_worker.md)
+  - [maybe_start_skipping_changes](../m/maybe_start_skipping_changes.md)
+  - [begin_replication_step](../b/begin_replication_step.md)/end_replication_step
+  - [changes_filename](../c/changes_filename.md)
   - BufFileOpenFileSet/BufFileReadMaybeEOF/BufFileReadExact/BufFileTell
-  - pgstat_report_activity
-  - apply_dispatch
-  - ensure_last_message
-  - stream_close_file
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [apply_dispatch](apply_dispatch.md)
+  - [ensure_last_message](../e/ensure_last_message.md)
+  - [stream_close_file](../s/stream_close_file.md)
   - Memory management functions (palloc, repalloc, MemoryContextSwitchTo, MemoryContextReset)
 - Called from (representative examples):
-  - apply_handle_stream_commit
-  - apply_handle_stream_prepare  
-  - pa_process_spooled_messages_if_required (parallel apply worker)
+  - [apply_handle_stream_commit](apply_handle_stream_commit.md)
+  - [apply_handle_stream_prepare](apply_handle_stream_prepare.md)  
+  - [pa_process_spooled_messages_if_required](../p/pa_process_spooled_messages_if_required.md) (parallel apply worker)
 
 ## Notes and Other Information
 - Sets in_remote_transaction = true and remote_final_lsn for proper apply_dispatch context

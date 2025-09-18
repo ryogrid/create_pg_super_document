@@ -20,13 +20,13 @@ ReorderBufferApplyMessage is an internal helper function that processes message 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer (struct type)
-  - ReorderBufferTXN (struct type)  
-  - ReorderBufferChange (struct type)
+  - [ReorderBuffer](ReorderBuffer.md) (struct type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (struct type)  
+  - [ReorderBufferChange](ReorderBufferChange.md) (struct type)
   - rb->stream_message (callback function for streaming)
   - rb->message (callback function for regular processing)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This is a static inline function, optimized for performance as it's called frequently during transaction replay

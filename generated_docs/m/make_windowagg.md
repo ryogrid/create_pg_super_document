@@ -50,7 +50,7 @@ This static function constructs a WindowAgg plan node that handles window functi
 - Types referenced:
   - WindowAgg (the window aggregation plan node structure)
 - Called from (representative examples):
-  - create_windowagg_plan
+  - [create_windowagg_plan](../c/create_windowagg_plan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the createplan.c file

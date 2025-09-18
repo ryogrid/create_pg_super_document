@@ -23,14 +23,14 @@ This function serves as a callback during backup manifest parsing. When the JSON
 ## Dependencies
 - Functions called/Symbols referenced:
   - manifest_files_insert
-  - report_fatal_error
+  - [report_fatal_error](../r/report_fatal_error.md)
 - Types referenced:
-  - JsonManifestParseContext
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md)
   - pg_checksum_type
-  - manifest_data
-  - manifest_file
+  - [manifest_data](../m/manifest_data.md)
+  - [manifest_file](../m/manifest_file.md)
 - Called from (representative examples):
-  - parse_manifest_file
+  - [parse_manifest_file](../p/parse_manifest_file.md)
 
 ## Notes and Other Information
 - This is a static callback function specifically designed for use with the JSON manifest parser

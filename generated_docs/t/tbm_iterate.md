@@ -19,20 +19,20 @@ The function maintains iteration state through the TBMIterator, ensuring pages a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tbm_advance_schunkbit
-  - tbm_extract_page_tuple
-  - TBMIterator
-  - TIDBitmap
+  - [tbm_advance_schunkbit](tbm_advance_schunkbit.md)
+  - [tbm_extract_page_tuple](tbm_extract_page_tuple.md)
+  - [TBMIterator](../T/TBMIterator.md)
+  - [TIDBitmap](../T/TIDBitmap.md)
   - TBMIterateResult
-  - PagetableEntry
+  - [PagetableEntry](../P/PagetableEntry.md)
   - TBM_ITERATING_PRIVATE
   - TBM_ONE_PAGE
   - PAGES_PER_CHUNK
 - Called from (representative examples):
-  - entryGetItem (src/backend/access/gin/ginget.c:837)
-  - BitmapHeapNext (src/backend/executor/nodeBitmapHeapscan.c:239)
-  - BitmapAdjustPrefetchIterator (src/backend/executor/nodeBitmapHeapscan.c:376)
-  - BitmapPrefetch (src/backend/executor/nodeBitmapHeapscan.c:475)
+  - [entryGetItem](../e/entryGetItem.md) (src/backend/access/gin/ginget.c:837)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md) (src/backend/executor/nodeBitmapHeapscan.c:239)
+  - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md) (src/backend/executor/nodeBitmapHeapscan.c:376)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md) (src/backend/executor/nodeBitmapHeapscan.c:475)
 
 ## Notes and Other Information
 The function ensures numerical page order by carefully comparing chunk and individual page block numbers. When  is true, the condition must be rechecked even for exact tuples. The function returns NULL when no more pages remain in the bitmap. The iteration state is private to a single process (contrast with  for multi-process scenarios).

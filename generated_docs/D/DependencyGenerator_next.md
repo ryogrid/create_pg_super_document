@@ -29,7 +29,7 @@ Each dependency is stored as a contiguous array of k AttrNumber values, so the o
 - Functions called/Symbols referenced:
   - None (simple pointer arithmetic and comparison)
 - Called from (representative examples):
-  - statext_dependencies_build
+  - [statext_dependencies_build](../s/statext_dependencies_build.md)
 
 ## Notes and Other Information
 - This is a static function internal to the dependencies.c module

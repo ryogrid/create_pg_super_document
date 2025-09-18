@@ -22,7 +22,7 @@ The pg_advisory_unlock_shared_int8 function provides a mechanism to release shar
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: Extracts the 64-bit integer argument
   - SET_LOCKTAG_INT64: Sets up the lock tag structure with the key
-  - LockRelease: Core lock release function
+  - [LockRelease](../L/LockRelease.md): Core lock release function
   - ShareLock: Lock mode constant for shared locks
 - Called from (representative examples):
   - No direct references found in codebase (likely called via SQL interface)
@@ -30,7 +30,7 @@ The pg_advisory_unlock_shared_int8 function provides a mechanism to release shar
 ## Notes and Other Information
 - Returns boolean: true if lock was successfully released, false if no shared lock was held
 - Only releases shared locks (not exclusive locks - use pg_advisory_unlock_int8 for those)
-- Session-scoped: only the session that acquired the lock can release it
+- [Session](../S/Session.md)-scoped: only the session that acquired the lock can release it
 - Will fail if the session doesn't hold a shared lock on the specified key
 - Multiple sessions can hold shared locks on the same key simultaneously
 - Releasing a shared lock doesn't affect other sessions' shared locks on the same key

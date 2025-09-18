@@ -19,16 +19,16 @@ This function provides a fast way to determine if a collation uses C-style colla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_collation_cache
+  - [lookup_collation_cache](lookup_collation_cache.md)
   - setlocale
   - strcmp
   - elog
 - Called from (representative examples):
-  - hashtext
-  - varstr_cmp
-  - texteq
-  - text_starts_with
-  - varstr_sortsupport
+  - [hashtext](../h/hashtext.md)
+  - [varstr_cmp](../v/varstr_cmp.md)
+  - [texteq](../t/texteq.md)
+  - [text_starts_with](../t/text_starts_with.md)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md)
 
 ## Notes and Other Information
 - Returns false for invalid collation OID (0) to force non-C code path and proper error reporting

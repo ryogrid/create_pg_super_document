@@ -23,11 +23,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tablespace_paths
-  - set_tablespace_directory_suffix
-  - pg_fatal
+  - [get_tablespace_paths](../g/get_tablespace_paths.md)
+  - [set_tablespace_directory_suffix](../s/set_tablespace_directory_suffix.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - check_and_dump_old_cluster (src/bin/pg_upgrade/check.c:590)
+  - [check_and_dump_old_cluster](../c/check_and_dump_old_cluster.md) (src/bin/pg_upgrade/check.c:590)
 
 ## Notes and Other Information
 - This function is specific to the pg_upgrade utility and is not used in the main PostgreSQL server

@@ -26,9 +26,9 @@ SpGistLastUsedPage is a caching structure used to optimize page allocation and s
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - SpGistGetBuffer (in src/backend/access/spgist/spgutils.c)
-  - SpGistSetLastUsedPage (in src/backend/access/spgist/spgutils.c)
-  - SpGistLUPCache (in src/include/access/spgist_private.h)
+  - [SpGistGetBuffer](SpGistGetBuffer.md) (in src/backend/access/spgist/spgutils.c)
+  - [SpGistSetLastUsedPage](SpGistSetLastUsedPage.md) (in src/backend/access/spgist/spgutils.c)
+  - [SpGistLUPCache](SpGistLUPCache.md) (in src/include/access/spgist_private.h)
 
 ## Notes and Other Information
 - This structure is part of a performance optimization strategy to avoid repeatedly scanning for pages with available space

@@ -22,8 +22,8 @@ This function is a PostgreSQL SQL-callable function that verifies whether a spec
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public (converts username to role OID, handles 'public' role)
-  - convert_foreign_data_wrapper_priv_string (converts privilege string to AclMode)
-  - object_aclcheck_ext (performs extended privilege check with missing object detection)
+  - [convert_foreign_data_wrapper_priv_string](../c/convert_foreign_data_wrapper_priv_string.md) (converts privilege string to AclMode)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md) (performs extended privilege check with missing object detection)
   - PG_GETARG_NAME (macro to extract Name argument)
   - PG_GETARG_OID (macro to extract OID argument)
   - PG_GETARG_TEXT_PP (macro to extract text argument)

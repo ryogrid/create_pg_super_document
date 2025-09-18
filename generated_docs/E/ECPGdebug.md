@@ -20,9 +20,9 @@ ECPGdebug controls the debugging output level and destination stream for ECPG op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
-  - ecpg_log
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
+  - [ecpg_log](../e/ecpg_log.md)
 - Called from (representative examples):
   - Widely used in ECPG test suite initialization
   - Various main functions across test programs

@@ -26,19 +26,19 @@ This function serves as the central coordination point for event trigger executi
   - EventTriggerEvent (event type enumeration)
   - EventTriggerData (trigger execution context structure)
   - CommandTag (command identification type)
-  - EventTriggerGetTag (command tag determination)
-  - EventCacheLookup (trigger cache retrieval)
-  - filter_event_trigger (trigger filtering logic)
+  - [EventTriggerGetTag](EventTriggerGetTag.md) (command tag determination)
+  - [EventCacheLookup](EventCacheLookup.md) (trigger cache retrieval)
+  - [filter_event_trigger](../f/filter_event_trigger.md) (trigger filtering logic)
   - EventTriggerCacheItem (cached trigger information)
-  - command_tag_event_trigger_ok (command tag validation for DDL events)
-  - command_tag_table_rewrite_ok (command tag validation for table rewrite events)
+  - [command_tag_event_trigger_ok](../c/command_tag_event_trigger_ok.md) (command tag validation for DDL events)
+  - [command_tag_table_rewrite_ok](../c/command_tag_table_rewrite_ok.md) (command tag validation for table rewrite events)
   - lappend_oid (list building utility)
 - Called from (representative examples):
-  - EventTriggerDDLCommandStart
-  - EventTriggerDDLCommandEnd
-  - EventTriggerSQLDrop
-  - EventTriggerOnLogin
-  - EventTriggerTableRewrite
+  - [EventTriggerDDLCommandStart](EventTriggerDDLCommandStart.md)
+  - [EventTriggerDDLCommandEnd](EventTriggerDDLCommandEnd.md)
+  - [EventTriggerSQLDrop](EventTriggerSQLDrop.md)
+  - [EventTriggerOnLogin](EventTriggerOnLogin.md)
+  - [EventTriggerTableRewrite](EventTriggerTableRewrite.md)
 
 ## Notes and Other Information
 - This is a static internal function, central to the event trigger execution system

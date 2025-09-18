@@ -37,8 +37,8 @@ This approach ensures that PL/Perl functions can use standard Perl syntax like "
   - DIE (Perl macro for throwing exceptions)
   - aTHX_ (Perl threading context for function calls)
 - Called from (representative examples):
-  - set_interp_require (assigns this function to opcodes)
-  - plperl_trusted_init (sets up trusted interpreter security)
+  - [set_interp_require](../s/set_interp_require.md) (assigns this function to opcodes)
+  - [plperl_trusted_init](plperl_trusted_init.md) (sets up trusted interpreter security)
 
 ## Notes and Other Information
 - Critical security component that prevents arbitrary code loading in PL/Perl

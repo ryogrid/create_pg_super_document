@@ -21,10 +21,10 @@ Conversions in PostgreSQL are used to transform text between different character
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath (to ensure search path is current)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to ensure search path is current)
   - GetSysCacheOid2 (to lookup conversion by name and namespace)
 - Called from (representative examples):
-  - ConversionIsVisibleExt
+  - [ConversionIsVisibleExt](ConversionIsVisibleExt.md)
   - RangeVarGetRelid (via header inclusion)
 
 ## Notes and Other Information

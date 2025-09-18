@@ -22,8 +22,8 @@ This function adds a call stack backtrace to the current error context, intended
 - Functions called/Symbols referenced:
   - ErrorData (struct type for error information)
   - CHECK_STACK_DEPTH (macro for stack depth validation)
-  - set_backtrace (function that performs actual backtrace capture)
-  - MemoryContextSwitchTo (memory context management)
+  - [set_backtrace](../s/set_backtrace.md) (function that performs actual backtrace capture)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
 - Called from (representative examples):
   - errcontext (error context function in elog.h)
 

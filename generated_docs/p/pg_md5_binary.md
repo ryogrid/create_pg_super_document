@@ -22,17 +22,17 @@ Like pg_md5_hash, this function uses PostgreSQL's cryptohash API for secure MD5 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_create
-  - pg_cryptohash_init
-  - pg_cryptohash_update
-  - pg_cryptohash_final
-  - pg_cryptohash_error
-  - pg_cryptohash_free
+  - [pg_cryptohash_create](pg_cryptohash_create.md)
+  - [pg_cryptohash_init](pg_cryptohash_init.md)
+  - [pg_cryptohash_update](pg_cryptohash_update.md)
+  - [pg_cryptohash_final](pg_cryptohash_final.md)
+  - [pg_cryptohash_error](pg_cryptohash_error.md)
+  - [pg_cryptohash_free](pg_cryptohash_free.md)
   - MD5_DIGEST_LENGTH
   - PG_MD5
-  - pg_cryptohash_ctx
+  - [pg_cryptohash_ctx](pg_cryptohash_ctx.md)
 - Called from (representative examples):
-  - PerformRadiusTransaction
+  - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

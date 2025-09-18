@@ -27,17 +27,17 @@ The function maintains a one-to-one correspondence between input expressions and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitExpr (compiles each individual expression)
+  - [ExecInitExpr](ExecInitExpr.md) (compiles each individual expression)
   - foreach (macro for list iteration)
   - lfirst (extracts list cell content)
   - lappend (builds result list)
 - Called from (representative examples):
-  - ExecInitAgg (for aggregate target lists)
-  - ExecInitHash (for hash key expressions)
-  - ExecInitHashJoin (for hash expressions)
-  - ExecInitTableFuncScan (for table function expressions)
-  - ExecInitValuesScan (for VALUES expressions)
-  - ExecInitExprRec (for recursive expression compilation)
+  - [ExecInitAgg](ExecInitAgg.md) (for aggregate target lists)
+  - [ExecInitHash](ExecInitHash.md) (for hash key expressions)
+  - [ExecInitHashJoin](ExecInitHashJoin.md) (for hash expressions)
+  - [ExecInitTableFuncScan](ExecInitTableFuncScan.md) (for table function expressions)
+  - [ExecInitValuesScan](ExecInitValuesScan.md) (for VALUES expressions)
+  - [ExecInitExprRec](ExecInitExprRec.md) (for recursive expression compilation)
 
 ## Notes and Other Information
 - Returns NIL (empty list) when given an empty input list

@@ -25,13 +25,13 @@ The extended version provides graceful error handling - if the statistics object
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_statistic_ext (system catalog form)
-  - recomputeNamespacePath
-  - list_member_oid
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
   - SearchSysCacheExists2 (STATEXTNAMENSP cache)
-  - SearchSysCache1, ReleaseSysCache
+  - [SearchSysCache1](SearchSysCache1.md), ReleaseSysCache
 - Called from (representative examples):
-  - StatisticsObjIsVisible
-  - pg_statistics_obj_is_visible
+  - [StatisticsObjIsVisible](StatisticsObjIsVisible.md)
+  - [pg_statistics_obj_is_visible](../p/pg_statistics_obj_is_visible.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within namespace.c

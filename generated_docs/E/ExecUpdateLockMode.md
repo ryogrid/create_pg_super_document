@@ -22,16 +22,16 @@ The function works by getting the bitmap of all updated columns and comparing it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetAllUpdatedCols
-  - RelationGetIndexAttrBitmap
+  - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
   - INDEX_ATTR_BITMAP_KEY
-  - bms_overlap
+  - [bms_overlap](../b/bms_overlap.md)
   - LockTupleExclusive
   - LockTupleNoKeyExclusive
 - Called from (representative examples):
-  - ExecBRUpdateTriggersNew
-  - ExecOnConflictUpdate
-  - ExecMergeMatched
+  - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md)
+  - [ExecOnConflictUpdate](ExecOnConflictUpdate.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's optimized locking strategy introduced to improve concurrency for UPDATE operations. When only non-key columns are updated, the weaker LockTupleNoKeyExclusive lock allows concurrent transactions to acquire shared locks on the same tuple, whereas LockTupleExclusive would block all concurrent access. This optimization is particularly beneficial for workloads with frequent updates to non-key columns.

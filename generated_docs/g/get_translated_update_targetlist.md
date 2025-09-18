@@ -26,11 +26,11 @@ The function is specifically designed for UPDATE commands and includes appropria
 - Functions called/Symbols referenced:
   - CMD_UPDATE (command type constant)
   - copyObject (creates deep copies of node trees)
-  - bms_is_member (checks if relation ID is in result relations set)
-  - adjust_appendrel_attrs_multilevel (translates expressions for inheritance)
-  - find_base_rel (locates RelOptInfo for given relation ID)
-  - adjust_inherited_attnums_multilevel (translates attribute numbers)
-  - AppendRelInfo (structure type)
+  - [bms_is_member](../b/bms_is_member.md) (checks if relation ID is in result relations set)
+  - [adjust_appendrel_attrs_multilevel](../a/adjust_appendrel_attrs_multilevel.md) (translates expressions for inheritance)
+  - [find_base_rel](../f/find_base_rel.md) (locates RelOptInfo for given relation ID)
+  - [adjust_inherited_attnums_multilevel](../a/adjust_inherited_attnums_multilevel.md) (translates attribute numbers)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)
 - Called from (representative examples):
   - (Referenced from header file, specific callers not shown)
 

@@ -24,8 +24,8 @@ The function walks through the doubly-linked list of processes waiting for synch
   - Assert (assertion macro)
 - Called from (representative examples):
   - SyncStandbysDefined
-  - SyncRepWaitForLSN
-  - SyncRepWakeQueue
+  - [SyncRepWaitForLSN](SyncRepWaitForLSN.md)
+  - [SyncRepWakeQueue](SyncRepWakeQueue.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the syncrep.c module

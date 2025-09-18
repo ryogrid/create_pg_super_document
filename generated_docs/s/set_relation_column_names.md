@@ -35,17 +35,17 @@ The function manages two parallel arrays: colnames[] (includes NULLs for dropped
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - relation_close  
-  - expandRTE
-  - expand_colnames_array_to
-  - make_colname_unique
-  - list_nth
+  - [relation_open](../r/relation_open.md)
+  - [relation_close](../r/relation_close.md)  
+  - [expandRTE](../e/expandRTE.md)
+  - [expand_colnames_array_to](../e/expand_colnames_array_to.md)
+  - [make_colname_unique](../m/make_colname_unique.md)
+  - [list_nth](../l/list_nth.md)
   - TupleDescAttr
   - RelationGetDescr
 - Called from (representative examples):
-  - set_deparse_for_query
-  - set_simple_column_names
+  - [set_deparse_for_query](set_deparse_for_query.md)
+  - [set_simple_column_names](set_simple_column_names.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule decompilation system for converting internal representations back to SQL text

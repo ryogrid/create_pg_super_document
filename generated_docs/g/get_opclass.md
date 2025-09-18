@@ -21,12 +21,12 @@ The function uses the system catalog cache to look up the operator class informa
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_opclass (system catalog structure)
-  - GetDefaultOpClass (determines default operator class for a data type and access method)
-  - get_namespace_name (retrieves schema name from namespace OID)
-  - makeString (creates a String node)
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md) (determines default operator class for a data type and access method)
+  - [get_namespace_name](get_namespace_name.md) (retrieves schema name from namespace OID)
+  - [makeString](../m/makeString.md) (creates a String node)
   - list_make2 (creates a two-element list)
 - Called from (representative examples):
-  - generateClonedIndexStmt (when cloning index statements)
+  - [generateClonedIndexStmt](generateClonedIndexStmt.md) (when cloning index statements)
 
 ## Notes and Other Information
 - This is a static function in parse_utilcmd.c, used internally for parsing utility commands

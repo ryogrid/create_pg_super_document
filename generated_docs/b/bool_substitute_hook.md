@@ -17,10 +17,10 @@ This function serves as a variable substitution hook in psql's variable manageme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (string duplication)
-  - pg_free (memory deallocation)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
+  - [pg_free](../p/pg_free.md) (memory deallocation)
 - Called from (representative examples):
-  - EstablishVariableSpace (multiple variable registrations)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (multiple variable registrations)
 
 ## Notes and Other Information
 - Part of psql's variable hook system that ensures special variables remain visible in tab completion

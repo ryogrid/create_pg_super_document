@@ -34,7 +34,7 @@ The algorithm assumes the heap is never spilled to disk since N (number of strea
   - Cost (cost data type)
   - APPEND_CPU_COST_MULTIPLIER (constant for append overhead)
 - Called from (representative examples):
-  - create_merge_append_path (in pathnode.c:1502)
+  - [create_merge_append_path](create_merge_append_path.md) (in pathnode.c:1502)
 
 ## Notes and Other Information
 - Uses a minimum of 2 streams for logarithm calculation to avoid log(0)

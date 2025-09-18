@@ -19,15 +19,15 @@ The NameData type is a fixed-length structure containing a character array, typi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - NameStr (macro)
-  - NameData (type)
+  - [NameData](NameData.md) (type)
 - Called from (representative examples):
-  - InsertPgAttributeTuples (attribute catalog management)
-  - TypeCreate (type system)
-  - CreateConstraintEntry (constraint management)
-  - OperatorCreate (operator system)
-  - RelationBuildTriggers (trigger system)
+  - [InsertPgAttributeTuples](../I/InsertPgAttributeTuples.md) (attribute catalog management)
+  - [TypeCreate](../T/TypeCreate.md) (type system)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (constraint management)
+  - [OperatorCreate](../O/OperatorCreate.md) (operator system)
+  - [RelationBuildTriggers](../R/RelationBuildTriggers.md) (trigger system)
   - PG_RETURN_NAME (function manager macro)
 
 ## Notes and Other Information

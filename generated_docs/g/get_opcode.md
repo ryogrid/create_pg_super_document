@@ -19,17 +19,17 @@ This function performs a system catalog lookup to find the implementation functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure access)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_operator (catalog tuple structure)
   - InvalidOid (null OID constant)
 - Called from (representative examples):
   - set_opfuncid (operator function ID setting)
-  - op_strict (operator strictness checking)
-  - op_volatile (operator volatility checking)
-  - cost_qual_eval_walker (query cost evaluation)
+  - [op_strict](../o/op_strict.md) (operator strictness checking)
+  - [op_volatile](../o/op_volatile.md) (operator volatility checking)
+  - [cost_qual_eval_walker](../c/cost_qual_eval_walker.md) (query cost evaluation)
   - Various BRIN, btree, and executor modules
 
 ## Notes and Other Information

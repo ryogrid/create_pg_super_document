@@ -27,7 +27,7 @@ The ttinfo struct defines the properties of a specific timezone state, including
   - typesequiv (timezone type comparison)
   - localsub (local time calculation)
   - pg_next_dst_boundary (DST boundary calculation)
-  - pg_interpret_timezone_abbrev (timezone abbreviation interpretation)
+  - [pg_interpret_timezone_abbrev](../p/pg_interpret_timezone_abbrev.md) (timezone abbreviation interpretation)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's timezone library integration and is used internally to represent the various timezone states that can occur throughout a year. The abbreviation index points into a character array maintained by the containing state structure, allowing efficient storage of timezone abbreviations.

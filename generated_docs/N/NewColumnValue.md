@@ -30,10 +30,10 @@ NewColumnValue is used during the Phase 3 copy operation of ALTER TABLE when a t
 - Functions called/Symbols referenced:
   - Standard PostgreSQL types (AttrNumber, Expr, ExprState)
 - Called from (representative examples):
-  - ATRewriteTable
-  - ATExecAddColumn
-  - ATExecSetExpression
-  - ATPrepAlterColumnType
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
 
 ## Notes and Other Information
 - Used specifically during Phase 3 table rewrite operations in ALTER TABLE

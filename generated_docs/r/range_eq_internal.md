@@ -20,19 +20,19 @@ The  function is the core implementation for range equality comparison in Postgr
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTypeGetOid
-  - range_deserialize
-  - range_cmp_bounds
+  - [range_deserialize](range_deserialize.md)
+  - [range_cmp_bounds](range_cmp_bounds.md)
   - elog (for error reporting)
 - Types referenced:
   - RangeBound
-  - TypeCacheEntry
-  - RangeType
+  - [TypeCacheEntry](../T/TypeCacheEntry.md)
+  - [RangeType](../R/RangeType.md)
 - Called from (representative examples):
-  - range_eq
-  - range_ne_internal
-  - range_gist_same
-  - range_gist_consistent_leaf_range
-  - spg_range_quad_leaf_consistent
+  - [range_eq](range_eq.md)
+  - [range_ne_internal](range_ne_internal.md)
+  - [range_gist_same](range_gist_same.md)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md)
 
 ## Notes and Other Information
 - This is an internal function used by both public range equality operators and internal PostgreSQL indexing mechanisms

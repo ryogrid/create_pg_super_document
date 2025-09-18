@@ -25,12 +25,12 @@ This function is critical for maintaining data integrity in compressed files, as
   - LZ4F_isError (checks for LZ4 errors)
   - LZ4F_getErrorName (gets error descriptions)
   - pg_log_error (logs error messages)
-  - pg_free (deallocates memory)
+  - [pg_free](../p/pg_free.md) (deallocates memory)
   - fwrite (writes final data to file)
   - fclose (closes file handle)
 - Types referenced:
-  - CompressFileHandle (compression file handle structure)
-  - LZ4State (LZ4 compression state structure)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (compression file handle structure)
+  - [LZ4State](LZ4State.md) (LZ4 compression state structure)
   - FILE (standard C file handle)
 - Called from (representative examples):
   - No direct callers found in the current codebase

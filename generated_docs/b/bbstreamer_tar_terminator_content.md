@@ -23,7 +23,7 @@ The TAR terminator's primary purpose is to add missing NUL byte blocks during fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_content
+  - [bbstreamer_content](bbstreamer_content.md)
   - BBSTREAMER_UNKNOWN
 - Called from (representative examples):
   - Set as callback in bbstreamer_tar_terminator_ops.content

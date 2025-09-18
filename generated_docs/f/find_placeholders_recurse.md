@@ -22,13 +22,13 @@ The function follows a depth-first traversal pattern, ensuring that all nested j
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_placeholders_recurse (recursive self-calls for child nodes)
-  - find_placeholders_in_expr (for processing qualification expressions)
+  - [find_placeholders_recurse](find_placeholders_recurse.md) (recursive self-calls for child nodes)
+  - [find_placeholders_in_expr](find_placeholders_in_expr.md) (for processing qualification expressions)
   - RangeTblRef, FromExpr, JoinExpr (join tree node types)
   - nodeTag (for error reporting on unrecognized node types)
 - Called from (representative examples):
-  - find_placeholders_in_jointree (initial call)
-  - find_placeholders_recurse (recursive calls)
+  - [find_placeholders_in_jointree](find_placeholders_in_jointree.md) (initial call)
+  - [find_placeholders_recurse](find_placeholders_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - Static function, only accessible within placeholder.c

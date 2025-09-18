@@ -27,15 +27,15 @@ The function also validates that the collation is deterministic, as nondetermini
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lc_ctype_is_c
-  - pg_newlocale_from_collation
-  - pg_locale_deterministic
-  - GetDatabaseEncoding
+  - [lc_ctype_is_c](../l/lc_ctype_is_c.md)
+  - [pg_newlocale_from_collation](pg_newlocale_from_collation.md)
+  - [pg_locale_deterministic](pg_locale_deterministic.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - ereport (for error handling)
 - Called from (representative examples):
   - CNOERR (src/backend/regex/regcomp.c:403)
   - LOCALDfas (src/backend/regex/regexec.c:216)
-  - pg_regprefix (src/backend/regex/regprefix.c:65)
+  - [pg_regprefix](pg_regprefix.md) (src/backend/regex/regprefix.c:65)
   - GUTSMAGIC (src/include/regex/regguts.h:549)
 
 ## Notes and Other Information

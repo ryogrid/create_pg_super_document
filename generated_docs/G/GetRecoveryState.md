@@ -19,11 +19,11 @@ GetRecoveryState is a thread-safe function that retrieves the current recovery s
 - Functions called/Symbols referenced:
   - SpinLockAcquire (on XLogCtl->info_lck)
   - SpinLockRelease (on XLogCtl->info_lck)
-  - RecoveryState (return type)
+  - [RecoveryState](../R/RecoveryState.md) (return type)
   - XLogCtl (global shared memory structure)
 - Called from (representative examples):
-  - XLogArchiveCheckDone
-  - WALAvailability
+  - [XLogArchiveCheckDone](../X/XLogArchiveCheckDone.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - The function is thread-safe due to spinlock protection around the shared memory access

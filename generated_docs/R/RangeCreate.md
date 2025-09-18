@@ -31,17 +31,17 @@ The function operates in several phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - new_object_addresses
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [new_object_addresses](../n/new_object_addresses.md)
   - ObjectAddressSet
-  - add_exact_object_address
-  - record_object_address_dependencies
-  - recordDependencyOn
-  - free_object_addresses
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
 - Called from (representative examples):
-  - DefineRange
+  - [DefineRange](../D/DefineRange.md)
 
 ## Notes and Other Information
 - The function creates both normal dependencies (DEPENDENCY_NORMAL) for referenced objects like subtypes and operator classes, and an internal dependency (DEPENDENCY_INTERNAL) between the multirange type and range type

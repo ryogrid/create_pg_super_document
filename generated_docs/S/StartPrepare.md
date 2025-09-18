@@ -18,14 +18,14 @@ StartPrepare begins the process of preparing a two-phase commit state file for a
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPGProcByNumber
-  - xactGetCommittedChildren
-  - smgrGetPendingDeletes
+  - [xactGetCommittedChildren](../x/xactGetCommittedChildren.md)
+  - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md)
   - pgstat_get_transactional_drops
-  - xactGetCommittedInvalidationMessages
-  - save_state_data
-  - GXactLoadSubxactData
+  - [xactGetCommittedInvalidationMessages](../x/xactGetCommittedInvalidationMessages.md)
+  - [save_state_data](../s/save_state_data.md)
+  - [GXactLoadSubxactData](../G/GXactLoadSubxactData.md)
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](../P/PrepareTransaction.md)
 
 ## Notes and Other Information
 - Initializes the global  data structure used throughout the 2PC preparation process

@@ -19,19 +19,19 @@ The function uses the PostgreSQL expression analysis functions (exprType, exprTy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
   - exprType
   - exprTypmod
-  - TupleDescInitEntryCollation
-  - exprCollation
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md)
+  - [exprCollation](../e/exprCollation.md)
   - list_length
   - lfirst
 
 - Called from (representative examples):
-  - ExecInitExprRec
-  - ExecInitMemoize
-  - ExecInitValuesScan
+  - [ExecInitExprRec](ExecInitExprRec.md)
+  - [ExecInitMemoize](ExecInitMemoize.md)
+  - [ExecInitValuesScan](ExecInitValuesScan.md)
   - ExecQualAndReset
 
 ## Notes and Other Information

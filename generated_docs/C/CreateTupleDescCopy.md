@@ -19,18 +19,18 @@ This function creates a shallow copy of a tuple descriptor, copying the basic at
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc
+  - [CreateTemplateTupleDesc](CreateTemplateTupleDesc.md)
   - memcpy
   - TupleDescAttr (macro for accessing attributes)
   - FormData_pg_attribute, Form_pg_attribute (types)
 - Called from (representative examples):
-  - getSpGistTupleDesc
-  - PersistHoldablePortal
-  - ExecEvalWholeRowVar
+  - [getSpGistTupleDesc](../g/getSpGistTupleDesc.md)
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
+  - [ExecEvalWholeRowVar](../E/ExecEvalWholeRowVar.md)
   - BuildTupleHashTableExt
-  - ExecPrepareTuplestoreResult
-  - RelationBuildLocalRelation
-  - assign_record_type_typmod
+  - [ExecPrepareTuplestoreResult](../E/ExecPrepareTuplestoreResult.md)
+  - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
 
 ## Notes and Other Information
 - **CRITICAL**: Constraints and defaults are explicitly NOT copied and are cleared

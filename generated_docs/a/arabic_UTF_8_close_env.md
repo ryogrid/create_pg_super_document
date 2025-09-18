@@ -20,7 +20,7 @@ This is the companion cleanup function to `arabic_UTF_8_create_env`, responsible
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `SN_close_env` - Generic Snowball environment destructor called with parameters (z, 0)
+  - `[SN_close_env](../S/SN_close_env.md)` - Generic Snowball environment destructor called with parameters (z, 0)
     - First parameter (z): The environment structure to clean up
     - Second parameter (0): Number of string arrays (S_size) - matches the 0 used in create_env, indicating no string arrays to clean up
 - Called from:

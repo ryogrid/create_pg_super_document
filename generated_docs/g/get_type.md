@@ -19,11 +19,11 @@ The  function serves as a type-to-string converter within the ECPG preprocessor'
 - Functions called/Symbols referenced:
   - mmerror (error reporting function)
   - PARSE_ERROR (error type constant)
-  - ET_ERROR (error level constant)
+  - [ET_ERROR](../E/ET_ERROR.md) (error level constant)
   - ECPGttype (enumeration type)
   - All ECPGt_* enumeration values (various type constants)
 - Called from (representative examples):
-  - ECPGdump_a_simple (for generating simple type representations)
+  - [ECPGdump_a_simple](../E/ECPGdump_a_simple.md) (for generating simple type representations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

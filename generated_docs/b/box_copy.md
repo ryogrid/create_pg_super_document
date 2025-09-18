@@ -19,11 +19,11 @@ The copy operation transfers all coordinate data from the original box (includin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (geometric box data structure)
-  - palloc (PostgreSQL memory allocation function)
+  - [BOX](../B/BOX.md) (geometric box data structure)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - spg_kd_inner_consistent
-  - spg_quad_inner_consistent
+  - [spg_kd_inner_consistent](../s/spg_kd_inner_consistent.md)
+  - [spg_quad_inner_consistent](../s/spg_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - The returned pointer points to newly allocated memory that must be freed by the caller

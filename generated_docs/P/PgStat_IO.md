@@ -22,10 +22,10 @@ PgStat_IO serves as the top-level container for I/O statistics in PostgreSQL's s
   - PgStat_BktypeIO (backend-specific I/O statistics structure)
   - BACKEND_NUM_TYPES (macro defining the number of backend types)
 - Called from (representative examples):
-  - pgstat_count_io_op_time (I/O operation timing collection)
-  - pg_stat_get_io (statistics retrieval function)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md) (I/O operation timing collection)
+  - [pg_stat_get_io](../p/pg_stat_get_io.md) (statistics retrieval function)
   - PgStatShared_IO (shared memory statistics structure)
-  - PgStat_Snapshot (statistics snapshot structure)
+  - [PgStat_Snapshot](PgStat_Snapshot.md) (statistics snapshot structure)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's comprehensive statistics system for monitoring I/O performance

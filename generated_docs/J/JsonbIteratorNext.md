@@ -23,25 +23,25 @@ The function includes sophisticated memory management that automatically frees c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - freeAndGetParent
-  - fillJsonbValue
+  - [freeAndGetParent](../f/freeAndGetParent.md)
+  - [fillJsonbValue](../f/fillJsonbValue.md)
   - JBE_ADVANCE_OFFSET
   - IsAJsonbScalar
-  - iteratorFromContainer
-  - getJsonbOffset
+  - [iteratorFromContainer](../i/iteratorFromContainer.md)
+  - [getJsonbOffset](../g/getJsonbOffset.md)
   - jbvNull, jbvArray, jbvObject, jbvString
   - WJB_DONE, WJB_BEGIN_ARRAY, WJB_END_ARRAY, WJB_ELEM, WJB_BEGIN_OBJECT, WJB_END_OBJECT, WJB_KEY, WJB_VALUE
   - JBI_ARRAY_START, JBI_ARRAY_ELEM, JBI_OBJECT_START, JBI_OBJECT_KEY, JBI_OBJECT_VALUE
 - Called from (representative examples):
-  - JsonbToCStringWorker
-  - JsonbDeepContains
-  - jsonb_hash
-  - compareJsonbContainers
-  - pushJsonbValue
-  - each_worker_jsonb
-  - populate_array_dim_jsonb
-  - IteratorConcat
-  - setPath functions
+  - [JsonbToCStringWorker](JsonbToCStringWorker.md)
+  - [JsonbDeepContains](JsonbDeepContains.md)
+  - [jsonb_hash](../j/jsonb_hash.md)
+  - [compareJsonbContainers](../c/compareJsonbContainers.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [each_worker_jsonb](../e/each_worker_jsonb.md)
+  - [populate_array_dim_jsonb](../p/populate_array_dim_jsonb.md)
+  - [IteratorConcat](../I/IteratorConcat.md)
+  - [setPath](../s/setPath.md) functions
 
 ## Notes and Other Information
 - Implements a state machine for JSONB traversal with automatic memory management

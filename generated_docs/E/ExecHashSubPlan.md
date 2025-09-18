@@ -29,15 +29,15 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildSubPlanHash (builds the hash table from subquery results)
+  - [buildSubPlanHash](../b/buildSubPlanHash.md) (builds the hash table from subquery results)
   - ExecProject (projects left-hand-side expressions into a tuple)
   - FindTupleHashEntry (searches for exact matches in hash table)
-  - findPartialMatch (searches for partial matches with nulls)
+  - [findPartialMatch](../f/findPartialMatch.md) (searches for partial matches with nulls)
   - ExecClearTuple (clears projected tuple to prevent memory leaks)
-  - slotNoNulls/slotAllNulls (check tuple null status)
-  - BoolGetDatum (converts boolean to Datum)
+  - [slotNoNulls](../s/slotNoNulls.md)/slotAllNulls (check tuple null status)
+  - [BoolGetDatum](../B/BoolGetDatum.md) (converts boolean to Datum)
 - Called from (representative examples):
-  - ExecSubPlan (in nodeSubplan.c:87)
+  - [ExecSubPlan](ExecSubPlan.md) (in nodeSubplan.c:87)
 
 ## Notes and Other Information
 - Does not support direct correlation variables (parParam must be NIL)

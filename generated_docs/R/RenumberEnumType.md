@@ -27,13 +27,13 @@ The renumbering is triggered only when the normal enum insertion algorithm canno
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_copytuple: Creates writable copies of existing enum tuples
+  - [heap_copytuple](../h/heap_copytuple.md): Creates writable copies of existing enum tuples
   - Form_pg_enum: Structure type for accessing pg_enum tuple data
-  - CatalogTupleUpdate: Updates tuples in the pg_enum catalog
-  - heap_freetuple: Frees temporary tuple memory
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates tuples in the pg_enum catalog
+  - [heap_freetuple](../h/heap_freetuple.md): Frees temporary tuple memory
   - CommandCounterIncrement: Makes updates visible to subsequent operations
 - Called from (representative examples):
-  - AddEnumLabel: Calls this function when normal insertion cannot find suitable sort order values
+  - [AddEnumLabel](../A/AddEnumLabel.md): Calls this function when normal insertion cannot find suitable sort order values
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_enum.c

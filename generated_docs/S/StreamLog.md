@@ -31,18 +31,18 @@ This function takes no parameters but operates on several global variables and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetConnection
-  - CheckServerVersionForStreaming  
-  - RunIdentifySystem
-  - FindStreamingStart
-  - GetSlotInformation
-  - CreateWalDirectoryMethod
-  - ReceiveXlogStream
-  - PQserverVersion, PQfinish
+  - [GetConnection](../G/GetConnection.md)
+  - [CheckServerVersionForStreaming](../C/CheckServerVersionForStreaming.md)  
+  - [RunIdentifySystem](../R/RunIdentifySystem.md)
+  - [FindStreamingStart](../F/FindStreamingStart.md)
+  - [GetSlotInformation](../G/GetSlotInformation.md)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md)
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md)
+  - [PQserverVersion](../P/PQserverVersion.md), PQfinish
   - XLogSegmentOffset
   - pg_log_info
 - Called from (representative examples):
-  - main (in pg_receivewal.c:908)
+  - [main](../m/main.md) (in pg_receivewal.c:908)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_receivewal.c

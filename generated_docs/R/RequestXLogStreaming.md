@@ -25,9 +25,9 @@ This function initiates WAL (Write-Ahead Log) streaming by configuring and start
   - SpinLockAcquire/SpinLockRelease (for mutex protection)
   - strlcpy (for string copying)
   - SendPostmasterSignal (to start walreceiver process)
-  - SetLatch (to wake up existing receiver)
+  - [SetLatch](../S/SetLatch.md) (to wake up existing receiver)
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable (during recovery)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (during recovery)
 
 ## Notes and Other Information
 - Always adjusts the starting position to the beginning of a WAL segment to prevent corruption

@@ -31,15 +31,15 @@ The function ensures that words don't retain inappropriate suffixes after the ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1 (tests if position is within R1 region)
-  - find_among_b (backward pattern matching function)
-  - slice_del (deletes text between bra and ket positions)
-  - slice_from_s (replaces text between bra and ket with specified string)
+  - [r_R1](r_R1.md) (tests if position is within R1 region)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching function)
+  - [slice_del](../s/slice_del.md) (deletes text between bra and ket positions)
+  - [slice_from_s](../s/slice_from_s.md) (replaces text between bra and ket with specified string)
 - Called from (representative examples):
-  - catalan_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1428)
-  - french_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c:1218)
-  - portuguese_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c:933)
-  - spanish_ISO_8859_1_stem (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1023)
+  - [catalan_ISO_8859_1_stem](../c/catalan_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1428)
+  - [french_ISO_8859_1_stem](../f/french_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c:1218)
+  - [portuguese_ISO_8859_1_stem](../p/portuguese_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c:933)
+  - [spanish_ISO_8859_1_stem](../s/spanish_ISO_8859_1_stem.md) (src/backend/snowball/libstemmer/stem_ISO_8859_1_spanish.c:1023)
 
 ## Notes and Other Information
 - This function processes only 22 patterns, significantly fewer than other suffix functions, reflecting its specialized cleanup role

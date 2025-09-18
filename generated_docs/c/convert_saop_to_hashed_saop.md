@@ -25,9 +25,9 @@ This optimization is particularly beneficial for expressions like "column IN (co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_saop_to_hashed_saop_walker
+  - [convert_saop_to_hashed_saop_walker](convert_saop_to_hashed_saop_walker.md)
 - Called from (representative examples):
-  - preprocess_expression (planner.c:1224)
+  - [preprocess_expression](../p/preprocess_expression.md) (planner.c:1224)
 
 ## Notes and Other Information
 - Part of the query optimization pipeline, typically called during expression preprocessing

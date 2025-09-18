@@ -23,13 +23,13 @@ The function retrieves the cached tuple descriptor for the result type, then use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_cached_rowtype: Retrieves the cached tuple descriptor for the result type
-  - heap_form_tuple: Creates a new HeapTuple from field values and null indicators
-  - HeapTupleGetDatum: Converts the HeapTuple to a Datum for storage
+  - [get_cached_rowtype](../g/get_cached_rowtype.md): Retrieves the cached tuple descriptor for the result type
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates a new HeapTuple from field values and null indicators
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md): Converts the HeapTuple to a Datum for storage
   - ExprEvalStep: Structure containing operation data and temporary storage
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation type mapping function
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type mapping function
 
 ## Notes and Other Information
 - This function assumes that all field values and null indicators have been pre-computed and stored in op->d.fieldstore.values and op->d.fieldstore.nulls arrays

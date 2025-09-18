@@ -22,11 +22,11 @@ This function provides an exported routine for checking access privileges to Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_largeobject_aclmask_snapshot
+  - [pg_largeobject_aclmask_snapshot](pg_largeobject_aclmask_snapshot.md)
   - ACLMASK_ANY
   - ACLCHECK_NO_PRIV
 - Called from (representative examples):
-  - inv_open
+  - [inv_open](../i/inv_open.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/aclchk.c:4133-4146

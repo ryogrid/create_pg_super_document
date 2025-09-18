@@ -29,18 +29,18 @@ The function ensures that locking semantics are consistently applied across comp
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch
-  - applyLockingClause
-  - getRTEPermissionInfo
+  - [applyLockingClause](../a/applyLockingClause.md)
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
   - nodeTag
-  - markQueryForLocking (recursive calls)
+  - [markQueryForLocking](markQueryForLocking.md) (recursive calls)
 - Types used:
   - LockClauseStrength, LockWaitPolicy
   - RangeTblRef, FromExpr, JoinExpr
-  - RTEPermissionInfo
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
   - RTE_RELATION, RTE_SUBQUERY constants
 - Called from:
-  - ApplyRetrieveRule
-  - markQueryForLocking (recursive calls)
+  - [ApplyRetrieveRule](../A/ApplyRetrieveRule.md)
+  - [markQueryForLocking](markQueryForLocking.md) (recursive calls)
 
 ## Notes and Other Information
 - Must agree with the parser's transformLockingClause() routine for consistency

@@ -31,7 +31,7 @@ SpGistPageOpaqueData represents the opaque data structure stored in the special 
 - Functions called/Symbols referenced:
   - (No direct references from this symbol)
 - Called from (representative examples):
-  - SpGistInitPage (in src/backend/access/spgist/spgutils.c)
+  - [SpGistInitPage](SpGistInitPage.md) (in src/backend/access/spgist/spgutils.c)
   - SpGistPageOpaque (in src/include/access/spgist_private.h)
   - SPGIST_PAGE_CAPACITY (in src/include/access/spgist_private.h)
 

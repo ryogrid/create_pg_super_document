@@ -23,8 +23,8 @@ The `circle_sub_pt` function implements the inverse translation operator for Pos
 - Functions called/Symbols referenced:
   - PG_GETARG_CIRCLE_P (retrieves CIRCLE argument)
   - PG_GETARG_POINT_P (retrieves Point argument)
-  - palloc (allocates memory for result)
-  - point_sub_point (subtracts point coordinates to compute new center)
+  - [palloc](../p/palloc.md) (allocates memory for result)
+  - [point_sub_point](../p/point_sub_point.md) (subtracts point coordinates to compute new center)
   - PG_RETURN_CIRCLE_P (returns CIRCLE result)
 - Called from (representative examples):
   - No direct references found in codebase

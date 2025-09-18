@@ -22,15 +22,15 @@ The function performs type checking to ensure the target slot is a heap tuple sl
 ## Dependencies
 - Functions called/Symbols referenced:
   - TTS_IS_HEAPTUPLE
-  - tts_heap_store_tuple
+  - [tts_heap_store_tuple](../t/tts_heap_store_tuple.md)
 
 - Called from (representative examples):
-  - CatalogIndexInsert
-  - compute_index_stats
-  - ExecForceStoreHeapTuple
-  - setop_retrieve_direct
-  - pgoutput_change
-  - tts_heap_copyslot
+  - [CatalogIndexInsert](../C/CatalogIndexInsert.md)
+  - [compute_index_stats](../c/compute_index_stats.md)
+  - [ExecForceStoreHeapTuple](ExecForceStoreHeapTuple.md)
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md)
+  - [pgoutput_change](../p/pgoutput_change.md)
+  - [tts_heap_copyslot](../t/tts_heap_copyslot.md)
 
 ## Notes and Other Information
 - shouldFree is typically set to 'true' for tuples constructed on-the-fly

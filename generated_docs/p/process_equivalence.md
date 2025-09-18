@@ -29,21 +29,21 @@ Security considerations are built in - the function rejects clauses containing l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - canonicalize_ec_expression
-  - add_eq_member
-  - is_opclause
-  - get_leftop/get_rightop
-  - op_input_types
-  - equal
+  - [canonicalize_ec_expression](../c/canonicalize_ec_expression.md)
+  - [add_eq_member](../a/add_eq_member.md)
+  - [is_opclause](../i/is_opclause.md)
+  - [get_leftop](../g/get_leftop.md)/get_rightop
+  - [op_input_types](../o/op_input_types.md)
+  - [equal](../e/equal.md)
   - set_opfuncid
-  - func_strict
-  - make_restrictinfo
-  - list_concat
-  - bms_join
+  - [func_strict](../f/func_strict.md)
+  - [make_restrictinfo](../m/make_restrictinfo.md)
+  - [list_concat](../l/list_concat.md)
+  - [bms_join](../b/bms_join.md)
 - Called from (representative examples):
-  - distribute_qual_to_rels
-  - reconsider_outer_join_clause
-  - reconsider_full_join_clause
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md)
+  - [reconsider_full_join_clause](../r/reconsider_full_join_clause.md)
 
 ## Notes and Other Information
 - Only called during planner startup, not during GEQO exploration

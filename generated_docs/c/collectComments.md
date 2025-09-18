@@ -19,17 +19,17 @@ The collected comments are stored in a global array  sorted by  for fast lookup 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - findObjectByCatalogId
-  - findTypeByOid
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
+  - [findTypeByOid](../f/findTypeByOid.md)
   - pg_malloc
   - atooid
   - createPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - destroyPQExpBuffer
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - main (in pg_dump.c:991)
+  - [main](../m/main.md) (in pg_dump.c:991)
 
 ## Notes and Other Information
 - Uses a single SQL query to fetch all comments at once for performance optimization

@@ -23,15 +23,15 @@ The WAL record uses the XLOG_INVALIDATIONS record type and includes both the hea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - XLOG_INVALIDATIONS
   - xl_invalidations
   - SharedInvalidationMessage
   - MinSizeOfInvalidations
 - Called from (representative examples):
-  - RecordTransactionCommit
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
 
 ## Notes and Other Information
 - This function is specifically used for commits without transaction IDs that still contain cache invalidations

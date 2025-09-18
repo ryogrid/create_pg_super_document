@@ -22,15 +22,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct
-  - pg_atomic_init_u32
-  - pg_atomic_init_u64
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
 - Types referenced:
-  - InjectionPointsCtl
+  - [InjectionPointsCtl](InjectionPointsCtl.md)
 - Constants used:
   - MAX_INJECTION_POINTS
 - Called from:
-  - CreateOrAttachShmemStructs (src/backend/storage/ipc/ipci.c:359)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (src/backend/storage/ipc/ipci.c:359)
 
 ## Notes and Other Information
 - Only functional when compiled with USE_INJECTION_POINTS defined

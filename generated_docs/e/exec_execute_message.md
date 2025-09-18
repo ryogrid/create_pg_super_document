@@ -31,16 +31,16 @@ The function differentiates between complete portal execution and fetch operatio
 - Functions called/Symbols referenced:
   - GetPortalByName (locate portal by name)
   - PortalIsValid (validate portal existence)
-  - IsTransactionStmtList (detect transaction control statements)
-  - PortalRun (execute the portal)
-  - CreateDestReceiver (create result destination receiver)
-  - BeginCommand/EndCommand (command lifecycle management)
-  - check_log_statement (statement logging policy check)
-  - finish_xact_command (transaction command completion)
-  - pgstat_report_activity (activity monitoring)
-  - check_log_duration (duration logging)
+  - [IsTransactionStmtList](../I/IsTransactionStmtList.md) (detect transaction control statements)
+  - [PortalRun](../P/PortalRun.md) (execute the portal)
+  - [CreateDestReceiver](../C/CreateDestReceiver.md) (create result destination receiver)
+  - [BeginCommand](../B/BeginCommand.md)/EndCommand (command lifecycle management)
+  - [check_log_statement](../c/check_log_statement.md) (statement logging policy check)
+  - [finish_xact_command](../f/finish_xact_command.md) (transaction command completion)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (activity monitoring)
+  - [check_log_duration](../c/check_log_duration.md) (duration logging)
 - Called from (representative examples):
-  - PostgresMain (main message processing loop)
+  - [PostgresMain](../P/PostgresMain.md) (main message processing loop)
 
 ## Notes and Other Information
 - Supports row-limited execution via max_rows parameter, enabling cursor-like behavior

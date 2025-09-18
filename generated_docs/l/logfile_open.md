@@ -31,8 +31,8 @@ The function sets up line buffering (PG_IOLBF) on successfully opened files to e
   - fopen
   - PG_IOLBF
 - Called from (representative examples):
-  - SysLogger_Start
-  - logfile_rotate_dest
+  - [SysLogger_Start](../S/SysLogger_Start.md)
+  - [logfile_rotate_dest](logfile_rotate_dest.md)
 
 ## Notes and Other Information
 - Static function used internally within the syslogger module

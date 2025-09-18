@@ -33,20 +33,20 @@ The separation of null and non-null tuples optimizes performance by allowing exa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset (resets hash table memory context)
-  - clamp_cardinality_to_long (converts plan rows estimate to bucket count)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (resets hash table memory context)
+  - [clamp_cardinality_to_long](../c/clamp_cardinality_to_long.md) (converts plan rows estimate to bucket count)
   - BuildTupleHashTableExt (creates new hash tables with specified parameters)
   - ResetTupleHashTable (clears existing hash table contents)
-  - ExecReScan (resets subplan to beginning)
+  - [ExecReScan](../E/ExecReScan.md) (resets subplan to beginning)
   - ExecProcNode (fetches tuples from subplan)
   - ExecProject (projects subplan output into hash table format)
   - LookupTupleHashEntry (inserts tuples into hash table)
   - slot_getattr (extracts values from tuple slots)
-  - slotNoNulls (checks if tuple contains any nulls)
+  - [slotNoNulls](../s/slotNoNulls.md) (checks if tuple contains any nulls)
   - ResetExprContext (cleans up expression evaluation context)
   - ExecClearTuple (clears tuple slot to prevent double-free)
 - Called from (representative examples):
-  - ExecHashSubPlan (in nodeSubplan.c:118)
+  - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (in nodeSubplan.c:118)
 
 ## Notes and Other Information
 - Only supports ANY_SUBLINK subplan types (enforced by assertion)

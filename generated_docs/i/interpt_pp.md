@@ -22,16 +22,16 @@ The function is part of PostgreSQL's regression testing suite, specifically desi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P (macro for extracting PATH arguments)
-  - regress_lseg_construct (constructs line segments from points)
+  - [regress_lseg_construct](../r/regress_lseg_construct.md) (constructs line segments from points)
   - DirectFunctionCall2 (calls PostgreSQL functions directly)
-  - lseg_intersect (checks if two line segments intersect)
-  - lseg_interpt (finds intersection point of two line segments)
-  - LsegPGetDatum (converts LSEG pointer to Datum)
+  - [lseg_intersect](../l/lseg_intersect.md) (checks if two line segments intersect)
+  - [lseg_interpt](../l/lseg_interpt.md) (finds intersection point of two line segments)
+  - [LsegPGetDatum](../L/LsegPGetDatum.md) (converts LSEG pointer to Datum)
   - PG_RETURN_DATUM (returns Datum value)
   - PG_RETURN_NULL (returns NULL value)
 - Data types used:
-  - PATH (geometric path type)
-  - LSEG (line segment type)
+  - [PATH](../P/PATH.md) (geometric path type)
+  - [LSEG](../L/LSEG.md) (line segment type)
   - Datum (PostgreSQL's generic data type)
 
 - Called from (representative examples):

@@ -24,15 +24,15 @@ This function takes no parameters and has no return value. It operates on the gl
   - CurrentTransactionState (global variable)
   - TransactionState (type)
   - TRANS_DEFAULT, TRANS_START, TRANS_INPROGRESS (transaction state constants)
-  - TransStateAsString (for warning messages)
-  - AtSubStart_Memory (memory context initialization)
-  - AtSubStart_ResourceOwner (resource owner initialization)
-  - AfterTriggerBeginSubXact (trigger subsystem initialization)
-  - CallSubXactCallbacks (callback invocation)
+  - [TransStateAsString](../T/TransStateAsString.md) (for warning messages)
+  - [AtSubStart_Memory](../A/AtSubStart_Memory.md) (memory context initialization)
+  - [AtSubStart_ResourceOwner](../A/AtSubStart_ResourceOwner.md) (resource owner initialization)
+  - [AfterTriggerBeginSubXact](../A/AfterTriggerBeginSubXact.md) (trigger subsystem initialization)
+  - [CallSubXactCallbacks](../C/CallSubXactCallbacks.md) (callback invocation)
   - SUBXACT_EVENT_START_SUB (callback event type)
-  - ShowTransactionState (debugging/logging)
+  - [ShowTransactionState](ShowTransactionState.md) (debugging/logging)
 - Called from (representative examples):
-  - CommitTransactionCommandInternal (multiple call sites)
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md) (multiple call sites)
 
 ## Notes and Other Information
 The function includes a detailed comment explaining why it's separate from PushTransaction: it must be called outside of Portal execution context to avoid memory context and resource owner interference. The function includes validation with a WARNING if called from an unexpected transaction state, though this should not occur in normal operation. The initialization order is carefully designed with resource management setup first, followed by subsystem initialization, state transition, and finally callback invocation. This function works in conjunction with the related AtSubStart_Memory and AtSubStart_ResourceOwner functions mentioned in the processed symbol summaries.

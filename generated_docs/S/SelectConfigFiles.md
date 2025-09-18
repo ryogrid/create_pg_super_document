@@ -27,21 +27,21 @@ The function implements a two-phase configuration reading strategy to handle the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_absolute_path
-  - write_stderr
-  - guc_malloc
-  - guc_free
-  - SetConfigOption
+  - [make_absolute_path](../m/make_absolute_path.md)
+  - [write_stderr](../w/write_stderr.md)
+  - [guc_malloc](../g/guc_malloc.md)
+  - [guc_free](../g/guc_free.md)
+  - [SetConfigOption](SetConfigOption.md)
   - ProcessConfigFile
   - find_option
-  - SetDataDir
-  - pg_timezone_abbrev_initialize
+  - [SetDataDir](SetDataDir.md)
+  - [pg_timezone_abbrev_initialize](../p/pg_timezone_abbrev_initialize.md)
   - CONFIG_FILENAME, HBA_FILENAME, IDENT_FILENAME (constants)
   - PGC_POSTMASTER, PGC_S_OVERRIDE (GUC constants)
 - Called from (representative examples):
-  - BootstrapModeMain
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [BootstrapModeMain](../B/BootstrapModeMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
 
 ## Notes and Other Information
 - This function is called after processing command-line switches but before full server initialization

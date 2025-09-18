@@ -19,12 +19,12 @@ The  function performs a binary search to locate a specific enum value within th
 ## Dependencies
 - Functions called/Symbols referenced:
   - bsearch (C standard library function)
-  - enum_oid_cmp (comparison function for OID ordering)
+  - [enum_oid_cmp](../e/enum_oid_cmp.md) (comparison function for OID ordering)
 - Data structures used:
-  - TypeCacheEnumData
-  - EnumItem
+  - [TypeCacheEnumData](../T/TypeCacheEnumData.md)
+  - [EnumItem](../E/EnumItem.md)
 - Called from (representative examples):
-  - compare_values_of_enum (multiple calls for enum value comparison)
+  - [compare_values_of_enum](../c/compare_values_of_enum.md) (multiple calls for enum value comparison)
 
 ## Notes and Other Information
 - Returns NULL if the enum value is not found or if the enum data contains no values

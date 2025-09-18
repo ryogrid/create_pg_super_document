@@ -29,7 +29,7 @@ The conversion process manually extracts each digit using division and modulo op
   - malloc (allocates memory for the string representation of the value)
   - log10 (calculates maximum digits based on data type size)
 - Called from (representative examples):
-  - rfmtlong (the main function that uses this initialization for numeric formatting)
+  - [rfmtlong](../r/rfmtlong.md) (the main function that uses this initialization for numeric formatting)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

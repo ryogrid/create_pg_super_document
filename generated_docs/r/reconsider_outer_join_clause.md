@@ -25,17 +25,17 @@ The optimization is safe because any inner rows not meeting the constant constra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause (checks if clause is an operator expression)
-  - op_input_types (extracts operator input data types)
-  - get_leftop, get_rightop (extract operands from expressions)
-  - select_equality_operator (finds suitable equality operators)
-  - build_implied_join_equality (constructs new RestrictInfo clauses)
-  - find_join_domain (locates appropriate join domain)
-  - process_equivalence (processes the new equivalence relationship)
-  - equal (tests expression equality)
-  - bms_copy (copies relation bitmaps)
+  - [is_opclause](../i/is_opclause.md) (checks if clause is an operator expression)
+  - [op_input_types](../o/op_input_types.md) (extracts operator input data types)
+  - [get_leftop](../g/get_leftop.md), get_rightop (extract operands from expressions)
+  - [select_equality_operator](../s/select_equality_operator.md) (finds suitable equality operators)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (constructs new RestrictInfo clauses)
+  - [find_join_domain](../f/find_join_domain.md) (locates appropriate join domain)
+  - [process_equivalence](../p/process_equivalence.md) (processes the new equivalence relationship)
+  - [equal](../e/equal.md) (tests expression equality)
+  - [bms_copy](../b/bms_copy.md) (copies relation bitmaps)
 - Called from (representative examples):
-  - reconsider_outer_join_clauses (main outer join processing loop)
+  - [reconsider_outer_join_clauses](reconsider_outer_join_clauses.md) (main outer join processing loop)
 
 ## Notes and Other Information
 - Returns true if constant propagation was successful, false otherwise

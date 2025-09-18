@@ -42,10 +42,10 @@ The function handles several special cases:
   - namestrcpy (name copying utility)
   - InvalidCompressionMethod (compression default)
 - Called from (representative examples):
-  - BuildDescFromLists (tuple descriptor construction)
-  - ExecTypeFromTLInternal (executor type setup)
-  - create_toast_table (TOAST table creation)
-  - addRangeTableEntryForFunction (parser function handling)
+  - [BuildDescFromLists](../B/BuildDescFromLists.md) (tuple descriptor construction)
+  - [ExecTypeFromTLInternal](../E/ExecTypeFromTLInternal.md) (executor type setup)
+  - [create_toast_table](../c/create_toast_table.md) (TOAST table creation)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md) (parser function handling)
 
 ## Notes and Other Information
 - Performs system catalog lookup via SearchSysCache1/ReleaseSysCache for type metadata

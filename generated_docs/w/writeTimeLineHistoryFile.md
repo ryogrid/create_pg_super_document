@@ -31,10 +31,10 @@ This function creates a timeline history file for a specified timeline ID using 
   - data_sync_elevel
   - CloseTransientFile
   - TLHistoryFilePath
-  - durable_rename
+  - [durable_rename](../d/durable_rename.md)
 - Called from (representative examples):
-  - WalRcvFetchTimeLineHistoryFiles
-  - ReceiveXlogStream
+  - [WalRcvFetchTimeLineHistoryFiles](../W/WalRcvFetchTimeLineHistoryFiles.md)
+  - [ReceiveXlogStream](../R/ReceiveXlogStream.md)
   - TimeLineHistoryEntry
 
 ## Notes and Other Information

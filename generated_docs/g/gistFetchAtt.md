@@ -23,11 +23,11 @@ This function performs the reverse operation of compression by applying the fetc
 ## Dependencies
 - Functions called/Symbols referenced:
   - gistentryinit
-  - FunctionCall1Coll
-  - GISTENTRY (struct)
-  - GISTSTATE (struct)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md)
+  - [GISTENTRY](../G/GISTENTRY.md) (struct)
+  - [GISTSTATE](../G/GISTSTATE.md) (struct)
 - Called from (representative examples):
-  - gistFetchTuple
+  - [gistFetchTuple](gistFetchTuple.md)
 
 ## Notes and Other Information
 - This is a static function, only used within gistutil.c

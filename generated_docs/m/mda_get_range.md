@@ -24,11 +24,11 @@ The function is used internally by PostgreSQL's array slicing operations to dete
 - Functions called/Symbols referenced:
   - (No external function calls)
 - Called from (representative examples):
-  - array_get_slice
-  - array_set_slice
-  - array_slice_size
-  - array_extract_slice
-  - array_insert_slice
+  - [array_get_slice](../a/array_get_slice.md)
+  - [array_set_slice](../a/array_set_slice.md)
+  - [array_slice_size](../a/array_slice_size.md)
+  - [array_extract_slice](../a/array_extract_slice.md)
+  - [array_insert_slice](../a/array_insert_slice.md)
 
 ## Notes and Other Information
 - The function assumes caller validation of slice endpoints to prevent overflow

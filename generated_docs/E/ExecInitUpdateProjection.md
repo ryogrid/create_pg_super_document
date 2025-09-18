@@ -32,14 +32,14 @@ Key responsibilities include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlan
-  - list_nth
-  - table_slot_create
+  - [list_nth](../l/list_nth.md)
+  - [table_slot_create](../t/table_slot_create.md)
   - ExecAssignExprContext
-  - ExecBuildUpdateProjection
+  - [ExecBuildUpdateProjection](ExecBuildUpdateProjection.md)
 - Called from (representative examples):
-  - ExecCrossPartitionUpdate
-  - ExecUpdate
-  - ExecModifyTable
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md)
+  - [ExecUpdate](ExecUpdate.md)
+  - [ExecModifyTable](ExecModifyTable.md)
 
 ## Notes and Other Information
 - This is a static function only used within nodeModifyTable.c during UPDATE initialization

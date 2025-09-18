@@ -17,11 +17,11 @@ The copyJsonbValue function creates a shallow copy of a JsonbValue structure. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - JsonbValue (structure type)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [JsonbValue](../J/JsonbValue.md) (structure type)
 - Called from (representative examples):
-  - executeNextItem
-  - executeAnyItem
+  - [executeNextItem](../e/executeNextItem.md)
+  - [executeAnyItem](../e/executeAnyItem.md)
   - RETURN_ERROR macro
 
 ## Notes and Other Information

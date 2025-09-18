@@ -34,12 +34,12 @@ The generated hash table structure includes a 64-bit size field to handle very l
   - SH_MAKE_NAME
 - Called from (representative examples):
   - SH_CREATE
-  - SH_DESTROY
-  - SH_RESET
-  - SH_INSERT
-  - SH_LOOKUP
-  - SH_DELETE
-  - SH_START_ITERATE
+  - [SH_DESTROY](SH_DESTROY.md)
+  - [SH_RESET](SH_RESET.md)
+  - [SH_INSERT](SH_INSERT.md)
+  - [SH_LOOKUP](SH_LOOKUP.md)
+  - [SH_DELETE](SH_DELETE.md)
+  - [SH_START_ITERATE](SH_START_ITERATE.md)
   - All major simplehash operations
 
 ## Notes and Other Information

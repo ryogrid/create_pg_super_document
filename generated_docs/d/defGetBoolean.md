@@ -26,23 +26,23 @@ For non-integer types, the function delegates to `defGetString` to convert the v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (for type checking)
   - intVal (to extract integer values)
-  - defGetString (to convert non-integer types to strings)
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [defGetString](defGetString.md) (to convert non-integer types to strings)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)
   - ereport (for error reporting)
-  - errcode/errmsg (for error handling)
+  - [errcode](../e/errcode.md)/errmsg (for error handling)
   
 - Called from (representative examples):
-  - transformRelOptions (src/backend/access/common/reloptions.c:1306)
-  - parse_basebackup_options (src/backend/backup/basebackup.c:743)
-  - DefineAggregate (src/backend/commands/aggregatecmds.c:149)
-  - cluster (src/backend/commands/cluster.c:124)
-  - DefineCollation (src/backend/commands/collationcmds.c:204)
-  - ProcessCopyOptions (src/backend/commands/copy.c:510)
-  - createdb (src/backend/commands/dbcommands.c:935)
-  - ExplainQuery (src/backend/commands/explain.c:201)
+  - [transformRelOptions](../t/transformRelOptions.md) (src/backend/access/common/reloptions.c:1306)
+  - [parse_basebackup_options](../p/parse_basebackup_options.md) (src/backend/backup/basebackup.c:743)
+  - [DefineAggregate](../D/DefineAggregate.md) (src/backend/commands/aggregatecmds.c:149)
+  - [cluster](../c/cluster.md) (src/backend/commands/cluster.c:124)
+  - [DefineCollation](../D/DefineCollation.md) (src/backend/commands/collationcmds.c:204)
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md) (src/backend/commands/copy.c:510)
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:935)
+  - [ExplainQuery](../E/ExplainQuery.md) (src/backend/commands/explain.c:201)
   - ExecVacuum (src/backend/commands/vacuum.c:189)
 
 ## Notes and Other Information

@@ -21,10 +21,10 @@ This is commonly used in scenarios where GiST operations need to coordinate betw
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogSetRecordFlags
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - XLOG_MARK_UNIMPORTANT
   - XLOG_GIST_ASSIGN_LSN
   - RM_GIST_ID

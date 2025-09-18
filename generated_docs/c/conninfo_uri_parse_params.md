@@ -28,13 +28,13 @@ The function destructively modifies the input params buffer during parsing for e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conninfo_uri_decode
-  - conninfo_storeval
-  - libpq_append_error
+  - [conninfo_uri_decode](conninfo_uri_decode.md)
+  - [conninfo_storeval](conninfo_storeval.md)
+  - [libpq_append_error](../l/libpq_append_error.md)
   - strcmp
   - free
 - Called from (representative examples):
-  - conninfo_uri_parse_options
+  - [conninfo_uri_parse_options](conninfo_uri_parse_options.md)
   - internalPQconninfoOption
 
 ## Notes and Other Information

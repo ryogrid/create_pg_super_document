@@ -28,11 +28,11 @@ This enables efficient range pruning where entire page ranges can be skipped if 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc (structure type)
-  - BrinValues (structure type)
+  - [BrinDesc](../B/BrinDesc.md) (structure type)
+  - [BrinValues](../B/BrinValues.md) (structure type)
   - ScanKey (structure type)
-  - minmax_get_strategy_procinfo (function to get comparison procedures)
-  - FunctionCall2Coll (function call with collation)
+  - [minmax_get_strategy_procinfo](../m/minmax_get_strategy_procinfo.md) (function to get comparison procedures)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (function call with collation)
   - PG_GET_COLLATION (macro to get collation)
   - PG_NARGS (macro to get argument count)
   - BTLessStrategyNumber, BTLessEqualStrategyNumber, BTEqualStrategyNumber

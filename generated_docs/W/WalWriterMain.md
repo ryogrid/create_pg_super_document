@@ -29,19 +29,19 @@ The process uses a hibernation mechanism to reduce CPU usage when there's little
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon
-  - XLogBackgroundFlush
-  - SetWalWriterSleeping
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
+  - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md)
+  - [SetWalWriterSleeping](../S/SetWalWriterSleeping.md)
   - pgstat_report_wal
-  - HandleMainLoopInterrupts
-  - WaitLatch
-  - pqsignal (for signal handler setup)
+  - [HandleMainLoopInterrupts](../H/HandleMainLoopInterrupts.md)
+  - [WaitLatch](WaitLatch.md)
+  - [pqsignal](../p/pqsignal.md) (for signal handler setup)
   - AllocSetContextCreate
-  - EmitErrorReport
+  - [EmitErrorReport](../E/EmitErrorReport.md)
   - LWLockReleaseAll
-  - ConditionVariableCancelSleep
-  - UnlockBuffers
-  - ReleaseAuxProcessResources
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [UnlockBuffers](../U/UnlockBuffers.md)
+  - [ReleaseAuxProcessResources](../R/ReleaseAuxProcessResources.md)
   - Various AtEOXact_* functions for cleanup
 - Called from (representative examples):
   - child_process_kind (in launch_backend.c)

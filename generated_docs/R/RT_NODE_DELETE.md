@@ -34,12 +34,12 @@ The function abstracts away the specific implementation details of each node typ
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
-  - RT_REMOVE_CHILD_4
-  - RT_REMOVE_CHILD_16
-  - RT_REMOVE_CHILD_48
-  - RT_REMOVE_CHILD_256
+  - [RT_REMOVE_CHILD_4](RT_REMOVE_CHILD_4.md)
+  - [RT_REMOVE_CHILD_16](RT_REMOVE_CHILD_16.md)
+  - [RT_REMOVE_CHILD_48](RT_REMOVE_CHILD_48.md)
+  - [RT_REMOVE_CHILD_256](RT_REMOVE_CHILD_256.md)
 - Called from (representative examples):
-  - RT_DELETE_RECURSIVE
+  - [RT_DELETE_RECURSIVE](RT_DELETE_RECURSIVE.md)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization

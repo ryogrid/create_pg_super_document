@@ -20,14 +20,14 @@ The function uses PostgreSQL's foreach macro to iterate through the list efficie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_new_column_to_pathtarget (adds individual expressions while avoiding duplicates)
-  - PathTarget (the target structure type)
-  - List, ListCell, foreach, lfirst (PostgreSQL list manipulation utilities)
+  - [add_new_column_to_pathtarget](add_new_column_to_pathtarget.md) (adds individual expressions while avoiding duplicates)
+  - [PathTarget](../P/PathTarget.md) (the target structure type)
+  - [List](../L/List.md), ListCell, foreach, lfirst (PostgreSQL list manipulation utilities)
 - Called from (representative examples):
-  - make_group_input_target (in src/backend/optimizer/plan/planner.c:5582)
-  - make_partial_grouping_target (in src/backend/optimizer/plan/planner.c:5668)
-  - make_window_input_target (in src/backend/optimizer/plan/planner.c:6178)
-  - make_sort_input_target (in src/backend/optimizer/plan/planner.c:6479)
+  - [make_group_input_target](../m/make_group_input_target.md) (in src/backend/optimizer/plan/planner.c:5582)
+  - [make_partial_grouping_target](../m/make_partial_grouping_target.md) (in src/backend/optimizer/plan/planner.c:5668)
+  - [make_window_input_target](../m/make_window_input_target.md) (in src/backend/optimizer/plan/planner.c:6178)
+  - [make_sort_input_target](../m/make_sort_input_target.md) (in src/backend/optimizer/plan/planner.c:6479)
 
 ## Notes and Other Information
 - This is a convenience function that provides batch processing of expressions for PathTarget construction

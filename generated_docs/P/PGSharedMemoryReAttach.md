@@ -29,13 +29,13 @@ This function takes no parameters but relies on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGSharedMemoryDetach (for Cygwin cleanup)
+  - [PGSharedMemoryDetach](PGSharedMemoryDetach.md) (for Cygwin cleanup)
   - shmget (system call to get shared memory segment)
-  - PGSharedMemoryAttach (performs actual attachment)
+  - [PGSharedMemoryAttach](PGSharedMemoryAttach.md) (performs actual attachment)
   - dsm_set_control_handle (sets up dynamic shared memory control)
   - elog (error logging)
 - Called from:
-  - SubPostmasterMain
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
 
 ## Notes and Other Information
 - Only used in EXEC_BACKEND configurations where fork() inheritance is not available

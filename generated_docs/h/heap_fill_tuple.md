@@ -34,16 +34,16 @@ A critical requirement is that the caller must pre-zero the data area before cal
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr (access tuple descriptor attributes)
-  - fill_val (per-attribute data serialization)
-  - PointerGetDatum (datum conversion for null values)
+  - [fill_val](../f/fill_val.md) (per-attribute data serialization)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (datum conversion for null values)
   - HIGHBIT, HEAP_HASNULL, HEAP_HASVARWIDTH, HEAP_HASEXTERNAL (bitmap and flag constants)
 - Called from (representative examples):
-  - heap_form_tuple
-  - heap_form_minimal_tuple
-  - index_form_tuple_context
-  - brin_form_tuple
-  - spgFormLeafTuple
-  - heap_toast_insert_or_update
+  - [heap_form_tuple](heap_form_tuple.md)
+  - [heap_form_minimal_tuple](heap_form_minimal_tuple.md)
+  - [index_form_tuple_context](../i/index_form_tuple_context.md)
+  - [brin_form_tuple](../b/brin_form_tuple.md)
+  - [spgFormLeafTuple](../s/spgFormLeafTuple.md)
+  - [heap_toast_insert_or_update](heap_toast_insert_or_update.md)
 
 ## Notes and Other Information
 - Requires caller to pre-zero the data area - this is now a mandatory requirement

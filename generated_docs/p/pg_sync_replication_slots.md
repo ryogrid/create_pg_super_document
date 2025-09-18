@@ -19,11 +19,11 @@ The function establishes a connection to the primary server using the configured
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckSlotPermissions: Validates user permissions for slot operations
-  - RecoveryInProgress: Checks if the server is in recovery mode (standby)
-  - ValidateSlotSyncParams: Validates slot synchronization parameters
-  - load_file: Loads the libpqwalreceiver module
-  - CheckAndGetDbnameFromConninfo: Validates primary connection information
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md): Validates user permissions for slot operations
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if the server is in recovery mode (standby)
+  - [ValidateSlotSyncParams](../V/ValidateSlotSyncParams.md): Validates slot synchronization parameters
+  - [load_file](../l/load_file.md): Loads the libpqwalreceiver module
+  - [CheckAndGetDbnameFromConninfo](../C/CheckAndGetDbnameFromConninfo.md): Validates primary connection information
   - walrcv_connect: Establishes connection to the primary server
   - SyncReplicationSlots: Performs the actual slot synchronization
   - walrcv_disconnect: Closes the connection to the primary server

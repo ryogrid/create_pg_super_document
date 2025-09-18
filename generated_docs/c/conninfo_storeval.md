@@ -30,18 +30,18 @@ The function ensures that connection option values are properly stored with appr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conninfo_find
-  - conninfo_uri_decode  
-  - libpq_append_error
+  - [conninfo_find](conninfo_find.md)
+  - [conninfo_uri_decode](conninfo_uri_decode.md)  
+  - [libpq_append_error](../l/libpq_append_error.md)
   - strdup
   - free
   - strcmp
 - Called from (representative examples):
   - internalPQconninfoOption
-  - conninfo_parse
-  - conninfo_uri_parse_options
-  - conninfo_uri_parse_params
-  - PQconninfo
+  - [conninfo_parse](conninfo_parse.md)
+  - [conninfo_uri_parse_options](conninfo_uri_parse_options.md)
+  - [conninfo_uri_parse_params](conninfo_uri_parse_params.md)
+  - [PQconninfo](../P/PQconninfo.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public libpq API

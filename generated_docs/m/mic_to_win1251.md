@@ -25,7 +25,7 @@ The function follows PostgreSQL's standard conversion function interface, accept
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_ENCODING_CONVERSION_ARGS
-  - mic2latin_with_table
+  - [mic2latin_with_table](mic2latin_with_table.md)
   - PG_GETARG_CSTRING
   - PG_GETARG_INT32
   - PG_GETARG_BOOL

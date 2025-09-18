@@ -27,7 +27,7 @@ This function takes no parameters.
 - Called from (representative examples):
   - Windows regsvr32.exe utility with /u flag
   - COM registration framework during uninstallation
-  - DllInstall (indirectly through regsvr32 /u /i)
+  - [DllInstall](DllInstall.md) (indirectly through regsvr32 /u /i)
 
 ## Notes and Other Information
 - Returns S_OK on success or SELFREG_E_TYPELIB on failure

@@ -22,15 +22,15 @@ The function acts as a gatekeeper, checking the appropriate conditions before de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recordExtensionInitPrivWorker
+  - [recordExtensionInitPrivWorker](recordExtensionInitPrivWorker.md)
   - Acl (data type)
 - Called from (representative examples):
   - InternalDefaultACL
-  - ExecGrant_Attribute
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - ExecGrant_Largeobject
-  - ExecGrant_Parameter
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [ExecGrant_Largeobject](../E/ExecGrant_Largeobject.md)
+  - [ExecGrant_Parameter](../E/ExecGrant_Parameter.md)
 
 ## Notes and Other Information
 - The function is specifically designed to work during extension creation and binary upgrades with pg_upgrade

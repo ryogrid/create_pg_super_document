@@ -22,21 +22,21 @@ ExecInitMemoize performs comprehensive initialization of a Memoize node's runtim
   - makeNode
   - ExecAssignExprContext
   - outerPlan
-  - ExecInitNode
-  - ExecInitResultTupleSlotTL
+  - [ExecInitNode](ExecInitNode.md)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
   - ExecCreateScanSlotFromOuterPlan
-  - ExecTypeFromExprList
-  - MakeSingleTupleTableSlot
-  - get_op_hash_functions
-  - fmgr_info
-  - ExecInitExpr
-  - get_opcode
-  - ExecBuildParamSetEqual
-  - get_hash_memory_limit
+  - [ExecTypeFromExprList](ExecTypeFromExprList.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [get_op_hash_functions](../g/get_op_hash_functions.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [ExecInitExpr](ExecInitExpr.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [ExecBuildParamSetEqual](ExecBuildParamSetEqual.md)
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md)
   - AllocSetContextCreate
-  - dlist_init
+  - [dlist_init](../d/dlist_init.md)
 - Called from (representative examples):
-  - ExecInitNode (main node initialization dispatcher)
+  - [ExecInitNode](ExecInitNode.md) (main node initialization dispatcher)
 
 ## Notes and Other Information
 - Validates that unsupported execution flags (EXEC_FLAG_BACKWARD, EXEC_FLAG_MARK) are not set since Memoize doesn't support backward scanning or mark/restore

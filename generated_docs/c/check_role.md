@@ -29,17 +29,17 @@ The function supports test mode (PGC_S_TEST) where it reports issues as notices 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentRoleId
-  - IsTransactionState
-  - SearchSysCache1
-  - GetSessionUserId
+  - [GetCurrentRoleId](../G/GetCurrentRoleId.md)
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [GetSessionUserId](../G/GetSessionUserId.md)
   - member_can_set_role
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
   - GUC_check_errmsg
   - GUC_check_errcode
 - Called from (representative examples):
-  - check_hba (in authentication context)
-  - check_ident_usermap (in identity mapping)
+  - [check_hba](check_hba.md) (in authentication context)
+  - [check_ident_usermap](check_ident_usermap.md) (in identity mapping)
   - GUC system framework
 
 ## Notes and Other Information

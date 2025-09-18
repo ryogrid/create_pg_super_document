@@ -19,10 +19,10 @@ This function serves as the shutdown callback for TQueueDestReceiver objects, pe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TQueueDestReceiver (cast type)
-  - shm_mq_detach
+  - [TQueueDestReceiver](../T/TQueueDestReceiver.md) (cast type)
+  - [shm_mq_detach](../s/shm_mq_detach.md)
 - Called from (representative examples):
-  - CreateTupleQueueDestReceiver (assigned as rShutdown callback)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md) (assigned as rShutdown callback)
 
 ## Notes and Other Information
 - Ensures proper cleanup by detaching from shared memory queues to prevent resource leaks

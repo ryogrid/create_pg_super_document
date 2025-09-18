@@ -29,15 +29,15 @@ The function handles platform differences between Unix/Linux and Windows, using 
 - Functions called/Symbols referenced:
   - pipe/CreatePipe (creates the logging pipe)
   - MakePGDirectory (ensures log directory exists)
-  - logfile_getname (generates log file names)
-  - logfile_open (opens log files)
-  - syslogger_fdget (gets file descriptors for EXEC_BACKEND)
-  - postmaster_child_launch (launches the logger process)
+  - [logfile_getname](../l/logfile_getname.md) (generates log file names)
+  - [logfile_open](../l/logfile_open.md) (opens log files)
+  - [syslogger_fdget](../s/syslogger_fdget.md) (gets file descriptors for EXEC_BACKEND)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (launches the logger process)
   - dup2 (redirects stderr/stdout to the pipe)
 - Called from (representative examples):
-  - PostmasterMain (initial startup)
-  - ServerLoop (during normal operation)
-  - process_pm_child_exit (when restarting failed logger)
+  - [PostmasterMain](../P/PostmasterMain.md) (initial startup)
+  - [ServerLoop](ServerLoop.md) (during normal operation)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md) (when restarting failed logger)
 
 ## Notes and Other Information
 - Only runs when Logging_collector is enabled in configuration

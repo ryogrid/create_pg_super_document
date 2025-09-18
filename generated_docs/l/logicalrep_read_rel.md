@@ -19,16 +19,16 @@ This function is the counterpart to logicalrep_write_rel, responsible for parsin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - pq_getmsgint
-  - pstrdup
+  - [palloc](../p/palloc.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pstrdup](../p/pstrdup.md)
   - logicalrep_read_namespace
-  - pq_getmsgstring
-  - pq_getmsgbyte
+  - [pq_getmsgstring](../p/pq_getmsgstring.md)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
   - logicalrep_read_attrs
-  - LogicalRepRelation
+  - [LogicalRepRelation](../L/LogicalRepRelation.md)
 - Called from (representative examples):
-  - apply_handle_relation
+  - [apply_handle_relation](../a/apply_handle_relation.md)
 
 ## Notes and Other Information
 - Part of the logical replication protocol infrastructure for schema deserialization

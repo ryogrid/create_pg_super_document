@@ -21,8 +21,8 @@ The RELCACHECALLBACK structure is part of PostgreSQL's relation cache invalidati
   - MAX_RELCACHE_CALLBACKS (constant defining array size, set to 10)
   - RelcacheCallbackFunction (callback function type)
 - Called from (representative examples):
-  - InvalidateSystemCachesExtended (iterates through callback list and invokes functions)
-  - LocalExecuteInvalidationMessage (processes callbacks for relation cache invalidation)
+  - [InvalidateSystemCachesExtended](../I/InvalidateSystemCachesExtended.md) (iterates through callback list and invokes functions)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md) (processes callbacks for relation cache invalidation)
 
 ## Notes and Other Information
 - The structure is declared as static, limiting its visibility to the inval.c file

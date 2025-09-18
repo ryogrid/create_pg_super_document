@@ -25,18 +25,18 @@ The function follows PostgreSQL's standard pattern for catalog object creation: 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
-  - recordDependencyOnOwner
-  - recordDependencyOnCurrentExtension
-  - EventTriggerCollectSimpleCommand
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
+  - [EventTriggerCollectSimpleCommand](../E/EventTriggerCollectSimpleCommand.md)
   - InvokeObjectPostCreateHook
 - Called from:
-  - DefineOpClass
-  - DefineOpFamily
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [DefineOpFamily](../D/DefineOpFamily.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within opclasscmds.c

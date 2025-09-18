@@ -25,14 +25,14 @@ The function includes important validation:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `UnicodeNormalizationForm` (enum type)
-  - `GetDatabaseEncoding()` (encoding validation function)
+  - `[GetDatabaseEncoding](../G/GetDatabaseEncoding.md)()` (encoding validation function)
   - `PG_UTF8` (UTF8 encoding constant)
   - `UNICODE_NFC`, `UNICODE_NFD`, `UNICODE_NFKC`, `UNICODE_NFKD` (normalization form constants)
-  - `pg_strcasecmp()` (case-insensitive string comparison)
+  - `[pg_strcasecmp](../p/pg_strcasecmp.md)()` (case-insensitive string comparison)
   - `ereport()` (error reporting function)
 - Called from (representative examples):
-  - `unicode_normalize_func` in src/backend/utils/adt/varlena.c:6356
-  - `unicode_is_normalized` in src/backend/utils/adt/varlena.c:6424
+  - `[unicode_normalize_func](unicode_normalize_func.md)` in src/backend/utils/adt/varlena.c:6356
+  - `[unicode_is_normalized](unicode_is_normalized.md)` in src/backend/utils/adt/varlena.c:6424
 
 ## Notes and Other Information
 - Only works when the database encoding is UTF8; raises an error for other encodings

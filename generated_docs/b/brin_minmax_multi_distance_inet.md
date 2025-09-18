@@ -32,7 +32,7 @@ The function handles both IPv4 (32-bit) and IPv6 (128-bit) addresses and conside
   - ip_addr: Gets pointer to IP address bytes
   - ip_addrsize: Returns size of IP address in bytes
   - ip_bits: Gets subnet mask length in bits
-  - palloc/pfree: Memory allocation and deallocation
+  - [palloc](../p/palloc.md)/pfree: Memory allocation and deallocation
 - Called from (representative examples):
   - Not directly referenced by other symbols in the codebase
 

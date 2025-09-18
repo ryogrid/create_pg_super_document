@@ -22,14 +22,14 @@ HandleParallelApplyMessages serves as the main message dispatcher for parallel a
   - HOLD_INTERRUPTS
   - AllocSetContextCreate
   - ALLOCSET_DEFAULT_SIZES
-  - MemoryContextReset
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - shm_mq_result
-  - ParallelApplyWorkerInfo
-  - shm_mq_receive
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md)
+  - [shm_mq_receive](../s/shm_mq_receive.md)
   - SHM_MQ_WOULD_BLOCK
   - SHM_MQ_SUCCESS
   - appendBinaryStringInfo
-  - HandleParallelApplyMessage
+  - [HandleParallelApplyMessage](HandleParallelApplyMessage.md)
   - RESUME_INTERRUPTS
 
 - Called from (representative examples):

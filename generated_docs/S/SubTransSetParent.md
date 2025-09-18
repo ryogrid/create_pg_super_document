@@ -23,16 +23,16 @@ The function performs validation to ensure the parent transaction ID is valid an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToPage (converts transaction ID to page number)
+  - [TransactionIdToPage](../T/TransactionIdToPage.md) (converts transaction ID to page number)
   - TransactionIdToEntry (converts transaction ID to entry within page)
-  - TransactionIdFollows (validates transaction ID ordering)
-  - SimpleLruGetBankLock (obtains lock for SLRU page)
-  - SimpleLruReadPage (reads/loads the appropriate SLRU page)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md) (validates transaction ID ordering)
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md) (obtains lock for SLRU page)
+  - [SimpleLruReadPage](SimpleLruReadPage.md) (reads/loads the appropriate SLRU page)
   - SubTransCtl (global SLRU control structure for subtransactions)
-  - LWLock (lightweight lock type)
+  - [LWLock](../L/LWLock.md) (lightweight lock type)
 - Called from (representative examples):
-  - ProcessTwoPhaseBuffer (during two-phase commit recovery)
-  - AssignTransactionId (when assigning transaction IDs)
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md) (during two-phase commit recovery)
+  - [AssignTransactionId](../A/AssignTransactionId.md) (when assigning transaction IDs)
   - ProcArrayApplyXidAssignment (during transaction ID assignment in standby)
 
 ## Notes and Other Information

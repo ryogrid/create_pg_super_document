@@ -32,10 +32,10 @@ The function performs several important operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelationOid
-  - RelationBuildDesc
-  - UnlockRelationOid
-  - RelationGetIndexAttOptions
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [RelationBuildDesc](../R/RelationBuildDesc.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md)
 - Called from (representative examples):
   - RelationCacheInitializePhase3 (for critical local indexes like ClassOidIndexId, AttributeRelidNumIndexId, etc.)
   - RelationCacheInitializePhase2 (for shared critical indexes like DatabaseNameIndexId, AuthIdRolnameIndexId, etc.)

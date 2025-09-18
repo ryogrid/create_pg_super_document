@@ -24,14 +24,14 @@ The `compatible_oper` function provides stricter operator resolution than the st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oper (performs initial operator resolution)
-  - IsBinaryCoercible (checks if types are binary-compatible without coercion)
+  - [oper](../o/oper.md) (performs initial operator resolution)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (checks if types are binary-compatible without coercion)
   - Form_pg_operator (operator catalog form structure)
-  - op_signature_string (generates operator signature for error messages)
-  - ReleaseSysCache (releases syscache entry when operator is rejected)
+  - [op_signature_string](../o/op_signature_string.md) (generates operator signature for error messages)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases syscache entry when operator is rejected)
   - ereport, errcode, errmsg, parser_errposition (error reporting)
 - Called from (representative examples):
-  - compatible_oper_opid (wrapper function that returns just the operator OID)
+  - [compatible_oper_opid](compatible_oper_opid.md) (wrapper function that returns just the operator OID)
 
 ## Notes and Other Information
 - More restrictive than oper() - rejects operators requiring type coercion

@@ -22,11 +22,11 @@ On Windows systems, the function captures the  output in a temporary buffer and 
   - sprintf (Windows only)
   - strlen (Windows only) 
   - printf
-  - check_errno
+  - [check_errno](../c/check_errno.md)
 - Called from (representative examples):
-  - main (in compat_informix-dec_test.c)
-  - main (in pgtypeslib-num_test.c)
-  - main (in pgtypeslib-num_test2.c)
+  - [main](../m/main.md) (in compat_informix-dec_test.c)
+  - [main](../m/main.md) (in pgtypeslib-num_test.c)
+  - [main](../m/main.md) (in pgtypeslib-num_test2.c)
 
 ## Notes and Other Information
 - This function is marked as , meaning it has internal linkage and is only visible within its compilation unit

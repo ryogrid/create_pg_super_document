@@ -21,25 +21,25 @@ The resulting array has ndim set to 0, dataoffset set to 0 (indicating no null b
 - Functions called/Symbols referenced:
   - SET_VARSIZE
 - Called from (representative examples):
-  - construct_md_array
-  - construct_empty_expanded_array
+  - [construct_md_array](construct_md_array.md)
+  - [construct_empty_expanded_array](construct_empty_expanded_array.md)
   - pg_identify_object_as_address
-  - pg_event_trigger_dropped_objects
-  - transformGenericOptions
-  - ExecEvalArrayExpr
-  - array_shuffle_n
-  - array_in
-  - array_recv
-  - array_get_slice
-  - array_map
+  - [pg_event_trigger_dropped_objects](../p/pg_event_trigger_dropped_objects.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
+  - [ExecEvalArrayExpr](../E/ExecEvalArrayExpr.md)
+  - [array_shuffle_n](../a/array_shuffle_n.md)
+  - [array_in](../a/array_in.md)
+  - [array_recv](../a/array_recv.md)
+  - [array_get_slice](../a/array_get_slice.md)
+  - [array_map](../a/array_map.md)
   - makeArrayResultArr
-  - array_fill_internal
-  - array_replace_internal
-  - array_subscript_assign
-  - percentile_disc_multi_final
-  - text_to_array
-  - plperl_array_to_datum
-  - PLySequence_ToArray
+  - [array_fill_internal](../a/array_fill_internal.md)
+  - [array_replace_internal](../a/array_replace_internal.md)
+  - [array_subscript_assign](../a/array_subscript_assign.md)
+  - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md)
+  - [text_to_array](../t/text_to_array.md)
+  - [plperl_array_to_datum](../p/plperl_array_to_datum.md)
+  - [PLySequence_ToArray](../P/PLySequence_ToArray.md)
 
 ## Notes and Other Information
 - Creates the minimal possible ArrayType structure with just basic header information

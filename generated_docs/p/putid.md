@@ -22,9 +22,9 @@ The implementation must stay synchronized with dequoteAclUserName in pg_dump/dum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_safe_acl_char (determines if characters require quoting - called with false for output context)
+  - [is_safe_acl_char](../i/is_safe_acl_char.md) (determines if characters require quoting - called with false for output context)
 - Called from (representative examples):
-  - aclitemout (for formatting ACL items for output)
+  - [aclitemout](../a/aclitemout.md) (for formatting ACL items for output)
 
 ## Notes and Other Information
 The function performs a two-pass operation: first scanning to determine if quoting is needed, then formatting the output with appropriate quotes and escaping. The synchronization requirement with pg_dump ensures that ACL strings formatted by the server can be correctly parsed by dump utilities, maintaining consistency across PostgreSQL tools.

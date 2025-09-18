@@ -21,14 +21,14 @@ Special handling is implemented for "on" and "off" values where a minimum of 2 c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strncasecmp (PostgreSQL case-insensitive string comparison)
-  - pg_strcasecmp (PostgreSQL case-insensitive string comparison)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (PostgreSQL case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL case-insensitive string comparison)
   - pg_log_error (PostgreSQL error logging function)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - exec_command_connect
-  - exec_command_timing
-  - is_true_boolean_expression
+  - [exec_command_connect](../e/exec_command_connect.md)
+  - [exec_command_timing](../e/exec_command_timing.md)
+  - [is_true_boolean_expression](../i/is_true_boolean_expression.md)
   - Various hook functions (autocommit_hook, on_error_stop_hook, etc.)
 
 ## Notes and Other Information

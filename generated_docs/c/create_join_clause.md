@@ -26,15 +26,15 @@ The function handles complex scenarios involving child relations from appendrel 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_implied_join_equality (to construct new RestrictInfo structures)
-  - create_join_clause (recursive call for parent-child relationships)
-  - bms_union (to combine relation bitmaps)
-  - bms_add_members (to add relations to clause_relids)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (to construct new RestrictInfo structures)
+  - [create_join_clause](create_join_clause.md) (recursive call for parent-child relationships)
+  - [bms_union](../b/bms_union.md) (to combine relation bitmaps)
+  - [bms_add_members](../b/bms_add_members.md) (to add relations to clause_relids)
   - EquivalenceClass, EquivalenceMember (struct types)
 - Called from (representative examples):
-  - generate_join_implied_equalities_normal
-  - generate_implied_equalities_for_column
-  - create_join_clause (recursive self-call)
+  - [generate_join_implied_equalities_normal](../g/generate_join_implied_equalities_normal.md)
+  - [generate_implied_equalities_for_column](../g/generate_implied_equalities_for_column.md)
+  - [create_join_clause](create_join_clause.md) (recursive self-call)
 
 ## Notes and Other Information
 - Returns existing RestrictInfo if a matching clause is found, otherwise creates a new one

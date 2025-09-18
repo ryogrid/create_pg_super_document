@@ -20,12 +20,12 @@ This function serves as the base case for array conversion, handling the actual 
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall1
-  - plperl_hash_from_datum
-  - OutputFunctionCall
-  - cstr2sv
+  - [plperl_hash_from_datum](../p/plperl_hash_from_datum.md)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
+  - [cstr2sv](../c/cstr2sv.md)
   - newRV_noinc
 - Called from (representative examples):
-  - split_array
+  - [split_array](../s/split_array.md)
 
 ## Notes and Other Information
 - Handles NULL values correctly by creating new undefined SV instead of using PL_sv_undef

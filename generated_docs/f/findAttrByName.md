@@ -22,9 +22,9 @@ The search is case-sensitive and uses standard C string comparison (strcmp). The
 - Functions called/Symbols referenced:
   - strcmp
   - lfirst_node
-  - ColumnDef (structure type)
+  - [ColumnDef](../C/ColumnDef.md) (structure type)
 - Called from (representative examples):
-  - MergeAttributes
+  - [MergeAttributes](../M/MergeAttributes.md)
 
 ## Notes and Other Information
 - Returns 1-based index (1, 2, 3, ...) when column is found, 0 when not found

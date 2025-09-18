@@ -37,14 +37,14 @@ The function handles edge cases where histograms are unavailable (returns DEFAUL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode (to get operator implementation function)
-  - fmgr_info (to initialize function manager info)
+  - [get_opcode](../g/get_opcode.md) (to get operator implementation function)
+  - [fmgr_info](../f/fmgr_info.md) (to initialize function manager info)
   - ineq_histogram_selectivity (core histogram-based selectivity estimation)
-  - make_greater_string (creates next possible string for upper bound)
-  - var_eq_const (estimates equality selectivity for clamping)
+  - [make_greater_string](../m/make_greater_string.md) (creates next possible string for upper bound)
+  - [var_eq_const](../v/var_eq_const.md) (estimates equality selectivity for clamping)
   - DEFAULT_MATCH_SEL (fallback selectivity when no histogram available)
 - Called from:
-  - patternsel_common (main pattern selectivity estimation function)
+  - [patternsel_common](patternsel_common.md) (main pattern selectivity estimation function)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, not exposed in the public API

@@ -26,8 +26,8 @@ The function ensures the result doesn't overflow to a negative int32, as negativ
 - Functions called/Symbols referenced:
   - VARHDRSZ (constant)
 - Called from (representative examples):
-  - numerictypmodin (at src/backend/utils/adt/numeric.c:1343)
-  - numerictypmodin (at src/backend/utils/adt/numeric.c:1353)
+  - [numerictypmodin](../n/numerictypmodin.md) (at src/backend/utils/adt/numeric.c:1343)
+  - [numerictypmodin](../n/numerictypmodin.md) (at src/backend/utils/adt/numeric.c:1353)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the numeric.c compilation unit

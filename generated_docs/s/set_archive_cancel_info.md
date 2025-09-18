@@ -20,14 +20,14 @@ The function handles platform-specific synchronization requirements - using atom
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_cancel_handler
-  - PQfreeCancel
-  - PQgetCancel
+  - [set_cancel_handler](set_cancel_handler.md)
+  - [PQfreeCancel](../P/PQfreeCancel.md)
+  - [PQgetCancel](../P/PQgetCancel.md)
   - PGcancel (type)
 - Called from (representative examples):
-  - ParallelBackupStart
-  - ConnectDatabase
-  - DisconnectDatabase
+  - [ParallelBackupStart](../P/ParallelBackupStart.md)
+  - [ConnectDatabase](../C/ConnectDatabase.md)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md)
 
 ## Notes and Other Information
 - Thread-safe implementation with platform-specific synchronization (critical sections on Windows)

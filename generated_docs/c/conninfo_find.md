@@ -23,8 +23,8 @@ The function is a fundamental building block for PostgreSQL's connection option 
   - strcmp
 - Called from (representative examples):
   - internalPQconninfoOption
-  - conninfo_getval
-  - conninfo_storeval
+  - [conninfo_getval](conninfo_getval.md)
+  - [conninfo_storeval](conninfo_storeval.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public libpq API

@@ -29,18 +29,18 @@ This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheEntry (struct type)
-  - cachedNamespacePath
-  - equal
-  - list_copy
-  - list_free
+  - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md) (struct type)
+  - [cachedNamespacePath](../c/cachedNamespacePath.md)
+  - [equal](../e/equal.md)
+  - [list_copy](../l/list_copy.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - RangeVarGetCreationNamespace
-  - RelnameGetRelid
-  - RelationIsVisibleExt
-  - TypenameGetTypidExtended
-  - FuncnameGetCandidates
-  - fetch_search_path
+  - [RangeVarGetCreationNamespace](../R/RangeVarGetCreationNamespace.md)
+  - [RelnameGetRelid](../R/RelnameGetRelid.md)
+  - [RelationIsVisibleExt](../R/RelationIsVisibleExt.md)
+  - [TypenameGetTypidExtended](../T/TypenameGetTypidExtended.md)
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md)
+  - [fetch_search_path](../f/fetch_search_path.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within namespace.c

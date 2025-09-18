@@ -18,11 +18,11 @@ The  function is responsible for properly destroying an SMgrRelation object. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - smgrsw[].smgr_close (closes file descriptors for all forks)
-  - dlist_delete (removes from doubly-linked list)  
-  - hash_search (removes from hash table with HASH_REMOVE)
+  - [dlist_delete](../d/dlist_delete.md) (removes from doubly-linked list)  
+  - [hash_search](../h/hash_search.md) (removes from hash table with HASH_REMOVE)
   - elog (error logging)
 - Called from (representative examples):
-  - smgrdestroyall
+  - [smgrdestroyall](smgrdestroyall.md)
 
 ## Notes and Other Information
 - This is a static function, only callable within the smgr.c file

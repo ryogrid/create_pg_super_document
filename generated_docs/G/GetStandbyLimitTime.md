@@ -20,12 +20,12 @@ This static function calculates the maximum time the standby server should wait 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXLogReceiptTime (gets the last WAL data receipt time and source)
+  - [GetXLogReceiptTime](GetXLogReceiptTime.md) (gets the last WAL data receipt time and source)
   - TimestampTzPlusMilliseconds (adds milliseconds to timestamp)
   - max_standby_streaming_delay (GUC variable for streaming delay)
   - max_standby_archive_delay (GUC variable for archive delay)
 - Called from (representative examples):
-  - WaitExceedsMaxStandbyDelay (checks if wait time has exceeded limits)
+  - [WaitExceedsMaxStandbyDelay](../W/WaitExceedsMaxStandbyDelay.md) (checks if wait time has exceeded limits)
   - ResolveRecoveryConflictWithLock (resolves lock conflicts during recovery)
   - ResolveRecoveryConflictWithBufferPin (resolves buffer pin conflicts during recovery)
 

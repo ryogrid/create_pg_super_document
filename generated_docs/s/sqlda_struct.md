@@ -24,16 +24,16 @@ This structure enables dynamic SQL operations where the schema or parameter stru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlda_struct (self-reference for chaining)
-  - sqlvar_struct
+  - [sqlda_struct](sqlda_struct.md) (self-reference for chaining)
+  - [sqlvar_struct](sqlvar_struct.md)
 - Called from (representative examples):
-  - ECPGdescribe
+  - [ECPGdescribe](../E/ECPGdescribe.md)
   - ecpg_build_params
   - ecpg_process_output
-  - sqlda_native_empty_size
-  - ecpg_set_compat_sqlda
-  - ecpg_build_native_sqlda
-  - ecpg_set_native_sqlda
+  - [sqlda_native_empty_size](sqlda_native_empty_size.md)
+  - [ecpg_set_compat_sqlda](../e/ecpg_set_compat_sqlda.md)
+  - [ecpg_build_native_sqlda](../e/ecpg_build_native_sqlda.md)
+  - [ecpg_set_native_sqlda](../e/ecpg_set_native_sqlda.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's ECPG native interface and is located in 

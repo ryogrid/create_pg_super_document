@@ -30,7 +30,7 @@ MergeAppendState maintains the execution state for a MergeAppend plan node, whic
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupport
-  - binaryheap
+  - [binaryheap](../b/binaryheap.md)
   - PartitionPruneState
 - Called from (representative examples):
   - ExecInitMergeAppend

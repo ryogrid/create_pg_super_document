@@ -27,7 +27,7 @@ The underlying comparison logic in `float8_ne` implements the rule that:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro to extract float8 arguments)
-  - float8_ne (inline helper function for the actual comparison)
+  - [float8_ne](float8_ne.md) (inline helper function for the actual comparison)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):
   - SQL queries using the <> or != operators with float8 operands

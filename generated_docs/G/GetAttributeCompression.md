@@ -22,11 +22,11 @@ This function converts a string-based compression specification into a compressi
 - Functions called/Symbols referenced:
   - InvalidCompressionMethod
   - TypeIsToastable
-  - CompressionNameToMethod
+  - [CompressionNameToMethod](../C/CompressionNameToMethod.md)
   - CompressionMethodIsValid
 - Called from (representative examples):
-  - BuildDescForRelation
-  - ATExecSetCompression
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [ATExecSetCompression](../A/ATExecSetCompression.md)
 
 ## Notes and Other Information
 - Returns InvalidCompressionMethod for NULL or "default" compression specifications

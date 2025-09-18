@@ -27,17 +27,17 @@ The function only executes if restore_wal is enabled. The retrieved restore_comm
   - find_other_exec
   - find_my_exec  
   - strlcpy
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - createPQExpBuffer
-  - appendShellString
-  - appendPQExpBufferStr
-  - pipe_read_line
+  - [appendShellString](../a/appendShellString.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [pipe_read_line](../p/pipe_read_line.md)
   - pg_strip_crlf
   - strcmp
   - pg_log_debug
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - main (pg_rewind.c)
+  - [main](../m/main.md) (pg_rewind.c)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

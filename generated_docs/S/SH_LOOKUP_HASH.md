@@ -30,7 +30,7 @@ This function is useful for performance-critical scenarios where the hash value 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SH_MAKE_NAME (for name generation)
-  - SH_LOOKUP_HASH_INTERNAL (performs the actual lookup)
+  - [SH_LOOKUP_HASH_INTERNAL](SH_LOOKUP_HASH_INTERNAL.md) (performs the actual lookup)
 - Called from (representative examples):
   - Performance-critical PostgreSQL subsystems with pre-computed hash values
   - Bulk operations that compute hash once and reuse it

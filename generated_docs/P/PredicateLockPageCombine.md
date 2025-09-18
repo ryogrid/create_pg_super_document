@@ -25,10 +25,10 @@ The function ensures that all serializable transactions continue to detect poten
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredicateLockPageSplit
+  - [PredicateLockPageSplit](PredicateLockPageSplit.md)
 - Called from (representative examples):
-  - ginDeletePage (GIN index page deletion)
-  - _bt_mark_page_halfdead (B-tree page deletion)
+  - [ginDeletePage](../g/ginDeletePage.md) (GIN index page deletion)
+  - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md) (B-tree page deletion)
 
 ## Notes and Other Information
 - This function affects ALL serializable transactions, regardless of the isolation level of the transaction performing the page combine

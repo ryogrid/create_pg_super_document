@@ -24,18 +24,18 @@ The block uses a freelist data structure to link together freed chunks, enabling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext
+  - [SlabContext](SlabContext.md)
   - MemoryChunk
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
 
 - Called from (representative examples):
-  - SlabGetNextFreeChunk
-  - SlabAllocFromNewBlock
-  - SlabAlloc
-  - SlabFree
-  - SlabReset
-  - SlabStats
-  - SlabCheck
+  - [SlabGetNextFreeChunk](SlabGetNextFreeChunk.md)
+  - [SlabAllocFromNewBlock](SlabAllocFromNewBlock.md)
+  - [SlabAlloc](SlabAlloc.md)
+  - [SlabFree](SlabFree.md)
+  - [SlabReset](SlabReset.md)
+  - [SlabStats](SlabStats.md)
+  - [SlabCheck](SlabCheck.md)
 
 ## Notes and Other Information
 - Each block is categorized into different blocklists within the SlabContext based on the number of free chunks it contains

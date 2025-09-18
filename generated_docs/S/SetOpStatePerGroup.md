@@ -19,13 +19,13 @@ This is a pointer type, so it points to SetOpStatePerGroupData which contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpStatePerGroupData
+  - [SetOpStatePerGroupData](SetOpStatePerGroupData.md)
 - Called from (representative examples):
   - initialize_counts
   - advance_counts
   - set_output_count
-  - setop_retrieve_direct
-  - setop_fill_hash_table
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md)
 
 ## Notes and Other Information
 - The actual structure definition is private to nodeSetOp.c, promoting encapsulation

@@ -26,15 +26,15 @@ This function is part of the compilation phase that transforms the raw parsed th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc: PostgreSQL memory reallocation function for expanding arrays
-  - palloc: PostgreSQL memory allocation function for new LexemeInfo entries
-  - pstrdup: PostgreSQL string duplication function
-  - TheLexeme: Structure representing compiled lexeme entries
-  - LexemeInfo: Structure containing lexeme metadata and substitution information
+  - [repalloc](../r/repalloc.md): PostgreSQL memory reallocation function for expanding arrays
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function for new LexemeInfo entries
+  - [pstrdup](../p/pstrdup.md): PostgreSQL string duplication function
+  - [TheLexeme](../T/TheLexeme.md): Structure representing compiled lexeme entries
+  - [LexemeInfo](../L/LexemeInfo.md): Structure containing lexeme metadata and substitution information
   - TSLexeme: Structure representing parsed lexeme data
 
 - Called from (representative examples):
-  - compileTheLexeme: Dictionary compilation function that processes parsed thesaurus data
+  - [compileTheLexeme](../c/compileTheLexeme.md): Dictionary compilation function that processes parsed thesaurus data
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dict_thesaurus.c file

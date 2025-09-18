@@ -32,7 +32,7 @@ The function also supports transition table capture, enabling triggers to access
   - TransitionCaptureState
   - TriggerDesc
 - Called from (representative examples):
-  - fireASTriggers
+  - [fireASTriggers](../f/fireASTriggers.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's deferred trigger execution system

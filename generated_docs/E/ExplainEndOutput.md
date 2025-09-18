@@ -24,7 +24,7 @@ ExplainEndOutput provides the complementary closing functionality to ExplainBegi
   - EXPLAIN_FORMAT_YAML (enum constant)
   - list_delete_first (list manipulation function)
 - Called from (representative examples):
-  - ExplainQuery
+  - [ExplainQuery](ExplainQuery.md)
 
 ## Notes and Other Information
 This function must be called after ExplainBeginOutput to ensure proper formatting of the output. The grouping_stack cleanup is essential for JSON and YAML formats to maintain proper nesting structure. The function handles indentation management for XML and JSON formats to ensure properly formatted output.

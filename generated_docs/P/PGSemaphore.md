@@ -34,17 +34,17 @@ Since PGSemaphore is a typedef to different types on different platforms:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGSemaphoreData (structure definition varies by platform)
+  - [PGSemaphoreData](PGSemaphoreData.md) (structure definition varies by platform)
   - HANDLE (Windows platform only)
 
 - Called from (representative examples):
-  - PGSemaphoreCreate (creates new semaphore instances)
-  - PGSemaphoreLock (locks/decrements semaphore)
-  - PGSemaphoreUnlock (unlocks/increments semaphore)
-  - PGSemaphoreTryLock (non-blocking lock attempt)
-  - PGSemaphoreReset (resets semaphore to count 0)
+  - [PGSemaphoreCreate](PGSemaphoreCreate.md) (creates new semaphore instances)
+  - [PGSemaphoreLock](PGSemaphoreLock.md) (locks/decrements semaphore)
+  - [PGSemaphoreUnlock](PGSemaphoreUnlock.md) (unlocks/increments semaphore)
+  - [PGSemaphoreTryLock](PGSemaphoreTryLock.md) (non-blocking lock attempt)
+  - [PGSemaphoreReset](PGSemaphoreReset.md) (resets semaphore to count 0)
   - SpinlockSemaInit (spin lock initialization)
-  - PGPROC (process structure for semaphore management)
+  - [PGPROC](PGPROC.md) (process structure for semaphore management)
 
 ## Notes and Other Information
 - The semaphore API is designed to be counting semaphores, not binary semaphores

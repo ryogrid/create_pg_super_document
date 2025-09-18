@@ -26,13 +26,13 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_result
-  - copy_plan_costsize
+  - [make_result](../m/make_result.md)
+  - [copy_plan_costsize](../c/copy_plan_costsize.md)
 - Called from (representative examples):
-  - create_append_plan
-  - create_merge_append_plan
-  - change_plan_targetlist
-  - prepare_sort_from_pathkeys
+  - [create_append_plan](../c/create_append_plan.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
+  - [change_plan_targetlist](../c/change_plan_targetlist.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
 
 ## Notes and Other Information
 - This function is acknowledged in the code comments as a design compromise that should ideally be eliminated in favor of more systematic projection planning

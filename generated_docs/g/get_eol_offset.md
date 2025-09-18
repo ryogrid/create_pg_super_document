@@ -21,8 +21,8 @@ This function is essential for line-by-line processing of backup label files, al
 - Functions called/Symbols referenced:
   - None (uses only basic buffer operations)
 - Called from (representative examples):
-  - parse_backup_label
-  - write_backup_label
+  - [parse_backup_label](../p/parse_backup_label.md)
+  - [write_backup_label](../w/write_backup_label.md)
 
 ## Notes and Other Information
 - Static function scope limits visibility to the backup_label.c source file

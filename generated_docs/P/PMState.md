@@ -32,7 +32,7 @@ The state transitions guide the postmaster through crash recovery, archive recov
   - PM_INIT (initialization state)
   - Various state-specific process management functions
 - Called from (representative examples):
-  - ServerLoop (main postmaster event loop)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster event loop)
   - Signal handlers for shutdown coordination
   - Child process management routines
   - Recovery and startup coordination functions

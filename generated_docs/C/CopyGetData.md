@@ -22,14 +22,14 @@ CopyGetData is the core data reading function for COPY operations that handles t
 - Functions called/Symbols referenced:
   - fread (for file-based copy operations)
   - ferror (file error checking)
-  - pq_startmsgread, pq_getbyte, pq_getmessage (protocol message handling)
-  - pq_copymsgbytes (copy data from message buffer)
-  - pq_getmsgstring (extract string from message)
+  - [pq_startmsgread](../p/pq_startmsgread.md), pq_getbyte, pq_getmessage (protocol message handling)
+  - [pq_copymsgbytes](../p/pq_copymsgbytes.md) (copy data from message buffer)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md) (extract string from message)
   - HOLD_CANCEL_INTERRUPTS/RESUME_CANCEL_INTERRUPTS (interrupt management)
   - ereport/errcode/errmsg (error reporting)
 - Called from (representative examples):
-  - CopyLoadRawBuf (src/backend/commands/copyfromparse.c:627)
-  - CopyReadLine (src/backend/commands/copyfromparse.c:1122)
+  - [CopyLoadRawBuf](CopyLoadRawBuf.md) (src/backend/commands/copyfromparse.c:627)
+  - [CopyReadLine](CopyReadLine.md) (src/backend/commands/copyfromparse.c:1122)
 
 ## Notes and Other Information
 - No data conversion is applied - this function only handles raw data transfer

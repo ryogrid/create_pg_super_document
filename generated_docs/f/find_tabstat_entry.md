@@ -20,7 +20,7 @@ The function ensures that live subtransaction counts are properly reconciled int
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_fetch_pending_entry (to locate statistics entries)
-  - palloc (for memory allocation)
+  - [palloc](../p/palloc.md) (for memory allocation)
   - PgStat_EntryRef (statistics entry reference structure)
   - PgStat_TableXactStatus (transaction-level table statistics)
   - PgStat_TableStatus (table statistics structure)

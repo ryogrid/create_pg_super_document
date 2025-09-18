@@ -18,13 +18,13 @@ This hook function is responsible for parsing and setting the error message verb
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - PQERRORS_DEFAULT (PostgreSQL error verbosity constant)
   - PQERRORS_VERBOSE (PostgreSQL error verbosity constant)
   - PQERRORS_TERSE (PostgreSQL error verbosity constant)
   - PQERRORS_SQLSTATE (PostgreSQL error verbosity constant)
   - PsqlVarEnumError (error reporting function)
-  - PQsetErrorVerbosity (PostgreSQL libpq function to set error verbosity)
+  - [PQsetErrorVerbosity](../P/PQsetErrorVerbosity.md) (PostgreSQL libpq function to set error verbosity)
 - Called from (representative examples):
   - SetVariableHooks registration in EstablishVariableSpace
 

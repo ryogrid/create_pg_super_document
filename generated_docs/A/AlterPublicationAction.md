@@ -23,7 +23,7 @@ This enumeration defines the different types of actions that can be performed wh
 - Called from (representative examples):
   - AlterPublicationStmt (as the 'action' field)
   - Parser grammar rules in gram.y for ALTER PUBLICATION statements
-  - Publication command functions in src/backend/commands/publicationcmds.c
+  - [Publication](../P/Publication.md) command functions in src/backend/commands/publicationcmds.c
 
 ## Notes and Other Information
 - This enum is part of PostgreSQL's logical replication infrastructure

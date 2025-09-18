@@ -26,16 +26,16 @@ This design allows the CLUSTER command to process multiple tables safely while m
 ## Dependencies
 - Functions called/Symbols referenced:
   - PopActiveSnapshot
-  - CommitTransactionCommand
-  - StartTransactionCommand
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - GetTransactionSnapshot
   - PushActiveSnapshot
-  - cluster_rel
+  - [cluster_rel](cluster_rel.md)
 - Called from (representative examples):
-  - cluster
+  - [cluster](cluster.md)
 
 ## Notes and Other Information
 - The function expects to be called within an active transaction but leaves no transaction active upon return
 - Each relation is processed independently, allowing partial success if some relations fail
-- Snapshot management is crucial for ensuring consistent reads within each transaction
+- [Snapshot](../S/Snapshot.md) management is crucial for ensuring consistent reads within each transaction
 - This pattern is similar to the approach used by VACUUM for processing multiple relations

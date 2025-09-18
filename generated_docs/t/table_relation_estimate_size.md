@@ -25,7 +25,7 @@ The estimates provided by this function are used by PostgreSQL's query planner t
 - Functions called/Symbols referenced:
   - rel->rd_tableam->relation_estimate_size (table access method function pointer)
 - Called from (representative examples):
-  - estimate_rel_size (in src/backend/optimizer/util/plancat.c:1071)
+  - [estimate_rel_size](../e/estimate_rel_size.md) (in src/backend/optimizer/util/plancat.c:1071)
 
 ## Notes and Other Information
 - This is an inline function defined in the tableam header file for efficient access

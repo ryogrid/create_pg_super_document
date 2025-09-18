@@ -24,18 +24,18 @@ The function demonstrates the architectural difference between GIN leaf and inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsLeaf
-  - ginRedoRecompress
+  - [ginRedoRecompress](ginRedoRecompress.md)
   - GinDataPageGetPostingItem
   - PostingItemSetBlockNumber
-  - GinDataPageAddPostingItem
+  - [GinDataPageAddPostingItem](../G/GinDataPageAddPostingItem.md)
 - Data structures used:
   - ginxlogRecompressDataLeaf
   - ginxlogInsertDataInternal
-  - PostingItem
+  - [PostingItem](../P/PostingItem.md)
 - Called from:
-  - ginRedoInsert
+  - [ginRedoInsert](ginRedoInsert.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively within GIN WAL replay operations

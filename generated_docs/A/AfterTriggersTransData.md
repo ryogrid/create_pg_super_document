@@ -30,11 +30,11 @@ AfterTriggersTransData implements the state preservation mechanism needed for Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetConstraintState (for constraint state preservation)
-  - AfterTriggerEventList (for event list preservation)
+  - [AfterTriggerEventList](AfterTriggerEventList.md) (for event list preservation)
   - CommandId (for firing counter preservation)
 - Called from (representative examples):
-  - AfterTriggersData (trans_stack field)
-  - AfterTriggerBeginSubXact
+  - [AfterTriggersData](AfterTriggersData.md) (trans_stack field)
+  - [AfterTriggerBeginSubXact](AfterTriggerBeginSubXact.md)
 
 ## Notes and Other Information
 This structure is critical for maintaining ACID properties in PostgreSQL's trigger system when subtransactions are involved. The comment emphasizes that these fields are specifically for resetting during subtransaction abort scenarios. The structure is allocated as part of a dynamic array to support arbitrary nesting depths of subtransactions. The NULL-able state field optimizes memory usage by only saving constraint state when it has actually been modified during the subtransaction.

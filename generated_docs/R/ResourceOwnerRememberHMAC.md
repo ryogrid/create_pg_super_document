@@ -19,10 +19,10 @@ ResourceOwnerRememberHMAC is a static inline wrapper function that integrates HM
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerRemember
-  - pg_hmac_ctx (type)
+  - [pg_hmac_ctx](../p/pg_hmac_ctx.md) (type)
   - ResourceOwner (type)
 - Called from (representative examples):
-  - pg_hmac_create
+  - [pg_hmac_create](../p/pg_hmac_create.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/common/hmac_openssl.c

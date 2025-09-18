@@ -27,8 +27,8 @@ This function provides a clean and efficient way to remove cached expressions wh
 - Functions called/Symbols referenced:
   - CachedExpression (structure type)
   - CACHEDEXPR_MAGIC (magic number for validation)
-  - dlist_delete (removes from global list)
-  - MemoryContextDelete (frees memory context and all contained data)
+  - [dlist_delete](../d/dlist_delete.md) (removes from global list)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (frees memory context and all contained data)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

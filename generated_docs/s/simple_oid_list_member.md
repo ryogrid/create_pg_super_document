@@ -20,14 +20,14 @@ This function performs a linear search through a SimpleOidList to determine if a
 
 ## Dependencies
 - Data structures used:
-  - SimpleOidList (the list container structure)
-  - SimpleOidListCell (individual list node structure)
+  - [SimpleOidList](../S/SimpleOidList.md) (the list container structure)
+  - [SimpleOidListCell](../S/SimpleOidListCell.md) (individual list node structure)
 - Called from (representative examples):
-  - selectDumpableNamespace (src/bin/pg_dump/pg_dump.c:1802, 1851)
-  - selectDumpableTable (src/bin/pg_dump/pg_dump.c:1880, 1890)
-  - selectDumpableExtension (src/bin/pg_dump/pg_dump.c:2083, 2093)
-  - makeTableDataInfo (src/bin/pg_dump/pg_dump.c:2842, 2855)
-  - processExtensionTables (src/bin/pg_dump/pg_dump.c:18405, 18414, 18448, 18460, 18465)
+  - [selectDumpableNamespace](selectDumpableNamespace.md) (src/bin/pg_dump/pg_dump.c:1802, 1851)
+  - [selectDumpableTable](selectDumpableTable.md) (src/bin/pg_dump/pg_dump.c:1880, 1890)
+  - [selectDumpableExtension](selectDumpableExtension.md) (src/bin/pg_dump/pg_dump.c:2083, 2093)
+  - [makeTableDataInfo](../m/makeTableDataInfo.md) (src/bin/pg_dump/pg_dump.c:2842, 2855)
+  - [processExtensionTables](../p/processExtensionTables.md) (src/bin/pg_dump/pg_dump.c:18405, 18414, 18448, 18460, 18465)
 
 ## Notes and Other Information
 - Performs O(n) linear search through the list

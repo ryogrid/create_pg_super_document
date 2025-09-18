@@ -19,19 +19,19 @@ The function performs a system cache lookup on the pg_class catalog using the re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (pg_class catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
 
 - Called from (representative examples):
   - index_concurrently_swap
-  - filter_partitions
-  - get_rel_sync_entry
-  - check_rel_can_be_partition
-  - get_partition_qual_relid
+  - [filter_partitions](../f/filter_partitions.md)
+  - [get_rel_sync_entry](get_rel_sync_entry.md)
+  - [check_rel_can_be_partition](../c/check_rel_can_be_partition.md)
+  - [get_partition_qual_relid](get_partition_qual_relid.md)
 
 ## Notes and Other Information
 - Returns false if the relation does not exist

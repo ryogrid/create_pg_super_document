@@ -20,9 +20,9 @@ This function serves as a callback checker used by the PostgreSQL optimizer to i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - func_strict
+  - [func_strict](../f/func_strict.md)
 - Called from (representative examples):
-  - contain_nonstrict_functions_walker (via check_functions_in_node)
+  - [contain_nonstrict_functions_walker](contain_nonstrict_functions_walker.md) (via check_functions_in_node)
 
 ## Notes and Other Information
 - This is a static helper function used exclusively within the clauses.c file

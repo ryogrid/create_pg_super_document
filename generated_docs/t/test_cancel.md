@@ -26,23 +26,23 @@ Each test involves sending a long-running cancellable query using a separate mon
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsetnonblocking
-  - copy_connection
+  - [PQsetnonblocking](../P/PQsetnonblocking.md)
+  - [copy_connection](../c/copy_connection.md)
   - send_cancellable_query
   - confirm_query_canceled
-  - PQgetCancel
-  - PQcancel
-  - PQfreeCancel
-  - PQrequestCancel
-  - PQcancelCreate
-  - PQcancelBlocking
-  - PQcancelStart
-  - PQcancelPoll
-  - PQcancelSocket
-  - PQcancelStatus
-  - PQcancelReset
-  - PQcancelFinish
-  - PQcancelErrorMessage
+  - [PQgetCancel](../P/PQgetCancel.md)
+  - [PQcancel](../P/PQcancel.md)
+  - [PQfreeCancel](../P/PQfreeCancel.md)
+  - [PQrequestCancel](../P/PQrequestCancel.md)
+  - [PQcancelCreate](../P/PQcancelCreate.md)
+  - [PQcancelBlocking](../P/PQcancelBlocking.md)
+  - [PQcancelStart](../P/PQcancelStart.md)
+  - [PQcancelPoll](../P/PQcancelPoll.md)
+  - [PQcancelSocket](../P/PQcancelSocket.md)
+  - [PQcancelStatus](../P/PQcancelStatus.md)
+  - [PQcancelReset](../P/PQcancelReset.md)
+  - [PQcancelFinish](../P/PQcancelFinish.md)
+  - [PQcancelErrorMessage](../P/PQcancelErrorMessage.md)
   - PQstatus
   - CONNECTION_OK
   - PGRES_POLLING_OK
@@ -50,9 +50,9 @@ Each test involves sending a long-running cancellable query using a separate mon
   - PGRES_POLLING_WRITING
   - select
   - pg_debug
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function within the libpq_pipeline test module

@@ -88,14 +88,14 @@ The structure supports both required and additional entries for sophisticated ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanEntry (scan entry pointers)
+  - [GinScanEntry](GinScanEntry.md) (scan entry pointers)
   - GinTernaryValue (ternary logic values)
-  - GinScanKey (self-reference for function pointers)
+  - [GinScanKey](GinScanKey.md) (self-reference for function pointers)
   - GinNullCategory (null category classification)
   - Pointer (generic pointer type)
   - StrategyNumber (strategy number type)
 - Called from (representative examples):
-  - ginNewScanKey (src/backend/access/gin/ginscan.c:287)
+  - [ginNewScanKey](../g/ginNewScanKey.md) (src/backend/access/gin/ginscan.c:287)
   - Various GIN scan functions that allocate and initialize scan keys
 
 ## Notes and Other Information

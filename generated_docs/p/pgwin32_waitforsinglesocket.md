@@ -36,15 +36,15 @@ The function ensures proper cleanup by detaching events from sockets before retu
   - WSASend (Winsock API)
   - WSAGetLastError (Winsock API)
   - GetLastError (Windows API)
-  - isDataGram (socket type detection)
-  - TranslateSocketError (error translation)
-  - pgwin32_dispatch_queued_signals (signal handling)
+  - [isDataGram](../i/isDataGram.md) (socket type detection)
+  - [TranslateSocketError](../T/TranslateSocketError.md) (error translation)
+  - [pgwin32_dispatch_queued_signals](pgwin32_dispatch_queued_signals.md) (signal handling)
   - ereport (PostgreSQL error reporting)
 
 - Called from (representative examples):
-  - pgwin32_connect
-  - pgwin32_recv
-  - pgwin32_send
+  - [pgwin32_connect](pgwin32_connect.md)
+  - [pgwin32_recv](pgwin32_recv.md)
+  - [pgwin32_send](pgwin32_send.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function located in src/backend/port/win32/socket.c

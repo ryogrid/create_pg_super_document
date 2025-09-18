@@ -24,13 +24,13 @@ The function performs character-by-character comparison of two BPCHAR values and
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (macro to extract BPCHAR arguments)
-  - internal_bpchar_pattern_compare (performs the actual comparison)
+  - [internal_bpchar_pattern_compare](../i/internal_bpchar_pattern_compare.md) (performs the actual comparison)
   - PG_FREE_IF_COPY (macro to free memory if needed)
   - PG_RETURN_INT32 (macro to return 32-bit integer result)
 - Called from (representative examples):
   - B-tree index creation and maintenance operations
   - PostgreSQL index access methods for pattern-based queries
-  - Query planner for index selection with LIKE clauses
+  - [Query](../Q/Query.md) planner for index selection with LIKE clauses
 
 ## Notes and Other Information
 - This function is the core comparison function used by B-tree indexes for pattern-based BPCHAR ordering

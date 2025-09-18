@@ -21,11 +21,11 @@ The function handles buffer management by forwarding existing compressed data if
 - Functions called/Symbols referenced:
   - LZ4F_compressBound
   - LZ4F_compressEnd
-  - bbstreamer_content
-  - bbstreamer_finalize
+  - [bbstreamer_content](bbstreamer_content.md)
+  - [bbstreamer_finalize](bbstreamer_finalize.md)
   - enlargeStringInfo
 - Called from (representative examples):
-  - bbstreamer operation table (via function pointer)
+  - [bbstreamer](bbstreamer.md) operation table (via function pointer)
 
 ## Notes and Other Information
 - Must be called to properly close LZ4 compression frames

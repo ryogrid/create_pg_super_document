@@ -27,24 +27,24 @@ The function handles the complete workflow: preparing the query (if not already 
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlStatement
-  - printfPQExpBuffer
-  - ExecuteSqlQueryForSingleRow
-  - PQgetvalue
-  - appendPQExpBuffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - fmtQualifiedDumpable
-  - ArchiveEntry
-  - PQclear
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Types referenced:
-  - Archive
-  - TableAttachInfo
+  - [Archive](../A/Archive.md)
+  - [TableAttachInfo](../T/TableAttachInfo.md)
   - DumpOptions
   - PQExpBuffer
   - PGresult
 - Called from:
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Uses prepared statements for efficiency when processing multiple partition attachments

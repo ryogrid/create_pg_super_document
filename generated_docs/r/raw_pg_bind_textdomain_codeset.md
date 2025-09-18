@@ -23,11 +23,11 @@ The function fails for MULE_INTERNAL encoding (which is unknown to gettext) and 
   - PG_VALID_ENCODING (macro to validate encoding ID)
   - bind_textdomain_codeset (gettext library function)
   - elog (PostgreSQL logging function)
-  - write_stderr (direct stderr output function)
+  - [write_stderr](../w/write_stderr.md) (direct stderr output function)
   - pg_enc2gettext_tbl[] (encoding translation table)
 - Called from (representative examples):
-  - pg_bind_textdomain_codeset (src/backend/utils/mb/mbutils.c:1238)
-  - pg_bind_textdomain_codeset (src/backend/utils/mb/mbutils.c:1246)
+  - [pg_bind_textdomain_codeset](../p/pg_bind_textdomain_codeset.md) (src/backend/utils/mb/mbutils.c:1238)
+  - [pg_bind_textdomain_codeset](../p/pg_bind_textdomain_codeset.md) (src/backend/utils/mb/mbutils.c:1246)
 
 ## Notes and Other Information
 - This is a static function internal to mbutils.c and not exposed in the public API

@@ -32,10 +32,10 @@ The function includes an important optimization where the shrinking threshold (4
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
-  - RT_SHRINK_NODE_16
-  - RT_SHIFT_ARRAYS_AND_DELETE
+  - [RT_SHRINK_NODE_16](RT_SHRINK_NODE_16.md)
+  - [RT_SHIFT_ARRAYS_AND_DELETE](RT_SHIFT_ARRAYS_AND_DELETE.md)
 - Called from (representative examples):
-  - RT_NODE_DELETE
+  - [RT_NODE_DELETE](RT_NODE_DELETE.md)
 
 ## Notes and Other Information
 - This function is marked as static inline for performance optimization

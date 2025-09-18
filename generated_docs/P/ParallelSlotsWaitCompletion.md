@@ -21,14 +21,14 @@ This function is essential for ensuring all parallel operations complete before 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - consumeQueryResult
-  - ParallelSlotClearHandler
-  - ParallelSlotArray
+  - [consumeQueryResult](../c/consumeQueryResult.md)
+  - [ParallelSlotClearHandler](ParallelSlotClearHandler.md)
+  - [ParallelSlotArray](ParallelSlotArray.md)
 - Called from (representative examples):
-  - main (src/bin/pg_amcheck/pg_amcheck.c:806)
-  - reindex_one_database (src/bin/scripts/reindexdb.c:478)
-  - vacuum_one_database (src/bin/scripts/vacuumdb.c:866, 887)
-  - ParallelSlotClearHandler (src/include/fe_utils/parallel_slot.h:72)
+  - [main](../m/main.md) (src/bin/pg_amcheck/pg_amcheck.c:806)
+  - [reindex_one_database](../r/reindex_one_database.md) (src/bin/scripts/reindexdb.c:478)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (src/bin/scripts/vacuumdb.c:866, 887)
+  - [ParallelSlotClearHandler](ParallelSlotClearHandler.md) (src/include/fe_utils/parallel_slot.h:72)
 
 ## Notes and Other Information
 - Returns true if all operations completed successfully, false if any errors occurred

@@ -21,14 +21,14 @@ The placeholder tuple includes proper null bitmap initialization and sets multip
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc, BrinTuple (structure types)
+  - [BrinDesc](../B/BrinDesc.md), BrinTuple (structure types)
   - SizeOfBrinTuple, BITMAPLEN (size calculation macros)
   - BRIN_NULLS_MASK, BRIN_PLACEHOLDER_MASK, BRIN_EMPTY_RANGE_MASK (flag constants)
   - bits8 (bitmap type)
   - HIGHBIT (bit manipulation constant)
   - Memory management functions (palloc0)
 - Called from:
-  - summarize_range (src/backend/access/brin/brin.c:1765)
+  - [summarize_range](../s/summarize_range.md) (src/backend/access/brin/brin.c:1765)
   - BrinTupleIsEmptyRange (src/include/access/brin_tuple.h:98)
 
 ## Notes and Other Information

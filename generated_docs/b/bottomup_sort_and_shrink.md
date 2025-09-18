@@ -36,18 +36,18 @@ The power-of-two bucketing scheme is crucial for balancing deletion efficiency w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bottomup_sort_and_shrink_cmp
-  - bottomup_nblocksfavorable  
+  - [bottomup_sort_and_shrink_cmp](bottomup_sort_and_shrink_cmp.md)
+  - [bottomup_nblocksfavorable](bottomup_nblocksfavorable.md)  
   - qsort
-  - palloc, pfree, memcpy
-  - pg_nextpower2_32
-  - ItemPointerGetBlockNumber
+  - [palloc](../p/palloc.md), pfree, memcpy
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - BlockNumberIsValid
   - Min
-  - IndexDeleteCounts, TM_IndexDelete, TM_IndexStatus (structure types)
+  - [IndexDeleteCounts](../I/IndexDeleteCounts.md), TM_IndexDelete, TM_IndexStatus (structure types)
   - BOTTOMUP_MAX_NBLOCKS (constant)
 - Called from (representative examples):
-  - heap_index_delete_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
 
 ## Notes and Other Information
 - Assumes input deltids array is already sorted in TID order

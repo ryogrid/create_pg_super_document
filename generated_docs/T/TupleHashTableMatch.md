@@ -22,8 +22,8 @@ This function serves as the equality comparison callback for PostgreSQL's tuple 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTuple
-  - TupleHashTable
-  - ExecStoreMinimalTuple
+  - [TupleHashTable](TupleHashTable.md)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
   - ExecQualAndReset
 - Called from (representative examples):
   - SH_EQUAL (via macro definition)

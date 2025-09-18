@@ -18,9 +18,9 @@ None (void function)
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (standard C library function for memory allocation)
-  - err (error reporting and program termination)
+  - [err](../e/err.md) (error reporting and program termination)
 - Called from (representative examples):
-  - main (at src/tools/pg_bsd_indent/indent.c:112)
+  - [main](../m/main.md) (at src/tools/pg_bsd_indent/indent.c:112)
 
 ## Notes and Other Information
 - Allocates initial capacity for 16 typename pointers

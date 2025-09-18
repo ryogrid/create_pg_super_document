@@ -20,16 +20,16 @@ The function treats failure to load these files as a fatal error since they are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_relmap_file (underlying file reading function)
+  - [read_relmap_file](../r/read_relmap_file.md) (underlying file reading function)
   - shared_map (global shared mapping structure)
   - local_map (global local mapping structure) 
   - DatabasePath (global variable for database directory path)
 - Called from (representative examples):
-  - RelationMapInvalidate (at src/backend/utils/cache/relmapper.c:473, 478)
-  - RelationMapInvalidateAll (at src/backend/utils/cache/relmapper.c:493, 495)
-  - RelationMapInitializePhase2 (at src/backend/utils/cache/relmapper.c:682)
-  - RelationMapInitializePhase3 (at src/backend/utils/cache/relmapper.c:703)
-  - perform_relmap_update (at src/backend/utils/cache/relmapper.c:1059)
+  - [RelationMapInvalidate](../R/RelationMapInvalidate.md) (at src/backend/utils/cache/relmapper.c:473, 478)
+  - [RelationMapInvalidateAll](../R/RelationMapInvalidateAll.md) (at src/backend/utils/cache/relmapper.c:493, 495)
+  - [RelationMapInitializePhase2](../R/RelationMapInitializePhase2.md) (at src/backend/utils/cache/relmapper.c:682)
+  - [RelationMapInitializePhase3](../R/RelationMapInitializePhase3.md) (at src/backend/utils/cache/relmapper.c:703)
+  - [perform_relmap_update](../p/perform_relmap_update.md) (at src/backend/utils/cache/relmapper.c:1059)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relmapper.c file

@@ -35,20 +35,20 @@ Key behavioral aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_inplace_rel_lock (debug builds only)
-  - LockTuple
-  - LockBuffer  
-  - HeapTupleSatisfiesUpdate
-  - GetCurrentCommandId
+  - [check_inplace_rel_lock](../c/check_inplace_rel_lock.md) (debug builds only)
+  - [LockTuple](../L/LockTuple.md)
+  - [LockBuffer](../L/LockBuffer.md)  
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - HeapTupleHeaderGetRawXmax
-  - DoesMultiXactIdConflict
-  - MultiXactIdWait
-  - TransactionIdIsCurrentTransactionId
-  - XactLockTableWait
-  - UnlockTuple
-  - InvalidateCatalogSnapshot
+  - [DoesMultiXactIdConflict](../D/DoesMultiXactIdConflict.md)
+  - [MultiXactIdWait](../M/MultiXactIdWait.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
+  - [XactLockTableWait](../X/XactLockTableWait.md)
+  - [UnlockTuple](../U/UnlockTuple.md)
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
 - Called from (representative examples):
-  - systable_inplace_update_begin
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md)
   - HeapScanIsValid (indirect reference)
 
 ## Notes and Other Information

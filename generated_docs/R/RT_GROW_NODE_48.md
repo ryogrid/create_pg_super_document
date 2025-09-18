@@ -27,13 +27,13 @@ This function transforms a full node48 into a node256 to accommodate additional 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - RT_ALLOC_NODE (allocates new node256)
-  - RT_COPY_COMMON (copies common node fields)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (allocates new node256)
+  - [RT_COPY_COMMON](RT_COPY_COMMON.md) (copies common node fields)
   - RT_BM_IDX (bitmap index calculation)
-  - RT_FREE_NODE (deallocates old node48)
-  - RT_ADD_CHILD_256 (adds the new child to the grown node)
+  - [RT_FREE_NODE](RT_FREE_NODE.md) (deallocates old node48)
+  - [RT_ADD_CHILD_256](RT_ADD_CHILD_256.md) (adds the new child to the grown node)
 - Called from (representative examples):
-  - RT_NODE_INSERT (at src/include/lib/radixtree.h:1565)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (at src/include/lib/radixtree.h:1565)
 
 ## Notes and Other Information
 The function is marked as pg_noinline because node growth is a relatively rare operation that should not be inlined to avoid code bloat. The conversion algorithm processes chunks in bitmap word-sized batches for efficiency, building the bitmap word by word. After conversion, the old node48 is freed and the parent reference is updated to point to the new node256. The function concludes by adding the new child that triggered the growth operation.

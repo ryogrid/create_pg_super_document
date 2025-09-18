@@ -25,8 +25,8 @@ The function is particularly useful for visibility and scoping analysis, as it h
   - lfirst (list traversal macro)
   - foreach (list iteration macro)
 - Called from (representative examples):
-  - rte_visible_if_lateral
-  - rte_visible_if_qualified
+  - [rte_visible_if_lateral](../r/rte_visible_if_lateral.md)
+  - [rte_visible_if_qualified](../r/rte_visible_if_qualified.md)
 
 ## Notes and Other Information
 - Static function with internal linkage, used as a helper for other visibility checking functions

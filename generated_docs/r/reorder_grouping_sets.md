@@ -30,24 +30,24 @@ The prefix relationship ensures that each grouping set contains all elements of 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_difference_int
+  - [list_difference_int](../l/list_difference_int.md)
   - GroupingSetData
   - SortGroupClause
-  - list_nth
-  - list_member_int
+  - [list_nth](../l/list_nth.md)
+  - [list_member_int](../l/list_member_int.md)
   - lappend_int
-  - list_delete_int
-  - list_concat
-  - list_copy
-  - lcons
-  - list_free
+  - [list_delete_int](../l/list_delete_int.md)
+  - [list_concat](../l/list_concat.md)
+  - [list_copy](../l/list_copy.md)
+  - [lcons](../l/lcons.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - preprocess_grouping_sets
+  - [preprocess_grouping_sets](../p/preprocess_grouping_sets.md)
   - standard_qp_extra
 
 ## Notes and Other Information
 - Input must be ordered with smallest sets first; result is returned with largest sets first
-- Result shares no list substructure with input, making it safe for caller modification
+- [Result](../R/Result.md) shares no list substructure with input, making it safe for caller modification
 - When a sortclause is provided, the function attempts to follow its column order to minimize unnecessary sorts
 - If the algorithm diverges from the sortclause ordering, it abandons the sortclause and proceeds without it
 - The prefix relationship established is crucial for rollup aggregate efficiency

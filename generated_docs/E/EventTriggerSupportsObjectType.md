@@ -28,8 +28,8 @@ The function serves as a gatekeeper in the event trigger system, ensuring that e
   - ObjectType (enum type)
   - OBJECT_DATABASE, OBJECT_TABLESPACE, OBJECT_ROLE, OBJECT_PARAMETER_ACL, OBJECT_EVENT_TRIGGER (enum constants)
 - Called from:
-  - ExecGrantStmt_oids (ACL operations)
-  - standard_ProcessUtility (multiple locations for utility command processing)
+  - [ExecGrantStmt_oids](ExecGrantStmt_oids.md) (ACL operations)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (multiple locations for utility command processing)
   - CALLED_AS_EVENT_TRIGGER (macro usage)
 
 ## Notes and Other Information

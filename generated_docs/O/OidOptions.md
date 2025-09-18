@@ -23,7 +23,7 @@ The enumeration uses bit flags (powers of 2), allowing multiple options to be co
 - Functions called/Symbols referenced:
   - Used as parameter type in function declarations
 - Called from (representative examples):
-  - getFormattedTypeName (main function that uses these options to handle zero OIDs)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md) (main function that uses these options to handle zero OIDs)
   - fmtQualifiedDumpable (function prototype that accepts OidOptions parameter)
 
 ## Notes and Other Information

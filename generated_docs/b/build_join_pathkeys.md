@@ -26,15 +26,15 @@ The function also truncates pathkeys that are uninteresting for higher-level joi
   - JOIN_FULL (enum constant)
   - JOIN_RIGHT (enum constant)
   - JOIN_RIGHT_ANTI (enum constant)
-  - truncate_useless_pathkeys
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)
 - Called from (representative examples):
-  - sort_inner_and_outer
-  - match_unsorted_outer
-  - consider_parallel_mergejoin
-  - consider_parallel_nestloop
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md)
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
+  - [consider_parallel_mergejoin](../c/consider_parallel_mergejoin.md)
+  - [consider_parallel_nestloop](../c/consider_parallel_nestloop.md)
 
 ## Notes and Other Information
 - The function has been simplified over time since pathkey sublists are now canonicalized from the start
 - FULL, RIGHT, and RIGHT_ANTI joins cannot preserve outer path ordering due to potential null row insertion
 - The function is critical for maintaining sort order information through join operations in query planning
-- Path key truncation helps optimize memory usage and planning efficiency by removing irrelevant ordering constraints
+- [Path](../P/Path.md) key truncation helps optimize memory usage and planning efficiency by removing irrelevant ordering constraints

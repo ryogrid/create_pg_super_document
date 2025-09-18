@@ -30,11 +30,11 @@ The function uniquely combines suffix removal with string insertion, and include
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward string pattern matching)
-  - slice_del (suffix deletion)
-  - insert_s (string insertion)
+  - [find_among_b](../f/find_among_b.md) (backward string pattern matching)
+  - [slice_del](../s/slice_del.md) (suffix deletion)
+  - [insert_s](../i/insert_s.md) (string insertion)
 - Called from (representative examples):
-  - greek_UTF_8_stem
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful execution, 0 on validation failure or negative pattern match

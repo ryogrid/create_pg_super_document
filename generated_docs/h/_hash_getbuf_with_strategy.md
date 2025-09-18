@@ -21,8 +21,8 @@ This function retrieves a buffer for a hash index page with a specified buffer a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferExtended (buffer management)
-  - LockBuffer (buffer locking)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (buffer management)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking)
   - _hash_checkpage (page validation)
   - MAIN_FORKNUM (fork number constant)
   - RBM_NORMAL (read buffer mode)
@@ -30,9 +30,9 @@ This function retrieves a buffer for a hash index page with a specified buffer a
   - P_NEW (new page constant - explicitly rejected)
 
 - Called from (representative examples):
-  - hashbucketcleanup (vacuum cleanup operations)
-  - _hash_freeovflpage (overflow page management)
-  - _hash_squeezebucket (bucket reorganization)
+  - [hashbucketcleanup](hashbucketcleanup.md) (vacuum cleanup operations)
+  - [_hash_freeovflpage](_hash_freeovflpage.md) (overflow page management)
+  - [_hash_squeezebucket](_hash_squeezebucket.md) (bucket reorganization)
 
 ## Notes and Other Information
 - This function explicitly rejects P_NEW block numbers with an ERROR, as hash indexes do not support dynamic page creation through this mechanism

@@ -23,19 +23,19 @@ The resulting disassembledLeaf structure uses a doubly-linked list to track all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - palloc
-  - dlist_init
-  - dlist_push_tail
+  - [palloc0](../p/palloc0.md)
+  - [palloc](../p/palloc.md)
+  - [dlist_init](dlist_init.md)
+  - [dlist_push_tail](dlist_push_tail.md)
   - GinPageIsCompressed
   - GinDataLeafPageGetPostingList
   - GinDataLeafPageGetPostingListSize
   - GinNextPostingListSegment
-  - dataLeafPageGetUncompressed
+  - [dataLeafPageGetUncompressed](dataLeafPageGetUncompressed.md)
   - memcpy
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
-  - ginVacuumPostingTreeLeaf
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md)
+  - [ginVacuumPostingTreeLeaf](../g/ginVacuumPostingTreeLeaf.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within gindatapage.c

@@ -46,8 +46,8 @@ The function maintains the invariant that parameters are resolved in their prope
   - forboth (parallel list iteration)
   - for_each_cell/lnext (list traversal)
 - Called from (representative examples):
-  - get_name_for_var_field (for RECORD type parameter resolution)
-  - get_parameter (for general parameter decompilation)
+  - [get_name_for_var_field](../g/get_name_for_var_field.md) (for RECORD type parameter resolution)
+  - [get_parameter](../g/get_parameter.md) (for general parameter decompilation)
 
 ## Notes and Other Information
 - Returns NULL if no referent can be found, indicating the parameter cannot be resolved

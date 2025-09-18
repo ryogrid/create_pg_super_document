@@ -24,8 +24,8 @@ The structure acts as a bridge between the logical decoding framework and the SQ
 - Functions called/Symbols referenced:
   - Tuplestorestate (tuple storage management)
 - Called from (representative examples):
-  - LogicalOutputWrite (at src/backend/replication/logical/logicalfuncs.c:67,73)
-  - pg_logical_slot_get_changes_guts (at src/backend/replication/logical/logicalfuncs.c:114,143)
+  - [LogicalOutputWrite](../L/LogicalOutputWrite.md) (at src/backend/replication/logical/logicalfuncs.c:67,73)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md) (at src/backend/replication/logical/logicalfuncs.c:114,143)
 
 ## Notes and Other Information
 This structure is allocated and initialized in `pg_logical_slot_get_changes_guts()` using `palloc0()` and is used as the `output_writer_private` data for the logical decoding context. The structure is specifically designed for the SQL interface to logical decoding and is not used in other logical replication contexts like streaming replication or logical replication workers. The `binary_output` flag affects how the decoded data is encoded before being stored in the tuplestore, with textual output being verified for proper database encoding.

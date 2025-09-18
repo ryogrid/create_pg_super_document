@@ -27,13 +27,13 @@ The function relies on the canonical nature of equivalence classes, where pointe
   - EC_MUST_BE_REDUNDANT (macro for detecting constant equivalence classes)
   - lfirst (list iteration)
 - Called from (representative examples):
-  - append_pathkeys
-  - build_index_pathkeys
-  - build_partition_pathkeys
-  - convert_subquery_pathkeys
-  - make_pathkeys_for_sortclauses_extended
-  - select_outer_pathkeys_for_merge
-  - make_inner_pathkeys_for_merge
+  - [append_pathkeys](../a/append_pathkeys.md)
+  - [build_index_pathkeys](../b/build_index_pathkeys.md)
+  - [build_partition_pathkeys](../b/build_partition_pathkeys.md)
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
+  - [make_pathkeys_for_sortclauses_extended](../m/make_pathkeys_for_sortclauses_extended.md)
+  - [select_outer_pathkeys_for_merge](../s/select_outer_pathkeys_for_merge.md)
+  - [make_inner_pathkeys_for_merge](../m/make_inner_pathkeys_for_merge.md)
 
 ## Notes and Other Information
 - Both the input PathKey and list members must be canonical for proper operation

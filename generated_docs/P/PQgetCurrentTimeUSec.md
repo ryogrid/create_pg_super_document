@@ -22,9 +22,9 @@ This function wraps the system's gettimeofday() function to provide a consistent
   - gettimeofday (system call)
   - pg_usec_time_t (time type)
 - Called from (representative examples):
-  - wait_until_connected (src/bin/psql/command.c:3889)
-  - pqConnectDBComplete (src/interfaces/libpq/fe-connect.c:2509)
-  - PQsocketPoll (src/interfaces/libpq/fe-misc.c:1143, 1184)
+  - [wait_until_connected](../w/wait_until_connected.md) (src/bin/psql/command.c:3889)
+  - [pqConnectDBComplete](../p/pqConnectDBComplete.md) (src/interfaces/libpq/fe-connect.c:2509)
+  - [PQsocketPoll](PQsocketPoll.md) (src/interfaces/libpq/fe-misc.c:1143, 1184)
 
 ## Notes and Other Information
 - Returns time as pg_usec_time_t (microseconds since Unix epoch)

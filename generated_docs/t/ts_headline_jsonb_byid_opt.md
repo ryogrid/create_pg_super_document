@@ -22,17 +22,17 @@ The function sets up a parsing context with the specified configuration, initial
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_ts_config_cache: Retrieves cached text search configuration
-  - lookup_ts_parser_cache: Retrieves cached text search parser
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md): Retrieves cached text search configuration
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md): Retrieves cached text search parser
   - deserialize_deflist: Parses options text into a list structure
-  - transform_jsonb_string_values: Core function that recursively processes JSONB string values
-  - headline_json_value: Callback function for applying headlines to individual string values
-  - palloc/palloc0: PostgreSQL memory allocation functions
-  - pfree: PostgreSQL memory deallocation function
+  - [transform_jsonb_string_values](transform_jsonb_string_values.md): Core function that recursively processes JSONB string values
+  - [headline_json_value](../h/headline_json_value.md): Callback function for applying headlines to individual string values
+  - [palloc](../p/palloc.md)/palloc0: PostgreSQL memory allocation functions
+  - [pfree](../p/pfree.md): PostgreSQL memory deallocation function
 - Called from (representative examples):
-  - ts_headline_jsonb: Wrapper using default configuration
-  - ts_headline_jsonb_byid: Wrapper without custom options
-  - ts_headline_jsonb_opt: Wrapper with custom options using default configuration
+  - [ts_headline_jsonb](ts_headline_jsonb.md): Wrapper using default configuration
+  - [ts_headline_jsonb_byid](ts_headline_jsonb_byid.md): Wrapper without custom options
+  - [ts_headline_jsonb_opt](ts_headline_jsonb_opt.md): Wrapper with custom options using default configuration
 
 ## Notes and Other Information
 - Located in src/backend/tsearch/wparser.c:367-414

@@ -27,11 +27,11 @@ The function is typically used for reporting application logic errors rather tha
   - fprintf (for outputting newline to stderr)
   - exit (for program termination)
 - Called from (representative examples):
-  - set_option (in args.c at lines 270, 310, 324, 330)
-  - main (in indent.c at lines 208, 215, 440, 1112)
-  - lookahead (in io.c at line 302)
-  - fill_buffer (in io.c at line 367)
-  - parse (in parse.c at line 207)
+  - [set_option](../s/set_option.md) (in args.c at lines 270, 310, 324, 330)
+  - [main](../m/main.md) (in indent.c at lines 208, 215, 440, 1112)
+  - [lookahead](../l/lookahead.md) (in io.c at line 302)
+  - [fill_buffer](../f/fill_buffer.md) (in io.c at line 367)
+  - [parse](../p/parse.md) (in parse.c at line 207)
 
 ## Notes and Other Information
 - This function is specific to the pg_bsd_indent tool and provides BSD-style error handling

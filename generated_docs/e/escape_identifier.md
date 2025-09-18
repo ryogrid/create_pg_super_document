@@ -21,13 +21,13 @@ The escape_identifier function provides a wrapper around libpq's PQescapeIdentif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeIdentifier
-  - PQfreemem
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - PQerrorMessage
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
 - Called from (representative examples):
-  - escape_fmt_id
+  - [escape_fmt_id](escape_fmt_id.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating escape functionality. It returns true on success and false on failure, with error details stored in the escape_err buffer. The function properly manages memory by freeing the escaped string returned by PQescapeIdentifier using PQfreemem. When an error occurs, it strips the trailing newline from the error message for cleaner formatting. Unlike string literals, identifiers are escaped with double quotes and follow different escaping rules suitable for database object names.

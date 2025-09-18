@@ -25,11 +25,11 @@ This design allows CTE scans to benefit from the common scan infrastructure (inc
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode: Safely cast PlanState to CteScanState
-  - ExecScan: Generic scan execution framework
-  - CteScanNext: CTE-specific tuple retrieval method (passed as callback)
-  - CteScanRecheck: CTE-specific tuple recheck method for EvalPlanQual (passed as callback)
+  - [ExecScan](ExecScan.md): Generic scan execution framework
+  - [CteScanNext](../C/CteScanNext.md): CTE-specific tuple retrieval method (passed as callback)
+  - [CteScanRecheck](../C/CteScanRecheck.md): CTE-specific tuple recheck method for EvalPlanQual (passed as callback)
 - Called from (representative examples):
-  - ExecInitCteScan: Sets this function as the execution method during node initialization
+  - [ExecInitCteScan](ExecInitCteScan.md): Sets this function as the execution method during node initialization
 
 ## Notes and Other Information
 - Follows the standard PostgreSQL executor pattern of delegating to ExecScan with specialized access methods

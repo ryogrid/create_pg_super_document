@@ -20,7 +20,7 @@ The function internally uses the  function to perform the XPath evaluation and s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xpath_internal
+  - [xpath_internal](xpath_internal.md)
   - PG_GETARG_TEXT_PP
   - PG_GETARG_XML_P
   - PG_RETURN_BOOL

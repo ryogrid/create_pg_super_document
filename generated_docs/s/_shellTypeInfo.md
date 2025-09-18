@@ -19,9 +19,9 @@ The _shellTypeInfo structure is a lightweight wrapper used by pg_dump to manage 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TypeInfo
+  - [TypeInfo](../T/TypeInfo.md)
 - Called from (representative examples):
-  - _typeInfo (referenced via shellType pointer)
+  - [_typeInfo](../t/_typeInfo.md) (referenced via shellType pointer)
 
 ## Notes and Other Information
 - Shell types are essential for handling PostgreSQL's complex type dependency graphs during dump operations

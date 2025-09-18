@@ -28,20 +28,20 @@ The recovery process carefully handles cases where the heap file may have been d
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract xl_heap_visible structure from WAL record
-  - XLogRecGetBlockTag: Get relation and block information
-  - ResolveRecoveryConflictWithSnapshot: Handle Hot Standby conflicts
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md): Get relation and block information
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md): Handle Hot Standby conflicts
   - XLogReadBufferForRedo: Read heap page for redo
-  - PageSetAllVisible: Set page-level visibility bit
+  - [PageSetAllVisible](../P/PageSetAllVisible.md): Set page-level visibility bit
   - XLogHintBitIsNeeded: Check if LSN update is required
-  - PageGetFreeSpace: Calculate free space for FSM update
+  - [PageGetFreeSpace](../P/PageGetFreeSpace.md): Calculate free space for FSM update
   - XLogRecordPageWithFreeSpace: Update FSM with free space info
   - XLogReadBufferForRedoExtended: Read visibility map page
-  - visibilitymap_pin: Pin visibility map page
-  - visibilitymap_set: Update visibility map bits
-  - CreateFakeRelcacheEntry/FreeFakeRelcacheEntry: Temporary relation cache handling
+  - [visibilitymap_pin](../v/visibilitymap_pin.md): Pin visibility map page
+  - [visibilitymap_set](../v/visibilitymap_set.md): Update visibility map bits
+  - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry: Temporary relation cache handling
 
 - Called from:
-  - heap2_redo: Main heap WAL record replay dispatcher
+  - [heap2_redo](heap2_redo.md): Main heap WAL record replay dispatcher
 
 ## Notes and Other Information
 - This is a static function only called during WAL recovery operations

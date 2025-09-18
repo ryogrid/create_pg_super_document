@@ -22,17 +22,17 @@ The function uses HASH_ENTER_NULL mode for hash_search, which allows it to detec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Data structures used:
   - config_generic
   - GUCHashEntry
   - HASH_ENTER_NULL
 - Called from:
-  - add_placeholder_variable (src/backend/utils/misc/guc.c:1211)
-  - define_custom_variable (src/backend/utils/misc/guc.c:4962)
+  - [add_placeholder_variable](add_placeholder_variable.md) (src/backend/utils/misc/guc.c:1211)
+  - [define_custom_variable](../d/define_custom_variable.md) (src/backend/utils/misc/guc.c:4962)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c file

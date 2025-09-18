@@ -28,19 +28,19 @@ The slab allocator organizes memory into blocks, where each block contains multi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextData
-  - dclist_head
-  - dlist_head
+  - [MemoryContextData](../M/MemoryContextData.md)
+  - [dclist_head](../d/dclist_head.md)
+  - [dlist_head](../d/dlist_head.md)
   - SLAB_BLOCKLIST_COUNT
   - MEMORY_CONTEXT_CHECKING
 
 - Called from (representative examples):
-  - SlabContextCreate
-  - SlabAlloc
-  - SlabFree
-  - SlabReset
-  - SlabCheck
-  - SlabStats
+  - [SlabContextCreate](SlabContextCreate.md)
+  - [SlabAlloc](SlabAlloc.md)
+  - [SlabFree](SlabFree.md)
+  - [SlabReset](SlabReset.md)
+  - [SlabCheck](SlabCheck.md)
+  - [SlabStats](SlabStats.md)
 
 ## Notes and Other Information
 - The slab allocator is optimized for scenarios with many allocations of the same size, such as tuple storage or node structures

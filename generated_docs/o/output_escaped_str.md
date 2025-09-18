@@ -20,10 +20,10 @@ This static function is a utility within the ECPG preprocessor that handles the 
 - Functions called/Symbols referenced:
   - No external function calls (uses standard C library functions like strlen, fputs, fputc)
 - Called from (representative examples):
-  - output_simple_statement (at src/interfaces/ecpg/preproc/output.c:21)
-  - output_statement (at src/interfaces/ecpg/preproc/output.c:154)
-  - output_prepare_statement (at src/interfaces/ecpg/preproc/output.c:173 and 175)
-  - output_deallocate_prepare_statement (at src/interfaces/ecpg/preproc/output.c:189)
+  - [output_simple_statement](output_simple_statement.md) (at src/interfaces/ecpg/preproc/output.c:21)
+  - [output_statement](output_statement.md) (at src/interfaces/ecpg/preproc/output.c:154)
+  - [output_prepare_statement](output_prepare_statement.md) (at src/interfaces/ecpg/preproc/output.c:173 and 175)
+  - [output_deallocate_prepare_statement](output_deallocate_prepare_statement.md) (at src/interfaces/ecpg/preproc/output.c:189)
 
 ## Notes and Other Information
 - Character-by-character processing ensures proper handling of all special cases

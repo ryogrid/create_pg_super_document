@@ -20,7 +20,7 @@ This function is a PostgreSQL SQL-callable wrapper around the internal float8_cm
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (macro for extracting float8 arguments)
-  - float8_cmp_internal (performs the actual comparison)
+  - [float8_cmp_internal](../f/float8_cmp_internal.md) (performs the actual comparison)
   - PG_RETURN_INT32 (macro for returning int32 result)
 
 - Called from (representative examples):

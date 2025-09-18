@@ -28,18 +28,18 @@ For transient record types, the function first checks the local cache, then quer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
-  - dshash_find
-  - dsa_get_address
-  - ensure_record_cache_typmod_slot_exists
-  - dshash_release_lock
+  - [lookup_type_cache](lookup_type_cache.md)
+  - [dshash_find](../d/dshash_find.md)
+  - [dsa_get_address](../d/dsa_get_address.md)
+  - [ensure_record_cache_typmod_slot_exists](../e/ensure_record_cache_typmod_slot_exists.md)
+  - [dshash_release_lock](../d/dshash_release_lock.md)
   - TYPECACHE_TUPDESC
-  - SharedTypmodTableEntry
+  - [SharedTypmodTableEntry](../S/SharedTypmodTableEntry.md)
 - Called from (representative examples):
-  - lookup_rowtype_tupdesc
-  - lookup_rowtype_tupdesc_noerror
-  - lookup_rowtype_tupdesc_copy
-  - lookup_rowtype_tupdesc_domain
+  - [lookup_rowtype_tupdesc](lookup_rowtype_tupdesc.md)
+  - [lookup_rowtype_tupdesc_noerror](lookup_rowtype_tupdesc_noerror.md)
+  - [lookup_rowtype_tupdesc_copy](lookup_rowtype_tupdesc_copy.md)
+  - [lookup_rowtype_tupdesc_domain](lookup_rowtype_tupdesc_domain.md)
 
 ## Notes and Other Information
 - This is a static function internal to typcache.c, not exposed to external modules

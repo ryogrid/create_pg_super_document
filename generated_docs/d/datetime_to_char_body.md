@@ -29,13 +29,13 @@ The actual formatting work is delegated to `DCH_to_char()`, which handles the co
   - text_to_cstring
   - parse_format
   - DCH_cache_fetch
-  - DCH_to_char
+  - [DCH_to_char](../D/DCH_to_char.md)
   - cstring_to_text
-  - palloc/pfree (memory management)
+  - [palloc](../p/palloc.md)/pfree (memory management)
 - Called from (representative examples):
-  - timestamp_to_char
-  - timestamptz_to_char  
-  - interval_to_char
+  - [timestamp_to_char](../t/timestamp_to_char.md)
+  - [timestamptz_to_char](../t/timestamptz_to_char.md)  
+  - [interval_to_char](../i/interval_to_char.md)
 
 ## Notes and Other Information
 - Uses format caching for performance optimization with strings under DCH_CACHE_SIZE

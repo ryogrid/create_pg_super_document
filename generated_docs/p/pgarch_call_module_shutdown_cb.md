@@ -22,8 +22,8 @@ The function follows the standard PostgreSQL shutdown callback signature, accept
 - Functions called/Symbols referenced:
   - Uses global variables: ArchiveCallbacks, archive_module_state
 - Called from (representative examples):
-  - LoadArchiveLibrary (registers this as a shutdown callback)
-  - arch_files_state (indirectly through process exit mechanism)
+  - [LoadArchiveLibrary](../L/LoadArchiveLibrary.md) (registers this as a shutdown callback)
+  - [arch_files_state](../a/arch_files_state.md) (indirectly through process exit mechanism)
 
 ## Notes and Other Information
 - This function is registered as a shutdown callback by  using 

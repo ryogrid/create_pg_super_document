@@ -26,8 +26,8 @@ The ginxlogVacuumDataLeafPage structure is used as part of WAL logging when vacu
 - Functions called/Symbols referenced:
   - ginxlogRecompressDataLeaf
 - Called from (representative examples):
-  - ginRedoVacuumDataLeafPage (in src/backend/access/gin/ginxlog.c:461,463)
-  - gin_desc (in src/backend/access/rmgrdesc/gindesc.c:156,157)
+  - [ginRedoVacuumDataLeafPage](ginRedoVacuumDataLeafPage.md) (in src/backend/access/gin/ginxlog.c:461,463)
+  - [gin_desc](gin_desc.md) (in src/backend/access/rmgrdesc/gindesc.c:156,157)
 
 ## Notes and Other Information
 - This structure is part of the GIN index WAL logging infrastructure (XLOG_GIN_VACUUM_DATA_LEAF_PAGE operation)

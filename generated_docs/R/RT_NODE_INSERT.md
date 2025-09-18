@@ -30,15 +30,15 @@ This is a critical function in the radix tree's insertion path, called when a sl
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
   - RT_NODE_MUST_GROW (capacity check)
-  - RT_GROW_NODE_4, RT_GROW_NODE_16, RT_GROW_NODE_48 (growth operations)
-  - RT_ADD_CHILD_4, RT_ADD_CHILD_16, RT_ADD_CHILD_48, RT_ADD_CHILD_256 (insertion operations)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md), RT_GROW_NODE_16, RT_GROW_NODE_48 (growth operations)
+  - [RT_ADD_CHILD_4](RT_ADD_CHILD_4.md), RT_ADD_CHILD_16, RT_ADD_CHILD_48, RT_ADD_CHILD_256 (insertion operations)
 - Called from (representative examples):
-  - RT_GET_SLOT_RECURSIVE (when creating slots during tree traversal)
+  - [RT_GET_SLOT_RECURSIVE](RT_GET_SLOT_RECURSIVE.md) (when creating slots during tree traversal)
 
 ## Notes and Other Information
 - Central dispatcher for all node insertion operations in the adaptive radix tree
 - Implements the switch statement that handles all four node kinds (4, 16, 48, 256)
-- Node-256 never needs to grow since it can accommodate all possible 8-bit chunk values
+- [Node](../N/Node.md)-256 never needs to grow since it can accommodate all possible 8-bit chunk values
 - The function returns a pointer to the newly allocated slot where the caller can store the child
 - Growth operations handle both expanding the node and inserting the new child
 - Critical for maintaining the adaptive nature of the tree by triggering growth when needed

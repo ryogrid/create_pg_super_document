@@ -32,10 +32,10 @@ The function includes robust error handling for both memory allocation failures 
   -  - Dynamic memory allocation
   -  - Gets current working directory
   -  - String duplication
-  -  - Path normalization
+  -  - [Path](../P/Path.md) normalization
   -  - Memory deallocation
   -  - String formatting
-  - Backend-specific: ,  for error reporting
+  - [Backend](../B/Backend.md)-specific: ,  for error reporting
   - Frontend-specific:  for error output
 
 - Called from (representative examples):

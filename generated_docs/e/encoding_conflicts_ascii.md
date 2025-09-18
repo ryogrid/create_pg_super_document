@@ -24,12 +24,12 @@ The function uses a heuristic approach by checking if the encoding ID is greater
 - Functions called/Symbols referenced:
   - PG_ENCODING_BE_LAST (constant defining the boundary between backend and client-only encodings)
 - Called from (representative examples):
-  - test_one_vector_escape
+  - [test_one_vector_escape](../t/test_one_vector_escape.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the test_escape.c file
 - Uses client-only encoding status as a proxy for ASCII conflict detection
 - Client-only encodings (encoding > PG_ENCODING_BE_LAST) are assumed to have potential ASCII conflicts
-- Backend-supported encodings (encoding <= PG_ENCODING_BE_LAST) are assumed to not have ASCII conflicts
+- [Backend](../B/Backend.md)-supported encodings (encoding <= PG_ENCODING_BE_LAST) are assumed to not have ASCII conflicts
 - This heuristic approach avoids the need to store ASCII conflict properties directly in encoding metadata
 - Used primarily in testing contexts to determine appropriate escape sequence handling strategies

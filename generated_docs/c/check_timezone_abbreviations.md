@@ -23,7 +23,7 @@ For non-NULL values, it loads the specified timezone abbreviation file using  an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - load_tzoffsets
+  - [load_tzoffsets](../l/load_tzoffsets.md)
   - PGC_S_DEFAULT (constant)
   - Assert (macro)
 - Called from (representative examples):

@@ -21,8 +21,8 @@ The function converts the privilege string to the appropriate mode and performs 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_schema_priv_string
-  - object_aclcheck_ext
+  - [convert_schema_priv_string](../c/convert_schema_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - AclResult (type)

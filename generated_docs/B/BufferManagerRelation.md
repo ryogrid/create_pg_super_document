@@ -22,13 +22,13 @@ The structure enables the same buffer management functions to be used in both co
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelationData (structure)
-  - Relation (type)
+  - [Relation](../R/Relation.md) (type)
 - Called from (representative examples):
-  - ExtendBufferedRel (in bufmgr.c:845)
-  - ExtendBufferedRelBy (in bufmgr.c:877)
-  - ExtendBufferedRelTo (in bufmgr.c:909)
-  - ExtendBufferedRelCommon (in bufmgr.c:2135)
-  - ExtendBufferedRelShared (in bufmgr.c:2179)
+  - [ExtendBufferedRel](../E/ExtendBufferedRel.md) (in bufmgr.c:845)
+  - [ExtendBufferedRelBy](../E/ExtendBufferedRelBy.md) (in bufmgr.c:877)
+  - [ExtendBufferedRelTo](../E/ExtendBufferedRelTo.md) (in bufmgr.c:909)
+  - [ExtendBufferedRelCommon](../E/ExtendBufferedRelCommon.md) (in bufmgr.c:2135)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md) (in bufmgr.c:2179)
   - ExtendBufferedRelLocal (in localbuf.c:313)
 
 ## Notes and Other Information

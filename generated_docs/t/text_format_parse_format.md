@@ -39,7 +39,7 @@ Key parsing behaviors:
   - , , ,  - PostgreSQL error reporting system
 - Called from (representative examples):
   -  - Main FORMAT() function implementation
-  -  - Variable-length string datum extraction
+  -  - [Variable](../V/Variable.md)-length string datum extraction
 
 ## Notes and Other Information
 - Located in 

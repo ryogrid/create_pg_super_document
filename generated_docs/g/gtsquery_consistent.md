@@ -29,19 +29,19 @@ All results are marked as requiring rechecking since the signature-based compari
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTENTRY (struct type)
+  - [GISTENTRY](../G/GISTENTRY.md) (struct type)
   - TSQuery (type)
   - PG_GETARG_TSQUERY (extract TSQuery from function args)
   - StrategyNumber (type)
   - PG_GETARG_UINT16 (extract strategy number)
-  - DatumGetTSQuerySign (extract signature from Datum)
+  - [DatumGetTSQuerySign](../D/DatumGetTSQuerySign.md) (extract signature from Datum)
   - TSQuerySign (signature type)
-  - makeTSQuerySign (create signature from TSQuery)
+  - [makeTSQuerySign](../m/makeTSQuerySign.md) (create signature from TSQuery)
   - GIST_LEAF (check if entry is leaf)
   - RTContainsStrategyNumber (contains strategy constant)
   - RTContainedByStrategyNumber (contained-by strategy constant)
 - Called from (representative examples):
-  - gtsquery_consistent_oldsig (backward compatibility version)
+  - [gtsquery_consistent_oldsig](gtsquery_consistent_oldsig.md) (backward compatibility version)
 
 ## Notes and Other Information
 - This is a PostgreSQL extension function following PG_FUNCTION_ARGS convention

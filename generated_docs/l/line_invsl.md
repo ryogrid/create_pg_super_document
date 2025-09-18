@@ -23,9 +23,9 @@ This function computes the inverse slope of a line given its representation in t
   - LINE (data type)
   - FPzero (floating-point zero comparison macro)
   - get_float8_infinity (function to get infinity value)
-  - float8_div (floating-point division)
+  - [float8_div](../f/float8_div.md) (floating-point division)
 - Called from (representative examples):
-  - line_closept_point (closest point on line to point calculation)
+  - [line_closept_point](line_closept_point.md) (closest point on line to point calculation)
   - PATH_CLOSED (path operations involving line calculations)
 
 ## Notes and Other Information

@@ -21,10 +21,10 @@ This function serves as the final step in the B-tree page creation process durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTWriteState (parameter type)
+  - [BTWriteState](../B/BTWriteState.md) (parameter type)
   - BulkWriteBuffer (parameter type)
-  - smgr_bulk_write (to perform the actual write operation)
-  - BTPageState (referenced in context)
+  - [smgr_bulk_write](../s/smgr_bulk_write.md) (to perform the actual write operation)
+  - [BTPageState](../B/BTPageState.md) (referenced in context)
 - Called from (representative examples):
   - _bt_buildadd
   - _bt_uppershutdown

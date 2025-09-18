@@ -21,13 +21,13 @@ This function releases an unlocked buffer by dropping only its pin (reference co
   - ReleaseBuffer (core buffer management function for unpinning)
 
 - Called from (representative examples):
-  - hashbulkdelete (bulk deletion operations)
-  - _hash_doinsert (insertion operations)
-  - _hash_dropscanbuf (scan buffer cleanup)
-  - _hash_expandtable (table expansion operations)
-  - _hash_finish_split (split completion)
-  - _hash_getbucketbuf_from_hashkey (bucket buffer management)
-  - _hash_next/_hash_readprev/_hash_first (scan navigation)
+  - [hashbulkdelete](hashbulkdelete.md) (bulk deletion operations)
+  - [_hash_doinsert](_hash_doinsert.md) (insertion operations)
+  - [_hash_dropscanbuf](_hash_dropscanbuf.md) (scan buffer cleanup)
+  - [_hash_expandtable](_hash_expandtable.md) (table expansion operations)
+  - [_hash_finish_split](_hash_finish_split.md) (split completion)
+  - [_hash_getbucketbuf_from_hashkey](_hash_getbucketbuf_from_hashkey.md) (bucket buffer management)
+  - [_hash_next](_hash_next.md)/_hash_readprev/_hash_first (scan navigation)
 
 ## Notes and Other Information
 - Unlike , this function only drops the pin and does not attempt to release any locks

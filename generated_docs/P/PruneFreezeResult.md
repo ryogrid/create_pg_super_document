@@ -35,9 +35,9 @@ The structure also tracks information relevant to relation truncation safety thr
   - TransactionId
   - OffsetNumber
 - Called from (representative examples):
-  - heap_page_prune_opt (src/backend/access/heap/pruneheap.c:256)
-  - heap_page_prune_and_freeze (src/backend/access/heap/pruneheap.c:354)
-  - lazy_scan_prune (src/backend/access/heap/vacuumlazy.c:1419)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md) (src/backend/access/heap/pruneheap.c:256)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md) (src/backend/access/heap/pruneheap.c:354)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md) (src/backend/access/heap/vacuumlazy.c:1419)
 
 ## Notes and Other Information
 The visibility map related fields (all_visible, all_frozen, vm_conflict_horizon) are only populated when the HEAP_PRUNE_FREEZE option is set during the pruning operation. The deadoffsets array can accommodate up to MaxHeapTuplesPerPage entries, representing the maximum possible number of dead items on a single heap page. This structure is essential for VACUUM's decision-making process regarding visibility map updates and page-level optimizations, providing the detailed accounting necessary for safe and efficient heap maintenance operations.

@@ -24,7 +24,7 @@ This function establishes the storage location for wait event reporting by setti
   - my_wait_event_info
 - Called from (representative examples):
   - InitProcess (in proc.c:453)
-  - InitAuxiliaryProcess (in proc.c:620)
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md) (in proc.c:620)
 
 ## Notes and Other Information
 - Expected to be called during backend startup phase

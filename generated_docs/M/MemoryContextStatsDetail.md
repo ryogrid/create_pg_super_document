@@ -24,14 +24,14 @@ This function serves as the primary entry point for detailed memory context stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextCounters (structure for accumulating statistics)
-  - MemoryContextStatsInternal (internal recursive statistics gathering)
+  - [MemoryContextCounters](MemoryContextCounters.md) (structure for accumulating statistics)
+  - [MemoryContextStatsInternal](MemoryContextStatsInternal.md) (internal recursive statistics gathering)
   - LOG_SERVER_ONLY (logging level constant)
-  - errhidestmt (error reporting function)
-  - errhidecontext (error reporting function)
+  - [errhidestmt](../e/errhidestmt.md) (error reporting function)
+  - [errhidecontext](../e/errhidecontext.md) (error reporting function)
 - Called from (representative examples):
-  - MemoryContextStats (simplified wrapper)
-  - ProcessLogMemoryContextInterrupt (signal-based debugging)
+  - [MemoryContextStats](MemoryContextStats.md) (simplified wrapper)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md) (signal-based debugging)
 
 ## Notes and Other Information
 - Uses LOG_SERVER_ONLY when logging to prevent memory context data from reaching clients

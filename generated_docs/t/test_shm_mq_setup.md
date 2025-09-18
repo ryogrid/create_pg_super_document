@@ -30,16 +30,16 @@ The setup process involves four main phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_dynamic_shared_memory
-  - setup_background_workers
-  - shm_mq_attach
-  - wait_for_workers_to_become_ready
+  - [setup_dynamic_shared_memory](../s/setup_dynamic_shared_memory.md)
+  - [setup_background_workers](../s/setup_background_workers.md)
+  - [shm_mq_attach](../s/shm_mq_attach.md)
+  - [wait_for_workers_to_become_ready](../w/wait_for_workers_to_become_ready.md)
   - cancel_on_dsm_detach
-  - cleanup_background_workers
-  - pfree
+  - [cleanup_background_workers](../c/cleanup_background_workers.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - test_shm_mq
-  - test_shm_mq_pipelined
+  - [test_shm_mq](test_shm_mq.md)
+  - [test_shm_mq_pipelined](test_shm_mq_pipelined.md)
 
 ## Notes and Other Information
 - This function is part of the PostgreSQL test infrastructure specifically designed for testing shared memory message queue functionality

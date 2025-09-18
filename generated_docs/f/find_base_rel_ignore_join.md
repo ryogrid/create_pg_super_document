@@ -24,10 +24,10 @@ The function first performs bounds checking using an unsigned comparison to prev
   - RTE_JOIN (constant comparison)
   - elog (error logging)
 - Called from (representative examples):
-  - create_lateral_join_info
-  - find_appinfos_by_relids
-  - add_join_clause_to_rels
-  - remove_join_clause_from_rels
+  - [create_lateral_join_info](../c/create_lateral_join_info.md)
+  - [find_appinfos_by_relids](find_appinfos_by_relids.md)
+  - [add_join_clause_to_rels](../a/add_join_clause_to_rels.md)
+  - [remove_join_clause_from_rels](../r/remove_join_clause_from_rels.md)
 
 ## Notes and Other Information
 - Uses unsigned comparison for bounds checking to prevent negative array access

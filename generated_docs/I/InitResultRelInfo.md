@@ -22,18 +22,18 @@ InitResultRelInfo performs comprehensive initialization of a ResultRelInfo struc
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet
-  - IsInplaceUpdateRelation
-  - CopyTriggerDesc
+  - [IsInplaceUpdateRelation](IsInplaceUpdateRelation.md)
+  - [CopyTriggerDesc](../C/CopyTriggerDesc.md)
   - InstrAlloc
-  - GetFdwRoutineForRelation
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
   - Various MERGE and RELKIND constants
 - Called from (representative examples):
-  - ExecuteTruncateGuts
-  - ExecGetTriggerResultRel
-  - ExecGetAncestorResultRels
-  - ExecInitPartitionInfo
-  - ExecInitPartitionDispatchInfo
-  - ExecInitResultRelation
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
+  - [ExecGetTriggerResultRel](../E/ExecGetTriggerResultRel.md)
+  - [ExecGetAncestorResultRels](../E/ExecGetAncestorResultRels.md)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md)
+  - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)
+  - [ExecInitResultRelation](../E/ExecInitResultRelation.md)
 
 ## Notes and Other Information
 - Prior to PostgreSQL 9.1, this function also handled relation kind validation and index opening

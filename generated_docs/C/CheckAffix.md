@@ -27,12 +27,12 @@ The function handles both prefix and suffix affixes differently - for suffixes, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcpy, strcat, strlen (string manipulation functions)
-  - RS_execute (for regex matching)
-  - pg_mb2wchar_with_len (multibyte to wide character conversion)
+  - [RS_execute](../R/RS_execute.md) (for regex matching)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (multibyte to wide character conversion)
   - pg_regexec (PostgreSQL regex execution)
-  - palloc, pfree (PostgreSQL memory management)
+  - [palloc](../p/palloc.md), pfree (PostgreSQL memory management)
 - Called from (representative examples):
-  - NormalizeSubWord (3 times at lines 2217, 2242, 2259)
+  - [NormalizeSubWord](../N/NormalizeSubWord.md) (3 times at lines 2217, 2242, 2259)
 
 ## Notes and Other Information
 - Returns the transformed word on success, NULL on failure

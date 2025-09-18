@@ -29,16 +29,16 @@ The function handles HOT (Heap-Only-Tuples) chains by converting actual tuple TI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getnext
-  - heap_get_root_tuples
-  - tuplesort_getdatum
-  - FormIndexDatum
-  - index_insert
+  - [heap_getnext](heap_getnext.md)
+  - [heap_get_root_tuples](heap_get_root_tuples.md)
+  - [tuplesort_getdatum](../t/tuplesort_getdatum.md)
+  - [FormIndexDatum](../F/FormIndexDatum.md)
+  - [index_insert](../i/index_insert.md)
   - ExecQual
-  - ItemPointerCompare
-  - table_beginscan_strat
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
+  - [table_beginscan_strat](../t/table_beginscan_strat.md)
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
 
 ## Notes and Other Information
 This function is critical for concurrent index builds and index repair operations. It must handle the complexity of merging heap scan results with sorted index entries while properly managing HOT chains. The function disables synchronized scanning to ensure TIDs are read in the correct order for comparison. The validation process accounts for partial indexes by evaluating predicates and handles uniqueness checking appropriately, even for tuples that might be dead but part of HOT chains.

@@ -23,14 +23,14 @@ This function provides a mechanism for traversing a text-based JSON structure an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - makeJsonLexContext
-  - iterate_values_scalar
-  - iterate_values_object_field_start
+  - [palloc0](../p/palloc0.md)
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
+  - [iterate_values_scalar](iterate_values_scalar.md)
+  - [iterate_values_object_field_start](iterate_values_object_field_start.md)
   - pg_parse_json_or_ereport
   - freeJsonLexContext
 - Called from (representative examples):
-  - json_to_tsvector_worker
+  - [json_to_tsvector_worker](../j/json_to_tsvector_worker.md)
   - pg_parse_json_or_ereport
 
 ## Notes and Other Information

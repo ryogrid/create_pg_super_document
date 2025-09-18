@@ -25,14 +25,14 @@ The function returns a list of PublicationRelInfo structures containing the open
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_openrv (opens relation by RangeVar)
-  - find_all_inheritors (finds child tables for inheritance)
-  - list_member_oid (checks for duplicate OIDs)
+  - [find_all_inheritors](../f/find_all_inheritors.md) (finds child tables for inheritance)
+  - [list_member_oid](../l/list_member_oid.md) (checks for duplicate OIDs)
   - lappend/lappend_oid (list manipulation)
   - RelationGetRelid (gets relation OID)
   - RelationGetRelationName (gets relation name)
 - Called from (representative examples):
-  - CreatePublication (src/backend/commands/publicationcmds.c:831)
-  - AlterPublicationTables (src/backend/commands/publicationcmds.c:1095)
+  - [CreatePublication](../C/CreatePublication.md) (src/backend/commands/publicationcmds.c:831)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md) (src/backend/commands/publicationcmds.c:1095)
 
 ## Notes and Other Information
 - Uses ShareUpdateExclusiveLock to ensure safe concurrent access during publication operations

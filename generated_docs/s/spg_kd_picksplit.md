@@ -36,13 +36,13 @@ The algorithm intentionally allows points with coordinates exactly equal to the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointP
+  - [DatumGetPointP](../D/DatumGetPointP.md)
   - qsort
-  - x_cmp (for sorting by X coordinate)
-  - y_cmp (for sorting by Y coordinate)
-  - Float8GetDatum
-  - PointPGetDatum
-  - palloc
+  - [x_cmp](../x/x_cmp.md) (for sorting by X coordinate)
+  - [y_cmp](../y/y_cmp.md) (for sorting by Y coordinate)
+  - [Float8GetDatum](../F/Float8GetDatum.md)
+  - [PointPGetDatum](../P/PointPGetDatum.md)
+  - [palloc](../p/palloc.md)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - SP-GiST index operations (no direct references found in codebase)

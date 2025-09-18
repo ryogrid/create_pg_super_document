@@ -23,7 +23,7 @@ GinOptions stores configuration parameters that control the behavior of GIN inde
 - Called from (representative examples):
   - GinGetUseFastUpdate
   - GinGetPendingListCleanupSize
-  - ginoptions (function in ginutil.c)
+  - [ginoptions](../g/ginoptions.md) (function in ginutil.c)
 
 ## Notes and Other Information
 - Located in src/include/access/gin_private.h:26-31

@@ -19,20 +19,20 @@ This function provides functionality for the psql \\dP metacommand, which is spe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (PostgreSQL's expandable string buffer structure)
-  - printQueryOpt (print formatting options structure)  
-  - formatPGVersionNumber (format PostgreSQL version for display)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)
+  - [printQueryOpt](../p/printQueryOpt.md) (print formatting options structure)  
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md) (format PostgreSQL version for display)
   - initPQExpBuffer (initialize buffer)
-  - printfPQExpBuffer (formatted append to buffer)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formatted append to buffer)
   - CppAsString2 (macro to convert constants to strings)
   - RELKIND_PARTITIONED_TABLE, RELKIND_PARTITIONED_INDEX (relation kind constants)
-  - validateSQLNamePattern (validate and append SQL name patterns)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and append SQL name patterns)
   - termPQExpBuffer (cleanup buffer)
-  - PSQLexec (execute SQL query)
+  - [PSQLexec](../P/PSQLexec.md) (execute SQL query)
   - lengthof (macro to get array length)
-  - printQuery (display query results)
+  - [printQuery](../p/printQuery.md) (display query results)
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher at src/bin/psql/command.c:914)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher at src/bin/psql/command.c:914)
   - DESCRIBE_H (function declaration in src/bin/psql/describe.h:74)
 
 ## Notes and Other Information

@@ -20,18 +20,18 @@ This internal function calculates whether two line segments intersect. It works 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - line_construct (constructs a line from two points)
-  - lseg_sl (calculates slope of line segment)
-  - lseg_interpt_line (finds intersection between segment and line)
-  - lseg_contain_point (checks if point lies within segment)
+  - [line_construct](line_construct.md) (constructs a line from two points)
+  - [lseg_sl](lseg_sl.md) (calculates slope of line segment)
+  - [lseg_interpt_line](lseg_interpt_line.md) (finds intersection between segment and line)
+  - [lseg_contain_point](lseg_contain_point.md) (checks if point lies within segment)
 - Called from:
-  - path_inter (path intersection operations)
-  - lseg_intersect (segment intersection testing)
-  - lseg_interpt (segment intersection point calculation)
-  - lseg_closept_lseg (closest point between segments)
-  - box_interpt_lseg (box-segment intersection)
-  - poly_overlap_internal (polygon overlap detection)
-  - lseg_inside_poly (segment inside polygon testing)
+  - [path_inter](../p/path_inter.md) (path intersection operations)
+  - [lseg_intersect](lseg_intersect.md) (segment intersection testing)
+  - [lseg_interpt](lseg_interpt.md) (segment intersection point calculation)
+  - [lseg_closept_lseg](lseg_closept_lseg.md) (closest point between segments)
+  - [box_interpt_lseg](../b/box_interpt_lseg.md) (box-segment intersection)
+  - [poly_overlap_internal](../p/poly_overlap_internal.md) (polygon overlap detection)
+  - [lseg_inside_poly](lseg_inside_poly.md) (segment inside polygon testing)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:2338-2360

@@ -24,9 +24,9 @@ The function provides a type-safe conversion from the generic Datum type to the 
   - PG_DETOAST_DATUM (macro for detoasting variable-length data)
   - TSVector (type casting)
 - Called from (representative examples):
-  - compute_tsvector_stats
-  - gtsvector_compress
-  - ts_match_tt
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
+  - [gtsvector_compress](../g/gtsvector_compress.md)
+  - [ts_match_tt](../t/ts_match_tt.md)
   - ts_match_tq
   - ts_accum
   - PG_GETARG_TSVECTOR

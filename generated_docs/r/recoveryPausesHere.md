@@ -24,16 +24,16 @@ During the pause loop, it periodically checks for interrupts and standby trigger
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRecoveryPauseState
+  - [GetRecoveryPauseState](../G/GetRecoveryPauseState.md)
   - RECOVERY_NOT_PAUSED
-  - HandleStartupProcInterrupts
-  - CheckForStandbyTrigger
-  - ConfirmRecoveryPaused
-  - ConditionVariableTimedSleep
-  - ConditionVariableCancelSleep
+  - [HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
+  - [ConfirmRecoveryPaused](../C/ConfirmRecoveryPaused.md)
+  - [ConditionVariableTimedSleep](../C/ConditionVariableTimedSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
 - Called from (representative examples):
-  - PerformWalRecovery
-  - WaitForWALToBecomeAvailable
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 - This is a static function within xlogrecovery.c, not exposed as a public API

@@ -20,12 +20,12 @@ The  function is the execution handler for ALTER TABLE ENABLE/DISABLE RULE comma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EnableDisableRule
+  - [EnableDisableRule](../E/EnableDisableRule.md)
   - InvokeObjectPostAlterHook
   - RelationRelationId
   - RelationGetRelid
 - Called from (representative examples):
-  - ATExecCmd (multiple rule-related ALTER TABLE subcases)
+  - [ATExecCmd](ATExecCmd.md) (multiple rule-related ALTER TABLE subcases)
 
 ## Notes and Other Information
 - Part of the ALTER TABLE command execution infrastructure  

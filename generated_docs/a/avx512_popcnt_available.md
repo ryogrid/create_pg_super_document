@@ -29,7 +29,7 @@ Both instruction sets must be available for the function to return true. The fun
 - Functions called/Symbols referenced:
   - `__get_cpuid_count()` or `__cpuidex()` (platform-specific CPUID intrinsics)
 - Called from (representative examples):
-  - `pg_popcount_avx512_available` at src/port/pg_popcount_avx512_choose.c:99
+  - `[pg_popcount_avx512_available](../p/pg_popcount_avx512_available.md)` at src/port/pg_popcount_avx512_choose.c:99
 
 ## Notes and Other Information
 - This is a static inline function, only visible within the compilation unit

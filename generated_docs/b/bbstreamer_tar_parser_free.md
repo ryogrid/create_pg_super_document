@@ -19,8 +19,8 @@ This function performs cleanup operations for a tar parser bbstreamer when it is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - bbstreamer_free
+  - [pfree](../p/pfree.md)
+  - [bbstreamer_free](bbstreamer_free.md)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in ops structure)
 

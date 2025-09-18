@@ -26,16 +26,16 @@ BOX is fundamental to PostgreSQL's spatial indexing systems, particularly GiST (
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (corner coordinate storage)
+  - [Point](../P/Point.md) (corner coordinate storage)
   
 - Called from (representative examples):
-  - POLYGON (bounding box storage)
+  - [POLYGON](../P/POLYGON.md) (bounding box storage)
   - GiST index operations (spatial indexing)
-  - box_in/box_out (I/O functions)
-  - box_overlap/box_contain (geometric relationship tests)
-  - box_area/box_width/box_height (measurement functions)
-  - box_distance (distance calculations)
-  - box_intersect (intersection operations)
+  - [box_in](../b/box_in.md)/box_out (I/O functions)
+  - [box_overlap](../b/box_overlap.md)/box_contain (geometric relationship tests)
+  - [box_area](../b/box_area.md)/box_width/box_height (measurement functions)
+  - [box_distance](../b/box_distance.md) (distance calculations)
+  - [box_intersect](../b/box_intersect.md) (intersection operations)
   - Circle and Polygon operations (bounding box calculations)
   - SP-GiST spatial partitioning algorithms
 

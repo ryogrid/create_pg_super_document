@@ -32,23 +32,23 @@ Each catalog requires specific handling to extract the target relation OID and d
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBootstrapProcessingMode
-  - IsCatalogRelation
-  - IsToastRelation
-  - PrepareInvalidationState
-  - RelationInvalidatesSnapshotsOnly
-  - IsSharedRelation
-  - RegisterSnapshotInvalidation
-  - PrepareToInvalidateCacheTuple
-  - RegisterCatcacheInvalidation
-  - RegisterRelcacheInvalidation
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
+  - [IsToastRelation](../I/IsToastRelation.md)
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md)
+  - [RelationInvalidatesSnapshotsOnly](../R/RelationInvalidatesSnapshotsOnly.md)
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [RegisterSnapshotInvalidation](../R/RegisterSnapshotInvalidation.md)
+  - [PrepareToInvalidateCacheTuple](../P/PrepareToInvalidateCacheTuple.md)
+  - [RegisterCatcacheInvalidation](../R/RegisterCatcacheInvalidation.md)
+  - [RegisterRelcacheInvalidation](../R/RegisterRelcacheInvalidation.md)
 - Called from (representative examples):
-  - heap_insert
-  - heap_multi_insert
-  - heap_delete
-  - heap_update
-  - heap_inplace_update
-  - AlterDomainDropConstraint
-  - AlterDomainAddConstraint
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_inplace_update](../h/heap_inplace_update.md)
+  - [AlterDomainDropConstraint](../A/AlterDomainDropConstraint.md)
+  - [AlterDomainAddConstraint](../A/AlterDomainAddConstraint.md)
 
 ## Notes and Other Information
 - Does nothing during bootstrap processing mode to avoid circular dependencies

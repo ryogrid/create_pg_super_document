@@ -28,13 +28,13 @@ When creating a new entry, the function initializes all scan-related fields to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompareEntries
-  - palloc
+  - [ginCompareEntries](ginCompareEntries.md)
+  - [palloc](../p/palloc.md)
   - ItemPointerSetMin
-  - repalloc
+  - [repalloc](../r/repalloc.md)
 - Called from:
-  - ginScanKeyAddHiddenEntry
-  - ginFillScanKey
+  - [ginScanKeyAddHiddenEntry](ginScanKeyAddHiddenEntry.md)
+  - [ginFillScanKey](ginFillScanKey.md)
 
 ## Notes and Other Information
 - Implements deduplication to avoid creating duplicate scan entries for identical search conditions

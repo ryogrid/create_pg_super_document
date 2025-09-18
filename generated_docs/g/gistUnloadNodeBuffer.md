@@ -18,11 +18,11 @@ This function is responsible for persisting the buffered page data of a GiST nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistBuffersGetFreeBlock
-  - WriteTempFileBlock
-  - pfree
+  - [gistBuffersGetFreeBlock](gistBuffersGetFreeBlock.md)
+  - [WriteTempFileBlock](../W/WriteTempFileBlock.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - gistUnloadNodeBuffers
+  - [gistUnloadNodeBuffers](gistUnloadNodeBuffers.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistbuildbuffers.c file

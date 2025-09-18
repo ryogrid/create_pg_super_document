@@ -28,26 +28,26 @@ Key functionality includes:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogSegNo
-  - instr_time
+  - [instr_time](instr_time.md)
   - WAL_SYNC_METHOD_OPEN
-  - WAL_SYNC_METHOD_OPEN_DSYNC
+  - [WAL_SYNC_METHOD_OPEN_DSYNC](../W/WAL_SYNC_METHOD_OPEN_DSYNC.md)
   - INSTR_TIME_SET_CURRENT
   - INSTR_TIME_SET_ZERO
   - pgstat_report_wait_start
   - WAL_SYNC_METHOD_FSYNC
   - pg_fsync_no_writethrough
   - WAL_SYNC_METHOD_FSYNC_WRITETHROUGH
-  - pg_fsync_writethrough
+  - [pg_fsync_writethrough](../p/pg_fsync_writethrough.md)
   - WAL_SYNC_METHOD_FDATASYNC
   - pg_fdatasync
-  - XLogFileName
+  - [XLogFileName](../X/XLogFileName.md)
   - pgstat_report_wait_end
   - INSTR_TIME_ACCUM_DIFF
   - MAXFNAMELEN
   - PANIC
 - Called from (representative examples):
-  - XLogWrite
-  - XLogWalRcvFlush
+  - [XLogWrite](../X/XLogWrite.md)
+  - [XLogWalRcvFlush](../X/XLogWalRcvFlush.md)
 
 ## Notes and Other Information
 - The function optimizes performance by skipping fsync when using O_SYNC or O_DSYNC open flags, as write() calls are already synchronous

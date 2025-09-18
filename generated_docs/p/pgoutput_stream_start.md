@@ -18,17 +18,17 @@ pgoutput_stream_start is a callback function in the pgoutput logical replication
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext
-  - ReorderBufferTXN
-  - PGOutputData
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
+  - [PGOutputData](../P/PGOutputData.md)
   - InvalidRepOriginId
   - rbtxn_is_streamed
-  - OutputPluginPrepareWrite
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
   - logicalrep_write_stream_start
-  - send_repl_origin
-  - OutputPluginWrite
+  - [send_repl_origin](../s/send_repl_origin.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pgoutput.c file

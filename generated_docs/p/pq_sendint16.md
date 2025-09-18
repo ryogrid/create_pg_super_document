@@ -21,18 +21,18 @@ static inline void pq_sendint16(StringInfo buf, uint16 i)
 ## Dependencies
 - Functions called/Symbols referenced:
   - enlargeStringInfo
-  - pq_writeint16
+  - [pq_writeint16](pq_writeint16.md)
 - Called from (representative examples):
-  - printsimple_startup
-  - SendRowDescriptionMessage
-  - printtup
-  - SendCopyBegin
-  - ReceiveCopyBegin
-  - logicalrep_write_tuple
-  - int2send
-  - numeric_send
-  - tsvectorsend
-  - pq_sendint
+  - [printsimple_startup](printsimple_startup.md)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
+  - [printtup](printtup.md)
+  - [SendCopyBegin](../S/SendCopyBegin.md)
+  - [ReceiveCopyBegin](../R/ReceiveCopyBegin.md)
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
+  - [int2send](../i/int2send.md)
+  - [numeric_send](../n/numeric_send.md)
+  - [tsvectorsend](../t/tsvectorsend.md)
+  - [pq_sendint](pq_sendint.md)
 
 ## Notes and Other Information
 - Defined as a static inline function for optimal performance

@@ -23,12 +23,12 @@ This cleanup is essential for proper resource management in parallel hash joins,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sts_end_write (terminate shared tuplestore write operations)
-  - sts_end_parallel_scan (terminate shared tuplestore parallel scan operations)
-  - pfree (free allocated memory)
+  - [sts_end_write](../s/sts_end_write.md) (terminate shared tuplestore write operations)
+  - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md) (terminate shared tuplestore parallel scan operations)
+  - [pfree](../p/pfree.md) (free allocated memory)
 - Called from:
-  - ExecParallelHashIncreaseNumBatches (nodeHash.c:1116, 1214) 
-  - ExecParallelHashEnsureBatchAccessors (nodeHash.c:3216)
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (nodeHash.c:1116, 1214) 
+  - [ExecParallelHashEnsureBatchAccessors](ExecParallelHashEnsureBatchAccessors.md) (nodeHash.c:3216)
 
 ## Notes and Other Information
 - This is a static function internal to nodeHash.c for parallel hash join cleanup

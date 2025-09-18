@@ -21,11 +21,11 @@ The function ensures that memory is freed using the same memory management syste
 - Functions called/Symbols referenced:
   - free (standard C library function)
 - Called from (representative examples):
-  - libpqrcv_check_conninfo
-  - libpqrcv_get_dbname_from_conninfo
-  - ReceiveCopyData
-  - StreamLogicalLog
-  - dumpTableData_copy
+  - [libpqrcv_check_conninfo](../l/libpqrcv_check_conninfo.md)
+  - [libpqrcv_get_dbname_from_conninfo](../l/libpqrcv_get_dbname_from_conninfo.md)
+  - [ReceiveCopyData](../R/ReceiveCopyData.md)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md)
+  - [dumpTableData_copy](../d/dumpTableData_copy.md)
   - PQchangePassword
 
 ## Notes and Other Information

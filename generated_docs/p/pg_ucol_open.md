@@ -33,13 +33,13 @@ The function ensures that collators are opened consistently across different ICU
   - icu_set_collation_attributes
   - u_errorName (ICU library function)
   - elog, ereport (PostgreSQL error reporting)
-  - errmsg
-  - palloc, pfree (PostgreSQL memory management)
+  - [errmsg](../e/errmsg.md)
+  - [palloc](palloc.md), pfree (PostgreSQL memory management)
   - strcmp, strcpy, strcat, strlen (standard C library functions)
 - Called from (representative examples):
-  - make_icu_collator
-  - get_collation_actual_version
-  - icu_validate_locale
+  - [make_icu_collator](../m/make_icu_collator.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
+  - [icu_validate_locale](../i/icu_validate_locale.md)
 
 ## Notes and Other Information
 - Static function (internal to pg_locale.c)

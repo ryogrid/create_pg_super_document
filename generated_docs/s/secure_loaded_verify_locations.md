@@ -22,7 +22,7 @@ When PostgreSQL is compiled with SSL support, it returns the value of the global
   - ssl_loaded_verify_locations (global variable when USE_SSL is defined)
   - USE_SSL (compile-time macro check)
 - Called from (representative examples):
-  - ClientAuthentication (to determine if certificate-based authentication is possible)
+  - [ClientAuthentication](../C/ClientAuthentication.md) (to determine if certificate-based authentication is possible)
   - FeBeWaitSetNEvents (referenced in libpq.h)
 
 ## Notes and Other Information

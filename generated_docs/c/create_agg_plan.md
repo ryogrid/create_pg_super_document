@@ -18,16 +18,16 @@ The  function is responsible for creating an Agg plan node from an AggPath struc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
-  - build_path_tlist
-  - order_qual_clauses
-  - make_agg
-  - extract_grouping_cols
-  - extract_grouping_ops
-  - extract_grouping_collations
-  - copy_generic_path_info
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [make_agg](../m/make_agg.md)
+  - [extract_grouping_cols](../e/extract_grouping_cols.md)
+  - [extract_grouping_ops](../e/extract_grouping_ops.md)
+  - [extract_grouping_collations](../e/extract_grouping_collations.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the createplan.c file

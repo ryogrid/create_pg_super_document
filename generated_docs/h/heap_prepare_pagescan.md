@@ -17,17 +17,17 @@ This function performs essential page preparation for pagemode scanning, a Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber
-  - heap_page_prune_opt
-  - LockBuffer
-  - BufferGetPage
-  - PageGetMaxOffsetNumber
-  - PageIsAllVisible
-  - CheckForSerializableConflictOutNeeded
-  - page_collect_tuples (multiple optimized call paths)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [heap_page_prune_opt](heap_page_prune_opt.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageIsAllVisible](../P/PageIsAllVisible.md)
+  - [CheckForSerializableConflictOutNeeded](../C/CheckForSerializableConflictOutNeeded.md)
+  - [page_collect_tuples](../p/page_collect_tuples.md) (multiple optimized call paths)
 - Called from (representative examples):
-  - heapgettup_pagemode
-  - heapam_scan_sample_next_block
+  - [heapgettup_pagemode](heapgettup_pagemode.md)
+  - [heapam_scan_sample_next_block](heapam_scan_sample_next_block.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

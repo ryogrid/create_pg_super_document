@@ -19,7 +19,7 @@ This function implements "image" comparison semantics where different representa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `record_image_cmp` - Internal byte-oriented comparison function that performs the actual comparison
+  - `[record_image_cmp](../r/record_image_cmp.md)` - Internal byte-oriented comparison function that performs the actual comparison
   - `PG_RETURN_INT32` - PostgreSQL macro for returning 32-bit integer values
   - `PG_FUNCTION_ARGS` - PostgreSQL function call interface
 

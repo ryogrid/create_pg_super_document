@@ -23,21 +23,21 @@ This function parses one filter item from a filter file in the format: `<command
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_get_line_buf
-  - filter_get_keyword
+  - [filter_get_keyword](filter_get_keyword.md)
   - is_keyword_str
-  - get_object_type
-  - read_pattern
-  - pg_log_filter_error
-  - exit_nicely (via fstate function pointer)
+  - [get_object_type](../g/get_object_type.md)
+  - [read_pattern](../r/read_pattern.md)
+  - [pg_log_filter_error](../p/pg_log_filter_error.md)
+  - [exit_nicely](../e/exit_nicely.md) (via fstate function pointer)
   - initPQExpBuffer
   - isspace (standard C library)
   - ferror (standard C library)
   - FilterStateData, FilterCommandType, FilterObjectType, PQExpBufferData (struct/enum types)
   - FILTER_COMMAND_TYPE_INCLUDE, FILTER_COMMAND_TYPE_EXCLUDE, FILTER_COMMAND_TYPE_NONE, FILTER_OBJECT_TYPE_NONE (enum values)
 - Called from (representative examples):
-  - read_dump_filters (at src/bin/pg_dump/pg_dump.c:19067)
-  - read_dumpall_filters (at src/bin/pg_dump/pg_dumpall.c:2052)
-  - read_restore_filters (at src/bin/pg_dump/pg_restore.c:559)
+  - [read_dump_filters](../r/read_dump_filters.md) (at src/bin/pg_dump/pg_dump.c:19067)
+  - [read_dumpall_filters](../r/read_dumpall_filters.md) (at src/bin/pg_dump/pg_dumpall.c:2052)
+  - [read_restore_filters](../r/read_restore_filters.md) (at src/bin/pg_dump/pg_restore.c:559)
 
 ## Notes and Other Information
 - This is a public function exported from filter.c module

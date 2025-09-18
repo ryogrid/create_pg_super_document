@@ -23,12 +23,12 @@ ScanState serves as the foundational structure for all scan executor nodes in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDescData
+  - [TableScanDescData](../T/TableScanDescData.md)
 - Called from (representative examples):
-  - ExecScan
-  - ExecScanFetch
-  - ExecAssignScanProjectionInfo
-  - ExecScanReScan
+  - [ExecScan](../E/ExecScan.md)
+  - [ExecScanFetch](../E/ExecScanFetch.md)
+  - [ExecAssignScanProjectionInfo](../E/ExecAssignScanProjectionInfo.md)
+  - [ExecScanReScan](../E/ExecScanReScan.md)
 
 ## Notes and Other Information
 - Serves as the base type for numerous specific scan node types including SeqScanState, IndexScanState, BitmapHeapScanState, and many others

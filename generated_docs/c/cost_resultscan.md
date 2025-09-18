@@ -29,15 +29,15 @@ The cost model is simpler than physical table scans since there's no I/O involve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_restriction_qual_cost (calculates cost of applying restriction qualifiers)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md) (calculates cost of applying restriction qualifiers)
   - cpu_tuple_cost (global cost parameter for tuple processing)
 - Types referenced:
-  - ParamPathInfo (parameterized path information)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (parameterized path information)
   - Cost (cost calculation type)
   - QualCost (qualification cost structure)
   - RTE_RESULT (enum value for result range table entries)
 - Called from:
-  - create_resultscan_path (in pathnode.c:2191)
+  - [create_resultscan_path](create_resultscan_path.md) (in pathnode.c:2191)
 
 ## Notes and Other Information
 - The function includes an assertion ensuring the relation is a result relation (rtekind == RTE_RESULT)

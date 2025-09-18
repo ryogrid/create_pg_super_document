@@ -34,5 +34,5 @@ The function is the inverse operation of , converting from individual date compo
 - This function is specifically designed for Informix compatibility in the ECPG interface
 - Complements the  function by providing the inverse operation (MDY to Julian vs. Julian to MDY)
 - Converts short integers to regular integers to match PostgreSQL's internal function expectations
-- Always returns 0 (success) - error handling is presumably done by the underlying  function
+- Always returns 0 (success) - [error](../e/error.md) handling is presumably done by the underlying  function
 - Part of the date conversion utilities that allow Informix applications to work with PostgreSQL's date handling

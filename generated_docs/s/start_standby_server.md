@@ -30,14 +30,14 @@ The function sets the global standby_running flag upon successful startup and pr
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer, destroyPQExpBuffer, appendPQExpBuffer, appendPQExpBufferStr, appendPQExpBufferChar (PQExpBuffer utilities)
-  - appendShellString (shell-safe string escaping)
+  - [appendShellString](../a/appendShellString.md) (shell-safe string escaping)
   - system (execute shell command)
-  - pg_ctl_status (error handling for pg_ctl)
+  - [pg_ctl_status](../p/pg_ctl_status.md) (error handling for pg_ctl)
   - pg_log_debug, pg_log_info (logging functions)
-  - CreateSubscriberOptions (configuration structure type)
+  - [CreateSubscriberOptions](../C/CreateSubscriberOptions.md) (configuration structure type)
 
 - Called from (representative examples):
-  - main (multiple call sites in pg_createsubscriber)
+  - [main](../m/main.md) (multiple call sites in pg_createsubscriber)
 
 ## Notes and Other Information
 - This is a static function specific to the pg_createsubscriber utility

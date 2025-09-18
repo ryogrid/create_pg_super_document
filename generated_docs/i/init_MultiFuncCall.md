@@ -30,11 +30,11 @@ The function enforces that it can only be called once per function invocation se
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextAllocZero
-  - RegisterExprContextCallback
-  - shutdown_MultiFuncCall
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md)
+  - [shutdown_MultiFuncCall](../s/shutdown_MultiFuncCall.md)
 - Types referenced:
-  - FuncCallContext
+  - [FuncCallContext](../F/FuncCallContext.md)
   - ReturnSetInfo
 - Constants used:
   - ALLOCSET_SMALL_SIZES

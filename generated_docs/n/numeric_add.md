@@ -21,12 +21,12 @@ The function is designed as a thin wrapper that extracts the two numeric operand
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC (parameter extraction)
-  - numeric_add_opt_error (core addition implementation)
+  - [numeric_add_opt_error](numeric_add_opt_error.md) (core addition implementation)
   - PG_RETURN_NUMERIC (result return)
 - Called from (representative examples):
-  - numeric_half_rounded (database size calculations)
-  - int8_sum (bigint sum aggregation)
-  - pg_lsn_pli (LSN arithmetic operations)
+  - [numeric_half_rounded](numeric_half_rounded.md) (database size calculations)
+  - [int8_sum](../i/int8_sum.md) (bigint sum aggregation)
+  - [pg_lsn_pli](../p/pg_lsn_pli.md) (LSN arithmetic operations)
 
 ## Notes and Other Information
 - This is the primary entry point for SQL-level numeric addition operations

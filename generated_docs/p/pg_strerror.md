@@ -19,7 +19,7 @@ This function serves as PostgreSQL's standardized interface for converting error
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strerror_r
+  - [pg_strerror_r](pg_strerror_r.md)
   - PG_STRERROR_R_BUFLEN (buffer size constant)
 - Called from (representative examples):
   - Various error handling contexts throughout PostgreSQL (referenced via printf at src/include/port.h:251)

@@ -37,14 +37,14 @@ The structure encapsulates both column-based and expression-based statistics, su
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
-  - Bitmapset (PostgreSQL bitmap set data structure)
-  - List (PostgreSQL list data structure)
+  - [Bitmapset](../B/Bitmapset.md) (PostgreSQL bitmap set data structure)
+  - [List](../L/List.md) (PostgreSQL list data structure)
 
 - Called from (representative examples):
-  - BuildRelationExtStatistics
-  - ComputeExtStatisticsRows
-  - fetch_statentries_for_relation
-  - make_build_data
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
+  - [ComputeExtStatisticsRows](../C/ComputeExtStatisticsRows.md)
+  - [fetch_statentries_for_relation](../f/fetch_statentries_for_relation.md)
+  - [make_build_data](../m/make_build_data.md)
 
 ## Notes and Other Information
 This structure is defined in src/backend/statistics/extended_stats.c and is used exclusively within the extended statistics subsystem. It represents a runtime view of statistics objects and is not directly exposed to SQL users. The structure facilitates efficient processing of extended statistics during both collection and utilization phases of query planning and execution.

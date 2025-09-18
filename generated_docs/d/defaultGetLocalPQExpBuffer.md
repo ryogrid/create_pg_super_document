@@ -21,7 +21,7 @@ The function is explicitly marked as non-reentrant and non-thread-safe due to it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer (for clearing existing buffer contents)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (for clearing existing buffer contents)
   - createPQExpBuffer (for initial buffer allocation)
 - Called from (representative examples):
   - Assigned to getLocalPQExpBuffer function pointer as default implementation

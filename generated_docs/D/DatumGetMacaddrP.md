@@ -22,12 +22,12 @@ This function is part of PostgreSQL's fmgr (function manager) interface macros f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](DatumGetPointer.md)
   - macaddr
 - Called from (representative examples):
-  - macaddr_fast_cmp
-  - macaddr_abbrev_convert
-  - convert_network_to_scalar
+  - [macaddr_fast_cmp](../m/macaddr_fast_cmp.md)
+  - [macaddr_abbrev_convert](../m/macaddr_abbrev_convert.md)
+  - [convert_network_to_scalar](../c/convert_network_to_scalar.md)
   - PG_GETARG_MACADDR_P (macro)
 
 ## Notes and Other Information

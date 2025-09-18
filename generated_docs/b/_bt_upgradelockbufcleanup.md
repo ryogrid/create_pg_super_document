@@ -23,13 +23,13 @@ The upgrade is atomic in the sense that the function maintains continuous exclus
 ## Dependencies
 - Functions called/Symbols referenced:
   - VALGRIND_CHECK_MEM_IS_DEFINED
-  - BufferGetPage
-  - LockBuffer
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - BUFFER_LOCK_UNLOCK
   - LockBufferForCleanup
 
 - Called from (representative examples):
-  - btvacuumpage
+  - [btvacuumpage](btvacuumpage.md)
 
 ## Notes and Other Information
 - Buffer must already be pinned and locked by the calling backend before calling this function

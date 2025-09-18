@@ -29,16 +29,16 @@ The function follows a careful sequence: validates the mapping data, calculates 
   - INIT_CRC32C/COMP_CRC32C/FIN_CRC32C (CRC calculation)
   - OpenTransientFile/CloseTransientFile (file operations)
   - pgstat_report_wait_start/pgstat_report_wait_end (wait event reporting)
-  - XLogBeginInsert/XLogRegisterData/XLogInsert/XLogFlush (WAL operations)
-  - durable_rename (atomic file replacement)
-  - CacheInvalidateRelmap (cache invalidation)
-  - RelationPreserveStorage (file preservation)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert/XLogFlush (WAL operations)
+  - [durable_rename](../d/durable_rename.md) (atomic file replacement)
+  - [CacheInvalidateRelmap](../C/CacheInvalidateRelmap.md) (cache invalidation)
+  - [RelationPreserveStorage](../R/RelationPreserveStorage.md) (file preservation)
   - START_CRIT_SECTION/END_CRIT_SECTION (critical section management)
 - Called from (representative examples):
-  - RelationMapCopy (at src/backend/utils/cache/relmapper.c:312)
-  - RelationMapFinishBootstrap (at src/backend/utils/cache/relmapper.c:637, 639)
-  - perform_relmap_update (at src/backend/utils/cache/relmapper.c:1074)
-  - relmap_redo (at src/backend/utils/cache/relmapper.c:1133)
+  - [RelationMapCopy](../R/RelationMapCopy.md) (at src/backend/utils/cache/relmapper.c:312)
+  - [RelationMapFinishBootstrap](../R/RelationMapFinishBootstrap.md) (at src/backend/utils/cache/relmapper.c:637, 639)
+  - [perform_relmap_update](../p/perform_relmap_update.md) (at src/backend/utils/cache/relmapper.c:1074)
+  - [relmap_redo](../r/relmap_redo.md) (at src/backend/utils/cache/relmapper.c:1133)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relmapper.c file

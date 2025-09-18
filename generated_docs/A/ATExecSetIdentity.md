@@ -32,18 +32,18 @@ The function supports changing the identity generation mode (ALWAYS vs BY DEFAUL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheCopyAttName
-  - defGetInt32
-  - CatalogTupleUpdate
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
+  - [defGetInt32](../d/defGetInt32.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSubSet
-  - heap_freetuple
-  - find_inheritance_children
-  - ATExecSetIdentity (recursive call)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [ATExecSetIdentity](ATExecSetIdentity.md) (recursive call)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
-  - ATExecSetIdentity (self-recursion)
+  - [ATExecSetIdentity](ATExecSetIdentity.md) (self-recursion)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, part of the ALTER TABLE infrastructure

@@ -24,14 +24,14 @@ The function is called as part of PostgreSQL's identifier normalization pipeline
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (maximum identifier length constant)
-  - pg_mbcliplen (multi-byte safe string clipping function)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (multi-byte safe string clipping function)
   - ereport (error/notice reporting system)
   - NOTICE (message level constant)
-  - errcode/errmsg (error reporting macros)
+  - [errcode](../e/errcode.md)/errmsg (error reporting macros)
   - ERRCODE_NAME_TOO_LONG (specific error code for name truncation)
 - Called from (representative examples):
-  - base_yylex (lexical analyzer in parser)
-  - downcase_identifier (identifier case conversion)
+  - [base_yylex](../b/base_yylex.md) (lexical analyzer in parser)
+  - [downcase_identifier](../d/downcase_identifier.md) (identifier case conversion)
   - SplitIdentifierString (identifier parsing utilities)
   - parse_and_validate_value (configuration parameter processing)
 

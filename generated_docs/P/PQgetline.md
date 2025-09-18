@@ -28,7 +28,7 @@ The function implements several important behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetline3
+  - [pqGetline3](../p/pqGetline3.md)
 - Called from (representative examples):
   - Legacy applications using old COPY protocol
   - Referenced in libpq-fe.h for API completeness

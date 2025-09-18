@@ -19,12 +19,12 @@ This function serves as an OpenSSL TLS initialization hook that sets up a custom
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for warning messages)
-  - errmsg (for error message formatting)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
   - SSL_CTX_set_default_passwd_cb (OpenSSL function to set password callback)
-  - rot13_passphrase (callback function for password processing)
+  - [rot13_passphrase](../r/rot13_passphrase.md) (callback function for password processing)
   - ssl_passphrase_command (global configuration variable)
 - Called from (representative examples):
-  - _PG_init (via openssl_tls_init_hook assignment)
+  - [_PG_init](../P/_PG_init.md) (via openssl_tls_init_hook assignment)
   - OpenSSL TLS initialization system
 
 ## Notes and Other Information

@@ -22,13 +22,13 @@ This is the appropriate function to use when the list owns all the objects it po
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList
-  - list_free_private
+  - [list_free_private](list_free_private.md)
 - Called from (representative examples):
   - gistbufferinginserttuples
-  - CreateDatabaseUsingWalLog
-  - CloseTableList
-  - RelationDestroyRelation
-  - load_libraries
+  - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md)
+  - [CloseTableList](../C/CloseTableList.md)
+  - [RelationDestroyRelation](../R/RelationDestroyRelation.md)
+  - [load_libraries](load_libraries.md)
 
 ## Notes and Other Information
 - This function performs a deep free - both the list structure and all pointed-to elements are freed

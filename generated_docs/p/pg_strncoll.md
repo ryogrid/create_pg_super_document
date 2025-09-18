@@ -43,13 +43,13 @@ LC_ALL=: Locale specification determining collation rules and provider
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strncoll_libc
-  - pg_strncoll_icu
+  - [pg_strncoll_libc](pg_strncoll_libc.md)
+  - [pg_strncoll_icu](pg_strncoll_icu.md)
   - COLLPROVIDER_LIBC
   - COLLPROVIDER_ICU
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - varstr_cmp (src/backend/utils/adt/varlena.c:1575)
+  - [varstr_cmp](../v/varstr_cmp.md) (src/backend/utils/adt/varlena.c:1575)
 
 ## Notes and Other Information
 - This function may need to null-terminate arguments for libc functions internally

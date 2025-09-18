@@ -29,10 +29,10 @@ The function exists as a separate phase because GROUPING() function processing r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - finalize_grouping_exprs_walker
+  - [finalize_grouping_exprs_walker](finalize_grouping_exprs_walker.md)
   - check_ungrouped_columns_context (struct)
 - Called from (representative examples):
-  - parseCheckAggregates (twice - for target list and HAVING clause)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (twice - for target list and HAVING clause)
 
 ## Notes and Other Information
 - Split from check_ungrouped_columns to handle different processing requirements

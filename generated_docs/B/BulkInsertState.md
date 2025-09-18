@@ -21,18 +21,18 @@ BulkInsertState maintains critical state information for optimizing bulk inserti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BulkInsertStateData
-  - BufferAccessStrategy
+  - [BulkInsertStateData](BulkInsertStateData.md)
+  - [BufferAccessStrategy](BufferAccessStrategy.md)
   - Buffer
   - BlockNumber
 - Called from (representative examples):
-  - GetBulkInsertState
-  - FreeBulkInsertState
-  - ReleaseBulkInsertStatePin
-  - heap_insert
-  - heap_multi_insert
-  - CopyFrom
-  - ATRewriteTable
+  - [GetBulkInsertState](../G/GetBulkInsertState.md)
+  - [FreeBulkInsertState](../F/FreeBulkInsertState.md)
+  - [ReleaseBulkInsertStatePin](../R/ReleaseBulkInsertStatePin.md)
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_multi_insert](../h/heap_multi_insert.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
 
 ## Notes and Other Information
 - The structure is private to heapam.c and hio.c modules

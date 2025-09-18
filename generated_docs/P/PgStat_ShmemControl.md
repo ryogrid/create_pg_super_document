@@ -45,18 +45,18 @@ The structure uses dynamic shared memory areas (DSA) to manage variable-sized st
 ## Dependencies
 - Functions called/Symbols referenced:
   - dshash_table_handle
-  - pg_atomic_uint64
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - PgStatShared_Archiver
   - PgStatShared_BgWriter
   - PgStatShared_Checkpointer
   - PgStatShared_IO
-  - PgStatShared_SLRU
-  - PgStatShared_Wal
+  - [PgStatShared_SLRU](PgStatShared_SLRU.md)
+  - [PgStatShared_Wal](PgStatShared_Wal.md)
 - Called from (representative examples):
   - StatsShmemSize
   - StatsShmemInit
   - pgstat_read_statsfile
-  - PgStat_LocalState
+  - [PgStat_LocalState](PgStat_LocalState.md)
 
 ## Notes and Other Information
 - Located in src/include/utils/pgstat_internal.h:424-455

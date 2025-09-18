@@ -75,16 +75,16 @@ The struct is extensively used throughout the regex subsystem including lexical 
 ## Dependencies
 - Functions called/Symbols referenced:
   - regex_t (target regex structure type)
-  - chr (character type used throughout regex engine)
+  - [chr](../c/chr.md) (character type used throughout regex engine)
   - subre (subexpression structure)
-  - colormap (character color mapping structure)
+  - [colormap](../c/colormap.md) (character color mapping structure)
   - color (character color type)
-  - state (NFA state structure)
-  - cvec (character vector structure)
+  - [state](../s/state.md) (NFA state structure)
+  - [cvec](../c/cvec.md) (character vector structure)
 - Called from (representative examples):
   - pg_regcomp (main regex compilation entry point)
-  - parse (recursive descent parser functions)
-  - lexstart, next, lexescape (lexical analysis functions)
+  - [parse](../p/parse.md) (recursive descent parser functions)
+  - [lexstart](../l/lexstart.md), next, lexescape (lexical analysis functions)
   - Various regex execution functions in regexec.c
 
 ## Notes and Other Information

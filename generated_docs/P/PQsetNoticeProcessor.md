@@ -24,10 +24,10 @@ PQsetNoticeProcessor installs a callback function that receives notice messages 
 - Functions called/Symbols referenced:
   - PQnoticeProcessor (function pointer type)
 - Called from (representative examples):
-  - ConnectDatabase (in pg_backup_db.c)
-  - do_connect (in psql command.c)
-  - main (in isolationtester.c)
-  - test_pipeline_idle (in libpq_pipeline.c)
+  - [ConnectDatabase](../C/ConnectDatabase.md) (in pg_backup_db.c)
+  - [do_connect](../d/do_connect.md) (in psql command.c)
+  - [main](../m/main.md) (in isolationtester.c)
+  - [test_pipeline_idle](../t/test_pipeline_idle.md) (in libpq_pipeline.c)
 
 ## Notes and Other Information
 - Returns the previous notice processor function pointer, allowing for restoration

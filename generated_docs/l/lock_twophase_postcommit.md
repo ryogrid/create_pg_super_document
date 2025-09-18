@@ -292,13 +292,13 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TwoPhaseGetDummyProc (get dummy process for prepared transaction)
-  - LockRefindAndRelease (find and release specific lock)
+  - [TwoPhaseGetDummyProc](../T/TwoPhaseGetDummyProc.md) (get dummy process for prepared transaction)
+  - [LockRefindAndRelease](../L/LockRefindAndRelease.md) (find and release specific lock)
   - elog (error logging function)
   - lengthof (macro to get array length)
 - Data structures used:
-  - TwoPhaseLockRecord (2PC lock record structure)
-  - PGPROC (process structure)
+  - [TwoPhaseLockRecord](../T/TwoPhaseLockRecord.md) (2PC lock record structure)
+  - [PGPROC](../P/PGPROC.md) (process structure)
   - LOCKTAG (lock identification tag)
   - LOCKMETHODID (lock method identifier)
   - LockMethod (lock method table)

@@ -25,10 +25,10 @@ The function uses Python's argument parsing to handle the different calling conv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_spi_execute_query: Executes direct SQL query strings
-  - PLy_spi_execute_plan: Executes prepared plan objects
-  - is_PLyPlanObject: Type checking function for plan objects
-  - PLy_exception_set: Sets Python exceptions for error reporting
+  - [PLy_spi_execute_query](PLy_spi_execute_query.md): Executes direct SQL query strings
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md): Executes prepared plan objects
+  - [is_PLyPlanObject](../i/is_PLyPlanObject.md): Type checking function for plan objects
+  - [PLy_exception_set](PLy_exception_set.md): Sets Python exceptions for error reporting
 - Called from (representative examples):
   - Python code via plpy.execute() interface
 

@@ -33,24 +33,24 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer, LockBuffer (buffer management)
-  - HeapTupleSatisfiesUpdate (visibility checking)
-  - get_mxact_status_for_lock (MultiXact status mapping)
-  - heap_acquire_tuplock (heavyweight tuple lock acquisition)
-  - MultiXactIdWait, XactLockTableWait (waiting for transactions)
-  - heap_lock_updated_tuple (follow update chain)
-  - compute_new_xmax_infomask (compute new transaction information)
-  - visibilitymap_pin, visibilitymap_clear (visibility map management)
-  - UpdateXmaxHintBits (hint bit updates)
-  - XLogInsert (WAL logging)
+  - [ReadBuffer](../R/ReadBuffer.md), LockBuffer (buffer management)
+  - [HeapTupleSatisfiesUpdate](../H/HeapTupleSatisfiesUpdate.md) (visibility checking)
+  - [get_mxact_status_for_lock](../g/get_mxact_status_for_lock.md) (MultiXact status mapping)
+  - [heap_acquire_tuplock](heap_acquire_tuplock.md) (heavyweight tuple lock acquisition)
+  - [MultiXactIdWait](../M/MultiXactIdWait.md), XactLockTableWait (waiting for transactions)
+  - [heap_lock_updated_tuple](heap_lock_updated_tuple.md) (follow update chain)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (compute new transaction information)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md), visibilitymap_clear (visibility map management)
+  - [UpdateXmaxHintBits](../U/UpdateXmaxHintBits.md) (hint bit updates)
+  - [XLogInsert](../X/XLogInsert.md) (WAL logging)
 - Type references:
   - TM_Result (tuple manager result codes)
-  - LockTupleMode (lock mode enumeration)
+  - [LockTupleMode](../L/LockTupleMode.md) (lock mode enumeration)
   - LockWaitPolicy (wait policy enumeration)
   - TM_FailureData (failure information structure)
-  - MultiXactStatus (MultiXact member status)
+  - [MultiXactStatus](../M/MultiXactStatus.md) (MultiXact member status)
 - Called from (representative examples):
-  - heapam_tuple_lock (heap access method interface)
+  - [heapam_tuple_lock](heapam_tuple_lock.md) (heap access method interface)
 
 ## Notes and Other Information
 - Implements PostgreSQL's sophisticated row-level locking with MultiXact support

@@ -19,14 +19,14 @@ This function is the inverse operation of NameGetDatum() and is essential for re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](DatumGetPointer.md)
   - Name (type cast)
 - Called from (representative examples):
-  - ExecGrant_common (access control)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (access control)
   - pg_identify_object (object identification)
-  - GetSubscription (subscription management)
-  - pg_get_triggerdef_worker (rule utilities)
-  - namefastcmp_c (name comparison functions)
+  - [GetSubscription](../G/GetSubscription.md) (subscription management)
+  - [pg_get_triggerdef_worker](../p/pg_get_triggerdef_worker.md) (rule utilities)
+  - [namefastcmp_c](../n/namefastcmp_c.md) (name comparison functions)
   - PG_GETARG_NAME (function manager macro)
 
 ## Notes and Other Information

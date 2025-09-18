@@ -23,9 +23,9 @@ This function implements a simple bitwise check to distinguish between main regi
 - Called from (representative examples):
   - dsm_cleanup_using_control_segment
   - dsm_postmaster_shutdown  
-  - dsm_create
-  - dsm_attach
-  - dsm_detach
+  - [dsm_create](../d/dsm_create.md)
+  - [dsm_attach](../d/dsm_attach.md)
+  - [dsm_detach](../d/dsm_detach.md)
   - dsm_pin_segment
   - dsm_unpin_segment
 

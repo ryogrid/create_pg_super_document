@@ -42,23 +42,23 @@ The function maintains state about successfully reduced joins in state2, disting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_nonnullable_rels
-  - find_forced_null_vars
-  - find_nonnullable_vars
-  - bms_add_members
+  - [find_nonnullable_rels](../f/find_nonnullable_rels.md)
+  - [find_forced_null_vars](../f/find_forced_null_vars.md)
+  - [find_nonnullable_vars](../f/find_nonnullable_vars.md)
+  - [bms_add_members](../b/bms_add_members.md)
   - mbms_add_members
   - mbms_overlap_sets
-  - bms_overlap
-  - bms_add_member
-  - bms_free
-  - report_reduced_full_join
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_free](../b/bms_free.md)
+  - [report_reduced_full_join](report_reduced_full_join.md)
   - rt_fetch
   - linitial
   - lsecond
   - forboth
 - Called from (representative examples):
-  - reduce_outer_joins (initial call)
-  - reduce_outer_joins_pass2 (recursive calls)
+  - [reduce_outer_joins](reduce_outer_joins.md) (initial call)
+  - [reduce_outer_joins_pass2](reduce_outer_joins_pass2.md) (recursive calls)
 
 ## Notes and Other Information
 - Static function internal to prepjointree.c, used only within the outer join reduction algorithm

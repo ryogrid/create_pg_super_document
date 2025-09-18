@@ -27,13 +27,13 @@ The publishability criteria are the same as `is_publishable_class()`:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_publishable_class
+  - [is_publishable_class](is_publishable_class.md)
   - RelationGetRelid (macro to extract OID from relation)
 - Called from:
-  - pgoutput_change (in replication output plugin)
-  - pgoutput_truncate (in replication output plugin)
-  - RelationBuildPublicationDesc (in relation cache)
-  - PublicationPartOpt (macro/inline function)
+  - [pgoutput_change](../p/pgoutput_change.md) (in replication output plugin)
+  - [pgoutput_truncate](../p/pgoutput_truncate.md) (in replication output plugin)
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md) (in relation cache)
+  - [PublicationPartOpt](../P/PublicationPartOpt.md) (macro/inline function)
 
 ## Notes and Other Information
 - This is a non-static function, making it accessible from other compilation units

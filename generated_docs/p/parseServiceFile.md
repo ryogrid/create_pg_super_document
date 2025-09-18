@@ -36,11 +36,11 @@ The function handles various parsing scenarios including:
 ## Dependencies
 - Functions called/Symbols referenced:
   - fopen
-  - libpq_append_error
-  - ldapServiceLookup (when USE_LDAP is defined)
-  - PQconninfoOption (data structure)
+  - [libpq_append_error](../l/libpq_append_error.md)
+  - [ldapServiceLookup](../l/ldapServiceLookup.md) (when USE_LDAP is defined)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (data structure)
 - Called from (representative examples):
-  - parseServiceInfo
+  - [parseServiceInfo](parseServiceInfo.md)
   - internalPQconninfoOption
 
 ## Notes and Other Information

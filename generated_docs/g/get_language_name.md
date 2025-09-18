@@ -20,21 +20,21 @@ When a language is found, the function extracts the language name from the  tupl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - Form_pg_language
   - GETSTRUCT
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - NameStr
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - elog
 - Called from (representative examples):
-  - getObjectDescription
-  - getObjectIdentityParts
-  - get_transform_oid
-  - pg_get_functiondef
-  - getTransforms
-  - dumpTransform
+  - [getObjectDescription](getObjectDescription.md)
+  - [getObjectIdentityParts](getObjectIdentityParts.md)
+  - [get_transform_oid](get_transform_oid.md)
+  - [pg_get_functiondef](../p/pg_get_functiondef.md)
+  - [getTransforms](getTransforms.md)
+  - [dumpTransform](../d/dumpTransform.md)
 
 ## Notes and Other Information
 - Part of the language cache subsystem in lsyscache.c

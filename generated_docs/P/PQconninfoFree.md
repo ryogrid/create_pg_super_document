@@ -25,13 +25,13 @@ The function ensures that all dynamically allocated memory associated with conne
 - Functions called/Symbols referenced:
   - free
 - Called from (representative examples):
-  - libpqrcv_check_conninfo
-  - GetConnection (pg_basebackup tools)
-  - connectDatabase (pg_dumpall)
-  - do_connect (psql)
-  - PQconnectStartParams
-  - conninfo_parse
-  - conninfo_array_parse
+  - [libpqrcv_check_conninfo](../l/libpqrcv_check_conninfo.md)
+  - [GetConnection](../G/GetConnection.md) (pg_basebackup tools)
+  - [connectDatabase](../c/connectDatabase.md) (pg_dumpall)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [PQconnectStartParams](PQconnectStartParams.md)
+  - [conninfo_parse](../c/conninfo_parse.md)
+  - [conninfo_array_parse](../c/conninfo_array_parse.md)
 
 ## Notes and Other Information
 - This is a public libpq API function exposed to client applications

@@ -34,11 +34,11 @@ This step targets the Arabic letter "ت" (ta), which is a common suffix in Arabi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b` (Snowball backward pattern matching function)
-  - `len_utf8` (UTF-8 string length calculation)
-  - `slice_del` (Snowball suffix deletion function)
+  - `[find_among_b](../f/find_among_b.md)` (Snowball backward pattern matching function)
+  - `[len_utf8](../l/len_utf8.md)` (UTF-8 string length calculation)
+  - `[slice_del](../s/slice_del.md)` (Snowball suffix deletion function)
 - Called from (representative examples):
-  - `arabic_UTF_8_stem` (main Arabic stemming function, called at lines 1522, 1557)
+  - `[arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md)` (main Arabic stemming function, called at lines 1522, 1557)
 
 ## Notes and Other Information
 - This function specifically matches the Arabic suffix ت (ta), a common suffix in Arabic morphology
@@ -48,4 +48,4 @@ This step targets the Arabic letter "ت" (ta), which is a common suffix in Arabi
 - Maintains minimum word length of 4 characters after suffix removal
 - The boundary check (c - 1 <= lb) ensures at least one character exists for the 2-byte suffix
 - This step is applied multiple times in the stemming process at different stages
-- Step 2c1 is part of a series of Step 2c operations that handle different Arabic suffix patterns
+- [Step](../S/Step.md) 2c1 is part of a series of Step 2c operations that handle different Arabic suffix patterns

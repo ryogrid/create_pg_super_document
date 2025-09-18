@@ -24,9 +24,9 @@ This mechanism allows the parser to dynamically switch parsing modes when URL pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
 - Called from (representative examples):
-  - p_isspecial (at src/backend/tsearch/wparser_def.c:1478)
+  - [p_isspecial](../p/p_isspecial.md) (at src/backend/tsearch/wparser_def.c:1478)
 
 ## Notes and Other Information
 - The function name suggests it handles "File URL" patterns, likely including protocols like ftp://, http://, https://, etc.

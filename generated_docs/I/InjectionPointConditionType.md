@@ -20,7 +20,7 @@ An enumerated type that defines the different types of runtime conditions that c
 - Functions called/Symbols referenced:
   - None (this is an enum definition)
 - Used by:
-  - InjectionPointCondition struct (as the  field)
+  - [InjectionPointCondition](InjectionPointCondition.md) struct (as the  field)
 
 ## Notes and Other Information
 - This enum is defined in the test module for injection points ()

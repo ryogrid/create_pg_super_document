@@ -20,7 +20,7 @@ The function also supports operators that are not strict equality but have compa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eqsel_internal
+  - [eqsel_internal](eqsel_internal.md)
 - Called from (representative examples):
   - Used by PostgreSQL's query planner for selectivity estimation
   - Referenced in operator catalog entries for equality operators

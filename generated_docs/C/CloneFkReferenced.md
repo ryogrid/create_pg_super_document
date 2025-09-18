@@ -31,18 +31,18 @@ For each constraint to be cloned, the function:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close: Access system catalogs
-  - ScanKeyInit/systable_beginscan/systable_getnext: Scan pg_constraint catalog
-  - build_attrmap_by_name: Map attributes between parent and partition
-  - DeconstructFkConstraintRow: Extract FK constraint details from catalog tuple
-  - GetForeignKeyActionTriggers: Retrieve action trigger OIDs for constraint
-  - addFkConstraint: Create the actual foreign key constraint on partition
-  - addFkRecurseReferenced: Recursively handle sub-partitions
-  - index_get_partition: Find partition's corresponding index
+  - [ScanKeyInit](../S/ScanKeyInit.md)/systable_beginscan/systable_getnext: Scan pg_constraint catalog
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md): Map attributes between parent and partition
+  - [DeconstructFkConstraintRow](../D/DeconstructFkConstraintRow.md): Extract FK constraint details from catalog tuple
+  - [GetForeignKeyActionTriggers](../G/GetForeignKeyActionTriggers.md): Retrieve action trigger OIDs for constraint
+  - [addFkConstraint](../a/addFkConstraint.md): Create the actual foreign key constraint on partition
+  - [addFkRecurseReferenced](../a/addFkRecurseReferenced.md): Recursively handle sub-partitions
+  - [index_get_partition](../i/index_get_partition.md): Find partition's corresponding index
   - makeNode: Create new Constraint node
-  - list_member_oid: Check for duplicate constraints
+  - [list_member_oid](../l/list_member_oid.md): Check for duplicate constraints
 
 - Called from:
-  - CloneForeignKeyConstraints: Main entry point for cloning FK constraints during partition operations
+  - [CloneForeignKeyConstraints](CloneForeignKeyConstraints.md): Main entry point for cloning FK constraints during partition operations
 
 ## Notes and Other Information
 - This function specifically handles the "referenced side" of foreign keys, meaning constraints where other tables reference this relation

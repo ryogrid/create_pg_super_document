@@ -27,21 +27,21 @@ Additionally, the function tracks WAL filenames that should be preserved during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderAllocate
-  - SimpleXLogPageRead
-  - XLogBeginRead
-  - XLogReadRecord
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md)
+  - [SimpleXLogPageRead](../S/SimpleXLogPageRead.md)
+  - [XLogBeginRead](../X/XLogBeginRead.md)
+  - [XLogReadRecord](../X/XLogReadRecord.md)
   - XLogSegmentOffset
-  - XLogFileName
+  - [XLogFileName](../X/XLogFileName.md)
   - XLogRecGetInfo
   - XLogRecGetRmid
   - XLogRecGetData
-  - keepwal_add_entry
-  - XLogReaderFree
-  - XLogRecord
+  - [keepwal_add_entry](../k/keepwal_add_entry.md)
+  - [XLogReaderFree](../X/XLogReaderFree.md)
+  - [XLogRecord](../X/XLogRecord.md)
   - CheckPoint
 - Called from (representative examples):
-  - main (in src/bin/pg_rewind/pg_rewind.c:461)
+  - [main](../m/main.md) (in src/bin/pg_rewind/pg_rewind.c:461)
 
 ## Notes and Other Information
 - The search stops at the first checkpoint found before the fork point, not the most recent overall checkpoint

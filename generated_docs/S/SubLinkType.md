@@ -39,10 +39,10 @@ The enumeration handles different cardinality requirements - some types expect a
 - Called from (representative examples):
   - SubLink struct (uses SubLinkType as subLinkType field)
   - SubPlan struct (uses SubLinkType as subLinkType field)
-  - ExecScanSubPlan function
-  - ExecSetParamPlan function
-  - make_subplan function
-  - build_subplan function
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md) function
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md) function
+  - [make_subplan](../m/make_subplan.md) function
+  - [build_subplan](../b/build_subplan.md) function
 
 ## Notes and Other Information
 - SubLink nodes are not directly executable and must be replaced by SubPlan nodes during query planning

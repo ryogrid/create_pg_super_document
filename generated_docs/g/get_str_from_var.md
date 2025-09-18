@@ -21,16 +21,16 @@ The algorithm walks through the digit array, converting each NumericDigit into i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (allocates memory for result string)
+  - [palloc](../p/palloc.md) (allocates memory for result string)
   - NumericDigit (typedef for packed digit storage)
   - DEC_DIGITS (compile-time constant defining digits per NumericDigit)
   - NUMERIC_NEG (constant for negative sign value)
 - Called from (representative examples):
-  - numeric_out (main numeric output function)
-  - numeric_normalize (normalization operations)
-  - get_str_from_var_sci (scientific notation formatting)
-  - numericvar_to_double_no_overflow (conversion to double)
-  - PGTYPESnumeric_to_asc (ECPG library conversion)
+  - [numeric_out](../n/numeric_out.md) (main numeric output function)
+  - [numeric_normalize](../n/numeric_normalize.md) (normalization operations)
+  - [get_str_from_var_sci](get_str_from_var_sci.md) (scientific notation formatting)
+  - [numericvar_to_double_no_overflow](../n/numericvar_to_double_no_overflow.md) (conversion to double)
+  - [PGTYPESnumeric_to_asc](../P/PGTYPESnumeric_to_asc.md) (ECPG library conversion)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the numeric.c module

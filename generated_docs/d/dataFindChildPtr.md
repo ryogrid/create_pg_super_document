@@ -30,7 +30,7 @@ The search strategy is optimized for the common case where pages grow through in
   - FirstOffsetNumber
   - InvalidOffsetNumber
 - Called from (representative examples):
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - Only operates on non-leaf GIN data pages (verified by assertions)

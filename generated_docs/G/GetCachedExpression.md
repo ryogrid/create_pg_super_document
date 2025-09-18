@@ -29,13 +29,13 @@ The original expression tree is not modified, and temporary data is intentionall
 ## Dependencies
 - Functions called/Symbols referenced:
   - CachedExpression (structure type)
-  - expression_planner_with_deps (plans expression and collects dependencies)
+  - [expression_planner_with_deps](../e/expression_planner_with_deps.md) (plans expression and collects dependencies)
   - AllocSetContextCreate (creates memory context)
   - ALLOCSET_SMALL_SIZES (memory context sizing constant)
   - CACHEDEXPR_MAGIC (magic number for validation)
   - copyObject (deep copies objects)
   - MemoryContextSetParent (reparents memory context)
-  - dlist_push_tail (adds to global cached expression list)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (adds to global cached expression list)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

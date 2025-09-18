@@ -19,10 +19,10 @@ This function retrieves information about the most recently committed transactio
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire (CommitTsLock, LW_SHARED)
-  - error_commit_ts_disabled
+  - [error_commit_ts_disabled](../e/error_commit_ts_disabled.md)
   - LWLockRelease (CommitTsLock)
 - Called from (representative examples):
-  - pg_last_committed_xact
+  - [pg_last_committed_xact](../p/pg_last_committed_xact.md)
 
 ## Notes and Other Information
 - The function throws an error if the commit timestamp module is not enabled (commitTsShared->commitTsActive is false)

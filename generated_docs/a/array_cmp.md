@@ -27,7 +27,7 @@ The function handles NULL values by treating two NULLs as equal and considering 
   -  - Get lower bounds array
   -  - Calculate total number of items
   -  - Get cached type information
-  -  - Initialize array iterator
+  -  - [Initialize](../I/Initialize.md) array iterator
   -  - Get next array element
   -  - Call element comparison function
   -  - Free detoasted array copies

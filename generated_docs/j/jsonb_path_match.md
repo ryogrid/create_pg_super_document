@@ -22,7 +22,7 @@ The function follows PostgreSQL's standard function calling convention using  an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_match_internal
+  - [jsonb_path_match_internal](jsonb_path_match_internal.md)
 - Called from (representative examples):
   - SQL function calls through PostgreSQL's function manager
 

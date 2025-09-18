@@ -27,15 +27,15 @@ The function includes robust interrupt handling by retrying the sem_post() call 
   - errno constant: EINTR
 - Called from (representative examples):
   - TransactionGroupUpdateXidStatus (transaction status updates)
-  - IpcSemaphoreCreate (IPC semaphore initialization)
-  - ProcArrayGroupClearXid (process array management)
+  - [IpcSemaphoreCreate](../I/IpcSemaphoreCreate.md) (IPC semaphore initialization)
+  - [ProcArrayGroupClearXid](ProcArrayGroupClearXid.md) (process array management)
   - LWLockWakeup (lightweight lock wakeup operations)
   - LWLockDequeueSelf (lightweight lock queue management)
   - LWLockAcquire (lightweight lock acquisition completion)
   - LWLockAcquireOrWait (conditional lightweight lock operations)
   - LWLockWaitForVar (lightweight lock variable operations)
   - LWLockUpdateVar (lightweight lock variable updates)
-  - s_unlock_sema (spinlock semaphore operations)
+  - [s_unlock_sema](../s/s_unlock_sema.md) (spinlock semaphore operations)
 
 ## Notes and Other Information
 - This operation never blocks - it always completes immediately (barring fatal errors)

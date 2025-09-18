@@ -22,11 +22,11 @@ WALOpenSegment is a fundamental data structure in PostgreSQL's WAL reading infra
   - XLogSegNo (typedef for segment numbering)
   - TimeLineID (typedef for timeline identification)
 - Called from (representative examples):
-  - WALOpenSegmentInit (initialization function)
-  - WALReadRaiseError (error handling in WAL reading)
-  - WALDumpReadPage (WAL dumping utility)
-  - XLogReaderState (embedded within reader state structure)
-  - WALReadError (error context structure)
+  - [WALOpenSegmentInit](WALOpenSegmentInit.md) (initialization function)
+  - [WALReadRaiseError](WALReadRaiseError.md) (error handling in WAL reading)
+  - [WALDumpReadPage](WALDumpReadPage.md) (WAL dumping utility)
+  - [XLogReaderState](../X/XLogReaderState.md) (embedded within reader state structure)
+  - [WALReadError](WALReadError.md) (error context structure)
 
 ## Notes and Other Information
 This structure is typically embedded within larger WAL reading contexts like XLogReaderState. It represents the lowest level of WAL segment file management, providing the necessary file handle and metadata for efficient WAL record retrieval. The timeline ID is particularly important in scenarios involving standby servers and point-in-time recovery where multiple timelines may exist.

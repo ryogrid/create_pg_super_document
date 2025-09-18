@@ -27,7 +27,7 @@ The returned value represents the total space used by the underlying unaligned a
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkGetBlock
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - GetMemoryChunkSpace
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS

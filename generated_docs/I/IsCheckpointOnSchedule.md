@@ -23,12 +23,12 @@ The function implements an optimization by caching the elapsed time/segments val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - GetXLogReplayRecPtr
-  - GetInsertRecPtr
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetXLogReplayRecPtr](../G/GetXLogReplayRecPtr.md)
+  - [GetInsertRecPtr](../G/GetInsertRecPtr.md)
   - gettimeofday
 - Called from (representative examples):
-  - CheckpointWriteDelay
+  - [CheckpointWriteDelay](../C/CheckpointWriteDelay.md)
 
 ## Notes and Other Information
 - The function assumes  is true (verified by Assert)

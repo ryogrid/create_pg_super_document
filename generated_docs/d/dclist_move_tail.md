@@ -22,10 +22,10 @@ This operation is useful in algorithms where recently accessed items need to be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_move_tail
-  - dclist_head (structure type)
-  - dlist_node (structure type)
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_move_tail](dlist_move_tail.md)
+  - [dclist_head](dclist_head.md) (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

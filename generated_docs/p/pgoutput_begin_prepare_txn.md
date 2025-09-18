@@ -18,13 +18,13 @@ This function is the begin prepare callback for the pgoutput logical replication
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginPrepareWrite
-  - logicalrep_write_begin_prepare
-  - send_repl_origin
-  - OutputPluginWrite
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_begin_prepare](../l/logicalrep_write_begin_prepare.md)
+  - [send_repl_origin](../s/send_repl_origin.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
   - InvalidRepOriginId (constant)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as begin prepare callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as begin prepare callback)
 
 ## Notes and Other Information
 - This is a static function internal to the pgoutput plugin

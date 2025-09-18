@@ -26,14 +26,14 @@ The implementation mirrors float4_gt with the same logical structure: first veri
   - float8 (type definition for double-precision float)
   - isnan (standard library function for NaN detection)
 - Called from (representative examples):
-  - adjustBox (GiST index bounding box adjustments)
-  - gist_box_picksplit (GiST index splitting for geometric data)
-  - float8larger (max function implementation)
-  - float8_cmp_internal (internal comparison function)
-  - float8gt (wrapper function in src/backend/utils/adt/float.c:954)
-  - box_construct (geometric bounding box construction)
-  - make_bound_box (bounding box creation for geometric types)
-  - float8_max (maximum value computation macro)
+  - [adjustBox](../a/adjustBox.md) (GiST index bounding box adjustments)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md) (GiST index splitting for geometric data)
+  - [float8larger](float8larger.md) (max function implementation)
+  - [float8_cmp_internal](float8_cmp_internal.md) (internal comparison function)
+  - [float8gt](float8gt.md) (wrapper function in src/backend/utils/adt/float.c:954)
+  - [box_construct](../b/box_construct.md) (geometric bounding box construction)
+  - [make_bound_box](../m/make_bound_box.md) (bounding box creation for geometric types)
+  - [float8_max](float8_max.md) (maximum value computation macro)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

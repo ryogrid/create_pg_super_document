@@ -27,11 +27,11 @@ This cleanup is essential for proper memory management in long-running PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ginFreeScanKeys`: Frees scan key structures and associated memory
-  - `MemoryContextDelete`: Deletes memory contexts (called twice for tempCtx and keyCtx)
-  - `pfree`: Frees the main opaque scan structure
+  - `[ginFreeScanKeys](ginFreeScanKeys.md)`: Frees scan key structures and associated memory
+  - `[MemoryContextDelete](../M/MemoryContextDelete.md)`: Deletes memory contexts (called twice for tempCtx and keyCtx)
+  - `[pfree](../p/pfree.md)`: Frees the main opaque scan structure
 - Called from (representative examples):
-  - `ginhandler`: Part of the index access method interface
+  - `[ginhandler](ginhandler.md)`: Part of the index access method interface
 
 ## Notes and Other Information
 - This function is part of the standard index access method interface and is automatically called by the PostgreSQL executor when a scan completes

@@ -22,12 +22,12 @@ The structure supports PostgreSQL's nested transaction model by allowing locks t
 - Functions called/Symbols referenced:
   - ResourceOwnerData
 - Called from (representative examples):
-  - LockAcquireExtended
-  - LockRelease
-  - GrantLockLocal
-  - LockReleaseAll
+  - [LockAcquireExtended](LockAcquireExtended.md)
+  - [LockRelease](LockRelease.md)
+  - [GrantLockLocal](../G/GrantLockLocal.md)
+  - [LockReleaseAll](LockReleaseAll.md)
   - LockReassignOwner
-  - AtPrepare_Locks
+  - [AtPrepare_Locks](../A/AtPrepare_Locks.md)
 
 ## Notes and Other Information
 The distinction between session-level (owner = NULL) and transaction-level locks is crucial for PostgreSQL's MVCC implementation. Session-level locks survive transaction boundaries, while transaction-level locks are automatically released on transaction end. The reference counting mechanism prevents premature lock release when the same lock is acquired multiple times within the same resource owner context, ensuring proper lock lifecycle management in complex transaction hierarchies.

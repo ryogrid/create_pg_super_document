@@ -34,13 +34,13 @@ The function returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll (comparison function invocation)
-  - DatumGetInt32 (result extraction)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (comparison function invocation)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (result extraction)
   - PARTITION_RANGE_DATUM_MINVALUE / PARTITION_RANGE_DATUM_MAXVALUE (constants)
 - Called from (representative examples):
-  - get_partition_for_tuple (tuple routing)
-  - partition_range_datum_bsearch (binary search operations)
-  - get_matching_range_bounds (partition pruning)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md) (tuple routing)
+  - [partition_range_datum_bsearch](partition_range_datum_bsearch.md) (binary search operations)
+  - [get_matching_range_bounds](../g/get_matching_range_bounds.md) (partition pruning)
 
 ## Notes and Other Information
 - This is a public function, accessible from other modules as declared in partbounds.h

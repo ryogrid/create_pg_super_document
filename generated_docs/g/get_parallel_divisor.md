@@ -20,17 +20,17 @@ This function calculates how much parallel execution will speed up a given opera
 ## Dependencies
 - Functions called/Symbols referenced:
   - parallel_leader_participation (global variable controlling leader participation)
-  - Path->parallel_workers (member of Path structure)
+  - [Path](../P/Path.md)->parallel_workers (member of Path structure)
 - Called from (representative examples):
   - cost_qual_eval_context
-  - cost_seqscan
-  - cost_index
-  - cost_bitmap_heap_scan
-  - cost_append
-  - final_cost_nestloop
-  - final_cost_mergejoin
-  - initial_cost_hashjoin
-  - final_cost_hashjoin
+  - [cost_seqscan](../c/cost_seqscan.md)
+  - [cost_index](../c/cost_index.md)
+  - [cost_bitmap_heap_scan](../c/cost_bitmap_heap_scan.md)
+  - [cost_append](../c/cost_append.md)
+  - [final_cost_nestloop](../f/final_cost_nestloop.md)
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
+  - [initial_cost_hashjoin](../i/initial_cost_hashjoin.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the cost estimation module

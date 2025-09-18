@@ -20,9 +20,9 @@ Masks (ignores) specific fields in an SP-GiST page before performing consistency
 - Functions called/Symbols referenced:
   - Page (page data type cast)
   - PageHeader (page header data type cast)
-  - mask_page_lsn_and_checksum (masks LSN and checksum fields)
-  - mask_page_hint_bits (masks hint bit fields)
-  - mask_unused_space (masks unused portions of the page)
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md) (masks LSN and checksum fields)
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md) (masks hint bit fields)
+  - [mask_unused_space](../m/mask_unused_space.md) (masks unused portions of the page)
   - SizeOfPageHeaderData (constant defining size of page header)
 - Called from (representative examples):
   - SizeOfSpgxlogVacuumRedirect (referenced in spgxlog.h)

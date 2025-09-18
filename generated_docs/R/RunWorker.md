@@ -20,16 +20,16 @@ The function works on both Unix (fork-based) and Windows (thread-based) platform
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CloneArchive
-  - set_cancel_slot_archive
-  - WaitForCommands
-  - DisconnectDatabase
-  - DeCloneArchive
-  - ParallelSlot (type)
+  - [CloneArchive](../C/CloneArchive.md)
+  - [set_cancel_slot_archive](../s/set_cancel_slot_archive.md)
+  - [WaitForCommands](../W/WaitForCommands.md)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md)
+  - [DeCloneArchive](../D/DeCloneArchive.md)
+  - [ParallelSlot](../P/ParallelSlot.md) (type)
   - PIPE_READ, PIPE_WRITE (constants)
 - Called from (representative examples):
-  - init_spawned_worker_win32
-  - ParallelBackupStart
+  - [init_spawned_worker_win32](../i/init_spawned_worker_win32.md)
+  - [ParallelBackupStart](../P/ParallelBackupStart.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the parallel.c compilation unit

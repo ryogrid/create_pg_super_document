@@ -19,11 +19,11 @@ The simplicity of this function belies its importance in the scan lifecycle - it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - freeGISTstate
+  - [freeGISTstate](../f/freeGISTstate.md)
   - GISTScanOpaque (type)
-  - IndexScanDesc (type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (type)
 - Called from (representative examples):
-  - gisthandler
+  - [gisthandler](gisthandler.md)
 
 ## Notes and Other Information
 - Relies on PostgreSQL's hierarchical memory context system for complete cleanup

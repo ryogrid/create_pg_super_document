@@ -24,14 +24,14 @@ This function is essential for the ALTER SYSTEM command functionality, allowing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_name_compare
-  - palloc
-  - pstrdup
-  - pfree
+  - [guc_name_compare](../g/guc_name_compare.md)
+  - [palloc](../p/palloc.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [pfree](../p/pfree.md)
 - Data structures used:
   - ConfigVariable
 - Called from (representative examples):
-  - AlterSystemSetConfigFile
+  - [AlterSystemSetConfigFile](../A/AlterSystemSetConfigFile.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the guc.c source file

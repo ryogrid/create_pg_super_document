@@ -19,7 +19,7 @@ The `heap_reloptions` function is a central option parser that handles relation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - default_reloptions
+  - [default_reloptions](../d/default_reloptions.md)
   - StdRdOptions (structure)
   - RELKIND_TOASTVALUE (constant)
   - RELKIND_RELATION (constant)
@@ -27,11 +27,11 @@ The `heap_reloptions` function is a central option parser that handles relation 
   - RELOPT_KIND_TOAST (constant)
   - RELOPT_KIND_HEAP (constant)
 - Called from (representative examples):
-  - extractRelOptions
-  - create_ctas_internal
-  - DefineRelation
-  - ATExecSetRelOptions
-  - ProcessUtilitySlow
+  - [extractRelOptions](../e/extractRelOptions.md)
+  - [create_ctas_internal](../c/create_ctas_internal.md)
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - TOAST tables receive special treatment with fillfactor set to 100% for optimal space utilization since TOAST data is typically accessed sequentially

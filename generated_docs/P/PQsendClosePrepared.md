@@ -22,10 +22,10 @@ The function sends a Close message ('C') with statement type ('S') to the Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendTypedCommand
+  - [PQsendTypedCommand](PQsendTypedCommand.md)
   - PqMsg_Close
 - Called from (representative examples):
-  - test_prepared (in libpq_pipeline test module)
+  - [test_prepared](../t/test_prepared.md) (in libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns 1 if successfully submitted, 0 if error occurred (conn->errorMessage will be set)

@@ -25,12 +25,12 @@ The algorithm maintains strict vowel count checks (> 2 vowels) before each major
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping (for vowel detection)
-  - r_remove_particle
-  - r_remove_possessive_pronoun  
-  - r_remove_first_order_prefix
-  - r_remove_second_order_prefix
-  - r_remove_suffix
+  - [out_grouping](../o/out_grouping.md) (for vowel detection)
+  - [r_remove_particle](../r/r_remove_particle.md)
+  - [r_remove_possessive_pronoun](../r/r_remove_possessive_pronoun.md)  
+  - [r_remove_first_order_prefix](../r/r_remove_first_order_prefix.md)
+  - [r_remove_second_order_prefix](../r/r_remove_second_order_prefix.md)
+  - [r_remove_suffix](../r/r_remove_suffix.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

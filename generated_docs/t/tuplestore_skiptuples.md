@@ -26,16 +26,16 @@ The function includes careful handling of edge cases like backward reading from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - tuplestore_gettuple
-  - pfree (for memory cleanup)
+  - [pfree](../p/pfree.md) (for memory cleanup)
   - CHECK_FOR_INTERRUPTS (for query cancellation)
 - Types referenced:
   - TSReadPointer
   - EXEC_FLAG_BACKWARD
   - TSS_INMEM
 - Called from (representative examples):
-  - PersistHoldablePortal
-  - window_gettupleslot
-  - WinSetMarkPosition
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md)
+  - [window_gettupleslot](../w/window_gettupleslot.md)
+  - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
 
 ## Notes and Other Information
 - Returns true if the skip operation was successful, false if ran out of tuples

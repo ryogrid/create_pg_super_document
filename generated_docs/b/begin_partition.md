@@ -33,7 +33,7 @@ For the very first partition, it fetches the initial input row from the outer pl
   - tuplestore_alloc_read_pointer
   - tuplestore_puttupleslot
 - Called from (representative examples):
-  - ExecWindowAgg
+  - [ExecWindowAgg](../E/ExecWindowAgg.md)
 
 ## Notes and Other Information
 - Resets all position tracking variables (currentpos, frameheadpos, frametailpos, etc.) to their initial states

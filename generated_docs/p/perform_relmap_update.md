@@ -21,15 +21,15 @@ The function ensures atomicity and consistency by using RelationMappingLock to p
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease (exclusive locking)
-  - load_relmap_file (re-read current mappings from disk)
+  - [load_relmap_file](../l/load_relmap_file.md) (re-read current mappings from disk)
   - memcpy (copy mapping structures)
-  - merge_map_updates (apply updates to mapping data)
-  - write_relmap_file (write updated mappings to disk)
+  - [merge_map_updates](../m/merge_map_updates.md) (apply updates to mapping data)
+  - [write_relmap_file](../w/write_relmap_file.md) (write updated mappings to disk)
   - shared_map/local_map (global mapping structures)
   - allowSystemTableMods (global flag)
   - MyDatabaseId/MyDatabaseTableSpace/DatabasePath (global database context)
 - Called from (representative examples):
-  - AtEOXact_RelationMap (at src/backend/utils/cache/relmapper.c:558, 563)
+  - [AtEOXact_RelationMap](../A/AtEOXact_RelationMap.md) (at src/backend/utils/cache/relmapper.c:558, 563)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the relmapper.c file

@@ -19,7 +19,7 @@ This function provides access to the contents of PostgreSQL's WAL archive status
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ls_dir_files (performs the actual directory listing with file details)
+  - [pg_ls_dir_files](pg_ls_dir_files.md) (performs the actual directory listing with file details)
   - XLOGDIR (constant defining the WAL directory path)
 - Called from (representative examples):
   - SQL queries via function call interface

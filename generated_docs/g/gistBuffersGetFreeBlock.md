@@ -21,10 +21,10 @@ This approach optimizes disk space usage by recycling freed blocks, which is par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTBuildBuffers (structure access)
+  - [GISTBuildBuffers](../G/GISTBuildBuffers.md) (structure access)
 - Called from (representative examples):
-  - gistUnloadNodeBuffer
-  - gistPushItupToNodeBuffer
+  - [gistUnloadNodeBuffer](gistUnloadNodeBuffer.md)
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
 
 ## Notes and Other Information
 - Uses LIFO (Last In, First Out) strategy for block reuse to improve locality

@@ -40,18 +40,18 @@ The function assumes the appropriate partition lock is held and maintains that s
 ## Dependencies
 - Functions called/Symbols referenced:
   - PROCLOCK_PRINT (debugging macro)
-  - dlist_delete (list manipulation)
-  - ProcLockHashCode (hash calculation)
-  - hash_search_with_hash_value (hash table operations)
+  - [dlist_delete](../d/dlist_delete.md) (list manipulation)
+  - [ProcLockHashCode](../P/ProcLockHashCode.md) (hash calculation)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (hash table operations)
   - LOCK_PRINT (debugging macro)
-  - dlist_is_empty (list checking)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (list checking)
   - ProcLockWakeup (process awakening)
   - HASH_REMOVE (hash operation constant)
 - Called from (representative examples):
-  - LockRelease
-  - LockReleaseAll
-  - LockRefindAndRelease
-  - RemoveFromWaitQueue
+  - [LockRelease](../L/LockRelease.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [LockRefindAndRelease](../L/LockRefindAndRelease.md)
+  - [RemoveFromWaitQueue](../R/RemoveFromWaitQueue.md)
 
 ## Notes and Other Information
 - This is a static function internal to lock.c, designed to work in conjunction with UnGrantLock

@@ -19,13 +19,13 @@ The `binaryheap_free` function releases all memory associated with a binary heap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
-  - binaryheap (struct type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
+  - [binaryheap](binaryheap.md) (struct type)
 - Called from (representative examples):
-  - ReorderBufferIterTXNFinish
+  - [ReorderBufferIterTXNFinish](../R/ReorderBufferIterTXNFinish.md)
   - BufferSync
-  - restore_toc_entries_parallel
-  - TopoSort
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
+  - [TopoSort](../T/TopoSort.md)
 
 ## Notes and Other Information
 - This function deallocates the entire heap structure including both metadata and node storage

@@ -20,19 +20,19 @@ The function supports both synchronous and asynchronous replication modes, handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckServerVersionForStreaming
-  - RunIdentifySystem
-  - existsTimeLineHistoryFile
-  - writeTimeLineHistoryFile
-  - HandleCopyStream
-  - ReadEndOfStreamingResult
-  - PQexec
-  - PQgetResult
-  - pg_free
+  - [CheckServerVersionForStreaming](../C/CheckServerVersionForStreaming.md)
+  - [RunIdentifySystem](RunIdentifySystem.md)
+  - [existsTimeLineHistoryFile](../e/existsTimeLineHistoryFile.md)
+  - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md)
+  - [HandleCopyStream](../H/HandleCopyStream.md)
+  - [ReadEndOfStreamingResult](ReadEndOfStreamingResult.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [pg_free](../p/pg_free.md)
   - XLogSegmentOffset
 - Called from (representative examples):
-  - LogStreamerMain
-  - StreamLog
+  - [LogStreamerMain](../L/LogStreamerMain.md)
+  - [StreamLog](../S/StreamLog.md)
 
 ## Notes and Other Information
 - Requires WAL start position to be at a log segment boundary

@@ -34,14 +34,14 @@ The function creates the ArrayBuildState only when it encounters the first scala
 ## Dependencies
 - Functions called/Symbols referenced:
   - dTHX (Perl threading context macro)
-  - get_perl_array_ref (extracts array references from SVs)
-  - plperl_sv_to_datum (converts scalar values to datums)
-  - initArrayResult (initializes array building state)
-  - accumArrayResult (adds elements to array being built)
+  - [get_perl_array_ref](../g/get_perl_array_ref.md) (extracts array references from SVs)
+  - [plperl_sv_to_datum](../p/plperl_sv_to_datum.md) (converts scalar values to datums)
+  - [initArrayResult](../i/initArrayResult.md) (initializes array building state)
+  - [accumArrayResult](accumArrayResult.md) (adds elements to array being built)
   - MAXDIM (maximum allowed dimensions constant)
 - Called from (representative examples):
-  - array_to_datum_internal (recursive self-call)
-  - plperl_array_to_datum
+  - [array_to_datum_internal](array_to_datum_internal.md) (recursive self-call)
+  - [plperl_array_to_datum](../p/plperl_array_to_datum.md)
 
 ## Notes and Other Information
 - Enforces PostgreSQL maximum dimension limit (MAXDIM)

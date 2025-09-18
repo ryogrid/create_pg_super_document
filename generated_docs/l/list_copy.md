@@ -21,17 +21,17 @@ This function is widely used throughout PostgreSQL for creating working copies o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_list
-  - check_list_invariants
+  - [new_list](../n/new_list.md)
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - list_concat
-  - list_concat_copy  
+  - [list_concat](list_concat.md)
+  - [list_concat_copy](list_concat_copy.md)  
   - list_union
-  - list_difference
-  - copyObjectImpl
-  - get_foreign_key_join_selectivity
-  - preprocess_groupclause
-  - RelationGetIndexList
+  - [list_difference](list_difference.md)
+  - [copyObjectImpl](../c/copyObjectImpl.md)
+  - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md)
+  - [preprocess_groupclause](../p/preprocess_groupclause.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
 
 ## Notes and Other Information
 - This is a shallow copy operation - only the list structure is duplicated, not the data elements

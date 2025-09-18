@@ -21,13 +21,13 @@ The function ensures proper memory management by copying data into the aggregate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - ArrayBuildState
-  - initArrayResultWithSize
-  - datumCopy
-  - pg_nextpower2_32
-  - repalloc
-  - MemoryContextSwitchTo
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [ArrayBuildState](../A/ArrayBuildState.md)
+  - [initArrayResultWithSize](../i/initArrayResultWithSize.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
+  - [repalloc](../r/repalloc.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - memcpy
 - Called from (representative examples):
   - PostgreSQL parallel aggregate framework (internal)

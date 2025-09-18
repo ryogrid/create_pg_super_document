@@ -23,14 +23,14 @@ Historical note: Earlier versions of PostgreSQL maintained both direct and indir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StoreCatalogInheritance1
+  - [StoreCatalogInheritance1](StoreCatalogInheritance1.md)
   - table_open
   - table_close
   - lfirst_oid
   - Assert
   - OidIsValid
 - Called from (representative examples):
-  - DefineRelation
+  - [DefineRelation](../D/DefineRelation.md)
 
 ## Notes and Other Information
 - Only processes direct ancestors, not indirect ones (grandparents, etc.)

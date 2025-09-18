@@ -21,20 +21,20 @@ The two-pass approach is necessary because index entries must be removed before 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_progress_update_param
-  - update_vacuum_error_info  
-  - TidStoreBeginIterate
-  - TidStoreIterateNext
-  - TidStoreEndIterate
-  - vacuum_delay_point
-  - visibilitymap_pin
-  - ReadBufferExtended
-  - lazy_vacuum_heap_page
-  - PageGetHeapFreeSpace
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
+  - [update_vacuum_error_info](../u/update_vacuum_error_info.md)  
+  - [TidStoreBeginIterate](../T/TidStoreBeginIterate.md)
+  - [TidStoreIterateNext](../T/TidStoreIterateNext.md)
+  - [TidStoreEndIterate](../T/TidStoreEndIterate.md)
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [lazy_vacuum_heap_page](lazy_vacuum_heap_page.md)
+  - [PageGetHeapFreeSpace](../P/PageGetHeapFreeSpace.md)
   - RecordPageWithFreeSpace
-  - restore_vacuum_error_info
+  - [restore_vacuum_error_info](../r/restore_vacuum_error_info.md)
 - Called from:
-  - lazy_vacuum
+  - [lazy_vacuum](lazy_vacuum.md)
 
 ## Notes and Other Information
 - Only executes when do_index_vacuuming and do_index_cleanup are enabled

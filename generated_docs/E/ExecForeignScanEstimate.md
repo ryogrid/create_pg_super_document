@@ -20,7 +20,7 @@ This function estimates the amount of dynamic shared memory (DSM) space needed f
 - Functions called/Symbols referenced:
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
-  - FdwRoutine.EstimateDSMForeignScan (if available)
+  - [FdwRoutine](../F/FdwRoutine.md).EstimateDSMForeignScan (if available)
 - Called from (representative examples):
   - ExecParallelEstimate
 

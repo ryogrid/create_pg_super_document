@@ -21,10 +21,10 @@ The function checks if a boolean partition key column has such a boolean restric
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsBuiltinBooleanOpfamily
-  - matches_boolean_partition_clause
+  - [matches_boolean_partition_clause](../m/matches_boolean_partition_clause.md)
   - PartitionScheme (type)
 - Called from (representative examples):
-  - build_partition_pathkeys
+  - [build_partition_pathkeys](../b/build_partition_pathkeys.md)
 
 ## Notes and Other Information
 - This is a static function, only used within the pathkeys.c module

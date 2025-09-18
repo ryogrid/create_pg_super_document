@@ -18,23 +18,23 @@ This function executes after DefineRelation has been called for a new table and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
-  - relation_openrv  
-  - build_attrmap_by_name
-  - TupleDescGetDefault
-  - map_variable_attnos
-  - stringToNode
-  - nodeToString
-  - GetComment
-  - get_relation_constraint_oid
-  - generateClonedIndexStmt
-  - generateClonedExtStatsStmt
-  - RelationGetIndexList
-  - RelationGetStatExtList
-  - index_open
-  - index_close
+  - [relation_open](../r/relation_open.md)
+  - [relation_openrv](../r/relation_openrv.md)  
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
+  - [TupleDescGetDefault](../T/TupleDescGetDefault.md)
+  - [map_variable_attnos](../m/map_variable_attnos.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [nodeToString](../n/nodeToString.md)
+  - [GetComment](../G/GetComment.md)
+  - [get_relation_constraint_oid](../g/get_relation_constraint_oid.md)
+  - [generateClonedIndexStmt](../g/generateClonedIndexStmt.md)
+  - [generateClonedExtStatsStmt](../g/generateClonedExtStatsStmt.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
+  - [RelationGetStatExtList](../R/RelationGetStatExtList.md)
+  - [index_open](../i/index_open.md)
+  - [index_close](../i/index_close.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Requires that transformTableLikeClause has already been called to validate and lock the source table

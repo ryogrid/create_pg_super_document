@@ -22,18 +22,18 @@ The checks are driven by a DataTypesUsageChecks structure array that defines the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status
+  - [prep_status](../p/prep_status.md)
   - pg_malloc0
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - initPQExpBuffer
-  - pg_log
+  - [pg_log](../p/pg_log.md)
   - fopen_priv
-  - PQfinish
-  - pg_free
-  - check_ok
+  - [PQfinish](../P/PQfinish.md)
+  - [pg_free](../p/pg_free.md)
+  - [check_ok](check_ok.md)
 - Called from (representative examples):
-  - check_and_dump_old_cluster
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md)
 
 ## Notes and Other Information
 - Uses recursive CTE queries to handle complex type hierarchies including domains, arrays, composite types, and ranges

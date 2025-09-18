@@ -26,14 +26,14 @@ The function accepts an INET address and an integer specifying the desired netma
   - PG_GETARG_INET_PP: Macro to extract INET argument from function args
   - PG_GETARG_INT32: Macro to extract int32 argument from function args
   - ip_maxbits: Function to get the maximum valid netmask length for the address family
-  - palloc: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
   - memcpy: Standard library memory copy function
   - VARSIZE_ANY: Macro to get the size of a variable-length data type
   - ip_bits: Macro to access the netmask length field of an inet structure
   - ereport: PostgreSQL error reporting function
   - PG_RETURN_INET_P: Macro to return inet result
 - Called from (representative examples):
-  - network_scan_last: Function for scanning network ranges
+  - [network_scan_last](../n/network_scan_last.md): Function for scanning network ranges
 
 ## Notes and Other Information
 - This function is available as the SQL function `set_masklen(inet, int)` in PostgreSQL

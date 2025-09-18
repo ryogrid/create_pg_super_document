@@ -28,7 +28,7 @@ After creating the FILE stream, the function configures line buffering (PG_IOLBF
   - setvbuf (configures buffering with PG_IOLBF)
   - _open_osfhandle (Windows - converts OS handle to C runtime descriptor)
 - Called from (representative examples):
-  - SysLoggerMain (used three times to re-open syslogFile, csvlogFile, jsonlogFile from startup data)
+  - [SysLoggerMain](../S/SysLoggerMain.md) (used three times to re-open syslogFile, csvlogFile, jsonlogFile from startup data)
 
 ## Notes and Other Information
 - This is a static function only used within the syslogger.c module

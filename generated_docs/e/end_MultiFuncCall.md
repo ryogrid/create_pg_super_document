@@ -27,10 +27,10 @@ This function is typically called when a set-returning function has finished gen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnregisterExprContextCallback
-  - shutdown_MultiFuncCall
+  - [UnregisterExprContextCallback](../U/UnregisterExprContextCallback.md)
+  - [shutdown_MultiFuncCall](../s/shutdown_MultiFuncCall.md)
 - Types referenced:
-  - FuncCallContext
+  - [FuncCallContext](../F/FuncCallContext.md)
   - ReturnSetInfo
 - Called from (representative examples):
   - SRF_RETURN_DONE (macro)

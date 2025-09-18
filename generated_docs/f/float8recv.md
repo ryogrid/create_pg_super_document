@@ -21,7 +21,7 @@ The function extracts a StringInfo buffer containing the binary data and uses th
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (macro to extract pointer argument)
-  - pq_getmsgfloat8 (protocol function to read 8-byte float from message buffer)
+  - [pq_getmsgfloat8](../p/pq_getmsgfloat8.md) (protocol function to read 8-byte float from message buffer)
   - PG_RETURN_FLOAT8 (macro to return float8 as Datum)
 
 - Called from (representative examples):

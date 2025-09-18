@@ -20,7 +20,7 @@ This function serves as a cleanup callback in PostgreSQL's resource management s
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsm_segment (type cast from Datum)
-  - dsm_detach (to perform the actual segment detachment)
+  - [dsm_detach](../d/dsm_detach.md) (to perform the actual segment detachment)
 - Called from (representative examples):
   - Registered as callback in ResourceOwner system (referenced in dsm resource owner descriptor at line 154)
 

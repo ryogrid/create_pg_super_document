@@ -30,20 +30,20 @@ The parsing process extracts all tokens from the input text in a single pass dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_ts_parser_cache
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md)
   - FunctionCall2 (parser start method)
   - FunctionCall3 (parser token method)
   - FunctionCall1 (parser end method)
-  - DatumGetInt32
-  - repalloc
-  - get_call_result_type
-  - TupleDescGetAttInMetadata
-  - MemoryContextSwitchTo
-  - palloc
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [repalloc](../r/repalloc.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](palloc.md)
   - memcpy
 - Called from (representative examples):
-  - ts_parse_byid
-  - ts_parse_byname
+  - [ts_parse_byid](../t/ts_parse_byid.md)
+  - [ts_parse_byname](../t/ts_parse_byname.md)
 
 ## Notes and Other Information
 - This is a static function internal to the wparser.c module

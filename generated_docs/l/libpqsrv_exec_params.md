@@ -25,8 +25,8 @@ This function serves as an interrupt-aware wrapper around PostgreSQL's PQexecPar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQueryParams
-  - libpqsrv_get_result_last
+  - [PQsendQueryParams](../P/PQsendQueryParams.md)
+  - [libpqsrv_get_result_last](libpqsrv_get_result_last.md)
 - Called from (representative examples):
   - No direct references found in current codebase
 

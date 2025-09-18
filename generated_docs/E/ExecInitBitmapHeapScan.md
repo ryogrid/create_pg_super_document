@@ -24,26 +24,26 @@ The function also performs important validation checks, ensuring that unsupporte
   - makeNode
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
   - outerPlanState (macro)
   - outerPlan (macro)
-  - ExecInitScanTupleSlot
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
   - RelationGetDescr
-  - table_slot_callbacks
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfo
-  - ExecInitQual
-  - get_tablespace_io_concurrency
+  - [table_slot_callbacks](../t/table_slot_callbacks.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [get_tablespace_io_concurrency](../g/get_tablespace_io_concurrency.md)
 - Validation functions:
   - Assert
   - IsMVCCSnapshot
 - Data types referenced:
-  - BitmapHeapScanState
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md)
   - BitmapHeapScan
-  - EState
-  - Relation
+  - [EState](EState.md)
+  - [Relation](../R/Relation.md)
 - Called from:
-  - ExecInitNode (src/backend/executor/execProcnode.c:235)
+  - [ExecInitNode](ExecInitNode.md) (src/backend/executor/execProcnode.c:235)
 - Referenced in headers:
   - src/include/executor/nodeBitmapHeapscan.h:20
 

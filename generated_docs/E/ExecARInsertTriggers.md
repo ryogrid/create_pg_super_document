@@ -29,11 +29,11 @@ The function performs a critical validation check for foreign tables with transi
   - TransitionCaptureState
   - TriggerDesc
 - Called from (representative examples):
-  - CopyMultiInsertBufferFlush
-  - CopyFrom
-  - ExecSimpleRelationInsert
-  - ExecInsert
-  - ExecBatchInsert
+  - [CopyMultiInsertBufferFlush](../C/CopyMultiInsertBufferFlush.md)
+  - [CopyFrom](../C/CopyFrom.md)
+  - [ExecSimpleRelationInsert](ExecSimpleRelationInsert.md)
+  - [ExecInsert](ExecInsert.md)
+  - [ExecBatchInsert](ExecBatchInsert.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's deferred trigger execution system

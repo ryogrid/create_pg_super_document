@@ -22,12 +22,12 @@ The function carefully determines the appropriate result scale to ensure at leas
   - PG_GETARG_NUMERIC: Extract numeric argument from function args
   - NUMERIC_IS_SPECIAL: Check if numeric is NaN or infinity
   - NUMERIC_IS_NINF: Check if numeric is negative infinity
-  - duplicate_numeric: Create copy of numeric value
-  - init_var_from_num: Initialize NumericVar from Numeric
+  - [duplicate_numeric](../d/duplicate_numeric.md): Create copy of numeric value
+  - [init_var_from_num](../i/init_var_from_num.md): Initialize NumericVar from Numeric
   - init_var: Initialize empty NumericVar
-  - sqrt_var: Core square root calculation function
-  - make_result: Convert NumericVar to Numeric result
-  - free_var: Free NumericVar memory
+  - [sqrt_var](../s/sqrt_var.md): Core square root calculation function
+  - [make_result](../m/make_result.md): Convert NumericVar to Numeric result
+  - [free_var](../f/free_var.md): Free NumericVar memory
   - PG_RETURN_NUMERIC: Return numeric result
 - Called from (representative examples):
   - SQL sqrt() function calls
@@ -36,6 +36,6 @@ The function carefully determines the appropriate result scale to ensure at leas
 ## Notes and Other Information
 - Raises  error for negative infinity inputs
 - Scale calculation optimizes for even  values to avoid rounding operations
-- Result scale is bounded by  and 
+- [Result](../R/Result.md) scale is bounded by  and 
 - Uses  for the actual mathematical computation
 - Located in 

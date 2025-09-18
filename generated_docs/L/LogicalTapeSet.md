@@ -33,7 +33,7 @@ Support for shared file sets enables parallel operations where multiple worker p
 - Functions called/Symbols referenced:
   - BufFile
   - SharedFileSet
-  - LogicalTape
+  - [LogicalTape](LogicalTape.md)
   - ltsCreateTape
   - ltsWriteBlock
   - ltsReadBlock

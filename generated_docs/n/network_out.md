@@ -19,16 +19,16 @@ This function serves as the core formatting routine for both INET and CIDR data 
 ## Dependencies
 - Functions called/Symbols referenced:
   - inet (data type)
-  - pg_inet_net_ntop (network address to string conversion)
+  - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md) (network address to string conversion)
   - ip_family, ip_addr, ip_bits (inet accessor macros)
   - strchr (string search)
   - strlen (string length)
   - snprintf (formatted string printing)
-  - pstrdup (PostgreSQL string duplication)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL string duplication)
   - ereport (error reporting)
 - Called from (representative examples):
-  - inet_out (INET type output function)
-  - cidr_out (CIDR type output function)
+  - [inet_out](../i/inet_out.md) (INET type output function)
+  - [cidr_out](../c/cidr_out.md) (CIDR type output function)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's an internal helper function within the network.c module

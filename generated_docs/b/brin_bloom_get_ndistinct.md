@@ -30,7 +30,7 @@ The function includes several safeguards to ensure the bloom filter is appropria
   - MaxHeapTuplesPerPage
   - BLOOM_MIN_NDISTINCT_PER_RANGE
 - Called from (representative examples):
-  - brin_bloom_add_value
+  - [brin_bloom_add_value](brin_bloom_add_value.md)
 
 ## Notes and Other Information
 - The function contains several TODO comments (marked with XXX) suggesting potential improvements:

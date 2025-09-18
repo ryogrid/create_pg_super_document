@@ -20,15 +20,15 @@ The function is commonly used in publication-related operations where changes to
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length: Gets the number of elements in the relation OID list
-  - CacheInvalidateRelcacheByRelid: Invalidates cache for individual relations
-  - CacheInvalidateRelcacheAll: Performs a complete relation cache reset
+  - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md): Invalidates cache for individual relations
+  - [CacheInvalidateRelcacheAll](../C/CacheInvalidateRelcacheAll.md): Performs a complete relation cache reset
   - MAX_RELCACHE_INVAL_MSGS: Threshold constant determining when to use full cache reset
 - Called from (representative examples):
-  - publication_add_relation: When adding relations to publications
-  - publication_add_schema: When adding schemas to publications
-  - AlterPublicationOptions: When modifying publication options
-  - RemovePublicationRelById: When removing relations from publications
-  - RemovePublicationSchemaById: When removing schemas from publications
+  - [publication_add_relation](../p/publication_add_relation.md): When adding relations to publications
+  - [publication_add_schema](../p/publication_add_schema.md): When adding schemas to publications
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md): When modifying publication options
+  - [RemovePublicationRelById](../R/RemovePublicationRelById.md): When removing relations from publications
+  - [RemovePublicationSchemaById](../R/RemovePublicationSchemaById.md): When removing schemas from publications
 
 ## Notes and Other Information
 - Implements a performance optimization by choosing between targeted and bulk cache invalidation

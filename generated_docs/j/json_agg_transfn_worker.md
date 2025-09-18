@@ -20,15 +20,15 @@ This function serves as the workhorse for JSON aggregation operations, implement
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext (to validate aggregate execution context)
-  - get_fn_expr_argtype (to determine input data type)
-  - MemoryContextSwitchTo (for memory management in aggregate context)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (to validate aggregate execution context)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md) (to determine input data type)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for memory management in aggregate context)
   - makeStringInfo (to create the JSON array buffer)
-  - json_categorize_type (to categorize input type for JSON conversion)
-  - datum_to_json_internal (to convert individual values to JSON)
+  - [json_categorize_type](json_categorize_type.md) (to categorize input type for JSON conversion)
+  - [datum_to_json_internal](../d/datum_to_json_internal.md) (to convert individual values to JSON)
 - Called from:
-  - json_agg_transfn (standard json_agg aggregate function)
-  - json_agg_strict_transfn (strict variant that skips nulls)
+  - [json_agg_transfn](json_agg_transfn.md) (standard json_agg aggregate function)
+  - [json_agg_strict_transfn](json_agg_strict_transfn.md) (strict variant that skips nulls)
 
 ## Notes and Other Information
 - Maintains state across aggregate calls using JsonAggState structure

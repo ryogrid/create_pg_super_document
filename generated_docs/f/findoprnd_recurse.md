@@ -27,8 +27,8 @@ The findoprnd_recurse function performs a recursive traversal of a tsquery struc
   - OP_NOT, OP_AND, OP_OR, OP_PHRASE (operator type constants)
   - elog (error reporting function)
 - Called from (representative examples):
-  - findoprnd_recurse (recursive calls for processing operands)
-  - findoprnd (initial entry point)
+  - [findoprnd_recurse](findoprnd_recurse.md) (recursive calls for processing operands)
+  - [findoprnd](findoprnd.md) (initial entry point)
 
 ## Notes and Other Information
 - Implements recursive tree traversal for polish notation tsquery structures

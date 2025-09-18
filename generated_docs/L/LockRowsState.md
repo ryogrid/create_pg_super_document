@@ -22,12 +22,12 @@ LockRowsState manages the execution state for LockRows nodes, which implement ro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EPQState
+  - [EPQState](../E/EPQState.md)
 - Called from (representative examples):
-  - ExecLockRows
-  - ExecInitLockRows
-  - ExecEndLockRows
-  - ExecReScanLockRows
+  - [ExecLockRows](../E/ExecLockRows.md)
+  - [ExecInitLockRows](../E/ExecInitLockRows.md)
+  - [ExecEndLockRows](../E/ExecEndLockRows.md)
+  - [ExecReScanLockRows](../E/ExecReScanLockRows.md)
 
 ## Notes and Other Information
 - Essential for implementing PostgreSQL's row-level locking semantics in SELECT FOR UPDATE/SHARE queries

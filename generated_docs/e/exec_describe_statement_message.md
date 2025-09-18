@@ -19,18 +19,18 @@ The function sends parameter type information for all statement parameters and e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - start_xact_command
-  - FetchPreparedStatement 
-  - IsAbortedTransactionBlockState
-  - CachedPlanGetTargetList
-  - SendRowDescriptionMessage
+  - [start_xact_command](../s/start_xact_command.md)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) 
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
+  - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
   - pq_beginmessage_reuse
-  - pq_sendint16
-  - pq_sendint32
-  - pq_endmessage_reuse
-  - pq_putemptymessage
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_endmessage_reuse](../p/pq_endmessage_reuse.md)
+  - [pq_putemptymessage](../p/pq_putemptymessage.md)
 - Called from (representative examples):
-  - PostgresMain
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - The function handles both named and unnamed prepared statements

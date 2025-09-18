@@ -23,11 +23,11 @@ The deletion is performed using the shmctl() system call with the IPC_RMID comma
 ## Dependencies
 - Functions called/Symbols referenced:
   - shmctl (System V IPC function)
-  - DatumGetInt32 (PostgreSQL datum conversion)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (PostgreSQL datum conversion)
   - elog (PostgreSQL logging)
   - IPC_RMID (System V IPC constant)
 - Called from (representative examples):
-  - InternalIpcMemoryCreate (via on_shmem_exit registration)
+  - [InternalIpcMemoryCreate](InternalIpcMemoryCreate.md) (via on_shmem_exit registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_shmem.c file

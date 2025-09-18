@@ -21,9 +21,9 @@ SearchSysCacheCopy combines system cache search with tuple copying in a single o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache
-  - heap_copytuple
-  - ReleaseSysCache (called internally by the function)
+  - [SearchSysCache](SearchSysCache.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (called internally by the function)
 - Called from (representative examples):
   - SearchSysCacheCopy1 (macro wrapper)
   - SearchSysCacheCopy2 (macro wrapper)

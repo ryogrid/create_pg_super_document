@@ -27,9 +27,9 @@ The abbreviation optimization converts bounding boxes to compact Z-order values,
 ## Dependencies
 - Functions called/Symbols referenced:
   - ssup_datum_unsigned_cmp (abbreviated comparison function)
-  - gist_bbox_zorder_abbrev_convert (abbreviation converter function)
-  - gist_bbox_zorder_abbrev_abort (abbreviation abort callback)
-  - gist_bbox_zorder_cmp (full Z-order comparison function)
+  - [gist_bbox_zorder_abbrev_convert](gist_bbox_zorder_abbrev_convert.md) (abbreviation converter function)
+  - [gist_bbox_zorder_abbrev_abort](gist_bbox_zorder_abbrev_abort.md) (abbreviation abort callback)
+  - [gist_bbox_zorder_cmp](gist_bbox_zorder_cmp.md) (full Z-order comparison function)
   - PG_RETURN_VOID (PostgreSQL function return macro)
 - Called from (representative examples):
   - Likely registered as a sort support function in PostgreSQL's function catalog

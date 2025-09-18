@@ -29,12 +29,12 @@ This check serves as an early gate to prevent the postmaster from attempting to 
 - Functions called/Symbols referenced:
   - AllocateFile: Open file for reading with PostgreSQL's file management
   - FreeFile: Close file opened with AllocateFile
-  - write_stderr: Output error message to standard error
-  - ExitPostmaster: Terminate postmaster process with specified exit code
+  - [write_stderr](../w/write_stderr.md): Output error message to standard error
+  - [ExitPostmaster](../E/ExitPostmaster.md): Terminate postmaster process with specified exit code
   - PG_BINARY_R: Binary read mode constant for file operations
 - Called from (representative examples):
-  - PostmasterMain: Called during startup sequence at line 815
-  - digestControlFile (in pg_rewind): Used for control file validation at line 1046
+  - [PostmasterMain](../P/PostmasterMain.md): Called during startup sequence at line 815
+  - [digestControlFile](../d/digestControlFile.md) (in pg_rewind): Used for control file validation at line 1046
   - Referenced in SIGKILL_CHILDREN_AFTER_SECS context
 
 ## Notes and Other Information

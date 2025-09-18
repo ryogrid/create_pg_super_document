@@ -25,13 +25,13 @@ The function includes comprehensive error handling using PostgreSQL's exception 
   - PyBytes_AsString (Python C API) 
   - PyBytes_FromStringAndSize (Python C API)
   - PLy_elog
-  - GetDatabaseEncoding
-  - pg_any_to_server
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [pg_any_to_server](../p/pg_any_to_server.md)
   - PG_TRY/PG_CATCH/PG_END_TRY/PG_RE_THROW
   - PG_UTF8
 - Called from:
-  - PLyObject_AsString (multiple times)
-  - PLyUnicode_AsString
+  - [PLyObject_AsString](PLyObject_AsString.md) (multiple times)
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md)
 
 ## Notes and Other Information
 - Uses UTF-8 as an intermediary encoding format to handle PostgreSQL encodings not supported by Python

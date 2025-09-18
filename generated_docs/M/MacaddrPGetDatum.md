@@ -22,7 +22,7 @@ This function is part of PostgreSQL's fmgr (function manager) interface macros f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - macaddr
 - Called from (representative examples):
   - PG_RETURN_MACADDR_P (macro)

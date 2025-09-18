@@ -17,19 +17,19 @@ The `convert_role_priv_string` function is a static helper function that transla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string
+  - [convert_any_priv_string](convert_any_priv_string.md)
   - priv_map
   - ACL_USAGE
   - ACL_CREATE
   - ACL_SET
   - ACL_GRANT_OPTION_FOR
 - Called from (representative examples):
-  - pg_has_role_name_name
-  - pg_has_role_name
-  - pg_has_role_name_id
-  - pg_has_role_id
-  - pg_has_role_id_name
-  - pg_has_role_id_id
+  - [pg_has_role_name_name](../p/pg_has_role_name_name.md)
+  - [pg_has_role_name](../p/pg_has_role_name.md)
+  - [pg_has_role_name_id](../p/pg_has_role_name_id.md)
+  - [pg_has_role_id](../p/pg_has_role_id.md)
+  - [pg_has_role_id_name](../p/pg_has_role_id_name.md)
+  - [pg_has_role_id_id](../p/pg_has_role_id_id.md)
 
 ## Notes and Other Information
 - Uses a special convention where ACL_CREATE represents MEMBER privileges due to lack of dedicated ACL bit

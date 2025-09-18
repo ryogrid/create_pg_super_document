@@ -40,19 +40,19 @@ The function optimizes performance by doing all matching upfront and caching res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RE_compile_and_cache
-  - RE_wchar_execute  
-  - pg_mb2wchar_with_len
-  - pg_database_encoding_max_length
-  - repalloc, palloc, pfree
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md)
+  - [RE_wchar_execute](../R/RE_wchar_execute.md)  
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
+  - [repalloc](../r/repalloc.md), palloc, pfree
 - Called from (representative examples):
-  - regexp_matches
-  - regexp_match
-  - regexp_count
-  - regexp_instr
-  - regexp_substr
-  - regexp_split_to_table
-  - regexp_split_to_array
+  - [regexp_matches](../r/regexp_matches.md)
+  - [regexp_match](../r/regexp_match.md)
+  - [regexp_count](../r/regexp_count.md)
+  - [regexp_instr](../r/regexp_instr.md)
+  - [regexp_substr](../r/regexp_substr.md)
+  - [regexp_split_to_table](../r/regexp_split_to_table.md)
+  - [regexp_split_to_array](../r/regexp_split_to_array.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/regexp.c at lines 1442-1645

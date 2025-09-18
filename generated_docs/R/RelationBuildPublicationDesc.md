@@ -38,18 +38,18 @@ The function performs the following key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_publishable_relation
-  - GetRelationPublications
+  - [is_publishable_relation](../i/is_publishable_relation.md)
+  - [GetRelationPublications](../G/GetRelationPublications.md)
   - RelationGetNamespace/GetSchemaPublications
-  - get_partition_ancestors/get_rel_namespace
-  - GetAllTablesPublications
-  - list_concat_unique_oid
-  - SearchSysCache1/ReleaseSysCache
-  - pub_rf_contains_invalid_column
-  - pub_collist_contains_invalid_column
+  - [get_partition_ancestors](../g/get_partition_ancestors.md)/get_rel_namespace
+  - [GetAllTablesPublications](../G/GetAllTablesPublications.md)
+  - [list_concat_unique_oid](../l/list_concat_unique_oid.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache
+  - [pub_rf_contains_invalid_column](../p/pub_rf_contains_invalid_column.md)
+  - [pub_collist_contains_invalid_column](../p/pub_collist_contains_invalid_column.md)
   - Form_pg_publication
 - Called from (representative examples):
-  - CheckCmdReplicaIdentity
+  - [CheckCmdReplicaIdentity](../C/CheckCmdReplicaIdentity.md)
 
 ## Notes and Other Information
 - Results are cached in the relation cache entry for performance optimization

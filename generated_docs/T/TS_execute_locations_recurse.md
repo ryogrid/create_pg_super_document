@@ -25,13 +25,13 @@ The function uses a callback mechanism (chkcond) to test individual query operan
   - check_stack_depth
   - palloc0_object
   - list_make1
-  - list_concat
+  - [list_concat](../l/list_concat.md)
   - lappend
   - TS_phrase_execute
   - TS_phrase_output
 - Called from (representative examples):
   - TS_execute_locations
-  - TS_execute_locations_recurse (recursive calls)
+  - [TS_execute_locations_recurse](TS_execute_locations_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - Includes stack overflow protection via check_stack_depth() calls

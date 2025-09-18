@@ -21,13 +21,13 @@ This function handles the conversion of individual JSON values into PostgreSQL a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_record_field (for element conversion)
+  - [populate_record_field](populate_record_field.md) (for element conversion)
   - SOFT_ERROR_OCCURRED (error checking macro)
-  - accumArrayResult (array accumulation)
-  - PopulateArrayContext, JsValue, Datum (data types)
+  - [accumArrayResult](../a/accumArrayResult.md) (array accumulation)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md), JsValue, Datum (data types)
 - Called from (representative examples):
-  - populate_array_element_end
-  - populate_array_dim_jsonb
+  - [populate_array_element_end](populate_array_element_end.md)
+  - [populate_array_dim_jsonb](populate_array_dim_jsonb.md)
   - JsObjectFree
 
 ## Notes and Other Information

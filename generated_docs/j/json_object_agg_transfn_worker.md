@@ -29,25 +29,25 @@ The function operates within PostgreSQL's aggregate framework and ensures proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - makeStringInfo
-  - json_unique_builder_init
-  - get_fn_expr_argtype
-  - json_categorize_type
-  - json_unique_builder_get_throwawaybuf
-  - datum_to_json_internal
-  - MemoryContextStrdup
-  - json_unique_check_key
+  - [json_unique_builder_init](json_unique_builder_init.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [json_categorize_type](json_categorize_type.md)
+  - [json_unique_builder_get_throwawaybuf](json_unique_builder_get_throwawaybuf.md)
+  - [datum_to_json_internal](../d/datum_to_json_internal.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
+  - [json_unique_check_key](json_unique_check_key.md)
 - Data structures used:
-  - JsonAggState
-  - FunctionCallInfo
+  - [JsonAggState](../J/JsonAggState.md)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
   - StringInfo
-  - MemoryContext
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from (representative examples):
-  - json_object_agg_transfn
-  - json_object_agg_strict_transfn
-  - json_object_agg_unique_transfn
-  - json_object_agg_unique_strict_transfn
+  - [json_object_agg_transfn](json_object_agg_transfn.md)
+  - [json_object_agg_strict_transfn](json_object_agg_strict_transfn.md)
+  - [json_object_agg_unique_transfn](json_object_agg_unique_transfn.md)
+  - [json_object_agg_unique_strict_transfn](json_object_agg_unique_strict_transfn.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the json.c compilation unit

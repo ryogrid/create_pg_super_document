@@ -30,16 +30,16 @@ The function ensures proper state transitions through assertions and clears rela
   - table_open
   - table_close
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - Form_pg_index
   - IndexStateFlagsAction
 - Called from (representative examples):
-  - DefineIndex
+  - [DefineIndex](../D/DefineIndex.md)
   - index_concurrently_build
-  - index_concurrently_set_dead
-  - index_drop
+  - [index_concurrently_set_dead](index_concurrently_set_dead.md)
+  - [index_drop](index_drop.md)
 
 ## Notes and Other Information
 - Critical component of PostgreSQL's concurrent index building and dropping mechanisms

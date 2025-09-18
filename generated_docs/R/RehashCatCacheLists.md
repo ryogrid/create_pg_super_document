@@ -29,15 +29,15 @@ The rehashing process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for debug logging)
-  - MemoryContextAllocZero (for allocating new list bucket array)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (for allocating new list bucket array)
   - dlist_foreach_modify (for iterating through cache lists)
   - dlist_container (for accessing CatCList from list node)
   - HASH_INDEX (macro for computing hash bucket index)
-  - dlist_delete (for removing lists from old buckets)
-  - dlist_push_head (for adding lists to new buckets)
-  - pfree (for freeing old list bucket array)
+  - [dlist_delete](../d/dlist_delete.md) (for removing lists from old buckets)
+  - [dlist_push_head](../d/dlist_push_head.md) (for adding lists to new buckets)
+  - [pfree](../p/pfree.md) (for freeing old list bucket array)
 - Called from:
-  - SearchCatCacheList (when list cache load factor becomes too high)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (when list cache load factor becomes too high)
 
 ## Notes and Other Information
 - This is a static function, only accessible within catcache.c

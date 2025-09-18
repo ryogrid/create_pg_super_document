@@ -22,15 +22,15 @@ The adjacency test is bidirectional: ranges A..B and C..D are adjacent if B is a
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTypeGetOid
-  - range_deserialize
-  - bounds_adjacent
+  - [range_deserialize](range_deserialize.md)
+  - [bounds_adjacent](../b/bounds_adjacent.md)
 - Called from (representative examples):
-  - range_adjacent
-  - range_union_internal
-  - multirange_canonicalize
-  - range_gist_consistent_int_range
-  - range_gist_consistent_leaf_range
-  - spg_range_quad_leaf_consistent
+  - [range_adjacent](range_adjacent.md)
+  - [range_union_internal](range_union_internal.md)
+  - [multirange_canonicalize](../m/multirange_canonicalize.md)
+  - [range_gist_consistent_int_range](range_gist_consistent_int_range.md)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md)
 
 ## Notes and Other Information
 - Validates that both ranges are of the same type, throwing an error if not

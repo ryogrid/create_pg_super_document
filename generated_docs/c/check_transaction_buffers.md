@@ -23,7 +23,7 @@ The transaction_buffers parameter controls the number of shared memory buffers a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_slru_buffers (generic SLRU buffer validation function)
+  - [check_slru_buffers](check_slru_buffers.md) (generic SLRU buffer validation function)
 - Types referenced:
   - GucSource (enumeration for configuration parameter sources)
 - Called from:

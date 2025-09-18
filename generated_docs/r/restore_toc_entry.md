@@ -25,28 +25,28 @@ The function includes special handling for database objects, trigger management,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommitTransaction
-  - StartTransaction
-  - inhibit_data_for_failed_table
-  - mark_create_done
-  - _disableTriggersIfNecessary
-  - _enableTriggersIfNecessary
-  - is_load_via_partition_root
-  - _printTocEntry
-  - _reconnectToDB
-  - _becomeOwner
-  - _selectOutputSchema
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [StartTransaction](../S/StartTransaction.md)
+  - [inhibit_data_for_failed_table](../i/inhibit_data_for_failed_table.md)
+  - [mark_create_done](../m/mark_create_done.md)
+  - [_disableTriggersIfNecessary](../d/_disableTriggersIfNecessary.md)
+  - [_enableTriggersIfNecessary](../e/_enableTriggersIfNecessary.md)
+  - [is_load_via_partition_root](../i/is_load_via_partition_root.md)
+  - [_printTocEntry](../p/_printTocEntry.md)
+  - [_reconnectToDB](_reconnectToDB.md)
+  - [_becomeOwner](../b/_becomeOwner.md)
+  - [_selectOutputSchema](../s/_selectOutputSchema.md)
   - pg_log_info
   - pg_log_warning
-  - ahprintf
-  - EndDBCopyMode
-  - RestoringToDB
-  - fmtQualifiedId
+  - [ahprintf](../a/ahprintf.md)
+  - [EndDBCopyMode](../E/EndDBCopyMode.md)
+  - [RestoringToDB](../R/RestoringToDB.md)
+  - [fmtQualifiedId](../f/fmtQualifiedId.md)
 - Called from (representative examples):
-  - RestoreArchive
-  - parallel_restore
-  - restore_toc_entries_prefork
-  - restore_toc_entries_postfork
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [parallel_restore](../p/parallel_restore.md)
+  - [restore_toc_entries_prefork](restore_toc_entries_prefork.md)
+  - [restore_toc_entries_postfork](restore_toc_entries_postfork.md)
 
 ## Notes and Other Information
 - Returns status codes: WORKER_OK (normal), WORKER_CREATE_DONE (table created successfully), WORKER_INHIBIT_DATA (table creation failed), or WORKER_IGNORED_ERRORS (errors occurred)

@@ -19,21 +19,21 @@ BufferGetLSNAtomic provides a thread-safe way to retrieve the LSN of a buffer pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](BufferGetPage.md)
   - XLogHintBitIsNeeded
   - BufferIsLocal
-  - PageGetLSN
+  - [PageGetLSN](../P/PageGetLSN.md)
   - BufferIsPinned (assertion only)
-  - GetBufferDescriptor
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - LockBufHdr
-  - UnlockBufHdr
-  - BufferDesc (type)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
+  - [BufferDesc](BufferDesc.md) (type)
 - Called from (representative examples):
-  - gistdoinsert
-  - gistFindPath
-  - SetHintBits
-  - _bt_readpage
-  - XLogSaveBufferForHint
+  - [gistdoinsert](../g/gistdoinsert.md)
+  - [gistFindPath](../g/gistFindPath.md)
+  - [SetHintBits](../S/SetHintBits.md)
+  - [_bt_readpage](../b/_bt_readpage.md)
+  - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md)
 
 ## Notes and Other Information
 - Uses a fast path when XLog hint bits are not needed or for local buffers, avoiding unnecessary locking overhead

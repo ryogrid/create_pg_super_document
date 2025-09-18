@@ -17,7 +17,7 @@ This function provides extended hash support for timestamp values in PostgreSQL'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashint8extended (delegates extended hash computation to this function)
+  - [hashint8extended](../h/hashint8extended.md) (delegates extended hash computation to this function)
 - Called from (representative examples):
   - No direct references found in the codebase
 

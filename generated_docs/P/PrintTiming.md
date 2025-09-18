@@ -29,8 +29,8 @@ The function always displays the raw millisecond value followed by a breakdown i
   - _ (gettext macro for internationalization)
 
 - Called from (representative examples):
-  - PSQLexecWatch
-  - SendQuery
+  - [PSQLexecWatch](PSQLexecWatch.md)
+  - [SendQuery](../S/SendQuery.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/bin/psql/common.c

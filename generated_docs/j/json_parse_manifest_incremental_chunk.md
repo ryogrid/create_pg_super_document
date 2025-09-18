@@ -22,19 +22,19 @@ The function handles both intermediate chunks (where JSON parsing may be incompl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_parse_json_incremental
+  - [pg_parse_json_incremental](../p/pg_parse_json_incremental.md)
   - json_manifest_parse_failure
   - json_errdetail
-  - pg_cryptohash_update
+  - [pg_cryptohash_update](../p/pg_cryptohash_update.md)
   - verify_manifest_checksum
   - JSON_SUCCESS
   - JSON_INCOMPLETE
   - JM_EXPECT_EOF
 - Called from (representative examples):
-  - AppendIncrementalManifestData (src/backend/backup/basebackup_incremental.c:210)
-  - FinalizeIncrementalManifest (src/backend/backup/basebackup_incremental.c:237)
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:207)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:484)
+  - [AppendIncrementalManifestData](../A/AppendIncrementalManifestData.md) (src/backend/backup/basebackup_incremental.c:210)
+  - [FinalizeIncrementalManifest](../F/FinalizeIncrementalManifest.md) (src/backend/backup/basebackup_incremental.c:237)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:207)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:484)
 
 ## Notes and Other Information
 - Expects JSON_INCOMPLETE for non-final chunks and JSON_SUCCESS for the final chunk

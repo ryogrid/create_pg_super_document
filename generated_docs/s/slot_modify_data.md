@@ -38,15 +38,15 @@ The function is designed to be memory-efficient by only converting and replacing
   - ExecClearTuple
   - slot_getallattrs
   - TupleDescAttr
-  - getTypeInputInfo
-  - OidInputFunctionCall
-  - getTypeBinaryInputInfo
-  - OidReceiveFunctionCall
-  - ExecStoreVirtualTuple
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md)
+  - [OidReceiveFunctionCall](../O/OidReceiveFunctionCall.md)
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
   - memcpy (for bulk copying of attribute arrays)
 - Called from (representative examples):
-  - apply_handle_update_internal
-  - apply_handle_tuple_routing
+  - [apply_handle_update_internal](../a/apply_handle_update_internal.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication worker

@@ -23,12 +23,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty (checks if segment list is empty)
+  - [dlist_is_empty](dlist_is_empty.md) (checks if segment list is empty)
   - dlist_head_element (gets first segment from list)
-  - dsm_detach (detaches individual segments)
+  - [dsm_detach](dsm_detach.md) (detaches individual segments)
   - dsm_impl_op (platform-specific detach operations for control segment)
 - Called from (representative examples):
-  - postmaster_child_launch (child process initialization)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md) (child process initialization)
 
 ## Notes and Other Information
 - Intended for processes that inherit mappings but shouldn't use DSM

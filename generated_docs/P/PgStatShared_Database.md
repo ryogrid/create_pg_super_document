@@ -23,13 +23,13 @@ This structure is part of PostgreSQL's extensible statistics framework that allo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common
-  - PgStat_StatDBEntry
+  - [PgStat_StatDBEntry](PgStat_StatDBEntry.md)
 - Called from (representative examples):
-  - pgstat_report_autovac
-  - pgstat_report_checksum_failures_in_db
-  - pgstat_reset_database_timestamp
-  - pgstat_database_flush_cb
-  - pgstat_database_reset_timestamp_cb
+  - [pgstat_report_autovac](../p/pgstat_report_autovac.md)
+  - [pgstat_report_checksum_failures_in_db](../p/pgstat_report_checksum_failures_in_db.md)
+  - [pgstat_reset_database_timestamp](../p/pgstat_reset_database_timestamp.md)
+  - [pgstat_database_flush_cb](../p/pgstat_database_flush_cb.md)
+  - [pgstat_database_reset_timestamp_cb](../p/pgstat_database_reset_timestamp_cb.md)
   - SH_DECLARE (hash table declarations)
 
 ## Notes and Other Information
@@ -38,4 +38,4 @@ This structure is part of PostgreSQL's extensible statistics framework that allo
 - The magic number in the header serves as a validity check to detect memory corruption
 - Statistics are accessible through system views like pg_stat_database
 - Supports database-specific operations like autovacuum reporting and checksum failure tracking
-- Session statistics include connection counts, time spent in various states, and abnormal termination tracking
+- [Session](../S/Session.md) statistics include connection counts, time spent in various states, and abnormal termination tracking

@@ -25,7 +25,7 @@ The function simply returns the current value of XactTopFullTransactionId withou
 - Functions called/Symbols referenced:
   - XactTopFullTransactionId (global variable)
 - Called from (representative examples):
-  - pg_current_xact_id_if_assigned (src/backend/utils/adt/xid8funcs.c:354)
+  - [pg_current_xact_id_if_assigned](../p/pg_current_xact_id_if_assigned.md) (src/backend/utils/adt/xid8funcs.c:354)
 
 ## Notes and Other Information
 - This function is safe to call when unsure if a transaction is active or has an assigned ID

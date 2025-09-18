@@ -27,8 +27,8 @@ This function takes no parameters (uses PG_FUNCTION_ARGS macro for PostgreSQL fu
   - ReadNextFullTransactionId
   - GetActiveSnapshot
   - FullTransactionIdFromAllowableAt
-  - sort_snapshot
-  - palloc
+  - [sort_snapshot](../s/sort_snapshot.md)
+  - [palloc](palloc.md)
   - elog
   - PG_SNAPSHOT_SIZE
   - SET_VARSIZE

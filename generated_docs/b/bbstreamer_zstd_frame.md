@@ -24,20 +24,20 @@ The structure is conditionally compiled only when USE_ZSTD is defined, ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - ZSTD_CCtx (ZSTD compression context type)
   - ZSTD_DCtx (ZSTD decompression context type)
   - ZSTD_outBuffer (ZSTD output buffer type)
 
 - Called from (representative examples):
-  - bbstreamer_zstd_compressor_new
-  - bbstreamer_zstd_decompressor_new
-  - bbstreamer_zstd_compressor_content
-  - bbstreamer_zstd_compressor_finalize
-  - bbstreamer_zstd_compressor_free
-  - bbstreamer_zstd_decompressor_content
-  - bbstreamer_zstd_decompressor_finalize
-  - bbstreamer_zstd_decompressor_free
+  - [bbstreamer_zstd_compressor_new](bbstreamer_zstd_compressor_new.md)
+  - [bbstreamer_zstd_decompressor_new](bbstreamer_zstd_decompressor_new.md)
+  - [bbstreamer_zstd_compressor_content](bbstreamer_zstd_compressor_content.md)
+  - [bbstreamer_zstd_compressor_finalize](bbstreamer_zstd_compressor_finalize.md)
+  - [bbstreamer_zstd_compressor_free](bbstreamer_zstd_compressor_free.md)
+  - [bbstreamer_zstd_decompressor_content](bbstreamer_zstd_decompressor_content.md)
+  - [bbstreamer_zstd_decompressor_finalize](bbstreamer_zstd_decompressor_finalize.md)
+  - [bbstreamer_zstd_decompressor_free](bbstreamer_zstd_decompressor_free.md)
 
 ## Notes and Other Information
 - This structure is only available when PostgreSQL is compiled with ZSTD support (USE_ZSTD macro defined)

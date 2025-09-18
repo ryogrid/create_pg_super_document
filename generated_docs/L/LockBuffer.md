@@ -20,13 +20,13 @@ This function provides the primary interface for acquiring and releasing content
 - Functions called/Symbols referenced:
   - BufferIsPinned (assertion check)
   - BufferIsLocal
-  - GetBufferDescriptor
-  - BufferDescriptorGetContentLock
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
   - LWLockRelease, LWLockAcquire
   - Lock mode constants (BUFFER_LOCK_UNLOCK, BUFFER_LOCK_SHARE, BUFFER_LOCK_EXCLUSIVE)
   - LW_SHARED, LW_EXCLUSIVE
 - Called from (representative examples):
-  - UnlockReleaseBuffer (buffer cleanup)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (buffer cleanup)
   - Free space management operations
   - Transaction log operations
   - Database command operations

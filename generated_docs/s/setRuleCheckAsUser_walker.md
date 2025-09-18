@@ -18,13 +18,13 @@ This function implements a tree-walking algorithm that traverses PostgreSQL expr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setRuleCheckAsUser_Query
+  - [setRuleCheckAsUser_Query](setRuleCheckAsUser_Query.md)
   - expression_tree_walker
   - IsA (macro)
 - Called from (representative examples):
-  - setRuleCheckAsUser
-  - setRuleCheckAsUser_walker (recursive calls)
-  - setRuleCheckAsUser_Query
+  - [setRuleCheckAsUser](setRuleCheckAsUser.md)
+  - [setRuleCheckAsUser_walker](setRuleCheckAsUser_walker.md) (recursive calls)
+  - [setRuleCheckAsUser_Query](setRuleCheckAsUser_Query.md)
 
 ## Notes and Other Information
 - Returns false to continue tree walking in most cases

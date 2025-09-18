@@ -21,8 +21,8 @@ This function creates a new List of the specified type with exactly two elements
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_list (allocates and initializes List structure)
-  - check_list_invariants (validates list consistency)
+  - [new_list](../n/new_list.md) (allocates and initializes List structure)
+  - [check_list_invariants](../c/check_list_invariants.md) (validates list consistency)
 
 - Called from (representative examples):
   - list_make2 (macro for generic pointer lists)

@@ -33,8 +33,8 @@ The function supports different compression algorithms:
   - PG_COMPRESSION_GZIP (compression constant)
   - PG_COMPRESSION_LZ4 (compression constant)
 - Called from (representative examples):
-  - dir_open_for_write
-  - dir_close
+  - [dir_open_for_write](dir_open_for_write.md)
+  - [dir_close](dir_close.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the walmethods.c file

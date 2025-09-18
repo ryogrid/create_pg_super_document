@@ -27,12 +27,12 @@ The function explicitly handles:
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (to extract input argument)
   - ereport (PostgreSQL error reporting system)
-  - errcode (error code specification)
-  - errmsg (error message specification)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message specification)
   - log (standard C library natural logarithm function)
   - isinf (to check for infinity values)
-  - float_overflow_error (PostgreSQL error handling)
-  - float_underflow_error (PostgreSQL error handling)
+  - [float_overflow_error](../f/float_overflow_error.md) (PostgreSQL error handling)
+  - [float_underflow_error](../f/float_underflow_error.md) (PostgreSQL error handling)
 - Called from: 
   - No direct references found in the codebase (likely called through SQL function dispatch)
 

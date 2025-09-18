@@ -20,7 +20,7 @@ The function requires the caller to hold the ProcArrayLock in at least shared mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - KnownAssignedXidsGetAndSetXmin
+  - [KnownAssignedXidsGetAndSetXmin](KnownAssignedXidsGetAndSetXmin.md)
   - InvalidTransactionId (constant)
 - Called from (representative examples):
   - xc_slow_answer_inc

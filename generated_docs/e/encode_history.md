@@ -27,7 +27,7 @@ The operation is performed directly on the history data structure, modifying the
   - END_ITERATE_HISTORY (macro)
   - NL_IN_HISTORY (constant)
 - Called from (representative examples):
-  - saveHistory
+  - [saveHistory](../s/saveHistory.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within the input.c file

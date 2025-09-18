@@ -25,13 +25,13 @@ The function only records a dependency if the collation OID is valid and is not 
 - Functions called/Symbols referenced:
   - OidIsValid (checks if collation OID is valid)
   - DEFAULT_COLLATION_OID (constant for default collation)
-  - recordDependencyOn (creates the dependency record in pg_depend)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (creates the dependency record in pg_depend)
   - DEPENDENCY_NORMAL (dependency type constant)
   - CollationRelationId (system catalog relation ID for collations)
   - RelationRelationId (system catalog relation ID for relations)
 - Called from (representative examples):
-  - ATExecAddColumn (when adding new columns to tables)
-  - ATExecAlterColumnType (when changing column data types that may affect collation)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (when adding new columns to tables)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md) (when changing column data types that may affect collation)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within tablecmds.c

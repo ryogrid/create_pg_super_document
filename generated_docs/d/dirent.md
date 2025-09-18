@@ -29,14 +29,14 @@ The implementation handles Windows-specific file attributes and maps them to POS
   - DT_* constants (DT_DIR, DT_REG, DT_LNK, DT_UNKNOWN, etc.)
 - Called from (representative examples):
   - CheckPointLogicalRewriteHeap
-  - SlruScanDirectory 
-  - RemoveOldXlogFiles
-  - sendDir
+  - [SlruScanDirectory](../S/SlruScanDirectory.md) 
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)
+  - [sendDir](../s/sendDir.md)
   - copydir
   - AllocateDir
   - ReadDir
-  - pg_ls_dir
-  - walkdir
+  - [pg_ls_dir](../p/pg_ls_dir.md)
+  - [walkdir](../w/walkdir.md)
   - rmtree
 
 ## Notes and Other Information

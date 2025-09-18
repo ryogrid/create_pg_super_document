@@ -21,14 +21,14 @@ This inline function implements safe double-precision floating-point subtraction
 ## Dependencies
 - Functions called/Symbols referenced:
   - isinf (checks if value is infinite)
-  - float_overflow_error (reports overflow error)
+  - [float_overflow_error](float_overflow_error.md) (reports overflow error)
   - float8 (PostgreSQL's double-precision float type)
 - Called from (representative examples):
-  - float8mi (src/backend/utils/adt/float.c:777)
-  - size_box (src/backend/access/gist/gistproc.c:88)
-  - box_wd (src/backend/utils/adt/geo_ops.c:885)
-  - point_sub_point (src/backend/utils/adt/geo_ops.c:4137)
-  - circle_distance (src/backend/utils/adt/geo_ops.c:5072)
+  - [float8mi](float8mi.md) (src/backend/utils/adt/float.c:777)
+  - [size_box](../s/size_box.md) (src/backend/access/gist/gistproc.c:88)
+  - [box_wd](../b/box_wd.md) (src/backend/utils/adt/geo_ops.c:885)
+  - [point_sub_point](../p/point_sub_point.md) (src/backend/utils/adt/geo_ops.c:4137)
+  - [circle_distance](../c/circle_distance.md) (src/backend/utils/adt/geo_ops.c:5072)
 
 ## Notes and Other Information
 - Defined as a static inline function in src/include/utils/float.h:182-193

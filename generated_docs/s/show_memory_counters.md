@@ -29,13 +29,13 @@ This information helps identify queries that consume significant memory and aids
 ## Dependencies
 - Functions called/Symbols referenced:
   - BYTES_TO_KILOBYTES
-  - ExplainIndentText
+  - [ExplainIndentText](../E/ExplainIndentText.md)
   - appendStringInfo
   - appendStringInfoChar
-  - ExplainPropertyInteger
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
   - INT64_FORMAT
 - Called from (representative examples):
-  - ExplainOnePlan
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
 
 ## Notes and Other Information
 - Memory values are automatically converted from bytes to kilobytes for better readability

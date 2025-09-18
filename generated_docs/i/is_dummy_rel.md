@@ -23,8 +23,8 @@ This mechanism allows the optimizer to efficiently handle cases where entire rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  -  - Path node type for projection operations
-  -  - Path node type for set-returning function projections
+  -  - [Path](../P/Path.md) node type for projection operations
+  -  - [Path](../P/Path.md) node type for set-returning function projections
   -  - Macro to test if an Append path is childless (dummy)
 
 - Called from (representative examples):

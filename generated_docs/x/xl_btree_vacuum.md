@@ -37,12 +37,12 @@ This record type is similar to xl_btree_delete but lacks conflict horizon fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - uint16 (type)
-  - xl_btree_update (metadata structure for updated tuples)
+  - [xl_btree_update](xl_btree_update.md) (metadata structure for updated tuples)
 
 - Called from (representative examples):
-  - _bt_delitems_vacuum (src/backend/access/nbtree/nbtpage.c:1230)
-  - btree_xlog_vacuum (src/backend/access/nbtree/nbtxlog.c:601)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:60)
+  - [_bt_delitems_vacuum](../b/_bt_delitems_vacuum.md) (src/backend/access/nbtree/nbtpage.c:1230)
+  - [btree_xlog_vacuum](../b/btree_xlog_vacuum.md) (src/backend/access/nbtree/nbtxlog.c:601)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:60)
   - SizeOfBtreeVacuum (src/include/access/nbtxlog.h:237)
 
 ## Notes and Other Information

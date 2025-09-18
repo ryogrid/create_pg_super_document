@@ -22,10 +22,10 @@ This initialization is essential for the SP-GiST geometric indexing algorithm, w
 ## Dependencies
 - Functions called/Symbols referenced:
   - RectBox (4D rectangular box structure)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - get_float8_infinity (PostgreSQL function to get positive infinity value)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within geo_spgist.c

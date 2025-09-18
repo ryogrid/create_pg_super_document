@@ -17,7 +17,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp (PostgreSQL timestamp utility)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (PostgreSQL timestamp utility)
   - LWLockAcquire/LWLockRelease (lightweight lock management)
   - SpinLockAcquire/SpinLockRelease (spinlock for slot access)
   - SlotIsLogical (slot type validation)
@@ -27,8 +27,8 @@ This function takes no parameters.
   - ReplicationSlotCtl (replication slot control structure)
 
 - Called from (representative examples):
-  - ShutDownSlotSync (src/backend/replication/logical/slotsync.c:1577)
-  - ShutDownSlotSync (src/backend/replication/logical/slotsync.c:1615)
+  - [ShutDownSlotSync](../S/ShutDownSlotSync.md) (src/backend/replication/logical/slotsync.c:1577)
+  - [ShutDownSlotSync](../S/ShutDownSlotSync.md) (src/backend/replication/logical/slotsync.c:1615)
 
 ## Notes and Other Information
 - Only operates when in StandbyMode to avoid unnecessary processing on primary servers

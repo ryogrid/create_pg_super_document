@@ -21,7 +21,7 @@ The handler includes a safety check to avoid interfering with the process exit s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch (to wake up anything waiting on the process latch)
+  - [SetLatch](SetLatch.md) (to wake up anything waiting on the process latch)
   - SIGNAL_ARGS (macro for signal handler parameters)
 - Global variables used:
   - proc_exit_inprogress (checked to avoid interference with exit process)
@@ -29,13 +29,13 @@ The handler includes a safety check to avoid interfering with the process exit s
   - QueryCancelPending (set to true to indicate query cancellation is requested)
   - MyLatch (used with SetLatch to wake waiting processes)
 - Called from (representative examples):
-  - PostgresMain (main backend process)
-  - AutoVacWorkerMain (autovacuum worker processes)
-  - BackgroundWorkerMain (background worker processes)
-  - WalSndSignals (WAL sender processes)
+  - [PostgresMain](../P/PostgresMain.md) (main backend process)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (autovacuum worker processes)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md) (background worker processes)
+  - [WalSndSignals](../W/WalSndSignals.md) (WAL sender processes)
 
 ## Notes and Other Information
 - This is a signal handler function and must be async-signal-safe
 - The handler uses a "don't joggle the elbow" approach during process exit to avoid race conditions
 - The SetLatch call ensures that any process waiting on the latch will be awakened to check for the cancellation request
-- Query cancellation is implemented as a cooperative mechanism - the actual cancellation occurs when the backend checks the QueryCancelPending flag at safe interruption points
+- [Query](../Q/Query.md) cancellation is implemented as a cooperative mechanism - the actual cancellation occurs when the backend checks the QueryCancelPending flag at safe interruption points

@@ -27,12 +27,12 @@ The function leverages the workspace expectArray flag (set during subscript chec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbToJsonbValue
-  - DatumGetJsonbP
-  - JsonbValueToJsonb
-  - jsonb_set_element
+  - [JsonbToJsonbValue](../J/JsonbToJsonbValue.md)
+  - [DatumGetJsonbP](../D/DatumGetJsonbP.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [jsonb_set_element](jsonb_set_element.md)
 - Called from:
-  - jsonb_exec_setup
+  - [jsonb_exec_setup](jsonb_exec_setup.md)
 
 ## Notes and Other Information
 - Creates empty arrays when expectArray is true (first subscript is integer), otherwise creates empty objects

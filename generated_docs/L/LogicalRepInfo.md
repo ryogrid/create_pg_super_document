@@ -24,19 +24,19 @@ LogicalRepInfo serves as a per-database container for logical replication config
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateSubscriberOptions (referenced in function signatures that use LogicalRepInfo)
+  - [CreateSubscriberOptions](../C/CreateSubscriberOptions.md) (referenced in function signatures that use LogicalRepInfo)
 - Called from (representative examples):
   - store_pub_sub_info (src/bin/pg_basebackup/pg_createsubscriber.c:437)
-  - setup_publisher (src/bin/pg_basebackup/pg_createsubscriber.c:734)
-  - check_publisher (src/bin/pg_basebackup/pg_createsubscriber.c:841)
-  - check_subscriber (src/bin/pg_basebackup/pg_createsubscriber.c:961)
-  - setup_subscriber (src/bin/pg_basebackup/pg_createsubscriber.c:1143)
-  - setup_recovery (src/bin/pg_basebackup/pg_createsubscriber.c:1183)
-  - create_logical_replication_slot (src/bin/pg_basebackup/pg_createsubscriber.c:1324)
-  - create_publication (src/bin/pg_basebackup/pg_createsubscriber.c:1563)
-  - create_subscription (src/bin/pg_basebackup/pg_createsubscriber.c:1691)
-  - set_replication_progress (src/bin/pg_basebackup/pg_createsubscriber.c:1749)
-  - enable_subscription (src/bin/pg_basebackup/pg_createsubscriber.c:1840)
+  - [setup_publisher](../s/setup_publisher.md) (src/bin/pg_basebackup/pg_createsubscriber.c:734)
+  - [check_publisher](../c/check_publisher.md) (src/bin/pg_basebackup/pg_createsubscriber.c:841)
+  - [check_subscriber](../c/check_subscriber.md) (src/bin/pg_basebackup/pg_createsubscriber.c:961)
+  - [setup_subscriber](../s/setup_subscriber.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1143)
+  - [setup_recovery](../s/setup_recovery.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1183)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1324)
+  - [create_publication](../c/create_publication.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1563)
+  - [create_subscription](../c/create_subscription.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1691)
+  - [set_replication_progress](../s/set_replication_progress.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1749)
+  - [enable_subscription](../e/enable_subscription.md) (src/bin/pg_basebackup/pg_createsubscriber.c:1840)
 
 ## Notes and Other Information
 LogicalRepInfo is specifically designed for the pg_createsubscriber utility and works closely with CreateSubscriberOptions. While CreateSubscriberOptions holds command-line configuration parameters, LogicalRepInfo manages the runtime state and database-specific information for each database being converted. The boolean flags (made_replslot and made_publication) are crucial for proper cleanup in case of errors during the conversion process, ensuring that only objects created by the utility are removed if the operation fails. This structure enables the utility to handle multiple databases simultaneously, with each LogicalRepInfo instance representing one database's logical replication setup.

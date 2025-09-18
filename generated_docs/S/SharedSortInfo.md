@@ -21,10 +21,10 @@ SharedSortInfo serves as a shared memory structure for coordinating and collecti
   - FLEXIBLE_ARRAY_MEMBER
   - TuplesortInstrumentation
 - Called from (representative examples):
-  - ExecSortEstimate
-  - ExecSortInitializeDSM
-  - ExecSortRetrieveInstrumentation
-  - SortState
+  - [ExecSortEstimate](../E/ExecSortEstimate.md)
+  - [ExecSortInitializeDSM](../E/ExecSortInitializeDSM.md)
+  - [ExecSortRetrieveInstrumentation](../E/ExecSortRetrieveInstrumentation.md)
+  - [SortState](SortState.md)
 
 ## Notes and Other Information
 SharedSortInfo is essential for parallel query execution where multiple workers perform sorting operations concurrently. The flexible array design allows it to scale with the number of available workers. This structure enables PostgreSQL to collect comprehensive performance metrics from all workers and present unified statistics for the overall parallel sort operation. It's particularly important for query optimization and performance monitoring in parallel execution environments.

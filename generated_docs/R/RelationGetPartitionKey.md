@@ -19,16 +19,16 @@ The function includes an important optimization: partition keys are immutable af
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationBuildPartitionKey (called when rd_partkey is NULL)
+  - [RelationBuildPartitionKey](RelationBuildPartitionKey.md) (called when rd_partkey is NULL)
 - Called from (representative examples):
-  - has_partition_attrs (src/backend/catalog/partition.c:266)
-  - DefineIndex (src/backend/commands/indexcmds.c:949)  
-  - ExecInitPartitionDispatchInfo (src/backend/executor/execPartition.c:1134)
-  - CreatePartitionPruneState (src/backend/executor/execPartition.c:1940)
-  - find_partition_scheme (src/backend/optimizer/util/plancat.c:2451)
-  - transformPartitionCmd (src/backend/parser/parse_utilcmd.c:3940)
-  - get_qual_from_partbound (src/backend/partitioning/partbounds.c:251)
-  - RelationBuildPartitionDesc (src/backend/partitioning/partdesc.c:149)
+  - [has_partition_attrs](../h/has_partition_attrs.md) (src/backend/catalog/partition.c:266)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:949)  
+  - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md) (src/backend/executor/execPartition.c:1134)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md) (src/backend/executor/execPartition.c:1940)
+  - [find_partition_scheme](../f/find_partition_scheme.md) (src/backend/optimizer/util/plancat.c:2451)
+  - [transformPartitionCmd](../t/transformPartitionCmd.md) (src/backend/parser/parse_utilcmd.c:3940)
+  - [get_qual_from_partbound](../g/get_qual_from_partbound.md) (src/backend/partitioning/partbounds.c:251)
+  - [RelationBuildPartitionDesc](RelationBuildPartitionDesc.md) (src/backend/partitioning/partdesc.c:149)
 
 ## Notes and Other Information
 - Returns NULL immediately if the relation is not a partitioned table (relkind != RELKIND_PARTITIONED_TABLE)

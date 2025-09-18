@@ -31,16 +31,16 @@ For SELECT/INSERT/UPDATE operations, if table-wide permissions are insufficient,
   - NodeTag
   - Oid
   - AclMode
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - addRTEPermissionInfo
-  - getRTEPermissionInfo
-  - ExecCheckPermissions
-  - ExecCheckOneRelPerms
-  - transformInsertStmt
-  - transformUpdateTargetList
-  - markRTEForSelectPriv
-  - rewriteTargetView
+  - [addRTEPermissionInfo](../a/addRTEPermissionInfo.md)
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md)
+  - [ExecCheckOneRelPerms](../E/ExecCheckOneRelPerms.md)
+  - [transformInsertStmt](../t/transformInsertStmt.md)
+  - [transformUpdateTargetList](../t/transformUpdateTargetList.md)
+  - [markRTEForSelectPriv](../m/markRTEForSelectPriv.md)
+  - [rewriteTargetView](../r/rewriteTargetView.md)
 
 ## Notes and Other Information
 - Only relations directly mentioned in queries have RTEPermissionInfos in the Query node

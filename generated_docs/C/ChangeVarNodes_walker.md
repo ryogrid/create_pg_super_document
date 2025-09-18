@@ -25,12 +25,12 @@ The function operates at a specific sublevel context, allowing it to correctly h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - adjust_relid_set
+  - [adjust_relid_set](../a/adjust_relid_set.md)
   - query_tree_walker
   - expression_tree_walker
   - IsA (macro for node type checking)
 - Called from (representative examples):
-  - ChangeVarNodes (recursive self-call through walker infrastructure)
+  - [ChangeVarNodes](ChangeVarNodes.md) (recursive self-call through walker infrastructure)
   - query_tree_walker (for subquery traversal)
   - expression_tree_walker (for expression traversal)
 

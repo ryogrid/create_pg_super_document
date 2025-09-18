@@ -21,12 +21,12 @@ The function sets both session_timezone and log_timezone to GMT using pg_tzset("
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tzset (loads the GMT timezone)
+  - [pg_tzset](pg_tzset.md) (loads the GMT timezone)
 - Global variables modified:
   - session_timezone (set to GMT timezone object)
   - log_timezone (set to GMT timezone object)
 - Called from (representative examples):
-  - InitializeGUCOptions (in guc.c during system initialization)
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md) (in guc.c during system initialization)
 
 ## Notes and Other Information
 - Must be called before GUC variable initialization to prevent logging issues

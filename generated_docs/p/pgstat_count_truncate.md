@@ -27,8 +27,8 @@ The preservation of existing counters is important because truncation doesn't ne
   - `save_truncdrop_counters` - Preserves current statistics counters before reset
 
 - Called from (representative examples):
-  - `RefreshMatViewByOid` - When refreshing materialized views
-  - `ExecuteTruncateGuts` - Main table truncation execution function
+  - `[RefreshMatViewByOid](../R/RefreshMatViewByOid.md)` - When refreshing materialized views
+  - `[ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)` - Main table truncation execution function
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's statistics collection framework for DDL operations

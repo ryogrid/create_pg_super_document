@@ -23,10 +23,10 @@ The function includes important safety checks to ensure that the source file siz
 - Functions called/Symbols referenced:
   - snprintf
   - open
-  - pg_fatal
-  - open_target_file
+  - [pg_fatal](../p/pg_fatal.md)
+  - [open_target_file](../o/open_target_file.md)
   - read
-  - write_target_range
+  - [write_target_range](../w/write_target_range.md)
   - close
 - Called from (representative examples):
   - Via function pointer in rewind_source interface

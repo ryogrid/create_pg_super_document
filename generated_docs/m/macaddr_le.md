@@ -20,7 +20,7 @@ The macaddr_le function implements the less-than-or-equal-to comparison operator
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR_P (extracts macaddr argument from function args)
-  - macaddr_cmp_internal (performs the actual comparison logic)
+  - [macaddr_cmp_internal](macaddr_cmp_internal.md) (performs the actual comparison logic)
   - PG_RETURN_BOOL (returns boolean result)
 - Called from (representative examples):
   - No direct references found in the codebase

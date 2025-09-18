@@ -27,16 +27,16 @@ Key configuration areas include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RestoreOptions (struct type)
-  - ahprintf (archive output function)
+  - [RestoreOptions](../R/RestoreOptions.md) (struct type)
+  - [ahprintf](../a/ahprintf.md) (archive output function)
   - pg_encoding_to_char (encoding conversion function)
-  - fmtId (identifier formatting function) 
-  - StartTransaction (transaction management function)
+  - [fmtId](../f/fmtId.md) (identifier formatting function) 
+  - [StartTransaction](../S/StartTransaction.md) (transaction management function)
 - Called from (representative examples):
-  - RestoreArchive
-  - _reconnectToDB
-  - restore_toc_entries_postfork
-  - CloneArchive
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [_reconnectToDB](../r/_reconnectToDB.md)
+  - [restore_toc_entries_postfork](../r/restore_toc_entries_postfork.md)
+  - [CloneArchive](../C/CloneArchive.md)
 
 ## Notes and Other Information
 - Located in src/bin/pg_dump/pg_backup_archiver.c:3255-3321

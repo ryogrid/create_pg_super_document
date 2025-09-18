@@ -31,12 +31,12 @@ The function handles special cases like invalid tuples from pre-9.1 installation
   - GistTupleIsInvalid
   - GistPageIsLeaf
   - get_float8_infinity
-  - index_getattr
+  - [index_getattr](../i/index_getattr.md)
   - gistdentryinit
-  - FunctionCall5Coll
-  - DatumGetFloat8
+  - [FunctionCall5Coll](../F/FunctionCall5Coll.md)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
 - Called from:
-  - gistScanPage
+  - [gistScanPage](gistScanPage.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within gistget.c

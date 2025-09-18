@@ -23,11 +23,11 @@ The function handles three types of objects differently: LOCAL_OBJECT and SHARED
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getObjectDescription
+  - [getObjectDescription](../g/getObjectDescription.md)
   - appendStringInfoChar
   - appendStringInfo
   - ngettext
-  - pfree
+  - [pfree](../p/pfree.md)
   - elog
   - _ (gettext macro)
 - Called from (representative examples):

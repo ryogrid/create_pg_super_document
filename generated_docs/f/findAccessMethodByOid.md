@@ -19,14 +19,14 @@ This function is part of the pg_dump utility's object management system. It sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
-  - AccessMethodInfo (struct)
+  - [AccessMethodInfo](../A/AccessMethodInfo.md) (struct)
   - DO_ACCESS_METHOD (enum value)
   - AccessMethodRelationId (constant)
 - Called from (representative examples):
-  - accessMethodNameCompare (src/bin/pg_dump/pg_dump_sort.c:523, 524)
+  - [accessMethodNameCompare](../a/accessMethodNameCompare.md) (src/bin/pg_dump/pg_dump_sort.c:523, 524)
 
 ## Notes and Other Information
 - Returns NULL if no access method with the specified OID is found

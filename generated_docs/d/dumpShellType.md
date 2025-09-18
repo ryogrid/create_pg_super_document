@@ -20,14 +20,14 @@ The function generates a simple CREATE TYPE statement without any implementation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binary_upgrade_set_type_oids_by_type_oid
+  - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)
   - fmtQualifiedDumpable
-  - ArchiveEntry
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - createPQExpBuffer
-  - appendPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Returns early if dataOnly dump mode is specified since shell types are schema-only constructs

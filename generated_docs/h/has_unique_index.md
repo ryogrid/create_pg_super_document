@@ -29,7 +29,7 @@ The function explicitly excludes expressional indexes and multicolumn unique ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexOptInfo (structure accessed)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure accessed)
   - lfirst (list iteration macro)
 - Called from (representative examples):
   - examine_variable

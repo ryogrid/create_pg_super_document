@@ -21,9 +21,9 @@ This function is typically used for reading message type indicators and other si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReportCopyDataParseError
+  - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)
 - Called from (representative examples):
-  - ReceiveArchiveStreamChunk
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)
   - CompressionLocation
 
 ## Notes and Other Information

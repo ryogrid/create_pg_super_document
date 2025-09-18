@@ -21,9 +21,9 @@ The function supports various types of expression nodes including function calls
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType
-  - list_nth
+  - [list_nth](../l/list_nth.md)
   - list_length
-  - get_base_element_type
+  - [get_base_element_type](get_base_element_type.md)
   - IsA (macro)
 - Expression node types referenced:
   - FuncExpr
@@ -33,10 +33,10 @@ The function supports various types of expression nodes including function calls
   - NullIfExpr
   - WindowFunc
 - Called from (representative examples):
-  - prepare_sql_fn_parse_info
-  - get_fn_expr_argtype
-  - resolve_polymorphic_tupdesc
-  - resolve_polymorphic_argtypes
+  - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md)
+  - [get_fn_expr_argtype](get_fn_expr_argtype.md)
+  - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md)
+  - [resolve_polymorphic_argtypes](../r/resolve_polymorphic_argtypes.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the expression is NULL, unsupported type, or argnum is out of bounds

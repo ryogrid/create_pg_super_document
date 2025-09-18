@@ -49,16 +49,16 @@ The context supports different allocation strategies through its methods pointer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextMethods
-  - MemoryContextCallback
+  - [MemoryContextMethods](MemoryContextMethods.md)
+  - [MemoryContextCallback](MemoryContextCallback.md)
   - NodeTag
   - Size
   - pg_node_attr (node annotation)
 - Called from (representative examples):
-  - AllocSetContext (aset.c:154)
+  - [AllocSetContext](../A/AllocSetContext.md) (aset.c:154)
   - BumpContext (bump.c:68)
-  - GenerationContext (generation.c:61)
-  - SlabContext (slab.c:105)
+  - [GenerationContext](../G/GenerationContext.md) (generation.c:61)
+  - [SlabContext](../S/SlabContext.md) (slab.c:105)
   - ErrorData (elog.h:472)
 
 ## Notes and Other Information

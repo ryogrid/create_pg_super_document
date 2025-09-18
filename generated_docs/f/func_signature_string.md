@@ -22,15 +22,15 @@ The function internally converts the qualified name list to a string using  and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NameListToString
-  - funcname_signature_string
+  - [NameListToString](../N/NameListToString.md)
+  - [funcname_signature_string](funcname_signature_string.md)
 - Called from (representative examples):
-  - ParseFuncOrColumn
-  - LookupFuncName
-  - LookupFuncWithArgs
-  - lookup_agg_function
-  - findTypeInputFunction
-  - findTypeOutputFunction
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [LookupFuncName](../L/LookupFuncName.md)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [lookup_agg_function](../l/lookup_agg_function.md)
+  - [findTypeInputFunction](findTypeInputFunction.md)
+  - [findTypeOutputFunction](findTypeOutputFunction.md)
   - Various type-related functions in typecmds.c
 
 ## Notes and Other Information

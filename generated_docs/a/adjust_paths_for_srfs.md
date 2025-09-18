@@ -38,12 +38,12 @@ The function assumes that existing paths emit the first target in the targets li
 - Functions called/Symbols referenced:
   - linitial_int
   - forboth
-  - create_set_projection_path
-  - apply_projection_to_path
-  - create_projection_path
+  - [create_set_projection_path](../c/create_set_projection_path.md)
+  - [apply_projection_to_path](apply_projection_to_path.md)
+  - [create_projection_path](../c/create_projection_path.md)
 - Called from:
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1704, 1724, 1758)
-  - apply_scanjoin_target_to_paths (src/backend/optimizer/plan/planner.c:7827)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1704, 1724, 1758)
+  - [apply_scanjoin_target_to_paths](apply_scanjoin_target_to_paths.md) (src/backend/optimizer/plan/planner.c:7827)
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:222)
 
 ## Notes and Other Information

@@ -19,20 +19,20 @@ This function determines if there is already an existing read-write conflict bet
 ## Dependencies
 - Functions called/Symbols referenced:
   - SxactIsDoomed
-  - dlist_is_empty
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_foreach
   - dlist_container
   - unconstify
 - Types referenced:
-  - SERIALIZABLEXACT
-  - dlist_iter
-  - RWConflict
-  - RWConflictData
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md)
+  - [dlist_iter](../d/dlist_iter.md)
+  - [RWConflict](RWConflict.md)
+  - [RWConflictData](RWConflictData.md)
 - Called from (representative examples):
-  - SetRWConflict
-  - CheckForSerializableConflictOut
-  - CheckTargetForConflictsIn
-  - CheckTableForSerializableConflictIn
+  - [SetRWConflict](../S/SetRWConflict.md)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
+  - [CheckTableForSerializableConflictIn](../C/CheckTableForSerializableConflictIn.md)
 
 ## Notes and Other Information
 - Returns true if a conflict exists, false otherwise

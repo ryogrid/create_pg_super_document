@@ -20,16 +20,16 @@ The function performs the intersection by ANDing corresponding words from both b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation of both inputs)
-  - bms_copy_and_free (conditional memory management)
-  - pfree (memory deallocation)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation of both inputs)
+  - [bms_copy_and_free](bms_copy_and_free.md) (conditional memory management)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - Min (minimum calculation macro)
   
 - Called from (representative examples):
-  - get_common_eclass_indexes (equivalence class processing)
-  - make_outerjoininfo (outer join information creation)
-  - find_nonnullable_rels_walker (nullable relation analysis)
-  - perform_pruning_combine_step (partition pruning logic)
+  - [get_common_eclass_indexes](../g/get_common_eclass_indexes.md) (equivalence class processing)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md) (outer join information creation)
+  - [find_nonnullable_rels_walker](../f/find_nonnullable_rels_walker.md) (nullable relation analysis)
+  - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md) (partition pruning logic)
   - get_param_path_clause_serials (parameter path processing)
 
 ## Notes and Other Information

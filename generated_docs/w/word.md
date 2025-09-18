@@ -24,7 +24,7 @@ The function works by using cloneouts to clone existing arcs from the word chara
 - Functions called/Symbols referenced:
   - AHEAD (constant)
   - BEHIND (constant)
-  - cloneouts
+  - [cloneouts](../c/cloneouts.md)
   - wordchrs (from vars structure)
 - Called from (representative examples):
   - ARCV (multiple call sites in regcomp.c)

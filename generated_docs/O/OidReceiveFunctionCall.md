@@ -24,13 +24,13 @@ The function reads binary data from a StringInfo buffer and converts it accordin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - ReceiveFunctionCall
+  - [fmgr_info](../f/fmgr_info.md)
+  - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md)
 - Called from (representative examples):
-  - slot_store_data
-  - slot_modify_data
-  - parse_fcall_arguments
-  - exec_bind_message
+  - [slot_store_data](../s/slot_store_data.md)
+  - [slot_modify_data](../s/slot_modify_data.md)
+  - [parse_fcall_arguments](../p/parse_fcall_arguments.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
 
 ## Notes and Other Information
 - Like other OidXXXFunctionCall functions, this is slow and may leak memory, so use sparingly

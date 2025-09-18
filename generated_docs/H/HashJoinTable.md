@@ -68,15 +68,15 @@ The hash table can operate in multiple modes:
   - HashJoinTupleData (tuple storage format)
   - HashSkewBucket (skew optimization buckets)
   - BufFile (temporary file management)
-  - FmgrInfo (function manager info)
-  - MemoryContext (memory management)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
   - ParallelHashJoinState (parallel execution state)
 - Called from (representative examples):
   - ExecHashTableCreate
   - ExecHashTableDestroy
   - ExecHashTableInsert
-  - ExecScanHashBucket
-  - ExecHashJoinImpl
+  - [ExecScanHashBucket](../E/ExecScanHashBucket.md)
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - The hash table automatically resizes both bucket count and batch count based on memory pressure and data volume

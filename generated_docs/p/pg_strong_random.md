@@ -36,11 +36,11 @@ The function is designed to run early in startup and cannot rely on backend infr
   - EINTR (errno constant)
 - Called from (representative examples):
   - InitControlFile
-  - pg_be_scram_build_secret
-  - build_server_first_message
-  - CheckMD5Auth
-  - RandomCancelKey
-  - gen_random_uuid
+  - [pg_be_scram_build_secret](pg_be_scram_build_secret.md)
+  - [build_server_first_message](../b/build_server_first_message.md)
+  - [CheckMD5Auth](../C/CheckMD5Auth.md)
+  - [RandomCancelKey](../R/RandomCancelKey.md)
+  - [gen_random_uuid](../g/gen_random_uuid.md)
   - pg_prng_strong_seed
   - pg_backend_random
 

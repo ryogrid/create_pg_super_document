@@ -41,17 +41,17 @@ For each column/expression in the index:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResolveOpClass (for operator class resolution)
-  - SearchSysCacheAttName (for column lookup)
+  - [ResolveOpClass](../R/ResolveOpClass.md) (for operator class resolution)
+  - [SearchSysCacheAttName](../S/SearchSysCacheAttName.md) (for column lookup)
   - exprType, exprCollation (for expression analysis)
-  - get_collation_oid (for collation resolution)
-  - compatible_oper_opid (for exclusion operator lookup)
-  - contain_mutable_functions_after_planning (for expression validation)
-  - type_is_collatable (for collation validation)
-  - transformRelOptions (for operator class options)
+  - [get_collation_oid](../g/get_collation_oid.md) (for collation resolution)
+  - [compatible_oper_opid](../c/compatible_oper_opid.md) (for exclusion operator lookup)
+  - [contain_mutable_functions_after_planning](../c/contain_mutable_functions_after_planning.md) (for expression validation)
+  - [type_is_collatable](../t/type_is_collatable.md) (for collation validation)
+  - [transformRelOptions](../t/transformRelOptions.md) (for operator class options)
 - Called from (representative examples):
-  - DefineIndex (main index creation function)
-  - CheckIndexCompatible (index compatibility checking)
+  - [DefineIndex](../D/DefineIndex.md) (main index creation function)
+  - [CheckIndexCompatible](CheckIndexCompatible.md) (index compatibility checking)
 
 ## Notes and Other Information
 - Handles both key columns and included columns, with different validation rules

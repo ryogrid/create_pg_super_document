@@ -29,21 +29,21 @@ When delete_ok is true, the function optimizes memory usage by clearing fully-pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
-  - ExecGetTriggerResultRel
-  - MakeSingleTupleTableSlot
-  - ExecDropSingleTupleTableSlot
-  - AfterTriggerExecute
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [ExecGetTriggerResultRel](../E/ExecGetTriggerResultRel.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [AfterTriggerExecute](../A/AfterTriggerExecute.md)
   - AllocSetContextCreate
-  - MemoryContextDelete
-  - ExecCloseResultRelations
-  - ExecResetTupleTable
-  - FreeExecutorState
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [ExecCloseResultRelations](../E/ExecCloseResultRelations.md)
+  - [ExecResetTupleTable](../E/ExecResetTupleTable.md)
+  - [FreeExecutorState](../F/FreeExecutorState.md)
   - GetTriggerSharedData
 - Called from (representative examples):
-  - AfterTriggerEndQuery
-  - AfterTriggerFireDeferred
-  - AfterTriggerSetState
+  - [AfterTriggerEndQuery](../A/AfterTriggerEndQuery.md)
+  - [AfterTriggerFireDeferred](../A/AfterTriggerFireDeferred.md)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md)
 
 ## Notes and Other Information
 - Returns true if no unfired events remain in the list, allowing callers to avoid repeating afterTriggerMarkEvents

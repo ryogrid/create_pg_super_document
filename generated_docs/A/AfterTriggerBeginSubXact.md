@@ -25,12 +25,12 @@ None - the function takes no parameters and determines the transaction level int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - MemoryContextAlloc
-  - repalloc
-  - AfterTriggersTransData (struct type)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [repalloc](../r/repalloc.md)
+  - [AfterTriggersTransData](AfterTriggersTransData.md) (struct type)
 - Called from (representative examples):
-  - StartSubTransaction (src/backend/access/transam/xact.c:5028)
+  - [StartSubTransaction](../S/StartSubTransaction.md) (src/backend/access/transam/xact.c:5028)
 
 ## Notes and Other Information
 - The transaction stack wastes the first couple of entries since subtransactions start at nest level 2

@@ -19,7 +19,7 @@ This function implements a two-phase pointer management strategy used during Jso
 - Functions called/Symbols referenced:
   - appendBinaryStringInfo
 - Called from (representative examples):
-  - flattenJsonPathParseItem (multiple call sites for different JsonPath item types)
+  - [flattenJsonPathParseItem](../f/flattenJsonPathParseItem.md) (multiple call sites for different JsonPath item types)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath.c

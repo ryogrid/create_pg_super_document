@@ -40,15 +40,15 @@ The resulting hash table provides O(1) lookup time for tuple command ID informat
 ## Dependencies
 - Functions called/Symbols referenced:
   - rbtxn_has_catalog_changes
-  - dlist_is_empty
-  - hash_create
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [hash_create](../h/hash_create.md)
   - dlist_foreach
   - dlist_container
   - memset
-  - ItemPointerCopy
-  - hash_search
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [hash_search](../h/hash_search.md)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within reorderbuffer.c

@@ -29,14 +29,14 @@ The function operates by opening the necessary system catalogs (pg_foreign_table
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open, table_close
-  - SearchSysCache1, SearchSysCacheAttName, ReleaseSysCache
-  - GetForeignServer, GetForeignDataWrapper
-  - SysCacheGetAttr, transformGenericOptions
-  - heap_modify_tuple, CatalogTupleUpdate, heap_freetuple
+  - [SearchSysCache1](../S/SearchSysCache1.md), SearchSysCacheAttName, ReleaseSysCache
+  - [GetForeignServer](../G/GetForeignServer.md), GetForeignDataWrapper
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md), transformGenericOptions
+  - [heap_modify_tuple](../h/heap_modify_tuple.md), CatalogTupleUpdate, heap_freetuple
   - InvokeObjectPostAlterHook, ObjectAddressSubSet
   - Form_pg_foreign_table, Form_pg_attribute
 - Called from:
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - Returns InvalidObjectAddress if no options are provided

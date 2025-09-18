@@ -25,13 +25,13 @@ The function is specifically designed to improve debugging experience when FDW-g
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geterrposition: Gets the current error position from the error system
-  - errposition: Clears the external error position
-  - internalerrposition: Sets the internal error position for syntax errors
-  - internalerrquery: Sets the internal query text for error reporting
+  - [geterrposition](../g/geterrposition.md): Gets the current error position from the error system
+  - [errposition](../e/errposition.md): Clears the external error position
+  - [internalerrposition](internalerrposition.md): Sets the internal error position for syntax errors
+  - [internalerrquery](internalerrquery.md): Sets the internal query text for error reporting
   - errcontext: Adds contextual information to the error message
 - Called from (representative examples):
-  - ImportForeignSchema: Registered as error context callback during SQL parsing and execution
+  - [ImportForeignSchema](../I/ImportForeignSchema.md): Registered as error context callback during SQL parsing and execution
 
 ## Notes and Other Information
 - This is a static function, only accessible within the foreigncmds.c module

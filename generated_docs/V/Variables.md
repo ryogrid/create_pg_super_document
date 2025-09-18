@@ -24,18 +24,18 @@ This container is fundamental to pgbench's variable system, supporting script-ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Variable (struct type for individual variables)
+  - [Variable](Variable.md) (struct type for individual variables)
 - Called from (representative examples):
-  - lookupVariable (for variable search operations)
-  - getVariable (for variable retrieval)
-  - enlargeVariables (for dynamic array expansion)
-  - lookupCreateVariable (for variable creation)
-  - putVariable (for variable assignment)
-  - putVariableValue (for value assignment)
-  - assignVariables (for bulk variable assignment)
-  - getQueryParams (for parameter extraction)
-  - runShellCommand (for shell command variable context)
-  - evaluateSleep (for sleep evaluation with variables)
+  - [lookupVariable](../l/lookupVariable.md) (for variable search operations)
+  - [getVariable](../g/getVariable.md) (for variable retrieval)
+  - [enlargeVariables](../e/enlargeVariables.md) (for dynamic array expansion)
+  - [lookupCreateVariable](../l/lookupCreateVariable.md) (for variable creation)
+  - [putVariable](../p/putVariable.md) (for variable assignment)
+  - [putVariableValue](../p/putVariableValue.md) (for value assignment)
+  - [assignVariables](../a/assignVariables.md) (for bulk variable assignment)
+  - [getQueryParams](../g/getQueryParams.md) (for parameter extraction)
+  - [runShellCommand](../r/runShellCommand.md) (for shell command variable context)
+  - [evaluateSleep](../e/evaluateSleep.md) (for sleep evaluation with variables)
 
 ## Notes and Other Information
 - Located in src/bin/pgbench/pgbench.c at lines 332-345

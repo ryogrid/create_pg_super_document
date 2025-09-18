@@ -36,9 +36,9 @@ This function takes no parameters and returns a pointer to a newly allocated A_E
 ## Dependencies
 - Functions called/Symbols referenced:
   - READ_LOCALS (macro for local variable setup)
-  - pg_strtok (tokenizer function)
+  - [pg_strtok](../p/pg_strtok.md) (tokenizer function)
   - READ_NODE_FIELD (macro to read node fields)
-  - nodeRead (generic node reading function)
+  - [nodeRead](../n/nodeRead.md) (generic node reading function)
   - READ_LOCATION_FIELD (macro to read location information)
   - READ_DONE (macro for cleanup)
   - elog (error logging function)

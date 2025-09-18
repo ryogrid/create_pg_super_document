@@ -21,14 +21,14 @@ The function performs a system cache lookup to efficiently retrieve this informa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup)
   - HeapTupleIsValid (tuple validation)
   - elog (error logging)
   - GETSTRUCT (macro to extract structure from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_class (pg_class tuple structure)
 - Called from (representative examples):
-  - DefineRelation
+  - [DefineRelation](../D/DefineRelation.md)
 
 ## Notes and Other Information
 - The function will throw an ERROR if the relation OID is not found in the system catalog

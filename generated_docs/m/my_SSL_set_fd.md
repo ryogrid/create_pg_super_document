@@ -20,15 +20,15 @@ The function creates a new BIO instance using the custom PostgreSQL BIO method, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - my_BIO_s_socket
+  - [my_BIO_s_socket](my_BIO_s_socket.md)
   - BIO_new
   - BIO_set_app_data
   - BIO_set_fd
   - SSL_set_bio
   - SSLerr (error reporting macro)
 - Called from (representative examples):
-  - be_tls_open_server
-  - initialize_SSL
+  - [be_tls_open_server](../b/be_tls_open_server.md)
+  - [initialize_SSL](../i/initialize_SSL.md)
 
 ## Notes and Other Information
 - This is a static function used internally within PostgreSQL's OpenSSL integration

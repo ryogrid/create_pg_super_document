@@ -37,19 +37,19 @@ The function is designed to handle various table types (regular tables, views, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_remote_table_info (retrieves publisher table metadata)
+  - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (retrieves publisher table metadata)
   - logicalrep_relmap_update (updates relation mapping)
   - logicalrep_rel_open, logicalrep_rel_close (manages relation mapping lifecycle)
-  - make_copy_attnamelist (creates column name list for COPY)
-  - copy_read_data (data source callback for COPY FROM)
-  - BeginCopyFrom, CopyFrom (PostgreSQL COPY infrastructure)
+  - [make_copy_attnamelist](../m/make_copy_attnamelist.md) (creates column name list for COPY)
+  - [copy_read_data](copy_read_data.md) (data source callback for COPY FROM)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md), CopyFrom (PostgreSQL COPY infrastructure)
   - walrcv_exec (executes COPY command on publisher)
-  - make_parsestate (creates parser state for COPY)
+  - [make_parsestate](../m/make_parsestate.md) (creates parser state for COPY)
   - quote_qualified_identifier, quote_identifier (SQL identifier quoting)
   - Various PostgreSQL utility functions for string manipulation and memory management
 
 - Called from (representative examples):
-  - LogicalRepSyncTableStart (initiates table synchronization process)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md) (initiates table synchronization process)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:1141-1292

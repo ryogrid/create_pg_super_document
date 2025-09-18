@@ -27,14 +27,14 @@ The synchronization logic is critical for test reliability - it prevents the mai
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - check_worker_status
-  - WaitEventExtensionNew
-  - WaitLatch
-  - ResetLatch
+  - [check_worker_status](../c/check_worker_status.md)
+  - [WaitEventExtensionNew](../W/WaitEventExtensionNew.md)
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
   - ereport
 - Called from (representative examples):
-  - test_shm_mq_setup
+  - [test_shm_mq_setup](../t/test_shm_mq_setup.md)
 
 ## Notes and Other Information
 - This is a static function internal to the test_shm_mq module, located in `src/test/modules/test_shm_mq/setup.c:258-305`

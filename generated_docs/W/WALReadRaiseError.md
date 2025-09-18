@@ -19,16 +19,16 @@ The function constructs meaningful error messages that include the WAL segment f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFileName
-  - errcode_for_file_access
+  - [XLogFileName](../X/XLogFileName.md)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - read_local_xlog_page_guts
-  - summarizer_read_local_xlog_page
-  - logical_read_xlog_page
-  - XLogSendPhysical
+  - [read_local_xlog_page_guts](../r/read_local_xlog_page_guts.md)
+  - [summarizer_read_local_xlog_page](../s/summarizer_read_local_xlog_page.md)
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
 
 ## Notes and Other Information
 - This function always raises an ERROR, meaning it never returns normally to the caller

@@ -25,17 +25,17 @@ BrinValues is a fundamental data structure in PostgreSQL's BRIN (Block Range Ind
 - Functions called/Symbols referenced:
   - AttrNumber (data type)
   - Datum (data type)
-  - MemoryContext (data type)
+  - [MemoryContext](../M/MemoryContext.md) (data type)
   - brin_serialize_callback_type (function pointer type)
 - Called from (representative examples):
-  - brin_bloom_add_value
-  - brin_inclusion_add_value
-  - brin_minmax_add_value
-  - brin_minmax_multi_add_value
-  - union_tuples
-  - add_values_to_range
-  - brin_new_memtuple
-  - brin_memtuple_initialize
+  - [brin_bloom_add_value](../b/brin_bloom_add_value.md)
+  - [brin_inclusion_add_value](../b/brin_inclusion_add_value.md)
+  - [brin_minmax_add_value](../b/brin_minmax_add_value.md)
+  - [brin_minmax_multi_add_value](../b/brin_minmax_multi_add_value.md)
+  - [union_tuples](../u/union_tuples.md)
+  - [add_values_to_range](../a/add_values_to_range.md)
+  - [brin_new_memtuple](../b/brin_new_memtuple.md)
+  - [brin_memtuple_initialize](../b/brin_memtuple_initialize.md)
 
 ## Notes and Other Information
 - Each BRIN index tuple stores one BrinValues struct per indexed column

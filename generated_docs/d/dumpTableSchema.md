@@ -26,29 +26,29 @@ The function generates both CREATE and DROP statements, manages column propertie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - createDummyViewAsClause
-  - createViewAsClause
-  - fmtId
+  - [createDummyViewAsClause](../c/createDummyViewAsClause.md)
+  - [createViewAsClause](../c/createViewAsClause.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - binary_upgrade_set_type_oids_by_rel
-  - binary_upgrade_set_pg_class_oids
-  - ExecuteSqlQueryForSingleRow
-  - getFormattedTypeName
-  - shouldPrintColumn
-  - findCollationByOid
-  - appendReloptionsArrayAH
-  - ArchiveEntry
-  - dumpTableComment
-  - dumpTableSecLabel
+  - [binary_upgrade_set_type_oids_by_rel](../b/binary_upgrade_set_type_oids_by_rel.md)
+  - [binary_upgrade_set_pg_class_oids](../b/binary_upgrade_set_pg_class_oids.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md)
+  - [shouldPrintColumn](../s/shouldPrintColumn.md)
+  - [findCollationByOid](../f/findCollationByOid.md)
+  - [appendReloptionsArrayAH](../a/appendReloptionsArrayAH.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpTableComment](dumpTableComment.md)
+  - [dumpTableSecLabel](dumpTableSecLabel.md)
 - Types referenced:
-  - Archive
-  - TableInfo
+  - [Archive](../A/Archive.md)
+  - [TableInfo](../T/TableInfo.md)
   - DumpOptions
-  - CollInfo
-  - ConstraintInfo
+  - [CollInfo](../C/CollInfo.md)
+  - [ConstraintInfo](../C/ConstraintInfo.md)
   - PQExpBuffer
 - Called from:
-  - dumpTable
+  - [dumpTable](dumpTable.md)
 
 ## Notes and Other Information
 - Handles complex inheritance hierarchies and constraint propagation

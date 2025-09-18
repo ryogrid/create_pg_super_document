@@ -25,7 +25,7 @@ This function addresses a limitation in Windows' standard strerror() function, w
   - Standard functions: snprintf
   - Windows constants: INVALID_HANDLE_VALUE, DONT_RESOLVE_DLL_REFERENCES, LOAD_LIBRARY_AS_DATAFILE, FORMAT_MESSAGE_*, MAKELANGID, LANG_ENGLISH, SUBLANG_DEFAULT
 - Called from (representative examples):
-  - pg_strerror_r (when handling Winsock errors on Windows)
+  - [pg_strerror_r](../p/pg_strerror_r.md) (when handling Winsock errors on Windows)
   - strerror_r (alias reference at src/port/strerror.c:27)
 
 ## Notes and Other Information

@@ -23,11 +23,11 @@ The function extracts a 64-bit integer from the input buffer using `pq_getmsgint
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
   - TIMESTAMP_NOT_FINITE
-  - timestamp2tm
+  - [timestamp2tm](timestamp2tm.md)
   - IS_VALID_TIMESTAMP
-  - AdjustTimestampForTypmod
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)
   - PG_RETURN_TIMESTAMP
 - Called from (representative examples):
   - No direct references found in the current analysis

@@ -286,11 +286,11 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (structure type)
+  - [PredIterInfo](../P/PredIterInfo.md) (structure type)
   - list_head (function to get the first ListCell of a list)
 - Called from (representative examples):
   - iterate_end (in predicate classification logic)
-  - predicate_classify (during predicate analysis)
+  - [predicate_classify](../p/predicate_classify.md) (during predicate analysis)
 
 ## Notes and Other Information
 - This function is part of a function pointer-based iteration pattern where different node types can have different startup, next, and cleanup functions

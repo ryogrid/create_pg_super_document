@@ -25,14 +25,14 @@ The function is implemented as an inline wrapper around the platform-specific im
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pg_atomic_exchange_u64_impl`
+  - `[pg_atomic_exchange_u64_impl](pg_atomic_exchange_u64_impl.md)`
   - `AssertPointerAlignment` (when PG_HAVE_ATOMIC_U64_SIMULATION is not defined)
-  - `pg_atomic_uint64` (type)
+  - `[pg_atomic_uint64](pg_atomic_uint64.md)` (type)
   - `PG_HAVE_ATOMIC_U64_SIMULATION` (macro)
 - Called from (representative examples):
   - `LWLockUpdateVar` (src/backend/storage/lmgr/lwlock.c:1733)
   - `LWLockReleaseClearVar` (src/backend/storage/lmgr/lwlock.c:1862)
-  - `test_atomic_uint64` (src/test/regress/regress.c:815)
+  - `[test_atomic_uint64](../t/test_atomic_uint64.md)` (src/test/regress/regress.c:815)
 
 ## Notes and Other Information
 - This is a read-modify-write operation that is guaranteed to be atomic across all threads

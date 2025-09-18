@@ -18,15 +18,15 @@ on_proc_exit implements the callback registration system for PostgreSQL process 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - atexit_callback (registered as system atexit handler)
+  - [atexit_callback](../a/atexit_callback.md) (registered as system atexit handler)
   - ereport (for error reporting when limit exceeded)
   - MAX_ON_EXITS (maximum number of registerable callbacks)
 - Called from (representative examples):
-  - PostgresMain (main backend initialization)
-  - PostmasterMain (postmaster process setup)
-  - InitCatCache (catalog cache initialization)
-  - llvm_session_initialize (LLVM JIT cleanup)
-  - smgrinit (storage manager initialization)
+  - [PostgresMain](../P/PostgresMain.md) (main backend initialization)
+  - [PostmasterMain](../P/PostmasterMain.md) (postmaster process setup)
+  - [InitCatCache](../I/InitCatCache.md) (catalog cache initialization)
+  - [llvm_session_initialize](../l/llvm_session_initialize.md) (LLVM JIT cleanup)
+  - [smgrinit](../s/smgrinit.md) (storage manager initialization)
 
 ## Notes and Other Information
 - Limited to MAX_ON_EXITS registered callbacks to prevent resource exhaustion

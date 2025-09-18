@@ -35,7 +35,7 @@ The function uses a restart mechanism for handling comments and maintains state 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - skip, brenext, lexescape
+  - [skip](../s/skip.md), brenext, lexescape
   - ISERR, ATEOS, HAVE, NEXT1, NEXT2, NEXT3, LASTTYPE, INCON, INTOCON
   - RET, RETV, FAILW, NOTE, ERR
   - CHR, DIGITVAL, iscdigit, iscalnum
@@ -46,7 +46,7 @@ The function uses a restart mechanism for handling comments and maintains state 
   - Error codes: REG_EBRACE, REG_EBRACK, REG_EESCAPE, REG_BADBR, REG_BADRPT, REG_BADOPT
   - Lookaround types: LATYPE_AHEAD_POS, LATYPE_AHEAD_NEG, LATYPE_BEHIND_POS, LATYPE_BEHIND_NEG
 - Called from (representative examples):
-  - lexstart (sets up first token)
+  - [lexstart](../l/lexstart.md) (sets up first token)
   - Various parsing functions during regex compilation
 
 ## Notes and Other Information

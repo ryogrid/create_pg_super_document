@@ -28,13 +28,13 @@ This function is called early in the pg_dump process to ensure that interrupt ha
 - Functions called/Symbols referenced:
   - InitializeCriticalSection (initializes Windows critical section object)
   - SetConsoleCtrlHandler (registers console control handler with Windows)
-  - consoleHandler (the actual interrupt handler function)
+  - [consoleHandler](../c/consoleHandler.md) (the actual interrupt handler function)
 - Global variables accessed:
   - signal_info.handler_set (flag to track initialization state)
   - signal_info_lock (critical section object for synchronization)
 - Called from (representative examples):
-  - write_stderr (during error handling setup)
-  - set_archive_cancel_info (during archive operation setup)
+  - [write_stderr](../w/write_stderr.md) (during error handling setup)
+  - [set_archive_cancel_info](set_archive_cancel_info.md) (during archive operation setup)
 
 ## Notes and Other Information
 - This is a Windows-only function (part of the WIN32 conditional compilation block)

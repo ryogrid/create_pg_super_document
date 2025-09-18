@@ -30,11 +30,11 @@ The crossover preserves the relative order of elements from the second parent wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - geqo_randint (for generating random segment boundaries)
+  - [geqo_randint](../g/geqo_randint.md) (for generating random segment boundaries)
   - Gene (typedef for gene representation)
   - City (structure with 'used' field for tracking gene usage)
 - Called from (representative examples):
-  - geqo (main GEQO algorithm function in geqo_main.c:213)
+  - [geqo](../g/geqo.md) (main GEQO algorithm function in geqo_main.c:213)
 
 ## Notes and Other Information
 - This is one of several crossover operators available in PostgreSQL's GEQO implementation

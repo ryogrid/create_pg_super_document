@@ -26,12 +26,12 @@ The function is designed to work with PostgreSQL's memory context system, ensuri
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkIsExternal
-  - MemoryChunkGetBlock
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - VALGRIND_MAKE_MEM_DEFINED
-  - sentinel_ok (conditional, for memory checking)
+  - [sentinel_ok](../s/sentinel_ok.md) (conditional, for memory checking)
   - GetMemoryChunkContext (conditional, for memory checking)
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - BOGUS_MCTX (memory context operations)
   - Referenced in memutils_internal.h

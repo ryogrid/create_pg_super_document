@@ -24,18 +24,18 @@ CreateQueryDesc allocates and populates a QueryDesc structure with all the essen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt
+  - [PlannedStmt](../P/PlannedStmt.md)
   - DestReceiver  
-  - ParamListInfo
+  - [ParamListInfo](../P/ParamListInfo.md)
   - QueryEnvironment
   - QueryDesc
   - RegisterSnapshot (called twice)
 - Called from (representative examples):
-  - ProcessQuery
-  - PortalStart
-  - _SPI_execute_plan
-  - ExplainOnePlan
-  - postquel_start
+  - [ProcessQuery](../P/ProcessQuery.md)
+  - [PortalStart](../P/PortalStart.md)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md)
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [postquel_start](../p/postquel_start.md)
 
 ## Notes and Other Information
 The function performs snapshot registration to ensure proper memory management and transaction isolation. The QueryDesc structure returned by this function must later be freed using FreeQueryDesc to prevent memory leaks. The already_executed flag is initialized to false and will be set during query execution to prevent double execution.

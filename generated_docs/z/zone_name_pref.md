@@ -21,7 +21,7 @@ This function assigns preference scores to timezone names to help select the mos
 - Functions called/Symbols referenced:
   - strcmp (string comparison function)
 - Called from (representative examples):
-  - scan_available_timezones (called twice)
+  - [scan_available_timezones](../s/scan_available_timezones.md) (called twice)
 
 ## Notes and Other Information
 - Returns 50 for "UTC" (highest preference)

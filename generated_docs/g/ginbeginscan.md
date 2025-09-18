@@ -21,12 +21,12 @@ The function ensures that no ordering operators are specified (GIN indexes don't
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetIndexScan
-  - palloc
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
+  - [palloc](../p/palloc.md)
   - AllocSetContextCreate
-  - initGinState
+  - [initGinState](../i/initGinState.md)
 - Called from:
-  - ginhandler (index access method handler)
+  - [ginhandler](ginhandler.md) (index access method handler)
 
 ## Notes and Other Information
 - GIN indexes do not support ordered scans, so norderbys parameter must always be 0

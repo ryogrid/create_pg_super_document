@@ -34,7 +34,7 @@ The function automatically detects the format by checking if the string starts w
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (memory allocation for result buffer)
-  - get_hex (converts hex character to numeric value)
+  - [get_hex](../g/get_hex.md) (converts hex character to numeric value)
   - realloc (shrinks buffer to optimal size)
   - ISFIRSTOCTDIGIT (macro: checks if character is valid first octal digit 0-3)
   - ISOCTDIGIT (macro: checks if character is valid octal digit 0-7) 

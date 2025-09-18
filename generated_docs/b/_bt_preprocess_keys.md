@@ -27,15 +27,15 @@ The preprocessing handles incomplete operator families gracefully - if cross-typ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_verify_keys_with_arraykeys
-  - _bt_preprocess_array_keys
-  - _bt_fix_scankey_strategy
-  - _bt_mark_scankey_required
-  - _bt_compare_scankey_args
-  - _bt_preprocess_array_keys_final
-  - MemoryContextAlloc
+  - [_bt_verify_keys_with_arraykeys](_bt_verify_keys_with_arraykeys.md)
+  - [_bt_preprocess_array_keys](_bt_preprocess_array_keys.md)
+  - [_bt_fix_scankey_strategy](_bt_fix_scankey_strategy.md)
+  - [_bt_mark_scankey_required](_bt_mark_scankey_required.md)
+  - [_bt_compare_scankey_args](_bt_compare_scankey_args.md)
+  - [_bt_preprocess_array_keys_final](_bt_preprocess_array_keys_final.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from (representative examples):
-  - _bt_first
+  - [_bt_first](_bt_first.md)
 
 ## Notes and Other Information
 - Only performs preprocessing once per btrescan - subsequent calls are no-ops

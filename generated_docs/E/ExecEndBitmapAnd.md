@@ -21,9 +21,9 @@ As a cleanup function, ExecEndBitmapAnd does not return any value and focuses so
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (to recursively end each subplan)
+  - [ExecEndNode](ExecEndNode.md) (to recursively end each subplan)
 - Called from (representative examples):
-  - ExecEndNode (general node cleanup dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (general node cleanup dispatcher)
 
 ## Notes and Other Information
 - Part of the standard PostgreSQL executor node cleanup lifecycle

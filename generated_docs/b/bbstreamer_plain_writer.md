@@ -22,12 +22,12 @@ The structure is part of PostgreSQL's base backup streaming architecture, where 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
 - Called from (representative examples):
-  - bbstreamer_plain_writer_new
-  - bbstreamer_plain_writer_content
-  - bbstreamer_plain_writer_finalize
-  - bbstreamer_plain_writer_free
+  - [bbstreamer_plain_writer_new](bbstreamer_plain_writer_new.md)
+  - [bbstreamer_plain_writer_content](bbstreamer_plain_writer_content.md)
+  - [bbstreamer_plain_writer_finalize](bbstreamer_plain_writer_finalize.md)
+  - [bbstreamer_plain_writer_free](bbstreamer_plain_writer_free.md)
 
 ## Notes and Other Information
 - The structure supports two usage patterns: either accepting an already-opened FILE* or opening the file internally based on the pathname

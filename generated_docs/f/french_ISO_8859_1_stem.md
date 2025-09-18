@@ -36,16 +36,16 @@ The function uses a sophisticated backtracking mechanism to try different suffix
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude (text preprocessing)
-  - r_mark_regions (morphological boundary identification)
-  - r_standard_suffix (standard suffix removal)
-  - r_i_verb_suffix (verb suffixes starting with 'i')
-  - r_verb_suffix (general verb suffix removal)
-  - r_residual_suffix (residual suffix handling)
-  - r_un_double (consonant undoubling)
-  - r_un_accent (accent removal)
-  - r_postlude (final processing)
-  - slice_from_s (string replacement)
+  - [r_prelude](../r/r_prelude.md) (text preprocessing)
+  - [r_mark_regions](../r/r_mark_regions.md) (morphological boundary identification)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (standard suffix removal)
+  - [r_i_verb_suffix](../r/r_i_verb_suffix.md) (verb suffixes starting with 'i')
+  - [r_verb_suffix](../r/r_verb_suffix.md) (general verb suffix removal)
+  - [r_residual_suffix](../r/r_residual_suffix.md) (residual suffix handling)
+  - [r_un_double](../r/r_un_double.md) (consonant undoubling)
+  - [r_un_accent](../r/r_un_accent.md) (accent removal)
+  - [r_postlude](../r/r_postlude.md) (final processing)
+  - [slice_from_s](../s/slice_from_s.md) (string replacement)
   - s_33 (replacement string 'i')
   - s_34 (replacement string 'c')
 

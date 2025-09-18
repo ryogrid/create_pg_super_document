@@ -25,10 +25,10 @@ This function differs from `find_nonnullable_vars()` in that it focuses on entir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_nonnullable_rels_walker
+  - [find_nonnullable_rels_walker](find_nonnullable_rels_walker.md)
 - Called from (representative examples):
-  - make_outerjoininfo
-  - reduce_outer_joins_pass2
+  - [make_outerjoininfo](../m/make_outerjoininfo.md)
+  - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
   - WindowFuncLists
 
 ## Notes and Other Information

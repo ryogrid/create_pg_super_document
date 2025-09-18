@@ -29,7 +29,7 @@ This design allows PostgreSQL to maintain detailed IO statistics that can be que
   - IOOBJECT_NUM_TYPES (value: 2, covering IOOBJECT_RELATION and IOOBJECT_TEMP_RELATION)
   - IOCONTEXT_NUM_TYPES (value: 4, covering BULKREAD, BULKWRITE, NORMAL, VACUUM contexts)
   - IOOP_NUM_TYPES (value: 8, covering EVICT, EXTEND, FSYNC, HIT, READ, REUSE, WRITE, WRITEBACK operations)
-  - instr_time
+  - [instr_time](../i/instr_time.md)
 
 - Called from (representative examples):
   - Used in pgstat_count_io_op_n() at src/backend/utils/activity/pgstat_io.c:90

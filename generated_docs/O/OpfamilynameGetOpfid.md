@@ -22,15 +22,15 @@ This function is essential for resolving operator family names in SQL commands a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
   - GetSysCacheOid3 (using OPFAMILYAMNAMENSP cache)
   - lfirst_oid
-  - ObjectIdGetDatum
-  - PointerGetDatum
+  - [ObjectIdGetDatum](ObjectIdGetDatum.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - OidIsValid
 - Called from (representative examples):
-  - OpfamilyIsVisibleExt (src/backend/catalog/namespace.c:2308)
-  - OpFamilyCacheLookup (src/backend/commands/opclasscmds.c:107)
+  - [OpfamilyIsVisibleExt](OpfamilyIsVisibleExt.md) (src/backend/catalog/namespace.c:2308)
+  - [OpFamilyCacheLookup](OpFamilyCacheLookup.md) (src/backend/commands/opclasscmds.c:107)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/namespace.c:2223-2255

@@ -25,7 +25,7 @@ The configuration enables efficient text searching by utilizing prefix-based par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (structure type)
+  - [spgConfigOut](spgConfigOut.md) (structure type)
   - PG_RETURN_VOID (macro)
 - Called from (representative examples):
   - No direct callers found in the indexed codebase

@@ -22,11 +22,11 @@ The structure is primarily used in pg_waldump to provide human-readable descript
 ## Dependencies
 - Functions called/Symbols referenced:
   - StringInfo (from lib/stringinfo.h)
-  - XLogReaderState (from access/xlogreader.h)
+  - [XLogReaderState](../X/XLogReaderState.md) (from access/xlogreader.h)
 - Called from (representative examples):
-  - XLogDumpDisplayRecord (in pg_waldump.c:549)
-  - XLogDumpDisplayStats (in pg_waldump.c:678)
-  - GetRmgrDesc function interface
+  - [XLogDumpDisplayRecord](../X/XLogDumpDisplayRecord.md) (in pg_waldump.c:549)
+  - [XLogDumpDisplayStats](../X/XLogDumpDisplayStats.md) (in pg_waldump.c:678)
+  - [GetRmgrDesc](../G/GetRmgrDesc.md) function interface
   - RmgrDescTable array initialization via PG_RMGR macro
 
 ## Notes and Other Information

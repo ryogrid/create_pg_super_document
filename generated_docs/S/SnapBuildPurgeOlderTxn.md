@@ -31,9 +31,9 @@ The catchange array purging is optimized because the array is maintained in sort
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal (checks if xmin is ready)
-  - MemoryContextAlloc (allocates temporary workspace)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates temporary workspace)
   - NormalTransactionIdPrecedes (transaction ID comparison)
-  - TransactionIdFollowsOrEquals (transaction ID comparison)
+  - [TransactionIdFollowsOrEquals](../T/TransactionIdFollowsOrEquals.md) (transaction ID comparison)
   - memcpy, memmove, pfree (memory operations)
   - DEBUG3 (logging level)
 - Called from (representative examples):

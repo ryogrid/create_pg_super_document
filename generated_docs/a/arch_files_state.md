@@ -27,11 +27,11 @@ arch_files_state is a local structure within the PostgreSQL archiver process des
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap
+  - [binaryheap](../b/binaryheap.md)
   - NUM_FILES_PER_DIRECTORY_SCAN (64)
   - MAX_XFN_CHARS (40)
 - Called from (representative examples):
-  - PgArchiverMain
+  - [PgArchiverMain](../P/PgArchiverMain.md)
 
 ## Notes and Other Information
 - This structure is allocated using palloc() within the archiver process rather than being a static array, making it process-local

@@ -23,14 +23,14 @@ The `pg_strncoll_libc` function handles string collation for strings that may no
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
-  - pg_strncoll_libc_win32_utf8
-  - palloc
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [pg_strncoll_libc_win32_utf8](pg_strncoll_libc_win32_utf8.md)
+  - [palloc](palloc.md)
   - memcpy
-  - pg_strcoll_libc
-  - pfree
+  - [pg_strcoll_libc](pg_strcoll_libc.md)
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - pg_strncoll
+  - [pg_strncoll](pg_strncoll.md)
 
 ## Notes and Other Information
 - Static function internal to PostgreSQL's locale system

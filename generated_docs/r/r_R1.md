@@ -24,10 +24,10 @@ This function performs a single comparison to check if the current cursor positi
 ## Dependencies
 - Functions called/Symbols referenced: None (simple boundary check)
 - Called from (representative examples):
-  - r_izenak (Basque noun processing)
-  - r_Step_1b, r_Step_2, r_Step_3, r_Step_5 (English Porter stemmer steps)
-  - r_attached_pronoun (Catalan/Spanish pronoun processing)
-  - r_standard_suffix (across multiple Romance languages)
+  - [r_izenak](r_izenak.md) (Basque noun processing)
+  - [r_Step_1b](r_Step_1b.md), r_Step_2, r_Step_3, r_Step_5 (English Porter stemmer steps)
+  - [r_attached_pronoun](r_attached_pronoun.md) (Catalan/Spanish pronoun processing)
+  - [r_standard_suffix](r_standard_suffix.md) (across multiple Romance languages)
   - Language-specific morphological processing functions (Hungarian case endings, Irish verb suffixes)
   - Various suffix removal functions across all supported languages
 

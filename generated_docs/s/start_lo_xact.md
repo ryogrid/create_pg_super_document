@@ -21,14 +21,14 @@ This function is a critical preparatory step for all large object operations in 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQtransactionStatus (libpq function to check transaction status)
-  - PSQLexec (psql utility function to execute SQL commands)
-  - PQclear (libpq function to free result memory)
+  - [PSQLexec](../P/PSQLexec.md) (psql utility function to execute SQL commands)
+  - [PQclear](../P/PQclear.md) (libpq function to free result memory)
   - pg_log_error (PostgreSQL logging function)
   - PQTRANS_IDLE, PQTRANS_INTRANS, PQTRANS_INERROR (transaction status constants)
 - Called from (representative examples):
-  - do_lo_export
-  - do_lo_import
-  - do_lo_unlink
+  - [do_lo_export](../d/do_lo_export.md)
+  - [do_lo_import](../d/do_lo_import.md)
+  - [do_lo_unlink](../d/do_lo_unlink.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

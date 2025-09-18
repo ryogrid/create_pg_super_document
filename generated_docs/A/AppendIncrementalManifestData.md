@@ -25,15 +25,15 @@ The function implements a streaming parser approach where:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - json_parse_manifest_incremental_chunk
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)
   - memmove
   - appendBinaryStringInfo
 - Types referenced:
-  - IncrementalBackupInfo
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md)
   - MIN_CHUNK, MAX_CHUNK (constants)
 - Called from:
-  - HandleUploadManifestPacket (src/backend/replication/walsender.c:793)
+  - [HandleUploadManifestPacket](../H/HandleUploadManifestPacket.md) (src/backend/replication/walsender.c:793)
 
 ## Notes and Other Information
 - This function is designed to handle manifest data in streaming fashion to avoid memory exhaustion with large manifests

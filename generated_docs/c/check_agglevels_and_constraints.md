@@ -22,12 +22,12 @@ The function contains an extensive switch statement that validates the context i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_agg_arguments
-  - ParseExprKindName
+  - [check_agg_arguments](check_agg_arguments.md)
+  - [ParseExprKindName](../P/ParseExprKindName.md)
   - ereport (for error handling)
 - Called from (representative examples):
-  - transformAggregateCall
-  - transformGroupingFunc
+  - [transformAggregateCall](../t/transformAggregateCall.md)
+  - [transformGroupingFunc](../t/transformGroupingFunc.md)
   - check_ungrouped_columns_context
 
 ## Notes and Other Information

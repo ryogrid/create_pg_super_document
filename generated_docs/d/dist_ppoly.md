@@ -21,7 +21,7 @@ This function serves as a PostgreSQL SQL-callable wrapper for point-to-polygon d
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P - extracts Point argument from function call
   - PG_GETARG_POLYGON_P - extracts POLYGON argument from function call
-  - dist_ppoly_internal - performs the actual distance calculation
+  - [dist_ppoly_internal](dist_ppoly_internal.md) - performs the actual distance calculation
   - PG_RETURN_FLOAT8 - returns float8 result to PostgreSQL
 - Called from:
   - No direct references found (likely called via SQL function registry)

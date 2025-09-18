@@ -18,7 +18,7 @@ A utility function that retrieves the SQL command text associated with a named p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_find_prepared_statement (locate the named prepared statement in the connection's list)
+  - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md) (locate the named prepared statement in the connection's list)
   - prepared_statement (structure type for prepared statement data)
 - Called from (representative examples):
   - ecpg_do_prologue (during statement execution setup)

@@ -20,24 +20,24 @@ For DESCRIBE commands on prepared statements, it reuses an existing PGresult tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmakeEmptyPGresult (creates empty result structures)
-  - pqGetInt (reads integer values from input buffer)
-  - libpq_gettext (translates error messages)
-  - pqResultAlloc (allocates memory within result structure)
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md) (creates empty result structures)
+  - [pqGetInt](../p/pqGetInt.md) (reads integer values from input buffer)
+  - [libpq_gettext](../l/libpq_gettext.md) (translates error messages)
+  - [pqResultAlloc](../p/pqResultAlloc.md) (allocates memory within result structure)
   - MemSet (zeroes memory)
-  - pqGets (reads string values from input buffer)
-  - pqResultStrdup (duplicates strings within result structure)
-  - PQclear (cleans up result structures)
-  - pqClearAsyncResult (clears connection's async result)
-  - appendPQExpBuffer (appends to error message buffer)
-  - pqSaveErrorResult (saves error result)
+  - [pqGets](../p/pqGets.md) (reads string values from input buffer)
+  - [pqResultStrdup](../p/pqResultStrdup.md) (duplicates strings within result structure)
+  - [PQclear](../P/PQclear.md) (cleans up result structures)
+  - [pqClearAsyncResult](../p/pqClearAsyncResult.md) (clears connection's async result)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (appends to error message buffer)
+  - [pqSaveErrorResult](../p/pqSaveErrorResult.md) (saves error result)
   - PGQUERY_DESCRIBE (query class constant)
   - PGRES_COMMAND_OK (result status constant)
   - PGRES_TUPLES_OK (result status constant)
   - PGASYNC_READY (async status constant)
-  - PGresAttDesc (attribute descriptor structure)
+  - [PGresAttDesc](../P/PGresAttDesc.md) (attribute descriptor structure)
 - Called from (representative examples):
-  - pqParseInput3 (from src/interfaces/libpq/fe-protocol3.c:332)
+  - [pqParseInput3](../p/pqParseInput3.md) (from src/interfaces/libpq/fe-protocol3.c:332)
   - VALID_LONG_MESSAGE_TYPE (from src/interfaces/libpq/fe-protocol3.c:47)
 
 ## Notes and Other Information

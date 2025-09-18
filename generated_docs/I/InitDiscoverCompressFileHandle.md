@@ -18,21 +18,21 @@ This function provides intelligent file opening capabilities with automatic comp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup
-  - hasSuffix
-  - stat
-  - check_compressed_file
-  - InitCompressFileHandle
-  - free_keep_errno
+  - [pg_strdup](../p/pg_strdup.md)
+  - [hasSuffix](../h/hasSuffix.md)
+  - [stat](../s/stat.md)
+  - [check_compressed_file](../c/check_compressed_file.md)
+  - [InitCompressFileHandle](InitCompressFileHandle.md)
+  - [free_keep_errno](../f/free_keep_errno.md)
   - PG_COMPRESSION_NONE
   - PG_COMPRESSION_GZIP
   - PG_COMPRESSION_LZ4
   - PG_COMPRESSION_ZSTD
   - PG_BINARY_R
 - Called from (representative examples):
-  - InitArchiveFmt_Directory
-  - _PrintFileData
-  - _LoadLOs
+  - [InitArchiveFmt_Directory](InitArchiveFmt_Directory.md)
+  - [_PrintFileData](../P/_PrintFileData.md)
+  - [_LoadLOs](../L/_LoadLOs.md)
 
 ## Notes and Other Information
 The function implements a fallback strategy for compression detection: explicit extension recognition first, then probing for compressed variants if the base file doesn't exist. It only supports reading mode and includes an assertion to enforce this. The function properly manages memory allocation and cleanup, using free_keep_errno to preserve error codes. If opening fails, the function returns NULL and sets errno appropriately.

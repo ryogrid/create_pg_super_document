@@ -18,11 +18,11 @@ This function extracts a MinimalTuple from a MinimalTupleTableSlot and converts 
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinimalTupleTableSlot (struct type cast)
-  - tts_minimal_materialize
-  - heap_tuple_from_minimal_tuple
+  - [tts_minimal_materialize](tts_minimal_materialize.md)
+  - [heap_tuple_from_minimal_tuple](../h/heap_tuple_from_minimal_tuple.md)
   - MinimalTuple (type reference)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to execTuples.c

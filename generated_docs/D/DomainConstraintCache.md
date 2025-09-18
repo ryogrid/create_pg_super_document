@@ -28,14 +28,14 @@ The cache is only created when a domain type actually has constraints - for cons
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
-  - MemoryContext (PostgreSQL memory management)
-  - DomainConstraintState (constraint state nodes)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [MemoryContext](../M/MemoryContext.md) (PostgreSQL memory management)
+  - [DomainConstraintState](DomainConstraintState.md) (constraint state nodes)
 - Called from (representative examples):
-  - load_domaintype_info
-  - decr_dcc_refcount
-  - dccref_deletion_callback
-  - UpdateDomainConstraintRef
+  - [load_domaintype_info](../l/load_domaintype_info.md)
+  - [decr_dcc_refcount](../d/decr_dcc_refcount.md)
+  - [dccref_deletion_callback](../d/dccref_deletion_callback.md)
+  - [UpdateDomainConstraintRef](../U/UpdateDomainConstraintRef.md)
 
 ## Notes and Other Information
 - The cache uses reference counting (dccRefCount) to manage memory lifecycle

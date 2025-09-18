@@ -35,26 +35,26 @@ The function implements WAL logging for all modifications, ensuring crash recove
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_get_newbucket_from_oldbucket
-  - vacuum_delay_point
+  - [_hash_get_newbucket_from_oldbucket](_hash_get_newbucket_from_oldbucket.md)
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - HashPageGetOpaque
-  - PageGetMaxOffsetNumber
-  - PageGetItem
-  - PageGetItemId
-  - _hash_hashkey2bucket
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [_hash_hashkey2bucket](_hash_hashkey2bucket.md)
   - _hash_get_indextuple_hashkey
-  - PageIndexMultiDelete
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - H_HAS_DEAD_TUPLES
   - RelationNeedsWAL
-  - XLogInsert
-  - _hash_getbuf_with_strategy
-  - _hash_relbuf
+  - [XLogInsert](../X/XLogInsert.md)
+  - [_hash_getbuf_with_strategy](_hash_getbuf_with_strategy.md)
+  - [_hash_relbuf](_hash_relbuf.md)
   - IsBufferCleanupOK
-  - _hash_squeezebucket
+  - [_hash_squeezebucket](_hash_squeezebucket.md)
 - Called from (representative examples):
-  - hashbulkdelete
-  - _hash_expandtable
-  - _hash_splitbucket
+  - [hashbulkdelete](hashbulkdelete.md)
+  - [_hash_expandtable](_hash_expandtable.md)
+  - [_hash_splitbucket](_hash_splitbucket.md)
 
 ## Notes and Other Information
 - Expects caller to hold cleanup lock on primary bucket page and returns with write lock held

@@ -30,7 +30,7 @@ The pg_wchar_tbl structure serves as a function table that defines the encoding-
   - mbchar_verifier (typedef)
   - mbstr_verifier (typedef)
 - Called from (representative examples):
-  - pg_encoding_set_invalid
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
   - pg_wchar_table (array declaration)
 
 ## Notes and Other Information

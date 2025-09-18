@@ -26,8 +26,8 @@ The cover density ranking algorithm considers not just term frequency but also t
   - PG_DETOAST_DATUM: Decompresses toasted (large) data if needed
   - PG_GETARG_TSVECTOR: Extracts tsvector argument from function call
   - PG_GETARG_TSQUERY: Extracts tsquery argument from function call
-  - getWeights: Processes the weight array into usable format
-  - calc_rank_cd: Core cover density ranking calculation function
+  - [getWeights](../g/getWeights.md): Processes the weight array into usable format
+  - [calc_rank_cd](../c/calc_rank_cd.md): Core cover density ranking calculation function
   - DEF_NORM_METHOD: Default normalization method constant
   - PG_FREE_IF_COPY: Frees memory for copied arguments if needed
   - PG_RETURN_FLOAT4: Returns float4 result to PostgreSQL
@@ -36,9 +36,9 @@ The cover density ranking algorithm considers not just term frequency but also t
 
 ## Notes and Other Information
 This function is one of four ts_rankcd variants that provide different parameter combinations:
-- ts_rankcd_wttf: weights + tsvector + tsquery + method (full control)
-- ts_rankcd_wtt: weights + tsvector + tsquery (this function - uses default method)
-- ts_rankcd_ttf: tsvector + tsquery + method (uses default weights)
-- ts_rankcd_tt: tsvector + tsquery (uses defaults for both)
+- [ts_rankcd_wttf](ts_rankcd_wttf.md): weights + tsvector + tsquery + method (full control)
+- [ts_rankcd_wtt](ts_rankcd_wtt.md): weights + tsvector + tsquery (this function - uses default method)
+- [ts_rankcd_ttf](ts_rankcd_ttf.md): tsvector + tsquery + method (uses default weights)
+- [ts_rankcd_tt](ts_rankcd_tt.md): tsvector + tsquery (uses defaults for both)
 
 By using DEF_NORM_METHOD, this variant provides a balance between customization (custom weights) and convenience (default normalization), making it suitable for applications that need to tune lexeme weights but are satisfied with the standard normalization approach.

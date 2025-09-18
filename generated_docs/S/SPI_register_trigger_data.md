@@ -17,14 +17,14 @@ This function is designed for use by procedural language (PL) implementations' t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for memory allocation)
-  - tuplestore_tuple_count (to get tuple count for metadata)
-  - SPI_register_relation (to register each ephemeral named relation)
+  - [palloc](../p/palloc.md) (for memory allocation)
+  - [tuplestore_tuple_count](../t/tuplestore_tuple_count.md) (to get tuple count for metadata)
+  - [SPI_register_relation](SPI_register_relation.md) (to register each ephemeral named relation)
 - Called from (representative examples):
-  - plperl_trigger_handler (Perl trigger handler)
-  - PLy_exec_trigger (Python trigger handler)
-  - pltcl_trigger_handler (Tcl trigger handler)
-  - plsample_trigger_handler (sample PL trigger handler)
+  - [plperl_trigger_handler](../p/plperl_trigger_handler.md) (Perl trigger handler)
+  - [PLy_exec_trigger](../P/PLy_exec_trigger.md) (Python trigger handler)
+  - [pltcl_trigger_handler](../p/pltcl_trigger_handler.md) (Tcl trigger handler)
+  - [plsample_trigger_handler](../p/plsample_trigger_handler.md) (sample PL trigger handler)
 
 ## Notes and Other Information
 - Returns SPI_ERROR_ARGUMENT if tdata is NULL

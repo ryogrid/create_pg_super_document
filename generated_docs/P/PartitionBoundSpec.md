@@ -30,17 +30,17 @@ This is an intermediate representation used during DDL processing, existing betw
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (parse tree node type identifier)
-  - List (PostgreSQL list type)
+  - [List](../L/List.md) (PostgreSQL list type)
   - ParseLoc (source location type)
-  - PartitionRangeDatum (range boundary datum structure)
+  - [PartitionRangeDatum](PartitionRangeDatum.md) (range boundary datum structure)
   - PARTITION_STRATEGY constants
 
 - Called from (representative examples):
-  - transformPartitionBound (DDL statement processing)
-  - partition_bounds_create (conversion to runtime bounds)
-  - RelationBuildPartitionDesc (partition descriptor construction)
-  - StorePartitionBound (catalog storage)
-  - get_qual_for_hash/get_qual_for_list/get_qual_for_range (constraint generation)
+  - [transformPartitionBound](../t/transformPartitionBound.md) (DDL statement processing)
+  - [partition_bounds_create](../p/partition_bounds_create.md) (conversion to runtime bounds)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md) (partition descriptor construction)
+  - [StorePartitionBound](../S/StorePartitionBound.md) (catalog storage)
+  - [get_qual_for_hash](../g/get_qual_for_hash.md)/get_qual_for_list/get_qual_for_range (constraint generation)
 
 ## Notes and Other Information
 - Part of the SQL parse tree, not used during runtime tuple routing

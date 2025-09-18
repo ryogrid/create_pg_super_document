@@ -27,14 +27,14 @@ The function implements a performance optimization strategy by choosing the most
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupleDescAttr
-  - convert_tuples_by_position
-  - MemoryContextAlloc
-  - MakeSingleTupleTableSlot
-  - tstoreReceiveSlot_detoast
-  - tstoreReceiveSlot_tupmap
-  - tstoreReceiveSlot_notoast
+  - [convert_tuples_by_position](../c/convert_tuples_by_position.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [tstoreReceiveSlot_detoast](tstoreReceiveSlot_detoast.md)
+  - [tstoreReceiveSlot_tupmap](tstoreReceiveSlot_tupmap.md)
+  - [tstoreReceiveSlot_notoast](tstoreReceiveSlot_notoast.md)
 - Called from (representative examples):
-  - CreateTuplestoreDestReceiver
+  - [CreateTuplestoreDestReceiver](../C/CreateTuplestoreDestReceiver.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the tuplestore receiver implementation

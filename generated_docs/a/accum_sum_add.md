@@ -20,22 +20,22 @@ The function is designed to handle very large sums efficiently by deferring carr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - accum_sum_carry
-  - accum_sum_rescale
-  - NumericSumAccum
-  - NumericVar
+  - [accum_sum_carry](accum_sum_carry.md)
+  - [accum_sum_rescale](accum_sum_rescale.md)
+  - [NumericSumAccum](../N/NumericSumAccum.md)
+  - [NumericVar](../N/NumericVar.md)
   - NumericDigit
   - NBASE
   - NUMERIC_POS
 - Called from (representative examples):
-  - do_numeric_accum
-  - do_numeric_discard
-  - numeric_avg_deserialize
-  - numeric_deserialize
-  - numeric_poly_deserialize
-  - int8_avg_deserialize
-  - numeric_poly_stddev_internal
-  - accum_sum_combine
+  - [do_numeric_accum](../d/do_numeric_accum.md)
+  - [do_numeric_discard](../d/do_numeric_discard.md)
+  - [numeric_avg_deserialize](../n/numeric_avg_deserialize.md)
+  - [numeric_deserialize](../n/numeric_deserialize.md)
+  - [numeric_poly_deserialize](../n/numeric_poly_deserialize.md)
+  - [int8_avg_deserialize](../i/int8_avg_deserialize.md)
+  - [numeric_poly_stddev_internal](../n/numeric_poly_stddev_internal.md)
+  - [accum_sum_combine](accum_sum_combine.md)
 
 ## Notes and Other Information
 - The function maintains separate positive and negative digit arrays to optimize addition operations

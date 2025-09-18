@@ -21,7 +21,7 @@ The function is designed to work with the pthread key-value system, where each t
 - Functions called/Symbols referenced:
   - free (standard library function for memory deallocation)
 - Called from (representative examples):
-  - ecpg_sqlca_key_init (registered as destructor callback)
+  - [ecpg_sqlca_key_init](ecpg_sqlca_key_init.md) (registered as destructor callback)
   - pthread library (automatically called on thread termination)
 
 ## Notes and Other Information

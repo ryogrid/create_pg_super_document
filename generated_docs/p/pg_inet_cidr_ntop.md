@@ -23,13 +23,13 @@ The function acts as a dispatcher, delegating the actual conversion work to spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inet_cidr_ntop_ipv4 (for IPv4 address conversion)
-  - inet_cidr_ntop_ipv6 (for IPv6 address conversion)
+  - [inet_cidr_ntop_ipv4](../i/inet_cidr_ntop_ipv4.md) (for IPv4 address conversion)
+  - [inet_cidr_ntop_ipv6](../i/inet_cidr_ntop_ipv6.md) (for IPv6 address conversion)
   - PGSQL_AF_INET (IPv4 address family constant)
   - PGSQL_AF_INET6 (IPv6 address family constant)
   - EAFNOSUPPORT (error code for unsupported address family)
 - Called from (representative examples):
-  - cidr_abbrev (network address abbreviation function)
+  - [cidr_abbrev](../c/cidr_abbrev.md) (network address abbreviation function)
 
 ## Notes and Other Information
 - Returns a pointer to the destination buffer on success, or NULL on error

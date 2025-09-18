@@ -36,19 +36,19 @@ Key operational aspects:
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/try_table_open: Opens the target relation
-  - RelationGetIndexList: Retrieves list of all indexes for the relation
-  - SetReindexPending: Marks indexes as pending rebuild
-  - RemoveReindexPending: Removes indexes from pending rebuild list
-  - reindex_index: Performs individual index reconstruction
+  - [RelationGetIndexList](../R/RelationGetIndexList.md): Retrieves list of all indexes for the relation
+  - [SetReindexPending](../S/SetReindexPending.md): Marks indexes as pending rebuild
+  - [RemoveReindexPending](../R/RemoveReindexPending.md): Removes indexes from pending rebuild list
+  - [reindex_index](reindex_index.md): Performs individual index reconstruction
   - CommandCounterIncrement: Ensures transaction visibility
-  - IsToastNamespace: Checks if index belongs to toast table
-  - get_index_isvalid: Validates index state
-  - ReindexIsProcessingIndex: Checks if index is currently being processed
+  - [IsToastNamespace](../I/IsToastNamespace.md): Checks if index belongs to toast table
+  - [get_index_isvalid](../g/get_index_isvalid.md): Validates index state
+  - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md): Checks if index is currently being processed
 - Called from (representative examples):
-  - ReindexTable: Direct command interface for REINDEX TABLE
-  - finish_heap_swap: Post-CLUSTER cleanup operations
-  - ExecuteTruncateGuts: Index rebuilding after TRUNCATE
-  - ReindexMultipleInternal: Batch reindexing operations
+  - [ReindexTable](../R/ReindexTable.md): Direct command interface for REINDEX TABLE
+  - [finish_heap_swap](../f/finish_heap_swap.md): Post-CLUSTER cleanup operations
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md): Index rebuilding after TRUNCATE
+  - [ReindexMultipleInternal](../R/ReindexMultipleInternal.md): Batch reindexing operations
 
 ## Notes and Other Information
 - Returns true if any indexes were successfully rebuilt

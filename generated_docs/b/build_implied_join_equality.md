@@ -33,15 +33,15 @@ Unlike process_implied_equality(), this function does not perform constant foldi
 - Functions called/Symbols referenced:
   - make_opclause (creates operator expression node)
   - copyObject (performs deep copying of expression trees)
-  - make_restrictinfo (constructs RestrictInfo wrapper)
-  - check_mergejoinable (analyzes merge join suitability)
-  - check_hashjoinable (analyzes hash join suitability)
-  - check_memoizable (analyzes memoization potential for nested loops)
+  - [make_restrictinfo](../m/make_restrictinfo.md) (constructs RestrictInfo wrapper)
+  - [check_mergejoinable](../c/check_mergejoinable.md) (analyzes merge join suitability)
+  - [check_hashjoinable](../c/check_hashjoinable.md) (analyzes hash join suitability)
+  - [check_memoizable](../c/check_memoizable.md) (analyzes memoization potential for nested loops)
 
 - Called from (representative examples):
-  - create_join_clause (equivalence class join clause creation)
-  - reconsider_outer_join_clause (outer join clause reconsideration)
-  - reconsider_full_join_clause (full join clause reconsideration)
+  - [create_join_clause](../c/create_join_clause.md) (equivalence class join clause creation)
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md) (outer join clause reconsideration)
+  - [reconsider_full_join_clause](../r/reconsider_full_join_clause.md) (full join clause reconsideration)
 
 ## Notes and Other Information
 - Does not automatically distribute the clause to joininfo lists (unlike process_implied_equality)

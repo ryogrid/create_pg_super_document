@@ -21,17 +21,17 @@ This function manages the orderly shutdown of a streaming replication session wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetResult
-  - close_walfile
-  - PQclear
-  - PQresultStatus
-  - PQputCopyEnd
-  - PQflush
-  - PQerrorMessage
-  - PQfreemem
+  - [PQgetResult](../P/PQgetResult.md)
+  - [close_walfile](../c/close_walfile.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQputCopyEnd](../P/PQputCopyEnd.md)
+  - [PQflush](../P/PQflush.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQfreemem](../P/PQfreemem.md)
   - pg_log_error
 - Called from (representative examples):
-  - HandleCopyStream
+  - [HandleCopyStream](HandleCopyStream.md)
 
 ## Notes and Other Information
 - Returns PGresult pointer from the final server response, or NULL on error

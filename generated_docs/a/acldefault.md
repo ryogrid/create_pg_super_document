@@ -24,15 +24,15 @@ The resulting ACL contains at most two entries: one for public access (if any) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocacl (allocates ACL structure)
+  - [allocacl](allocacl.md) (allocates ACL structure)
   - ACL_DAT (macro to access ACL data)
   - ACLITEM_SET_PRIVS_GOPTIONS (macro to set privileges and grant options)
   - Various ACL constants (ACL_NO_RIGHTS, ACL_ALL_RIGHTS_*, ACL_EXECUTE, etc.)
   - ObjectType enum values (OBJECT_TABLE, OBJECT_FUNCTION, etc.)
 - Called from (representative examples):
-  - SetDefaultACL (setting default ACLs)
+  - [SetDefaultACL](../S/SetDefaultACL.md) (setting default ACLs)
   - ExecGrant_* functions (grant command execution)
-  - object_aclmask_ext (permission checking)
+  - [object_aclmask_ext](../o/object_aclmask_ext.md) (permission checking)
   - pg_dump utilities (dumping ACL information)
 
 ## Notes and Other Information

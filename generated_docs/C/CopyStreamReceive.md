@@ -20,14 +20,14 @@ This function is responsible for receiving streaming replication data from a Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfreemem
-  - PQgetCopyData
-  - CopyStreamPoll
-  - PQconsumeInput
-  - PQerrorMessage
+  - [PQfreemem](../P/PQfreemem.md)
+  - [PQgetCopyData](../P/PQgetCopyData.md)
+  - [CopyStreamPoll](CopyStreamPoll.md)
+  - [PQconsumeInput](../P/PQconsumeInput.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - pg_log_error
 - Called from (representative examples):
-  - HandleCopyStream
+  - [HandleCopyStream](../H/HandleCopyStream.md)
 
 ## Notes and Other Information
 - Returns the length of received data on success, 0 on timeout/interruption, -1 on error, -2 if server ended the COPY

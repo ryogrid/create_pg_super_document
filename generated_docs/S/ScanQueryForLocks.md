@@ -22,18 +22,18 @@ This function performs a comprehensive traversal of a Query structure to identif
 - Functions called/Symbols referenced:
   - CMD_UTILITY
   - RTE_RELATION
-  - LockRelationOid
-  - UnlockRelationOid
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
   - RTE_SUBQUERY
   - CommonTableExpr
-  - ScanQueryWalker
+  - [ScanQueryWalker](ScanQueryWalker.md)
   - query_tree_walker
-  - QTW_IGNORE_RC_SUBQUERIES
+  - [QTW_IGNORE_RC_SUBQUERIES](../Q/QTW_IGNORE_RC_SUBQUERIES.md)
 - Called from (representative examples):
-  - AcquireExecutorLocks
-  - AcquirePlannerLocks
-  - ScanQueryForLocks (recursive calls)
-  - ScanQueryWalker
+  - [AcquireExecutorLocks](../A/AcquireExecutorLocks.md)
+  - [AcquirePlannerLocks](../A/AcquirePlannerLocks.md)
+  - [ScanQueryForLocks](ScanQueryForLocks.md) (recursive calls)
+  - [ScanQueryWalker](ScanQueryWalker.md)
 
 ## Notes and Other Information
 - The function asserts that it should not be called on utility commands (CMD_UTILITY)

@@ -26,12 +26,12 @@ This mechanism is crucial for preventing buffer leaks in PostgreSQL's shared buf
 - Functions called/Symbols referenced:
   - ResourceOwner (structure type)
   - ResourceOwnerRemember (generic resource tracking function)
-  - Int32GetDatum (conversion function)
+  - [Int32GetDatum](../I/Int32GetDatum.md) (conversion function)
   - buffer_pin_resowner_desc (resource descriptor for buffer pins)
 - Called from (representative examples):
   - PinBuffer
   - PinBuffer_Locked
-  - IncrBufferRefCount
+  - [IncrBufferRefCount](../I/IncrBufferRefCount.md)
   - PinLocalBuffer
 
 ## Notes and Other Information

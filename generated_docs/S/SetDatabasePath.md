@@ -19,12 +19,12 @@ SetDatabasePath is a critical initialization function that establishes the file 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextStrdup (for creating a persistent copy of the path string)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (for creating a persistent copy of the path string)
   - Assert (for ensuring single assignment)
   - DatabasePath (global variable being set)
   - TopMemoryContext (memory context for persistent allocation)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
   - AmSpecialWorkerProcess
 
 ## Notes and Other Information

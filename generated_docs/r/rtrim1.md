@@ -17,7 +17,7 @@ The rtrim1 function provides a streamlined version of PostgreSQL's rtrim functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dotrim
+  - [dotrim](../d/dotrim.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - No direct references found in the codebase

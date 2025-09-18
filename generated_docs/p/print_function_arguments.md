@@ -23,25 +23,25 @@ This core utility function handles the complex formatting of function arguments 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc
-  - get_func_arg_info
-  - SysCacheGetAttr
+  - [get_func_arg_info](../g/get_func_arg_info.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - TextDatumGetCString
-  - stringToNode
+  - [stringToNode](../s/stringToNode.md)
   - list_head
   - PROKIND_AGGREGATE
   - Form_pg_aggregate
   - AGGKIND_IS_ORDERED_SET
   - PROARGMODE_IN/INOUT/OUT/VARIADIC/TABLE
   - PROKIND_PROCEDURE
-  - quote_identifier
-  - lnext
-  - deparse_expression
+  - [quote_identifier](../q/quote_identifier.md)
+  - [lnext](../l/lnext.md)
+  - [deparse_expression](../d/deparse_expression.md)
 - Called from (representative examples):
   - NameHashEntry
-  - pg_get_functiondef
-  - pg_get_function_arguments
-  - pg_get_function_identity_arguments
-  - print_function_rettype
+  - [pg_get_functiondef](pg_get_functiondef.md)
+  - [pg_get_function_arguments](pg_get_function_arguments.md)
+  - [pg_get_function_identity_arguments](pg_get_function_identity_arguments.md)
+  - [print_function_rettype](print_function_rettype.md)
 
 ## Notes and Other Information
 - Returns the number of arguments actually printed to the buffer

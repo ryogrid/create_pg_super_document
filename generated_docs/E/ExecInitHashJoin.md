@@ -30,17 +30,17 @@ The function handles special cases for different join types, particularly around
 - Functions called/Symbols referenced:
   - makeNode: Creates new HashJoinState structure  
   - ExecAssignExprContext: Sets up expression evaluation context
-  - ExecInitNode: Recursively initializes child plan nodes
-  - ExecGetResultType: Retrieves tuple descriptor from child nodes
-  - ExecInitResultTupleSlotTL: Initializes result tuple slot
-  - ExecAssignProjectionInfo: Sets up tuple projection
-  - ExecInitExtraTupleSlot: Creates additional tuple slots
-  - ExecInitNullTupleSlot: Creates null tuple slots for outer joins
-  - ExecInitQual: Initializes expression trees for qualifiers
-  - ExecInitExprList: Initializes expression lists
+  - [ExecInitNode](ExecInitNode.md): Recursively initializes child plan nodes
+  - [ExecGetResultType](ExecGetResultType.md): Retrieves tuple descriptor from child nodes
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md): Initializes result tuple slot
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md): Sets up tuple projection
+  - [ExecInitExtraTupleSlot](ExecInitExtraTupleSlot.md): Creates additional tuple slots
+  - [ExecInitNullTupleSlot](ExecInitNullTupleSlot.md): Creates null tuple slots for outer joins
+  - [ExecInitQual](ExecInitQual.md): Initializes expression trees for qualifiers
+  - [ExecInitExprList](ExecInitExprList.md): Initializes expression lists
 
 - Called from:
-  - ExecInitNode: General node initialization dispatcher
+  - [ExecInitNode](ExecInitNode.md): General node initialization dispatcher
 
 ## Notes and Other Information
 Key aspects of the initialization process:

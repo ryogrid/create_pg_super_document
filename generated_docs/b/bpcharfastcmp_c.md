@@ -20,17 +20,17 @@ The `bpcharfastcmp_c` function provides optimized comparison functionality speci
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetBpCharPP
-  - BpChar
+  - [BpChar](../B/BpChar.md)
   - SortSupport
   - VARDATA_ANY (macro)
   - VARSIZE_ANY_EXHDR (macro)
-  - bpchartruelen
+  - [bpchartruelen](bpchartruelen.md)
   - memcmp
   - Min (macro)
-  - PointerGetDatum
-  - pfree
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - varstr_sortsupport (when BpChar type and C locale are detected)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md) (when BpChar type and C locale are detected)
 
 ## Notes and Other Information
 - Specifically designed for CHAR(n)/BpChar data type with trailing space semantics

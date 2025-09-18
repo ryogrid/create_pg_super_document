@@ -21,17 +21,17 @@ The gtsvector_alloc function is responsible for allocating memory and initializi
 - Functions called/Symbols referenced:
   - BITVECP (type definition for bit vector pointer)
   - CALCGTSIZE (macro to calculate required structure size based on flag and length)
-  - SignTSVector (data type for GiST signature representation)
-  - palloc (PostgreSQL memory allocation function)
+  - [SignTSVector](../S/SignTSVector.md) (data type for GiST signature representation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - SET_VARSIZE (macro to set variable-length structure size)
   - SIGNKEY (flag constant for signature key type)
   - ALLISTRUE (flag constant for all-true signature type)
   - GETSIGN (macro to get signature data pointer)
   - memcpy (memory copy function)
 - Called from (representative examples):
-  - gtsvector_compress (during index compression operations)
-  - gtsvector_union (when creating union signatures)
-  - gtsvector_picksplit (during index page splitting operations)
+  - [gtsvector_compress](gtsvector_compress.md) (during index compression operations)
+  - [gtsvector_union](gtsvector_union.md) (when creating union signatures)
+  - [gtsvector_picksplit](gtsvector_picksplit.md) (during index page splitting operations)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the tsgistidx.c file

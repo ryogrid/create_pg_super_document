@@ -37,17 +37,17 @@ Unlike other range table entry functions, this one works with a fully-specified 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RTE creation)
-  - makeAlias (for alias creation)
+  - [makeAlias](../m/makeAlias.md) (for alias creation)
   - copyObject (for alias copying)
-  - pstrdup (string duplication)
-  - list_concat, list_copy_tail (list manipulation for column names)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [list_concat](../l/list_concat.md), list_copy_tail (list manipulation for column names)
   - lappend (list manipulation)
-  - buildNSItemFromLists (namespace item creation)
+  - [buildNSItemFromLists](../b/buildNSItemFromLists.md) (namespace item creation)
   - ereport (error reporting)
-  - exprLocation (error position reporting)
+  - [exprLocation](../e/exprLocation.md) (error position reporting)
 - Called from (representative examples):
-  - transformRangeTableFunc (in parse_clause.c)
-  - transformJsonTable (in parse_jsontable.c)
+  - [transformRangeTableFunc](../t/transformRangeTableFunc.md) (in parse_clause.c)
+  - [transformJsonTable](../t/transformJsonTable.md) (in parse_jsontable.c)
 
 ## Notes and Other Information
 - Table functions are never checked for access rights since they represent computed results from structured data parsing

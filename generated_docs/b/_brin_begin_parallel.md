@@ -32,16 +32,16 @@ The function creates shared memory segments for coordinating work distribution, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - EnterParallelMode (enter parallel execution mode)
-  - CreateParallelContext (create parallel worker context)
-  - _brin_parallel_estimate_shared (estimate shared memory needs)
-  - tuplesort_estimate_shared (estimate tuplesort memory needs)
-  - InitializeParallelDSM (initialize dynamic shared memory)
-  - table_parallelscan_initialize (setup parallel table scan)
-  - tuplesort_initialize_shared (initialize shared tuplesort state)
-  - LaunchParallelWorkers (start worker processes)
-  - _brin_leader_participate_as_worker (leader participation)
+  - [CreateParallelContext](../C/CreateParallelContext.md) (create parallel worker context)
+  - [_brin_parallel_estimate_shared](_brin_parallel_estimate_shared.md) (estimate shared memory needs)
+  - [tuplesort_estimate_shared](../t/tuplesort_estimate_shared.md) (estimate tuplesort memory needs)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (initialize dynamic shared memory)
+  - [table_parallelscan_initialize](../t/table_parallelscan_initialize.md) (setup parallel table scan)
+  - [tuplesort_initialize_shared](../t/tuplesort_initialize_shared.md) (initialize shared tuplesort state)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md) (start worker processes)
+  - [_brin_leader_participate_as_worker](_brin_leader_participate_as_worker.md) (leader participation)
 - Called from (representative examples):
-  - brinbuild (main BRIN index build function)
+  - [brinbuild](brinbuild.md) (main BRIN index build function)
 
 ## Notes and Other Information
 - Falls back to serial execution if no workers can be launched or DSM allocation fails

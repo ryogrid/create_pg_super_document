@@ -26,15 +26,15 @@ A key optimization is the ability to mark dead tuples as killed when all HOT cha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_binsrch_insert: Performs binary search to find equal tuples
-  - _bt_compare: Compares scan keys with page items
-  - table_index_fetch_tuple_check: Checks heap tuple visibility
-  - ItemPointerCompare: Compares tuple identifiers
-  - BTreeTupleGetPostingN: Extracts TIDs from posting list tuples
-  - CheckForSerializableConflictIn: Checks for serializable conflicts
-  - BuildIndexValueDescription: Creates human-readable key description for error reporting
+  - [_bt_binsrch_insert](_bt_binsrch_insert.md): Performs binary search to find equal tuples
+  - [_bt_compare](_bt_compare.md): Compares scan keys with page items
+  - [table_index_fetch_tuple_check](../t/table_index_fetch_tuple_check.md): Checks heap tuple visibility
+  - [ItemPointerCompare](../I/ItemPointerCompare.md): Compares tuple identifiers
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md): Extracts TIDs from posting list tuples
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md): Checks for serializable conflicts
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md): Creates human-readable key description for error reporting
 - Called from (representative examples):
-  - _bt_doinsert: Main insertion routine that requires uniqueness validation
+  - [_bt_doinsert](_bt_doinsert.md): Main insertion routine that requires uniqueness validation
 
 ## Notes and Other Information
 - Returns InvalidTransactionId when no conflict, otherwise returns transaction ID to wait for

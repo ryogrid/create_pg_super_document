@@ -21,15 +21,15 @@ The function handles different types of range table entries (RTEs) including rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_vars_of_level
+  - [pull_vars_of_level](../p/pull_vars_of_level.md)
   - copyObject
-  - IncrementVarSublevelsUp
-  - preprocess_phv_expression
-  - list_free
-  - bms_make_singleton
-  - add_vars_to_targetlist
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md)
+  - [preprocess_phv_expression](../p/preprocess_phv_expression.md)
+  - [list_free](../l/list_free.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [add_vars_to_targetlist](../a/add_vars_to_targetlist.md)
 - Called from (representative examples):
-  - find_lateral_references
+  - [find_lateral_references](../f/find_lateral_references.md)
 
 ## Notes and Other Information
 - Only processes relations marked as LATERAL (rte->lateral == true)

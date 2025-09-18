@@ -27,8 +27,8 @@ The function uses PostgreSQL's internationalization support through gettext() to
   - exit (standard library)
   - PG_LOG_ERROR, PG_LOG_PRIMARY (logging level constants)
 - Called from:
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:149)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:426)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:149)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:426)
 
 ## Notes and Other Information
 - Function is declared static, limiting its scope to the load_manifest.c file

@@ -28,7 +28,7 @@ The function performs encoding validation to ensure the conversion is between th
   - PG_GETARG_INT32 (macro for retrieving integer arguments)
   - PG_GETARG_BOOL (macro for retrieving boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - UtfToLocal (core conversion function)
+  - [UtfToLocal](../U/UtfToLocal.md) (core conversion function)
   - PG_RETURN_INT32 (macro for returning integer results)
   - gbk_from_unicode_tree (radix tree data structure from utf8_to_gbk.map)
 - Called from (representative examples):

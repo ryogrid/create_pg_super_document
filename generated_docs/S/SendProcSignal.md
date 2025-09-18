@@ -23,16 +23,16 @@ SendProcSignal is the primary function for sending inter-process signals within 
   - pid_t (type)
   - ProcNumber (type)
   - ProcSignalReason (type)
-  - ProcSignalSlot (type)
+  - [ProcSignalSlot](../P/ProcSignalSlot.md) (type)
   - INVALID_PROC_NUMBER (constant)
   - SIGUSR1 (constant)
   - NumProcSignalSlots (variable)
 - Called from (representative examples):
-  - SignalBackends
+  - [SignalBackends](SignalBackends.md)
   - SignalVirtualTransaction
   - CancelDBBackends
-  - WalSndInitStopping
-  - ParallelWorkerShutdown
+  - [WalSndInitStopping](../W/WalSndInitStopping.md)
+  - [ParallelWorkerShutdown](../P/ParallelWorkerShutdown.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on error with errno set (typically ESRCH or EPERM)

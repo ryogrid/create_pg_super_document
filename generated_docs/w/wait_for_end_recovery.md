@@ -22,14 +22,14 @@ The function implements a polling mechanism with a fixed wait interval (WAIT_INT
 - Functions called/Symbols referenced:
   - pg_log_info
   - connect_database
-  - server_is_in_recovery
-  - stop_standby_server
-  - disconnect_database
-  - pg_usleep
+  - [server_is_in_recovery](../s/server_is_in_recovery.md)
+  - [stop_standby_server](../s/stop_standby_server.md)
+  - [disconnect_database](../d/disconnect_database.md)
+  - [pg_usleep](../p/pg_usleep.md)
   - pg_log_info_hint
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - main (in pg_createsubscriber)
+  - [main](../m/main.md) (in pg_createsubscriber)
 
 ## Notes and Other Information
 - The function uses a global variable  to track recovery completion status

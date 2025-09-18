@@ -39,20 +39,20 @@ The function also handles special partition indexes for NULL values and default 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (return type)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (return type)
   - PartitionBoundInfoData (struct for allocation)
-  - PartitionRangeDatumKind (enum type for range boundary kinds)
+  - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md) (enum type for range boundary kinds)
   - PARTITION_STRATEGY_RANGE (constant)
   - PARTITION_STRATEGY_LIST (constant)
   - lappend_int (list manipulation)
   - lfirst_int (list access)
   - lfirst (list access)
   - list_length (list utility)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
   - compare_range_bounds
-  - merge_list_bounds
-  - merge_range_bounds
+  - [merge_list_bounds](../m/merge_list_bounds.md)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - This is a static function, accessible only within partbounds.c

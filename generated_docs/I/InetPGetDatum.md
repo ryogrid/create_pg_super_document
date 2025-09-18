@@ -20,13 +20,13 @@ InetPGetDatum is an inline function that converts a pointer to an inet structure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - inet
 - Called from (representative examples):
-  - inet_gist_fetch
-  - inet_spg_choose
-  - inet_spg_picksplit
-  - inet_spg_leaf_consistent
+  - [inet_gist_fetch](../i/inet_gist_fetch.md)
+  - [inet_spg_choose](../i/inet_spg_choose.md)
+  - [inet_spg_picksplit](../i/inet_spg_picksplit.md)
+  - [inet_spg_leaf_consistent](../i/inet_spg_leaf_consistent.md)
   - PG_RETURN_INET_P (macro)
 
 ## Notes and Other Information

@@ -32,11 +32,11 @@ The structure uses bit fields in a uint32 to efficiently store multiple boolean 
   - WordEntryPos
   - QueryOperand
 - Called from (representative examples):
-  - hladdword (src/backend/tsearch/ts_parse.c:445)
-  - hlfinditem (src/backend/tsearch/ts_parse.c:468)
-  - generateHeadline (src/backend/tsearch/ts_parse.c:615)
-  - ts_headline_byid_opt (src/backend/tsearch/wparser.c:310)
-  - CoverPos (src/backend/tsearch/wparser_def.c:1968)
+  - [hladdword](../h/hladdword.md) (src/backend/tsearch/ts_parse.c:445)
+  - [hlfinditem](../h/hlfinditem.md) (src/backend/tsearch/ts_parse.c:468)
+  - [generateHeadline](../g/generateHeadline.md) (src/backend/tsearch/ts_parse.c:615)
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md) (src/backend/tsearch/wparser.c:310)
+  - [CoverPos](../C/CoverPos.md) (src/backend/tsearch/wparser_def.c:1968)
 
 ## Notes and Other Information
 - The word field is not null-terminated, so the len field must be used to determine the actual token length

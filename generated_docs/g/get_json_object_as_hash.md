@@ -28,22 +28,22 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - palloc0
-  - makeJsonLexContextCstringLen
-  - GetDatabaseEncoding
-  - pg_parse_json_or_errsave
-  - hash_destroy
+  - [hash_create](../h/hash_create.md)
+  - [palloc0](../p/palloc0.md)
+  - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [pg_parse_json_or_errsave](../p/pg_parse_json_or_errsave.md)
+  - [hash_destroy](../h/hash_destroy.md)
   - freeJsonLexContext
-  - hash_array_start
-  - hash_scalar
-  - hash_object_field_start
-  - hash_object_field_end
+  - [hash_array_start](../h/hash_array_start.md)
+  - [hash_scalar](../h/hash_scalar.md)
+  - [hash_object_field_start](../h/hash_object_field_start.md)
+  - [hash_object_field_end](../h/hash_object_field_end.md)
   - HASH_ELEM
   - HASH_STRINGS
   - HASH_CONTEXT
 - Called from (representative examples):
-  - JsValueToJsObject
+  - [JsValueToJsObject](../J/JsValueToJsObject.md)
 
 ## Notes and Other Information
 - This is a static function used internally by JSON processing infrastructure

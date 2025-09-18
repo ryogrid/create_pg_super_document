@@ -26,12 +26,12 @@ This ensures that extension scripts can be written in different encodings but wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_whole_file (reads entire file into memory)
-  - GetDatabaseEncoding (retrieves current database encoding)
-  - pg_verify_mbstr (validates multibyte string encoding)
-  - pg_any_to_server (converts encoding to database encoding)
+  - [read_whole_file](read_whole_file.md) (reads entire file into memory)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (retrieves current database encoding)
+  - [pg_verify_mbstr](../p/pg_verify_mbstr.md) (validates multibyte string encoding)
+  - [pg_any_to_server](../p/pg_any_to_server.md) (converts encoding to database encoding)
 - Called from:
-  - execute_extension_script
+  - [execute_extension_script](../e/execute_extension_script.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the extension.c module

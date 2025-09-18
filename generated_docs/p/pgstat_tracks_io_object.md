@@ -26,14 +26,14 @@ The function helps maintain a clean and meaningful pg_stat_io view by excluding 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_tracks_io_bktype() (validate backend type eligibility)
-  - BackendType, IOObject, IOContext (enum types)
+  - [pgstat_tracks_io_bktype](pgstat_tracks_io_bktype.md)() (validate backend type eligibility)
+  - [BackendType](../B/BackendType.md), IOObject, IOContext (enum types)
   - IOCONTEXT_NORMAL, IOCONTEXT_BULKREAD, IOCONTEXT_BULKWRITE, IOCONTEXT_VACUUM (context constants)
   - IOOBJECT_TEMP_RELATION (object type constant)
   - B_AUTOVAC_LAUNCHER, B_AUTOVAC_WORKER, B_BG_WRITER, B_CHECKPOINTER, B_STANDALONE_BACKEND, B_STARTUP (backend type constants)
 - Called from (representative examples):
-  - pgstat_tracks_io_op() (to validate object/context before checking operation tracking)
-  - pg_stat_get_io() (to filter valid combinations when retrieving I/O statistics)
+  - [pgstat_tracks_io_op](pgstat_tracks_io_op.md)() (to validate object/context before checking operation tracking)
+  - [pg_stat_get_io](pg_stat_get_io.md)() (to filter valid combinations when retrieving I/O statistics)
 
 ## Notes and Other Information
 - Returns false for backend types that don't support I/O tracking (delegates to pgstat_tracks_io_bktype)

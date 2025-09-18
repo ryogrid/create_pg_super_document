@@ -19,17 +19,17 @@ The  function provides a unified interface for variable access that automaticall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookupVariable
-  - valid_variable_name
-  - enlargeVariables
+  - [lookupVariable](lookupVariable.md)
+  - [valid_variable_name](../v/valid_variable_name.md)
+  - [enlargeVariables](../e/enlargeVariables.md)
   - pg_log_error
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
 - Types referenced:
-  - Variables
-  - Variable
+  - [Variables](../V/Variables.md)
+  - [Variable](../V/Variable.md)
 - Called from (representative examples):
-  - putVariable
-  - putVariableValue
+  - [putVariable](../p/putVariable.md)
+  - [putVariableValue](../p/putVariableValue.md)
 
 ## Notes and Other Information
 - Returns a pointer to the Variable on success, NULL on failure (invalid name)

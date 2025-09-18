@@ -23,7 +23,7 @@ This function is an extended version of the hashinet function that supports seed
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP - retrieves inet argument from function call
   - ip_addrsize - determines the size of the IP address portion
-  - hash_any_extended - PostgreSQL's seeded hash function
+  - [hash_any_extended](hash_any_extended.md) - PostgreSQL's seeded hash function
   - VARDATA_ANY - macro to get variable-length data portion
   - PG_GETARG_INT64 - retrieves the 64-bit seed parameter
 - Called from (representative examples):

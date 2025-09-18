@@ -20,7 +20,7 @@ This function serves as the tuple receiving callback for DR_intorel destination 
 - Functions called/Symbols referenced:
   - table_tuple_insert
 - Called from (representative examples):
-  - CreateIntoRelDestReceiver (sets as callback)
+  - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (sets as callback)
   - Executor tuple processing pipeline
 
 ## Notes and Other Information

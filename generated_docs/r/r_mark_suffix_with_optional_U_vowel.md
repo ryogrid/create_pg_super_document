@@ -23,9 +23,9 @@ This type of vowel insertion is crucial in Turkish morphology for maintaining sy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b_U (called 2 times for high vowel group checking)
-  - out_grouping_b_U (called 2 times for non-vowel checking)
-  - skip_b_utf8 (for UTF-8 character boundary handling)
+  - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for high vowel group checking)
+  - [out_grouping_b_U](../o/out_grouping_b_U.md) (called 2 times for non-vowel checking)
+  - [skip_b_utf8](../s/skip_b_utf8.md) (for UTF-8 character boundary handling)
   - g_U (high vowel group: ı, i, u, ü)
   - g_vowel (general vowel group)
 

@@ -32,18 +32,18 @@ The function includes advanced features like multivariate statistics support and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clamp_row_est: Ensures row estimates stay within reasonable bounds
+  - [clamp_row_est](../c/clamp_row_est.md): Ensures row estimates stay within reasonable bounds
   - examine_variable: Extracts statistics for variables and expressions
-  - add_unique_group_var: Maintains deduplicated list of grouping variables
-  - expression_returns_set_rows: Handles set-returning functions in GROUP BY
-  - pull_var_clause: Extracts variables from complex expressions
-  - contain_volatile_functions: Detects expressions with unpredictable results
+  - [add_unique_group_var](../a/add_unique_group_var.md): Maintains deduplicated list of grouping variables
+  - [expression_returns_set_rows](expression_returns_set_rows.md): Handles set-returning functions in GROUP BY
+  - [pull_var_clause](../p/pull_var_clause.md): Extracts variables from complex expressions
+  - [contain_volatile_functions](../c/contain_volatile_functions.md): Detects expressions with unpredictable results
   - estimate_multivariate_ndistinct: Uses extended statistics for correlated variables
   - EstimationInfo/SELFLAG_USED_DEFAULT: Tracks when default estimates are used
 - Called from (representative examples):
-  - get_number_of_groups: Primary interface for GROUP BY cardinality estimation
-  - create_unique_path: Used for DISTINCT operation planning
-  - cost_incremental_sort: Helps estimate costs for incremental sorting with grouping
+  - [get_number_of_groups](../g/get_number_of_groups.md): Primary interface for GROUP BY cardinality estimation
+  - [create_unique_path](../c/create_unique_path.md): Used for DISTINCT operation planning
+  - [cost_incremental_sort](../c/cost_incremental_sort.md): Helps estimate costs for incremental sorting with grouping
 
 ## Notes and Other Information
 - Never returns zero groups to avoid division-by-zero in downstream calculations

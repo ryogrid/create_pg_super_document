@@ -31,16 +31,16 @@ The parsing supports two formats:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadArrayDimensions
-  - ReadArrayStr  
-  - get_type_io_data
-  - construct_empty_array
-  - CopyArrayEls
+  - [ReadArrayDimensions](../R/ReadArrayDimensions.md)
+  - [ReadArrayStr](../R/ReadArrayStr.md)  
+  - [get_type_io_data](../g/get_type_io_data.md)
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [CopyArrayEls](../C/CopyArrayEls.md)
   - ARR_OVERHEAD_WITHNULLS/ARR_OVERHEAD_NONULLS
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from (representative examples):
-  - extract_variadic_args
-  - CATALOG (pg_type.h)
+  - [extract_variadic_args](../e/extract_variadic_args.md)
+  - [CATALOG](../C/CATALOG.md) (pg_type.h)
 
 ## Notes and Other Information
 - Uses ArrayMetaState caching to optimize repeated calls with the same element type

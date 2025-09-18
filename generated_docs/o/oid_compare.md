@@ -20,9 +20,9 @@ The `oid_compare` function is a comparator function specifically designed for us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cmp_u32
+  - [pg_cmp_u32](../p/pg_cmp_u32.md)
 - Called from (representative examples):
-  - InitCatalogCache (multiple times at lines 153, 156, 159, 162)
+  - [InitCatalogCache](../I/InitCatalogCache.md) (multiple times at lines 153, 156, 159, 162)
   - Used in KEY macro definition at line 98
 
 ## Notes and Other Information

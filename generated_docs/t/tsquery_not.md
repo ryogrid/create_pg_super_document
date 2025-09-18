@@ -20,11 +20,11 @@ The implementation creates a new QTNode structure representing the NOT operator,
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TSQUERY_COPY
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - QT2QTN
   - GETQUERY
   - GETOPERAND  
-  - QTN2QT
+  - [QTN2QT](../Q/QTN2QT.md)
   - QTNFree
   - PG_FREE_IF_COPY
   - PG_RETURN_POINTER

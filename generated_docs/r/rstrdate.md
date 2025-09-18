@@ -20,10 +20,10 @@ The `rstrdate` function is part of PostgreSQL's ECPG date handling compatibility
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rdefmtdate
+  - [rdefmtdate](rdefmtdate.md)
   - date (type)
 - Called from (representative examples):
-  - date_test_strdate (in test programs)
+  - [date_test_strdate](../d/date_test_strdate.md) (in test programs)
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)
 
 ## Notes and Other Information

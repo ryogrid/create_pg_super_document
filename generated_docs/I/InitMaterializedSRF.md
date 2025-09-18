@@ -30,16 +30,16 @@ The function includes comprehensive error handling to ensure that set-returning 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDescCopy
-  - get_call_result_type
-  - BlessTupleDesc
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
   - tuplestore_begin_heap
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Types referenced:
   - ReturnSetInfo
   - TuplestoreState
   - bits32
-  - FunctionCallInfo
+  - [FunctionCallInfo](../F/FunctionCallInfo.md)
 - Constants used:
   - SFRM_Materialize
   - SFRM_Materialize_Random
@@ -47,11 +47,11 @@ The function includes comprehensive error handling to ensure that set-returning 
   - MAT_SRF_USE_EXPECTED_DESC
   - MAT_SRF_BLESS
 - Called from (representative examples):
-  - pg_available_extensions
-  - pg_prepared_statement
-  - pg_timezone_names
+  - [pg_available_extensions](../p/pg_available_extensions.md)
+  - [pg_prepared_statement](../p/pg_prepared_statement.md)
+  - [pg_timezone_names](../p/pg_timezone_names.md)
   - pg_stat_get_activity
-  - text_to_table
+  - [text_to_table](../t/text_to_table.md)
 
 ## Notes and Other Information
 - The function must be called in a context where the caller supports returning a tuplestore

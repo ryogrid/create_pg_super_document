@@ -26,10 +26,10 @@ The function intelligently handles non-printable characters by escaping them as 
 - Functions called/Symbols referenced:
   - (Uses standard C library functions: fprintf, fwrite, isprint)
 - Called from (representative examples):
-  - pqTraceOutput_Bind
-  - pqTraceOutput_DataRow
-  - pqTraceOutput_FunctionCall
-  - pqTraceOutput_FunctionCallResponse
+  - [pqTraceOutput_Bind](pqTraceOutput_Bind.md)
+  - [pqTraceOutput_DataRow](pqTraceOutput_DataRow.md)
+  - [pqTraceOutput_FunctionCall](pqTraceOutput_FunctionCall.md)
+  - [pqTraceOutput_FunctionCallResponse](pqTraceOutput_FunctionCallResponse.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-trace.c

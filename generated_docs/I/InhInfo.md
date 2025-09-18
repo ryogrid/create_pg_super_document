@@ -26,9 +26,9 @@ InhInfo represents table inheritance relationships in PostgreSQL's pg_dump utili
 - Functions called/Symbols referenced:
   - None (simple data structure with OID fields only)
 - Called from (representative examples):
-  - getInherits (src/bin/pg_dump/pg_dump.c:7323, 7337)
-  - flagInhTables (src/bin/pg_dump/common.c:294)
-  - getSchemaData (src/bin/pg_dump/common.c:103)
+  - [getInherits](../g/getInherits.md) (src/bin/pg_dump/pg_dump.c:7323, 7337)
+  - [flagInhTables](../f/flagInhTables.md) (src/bin/pg_dump/common.c:294)
+  - [getSchemaData](../g/getSchemaData.md) (src/bin/pg_dump/common.c:103)
 
 ## Notes and Other Information
 - This structure is explicitly noted as "not a DumpableObject, just temporary state"

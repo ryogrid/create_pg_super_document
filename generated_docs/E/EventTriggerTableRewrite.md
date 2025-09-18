@@ -31,14 +31,14 @@ The function provides essential context information about the table being rewrit
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerData (struct for trigger context)
-  - EventTriggerCommonSetup (identifies applicable triggers)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_TableRewrite (event type constant)
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling)
-  - EventTriggerInvoke (executes the triggers)
-  - list_free (memory cleanup)
+  - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
+  - [list_free](../l/list_free.md) (memory cleanup)
   - CommandCounterIncrement (ensures visibility)
 - Called from (representative examples):
-  - ATRewriteTables (table rewrite processing in ALTER TABLE)
+  - [ATRewriteTables](../A/ATRewriteTables.md) (table rewrite processing in ALTER TABLE)
 
 ## Notes and Other Information
 - Requires active event trigger state from the beginning of the DDL command to function

@@ -27,20 +27,20 @@ The function handles the transition from single-batch to multi-batch mode specia
 ## Dependencies
 - Functions called/Symbols referenced:
   - BarrierPhase, BarrierArriveAndWait (barrier synchronization)
-  - ExecParallelHashCloseBatchAccessors, ExecParallelHashEnsureBatchAccessors (batch management)
-  - ExecParallelHashJoinSetUpBatches (batch setup)
-  - ExecParallelHashRepartitionFirst, ExecParallelHashRepartitionRest (repartitioning)
-  - ExecParallelHashMergeCounters (counter management)
-  - ExecParallelHashTableSetCurrentBatch (batch selection)
-  - get_hash_memory_limit (memory management)
-  - pg_nextpower2_32, pg_prevpower2_32 (power-of-2 calculations)
+  - [ExecParallelHashCloseBatchAccessors](ExecParallelHashCloseBatchAccessors.md), ExecParallelHashEnsureBatchAccessors (batch management)
+  - [ExecParallelHashJoinSetUpBatches](ExecParallelHashJoinSetUpBatches.md) (batch setup)
+  - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md), ExecParallelHashRepartitionRest (repartitioning)
+  - [ExecParallelHashMergeCounters](ExecParallelHashMergeCounters.md) (counter management)
+  - [ExecParallelHashTableSetCurrentBatch](ExecParallelHashTableSetCurrentBatch.md) (batch selection)
+  - [get_hash_memory_limit](../g/get_hash_memory_limit.md) (memory management)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md), pg_prevpower2_32 (power-of-2 calculations)
   - dsa_allocate, dsa_free, dsa_get_address (shared memory management)
   - NthParallelHashJoinBatch (batch access)
 
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecParallelHashTupleAlloc
-  - ExecParallelHashTuplePrealloc
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecParallelHashTupleAlloc](ExecParallelHashTupleAlloc.md)
+  - [ExecParallelHashTuplePrealloc](ExecParallelHashTuplePrealloc.md)
 
 ## Notes and Other Information
 - This function is critical for handling memory pressure in parallel hash joins by dynamically increasing the number of batches

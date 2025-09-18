@@ -20,15 +20,15 @@ The function retrieves cached static information about the index through spgGetC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgGetCache
-  - getSpGistTupleDesc
-  - palloc0
-  - GetTopTransactionIdIfAny
+  - [spgGetCache](../s/spgGetCache.md)
+  - [getSpGistTupleDesc](../g/getSpGistTupleDesc.md)
+  - [palloc0](../p/palloc0.md)
+  - [GetTopTransactionIdIfAny](../G/GetTopTransactionIdIfAny.md)
 - Called from (representative examples):
-  - spgbuild
-  - spginsert
-  - spgbeginscan
-  - spgvacuumscan
+  - [spgbuild](../s/spgbuild.md)
+  - [spginsert](../s/spginsert.md)
+  - [spgbeginscan](../s/spgbeginscan.md)
+  - [spgvacuumscan](../s/spgvacuumscan.md)
 
 ## Notes and Other Information
 The function sets the redirectXid field based on transaction context: it uses the current transaction ID if available, or InvalidTransactionId for operations like VACUUM or REINDEX CONCURRENTLY where forcing XID assignment would be inappropriate. The isBuild flag is initially set to false and can be overridden by spgbuild when constructing new indexes. The function allocates SGDTSIZE bytes for dead tuple storage workspace that will be used during index maintenance operations.

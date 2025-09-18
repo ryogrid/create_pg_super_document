@@ -21,11 +21,11 @@ This structure represents a single entry in the shared memory area that tracks c
   - LockRelId (struct type)
   - BTCycleId (type)
 - Called from (representative examples):
-  - BTVacInfo (as array member)
-  - _bt_vacuum_cycleid
-  - _bt_start_vacuum
-  - _bt_end_vacuum
-  - BTreeShmemSize
+  - [BTVacInfo](BTVacInfo.md) (as array member)
+  - [_bt_vacuum_cycleid](../b/_bt_vacuum_cycleid.md)
+  - [_bt_start_vacuum](../b/_bt_start_vacuum.md)
+  - [_bt_end_vacuum](../b/_bt_end_vacuum.md)
+  - [BTreeShmemSize](BTreeShmemSize.md)
 
 ## Notes and Other Information
 - Used within a shared memory area controlled by BtreeVacuumLock for concurrent access protection

@@ -30,7 +30,7 @@ When an error occurs during query execution, PostgreSQL stores detailed diagnost
   - libpq_source.c (pg_rewind tool functions)
   - common.c (ExecQueryAndProcessResults in psql)
   - ecpg error handling functions
-  - defaultNoticeReceiver (fe-connect.c:7366)
+  - [defaultNoticeReceiver](../d/defaultNoticeReceiver.md) (fe-connect.c:7366)
   - Various test modules for error reporting
 
 ## Notes and Other Information

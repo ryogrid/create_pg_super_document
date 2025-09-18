@@ -28,26 +28,26 @@ Additionally, the function performs page maintenance by clearing the VACUUM cycl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - RelationNeedsWAL
-  - _bt_delitems_update
+  - [_bt_delitems_update](_bt_delitems_update.md)
   - START_CRIT_SECTION
-  - PageIndexTupleOverwrite
+  - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md)
   - IndexTupleSize
-  - PageIndexMultiDelete
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - BTPageGetOpaque
   - MarkBufferDirty
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterData
-  - XLogRegisterBufData
-  - XLogInsert
-  - PageSetLSN
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - END_CRIT_SECTION
-  - pfree
+  - [pfree](../p/pfree.md)
 
 - Called from (representative examples):
-  - btvacuumpage
+  - [btvacuumpage](btvacuumpage.md)
 
 ## Notes and Other Information
 - Requires caller to hold a full cleanup lock on the buffer before calling

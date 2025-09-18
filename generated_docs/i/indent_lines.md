@@ -19,15 +19,15 @@ This function is primarily used in pg_amcheck for formatting error messages and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (data structure)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
   - initPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - termPQExpBuffer
 - Called from:
-  - verify_heap_slot_handler (at src/bin/pg_amcheck/pg_amcheck.c:1086)
-  - verify_btree_slot_handler (at src/bin/pg_amcheck/pg_amcheck.c:1155)
+  - [verify_heap_slot_handler](../v/verify_heap_slot_handler.md) (at src/bin/pg_amcheck/pg_amcheck.c:1086)
+  - [verify_btree_slot_handler](../v/verify_btree_slot_handler.md) (at src/bin/pg_amcheck/pg_amcheck.c:1155)
 
 ## Notes and Other Information
 - The function returns a dynamically allocated string that must be freed by the caller using pg_free()

@@ -33,22 +33,22 @@ The function validates that cache key columns are NOT NULL, as required for reli
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (to open the target relation)
-  - CreateTupleDescCopyConstr (to copy tuple descriptor)
+  - [CreateTupleDescCopyConstr](CreateTupleDescCopyConstr.md) (to copy tuple descriptor)
   - RelationGetDescr (to get relation descriptor)
   - RelationGetRelationName (to get relation name)
   - RelationGetForm (to get relation form)
-  - pstrdup (to duplicate relation name string)
+  - [pstrdup](../p/pstrdup.md) (to duplicate relation name string)
   - table_close (to close the relation)
   - TupleDescAttr (to access tuple descriptor attributes)
-  - GetCCHashEqFuncs (to get hash and equality functions)
-  - fmgr_info_cxt (to initialize function manager info)
-  - MemoryContextSwitchTo (for memory context management)
+  - [GetCCHashEqFuncs](../G/GetCCHashEqFuncs.md) (to get hash and equality functions)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (to initialize function manager info)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for memory context management)
 - Called from:
-  - InitCatCachePhase2 (during cache system initialization)
-  - SearchCatCacheInternal (lazy initialization during first search)
-  - GetCatCacheHashValue (lazy initialization during hash computation)
-  - SearchCatCacheList (lazy initialization during list search)
-  - PrepareToInvalidateCacheTuple (lazy initialization during invalidation)
+  - [InitCatCachePhase2](../I/InitCatCachePhase2.md) (during cache system initialization)
+  - [SearchCatCacheInternal](../S/SearchCatCacheInternal.md) (lazy initialization during first search)
+  - [GetCatCacheHashValue](../G/GetCatCacheHashValue.md) (lazy initialization during hash computation)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (lazy initialization during list search)
+  - [PrepareToInvalidateCacheTuple](../P/PrepareToInvalidateCacheTuple.md) (lazy initialization during invalidation)
 
 ## Notes and Other Information
 - This is a static function, only accessible within catcache.c

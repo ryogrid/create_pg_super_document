@@ -29,21 +29,21 @@ Key responsibilities include tracking the current insertion position, managing f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
   - PG_CACHE_LINE_SIZE (cache line size constant)
   - WALInsertLockPadded (padded WAL insertion lock structure)
   - XLogRecPtr (WAL record pointer type)
 - Called from (representative examples):
-  - XLogCtlData (contains Insert member)
-  - XLogInsertRecord
-  - ReserveXLogInsertLocation
-  - ReserveXLogSwitch
-  - WaitXLogInsertionsToFinish
-  - AdvanceXLInsertBuffer
-  - StartupXLOG
-  - CreateCheckPoint
-  - UpdateFullPageWrites
-  - GetXLogInsertRecPtr
+  - [XLogCtlData](XLogCtlData.md) (contains Insert member)
+  - [XLogInsertRecord](XLogInsertRecord.md)
+  - [ReserveXLogInsertLocation](../R/ReserveXLogInsertLocation.md)
+  - [ReserveXLogSwitch](../R/ReserveXLogSwitch.md)
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md)
+  - [StartupXLOG](../S/StartupXLOG.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
+  - [UpdateFullPageWrites](../U/UpdateFullPageWrites.md)
+  - [GetXLogInsertRecPtr](../G/GetXLogInsertRecPtr.md)
 
 ## Notes and Other Information
 - Critical for maintaining WAL consistency and performance in multi-backend environments

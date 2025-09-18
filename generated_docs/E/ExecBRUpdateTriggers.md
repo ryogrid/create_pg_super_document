@@ -24,9 +24,9 @@ This function serves as a backward-compatibility wrapper for the older interface
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecBRUpdateTriggersNew
+  - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md)
 - Called from (representative examples):
-  - ExecSimpleRelationUpdate
+  - [ExecSimpleRelationUpdate](ExecSimpleRelationUpdate.md)
 
 ## Notes and Other Information
 - Marked as deprecated for new code - use ExecBRUpdateTriggersNew directly instead

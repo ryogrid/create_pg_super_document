@@ -22,7 +22,7 @@ PostgreSQL protocol messages contain multiple fields, each identified by a singl
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array member support)
-  - pgMessageField (the underlying struct type)
+  - [pgMessageField](../p/pgMessageField.md) (the underlying struct type)
 - Called from (representative examples):
   - Used in `pg_result` structure as `errFields` member
   - Referenced in `fe-exec.c` for message field processing and allocation

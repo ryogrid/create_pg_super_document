@@ -18,13 +18,13 @@ This function performs a safe conversion from PostgreSQL's internal numeric repr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - numericvar_to_int64
+  - [numericvar_to_int64](numericvar_to_int64.md)
   - PG_INT32_MIN
   - PG_INT32_MAX
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT
   - width_bucket_numeric
-  - numeric_int4_opt_error
+  - [numeric_int4_opt_error](numeric_int4_opt_error.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the numeric.c source file

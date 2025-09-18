@@ -53,12 +53,12 @@ The structure handles both regular window functions and plain aggregates used as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowFuncExprState
+  - [WindowFuncExprState](WindowFuncExprState.md)
   - WindowFunc
   - WindowObject
 - Called from (representative examples):
-  - ExecInitWindowAgg
-  - WindowStatePerFunc (typedef)
+  - [ExecInitWindowAgg](../E/ExecInitWindowAgg.md)
+  - [WindowStatePerFunc](WindowStatePerFunc.md) (typedef)
 
 ## Notes and Other Information
 - This structure is allocated once per window function during executor initialization and persists throughout query execution

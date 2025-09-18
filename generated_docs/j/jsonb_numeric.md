@@ -24,10 +24,10 @@ The function includes important memory management considerations, as it must cre
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_JSONB_P`: Extracts JSONB argument from function arguments
-  - `JsonbExtractScalar`: Extracts scalar value from JSONB structure
-  - `cannotCastJsonbValue`: Raises error for invalid type conversions
-  - `DatumGetNumericCopy`: Creates a copy of a numeric datum
-  - `NumericGetDatum`: Converts numeric to datum format
+  - `[JsonbExtractScalar](../J/JsonbExtractScalar.md)`: Extracts scalar value from JSONB structure
+  - `[cannotCastJsonbValue](../c/cannotCastJsonbValue.md)`: Raises error for invalid type conversions
+  - `[DatumGetNumericCopy](../D/DatumGetNumericCopy.md)`: Creates a copy of a numeric datum
+  - `[NumericGetDatum](../N/NumericGetDatum.md)`: Converts numeric to datum format
   - `PG_FREE_IF_COPY`: Frees memory if input was copied
   - `PG_RETURN_NUMERIC`: Returns numeric value as Datum
 - Called from (representative examples):

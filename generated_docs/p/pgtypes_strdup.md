@@ -23,13 +23,13 @@ This function is essential for creating independent copies of strings used in Po
 - Functions called/Symbols referenced:
   - `strdup` (standard C library function for string duplication)
 - Called from (representative examples):
-  - `PGTYPESdate_to_asc`
+  - `[PGTYPESdate_to_asc](../P/PGTYPESdate_to_asc.md)`
   - `PGTYPESdate_defmt_asc`
-  - `pgtypes_defmt_scan`
-  - `PGTYPESinterval_to_asc`
+  - `[pgtypes_defmt_scan](pgtypes_defmt_scan.md)`
+  - `[PGTYPESinterval_to_asc](../P/PGTYPESinterval_to_asc.md)`
   - `un_fmt_comb`
-  - `PGTYPEStimestamp_to_asc`
-  - `PGTYPEStimestamp_defmt_asc`
+  - `[PGTYPEStimestamp_to_asc](../P/PGTYPEStimestamp_to_asc.md)`
+  - `[PGTYPEStimestamp_defmt_asc](../P/PGTYPEStimestamp_defmt_asc.md)`
 
 ## Notes and Other Information
 - Returns a pointer to a newly allocated string containing a copy of the input string on success, or NULL on failure

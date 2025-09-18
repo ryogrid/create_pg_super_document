@@ -22,9 +22,9 @@ The ordering ensures that snapshots with older (smaller) xmin values are priorit
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_const_container
-  - SnapshotData
-  - TransactionIdPrecedes
-  - TransactionIdFollows
+  - [SnapshotData](../S/SnapshotData.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
 - Called from (representative examples):
   - RegisteredSnapshots pairing heap operations (as comparison callback)
 

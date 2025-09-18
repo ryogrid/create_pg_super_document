@@ -21,19 +21,19 @@ The function is extensively used throughout PostgreSQL's text search parsing inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mblen
-  - char2wchar
+  - [pg_mblen](../p/pg_mblen.md)
+  - [char2wchar](../c/char2wchar.md)
   - isspace (standard C library)
   - iswspace (standard C library)  
   - TOUCHAR
 - Called from (representative examples):
-  - findwrd (synonym dictionary)
-  - thesaurusRead (thesaurus dictionary)
-  - getNextFlagFromString (spell checking)
-  - NIImportDictionary (dictionary import)
-  - parse_affentry (affix parsing)
-  - gettoken_query_standard (query parsing)
-  - gettoken_tsvector (tsvector parsing)
+  - [findwrd](../f/findwrd.md) (synonym dictionary)
+  - [thesaurusRead](thesaurusRead.md) (thesaurus dictionary)
+  - [getNextFlagFromString](../g/getNextFlagFromString.md) (spell checking)
+  - [NIImportDictionary](../N/NIImportDictionary.md) (dictionary import)
+  - [parse_affentry](../p/parse_affentry.md) (affix parsing)
+  - [gettoken_query_standard](../g/gettoken_query_standard.md) (query parsing)
+  - [gettoken_tsvector](../g/gettoken_tsvector.md) (tsvector parsing)
   - COPYCHAR
 
 ## Notes and Other Information

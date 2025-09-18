@@ -19,9 +19,9 @@ This function performs a simple but critical operation in PostgreSQL's logging i
 - Functions called/Symbols referenced:
   - formatted_start_time (static buffer variable)
 - Called from (representative examples):
-  - write_csvlog (src/backend/utils/error/csvlog.c:83)
-  - log_status_format (src/backend/utils/error/elog.c:2833)
-  - write_jsonlog (src/backend/utils/error/jsonlog.c:130)
+  - [write_csvlog](../w/write_csvlog.md) (src/backend/utils/error/csvlog.c:83)
+  - [log_status_format](../l/log_status_format.md) (src/backend/utils/error/elog.c:2833)
+  - [write_jsonlog](../w/write_jsonlog.md) (src/backend/utils/error/jsonlog.c:130)
 
 ## Notes and Other Information
 - This function operates on a static buffer  that stores cached timestamp strings

@@ -29,8 +29,8 @@ The design allows PostgreSQL to distinguish between different versions of the de
 - Functions called/Symbols referenced:
   - FullTransactionId
 - Called from (representative examples):
-  - GistPageSetDeleted (inline function that initializes deleted pages)
-  - GistPageGetDeleteXid (inline function that retrieves the delete transaction ID)
+  - [GistPageSetDeleted](GistPageSetDeleted.md) (inline function that initializes deleted pages)
+  - [GistPageGetDeleteXid](GistPageGetDeleteXid.md) (inline function that retrieves the delete transaction ID)
 
 ## Notes and Other Information
 - The structure is stored directly after the page header instead of using the normal tuple storage layout

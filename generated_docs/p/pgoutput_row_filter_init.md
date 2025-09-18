@@ -19,23 +19,23 @@ This function is responsible for initializing row filters for a synchronized rel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_namespace
+  - [get_rel_namespace](../g/get_rel_namespace.md)
   - SearchSysCacheExists2
-  - SearchSysCache2
-  - SysCacheGetAttr
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - TextDatumGetCString
-  - list_free_deep
-  - RelationIdGetRelation
-  - pgoutput_ensure_entry_cxt
-  - create_estate_for_relation
-  - stringToNode
-  - make_orclause
-  - ExecPrepareExpr
-  - RelationClose
+  - [list_free_deep](../l/list_free_deep.md)
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md)
+  - [pgoutput_ensure_entry_cxt](pgoutput_ensure_entry_cxt.md)
+  - [create_estate_for_relation](../c/create_estate_for_relation.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [make_orclause](../m/make_orclause.md)
+  - [ExecPrepareExpr](../E/ExecPrepareExpr.md)
+  - [RelationClose](../R/RelationClose.md)
   - PUBACTION_INSERT/UPDATE/DELETE constants
   - NUM_ROWFILTER_PUBACTIONS
 - Called from (representative examples):
-  - get_rel_sync_entry
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
 
 ## Notes and Other Information
 - The function uses a three-element array (rfnodes) to collect row filter expressions separately for INSERT, UPDATE, and DELETE operations

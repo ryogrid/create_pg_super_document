@@ -22,13 +22,13 @@ This is a simple wrapper function that invokes the user-defined hash function st
 ## Dependencies
 - Functions called/Symbols referenced:
   - hash_table->params.hash_function (user-defined hash function)
-  - dshash_table (type)
+  - [dshash_table](../d/dshash_table.md) (type)
   - dshash_hash (return type)
 - Called from (representative examples):
-  - dshash_find
-  - dshash_find_or_insert
-  - dshash_delete_key
-  - compute_tsvector_stats
+  - [dshash_find](../d/dshash_find.md)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md)
+  - [dshash_delete_key](../d/dshash_delete_key.md)
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
 
 ## Notes and Other Information
 - This is a static inline function for maximum performance

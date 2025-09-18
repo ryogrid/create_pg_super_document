@@ -22,13 +22,13 @@ The search process iterates through all namespace items in the current parse sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - scanNSItemForColumn
-  - check_lateral_ref_ok
-  - ParseNamespaceItem
-  - FuzzyAttrMatchState
+  - [scanNSItemForColumn](../s/scanNSItemForColumn.md)
+  - [check_lateral_ref_ok](check_lateral_ref_ok.md)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [FuzzyAttrMatchState](../F/FuzzyAttrMatchState.md)
 - Called from (representative examples):
-  - findTargetlistEntrySQL92
-  - CRERR_TOO_MANY
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md)
+  - [CRERR_TOO_MANY](../C/CRERR_TOO_MANY.md)
 
 ## Notes and Other Information
 - Returns NULL if the column name is not found

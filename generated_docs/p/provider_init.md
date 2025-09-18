@@ -25,11 +25,11 @@ This function takes no parameters but uses several key variables:
   - snprintf
   - elog (with DEBUG1 level)
   - pg_file_exists
-  - load_external_function
-  - _PG_jit_provider_init (dynamically loaded function)
+  - [load_external_function](../l/load_external_function.md)
+  - [_PG_jit_provider_init](../P/_PG_jit_provider_init.md) (dynamically loaded function)
 - Called from (representative examples):
-  - pg_jit_available
-  - jit_compile_expr
+  - [pg_jit_available](pg_jit_available.md)
+  - [jit_compile_expr](../j/jit_compile_expr.md)
 
 ## Notes and Other Information
 - Located in src/backend/jit/jit.c:67-126

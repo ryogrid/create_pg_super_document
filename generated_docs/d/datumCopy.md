@@ -27,26 +27,26 @@ The function is particularly important when copying datums out of transient memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - VARATT_IS_EXTERNAL_EXPANDED
   - DatumGetEOHP
   - EOH_get_flat_size
   - EOH_flatten_into
   - VARSIZE_ANY
-  - datumGetSize
-  - palloc
+  - [datumGetSize](datumGetSize.md)
+  - [palloc](../p/palloc.md)
   - memcpy
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - union_tuples (BRIN)
-  - brin_inclusion_add_value
-  - brin_minmax_add_value
-  - ExecAggInitGroup
-  - advance_transition_function
-  - _copyConst
-  - accumArrayResult
-  - datumTransfer
-  - tuplesort_putdatum
+  - [union_tuples](../u/union_tuples.md) (BRIN)
+  - [brin_inclusion_add_value](../b/brin_inclusion_add_value.md)
+  - [brin_minmax_add_value](../b/brin_minmax_add_value.md)
+  - [ExecAggInitGroup](../E/ExecAggInitGroup.md)
+  - [advance_transition_function](../a/advance_transition_function.md)
+  - [_copyConst](../c/_copyConst.md)
+  - [accumArrayResult](../a/accumArrayResult.md)
+  - [datumTransfer](datumTransfer.md)
+  - [tuplesort_putdatum](../t/tuplesort_putdatum.md)
 
 ## Notes and Other Information
 - The function assumes the input datum is non-NULL; NULL datums should be handled by the caller

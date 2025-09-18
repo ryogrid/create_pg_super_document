@@ -22,17 +22,17 @@ This function is part of PostgreSQL's multirange type system introduced to handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pnstrdup: Creates a null-terminated copy of a string with specified length
-  - psprintf: PostgreSQL's sprintf equivalent for formatted string creation
-  - pg_mbcliplen: Multibyte-aware string clipping function
+  - [pnstrdup](../p/pnstrdup.md): Creates a null-terminated copy of a string with specified length
+  - [psprintf](../p/psprintf.md): PostgreSQL's sprintf equivalent for formatted string creation
+  - [pg_mbcliplen](../p/pg_mbcliplen.md): Multibyte-aware string clipping function
   - SearchSysCacheExists2: Checks if a type name already exists in the system catalog
-  - CStringGetDatum: Converts C string to PostgreSQL Datum
-  - ObjectIdGetDatum: Converts OID to PostgreSQL Datum
-  - pstrdup: Creates a copy of a string
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C string to PostgreSQL Datum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md): Converts OID to PostgreSQL Datum
+  - [pstrdup](../p/pstrdup.md): Creates a copy of a string
   - NAMEDATALEN: Constant defining maximum name length
   - ERRCODE_DUPLICATE_OBJECT: Error code for duplicate object conflicts
 - Called from (representative examples):
-  - DefineRange: When creating range types that need corresponding multirange types
+  - [DefineRange](../D/DefineRange.md): When creating range types that need corresponding multirange types
 
 ## Notes and Other Information
 The caller is responsible for freeing the returned string using pfree(). The function uses a sophisticated naming strategy that preserves readability by replacing "range" with "multirange" when possible, falling back to suffix addition when "range" is not found in the name. If a naming conflict occurs, it provides detailed error messages with hints about manually specifying multirange type names using the "multirange_type_name" attribute. The function respects PostgreSQL's multibyte character encoding by using pg_mbcliplen for proper string truncation.

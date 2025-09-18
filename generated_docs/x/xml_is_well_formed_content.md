@@ -20,7 +20,7 @@ The function specifically validates XML content (as opposed to XML documents), m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - wellformed_xml (core validation function)
+  - [wellformed_xml](../w/wellformed_xml.md) (core validation function)
   - XMLOPTION_CONTENT (specifies content validation mode)
   - NO_XML_SUPPORT (error macro when libxml2 unavailable)
 - Called from (representative examples):

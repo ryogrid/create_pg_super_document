@@ -25,10 +25,10 @@ The structure is used primarily in the relation cache system to store precompute
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PublicationActions (embedded structure at line 82)
+  - [PublicationActions](PublicationActions.md) (embedded structure at line 82)
 - Called from (representative examples):
-  - CheckCmdReplicaIdentity (src/backend/executor/execReplication.c:658)
-  - RelationBuildPublicationDesc (src/backend/utils/cache/relcache.c:5728)
+  - [CheckCmdReplicaIdentity](../C/CheckCmdReplicaIdentity.md) (src/backend/executor/execReplication.c:658)
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md) (src/backend/utils/cache/relcache.c:5728)
   - RelationData (src/include/utils/rel.h:168)
   - IndexAttrBitmapKind (src/include/utils/relcache.h:81)
 

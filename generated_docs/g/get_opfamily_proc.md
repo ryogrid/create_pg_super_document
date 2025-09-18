@@ -29,18 +29,18 @@ The function returns the OID of the procedure if found, or InvalidOid if no matc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache4
+  - [SearchSysCache4](../S/SearchSysCache4.md)
   - Form_pg_amproc
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - HeapTupleIsValid
   - Int16GetDatum
   - RegProcedure
 - Called from (representative examples):
-  - get_op_hash_functions
-  - _bt_setup_array_cmp
-  - _hash_datum2hashkey_type
-  - ExecInitExprRec
-  - lookup_type_cache
+  - [get_op_hash_functions](get_op_hash_functions.md)
+  - [_bt_setup_array_cmp](../b/_bt_setup_array_cmp.md)
+  - [_hash_datum2hashkey_type](../h/_hash_datum2hashkey_type.md)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - FinishSortSupportFunction
 
 ## Notes and Other Information

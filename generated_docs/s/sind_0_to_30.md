@@ -28,8 +28,8 @@ The implementation uses the standard C library  function after converting the de
   - RADIANS_PER_DEGREE: Conversion constant from degrees to radians
   - sin_30: Precomputed sine of 30 degrees constant (used in scaling)
 - Called from (representative examples):
-  - sind_q1: First quadrant sine computation function at src/backend/utils/adt/float.c:2281
-  - cosd_q1: First quadrant cosine computation function at src/backend/utils/adt/float.c:2303
+  - [sind_q1](sind_q1.md): First quadrant sine computation function at src/backend/utils/adt/float.c:2281
+  - [cosd_q1](../c/cosd_q1.md): First quadrant cosine computation function at src/backend/utils/adt/float.c:2303
 
 ## Notes and Other Information
 - This is a static helper function, not directly accessible outside the float.c compilation unit

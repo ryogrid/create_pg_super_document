@@ -22,13 +22,13 @@ The lo_lseek function is the client-side implementation for seeking within a Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
+  - [lo_initialize](lo_initialize.md)
   - PQfn
   - PQArgBlock
   - PGRES_COMMAND_OK
 - Called from (representative examples):
-  - pickout (test example)
-  - overwrite (test example)
+  - [pickout](../p/pickout.md) (test example)
+  - [overwrite](../o/overwrite.md) (test example)
 
 ## Notes and Other Information
 - Returns the new position within the large object, or -1 on error

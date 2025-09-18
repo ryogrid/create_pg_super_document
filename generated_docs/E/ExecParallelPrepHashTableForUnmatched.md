@@ -29,19 +29,19 @@ The wait-free approach prevents deadlocks that could occur if workers blocked wa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashJoinState (struct type)
-  - HashJoinTable (struct type)
+  - [HashJoinState](../H/HashJoinState.md) (struct type)
+  - [HashJoinTable](../H/HashJoinTable.md) (struct type)
   - ParallelHashJoinBatch (struct type)
   - PHJ_BATCH_PROBE (barrier phase constant)
   - BarrierPhase (barrier state query function)
   - BarrierArriveAndDetachExceptLast (barrier coordination function)
-  - sts_end_parallel_scan (shared tuple store cleanup)
+  - [sts_end_parallel_scan](../s/sts_end_parallel_scan.md) (shared tuple store cleanup)
   - dsa_pointer_atomic (dynamic shared memory type)
   - PHJ_BATCH_SCAN (barrier phase constant)
-  - ExecHashTableDetachBatch (batch cleanup function)
-  - ExecPrepHashTableForUnmatched (local state setup)
+  - [ExecHashTableDetachBatch](ExecHashTableDetachBatch.md) (batch cleanup function)
+  - [ExecPrepHashTableForUnmatched](ExecPrepHashTableForUnmatched.md) (local state setup)
 - Called from (representative examples):
-  - ExecHashJoinImpl
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md)
 
 ## Notes and Other Information
 - Returns true if this worker should perform the unmatched scan, false otherwise

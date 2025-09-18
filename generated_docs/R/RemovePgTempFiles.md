@@ -30,8 +30,8 @@ This function takes no parameters and operates on the current PostgreSQL data di
   - AllocateDir, ReadDirExtended, FreeDir (directory traversal functions)
   - PG_TEMP_FILES_DIR, TABLESPACE_VERSION_DIRECTORY (path constants)
 - Called from (representative examples):
-  - PostmasterMain (during normal server startup)
-  - PostmasterStateMachine (during crash recovery)
+  - [PostmasterMain](../P/PostmasterMain.md) (during normal server startup)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md) (during crash recovery)
 
 ## Notes and Other Information
 - This function is called only during postmaster startup, not during normal operation

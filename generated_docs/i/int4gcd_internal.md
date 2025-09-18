@@ -30,8 +30,8 @@ The algorithm follows mathematical GCD properties where the result is always the
   - `PG_INT32_MIN`: Constant representing the minimum value for a 32-bit signed integer
   - `ereport()`: PostgreSQL error reporting function for overflow cases
 - Called from (representative examples):
-  - `int4gcd`: Public GCD function wrapper
-  - `int4lcm`: Least common multiple function
+  - `[int4gcd](int4gcd.md)`: Public GCD function wrapper
+  - `[int4lcm](int4lcm.md)`: Least common multiple function
 
 ## Notes and Other Information
 - Static function, only accessible within the same compilation unit

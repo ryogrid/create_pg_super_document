@@ -29,17 +29,17 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlStatement
-  - ExecuteSqlQueryForSingleRow
-  - convertRegProcReference
-  - getFormattedOperatorName
-  - fmtId
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [convertRegProcReference](../c/convertRegProcReference.md)
+  - [getFormattedOperatorName](../g/getFormattedOperatorName.md)
+  - [fmtId](../f/fmtId.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - pg_log_warning
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

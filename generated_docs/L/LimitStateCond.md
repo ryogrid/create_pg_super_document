@@ -25,7 +25,7 @@ LimitStateCond implements a state machine for PostgreSQL's LIMIT and OFFSET clau
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a simple enumeration)
 - Called from (representative examples):
-  - LimitState (used as lstate field at execnodes.h:2845)
+  - [LimitState](LimitState.md) (used as lstate field at execnodes.h:2845)
   - nodeLimit.c:ExecLimit() (extensive state machine logic throughout function)
   - nodeLimit.c:ExecReScanLimit() (state reset to LIMIT_RESCAN at line 415)
   - nodeLimit.c:ExecInitLimit() (initialization to LIMIT_INITIAL at line 463)

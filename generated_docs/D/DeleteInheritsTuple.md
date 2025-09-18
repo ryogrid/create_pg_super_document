@@ -31,14 +31,14 @@ The function scans pg_inherits by inhrelid (child relation) and optionally filte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - systable_beginscan: Begins system table scan on pg_inherits
-  - systable_getnext: Gets next tuple from the system scan
+  - [systable_beginscan](../s/systable_beginscan.md): Begins system table scan on pg_inherits
+  - [systable_getnext](../s/systable_getnext.md): Gets next tuple from the system scan
   - Form_pg_inherits: Accesses structured data from pg_inherits tuple
-  - CatalogTupleDelete: Deletes the tuple from the system catalog
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Deletes the tuple from the system catalog
 - Called from (representative examples):
   - index_concurrently_swap: During concurrent index operations
-  - index_drop: When dropping indexes with inheritance
-  - RemoveInheritance: Higher-level inheritance removal function
+  - [index_drop](../i/index_drop.md): When dropping indexes with inheritance
+  - [RemoveInheritance](../R/RemoveInheritance.md): Higher-level inheritance removal function
 
 ## Notes and Other Information
 - Returns true if at least one row was deleted, false otherwise

@@ -23,8 +23,8 @@ The isCommit parameter controls whether callbacks are actually executed or just 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExprContext_CB (callback structure type)
-  - MemoryContextSwitchTo (memory context switching)
-  - pfree (memory deallocation)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context switching)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
   - FreeExprContext (during context destruction)
   - ReScanExprContext (during context reset/rescan)

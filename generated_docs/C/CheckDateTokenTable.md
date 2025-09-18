@@ -27,8 +27,8 @@ This function performs critical validation of PostgreSQL's internal date/time to
   - strcmp (standard C library function)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - CheckDateTokenTables (in src/backend/utils/adt/datetime.c)
-  - ConvertTimeZoneAbbrevs (in src/backend/utils/adt/datetime.c)
+  - [CheckDateTokenTables](CheckDateTokenTables.md) (in src/backend/utils/adt/datetime.c)
+  - [ConvertTimeZoneAbbrevs](ConvertTimeZoneAbbrevs.md) (in src/backend/utils/adt/datetime.c)
 
 ## Notes and Other Information
 - Logs errors using LOG level, which allows administrators to detect table corruption issues during startup

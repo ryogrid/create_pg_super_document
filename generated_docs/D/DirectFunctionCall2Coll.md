@@ -29,7 +29,7 @@ The function uses the `LOCAL_FCINFO` macro to create a local function call info 
   - elog (for error reporting when function returns NULL)
 
 - Called from (representative examples):
-  - spg_text_leaf_consistent (SP-GiST text processing)
+  - [spg_text_leaf_consistent](../s/spg_text_leaf_consistent.md) (SP-GiST text processing)
   - text_isequal (text equality comparison)
   - texteqfast (fast text equality for catalog cache)
   - DirectFunctionCall2 (as a fallback in the macro definition)

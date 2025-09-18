@@ -22,7 +22,7 @@ The function follows PostgreSQL's object access hook pattern, where extensions r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAccessNamespaceSearch (struct type for hook arguments)
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md) (struct type for hook arguments)
   - OAT_NAMESPACE_SEARCH (object access type constant)
   - object_access_hook_str (global hook function pointer)
   - NamespaceRelationId (system catalog relation ID constant)

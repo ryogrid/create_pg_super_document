@@ -22,19 +22,19 @@ This function is called after DefineRelation() to complete the creation of a for
 - Functions called/Symbols referenced:
   - CommandCounterIncrement
   - table_open
-  - GetUserId
-  - GetForeignServerByName
-  - object_aclcheck
-  - aclcheck_error
-  - GetForeignDataWrapper
-  - transformGenericOptions
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - recordDependencyOn
+  - [GetUserId](../G/GetUserId.md)
+  - [GetForeignServerByName](../G/GetForeignServerByName.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - table_close
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 The function is designed to be called as a second phase after the basic relation has been created, requiring a command counter increment to ensure visibility of any previous tuple updates. Currently, the table owner is always set to the effective user ID and cannot be specified during creation. The function establishes a normal dependency on the foreign server, ensuring that foreign tables are properly dropped when their associated server is removed.

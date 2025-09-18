@@ -27,22 +27,22 @@ The function must handle different scenarios during normal operations versus ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistcheckpage
-  - gistFindPath
+  - [gistcheckpage](gistcheckpage.md)
+  - [gistFindPath](gistFindPath.md)
   - GistPageGetOpaque
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
-  - PageGetLSN
-  - ItemPointerGetBlockNumber
-  - ReadBuffer
-  - LockBuffer
-  - UnlockReleaseBuffer
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetLSN](../P/PageGetLSN.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - ReleaseBuffer
 - Called from (representative examples):
-  - gistformdownlink
-  - gistfinishsplit
-  - gistFindCorrectParent (recursive)
+  - [gistformdownlink](gistformdownlink.md)
+  - [gistfinishsplit](gistfinishsplit.md)
+  - [gistFindCorrectParent](gistFindCorrectParent.md) (recursive)
 
 ## Notes and Other Information
 - The function requires the child's parent to be exclusively locked on entry and maintains this lock on exit

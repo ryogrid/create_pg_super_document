@@ -21,7 +21,7 @@ IncrementalSortExecutionStatus manages the execution state machine of PostgreSQL
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a simple enumeration)
 - Called from (representative examples):
-  - IncrementalSortState (used as execution_status field at execnodes.h:2396)
+  - [IncrementalSortState](IncrementalSortState.md) (used as execution_status field at execnodes.h:2396)
   - nodeIncrementalSort.c:ExecIncrementalSort() (state transitions throughout)
   - nodeIncrementalSort.c:switchToPresortedPrefixMode() (assignments at lines 418, 454)
   - nodeIncrementalSort.c:ExecInitIncrementalSort() (initialization at line 995)

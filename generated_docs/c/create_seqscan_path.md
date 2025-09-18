@@ -30,15 +30,15 @@ Key characteristics of the created path:
 - Functions called/Symbols referenced:
   - makeNode (creates new Path node)
   - get_baserel_parampathinfo (handles parameterization)
-  - cost_seqscan (calculates scan costs)
+  - [cost_seqscan](cost_seqscan.md) (calculates scan costs)
   - T_SeqScan (pathtype constant)
   - NIL (empty list constant)
 
 - Called from (representative examples):
-  - set_plain_rel_pathlist
-  - create_plain_partial_paths
-  - plan_cluster_use_sort
-  - reparameterize_path
+  - [set_plain_rel_pathlist](../s/set_plain_rel_pathlist.md)
+  - [create_plain_partial_paths](create_plain_partial_paths.md)
+  - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
 - Sequential scans always produce unordered results, hence pathkeys is set to NIL

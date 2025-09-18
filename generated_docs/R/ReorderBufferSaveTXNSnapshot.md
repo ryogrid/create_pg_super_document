@@ -23,12 +23,12 @@ ReorderBufferSaveTXNSnapshot is responsible for preserving transaction state (co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBuffer (struct type)
-  - ReorderBufferTXN (struct type)
+  - [ReorderBuffer](ReorderBuffer.md) (struct type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (struct type)
   - CommandId (type)
-  - ReorderBufferCopySnap (function for snapshot copying)
+  - [ReorderBufferCopySnap](ReorderBufferCopySnap.md) (function for snapshot copying)
 - Called from (representative examples):
-  - ReorderBufferResetTXN
+  - [ReorderBufferResetTXN](ReorderBufferResetTXN.md)
   - CHANGES_THRESHOLD (related functionality)
 
 ## Notes and Other Information

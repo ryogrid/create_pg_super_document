@@ -46,7 +46,7 @@ Important constraints:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_var_clause_walker (the actual tree walker implementation)
+  - [pull_var_clause_walker](pull_var_clause_walker.md) (the actual tree walker implementation)
   - Assert (for validating flag combinations)
 - Constants used:
   - PVC_INCLUDE_AGGREGATES, PVC_RECURSE_AGGREGATES
@@ -55,10 +55,10 @@ Important constraints:
 - Data structures used:
   - pull_var_clause_context (context structure with varlist and flags)
 - Called from (examples):
-  - StoreRelCheck (src/backend/catalog/heap.c:2152)
-  - qual_is_pushdown_safe (src/backend/optimizer/path/allpaths.c:3888)
-  - build_base_rel_tlists (src/backend/optimizer/plan/initsplan.c:236)
-  - preprocess_targetlist (src/backend/optimizer/prep/preptlist.c:166)
+  - [StoreRelCheck](../S/StoreRelCheck.md) (src/backend/catalog/heap.c:2152)
+  - [qual_is_pushdown_safe](../q/qual_is_pushdown_safe.md) (src/backend/optimizer/path/allpaths.c:3888)
+  - [build_base_rel_tlists](../b/build_base_rel_tlists.md) (src/backend/optimizer/plan/initsplan.c:236)
+  - [preprocess_targetlist](preprocess_targetlist.md) (src/backend/optimizer/prep/preptlist.c:166)
 
 ## Notes and Other Information
 - Returns a List of Node pointers - the actual nodes, not copies

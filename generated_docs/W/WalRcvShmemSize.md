@@ -17,11 +17,11 @@ This function is responsible for calculating the total shared memory size needed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size
-  - WalRcvData
+  - [add_size](../a/add_size.md)
+  - [WalRcvData](WalRcvData.md)
 - Called from (representative examples):
-  - WalRcvShmemInit
-  - CalculateShmemSize
+  - [WalRcvShmemInit](WalRcvShmemInit.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
 
 ## Notes and Other Information
 - Located in src/backend/replication/walreceiverfuncs.c:43-53

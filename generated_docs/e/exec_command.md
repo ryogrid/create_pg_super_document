@@ -23,13 +23,13 @@ The function implements special handling for commands that return PSQL_CMD_SEND 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_active
-  - is_branching_command
+  - [conditional_active](../c/conditional_active.md)
+  - [is_branching_command](../i/is_branching_command.md)
   - pg_log_warning
-  - exec_command_a, exec_command_bind, exec_command_C (and many other command handlers)
-  - copy_previous_query
+  - [exec_command_a](exec_command_a.md), exec_command_bind, exec_command_C (and many other command handlers)
+  - [copy_previous_query](../c/copy_previous_query.md)
 - Called from (representative examples):
-  - HandleSlashCmds (src/bin/psql/command.c:248)
+  - [HandleSlashCmds](../H/HandleSlashCmds.md) (src/bin/psql/command.c:248)
 
 ## Notes and Other Information
 - Returns backslashResult status codes: typically PSQL_CMD_SKIP_LINE for success, PSQL_CMD_ERROR for failure, or PSQL_CMD_UNKNOWN for unrecognized commands

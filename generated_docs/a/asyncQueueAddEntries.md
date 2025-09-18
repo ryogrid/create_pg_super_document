@@ -30,22 +30,22 @@ The function processes notifications from the pendingNotifies list, converting e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asyncQueueNotificationToEntry (to convert notifications to queue entries)
-  - asyncQueueAdvance (to advance queue position)
-  - SimpleLruGetBankLock (to get SLRU bank lock for page)
-  - SimpleLruZeroPage (to initialize new pages)
-  - SimpleLruReadPage (to read existing pages)
+  - [asyncQueueNotificationToEntry](asyncQueueNotificationToEntry.md) (to convert notifications to queue entries)
+  - [asyncQueueAdvance](asyncQueueAdvance.md) (to advance queue position)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (to get SLRU bank lock for page)
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md) (to initialize new pages)
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md) (to read existing pages)
   - LWLockAcquire/LWLockRelease (for locking)
   - QUEUE_HEAD, QUEUE_POS_PAGE, QUEUE_POS_OFFSET (queue position macros)
   - QUEUE_POS_IS_ZERO (to check for first write)
   - QUEUE_PAGESIZE (page size constant)
   - QUEUE_CLEANUP_DELAY (cleanup scheduling constant)
   - NotifyCtl (SLRU control structure)
-  - lnext (list navigation)
+  - [lnext](../l/lnext.md) (list navigation)
   - memcpy (for data copying)
 
 - Called from:
-  - PreCommit_Notify (during transaction commit to flush pending notifications)
+  - [PreCommit_Notify](../P/PreCommit_Notify.md) (during transaction commit to flush pending notifications)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

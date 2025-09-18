@@ -26,16 +26,16 @@ This PostgreSQL SQL function creates a logical replication slot for logical deco
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME
   - PG_GETARG_BOOL
-  - get_call_result_type
-  - CheckSlotPermissions
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [CheckSlotPermissions](../C/CheckSlotPermissions.md)
   - CheckLogicalDecodingRequirements
-  - create_logical_replication_slot
-  - NameGetDatum
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
+  - [NameGetDatum](../N/NameGetDatum.md)
   - LSNGetDatum
-  - heap_form_tuple
-  - HeapTupleGetDatum
-  - ReplicationSlotPersist
-  - ReplicationSlotRelease
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md)
+  - [ReplicationSlotPersist](../R/ReplicationSlotPersist.md)
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
   - PG_RETURN_DATUM
   - TYPEFUNC_COMPOSITE
 - Called from:

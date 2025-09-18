@@ -24,9 +24,9 @@ This mechanism optimizes performance by avoiding redundant preparation of identi
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchStmtCache
-  - ecpg_log
+  - [ecpg_log](ecpg_log.md)
   - ecpg_get_connection
-  - ecpg_find_prepared_statement
+  - [ecpg_find_prepared_statement](ecpg_find_prepared_statement.md)
   - prepare_common
   - ecpg_strdup
   - ECPGprepare

@@ -21,11 +21,11 @@ PgStat_StatFuncEntry maintains execution statistics for individual user-defined 
 - Functions called/Symbols referenced:
   - PgStat_Counter (statistics counter type)
 - Called from (representative examples):
-  - find_funcstat_entry (function statistics lookup)
-  - pgstat_fetch_stat_funcentry (statistics retrieval for specific function)
+  - [find_funcstat_entry](../f/find_funcstat_entry.md) (function statistics lookup)
+  - [pgstat_fetch_stat_funcentry](../p/pgstat_fetch_stat_funcentry.md) (statistics retrieval for specific function)
   - PG_STAT_GET_FUNCENTRY_FLOAT8_MS (SQL interface macro for timing statistics)
   - pgstat_count_conn_txn_idle_time (connection timing statistics)
-  - PgStatShared_Function (shared memory statistics structure)
+  - [PgStatShared_Function](PgStatShared_Function.md) (shared memory statistics structure)
 
 ## Notes and Other Information
 - This structure is the foundation for PostgreSQL's pg_stat_user_functions system view

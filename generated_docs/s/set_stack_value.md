@@ -23,10 +23,10 @@ For string variables, the function uses  to ensure proper memory management and 
   - config_var_value, config_generic (structure types)
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM (GUC variable type constants)
   - config_bool, config_int, config_real, config_string, config_enum (type-specific structures)
-  - set_string_field (for string value copying with memory management)
-  - set_extra_field (for extra data copying with memory management)
+  - [set_string_field](set_string_field.md) (for string value copying with memory management)
+  - [set_extra_field](set_extra_field.md) (for extra data copying with memory management)
 - Called from (representative examples):
-  - push_old_value (when saving current values before changes)
+  - [push_old_value](../p/push_old_value.md) (when saving current values before changes)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/utils/misc/guc.c

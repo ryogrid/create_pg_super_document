@@ -20,10 +20,10 @@ The function is designed to work with PostgreSQL's hash table infrastructure, fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashRowType
-  - RecordCacheEntry (struct type)
+  - [hashRowType](../h/hashRowType.md)
+  - [RecordCacheEntry](../R/RecordCacheEntry.md) (struct type)
 - Called from (representative examples):
-  - assign_record_type_typmod (src/backend/utils/cache/typcache.c:1969)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md) (src/backend/utils/cache/typcache.c:1969)
 
 ## Notes and Other Information
 - This is a static function internal to typcache.c, not exposed to external modules

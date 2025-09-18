@@ -31,27 +31,27 @@ The function includes special handling for RECORD types in row expressions and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - internal_get_result_type
-  - get_opcode
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
-  - TupleDescInitEntryCollation
-  - BlessTupleDesc
+  - [internal_get_result_type](../i/internal_get_result_type.md)
+  - [get_opcode](get_opcode.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md)
+  - [BlessTupleDesc](../B/BlessTupleDesc.md)
   - DatumGetHeapTupleHeader
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
-  - lookup_rowtype_tupdesc_copy
+  - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md)
   - exprType
   - exprTypmod
-  - exprCollation
-  - get_type_func_class
+  - [exprCollation](../e/exprCollation.md)
+  - [get_type_func_class](get_type_func_class.md)
 - Called from (representative examples):
-  - init_sexpr
-  - ExecInitFunctionScan
-  - pull_up_constant_function
-  - inline_function
-  - addRangeTableEntryForFunction
-  - get_expr_result_tupdesc
+  - [init_sexpr](../i/init_sexpr.md)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md)
+  - [pull_up_constant_function](../p/pull_up_constant_function.md)
+  - [inline_function](../i/inline_function.md)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
+  - [get_expr_result_tupdesc](get_expr_result_tupdesc.md)
 
 ## Notes and Other Information
 - Provides comprehensive expression type analysis covering the major PostgreSQL expression node types

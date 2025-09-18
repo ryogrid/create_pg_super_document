@@ -18,13 +18,13 @@ This structure serves as the key component for hash tables that maintain mapping
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (PostgreSQL relation file identification structure)
-  - ItemPointerData (PostgreSQL tuple ID structure)
+  - [RelFileLocator](RelFileLocator.md) (PostgreSQL relation file identification structure)
+  - [ItemPointerData](../I/ItemPointerData.md) (PostgreSQL tuple ID structure)
 - Called from (representative examples):
-  - ReorderBufferTupleCidEnt (at src/backend/replication/logical/reorderbuffer.c:143)
-  - ReorderBufferBuildTupleCidHash (at src/backend/replication/logical/reorderbuffer.c:1786, 1800, 1810)
-  - ApplyLogicalMappingFile (at src/backend/replication/logical/reorderbuffer.c:5227, 5233)
-  - ResolveCminCmaxDuringDecoding (at src/backend/replication/logical/reorderbuffer.c:5409)
+  - [ReorderBufferTupleCidEnt](ReorderBufferTupleCidEnt.md) (at src/backend/replication/logical/reorderbuffer.c:143)
+  - [ReorderBufferBuildTupleCidHash](ReorderBufferBuildTupleCidHash.md) (at src/backend/replication/logical/reorderbuffer.c:1786, 1800, 1810)
+  - [ApplyLogicalMappingFile](../A/ApplyLogicalMappingFile.md) (at src/backend/replication/logical/reorderbuffer.c:5227, 5233)
+  - [ResolveCminCmaxDuringDecoding](ResolveCminCmaxDuringDecoding.md) (at src/backend/replication/logical/reorderbuffer.c:5409)
 
 ## Notes and Other Information
 This key structure is specifically designed for PostgreSQL's hash table implementation and is used to create (relfilelocator, ctid) => (cmin, cmax) mappings. The structure enables efficient lookup of command ID information for specific tuples during logical decoding, which is crucial for determining tuple visibility and maintaining transactional consistency in logical replication scenarios.

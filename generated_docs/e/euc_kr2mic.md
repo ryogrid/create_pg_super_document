@@ -23,13 +23,13 @@ This static function implements the core logic for converting EUC-KR encoded tex
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if character has high bit set)
-  - pg_encoding_verifymbchar (validates multi-byte character sequences)
-  - report_invalid_encoding (reports encoding validation errors)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md) (validates multi-byte character sequences)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (reports encoding validation errors)
 - Constants referenced:
   - PG_EUC_KR (EUC-KR encoding identifier)
   - LC_KS5601 (MULE language code for Korean KS5601 character set)
 - Called from:
-  - euc_kr_to_mic (PostgreSQL wrapper function)
+  - [euc_kr_to_mic](euc_kr_to_mic.md) (PostgreSQL wrapper function)
 
 ## Notes and Other Information
 - This is a static (internal) function that implements the actual conversion logic

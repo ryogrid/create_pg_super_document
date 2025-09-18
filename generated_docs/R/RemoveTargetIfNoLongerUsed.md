@@ -21,19 +21,19 @@ This function is essential for memory management in the serializable snapshot is
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockHeldByMe
-  - dlist_is_empty
-  - hash_search_with_hash_value
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
   - HASH_REMOVE
   - PREDICATELOCKTARGET (data structure)
   - PG_USED_FOR_ASSERTS_ONLY (macro)
 - Called from (representative examples):
-  - SerialControl
-  - DeleteChildTargetLocks
-  - DeleteLockTarget
-  - TransferPredicateLocksToNewTarget
-  - ClearOldPredicateLocks
-  - ReleaseOneSerializableXact
-  - CheckTargetForConflictsIn
+  - [SerialControl](../S/SerialControl.md)
+  - [DeleteChildTargetLocks](../D/DeleteChildTargetLocks.md)
+  - [DeleteLockTarget](../D/DeleteLockTarget.md)
+  - [TransferPredicateLocksToNewTarget](../T/TransferPredicateLocksToNewTarget.md)
+  - [ClearOldPredicateLocks](../C/ClearOldPredicateLocks.md)
+  - [ReleaseOneSerializableXact](ReleaseOneSerializableXact.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within the predicate.c file

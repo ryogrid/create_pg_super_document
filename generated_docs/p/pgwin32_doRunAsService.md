@@ -18,12 +18,12 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - StartServiceCtrlDispatcher (Windows API)
-  - pgwin32_ServiceMain
-  - write_stderr
+  - [pgwin32_ServiceMain](pgwin32_ServiceMain.md)
+  - [write_stderr](../w/write_stderr.md)
   - GetLastError (Windows API)
   - exit
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This function is Windows-specific and only available when PostgreSQL is compiled for Windows platforms

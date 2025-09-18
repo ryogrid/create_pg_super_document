@@ -21,13 +21,13 @@ The COMMIT message serves as the counterpart to the BEGIN message and is essenti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte (sends a single byte to the output buffer)
-  - pq_sendint64 (sends a 64-bit integer to the output buffer)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (sends a single byte to the output buffer)
+  - [pq_sendint64](../p/pq_sendint64.md) (sends a 64-bit integer to the output buffer)
   - LOGICAL_REP_MSG_COMMIT (message type constant for COMMIT messages)
-  - ReorderBufferTXN (transaction structure type)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (transaction structure type)
   - XLogRecPtr (LSN pointer type)
 - Called from (representative examples):
-  - pgoutput_commit_txn (in the pgoutput plugin for sending COMMIT messages to subscribers)
+  - [pgoutput_commit_txn](../p/pgoutput_commit_txn.md) (in the pgoutput plugin for sending COMMIT messages to subscribers)
 
 ## Notes and Other Information
 - This function is part of the logical replication protocol implementation

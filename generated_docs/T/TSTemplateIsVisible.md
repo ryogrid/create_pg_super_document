@@ -19,9 +19,9 @@ The visibility check considers whether the template's namespace is in the curren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TSTemplateIsVisibleExt (extended visibility check function)
+  - [TSTemplateIsVisibleExt](TSTemplateIsVisibleExt.md) (extended visibility check function)
 - Called from (representative examples):
-  - getObjectDescription (for object description generation)
+  - [getObjectDescription](../g/getObjectDescription.md) (for object description generation)
   - Various namespace and catalog management functions
 
 ## Notes and Other Information

@@ -19,12 +19,12 @@ The  function provides functionality to import external files into PostgreSQL as
 ## Dependencies
 - Functions called/Symbols referenced:
   - open (Unix system call for file operations)
-  - lo_creat (PostgreSQL large object creation)
-  - lo_open (PostgreSQL large object opening)
+  - [lo_creat](../l/lo_creat.md) (PostgreSQL large object creation)
+  - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)
   - read (Unix system call for reading file data)
-  - lo_write (PostgreSQL large object writing)
+  - [lo_write](../l/lo_write.md) (PostgreSQL large object writing)
   - close (Unix system call for closing file)
-  - lo_close (PostgreSQL large object closing)
+  - [lo_close](../l/lo_close.md) (PostgreSQL large object closing)
   - BUFSIZE (buffer size constant)
   - INV_READ, INV_WRITE (large object access mode constants)
 - Called from (representative examples):

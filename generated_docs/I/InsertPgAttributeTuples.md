@@ -25,21 +25,21 @@ The function uses a sophisticated batching mechanism that limits the number of s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MakeSingleTupleTableSlot
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
-  - ExecDropSingleTupleTableSlot
-  - CatalogOpenIndexes
-  - CatalogTuplesMultiInsertWithInfo
-  - CatalogCloseIndexes
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
+  - [CatalogCloseIndexes](../C/CatalogCloseIndexes.md)
   - Various Datum conversion functions (NameGetDatum, Int16GetDatum, etc.)
 - Called from (representative examples):
-  - AddNewAttributeTuples
-  - AppendAttributeTuples
-  - ATExecAddColumn
+  - [AddNewAttributeTuples](../A/AddNewAttributeTuples.md)
+  - [AppendAttributeTuples](../A/AppendAttributeTuples.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
 
 ## Notes and Other Information
 - The function is optimized for bulk insertion operations and should be preferred over single-tuple insertion for multiple attributes
 - When inserting multiple attributes, it's more efficient to pass a valid indstate parameter rather than letting the function fetch index information repeatedly
 - The function automatically handles memory management for the tuple slots and ensures proper cleanup
-- Variable-length pg_attribute fields (attacl, attfdwoptions, attmissingval) are always set to null for new columns
+- [Variable](../V/Variable.md)-length pg_attribute fields (attacl, attfdwoptions, attmissingval) are always set to null for new columns

@@ -21,7 +21,7 @@ The function uses realloc() for memory expansion, with special handling for the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_gettext (for error message localization)
+  - [libpq_gettext](../l/libpq_gettext.md) (for error message localization)
   - malloc (for initial array allocation)
   - realloc (for array expansion)
 - Types used:
@@ -30,8 +30,8 @@ The function uses realloc() for memory expansion, with special handling for the 
   - INT_MAX (maximum row count limit)
   - SIZE_MAX (memory size limit on 32-bit platforms)
 - Called from:
-  - PQsetvalue
-  - pqRowProcessor
+  - [PQsetvalue](../P/PQsetvalue.md)
+  - [pqRowProcessor](pqRowProcessor.md)
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's for internal libpq use only

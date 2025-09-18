@@ -21,14 +21,14 @@ The function first establishes size estimates for the relation, then determines 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_result_size_estimates
-  - add_path
-  - create_resultscan_path
+  - [set_result_size_estimates](set_result_size_estimates.md)
+  - [add_path](../a/add_path.md)
+  - [create_resultscan_path](../c/create_resultscan_path.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - This function is specifically designed for RTE_RESULT type relations
 - No separate size estimation phase is needed since join-qual-parameterized paths are not supported
 - The function handles LATERAL parameterization through the lateral_relids field
-- Result relations typically represent computed values, constants, or function results rather than table scans
+- [Result](../R/Result.md) relations typically represent computed values, constants, or function results rather than table scans

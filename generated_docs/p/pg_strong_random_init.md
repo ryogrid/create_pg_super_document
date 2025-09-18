@@ -27,7 +27,7 @@ This function must be called once per process before any calls to pg_strong_rand
 - Functions called/Symbols referenced:
   - RAND_poll (OpenSSL builds only)
 - Called from (representative examples):
-  - fork_process
+  - [fork_process](../f/fork_process.md)
 
 ## Notes and Other Information
 - Must be called before any use of pg_strong_random in each process

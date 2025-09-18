@@ -19,15 +19,15 @@ GetForeignServer is a wrapper function that provides a convenient interface to l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetForeignServerExtended (extended server lookup function)
-  - ForeignServer (return type structure)
+  - [GetForeignServerExtended](GetForeignServerExtended.md) (extended server lookup function)
+  - [ForeignServer](../F/ForeignServer.md) (return type structure)
 - Called from (representative examples):
-  - getObjectDescription
-  - getObjectIdentityParts
-  - ATExecAlterColumnGenericOptions
-  - ATExecGenericOptions
-  - GetForeignServerByName
-  - GetUserMapping
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md)
+  - [ATExecAlterColumnGenericOptions](../A/ATExecAlterColumnGenericOptions.md)
+  - [ATExecGenericOptions](../A/ATExecGenericOptions.md)
+  - [GetForeignServerByName](GetForeignServerByName.md)
+  - [GetUserMapping](GetUserMapping.md)
 
 ## Notes and Other Information
 - Located in src/backend/foreign/foreign.c:111-122

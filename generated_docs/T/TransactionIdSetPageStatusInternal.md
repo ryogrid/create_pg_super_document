@@ -30,18 +30,18 @@ The function also handles async commit semantics by ensuring proper coordination
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruReadPage
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md)
   - TransactionIdSetStatusBit
-  - TransactionIdToPage
+  - [TransactionIdToPage](TransactionIdToPage.md)
   - XLogRecPtrIsInvalid
   - LWLockHeldByMeInMode
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - XactCtl
   - TRANSACTION_STATUS_COMMITTED
   - TRANSACTION_STATUS_ABORTED  
   - TRANSACTION_STATUS_SUB_COMMITTED
 - Called from (representative examples):
-  - TransactionIdSetPageStatus
+  - [TransactionIdSetPageStatus](TransactionIdSetPageStatus.md)
   - TransactionGroupUpdateXidStatus
 
 ## Notes and Other Information

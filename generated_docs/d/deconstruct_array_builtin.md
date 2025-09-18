@@ -25,7 +25,7 @@ This function is particularly useful when working with system catalog arrays or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - deconstruct_array (the main array deconstruction function)
+  - [deconstruct_array](deconstruct_array.md) (the main array deconstruction function)
   - TYPALIGN_CHAR (character alignment constant)
   - TYPALIGN_SHORT (short integer alignment constant)  
   - TYPALIGN_INT (integer alignment constant)
@@ -34,15 +34,15 @@ This function is particularly useful when working with system catalog arrays or 
   - elog (error logging function)
 
 - Called from (representative examples):
-  - transformRelOptions (relation options parsing)
-  - parseRelOptionsInternal (internal option parsing)
-  - textarray_to_strvaluelist (text array to string list conversion)
-  - pg_get_object_address (object address resolution)
-  - oid_array_to_list (OID array to list conversion)
+  - [transformRelOptions](../t/transformRelOptions.md) (relation options parsing)
+  - [parseRelOptionsInternal](../p/parseRelOptionsInternal.md) (internal option parsing)
+  - [textarray_to_strvaluelist](../t/textarray_to_strvaluelist.md) (text array to string list conversion)
+  - [pg_get_object_address](../p/pg_get_object_address.md) (object address resolution)
+  - [oid_array_to_list](../o/oid_array_to_list.md) (OID array to list conversion)
   - TidListEval (tuple ID list evaluation)
-  - ArrayGetIntegerTypmods (integer type modifier extraction)
-  - json_object/jsonb_object (JSON object construction)
-  - percentile_disc_multi_final (percentile aggregate finalization)
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md) (integer type modifier extraction)
+  - [json_object](../j/json_object.md)/jsonb_object (JSON object construction)
+  - [percentile_disc_multi_final](../p/percentile_disc_multi_final.md) (percentile aggregate finalization)
 
 ## Notes and Other Information
 - Supports only a limited set of built-in types: CHAROID, CSTRINGOID, FLOAT8OID, INT2OID, OIDOID, TEXTOID, and TIDOID

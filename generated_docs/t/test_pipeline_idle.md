@@ -24,17 +24,17 @@ The function demonstrates that PostgreSQL enforces proper pipeline state managem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsetNoticeProcessor (notice handler setup)
+  - [PQsetNoticeProcessor](../P/PQsetNoticeProcessor.md) (notice handler setup)
   - PQenterPipelineMode/PQexitPipelineMode (pipeline mode control)
-  - PQsendQueryParams (sending parameterized queries)
-  - PQsendFlushRequest (forcing output buffer flush)
-  - PQgetResult (retrieving results)
-  - PQresultStatus/PQresStatus (result status checking)
-  - PQerrorMessage (error message retrieval)
-  - notice_processor (callback for handling notices)
+  - [PQsendQueryParams](../P/PQsendQueryParams.md) (sending parameterized queries)
+  - [PQsendFlushRequest](../P/PQsendFlushRequest.md) (forcing output buffer flush)
+  - [PQgetResult](../P/PQgetResult.md) (retrieving results)
+  - [PQresultStatus](../P/PQresultStatus.md)/PQresStatus (result status checking)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (error message retrieval)
+  - [notice_processor](../n/notice_processor.md) (callback for handling notices)
   - PGRES_TUPLES_OK (expected result status)
 - Called from (representative examples):
-  - main (at src/test/modules/libpq_pipeline/libpq_pipeline.c:2264)
+  - [main](../m/main.md) (at src/test/modules/libpq_pipeline/libpq_pipeline.c:2264)
 
 ## Notes and Other Information
 - Tests error conditions that should prevent pipeline mode exit

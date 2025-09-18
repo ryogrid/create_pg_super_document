@@ -19,11 +19,11 @@ This utility function processes validator function specifications from SQL DDL c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName: Resolve function name list to OID with signature checking using specific argument types
+  - [LookupFuncName](../L/LookupFuncName.md): Resolve function name list to OID with signature checking using specific argument types
   - TEXTARRAYOID: Type OID constant for text array type
   - OIDOID: Type OID constant for OID type
 - Called from (representative examples):
-  - parse_func_options: Parser helper for processing FDW creation options
+  - [parse_func_options](../p/parse_func_options.md): Parser helper for processing FDW creation options
 
 ## Notes and Other Information
 - Returns InvalidOid if validator is NULL or validator->arg is NULL, indicating no validator specified

@@ -21,7 +21,7 @@ The function operates as a simple pass-through for object start events, maintain
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro
 - Called from (representative examples):
-  - transform_json_string_values (set as sem->object_start callback)
+  - [transform_json_string_values](transform_json_string_values.md) (set as sem->object_start callback)
 
 ## Notes and Other Information
 - Returns JSON_SUCCESS to indicate successful processing

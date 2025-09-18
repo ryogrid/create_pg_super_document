@@ -25,7 +25,7 @@ The function is locale-aware and integrates with PostgreSQL's character encoding
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_char_and_wchar_strncmp
+  - [pg_char_and_wchar_strncmp](../p/pg_char_and_wchar_strncmp.md)
   - CHR (macro for character conversion)
   - NOTE (macro for noting regex features)
   - ERR (macro for error reporting)
@@ -34,7 +34,7 @@ The function is locale-aware and integrates with PostgreSQL's character encoding
   - cnames (global character name table)
 - Called from (representative examples):
   - chrnamed
-  - brackpart
+  - [brackpart](../b/brackpart.md)
 
 ## Notes and Other Information
 - The function specifically avoids using hard-wired Unicode classification tables, instead relying on libc locale routines for maximum compatibility across different encodings and locales

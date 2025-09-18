@@ -24,14 +24,14 @@ This function takes no parameters but operates on several global variables and b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_label_target (calculates target column for labels)
-  - compute_code_target (calculates target column for code)
-  - pad_output (outputs spaces to reach target column)
-  - count_spaces (counts column position after text)
+  - [compute_label_target](../c/compute_label_target.md) (calculates target column for labels)
+  - [compute_code_target](../c/compute_code_target.md) (calculates target column for code)
+  - [pad_output](../p/pad_output.md) (outputs spaces to reach target column)
+  - [count_spaces](../c/count_spaces.md) (counts column position after text)
 - Called from (representative examples):
-  - main (primary formatting loop in indent.c)
-  - fill_buffer (when buffer needs flushing)
-  - pr_comment (when comment processing triggers line output)
+  - [main](../m/main.md) (primary formatting loop in indent.c)
+  - [fill_buffer](../f/fill_buffer.md) (when buffer needs flushing)
+  - [pr_comment](../p/pr_comment.md) (when comment processing triggers line output)
 
 ## Notes and Other Information
 - Handles blank line suppression and insertion based on formatting rules

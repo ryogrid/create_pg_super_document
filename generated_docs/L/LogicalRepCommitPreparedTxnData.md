@@ -36,7 +36,7 @@ This structure contains the essential metadata required for committing prepared 
   - GIDSIZE
 - Used by functions:
   - logicalrep_read_commit_prepared
-  - apply_handle_commit_prepared
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md)
 
 ## Notes and Other Information
 This structure is specifically used for the commit phase of two-phase commit operations in logical replication. It works in conjunction with LogicalRepPreparedTxnData to provide complete two-phase commit support, ensuring that distributed transactions can be properly coordinated between publisher and subscriber nodes.

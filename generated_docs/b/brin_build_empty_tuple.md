@@ -20,13 +20,13 @@ This function implements a lazy initialization pattern for empty BRIN tuples. Wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_new_memtuple: Creates a new BRIN memory tuple using the tuple descriptor
-  - brin_form_tuple: Converts a memory tuple into a proper BRIN tuple format
-  - BrinBuildState: Structure containing build state and memory context
-  - BrinMemTuple: In-memory representation of a BRIN tuple
+  - [brin_new_memtuple](brin_new_memtuple.md): Creates a new BRIN memory tuple using the tuple descriptor
+  - [brin_form_tuple](brin_form_tuple.md): Converts a memory tuple into a proper BRIN tuple format
+  - [BrinBuildState](../B/BrinBuildState.md): Structure containing build state and memory context
+  - [BrinMemTuple](../B/BrinMemTuple.md): In-memory representation of a BRIN tuple
 
 - Called from (representative examples):
-  - brin_fill_empty_ranges: Uses this function to create empty tuples for gaps in the index
+  - [brin_fill_empty_ranges](brin_fill_empty_ranges.md): Uses this function to create empty tuples for gaps in the index
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

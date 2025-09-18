@@ -19,19 +19,19 @@ The function provides a fatal error if the namespace cannot be found, which indi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findNamespaceByOid
-  - pg_fatal (for error reporting)
+  - [findNamespaceByOid](findNamespaceByOid.md)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
 - Called from (representative examples):
   - fmtQualifiedDumpable
-  - getTypes
-  - getOperators
-  - getCollations
-  - getConversions
-  - getOpclasses
-  - getOpfamilies
-  - getAggregates
-  - getFuncs
-  - getTables
+  - [getTypes](../g/getTypes.md)
+  - [getOperators](../g/getOperators.md)
+  - [getCollations](../g/getCollations.md)
+  - [getConversions](../g/getConversions.md)
+  - [getOpclasses](../g/getOpclasses.md)
+  - [getOpfamilies](../g/getOpfamilies.md)
+  - [getAggregates](../g/getAggregates.md)
+  - [getFuncs](../g/getFuncs.md)
+  - [getTables](../g/getTables.md)
 
 ## Notes and Other Information
 - Provides a fatal error exit if namespace is not found, ensuring dump consistency

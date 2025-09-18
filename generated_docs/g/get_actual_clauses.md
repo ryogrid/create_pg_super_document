@@ -21,15 +21,15 @@ The function includes assertions to verify these preconditions: it checks that n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rinfo_is_constant_true (Line 479) - to verify no constant TRUE clauses
+  - [rinfo_is_constant_true](../r/rinfo_is_constant_true.md) (Line 479) - to verify no constant TRUE clauses
   - lfirst_node macro - for safe list iteration
   - lappend - to build the result list
   - NIL - PostgreSQL's empty list constant
 - Called from (representative examples):
-  - create_join_plan (src/backend/optimizer/plan/createplan.c:1128)
-  - create_bitmap_subplan (src/backend/optimizer/plan/createplan.c:3500)
-  - create_mergejoin_plan (src/backend/optimizer/plan/createplan.c:4501)
-  - create_hashjoin_plan (src/backend/optimizer/plan/createplan.c:4803)
+  - [create_join_plan](../c/create_join_plan.md) (src/backend/optimizer/plan/createplan.c:1128)
+  - [create_bitmap_subplan](../c/create_bitmap_subplan.md) (src/backend/optimizer/plan/createplan.c:3500)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md) (src/backend/optimizer/plan/createplan.c:4501)
+  - [create_hashjoin_plan](../c/create_hashjoin_plan.md) (src/backend/optimizer/plan/createplan.c:4803)
   - make_simple_restrictinfo (src/include/optimizer/restrictinfo.h:39)
 
 ## Notes and Other Information

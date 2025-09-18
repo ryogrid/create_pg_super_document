@@ -20,10 +20,10 @@ The function opens the relation using  with NoLock, calls the core  function to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_data_width
+  - [get_rel_data_width](get_rel_data_width.md)
 - Called from (representative examples):
-  - set_rel_width
-  - plan_cluster_use_sort
+  - [set_rel_width](../s/set_rel_width.md)
+  - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md)
 
 ## Notes and Other Information
 - This function assumes the relation is already locked by the caller (NoLock parameter)

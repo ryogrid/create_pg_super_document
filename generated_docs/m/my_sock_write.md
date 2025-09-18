@@ -21,12 +21,12 @@ When a write operation fails due to interruption or would block, the function se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - secure_raw_write
+  - [secure_raw_write](../s/secure_raw_write.md)
   - BIO_get_app_data
   - BIO_clear_retry_flags
   - BIO_set_retry_write
 - Called from (representative examples):
-  - my_BIO_s_socket (in BIO method structure initialization)
+  - [my_BIO_s_socket](my_BIO_s_socket.md) (in BIO method structure initialization)
 
 ## Notes and Other Information
 - This is a static function used internally within the OpenSSL security module

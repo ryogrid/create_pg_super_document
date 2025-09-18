@@ -25,8 +25,8 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - None (only assigns NULL to global variables)
 - Called from (representative examples):
-  - AtCommit_Notify (during transaction commit processing)
-  - AtAbort_Notify (during transaction abort processing)
+  - [AtCommit_Notify](../A/AtCommit_Notify.md) (during transaction commit processing)
+  - [AtAbort_Notify](../A/AtAbort_Notify.md) (during transaction abort processing)
 
 ## Notes and Other Information
 - This is a static function internal to async.c

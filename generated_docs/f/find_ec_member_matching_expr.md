@@ -32,12 +32,12 @@ This function is commonly used in sort operation planning where the planner need
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA
-  - bms_is_subset
-  - equal
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [equal](../e/equal.md)
 - Called from (representative examples):
-  - relation_can_be_sorted_early
-  - prepare_sort_from_pathkeys
-  - make_unique_from_pathkeys
+  - [relation_can_be_sorted_early](../r/relation_can_be_sorted_early.md)
+  - [prepare_sort_from_pathkeys](../p/prepare_sort_from_pathkeys.md)
+  - [make_unique_from_pathkeys](../m/make_unique_from_pathkeys.md)
 
 ## Notes and Other Information
 - Returns NULL if no matching member is found

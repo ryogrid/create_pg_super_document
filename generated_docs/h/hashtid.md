@@ -19,8 +19,8 @@ The  function is a PostgreSQL built-in function that generates a hash value from
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ITEMPOINTER (macro for extracting ItemPointer argument)
-  - hash_any (generic hash function for arbitrary byte arrays)
-  - BlockIdData (type representing block identifier component)
+  - [hash_any](hash_any.md) (generic hash function for arbitrary byte arrays)
+  - [BlockIdData](../B/BlockIdData.md) (type representing block identifier component)
   - OffsetNumber (type representing offset component)
 - Called from:
   - No direct references found (likely used through hash operator classes for TID type)

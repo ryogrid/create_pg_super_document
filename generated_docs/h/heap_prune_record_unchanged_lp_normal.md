@@ -28,14 +28,14 @@ The function must maintain consistency with ANALYZE's acquire_sample_rows() func
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItem, PageGetItemId (page item access)
+  - [PageGetItem](../P/PageGetItem.md), PageGetItemId (page item access)
   - HeapTupleHeaderXminCommitted, HeapTupleHeaderGetXmin, HeapTupleHeaderGetUpdateXid (tuple header access)
-  - TransactionIdPrecedes, TransactionIdFollows, TransactionIdIsNormal (transaction ID comparison)
-  - heap_prune_record_prunable (records prunable transaction IDs)
-  - heap_prepare_freeze_tuple (prepares tuple freezing)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md), TransactionIdFollows, TransactionIdIsNormal (transaction ID comparison)
+  - [heap_prune_record_prunable](heap_prune_record_prunable.md) (records prunable transaction IDs)
+  - [heap_prepare_freeze_tuple](heap_prepare_freeze_tuple.md) (prepares tuple freezing)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
-  - heap_prune_chain
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
+  - [heap_prune_chain](heap_prune_chain.md)
 
 ## Notes and Other Information
 - This is the most complex of the heap_prune_record_unchanged_lp_* family of functions

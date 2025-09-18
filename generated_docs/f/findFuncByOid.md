@@ -19,16 +19,16 @@ This function is part of the pg_dump utility's object management system. It sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
   - FuncInfo (struct)
   - DO_FUNC (enum value)
   - ProcedureRelationId (constant)
 - Called from (representative examples):
-  - dumpProcLang (src/bin/pg_dump/pg_dump.c:12151, 12157, 12164)
-  - dumpCast (src/bin/pg_dump/pg_dump.c:12746)
-  - dumpTransform (src/bin/pg_dump/pg_dump.c:12852, 12859)
+  - [dumpProcLang](../d/dumpProcLang.md) (src/bin/pg_dump/pg_dump.c:12151, 12157, 12164)
+  - [dumpCast](../d/dumpCast.md) (src/bin/pg_dump/pg_dump.c:12746)
+  - [dumpTransform](../d/dumpTransform.md) (src/bin/pg_dump/pg_dump.c:12852, 12859)
 
 ## Notes and Other Information
 - Returns NULL if no function with the specified OID is found

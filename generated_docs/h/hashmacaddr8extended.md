@@ -21,7 +21,7 @@ This function computes a seeded hash value for a macaddr8 (8-byte MAC address) v
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR8_P (macro to extract macaddr8 argument)
   - PG_GETARG_INT64 (macro to extract 64-bit seed argument)
-  - hash_any_extended (generic seeded hash function for arbitrary byte sequences)
+  - [hash_any_extended](hash_any_extended.md) (generic seeded hash function for arbitrary byte sequences)
   - sizeof (operator to get size of macaddr8 type)
 - Called from (representative examples):
   - No direct references found in the codebase

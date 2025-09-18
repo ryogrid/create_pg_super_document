@@ -23,11 +23,11 @@ This function sets up kqueue-based monitoring for latch signaling in PostgreSQL'
 - Functions called/Symbols referenced:
   - SIGURG (signal number used for latch signaling)
   - AccessWaitEvent (macro for associating WaitEvent with kevent)
-  - WaitEvent (structure type)
+  - [WaitEvent](WaitEvent.md) (structure type)
   - EVFILT_SIGNAL (kqueue filter for signal events)
   - EV_ADD (kqueue flag to add the event)
 - Called from (representative examples):
-  - WaitEventAdjustKqueue (at line 1295)
+  - [WaitEventAdjustKqueue](WaitEventAdjustKqueue.md) (at line 1295)
 
 ## Notes and Other Information
 - This function only supports adding latch monitoring, not removing it, as indicated by the comment

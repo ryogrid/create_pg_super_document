@@ -33,11 +33,11 @@ The resulting tree structure allows efficient traversal during affix matching, w
   - cpalloc0
   - cpalloc
   - memcpy
-  - pfree
-  - mkANode (recursive self-call)
+  - [pfree](../p/pfree.md)
+  - [mkANode](mkANode.md) (recursive self-call)
 - Called from (representative examples):
-  - mkANode (recursive calls)
-  - NISortAffixes
+  - [mkANode](mkANode.md) (recursive calls)
+  - [NISortAffixes](../N/NISortAffixes.md)
 
 ## Notes and Other Information
 - Only processes affixes with non-empty replacement strings; empty affixes are handled by mkVoidAffix()

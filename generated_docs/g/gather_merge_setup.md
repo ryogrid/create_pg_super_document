@@ -28,12 +28,12 @@ The allocation is based on gm->num_workers (upper bound), allowing for fewer act
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - palloc0
-  - ExecInitExtraTupleSlot
-  - binaryheap_allocate
-  - heap_compare_slots
+  - [palloc0](../p/palloc0.md)
+  - [ExecInitExtraTupleSlot](../E/ExecInitExtraTupleSlot.md)
+  - [binaryheap_allocate](../b/binaryheap_allocate.md)
+  - [heap_compare_slots](../h/heap_compare_slots.md)
 - Called from (representative examples):
-  - ExecInitGatherMerge
+  - [ExecInitGatherMerge](../E/ExecInitGatherMerge.md)
 
 ## Notes and Other Information
 - The indexing scheme differs between gm_slots (0 to n, includes leader) and gm_tuple_buffers (0 to n-1, workers only)

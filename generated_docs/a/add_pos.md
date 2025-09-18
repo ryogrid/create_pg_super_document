@@ -36,7 +36,7 @@ The function processes position data by:
   - MAXNUMPOS (maximum number of positions constant)
   - MAXENTRYPOS (maximum entry position constant)
 - Called from:
-  - tsvector_concat (multiple times during concatenation operations)
+  - [tsvector_concat](../t/tsvector_concat.md) (multiple times during concatenation operations)
 
 ## Notes and Other Information
 - Returns the number of positions actually added (may be less than source due to overflow constraints)

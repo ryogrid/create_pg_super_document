@@ -19,11 +19,11 @@ This function is part of PostgreSQL's text search functionality infrastructure, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (from src/include/postgres.h)
-  - TSQueryData (struct type from src/include/tsearch/ts_type.h)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (from src/include/postgres.h)
+  - [TSQueryData](TSQueryData.md) (struct type from src/include/tsearch/ts_type.h)
 - Called from (representative examples):
   - PG_RETURN_TSQUERY (macro in src/include/tsearch/ts_type.h:270)
-  - ts_match_tt (in src/backend/utils/adt/tsvector_op.c:2257)
+  - [ts_match_tt](../t/ts_match_tt.md) (in src/backend/utils/adt/tsvector_op.c:2257)
   - ts_match_tq (in src/backend/utils/adt/tsvector_op.c:2277)
 
 ## Notes and Other Information

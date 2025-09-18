@@ -28,13 +28,13 @@ The function is designed for fire-and-forget command execution where the caller 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQuery (PostgreSQL libpq function for asynchronous command sending)
-  - PQdb (retrieves database name from connection)
+  - [PQsendQuery](../P/PQsendQuery.md) (PostgreSQL libpq function for asynchronous command sending)
+  - [PQdb](../P/PQdb.md) (retrieves database name from connection)
   - pg_log_error (PostgreSQL logging function for error messages)
   - pg_log_error_detail (PostgreSQL logging function for detailed error information)
-  - ParallelSlot (structure type for parallel execution context)
+  - [ParallelSlot](../P/ParallelSlot.md) (structure type for parallel execution context)
 - Called from (representative examples):
-  - main (in pg_amcheck.c:777, 793)
+  - [main](../m/main.md) (in pg_amcheck.c:777, 793)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the pg_amcheck.c compilation unit

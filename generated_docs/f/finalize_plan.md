@@ -36,21 +36,21 @@ Special handling is provided for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - finalize_primnode (processes individual expressions)
-  - finalize_agg_primnode (processes aggregate expressions)
+  - [finalize_primnode](finalize_primnode.md) (processes individual expressions)
+  - [finalize_agg_primnode](finalize_agg_primnode.md) (processes aggregate expressions)
   - planner_subplan_get_plan
-  - find_base_rel
+  - [find_base_rel](find_base_rel.md)
   - Various bitmap set manipulation functions (bms_add_members, bms_union, etc.)
-  - Node type checking (nodeTag)
+  - [Node](../N/Node.md) type checking (nodeTag)
 - Called from (representative examples):
-  - SS_finalize_plan (entry point)
-  - finalize_plan (recursive calls to child plans)
+  - [SS_finalize_plan](../S/SS_finalize_plan.md) (entry point)
+  - [finalize_plan](finalize_plan.md) (recursive calls to child plans)
 
 ## Notes and Other Information
 - Returns the computed allParam set for the given plan node
 - The function is designed to handle all plan node types through a comprehensive switch statement
 - Parameter validation ensures that plan nodes only reference parameters that are valid in their scope
-- InitPlan processing assumes SS_finalize_plan has already been run on referenced plans
+- [InitPlan](../I/InitPlan.md) processing assumes SS_finalize_plan has already been run on referenced plans
 - The function includes extensive comments about limitations in initPlan parameter handling
 - Critical for proper execution of correlated subqueries and nested plan structures
 - Located in src/backend/optimizer/plan/subselect.c (static function)

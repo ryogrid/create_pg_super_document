@@ -23,10 +23,10 @@ The function is primarily used during dictionary file parsing to locate delimite
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq (macro for character comparison, defined in ts_locale.h)
-  - pg_mblen (function for getting multibyte character length)
+  - [pg_mblen](../p/pg_mblen.md) (function for getting multibyte character length)
   - TOUCHAR (macro used internally by t_iseq)
 - Called from:
-  - NIImportDictionary (src/backend/tsearch/spell.c:539) - for parsing dictionary entries
+  - [NIImportDictionary](../N/NIImportDictionary.md) (src/backend/tsearch/spell.c:539) - for parsing dictionary entries
 
 ## Notes and Other Information
 - This is a static function, accessible only within the spell.c compilation unit

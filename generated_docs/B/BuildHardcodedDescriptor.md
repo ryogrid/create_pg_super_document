@@ -22,11 +22,11 @@ The implementation ensures proper attribute cache offset initialization, setting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
   - ATTRIBUTE_FIXED_PART_SIZE
 - Called from:
-  - GetPgClassDescriptor
-  - GetPgIndexDescriptor
+  - [GetPgClassDescriptor](../G/GetPgClassDescriptor.md)
+  - [GetPgIndexDescriptor](../G/GetPgIndexDescriptor.md)
 
 ## Notes and Other Information
 - The resulting tuple descriptor has limitations: incorrect tdtypeid (set to RECORDOID) and missing TupleConstr field

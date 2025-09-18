@@ -18,11 +18,11 @@ BackendMain serves as the main initialization function for PostgreSQL backend pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackendInitialize
-  - secure_initialize (SSL builds)
+  - [BackendInitialize](BackendInitialize.md)
+  - [secure_initialize](../s/secure_initialize.md) (SSL builds)
   - InitProcess
-  - PostgresMain
-  - MemoryContextSwitchTo
+  - [PostgresMain](../P/PostgresMain.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
   - child_process_kind (in launch_backend.c)
 

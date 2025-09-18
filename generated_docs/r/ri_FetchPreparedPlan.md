@@ -19,16 +19,16 @@ The function initializes the hash table on first use and includes logic to detec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_InitHashTables (initializes hash table on first call)
-  - hash_search (searches for the query key in the cache)
-  - SPI_plan_is_valid (validates the cached plan)
-  - SPI_freeplan (frees invalid plans)
+  - [ri_InitHashTables](ri_InitHashTables.md) (initializes hash table on first call)
+  - [hash_search](../h/hash_search.md) (searches for the query key in the cache)
+  - [SPI_plan_is_valid](../S/SPI_plan_is_valid.md) (validates the cached plan)
+  - [SPI_freeplan](../S/SPI_freeplan.md) (frees invalid plans)
 - Called from (representative examples):
-  - ri_Check_Pk_Match (primary key matching validation)
-  - ri_restrict (restrict action implementation)
-  - RI_FKey_cascade_del (cascade delete operations)
-  - RI_FKey_cascade_upd (cascade update operations)  
-  - ri_set (set null/default operations)
+  - [ri_Check_Pk_Match](ri_Check_Pk_Match.md) (primary key matching validation)
+  - [ri_restrict](ri_restrict.md) (restrict action implementation)
+  - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md) (cascade delete operations)
+  - [RI_FKey_cascade_upd](../R/RI_FKey_cascade_upd.md) (cascade update operations)  
+  - [ri_set](ri_set.md) (set null/default operations)
 
 ## Notes and Other Information
 - Returns NULL if no cached plan is found or if the cached plan is invalid

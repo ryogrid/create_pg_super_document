@@ -21,14 +21,14 @@ The `GetRmgrDesc` function serves as the main interface for obtaining resource m
 - Functions called/Symbols referenced:
   - RmgrId (typedef for resource manager identifier)
   - RmgrIdIsValid (macro/function to validate resource manager ID)
-  - RmgrIdIsBuiltin (macro/function to check if ID is for built-in resource manager)
-  - initialize_custom_rmgrs (called for lazy initialization of custom resource managers)
+  - [RmgrIdIsBuiltin](../R/RmgrIdIsBuiltin.md) (macro/function to check if ID is for built-in resource manager)
+  - [initialize_custom_rmgrs](../i/initialize_custom_rmgrs.md) (called for lazy initialization of custom resource managers)
   - RM_MIN_CUSTOM_ID (constant defining minimum custom resource manager ID)
 - Called from (representative examples):
-  - print_rmgr_list (in pg_waldump.c to list available resource managers)
-  - XLogDumpDisplayRecord (in pg_waldump.c to display WAL record information)
-  - XLogDumpDisplayStats (in pg_waldump.c to display statistics)
-  - main (in pg_waldump.c as part of command-line processing)
+  - [print_rmgr_list](../p/print_rmgr_list.md) (in pg_waldump.c to list available resource managers)
+  - [XLogDumpDisplayRecord](../X/XLogDumpDisplayRecord.md) (in pg_waldump.c to display WAL record information)
+  - [XLogDumpDisplayStats](../X/XLogDumpDisplayStats.md) (in pg_waldump.c to display statistics)
+  - [main](../m/main.md) (in pg_waldump.c as part of command-line processing)
 
 ## Notes and Other Information
 - Function includes assertion to ensure the resource manager ID is valid

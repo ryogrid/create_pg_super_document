@@ -19,10 +19,10 @@ The function is used in the context of streaming logical replication where large
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
+  - [pq_sendbyte](../p/pq_sendbyte.md)
   - LOGICAL_REP_MSG_STREAM_STOP (message type constant)
 - Called from (representative examples):
-  - pgoutput_stream_stop
+  - [pgoutput_stream_stop](../p/pgoutput_stream_stop.md)
 
 ## Notes and Other Information
 - This is a simple protocol message that only sends the message type byte

@@ -21,8 +21,8 @@ This structure is designed to optimize I/O operations during SimpleLruWriteAll()
 - Functions called/Symbols referenced:
   - MAX_WRITEALL_BUFFERS (constant defining maximum buffer size of 16)
 - Called from (representative examples):
-  - SlruWriteAll (type alias pointing to this struct)
-  - SimpleLruWriteAll (function that uses this structure for bulk writes)
+  - [SlruWriteAll](SlruWriteAll.md) (type alias pointing to this struct)
+  - [SimpleLruWriteAll](SimpleLruWriteAll.md) (function that uses this structure for bulk writes)
 
 ## Notes and Other Information
 - This structure is specifically designed for the SimpleLruWriteAll() operation to minimize file I/O overhead

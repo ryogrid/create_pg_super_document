@@ -34,9 +34,9 @@ The parsing process:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (retrieves string argument)
-  - pair_count (counts coordinate pairs in string)
+  - [pair_count](pair_count.md) (counts coordinate pairs in string)
   - ereturn (soft error return)
-  - palloc (memory allocation)
+  - [palloc](palloc.md) (memory allocation)
   - SET_VARSIZE (sets variable-length type size)
   - path_decode (parses path coordinates)
   - PG_RETURN_PATH_P (returns PATH result)
@@ -47,8 +47,8 @@ The parsing process:
   - ERRCODE_INVALID_TEXT_REPRESENTATION
   - ERRCODE_PROGRAM_LIMIT_EXCEEDED
 - Types used:
-  - PATH (geometric path type)
-  - Node (error context)
+  - [PATH](../P/PATH.md) (geometric path type)
+  - [Node](../N/Node.md) (error context)
   - Datum (PostgreSQL data type)
 - Called from:
   - No direct references found (likely called via SQL type conversion interface)

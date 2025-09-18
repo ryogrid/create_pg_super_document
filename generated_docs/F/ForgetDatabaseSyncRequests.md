@@ -28,12 +28,12 @@ This bulk cancellation approach is much more efficient than individually canceli
   - INIT_MD_FILETAG
   - InvalidForkNumber
   - InvalidBlockNumber
-  - RegisterSyncRequest
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
   - SYNC_FILTER_REQUEST
 - Called from (representative examples):
-  - createdb_failure_callback
-  - dropdb
-  - dbase_redo
+  - [createdb_failure_callback](../c/createdb_failure_callback.md)
+  - [dropdb](../d/dropdb.md)
+  - [dbase_redo](../d/dbase_redo.md)
   - Referenced in MD_H header file
 
 ## Notes and Other Information

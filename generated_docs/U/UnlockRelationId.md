@@ -21,16 +21,16 @@ This function unlocks a relation lock identified by a LockRelId structure and lo
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to set up lock tag for relation)
-  - LockRelease (performs the actual lock release)
+  - [LockRelease](../L/LockRelease.md) (performs the actual lock release)
 - Types referenced:
   - LockRelId (structure containing database and relation IDs)
   - LOCKTAG (lock tag structure)
   - LOCKMODE (enumeration of lock modes)
 - Called from (representative examples):
-  - relation_close (in relation.c:215)
-  - index_close (in indexam.c:187)
-  - CreateDatabaseUsingWalLog (in dbcommands.c:219, 220)
-  - ScanSourceDatabasePgClass (in dbcommands.c:318)
+  - [relation_close](../r/relation_close.md) (in relation.c:215)
+  - [index_close](../i/index_close.md) (in indexam.c:187)
+  - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md) (in dbcommands.c:219, 220)
+  - [ScanSourceDatabasePgClass](../S/ScanSourceDatabasePgClass.md) (in dbcommands.c:318)
 
 ## Notes and Other Information
 - This is the preferred unlocking method when a LockRelId is available, as it avoids OID lookup overhead

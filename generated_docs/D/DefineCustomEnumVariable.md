@@ -41,8 +41,8 @@ Enum variables provide a controlled set of valid string values that map to integ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_custom_variable
-  - define_custom_variable
+  - [init_custom_variable](../i/init_custom_variable.md)
+  - [define_custom_variable](../d/define_custom_variable.md)
   - PGC_ENUM
   - config_enum
   - config_enum_entry

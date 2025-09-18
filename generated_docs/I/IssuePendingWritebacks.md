@@ -25,17 +25,17 @@ The function iterates through sorted pending writebacks, looks ahead to find con
 ## Dependencies
 - Functions called/Symbols referenced:
   - sort_pending_writebacks
-  - pgstat_prepare_io_time
-  - BufTagGetRelFileLocator
+  - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - RelFileLocatorEquals
-  - BufTagGetForkNum
-  - smgropen
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
+  - [smgropen](../s/smgropen.md)
   - smgrwriteback
-  - pgstat_count_io_op_time
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
 - Called from (representative examples):
   - BufferSync
-  - ScheduleBufferTagForWriteback
-  - ResourceOwnerForgetBufferIO
+  - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md)
+  - [ResourceOwnerForgetBufferIO](../R/ResourceOwnerForgetBufferIO.md)
 
 ## Notes and Other Information
 - Only processes writebacks if wb_context->nr_pending > 0

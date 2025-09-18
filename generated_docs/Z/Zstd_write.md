@@ -19,17 +19,17 @@ This function implements the writing mechanism for Zstd-compressed files by comp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (struct type)
-  - ZstdCompressorState (struct type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (struct type)
+  - [ZstdCompressorState](ZstdCompressorState.md) (struct type)
   - pg_malloc0 (memory allocation)
-  - _ZstdCStreamParams (Zstd stream parameter setup)
+  - [_ZstdCStreamParams](_ZstdCStreamParams.md) (Zstd stream parameter setup)
   - ZSTD_compressStream2() (Zstd library function)
   - ZSTD_isError() (Zstd library function)
   - ZSTD_getErrorName() (Zstd library function)
   - ZSTD_CStreamOutSize() (Zstd library function)
   - fwrite() (standard library function)
 - Called from (representative examples):
-  - InitCompressFileHandleZstd (assigned as write function pointer)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (assigned as write function pointer)
 
 ## Notes and Other Information
 - Implements lazy initialization of the compression stream, creating it only when first write occurs

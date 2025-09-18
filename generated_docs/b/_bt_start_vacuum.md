@@ -30,7 +30,7 @@ The caller must guarantee that  will eventually be called to prevent permanent r
   - RelationGetRelationName
   - elog
 - Called from (representative examples):
-  - btbulkdelete
+  - [btbulkdelete](btbulkdelete.md)
 
 ## Notes and Other Information
 - The cycle ID is a 16-bit unsigned integer (BTCycleId = uint16)

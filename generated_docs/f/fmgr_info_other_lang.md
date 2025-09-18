@@ -28,13 +28,13 @@ The function deliberately ignores security attributes when setting up the call h
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETSTRUCT (extract struct from HeapTuple)
-  - SearchSysCache1 (lookup language in pg_language)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (lookup language in pg_language)
   - HeapTupleIsValid (validate tuple)
   - elog (error logging)
-  - fmgr_info_cxt_security (setup call handler FmgrInfo)
-  - ReleaseSysCache (release cached tuple)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (setup call handler FmgrInfo)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cached tuple)
 - Called from (representative examples):
-  - fmgr_info_cxt_security (main function info setup)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (main function info setup)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's multi-language function support system

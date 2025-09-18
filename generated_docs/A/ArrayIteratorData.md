@@ -38,12 +38,12 @@ The structure is divided into three logical sections: basic array metadata estab
 ## Dependencies
 - Functions called/Symbols referenced:
   - bits8 (for null bitmap handling)
-  - ArrayType (array structure definition)
+  - [ArrayType](ArrayType.md) (array structure definition)
   - Datum (PostgreSQL data value type)
 
 - Called from (representative examples):
-  - array_create_iterator (creates and initializes iterator instances)
-  - ArrayIterator (typedef pointer to this structure)
+  - [array_create_iterator](../a/array_create_iterator.md) (creates and initializes iterator instances)
+  - [ArrayIterator](ArrayIterator.md) (typedef pointer to this structure)
 
 ## Notes and Other Information
 - This structure is declared as private within arrayfuncs.c and is not exposed in header files

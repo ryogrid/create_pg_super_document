@@ -24,7 +24,7 @@ This function prints detailed information about chromosomes within a specified r
   - fprintf (for formatted output)
   - fflush (to ensure output is written)
 - Called from (representative examples):
-  - geqo (main GEQO function)
+  - [geqo](../g/geqo.md) (main GEQO function)
   - GEQO_MISC_H (header declaration)
 
 ## Notes and Other Information

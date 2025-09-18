@@ -30,15 +30,15 @@ The callback mechanism allows different types of operations (dump, restore, etc.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getMessageFromWorker (retrieves status messages from worker processes)
+  - [getMessageFromWorker](../g/getMessageFromWorker.md) (retrieves status messages from worker processes)
   - messageStartsWith (validates message format with "OK" prefix)
-  - parseWorkerResponse (extracts status code from worker response)
-  - callback (user-defined completion handler function)
-  - ParallelState, ParallelSlot, TocEntry (data structures)
+  - [parseWorkerResponse](../p/parseWorkerResponse.md) (extracts status code from worker response)
+  - [callback](../c/callback.md) (user-defined completion handler function)
+  - [ParallelState](../P/ParallelState.md), ParallelSlot, TocEntry (data structures)
   - WRKR_IDLE (worker status constant)
 
 - Called from (representative examples):
-  - WaitForWorkers (main coordination loop for parallel operations)
+  - [WaitForWorkers](../W/WaitForWorkers.md) (main coordination loop for parallel operations)
 
 ## Notes and Other Information
 - Returns true if a status message was successfully collected and processed

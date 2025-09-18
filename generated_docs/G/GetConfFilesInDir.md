@@ -32,19 +32,19 @@ The function validates the input directory name to prevent empty or blank-only n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbsoluteConfigLocation
+  - [AbsoluteConfigLocation](../A/AbsoluteConfigLocation.md)
   - AllocateDir
   - ReadDir
   - FreeDir
-  - join_path_components
-  - canonicalize_path
-  - get_dirent_type
+  - [join_path_components](../j/join_path_components.md)
+  - [canonicalize_path](../c/canonicalize_path.md)
+  - [get_dirent_type](../g/get_dirent_type.md)
   - qsort
   - pg_qsort_strcmp
-  - palloc/repalloc/pstrdup
+  - [palloc](../p/palloc.md)/repalloc/pstrdup
   - ereport/errcode/errmsg
 - Called from (representative examples):
-  - tokenize_auth_file (hba.c)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md) (hba.c)
 
 ## Notes and Other Information
 - Returns NULL on error with details in err_msg parameter

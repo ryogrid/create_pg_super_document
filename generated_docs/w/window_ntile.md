@@ -34,10 +34,10 @@ The function uses a ntile_context structure stored in partition-local memory to 
 - Functions called/Symbols referenced:
   - WindowObject
   - PG_WINDOW_OBJECT
-  - WinGetPartitionLocalMemory
-  - WinGetPartitionRowCount
-  - WinGetFuncArgCurrent
-  - DatumGetInt32
+  - [WinGetPartitionLocalMemory](../W/WinGetPartitionLocalMemory.md)
+  - [WinGetPartitionRowCount](../W/WinGetPartitionRowCount.md)
+  - [WinGetFuncArgCurrent](../W/WinGetFuncArgCurrent.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - ntile_context
 - Called from (representative examples):
   - SQL NTILE() window function calls through PostgreSQL's function call infrastructure

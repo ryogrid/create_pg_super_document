@@ -20,7 +20,7 @@ The  function is part of PostgreSQL's type system infrastructure, specifically h
 - Functions called/Symbols referenced:
   - PG_GETARG_COMMANDID (macro for extracting CommandId from function args)
   - CommandId (PostgreSQL internal type)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - snprintf (C standard library function)
   - PG_RETURN_CSTRING (macro for returning C string)
 

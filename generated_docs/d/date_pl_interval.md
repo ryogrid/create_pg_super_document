@@ -26,9 +26,9 @@ The result is returned as a timestamp since adding an interval to a date may res
 - Functions called/Symbols referenced:
   - `PG_GETARG_DATEADT` - Extracts date argument
   - `PG_GETARG_INTERVAL_P` - Extracts interval argument
-  - `date2timestamp` - Converts date to timestamp
+  - `[date2timestamp](date2timestamp.md)` - Converts date to timestamp
   - `DirectFunctionCall2` - Direct function call mechanism
-  - `timestamp_pl_interval` - Timestamp interval addition function
+  - `[timestamp_pl_interval](../t/timestamp_pl_interval.md)` - Timestamp interval addition function
   - `TimestampGetDatum`, `PointerGetDatum` - Datum conversion functions
   - `DateADT`, `Interval`, `Timestamp` - Data type definitions
 - Called from (representative examples):

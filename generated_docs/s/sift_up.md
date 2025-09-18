@@ -30,11 +30,11 @@ The hole-based approach avoids unnecessary data copying by only storing the fina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parent_offset (macro to calculate parent node index)
+  - [parent_offset](../p/parent_offset.md) (macro to calculate parent node index)
   - heap->bh_compare (comparison function for heap ordering)
 - Called from (representative examples):
-  - binaryheap_add (common/binaryheap.c:166)
-  - binaryheap_remove_node (common/binaryheap.c:242)
+  - [binaryheap_add](../b/binaryheap_add.md) (common/binaryheap.c:166)
+  - [binaryheap_remove_node](../b/binaryheap_remove_node.md) (common/binaryheap.c:242)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

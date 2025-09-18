@@ -25,21 +25,21 @@ The function implements the mathematical rules for signed number addition:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_abs (for adding absolute values)
-  - sub_abs (for subtracting absolute values)
-  - cmp_abs (for comparing absolute values)
-  - zero_var (for setting result to zero)
+  - [add_abs](add_abs.md) (for adding absolute values)
+  - [sub_abs](../s/sub_abs.md) (for subtracting absolute values)
+  - [cmp_abs](../c/cmp_abs.md) (for comparing absolute values)
+  - [zero_var](../z/zero_var.md) (for setting result to zero)
   - NUMERIC_POS (positive sign constant)
   - NUMERIC_NEG (negative sign constant)
 - Called from (representative examples):
-  - numeric_add_opt_error
+  - [numeric_add_opt_error](../n/numeric_add_opt_error.md)
   - generate_series_step_numeric
   - width_bucket_numeric
-  - numeric_inc
-  - div_mod_var
-  - sqrt_var
-  - exp_var
-  - ln_var
+  - [numeric_inc](../n/numeric_inc.md)
+  - [div_mod_var](../d/div_mod_var.md)
+  - [sqrt_var](../s/sqrt_var.md)
+  - [exp_var](../e/exp_var.md)
+  - [ln_var](../l/ln_var.md)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

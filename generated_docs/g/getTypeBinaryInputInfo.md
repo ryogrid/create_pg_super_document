@@ -23,18 +23,18 @@ The function is part of PostgreSQL's type system infrastructure and is used when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog cache lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (extract struct from heap tuple)
   - Form_pg_type (pg_type catalog structure)
-  - getTypeIOParam (determine I/O parameter for the type)
-  - ReleaseSysCache (release cache reference)
-  - format_type_be (error message formatting)
+  - [getTypeIOParam](getTypeIOParam.md) (determine I/O parameter for the type)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release cache reference)
+  - [format_type_be](../f/format_type_be.md) (error message formatting)
 - Called from (representative examples):
-  - BeginCopyFrom (COPY command binary input setup)
-  - slot_store_data (logical replication worker)
-  - exec_bind_message (protocol binary parameter binding)
-  - record_recv (composite type binary input)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md) (COPY command binary input setup)
+  - [slot_store_data](../s/slot_store_data.md) (logical replication worker)
+  - [exec_bind_message](../e/exec_bind_message.md) (protocol binary parameter binding)
+  - [record_recv](../r/record_recv.md) (composite type binary input)
 
 ## Notes and Other Information
 - The function will throw an ERROR if the type OID is invalid or not found in the system catalog

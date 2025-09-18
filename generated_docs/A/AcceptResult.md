@@ -18,19 +18,19 @@ AcceptResult is a static function in psql that serves as a centralized result va
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus (PostgreSQL libpq function)
-  - PQerrorMessage (PostgreSQL libpq function)
+  - [PQresultStatus](../P/PQresultStatus.md) (PostgreSQL libpq function)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (PostgreSQL libpq function)
   - pg_log_info (PostgreSQL logging function)
   - pg_log_error (PostgreSQL logging function)
-  - CheckConnection (psql connection validation function)
-- Result status constants:
+  - [CheckConnection](../C/CheckConnection.md) (psql connection validation function)
+- [Result](../R/Result.md) status constants:
   - PGRES_COMMAND_OK, PGRES_TUPLES_OK, PGRES_TUPLES_CHUNK
   - PGRES_EMPTY_QUERY, PGRES_COPY_IN, PGRES_COPY_OUT
   - PGRES_BAD_RESPONSE, PGRES_NONFATAL_ERROR, PGRES_FATAL_ERROR
 - Called from:
-  - PSQLexec (src/bin/psql/common.c:655)
-  - DescribeQuery (src/bin/psql/common.c:1348, 1396)
-  - ExecQueryAndProcessResults (src/bin/psql/common.c:1532, 1747)
+  - [PSQLexec](../P/PSQLexec.md) (src/bin/psql/common.c:655)
+  - [DescribeQuery](../D/DescribeQuery.md) (src/bin/psql/common.c:1348, 1396)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1532, 1747)
 
 ## Notes and Other Information
 This function is fundamental to psql's error handling strategy, providing a consistent way to validate query results across different execution contexts. It distinguishes between acceptable result states (including successful operations and expected conditions like empty queries) and various error conditions. The function's design allows callers to control whether error messages are displayed, enabling silent validation when appropriate. The connection check performed after error detection helps maintain session integrity by verifying the database connection is still functional.

@@ -27,20 +27,20 @@ The function is designed to be used in situations where non-blocking behavior is
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG
-  - LOCALLOCK
+  - [LOCALLOCK](../L/LOCALLOCK.md)
   - LockAcquireResult
-  - SetLocktagRelationOid
-  - LockAcquireExtended
+  - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md)
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
   - LOCKACQUIRE_NOT_AVAIL
   - LOCKACQUIRE_ALREADY_CLEAR
-  - AcceptInvalidationMessages
-  - MarkLockClear
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [MarkLockClear](../M/MarkLockClear.md)
 - Called from (representative examples):
-  - RangeVarGetRelidExtended (src/backend/catalog/namespace.c:593)
-  - LockTableRecurse (src/backend/commands/lockcmds.c:134)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (src/backend/catalog/namespace.c:593)
+  - [LockTableRecurse](../L/LockTableRecurse.md) (src/backend/commands/lockcmds.c:134)
   - vacuum_open_relation (src/backend/commands/vacuum.c:789)
-  - do_autovacuum (src/backend/postmaster/autovacuum.c:2162)
-  - AlterTableMoveAll (src/backend/commands/tablecmds.c:15503)
+  - [do_autovacuum](../d/do_autovacuum.md) (src/backend/postmaster/autovacuum.c:2162)
+  - [AlterTableMoveAll](../A/AlterTableMoveAll.md) (src/backend/commands/tablecmds.c:15503)
 
 ## Notes and Other Information
 - Returns true if lock was successfully acquired, false if lock was not available

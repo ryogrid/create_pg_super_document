@@ -31,11 +31,11 @@ The function only considers btree access method operators with BTLessStrategyNum
   - Form_pg_amop
   - CatCList
 - Called from (representative examples):
-  - make_pathkey_from_sortop
-  - build_expression_pathkey
-  - get_relation_info
-  - transformWindowDefinitions
-  - get_equality_op_for_ordering_op
+  - [make_pathkey_from_sortop](../m/make_pathkey_from_sortop.md)
+  - [build_expression_pathkey](../b/build_expression_pathkey.md)
+  - [get_relation_info](get_relation_info.md)
+  - [transformWindowDefinitions](../t/transformWindowDefinitions.md)
+  - [get_equality_op_for_ordering_op](get_equality_op_for_ordering_op.md)
   - PrepareSortSupportFromOrderingOp
 
 ## Notes and Other Information

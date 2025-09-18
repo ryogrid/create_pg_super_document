@@ -19,9 +19,9 @@ The function handles two key keepalive parameters: idle time (how long to wait b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqParseIntParam (parses integer parameters from connection strings)
-  - pqSetKeepalivesWin32 (applies keepalive settings to Windows socket)
-  - libpq_append_conn_error (appends error messages to connection)
+  - [pqParseIntParam](pqParseIntParam.md) (parses integer parameters from connection strings)
+  - [pqSetKeepalivesWin32](pqSetKeepalivesWin32.md) (applies keepalive settings to Windows socket)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (appends error messages to connection)
   - WSAGetLastError (retrieves Windows socket error codes)
 - Called from (representative examples):
   - CONNECTION_FAILED (connection establishment process)

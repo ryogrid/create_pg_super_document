@@ -19,10 +19,10 @@ This function traverses a SimpleStringList to find the first list cell that has 
 - Functions called/Symbols referenced:
   - None (simple traversal logic)
 - Data structures used:
-  - SimpleStringList
-  - SimpleStringListCell
+  - [SimpleStringList](../S/SimpleStringList.md)
+  - [SimpleStringListCell](../S/SimpleStringListCell.md)
 - Called from (representative examples):
-  - StrictNamesCheck (src/bin/pg_dump/pg_backup_archiver.c:2884, 2891, 2898, 2905, 2912)
+  - [StrictNamesCheck](../S/StrictNamesCheck.md) (src/bin/pg_dump/pg_backup_archiver.c:2884, 2891, 2898, 2905, 2912)
 
 ## Notes and Other Information
 - Returns NULL if all entries in the list have been touched or if the list is empty

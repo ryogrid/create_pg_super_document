@@ -21,11 +21,11 @@ GinPlaceToPageRC serves as a standardized set of return codes used by GIN B-tree
 - Functions called/Symbols referenced:
   - (None - this is an enumeration definition)
 - Called from (representative examples):
-  - ginPlaceToPage
-  - GinPageDeletePostingItem
-  - dataPlaceToPageLeafSplit
-  - dataExecPlaceToPageInternal
-  - entryPreparePage
+  - [ginPlaceToPage](../g/ginPlaceToPage.md)
+  - [GinPageDeletePostingItem](GinPageDeletePostingItem.md)
+  - [dataPlaceToPageLeafSplit](../d/dataPlaceToPageLeafSplit.md)
+  - [dataExecPlaceToPageInternal](../d/dataExecPlaceToPageInternal.md)
+  - [entryPreparePage](../e/entryPreparePage.md)
 
 ## Notes and Other Information
 This enumeration is defined in src/include/access/gin_private.h and is used throughout the GIN access method implementation to standardize communication between different levels of the B-tree insertion and maintenance algorithms. The return codes help coordinate complex operations that may require different handling strategies based on page capacity and structure.

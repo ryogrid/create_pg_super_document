@@ -19,15 +19,15 @@ The function performs a complete state transition from COPY mode back to PGASYNC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - pqPutMsgStart
-  - pqPutMsgEnd
-  - pqFlush
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqPutMsgStart](pqPutMsgStart.md)
+  - [pqPutMsgEnd](pqPutMsgEnd.md)
+  - [pqFlush](pqFlush.md)
   - pqIsnonblocking
-  - PQisBusy
-  - PQgetResult
-  - PQclear
-  - pqInternalNotice
+  - [PQisBusy](../P/PQisBusy.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [PQclear](../P/PQclear.md)
+  - [pqInternalNotice](pqInternalNotice.md)
   - PGASYNC_COPY_IN (status constant)
   - PGASYNC_COPY_OUT (status constant)
   - PGASYNC_COPY_BOTH (status constant)

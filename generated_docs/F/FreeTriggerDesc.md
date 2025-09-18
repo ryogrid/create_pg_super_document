@@ -33,11 +33,11 @@ The function ensures complete cleanup of all memory allocated by RelationBuildTr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree: Memory deallocation function
+  - [pfree](../p/pfree.md): Memory deallocation function
 
 - Called from (representative examples):
-  - RelationBuildTriggers: To clean up working memory after copying to cache
-  - RelationDestroyRelation: During relation cache entry cleanup
+  - [RelationBuildTriggers](../R/RelationBuildTriggers.md): To clean up working memory after copying to cache
+  - [RelationDestroyRelation](../R/RelationDestroyRelation.md): During relation cache entry cleanup
 
 ## Notes and Other Information
 - Safe to call with NULL pointer - function returns immediately without error

@@ -22,7 +22,7 @@ GetSysCacheHashValue calculates the hash value for a hypothetical tuple in a sys
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid
-  - GetCatCacheHashValue
+  - [GetCatCacheHashValue](GetCatCacheHashValue.md)
 - Called from (representative examples):
   - GetSysCacheHashValue1 (convenience macro)
   - GetSysCacheHashValue2 (convenience macro)

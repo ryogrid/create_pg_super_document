@@ -32,20 +32,20 @@ The function includes extensive debugging support through Valgrind instrumentati
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetIsValid
-  - AllocSetAllocLarge
-  - AllocSetFreeIndex
+  - [AllocSetAllocLarge](AllocSetAllocLarge.md)
+  - [AllocSetFreeIndex](AllocSetFreeIndex.md)
   - GetFreeListLink
-  - MemoryChunkGetValue
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
   - GetChunkSizeFromFreeListIdx
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING enabled)
-  - randomize_mem (when RANDOMIZE_ALLOCATED_MEMORY enabled)  
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING enabled)
+  - [randomize_mem](../r/randomize_mem.md) (when RANDOMIZE_ALLOCATED_MEMORY enabled)  
   - MemoryChunkGetPointer
-  - AllocSetAllocFromNewBlock
-  - AllocSetAllocChunkFromBlock
+  - [AllocSetAllocFromNewBlock](AllocSetAllocFromNewBlock.md)
+  - [AllocSetAllocChunkFromBlock](AllocSetAllocChunkFromBlock.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
 - Called from:
-  - AllocSetRealloc
+  - [AllocSetRealloc](AllocSetRealloc.md)
   - BOGUS_MCTX (via function pointer)
   - Various components via the MemoryContext interface
 

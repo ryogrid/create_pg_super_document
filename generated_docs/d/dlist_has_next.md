@@ -22,18 +22,18 @@ This function is commonly used in iteration loops to safely traverse the list wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (type)
-  - dlist_node (type)
+  - [dlist_head](dlist_head.md) (type)
+  - [dlist_node](dlist_node.md) (type)
 - Called from (representative examples):
-  - dataPlaceToPageLeafSplit
-  - addItemsToLeaf
-  - leafRepackItems
-  - ReorderBufferIterTXNNext
+  - [dataPlaceToPageLeafSplit](dataPlaceToPageLeafSplit.md)
+  - [addItemsToLeaf](../a/addItemsToLeaf.md)
+  - [leafRepackItems](../l/leafRepackItems.md)
+  - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md)
   - pgstat_flush_pending_entries
-  - BumpReset
-  - GenerationReset
-  - dlist_next_node
-  - dclist_has_next
+  - [BumpReset](../B/BumpReset.md)
+  - [GenerationReset](../G/GenerationReset.md)
+  - [dlist_next_node](dlist_next_node.md)
+  - [dclist_has_next](dclist_has_next.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

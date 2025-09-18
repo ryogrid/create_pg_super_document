@@ -36,14 +36,14 @@ PLyObToTuple is a component structure used as part of the PLyObToDatum conversio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (for per-column conversion)
-  - TupleDesc (PostgreSQL tuple descriptor)
-  - TypeCacheEntry (PostgreSQL type cache entry)
-  - FmgrInfo (PostgreSQL function manager structure)
+  - [PLyObToDatum](PLyObToDatum.md) (for per-column conversion)
+  - [TupleDesc](../T/TupleDesc.md) (PostgreSQL tuple descriptor)
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (PostgreSQL type cache entry)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)
 - Called from (representative examples):
-  - PLyObToDatum (as union member 'tuple')
+  - [PLyObToDatum](PLyObToDatum.md) (as union member 'tuple')
   - Composite type conversion functions in plpy_typeio.c
-  - PLyMapping_ToComposite, PLySequence_ToComposite, PLyGenericObject_ToComposite
+  - [PLyMapping_ToComposite](PLyMapping_ToComposite.md), PLySequence_ToComposite, PLyGenericObject_ToComposite
 
 ## Notes and Other Information
 PLyObToTuple handles the most complex conversions in PLpython by supporting multiple Python object representations (mappings/dicts, sequences/tuples, and generic objects with attributes) and converting them to PostgreSQL composite types. The structure optimizes for both anonymous RECORD types (using recdesc) and named composite types (using typentry and tupdescid for cache validation). The atts array enables per-column type-specific conversion, allowing composite types with heterogeneous column types. The recinfunc provides a fallback mechanism for string-based record conversion when direct conversion is not possible. This structure is essential for PLpython's ability to work with complex PostgreSQL data types and return composite values from Python functions.

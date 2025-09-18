@@ -43,16 +43,16 @@ The function works by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PointerIsValid` (pointer validation macro)
-  - `open_lo_relation`, `CatalogOpenIndexes`, `CatalogCloseIndexes` (catalog management)
-  - `systable_beginscan_ordered`, `systable_getnext_ordered`, `systable_endscan_ordered` (system catalog scanning)
-  - `getdatafield` (extracts data from large object tuple)
-  - `heap_modify_tuple`, `heap_form_tuple`, `heap_freetuple` (tuple management)
-  - `CatalogTupleUpdateWithInfo`, `CatalogTupleInsertWithInfo`, `CatalogTupleDelete` (catalog updates)
+  - `[open_lo_relation](../o/open_lo_relation.md)`, `CatalogOpenIndexes`, `CatalogCloseIndexes` (catalog management)
+  - `[systable_beginscan_ordered](../s/systable_beginscan_ordered.md)`, `systable_getnext_ordered`, `systable_endscan_ordered` (system catalog scanning)
+  - `[getdatafield](../g/getdatafield.md)` (extracts data from large object tuple)
+  - `[heap_modify_tuple](../h/heap_modify_tuple.md)`, `heap_form_tuple`, `heap_freetuple` (tuple management)
+  - `[CatalogTupleUpdateWithInfo](../C/CatalogTupleUpdateWithInfo.md)`, `CatalogTupleInsertWithInfo`, `CatalogTupleDelete` (catalog updates)
   - `CommandCounterIncrement` (transaction visibility)
   - `MemSet` (memory zeroing for holes)
   - `MAX_LARGE_OBJECT_SIZE`, `LOBLKSIZE` (size constants)
 - Called from (representative examples):
-  - `lo_truncate_internal` (user-facing truncate function)
+  - `[lo_truncate_internal](../l/lo_truncate_internal.md)` (user-facing truncate function)
 
 ## Notes and Other Information
 - Returns void (no return value)

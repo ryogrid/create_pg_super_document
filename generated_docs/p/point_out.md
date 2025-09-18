@@ -19,10 +19,10 @@ The `point_out` function is responsible for converting PostgreSQL's internal Poi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Point` - PostgreSQL's 2D point data structure
+  - `[Point](../P/Point.md)` - PostgreSQL's 2D point data structure
   - `PG_GETARG_POINT_P` - Macro for extracting Point argument from PostgreSQL function call
   - `PATH_NONE` - Constant indicating single point encoding (not a path)
-  - `path_encode` - Utility function for encoding geometric objects to string format
+  - `[path_encode](path_encode.md)` - Utility function for encoding geometric objects to string format
   - `PG_RETURN_CSTRING` - Macro for returning C string from PostgreSQL functions
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system)

@@ -26,11 +26,11 @@ The function is particularly useful for hash-based operations that benefit from 
   - NUMERIC_WEIGHT (decimal point position)
   - NUMERIC_DIGITS (digit array access)
   - NUMERIC_NDIGITS (digit count)
-  - hash_any_extended (seeded binary hash function)
-  - UInt64GetDatum/DatumGetUInt64 (64-bit datum conversion)
+  - [hash_any_extended](hash_any_extended.md) (seeded binary hash function)
+  - [UInt64GetDatum](../U/UInt64GetDatum.md)/DatumGetUInt64 (64-bit datum conversion)
   - PG_RETURN_UINT64/PG_RETURN_DATUM (return value macros)
 - Called from (representative examples):
-  - JsonbHashScalarValueExtended (extended JSONB numeric hashing)
+  - [JsonbHashScalarValueExtended](../J/JsonbHashScalarValueExtended.md) (extended JSONB numeric hashing)
 
 ## Notes and Other Information
 - Returns seed value for special values (NaN, infinity) to maintain consistency

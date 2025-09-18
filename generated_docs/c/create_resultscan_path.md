@@ -21,10 +21,10 @@ This function constructs a Path node specifically for result scan operations on 
 - Functions called/Symbols referenced:
   - makeNode
   - get_baserel_parampathinfo
-  - cost_resultscan
+  - [cost_resultscan](cost_resultscan.md)
 - Called from (representative examples):
-  - set_result_pathlist
-  - reparameterize_path
+  - [set_result_pathlist](../s/set_result_pathlist.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
 - Sets pathtype to T_Result to identify this as a result scan path

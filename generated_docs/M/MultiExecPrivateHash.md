@@ -21,8 +21,8 @@ Key optimizations include skew bucket handling for values that occur much more f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HashState (parameter and internal references)
-  - HashJoinTable (hash table structure)
+  - [HashState](../H/HashState.md) (parameter and internal references)
+  - [HashJoinTable](../H/HashJoinTable.md) (hash table structure)
   - outerPlanState (access to child plan node)
   - ExecProcNode (execute child node)
   - TupIsNull (check for end of input)
@@ -31,10 +31,10 @@ Key optimizations include skew bucket handling for values that occur much more f
   - INVALID_SKEW_BUCKET_NO (skew bucket validation)
   - ExecHashSkewTableInsert (insert into skew buckets)
   - ExecHashTableInsert (standard hash table insertion)
-  - ExecHashIncreaseNumBuckets (dynamic resizing)
-  - HashJoinTuple (tuple structure for space calculations)
+  - [ExecHashIncreaseNumBuckets](../E/ExecHashIncreaseNumBuckets.md) (dynamic resizing)
+  - [HashJoinTuple](../H/HashJoinTuple.md) (tuple structure for space calculations)
 - Called from (representative examples):
-  - MultiExecHash (single-backend execution path)
+  - [MultiExecHash](MultiExecHash.md) (single-backend execution path)
 
 ## Notes and Other Information
 - Handles skew optimization by detecting frequently occurring hash values and placing them in specialized buckets

@@ -28,19 +28,19 @@ The function intelligently determines when to show collation information (COLLAT
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType (determines the data type of the sort expression)
-  - lookup_type_cache (gets type information including default operators)
-  - get_typcollation (gets the default collation for a type)
-  - get_collation_name (converts collation OID to name)
-  - quote_identifier (properly quotes collation names)
-  - get_opname (converts operator OID to name)
-  - get_equality_op_for_ordering_op (determines if operator is ascending/descending)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (gets type information including default operators)
+  - [get_typcollation](../g/get_typcollation.md) (gets the default collation for a type)
+  - [get_collation_name](../g/get_collation_name.md) (converts collation OID to name)
+  - [quote_identifier](../q/quote_identifier.md) (properly quotes collation names)
+  - [get_opname](../g/get_opname.md) (converts operator OID to name)
+  - [get_equality_op_for_ordering_op](../g/get_equality_op_for_ordering_op.md) (determines if operator is ascending/descending)
   - appendStringInfo/appendStringInfoString (builds output string)
 - Constants referenced:
   - TYPECACHE_LT_OPR, TYPECACHE_GT_OPR (type cache flags)
 - Types referenced:
   - StringInfo, Node, Oid, TypeCacheEntry
 - Called from (representative examples):
-  - show_sort_group_keys (when displaying sort keys with ordering information)
+  - [show_sort_group_keys](show_sort_group_keys.md) (when displaying sort keys with ordering information)
 
 ## Notes and Other Information
 - Only displays collation if it differs from the type's default collation

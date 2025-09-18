@@ -31,21 +31,21 @@ The function performs polymorphic type consistency checking when generic types a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_coercion_pathway
+  - [find_coercion_pathway](../f/find_coercion_pathway.md)
   - IsPolymorphicType
-  - check_generic_type_consistency
-  - typeInheritsFrom
-  - typeIsOfTypedTable
-  - is_complex_array
+  - [check_generic_type_consistency](check_generic_type_consistency.md)
+  - [typeInheritsFrom](../t/typeInheritsFrom.md)
+  - [typeIsOfTypedTable](../t/typeIsOfTypedTable.md)
+  - [is_complex_array](../i/is_complex_array.md)
   - ISCOMPLEX
   - CoercionContext (enum)
-  - CoercionPathType (enum)
+  - [CoercionPathType](../C/CoercionPathType.md) (enum)
 - Called from (representative examples):
-  - coerce_to_target_type
-  - select_common_type
-  - func_match_argtypes
-  - func_select_candidate
-  - verify_common_type
+  - [coerce_to_target_type](coerce_to_target_type.md)
+  - [select_common_type](../s/select_common_type.md)
+  - [func_match_argtypes](../f/func_match_argtypes.md)
+  - [func_select_candidate](../f/func_select_candidate.md)
+  - [verify_common_type](../v/verify_common_type.md)
 
 ## Notes and Other Information
 - Returns false immediately upon finding any non-coercible type pair

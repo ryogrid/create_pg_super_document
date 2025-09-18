@@ -26,15 +26,15 @@ This function performs the actual computation for multirange subtraction (A - B)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - range_before_internal
-  - range_split_internal
-  - range_overlaps_internal
-  - range_minus_internal
+  - [palloc0](../p/palloc0.md)
+  - [range_before_internal](../r/range_before_internal.md)
+  - [range_split_internal](../r/range_split_internal.md)
+  - [range_overlaps_internal](../r/range_overlaps_internal.md)
+  - [range_minus_internal](../r/range_minus_internal.md)
   - RangeIsEmpty
-  - make_multirange
+  - [make_multirange](make_multirange.md)
 - Called from (representative examples):
-  - multirange_minus
+  - [multirange_minus](multirange_minus.md)
   - PG_RETURN_MULTIRANGE_P (via macro expansion)
 
 ## Notes and Other Information

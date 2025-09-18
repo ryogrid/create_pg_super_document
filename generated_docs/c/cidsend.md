@@ -22,10 +22,10 @@ The `cidsend` function is part of PostgreSQL's binary protocol infrastructure fo
 - Functions called/Symbols referenced:
   - PG_GETARG_COMMANDID (macro for extracting CommandId from function args)
   - CommandId (PostgreSQL internal type)
-  - StringInfoData (PostgreSQL string buffer structure)
-  - pq_begintypsend (PostgreSQL function to initialize binary send buffer)
-  - pq_sendint32 (PostgreSQL function to add 32-bit integer to buffer)
-  - pq_endtypsend (PostgreSQL function to finalize binary send buffer)
+  - [StringInfoData](../S/StringInfoData.md) (PostgreSQL string buffer structure)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (PostgreSQL function to initialize binary send buffer)
+  - [pq_sendint32](../p/pq_sendint32.md) (PostgreSQL function to add 32-bit integer to buffer)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (PostgreSQL function to finalize binary send buffer)
   - PG_RETURN_BYTEA_P (macro for returning binary data)
 
 - Called from (representative examples):

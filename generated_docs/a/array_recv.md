@@ -22,16 +22,16 @@ The function processes the binary stream by reading array metadata (dimensions, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
+  - [pq_getmsgint](../p/pq_getmsgint.md)
   - ArrayGetNItems
   - ArrayCheckBounds
-  - get_type_io_data
+  - [get_type_io_data](../g/get_type_io_data.md)
   - IOFunc_receive
-  - fmgr_info_cxt
-  - construct_empty_array
-  - ReadArrayBinary
-  - CopyArrayEls
-  - MemoryContextAlloc
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [construct_empty_array](../c/construct_empty_array.md)
+  - [ReadArrayBinary](../R/ReadArrayBinary.md)
+  - [CopyArrayEls](../C/CopyArrayEls.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - SET_VARSIZE
   - ARR_OVERHEAD_WITHNULLS
   - ARR_OVERHEAD_NONULLS
@@ -39,9 +39,9 @@ The function processes the binary stream by reading array metadata (dimensions, 
   - ARR_LBOUND
   - PG_RETURN_ARRAYTYPE_P
 - Called from (representative examples):
-  - int2vectorrecv
-  - oidvectorrecv
-  - CATALOG (pg_type.h)
+  - [int2vectorrecv](../i/int2vectorrecv.md)
+  - [oidvectorrecv](../o/oidvectorrecv.md)
+  - [CATALOG](../C/CATALOG.md) (pg_type.h)
 
 ## Notes and Other Information
 The function implements security-conscious type checking, only complaining about type mismatches for built-in types (OIDs less than FirstGenbkiObjectId) since user-defined type OIDs are not stable across systems. It handles empty arrays as a special case, returning construct_empty_array() after validating the element type. The ArrayMetaState cache structure stores element type information to avoid repeated lookups. The function supports arrays with up to MAXDIM dimensions and performs comprehensive bounds checking to prevent integer overflow in array size calculations.

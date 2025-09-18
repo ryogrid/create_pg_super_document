@@ -24,7 +24,7 @@ The function uses PostgreSQL's optimized case mapping table which provides dense
   - CaseLower (enum value)
 - Called from (representative examples):
   - pg_wc_tolower
-  - icu_test_simple
+  - [icu_test_simple](../i/icu_test_simple.md)
 
 ## Notes and Other Information
 - Returns the original codepoint if no lowercase mapping exists

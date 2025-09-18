@@ -288,18 +288,18 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_prepare (struct type)
+  - [xl_xact_prepare](xl_xact_prepare.md) (struct type)
   - RepOriginId (type)
   - xl_xact_parsed_prepare (struct type)
-  - ParsePrepareRecord (parses prepare record into structured format)
-  - timestamptz_to_str (formats timestamps)
-  - xact_desc_relations (formats relation information - called twice for commit/abort)
-  - xact_desc_stats (formats dropped statistics - called twice for commit/abort)
-  - xact_desc_subxacts (formats subtransaction information)
-  - standby_desc_invalidations (formats cache invalidation messages)
+  - [ParsePrepareRecord](../P/ParsePrepareRecord.md) (parses prepare record into structured format)
+  - [timestamptz_to_str](../t/timestamptz_to_str.md) (formats timestamps)
+  - [xact_desc_relations](xact_desc_relations.md) (formats relation information - called twice for commit/abort)
+  - [xact_desc_stats](xact_desc_stats.md) (formats dropped statistics - called twice for commit/abort)
+  - [xact_desc_subxacts](xact_desc_subxacts.md) (formats subtransaction information)
+  - [standby_desc_invalidations](../s/standby_desc_invalidations.md) (formats cache invalidation messages)
   - InvalidRepOriginId (constant for checking origin validity)
 - Called from (representative examples):
-  - xact_desc (src/backend/access/rmgrdesc/xactdesc.c:461)
+  - [xact_desc](xact_desc.md) (src/backend/access/rmgrdesc/xactdesc.c:461)
 
 ## Notes and Other Information
 - This is a static function, only visible within the xactdesc.c file

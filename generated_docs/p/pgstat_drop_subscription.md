@@ -21,9 +21,9 @@ The function is designed to work seamlessly with PostgreSQL's transaction system
 - Functions called/Symbols referenced:
   - pgstat_drop_transactional
   - PGSTAT_KIND_SUBSCRIPTION
-  - PgStat_StatSubEntry
+  - [PgStat_StatSubEntry](../P/PgStat_StatSubEntry.md)
 - Called from (representative examples):
-  - DropSubscription
+  - [DropSubscription](../D/DropSubscription.md)
 
 ## Notes and Other Information
 This function is typically called during the execution of a DROP SUBSCRIPTION SQL command. The transactional behavior ensures that statistics entries are not orphaned or prematurely deleted. The actual statistics cleanup occurs during transaction commit processing, maintaining consistency with the subscription's lifecycle in the system catalogs. This approach is part of PostgreSQL's broader strategy for maintaining data consistency across system components.

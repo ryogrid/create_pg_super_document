@@ -26,8 +26,8 @@ This function completes the initialization of a tuplestore destination receiver 
   - TStoreState (structure being configured)
   - DestTuplestore (destination type identifier for validation)
 - Called from (representative examples):
-  - PersistHoldablePortal (in portalcmds.c for cursor persistence)
-  - FillPortalStore (in pquery.c for result storage)
+  - [PersistHoldablePortal](../P/PersistHoldablePortal.md) (in portalcmds.c for cursor persistence)
+  - [FillPortalStore](../F/FillPortalStore.md) (in pquery.c for result storage)
 
 ## Notes and Other Information
 - Contains an assertion to prevent simultaneous use of detoast and target_tupdesc options, as no current caller needs this combination

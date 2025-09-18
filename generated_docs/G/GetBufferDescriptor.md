@@ -19,16 +19,16 @@ This inline function provides efficient access to buffer descriptors by converti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type for buffer descriptors)
+  - [BufferDesc](../B/BufferDesc.md) (structure type for buffer descriptors)
   - BufferDescriptors (global array containing buffer descriptor entries)
 - Called from (representative examples):
   - InitBufferPool
-  - ReadRecentBuffer
-  - ZeroAndLockBuffer
-  - BufferAlloc
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
+  - [BufferAlloc](../B/BufferAlloc.md)
   - MarkBufferDirty
   - ReleaseBuffer
-  - LockBuffer
+  - [LockBuffer](../L/LockBuffer.md)
   - And many other buffer management functions
 
 ## Notes and Other Information

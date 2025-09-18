@@ -19,12 +19,12 @@ This function implements the file reading functionality for the "none" compressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CompressFileHandle (struct type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (struct type)
   - fread (standard C library function)
   - ferror (standard C library function)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
 - Called from (representative examples):
-  - InitCompressFileHandleNone
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md)
 
 ## Notes and Other Information
 - This function is part of the compress file API for handling uncompressed files

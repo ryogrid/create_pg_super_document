@@ -23,30 +23,30 @@ The transformation process includes type checking, expression parsing, and ensur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
   - get_partition_strategy
   - get_partition_natts
   - get_partition_exprs
   - copyObject
   - ereport
-  - errcode
-  - errmsg
-  - parser_errposition
-  - exprLocation
-  - get_attname
-  - deparse_expression
-  - deparse_context_for
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [parser_errposition](../p/parser_errposition.md)
+  - [exprLocation](../e/exprLocation.md)
+  - [get_attname](../g/get_attname.md)
+  - [deparse_expression](../d/deparse_expression.md)
+  - [deparse_context_for](../d/deparse_context_for.md)
   - get_partition_col_typid
   - get_partition_col_typmod
   - get_partition_col_collation
-  - transformPartitionBoundValue
-  - transformPartitionRangeBounds
-  - equal
+  - [transformPartitionBoundValue](transformPartitionBoundValue.md)
+  - [transformPartitionRangeBounds](transformPartitionRangeBounds.md)
+  - [equal](../e/equal.md)
   - lappend
   - elog
 - Called from (representative examples):
-  - DefineRelation (in src/backend/commands/tablecmds.c:1108)
-  - transformPartitionCmd (in src/backend/parser/parse_utilcmd.c:3942)
+  - [DefineRelation](../D/DefineRelation.md) (in src/backend/commands/tablecmds.c:1108)
+  - [transformPartitionCmd](transformPartitionCmd.md) (in src/backend/parser/parse_utilcmd.c:3942)
 
 ## Notes and Other Information
 - Hash partitioning does not support default partitions and will generate an error if attempted

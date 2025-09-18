@@ -19,17 +19,17 @@ This function initializes the global role name cache used by `getRoleName()` for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
-  - PQntuples/PQgetvalue
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)/PQgetvalue
   - pg_malloc
   - atooid
-  - pg_strdup
-  - PQclear
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQclear](../P/PQclear.md)
 - Global variables modified:
   - `rolenames`: Array of RoleNameItem structures populated by this function
   - `nrolenames`: Set to the number of roles found
 - Called from (representative examples):
-  - main (during pg_dump initialization)
+  - [main](../m/main.md) (during pg_dump initialization)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

@@ -22,13 +22,13 @@ The function assumes all SPGiST-indexable operators are strict, meaning any null
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpGistScanOpaque (type)
-  - IndexScanDesc (type)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (type)
   - ScanKey (type)
   - SK_ISNULL (flag)
   - SK_SEARCHNULL (flag)
   - SK_SEARCHNOTNULL (flag)
 - Called from:
-  - spgrescan (src/backend/access/spgist/spgscan.c:419)
+  - [spgrescan](spgrescan.md) (src/backend/access/spgist/spgscan.c:419)
 
 ## Notes and Other Information
 - This is a static function internal to the spgscan.c module

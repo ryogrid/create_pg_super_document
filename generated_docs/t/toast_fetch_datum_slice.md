@@ -28,13 +28,13 @@ The function handles boundary conditions gracefully, adjusting slice parameters 
   - SET_VARSIZE_COMPRESSED
   - SET_VARSIZE
   - table_open
-  - table_relation_fetch_toast_slice
+  - [table_relation_fetch_toast_slice](table_relation_fetch_toast_slice.md)
   - table_close
-  - palloc
+  - [palloc](../p/palloc.md)
   - elog
   - Assert
 - Called from:
-  - detoast_attr_slice
+  - [detoast_attr_slice](../d/detoast_attr_slice.md)
 
 ## Notes and Other Information
 - This is a static function accessible only within the detoast.c compilation unit

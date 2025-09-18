@@ -20,9 +20,9 @@ This function performs range validation for parameter numbers in PostgreSQL prep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqInternalNotice (for error reporting)
+  - [pqInternalNotice](../p/pqInternalNotice.md) (for error reporting)
 - Called from (representative examples):
-  - PQparamtype
+  - [PQparamtype](../P/PQparamtype.md)
 
 ## Notes and Other Information
 - Returns true if the parameter number is valid, false otherwise

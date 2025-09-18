@@ -31,17 +31,17 @@ The function provides flexible memory management options: it can adopt an existi
   - AllocSetContextCreate
   - copyObject
   - StmtPlanRequiresRevalidation
-  - extract_query_dependencies
-  - GetSearchPathMatcher
-  - PlanCacheComputeResultDesc
+  - [extract_query_dependencies](../e/extract_query_dependencies.md)
+  - [GetSearchPathMatcher](../G/GetSearchPathMatcher.md)
+  - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
   - CACHEDPLANSOURCE_MAGIC
   - ALLOCSET_START_SMALL_SIZES
 
 - Called from (representative examples):
-  - PrepareQuery (src/backend/commands/prepare.c:120)
-  - _SPI_prepare_plan (src/backend/executor/spi.c:2287)
-  - _SPI_execute_plan (src/backend/executor/spi.c:2540)
-  - exec_parse_message (src/backend/tcop/postgres.c:1554)
+  - [PrepareQuery](../P/PrepareQuery.md) (src/backend/commands/prepare.c:120)
+  - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md) (src/backend/executor/spi.c:2287)
+  - [_SPI_execute_plan](../S/_SPI_execute_plan.md) (src/backend/executor/spi.c:2540)
+  - [exec_parse_message](../e/exec_parse_message.md) (src/backend/tcop/postgres.c:1554)
 
 ## Notes and Other Information
 - The function marks the CachedPlanSource as complete and valid upon successful completion

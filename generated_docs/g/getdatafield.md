@@ -21,15 +21,15 @@ This utility function safely extracts the data field from a large object page tu
 ## Dependencies
 - Functions called/Symbols referenced:
   - VARATT_IS_EXTENDED (macro to check for extended attributes)
-  - detoast_attr (function to decompress/retrieve toasted data)
+  - [detoast_attr](../d/detoast_attr.md) (function to decompress/retrieve toasted data)
   - VARSIZE (macro to get variable-length data size)
   - LOBLKSIZE (constant defining maximum large object block size)
   - ereport (for error reporting)
 - Called from (representative examples):
-  - inv_getsize
-  - inv_read
-  - inv_write
-  - inv_truncate
+  - [inv_getsize](../i/inv_getsize.md)
+  - [inv_read](../i/inv_read.md)
+  - [inv_write](../i/inv_write.md)
+  - [inv_truncate](../i/inv_truncate.md)
 
 ## Notes and Other Information
 - Function is static (internal to inv_api.c)

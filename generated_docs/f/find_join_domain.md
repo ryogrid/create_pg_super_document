@@ -20,13 +20,13 @@ The function performs a linear search through the join_domains list and returns 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
   - JoinDomain (struct type)
   - elog (for error reporting)
   - lfirst (list iteration macro)
 - Called from (representative examples):
-  - reconsider_outer_join_clause
-  - reconsider_full_join_clause
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md)
+  - [reconsider_full_join_clause](../r/reconsider_full_join_clause.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the equivclass.c file

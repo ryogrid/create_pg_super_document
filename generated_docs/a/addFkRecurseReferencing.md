@@ -56,23 +56,23 @@ Key features include constraint reuse optimization (avoiding duplicate constrain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckRelationLockedByMe
-  - createForeignKeyCheckTriggers
-  - ATGetQueueEntry
-  - get_constraint_name
-  - RelationGetPartitionDesc
-  - CheckAlterTableIsSafe
-  - build_attrmap_by_name
-  - RelationGetFKeyList
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md)
+  - [createForeignKeyCheckTriggers](../c/createForeignKeyCheckTriggers.md)
+  - [ATGetQueueEntry](../A/ATGetQueueEntry.md)
+  - [get_constraint_name](../g/get_constraint_name.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
+  - [build_attrmap_by_name](../b/build_attrmap_by_name.md)
+  - [RelationGetFKeyList](../R/RelationGetFKeyList.md)
   - copyObject
-  - tryAttachPartitionForeignKey
-  - addFkConstraint
-  - addFkRecurseReferencing (recursive call)
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md)
+  - [addFkConstraint](addFkConstraint.md)
+  - [addFkRecurseReferencing](addFkRecurseReferencing.md) (recursive call)
   - table_open/table_close
 - Called from (representative examples):
-  - ATAddForeignKeyConstraint
-  - addFkRecurseReferencing (recursive)
-  - CloneFkReferencing
+  - [ATAddForeignKeyConstraint](../A/ATAddForeignKeyConstraint.md)
+  - [addFkRecurseReferencing](addFkRecurseReferencing.md) (recursive)
+  - [CloneFkReferencing](../C/CloneFkReferencing.md)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, part of the foreign key constraint creation infrastructure

@@ -33,16 +33,16 @@ The function ensures proper transaction processing by calling ReorderBufferProce
   - XLogRecGetInfo
   - ReorderBufferProcessXid  
   - XLogRecGetXid
-  - SnapBuildSerializationPoint
+  - [SnapBuildSerializationPoint](../S/SnapBuildSerializationPoint.md)
   - XLogRecGetData
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
 - Constants used:
   - Various XLOG record type constants (XLOG_CHECKPOINT_SHUTDOWN, XLOG_PARAMETER_CHANGE, etc.)
   - XLR_INFO_MASK
   - WAL_LEVEL_LOGICAL
 - Data types used:
-  - SnapBuild
-  - xl_parameter_change
+  - [SnapBuild](../S/SnapBuild.md)
+  - [xl_parameter_change](xl_parameter_change.md)
 - Called from:
   - Resource manager system via LogicalDecodingProcessRecord (registered in rmgrlist.h)
 

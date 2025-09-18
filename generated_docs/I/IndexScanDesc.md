@@ -46,18 +46,18 @@ The structure is designed to work with both regular index scans and index-only s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexScanDescData (the actual structure definition)
-  - SnapshotData (for snapshot management)
-  - ScanKeyData (for scan key handling)
-  - IndexTuple/HeapTuple (for tuple results)
-  - ParallelIndexScanDescData (for parallel scans)
+  - [IndexScanDescData](IndexScanDescData.md) (the actual structure definition)
+  - [SnapshotData](../S/SnapshotData.md) (for snapshot management)
+  - [ScanKeyData](../S/ScanKeyData.md) (for scan key handling)
+  - [IndexTuple](IndexTuple.md)/HeapTuple (for tuple results)
+  - [ParallelIndexScanDescData](../P/ParallelIndexScanDescData.md) (for parallel scans)
 - Called from (representative examples):
-  - btbeginscan/btrescan/btendscan (B-tree scans)
-  - ginbeginscan/ginrescan/ginendscan (GIN scans)
-  - gistbeginscan/gistrescan/gistendscan (GiST scans)
-  - hashbeginscan/hashrescan/hashendscan (Hash scans)
-  - spgbeginscan/spgrescan/spgendscan (SP-GiST scans)
-  - index_beginscan/index_rescan/index_endscan (generic scan functions)
+  - [btbeginscan](../b/btbeginscan.md)/btrescan/btendscan (B-tree scans)
+  - [ginbeginscan](../g/ginbeginscan.md)/ginrescan/ginendscan (GIN scans)
+  - [gistbeginscan](../g/gistbeginscan.md)/gistrescan/gistendscan (GiST scans)
+  - [hashbeginscan](../h/hashbeginscan.md)/hashrescan/hashendscan (Hash scans)
+  - [spgbeginscan](../s/spgbeginscan.md)/spgrescan/spgendscan (SP-GiST scans)
+  - [index_beginscan](../i/index_beginscan.md)/index_rescan/index_endscan (generic scan functions)
 
 ## Notes and Other Information
 - This is defined in src/include/access/genam.h as a pointer typedef, with the actual structure in src/include/access/relscan.h

@@ -31,14 +31,14 @@ The amadjustmembers functions receive lists of these structures and can modify t
 - Functions called/Symbols referenced:
   - None (this is a data structure definition)
 - Called from (representative examples):
-  - ginadjustmembers (GIN access method)
-  - gistadjustmembers (GiST access method)
-  - btadjustmembers (B-tree access method)
-  - hashadjustmembers (Hash access method)
-  - spgadjustmembers (SP-GiST access method)
-  - DefineOpClass (operator class definition)
-  - AlterOpFamilyAdd (adding members to operator families)
-  - AlterOpFamilyDrop (removing members from operator families)
+  - [ginadjustmembers](../g/ginadjustmembers.md) (GIN access method)
+  - [gistadjustmembers](../g/gistadjustmembers.md) (GiST access method)
+  - [btadjustmembers](../b/btadjustmembers.md) (B-tree access method)
+  - [hashadjustmembers](../h/hashadjustmembers.md) (Hash access method)
+  - [spgadjustmembers](../s/spgadjustmembers.md) (SP-GiST access method)
+  - [DefineOpClass](../D/DefineOpClass.md) (operator class definition)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md) (adding members to operator families)
+  - [AlterOpFamilyDrop](../A/AlterOpFamilyDrop.md) (removing members from operator families)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's extensible operator class system, allowing custom access methods to define their own operators and support functions

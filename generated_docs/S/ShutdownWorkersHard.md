@@ -27,12 +27,12 @@ The implementation differs between Unix-like systems and Windows:
 - Functions called/Symbols referenced:
   - closesocket (closes communication pipes)
   - kill (Unix: sends SIGTERM to worker processes)
-  - PQcancel (Windows: cancels active queries)
-  - WaitForTerminatingWorkers (waits for workers to finish termination)
+  - [PQcancel](../P/PQcancel.md) (Windows: cancels active queries)
+  - [WaitForTerminatingWorkers](../W/WaitForTerminatingWorkers.md) (waits for workers to finish termination)
   - EnterCriticalSection/LeaveCriticalSection (Windows: thread synchronization)
 - Called from (representative examples):
-  - write_stderr (error handling context)
-  - archive_close_connection (connection cleanup context)
+  - [write_stderr](../w/write_stderr.md) (error handling context)
+  - [archive_close_connection](../a/archive_close_connection.md) (connection cleanup context)
 
 ## Notes and Other Information
 - This is a static function, only used within the parallel.c module

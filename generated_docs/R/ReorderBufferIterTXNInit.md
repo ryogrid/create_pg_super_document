@@ -32,14 +32,14 @@ The iterator state is returned through the iter_state parameter rather than as a
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertChangeLsnOrder (validates LSN ordering within transactions)
-  - MemoryContextAllocZero (allocates zeroed memory)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocates zeroed memory)
   - dlist_foreach, dlist_container, dlist_head_element (doubly-linked list operations)
-  - binaryheap_allocate, binaryheap_add_unordered, binaryheap_build (binary heap operations)
-  - ReorderBufferIterCompare (heap comparison function)
-  - ReorderBufferSerializeTXN, ReorderBufferRestoreChanges (serialization handling)
+  - [binaryheap_allocate](../b/binaryheap_allocate.md), binaryheap_add_unordered, binaryheap_build (binary heap operations)
+  - [ReorderBufferIterCompare](ReorderBufferIterCompare.md) (heap comparison function)
+  - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md), ReorderBufferRestoreChanges (serialization handling)
   - rbtxn_is_serialized (checks if transaction is serialized)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN (during transaction processing)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md) (during transaction processing)
   - IsInsertOrUpdate (during change processing)
 
 ## Notes and Other Information

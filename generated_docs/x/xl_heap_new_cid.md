@@ -26,13 +26,13 @@ This structure logs the assignment of command IDs (cmin/cmax) to specific tuples
 - Functions called/Symbols referenced:
   - TransactionId (type)
   - CommandId (type)
-  - RelFileLocator (type)
-  - ItemPointerData (type)
+  - [RelFileLocator](../R/RelFileLocator.md) (type)
+  - [ItemPointerData](../I/ItemPointerData.md) (type)
 - Called from (representative examples):
-  - log_heap_new_cid (src/backend/access/heap/heapam.c:9040)
-  - heap2_desc (src/backend/access/rmgrdesc/heapdesc.c:371)
-  - heap2_decode (src/backend/replication/logical/decode.c:433,435)
-  - SnapBuildProcessNewCid (src/backend/replication/logical/snapbuild.c:829)
+  - [log_heap_new_cid](../l/log_heap_new_cid.md) (src/backend/access/heap/heapam.c:9040)
+  - [heap2_desc](../h/heap2_desc.md) (src/backend/access/rmgrdesc/heapdesc.c:371)
+  - [heap2_decode](../h/heap2_decode.md) (src/backend/replication/logical/decode.c:433,435)
+  - [SnapBuildProcessNewCid](../S/SnapBuildProcessNewCid.md) (src/backend/replication/logical/snapbuild.c:829)
   - SizeOfHeapNewCid (src/include/access/heapam_xlog.h:464)
 
 ## Notes and Other Information

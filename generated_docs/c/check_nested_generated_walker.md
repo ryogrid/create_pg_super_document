@@ -23,14 +23,14 @@ The function operates as part of PostgreSQL's expression validation system, usin
 ## Dependencies
 - Functions called/Symbols referenced:
   - rt_fetch: Retrieves relation information from the range table
-  - get_attgenerated: Checks if an attribute is a generated column
-  - get_attname: Gets the name of an attribute for error reporting
+  - [get_attgenerated](../g/get_attgenerated.md): Checks if an attribute is a generated column
+  - [get_attname](../g/get_attname.md): Gets the name of an attribute for error reporting
   - expression_tree_walker: Recursively walks the expression tree
   - ereport: Reports errors with detailed messages
 
 - Called from (representative examples):
-  - check_nested_generated: Main entry point for generated column validation
-  - check_nested_generated_walker: Recursive self-calls during tree traversal
+  - [check_nested_generated](check_nested_generated.md): Main entry point for generated column validation
+  - [check_nested_generated_walker](check_nested_generated_walker.md): Recursive self-calls during tree traversal
 
 ## Notes and Other Information
 - This is a static function used internally within heap.c for generated column validation

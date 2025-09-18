@@ -22,17 +22,17 @@ The function also handles collation information appropriately, using index-speci
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate (memory context creation for GISTSTATE lifecycle)
-  - CreateTupleDescCopyConstr (tuple descriptor creation for non-leaf pages)
+  - [CreateTupleDescCopyConstr](../C/CreateTupleDescCopyConstr.md) (tuple descriptor creation for non-leaf pages)
   - IndexRelationGetNumberOfKeyAttributes (key attribute count determination)
-  - index_getprocinfo (cached function manager info retrieval)
-  - index_getprocid (support procedure OID lookup)
-  - fmgr_info_copy (function manager information copying)
+  - [index_getprocinfo](index_getprocinfo.md) (cached function manager info retrieval)
+  - [index_getprocid](index_getprocid.md) (support procedure OID lookup)
+  - [fmgr_info_copy](../f/fmgr_info_copy.md) (function manager information copying)
   - INDEX_MAX_KEYS (maximum key attribute validation)
   - Various GIST_*_PROC constants (support procedure type identification)
 - Called from (representative examples):
-  - gistinsert (tuple insertion operations)
-  - gistbuild (index construction)
-  - gistbeginscan (scan initialization)
+  - [gistinsert](../g/gistinsert.md) (tuple insertion operations)
+  - [gistbuild](../g/gistbuild.md) (index construction)
+  - [gistbeginscan](../g/gistbeginscan.md) (scan initialization)
 
 ## Notes and Other Information
 - Creates dedicated memory context for GISTSTATE lifecycle management

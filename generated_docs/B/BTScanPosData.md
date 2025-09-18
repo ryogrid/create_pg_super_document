@@ -203,13 +203,13 @@ write_data_to_archive_lz4_doc.md: ScanDirection of the scan when _bt_readpage wa
   - XLogRecPtr
   - BlockNumber
   - ScanDirection
-  - BTScanPosItem
+  - [BTScanPosItem](BTScanPosItem.md)
   - MaxTIDsPerBTreePage
 - Called from (representative examples):
-  - btrestrpos
-  - _bt_steppage
+  - [btrestrpos](../b/btrestrpos.md)
+  - [_bt_steppage](../b/_bt_steppage.md)
   - BTScanPos
-  - BTScanOpaqueData
+  - [BTScanOpaqueData](BTScanOpaqueData.md)
 
 ## Notes and Other Information
 - The items array MUST BE LAST due to variable-length considerations

@@ -33,7 +33,7 @@ The function is extensively used throughout PostgreSQL's DDL processing, rule sy
   -  - View column validation
   -  - Common Table Expression analysis
   -  - Rule system result validation
-  -  - Variable expression formatting in rule utilities
+  -  - [Variable](../V/Variable.md) expression formatting in rule utilities
   -  - Rule expression decompilation
   -  - Type coercion expression formatting
 

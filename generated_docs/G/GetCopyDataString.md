@@ -21,9 +21,9 @@ This function is essential for parsing string fields in COPY protocol messages, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReportCopyDataParseError
+  - [ReportCopyDataParseError](../R/ReportCopyDataParseError.md)
 - Called from (representative examples):
-  - ReceiveArchiveStreamChunk
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)
   - CompressionLocation
 
 ## Notes and Other Information

@@ -17,9 +17,9 @@ This function serves as a substitute hook for the COMP_KEYWORD_CASE psql variabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (for duplicating the default string)
+  - [pg_strdup](../p/pg_strdup.md) (for duplicating the default string)
 - Called from (representative examples):
-  - EstablishVariableSpace (via SetVariableHooks for COMP_KEYWORD_CASE variable)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (via SetVariableHooks for COMP_KEYWORD_CASE variable)
 
 ## Notes and Other Information
 - The default value "preserve-upper" indicates that keyword completion should preserve uppercase letters as entered by the user

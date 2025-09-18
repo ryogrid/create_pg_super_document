@@ -26,17 +26,17 @@ If all conditions are met, the function populates the mergeopfamilies field of t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause (checks if expression is an operator clause)
-  - op_mergejoinable (determines if operator supports merge joins)
-  - contain_volatile_functions (checks for volatile function calls)
-  - get_mergejoin_opfamilies (retrieves relevant operator families)
+  - [is_opclause](../i/is_opclause.md) (checks if expression is an operator clause)
+  - [op_mergejoinable](../o/op_mergejoinable.md) (determines if operator supports merge joins)
+  - [contain_volatile_functions](contain_volatile_functions.md) (checks for volatile function calls)
+  - [get_mergejoin_opfamilies](../g/get_mergejoin_opfamilies.md) (retrieves relevant operator families)
   - exprType (determines expression data type)
   - linitial (gets first list element)
   - OpExpr (operator expression node type)
 - Called from:
-  - distribute_qual_to_rels (during initial clause distribution)
-  - process_implied_equality (when processing equivalence class implications)
-  - build_implied_join_equality (when building implied equality conditions)
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md) (during initial clause distribution)
+  - [process_implied_equality](../p/process_implied_equality.md) (when processing equivalence class implications)
+  - [build_implied_join_equality](../b/build_implied_join_equality.md) (when building implied equality conditions)
 
 ## Notes and Other Information
 - This is a static function within initsplan.c, indicating it's an internal utility for query planning

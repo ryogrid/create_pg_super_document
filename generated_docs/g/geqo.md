@@ -28,19 +28,19 @@ The algorithm supports multiple crossover operators (ERX, PMX, CX, PX, OX1, OX2)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gimme_pool_size: Determines genetic algorithm pool size
-  - gimme_number_generations: Determines number of generations to run
-  - geqo_set_seed: Initializes random number generator
-  - alloc_pool: Allocates memory for chromosome population
-  - random_init_pool: Creates initial random population
-  - sort_pool: Sorts population by fitness
-  - geqo_selection: Selects parent chromosomes for breeding
-  - geqo_eval: Evaluates fitness of chromosomes
-  - gimme_tree: Converts best chromosome to actual query plan
+  - [gimme_pool_size](gimme_pool_size.md): Determines genetic algorithm pool size
+  - [gimme_number_generations](gimme_number_generations.md): Determines number of generations to run
+  - [geqo_set_seed](geqo_set_seed.md): Initializes random number generator
+  - [alloc_pool](../a/alloc_pool.md): Allocates memory for chromosome population
+  - [random_init_pool](../r/random_init_pool.md): Creates initial random population
+  - [sort_pool](../s/sort_pool.md): Sorts population by fitness
+  - [geqo_selection](geqo_selection.md): Selects parent chromosomes for breeding
+  - [geqo_eval](geqo_eval.md): Evaluates fitness of chromosomes
+  - [gimme_tree](gimme_tree.md): Converts best chromosome to actual query plan
   - Various crossover operators (pmx, cx, px, ox1, ox2, gimme_edge_table, gimme_tour)
   - Memory management functions (alloc_chromo, free_chromo, etc.)
 - Called from (representative examples):
-  - make_rel_from_joinlist: Main query planner when relation count exceeds threshold
+  - [make_rel_from_joinlist](../m/make_rel_from_joinlist.md): Main query planner when relation count exceeds threshold
 
 ## Notes and Other Information
 - Activated when  is exceeded (default 12 relations)

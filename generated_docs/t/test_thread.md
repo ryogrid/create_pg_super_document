@@ -25,14 +25,14 @@ The function follows this sequence:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGconnect
-  - ECPGtrans
-  - ECPGdo (for INSERT operations)
-  - ECPGdisconnect
+  - [ECPGconnect](../E/ECPGconnect.md)
+  - [ECPGtrans](../E/ECPGtrans.md)
+  - [ECPGdo](../E/ECPGdo.md) (for INSERT operations)
+  - [ECPGdisconnect](../E/ECPGdisconnect.md)
   - ECPGt_char
-  - sqlprint (error handling)
+  - [sqlprint](../s/sqlprint.md) (error handling)
 - Called from (representative examples):
-  - main (in thread-thread.c and thread-thread_implicit.c test files)
+  - [main](../m/main.md) (in thread-thread.c and thread-thread_implicit.c test files)
 
 ## Notes and Other Information
 - This function is part of the ECPG test suite located in src/interfaces/ecpg/test/expected/

@@ -30,9 +30,9 @@ The selection strategy helps maintain good connectivity in the resulting tour wh
 - Functions called/Symbols referenced:
   - Edge (type)
   - Gene (type)
-  - geqo_randint (random number generation function)
+  - [geqo_randint](geqo_randint.md) (random number generation function)
 - Called from (representative examples):
-  - gimme_tour
+  - [gimme_tour](gimme_tour.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the geqo_erx.c file

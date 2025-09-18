@@ -24,10 +24,10 @@ Like its counterpart slotAllNulls, this function intentionally does not handle d
   - slot_attisnull (to check individual attribute NULL status)
 - Types used:
   - TupleTableSlot
-  - SubPlanState (referenced in broader context)
+  - [SubPlanState](../S/SubPlanState.md) (referenced in broader context)
 - Called from (representative examples):
-  - ExecHashSubPlan (for complete tuple validation in subplan execution)
-  - buildSubPlanHash (during hash table construction for subplans)
+  - [ExecHashSubPlan](../E/ExecHashSubPlan.md) (for complete tuple validation in subplan execution)
+  - [buildSubPlanHash](../b/buildSubPlanHash.md) (during hash table construction for subplans)
 
 ## Notes and Other Information
 - This is a static function internal to nodeSubplan.c, used exclusively for subplan operations

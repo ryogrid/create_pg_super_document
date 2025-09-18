@@ -25,7 +25,7 @@ The function follows PostgreSQL's function call convention using the PG_FUNCTION
 - Functions called/Symbols referenced:
   - PG_GETARG_DATEADT (macro to extract date argument from function call)
   - PG_GETARG_TIMESTAMP (macro to extract timestamp argument from function call)
-  - date_cmp_timestamp_internal (internal comparison function)
+  - [date_cmp_timestamp_internal](date_cmp_timestamp_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro to return boolean result)
   - DateADT (PostgreSQL's date type)
   - Timestamp (PostgreSQL's timestamp type)

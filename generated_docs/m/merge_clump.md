@@ -25,18 +25,18 @@ If no merge is possible, the new clump is inserted into the list in size-descend
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - desirable_join (evaluates join desirability using heuristics)
-  - make_join_rel (constructs actual join relations)
-  - generate_partitionwise_join_paths (creates partitioned table join paths)
-  - generate_useful_gather_paths (creates parallel execution paths)
-  - set_cheapest (finds optimal paths for the join relation)
-  - bms_equal (bitmap set comparison)
+  - [desirable_join](../d/desirable_join.md) (evaluates join desirability using heuristics)
+  - [make_join_rel](make_join_rel.md) (constructs actual join relations)
+  - [generate_partitionwise_join_paths](../g/generate_partitionwise_join_paths.md) (creates partitioned table join paths)
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md) (creates parallel execution paths)
+  - [set_cheapest](../s/set_cheapest.md) (finds optimal paths for the join relation)
+  - [bms_equal](../b/bms_equal.md) (bitmap set comparison)
   - foreach_delete_current, list_nth, list_insert_nth (list manipulation)
   - Clump (data structure type)
 
 - Called from (representative examples):
-  - gimme_tree (main tree construction algorithm)
-  - merge_clump (recursive self-calls for continued merging)
+  - [gimme_tree](../g/gimme_tree.md) (main tree construction algorithm)
+  - [merge_clump](merge_clump.md) (recursive self-calls for continued merging)
 
 ## Notes and Other Information
 - Implements recursive merging - successful joins trigger attempts to merge the enlarged clump further

@@ -23,7 +23,7 @@ This is particularly useful in scenarios where the same configuration option nee
   - config_generic
   - GUC_CUSTOM_PLACEHOLDER
 - Called from (representative examples):
-  - fmgr_security_definer
+  - [fmgr_security_definer](../f/fmgr_security_definer.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

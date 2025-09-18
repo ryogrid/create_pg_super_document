@@ -30,14 +30,14 @@ This separation from SS_attach_initplans allows the planner to account for initP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SS_compute_initplan_cost
+  - [SS_compute_initplan_cost](SS_compute_initplan_cost.md)
 - Data types referenced:
   - Cost
-  - Path
+  - [Path](../P/Path.md)
   - ListCell
 - Called from (representative examples):
-  - subquery_planner
-  - build_minmax_path
+  - [subquery_planner](../s/subquery_planner.md)
+  - [build_minmax_path](../b/build_minmax_path.md)
 
 ## Notes and Other Information
 - Early return optimization: if root->init_plans is NIL, no work is needed

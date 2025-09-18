@@ -24,9 +24,9 @@ PartitionElem is a parse-time representation used in PostgreSQL's table partitio
 - Functions called/Symbols referenced:
   - ParseLoc (type for tracking source location)
 - Called from (representative examples):
-  - transformPartitionSpec (processes partition specifications during table creation)
-  - ComputePartitionAttrs (computes partition key attributes)
-  - exprLocation (determines expression source location)
+  - [transformPartitionSpec](../t/transformPartitionSpec.md) (processes partition specifications during table creation)
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md) (computes partition key attributes)
+  - [exprLocation](../e/exprLocation.md) (determines expression source location)
 
 ## Notes and Other Information
 PartitionElem is fundamental to PostgreSQL's declarative partitioning feature introduced in version 10. Unlike indexes, partition keys are not stored on-disk in this format but are transformed into internal catalog representations. The structure supports both simple column partitioning and complex expression-based partitioning, enabling flexible partitioning strategies. The expr field can contain either raw expression trees from the parser or parse-analyzed expressions, providing flexibility in different processing stages.

@@ -37,20 +37,20 @@ The function integrates with PostgreSQL's constraint management system by creati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConstraintNameIsUsed/ChooseConstraintName (constraint name management)
-  - make_parsestate (create parser state)
+  - [ConstraintNameIsUsed](../C/ConstraintNameIsUsed.md)/ChooseConstraintName (constraint name management)
+  - [make_parsestate](../m/make_parsestate.md) (create parser state)
   - makeNode (create CoerceToDomainValue node)
-  - replace_domain_constraint_value (hook for VALUE substitution)
-  - transformExpr (parse and transform expressions)
-  - coerce_to_boolean (ensure boolean result type)
-  - assign_expr_collations (handle collation information)
-  - contain_var_clause (check for forbidden table references)
-  - nodeToString (serialize expression for storage)
-  - CreateConstraintEntry (create catalog entry)
+  - [replace_domain_constraint_value](../r/replace_domain_constraint_value.md) (hook for VALUE substitution)
+  - [transformExpr](../t/transformExpr.md) (parse and transform expressions)
+  - [coerce_to_boolean](../c/coerce_to_boolean.md) (ensure boolean result type)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (handle collation information)
+  - [contain_var_clause](../c/contain_var_clause.md) (check for forbidden table references)
+  - [nodeToString](../n/nodeToString.md) (serialize expression for storage)
+  - [CreateConstraintEntry](../C/CreateConstraintEntry.md) (create catalog entry)
   - ObjectAddressSet (set output object address)
 - Called from:
-  - DefineDomain (during CREATE DOMAIN)
-  - AlterDomainAddConstraint (during ALTER DOMAIN ADD CONSTRAINT)
+  - [DefineDomain](../D/DefineDomain.md) (during CREATE DOMAIN)
+  - [AlterDomainAddConstraint](../A/AlterDomainAddConstraint.md) (during ALTER DOMAIN ADD CONSTRAINT)
 
 ## Notes and Other Information
 - Returns the binary (nodeToString) representation of the constraint expression

@@ -24,8 +24,8 @@ For optimization, the function performs early exit checks: arrays with fewer tha
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P
   - ARR_NDIM, ARR_DIMS, ARR_ELEMTYPE
-  - lookup_type_cache
-  - array_shuffle_n
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [array_shuffle_n](array_shuffle_n.md)
   - PG_RETURN_ARRAYTYPE_P
 - Called from (representative examples):
   - SQL function  (through function catalog)

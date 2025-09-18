@@ -23,12 +23,12 @@ The function extracts both a character argument and a 64-bit integer seed from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32_extended: Extended hash function for 32-bit unsigned integers with seed support
+  - [hash_uint32_extended](hash_uint32_extended.md): Extended hash function for 32-bit unsigned integers with seed support
   - PG_GETARG_CHAR: Macro to extract char argument from function call context
   - PG_GETARG_INT64: Macro to extract 64-bit integer argument from function call context
 
 - Called from (representative examples):
-  - JsonbHashScalarValueExtended: Used in JSONB hash operations for scalar values
+  - [JsonbHashScalarValueExtended](../J/JsonbHashScalarValueExtended.md): Used in JSONB hash operations for scalar values
 
 ## Notes and Other Information
 - Extended version of hashchar function with seed parameter support

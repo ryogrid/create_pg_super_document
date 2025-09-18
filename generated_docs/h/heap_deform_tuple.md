@@ -38,13 +38,13 @@ The function is significantly more efficient than repeated `heap_getattr` calls,
   - att_align_pointer
   - fetchatt
   - att_addlength_pointer
-  - getmissingattr
+  - [getmissingattr](../g/getmissingattr.md)
 - Called from (representative examples):
-  - heap_modify_tuple
-  - heap_modify_tuple_by_cols
-  - heap_toast_insert_or_update
-  - SPI_modifytuple
-  - record_out, record_cmp (tuple comparison functions)
+  - [heap_modify_tuple](heap_modify_tuple.md)
+  - [heap_modify_tuple_by_cols](heap_modify_tuple_by_cols.md)
+  - [heap_toast_insert_or_update](heap_toast_insert_or_update.md)
+  - [SPI_modifytuple](../S/SPI_modifytuple.md)
+  - [record_out](../r/record_out.md), record_cmp (tuple comparison functions)
 
 ## Notes and Other Information
 - For pass-by-reference datatypes, returned Datum pointers point directly into the tuple data

@@ -23,15 +23,15 @@ Second, when operating within valid array contexts (nested levels), the function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTokenType (token type enumeration)
-  - ElementsState (state structure)
+  - [JsonTokenType](../J/JsonTokenType.md) (token type enumeration)
+  - [ElementsState](../E/ElementsState.md) (state structure)
   - JSON_SUCCESS (return value constant)
   - ereport/ERROR (error reporting mechanism)
-  - errcode/ERRCODE_INVALID_PARAMETER_VALUE (error code)
-  - errmsg (error message formatting)
+  - [errcode](errcode.md)/ERRCODE_INVALID_PARAMETER_VALUE (error code)
+  - [errmsg](errmsg.md) (error message formatting)
 
 - Called from (representative examples):
-  - elements_worker (main processing function)
+  - [elements_worker](elements_worker.md) (main processing function)
   - JsObjectFree (cleanup context)
 
 ## Notes and Other Information

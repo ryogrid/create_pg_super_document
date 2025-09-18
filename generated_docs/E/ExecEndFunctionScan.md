@@ -28,9 +28,9 @@ The function follows PostgreSQL's standard cleanup pattern where each node type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplestore_end
+  - [tuplestore_end](../t/tuplestore_end.md)
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - Only cleans up tuplestores, leaving other cleanup to the executor framework

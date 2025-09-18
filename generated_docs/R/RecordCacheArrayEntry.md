@@ -20,9 +20,9 @@ The structure is used within an expandable array that grows dynamically as neede
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDesc (implicitly referenced)
+  - [TupleDesc](../T/TupleDesc.md) (implicitly referenced)
 - Called from (representative examples):
-  - ensure_record_cache_typmod_slot_exists
+  - [ensure_record_cache_typmod_slot_exists](../e/ensure_record_cache_typmod_slot_exists.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/cache/typcache.c:278-282
@@ -30,4 +30,4 @@ The structure is used within an expandable array that grows dynamically as neede
 - Part of the local backend cache system complementing the shared memory record cache
 - The array starts with an initial size of 64 entries and grows using powers of 2 as needed
 - Provides O(1) access time for record type lookups when the typmod is known
-- Backend-local storage means each PostgreSQL process maintains its own copy of this cache
+- [Backend](../B/Backend.md)-local storage means each PostgreSQL process maintains its own copy of this cache

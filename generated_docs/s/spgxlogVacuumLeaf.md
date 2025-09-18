@@ -22,12 +22,12 @@ This structure represents a WAL record for SP-GiST leaf page vacuum operations. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgxlogState
+  - [spgxlogState](spgxlogState.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - vacuumLeafPage (src/backend/access/spgist/spgvacuum.c:129)
-  - spgRedoVacuumLeaf (src/backend/access/spgist/spgxlog.c:755)
-  - spg_desc (src/backend/access/rmgrdesc/spgdesc.c:102)
+  - [vacuumLeafPage](../v/vacuumLeafPage.md) (src/backend/access/spgist/spgvacuum.c:129)
+  - [spgRedoVacuumLeaf](spgRedoVacuumLeaf.md) (src/backend/access/spgist/spgxlog.c:755)
+  - [spg_desc](spg_desc.md) (src/backend/access/rmgrdesc/spgdesc.c:102)
   - SizeOfSpgxlogVacuumLeaf (src/include/access/spgxlog.h:223)
 
 ## Notes and Other Information

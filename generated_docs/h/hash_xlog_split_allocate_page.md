@@ -19,12 +19,12 @@ The function operates on three buffers: it updates the old bucket page's special
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_hash_split_allocate_page (WAL record structure)
+  - [xl_hash_split_allocate_page](../x/xl_hash_split_allocate_page.md) (WAL record structure)
   - XLogRecGetData (extracts record data)
   - XLogReadBufferForRedoExtended (reads buffer with extended options)
   - XLogReadBufferForRedo (reads buffer for redo)
-  - XLogRecGetBlockData (gets block data from record)
-  - _hash_initbuf (initializes hash page buffer)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data from record)
+  - [_hash_initbuf](_hash_initbuf.md) (initializes hash page buffer)
   - HashPageGetOpaque (gets page opaque data)
   - HashPageGetMeta (gets metapage metadata)
   - RBM_NORMAL (normal buffer mode)
@@ -34,7 +34,7 @@ The function operates on three buffers: it updates the old bucket page's special
   - XLH_SPLIT_META_UPDATE_MASKS (flag for mask updates)
   - XLH_SPLIT_META_UPDATE_SPLITPOINT (flag for splitpoint updates)
 - Called from:
-  - hash_redo (main hash WAL replay function)
+  - [hash_redo](hash_redo.md) (main hash WAL replay function)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

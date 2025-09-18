@@ -37,9 +37,9 @@ The function includes special handling for the legacy "rule" privilege type, whi
   - ereport (for error handling)
 - Called from:
   - InternalDefaultACL (src/backend/catalog/aclchk.c:136)
-  - ExecuteGrantStmt (src/backend/catalog/aclchk.c:582)
-  - ExecAlterDefaultPrivilegesStmt (src/backend/catalog/aclchk.c:1116) 
-  - ExecGrant_Relation (src/backend/catalog/aclchk.c:2092)
+  - [ExecuteGrantStmt](../E/ExecuteGrantStmt.md) (src/backend/catalog/aclchk.c:582)
+  - [ExecAlterDefaultPrivilegesStmt](../E/ExecAlterDefaultPrivilegesStmt.md) (src/backend/catalog/aclchk.c:1116) 
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md) (src/backend/catalog/aclchk.c:2092)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the aclchk.c compilation unit

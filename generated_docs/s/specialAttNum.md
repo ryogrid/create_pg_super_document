@@ -17,12 +17,12 @@ The  function determines whether a given attribute name is a special system attr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SystemAttributeByName
+  - [SystemAttributeByName](../S/SystemAttributeByName.md)
   - InvalidAttrNumber
   - FormData_pg_attribute
 - Called from (representative examples):
-  - attnameAttNum
-  - scanRTEForColumn
+  - [attnameAttNum](../a/attnameAttNum.md)
+  - [scanRTEForColumn](scanRTEForColumn.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_relation.c

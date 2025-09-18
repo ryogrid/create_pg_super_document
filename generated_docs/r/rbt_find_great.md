@@ -19,8 +19,8 @@ This function performs a specialized search to find the node with the smallest v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (structure type)
-  - RBTNode (structure type)
+  - [RBTree](../R/RBTree.md) (structure type)
+  - [RBTNode](../R/RBTNode.md) (structure type)
   - RBTNIL (constant representing tree leaf/null)
   - comparator (function pointer from tree structure for comparing nodes)
 - Called from (representative examples):

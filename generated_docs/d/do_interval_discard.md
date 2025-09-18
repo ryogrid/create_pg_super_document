@@ -20,9 +20,9 @@ This static function is responsible for removing an interval value from the accu
 - Functions called/Symbols referenced:
   - INTERVAL_IS_NOBEGIN (macro for checking negative infinity)
   - INTERVAL_IS_NOEND (macro for checking positive infinity) 
-  - finite_interval_mi (function for interval subtraction)
+  - [finite_interval_mi](../f/finite_interval_mi.md) (function for interval subtraction)
 - Called from (representative examples):
-  - interval_avg_accum_inv
+  - [interval_avg_accum_inv](../i/interval_avg_accum_inv.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's inverse aggregate function framework, enabling efficient sliding window calculations

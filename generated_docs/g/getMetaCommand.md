@@ -17,9 +17,9 @@ The `getMetaCommand` function serves as a command name parser that maps string r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
 - Types used:
-  - MetaCommand
+  - [MetaCommand](../M/MetaCommand.md)
 - Enum values referenced:
   - META_NONE
   - META_SET
@@ -36,7 +36,7 @@ The `getMetaCommand` function serves as a command name parser that maps string r
   - META_SYNCPIPELINE
   - META_ENDPIPELINE
 - Called from (representative examples):
-  - process_backslash_command
+  - [process_backslash_command](../p/process_backslash_command.md)
 
 ## Notes and Other Information
 - The function is declared as static, indicating it's for internal use within the pgbench module

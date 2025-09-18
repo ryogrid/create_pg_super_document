@@ -32,22 +32,22 @@ The function converts the PartitionBoundSpec to a text representation for storag
   - SearchSysCacheCopy1
   - HeapTupleIsValid
   - elog
-  - SysCacheGetAttr
-  - nodeToString
+  - [SysCacheGetAttr](SysCacheGetAttr.md)
+  - [nodeToString](../n/nodeToString.md)
   - CStringGetTextDatum
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
-  - update_default_partition_oid
+  - [update_default_partition_oid](../u/update_default_partition_oid.md)
   - CommandCounterIncrement
-  - RelationGetPartitionDesc
-  - get_default_oid_from_partdesc
-  - CacheInvalidateRelcacheByRelid
-  - CacheInvalidateRelcache
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [get_default_oid_from_partdesc](../g/get_default_oid_from_partdesc.md)
+  - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
 - Called from (representative examples):
-  - DefineRelation
-  - ATExecAttachPartition
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - Asserts that the relation is not already marked as a partition

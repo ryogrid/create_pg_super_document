@@ -22,13 +22,13 @@ This function retrieves the appropriate operator OID from the partitioning opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opfamily_member
+  - [get_opfamily_member](get_opfamily_member.md)
   - IsPolymorphicType
   - StrategyNumber
-  - PartitionKey
+  - [PartitionKey](../P/PartitionKey.md)
 - Called from (representative examples):
   - compare_range_bounds
-  - make_partition_op_expr
+  - [make_partition_op_expr](../m/make_partition_op_expr.md)
 
 ## Notes and Other Information
 - This is a static function internal to partbounds.c

@@ -22,17 +22,17 @@ The function includes special handling for logical decoding scenarios where hist
   - RELKIND_HAS_STORAGE (macro to check if relation kind has storage)
   - HistoricSnapshotActive (check if using historic snapshot)
   - RelationIsAccessibleInLogicalDecoding (check logical decoding accessibility)
-  - IsTransactionState (check transaction state)
-  - ScanPgRelation (scan pg_class for current tuple)
-  - RelationMapOidToFilenumber (map OID to file number)
+  - [IsTransactionState](../I/IsTransactionState.md) (check transaction state)
+  - [ScanPgRelation](../S/ScanPgRelation.md) (scan pg_class for current tuple)
+  - [RelationMapOidToFilenumber](RelationMapOidToFilenumber.md) (map OID to file number)
   - RelFileNumberIsValid (validate file number)
   - IsParallelWorker (check if in parallel worker)
-  - RelFileLocatorSkippingWAL (check WAL skipping status)
+  - [RelFileLocatorSkippingWAL](RelFileLocatorSkippingWAL.md) (check WAL skipping status)
 - Called from (representative examples):
-  - RelationBuildDesc
-  - formrdesc
-  - RelationReloadIndexInfo
-  - RelationBuildLocalRelation
+  - [RelationBuildDesc](RelationBuildDesc.md)
+  - [formrdesc](../f/formrdesc.md)
+  - [RelationReloadIndexInfo](RelationReloadIndexInfo.md)
+  - [RelationBuildLocalRelation](RelationBuildLocalRelation.md)
 
 ## Notes and Other Information
 - Relations in pg_global tablespace are treated as shared regardless of relisshared flag

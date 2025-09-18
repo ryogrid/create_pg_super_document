@@ -26,7 +26,7 @@ The function allocates a new BoolExpr node, sets its operation type to NOT_EXPR,
   - NOT_EXPR (boolean operation constant)
   - list_make1 (to create single-element list)
 - Called from (representative examples):
-  - negate_clause (in query optimization)
+  - [negate_clause](../n/negate_clause.md) (in query optimization)
 
 ## Notes and Other Information
 - The location field is set to -1, indicating that the clause doesn't correspond to a specific location in the original SQL text

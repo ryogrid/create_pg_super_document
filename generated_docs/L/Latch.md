@@ -36,11 +36,11 @@ Latches support multiple wait conditions including timeout, postmaster death det
   - kill (Unix signal sending)
 
 - Called from (representative examples):
-  - WaitEventSet (event waiting infrastructure)
-  - XLogRecoveryCtlData (WAL recovery control)
+  - [WaitEventSet](../W/WaitEventSet.md) (event waiting infrastructure)
+  - [XLogRecoveryCtlData](../X/XLogRecoveryCtlData.md) (WAL recovery control)
   - WalRcvState (WAL receiver state)
-  - WalSnd (WAL sender processes)
-  - PGPROC (process control blocks)
+  - [WalSnd](../W/WalSnd.md) (WAL sender processes)
+  - [PGPROC](../P/PGPROC.md) (process control blocks)
 
 ## Key Functions
 - : Initialize a process-local latch

@@ -23,13 +23,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ModifyWaitEvent (updates wait event set with local latch)
-  - SetLatch (sets the local latch state)
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md) (updates wait event set with local latch)
+  - [SetLatch](SetLatch.md) (sets the local latch state)
   - WL_LATCH_SET (wait event type constant)
 
 - Called from (representative examples):
-  - ProcKill
-  - AuxiliaryProcKill
+  - [ProcKill](../P/ProcKill.md)
+  - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md)
 
 ## Notes and Other Information
 - Asserts that the current latch is not already the local latch before switching

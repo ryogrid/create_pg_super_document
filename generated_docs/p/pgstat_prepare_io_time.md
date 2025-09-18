@@ -23,19 +23,19 @@ This design allows PostgreSQL to minimize performance impact when IO timing stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - instr_time
+  - [instr_time](../i/instr_time.md)
   - INSTR_TIME_SET_CURRENT
   - INSTR_TIME_SET_ZERO
 - Called from (representative examples):
-  - WaitReadBuffers
-  - ExtendBufferedRelShared
-  - FlushBuffer
-  - FlushRelationBuffers
-  - IssuePendingWritebacks
+  - [WaitReadBuffers](../W/WaitReadBuffers.md)
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
+  - [FlushBuffer](../F/FlushBuffer.md)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md)
   - GetLocalVictimBuffer
   - ExtendBufferedRelLocal
-  - register_dirty_segment
-  - mdsyncfiletag
+  - [register_dirty_segment](../r/register_dirty_segment.md)
+  - [mdsyncfiletag](../m/mdsyncfiletag.md)
 
 ## Notes and Other Information
 - Returns an instr_time structure that represents either the current time or zero

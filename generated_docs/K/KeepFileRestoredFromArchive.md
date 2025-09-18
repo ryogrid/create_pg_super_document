@@ -25,15 +25,15 @@ After successfully moving the file, the function creates appropriate archive sta
   - rename: Renames files (Windows-specific temporary renaming)
   - strlcpy: Safe string copying (non-Windows platforms)
   - unlink: Removes old files
-  - durable_rename: Performs atomic file rename with fsync
-  - XLogArchiveForceDone: Creates .done file when not in ALWAYS archive mode
-  - XLogArchiveNotify: Creates .ready file in ALWAYS archive mode
-  - WalSndRqstFileReload: Requests WAL senders to reload the current segment
-  - WalSndWakeup: Signals WAL senders about new WAL availability
+  - [durable_rename](../d/durable_rename.md): Performs atomic file rename with fsync
+  - [XLogArchiveForceDone](../X/XLogArchiveForceDone.md): Creates .done file when not in ALWAYS archive mode
+  - [XLogArchiveNotify](../X/XLogArchiveNotify.md): Creates .ready file in ALWAYS archive mode
+  - [WalSndRqstFileReload](../W/WalSndRqstFileReload.md): Requests WAL senders to reload the current segment
+  - [WalSndWakeup](../W/WalSndWakeup.md): Signals WAL senders about new WAL availability
 - Called from (representative examples):
-  - XLogFileRead: After successfully restoring a WAL file during recovery
-  - restoreTimeLineHistoryFiles: When keeping restored timeline history files
-  - readTimeLineHistory: During timeline history file processing
+  - [XLogFileRead](../X/XLogFileRead.md): After successfully restoring a WAL file during recovery
+  - [restoreTimeLineHistoryFiles](../r/restoreTimeLineHistoryFiles.md): When keeping restored timeline history files
+  - [readTimeLineHistory](../r/readTimeLineHistory.md): During timeline history file processing
 
 ## Notes and Other Information
 - Implements Windows-specific workarounds for file locking issues using unique deletion counters

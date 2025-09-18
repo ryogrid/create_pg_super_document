@@ -29,24 +29,24 @@ The function manages snapshot handling, query descriptor creation, executor life
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTableAsRelExists
-  - CreateIntoRelDestReceiver
-  - ExecuteQuery
-  - create_ctas_nodata
-  - QueryRewrite
-  - pg_plan_query
+  - [CreateTableAsRelExists](../C/CreateTableAsRelExists.md)
+  - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md)
+  - [ExecuteQuery](ExecuteQuery.md)
+  - [create_ctas_nodata](../c/create_ctas_nodata.md)
+  - [QueryRewrite](../Q/QueryRewrite.md)
+  - [pg_plan_query](../p/pg_plan_query.md)
   - PushCopiedSnapshot
   - GetActiveSnapshot
   - UpdateActiveSnapshotCommandId
-  - CreateQueryDesc
-  - GetIntoRelEFlags
-  - ExecutorStart
-  - ExecutorRun
-  - ExecutorFinish
-  - ExecutorEnd
-  - RefreshMatViewByOid
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
+  - [GetIntoRelEFlags](../G/GetIntoRelEFlags.md)
+  - [ExecutorStart](ExecutorStart.md)
+  - [ExecutorRun](ExecutorRun.md)
+  - [ExecutorFinish](ExecutorFinish.md)
+  - [ExecutorEnd](ExecutorEnd.md)
+  - [RefreshMatViewByOid](../R/RefreshMatViewByOid.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - This is a public function exposed through the createas.h header

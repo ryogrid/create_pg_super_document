@@ -23,22 +23,22 @@ DropRelationsAllBuffers efficiently removes all cached pages for multiple relati
   - RelFileLocatorBackendIsTemp
   - DropRelationAllLocalBuffers
   - smgrnblocks_cached
-  - smgrexists
+  - [smgrexists](../s/smgrexists.md)
   - BlockNumberIsValid
-  - FindAndDropRelationBuffers
+  - [FindAndDropRelationBuffers](../F/FindAndDropRelationBuffers.md)
   - qsort
   - rlocator_comparator
-  - GetBufferDescriptor
-  - BufTagMatchesRelFileLocator
-  - BufTagGetRelFileLocator
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufTagMatchesRelFileLocator](../B/BufTagMatchesRelFileLocator.md)
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - bsearch
   - LockBufHdr
-  - InvalidateBuffer
-  - UnlockBufHdr
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [UnlockBufHdr](../U/UnlockBufHdr.md)
   - BUF_DROP_FULL_SCAN_THRESHOLD (constant)
   - RELS_BSEARCH_THRESHOLD (constant)
 - Called from (representative examples):
-  - smgrdounlinkall
+  - [smgrdounlinkall](../s/smgrdounlinkall.md)
 
 ## Notes and Other Information
 - Processes all relation forks (main, FSM, VM, etc.) for each relation

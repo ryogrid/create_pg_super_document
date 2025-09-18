@@ -26,12 +26,12 @@ As an optimization, the function returns NULL when no TIDs need to be deleted, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleGetNPosting (get number of TIDs in posting list)
-  - BTreeTupleGetPosting (get array of TIDs from posting list)
-  - palloc (allocate memory for BTVacuumPosting structure)
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md) (get number of TIDs in posting list)
+  - [BTreeTupleGetPosting](../B/BTreeTupleGetPosting.md) (get array of TIDs from posting list)
+  - [palloc](../p/palloc.md) (allocate memory for BTVacuumPosting structure)
   - vstate->callback (vacuum callback to test if TID should be deleted)
 - Called from:
-  - btvacuumpage (during leaf page vacuum processing)
+  - [btvacuumpage](btvacuumpage.md) (during leaf page vacuum processing)
 
 ## Notes and Other Information
 - Returns NULL when no changes are needed (optimization to avoid memory allocation)

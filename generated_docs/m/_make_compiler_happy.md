@@ -39,11 +39,11 @@ The function itself is never meant to be called during normal program execution 
   - p_isnotupper
   - p_isxdigit
   - p_isnotxdigit
-  - p_isEOF
-  - p_iseqC
-  - p_isneC
+  - [p_isEOF](../p/p_isEOF.md)
+  - [p_iseqC](../p/p_iseqC.md)
+  - [p_isneC](../p/p_isneC.md)
 - Called from (representative examples):
-  - p_isurlchar (at src/backend/tsearch/wparser_def.c:535)
+  - [p_isurlchar](../p/p_isurlchar.md) (at src/backend/tsearch/wparser_def.c:535)
 
 ## Notes and Other Information
 - This function should never be called during normal execution

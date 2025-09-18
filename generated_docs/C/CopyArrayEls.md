@@ -31,12 +31,12 @@ The function operates by iterating through all elements, setting appropriate bit
   - ArrayCastAndSet
   - bits8
 - Called from (representative examples):
-  - EA_flatten_into
-  - array_in
-  - array_recv
-  - array_map
-  - construct_md_array
-  - array_replace_internal
+  - [EA_flatten_into](../E/EA_flatten_into.md)
+  - [array_in](../a/array_in.md)
+  - [array_recv](../a/array_recv.md)
+  - [array_map](../a/array_map.md)
+  - [construct_md_array](../c/construct_md_array.md)
+  - [array_replace_internal](../a/array_replace_internal.md)
 
 ## Notes and Other Information
 The caller must ensure that varlena (variable-length) input data is not toasted before calling this function, as the array space has already been allocated. The function automatically disables the freedata flag for pass-by-value types since there's no dynamically allocated memory to free. The null bitmap is managed efficiently using bit manipulation, packing 8 null indicators per byte.

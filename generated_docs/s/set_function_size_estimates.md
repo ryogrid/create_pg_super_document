@@ -22,11 +22,11 @@ The estimation process involves iterating through all functions listed in the ra
 - Functions called/Symbols referenced:
   - planner_rt_fetch
   - RTE_FUNCTION  
-  - RangeTblFunction
-  - expression_returns_set_rows
-  - set_baserel_size_estimates
+  - [RangeTblFunction](../R/RangeTblFunction.md)
+  - [expression_returns_set_rows](../e/expression_returns_set_rows.md)
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - Should only be applied to base relations that are functions (RTE_FUNCTION type)

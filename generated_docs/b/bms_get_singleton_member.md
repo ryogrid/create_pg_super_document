@@ -20,18 +20,18 @@ This function combines singleton testing and member retrieval into a single oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
+  - [bms_is_valid_set](bms_is_valid_set.md)
   - bitmapword
   - HAS_MULTIPLE_ONES
   - BITS_PER_BITMAPWORD
   - bmw_rightmost_one_pos
 - Called from (representative examples):
-  - set_base_rel_consider_startup (src/backend/optimizer/path/allpaths.c:270)
-  - find_single_rel_for_clauses (src/backend/optimizer/path/clausesel.c:566)
-  - generate_base_implied_equalities_no_const (src/backend/optimizer/path/equivclass.c:1226)
-  - join_is_removable (src/backend/optimizer/plan/analyzejoins.c:177)
-  - create_lateral_join_info (src/backend/optimizer/plan/initsplan.c:599)
-  - add_placeholders_to_base_rels (src/backend/optimizer/util/placeholder.c:339)
+  - [set_base_rel_consider_startup](../s/set_base_rel_consider_startup.md) (src/backend/optimizer/path/allpaths.c:270)
+  - [find_single_rel_for_clauses](../f/find_single_rel_for_clauses.md) (src/backend/optimizer/path/clausesel.c:566)
+  - [generate_base_implied_equalities_no_const](../g/generate_base_implied_equalities_no_const.md) (src/backend/optimizer/path/equivclass.c:1226)
+  - [join_is_removable](../j/join_is_removable.md) (src/backend/optimizer/plan/analyzejoins.c:177)
+  - [create_lateral_join_info](../c/create_lateral_join_info.md) (src/backend/optimizer/plan/initsplan.c:599)
+  - [add_placeholders_to_base_rels](../a/add_placeholders_to_base_rels.md) (src/backend/optimizer/util/placeholder.c:339)
 
 ## Notes and Other Information
 - Returns false for NULL (empty) bitmapsets without error

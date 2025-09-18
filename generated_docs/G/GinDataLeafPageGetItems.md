@@ -29,14 +29,14 @@ The function provides an important optimization through the `advancePast` parame
   - GinDataLeafPageGetPostingList
   - GinDataLeafPageGetPostingListSize
   - GinNextPostingListSegment
-  - ginCompareItemPointers
-  - ginPostingListDecodeAllSegments
-  - dataLeafPageGetUncompressed
-  - ItemPointerIsValid
+  - [ginCompareItemPointers](../g/ginCompareItemPointers.md)
+  - [ginPostingListDecodeAllSegments](../g/ginPostingListDecodeAllSegments.md)
+  - [dataLeafPageGetUncompressed](../d/dataLeafPageGetUncompressed.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from (representative examples):
-  - startScanEntry
-  - entryLoadMoreItems
-  - GinBtreeDataLeafInsertData
+  - [startScanEntry](../s/startScanEntry.md)
+  - [entryLoadMoreItems](../e/entryLoadMoreItems.md)
+  - [GinBtreeDataLeafInsertData](GinBtreeDataLeafInsertData.md)
 
 ## Notes and Other Information
 - The function may still return items smaller than `advancePast` that are in the same posting list as items of interest, so callers must validate all returned items

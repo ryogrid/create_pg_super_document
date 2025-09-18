@@ -21,15 +21,15 @@ The structure serves as a specialized interface for record comparison functions,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeCacheEntry
+  - [TypeCacheEntry](../T/TypeCacheEntry.md)
 
 - Called from (representative examples):
-  - record_cmp (src/backend/utils/adt/rowtypes.c:882)
-  - record_eq (src/backend/utils/adt/rowtypes.c:1126)
-  - record_image_cmp (src/backend/utils/adt/rowtypes.c:1388)
-  - record_image_eq (src/backend/utils/adt/rowtypes.c:1634)
-  - hash_record (src/backend/utils/adt/rowtypes.c:1832)
-  - hash_record_extended (src/backend/utils/adt/rowtypes.c:1953)
+  - [record_cmp](../r/record_cmp.md) (src/backend/utils/adt/rowtypes.c:882)
+  - [record_eq](../r/record_eq.md) (src/backend/utils/adt/rowtypes.c:1126)
+  - [record_image_cmp](../r/record_image_cmp.md) (src/backend/utils/adt/rowtypes.c:1388)
+  - [record_image_eq](../r/record_image_eq.md) (src/backend/utils/adt/rowtypes.c:1634)
+  - [hash_record](../h/hash_record.md) (src/backend/utils/adt/rowtypes.c:1832)
+  - [hash_record_extended](../h/hash_record_extended.md) (src/backend/utils/adt/rowtypes.c:1953)
 
 ## Notes and Other Information
 - Serves as a thin wrapper around PostgreSQL's type cache system for comparison operations

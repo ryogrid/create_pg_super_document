@@ -25,15 +25,15 @@ The function performs several important tasks:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - atooid
-  - AssignDumpId
-  - getRoleName
-  - selectDumpableNamespace
-  - quoteAclUserName
-  - appendPGArray
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [getRoleName](getRoleName.md)
+  - [selectDumpableNamespace](../s/selectDumpableNamespace.md)
+  - [quoteAclUserName](../q/quoteAclUserName.md)
+  - [appendPGArray](../a/appendPGArray.md)
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - Fetches ALL namespaces including system ones to ensure proper object linking

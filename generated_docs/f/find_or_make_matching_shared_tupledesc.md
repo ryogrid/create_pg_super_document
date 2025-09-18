@@ -17,22 +17,22 @@ This function manages shared tuple descriptors in a multi-process PostgreSQL env
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_find (searches shared hash tables)
-  - dshash_find_or_insert (finds or creates hash table entries)
-  - dshash_release_lock (releases hash table locks)
-  - dshash_delete_key (removes hash table entries)
-  - dsa_get_address (converts shared pointers to addresses)
-  - dsa_free (frees shared memory)
-  - share_tupledesc (creates shared tuple descriptor copies)
-  - pg_atomic_fetch_add_u32 (atomic increment for typmod generation)
+  - [dshash_find](../d/dshash_find.md) (searches shared hash tables)
+  - [dshash_find_or_insert](../d/dshash_find_or_insert.md) (finds or creates hash table entries)
+  - [dshash_release_lock](../d/dshash_release_lock.md) (releases hash table locks)
+  - [dshash_delete_key](../d/dshash_delete_key.md) (removes hash table entries)
+  - [dsa_get_address](../d/dsa_get_address.md) (converts shared pointers to addresses)
+  - [dsa_free](../d/dsa_free.md) (frees shared memory)
+  - [share_tupledesc](../s/share_tupledesc.md) (creates shared tuple descriptor copies)
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md) (atomic increment for typmod generation)
 - Data structures used:
-  - SharedRecordTableKey
-  - SharedRecordTableEntry
-  - SharedTypmodTableEntry
+  - [SharedRecordTableKey](../S/SharedRecordTableKey.md)
+  - [SharedRecordTableEntry](../S/SharedRecordTableEntry.md)
+  - [SharedTypmodTableEntry](../S/SharedTypmodTableEntry.md)
   - dsa_pointer
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
 - Called from (representative examples):
-  - assign_record_type_typmod (when assigning typmod to record types)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md) (when assigning typmod to record types)
 
 ## Notes and Other Information
 - Returns NULL if not attached to a SharedRecordTypmodRegistry

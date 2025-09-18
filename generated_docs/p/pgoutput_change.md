@@ -30,20 +30,20 @@ The function supports both regular and streaming replication modes, handling tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_publishable_relation
-  - get_rel_sync_entry
-  - ExecStoreHeapTuple
-  - execute_attr_map_slot
-  - pgoutput_row_filter
-  - pgoutput_send_begin
-  - maybe_send_schema
-  - logicalrep_write_insert
+  - [is_publishable_relation](../i/is_publishable_relation.md)
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md)
+  - [ExecStoreHeapTuple](../E/ExecStoreHeapTuple.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [pgoutput_row_filter](pgoutput_row_filter.md)
+  - [pgoutput_send_begin](pgoutput_send_begin.md)
+  - [maybe_send_schema](../m/maybe_send_schema.md)
+  - [logicalrep_write_insert](../l/logicalrep_write_insert.md)
   - logicalrep_write_update
   - logicalrep_write_delete
-  - OutputPluginPrepareWrite
-  - OutputPluginWrite
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (as callback registration)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (as callback registration)
 
 ## Notes and Other Information
 - The function operates within a dedicated memory context that is reset after each change to prevent memory leaks

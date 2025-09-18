@@ -27,10 +27,10 @@ When offset or count values cannot be estimated (indicated by negative values), 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clamp_row_est (ensures row estimates are within reasonable bounds)
+  - [clamp_row_est](../c/clamp_row_est.md) (ensures row estimates are within reasonable bounds)
   - Cost (cost estimation data type)
 - Called from (representative examples):
-  - create_limit_path (src/backend/optimizer/util/pathnode.c:3856)
+  - [create_limit_path](../c/create_limit_path.md) (src/backend/optimizer/util/pathnode.c:3856)
 
 ## Notes and Other Information
 - Does not include evaluation costs of OFFSET/LIMIT expressions themselves, as these are typically trivial

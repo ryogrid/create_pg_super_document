@@ -23,12 +23,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitLatch (initializes the latch structure)
+  - [InitLatch](InitLatch.md) (initializes the latch structure)
 
 - Called from (representative examples):
-  - PostmasterMain
-  - InitPostmasterChild
-  - InitStandaloneProcess
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [InitPostmasterChild](InitPostmasterChild.md)
+  - [InitStandaloneProcess](InitStandaloneProcess.md)
 
 ## Notes and Other Information
 - Sets MyLatch to point to the static LocalLatchData structure

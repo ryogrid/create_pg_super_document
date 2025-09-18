@@ -31,13 +31,13 @@ The function allocates memory conservatively to handle worst-case conversion exp
 - Functions called/Symbols referenced:
   - unconstify (type casting utility)
   - MaxAllocHugeSize/MAX_CONVERSION_GROWTH (memory allocation constants)
-  - MemoryContextAllocHuge (large memory allocation)
+  - [MemoryContextAllocHuge](../M/MemoryContextAllocHuge.md) (large memory allocation)
   - FunctionCall6 (PostgreSQL function call interface)
-  - CStringGetDatum (datum conversion)
-  - repalloc (memory reallocation)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
 - Called from (representative examples):
-  - pg_any_to_server (general server encoding conversion)
-  - pg_server_to_any (general client encoding conversion)
+  - [pg_any_to_server](pg_any_to_server.md) (general server encoding conversion)
+  - [pg_server_to_any](pg_server_to_any.md) (general client encoding conversion)
 
 ## Notes and Other Information
 - This is a static (internal) function within mbutils.c, not exposed in the public API

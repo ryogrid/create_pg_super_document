@@ -33,21 +33,21 @@ For non-Windows platforms, the function creates a temporary null-terminated copy
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (PostgreSQL assertion macro)
-  - GetDatabaseEncoding (PostgreSQL function to get current database encoding)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (PostgreSQL function to get current database encoding)
   - MultiByteToWideChar (Windows API function for character conversion)
-  - pnstrdup (PostgreSQL function to create null-terminated string copy)
+  - [pnstrdup](../p/pnstrdup.md) (PostgreSQL function to create null-terminated string copy)
   - mbstowcs (standard C library function for character conversion)
-  - mbstowcs_l (locale-specific C library function for character conversion)
-  - pfree (PostgreSQL memory deallocation)
-  - pg_verifymbstr (PostgreSQL function to validate multibyte strings)
+  - [mbstowcs_l](../m/mbstowcs_l.md) (locale-specific C library function for character conversion)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
+  - [pg_verifymbstr](../p/pg_verifymbstr.md) (PostgreSQL function to validate multibyte strings)
   - ereport (PostgreSQL error reporting)
   - COLLPROVIDER_LIBC (PostgreSQL constant for libc collation provider)
   - PG_UTF8 (PostgreSQL UTF-8 encoding constant)
 - Called from (representative examples):
-  - t_isdigit, t_isspace, t_isalpha, t_isalnum, t_isprint (text search locale functions)
-  - lowerstr_with_len (src/backend/tsearch/ts_locale.c:293)
+  - [t_isdigit](../t/t_isdigit.md), t_isspace, t_isalpha, t_isalnum, t_isprint (text search locale functions)
+  - [lowerstr_with_len](../l/lowerstr_with_len.md) (src/backend/tsearch/ts_locale.c:293)
   - TParserInit (src/backend/tsearch/wparser_def.c:317)
-  - str_tolower, str_toupper, str_initcap (formatting functions)
+  - [str_tolower](../s/str_tolower.md), str_toupper, str_initcap (formatting functions)
 
 ## Notes and Other Information
 - Works with libc's wchar_t type, not PostgreSQL's pg_wchar_t type

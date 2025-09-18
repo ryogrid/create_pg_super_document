@@ -20,16 +20,16 @@ strtoint64 is a specialized string parsing function that converts string represe
 ## Dependencies
 - Functions called/Symbols referenced:
   - int8 (type for individual digit values)
-  - pg_mul_s64_overflow (overflow-safe 64-bit multiplication)
-  - pg_sub_s64_overflow (overflow-safe 64-bit subtraction)
+  - [pg_mul_s64_overflow](../p/pg_mul_s64_overflow.md) (overflow-safe 64-bit multiplication)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (overflow-safe 64-bit subtraction)
   - PG_INT64_MIN (constant representing the minimum 64-bit signed integer value)
   - isspace (standard C library function for whitespace detection)
   - isdigit (standard C library function for digit detection)
   - pg_log_error (PostgreSQL logging function for error messages)
 
 - Called from (representative examples):
-  - makeVariableValue
-  - PgBenchExprList
+  - [makeVariableValue](../m/makeVariableValue.md)
+  - [PgBenchExprList](../P/PgBenchExprList.md)
 
 ## Notes and Other Information
 - Provides more robust integer parsing than standard library functions like atoi or strtol

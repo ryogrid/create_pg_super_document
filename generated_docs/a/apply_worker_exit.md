@@ -17,13 +17,13 @@ None - This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_parallel_apply_worker
-  - am_leader_apply_worker
+  - [am_parallel_apply_worker](am_parallel_apply_worker.md)
+  - [am_leader_apply_worker](am_leader_apply_worker.md)
   - ApplyLauncherForgetWorkerStartTime
-  - proc_exit
+  - [proc_exit](../p/proc_exit.md)
 - Called from (representative examples):
-  - maybe_reread_subscription (at lines 3921, 3956, 3974)
-  - InitializeLogRepWorker (at line 4646)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (at lines 3921, 3956, 3974)
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md) (at line 4646)
 
 ## Notes and Other Information
 - This is a static function internal to the worker.c file

@@ -22,15 +22,15 @@ The jsonb_build_object_worker function is the core implementation for building J
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushJsonbValue
-  - add_jsonb
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
-  - JsonbInState
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [add_jsonb](../a/add_jsonb.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
+  - [JsonbInState](../J/JsonbInState.md)
   - WJB_BEGIN_OBJECT, WJB_END_OBJECT
 - Called from (representative examples):
-  - jsonb_build_object
-  - ExecEvalJsonConstructor
+  - [jsonb_build_object](jsonb_build_object.md)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

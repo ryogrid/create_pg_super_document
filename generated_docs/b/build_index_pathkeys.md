@@ -24,14 +24,14 @@ The resulting pathkeys list is canonical, meaning redundant pathkeys are removed
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsBackward
-  - make_pathkey_from_sortinfo
-  - pathkey_is_redundant
-  - indexcol_is_bool_constant_for_query
-  - IndexOptInfo (type)
+  - [make_pathkey_from_sortinfo](../m/make_pathkey_from_sortinfo.md)
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md)
+  - [indexcol_is_bool_constant_for_query](../i/indexcol_is_bool_constant_for_query.md)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (type)
   - ScanDirection (type)
   - PathKey (type)
 - Called from (representative examples):
-  - build_index_paths
+  - [build_index_paths](build_index_paths.md)
 
 ## Notes and Other Information
 - Returns NIL for non-orderable indexes (those without sort operator families)

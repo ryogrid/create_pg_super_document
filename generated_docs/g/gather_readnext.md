@@ -20,13 +20,13 @@ The function maintains an array of active TupleQueueReader objects and tracks th
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (allows query cancellation during worker communication)
-  - TupleQueueReaderNext (reads next tuple from specific worker, non-blocking)
-  - ExecShutdownGatherWorkers (shuts down workers when all are complete)
+  - [TupleQueueReaderNext](../T/TupleQueueReaderNext.md) (reads next tuple from specific worker, non-blocking)
+  - [ExecShutdownGatherWorkers](../E/ExecShutdownGatherWorkers.md) (shuts down workers when all are complete)
   - memmove (compacts reader array when workers complete)
-  - WaitLatch (blocks waiting for worker activity or system events)
-  - ResetLatch (clears latch after waking up)
+  - [WaitLatch](../W/WaitLatch.md) (blocks waiting for worker activity or system events)
+  - [ResetLatch](../R/ResetLatch.md) (clears latch after waking up)
 - Called from (representative examples):
-  - gather_getnext (main tuple retrieval function)
+  - [gather_getnext](gather_getnext.md) (main tuple retrieval function)
 
 ## Notes and Other Information
 - Uses round-robin scheduling but with an efficiency optimization: continues reading from same worker until blocking would be required

@@ -23,7 +23,7 @@ The validation allows empty strings (which effectively disable the primary slot 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotValidateName
+  - [ReplicationSlotValidateName](../R/ReplicationSlotValidateName.md)
   - GucSource (enum type)
 - Called from:
   - PostgreSQL GUC system (registered as check hook in guc_hooks.h)

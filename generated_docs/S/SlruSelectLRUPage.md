@@ -18,11 +18,11 @@ SlruSelectLRUPage is a critical function that implements the page replacement al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](SimpleLruGetBankLock.md)
   - LWLockHeldByMe  
-  - pg_atomic_read_u64
-  - SimpleLruWaitIO
-  - SlruInternalWritePage
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [SimpleLruWaitIO](SimpleLruWaitIO.md)
+  - [SlruInternalWritePage](SlruInternalWritePage.md)
 - Constants used:
   - SLRU_BANK_SIZE
   - SLRU_PAGE_EMPTY
@@ -31,8 +31,8 @@ SlruSelectLRUPage is a critical function that implements the page replacement al
   - SlruCtl
   - SlruShared
 - Called from:
-  - SimpleLruZeroPage
-  - SimpleLruReadPage
+  - [SimpleLruZeroPage](SimpleLruZeroPage.md)
+  - [SimpleLruReadPage](SimpleLruReadPage.md)
 
 ## Notes and Other Information
 - Requires the appropriate bank lock to be held at entry and maintains it at exit

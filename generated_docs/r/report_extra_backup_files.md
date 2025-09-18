@@ -21,10 +21,10 @@ The function iterates through the manifest files using the manifest iterator int
 - Functions called/Symbols referenced:
   - manifest_files_start_iterate
   - manifest_files_iterate  
-  - should_ignore_relpath
-  - report_backup_error
+  - [should_ignore_relpath](../s/should_ignore_relpath.md)
+  - [report_backup_error](report_backup_error.md)
 - Called from (representative examples):
-  - main (in pg_verifybackup.c:360)
+  - [main](../m/main.md) (in pg_verifybackup.c:360)
 
 ## Notes and Other Information
 - This is a static function within pg_verifybackup.c, used internally for backup verification

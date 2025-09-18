@@ -27,13 +27,13 @@ The structure is used by expression mutator functions that traverse join conditi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannerInfo (planner's main state structure)
-  - indexed_tlist (indexed target list structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (planner's main state structure)
+  - [indexed_tlist](../i/indexed_tlist.md) (indexed target list structure)
   - NullingRelsMatch (enumeration for nulling relation matching)
 - Called from (representative examples):
   - fix_scan_list
-  - fix_join_expr
-  - fix_join_expr_mutator
+  - [fix_join_expr](fix_join_expr.md)
+  - [fix_join_expr_mutator](fix_join_expr_mutator.md)
 
 ## Notes and Other Information
 - Used specifically for join-level expression fixing, distinct from scan and upper-level contexts

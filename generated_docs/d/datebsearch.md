@@ -25,10 +25,10 @@ The algorithm maintains two pointers (base and last) and iteratively narrows the
   - TOKMAXLEN (maximum token length constant)
   - strncmp (standard string comparison function)
 - Called from (representative examples):
-  - DecodeTimezoneAbbrev
-  - DecodeSpecial  
-  - DecodeUnits
-  - DecodeTimezoneAbbrevPrefix
+  - [DecodeTimezoneAbbrev](../D/DecodeTimezoneAbbrev.md)
+  - [DecodeSpecial](../D/DecodeSpecial.md)  
+  - [DecodeUnits](../D/DecodeUnits.md)
+  - [DecodeTimezoneAbbrevPrefix](../D/DecodeTimezoneAbbrevPrefix.md)
   - APPEND_CHAR
 
 ## Notes and Other Information

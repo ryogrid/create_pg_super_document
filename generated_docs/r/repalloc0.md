@@ -21,7 +21,7 @@ This function extends the functionality of standard realloc by ensuring that any
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (standard PostgreSQL realloc function)
+  - [repalloc](repalloc.md) (standard PostgreSQL realloc function)
   - memset (C standard library function for memory initialization)
   - elog (PostgreSQL error logging function)
 - Called from (representative examples):

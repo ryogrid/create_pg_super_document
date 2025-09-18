@@ -26,7 +26,7 @@ The function acts as a wrapper around the global object_access_hook function poi
 
 - Called from (representative examples):
   - InvokeFunctionExecuteHook
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure that object_access_hook is not NULL, though the caller is expected to verify this condition

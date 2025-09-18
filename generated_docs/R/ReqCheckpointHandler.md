@@ -21,7 +21,7 @@ The handler is designed to be signal-safe and performs only the minimal necessar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - MyLatch (global variable)
 - Called from (representative examples):
   - Registered as signal handler in CheckpointerMain

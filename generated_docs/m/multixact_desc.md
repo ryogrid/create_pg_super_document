@@ -31,14 +31,14 @@ This function is essential for WAL analysis, debugging multixact issues, and und
   - appendStringInfo
   - appendStringInfoString
   - memcpy
-  - out_member
+  - [out_member](../o/out_member.md)
   - XLR_INFO_MASK
   - XLOG_MULTIXACT_ZERO_OFF_PAGE
   - XLOG_MULTIXACT_ZERO_MEM_PAGE
   - XLOG_MULTIXACT_CREATE_ID
   - XLOG_MULTIXACT_TRUNCATE_ID
-  - xl_multixact_create (struct)
-  - xl_multixact_truncate (struct)
+  - [xl_multixact_create](../x/xl_multixact_create.md) (struct)
+  - [xl_multixact_truncate](../x/xl_multixact_truncate.md) (struct)
 - Called from (representative examples):
   - WAL record description system (referenced in SizeOfMultiXactTruncate)
 

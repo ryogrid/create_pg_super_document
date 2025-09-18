@@ -30,19 +30,19 @@ When indexOid is InvalidOid, this function implements VACUUM FULL functionality 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_relation_open/relation_close
-  - check_index_is_clusterable
-  - rebuild_relation
-  - GetUserIdAndSecContext/SetUserIdAndSecContext
-  - pgstat_progress_start_command/pgstat_progress_end_command
-  - TransferPredicateLocksToHeapRelation
-  - CheckTableNotInUse
+  - [try_relation_open](../t/try_relation_open.md)/relation_close
+  - [check_index_is_clusterable](check_index_is_clusterable.md)
+  - [rebuild_relation](../r/rebuild_relation.md)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)/SetUserIdAndSecContext
+  - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md)/pgstat_progress_end_command
+  - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
   - SearchSysCacheExists1
-  - get_index_isclustered
+  - [get_index_isclustered](../g/get_index_isclustered.md)
 - Called from (representative examples):
-  - cluster
-  - cluster_multiple_rels
-  - vacuum_rel
+  - [cluster](cluster.md)
+  - [cluster_multiple_rels](cluster_multiple_rels.md)
+  - [vacuum_rel](../v/vacuum_rel.md)
 
 ## Notes and Other Information
 - Prevents clustering of shared catalogs (except for VACUUM FULL) to avoid indisclustered marking issues across databases

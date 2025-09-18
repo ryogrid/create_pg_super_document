@@ -27,15 +27,15 @@ The parsing process includes whitespace handling, temporary null termination for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_end_token
-  - pgtypes_strdup
+  - [find_end_token](../f/find_end_token.md)
+  - [pgtypes_strdup](pgtypes_strdup.md)
   - strtol (standard C library function)
   - un_fmt_comb (union type)
   - PGTYPES_TYPE_UINT (constant)
   - PGTYPES_TYPE_UINT_LONG (constant)
   - PGTYPES_TYPE_STRING_MALLOCED (constant)
 - Called from (representative examples):
-  - PGTYPEStimestamp_defmt_scan (multiple times)
+  - [PGTYPEStimestamp_defmt_scan](../P/PGTYPEStimestamp_defmt_scan.md) (multiple times)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dt_common.c file

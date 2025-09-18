@@ -18,17 +18,17 @@ This function is responsible for managing locks on relations that are referenced
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlannedStmt
+  - [PlannedStmt](../P/PlannedStmt.md)
   - CMD_UTILITY
   - UtilityContainsQuery
-  - ScanQueryForLocks
+  - [ScanQueryForLocks](../S/ScanQueryForLocks.md)
   - RTE_RELATION
   - RTE_SUBQUERY
-  - LockRelationOid
-  - UnlockRelationOid
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation
-  - CheckCachedPlan
+  - [CheckCachedPlan](../C/CheckCachedPlan.md)
 
 ## Notes and Other Information
 - The function only processes RTE_RELATION and RTE_SUBQUERY entries that have valid relation OIDs

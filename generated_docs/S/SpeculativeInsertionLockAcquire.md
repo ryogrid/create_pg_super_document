@@ -22,10 +22,10 @@ The token wrapping logic ensures that zero is never used as a token value, as ze
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_SPECULATIVE_INSERTION
-  - LockAcquire
+  - [LockAcquire](../L/LockAcquire.md)
   - ExclusiveLock
 - Called from (representative examples):
-  - ExecInsert (in nodeModifyTable.c:1115)
+  - [ExecInsert](../E/ExecInsert.md) (in nodeModifyTable.c:1115)
 
 ## Notes and Other Information
 - Returns a uint32 token that uniquely identifies this speculative insertion within the transaction

@@ -25,12 +25,12 @@ The function first applies `expression_planner()` to normalize the expression, t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_planner
-  - contain_mutable_functions
+  - [expression_planner](../e/expression_planner.md)
+  - [contain_mutable_functions](contain_mutable_functions.md)
 - Called from (representative examples):
-  - cookDefault (catalog/heap.c)
-  - CheckPredicate (commands/indexcmds.c)
-  - ComputeIndexAttrs (commands/indexcmds.c)
+  - [cookDefault](cookDefault.md) (catalog/heap.c)
+  - [CheckPredicate](../C/CheckPredicate.md) (commands/indexcmds.c)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md) (commands/indexcmds.c)
 
 ## Notes and Other Information
 - Designed specifically for use outside the planner context where expressions may not have been fully processed

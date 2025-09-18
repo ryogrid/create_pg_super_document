@@ -26,7 +26,7 @@ The function serves as a placeholder in the scan method interface, ensuring comp
 - Functions called/Symbols referenced:
   - None (trivial implementation)
 - Called from (representative examples):
-  - ExecFunctionScan
+  - [ExecFunctionScan](../E/ExecFunctionScan.md)
 
 ## Notes and Other Information
 - Always returns true, indicating the tuple is still valid

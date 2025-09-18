@@ -30,9 +30,9 @@ ParallelTableScanDescData serves as the shared state structure for coordinating 
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - TableScanDescData (src/include/access/relscan.h:49)
-  - ParallelTableScanDesc (src/include/access/relscan.h:70)
-  - ParallelBlockTableScanDescData (src/include/access/relscan.h:77)
+  - [TableScanDescData](../T/TableScanDescData.md) (src/include/access/relscan.h:49)
+  - [ParallelTableScanDesc](ParallelTableScanDesc.md) (src/include/access/relscan.h:70)
+  - [ParallelBlockTableScanDescData](ParallelBlockTableScanDescData.md) (src/include/access/relscan.h:77)
 
 ## Notes and Other Information
 This structure is defined in src/include/access/relscan.h (lines 63-69) and provides the foundation for PostgreSQL's parallel table scanning capability. The structure is designed to be extensible, with access method-specific implementations like ParallelBlockTableScanDescData building upon this base. The snapshot handling allows for consistent visibility across all parallel workers, while the syncscan integration helps optimize I/O patterns when multiple scans are active simultaneously.

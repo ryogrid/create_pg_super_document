@@ -36,19 +36,19 @@ For each partition pair, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_partition_bounds
-  - build_child_join_sjinfo
-  - free_child_join_sjinfo
+  - [compute_partition_bounds](../c/compute_partition_bounds.md)
+  - [build_child_join_sjinfo](../b/build_child_join_sjinfo.md)
+  - [free_child_join_sjinfo](../f/free_child_join_sjinfo.md)
   - build_child_join_rel
-  - populate_joinrel_with_paths
-  - find_appinfos_by_relids
-  - adjust_appendrel_attrs
-  - adjust_child_relids
+  - [populate_joinrel_with_paths](../p/populate_joinrel_with_paths.md)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md)
+  - [adjust_appendrel_attrs](../a/adjust_appendrel_attrs.md)
+  - [adjust_child_relids](../a/adjust_child_relids.md)
   - IS_PARTITIONED_REL
   - IS_SIMPLE_REL
   - IS_DUMMY_REL
 - Called from (representative examples):
-  - populate_joinrel_with_paths
+  - [populate_joinrel_with_paths](../p/populate_joinrel_with_paths.md)
 
 ## Notes and Other Information
 - Guards against stack overflow due to overly deep partition hierarchies

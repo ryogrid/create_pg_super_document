@@ -30,11 +30,11 @@ This function is designed to be called in three scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer (with BUFFER_LOCK_UNLOCK)
-  - UnlockTuple (with InplaceUpdateTupleLock)
+  - [LockBuffer](../L/LockBuffer.md) (with BUFFER_LOCK_UNLOCK)
+  - [UnlockTuple](../U/UnlockTuple.md) (with InplaceUpdateTupleLock)
 - Called from (representative examples):
-  - heap_inplace_update_and_unlock
-  - systable_inplace_update_cancel
+  - [heap_inplace_update_and_unlock](heap_inplace_update_and_unlock.md)
+  - [systable_inplace_update_cancel](../s/systable_inplace_update_cancel.md)
   - HeapScanIsValid (indirect reference)
 
 ## Notes and Other Information

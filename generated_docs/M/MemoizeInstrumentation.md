@@ -40,10 +40,10 @@ The instrumentation data is particularly valuable for query optimization analysi
 - Functions called/Symbols referenced:
   - (No direct dependencies - this is a pure data structure)
 - Called from (representative examples):
-  - show_memoize_info (for EXPLAIN output)
-  - ExecMemoizeRetrieveInstrumentation
-  - SharedMemoizeInfo (for parallel query execution)
-  - MemoizeState (contains instrumentation data)
+  - [show_memoize_info](../s/show_memoize_info.md) (for EXPLAIN output)
+  - [ExecMemoizeRetrieveInstrumentation](../E/ExecMemoizeRetrieveInstrumentation.md)
+  - [SharedMemoizeInfo](../S/SharedMemoizeInfo.md) (for parallel query execution)
+  - [MemoizeState](MemoizeState.md) (contains instrumentation data)
 
 ## Notes and Other Information
 - Used by EXPLAIN (ANALYZE, BUFFERS) to show memoization performance statistics

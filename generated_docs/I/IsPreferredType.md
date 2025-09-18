@@ -26,12 +26,12 @@ The function can operate in two modes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_type_category_preferred
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
   - TYPCATEGORY (type definition)
   - TYPCATEGORY_INVALID
 - Called from (representative examples):
-  - GetDefaultOpClass
-  - func_select_candidate
+  - [GetDefaultOpClass](../G/GetDefaultOpClass.md)
+  - [func_select_candidate](../f/func_select_candidate.md)
 
 ## Notes and Other Information
 - Located in src/backend/parser/parse_coerce.c:2997-3031
@@ -41,6 +41,6 @@ The function can operate in two modes:
 - Preferred type information is stored in the pg_type system catalog
 - Examples of preferred types include:
   - int4 and float8 in numeric category
-  - text in string category  
+  - [text](../t/text.md) in string category  
   - timestamptz in datetime category
 - The preferred type mechanism helps ensure predictable behavior in ambiguous type resolution scenarios

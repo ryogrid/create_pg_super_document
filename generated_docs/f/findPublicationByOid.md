@@ -19,15 +19,15 @@ This function is part of the pg_dump utility's object lookup system for PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
   - PublicationInfo (struct)
   - DO_PUBLICATION (enum value)
   - PublicationRelationId (constant)
 - Called from (representative examples):
-  - getPublicationNamespaces (src/bin/pg_dump/pg_dump.c:4482)
-  - getPublicationTables (src/bin/pg_dump/pg_dump.c:4588)
+  - [getPublicationNamespaces](../g/getPublicationNamespaces.md) (src/bin/pg_dump/pg_dump.c:4482)
+  - [getPublicationTables](../g/getPublicationTables.md) (src/bin/pg_dump/pg_dump.c:4588)
 
 ## Notes and Other Information
 - Returns NULL if the publication with the given OID is not found

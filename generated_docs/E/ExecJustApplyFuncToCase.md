@@ -24,11 +24,11 @@ The function is optimized for performance by being part of the "just-in-time" ex
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExprEvalStep (expression evaluation step structure)
-  - FunctionCallInfo (function call information structure)
-  - NullableDatum (nullable datum structure for function arguments)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (function call information structure)
+  - [NullableDatum](../N/NullableDatum.md) (nullable datum structure for function arguments)
 - Called from (representative examples):
   - EEO_JUMP (expression evaluation dispatch mechanism)
-  - ExecReadyInterpretedExpr (expression preparation function)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (expression preparation function)
 
 ## Notes and Other Information
 - This is a static function within execExprInterp.c, part of the internal expression evaluation machinery

@@ -21,11 +21,11 @@ The hashtext function generates hash values for text data types in PostgreSQL, w
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION
   - pg_locale_t
-  - lc_collate_is_c
-  - pg_newlocale_from_collation
-  - pg_locale_deterministic
-  - hash_any
-  - pg_strnxfrm
+  - [lc_collate_is_c](../l/lc_collate_is_c.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [pg_locale_deterministic](../p/pg_locale_deterministic.md)
+  - [hash_any](hash_any.md)
+  - [pg_strnxfrm](../p/pg_strnxfrm.md)
 
 - Called from (representative examples):
   - texthashfast

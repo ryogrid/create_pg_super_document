@@ -34,10 +34,10 @@ This enum is used in conjunction with SSL connections to provide different level
 - Functions called/Symbols referenced:
   - (None - this is an enum definition)
 - Called from (representative examples):
-  - HbaLine (struct member)
-  - ClientAuthentication
-  - parse_hba_auth_opt
-  - get_hba_options
+  - [HbaLine](../H/HbaLine.md) (struct member)
+  - [ClientAuthentication](ClientAuthentication.md)
+  - [parse_hba_auth_opt](../p/parse_hba_auth_opt.md)
+  - [get_hba_options](../g/get_hba_options.md)
 
 ## Notes and Other Information
 - Defined in src/include/libpq/hba.h:67-72

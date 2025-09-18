@@ -37,7 +37,7 @@ The `array_get_element_expanded` function is a static helper function that handl
   - `deconstruct_expanded_array`: Ensures array is deconstructed into dvalues/dnulls
   - `MAXDIM`: Maximum number of array dimensions
 - Called from (representative examples):
-  - `array_get_element`: Main array element access function for expanded arrays
+  - `[array_get_element](array_get_element.md)`: Main array element access function for expanded arrays
 
 ## Notes and Other Information
 - Static function, only accessible within `arrayfuncs.c`

@@ -22,17 +22,17 @@ This function serves as the central dispatcher for all \d commands in psql, whic
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - describeTableDetails, listTables, describeAggregates, describeTablespaces
-  - listConversions, listCasts, objectDescription, listDomains
-  - exec_command_dfo (for functions and operators)
-  - describeRoles, listLargeObjects, listLanguages, listSchemas
-  - permissionsList, listPartitionedTables, describeTypes
-  - listTSConfigs, listTSParsers, listTSDictionaries, listTSTemplates
-  - listForeignServers, listUserMappings, listForeignDataWrappers
-  - listExtensions, listExtendedStats, listEventTriggers
-  - ignore_slash_options
+  - [describeTableDetails](../d/describeTableDetails.md), listTables, describeAggregates, describeTablespaces
+  - [listConversions](../l/listConversions.md), listCasts, objectDescription, listDomains
+  - [exec_command_dfo](exec_command_dfo.md) (for functions and operators)
+  - [describeRoles](../d/describeRoles.md), listLargeObjects, listLanguages, listSchemas
+  - [permissionsList](../p/permissionsList.md), listPartitionedTables, describeTypes
+  - [listTSConfigs](../l/listTSConfigs.md), listTSParsers, listTSDictionaries, listTSTemplates
+  - [listForeignServers](../l/listForeignServers.md), listUserMappings, listForeignDataWrappers
+  - [listExtensions](../l/listExtensions.md), listExtendedStats, listEventTriggers
+  - [ignore_slash_options](../i/ignore_slash_options.md)
 - Called from (representative examples):
-  - exec_command (main command dispatcher)
+  - [exec_command](exec_command.md) (main command dispatcher)
 
 ## Notes and Other Information
 - Supports numerous command variants: \d, \dt, \di, \ds, \dv, \dm, \dE, \df, \da, \db, \dc, \dC, \dd, \dD, \dg, \dl, \dL, \dn, \do, \dO, \dp, \dP, \dT, \dr, \dR, \du, \dF, \de, \dx, \dX, \dy

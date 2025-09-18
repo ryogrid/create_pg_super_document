@@ -23,15 +23,15 @@ The function performs validation on the conpfeqop array to ensure it's properly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - SysCacheGetAttrNotNull
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
   - lappend_oid
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - CONSTR_FOREIGN
 - Called from:
-  - ATPostAlterTypeParse
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
 
 ## Notes and Other Information
 - The function assumes the constraint type is CONSTR_FOREIGN and that old_conpfeqop has not been previously set

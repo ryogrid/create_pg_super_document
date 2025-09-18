@@ -26,15 +26,15 @@ The function creates a dummy SpecialJoinInfo structure for JOIN_INNER semantics,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_dummy_sjinfo
-  - clause_selectivity
-  - clamp_row_est
+  - [init_dummy_sjinfo](../i/init_dummy_sjinfo.md)
+  - [clause_selectivity](../c/clause_selectivity.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
   - JoinPath
-  - SpecialJoinInfo
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
   - JOIN_INNER
 - Called from (representative examples):
-  - final_cost_mergejoin
-  - final_cost_hashjoin
+  - [final_cost_mergejoin](../f/final_cost_mergejoin.md)
+  - [final_cost_hashjoin](../f/final_cost_hashjoin.md)
   - cost_qual_eval_context
 
 ## Notes and Other Information

@@ -21,21 +21,21 @@ The function first checks if a target name has already been loaded to avoid redu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQhost (gets hostname from connection)
-  - libpq_append_conn_error (error reporting)
+  - [PQhost](../P/PQhost.md) (gets hostname from connection)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (error reporting)
   - malloc (memory allocation)
   - snprintf (string formatting)
   - strlen (string length)
   - gss_import_name (GSS-API function)
   - free (memory deallocation)
-  - pg_GSS_error (GSS error reporting)
-  - libpq_gettext (internationalization)
+  - [pg_GSS_error](pg_GSS_error.md) (GSS error reporting)
+  - [libpq_gettext](../l/libpq_gettext.md) (internationalization)
   - gss_buffer_desc (GSS-API type)
   - GSS_C_NT_HOSTBASED_SERVICE (GSS-API name type)
   - STATUS_OK, STATUS_ERROR (PostgreSQL status constants)
 - Called from (representative examples):
-  - pg_GSS_startup (authentication startup)
-  - pqsecure_open_gss (secure connection establishment)
+  - [pg_GSS_startup](pg_GSS_startup.md) (authentication startup)
+  - [pqsecure_open_gss](pqsecure_open_gss.md) (secure connection establishment)
 
 ## Notes and Other Information
 - This is a client-side only function (libpq)

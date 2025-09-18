@@ -26,19 +26,19 @@ The function separates different types of table elements (columns, constraints, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate
-  - RangeVarGetAndCheckCreationNamespace
-  - checkMembershipInCurrentExtension
-  - get_namespace_name
-  - transformOfType
-  - transformColumnDefinition
-  - transformTableConstraint
-  - transformTableLikeClause
-  - transformIndexConstraints
-  - transformFKConstraints
-  - transformCheckConstraints
+  - [make_parsestate](../m/make_parsestate.md)
+  - [RangeVarGetAndCheckCreationNamespace](../R/RangeVarGetAndCheckCreationNamespace.md)
+  - [checkMembershipInCurrentExtension](../c/checkMembershipInCurrentExtension.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [transformOfType](transformOfType.md)
+  - [transformColumnDefinition](transformColumnDefinition.md)
+  - [transformTableConstraint](transformTableConstraint.md)
+  - [transformTableLikeClause](transformTableLikeClause.md)
+  - [transformIndexConstraints](transformIndexConstraints.md)
+  - [transformFKConstraints](transformFKConstraints.md)
+  - [transformCheckConstraints](transformCheckConstraints.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 The function maintains a strict execution order for different types of constraints and table elements. LIKE clauses are processed after index creation but before foreign key creation to handle cases where LIKE clauses generate primary keys that might conflict with explicitly defined primary keys. The function returns a list that may contain the original CreateStmt plus additional utility statements like AlterTableStmt and IndexStmt that need to be executed to fully create the table and its associated objects.

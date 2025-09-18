@@ -19,19 +19,19 @@ This is a typedef for a pointer, so it has no direct members. See PredIterInfoDa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfoData (the underlying structure)
+  - [PredIterInfoData](PredIterInfoData.md) (the underlying structure)
 - Called from (representative examples):
-  - predicate_classify
-  - list_startup_fn
-  - list_next_fn
-  - list_cleanup_fn
-  - boolexpr_startup_fn
-  - arrayconst_startup_fn
-  - arrayconst_next_fn
-  - arrayconst_cleanup_fn
-  - arrayexpr_startup_fn
-  - arrayexpr_next_fn
-  - arrayexpr_cleanup_fn
+  - [predicate_classify](../p/predicate_classify.md)
+  - [list_startup_fn](../l/list_startup_fn.md)
+  - [list_next_fn](../l/list_next_fn.md)
+  - [list_cleanup_fn](../l/list_cleanup_fn.md)
+  - [boolexpr_startup_fn](../b/boolexpr_startup_fn.md)
+  - [arrayconst_startup_fn](../a/arrayconst_startup_fn.md)
+  - [arrayconst_next_fn](../a/arrayconst_next_fn.md)
+  - [arrayconst_cleanup_fn](../a/arrayconst_cleanup_fn.md)
+  - [arrayexpr_startup_fn](../a/arrayexpr_startup_fn.md)
+  - [arrayexpr_next_fn](../a/arrayexpr_next_fn.md)
+  - [arrayexpr_cleanup_fn](../a/arrayexpr_cleanup_fn.md)
 
 ## Notes and Other Information
 - This type is exclusively used within the predicate testing subsystem of PostgreSQL's optimizer

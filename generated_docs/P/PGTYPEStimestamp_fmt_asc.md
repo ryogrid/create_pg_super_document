@@ -22,13 +22,13 @@ This function converts a PostgreSQL timestamp value into a formatted ASCII strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESdate_from_timestamp
-  - PGTYPESdate_dayofweek
-  - timestamp2tm
-  - dttofmtasc_replace
+  - [PGTYPESdate_from_timestamp](PGTYPESdate_from_timestamp.md)
+  - [PGTYPESdate_dayofweek](PGTYPESdate_dayofweek.md)
+  - [timestamp2tm](../t/timestamp2tm.md)
+  - [dttofmtasc_replace](../d/dttofmtasc_replace.md)
 - Called from (representative examples):
-  - dttofmtasc (in compatlib)
-  - main (in test cases)
+  - [dttofmtasc](../d/dttofmtasc.md) (in compatlib)
+  - [main](../m/main.md) (in test cases)
 
 ## Notes and Other Information
 - Returns an integer status code indicating success or failure

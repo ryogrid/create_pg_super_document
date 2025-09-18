@@ -24,10 +24,10 @@ The function is designed to be called through the SQL  function and handles all 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventCommandIfReadOnly
-  - object_ownercheck  
-  - closeLOfd
-  - inv_drop
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
+  - [object_ownercheck](../o/object_ownercheck.md)  
+  - [closeLOfd](../c/closeLOfd.md)
+  - [inv_drop](../i/inv_drop.md)
 - Called from (representative examples):
   - No direct references found (likely called through function manager)
 

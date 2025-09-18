@@ -31,14 +31,14 @@ The structure uses a flexible array member to store the actual enum items, makin
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
-  - Bitmapset (PostgreSQL bitmap set structure)
-  - EnumItem (structure representing individual enum values)
+  - [Bitmapset](../B/Bitmapset.md) (PostgreSQL bitmap set structure)
+  - [EnumItem](../E/EnumItem.md) (structure representing individual enum values)
   - FLEXIBLE_ARRAY_MEMBER (C99 flexible array member)
 - Called from (representative examples):
-  - enum_known_sorted
-  - compare_values_of_enum
-  - load_enum_cache_data
-  - find_enumitem
+  - [enum_known_sorted](../e/enum_known_sorted.md)
+  - [compare_values_of_enum](../c/compare_values_of_enum.md)
+  - [load_enum_cache_data](../l/load_enum_cache_data.md)
+  - [find_enumitem](../f/find_enumitem.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's type cache system for optimizing enum type operations

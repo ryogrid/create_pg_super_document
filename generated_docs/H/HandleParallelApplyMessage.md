@@ -19,17 +19,17 @@ HandleParallelApplyMessage is responsible for parsing and handling messages rece
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
   - ErrorData
-  - pq_parse_errornotice
+  - [pq_parse_errornotice](../p/pq_parse_errornotice.md)
   - errcontext
-  - psprintf
-  - pstrdup
+  - [psprintf](../p/psprintf.md)
+  - [pstrdup](../p/pstrdup.md)
   - ereport
   - elog
 
 - Called from (representative examples):
-  - HandleParallelApplyMessages
+  - [HandleParallelApplyMessages](HandleParallelApplyMessages.md)
 
 ## Notes and Other Information
 - The function uses a switch statement to handle different message types identified by a single character

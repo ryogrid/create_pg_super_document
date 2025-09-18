@@ -22,12 +22,12 @@ The function implements robust error handling and provides detailed diagnostic m
   - find_other_exec (PostgreSQL utility for locating executables)
   - find_my_exec (PostgreSQL utility for self-location)
   - strlcpy (Safe string copy utility)
-  - pg_fatal (PostgreSQL fatal error function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error function)
   - strcpy (C standard library)
-  - last_dir_separator (PostgreSQL path utility)
-  - canonicalize_path (PostgreSQL path utility)
+  - [last_dir_separator](../l/last_dir_separator.md) (PostgreSQL path utility)
+  - [canonicalize_path](../c/canonicalize_path.md) (PostgreSQL path utility)
   - pg_malloc (PostgreSQL memory allocation)
-  - get_share_path (PostgreSQL utility for locating share directory)
+  - [get_share_path](../g/get_share_path.md) (PostgreSQL utility for locating share directory)
   - is_absolute_path (PostgreSQL path validation utility)
 - Global constants/variables referenced:
   - PG_BACKEND_VERSIONSTR (Version string for compatibility checking)
@@ -35,7 +35,7 @@ The function implements robust error handling and provides detailed diagnostic m
   - bin_path (Global variable to store binary directory path)
   - share_path (Global variable to store share directory path)
 - Called from (representative examples):
-  - main (src/bin/initdb/initdb.c:3449)
+  - [main](../m/main.md) (src/bin/initdb/initdb.c:3449)
 
 ## Notes and Other Information
 - The function terminates the program with detailed error messages if the postgres executable cannot be found or is version-incompatible

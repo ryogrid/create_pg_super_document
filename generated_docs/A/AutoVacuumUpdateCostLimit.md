@@ -19,14 +19,14 @@ This function takes no parameters and operates on global state and shared memory
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_unlocked_test_flag
-  - pg_atomic_read_u32
+  - [pg_atomic_unlocked_test_flag](../p/pg_atomic_unlocked_test_flag.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - Max
   - Assert
   - elog
 - Called from (representative examples):
-  - VacuumUpdateCosts
-  - vacuum_delay_point
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md)
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
 
 ## Notes and Other Information
 The function only operates on autovacuum workers (identified by MyWorkerInfo being non-NULL) and returns immediately for explicit VACUUM operations. The balancing logic is controlled by the wi_dobalance flag - workers with storage parameter overrides have this flag set to prevent their participation in load balancing. The av_nworkersForBalance counter in shared memory tracks how many workers should participate in cost limit distribution. The function ensures a minimum cost limit of 1 to prevent workers from being completely starved of vacuum resources.

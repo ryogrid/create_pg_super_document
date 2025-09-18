@@ -21,13 +21,13 @@ The function carefully handles the complex inheritance semantics of PostgreSQL, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - strInArray (searches for matching column names in parent tables)
-  - AssignDumpId (assigns dump IDs to manufactured AttrDefInfo objects)
-  - shouldPrintColumn (determines if column will be explicitly dumped)
-  - addObjectDependency (establishes dependencies for separate default clauses)
+  - [strInArray](../s/strInArray.md) (searches for matching column names in parent tables)
+  - [AssignDumpId](../A/AssignDumpId.md) (assigns dump IDs to manufactured AttrDefInfo objects)
+  - [shouldPrintColumn](../s/shouldPrintColumn.md) (determines if column will be explicitly dumped)
+  - [addObjectDependency](../a/addObjectDependency.md) (establishes dependencies for separate default clauses)
   - pg_malloc_object (memory allocation for AttrDefInfo)
 - Called from (representative examples):
-  - getSchemaData (src/bin/pg_dump/common.c:233)
+  - [getSchemaData](../g/getSchemaData.md) (src/bin/pg_dump/common.c:233)
 
 ## Notes and Other Information
 The function processes tables in OID order but cannot assume parents are visited before children, requiring careful state management to avoid altering properties that affect other iterations. It creates synthetic AttrDefInfo objects for DEFAULT NULL clauses when children need to explicitly override inherited non-null defaults.

@@ -26,11 +26,11 @@ This design follows PostgreSQL's consistent pattern across all scan node types, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for type-safe conversion)
-  - ExecScan (generic scan framework)
-  - FunctionNext (tuple access method)
-  - FunctionRecheck (tuple recheck method)
+  - [ExecScan](ExecScan.md) (generic scan framework)
+  - [FunctionNext](../F/FunctionNext.md) (tuple access method)
+  - [FunctionRecheck](../F/FunctionRecheck.md) (tuple recheck method)
 - Called from (representative examples):
-  - ExecInitFunctionScan (via ps_ExecProcNode assignment)
+  - [ExecInitFunctionScan](ExecInitFunctionScan.md) (via ps_ExecProcNode assignment)
 
 ## Notes and Other Information
 - Follows the standard PostgreSQL executor pattern for scan nodes

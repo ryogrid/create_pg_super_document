@@ -26,11 +26,11 @@ The function only performs the operation if the buffer requires redo (BLK_NEEDS_
 - Functions called/Symbols referenced:
   - XLogReadBufferForRedo
   - BTPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
-  - BufferGetPage
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
 - Constants/Macros used:
   - BLK_NEEDS_REDO
   - P_INCOMPLETE_SPLIT
@@ -38,9 +38,9 @@ The function only performs the operation if the buffer requires redo (BLK_NEEDS_
 - Data types used:
   - BTPageOpaque
 - Called from (representative examples):
-  - btree_xlog_insert
-  - btree_xlog_split
-  - btree_xlog_newroot
+  - [btree_xlog_insert](btree_xlog_insert.md)
+  - [btree_xlog_split](btree_xlog_split.md)
+  - [btree_xlog_newroot](btree_xlog_newroot.md)
 
 ## Notes and Other Information
 - This is a static function used internally within nbtxlog.c for B-tree WAL recovery

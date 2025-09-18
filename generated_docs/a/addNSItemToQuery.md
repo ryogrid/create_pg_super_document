@@ -30,15 +30,15 @@ The function ensures that the namespace item is marked as unconditionally visibl
   - makeNode (creates RangeTblRef node)
   - lappend (appends to lists)
 - Data structures used:
-  - ParseNamespaceItem
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
   - RangeTblRef
-  - ParseState
+  - [ParseState](../P/ParseState.md)
 - Called from (representative examples):
-  - transformInsertStmt (in INSERT statement processing)
-  - setTargetTable (when setting up target tables)
-  - transformMergeStmt (in MERGE statement processing)
-  - DefineRelation (during table creation)
-  - CreatePolicy (when creating row-level security policies)
+  - [transformInsertStmt](../t/transformInsertStmt.md) (in INSERT statement processing)
+  - [setTargetTable](../s/setTargetTable.md) (when setting up target tables)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (in MERGE statement processing)
+  - [DefineRelation](../D/DefineRelation.md) (during table creation)
+  - [CreatePolicy](../C/CreatePolicy.md) (when creating row-level security policies)
 
 ## Notes and Other Information
 - The function assumes that the caller has already checked for namespace conflicts before calling

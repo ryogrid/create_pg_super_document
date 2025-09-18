@@ -30,19 +30,19 @@ The function is designed to handle concurrent access safely and includes compreh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer/BUFFER_LOCK_EXCLUSIVE/BUFFER_LOCK_UNLOCK (buffer locking)
+  - [LockBuffer](../L/LockBuffer.md)/BUFFER_LOCK_EXCLUSIVE/BUFFER_LOCK_UNLOCK (buffer locking)
   - _hash_checkpage (page validation)
   - HashPageGetOpaque/HashPageGetMeta/HashPageGetBitmap (page access)
-  - _hash_getbuf/_hash_getinitbuf/_hash_getnewbuf (buffer management)
-  - _hash_relbuf (buffer release)
-  - bitno_to_blkno (bit number to block number conversion)
-  - _hash_firstfreebit (finding first free bit in bitmap)
-  - _hash_initbitmapbuffer (initializing new bitmap pages)
+  - [_hash_getbuf](_hash_getbuf.md)/_hash_getinitbuf/_hash_getnewbuf (buffer management)
+  - [_hash_relbuf](_hash_relbuf.md) (buffer release)
+  - [bitno_to_blkno](../b/bitno_to_blkno.md) (bit number to block number conversion)
+  - [_hash_firstfreebit](_hash_firstfreebit.md) (finding first free bit in bitmap)
+  - [_hash_initbitmapbuffer](_hash_initbitmapbuffer.md) (initializing new bitmap pages)
   - SETBIT (setting bits in bitmap)
   - XLog functions (WAL logging)
 - Called from (representative examples):
-  - _hash_doinsert (during tuple insertion when bucket is full)
-  - _hash_splitbucket (during bucket splitting operations)
+  - [_hash_doinsert](_hash_doinsert.md) (during tuple insertion when bucket is full)
+  - [_hash_splitbucket](_hash_splitbucket.md) (during bucket splitting operations)
   - HASHNProcs (hash index procedure definitions)
 
 ## Notes and Other Information

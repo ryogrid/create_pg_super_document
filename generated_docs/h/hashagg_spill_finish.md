@@ -32,19 +32,19 @@ This function processes spilled partitions from hash aggregation by converting e
   - estimateHyperLogLog
   - freeHyperLogLog
   - LogicalTapeRewindForRead
-  - hashagg_batch_new
+  - [hashagg_batch_new](hashagg_batch_new.md)
   - lappend
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types used:
-  - AggState
-  - HashAggSpill
-  - LogicalTape
-  - HashAggBatch
+  - [AggState](../A/AggState.md)
+  - [HashAggSpill](../H/HashAggSpill.md)
+  - [LogicalTape](../L/LogicalTape.md)
+  - [HashAggBatch](../H/HashAggBatch.md)
 - Constants used:
   - HASHAGG_READ_BUFFER_SIZE
 - Called from (representative examples):
-  - hashagg_finish_initial_spills (src/backend/executor/nodeAgg.c:3071)
-  - agg_refill_hash_table (src/backend/executor/nodeAgg.c:2720)
+  - [hashagg_finish_initial_spills](hashagg_finish_initial_spills.md) (src/backend/executor/nodeAgg.c:3071)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md) (src/backend/executor/nodeAgg.c:2720)
 
 ## Notes and Other Information
 - This is a static function internal to nodeAgg.c

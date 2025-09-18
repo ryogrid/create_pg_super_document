@@ -24,13 +24,13 @@ This function penetrates a struct definition and recursively dumps the contents 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mm_alloc (memory allocation for prefix buffers)
-  - ECPGdump_a_type (recursive call to dump individual struct members)
+  - [mm_alloc](../m/mm_alloc.md) (memory allocation for prefix buffers)
+  - [ECPGdump_a_type](ECPGdump_a_type.md) (recursive call to dump individual struct members)
   - mmerror (error reporting for struct member mismatch)
   - ECPGstruct_member (struct member linked list traversal)
   - ecpg_no_indicator (special indicator for no indicator struct)
 - Called from (representative examples):
-  - ECPGdump_a_type (when processing struct types)
+  - [ECPGdump_a_type](ECPGdump_a_type.md) (when processing struct types)
 
 ## Notes and Other Information
 - Uses dot notation (.) when arrsize == 1 (value access) and arrow notation (->) otherwise (pointer access)

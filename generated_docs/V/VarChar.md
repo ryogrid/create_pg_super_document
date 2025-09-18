@@ -30,16 +30,16 @@ As a typedef of ,  inherits:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (base structure)
+  - [varlena](../v/varlena.md) (base structure)
 - Called from (representative examples):
-  - varcharin (input function)
-  - varchar_input (input processing)
-  - varchar (type conversion/constraint checking)
-  - varcharrecv (binary input)
-  - varcharsend (binary output)
-  - varchar_support (planner support function)
-  - varchartypmodin (type modifier input)
-  - varchartypmodout (type modifier output)
+  - [varcharin](../v/varcharin.md) (input function)
+  - [varchar_input](../v/varchar_input.md) (input processing)
+  - [varchar](../v/varchar.md) (type conversion/constraint checking)
+  - [varcharrecv](../v/varcharrecv.md) (binary input)
+  - [varcharsend](../v/varcharsend.md) (binary output)
+  - [varchar_support](../v/varchar_support.md) (planner support function)
+  - [varchartypmodin](../v/varchartypmodin.md) (type modifier input)
+  - [varchartypmodout](../v/varchartypmodout.md) (type modifier output)
 
 ## Notes and Other Information
 - **SQL VARCHAR(n) Semantics**: Implements exact SQL standard behavior for variable-length character types  

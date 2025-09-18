@@ -28,13 +28,13 @@ The struct is populated by the  function, which performs catalog lookups to vali
 - Functions called/Symbols referenced:
   - FUNC_MAX_ARGS (maximum number of function arguments)
   - NAMEDATALEN (maximum length for PostgreSQL names)
-  - FmgrInfo (function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info structure)
   - Oid (object identifier type)
 
 - Called from (representative examples):
-  - fetch_fp_info (populates the struct with function metadata)
-  - HandleFunctionRequest (uses the struct during fastpath function execution)
-  - parse_fcall_arguments (accesses the struct to parse function arguments)
+  - [fetch_fp_info](fetch_fp_info.md) (populates the struct with function metadata)
+  - [HandleFunctionRequest](../H/HandleFunctionRequest.md) (uses the struct during fastpath function execution)
+  - [parse_fcall_arguments](../p/parse_fcall_arguments.md) (accesses the struct to parse function arguments)
 
 ## Notes and Other Information
 - The struct is designed to be zeroed out initially with MemSet() and funcid set to InvalidOid for safety

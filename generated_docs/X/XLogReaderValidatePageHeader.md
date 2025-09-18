@@ -36,15 +36,15 @@ The function also updates the reader state by tracking the latest validated page
   - XLogSegNo, XLogPageHeader, XLogLongPageHeader (WAL data types)
   - XLByteToSeg (converts LSN to segment number)
   - XLogSegmentOffset (calculates offset within segment)
-  - XLogFileName (generates WAL filename for error reporting)
+  - [XLogFileName](XLogFileName.md) (generates WAL filename for error reporting)
   - XLOG_PAGE_MAGIC (expected magic number constant)
   - XLP_ALL_FLAGS, XLP_LONG_HEADER (page header flag constants)
   - MAXFNAMELEN (maximum filename length constant)
-  - report_invalid_record (error reporting function)
+  - [report_invalid_record](../r/report_invalid_record.md) (error reporting function)
 - Called from (representative examples):
-  - ReadPageInternal (at lines 1061 and 1103)
-  - XLogPageRead (at line 3467 in xlogrecovery.c)
-  - XLogPageReadResult (header function)
+  - [ReadPageInternal](../R/ReadPageInternal.md) (at lines 1061 and 1103)
+  - [XLogPageRead](XLogPageRead.md) (at line 3467 in xlogrecovery.c)
+  - [XLogPageReadResult](XLogPageReadResult.md) (header function)
 
 ## Notes and Other Information
 - Public function (non-static) available for use by other WAL processing components

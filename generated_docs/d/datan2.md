@@ -25,7 +25,7 @@ This function implements the SQL ATAN2 function for PostgreSQL, computing the tw
   - get_float8_nan
   - atan2 (standard C library function)
   - isinf
-  - float_overflow_error
+  - [float_overflow_error](../f/float_overflow_error.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

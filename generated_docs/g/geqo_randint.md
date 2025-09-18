@@ -26,13 +26,13 @@ This function is extensively used throughout the GEQO algorithm for operations t
   - GeqoPrivateData (struct type)
   - pg_prng_uint64_range (PostgreSQL's pseudo-random integer range generator)
 - Called from (representative examples):
-  - cx (crossover operation in geqo_cx.c:68)
-  - gimme_tour, gimme_gene, edge_failure (in geqo_erx.c for edge recombination)
-  - geqo_mutation (mutation operations in geqo_mutation.c:47,53,54,57)
-  - ox1, ox2 (order crossover operations)
-  - pmx (partially matched crossover)
-  - px (position-based crossover)
-  - init_tour (tour initialization in geqo_recombination.c:53)
+  - [cx](../c/cx.md) (crossover operation in geqo_cx.c:68)
+  - [gimme_tour](gimme_tour.md), gimme_gene, edge_failure (in geqo_erx.c for edge recombination)
+  - [geqo_mutation](geqo_mutation.md) (mutation operations in geqo_mutation.c:47,53,54,57)
+  - [ox1](../o/ox1.md), ox2 (order crossover operations)
+  - [pmx](../p/pmx.md) (partially matched crossover)
+  - [px](../p/px.md) (position-based crossover)
+  - [init_tour](../i/init_tour.md) (tour initialization in geqo_recombination.c:53)
 
 ## Notes and Other Information
 - Returns an integer in the range [lower, upper] (both bounds inclusive)

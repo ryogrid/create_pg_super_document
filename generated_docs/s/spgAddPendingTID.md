@@ -20,13 +20,13 @@ The function allocates memory for new pending items and initializes them with th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerEquals: Compares two ItemPointer values for equality
-  - palloc: PostgreSQL memory allocation function
-  - spgBulkDeleteState: Structure containing vacuum state
-  - spgVacPendingItem: Structure representing a pending vacuum item
+  - [ItemPointerEquals](../I/ItemPointerEquals.md): Compares two ItemPointer values for equality
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
+  - [spgBulkDeleteState](spgBulkDeleteState.md): Structure containing vacuum state
+  - [spgVacPendingItem](spgVacPendingItem.md): Structure representing a pending vacuum item
 - Called from (representative examples):
-  - vacuumLeafPage: Calls when processing leaf pages during vacuum
-  - spgprocesspending: Calls when processing pending items during vacuum operations
+  - [vacuumLeafPage](../v/vacuumLeafPage.md): Calls when processing leaf pages during vacuum
+  - [spgprocesspending](spgprocesspending.md): Calls when processing pending items during vacuum operations
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the spgvacuum.c file

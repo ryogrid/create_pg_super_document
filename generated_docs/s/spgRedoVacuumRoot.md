@@ -25,13 +25,13 @@ The root vacuum is typically simpler than leaf vacuum because root pages don't r
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogReadBufferForRedo
-  - PageIndexMultiDelete
-  - BufferGetPage
-  - PageSetLSN
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from:
-  - spg_redo (main SP-GiST redo dispatcher)
+  - [spg_redo](spg_redo.md) (main SP-GiST redo dispatcher)
 
 ## Notes and Other Information
 - Simpler operation compared to spgRedoVacuumLeaf due to root page characteristics

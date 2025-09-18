@@ -28,17 +28,17 @@ This function validates directory options for pg_upgrade with a flexible resolut
 - Functions called/Symbols referenced:
   - getenv (to check environment variables)
   - strlen (for string length validation)
-  - pg_strdup (for string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - getcwd (to get current working directory)
-  - pg_fatal (for error reporting)
-  - canonicalize_path (for path cleanup)
+  - [pg_fatal](../p/pg_fatal.md) (for error reporting)
+  - [canonicalize_path](canonicalize_path.md) (for path cleanup)
 - Called from (representative examples):
-  - parseCommandLine (src/bin/pg_upgrade/option.c:246-254) - called 5 times for different directories
+  - [parseCommandLine](../p/parseCommandLine.md) (src/bin/pg_upgrade/option.c:246-254) - called 5 times for different directories
 
 ## Notes and Other Information
 - Static function only accessible within option.c
 - Used to validate old/new data directories, binary directories, and socket directory
-- Path canonicalization removes trailing separators to ensure consistent path construction
+- [Path](../P/Path.md) canonicalization removes trailing separators to ensure consistent path construction
 - Error messages are user-friendly and include specific option names and environment variables
 - Supports optional directories (missingOk=true) for non-critical paths like socket directories
 - Follows priority: command line → environment variable → current directory (if useCwd=true) → error/optional

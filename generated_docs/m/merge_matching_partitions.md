@@ -29,14 +29,14 @@ The function maintains the merged state in PartitionMap structures and handles r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionMap (data structure)
+  - [PartitionMap](../P/PartitionMap.md) (data structure)
 - Called from:
-  - merge_list_bounds
-  - merge_range_bounds
-  - process_outer_partition
-  - process_inner_partition
-  - merge_null_partitions
-  - merge_default_partitions
+  - [merge_list_bounds](merge_list_bounds.md)
+  - [merge_range_bounds](merge_range_bounds.md)
+  - [process_outer_partition](../p/process_outer_partition.md)
+  - [process_inner_partition](../p/process_inner_partition.md)
+  - [merge_null_partitions](merge_null_partitions.md)
+  - [merge_default_partitions](merge_default_partitions.md)
 
 ## Notes and Other Information
 - The function is static and internal to partbounds.c

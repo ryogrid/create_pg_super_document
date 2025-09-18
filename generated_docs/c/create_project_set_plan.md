@@ -28,15 +28,15 @@ The function creates the child plan without constraining its target list since t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse (creates the child plan)
-  - build_path_tlist (builds the target list for the path)
+  - [create_plan_recurse](create_plan_recurse.md) (creates the child plan)
+  - [build_path_tlist](../b/build_path_tlist.md) (builds the target list for the path)
   - make_project_set (creates the ProjectSet plan node)
-  - copy_generic_path_info (copies common path information to the plan)
+  - [copy_generic_path_info](copy_generic_path_info.md) (copies common path information to the plan)
 - Called from (representative examples):
-  - create_plan_recurse (main recursive plan creation function)
+  - [create_plan_recurse](create_plan_recurse.md) (main recursive plan creation function)
 
 ## Notes and Other Information
-- ProjectSet nodes are specifically designed for set-returning functions like generate_series(), unnest(), etc.
+- [ProjectSet](../P/ProjectSet.md) nodes are specifically designed for set-returning functions like generate_series(), unnest(), etc.
 - The child plan's target list is not constrained (flags = 0) because ProjectSet will handle the final projection
 - Multiple set-returning functions in the same target list are handled by producing the Cartesian product of their results
 - Non-set-returning expressions in the target list are replicated for each row produced by the set-returning functions

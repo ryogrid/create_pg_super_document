@@ -26,8 +26,8 @@ The LSN format consists of two 32-bit hexadecimal numbers separated by a forward
   - InvalidXLogRecPtr (constant representing an invalid LSN)
 
 - Called from (representative examples):
-  - check_recovery_target_lsn
-  - pg_lsn_in
+  - [check_recovery_target_lsn](../c/check_recovery_target_lsn.md)
+  - [pg_lsn_in](pg_lsn_in.md)
   - PG_RETURN_LSN
 
 ## Notes and Other Information

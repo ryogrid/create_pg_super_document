@@ -25,9 +25,9 @@ The struct is used within the PQprint function to make intelligent decisions abo
 - Called from (representative examples):
   - PQprint (where this struct is defined and used)
 - Referenced by:
-  - print_aligned_text (in src/fe_utils/print.c)
-  - print_aligned_vertical (in src/fe_utils/print.c)
-  - PageOutput (in src/fe_utils/print.c)
+  - [print_aligned_text](../p/print_aligned_text.md) (in src/fe_utils/print.c)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md) (in src/fe_utils/print.c)
+  - [PageOutput](../P/PageOutput.md) (in src/fe_utils/print.c)
 
 ## Notes and Other Information
 - This is a compatibility fallback - modern systems typically have TIOCGWINSZ support

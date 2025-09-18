@@ -21,9 +21,9 @@ The function handles both the page initialization (if needed) and the setup of h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - _hash_pageinit
-  - BufferGetPageSize
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [_hash_pageinit](_hash_pageinit.md)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
   - HashPageGetOpaque
   - HashPageGetBitmap
   - memset
@@ -35,10 +35,10 @@ The function handles both the page initialization (if needed) and the setup of h
   - HASHO_PAGE_ID
   - PageHeader
 - Called from (representative examples):
-  - hash_xlog_init_bitmap_page
-  - hash_xlog_add_ovfl_page
-  - _hash_addovflpage
-  - _hash_init
+  - [hash_xlog_init_bitmap_page](hash_xlog_init_bitmap_page.md)
+  - [hash_xlog_add_ovfl_page](hash_xlog_add_ovfl_page.md)
+  - [_hash_addovflpage](_hash_addovflpage.md)
+  - [_hash_init](_hash_init.md)
 
 ## Notes and Other Information
 - All bitmap bits are initially set to "1" (indicating "in use") using memset with 0xFF

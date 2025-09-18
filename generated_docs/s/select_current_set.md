@@ -21,16 +21,16 @@ This function manages the state transition for grouping sets in aggregate operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState (struct type)
+  - [AggState](../A/AggState.md) (struct type)
 - Called from (representative examples):
-  - initialize_aggregates
-  - lookup_hash_entries
-  - agg_retrieve_direct
-  - agg_fill_hash_table
-  - agg_refill_hash_table
-  - agg_retrieve_hash_table_in_memory
-  - ExecInitAgg
-  - ExecReScanAgg
+  - [initialize_aggregates](../i/initialize_aggregates.md)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_fill_hash_table](../a/agg_fill_hash_table.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md)
 
 ## Notes and Other Information
 The function includes a comment noting that changes to this function should also be reflected in ExecAggPlainTransByVal() and ExecAggPlainTransByRef(), indicating tight coupling with the aggregate transition functions. This function is static and internal to the nodeAgg.c file, serving as a utility for managing grouping set state transitions.

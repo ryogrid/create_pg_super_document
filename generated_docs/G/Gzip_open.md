@@ -34,7 +34,7 @@ Upon successful opening, the gzFile handle is stored in the CompressFileHandle's
   - snprintf (standard C library function)
   - strcpy (standard C library function)
   - Z_DEFAULT_COMPRESSION (zlib constant)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through function pointers in compression interface)
 

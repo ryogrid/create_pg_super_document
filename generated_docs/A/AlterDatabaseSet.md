@@ -25,14 +25,14 @@ The function serves as a wrapper that handles permission checking and locking fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_oid
-  - shdepLockAndCheckObject
-  - object_ownercheck
-  - aclcheck_error
-  - AlterSetting
-  - UnlockSharedObject
+  - [get_database_oid](../g/get_database_oid.md)
+  - [shdepLockAndCheckObject](../s/shdepLockAndCheckObject.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [AlterSetting](AlterSetting.md)
+  - [UnlockSharedObject](../U/UnlockSharedObject.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Requires database ownership privileges to execute

@@ -28,18 +28,18 @@ The DST status is returned through the `isdst` output parameter rather than bein
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tz (struct)
-  - timestamptz_to_time_t
+  - [pg_tz](../p/pg_tz.md) (struct)
+  - [timestamptz_to_time_t](../t/timestamptz_to_time_t.md)
   - pg_time_t (type)
-  - pg_tm (struct)
+  - [pg_tm](../p/pg_tm.md) (struct)
   - fsec_t (type)
-  - DetermineTimeZoneAbbrevOffsetInternal
-  - timestamp2tm
+  - [DetermineTimeZoneAbbrevOffsetInternal](DetermineTimeZoneAbbrevOffsetInternal.md)
+  - [timestamp2tm](../t/timestamp2tm.md)
   - DetermineTimeZoneOffset
 - Called from (representative examples):
-  - timetz_zone
-  - pg_timezone_abbrevs
-  - timestamptz_zone
+  - [timetz_zone](../t/timetz_zone.md)
+  - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md)
+  - [timestamptz_zone](../t/timestamptz_zone.md)
 
 ## Notes and Other Information
 - This is a convenience wrapper that allows timezone abbreviation offset determination using UTC timestamps directly

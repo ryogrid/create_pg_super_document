@@ -23,17 +23,17 @@ When a priority change is detected, the function logs a debug message indicating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SyncRepGetStandbyPriority (determines standby's sync priority)
+  - [SyncRepGetStandbyPriority](SyncRepGetStandbyPriority.md) (determines standby's sync priority)
   - SpinLockAcquire (acquires WAL sender mutex)
   - SpinLockRelease (releases WAL sender mutex)
   - ereport (logs debug message)
   - DEBUG1 (log level constant)
 - Called from (representative examples):
-  - StartReplication
-  - StartLogicalReplication  
-  - ProcessPendingWrites
-  - WalSndWaitForWal
-  - WalSndLoop
+  - [StartReplication](StartReplication.md)
+  - [StartLogicalReplication](StartLogicalReplication.md)  
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
+  - [WalSndLoop](../W/WalSndLoop.md)
 
 ## Notes and Other Information
 This function is part of the WAL sender side of synchronous replication and is called frequently during WAL sender operation to handle configuration changes. The mutex protection ensures that priority updates are atomic with respect to other WAL sender operations that may read the priority value. The priority determination is based on the synchronous_standby_names configuration parameter and the application_name of the connected standby.

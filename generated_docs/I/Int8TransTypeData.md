@@ -20,13 +20,13 @@ Int8TransTypeData serves as the transition datatype for avg(int2), avg(int4), su
 - Functions called/Symbols referenced:
   - int64 (primitive 64-bit integer type)
 - Called from (representative examples):
-  - int2_avg_accum
-  - int4_avg_accum
-  - int4_avg_combine
-  - int2_avg_accum_inv
-  - int4_avg_accum_inv
-  - int8_avg
-  - int2int4_sum
+  - [int2_avg_accum](../i/int2_avg_accum.md)
+  - [int4_avg_accum](../i/int4_avg_accum.md)
+  - [int4_avg_combine](../i/int4_avg_combine.md)
+  - [int2_avg_accum_inv](../i/int2_avg_accum_inv.md)
+  - [int4_avg_accum_inv](../i/int4_avg_accum_inv.md)
+  - [int8_avg](../i/int8_avg.md)
+  - [int2int4_sum](../i/int2int4_sum.md)
 
 ## Notes and Other Information
 This structure represents the internal state for integer averaging operations and is particularly crucial for moving-aggregate scenarios where values need to be both added and removed from the aggregate. The use of 64-bit integers ensures sufficient range to handle the accumulation of many 16-bit or 32-bit integer values without overflow. Unlike the more complex NumericAggState, this structure focuses specifically on simple count and sum operations for integer types, providing better performance for these common cases. The structure is used both for final sum calculations and as an intermediate step in average calculations where the final result is computed as sum/count.

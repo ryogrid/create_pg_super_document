@@ -20,7 +20,7 @@ The function serves as a thin wrapper around , which contains the common formatt
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (extract type modifier argument)
-  - anybit_typmodout (shared formatting logic for bit and varbit types)
+  - [anybit_typmodout](../a/anybit_typmodout.md) (shared formatting logic for bit and varbit types)
   - PG_RETURN_CSTRING (return formatted string)
 - Called from (representative examples):
   - PostgreSQL's type system when displaying column information

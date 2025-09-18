@@ -18,24 +18,24 @@ This function creates a MergeJoin execution plan node from a MergePath. Merge jo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist
-  - create_plan_recurse
-  - order_qual_clauses
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
   - IS_OUTER_JOIN
-  - extract_actual_join_clauses
-  - extract_actual_clauses
-  - get_actual_clauses
-  - list_difference
-  - replace_nestloop_params
-  - get_switched_clauses
-  - make_sort_from_pathkeys
-  - label_sort_with_costsize
-  - make_material
-  - copy_plan_costsize
-  - make_mergejoin
-  - copy_generic_path_info
+  - [extract_actual_join_clauses](../e/extract_actual_join_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [get_actual_clauses](../g/get_actual_clauses.md)
+  - [list_difference](../l/list_difference.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [get_switched_clauses](../g/get_switched_clauses.md)
+  - [make_sort_from_pathkeys](../m/make_sort_from_pathkeys.md)
+  - [label_sort_with_costsize](../l/label_sort_with_costsize.md)
+  - [make_material](../m/make_material.md)
+  - [copy_plan_costsize](copy_plan_costsize.md)
+  - [make_mergejoin](../m/make_mergejoin.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_join_plan
+  - [create_join_plan](create_join_plan.md)
 
 ## Notes and Other Information
 - Merge joins are most efficient when input relations are already sorted on join columns

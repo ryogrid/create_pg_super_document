@@ -36,11 +36,11 @@ The function can work with either a Relation object (bmr.rel) or directly with a
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetSmgr
-  - ExtendBufferedRelCommon
-  - BufferManagerRelation
-  - BufferAccessStrategy
+  - [ExtendBufferedRelCommon](ExtendBufferedRelCommon.md)
+  - [BufferManagerRelation](../B/BufferManagerRelation.md)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md)
 - Called from (representative examples):
-  - ExtendBufferedRel
+  - [ExtendBufferedRel](ExtendBufferedRel.md)
   - MAX_BUFFERS_TO_EXTEND_BY (heap access method)
 
 ## Notes and Other Information

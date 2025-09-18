@@ -27,7 +27,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ECPGget_sqlca (retrieves the current SQLCA structure)
-  - sqlca_t (SQL Communications Area structure type, referenced twice)
+  - [sqlca_t](../s/sqlca_t.md) (SQL Communications Area structure type, referenced twice)
   - sqlca_init (initial/default SQLCA values used for reset)
   - memcpy (C standard library function for memory copying)
 - Called from (representative examples):

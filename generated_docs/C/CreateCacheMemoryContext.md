@@ -29,13 +29,13 @@ This centralization is important because many different subsystems need to ensur
   - ALLOCSET_DEFAULT_SIZES (macro providing standard size parameters)
 - Called from (representative examples):
   - InitializeAttoptCache
-  - InitCatCache
-  - BuildEventTriggerCache
-  - LookupOpclassInfo
-  - RelationBuildLocalRelation
-  - RelationCacheInitialize
+  - [InitCatCache](../I/InitCatCache.md)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md)
+  - [LookupOpclassInfo](../L/LookupOpclassInfo.md)
+  - [RelationBuildLocalRelation](../R/RelationBuildLocalRelation.md)
+  - [RelationCacheInitialize](../R/RelationCacheInitialize.md)
   - InitializeRelfilenumberMap
-  - InitializeTableSpaceCache
+  - [InitializeTableSpaceCache](../I/InitializeTableSpaceCache.md)
   - Various type and text search cache functions
 
 ## Notes and Other Information

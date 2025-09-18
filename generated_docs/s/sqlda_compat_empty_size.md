@@ -19,14 +19,14 @@ The calculation includes: the main sqlda_compat structure, an array of sqlvar_co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields (to get number of fields)
-  - PQfname (to get field names)
-  - ecpg_sqlda_align_add_size (for alignment calculations)
-  - sqlda_compat (structure type)
-  - sqlvar_compat (structure type)
+  - [PQnfields](../P/PQnfields.md) (to get number of fields)
+  - [PQfname](../P/PQfname.md) (to get field names)
+  - [ecpg_sqlda_align_add_size](../e/ecpg_sqlda_align_add_size.md) (for alignment calculations)
+  - [sqlda_compat](sqlda_compat.md) (structure type)
+  - [sqlvar_compat](sqlvar_compat.md) (structure type)
 - Called from (representative examples):
-  - sqlda_compat_total_size
-  - ecpg_set_compat_sqlda
+  - [sqlda_compat_total_size](sqlda_compat_total_size.md)
+  - [ecpg_set_compat_sqlda](../e/ecpg_set_compat_sqlda.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's ECPG (Embedded SQL in C) interface, specifically for the compatibility-mode SQLDA implementation. The compatibility mode provides backward compatibility with older SQLDA interfaces. The function is essential for memory allocation planning before creating SQLDA structures that will hold query result metadata and data. The alignment padding ensures that subsequent data fields will be properly aligned for optimal memory access performance.

@@ -30,11 +30,11 @@ The function sets the QTN_NOCHANGE flag on successfully modified nodes to preven
 - Functions called/Symbols referenced:
   - QTNEq (tree node equality comparison)
   - QTNFree (tree node memory deallocation)
-  - QTNCopy (tree node deep copy)
+  - [QTNCopy](../Q/QTNCopy.md) (tree node deep copy)
   - QTNodeCompare (tree node comparison for sorting)
   - QTNSort (tree node sorting)
 - Called from (representative examples):
-  - dofindsubquery
+  - [dofindsubquery](../d/dofindsubquery.md)
 
 ## Notes and Other Information
 - The function relies on pre-sorted child nodes for efficient subset matching in associative/commutative operations

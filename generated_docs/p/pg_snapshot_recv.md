@@ -33,13 +33,13 @@ The function performs extensive validation to ensure data integrity:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER
-  - pq_getmsgint
-  - pq_getmsgint64
+  - [pq_getmsgint](pq_getmsgint.md)
+  - [pq_getmsgint64](pq_getmsgint64.md)
   - FullTransactionIdFromU64
   - FullTransactionIdIsValid
   - FullTransactionIdPrecedes
   - FullTransactionIdEquals
-  - palloc
+  - [palloc](palloc.md)
   - SET_VARSIZE
   - ereport
   - PG_SNAPSHOT_SIZE

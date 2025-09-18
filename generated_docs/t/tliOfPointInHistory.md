@@ -27,9 +27,9 @@ If no matching timeline is found, the function raises an ERROR, as this indicate
   - TimeLineHistoryEntry (structure access)
   - XLogRecPtrIsInvalid (macro for checking invalid WAL positions)
 - Called from (representative examples):
-  - InitWalRecovery (src/backend/access/transam/xlogrecovery.c:838, 862)
-  - WaitForWALToBecomeAvailable (src/backend/access/transam/xlogrecovery.c:3842)
-  - XLogReadDetermineTimeline (src/backend/access/transam/xlogutils.c:800)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (src/backend/access/transam/xlogrecovery.c:838, 862)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (src/backend/access/transam/xlogrecovery.c:3842)
+  - [XLogReadDetermineTimeline](../X/XLogReadDetermineTimeline.md) (src/backend/access/transam/xlogutils.c:800)
   - READ_REPLICATION_SLOT_COLS (src/backend/replication/walsender.c:572)
 
 ## Notes and Other Information

@@ -18,13 +18,13 @@ This function serves as a bridge between Perl and PostgreSQL type systems by con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
   - DirectFunctionCall1
-  - regtypein
-  - CStringGetDatum
-  - plperl_sv_to_datum
-  - getTypeOutputInfo
-  - OidOutputFunctionCall
+  - [regtypein](../r/regtypein.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [plperl_sv_to_datum](plperl_sv_to_datum.md)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md)
 - Called from (representative examples):
   - Function is declared in plperl.h for external use
 

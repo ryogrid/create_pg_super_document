@@ -23,7 +23,7 @@ The function enforces strict requirements for shared memory hash tables, ensurin
 ## Dependencies
 - Functions called/Symbols referenced:
   - HASH_DIRSIZE (flag indicating directory size is specified)
-  - HASHHDR (hash table header structure)
+  - [HASHHDR](../H/HASHHDR.md) (hash table header structure)
   - HASHSEGMENT (segment pointer type for directory entries)
 - Called from (representative examples):
   - ShmemInitHash (during shared memory hash table setup)

@@ -24,18 +24,18 @@ The function implements strict validation rules to prevent invalid configuration
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotValidateName
-  - RecoveryInProgress
+  - [ReplicationSlotValidateName](ReplicationSlotValidateName.md)
+  - [RecoveryInProgress](RecoveryInProgress.md)
   - IsSyncingReplicationSlots
   - LWLockAcquire/LWLockRelease
-  - CreateSlotOnDisk
+  - [CreateSlotOnDisk](../C/CreateSlotOnDisk.md)
   - pgstat_create_replslot
   - ConditionVariableBroadcast
 - Called from (representative examples):
-  - create_physical_replication_slot
-  - create_logical_replication_slot
-  - CreateReplicationSlot (walsender)
-  - synchronize_one_slot
+  - [create_physical_replication_slot](../c/create_physical_replication_slot.md)
+  - [create_logical_replication_slot](../c/create_logical_replication_slot.md)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (walsender)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
 
 ## Notes and Other Information
 - The function ensures atomic slot creation using exclusive locking on ReplicationSlotAllocationLock

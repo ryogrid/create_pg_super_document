@@ -19,11 +19,11 @@ This function serves as a wrapper around PostgreSQL's ApplySortComparator functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ApplySortComparator
+  - [ApplySortComparator](../A/ApplySortComparator.md)
   - SortSupport (type)
 - Called from (representative examples):
-  - compare_scalars_simple
-  - statext_mcv_serialize
+  - [compare_scalars_simple](compare_scalars_simple.md)
+  - [statext_mcv_serialize](../s/statext_mcv_serialize.md)
 
 ## Notes and Other Information
 - This function assumes both input datums are non-null, as indicated by the 'false' parameters passed to ApplySortComparator

@@ -27,8 +27,8 @@ The locate_var_of_level_context structure serves as a walker context for the loc
   - Var (struct)
   - Parse location system
 - Called from (representative examples):
-  - locate_var_of_level
-  - locate_var_of_level_walker
+  - [locate_var_of_level](locate_var_of_level.md)
+  - [locate_var_of_level_walker](locate_var_of_level_walker.md)
   - flatten_join_alias_vars_context
 
 ## Notes and Other Information

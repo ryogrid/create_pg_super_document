@@ -22,13 +22,13 @@ The function operates as part of the rule rewriting system (RIR - Rules Instead 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fireRIRrules
+  - [fireRIRrules](fireRIRrules.md)
   - expression_tree_walker
   - IsA (macro)
   - SubLink (struct)
-  - fireRIRonSubLink_context (struct)
+  - [fireRIRonSubLink_context](fireRIRonSubLink_context.md) (struct)
 - Called from (representative examples):
-  - fireRIRrules (multiple locations in rewriteHandler.c)
+  - [fireRIRrules](fireRIRrules.md) (multiple locations in rewriteHandler.c)
 
 ## Notes and Other Information
 - Modifies SubLink nodes in-place, requiring caller responsibility for side-effects

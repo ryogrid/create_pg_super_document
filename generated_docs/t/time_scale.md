@@ -23,7 +23,7 @@ The time_scale function is responsible for adjusting TIME data type values accor
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMEADT (macro for extracting TimeADT arguments)
   - TimeADT (data type for time values)
-  - AdjustTimeForTypmod (function that performs the actual time adjustment)
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md) (function that performs the actual time adjustment)
   - PG_RETURN_TIMEADT (macro for returning TimeADT values)
 - Called from (representative examples):
   - No direct references found in the codebase (likely used through function registration)

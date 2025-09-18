@@ -21,12 +21,12 @@ The function ensures protocol compliance by providing a definitive response that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_putemptymessage (sends empty message to client)
+  - [pq_putemptymessage](../p/pq_putemptymessage.md) (sends empty message to client)
   - PqMsg_EmptyQueryResponse (protocol message type for empty queries)
   - CommandDest enum values (DestRemote, DestRemoteExecute, etc.)
 - Called from (representative examples):
-  - exec_simple_query (in postgres.c)
-  - exec_execute_message (in postgres.c)
+  - [exec_simple_query](../e/exec_simple_query.md) (in postgres.c)
+  - [exec_execute_message](../e/exec_execute_message.md) (in postgres.c)
 
 ## Notes and Other Information
 - Located in src/backend/tcop/dest.c:218-255

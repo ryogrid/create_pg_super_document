@@ -26,15 +26,15 @@ This function is specifically tailored for ALTER TABLE operations and provides a
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELATION_IS_OTHER_TEMP (macro to check if relation is another session's temp table)
-  - CheckTableNotInUse (performs active usage checks with "ALTER TABLE" as the statement name)
+  - [CheckTableNotInUse](CheckTableNotInUse.md) (performs active usage checks with "ALTER TABLE" as the statement name)
   - ereport (reports errors with appropriate error codes)
 - Called from (representative examples):
-  - AlterTable (in tablecmds.c:4407, main entry point for ALTER TABLE operations)
-  - ATSimpleRecursion (in tablecmds.c:6648, during recursive ALTER TABLE operations)
-  - ATExecAddColumn (in tablecmds.c:7416, before adding columns)
-  - ATExecDropColumn (in tablecmds.c:9093, before dropping columns)
-  - ATPrepAlterColumnType (in tablecmds.c:13017, before changing column types)
-  - ATExecDropConstraint (in tablecmds.c:12626, 12703, before dropping constraints)
+  - [AlterTable](../A/AlterTable.md) (in tablecmds.c:4407, main entry point for ALTER TABLE operations)
+  - [ATSimpleRecursion](../A/ATSimpleRecursion.md) (in tablecmds.c:6648, during recursive ALTER TABLE operations)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (in tablecmds.c:7416, before adding columns)
+  - [ATExecDropColumn](../A/ATExecDropColumn.md) (in tablecmds.c:9093, before dropping columns)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md) (in tablecmds.c:13017, before changing column types)
+  - [ATExecDropConstraint](../A/ATExecDropConstraint.md) (in tablecmds.c:12626, 12703, before dropping constraints)
 
 ## Notes and Other Information
 - This is a static function within tablecmds.c, indicating it's an internal helper for ALTER TABLE operations

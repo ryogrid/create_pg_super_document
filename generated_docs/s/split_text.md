@@ -25,18 +25,18 @@ The split_text function is the central text processing engine that handles strin
 ## Dependencies
 - Functions called/Symbols referenced:
   - SplitTextOutputData (output state structure)
-  - FunctionCallInfo (PostgreSQL function call metadata)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (PostgreSQL function call metadata)
   - PG_GET_COLLATION (collation information retrieval)
   - PG_NARGS (argument count checking)
   - TextPositionState (text search state management)
-  - split_text_accum_result (result accumulation)
+  - [split_text_accum_result](split_text_accum_result.md) (result accumulation)
   - text_position_setup/next/cleanup/get_match_ptr (text positioning engine)
   - VARSIZE_ANY (variable-length type size calculation)
   - cstring_to_text_with_len (text datum creation)
-  - pg_mblen (multi-byte character length calculation)
+  - [pg_mblen](../p/pg_mblen.md) (multi-byte character length calculation)
 - Called from (representative examples):
-  - text_to_array
-  - text_to_table
+  - [text_to_array](../t/text_to_array.md)
+  - [text_to_table](../t/text_to_table.md)
   - DatumGetVarStringPP
 
 ## Notes and Other Information

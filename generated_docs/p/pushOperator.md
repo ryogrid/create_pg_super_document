@@ -24,14 +24,14 @@ The function allocates memory for a new QueryOperator structure, initializes its
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (PostgreSQL memory allocation function)
-  - lcons (list construction function)
+  - [palloc0](palloc0.md) (PostgreSQL memory allocation function)
+  - [lcons](../l/lcons.md) (list construction function)
   - QueryOperator (query operator structure type)
   - QI_OPR (query item type constant)
   - OP_NOT, OP_AND, OP_OR, OP_PHRASE (operator type constants)
 - Called from (representative examples):
-  - pushval_morph
-  - cleanOpStack
+  - [pushval_morph](pushval_morph.md)
+  - [cleanOpStack](../c/cleanOpStack.md)
   - P_TSQ_WEB
 
 ## Notes and Other Information

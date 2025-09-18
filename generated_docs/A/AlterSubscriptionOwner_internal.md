@@ -27,16 +27,16 @@ After validation, it updates the pg_subscription catalog, adjusts the dependency
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck: Verifies current user owns the subscription
+  - [object_ownercheck](../o/object_ownercheck.md): Verifies current user owns the subscription
   - check_can_set_role: Validates user can assume the new owner role
-  - object_aclcheck: Checks CREATE permission on database
-  - changeDependencyOnOwner: Updates dependency records for new ownership
-  - CatalogTupleUpdate: Updates the subscription tuple in the catalog
-  - ApplyLauncherWakeupAtCommit: Wakes up apply launcher for immediate processing
-  - LogicalRepWorkersWakeupAtCommit: Wakes up logical replication workers
+  - [object_aclcheck](../o/object_aclcheck.md): Checks CREATE permission on database
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md): Updates dependency records for new ownership
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates the subscription tuple in the catalog
+  - [ApplyLauncherWakeupAtCommit](ApplyLauncherWakeupAtCommit.md): Wakes up apply launcher for immediate processing
+  - [LogicalRepWorkersWakeupAtCommit](../L/LogicalRepWorkersWakeupAtCommit.md): Wakes up logical replication workers
 - Called from (representative examples):
-  - AlterSubscriptionOwner: Public interface for subscription ownership changes in subscriptioncmds.c:1980
-  - AlterSubscriptionOwner_oid: OID-based ownership change interface in subscriptioncmds.c:2009
+  - [AlterSubscriptionOwner](AlterSubscriptionOwner.md): Public interface for subscription ownership changes in subscriptioncmds.c:1980
+  - [AlterSubscriptionOwner_oid](AlterSubscriptionOwner_oid.md): OID-based ownership change interface in subscriptioncmds.c:2009
 
 ## Notes and Other Information
 - Static function - internal implementation detail not exposed in headers

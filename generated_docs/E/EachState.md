@@ -24,14 +24,14 @@ EachState serves as a context structure for PostgreSQL's JSON each functionality
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
   - Tuplestorestate
 - Called from (representative examples):
-  - each_worker
-  - each_object_field_start
-  - each_object_field_end
-  - each_array_start
-  - each_scalar
+  - [each_worker](../e/each_worker.md)
+  - [each_object_field_start](../e/each_object_field_start.md)
+  - [each_object_field_end](../e/each_object_field_end.md)
+  - [each_array_start](../e/each_array_start.md)
+  - [each_scalar](../e/each_scalar.md)
 
 ## Notes and Other Information
 This structure is specifically designed for the json_each family of functions in PostgreSQL, which allow users to extract key-value pairs from JSON objects in a tabular format. The structure facilitates both the parsing phase (via JsonLexContext) and the result storage phase (via Tuplestorestate) of the operation.

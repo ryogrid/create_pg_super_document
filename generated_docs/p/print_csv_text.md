@@ -33,10 +33,10 @@ The function deliberately excludes table titles and footers from CSV output to m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - csv_print_field
+  - [csv_print_field](../c/csv_print_field.md)
   - fputc (standard C library)
 - Called from (representative examples):
-  - printTable
+  - [printTable](printTable.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's frontend utilities and is used by psql when outputting results in CSV format. The implementation prioritizes compatibility with standard CSV parsers while accommodating PostgreSQL-specific requirements. Line termination uses \n which gets converted to the appropriate system line ending in text mode, ensuring cross-platform compatibility. The function respects the global cancel_pressed flag for responsive interruption during large result set processing.

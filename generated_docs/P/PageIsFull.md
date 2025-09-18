@@ -22,9 +22,9 @@ The PD_PAGE_FULL flag is a performance optimization that prevents unnecessary wo
   - PageHeader (cast to access page header structure)
   - PD_PAGE_FULL (flag constant)
 - Called from (representative examples):
-  - heap_page_prune_opt (src/backend/access/heap/pruneheap.c:242)
-  - heap_page_prune_opt (src/backend/access/heap/pruneheap.c:253)
-  - heap_page_prune_and_freeze (src/backend/access/heap/pruneheap.c:667)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md) (src/backend/access/heap/pruneheap.c:242)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md) (src/backend/access/heap/pruneheap.c:253)
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md) (src/backend/access/heap/pruneheap.c:667)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

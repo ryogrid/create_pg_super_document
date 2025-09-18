@@ -24,12 +24,12 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - TRACE_POSTGRESQL_MULTIXACT_CHECKPOINT_START
-  - SimpleLruWriteAll
+  - [SimpleLruWriteAll](../S/SimpleLruWriteAll.md)
   - TRACE_POSTGRESQL_MULTIXACT_CHECKPOINT_DONE
   - MultiXactOffsetCtl
   - MultiXactMemberCtl
 - Called from (representative examples):
-  - CheckPointGuts
+  - [CheckPointGuts](CheckPointGuts.md)
 
 ## Notes and Other Information
 - Called during both regular and shutdown checkpoints

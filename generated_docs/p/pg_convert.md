@@ -42,14 +42,14 @@ Key characteristics:
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP/PG_GETARG_NAME (argument extraction macros)
   - pg_char_to_encoding (encoding name to ID conversion)
-  - pg_verify_mbstr (source data validation)
-  - pg_do_encoding_conversion (core conversion function)
+  - [pg_verify_mbstr](pg_verify_mbstr.md) (source data validation)
+  - [pg_do_encoding_conversion](pg_do_encoding_conversion.md) (core conversion function)
   - unconstify (const removal utility)
   - Memory management functions (palloc, pfree, SET_VARSIZE)
   - PG_RETURN_BYTEA_P/PG_FREE_IF_COPY (return and cleanup macros)
 - Called from (representative examples):
-  - pg_convert_to (database-to-encoding conversion)
-  - pg_convert_from (encoding-to-database conversion)
+  - [pg_convert_to](pg_convert_to.md) (database-to-encoding conversion)
+  - [pg_convert_from](pg_convert_from.md) (encoding-to-database conversion)
 
 ## Notes and Other Information
 - Primary SQL interface for general encoding conversion

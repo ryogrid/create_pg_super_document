@@ -24,18 +24,18 @@ This function processes GroupingSet nodes, which can contain various types of co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformGroupClauseList
-  - transformGroupClauseExpr
-  - transformGroupingSet (recursive call)
-  - makeGroupingSet
-  - exprLocation
+  - [transformGroupClauseList](transformGroupClauseList.md)
+  - [transformGroupClauseExpr](transformGroupClauseExpr.md)
+  - [transformGroupingSet](transformGroupingSet.md) (recursive call)
+  - [makeGroupingSet](../m/makeGroupingSet.md)
+  - [exprLocation](../e/exprLocation.md)
   - list_make1_int
   - GroupingSet (struct type)
-  - ParseExprKind (enum type)
+  - [ParseExprKind](../P/ParseExprKind.md) (enum type)
   - GROUPING_SET_SETS, GROUPING_SET_SIMPLE, GROUPING_SET_CUBE (enum values)
 - Called from (representative examples):
-  - transformGroupingSet (recursive)
-  - transformGroupClause
+  - [transformGroupingSet](transformGroupingSet.md) (recursive)
+  - [transformGroupClause](transformGroupClause.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c for internal parsing operations

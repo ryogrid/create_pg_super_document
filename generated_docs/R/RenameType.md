@@ -22,18 +22,18 @@ The function first resolves the type name and validates permissions, then applie
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameTypeId
+  - [typenameTypeId](../t/typenameTypeId.md)
   - table_open
   - SearchSysCacheCopy1
-  - object_ownercheck
-  - aclcheck_error_type
-  - get_rel_relkind
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
   - IsTrueArrayType
-  - RenameRelationInternal
-  - RenameTypeInternal
+  - [RenameRelationInternal](RenameRelationInternal.md)
+  - [RenameTypeInternal](RenameTypeInternal.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ExecRenameStmt
+  - [ExecRenameStmt](../E/ExecRenameStmt.md)
 
 ## Notes and Other Information
 - Returns an ObjectAddress pointing to the renamed type for dependency tracking

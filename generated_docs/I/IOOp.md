@@ -26,12 +26,12 @@ IOOp categorizes the fundamental I/O operations that PostgreSQL performs during 
 - Functions called/Symbols referenced:
   - Used with IOObject and IOContext for comprehensive I/O statistics
 - Called from (representative examples):
-  - pgstat_count_io_op
-  - pgstat_count_io_op_n
-  - pgstat_count_io_op_time
-  - pgstat_tracks_io_op
-  - pgstat_get_io_op_index
-  - pgstat_get_io_time_index
+  - [pgstat_count_io_op](../p/pgstat_count_io_op.md)
+  - [pgstat_count_io_op_n](../p/pgstat_count_io_op_n.md)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
+  - [pgstat_tracks_io_op](../p/pgstat_tracks_io_op.md)
+  - [pgstat_get_io_op_index](../p/pgstat_get_io_op_index.md)
+  - [pgstat_get_io_time_index](../p/pgstat_get_io_time_index.md)
 
 ## Notes and Other Information
 - Used with the helper macro IOOP_NUM_TYPES to determine the total number of operation types

@@ -23,15 +23,15 @@ MergeJoinClause represents the runtime state for a single merge join clause in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MergeJoinClauseData (actual structure being pointed to)
+  - [MergeJoinClauseData](MergeJoinClauseData.md) (actual structure being pointed to)
   - ExprState (for expression evaluation)
   - Datum (for cached values)
   - SortSupportData (for comparison support)
 - Called from (representative examples):
-  - MJExamineQuals (examines join qualification clauses)
-  - MJEvalOuterValues (evaluates outer relation expressions)
-  - MJEvalInnerValues (evaluates inner relation expressions)
-  - MJCompare (compares left and right values)
+  - [MJExamineQuals](MJExamineQuals.md) (examines join qualification clauses)
+  - [MJEvalOuterValues](MJEvalOuterValues.md) (evaluates outer relation expressions)
+  - [MJEvalInnerValues](MJEvalInnerValues.md) (evaluates inner relation expressions)
+  - [MJCompare](MJCompare.md) (compares left and right values)
   - MarkInnerTuple (marks position for tuple restoration)
 
 ## Notes and Other Information

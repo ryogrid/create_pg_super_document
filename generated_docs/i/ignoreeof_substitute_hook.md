@@ -26,10 +26,10 @@ This differs slightly from bash behavior - while bash allows non-numeric values 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseVariableNum
-  - pg_strdup (implicitly called for string duplication)
+  - [ParseVariableNum](../P/ParseVariableNum.md)
+  - [pg_strdup](../p/pg_strdup.md) (implicitly called for string duplication)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
 
 ## Notes and Other Information
 - This is a static function within the psql startup module, making it internal to the psql implementation

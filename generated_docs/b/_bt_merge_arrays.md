@@ -30,18 +30,18 @@ The merge operation uses a two-pointer approach to efficiently traverse both sor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanKey
   - BTScanOpaque
-  - BTSortArrayContext
+  - [BTSortArrayContext](../B/BTSortArrayContext.md)
   - RegProcedure
-  - get_opfamily_proc
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
   - BTORDER_PROC
   - RegProcedureIsValid
-  - fmgr_info_cxt
-  - _bt_compare_array_elements
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [_bt_compare_array_elements](_bt_compare_array_elements.md)
 - Called from (representative examples):
-  - _bt_preprocess_array_keys
+  - [_bt_preprocess_array_keys](_bt_preprocess_array_keys.md)
 
 ## Notes and Other Information
 - Returns true if merge was successful, false if required comparison procedures are unavailable

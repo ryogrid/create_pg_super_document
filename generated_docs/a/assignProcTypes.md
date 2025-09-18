@@ -20,27 +20,27 @@ This comprehensive function processes support procedures being added to operator
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpFamilyMember (type)
+  - [OpFamilyMember](../O/OpFamilyMember.md) (type)
   - Form_pg_proc (type)
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
   - OidIsValid
   - ereport
-  - errcode
-  - errmsg
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
   - BTORDER_PROC
   - BTSORTSUPPORT_PROC
   - BTINRANGE_PROC
   - BTEQUALIMAGE_PROC
   - HASHSTANDARD_PROC
   - HASHEXTENDED_PROC
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - DefineOpClass
-  - AlterOpFamilyAdd
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamilyAdd](../A/AlterOpFamilyAdd.md)
 
 ## Notes and Other Information
 - Implements access method-specific validation logic for btree and hash indexes

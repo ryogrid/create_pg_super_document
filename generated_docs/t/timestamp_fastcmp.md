@@ -20,10 +20,10 @@ This is a specialized comparison function designed for high-performance sorting 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetTimestamp (macro to extract timestamp from Datum)
-  - timestamp_cmp_internal (internal comparison function)
+  - [timestamp_cmp_internal](timestamp_cmp_internal.md) (internal comparison function)
   - SortSupport (type for sort support structure)
 - Called from (representative examples):
-  - timestamp_sortsupport (in src/backend/utils/adt/timestamp.c:2303)
+  - [timestamp_sortsupport](timestamp_sortsupport.md) (in src/backend/utils/adt/timestamp.c:2303)
 
 ## Notes and Other Information
 - This function is used for both timestamp and timestamptz data types as noted in the comment

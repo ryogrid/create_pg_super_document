@@ -22,16 +22,16 @@ The function iterates through each attribute in the tuple descriptor and sends t
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_beginmessage
-  - pq_sendint16
-  - pq_sendstring
-  - pq_sendint32
-  - pq_endmessage
+  - [pq_sendint16](pq_sendint16.md)
+  - [pq_sendstring](pq_sendstring.md)
+  - [pq_sendint32](pq_sendint32.md)
+  - [pq_endmessage](pq_endmessage.md)
   - TupleDescAttr
   - NameStr
   - PqMsg_RowDescription
   - DestReceiver
 - Called from (representative examples):
-  - donothingCleanup (referenced in dest.c)
+  - [donothingCleanup](../d/donothingCleanup.md) (referenced in dest.c)
 
 ## Notes and Other Information
 - This function is part of the "printsimple" destination receiver implementation

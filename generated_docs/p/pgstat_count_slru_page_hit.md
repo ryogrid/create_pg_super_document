@@ -21,10 +21,10 @@ The function simply increments the `blocks_hit` counter for the specified SLRU i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_slru_entry
+  - [get_slru_entry](../g/get_slru_entry.md)
 - Called from (representative examples):
-  - SimpleLruReadPage
-  - SimpleLruReadPage_ReadOnly
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md)
+  - [SimpleLruReadPage_ReadOnly](../S/SimpleLruReadPage_ReadOnly.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

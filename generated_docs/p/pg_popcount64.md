@@ -25,8 +25,8 @@ The function is part of PostgreSQL's bit manipulation utilities and is used thro
 - Called from (representative examples):
   - bmw_popcount (via function pointer in bitmapset operations)
   - TRY_POPCNT_FAST macro (when runtime optimization is enabled)
-  - choose_popcount_functions (during function pointer initialization)
-  - pg_popcount64_choose (part of the dynamic selection mechanism)
+  - [choose_popcount_functions](../c/choose_popcount_functions.md) (during function pointer initialization)
+  - [pg_popcount64_choose](pg_popcount64_choose.md) (part of the dynamic selection mechanism)
 
 ## Notes and Other Information
 - When TRY_POPCNT_FAST is defined, this function becomes a function pointer that can be dynamically assigned to optimized implementations

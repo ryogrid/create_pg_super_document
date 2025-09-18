@@ -22,13 +22,13 @@ This function handles the size parameter explicitly, making it suitable for stri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_any
+  - [pg_server_to_any](../p/pg_server_to_any.md)
   - PG_UTF8
   - PyUnicode_FromStringAndSize (Python C API)
   - PyUnicode_FromString (Python C API)
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from:
-  - PLyUnicode_FromString
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md)
 
 ## Notes and Other Information
 - Returns a new Python Unicode object with transferred reference ownership to the caller

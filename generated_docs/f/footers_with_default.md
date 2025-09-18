@@ -26,13 +26,13 @@ The  function determines what footer text should be displayed for a table output
   - default_footer (static buffer for default footer text)
   - default_footer_cell (static footer structure)
 - Called from (representative examples):
-  - print_unaligned_text
-  - print_aligned_text
-  - print_aligned_vertical
-  - print_html_text
-  - print_asciidoc_text
-  - print_latex_text
-  - print_troff_ms_text
+  - [print_unaligned_text](../p/print_unaligned_text.md)
+  - [print_aligned_text](../p/print_aligned_text.md)
+  - [print_aligned_vertical](../p/print_aligned_vertical.md)
+  - [print_html_text](../p/print_html_text.md)
+  - [print_asciidoc_text](../p/print_asciidoc_text.md)
+  - [print_latex_text](../p/print_latex_text.md)
+  - [print_troff_ms_text](../p/print_troff_ms_text.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/fe_utils/print.c

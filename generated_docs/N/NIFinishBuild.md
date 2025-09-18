@@ -19,10 +19,10 @@ This function performs cleanup operations when dictionary construction is comple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - IspellDict (struct type)
 - Called from (representative examples):
-  - dispell_init
+  - [dispell_init](../d/dispell_init.md)
 
 ## Notes and Other Information
 - This function should be called after dictionary construction is complete, whether successful or not

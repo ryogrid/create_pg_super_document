@@ -22,13 +22,13 @@ The function specifically targets btree access methods (BTREE_AM_OID) and return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - opclass_for_family_datatype
+  - [opclass_for_family_datatype](opclass_for_family_datatype.md)
   - OidIsValid
   - BTREE_AM_OID (constant)
 - Called from (representative examples):
-  - gistvalidate
-  - spgproperty  
-  - spgvalidate
+  - [gistvalidate](../g/gistvalidate.md)
+  - [spgproperty](../s/spgproperty.md)  
+  - [spgvalidate](../s/spgvalidate.md)
 
 ## Notes and Other Information
 - This function is located in src/backend/access/index/amvalidate.c:271-276

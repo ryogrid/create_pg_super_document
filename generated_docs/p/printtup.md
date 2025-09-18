@@ -27,20 +27,20 @@ The function includes memory management by switching to a temporary memory conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printtup_prepare_info: Prepares attribute information for output formatting
+  - [printtup_prepare_info](printtup_prepare_info.md): Prepares attribute information for output formatting
   - slot_getallattrs: Ensures all attributes in the slot are deconstructed
   - pq_beginmessage_reuse: Starts a PostgreSQL protocol message
-  - pq_sendint16: Sends a 16-bit integer in network byte order
-  - pq_sendint32: Sends a 32-bit integer in network byte order
+  - [pq_sendint16](pq_sendint16.md): Sends a 16-bit integer in network byte order
+  - [pq_sendint32](pq_sendint32.md): Sends a 32-bit integer in network byte order
   - pq_sendcountedtext: Sends text data with length prefix
   - pq_sendbytes: Sends binary data
-  - pq_endmessage_reuse: Completes and sends the protocol message
-  - OutputFunctionCall: Converts datum to text representation
-  - SendFunctionCall: Converts datum to binary representation
-  - MemoryContextSwitchTo: Switches memory contexts
-  - MemoryContextReset: Resets temporary memory context
+  - [pq_endmessage_reuse](pq_endmessage_reuse.md): Completes and sends the protocol message
+  - [OutputFunctionCall](../O/OutputFunctionCall.md): Converts datum to text representation
+  - [SendFunctionCall](../S/SendFunctionCall.md): Converts datum to binary representation
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switches memory contexts
+  - [MemoryContextReset](../M/MemoryContextReset.md): Resets temporary memory context
 - Called from (representative examples):
-  - printtup_create_DR: Creates a DestReceiver that uses printtup
+  - [printtup_create_DR](printtup_create_DR.md): Creates a DestReceiver that uses printtup
 
 ## Notes and Other Information
 - The function is marked as static, indicating it's only used within the printtup.c file

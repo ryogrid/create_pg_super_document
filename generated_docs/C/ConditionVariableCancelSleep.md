@@ -27,35 +27,35 @@ The function is designed to be safe to call even when no sleep is pending, makin
   - proclist_delete (removes process from wait list)
   - SpinLockAcquire/SpinLockRelease (protects wait list modifications)
 - Called from (representative examples):
-  - _brin_parallel_heapscan
-  - _bt_parallel_seize
-  - _bt_parallel_heapscan
-  - GetMultiXactIdMembers
-  - AbortTransaction
-  - AbortSubTransaction
-  - recoveryPausesHere
-  - RecoveryRequiresIntParameter
-  - BitmapShouldInitializeSharedState
-  - ShutdownAuxiliaryProcess
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - pgarch_archiveXlog
-  - WalSummarizerMain
-  - WaitForWalSummarization
-  - WalWriterMain
+  - [_brin_parallel_heapscan](../b/_brin_parallel_heapscan.md)
+  - [_bt_parallel_seize](../b/_bt_parallel_seize.md)
+  - [_bt_parallel_heapscan](../b/_bt_parallel_heapscan.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [AbortTransaction](../A/AbortTransaction.md)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md)
+  - [recoveryPausesHere](../r/recoveryPausesHere.md)
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md)
+  - [BitmapShouldInitializeSharedState](../B/BitmapShouldInitializeSharedState.md)
+  - [ShutdownAuxiliaryProcess](../S/ShutdownAuxiliaryProcess.md)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](CheckpointerMain.md)
+  - [pgarch_archiveXlog](../p/pgarch_archiveXlog.md)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
+  - [WaitForWalSummarization](../W/WaitForWalSummarization.md)
+  - [WalWriterMain](../W/WalWriterMain.md)
   - replorigin_state_clear
-  - ReplicationSlotAcquire
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
   - WaitForStandbyConfirmation
-  - ShutdownWalRcv
-  - WalSndErrorCleanup
-  - WalSndWait
+  - [ShutdownWalRcv](../S/ShutdownWalRcv.md)
+  - [WalSndErrorCleanup](../W/WalSndErrorCleanup.md)
+  - [WalSndWait](../W/WalSndWait.md)
   - WaitIO
   - BarrierArriveAndWait
-  - WaitForProcSignalBarrier
-  - ConditionVariablePrepareToSleep
+  - [WaitForProcSignalBarrier](../W/WaitForProcSignalBarrier.md)
+  - [ConditionVariablePrepareToSleep](ConditionVariablePrepareToSleep.md)
   - ConditionVariableBroadcast
-  - ProcKill
-  - AuxiliaryProcKill
+  - [ProcKill](../P/ProcKill.md)
+  - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md)
 
 ## Notes and Other Information
 - Returns true if the process was signaled, false if it was still waiting

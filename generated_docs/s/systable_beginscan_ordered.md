@@ -27,25 +27,25 @@ The function includes special handling for system index access policies (IgnoreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReindexIsProcessingIndex (reindex validation)
+  - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md) (reindex validation)
   - RelationGetRelid (relation OID retrieval)
   - RelationGetRelationName (relation name retrieval)
-  - palloc (memory allocation)
-  - table_slot_create (tuple slot creation)
-  - GetCatalogSnapshot (snapshot acquisition)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [table_slot_create](../t/table_slot_create.md) (tuple slot creation)
+  - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (snapshot acquisition)
   - RegisterSnapshot (snapshot registration)
   - IndexRelationGetNumberOfAttributes (index introspection)
-  - index_beginscan (index scan initialization)
-  - index_rescan (index scan parameter setup)
+  - [index_beginscan](../i/index_beginscan.md) (index scan initialization)
+  - [index_rescan](../i/index_rescan.md) (index scan parameter setup)
   - TransactionIdIsValid (transaction validation)
 - Called from (representative examples):
-  - toast_delete_datum
-  - heap_fetch_toast_slice
-  - inv_getsize (large object operations)
-  - inv_read, inv_write, inv_truncate (large object I/O)
-  - enum_endpoint, enum_range_internal (enum type operations)
-  - BuildEventTriggerCache
-  - lookup_ts_config_cache
+  - [toast_delete_datum](../t/toast_delete_datum.md)
+  - [heap_fetch_toast_slice](../h/heap_fetch_toast_slice.md)
+  - [inv_getsize](../i/inv_getsize.md) (large object operations)
+  - [inv_read](../i/inv_read.md), inv_write, inv_truncate (large object I/O)
+  - [enum_endpoint](../e/enum_endpoint.md), enum_range_internal (enum type operations)
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md)
 
 ## Notes and Other Information
 - Requires caller to open and lock the index relation beforehand, unlike regular systable_beginscan

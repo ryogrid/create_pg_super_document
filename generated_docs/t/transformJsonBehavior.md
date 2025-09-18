@@ -27,21 +27,21 @@ The function performs runtime coercion using json_populate_type() for NULL, json
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse
-  - ValidJsonBehaviorDefaultExpr  
-  - GetJsonBehaviorConst
-  - contain_var_clause
-  - expression_returns_set
+  - [transformExprRecurse](transformExprRecurse.md)
+  - [ValidJsonBehaviorDefaultExpr](../V/ValidJsonBehaviorDefaultExpr.md)  
+  - [GetJsonBehaviorConst](../G/GetJsonBehaviorConst.md)
+  - [contain_var_clause](../c/contain_var_clause.md)
+  - [expression_returns_set](../e/expression_returns_set.md)
   - exprType
-  - getBaseType
-  - TypeCategory
-  - coerce_to_target_type
-  - makeConst
-  - makeJsonBehavior
+  - [getBaseType](../g/getBaseType.md)
+  - [TypeCategory](../T/TypeCategory.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
+  - [makeConst](../m/makeConst.md)
+  - [makeJsonBehavior](../m/makeJsonBehavior.md)
   - DirectFunctionCall1
-  - jsonb_in
+  - [jsonb_in](../j/jsonb_in.md)
 - Called from (representative examples):
-  - transformJsonFuncExpr
+  - [transformJsonFuncExpr](transformJsonFuncExpr.md)
 
 ## Notes and Other Information
 The function performs extensive validation for DEFAULT behavior expressions, ensuring they do not contain column references or return sets. It uses different coercion strategies based on the source and target types, with special handling for string types using assignment casts to preserve length constraints. The coerce_at_runtime flag is set when json_populate_type() should be used for runtime type conversion.

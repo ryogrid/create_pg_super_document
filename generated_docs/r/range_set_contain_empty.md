@@ -20,7 +20,7 @@ This function modifies an existing range object by setting the RANGE_CONTAIN_EMP
   - VARSIZE
   - RANGE_CONTAIN_EMPTY
 - Called from (representative examples):
-  - range_super_union (multiple times in GiST operations)
+  - [range_super_union](range_super_union.md) (multiple times in GiST operations)
 
 ## Notes and Other Information
 - Exclusively used for GiST index operations and not part of normal range operations

@@ -20,13 +20,13 @@ The `injection_points_attach` function provides the primary interface for creati
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - InjectionPointAttach
-  - makeString
+  - [InjectionPointAttach](../I/InjectionPointAttach.md)
+  - [makeString](../m/makeString.md)
   - lappend
-  - pstrdup
-  - MemoryContextSwitchTo
+  - [pstrdup](../p/pstrdup.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - PG_RETURN_VOID
-  - InjectionPointCondition
+  - [InjectionPointCondition](../I/InjectionPointCondition.md)
   - INJ_CONDITION_PID
 - Called from (representative examples):
   - SQL interface (can be called from SQL queries as a function)

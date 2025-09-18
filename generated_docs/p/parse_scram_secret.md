@@ -32,20 +32,20 @@ On successful parsing, all extracted values are returned via output parameters. 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](pstrdup.md)
   - strtok
   - strcmp
   - strtol
   - pg_b64_dec_len
   - pg_b64_decode
-  - palloc
+  - [palloc](palloc.md)
   - memcpy
   - PG_SHA256
   - SCRAM_SHA_256_KEY_LEN
 - Called from (representative examples):
-  - scram_init
-  - scram_verify_plain_password
-  - get_password_type
+  - [scram_init](../s/scram_init.md)
+  - [scram_verify_plain_password](../s/scram_verify_plain_password.md)
+  - [get_password_type](../g/get_password_type.md)
 
 ## Notes and Other Information
 - Returns true on successful parsing, false on any validation failure

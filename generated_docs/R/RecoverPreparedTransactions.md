@@ -30,17 +30,17 @@ This function takes no parameters and operates on the global TwoPhaseState.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessTwoPhaseBuffer
-  - MarkAsPreparingGuts
-  - GXactLoadSubxactData
-  - MarkAsPrepared
-  - ProcessRecords
+  - [ProcessTwoPhaseBuffer](../P/ProcessTwoPhaseBuffer.md)
+  - [MarkAsPreparingGuts](../M/MarkAsPreparingGuts.md)
+  - [GXactLoadSubxactData](../G/GXactLoadSubxactData.md)
+  - [MarkAsPrepared](../M/MarkAsPrepared.md)
+  - [ProcessRecords](../P/ProcessRecords.md)
   - StandbyReleaseLockTree
-  - PostPrepare_Twophase
+  - [PostPrepare_Twophase](../P/PostPrepare_Twophase.md)
   - TransactionIdEquals
   - LWLockAcquire/LWLockRelease
 - Called from:
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Run at the end of recovery before backends can write WAL

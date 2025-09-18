@@ -27,19 +27,19 @@ The generated command follows the pattern: ALTER {DATABASE|ROLE} name [IN {DATAB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup: Creates a copy of the configitem string for parsing
+  - [pg_strdup](../p/pg_strdup.md): Creates a copy of the configitem string for parsing
   - strchr: Finds the '=' separator in the configuration item
-  - pg_free: Frees allocated memory
-  - fmtId: Formats identifiers with proper quoting
-  - appendPQExpBuffer: Appends formatted text to the buffer
-  - appendPQExpBufferStr: Appends string literals to the buffer
-  - variable_is_guc_list_quote: Checks if a variable uses GUC_LIST_QUOTE format
-  - SplitGUCList: Parses comma-separated list values for GUC_LIST_QUOTE variables
-  - appendStringLiteralConn: Appends properly quoted string literals
+  - [pg_free](../p/pg_free.md): Frees allocated memory
+  - [fmtId](../f/fmtId.md): Formats identifiers with proper quoting
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md): Appends formatted text to the buffer
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md): Appends string literals to the buffer
+  - [variable_is_guc_list_quote](../v/variable_is_guc_list_quote.md): Checks if a variable uses GUC_LIST_QUOTE format
+  - [SplitGUCList](../S/SplitGUCList.md): Parses comma-separated list values for GUC_LIST_QUOTE variables
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md): Appends properly quoted string literals
 
 - Called from (representative examples):
-  - dumpDatabaseConfig: Used when dumping database-level configuration settings
-  - dumpUserConfig: Used when dumping user/role-level configuration settings
+  - [dumpDatabaseConfig](../d/dumpDatabaseConfig.md): Used when dumping database-level configuration settings
+  - [dumpUserConfig](../d/dumpUserConfig.md): Used when dumping user/role-level configuration settings
 
 ## Notes and Other Information
 - The function silently does nothing if it cannot find an '=' in the configitem

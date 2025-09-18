@@ -30,11 +30,11 @@ The function uses different validation strategies depending on whether random ac
 ## Dependencies
 - Functions called/Symbols referenced:
   - SizeOfXLogRecord (constant for minimum record size)
-  - report_invalid_record (error reporting function)
+  - [report_invalid_record](../r/report_invalid_record.md) (error reporting function)
   - RmgrIdIsValid (resource manager ID validation function)
-  - XLogRecord (struct type being validated)
+  - [XLogRecord](../X/XLogRecord.md) (struct type being validated)
 - Called from (representative examples):
-  - XLogDecodeNextRecord (at lines 658 and 814)
+  - [XLogDecodeNextRecord](../X/XLogDecodeNextRecord.md) (at lines 658 and 814)
 
 ## Notes and Other Information
 - This is a static function not intended for use outside of xlogreader.c

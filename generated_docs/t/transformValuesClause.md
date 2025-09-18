@@ -23,19 +23,19 @@ The intermediate representation is organized by columns rather than rows to simp
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (Query creation)
-  - transformWithClause (WITH clause processing)
-  - transformExpressionList (expression transformation for each VALUES row)
-  - select_common_type (type resolution across columns)
-  - coerce_to_common_type (type coercion)
-  - select_common_typmod/select_common_collation (type modifier and collation resolution)
-  - contain_vars_of_level (variable reference detection)
-  - addRangeTableEntryForValues (VALUES RTE creation)
-  - addNSItemToQuery (namespace item addition)
-  - expandNSItemAttrs (target list generation)
-  - transformSortClause/transformLimitClause (ORDER BY and LIMIT processing)
-  - assign_query_collations (collation assignment)
+  - [transformWithClause](transformWithClause.md) (WITH clause processing)
+  - [transformExpressionList](transformExpressionList.md) (expression transformation for each VALUES row)
+  - [select_common_type](../s/select_common_type.md) (type resolution across columns)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md) (type coercion)
+  - [select_common_typmod](../s/select_common_typmod.md)/select_common_collation (type modifier and collation resolution)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md) (variable reference detection)
+  - [addRangeTableEntryForValues](../a/addRangeTableEntryForValues.md) (VALUES RTE creation)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md) (namespace item addition)
+  - [expandNSItemAttrs](../e/expandNSItemAttrs.md) (target list generation)
+  - [transformSortClause](transformSortClause.md)/transformLimitClause (ORDER BY and LIMIT processing)
+  - [assign_query_collations](../a/assign_query_collations.md) (collation assignment)
 - Called from (representative examples):
-  - transformStmt (main statement transformation dispatcher)
+  - [transformStmt](transformStmt.md) (main statement transformation dispatcher)
 
 ## Notes and Other Information
 - The function asserts that incompatible SELECT clauses (DISTINCT, INTO, FROM, WHERE, GROUP BY, HAVING, WINDOW) are not present

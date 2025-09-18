@@ -19,19 +19,19 @@ The function implements sophisticated error handling, particularly for program p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopySendChar
-  - CopySendString
-  - ClosePipeToProgram
+  - [CopySendChar](CopySendChar.md)
+  - [CopySendString](CopySendString.md)
+  - [ClosePipeToProgram](ClosePipeToProgram.md)
   - pq_putmessage
-  - pgstat_progress_update_param
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md)
   - resetStringInfo
   - ereport
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
   - DR_copy
-  - DoCopyTo
-  - CopyOneRowTo
+  - [DoCopyTo](../D/DoCopyTo.md)
+  - [CopyOneRowTo](CopyOneRowTo.md)
 
 ## Notes and Other Information
 - Uses platform-specific line endings (\n for Unix, \r\n for Windows) when writing to files in text mode

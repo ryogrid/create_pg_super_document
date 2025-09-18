@@ -28,18 +28,18 @@ FuncCall is a comprehensive parse tree node that represents function and aggrega
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WindowDef
+  - [WindowDef](../W/WindowDef.md)
   - CoercionForm
   - ParseLoc
-  - List (PostgreSQL list structure)
-  - Node (generic parse tree node)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Node](../N/Node.md) (generic parse tree node)
 - Called from (representative examples):
   - makeFuncCall
   - transformFuncCall
-  - transformExprRecurse
-  - ParseFuncOrColumn
-  - transformRangeFunction
-  - FigureColnameInternal
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [transformRangeFunction](../t/transformRangeFunction.md)
+  - [FigureColnameInternal](FigureColnameInternal.md)
 
 ## Notes and Other Information
 - Typically initialized using makeFuncCall() helper function with sensible defaults

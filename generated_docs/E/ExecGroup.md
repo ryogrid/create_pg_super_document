@@ -23,7 +23,7 @@ The algorithm relies on the input being pre-sorted by the grouping columns, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GroupState (cast target)
+  - [GroupState](../G/GroupState.md) (cast target)
   - TupIsNull (tuple checking)
   - ExecProcNode (child node execution)
   - outerPlanState (access child plan)
@@ -33,7 +33,7 @@ The algorithm relies on the input being pre-sorted by the grouping columns, whic
   - ExecQualAndReset (group equality testing)
   - InstrCountFiltered1 (instrumentation)
 - Called from (representative examples):
-  - ExecInitGroup (as assigned ExecProcNode function)
+  - [ExecInitGroup](ExecInitGroup.md) (as assigned ExecProcNode function)
 
 ## Notes and Other Information
 - The function assumes input tuples are pre-sorted by grouping columns

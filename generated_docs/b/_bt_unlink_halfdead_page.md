@@ -32,18 +32,18 @@ The function includes extensive corruption detection and recovery mechanisms, lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber (gets page block numbers)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets page block numbers)
   - BTPageGetOpaque (accesses B-tree page metadata)
-  - BTreeTupleGetTopParent, BTreeTupleSetTopParent (manages top parent references)
-  - _bt_getbuf, _bt_relbuf, _bt_lockbuf, _bt_unlockbuf (buffer management)
+  - [BTreeTupleGetTopParent](../B/BTreeTupleGetTopParent.md), BTreeTupleSetTopParent (manages top parent references)
+  - [_bt_getbuf](_bt_getbuf.md), _bt_relbuf, _bt_lockbuf, _bt_unlockbuf (buffer management)
   - P_ISLEAF, P_ISDELETED, P_ISHALFDEAD, P_RIGHTMOST (page state checks)
-  - BTPageSetDeleted (marks page as deleted with transaction ID)
+  - [BTPageSetDeleted](../B/BTPageSetDeleted.md) (marks page as deleted with transaction ID)
   - ReadNextFullTransactionId (gets safe deletion timestamp)
   - _bt_upgrademetapage (upgrades metapage format if needed)
-  - XLogBeginInsert, XLogRegisterBuffer, XLogRegisterData, XLogInsert (WAL logging)
-  - _bt_pendingfsm_add (tracks page for FSM inclusion)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterBuffer, XLogRegisterData, XLogInsert (WAL logging)
+  - [_bt_pendingfsm_add](_bt_pendingfsm_add.md) (tracks page for FSM inclusion)
 - Called from:
-  - _bt_pagedel (calls iteratively until entire subtree is deleted)
+  - [_bt_pagedel](_bt_pagedel.md) (calls iteratively until entire subtree is deleted)
 
 ## Notes and Other Information
 - Returns false on failure (should not happen under normal circumstances)

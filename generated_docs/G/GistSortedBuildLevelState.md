@@ -29,9 +29,9 @@ Each level state maintains a fixed-size array of pages (defined by GIST_SORTED_B
   - BlockNumber (PostgreSQL block number type)
 
 - Called from (representative examples):
-  - gist_indexsortbuild (main sorted build function)
-  - gist_indexsortbuild_levelstate_add (adds tuples to level state)
-  - gist_indexsortbuild_levelstate_flush (flushes buffered pages)
+  - [gist_indexsortbuild](../g/gist_indexsortbuild.md) (main sorted build function)
+  - [gist_indexsortbuild_levelstate_add](../g/gist_indexsortbuild_levelstate_add.md) (adds tuples to level state)
+  - [gist_indexsortbuild_levelstate_flush](../g/gist_indexsortbuild_levelstate_flush.md) (flushes buffered pages)
 
 ## Notes and Other Information
 - The structure is specifically designed for the sorted build method of GiST indexes, which is an alternative to the traditional build method

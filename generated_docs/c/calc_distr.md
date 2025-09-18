@@ -28,12 +28,12 @@ Additionally, it models the collective effect of rare elements (not included in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - exp (math function)
   - DEFAULT_CONTAIN_SEL
 - Called from (representative examples):
-  - mcelem_array_contained_selec (referenced via DEFAULT_SEL and EFFORT)
+  - [mcelem_array_contained_selec](../m/mcelem_array_contained_selec.md) (referenced via DEFAULT_SEL and EFFORT)
   - Array selectivity estimation functions
 
 ## Notes and Other Information

@@ -20,9 +20,9 @@ The `release_conn_addrinfo` function is a static utility function responsible fo
   - free (standard C library function)
 - Called from (representative examples):
   - internalPQconninfoOption
-  - PQconnectPoll
-  - freePGconn
-  - pqClosePGconn
+  - [PQconnectPoll](../P/PQconnectPoll.md)
+  - [freePGconn](../f/freePGconn.md)
+  - [pqClosePGconn](../p/pqClosePGconn.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the fe-connect.c file

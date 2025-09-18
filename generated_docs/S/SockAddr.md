@@ -22,12 +22,12 @@ This abstraction allows PostgreSQL to handle different types of network addresse
 - Functions called/Symbols referenced:
   - (Uses standard POSIX socket structures)
 - Called from (representative examples):
-  - ident_inet (authentication functions)
-  - check_network_data (HBA processing)
-  - check_ip (HBA IP checking)
-  - Port structure (connection handling)
+  - [ident_inet](../i/ident_inet.md) (authentication functions)
+  - [check_network_data](../c/check_network_data.md) (HBA processing)
+  - [check_ip](../c/check_ip.md) (HBA IP checking)
+  - [Port](../P/Port.md) structure (connection handling)
   - pg_conn structure (libpq connection management)
-  - PgBackendStatus (backend status tracking)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (backend status tracking)
 
 ## Notes and Other Information
 - The sockaddr_storage type ensures sufficient space and proper alignment for any socket address family

@@ -19,13 +19,13 @@ The substitute_actual_srf_parameters_context structure provides specialized cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - int (integer type)
-  - Query (query tree structure)
-  - IncrementVarSublevelsUp (function for adjusting variable levels)
+  - [Query](../Q/Query.md) (query tree structure)
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (function for adjusting variable levels)
 - Called from (representative examples):
-  - substitute_actual_srf_parameters
-  - substitute_actual_srf_parameters_mutator
+  - [substitute_actual_srf_parameters](substitute_actual_srf_parameters.md)
+  - [substitute_actual_srf_parameters_mutator](substitute_actual_srf_parameters_mutator.md)
 
 ## Notes and Other Information
 This context structure is specifically designed for Set-Returning Function parameter substitution, which requires special handling of variable scoping across query levels. The key difference from standard parameter substitution is the sublevels_up tracking and the use of IncrementVarSublevelsUp to adjust variable reference levels when inserting parameters into subqueries. The substitution process only handles PARAM_EXTERN parameters and performs deep copying of parameter values with proper level adjustments to maintain correct variable scoping semantics. The context starts with sublevels_up=1 and increments/decrements as it traverses nested Query nodes.

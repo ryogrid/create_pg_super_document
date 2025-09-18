@@ -28,16 +28,16 @@ The function includes comprehensive timing instrumentation for performance analy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LLVMJitHandle (handle structure)
+  - [LLVMJitHandle](../L/LLVMJitHandle.md) (handle structure)
   - PGJIT_OPT3 (optimization level flag)
   - PGJIT_INLINE (inlining flag)
-  - llvm_optimize_module (optimization function)
+  - [llvm_optimize_module](llvm_optimize_module.md) (optimization function)
   - llvm_error_message (error handling)
-  - llvm_resolve_symbol (symbol resolution)
+  - [llvm_resolve_symbol](llvm_resolve_symbol.md) (symbol resolution)
   - INSTR_TIME_* macros (timing instrumentation)
-  - MemoryContextAlloc (memory management)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (memory management)
 - Called from (representative examples):
-  - llvm_get_function
+  - [llvm_get_function](llvm_get_function.md)
 
 ## Notes and Other Information
 - The function transfers ownership of the LLVM module to the ORC JIT compiler

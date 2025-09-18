@@ -26,7 +26,7 @@ The function directly wraps the internal RecoveryInProgress() function, making t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (checks the global recovery state)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (checks the global recovery state)
   - PG_RETURN_BOOL (macro for returning boolean value)
 - Called from (representative examples):
   - No direct callers found in the codebase (likely called via SQL function interface)

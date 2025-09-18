@@ -20,19 +20,19 @@ pa_wait_for_xact_state implements a polling-based synchronization mechanism for 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelApplyWorkerInfo
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md)
   - ParallelTransState
-  - pa_get_xact_state
-  - WaitLatch
+  - [pa_get_xact_state](pa_get_xact_state.md)
+  - [WaitLatch](../W/WaitLatch.md)
   - WL_LATCH_SET
   - WL_TIMEOUT
   - WL_EXIT_ON_PM_DEATH
-  - ResetLatch
+  - [ResetLatch](../R/ResetLatch.md)
   - MyLatch
   - CHECK_FOR_INTERRUPTS
 
 - Called from (representative examples):
-  - pa_wait_for_xact_finish
+  - [pa_wait_for_xact_finish](pa_wait_for_xact_finish.md)
 
 ## Notes and Other Information
 - Uses an infinite loop with periodic checks rather than event-driven waiting

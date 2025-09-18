@@ -23,13 +23,13 @@ The function uses PostgreSQL's error reporting mechanism to throw appropriate er
 ## Dependencies
 - Functions called/Symbols referenced:
   - ARR_HASNULL (macro to check if array has null bitmap)
-  - array_contains_nulls (function to check for actual null values)
+  - [array_contains_nulls](../a/array_contains_nulls.md) (function to check for actual null values)
   - ARR_NDIM (macro to get array dimensions)
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 - Called from (representative examples):
-  - do_set_block_offsets
+  - [do_set_block_offsets](../d/do_set_block_offsets.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the test_tidstore module

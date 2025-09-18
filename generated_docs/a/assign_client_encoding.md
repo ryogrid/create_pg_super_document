@@ -28,7 +28,7 @@ The function handles several important scenarios:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - SetClientEncoding
+  - [SetClientEncoding](../S/SetClientEncoding.md)
   - ereport (via ERROR)
   - elog
   - InitializingParallelWorker (global variable)

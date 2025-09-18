@@ -28,9 +28,9 @@ The collected data includes the specific operator family being modified (identif
   -  - Memory allocation in current context
   -  - Object address initialization macro
   -  - Deep copy of parse tree nodes
-  -  - List append operation
-  -  - Command type constant
-  -  - Relation OID constant
+  -  - [List](../L/List.md) append operation
+  -  - [Command](../C/Command.md) type constant
+  -  - [Relation](../R/Relation.md) OID constant
 - Called from (representative examples):
   -  - Adding operators/procedures to operator family
   -  - Dropping operators/procedures from operator family

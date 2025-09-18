@@ -22,17 +22,17 @@ The function ensures crash recovery consistency by properly managing the "hole" 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert (begins WAL record construction)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md) (begins WAL record construction)
   - START_CRIT_SECTION/END_CRIT_SECTION (critical section management)
   - BufferIsInvalid (checks buffer validity)
-  - BufferGetPage (retrieves page from buffer)
+  - [BufferGetPage](../B/BufferGetPage.md) (retrieves page from buffer)
   - computeDelta (computes page differences for delta logging)
   - MarkBufferDirty (marks buffer as modified)
-  - XLogRegisterBuffer (registers buffer with WAL system)
-  - XLogRegisterBufData (registers delta data with WAL)
-  - XLogInsert (inserts WAL record)
-  - PageSetLSN (sets log sequence number on page)
-  - pfree (frees memory)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md) (registers buffer with WAL system)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md) (registers delta data with WAL)
+  - [XLogInsert](../X/XLogInsert.md) (inserts WAL record)
+  - [PageSetLSN](../P/PageSetLSN.md) (sets log sequence number on page)
+  - [pfree](../p/pfree.md) (frees memory)
 - Called from (representative examples):
   - No direct callers found in current analysis
 

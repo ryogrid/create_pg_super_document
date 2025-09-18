@@ -22,19 +22,19 @@ This function queries the `pg_subscription_rel` system catalog to get informatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpOptions
-  - SubRelInfo
-  - ExecuteSqlQuery
+  - [SubRelInfo](../S/SubRelInfo.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
   - PGRES_TUPLES_OK
   - pg_malloc
   - atooid
-  - findSubscriptionByOid
-  - pg_fatal
-  - findTableByOid
+  - [findSubscriptionByOid](../f/findSubscriptionByOid.md)
+  - [pg_fatal](../p/pg_fatal.md)
+  - [findTableByOid](../f/findTableByOid.md)
   - DO_SUBSCRIPTION_REL
-  - AssignDumpId
-  - pg_strdup
-  - PQgetisnull
-  - selectDumpableObject
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
 - Called from (representative examples):
   - Binary upgrade restoration process
 

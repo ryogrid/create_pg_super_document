@@ -26,15 +26,15 @@ The AfterTriggerEventList structure serves as a high-level container for managin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AfterTriggerEventChunk (for head and tail pointers)
+  - [AfterTriggerEventChunk](AfterTriggerEventChunk.md) (for head and tail pointers)
 - Called from (representative examples):
-  - AfterTriggersData (events field)
-  - AfterTriggersQueryData (events field)
-  - AfterTriggersTransData (events field)
-  - afterTriggerAddEvent
-  - afterTriggerFreeEventList
-  - afterTriggerMarkEvents
-  - afterTriggerInvokeEvents
+  - [AfterTriggersData](AfterTriggersData.md) (events field)
+  - [AfterTriggersQueryData](AfterTriggersQueryData.md) (events field)
+  - [AfterTriggersTransData](AfterTriggersTransData.md) (events field)
+  - [afterTriggerAddEvent](../a/afterTriggerAddEvent.md)
+  - [afterTriggerFreeEventList](../a/afterTriggerFreeEventList.md)
+  - [afterTriggerMarkEvents](../a/afterTriggerMarkEvents.md)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
 
 ## Notes and Other Information
 This structure provides the primary interface for managing trigger event storage at various levels of the trigger system hierarchy. It's used in transaction-level, query-level, and table-level trigger data structures. The tailfree optimization is particularly important for performance, as trigger event addition is a frequent operation that would otherwise require pointer chasing through the chunk structure. The list design supports efficient cleanup and restoration operations needed for transaction rollback scenarios.

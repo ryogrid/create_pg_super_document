@@ -20,15 +20,15 @@ The function uses a system catalog scan with an equality condition on the subscr
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
 - Called from (representative examples):
-  - FetchTableStates
+  - [FetchTableStates](../F/FetchTableStates.md)
 
 ## Notes and Other Information
 - This function is specifically designed for cases where you only need to know if relations exist, not what they are

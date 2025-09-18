@@ -19,10 +19,10 @@ pg_atomic_clear_flag_impl is a fallback implementation for clearing atomic flags
 - Functions called/Symbols referenced:
   - SpinLockAcquire (acquire spinlock protection)
   - SpinLockRelease (release spinlock protection)
-  - pg_atomic_flag (structure type)
-  - slock_t (spinlock type)
+  - [pg_atomic_flag](pg_atomic_flag.md) (structure type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
 - Called from (representative examples):
-  - pg_atomic_clear_flag (via atomic operations framework)
+  - [pg_atomic_clear_flag](pg_atomic_clear_flag.md) (via atomic operations framework)
 
 ## Notes and Other Information
 - This is a fallback implementation only used when native atomic flags are unavailable

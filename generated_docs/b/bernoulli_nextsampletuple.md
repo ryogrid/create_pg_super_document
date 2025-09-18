@@ -24,12 +24,12 @@ The `bernoulli_nextsampletuple` function implements the core logic of Bernoulli 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any (generates hash from input array for random number generation)
-  - DatumGetUInt32 (extracts uint32 hash value from Datum)
+  - [hash_any](../h/hash_any.md) (generates hash from input array for random number generation)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (extracts uint32 hash value from Datum)
   - FirstOffsetNumber (constant for first valid tuple offset)
   - InvalidOffsetNumber (constant indicating no valid tuple)
 - Called from (representative examples):
-  - tsm_bernoulli_handler (sets this as NextSampleTuple callback)
+  - [tsm_bernoulli_handler](../t/tsm_bernoulli_handler.md) (sets this as NextSampleTuple callback)
 
 ## Notes and Other Information
 - Uses hash_any with 3 uint32 inputs: block number, tuple offset, and seed for machine-independent results

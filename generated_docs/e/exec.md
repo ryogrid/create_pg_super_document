@@ -21,7 +21,7 @@ The  structure is a simple data container used in the ECPG (Embedded SQL in C) p
   - No direct symbol references from this structure
 - Called from (representative examples):
   - RETURN_ERROR (in src/backend/utils/adt/jsonpath_exec.c)
-  - executePredicate (in src/backend/utils/adt/jsonpath_exec.c)
+  - [executePredicate](executePredicate.md) (in src/backend/utils/adt/jsonpath_exec.c)
   - walrcv_exec (in src/include/replication/walreceiver.h)
 
 ## Notes and Other Information

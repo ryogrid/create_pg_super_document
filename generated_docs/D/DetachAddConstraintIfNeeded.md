@@ -29,16 +29,16 @@ This ensures that after detachment, the former partition continues to enforce th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionQual
-  - eval_const_expressions
-  - PartConstraintImpliedByRelConstraint
-  - ATGetQueueEntry
+  - [RelationGetPartitionQual](../R/RelationGetPartitionQual.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [PartConstraintImpliedByRelConstraint](../P/PartConstraintImpliedByRelConstraint.md)
+  - [ATGetQueueEntry](../A/ATGetQueueEntry.md)
   - makeNode
-  - make_ands_explicit
-  - nodeToString
-  - ATAddCheckConstraint
+  - [make_ands_explicit](../m/make_ands_explicit.md)
+  - [nodeToString](../n/nodeToString.md)
+  - [ATAddCheckConstraint](../A/ATAddCheckConstraint.md)
 - Called from (representative examples):
-  - ATExecDetachPartition
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md)
 
 ## Notes and Other Information
 - Only creates constraints when necessary - avoids duplicate constraints through PartConstraintImpliedByRelConstraint check

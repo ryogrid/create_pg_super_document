@@ -45,8 +45,8 @@ The function raises errors with appropriate error codes when invalid combination
   - ereport (error reporting function)
   - BOOLOID (boolean type OID constant)
 - Called from (representative examples):
-  - OperatorCreate (at src/backend/catalog/pg_operator.c:360)
-  - AlterOperator (at src/backend/commands/operatorcmds.c:638)
+  - [OperatorCreate](OperatorCreate.md) (at src/backend/catalog/pg_operator.c:360)
+  - [AlterOperator](../A/AlterOperator.md) (at src/backend/commands/operatorcmds.c:638)
 
 ## Notes and Other Information
 - Used during both CREATE OPERATOR and ALTER OPERATOR commands to ensure semantic consistency

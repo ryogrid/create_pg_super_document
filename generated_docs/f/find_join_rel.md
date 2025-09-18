@@ -20,18 +20,18 @@ The function first checks if a hash table exists and if the join relation list h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_join_rel_hash (builds hash table when needed)
-  - JoinHashEntry (hash table entry structure)
-  - hash_search (performs hash table lookup)
+  - [build_join_rel_hash](../b/build_join_rel_hash.md) (builds hash table when needed)
+  - [JoinHashEntry](../J/JoinHashEntry.md) (hash table entry structure)
+  - [hash_search](../h/hash_search.md) (performs hash table lookup)
   - HASH_FIND (hash operation flag)
-  - bms_equal (compares two Relids bitmapsets)
+  - [bms_equal](../b/bms_equal.md) (compares two Relids bitmapsets)
   - list_length (gets length of join_rel_list)
 - Called from (representative examples):
-  - get_matching_part_pairs
+  - [get_matching_part_pairs](../g/get_matching_part_pairs.md)
   - build_join_rel
   - build_child_join_rel
   - examine_variable
-  - find_join_input_rel
+  - [find_join_input_rel](find_join_input_rel.md)
 
 ## Notes and Other Information
 - Implements adaptive search strategy: linear search for small lists (≤32 entries), hash table for larger lists

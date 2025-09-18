@@ -34,13 +34,13 @@ The function returns true if state was successfully created, false if no setup w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - trackDroppedObjectsNeeded (checks if event trigger state is necessary)
+  - [trackDroppedObjectsNeeded](../t/trackDroppedObjectsNeeded.md) (checks if event trigger state is necessary)
   - AllocSetContextCreate (memory context creation)
-  - MemoryContextAlloc (state structure allocation)  
-  - slist_init (initializes SQL drop list)
-  - EventTriggerQueryState (state structure type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (state structure allocation)  
+  - [slist_init](../s/slist_init.md) (initializes SQL drop list)
+  - [EventTriggerQueryState](EventTriggerQueryState.md) (state structure type)
 - Called from:
-  - ProcessUtilitySlow (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
   - CALLED_AS_EVENT_TRIGGER (macro usage)
 
 ## Notes and Other Information

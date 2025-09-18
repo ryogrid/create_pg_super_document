@@ -28,17 +28,17 @@ The function ensures the basebackup_options structure is properly initialized wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString
-  - defGetBoolean  
-  - defGetInt64
-  - parse_bool
+  - [defGetString](../d/defGetString.md)
+  - [defGetBoolean](../d/defGetBoolean.md)  
+  - [defGetInt64](../d/defGetInt64.md)
+  - [parse_bool](parse_bool.md)
   - parse_compress_algorithm
   - parse_compress_specification
-  - validate_compress_specification
+  - [validate_compress_specification](../v/validate_compress_specification.md)
   - pg_checksum_parse_type
-  - BaseBackupGetTargetHandle
+  - [BaseBackupGetTargetHandle](../B/BaseBackupGetTargetHandle.md)
 - Called from (representative examples):
-  - SendBaseBackup
+  - [SendBaseBackup](../S/SendBaseBackup.md)
 
 ## Notes and Other Information
 - Initializes basebackup_options with sensible defaults: CRC32C manifest checksums, no compression, "base backup" label

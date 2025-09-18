@@ -23,16 +23,16 @@ This flexibility allows the function to handle various syntax forms that users m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem (structure type)
+  - [DefElem](../D/DefElem.md) (structure type)
   - nodeTag (macro to get node type)
-  - TypeName (structure type)
-  - List (structure type for linked lists)
+  - [TypeName](../T/TypeName.md) (structure type)
+  - [List](../L/List.md) (structure type for linked lists)
   - list_make1 (function to create single-element list)
 - Called from (representative examples):
-  - DefineAggregate (aggregate definition commands)
-  - DefineCollation (collation definition commands)
-  - DefineOperator (operator definition commands)
-  - DefineType (type definition commands)
+  - [DefineAggregate](../D/DefineAggregate.md) (aggregate definition commands)
+  - [DefineCollation](../D/DefineCollation.md) (collation definition commands)
+  - [DefineOperator](../D/DefineOperator.md) (operator definition commands)
+  - [DefineType](../D/DefineType.md) (type definition commands)
   - Various other DDL command functions
 
 ## Notes and Other Information

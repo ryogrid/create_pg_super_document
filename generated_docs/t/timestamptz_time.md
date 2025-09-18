@@ -27,17 +27,17 @@ The function performs the following operations:
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP: Macro to extract timestamptz argument
   - TimeADT: Time data type for storing time values
-  - pg_tm: Structure for broken-down time components
+  - [pg_tm](../p/pg_tm.md): Structure for broken-down time components
   - fsec_t: Type for fractional seconds
   - TIMESTAMP_NOT_FINITE: Macro to check for infinite timestamp values
-  - timestamp2tm: Function to convert timestamp to broken-down time with timezone
+  - [timestamp2tm](timestamp2tm.md): Function to convert timestamp to broken-down time with timezone
   - SECS_PER_MINUTE: Constant for seconds per minute conversion
   - MINS_PER_HOUR: Constant for minutes per hour conversion
   - USECS_PER_SEC: Constant for microseconds per second conversion
   - PG_RETURN_TIMEADT: Macro to return TimeADT result
 
 - Called from (representative examples):
-  - executeDateTimeMethod: Used in JSON path execution for datetime method calls
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md): Used in JSON path execution for datetime method calls
 
 ## Notes and Other Information
 - The function returns NULL for non-finite timestamps (infinity/-infinity)

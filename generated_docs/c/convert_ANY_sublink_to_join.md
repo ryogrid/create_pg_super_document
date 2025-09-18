@@ -29,23 +29,23 @@ The function performs extensive safety checks to ensure the transformation prese
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varnos_of_level
-  - pull_varnos
+  - [pull_varnos_of_level](../p/pull_varnos_of_level.md)
+  - [pull_varnos](../p/pull_varnos.md)
   - bms_is_empty
-  - bms_is_subset
-  - contain_volatile_functions
-  - make_parsestate
-  - addRangeTableEntryForSubquery
-  - makeAlias
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [contain_volatile_functions](contain_volatile_functions.md)
+  - [make_parsestate](../m/make_parsestate.md)
+  - [addRangeTableEntryForSubquery](../a/addRangeTableEntryForSubquery.md)
+  - [makeAlias](../m/makeAlias.md)
   - makeNode
-  - generate_subquery_vars
-  - convert_testexpr
+  - [generate_subquery_vars](../g/generate_subquery_vars.md)
+  - [convert_testexpr](convert_testexpr.md)
   - lappend
   - list_length
   - ANY_SUBLINK, JOIN_SEMI (enum constants)
   - NIL (null list constant)
 - Called from (representative examples):
-  - pull_up_sublinks_qual_recurse
+  - [pull_up_sublinks_qual_recurse](../p/pull_up_sublinks_qual_recurse.md)
 
 ## Notes and Other Information
 - Returns NULL if the sublink cannot be safely converted to a join, allowing fallback to traditional subquery processing

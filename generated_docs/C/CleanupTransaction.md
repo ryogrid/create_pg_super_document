@@ -31,16 +31,16 @@ This function takes no parameters but operates on:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransStateAsString (for error reporting if state is invalid)
-  - AtCleanup_Portals (safe portal memory cleanup after abort)
-  - AtEOXact_Snapshot (release transaction snapshots with cleanup flag)
-  - ResourceOwnerDelete (delete the top-level transaction resource owner)
-  - AtCleanup_Memory (comprehensive transaction memory cleanup)
+  - [TransStateAsString](../T/TransStateAsString.md) (for error reporting if state is invalid)
+  - [AtCleanup_Portals](../A/AtCleanup_Portals.md) (safe portal memory cleanup after abort)
+  - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md) (release transaction snapshots with cleanup flag)
+  - [ResourceOwnerDelete](../R/ResourceOwnerDelete.md) (delete the top-level transaction resource owner)
+  - [AtCleanup_Memory](../A/AtCleanup_Memory.md) (comprehensive transaction memory cleanup)
 
 - Called from (representative examples):
-  - CommitTransactionCommandInternal (cleanup after failed commit or successful abort)
-  - AbortCurrentTransactionInternal (various abort scenarios)
-  - AbortOutOfAnyTransaction (emergency cleanup from any transaction state)
+  - [CommitTransactionCommandInternal](CommitTransactionCommandInternal.md) (cleanup after failed commit or successful abort)
+  - [AbortCurrentTransactionInternal](../A/AbortCurrentTransactionInternal.md) (various abort scenarios)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md) (emergency cleanup from any transaction state)
 
 ## Notes and Other Information
 - Must only be called when transaction state is TRANS_ABORT - will FATAL error otherwise

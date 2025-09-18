@@ -19,18 +19,18 @@ This function handles both setting and dropping NOT NULL constraints on domain t
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - typenameTypeId
+  - [typenameTypeId](../t/typenameTypeId.md)
   - SearchSysCacheCopy1
-  - checkDomainOwner
-  - domainAddNotNullConstraint
-  - validateDomainNotNullConstraint
-  - findDomainNotNullConstraint
-  - performDeletion
-  - CatalogTupleUpdate
+  - [checkDomainOwner](../c/checkDomainOwner.md)
+  - [domainAddNotNullConstraint](../d/domainAddNotNullConstraint.md)
+  - [validateDomainNotNullConstraint](../v/validateDomainNotNullConstraint.md)
+  - [findDomainNotNullConstraint](../f/findDomainNotNullConstraint.md)
+  - [performDeletion](../p/performDeletion.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Returns early if the domain already has the desired constraint state

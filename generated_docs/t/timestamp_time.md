@@ -24,12 +24,12 @@ This function converts a timestamp to a time data type by extracting only the ti
   - PG_GETARG_TIMESTAMP (macro to extract timestamp argument)
   - PG_RETURN_TIMEADT (macro to return time result)
   - TIMESTAMP_NOT_FINITE (macro to check for infinite timestamps)
-  - timestamp2tm (function to decompose timestamp)
-  - pg_tm (structure for time components)
+  - [timestamp2tm](timestamp2tm.md) (function to decompose timestamp)
+  - [pg_tm](../p/pg_tm.md) (structure for time components)
   - fsec_t (fractional seconds type)
   - MINS_PER_HOUR, SECS_PER_MINUTE, USECS_PER_SEC (time conversion constants)
 - Called from (representative examples):
-  - executeDateTimeMethod (in jsonpath_exec.c)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (in jsonpath_exec.c)
 
 ## Notes and Other Information
 - Returns NULL for infinite timestamp values (positive or negative infinity)

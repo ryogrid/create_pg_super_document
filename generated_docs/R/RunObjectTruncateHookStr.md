@@ -26,7 +26,7 @@ The function is specifically designed for table truncation operations and uses R
 
 - Called from (representative examples):
   - InvokeObjectTruncateHookStr
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
 
 ## Notes and Other Information
 - This is part of the string-based variant of PostgreSQL's object access hook system specialized for TRUNCATE operations

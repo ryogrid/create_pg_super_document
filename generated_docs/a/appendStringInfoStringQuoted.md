@@ -23,17 +23,17 @@ The implementation efficiently processes the string by searching for single quot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbcliplen (for multibyte-aware string clipping)
-  - pnstrdup (for creating a truncated copy of the input string)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md) (for multibyte-aware string clipping)
+  - [pnstrdup](../p/pnstrdup.md) (for creating a truncated copy of the input string)
   - appendStringInfoCharMacro (for appending the opening single quote)
   - appendBinaryStringInfoNT (for appending string chunks including quotes)
   - appendStringInfo (for appending the final chunk with closing quote and optional ellipsis)
   - strlen (for getting string length)
   - strchr (for finding single quote characters)
-  - pfree (for freeing temporary memory)
+  - [pfree](../p/pfree.md) (for freeing temporary memory)
 - Called from (representative examples):
-  - BuildParamLogString (in src/backend/nodes/params.c)
-  - bind_param_error_callback (in src/backend/tcop/postgres.c)
+  - [BuildParamLogString](../B/BuildParamLogString.md) (in src/backend/nodes/params.c)
+  - [bind_param_error_callback](../b/bind_param_error_callback.md) (in src/backend/tcop/postgres.c)
 
 ## Notes and Other Information
 - This function is specifically designed for PostgreSQL's multibyte character support, using pg_mbcliplen to ensure character boundaries are respected when truncating

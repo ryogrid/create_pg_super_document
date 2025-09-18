@@ -20,10 +20,10 @@ The synchronized scan optimization helps reduce I/O by allowing multiple sequent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (type)
+  - [RelFileLocator](../R/RelFileLocator.md) (type)
   - BlockNumber (type)
 - Called from (representative examples):
-  - ss_lru_item_t (used as a member)
+  - [ss_lru_item_t](ss_lru_item_t.md) (used as a member)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's synchronized scan infrastructure located in src/backend/access/common/syncscan.c

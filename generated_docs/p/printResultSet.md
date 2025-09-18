@@ -23,8 +23,8 @@ The function uses the PQprintOpt structure to control formatting options, ensuri
   - PQprint (libpq function for formatted result output)
   - memset (standard library function)
 - Called from (representative examples):
-  - try_complete_step
-  - run_permutation
+  - [try_complete_step](../t/try_complete_step.md)
+  - [run_permutation](../r/run_permutation.md)
 
 ## Notes and Other Information
 - Outputs results to stdout for inclusion in test output files

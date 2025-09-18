@@ -19,9 +19,9 @@ This function is part of the pg_rewind utility's file operation system. It safel
 - Functions called/Symbols referenced:
   - unlink (system call)
   - snprintf (standard library)
-  - pg_fatal (PostgreSQL error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting)
 - Called from (representative examples):
-  - remove_target (file_ops.c:146)
+  - [remove_target](remove_target.md) (file_ops.c:146)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the file_ops.c module

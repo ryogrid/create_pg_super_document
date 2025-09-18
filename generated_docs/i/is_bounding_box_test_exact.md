@@ -30,7 +30,7 @@ The function returns true for directional and positional relationship strategies
   - RTAboveStrategyNumber (above strategy constant)
   - RTOverAboveStrategyNumber (overlaps-or-above strategy constant)
 - Called from (representative examples):
-  - spg_box_quad_get_scankey_bbox (determines if exact bbox test is sufficient)
+  - [spg_box_quad_get_scankey_bbox](../s/spg_box_quad_get_scankey_bbox.md) (determines if exact bbox test is sufficient)
 
 ## Notes and Other Information
 - Static function with internal linkage, only used within geo_spgist.c

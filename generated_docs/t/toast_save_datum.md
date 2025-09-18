@@ -25,22 +25,22 @@ Data is stored in chunks up to TOAST_MAX_CHUNK_SIZE bytes each, with each chunk 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - toast_open_indexes
-  - toast_close_indexes
-  - GetCurrentCommandId
-  - GetNewOidWithIndex
-  - toastrel_valueid_exists
-  - toastid_valueid_exists
-  - heap_form_tuple
-  - heap_insert
-  - heap_freetuple
-  - index_insert
-  - palloc
+  - [toast_open_indexes](toast_open_indexes.md)
+  - [toast_close_indexes](toast_close_indexes.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [toastrel_valueid_exists](toastrel_valueid_exists.md)
+  - [toastid_valueid_exists](toastid_valueid_exists.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [index_insert](../i/index_insert.md)
+  - [palloc](../p/palloc.md)
   - memcpy
   - VARATT_EXTERNAL_GET_POINTER
   - SET_VARTAG_EXTERNAL
 - Called from (representative examples):
-  - toast_tuple_externalize
+  - [toast_tuple_externalize](toast_tuple_externalize.md)
 
 ## Notes and Other Information
 - Splits large values into chunks of maximum TOAST_MAX_CHUNK_SIZE bytes each

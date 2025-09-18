@@ -23,13 +23,13 @@ This function performs a lookup operation to find a DumpableObject associated wi
   - DumpId (parameter type)
   - DumpableObject (return type)
 - Called from (representative examples):
-  - binary_upgrade_extension_member (src/bin/pg_dump/pg_dump.c:5609)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10657)
-  - dumpExtension (src/bin/pg_dump/pg_dump.c:10878)
-  - dumpConstraint (src/bin/pg_dump/pg_dump.c:17264)
-  - BuildArchiveDependencies (src/bin/pg_dump/pg_dump.c:18858)
-  - findDumpableDependencies (src/bin/pg_dump/pg_dump.c:18922)
-  - findLoop (src/bin/pg_dump/pg_dump_sort.c:896)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md) (src/bin/pg_dump/pg_dump.c:5609)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10657)
+  - [dumpExtension](../d/dumpExtension.md) (src/bin/pg_dump/pg_dump.c:10878)
+  - [dumpConstraint](../d/dumpConstraint.md) (src/bin/pg_dump/pg_dump.c:17264)
+  - [BuildArchiveDependencies](../B/BuildArchiveDependencies.md) (src/bin/pg_dump/pg_dump.c:18858)
+  - [findDumpableDependencies](findDumpableDependencies.md) (src/bin/pg_dump/pg_dump.c:18922)
+  - [findLoop](findLoop.md) (src/bin/pg_dump/pg_dump_sort.c:896)
 
 ## Notes and Other Information
 - Returns NULL for invalid DumpIds (≤ 0 or ≥ allocedDumpIds)

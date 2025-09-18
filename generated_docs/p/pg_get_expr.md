@@ -23,11 +23,11 @@ The function provides a safe interface that gracefully handles cases where the r
   - PG_GETARG_TEXT_PP (macro for extracting text argument with possible detoasting)
   - PG_GETARG_OID (macro for extracting OID argument)
   - PRETTYFLAG_INDENT (constant for indented formatting)
-  - pg_get_expr_worker (core worker function that performs the actual decompilation)
+  - [pg_get_expr_worker](pg_get_expr_worker.md) (core worker function that performs the actual decompilation)
   - PG_RETURN_TEXT_P (macro for returning text result)
   - PG_RETURN_NULL (macro for returning NULL result)
 - Called from (representative examples):
-  - decompile_conbin (in table command processing)
+  - [decompile_conbin](../d/decompile_conbin.md) (in table command processing)
   - Various SQL queries that need to display stored expressions
   - System information functions and views
 

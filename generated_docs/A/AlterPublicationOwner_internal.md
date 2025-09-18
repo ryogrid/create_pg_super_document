@@ -25,19 +25,19 @@ The function enforces strict security policies: FOR ALL TABLES and FOR TABLES IN
 - Functions called/Symbols referenced:
   - Form_pg_publication (struct type)
   - superuser
-  - object_ownercheck
-  - aclcheck_error
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
   - check_can_set_role
-  - object_aclcheck
-  - get_database_name
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [get_database_name](../g/get_database_name.md)
   - superuser_arg
-  - is_schema_publication
-  - CatalogTupleUpdate
-  - changeDependencyOnOwner
+  - [is_schema_publication](../i/is_schema_publication.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md)
   - InvokeObjectPostAlterHook
 - Called from (representative examples):
-  - AlterPublicationOwner
-  - AlterPublicationOwner_oid
+  - [AlterPublicationOwner](AlterPublicationOwner.md)
+  - [AlterPublicationOwner_oid](AlterPublicationOwner_oid.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the publicationcmds.c compilation unit

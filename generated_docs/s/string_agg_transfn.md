@@ -29,8 +29,8 @@ The function is designed to work with PostgreSQL's parallel query execution, ens
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeStringAggState (creates new StringInfo state in aggregate context)
-  - appendStringInfoText (appends text to StringInfo buffer)
+  - [makeStringAggState](../m/makeStringAggState.md) (creates new StringInfo state in aggregate context)
+  - [appendStringInfoText](../a/appendStringInfoText.md) (appends text to StringInfo buffer)
   - PG_ARGISNULL, PG_GETARG_POINTER, PG_GETARG_TEXT_PP (PostgreSQL argument macros)
   - VARSIZE_ANY_EXHDR (gets text size without header)
 

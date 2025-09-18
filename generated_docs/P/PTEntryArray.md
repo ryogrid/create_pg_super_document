@@ -20,13 +20,13 @@ This design enables efficient memory sharing in parallel query execution where m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32
-  - PagetableEntry
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md)
+  - [PagetableEntry](PagetableEntry.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - tbm_free_shared_area
-  - tbm_prepare_shared_iterate
-  - pagetable_allocate
+  - [tbm_free_shared_area](../t/tbm_free_shared_area.md)
+  - [tbm_prepare_shared_iterate](../t/tbm_prepare_shared_iterate.md)
+  - [pagetable_allocate](../p/pagetable_allocate.md)
 
 ## Notes and Other Information
 - The atomic reference counting mechanism is crucial for thread-safe operations in PostgreSQL's parallel query execution environment

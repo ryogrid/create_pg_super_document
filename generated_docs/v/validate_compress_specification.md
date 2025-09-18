@@ -34,7 +34,7 @@ Advanced features validation:
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_compress_algorithm_name
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - PG_COMPRESSION_GZIP
   - PG_COMPRESSION_LZ4
   - PG_COMPRESSION_ZSTD
@@ -42,10 +42,10 @@ Advanced features validation:
   - PG_COMPRESSION_OPTION_WORKERS
   - PG_COMPRESSION_OPTION_LONG_DISTANCE
 - Called from (representative examples):
-  - parse_basebackup_options (src/backend/backup/basebackup.c:970)
-  - main (src/bin/pg_basebackup/pg_basebackup.c:2659)
-  - main (src/bin/pg_basebackup/pg_receivewal.c:807)
-  - main (src/bin/pg_dump/pg_dump.c:801)
+  - [parse_basebackup_options](../p/parse_basebackup_options.md) (src/backend/backup/basebackup.c:970)
+  - [main](../m/main.md) (src/bin/pg_basebackup/pg_basebackup.c:2659)
+  - [main](../m/main.md) (src/bin/pg_basebackup/pg_receivewal.c:807)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:801)
 
 ## Notes and Other Information
 - Returns NULL if validation succeeds, or an error message string if validation fails

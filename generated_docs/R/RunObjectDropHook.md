@@ -24,14 +24,14 @@ The function constructs an ObjectAccessDrop structure with the provided drop fla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAccessDrop (struct type)
+  - [ObjectAccessDrop](../O/ObjectAccessDrop.md) (struct type)
   - OAT_DROP (enum value)
   - object_access_hook (global function pointer)
   - Assert (assertion macro)
   - memset (memory initialization function)
 
 - Called from (representative examples):
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
   - InvokeObjectDropHookArg
 
 ## Notes and Other Information

@@ -25,7 +25,7 @@ This function must be called for every environment created with finnish_UTF_8_cr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - (External callers - this is a public interface function for environment cleanup)
 

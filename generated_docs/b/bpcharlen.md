@@ -20,9 +20,9 @@ This function implements the length calculation for PostgreSQL's CHAR data type 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (macro to extract BpChar argument with potential decompression)
-  - bcTruelen (function to calculate true length excluding trailing spaces)
-  - pg_database_encoding_max_length (function to check if encoding is multibyte)
-  - pg_mbstrlen_with_len (function to convert byte length to character length for multibyte strings)
+  - [bcTruelen](bcTruelen.md) (function to calculate true length excluding trailing spaces)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (function to check if encoding is multibyte)
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md) (function to convert byte length to character length for multibyte strings)
   - VARDATA_ANY (macro to extract data portion from variable-length structure)
   - PG_RETURN_INT32 (macro to return int32 result)
 - Called from (representative examples):

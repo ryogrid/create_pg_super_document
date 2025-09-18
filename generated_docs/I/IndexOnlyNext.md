@@ -22,16 +22,16 @@ The function also handles lossy index scans by rechecking index qualifiers when 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionCombine: Combines plan and execution scan directions
-  - index_beginscan: Initiates a new index scan operation
-  - index_rescan: Restarts an index scan with new parameters  
-  - index_getnext_tid: Retrieves the next TID from the index scan
+  - [index_beginscan](../i/index_beginscan.md): Initiates a new index scan operation
+  - [index_rescan](../i/index_rescan.md): Restarts an index scan with new parameters  
+  - [index_getnext_tid](../i/index_getnext_tid.md): Retrieves the next TID from the index scan
   - VM_ALL_VISIBLE: Checks if all tuples on a heap page are visible
-  - index_fetch_heap: Fetches the actual heap tuple for visibility checking
-  - StoreIndexTuple: Stores index tuple data into the scan slot
+  - [index_fetch_heap](../i/index_fetch_heap.md): Fetches the actual heap tuple for visibility checking
+  - [StoreIndexTuple](../S/StoreIndexTuple.md): Stores index tuple data into the scan slot
   - ExecQualAndReset: Rechecks index qualifiers for lossy scans
-  - PredicateLockPage: Acquires predicate locks for serializable isolation
+  - [PredicateLockPage](../P/PredicateLockPage.md): Acquires predicate locks for serializable isolation
 - Called from (representative examples):
-  - ExecIndexOnlyScan: Main execution function for index-only scan nodes
+  - [ExecIndexOnlyScan](../E/ExecIndexOnlyScan.md): Main execution function for index-only scan nodes
 
 ## Notes and Other Information
 - The function implements a sophisticated visibility checking mechanism using the visibility map to avoid unnecessary heap accesses

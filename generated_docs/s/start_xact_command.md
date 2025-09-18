@@ -19,18 +19,18 @@ The function is designed to be called repeatedly without overhead - it won't res
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransactionCommand
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - enable_statement_timeout
   - get_timeout_active
   - enable_timeout_after
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_parse_message
-  - exec_bind_message
-  - exec_execute_message
-  - exec_describe_statement_message
-  - exec_describe_portal_message
-  - PostgresMain
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
+  - [exec_describe_statement_message](../e/exec_describe_statement_message.md)
+  - [exec_describe_portal_message](../e/exec_describe_portal_message.md)
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - Uses the global xact_started flag to track transaction state and avoid redundant transaction starts

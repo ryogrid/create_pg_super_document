@@ -32,23 +32,23 @@ The function uses PostgreSQL's PG_ENSURE_ERROR_CLEANUP mechanism to guarantee th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - _bt_start_vacuum
-  - btvacuumscan
-  - _bt_end_vacuum
-  - _bt_end_vacuum_callback
+  - [palloc0](../p/palloc0.md)
+  - [_bt_start_vacuum](_bt_start_vacuum.md)
+  - [btvacuumscan](btvacuumscan.md)
+  - [_bt_end_vacuum](_bt_end_vacuum.md)
+  - [_bt_end_vacuum_callback](_bt_end_vacuum_callback.md)
 - Macros used:
   - PG_ENSURE_ERROR_CLEANUP
   - PG_END_ENSURE_ERROR_CLEANUP
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Types used:
-  - IndexVacuumInfo
-  - IndexBulkDeleteResult
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md)
   - IndexBulkDeleteCallback
   - BTCycleId
-  - Relation
+  - [Relation](../R/Relation.md)
 - Called from:
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - Returns a palloc'd struct containing statistical information for VACUUM displays

@@ -30,7 +30,7 @@ The function uses libpq's standard parameter parsing mechanism to validate and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqParseIntParam (for parsing integer connection parameters)
+  - [pqParseIntParam](../p/pqParseIntParam.md) (for parsing integer connection parameters)
 - Called from (representative examples):
   - CONNECTION_FAILED (during connection setup and configuration)
 

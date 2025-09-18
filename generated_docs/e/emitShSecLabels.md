@@ -21,15 +21,15 @@ This function processes the results of a security label query (typically generat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQntuples
-  - PQgetvalue
-  - fmtId
-  - appendPQExpBuffer
-  - appendStringLiteralConn
-  - appendPQExpBufferStr
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [fmtId](../f/fmtId.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
 - Called from (representative examples):
-  - dumpDatabase (src/bin/pg_dump/pg_dump.c:3336)
-  - buildShSecLabels (src/bin/pg_dump/pg_dumpall.c:1740)
+  - [dumpDatabase](../d/dumpDatabase.md) (src/bin/pg_dump/pg_dump.c:3336)
+  - [buildShSecLabels](../b/buildShSecLabels.md) (src/bin/pg_dump/pg_dumpall.c:1740)
 
 ## Notes and Other Information
 - Used in conjunction with buildShSecLabelQuery to handle shared object security labels

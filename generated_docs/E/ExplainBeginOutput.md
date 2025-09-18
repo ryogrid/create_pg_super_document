@@ -22,9 +22,9 @@ ExplainBeginOutput is responsible for generating the appropriate opening markup 
   - EXPLAIN_FORMAT_XML (enum constant) 
   - EXPLAIN_FORMAT_JSON (enum constant)
   - EXPLAIN_FORMAT_YAML (enum constant)
-  - lcons_int (list construction function)
+  - [lcons_int](../l/lcons_int.md) (list construction function)
 - Called from (representative examples):
-  - ExplainQuery
+  - [ExplainQuery](ExplainQuery.md)
 
 ## Notes and Other Information
 This function is paired with ExplainEndOutput to provide proper opening and closing structures for each output format. The grouping_stack management is particularly important for JSON and YAML formats to track nested structures during output generation.

@@ -18,18 +18,18 @@ EndDBCopyMode handles the proper termination of COPY operations during database 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputCopyEnd
-  - PQerrorMessage
-  - pg_fatal
-  - PQgetResult
-  - PQresultStatus
-  - warn_or_exit_horribly
-  - PQclear
+  - [PQputCopyEnd](../P/PQputCopyEnd.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [pg_fatal](../p/pg_fatal.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [warn_or_exit_horribly](../w/warn_or_exit_horribly.md)
+  - [PQclear](../P/PQclear.md)
   - pg_log_warning
 - Constants referenced:
   - PGRES_COMMAND_OK
 - Called from (representative examples):
-  - restore_toc_entry (in pg_backup_archiver.c)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (in pg_backup_archiver.c)
 
 ## Notes and Other Information
 - Only performs operations if pgCopyIn flag is set, providing safe no-op behavior

@@ -19,20 +19,20 @@ This function is the main entry point for adding index tuples to node buffers du
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - gistAllocateNewPageBuffer
   - gistAddLoadedBuffer
   - gistLoadNodeBuffer
   - PAGE_NO_SPACE (macro)
-  - gistBuffersGetFreeBlock
-  - WriteTempFileBlock
+  - [gistBuffersGetFreeBlock](gistBuffersGetFreeBlock.md)
+  - [WriteTempFileBlock](../W/WriteTempFileBlock.md)
   - PAGE_FREE_SPACE (macro)
-  - gistPlaceItupToPage
+  - [gistPlaceItupToPage](gistPlaceItupToPage.md)
   - BUFFER_HALF_FILLED (macro)
-  - lcons
+  - [lcons](../l/lcons.md)
 - Called from (representative examples):
-  - gistProcessItup
-  - gistRelocateBuildBuffersOnSplit
+  - [gistProcessItup](gistProcessItup.md)
+  - [gistRelocateBuildBuffersOnSplit](gistRelocateBuildBuffersOnSplit.md)
 
 ## Notes and Other Information
 - This is a public function used throughout the GiST build process

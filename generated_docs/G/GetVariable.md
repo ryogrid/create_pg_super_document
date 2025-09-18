@@ -24,13 +24,13 @@ The function handles both defined variables with NULL values and completely unde
   - struct _variable (internal variable structure)
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - psql_get_variable
-  - initializeInput
+  - [psql_get_variable](../p/psql_get_variable.md)
+  - [initializeInput](../i/initializeInput.md)
   - MAX_PROMPT_SIZE
 
 ## Notes and Other Information
 - Returns NULL for both undefined variables and variables explicitly set to NULL
 - The returned pointer should not be modified by the caller
 - The search is optimized by the alphabetical ordering of variables in the list
-- Result validity is limited to the period before the next assignment to the variable
+- [Result](../R/Result.md) validity is limited to the period before the next assignment to the variable
 - Part of psql's core variable management system used throughout the application

@@ -23,14 +23,14 @@ The function creates an ErrorSaveContext to capture any parsing errors, then cal
 ## Dependencies
 - Functions called/Symbols referenced:
   - xml_parse
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - xmlFreeDoc (libxml2 function)
-  - ErrorSaveContext
-  - XmlOptionType
+  - [ErrorSaveContext](../E/ErrorSaveContext.md)
+  - [XmlOptionType](../X/XmlOptionType.md)
 - Called from (representative examples):
-  - xml_is_well_formed
-  - xml_is_well_formed_document
-  - xml_is_well_formed_content
+  - [xml_is_well_formed](../x/xml_is_well_formed.md)
+  - [xml_is_well_formed_document](../x/xml_is_well_formed_document.md)
+  - [xml_is_well_formed_content](../x/xml_is_well_formed_content.md)
 
 ## Notes and Other Information
 - Internal static function not directly accessible from SQL

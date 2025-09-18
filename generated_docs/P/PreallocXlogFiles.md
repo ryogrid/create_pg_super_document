@@ -24,13 +24,13 @@ The function includes comprehensive error handling, noting that XLogFileInitInte
 - Functions called/Symbols referenced:
   - XLByteToPrevSeg: Converts byte position to previous segment number
   - XLogSegmentOffset: Calculates offset within a WAL segment
-  - XLogFileInitInternal: Creates and initializes new WAL segment files
+  - [XLogFileInitInternal](../X/XLogFileInitInternal.md): Creates and initializes new WAL segment files
   - close: Closes file descriptors
 - Called from (representative examples):
   - RefreshXLogWriteResult: During WAL write result updates
-  - StartupXLOG: During database startup and recovery
-  - CreateCheckPoint: During checkpoint operations
-  - CreateRestartPoint: During restart point creation in standby servers
+  - [StartupXLOG](../S/StartupXLOG.md): During database startup and recovery
+  - [CreateCheckPoint](../C/CreateCheckPoint.md): During checkpoint operations
+  - [CreateRestartPoint](../C/CreateRestartPoint.md): During restart point creation in standby servers
 
 ## Notes and Other Information
 - The function only operates when XLogCtl->InstallXLogFileSegmentActive is enabled

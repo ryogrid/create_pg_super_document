@@ -30,16 +30,16 @@ The function must be called within a valid transaction context and maintains pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `IsTransactionState`: Verifies the function is called within a transaction
+  - `[IsTransactionState](../I/IsTransactionState.md)`: Verifies the function is called within a transaction
   - `replorigin_by_name`: Resolves the origin name to its internal ID
-  - `LockSharedObject`: Acquires exclusive lock on the origin
+  - `[LockSharedObject](../L/LockSharedObject.md)`: Acquires exclusive lock on the origin
   - `replorigin_state_clear`: Clears replication state for the origin
-  - `CatalogTupleDelete`: Removes the catalog entry
+  - `[CatalogTupleDelete](../C/CatalogTupleDelete.md)`: Removes the catalog entry
   - `CommandCounterIncrement`: Makes changes visible within the transaction
 - Called from (representative examples):
-  - `DropSubscription`: When dropping logical replication subscriptions
-  - `pg_replication_origin_drop`: SQL function wrapper for dropping origins
-  - `process_syncing_tables_for_sync`: During table synchronization cleanup
+  - `[DropSubscription](../D/DropSubscription.md)`: When dropping logical replication subscriptions
+  - `[pg_replication_origin_drop](../p/pg_replication_origin_drop.md)`: SQL function wrapper for dropping origins
+  - `[process_syncing_tables_for_sync](../p/process_syncing_tables_for_sync.md)`: During table synchronization cleanup
 
 ## Notes and Other Information
 - Must be called within a transaction context (enforced by `Assert(IsTransactionState())`)

@@ -26,7 +26,7 @@ The function uses a pessimistic approach by assuming maximum backend concurrency
   - REFCOUNT_ARRAY_ENTRIES
 - Called from (representative examples):
   - read_stream_begin_relation
-  - ExtendBufferedRelShared
+  - [ExtendBufferedRelShared](../E/ExtendBufferedRelShared.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

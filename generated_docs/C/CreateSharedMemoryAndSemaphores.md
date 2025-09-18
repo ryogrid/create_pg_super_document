@@ -21,21 +21,21 @@ The function then sets up the shared memory allocation framework and calls Creat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CalculateShmemSize (calculates memory and semaphore requirements)
-  - PGSharedMemoryCreate (creates the shared memory segment)
-  - GetConfigOption (validates huge pages configuration)
-  - InitShmemAccess (initializes shared memory access)
-  - PGReserveSemaphores (creates semaphore resources)
+  - [CalculateShmemSize](CalculateShmemSize.md) (calculates memory and semaphore requirements)
+  - [PGSharedMemoryCreate](../P/PGSharedMemoryCreate.md) (creates the shared memory segment)
+  - [GetConfigOption](../G/GetConfigOption.md) (validates huge pages configuration)
+  - [InitShmemAccess](../I/InitShmemAccess.md) (initializes shared memory access)
+  - [PGReserveSemaphores](../P/PGReserveSemaphores.md) (creates semaphore resources)
   - SpinlockSemaInit (initializes spinlock emulation if needed)
-  - InitShmemAllocation (sets up memory allocation framework)
-  - CreateOrAttachShmemStructs (initializes subsystem structures)
-  - ShmemBackendArrayAllocation (EXEC_BACKEND backend tracking)
+  - [InitShmemAllocation](../I/InitShmemAllocation.md) (sets up memory allocation framework)
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md) (initializes subsystem structures)
+  - [ShmemBackendArrayAllocation](../S/ShmemBackendArrayAllocation.md) (EXEC_BACKEND backend tracking)
   - dsm_postmaster_startup (dynamic shared memory initialization)
   - shmem_startup_hook (extension initialization hook)
 - Called from (representative examples):
-  - BootstrapModeMain (bootstrap database creation)
-  - PostmasterMain (normal server startup)
-  - PostgresSingleUserMain (single-user mode)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (bootstrap database creation)
+  - [PostmasterMain](../P/PostmasterMain.md) (normal server startup)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md) (single-user mode)
 
 ## Notes and Other Information
 - Only called by the postmaster process (Assert(!IsUnderPostmaster))

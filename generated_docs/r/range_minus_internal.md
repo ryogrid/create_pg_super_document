@@ -20,12 +20,12 @@ This internal function implements the mathematical set difference operation betw
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeBound
-  - range_deserialize
-  - range_cmp_bounds
-  - make_empty_range
-  - make_range
+  - [range_deserialize](range_deserialize.md)
+  - [range_cmp_bounds](range_cmp_bounds.md)
+  - [make_empty_range](../m/make_empty_range.md)
+  - [make_range](../m/make_range.md)
 - Called from (representative examples):
-  - range_minus
+  - [range_minus](range_minus.md)
 
 ## Notes and Other Information
 - Returns r1 unchanged if either range is empty

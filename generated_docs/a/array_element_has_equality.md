@@ -20,10 +20,10 @@ The function uses a caching mechanism through the type cache entry flags to avoi
 ## Dependencies
 - Functions called/Symbols referenced:
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag indicating element properties have been cached)
-  - cache_array_element_properties (function that caches all element properties)
+  - [cache_array_element_properties](../c/cache_array_element_properties.md) (function that caches all element properties)
   - TCFLAGS_HAVE_ELEM_EQUALITY (flag indicating element type supports equality)
 - Called from (representative examples):
-  - lookup_type_cache (type cache lookup operations)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (type cache lookup operations)
 
 ## Notes and Other Information
 - This is a static function internal to the typcache.c module

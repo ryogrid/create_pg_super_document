@@ -21,17 +21,17 @@ After handling the output destination, the function performs final cleanup by en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClosePipeToProgram (closes program pipes with error checking)
+  - [ClosePipeToProgram](../C/ClosePipeToProgram.md) (closes program pipes with error checking)
   - FreeFile (closes regular file handles)
   - ereport (error reporting function)
-  - errcode_for_file_access (file access error codes)
-  - errmsg (error message formatting)
-  - pgstat_progress_end_command (ends progress reporting)
-  - MemoryContextDelete (deletes memory context and all allocated memory)
-  - pfree (frees the cstate structure)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (file access error codes)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [pgstat_progress_end_command](../p/pgstat_progress_end_command.md) (ends progress reporting)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (deletes memory context and all allocated memory)
+  - [pfree](../p/pfree.md) (frees the cstate structure)
 - Called from (representative examples):
   - DR_copy
-  - EndCopyTo
+  - [EndCopyTo](EndCopyTo.md)
 
 ## Notes and Other Information
 - This function serves as the primary cleanup routine for COPY TO operations

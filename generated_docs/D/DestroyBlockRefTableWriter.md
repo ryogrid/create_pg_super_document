@@ -22,7 +22,7 @@ This is typically the final step in the incremental block reference table writin
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockRefTableFileTerminate (finalizes the buffer and output file)
-  - pfree (frees the allocated memory)
+  - [pfree](../p/pfree.md) (frees the allocated memory)
   - BlockRefTableWriter (writer structure type)
 
 - Called from (representative examples):

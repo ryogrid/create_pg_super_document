@@ -21,17 +21,17 @@ The  function is the binary input function for PostgreSQL's Numeric data type. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var
-  - pq_getmsgint
-  - alloc_var
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [alloc_var](../a/alloc_var.md)
   - NUMERIC_POS, NUMERIC_NEG, NUMERIC_NAN, NUMERIC_PINF, NUMERIC_NINF
   - NUMERIC_DSCALE_MASK
   - NBASE
   - NumericDigit
-  - trunc_var
-  - apply_typmod
-  - apply_typmod_special
-  - make_result
-  - free_var
+  - [trunc_var](../t/trunc_var.md)
+  - [apply_typmod](../a/apply_typmod.md)
+  - [apply_typmod_special](../a/apply_typmod_special.md)
+  - [make_result](../m/make_result.md)
+  - [free_var](../f/free_var.md)
   - PG_RETURN_NUMERIC
   - ereport, errcode, errmsg (for error handling)
 - Called from:

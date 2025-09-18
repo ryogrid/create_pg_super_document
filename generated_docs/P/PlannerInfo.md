@@ -216,18 +216,18 @@ The structure supports both bottom-up join planning (through join_rel_level arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Query (parse tree node)
+  - [Query](../Q/Query.md) (parse tree node)
   - PlannerGlobal (global planning state)
   - RelOptInfo (relation optimization info)
-  - SpecialJoinInfo (join constraint info)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md) (join constraint info)
   - EquivalenceClass (equivalence class info)
   - PathKey (sort ordering info)
   - PlaceHolderInfo (placeholder variable info)
 
 - Called from (representative examples):
-  - subquery_planner() (main entry point)
-  - query_planner() (core planning function)
-  - create_plan() (plan tree creation)
+  - [subquery_planner](../s/subquery_planner.md)() (main entry point)
+  - [query_planner](../q/query_planner.md)() (core planning function)
+  - [create_plan](../c/create_plan.md)() (plan tree creation)
 
 ## Notes and Other Information
 PlannerInfo is the central hub of PostgreSQL's cost-based optimizer. It maintains state across all phases of planning from initial query analysis through final plan generation. The structure is carefully designed to support both standard dynamic programming join algorithms and alternative methods like genetic algorithm optimization (GEQO).

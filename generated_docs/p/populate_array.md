@@ -22,16 +22,16 @@ This function serves as the primary interface for converting JSON or JSONB data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayIOData (array metadata structure)
-  - JsValue (JSON/JSONB value wrapper)
-  - PopulateArrayContext (parsing context structure)
-  - initArrayResult (array building state initialization)
-  - populate_array_json (JSON text parsing)
-  - populate_array_dim_jsonb (JSONB binary parsing)
+  - [ArrayIOData](../A/ArrayIOData.md) (array metadata structure)
+  - [JsValue](../J/JsValue.md) (JSON/JSONB value wrapper)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md) (parsing context structure)
+  - [initArrayResult](../i/initArrayResult.md) (array building state initialization)
+  - [populate_array_json](populate_array_json.md) (JSON text parsing)
+  - [populate_array_dim_jsonb](populate_array_dim_jsonb.md) (JSONB binary parsing)
   - makeMdArrayResult (multi-dimensional array construction)
 - Called from (representative examples):
   - JsObjectFree
-  - populate_record_field
+  - [populate_record_field](populate_record_field.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, serving as an internal implementation detail

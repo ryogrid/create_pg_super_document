@@ -24,13 +24,13 @@ The function returns the parse location as an integer offset, or -1 if no matchi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - locate_agg_of_level_context (context structure)
+  - [locate_agg_of_level_context](locate_agg_of_level_context.md) (context structure)
   - query_or_expression_tree_walker (tree traversal utility)
-  - locate_agg_of_level_walker (callback function for tree walking)
+  - [locate_agg_of_level_walker](locate_agg_of_level_walker.md) (callback function for tree walking)
 - Called from (representative examples):
-  - check_agg_arguments (aggregate validation)
-  - parseCheckAggregates (parser aggregate checking)
-  - checkTargetlistEntrySQL92 (SQL standard compliance)
+  - [check_agg_arguments](../c/check_agg_arguments.md) (aggregate validation)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (parser aggregate checking)
+  - [checkTargetlistEntrySQL92](../c/checkTargetlistEntrySQL92.md) (SQL standard compliance)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:150-169

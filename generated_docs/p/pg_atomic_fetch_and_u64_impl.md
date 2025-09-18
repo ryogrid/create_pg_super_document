@@ -26,10 +26,10 @@ The function atomically performs a bitwise AND operation between the current val
 ## Dependencies
 - Functions called/Symbols referenced:
   - __sync_fetch_and_and (GCC implementation)
-  - pg_atomic_compare_exchange_u64_impl (generic fallback)
-  - pg_atomic_uint64 (type)
+  - [pg_atomic_compare_exchange_u64_impl](pg_atomic_compare_exchange_u64_impl.md) (generic fallback)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
 - Called from (representative examples):
-  - pg_atomic_fetch_and_u64 (inline wrapper)
+  - [pg_atomic_fetch_and_u64](pg_atomic_fetch_and_u64.md) (inline wrapper)
 
 ## Notes and Other Information
 - Multiple implementations exist for different compilers and platforms

@@ -23,10 +23,10 @@ The function maintains consistent behavior across platforms while working with t
 - Functions called/Symbols referenced:
   - Vector32 (type)
   - Vector8 (type, for NEON cast)
-  - vector8_is_highbit_set
+  - [vector8_is_highbit_set](vector8_is_highbit_set.md)
   - USE_NEON (preprocessor condition)
 - Called from (representative examples):
-  - pg_lfind32_simd_helper
+  - [pg_lfind32_simd_helper](../p/pg_lfind32_simd_helper.md)
 
 ## Notes and Other Information
 - Implemented as a static inline function for performance optimization

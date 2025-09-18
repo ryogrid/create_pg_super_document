@@ -24,14 +24,14 @@ This function is a core component of PostgreSQL's logical replication system, re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
+  - [pq_sendbyte](../p/pq_sendbyte.md)
   - LOGICAL_REP_MSG_INSERT
-  - pq_sendint32
+  - [pq_sendint32](../p/pq_sendint32.md)
   - RelationGetRelid
-  - logicalrep_write_tuple
+  - [logicalrep_write_tuple](logicalrep_write_tuple.md)
   - TransactionIdIsValid
 - Called from (representative examples):
-  - pgoutput_change
+  - [pgoutput_change](../p/pgoutput_change.md)
 
 ## Notes and Other Information
 - Transaction ID is only sent for streaming transactions (when TransactionIdIsValid returns true)

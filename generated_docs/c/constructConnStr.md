@@ -28,12 +28,12 @@ The function creates a PQExpBuffer, iterates through the keyword/value pairs, an
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - appendPQExpBufferChar
-  - appendPQExpBuffer
-  - appendConnStrVal
-  - pg_strdup
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendConnStrVal](../a/appendConnStrVal.md)
+  - [pg_strdup](../p/pg_strdup.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - connectDatabase
+  - [connectDatabase](connectDatabase.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dumpall.c, indicating it's only used internally within that module

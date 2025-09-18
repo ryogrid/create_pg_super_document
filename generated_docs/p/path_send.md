@@ -19,11 +19,11 @@ The `path_send` function serializes a PATH structure into PostgreSQL's binary fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P (extracts PATH from function arguments)
-  - pq_begintypsend (initializes binary output buffer)
-  - pq_sendbyte (sends single byte - closed flag)
-  - pq_sendint32 (sends 32-bit integer - point count)
-  - pq_sendfloat8 (sends 64-bit float - coordinates)
-  - pq_endtypsend (finalizes binary output buffer)
+  - [pq_begintypsend](pq_begintypsend.md) (initializes binary output buffer)
+  - [pq_sendbyte](pq_sendbyte.md) (sends single byte - closed flag)
+  - [pq_sendint32](pq_sendint32.md) (sends 32-bit integer - point count)
+  - [pq_sendfloat8](pq_sendfloat8.md) (sends 64-bit float - coordinates)
+  - [pq_endtypsend](pq_endtypsend.md) (finalizes binary output buffer)
   - PG_RETURN_BYTEA_P (returns binary data as bytea)
 - Called from (representative examples):
   - No direct references found (likely referenced through function pointer tables)

@@ -23,7 +23,7 @@ The function serves as a bounds tracker for timezone data processing, ensuring t
   - min_year (global variable for tracking minimum year)
   - max_year (global variable for tracking maximum year)
 - Called from (representative examples):
-  - outzone (in src/timezone/zic.c:3003, 3004, 3010, 3015, 3017)
+  - [outzone](../o/outzone.md) (in src/timezone/zic.c:3003, 3004, 3010, 3015, 3017)
 
 ## Notes and Other Information
 - Uses global variables min_year and max_year to maintain state across calls

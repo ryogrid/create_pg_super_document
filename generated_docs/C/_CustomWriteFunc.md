@@ -21,10 +21,10 @@ _CustomWriteFunc is a callback function used by the compression system when writ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteInt (function to write integer values to archive)
-  - _WriteBuf (function to write raw buffer data to archive)
+  - [WriteInt](../W/WriteInt.md) (function to write integer values to archive)
+  - [_WriteBuf](../W/_WriteBuf.md) (function to write raw buffer data to archive)
 - Called from (representative examples):
-  - AllocateCompressor (through callback mechanism in _StartData and _StartLO)
+  - [AllocateCompressor](../A/AllocateCompressor.md) (through callback mechanism in _StartData and _StartLO)
 
 ## Notes and Other Information
 - This is a static function internal to pg_backup_custom.c

@@ -28,7 +28,7 @@ The parsing follows a strict format where each line contains a timeline ID follo
   - pg_realloc
   - pg_malloc
 - Called from (representative examples):
-  - getTimelineHistory (in src/bin/pg_rewind/pg_rewind.c:884)
+  - [getTimelineHistory](../g/getTimelineHistory.md) (in src/bin/pg_rewind/pg_rewind.c:884)
 
 ## Notes and Other Information
 - This is a pg_rewind-specific adaptation of backend timeline parsing functionality

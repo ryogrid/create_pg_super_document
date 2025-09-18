@@ -26,15 +26,15 @@ The transformJsonPassingArgs function processes the PASSING clause arguments use
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonValueExpr
+  - [transformJsonValueExpr](transformJsonValueExpr.md)
   - castNode
   - lfirst
   - lappend
-  - makeString
+  - [makeString](../m/makeString.md)
   - JsonArgument
   - JsonFormatType
 - Called from (representative examples):
-  - transformJsonFuncExpr
+  - [transformJsonFuncExpr](transformJsonFuncExpr.md)
 
 ## Notes and Other Information
 This function is essential for SQL/JSON parameter binding functionality. It enables the use of SQL expressions as parameters within JSON path expressions, allowing for dynamic JSON querying. The function maintains the order and correspondence between parameter names and values, which is crucial for correct parameter substitution during JSON path evaluation. Located at src/backend/parser/parse_expr.c:4637-4662.

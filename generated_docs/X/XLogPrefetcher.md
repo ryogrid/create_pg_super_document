@@ -29,24 +29,24 @@ The XLogPrefetcher serves as an intelligent WAL prefetching system that wraps ar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderState (WAL reader state)
-  - DecodedXLogRecord (decoded WAL record structure)
-  - HTAB (hash table type)
-  - dlist_head (double-linked list head)
-  - RelFileLocator (file location identifier)
+  - [XLogReaderState](XLogReaderState.md) (WAL reader state)
+  - [DecodedXLogRecord](../D/DecodedXLogRecord.md) (decoded WAL record structure)
+  - [HTAB](../H/HTAB.md) (hash table type)
+  - [dlist_head](../d/dlist_head.md) (double-linked list head)
+  - [RelFileLocator](../R/RelFileLocator.md) (file location identifier)
   - BlockNumber (block number type)
   - XLogRecPtr (WAL position type)
-  - LsnReadQueue (IO depth management queue)
+  - [LsnReadQueue](../L/LsnReadQueue.md) (IO depth management queue)
   - XLOGPREFETCHER_SEQ_WINDOW_SIZE (constant defining recent buffer size)
 
 - Called from (representative examples):
-  - XLogPrefetcherAllocate (creates and initializes prefetcher)
-  - XLogPrefetcherFree (deallocates prefetcher)
-  - XLogPrefetcherGetReader (gets associated reader)
-  - XLogPrefetcherComputeStats (computes prefetch statistics)
-  - XLogPrefetcherNextBlock (gets next block to prefetch)
-  - XLogPrefetcherBeginRead (begins reading with prefetching)
-  - XLogPrefetcherReadRecord (reads record with prefetching)
+  - [XLogPrefetcherAllocate](XLogPrefetcherAllocate.md) (creates and initializes prefetcher)
+  - [XLogPrefetcherFree](XLogPrefetcherFree.md) (deallocates prefetcher)
+  - [XLogPrefetcherGetReader](XLogPrefetcherGetReader.md) (gets associated reader)
+  - [XLogPrefetcherComputeStats](XLogPrefetcherComputeStats.md) (computes prefetch statistics)
+  - [XLogPrefetcherNextBlock](XLogPrefetcherNextBlock.md) (gets next block to prefetch)
+  - [XLogPrefetcherBeginRead](XLogPrefetcherBeginRead.md) (begins reading with prefetching)
+  - [XLogPrefetcherReadRecord](XLogPrefetcherReadRecord.md) (reads record with prefetching)
   - Recovery functions in xlogrecovery.c
 
 ## Notes and Other Information

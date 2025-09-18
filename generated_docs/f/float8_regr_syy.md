@@ -18,7 +18,7 @@ This function serves as a final function for the SQL REGR_SYY aggregate, which c
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (extract array argument)
-  - check_float8_array (validate transition array has 6 elements)
+  - [check_float8_array](../c/check_float8_array.md) (validate transition array has 6 elements)
 - Called from (representative examples):
   - No direct callers found (used through SQL aggregate system)
 

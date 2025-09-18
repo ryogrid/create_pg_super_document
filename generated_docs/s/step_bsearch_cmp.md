@@ -20,10 +20,10 @@ This function enables efficient lookup of steps by name in the isolation tester,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Step (struct type)
+  - [Step](../S/Step.md) (struct type)
   - strcmp (standard library function)
 - Called from (representative examples):
-  - check_testspec (via bsearch)
+  - [check_testspec](../c/check_testspec.md) (via bsearch)
   - STEP_RETRY macro usage
 
 ## Notes and Other Information

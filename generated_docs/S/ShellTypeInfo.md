@@ -21,16 +21,16 @@ Shell types are automatically created by getTypes() for base types (typtype='b')
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - TypeInfo (associated full type structure)
+  - [TypeInfo](../T/TypeInfo.md) (associated full type structure)
 - Called from (representative examples):
-  - getTypes (creates ShellTypeInfo for base and range types)
-  - dumpShellType (outputs CREATE TYPE shell statements)
+  - [getTypes](../g/getTypes.md) (creates ShellTypeInfo for base and range types)
+  - [dumpShellType](../d/dumpShellType.md) (outputs CREATE TYPE shell statements)
   - fmtQualifiedDumpable (formats qualified shell type names)
 
 ## Notes and Other Information
 - Shell types do not have catalog IDs (catId is set to nilCatalogId) since they're not real catalog entries
 - The dump flag is initially set to DUMP_COMPONENT_NONE and only changed during dependency analysis
-- Shell types do not have DROP commands - cleanup is handled through the base type
+- Shell types do not have DROP commands - [cleanup](../c/cleanup.md) is handled through the base type
 - Owner changes are deferred until after the full type definition to avoid backend complaints
 - Essential for handling circular dependencies between types and their I/O functions
 - Used in binary upgrade mode to preserve OIDs properly

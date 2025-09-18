@@ -26,12 +26,12 @@ Unlike the ExecJustVar* functions that return the extracted value, this function
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExprEvalStep (step structure access)
-  - CheckOpSlotCompatibility (input slot validation)
+  - [CheckOpSlotCompatibility](../C/CheckOpSlotCompatibility.md) (input slot validation)
   - slot_getattr (attribute extraction)
 - Called from (representative examples):
-  - ExecJustAssignInnerVar
-  - ExecJustAssignOuterVar  
-  - ExecJustAssignScanVar
+  - [ExecJustAssignInnerVar](ExecJustAssignInnerVar.md)
+  - [ExecJustAssignOuterVar](ExecJustAssignOuterVar.md)  
+  - [ExecJustAssignScanVar](ExecJustAssignScanVar.md)
 
 ## Notes and Other Information
 - Always marked as pg_attribute_always_inline for maximum performance

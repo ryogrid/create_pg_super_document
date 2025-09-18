@@ -27,17 +27,17 @@ The function also establishes the scan infrastructure by calling standard execut
 - Functions called/Symbols referenced:
   - makeNode
   - outerPlan/innerPlan (assertions)
-  - ExecValuesScan
+  - [ExecValuesScan](ExecValuesScan.md)
   - ExecAssignExprContext
-  - ExecTypeFromExprList
-  - ExecInitScanTupleSlot
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfo
-  - ExecInitQual
-  - contain_subplans
-  - ExecInitExprList
+  - [ExecTypeFromExprList](ExecTypeFromExprList.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfo](ExecAssignScanProjectionInfo.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [contain_subplans](../c/contain_subplans.md)
+  - [ExecInitExprList](ExecInitExprList.md)
 - Called from:
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - Creates two expression contexts: rowcontext for per-VALUES-row processing and a standard context for scan operations

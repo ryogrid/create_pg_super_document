@@ -26,16 +26,16 @@ The function first determines the base type and typmod of the domain using `getB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseTypeAndTypmod
-  - makeConst
-  - coerce_to_domain
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
+  - [makeConst](../m/makeConst.md)
+  - [coerce_to_domain](coerce_to_domain.md)
   - COERCION_IMPLICIT (constant)
   - COERCE_IMPLICIT_CAST (constant)
 - Called from (representative examples):
-  - expand_insert_targetlist (src/backend/optimizer/prep/preptlist.c:473)
-  - rewriteTargetListIU (src/backend/rewrite/rewriteHandler.c:1005)
-  - rewriteValuesRTE (src/backend/rewrite/rewriteHandler.c:1557)
-  - ReplaceVarsFromTargetList_callback (src/backend/rewrite/rewriteManip.c:1734)
+  - [expand_insert_targetlist](../e/expand_insert_targetlist.md) (src/backend/optimizer/prep/preptlist.c:473)
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md) (src/backend/rewrite/rewriteHandler.c:1005)
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md) (src/backend/rewrite/rewriteHandler.c:1557)
+  - [ReplaceVarsFromTargetList_callback](../R/ReplaceVarsFromTargetList_callback.md) (src/backend/rewrite/rewriteManip.c:1734)
 
 ## Notes and Other Information
 - Essential for proper handling of domain types in INSERT operations and query rewriting

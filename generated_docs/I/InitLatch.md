@@ -17,12 +17,12 @@ InitLatch initializes a process-local latch by setting up its basic state and pl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Latch (structure type)
+  - [Latch](../L/Latch.md) (structure type)
   - WAIT_USE_SELF_PIPE (conditional compilation flag)
   - WAIT_USE_SIGNALFD (conditional compilation flag)
   - WAIT_USE_WIN32 (conditional compilation flag)
 - Called from (representative examples):
-  - InitProcessLocalLatch
+  - [InitProcessLocalLatch](InitProcessLocalLatch.md)
 
 ## Notes and Other Information
 - The function assumes that InitializeLatchSupport has been called previously in the current process on Unix-like systems

@@ -30,15 +30,15 @@ The function is marked as static inline, indicating it's optimized for performan
 - Functions called/Symbols referenced:
   - None (direct assignment to global variable)
 - Called from (representative examples):
-  - apply_handle_begin (when starting transaction processing)
-  - apply_handle_begin_prepare (for prepared transactions)
-  - apply_handle_commit_prepared (when committing prepared transactions)
-  - apply_handle_rollback_prepared (when rolling back prepared transactions)
-  - apply_handle_stream_prepare (for streaming transaction preparation)
-  - apply_handle_stream_start (when starting streaming)
-  - apply_handle_stream_abort (when aborting streaming)
-  - apply_handle_stream_commit (when committing streaming)
-  - reset_apply_error_context_info (for context cleanup)
+  - [apply_handle_begin](../a/apply_handle_begin.md) (when starting transaction processing)
+  - [apply_handle_begin_prepare](../a/apply_handle_begin_prepare.md) (for prepared transactions)
+  - [apply_handle_commit_prepared](../a/apply_handle_commit_prepared.md) (when committing prepared transactions)
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md) (when rolling back prepared transactions)
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md) (for streaming transaction preparation)
+  - [apply_handle_stream_start](../a/apply_handle_stream_start.md) (when starting streaming)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md) (when aborting streaming)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md) (when committing streaming)
+  - [reset_apply_error_context_info](../r/reset_apply_error_context_info.md) (for context cleanup)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

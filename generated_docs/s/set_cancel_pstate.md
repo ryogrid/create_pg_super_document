@@ -19,11 +19,11 @@ The function implements platform-specific synchronization using critical section
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelState (type)
+  - [ParallelState](../P/ParallelState.md) (type)
 - Called from (representative examples):
-  - write_stderr
-  - ParallelBackupStart
-  - ParallelBackupEnd
+  - [write_stderr](../w/write_stderr.md)
+  - [ParallelBackupStart](../P/ParallelBackupStart.md)
+  - [ParallelBackupEnd](../P/ParallelBackupEnd.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the parallel.c compilation unit

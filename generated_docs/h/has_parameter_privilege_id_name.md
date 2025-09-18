@@ -24,8 +24,8 @@ The function converts the privilege string to an AclMode and delegates the actua
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (extracts OID argument)
   - PG_GETARG_TEXT_PP (extracts text arguments)
-  - convert_parameter_priv_string (converts privilege string to AclMode)
-  - has_param_priv_byname (performs the actual privilege check)
+  - [convert_parameter_priv_string](../c/convert_parameter_priv_string.md) (converts privilege string to AclMode)
+  - [has_param_priv_byname](has_param_priv_byname.md) (performs the actual privilege check)
 - Called from (representative examples):
   - SQL queries using has_parameter_privilege(role_oid, parameter, privilege) syntax
 

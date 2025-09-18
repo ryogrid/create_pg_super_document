@@ -37,17 +37,17 @@ The function analyzes each column to determine if it contains SRFs, volatile fun
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_pathtarget_sortgroupref
-  - expression_returns_set
-  - contain_volatile_functions
-  - cost_qual_eval_node
-  - create_empty_pathtarget
-  - add_column_to_pathtarget
-  - pull_var_clause
-  - add_new_columns_to_pathtarget
-  - set_pathtarget_cost_width
-  - list_free
+  - [expression_returns_set](../e/expression_returns_set.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md)
+  - [add_column_to_pathtarget](../a/add_column_to_pathtarget.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [add_new_columns_to_pathtarget](../a/add_new_columns_to_pathtarget.md)
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)
+  - [list_free](../l/list_free.md)
 - Called from:
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1575)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1575)
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:219)
 
 ## Notes and Other Information

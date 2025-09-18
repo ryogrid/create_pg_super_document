@@ -27,7 +27,7 @@ The function follows PostgreSQL's standard function argument protocol (PG_FUNCTI
   - `PG_GETARG_INT32` - Extract integer argument from PostgreSQL function call  
   - `PG_GETARG_BOOL` - Extract boolean argument from PostgreSQL function call
   - `CHECK_ENCODING_CONVERSION_ARGS` - Validate encoding conversion parameters
-  - `mic2latin_with_table` - Perform the actual character conversion using a lookup table
+  - `[mic2latin_with_table](mic2latin_with_table.md)` - Perform the actual character conversion using a lookup table
   - `koi2iso` - Translation table mapping KOI8-R characters to ISO-8859-5 equivalents
   - `PG_RETURN_INT32` - Return integer result to PostgreSQL
 - Called from:

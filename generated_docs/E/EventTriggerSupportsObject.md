@@ -32,8 +32,8 @@ The function operates on ObjectAddress structures, which contain the precise ide
 - Functions called/Symbols referenced:
   - DatabaseRelationId, TableSpaceRelationId, AuthIdRelationId, AuthMemRelationId, ParameterAclRelationId, EventTriggerRelationId (system catalog relation OID constants)
 - Called from:
-  - deleteObjectsInList (dependency management during object deletion)
-  - EventTriggerSQLDropAddObject (SQL DROP event processing)
+  - [deleteObjectsInList](../d/deleteObjectsInList.md) (dependency management during object deletion)
+  - [EventTriggerSQLDropAddObject](EventTriggerSQLDropAddObject.md) (SQL DROP event processing)
   - CALLED_AS_EVENT_TRIGGER (macro usage)
 
 ## Notes and Other Information

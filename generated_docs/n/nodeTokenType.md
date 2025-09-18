@@ -26,7 +26,7 @@ The function uses pattern matching and syntax validation to distinguish between 
   - LEFT_BRACE
   - OTHER_TOKEN
 - Called from (representative examples):
-  - nodeRead
+  - [nodeRead](nodeRead.md)
 
 ## Notes and Other Information
 - Returns one of the valid NodeTags: T_Integer, T_Float, T_Boolean, T_String, T_BitString, or special tokens: RIGHT_PAREN, LEFT_PAREN, LEFT_BRACE, OTHER_TOKEN

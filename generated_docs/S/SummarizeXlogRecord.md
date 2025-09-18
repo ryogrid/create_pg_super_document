@@ -29,11 +29,11 @@ The function also implements important boundary logic for checkpoint records (XL
   - XLogRecGetInfo: Extract record type information from WAL record
   - XLogRecGetData: Get the payload data from the WAL record
   - CheckPoint: Checkpoint record structure for extracting WAL level
-  - xl_parameter_change: Parameter change record structure
-  - xl_end_of_recovery: End of recovery record structure
+  - [xl_parameter_change](../x/xl_parameter_change.md): Parameter change record structure
+  - [xl_end_of_recovery](../x/xl_end_of_recovery.md): End of recovery record structure
   - WAL_LEVEL_MINIMAL: Constant representing minimal WAL level
 - Called from (representative examples):
-  - SummarizeWAL: Main WAL summarization loop when processing RM_XLOG_ID records
+  - [SummarizeWAL](SummarizeWAL.md): Main WAL summarization loop when processing RM_XLOG_ID records
 
 ## Notes and Other Information
 - Returns true to signal that summarization should stop before this record, false otherwise

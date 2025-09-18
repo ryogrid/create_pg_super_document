@@ -36,14 +36,14 @@ The spgInnerConsistentOut structure is used as an output parameter for SP-GiST i
   - void (standard C type)
   - double (standard C type)
 - Called from (representative examples):
-  - spg_kd_inner_consistent (src/backend/access/spgist/spgkdtreeproc.c:163)
-  - spg_quad_inner_consistent (src/backend/access/spgist/spgquadtreeproc.c:230)
-  - spgMakeInnerItem (src/backend/access/spgist/spgscan.c:632)
-  - spgInnerTest (src/backend/access/spgist/spgscan.c:671)
-  - spg_text_inner_consistent (src/backend/access/spgist/spgtextproc.c:429)
-  - spg_box_quad_inner_consistent (src/backend/utils/adt/geo_spgist.c:556)
-  - inet_spg_inner_consistent (src/backend/utils/adt/network_spgist.c:242)
-  - spg_range_quad_inner_consistent (src/backend/utils/adt/rangetypes_spgist.c:303)
+  - [spg_kd_inner_consistent](spg_kd_inner_consistent.md) (src/backend/access/spgist/spgkdtreeproc.c:163)
+  - [spg_quad_inner_consistent](spg_quad_inner_consistent.md) (src/backend/access/spgist/spgquadtreeproc.c:230)
+  - [spgMakeInnerItem](spgMakeInnerItem.md) (src/backend/access/spgist/spgscan.c:632)
+  - [spgInnerTest](spgInnerTest.md) (src/backend/access/spgist/spgscan.c:671)
+  - [spg_text_inner_consistent](spg_text_inner_consistent.md) (src/backend/access/spgist/spgtextproc.c:429)
+  - [spg_box_quad_inner_consistent](spg_box_quad_inner_consistent.md) (src/backend/utils/adt/geo_spgist.c:556)
+  - [inet_spg_inner_consistent](../i/inet_spg_inner_consistent.md) (src/backend/utils/adt/network_spgist.c:242)
+  - [spg_range_quad_inner_consistent](spg_range_quad_inner_consistent.md) (src/backend/utils/adt/rangetypes_spgist.c:303)
 
 ## Notes and Other Information
 - All arrays in this structure must have the same length (nNodes elements)

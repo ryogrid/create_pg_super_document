@@ -19,10 +19,10 @@ InitSharedLatch initializes a latch structure for shared memory usage across mul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Latch (structure type)
+  - [Latch](../L/Latch.md) (structure type)
   - SECURITY_ATTRIBUTES (Windows-specific)
 - Called from (representative examples):
-  - XLogRecoveryShmemInit
+  - [XLogRecoveryShmemInit](../X/XLogRecoveryShmemInit.md)
   - InitProcGlobal
 
 ## Notes and Other Information

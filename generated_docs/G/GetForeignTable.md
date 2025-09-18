@@ -19,13 +19,13 @@ GetForeignTable is a fundamental function in PostgreSQL's foreign data wrapper i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - SysCacheGetAttr  
-  - untransformRelOptions
-  - palloc
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)  
+  - [untransformRelOptions](../u/untransformRelOptions.md)
+  - [palloc](../p/palloc.md)
   - elog
   - HeapTupleIsValid
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - Foreign table access routines
   - FDW planning and execution functions

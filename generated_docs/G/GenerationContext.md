@@ -26,22 +26,22 @@ The context maintains a list of blocks and tracks the current allocation block, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextData
-  - GenerationBlock
-  - dlist_head
+  - [MemoryContextData](../M/MemoryContextData.md)
+  - [GenerationBlock](GenerationBlock.md)
+  - [dlist_head](../d/dlist_head.md)
 - Called from (representative examples):
-  - GenerationContextCreate
-  - GenerationReset
-  - GenerationAllocLarge
-  - GenerationAllocFromNewBlock
-  - GenerationAlloc
-  - GenerationBlockInit
-  - GenerationBlockFree
-  - GenerationFree
-  - GenerationRealloc
-  - GenerationIsEmpty
-  - GenerationStats
-  - GenerationCheck
+  - [GenerationContextCreate](GenerationContextCreate.md)
+  - [GenerationReset](GenerationReset.md)
+  - [GenerationAllocLarge](GenerationAllocLarge.md)
+  - [GenerationAllocFromNewBlock](GenerationAllocFromNewBlock.md)
+  - [GenerationAlloc](GenerationAlloc.md)
+  - [GenerationBlockInit](GenerationBlockInit.md)
+  - [GenerationBlockFree](GenerationBlockFree.md)
+  - [GenerationFree](GenerationFree.md)
+  - [GenerationRealloc](GenerationRealloc.md)
+  - [GenerationIsEmpty](GenerationIsEmpty.md)
+  - [GenerationStats](GenerationStats.md)
+  - [GenerationCheck](GenerationCheck.md)
 
 ## Notes and Other Information
 - This memory context is optimized for allocation patterns where chunks are not frequently reused

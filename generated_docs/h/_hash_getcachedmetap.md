@@ -27,18 +27,18 @@ The caching is done at the relation level (rel->rd_amcache) and persists across 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc (allocates memory for cache in relation's context)
-  - _hash_getbuf (reads metapage from disk if buffer not provided)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory for cache in relation's context)
+  - [_hash_getbuf](_hash_getbuf.md) (reads metapage from disk if buffer not provided)
   - HashPageGetMeta (extracts metapage data from page)
-  - BufferGetPage (gets page from buffer)
-  - LockBuffer (acquires and releases buffer locks)
+  - [BufferGetPage](../B/BufferGetPage.md) (gets page from buffer)
+  - [LockBuffer](../L/LockBuffer.md) (acquires and releases buffer locks)
   - memcpy (copies metapage data into cache)
   - HASH_METAPAGE (constant for metapage block number)
   - HASH_READ (read access mode)
   - LH_META_PAGE (lock mode for metapage)
 - Called from (representative examples):
-  - hashbulkdelete (during bulk delete operations)
-  - _hash_getbucketbuf_from_hashkey (when accessing bucket information)
+  - [hashbulkdelete](hashbulkdelete.md) (during bulk delete operations)
+  - [_hash_getbucketbuf_from_hashkey](_hash_getbucketbuf_from_hashkey.md) (when accessing bucket information)
 
 ## Notes and Other Information
 - The cache is allocated in the relation's index context (rel->rd_indexcxt) ensuring it persists with the relation

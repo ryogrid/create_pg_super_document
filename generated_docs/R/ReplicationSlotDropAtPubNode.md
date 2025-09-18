@@ -27,13 +27,13 @@ The function uses PG_TRY/PG_FINALLY blocks to ensure proper memory cleanup of th
 ## Dependencies
 - Functions called/Symbols referenced:
   - walrcv_exec: Executes SQL command on the remote publisher via replication connection
-  - quote_identifier: Safely quotes the slot name to prevent SQL injection
-  - walrcv_clear_result: Cleans up result structure after command execution  
-  - load_file: Loads libpqwalreceiver library for WAL receiver functionality
+  - [quote_identifier](../q/quote_identifier.md): Safely quotes the slot name to prevent SQL injection
+  - [walrcv_clear_result](../w/walrcv_clear_result.md): Cleans up result structure after command execution  
+  - [load_file](../l/load_file.md): Loads libpqwalreceiver library for WAL receiver functionality
 - Called from (representative examples):
-  - DropSubscription: During subscription cleanup in subscriptioncmds.c:1814, 1825
-  - process_syncing_tables_for_sync: During tablesync cleanup in tablesync.c:345
-  - LogicalRepSyncTableStart: During tablesync initialization in tablesync.c:1396
+  - [DropSubscription](../D/DropSubscription.md): During subscription cleanup in subscriptioncmds.c:1814, 1825
+  - [process_syncing_tables_for_sync](../p/process_syncing_tables_for_sync.md): During tablesync cleanup in tablesync.c:345
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md): During tablesync initialization in tablesync.c:1396
 
 ## Notes and Other Information
 - Uses the WAIT option to ensure synchronous completion of the slot drop operation

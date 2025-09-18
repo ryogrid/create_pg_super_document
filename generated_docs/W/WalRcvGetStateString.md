@@ -29,7 +29,7 @@ This function is primarily used by monitoring and administrative functions to pr
     - WALRCV_RESTARTING
     - WALRCV_STOPPING
 - Called from (representative examples):
-  - pg_stat_get_wal_receiver
+  - [pg_stat_get_wal_receiver](../p/pg_stat_get_wal_receiver.md)
 
 ## Notes and Other Information
 - Returns const char* strings that should not be freed by the caller

@@ -24,23 +24,23 @@ The caching uses the MinmaxMultiOpaque structure's strategy_procinfos array and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache4 (AMOPSTRATEGY lookup)
-  - SysCacheGetAttrNotNull
-  - DatumGetObjectId
-  - ReleaseSysCache
+  - [SearchSysCache4](../S/SearchSysCache4.md) (AMOPSTRATEGY lookup)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - RegProcedureIsValid
-  - get_opcode
-  - fmgr_info_cxt
+  - [get_opcode](../g/get_opcode.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
 - Called from (representative examples):
-  - AssertCheckExpandedRanges
-  - has_matching_range
-  - range_contains_value
-  - ensure_free_space_in_buffer
-  - range_add_value
-  - compactify_ranges
-  - brin_minmax_multi_add_value
-  - brin_minmax_multi_consistent
-  - brin_minmax_multi_union
+  - [AssertCheckExpandedRanges](../A/AssertCheckExpandedRanges.md)
+  - [has_matching_range](../h/has_matching_range.md)
+  - [range_contains_value](../r/range_contains_value.md)
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [range_add_value](../r/range_add_value.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
+  - [brin_minmax_multi_add_value](../b/brin_minmax_multi_add_value.md)
+  - [brin_minmax_multi_consistent](../b/brin_minmax_multi_consistent.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the minmax-multi implementation

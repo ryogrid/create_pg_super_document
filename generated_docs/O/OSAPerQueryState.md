@@ -46,8 +46,8 @@ The structure is set up during the first call of the transition function and liv
 - Functions called/Symbols referenced:
   - Aggref
 - Called from (representative examples):
-  - OSAPerGroupState (as a member)
-  - ordered_set_startup
+  - [OSAPerGroupState](OSAPerGroupState.md) (as a member)
+  - [ordered_set_startup](../o/ordered_set_startup.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's optimization for ordered-set aggregates, allowing nodeAgg.c to merge aggregates with identical inputs and transition functions

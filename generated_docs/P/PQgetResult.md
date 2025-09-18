@@ -23,23 +23,23 @@ For COPY operations, the function delegates to getCopyResult to handle COPY_IN, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseInput
-  - pqFlush
-  - pqWait
-  - pqReadData
-  - pqSaveErrorResult
-  - pqPrepareAsyncResult
-  - pqSaveWriteError
+  - [parseInput](../p/parseInput.md)
+  - [pqFlush](../p/pqFlush.md)
+  - [pqWait](../p/pqWait.md)
+  - [pqReadData](../p/pqReadData.md)
+  - [pqSaveErrorResult](../p/pqSaveErrorResult.md)
+  - [pqPrepareAsyncResult](../p/pqPrepareAsyncResult.md)
+  - [pqSaveWriteError](../p/pqSaveWriteError.md)
   - pqPipelineProcessQueue
   - pqCommandQueueAdvance
-  - getCopyResult
-  - PQfireResultCreateEvents
+  - [getCopyResult](../g/getCopyResult.md)
+  - [PQfireResultCreateEvents](PQfireResultCreateEvents.md)
 - Called from (representative examples):
-  - PQexecStart
-  - PQexecFinish
-  - libpqrcv_PQgetResult
-  - consumeQueryResult
-  - ExecQueryAndProcessResults
+  - [PQexecStart](PQexecStart.md)
+  - [PQexecFinish](PQexecFinish.md)
+  - [libpqrcv_PQgetResult](../l/libpqrcv_PQgetResult.md)
+  - [consumeQueryResult](../c/consumeQueryResult.md)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md)
 
 ## Notes and Other Information
 - Returns NULL when no more results are available or connection is invalid

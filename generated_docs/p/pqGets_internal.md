@@ -23,14 +23,14 @@ This function is used as a building block for higher-level string reading functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - resetPQExpBuffer (clears the buffer if resetbuffer is true)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md) (clears the buffer if resetbuffer is true)
   - appendBinaryPQExpBuffer (appends the string data to the buffer)
   - conn->inBuffer (connection input buffer)
   - conn->inCursor (current read position)
   - conn->inEnd (end of available data)
 - Called from (representative examples):
-  - pqGets (public wrapper that resets the buffer)
-  - pqGets_append (public wrapper that appends to existing buffer content)
+  - [pqGets](pqGets.md) (public wrapper that resets the buffer)
+  - [pqGets_append](pqGets_append.md) (public wrapper that appends to existing buffer content)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF when a complete null-terminated string is not available

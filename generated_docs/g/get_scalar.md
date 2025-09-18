@@ -29,15 +29,15 @@ The function implements different text capture strategies depending on whether n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetState (struct type for casting state parameter)
-  - JsonTokenType (parameter type for token classification)
+  - [GetState](../G/GetState.md) (struct type for casting state parameter)
+  - [JsonTokenType](../J/JsonTokenType.md) (parameter type for token classification)
   - JSON_TOKEN_STRING (token type constant for string detection)
   - JSON_TOKEN_NULL (token type constant for null detection)
   - cstring_to_text_with_len (converts C string with specified length to PostgreSQL text)
   - cstring_to_text (converts null-terminated C string to PostgreSQL text)
   - JSON_SUCCESS (success return constant)
 - Called from (representative examples):
-  - get_worker (JSON extraction worker function)
+  - [get_worker](get_worker.md) (JSON extraction worker function)
   - JsObjectFree (JSON object processing)
 
 ## Notes and Other Information

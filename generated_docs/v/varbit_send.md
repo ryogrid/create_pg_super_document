@@ -23,16 +23,16 @@ The function uses PostgreSQL's standard binary serialization API, beginning with
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_VARBIT_P
-  - pq_begintypsend
-  - pq_sendint32
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
   - pq_sendbytes
-  - pq_endtypsend
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - VARBITLEN
   - VARBITS
   - VARBITBYTES
   - PG_RETURN_BYTEA_P
 - Called from:
-  - bit_send
+  - [bit_send](../b/bit_send.md)
 
 ## Notes and Other Information
 - Counterpart function to `varbit_recv` for binary protocol I/O

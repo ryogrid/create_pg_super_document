@@ -46,7 +46,7 @@ The statistics include counts for each node type (4-way, 16-way, 48-way, and 256
 - Provides detailed breakdown of node distribution across different size classes
 - For shared memory trees, includes DSA handle information for tracking shared allocations
 - Tree height is calculated as start_shift / RT_SPAN, representing the maximum depth
-- Node counts are tracked per size class: n4, n16, n48, n256 corresponding to different fanout capacities
+- [Node](../N/Node.md) counts are tracked per size class: n4, n16, n48, n256 corresponding to different fanout capacities
 - Leaf count represents the total number of leaf nodes containing actual values
 - Format strings use PostgreSQL-specific macros for cross-platform compatibility
 - Part of the debugging infrastructure for PostgreSQL's generic radix tree template system

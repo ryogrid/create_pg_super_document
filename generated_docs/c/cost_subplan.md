@@ -28,15 +28,15 @@ The function also handles startup cost accounting based on correlation and mater
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_qual_eval
-  - make_ands_implicit
-  - clamp_row_est
-  - ExecMaterializesOutput
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
+  - [clamp_row_est](clamp_row_est.md)
+  - [ExecMaterializesOutput](../E/ExecMaterializesOutput.md)
   - nodeTag
 - Called from (representative examples):
-  - build_subplan
-  - SS_process_ctes
-  - SS_make_initplan_from_plan
+  - [build_subplan](../b/build_subplan.md)
+  - [SS_process_ctes](../S/SS_process_ctes.md)
+  - [SS_make_initplan_from_plan](../S/SS_make_initplan_from_plan.md)
 
 ## Notes and Other Information
 - Sets subplan->startup_cost and subplan->per_call_cost based on the cost analysis

@@ -18,9 +18,9 @@ This function serves as the core signal handler for PostgreSQL's timeout managem
 ## Dependencies
 - Functions called/Symbols referenced:
   - HOLD_INTERRUPTS/RESUME_INTERRUPTS (interrupt control)
-  - SetLatch (process latch signaling) 
+  - [SetLatch](../S/SetLatch.md) (process latch signaling) 
   - disable_alarm/schedule_alarm (alarm management)
-  - GetCurrentTimestamp (current time retrieval)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (current time retrieval)
   - remove_timeout_index (timeout queue management)
   - TimestampTzPlusMilliseconds (time arithmetic)
   - enable_timeout (timeout rescheduling)

@@ -33,15 +33,15 @@ This design enables efficient batch reading of consecutive database blocks, redu
 ## Dependencies
 - Functions called/Symbols referenced:
   - SMgrRelationData (structure)
-  - BufferAccessStrategy (type)
-  - Relation (type)
+  - [BufferAccessStrategy](../B/BufferAccessStrategy.md) (type)
+  - [Relation](Relation.md) (type)
   - Buffer (type)
 - Called from (representative examples):
-  - StartReadBuffers (in bufmgr.c:1352)
-  - StartReadBuffer (in bufmgr.c:1367)
-  - WaitReadBuffers (in bufmgr.c:1395)
-  - ReadBuffer_common (in bufmgr.c:1203)
-  - StartReadBuffersImpl (in bufmgr.c:1257)
+  - [StartReadBuffers](../S/StartReadBuffers.md) (in bufmgr.c:1352)
+  - [StartReadBuffer](../S/StartReadBuffer.md) (in bufmgr.c:1367)
+  - [WaitReadBuffers](../W/WaitReadBuffers.md) (in bufmgr.c:1395)
+  - [ReadBuffer_common](ReadBuffer_common.md) (in bufmgr.c:1203)
+  - [StartReadBuffersImpl](../S/StartReadBuffersImpl.md) (in bufmgr.c:1257)
 
 ## Notes and Other Information
 - Designed for a two-phase asynchronous I/O pattern: initiation (StartReadBuffers) and completion (WaitReadBuffers)

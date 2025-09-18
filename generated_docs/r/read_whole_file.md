@@ -27,18 +27,18 @@ The implementation follows these steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call)
+  - [stat](../s/stat.md) (system call)
   - AllocateFile
-  - palloc
+  - [palloc](../p/palloc.md)
   - fread
   - FreeFile
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - ereport
 - Constants referenced:
   - MaxAllocSize
   - PG_BINARY_R
 - Called from (representative examples):
-  - read_extension_script_file
+  - [read_extension_script_file](read_extension_script_file.md)
 
 ## Notes and Other Information
 - This is a static utility function within extension.c, used for reading extension script files

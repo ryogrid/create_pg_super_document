@@ -26,15 +26,15 @@ The Execute message is part of PostgreSQL's extended query protocol, which allow
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputString
-  - pqTraceOutputInt32
+  - [pqTraceOutputString](pqTraceOutputString.md)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This function is static and only accessible within fe-trace.c
 - The Execute message format consists of: portal name (string) + maximum rows (int32)
-- Portal names can be empty strings, which refers to the unnamed portal
+- [Portal](../P/Portal.md) names can be empty strings, which refers to the unnamed portal
 - A maximum row count of 0 means return all available rows
 - Part of the extended query protocol which provides more control over query execution than simple queries
 - The regress parameter is accepted for interface consistency but not used since Execute messages don't contain variable fields that need suppression

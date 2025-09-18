@@ -27,7 +27,7 @@ The function appends both the error description and diagnostic hint to the conne
 - Functions called/Symbols referenced:
   - PG_STRERROR_R_BUFLEN (buffer size constant for error strings)
   - SOCK_STRERROR (macro for thread-safe error string conversion)
-  - libpq_append_conn_error (for appending diagnostic suggestions)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for appending diagnostic suggestions)
 - Called from (representative examples):
   - CONNECTION_FAILED (connection failure handling state)
 

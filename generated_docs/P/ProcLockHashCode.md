@@ -20,15 +20,15 @@ The function applies the same XOR operation with the left-shifted PGPROC address
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum: Converts the PGPROC pointer to Datum for hash computation
+  - [PointerGetDatum](PointerGetDatum.md): Converts the PGPROC pointer to Datum for hash computation
   - LOG2_NUM_LOCK_PARTITIONS: Used to left-shift the process pointer to preserve partition bits
 - Called from (representative examples):
-  - LockAcquireExtended: During lock acquisition when LOCK hash is already computed
-  - SetupLockInTable: When setting up PROCLOCK entries in the hash table
-  - CleanUpLock: During lock cleanup operations
-  - FastPathGetRelationLockEntry: In fast-path lock operations
-  - LockRefindAndRelease: When refinding and releasing locks
-  - lock_twophase_recover: During two-phase commit recovery
+  - [LockAcquireExtended](../L/LockAcquireExtended.md): During lock acquisition when LOCK hash is already computed
+  - [SetupLockInTable](../S/SetupLockInTable.md): When setting up PROCLOCK entries in the hash table
+  - [CleanUpLock](../C/CleanUpLock.md): During lock cleanup operations
+  - [FastPathGetRelationLockEntry](../F/FastPathGetRelationLockEntry.md): In fast-path lock operations
+  - [LockRefindAndRelease](../L/LockRefindAndRelease.md): When refinding and releasing locks
+  - [lock_twophase_recover](../l/lock_twophase_recover.md): During two-phase commit recovery
 
 ## Notes and Other Information
 - This is an inline function for performance optimization

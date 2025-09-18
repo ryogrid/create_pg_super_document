@@ -18,14 +18,14 @@ PLy_spi_subtransaction_begin is a utility function that starts an internal subtr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BeginInternalSubTransaction: PostgreSQL core function to start an internal subtransaction
-  - MemoryContextSwitchTo: Switches to the specified memory context
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md): PostgreSQL core function to start an internal subtransaction
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switches to the specified memory context
 - Called from (representative examples):
-  - PLy_cursor_query: For cursor-based query execution
-  - PLy_cursor_plan: For cursor plan operations
-  - PLy_spi_prepare: For SPI query preparation
-  - PLy_spi_execute_plan: For executing prepared plans
-  - PLy_spi_execute_query: For direct query execution
+  - [PLy_cursor_query](PLy_cursor_query.md): For cursor-based query execution
+  - [PLy_cursor_plan](PLy_cursor_plan.md): For cursor plan operations
+  - [PLy_spi_prepare](PLy_spi_prepare.md): For SPI query preparation
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md): For executing prepared plans
+  - [PLy_spi_execute_query](PLy_spi_execute_query.md): For direct query execution
 
 ## Notes and Other Information
 - This function is part of a three-function suite (begin/commit/abort) for subtransaction management

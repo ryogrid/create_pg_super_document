@@ -22,18 +22,18 @@ The function implements sophisticated wraparound protection by monitoring severa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (recovery state checking)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (recovery state checking)
   - LWLockAcquire, LWLockRelease (with MultiXactGenLock)
-  - MultiXactIdPrecedes (wraparound-aware comparison)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md) (wraparound-aware comparison)
   - SendPostmasterSignal (autovacuum triggering)
-  - get_database_name (database name lookup)
+  - [get_database_name](../g/get_database_name.md) (database name lookup)
   - ereport, errmsg_plural (error/warning reporting)
-  - ExtendMultiXactOffset, ExtendMultiXactMember (SLRU file extension)
-  - MultiXactOffsetWouldWrap (wraparound checking)
+  - [ExtendMultiXactOffset](../E/ExtendMultiXactOffset.md), ExtendMultiXactMember (SLRU file extension)
+  - [MultiXactOffsetWouldWrap](../M/MultiXactOffsetWouldWrap.md) (wraparound checking)
   - START_CRIT_SECTION (critical section management)
   - debug_elog3, debug_elog4 (debugging)
 - Called from (representative examples):
-  - MultiXactIdCreateFromMembers (during MultiXact creation)
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md) (during MultiXact creation)
 
 ## Notes and Other Information
 - Function is marked static and used internally within the MultiXact subsystem

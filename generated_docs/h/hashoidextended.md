@@ -18,7 +18,7 @@ This function provides extended hash functionality for PostgreSQL's OID data typ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_uint32_extended: Extended 32-bit hash function that incorporates the seed value
+  - [hash_uint32_extended](hash_uint32_extended.md): Extended 32-bit hash function that incorporates the seed value
   - PG_GETARG_INT64: PostgreSQL macro to extract int64 argument from function call
   - PG_GETARG_OID: PostgreSQL macro to extract OID argument from function call (implicitly used)
 - Called from (representative examples):

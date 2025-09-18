@@ -21,16 +21,16 @@ This function constructs a new SP-GiST inner tuple that contains all the nodes f
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGITITERATE (macro for iterating through existing nodes)
-  - palloc (memory allocation)
-  - spgFormNodeTuple (creates the new node tuple)
-  - spgFormInnerTuple (constructs the final inner tuple)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [spgFormNodeTuple](../s/spgFormNodeTuple.md) (creates the new node tuple)
+  - [spgFormInnerTuple](../s/spgFormInnerTuple.md) (constructs the final inner tuple)
   - SGITDATUM (extracts datum from tuple)
   - elog (error reporting)
 - Called from (representative examples):
-  - spgAddNodeAction
-  - spgdoinsert
-  - spg_text_choose
-  - spgist_name_choose
+  - [spgAddNodeAction](../s/spgAddNodeAction.md)
+  - [spgdoinsert](../s/spgdoinsert.md)
+  - [spg_text_choose](../s/spg_text_choose.md)
+  - [spgist_name_choose](../s/spgist_name_choose.md)
 
 ## Notes and Other Information
 - The function is static, indicating it's only used within the spgdoinsert.c module

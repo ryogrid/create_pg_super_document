@@ -21,14 +21,14 @@ The function modifies the second argument of the stored OpExpr to point to the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (parameter type)
+  - [PredIterInfo](../P/PredIterInfo.md) (parameter type)
   - ArrayExprIterState (state structure)
   - lsecond (list access function for second element)
   - lfirst (list access function for current element)
-  - lnext (list advance function)
+  - [lnext](../l/lnext.md) (list advance function)
 - Called from (representative examples):
   - iterate_end (src/backend/optimizer/util/predtest.c:96)
-  - predicate_classify (src/backend/optimizer/util/predtest.c:893)
+  - [predicate_classify](../p/predicate_classify.md) (src/backend/optimizer/util/predtest.c:893)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the predtest.c file

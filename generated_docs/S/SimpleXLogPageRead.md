@@ -29,19 +29,19 @@ The function handles various error conditions gracefully and provides detailed l
   - XLogSegNoOffsetToRecPtr
   - XLogSegmentOffset
   - XLByteInSeg
-  - XLogFileName
-  - RestoreArchivedFile
+  - [XLogFileName](../X/XLogFileName.md)
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md)
   - open
   - close
   - lseek
   - read
   - pg_log_error
   - pg_log_debug
-  - XLogPageReadPrivate
+  - [XLogPageReadPrivate](../X/XLogPageReadPrivate.md)
 - Called from (representative examples):
-  - extractPageMap (via XL_ROUTINE callback)
-  - readOneRecord (via XL_ROUTINE callback)  
-  - findLastCheckpoint (via XL_ROUTINE callback)
+  - [extractPageMap](../e/extractPageMap.md) (via XL_ROUTINE callback)
+  - [readOneRecord](../r/readOneRecord.md) (via XL_ROUTINE callback)  
+  - [findLastCheckpoint](../f/findLastCheckpoint.md) (via XL_ROUTINE callback)
 
 ## Notes and Other Information
 - Returns XLOG_BLCKSZ on success, -1 on failure

@@ -22,7 +22,7 @@ The `int4mi` function implements the subtraction operation for PostgreSQL 32-bit
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32`: Macro to extract 32-bit integer arguments from function context
-  - `pg_sub_s32_overflow`: Safe subtraction function that detects overflow conditions
+  - `[pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md)`: Safe subtraction function that detects overflow conditions
   - `ereport`: PostgreSQL error reporting mechanism
   - `PG_RETURN_INT32`: Macro to return 32-bit integer result
 - Called from (representative examples):

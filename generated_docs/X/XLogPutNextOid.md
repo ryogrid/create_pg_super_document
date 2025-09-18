@@ -23,12 +23,12 @@ A notable design consideration is that when OIDs are used as filesystem names (f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogBeginInsert](XLogBeginInsert.md)
+  - [XLogRegisterData](XLogRegisterData.md)
+  - [XLogInsert](XLogInsert.md)
   - XLOG_NEXTOID (WAL record type)
 - Called from (representative examples):
-  - GetNewObjectId (when allocating new OIDs and advancing the counter)
+  - [GetNewObjectId](../G/GetNewObjectId.md) (when allocating new OIDs and advancing the counter)
 
 ## Notes and Other Information
 - The function does not immediately flush the WAL record, relying on buffer LSN interlock for proper ordering

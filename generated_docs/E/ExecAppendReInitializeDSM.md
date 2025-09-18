@@ -22,10 +22,10 @@ The function is essential for supporting rescan operations in parallel query exe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelAppendState (struct type)
+  - [ParallelAppendState](../P/ParallelAppendState.md) (struct type)
   - memset
 - Called from (representative examples):
-  - ExecParallelReInitializeDSM
+  - [ExecParallelReInitializeDSM](ExecParallelReInitializeDSM.md)
 
 ## Notes and Other Information
 - Resets `pa_next_plan` to 0, indicating that subplan selection should start from the beginning

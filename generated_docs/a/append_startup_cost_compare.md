@@ -20,11 +20,11 @@ The function implements a multi-level comparison strategy: first by startup cost
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_path_costs (with STARTUP_COST flag)
-  - bms_compare (for breaking ties using relation IDs)
+  - [compare_path_costs](../c/compare_path_costs.md) (with STARTUP_COST flag)
+  - [bms_compare](../b/bms_compare.md) (for breaking ties using relation IDs)
   - lfirst (macro for extracting list cell contents)
 - Called from (representative examples):
-  - create_append_path (via list_sort for sorting partial_subpaths in parallel-aware append)
+  - [create_append_path](../c/create_append_path.md) (via list_sort for sorting partial_subpaths in parallel-aware append)
 
 ## Notes and Other Information
 - This is a static function only used within pathnode.c

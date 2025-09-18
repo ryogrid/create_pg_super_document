@@ -31,15 +31,15 @@ The function includes comprehensive multibyte character validation to prevent se
   - strnlen
   - pqClearConnErrorState
   - IS_HIGHBIT_SET
-  - pg_encoding_mblen_or_incomplete
-  - pg_encoding_verifymbstr
+  - [pg_encoding_mblen_or_incomplete](../p/pg_encoding_mblen_or_incomplete.md)
+  - [pg_encoding_verifymbstr](../p/pg_encoding_verifymbstr.md)
   - malloc
-  - pg_encoding_mblen
-  - libpq_append_conn_error
+  - [pg_encoding_mblen](../p/pg_encoding_mblen.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - memcpy
 - Called from (representative examples):
-  - PQescapeLiteral
-  - PQescapeIdentifier
+  - [PQescapeLiteral](PQescapeLiteral.md)
+  - [PQescapeIdentifier](PQescapeIdentifier.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public libpq API

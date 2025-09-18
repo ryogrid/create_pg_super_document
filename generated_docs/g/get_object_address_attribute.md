@@ -22,14 +22,14 @@ This static function resolves a column reference into an ObjectAddress structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - llast (extracts last element from list)
-  - list_copy_head (copies all but last elements of list)
-  - relation_openrv (opens relation by RangeVar)
-  - makeRangeVarFromNameList (creates RangeVar from name list)
-  - get_attnum (retrieves attribute number by name)
-  - NameListToString (converts name list to string for error messages)
-  - relation_close (closes relation when error occurs)
+  - [list_copy_head](../l/list_copy_head.md) (copies all but last elements of list)
+  - [relation_openrv](../r/relation_openrv.md) (opens relation by RangeVar)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md) (creates RangeVar from name list)
+  - [get_attnum](get_attnum.md) (retrieves attribute number by name)
+  - [NameListToString](../N/NameListToString.md) (converts name list to string for error messages)
+  - [relation_close](../r/relation_close.md) (closes relation when error occurs)
 - Called from (representative examples):
-  - get_object_address (main object address resolution function)
+  - [get_object_address](get_object_address.md) (main object address resolution function)
 
 ## Notes and Other Information
 - The function requires at least 2 elements in the object list (relation name + column name)

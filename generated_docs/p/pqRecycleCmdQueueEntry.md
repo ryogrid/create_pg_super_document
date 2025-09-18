@@ -24,14 +24,14 @@ The function ensures proper memory management by freeing the query string if pre
 - Functions called/Symbols referenced:
   - free (standard library function)
   - Assert (debugging macro)
-  - PGcmdQueueEntry (struct type)
+  - [PGcmdQueueEntry](../P/PGcmdQueueEntry.md) (struct type)
 - Called from (representative examples):
-  - PQsendQueryInternal
-  - PQsendPrepare
-  - PQsendQueryGuts
-  - PQsendTypedCommand
+  - [PQsendQueryInternal](../P/PQsendQueryInternal.md)
+  - [PQsendPrepare](../P/PQsendPrepare.md)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md)
+  - [PQsendTypedCommand](../P/PQsendTypedCommand.md)
   - pqCommandQueueAdvance
-  - pqPipelineSyncInternal
+  - [pqPipelineSyncInternal](pqPipelineSyncInternal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-exec.c

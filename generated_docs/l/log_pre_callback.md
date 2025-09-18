@@ -23,7 +23,7 @@ The function checks if there is an active query output stream (pset.queryFout) a
   - pset.queryFout (global psql settings structure member)
   - stdout (standard output stream)
 - Called from (representative examples):
-  - main (registered as callback)
+  - [main](../m/main.md) (registered as callback)
   - pg_logging_set_pre_callback
   - pg_log_generic_v
 

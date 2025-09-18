@@ -28,11 +28,11 @@ Similar to `int4_cash`, this function uses `int8mul` to perform the multiplicati
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT64`: Extract int64 from function arguments
-  - `PGLC_localeconv`: Get locale conversion information
-  - `int8mul`: Multiply two int64 values with overflow checking
+  - `[PGLC_localeconv](../P/PGLC_localeconv.md)`: Get locale conversion information
+  - `[int8mul](int8mul.md)`: Multiply two int64 values with overflow checking
   - `DirectFunctionCall2`: Call a 2-argument PostgreSQL function
-  - `Int64GetDatum`: Convert int64 to Datum
-  - `DatumGetInt64`: Extract int64 from Datum
+  - `[Int64GetDatum](../I/Int64GetDatum.md)`: Convert int64 to Datum
+  - `[DatumGetInt64](../D/DatumGetInt64.md)`: Extract int64 from Datum
   - `PG_RETURN_CASH`: Return a Cash value
 - Called from (representative examples):
   - No direct references found in codebase

@@ -20,16 +20,16 @@ The function allocates the main PartitionTupleRouting structure and initializes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionTupleRouting (struct allocation)
-  - ExecInitPartitionDispatchInfo
-  - palloc0
+  - [PartitionTupleRouting](../P/PartitionTupleRouting.md) (struct allocation)
+  - [ExecInitPartitionDispatchInfo](ExecInitPartitionDispatchInfo.md)
+  - [palloc0](../p/palloc0.md)
   - RelationGetRelid
 - Called from (representative examples):
-  - CopyFrom (in copyfrom.c:824)
-  - ExecCrossPartitionUpdate (in nodeModifyTable.c:1811)
-  - ExecInitMerge (in nodeModifyTable.c:3589)
-  - ExecInitModifyTable (in nodeModifyTable.c:4644)
-  - apply_handle_tuple_routing (in worker.c:2935)
+  - [CopyFrom](../C/CopyFrom.md) (in copyfrom.c:824)
+  - [ExecCrossPartitionUpdate](ExecCrossPartitionUpdate.md) (in nodeModifyTable.c:1811)
+  - [ExecInitMerge](ExecInitMerge.md) (in nodeModifyTable.c:3589)
+  - [ExecInitModifyTable](ExecInitModifyTable.md) (in nodeModifyTable.c:4644)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md) (in worker.c:2935)
 
 ## Notes and Other Information
 The function uses the current memory context (typically estate->es_query_cxt) for all allocations, ensuring proper memory lifecycle management. The lazy initialization strategy significantly improves performance for single-partition INSERT operations, which represent a common use case in partitioned table scenarios.

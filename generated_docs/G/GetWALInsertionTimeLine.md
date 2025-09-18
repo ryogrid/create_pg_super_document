@@ -23,13 +23,13 @@ The function includes an assertion to ensure it is only called on systems that h
   - Assert (for state validation)
   - XLogCtl (global WAL control structure)
 - Called from (representative examples):
-  - WALReadFromBuffers
-  - pg_walfile_name_offset
-  - pg_walfile_name
+  - [WALReadFromBuffers](../W/WALReadFromBuffers.md)
+  - [pg_walfile_name_offset](../p/pg_walfile_name_offset.md)
+  - [pg_walfile_name](../p/pg_walfile_name.md)
   - READ_REPLICATION_SLOT_COLS
-  - logical_read_xlog_page
-  - XLogSendPhysical
-  - WALAvailability
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - Should only be used on systems not in recovery (enforced by assertion)

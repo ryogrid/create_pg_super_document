@@ -25,12 +25,12 @@ This function provides a standardized way to report errors encountered while par
   - vsnprintf
   - pg_log_error
 - Called from (representative examples):
-  - read_quoted_string (in filter.c)
-  - read_pattern (in filter.c)
-  - filter_read_item (in filter.c)
-  - read_dump_filters (in pg_dump.c)
-  - read_dumpall_filters (in pg_dumpall.c)
-  - read_restore_filters (in pg_restore.c)
+  - [read_quoted_string](../r/read_quoted_string.md) (in filter.c)
+  - [read_pattern](../r/read_pattern.md) (in filter.c)
+  - [filter_read_item](../f/filter_read_item.md) (in filter.c)
+  - [read_dump_filters](../r/read_dump_filters.md) (in pg_dump.c)
+  - [read_dumpall_filters](../r/read_dumpall_filters.md) (in pg_dumpall.c)
+  - [read_restore_filters](../r/read_restore_filters.md) (in pg_restore.c)
 
 ## Notes and Other Information
 - Uses a fixed-size buffer (256 bytes) for formatting the error message

@@ -45,18 +45,18 @@ The function uses a continuous loop with state transitions, allowing non-blockin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - chooseScript, doConnect, sendCommand, readCommandResponse
-  - executeMetaCommand, commandFailed, processXactStats
-  - discardUntilSync, getTransactionStatus, doRetry
-  - printVerboseErrorMessages, finishCon
-  - PQpipelineStatus, PQsendQuery, PQisBusy, PQconsumeInput, PQgetResult
-  - pg_time_now_lazy, pg_time_now, getPoissonRand
+  - [chooseScript](../c/chooseScript.md), doConnect, sendCommand, readCommandResponse
+  - [executeMetaCommand](../e/executeMetaCommand.md), commandFailed, processXactStats
+  - [discardUntilSync](../d/discardUntilSync.md), getTransactionStatus, doRetry
+  - [printVerboseErrorMessages](../p/printVerboseErrorMessages.md), finishCon
+  - [PQpipelineStatus](../P/PQpipelineStatus.md), PQsendQuery, PQisBusy, PQconsumeInput, PQgetResult
+  - [pg_time_now_lazy](../p/pg_time_now_lazy.md), pg_time_now, getPoissonRand
   - conditional stack management functions
 - Global variables referenced:
   - timer_exceeded, throttle_delay, latency_limit, max_tries
   - verbose_errors, report_per_command, is_connect
 - Called from (representative examples):
-  - threadRun
+  - [threadRun](../t/threadRun.md)
 
 ## Notes and Other Information
 - Contains 697 lines of complex state machine logic handling 13 distinct states

@@ -22,12 +22,12 @@ The function operates by calling the common tuple retrieval mechanism and then u
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - tuplesort_gettuple_common
-  - BrinSortTuple (struct type)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md)
+  - [BrinSortTuple](../B/BrinSortTuple.md) (struct type)
   - SortTuple (struct type)
 - Called from (representative examples):
-  - _brin_parallel_merge
+  - [_brin_parallel_merge](../b/_brin_parallel_merge.md)
 
 ## Notes and Other Information
 - The returned tuple belongs to the tuplesort memory context and must not be freed by the caller

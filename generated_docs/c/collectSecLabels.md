@@ -22,19 +22,19 @@ The resulting array is sorted by (classoid, objoid, objsubid) to enable efficien
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer: Creates buffer for SQL query construction
-  - appendPQExpBufferStr: Adds SQL query text to buffer
-  - ExecuteSqlQuery: Executes the security label query against database
-  - PQfnumber: Gets column numbers from query result
-  - PQntuples: Gets number of result rows
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md): Adds SQL query text to buffer
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the security label query against database
+  - [PQfnumber](../P/PQfnumber.md): Gets column numbers from query result
+  - [PQntuples](../P/PQntuples.md): Gets number of result rows
   - pg_malloc: Allocates memory for security labels array
   - atooid: Converts string to OID
-  - findObjectByCatalogId: Locates dumpable object by catalog ID
-  - findTypeByOid: Locates type information by OID
-  - pg_strdup: Duplicates strings for storage
-  - PQclear: Frees query result memory
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md): Locates dumpable object by catalog ID
+  - [findTypeByOid](../f/findTypeByOid.md): Locates type information by OID
+  - [pg_strdup](../p/pg_strdup.md): Duplicates strings for storage
+  - [PQclear](../P/PQclear.md): Frees query result memory
   - destroyPQExpBuffer: Cleans up query buffer
 - Called from:
-  - main: Called during pg_dump initialization phase
+  - [main](../m/main.md): Called during pg_dump initialization phase
   - fmtQualifiedDumpable: Referenced for qualified name formatting
 
 ## Notes and Other Information
@@ -43,6 +43,6 @@ The resulting array is sorted by (classoid, objoid, objsubid) to enable efficien
 - Handles special case of composite type column labels by setting flags on the type object instead of the table
 - Sets DUMP_COMPONENT_SECLABEL flag on objects with security labels to ensure they get proper dump treatment
 - Memory allocated for labels persists for the duration of the dump process
-- Query results are ordered to enable efficient binary search in findSecLabels
+- [Query](../Q/Query.md) results are ordered to enable efficient binary search in findSecLabels
 - Skips labels for objects that don't exist in the dumpable object list
 - Part of the initialization phase that runs before any actual dumping begins

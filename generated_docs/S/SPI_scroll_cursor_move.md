@@ -21,9 +21,9 @@ The function works with Portal objects, which represent prepared statements or c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_cursor_operation
-  - FetchDirection (enum type)
-  - Portal (struct type)
+  - [_SPI_cursor_operation](_SPI_cursor_operation.md)
+  - [FetchDirection](../F/FetchDirection.md) (enum type)
+  - [Portal](../P/Portal.md) (struct type)
   - None_Receiver (global variable)
 - Called from (representative examples):
   - User-defined SPI functions that need cursor positioning

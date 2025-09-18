@@ -28,13 +28,13 @@ The function is critical for ensuring crash safety and consistency of logical re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - logical_heap_rewrite_flush_mappings (flushes remaining mappings)
-  - hash_seq_init, hash_seq_search (hash table iteration)
+  - [logical_heap_rewrite_flush_mappings](logical_heap_rewrite_flush_mappings.md) (flushes remaining mappings)
+  - [hash_seq_init](../h/hash_seq_init.md), hash_seq_search (hash table iteration)
   - FileSync (synchronizes file to disk)
   - FileClose (closes file descriptors)
   - data_sync_elevel (error level for sync operations)
 - Called from (representative examples):
-  - end_heap_rewrite
+  - [end_heap_rewrite](../e/end_heap_rewrite.md)
 
 ## Notes and Other Information
 - This is a static function internal to the rewriteheap.c module

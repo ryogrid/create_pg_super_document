@@ -21,16 +21,16 @@ The function switches to a temporary memory context for tuple creation, ensuring
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EachState (state structure)
+  - [EachState](../E/EachState.md) (state structure)
   - JSON_SUCCESS (return value constant)
   - CStringGetTextDatum (converts C string to PostgreSQL text datum)
   - cstring_to_text_with_len (converts C string with specified length to text)
-  - heap_form_tuple (creates a PostgreSQL heap tuple)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (creates a PostgreSQL heap tuple)
   - tuplestore_puttuple (stores tuple in tuple store)
-  - MemoryContextSwitchTo (switches memory contexts)
-  - MemoryContextReset (resets temporary memory context)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches memory contexts)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (resets temporary memory context)
 - Called from:
-  - each_worker (main JSON expansion worker function)
+  - [each_worker](each_worker.md) (main JSON expansion worker function)
   - JsObjectFree (JSON object callback structure)
 
 ## Notes and Other Information

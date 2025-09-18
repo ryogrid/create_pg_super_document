@@ -31,15 +31,15 @@ The function handles six different regex strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_char_properties (character property table)
-  - pg_u_isgraph (PostgreSQL Unicode implementation)
+  - [pg_u_isgraph](pg_u_isgraph.md) (PostgreSQL Unicode implementation)
   - iswgraph (system wide character function)
   - isgraph (standard C library function)
   - iswgraph_l (locale-specific wide character function)
   - isgraph_l (locale-specific single-byte function)
   - u_isgraph (ICU library function)
 - Called from (representative examples):
-  - cclasscvec (regex character class processing)
-  - cclass_column_index (character class indexing)
+  - [cclasscvec](../c/cclasscvec.md) (regex character class processing)
+  - [cclass_column_index](../c/cclass_column_index.md) (character class indexing)
   - REPLACEARC (regex arc replacement macro)
 
 ## Notes and Other Information

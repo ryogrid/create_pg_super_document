@@ -26,14 +26,14 @@ None - this function takes no parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding (retrieves current database encoding)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (retrieves current database encoding)
   - PG_UTF8 (UTF-8 encoding constant)
-  - pg_utf8_increment (UTF-8 specific incrementer)
+  - [pg_utf8_increment](pg_utf8_increment.md) (UTF-8 specific incrementer)
   - PG_EUC_JP (EUC-JP encoding constant)
-  - pg_eucjp_increment (EUC-JP specific incrementer)
-  - pg_generic_charinc (generic fallback incrementer)
+  - [pg_eucjp_increment](pg_eucjp_increment.md) (EUC-JP specific incrementer)
+  - [pg_generic_charinc](pg_generic_charinc.md) (generic fallback incrementer)
 - Called from (representative examples):
-  - make_greater_string
+  - [make_greater_string](../m/make_greater_string.md)
 
 ## Notes and Other Information
 - Returns a function pointer of type mbcharacter_incrementer

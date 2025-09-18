@@ -17,14 +17,14 @@ GetTSConfigTuple is a static utility function that performs a two-step lookup to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ts_config_oid (converts name list to OID)
+  - [get_ts_config_oid](../g/get_ts_config_oid.md) (converts name list to OID)
   - OidIsValid (validates OID)
-  - SearchSysCache1 (retrieves tuple from system cache)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (retrieves tuple from system cache)
   - HeapTupleIsValid (validates tuple)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - elog (error logging)
 - Called from (representative examples):
-  - AlterTSConfiguration
+  - [AlterTSConfiguration](../A/AlterTSConfiguration.md)
 
 ## Notes and Other Information
 - Static function, only accessible within tsearchcmds.c

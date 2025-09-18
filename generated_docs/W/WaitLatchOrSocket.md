@@ -23,16 +23,16 @@ The function supports waiting for latch signals, socket readiness (readable/writ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateWaitEventSet
-  - AddWaitEventToSet
+  - [CreateWaitEventSet](../C/CreateWaitEventSet.md)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
   - WaitEventSetWait
-  - FreeWaitEventSet
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
   - WL_TIMEOUT, WL_LATCH_SET, WL_POSTMASTER_DEATH, WL_EXIT_ON_PM_DEATH, WL_SOCKET_MASK constants
 - Called from (representative examples):
-  - read_or_wait (GSS API security)
-  - be_tls_open_server (TLS/SSL operations)
-  - libpqrcv_connect (WAL receiver connections)
-  - LogicalRepApplyLoop (logical replication)
+  - [read_or_wait](../r/read_or_wait.md) (GSS API security)
+  - [be_tls_open_server](../b/be_tls_open_server.md) (TLS/SSL operations)
+  - [libpqrcv_connect](../l/libpqrcv_connect.md) (WAL receiver connections)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (logical replication)
 
 ## Notes and Other Information
 - This function is essentially a convenience wrapper around the more flexible WaitEventSet API

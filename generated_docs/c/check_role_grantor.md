@@ -34,10 +34,10 @@ For explicit grantors, the function enforces integrity constraints:
   - superuser_arg
   - select_best_admin
   - has_privs_of_role
-  - GetUserNameFromId
+  - [GetUserNameFromId](../G/GetUserNameFromId.md)
 - Called from (representative examples):
-  - AddRoleMems
-  - DelRoleMems
+  - [AddRoleMems](../A/AddRoleMems.md)
+  - [DelRoleMems](../D/DelRoleMems.md)
 
 ## Notes and Other Information
 - Returns the OID of the validated/inferred grantor to be used in the operation

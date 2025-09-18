@@ -25,7 +25,7 @@ The asynchronous execution framework allows nodes to request tuples from other n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AsyncRequest (struct type from execnodes.h)
+  - [AsyncRequest](../A/AsyncRequest.md) (struct type from execnodes.h)
 - Called from (representative examples):
   - Async-capable node implementations (e.g., ForeignScan nodes)
   - ExecAsyncRequest callbacks

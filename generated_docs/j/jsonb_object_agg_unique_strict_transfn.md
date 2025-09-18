@@ -25,7 +25,7 @@ The "strict" variant means that NULL values in either keys or values will cause 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_object_agg_transfn_worker
+  - [jsonb_object_agg_transfn_worker](jsonb_object_agg_transfn_worker.md)
 - Called from (representative examples):
   - PostgreSQL aggregate execution engine during jsonb_object_agg_unique_strict operations
 

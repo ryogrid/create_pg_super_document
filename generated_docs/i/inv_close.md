@@ -20,14 +20,14 @@ The function is straightforward in its implementation, serving as the counterpar
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for assertion checking)
-  - pfree (for memory deallocation)
+  - [pfree](../p/pfree.md) (for memory deallocation)
 - Called from (representative examples):
-  - lo_import_internal
-  - be_lo_export
-  - closeLOfd
-  - lo_get_fragment_internal
-  - be_lo_from_bytea
-  - be_lo_put
+  - [lo_import_internal](../l/lo_import_internal.md)
+  - [be_lo_export](../b/be_lo_export.md)
+  - [closeLOfd](../c/closeLOfd.md)
+  - [lo_get_fragment_internal](../l/lo_get_fragment_internal.md)
+  - [be_lo_from_bytea](../b/be_lo_from_bytea.md)
+  - [be_lo_put](../b/be_lo_put.md)
 
 ## Notes and Other Information
 - Must be called with a valid LargeObjectDesc pointer obtained from inv_open

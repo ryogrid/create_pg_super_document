@@ -23,8 +23,8 @@ This callback is registered with the ResourceOwner system through the tupdesc_re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (macro to extract pointer from Datum)
-  - FreeTupleDesc (deallocates tuple descriptor memory)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (macro to extract pointer from Datum)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md) (deallocates tuple descriptor memory)
 - Called from (representative examples):
   - PostgreSQL ResourceOwner cleanup system (automatically during resource cleanup)
   - Registered via tupdesc_resowner_desc callback structure

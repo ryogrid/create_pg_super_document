@@ -23,13 +23,13 @@ The function calculates the required memory size (struct size plus string length
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (calculates string length)
-  - palloc0 (allocates and zeros memory)
+  - [palloc0](../p/palloc0.md) (allocates and zeros memory)
   - memcpy (copies the string data)
-  - AuthToken (the struct type being created)
+  - [AuthToken](../A/AuthToken.md) (the struct type being created)
 - Called from (representative examples):
-  - copy_auth_token (in src/backend/libpq/hba.c)
-  - next_field_expand (in src/backend/libpq/hba.c)
-  - check_ident_usermap (in src/backend/libpq/hba.c)
+  - [copy_auth_token](../c/copy_auth_token.md) (in src/backend/libpq/hba.c)
+  - [next_field_expand](../n/next_field_expand.md) (in src/backend/libpq/hba.c)
+  - [check_ident_usermap](../c/check_ident_usermap.md) (in src/backend/libpq/hba.c)
 
 ## Notes and Other Information
 - This is a static function, only visible within the hba.c file

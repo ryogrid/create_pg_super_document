@@ -20,10 +20,10 @@ The function performs a deep copy of all array metadata including dimensions, bo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - memcpy
 - Called from (representative examples):
-  - expand_array
+  - [expand_array](../e/expand_array.md)
 
 ## Notes and Other Information
 - This is a static function internal to array_expanded.c, used only as an optimization path in expand_array()

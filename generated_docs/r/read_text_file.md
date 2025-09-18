@@ -20,12 +20,12 @@ This function serves as a text-aware wrapper around read_binary_file, adding cru
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_binary_file: Core binary file reading functionality
-  - pg_verifymbstr: Validates multibyte string encoding
+  - [read_binary_file](read_binary_file.md): Core binary file reading functionality
+  - [pg_verifymbstr](../p/pg_verifymbstr.md): Validates multibyte string encoding
   - VARDATA: Access variable-length data content
   - VARSIZE: Get variable-length data size
 - Called from (representative examples):
-  - pg_read_file_common: Higher-level text file reading interface
+  - [pg_read_file_common](../p/pg_read_file_common.md): Higher-level text file reading interface
 
 ## Notes and Other Information
 - Inherits all the file access capabilities and error handling from read_binary_file

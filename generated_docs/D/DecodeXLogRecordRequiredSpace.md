@@ -17,14 +17,14 @@ DecodeXLogRecordRequiredSpace calculates the worst-case buffer space needed to d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodedXLogRecord (structure for size calculation)
+  - [DecodedXLogRecord](DecodedXLogRecord.md) (structure for size calculation)
   - DecodedBkpBlock (structure for block array sizing)
   - XLR_MAX_BLOCK_ID (maximum number of block references)
   - MAXIMUM_ALIGNOF (alignment requirements)
 - Called from (representative examples):
-  - XLogInsertRecord
-  - InitXLogInsert
-  - XLogReadRecordAlloc
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
+  - [InitXLogInsert](../I/InitXLogInsert.md)
+  - [XLogReadRecordAlloc](../X/XLogReadRecordAlloc.md)
   - COPY_HEADER_FIELD
 
 ## Notes and Other Information

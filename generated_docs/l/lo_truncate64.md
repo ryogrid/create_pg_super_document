@@ -21,14 +21,14 @@ The `lo_truncate64` function provides the same functionality as `lo_truncate` bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
-  - libpq_append_conn_error
-  - lo_hton64
+  - [lo_initialize](lo_initialize.md)
+  - [libpq_append_conn_error](libpq_append_conn_error.md)
+  - [lo_hton64](lo_hton64.md)
   - PQfn
-  - PQresultStatus
-  - PQclear
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - my_truncate (in testlo64.c)
+  - [my_truncate](../m/my_truncate.md) (in testlo64.c)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

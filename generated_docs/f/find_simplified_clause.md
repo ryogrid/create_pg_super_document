@@ -20,21 +20,21 @@ This function is a core optimization component for PostgreSQL's range type query
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetRangeTypeP
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - RangeTypeGetOid
-  - range_deserialize
-  - makeBoolConst
-  - contain_volatile_functions
-  - contain_subplans
-  - cost_qual_eval_node
-  - build_bound_expr
+  - [range_deserialize](../r/range_deserialize.md)
+  - [makeBoolConst](../m/makeBoolConst.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [contain_subplans](../c/contain_subplans.md)
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
+  - [build_bound_expr](../b/build_bound_expr.md)
   - copyObject
-  - make_andclause
+  - [make_andclause](../m/make_andclause.md)
   - list_make2
   - TYPECACHE_RANGE_INFO
 - Called from (representative examples):
-  - elem_contained_by_range_support
-  - range_contains_elem_support
+  - [elem_contained_by_range_support](../e/elem_contained_by_range_support.md)
+  - [range_contains_elem_support](../r/range_contains_elem_support.md)
 
 ## Notes and Other Information
 This function implements sophisticated query optimization by replacing complex range operations with simpler comparisons. It handles special cases like empty ranges (always false) and infinite ranges (always true). For finite ranges, it carefully evaluates whether creating boundary comparisons is beneficial, considering both expression volatility and computational cost. When both bounds are present, it uses a cost threshold of 10 * cpu_operator_cost to determine if the optimization should be applied. The function is essential for efficient range query execution in PostgreSQL's query planner.

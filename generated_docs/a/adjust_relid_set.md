@@ -26,12 +26,12 @@ The function is designed to be non-destructive, returning either the original se
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SPECIAL_VARNO (macro to check for special variable numbers)
-  - bms_is_member (bitmap set membership test)
-  - bms_copy (create a copy of a bitmap set)
-  - bms_del_member (remove a member from bitmap set)
-  - bms_add_member (add a member to bitmap set)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test)
+  - [bms_copy](../b/bms_copy.md) (create a copy of a bitmap set)
+  - [bms_del_member](../b/bms_del_member.md) (remove a member from bitmap set)
+  - [bms_add_member](../b/bms_add_member.md) (add a member to bitmap set)
 - Called from (representative examples):
-  - ChangeVarNodes_walker (for updating varnullingrels and phnullingrels)
+  - [ChangeVarNodes_walker](../C/ChangeVarNodes_walker.md) (for updating varnullingrels and phnullingrels)
 
 ## Notes and Other Information
 - This is a static function used only within rewriteManip.c

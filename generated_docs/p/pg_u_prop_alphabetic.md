@@ -22,11 +22,11 @@ The Alphabetic property is a fundamental Unicode property that encompasses not j
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_ALPHABETIC (constant bitmask for the Alphabetic property)
-  - range_search (function for searching ranges)
+  - [range_search](../r/range_search.md) (function for searching ranges)
   - lengthof (macro for array length)
 - Called from (representative examples):
-  - pg_u_isalpha
-  - icu_test (testing function)
+  - [pg_u_isalpha](pg_u_isalpha.md)
+  - [icu_test](../i/icu_test.md) (testing function)
 
 ## Notes and Other Information
 - Optimized for ASCII characters with direct bitmask lookup

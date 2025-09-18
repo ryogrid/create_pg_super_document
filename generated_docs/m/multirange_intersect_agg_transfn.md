@@ -21,13 +21,13 @@ This function serves as the transition function for the multirange intersection 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - get_fn_expr_argtype
-  - type_is_multirange
-  - multirange_get_typcache
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [type_is_multirange](../t/type_is_multirange.md)
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - PG_GETARG_MULTIRANGE_P
-  - multirange_deserialize
-  - multirange_intersect_internal
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [multirange_intersect_internal](multirange_intersect_internal.md)
   - PG_RETURN_MULTIRANGE_P
   - MultirangeType
 - Called from (representative examples):

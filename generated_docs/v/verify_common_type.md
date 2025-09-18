@@ -22,7 +22,7 @@ This function performs a validation check to ensure that all expressions in a li
 - Functions called/Symbols referenced:
   - lfirst (list iteration macro)
   - exprType (to extract expression type)
-  - can_coerce_type (to check coercion feasibility)
+  - [can_coerce_type](../c/can_coerce_type.md) (to check coercion feasibility)
   - COERCION_IMPLICIT (coercion method constant)
 
 - Called from (representative examples):

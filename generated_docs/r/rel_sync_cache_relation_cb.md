@@ -24,12 +24,12 @@ The function uses a conservative approach - it only marks entries as invalid rat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (lookup specific cache entry)
-  - hash_seq_init (initialize hash table iteration)  
-  - hash_seq_search (iterate through all hash entries)
+  - [hash_search](../h/hash_search.md) (lookup specific cache entry)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)  
+  - [hash_seq_search](../h/hash_seq_search.md) (iterate through all hash entries)
   - OidIsValid (check if OID is valid)
 - Called from (representative examples):
-  - init_rel_sync_cache (registered as invalidation callback)
+  - [init_rel_sync_cache](../i/init_rel_sync_cache.md) (registered as invalidation callback)
 
 ## Notes and Other Information
 - Registered as a relcache invalidation callback during cache initialization

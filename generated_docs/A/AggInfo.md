@@ -27,14 +27,14 @@ AggInfo is used by pg_dump to store metadata about aggregate functions during th
 - Functions called/Symbols referenced:
   - FuncInfo
 - Called from (representative examples):
-  - getAggregates
-  - dumpDumpableObject
-  - format_aggregate_signature
-  - dumpAgg
+  - [getAggregates](../g/getAggregates.md)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md)
+  - [format_aggregate_signature](../f/format_aggregate_signature.md)
+  - [dumpAgg](../d/dumpAgg.md)
   - fmtQualifiedDumpable
-  - get_agg_clause_costs
-  - find_compatible_agg
-  - preprocess_aggref
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
+  - [find_compatible_agg](../f/find_compatible_agg.md)
+  - [preprocess_aggref](../p/preprocess_aggref.md)
 
 ## Notes and Other Information
 - This structure is specific to pg_dump and is not used in the main PostgreSQL backend

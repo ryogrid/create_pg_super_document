@@ -37,13 +37,13 @@ The ginxlogUpdateMeta structure is used as part of WAL logging when updating the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator
-  - GinMetaPageData
+  - [RelFileLocator](../R/RelFileLocator.md)
+  - [GinMetaPageData](../G/GinMetaPageData.md)
   - BlockNumber
 - Called from (representative examples):
-  - ginHeapTupleFastInsert (in src/backend/access/gin/ginfast.c:227,434)
-  - ginUpdateStats (in src/backend/access/gin/ginutil.c:683,691)
-  - ginRedoUpdateMetapage (in src/backend/access/gin/ginxlog.c:531)
+  - [ginHeapTupleFastInsert](ginHeapTupleFastInsert.md) (in src/backend/access/gin/ginfast.c:227,434)
+  - [ginUpdateStats](ginUpdateStats.md) (in src/backend/access/gin/ginutil.c:683,691)
+  - [ginRedoUpdateMetapage](ginRedoUpdateMetapage.md) (in src/backend/access/gin/ginxlog.c:531)
 
 ## Notes and Other Information
 - This structure is part of the GIN index WAL logging infrastructure (XLOG_GIN_UPDATE_META_PAGE operation)

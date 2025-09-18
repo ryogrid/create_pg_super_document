@@ -18,18 +18,18 @@ This function creates a temporary directory specifically for storing Unix-domain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - getenv
-  - mkdtemp (system call)
+  - [mkdtemp](mkdtemp.md) (system call)
   - bail
   - UNIXSOCK_PATH (macro)
   - snprintf
   - atexit
-  - remove_temp
-  - pqsignal
-  - signal_remove_temp
+  - [remove_temp](../r/remove_temp.md)
+  - [pqsignal](../p/pqsignal.md)
+  - [signal_remove_temp](../s/signal_remove_temp.md)
 - Called from (representative examples):
-  - initialize_environment
+  - [initialize_environment](../i/initialize_environment.md)
 
 ## Notes and Other Information
 - Function is marked static (internal to pg_regress.c)

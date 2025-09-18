@@ -24,17 +24,17 @@ The function is essential for proper operation of asynchronous and non-blocking 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pqIsnonblocking
-  - pqFlush
-  - pqReadData
+  - [pqFlush](../p/pqFlush.md)
+  - [pqReadData](../p/pqReadData.md)
 - Called from (representative examples):
-  - libpqrcv_PQgetResult (in libpqwalreceiver)
-  - libpqrcv_receive (in libpqwalreceiver)
-  - StreamLogicalLog (in pg_recvlogical)
-  - CopyStreamReceive (in receivelog)
-  - advanceConnectionState (in pgbench)
-  - PrintNotifications (in psql)
-  - wait_on_slots (in parallel_slot)
-  - try_complete_step (in isolationtester)
+  - [libpqrcv_PQgetResult](../l/libpqrcv_PQgetResult.md) (in libpqwalreceiver)
+  - [libpqrcv_receive](../l/libpqrcv_receive.md) (in libpqwalreceiver)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (in pg_recvlogical)
+  - [CopyStreamReceive](../C/CopyStreamReceive.md) (in receivelog)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (in pgbench)
+  - [PrintNotifications](PrintNotifications.md) (in psql)
+  - [wait_on_slots](../w/wait_on_slots.md) (in parallel_slot)
+  - [try_complete_step](../t/try_complete_step.md) (in isolationtester)
   - Various test functions in libpq_pipeline tests
 
 ## Notes and Other Information

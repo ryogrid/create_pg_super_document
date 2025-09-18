@@ -20,13 +20,13 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FPge (floating-point greater-than-or-equal comparison function, called twice)
+  - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison function, called twice)
 - Data types used:
   - RangeBox
   - Range
 - Called from (representative examples):
-  - overRight4D
-  - overAbove4D
+  - [overRight4D](overRight4D.md)
+  - [overAbove4D](overAbove4D.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within the geo_spgist.c file

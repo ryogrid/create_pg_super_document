@@ -20,10 +20,10 @@ This sorting capability is used in the isolation tester to organize steps in a p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Step (struct type)
+  - [Step](../S/Step.md) (struct type)
   - strcmp (standard library function)
 - Called from (representative examples):
-  - check_testspec (via qsort)
+  - [check_testspec](../c/check_testspec.md) (via qsort)
   - STEP_RETRY macro usage
 
 ## Notes and Other Information

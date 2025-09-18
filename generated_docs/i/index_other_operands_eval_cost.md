@@ -28,11 +28,11 @@ This function analyzes index qualification expressions to determine the computat
   - ScalarArrayOpExpr
   - NullTest
   - nodeTag
-  - cost_qual_eval_node
+  - [cost_qual_eval_node](../c/cost_qual_eval_node.md)
 - Called from (representative examples):
-  - genericcostestimate
-  - gincostestimate
-  - brincostestimate
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [gincostestimate](../g/gincostestimate.md)
+  - [brincostestimate](../b/brincostestimate.md)
 
 ## Notes and Other Information
 This function is a key component in PostgreSQL's cost-based query optimizer, specifically for index access method costing. It differentiates between different expression types that can appear in index clauses and handles RestrictInfo wrappers that may be present around the actual clauses. The function assumes that operands are evaluated just once per scan rather than per row, which is appropriate for index qualification evaluation. For unsupported clause types, it raises an ERROR, ensuring that all expected index clause formats are explicitly handled. The cost calculation includes both startup and per-tuple components, reflecting the complete cost of operand evaluation during index scanning.

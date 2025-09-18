@@ -25,10 +25,10 @@ This is part of PostgreSQL's background worker notification system that allows r
 - Functions called/Symbols referenced:
   - dlist_foreach (list iteration macro)
   - dlist_container (container extraction macro)
-  - Backend (structure type)
-  - dlist_iter (iterator type)
+  - [Backend](../B/Backend.md) (structure type)
+  - [dlist_iter](../d/dlist_iter.md) (iterator type)
 - Called from (representative examples):
-  - BackgroundWorkerStateChange
+  - [BackgroundWorkerStateChange](../B/BackgroundWorkerStateChange.md)
   - POSTMASTER_FD_OWN (referenced in header)
 
 ## Notes and Other Information

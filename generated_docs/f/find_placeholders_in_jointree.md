@@ -21,10 +21,10 @@ This function is a crucial step in query planning that ensures all PlaceHolderVa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_placeholders_recurse (for recursive jointree traversal)
+  - [find_placeholders_recurse](find_placeholders_recurse.md) (for recursive jointree traversal)
   - FromExpr (join tree node type validation)
 - Called from (representative examples):
-  - query_planner (in planmain.c)
+  - [query_planner](../q/query_planner.md) (in planmain.c)
 
 ## Notes and Other Information
 - Must be called before placeholdersFrozen is set to true

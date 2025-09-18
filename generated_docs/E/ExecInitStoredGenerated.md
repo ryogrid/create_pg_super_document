@@ -32,17 +32,17 @@ The function performs dependency analysis to avoid unnecessary computation when 
 - Functions called/Symbols referenced:
   - CmdType
   - CMD_UPDATE
-  - ExecGetUpdatedCols
+  - [ExecGetUpdatedCols](ExecGetUpdatedCols.md)
   - ATTRIBUTE_GENERATED_STORED
-  - build_column_default
-  - pull_varattnos
-  - bms_overlap
-  - ExecPrepareExpr
-  - bms_add_member
+  - [build_column_default](../b/build_column_default.md)
+  - [pull_varattnos](../p/pull_varattnos.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [ExecPrepareExpr](ExecPrepareExpr.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - ExecGetExtraUpdatedCols
-  - ExecComputeStoredGenerated
+  - [ExecGetExtraUpdatedCols](ExecGetExtraUpdatedCols.md)
+  - [ExecComputeStoredGenerated](ExecComputeStoredGenerated.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's generated columns feature implementation

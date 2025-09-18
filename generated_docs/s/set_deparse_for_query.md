@@ -20,17 +20,17 @@ This function provides a comprehensive initialization of a deparse_namespace str
 ## Dependencies
 - Functions called/Symbols referenced:
   - deparse_namespace
-  - set_rtable_names
+  - [set_rtable_names](set_rtable_names.md)
   - deparse_columns
-  - has_dangerous_join_using
-  - set_using_names
-  - set_join_column_names
-  - set_relation_column_names
+  - [has_dangerous_join_using](../h/has_dangerous_join_using.md)
+  - [set_using_names](set_using_names.md)
+  - [set_join_column_names](set_join_column_names.md)
+  - [set_relation_column_names](set_relation_column_names.md)
   - forboth
 - Called from (representative examples):
-  - make_ruledef
-  - get_query_def
-  - get_name_for_var_field
+  - [make_ruledef](../m/make_ruledef.md)
+  - [get_query_def](../g/get_query_def.md)
+  - [get_name_for_var_field](../g/get_name_for_var_field.md)
 
 ## Notes and Other Information
 - Initializes the deparse_namespace struct from scratch using memset

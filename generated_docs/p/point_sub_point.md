@@ -19,14 +19,14 @@ This function computes the difference between two Point structures by subtractin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_construct
-  - float8_mi
-  - Point (data type)
+  - [point_construct](point_construct.md)
+  - [float8_mi](../f/float8_mi.md)
+  - [Point](../P/Point.md) (data type)
 - Called from (representative examples):
-  - point_sub
-  - box_sub
-  - path_sub_pt
-  - circle_sub_pt
+  - [point_sub](point_sub.md)
+  - [box_sub](../b/box_sub.md)
+  - [path_sub_pt](path_sub_pt.md)
+  - [circle_sub_pt](../c/circle_sub_pt.md)
 
 ## Notes and Other Information
 - This is a static inline function for internal use within the geometric operations module

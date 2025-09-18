@@ -28,19 +28,19 @@ The function performs several key operations:
 - Functions called/Symbols referenced:
   - table_open
   - SearchSysCacheCopy1
-  - GetForeignServer
-  - GetForeignDataWrapper
-  - SysCacheGetAttr
-  - transformGenericOptions
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - CacheInvalidateRelcache
+  - [GetForeignServer](../G/GetForeignServer.md)
+  - [GetForeignDataWrapper](../G/GetForeignDataWrapper.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [transformGenericOptions](../t/transformGenericOptions.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - InvokeObjectPostAlterHook
   - table_close
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - This function is specifically for foreign tables only - it will error if called on a non-foreign table

@@ -28,14 +28,14 @@ Ranges is the in-memory representation used by BRIN minmax-multi indexes for eff
 - Constants referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Used extensively by functions:
-  - AssertCheckRanges
-  - minmax_multi_init
-  - range_deduplicate_values
-  - brin_range_serialize/deserialize
-  - has_matching_range
-  - range_contains_value
-  - range_add_value
-  - compactify_ranges
+  - [AssertCheckRanges](../A/AssertCheckRanges.md)
+  - [minmax_multi_init](../m/minmax_multi_init.md)
+  - [range_deduplicate_values](../r/range_deduplicate_values.md)
+  - [brin_range_serialize](../b/brin_range_serialize.md)/deserialize
+  - [has_matching_range](../h/has_matching_range.md)
+  - [range_contains_value](../r/range_contains_value.md)
+  - [range_add_value](../r/range_add_value.md)
+  - [compactify_ranges](../c/compactify_ranges.md)
   - brin_minmax_multi_* functions
 
 ## Notes and Other Information

@@ -26,10 +26,10 @@ The comparison uses the PostgreSQL function call interface (FunctionCall2Coll) w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll (used multiple times for comparisons)
-  - DatumGetBool (to extract boolean results from comparison functions)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (used multiple times for comparisons)
+  - [DatumGetBool](../D/DatumGetBool.md) (to extract boolean results from comparison functions)
 - Called from (representative examples):
-  - sort_expanded_ranges (used as comparison function for qsort)
+  - [sort_expanded_ranges](../s/sort_expanded_ranges.md) (used as comparison function for qsort)
 
 ## Notes and Other Information
 - Returns standard comparison function values: -1 (a < b), 0 (a == b), 1 (a > b)

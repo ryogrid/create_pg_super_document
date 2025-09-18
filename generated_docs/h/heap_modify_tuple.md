@@ -30,16 +30,16 @@ The function uses a linear O(N) approach by deforming the entire tuple upfront r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (for temporary arrays)
-  - heap_deform_tuple
-  - heap_form_tuple
-  - pfree (cleanup of temporary arrays)
+  - [palloc](../p/palloc.md) (for temporary arrays)
+  - [heap_deform_tuple](heap_deform_tuple.md)
+  - [heap_form_tuple](heap_form_tuple.md)
+  - [pfree](../p/pfree.md) (cleanup of temporary arrays)
 - Called from (representative examples):
-  - SetDefaultACL
+  - [SetDefaultACL](../S/SetDefaultACL.md)
   - ExecGrant_* functions
   - Various ALTER commands (AlterRole, AlterDatabase, etc.)
-  - plperl_modify_tuple
-  - PLy_modify_tuple
+  - [plperl_modify_tuple](../p/plperl_modify_tuple.md)
+  - [PLy_modify_tuple](../P/PLy_modify_tuple.md)
 
 ## Notes and Other Information
 - Creates a completely new tuple rather than modifying the original in-place

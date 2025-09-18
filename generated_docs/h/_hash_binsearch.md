@@ -20,16 +20,16 @@ The algorithm maintains a loop invariant where the desired position is always be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - FirstOffsetNumber
   - OffsetNumberIsValid
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - _hash_get_indextuple_hashkey
 - Called from (representative examples):
-  - _hash_pgaddtup
-  - _hash_pgaddmultitup
-  - _hash_readpage
+  - [_hash_pgaddtup](_hash_pgaddtup.md)
+  - [_hash_pgaddmultitup](_hash_pgaddmultitup.md)
+  - [_hash_readpage](_hash_readpage.md)
 
 ## Notes and Other Information
 The function assumes that index tuples on the page are already sorted by hash key, which is a fundamental requirement for hash indexes. The binary search approach provides O(log n) time complexity for finding the correct position, making it efficient even for pages with many index tuples. The returned offset can be used directly for insertion operations or as a starting point for sequential searches.

@@ -24,11 +24,11 @@ This forwarding mechanism is crucial for maintaining the integrity of multi-stag
   - bbsink_end_archive
   - bbsink (type reference)
 - Called from (representative examples):
-  - bbsink_gzip_end_archive (src/backend/backup/basebackup_gzip.c:270)
-  - bbsink_lz4_end_archive (src/backend/backup/basebackup_lz4.c:266)
-  - bbsink_progress_end_archive (src/backend/backup/basebackup_progress.c:131)
-  - bbsink_server_end_archive (src/backend/backup/basebackup_server.c:216)
-  - bbsink_zstd_end_archive (src/backend/backup/basebackup_zstd.c:275)
+  - [bbsink_gzip_end_archive](bbsink_gzip_end_archive.md) (src/backend/backup/basebackup_gzip.c:270)
+  - [bbsink_lz4_end_archive](bbsink_lz4_end_archive.md) (src/backend/backup/basebackup_lz4.c:266)
+  - [bbsink_progress_end_archive](bbsink_progress_end_archive.md) (src/backend/backup/basebackup_progress.c:131)
+  - [bbsink_server_end_archive](bbsink_server_end_archive.md) (src/backend/backup/basebackup_server.c:216)
+  - [bbsink_zstd_end_archive](bbsink_zstd_end_archive.md) (src/backend/backup/basebackup_zstd.c:275)
 
 ## Notes and Other Information
 - The function performs an assertion to ensure that bbs_next is properly initialized before forwarding

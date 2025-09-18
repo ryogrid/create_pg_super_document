@@ -69,15 +69,15 @@ views: ScanDirection indicating whether to scan forward or backward
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_first (initializes scan and gets first tuple)
-  - _bt_next (advances scan to next tuple)
-  - _bt_start_prim_scan (starts new primitive scan for array keys)
+  - [_bt_first](_bt_first.md) (initializes scan and gets first tuple)
+  - [_bt_next](_bt_next.md) (advances scan to next tuple)
+  - [_bt_start_prim_scan](_bt_start_prim_scan.md) (starts new primitive scan for array keys)
   - BTScanPosIsValid (checks if scan position is valid)
   - BTScanOpaque, IndexScanDesc, ScanDirection (type definitions)
   - MaxTIDsPerBTreePage (constant for killed items array sizing)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - bthandler (registered as amgettuple callback)
+  - [bthandler](bthandler.md) (registered as amgettuple callback)
   - Index scan execution in query processing
 
 ## Notes and Other Information

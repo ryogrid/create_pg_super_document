@@ -21,19 +21,19 @@ This function is responsible for constructing GIN pending-list pages during fast
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinInitBuffer
+  - [GinInitBuffer](../G/GinInitBuffer.md)
   - PageAddItem
   - GinPageGetOpaque
   - GinPageSetFullRow
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - XLogInsert
-  - PageGetExactFreeSpace
-  - UnlockReleaseBuffer
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageGetExactFreeSpace](../P/PageGetExactFreeSpace.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - makeSublist
+  - [makeSublist](../m/makeSublist.md)
 
 ## Notes and Other Information
 - Operates within START_CRIT_SECTION/END_CRIT_SECTION for atomic operations

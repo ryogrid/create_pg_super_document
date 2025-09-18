@@ -19,8 +19,8 @@ ResetReindexProcessing is a static function that clears the global reindexing st
 - Functions called/Symbols referenced:
   - None (only uses global variables and constants)
 - Called from (representative examples):
-  - reindex_index
-  - IndexCheckExclusion
+  - [reindex_index](../r/reindex_index.md)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md)
   - SerializedReindexState
 
 ## Notes and Other Information

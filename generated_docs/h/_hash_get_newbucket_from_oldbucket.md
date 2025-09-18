@@ -28,8 +28,8 @@ The caller must ensure that no more than one split has occurred from the old buc
 - Referenced types:
   - Bucket
 - Called from (representative examples):
-  - hashbucketcleanup
-  - _hash_get_newblock_from_oldbucket
+  - [hashbucketcleanup](hashbucketcleanup.md)
+  - [_hash_get_newblock_from_oldbucket](_hash_get_newblock_from_oldbucket.md)
 
 ## Notes and Other Information
 The function uses the CALC_NEW_BUCKET macro which performs the core operation of OR'ing the old bucket with the most significant bit of the lowmask. The two-step process (trying current lowmask, then shifting right if needed) ensures that the function always returns a valid new bucket number within the current table boundaries. This is crucial for maintaining consistency during hash table expansion operations.

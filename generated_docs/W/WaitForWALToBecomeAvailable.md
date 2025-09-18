@@ -38,19 +38,19 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckForStandbyTrigger
-  - XLogShutdownWalRcv
-  - WalRcvStreaming
-  - XLogFileReadAnyTLI
-  - RequestXLogStreaming
-  - GetWalRcvFlushRecPtr
-  - WaitLatch
-  - rescanLatestTimeLine
-  - tliOfPointInHistory
-  - readTimeLineHistory
-  - HandleStartupProcInterrupts
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
+  - [XLogShutdownWalRcv](../X/XLogShutdownWalRcv.md)
+  - [WalRcvStreaming](WalRcvStreaming.md)
+  - [XLogFileReadAnyTLI](../X/XLogFileReadAnyTLI.md)
+  - [RequestXLogStreaming](../R/RequestXLogStreaming.md)
+  - [GetWalRcvFlushRecPtr](../G/GetWalRcvFlushRecPtr.md)
+  - [WaitLatch](WaitLatch.md)
+  - [rescanLatestTimeLine](../r/rescanLatestTimeLine.md)
+  - [tliOfPointInHistory](../t/tliOfPointInHistory.md)
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md)
 - Called from (representative examples):
-  - XLogPageRead
+  - [XLogPageRead](../X/XLogPageRead.md)
 
 ## Notes and Other Information
 - Returns XLREAD_SUCCESS when WAL becomes available, XLREAD_FAIL on permanent failure, or XLREAD_WOULDBLOCK for non-blocking operations

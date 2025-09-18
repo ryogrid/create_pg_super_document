@@ -21,17 +21,17 @@ The  function is a specialized JSONPath execution function that operates on arra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeAnyItem
-  - JsonPathExecContext (type)
+  - [executeAnyItem](executeAnyItem.md)
+  - [JsonPathExecContext](../J/JsonPathExecContext.md) (type)
   - JsonPathItem (type)
-  - JsonValueList (type)
+  - [JsonValueList](../J/JsonValueList.md) (type)
   - jbvBinary (enum value)
   - jbvArray (enum value)
-  - JsonPathExecResult (return type)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (return type)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget
-  - executeItemOptUnwrapResult
-  - executeNumericItemMethod
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)
+  - [executeItemOptUnwrapResult](executeItemOptUnwrapResult.md)
+  - [executeNumericItemMethod](executeNumericItemMethod.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c

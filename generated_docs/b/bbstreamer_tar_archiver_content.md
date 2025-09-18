@@ -34,9 +34,9 @@ The function maintains state through the rearchive_member flag to coordinate hea
 ## Dependencies
 - Functions called/Symbols referenced:
   - tarCreateHeader (creates tar file headers)
-  - tarPaddingBytesRequired (calculates padding needed)
+  - [tarPaddingBytesRequired](../t/tarPaddingBytesRequired.md) (calculates padding needed)
   - time (gets current timestamp)
-  - bbstreamer_content (forwards processed data to next streamer)
+  - [bbstreamer_content](bbstreamer_content.md) (forwards processed data to next streamer)
   - memset (zeroes memory for padding/trailers)
 - Called from (representative examples):
   - Via bbstreamer_tar_archiver_ops.content function pointer
@@ -44,6 +44,6 @@ The function maintains state through the rearchive_member flag to coordinate hea
 ## Notes and Other Information
 - Uses a local buffer of 2 * TAR_BLOCK_SIZE for constructing headers and trailers
 - The rearchive_member flag ensures trailer padding is recalculated only when headers are regenerated
-- Archive trailers are always normalized to two zero blocks regardless of input
+- [Archive](../A/Archive.md) trailers are always normalized to two zero blocks regardless of input
 - All tar format requirements (block alignment, proper headers) are enforced
 - Part of PostgreSQL's backup streaming system for creating reliable tar archives

@@ -23,11 +23,11 @@ The function first attempts to double the buffer size repeatedly until it can ac
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc (standard C library function for memory reallocation)
-  - appendPQExpBufferStr (adds error message to connection's error buffer)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (adds error message to connection's error buffer)
 - Called from (representative examples):
-  - pqPutMsgStart (when starting a new protocol message)
-  - pqPutMsgBytes (when adding data to the output buffer)
-  - PQputCopyData (when writing COPY data)
+  - [pqPutMsgStart](pqPutMsgStart.md) (when starting a new protocol message)
+  - [pqPutMsgBytes](pqPutMsgBytes.md) (when adding data to the output buffer)
+  - [PQputCopyData](../P/PQputCopyData.md) (when writing COPY data)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure (memory allocation error)

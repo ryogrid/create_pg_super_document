@@ -28,8 +28,8 @@ Both LC_COLLATE and LC_CTYPE are validated separately against the chosen encodin
   - superuser
   - Constants: PG_SQL_ASCII, PG_UTF8
 - Called from (representative examples):
-  - createdb
-  - DefineCollation
+  - [createdb](createdb.md)
+  - [DefineCollation](../D/DefineCollation.md)
 
 ## Notes and Other Information
 - Policy must be kept synchronized with initdb to ensure consistency during database cluster initialization

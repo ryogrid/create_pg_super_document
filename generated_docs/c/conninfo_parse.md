@@ -31,16 +31,16 @@ The function supports two value formats:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conninfo_init
-  - libpq_append_error
-  - PQconninfoFree
-  - conninfo_storeval
-  - conninfo_add_defaults
+  - [conninfo_init](conninfo_init.md)
+  - [libpq_append_error](../l/libpq_append_error.md)
+  - [PQconninfoFree](../P/PQconninfoFree.md)
+  - [conninfo_storeval](conninfo_storeval.md)
+  - [conninfo_add_defaults](conninfo_add_defaults.md)
   - strdup, free (standard C library functions)
   - isspace (standard C library function)
 - Called from (representative examples):
   - internalPQconninfoOption (src/interfaces/libpq/fe-connect.c:413)
-  - parse_connection_string (src/interfaces/libpq/fe-connect.c:5807)
+  - [parse_connection_string](../p/parse_connection_string.md) (src/interfaces/libpq/fe-connect.c:5807)
 
 ## Notes and Other Information
 - This is a static function, meaning it's internal to the fe-connect.c file

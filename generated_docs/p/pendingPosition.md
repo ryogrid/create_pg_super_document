@@ -25,12 +25,12 @@ This structure is primarily used during GIN index scans when processing entries 
 - Functions called/Symbols referenced:
   - Buffer (buffer management type)
   - OffsetNumber (page offset type)
-  - ItemPointerData (heap tuple identifier type)
+  - [ItemPointerData](../I/ItemPointerData.md) (heap tuple identifier type)
 
 - Called from (representative examples):
-  - scanGetCandidate (src/backend/access/gin/ginget.c:1454)
-  - collectMatchesForHeapRow (src/backend/access/gin/ginget.c:1609)
-  - scanPendingInsert (src/backend/access/gin/ginget.c:1831)
+  - [scanGetCandidate](../s/scanGetCandidate.md) (src/backend/access/gin/ginget.c:1454)
+  - [collectMatchesForHeapRow](../c/collectMatchesForHeapRow.md) (src/backend/access/gin/ginget.c:1609)
+  - [scanPendingInsert](../s/scanPendingInsert.md) (src/backend/access/gin/ginget.c:1831)
 
 ## Notes and Other Information
 - This structure is used exclusively within the GIN access method implementation for managing pending list scans

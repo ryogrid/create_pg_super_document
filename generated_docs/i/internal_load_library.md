@@ -31,13 +31,13 @@ This is a static function that serves as the underlying implementation for both 
   - dlerror
   - dlsym
   - dlclose
-  - incompatible_module_error
+  - [incompatible_module_error](incompatible_module_error.md)
   - PG_MAGIC_FUNCTION_NAME_STRING
   - Pg_magic_struct
 - Called from (representative examples):
-  - load_external_function
-  - load_file
-  - RestoreLibraryState
+  - [load_external_function](../l/load_external_function.md)
+  - [load_file](../l/load_file.md)
+  - [RestoreLibraryState](../R/RestoreLibraryState.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's dynamic function management system located in src/backend/utils/fmgr/dfmgr.c

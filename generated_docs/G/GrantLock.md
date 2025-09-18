@@ -33,10 +33,10 @@ The function is designed to be called after conflict checking has determined tha
   - LOCKBIT_OFF (macro for clearing lock mode bits)  
   - LOCK_PRINT (debugging macro)
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
   - ProcSleep
   - ProcLockWakeup
-  - FastPathTransferRelationLocks
+  - [FastPathTransferRelationLocks](../F/FastPathTransferRelationLocks.md)
   - VirtualXactLock
 
 ## Notes and Other Information

@@ -26,16 +26,16 @@ The function requires that the provided TupleDesc matches the one used during th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_current_execution_context
-  - PLy_get_scratch_context
-  - MemoryContextReset
-  - MemoryContextSwitchTo
-  - PLyDict_FromTuple
+  - [PLy_current_execution_context](PLy_current_execution_context.md)
+  - [PLy_get_scratch_context](PLy_get_scratch_context.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [PLyDict_FromTuple](PLyDict_FromTuple.md)
 - Called from (representative examples):
-  - PLy_cursor_iternext
-  - PLy_cursor_fetch
-  - PLy_trigger_build_args
-  - PLy_spi_execute_fetch_result
+  - [PLy_cursor_iternext](PLy_cursor_iternext.md)
+  - [PLy_cursor_fetch](PLy_cursor_fetch.md)
+  - [PLy_trigger_build_args](PLy_trigger_build_args.md)
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md)
 
 ## Notes and Other Information
 - Uses the same scratch memory context strategy as PLy_input_convert to ensure proper memory management

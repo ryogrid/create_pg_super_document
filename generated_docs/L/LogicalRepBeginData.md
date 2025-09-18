@@ -25,8 +25,8 @@ The final_lsn field is particularly important as it represents the LSN where the
   - TimestampTz (PostgreSQL timestamp with timezone type)
   - TransactionId (PostgreSQL transaction identifier type)
 - Called from (representative examples):
-  - logicalrep_read_begin
-  - apply_handle_begin
+  - [logicalrep_read_begin](../l/logicalrep_read_begin.md)
+  - [apply_handle_begin](../a/apply_handle_begin.md)
 
 ## Notes and Other Information
 - This structure marks the beginning of a transaction in the logical replication stream

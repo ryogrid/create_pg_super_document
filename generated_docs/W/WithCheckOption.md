@@ -27,14 +27,14 @@ The qual field contains the constraint expression that must evaluate to true for
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag
-  - WCOKind
-  - Node
+  - [WCOKind](WCOKind.md)
+  - [Node](../N/Node.md)
 - Called from (representative examples):
-  - ExecWithCheckOptions
-  - ExecInitModifyTable
-  - ExecInitMerge
-  - rewriteTargetView
-  - subquery_planner
+  - [ExecWithCheckOptions](../E/ExecWithCheckOptions.md)
+  - [ExecInitModifyTable](../E/ExecInitModifyTable.md)
+  - [ExecInitMerge](../E/ExecInitMerge.md)
+  - [rewriteTargetView](../r/rewriteTargetView.md)
+  - [subquery_planner](../s/subquery_planner.md)
   - Row Level Security functions
 
 ## Notes and Other Information

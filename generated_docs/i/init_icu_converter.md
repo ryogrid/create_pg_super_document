@@ -25,18 +25,18 @@ This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_encoding_name_for_icu (maps PostgreSQL encoding to ICU encoding name)
-  - GetDatabaseEncoding (gets current database encoding)
+  - [get_encoding_name_for_icu](../g/get_encoding_name_for_icu.md) (maps PostgreSQL encoding to ICU encoding name)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current database encoding)
   - pg_encoding_to_char (converts encoding ID to string for error messages)
   - ucnv_open (ICU function to create converter)
   - u_errorName (ICU function to get error name string)
 - Called from (representative examples):
   - collation_cache_entry (during collation initialization)
-  - pg_strncoll_icu_no_utf8 (string collation operations)
-  - pg_strnxfrm_icu (string transformation operations)
-  - pg_strnxfrm_prefix_icu_no_utf8 (prefix transformation operations)
-  - icu_to_uchar (character conversion to Unicode)
-  - icu_from_uchar (character conversion from Unicode)
+  - [pg_strncoll_icu_no_utf8](../p/pg_strncoll_icu_no_utf8.md) (string collation operations)
+  - [pg_strnxfrm_icu](../p/pg_strnxfrm_icu.md) (string transformation operations)
+  - [pg_strnxfrm_prefix_icu_no_utf8](../p/pg_strnxfrm_prefix_icu_no_utf8.md) (prefix transformation operations)
+  - [icu_to_uchar](icu_to_uchar.md) (character conversion to Unicode)
+  - [icu_from_uchar](icu_from_uchar.md) (character conversion from Unicode)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_locale.c file

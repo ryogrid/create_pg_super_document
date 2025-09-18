@@ -21,10 +21,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - before_shmem_exit
-  - ReplicationSlotShmemExit
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [ReplicationSlotShmemExit](ReplicationSlotShmemExit.md)
 - Called from (representative examples):
-  - BaseInit
+  - [BaseInit](../B/BaseInit.md)
 
 ## Notes and Other Information
 - This is a lightweight function that only registers a callback, performing no immediate slot operations

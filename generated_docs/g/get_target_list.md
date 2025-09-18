@@ -30,19 +30,19 @@ The function uses a temporary buffer to format each target entry before deciding
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_variable (get text for Var nodes with proper whole-row handling)
+  - [get_variable](get_variable.md) (get text for Var nodes with proper whole-row handling)
   - get_rule_expr (get text for general expression nodes)
-  - quote_identifier (properly quote SQL identifiers)
+  - [quote_identifier](../q/quote_identifier.md) (properly quote SQL identifiers)
   - resetStringInfo (clear temporary string buffer)
   - removeStringInfoSpaces (formatting utility)
   - appendContextKeyword (add keywords with proper indentation)
   - appendBinaryStringInfo (append formatted text to output buffer)
 - Called from (representative examples):
-  - get_basic_select_query (src/backend/utils/adt/ruleutils.c:5960)
-  - get_insert_query_def (src/backend/utils/adt/ruleutils.c:6853)
-  - get_update_query_def (src/backend/utils/adt/ruleutils.c:6909)
-  - get_delete_query_def (src/backend/utils/adt/ruleutils.c:7112)
-  - get_merge_query_def (src/backend/utils/adt/ruleutils.c:7275)
+  - [get_basic_select_query](get_basic_select_query.md) (src/backend/utils/adt/ruleutils.c:5960)
+  - [get_insert_query_def](get_insert_query_def.md) (src/backend/utils/adt/ruleutils.c:6853)
+  - [get_update_query_def](get_update_query_def.md) (src/backend/utils/adt/ruleutils.c:6909)
+  - [get_delete_query_def](get_delete_query_def.md) (src/backend/utils/adt/ruleutils.c:7112)
+  - [get_merge_query_def](get_merge_query_def.md) (src/backend/utils/adt/ruleutils.c:7275)
 
 ## Notes and Other Information
 - Critical component of PostgreSQL's rule decompilation system

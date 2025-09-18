@@ -20,13 +20,13 @@ This function provides a type-safe way to determine if a clause represents a fun
   - FuncExpr (node type)
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - clause_selectivity_ext
-  - clause_is_strict_for
-  - array_unnest_support
-  - generate_series_int4_support
-  - generate_series_int8_support
-  - like_regex_support
-  - network_subset_support
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
+  - [clause_is_strict_for](../c/clause_is_strict_for.md)
+  - [array_unnest_support](../a/array_unnest_support.md)
+  - [generate_series_int4_support](../g/generate_series_int4_support.md)
+  - [generate_series_int8_support](../g/generate_series_int8_support.md)
+  - [like_regex_support](../l/like_regex_support.md)
+  - [network_subset_support](../n/network_subset_support.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in nodeFuncs.h, making it available to any file that includes this header

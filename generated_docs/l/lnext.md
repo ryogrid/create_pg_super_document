@@ -21,13 +21,13 @@ The function increments the cell pointer and validates that the result is still 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (for bounds checking)
-  - List structure (implicitly referenced through pointer arithmetic)
+  - [List](../L/List.md) structure (implicitly referenced through pointer arithmetic)
 - Called from (representative examples):
-  - SendRowDescriptionMessage
-  - ConstructTupleDescriptor
-  - ExecLockRows
-  - transformUpdateTargetList
-  - pg_get_indexdef_worker
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
+  - [ConstructTupleDescriptor](../C/ConstructTupleDescriptor.md)
+  - [ExecLockRows](../E/ExecLockRows.md)
+  - [transformUpdateTargetList](../t/transformUpdateTargetList.md)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md)
 
 ## Notes and Other Information
 - This is an inline function defined in  for optimal performance

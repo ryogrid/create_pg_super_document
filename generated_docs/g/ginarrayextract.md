@@ -22,11 +22,11 @@ The function creates a copy of the input array to ensure data persistence during
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P_COPY (macro for getting array argument)
-  - get_typlenbyvalalign (gets type information for array elements)
+  - [get_typlenbyvalalign](get_typlenbyvalalign.md) (gets type information for array elements)
   - ARR_ELEMTYPE (macro to get array element type)
-  - deconstruct_array (decomposes array into elements and null flags)
+  - [deconstruct_array](../d/deconstruct_array.md) (decomposes array into elements and null flags)
 - Called from:
-  - ginarrayextract_2args (wrapper function for 2-argument version)
+  - [ginarrayextract_2args](ginarrayextract_2args.md) (wrapper function for 2-argument version)
 
 ## Notes and Other Information
 - The function makes a copy of the input array to ensure it remains available during index operations

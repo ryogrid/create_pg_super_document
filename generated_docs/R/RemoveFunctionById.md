@@ -27,17 +27,17 @@ This function is typically called by the dependency system during DROP operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - Form_pg_proc
   - GETSTRUCT
-  - CatalogTupleDelete
-  - ReleaseSysCache
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [ReleaseSysCache](ReleaseSysCache.md)
   - table_close
-  - pgstat_drop_function
+  - [pgstat_drop_function](../p/pgstat_drop_function.md)
   - PROKIND_AGGREGATE
 - Called from (representative examples):
-  - doDeletion (dependency.c:1388)
+  - [doDeletion](../d/doDeletion.md) (dependency.c:1388)
 
 ## Notes and Other Information
 - This function is used for both regular functions and aggregates since both use pg_proc as their primary catalog table

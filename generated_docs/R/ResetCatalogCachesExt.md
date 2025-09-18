@@ -21,14 +21,14 @@ The function supports both normal cache invalidation operations and debug mode o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResetCatalogCache
+  - [ResetCatalogCache](ResetCatalogCache.md)
   - slist_foreach
   - slist_container
   - CACHE_elog
   - DEBUG2
 - Called from (representative examples):
-  - ResetCatalogCaches
-  - InvalidateSystemCachesExtended
+  - [ResetCatalogCaches](ResetCatalogCaches.md)
+  - [InvalidateSystemCachesExtended](../I/InvalidateSystemCachesExtended.md)
   - Referenced in CatCacheHeader
 
 ## Notes and Other Information

@@ -24,12 +24,12 @@ The data array dimension calculation ensures that the entire BLCKSZ page is cove
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageHeaderData (standard page header structure)
+  - [PageHeaderData](PageHeaderData.md) (standard page header structure)
   - BLCKSZ (system constant for block size)
   - N_SUMS (constant defining parallel checksum streams)
 - Called from (representative examples):
-  - pg_checksum_block (uses data array for checksum computation)
-  - pg_checksum_page (casts page pointer to this type)
+  - [pg_checksum_block](../p/pg_checksum_block.md) (uses data array for checksum computation)
+  - [pg_checksum_page](../p/pg_checksum_page.md) (casts page pointer to this type)
 
 ## Notes and Other Information
 - Union design ensures strict aliasing compliance while enabling efficient checksum computation

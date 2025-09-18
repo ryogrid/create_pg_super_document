@@ -21,7 +21,7 @@ Notably, this function simply delegates to `textsend` since the binary represent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - textsend
+  - [textsend](../t/textsend.md)
 - Called from (representative examples):
   - None found in current analysis
 

@@ -21,13 +21,13 @@ The function specifically handles Sort nodes (not IncrementalSort nodes) and cal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_sort (to calculate sorting costs)
+  - [cost_sort](../c/cost_sort.md) (to calculate sorting costs)
   - Sort (plan node type being processed)
 - Called from (representative examples):
-  - create_append_plan
-  - create_merge_append_plan
-  - create_unique_plan
-  - create_mergejoin_plan
+  - [create_append_plan](../c/create_append_plan.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [create_mergejoin_plan](../c/create_mergejoin_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's for internal use within that module

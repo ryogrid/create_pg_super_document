@@ -23,20 +23,20 @@ Key responsibilities include setting up error queues for each worker, serializin
 - Functions called/Symbols referenced:
   - GetTransactionSnapshot (obtains current transaction snapshot)
   - GetActiveSnapshot (obtains current active snapshot)
-  - GetSessionDsmHandle (creates per-session DSM segment)
-  - EstimateLibraryStateSpace, EstimateGUCStateSpace, EstimateTransactionStateSpace (space estimation functions)
-  - EstimatePendingSyncsSpace, EstimateUncommittedEnumsSpace (state size estimation)
-  - SerializeLibraryState, SerializeGUCState, SerializeTransactionState (state serialization functions)
-  - SerializePendingSyncs, SerializeUncommittedEnums (data serialization)
-  - dsm_create, shm_toc_create, shm_toc_allocate (shared memory management)
-  - shm_mq_create, shm_mq_attach (message queue setup)
-  - GetAuthenticatedUserId, GetSessionUserId, GetCurrentRoleId (user context)
+  - [GetSessionDsmHandle](../G/GetSessionDsmHandle.md) (creates per-session DSM segment)
+  - [EstimateLibraryStateSpace](../E/EstimateLibraryStateSpace.md), EstimateGUCStateSpace, EstimateTransactionStateSpace (space estimation functions)
+  - [EstimatePendingSyncsSpace](../E/EstimatePendingSyncsSpace.md), EstimateUncommittedEnumsSpace (state size estimation)
+  - [SerializeLibraryState](../S/SerializeLibraryState.md), SerializeGUCState, SerializeTransactionState (state serialization functions)
+  - [SerializePendingSyncs](../S/SerializePendingSyncs.md), SerializeUncommittedEnums (data serialization)
+  - [dsm_create](../d/dsm_create.md), shm_toc_create, shm_toc_allocate (shared memory management)
+  - [shm_mq_create](../s/shm_mq_create.md), shm_mq_attach (message queue setup)
+  - [GetAuthenticatedUserId](../G/GetAuthenticatedUserId.md), GetSessionUserId, GetCurrentRoleId (user context)
 
 - Called from (representative examples):
-  - _brin_begin_parallel (BRIN index parallel operations)
-  - _bt_begin_parallel (B-tree index parallel operations) 
-  - parallel_vacuum_init (parallel vacuum setup)
-  - ExecInitParallelPlan (parallel query execution setup)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (BRIN index parallel operations)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (B-tree index parallel operations) 
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (parallel vacuum setup)
+  - [ExecInitParallelPlan](../E/ExecInitParallelPlan.md) (parallel query execution setup)
 
 ## Notes and Other Information
 - Falls back to single-process execution if DSM creation fails or interrupt handling is unsafe

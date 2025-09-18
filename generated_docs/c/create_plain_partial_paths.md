@@ -22,11 +22,11 @@ The generated partial path represents an unordered parallel sequential scan that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_parallel_worker (calculates optimal number of parallel workers)
-  - add_partial_path (adds the partial path to relation's pathlist)
-  - create_seqscan_path (creates the parallel sequential scan path)
+  - [compute_parallel_worker](compute_parallel_worker.md) (calculates optimal number of parallel workers)
+  - [add_partial_path](../a/add_partial_path.md) (adds the partial path to relation's pathlist)
+  - [create_seqscan_path](create_seqscan_path.md) (creates the parallel sequential scan path)
 - Called from:
-  - set_plain_rel_pathlist (main pathlist generation for plain relations)
+  - [set_plain_rel_pathlist](../s/set_plain_rel_pathlist.md) (main pathlist generation for plain relations)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c that specifically handles parallel path generation for plain relations

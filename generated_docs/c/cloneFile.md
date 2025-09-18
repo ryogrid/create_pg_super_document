@@ -32,11 +32,11 @@ If cloning fails at any point, the function terminates the program with a fatal 
   - close
   - unlink
   - strerror
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - PG_BINARY
   - pg_file_create_mode
 - Called from (representative examples):
-  - transfer_relfile
+  - [transfer_relfile](../t/transfer_relfile.md)
 
 ## Notes and Other Information
 - The function is conditionally compiled based on platform capabilities (,  for macOS,  and  for Linux)

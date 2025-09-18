@@ -39,10 +39,10 @@ The verification process includes multiple validation checkpoints:
   - close
   - pg_checksum_final
   - memcmp
-  - progress_report
-  - report_backup_error
+  - [progress_report](../p/progress_report.md)
+  - [report_backup_error](../r/report_backup_error.md)
 - Called from (representative examples):
-  - verify_backup_checksums (in pg_verifybackup.c:835)
+  - [verify_backup_checksums](verify_backup_checksums.md) (in pg_verifybackup.c:835)
 
 ## Notes and Other Information
 - This is a static function within pg_verifybackup.c used internally for individual file checksum verification

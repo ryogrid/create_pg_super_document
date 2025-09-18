@@ -35,9 +35,9 @@ The function constructs proper LDAP URIs from the configuration, sets the LDAP p
   - initStringInfo (initializes PostgreSQL string buffer)
   - appendStringInfoString (appends strings to buffer)
   - appendBinaryStringInfo (appends binary data to buffer)
-  - errdetail_for_ldap (provides detailed LDAP error information)
+  - [errdetail_for_ldap](../e/errdetail_for_ldap.md) (provides detailed LDAP error information)
 - Called from (representative examples):
-  - CheckLDAPAuth (referenced in auth.c:2489)
+  - [CheckLDAPAuth](../C/CheckLDAPAuth.md) (referenced in auth.c:2489)
 
 ## Notes and Other Information
 - Supports automatic LDAP server discovery via DNS SRV records when ldapserver is not explicitly configured

@@ -23,12 +23,12 @@ This separation ensures proper cleanup without creating circular dependencies in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
-  - BufferIsValid
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [BufferIsValid](../B/BufferIsValid.md)
   - BufferIsLocal
   - UnpinLocalBufferNoOwner
   - UnpinBufferNoOwner
-  - GetBufferDescriptor
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
   - elog (implicit - for error reporting)
 - Called from (representative examples):
   - ResourceOwner system (callback mechanism)

@@ -29,24 +29,24 @@ The function uses a three-key scan (objectId, classId, provider) to locate exist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
+  - [ScanKeyInit](ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - systable_endscan
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - CStringGetTextDatum
   - RelationGetDescr
   - HeapTupleIsValid
 - Called from (representative examples):
-  - SetSecurityLabel
+  - [SetSecurityLabel](SetSecurityLabel.md)
 
 ## Notes and Other Information
 - This is a static helper function specifically designed for shared objects, complementing the main SetSecurityLabel function

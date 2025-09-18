@@ -22,17 +22,17 @@ The function leverages the robust `hash_bytes` algorithm internally while handli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes
-  - UInt32GetDatum
+  - [hash_bytes](hash_bytes.md)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md)
 - Called from (representative examples):
-  - hashfloat4
-  - hashfloat8
-  - hashtext
-  - hashvarlena
-  - hash_numeric
-  - uuid_hash
-  - hashinet
-  - hashmacaddr
+  - [hashfloat4](hashfloat4.md)
+  - [hashfloat8](hashfloat8.md)
+  - [hashtext](hashtext.md)
+  - [hashvarlena](hashvarlena.md)
+  - [hash_numeric](hash_numeric.md)
+  - [uuid_hash](../u/uuid_hash.md)
+  - [hashinet](hashinet.md)
+  - [hashmacaddr](hashmacaddr.md)
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL's hash infrastructure, serving as the standard entry point for hashing operations on various data types including floating-point numbers, text, network addresses, UUIDs, and numeric types. Its inline implementation ensures minimal overhead when used in performance-critical hash table operations.

@@ -22,10 +22,10 @@ Clearing this flag helps maintain accurate page state information for PostgreSQL
   - PageHeader (cast to access page header structure)
   - PD_HAS_FREE_LINES (flag constant)
 - Called from (representative examples):
-  - mask_page_hint_bits (src/backend/access/common/bufmask.c:55)
+  - [mask_page_hint_bits](../m/mask_page_hint_bits.md) (src/backend/access/common/bufmask.c:55)
   - PageAddItemExtended (src/backend/storage/page/bufpage.c:280)
-  - PageRepairFragmentation (src/backend/storage/page/bufpage.c:812)
-  - PageTruncateLinePointerArray (src/backend/storage/page/bufpage.c:895)
+  - [PageRepairFragmentation](PageRepairFragmentation.md) (src/backend/storage/page/bufpage.c:812)
+  - [PageTruncateLinePointerArray](PageTruncateLinePointerArray.md) (src/backend/storage/page/bufpage.c:895)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

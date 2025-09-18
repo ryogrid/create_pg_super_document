@@ -24,11 +24,11 @@ The function includes safety checks for NULL pointers and stack overflow protect
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - freetree (recursive self-call for subtrees)
-  - pfree (PostgreSQL memory deallocation)
+  - [freetree](freetree.md) (recursive self-call for subtrees)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 - Called from (representative examples):
-  - clean_NOT_intree
-  - clean_stopword_intree
+  - [clean_NOT_intree](../c/clean_NOT_intree.md)
+  - [clean_stopword_intree](../c/clean_stopword_intree.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search query cleanup and optimization system

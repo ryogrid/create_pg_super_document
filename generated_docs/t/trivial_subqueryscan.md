@@ -30,11 +30,11 @@ The function supports scenarios where targetlist entries are constants rather th
 ## Dependencies
 - Functions called/Symbols referenced:
   - forboth: Macro for parallel iteration over two lists
-  - equal: Tests equality between expression nodes
+  - [equal](../e/equal.md): Tests equality between expression nodes
   - SUBQUERY_SCAN_TRIVIAL/NONTRIVIAL/UNKNOWN: Status enumeration values for caching results
 - Called from (representative examples):
-  - set_subqueryscan_references: Primary caller during plan reference adjustment
-  - mark_async_capable_plan: Called during Append plan creation to determine async capability
+  - [set_subqueryscan_references](../s/set_subqueryscan_references.md): Primary caller during plan reference adjustment
+  - [mark_async_capable_plan](../m/mark_async_capable_plan.md): Called during Append plan creation to determine async capability
 
 ## Notes and Other Information
 The caching mechanism is particularly important because the function may be called from  before plan finalization and again from  during reference adjustment. The comments explain why this is safe - the transformations that occur between these calls preserve the properties that affect triviality determination. This optimization is crucial for query performance as it can eliminate entire plan nodes from execution, reducing tuple passing overhead and simplifying the execution tree. The support for Const expressions in addition to Vars makes the function robust for set operations where constant folding may have occurred.

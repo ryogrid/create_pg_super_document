@@ -21,18 +21,18 @@ The function performs a catalog scan on the pg_class relation, filtering by sche
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open: Opens the pg_class system catalog relation
-  - table_beginscan_catalog: Begins a catalog scan with specified scan keys
-  - heap_getnext: Retrieves the next tuple from the scan
-  - is_publishable_class: Checks if a relation class is publishable for logical replication
-  - get_rel_relkind: Gets the relation kind (table, partitioned table, etc.)
-  - GetPubPartitionOptionRelations: Recursively gets partition relations based on publication options
-  - list_concat_unique_oid: Concatenates lists while avoiding duplicates
-  - table_endscan: Ends the table scan
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md): Begins a catalog scan with specified scan keys
+  - [heap_getnext](../h/heap_getnext.md): Retrieves the next tuple from the scan
+  - [is_publishable_class](../i/is_publishable_class.md): Checks if a relation class is publishable for logical replication
+  - [get_rel_relkind](../g/get_rel_relkind.md): Gets the relation kind (table, partitioned table, etc.)
+  - [GetPubPartitionOptionRelations](GetPubPartitionOptionRelations.md): Recursively gets partition relations based on publication options
+  - [list_concat_unique_oid](../l/list_concat_unique_oid.md): Concatenates lists while avoiding duplicates
+  - [table_endscan](../t/table_endscan.md): Ends the table scan
   - table_close: Closes the relation
 - Called from (representative examples):
-  - publication_add_schema: Adds relations when schema is added to publication
-  - GetAllSchemaPublicationRelations: Gets relations for all schemas in publications
-  - RemovePublicationSchemaById: Handles relation cleanup when removing schema from publication
+  - [publication_add_schema](../p/publication_add_schema.md): Adds relations when schema is added to publication
+  - [GetAllSchemaPublicationRelations](GetAllSchemaPublicationRelations.md): Gets relations for all schemas in publications
+  - [RemovePublicationSchemaById](../R/RemovePublicationSchemaById.md): Handles relation cleanup when removing schema from publication
 
 ## Notes and Other Information
 - Requires a valid schema OID as input (checked with Assert)

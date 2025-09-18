@@ -29,13 +29,13 @@ This is particularly useful during recovery when dealing with timeline switches,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readTimeLineHistory
-  - XLogFileRead
+  - [readTimeLineHistory](../r/readTimeLineHistory.md)
+  - [XLogFileRead](XLogFileRead.md)
   - XLByteToSeg
   - XLogFilePath
   - TimeLineHistoryEntry
 - Called from (representative examples):
-  - WaitForWALToBecomeAvailable
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlogrecovery.c module

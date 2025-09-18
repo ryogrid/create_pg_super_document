@@ -17,9 +17,9 @@ This function implements the row iteration logic for JsonTableSiblingJoin plans 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTablePlanNextRow (called recursively on left and right sibling plans)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md) (called recursively on left and right sibling plans)
 - Called from (representative examples):
-  - JsonTablePlanNextRow (dispatcher function for different plan types)
+  - [JsonTablePlanNextRow](JsonTablePlanNextRow.md) (dispatcher function for different plan types)
 
 ## Notes and Other Information
 - Returns true if a row was successfully retrieved from either sibling, false when both siblings are exhausted

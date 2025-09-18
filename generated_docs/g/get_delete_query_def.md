@@ -29,7 +29,7 @@ The output formatting respects pretty-printing preferences specified in the depa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_with_clause
+  - [get_with_clause](get_with_clause.md)
   - rt_fetch
   - only_marker
   - generate_relation_name
@@ -37,9 +37,9 @@ The output formatting respects pretty-printing preferences specified in the depa
   - get_from_clause
   - appendContextKeyword
   - get_rule_expr
-  - get_target_list
+  - [get_target_list](get_target_list.md)
 - Called from:
-  - get_query_def
+  - [get_query_def](get_query_def.md)
 
 ## Notes and Other Information
 - This is a static function within ruleutils.c, part of PostgreSQL's rule decompilation system

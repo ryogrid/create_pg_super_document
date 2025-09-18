@@ -33,10 +33,10 @@ The implementation follows a typical lock-free stack push pattern:
   - dsa_pointer_atomic_read
   - dsa_pointer_atomic_compare_exchange
   - dsa_pointer_atomic (type)
-  - HashJoinTuple (type)
+  - [HashJoinTuple](../H/HashJoinTuple.md) (type)
   - dsa_pointer (type)
 - Called from:
-  - ExecParallelHashRepartitionFirst
+  - [ExecParallelHashRepartitionFirst](ExecParallelHashRepartitionFirst.md)
   - ExecParallelHashIncreaseNumBuckets
   - ExecParallelHashTableInsert
   - ExecParallelHashTableInsertCurrentBatch

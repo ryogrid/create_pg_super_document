@@ -83,22 +83,22 @@ IndexScanDescData is the central structure for managing index scan operations in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapshotData
-  - ScanKeyData  
-  - TupleDescData
-  - IndexFetchTableData
-  - ParallelIndexScanDescData
-  - IndexTuple
+  - [SnapshotData](../S/SnapshotData.md)
+  - [ScanKeyData](../S/ScanKeyData.md)  
+  - [TupleDescData](../T/TupleDescData.md)
+  - [IndexFetchTableData](IndexFetchTableData.md)
+  - [ParallelIndexScanDescData](../P/ParallelIndexScanDescData.md)
+  - [IndexTuple](IndexTuple.md)
   - HeapTuple
-  - ItemPointerData
+  - [ItemPointerData](ItemPointerData.md)
   - Datum
 - Called from (representative examples):
-  - RelationGetIndexScan
-  - IndexScanDesc (typedef)
-  - SysScanDescData
-  - IndexScanState
-  - IndexOnlyScanState
-  - BitmapIndexScanState
+  - [RelationGetIndexScan](../R/RelationGetIndexScan.md)
+  - [IndexScanDesc](IndexScanDesc.md) (typedef)
+  - [SysScanDescData](../S/SysScanDescData.md)
+  - [IndexScanState](IndexScanState.md)
+  - [IndexOnlyScanState](IndexOnlyScanState.md)
+  - [BitmapIndexScanState](../B/BitmapIndexScanState.md)
 
 ## Notes and Other Information
 - Unified structure supporting both tuple-at-a-time and bitmap index scan modes

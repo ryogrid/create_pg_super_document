@@ -30,15 +30,15 @@ The maximum acceptable fuzzy distance is controlled by MAX_FUZZY_DISTANCE (defin
 ## Dependencies
 - Functions called/Symbols referenced:
   - AttrNumber (type from catalog/pg_attribute.h)
-  - RangeTblEntry (type from parsenodes.h)
+  - [RangeTblEntry](../R/RangeTblEntry.md) (type from parsenodes.h)
   - MAX_FUZZY_DISTANCE (constant, value 3)
 
 - Called from (representative examples):
-  - updateFuzzyAttrMatchState - Updates the state with new potential matches
-  - scanRTEForColumn - Scans a single RTE for column matches and updates fuzzy state
-  - colNameToVar - Resolves column references to Var nodes
-  - searchRangeTableForCol - Searches range table for column references
-  - errorMissingColumn - Uses fuzzy state to generate helpful error messages
+  - [updateFuzzyAttrMatchState](../u/updateFuzzyAttrMatchState.md) - Updates the state with new potential matches
+  - [scanRTEForColumn](../s/scanRTEForColumn.md) - Scans a single RTE for column matches and updates fuzzy state
+  - [colNameToVar](../c/colNameToVar.md) - Resolves column references to Var nodes
+  - [searchRangeTableForCol](../s/searchRangeTableForCol.md) - Searches range table for column references
+  - [errorMissingColumn](../e/errorMissingColumn.md) - Uses fuzzy state to generate helpful error messages
 
 ## Notes and Other Information
 - The fuzzy matching algorithm uses Levenshtein distance with equal weights (1,1,1) for insertions, deletions, and substitutions

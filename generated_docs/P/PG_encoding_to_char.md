@@ -26,7 +26,7 @@ The underlying pg_encoding_to_char() function performs a simple array lookup in 
   - pg_encoding_to_char - performs the actual encoding ID to name lookup
   - DirectFunctionCall1 - PostgreSQL function call framework
   - namein - converts C string to PostgreSQL name type
-  - CStringGetDatum - converts C string to PostgreSQL Datum
+  - [CStringGetDatum](../C/CStringGetDatum.md) - converts C string to PostgreSQL Datum
 
 - Called from (representative examples):
   - SQL queries via PostgreSQL function call mechanism

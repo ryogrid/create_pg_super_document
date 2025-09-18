@@ -22,12 +22,12 @@ This design provides flexibility in the isolation testing framework, allowing te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - run_named_permutations (executes explicitly specified permutations)
-  - run_all_permutations (generates and executes all possible permutations)
+  - [run_named_permutations](run_named_permutations.md) (executes explicitly specified permutations)
+  - [run_all_permutations](run_all_permutations.md) (generates and executes all possible permutations)
 - Data structures used:
-  - TestSpec (main test specification structure)
+  - [TestSpec](../T/TestSpec.md) (main test specification structure)
 - Called from:
-  - main (in isolationtester.c)
+  - [main](../m/main.md) (in isolationtester.c)
 
 ## Notes and Other Information
 - Acts as a simple but important routing function in the isolation test execution flow

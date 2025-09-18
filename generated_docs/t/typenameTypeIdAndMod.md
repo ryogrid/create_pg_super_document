@@ -22,16 +22,16 @@ The function handles the syscache management automatically, ensuring proper clea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameType
+  - [typenameType](typenameType.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - BuildDescForRelation
-  - MergeChildAttribute
-  - ATExecAddColumn
-  - ATPrepAlterColumnType
-  - transformTypeCast
-  - transformRangeTableFunc
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [MergeChildAttribute](../M/MergeChildAttribute.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
+  - [transformTypeCast](transformTypeCast.md)
+  - [transformRangeTableFunc](transformRangeTableFunc.md)
 
 ## Notes and Other Information
 This function is preferred over  when the caller only needs the type OID and typmod values, as it handles the syscache cleanup automatically and provides a cleaner interface. It's commonly used in DDL operations, type casting, and other scenarios where type identification is needed without requiring access to the full type catalog information.

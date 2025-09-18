@@ -21,13 +21,13 @@ The function includes an important warning that callers should copy any data the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BuildEventTriggerCache
-  - hash_search
+  - [BuildEventTriggerCache](../B/BuildEventTriggerCache.md)
+  - [hash_search](../h/hash_search.md)
   - HASH_FIND
   - ETCS_VALID
 - Called from (representative examples):
-  - EventTriggerCommonSetup (src/backend/commands/event_trigger.c:680)
-  - trackDroppedObjectsNeeded (src/backend/commands/event_trigger.c:1252-1254)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (src/backend/commands/event_trigger.c:680)
+  - [trackDroppedObjectsNeeded](../t/trackDroppedObjectsNeeded.md) (src/backend/commands/event_trigger.c:1252-1254)
 
 ## Notes and Other Information
 - Returns NIL (empty list) if no triggers are found for the specified event type

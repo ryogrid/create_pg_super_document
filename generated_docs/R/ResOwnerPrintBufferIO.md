@@ -19,8 +19,8 @@ This function serves as a debugging and diagnostic tool, helping developers and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32
-  - psprintf (implicit - used for string formatting)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [psprintf](../p/psprintf.md) (implicit - used for string formatting)
 - Called from (representative examples):
   - ResourceOwner system (callback mechanism for diagnostic output)
 

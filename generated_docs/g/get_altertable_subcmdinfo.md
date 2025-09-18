@@ -27,12 +27,12 @@ The function handles over 40 different ALTER TABLE subcommand types, covering co
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (to extract the CollectedCommand pointer)
   - elog (for error reporting)
-  - InitMaterializedSRF (to initialize set-returning function)
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md) (to initialize set-returning function)
   - castNode (to cast parse tree nodes)
-  - psprintf (for string formatting)
+  - [psprintf](../p/psprintf.md) (for string formatting)
   - CStringGetTextDatum (to convert C strings to PostgreSQL text datums)
   - OidIsValid (to validate object IDs)
-  - getObjectDescription (to generate object descriptions)
+  - [getObjectDescription](getObjectDescription.md) (to generate object descriptions)
   - tuplestore_putvalues (to store result tuples)
 - Enum values referenced (ALTER TABLE subcommand types):
   - AT_AddColumn, AT_DropColumn, AT_AlterColumnType

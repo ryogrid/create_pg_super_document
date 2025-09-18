@@ -21,7 +21,7 @@ The recovery prefetch feature is designed to improve recovery performance by pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogPrefetcher (related structure for prefetching implementation)
+  - [XLogPrefetcher](../X/XLogPrefetcher.md) (related structure for prefetching implementation)
   
 - Used by:
   - recovery_prefetch (GUC variable defined in xlogprefetcher.c:68)

@@ -23,7 +23,7 @@ The function returns a pointer to static memory that contains the background wor
   - LWLockRelease (with BackgroundWorkerLock)
   - strcpy
   - BackgroundWorkerData global structure
-  - BackgroundWorkerSlot structure
+  - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md) structure
 - Called from (representative examples):
   - PG_STAT_GET_ACTIVITY_COLS (in src/backend/utils/adt/pgstatfuncs.c:554)
 

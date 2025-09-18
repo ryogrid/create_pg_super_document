@@ -24,14 +24,14 @@ This approach ensures that all necessary preparation work (such as setting up su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expr_setup_walker (expression tree analysis for setup requirements)
-  - ExecPushExprSetupSteps (generation and addition of setup steps)
-  - ExprSetupInfo (data structure for collecting setup requirements)
+  - [expr_setup_walker](../e/expr_setup_walker.md) (expression tree analysis for setup requirements)
+  - [ExecPushExprSetupSteps](ExecPushExprSetupSteps.md) (generation and addition of setup steps)
+  - [ExprSetupInfo](ExprSetupInfo.md) (data structure for collecting setup requirements)
 - Called from (representative examples):
-  - ExecInitExpr (basic expression initialization)
-  - ExecInitExprWithParams (parameterized expression initialization)
-  - ExecInitQual (qualification expression setup)
-  - ExecBuildProjectionInfo (projection expression setup)
+  - [ExecInitExpr](ExecInitExpr.md) (basic expression initialization)
+  - [ExecInitExprWithParams](ExecInitExprWithParams.md) (parameterized expression initialization)
+  - [ExecInitQual](ExecInitQual.md) (qualification expression setup)
+  - [ExecBuildProjectionInfo](ExecBuildProjectionInfo.md) (projection expression setup)
 
 ## Notes and Other Information
 - This function uses a simple ExprSetupInfo structure initialized to zero to collect setup requirements during the analysis phase

@@ -22,12 +22,12 @@ This logging is essential for Hot Standby operation, as AccessExclusive locks ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionId
-  - LogAccessExclusiveLocks
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [LogAccessExclusiveLocks](LogAccessExclusiveLocks.md)
   - XACT_FLAGS_ACQUIREDACCESSEXCLUSIVELOCK
-  - xl_standby_lock
+  - [xl_standby_lock](../x/xl_standby_lock.md)
 - Called from (representative examples):
-  - LockAcquireExtended
+  - [LockAcquireExtended](LockAcquireExtended.md)
 
 ## Notes and Other Information
 - This function is specifically called during lock acquisition (LockAcquire()) to ensure real-time logging of conflicting locks

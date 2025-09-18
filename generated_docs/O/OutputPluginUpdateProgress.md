@@ -23,16 +23,16 @@ The function performs these operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext (struct access)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (struct access)
   - update_progress (function pointer callback)
 - Called from (representative examples):
-  - update_progress_txn_cb_wrapper
-  - pgoutput_commit_txn
-  - pgoutput_prepare_txn
-  - pgoutput_commit_prepared_txn
-  - pgoutput_rollback_prepared_txn
-  - pgoutput_stream_commit
-  - pgoutput_stream_prepare_txn
+  - [update_progress_txn_cb_wrapper](../u/update_progress_txn_cb_wrapper.md)
+  - [pgoutput_commit_txn](../p/pgoutput_commit_txn.md)
+  - [pgoutput_prepare_txn](../p/pgoutput_prepare_txn.md)
+  - [pgoutput_commit_prepared_txn](../p/pgoutput_commit_prepared_txn.md)
+  - [pgoutput_rollback_prepared_txn](../p/pgoutput_rollback_prepared_txn.md)
+  - [pgoutput_stream_commit](../p/pgoutput_stream_commit.md)
+  - [pgoutput_stream_prepare_txn](../p/pgoutput_stream_prepare_txn.md)
 
 ## Notes and Other Information
 - Progress tracking is optional - plugins can set update_progress to NULL if not supported

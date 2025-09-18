@@ -34,18 +34,18 @@ The function returns an 8-column result set for each available version:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ext_ver_list
-  - read_extension_aux_control_file
+  - [get_ext_ver_list](get_ext_ver_list.md)
+  - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)
   - DirectFunctionCall1
   - namein
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - CStringGetTextDatum
-  - BoolGetDatum
-  - convert_requires_to_datum
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [convert_requires_to_datum](../c/convert_requires_to_datum.md)
   - tuplestore_putvalues
-  - find_install_path
+  - [find_install_path](../f/find_install_path.md)
 - Called from (representative examples):
-  - pg_available_extension_versions
+  - [pg_available_extension_versions](../p/pg_available_extension_versions.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used exclusively by pg_available_extension_versions

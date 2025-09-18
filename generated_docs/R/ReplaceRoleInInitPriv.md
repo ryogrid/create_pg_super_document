@@ -24,20 +24,20 @@ If the role replacement results in an empty ACL, the entire pg_init_privs entry 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close
-  - ScanKeyInit
-  - systable_beginscan/systable_endscan/systable_getnext
-  - heap_getattr
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
+  - [heap_getattr](../h/heap_getattr.md)
   - DatumGetAclPCopy
-  - aclnewowner
+  - [aclnewowner](../a/aclnewowner.md)
   - ACL_NUM
-  - CatalogTupleDelete
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - aclmembers
-  - updateInitAclDependencies
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [aclmembers](../a/aclmembers.md)
+  - [updateInitAclDependencies](../u/updateInitAclDependencies.md)
   - CommandCounterIncrement
 - Called from (representative examples):
-  - shdepReassignOwned_InitAcl
+  - [shdepReassignOwned_InitAcl](../s/shdepReassignOwned_InitAcl.md)
 
 ## Notes and Other Information
 - Specifically designed for role reassignment operations via shdepReassignOwned

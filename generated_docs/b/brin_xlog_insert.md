@@ -20,10 +20,10 @@ This function serves as a wrapper for BRIN index insertion replay operations. It
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extracts the data portion from the WAL record
-  - brin_xlog_insert_update: Shared function that performs the actual insertion work
-  - xl_brin_insert: Structure containing BRIN insertion parameters
+  - [brin_xlog_insert_update](brin_xlog_insert_update.md): Shared function that performs the actual insertion work
+  - [xl_brin_insert](../x/xl_brin_insert.md): Structure containing BRIN insertion parameters
 - Called from (representative examples):
-  - brin_redo: Main BRIN WAL replay dispatcher function
+  - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function
 
 ## Notes and Other Information
 - This is a static function only accessible within the brin_xlog.c file

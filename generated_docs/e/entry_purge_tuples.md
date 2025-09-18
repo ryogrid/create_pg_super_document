@@ -28,13 +28,13 @@ After completion, the entry remains in the cache but contains no tuples and is m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeEntry
-  - MemoizeState
-  - MemoizeTuple
+  - [MemoizeEntry](../M/MemoizeEntry.md)
+  - [MemoizeState](../M/MemoizeState.md)
+  - [MemoizeTuple](../M/MemoizeTuple.md)
   - CACHE_TUPLE_BYTES
 - Called from (representative examples):
-  - remove_cache_entry
-  - ExecMemoize
+  - [remove_cache_entry](../r/remove_cache_entry.md)
+  - [ExecMemoize](../E/ExecMemoize.md)
 
 ## Notes and Other Information
 - The inline keyword indicates this is a performance-critical function

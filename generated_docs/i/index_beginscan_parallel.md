@@ -33,15 +33,15 @@ The function leverages the already-processed `index_beginscan_internal` for the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `RestoreSnapshot` (restores snapshot from serialized data)
+  - `[RestoreSnapshot](../R/RestoreSnapshot.md)` (restores snapshot from serialized data)
   - `RegisterSnapshot` (registers snapshot for transaction management)
-  - `index_beginscan_internal` (core scan initialization)
+  - `[index_beginscan_internal](index_beginscan_internal.md)` (core scan initialization)
   - `table_index_fetch_begin` (initializes heap tuple fetching)
-  - `ParallelIndexScanDesc` (parallel scan descriptor type)
-  - `IndexScanDesc` (scan descriptor type)
+  - `[ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md)` (parallel scan descriptor type)
+  - `[IndexScanDesc](../I/IndexScanDesc.md)` (scan descriptor type)
 - Called from (representative examples):
-  - `ExecIndexOnlyScanInitializeWorker` (src/backend/executor/nodeIndexonlyscan.c:784)
-  - `ExecIndexScanInitializeWorker` (src/backend/executor/nodeIndexscan.c:1717)
+  - `[ExecIndexOnlyScanInitializeWorker](../E/ExecIndexOnlyScanInitializeWorker.md)` (src/backend/executor/nodeIndexonlyscan.c:784)
+  - `[ExecIndexScanInitializeWorker](../E/ExecIndexScanInitializeWorker.md)` (src/backend/executor/nodeIndexscan.c:1717)
 
 ## Notes and Other Information
 - The caller must hold appropriate locks on both heap and index relations before calling this function

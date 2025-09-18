@@ -27,12 +27,12 @@ This structure is essential for pg_dump to accurately recreate publication confi
 - Functions called/Symbols referenced:
   - DumpableObject (inherited base structure)
   - PublicationInfo (referenced via publication pointer)
-  - TableInfo (referenced via pubtable pointer)
+  - [TableInfo](../T/TableInfo.md) (referenced via pubtable pointer)
 - Called from (representative examples):
-  - getPublicationTables (src/bin/pg_dump/pg_dump.c:4526)
-  - dumpPublicationTable (src/bin/pg_dump/pg_dump.c:4697)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10691)
-  - DOTypeNameCompare (src/bin/pg_dump/pg_dump_sort.c:435)
+  - [getPublicationTables](../g/getPublicationTables.md) (src/bin/pg_dump/pg_dump.c:4526)
+  - [dumpPublicationTable](../d/dumpPublicationTable.md) (src/bin/pg_dump/pg_dump.c:4697)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10691)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (src/bin/pg_dump/pg_dump_sort.c:435)
 
 ## Notes and Other Information
 - This structure is specific to pg_dump and is not used in the core PostgreSQL server code

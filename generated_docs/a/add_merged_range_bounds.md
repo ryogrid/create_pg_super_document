@@ -34,14 +34,14 @@ This function adds the bounds of a newly merged partition to the accumulating li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionRangeBound
+  - [PartitionRangeBound](../P/PartitionRangeBound.md)
   - llast_int
   - llast
-  - PartitionRangeDatumKind
-  - partition_rbound_cmp
+  - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md)
+  - [partition_rbound_cmp](../p/partition_rbound_cmp.md)
   - lappend_int
 - Called from (representative examples):
-  - merge_range_bounds
+  - [merge_range_bounds](../m/merge_range_bounds.md)
 
 ## Notes and Other Information
 - This is a static function within partbounds.c used during partition-wise join processing

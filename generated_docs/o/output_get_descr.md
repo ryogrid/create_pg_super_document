@@ -28,14 +28,14 @@ The generated code follows this pattern:
 ## Dependencies
 - Functions called/Symbols referenced:
   - struct assignment (assignment structure for descriptor operations)
-  - find_variable (function to locate variable definitions)
-  - mm_strdup (memory management string duplication)
+  - [find_variable](../f/find_variable.md) (function to locate variable definitions)
+  - [mm_strdup](../m/mm_strdup.md) (memory management string duplication)
   - ECPGd_nullable, ECPGd_key_member (descriptor item type constants)
   - mmerror (error reporting with PARSE_ERROR and ET_WARNING)
-  - get_dtype (function to convert descriptor types to runtime constants)
-  - ECPGdump_a_type (function to generate variable type information)
-  - drop_assignments (function to clean up assignment list)
-  - whenever_action (function to handle WHENEVER clause processing)
+  - [get_dtype](../g/get_dtype.md) (function to convert descriptor types to runtime constants)
+  - [ECPGdump_a_type](../E/ECPGdump_a_type.md) (function to generate variable type information)
+  - [drop_assignments](../d/drop_assignments.md) (function to clean up assignment list)
+  - [whenever_action](../w/whenever_action.md) (function to handle WHENEVER clause processing)
 - Called from (representative examples):
   - No direct callers found in current analysis
 

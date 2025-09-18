@@ -61,16 +61,16 @@ frametail_slot				update_symbol_types.py: Directory array pointing to the start 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HASHHDR (pointed to by hctl)
+  - [HASHHDR](HASHHDR.md) (pointed to by hctl)
   - HASHSEGMENT (pointed to by dir)
 - Called from (representative examples):
-  - hash_create
-  - hash_destroy
-  - hash_search
-  - hash_search_with_hash_value
-  - hash_seq_init
-  - hash_freeze
-  - expand_table
+  - [hash_create](../h/hash_create.md)
+  - [hash_destroy](../h/hash_destroy.md)
+  - [hash_search](../h/hash_search.md)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_freeze](../h/hash_freeze.md)
+  - [expand_table](../e/expand_table.md)
 
 ## Notes and Other Information
 - In shared-memory configurations, each backend has its own HTAB copy while sharing HASHHDR data
@@ -78,4 +78,4 @@ frametail_slot				update_symbol_types.py: Directory array pointing to the start 
 - Local copies of keysize, ssize, and sshift are maintained to reduce contention on shared memory
 - Function pointers allow for customizable hash, comparison, copying, and allocation behaviors
 - The structure is defined at src/backend/utils/hash/dynahash.c:219-243
-- HTAB instances are extensively used throughout PostgreSQL for caching, lookup tables, and internal data structures
+- [HTAB](HTAB.md) instances are extensively used throughout PostgreSQL for caching, lookup tables, and internal data structures

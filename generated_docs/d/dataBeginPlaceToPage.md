@@ -33,12 +33,12 @@ The function follows the standard GIN insertion pattern where preparation is sep
 - Functions called/Symbols referenced:
   - GinPageIsData
   - GinPageIsLeaf
-  - dataBeginPlaceToPageLeaf
-  - dataBeginPlaceToPageInternal
-  - GinBtree (struct)
-  - GinBtreeStack (struct)
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md)
+  - [dataBeginPlaceToPageInternal](dataBeginPlaceToPageInternal.md)
+  - [GinBtree](../G/GinBtree.md) (struct)
+  - [GinBtreeStack](../G/GinBtreeStack.md) (struct)
 - Called from:
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - This function serves as a type dispatcher, handling both leaf and internal data pages

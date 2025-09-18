@@ -23,8 +23,8 @@ The function is straightforward: it gets the current position within the partiti
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_WINDOW_OBJECT
-  - WinGetCurrentPosition
-  - WinSetMarkPosition
+  - [WinGetCurrentPosition](../W/WinGetCurrentPosition.md)
+  - [WinSetMarkPosition](../W/WinSetMarkPosition.md)
   - PG_RETURN_INT64
   - WindowObject (type)
 - Called from (representative examples):

@@ -29,15 +29,15 @@ This comprehensive function analyzes any PostgreSQL expression node to determine
   - Sublink type constants (EXPR_SUBLINK, ARRAY_SUBLINK)
 
 - Called from (representative examples):
-  - examine_attribute (statistics analysis)
-  - create_ctas_nodata (CREATE TABLE AS operations)
-  - ComputeIndexAttrs (index attribute computation)
-  - ComputePartitionAttrs (partition key analysis)
-  - ExecTypeFromTLInternal (executor type handling)
-  - build_pertrans_for_aggref (aggregate processing)
+  - [examine_attribute](examine_attribute.md) (statistics analysis)
+  - [create_ctas_nodata](../c/create_ctas_nodata.md) (CREATE TABLE AS operations)
+  - [ComputeIndexAttrs](../C/ComputeIndexAttrs.md) (index attribute computation)
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md) (partition key analysis)
+  - [ExecTypeFromTLInternal](../E/ExecTypeFromTLInternal.md) (executor type handling)
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md) (aggregate processing)
   - makeVarFromTargetEntry (variable creation)
-  - canonicalize_ec_expression (equivalence class processing)
-  - assign_collations_walker (collation assignment)
+  - [canonicalize_ec_expression](../c/canonicalize_ec_expression.md) (equivalence class processing)
+  - [assign_collations_walker](../a/assign_collations_walker.md) (collation assignment)
   - transformCaseExpr (CASE expression transformation)
   - Self-recursive calls for nested expressions
 

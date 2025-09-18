@@ -25,7 +25,7 @@ The function follows PostgreSQL convention for SQL-callable functions by using P
   - PG_GETARG_TEXT_P_COPY (macro to get text argument with copy)
   - PG_GETARG_INT32 (macro to get 32-bit integer argument)
   - PG_VALID_ENCODING (macro to validate encoding ID)
-  - encode_to_ascii (performs the actual ASCII conversion)
+  - [encode_to_ascii](../e/encode_to_ascii.md) (performs the actual ASCII conversion)
   - PG_RETURN_TEXT_P (macro to return text result)
   - ereport (error reporting function)
 - Called from:

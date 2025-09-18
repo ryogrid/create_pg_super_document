@@ -34,8 +34,8 @@ The formatting follows POSIX locale conventions for monetary display, supporting
 - Functions called/Symbols referenced:
   - Cash (data type)
   - PG_GETARG_CASH (argument extraction macro)
-  - PGLC_localeconv (locale conversion settings)
-  - psprintf (PostgreSQL's sprintf variant)
+  - [PGLC_localeconv](../P/PGLC_localeconv.md) (locale conversion settings)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf variant)
   - PG_RETURN_CSTRING (return macro for C-strings)
 - Called from:
   - This appears to be a top-level output function, likely called by PostgreSQL's type system

@@ -32,12 +32,12 @@ The algorithm uses a sophisticated backtracking mechanism with saved cursor posi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions: Identifies morphological regions (R1, R2)
-  - r_attached_pronoun: Processes attached pronouns
-  - r_standard_suffix: Handles general suffix patterns (200 patterns)
-  - r_verb_suffix: Processes verb suffixes (283 patterns) 
-  - r_residual_suffix: Cleans up remaining suffixes (22 patterns)
-  - r_cleaning: Performs character normalization and cleanup
+  - [r_mark_regions](../r/r_mark_regions.md): Identifies morphological regions (R1, R2)
+  - [r_attached_pronoun](../r/r_attached_pronoun.md): Processes attached pronouns
+  - [r_standard_suffix](../r/r_standard_suffix.md): Handles general suffix patterns (200 patterns)
+  - [r_verb_suffix](../r/r_verb_suffix.md): Processes verb suffixes (283 patterns) 
+  - [r_residual_suffix](../r/r_residual_suffix.md): Cleans up remaining suffixes (22 patterns)
+  - [r_cleaning](../r/r_cleaning.md): Performs character normalization and cleanup
 - Called from (representative examples):
   - External stemming interface (likely from PostgreSQL text search components)
   - Language-specific stemming drivers

@@ -20,21 +20,21 @@ SearchSysCacheLocked1 is a specialized function that combines SearchSysCache1() 
 - Functions called/Symbols referenced:
   - CatCache
   - LOCKTAG
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - InplaceUpdateTupleLock
-  - ItemPointerIsValid
-  - LockRelease
-  - ItemPointerEquals
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [LockRelease](../L/LockRelease.md)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - SET_LOCKTAG_TUPLE
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - LockAcquire
-  - AcceptInvalidationMessages
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [LockAcquire](../L/LockAcquire.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
 - Called from (representative examples):
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - ATExecSetRelOptions
-  - SearchSysCacheLockedCopy1
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md)
+  - [SearchSysCacheLockedCopy1](SearchSysCacheLockedCopy1.md)
 
 ## Notes and Other Information
 - Implements complex retry logic to handle race conditions with inplace updates

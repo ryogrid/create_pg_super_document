@@ -28,13 +28,13 @@ The function handles special cases like built-in exceptions, PL/Python function 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_AsString: Converts Python strings to C strings
-  - PLy_current_execution_context: Gets current PL/Python execution context
-  - PLy_procedure_name: Gets procedure name from execution context
-  - get_source_line: Extracts specific source code line
+  - [PLyUnicode_AsString](PLyUnicode_AsString.md): Converts Python strings to C strings
+  - [PLy_current_execution_context](PLy_current_execution_context.md): Gets current PL/Python execution context
+  - [PLy_procedure_name](PLy_procedure_name.md): Gets procedure name from execution context
+  - [get_source_line](../g/get_source_line.md): Extracts specific source code line
   - PG_TRY/PG_FINALLY/PG_END_TRY: PostgreSQL exception handling macros
 - Called from (representative examples):
-  - PLy_elog_impl: Main error logging function
+  - [PLy_elog_impl](PLy_elog_impl.md): Main error logging function
 
 ## Notes and Other Information
 - Function mimics Python's traceback module behavior for consistency

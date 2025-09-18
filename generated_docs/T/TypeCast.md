@@ -20,18 +20,18 @@ TypeCast is a parse tree node that represents explicit type casting operations i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypeName
+  - [TypeName](TypeName.md)
   - ParseLoc
-  - Node (generic parse tree node)
+  - [Node](../N/Node.md) (generic parse tree node)
 - Called from (representative examples):
-  - transformTypeCast
-  - transformExprRecurse
-  - FigureColnameInternal
-  - transformColumnDefinition
-  - raw_expression_tree_walker_impl
+  - [transformTypeCast](../t/transformTypeCast.md)
+  - [transformExprRecurse](../t/transformExprRecurse.md)
+  - [FigureColnameInternal](../F/FigureColnameInternal.md)
+  - [transformColumnDefinition](../t/transformColumnDefinition.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
-- TypeCast nodes are transformed into coercion functions during the analysis phase
+- [TypeCast](TypeCast.md) nodes are transformed into coercion functions during the analysis phase
 - The location information helps provide accurate error messages for type conversion failures
 - Both explicit CAST syntax and PostgreSQL's :: operator create TypeCast nodes
 - The target TypeName may include type modifiers (e.g., VARCHAR(50))

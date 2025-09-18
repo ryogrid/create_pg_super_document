@@ -26,17 +26,17 @@ The function constructs a linked list of SplitPageLayout structures representing
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection for deep recursion)
-  - gistSplitByKey (core GiST splitting algorithm implementation)
-  - gistfitpage (page capacity validation)
-  - gistfillitupvec (tuple vector construction for page layouts)
+  - [gistSplitByKey](gistSplitByKey.md) (core GiST splitting algorithm implementation)
+  - [gistfitpage](gistfitpage.md) (page capacity validation)
+  - [gistfillitupvec](gistfillitupvec.md) (tuple vector construction for page layouts)
   - gistFormTuple (downlink tuple creation for parent updates)
   - IndexTupleSize (tuple size calculation)
-  - GistSplitVector (split decision data structure)
-  - SplitPageLayout (split result representation)
+  - [GistSplitVector](../G/GistSplitVector.md) (split decision data structure)
+  - [SplitPageLayout](../S/SplitPageLayout.md) (split result representation)
 - Called from (representative examples):
-  - gistplacetopage (main page insertion logic)
-  - gistSplit (recursive self-calls for further subdivision)
-  - gist_indexsortbuild_levelstate_flush (index build operations)
+  - [gistplacetopage](gistplacetopage.md) (main page insertion logic)
+  - [gistSplit](gistSplit.md) (recursive self-calls for further subdivision)
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md) (index build operations)
 
 ## Notes and Other Information
 - Implements recursive splitting to handle cases where initial split still produces oversized pages

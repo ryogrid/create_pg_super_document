@@ -24,7 +24,7 @@ The function implements a circular buffer with overflow protection - when the bu
   - NUM_SYNC_REP_WAIT_MODE (number of synchronous replication wait modes)
   - TimeOffset (time-related functionality)
 - Called from (representative examples):
-  - XLogSendPhysical (during physical WAL streaming)
+  - [XLogSendPhysical](../X/XLogSendPhysical.md) (during physical WAL streaming)
   - WALSND_LOGICAL_LAG_TRACK_INTERVAL_MS (logical replication lag tracking)
 
 ## Notes and Other Information

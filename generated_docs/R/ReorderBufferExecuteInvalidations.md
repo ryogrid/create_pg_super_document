@@ -18,11 +18,11 @@ This function applies all invalidation messages that have been collected during 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LocalExecuteInvalidationMessage
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
   - SharedInvalidationMessage
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
-  - ReorderBufferFinishPrepared
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
+  - [ReorderBufferFinishPrepared](ReorderBufferFinishPrepared.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the reorderbuffer.c file

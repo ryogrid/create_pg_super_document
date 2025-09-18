@@ -20,7 +20,7 @@ The  function is a simple callback handler designed for use in ECPG (Embedded SQ
 - Functions called/Symbols referenced:
   - printf (standard C library function)
 - Called from (representative examples):
-  - main (in the same test file)
+  - [main](../m/main.md) (in the same test file)
 
 ## Notes and Other Information
 - This is a test-specific function located in the ECPG preprocessor test suite

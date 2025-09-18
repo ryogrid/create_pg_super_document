@@ -25,7 +25,7 @@ This function extracts the block number of the leftmost child page from a GIN B-
   - PostingItemGetBlockNumber
   - FirstOffsetNumber
 - Called from (representative examples):
-  - ginPrepareDataScan
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
 
 ## Notes and Other Information
 - Only operates on non-leaf GIN data pages (verified by assertions)

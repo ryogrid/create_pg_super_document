@@ -31,18 +31,18 @@ The manual implementation is particularly sophisticated, using the mathematical 
   - PG_INT32_MAX, PG_INT32_MIN  
   - HAVE_INT128 (conditional compilation)
 - Called from (representative examples):
-  - int8mul (int8 multiplication operator)
-  - int84mul, int48mul, int82mul, int28mul (mixed integer type multiplications)
-  - int8lcm (int8 least common multiple)
-  - cash_mul_int64 (money multiplication)  
-  - cash_in (money input parsing)
+  - [int8mul](../i/int8mul.md) (int8 multiplication operator)
+  - [int84mul](../i/int84mul.md), int48mul, int82mul, int28mul (mixed integer type multiplications)
+  - [int8lcm](../i/int8lcm.md) (int8 least common multiple)
+  - [cash_mul_int64](../c/cash_mul_int64.md) (money multiplication)  
+  - [cash_in](../c/cash_in.md) (money input parsing)
   - int64_multiply_add (datetime calculations)
-  - DecodeInterval (interval parsing)
-  - timestamp_bin, timestamptz_bin (timestamp binning)
-  - int64_div_fast_to_numeric (numeric conversion)
-  - numericvar_to_int64 (numeric to int64 conversion)
-  - interval_part_common (interval extraction)
-  - strtoint64 (string to int64 parsing in pgbench)
+  - [DecodeInterval](../D/DecodeInterval.md) (interval parsing)
+  - [timestamp_bin](../t/timestamp_bin.md), timestamptz_bin (timestamp binning)
+  - [int64_div_fast_to_numeric](../i/int64_div_fast_to_numeric.md) (numeric conversion)
+  - [numericvar_to_int64](../n/numericvar_to_int64.md) (numeric to int64 conversion)
+  - [interval_part_common](../i/interval_part_common.md) (interval extraction)
+  - [strtoint64](../s/strtoint64.md) (string to int64 parsing in pgbench)
 
 ## Notes and Other Information
 - Returns `true` when overflow is detected, `false` when multiplication is safe

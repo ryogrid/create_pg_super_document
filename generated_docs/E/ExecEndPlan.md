@@ -26,12 +26,12 @@ The function operates in a systematic manner:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecEndNode (called for main planstate and each subplanstate)
-  - ExecResetTupleTable (clears tuple table and releases buffer pins)
-  - ExecCloseResultRelations (closes result relations)
-  - ExecCloseRangeTableRelations (closes range table relations)
+  - [ExecEndNode](ExecEndNode.md) (called for main planstate and each subplanstate)
+  - [ExecResetTupleTable](ExecResetTupleTable.md) (clears tuple table and releases buffer pins)
+  - [ExecCloseResultRelations](ExecCloseResultRelations.md) (closes result relations)
+  - [ExecCloseRangeTableRelations](ExecCloseRangeTableRelations.md) (closes range table relations)
 - Called from:
-  - standard_ExecutorEnd (main caller for standard executor cleanup)
+  - [standard_ExecutorEnd](../s/standard_ExecutorEnd.md) (main caller for standard executor cleanup)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the execMain.c file

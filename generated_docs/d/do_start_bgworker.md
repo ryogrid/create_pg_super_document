@@ -24,13 +24,13 @@ The function is heavily based on autovacuum.c implementation and follows Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - assign_backendlist_entry
-  - GetCurrentTimestamp
-  - postmaster_child_launch
-  - ReportBackgroundWorkerPID
-  - ReleasePostmasterChildSlot
-  - dlist_push_head
-  - ShmemBackendArrayAdd (EXEC_BACKEND only)
+  - [assign_backendlist_entry](../a/assign_backendlist_entry.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [postmaster_child_launch](../p/postmaster_child_launch.md)
+  - [ReportBackgroundWorkerPID](../R/ReportBackgroundWorkerPID.md)
+  - [ReleasePostmasterChildSlot](../R/ReleasePostmasterChildSlot.md)
+  - [dlist_push_head](dlist_push_head.md)
+  - [ShmemBackendArrayAdd](../S/ShmemBackendArrayAdd.md) (EXEC_BACKEND only)
 - Called from (representative examples):
   - MAX_BGWORKERS_TO_LAUNCH (referenced in postmaster logic)
 
@@ -39,5 +39,5 @@ The function is heavily based on autovacuum.c implementation and follows Postgre
 - Updates RegisteredBgWorker state appropriately in both success and failure cases
 - On failure, marks the worker as crashed to prevent immediate retry attempts
 - Must be called only after timing conditions have been verified
-- Backend element allocation must occur before forking to handle resource exhaustion cleanly
+- [Backend](../B/Backend.md) element allocation must occur before forking to handle resource exhaustion cleanly
 - Failure handling treats resource exhaustion as a crash to implement backoff behavior

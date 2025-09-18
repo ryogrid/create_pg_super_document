@@ -25,11 +25,11 @@ The function sets up hash tables to track tuple update chains and maintains mapp
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
   - RelationGetNumberOfBlocks
-  - smgr_bulk_start_rel
-  - hash_create
-  - logical_begin_heap_rewrite
+  - [smgr_bulk_start_rel](../s/smgr_bulk_start_rel.md)
+  - [hash_create](../h/hash_create.md)
+  - [logical_begin_heap_rewrite](../l/logical_begin_heap_rewrite.md)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 
 ## Notes and Other Information
 - Creates a dedicated memory context "Table rewrite" for easy cleanup of all rewrite-related data

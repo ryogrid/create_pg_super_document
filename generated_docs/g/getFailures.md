@@ -17,10 +17,10 @@ This function calculates the total number of transaction failures in pgbench by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StatsData (structure type)
+  - [StatsData](../S/StatsData.md) (structure type)
 - Called from (representative examples):
-  - printProgressReport (at src/bin/pgbench/pgbench.c:6306)
-  - printResults (at src/bin/pgbench/pgbench.c:6396, 6515)
+  - [printProgressReport](../p/printProgressReport.md) (at src/bin/pgbench/pgbench.c:6306)
+  - [printResults](../p/printResults.md) (at src/bin/pgbench/pgbench.c:6396, 6515)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pgbench.c file

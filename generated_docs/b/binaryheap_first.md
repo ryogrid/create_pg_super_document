@@ -17,15 +17,15 @@ This function provides constant-time access to the root element of the binary he
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap (struct type)
+  - [binaryheap](binaryheap.md) (struct type)
   - binaryheap_empty (macro to check if heap is empty)
   - bh_node_type (return type definition)
   - Assert (debugging assertion macro)
 - Called from (representative examples):
-  - gather_merge_getnext (in src/backend/executor/nodeGatherMerge.c)
+  - [gather_merge_getnext](../g/gather_merge_getnext.md) (in src/backend/executor/nodeGatherMerge.c)
   - ExecMergeAppend (in src/backend/executor/nodeMergeAppend.c)
-  - pgarch_readyXlog (in src/backend/postmaster/pgarch.c)
-  - ReorderBufferIterTXNNext (in src/backend/replication/logical/reorderbuffer.c)
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md) (in src/backend/postmaster/pgarch.c)
+  - [ReorderBufferIterTXNNext](../R/ReorderBufferIterTXNNext.md) (in src/backend/replication/logical/reorderbuffer.c)
   - BufferSync (in src/backend/storage/buffer/bufmgr.c)
 
 ## Notes and Other Information

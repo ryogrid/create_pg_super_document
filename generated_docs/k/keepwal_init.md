@@ -22,7 +22,7 @@ This function takes no parameters.
   - keepwal_create
   - KEEPWAL_INITIAL_SIZE (constant set to 1000)
 - Called from (representative examples):
-  - main (src/bin/pg_rewind/pg_rewind.c:459)
+  - [main](../m/main.md) (src/bin/pg_rewind/pg_rewind.c:459)
 
 ## Notes and Other Information
 - Initializes a separate hash table specifically for WAL file tracking

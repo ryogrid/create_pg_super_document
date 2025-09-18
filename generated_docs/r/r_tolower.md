@@ -23,11 +23,11 @@ The backward processing approach (using `find_among_b()`) is characteristic of s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `skip_b_utf8`: UTF-8 aware backward character skipping function
-  - `find_among_b`: Backward pattern matching against predefined arrays
-  - `slice_from_s`: String replacement function using predefined string constants
+  - `[skip_b_utf8](../s/skip_b_utf8.md)`: UTF-8 aware backward character skipping function
+  - `[find_among_b](../f/find_among_b.md)`: Backward pattern matching against predefined arrays
+  - `[slice_from_s](../s/slice_from_s.md)`: String replacement function using predefined string constants
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function where case normalization occurs before suffix removal
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function where case normalization occurs before suffix removal
 
 ## Notes and Other Information
 - This function is specifically designed for Greek text processing and contains language-specific character mapping rules

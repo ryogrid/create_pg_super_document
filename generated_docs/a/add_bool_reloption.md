@@ -21,10 +21,10 @@ This public function creates and registers a new boolean reloption in the global
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_bool_reloption (for boolean reloption initialization)
-  - add_reloption (for global registration of the reloption)
+  - [init_bool_reloption](../i/init_bool_reloption.md) (for boolean reloption initialization)
+  - [add_reloption](add_reloption.md) (for global registration of the reloption)
 - Called from (representative examples):
-  - create_reloptions_table (in test modules)
+  - [create_reloptions_table](../c/create_reloptions_table.md) (in test modules)
   - Various extension and built-in code that needs to register boolean reloptions
 
 ## Notes and Other Information

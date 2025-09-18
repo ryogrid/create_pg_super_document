@@ -29,24 +29,24 @@ Special handling exists for mapped relations where pg_class.relfilenode doesn't 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetNewRelFileNumber
-  - SearchSysCacheLockedCopy1
-  - RelationDropStorage
-  - RelationCreateStorage
+  - [GetNewRelFileNumber](../G/GetNewRelFileNumber.md)
+  - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)
+  - [RelationDropStorage](RelationDropStorage.md)
+  - [RelationCreateStorage](RelationCreateStorage.md)
   - table_relation_set_new_filelocator
-  - RelationMapUpdateMap
-  - CacheInvalidateRelcache
-  - CatalogTupleUpdate
+  - [RelationMapUpdateMap](RelationMapUpdateMap.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - CommandCounterIncrement
-  - RelationAssumeNewRelfilelocator
-  - GetCurrentTransactionId
-  - heap_freetuple
+  - [RelationAssumeNewRelfilelocator](RelationAssumeNewRelfilelocator.md)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - reindex_index
-  - ExecuteTruncateGuts
-  - ResetSequence
-  - AlterSequence
-  - SequenceChangePersistence
+  - [reindex_index](../r/reindex_index.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
+  - [ResetSequence](ResetSequence.md)
+  - [AlterSequence](../A/AlterSequence.md)
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md)
 
 ## Notes and Other Information
 - Caller must hold exclusive lock on the relation before calling this function

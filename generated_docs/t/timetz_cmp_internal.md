@@ -34,16 +34,16 @@ The function returns:
   - TimeOffset (data type)
   - USECS_PER_SEC (constant for microseconds per second conversion)
 - Called from (representative examples):
-  - timetz_eq
-  - timetz_ne
-  - timetz_lt
-  - timetz_le
-  - timetz_gt
-  - timetz_ge
-  - timetz_cmp
-  - timetz_larger
-  - timetz_smaller
-  - in_range_timetz_interval
+  - [timetz_eq](timetz_eq.md)
+  - [timetz_ne](timetz_ne.md)
+  - [timetz_lt](timetz_lt.md)
+  - [timetz_le](timetz_le.md)
+  - [timetz_gt](timetz_gt.md)
+  - [timetz_ge](timetz_ge.md)
+  - [timetz_cmp](timetz_cmp.md)
+  - [timetz_larger](timetz_larger.md)
+  - [timetz_smaller](timetz_smaller.md)
+  - [in_range_timetz_interval](../i/in_range_timetz_interval.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit (date.c)

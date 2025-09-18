@@ -23,10 +23,10 @@ Unlike tts_heap_get_heap_tuple which returns a pointer to the slot's internal tu
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (cast target type)
   - TTS_EMPTY (macro for checking empty slots)
-  - tts_heap_materialize (materializes tuple if needed)
-  - heap_copytuple (creates independent copy of heap tuple)
+  - [tts_heap_materialize](tts_heap_materialize.md) (materializes tuple if needed)
+  - [heap_copytuple](../h/heap_copytuple.md) (creates independent copy of heap tuple)
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function is declared static, making it internal to the execTuples.c compilation unit

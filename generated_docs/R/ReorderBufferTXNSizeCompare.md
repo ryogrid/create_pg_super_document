@@ -27,10 +27,10 @@ This comparison function is essential for memory management in logical replicati
 ## Dependencies
 - Functions called/Symbols referenced:
   - pairingheap_const_container (macro for extracting container structure from heap node)
-  - ReorderBufferTXN (transaction structure type)
-  - pairingheap_node (heap node structure type)
+  - [ReorderBufferTXN](ReorderBufferTXN.md) (transaction structure type)
+  - [pairingheap_node](../p/pairingheap_node.md) (heap node structure type)
 - Called from (representative examples):
-  - ReorderBufferAllocate (likely during heap initialization)
+  - [ReorderBufferAllocate](ReorderBufferAllocate.md) (likely during heap initialization)
   - Used indirectly through pairing heap operations for transaction ordering
 
 ## Notes and Other Information

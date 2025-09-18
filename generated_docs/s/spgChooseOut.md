@@ -36,17 +36,17 @@ spgChooseOut is an output structure used in the SP-GiST (Space-Partitioned Gener
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgChooseResultType (enum defining action types)
+  - [spgChooseResultType](spgChooseResultType.md) (enum defining action types)
   - Datum (PostgreSQL generic data value type)
-  - bool (PostgreSQL boolean type)
+  - [bool](../b/bool.md) (PostgreSQL boolean type)
 - Called from (representative examples):
-  - spgSplitNodeAction (src/backend/access/spgist/spgdoinsert.c:1717)
-  - spgdoinsert (src/backend/access/spgist/spgdoinsert.c:2161)
-  - spg_kd_choose (src/backend/access/spgist/spgkdtreeproc.c:57)
-  - spg_quad_choose (src/backend/access/spgist/spgquadtreeproc.c:118)
-  - spg_text_choose (src/backend/access/spgist/spgtextproc.c:187)
-  - spg_box_quad_choose (src/backend/utils/adt/geo_spgist.c:420)
-  - inet_spg_choose (src/backend/utils/adt/network_spgist.c:71)
+  - [spgSplitNodeAction](spgSplitNodeAction.md) (src/backend/access/spgist/spgdoinsert.c:1717)
+  - [spgdoinsert](spgdoinsert.md) (src/backend/access/spgist/spgdoinsert.c:2161)
+  - [spg_kd_choose](spg_kd_choose.md) (src/backend/access/spgist/spgkdtreeproc.c:57)
+  - [spg_quad_choose](spg_quad_choose.md) (src/backend/access/spgist/spgquadtreeproc.c:118)
+  - [spg_text_choose](spg_text_choose.md) (src/backend/access/spgist/spgtextproc.c:187)
+  - [spg_box_quad_choose](spg_box_quad_choose.md) (src/backend/utils/adt/geo_spgist.c:420)
+  - [inet_spg_choose](../i/inet_spg_choose.md) (src/backend/utils/adt/network_spgist.c:71)
 
 ## Notes and Other Information
 - This struct is part of the SP-GiST index access method interface

@@ -30,17 +30,17 @@ The function also implements important optimizations, such as enabling skip-trig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState (creates the main execution state structure)
+  - [CreateExecutorState](../C/CreateExecutorState.md) (creates the main execution state structure)
   - GetActiveSnapshot (validates active snapshot)
   - IsInParallelMode (checks parallel execution mode)
-  - ExecCheckXactReadOnly (validates read-only transaction compliance)
-  - GetCurrentCommandId (obtains command ID for tuple marking)
+  - [ExecCheckXactReadOnly](../E/ExecCheckXactReadOnly.md) (validates read-only transaction compliance)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md) (obtains command ID for tuple marking)
   - RegisterSnapshot (registers snapshots for MVCC)
-  - AfterTriggerBeginQuery (sets up trigger context)
-  - InitPlan (initializes the plan state tree)
-  - ParamExecData (internal parameter execution data structure)
+  - [AfterTriggerBeginQuery](../A/AfterTriggerBeginQuery.md) (sets up trigger context)
+  - [InitPlan](../I/InitPlan.md) (initializes the plan state tree)
+  - [ParamExecData](../P/ParamExecData.md) (internal parameter execution data structure)
 - Called from (representative examples):
-  - ExecutorStart (src/backend/executor/execMain.c:136)
+  - [ExecutorStart](../E/ExecutorStart.md) (src/backend/executor/execMain.c:136)
 
 ## Notes and Other Information
 - The function includes extensive safety checks including assertions for proper calling sequence and active snapshots

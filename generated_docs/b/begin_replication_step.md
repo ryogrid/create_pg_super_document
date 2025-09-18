@@ -27,25 +27,25 @@ The function is designed to be idempotent within a transaction - if called multi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetCurrentStatementStartTimestamp (sets statement timing)
-  - IsTransactionState (checks if already in transaction)
-  - StartTransactionCommand (initiates new transaction)
-  - maybe_reread_subscription (refreshes subscription config)
+  - [SetCurrentStatementStartTimestamp](../S/SetCurrentStatementStartTimestamp.md) (sets statement timing)
+  - [IsTransactionState](../I/IsTransactionState.md) (checks if already in transaction)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md) (initiates new transaction)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md) (refreshes subscription config)
   - GetTransactionSnapshot (obtains current snapshot)
   - PushActiveSnapshot (activates snapshot)
   - ApplyMessageContext (memory context for replication messages)
 - Called from (representative examples):
-  - apply_handle_insert (INSERT operation processing)
-  - apply_handle_update (UPDATE operation processing)
-  - apply_handle_delete (DELETE operation processing)
-  - apply_handle_truncate (TRUNCATE operation processing)
-  - stream_start_internal (streaming transaction start)
-  - apply_spooled_messages (processing queued messages)
+  - [apply_handle_insert](../a/apply_handle_insert.md) (INSERT operation processing)
+  - [apply_handle_update](../a/apply_handle_update.md) (UPDATE operation processing)
+  - [apply_handle_delete](../a/apply_handle_delete.md) (DELETE operation processing)
+  - [apply_handle_truncate](../a/apply_handle_truncate.md) (TRUNCATE operation processing)
+  - [stream_start_internal](../s/stream_start_internal.md) (streaming transaction start)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md) (processing queued messages)
 
 ## Notes and Other Information
 - Part of the transaction management infrastructure for logical replication workers
 - Ensures consistent transaction state across different replication operations
 - The function handles both the initial transaction start and subsequent operations within the same transaction
 - Memory context switching to ApplyMessageContext helps manage memory lifecycle for replication messages
-- Snapshot management ensures consistent data visibility throughout replication operations
+- [Snapshot](../S/Snapshot.md) management ensures consistent data visibility throughout replication operations
 - Must be paired with end_replication_step() for proper cleanup

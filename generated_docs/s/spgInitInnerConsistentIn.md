@@ -23,9 +23,9 @@ The function extracts key information including scan keys, order-by clauses, rec
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGITDATUM - Extracts the prefix datum from the inner tuple
-  - spgExtractNodeLabels - Extracts node labels from the inner tuple structure
+  - [spgExtractNodeLabels](spgExtractNodeLabels.md) - Extracts node labels from the inner tuple structure
 - Called from:
-  - spgInnerTest - Uses this to initialize input before calling inner_consistent methods
+  - [spgInnerTest](spgInnerTest.md) - Uses this to initialize input before calling inner_consistent methods
 
 ## Notes and Other Information
 - The function includes an assertion to verify that the current item is not a leaf, preventing traversal errors

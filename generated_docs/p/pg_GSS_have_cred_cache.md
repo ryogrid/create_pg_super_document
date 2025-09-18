@@ -28,10 +28,10 @@ If credentials are successfully acquired, they are returned through the output p
   - GSS_C_INITIATE (GSS-API constant)
   - GSS_S_COMPLETE (GSS-API constant)
 - Called from (representative examples):
-  - pg_GSS_continue (client authentication)
+  - [pg_GSS_continue](pg_GSS_continue.md) (client authentication)
   - CONNECTION_FAILED (connection handling)
   - SELECT_NEXT_METHOD (authentication method selection)
-  - pqsecure_open_gss (secure connection establishment)
+  - [pqsecure_open_gss](pqsecure_open_gss.md) (secure connection establishment)
 
 ## Notes and Other Information
 - This is a client-side only function (libpq)

@@ -24,17 +24,17 @@ The conversion process involves parsing the timezone specification, determining 
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring_buffer (timezone string extraction)
-  - DecodeTimezoneName (timezone specification parsing)
-  - dt2local (timestamp offset application for fixed/dynamic offsets)
-  - timestamp2tm (timestamp to broken-down time conversion)
-  - DetermineTimeZoneAbbrevOffset (dynamic abbreviation offset resolution)
+  - [DecodeTimezoneName](../D/DecodeTimezoneName.md) (timezone specification parsing)
+  - [dt2local](../d/dt2local.md) (timestamp offset application for fixed/dynamic offsets)
+  - [timestamp2tm](timestamp2tm.md) (timestamp to broken-down time conversion)
+  - [DetermineTimeZoneAbbrevOffset](../D/DetermineTimeZoneAbbrevOffset.md) (dynamic abbreviation offset resolution)
   - DetermineTimeZoneOffset (full timezone offset determination)
-  - tm2timestamp (broken-down time to timestamp conversion)
+  - [tm2timestamp](tm2timestamp.md) (broken-down time to timestamp conversion)
 - Constants/Types referenced:
   - TZNAME_FIXED_OFFSET, TZNAME_DYNTZ (timezone type indicators)
   - TZ_STRLEN_MAX (maximum timezone string length)
   - Timestamp, TimestampTz (timestamp data types)
-  - pg_tz, pg_tm, fsec_t (timezone and time structures)
+  - [pg_tz](../p/pg_tz.md), pg_tm, fsec_t (timezone and time structures)
 - Macros used:
   - TIMESTAMP_NOT_FINITE (infinite timestamp check)
   - IS_VALID_TIMESTAMP (result validation)

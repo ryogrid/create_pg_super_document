@@ -25,7 +25,7 @@ The function uses PostgreSQL's PG_FUNCTION_ARGS macro to access parameters:
   - PG_GETARG_INT32: Extract integer argument from PostgreSQL function call
   - PG_GETARG_BOOL: Extract boolean argument from PostgreSQL function call
   - CHECK_ENCODING_CONVERSION_ARGS: Validate encoding conversion parameters
-  - mic2sjis: Perform the actual MIC to Shift JIS conversion
+  - [mic2sjis](mic2sjis.md): Perform the actual MIC to Shift JIS conversion
   - PG_RETURN_INT32: Return integer result to PostgreSQL
 - Called from (representative examples):
   - PGEUCALTCODE: Referenced in the encoding conversion system

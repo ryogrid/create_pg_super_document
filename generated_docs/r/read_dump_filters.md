@@ -26,19 +26,19 @@ When include filters are applied for schemas or tables, the  flag in DumpOptions
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filter_init
-  - filter_read_item
-  - filter_free
-  - simple_string_list_append
-  - pg_log_filter_error
-  - filter_object_type_name
-  - exit_nicely
+  - [filter_init](../f/filter_init.md)
+  - [filter_read_item](../f/filter_read_item.md)
+  - [filter_free](../f/filter_free.md)
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [pg_log_filter_error](../p/pg_log_filter_error.md)
+  - [filter_object_type_name](../f/filter_object_type_name.md)
+  - [exit_nicely](../e/exit_nicely.md)
   - FilterStateData (type)
   - FilterCommandType (type)
-  - FilterObjectType (type)
+  - [FilterObjectType](../F/FilterObjectType.md) (type)
   - Various FILTER_* constants
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

@@ -20,11 +20,11 @@ The function uses a state-tracking approach with the wasalnum variable to determ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pnstrdup
+  - [pnstrdup](../p/pnstrdup.md)
   - pg_ascii_tolower
-  - pg_ascii_toupper
+  - [pg_ascii_toupper](../p/pg_ascii_toupper.md)
 - Called from (representative examples):
-  - str_initcap
+  - [str_initcap](../s/str_initcap.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

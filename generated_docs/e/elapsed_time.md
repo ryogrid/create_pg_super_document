@@ -24,10 +24,10 @@ This function is commonly used in PostgreSQL's explain functionality and other p
   - INSTR_TIME_SET_CURRENT (macro)
   - INSTR_TIME_SUBTRACT (macro)
   - INSTR_TIME_GET_DOUBLE (macro)
-  - instr_time (type)
+  - [instr_time](../i/instr_time.md) (type)
 - Called from (representative examples):
-  - ExplainOnePlan
-  - IsCheckpointOnSchedule
+  - [ExplainOnePlan](../E/ExplainOnePlan.md)
+  - [IsCheckpointOnSchedule](../I/IsCheckpointOnSchedule.md)
 
 ## Notes and Other Information
 - Returns elapsed time as a double-precision floating-point value in seconds

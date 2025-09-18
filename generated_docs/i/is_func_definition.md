@@ -17,10 +17,10 @@ This function implements a lookahead parser to determine whether a parenthesis-e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookahead_reset (resets the lookahead buffer)
-  - lookahead (reads characters beyond the current buffer)
+  - [lookahead_reset](../l/lookahead_reset.md) (resets the lookahead buffer)
+  - [lookahead](../l/lookahead.md) (reads characters beyond the current buffer)
 - Called from (representative examples):
-  - lexi (at src/tools/pg_bsd_indent/lexi.c:415)
+  - [lexi](../l/lexi.md) (at src/tools/pg_bsd_indent/lexi.c:415)
 
 ## Notes and Other Information
 - Returns true for function definitions, false for declarations

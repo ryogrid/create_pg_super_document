@@ -22,18 +22,18 @@ The function preserves errno across its operation and includes retry logic to ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQExpBufferBroken
-  - libpq_gettext
-  - appendPQExpBufferVA
+  - [libpq_gettext](libpq_gettext.md)
+  - [appendPQExpBufferVA](../a/appendPQExpBufferVA.md)
   - appendPQExpBufferChar
   - strlen (standard C library function)
   - va_start/va_end (standard C library macros)
 - Called from (representative examples):
-  - read_attr_value
+  - [read_attr_value](../r/read_attr_value.md)
   - pg_fe_getusername
-  - ldapServiceLookup
-  - parseServiceInfo
-  - conninfo_init
-  - conninfo_parse
+  - [ldapServiceLookup](ldapServiceLookup.md)
+  - [parseServiceInfo](../p/parseServiceInfo.md)
+  - [conninfo_init](../c/conninfo_init.md)
+  - [conninfo_parse](../c/conninfo_parse.md)
 
 ## Notes and Other Information
 - Automatically translates format strings using libpq_gettext() for internationalization

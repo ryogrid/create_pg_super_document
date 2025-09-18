@@ -24,15 +24,15 @@ After calling PQsendQuery, applications typically use PQgetResult() to retrieve 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQueryInternal (internal implementation function)
+  - [PQsendQueryInternal](PQsendQueryInternal.md) (internal implementation function)
 - Called from (representative examples):
-  - libpqrcv_PQexec (replication)
-  - run_command (pg_amcheck)
-  - BaseBackup (pg_basebackup)
-  - sendCommand (pgbench)
-  - ExecQueryAndProcessResults (psql)
-  - PQexec (synchronous wrapper)
-  - run_permutation (isolation tester)
+  - [libpqrcv_PQexec](../l/libpqrcv_PQexec.md) (replication)
+  - [run_command](../r/run_command.md) (pg_amcheck)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup)
+  - [sendCommand](../s/sendCommand.md) (pgbench)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (psql)
+  - [PQexec](PQexec.md) (synchronous wrapper)
+  - [run_permutation](../r/run_permutation.md) (isolation tester)
 
 ## Notes and Other Information
 - Returns 1 on successful submission, 0 on error

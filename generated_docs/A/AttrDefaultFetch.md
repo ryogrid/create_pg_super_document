@@ -24,18 +24,18 @@ The implementation includes robust error handling for missing or unexpected reco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - ScanKeyInit
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - fastgetattr
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [fastgetattr](../f/fastgetattr.md)
   - TextDatumGetCString
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
   - qsort
-  - AttrDefaultCmp
+  - [AttrDefaultCmp](AttrDefaultCmp.md)
 - Called from:
-  - RelationBuildTupleDesc
+  - [RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md)
 
 ## Notes and Other Information
 - Memory allocation occurs in CacheMemoryContext to ensure persistence

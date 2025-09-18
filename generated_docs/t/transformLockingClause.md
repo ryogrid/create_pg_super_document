@@ -26,18 +26,18 @@ The function recursively processes subqueries to ensure locking clauses are prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckSelectLocking (validates locking compatibility)
-  - applyLockingClause (applies locking to specific relations)
-  - LCS_asString (for error message formatting)
+  - [CheckSelectLocking](../C/CheckSelectLocking.md) (validates locking compatibility)
+  - [applyLockingClause](../a/applyLockingClause.md) (applies locking to specific relations)
+  - [LCS_asString](../L/LCS_asString.md) (for error message formatting)
   - makeNode (creates new LockingClause nodes)
-  - getRTEPermissionInfo (retrieves permission info for relations)
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md) (retrieves permission info for relations)
   - ereport (error reporting)
   - Various RTE type constants (RTE_RELATION, RTE_SUBQUERY, etc.)
 - Called from (representative examples):
-  - transformSelectStmt (for main SELECT statements)
-  - transformSetOperationStmt (for set operations)
-  - transformPLAssignStmt (for PL/pgSQL assignments)
-  - transformLockingClause (recursively for subqueries)
+  - [transformSelectStmt](transformSelectStmt.md) (for main SELECT statements)
+  - [transformSetOperationStmt](transformSetOperationStmt.md) (for set operations)
+  - [transformPLAssignStmt](transformPLAssignStmt.md) (for PL/pgSQL assignments)
+  - [transformLockingClause](transformLockingClause.md) (recursively for subqueries)
 
 ## Notes and Other Information
 - Static function not directly accessible outside analyze.c

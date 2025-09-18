@@ -21,11 +21,11 @@ The function first validates that the connection is not null and that the connec
 - Functions called/Symbols referenced:
   - CONNECTION_OK (connection status constant)
 - Called from (representative examples):
-  - setup_connection (pg_dump.c)
-  - exec_command_encoding (psql command.c)
-  - SyncVariables (psql command.c)
-  - SendQuery (psql common.c)
-  - appendStringLiteralConn (string_utils.c)
+  - [setup_connection](../s/setup_connection.md) (pg_dump.c)
+  - [exec_command_encoding](../e/exec_command_encoding.md) (psql command.c)
+  - [SyncVariables](../S/SyncVariables.md) (psql command.c)
+  - [SendQuery](../S/SendQuery.md) (psql common.c)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md) (string_utils.c)
   - Various database utility commands (createdb, dropdb, vacuumdb, etc.)
 
 ## Notes and Other Information

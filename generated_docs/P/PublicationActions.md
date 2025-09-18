@@ -24,12 +24,12 @@ This structure is fundamental to PostgreSQL's logical replication system, as it 
 - Functions called/Symbols referenced:
   - (No direct function calls - this is a data structure)
 - Called from (representative examples):
-  - parse_publication_options (src/backend/commands/publicationcmds.c:79)
-  - CreatePublication (src/backend/commands/publicationcmds.c:737)
-  - AlterPublicationOptions (src/backend/commands/publicationcmds.c:878)
-  - RelationSyncEntry (src/backend/replication/pgoutput/pgoutput.c:143)
-  - PublicationDesc (src/include/catalog/pg_publication.h:82)
-  - Publication (src/include/catalog/pg_publication.h:106)
+  - [parse_publication_options](../p/parse_publication_options.md) (src/backend/commands/publicationcmds.c:79)
+  - [CreatePublication](../C/CreatePublication.md) (src/backend/commands/publicationcmds.c:737)
+  - [AlterPublicationOptions](../A/AlterPublicationOptions.md) (src/backend/commands/publicationcmds.c:878)
+  - [RelationSyncEntry](../R/RelationSyncEntry.md) (src/backend/replication/pgoutput/pgoutput.c:143)
+  - [PublicationDesc](PublicationDesc.md) (src/include/catalog/pg_publication.h:82)
+  - [Publication](Publication.md) (src/include/catalog/pg_publication.h:106)
 
 ## Notes and Other Information
 - This structure is defined in the catalog header file, indicating its role as a fundamental data type for the publication system

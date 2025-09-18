@@ -19,14 +19,14 @@ replorigin_get_progress queries the current replication progress for a given rep
 ## Dependencies
 - Functions called/Symbols referenced:
   - LWLockAcquire/LWLockRelease
-  - XLogFlush
+  - [XLogFlush](../X/XLogFlush.md)
   - RepOriginId
   - ReplicationState (struct)
   - LW_SHARED
   - InvalidXLogRecPtr
 - Called from (representative examples):
-  - AlterSubscription (src/backend/commands/subscriptioncmds.c:1467)
-  - pg_replication_origin_progress (src/backend/replication/logical/origin.c:1506)
+  - [AlterSubscription](../A/AlterSubscription.md) (src/backend/commands/subscriptioncmds.c:1467)
+  - [pg_replication_origin_progress](../p/pg_replication_origin_progress.md) (src/backend/replication/logical/origin.c:1506)
 
 ## Notes and Other Information
 - Returns InvalidXLogRecPtr if the specified replication origin is not found

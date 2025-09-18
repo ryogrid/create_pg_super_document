@@ -37,17 +37,17 @@ Special handling is provided for combined characters, where the function looks a
 - Functions called/Symbols referenced:
   - PG_VALID_ENCODING (encoding validation macro)
   - pg_utf_mblen (UTF-8 character length determination)
-  - pg_utf8_islegal (UTF-8 sequence validation)
-  - compare3 (comparison function for combined character bsearch)
-  - pg_mb_radix_conv (radix tree character conversion)
-  - store_coded_char (multibyte character output formatting)
-  - report_invalid_encoding (error reporting for invalid UTF-8)
-  - report_untranslatable_char (error reporting for conversion failures)
+  - [pg_utf8_islegal](../p/pg_utf8_islegal.md) (UTF-8 sequence validation)
+  - [compare3](../c/compare3.md) (comparison function for combined character bsearch)
+  - [pg_mb_radix_conv](../p/pg_mb_radix_conv.md) (radix tree character conversion)
+  - [store_coded_char](../s/store_coded_char.md) (multibyte character output formatting)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting for invalid UTF-8)
+  - [report_untranslatable_char](../r/report_untranslatable_char.md) (error reporting for conversion failures)
 - Called from (representative examples):
-  - utf8_to_big5 (Big5 encoding conversion)
-  - utf8_to_euc_jp (EUC-JP encoding conversion)
-  - utf8_to_iso8859 (ISO-8859 encoding conversion)
-  - utf8_to_win (Windows code page conversion)
+  - [utf8_to_big5](../u/utf8_to_big5.md) (Big5 encoding conversion)
+  - [utf8_to_euc_jp](../u/utf8_to_euc_jp.md) (EUC-JP encoding conversion)
+  - [utf8_to_iso8859](../u/utf8_to_iso8859.md) (ISO-8859 encoding conversion)
+  - [utf8_to_win](../u/utf8_to_win.md) (Windows code page conversion)
   - [Many other encoding-specific conversion functions]
 
 ## Notes and Other Information

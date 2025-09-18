@@ -31,15 +31,15 @@ This function is essential for PostgreSQL's ability to handle complex nested que
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate: Creates child parse state with parent context
-  - transformStmt: Performs statement transformation for sub-statements
-  - free_parsestate: Cleanup parse state structure
+  - [make_parsestate](../m/make_parsestate.md): Creates child parse state with parent context
+  - [transformStmt](../t/transformStmt.md): Performs statement transformation for sub-statements
+  - [free_parsestate](../f/free_parsestate.md): Cleanup parse state structure
   - CommonTableExpr: Structure representing Common Table Expression context
 
 - Called from (representative examples):
-  - transformSetOperationTree: For analyzing UNION/INTERSECT/EXCEPT operations
-  - transformRangeSubselect: For analyzing subqueries in FROM clauses
-  - analyzeCTE: For analyzing Common Table Expression definitions
+  - [transformSetOperationTree](../t/transformSetOperationTree.md): For analyzing UNION/INTERSECT/EXCEPT operations
+  - [transformRangeSubselect](../t/transformRangeSubselect.md): For analyzing subqueries in FROM clauses
+  - [analyzeCTE](../a/analyzeCTE.md): For analyzing Common Table Expression definitions
   - transformSubLink: For analyzing subquery expressions
 
 ## Notes and Other Information

@@ -21,9 +21,9 @@ The function returns variable information as a multibitmapset (List of Bitmapset
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_nonnullable_vars_walker
+  - [find_nonnullable_vars_walker](find_nonnullable_vars_walker.md)
 - Called from (representative examples):
-  - reduce_outer_joins_pass2
+  - [reduce_outer_joins_pass2](../r/reduce_outer_joins_pass2.md)
   - WindowFuncLists
 
 ## Notes and Other Information

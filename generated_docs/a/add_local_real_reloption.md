@@ -23,13 +23,13 @@ This function creates and registers a new local floating-point relation option w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_real_reloption
-  - add_local_reloption
+  - [init_real_reloption](../i/init_real_reloption.md)
+  - [add_local_reloption](add_local_reloption.md)
   - RELOPT_KIND_LOCAL
-  - relopt_real
-  - relopt_gen
+  - [relopt_real](../r/relopt_real.md)
+  - [relopt_gen](../r/relopt_gen.md)
 - Called from (representative examples):
-  - brin_bloom_options (in BRIN bloom index access method)
+  - [brin_bloom_options](../b/brin_bloom_options.md) (in BRIN bloom index access method)
 
 ## Notes and Other Information
 - This function is specifically designed for local (non-global) relation options

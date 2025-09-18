@@ -21,9 +21,9 @@ The function works by delegating the actual tree traversal to `pull_paramids_wal
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_paramids_walker
+  - [pull_paramids_walker](pull_paramids_walker.md)
 - Called from (representative examples):
-  - create_memoize_plan
+  - [create_memoize_plan](../c/create_memoize_plan.md)
   - WindowFuncLists
 
 ## Notes and Other Information

@@ -25,7 +25,7 @@ This function is particularly useful in replication scenarios where administrato
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogStandbyInfoActive
   - LogStandbySnapshot
   - PG_RETURN_LSN

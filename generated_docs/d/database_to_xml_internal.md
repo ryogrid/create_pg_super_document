@@ -22,19 +22,19 @@ This function creates a comprehensive XML representation of a PostgreSQL databas
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_database_name
-  - map_sql_identifier_to_xml_name
+  - [get_database_name](../g/get_database_name.md)
+  - [map_sql_identifier_to_xml_name](../m/map_sql_identifier_to_xml_name.md)
   - makeStringInfo
-  - xmldata_root_element_start
+  - [xmldata_root_element_start](../x/xmldata_root_element_start.md)
   - SPI_connect
-  - database_get_xml_visible_schemas
-  - schema_to_xml_internal
+  - [database_get_xml_visible_schemas](database_get_xml_visible_schemas.md)
+  - [schema_to_xml_internal](../s/schema_to_xml_internal.md)
   - appendBinaryStringInfo
   - SPI_finish
-  - xmldata_root_element_end
+  - [xmldata_root_element_end](../x/xmldata_root_element_end.md)
 - Called from (representative examples):
-  - database_to_xml
-  - database_to_xml_and_xmlschema
+  - [database_to_xml](database_to_xml.md)
+  - [database_to_xml_and_xmlschema](database_to_xml_and_xmlschema.md)
 
 ## Notes and Other Information
 This is a static internal function that handles the core logic for converting an entire database to XML. It uses SPI for database access and requires proper connection management. The function references SQL/XML:2008 standards for database-to-XML mapping. It creates a hierarchical XML structure with the database as the root element and all visible schemas as child elements. The MyDatabaseId global variable is used to get the current database name for the root element.

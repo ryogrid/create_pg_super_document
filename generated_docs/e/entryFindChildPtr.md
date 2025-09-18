@@ -26,16 +26,16 @@ The function is designed to handle page modifications that might have occurred s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - GinPageIsLeaf
   - GinPageIsData
   - FirstOffsetNumber
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - GinGetDownlink
   - InvalidOffsetNumber
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GIN entry page implementation

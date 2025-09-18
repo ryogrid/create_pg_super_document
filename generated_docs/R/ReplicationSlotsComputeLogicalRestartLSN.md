@@ -29,12 +29,12 @@ This function takes no parameters and returns:
   - SpinLockAcquire
   - SpinLockRelease
   - SlotIsLogical
-  - ReplicationSlot (struct access)
+  - [ReplicationSlot](ReplicationSlot.md) (struct access)
   - RS_INVAL_NONE (invalidation state constant)
 
 - Called from (representative examples):
   - CheckPointLogicalRewriteHeap
-  - CheckPointSnapBuild
+  - [CheckPointSnapBuild](../C/CheckPointSnapBuild.md)
 
 ## Notes and Other Information
 - Specifically designed for logical decoding purposes, filtering out physical replication slots

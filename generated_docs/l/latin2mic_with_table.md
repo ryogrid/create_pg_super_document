@@ -31,17 +31,17 @@ The `latin2mic_with_table` function converts single-byte character encodings to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `report_invalid_encoding`: Reports invalid character encoding errors
+  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Reports invalid character encoding errors
   - `IS_HIGHBIT_SET`: Macro to check if the high bit (0x80) is set in a character
   - `HIGHBIT`: Constant representing the high bit value (0x80)
-  - `report_untranslatable_char`: Reports characters that cannot be translated between encodings
+  - `[report_untranslatable_char](../r/report_untranslatable_char.md)`: Reports characters that cannot be translated between encodings
   - `PG_MULE_INTERNAL`: Constant identifier for MIC encoding
 
 - Called from (representative examples):
-  - `iso_to_mic`: ISO encoding to MIC conversion
-  - `win1251_to_mic`: Windows-1251 to MIC conversion
-  - `win866_to_mic`: Windows-866 to MIC conversion
-  - `win1250_to_mic`: Windows-1250 to MIC conversion
+  - `[iso_to_mic](../i/iso_to_mic.md)`: ISO encoding to MIC conversion
+  - `[win1251_to_mic](../w/win1251_to_mic.md)`: Windows-1251 to MIC conversion
+  - `[win866_to_mic](../w/win866_to_mic.md)`: Windows-866 to MIC conversion
+  - `[win1250_to_mic](../w/win1250_to_mic.md)`: Windows-1250 to MIC conversion
 
 ## Notes and Other Information
 - Returns the number of input bytes consumed, which may be less than input length if `noError` is true and an error occurs

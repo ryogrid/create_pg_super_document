@@ -23,25 +23,25 @@ This function is responsible for converting a list of ResTarget parse tree nodes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformTargetEntry
-  - ExpandColumnRefStar
-  - ExpandIndirectionStar
-  - list_concat
+  - [transformTargetEntry](transformTargetEntry.md)
+  - [ExpandColumnRefStar](../E/ExpandColumnRefStar.md)
+  - [ExpandIndirectionStar](../E/ExpandIndirectionStar.md)
+  - [list_concat](../l/list_concat.md)
   - lappend
   - llast
   - IsA (macro)
   - lfirst (macro)
   - Assert (macro)
-  - ResTarget
-  - ColumnRef
-  - A_Indirection
-  - A_Star
+  - [ResTarget](../R/ResTarget.md)
+  - [ColumnRef](../C/ColumnRef.md)
+  - [A_Indirection](../A/A_Indirection.md)
+  - [A_Star](../A/A_Star.md)
   - EXPR_KIND_UPDATE_SOURCE
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformUpdateTargetList
-  - transformReturningList
-  - transformPLAssignStmt
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformUpdateTargetList](transformUpdateTargetList.md)
+  - [transformReturningList](transformReturningList.md)
+  - [transformPLAssignStmt](transformPLAssignStmt.md)
 
 ## Notes and Other Information
 - Handles star expansion differently based on expression context (enabled for SELECT/RETURNING, disabled for UPDATE)

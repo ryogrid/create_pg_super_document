@@ -24,7 +24,7 @@ The function uses  which is PostgreSQL's wrapper around the standard  function, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_perm_setlocale (PostgreSQL's setlocale wrapper function)
+  - [pg_perm_setlocale](../p/pg_perm_setlocale.md) (PostgreSQL's setlocale wrapper function)
 - Called from (representative examples):
   - GUC system assignment hooks (referenced in guc_hooks.h)
 

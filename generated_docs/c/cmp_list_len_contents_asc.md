@@ -29,12 +29,12 @@ The function is specifically designed for sorting lists of integers that represe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_list_len_asc: Primary length-based comparison
+  - [cmp_list_len_asc](cmp_list_len_asc.md): Primary length-based comparison
   - lfirst: Extracts List pointers from ListCells
   - forboth: PostgreSQL macro for parallel iteration over two lists
   - lfirst_int: Extracts integer values from ListCells
 - Called from:
-  - expand_grouping_sets: Uses this for final deterministic sorting of grouping combinations
+  - [expand_grouping_sets](../e/expand_grouping_sets.md): Uses this for final deterministic sorting of grouping combinations
 
 ## Notes and Other Information
 - Implements a lexicographic ordering when lists have equal length

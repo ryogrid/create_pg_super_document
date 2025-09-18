@@ -27,13 +27,13 @@ The function is part of BRIN's range filtering logic, helping to skip ranges tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinValues (structure for BRIN range values)
+  - [BrinValues](../B/BrinValues.md) (structure for BRIN range values)
   - ScanKey (structure for scan conditions)
   - SK_ISNULL (scan key flag)
   - SK_SEARCHNULL (scan key flag for IS NULL)
   - SK_SEARCHNOTNULL (scan key flag for IS NOT NULL)
 - Called from (representative examples):
-  - bringetbitmap (BRIN index bitmap scan)
+  - [bringetbitmap](../b/bringetbitmap.md) (BRIN index bitmap scan)
 
 ## Notes and Other Information
 - This is a static function internal to the BRIN access method

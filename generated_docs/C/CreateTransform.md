@@ -30,26 +30,26 @@ The function supports optional FROM SQL and TO SQL transform functions, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameTypeId
-  - get_typtype
-  - object_ownercheck
-  - object_aclcheck
-  - get_language_oid
-  - LookupFuncWithArgs
-  - SearchSysCache1/SearchSysCache2
-  - check_transform_function
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [get_typtype](../g/get_typtype.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [get_language_oid](../g/get_language_oid.md)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/SearchSysCache2
+  - [check_transform_function](../c/check_transform_function.md)
   - table_open
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - deleteDependencyRecordsFor
-  - record_object_address_dependencies
-  - recordDependencyOnCurrentExtension
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility.c:1740)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility.c:1740)
 
 ## Notes and Other Information
 - Supports the REPLACE option to update existing transforms without dropping and recreating

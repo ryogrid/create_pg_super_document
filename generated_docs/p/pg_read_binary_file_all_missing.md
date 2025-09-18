@@ -20,7 +20,7 @@ This function combines the functionality of complete file reading with optional 
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP (macro for extracting text argument)
   - PG_GETARG_BOOL (macro for extracting boolean argument)
-  - pg_read_binary_file_common (core file reading implementation with parameters: offset=0, length=-1, enforce_size=true, missing_ok parameter)
+  - [pg_read_binary_file_common](pg_read_binary_file_common.md) (core file reading implementation with parameters: offset=0, length=-1, enforce_size=true, missing_ok parameter)
   - PG_RETURN_BYTEA_P (macro for returning bytea data)
   - PG_RETURN_NULL (macro for returning NULL)
 - Called from (representative examples):

@@ -21,11 +21,11 @@ This function is a PostgreSQL SQL-callable function that converts an int8 (64-bi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro to extract int64 from function arguments)
-  - int64_to_numeric (internal conversion function)
+  - [int64_to_numeric](int64_to_numeric.md) (internal conversion function)
   - PG_RETURN_NUMERIC (macro to return numeric as Datum)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (in jsonpath execution)
-  - JsonItemFromDatum (in JSON processing)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (in jsonpath execution)
+  - [JsonItemFromDatum](../J/JsonItemFromDatum.md) (in JSON processing)
 
 ## Notes and Other Information
 - This is a SQL-callable function that can be invoked from PostgreSQL SQL statements

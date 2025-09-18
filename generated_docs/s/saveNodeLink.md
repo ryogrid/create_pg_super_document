@@ -20,15 +20,15 @@ This function performs the critical final step in many SP-GiST tree modification
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItem (retrieves tuple from page)
-  - PageGetItemId (gets item identifier for tuple)
-  - spgUpdateNodeLink (updates the specific node's downlink)
+  - [PageGetItem](../P/PageGetItem.md) (retrieves tuple from page)
+  - [PageGetItemId](../P/PageGetItemId.md) (gets item identifier for tuple)
+  - [spgUpdateNodeLink](spgUpdateNodeLink.md) (updates the specific node's downlink)
   - MarkBufferDirty (marks buffer for write-ahead logging)
 - Called from (representative examples):
-  - addLeafTuple
-  - moveLeafs
-  - doPickSplit
-  - spgAddNodeAction
+  - [addLeafTuple](../a/addLeafTuple.md)
+  - [moveLeafs](../m/moveLeafs.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgAddNodeAction](spgAddNodeAction.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the spgdoinsert.c module

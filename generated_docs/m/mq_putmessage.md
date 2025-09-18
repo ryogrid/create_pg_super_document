@@ -31,13 +31,13 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_detach: Detaches from the shared memory queue
-  - shm_mq_sendv: Sends vectored data to the shared memory queue
-  - IsLogicalParallelApplyWorker: Checks if current process is a logical parallel apply worker
+  - [shm_mq_detach](../s/shm_mq_detach.md): Detaches from the shared memory queue
+  - [shm_mq_sendv](../s/shm_mq_sendv.md): Sends vectored data to the shared memory queue
+  - [IsLogicalParallelApplyWorker](../I/IsLogicalParallelApplyWorker.md): Checks if current process is a logical parallel apply worker
   - IsParallelWorker: Checks if current process is a parallel worker
-  - SendProcSignal: Sends process signals to notify the receiver
-  - WaitLatch: Waits on a latch when queue is full
-  - ResetLatch: Resets the latch after waiting
+  - [SendProcSignal](../S/SendProcSignal.md): Sends process signals to notify the receiver
+  - [WaitLatch](../W/WaitLatch.md): Waits on a latch when queue is full
+  - [ResetLatch](../R/ResetLatch.md): Resets the latch after waiting
   - CHECK_FOR_INTERRUPTS: Processes pending interrupts
 - Called from (representative examples):
   - Accessed through PqCommMqMethods.putmessage function pointer

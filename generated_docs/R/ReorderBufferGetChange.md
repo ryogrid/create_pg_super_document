@@ -17,21 +17,21 @@ ReorderBufferGetChange creates a fresh ReorderBufferChange instance by allocatin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - memset (for zero-initialization)
 - Called from (representative examples):
-  - DecodeInsert
-  - DecodeUpdate  
-  - DecodeDelete
-  - DecodeTruncate
-  - DecodeMultiInsert
-  - DecodeSpecConfirm
-  - ReorderBufferQueueMessage
+  - [DecodeInsert](../D/DecodeInsert.md)
+  - [DecodeUpdate](../D/DecodeUpdate.md)  
+  - [DecodeDelete](../D/DecodeDelete.md)
+  - [DecodeTruncate](../D/DecodeTruncate.md)
+  - [DecodeMultiInsert](../D/DecodeMultiInsert.md)
+  - [DecodeSpecConfirm](../D/DecodeSpecConfirm.md)
+  - [ReorderBufferQueueMessage](ReorderBufferQueueMessage.md)
   - ReorderBufferAddSnapshot
   - ReorderBufferAddNewCommandId
   - ReorderBufferAddNewTupleCids
   - ReorderBufferQueueInvalidations
-  - ReorderBufferRestoreChange
+  - [ReorderBufferRestoreChange](ReorderBufferRestoreChange.md)
 
 ## Notes and Other Information
 - Uses the change_context slab allocator for efficient memory management of fixed-size change structures

@@ -34,11 +34,11 @@ This step is part of a multi-phase verb stemming process and handles a different
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - len_utf8: Used to check minimum word length requirements for each suffix category
-  - find_among_b: Used for backward suffix pattern matching with array a_18
-  - slice_del: Used to delete the identified suffix from the string
+  - [len_utf8](../l/len_utf8.md): Used to check minimum word length requirements for each suffix category
+  - [find_among_b](../f/find_among_b.md): Used for backward suffix pattern matching with array a_18
+  - [slice_del](../s/slice_del.md): Used to delete the identified suffix from the string
 - Called from (representative examples):
-  - arabic_UTF_8_stem: Main Arabic stemming function that orchestrates the stemming process (called twice at lines 1450 and 1480)
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function that orchestrates the stemming process (called twice at lines 1450 and 1480)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same compilation unit

@@ -18,10 +18,10 @@ This function serves as a comparator for the qsort library function, specificall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgNodePtr (structure type)
-  - pg_cmp_s16 (PostgreSQL's 16-bit signed integer comparison function)
+  - [spgNodePtr](../s/spgNodePtr.md) (structure type)
+  - [pg_cmp_s16](../p/pg_cmp_s16.md) (PostgreSQL's 16-bit signed integer comparison function)
 - Called from (representative examples):
-  - spg_text_picksplit (used in qsort operation for sorting node pointers)
+  - [spg_text_picksplit](../s/spg_text_picksplit.md) (used in qsort operation for sorting node pointers)
 
 ## Notes and Other Information
 - This is a static function, meaning it has file scope and is only accessible within spgtextproc.c

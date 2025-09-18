@@ -18,8 +18,8 @@ This function searches through the linked list of subtransaction callbacks (SubX
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SubXactCallbackItem (structure type)
-  - pfree (memory deallocation function)
+  - [SubXactCallbackItem](../S/SubXactCallbackItem.md) (structure type)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - SubXact_callbacks (global callback list head)
 - Called from (representative examples):
   - No direct references found in the current codebase

@@ -28,19 +28,19 @@ The function performs extensive validation including parameter count matching, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgstring (extract string fields from protocol message)
-  - FetchPreparedStatement (retrieve named prepared statement)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md) (extract string fields from protocol message)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (retrieve named prepared statement)
   - CreatePortal (create new portal for execution)
-  - GetCachedPlan (obtain execution plan from cached plan source)
-  - PortalDefineQuery (associate query with portal)
-  - PortalStart (initialize portal for execution)
-  - PortalSetResultFormat (configure result format specifications)
-  - makeParamList (create parameter list structure)
-  - OidInputFunctionCall/OidReceiveFunctionCall (parameter type conversion)
-  - pgstat_report_activity (activity monitoring)
-  - check_log_duration (duration logging)
+  - [GetCachedPlan](../G/GetCachedPlan.md) (obtain execution plan from cached plan source)
+  - [PortalDefineQuery](../P/PortalDefineQuery.md) (associate query with portal)
+  - [PortalStart](../P/PortalStart.md) (initialize portal for execution)
+  - [PortalSetResultFormat](../P/PortalSetResultFormat.md) (configure result format specifications)
+  - [makeParamList](../m/makeParamList.md) (create parameter list structure)
+  - [OidInputFunctionCall](../O/OidInputFunctionCall.md)/OidReceiveFunctionCall (parameter type conversion)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (activity monitoring)
+  - [check_log_duration](../c/check_log_duration.md) (duration logging)
 - Called from (representative examples):
-  - PostgresMain (main message processing loop)
+  - [PostgresMain](../P/PostgresMain.md) (main message processing loop)
 
 ## Notes and Other Information
 - Supports both text (format code 0) and binary (format code 1) parameter formats

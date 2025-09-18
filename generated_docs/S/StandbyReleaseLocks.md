@@ -18,10 +18,10 @@ This function serves as a conditional lock release mechanism during WAL replay i
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
-  - hash_search
-  - StandbyReleaseXidEntryLocks
+  - [hash_search](../h/hash_search.md)
+  - [StandbyReleaseXidEntryLocks](StandbyReleaseXidEntryLocks.md)
   - StandbyReleaseAllLocks
-  - RecoveryLockXidEntry
+  - [RecoveryLockXidEntry](../R/RecoveryLockXidEntry.md)
   - HASH_FIND
   - HASH_REMOVE
 - Called from (representative examples):

@@ -27,9 +27,9 @@ This structure is designed to be opaque to client code and is managed through th
 ## Dependencies
 - Functions called/Symbols referenced:
   - symbol (typedef for unsigned char)
-  - SN_create_env (constructor function)
-  - SN_close_env (destructor function)
-  - SN_set_current (string setter function)
+  - [SN_create_env](SN_create_env.md) (constructor function)
+  - [SN_close_env](SN_close_env.md) (destructor function)
+  - [SN_set_current](SN_set_current.md) (string setter function)
 - Called from (representative examples):
   - Used internally by stemming algorithm implementations
   - Managed by the Snowball API functions

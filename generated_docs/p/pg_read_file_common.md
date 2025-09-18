@@ -21,8 +21,8 @@ This function provides a comprehensive text file reading interface that combines
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_and_check_filename: Security validation and filename conversion
-  - read_text_file: Core text file reading with encoding validation
+  - [convert_and_check_filename](../c/convert_and_check_filename.md): Security validation and filename conversion
+  - [read_text_file](../r/read_text_file.md): Core text file reading with encoding validation
   - ereport: Error reporting for invalid parameters
 - Called from (representative examples):
   - Various PostgreSQL SQL functions that need to read text files

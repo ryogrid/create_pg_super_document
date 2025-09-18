@@ -20,13 +20,13 @@ This function performs a specialized optimization for rightmost pages in B-tree 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ItemId (local variable type for line pointer manipulation)
-  - PageGetMaxOffsetNumber (to get the highest valid offset on the page)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (to get the highest valid offset on the page)
   - P_FIRSTKEY (constant for the first key position)
   - P_HIKEY (constant for the high key position being eliminated)
-  - PageGetItemId (to access individual line pointers)
+  - [PageGetItemId](../P/PageGetItemId.md) (to access individual line pointers)
   - OffsetNumberNext (to iterate through offsets)
   - PageHeader (for page header access)
-  - ItemIdData (for size calculation when adjusting pd_lower)
+  - [ItemIdData](../I/ItemIdData.md) (for size calculation when adjusting pd_lower)
 - Called from (representative examples):
   - _bt_uppershutdown
 

@@ -31,8 +31,8 @@ This flexibility makes the function essential for PostgreSQL's extended query pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_analyze_varparams
-  - pg_rewrite_query
+  - [parse_analyze_varparams](parse_analyze_varparams.md)
+  - [pg_rewrite_query](pg_rewrite_query.md)
   - ResetUsage
   - ShowUsage
   - InvalidOid (constant)
@@ -40,8 +40,8 @@ This flexibility makes the function essential for PostgreSQL's extended query pr
   - RawStmt (type)
   - QueryEnvironment (type)
 - Called from (representative examples):
-  - PrepareQuery
-  - exec_parse_message
+  - [PrepareQuery](../P/PrepareQuery.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
 
 ## Notes and Other Information
 - Returns a List of Query nodes since rewriting may expand one query into several

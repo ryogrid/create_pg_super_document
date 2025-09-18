@@ -21,7 +21,7 @@ The `point_box` function converts a single point into a box representation by cr
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P (macro to extract point argument)
-  - palloc (memory allocation)
+  - [palloc](palloc.md) (memory allocation)
   - PG_RETURN_BOX_P (macro to return box result)
 - Called from (representative examples):
   - No direct callers found in the codebase

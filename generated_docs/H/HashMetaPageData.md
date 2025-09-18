@@ -39,8 +39,8 @@ The structure supports PostgreSQL's dynamic hash table implementation, which can
   - HASH_MAX_BITMAPS
   - BlockNumber
 - Called from (representative examples):
-  - _hash_init_metabuffer
-  - _hash_getcachedmetap
+  - [_hash_init_metabuffer](../h/_hash_init_metabuffer.md)
+  - [_hash_getcachedmetap](../h/_hash_getcachedmetap.md)
   - HashMetaPage
 
 ## Notes and Other Information

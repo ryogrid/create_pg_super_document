@@ -23,14 +23,14 @@ The function automatically invokes the per-file callback for each file entry fou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeJsonLexContextCstringLen
-  - json_manifest_object_start
+  - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md)
+  - [json_manifest_object_start](json_manifest_object_start.md)
   - json_manifest_object_end
   - json_manifest_array_start
   - json_manifest_array_end
   - json_manifest_object_field_start
   - json_manifest_scalar
-  - pg_parse_json
+  - [pg_parse_json](../p/pg_parse_json.md)
   - json_manifest_parse_failure
   - json_errdetail
   - verify_manifest_checksum
@@ -40,8 +40,8 @@ The function automatically invokes the per-file callback for each file entry fou
   - JM_EXPECT_EOF
   - PG_UTF8
 - Called from (representative examples):
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:171)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:448)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:171)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:448)
 
 ## Notes and Other Information
 - Requires the entire manifest to be loaded into memory before parsing

@@ -26,7 +26,7 @@ The function serves as a wrapper that handles PostgreSQL's function calling conv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_overlay
+  - [text_overlay](text_overlay.md)
   - PG_RETURN_TEXT_P
   - PG_GETARG_TEXT_PP
   - PG_GETARG_INT32

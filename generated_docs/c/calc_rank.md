@@ -33,18 +33,18 @@ The function ensures a minimum positive score (1e-20) to avoid negative or zero 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GETQUERY
-  - calc_rank_and
-  - calc_rank_or
-  - cnt_length
+  - [calc_rank_and](calc_rank_and.md)
+  - [calc_rank_or](calc_rank_or.md)
+  - [cnt_length](cnt_length.md)
   - QI_OPR
   - OP_AND
   - OP_PHRASE
   - RANK_NORM_* constants
 - Called from (representative examples):
-  - ts_rank_wttf
-  - ts_rank_wtt
-  - ts_rank_ttf
-  - ts_rank_tt
+  - [ts_rank_wttf](../t/ts_rank_wttf.md)
+  - [ts_rank_wtt](../t/ts_rank_wtt.md)
+  - [ts_rank_ttf](../t/ts_rank_ttf.md)
+  - [ts_rank_tt](../t/ts_rank_tt.md)
 
 ## Notes and Other Information
 - Returns 0.0 immediately if either TSVector or TSQuery is empty

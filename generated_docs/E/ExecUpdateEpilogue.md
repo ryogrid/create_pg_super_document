@@ -28,13 +28,13 @@ The function ensures that all post-update processing is completed in the correct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInsertIndexTuples
-  - ExecARUpdateTriggers
-  - ExecWithCheckOptions
-  - list_free
+  - [ExecInsertIndexTuples](ExecInsertIndexTuples.md)
+  - [ExecARUpdateTriggers](ExecARUpdateTriggers.md)
+  - [ExecWithCheckOptions](ExecWithCheckOptions.md)
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - ExecUpdate (src/backend/executor/nodeModifyTable.c:2522)
-  - ExecMergeMatched (src/backend/executor/nodeModifyTable.c:3071)
+  - [ExecUpdate](ExecUpdate.md) (src/backend/executor/nodeModifyTable.c:2522)
+  - [ExecMergeMatched](ExecMergeMatched.md) (src/backend/executor/nodeModifyTable.c:3071)
 
 ## Notes and Other Information
 - The function is static and only used within nodeModifyTable.c

@@ -20,14 +20,14 @@ This function is called by parallel worker processes to set up their local seque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - table_beginscan_parallel
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [table_beginscan_parallel](../t/table_beginscan_parallel.md)
 - Types referenced:
-  - SeqScanState
-  - ParallelWorkerContext
-  - ParallelTableScanDesc
+  - [SeqScanState](../S/SeqScanState.md)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
+  - [ParallelTableScanDesc](../P/ParallelTableScanDesc.md)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker (in execParallel.c)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (in execParallel.c)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution infrastructure

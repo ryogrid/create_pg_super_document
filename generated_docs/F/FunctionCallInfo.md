@@ -21,14 +21,14 @@ FunctionCallInfo is the fundamental type used throughout PostgreSQL's function m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCallInfoBaseData (struct - the actual data structure)
+  - [FunctionCallInfoBaseData](FunctionCallInfoBaseData.md) (struct - the actual data structure)
   - PGFunction (uses FunctionCallInfo as parameter type)
 - Called from (representative examples):
-  - ExecInitExprRec (expression initialization)
-  - ExecInterpExpr (expression interpretation)
-  - ExecEvalFuncExprFusage (function expression evaluation)
-  - advance_transition_function (aggregate function processing)
-  - AggCheckCallContext (aggregate context checking)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (expression initialization)
+  - [ExecInterpExpr](../E/ExecInterpExpr.md) (expression interpretation)
+  - [ExecEvalFuncExprFusage](../E/ExecEvalFuncExprFusage.md) (function expression evaluation)
+  - [advance_transition_function](../a/advance_transition_function.md) (aggregate function processing)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (aggregate context checking)
   - Various PL/* language handlers (plperl, plpython, pltcl)
   - JSON/JSONB processing functions
   - Array and range type operations

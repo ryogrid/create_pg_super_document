@@ -19,7 +19,7 @@ The function eliminates the need for SPI clients to track which memory context a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
   - SPI client functions that need to clean up tuple results
   - Functions processing SPI query results

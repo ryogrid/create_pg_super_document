@@ -31,16 +31,16 @@ Special handling includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_open_handle (PostgreSQL Windows file opening wrapper)
-  - fileinfo_to_stat (convert Windows file info to stat structure)
+  - [pgwin32_open_handle](pgwin32_open_handle.md) (PostgreSQL Windows file opening wrapper)
+  - [fileinfo_to_stat](../f/fileinfo_to_stat.md) (convert Windows file info to stat structure)
   - readlink (check for junction points/symbolic links)
   - CloseHandle (Windows API for handle cleanup)
   - S_ISDIR, S_IFLNK (Unix file type macros)
   - pg_RtlGetLastNtStatus (Windows NT status checking)
 - Called from:
-  - stat (macro in src/include/port/win32_port.h:279)
+  - [stat](../s/stat.md) (macro in src/include/port/win32_port.h:279)
   - lstat (macro in src/include/port/win32_port.h:283)
-  - _pgstat64 (at src/port/win32stat.c:204, 244)
+  - [_pgstat64](_pgstat64.md) (at src/port/win32stat.c:204, 244)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on error (following Unix conventions)

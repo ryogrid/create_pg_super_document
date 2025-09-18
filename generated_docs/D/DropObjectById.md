@@ -20,21 +20,21 @@ DropObjectById provides a generic mechanism for deleting catalog entries by thei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_catcache_oid: Retrieves cache ID for the object's catalog
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md): Retrieves cache ID for the object's catalog
   - table_open: Opens the catalog relation with specified lock
-  - SearchSysCache1: Performs cached lookup of the target tuple
-  - CatalogTupleDelete: Deletes the catalog tuple
-  - ReleaseSysCache: Releases the cached tuple
-  - ScanKeyInit: Initializes scan key for non-cached lookup
-  - systable_beginscan: Begins system table scan
-  - get_object_attnum_oid: Gets OID attribute number
-  - get_object_oid_index: Gets OID index for the catalog
-  - systable_getnext: Retrieves next tuple from scan
-  - systable_endscan: Ends system table scan
+  - [SearchSysCache1](../S/SearchSysCache1.md): Performs cached lookup of the target tuple
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md): Deletes the catalog tuple
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the cached tuple
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initializes scan key for non-cached lookup
+  - [systable_beginscan](../s/systable_beginscan.md): Begins system table scan
+  - [get_object_attnum_oid](../g/get_object_attnum_oid.md): Gets OID attribute number
+  - [get_object_oid_index](../g/get_object_oid_index.md): Gets OID index for the catalog
+  - [systable_getnext](../s/systable_getnext.md): Retrieves next tuple from scan
+  - [systable_endscan](../s/systable_endscan.md): Ends system table scan
   - table_close: Closes the catalog relation
-  - get_object_class_descr: Gets human-readable class description for errors
+  - [get_object_class_descr](../g/get_object_class_descr.md): Gets human-readable class description for errors
 - Called from:
-  - doDeletion: Main deletion orchestration function
+  - [doDeletion](../d/doDeletion.md): Main deletion orchestration function
 
 ## Notes and Other Information
 - This function is static and only used internally within the dependency.c module

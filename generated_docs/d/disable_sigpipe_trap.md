@@ -23,15 +23,15 @@ The function is conditionally compiled and only has effect on Unix-like systems.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsignal (PostgreSQL's signal handling wrapper)
+  - [pqsignal](../p/pqsignal.md) (PostgreSQL's signal handling wrapper)
   - SIGPIPE (signal constant)
   - SIG_IGN (signal handler constant for ignoring signals)
 - Called from (representative examples):
-  - exec_command_write (at src/bin/psql/command.c:2783)
-  - do_watch (at src/bin/psql/command.c:5409)
-  - SetupGOutput (at src/bin/psql/common.c:98)
-  - do_copy (at src/bin/psql/copy.c:310)
-  - PageOutput (at src/fe_utils/print.c:3123)
+  - [exec_command_write](../e/exec_command_write.md) (at src/bin/psql/command.c:2783)
+  - [do_watch](do_watch.md) (at src/bin/psql/command.c:5409)
+  - [SetupGOutput](../S/SetupGOutput.md) (at src/bin/psql/common.c:98)
+  - [do_copy](do_copy.md) (at src/bin/psql/copy.c:310)
+  - [PageOutput](../P/PageOutput.md) (at src/fe_utils/print.c:3123)
 
 ## Notes and Other Information
 - This is a public function (not static), accessible from other modules

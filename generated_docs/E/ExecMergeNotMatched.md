@@ -28,12 +28,12 @@ The function is simpler than ExecMergeMatched because NOT MATCHED cases don't ne
 - Functions called/Symbols referenced:
   - ExecQual
   - ExecProject
-  - ExecInsert
-  - MergeActionState
+  - [ExecInsert](ExecInsert.md)
+  - [MergeActionState](../M/MergeActionState.md)
   - MERGE_WHEN_NOT_MATCHED_BY_TARGET
 - Called from (representative examples):
-  - ExecMerge
-  - ExecModifyTable
+  - [ExecMerge](ExecMerge.md)
+  - [ExecModifyTable](ExecModifyTable.md)
 
 ## Notes and Other Information
 - Only processes INSERT and DO NOTHING actions since these are the only valid operations for NOT MATCHED cases

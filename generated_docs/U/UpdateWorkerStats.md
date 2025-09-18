@@ -19,9 +19,9 @@ This function maintains the operational statistics for a logical replication wor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
 - Called from (representative examples):
-  - LogicalRepApplyLoop (at lines 3598, 3616)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (at lines 3598, 3616)
 
 ## Notes and Other Information
 - This is a static function internal to the worker.c file

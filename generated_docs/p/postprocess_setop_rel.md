@@ -25,12 +25,12 @@ The function is intentionally lightweight as the heavy lifting of path generatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - create_upper_paths_hook (global function pointer)
-  - set_cheapest
+  - [set_cheapest](../s/set_cheapest.md)
   - UPPERREL_SETOP (constant)
 - Called from (representative examples):
-  - recurse_set_operations
-  - generate_recursion_path  
-  - build_setop_child_paths
+  - [recurse_set_operations](../r/recurse_set_operations.md)
+  - [generate_recursion_path](../g/generate_recursion_path.md)  
+  - [build_setop_child_paths](../b/build_setop_child_paths.md)
 
 ## Notes and Other Information
 - The function currently does not actively support FDW path contributions for set operations, but the hook mechanism allows for future extensibility

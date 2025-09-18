@@ -26,10 +26,10 @@ This optimization helps avoid unnecessary tree traversals during adjacent range 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - adjacent_cmp_bounds
-  - range_cmp_bounds
+  - [adjacent_cmp_bounds](adjacent_cmp_bounds.md)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md)
 - Called from (representative examples):
-  - spg_range_quad_inner_consistent
+  - [spg_range_quad_inner_consistent](../s/spg_range_quad_inner_consistent.md)
 
 ## Notes and Other Information
 - Returns -1 for left search, 1 for right search, 0 for no matches possible

@@ -24,10 +24,10 @@ Permutation is a fundamental data structure in PostgreSQL's isolation testing fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PermutationStep
+  - [PermutationStep](PermutationStep.md)
 - Called from (representative examples):
-  - check_testspec
-  - run_named_permutations
+  - [check_testspec](../c/check_testspec.md)
+  - [run_named_permutations](../r/run_named_permutations.md)
 
 ## Notes and Other Information
 - Core component of the isolation testing framework in src/test/isolation/

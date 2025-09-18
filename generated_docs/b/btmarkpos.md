@@ -20,10 +20,10 @@ The btmarkpos function implements a lightweight position marking mechanism for B
   - BTScanPosUnpinIfPinned
   - BTScanPosIsValid
   - BTScanPosInvalidate
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - BTScanOpaque
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - Uses lazy evaluation for efficiency: only stores itemIndex initially, full position copy is deferred until needed

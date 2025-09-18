@@ -30,11 +30,11 @@ Key characteristics of relations created by formrdesc:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc
-  - RelationInitLockInfo
-  - RelationInitPhysicalAddr
-  - GetHeapamTableAmRoutine
-  - RelationMapUpdateMap
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [RelationInitLockInfo](../R/RelationInitLockInfo.md)
+  - [RelationInitPhysicalAddr](../R/RelationInitPhysicalAddr.md)
+  - [GetHeapamTableAmRoutine](../G/GetHeapamTableAmRoutine.md)
+  - [RelationMapUpdateMap](../R/RelationMapUpdateMap.md)
   - RelationCacheInsert
   - IsBootstrapProcessingMode
   - namestrcpy

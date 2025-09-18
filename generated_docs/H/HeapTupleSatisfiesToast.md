@@ -30,13 +30,13 @@ The function deliberately avoids full MVCC time qualification checks since TOAST
   - HeapTupleHeaderXminInvalid
   - HeapTupleHeaderGetXvac
   - HeapTupleHeaderGetXmin
-  - TransactionIdIsCurrentTransactionId
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
-  - SetHintBits
-  - ItemPointerIsValid
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [SetHintBits](../S/SetHintBits.md)
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 - This is a simplified visibility function specifically designed for TOAST tables

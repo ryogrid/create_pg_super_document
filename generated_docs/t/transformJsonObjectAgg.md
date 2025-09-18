@@ -32,17 +32,17 @@ The transformation process includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExprRecurse (for key expression transformation)
-  - transformJsonValueExpr (for value expression transformation with JSON_OBJECTAGG context)
-  - transformJsonConstructorOutput (for output formatting)
-  - transformJsonAggConstructor (for common aggregate constructor logic)
+  - [transformExprRecurse](transformExprRecurse.md) (for key expression transformation)
+  - [transformJsonValueExpr](transformJsonValueExpr.md) (for value expression transformation with JSON_OBJECTAGG context)
+  - [transformJsonConstructorOutput](transformJsonConstructorOutput.md) (for output formatting)
+  - [transformJsonAggConstructor](transformJsonAggConstructor.md) (for common aggregate constructor logic)
   - list_make2 (for creating key-value argument pairs)
   - JS_FORMAT_DEFAULT, JS_FORMAT_JSONB (format type constants)
   - F_JSON_OBJECT_AGG*, F_JSONB_OBJECT_AGG* (aggregate function OID constants)
   - JSCTOR_JSON_OBJECTAGG (constructor type constant)
   - JSONOID, JSONBOID (type OID constants)
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - The function supports four variants for each format based on behavioral flags:

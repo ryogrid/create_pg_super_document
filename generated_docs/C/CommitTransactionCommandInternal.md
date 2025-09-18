@@ -33,16 +33,16 @@ The function saves transaction characteristics at the beginning and restores the
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentTransactionState (global transaction state)
-  - SaveTransactionCharacteristics/RestoreTransactionCharacteristics (transaction chaining)
-  - CommitTransaction/AbortTransaction/CleanupTransaction (main transaction operations)
-  - StartTransaction/PrepareTransaction (transaction lifecycle)
-  - StartSubTransaction/CommitSubTransaction/AbortSubTransaction/CleanupSubTransaction (subtransaction operations)
+  - [SaveTransactionCharacteristics](../S/SaveTransactionCharacteristics.md)/RestoreTransactionCharacteristics (transaction chaining)
+  - [CommitTransaction](CommitTransaction.md)/AbortTransaction/CleanupTransaction (main transaction operations)
+  - [StartTransaction](../S/StartTransaction.md)/PrepareTransaction (transaction lifecycle)
+  - [StartSubTransaction](../S/StartSubTransaction.md)/CommitSubTransaction/AbortSubTransaction/CleanupSubTransaction (subtransaction operations)
   - CommandCounterIncrement (command sequencing)
-  - DefineSavepoint (savepoint creation)
-  - BlockStateAsString (error reporting)
+  - [DefineSavepoint](../D/DefineSavepoint.md) (savepoint creation)
+  - [BlockStateAsString](../B/BlockStateAsString.md) (error reporting)
   - Various TBLOCK_* constants (transaction block states)
 - Called from (representative examples):
-  - CommitTransactionCommand (wrapper function)
+  - [CommitTransactionCommand](CommitTransactionCommand.md) (wrapper function)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/xact.c:3111-3386

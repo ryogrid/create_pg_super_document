@@ -22,13 +22,13 @@ The function follows the standard Snowball stemmer pattern of setting boundary m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1: Checks if current position is within R1 region
-  - r_R2: Checks if current position is within R2 region
-  - find_among_b: Searches backwards for matching suffix patterns
-  - slice_del: Deletes the identified suffix from the word
+  - [r_R1](r_R1.md): Checks if current position is within R1 region
+  - [r_R2](r_R2.md): Checks if current position is within R2 region
+  - [find_among_b](../f/find_among_b.md): Searches backwards for matching suffix patterns
+  - [slice_del](../s/slice_del.md): Deletes the identified suffix from the word
 - Called from (representative examples):
-  - irish_ISO_8859_1_stem: Main stemming function for ISO-8859-1 encoded Irish text
-  - irish_UTF_8_stem: Main stemming function for UTF-8 encoded Irish text
+  - [irish_ISO_8859_1_stem](../i/irish_ISO_8859_1_stem.md): Main stemming function for ISO-8859-1 encoded Irish text
+  - [irish_UTF_8_stem](../i/irish_UTF_8_stem.md): Main stemming function for UTF-8 encoded Irish text
 
 ## Notes and Other Information
 - The function uses a lookup table 'a_1' containing 16 different Irish noun suffix patterns

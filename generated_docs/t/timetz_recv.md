@@ -32,11 +32,11 @@ The function includes comprehensive range checking to prevent invalid time and t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64
-  - pq_getmsgint
-  - AdjustTimeForTypmod
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md)
   - PG_RETURN_TIMETZADT_P
-  - palloc
+  - [palloc](../p/palloc.md)
   - ereport (for error reporting)
 - Called from (representative examples):
   - No direct callers found (typically invoked through PostgreSQL's type system during binary protocol handling)

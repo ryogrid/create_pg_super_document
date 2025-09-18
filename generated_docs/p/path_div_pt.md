@@ -26,7 +26,7 @@ This geometric transformation operator enables reversing previous scaling and ro
   - PG_GETARG_PATH_P_COPY (macro for retrieving and copying PATH argument)
   - PG_GETARG_POINT_P (macro for retrieving Point argument)
   - PG_RETURN_PATH_P (macro for returning PATH result)
-  - point_div_point (function for dividing two points using complex arithmetic)
+  - [point_div_point](point_div_point.md) (function for dividing two points using complex arithmetic)
 - Called from:
   - No direct references found in the codebase
 
@@ -34,7 +34,7 @@ This geometric transformation operator enables reversing previous scaling and ro
 - Uses PG_GETARG_PATH_P_COPY to work on a copy of the input path, ensuring the original is not modified
 - Applies the same inverse transformation to all points in the path uniformly
 - The transformation provides inverse scaling and rotation operations
-- Point division follows complex number arithmetic rules
+- [Point](../P/Point.md) division follows complex number arithmetic rules
 - Inverse operation to path_mul_pt, allowing bidirectional scaling/rotation transformations
 - Part of PostgreSQL's comprehensive geometric transformation system
 - Preserves path topology while enabling complex inverse shape transformations

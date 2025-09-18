@@ -29,10 +29,10 @@ The current approach prioritizes system consistency and tool compatibility over 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplaceRoleInInitPriv - Updates role references in pg_init_privs entries for the specified object
+  - [ReplaceRoleInInitPriv](../R/ReplaceRoleInInitPriv.md) - Updates role references in pg_init_privs entries for the specified object
 
 - Called from (representative examples):
-  - shdepReassignOwned (src/backend/catalog/pg_shdepend.c:1614)
+  - [shdepReassignOwned](shdepReassignOwned.md) (src/backend/catalog/pg_shdepend.c:1614)
   - ShDependObjectInfo (src/backend/catalog/pg_shdepend.c:107)
 
 ## Notes and Other Information

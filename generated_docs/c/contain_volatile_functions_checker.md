@@ -27,10 +27,10 @@ PostgreSQL's volatility categories:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - func_volatile
+  - [func_volatile](../f/func_volatile.md)
   - PROVOLATILE_VOLATILE
 - Called from (representative examples):
-  - contain_volatile_functions_walker
+  - [contain_volatile_functions_walker](contain_volatile_functions_walker.md)
 
 ## Notes and Other Information
 - Returns `true` only for functions marked as PROVOLATILE_VOLATILE, not for STABLE functions

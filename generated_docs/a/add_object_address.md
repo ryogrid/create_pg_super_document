@@ -24,12 +24,12 @@ After ensuring adequate capacity, the function creates a new ObjectAddress entry
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (memory reallocation)
+  - [repalloc](../r/repalloc.md) (memory reallocation)
   - ObjectAddresses (struct type)
   - Assert (debugging macro)
 - Called from (representative examples):
-  - find_expr_references_walker (extensively, 50+ call sites)
-  - process_function_rte_ref
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (extensively, 50+ call sites)
+  - [process_function_rte_ref](../p/process_function_rte_ref.md)
 
 ## Notes and Other Information
 - Uses doubling strategy for array growth (efficient for many insertions)

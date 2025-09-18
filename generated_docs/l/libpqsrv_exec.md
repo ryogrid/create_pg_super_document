@@ -19,8 +19,8 @@ This function serves as a wrapper around PostgreSQL's PQexec() functionality but
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQuery
-  - libpqsrv_get_result_last
+  - [PQsendQuery](../P/PQsendQuery.md)
+  - [libpqsrv_get_result_last](libpqsrv_get_result_last.md)
 - Called from (representative examples):
   - No direct references found in current codebase
 

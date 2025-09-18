@@ -34,20 +34,20 @@ The function includes an optimization where it returns immediately if the statem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate
-  - relation_open
-  - addRangeTableEntryForRelation
-  - addNSItemToQuery
-  - transformWhereClause
-  - assign_expr_collations
-  - FigureIndexColname
-  - transformExpr
-  - free_parsestate
+  - [make_parsestate](../m/make_parsestate.md)
+  - [relation_open](../r/relation_open.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
+  - [transformWhereClause](transformWhereClause.md)
+  - [assign_expr_collations](../a/assign_expr_collations.md)
+  - [FigureIndexColname](../F/FigureIndexColname.md)
+  - [transformExpr](transformExpr.md)
+  - [free_parsestate](../f/free_parsestate.md)
   - table_close
 - Called from (representative examples):
-  - ATPostAlterTypeParse
-  - transformAlterTableStmt
-  - ProcessUtilitySlow
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
+  - [transformAlterTableStmt](transformAlterTableStmt.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - The function is a no-op for simple indexes that don't use expressions or predicates

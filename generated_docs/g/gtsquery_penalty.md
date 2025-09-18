@@ -24,10 +24,10 @@ The function extracts TSQuery signatures from the GiST entry parameters, uses th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetTSQuerySign (macro to extract TSQuery signature from Datum)
-  - GISTENTRY (GiST entry structure)
+  - [DatumGetTSQuerySign](../D/DatumGetTSQuerySign.md) (macro to extract TSQuery signature from Datum)
+  - [GISTENTRY](../G/GISTENTRY.md) (GiST entry structure)
   - TSQuerySign (TSQuery signature type)
-  - hemdist (function to calculate Hamming distance between signatures)
+  - [hemdist](../h/hemdist.md) (function to calculate Hamming distance between signatures)
   - PG_GETARG_POINTER (macro to get function arguments)
   - PG_RETURN_POINTER (macro to return pointer value)
 - Called from:

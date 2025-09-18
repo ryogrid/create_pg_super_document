@@ -26,16 +26,16 @@ The function applies different formulas depending on whether the table fits enti
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumber (type)
-  - PlannerInfo (structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (structure)
   - effective_cache_size (global variable)
   - Max (macro)
   - Assert (macro)
   - ceil (math function)
 - Called from (representative examples):
-  - cost_index
-  - compute_bitmap_pages
-  - genericcostestimate
-  - gincostestimate
+  - [cost_index](../c/cost_index.md)
+  - [compute_bitmap_pages](../c/compute_bitmap_pages.md)
+  - [genericcostestimate](../g/genericcostestimate.md)
+  - [gincostestimate](../g/gincostestimate.md)
 
 ## Notes and Other Information
 The function implements the seminal Mackert and Lohman I/O model from their 1989 ACM Transactions paper, which remains a foundational algorithm in database query optimization. The model accounts for LRU buffer replacement and provides three different formulas based on the relationship between table size, cache size, and scan selectivity. The pro-rating of cache space across multiple relations reflects the reality of concurrent access patterns in complex queries, though it necessarily makes simplifying assumptions about actual memory competition.

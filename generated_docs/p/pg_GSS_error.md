@@ -23,18 +23,18 @@ The error is always reported at COMMERROR level to prevent infinite recursion th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_GSS_error_int (called twice for major and minor status)
+  - [pg_GSS_error_int](pg_GSS_error_int.md) (called twice for major and minor status)
   - ereport (PostgreSQL error reporting)
-  - errmsg_internal (PostgreSQL error message function)
-  - errdetail_internal (PostgreSQL error detail function)
+  - [errmsg_internal](../e/errmsg_internal.md) (PostgreSQL error message function)
+  - [errdetail_internal](../e/errdetail_internal.md) (PostgreSQL error detail function)
   - COMMERROR (PostgreSQL constant)
 - Called from (representative examples):
-  - pg_GSS_recvauth (authentication)
-  - pg_GSS_checkauth (authentication)
+  - [pg_GSS_recvauth](pg_GSS_recvauth.md) (authentication)
+  - [pg_GSS_checkauth](pg_GSS_checkauth.md) (authentication)
   - be_gssapi_write (secure communication)
-  - be_gssapi_read (secure communication)
-  - pg_GSS_continue (client-side authentication)
-  - pqsecure_open_gss (client-side connection)
+  - [be_gssapi_read](../b/be_gssapi_read.md) (secure communication)
+  - [pg_GSS_continue](pg_GSS_continue.md) (client-side authentication)
+  - [pqsecure_open_gss](pqsecure_open_gss.md) (client-side connection)
 
 ## Notes and Other Information
 - This function is used in both backend and frontend code (libpq)

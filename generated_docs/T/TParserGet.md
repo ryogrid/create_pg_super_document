@@ -34,15 +34,15 @@ The parser supports:
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (PostgreSQL interrupt handling)
-  - pg_mblen (multibyte character length calculation)
+  - [pg_mblen](../p/pg_mblen.md) (multibyte character length calculation)
   - newTParserPosition (stack state creation)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
   - Various state constants (TPS_Base, TPS_Null, etc.)
   - Action flags (A_BINGO, A_POP, A_PUSH, A_CLEAR, A_MERGE, A_CLRALL, A_RERUN)
 - Called from:
-  - p_ishost (host validation parsing)
-  - p_isURLPath (URL path validation parsing)
-  - prsd_nexttoken (main token extraction interface)
+  - [p_ishost](../p/p_ishost.md) (host validation parsing)
+  - [p_isURLPath](../p/p_isURLPath.md) (URL path validation parsing)
+  - [prsd_nexttoken](../p/prsd_nexttoken.md) (main token extraction interface)
 
 ## Notes and Other Information
 - Returns  when a complete token is found (A_BINGO flag set),  when no more tokens available

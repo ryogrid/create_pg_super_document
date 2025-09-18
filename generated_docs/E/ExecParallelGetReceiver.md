@@ -22,10 +22,10 @@ The function calculates the worker-specific queue location by adding an offset b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - shm_mq_set_sender
-  - shm_mq_attach
-  - CreateTupleQueueDestReceiver
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [shm_mq_set_sender](../s/shm_mq_set_sender.md)
+  - [shm_mq_attach](../s/shm_mq_attach.md)
+  - [CreateTupleQueueDestReceiver](../C/CreateTupleQueueDestReceiver.md)
 - Constants used:
   - PARALLEL_KEY_TUPLE_QUEUE
   - PARALLEL_TUPLE_QUEUE_SIZE
@@ -33,7 +33,7 @@ The function calculates the worker-specific queue location by adding an offset b
   - ParallelWorkerNumber
   - MyProc
 - Called from:
-  - ParallelQueryMain
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execParallel.c

@@ -23,9 +23,9 @@ The function calls RefreshXLogWriteResult() to ensure the returned value reflect
   - RefreshXLogWriteResult
   - LogwrtResult (global variable access)
 - Called from:
-  - GetWALAvailability (src/backend/access/transam/xlog.c:7903)
-  - pg_current_wal_lsn (src/backend/access/transam/xlogfuncs.c:283)
-  - pg_attribute_noreturn (src/backend/replication/logical/tablesync.c:157)
+  - [GetWALAvailability](GetWALAvailability.md) (src/backend/access/transam/xlog.c:7903)
+  - [pg_current_wal_lsn](../p/pg_current_wal_lsn.md) (src/backend/access/transam/xlogfuncs.c:283)
+  - [pg_attribute_noreturn](../p/pg_attribute_noreturn.md) (src/backend/replication/logical/tablesync.c:157)
   - PG_GET_REPLICATION_SLOTS_COLS (src/backend/replication/slotfuncs.c:255)
 
 ## Notes and Other Information

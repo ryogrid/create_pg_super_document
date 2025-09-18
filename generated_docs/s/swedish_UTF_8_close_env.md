@@ -21,7 +21,7 @@ The function calls SN_close_env with parameters (z, 0), where:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

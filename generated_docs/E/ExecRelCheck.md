@@ -29,13 +29,13 @@ The function implements lazy initialization of constraint expressions for perfor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stringToNode (parses constraint string representations into expression trees)
-  - ExecPrepareExpr (prepares expressions for execution)
+  - [stringToNode](../s/stringToNode.md) (parses constraint string representations into expression trees)
+  - [ExecPrepareExpr](ExecPrepareExpr.md) (prepares expressions for execution)
   - GetPerTupleExprContext (obtains per-tuple expression evaluation context)
-  - ExecCheck (evaluates constraint expressions with proper NULL handling)
-  - ConstrCheck (constraint structure type)
+  - [ExecCheck](ExecCheck.md) (evaluates constraint expressions with proper NULL handling)
+  - [ConstrCheck](../C/ConstrCheck.md) (constraint structure type)
 - Called from:
-  - ExecConstraints (main constraint enforcement function)
+  - [ExecConstraints](ExecConstraints.md) (main constraint enforcement function)
 
 ## Notes and Other Information
 - This is a static function accessible only within execMain.c

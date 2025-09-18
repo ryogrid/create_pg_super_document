@@ -24,12 +24,12 @@ This function is part of PostgreSQL's logical replication system, which allows p
 - Functions called/Symbols referenced:
   - ObjectAddressSet
   - strVal/linitial/lsecond (list manipulation and string value extraction)
-  - get_namespace_oid (schema name to OID resolution)
-  - GetPublicationByName
+  - [get_namespace_oid](get_namespace_oid.md) (schema name to OID resolution)
+  - [GetPublicationByName](../G/GetPublicationByName.md)
   - GetSysCacheOid2 (PUBLICATIONNAMESPACEMAP cache lookup)
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - get_object_address (main object address resolution dispatcher)
+  - [get_object_address](get_object_address.md) (main object address resolution dispatcher)
   - object_type_map (object type mapping table)
 
 ## Notes and Other Information

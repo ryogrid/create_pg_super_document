@@ -27,9 +27,9 @@ The function ensures that all sub-object comments (different objsubid values) ar
 - Functions called/Symbols referenced:
   - CommentItem (structure type)
 - Called from (representative examples):
-  - dumpCommentExtended
-  - dumpTableComment
-  - dumpCompositeTypeColComments
+  - [dumpCommentExtended](../d/dumpCommentExtended.md)
+  - [dumpTableComment](../d/dumpTableComment.md)
+  - [dumpCompositeTypeColComments](../d/dumpCompositeTypeColComments.md)
 
 ## Notes and Other Information
 - Relies on the global  array being pre-sorted by classoid, then objoid

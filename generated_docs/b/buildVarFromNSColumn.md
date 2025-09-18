@@ -21,13 +21,13 @@ This function serves as a constructor for Var nodes based on ParseNamespaceColum
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeVar
-  - markNullableIfNeeded
+  - [markNullableIfNeeded](../m/markNullableIfNeeded.md)
 - Types referenced:
-  - ParseNamespaceColumn
+  - [ParseNamespaceColumn](../P/ParseNamespaceColumn.md)
   - Var
 - Called from (representative examples):
-  - transformFromClauseItem (for USING clause processing)
-  - extractRemainingColumns (for column extraction in joins)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (for USING clause processing)
+  - [extractRemainingColumns](../e/extractRemainingColumns.md) (for column extraction in joins)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c used internally for FROM clause processing

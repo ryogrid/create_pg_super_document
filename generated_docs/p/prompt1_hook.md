@@ -19,7 +19,7 @@ This function serves as a validation hook for the PROMPT1 psql variable. Unlike 
 - Functions called/Symbols referenced:
   - (none - only performs direct assignment)
 - Called from (representative examples):
-  - EstablishVariableSpace (via SetVariableHooks for PROMPT1 variable)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (via SetVariableHooks for PROMPT1 variable)
 
 ## Notes and Other Information
 - Always returns true since prompt strings require no validation

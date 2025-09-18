@@ -19,10 +19,10 @@ This function computes hash values for lexemes stored in LexemeHashKey structure
 ## Dependencies
 - Functions called/Symbols referenced:
   - LexemeHashKey
-  - hash_any
-  - DatumGetUInt32
+  - [hash_any](../h/hash_any.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
 - Called from (representative examples):
-  - compute_tsvector_stats (via hash table configuration)
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md) (via hash table configuration)
 
 ## Notes and Other Information
 - Designed for lexemes that are not NULL terminated strings

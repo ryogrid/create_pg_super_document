@@ -18,7 +18,7 @@ This function serves as the main entry point for the json_array_elements SQL fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - elements_worker: Core implementation function for JSON array element extraction
+  - [elements_worker](../e/elements_worker.md): Core implementation function for JSON array element extraction
 - Called from:
   - SQL queries using the json_array_elements() function
   - PostgreSQL's function call infrastructure

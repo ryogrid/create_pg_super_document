@@ -29,13 +29,13 @@ The function is primarily used for debugging and assertion purposes to catch inc
   - InvalidAttrNumber (constant)
   - BTEqualStrategyNumber (strategy constant)
   - SK_SEARCHARRAY (scan key flag)
-  - BTArrayKeyInfo (array key metadata structure)
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md) (array key metadata structure)
   - ScanKey (scan key structure)
 
 - Called from (representative examples):
-  - _bt_advance_array_keys (validation during array advancement)
-  - _bt_preprocess_keys (validation during key preprocessing)
-  - _bt_verify_arrays_bt_first (validation in first scan positioning)
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md) (validation during array advancement)
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md) (validation during key preprocessing)
+  - [_bt_verify_arrays_bt_first](_bt_verify_arrays_bt_first.md) (validation in first scan positioning)
 
 ## Notes and Other Information
 - This is a static debugging function that returns false if any inconsistency is detected

@@ -27,9 +27,9 @@ This function takes no parameters and returns a character representing the trans
   - CurrentTransactionState (global variable)
   - TransactionState (type)
   - Multiple TBLOCK_* enum constants (DEFAULT, STARTED, BEGIN, SUBBEGIN, INPROGRESS, etc.)
-  - BlockStateAsString (for error reporting)
+  - [BlockStateAsString](../B/BlockStateAsString.md) (for error reporting)
 - Called from (representative examples):
-  - ReadyForQuery
+  - [ReadyForQuery](../R/ReadyForQuery.md)
 
 ## Notes and Other Information
 The function includes comprehensive error handling with a FATAL error if an invalid transaction block state is encountered, though this should never occur in normal operation. The mapping treats TBLOCK_STARTED as idle ('I') rather than active ('T'), which aligns with the semantic that a started but unused transaction is effectively idle from the client's perspective. This function is critical for the PostgreSQL wire protocol and ensures clients receive accurate transaction state information.

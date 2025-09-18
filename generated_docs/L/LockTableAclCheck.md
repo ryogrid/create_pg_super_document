@@ -26,7 +26,7 @@ This design follows PostgreSQL's principle that users should have appropriate ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclcheck
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
   - ACL_MAINTAIN
   - ACL_UPDATE  
   - ACL_DELETE
@@ -36,8 +36,8 @@ This design follows PostgreSQL's principle that users should have appropriate ta
   - AclResult
   - AclMode
 - Called from (representative examples):
-  - RangeVarCallbackForLockTable
-  - LockViewRecurse_walker
+  - [RangeVarCallbackForLockTable](../R/RangeVarCallbackForLockTable.md)
+  - [LockViewRecurse_walker](LockViewRecurse_walker.md)
 
 ## Notes and Other Information
 - This is a static function within src/backend/commands/lockcmds.c, making it internal to the lock command implementation

@@ -25,14 +25,14 @@ The function combines basic streaming capability (checked via ReorderBufferCanSt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferCanStream (checks basic streaming support)
-  - SnapBuildCurrentState (gets current snapshot builder state)
-  - SnapBuildXactNeedsSkip (checks if transaction should be skipped due to restart)
-  - LogicalDecodingContext (accessed via rb->private_data)
-  - SnapBuild (snapshot builder instance)
+  - [ReorderBufferCanStream](ReorderBufferCanStream.md) (checks basic streaming support)
+  - [SnapBuildCurrentState](../S/SnapBuildCurrentState.md) (gets current snapshot builder state)
+  - [SnapBuildXactNeedsSkip](../S/SnapBuildXactNeedsSkip.md) (checks if transaction should be skipped due to restart)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (accessed via rb->private_data)
+  - [SnapBuild](../S/SnapBuild.md) (snapshot builder instance)
 - Called from (representative examples):
-  - ReorderBufferCheckMemoryLimit (before spilling vs streaming decision)
-  - ReorderBufferProcessPartialChange (partial change streaming logic)
+  - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (before spilling vs streaming decision)
+  - [ReorderBufferProcessPartialChange](ReorderBufferProcessPartialChange.md) (partial change streaming logic)
   - IsInsertOrUpdate (change processing decisions)
 
 ## Notes and Other Information

@@ -32,10 +32,10 @@ The function implements SQL's GROUP BY semantics by ensuring that any variable r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_ungrouped_columns_walker
+  - [check_ungrouped_columns_walker](check_ungrouped_columns_walker.md)
   - check_ungrouped_columns_context (struct)
 - Called from (representative examples):
-  - parseCheckAggregates (twice - for target list and HAVING clause)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (twice - for target list and HAVING clause)
 
 ## Notes and Other Information
 - Uses expression_tree_walker for efficient tree traversal

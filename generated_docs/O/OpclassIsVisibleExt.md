@@ -22,17 +22,17 @@ The extended version provides graceful error handling for cases where the operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (CLAOID cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (CLAOID cache lookup)
   - HeapTupleIsValid
   - GETSTRUCT
-  - recomputeNamespacePath
-  - list_member_oid
-  - OpclassnameGetOpcid
-  - ReleaseSysCache
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [list_member_oid](../l/list_member_oid.md)
+  - [OpclassnameGetOpcid](OpclassnameGetOpcid.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_opclass
 - Called from (representative examples):
-  - OpclassIsVisible (src/backend/catalog/namespace.c:2156)
-  - pg_opclass_is_visible (src/backend/catalog/namespace.c:4956)
+  - [OpclassIsVisible](OpclassIsVisible.md) (src/backend/catalog/namespace.c:2156)
+  - [pg_opclass_is_visible](../p/pg_opclass_is_visible.md) (src/backend/catalog/namespace.c:4956)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside namespace.c

@@ -17,13 +17,13 @@ PageGetSpecialSize computes the size of the special space area at the end of a p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetPageSize (to get the total page size)
+  - [PageGetPageSize](PageGetPageSize.md) (to get the total page size)
   - PageHeader (type cast to access pd_special field)
 - Called from (representative examples):
-  - gistcheckpage (GiST index page validation)
+  - [gistcheckpage](../g/gistcheckpage.md) (GiST index page validation)
   - _hash_checkpage (Hash index page validation)
-  - _bt_checkpage (B-tree index page validation)
-  - PageGetTempPageCopySpecial (temporary page operations)
+  - [_bt_checkpage](../b/_bt_checkpage.md) (B-tree index page validation)
+  - [PageGetTempPageCopySpecial](PageGetTempPageCopySpecial.md) (temporary page operations)
 
 ## Notes and Other Information
 - This is an inline function defined in bufpage.h for performance

@@ -22,7 +22,7 @@ The `cidrecv` function is part of PostgreSQL's binary protocol infrastructure fo
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (macro for extracting pointer from function args)
   - StringInfo (PostgreSQL string buffer type)
-  - pq_getmsgint (PostgreSQL function to extract integer from message buffer)
+  - [pq_getmsgint](../p/pq_getmsgint.md) (PostgreSQL function to extract integer from message buffer)
   - CommandId (PostgreSQL internal type)
   - PG_RETURN_COMMANDID (macro for returning CommandId)
 

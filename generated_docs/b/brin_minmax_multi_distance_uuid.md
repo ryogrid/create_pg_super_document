@@ -25,10 +25,10 @@ The approximation is sufficient for BRIN index purposes, where perfect accuracy 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetUUIDP`: Extract pg_uuid_t pointer from Datum
+  - `[DatumGetUUIDP](../D/DatumGetUUIDP.md)`: Extract pg_uuid_t pointer from Datum
   - `DirectFunctionCall2`: PostgreSQL direct function call mechanism
-  - `uuid_le`: UUID less-than-or-equal comparison function
-  - `pg_uuid_t`: PostgreSQL UUID data type structure
+  - `[uuid_le](../u/uuid_le.md)`: UUID less-than-or-equal comparison function
+  - `[pg_uuid_t](../p/pg_uuid_t.md)`: PostgreSQL UUID data type structure
   - `UUID_LEN`: Constant defining UUID length in bytes
   - `PG_RETURN_FLOAT8`: PostgreSQL return float8 value macro
 - Called from (representative examples):

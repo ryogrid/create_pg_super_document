@@ -21,7 +21,7 @@ This function serves as a GUC check hook for the  parameter. It validates the in
 - Functions called/Symbols referenced:
   - strtoul (for numeric validation)
   - GUC_check_errdetail (for error reporting)
-  - guc_malloc (for memory allocation)
+  - [guc_malloc](../g/guc_malloc.md) (for memory allocation)
   - RECOVERY_TARGET_TIMELINE_CONTROLFILE (enum value)
   - RECOVERY_TARGET_TIMELINE_LATEST (enum value)
   - RECOVERY_TARGET_TIMELINE_NUMERIC (enum value)

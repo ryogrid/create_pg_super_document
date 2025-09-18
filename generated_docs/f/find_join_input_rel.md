@@ -21,11 +21,11 @@ This function serves as a helper to locate RelOptInfo structures for join input 
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - bms_get_singleton_member
-  - find_base_rel
-  - find_join_rel
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [find_base_rel](find_base_rel.md)
+  - [find_join_rel](find_join_rel.md)
 - Called from (representative examples):
-  - eqjoinsel
+  - [eqjoinsel](../e/eqjoinsel.md)
 
 ## Notes and Other Information
 This function is primarily used in selectivity estimation functions where the planner needs to access relation information for join operations. The function uses bitmap set operations to efficiently determine whether it's dealing with a single relation or a join of multiple relations. The error condition should never occur in normal operation, as it indicates that the planner is trying to reference a relation that hasn't been properly initialized, which would suggest a bug in the planning process. The function is static, meaning it's only used within the selfuncs.c module for internal selectivity calculations.

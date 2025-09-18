@@ -26,13 +26,13 @@ The function distinguishes between merged columns (those combined due to USING c
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinExpr (parse node structure)
-  - RangeTblEntry (range table entry structure)  
+  - [RangeTblEntry](../R/RangeTblEntry.md) (range table entry structure)  
   - deparse_columns (column information structure)
   - RangeTblRef (range table reference node)
   - nodeTag (node type identification macro)
   - lfirst_int (list cell integer extraction macro)
 - Called from (representative examples):
-  - set_using_names (at line 4172)
+  - [set_using_names](../s/set_using_names.md) (at line 4172)
 
 ## Notes and Other Information
 - This is a static function, only accessible within ruleutils.c

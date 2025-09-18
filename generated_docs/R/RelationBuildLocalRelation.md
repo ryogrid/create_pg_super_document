@@ -37,18 +37,18 @@ The function handles different relation types (permanent, temporary, unlogged) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentSubTransactionId
-  - CreateTupleDescCopy
-  - IsSharedRelation
-  - CreateCacheMemoryContext
-  - RelationMapUpdateMap
-  - RelationInitPhysicalAddr
-  - RelationInitTableAccessMethod
+  - [GetCurrentSubTransactionId](../G/GetCurrentSubTransactionId.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md)
+  - [RelationMapUpdateMap](RelationMapUpdateMap.md)
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)
+  - [RelationInitTableAccessMethod](RelationInitTableAccessMethod.md)
   - RelationCacheInsert
   - EOXactListAdd
-  - RelationIncrementReferenceCount
+  - [RelationIncrementReferenceCount](RelationIncrementReferenceCount.md)
 - Called from (representative examples):
-  - heap_create
+  - [heap_create](../h/heap_create.md)
 
 ## Notes and Other Information
 - The function includes validation that shared_relation matches IsSharedRelation() to ensure consistency with hardcoded shared relation lists

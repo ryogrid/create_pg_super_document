@@ -21,16 +21,16 @@ The slot reservation process is protected by spinlocks to prevent race condition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSnd (structure type)
+  - [WalSnd](../W/WalSnd.md) (structure type)
   - SpinLockAcquire/SpinLockRelease
   - WALSNDSTATE_STARTUP
   - InvalidXLogRecPtr
   - REPLICATION_KIND_PHYSICAL
   - REPLICATION_KIND_LOGICAL  
-  - on_shmem_exit
-  - WalSndKill
+  - [on_shmem_exit](../o/on_shmem_exit.md)
+  - [WalSndKill](../W/WalSndKill.md)
 - Called from:
-  - LagTracker (src/backend/replication/walsender.c:242)
+  - [LagTracker](../L/LagTracker.md) (src/backend/replication/walsender.c:242)
 
 ## Notes and Other Information
 - Requires WalSndCtl to be already initialized (inherited from postmaster via fork/EXEC_BACKEND)

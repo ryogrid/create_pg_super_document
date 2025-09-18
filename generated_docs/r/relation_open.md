@@ -26,22 +26,22 @@ The function is designed to work with any type of relation (tables, indexes, seq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockRelationOid - Acquires lock on the relation
-  - RelationIdGetRelation - Retrieves relation from relcache
+  - [LockRelationOid](../L/LockRelationOid.md) - Acquires lock on the relation
+  - [RelationIdGetRelation](../R/RelationIdGetRelation.md) - Retrieves relation from relcache
   - RelationIsValid - Validates the relation descriptor
   - IsBootstrapProcessingMode - Checks if in bootstrap mode
-  - CheckRelationLockedByMe - Verifies lock ownership
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md) - Verifies lock ownership
   - RelationUsesLocalBuffers - Checks if relation uses local buffers
   - pgstat_init_relation - Initializes relation statistics
   - MAX_LOCKMODES - Maximum lock mode constant
   - XACT_FLAGS_ACCESSEDTEMPNAMESPACE - Transaction flag for temp namespace access
 
 - Called from (representative examples):
-  - relation_openrv - Opens relation by name
-  - relation_openrv_extended - Extended relation opening by name
-  - index_open - Opens index relations
+  - [relation_openrv](relation_openrv.md) - Opens relation by name
+  - [relation_openrv_extended](relation_openrv_extended.md) - Extended relation opening by name
+  - [index_open](../i/index_open.md) - Opens index relations
   - table_open - Opens table relations
-  - sequence_open - Opens sequence relations
+  - [sequence_open](../s/sequence_open.md) - Opens sequence relations
   - Various catalog and command functions
 
 ## Notes and Other Information

@@ -27,10 +27,10 @@ The function workflow:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP - to extract text arguments
-  - GetUserId - retrieves current session user ID
-  - convert_table_name - converts table name to OID
-  - convert_table_priv_string - converts privilege string to AclMode
-  - pg_class_aclcheck - performs the actual ACL check
+  - [GetUserId](../G/GetUserId.md) - retrieves current session user ID
+  - [convert_table_name](../c/convert_table_name.md) - converts table name to OID
+  - [convert_table_priv_string](../c/convert_table_priv_string.md) - converts privilege string to AclMode
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md) - performs the actual ACL check
   - PG_RETURN_BOOL - returns boolean result
 - Called from (representative examples):
   - SQL has_table_privilege() function calls with 2 parameters

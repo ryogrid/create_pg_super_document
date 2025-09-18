@@ -28,14 +28,14 @@ The function is particularly useful for discovering race conditions and concurre
 - Functions called/Symbols referenced:
   - pg_malloc0 (zero-initialized memory allocation for PermutationStep array)
   - pg_malloc (memory allocation for step pointers and piles)
-  - run_all_permutations_recurse (performs recursive permutation generation)
+  - [run_all_permutations_recurse](run_all_permutations_recurse.md) (performs recursive permutation generation)
   - free (memory deallocation)
 - Data structures used:
-  - TestSpec (main test specification structure)
-  - PermutationStep (represents a step in a permutation)
-  - PermutationStep** (array of pointers to permutation steps)
+  - [TestSpec](../T/TestSpec.md) (main test specification structure)
+  - [PermutationStep](../P/PermutationStep.md) (represents a step in a permutation)
+  - [PermutationStep](../P/PermutationStep.md)** (array of pointers to permutation steps)
 - Called from:
-  - run_testspec (when no explicit permutations are specified)
+  - [run_testspec](run_testspec.md) (when no explicit permutations are specified)
 
 ## Notes and Other Information
 - The number of permutations can grow exponentially with the number of steps and sessions

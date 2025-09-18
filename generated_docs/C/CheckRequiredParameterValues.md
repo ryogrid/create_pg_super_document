@@ -33,15 +33,15 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - WAL_LEVEL_MINIMAL: Constant representing minimal WAL logging level
-  - RecoveryRequiresIntParameter: Helper function that validates integer parameter values between current server and control file
+  - [RecoveryRequiresIntParameter](../R/RecoveryRequiresIntParameter.md): Helper function that validates integer parameter values between current server and control file
   - ControlFile: Global structure containing cluster configuration metadata
   - ArchiveRecoveryRequested: Global flag indicating archive recovery mode
   - EnableHotStandby: Global flag indicating hot standby mode
 
 - Called from (representative examples):
-  - StartupXLOG: Called during recovery startup to validate configuration
+  - [StartupXLOG](../S/StartupXLOG.md): Called during recovery startup to validate configuration
   - RefreshXLogWriteResult: Called when updating WAL write results
-  - xlog_redo: Called during WAL record replay operations
+  - [xlog_redo](../x/xlog_redo.md): Called during WAL record replay operations
 
 ## Notes and Other Information
 - This is a static function internal to the xlog.c module

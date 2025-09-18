@@ -21,13 +21,13 @@ The function uses a bitmapset (`as_valid_subplans`) to track which subplans are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFindMatchingSubPlans
+  - [ExecFindMatchingSubPlans](../E/ExecFindMatchingSubPlans.md)
   - ScanDirectionIsForward
-  - bms_next_member
-  - bms_prev_member
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_prev_member](../b/bms_prev_member.md)
   - INVALID_SUBPLAN_INDEX (constant)
 - Called from (representative examples):
-  - ExecInitAppend
+  - [ExecInitAppend](../E/ExecInitAppend.md)
 
 ## Notes and Other Information
 - Returns `true` if a next subplan was found and selected, `false` if no more subplans are available

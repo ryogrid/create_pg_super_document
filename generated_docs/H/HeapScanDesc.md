@@ -20,21 +20,21 @@ HeapScanDesc is the primary interface type used for heap table scanning operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapScanDescData
+  - [HeapScanDescData](HeapScanDescData.md)
 - Called from (representative examples):
-  - heap_beginscan
-  - heap_endscan
-  - heap_rescan
-  - heap_getnext
-  - heap_getnextslot
-  - heapgettup
-  - heapgettup_pagemode
-  - heap_set_tidrange
-  - heap_getnextslot_tidrange
-  - heapam_scan_bitmap_next_block
-  - heapam_scan_bitmap_next_tuple
-  - heapam_index_build_range_scan
-  - heapam_index_validate_scan
+  - [heap_beginscan](../h/heap_beginscan.md)
+  - [heap_endscan](../h/heap_endscan.md)
+  - [heap_rescan](../h/heap_rescan.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [heap_getnextslot](../h/heap_getnextslot.md)
+  - [heapgettup](../h/heapgettup.md)
+  - [heapgettup_pagemode](../h/heapgettup_pagemode.md)
+  - [heap_set_tidrange](../h/heap_set_tidrange.md)
+  - [heap_getnextslot_tidrange](../h/heap_getnextslot_tidrange.md)
+  - [heapam_scan_bitmap_next_block](../h/heapam_scan_bitmap_next_block.md)
+  - [heapam_scan_bitmap_next_tuple](../h/heapam_scan_bitmap_next_tuple.md)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [heapam_index_validate_scan](../h/heapam_index_validate_scan.md)
 
 ## Notes and Other Information
 - This is the standard public interface type for heap scan operations

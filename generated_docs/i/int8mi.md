@@ -20,7 +20,7 @@ This function performs subtraction of two 64-bit signed integer arguments (arg1 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro for extracting int64 arguments)
-  - pg_sub_s64_overflow (overflow-safe subtraction function)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (overflow-safe subtraction function)
   - PG_RETURN_INT64 (macro for returning int64 result)
   - ereport (error reporting function)
 - Called from: 

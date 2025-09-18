@@ -27,13 +27,13 @@ The function operates through distinct phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude (character preprocessing)
-  - r_mark_regions (word region identification)
-  - r_attached_pronoun (pronoun suffix handling)
-  - r_standard_suffix (standard morphological suffixes)
-  - r_verb_suffix (verb-specific suffixes)
-  - r_vowel_suffix (vowel suffix removal)
-  - r_postlude (final character processing)
+  - [r_prelude](../r/r_prelude.md) (character preprocessing)
+  - [r_mark_regions](../r/r_mark_regions.md) (word region identification)
+  - [r_attached_pronoun](../r/r_attached_pronoun.md) (pronoun suffix handling)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (standard morphological suffixes)
+  - [r_verb_suffix](../r/r_verb_suffix.md) (verb-specific suffixes)
+  - [r_vowel_suffix](../r/r_vowel_suffix.md) (vowel suffix removal)
+  - [r_postlude](../r/r_postlude.md) (final character processing)
 - Called from:
   - No direct references found in the codebase (likely used through external stemming interface)
 

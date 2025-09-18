@@ -29,18 +29,18 @@ The function restricts parent partitioned relations to be either the parentrel o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_part_relids
-  - make_partitionedrel_pruneinfo
-  - find_base_rel
+  - [add_part_relids](../a/add_part_relids.md)
+  - [make_partitionedrel_pruneinfo](make_partitionedrel_pruneinfo.md)
+  - [find_base_rel](../f/find_base_rel.md)
   - IS_PARTITIONED_REL
-  - bms_add_member
-  - bms_join
-  - bms_num_members
-  - bms_add_range
-  - bms_del_members
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_join](../b/bms_join.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_add_range](../b/bms_add_range.md)
+  - [bms_del_members](../b/bms_del_members.md)
 - Called from (representative examples):
-  - create_append_plan
-  - create_merge_append_plan
+  - [create_append_plan](../c/create_append_plan.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
 
 ## Notes and Other Information
 - Returns NULL when no useful runtime pruning can be performed

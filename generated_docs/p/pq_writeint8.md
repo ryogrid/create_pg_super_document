@@ -23,7 +23,7 @@ The function uses the  qualifier to enable compiler optimizations by indicating 
   - Assert (macro)
   - memcpy (standard library function)
 - Called from (representative examples):
-  - pq_sendint8
+  - [pq_sendint8](pq_sendint8.md)
 
 ## Notes and Other Information
 - The function assumes the buffer has been pre-allocated with sufficient space and will assert-fail in debug builds if this precondition is violated

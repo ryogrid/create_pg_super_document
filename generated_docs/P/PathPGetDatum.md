@@ -20,8 +20,8 @@ This function serves as a type-safe wrapper for converting PATH geometry pointer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum (macro for pointer to Datum conversion)
-  - PATH (geometric data type)
+  - [PointerGetDatum](PointerGetDatum.md) (macro for pointer to Datum conversion)
+  - [PATH](PATH.md) (geometric data type)
 - Called from (representative examples):
   - PG_RETURN_PATH_P (macro for returning PATH values from functions)
 

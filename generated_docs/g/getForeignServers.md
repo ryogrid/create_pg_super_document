@@ -21,19 +21,19 @@ This function is part of the pg_dump utility and extracts complete information a
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQuery
-  - PQntuples/PQfnumber/PQgetvalue/PQgetisnull
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)/PQfnumber/PQgetvalue/PQgetisnull
   - pg_malloc
   - atooid
-  - AssignDumpId
-  - getRoleName
-  - selectDumpableObject
-  - pg_strdup
-  - PQclear
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [getRoleName](getRoleName.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - The function queries the `pg_foreign_server` catalog table with formatted options using `pg_options_to_table`

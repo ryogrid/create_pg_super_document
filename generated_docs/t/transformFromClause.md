@@ -24,17 +24,17 @@ The function assumes that the ParseState's p_rtable, p_joinlist, and p_namespace
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem
-  - transformFromClauseItem
-  - checkNameSpaceConflicts
-  - setNamespaceLateralState
-  - list_concat
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [transformFromClauseItem](transformFromClauseItem.md)
+  - [checkNameSpaceConflicts](../c/checkNameSpaceConflicts.md)
+  - [setNamespaceLateralState](../s/setNamespaceLateralState.md)
+  - [list_concat](../l/list_concat.md)
 - Called from (representative examples):
-  - transformDeleteStmt
-  - transformSelectStmt
-  - transformUpdateStmt
-  - transformPLAssignStmt
-  - transformMergeStmt
+  - [transformDeleteStmt](transformDeleteStmt.md)
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformUpdateStmt](transformUpdateStmt.md)
+  - [transformPLAssignStmt](transformPLAssignStmt.md)
+  - [transformMergeStmt](transformMergeStmt.md)
 
 ## Notes and Other Information
 - Items must be processed left-to-right to properly handle LATERAL references

@@ -19,11 +19,11 @@ This function is primarily used in the GiST (Generalized Search Tree) implementa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Int64GetDatum (converts int64 to Datum)
+  - [Int64GetDatum](../I/Int64GetDatum.md) (converts int64 to Datum)
   - TSQuerySign (typedef for uint64)
 - Called from (representative examples):
-  - gtsquery_compress (src/backend/utils/adt/tsquery_gist.c:39)
-  - gtsquery_picksplit (src/backend/utils/adt/tsquery_gist.c:259, 260)
+  - [gtsquery_compress](../g/gtsquery_compress.md) (src/backend/utils/adt/tsquery_gist.c:39)
+  - [gtsquery_picksplit](../g/gtsquery_picksplit.md) (src/backend/utils/adt/tsquery_gist.c:259, 260)
   - PG_RETURN_TSQUERYSIGN macro (src/include/tsearch/ts_utils.h:265)
 
 ## Notes and Other Information

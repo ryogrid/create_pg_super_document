@@ -30,14 +30,14 @@ Key optimization steps include:
 - Functions called/Symbols referenced:
   - WindowFuncLists, WindowClause, WindowFunc (struct types)
   - SupportRequestOptimizeWindowClause (struct type)
-  - get_func_support (function lookup)
+  - [get_func_support](../g/get_func_support.md) (function lookup)
   - OidFunctionCall1 (support function call)
   - foreach_current_index (list iteration macro)
-  - equal (node comparison function)
-  - list_concat (list manipulation function)
+  - [equal](../e/equal.md) (node comparison function)
+  - [list_concat](../l/list_concat.md) (list manipulation function)
 - Called from (representative examples):
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:211)
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1502)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1502)
 
 ## Notes and Other Information
 - Currently only allows adjustments to WindowClause frameOptions, but the design allows for future extensions

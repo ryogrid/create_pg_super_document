@@ -40,17 +40,17 @@ The function uses a dirty snapshot to traverse update chains, ensuring it can se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_lock_tuple
-  - heap_fetch
-  - ExecStorePinnedBufferHeapTuple
-  - ItemPointerEquals, ItemPointerIndicatesMovedPartitions
+  - [heap_lock_tuple](heap_lock_tuple.md)
+  - [heap_fetch](heap_fetch.md)
+  - [ExecStorePinnedBufferHeapTuple](../E/ExecStorePinnedBufferHeapTuple.md)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md), ItemPointerIndicatesMovedPartitions
   - HeapTupleHeaderIsSpeculative, HeapTupleHeaderGetXmin, HeapTupleHeaderGetCmin, HeapTupleHeaderGetUpdateXid
   - TransactionIdEquals, TransactionIdIsCurrentTransactionId
-  - XactLockTableWait, ConditionalXactLockTableWait
+  - [XactLockTableWait](../X/XactLockTableWait.md), ConditionalXactLockTableWait
   - InitDirtySnapshot, ReleaseBuffer
 - Types and constants:
   - TM_Result, TM_FailureData, BufferHeapTupleTableSlot
-  - LockTupleMode, LockWaitPolicy, CommandId
+  - [LockTupleMode](../L/LockTupleMode.md), LockWaitPolicy, CommandId
   - Various TM_* result codes and TUPLE_LOCK_FLAG_* constants
 - Called from (representative examples):
   - Used through table access method interface (no direct callers found in indexed code)

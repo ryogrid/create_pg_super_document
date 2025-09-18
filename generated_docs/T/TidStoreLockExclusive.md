@@ -24,7 +24,7 @@ The locking mechanism uses the radix tree's built-in lock support, as the primar
   - `TidStoreIsShared`
   - `shared_ts_lock_exclusive`
 - Called from (representative examples):
-  - `do_set_block_offsets` (src/test/modules/test_tidstore/test_tidstore.c:184)
+  - `[do_set_block_offsets](../d/do_set_block_offsets.md)` (src/test/modules/test_tidstore/test_tidstore.c:184)
 
 ## Notes and Other Information
 - Only performs locking for shared TidStores; local TidStores require no locking since they are single-process

@@ -21,7 +21,7 @@ The float84lt function implements the less-than comparison operator between a fl
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function arguments
   - PG_GETARG_FLOAT4: Extracts float4 argument from function arguments
-  - float8_lt: Performs the actual less-than comparison between two float8 values
+  - [float8_lt](float8_lt.md): Performs the actual less-than comparison between two float8 values
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
 - Called from (representative examples):
   - No direct references found in the codebase

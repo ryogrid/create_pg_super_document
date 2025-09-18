@@ -27,15 +27,15 @@ Hash nodes are unique in that they don't evaluate or project data - they simply 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index
-  - fix_upper_expr
-  - set_dummy_tlist_references
+  - [build_tlist_index](../b/build_tlist_index.md)
+  - [fix_upper_expr](../f/fix_upper_expr.md)
+  - [set_dummy_tlist_references](set_dummy_tlist_references.md)
   - NUM_EXEC_QUAL
   - OUTER_VAR
   - NRM_EQUAL
   - Assert
 - Called from (representative examples):
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
   - fix_scan_list
 
 ## Notes and Other Information

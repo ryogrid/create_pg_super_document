@@ -24,8 +24,8 @@ This function establishes a proper snapshot for accessing TOAST data by using th
   - InitToastSnapshot
   - elog
 - Called from (representative examples):
-  - toast_delete_datum (in toast_internals.c)
-  - heap_fetch_toast_slice (in heaptoast.c)
+  - [toast_delete_datum](../t/toast_delete_datum.md) (in toast_internals.c)
+  - [heap_fetch_toast_slice](../h/heap_fetch_toast_slice.md) (in heaptoast.c)
 
 ## Notes and Other Information
 - Critical for maintaining data consistency in PostgreSQL's MVCC system when accessing TOAST data

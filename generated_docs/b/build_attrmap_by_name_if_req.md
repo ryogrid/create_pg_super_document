@@ -23,17 +23,17 @@ This function is particularly useful in scenarios where tuple conversion might n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `build_attrmap_by_name` (creates the name-based attribute map)
-  - `check_attrmap_match` (verifies if one-to-one mapping exists)
-  - `free_attrmap` (deallocates map when not needed)
+  - `[build_attrmap_by_name](build_attrmap_by_name.md)` (creates the name-based attribute map)
+  - `[check_attrmap_match](../c/check_attrmap_match.md)` (verifies if one-to-one mapping exists)
+  - `[free_attrmap](../f/free_attrmap.md)` (deallocates map when not needed)
 - Called from (representative examples):
-  - `convert_tuples_by_name`
-  - `addFkRecurseReferenced`
-  - `ExecPartitionCheckEmitError`
-  - `ExecConstraints`
-  - `ExecWithCheckOptions`
-  - `ExecInitPartitionDispatchInfo`
-  - `init_tuple_slot`
+  - `[convert_tuples_by_name](../c/convert_tuples_by_name.md)`
+  - `[addFkRecurseReferenced](../a/addFkRecurseReferenced.md)`
+  - `[ExecPartitionCheckEmitError](../E/ExecPartitionCheckEmitError.md)`
+  - `[ExecConstraints](../E/ExecConstraints.md)`
+  - `[ExecWithCheckOptions](../E/ExecWithCheckOptions.md)`
+  - `[ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)`
+  - `[init_tuple_slot](../i/init_tuple_slot.md)`
 
 ## Notes and Other Information
 - Returns NULL when no runtime conversion is required (perfect schema match)

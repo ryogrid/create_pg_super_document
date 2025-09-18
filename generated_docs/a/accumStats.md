@@ -22,15 +22,15 @@ The  function is a core statistics collection function in pgbench that processes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - addToSimpleStats (for latency and lag statistics)
-  - pg_fatal (for internal error reporting)
+  - [addToSimpleStats](addToSimpleStats.md) (for latency and lag statistics)
+  - [pg_fatal](../p/pg_fatal.md) (for internal error reporting)
 - Data types used:
-  - StatsData (statistics accumulation structure)
+  - [StatsData](../S/StatsData.md) (statistics accumulation structure)
   - EStatus (execution status enumeration)
   - ESTATUS_NO_ERROR, ESTATUS_SERIALIZATION_ERROR, ESTATUS_DEADLOCK_ERROR (status constants)
 - Called from (representative examples):
-  - doLog (transaction logging function)
-  - processXactStats (transaction statistics processing)
+  - [doLog](../d/doLog.md) (transaction logging function)
+  - [processXactStats](../p/processXactStats.md) (transaction statistics processing)
 
 ## Notes and Other Information
 - The function only records latency statistics for non-skipped, successful transactions

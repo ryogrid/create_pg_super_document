@@ -23,9 +23,9 @@ The function uses the SLRU control structure's PagePrecedes function to compare 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SlruCtl (SLRU control structure)
-  - mxtruncinfo (MultiXact truncation information structure)
+  - [mxtruncinfo](../m/mxtruncinfo.md) (MultiXact truncation information structure)
 - Called from (representative examples):
-  - TruncateMultiXact
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
 
 ## Notes and Other Information
 - Returns false to continue the directory scan (doesn't terminate early)

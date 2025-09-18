@@ -19,7 +19,7 @@ xidrecv serves as the binary input conversion function for the xid data type in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
+  - [pq_getmsgint](../p/pq_getmsgint.md)
   - PG_RETURN_TRANSACTIONID
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system infrastructure for binary protocol)

@@ -32,11 +32,11 @@ Like its sibling function, it enforces the constraint that mixed address familie
 - Functions called/Symbols referenced:
   - DatumGetInetKeyP
   - gk_ip_family, gk_ip_minbits, gk_ip_commonbits, gk_ip_addr
-  - bitncommon
+  - [bitncommon](../b/bitncommon.md)
   - Assert
   - OffsetNumber
 - Called from (representative examples):
-  - inet_gist_picksplit (multiple calls during page splitting)
+  - [inet_gist_picksplit](../i/inet_gist_picksplit.md) (multiple calls during page splitting)
 
 ## Notes and Other Information
 - This is a static function, only accessible within network_gist.c

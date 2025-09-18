@@ -24,7 +24,7 @@ This function takes no parameters.
   - matview_maintenance_depth (global variable)
   - Assert (debugging macro)
 - Called from (representative examples):
-  - refresh_by_match_merge (src/backend/commands/matview.c:867)
+  - [refresh_by_match_merge](../r/refresh_by_match_merge.md) (src/backend/commands/matview.c:867)
 
 ## Notes and Other Information
 - This is a static function, so it's only accessible within the matview.c compilation unit

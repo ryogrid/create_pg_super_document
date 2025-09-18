@@ -24,10 +24,10 @@ This function is typically used in scenarios where a complete reset of temporary
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemoveTempRelations
+  - [RemoveTempRelations](RemoveTempRelations.md)
 - Called from (representative examples):
-  - DiscardCommand
-  - DiscardAll
+  - [DiscardCommand](../D/DiscardCommand.md)
+  - [DiscardAll](../D/DiscardAll.md)
 
 ## Notes and Other Information
 - This is a public function (not static) that can be called from other PostgreSQL modules

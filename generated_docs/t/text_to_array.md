@@ -19,13 +19,13 @@ The text_to_array function is a PostgreSQL built-in function that splits a text 
 ## Dependencies
 - Functions called/Symbols referenced:
   - SplitTextOutputData (structure for output state)
-  - split_text (core text splitting logic)
-  - construct_empty_array (creates empty array when no elements)
+  - [split_text](../s/split_text.md) (core text splitting logic)
+  - [construct_empty_array](../c/construct_empty_array.md) (creates empty array when no elements)
   - PG_RETURN_ARRAYTYPE_P (macro for returning array type)
-  - makeArrayResult (converts array state to result)
+  - [makeArrayResult](../m/makeArrayResult.md) (converts array state to result)
   - PG_RETURN_DATUM (macro for returning datum)
 - Called from (representative examples):
-  - text_to_array_null
+  - [text_to_array_null](text_to_array_null.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/varlena.c:4514-4539

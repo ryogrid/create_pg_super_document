@@ -21,12 +21,12 @@ This internal function implements a performance optimization for bulk XID consum
 - Functions called/Symbols referenced:
   - LWLockAcquire (acquires exclusive lock on XidGenLock)
   - TransamVariables (global structure containing nextXid)
-  - XidSkip (calculates safe skip distance)
+  - [XidSkip](../X/XidSkip.md) (calculates safe skip distance)
   - LWLockRelease (releases the XidGenLock)
   - XidGenLock (lightweight lock protecting transaction ID generation)
   - LW_EXCLUSIVE (lock mode for exclusive access)
 - Called from:
-  - consume_xids_common (uses this function for optimization when consuming many XIDs)
+  - [consume_xids_common](consume_xids_common.md) (uses this function for optimization when consuming many XIDs)
 
 ## Notes and Other Information
 - This is a static function internal to the xid_wraparound test module

@@ -26,12 +26,12 @@ The spgxlogState structure is a lightweight container designed to provide SP-GiS
 - Functions called/Symbols referenced: 
   - TransactionId (PostgreSQL transaction identifier type)
 - Called from (representative examples):
-  - fillFakeState (in spgxlog.c:35)
-  - spgxlogMoveLeafs (in spgxlog.h:75)
-  - spgxlogAddNode (in spgxlog.h:130)
-  - spgxlogPickSplit (in spgxlog.h:185)
-  - spgxlogVacuumLeaf (in spgxlog.h:208)
-  - spgxlogVacuumRoot (in spgxlog.h:230)
+  - [fillFakeState](../f/fillFakeState.md) (in spgxlog.c:35)
+  - [spgxlogMoveLeafs](spgxlogMoveLeafs.md) (in spgxlog.h:75)
+  - [spgxlogAddNode](spgxlogAddNode.md) (in spgxlog.h:130)
+  - [spgxlogPickSplit](spgxlogPickSplit.md) (in spgxlog.h:185)
+  - [spgxlogVacuumLeaf](spgxlogVacuumLeaf.md) (in spgxlog.h:208)
+  - [spgxlogVacuumRoot](spgxlogVacuumRoot.md) (in spgxlog.h:230)
 
 ## Notes and Other Information
 - This structure is specifically designed for WAL recovery scenarios and should not be confused with the full SpGistState structure used during normal operations

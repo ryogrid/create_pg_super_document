@@ -19,11 +19,11 @@ The primary purpose of this structure is to support the shared record typmod reg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SharedRecordTableKey
+  - [SharedRecordTableKey](SharedRecordTableKey.md)
 - Called from (representative examples):
-  - shared_record_table_hash
-  - SharedRecordTypmodRegistryInit
-  - find_or_make_matching_shared_tupledesc
+  - [shared_record_table_hash](../s/shared_record_table_hash.md)
+  - [SharedRecordTypmodRegistryInit](SharedRecordTypmodRegistryInit.md)
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/cache/typcache.c:196-199

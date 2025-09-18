@@ -27,17 +27,17 @@ After validation, it extracts the tuple data from the WAL record, creates a reor
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - FilterByOrigin
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - XLogRecGetOrigin
-  - ReorderBufferGetChange
-  - XLogRecGetBlockData
-  - ReorderBufferGetTupleBuf
-  - DecodeXLogTuple
-  - ReorderBufferQueueChange
+  - [ReorderBufferGetChange](../R/ReorderBufferGetChange.md)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [ReorderBufferGetTupleBuf](../R/ReorderBufferGetTupleBuf.md)
+  - [DecodeXLogTuple](DecodeXLogTuple.md)
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md)
   - XLogRecGetXid
 - Called from (representative examples):
-  - heap_decode
+  - [heap_decode](../h/heap_decode.md)
 
 ## Notes and Other Information
 - Only processes XLOG_HEAP_INSERT records, not MULTI_INSERT records which are handled separately

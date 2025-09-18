@@ -44,10 +44,10 @@ The update operation may involve prefix/suffix compression where common parts of
   - TransactionId (transaction identifier type)
   - OffsetNumber (tuple offset type)
 - Called from (representative examples):
-  - log_heap_update (src/backend/access/heap/heapam.c:8821)
-  - heap_xlog_update (src/backend/access/heap/heapam.c:9861)
-  - heap_desc (src/backend/access/rmgrdesc/heapdesc.c:208, 218)
-  - DecodeUpdate (src/backend/replication/logical/decode.c:968, 973)
+  - [log_heap_update](../l/log_heap_update.md) (src/backend/access/heap/heapam.c:8821)
+  - [heap_xlog_update](../h/heap_xlog_update.md) (src/backend/access/heap/heapam.c:9861)
+  - [heap_desc](../h/heap_desc.md) (src/backend/access/rmgrdesc/heapdesc.c:208, 218)
+  - [DecodeUpdate](../D/DecodeUpdate.md) (src/backend/replication/logical/decode.c:968, 973)
   - SizeOfHeapUpdate (src/include/access/heapam_xlog.h:232)
 
 ## Notes and Other Information
@@ -55,5 +55,5 @@ The update operation may involve prefix/suffix compression where common parts of
 - Supports both regular updates and HOT updates where the new tuple is placed on the same page
 - May include backup blocks for both old and new pages depending on the update scenario
 - The structure size is calculated by SizeOfHeapUpdate macro, which extends to the new_offnum field
-- Variable-length data (tuple headers and data) may follow this fixed structure based on the flags
+- [Variable](../V/Variable.md)-length data (tuple headers and data) may follow this fixed structure based on the flags
 - Critical for maintaining ACID properties through WAL-based crash recovery and streaming replication

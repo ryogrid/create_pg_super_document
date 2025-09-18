@@ -24,11 +24,11 @@ IncrementalSortGroupInfo serves as a comprehensive instrumentation structure for
 - Functions called/Symbols referenced:
   - bits32
 - Called from (representative examples):
-  - show_incremental_sort_group_info
-  - show_incremental_sort_info
+  - [show_incremental_sort_group_info](../s/show_incremental_sort_group_info.md)
+  - [show_incremental_sort_info](../s/show_incremental_sort_info.md)
   - instrumentSortedGroup
-  - ExecInitIncrementalSort
-  - IncrementalSortInfo
+  - [ExecInitIncrementalSort](../E/ExecInitIncrementalSort.md)
+  - [IncrementalSortInfo](IncrementalSortInfo.md)
 
 ## Notes and Other Information
 IncrementalSortGroupInfo is specifically designed for PostgreSQL's incremental sort optimization, which divides the sorting work into groups based on the presorted prefix keys. The instrumentation data helps identify performance bottlenecks, memory pressure, and optimal sorting strategies. The sortMethods bitmask tracks which algorithms (quicksort, heapsort, external sort, etc.) were used, providing insights into the sorting behavior under different data characteristics and memory constraints. This information is particularly valuable for query plan explanation and performance tuning.

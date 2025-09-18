@@ -26,14 +26,14 @@ The function is specifically designed to handle top-level statements, which have
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformOptionalSelectInto: Performs the actual statement transformation with SELECT INTO handling
+  - [transformOptionalSelectInto](transformOptionalSelectInto.md): Performs the actual statement transformation with SELECT INTO handling
   - RawStmt: Structure containing the raw parsed statement and location data
 
 - Called from (representative examples):
-  - parse_analyze_fixedparams: Top-level analysis with fixed parameters
-  - parse_analyze_varparams: Top-level analysis with variable parameters
-  - parse_analyze_withcb: Top-level analysis with custom callback
-  - inline_function: Used during query optimization for function inlining
+  - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md): Top-level analysis with fixed parameters
+  - [parse_analyze_varparams](../p/parse_analyze_varparams.md): Top-level analysis with variable parameters
+  - [parse_analyze_withcb](../p/parse_analyze_withcb.md): Top-level analysis with custom callback
+  - [inline_function](../i/inline_function.md): Used during query optimization for function inlining
 
 ## Notes and Other Information
 - This function specifically handles top-level statements, enabling SELECT INTO operations

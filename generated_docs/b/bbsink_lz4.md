@@ -30,12 +30,12 @@ The implementation is conditionally compiled and only available when PostgreSQL 
   - LZ4F_preferences_t (LZ4 library type)
 
 - Called from (representative examples):
-  - bbsink_lz4_new (constructor function)
-  - bbsink_lz4_begin_backup (backup initialization)
-  - bbsink_lz4_begin_archive (archive initialization)
-  - bbsink_lz4_archive_contents (content compression)
-  - bbsink_lz4_end_archive (archive finalization)
-  - bbsink_lz4_cleanup (cleanup operations)
+  - [bbsink_lz4_new](bbsink_lz4_new.md) (constructor function)
+  - [bbsink_lz4_begin_backup](bbsink_lz4_begin_backup.md) (backup initialization)
+  - [bbsink_lz4_begin_archive](bbsink_lz4_begin_archive.md) (archive initialization)
+  - [bbsink_lz4_archive_contents](bbsink_lz4_archive_contents.md) (content compression)
+  - [bbsink_lz4_end_archive](bbsink_lz4_end_archive.md) (archive finalization)
+  - [bbsink_lz4_cleanup](bbsink_lz4_cleanup.md) (cleanup operations)
 
 ## Notes and Other Information
 - This structure is only available when PostgreSQL is compiled with LZ4 support ()

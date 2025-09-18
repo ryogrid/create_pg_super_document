@@ -26,13 +26,13 @@ This function takes no parameters and operates on global transaction state.
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid - validates transaction ID
-  - add_size - safe size arithmetic to prevent overflow
-  - mul_size - safe multiplication for size calculations
+  - [add_size](../a/add_size.md) - safe size arithmetic to prevent overflow
+  - [mul_size](../m/mul_size.md) - safe multiplication for size calculations
 - Structures used:
   - TransactionState - transaction state hierarchy
   - SerializedTransactionStateHeaderSize - fixed header size constant
 - Called from (representative examples):
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:279)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:279)
 
 ## Notes and Other Information
 - Designed to work with SerializeTransactionState as a pair for parallel processing

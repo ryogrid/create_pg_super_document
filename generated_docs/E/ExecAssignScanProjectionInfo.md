@@ -19,16 +19,16 @@ The function implements a key optimization in PostgreSQL's execution engine: avo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecConditionalAssignProjectionInfo (performs the actual projection analysis and setup)
+  - [ExecConditionalAssignProjectionInfo](ExecConditionalAssignProjectionInfo.md) (performs the actual projection analysis and setup)
 - Data structures used:
-  - ScanState
+  - [ScanState](../S/ScanState.md)
   - Scan (plan node)
-  - TupleDesc (from scan tuple slot)
+  - [TupleDesc](../T/TupleDesc.md) (from scan tuple slot)
 - Called from (representative examples):
-  - ExecInitSeqScan (sequential scan initialization)
-  - ExecInitIndexScan (index scan initialization)
-  - ExecInitBitmapHeapScan (bitmap heap scan initialization)
-  - ExecInitFunctionScan (function scan initialization)
+  - [ExecInitSeqScan](ExecInitSeqScan.md) (sequential scan initialization)
+  - [ExecInitIndexScan](ExecInitIndexScan.md) (index scan initialization)
+  - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md) (bitmap heap scan initialization)
+  - [ExecInitFunctionScan](ExecInitFunctionScan.md) (function scan initialization)
   - All other scan node initialization functions
 
 ## Notes and Other Information

@@ -24,7 +24,7 @@ The function performs the same availability check as pqGetnchar but only advance
 - Functions called/Symbols referenced:
   - None (direct buffer manipulation only)
 - Called from (representative examples):
-  - getAnotherTuple (fe-protocol3.c:823)
+  - [getAnotherTuple](../g/getAnotherTuple.md) (fe-protocol3.c:823)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF if insufficient data is available

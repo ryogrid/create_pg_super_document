@@ -24,26 +24,26 @@ The function handles three main expression types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookupVariable
-  - makeVariableValue  
+  - [lookupVariable](../l/lookupVariable.md)
+  - [makeVariableValue](../m/makeVariableValue.md)  
   - evalFunc
   - pg_log_error
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Types used:
-  - CState
-  - PgBenchExpr
+  - [CState](../C/CState.md)
+  - [PgBenchExpr](../P/PgBenchExpr.md)
   - PgBenchValue
-  - Variable
+  - [Variable](../V/Variable.md)
   - ENODE_CONSTANT
   - ENODE_VARIABLE
   - ENODE_FUNCTION
 - Called from (representative examples):
   - evalLazyFunc
   - evalStandardFunc
-  - executeMetaCommand
+  - [executeMetaCommand](executeMetaCommand.md)
 
 ## Notes and Other Information
 - The function is declared as static, indicating it's for internal use within the pgbench module
 - Error handling includes logging undefined variable errors and fatal errors for unexpected expression node types
 - The recursive nature allows for complex nested expressions to be properly evaluated
-- Variable lookup includes validation to ensure variables exist before attempting to access their values
+- [Variable](../V/Variable.md) lookup includes validation to ensure variables exist before attempting to access their values

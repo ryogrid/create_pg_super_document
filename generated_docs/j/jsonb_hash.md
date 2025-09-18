@@ -26,16 +26,16 @@ The hashing ensures that structurally and semantically identical JSONB values pr
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
   - JB_ROOT_COUNT
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - JsonbHashScalarValue (src/backend/utils/adt/jsonb_util.c:1322-1364)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [JsonbHashScalarValue](../J/JsonbHashScalarValue.md) (src/backend/utils/adt/jsonb_util.c:1322-1364)
   - PG_FREE_IF_COPY
   - PG_RETURN_INT32
   - elog
 - Data types used:
   - Jsonb
   - JsonbIterator
-  - JsonbValue
+  - [JsonbValue](../J/JsonbValue.md)
   - JsonbIteratorToken
 - Constants used:
   - WJB_DONE, WJB_BEGIN_ARRAY, WJB_BEGIN_OBJECT, WJB_KEY, WJB_VALUE, WJB_ELEM, WJB_END_ARRAY, WJB_END_OBJECT

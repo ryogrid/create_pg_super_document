@@ -27,15 +27,15 @@ This callback mechanism ensures that temporary relations are cleaned up even in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AbortOutOfAnyTransaction
-  - StartTransactionCommand
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - GetTransactionSnapshot
   - PushActiveSnapshot
-  - RemoveTempRelations
+  - [RemoveTempRelations](RemoveTempRelations.md)
   - PopActiveSnapshot
-  - CommitTransactionCommand
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
 - Called from (representative examples):
-  - AtEOXact_Namespace (registered as callback)
+  - [AtEOXact_Namespace](../A/AtEOXact_Namespace.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function used internally within the namespace management system

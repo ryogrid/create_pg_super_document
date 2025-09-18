@@ -20,7 +20,7 @@ The pg_cancel_conn structure is the backing struct for the opaque PGcancelConn t
   - PGconn (embedded as member)
 - Called from (representative examples):
   - PGcancelConn (typedef in libpq-fe.h)
-  - PQcancelCreate (function that creates instances)
+  - [PQcancelCreate](../P/PQcancelCreate.md) (function that creates instances)
 
 ## Notes and Other Information
 - This structure is internal to libpq and not exposed to client applications

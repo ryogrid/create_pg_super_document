@@ -33,12 +33,12 @@ Key features include:
   - tuplesort_space_type_name: Gets human-readable name for space types
   - appendStringInfoSpaces: Adds indentation spaces to output buffer
   - appendStringInfo/appendStringInfoString: Appends formatted text to output buffer
-  - ExplainOpenGroup/ExplainCloseGroup: Creates structured output groups
-  - ExplainPropertyInteger/ExplainPropertyList: Adds properties to structured output
+  - [ExplainOpenGroup](../E/ExplainOpenGroup.md)/ExplainCloseGroup: Creates structured output groups
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)/ExplainPropertyList: Adds properties to structured output
   - unconstify: Removes const qualifier for list operations
   - foreach/foreach_current_index: List iteration macros
 - Called from (representative examples):
-  - show_incremental_sort_info: Main incremental sort display function
+  - [show_incremental_sort_info](show_incremental_sort_info.md): Main incremental sort display function
 
 ## Notes and Other Information
 - This is a static function used internally within explain.c for incremental sort reporting

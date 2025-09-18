@@ -20,15 +20,15 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsParallelWorker
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - stmtStartTimestamp (global variable)
 - Called from (representative examples):
-  - autovac_report_workitem
-  - begin_replication_step
-  - PostgresMain (multiple locations)
-  - InitPostgres
-  - initialize_worker_spi
-  - worker_spi_main
+  - [autovac_report_workitem](../a/autovac_report_workitem.md)
+  - [begin_replication_step](../b/begin_replication_step.md)
+  - [PostgresMain](../P/PostgresMain.md) (multiple locations)
+  - [InitPostgres](../I/InitPostgres.md)
+  - [initialize_worker_spi](../i/initialize_worker_spi.md)
+  - [worker_spi_main](../w/worker_spi_main.md)
 
 ## Notes and Other Information
 - Must be called at the beginning of each SQL statement execution to establish the baseline timestamp

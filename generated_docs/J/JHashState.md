@@ -22,15 +22,15 @@ JHashState serves as a context structure for PostgreSQL's JSON-to-hash conversio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
-  - HTAB
-  - JsonTokenType
+  - [JsonLexContext](JsonLexContext.md)
+  - [HTAB](../H/HTAB.md)
+  - [JsonTokenType](JsonTokenType.md)
 - Called from (representative examples):
-  - get_json_object_as_hash
-  - hash_object_field_start
-  - hash_object_field_end
-  - hash_array_start
-  - hash_scalar
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
+  - [hash_object_field_start](../h/hash_object_field_start.md)
+  - [hash_object_field_end](../h/hash_object_field_end.md)
+  - [hash_array_start](../h/hash_array_start.md)
+  - [hash_scalar](../h/hash_scalar.md)
 
 ## Notes and Other Information
 This structure is specifically designed for converting JSON objects into PostgreSQL's internal hash table format, which provides efficient key-value lookup capabilities. The saved_scalar and save_json_start fields are used to temporarily store parsing state when the parser needs to look ahead or preserve tokens for later processing. The hash table format allows for efficient access to JSON object properties within PostgreSQL's internal operations.

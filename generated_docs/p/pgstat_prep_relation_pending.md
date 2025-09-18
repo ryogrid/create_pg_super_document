@@ -24,14 +24,14 @@ This function is crucial for the statistics collection infrastructure as it ensu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_pending_entry
+  - [pgstat_prep_pending_entry](pgstat_prep_pending_entry.md)
   - PGSTAT_KIND_RELATION (statistics kind constant)
   - PgStat_EntryRef (data structure)
   - PgStat_TableStatus (data structure)
 - Called from (representative examples):
   - pgstat_assoc_relation
-  - pgstat_twophase_postcommit
-  - pgstat_twophase_postabort
+  - [pgstat_twophase_postcommit](pgstat_twophase_postcommit.md)
+  - [pgstat_twophase_postabort](pgstat_twophase_postabort.md)
 
 ## Notes and Other Information
 - This is a static function, internal to the pgstat_relation.c module

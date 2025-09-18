@@ -30,14 +30,14 @@ When both bounds are finite, the function uses the `rng_subdiff_finfo` function 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll
-  - DatumGetFloat8
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetFloat8](../D/DatumGetFloat8.md)
   - isnan
   - RangeBound
 - Called from (representative examples):
-  - calc_hist_selectivity_scalar
-  - calc_hist_selectivity_contained
-  - calc_hist_selectivity_contains
+  - [calc_hist_selectivity_scalar](../c/calc_hist_selectivity_scalar.md)
+  - [calc_hist_selectivity_contained](../c/calc_hist_selectivity_contained.md)
+  - [calc_hist_selectivity_contains](../c/calc_hist_selectivity_contains.md)
 
 ## Notes and Other Information
 - Returns 0.5 as a fallback when subdiff function is unavailable or returns NaN/invalid results

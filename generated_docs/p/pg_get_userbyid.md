@@ -22,13 +22,13 @@ This function is particularly useful for system administration queries and infor
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (macro for extracting OID argument)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
   - memset (memory initialization)
-  - SearchSysCache1 (system catalog lookup by OID)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup by OID)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - HeapTupleIsValid (checks if tuple lookup succeeded)
   - GETSTRUCT (extracts structure from heap tuple)
-  - ReleaseSysCache (releases system cache entry)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases system cache entry)
   - sprintf (formats fallback string)
   - PG_RETURN_NAME (macro for returning NAME result)
 - Called from:

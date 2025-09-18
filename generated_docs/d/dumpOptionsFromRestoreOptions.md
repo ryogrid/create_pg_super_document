@@ -23,12 +23,12 @@ This functionality is crucial for operations that need to convert restore-time s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NewDumpOptions: Creates and initializes a new DumpOptions structure
-  - pg_strdup: Creates duplicate copies of string fields
+  - [NewDumpOptions](../N/NewDumpOptions.md): Creates and initializes a new DumpOptions structure
+  - [pg_strdup](../p/pg_strdup.md): Creates duplicate copies of string fields
   - DumpOptions: The target structure type
-  - RestoreOptions: The source structure type
+  - [RestoreOptions](../R/RestoreOptions.md): The source structure type
 - Called from (representative examples):
-  - SetArchiveOptions: Uses this function to set up archive options from restore options
+  - [SetArchiveOptions](../S/SetArchiveOptions.md): Uses this function to set up archive options from restore options
 
 ## Notes and Other Information
 - The function performs deep copying of string fields (dbname, pgport, pghost, username, superuser, restrict_key) to ensure memory ownership

@@ -32,9 +32,9 @@ The structure is essential for recovery when searches navigate to wrong pages du
   - BlockNumber (for page references)
 - Called from (representative examples):
   - _bt_singleval_fillfactor
-  - _bt_checkpage
-  - _bt_pageinit
-  - _bt_findsplitloc
+  - [_bt_checkpage](../b/_bt_checkpage.md)
+  - [_bt_pageinit](../b/_bt_pageinit.md)
+  - [_bt_findsplitloc](../b/_bt_findsplitloc.md)
   - BTPageOpaque (macro accessor)
   - BTMaxItemSize
   - BTMaxItemSizeNoHeapTid

@@ -26,11 +26,11 @@ When these conditions are met, PostgreSQL can apply specialized optimizations si
 - Functions called/Symbols referenced:
   - None (accesses only PlannerInfo and Query structure fields)
 - Data structures accessed:
-  - Query fields: groupingSets, hasAggs, groupClause
-  - PlannerInfo fields: hasHavingQual
+  - [Query](../Q/Query.md) fields: groupingSets, hasAggs, groupClause
+  - [PlannerInfo](../P/PlannerInfo.md) fields: hasHavingQual
 - Called from:
   - standard_qp_extra
-  - create_grouping_paths
+  - [create_grouping_paths](../c/create_grouping_paths.md)
 
 ## Notes and Other Information
 - This is a pure predicate function with no side effects, used for optimization path selection

@@ -28,11 +28,11 @@ The algorithm assumes subpaths are sorted in decreasing order of cost, which ens
 - Functions called/Symbols referenced:
   - Cost (type)
   - for_each_cell
-  - palloc
+  - [palloc](../p/palloc.md)
   - Min
-  - Path (struct)
+  - [Path](../P/Path.md) (struct)
 - Called from (representative examples):
-  - cost_append
+  - [cost_append](../c/cost_append.md)
 
 ## Notes and Other Information
 - Returns 0 if numpaths is 0 (no non-partial paths to process)

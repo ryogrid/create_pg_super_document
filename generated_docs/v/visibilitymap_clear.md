@@ -25,15 +25,15 @@ The function includes safety assertions to prevent invalid bit combinations, spe
   - HEAPBLK_TO_MAPBLOCK (macro for converting heap block to map block)
   - HEAPBLK_TO_MAPBYTE (macro for converting heap block to map byte)  
   - HEAPBLK_TO_OFFSET (macro for converting heap block to bit offset)
-  - BufferGetBlockNumber (gets block number from buffer)
-  - PageGetContents (gets page contents from buffer page)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
+  - [PageGetContents](../P/PageGetContents.md) (gets page contents from buffer page)
   - VISIBILITYMAP_VALID_BITS (constant defining valid visibility bits)
   - VISIBILITYMAP_ALL_VISIBLE (constant for all-visible bit)
 - Called from (representative examples):
-  - heap_insert (clears bits when inserting new tuples)
-  - heap_delete (clears bits when deleting tuples)
-  - heap_update (clears bits when updating tuples)
-  - lazy_scan_prune (clears bits during vacuum operations)
+  - [heap_insert](../h/heap_insert.md) (clears bits when inserting new tuples)
+  - [heap_delete](../h/heap_delete.md) (clears bits when deleting tuples)
+  - [heap_update](../h/heap_update.md) (clears bits when updating tuples)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md) (clears bits during vacuum operations)
 
 ## Notes and Other Information
 - Must be called with a properly pinned visibility map buffer obtained via visibilitymap_pin

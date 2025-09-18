@@ -26,18 +26,18 @@ The function uses either direct updates (when serialized snapshots exist) or slo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdPrecedes
-  - TransactionIdFollows
-  - SnapBuildSnapshotExists
-  - LogicalSlotAdvanceAndCheckSnapState
-  - ReplicationSlotMarkDirty
-  - ReplicationSlotSave
-  - ReplicationSlotsComputeRequiredXmin
-  - ReplicationSlotsComputeRequiredLSN
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
+  - [SnapBuildSnapshotExists](../S/SnapBuildSnapshotExists.md)
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)
+  - [ReplicationSlotSave](../R/ReplicationSlotSave.md)
+  - [ReplicationSlotsComputeRequiredXmin](../R/ReplicationSlotsComputeRequiredXmin.md)
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)
   - namestrcpy
 - Called from:
-  - update_and_persist_local_synced_slot
-  - synchronize_one_slot
+  - [update_and_persist_local_synced_slot](update_and_persist_local_synced_slot.md)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
 
 ## Notes and Other Information
 - Returns false if no update was needed (remote and local slot data identical), true otherwise

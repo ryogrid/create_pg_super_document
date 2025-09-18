@@ -25,7 +25,7 @@ The function is designed to be permissive during startup to allow environment-ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_locale (for actual locale validation on supported platforms)
+  - [check_locale](check_locale.md) (for actual locale validation on supported platforms)
   - PGC_S_DEFAULT (configuration source constant)
   - GucSource (enum type for configuration sources)
 - Called from (representative examples):

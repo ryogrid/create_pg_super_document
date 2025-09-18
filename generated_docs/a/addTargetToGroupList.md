@@ -23,15 +23,15 @@ The function performs the same type coercion for UNKNOWN literals as addTargetTo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - coerce_type
-  - targetIsInSortList
-  - setup_parser_errposition_callback
-  - get_sort_group_operators
-  - assignSortGroupRef
+  - [coerce_type](../c/coerce_type.md)
+  - [targetIsInSortList](../t/targetIsInSortList.md)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
+  - [get_sort_group_operators](../g/get_sort_group_operators.md)
+  - [assignSortGroupRef](assignSortGroupRef.md)
 - Called from (representative examples):
-  - transformGroupClauseExpr
-  - transformDistinctClause
-  - transformDistinctOnClause
+  - [transformGroupClauseExpr](../t/transformGroupClauseExpr.md)
+  - [transformDistinctClause](../t/transformDistinctClause.md)
+  - [transformDistinctOnClause](../t/transformDistinctOnClause.md)
 
 ## Notes and Other Information
 - Static function internal to parse_clause.c for GROUP BY processing

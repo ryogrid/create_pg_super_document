@@ -27,18 +27,18 @@ The function creates a comprehensive boundary structure by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_one_partition_rbound
-  - qsort_partition_rbound_cmp
-  - FunctionCall2Coll
-  - datumCopy
-  - DatumGetInt32
+  - [make_one_partition_rbound](../m/make_one_partition_rbound.md)
+  - [qsort_partition_rbound_cmp](../q/qsort_partition_rbound_cmp.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Data types used:
-  - PartitionBoundInfo
-  - PartitionBoundSpec
-  - PartitionRangeBound
-  - PartitionRangeDatumKind
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
+  - [PartitionBoundSpec](../P/PartitionBoundSpec.md)
+  - [PartitionRangeBound](../P/PartitionRangeBound.md)
+  - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md)
 - Called from:
-  - partition_bounds_create
+  - [partition_bounds_create](../p/partition_bounds_create.md)
   - compare_range_bounds
 
 ## Notes and Other Information

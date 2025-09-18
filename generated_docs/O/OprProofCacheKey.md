@@ -22,8 +22,8 @@ The cache stores both implication and refutation results for each operator pair.
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - OprProofCacheEntry (used as the key field in cache entries)
-  - lookup_proof_cache (constructs keys for cache lookups)
+  - [OprProofCacheEntry](OprProofCacheEntry.md) (used as the key field in cache entries)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md) (constructs keys for cache lookups)
 
 ## Notes and Other Information
 - This structure must be the first field in OprProofCacheEntry to serve as the hash table key

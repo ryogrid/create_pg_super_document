@@ -25,14 +25,14 @@ The function is designed to work exclusively within PostgreSQL's aggregate execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype
-  - AggCheckCallContext
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_GETARG_DATUM
   - PG_RETURN_POINTER
-  - initArrayResult
-  - accumArrayResult
+  - [initArrayResult](../i/initArrayResult.md)
+  - [accumArrayResult](accumArrayResult.md)
   - ereport
   - elog
 - Called from (representative examples):

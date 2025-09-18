@@ -32,8 +32,8 @@ The function ensures proper cleanup and state management for temporary namespace
   - SubTransactionId
   - InvalidSubTransactionId
 - Called from (representative examples):
-  - CommitSubTransaction
-  - AbortSubTransaction
+  - [CommitSubTransaction](../C/CommitSubTransaction.md)
+  - [AbortSubTransaction](AbortSubTransaction.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's transaction management system that ensures temporary namespace state is properly maintained across subtransaction boundaries

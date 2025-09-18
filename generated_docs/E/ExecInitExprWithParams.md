@@ -28,14 +28,14 @@ This function is typically used for expressions that need to be evaluated indepe
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ExprState)
-  - ExecCreateExprSetupSteps (inserts setup steps)
-  - ExecInitExprRec (recursively compiles expression)
-  - ExprEvalPushStep (adds evaluation steps)
-  - ExecReadyExpr (finalizes expression for execution)
+  - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md) (inserts setup steps)
+  - [ExecInitExprRec](ExecInitExprRec.md) (recursively compiles expression)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (adds evaluation steps)
+  - [ExecReadyExpr](ExecReadyExpr.md) (finalizes expression for execution)
   - EEOP_DONE (opcode constant)
-  - ParamListInfo (parameter information structure)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter information structure)
 - Called from (representative examples):
-  - InitPartitionPruneContext (for partition pruning expressions)
+  - [InitPartitionPruneContext](../I/InitPartitionPruneContext.md) (for partition pruning expressions)
   - ExecProcNode (header inclusion)
 
 ## Notes and Other Information

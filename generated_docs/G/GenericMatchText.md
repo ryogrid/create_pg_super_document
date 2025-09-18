@@ -28,19 +28,19 @@ This design allows PostgreSQL to provide optimal performance for each encoding t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lc_ctype_is_c (check if collation is C locale)
-  - pg_newlocale_from_collation (create locale from collation)
-  - pg_locale_deterministic (check if locale is deterministic)
-  - pg_database_encoding_max_length (get max bytes per character)
-  - GetDatabaseEncoding (get current database encoding)
+  - [lc_ctype_is_c](../l/lc_ctype_is_c.md) (check if collation is C locale)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md) (create locale from collation)
+  - [pg_locale_deterministic](../p/pg_locale_deterministic.md) (check if locale is deterministic)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (get max bytes per character)
+  - [GetDatabaseEncoding](GetDatabaseEncoding.md) (get current database encoding)
   - SB_MatchText (single-byte matching)
   - UTF8_MatchText (UTF-8 specific matching)  
   - MB_MatchText (multibyte matching)
 - Called from (representative examples):
-  - namelike (name LIKE pattern matching)
-  - namenlike (name NOT LIKE pattern matching)
-  - textlike (text LIKE pattern matching)
-  - textnlike (text NOT LIKE pattern matching)
+  - [namelike](../n/namelike.md) (name LIKE pattern matching)
+  - [namenlike](../n/namenlike.md) (name NOT LIKE pattern matching)
+  - [textlike](../t/textlike.md) (text LIKE pattern matching)
+  - [textnlike](../t/textnlike.md) (text NOT LIKE pattern matching)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's multi-tier architecture for LIKE pattern matching that optimizes performance based on character encoding

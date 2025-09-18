@@ -24,15 +24,15 @@ The function is designed to be safe for in-place operations where the output buf
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - skip_drive
+  - [skip_drive](../s/skip_drive.md)
   - snprintf, strlen (standard C library functions)
 - Called from (representative examples):
-  - AbsoluteConfigLocation
-  - GetConfFilesInDir
-  - main (in initdb)
-  - process_file
+  - [AbsoluteConfigLocation](../A/AbsoluteConfigLocation.md)
+  - [GetConfFilesInDir](../G/GetConfFilesInDir.md)
+  - [main](../m/main.md) (in initdb)
+  - [process_file](../p/process_file.md)
   - find_my_exec
-  - make_relative_path
+  - [make_relative_path](../m/make_relative_path.md)
 
 ## Notes and Other Information
 - The output buffer (ret_path) must be at least MAXPGPATH bytes in size

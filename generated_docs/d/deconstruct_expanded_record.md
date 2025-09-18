@@ -26,22 +26,22 @@ After completion, the function sets the ER_FLAG_DVALUES_VALID flag to indicate t
 ## Dependencies
 - Functions called/Symbols referenced:
   - expanded_record_get_tupdesc
-  - MemoryContextAlloc
-  - heap_deform_tuple
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
   - memset (for null initialization)
 - Types referenced:
   - ExpandedRecordHeader
-  - TupleDesc
+  - [TupleDesc](../T/TupleDesc.md)
   - Datum
 - Flags used:
   - ER_FLAG_DVALUES_VALID
   - ER_FLAG_FVALUE_VALID
 - Called from (representative examples):
-  - ER_get_flat_size
-  - expanded_record_fetch_field
-  - expanded_record_set_field_internal
-  - expanded_record_set_fields
-  - check_domain_for_new_field
+  - [ER_get_flat_size](../E/ER_get_flat_size.md)
+  - [expanded_record_fetch_field](../e/expanded_record_fetch_field.md)
+  - [expanded_record_set_field_internal](../e/expanded_record_set_field_internal.md)
+  - [expanded_record_set_fields](../e/expanded_record_set_fields.md)
+  - [check_domain_for_new_field](../c/check_domain_for_new_field.md)
 
 ## Notes and Other Information
 - The function uses a memory optimization by allocating both Datum and boolean arrays in a single chunk

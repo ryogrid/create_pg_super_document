@@ -21,12 +21,12 @@ This function implements the recursive logic for transforming multi-dimensional 
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - make_array_ref
-  - split_array (recursive call)
+  - [make_array_ref](../m/make_array_ref.md)
+  - [split_array](split_array.md) (recursive call)
   - newRV_noinc
 - Called from (representative examples):
-  - plperl_ref_from_pg_array
-  - split_array (recursive self-call)
+  - [plperl_ref_from_pg_array](../p/plperl_ref_from_pg_array.md)
+  - [split_array](split_array.md) (recursive self-call)
 
 ## Notes and Other Information
 - Requires that info->ndims > 0 (enforced by assertion)

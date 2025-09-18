@@ -23,13 +23,13 @@ This function is responsible for collecting and processing transaction statistic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_time_now_lazy (lazy timestamp function)
-  - accumStats (statistics accumulation - called twice)
-  - doLog (transaction logging)
+  - [pg_time_now_lazy](pg_time_now_lazy.md) (lazy timestamp function)
+  - [accumStats](../a/accumStats.md) (statistics accumulation - called twice)
+  - [doLog](../d/doLog.md) (transaction logging)
   - Types: TState, CState, StatsData, pg_time_usec_t
   - Constants: ESTATUS_NO_ERROR
 - Called from (representative examples):
-  - advanceConnectionState (at src/bin/pgbench/pgbench.c:3734, 4210)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (at src/bin/pgbench/pgbench.c:3734, 4210)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pgbench.c

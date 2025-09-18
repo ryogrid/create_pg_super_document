@@ -29,15 +29,15 @@ This function is specifically designed for internal psql operations and is not s
 - Functions called/Symbols referenced:
   - PSQL_ECHO_HIDDEN_OFF (enum constant)
   - PSQL_ECHO_HIDDEN_NOEXEC (enum constant)
-  - SetCancelConn (sets up query cancellation)
-  - PQexec (libpq function for query execution)
-  - ResetCancelConn (cleans up cancellation setup)
-  - AcceptResult (validates and processes query results)
-  - ClearOrSaveResult (handles failed result cleanup)
+  - [SetCancelConn](../S/SetCancelConn.md) (sets up query cancellation)
+  - [PQexec](PQexec.md) (libpq function for query execution)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (cleans up cancellation setup)
+  - [AcceptResult](../A/AcceptResult.md) (validates and processes query results)
+  - [ClearOrSaveResult](../C/ClearOrSaveResult.md) (handles failed result cleanup)
 
 - Called from (representative examples):
-  - exec_command_password
-  - describeAggregates, describeAccessMethods, describeTablespaces
+  - [exec_command_password](../e/exec_command_password.md)
+  - [describeAggregates](../d/describeAggregates.md), describeAccessMethods, describeTablespaces
   - Various describe functions for database objects
   - Large object operations (start_lo_xact, finish_lo_xact)
   - Many other internal psql operations
@@ -46,6 +46,6 @@ This function is specifically designed for internal psql operations and is not s
 - Returns NULL if no database connection exists or if result processing fails
 - The function assumes CLIENT_ENCODING is not modified by queries executed through this path
 - Echo functionality respects both stdout and logfile output when configured
-- Query cancellation is properly handled to allow Ctrl+C interruption
+- [Query](../Q/Query.md) cancellation is properly handled to allow Ctrl+C interruption
 - Part of psql's internal query execution infrastructure, distinct from user command processing
 - Widely used throughout psql's describe and utility functions for metadata queries

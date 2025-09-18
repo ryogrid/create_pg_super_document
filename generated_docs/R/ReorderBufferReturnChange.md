@@ -22,17 +22,17 @@ ReorderBufferReturnChange is responsible for properly deallocating a ReorderBuff
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReorderBufferChangeMemoryUpdate
-  - ReorderBufferChangeSize
-  - ReorderBufferReturnTupleBuf
-  - ReorderBufferFreeSnap
-  - ReorderBufferReturnRelids
-  - pfree
+  - [ReorderBufferChangeSize](ReorderBufferChangeSize.md)
+  - [ReorderBufferReturnTupleBuf](ReorderBufferReturnTupleBuf.md)
+  - [ReorderBufferFreeSnap](ReorderBufferFreeSnap.md)
+  - [ReorderBufferReturnRelids](ReorderBufferReturnRelids.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ReorderBufferQueueChange
-  - ReorderBufferIterTXNNext
-  - ReorderBufferIterTXNFinish
-  - ReorderBufferCleanupTXN
-  - ReorderBufferProcessTXN
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md)
+  - [ReorderBufferIterTXNNext](ReorderBufferIterTXNNext.md)
+  - [ReorderBufferIterTXNFinish](ReorderBufferIterTXNFinish.md)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md)
+  - [ReorderBufferProcessTXN](ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 The function uses a switch statement to handle different change types (REORDER_BUFFER_CHANGE_*), ensuring proper cleanup of type-specific data. Memory accounting is updated before freeing to maintain accurate statistics. The function sets pointers to NULL after freeing to prevent double-free errors. It's a critical component in the logical replication system's memory management.

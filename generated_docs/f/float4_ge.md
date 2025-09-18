@@ -26,7 +26,7 @@ The implementation uses short-circuit evaluation: first check if val1 is NaN (im
   - float4 (type definition for single-precision float)
   - isnan (standard library function for NaN detection)
 - Called from (representative examples):
-  - float4ge (wrapper function in src/backend/utils/adt/float.c:869)
+  - [float4ge](float4ge.md) (wrapper function in src/backend/utils/adt/float.c:869)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance optimization

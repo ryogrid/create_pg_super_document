@@ -37,7 +37,7 @@ The function implements an optimization where the first range doesn't need an it
   - memcpy (to copy range boundary data)
   - att_align_nominal (for proper alignment of copied data)
 - Called from (representative examples):
-  - make_multirange
+  - [make_multirange](../m/make_multirange.md)
 
 ## Notes and Other Information
 - This is a static function used internally by the multirange construction process

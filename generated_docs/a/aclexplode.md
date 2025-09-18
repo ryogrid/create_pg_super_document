@@ -30,12 +30,12 @@ The output table has four columns: grantor (OID), grantee (OID), privilege_type 
   - PG_GETARG_ACL_P (macro for extracting ACL argument)
   - SRF_IS_FIRSTCALL/SRF_FIRSTCALL_INIT (set-returning function macros)
   - SRF_PERCALL_SETUP/SRF_RETURN_NEXT/SRF_RETURN_DONE (SRF control macros)
-  - check_acl (validates ACL structure)
-  - CreateTemplateTupleDesc/TupleDescInitEntry/BlessTupleDesc (tuple descriptor creation)
+  - [check_acl](../c/check_acl.md) (validates ACL structure)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)/TupleDescInitEntry/BlessTupleDesc (tuple descriptor creation)
   - ACL_NUM/ACL_DAT (macros for accessing ACL components)
   - ACLITEM_GET_PRIVS/ACLITEM_GET_GOPTIONS (privilege extraction macros)
-  - convert_aclright_to_string (converts privilege bits to strings)
-  - heap_form_tuple/HeapTupleGetDatum (tuple construction)
+  - [convert_aclright_to_string](../c/convert_aclright_to_string.md) (converts privilege bits to strings)
+  - [heap_form_tuple](../h/heap_form_tuple.md)/HeapTupleGetDatum (tuple construction)
   - Memory management functions (palloc, MemoryContextSwitchTo)
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)
@@ -49,5 +49,5 @@ The output table has four columns: grantor (OID), grantee (OID), privilege_type 
 - Memory management follows PostgreSQL's multi-call function context pattern
 - Essential for database administration tools and privilege auditing
 - The function can handle empty ACLs gracefully
-- Result format matches PostgreSQL's standard privilege display conventions
+- [Result](../R/Result.md) format matches PostgreSQL's standard privilege display conventions
 - Used by system views and administrative functions for privilege reporting

@@ -22,9 +22,9 @@ This function is one of the PostgreSQL SQL-callable privilege checking functions
   - PG_GETARG_NAME: Extract Name argument from function call
   - PG_GETARG_TEXT_PP: Extract text arguments from function call
   - get_role_oid_or_public: Convert username to role OID
-  - convert_language_name: Convert language name to language OID
-  - convert_language_priv_string: Convert privilege string to AclMode bitmask
-  - object_aclcheck: Perform the actual privilege check
+  - [convert_language_name](../c/convert_language_name.md): Convert language name to language OID
+  - [convert_language_priv_string](../c/convert_language_priv_string.md): Convert privilege string to AclMode bitmask
+  - [object_aclcheck](../o/object_aclcheck.md): Perform the actual privilege check
 - Called from (representative examples):
   - No direct callers found (SQL-level function)
 

@@ -25,11 +25,11 @@ The function is typically used by pg_ctl for sending various signals to PostgreS
 ## Dependencies
 - Functions called/Symbols referenced:
   - kill (system call)
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
   - exit
   - sig (global variable)
 - Called from (representative examples):
-  - main (src/bin/pg_ctl/pg_ctl.c:2486)
+  - [main](../m/main.md) (src/bin/pg_ctl/pg_ctl.c:2486)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within pg_ctl.c

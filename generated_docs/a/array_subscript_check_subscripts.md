@@ -25,10 +25,10 @@ The converted integer subscripts are stored in the workspace for use by subseque
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32 (converts Datum values to 32-bit integers)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (converts Datum values to 32-bit integers)
   - ereport (for error reporting when NULL subscripts are found in assignments)
 - Called from (representative examples):
-  - array_exec_setup (sets up this function as part of the expression evaluation sequence)
+  - [array_exec_setup](array_exec_setup.md) (sets up this function as part of the expression evaluation sequence)
 
 ## Notes and Other Information
 - This is a static function internal to the array subscripting module

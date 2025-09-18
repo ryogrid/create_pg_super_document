@@ -22,11 +22,11 @@ The structure is created during the dependency analysis phase of pg_dump and is 
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - IndxInfo (for parent and partition index information)
+  - [IndxInfo](../I/IndxInfo.md) (for parent and partition index information)
   
 - Called from (representative examples):
-  - flagInhIndexes() (creates IndexAttachInfo objects)
-  - dumpIndexAttach() (processes the attachment during dump)
+  - [flagInhIndexes](../f/flagInhIndexes.md)() (creates IndexAttachInfo objects)
+  - [dumpIndexAttach](../d/dumpIndexAttach.md)() (processes the attachment during dump)
 
 ## Notes and Other Information
 - The structure is allocated using pg_malloc_object() in flagInhIndexes()

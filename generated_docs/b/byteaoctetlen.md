@@ -21,7 +21,7 @@ A key optimization of this function is that it does not need to detoast the inpu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_raw_datum_size
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md)
   - PG_GETARG_DATUM
   - PG_RETURN_INT32
   - VARHDRSZ (constant defined as sizeof(int32))

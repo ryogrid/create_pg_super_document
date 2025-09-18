@@ -21,10 +21,10 @@ The function resolves this by examining the stmt->outargs list, which contains t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (procedure catalog lookup)
-  - build_function_result_tupdesc_t (initial tuple descriptor creation)
-  - TupleDescInitEntry (attribute initialization)
-  - list_nth (output argument access)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (procedure catalog lookup)
+  - [build_function_result_tupdesc_t](../b/build_function_result_tupdesc_t.md) (initial tuple descriptor creation)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (attribute initialization)
+  - [list_nth](../l/list_nth.md) (output argument access)
   - exprType (type extraction from expressions)
 - Called from (representative examples):
   - UtilityTupleDescriptor

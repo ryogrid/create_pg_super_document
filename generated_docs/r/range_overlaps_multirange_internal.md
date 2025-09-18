@@ -27,9 +27,9 @@ The function first handles the edge case where either the range or multirange is
 - Functions called/Symbols referenced:
   - `RangeIsEmpty` - Check if a range is empty
   - `MultirangeIsEmpty` - Check if a multirange is empty
-  - `range_deserialize` - Extract bound information from a range
-  - `multirange_bsearch_match` - Perform binary search with custom comparison
-  - `multirange_range_overlaps_bsearch_comparison` - Comparison function for the binary search
+  - `[range_deserialize](range_deserialize.md)` - Extract bound information from a range
+  - `[multirange_bsearch_match](../m/multirange_bsearch_match.md)` - Perform binary search with custom comparison
+  - `[multirange_range_overlaps_bsearch_comparison](../m/multirange_range_overlaps_bsearch_comparison.md)` - Comparison function for the binary search
   - `RangeBound` - Structure for representing range boundaries
 - Called from (representative examples):
   - Range overlap operations in SQL queries

@@ -21,10 +21,10 @@ This function serves as an adapter between PostgreSQL's memory management system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc() (PostgreSQL's memory allocation function)
+  - [palloc](../p/palloc.md)() (PostgreSQL's memory allocation function)
 - Called from (representative examples):
-  - bbsink_gzip_begin_archive (in basebackup_gzip.c:122)
-  - bbstreamer_gzip_decompressor_new (in bbstreamer_gzip.c:229)
+  - [bbsink_gzip_begin_archive](../b/bbsink_gzip_begin_archive.md) (in basebackup_gzip.c:122)
+  - [bbstreamer_gzip_decompressor_new](../b/bbstreamer_gzip_decompressor_new.md) (in bbstreamer_gzip.c:229)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the basebackup_gzip.c compilation unit

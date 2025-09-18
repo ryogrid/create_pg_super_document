@@ -21,12 +21,12 @@ This function updates the queue's bytes_written counter to reflect data producti
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_write_barrier
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
 - Called from (representative examples):
-  - shm_mq_sendv
-  - shm_mq_detach
-  - shm_mq_send_bytes
+  - [shm_mq_sendv](shm_mq_sendv.md)
+  - [shm_mq_detach](shm_mq_detach.md)
+  - [shm_mq_send_bytes](shm_mq_send_bytes.md)
 
 ## Notes and Other Information
 - Uses a write barrier to ensure ring buffer writes complete before counter update becomes visible

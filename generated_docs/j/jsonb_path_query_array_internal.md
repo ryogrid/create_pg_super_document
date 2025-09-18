@@ -27,15 +27,15 @@ This static function serves as the core implementation for JSONPath array query 
   - PG_GETARG_JSONB_P (argument extraction)
   - PG_GETARG_JSONPATH_P (path argument extraction)
   - PG_GETARG_BOOL (boolean argument extraction)
-  - executeJsonPath (core path execution)
-  - getJsonPathVariableFromJsonb (variable resolver)
-  - countVariablesFromJsonb (variable counter)
-  - wrapItemsInArray (array wrapper)
-  - JsonbValueToJsonb (conversion function)
+  - [executeJsonPath](../e/executeJsonPath.md) (core path execution)
+  - [getJsonPathVariableFromJsonb](../g/getJsonPathVariableFromJsonb.md) (variable resolver)
+  - [countVariablesFromJsonb](../c/countVariablesFromJsonb.md) (variable counter)
+  - [wrapItemsInArray](../w/wrapItemsInArray.md) (array wrapper)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md) (conversion function)
   - PG_RETURN_JSONB_P (return macro)
 - Called from (representative examples):
-  - jsonb_path_query_array
-  - jsonb_path_query_array_tz
+  - [jsonb_path_query_array](jsonb_path_query_array.md)
+  - [jsonb_path_query_array_tz](jsonb_path_query_array_tz.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed outside the module

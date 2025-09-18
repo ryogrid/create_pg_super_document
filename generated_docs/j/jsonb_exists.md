@@ -22,13 +22,13 @@ For JSONB objects, it searches for object keys that match the provided string. F
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
   - PG_GETARG_TEXT_PP
-  - findJsonbValueFromContainer
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md)
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR
   - PG_RETURN_BOOL
 - Types used:
   - Jsonb
-  - JsonbValue
+  - [JsonbValue](../J/JsonbValue.md)
   - jbvString
 - Constants used:
   - JB_FOBJECT

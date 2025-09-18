@@ -23,11 +23,11 @@ This function is commonly used in PostgreSQL's internal operations, particularly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info (initializes function manager information)
-  - FunctionCall1Coll (performs the actual function call with collation and one argument)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager information)
+  - [FunctionCall1Coll](../F/FunctionCall1Coll.md) (performs the actual function call with collation and one argument)
 - Called from (representative examples):
-  - _hash_datum2hashkey_type (hash indexing operations)
-  - _bt_allequalimage (B-tree equality image operations)
+  - [_hash_datum2hashkey_type](../h/_hash_datum2hashkey_type.md) (hash indexing operations)
+  - [_bt_allequalimage](../b/_bt_allequalimage.md) (B-tree equality image operations)
 
 ## Notes and Other Information
 - This function is part of the function manager (fmgr) subsystem in PostgreSQL

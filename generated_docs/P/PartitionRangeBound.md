@@ -28,15 +28,15 @@ PartitionRangeBound is a structure that represents a single boundary in range pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionRangeDatumKind (enum for datum types)
+  - [PartitionRangeDatumKind](PartitionRangeDatumKind.md) (enum for datum types)
   - Datum (PostgreSQL data type)
 - Called from (representative examples):
   - compare_range_bounds (multiple references)
-  - create_range_bounds (multiple references)
-  - merge_range_bounds
-  - get_range_partition
-  - partition_rbound_cmp
-  - qsort_partition_rbound_cmp
+  - [create_range_bounds](../c/create_range_bounds.md) (multiple references)
+  - [merge_range_bounds](../m/merge_range_bounds.md)
+  - [get_range_partition](../g/get_range_partition.md)
+  - [partition_rbound_cmp](../p/partition_rbound_cmp.md)
+  - [qsort_partition_rbound_cmp](../q/qsort_partition_rbound_cmp.md)
 
 ## Notes and Other Information
 This structure is central to PostgreSQL's range partitioning implementation and is used extensively in bound comparison, creation, merging, and lookup operations. The arrays of datums and kinds allow for complex multi-column range partitioning. The structure is designed to work with PostgreSQL's sorting and binary search algorithms for efficient partition lookup.

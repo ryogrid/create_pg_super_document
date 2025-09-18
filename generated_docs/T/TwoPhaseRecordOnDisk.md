@@ -30,9 +30,9 @@ The design ensures that resource manager data is stored on MAXALIGN boundaries f
 - Functions called/Symbols referenced:
   - TwoPhaseRmgrId (enum/type identifying resource managers)
 - Called from (representative examples):
-  - RegisterTwoPhaseRecord (for creating new records in state files)
-  - ReadTwoPhaseFile (for reading and parsing existing state files)
-  - ProcessRecords (for processing records during recovery or commit/rollback)
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md) (for creating new records in state files)
+  - [ReadTwoPhaseFile](../R/ReadTwoPhaseFile.md) (for reading and parsing existing state files)
+  - [ProcessRecords](../P/ProcessRecords.md) (for processing records during recovery or commit/rollback)
 
 ## Notes and Other Information
 - The structure is designed for disk persistence and must maintain binary compatibility across PostgreSQL versions

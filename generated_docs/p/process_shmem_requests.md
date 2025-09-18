@@ -26,8 +26,8 @@ None (void function)
   - shmem_request_hook (global function pointer variable)
   - process_shmem_requests_in_progress (global variable)
 - Called from (representative examples):
-  - PostmasterMain
-  - PostgresSingleUserMain
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
   - INIT_PG_OVERRIDE_ROLE_LOGIN
 
 ## Notes and Other Information

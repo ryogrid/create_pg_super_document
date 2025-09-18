@@ -21,11 +21,11 @@ This function serves as a JsonPathCountVarsCallback implementation for JSONB-bas
   - ereport (PostgreSQL error reporting)
   - ERRCODE_INVALID_PARAMETER_VALUE (error code constant)
 - Called from (representative examples):
-  - jsonb_path_exists_internal
-  - jsonb_path_match_internal
-  - jsonb_path_query_internal
-  - jsonb_path_query_array_internal
-  - jsonb_path_query_first_internal
+  - [jsonb_path_exists_internal](../j/jsonb_path_exists_internal.md)
+  - [jsonb_path_match_internal](../j/jsonb_path_match_internal.md)
+  - [jsonb_path_query_internal](../j/jsonb_path_query_internal.md)
+  - [jsonb_path_query_array_internal](../j/jsonb_path_query_array_internal.md)
+  - [jsonb_path_query_first_internal](../j/jsonb_path_query_first_internal.md)
 
 ## Notes and Other Information
 - This is a static callback function, only accessible within the jsonpath_exec.c module

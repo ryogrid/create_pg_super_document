@@ -21,7 +21,7 @@ This is a memory context reset callback function that ensures the global `pubctx
 - Functions called/Symbols referenced:
   - pubctx (global publication context variable - set to NULL)
 - Called from:
-  - pgoutput_startup (registers this function as a memory context callback)
+  - [pgoutput_startup](pgoutput_startup.md) (registers this function as a memory context callback)
 
 ## Notes and Other Information
 - Simple but critical function for memory management safety

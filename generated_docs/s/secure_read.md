@@ -23,16 +23,16 @@ A key feature is its blocking behavior management: when a read would block (EWOU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessClientReadInterrupt: Handles client read interrupt conditions
-  - be_tls_read: SSL/TLS-specific read operation (when SSL is enabled)
-  - be_gssapi_read: GSS-API encrypted read operation (when GSS is enabled)  
-  - secure_raw_read: Raw socket read for unencrypted connections
-  - ModifyWaitEvent: Updates wait event configuration for socket monitoring
+  - [ProcessClientReadInterrupt](../P/ProcessClientReadInterrupt.md): Handles client read interrupt conditions
+  - [be_tls_read](../b/be_tls_read.md): SSL/TLS-specific read operation (when SSL is enabled)
+  - [be_gssapi_read](../b/be_gssapi_read.md): GSS-API encrypted read operation (when GSS is enabled)  
+  - [secure_raw_read](secure_raw_read.md): Raw socket read for unencrypted connections
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md): Updates wait event configuration for socket monitoring
   - WaitEventSetWait: Blocks until socket becomes ready or other events occur
-  - ResetLatch: Clears the process latch after interrupt processing
+  - [ResetLatch](../R/ResetLatch.md): Clears the process latch after interrupt processing
 - Called from (representative examples):
-  - pq_recvbuf: Main packet receive buffer management
-  - pq_getbyte_if_available: Non-blocking single byte retrieval
+  - [pq_recvbuf](../p/pq_recvbuf.md): Main packet receive buffer management
+  - [pq_getbyte_if_available](../p/pq_getbyte_if_available.md): Non-blocking single byte retrieval
 
 ## Notes and Other Information
 - The function implements a retry mechanism with goto retry label to handle interrupts and socket state changes

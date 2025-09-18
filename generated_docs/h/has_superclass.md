@@ -24,31 +24,31 @@ This function requires that the caller hold a lock on the given relation to prev
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (with InheritsRelationId and AccessShareLock)
-  - ScanKeyInit (with Anum_pg_inherits_inhrelid, BTEqualStrategyNumber, F_OIDEQ)
-  - systable_beginscan (with InheritsRelidSeqnoIndexId)
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md) (with Anum_pg_inherits_inhrelid, BTEqualStrategyNumber, F_OIDEQ)
+  - [systable_beginscan](../s/systable_beginscan.md) (with InheritsRelidSeqnoIndexId)
+  - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from (representative examples):
-  - DefineIndex (src/backend/commands/indexcmds.c:1379)
-  - DetachPartitionFinalize (src/backend/commands/tablecmds.c:19536)
-  - CreateTriggerFiringOn (src/backend/commands/trigger.c:457)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:1379)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md) (src/backend/commands/tablecmds.c:19536)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md) (src/backend/commands/trigger.c:457)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - HeapTupleIsValid
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc (scan descriptor type)
+  - [SysScanDesc](../S/SysScanDesc.md) (scan descriptor type)
 - Called from (representative examples):
-  - DefineIndex (src/backend/commands/indexcmds.c:1379)
-  - DetachPartitionFinalize (src/backend/commands/tablecmds.c:19536)
-  - CreateTriggerFiringOn (src/backend/commands/trigger.c:457)
+  - [DefineIndex](../D/DefineIndex.md) (src/backend/commands/indexcmds.c:1379)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md) (src/backend/commands/tablecmds.c:19536)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md) (src/backend/commands/trigger.c:457)
 
 ## Notes and Other Information
 - Unlike has_subclass, this function is guaranteed to return accurate results

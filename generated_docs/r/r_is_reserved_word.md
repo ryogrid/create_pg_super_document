@@ -23,9 +23,9 @@ The function uses backward string matching to detect these patterns and returns 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s_b (Snowball function for backward string equality testing)
+  - [eq_s_b](../e/eq_s_b.md) (Snowball function for backward string equality testing)
 - Called from:
-  - r_postlude (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2043)
+  - [r_postlude](r_postlude.md) (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2043)
 
 ## Notes and Other Information
 - This is a static function within the Turkish stemmer implementation

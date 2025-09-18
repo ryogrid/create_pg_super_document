@@ -20,15 +20,15 @@ XLogDumpDisplayStats generates a formatted statistical report of WAL records pro
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid: Checks if LSN pointer is invalid
   - RmgrIdIsValid: Validates resource manager ID
-  - GetRmgrDesc: Retrieves resource manager descriptor
-  - RmgrIdIsCustom: Checks if resource manager is custom
-  - XLogDumpStatsRow: Displays individual statistic rows
+  - [GetRmgrDesc](../G/GetRmgrDesc.md): Retrieves resource manager descriptor
+  - [RmgrIdIsCustom](../R/RmgrIdIsCustom.md): Checks if resource manager is custom
+  - [XLogDumpStatsRow](XLogDumpStatsRow.md): Displays individual statistic rows
   - printf: Standard output formatting
-  - psprintf: PostgreSQL string formatting function
+  - [psprintf](../p/psprintf.md): PostgreSQL string formatting function
   - LSN_FORMAT_ARGS: Macro for LSN formatting
   - INT64_MODIFIER: Platform-specific 64-bit integer format modifier
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_waldump.c

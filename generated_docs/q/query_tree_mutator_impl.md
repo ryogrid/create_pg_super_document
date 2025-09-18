@@ -37,7 +37,7 @@ The implementation handles the complexity of query structure by delegating range
   - copyObject (for preserving CTE lists)
   - range_table_mutator
   - WindowClause, OnConflictExpr, FromExpr (node types)
-  - QTW_DONT_COPY_QUERY, QTW_EXAMINE_SORTGROUP, QTW_IGNORE_CTE_SUBQUERIES (flag constants)
+  - [QTW_DONT_COPY_QUERY](../Q/QTW_DONT_COPY_QUERY.md), QTW_EXAMINE_SORTGROUP, QTW_IGNORE_CTE_SUBQUERIES (flag constants)
 - Called from (representative examples):
   - query_tree_mutator (inline wrapper)
   - planstate_tree_walker

@@ -34,8 +34,8 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
   - InitFunctionCallInfoData (initializes function call context)
   - FunctionCallInvoke (performs the actual function invocation)
 - Called from (representative examples):
-  - directBoolConsistentFn (GIN direct boolean consistent function handling)
-  - OidFunctionCall8Coll (OID-based function calling wrapper)
+  - [directBoolConsistentFn](../d/directBoolConsistentFn.md) (GIN direct boolean consistent function handling)
+  - [OidFunctionCall8Coll](../O/OidFunctionCall8Coll.md) (OID-based function calling wrapper)
   - FunctionCall8 (non-collation variant wrapper)
 
 ## Notes and Other Information

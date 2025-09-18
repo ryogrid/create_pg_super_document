@@ -20,13 +20,13 @@ When resizing is needed, the function allocates new buffers and copies existing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericSumAccum
-  - NumericVar
-  - palloc0
+  - [NumericSumAccum](../N/NumericSumAccum.md)
+  - [NumericVar](../N/NumericVar.md)
+  - [palloc0](../p/palloc0.md)
   - memcpy
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - accum_sum_add
+  - [accum_sum_add](accum_sum_add.md)
 
 ## Notes and Other Information
 - The function maintains that the accumulator weight is always one larger than needed for inputs to provide carry space

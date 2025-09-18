@@ -29,22 +29,22 @@ extract_readme_file_header_comments.py	update_symbol_types.py: ScanDirection - D
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - ScanDirectionIsForward
-  - heap_fetch_next_buffer
-  - BufferGetBlockNumber
-  - heap_prepare_pagescan
-  - PageGetItemId
+  - [heap_fetch_next_buffer](heap_fetch_next_buffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [heap_prepare_pagescan](heap_prepare_pagescan.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
-  - ItemPointerSet
+  - [ItemPointerSet](../I/ItemPointerSet.md)
   - HeapKeyTest
   - ReleaseBuffer
 - Called from (representative examples):
-  - heap_getnext
-  - heap_getnextslot
-  - heap_getnextslot_tidrange
+  - [heap_getnext](heap_getnext.md)
+  - [heap_getnextslot](heap_getnextslot.md)
+  - [heap_getnextslot_tidrange](heap_getnextslot_tidrange.md)
 
 ## Notes and Other Information
 - Uses rs_cindex to track position within the rs_vistuples array instead of page offsets

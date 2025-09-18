@@ -21,13 +21,13 @@ The function includes assertions to verify that both input lists contain only in
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList (validation)
-  - list_copy (copy first list)
-  - list_member_int (check membership)
+  - [list_copy](list_copy.md) (copy first list)
+  - [list_member_int](list_member_int.md) (check membership)
   - lfirst_int (extract integer values)
   - lappend_int (append integer values)
-  - check_list_invariants (validation)
+  - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
-  - expand_grouping_sets (parse_agg.c:1838, 1855)
+  - [expand_grouping_sets](../e/expand_grouping_sets.md) (parse_agg.c:1838, 1855)
 
 ## Notes and Other Information
 - Both input lists must contain only integer values, enforced by assertions

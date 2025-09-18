@@ -38,11 +38,11 @@ The function handles three close methods:
   - gzclose (gzip file closure)
   - LZ4F_compressEnd, LZ4F_freeCompressionContext (LZ4 compression cleanup)
   - write, close (system calls)
-  - dir_get_file_name (filename construction)
+  - [dir_get_file_name](dir_get_file_name.md) (filename construction)
   - rename, durable_rename (file renaming)
   - unlink (file deletion)
-  - fsync_fname, fsync_parent_path (synchronization)
-  - pg_free (memory deallocation)
+  - [fsync_fname](../f/fsync_fname.md), fsync_parent_path (synchronization)
+  - [pg_free](../p/pg_free.md) (memory deallocation)
 - Called from (representative examples):
   - WAL file management in pg_basebackup
 

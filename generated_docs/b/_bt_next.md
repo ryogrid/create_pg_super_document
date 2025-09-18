@@ -23,10 +23,10 @@ The function maintains the scan state in so->currPos and updates scan->xs_heapti
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionIsForward
-  - _bt_steppage
+  - [_bt_steppage](_bt_steppage.md)
 - Called from:
-  - btgettuple
-  - btgetbitmap
+  - [btgettuple](btgettuple.md)
+  - [btgetbitmap](btgetbitmap.md)
 
 ## Notes and Other Information
 - Returns true if a next tuple is found, false if the scan is complete

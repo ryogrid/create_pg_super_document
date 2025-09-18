@@ -17,8 +17,8 @@ This function traverses a conditional stack (implemented as a linked list) and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConditionalStack (typedef)
-  - IfStackElem (struct type)
+  - [ConditionalStack](../C/ConditionalStack.md) (typedef)
+  - [IfStackElem](../I/IfStackElem.md) (struct type)
 - Called from (representative examples):
   - Used primarily for debugging and diagnostic purposes in conditional processing
 

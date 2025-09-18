@@ -17,20 +17,20 @@ This function prepares the PostgreSQL executor infrastructure needed to evaluate
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
+  - [CreateExecutorState](../C/CreateExecutorState.md)
   - makeNode (macro for RangeTblEntry)
   - RelationGetRelid
-  - addRTEPermissionInfo
+  - [addRTEPermissionInfo](../a/addRTEPermissionInfo.md)
   - ExecInitRangeTable
   - list_make1
-  - GetCurrentCommandId
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
   - RTE_RELATION (constant)
   - AccessShareLock (constant)
-  - EState (return type)
-  - RangeTblEntry (type)
-  - List (type)
+  - [EState](../E/EState.md) (return type)
+  - [RangeTblEntry](../R/RangeTblEntry.md) (type)
+  - [List](../L/List.md) (type)
 - Called from (representative examples):
-  - pgoutput_row_filter_init
+  - [pgoutput_row_filter_init](../p/pgoutput_row_filter_init.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's logical replication row filtering infrastructure. The executor state it creates provides the necessary context for evaluating WHERE-clause-like expressions that determine which rows should be replicated. The use of AccessShareLock ensures that the relation structure remains stable during filter evaluation without blocking concurrent operations. The function sets the command ID to the current command, which is important for visibility and transaction isolation when evaluating expressions.

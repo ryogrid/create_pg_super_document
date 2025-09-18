@@ -24,9 +24,9 @@ This function is part of the pg_rewind utility's file operations module. It open
   - ftruncate (system call)
   - close (system call)
   - snprintf (standard library)
-  - pg_fatal (PostgreSQL error handling)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling)
 - Called from (representative examples):
-  - perform_rewind (src/bin/pg_rewind/pg_rewind.c:603)
+  - [perform_rewind](../p/perform_rewind.md) (src/bin/pg_rewind/pg_rewind.c:603)
 
 ## Notes and Other Information
 - The function respects the global dry_run flag and performs no operations when dry_run is enabled

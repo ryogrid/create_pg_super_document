@@ -30,16 +30,16 @@ The algorithm handles potential inaccuracies in the initial quotient estimate by
 ## Dependencies
 - Functions called/Symbols referenced:
   - init_var (initialize temporary variables)
-  - div_var_fast (get initial quotient estimate)
-  - mul_var (multiply for remainder calculation)
-  - sub_var, add_var (arithmetic operations for adjustments)
-  - cmp_abs (absolute value comparison)
-  - set_var_from_var (copy results to output variables)
-  - free_var (deallocate temporary variables)
+  - [div_var_fast](div_var_fast.md) (get initial quotient estimate)
+  - [mul_var](../m/mul_var.md) (multiply for remainder calculation)
+  - [sub_var](../s/sub_var.md), add_var (arithmetic operations for adjustments)
+  - [cmp_abs](../c/cmp_abs.md) (absolute value comparison)
+  - [set_var_from_var](../s/set_var_from_var.md) (copy results to output variables)
+  - [free_var](../f/free_var.md) (deallocate temporary variables)
   - const_one (constant value for quotient adjustments)
 
 - Called from (representative examples):
-  - sqrt_var (square root implementation using Newton's method)
+  - [sqrt_var](../s/sqrt_var.md) (square root implementation using Newton's method)
 
 ## Notes and Other Information
 - Uses div_var_fast() for initial estimate, then refines for accuracy

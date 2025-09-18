@@ -27,14 +27,14 @@ No parameters (void function)
   - pairingheap_is_empty
   - pairingheap_container
   - pairingheap_first
-  - SnapshotData
-  - TransactionIdPrecedes
+  - [SnapshotData](SnapshotData.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
 - Called from (representative examples):
-  - InvalidateCatalogSnapshot
+  - [InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)
   - PopActiveSnapshot
   - UnregisterSnapshotNoOwner
-  - AtSubAbort_Snapshot
-  - AtEOXact_Snapshot
+  - [AtSubAbort_Snapshot](../A/AtSubAbort_Snapshot.md)
+  - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)
 
 ## Notes and Other Information
 - Critical for MVCC performance by enabling garbage collection of old tuple versions

@@ -19,9 +19,9 @@ The visibility check is crucial for PostgreSQL's schema system, as it determines
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OpclassIsVisibleExt
+  - [OpclassIsVisibleExt](OpclassIsVisibleExt.md)
 - Called from (representative examples):
-  - getObjectDescription (src/backend/catalog/objectaddress.c:3181)
+  - [getObjectDescription](../g/getObjectDescription.md) (src/backend/catalog/objectaddress.c:3181)
   - get_opclass_name (src/backend/utils/adt/ruleutils.c:12549)
 
 ## Notes and Other Information

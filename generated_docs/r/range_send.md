@@ -19,20 +19,20 @@ This function converts a RangeType value from its internal representation to a b
 - Functions called/Symbols referenced:
   - check_stack_depth: Stack overflow protection for recursive calls
   - makeStringInfo: Creates a new StringInfo buffer for output
-  - get_range_io_data: Retrieves I/O function cache data for the range type
+  - [get_range_io_data](../g/get_range_io_data.md): Retrieves I/O function cache data for the range type
   - RangeTypeGetOid: Extracts the OID from the range type
-  - range_deserialize: Extracts boundary information from the range
-  - range_get_flags: Retrieves the range flags
-  - pq_begintypsend: Initializes the output buffer for type sending
-  - pq_sendbyte: Writes a single byte to the output buffer
-  - pq_sendint32: Writes a 4-byte integer to the output buffer
+  - [range_deserialize](range_deserialize.md): Extracts boundary information from the range
+  - [range_get_flags](range_get_flags.md): Retrieves the range flags
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes the output buffer for type sending
+  - [pq_sendbyte](../p/pq_sendbyte.md): Writes a single byte to the output buffer
+  - [pq_sendint32](../p/pq_sendint32.md): Writes a 4-byte integer to the output buffer
   - pq_sendbytes: Writes binary data to the output buffer
-  - pq_endtypsend: Finalizes the output buffer and returns the result
-  - SendFunctionCall: Calls the element type's send function for boundaries
-  - PointerGetDatum: Converts pointer to Datum for function calls
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes the output buffer and returns the result
+  - [SendFunctionCall](../S/SendFunctionCall.md): Calls the element type's send function for boundaries
+  - [PointerGetDatum](../P/PointerGetDatum.md): Converts pointer to Datum for function calls
   - VARSIZE/VARDATA: Macros for extracting size and data from varlena types
 - Data structures used:
-  - RangeIOData: Cache structure for I/O functions
+  - [RangeIOData](../R/RangeIOData.md): Cache structure for I/O functions
   - RangeBound: Structure representing range boundaries
   - StringInfo: Buffer structure for building binary output
   - IOFunc_send: Enum value for send function type

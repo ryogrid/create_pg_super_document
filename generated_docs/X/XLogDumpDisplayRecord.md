@@ -18,22 +18,22 @@ This function produces the main output format for pg_waldump, displaying detaile
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRmgrDesc
+  - [GetRmgrDesc](../G/GetRmgrDesc.md)
   - XLogRecGetRmid
   - XLogRecGetInfo
   - XLogRecGetPrev
-  - XLogRecGetLen
+  - [XLogRecGetLen](XLogRecGetLen.md)
   - XLogRecGetTotalLen
   - XLogRecGetXid
-  - XLogRecGetBlockRefInfo
+  - [XLogRecGetBlockRefInfo](XLogRecGetBlockRefInfo.md)
   - initStringInfo
   - resetStringInfo
-  - pfree
-  - RmgrDescData (type)
-  - XLogDumpConfig (type)
+  - [pfree](../p/pfree.md)
+  - [RmgrDescData](../R/RmgrDescData.md) (type)
+  - [XLogDumpConfig](XLogDumpConfig.md) (type)
   - XLR_INFO_MASK (constant)
 - Called from (representative examples):
-  - main (primary output function in pg_waldump)
+  - [main](../m/main.md) (primary output function in pg_waldump)
 
 ## Notes and Other Information
 - Produces the standard pg_waldump output format with rmgr, length, tx, lsn, and description fields

@@ -31,16 +31,16 @@ This design prevents deadlocks and race conditions that could occur during concu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer (GIN_UNLOCK, GIN_EXCLUSIVE)
+  - [LockBuffer](../L/LockBuffer.md) (GIN_UNLOCK, GIN_EXCLUSIVE)
   - GinPageIsIncompleteSplit, BufferGetPage
-  - ginFinishSplit
+  - [ginFinishSplit](ginFinishSplit.md)
   - elog, RelationGetRelationName
   - INJECTION_POINT (testing framework)
 - Called from:
-  - ginFindLeafPage (src/backend/access/gin/ginbtree.c:114, 134)
-  - ginFindParents (src/backend/access/gin/ginbtree.c:271, 300)
-  - ginFinishSplit (src/backend/access/gin/ginbtree.c:706, 730)
-  - ginInsertValue (src/backend/access/gin/ginbtree.c:823)
+  - [ginFindLeafPage](ginFindLeafPage.md) (src/backend/access/gin/ginbtree.c:114, 134)
+  - [ginFindParents](ginFindParents.md) (src/backend/access/gin/ginbtree.c:271, 300)
+  - [ginFinishSplit](ginFinishSplit.md) (src/backend/access/gin/ginbtree.c:706, 730)
+  - [ginInsertValue](ginInsertValue.md) (src/backend/access/gin/ginbtree.c:823)
 
 ## Notes and Other Information
 The function includes debug logging to track incomplete split resolution. The lock upgrade mechanism is designed specifically for insert operations where VACUUM is prevented from running concurrently by holding a cleanup lock on the root. This approach would not be safe during scan operations where concurrent VACUUM could delete pages. The injection point allows testing of incomplete split handling scenarios.

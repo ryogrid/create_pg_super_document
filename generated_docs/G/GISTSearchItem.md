@@ -23,18 +23,18 @@ The key design feature is the union that allows the same structure to represent 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pairingheap_node
+  - [pairingheap_node](../p/pairingheap_node.md)
   - BlockNumber
   - GistNSN
-  - GISTSearchHeapItem
-  - IndexOrderByDistance
+  - [GISTSearchHeapItem](GISTSearchHeapItem.md)
+  - [IndexOrderByDistance](../I/IndexOrderByDistance.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - gistScanPage
-  - getNextGISTSearchItem
-  - getNextNearest
-  - gistgettuple
-  - pairingheap_GISTSearchItem_cmp
+  - [gistScanPage](../g/gistScanPage.md)
+  - [getNextGISTSearchItem](../g/getNextGISTSearchItem.md)
+  - [getNextNearest](../g/getNextNearest.md)
+  - [gistgettuple](../g/gistgettuple.md)
+  - [pairingheap_GISTSearchItem_cmp](../p/pairingheap_GISTSearchItem_cmp.md)
 
 ## Notes and Other Information
 The structure's dual nature (index page vs heap tuple) is determined by examining the blkno field - InvalidBlockNumber indicates a heap tuple, while a valid block number indicates an index page. The parentlsn tracking is crucial for detecting concurrent page splits during long-running scans, ensuring consistency even when the index structure changes during traversal. The flexible array member for distances makes this structure size-variable depending on the number of ORDER BY clauses, requiring careful memory allocation using SizeOfGISTSearchItem. This design enables efficient implementation of PostgreSQL's k-nearest neighbor search functionality in GiST indexes.

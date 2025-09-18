@@ -19,11 +19,11 @@ pg_atomic_test_set_flag_impl is a fallback implementation of the atomic test-and
 - Functions called/Symbols referenced:
   - SpinLockAcquire (acquire spinlock protection)
   - SpinLockRelease (release spinlock protection)
-  - pg_atomic_flag (structure type)
-  - slock_t (spinlock type)
+  - [pg_atomic_flag](pg_atomic_flag.md) (structure type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
   - uint32 (for storing old value)
 - Called from (representative examples):
-  - pg_atomic_test_set_flag (via atomic operations framework)
+  - [pg_atomic_test_set_flag](pg_atomic_test_set_flag.md) (via atomic operations framework)
 
 ## Notes and Other Information
 - This is a fallback implementation only used when native atomic flags are unavailable

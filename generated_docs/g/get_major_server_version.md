@@ -21,12 +21,12 @@ This function determines the major PostgreSQL version by reading the PG_VERSION 
 - Functions called/Symbols referenced:
   - snprintf
   - fopen
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
   - fscanf
   - sscanf
   - fclose
 - Called from (representative examples):
-  - check_data_dir
+  - [check_data_dir](../c/check_data_dir.md)
   - fopen_priv
 
 ## Notes and Other Information

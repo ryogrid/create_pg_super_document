@@ -19,15 +19,15 @@ When constraint changes are detected, the function performs proper reference cou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintRef (struct for managing constraint references)  
+  - [DomainConstraintRef](../D/DomainConstraintRef.md) (struct for managing constraint references)  
   - TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS (flag indicating domain constraints have been checked)
   - TYPTYPE_DOMAIN (type classification for domain types)
-  - load_domaintype_info (loads domain type constraint information)
-  - DomainConstraintCache (struct for cached domain constraint data)
-  - decr_dcc_refcount (decrements domain constraint cache reference count)
-  - prep_domain_constraints (prepares constraints for execution)
+  - [load_domaintype_info](../l/load_domaintype_info.md) (loads domain type constraint information)
+  - [DomainConstraintCache](../D/DomainConstraintCache.md) (struct for cached domain constraint data)
+  - [decr_dcc_refcount](../d/decr_dcc_refcount.md) (decrements domain constraint cache reference count)
+  - [prep_domain_constraints](../p/prep_domain_constraints.md) (prepares constraints for execution)
 - Called from (representative examples):
-  - domain_check_input (domain input validation)
+  - [domain_check_input](../d/domain_check_input.md) (domain input validation)
 
 ## Notes and Other Information
 - This function is expected to be called before each use of constraint information, making performance critical

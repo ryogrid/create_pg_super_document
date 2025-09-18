@@ -23,13 +23,13 @@ The function follows the Unicode standard's definition of blank characters, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category (internal Unicode category determination function)
+  - [unicode_category](../u/unicode_category.md) (internal Unicode category determination function)
   - PG_U_CHARACTER_TAB (constant defining tab character code point 0x09)  
   - PG_U_SPACE_SEPARATOR (Unicode category constant for space separator characters)
 - Called from (representative examples):
-  - icu_test (test function)
-  - pg_u_isprint (print character detection function)
-  - pg_unicode_category (Unicode category interface)
+  - [icu_test](../i/icu_test.md) (test function)
+  - [pg_u_isprint](pg_u_isprint.md) (print character detection function)
+  - [pg_unicode_category](pg_unicode_category.md) (Unicode category interface)
 
 ## Notes and Other Information
 - Returns true for tab characters and Unicode space separators only

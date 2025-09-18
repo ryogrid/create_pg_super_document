@@ -23,8 +23,8 @@ The function creates a new TIMETZ value by copying both the time and timezone co
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P: Extracts the input TIMETZ value from function args
   - PG_GETARG_INT32: Extracts the type modifier from function args
-  - palloc: Allocates memory for the result TIMETZ structure
-  - AdjustTimeForTypmod: Applies precision scaling to the time component
+  - [palloc](../p/palloc.md): Allocates memory for the result TIMETZ structure
+  - [AdjustTimeForTypmod](../A/AdjustTimeForTypmod.md): Applies precision scaling to the time component
   - PG_RETURN_TIMETZADT_P: Returns the scaled TIMETZ value
 - Called from (representative examples):
   - PostgreSQL type coercion functions

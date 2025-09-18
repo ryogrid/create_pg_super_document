@@ -19,14 +19,14 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psql_completion (assigned as completion function)
-  - quote_file_name (conditional, for filename quoting)
-  - dequote_file_name (conditional, for filename dequoting) 
+  - [psql_completion](../p/psql_completion.md) (assigned as completion function)
+  - [quote_file_name](../q/quote_file_name.md) (conditional, for filename quoting)
+  - [dequote_file_name](../d/dequote_file_name.md) (conditional, for filename dequoting) 
   - pg_malloc (for allocating filename quote characters)
   - WORD_BREAKS (macro defining word break characters)
 
 - Called from (representative examples):
-  - initializeInput (from src/bin/psql/input.c:355)
+  - [initializeInput](initializeInput.md) (from src/bin/psql/input.c:355)
 
 ## Notes and Other Information
 - The function sets completion_max_records to 1000 to limit the number of completion options shown

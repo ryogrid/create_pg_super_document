@@ -21,16 +21,16 @@ The shallow copy approach means that while the PathTarget structure itself and i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PathTarget (data structure)
+  - [PathTarget](../P/PathTarget.md) (data structure)
   - makeNode (node creation)
   - memcpy (memory copy)
-  - list_copy (list shallow copy)
+  - [list_copy](../l/list_copy.md) (list shallow copy)
   - list_length (list utility)
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
-  - create_one_window_path
-  - apply_scanjoin_target_to_paths
-  - create_partitionwise_grouping_paths
+  - [create_one_window_path](create_one_window_path.md)
+  - [apply_scanjoin_target_to_paths](../a/apply_scanjoin_target_to_paths.md)
+  - [create_partitionwise_grouping_paths](create_partitionwise_grouping_paths.md)
   - REPARAMETERIZE_CHILD_PATH_LIST
 
 ## Notes and Other Information

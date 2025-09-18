@@ -24,16 +24,16 @@ The function implements a two-pointer algorithm to traverse through the sorted r
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - report_unmatched_relation
-  - create_rel_filename_map
-  - pg_log
-  - pg_fatal
+  - [report_unmatched_relation](../r/report_unmatched_relation.md)
+  - [create_rel_filename_map](../c/create_rel_filename_map.md)
+  - [pg_log](../p/pg_log.md)
+  - [pg_fatal](../p/pg_fatal.md)
 - Data structures used:
-  - DbInfo
+  - [DbInfo](../D/DbInfo.md)
   - FileNameMap
-  - RelInfo
+  - [RelInfo](../R/RelInfo.md)
 - Called from (representative examples):
-  - transfer_all_new_dbs
+  - [transfer_all_new_dbs](../t/transfer_all_new_dbs.md)
 
 ## Notes and Other Information
 - Returns a malloc'ed array of FileNameMap structures that must be freed by the caller

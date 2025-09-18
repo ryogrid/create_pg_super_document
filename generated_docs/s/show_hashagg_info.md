@@ -35,13 +35,13 @@ The function handles the complexity of parallel aggregation where the leader pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - BYTES_TO_KILOBYTES: Converts memory usage from bytes to kilobytes
-  - ExplainPropertyInteger: Adds integer properties to structured output
-  - ExplainIndentText: Handles text output indentation
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md): Adds integer properties to structured output
+  - [ExplainIndentText](../E/ExplainIndentText.md): Handles text output indentation
   - appendStringInfo/appendStringInfoSpaces: Formats and appends text to output buffer
-  - ExplainOpenWorker/ExplainCloseWorker: Manages worker-specific output sections
+  - [ExplainOpenWorker](../E/ExplainOpenWorker.md)/ExplainCloseWorker: Manages worker-specific output sections
   - appendStringInfoChar: Adds single characters to output buffer
 - Called from (representative examples):
-  - ExplainNode: Main EXPLAIN node processing function for aggregation nodes
+  - [ExplainNode](../E/ExplainNode.md): Main EXPLAIN node processing function for aggregation nodes
 
 ## Notes and Other Information
 - This is a static function used internally within explain.c for hash aggregation reporting

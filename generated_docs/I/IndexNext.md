@@ -27,16 +27,16 @@ The function implements a filter-and-recheck pattern that is essential for handl
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanDirectionCombine
-  - index_beginscan
-  - index_rescan
-  - index_getnext_slot
+  - [index_beginscan](../i/index_beginscan.md)
+  - [index_rescan](../i/index_rescan.md)
+  - [index_getnext_slot](../i/index_getnext_slot.md)
   - ExecQualAndReset
   - InstrCountFiltered2
   - ExecClearTuple
   - CHECK_FOR_INTERRUPTS
 - Called from (representative examples):
   - ReorderTuple (nodeIndexscan.c:58)
-  - ExecIndexScan (nodeIndexscan.c:535)
+  - [ExecIndexScan](../E/ExecIndexScan.md) (nodeIndexscan.c:535)
 
 ## Notes and Other Information
 - This is a static function used internally within the index scan executor

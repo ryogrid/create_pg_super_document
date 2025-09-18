@@ -20,15 +20,15 @@ The lex_expect function implements conditional token consumption in the JSON par
 ## Dependencies
 - Functions called/Symbols referenced:
   - JsonParseContext (parameter type)
-  - JsonLexContext (parameter type)  
-  - JsonTokenType (parameter type)
-  - lex_peek (to check current token)
+  - [JsonLexContext](../J/JsonLexContext.md) (parameter type)  
+  - [JsonTokenType](../J/JsonTokenType.md) (parameter type)
+  - [lex_peek](lex_peek.md) (to check current token)
   - json_lex (to advance lexer)
   - report_parse_error (for error handling)
 - Called from (representative examples):
-  - pg_parse_json
-  - json_count_array_elements
-  - parse_object_field
+  - [pg_parse_json](../p/pg_parse_json.md)
+  - [json_count_array_elements](../j/json_count_array_elements.md)
+  - [parse_object_field](../p/parse_object_field.md)
   - parse_object
   - parse_array
 

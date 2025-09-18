@@ -31,24 +31,24 @@ Key operations include:
   - GinPageIsCompressed
   - GinDataPageGetData
   - GinPageGetOpaque
-  - ginCompressPostingList
+  - [ginCompressPostingList](ginCompressPostingList.md)
   - GinDataLeafPageGetPostingList
   - GinDataPageSetDataSize
   - GinPageSetCompressed
   - GinDataLeafPageGetPostingListSize
   - GinNextPostingListSegment
-  - ginPostingListDecode
-  - ginMergeItemPointers
-  - PageGetSpecialPointer
+  - [ginPostingListDecode](ginPostingListDecode.md)
+  - [ginMergeItemPointers](ginMergeItemPointers.md)
+  - [PageGetSpecialPointer](../P/PageGetSpecialPointer.md)
   - SizeOfGinPostingList
   - SHORTALIGN
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - elog
 - Data structures used:
   - ginxlogRecompressDataLeaf
-  - GinPostingList
-  - ItemPointerData
+  - [GinPostingList](../G/GinPostingList.md)
+  - [ItemPointerData](../I/ItemPointerData.md)
 - Constants used:
   - GIN_SEGMENT_DELETE
   - GIN_SEGMENT_INSERT
@@ -57,8 +57,8 @@ Key operations include:
   - InvalidOffsetNumber
   - BLCKSZ
 - Called from:
-  - ginRedoInsertData
-  - ginRedoVacuumDataLeafPage
+  - [ginRedoInsertData](ginRedoInsertData.md)
+  - [ginRedoVacuumDataLeafPage](ginRedoVacuumDataLeafPage.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively within GIN WAL replay operations

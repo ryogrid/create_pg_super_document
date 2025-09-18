@@ -21,7 +21,7 @@ The function uses PostgreSQL's StringInfo buffer system to read the binary data 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (argument extraction)
-  - pq_getmsgfloat4 (binary format parsing)
+  - [pq_getmsgfloat4](../p/pq_getmsgfloat4.md) (binary format parsing)
   - PG_RETURN_FLOAT4 (return value macro)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL's function call mechanism for binary I/O)

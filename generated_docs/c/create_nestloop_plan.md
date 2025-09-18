@@ -18,21 +18,21 @@ This function creates a NestLoop execution plan node from a NestPath. Nested loo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist
-  - reparameterize_path_by_child
-  - create_plan_recurse
-  - bms_union
-  - bms_free
-  - order_qual_clauses
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [reparameterize_path_by_child](../r/reparameterize_path_by_child.md)
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [bms_union](../b/bms_union.md)
+  - [bms_free](../b/bms_free.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
   - IS_OUTER_JOIN
-  - extract_actual_join_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - identify_current_nestloop_params
-  - make_nestloop
-  - copy_generic_path_info
+  - [extract_actual_join_clauses](../e/extract_actual_join_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [identify_current_nestloop_params](../i/identify_current_nestloop_params.md)
+  - [make_nestloop](../m/make_nestloop.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_join_plan
+  - [create_join_plan](create_join_plan.md)
 
 ## Notes and Other Information
 - Nested loop joins are often used when one relation is much smaller than the other or when proper indexes exist on the inner relation

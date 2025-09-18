@@ -24,7 +24,7 @@ This function takes no parameters and operates on global resource owner variable
   - CurrentResourceOwner (global current resource owner)
   - TopTransactionResourceOwner (top-level transaction resource owner)
 - Called from:
-  - AbortTransaction (main transaction abort at src/backend/access/transam/xact.c:2764)
+  - [AbortTransaction](AbortTransaction.md) (main transaction abort at src/backend/access/transam/xact.c:2764)
 
 ## Notes and Other Information
 - Essential for maintaining proper resource ownership tracking during abort processing

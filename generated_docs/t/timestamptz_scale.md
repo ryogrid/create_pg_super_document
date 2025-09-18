@@ -19,7 +19,7 @@ The  function is a PostgreSQL type system function that adjusts the precision of
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMPTZ (macro for extracting timestamptz argument)
-  - AdjustTimestampForTypmod (performs the actual precision adjustment)
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md) (performs the actual precision adjustment)
   - PG_RETURN_TIMESTAMPTZ (macro for returning timestamptz result)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system infrastructure)

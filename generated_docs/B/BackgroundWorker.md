@@ -27,14 +27,14 @@ The BackgroundWorker structure serves as a comprehensive configuration template 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BGW_MAXLEN
-  - BgWorkerStartTime
+  - [BgWorkerStartTime](BgWorkerStartTime.md)
   - BGW_EXTRALEN
   - pid_t
 - Called from (representative examples):
-  - RegisterBackgroundWorker
-  - RegisterDynamicBackgroundWorker
-  - BackgroundWorkerMain
-  - LaunchParallelWorkers
+  - [RegisterBackgroundWorker](../R/RegisterBackgroundWorker.md)
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md)
+  - [BackgroundWorkerMain](BackgroundWorkerMain.md)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
 
 ## Notes and Other Information
 The BackgroundWorker structure is the fundamental building block of PostgreSQL's background worker infrastructure. Workers can be registered statically during server startup or dynamically during runtime. The structure's design allows for flexible worker configuration while providing the postmaster with sufficient information for process lifecycle management. The bgw_flags field supports various capabilities like database connectivity, and the restart mechanism enables robust fault tolerance for critical background processes.

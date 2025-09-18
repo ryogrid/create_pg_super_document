@@ -27,7 +27,7 @@ The implementation first checks for potential fast-path conflicts by examining e
   - LockHashPartitionLock: Determines the appropriate partition lock
   - ConflictsWithRelationFastPath: Checks if the lock could conflict with fast-path locks
   - FAST_PATH_GET_BITS: Macro to extract lock bits from fast-path slots
-  - hash_search_with_hash_value: Searches for lock objects in shared hash table
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md): Searches for lock objects in shared hash table
   - GET_VXID_FROM_PGPROC: Macro to extract virtual transaction ID from PGPROC
   - VirtualTransactionIdIsValid/VirtualTransactionIdEquals: VXID utility functions
   - LWLockAcquire/LWLockRelease: Low-level locking primitives
@@ -35,11 +35,11 @@ The implementation first checks for potential fast-path conflicts by examining e
 - Called from (representative examples):
   - ProcSleep: During lock waiting to identify blocking transactions
   - ResolveRecoveryConflictWithLock: For resolving conflicts during hot standby recovery
-  - WaitForLockersMultiple: When waiting for multiple lock holders to complete
+  - [WaitForLockersMultiple](../W/WaitForLockersMultiple.md): When waiting for multiple lock holders to complete
 
 ## Notes and Other Information
 - Returns a palloc'd array terminated with an invalid VXID
-- Result may become outdated immediately due to concurrent lock activity
+- [Result](../R/Result.md) may become outdated immediately due to concurrent lock activity
 - Excludes the current transaction from the conflict list
 - For hot standby mode, uses a static array in TopMemoryContext for efficiency
 - Handles both fast-path and standard lock table entries to provide complete coverage

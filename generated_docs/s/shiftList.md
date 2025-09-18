@@ -22,19 +22,19 @@ This function is responsible for removing processed pages from GIN's pending lis
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinPageGetMeta
-  - ReadBuffer
-  - LockBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - GinPageIsDeleted
   - GinPageGetOpaque
   - RelationNeedsWAL
-  - XLogEnsureRecordSpace
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterData
-  - XLogInsert
+  - [XLogEnsureRecordSpace](../X/XLogEnsureRecordSpace.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - RecordFreeIndexPage
 - Called from (representative examples):
-  - ginInsertCleanup
+  - [ginInsertCleanup](../g/ginInsertCleanup.md)
 
 ## Notes and Other Information
 - Requires metapage to be pinned and exclusively locked throughout operation

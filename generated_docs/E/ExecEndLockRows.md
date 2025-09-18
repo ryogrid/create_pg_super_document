@@ -22,11 +22,11 @@ The function is designed to be safe to call multiple times, as EvalPlanQualEnd c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EvalPlanQualEnd (to cleanup EPQ state)
-  - ExecEndNode (to recursively end outer subplan)
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md) (to cleanup EPQ state)
+  - [ExecEndNode](ExecEndNode.md) (to recursively end outer subplan)
   - outerPlanState (macro to access outer plan state)
 - Called from (representative examples):
-  - ExecEndNode (standard plan node cleanup)
+  - [ExecEndNode](ExecEndNode.md) (standard plan node cleanup)
 
 ## Notes and Other Information
 - The function safely handles multiple calls to EvalPlanQualEnd

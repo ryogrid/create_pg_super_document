@@ -28,11 +28,11 @@ The function serves as a specialized wrapper around `show_expression` that handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_ands_explicit
-  - show_expression
+  - [make_ands_explicit](../m/make_ands_explicit.md)
+  - [show_expression](show_expression.md)
 - Called from (representative examples):
-  - show_scan_qual
-  - show_upper_qual
+  - [show_scan_qual](show_scan_qual.md)
+  - [show_upper_qual](show_upper_qual.md)
 
 ## Notes and Other Information
 - Returns early if the qualification list is empty (NIL), avoiding unnecessary processing

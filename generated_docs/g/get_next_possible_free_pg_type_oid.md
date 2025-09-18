@@ -23,12 +23,12 @@ The function uses a simple incremental search strategy, querying the database to
 ## Dependencies
 - Functions called/Symbols referenced:
   - FirstNormalObjectId (constant defining the start of user-assignable OIDs)
-  - printfPQExpBuffer (formats SQL query into buffer)
-  - ExecuteSqlQueryForSingleRow (executes query expecting single row result)
-  - PQgetvalue (extracts result value from query)
-  - PQclear (frees query result memory)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formats SQL query into buffer)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md) (executes query expecting single row result)
+  - [PQgetvalue](../P/PQgetvalue.md) (extracts result value from query)
+  - [PQclear](../P/PQclear.md) (frees query result memory)
 - Called from (representative examples):
-  - binary_upgrade_set_type_oids_by_type_oid (src/bin/pg_dump/pg_dump.c:5406, 5441, 5442)
+  - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md) (src/bin/pg_dump/pg_dump.c:5406, 5441, 5442)
 
 ## Notes and Other Information
 - Uses static local variable `next_possible_free_oid` to maintain state across function calls, ensuring the same OID isn't returned multiple times

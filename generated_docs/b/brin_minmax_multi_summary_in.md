@@ -20,8 +20,8 @@ The function immediately raises an error with ERRCODE_FEATURE_NOT_SUPPORTED, pre
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (for error reporting)
-  - errcode (ERRCODE_FEATURE_NOT_SUPPORTED)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (ERRCODE_FEATURE_NOT_SUPPORTED)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
   - PG_RETURN_VOID
 - Called from (representative examples):
   - No direct references found (called through PostgreSQL type system)

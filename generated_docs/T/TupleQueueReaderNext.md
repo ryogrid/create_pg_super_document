@@ -19,13 +19,13 @@ This function attempts to read the next tuple from a shared memory message queue
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_receive (shared memory queue receive operation)
+  - [shm_mq_receive](../s/shm_mq_receive.md) (shared memory queue receive operation)
   - MinimalTuple (tuple data structure)
   - shm_mq_result (result enumeration)
   - SHM_MQ_DETACHED, SHM_MQ_WOULD_BLOCK, SHM_MQ_SUCCESS (status constants)
 - Called from (representative examples):
-  - gather_readnext
-  - gm_readnext_tuple
+  - [gather_readnext](../g/gather_readnext.md)
+  - [gm_readnext_tuple](../g/gm_readnext_tuple.md)
 
 ## Notes and Other Information
 - Returns NULL when no tuples are available or when nowait=true and no tuple is ready

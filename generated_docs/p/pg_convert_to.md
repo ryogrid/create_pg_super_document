@@ -35,8 +35,8 @@ Key aspects:
 - Functions called/Symbols referenced:
   - namein (converts C string to name type)
   - DirectFunctionCall1/DirectFunctionCall3 (function call utilities)
-  - CStringGetDatum (datum conversion)
-  - pg_convert (core conversion function)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion)
+  - [pg_convert](pg_convert.md) (core conversion function)
   - PG_RETURN_DATUM (result return macro)
 - Called from (representative examples):
   - Available as SQL function convert_to()

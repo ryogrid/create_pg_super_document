@@ -23,21 +23,21 @@ This function is particularly important in PostgreSQL's type system because doma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - Form_pg_type
   - TYPTYPE_DOMAIN
   - IsTrueArrayType
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - ConstructTupleDescriptor
-  - CreateFunction
-  - ParseFuncOrColumn
-  - make_scalar_array_op
-  - arraycontsel
-  - array_typanalyze
+  - [ConstructTupleDescriptor](../C/ConstructTupleDescriptor.md)
+  - [CreateFunction](../C/CreateFunction.md)
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md)
+  - [arraycontsel](../a/arraycontsel.md)
+  - [array_typanalyze](../a/array_typanalyze.md)
   - type_is_array_domain
 
 ## Notes and Other Information

@@ -21,10 +21,10 @@ The function follows PostgreSQL's standard pattern for executor cleanup routines
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_endscan (terminates the table scan and releases resources)
-  - TableScanDesc (table scan descriptor type)
+  - [table_endscan](../t/table_endscan.md) (terminates the table scan and releases resources)
+  - [TableScanDesc](../T/TableScanDesc.md) (table scan descriptor type)
 - Called from (representative examples):
-  - ExecEndNode (generic plan node termination dispatcher)
+  - [ExecEndNode](ExecEndNode.md) (generic plan node termination dispatcher)
 
 ## Notes and Other Information
 - The function safely handles the case where no scan descriptor exists (scan == NULL)

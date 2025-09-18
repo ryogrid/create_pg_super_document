@@ -22,13 +22,13 @@ Like its counterpart get_cheapest_path_for_pathkeys, it iterates through candida
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_fractional_path_costs
-  - pathkeys_contained_in
-  - bms_is_subset
+  - [compare_fractional_path_costs](../c/compare_fractional_path_costs.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
   - PATH_REQ_OUTER
 - Called from (representative examples):
-  - generate_orderedappend_paths
-  - build_minmax_path
+  - [generate_orderedappend_paths](generate_orderedappend_paths.md)
+  - [build_minmax_path](../b/build_minmax_path.md)
 
 ## Notes and Other Information
 - The fraction parameter is interpreted by compare_fractional_path_costs() to weight startup vs. total costs appropriately

@@ -22,7 +22,7 @@ The function takes an enum's internal OID representation and looks up the corres
   - Form_pg_enum (referenced twice for struct access)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
-  - anyenum_out
+  - [anyenum_out](../a/anyenum_out.md)
 
 ## Notes and Other Information
 - This is a PostgreSQL I/O function that follows the standard Datum-returning pattern for output functions

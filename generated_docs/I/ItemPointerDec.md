@@ -19,13 +19,13 @@ The function assumes that FirstOffsetNumber is 1 rather than 0, which affects th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumberNoCheck: Safely extracts current block number without validation
-  - ItemPointerGetOffsetNumberNoCheck: Safely extracts current offset number without validation
-  - ItemPointerSet: Sets the block and offset components of the ItemPointer
+  - [ItemPointerGetBlockNumberNoCheck](ItemPointerGetBlockNumberNoCheck.md): Safely extracts current block number without validation
+  - [ItemPointerGetOffsetNumberNoCheck](ItemPointerGetOffsetNumberNoCheck.md): Safely extracts current offset number without validation
+  - [ItemPointerSet](ItemPointerSet.md): Sets the block and offset components of the ItemPointer
   - PG_UINT16_MAX: Maximum value for 16-bit unsigned integer (used when rolling over to previous block)
 - Called from (representative examples):
-  - TidRangeEval: Used in TID range scan operations for backward iteration through ranges
-  - ItemPointerSetMovedPartitions: Used in partition movement operations
+  - [TidRangeEval](../T/TidRangeEval.md): Used in TID range scan operations for backward iteration through ranges
+  - [ItemPointerSetMovedPartitions](ItemPointerSetMovedPartitions.md): Used in partition movement operations
 
 ## Notes and Other Information
 - Modifies the ItemPointer in-place rather than returning a new value

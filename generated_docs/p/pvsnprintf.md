@@ -40,11 +40,11 @@ The function is designed to be used in retry loops where the caller can realloca
   - `FRONTEND`: PostgreSQL build configuration macro
 
 - Called from (representative examples):
-  - `psprintf`: Dynamic string formatting function
+  - `[psprintf](psprintf.md)`: Dynamic string formatting function
   - `appendStringInfoVA`: String buffer append function
-  - `archprintf`: pg_dump archive formatting function
-  - `ahprintf`: pg_dump archive header formatting function
-  - `tarPrintf`: pg_dump tar format printing function
+  - `[archprintf](../a/archprintf.md)`: pg_dump archive formatting function
+  - `[ahprintf](../a/ahprintf.md)`: pg_dump archive header formatting function
+  - `[tarPrintf](../t/tarPrintf.md)`: pg_dump tar format printing function
 
 ## Notes and Other Information
 - **Return Value Semantics**: Not exactly C99-compliant; returns recommended buffer size rather than one less than needed

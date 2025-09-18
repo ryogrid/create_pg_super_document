@@ -30,26 +30,26 @@ The function performs comprehensive permission checking, ensuring the user has a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_openrv
-  - setup_parser_errposition_callback
-  - cancel_parser_errposition_callback
-  - object_aclcheck
-  - pg_class_aclcheck
-  - aclcheck_error
-  - errdetail_relkind_not_supported
+  - [relation_openrv](../r/relation_openrv.md)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
   - makeColumnDef
-  - getIdentitySequence
-  - sequence_options
-  - generateSerialExtraStmts
-  - GetComment
-  - GetCompressionMethodName
+  - [getIdentitySequence](../g/getIdentitySequence.md)
+  - [sequence_options](../s/sequence_options.md)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md)
+  - [GetComment](../G/GetComment.md)
+  - [GetCompressionMethodName](../G/GetCompressionMethodName.md)
   - CompressionMethodIsValid
   - makeNode (CommentStmt)
-  - makeString
+  - [makeString](../m/makeString.md)
   - list_make3
   - table_close
 - Called from (representative examples):
-  - transformCreateStmt
+  - [transformCreateStmt](transformCreateStmt.md)
 
 ## Notes and Other Information
 The function maintains an AccessShareLock on the source relation until transaction commit to prevent concurrent modifications that could affect the LIKE operation. Foreign tables cannot use LIKE clauses due to their external nature. The LIKE options control which aspects are copied: INCLUDING DEFAULTS, INCLUDING CONSTRAINTS, INCLUDING INDEXES, INCLUDING STORAGE, INCLUDING COMMENTS, INCLUDING IDENTITY, INCLUDING GENERATED, and INCLUDING STATISTICS. Some options require deferred processing because they depend on the final column attribute numbers in the new table. The function carefully handles identity columns by extracting sequence options from the source table's identity sequence and creating a new sequence for the target table.

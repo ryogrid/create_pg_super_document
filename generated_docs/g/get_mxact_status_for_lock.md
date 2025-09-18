@@ -27,12 +27,12 @@ The function operates by:
   - tupleLockExtraInfo (global array mapping lock modes to status info)
   - elog (error reporting)
 - Type references:
-  - LockTupleMode (tuple locking mode enum)
-  - MultiXactStatus (multi-transaction status enum)
+  - [LockTupleMode](../L/LockTupleMode.md) (tuple locking mode enum)
+  - [MultiXactStatus](../M/MultiXactStatus.md) (multi-transaction status enum)
 - Called from (representative examples):
-  - heap_lock_tuple (tuple locking operations)
-  - compute_new_xmax_infomask (computing new transaction info)
-  - test_lockmode_for_conflict (testing lock conflicts)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md) (tuple locking operations)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md) (computing new transaction info)
+  - [test_lockmode_for_conflict](../t/test_lockmode_for_conflict.md) (testing lock conflicts)
 
 ## Notes and Other Information
 - Part of PostgreSQL's multi-transaction (MultiXact) system for handling concurrent tuple locks

@@ -37,12 +37,12 @@ The structure includes both primary data fields and indicator variable fields, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sqlname (internal member reference)
+  - [sqlname](sqlname.md) (internal member reference)
 - Called from (representative examples):
-  - sqlda_compat_empty_size (in src/interfaces/ecpg/ecpglib/sqlda.c:52)
-  - ecpg_build_compat_sqlda (in src/interfaces/ecpg/ecpglib/sqlda.c:208, 220)
-  - sqlda_compat (in src/interfaces/ecpg/include/sqlda-compat.h:40)
-  - sqlvar_t (in src/interfaces/ecpg/include/sqlda.h:7)
+  - [sqlda_compat_empty_size](sqlda_compat_empty_size.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:52)
+  - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md) (in src/interfaces/ecpg/ecpglib/sqlda.c:208, 220)
+  - [sqlda_compat](sqlda_compat.md) (in src/interfaces/ecpg/include/sqlda-compat.h:40)
+  - [sqlvar_t](sqlvar_t.md) (in src/interfaces/ecpg/include/sqlda.h:7)
 
 ## Notes and Other Information
 - The structure includes both legacy fields (sqlilen, sqlidata) and modern equivalents (sqlilongdata) to maintain backward compatibility

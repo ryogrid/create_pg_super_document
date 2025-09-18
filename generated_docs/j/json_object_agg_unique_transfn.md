@@ -22,7 +22,7 @@ The function delegates all the actual work to  with the parameters  and , meanin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - json_object_agg_transfn_worker
+  - [json_object_agg_transfn_worker](json_object_agg_transfn_worker.md)
 - Called from (representative examples):
   - PostgreSQL aggregate framework (no direct callers in source)
 

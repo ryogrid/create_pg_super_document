@@ -28,11 +28,11 @@ Both output parameters are initialized using jspInitByBuffer, which sets up Json
 - Functions called/Symbols referenced:
   - JsonPathItem (structure type)
   - jpiIndexArray (enum constant)
-  - jspInitByBuffer (function)
+  - [jspInitByBuffer](jspInitByBuffer.md) (function)
 - Called from (representative examples):
-  - printJsonPathItem
-  - jspIsMutableWalker
-  - executeItemOptUnwrapTarget
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [jspIsMutableWalker](jspIsMutableWalker.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
   - jspHasNext
 
 ## Notes and Other Information

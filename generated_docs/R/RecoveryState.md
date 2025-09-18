@@ -21,10 +21,10 @@ RecoveryState tracks the current state of PostgreSQL's recovery process, which o
 - Functions called/Symbols referenced:
   - None (enum type definition)
 - Called from (representative examples):
-  - XLogCtlData structure (src/backend/access/transam/xlog.c:517)
-  - RecoveryInProgress function (src/backend/access/transam/xlog.c:6348)
-  - GetRecoveryState function (src/backend/access/transam/xlog.c:6351)
-  - WALAvailability structure (src/include/access/xlog.h:223)
+  - [XLogCtlData](../X/XLogCtlData.md) structure (src/backend/access/transam/xlog.c:517)
+  - [RecoveryInProgress](RecoveryInProgress.md) function (src/backend/access/transam/xlog.c:6348)
+  - [GetRecoveryState](../G/GetRecoveryState.md) function (src/backend/access/transam/xlog.c:6351)
+  - [WALAvailability](../W/WALAvailability.md) structure (src/include/access/xlog.h:223)
 
 ## Notes and Other Information
 - Used to coordinate different behaviors during various recovery phases

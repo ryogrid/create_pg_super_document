@@ -21,20 +21,20 @@ This function provides a Windows-compatible implementation of the POSIX waitpid(
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - win32_deadchild_waitinfo (structure for Windows child process information)
+  - [win32_deadchild_waitinfo](win32_deadchild_waitinfo.md) (structure for Windows child process information)
   - GetQueuedCompletionStatus (Windows API for completion port)
   - UnregisterWaitEx (Windows API to remove wait handle)
   - GetExitCodeProcess (Windows API to get process exit code)
   - CloseHandle (Windows API to close process handle)
-  - write_stderr (PostgreSQL error reporting function)
-  - pfree (PostgreSQL memory deallocation function)
+  - [write_stderr](write_stderr.md) (PostgreSQL error reporting function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - EAGAIN (errno constant)
 - Called from:
-  - process_pm_child_exit (src/backend/postmaster/postmaster.c:2364)
-  - BaseBackup (src/bin/pg_basebackup/pg_basebackup.c:2242)
-  - wait_for_postmaster_start (src/bin/pg_ctl/pg_ctl.c:664)
-  - reap_child (src/bin/pg_upgrade/parallel.c:292)
-  - regression_main (src/test/regress/pg_regress.c:2531)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md) (src/backend/postmaster/postmaster.c:2364)
+  - [BaseBackup](../B/BaseBackup.md) (src/bin/pg_basebackup/pg_basebackup.c:2242)
+  - [wait_for_postmaster_start](wait_for_postmaster_start.md) (src/bin/pg_ctl/pg_ctl.c:664)
+  - [reap_child](../r/reap_child.md) (src/bin/pg_upgrade/parallel.c:292)
+  - [regression_main](../r/regression_main.md) (src/test/regress/pg_regress.c:2531)
 
 ## Notes and Other Information
 - This is a Windows-only implementation, conditionally compiled for Windows platforms

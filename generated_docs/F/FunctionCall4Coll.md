@@ -29,12 +29,12 @@ The function creates a local FunctionCallInfoData structure with space for 4 arg
   - FunctionCallInvoke
   - elog (for error reporting)
 - Called from (representative examples):
-  - bringetbitmap
-  - add_values_to_range
-  - collectMatchBitmap
-  - matchPartialInPendingList
+  - [bringetbitmap](../b/bringetbitmap.md)
+  - [add_values_to_range](../a/add_values_to_range.md)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md)
+  - [matchPartialInPendingList](../m/matchPartialInPendingList.md)
   - scalararraysel
-  - OidFunctionCall4Coll
+  - [OidFunctionCall4Coll](../O/OidFunctionCall4Coll.md)
 
 ## Notes and Other Information
 - This function explicitly checks for NULL results and throws an ERROR if the called function returns NULL

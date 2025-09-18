@@ -54,18 +54,18 @@ The function performs several major initialization tasks:
   - makeNode (state structure creation)
   - ExecAssignExprContext (expression context setup)
   - AllocSetContextCreate (memory context creation)  
-  - ExecInitQual (qualification expression initialization)
-  - ExecInitNode (child node initialization)
+  - [ExecInitQual](ExecInitQual.md) (qualification expression initialization)
+  - [ExecInitNode](ExecInitNode.md) (child node initialization)
   - ExecCreateScanSlotFromOuterPlan/ExecInitExtraTupleSlot (tuple slot setup)
-  - ExecInitResultTupleSlotTL/ExecAssignProjectionInfo (projection setup)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)/ExecAssignProjectionInfo (projection setup)
   - execTuplesMatchPrepare (tuple comparison function preparation)
-  - object_aclcheck/aclcheck_error (permission checking)
-  - get_typlenbyval (type information retrieval)
+  - [object_aclcheck](../o/object_aclcheck.md)/aclcheck_error (permission checking)
+  - [get_typlenbyval](../g/get_typlenbyval.md) (type information retrieval)
   - initialize_peragg (aggregate state setup)
-  - fmgr_info_cxt/fmgr_info_set_expr (function call setup)
-  - ExecInitExpr (expression initialization)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)/fmgr_info_set_expr (function call setup)
+  - [ExecInitExpr](ExecInitExpr.md) (expression initialization)
 - Called from (representative examples):
-  - ExecInitNode (general executor node initialization dispatch)
+  - [ExecInitNode](ExecInitNode.md) (general executor node initialization dispatch)
 
 ## Notes and Other Information
 - Returns fully initialized WindowAggState ready for execution via ExecWindowAgg

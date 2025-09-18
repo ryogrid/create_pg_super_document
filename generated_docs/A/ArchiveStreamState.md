@@ -25,12 +25,12 @@ The structure manages the complex pipeline of data processing that occurs during
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_compress_specification (compression configuration)
-  - bbstreamer (stream processing components)
-  - manifest_file (FILE structure for manifest output)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (compression configuration)
+  - [bbstreamer](../b/bbstreamer.md) (stream processing components)
+  - [manifest_file](../m/manifest_file.md) (FILE structure for manifest output)
 - Called from (representative examples):
-  - ReceiveArchiveStream
-  - ReceiveArchiveStreamChunk
+  - [ReceiveArchiveStream](../R/ReceiveArchiveStream.md)
+  - [ReceiveArchiveStreamChunk](../R/ReceiveArchiveStreamChunk.md)
 
 ## Notes and Other Information
 - This structure coordinates multiple aspects of backup stream processing in a single state object

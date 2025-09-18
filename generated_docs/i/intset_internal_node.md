@@ -25,12 +25,12 @@ With MAX_INTERNAL_ITEMS set to 64, each internal node can hold up to 64 key-poin
 ## Dependencies
 - Functions called/Symbols referenced:
   - MAX_INTERNAL_ITEMS (capacity constant, value 64)
-  - intset_node (base structure extended by this node type)
+  - [intset_node](intset_node.md) (base structure extended by this node type)
 - Referenced by:
-  - intset_create
-  - intset_new_internal_node
-  - intset_update_upper
-  - intset_is_member
+  - [intset_create](intset_create.md)
+  - [intset_new_internal_node](intset_new_internal_node.md)
+  - [intset_update_upper](intset_update_upper.md)
+  - [intset_is_member](intset_is_member.md)
 
 ## Notes and Other Information
 The structure employs C-style inheritance by embedding the intset_node header as its first members, allowing internal nodes to be treated polymorphically as generic intset_node pointers. The arrays are sized to MAX_INTERNAL_ITEMS (64) to balance memory efficiency with tree fanout. The B-tree invariant requires that values[i] represents the maximum value in the subtree rooted at downlinks[i], enabling efficient range queries and insertions.

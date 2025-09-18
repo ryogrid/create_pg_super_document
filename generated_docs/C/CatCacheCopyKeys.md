@@ -28,12 +28,12 @@ A special case is handled for NAME type attributes (NAMEOID), where C strings ar
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro to get attribute from tuple descriptor)
   - namestrcpy (converts C string to padded NAME)
-  - DatumGetCString (extracts C string from Datum)
-  - NameGetDatum (converts NAME to Datum)
-  - datumCopy (performs deep copy of datum)
+  - [DatumGetCString](../D/DatumGetCString.md) (extracts C string from Datum)
+  - [NameGetDatum](../N/NameGetDatum.md) (converts NAME to Datum)
+  - [datumCopy](../d/datumCopy.md) (performs deep copy of datum)
 - Called from (representative examples):
-  - SearchCatCacheList (src/backend/utils/cache/catcache.c:1988)
-  - CatalogCacheCreateEntry (src/backend/utils/cache/catcache.c:2225)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (src/backend/utils/cache/catcache.c:1988)
+  - [CatalogCacheCreateEntry](CatalogCacheCreateEntry.md) (src/backend/utils/cache/catcache.c:2225)
 
 ## Notes and Other Information
 - This is a static function, only accessible within catcache.c

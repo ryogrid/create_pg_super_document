@@ -23,17 +23,17 @@ This internal function serves as the common initialization routine for all Defin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - guc_malloc
-  - guc_strdup
+  - [guc_malloc](../g/guc_malloc.md)
+  - [guc_strdup](../g/guc_strdup.md)
   - CUSTOM_OPTIONS
   - PGC_POSTMASTER, PGC_USERSET, PGC_SUSET (GucContext values)
   - GUC_LIST_QUOTE (flag constant)
 - Called from (representative examples):
-  - DefineCustomBoolVariable
-  - DefineCustomIntVariable
-  - DefineCustomRealVariable
-  - DefineCustomStringVariable
-  - DefineCustomEnumVariable
+  - [DefineCustomBoolVariable](../D/DefineCustomBoolVariable.md)
+  - [DefineCustomIntVariable](../D/DefineCustomIntVariable.md)
+  - [DefineCustomRealVariable](../D/DefineCustomRealVariable.md)
+  - [DefineCustomStringVariable](../D/DefineCustomStringVariable.md)
+  - [DefineCustomEnumVariable](../D/DefineCustomEnumVariable.md)
 
 ## Notes and Other Information
 - This is a static function internal to guc.c and not exposed publicly

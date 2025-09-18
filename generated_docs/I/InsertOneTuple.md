@@ -32,11 +32,11 @@ This function takes no parameters and operates on global bootstrap state:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTupleDesc (creates tuple descriptor from attributes)
-  - heap_form_tuple (constructs heap tuple from values)
-  - pfree (frees tuple descriptor memory)
-  - simple_heap_insert (inserts tuple into relation)
-  - heap_freetuple (frees heap tuple memory)
+  - [CreateTupleDesc](../C/CreateTupleDesc.md) (creates tuple descriptor from attributes)
+  - [heap_form_tuple](../h/heap_form_tuple.md) (constructs heap tuple from values)
+  - [pfree](../p/pfree.md) (frees tuple descriptor memory)
+  - [simple_heap_insert](../s/simple_heap_insert.md) (inserts tuple into relation)
+  - [heap_freetuple](../h/heap_freetuple.md) (frees heap tuple memory)
   - DEBUG4 (debug logging level)
 - Called from (representative examples):
   - Bootstrap parser after accumulating complete row data

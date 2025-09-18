@@ -23,17 +23,17 @@ This is a critical component of PostgreSQL's cost-based query optimizer, providi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PgStatShared_Common
-  - PgStat_StatTabEntry
+  - [PgStat_StatTabEntry](PgStat_StatTabEntry.md)
 - Called from (representative examples):
   - pgstat_copy_relation_stats
   - pgstat_report_vacuum
   - pgstat_report_analyze
-  - pgstat_relation_flush_cb
+  - [pgstat_relation_flush_cb](../p/pgstat_relation_flush_cb.md)
   - SH_DECLARE (hash table declarations)
 
 ## Notes and Other Information
 - Part of PostgreSQL's variable-amount statistics system, allowing multiple relation statistics to coexist in shared memory
-- Relation statistics include: scan activity (numscans, lastscan), tuple operations (returned, fetched, inserted, updated, deleted, hot_updated, newpage_updated), tuple state tracking (live_tuples, dead_tuples, mod_since_analyze, ins_since_vacuum), buffer performance (blocks_fetched, blocks_hit), and maintenance history (vacuum/analyze timestamps and counts)
+- [Relation](../R/Relation.md) statistics include: scan activity (numscans, lastscan), tuple operations (returned, fetched, inserted, updated, deleted, hot_updated, newpage_updated), tuple state tracking (live_tuples, dead_tuples, mod_since_analyze, ins_since_vacuum), buffer performance (blocks_fetched, blocks_hit), and maintenance history (vacuum/analyze timestamps and counts)
 - Statistics are used by the query planner to estimate query costs and choose optimal execution plans
 - Autovacuum daemon relies on these statistics to determine when tables need maintenance
 - Statistics are accessible through system views like pg_stat_user_tables, pg_stat_sys_tables

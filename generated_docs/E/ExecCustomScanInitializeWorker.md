@@ -20,12 +20,12 @@ ExecCustomScanInitializeWorker is responsible for initializing a custom scan nod
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (structure type)
-  - ParallelWorkerContext (structure type)
-  - CustomExecMethods (structure type)
-  - shm_toc_lookup (shared memory TOC lookup function)
+  - [CustomScanState](../C/CustomScanState.md) (structure type)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md) (structure type)
+  - [CustomExecMethods](../C/CustomExecMethods.md) (structure type)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (shared memory TOC lookup function)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker (general parallel worker initializer)
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md) (general parallel worker initializer)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework and runs in worker processes

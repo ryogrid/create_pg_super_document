@@ -19,7 +19,7 @@ The value of 14 characters reflects traditional limitations of some older filesy
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - warning (used to issue warnings when component length exceeds this limit)
+  - [warning](../w/warning.md) (used to issue warnings when component length exceeds this limit)
 - Called from (representative examples):
   - Used within componentcheck function for length validation
 

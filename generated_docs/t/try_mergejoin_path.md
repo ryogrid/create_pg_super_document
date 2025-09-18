@@ -29,20 +29,20 @@ Key features include checking if explicit sorting can be skipped when input path
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_partial_mergejoin_path
-  - bms_is_member
+  - [try_partial_mergejoin_path](try_partial_mergejoin_path.md)
+  - [bms_is_member](../b/bms_is_member.md)
   - PATH_REQ_OUTER
-  - calc_non_nestloop_required_outer
-  - bms_overlap
-  - pathkeys_contained_in
-  - initial_cost_mergejoin
-  - add_path_precheck
-  - create_mergejoin_path
-  - add_path
-  - bms_free
+  - [calc_non_nestloop_required_outer](../c/calc_non_nestloop_required_outer.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md)
+  - [add_path_precheck](../a/add_path_precheck.md)
+  - [create_mergejoin_path](../c/create_mergejoin_path.md)
+  - [add_path](../a/add_path.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - sort_inner_and_outer
-  - generate_mergejoin_paths
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md)
 
 ## Notes and Other Information
 - Optimizes sort operations by checking if input paths are already appropriately ordered

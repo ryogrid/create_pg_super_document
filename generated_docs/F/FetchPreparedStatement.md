@@ -18,14 +18,14 @@ FetchPreparedStatement is a utility function that looks up a prepared statement 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (for hash table lookup)
+  - [hash_search](../h/hash_search.md) (for hash table lookup)
   - ereport (for error reporting when throwError is true)
 - Called from (representative examples):
-  - ExecuteQuery
-  - DropPreparedStatement
-  - ExplainExecuteQuery
-  - exec_bind_message
-  - FetchStatementTargetList
+  - [ExecuteQuery](../E/ExecuteQuery.md)
+  - [DropPreparedStatement](../D/DropPreparedStatement.md)
+  - [ExplainExecuteQuery](../E/ExplainExecuteQuery.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [FetchStatementTargetList](FetchStatementTargetList.md)
 
 ## Notes and Other Information
 - The function safely handles the case where the prepared_queries hash table hasn't been initialized yet

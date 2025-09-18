@@ -20,10 +20,10 @@ ParallelSlotClearHandler is an inline function that removes any previously assig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelSlot (struct type)
+  - [ParallelSlot](ParallelSlot.md) (struct type)
 - Called from (representative examples):
-  - wait_on_slots (in parallel_slot.c)
-  - ParallelSlotsWaitCompletion (in parallel_slot.c)
+  - [wait_on_slots](../w/wait_on_slots.md) (in parallel_slot.c)
+  - [ParallelSlotsWaitCompletion](ParallelSlotsWaitCompletion.md) (in parallel_slot.c)
 
 ## Notes and Other Information
 - This is an inline function defined in parallel_slot.h for performance

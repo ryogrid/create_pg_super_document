@@ -19,7 +19,7 @@ The function does not need to free memory allocated in the per-group context sin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - tuplesort_end
   - ExecClearTuple
 - Called from (representative examples):

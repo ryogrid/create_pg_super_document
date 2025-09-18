@@ -46,15 +46,15 @@ ArrayBuildStateArr is designed for building arrays by concatenating existing arr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContext for memory management
+  - [MemoryContext](../M/MemoryContext.md) for memory management
   - bits8 type for null bitmap representation
   - Oid types for array and element type identification
   - MAXDIM constant (defined as 6)
 - Called from (representative examples):
-  - accumArrayResultArr() - main function for adding array elements
+  - accumArrayResultArr() - [main](../m/main.md) function for adding array elements
   - initArrayResultArr() - initializes the state for array accumulation
   - makeArrayResultArr() - creates final ArrayType from accumulated array state
-  - array_agg_array_transfn() - array aggregation function for array inputs
+  - [array_agg_array_transfn](../a/array_agg_array_transfn.md)() - array aggregation function for array inputs
 
 ## Notes and Other Information
 - Input must be arrays of the same type, unlike ArrayBuildState which takes scalar elements

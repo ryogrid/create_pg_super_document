@@ -24,7 +24,7 @@ The notice tracking is particularly important for coordinating test step executi
   - printf (standard library function)
   - any_new_notice (global flag variable)
 - Called from (representative examples):
-  - main (registered as callback)
+  - [main](../m/main.md) (registered as callback)
   - libpq notice processing system
 
 ## Notes and Other Information

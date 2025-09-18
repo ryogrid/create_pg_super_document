@@ -24,18 +24,18 @@ SimpleStringList implements a singly-linked list specifically designed for manag
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleStringListCell (the node type used to build the linked list)
+  - [SimpleStringListCell](SimpleStringListCell.md) (the node type used to build the linked list)
 - Called from (representative examples):
-  - simple_string_list_append
-  - simple_string_list_member
-  - simple_string_list_destroy
-  - simple_string_list_not_touched
-  - CreateSubscriberOptions (in pg_createsubscriber)
-  - _restoreOptions (in pg_dump/pg_restore)
-  - OidOptions (in pg_dump)
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [simple_string_list_member](../s/simple_string_list_member.md)
+  - [simple_string_list_destroy](../s/simple_string_list_destroy.md)
+  - [simple_string_list_not_touched](../s/simple_string_list_not_touched.md)
+  - [CreateSubscriberOptions](../C/CreateSubscriberOptions.md) (in pg_createsubscriber)
+  - [_restoreOptions](../r/_restoreOptions.md) (in pg_dump/pg_restore)
+  - [OidOptions](../O/OidOptions.md) (in pg_dump)
   - ReindexType (in reindexdb)
   - VacObjFilter (in vacuumdb)
-  - verifier_context (in pg_verifybackup)
+  - [verifier_context](../v/verifier_context.md) (in pg_verifybackup)
 
 ## Notes and Other Information
 - Extensively used across PostgreSQL frontend tools including pg_dump, pg_dumpall, clusterdb, reindexdb, vacuumdb, and pg_verifybackup

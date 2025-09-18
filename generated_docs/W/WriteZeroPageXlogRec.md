@@ -19,13 +19,13 @@ This function creates a WAL record to log the zeroing of a CLOG page. When a new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert (with RM_CLOG_ID, CLOG_ZEROPAGE)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md) (with RM_CLOG_ID, CLOG_ZEROPAGE)
   - CLOG_ZEROPAGE
 - Called from (representative examples):
-  - ZeroCLOGPage
-  - ZeroCommitTsPage (via XactCtl function pointer)
+  - [ZeroCLOGPage](../Z/ZeroCLOGPage.md)
+  - [ZeroCommitTsPage](../Z/ZeroCommitTsPage.md) (via XactCtl function pointer)
 
 ## Notes and Other Information
 - Static function, internal to clog.c

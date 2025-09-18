@@ -22,10 +22,10 @@ The  struct serves as an entry in a lookup table used by the Snowball stemming a
 ## Dependencies
 - Functions called/Symbols referenced:
   - symbol (type used for string representation)
-  - SN_env (struct passed to function pointer)
+  - [SN_env](../S/SN_env.md) (struct passed to function pointer)
 - Called from (representative examples):
-  - find_among (src/backend/snowball/libstemmer/utilities.c:233)
-  - find_among_b (src/backend/snowball/libstemmer/utilities.c:298)
+  - [find_among](../f/find_among.md) (src/backend/snowball/libstemmer/utilities.c:233)
+  - [find_among_b](../f/find_among_b.md) (src/backend/snowball/libstemmer/utilities.c:298)
 
 ## Notes and Other Information
 This structure is part of the Snowball stemming library integrated into PostgreSQL for text search functionality. The  arrays are typically sorted by their search strings to enable efficient binary search operations. The substring_i field creates a chain of fallback patterns, allowing the algorithm to find the longest possible match when exact matches fail. The function pointer mechanism allows for dynamic processing of matches, enabling complex stemming rules that go beyond simple string replacement.

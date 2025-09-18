@@ -24,13 +24,13 @@ This function is typically used when backtracking in regex matching, where previ
 - Functions called/Symbols referenced:
   - struct subre (subexpression tree node structure)
   - struct vars (regex execution variables structure)
-  - zaptreesubs (recursive self-call)
+  - [zaptreesubs](zaptreesubs.md) (recursive self-call)
 - Called from (representative examples):
   - LOFF (macro/function at src/backend/regex/regexec.c:147)
-  - ccondissect (function at src/backend/regex/regexec.c:877)
-  - crevcondissect (function at src/backend/regex/regexec.c:958)
-  - citerdissect (function at src/backend/regex/regexec.c:1250)
-  - creviterdissect (function at src/backend/regex/regexec.c:1463)
+  - [ccondissect](../c/ccondissect.md) (function at src/backend/regex/regexec.c:877)
+  - [crevcondissect](../c/crevcondissect.md) (function at src/backend/regex/regexec.c:958)
+  - [citerdissect](../c/citerdissect.md) (function at src/backend/regex/regexec.c:1250)
+  - [creviterdissect](../c/creviterdissect.md) (function at src/backend/regex/regexec.c:1463)
 
 ## Notes and Other Information
 - This is a static function, only accessible within regexec.c

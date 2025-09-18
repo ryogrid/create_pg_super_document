@@ -33,18 +33,18 @@ The function includes a retry loop to handle cases where visibility status chang
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
-  - BufferGetPage
-  - PageIsAllVisible
-  - visibilitymap_pin_ok
-  - visibilitymap_pin
-  - LockBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIsAllVisible](../P/PageIsAllVisible.md)
+  - [visibilitymap_pin_ok](../v/visibilitymap_pin_ok.md)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md)
+  - [LockBuffer](../L/LockBuffer.md)
 - Constants referenced:
   - InvalidBuffer
   - BUFFER_LOCK_UNLOCK
   - BUFFER_LOCK_EXCLUSIVE
 - Called from:
-  - RelationGetBufferForTuple (multiple locations)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md) (multiple locations)
 
 ## Notes and Other Information
 - Static function within hio.c, designed specifically for heap I/O operations

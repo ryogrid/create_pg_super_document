@@ -21,7 +21,7 @@ The function abstracts away the specific parameter requirements for Yiddish stem
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - SN_create_env
+  - [SN_create_env](../S/SN_create_env.md)
 - Called from (representative examples):
   - No direct callers found in the codebase (likely called through stemmer interface)
 

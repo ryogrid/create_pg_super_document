@@ -34,8 +34,8 @@ The validation process walks down the jointree hierarchy, ensuring that each Fro
   - FromExpr
   - RangeTblRef
 - Called from:
-  - pull_up_subqueries_recurse
-  - pull_up_simple_subquery
+  - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md)
 
 ## Notes and Other Information
 - This function is specifically designed for UNION ALL appendrel optimization scenarios

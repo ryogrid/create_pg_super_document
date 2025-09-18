@@ -21,14 +21,14 @@ The function walks up the lock hierarchy starting from the given target tag, fin
 - Functions called/Symbols referenced:
   - GetParentPredicateLockTag
   - PredicateLockTargetTagHashCode
-  - hash_search_with_hash_value
-  - PREDICATELOCKTARGETTAG (struct)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [PREDICATELOCKTARGETTAG](../P/PREDICATELOCKTARGETTAG.md) (struct)
   - LOCALPREDICATELOCK (struct)
   - HASH_FIND, HASH_REMOVE (constants)
 - Called from (representative examples):
-  - DeleteChildTargetLocks
-  - CheckTargetForConflictsIn
-  - SerialControl
+  - [DeleteChildTargetLocks](DeleteChildTargetLocks.md)
+  - [CheckTargetForConflictsIn](../C/CheckTargetForConflictsIn.md)
+  - [SerialControl](../S/SerialControl.md)
 
 ## Notes and Other Information
 - This function is only called during lock release operations, not at transaction end when the information is no longer needed

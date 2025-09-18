@@ -18,9 +18,9 @@ The  function is a simple utility that converts an integer encoding identifier t
 ## Dependencies
 - Functions called/Symbols referenced:
   - sprintf: Standard C library function for string formatting
-  - pg_strdup: PostgreSQL utility function for string duplication
+  - [pg_strdup](../p/pg_strdup.md): PostgreSQL utility function for string duplication
 - Called from (representative examples):
-  - bootstrap_template1: Used during template1 database bootstrapping
+  - [bootstrap_template1](../b/bootstrap_template1.md): Used during template1 database bootstrapping
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

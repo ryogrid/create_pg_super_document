@@ -36,8 +36,8 @@ The formatting process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - malloc (allocates temporary formatting buffer)
-  - initValue (initializes the value structure with digit information)
-  - getRightMostDot (finds decimal point position in format string)
+  - [initValue](../i/initValue.md) (initializes the value structure with digit information)
+  - [getRightMostDot](../g/getRightMostDot.md) (finds decimal point position in format string)
   - strchr (searches for specific format characters)
   - strlen (calculates string lengths)
   - strcat (builds the formatted output)

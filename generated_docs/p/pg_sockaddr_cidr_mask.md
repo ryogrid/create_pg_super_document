@@ -21,9 +21,9 @@ This function generates network masks for IPv4 and IPv6 addresses based on CIDR 
 - Functions called/Symbols referenced:
   - pg_hton32
 - Called from (representative examples):
-  - check_network_callback
-  - parse_hba_line
-  - run_ifaddr_callback
+  - [check_network_callback](../c/check_network_callback.md)
+  - [parse_hba_line](parse_hba_line.md)
+  - [run_ifaddr_callback](../r/run_ifaddr_callback.md)
   - IFADDR_H
 
 ## Notes and Other Information

@@ -24,15 +24,15 @@ PinBufferForBlock is a critical function in PostgreSQL's buffer manager that han
 ## Dependencies
 - Functions called/Symbols referenced:
   - LocalBufferAlloc
-  - BufferAlloc
+  - [BufferAlloc](../B/BufferAlloc.md)
   - IOContextForStrategy
-  - BufferDescriptorGetBuffer
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
   - pgstat_count_buffer_read
   - pgstat_count_buffer_hit
-  - pgstat_count_io_op
+  - [pgstat_count_io_op](../p/pgstat_count_io_op.md)
 - Called from (representative examples):
-  - ReadBuffer_common
-  - StartReadBuffersImpl
+  - [ReadBuffer_common](../R/ReadBuffer_common.md)
+  - [StartReadBuffersImpl](../S/StartReadBuffersImpl.md)
 
 ## Notes and Other Information
 - The function handles different persistence types (permanent, temporary, unlogged) with appropriate I/O contexts

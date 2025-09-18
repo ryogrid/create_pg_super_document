@@ -21,12 +21,12 @@ Additionally, the function assigns a unique identifier to the cached tuple descr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open (to open the relation associated with the composite type)
-  - relation_close (to close the relation after extracting the descriptor)
+  - [relation_open](../r/relation_open.md) (to open the relation associated with the composite type)
+  - [relation_close](../r/relation_close.md) (to close the relation after extracting the descriptor)
   - RelationGetDescr (macro to get the tuple descriptor from a relation)
 - Called from (representative examples):
-  - lookup_type_cache (when TYPECACHE_TUPDESC flag is requested)
-  - cache_record_field_properties (when analyzing record field properties)
+  - [lookup_type_cache](lookup_type_cache.md) (when TYPECACHE_TUPDESC flag is requested)
+  - [cache_record_field_properties](../c/cache_record_field_properties.md) (when analyzing record field properties)
 
 ## Notes and Other Information
 - This is a static helper function only used within typcache.c

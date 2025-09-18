@@ -31,19 +31,19 @@ A key design consideration is permission handling: the function avoids marking t
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length
-  - ExpandAllTables
-  - refnameNamespaceItem
+  - [ExpandAllTables](ExpandAllTables.md)
+  - [refnameNamespaceItem](../r/refnameNamespaceItem.md)
   - strVal
   - linitial/lsecond/lthird
-  - get_database_name
-  - ExpandRowReference
-  - ExpandSingleTable
-  - errorMissingRTE
-  - makeRangeVar
-  - NameListToString
+  - [get_database_name](../g/get_database_name.md)
+  - [ExpandRowReference](ExpandRowReference.md)
+  - [ExpandSingleTable](ExpandSingleTable.md)
+  - [errorMissingRTE](../e/errorMissingRTE.md)
+  - [makeRangeVar](../m/makeRangeVar.md)
+  - [NameListToString](../N/NameListToString.md)
 - Called from (representative examples):
-  - transformTargetList (src/backend/parser/parse_target.c:153)
-  - transformExpressionList (src/backend/parser/parse_target.c:243)
+  - [transformTargetList](../t/transformTargetList.md) (src/backend/parser/parse_target.c:153)
+  - [transformExpressionList](../t/transformExpressionList.md) (src/backend/parser/parse_target.c:243)
 
 ## Notes and Other Information
 - The function defines local enum values (CRSERR_NO_RTE, CRSERR_WRONG_DB, CRSERR_TOO_MANY) for error classification

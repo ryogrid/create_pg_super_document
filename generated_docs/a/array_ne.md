@@ -24,8 +24,8 @@ The function delegates all the actual comparison work to , including dimension c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - array_eq (the core array equality function)
-  - DatumGetBool (extracts boolean value from Datum)
+  - [array_eq](array_eq.md) (the core array equality function)
+  - [DatumGetBool](../D/DatumGetBool.md) (extracts boolean value from Datum)
   - PG_RETURN_BOOL (returns boolean result)
 
 - Called from (representative examples):

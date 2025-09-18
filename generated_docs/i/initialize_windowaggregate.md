@@ -19,12 +19,12 @@ This function is parallel to  in nodeAgg.c and is responsible for initializing w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset
-  - datumCopy
-  - MemoryContextSwitchTo
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
 - Called from (representative examples):
-  - advance_windowaggregate_base
-  - eval_windowaggregates
+  - [advance_windowaggregate_base](../a/advance_windowaggregate_base.md)
+  - [eval_windowaggregates](../e/eval_windowaggregates.md)
 
 ## Notes and Other Information
 - The function carefully manages memory contexts, only resetting private contexts to avoid interfering with other aggregates that might share the same context

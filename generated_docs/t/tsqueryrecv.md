@@ -32,14 +32,14 @@ This function uses PostgreSQL's function call convention:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER: Extract binary data buffer from function arguments
-  - pq_getmsgint: Read integer from binary buffer
-  - pq_getmsgstring: Read string from binary buffer
-  - palloc/palloc0: Allocate memory
-  - repalloc: Reallocate memory
-  - pfree: Free memory
+  - [pq_getmsgint](../p/pq_getmsgint.md): Read integer from binary buffer
+  - [pq_getmsgstring](../p/pq_getmsgstring.md): Read string from binary buffer
+  - [palloc](../p/palloc.md)/palloc0: Allocate memory
+  - [repalloc](../r/repalloc.md): Reallocate memory
+  - [pfree](../p/pfree.md): Free memory
   - GETQUERY: Get query items array from TSQuery
   - GETOPERAND: Get operand string data from TSQuery
-  - findoprnd: Validate and set up query tree structure
+  - [findoprnd](../f/findoprnd.md): Validate and set up query tree structure
   - INIT_LEGACY_CRC32/COMP_LEGACY_CRC32/FIN_LEGACY_CRC32: Calculate CRC for operands
   - SET_VARSIZE: Set variable-length data size
   - PG_RETURN_TSQUERY: Return TSQuery result

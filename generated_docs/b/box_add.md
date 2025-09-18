@@ -21,8 +21,8 @@ This function performs vector addition between a BOX and a Point, translating th
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (BOX argument extraction)
   - PG_GETARG_POINT_P (Point argument extraction)
-  - palloc (memory allocation)
-  - point_add_point (adds the point offset to each corner)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [point_add_point](../p/point_add_point.md) (adds the point offset to each corner)
   - PG_RETURN_BOX_P (return value packaging)
 - Called from (representative examples):
   - No direct callers found in the codebase

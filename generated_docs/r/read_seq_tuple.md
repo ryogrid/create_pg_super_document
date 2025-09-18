@@ -26,26 +26,26 @@ Additionally, it includes compatibility code to clean up sequence tuples that ma
 ## Dependencies
 - Functions called/Symbols referenced:
   - ItemId (page item identifier)
-  - sequence_magic (sequence page magic number structure)
+  - [sequence_magic](../s/sequence_magic.md) (sequence page magic number structure)
   - Form_pg_sequence_data (sequence data structure)
-  - ReadBuffer (reads a relation page into buffer pool)
+  - [ReadBuffer](../R/ReadBuffer.md) (reads a relation page into buffer pool)
   - BUFFER_LOCK_EXCLUSIVE (exclusive buffer lock mode)
-  - PageGetSpecialPointer (gets page special area pointer)
+  - [PageGetSpecialPointer](../P/PageGetSpecialPointer.md) (gets page special area pointer)
   - SEQ_MAGIC (sequence magic number constant)
-  - PageGetItemId (gets item identifier from page)
+  - [PageGetItemId](../P/PageGetItemId.md) (gets item identifier from page)
   - FirstOffsetNumber (first valid offset number)
   - ItemIdIsNormal (checks if item ID is normal)
   - HeapTupleHeader (heap tuple header structure)
-  - PageGetItem (gets item data from page)
+  - [PageGetItem](../P/PageGetItem.md) (gets item data from page)
   - ItemIdGetLength (gets item length)
   - Various heap tuple manipulation functions for xmax cleanup
 - Called from (representative examples):
-  - ResetSequence
-  - AlterSequence
-  - SequenceChangePersistence
-  - nextval_internal
-  - do_setval
-  - pg_sequence_last_value
+  - [ResetSequence](../R/ResetSequence.md)
+  - [AlterSequence](../A/AlterSequence.md)
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md)
+  - [nextval_internal](../n/nextval_internal.md)
+  - [do_setval](../d/do_setval.md)
+  - [pg_sequence_last_value](../p/pg_sequence_last_value.md)
 
 ## Notes and Other Information
 - Always reads page 0 since sequences only use a single page

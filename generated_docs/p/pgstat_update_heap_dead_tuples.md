@@ -26,10 +26,10 @@ The changes made by this function are not subject to transaction rollback becaus
 - Functions called/Symbols referenced:
   - `pgstat_should_count_relation` - Determines if statistics should be collected for this relation
   - `PgStat_TableStatus` - Structure type for maintaining table-level statistics
-  - `PgStat_StatTabEntry` - Structure type referenced in the broader statistics context
+  - `[PgStat_StatTabEntry](../P/PgStat_StatTabEntry.md)` - Structure type referenced in the broader statistics context
 
 - Called from (representative examples):
-  - `heap_page_prune_opt` - During heap page pruning operations when dead tuples are removed
+  - `[heap_page_prune_opt](../h/heap_page_prune_opt.md)` - During heap page pruning operations when dead tuples are removed
 
 ## Notes and Other Information
 - This function operates on nontransactional state, unlike most other pgstat functions

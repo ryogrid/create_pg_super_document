@@ -20,14 +20,14 @@ This function iterates through all index tuples on a GiST internal page and extr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber
-  - BufferGetPage
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GistPageIsLeaf
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
-  - PageGetItem
-  - ItemPointerGetBlockNumber
-  - gistMemorizeParent
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [gistMemorizeParent](gistMemorizeParent.md)
   - FirstOffsetNumber
   - ItemId
 - Called from (representative examples):

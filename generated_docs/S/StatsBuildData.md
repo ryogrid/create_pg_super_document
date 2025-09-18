@@ -25,15 +25,15 @@ StatsBuildData serves as a central data container that provides a unified repres
   - VacAttrStats (referenced for per-attribute statistics metadata)
 - Called from (representative examples):
   - DependencyGenerator (src/backend/statistics/dependencies.c:73)
-  - dependency_degree (src/backend/statistics/dependencies.c:221)
-  - statext_dependencies_build (src/backend/statistics/dependencies.c:348)
-  - BuildRelationExtStatistics (src/backend/statistics/extended_stats.c:163)
-  - build_sorted_items (src/backend/statistics/extended_stats.c:986)
-  - make_build_data (src/backend/statistics/extended_stats.c:2456, 2471, 2486, 2487)
-  - statext_mcv_build (src/backend/statistics/mcv.c:180)
-  - build_mss (src/backend/statistics/mcv.c:347)
+  - [dependency_degree](../d/dependency_degree.md) (src/backend/statistics/dependencies.c:221)
+  - [statext_dependencies_build](../s/statext_dependencies_build.md) (src/backend/statistics/dependencies.c:348)
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md) (src/backend/statistics/extended_stats.c:163)
+  - [build_sorted_items](../b/build_sorted_items.md) (src/backend/statistics/extended_stats.c:986)
+  - [make_build_data](../m/make_build_data.md) (src/backend/statistics/extended_stats.c:2456, 2471, 2486, 2487)
+  - [statext_mcv_build](../s/statext_mcv_build.md) (src/backend/statistics/mcv.c:180)
+  - [build_mss](../b/build_mss.md) (src/backend/statistics/mcv.c:347)
   - statext_ndistinct_build (src/backend/statistics/mvdistinct.c:88)
-  - ndistinct_for_combination (src/backend/statistics/mvdistinct.c:425)
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (src/backend/statistics/mvdistinct.c:425)
 
 ## Notes and Other Information
 - Central data structure for all extended statistics building operations in PostgreSQL

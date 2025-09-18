@@ -24,7 +24,7 @@ The function iterates through each bit position from 0 to BITS_PER_MAP-1, using 
   - BITS_PER_MAP (constant defining the number of bits per bitmap word)
   - elog/ERROR (error reporting when no free bit is found)
 - Called from (representative examples):
-  - _hash_addovflpage (when searching for free overflow pages in bitmap)
+  - [_hash_addovflpage](_hash_addovflpage.md) (when searching for free overflow pages in bitmap)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the hashovfl.c module

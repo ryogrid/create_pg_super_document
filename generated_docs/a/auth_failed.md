@@ -23,11 +23,11 @@ For EOF status (client disconnection), the function simply exits without sending
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - proc_exit (for STATUS_EOF handling)
-  - psprintf (for formatting error messages)
+  - [proc_exit](../p/proc_exit.md) (for STATUS_EOF handling)
+  - [psprintf](../p/psprintf.md) (for formatting error messages)
   - ereport (for sending the error to client and logs)
   - gettext_noop (for internationalization)
-  - errdetail_log (for detailed logging)
+  - [errdetail_log](../e/errdetail_log.md) (for detailed logging)
 - Called from (representative examples):
   - HOSTNAME_LOOKUP_DETAIL (based on references found)
 - Authentication method constants used:

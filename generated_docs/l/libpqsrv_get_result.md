@@ -18,19 +18,19 @@ This function provides an interrupt-aware wrapper around PQgetResult() by first 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQisBusy
-  - WaitLatchOrSocket
+  - [PQisBusy](../P/PQisBusy.md)
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md)
   - WL_EXIT_ON_PM_DEATH
   - WL_LATCH_SET
   - WL_SOCKET_READABLE
-  - PQsocket
+  - [PQsocket](../P/PQsocket.md)
   - MyLatch
-  - ResetLatch
+  - [ResetLatch](../R/ResetLatch.md)
   - CHECK_FOR_INTERRUPTS
-  - PQconsumeInput
-  - PQgetResult
+  - [PQconsumeInput](../P/PQconsumeInput.md)
+  - [PQgetResult](../P/PQgetResult.md)
 - Called from (representative examples):
-  - libpqsrv_get_result_last
+  - [libpqsrv_get_result_last](libpqsrv_get_result_last.md)
 
 ## Notes and Other Information
 - Uses PostgreSQL's latch mechanism for efficient interrupt-aware waiting

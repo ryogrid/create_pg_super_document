@@ -26,13 +26,13 @@ The function modifies the input array in-place, potentially reducing the number 
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort_arg (for sorting ranges)
-  - range_compare (comparison function for sorting)
+  - [range_compare](../r/range_compare.md) (comparison function for sorting)
   - RangeIsEmpty (to check if a range is empty)
-  - range_adjacent_internal (to check if ranges are adjacent)
-  - range_union_internal (to merge ranges)
-  - range_before_internal (to check range ordering)
+  - [range_adjacent_internal](../r/range_adjacent_internal.md) (to check if ranges are adjacent)
+  - [range_union_internal](../r/range_union_internal.md) (to merge ranges)
+  - [range_before_internal](../r/range_before_internal.md) (to check range ordering)
 - Called from (representative examples):
-  - make_multirange
+  - [make_multirange](make_multirange.md)
 
 ## Notes and Other Information
 - The function assumes no input ranges are null, but empty ranges are acceptable and will be filtered out

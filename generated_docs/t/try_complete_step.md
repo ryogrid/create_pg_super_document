@@ -23,16 +23,16 @@ The function processes different types of query results (tuples, errors, notific
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - step_has_blocker
-  - printResultSet
-  - PQsocket, PQisBusy, PQconsumeInput, PQgetResult, PQnotifies
-  - PQexecPrepared (for lock wait detection)
-  - PQcancelCreate, PQcancelBlocking (for query cancellation)
+  - [step_has_blocker](../s/step_has_blocker.md)
+  - [printResultSet](../p/printResultSet.md)
+  - [PQsocket](../P/PQsocket.md), PQisBusy, PQconsumeInput, PQgetResult, PQnotifies
+  - [PQexecPrepared](../P/PQexecPrepared.md) (for lock wait detection)
+  - [PQcancelCreate](../P/PQcancelCreate.md), PQcancelBlocking (for query cancellation)
   - select, gettimeofday (for timing and I/O)
   - Various libpq result processing functions
 - Called from (representative examples):
-  - try_complete_steps
-  - run_permutation
+  - [try_complete_steps](try_complete_steps.md)
+  - [run_permutation](../r/run_permutation.md)
 
 ## Notes and Other Information
 - Returns true if the step was NOT completed (blocked or waiting), false if completed

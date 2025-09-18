@@ -21,10 +21,10 @@ This function handles the execution of the \z command in psql, which displays ac
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the optional pattern argument for filtering objects
   - strchr: Checks for 'S' character in command name to determine if system objects should be shown
-  - permissionsList: Core function that queries and formats privilege information
-  - ignore_slash_options: Skips parsing when in inactive branch
+  - [permissionsList](../p/permissionsList.md): Core function that queries and formats privilege information
+  - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when in inactive branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - Functionally identical to \dp command, providing an alternative short form

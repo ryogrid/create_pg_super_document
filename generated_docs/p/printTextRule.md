@@ -23,9 +23,9 @@ The printTextRule enumeration provides context for selecting appropriate line dr
 - Functions called/Symbols referenced:
   - None (enumeration type definition)
 - Called from (representative examples):
-  - _print_horizontal_line (src/fe_utils/print.c:594)
-  - print_aligned_vertical_line (src/fe_utils/print.c:1230)
-  - print_aligned_vertical (src/fe_utils/print.c:1589)
+  - [_print_horizontal_line](_print_horizontal_line.md) (src/fe_utils/print.c:594)
+  - [print_aligned_vertical_line](print_aligned_vertical_line.md) (src/fe_utils/print.c:1230)
+  - [print_aligned_vertical](print_aligned_vertical.md) (src/fe_utils/print.c:1589)
 
 ## Notes and Other Information
 - This enumeration is used in conjunction with printTextLineFormat structures to determine the appropriate line drawing characters for different parts of table output

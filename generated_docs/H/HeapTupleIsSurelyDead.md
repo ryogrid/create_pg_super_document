@@ -26,17 +26,17 @@ The function is designed to be conservative - it's acceptable to return false wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerIsValid
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
   - HeapTupleHeaderXminCommitted
   - HeapTupleHeaderXminInvalid
   - HEAP_XMAX_IS_LOCKED_ONLY
-  - GlobalVisTestIsRemovableXid
+  - [GlobalVisTestIsRemovableXid](../G/GlobalVisTestIsRemovableXid.md)
   - HeapTupleHeaderGetRawXmax
   - HEAP_XMAX_INVALID (macro)
   - HEAP_XMAX_IS_MULTI (macro)
   - HEAP_XMAX_COMMITTED (macro)
 - Called from (representative examples):
-  - heap_hot_search_buffer
+  - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md)
   - HeapScanIsValid
 
 ## Notes and Other Information

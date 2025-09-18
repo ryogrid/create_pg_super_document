@@ -24,10 +24,10 @@ This function complements save_global_locale() by restoring a locale setting tha
   - setlocale (POSIX locale function)
   - _wsetlocale (Windows wide-character locale function)
   - free (memory deallocation)
-  - pg_fatal (PostgreSQL fatal error reporting)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL fatal error reporting)
 - Called from (representative examples):
-  - locale_date_order (in src/bin/initdb/initdb.c:2149)
-  - check_locale_name (in src/bin/initdb/initdb.c:2210)
+  - [locale_date_order](../l/locale_date_order.md) (in src/bin/initdb/initdb.c:2149)
+  - [check_locale_name](../c/check_locale_name.md) (in src/bin/initdb/initdb.c:2210)
 
 ## Notes and Other Information
 - Must be called with a value previously returned by save_global_locale()

@@ -26,16 +26,16 @@ The function has two implementation paths:
   - PG_INT32_MAX
   - PG_INT32_MIN
 - Called from (representative examples):
-  - int4mul (integer multiplication operator)
-  - int24mul (int2 * int4 multiplication)
-  - int42mul (int4 * int2 multiplication)
+  - [int4mul](../i/int4mul.md) (integer multiplication operator)
+  - [int24mul](../i/int24mul.md) (int2 * int4 multiplication)
+  - [int42mul](../i/int42mul.md) (int4 * int2 multiplication)
   - AdjustDays (datetime adjustment)
   - AdjustYears (datetime adjustment)
-  - make_interval (interval creation)
-  - text_substring (string substring operation)
-  - lpad, rpad (string padding functions)
-  - repeat (string repetition)
-  - translate (string character translation)
+  - [make_interval](../m/make_interval.md) (interval creation)
+  - [text_substring](../t/text_substring.md) (string substring operation)
+  - [lpad](../l/lpad.md), rpad (string padding functions)
+  - [repeat](../r/repeat.md) (string repetition)
+  - [translate](../t/translate.md) (string character translation)
 
 ## Notes and Other Information
 - Returns  when overflow is detected,  when multiplication is safe

@@ -39,14 +39,14 @@ HeapTupleFreeze serves as a freeze plan descriptor that specifies exactly how a 
   - TransactionId
   - OffsetNumber
 - Called from (representative examples):
-  - heap_prepare_freeze_tuple
-  - heap_execute_freeze_tuple
-  - heap_pre_freeze_checks
-  - heap_freeze_prepared_tuples
-  - heap_freeze_tuple
-  - heap_xlog_prune_freeze
-  - heap_log_freeze_plan
-  - log_heap_prune_and_freeze
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
+  - [heap_execute_freeze_tuple](../h/heap_execute_freeze_tuple.md)
+  - [heap_pre_freeze_checks](../h/heap_pre_freeze_checks.md)
+  - [heap_freeze_prepared_tuples](../h/heap_freeze_prepared_tuples.md)
+  - [heap_freeze_tuple](../h/heap_freeze_tuple.md)
+  - [heap_xlog_prune_freeze](../h/heap_xlog_prune_freeze.md)
+  - [heap_log_freeze_plan](../h/heap_log_freeze_plan.md)
+  - [log_heap_prune_and_freeze](../l/log_heap_prune_and_freeze.md)
 
 ## Notes and Other Information
 - Used as output from heap_prepare_freeze_tuple() to describe the freeze plan for a specific tuple

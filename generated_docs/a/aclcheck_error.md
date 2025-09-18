@@ -31,11 +31,11 @@ Special handling is provided for certain object types where the error message re
   - ereport/elog (for error reporting)
   - ERRCODE_INSUFFICIENT_PRIVILEGE
 - Called from (representative examples):
-  - restrict_and_check_grant (src/backend/catalog/aclchk.c:314)
-  - check_object_ownership (src/backend/catalog/objectaddress.c:2399)
-  - ExecCheckPermissions (src/backend/executor/execMain.c:618)
-  - DefineRelation (src/backend/commands/tablecmds.c:841)
-  - CreateFunction (src/backend/commands/functioncmds.c:1057)
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md) (src/backend/catalog/aclchk.c:314)
+  - [check_object_ownership](../c/check_object_ownership.md) (src/backend/catalog/objectaddress.c:2399)
+  - [ExecCheckPermissions](../E/ExecCheckPermissions.md) (src/backend/executor/execMain.c:618)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:841)
+  - [CreateFunction](../C/CreateFunction.md) (src/backend/commands/functioncmds.c:1057)
   - [Many other locations throughout the backend]
 
 ## Notes and Other Information

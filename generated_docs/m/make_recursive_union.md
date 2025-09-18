@@ -32,13 +32,13 @@ This function constructs a RecursiveUnion plan node, which is the core operator 
 - Functions called/Symbols referenced:
   - makeNode (to allocate RecursiveUnion node)
   - list_length (to get distinctList size)
-  - palloc (to allocate arrays for duplicate detection)
-  - get_sortgroupclause_tle (to resolve target list entries)
-  - exprCollation (to get expression collations)
+  - [palloc](../p/palloc.md) (to allocate arrays for duplicate detection)
+  - [get_sortgroupclause_tle](../g/get_sortgroupclause_tle.md) (to resolve target list entries)
+  - [exprCollation](../e/exprCollation.md) (to get expression collations)
   - RecursiveUnion (struct type)
   - SortGroupClause (struct type)
 - Called from (representative examples):
-  - create_recursiveunion_plan
+  - [create_recursiveunion_plan](../c/create_recursiveunion_plan.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the createplan.c file

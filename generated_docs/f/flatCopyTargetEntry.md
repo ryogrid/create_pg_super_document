@@ -25,12 +25,12 @@ The function creates a new TargetEntry node and copies all field values from the
   - IsA (macro for node type checking)
   - Assert (assertion macro)
   - memcpy (C standard library memory copy function)
-  - TargetEntry (node type being copied)
+  - [TargetEntry](../T/TargetEntry.md) (node type being copied)
 - Called from (representative examples):
-  - rewriteTargetListIU (rewriter)
-  - expand_insert_targetlist (optimizer prep)
-  - set_upper_references (optimizer setrefs)
-  - process_matched_tle (rewriter)
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md) (rewriter)
+  - [expand_insert_targetlist](../e/expand_insert_targetlist.md) (optimizer prep)
+  - [set_upper_references](../s/set_upper_references.md) (optimizer setrefs)
+  - [process_matched_tle](../p/process_matched_tle.md) (rewriter)
 
 ## Notes and Other Information
 - This is a shallow copy operation - substructures like the expression (`expr`) field are not duplicated

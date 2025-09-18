@@ -20,18 +20,18 @@ The function always flushes the output buffer since there's no hope of sending t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqsecure_close
+  - [pqsecure_close](pqsecure_close.md)
   - closesocket
-  - pqFreeCommandQueue
+  - [pqFreeCommandQueue](pqFreeCommandQueue.md)
   - PGINVALID_SOCKET (constant)
   - Various GSS/SSPI/SASL cleanup functions (conditional compilation)
 
 - Called from (representative examples):
-  - pqConnectDBStart
-  - PQconnectPoll
-  - pqClosePGconn
-  - pqReadData
-  - handleSyncLoss
+  - [pqConnectDBStart](pqConnectDBStart.md)
+  - [PQconnectPoll](../P/PQconnectPoll.md)
+  - [pqClosePGconn](pqClosePGconn.md)
+  - [pqReadData](pqReadData.md)
+  - [handleSyncLoss](../h/handleSyncLoss.md)
 
 ## Notes and Other Information
 - The function handles cleanup for multiple authentication mechanisms (GSS, SSPI, SASL) through conditional compilation

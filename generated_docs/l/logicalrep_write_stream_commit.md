@@ -21,14 +21,14 @@ The function packages essential transaction metadata including the transaction I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint32
-  - pq_sendint64
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
   - LOGICAL_REP_MSG_STREAM_COMMIT (message type constant)
   - TransactionIdIsValid (assertion)
-  - ReorderBufferTXN (data structure)
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md) (data structure)
 - Called from (representative examples):
-  - pgoutput_stream_commit
+  - [pgoutput_stream_commit](../p/pgoutput_stream_commit.md)
 
 ## Notes and Other Information
 - Includes transaction ID, flags field (currently unused), commit LSN, end LSN, and commit timestamp

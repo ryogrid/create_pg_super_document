@@ -22,21 +22,21 @@ The function validates collation compatibility, checks for proper operand struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_opclause
-  - get_leftop
-  - get_rightop
+  - [is_opclause](../i/is_opclause.md)
+  - [get_leftop](../g/get_leftop.md)
+  - [get_rightop](../g/get_rightop.md)
   - IndexCollMatchesExprColl
-  - match_index_to_operand
-  - contain_var_clause
-  - contain_volatile_functions
-  - get_commutator
-  - get_op_opfamily_sortfamily
+  - [match_index_to_operand](match_index_to_operand.md)
+  - [contain_var_clause](../c/contain_var_clause.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [get_op_opfamily_sortfamily](../g/get_op_opfamily_sortfamily.md)
   - list_make2
   - OpExpr (structure)
-  - IndexOptInfo (structure)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - match_pathkeys_to_index
+  - [match_pathkeys_to_index](match_pathkeys_to_index.md)
 
 ## Notes and Other Information
 - Currently does not consider the collation of the ordering operator's result, focusing on input collation compatibility instead

@@ -26,8 +26,8 @@ The function is designed to be called on both newly allocated DumpOptions struct
   - TRI_DEFAULT: Enum value for trivalue type (default password prompting behavior)
   - DUMP_UNSECTIONED: Constant (0xff) indicating unsectioned dump mode
 - Called from (representative examples):
-  - NewDumpOptions: Initializes newly allocated DumpOptions
-  - main: Direct initialization in pg_dump main function
+  - [NewDumpOptions](../N/NewDumpOptions.md): Initializes newly allocated DumpOptions
+  - [main](../m/main.md): Direct initialization in pg_dump main function
 
 ## Notes and Other Information
 - The function uses memset to zero the entire structure first, then sets non-zero defaults

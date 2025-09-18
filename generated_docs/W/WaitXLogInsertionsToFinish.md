@@ -29,17 +29,17 @@ The function handles edge cases like bogus LSN requests and provides detailed lo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_membarrier_u64 (reads current insert result atomically)
+  - [pg_atomic_read_membarrier_u64](../p/pg_atomic_read_membarrier_u64.md) (reads current insert result atomically)
   - SpinLockAcquire/SpinLockRelease (protects insert position access)
-  - XLogBytePosToEndRecPtr (converts byte position to record pointer)
+  - [XLogBytePosToEndRecPtr](../X/XLogBytePosToEndRecPtr.md) (converts byte position to record pointer)
   - LWLockWaitForVar (waits for insertion progress on individual locks)
   - pg_atomic_monotonic_advance_u64 (updates global insert result)
   - NUM_XLOGINSERT_LOCKS (number of WAL insertion locks to check)
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - AdvanceXLInsertBuffer
-  - XLogFlush
-  - XLogBackgroundFlush
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md)
+  - [XLogFlush](../X/XLogFlush.md)
+  - [XLogBackgroundFlush](../X/XLogBackgroundFlush.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xlog.c module

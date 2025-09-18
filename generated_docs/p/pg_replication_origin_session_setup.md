@@ -24,9 +24,9 @@ This function serves as a PostgreSQL SQL function wrapper for establishing a rep
   - `replorigin_check_prerequisites` - Validates prerequisites with `check_slots=true` and `recoveryOK=false`
   - `text_to_cstring` - Converts PostgreSQL text datum to null-terminated C string
   - `replorigin_by_name` - Looks up origin ID by name with `missing_ok=false` (throws error if not found)
-  - `replorigin_session_setup` - Performs the actual session setup with `acquired_by=0`
+  - `[replorigin_session_setup](../r/replorigin_session_setup.md)` - Performs the actual session setup with `acquired_by=0`
   - `replorigin_session_origin` - Global variable set to track the current session's origin
-  - `pfree` - Frees allocated memory for the converted string
+  - `[pfree](pfree.md)` - Frees allocated memory for the converted string
   - `PG_RETURN_VOID` - Returns void result to PostgreSQL function call framework
 - Called from (representative examples):
   - SQL interface (no direct C callers found)

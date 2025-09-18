@@ -21,10 +21,10 @@ This function is part of PostgreSQL's compression infrastructure for pg_dump, al
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LZ4Stream_read_internal (performs the actual decompression work with eol_flag=true)
+  - [LZ4Stream_read_internal](LZ4Stream_read_internal.md) (performs the actual decompression work with eol_flag=true)
 - Types referenced:
-  - CompressFileHandle (compression file handle structure)
-  - LZ4State (LZ4 compression state structure)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (compression file handle structure)
+  - [LZ4State](LZ4State.md) (LZ4 compression state structure)
 - Called from (representative examples):
   - No direct callers found in the current codebase
 

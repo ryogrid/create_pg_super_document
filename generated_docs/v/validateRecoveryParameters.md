@@ -24,14 +24,14 @@ This function takes no parameters and operates on global recovery configuration 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - existsTimeLineHistory (checks if timeline history file exists)
-  - findNewestTimeLine (finds the newest available timeline)
-  - timestamptz_in (parses timestamp strings)
+  - [existsTimeLineHistory](../e/existsTimeLineHistory.md) (checks if timeline history file exists)
+  - [findNewestTimeLine](../f/findNewestTimeLine.md) (finds the newest available timeline)
+  - [timestamptz_in](../t/timestamptz_in.md) (parses timestamp strings)
   - DirectFunctionCall3 (PostgreSQL function call interface)
   - DatumGetTimestampTz (datum conversion utility)
-  - CStringGetDatum (datum conversion utility)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion utility)
 - Called from:
-  - InitWalRecovery (during WAL recovery initialization)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization)
 
 ## Notes and Other Information
 - Only executes when ArchiveRecoveryRequested is true

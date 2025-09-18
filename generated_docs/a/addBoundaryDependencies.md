@@ -31,13 +31,13 @@ The function iterates through all DumpableObjects and classifies them by type, t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - addObjectDependency
+  - [addObjectDependency](addObjectDependency.md)
 - Object types classified:
   - Pre-data: DO_NAMESPACE, DO_EXTENSION, DO_TYPE, DO_FUNC, DO_TABLE, etc.
   - Data: DO_TABLE_DATA, DO_SEQUENCE_SET, DO_LARGE_OBJECT, etc.
   - Post-data: DO_INDEX, DO_TRIGGER, DO_CONSTRAINT, DO_POLICY, etc.
 - Called from:
-  - main (in src/bin/pg_dump/pg_dump.c:1004)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:1004)
 
 ## Notes and Other Information
 - Static function, only accessible within pg_dump.c

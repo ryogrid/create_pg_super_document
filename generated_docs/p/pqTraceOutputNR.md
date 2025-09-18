@@ -45,11 +45,11 @@ cursor-agent not found, installing via https://cursor.com/install ...
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputByte1
-  - pqTraceOutputString
+  - [pqTraceOutputByte1](pqTraceOutputByte1.md)
+  - [pqTraceOutputString](pqTraceOutputString.md)
 - Called from (representative examples):
-  - pqTraceOutput_ErrorResponse
-  - pqTraceOutput_NoticeResponse
+  - [pqTraceOutput_ErrorResponse](pqTraceOutput_ErrorResponse.md)
+  - [pqTraceOutput_NoticeResponse](pqTraceOutput_NoticeResponse.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the fe-trace.c compilation unit

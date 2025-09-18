@@ -22,7 +22,7 @@ PGTYPESdate_free is a memory deallocation function that frees the memory occupie
   - free (standard C library function)
   - date (type reference)
 - Called from (representative examples):
-  - main (in test cases)
+  - [main](../m/main.md) (in test cases)
   - Various ECPG applications for memory cleanup
 
 ## Notes and Other Information

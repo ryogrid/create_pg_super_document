@@ -25,10 +25,10 @@ The function uses makeStringInfo() to create a new StringInfo buffer and appendB
   - makeStringInfo
   - appendBinaryStringInfo
   - PG_SNAPSHOT_SIZE (macro)
-  - pg_snapshot (type)
+  - [pg_snapshot](../p/pg_snapshot.md) (type)
   - FullTransactionId (type)
 - Called from (representative examples):
-  - parse_snapshot
+  - [parse_snapshot](../p/parse_snapshot.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the xid8funcs.c module

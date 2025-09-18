@@ -32,9 +32,9 @@ TarMethodFile extends the base Walfile structure to provide tar archive-specific
   - pgoff_t (PostgreSQL offset type)
   - TAR_BLOCK_SIZE (tar block size constant, 512 bytes)
 - Called from (representative examples):
-  - TarMethodData (contains references to TarMethodFile instances)
-  - tar_write_padding_data (uses TarMethodFile for padding operations)
-  - tar_open_for_write (creates and initializes TarMethodFile instances)
+  - [TarMethodData](TarMethodData.md) (contains references to TarMethodFile instances)
+  - [tar_write_padding_data](../t/tar_write_padding_data.md) (uses TarMethodFile for padding operations)
+  - [tar_open_for_write](../t/tar_open_for_write.md) (creates and initializes TarMethodFile instances)
   - tar_close (finalizes and writes TarMethodFile to tar archive)
 
 ## Notes and Other Information

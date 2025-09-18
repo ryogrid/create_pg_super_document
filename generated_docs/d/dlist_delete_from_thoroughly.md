@@ -20,12 +20,12 @@ The "thoroughly" aspect refers to the fact that after deletion, the node's next 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_member_check
-  - dlist_delete_thoroughly
-  - dlist_head (type)
-  - dlist_node (type)
+  - [dlist_member_check](dlist_member_check.md)
+  - [dlist_delete_thoroughly](dlist_delete_thoroughly.md)
+  - [dlist_head](dlist_head.md) (type)
+  - [dlist_node](dlist_node.md) (type)
 - Called from (representative examples):
-  - dclist_delete_from_thoroughly
+  - [dclist_delete_from_thoroughly](dclist_delete_from_thoroughly.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

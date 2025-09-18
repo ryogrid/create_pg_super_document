@@ -28,19 +28,19 @@ Key optimization strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - update_mergeclause_eclasses
-  - bms_overlap
-  - list_copy
-  - list_copy_head
-  - make_canonical_pathkey
+  - [update_mergeclause_eclasses](../u/update_mergeclause_eclasses.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [list_copy](../l/list_copy.md)
+  - [list_copy_head](../l/list_copy_head.md)
+  - [make_canonical_pathkey](../m/make_canonical_pathkey.md)
   - linitial_oid
-  - pathkey_is_redundant
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md)
   - EquivalenceClass
-  - EquivalenceMember
+  - [EquivalenceMember](../E/EquivalenceMember.md)
   - PathKey
   - BTLessStrategyNumber
 - Called from (representative examples):
-  - sort_inner_and_outer (src/backend/optimizer/path/joinpath.c:1379)
+  - [sort_inner_and_outer](sort_inner_and_outer.md) (src/backend/optimizer/path/joinpath.c:1379)
 
 ## Notes and Other Information
 - Returns NIL if no mergeclauses are provided

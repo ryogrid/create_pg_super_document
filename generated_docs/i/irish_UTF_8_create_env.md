@@ -22,7 +22,7 @@ The returned environment structure contains all the necessary state information 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Generic Snowball environment creation function that allocates and initializes the base structure
+  - [SN_create_env](../S/SN_create_env.md): Generic Snowball environment creation function that allocates and initializes the base structure
 - Called from (representative examples):
   - This function appears to be an external API entry point, likely called by stemming library users or wrapper functions
 

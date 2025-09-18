@@ -34,13 +34,13 @@ The function iterates through each base relation in the query, examines associat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restriction_is_or_clause
-  - join_clause_is_movable_to  
-  - extract_or_clause
-  - consider_new_or_clause
+  - [restriction_is_or_clause](../r/restriction_is_or_clause.md)
+  - [join_clause_is_movable_to](../j/join_clause_is_movable_to.md)  
+  - [extract_or_clause](extract_or_clause.md)
+  - [consider_new_or_clause](../c/consider_new_or_clause.md)
   - RELOPT_BASEREL (constant)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - The transformation is partial and does not completely unravel the original OR clause to avoid expression bloat

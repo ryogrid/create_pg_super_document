@@ -21,7 +21,7 @@ ExecEndCustomScan is the cleanup function for custom scan nodes that is called w
 - Functions called/Symbols referenced:
   - EndCustomScan (via node->methods callback)
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 
 ## Notes and Other Information
 - This function only delegates to the custom scan provider's cleanup method

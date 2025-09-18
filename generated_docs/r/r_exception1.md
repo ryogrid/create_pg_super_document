@@ -28,13 +28,13 @@ This handling is essential because these words would be incorrectly processed by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Searches forward through the word for matching patterns from the a_10 array
-  - slice_from_s: Replaces the matched word with the specified replacement string
+  - [find_among](../f/find_among.md): Searches forward through the word for matching patterns from the a_10 array
+  - [slice_from_s](../s/slice_from_s.md): Replaces the matched word with the specified replacement string
   - a_10: Array of 18 exceptional word patterns with corresponding action codes
   - s_27 through s_37: Replacement strings for the transformed word forms
 - Called from (representative examples):
-  - english_ISO_8859_1_stem: Main English stemming function (called early to catch exceptions)
-  - english_UTF_8_stem: UTF-8 version of English stemming
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md): Main English stemming function (called early to catch exceptions)
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md): UTF-8 version of English stemming
 
 ## Notes and Other Information
 - This is part of the exception handling system, called before standard stemming rules

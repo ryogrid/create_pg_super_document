@@ -24,10 +24,10 @@ The structure is allocated in the function's memory context and stored in fcinfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - array_agg_deserialize (src/backend/utils/adt/array_userfuncs.c:764, 767, 772, 774)
+  - [array_agg_deserialize](../a/array_agg_deserialize.md) (src/backend/utils/adt/array_userfuncs.c:764, 767, 772, 774)
 
 ## Notes and Other Information
 - This structure is only used for by-reference element types; by-value types don't require the receive function during deserialization

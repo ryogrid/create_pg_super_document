@@ -23,11 +23,11 @@ The function is marked as `static inline` for performance optimization, allowing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_uint32 (atomic variable type)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (atomic variable type)
   - PG_HAVE_ATOMIC_TEST_SET_FLAG (conditional compilation flag)
   - PG_HAVE_ATOMIC_EXCHANGE_U32 (conditional compilation flag)
 - Called from (representative examples):
-  - pg_atomic_unlocked_write_u32
+  - [pg_atomic_unlocked_write_u32](pg_atomic_unlocked_write_u32.md)
 
 ## Notes and Other Information
 - This is a generic fallback implementation that may not provide the memory ordering guarantees of true atomic operations

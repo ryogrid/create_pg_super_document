@@ -23,11 +23,11 @@ Functions that both accept and return INTERNAL types are typically system functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - INTERNALOID (constant)
 - Called from (representative examples):
-  - ProcedureCreate
-  - AggregateCreate
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [AggregateCreate](../A/AggregateCreate.md)
 
 ## Notes and Other Information
 - Located in src/backend/parser/parse_coerce.c:2954-2977

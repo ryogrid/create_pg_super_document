@@ -27,18 +27,18 @@ If the user parameter is NULL or empty, the command uses DEFAULT to restore the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer (buffer creation)
-  - appendPQExpBufferStr (string buffer operations)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (string buffer operations)
   - appendStringLiteralAHX (safe string literal formatting)
   - appendPQExpBufferChar (character buffer operations)
-  - RestoringToDB (connection mode check)
-  - PQexec (PostgreSQL command execution)
+  - [RestoringToDB](../R/RestoringToDB.md) (connection mode check)
+  - [PQexec](../P/PQexec.md) (PostgreSQL command execution)
   - PGRES_COMMAND_OK (result status constant)
-  - PQerrorMessage (error message retrieval)
-  - PQclear (result cleanup)
-  - ahprintf (archive output)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (error message retrieval)
+  - [PQclear](../P/PQclear.md) (result cleanup)
+  - [ahprintf](../a/ahprintf.md) (archive output)
   - destroyPQExpBuffer (buffer cleanup)
 - Called from (representative examples):
-  - _becomeUser
+  - [_becomeUser](../b/_becomeUser.md)
 
 ## Notes and Other Information
 - Located in src/bin/pg_dump/pg_backup_archiver.c:3322-3364

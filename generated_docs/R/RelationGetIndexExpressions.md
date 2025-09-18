@@ -32,20 +32,20 @@ The optimization step is crucial because the planner compares these expressions 
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - heap_attisnull
-  - heap_getattr
-  - GetPgIndexDescriptor
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [GetPgIndexDescriptor](../G/GetPgIndexDescriptor.md)
   - TextDatumGetCString
-  - stringToNode
-  - eval_const_expressions
-  - fix_opfuncids
+  - [stringToNode](../s/stringToNode.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [fix_opfuncids](../f/fix_opfuncids.md)
 - Called from (representative examples):
-  - GetIndexInputType
-  - BuildIndexInfo
-  - ATExecReplicaIdentity
-  - index_unchanged_by_update
-  - plan_create_index_workers
-  - get_relation_info
+  - [GetIndexInputType](../G/GetIndexInputType.md)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [ATExecReplicaIdentity](../A/ATExecReplicaIdentity.md)
+  - [index_unchanged_by_update](../i/index_unchanged_by_update.md)
+  - [plan_create_index_workers](../p/plan_create_index_workers.md)
+  - [get_relation_info](../g/get_relation_info.md)
 
 ## Notes and Other Information
 - Returns NIL for relations that are not indexes or indexes without expressional columns

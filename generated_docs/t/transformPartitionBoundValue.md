@@ -24,18 +24,18 @@ The function is essential for partition definition processing, ensuring that par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr (expression transformation)
+  - [transformExpr](transformExpr.md) (expression transformation)
   - EXPR_KIND_PARTITION_BOUND (expression context type)
-  - contain_var_clause (variable detection validation)
-  - coerce_to_target_type (type coercion)
+  - [contain_var_clause](../c/contain_var_clause.md) (variable detection validation)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md) (type coercion)
   - COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST (coercion modes)
-  - assign_expr_collations (collation assignment)
-  - expression_planner (expression planning)
-  - evaluate_expr (expression evaluation)
-  - exprLocation (location tracking for errors)
+  - [assign_expr_collations](../a/assign_expr_collations.md) (collation assignment)
+  - [expression_planner](../e/expression_planner.md) (expression planning)
+  - [evaluate_expr](../e/evaluate_expr.md) (expression evaluation)
+  - [exprLocation](../e/exprLocation.md) (location tracking for errors)
 - Called from (representative examples):
-  - transformPartitionBound
-  - transformPartitionRangeBounds
+  - [transformPartitionBound](transformPartitionBound.md)
+  - [transformPartitionRangeBounds](transformPartitionRangeBounds.md)
 
 ## Notes and Other Information
 - This is a static function within parse_utilcmd.c, used internally for partition processing

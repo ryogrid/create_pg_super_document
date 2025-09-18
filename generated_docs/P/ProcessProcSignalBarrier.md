@@ -31,12 +31,12 @@ This function takes no parameters and operates on global state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u64 (atomic read operations)
-  - pg_atomic_exchange_u32 (atomic exchange operation)
-  - pg_atomic_write_u64 (atomic write operation)
-  - pg_rightmost_one_pos32 (bit manipulation utility)
-  - ProcessBarrierSmgrRelease (storage manager barrier handler)
-  - ResetProcSignalBarrierBits (barrier bit reset function)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md) (atomic read operations)
+  - [pg_atomic_exchange_u32](../p/pg_atomic_exchange_u32.md) (atomic exchange operation)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md) (atomic write operation)
+  - [pg_rightmost_one_pos32](../p/pg_rightmost_one_pos32.md) (bit manipulation utility)
+  - [ProcessBarrierSmgrRelease](ProcessBarrierSmgrRelease.md) (storage manager barrier handler)
+  - [ResetProcSignalBarrierBits](../R/ResetProcSignalBarrierBits.md) (barrier bit reset function)
   - ConditionVariableBroadcast (condition variable signaling)
   - BARRIER_CLEAR_BIT (macro for clearing barrier bits)
 - Exception handling:
@@ -49,9 +49,9 @@ This function takes no parameters and operates on global state.
   - PROCSIGNAL_BARRIER_SMGRRELEASE (storage manager release barrier type)
 
 - Called from (representative examples):
-  - HandleAutoVacLauncherInterrupts (autovacuum launcher)
-  - HandleCheckpointerInterrupts (checkpointer process)
-  - HandleMainLoopInterrupts (main loop interrupt handling)
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md) (autovacuum launcher)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md) (checkpointer process)
+  - [HandleMainLoopInterrupts](../H/HandleMainLoopInterrupts.md) (main loop interrupt handling)
   - ProcessInterrupts (general interrupt processing)
   - BufferSync (buffer synchronization)
 

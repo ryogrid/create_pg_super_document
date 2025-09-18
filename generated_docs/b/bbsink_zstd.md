@@ -29,18 +29,18 @@ The structure maintains its own compression context and output buffer to handle 
 ## Dependencies
 - Functions called/Symbols referenced:
   - bbsink (base structure)
-  - pg_compress_specification (compression options)
+  - [pg_compress_specification](../p/pg_compress_specification.md) (compression options)
   - ZSTD_CCtx (zstd compression context)
   - ZSTD_outBuffer (zstd output buffer)
 
 - Called from (representative examples):
-  - bbsink_zstd_new (constructor function)
-  - bbsink_zstd_begin_backup (backup initialization)
-  - bbsink_zstd_begin_archive (archive processing start)
-  - bbsink_zstd_archive_contents (data compression)
-  - bbsink_zstd_end_archive (archive finalization)
-  - bbsink_zstd_end_backup (backup completion)
-  - bbsink_zstd_cleanup (resource cleanup)
+  - [bbsink_zstd_new](bbsink_zstd_new.md) (constructor function)
+  - [bbsink_zstd_begin_backup](bbsink_zstd_begin_backup.md) (backup initialization)
+  - [bbsink_zstd_begin_archive](bbsink_zstd_begin_archive.md) (archive processing start)
+  - [bbsink_zstd_archive_contents](bbsink_zstd_archive_contents.md) (data compression)
+  - [bbsink_zstd_end_archive](bbsink_zstd_end_archive.md) (archive finalization)
+  - [bbsink_zstd_end_backup](bbsink_zstd_end_backup.md) (backup completion)
+  - [bbsink_zstd_cleanup](bbsink_zstd_cleanup.md) (resource cleanup)
 
 ## Notes and Other Information
 - Only available when PostgreSQL is compiled with zstd support (USE_ZSTD compile flag)

@@ -28,19 +28,19 @@ The function assumes it will be called even for empty enum types, making it the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel
-  - init_uncommitted_enum_types
-  - hash_search
-  - GetNewOidWithIndex
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
+  - [init_uncommitted_enum_types](../i/init_uncommitted_enum_types.md)
+  - [hash_search](../h/hash_search.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - qsort
-  - CatalogOpenIndexes
-  - CatalogTuplesMultiInsertWithInfo
-  - MakeSingleTupleTableSlot
+  - [CatalogOpenIndexes](../C/CatalogOpenIndexes.md)
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - ExecClearTuple
-  - ExecStoreVirtualTuple
-  - ExecDropSingleTupleTableSlot
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
+  - [ExecDropSingleTupleTableSlot](ExecDropSingleTupleTableSlot.md)
 - Called from:
-  - DefineEnum (src/backend/commands/typecmds.c:1221)
+  - [DefineEnum](../D/DefineEnum.md) (src/backend/commands/typecmds.c:1221)
 
 ## Notes and Other Information
 - The function deliberately does not check for duplicate values in the input list, relying on unique index violations to catch duplicates

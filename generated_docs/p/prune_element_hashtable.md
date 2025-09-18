@@ -20,14 +20,14 @@ This function implements the pruning step of the Lossy Counting algorithm used i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - hash_search
-  - TrackItem
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_search](../h/hash_search.md)
+  - [TrackItem](../T/TrackItem.md)
   - HASH_REMOVE
   - array_extra_data (global static variable)
 - Called from (representative examples):
-  - compute_array_stats
+  - [compute_array_stats](../c/compute_array_stats.md)
 
 ## Notes and Other Information
 - Implements the pruning condition: frequency + delta <= b_current from Lossy Counting algorithm

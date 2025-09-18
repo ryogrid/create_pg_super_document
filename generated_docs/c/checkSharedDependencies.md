@@ -22,15 +22,15 @@ This function performs a comprehensive check for dependencies on a shared databa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsPinnedObject (checks if object is required by database system)
-  - getObjectDescription (formats object descriptions)
-  - SysScanDesc (system catalog scanning)
+  - [IsPinnedObject](../I/IsPinnedObject.md) (checks if object is required by database system)
+  - [getObjectDescription](../g/getObjectDescription.md) (formats object descriptions)
+  - [SysScanDesc](../S/SysScanDesc.md) (system catalog scanning)
   - ShDependObjectInfo (dependency object information structure)
-  - shared_dependency_comparator (for sorting dependency results)
-  - storeObjectDescription (for formatting dependency descriptions)
+  - [shared_dependency_comparator](../s/shared_dependency_comparator.md) (for sorting dependency results)
+  - [storeObjectDescription](../s/storeObjectDescription.md) (for formatting dependency descriptions)
 - Called from (representative examples):
-  - DropTableSpace (tablespace deletion in tablespace.c:453)
-  - DropRole (role deletion in user.c:1295)
+  - [DropTableSpace](../D/DropTableSpace.md) (tablespace deletion in tablespace.c:453)
+  - [DropRole](../D/DropRole.md) (role deletion in user.c:1295)
 
 ## Notes and Other Information
 - Returns false if no dependencies exist, true if dependencies are found

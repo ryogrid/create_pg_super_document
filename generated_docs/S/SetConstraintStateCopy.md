@@ -20,12 +20,12 @@ This copying mechanism is essential for maintaining separate constraint states a
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetConstraintState (parameter and return type)
-  - SetConstraintStateCreate (for creating the new state structure)
+  - [SetConstraintStateCreate](SetConstraintStateCreate.md) (for creating the new state structure)
   - SetConstraintTriggerData (for memcpy size calculation)
   - memcpy (for copying the trigstates array)
 - Called from:
-  - AfterTriggersTableData (src/backend/commands/trigger.c:3994)
-  - AfterTriggerSetState (src/backend/commands/trigger.c:5762)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3994)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md) (src/backend/commands/trigger.c:5762)
 
 ## Notes and Other Information
 - Creates a complete independent copy, not just a reference

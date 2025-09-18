@@ -32,20 +32,20 @@ The function assumes bottom-up processing, meaning all syntactically lower outer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compute_semijoin_info
-  - pull_varnos
-  - find_nonnullable_rels
-  - contain_placeholder_references_to
+  - [compute_semijoin_info](../c/compute_semijoin_info.md)
+  - [pull_varnos](../p/pull_varnos.md)
+  - [find_nonnullable_rels](../f/find_nonnullable_rels.md)
+  - [contain_placeholder_references_to](../c/contain_placeholder_references_to.md)
   - bms_* (various bitmap set operations)
-  - LCS_asString
+  - [LCS_asString](../L/LCS_asString.md)
 - Called from (representative examples):
-  - deconstruct_distribute
+  - [deconstruct_distribute](../d/deconstruct_distribute.md)
 
 ## Notes and Other Information
 - The function enforces that FOR UPDATE/SHARE cannot be applied to nullable sides of outer joins, as the executor doesn't support this
 - Full joins are treated as optimization barriers - the optimizer cannot associate into or out of them
 - The function implements outer join identity rules, particularly identity 3, which allows certain join commutations when strictness conditions are met
-- PlaceHolderVar handling ensures that expressions are evaluated at appropriate join levels
+- [PlaceHolderVar](../P/PlaceHolderVar.md) handling ensures that expressions are evaluated at appropriate join levels
 - Commutability relationships are tracked bidirectionally between SpecialJoinInfo structures
 - The returned SpecialJoinInfo should be appended to root->join_info_list by the caller
 - Empty min_lefthand or min_righthand sets are expanded to their full respective sides to avoid confusion in later processing

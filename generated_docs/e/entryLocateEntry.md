@@ -20,20 +20,20 @@ For full scans, it simply returns the leftmost child page. For targeted searches
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - GinPageIsLeaf  
   - GinPageIsData
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - FirstOffsetNumber
   - GinPageRightMost
-  - PageGetItem
-  - PageGetItemId
-  - gintuple_get_attrnum
-  - gintuple_get_key
-  - ginCompareAttEntries
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [gintuple_get_attrnum](../g/gintuple_get_attrnum.md)
+  - [gintuple_get_key](../g/gintuple_get_key.md)
+  - [ginCompareAttEntries](../g/ginCompareAttEntries.md)
   - GinGetDownlink
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This is a static function internal to the GIN entry page implementation

@@ -27,7 +27,7 @@ This function takes no explicit parameters (uses `PG_FUNCTION_ARGS` macro for Po
   - `PMSIGNAL_ROTATE_LOGFILE` - Signal constant for log rotation request
   - `Logging_collector` - Global variable indicating if log collection is active
   - `ereport` - PostgreSQL error reporting function
-  - `errmsg` - Error message formatting function
+  - `[errmsg](../e/errmsg.md)` - Error message formatting function
 
 - Called from (representative examples):
   - No direct code references found in the analyzed codebase (likely called via SQL interface)

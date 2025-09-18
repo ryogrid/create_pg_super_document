@@ -28,18 +28,18 @@ For inheritance hierarchies, the function recursively descends one level at a ti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ATSimplePermissions
-  - AddRelationNewConstraints
+  - [ATSimplePermissions](ATSimplePermissions.md)
+  - [AddRelationNewConstraints](AddRelationNewConstraints.md)
   - copyObject
-  - find_inheritance_children
-  - CheckAlterTableIsSafe
-  - ATGetQueueEntry
+  - [find_inheritance_children](../f/find_inheritance_children.md)
+  - [CheckAlterTableIsSafe](../C/CheckAlterTableIsSafe.md)
+  - [ATGetQueueEntry](ATGetQueueEntry.md)
   - CommandCounterIncrement
   - ObjectAddressSet
 - Called from (representative examples):
-  - ATExecAddConstraint
-  - DetachAddConstraintIfNeeded
-  - ATAddCheckConstraint (recursive calls)
+  - [ATExecAddConstraint](ATExecAddConstraint.md)
+  - [DetachAddConstraintIfNeeded](../D/DetachAddConstraintIfNeeded.md)
+  - [ATAddCheckConstraint](ATAddCheckConstraint.md) (recursive calls)
 
 ## Notes and Other Information
 - Performs execution-time rather than prep-time recursion to ensure consistent constraint naming

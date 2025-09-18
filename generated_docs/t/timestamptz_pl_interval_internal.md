@@ -27,10 +27,10 @@ The function is critical for ensuring that calendar arithmetic respects timezone
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timestamp2tm, tm2timestamp (timezone-aware timestamp/tm conversion)
+  - [timestamp2tm](timestamp2tm.md), tm2timestamp (timezone-aware timestamp/tm conversion)
   - DetermineTimeZoneOffset (calculates timezone offset for given local time)
-  - date2j, j2date (Julian date conversion for day arithmetic)
-  - pg_add_s32_overflow, pg_add_s64_overflow (overflow-safe arithmetic)
+  - [date2j](../d/date2j.md), j2date (Julian date conversion for day arithmetic)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md), pg_add_s64_overflow (overflow-safe arithmetic)
   - isleap (leap year detection)
   - IS_VALID_TIMESTAMP (range validation)
 - Global variables:
@@ -39,11 +39,11 @@ The function is critical for ensuring that calendar arithmetic respects timezone
   - MONTHS_PER_YEAR (12)
   - day_tab (days per month lookup table)
 - Called from:
-  - timestamptz_mi_interval_internal (src/backend/utils/adt/timestamp.c:3332)
-  - timestamptz_pl_interval (src/backend/utils/adt/timestamp.c:3344)
-  - timestamptz_pl_interval_at_zone (src/backend/utils/adt/timestamp.c:3367)
-  - in_range_timestamptz_interval (src/backend/utils/adt/timestamp.c:3826)
-  - generate_series_timestamptz_internal (src/backend/utils/adt/timestamp.c:6657)
+  - [timestamptz_mi_interval_internal](timestamptz_mi_interval_internal.md) (src/backend/utils/adt/timestamp.c:3332)
+  - [timestamptz_pl_interval](timestamptz_pl_interval.md) (src/backend/utils/adt/timestamp.c:3344)
+  - [timestamptz_pl_interval_at_zone](timestamptz_pl_interval_at_zone.md) (src/backend/utils/adt/timestamp.c:3367)
+  - [in_range_timestamptz_interval](../i/in_range_timestamptz_interval.md) (src/backend/utils/adt/timestamp.c:3826)
+  - [generate_series_timestamptz_internal](../g/generate_series_timestamptz_internal.md) (src/backend/utils/adt/timestamp.c:6657)
 
 ## Notes and Other Information
 - Static function - not directly exposed to SQL, only used internally

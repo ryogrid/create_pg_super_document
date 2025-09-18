@@ -25,11 +25,11 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeactivateCommitTs
-  - ActivateCommitTs
+  - [DeactivateCommitTs](../D/DeactivateCommitTs.md)
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
   - track_commit_timestamp (global configuration variable)
 - Called from (representative examples):
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Must be called exactly ONCE during startup, specifically after recovery completion

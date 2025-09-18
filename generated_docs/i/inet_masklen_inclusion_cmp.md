@@ -29,8 +29,8 @@ When the mask length relationship doesn't satisfy the operator, it returns the o
 - Functions called/Symbols referenced:
   - ip_bits (extracts mask length from inet value)
 - Called from (representative examples):
-  - inet_inclusion_cmp (primary comparison function for inclusion operators)
-  - inet_hist_match_divider (histogram partitioning for selectivity estimation)
+  - [inet_inclusion_cmp](inet_inclusion_cmp.md) (primary comparison function for inclusion operators)
+  - [inet_hist_match_divider](inet_hist_match_divider.md) (histogram partitioning for selectivity estimation)
 
 ## Notes and Other Information
 The function implements a truth table based on the sign relationships:

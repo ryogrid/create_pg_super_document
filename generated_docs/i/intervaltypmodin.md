@@ -27,7 +27,7 @@ The typmod encoding stores the range in the high 16 bits and precision in the lo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P
-  - ArrayGetIntegerTypmods
+  - [ArrayGetIntegerTypmods](../A/ArrayGetIntegerTypmods.md)
   - INTERVAL_MASK
   - INTERVAL_FULL_RANGE
   - INTERVAL_FULL_PRECISION

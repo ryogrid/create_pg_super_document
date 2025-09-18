@@ -21,7 +21,7 @@ The pg_node_tree type is used internally by PostgreSQL to store serialized repre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - textsend (delegates binary serialization to this text send function)
+  - [textsend](../t/textsend.md) (delegates binary serialization to this text send function)
 - Called from (representative examples):
   - PostgreSQL's type system when binary output is requested for pg_node_tree values
   - Client protocols that require binary format data transmission

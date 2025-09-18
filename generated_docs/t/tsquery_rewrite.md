@@ -34,7 +34,7 @@ This function provides a simpler interface compared to `tsquery_rewrite_query` f
   - PG_GETARG_TSQUERY_COPY, PG_GETARG_TSQUERY (argument extraction)
   - QT2QTN (TSQuery to tree conversion)
   - QTNTernary, QTNSort (tree preprocessing)
-  - findsubquery (pattern replacement)
+  - [findsubquery](../f/findsubquery.md) (pattern replacement)
   - QTNFree (memory cleanup)
   - QTNBinary, QTN2QT (tree to TSQuery conversion)
   - SET_VARSIZE, HDRSIZETQ (empty query handling)

@@ -24,14 +24,14 @@ Unlike its name-based counterpart, this function returns void rather than an Obj
 - Functions called/Symbols referenced:
   - table_open (to open the pg_event_trigger relation)
   - SearchSysCacheCopy1 (to find the event trigger by OID)
-  - ObjectIdGetDatum (to convert trigger OID to Datum)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (to convert trigger OID to Datum)
   - HeapTupleIsValid (to validate the found tuple)
   - ereport (to report errors if trigger not found)
-  - AlterEventTriggerOwner_internal (to perform the actual ownership change)
-  - heap_freetuple (to free tuple memory)
+  - [AlterEventTriggerOwner_internal](AlterEventTriggerOwner_internal.md) (to perform the actual ownership change)
+  - [heap_freetuple](../h/heap_freetuple.md) (to free tuple memory)
   - table_close (to close the relation)
 - Called from (representative examples):
-  - shdepReassignOwned_Owner (bulk ownership reassignment operations)
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md) (bulk ownership reassignment operations)
 
 ## Notes and Other Information
 - This function does not return a value (void), unlike AlterEventTriggerOwner which returns ObjectAddress

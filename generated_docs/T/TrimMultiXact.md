@@ -27,18 +27,18 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - LWLockAcquire
   - LWLockRelease  
-  - MultiXactIdToOffsetPage
-  - pg_atomic_write_u64
-  - MultiXactIdToOffsetEntry
-  - SimpleLruGetBankLock
-  - SimpleLruReadPage
+  - [MultiXactIdToOffsetPage](../M/MultiXactIdToOffsetPage.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
+  - [MultiXactIdToOffsetEntry](../M/MultiXactIdToOffsetEntry.md)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md)
   - MemSet
-  - MXOffsetToMemberPage
-  - MXOffsetToFlagsOffset
-  - MXOffsetToMemberOffset
-  - SetMultiXactIdLimit
+  - [MXOffsetToMemberPage](../M/MXOffsetToMemberPage.md)
+  - [MXOffsetToFlagsOffset](../M/MXOffsetToFlagsOffset.md)
+  - [MXOffsetToMemberOffset](../M/MXOffsetToMemberOffset.md)
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
 - Called from (representative examples):
-  - StartupXLOG
+  - [StartupXLOG](../S/StartupXLOG.md)
 
 ## Notes and Other Information
 - Must be called exactly ONCE at the end of startup/recovery

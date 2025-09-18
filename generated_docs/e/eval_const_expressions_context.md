@@ -21,14 +21,14 @@ The eval_const_expressions_context structure serves as a state container for the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamListInfo (parameter information structure)
-  - PlannerInfo (planner state structure)
-  - List (PostgreSQL list structure)
-  - Node (expression tree node)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter information structure)
+  - [PlannerInfo](../P/PlannerInfo.md) (planner state structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Node](../N/Node.md) (expression tree node)
 - Called from (representative examples):
-  - eval_const_expressions
-  - estimate_expression_value
-  - eval_const_expressions_mutator
+  - [eval_const_expressions](eval_const_expressions.md)
+  - [estimate_expression_value](estimate_expression_value.md)
+  - [eval_const_expressions_mutator](eval_const_expressions_mutator.md)
 
 ## Notes and Other Information
 This context structure is fundamental to PostgreSQL's constant expression folding optimization. The estimate flag distinguishes between two usage patterns: conservative constant folding during actual query planning (estimate=false) where only immutable functions are folded, and aggressive estimation (estimate=true) where stable functions may also be folded for cost estimation purposes. The active_fns list prevents infinite recursion when simplifying recursive function calls, while case_val enables specialized CASE expression optimizations.

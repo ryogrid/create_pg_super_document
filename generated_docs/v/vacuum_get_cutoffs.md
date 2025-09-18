@@ -25,19 +25,19 @@ The function considers various age parameters and system limits to balance perfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetOldestNonRemovableTransactionId
-  - GetOldestMultiXactId
+  - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
+  - [GetOldestMultiXactId](../G/GetOldestMultiXactId.md)
   - ReadNextTransactionId
-  - ReadNextMultiXactId
-  - MultiXactMemberFreezeThreshold
+  - [ReadNextMultiXactId](../R/ReadNextMultiXactId.md)
+  - [MultiXactMemberFreezeThreshold](../M/MultiXactMemberFreezeThreshold.md)
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
-  - TransactionIdPrecedesOrEquals
-  - MultiXactIdPrecedes
-  - MultiXactIdPrecedesOrEquals
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdPrecedesOrEquals](../T/TransactionIdPrecedesOrEquals.md)
+  - [MultiXactIdPrecedes](../M/MultiXactIdPrecedes.md)
+  - [MultiXactIdPrecedesOrEquals](../M/MultiXactIdPrecedesOrEquals.md)
 - Called from (representative examples):
-  - heap_vacuum_rel (src/backend/access/heap/vacuumlazy.c:449)
-  - copy_table_data (src/backend/commands/cluster.c:916)
+  - [heap_vacuum_rel](../h/heap_vacuum_rel.md) (src/backend/access/heap/vacuumlazy.c:449)
+  - [copy_table_data](../c/copy_table_data.md) (src/backend/commands/cluster.c:916)
 
 ## Notes and Other Information
 - Returns true if aggressive vacuum is needed, false for non-aggressive vacuum

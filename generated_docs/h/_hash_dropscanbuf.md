@@ -18,15 +18,15 @@ This function releases all buffers held during a hash index scan operation, prop
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid (buffer validity check macro)
-  - _hash_dropbuf (buffer release function)
+  - [BufferIsValid](../B/BufferIsValid.md) (buffer validity check macro)
+  - [_hash_dropbuf](_hash_dropbuf.md) (buffer release function)
   - InvalidBuffer (invalid buffer constant)
   - HashScanOpaque (scan state structure type)
 
 - Called from (representative examples):
-  - hashrescan (scan restart operations)
-  - hashendscan (scan termination)
-  - _hash_next (scan advancement with cleanup)
+  - [hashrescan](hashrescan.md) (scan restart operations)
+  - [hashendscan](hashendscan.md) (scan termination)
+  - [_hash_next](_hash_next.md) (scan advancement with cleanup)
 
 ## Notes and Other Information
 - The function handles three types of buffers maintained during hash scans:

@@ -21,9 +21,9 @@ The type/name ordering ensures that objects of the same type are grouped togethe
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (standard C library function)
-  - DOTypeNameCompare (custom comparison function)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (custom comparison function)
 - Called from (representative examples):
-  - main (src/bin/pg_dump/pg_dump.c:1013)
+  - [main](../m/main.md) (src/bin/pg_dump/pg_dump.c:1013)
 
 ## Notes and Other Information
 - The function only performs sorting when numObjs > 1, avoiding unnecessary work for single-object or empty arrays

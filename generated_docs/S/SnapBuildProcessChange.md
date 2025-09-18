@@ -30,15 +30,15 @@ This is essential for maintaining consistency in logical replication by ensuring
 - Functions called/Symbols referenced:
   - SNAPBUILD_FULL_SNAPSHOT (state constant)
   - SNAPBUILD_CONSISTENT (state constant)
-  - TransactionIdPrecedes
-  - ReorderBufferXidHasBaseSnapshot
-  - SnapBuildBuildSnapshot
-  - SnapBuildSnapIncRefcount
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [ReorderBufferXidHasBaseSnapshot](../R/ReorderBufferXidHasBaseSnapshot.md)
+  - [SnapBuildBuildSnapshot](SnapBuildBuildSnapshot.md)
+  - [SnapBuildSnapIncRefcount](SnapBuildSnapIncRefcount.md)
   - ReorderBufferSetBaseSnapshot
 - Called from (representative examples):
-  - heap2_decode (decode.c:426)
-  - heap_decode (decode.c:490, 502, 508, 514, 538, 543)
-  - logicalmsg_decode (decode.c:624)
+  - [heap2_decode](../h/heap2_decode.md) (decode.c:426)
+  - [heap_decode](../h/heap_decode.md) (decode.c:490, 502, 508, 514, 538, 543)
+  - [logicalmsg_decode](../l/logicalmsg_decode.md) (decode.c:624)
 
 ## Notes and Other Information
 - Returns false if the snapshot builder state is insufficient for processing changes

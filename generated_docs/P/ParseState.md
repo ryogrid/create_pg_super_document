@@ -52,20 +52,20 @@ The parser uses this structure to track range table entries (RTEs), namespace vi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParseNamespaceItem (used in p_namespace list)
-  - ParseExprKind (for p_expr_kind field)
+  - [ParseNamespaceItem](ParseNamespaceItem.md) (used in p_namespace list)
+  - [ParseExprKind](ParseExprKind.md) (for p_expr_kind field)
   - QueryEnvironment (for p_queryEnv field)
   - CommonTableExpr (for p_parent_cte field)
-  - RangeTblEntry (for p_rtable list)
-  - RTEPermissionInfo (for p_rteperminfos list)
+  - [RangeTblEntry](../R/RangeTblEntry.md) (for p_rtable list)
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (for p_rteperminfos list)
   - Various hook function types
 
 - Called from (representative examples):
-  - transformDeleteStmt
-  - transformInsertStmt
-  - transformUpdateStmt
-  - transformSelectStmt
-  - transformFromClause
+  - [transformDeleteStmt](../t/transformDeleteStmt.md)
+  - [transformInsertStmt](../t/transformInsertStmt.md)
+  - [transformUpdateStmt](../t/transformUpdateStmt.md)
+  - [transformSelectStmt](../t/transformSelectStmt.md)
+  - [transformFromClause](../t/transformFromClause.md)
   - Many parser functions in parse_*.c files
 
 ## Notes and Other Information

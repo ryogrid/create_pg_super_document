@@ -29,18 +29,18 @@ The function creates a complete abstraction layer that allows the rest of the pg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LZ4Stream_open (assigned as open_func)
-  - LZ4Stream_open_write (assigned as open_write_func)
-  - LZ4Stream_read (assigned as read_func)
-  - LZ4Stream_write (assigned as write_func)
-  - LZ4Stream_gets (assigned as gets_func)
-  - LZ4Stream_getc (assigned as getc_func)
-  - LZ4Stream_eof (assigned as eof_func)
-  - LZ4Stream_close (assigned as close_func)
-  - LZ4Stream_get_error (assigned as get_error_func)
+  - [LZ4Stream_open](../L/LZ4Stream_open.md) (assigned as open_func)
+  - [LZ4Stream_open_write](../L/LZ4Stream_open_write.md) (assigned as open_write_func)
+  - [LZ4Stream_read](../L/LZ4Stream_read.md) (assigned as read_func)
+  - [LZ4Stream_write](../L/LZ4Stream_write.md) (assigned as write_func)
+  - [LZ4Stream_gets](../L/LZ4Stream_gets.md) (assigned as gets_func)
+  - [LZ4Stream_getc](../L/LZ4Stream_getc.md) (assigned as getc_func)
+  - [LZ4Stream_eof](../L/LZ4Stream_eof.md) (assigned as eof_func)
+  - [LZ4Stream_close](../L/LZ4Stream_close.md) (assigned as close_func)
+  - [LZ4Stream_get_error](../L/LZ4Stream_get_error.md) (assigned as get_error_func)
   - pg_malloc0 (for state allocation)
 - Called from (representative examples):
-  - InitCompressFileHandle (in compress_io.c)
+  - [InitCompressFileHandle](InitCompressFileHandle.md) (in compress_io.c)
 
 ## Notes and Other Information
 - This function is part of the public interface for LZ4 file handle management in pg_dump

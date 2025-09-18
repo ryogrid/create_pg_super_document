@@ -25,10 +25,10 @@ The function creates a temporary HeapTupleData structure to hold the tuple metad
   - DatumGetHeapTupleHeader
   - HeapTupleHeaderGetDatumLength  
   - ExecClearTuple
-  - heap_deform_tuple
-  - ExecStoreVirtualTuple
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)
 - Called from (representative examples):
-  - EvalPlanQualFetchRowMark
+  - [EvalPlanQualFetchRowMark](EvalPlanQualFetchRowMark.md)
   - TupIsNull
 
 ## Notes and Other Information

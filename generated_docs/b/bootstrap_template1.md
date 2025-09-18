@@ -28,13 +28,13 @@ This function takes no parameters but operates on numerous global variables incl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - readfile, replace_token
-  - escape_quotes_bki, encodingid_to_string
+  - [readfile](../r/readfile.md), replace_token
+  - [escape_quotes_bki](../e/escape_quotes_bki.md), encodingid_to_string
   - initPQExpBuffer, printfPQExpBuffer, termPQExpBuffer
   - PG_CMD_OPEN, PG_CMD_PUTS, PG_CMD_CLOSE
-  - check_ok, pg_log_error, pg_log_error_hint
+  - [check_ok](../c/check_ok.md), pg_log_error, pg_log_error_hint
 - Called from (representative examples):
-  - initialize_data_directory (around line 3082)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (around line 3082)
 
 ## Notes and Other Information
 - This is a static function within initdb.c, used specifically during database cluster initialization

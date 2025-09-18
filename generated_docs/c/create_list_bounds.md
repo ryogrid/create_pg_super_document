@@ -30,23 +30,23 @@ The function first counts non-null datums, creates a unified PartitionListValue 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_non_null_list_datum_count
-  - palloc0
-  - palloc
-  - pfree
+  - [get_non_null_list_datum_count](../g/get_non_null_list_datum_count.md)
+  - [palloc0](../p/palloc0.md)
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - qsort_arg
-  - qsort_partition_list_value_cmp
-  - datumCopy
+  - [qsort_partition_list_value_cmp](../q/qsort_partition_list_value_cmp.md)
+  - [datumCopy](../d/datumCopy.md)
   - partition_bound_accepts_nulls
   - partition_bound_has_default
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - lfirst_node
   - foreach
   - PARTITION_STRATEGY_LIST
-  - PartitionListValue
+  - [PartitionListValue](../P/PartitionListValue.md)
   - PartitionBoundInfoData
 - Called from (representative examples):
-  - partition_bounds_create (src/backend/partitioning/partbounds.c:332)
+  - [partition_bounds_create](../p/partition_bounds_create.md) (src/backend/partitioning/partbounds.c:332)
 
 ## Notes and Other Information
 - Static function, only accessible within partbounds.c

@@ -26,7 +26,7 @@ This validation ensures that only properly formatted WAL summary filenames are p
   - strspn (C standard library function)
   - strcmp (C standard library function)
 - Called from:
-  - GetWalSummaries
+  - [GetWalSummaries](../G/GetWalSummaries.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the walsummary.c file

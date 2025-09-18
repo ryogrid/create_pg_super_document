@@ -25,13 +25,13 @@ The function enforces uniqueness by checking for duplicate pathnames and termina
 ## Dependencies
 - Functions called/Symbols referenced:
   - manifest_files_insert
-  - pg_fatal (when duplicate pathname is found)
-  - JsonManifestParseContext (type reference)
-  - manifest_data (type reference)
-  - manifest_file (type reference)
+  - [pg_fatal](../p/pg_fatal.md) (when duplicate pathname is found)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (type reference)
+  - [manifest_data](../m/manifest_data.md) (type reference)
+  - [manifest_file](../m/manifest_file.md) (type reference)
   - pg_checksum_type (enum type)
 - Called from:
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:147) - set as per_file_cb callback
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:147) - set as per_file_cb callback
   - Referenced in SH_DEFINE macro context
 
 ## Notes and Other Information

@@ -23,9 +23,9 @@ The function follows PostgreSQL's memory management conventions using pfree() fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation, called twice)
+  - [pfree](../p/pfree.md) (memory deallocation, called twice)
 - Called from (representative examples):
-  - statext_dependencies_build
+  - [statext_dependencies_build](../s/statext_dependencies_build.md)
 
 ## Notes and Other Information
 - This is a static function internal to the dependencies.c module

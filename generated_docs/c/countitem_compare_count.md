@@ -23,7 +23,7 @@ This comparator is used to organize distinct element count statistics, which hel
 - Functions called/Symbols referenced:
   - DECountItem (structure being compared)
 - Called from (representative examples):
-  - compute_array_stats (for sorting distinct element count statistics)
+  - [compute_array_stats](compute_array_stats.md) (for sorting distinct element count statistics)
 
 ## Notes and Other Information
 - Returns -1 if e1's count < e2's count (ascending sort)

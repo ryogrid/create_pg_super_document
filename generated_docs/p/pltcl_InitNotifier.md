@@ -23,7 +23,7 @@ This hack is particularly important when the Tcl library has been compiled with 
 - Functions called/Symbols referenced:
   - None (uses only a static local variable)
 - Called from (representative examples):
-  - _PG_init (during PL/Tcl module initialization)
+  - [_PG_init](../P/_PG_init.md) (during PL/Tcl module initialization)
 
 ## Notes and Other Information
 - This function is part of a complete notifier subsystem override in PL/Tcl

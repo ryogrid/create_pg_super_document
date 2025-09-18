@@ -21,21 +21,21 @@ The `append_schema_pattern` function processes a schema name pattern and adds it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - extend_pattern_info_array
+  - [extend_pattern_info_array](../e/extend_pattern_info_array.md)
   - initPQExpBuffer
-  - patternToSQLRegex
+  - [patternToSQLRegex](../p/patternToSQLRegex.md)
   - pg_log_error
   - exit
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - termPQExpBuffer
 - Types used:
-  - PatternInfoArray
-  - PQExpBufferData
-  - PatternInfo
+  - [PatternInfoArray](../P/PatternInfoArray.md)
+  - [PQExpBufferData](../P/PQExpBufferData.md)
+  - [PatternInfo](../P/PatternInfo.md)
 - Global variables accessed:
   - opts.dbpattern
 - Called from (representative examples):
-  - main (at src/bin/pg_amcheck/pg_amcheck.c:353, 357)
+  - [main](../m/main.md) (at src/bin/pg_amcheck/pg_amcheck.c:353, 357)
 
 ## Notes and Other Information
 - Part of the pg_amcheck utility for PostgreSQL database integrity checking

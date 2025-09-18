@@ -20,14 +20,14 @@ This function processes SQL IS JSON predicate expressions during parsing. It val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformJsonParseArg
+  - [transformJsonParseArg](transformJsonParseArg.md)
   - ereport
-  - errcode
-  - errmsg
-  - format_type_be
-  - makeJsonIsPredicate
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [makeJsonIsPredicate](../m/makeJsonIsPredicate.md)
 - Called from (representative examples):
-  - transformExprRecurse (src/backend/parser/parse_expr.c:356)
+  - [transformExprRecurse](transformExprRecurse.md) (src/backend/parser/parse_expr.c:356)
 
 ## Notes and Other Information
 - Only accepts TEXT, JSON, and JSONB data types for the predicate expression

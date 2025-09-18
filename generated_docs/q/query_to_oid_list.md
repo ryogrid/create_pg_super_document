@@ -17,16 +17,16 @@ This function serves as a utility for XML mapping operations in PostgreSQL, spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_execute
+  - [SPI_execute](../S/SPI_execute.md)
   - SPI_OK_SELECT
-  - SPI_result_code_string
+  - [SPI_result_code_string](../S/SPI_result_code_string.md)
   - SPI_getbinval
   - lappend_oid
-  - DatumGetObjectId
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
 - Called from (representative examples):
-  - schema_get_xml_visible_tables
-  - database_get_xml_visible_schemas
-  - database_get_xml_visible_tables
+  - [schema_get_xml_visible_tables](../s/schema_get_xml_visible_tables.md)
+  - [database_get_xml_visible_schemas](../d/database_get_xml_visible_schemas.md)
+  - [database_get_xml_visible_tables](../d/database_get_xml_visible_tables.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xml.c file

@@ -19,10 +19,10 @@ This function serves as a wrapper around PostgreSQL's  function, specifically de
 - Functions called/Symbols referenced:
   - pg_char_to_encoding
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
-  - xml_recv
+  - [xml_recv](xml_recv.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xml.c file

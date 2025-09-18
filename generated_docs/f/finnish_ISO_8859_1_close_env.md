@@ -25,7 +25,7 @@ This is essential for long-running applications that create and destroy multiple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (generic Snowball environment cleanup function)
+  - [SN_close_env](../S/SN_close_env.md) (generic Snowball environment cleanup function)
 - Called from (representative examples):
   - External applications when finished with Finnish stemming
   - Library cleanup routines

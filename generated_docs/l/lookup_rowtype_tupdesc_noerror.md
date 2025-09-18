@@ -27,10 +27,10 @@ The function is particularly useful in scenarios where the existence of a compos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_rowtype_tupdesc_internal
+  - [lookup_rowtype_tupdesc_internal](lookup_rowtype_tupdesc_internal.md)
   - PinTupleDesc
 - Called from (representative examples):
-  - lookup_rowtype_tupdesc_domain
+  - [lookup_rowtype_tupdesc_domain](lookup_rowtype_tupdesc_domain.md)
 
 ## Notes and Other Information
 - This is a public API function that provides error-tolerant tuple descriptor lookup

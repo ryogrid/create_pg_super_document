@@ -24,14 +24,14 @@ This function implements the core logic for interval comparison by converting an
 - Functions called/Symbols referenced:
   - INT128 (128-bit integer type)
   - INT64CONST (macro for 64-bit constants)
-  - int64_to_int128 (conversion from 64-bit to 128-bit integer)
-  - int128_add_int64_mul_int64 (128-bit arithmetic operation)
+  - [int64_to_int128](int64_to_int128.md) (conversion from 64-bit to 128-bit integer)
+  - [int128_add_int64_mul_int64](int128_add_int64_mul_int64.md) (128-bit arithmetic operation)
   - USECS_PER_DAY (constant for microseconds per day)
 - Called from:
-  - interval_cmp_internal (internal interval comparison function)
-  - interval_sign (determines sign of interval)
-  - interval_hash (hashing function for intervals)
-  - interval_hash_extended (extended hashing function for intervals)
+  - [interval_cmp_internal](interval_cmp_internal.md) (internal interval comparison function)
+  - [interval_sign](interval_sign.md) (determines sign of interval)
+  - [interval_hash](interval_hash.md) (hashing function for intervals)
+  - [interval_hash_extended](interval_hash_extended.md) (extended hashing function for intervals)
 
 ## Notes and Other Information
 - Uses normalized time units: months = 30 days, days = 24 hours

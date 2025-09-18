@@ -23,15 +23,15 @@ This function implements the node splitting logic for SP-GiST quadtree indexing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgPickSplitIn, spgPickSplitOut (structure types)
+  - [spgPickSplitIn](spgPickSplitIn.md), spgPickSplitOut (structure types)
   - RangeBound (structure type)
-  - range_get_typcache (type cache retrieval)
+  - [range_get_typcache](../r/range_get_typcache.md) (type cache retrieval)
   - RangeTypeGetOid, DatumGetRangeTypeP (range type operations)
-  - range_deserialize, range_serialize (range serialization)
-  - palloc (memory allocation)
+  - [range_deserialize](../r/range_deserialize.md), range_serialize (range serialization)
+  - [palloc](../p/palloc.md) (memory allocation)
   - qsort_arg (sorting with context)
-  - bound_cmp (comparison function for sorting)
-  - getQuadrant (quadrant determination)
+  - [bound_cmp](../b/bound_cmp.md) (comparison function for sorting)
+  - [getQuadrant](../g/getQuadrant.md) (quadrant determination)
   - RangeTypePGetDatum (range to datum conversion)
   - PG_RETURN_VOID (macro)
 - Called from (representative examples):

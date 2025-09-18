@@ -24,17 +24,17 @@ The function builds the `$_TD` hash containing trigger metadata and row data, ex
 ## Dependencies
 - Functions called/Symbols referenced:
   - SPI_connect / SPI_finish (SPI connection management)
-  - SPI_register_trigger_data (transition table support)
-  - compile_plperl_function (function compilation)
+  - [SPI_register_trigger_data](../S/SPI_register_trigger_data.md) (transition table support)
+  - [compile_plperl_function](../c/compile_plperl_function.md) (function compilation)
   - increment_prodesc_refcount (reference counting)
-  - activate_interpreter (Perl interpreter management)
-  - plperl_trigger_build_args (builds $_TD hash)
-  - plperl_call_perl_trigger_func (executes Perl code)
-  - plperl_modify_tuple (converts Perl hash to HeapTuple)
-  - sv2cstr (string conversion)
-  - plperl_exec_callback (error context)
+  - [activate_interpreter](../a/activate_interpreter.md) (Perl interpreter management)
+  - [plperl_trigger_build_args](plperl_trigger_build_args.md) (builds $_TD hash)
+  - [plperl_call_perl_trigger_func](plperl_call_perl_trigger_func.md) (executes Perl code)
+  - [plperl_modify_tuple](plperl_modify_tuple.md) (converts Perl hash to HeapTuple)
+  - [sv2cstr](../s/sv2cstr.md) (string conversion)
+  - [plperl_exec_callback](plperl_exec_callback.md) (error context)
 - Called from:
-  - plperl_call_handler
+  - [plperl_call_handler](plperl_call_handler.md)
 
 ## Notes and Other Information
 - Registers transition tables with SPI for NEW/OLD table access in trigger functions

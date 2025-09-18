@@ -21,10 +21,10 @@ The DataPageDeleteStack structure implements a stack-like data structure that ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DataPageDeleteStack (self-references for linked list structure)
+  - [DataPageDeleteStack](DataPageDeleteStack.md) (self-references for linked list structure)
 - Called from (representative examples):
-  - ginScanToDelete
-  - ginVacuumPostingTree
+  - [ginScanToDelete](../g/ginScanToDelete.md)
+  - [ginVacuumPostingTree](../g/ginVacuumPostingTree.md)
 
 ## Notes and Other Information
 This structure is critical for maintaining state during depth-first traversal of GIN posting trees during vacuum operations. The doubly-linked design allows for efficient backtracking when moving between tree levels. The leftBuffer field is particularly important for maintaining proper page ordering and ensuring that page deletions don't break the tree structure. The stack-based approach enables the vacuum process to safely navigate complex posting tree hierarchies while keeping track of deletion candidates at multiple levels simultaneously.

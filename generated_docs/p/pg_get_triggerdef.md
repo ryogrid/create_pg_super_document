@@ -20,7 +20,7 @@ This function serves as a PostgreSQL SQL function entry point for retrieving tri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_triggerdef_worker
+  - [pg_get_triggerdef_worker](pg_get_triggerdef_worker.md)
   - string_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

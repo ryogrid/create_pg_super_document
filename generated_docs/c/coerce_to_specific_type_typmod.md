@@ -29,14 +29,14 @@ The function uses COERCION_ASSIGNMENT context, providing appropriate flexibility
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType (get expression type)
-  - coerce_to_target_type (perform type coercion with typmod)
-  - expression_returns_set (check for set-returning expressions)
-  - exprLocation (get source location for errors)
-  - format_type_be, parser_errposition (error reporting)
+  - [coerce_to_target_type](coerce_to_target_type.md) (perform type coercion with typmod)
+  - [expression_returns_set](../e/expression_returns_set.md) (check for set-returning expressions)
+  - [exprLocation](../e/exprLocation.md) (get source location for errors)
+  - [format_type_be](../f/format_type_be.md), parser_errposition (error reporting)
   - COERCION_ASSIGNMENT, COERCE_IMPLICIT_CAST (constants)
 - Called from:
-  - transformRangeTableFunc (table function processing)
-  - coerce_to_specific_type (wrapper function)
+  - [transformRangeTableFunc](../t/transformRangeTableFunc.md) (table function processing)
+  - [coerce_to_specific_type](coerce_to_specific_type.md) (wrapper function)
 
 ## Notes and Other Information
 - This is a public function exposed through parse_coerce.h

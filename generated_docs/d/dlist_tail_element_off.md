@@ -21,13 +21,13 @@ This is an internal utility function that performs pointer arithmetic to calcula
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty (for assertion check)
-  - dlist_head (parameter type)
-  - dlist_node (accessed via head->head.prev)
+  - [dlist_is_empty](dlist_is_empty.md) (for assertion check)
+  - [dlist_head](dlist_head.md) (parameter type)
+  - [dlist_node](dlist_node.md) (accessed via head->head.prev)
 - Called from (representative examples):
-  - dlist_tail_node (src/include/lib/ilist.h:584)
+  - [dlist_tail_node](dlist_tail_node.md) (src/include/lib/ilist.h:584)
   - dlist_tail_element (src/include/lib/ilist.h:614) 
-  - dclist_tail_node (src/include/lib/ilist.h:924)
+  - [dclist_tail_node](dclist_tail_node.md) (src/include/lib/ilist.h:924)
 
 ## Notes and Other Information
 - This is an internal function not intended for direct use by application code

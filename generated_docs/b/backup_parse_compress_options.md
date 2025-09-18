@@ -30,12 +30,12 @@ The function handles three compression location scenarios:
 ## Dependencies
 - Functions called/Symbols referenced:
   - strncmp (standard C library function for string comparison)
-  - parse_compress_options (common compression option parsing function)
+  - [parse_compress_options](../p/parse_compress_options.md) (common compression option parsing function)
   - COMPRESS_LOCATION_SERVER (enumeration value for server-side compression)
   - COMPRESS_LOCATION_CLIENT (enumeration value for client-side compression)
   - COMPRESS_LOCATION_UNSPECIFIED (enumeration value for unspecified compression location)
 - Called from (representative examples):
-  - main (in pg_basebackup.c for processing --compress command-line options)
+  - [main](../m/main.md) (in pg_basebackup.c for processing --compress command-line options)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within pg_basebackup.c

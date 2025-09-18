@@ -19,7 +19,7 @@ This function is part of the xid_wraparound test module and serves as a SQL-call
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64 (macro for extracting int64 argument)
   - ReadNextFullTransactionId (reads current next transaction ID)
-  - consume_xids_common (internal function that performs actual XID consumption)
+  - [consume_xids_common](consume_xids_common.md) (internal function that performs actual XID consumption)
   - InvalidFullTransactionId (constant representing invalid transaction ID)
   - PG_RETURN_FULLTRANSACTIONID (macro for returning FullTransactionId result)
 - Called from:

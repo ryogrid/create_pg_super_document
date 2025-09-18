@@ -21,14 +21,14 @@ This function provides a simple interface for calling PostgreSQL's datatype outp
 ## Dependencies
 - Functions called/Symbols referenced:
   - FunctionCall1 (calls function with one argument)
-  - DatumGetCString (converts Datum result to C string)
+  - [DatumGetCString](../D/DatumGetCString.md) (converts Datum result to C string)
 - Called from (representative examples):
-  - printtup (tuple output)
-  - CopyOneRowTo (COPY command output)
-  - array_out (array output function)
-  - record_out (record output function)
-  - text_format (format string processing)
-  - OidOutputFunctionCall
+  - [printtup](../p/printtup.md) (tuple output)
+  - [CopyOneRowTo](../C/CopyOneRowTo.md) (COPY command output)
+  - [array_out](../a/array_out.md) (array output function)
+  - [record_out](../r/record_out.md) (record output function)
+  - [text_format](../t/text_format.md) (format string processing)
+  - [OidOutputFunctionCall](OidOutputFunctionCall.md)
 
 ## Notes and Other Information
 - Should not be called on NULL datums - caller must handle NULL values separately

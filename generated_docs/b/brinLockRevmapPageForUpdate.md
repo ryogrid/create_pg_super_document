@@ -28,17 +28,17 @@ The returned buffer remains locked and cached in the revmap structure until the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - revmap_get_buffer
-  - LockBuffer
+  - [revmap_get_buffer](../r/revmap_get_buffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
 - Types referenced:
-  - BrinRevmap
+  - [BrinRevmap](../B/BrinRevmap.md)
   - BlockNumber
   - Buffer
   - BUFFER_LOCK_EXCLUSIVE
 - Called from:
-  - brin_doupdate
-  - brin_doinsert
-  - brinRevmapDesummarizeRange
+  - [brin_doupdate](brin_doupdate.md)
+  - [brin_doinsert](brin_doinsert.md)
+  - [brinRevmapDesummarizeRange](brinRevmapDesummarizeRange.md)
 
 ## Notes and Other Information
 - Callers should typically call brinRevmapExtend before this function to ensure the revmap covers the target heap block

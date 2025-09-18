@@ -27,14 +27,14 @@ The function uses lookup table a_7 containing 18 different suffix patterns. It i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches for suffix patterns in lookup table a_7)
-  - r_R2 (tests if current position is within R2 morphological region)
-  - slice_del (deletes the matched substring)
+  - [find_among_b](../f/find_among_b.md) (searches for suffix patterns in lookup table a_7)
+  - [r_R2](r_R2.md) (tests if current position is within R2 morphological region)
+  - [slice_del](../s/slice_del.md) (deletes the matched substring)
 - Called from (representative examples):
-  - english_ISO_8859_1_stem
-  - porter_ISO_8859_1_stem
-  - english_UTF_8_stem
-  - porter_UTF_8_stem
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md)
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md)
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md)
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful transformation, 0 if no applicable suffix was found or R2 constraint not met

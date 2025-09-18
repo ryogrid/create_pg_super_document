@@ -27,12 +27,12 @@ The function includes an assertion to ensure that all ranges are properly sorted
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer: Extracts pointer from Datum
-  - compactify_ranges: Compresses ranges to target maximum values
-  - brin_range_serialize: Converts ranges to serialized format
-  - PointerGetDatum: Converts pointer to Datum
+  - [DatumGetPointer](../D/DatumGetPointer.md): Extracts pointer from Datum
+  - [compactify_ranges](../c/compactify_ranges.md): Compresses ranges to target maximum values
+  - [brin_range_serialize](brin_range_serialize.md): Converts ranges to serialized format
+  - [PointerGetDatum](../P/PointerGetDatum.md): Converts pointer to Datum
 - Called from (representative examples):
-  - brin_minmax_multi_add_value: Called during batch processing operations
+  - [brin_minmax_multi_add_value](brin_minmax_multi_add_value.md): Called during batch processing operations
 
 ## Notes and Other Information
 - Function is declared as static, indicating it's only used within the brin_minmax_multi.c file

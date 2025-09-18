@@ -18,12 +18,12 @@ The numeric_to_cstring function is a utility function that converts a PostgreSQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - Numeric (PostgreSQL numeric data type)
-  - NumericGetDatum (converts Numeric to Datum)
+  - [NumericGetDatum](../N/NumericGetDatum.md) (converts Numeric to Datum)
   - DirectFunctionCall1 (calls a PostgreSQL function with one argument)
-  - numeric_out (the standard numeric-to-string conversion function)
-  - DatumGetCString (extracts C string from Datum result)
+  - [numeric_out](numeric_out.md) (the standard numeric-to-string conversion function)
+  - [DatumGetCString](../D/DatumGetCString.md) (extracts C string from Datum result)
 - Called from (representative examples):
-  - pg_size_pretty_numeric (formats numeric sizes with units)
+  - [pg_size_pretty_numeric](../p/pg_size_pretty_numeric.md) (formats numeric sizes with units)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

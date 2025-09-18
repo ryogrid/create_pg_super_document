@@ -34,13 +34,13 @@ The function is crucial for maintaining replication consistency and performance 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuildXactNeedsSkip
-  - FilterByOrigin
+  - [SnapBuildXactNeedsSkip](../S/SnapBuildXactNeedsSkip.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - RepOriginId (type)
 - Called from (representative examples):
-  - DecodeCommit
-  - DecodePrepare
-  - DecodeAbort
+  - [DecodeCommit](DecodeCommit.md)
+  - [DecodePrepare](DecodePrepare.md)
+  - [DecodeAbort](DecodeAbort.md)
 
 ## Notes and Other Information
 - Returns true if the transaction should be skipped, false if it should be processed

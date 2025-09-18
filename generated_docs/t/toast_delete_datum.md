@@ -26,18 +26,18 @@ The deletion process maintains proper locking semantics, keeping locks until tra
   - VARATT_IS_EXTERNAL_ONDISK
   - VARATT_EXTERNAL_GET_POINTER
   - table_open
-  - toast_open_indexes
-  - toast_close_indexes
-  - ScanKeyInit
-  - init_toast_snapshot
-  - systable_beginscan_ordered
-  - systable_getnext_ordered
-  - systable_endscan_ordered
-  - heap_abort_speculative
-  - simple_heap_delete
+  - [toast_open_indexes](toast_open_indexes.md)
+  - [toast_close_indexes](toast_close_indexes.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [init_toast_snapshot](../i/init_toast_snapshot.md)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
+  - [systable_getnext_ordered](../s/systable_getnext_ordered.md)
+  - [systable_endscan_ordered](../s/systable_endscan_ordered.md)
+  - [heap_abort_speculative](../h/heap_abort_speculative.md)
+  - [simple_heap_delete](../s/simple_heap_delete.md)
 - Called from (representative examples):
-  - toast_tuple_cleanup
-  - toast_delete_external
+  - [toast_tuple_cleanup](toast_tuple_cleanup.md)
+  - [toast_delete_external](toast_delete_external.md)
 
 ## Notes and Other Information
 - Only processes external on-disk toast values, silently returns for other value types

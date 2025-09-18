@@ -30,10 +30,10 @@ The function can read from either a TAR_MEMBER file handle or a direct FILE poin
   - feof
   - READ_ERROR_EXIT
 - Called from (representative examples):
-  - tarGets
-  - tarRead
-  - _tarPositionTo
-  - _tarGetHeader
+  - [tarGets](tarGets.md)
+  - [tarRead](tarRead.md)
+  - [_tarPositionTo](_tarPositionTo.md)
+  - [_tarGetHeader](_tarGetHeader.md)
 
 ## Notes and Other Information
 - Either th or fh must be provided (enforced by Assert)

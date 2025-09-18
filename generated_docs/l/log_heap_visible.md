@@ -23,19 +23,19 @@ The function handles logical decoding accessibility by setting appropriate flags
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_heap_visible (WAL record structure)
+  - [xl_heap_visible](../x/xl_heap_visible.md) (WAL record structure)
   - RelationIsAccessibleInLogicalDecoding
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogInsert
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - XLogHintBitIsNeeded
   - VISIBILITYMAP_XLOG_CATALOG_REL
   - REGBUF_STANDARD
   - REGBUF_NO_IMAGE
   - XLOG_HEAP2_VISIBLE
 - Called from:
-  - visibilitymap_set
+  - [visibilitymap_set](../v/visibilitymap_set.md)
 
 ## Notes and Other Information
 - Both heap_buffer and vm_buffer must be valid and already modified/dirtied before calling this function

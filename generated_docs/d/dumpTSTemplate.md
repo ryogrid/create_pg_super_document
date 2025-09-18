@@ -22,17 +22,17 @@ The function constructs both creation and drop statements, handles binary upgrad
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - pg_strdup
-  - fmtId
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - appendPQExpBuffer
-  - convertTSFunction
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [convertTSFunction](../c/convertTSFunction.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - free
 - Called from (representative examples):
-  - dumpDumpableObject (via switch statement for DO_TSTEMPLATE objects)
+  - [dumpDumpableObject](dumpDumpableObject.md) (via switch statement for DO_TSTEMPLATE objects)
 
 ## Notes and Other Information
 - Only executes during schema dumps (skipped when dopt->dataOnly is true)

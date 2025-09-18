@@ -27,14 +27,14 @@ The function also manages memory allocation carefully, ensuring that the returne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_tablesync_worker
-  - LogicalRepSyncTableStart
-  - DisableSubscriptionAndExit
-  - AbortOutOfAnyTransaction
-  - pgstat_report_subscription_error
-  - MemoryContextStrdup
+  - [am_tablesync_worker](../a/am_tablesync_worker.md)
+  - [LogicalRepSyncTableStart](../L/LogicalRepSyncTableStart.md)
+  - [DisableSubscriptionAndExit](../D/DisableSubscriptionAndExit.md)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md)
+  - [pgstat_report_subscription_error](../p/pgstat_report_subscription_error.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
 - Called from (representative examples):
-  - run_tablesync_worker
+  - [run_tablesync_worker](../r/run_tablesync_worker.md)
 
 ## Notes and Other Information
 - Uses PostgreSQL's PG_TRY/PG_CATCH/PG_END_TRY exception handling framework for robust error management

@@ -32,13 +32,13 @@ The function advances the input pointer past the parsed field, allowing successi
 ## Dependencies
 - Functions called/Symbols referenced:
   - t_iseq
-  - t_isspace
-  - pg_mblen
+  - [t_isspace](../t/t_isspace.md)
+  - [pg_mblen](../p/pg_mblen.md)
   - COPYCHAR
   - PAE_WAIT_MASK
   - PAE_INMASK
 - Called from (representative examples):
-  - parse_ooaffentry
+  - [parse_ooaffentry](../p/parse_ooaffentry.md)
 
 ## Notes and Other Information
 - Returns true if a field was successfully extracted, false if end of line or comment encountered

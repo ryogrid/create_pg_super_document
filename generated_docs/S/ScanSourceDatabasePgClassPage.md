@@ -34,18 +34,18 @@ The function performs direct page-level access without using the normal heap sca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetBlockNumber: Gets block number from buffer for tuple addressing
-  - PageGetMaxOffsetNumber: Gets highest offset number on the page
-  - PageGetItemId: Retrieves ItemId for a specific offset
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md): Gets block number from buffer for tuple addressing
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md): Gets highest offset number on the page
+  - [PageGetItemId](../P/PageGetItemId.md): Retrieves ItemId for a specific offset
   - ItemIdIsUsed/ItemIdIsDead/ItemIdIsRedirected/ItemIdIsNormal: ItemId state checks
-  - ItemPointerSet: Sets tuple's self-pointer (TID)
-  - PageGetItem: Gets actual item data from page
+  - [ItemPointerSet](../I/ItemPointerSet.md): Sets tuple's self-pointer (TID)
+  - [PageGetItem](../P/PageGetItem.md): Gets actual item data from page
   - ItemIdGetLength: Gets length of item data
-  - HeapTupleSatisfiesVisibility: Checks if tuple is visible to snapshot
-  - ScanSourceDatabasePgClassTuple: Processes individual pg_class tuples
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md): Checks if tuple is visible to snapshot
+  - [ScanSourceDatabasePgClassTuple](ScanSourceDatabasePgClassTuple.md): Processes individual pg_class tuples
   - lappend: Adds elements to list
 - Called from (representative examples):
-  - ScanSourceDatabasePgClass: Uses this to process each page of pg_class
+  - [ScanSourceDatabasePgClass](ScanSourceDatabasePgClass.md): Uses this to process each page of pg_class
 
 ## Notes and Other Information
 - This function performs direct page-level tuple access, bypassing normal heap scan methods

@@ -23,10 +23,10 @@ The function handles NULL values by skipping them during accumulation. On the fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumericAggState (data structure)
-  - makeNumericAggState (state initialization)
-  - do_numeric_accum (numeric accumulation)
-  - int64_to_numeric (conversion utility)
+  - [NumericAggState](../N/NumericAggState.md) (data structure)
+  - [makeNumericAggState](../m/makeNumericAggState.md) (state initialization)
+  - [do_numeric_accum](../d/do_numeric_accum.md) (numeric accumulation)
+  - [int64_to_numeric](int64_to_numeric.md) (conversion utility)
   - PG_GETARG_INT64 (argument extraction macro)
 - Called from (representative examples):
   - No direct references found in the codebase

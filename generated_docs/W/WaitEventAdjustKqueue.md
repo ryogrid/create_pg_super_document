@@ -22,18 +22,18 @@ This function serves as the core kqueue event management routine in PostgreSQL's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventAdjustKqueueAddPostmaster (for postmaster death events)
-  - WaitEventAdjustKqueueAddLatch (for latch events)
-  - WaitEventAdjustKqueueAdd (for socket I/O events, called multiple times)
+  - [WaitEventAdjustKqueueAddPostmaster](WaitEventAdjustKqueueAddPostmaster.md) (for postmaster death events)
+  - [WaitEventAdjustKqueueAddLatch](WaitEventAdjustKqueueAddLatch.md) (for latch events)
+  - [WaitEventAdjustKqueueAdd](WaitEventAdjustKqueueAdd.md) (for socket I/O events, called multiple times)
   - kevent (system call to modify kqueue)
-  - PostmasterIsAlive (to check postmaster status)
-  - errcode_for_socket_access (for error reporting)
+  - [PostmasterIsAlive](../P/PostmasterIsAlive.md) (to check postmaster status)
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md) (for error reporting)
   - getppid (to verify parent process)
   - ereport (for error reporting)
 - Called from (representative examples):
   - LatchWaitSetLatchPos (at line 190)
-  - AddWaitEventToSet (at line 1031) 
-  - ModifyWaitEvent (at line 1111)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md) (at line 1031) 
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md) (at line 1111)
 
 ## Notes and Other Information
 - Handles up to 2 kevent structures simultaneously (for read and write events on the same socket)

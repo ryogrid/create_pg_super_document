@@ -28,10 +28,10 @@ If the CopyFile operation fails, the function maps the Windows error to a POSIX-
   - CopyFile (Windows API function)
   - _dosmaperr (Windows error mapping function)
   - GetLastError (Windows API function)
-  - pg_fatal (PostgreSQL error reporting function)
-  - checksum_file (internal function for checksum calculation)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error reporting function)
+  - [checksum_file](checksum_file.md) (internal function for checksum calculation)
 - Called from (representative examples):
-  - copy_file (via strategy_implementation function pointer when COPY_METHOD_COPYFILE is selected)
+  - [copy_file](copy_file.md) (via strategy_implementation function pointer when COPY_METHOD_COPYFILE is selected)
 
 ## Notes and Other Information
 - This function is only available on Windows platforms and is conditionally compiled with `#ifdef WIN32`

@@ -24,17 +24,17 @@ The function performs two main operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - ResourceOwnerNewParent
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [ResourceOwnerNewParent](../R/ResourceOwnerNewParent.md)
 - Data types used:
   - SubTransactionId
   - ResourceOwner
   - HASH_SEQ_STATUS
   - PortalHashEnt
-  - Portal
+  - [Portal](../P/Portal.md)
 - Called from:
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5091)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5091)
 
 ## Notes and Other Information
 - This function operates on the global PortalHashTable which contains all active portals

@@ -24,7 +24,7 @@ This function provides a SQL interface for querying access method-level properti
   - PG_GETARG_OID (extract OID argument from SQL call)
   - PG_GETARG_TEXT_PP (extract text argument from SQL call)
   - text_to_cstring (convert PostgreSQL text type to C string)
-  - indexam_property (core property testing logic)
+  - [indexam_property](../i/indexam_property.md) (core property testing logic)
 - Called from (representative examples):
   - SQL queries testing AM capabilities
   - System catalog functions

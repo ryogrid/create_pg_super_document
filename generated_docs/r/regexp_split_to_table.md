@@ -24,12 +24,12 @@ This function implements a PostgreSQL set-returning function (SRF) that splits a
   - SRF_RETURN_NEXT, SRF_RETURN_DONE
   - PG_GETARG_TEXT_PP, PG_GETARG_TEXT_PP_IF_EXISTS, PG_GETARG_TEXT_P_COPY
   - PG_GET_COLLATION
-  - parse_re_flags
-  - setup_regexp_matches
-  - build_regexp_split_result
-  - FuncCallContext, regexp_matches_ctx, pg_re_flags
+  - [parse_re_flags](../p/parse_re_flags.md)
+  - [setup_regexp_matches](../s/setup_regexp_matches.md)
+  - [build_regexp_split_result](../b/build_regexp_split_result.md)
+  - [FuncCallContext](../F/FuncCallContext.md), regexp_matches_ctx, pg_re_flags
 - Called from:
-  - regexp_split_to_table_no_flags
+  - [regexp_split_to_table_no_flags](regexp_split_to_table_no_flags.md)
 
 ## Notes and Other Information
 - Prohibits the 'g' (global) flag in user input but internally enables global matching

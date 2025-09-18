@@ -25,7 +25,7 @@ The structure is part of PostgreSQL's expanded object system, which provides an 
   - Oid (from PostgreSQL type system)
   - int32 (standard PostgreSQL type alias)
 - Called from (representative examples):
-  - expanded_record_lookup_field
+  - [expanded_record_lookup_field](../e/expanded_record_lookup_field.md)
 
 ## Notes and Other Information
 - This structure is specifically designed as an output parameter for field lookup operations rather than for direct instantiation

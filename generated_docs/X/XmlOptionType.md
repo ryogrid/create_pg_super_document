@@ -26,12 +26,12 @@ XmlOptionType specifies the XML parsing mode that determines how XML text should
 - Functions called/Symbols referenced:
   - None (this is an enumeration)
 - Called from (representative examples):
-  - PgXmlErrorContext (XML error handling context)
-  - xmltotext_with_options (XML to text conversion with options)
-  - xmlparse (XML parsing function)
+  - [PgXmlErrorContext](../P/PgXmlErrorContext.md) (XML error handling context)
+  - [xmltotext_with_options](../x/xmltotext_with_options.md) (XML to text conversion with options)
+  - [xmlparse](../x/xmlparse.md) (XML parsing function)
   - xml_parse (Core XML parsing functionality)
-  - wellformed_xml (XML well-formedness checking)
-  - XmlSerialize (XML serialization structure)
+  - [wellformed_xml](../w/wellformed_xml.md) (XML well-formedness checking)
+  - [XmlSerialize](XmlSerialize.md) (XML serialization structure)
   - XmlExpr (XML expression structure)
   - PG_RETURN_XML_P (XML return macro)
 

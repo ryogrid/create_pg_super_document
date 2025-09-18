@@ -32,23 +32,23 @@ The algorithm treats inputs as integers during computation and works by repeated
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `cmp_var`: Compare two `NumericVar` values
-  - `zero_var`: Set a `NumericVar` to zero
+  - `[cmp_var](../c/cmp_var.md)`: Compare two `NumericVar` values
+  - `[zero_var](../z/zero_var.md)`: Set a `NumericVar` to zero
   - `init_var`: Initialize `NumericVar` structures
-  - `set_var_from_var`: Copy one `NumericVar` to another
-  - `add_var`, `sub_var`, `mul_var`: Arithmetic operations
-  - `div_mod_var`: Division with remainder
-  - `round_var`: Round to specified decimal places
-  - `strip_var`: Remove leading/trailing zeros
-  - `alloc_var`: Allocate memory for `NumericVar`
-  - `free_var`: Free memory associated with `NumericVar`
-  - `int64_to_numericvar`, `int128_to_numericvar`: Convert integers to `NumericVar`
+  - `[set_var_from_var](set_var_from_var.md)`: Copy one `NumericVar` to another
+  - `[add_var](../a/add_var.md)`, `sub_var`, `mul_var`: Arithmetic operations
+  - `[div_mod_var](../d/div_mod_var.md)`: Division with remainder
+  - `[round_var](../r/round_var.md)`: Round to specified decimal places
+  - `[strip_var](strip_var.md)`: Remove leading/trailing zeros
+  - `[alloc_var](../a/alloc_var.md)`: Allocate memory for `NumericVar`
+  - `[free_var](../f/free_var.md)`: Free memory associated with `NumericVar`
+  - `[int64_to_numericvar](../i/int64_to_numericvar.md)`, `int128_to_numericvar`: Convert integers to `NumericVar`
   - Various constants: `const_zero`, `const_one`, `NUMERIC_POS`, `NUMERIC_NEG`
 
 - Called from (representative examples):
-  - `numeric_sqrt`: SQL-callable square root function
-  - `numeric_stddev_internal`: Used in standard deviation calculations
-  - `ln_var`: Used in natural logarithm computations
+  - `[numeric_sqrt](../n/numeric_sqrt.md)`: SQL-callable square root function
+  - `[numeric_stddev_internal](../n/numeric_stddev_internal.md)`: Used in standard deviation calculations
+  - `[ln_var](../l/ln_var.md)`: Used in natural logarithm computations
 
 ## Notes and Other Information
 - This is a static function internal to the numeric data type implementation

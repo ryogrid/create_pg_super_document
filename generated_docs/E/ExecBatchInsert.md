@@ -31,12 +31,12 @@ This function is currently limited to foreign tables without RETURNING clauses, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecForeignBatchInsert (via FDW routine - actual batch insertion)
-  - ExecARInsertTriggers (AFTER ROW INSERT trigger processing)
-  - ExecWithCheckOptions (WITH CHECK OPTION validation)
+  - [ExecARInsertTriggers](ExecARInsertTriggers.md) (AFTER ROW INSERT trigger processing)
+  - [ExecWithCheckOptions](ExecWithCheckOptions.md) (WITH CHECK OPTION validation)
   - ExecClearTuple (slot cleanup)
 - Called from (representative examples):
-  - ExecInsert (when batch size is reached during FDW insertion)
-  - ExecPendingInserts (to flush accumulated batches)
+  - [ExecInsert](ExecInsert.md) (when batch size is reached during FDW insertion)
+  - [ExecPendingInserts](ExecPendingInserts.md) (to flush accumulated batches)
 
 ## Notes and Other Information
 - Currently only supports foreign tables without RETURNING clauses

@@ -22,11 +22,11 @@ This function performs a logical comparison to determine if transaction ID `id1`
 - Functions called/Symbols referenced:
   - TransactionIdIsNormal
 - Called from (representative examples):
-  - HeapCheckForSerializableConflictOut
-  - HeapTupleSatisfiesHistoricMVCC
-  - SubTransGetParent
+  - [HeapCheckForSerializableConflictOut](../H/HeapCheckForSerializableConflictOut.md)
+  - [HeapTupleSatisfiesHistoricMVCC](../H/HeapTupleSatisfiesHistoricMVCC.md)
+  - [SubTransGetParent](../S/SubTransGetParent.md)
   - GetNewTransactionId
-  - SnapBuildPurgeOlderTxn
+  - [SnapBuildPurgeOlderTxn](../S/SnapBuildPurgeOlderTxn.md)
   - KnownAssignedXidsAdd
 
 ## Notes and Other Information

@@ -22,20 +22,20 @@ The function intelligently shields the child node from complex execution flags (
 ## Dependencies
 - Functions called/Symbols referenced:
   - Material
-  - MaterialState
+  - [MaterialState](../M/MaterialState.md)
   - makeNode
-  - ExecMaterial
+  - [ExecMaterial](ExecMaterial.md)
   - EXEC_FLAG_REWIND
   - EXEC_FLAG_BACKWARD
   - EXEC_FLAG_MARK
   - outerPlan
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
   - outerPlanState
-  - ExecInitResultTupleSlotTL
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md)
   - ExecCreateScanSlotFromOuterPlan
   - TTSOpsMinimalTuple
 - Called from (representative examples):
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - Tuplestore initialization is deferred until actually needed during execution

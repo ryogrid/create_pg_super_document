@@ -33,7 +33,7 @@ The function operates in two main phases:
   - PlanInvalItem (structure containing cache dependency information)
 
 - Called from (representative examples):
-  - InitPlanCache (registers this callback)
+  - [InitPlanCache](../I/InitPlanCache.md) (registers this callback)
   - Syscache invalidation system (via callback mechanism for PROCOID/TYPEOID changes)
 
 ## Notes and Other Information

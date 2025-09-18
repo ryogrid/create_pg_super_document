@@ -21,7 +21,7 @@ This function implements the multiplication operator for mixed-precision floatin
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
-  - float8_mul: Performs the actual float8 multiplication
+  - [float8_mul](float8_mul.md): Performs the actual float8 multiplication
   - PG_RETURN_FLOAT8: Returns the float8 result
 - Called from (representative examples):
   - No direct references found in the codebase

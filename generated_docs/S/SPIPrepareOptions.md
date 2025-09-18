@@ -26,7 +26,7 @@ The structure follows PostgreSQL's pattern of using optional parameter structure
   - RawParseMode
 
 - Called from (representative examples):
-  - SPI_prepare_extended
+  - [SPI_prepare_extended](SPI_prepare_extended.md)
 
 ## Notes and Other Information
 - This structure is designed for advanced SPI usage and is not needed for basic statement preparation

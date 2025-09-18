@@ -22,11 +22,11 @@ This is typically called after a successful operator lookup to cache the result 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (with HASH_ENTER flag)
+  - [hash_search](../h/hash_search.md) (with HASH_ENTER flag)
   - Assert (for debugging validation)
 - Called from (representative examples):
-  - oper (main operator lookup function)
-  - left_oper (left unary operator lookup)
+  - [oper](../o/oper.md) (main operator lookup function)
+  - [left_oper](../l/left_oper.md) (left unary operator lookup)
 
 ## Notes and Other Information
 - Assumes OprCacheHash has been initialized (checked by Assert)

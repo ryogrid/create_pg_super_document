@@ -22,19 +22,19 @@ makeConfigurationDependencies establishes the complete dependency graph for a te
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_ts_config (tuple structure access)
-  - deleteDependencyRecordsFor (removes old dependencies)
-  - deleteSharedDependencyRecordsFor (removes old shared dependencies)
-  - new_object_addresses (creates dependency collection)
-  - add_exact_object_address (adds dependency to collection)
-  - recordDependencyOnOwner (records ownership dependency)
-  - recordDependencyOnCurrentExtension (records extension membership)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md) (removes old dependencies)
+  - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md) (removes old shared dependencies)
+  - [new_object_addresses](../n/new_object_addresses.md) (creates dependency collection)
+  - [add_exact_object_address](../a/add_exact_object_address.md) (adds dependency to collection)
+  - [recordDependencyOnOwner](../r/recordDependencyOnOwner.md) (records ownership dependency)
+  - [recordDependencyOnCurrentExtension](../r/recordDependencyOnCurrentExtension.md) (records extension membership)
   - CommandCounterIncrement (ensures visibility of changes)
-  - systable_beginscan/systable_getnext (scans configuration map)
-  - record_object_address_dependencies (records all dependencies)
-  - free_object_addresses (cleans up dependency collection)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext (scans configuration map)
+  - [record_object_address_dependencies](../r/record_object_address_dependencies.md) (records all dependencies)
+  - [free_object_addresses](../f/free_object_addresses.md) (cleans up dependency collection)
 - Called from (representative examples):
-  - DefineTSConfiguration
-  - AlterTSConfiguration
+  - [DefineTSConfiguration](../D/DefineTSConfiguration.md)
+  - [AlterTSConfiguration](../A/AlterTSConfiguration.md)
 
 ## Notes and Other Information
 - Static function, only accessible within tsearchcmds.c

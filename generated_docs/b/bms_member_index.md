@@ -18,14 +18,14 @@ This function calculates the ordinal position of member `x` within the bitmap se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation function for bitmap sets)
-  - bms_is_member (membership testing function)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation function for bitmap sets)
+  - [bms_is_member](bms_is_member.md) (membership testing function)
   - WORDNUM (macro to calculate word index from bit number)
   - BITNUM (macro to calculate bit position within word)
   - bmw_popcount (population count function for bitmap words)
   - bitmapword (type for bitmap word storage)
 - Called from (representative examples):
-  - clauselist_apply_dependencies (statistics dependency analysis)
+  - [clauselist_apply_dependencies](../c/clauselist_apply_dependencies.md) (statistics dependency analysis)
   - mcv_match_expression (most common values statistics)
   - mcv_get_match_bitmap (bitmap matching for statistics)
 

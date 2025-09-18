@@ -23,9 +23,9 @@ This function evaluates an error status value and returns true if the error repr
   - ESTATUS_SERIALIZATION_ERROR (enum value for serialization failures)
   - ESTATUS_DEADLOCK_ERROR (enum value for deadlock errors)
 - Called from (representative examples):
-  - readCommandResponse
-  - doRetry
-  - advanceConnectionState
+  - [readCommandResponse](../r/readCommandResponse.md)
+  - [doRetry](../d/doRetry.md)
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - Returns true only for ESTATUS_SERIALIZATION_ERROR and ESTATUS_DEADLOCK_ERROR

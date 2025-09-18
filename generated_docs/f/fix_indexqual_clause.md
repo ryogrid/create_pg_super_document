@@ -33,19 +33,19 @@ For each clause type, it identifies the index key operand(s) and calls fix_index
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - replace_nestloop_params
-  - fix_indexqual_operand
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [fix_indexqual_operand](fix_indexqual_operand.md)
   - forboth (macro)
   - lfirst_int
   - nodeTag
-  - IndexOptInfo (struct type)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (struct type)
   - OpExpr (struct type)
   - RowCompareExpr (struct type)
   - ScalarArrayOpExpr (struct type)  
   - NullTest (struct type)
 - Called from (representative examples):
-  - fix_indexqual_references
-  - fix_indexorderby_references
+  - [fix_indexqual_references](fix_indexqual_references.md)
+  - [fix_indexorderby_references](fix_indexorderby_references.md)
 
 ## Notes and Other Information
 This function is a critical component in the index scan execution preparation process. It ensures that index qualifications are properly parameterized and use the correct attribute references for the target index. The function creates a copy of the input clause during parameter replacement, making it safe for in-place modifications. The comprehensive handling of different clause types reflects the variety of ways indexes can be used in PostgreSQL queries. Error handling ensures that unsupported qualification types are caught during planning rather than execution. Located in src/backend/optimizer/plan/createplan.c at lines 5093-5163.

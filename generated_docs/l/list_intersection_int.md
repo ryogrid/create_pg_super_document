@@ -27,12 +27,12 @@ Key behavioral characteristics:
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsIntegerList (validation)
-  - list_member_int (check integer membership)
+  - [list_member_int](list_member_int.md) (check integer membership)
   - lfirst_int (extract integer values)
   - lappend_int (append integer values)
-  - check_list_invariants (validation)
+  - [check_list_invariants](../c/check_list_invariants.md) (validation)
 - Called from (representative examples):
-  - parseCheckAggregates (parse_agg.c:1124)
+  - [parseCheckAggregates](../p/parseCheckAggregates.md) (parse_agg.c:1124)
   - forfive (pg_list.h:651)
 
 ## Notes and Other Information

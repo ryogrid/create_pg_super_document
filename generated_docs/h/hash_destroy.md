@@ -21,9 +21,9 @@ The function includes safety checks to verify that the hash table uses the stand
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DynaHashAlloc (standard hash table allocation function - verified for safety)
-  - hash_stats (collects and reports hash table statistics before destruction)
-  - MemoryContextDelete (destroys the entire memory context, freeing all allocated memory)
+  - [DynaHashAlloc](../D/DynaHashAlloc.md) (standard hash table allocation function - verified for safety)
+  - [hash_stats](hash_stats.md) (collects and reports hash table statistics before destruction)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (destroys the entire memory context, freeing all allocated memory)
 - Called from (representative examples):
   - Various PostgreSQL subsystems including:
     - Hash index operations (_hash_finish_split)

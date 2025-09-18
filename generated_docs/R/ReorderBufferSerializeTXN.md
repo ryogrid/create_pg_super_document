@@ -27,17 +27,17 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferSerializeChange (serializes individual changes)
-  - ReorderBufferSerializedPath (generates file paths)
-  - ReorderBufferReturnChange (returns change to free pool)
+  - [ReorderBufferSerializeChange](ReorderBufferSerializeChange.md) (serializes individual changes)
+  - [ReorderBufferSerializedPath](ReorderBufferSerializedPath.md) (generates file paths)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md) (returns change to free pool)
   - ReorderBufferChangeMemoryUpdate (updates memory accounting)
   - UpdateDecodingStats (updates decoding statistics)
   - OpenTransientFile/CloseTransientFile (file I/O operations)
   - XLByteToSeg/XLByteInSeg (WAL segment utilities)
 - Called from (representative examples):
-  - ReorderBufferCheckMemoryLimit (when memory limits exceeded)
-  - ReorderBufferIterTXNInit (during transaction iteration setup)
-  - ReorderBufferSerializeTXN (recursive calls for subtransactions)
+  - [ReorderBufferCheckMemoryLimit](ReorderBufferCheckMemoryLimit.md) (when memory limits exceeded)
+  - [ReorderBufferIterTXNInit](ReorderBufferIterTXNInit.md) (during transaction iteration setup)
+  - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md) (recursive calls for subtransactions)
 
 ## Notes and Other Information
 - The function is recursive, processing subtransactions before the main transaction

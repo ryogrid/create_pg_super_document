@@ -28,7 +28,7 @@ The function operates by reading the result file line by line, identifying conne
   - rename (system call for file replacement)
   - Standard C string functions (strstr, memmove, strlen)
 - Called from:
-  - ecpg_postprocess_result (test result post-processing function)
+  - [ecpg_postprocess_result](ecpg_postprocess_result.md) (test result post-processing function)
 
 ## Notes and Other Information
 - This is a static function used internally within the ECPG test framework

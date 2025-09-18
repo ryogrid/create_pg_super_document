@@ -22,7 +22,7 @@ The array supports dynamic growth when additional capacity is needed. When the a
 - Functions called/Symbols referenced:
   - SharedInvalidationMessage
 - Called from (representative examples):
-  - AddInvalidationMessage
+  - [AddInvalidationMessage](../A/AddInvalidationMessage.md)
 
 ## Notes and Other Information
 - The structure is used as part of a static array InvalMessageArrays[2] where index 0 represents CatCacheMsgs and index 1 represents RelCacheMsgs

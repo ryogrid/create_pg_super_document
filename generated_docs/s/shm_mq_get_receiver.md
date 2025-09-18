@@ -19,7 +19,7 @@ The shm_mq_get_receiver function returns a pointer to the PGPROC structure repre
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - PGPROC (structure)
+  - [PGPROC](../P/PGPROC.md) (structure)
 - Called from (representative examples):
   - Functions that need to check queue configuration
   - Process management and monitoring functions

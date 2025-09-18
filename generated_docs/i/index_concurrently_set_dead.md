@@ -27,17 +27,17 @@ This function is specifically designed for concurrent operations where the index
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - index_open
-  - TransferPredicateLocksToHeapRelation
-  - index_set_state_flags
-  - CacheInvalidateRelcache
+  - [index_open](index_open.md)
+  - [TransferPredicateLocksToHeapRelation](../T/TransferPredicateLocksToHeapRelation.md)
+  - [index_set_state_flags](index_set_state_flags.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
   - table_close
-  - index_close
+  - [index_close](index_close.md)
   - ShareUpdateExclusiveLock
   - INDEX_DROP_SET_DEAD
   - NoLock
 - Called from (representative examples):
-  - index_drop
+  - [index_drop](index_drop.md)
 
 ## Notes and Other Information
 - This function is part of the concurrent index operations framework and should only be called during DROP INDEX CONCURRENTLY or REINDEX CONCURRENTLY operations

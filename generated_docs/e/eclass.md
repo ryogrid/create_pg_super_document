@@ -35,7 +35,7 @@ This minimal implementation reflects that PostgreSQL does not currently implemen
   - CHR (character conversion macro)
   - REG_FAKE (test mode flag)
 - Called from (representative examples):
-  - brackpart (in regcomp.c:1808 for bracket expression equivalence classes)
+  - [brackpart](../b/brackpart.md) (in regcomp.c:1808 for bracket expression equivalence classes)
 
 ## Notes and Other Information
 - Currently provides minimal equivalence class support - most characters are equivalent only to themselves

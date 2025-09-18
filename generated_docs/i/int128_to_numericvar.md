@@ -20,7 +20,7 @@ The algorithm works backwards through the digit array, filling digits from least
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - alloc_var: Allocate memory for NumericVar digits
+  - [alloc_var](../a/alloc_var.md): Allocate memory for NumericVar digits
   - NUMERIC_NEG: Constant for negative sign
   - NUMERIC_POS: Constant for positive sign
   - NBASE: Numeric base constant (10000)
@@ -29,13 +29,13 @@ The algorithm works backwards through the digit array, filling digits from least
 
 - Called from (representative examples):
   - NUMERIC_CAN_BE_SHORT: Numeric optimization checking
-  - int64_div_fast_to_numeric: Fast division result conversion
-  - numeric_poly_serialize: Serialization of numeric polynomials
-  - int8_avg_serialize: Serialization of int8 averages
-  - numeric_poly_sum: Polynomial sum calculations
-  - numeric_poly_avg: Polynomial average calculations
-  - numeric_poly_stddev_internal: Standard deviation calculations
-  - sqrt_var: Square root variable operations
+  - [int64_div_fast_to_numeric](int64_div_fast_to_numeric.md): Fast division result conversion
+  - [numeric_poly_serialize](../n/numeric_poly_serialize.md): Serialization of numeric polynomials
+  - [int8_avg_serialize](int8_avg_serialize.md): Serialization of int8 averages
+  - [numeric_poly_sum](../n/numeric_poly_sum.md): Polynomial sum calculations
+  - [numeric_poly_avg](../n/numeric_poly_avg.md): Polynomial average calculations
+  - [numeric_poly_stddev_internal](../n/numeric_poly_stddev_internal.md): Standard deviation calculations
+  - [sqrt_var](../s/sqrt_var.md): Square root variable operations
 
 ## Notes and Other Information
 - Allocates space for 40/DEC_DIGITS digits to handle the maximum int128 range

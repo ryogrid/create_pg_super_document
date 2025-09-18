@@ -22,7 +22,7 @@ The function uses the PG_PROTOCOL_MAJOR macro to extract the major version numbe
   - CONNECTION_BAD (connection status constant)
   - PG_PROTOCOL_MAJOR (macro to extract major protocol version)
 - Called from (representative examples):
-  - handleCopyIn (in psql copy operations)
+  - [handleCopyIn](../h/handleCopyIn.md) (in psql copy operations)
   - PQsetdb (in connection establishment)
 
 ## Notes and Other Information

@@ -23,12 +23,12 @@ The function is particularly useful for code that needs aligned memory but doesn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocAligned
+  - [MemoryContextAllocAligned](../M/MemoryContextAllocAligned.md)
   - CurrentMemoryContext (implicitly used)
 - Called from (representative examples):
   - GenericXLogStart
-  - _mdfd_getseg
-  - InitCatCache
+  - [_mdfd_getseg](../m/_mdfd_getseg.md)
+  - [InitCatCache](../I/InitCatCache.md)
 
 ## Notes and Other Information
 - This is a thin wrapper around `MemoryContextAllocAligned` using `CurrentMemoryContext`

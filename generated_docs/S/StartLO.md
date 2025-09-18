@@ -22,10 +22,10 @@ The function is designed to work within the context of a data dumper routine, wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (for error handling when format doesn't support LOs)
+  - [pg_fatal](../p/pg_fatal.md) (for error handling when format doesn't support LOs)
   - AH->StartLOPtr (format-specific large object start handler)
 - Called from (representative examples):
-  - dumpLOs
+  - [dumpLOs](../d/dumpLOs.md)
 
 ## Notes and Other Information
 - This function is part of the Large Object Archival subsystem in pg_dump

@@ -27,16 +27,16 @@ The search implementation uses PostgreSQL's ArrayIterator for efficient traversa
   - PG_GET_COLLATION
   - PG_GETARG_ARRAYTYPE_P
   - ARR_NDIM, ARR_ELEMTYPE, ARR_LBOUND
-  - array_contains_nulls
-  - MemoryContextAlloc
-  - get_typlenbyvalalign
-  - lookup_type_cache
-  - fmgr_info_cxt
-  - array_create_iterator, array_iterate, array_free_iterator
-  - FunctionCall2Coll
+  - [array_contains_nulls](array_contains_nulls.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [array_create_iterator](array_create_iterator.md), array_iterate, array_free_iterator
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
 - Called from (representative examples):
-  - array_position
-  - array_position_start
+  - [array_position](array_position.md)
+  - [array_position_start](array_position_start.md)
 
 ## Notes and Other Information
 - Static function shared between array_position and array_position_start wrapper functions

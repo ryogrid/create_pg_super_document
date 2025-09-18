@@ -26,18 +26,18 @@ The function automatically determines whether to produce JSON (text) or JSONB (b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_build_array_worker
-  - json_build_array_worker
-  - jsonb_build_object_worker
-  - json_build_object_worker
-  - datum_to_jsonb
-  - datum_to_json
-  - jsonb_from_text
-  - json_validate
+  - [jsonb_build_array_worker](../j/jsonb_build_array_worker.md)
+  - [json_build_array_worker](../j/json_build_array_worker.md)
+  - [jsonb_build_object_worker](../j/jsonb_build_object_worker.md)
+  - [json_build_object_worker](../j/json_build_object_worker.md)
+  - [datum_to_jsonb](../d/datum_to_jsonb.md)
+  - [datum_to_json](../d/datum_to_json.md)
+  - [jsonb_from_text](../j/jsonb_from_text.md)
+  - [json_validate](../j/json_validate.md)
   - DatumGetTextP
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - The function determines output format (JSON vs JSONB) from the constructor's returning format specification

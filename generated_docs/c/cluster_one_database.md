@@ -24,20 +24,20 @@ This function connects to a specific PostgreSQL database and executes a CLUSTER 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectDatabase
+  - [connectDatabase](connectDatabase.md)
   - initPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - appendQualifiedRelation
-  - executeMaintenanceCommand
-  - PQdb
-  - PQerrorMessage
-  - PQfinish
+  - [appendQualifiedRelation](../a/appendQualifiedRelation.md)
+  - [executeMaintenanceCommand](../e/executeMaintenanceCommand.md)
+  - [PQdb](../P/PQdb.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQfinish](../P/PQfinish.md)
   - termPQExpBuffer
   - pg_log_error
 - Called from:
-  - main (in clusterdb.c)
-  - cluster_all_databases
+  - [main](../m/main.md) (in clusterdb.c)
+  - [cluster_all_databases](cluster_all_databases.md)
 
 ## Notes and Other Information
 - Part of the clusterdb utility program

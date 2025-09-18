@@ -20,15 +20,15 @@ The  function is responsible for dynamically adding word entries to the  structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc (for expanding the words array when needed)
-  - palloc (for allocating memory for individual word content)
+  - [repalloc](../r/repalloc.md) (for expanding the words array when needed)
+  - [palloc](../p/palloc.md) (for allocating memory for individual word content)
   - memset (for initializing word entry structure)
   - memcpy (for copying word content)
 - Data structures used:
-  - HeadlineParsedText
-  - HeadlineWordEntry
+  - [HeadlineParsedText](../H/HeadlineParsedText.md)
+  - [HeadlineWordEntry](../H/HeadlineWordEntry.md)
 - Called from (representative examples):
-  - addHLParsedLex
+  - [addHLParsedLex](../a/addHLParsedLex.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the ts_parse.c file

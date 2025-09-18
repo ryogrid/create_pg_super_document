@@ -28,14 +28,14 @@ LogChildExit is a utility function that generates comprehensive log messages whe
   - WTERMSIG
   - pg_strsignal
   - ereport
-  - errmsg
-  - errdetail
-  - errhint
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
+  - [errhint](../e/errhint.md)
 - Called from (representative examples):
-  - process_pm_child_exit
-  - CleanupBackend
-  - CleanupBackgroundWorker
-  - HandleChildCrash
+  - [process_pm_child_exit](../p/process_pm_child_exit.md)
+  - [CleanupBackend](../C/CleanupBackend.md)
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md)
+  - [HandleChildCrash](../H/HandleChildCrash.md)
 
 ## Notes and Other Information
 - Uses a 1024-byte buffer for activity information, matching the default track_activity_query_size

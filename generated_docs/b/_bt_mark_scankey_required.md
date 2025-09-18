@@ -31,11 +31,11 @@ The markings persist across rescans within a query since the requirements don't 
   - Strategy constants (BTLessStrategyNumber, BTLessEqualStrategyNumber, BTEqualStrategyNumber, BTGreaterEqualStrategyNumber, BTGreaterStrategyNumber)
   - Required direction flags (SK_BT_REQFWD, SK_BT_REQBKWD)
   - Row scankey flags (SK_ROW_HEADER, SK_ROW_MEMBER)
-  - DatumGetPointer (extracting subkey array from row header)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (extracting subkey array from row header)
   - elog (error reporting for unrecognized strategies)
 
 - Called from (representative examples):
-  - _bt_preprocess_keys (multiple calls during scan key preprocessing to mark keys as required)
+  - [_bt_preprocess_keys](_bt_preprocess_keys.md) (multiple calls during scan key preprocessing to mark keys as required)
 
 ## Notes and Other Information
 - This is a void function that modifies scankey flags in-place

@@ -36,17 +36,17 @@ The implementation includes sophisticated error handling with optional structura
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - executeItemOptUnwrapTarget
-  - JsonValueListAppend
-  - copyJsonbValue
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)
+  - [JsonValueListAppend](../J/JsonValueListAppend.md)
+  - [copyJsonbValue](../c/copyJsonbValue.md)
   - jperIsError
-  - executeAnyItem (recursive call)
+  - [executeAnyItem](executeAnyItem.md) (recursive call)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget
-  - executeItemUnwrapTargetArray
-  - executeAnyItem (recursive calls)
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md)
+  - [executeItemUnwrapTargetArray](executeItemUnwrapTargetArray.md)
+  - [executeAnyItem](executeAnyItem.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function used only within the jsonpath_exec.c compilation unit

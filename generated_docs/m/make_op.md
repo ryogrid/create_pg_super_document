@@ -25,22 +25,22 @@ The function distinguishes between prefix operators (when ltree is NULL) and bin
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType
-  - left_oper
-  - oper
-  - op_signature_string
-  - enforce_generic_type_consistency
-  - make_fn_arguments
+  - [left_oper](../l/left_oper.md)
+  - [oper](../o/oper.md)
+  - [op_signature_string](../o/op_signature_string.md)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)
+  - [make_fn_arguments](make_fn_arguments.md)
   - makeNode
-  - oprid
-  - get_func_retset
-  - check_srf_call_placement
-  - ReleaseSysCache
+  - [oprid](../o/oprid.md)
+  - [get_func_retset](../g/get_func_retset.md)
+  - [check_srf_call_placement](../c/check_srf_call_placement.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - transformAExprOp
+  - [transformAExprOp](../t/transformAExprOp.md)
   - transformAExprNullIf
   - transformAExprIn
-  - make_row_comparison_op
-  - make_distinct_op
+  - [make_row_comparison_op](make_row_comparison_op.md)
+  - [make_distinct_op](make_distinct_op.md)
 
 ## Notes and Other Information
 - Returns an Expr node (specifically an OpExpr) representing the operator expression

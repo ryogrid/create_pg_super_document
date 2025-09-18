@@ -28,11 +28,11 @@ The function accepts the small risk of false positive invalidations due to hash 
   - CACHE_elog (for debug logging)
   - dlist_foreach_modify (for safe iteration during modification)
   - dlist_container (for extracting structures from list nodes)
-  - CatCacheRemoveCList (for removing unreferenced cache lists)
+  - [CatCacheRemoveCList](CatCacheRemoveCList.md) (for removing unreferenced cache lists)
   - HASH_INDEX (macro for computing bucket index)
-  - CatCacheRemoveCTup (for removing unreferenced cache entries)
+  - [CatCacheRemoveCTup](CatCacheRemoveCTup.md) (for removing unreferenced cache entries)
 - Called from (representative examples):
-  - SysCacheInvalidate (system cache invalidation interface)
+  - [SysCacheInvalidate](../S/SysCacheInvalidate.md) (system cache invalidation interface)
 
 ## Notes and Other Information
 - Function is declared as public but intended to be quasi-public, primarily used by inval.c

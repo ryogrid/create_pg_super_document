@@ -26,24 +26,24 @@ Key functionality:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogReadBufferForRedo
-  - BufferGetPage
-  - XLogRecGetBlockData
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - GinPageIsLeaf
   - GinPageIsData
-  - ginRedoRecompress
-  - PageSetLSN
+  - [ginRedoRecompress](ginRedoRecompress.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 
 - Data structures used:
-  - ginxlogVacuumDataLeafPage
+  - [ginxlogVacuumDataLeafPage](ginxlogVacuumDataLeafPage.md)
 
 - Constants used:
   - BLK_NEEDS_REDO
 
 - Called from:
-  - gin_redo
+  - [gin_redo](gin_redo.md)
 
 ## Notes and Other Information
 - Specifically designed for GIN data leaf pages (as opposed to entry tree pages)

@@ -22,18 +22,18 @@ The operation involves multiple steps: validating the column, updating the pg_at
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheCopyAttName
+  - [SearchSysCacheCopyAttName](../S/SearchSysCacheCopyAttName.md)
   - ATTRIBUTE_GENERATED_STORED
-  - heap_freetuple
-  - CatalogTupleUpdate
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHook
-  - GetAttrDefaultOid
-  - deleteDependencyRecordsFor
+  - [GetAttrDefaultOid](../G/GetAttrDefaultOid.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
   - CommandCounterIncrement
-  - RemoveAttrDefault
+  - [RemoveAttrDefault](../R/RemoveAttrDefault.md)
   - ObjectAddressSubSet
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - The function returns InvalidObjectAddress if the operation is skipped due to missing_ok being true

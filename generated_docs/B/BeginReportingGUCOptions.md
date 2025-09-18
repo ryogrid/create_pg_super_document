@@ -25,13 +25,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress: Checks if database is in recovery mode
-  - SetConfigOption: Sets configuration option value
-  - hash_seq_init: Initializes hash table sequence scan
-  - hash_seq_search: Searches next entry in hash sequence
-  - ReportGUCOption: Reports individual GUC option to frontend
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if database is in recovery mode
+  - [SetConfigOption](../S/SetConfigOption.md): Sets configuration option value
+  - [hash_seq_init](../h/hash_seq_init.md): Initializes hash table sequence scan
+  - [hash_seq_search](../h/hash_seq_search.md): Searches next entry in hash sequence
+  - [ReportGUCOption](../R/ReportGUCOption.md): Reports individual GUC option to frontend
 - Called from (representative examples):
-  - PostgresMain: Called during backend initialization in src/backend/tcop/postgres.c:4345
+  - [PostgresMain](../P/PostgresMain.md): Called during backend initialization in src/backend/tcop/postgres.c:4345
 
 ## Notes and Other Information
 - Only operates when whereToSendOutput equals DestRemote (interactive frontend)

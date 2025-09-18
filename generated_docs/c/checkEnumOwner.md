@@ -23,12 +23,12 @@ The function operates on a heap tuple containing type information from the pg_ty
 - Functions called/Symbols referenced:
   - Form_pg_type (macro for accessing pg_type tuple structure)
   - TYPTYPE_ENUM (constant defining enum type classification)
-  - object_ownercheck (checks object ownership permissions)
-  - aclcheck_error_type (reports access control errors for types)
+  - [object_ownercheck](../o/object_ownercheck.md) (checks object ownership permissions)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md) (reports access control errors for types)
   - ACLCHECK_NOT_OWNER (access control error code constant)
 - Called from (representative examples):
   - AlterTypeRecurseParams
-  - AlterEnum
+  - [AlterEnum](../A/AlterEnum.md)
 
 ## Notes and Other Information
 - This is a static function internal to typecmds.c, used as a helper for enum modification operations

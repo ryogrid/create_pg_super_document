@@ -26,10 +26,10 @@ This function serves as a central mapping utility that translates PostgreSQL's i
   - WARNING, WARNING_CLIENT_ONLY  
   - ERROR, FATAL, PANIC
 - Called from (representative examples):
-  - send_message_to_server_log
-  - send_message_to_frontend
-  - write_csvlog
-  - write_jsonlog
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md)
+  - [write_csvlog](../w/write_csvlog.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
 
 ## Notes and Other Information
 This function is a fundamental building block of PostgreSQL's error reporting system used across multiple output formats (frontend messages, server logs, CSV logs, JSON logs). The use of gettext_noop() allows the same function to serve both localized client communication and non-localized logging needs. The strings are intentionally not localized within this function, giving callers control over whether to apply localization via the _() macro.

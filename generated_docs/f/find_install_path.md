@@ -27,14 +27,14 @@ The function uses the reject_indirect optimization when calling find_update_path
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_update_path
-  - ExtensionVersionInfo (struct type)  
+  - [find_update_path](find_update_path.md)
+  - [ExtensionVersionInfo](../E/ExtensionVersionInfo.md) (struct type)  
   - lfirst (list iteration)
   - list_length (path comparison)
   - strcmp (tie-breaking)
 - Called from (representative examples):
-  - CreateExtensionInternal
-  - get_available_versions_for_extension
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [get_available_versions_for_extension](../g/get_available_versions_for_extension.md)
 
 ## Notes and Other Information
 - Static function only used within extension.c module

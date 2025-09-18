@@ -20,13 +20,13 @@ This function generates a CTE that filters patterns from a raw pattern CTE to in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBuffer
-  - appendStringLiteralConn
-  - appendPQExpBufferStr
-  - PQdb
+  - [appendPQExpBuffer](appendPQExpBuffer.md)
+  - [appendStringLiteralConn](appendStringLiteralConn.md)
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)
+  - [PQdb](../P/PQdb.md)
 - Called from (representative examples):
-  - compile_relation_list_one_db (at src/bin/pg_amcheck/pg_amcheck.c:1902)
-  - compile_relation_list_one_db (at src/bin/pg_amcheck/pg_amcheck.c:1912)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md) (at src/bin/pg_amcheck/pg_amcheck.c:1902)
+  - [compile_relation_list_one_db](../c/compile_relation_list_one_db.md) (at src/bin/pg_amcheck/pg_amcheck.c:1912)
 
 ## Notes and Other Information
 - Generates a five-column filtered CTE: pattern_id, nsp_regex, rel_regex, heap_only, btree_only (drops db_regex column)

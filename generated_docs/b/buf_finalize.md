@@ -20,11 +20,11 @@ This function completes the construction of a pg_snapshot structure that has bee
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_VARSIZE
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types referenced:
-  - pg_snapshot
+  - [pg_snapshot](../p/pg_snapshot.md)
 - Called from (representative examples):
-  - parse_snapshot
+  - [parse_snapshot](../p/parse_snapshot.md)
 
 ## Notes and Other Information
 - This is a static function local to src/backend/utils/adt/xid8funcs.c

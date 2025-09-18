@@ -19,7 +19,7 @@ This function ensures proper resource management in the Snowball stemming librar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Generic Snowball environment cleanup function that handles memory deallocation
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function that handles memory deallocation
 - Called from (representative examples):
   - External stemming interfaces and library wrappers when stemming sessions are complete (not directly referenced in the provided symbol data)
 

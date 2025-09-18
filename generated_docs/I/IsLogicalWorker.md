@@ -20,7 +20,7 @@ This function takes no parameters and returns a boolean value indicating worker 
   - MyLogicalRepWorker (global variable check)
 
 - Called from:
-  - IsLogicalParallelApplyWorker (in worker.c:4823)
+  - [IsLogicalParallelApplyWorker](IsLogicalParallelApplyWorker.md) (in worker.c:4823)
   - ProcessInterrupts (in postgres.c:3294)
   - Referenced in header file logicalworker.h:23
 

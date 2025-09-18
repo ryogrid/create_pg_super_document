@@ -35,8 +35,8 @@ The function assumes that the key change is small enough that it doesn't affect 
 - Called from (representative examples):
   - FreePageBtreeRemove
   - FreePageBtreeRemovePage
-  - FreePageManagerGetInternal
-  - FreePageManagerPutInternal
+  - [FreePageManagerGetInternal](FreePageManagerGetInternal.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md)
 
 ## Notes and Other Information
 This is an internal static function critical for B-tree consistency. It includes debug assertions to verify the correctness of parent-child relationships when USE_ASSERT_CHECKING is enabled. The function handles both leaf and internal pages and performs careful index calculations to locate the correct parent key that needs updating. The upward propagation stops as soon as a non-zero index is encountered, as changes to non-first keys don't affect ancestor pages.

@@ -23,12 +23,12 @@ The function uses index_get_partition() to search for an existing index on the p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_get_partition
+  - [index_get_partition](../i/index_get_partition.md)
   - RelationGetRelid
   - RelationGetRelationName
   - ereport
 - Called from (representative examples):
-  - ATExecAttachPartitionIdx
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
 
 ## Notes and Other Information
 - This is a static validation function used specifically during index attachment operations

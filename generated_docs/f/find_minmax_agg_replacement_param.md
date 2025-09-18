@@ -26,12 +26,12 @@ This optimization is particularly effective for queries like "SELECT MIN(column)
 ## Dependencies
 - Functions called/Symbols referenced:
   - MinMaxAggInfo (structure type)
-  - equal (comparison function)
+  - [equal](../e/equal.md) (comparison function)
   - linitial (list access function)
 - Called from (representative examples):
-  - fix_scan_expr_mutator
-  - fix_upper_expr_mutator  
-  - finalize_primnode
+  - [fix_scan_expr_mutator](fix_scan_expr_mutator.md)
+  - [fix_upper_expr_mutator](fix_upper_expr_mutator.md)  
+  - [finalize_primnode](finalize_primnode.md)
 
 ## Notes and Other Information
 - This function is exported (not static) so that SS_finalize_plan can use it before setrefs.c runs

@@ -24,16 +24,16 @@ The function performs version-specific feature checking, ensuring that advanced 
   - appendStringInfoString
   - appendStringInfo
   - appendStringInfoChar
-  - stringlist_to_identifierstr
-  - PQescapeLiteral
-  - PQfreemem
-  - PQserverVersion
-  - libpqrcv_PQexec
-  - PQresultStatus
-  - pchomp
-  - pfree
+  - [stringlist_to_identifierstr](../s/stringlist_to_identifierstr.md)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md)
+  - [PQfreemem](../P/PQfreemem.md)
+  - [PQserverVersion](../P/PQserverVersion.md)
+  - [libpqrcv_PQexec](libpqrcv_PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [pchomp](../p/pchomp.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - WalReceiverConn (referenced in streaming setup routines)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (referenced in streaming setup routines)
 
 ## Dependencies
 - Functions called/Symbols referenced:

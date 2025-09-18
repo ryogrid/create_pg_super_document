@@ -20,11 +20,11 @@ This function serves as a qsort comparison callback for sorting PartitionHashBou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - partition_hbound_cmp
-  - PartitionHashBound
+  - [partition_hbound_cmp](../p/partition_hbound_cmp.md)
+  - [PartitionHashBound](../P/PartitionHashBound.md)
 - Called from (representative examples):
   - compare_range_bounds
-  - create_hash_bounds
+  - [create_hash_bounds](../c/create_hash_bounds.md)
 
 ## Notes and Other Information
 - This is a static function internal to partbounds.c

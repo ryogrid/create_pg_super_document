@@ -40,19 +40,19 @@ The function returns a boolean indicating whether buffer emptying should be paus
   - gistchoose
   - gistgetadjusted
   - gistbufferinginserttuples
-  - gistMemorizeParent
+  - [gistMemorizeParent](gistMemorizeParent.md)
   - gistGetNodeBuffer
-  - gistPushItupToNodeBuffer
-  - ReadBuffer
-  - LockBuffer
-  - UnlockReleaseBuffer
-  - PageGetItemId
-  - PageGetItem
-  - ItemPointerGetBlockNumber
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
+  - [PageGetItem](../P/PageGetItem.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
   - LEVEL_HAS_BUFFERS
   - BUFFER_OVERFLOWED
 - Called from (representative examples):
-  - gistBufferingBuildInsert
+  - [gistBufferingBuildInsert](gistBufferingBuildInsert.md)
   - gistProcessEmptyingQueue
 
 ## Notes and Other Information

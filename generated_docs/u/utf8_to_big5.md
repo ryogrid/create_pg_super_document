@@ -30,7 +30,7 @@ The function uses the `UtfToLocal` utility function along with the `big5_from_un
   - PG_GETARG_INT32
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
-  - UtfToLocal
+  - [UtfToLocal](../U/UtfToLocal.md)
   - PG_RETURN_INT32
   - big5_from_unicode_tree (conversion mapping table)
 - Called from (representative examples):

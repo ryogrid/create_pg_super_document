@@ -31,24 +31,24 @@ The function handles five main message types:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte
-  - pq_parse_errornotice  
-  - ThrowErrorData
-  - pq_getmsgint
-  - pq_getmsgrawstring
-  - pq_endmessage
-  - pq_getmsgint64
-  - pq_getmsgend
-  - NotifyMyFrontEnd
-  - pgstat_progress_incr_param
-  - shm_mq_detach
-  - psprintf
-  - pstrdup
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [pq_parse_errornotice](../p/pq_parse_errornotice.md)  
+  - [ThrowErrorData](../T/ThrowErrorData.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgrawstring](../p/pq_getmsgrawstring.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgend](../p/pq_getmsgend.md)
+  - [NotifyMyFrontEnd](../N/NotifyMyFrontEnd.md)
+  - [pgstat_progress_incr_param](../p/pgstat_progress_incr_param.md)
+  - [shm_mq_detach](../s/shm_mq_detach.md)
+  - [psprintf](../p/psprintf.md)
+  - [pstrdup](../p/pstrdup.md)
   - Min
   - elog
 
 - Called from (representative examples):
-  - HandleParallelMessages
+  - [HandleParallelMessages](HandleParallelMessages.md)
 
 ## Notes and Other Information
 - This is a static function only called from HandleParallelMessages()

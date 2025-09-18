@@ -34,10 +34,10 @@ The function uses projection to transform input tuples or generate output tuples
   - TupIsNull (to check if tuple is null)
   - ExecProject (to perform projection and generate result tuples)
 - Called from:
-  - ExecInitResult (sets this as the execution function during initialization)
+  - [ExecInitResult](ExecInitResult.md) (sets this as the execution function during initialization)
 
 ## Notes and Other Information
-- Result nodes with right subtrees are never planned in PostgreSQL, so the right subtree is ignored
+- [Result](../R/Result.md) nodes with right subtrees are never planned in PostgreSQL, so the right subtree is ignored
 - The rs_done flag prevents redundant execution for constant result generation
 - The rs_checkqual flag ensures constant qualifications are evaluated only once
 - Memory context is reset between tuple cycles to prevent memory leaks during expression evaluation

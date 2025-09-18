@@ -58,17 +58,17 @@ The state machine progresses through different phases: building the hash table f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinState (base join execution state)
-  - HashJoinTable (hash table structure)
-  - HashJoinTuple (individual hash table entries)
+  - [JoinState](../J/JoinState.md) (base join execution state)
+  - [HashJoinTable](HashJoinTable.md) (hash table structure)
+  - [HashJoinTuple](HashJoinTuple.md) (individual hash table entries)
   - ExprState (expression evaluation state)
   - TupleTableSlot (tuple storage and manipulation)
 - Called from (representative examples):
-  - ExecHashJoinImpl
-  - ExecInitHashJoin
-  - ExecEndHashJoin
-  - ExecReScanHashJoin
-  - ExecHashJoinOuterGetTuple
+  - [ExecHashJoinImpl](../E/ExecHashJoinImpl.md)
+  - [ExecInitHashJoin](../E/ExecInitHashJoin.md)
+  - [ExecEndHashJoin](../E/ExecEndHashJoin.md)
+  - [ExecReScanHashJoin](../E/ExecReScanHashJoin.md)
+  - [ExecHashJoinOuterGetTuple](../E/ExecHashJoinOuterGetTuple.md)
 
 ## Notes and Other Information
 - The structure inherits from JoinState, making it compatible with generic join processing functions

@@ -27,12 +27,12 @@ The function ignores lateral-only flags when checking conflicts (all items are c
   - strcmp (for name comparison)
   - lfirst (list cell access)
 - Types referenced:
-  - ParseNamespaceItem
-  - RangeTblEntry
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [RangeTblEntry](../R/RangeTblEntry.md)
   - RTE_RELATION
 - Called from (representative examples):
-  - transformFromClause (src/backend/parser/parse_clause.c:137)
-  - transformFromClauseItem (src/backend/parser/parse_clause.c:1215, 1591)
+  - [transformFromClause](../t/transformFromClause.md) (src/backend/parser/parse_clause.c:137)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (src/backend/parser/parse_clause.c:1215, 1591)
 
 ## Notes and Other Information
 - The function assumes that each input namespace list does not contain internal conflicts

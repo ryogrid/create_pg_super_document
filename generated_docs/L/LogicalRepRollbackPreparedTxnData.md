@@ -38,7 +38,7 @@ This structure contains metadata for rolling back prepared transactions in logic
   - GIDSIZE
 - Used by functions:
   - logicalrep_read_rollback_prepared
-  - apply_handle_rollback_prepared
+  - [apply_handle_rollback_prepared](../a/apply_handle_rollback_prepared.md)
 
 ## Notes and Other Information
 This structure is designed with enhanced validation capabilities compared to simple rollback operations. The inclusion of both prepare and rollback timestamps, along with LSN information, ensures that rollback operations are only applied to the correct prepared transactions. This prevents issues where multiple prepared transactions might share the same global identifier across different replication streams or time periods.

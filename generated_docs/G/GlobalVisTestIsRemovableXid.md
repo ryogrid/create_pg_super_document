@@ -22,17 +22,17 @@ The conversion from 32-bit to full transaction ID is performed safely by using t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FullXidRelativeTo
-  - GlobalVisTestIsRemovableFullXid
-  - GlobalVisState (type)
+  - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
+  - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
+  - [GlobalVisState](GlobalVisState.md) (type)
   - FullTransactionId (type)
 - Called from (representative examples):
-  - HeapTupleSatisfiesNonVacuumable
-  - HeapTupleIsSurelyDead
-  - heap_page_prune_opt
-  - heap_prune_satisfies_vacuum
-  - vacuumRedirectAndPlaceholder
-  - GlobalVisCheckRemovableXid
+  - [HeapTupleSatisfiesNonVacuumable](../H/HeapTupleSatisfiesNonVacuumable.md)
+  - [HeapTupleIsSurelyDead](../H/HeapTupleIsSurelyDead.md)
+  - [heap_page_prune_opt](../h/heap_page_prune_opt.md)
+  - [heap_prune_satisfies_vacuum](../h/heap_prune_satisfies_vacuum.md)
+  - [vacuumRedirectAndPlaceholder](../v/vacuumRedirectAndPlaceholder.md)
+  - [GlobalVisCheckRemovableXid](GlobalVisCheckRemovableXid.md)
 
 ## Notes and Other Information
 - Critical requirement: The input xid must come from a source protected against XID wraparounds

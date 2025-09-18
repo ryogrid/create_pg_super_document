@@ -17,16 +17,16 @@ The  function manages the output of accumulated Large Object data stored in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_write
+  - [lo_write](../l/lo_write.md)
   - ngettext
   - pg_log_debug
-  - warn_or_exit_horribly
+  - [warn_or_exit_horribly](../w/warn_or_exit_horribly.md)
   - appendByteaLiteralAHX
-  - ahprintf
+  - [ahprintf](../a/ahprintf.md)
 - Called from (representative examples):
   - TEXT_DUMPALL_HEADER
-  - EndRestoreLO
-  - ahwrite
+  - [EndRestoreLO](../E/EndRestoreLO.md)
+  - [ahwrite](../a/ahwrite.md)
 
 ## Notes and Other Information
 - Handles two distinct output modes: direct database write via lo_write and SQL script generation via ahprintf

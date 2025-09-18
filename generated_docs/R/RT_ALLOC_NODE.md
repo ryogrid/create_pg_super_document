@@ -80,21 +80,21 @@ The allocation process:
 - Functions called/Symbols referenced:
   - RT_SIZE_CLASS_INFO (size and fanout lookup table)
   - dsa_allocate (dynamic shared memory allocation, if RT_SHMEM)
-  - MemoryContextAlloc (local memory allocation, if not RT_SHMEM)
-  - RT_PTR_SET_LOCAL (pointer setup for shared memory access)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (local memory allocation, if not RT_SHMEM)
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md) (pointer setup for shared memory access)
   - RT_INVALID_SLOT_IDX (constant for node48 slot initialization)
   - RT_MAKE_NAME (macro name generation)
 - Called from (representative examples):
   - RT_GROW_NODE_* functions (when expanding smaller nodes)
-  - RT_EXTEND_UP (when growing tree upward)
-  - RT_EXTEND_DOWN (when growing tree downward)
+  - [RT_EXTEND_UP](RT_EXTEND_UP.md) (when growing tree upward)
+  - [RT_EXTEND_DOWN](RT_EXTEND_DOWN.md) (when growing tree downward)
   - RT_CREATE (when creating initial root node)
   - RT_SHRINK_NODE_* functions (when contracting larger nodes)
 
 ## Notes and Other Information
 - Returns RT_CHILD_PTR structure containing both allocation handle and local pointer
 - Supports both shared memory (multi-process) and local memory (single-process) allocation modes
-- Node initialization is kind-specific to ensure proper empty state for each node type
+- [Node](../N/Node.md) initialization is kind-specific to ensure proper empty state for each node type
 - The fanout field may overflow to zero for NODE_KIND_256, which is acceptable since that node type doesn't introspect this value
 - Part of PostgreSQL's generic radix tree implementation for high-performance key-value storage
 - Memory allocation failures will be handled by the underlying PostgreSQL memory management system

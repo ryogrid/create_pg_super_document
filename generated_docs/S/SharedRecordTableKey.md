@@ -31,14 +31,14 @@ The structure uses a union to store either a local TupleDesc pointer or a dsa_po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleDesc (PostgreSQL tuple descriptor structure)
+  - [TupleDesc](../T/TupleDesc.md) (PostgreSQL tuple descriptor structure)
   - dsa_pointer (PostgreSQL dynamic shared memory pointer)
 - Called from (representative examples):
-  - SharedRecordTableEntry
-  - shared_record_table_compare
-  - shared_record_table_hash
-  - SharedRecordTypmodRegistryInit
-  - find_or_make_matching_shared_tupledesc
+  - [SharedRecordTableEntry](SharedRecordTableEntry.md)
+  - [shared_record_table_compare](../s/shared_record_table_compare.md)
+  - [shared_record_table_hash](../s/shared_record_table_hash.md)
+  - [SharedRecordTypmodRegistryInit](SharedRecordTypmodRegistryInit.md)
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md)
 
 ## Notes and Other Information
 - Essential component of the shared record type system for parallel query processing

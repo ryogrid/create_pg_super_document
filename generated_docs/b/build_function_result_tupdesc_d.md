@@ -26,20 +26,20 @@ This function is split out from build_function_result_tupdesc_t to allow Procedu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - deconstruct_array_builtin
-  - palloc
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [palloc](../p/palloc.md)
   - TextDatumGetCString
-  - psprintf
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
+  - [psprintf](../p/psprintf.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
   - PROARGMODE_IN, PROARGMODE_VARIADIC, PROARGMODE_OUT, PROARGMODE_INOUT, PROARGMODE_TABLE
   - PROKIND_PROCEDURE
 - Called from (representative examples):
-  - ProcedureCreate
-  - build_function_result_tupdesc_t
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [build_function_result_tupdesc_t](build_function_result_tupdesc_t.md)
   - TypeFuncClass
 
 ## Notes and Other Information

@@ -25,30 +25,30 @@ The block header contains metadata to track the block's size, the number of allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node
-  - GenerationContext
+  - [dlist_node](../d/dlist_node.md)
+  - [GenerationContext](GenerationContext.md)
 - Called from (representative examples):
   - Generation_BLOCKHDRSZ
   - ExternalChunkGetBlock
   - KeeperBlock
   - IsKeeperBlock
-  - GenerationContextCreate
-  - GenerationReset
-  - GenerationAllocLarge
-  - GenerationAllocChunkFromBlock
-  - GenerationAllocFromNewBlock
-  - GenerationAlloc
-  - GenerationBlockInit
-  - GenerationBlockMarkEmpty
-  - GenerationBlockFreeBytes
-  - GenerationBlockFree
-  - GenerationFree
-  - GenerationRealloc
-  - GenerationGetChunkContext
-  - GenerationGetChunkSpace
-  - GenerationIsEmpty
-  - GenerationStats
-  - GenerationCheck
+  - [GenerationContextCreate](GenerationContextCreate.md)
+  - [GenerationReset](GenerationReset.md)
+  - [GenerationAllocLarge](GenerationAllocLarge.md)
+  - [GenerationAllocChunkFromBlock](GenerationAllocChunkFromBlock.md)
+  - [GenerationAllocFromNewBlock](GenerationAllocFromNewBlock.md)
+  - [GenerationAlloc](GenerationAlloc.md)
+  - [GenerationBlockInit](GenerationBlockInit.md)
+  - [GenerationBlockMarkEmpty](GenerationBlockMarkEmpty.md)
+  - [GenerationBlockFreeBytes](GenerationBlockFreeBytes.md)
+  - [GenerationBlockFree](GenerationBlockFree.md)
+  - [GenerationFree](GenerationFree.md)
+  - [GenerationRealloc](GenerationRealloc.md)
+  - [GenerationGetChunkContext](GenerationGetChunkContext.md)
+  - [GenerationGetChunkSpace](GenerationGetChunkSpace.md)
+  - [GenerationIsEmpty](GenerationIsEmpty.md)
+  - [GenerationStats](GenerationStats.md)
+  - [GenerationCheck](GenerationCheck.md)
 
 ## Notes and Other Information
 - The block header is followed by usable memory space aligned to the next alignment boundary

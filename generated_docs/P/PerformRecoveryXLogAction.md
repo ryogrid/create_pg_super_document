@@ -30,12 +30,12 @@ The function returns a boolean indicating whether promotion occurred, which affe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PromoteIsTriggered (checks if standby promotion is in progress)
-  - CreateEndOfRecoveryRecord (writes end-of-recovery WAL record)
-  - RequestCheckpoint (initiates checkpoint process)
+  - [PromoteIsTriggered](PromoteIsTriggered.md) (checks if standby promotion is in progress)
+  - [CreateEndOfRecoveryRecord](../C/CreateEndOfRecoveryRecord.md) (writes end-of-recovery WAL record)
+  - [RequestCheckpoint](../R/RequestCheckpoint.md) (initiates checkpoint process)
   - CHECKPOINT_END_OF_RECOVERY, CHECKPOINT_IMMEDIATE, CHECKPOINT_WAIT (checkpoint flags)
 - Called from (representative examples):
-  - StartupXLOG (during recovery completion in startup process)
+  - [StartupXLOG](../S/StartupXLOG.md) (during recovery completion in startup process)
   - RefreshXLogWriteResult (in certain recovery contexts)
 
 ## Notes and Other Information

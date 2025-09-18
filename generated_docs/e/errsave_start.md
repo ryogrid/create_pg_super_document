@@ -24,9 +24,9 @@ This mechanism is particularly useful for operations that need to attempt potent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errstart
-  - get_error_stack_entry
-  - set_stack_entry_domain
+  - [errstart](errstart.md)
+  - [get_error_stack_entry](../g/get_error_stack_entry.md)
+  - [set_stack_entry_domain](../s/set_stack_entry_domain.md)
 - Called from (representative examples):
   - errsave_domain
   - ereturn

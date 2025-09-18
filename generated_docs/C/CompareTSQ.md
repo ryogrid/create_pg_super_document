@@ -29,7 +29,7 @@ The function is static, indicating it's used internally within the tsquery_op.c 
   - QTNodeCompare (compares QTNode tree structures)
   - QTNFree (frees QTNode tree memory)
 - Called from:
-  - tsquery_cmp
+  - [tsquery_cmp](../t/tsquery_cmp.md)
   - CMPFUNC (comparison macro usage)
 
 ## Notes and Other Information

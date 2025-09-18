@@ -26,10 +26,10 @@ None (void function)
   - bindir (global variable)
 - Called from (representative examples):
   - psql_command
-  - drop_database_if_exists  
-  - create_database
-  - drop_role_if_exists
-  - create_role
+  - [drop_database_if_exists](../d/drop_database_if_exists.md)  
+  - [create_database](../c/create_database.md)
+  - [drop_role_if_exists](../d/drop_role_if_exists.md)
+  - [create_role](../c/create_role.md)
 
 ## Notes and Other Information
 - This function is designed to work in conjunction with psql_add_command() and psql_end_command() to build complete psql command strings

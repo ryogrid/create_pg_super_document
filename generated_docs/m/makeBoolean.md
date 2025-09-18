@@ -22,9 +22,9 @@ The Boolean node type is specifically designed to represent boolean literals (TR
   - makeNode (macro for node allocation and initialization)
   - Boolean (struct type definition)
 - Called from (representative examples):
-  - sequence_options (in sequence.c)
-  - buildDefItem (in tsearchcmds.c, multiple locations)
-  - nodeRead (in read.c for deserialization)
+  - [sequence_options](../s/sequence_options.md) (in sequence.c)
+  - [buildDefItem](../b/buildDefItem.md) (in tsearchcmds.c, multiple locations)
+  - [nodeRead](../n/nodeRead.md) (in read.c for deserialization)
 
 ## Notes and Other Information
 - Part of PostgreSQL's value node system alongside makeInteger, makeFloat, makeString, and makeBitString

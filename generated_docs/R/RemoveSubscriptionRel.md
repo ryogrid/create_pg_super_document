@@ -20,19 +20,19 @@ The function includes important safety checks to prevent removal of relation map
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc
-  - table_beginscan_catalog
-  - heap_getnext
+  - [TableScanDesc](../T/TableScanDesc.md)
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
   - ForwardScanDirection
   - Form_pg_subscription_rel
   - SUBREL_STATE_READY
-  - get_subscription_name
-  - get_rel_name
-  - CatalogTupleDelete
-  - table_endscan
+  - [get_subscription_name](../g/get_subscription_name.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [table_endscan](../t/table_endscan.md)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - DropSubscription
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [DropSubscription](../D/DropSubscription.md)
 
 ## Notes and Other Information
 - Supports flexible deletion patterns: specific subscription-relation pairs, all relations for a subscription, or a relation from all subscriptions

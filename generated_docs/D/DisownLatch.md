@@ -19,11 +19,11 @@ DisownLatch removes the current process's ownership of a shared latch by setting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Latch (structure type)
+  - [Latch](../L/Latch.md) (structure type)
 - Called from (representative examples):
-  - ShutdownWalRecovery
-  - ProcKill
-  - AuxiliaryProcKill
+  - [ShutdownWalRecovery](../S/ShutdownWalRecovery.md)
+  - [ProcKill](../P/ProcKill.md)
+  - [AuxiliaryProcKill](../A/AuxiliaryProcKill.md)
 
 ## Notes and Other Information
 - Only works with shared latches (latch->is_shared must be true)

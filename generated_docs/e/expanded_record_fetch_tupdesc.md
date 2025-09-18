@@ -25,11 +25,11 @@ The function distinguishes between statically allocated tuple descriptors (tdref
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_rowtype_tupdesc
-  - ER_mc_callback
-  - MemoryContextRegisterResetCallback
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
+  - [ER_mc_callback](../E/ER_mc_callback.md)
+  - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md)
   - ReleaseTupleDesc
-  - assign_record_type_identifier
+  - [assign_record_type_identifier](../a/assign_record_type_identifier.md)
 - Called from (representative examples):
   - expanded_record_get_tupdesc (inline function in expandedrecord.h)
 

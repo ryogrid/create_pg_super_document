@@ -23,11 +23,11 @@ The function also manages indentation levels and ensures that the formatting sta
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert (validates worker state and that worker was previously opened)
-  - ExplainSaveGroup (saves current formatting state for future restoration)
+  - [ExplainSaveGroup](ExplainSaveGroup.md) (saves current formatting state for future restoration)
   - EXPLAIN_FORMAT_TEXT (format comparison constant)
 - Called from:
-  - ExplainNode (various locations when finishing parallel execution data collection)
-  - show_sort_info, show_incremental_sort_info, show_memoize_info, show_hashagg_info (after worker-specific statistics)
+  - [ExplainNode](ExplainNode.md) (various locations when finishing parallel execution data collection)
+  - [show_sort_info](../s/show_sort_info.md), show_incremental_sort_info, show_memoize_info, show_hashagg_info (after worker-specific statistics)
 
 ## Notes and Other Information
 - Must be paired with a previous ExplainOpenWorker call for the same worker

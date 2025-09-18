@@ -23,20 +23,20 @@ This abstraction allows PostgreSQL's object manipulation functions to work unifo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (PostgreSQL hash table structure)
-  - JsonbContainer (JSONB container structure)
+  - [HTAB](../H/HTAB.md) (PostgreSQL hash table structure)
+  - [JsonbContainer](JsonbContainer.md) (JSONB container structure)
 - Called from (representative examples):
   - JsObjectFree (memory cleanup and deallocation)
-  - JsValueToJsObject (conversion from JsValue to JsObject)
-  - populate_composite (composite type population)
-  - JsObjectGetField (field value retrieval)
-  - populate_record (record population from JSON object)
-  - populate_recordset_object_end (recordset processing)
+  - [JsValueToJsObject](JsValueToJsObject.md) (conversion from JsValue to JsObject)
+  - [populate_composite](../p/populate_composite.md) (composite type population)
+  - [JsObjectGetField](JsObjectGetField.md) (field value retrieval)
+  - [populate_record](../p/populate_record.md) (record population from JSON object)
+  - [populate_recordset_object_end](../p/populate_recordset_object_end.md) (recordset processing)
 
 ## Notes and Other Information
 - Essential for efficient JSON object field access in PostgreSQL
 - Hash table implementation for JSON text provides O(1) average case field lookup
-- JsonbContainer for JSONB provides direct binary access without parsing overhead
-- Memory management differs between variants - hash tables require explicit cleanup while JSONB containers are managed differently
+- [JsonbContainer](JsonbContainer.md) for JSONB provides direct binary access without parsing overhead
+- Memory management differs between variants - [hash](../h/hash.md) tables require explicit cleanup while JSONB containers are managed differently
 - Used extensively in record population, composite type handling, and JSON object manipulation
 - Part of the internal JSON object processing infrastructure in PostgreSQL

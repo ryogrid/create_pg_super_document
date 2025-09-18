@@ -17,19 +17,19 @@ This function transfers accumulated I/O statistics from the local backend's pend
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LWLock
+  - [LWLock](../L/LWLock.md)
   - PgStat_BktypeIO  
   - LWLockConditionalAcquire
   - IOOBJECT_NUM_TYPES
   - IOCONTEXT_NUM_TYPES
   - IOOP_NUM_TYPES
-  - instr_time
+  - [instr_time](../i/instr_time.md)
   - INSTR_TIME_GET_MICROSEC
-  - pgstat_bktype_io_stats_valid
+  - [pgstat_bktype_io_stats_valid](pgstat_bktype_io_stats_valid.md)
 - Called from (representative examples):
-  - WalSndWaitForWal
-  - WalSndLoop
-  - pgstat_report_stat
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
+  - [WalSndLoop](../W/WalSndLoop.md)
+  - [pgstat_report_stat](pgstat_report_stat.md)
   - pgstat_report_vacuum
   - pgstat_report_analyze
   - pgstat_report_wal

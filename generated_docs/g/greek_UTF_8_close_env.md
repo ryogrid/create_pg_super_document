@@ -19,7 +19,7 @@ The function ensures that all dynamically allocated memory within the stemmer en
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

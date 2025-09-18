@@ -22,7 +22,7 @@ The function simply returns the  field from the PartitionBoundInfo structure, wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - PARTITION_STRATEGY_HASH (constant for validation)
-  - PartitionBoundInfo (structure type)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (structure type)
 - Called from (representative examples):
   - External modules (maintained for compatibility)
 

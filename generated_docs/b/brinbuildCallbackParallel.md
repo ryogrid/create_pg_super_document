@@ -33,13 +33,13 @@ The function handles range transitions by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber: Extracts block number from tuple ID
-  - form_and_spill_tuple: Creates and writes BRIN tuple to shared tuplesort
-  - brin_memtuple_initialize: Reinitializes summary tuple for new range
-  - add_values_to_range: Accumulates tuple values into range summary
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md): Extracts block number from tuple ID
+  - [form_and_spill_tuple](../f/form_and_spill_tuple.md): Creates and writes BRIN tuple to shared tuplesort
+  - [brin_memtuple_initialize](brin_memtuple_initialize.md): Reinitializes summary tuple for new range
+  - [add_values_to_range](../a/add_values_to_range.md): Accumulates tuple values into range summary
   - BRIN_elog: Debug logging for range completion
 - Called from (representative examples):
-  - _brin_parallel_scan_and_build: Parallel BRIN build coordinator function
+  - [_brin_parallel_scan_and_build](_brin_parallel_scan_and_build.md): Parallel BRIN build coordinator function
 
 ## Notes and Other Information
 - This is a static function used only within the BRIN parallel build implementation

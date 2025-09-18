@@ -25,7 +25,7 @@ The function ensures that range bound values are properly formatted for output w
   - appendStringInfoChar (append single character to string buffer)
   - isspace (standard C library function for whitespace detection)
 - Called from (representative examples):
-  - range_deparse (called twice for lower and upper bounds)
+  - [range_deparse](range_deparse.md) (called twice for lower and upper bounds)
 
 ## Notes and Other Information
 - This is a static function internal to the rangetypes.c module

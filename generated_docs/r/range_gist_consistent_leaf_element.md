@@ -27,13 +27,13 @@ Like its internal node counterpart, this function only supports the RANGESTRAT_C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_contains_elem_internal
+  - [range_contains_elem_internal](range_contains_elem_internal.md)
   - RANGESTRAT_CONTAINS_ELEM
   - elog (for error handling)
 - Called from (representative examples):
   - rangeCopy
-  - range_gist_consistent
-  - multirange_gist_consistent
+  - [range_gist_consistent](range_gist_consistent.md)
+  - [multirange_gist_consistent](../m/multirange_gist_consistent.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation

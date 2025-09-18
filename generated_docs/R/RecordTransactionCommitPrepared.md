@@ -27,17 +27,17 @@ RecordTransactionCommitPrepared is the final stage function for committing a pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - START_CRIT_SECTION
-  - XactLogCommitRecord
-  - replorigin_session_advance
-  - TransactionTreeSetCommitTsData
-  - XLogFlush
-  - TransactionIdCommitTree
+  - [XactLogCommitRecord](../X/XactLogCommitRecord.md)
+  - [replorigin_session_advance](../r/replorigin_session_advance.md)
+  - [TransactionTreeSetCommitTsData](../T/TransactionTreeSetCommitTsData.md)
+  - [XLogFlush](../X/XLogFlush.md)
+  - [TransactionIdCommitTree](../T/TransactionIdCommitTree.md)
   - END_CRIT_SECTION
-  - SyncRepWaitForLSN
+  - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md)
 - Called from (representative examples):
-  - FinishPreparedTransaction
+  - [FinishPreparedTransaction](../F/FinishPreparedTransaction.md)
 
 ## Notes and Other Information
 The function operates within a critical section to ensure atomicity and uses checkpoint delay flags to prevent race conditions during commit processing. Unlike regular commits, prepared transaction commits cannot be optimized out since they always have at least one WAL entry (the PREPARE record). The function handles both local and replicated transactions, managing commit timestamps and replication origin advancement appropriately. Location: src/backend/access/transam/twophase.c:2297-2394

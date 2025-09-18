@@ -34,16 +34,16 @@ The function maintains SP-GiST page statistics (nRedirection, nPlaceholder) and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GlobalVisTestFor, GlobalVisTestIsRemovableXid: Visibility testing functions
+  - [GlobalVisTestFor](../G/GlobalVisTestFor.md), GlobalVisTestIsRemovableXid: Visibility testing functions
   - RelationIsAccessibleInLogicalDecoding: Logical decoding support check
-  - PageIndexMultiDelete: Bulk tuple deletion
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md): Bulk tuple deletion
   - SpGistPageGetOpaque: Page opaque data access
   - TransactionIdIsValid, TransactionIdPrecedes: Transaction ID operations
   - XLog functions: WAL logging (XLogBeginInsert, XLogInsert, etc.)
-  - ItemPointerSetInvalid: Invalidates redirect target pointer
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md): Invalidates redirect target pointer
 - Called from (representative examples):
-  - spgvacuumpage: Called for both leaf and inner pages during regular vacuum
-  - spgprocesspending: Called when processing pages from pending list
+  - [spgvacuumpage](../s/spgvacuumpage.md): Called for both leaf and inner pages during regular vacuum
+  - [spgprocesspending](../s/spgprocesspending.md): Called when processing pages from pending list
 
 ## Notes and Other Information
 - This is a static function within the spgvacuum.c file

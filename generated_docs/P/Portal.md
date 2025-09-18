@@ -17,24 +17,24 @@ Portal is a fundamental abstraction in PostgreSQL's query execution system that 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PortalData (the underlying structure this points to)
+  - [PortalData](PortalData.md) (the underlying structure this points to)
 - Called from (representative examples):
-  - PerformCursorOpen
-  - PerformPortalFetch  
-  - PortalStart
-  - PortalRun
+  - [PerformCursorOpen](PerformCursorOpen.md)
+  - [PerformPortalFetch](PerformPortalFetch.md)  
+  - [PortalStart](PortalStart.md)
+  - [PortalRun](PortalRun.md)
   - CreatePortal
   - PortalDrop
-  - exec_simple_query
-  - exec_execute_message
-  - SPI_cursor_open
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_execute_message](../e/exec_execute_message.md)
+  - [SPI_cursor_open](../S/SPI_cursor_open.md)
   - Various portal management functions in portalmem.c
 
 ## Notes and Other Information
-- Portal is widely used throughout PostgreSQL's backend for query execution management
+- [Portal](Portal.md) is widely used throughout PostgreSQL's backend for query execution management
 - The portal system supports different execution strategies (PORTAL_ONE_SELECT, PORTAL_ONE_RETURNING, etc.)
 - Portals can be held across transaction boundaries for cursor functionality
-- Portal lifecycle includes states: NEW, DEFINED, READY, ACTIVE, DONE, FAILED
+- [Portal](Portal.md) lifecycle includes states: NEW, DEFINED, READY, ACTIVE, DONE, FAILED
 - Memory management for portals is handled through dedicated portal memory contexts
 - Portals are used by both direct SQL execution and the SPI (Server Programming Interface)
 - The portal hash table manages all active portals in a session

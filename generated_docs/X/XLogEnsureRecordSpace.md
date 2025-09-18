@@ -27,19 +27,19 @@ The function maintains two key data structures: registered_buffers array for buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc: Memory reallocation function
+  - [repalloc](../r/repalloc.md): Memory reallocation function
   - MemSet: Memory initialization function
   - XLR_NORMAL_MAX_BLOCK_ID: Default maximum block ID constant
   - XLR_NORMAL_RDATAS: Default maximum data chunks constant
   - XLR_MAX_BLOCK_ID: System maximum block ID limit
-  - registered_buffer: Buffer registration structure type
+  - [registered_buffer](../r/registered_buffer.md): Buffer registration structure type
   - XLogRecData: WAL data chunk structure type
 - Called from (representative examples):
-  - shiftList: GIN index list shifting operations
-  - gistplacetopage: GiST index page placement
-  - _hash_freeovflpage: Hash index overflow page management
-  - log_newpages: Multi-page WAL logging
-  - EndPrepare: Two-phase commit preparation
+  - [shiftList](../s/shiftList.md): GIN index list shifting operations
+  - [gistplacetopage](../g/gistplacetopage.md): GiST index page placement
+  - [_hash_freeovflpage](../h/_hash_freeovflpage.md): Hash index overflow page management
+  - [log_newpages](../l/log_newpages.md): Multi-page WAL logging
+  - [EndPrepare](../E/EndPrepare.md): Two-phase commit preparation
 
 ## Notes and Other Information
 - Critical section restriction: Must be called before entering critical sections due to potential memory allocation failure

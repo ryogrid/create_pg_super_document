@@ -17,14 +17,14 @@ This function serves as a validation hook for the COMP_KEYWORD_CASE psql variabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)
   - PsqlVarEnumError (for error reporting on invalid values)
   - PSQL_COMP_CASE_PRESERVE_UPPER (enum constant)
   - PSQL_COMP_CASE_PRESERVE_LOWER (enum constant)
   - PSQL_COMP_CASE_UPPER (enum constant)
   - PSQL_COMP_CASE_LOWER (enum constant)
 - Called from (representative examples):
-  - EstablishVariableSpace (via SetVariableHooks for COMP_KEYWORD_CASE variable)
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md) (via SetVariableHooks for COMP_KEYWORD_CASE variable)
 
 ## Notes and Other Information
 - The function expects newval to never be NULL due to the substitute hook providing a default value

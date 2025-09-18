@@ -17,11 +17,11 @@ This function efficiently computes the next power of 2 for 64-bit unsigned integ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos64 (to find the position of the leftmost set bit)
+  - [pg_leftmost_one_pos64](pg_leftmost_one_pos64.md) (to find the position of the leftmost set bit)
   - PG_UINT64_MAX (maximum value constant for bounds checking)
 - Called from (representative examples):
-  - SH_COMPUTE_SIZE (hash table size computation)
-  - SH_GROW (hash table growth operations)
+  - [SH_COMPUTE_SIZE](../S/SH_COMPUTE_SIZE.md) (hash table size computation)
+  - [SH_GROW](../S/SH_GROW.md) (hash table growth operations)
   - pg_nextpower2_size_t (size_t variant wrapper)
 
 ## Notes and Other Information

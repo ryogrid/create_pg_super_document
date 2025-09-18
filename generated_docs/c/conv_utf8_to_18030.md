@@ -40,11 +40,11 @@ The function handles 10 specific Unicode ranges:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - utf8word_to_unicode: Converts UTF-8 4-byte sequence to Unicode code point
-  - gb_linear: Converts GB18030 4-byte code to linear representation
-  - gb_unlinear: Converts linear code back to GB18030 4-byte format
+  - [utf8word_to_unicode](../u/utf8word_to_unicode.md): Converts UTF-8 4-byte sequence to Unicode code point
+  - [gb_linear](../g/gb_linear.md): Converts GB18030 4-byte code to linear representation
+  - [gb_unlinear](../g/gb_unlinear.md): Converts linear code back to GB18030 4-byte format
 - Called from (representative examples):
-  - utf8_to_gb18030: Main conversion function that uses this helper for special range mappings
+  - [utf8_to_gb18030](../u/utf8_to_gb18030.md): Main conversion function that uses this helper for special range mappings
 
 ## Notes and Other Information
 - Returns 0 if no mapping exists for the given Unicode code point

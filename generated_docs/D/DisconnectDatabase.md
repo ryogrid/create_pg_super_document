@@ -20,14 +20,14 @@ This function safely disconnects from a PostgreSQL database by performing proper
 ## Dependencies
 - Functions called/Symbols referenced:
   - PQtransactionStatus (checks if there are active queries)
-  - PQcancel (cancels active queries)
-  - set_archive_cancel_info (deregisters signal handlers)
-  - PQfinish (closes the PostgreSQL connection)
+  - [PQcancel](../P/PQcancel.md) (cancels active queries)
+  - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (deregisters signal handlers)
+  - [PQfinish](../P/PQfinish.md) (closes the PostgreSQL connection)
 - Called from (representative examples):
-  - archive_close_connection
-  - RunWorker
-  - RestoreArchive
-  - restore_toc_entries_prefork
+  - [archive_close_connection](../a/archive_close_connection.md)
+  - [RunWorker](../R/RunWorker.md)
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [restore_toc_entries_prefork](../r/restore_toc_entries_prefork.md)
 
 ## Notes and Other Information
 - Safely handles cases where connection is already NULL by returning early

@@ -18,9 +18,9 @@ PQresultAlloc is a public API function that provides a safe interface for alloca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqResultAlloc
+  - [pqResultAlloc](../p/pqResultAlloc.md)
 - Called from (representative examples):
-  - PQsetResultAttrs
+  - [PQsetResultAttrs](PQsetResultAttrs.md)
 
 ## Notes and Other Information
 - All allocations are forced to maxaligned boundaries for binary data compatibility

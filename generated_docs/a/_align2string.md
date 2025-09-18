@@ -22,8 +22,8 @@ The `_align2string` function serves as a conversion utility that maps enum value
   - printFormat (enum type for output formats)
   - PRINT_NOTHING, PRINT_ALIGNED, PRINT_ASCIIDOC, PRINT_CSV, PRINT_HTML, PRINT_LATEX, PRINT_LATEX_LONGTABLE, PRINT_TROFF_MS, PRINT_UNALIGNED, PRINT_WRAPPED (enum values)
 - Called from (representative examples):
-  - printPsetInfo (for displaying current format settings)
-  - pset_value_string (for getting format setting values as strings)
+  - [printPsetInfo](../p/printPsetInfo.md) (for displaying current format settings)
+  - [pset_value_string](../p/pset_value_string.md) (for getting format setting values as strings)
 
 ## Notes and Other Information
 - The function is declared as static, limiting its scope to the command.c compilation unit

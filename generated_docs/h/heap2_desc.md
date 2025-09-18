@@ -29,14 +29,14 @@ The function extracts structured data from the WAL record and formats it into a 
   - XLogRecGetData
   - XLogRecGetInfo
   - XLogRecHasBlockData
-  - XLogRecGetBlockData
-  - heap_xlog_deserialize_prune_and_freeze
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [heap_xlog_deserialize_prune_and_freeze](heap_xlog_deserialize_prune_and_freeze.md)
   - appendStringInfo
   - appendStringInfoString
-  - array_desc
-  - infobits_desc
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [array_desc](../a/array_desc.md)
+  - [infobits_desc](../i/infobits_desc.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
   - WAL record description infrastructure (indirectly through resource manager tables)
 

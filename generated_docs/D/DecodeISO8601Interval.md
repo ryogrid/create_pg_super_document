@@ -29,15 +29,15 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClearPgItmIn - initializes the interval structure
-  - ParseISO8601Number - parses numeric values and fractional parts
+  - [ClearPgItmIn](../C/ClearPgItmIn.md) - initializes the interval structure
+  - [ParseISO8601Number](../P/ParseISO8601Number.md) - parses numeric values and fractional parts
   - AdjustYears, AdjustMonths, AdjustDays - adjust date components
   - AdjustMicroseconds, AdjustFractMicroseconds, AdjustFractYears, AdjustFractDays - adjust time components and fractional values
-  - ISO8601IntegerWidth - validates integer field width for alternative formats
+  - [ISO8601IntegerWidth](../I/ISO8601IntegerWidth.md) - validates integer field width for alternative formats
   - Constants: DTK_DELTA, DTERR_BAD_FORMAT, DTERR_FIELD_OVERFLOW, DAYS_PER_MONTH, USECS_PER_DAY, USECS_PER_HOUR, USECS_PER_MINUTE, USECS_PER_SEC
 - Called from:
-  - interval_in (src/backend/utils/adt/timestamp.c:938)
-  - PGTYPESinterval_from_asc (src/interfaces/ecpg/pgtypeslib/interval.c:1033)
+  - [interval_in](../i/interval_in.md) (src/backend/utils/adt/timestamp.c:938)
+  - [PGTYPESinterval_from_asc](../P/PGTYPESinterval_from_asc.md) (src/interfaces/ecpg/pgtypeslib/interval.c:1033)
 
 ## Notes and Other Information
 - Returns 0 on success, or a DTERR error code for malformed input

@@ -21,30 +21,30 @@ This function implements statistics collection for tsvector columns by finding t
 ## Dependencies
 - Functions called/Symbols referenced:
   - VacAttrStats
-  - HTAB
+  - [HTAB](../H/HTAB.md)
   - HASHCTL
   - LexemeHashKey
-  - TrackItem
-  - lexeme_hash
-  - lexeme_match
-  - prune_lexemes_hashtable
-  - hash_create
+  - [TrackItem](../T/TrackItem.md)
+  - [lexeme_hash](../l/lexeme_hash.md)
+  - [lexeme_match](../l/lexeme_match.md)
+  - [prune_lexemes_hashtable](../p/prune_lexemes_hashtable.md)
+  - [hash_create](../h/hash_create.md)
   - TSVector
   - WordEntry
-  - vacuum_delay_point
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
   - VARSIZE_ANY
-  - DatumGetTSVector
+  - [DatumGetTSVector](../D/DatumGetTSVector.md)
   - STRPTR
   - ARRPTR
-  - hash_search
-  - hash_get_num_entries
-  - hash_seq_init
-  - hash_seq_search
-  - trackitem_compare_frequencies_desc
-  - trackitem_compare_lexemes
+  - [hash_search](../h/hash_search.md)
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [trackitem_compare_frequencies_desc](../t/trackitem_compare_frequencies_desc.md)
+  - [trackitem_compare_lexemes](../t/trackitem_compare_lexemes.md)
   - cstring_to_text_with_len
 - Called from (representative examples):
-  - ts_typanalyze (via function pointer assignment)
+  - [ts_typanalyze](../t/ts_typanalyze.md) (via function pointer assignment)
 
 ## Notes and Other Information
 - Uses Lossy Counting algorithm with bucket width = (num_mcelem + 10) * 1000 / 7

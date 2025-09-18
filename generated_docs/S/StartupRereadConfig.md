@@ -20,13 +20,13 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcessConfigFile (reloads configuration with PGC_SIGHUP context)
-  - StartupRequestWalReceiverRestart (requests WAL receiver restart)
-  - pstrdup (duplicates strings for comparison)
-  - pfree (frees allocated memory)
+  - [StartupRequestWalReceiverRestart](StartupRequestWalReceiverRestart.md) (requests WAL receiver restart)
+  - [pstrdup](../p/pstrdup.md) (duplicates strings for comparison)
+  - [pfree](../p/pfree.md) (frees allocated memory)
   - strcmp (compares strings)
   - PGC_SIGHUP (configuration context constant)
 - Called from (representative examples):
-  - HandleStartupProcInterrupts (processes configuration reload requests)
+  - [HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md) (processes configuration reload requests)
 
 ## Notes and Other Information
 - Called in response to SIGHUP signals during recovery operations

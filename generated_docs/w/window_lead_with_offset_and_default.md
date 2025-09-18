@@ -17,7 +17,7 @@ This function provides the full SQL LEAD window function functionality with both
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - leadlag_common (with parameters true, true, true indicating lead operation, with offset, with default)
+  - [leadlag_common](../l/leadlag_common.md) (with parameters true, true, true indicating lead operation, with offset, with default)
 - Called from:
   - No direct references found (likely called through PostgreSQL's function call mechanism)
 

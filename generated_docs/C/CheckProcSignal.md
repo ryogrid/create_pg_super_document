@@ -20,10 +20,10 @@ The function implements an atomic test-and-clear operation on signal flags, ensu
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcSignalReason (enum type)
-  - ProcSignalSlot (struct type)
+  - [ProcSignalSlot](../P/ProcSignalSlot.md) (struct type)
   - MyProcSignalSlot (global variable)
 - Called from (representative examples):
-  - procsignal_sigusr1_handler (primary caller, checks multiple signal reasons)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (primary caller, checks multiple signal reasons)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the procsignal.c compilation unit

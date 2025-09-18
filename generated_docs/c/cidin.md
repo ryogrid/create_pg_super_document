@@ -21,7 +21,7 @@ The cidin function is part of PostgreSQL's command identifier (cid) data type im
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandId (type definition for command identifiers)
-  - uint32in_subr (utility function for string-to-uint32 conversion with error handling)
+  - [uint32in_subr](../u/uint32in_subr.md) (utility function for string-to-uint32 conversion with error handling)
   - PG_RETURN_COMMANDID (macro for returning CommandId values)
 - Called from (representative examples):
   - SQL input operations for cid data type
@@ -31,7 +31,7 @@ The cidin function is part of PostgreSQL's command identifier (cid) data type im
 ## Notes and Other Information
 - Part of PostgreSQL's Command Identifier subsystem for MVCC support
 - Handles input validation and error reporting through uint32in_subr
-- Command identifiers are crucial for tracking command order within transactions
+- [Command](../C/Command.md) identifiers are crucial for tracking command order within transactions
 - The "cid" parameter in uint32in_subr provides context for error messages
 - Located in src/backend/utils/adt/xid.c:322-334
 - Complemented by cidout function for output conversion

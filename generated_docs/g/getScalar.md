@@ -22,13 +22,13 @@ This function performs type checking for scalar JsonbValue objects. It verifies 
   - jbvBinary (JsonbValue type constant for binary data)
   - JsonContainerIsScalar (macro to check if container holds a scalar value)
 - Called from (representative examples):
-  - executeBinaryArithmExpr (for numeric operations)
-  - executeUnaryArithmExpr (for unary arithmetic)
-  - executeStartsWith (for string operations)
-  - executeLikeRegex (for pattern matching)
-  - executeNumericItemMethod (for numeric methods)
-  - executeDateTimeMethod (for date/time operations)
-  - getArrayIndex (for array indexing)
+  - [executeBinaryArithmExpr](../e/executeBinaryArithmExpr.md) (for numeric operations)
+  - [executeUnaryArithmExpr](../e/executeUnaryArithmExpr.md) (for unary arithmetic)
+  - [executeStartsWith](../e/executeStartsWith.md) (for string operations)
+  - [executeLikeRegex](../e/executeLikeRegex.md) (for pattern matching)
+  - [executeNumericItemMethod](../e/executeNumericItemMethod.md) (for numeric methods)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (for date/time operations)
+  - [getArrayIndex](getArrayIndex.md) (for array indexing)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c, not exposed in the public API

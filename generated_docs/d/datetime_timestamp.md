@@ -33,7 +33,7 @@ This function is essential for reconstructing complete datetime information from
   - TimeADT: Time abstract data type for storing time values
   - PG_GETARG_TIMEADT: Macro to extract TimeADT argument
   - Timestamp: Timestamp data type for the result
-  - date2timestamp: Function to convert date to timestamp
+  - [date2timestamp](date2timestamp.md): Function to convert date to timestamp
   - TIMESTAMP_NOT_FINITE: Macro to check for infinite timestamp values
   - IS_VALID_TIMESTAMP: Macro to validate timestamp range
   - PG_RETURN_TIMESTAMP: Macro to return timestamp result

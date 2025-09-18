@@ -21,12 +21,12 @@ This static function performs the same validation as verify_common_type() but op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - can_coerce_type (to check coercion feasibility)
+  - [can_coerce_type](../c/can_coerce_type.md) (to check coercion feasibility)
   - COERCION_IMPLICIT (coercion method constant)
 
 - Called from (representative examples):
-  - check_generic_type_consistency (generic type consistency checking)
-  - enforce_generic_type_consistency (generic type consistency enforcement)
+  - [check_generic_type_consistency](../c/check_generic_type_consistency.md) (generic type consistency checking)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md) (generic type consistency enforcement)
 
 ## Notes and Other Information
 - Static function - only visible within parse_coerce.c

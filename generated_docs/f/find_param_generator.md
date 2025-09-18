@@ -19,7 +19,7 @@ This function attempts to locate the subplan or initplan that emits the value fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_param_generator_initplan
+  - [find_param_generator_initplan](find_param_generator_initplan.md)
   - foreach_node
   - foreach_int
   - foreach_current_index
@@ -28,7 +28,7 @@ This function attempts to locate the subplan or initplan that emits the value fo
   - PARAM_EXEC
   - MULTIEXPR_SUBLINK
 - Called from (representative examples):
-  - get_parameter
+  - [get_parameter](../g/get_parameter.md)
 
 ## Notes and Other Information
 - Only processes PARAM_EXEC parameters; returns NULL for other parameter types

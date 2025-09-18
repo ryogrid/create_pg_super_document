@@ -25,13 +25,13 @@ The function handles both simple file editing and editor positioning to a specif
   - getenv() (multiple calls to check environment variables)
   - DEFAULT_EDITOR (fallback editor constant)
   - DEFAULT_EDITOR_LINENUMBER_ARG (platform-specific line number argument)
-  - psprintf() (for command construction)
+  - [psprintf](../p/psprintf.md)() (for command construction)
   - system() (for editor execution)
   - pg_log_error() (for error reporting)
   - fflush() (to flush output streams)
   - free() (to clean up allocated command string)
 - Called from:
-  - do_edit (at src/bin/psql/command.c:4302)
+  - [do_edit](../d/do_edit.md) (at src/bin/psql/command.c:4302)
 
 ## Notes and Other Information
 - Checks environment variables in this order: PSQL_EDITOR, EDITOR, VISUAL, then falls back to DEFAULT_EDITOR

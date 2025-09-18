@@ -17,9 +17,9 @@ PLyScalarToOb is a simple struct used within the PLyDatumToOb union to handle co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)
 - Called from (representative examples):
-  - PLyDatumToOb (as part of the union)
+  - [PLyDatumToOb](PLyDatumToOb.md) (as part of the union)
 
 ## Notes and Other Information
 This struct is part of the type-specific conversion data stored in PLyDatumToOb's union. It represents the simplest case of data conversion where PostgreSQL's built-in type output functions are used to convert values to string representation before creating Python objects.

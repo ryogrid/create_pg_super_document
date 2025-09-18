@@ -25,14 +25,14 @@ Each chunk includes a PipeProtoChunk header with destination information (stderr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PipeProtoChunk (struct type)
+  - [PipeProtoChunk](../P/PipeProtoChunk.md) (struct type)
   - write (system call)
   - Various pipe protocol constants (PIPE_MAX_PAYLOAD, PIPE_HEADER_SIZE, PIPE_PROTO_IS_LAST, etc.)
   - Log destination constants
 - Called from:
-  - send_message_to_server_log
-  - write_csvlog
-  - write_jsonlog
+  - [send_message_to_server_log](../s/send_message_to_server_log.md)
+  - [write_csvlog](write_csvlog.md)
+  - [write_jsonlog](write_jsonlog.md)
 
 ## Notes and Other Information
 - Critical for preventing log message corruption in multi-process environments

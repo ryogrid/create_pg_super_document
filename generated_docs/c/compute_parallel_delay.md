@@ -18,12 +18,12 @@ This function implements a sophisticated cost-based delay mechanism specifically
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32
-  - pg_atomic_add_fetch_u32
-  - pg_atomic_sub_fetch_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_add_fetch_u32](../p/pg_atomic_add_fetch_u32.md)
+  - [pg_atomic_sub_fetch_u32](../p/pg_atomic_sub_fetch_u32.md)
   - Assert (macro)
 - Called from (representative examples):
-  - vacuum_delay_point
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
 
 ## Notes and Other Information
 - Function is static (internal to vacuum.c)

@@ -21,14 +21,14 @@ This function serves as the core implementation for JSONB array element extracti
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P: Extract JSONB argument from function call
   - JB_ROOT_IS_SCALAR/JB_ROOT_IS_ARRAY: JSONB type checking macros
-  - InitMaterializedSRF: Initialize set-returning function framework
-  - JsonbIteratorInit/JsonbIteratorNext: JSONB iteration functions
-  - JsonbValueAsText/JsonbValueToJsonb: JSONB value conversion functions
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md): Initialize set-returning function framework
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)/JsonbIteratorNext: JSONB iteration functions
+  - [JsonbValueAsText](../J/JsonbValueAsText.md)/JsonbValueToJsonb: JSONB value conversion functions
   - tuplestore_putvalues: Store result tuples
   - AllocSetContextCreate/MemoryContextDelete: Memory management
 - Called from:
-  - jsonb_array_elements: Main entry point for JSONB array element extraction
-  - jsonb_array_elements_text: Main entry point for text-mode array element extraction
+  - [jsonb_array_elements](../j/jsonb_array_elements.md): Main entry point for JSONB array element extraction
+  - [jsonb_array_elements_text](../j/jsonb_array_elements_text.md): Main entry point for text-mode array element extraction
 
 ## Notes and Other Information
 - Raises errors for scalar and object JSONB inputs, as only arrays are valid for element extraction

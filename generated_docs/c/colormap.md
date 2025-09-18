@@ -63,17 +63,17 @@ The structure also manages color allocation through a free list mechanism and pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vars (for error reporting)
+  - [vars](../v/vars.md) (for error reporting)
   - colordesc (color descriptor structure)
-  - colormaprange (character range structure)
+  - [colormaprange](colormaprange.md) (character range structure)
   - color (color type)
 
 - Called from (representative examples):
-  - initcm (initialization)
-  - freecm (cleanup)
-  - pg_reg_getcolor (color lookup)
-  - newcolor (color allocation)
-  - subcolor (color operations)
+  - [initcm](../i/initcm.md) (initialization)
+  - [freecm](../f/freecm.md) (cleanup)
+  - [pg_reg_getcolor](../p/pg_reg_getcolor.md) (color lookup)
+  - [newcolor](../n/newcolor.md) (color allocation)
+  - [subcolor](../s/subcolor.md) (color operations)
   - Various regex compilation and execution functions
 
 ## Notes and Other Information

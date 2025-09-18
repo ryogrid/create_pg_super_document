@@ -21,7 +21,7 @@ This function is recursion-safe and handles nested indirect datums by recursivel
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - VARATT_IS_EXTERNAL_ONDISK
   - VARATT_IS_EXTERNAL_INDIRECT
   - VARATT_IS_EXTERNAL_EXPANDED
@@ -33,20 +33,20 @@ This function is recursion-safe and handles nested indirect datums by recursivel
   - VARDATA_COMPRESSED_GET_EXTSIZE
   - VARSIZE_SHORT
   - VARSIZE
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - Assert
 - Types used:
-  - varatt_external
-  - varatt_indirect
+  - [varatt_external](../v/varatt_external.md)
+  - [varatt_indirect](../v/varatt_indirect.md)
 - Called from:
   - Itself (recursive call for indirect datums)
-  - TrackItem
-  - compute_scalar_stats
-  - build_sorted_items
-  - compute_array_stats
-  - datum_image_eq
-  - datum_image_hash
-  - record_image_cmp
+  - [TrackItem](../T/TrackItem.md)
+  - [compute_scalar_stats](../c/compute_scalar_stats.md)
+  - [build_sorted_items](../b/build_sorted_items.md)
+  - [compute_array_stats](../c/compute_array_stats.md)
+  - [datum_image_eq](../d/datum_image_eq.md)
+  - [datum_image_hash](../d/datum_image_hash.md)
+  - [record_image_cmp](../r/record_image_cmp.md)
   - Various text and bytea functions
   - INDIRECT_POINTER_SIZE macro
 

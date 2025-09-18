@@ -31,8 +31,8 @@ The float_time_overflows function provides validation for time components where 
 - Types used:
   - int64 (for casting seconds to integer)
 - Called from (representative examples):
-  - make_time
-  - make_timestamp_internal
+  - [make_time](../m/make_time.md)
+  - [make_timestamp_internal](../m/make_timestamp_internal.md)
   - PG_RETURN_TIMETZADT_P
 
 ## Notes and Other Information

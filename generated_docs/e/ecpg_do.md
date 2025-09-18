@@ -33,7 +33,7 @@ The `ecpg_do` function serves as the core execution engine for SQL statements in
   - ecpg_process_output
   - ecpg_do_epilogue
 - Called from (representative examples):
-  - ECPGdo
+  - [ECPGdo](../E/ECPGdo.md)
 
 ## Notes and Other Information
 - Returns true on successful execution, false on failure

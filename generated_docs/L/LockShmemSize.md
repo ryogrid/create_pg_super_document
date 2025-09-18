@@ -27,12 +27,12 @@ This function takes no parameters and returns a Size value representing the esti
 ## Dependencies
 - Functions called/Symbols referenced:
   - NLOCKENTS (macro/function that estimates lock table size)
-  - hash_estimate_size (calculates hash table memory requirements)
-  - add_size (safely adds Size values with overflow checking)
+  - [hash_estimate_size](../h/hash_estimate_size.md) (calculates hash table memory requirements)
+  - [add_size](../a/add_size.md) (safely adds Size values with overflow checking)
   - LOCK (structure size for lock table entries)
-  - PROCLOCK (structure size for process-lock association entries)
+  - [PROCLOCK](../P/PROCLOCK.md) (structure size for process-lock association entries)
 - Called from (representative examples):
-  - CalculateShmemSize (during server startup shared memory calculation)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (during server startup shared memory calculation)
 
 ## Notes and Other Information
 - The PROCLOCK table is sized at 2x the LOCK table size based on the assumption that multiple processes will typically hold locks on the same objects

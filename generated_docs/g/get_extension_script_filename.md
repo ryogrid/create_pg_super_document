@@ -25,15 +25,15 @@ The function constructs the path by combining the extension's script directory w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_extension_script_directory
-  - palloc
+  - [get_extension_script_directory](get_extension_script_directory.md)
+  - [palloc](../p/palloc.md)
   - snprintf
-  - pfree
+  - [pfree](../p/pfree.md)
 - Types referenced:
-  - ExtensionControlFile
+  - [ExtensionControlFile](../E/ExtensionControlFile.md)
 - Called from (representative examples):
-  - execute_extension_script
-  - CreateExtensionInternal
+  - [execute_extension_script](../e/execute_extension_script.md)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the extension.c source file

@@ -28,21 +28,21 @@ The function handles complex scenarios including partitioned tables, schema-leve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search (cache lookup)
+  - [hash_search](../h/hash_search.md) (cache lookup)
   - RelationGetRelid (get relation OID)
-  - get_rel_namespace (get schema OID)
-  - GetRelationPublications (get relation's publications)
-  - GetSchemaPublications (get schema's publications) 
-  - get_rel_relispartition (check if partition)
-  - get_partition_ancestors (get partition hierarchy)
-  - GetTopMostAncestorInPublication (find published ancestor)
-  - init_tuple_slot (initialize tuple storage)
-  - pgoutput_row_filter_init (setup row filtering)
-  - pgoutput_column_list_init (setup column lists)
-  - LoadPublications (reload publication data)
+  - [get_rel_namespace](get_rel_namespace.md) (get schema OID)
+  - [GetRelationPublications](../G/GetRelationPublications.md) (get relation's publications)
+  - [GetSchemaPublications](../G/GetSchemaPublications.md) (get schema's publications) 
+  - [get_rel_relispartition](get_rel_relispartition.md) (check if partition)
+  - [get_partition_ancestors](get_partition_ancestors.md) (get partition hierarchy)
+  - [GetTopMostAncestorInPublication](../G/GetTopMostAncestorInPublication.md) (find published ancestor)
+  - [init_tuple_slot](../i/init_tuple_slot.md) (initialize tuple storage)
+  - [pgoutput_row_filter_init](../p/pgoutput_row_filter_init.md) (setup row filtering)
+  - [pgoutput_column_list_init](../p/pgoutput_column_list_init.md) (setup column lists)
+  - [LoadPublications](../L/LoadPublications.md) (reload publication data)
 - Called from (representative examples):
-  - pgoutput_change (during change processing)
-  - pgoutput_truncate (during truncate processing)
+  - [pgoutput_change](../p/pgoutput_change.md) (during change processing)
+  - [pgoutput_truncate](../p/pgoutput_truncate.md) (during truncate processing)
 
 ## Notes and Other Information
 - The function uses a global RelationSyncCache hash table to store entries

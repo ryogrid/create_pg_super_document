@@ -26,11 +26,11 @@ This function implements range-based comparisons for PostgreSQL window functions
   - PG_GETARG_INT32 (macro to extract int4 arguments)
   - PG_GETARG_INT64 (macro to extract int8 argument)
   - PG_GETARG_BOOL (macro to extract boolean arguments)
-  - pg_add_s64_overflow (64-bit overflow-safe addition function)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (64-bit overflow-safe addition function)
   - ereport (error reporting function)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Called from (representative examples):
-  - in_range_int2_int8 (delegates to this function for core logic)
+  - [in_range_int2_int8](in_range_int2_int8.md) (delegates to this function for core logic)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/int.c:669-703

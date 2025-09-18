@@ -24,7 +24,7 @@ The function ensures that sufficient memory is available for the minimal tuple a
 ## Dependencies
 - Functions called/Symbols referenced:
   - `TupleSortUseBumpTupleCxt` - Determines whether to use bump context for tuple storage
-  - `BumpContextCreate` - Creates bump memory context for efficient allocation
+  - `[BumpContextCreate](../B/BumpContextCreate.md)` - Creates bump memory context for efficient allocation
   - `AllocSetContextCreate` - Creates standard allocset memory context
   - `GetMemoryChunkSpace` - Gets memory chunk size for accounting
   - `USEMEM` - Macro for tracking memory usage
@@ -33,7 +33,7 @@ The function ensures that sufficient memory is available for the minimal tuple a
   - `INITIAL_MEMTUPSIZE` - Default size for initial tuple array
   - `SortTuple` - Structure for individual sorted tuples
 - Called from (representative examples):
-  - `tuplesort_begin_common` - During initial tuplesort setup
+  - `[tuplesort_begin_common](tuplesort_begin_common.md)` - During initial tuplesort setup
   - `tuplesort_reset` - When resetting for subsequent batches
 
 ## Notes and Other Information

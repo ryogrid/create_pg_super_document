@@ -22,11 +22,11 @@ The function is designed for read-ahead scenarios where the caller wants to peek
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogDecodeNextRecord
+  - [XLogDecodeNextRecord](XLogDecodeNextRecord.md)
   - XLREAD_SUCCESS
 - Called from (representative examples):
-  - XLogPrefetcherNextBlock
-  - XLogReadRecord
+  - [XLogPrefetcherNextBlock](XLogPrefetcherNextBlock.md)
+  - [XLogReadRecord](XLogReadRecord.md)
 
 ## Notes and Other Information
 - Returns pointer to DecodedXLogRecord on success, NULL on failure or when no data is available

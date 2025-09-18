@@ -26,14 +26,14 @@ Key operational aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inv_open
+  - [inv_open](../i/inv_open.md)
   - text_to_cstring_buffer
   - umask
   - OpenTransientFilePerm
-  - inv_read
+  - [inv_read](../i/inv_read.md)
   - write
   - CloseTransientFile
-  - inv_close
+  - [inv_close](../i/inv_close.md)
 - Called from (representative examples):
   - SQL function lo_export() (via function manager)
 

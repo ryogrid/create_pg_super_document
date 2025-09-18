@@ -18,13 +18,13 @@ This function handles complex circular dependency scenarios involving domain con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency
-  - addObjectDependency
+  - [removeObjectDependency](removeObjectDependency.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
   - DumpableObject (struct type)
-  - ConstraintInfo (struct type)
+  - [ConstraintInfo](../C/ConstraintInfo.md) (struct type)
   - postDataBoundId (global boundary marker)
 - Called from (representative examples):
-  - repairDependencyLoop (at pg_dump_sort.c:1397)
+  - [repairDependencyLoop](repairDependencyLoop.md) (at pg_dump_sort.c:1397)
 
 ## Notes and Other Information
 - This is a static function within pg_dump_sort.c for internal dependency sorting use

@@ -30,15 +30,15 @@ Unlike vacuum records which handle conflicts globally, individual GiST delete re
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts gistxlogDelete structure from WAL record)
-  - XLogRecGetBlockTag (gets block tag for conflict resolution)
-  - ResolveRecoveryConflictWithSnapshot (handles Hot Standby conflicts)
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md) (gets block tag for conflict resolution)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md) (handles Hot Standby conflicts)
   - XLogReadBufferForRedo (reads buffer for redo operation)
-  - PageIndexMultiDelete (performs the actual tuple deletions)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (performs the actual tuple deletions)
   - GistClearPageHasGarbage (clears page garbage flag)
   - GistMarkTuplesDeleted (marks tuples as deleted)
   - InHotStandby (global variable indicating Hot Standby mode)
 - Called from (representative examples):
-  - gist_redo (main GiST WAL redo dispatcher)
+  - [gist_redo](gist_redo.md) (main GiST WAL redo dispatcher)
 
 ## Notes and Other Information
 - This is a static function only used within gistxlog.c

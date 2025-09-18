@@ -30,15 +30,15 @@ The function distinguishes between row marks that require actual tuple locking v
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create LockRowsState)
-  - ExecInitResultTypeTL (to initialize result tuple type)
-  - ExecInitNode (to initialize outer subplan)
-  - ExecGetResultSlotOps (to set up result slot operations)
-  - ExecFindRowMark (to locate row mark in estate)
-  - ExecBuildAuxRowMark (to create auxiliary row mark structure)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md) (to initialize result tuple type)
+  - [ExecInitNode](ExecInitNode.md) (to initialize outer subplan)
+  - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (to set up result slot operations)
+  - [ExecFindRowMark](ExecFindRowMark.md) (to locate row mark in estate)
+  - [ExecBuildAuxRowMark](ExecBuildAuxRowMark.md) (to create auxiliary row mark structure)
   - RowMarkRequiresRowShareLock (to determine if locking is needed)
-  - EvalPlanQualInit (to initialize EPQ state)
+  - [EvalPlanQualInit](EvalPlanQualInit.md) (to initialize EPQ state)
 - Called from (representative examples):
-  - ExecInitNode (standard plan node initialization)
+  - [ExecInitNode](ExecInitNode.md) (standard plan node initialization)
 
 ## Notes and Other Information
 - The function asserts that EXEC_FLAG_MARK is not set as LockRows nodes do not support mark/restore

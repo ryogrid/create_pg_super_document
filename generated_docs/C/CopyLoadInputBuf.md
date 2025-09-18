@@ -27,13 +27,13 @@ The function guarantees that on successful return, at least one new character is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyConvertBuf
-  - CopyConversionError  
-  - CopyLoadRawBuf
+  - [CopyConvertBuf](CopyConvertBuf.md)
+  - [CopyConversionError](CopyConversionError.md)  
+  - [CopyLoadRawBuf](CopyLoadRawBuf.md)
   - CopyFromState
 - Called from (representative examples):
   - NO_END_OF_COPY_GOTO
-  - CopyReadLineText
+  - [CopyReadLineText](CopyReadLineText.md)
 
 ## Notes and Other Information
 - The function implements a loop that continues until either new input data becomes available or an error/EOF condition is reached

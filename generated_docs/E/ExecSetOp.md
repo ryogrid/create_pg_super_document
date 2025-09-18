@@ -26,11 +26,11 @@ The function follows PostgreSQL's executor pattern of returning one tuple per ca
 - Functions called/Symbols referenced:
   - castNode (for type casting to SetOpState)
   - CHECK_FOR_INTERRUPTS (interrupt handling macro)
-  - setop_fill_hash_table (populates hash table for hashed strategy)
-  - setop_retrieve_hash_table (retrieves next tuple from hash table)
-  - setop_retrieve_direct (retrieves next tuple using direct comparison)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md) (populates hash table for hashed strategy)
+  - [setop_retrieve_hash_table](../s/setop_retrieve_hash_table.md) (retrieves next tuple from hash table)
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md) (retrieves next tuple using direct comparison)
 - Called from (representative examples):
-  - ExecInitSetOp (sets this as the execution function)
+  - [ExecInitSetOp](ExecInitSetOp.md) (sets this as the execution function)
 
 ## Notes and Other Information
 - Returns NULL when no more tuples are available (end of result set)

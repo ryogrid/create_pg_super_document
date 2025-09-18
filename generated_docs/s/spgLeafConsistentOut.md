@@ -29,16 +29,16 @@ The spgLeafConsistentOut structure is used as an output parameter for SP-GiST le
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)
-  - bool (standard boolean type)
+  - [bool](../b/bool.md) (standard boolean type)
   - double (standard floating-point type)
 - Called from (representative examples):
-  - spg_quad_leaf_consistent (src/backend/access/spgist/spgquadtreeproc.c:410)
-  - spgLeafTest (src/backend/access/spgist/spgscan.c:539)
-  - spg_text_leaf_consistent (src/backend/access/spgist/spgtextproc.c:577)
-  - spg_box_quad_leaf_consistent (src/backend/utils/adt/geo_spgist.c:744)
-  - inet_spg_leaf_consistent (src/backend/utils/adt/network_spgist.c:326)
-  - spg_range_quad_leaf_consistent (src/backend/utils/adt/rangetypes_spgist.c:920)
-  - spgist_name_leaf_consistent (src/test/modules/spgist_name_ops/spgist_name_ops.c:402)
+  - [spg_quad_leaf_consistent](spg_quad_leaf_consistent.md) (src/backend/access/spgist/spgquadtreeproc.c:410)
+  - [spgLeafTest](spgLeafTest.md) (src/backend/access/spgist/spgscan.c:539)
+  - [spg_text_leaf_consistent](spg_text_leaf_consistent.md) (src/backend/access/spgist/spgtextproc.c:577)
+  - [spg_box_quad_leaf_consistent](spg_box_quad_leaf_consistent.md) (src/backend/utils/adt/geo_spgist.c:744)
+  - [inet_spg_leaf_consistent](../i/inet_spg_leaf_consistent.md) (src/backend/utils/adt/network_spgist.c:326)
+  - [spg_range_quad_leaf_consistent](spg_range_quad_leaf_consistent.md) (src/backend/utils/adt/rangetypes_spgist.c:920)
+  - [spgist_name_leaf_consistent](spgist_name_leaf_consistent.md) (src/test/modules/spgist_name_ops/spgist_name_ops.c:402)
 
 ## Notes and Other Information
 - The leafValue field should contain the original indexed data, which may need to be reconstructed if the index stores compressed or transformed values

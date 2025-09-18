@@ -25,17 +25,17 @@ This comprehensive invalidation ensures that no stale cache entries remain when 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InvalidateSystemCachesExtended
+  - [InvalidateSystemCachesExtended](InvalidateSystemCachesExtended.md)
 - Called from (representative examples):
-  - AcceptInvalidationMessages
-  - ParallelWorkerMain
-  - pg_logical_slot_get_changes_guts
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
   - LogicalReplicationSlotHasPendingWal
-  - LogicalSlotAdvanceAndCheckSnapState
+  - [LogicalSlotAdvanceAndCheckSnapState](../L/LogicalSlotAdvanceAndCheckSnapState.md)
 
 ## Notes and Other Information
 - This function is called when shared invalidation queue overflow is detected, indicating that some invalidation messages were lost
 - The function performs a "nuclear option" cache flush since the system cannot determine exactly what needs to be invalidated
-- Relation descriptors with positive reference counts are automatically rebuilt after invalidation
+- [Relation](../R/Relation.md) descriptors with positive reference counts are automatically rebuilt after invalidation
 - The function is heavily used in logical replication contexts where cache consistency is critical
 - Performance impact is significant but necessary for correctness when message loss occurs

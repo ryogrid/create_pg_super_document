@@ -21,20 +21,20 @@ This function serves as the output converter for the custom WIDGET data type, tr
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (macro for extracting pointer arguments)
-  - psprintf (PostgreSQL's safe sprintf function for formatted string creation)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's safe sprintf function for formatted string creation)
   - PG_RETURN_CSTRING (returns C-string value as Datum)
 - Data types used:
-  - WIDGET (custom struct with Point center and double radius)
-  - Point (geometric point structure with x and y coordinates)
+  - [WIDGET](../W/WIDGET.md) (custom struct with Point center and double radius)
+  - [Point](../P/Point.md) (geometric point structure with x and y coordinates)
   - Datum (PostgreSQL's generic data type)
   - char* (C-string for the output text)
 
 - Called from (representative examples):
-  - WIDGET (referenced in the same file as part of type definition)
+  - [WIDGET](../W/WIDGET.md) (referenced in the same file as part of type definition)
 
 ## Notes and Other Information
 - This function is the output counterpart to widget_in, together forming the complete I/O function pair for the WIDGET data type
-- Uses psprintf instead of sprintf for memory safety - psprintf automatically allocates sufficient memory
+- Uses psprintf instead of sprintf for memory safety - [psprintf](../p/psprintf.md) automatically allocates sufficient memory
 - Formats output as "(x,y,radius)" using %g format specifier for optimal double representation
 - The %g format automatically chooses between fixed and exponential notation for optimal readability
 - Part of PostgreSQL's regression testing framework demonstrating custom data type output functions

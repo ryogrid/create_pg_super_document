@@ -39,6 +39,6 @@ This function constructs a ForeignPath node specifically for foreign table scan 
 - Includes an assertion that the relation must be a simple relation (IS_SIMPLE_REL)
 - The FDW must provide all cost estimates since core PostgreSQL cannot calculate them
 - Supports the pathtarget defaulting to rel->reltarget when target parameter is NULL
-- Path is marked as not parallel-aware but respects the relation's parallel safety settings
+- [Path](../P/Path.md) is marked as not parallel-aware but respects the relation's parallel safety settings
 - Essential for PostgreSQL's extensibility through the FDW interface
 - The fdw_private field allows FDWs to store implementation-specific optimization data

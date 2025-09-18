@@ -25,20 +25,20 @@ This function implements the main work loop for parallel BRIN index building. Ea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_index_brin: Initializes BRIN-specific tuplesort
-  - BuildIndexInfo: Creates index information structure
-  - table_beginscan_parallel: Starts parallel table scan
+  - [tuplesort_begin_index_brin](../t/tuplesort_begin_index_brin.md): Initializes BRIN-specific tuplesort
+  - [BuildIndexInfo](../B/BuildIndexInfo.md): Creates index information structure
+  - [table_beginscan_parallel](../t/table_beginscan_parallel.md): Starts parallel table scan
   - ParallelTableScanFromBrinShared: Extracts parallel scan state from shared memory
-  - table_index_build_scan: Performs the actual table scan and tuple processing
-  - brinbuildCallbackParallel: Callback function for processing each tuple
-  - form_and_spill_tuple: Finalizes the last BRIN range
+  - [table_index_build_scan](../t/table_index_build_scan.md): Performs the actual table scan and tuple processing
+  - [brinbuildCallbackParallel](brinbuildCallbackParallel.md): Callback function for processing each tuple
+  - [form_and_spill_tuple](../f/form_and_spill_tuple.md): Finalizes the last BRIN range
   - tuplesort_performsort: Sorts the collected BRIN ranges
   - ConditionVariableSignal: Signals completion to leader
   - tuplesort_end: Cleans up sorting resources
 
 - Called from (representative examples):
-  - _brin_leader_participate_as_worker: When leader participates as worker
-  - _brin_parallel_build_main: The main entry point for parallel workers
+  - [_brin_leader_participate_as_worker](_brin_leader_participate_as_worker.md): When leader participates as worker
+  - [_brin_parallel_build_main](_brin_parallel_build_main.md): The main entry point for parallel workers
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

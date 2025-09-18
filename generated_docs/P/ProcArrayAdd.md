@@ -30,13 +30,13 @@ The sorted arrangement improves performance during frequent operations like snap
   - LWLockRelease
   - ereport
   - memmove
-  - ProcArrayStruct
+  - [ProcArrayStruct](ProcArrayStruct.md)
   - ProcGlobal
   - NUM_AUXILIARY_PROCS
 
 - Called from (representative examples):
   - InitProcessPhase2
-  - MarkAsPrepared
+  - [MarkAsPrepared](../M/MarkAsPrepared.md)
 
 ## Notes and Other Information
 - Requires exclusive locks on both ProcArrayLock and XidGenLock to prevent race conditions

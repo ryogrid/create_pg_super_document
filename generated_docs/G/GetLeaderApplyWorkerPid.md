@@ -20,7 +20,7 @@ This function searches through the logical replication worker array to find a pa
   - LWLockAcquire, LWLockRelease
   - isParallelApplyWorker
   - InvalidPid, LW_SHARED
-  - LogicalRepWorker (struct type)
+  - [LogicalRepWorker](../L/LogicalRepWorker.md) (struct type)
   - LogicalRepCtx->workers (shared memory array)
   - max_logical_replication_workers (configuration variable)
 - Called from (representative examples):

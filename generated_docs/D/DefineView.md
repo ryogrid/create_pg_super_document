@@ -39,19 +39,19 @@ The function performs extensive error checking and provides helpful error messag
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (for RawStmt creation)
-  - parse_analyze_fixedparams
+  - [parse_analyze_fixedparams](../p/parse_analyze_fixedparams.md)
   - IsA (type checking macros)
   - elog, ereport (error reporting)
   - makeDefElem, makeString (option creation)
-  - view_query_is_auto_updatable
+  - [view_query_is_auto_updatable](../v/view_query_is_auto_updatable.md)
   - list_head, lnext, lfirst_node (list manipulation)
-  - pstrdup, strVal (string utilities)
+  - [pstrdup](../p/pstrdup.md), strVal (string utilities)
   - copyObject
-  - isQueryUsingTempRelation
-  - DefineVirtualRelation
+  - [isQueryUsingTempRelation](../i/isQueryUsingTempRelation.md)
+  - [DefineVirtualRelation](DefineVirtualRelation.md)
 
 - Called from:
-  - ProcessUtilitySlow (main utility command processor)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main utility command processor)
 
 ## Notes and Other Information
 - The function automatically promotes views to temporary status if they reference temporary relations, issuing a NOTICE to inform the user

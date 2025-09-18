@@ -24,21 +24,21 @@ The function implements an LRU-like optimization by moving frequently accessed c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - CatalogCacheInitializeCache
-  - CatalogCacheComputeHashValue
-  - CatalogCacheCompareTuple
-  - SearchCatCacheMiss
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md)
+  - [CatalogCacheComputeHashValue](../C/CatalogCacheComputeHashValue.md)
+  - [CatalogCacheCompareTuple](../C/CatalogCacheCompareTuple.md)
+  - [SearchCatCacheMiss](SearchCatCacheMiss.md)
   - ResourceOwnerEnlarge
   - ResourceOwnerRememberCatCacheRef
-  - dlist_move_head
+  - [dlist_move_head](../d/dlist_move_head.md)
   - HASH_INDEX
 - Called from (representative examples):
-  - SearchCatCache
-  - SearchCatCache1
-  - SearchCatCache2
-  - SearchCatCache3
-  - SearchCatCache4
+  - [SearchCatCache](SearchCatCache.md)
+  - [SearchCatCache1](SearchCatCache1.md)
+  - [SearchCatCache2](SearchCatCache2.md)
+  - [SearchCatCache3](SearchCatCache3.md)
+  - [SearchCatCache4](SearchCatCache4.md)
 
 ## Notes and Other Information
 - Requires an active transaction state (checked via IsTransactionState assertion)

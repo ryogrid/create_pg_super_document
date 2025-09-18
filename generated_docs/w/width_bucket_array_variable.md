@@ -34,9 +34,9 @@ The function handles the complexities of variable-width data storage, including 
   - att_align_nominal
   - fetch_att
   - FunctionCallInvoke
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from:
-  - width_bucket_array (src/backend/utils/adt/arrayfuncs.c:6727)
+  - [width_bucket_array](width_bucket_array.md) (src/backend/utils/adt/arrayfuncs.c:6727)
 
 ## Notes and Other Information
 - Designed specifically for variable-width types where element length varies

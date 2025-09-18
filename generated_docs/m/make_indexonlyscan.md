@@ -27,7 +27,7 @@ This function constructs an IndexOnlyScan plan node, which is an optimization th
 - Functions called/Symbols referenced:
   - makeNode (to create the IndexOnlyScan node)
 - Called from (representative examples):
-  - create_indexscan_plan
+  - [create_indexscan_plan](../c/create_indexscan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, indicating it's used internally for plan creation

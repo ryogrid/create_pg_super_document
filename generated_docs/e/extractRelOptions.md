@@ -19,16 +19,16 @@ This low-level function extracts relation options from a pg_class heap tuple and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fastgetattr (to extract reloptions field)
-  - heap_reloptions (for tables, toast tables, materialized views)
-  - partitioned_table_reloptions (for partitioned tables)
-  - view_reloptions (for views)
-  - index_reloptions (for indexes and partitioned indexes)
+  - [fastgetattr](../f/fastgetattr.md) (to extract reloptions field)
+  - [heap_reloptions](../h/heap_reloptions.md) (for tables, toast tables, materialized views)
+  - [partitioned_table_reloptions](../p/partitioned_table_reloptions.md) (for partitioned tables)
+  - [view_reloptions](../v/view_reloptions.md) (for views)
+  - [index_reloptions](../i/index_reloptions.md) (for indexes and partitioned indexes)
   - Form_pg_class
   - RELKIND_* constants
 - Called from (representative examples):
-  - extract_autovac_opts (autovacuum worker)
-  - RelationParseRelOptions (relcache)
+  - [extract_autovac_opts](extract_autovac_opts.md) (autovacuum worker)
+  - [RelationParseRelOptions](../R/RelationParseRelOptions.md) (relcache)
   - GET_STRING_RELOPTION (macro)
 
 ## Notes and Other Information

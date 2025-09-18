@@ -22,7 +22,7 @@ The structure is designed with careful field ordering considerations, anticipati
 ## Dependencies
 - Functions called/Symbols referenced: None directly
 - Called from (representative examples):
-  - HeapTupleHeaderData (used as a union member)
+  - [HeapTupleHeaderData](../H/HeapTupleHeaderData.md) (used as a union member)
 
 ## Notes and Other Information
 - The datum_typeid field cannot represent a domain over composite types, only plain composite types, following PostgreSQL's principle that CoerceToDomain does not alter the physical representation of base type values

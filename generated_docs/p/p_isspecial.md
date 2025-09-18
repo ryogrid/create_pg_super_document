@@ -29,8 +29,8 @@ The function uses binary search on the sorted array of special Unicode character
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_dsplen (checks character display length)
-  - GetDatabaseEncoding (gets current database encoding)
+  - [pg_dsplen](pg_dsplen.md) (checks character display length)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (gets current database encoding)
   - PG_UTF8 (UTF-8 encoding constant)
   - lengthof (macro for array length)
 - Called from (representative examples):

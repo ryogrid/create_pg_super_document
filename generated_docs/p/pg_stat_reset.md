@@ -19,7 +19,7 @@ The function affects only the current database's statistics, not system-wide or 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_reset_counters (resets the internal statistics counters)
+  - [pgstat_reset_counters](pgstat_reset_counters.md) (resets the internal statistics counters)
   - PG_RETURN_VOID (PostgreSQL macro to return void from a function)
 - Called from (representative examples):
   - SQL queries using pg_stat_reset() function

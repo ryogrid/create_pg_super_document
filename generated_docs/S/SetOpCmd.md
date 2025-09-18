@@ -22,9 +22,9 @@ SetOpCmd specifies the semantics of set operations in PostgreSQL queries. It dis
 - Functions called/Symbols referenced:
   - (This is an enum type with no function calls)
 - Called from (representative examples):
-  - make_setop (src/backend/optimizer/plan/createplan.c:6884)
-  - generate_nonunion_paths (src/backend/optimizer/prep/prepunion.c:1042)
-  - create_setop_path (src/backend/optimizer/util/pathnode.c:3558)
+  - [make_setop](../m/make_setop.md) (src/backend/optimizer/plan/createplan.c:6884)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md) (src/backend/optimizer/prep/prepunion.c:1042)
+  - [create_setop_path](../c/create_setop_path.md) (src/backend/optimizer/util/pathnode.c:3558)
   - SetOpPath (src/include/nodes/pathnodes.h:2336)
   - SetOp (src/include/nodes/plannodes.h:1222)
 

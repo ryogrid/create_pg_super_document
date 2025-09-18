@@ -28,14 +28,14 @@ This protocol ensures that the postmaster never crashes due to shared memory cor
 ## Dependencies
 - Functions called/Symbols referenced:
   - pid_t
-  - BackgroundWorker
+  - [BackgroundWorker](BackgroundWorker.md)
 - Called from (representative examples):
-  - BackgroundWorkerArray
-  - BackgroundWorkerShmemSize
-  - BackgroundWorkerShmemInit
-  - RegisterDynamicBackgroundWorker
-  - GetBackgroundWorkerPid
-  - TerminateBackgroundWorker
+  - [BackgroundWorkerArray](BackgroundWorkerArray.md)
+  - [BackgroundWorkerShmemSize](BackgroundWorkerShmemSize.md)
+  - [BackgroundWorkerShmemInit](BackgroundWorkerShmemInit.md)
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md)
+  - [GetBackgroundWorkerPid](../G/GetBackgroundWorkerPid.md)
+  - [TerminateBackgroundWorker](../T/TerminateBackgroundWorker.md)
 
 ## Notes and Other Information
 - Requires careful memory barrier usage: backends must fully initialize slots and insert write barriers before setting in_use=true

@@ -28,15 +28,15 @@ This function is essential for enabling multiple worker processes to collaborati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - index_beginscan_parallel
-  - index_rescan
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [index_beginscan_parallel](../i/index_beginscan_parallel.md)
+  - [index_rescan](../i/index_rescan.md)
 - Types used:
-  - IndexOnlyScanState
-  - ParallelWorkerContext
-  - ParallelIndexScanDesc
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md)
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md)
 
 ## Notes and Other Information
 - This function is the worker-side counterpart to ExecIndexOnlyScanInitializeDSM

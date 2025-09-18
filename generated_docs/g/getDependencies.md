@@ -29,19 +29,19 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - pg_log_info
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQfnumber
-  - PQgetvalue
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - findObjectByCatalogId
-  - addObjectDependency
-  - PQclear
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
   - pg_log_warning (in debug builds)
 - Called from:
-  - main (in src/bin/pg_dump/pg_dump.c:983)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:983)
 
 ## Notes and Other Information
 - Static function, only accessible within pg_dump.c

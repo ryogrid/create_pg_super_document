@@ -22,7 +22,7 @@ The function allocates a new bpchar structure with the appropriate variable-leng
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR
-  - palloc
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
   - VARDATA
   - PG_RETURN_BPCHAR_P

@@ -25,8 +25,8 @@ Like its simpler counterpart, it uses an additive hash approach, summing the thr
 - Functions called/Symbols referenced:
   - PG_GETARG_ACLITEM_P (macro to extract AclItem argument)
   - PG_GETARG_INT64 (macro to extract 64-bit integer seed)
-  - hash_uint32_extended (function for extended hash computation with seed)
-  - UInt64GetDatum (macro to return 64-bit unsigned integer as Datum)
+  - [hash_uint32_extended](hash_uint32_extended.md) (function for extended hash computation with seed)
+  - [UInt64GetDatum](../U/UInt64GetDatum.md) (macro to return 64-bit unsigned integer as Datum)
   - AclItem (structure type)
 - Called from (representative examples):
   - Advanced hash operations requiring seeded hash functions

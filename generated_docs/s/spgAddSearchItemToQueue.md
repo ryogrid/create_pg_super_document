@@ -24,9 +24,9 @@ The function is designed to be called in queue context, meaning it operates on i
   - SpGistScanOpaque (scan operation context structure)
   - SpGistSearchItem (search item structure containing phNode member)
 - Called from (representative examples):
-  - spgAddStartItem (adds initial search items to queue)
-  - spgLeafTest (adds leaf items during search traversal)
-  - spgInnerTest (adds inner node items during search traversal)
+  - [spgAddStartItem](spgAddStartItem.md) (adds initial search items to queue)
+  - [spgLeafTest](spgLeafTest.md) (adds leaf items during search traversal)
+  - [spgInnerTest](spgInnerTest.md) (adds inner node items during search traversal)
 
 ## Notes and Other Information
 - Simple one-line wrapper function that provides abstraction over pairing heap operations

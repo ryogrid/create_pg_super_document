@@ -25,16 +25,16 @@ This function specifically handles only ADD and DROP operations - other ALTER OP
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - CStringGetDatum
-  - GetIndexAmRoutineByAmId
-  - ReleaseSysCache
-  - get_opfamily_oid
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [GetIndexAmRoutineByAmId](../G/GetIndexAmRoutineByAmId.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [get_opfamily_oid](../g/get_opfamily_oid.md)
   - superuser
-  - AlterOpFamilyDrop
-  - AlterOpFamilyAdd
+  - [AlterOpFamilyDrop](AlterOpFamilyDrop.md)
+  - [AlterOpFamilyAdd](AlterOpFamilyAdd.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Requires superuser privileges for security reasons similar to DefineOpClass

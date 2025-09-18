@@ -28,15 +28,15 @@ This is particularly important when adding new partitions, as it allows the syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_ands_explicit
-  - makeBoolExpr
+  - [make_ands_explicit](../m/make_ands_explicit.md)
+  - [makeBoolExpr](../m/makeBoolExpr.md)
   - NOT_EXPR (constant)
-  - eval_const_expressions
-  - canonicalize_qual
-  - make_ands_implicit
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [canonicalize_qual](../c/canonicalize_qual.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
 - Called from (representative examples):
-  - ATExecAttachPartition
-  - check_default_partition_contents
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
+  - [check_default_partition_contents](../c/check_default_partition_contents.md)
 
 ## Notes and Other Information
 - The function assumes partition constraints never evaluate to NULL, making the negation operation safe

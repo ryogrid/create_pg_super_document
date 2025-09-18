@@ -21,11 +21,11 @@ The function initializes shared statistics counters to zero and sets up the pref
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (memory allocation)
-  - hash_create (hash table creation)
-  - dlist_init (doubly-linked list initialization)
+  - [palloc0](../p/palloc0.md) (memory allocation)
+  - [hash_create](../h/hash_create.md) (hash table creation)
+  - [dlist_init](../d/dlist_init.md) (doubly-linked list initialization)
 - Called from (representative examples):
-  - InitWalRecovery (during WAL recovery initialization)
+  - [InitWalRecovery](../I/InitWalRecovery.md) (during WAL recovery initialization)
 
 ## Notes and Other Information
 - Uses a static HASHCTL structure to configure the filter hash table with RelFileLocator keys and XLogPrefetcherFilter entries

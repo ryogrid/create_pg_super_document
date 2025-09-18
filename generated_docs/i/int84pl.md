@@ -21,11 +21,11 @@ int84pl performs addition between a bigint (64-bit) and an integer (32-bit) valu
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64
   - PG_GETARG_INT32
-  - pg_add_s64_overflow
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md)
   - PG_RETURN_INT64
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE
 - Called from (representative examples):
   - No direct references found in the codebase

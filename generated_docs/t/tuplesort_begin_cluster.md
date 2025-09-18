@@ -21,23 +21,23 @@ This function creates a specialized tuplesort state for cluster operations, whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
   - IndexRelationGetNumberOfKeyAttributes
-  - BuildIndexInfo
-  - _bt_mkscankey
-  - CreateExecutorState
-  - MakeSingleTupleTableSlot
+  - [BuildIndexInfo](../B/BuildIndexInfo.md)
+  - [_bt_mkscankey](../b/_bt_mkscankey.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
   - GetPerTupleExprContext
   - removeabbrev_cluster
   - comparetup_cluster
   - comparetup_cluster_tiebreak
-  - writetup_cluster
-  - readtup_cluster
-  - freestate_cluster
+  - [writetup_cluster](../w/writetup_cluster.md)
+  - [readtup_cluster](../r/readtup_cluster.md)
+  - [freestate_cluster](../f/freestate_cluster.md)
   - PrepareSortSupportFromIndexRel
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster (heapam_handler.c:731)
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md) (heapam_handler.c:731)
 
 ## Notes and Other Information
 - Requires the index relation to be a B-tree index (asserts BTREE_AM_OID)

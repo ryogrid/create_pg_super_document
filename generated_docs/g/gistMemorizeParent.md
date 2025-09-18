@@ -21,13 +21,13 @@ This function stores a mapping from a child block number to its parent block num
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - ParentMapEntry
   - HASH_ENTER
 - Called from (representative examples):
-  - gistProcessItup
+  - [gistProcessItup](gistProcessItup.md)
   - gistbufferinginserttuples
-  - gistMemorizeAllDownlinks
+  - [gistMemorizeAllDownlinks](gistMemorizeAllDownlinks.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistbuild.c file

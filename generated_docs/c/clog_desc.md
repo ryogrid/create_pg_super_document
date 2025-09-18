@@ -30,7 +30,7 @@ The function handles two main types of CLOG operations:
   - `CLOG_ZEROPAGE`: Constant identifying zero page operations
   - `CLOG_TRUNCATE`: Constant identifying truncate operations
   - `appendStringInfo`: Function to append formatted text to the StringInfo buffer
-  - `xl_clog_truncate`: Structure type for truncate operation data
+  - `[xl_clog_truncate](../x/xl_clog_truncate.md)`: Structure type for truncate operation data
 - Called from (representative examples):
   - WAL description infrastructure (referenced from CLOG resource manager)
 

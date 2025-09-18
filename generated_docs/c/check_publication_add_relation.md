@@ -29,8 +29,8 @@ The function uses PostgreSQL's error reporting mechanism to provide detailed err
 - Functions called/Symbols referenced:
   - RelationGetForm
   - RelationGetRelationName  
-  - errdetail_relkind_not_supported
-  - IsCatalogRelation
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [IsCatalogRelation](../I/IsCatalogRelation.md)
   - ereport (error reporting)
 - Constants referenced:
   - RELKIND_RELATION
@@ -38,7 +38,7 @@ The function uses PostgreSQL's error reporting mechanism to provide detailed err
   - RELPERSISTENCE_TEMP
   - RELPERSISTENCE_UNLOGGED
 - Called from:
-  - publication_add_relation
+  - [publication_add_relation](../p/publication_add_relation.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_publication.c compilation unit

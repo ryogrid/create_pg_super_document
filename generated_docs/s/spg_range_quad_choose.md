@@ -23,12 +23,12 @@ This function implements the choose logic for SP-GiST quadtree indexing of range
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgChooseIn, spgChooseOut (structure types)
+  - [spgChooseIn](spgChooseIn.md), spgChooseOut (structure types)
   - DatumGetRangeTypeP, RangeTypePGetDatum (range conversion functions)
-  - range_get_typcache (type cache retrieval)
+  - [range_get_typcache](../r/range_get_typcache.md) (type cache retrieval)
   - RangeTypeGetOid (range type OID extraction)
   - RangeIsEmpty (empty range test)
-  - getQuadrant (quadrant determination)
+  - [getQuadrant](../g/getQuadrant.md) (quadrant determination)
   - spgMatchNode (enum value)
   - PG_RETURN_VOID (macro)
 - Called from (representative examples):

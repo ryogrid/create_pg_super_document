@@ -25,19 +25,19 @@ This function creates and configures a new tuplesort state specifically for heap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - removeabbrev_heap
-  - comparetup_heap
-  - comparetup_heap_tiebreak
-  - writetup_heap
-  - readtup_heap
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [removeabbrev_heap](../r/removeabbrev_heap.md)
+  - [comparetup_heap](../c/comparetup_heap.md)
+  - [comparetup_heap_tiebreak](../c/comparetup_heap_tiebreak.md)
+  - [writetup_heap](../w/writetup_heap.md)
+  - [readtup_heap](../r/readtup_heap.md)
   - PrepareSortSupportFromOrderingOp
 - Called from (representative examples):
-  - initialize_phase (nodeAgg.c:524)
-  - initialize_aggregate (nodeAgg.c:612)
-  - ExecSort (nodeSort.c:114)
+  - [initialize_phase](../i/initialize_phase.md) (nodeAgg.c:524)
+  - [initialize_aggregate](../i/initialize_aggregate.md) (nodeAgg.c:612)
+  - [ExecSort](../E/ExecSort.md) (nodeSort.c:114)
   - ExecIncrementalSort (nodeIncrementalSort.c:610)
 
 ## Notes and Other Information

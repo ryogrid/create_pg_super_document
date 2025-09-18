@@ -22,18 +22,18 @@ The `replace_s` function performs string replacement operations in PostgreSQL's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_s
-  - increase_size
+  - [create_s](../c/create_s.md)
+  - [increase_size](../i/increase_size.md)
   - SIZE (macro for getting buffer size)
   - CAPACITY (macro for getting buffer capacity)
   - SET_SIZE (macro for setting buffer size)
   - memmove
   - symbol (type definition)
 - Called from (representative examples):
-  - SN_set_current
-  - slice_from_s
-  - insert_s
-  - among
+  - [SN_set_current](../S/SN_set_current.md)
+  - [slice_from_s](../s/slice_from_s.md)
+  - [insert_s](../i/insert_s.md)
+  - [among](../a/among.md)
 
 ## Notes and Other Information
 - This is an external function accessible from other modules in the Snowball stemmer

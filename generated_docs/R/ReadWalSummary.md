@@ -22,14 +22,14 @@ The function uses PostgreSQL's File API for reading and includes proper error ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - WalSummaryIO (structure type)
-  - FileRead (PostgreSQL file I/O function)
-  - FilePathName (PostgreSQL file utility function)
+  - [FileRead](../F/FileRead.md) (PostgreSQL file I/O function)
+  - [FilePathName](../F/FilePathName.md) (PostgreSQL file utility function)
   - ereport (PostgreSQL error reporting function)
-  - errcode_for_file_access (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
 - Called from:
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - Returns the actual number of bytes read, which may be less than requested if end-of-file is reached

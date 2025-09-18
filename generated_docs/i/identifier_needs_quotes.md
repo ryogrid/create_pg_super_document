@@ -31,8 +31,8 @@ The function is conservative, requiring quotes for any non-ASCII characters, mat
   - ScanKeywordCategories (array for keyword category lookup)
 - Called from (representative examples):
   - THING_NO_SHOW (completion handling)
-  - _complete_from_query (multiple calls for query-based completion)
-  - requote_identifier (called twice for schema and object name validation)
+  - [_complete_from_query](../c/_complete_from_query.md) (multiple calls for query-based completion)
+  - [requote_identifier](../r/requote_identifier.md) (called twice for schema and object name validation)
 
 ## Notes and Other Information
 - Returns true if the identifier requires double-quoting, false otherwise

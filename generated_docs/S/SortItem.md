@@ -21,15 +21,15 @@ SortItem serves as a container for multi-dimensional data tuples in PostgreSQL's
 - Functions called/Symbols referenced:
   - (No direct symbol references from this struct)
 - Called from (representative examples):
-  - dependency_degree (src/backend/statistics/dependencies.c:226)
-  - multi_sort_compare (src/backend/statistics/extended_stats.c:868, 869)
-  - build_sorted_items (src/backend/statistics/extended_stats.c:996, 1003, 1009, 1010, 1107)
-  - statext_mcv_build (src/backend/statistics/mcv.c:188, 189, 261, 265, 314, 324, 325)
-  - compare_sort_item_count (src/backend/statistics/mcv.c:405, 406, 423)
-  - build_distinct_groups (src/backend/statistics/mcv.c:424, 431, 456)
-  - sort_item_compare (src/backend/statistics/mcv.c:468, 469, 489)
-  - build_column_frequencies (src/backend/statistics/mcv.c:490, 495, 502, 503, 506, 507, 514, 515, 527)
-  - ndistinct_for_combination (src/backend/statistics/mvdistinct.c:435, 447, 491)
+  - [dependency_degree](../d/dependency_degree.md) (src/backend/statistics/dependencies.c:226)
+  - [multi_sort_compare](../m/multi_sort_compare.md) (src/backend/statistics/extended_stats.c:868, 869)
+  - [build_sorted_items](../b/build_sorted_items.md) (src/backend/statistics/extended_stats.c:996, 1003, 1009, 1010, 1107)
+  - [statext_mcv_build](../s/statext_mcv_build.md) (src/backend/statistics/mcv.c:188, 189, 261, 265, 314, 324, 325)
+  - [compare_sort_item_count](../c/compare_sort_item_count.md) (src/backend/statistics/mcv.c:405, 406, 423)
+  - [build_distinct_groups](../b/build_distinct_groups.md) (src/backend/statistics/mcv.c:424, 431, 456)
+  - [sort_item_compare](../s/sort_item_compare.md) (src/backend/statistics/mcv.c:468, 469, 489)
+  - [build_column_frequencies](../b/build_column_frequencies.md) (src/backend/statistics/mcv.c:490, 495, 502, 503, 506, 507, 514, 515, 527)
+  - [ndistinct_for_combination](../n/ndistinct_for_combination.md) (src/backend/statistics/mvdistinct.c:435, 447, 491)
 
 ## Notes and Other Information
 - Core data structure for extended statistics processing in PostgreSQL

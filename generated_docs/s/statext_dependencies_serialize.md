@@ -30,10 +30,10 @@ The serialized format is compact and maintains all essential information needed 
   - SizeOfItem (macro for calculating item size based on attribute count)
   - SET_VARSIZE (macro for setting bytea size)
   - VARDATA (macro for getting bytea data pointer)  
-  - palloc0 (PostgreSQL memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
   - memcpy (system memory copy function)
 - Called from:
-  - statext_store
+  - [statext_store](statext_store.md)
 
 ## Notes and Other Information
 - Returns NULL-initialized bytea to ensure clean memory state

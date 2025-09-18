@@ -21,9 +21,9 @@ Like other timeout handlers, this function is designed to be lightweight and sig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - This is a static function within postinit.c, limiting its scope to that compilation unit

@@ -17,14 +17,14 @@ The copyParamList function creates a deep copy of a ParamListInfo structure, wit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeParamList (creates the new parameter list structure)
-  - get_typlenbyval (gets type length and pass-by-value information)
-  - datumCopy (performs deep copy of datum values for pass-by-reference types)
+  - [makeParamList](../m/makeParamList.md) (creates the new parameter list structure)
+  - [get_typlenbyval](../g/get_typlenbyval.md) (gets type length and pass-by-value information)
+  - [datumCopy](../d/datumCopy.md) (performs deep copy of datum values for pass-by-reference types)
   - OidIsValid (macro to check if OID is valid)
   - ParamExternData (struct type for parameter data)
 - Called from (representative examples):
-  - PerformCursorOpen (in portalcmds.c)
-  - SPI_cursor_open_internal (in spi.c)
+  - [PerformCursorOpen](../P/PerformCursorOpen.md) (in portalcmds.c)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md) (in spi.c)
 
 ## Notes and Other Information
 - The function intentionally creates static copies and does not preserve dynamic parameter hooks

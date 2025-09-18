@@ -23,9 +23,9 @@ This function implements platform-specific mechanisms to retrieve backend parame
 - Functions called/Symbols referenced:
   - AllocateFile (Unix/Linux only)
   - FreeFile (Unix/Linux only) 
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
   - exit
-  - palloc
+  - [palloc](../p/palloc.md)
   - unlink (Unix/Linux only)
   - MapViewOfFile (Windows only)
   - UnmapViewOfFile (Windows only)
@@ -33,11 +33,11 @@ This function implements platform-specific mechanisms to retrieve backend parame
   - GetLastError (Windows only)
   - memcpy (Windows only)
   - atol/_atoi64 (Windows only)
-  - restore_backend_variables
-  - BackendParameters (structure type)
+  - [restore_backend_variables](restore_backend_variables.md)
+  - [BackendParameters](../B/BackendParameters.md) (structure type)
   - PG_BINARY_R (constant)
 - Called from (representative examples):
-  - SubPostmasterMain
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
   - SizeOfBackendParameters
 
 ## Notes and Other Information

@@ -21,7 +21,7 @@ The function follows PostgreSQL's standard function calling convention using `PG
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - record_cmp
+  - [record_cmp](record_cmp.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

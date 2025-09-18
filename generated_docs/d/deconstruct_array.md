@@ -40,12 +40,12 @@ The caller is responsible for providing element type information (length, alignm
   - bits8 (type for bitmap manipulation)
 
 - Called from (representative examples):
-  - ginarrayextract (GIN index array extraction)
-  - _bt_preprocess_array_keys (B-tree array key preprocessing)
-  - ExecIndexEvalArrayKeys (executor array key evaluation)
-  - array_set_slice (array slice assignment)
-  - deconstruct_array_builtin (specialized version for built-in types)
-  - array_contain_compare (array containment operations)
+  - [ginarrayextract](../g/ginarrayextract.md) (GIN index array extraction)
+  - [_bt_preprocess_array_keys](../b/_bt_preprocess_array_keys.md) (B-tree array key preprocessing)
+  - [ExecIndexEvalArrayKeys](../E/ExecIndexEvalArrayKeys.md) (executor array key evaluation)
+  - [array_set_slice](../a/array_set_slice.md) (array slice assignment)
+  - [deconstruct_array_builtin](deconstruct_array_builtin.md) (specialized version for built-in types)
+  - [array_contain_compare](../a/array_contain_compare.md) (array containment operations)
   - scalararraysel (selectivity estimation for scalar array operations)
 
 ## Notes and Other Information

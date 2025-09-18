@@ -29,14 +29,14 @@ Key features:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_relispartition (validates relation is a partition)
-  - relation_open (opens relation with AccessShareLock)
-  - generate_partition_qual (generates partition constraints)
-  - makeBoolExpr (creates AND expression for multiple constraints)
-  - relation_close (closes relation, keeping lock)
+  - [get_rel_relispartition](get_rel_relispartition.md) (validates relation is a partition)
+  - [relation_open](../r/relation_open.md) (opens relation with AccessShareLock)
+  - [generate_partition_qual](generate_partition_qual.md) (generates partition constraints)
+  - [makeBoolExpr](../m/makeBoolExpr.md) (creates AND expression for multiple constraints)
+  - [relation_close](../r/relation_close.md) (closes relation, keeping lock)
 - Called from (representative examples):
-  - pg_get_partition_constraintdef (src/backend/utils/adt/ruleutils.c:2084)
-  - pg_get_partconstrdef_string (src/backend/utils/adt/ruleutils.c:2113)
+  - [pg_get_partition_constraintdef](../p/pg_get_partition_constraintdef.md) (src/backend/utils/adt/ruleutils.c:2084)
+  - [pg_get_partconstrdef_string](../p/pg_get_partconstrdef_string.md) (src/backend/utils/adt/ruleutils.c:2113)
 
 ## Notes and Other Information
 - Returns NULL if relation doesn't exist, isn't a partition, or has no constraints

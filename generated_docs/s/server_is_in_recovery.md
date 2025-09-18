@@ -17,17 +17,17 @@ This function determines if a PostgreSQL server is in recovery mode by executing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec
+  - [PQexec](../P/PQexec.md)
   - PGRES_TUPLES_OK
-  - PQresultErrorMessage
-  - disconnect_database
-  - PQgetvalue
-  - PQclear
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [disconnect_database](../d/disconnect_database.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
   - strcmp
 - Called from (representative examples):
-  - check_publisher
-  - check_subscriber
-  - wait_for_end_recovery
+  - [check_publisher](../c/check_publisher.md)
+  - [check_subscriber](../c/check_subscriber.md)
+  - [wait_for_end_recovery](../w/wait_for_end_recovery.md)
 
 ## Notes and Other Information
 - Returns true if the server is in recovery mode, false otherwise

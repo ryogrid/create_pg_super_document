@@ -19,7 +19,7 @@ This function serves as the output conversion function for PostgreSQL's xml data
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_XML_P
-  - xml_out_internal
+  - [xml_out_internal](xml_out_internal.md)
   - PG_RETURN_CSTRING
 - Called from (representative examples):
   - PostgreSQL's type input/output system (indirectly via function registry)

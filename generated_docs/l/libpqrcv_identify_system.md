@@ -20,17 +20,17 @@ The function performs strict validation of the response format, checking for the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpqrcv_PQexec
-  - PQresultStatus
-  - PQnfields
-  - PQntuples
-  - PQgetvalue
-  - pg_strtoint32
-  - pstrdup
-  - pchomp
-  - PQclear
+  - [libpqrcv_PQexec](libpqrcv_PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [pg_strtoint32](../p/pg_strtoint32.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [pchomp](../p/pchomp.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - WalReceiverConn (referenced in connection establishment routines)
+  - [WalReceiverConn](../W/WalReceiverConn.md) (referenced in connection establishment routines)
 
 ## Notes and Other Information
 - This is a static function internal to the libpqwalreceiver module

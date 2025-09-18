@@ -30,13 +30,13 @@ Key operational aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_send_bytes (low-level byte writing)
-  - shm_mq_inc_bytes_written (update shared counters)
-  - SetLatch (receiver notification)
+  - [shm_mq_send_bytes](shm_mq_send_bytes.md) (low-level byte writing)
+  - [shm_mq_inc_bytes_written](shm_mq_inc_bytes_written.md) (update shared counters)
+  - [SetLatch](../S/SetLatch.md) (receiver notification)
   - MAXALIGN_DOWN (alignment calculations)
 - Called from (representative examples):
-  - shm_mq_send (simple send wrapper)
-  - mq_putmessage (libpq message passing)
+  - [shm_mq_send](shm_mq_send.md) (simple send wrapper)
+  - [mq_putmessage](../m/mq_putmessage.md) (libpq message passing)
 
 ## Notes and Other Information
 - Only the designated sender process (mq->mq_sender == MyProc) can call this function

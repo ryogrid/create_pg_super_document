@@ -33,8 +33,8 @@ The function can accumulate statistics across multiple calls by accepting and re
   - CHECK_REL_PROCEDURE (macro to verify ambulkdelete procedure exists)
   - ambulkdelete (access method specific bulk deletion procedure)
 - Called from (representative examples):
-  - validate_index (index validation during creation)
-  - vac_bulkdel_one_index (vacuum bulk deletion for single index)
+  - [validate_index](../v/validate_index.md) (index validation during creation)
+  - [vac_bulkdel_one_index](../v/vac_bulkdel_one_index.md) (vacuum bulk deletion for single index)
   - IndexScanIsValid (index scan validation)
 
 ## Notes and Other Information

@@ -17,9 +17,9 @@ pq_peekbyte provides a non-destructive way to examine the next byte in the recei
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_recvbuf
+  - [pq_recvbuf](pq_recvbuf.md)
 - Called from (representative examples):
-  - ProcessSSLStartup
+  - [ProcessSSLStartup](../P/ProcessSSLStartup.md)
 
 ## Notes and Other Information
 - Asserts that PqCommReadingMsg is true to ensure proper message reading state

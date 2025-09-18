@@ -24,21 +24,21 @@ The function includes validation of phnullingrels between the input PlaceHolderV
 - Functions called/Symbols referenced:
   - lfirst
   - IsA
-  - bms_is_subset
-  - bms_equal
-  - bmsToString
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [bmsToString](../b/bmsToString.md)
   - elog
   - makeVarFromTargetEntry
 - Data types used:
-  - PlaceHolderVar
-  - indexed_tlist
-  - TargetEntry
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
+  - [indexed_tlist](../i/indexed_tlist.md)
+  - [TargetEntry](../T/TargetEntry.md)
   - NullingRelsMatch
   - ListCell
 - Called from (representative examples):
   - fix_scan_list
-  - fix_join_expr_mutator
-  - fix_upper_expr_mutator
+  - [fix_join_expr_mutator](../f/fix_join_expr_mutator.md)
+  - [fix_upper_expr_mutator](../f/fix_upper_expr_mutator.md)
 
 ## Notes and Other Information
 - Returns NULL if no matching PlaceHolderVar is found in the indexed target list

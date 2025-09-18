@@ -25,18 +25,18 @@ The restoration process includes validation checks to ensure the data integrity 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogInitBufferForRedo
-  - XLogRecGetBlockData
-  - _bt_pageinit
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [_bt_pageinit](_bt_pageinit.md)
   - BTPageGetMeta
   - BTPageGetOpaque
-  - BufferGetPage
-  - BufferGetPageSize
-  - BufferGetBlockNumber
-  - PageSetLSN
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Data types used:
-  - BTMetaPageData
+  - [BTMetaPageData](../B/BTMetaPageData.md)
   - BTPageOpaque
   - xl_btree_metadata
   - PageHeader
@@ -46,10 +46,10 @@ The restoration process includes validation checks to ensure the data integrity 
   - BTREE_NOVAC_VERSION
   - BTP_META
 - Called from (representative examples):
-  - btree_xlog_insert
-  - btree_xlog_unlink_page
-  - btree_xlog_newroot
-  - btree_redo
+  - [btree_xlog_insert](btree_xlog_insert.md)
+  - [btree_xlog_unlink_page](btree_xlog_unlink_page.md)
+  - [btree_xlog_newroot](btree_xlog_newroot.md)
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally within nbtxlog.c for B-tree WAL recovery

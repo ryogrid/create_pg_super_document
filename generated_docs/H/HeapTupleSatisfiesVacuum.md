@@ -26,15 +26,15 @@ The OldestXmin parameter represents a cutoff transaction ID obtained from GetOld
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleSatisfiesVacuumHorizon
-  - TransactionIdPrecedes
+  - [HeapTupleSatisfiesVacuumHorizon](HeapTupleSatisfiesVacuumHorizon.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
 - Called from (representative examples):
-  - HeapCheckForSerializableConflictOut
-  - heapam_relation_copy_for_cluster
-  - heapam_scan_analyze_next_tuple
-  - heapam_index_build_range_scan
-  - lazy_scan_noprune
-  - heap_page_is_all_visible
+  - [HeapCheckForSerializableConflictOut](HeapCheckForSerializableConflictOut.md)
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
+  - [heapam_scan_analyze_next_tuple](../h/heapam_scan_analyze_next_tuple.md)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [lazy_scan_noprune](../l/lazy_scan_noprune.md)
+  - [heap_page_is_all_visible](../h/heap_page_is_all_visible.md)
 
 ## Notes and Other Information
 The function returns HTSV_Result values that indicate vacuum status:

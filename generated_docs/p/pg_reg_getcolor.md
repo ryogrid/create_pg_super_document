@@ -25,8 +25,8 @@ The function is optimized for the common case where no character classes are def
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cclass_column_index (for locale-dependent character classification)
-  - colormaprange (structure for character range information)
+  - [cclass_column_index](../c/cclass_column_index.md) (for locale-dependent character classification)
+  - [colormaprange](../c/colormaprange.md) (structure for character range information)
   - assert (for debugging assertions)
 - Called from (representative examples):
   - GETCOLOR (macro in regguts.h)

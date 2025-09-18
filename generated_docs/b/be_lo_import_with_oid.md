@@ -25,7 +25,7 @@ This function provides more control over large object creation by allowing expli
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_import_internal
+  - [lo_import_internal](../l/lo_import_internal.md)
   - PG_GETARG_TEXT_PP (macro)
   - PG_GETARG_OID (macro)
   - PG_RETURN_OID (macro)

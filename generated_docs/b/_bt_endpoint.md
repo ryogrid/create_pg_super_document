@@ -187,28 +187,28 @@ write_data_to_archive_lz4_doc.md: ScanDirection - The scan direction (forward fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_get_endpoint
+  - [_bt_get_endpoint](_bt_get_endpoint.md)
   - ScanDirectionIsBackward
   - ScanDirectionIsForward
-  - PredicateLockRelation
-  - PredicateLockPage
+  - [PredicateLockRelation](../P/PredicateLockRelation.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
   - BTScanPosInvalidate
-  - _bt_initialize_more_data
-  - _bt_readpage
-  - _bt_unlockbuf
-  - _bt_steppage
-  - _bt_drop_lock_and_maybe_pin
+  - [_bt_initialize_more_data](_bt_initialize_more_data.md)
+  - [_bt_readpage](_bt_readpage.md)
+  - [_bt_unlockbuf](_bt_unlockbuf.md)
+  - [_bt_steppage](_bt_steppage.md)
+  - [_bt_drop_lock_and_maybe_pin](_bt_drop_lock_and_maybe_pin.md)
   - BTPageGetOpaque
   - P_ISLEAF
   - P_FIRSTDATAKEY
   - P_RIGHTMOST
-  - PageGetMaxOffsetNumber
-  - BufferGetBlockNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - BTScanOpaque (type)
   - BTPageOpaque (type)
-  - BTScanPosItem (type)
+  - [BTScanPosItem](../B/BTScanPosItem.md) (type)
 - Called from (representative examples):
-  - _bt_first
+  - [_bt_first](_bt_first.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within nbtsearch.c

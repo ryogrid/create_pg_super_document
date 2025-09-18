@@ -19,11 +19,11 @@ UInt32GetDatum is a static inline function that provides type-safe conversion fr
 - Functions called/Symbols referenced:
   - (None - simple cast operation)
 - Called from (representative examples):
-  - directBoolConsistentFn (src/backend/access/gin/ginlogic.c:78)
+  - [directBoolConsistentFn](../d/directBoolConsistentFn.md) (src/backend/access/gin/ginlogic.c:78)
   - _hash_convert_tuple (src/backend/access/hash/hashutil.c:332)
-  - LaunchParallelWorkers (src/backend/access/transam/parallel.c:601)
-  - jsonb_path_ops__extract_nodes (src/backend/utils/adt/jsonb_gin.c:489)
-  - pg_lock_status (src/backend/utils/adt/lockfuncs.c:273, 284)
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md) (src/backend/access/transam/parallel.c:601)
+  - [jsonb_path_ops__extract_nodes](../j/jsonb_path_ops__extract_nodes.md) (src/backend/utils/adt/jsonb_gin.c:489)
+  - [pg_lock_status](../p/pg_lock_status.md) (src/backend/utils/adt/lockfuncs.c:273, 284)
   - PG_RETURN_UINT32 macro (src/include/fmgr.h:355)
 
 ## Notes and Other Information

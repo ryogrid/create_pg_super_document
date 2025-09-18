@@ -23,10 +23,10 @@ This ordering is crucial for recursive WITH clauses because it ensures that when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeDependencyGraphWalker - walks through CTE query trees to find dependencies
-  - TopologicalSort - sorts CTE items based on their dependencies
+  - [makeDependencyGraphWalker](makeDependencyGraphWalker.md) - walks through CTE query trees to find dependencies
+  - [TopologicalSort](../T/TopologicalSort.md) - sorts CTE items based on their dependencies
 - Called from (representative examples):
-  - transformWithClause - called when processing recursive WITH clauses to determine processing order
+  - [transformWithClause](../t/transformWithClause.md) - called when processing recursive WITH clauses to determine processing order
 
 ## Notes and Other Information
 - The function is static and only used within parse_cte.c

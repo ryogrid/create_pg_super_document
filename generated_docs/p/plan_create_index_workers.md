@@ -27,15 +27,15 @@ The function considers both btree and BRIN indexes, which support parallel build
 ## Dependencies
 - Functions called/Symbols referenced:
   - ,  - Planner infrastructure types
-  -  - Node creation utility
+  -  - [Node](../N/Node.md) creation utility
   -  - Sets up relation arrays
   -  - Creates RelOptInfo structure
-  - ,  - Relation access functions
+  - ,  - [Relation](../R/Relation.md) access functions
   - ,  - Index metadata access
   -  - Parallel safety analysis
   -  - Estimates table size parameters
   -  - Generic parallel worker computation
-  - ,  - Relation cleanup
+  - ,  - [Relation](../R/Relation.md) cleanup
 - Called from (representative examples):
   -  - During index construction process
 

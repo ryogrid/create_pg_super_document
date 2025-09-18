@@ -26,7 +26,7 @@ The  structure defines the metadata for a single PostgreSQL connection parameter
   - (Uses standard C types only)
 - Called from (representative examples):
   - PQconndefaults() (returns array of these structures)
-  - PQconninfoParse() (parses connection strings into these structures)
+  - [PQconninfoParse](PQconninfoParse.md)() (parses connection strings into these structures)
 
 ## Notes and Other Information
 - All fields except  point to static strings that must not be modified

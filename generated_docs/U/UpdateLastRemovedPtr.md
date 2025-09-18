@@ -21,13 +21,13 @@ The function employs proper concurrency control by acquiring a spin lock before 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogFromFileName: Extracts timeline ID and segment number from WAL filename
+  - [XLogFromFileName](../X/XLogFromFileName.md): Extracts timeline ID and segment number from WAL filename
   - SpinLockAcquire: Acquires spin lock for thread-safe access to shared data
   - SpinLockRelease: Releases spin lock after updating shared data
   - XLogSegNo: Data type for WAL segment numbers
 - Called from (representative examples):
   - RefreshXLogWriteResult: During WAL write result updates when segments are removed
-  - RemoveOldXlogFiles: During WAL segment cleanup operations
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md): During WAL segment cleanup operations
 
 ## Notes and Other Information
 - Static function with internal linkage, used only within the xlog.c module

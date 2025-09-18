@@ -19,10 +19,10 @@ This function performs subnet matching by checking if a given socket address lie
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - range_sockaddr_AF_INET
-  - range_sockaddr_AF_INET6
+  - [range_sockaddr_AF_INET](../r/range_sockaddr_AF_INET.md)
+  - [range_sockaddr_AF_INET6](../r/range_sockaddr_AF_INET6.md)
 - Called from (representative examples):
-  - check_ip
+  - [check_ip](../c/check_ip.md)
   - IFADDR_H
 
 ## Notes and Other Information

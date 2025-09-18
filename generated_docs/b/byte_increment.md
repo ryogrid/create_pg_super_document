@@ -24,7 +24,7 @@ This function is used as part of PostgreSQL's pattern matching optimization wher
 - Functions called/Symbols referenced:
   - (None - uses only basic arithmetic operations)
 - Called from (representative examples):
-  - make_greater_string
+  - [make_greater_string](../m/make_greater_string.md)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, used internally for bytea pattern processing

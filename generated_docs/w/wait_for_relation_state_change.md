@@ -30,17 +30,17 @@ The function performs the following operations in each iteration:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `CHECK_FOR_INTERRUPTS()`
-  - `InvalidateCatalogSnapshot()`
-  - `GetSubscriptionRelState()`
+  - `[InvalidateCatalogSnapshot](../I/InvalidateCatalogSnapshot.md)()`
+  - `[GetSubscriptionRelState](../G/GetSubscriptionRelState.md)()`
   - `LWLockAcquire()`
   - `logicalrep_worker_find()`
   - `LWLockRelease()`
-  - `WaitLatch()`
-  - `ResetLatch()`
+  - `[WaitLatch](../W/WaitLatch.md)()`
+  - `[ResetLatch](../R/ResetLatch.md)()`
   - `SUBREL_STATE_UNKNOWN`
-  - `LogicalRepWorker`
+  - `[LogicalRepWorker](../L/LogicalRepWorker.md)`
 - Called from (representative examples):
-  - `tablesync_start_time_mapping` (src/backend/replication/logical/tablesync.c:588)
+  - `[tablesync_start_time_mapping](../t/tablesync_start_time_mapping.md)` (src/backend/replication/logical/tablesync.c:588)
 
 ## Notes and Other Information
 - Returns `true` when the relation reaches the expected state

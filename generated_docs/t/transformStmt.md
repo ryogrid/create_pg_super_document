@@ -29,19 +29,19 @@ The function also includes optional raw expression coverage testing for DML stat
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)
-  - test_raw_expression_coverage (optional testing function)
-  - transformInsertStmt, transformDeleteStmt, transformUpdateStmt, transformMergeStmt (DML transformations)
-  - transformSelectStmt, transformValuesClause, transformSetOperationStmt (SELECT variations)
-  - transformReturnStmt, transformPLAssignStmt (procedural statements)
-  - transformDeclareCursorStmt, transformExplainStmt, transformCreateTableAsStmt, transformCallStmt (special cases)
+  - [test_raw_expression_coverage](test_raw_expression_coverage.md) (optional testing function)
+  - [transformInsertStmt](transformInsertStmt.md), transformDeleteStmt, transformUpdateStmt, transformMergeStmt (DML transformations)
+  - [transformSelectStmt](transformSelectStmt.md), transformValuesClause, transformSetOperationStmt (SELECT variations)
+  - [transformReturnStmt](transformReturnStmt.md), transformPLAssignStmt (procedural statements)
+  - [transformDeclareCursorStmt](transformDeclareCursorStmt.md), transformExplainStmt, transformCreateTableAsStmt, transformCallStmt (special cases)
   - CMD_UTILITY, QSRC_ORIGINAL (constants for Query node initialization)
 
 - Called from (representative examples):
-  - transformOptionalSelectInto (top-level statement processing)
-  - parse_sub_analyze (subquery analysis)
-  - transformInsertStmt (nested statement transformation)
-  - transformCreateTableAsStmt (CREATE TABLE AS query transformation)
-  - transformRuleStmt (rule statement processing)
+  - [transformOptionalSelectInto](transformOptionalSelectInto.md) (top-level statement processing)
+  - [parse_sub_analyze](../p/parse_sub_analyze.md) (subquery analysis)
+  - [transformInsertStmt](transformInsertStmt.md) (nested statement transformation)
+  - [transformCreateTableAsStmt](transformCreateTableAsStmt.md) (CREATE TABLE AS query transformation)
+  - [transformRuleStmt](transformRuleStmt.md) (rule statement processing)
 
 ## Notes and Other Information
 - The function includes a caution comment noting that changes to statement type handling should be coordinated with stmt_requires_parse_analysis() and analyze_requires_snapshot()

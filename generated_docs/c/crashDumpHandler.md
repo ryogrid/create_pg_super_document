@@ -31,10 +31,10 @@ The function generates uniquely named dump files using the process ID and system
   - GetTickCount (Windows API)
   - CreateFile (Windows API)
   - CloseHandle (Windows API)
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
 
 - Called from (representative examples):
-  - pgwin32_install_crashdump_handler (registered as exception handler)
+  - [pgwin32_install_crashdump_handler](../p/pgwin32_install_crashdump_handler.md) (registered as exception handler)
 
 ## Notes and Other Information
 - Only creates crash dumps if the "crashdumps" directory exists in the PostgreSQL data directory

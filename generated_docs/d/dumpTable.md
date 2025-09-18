@@ -22,21 +22,21 @@ For column ACLs, the function uses prepared statements that adapt to different P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpSequence: Dumps sequence definition for RELKIND_SEQUENCE tables
-  - dumpTableSchema: Dumps regular table schema definition
-  - pg_strdup: Duplicates strings for memory management
-  - fmtId: Formats identifiers with proper SQL quoting
-  - dumpACL: Dumps access control lists for objects
+  - [dumpSequence](dumpSequence.md): Dumps sequence definition for RELKIND_SEQUENCE tables
+  - [dumpTableSchema](dumpTableSchema.md): Dumps regular table schema definition
+  - [pg_strdup](../p/pg_strdup.md): Duplicates strings for memory management
+  - [fmtId](../f/fmtId.md): Formats identifiers with proper SQL quoting
+  - [dumpACL](dumpACL.md): Dumps access control lists for objects
   - createPQExpBuffer: Creates buffer for SQL query construction
-  - appendPQExpBufferStr: Adds SQL text to query buffer
-  - ExecuteSqlStatement: Executes prepared statement creation
-  - printfPQExpBuffer: Formats parameterized queries
-  - ExecuteSqlQuery: Executes column ACL retrieval query
-  - PQgetvalue: Extracts values from query results
-  - PQclear: Frees query result memory
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md): Adds SQL text to query buffer
+  - [ExecuteSqlStatement](../E/ExecuteSqlStatement.md): Executes prepared statement creation
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats parameterized queries
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes column ACL retrieval query
+  - [PQgetvalue](../P/PQgetvalue.md): Extracts values from query results
+  - [PQclear](../P/PQclear.md): Frees query result memory
   - destroyPQExpBuffer: Cleans up query buffers
 - Called from:
-  - dumpDumpableObject: Called as part of general object dumping dispatcher
+  - [dumpDumpableObject](dumpDumpableObject.md): Called as part of general object dumping dispatcher
   - fmtQualifiedDumpable: Referenced for qualified name formatting
 
 ## Notes and Other Information

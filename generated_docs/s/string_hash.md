@@ -24,11 +24,11 @@ As the default hash function, `string_hash` is automatically used when no specif
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes (core hashing algorithm)
+  - [hash_bytes](../h/hash_bytes.md) (core hashing algorithm)
 - Called from (representative examples):
-  - dshash_strhash (src/backend/lib/dshash.c:615)
-  - hash_create (src/backend/utils/hash/dynahash.c:434,448,458)
-  - hash_uint32_extended (src/include/common/hashfn.h:55)
+  - [dshash_strhash](../d/dshash_strhash.md) (src/backend/lib/dshash.c:615)
+  - [hash_create](../h/hash_create.md) (src/backend/utils/hash/dynahash.c:434,448,458)
+  - [hash_uint32_extended](../h/hash_uint32_extended.md) (src/include/common/hashfn.h:55)
 
 ## Notes and Other Information
 - Serves as the default hash function for PostgreSQL's hash table infrastructure when no specific function is specified

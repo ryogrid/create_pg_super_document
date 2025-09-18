@@ -28,11 +28,11 @@ This function is typically used for monitoring collation version changes that mi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
-  - SearchSysCache1
-  - SysCacheGetAttrNotNull
-  - get_collation_actual_version
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
   - TextDatumGetCString
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
   - PG_RETURN_NULL

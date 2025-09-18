@@ -25,14 +25,14 @@ The function operates through a spin-lock protected state machine:
 - Functions called/Symbols referenced:
   - SpinLockAcquire
   - SpinLockRelease
-  - ConditionVariableSleep
-  - ConditionVariableCancelSleep
-  - ParallelBitmapHeapState (structure)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
+  - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
   - SharedBitmapState (enum type)
   - BM_INITIAL (enum value)
   - BM_INPROGRESS (enum value)
 - Called from (representative examples):
-  - BitmapHeapNext
+  - [BitmapHeapNext](BitmapHeapNext.md)
 
 ## Notes and Other Information
 This function is critical for avoiding race conditions in parallel bitmap scans. The spin-lock ensures atomic state transitions, while the condition variable provides efficient blocking/wakeup semantics. The function implements a standard leader-follower pattern commonly used in PostgreSQL's parallel query execution framework.

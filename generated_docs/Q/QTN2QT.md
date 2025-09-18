@@ -20,17 +20,17 @@ QTN2QT transforms a tree-based query representation (QTNode) into a flattened TS
   - cntsize (calculates total size and node count)
   - TSQUERY_TOO_BIG (macro to check size limits)
   - COMPUTESIZE (calculates required memory size)
-  - palloc0 (allocates zero-initialized memory)
+  - [palloc0](../p/palloc0.md) (allocates zero-initialized memory)
   - SET_VARSIZE (sets variable-length structure size)
   - GETQUERY (gets query item array from TSQuery)
   - GETOPERAND (gets operand data from TSQuery)
   - fillQT (fills the flat structure from tree)
 - Called from (representative examples):
-  - tsquery_and (logical AND operations)
-  - tsquery_or (logical OR operations)
-  - tsquery_phrase_distance (phrase distance operations)
-  - tsquery_not (logical NOT operations)
-  - tsquery_rewrite_query (query rewriting)
+  - [tsquery_and](../t/tsquery_and.md) (logical AND operations)
+  - [tsquery_or](../t/tsquery_or.md) (logical OR operations)
+  - [tsquery_phrase_distance](../t/tsquery_phrase_distance.md) (phrase distance operations)
+  - [tsquery_not](../t/tsquery_not.md) (logical NOT operations)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (query rewriting)
 
 ## Notes and Other Information
 - Raises ERROR with ERRCODE_PROGRAM_LIMIT_EXCEEDED if the tsquery exceeds size limits

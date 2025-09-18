@@ -20,11 +20,11 @@ ExecAuxRowMark augments the basic ExecRowMark structure by providing attribute n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecRowMark (struct type)
+  - [ExecRowMark](ExecRowMark.md) (struct type)
 - Called from (representative examples):
-  - ExecBuildAuxRowMark (src/backend/executor/execMain.c:2404)
-  - ExecLockRows (src/backend/executor/nodeLockRows.c:77)
-  - ExecInitModifyTable (src/backend/executor/nodeModifyTable.c:4796)
+  - [ExecBuildAuxRowMark](ExecBuildAuxRowMark.md) (src/backend/executor/execMain.c:2404)
+  - [ExecLockRows](ExecLockRows.md) (src/backend/executor/nodeLockRows.c:77)
+  - [ExecInitModifyTable](ExecInitModifyTable.md) (src/backend/executor/nodeModifyTable.c:4796)
 
 ## Notes and Other Information
 ExecAuxRowMark is essential for the efficient implementation of row locking in complex queries. The resjunk columns it references contain the metadata needed to locate and lock rows: ctid provides the physical row location, tableoid identifies the specific table in inheritance hierarchies, and whole-row attributes contain complete row data when needed. This design allows the executor to quickly extract locking-related information from result tuples without scanning for column positions repeatedly.

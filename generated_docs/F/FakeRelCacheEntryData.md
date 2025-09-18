@@ -25,7 +25,7 @@ The design ensures that the RelationData member comes first, allowing the struct
   - RelationData (embedded struct)
   - FormData_pg_class (embedded struct)
 - Called from (representative examples):
-  - CreateFakeRelcacheEntry (returns pointer to this struct)
+  - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md) (returns pointer to this struct)
   - FakeRelCacheEntry (typedef for pointer to this struct)
 
 ## Notes and Other Information

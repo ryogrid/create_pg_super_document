@@ -21,7 +21,7 @@ This function is responsible for building an empty index for the initialization 
 - Functions called/Symbols referenced:
   - (None - this is a no-op function)
 - Called from (representative examples):
-  - dihandler (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:305)
+  - [dihandler](dihandler.md) (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:305)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's test infrastructure for the dummy index access method

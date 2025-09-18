@@ -19,16 +19,16 @@ This function is the commit callback for the pgoutput logical replication plugin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginUpdateProgress
-  - pfree
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
+  - [pfree](pfree.md)
   - elog
-  - OutputPluginPrepareWrite
-  - logicalrep_write_commit
-  - OutputPluginWrite
-  - PGOutputTxnData (struct type)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
+  - [logicalrep_write_commit](../l/logicalrep_write_commit.md)
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
+  - [PGOutputTxnData](../P/PGOutputTxnData.md) (struct type)
   - DEBUG1 (logging level)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as commit callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as commit callback)
 
 ## Notes and Other Information
 - This is a static function internal to the pgoutput plugin

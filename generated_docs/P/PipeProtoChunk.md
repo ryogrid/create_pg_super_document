@@ -20,10 +20,10 @@ The union ensures that each chunk allocation is exactly PIPE_CHUNK_SIZE bytes, p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PipeProtoHeader (the structured protocol header type)
+  - [PipeProtoHeader](PipeProtoHeader.md) (the structured protocol header type)
   - PIPE_CHUNK_SIZE (macro defining the total chunk size)
 - Called from (representative examples):
-  - write_pipe_chunks (in src/backend/utils/error/elog.c)
+  - [write_pipe_chunks](../w/write_pipe_chunks.md) (in src/backend/utils/error/elog.c)
 
 ## Notes and Other Information
 - The union design ensures efficient memory usage while maintaining proper alignment

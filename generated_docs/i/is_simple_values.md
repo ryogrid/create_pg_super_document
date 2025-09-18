@@ -31,11 +31,11 @@ The restrictions mirror those applied to subquery pullup optimization, ensuring 
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length
-  - expression_returns_set  
-  - contain_volatile_functions
+  - [expression_returns_set](../e/expression_returns_set.md)  
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
   - linitial
 - Called from (representative examples):
-  - pull_up_subqueries_recurse
+  - [pull_up_subqueries_recurse](../p/pull_up_subqueries_recurse.md)
 
 ## Notes and Other Information
 - The function is static, limiting its scope to the prepjointree.c compilation unit

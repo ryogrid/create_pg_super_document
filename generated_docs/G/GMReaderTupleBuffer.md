@@ -28,11 +28,11 @@ The struct is specifically designed for worker processes only - it is not used f
   - MAX_TUPLE_STORE (buffer size constant)
   
 - Called from (representative examples):
-  - gather_merge_setup (initialization)
-  - gather_merge_clear_tuples (cleanup)
-  - load_tuple_array (buffer loading)
-  - gather_merge_readnext (tuple retrieval)
-  - GatherMergeState (parent execution state structure)
+  - [gather_merge_setup](../g/gather_merge_setup.md) (initialization)
+  - [gather_merge_clear_tuples](../g/gather_merge_clear_tuples.md) (cleanup)
+  - [load_tuple_array](../l/load_tuple_array.md) (buffer loading)
+  - [gather_merge_readnext](../g/gather_merge_readnext.md) (tuple retrieval)
+  - [GatherMergeState](GatherMergeState.md) (parent execution state structure)
 
 ## Notes and Other Information
 - The buffer size is intentionally limited to MAX_TUPLE_STORE (10) tuples to balance performance gains from batch reading against memory consumption

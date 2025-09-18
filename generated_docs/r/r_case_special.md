@@ -29,12 +29,12 @@ This specialized handling is necessary because some Hungarian case forms require
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches for special case patterns from array a_5 containing 'án', 'én', 'ánként')
-  - r_R1 (checks if position is in R1 region)
-  - slice_from_s (replaces suffix with specified vowel: 'a' or 'e')
+  - [find_among_b](../f/find_among_b.md) (searches for special case patterns from array a_5 containing 'án', 'én', 'ánként')
+  - [r_R1](r_R1.md) (checks if position is in R1 region)
+  - [slice_from_s](../s/slice_from_s.md) (replaces suffix with specified vowel: 'a' or 'e')
 - Called from (representative examples):
-  - hungarian_ISO_8859_2_stem
-  - hungarian_UTF_8_stem
+  - [hungarian_ISO_8859_2_stem](../h/hungarian_ISO_8859_2_stem.md)
+  - [hungarian_UTF_8_stem](../h/hungarian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function handles morphologically complex Hungarian endings that cannot be simply deleted

@@ -25,11 +25,11 @@ This is a static helper function shared by both be_lo_truncate (32-bit length) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inv_truncate
-  - LargeObjectDesc (structure type)
+  - [inv_truncate](../i/inv_truncate.md)
+  - [LargeObjectDesc](../L/LargeObjectDesc.md) (structure type)
 - Called from (representative examples):
-  - be_lo_truncate
-  - be_lo_truncate64
+  - [be_lo_truncate](../b/be_lo_truncate.md)
+  - [be_lo_truncate64](../b/be_lo_truncate64.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within be-fsstubs.c

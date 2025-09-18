@@ -25,11 +25,11 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony
-  - find_among_b
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md)
+  - [find_among_b](../f/find_among_b.md)
   - a_13 (static array containing suffix patterns: "sin", "sun", "sın", "sün")
 - Called from (representative examples):
-  - r_stem_nominal_verb_suffixes (at lines 962, 1066, 1126)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md) (at lines 962, 1066, 1126)
 
 ## Notes and Other Information
 - The `a_13` array contains 4 suffix variations: "sin", "sun", "sın" (with dotless ı), and "sün"

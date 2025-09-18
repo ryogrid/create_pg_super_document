@@ -28,16 +28,16 @@ The structure is intentionally designed to discourage direct field access, inste
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - detoast_external_attr
-  - detoast_attr
-  - toast_compress_datum
-  - toast_save_datum
-  - hashvarlena
-  - pg_detoast_datum
-  - bytea
-  - text
-  - BpChar
-  - VarChar
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [detoast_attr](../d/detoast_attr.md)
+  - [toast_compress_datum](../t/toast_compress_datum.md)
+  - [toast_save_datum](../t/toast_save_datum.md)
+  - [hashvarlena](../h/hashvarlena.md)
+  - [pg_detoast_datum](../p/pg_detoast_datum.md)
+  - [bytea](../b/bytea.md)
+  - [text](../t/text.md)
+  - [BpChar](../B/BpChar.md)
+  - [VarChar](../V/VarChar.md)
 
 ## Notes and Other Information
 - **TOAST Integration**: The structure is deeply integrated with PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system for handling large values

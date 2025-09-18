@@ -20,10 +20,10 @@ This function computes the shortest distance between two polygons using a compre
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (extract polygon arguments)
-  - poly_overlap_internal (check if polygons overlap)
-  - statlseg_construct (construct line segments from polygon edges)
-  - lseg_closept_lseg (calculate closest point distance between line segments)
-  - float8_lt (floating-point comparison)
+  - [poly_overlap_internal](poly_overlap_internal.md) (check if polygons overlap)
+  - [statlseg_construct](../s/statlseg_construct.md) (construct line segments from polygon edges)
+  - [lseg_closept_lseg](../l/lseg_closept_lseg.md) (calculate closest point distance between line segments)
+  - [float8_lt](../f/float8_lt.md) (floating-point comparison)
   - PG_RETURN_FLOAT8 (return distance result)
   - PG_RETURN_NULL (return null if no valid distance)
 - Called from (representative examples):

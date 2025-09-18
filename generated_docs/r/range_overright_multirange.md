@@ -23,9 +23,9 @@ The overright operator returns true if the range's lower bound is greater than o
 - Functions called/Symbols referenced:
   - `PG_GETARG_RANGE_P` - Extract range argument
   - `PG_GETARG_MULTIRANGE_P` - Extract multirange argument
-  - `multirange_get_typcache` - Get type cache information
+  - `[multirange_get_typcache](../m/multirange_get_typcache.md)` - Get type cache information
   - `MultirangeTypeGetOid` - Get OID of multirange type
-  - `range_overright_multirange_internal` - Perform actual comparison logic
+  - `[range_overright_multirange_internal](range_overright_multirange_internal.md)` - Perform actual comparison logic
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function dispatch system)
 

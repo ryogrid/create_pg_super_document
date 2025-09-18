@@ -31,7 +31,7 @@ The synchronization mechanism ensures that worker processes don't attempt to acc
   - `ConditionVariableBroadcast`: Wake up all processes waiting on the condition variable
   - `BM_FINISHED`: Enumeration value indicating completed initialization
 - Called from (representative examples):
-  - `BitmapHeapNext`: Called after leader completes shared state setup
+  - `[BitmapHeapNext](BitmapHeapNext.md)`: Called after leader completes shared state setup
 
 ## Notes and Other Information
 - This function is only called by the leader process in a parallel bitmap heap scan

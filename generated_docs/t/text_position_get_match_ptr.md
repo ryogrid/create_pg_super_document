@@ -19,9 +19,9 @@ This is a simple accessor function that retrieves the pointer to the last succes
 - Functions called/Symbols referenced:
   - TextPositionState (structure accessed)
 - Called from (representative examples):
-  - replace_text
+  - [replace_text](../r/replace_text.md)
   - split_part
-  - split_text
+  - [split_text](../s/split_text.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the varlena.c file

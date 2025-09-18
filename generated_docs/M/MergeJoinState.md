@@ -34,8 +34,8 @@ MergeJoinState extends JoinState to provide comprehensive state management for m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JoinState (inherited base structure)
-  - MergeJoinClause (for join clause specifications)
+  - [JoinState](../J/JoinState.md) (inherited base structure)
+  - [MergeJoinClause](MergeJoinClause.md) (for join clause specifications)
   - TupleTableSlot (for tuple storage)
   - ExprContext (for expression evaluation contexts)
 - Called from (representative examples):
@@ -43,8 +43,8 @@ MergeJoinState extends JoinState to provide comprehensive state management for m
   - ExecInitMergeJoin (initialization function)
   - ExecEndMergeJoin (cleanup function)
   - ExecReScanMergeJoin (rescan function)
-  - MJCompare (comparison function)
-  - MJFillOuter/MJFillInner (outer join handling)
+  - [MJCompare](MJCompare.md) (comparison function)
+  - [MJFillOuter](MJFillOuter.md)/MJFillInner (outer join handling)
 
 ## Notes and Other Information
 - Merge joins require both input relations to be sorted on the join keys, making them efficient for large sorted datasets

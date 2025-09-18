@@ -24,7 +24,7 @@ The function handles the `XLOG_LOGICAL_MESSAGE` record type, parsing the embedde
   - XLogRecGetInfo - Gets the info field from the WAL record
   - XLR_INFO_MASK - Mask used to filter info bits
   - XLOG_LOGICAL_MESSAGE - Constant identifying logical message record type
-  - xl_logical_message - Structure representing logical message data
+  - [xl_logical_message](../x/xl_logical_message.md) - Structure representing logical message data
 
 - Called from (representative examples):
   - WAL record description infrastructure

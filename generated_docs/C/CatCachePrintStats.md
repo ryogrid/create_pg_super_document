@@ -32,7 +32,7 @@ Statistics are only printed for caches that have been actively used (non-zero tu
   - slist_container (macro to get cache structure from list node)
   - elog (for debug output)
 - Called from (representative examples):
-  - InitCatCache (registered as exit callback)
+  - [InitCatCache](../I/InitCatCache.md) (registered as exit callback)
 
 ## Notes and Other Information
 - Function is declared as static, making it internal to the catcache.c module

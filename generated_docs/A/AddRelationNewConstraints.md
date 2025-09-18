@@ -33,24 +33,24 @@ The function is designed to handle both user-initiated constraint additions and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleConstr
-  - make_parsestate
-  - addRangeTableEntryForRelation
-  - addNSItemToQuery
-  - cookDefault
-  - StoreAttrDefault
-  - cookConstraint
-  - stringToNode
-  - MergeWithExistingConstraint
-  - pull_var_clause
-  - ChooseConstraintName
-  - StoreRelCheck
-  - SetRelationNumChecks
+  - [TupleConstr](../T/TupleConstr.md)
+  - [make_parsestate](../m/make_parsestate.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
+  - [cookDefault](../c/cookDefault.md)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md)
+  - [cookConstraint](../c/cookConstraint.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [MergeWithExistingConstraint](../M/MergeWithExistingConstraint.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [ChooseConstraintName](../C/ChooseConstraintName.md)
+  - [StoreRelCheck](../S/StoreRelCheck.md)
+  - [SetRelationNumChecks](../S/SetRelationNumChecks.md)
 - Called from (representative examples):
-  - DefineRelation
-  - ATExecAddColumn
-  - ATExecColumnDefault
-  - ATAddCheckConstraint
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ATExecAddColumn](ATExecAddColumn.md)
+  - [ATExecColumnDefault](ATExecColumnDefault.md)
+  - [ATAddCheckConstraint](ATAddCheckConstraint.md)
 
 ## Notes and Other Information
 - Caller should hold an appropriate lock (typically AccessExclusiveLock or ShareUpdateExclusiveLock) until end of transaction

@@ -20,14 +20,14 @@ The `ECPGis_noind_null` function performs type-aware null detection for ECPG (Em
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _check (for float, double, interval, timestamp types)
+  - [_check](../c/_check.md) (for float, double, interval, timestamp types)
   - Various ECPGt_* type constants (ECPGt_char, ECPGt_int, etc.)
   - System constants (SHRT_MIN, INT_MIN, LONG_MIN, LONG_LONG_MIN)
   - NUMERIC_NULL constant
   - ECPGgeneric_varchar, ECPGgeneric_bytea structures
   - decimal, numeric, interval, timestamp types
 - Called from (representative examples):
-  - risnull (in src/interfaces/ecpg/compatlib/informix.c)
+  - [risnull](../r/risnull.md) (in src/interfaces/ecpg/compatlib/informix.c)
   - ecpg_store_input (in src/interfaces/ecpg/ecpglib/execute.c)
   - SQLSTATE (referenced in src/interfaces/ecpg/include/ecpglib.h)
 
@@ -37,8 +37,8 @@ The `ECPGis_noind_null` function performs type-aware null detection for ECPG (Em
   - Character types: checks for '\0' (null terminator)
   - Integer types: checks for minimum value constants
   - Floating-point types: uses `_check` to verify all bits are 0xff
-  - varchar: checks if first array element is 0x00
-  - bytea: checks if length is 0
+  - [varchar](../v/varchar.md): checks if first array element is 0x00
+  - [bytea](../b/bytea.md): checks if length is 0
   - decimal/numeric: checks for NUMERIC_NULL sign
   - Complex types (interval, timestamp): uses `_check` with sizeof
 - Returns false for unknown or unsupported types

@@ -22,19 +22,19 @@ The function uses a two-pointer technique where 'i' scans through all elements a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare (user-provided comparator function)
+  - [compare](../c/compare.md) (user-provided comparator function)
   - memcpy (for moving array elements)
 - Called from (representative examples):
-  - _bt_deadblocks
+  - [_bt_deadblocks](../b/_bt_deadblocks.md)
   - TidListEval
-  - aclmembers
-  - gtsvector_compress
-  - tsq_mcontains
-  - tsvector_delete_by_indices
-  - array_to_tsvector
-  - checkcondition_str
-  - sort_snapshot
-  - InitCatalogCache
+  - [aclmembers](../a/aclmembers.md)
+  - [gtsvector_compress](../g/gtsvector_compress.md)
+  - [tsq_mcontains](../t/tsq_mcontains.md)
+  - [tsvector_delete_by_indices](../t/tsvector_delete_by_indices.md)
+  - [array_to_tsvector](../a/array_to_tsvector.md)
+  - [checkcondition_str](../c/checkcondition_str.md)
+  - [sort_snapshot](../s/sort_snapshot.md)
+  - [InitCatalogCache](../I/InitCatalogCache.md)
 
 ## Notes and Other Information
 - The function is implemented as a static inline function for performance optimization

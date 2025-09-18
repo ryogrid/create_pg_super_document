@@ -22,20 +22,20 @@ The function performs a database query to retrieve the template namespace and na
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - pg_strdup
-  - fmtId
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQueryForSingleRow
-  - PQgetvalue
-  - PQclear
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - free
 - Called from (representative examples):
-  - dumpDumpableObject (via switch statement for DO_TSDICT objects)
+  - [dumpDumpableObject](dumpDumpableObject.md) (via switch statement for DO_TSDICT objects)
 
 ## Notes and Other Information
 - Only executes during schema dumps (skipped when dopt->dataOnly is true)

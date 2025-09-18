@@ -22,7 +22,7 @@ This function formats subtransaction assignment record information from WAL (Wri
   - appendStringInfoString (for adding the "subxacts:" label)
   - appendStringInfo (for formatting each subtransaction ID)
 - Called from (representative examples):
-  - xact_desc (src/backend/access/rmgrdesc/xactdesc.c:474)
+  - [xact_desc](xact_desc.md) (src/backend/access/rmgrdesc/xactdesc.c:474)
 
 ## Notes and Other Information
 - This is a static function, only visible within the xactdesc.c file

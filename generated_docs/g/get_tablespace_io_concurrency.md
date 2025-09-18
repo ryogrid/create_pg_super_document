@@ -21,14 +21,14 @@ Like other tablespace parameter functions, this is not transaction-locked, meani
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tablespace: Retrieve cached tablespace entry for the given OID
+  - [get_tablespace](get_tablespace.md): Retrieve cached tablespace entry for the given OID
 - Global variables referenced:
   - effective_io_concurrency: Global default I/O concurrency setting
 - Data structures used:
   - TableSpaceCacheEntry: Cache entry containing tablespace options
   - TableSpaceOpts: Structure containing effective_io_concurrency field
 - Called from:
-  - ExecInitBitmapHeapScan: Initialize bitmap heap scan with appropriate I/O concurrency
+  - [ExecInitBitmapHeapScan](../E/ExecInitBitmapHeapScan.md): Initialize bitmap heap scan with appropriate I/O concurrency
   - read_stream_begin_relation: Configure read-ahead streams for relation scanning
 
 ## Notes and Other Information

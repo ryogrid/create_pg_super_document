@@ -24,18 +24,18 @@ This function serves as the common implementation core for PostgreSQL's XPath fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xml_xpathobjtoxmlarray
-  - pg_xml_init, pg_xml_done
+  - [xml_xpathobjtoxmlarray](xml_xpathobjtoxmlarray.md)
+  - [pg_xml_init](../p/pg_xml_init.md), pg_xml_done
   - xml_ereport
   - parse_xml_decl
   - pg_xmlCharStrndup
-  - deconstruct_array_builtin
-  - GetDatabaseEncoding
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - xmlNewParserCtxt, xmlCtxtReadMemory, xmlXPathNewContext, xmlXPathCtxtCompile, xmlXPathCompiledEval (libxml2)
 - Called from (representative examples):
-  - xpath
-  - xmlexists
-  - xpath_exists
+  - [xpath](xpath.md)
+  - [xmlexists](xmlexists.md)
+  - [xpath_exists](xpath_exists.md)
 
 ## Notes and Other Information
 - Static function providing shared implementation for multiple XPath-related SQL functions

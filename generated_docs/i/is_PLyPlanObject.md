@@ -19,7 +19,7 @@ This utility function performs a type check to determine if the provided Python 
 - Functions called/Symbols referenced:
   - PLy_PlanType (Python type object reference)
 - Called from (representative examples):
-  - PLy_spi_execute
+  - [PLy_spi_execute](../P/PLy_spi_execute.md)
 
 ## Notes and Other Information
 - Returns true if the object is a PLyPlan instance, false otherwise

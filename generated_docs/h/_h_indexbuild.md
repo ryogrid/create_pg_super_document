@@ -18,16 +18,16 @@ This function completes the hash index construction process by first performing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HSpool (structure type)
+  - [HSpool](../H/HSpool.md) (structure type)
   - tuplesort_performsort (executes the sort operation)
-  - tuplesort_getindextuple (retrieves sorted tuples)
-  - _hash_hashkey2bucket (computes bucket for hash key)
+  - [tuplesort_getindextuple](../t/tuplesort_getindextuple.md) (retrieves sorted tuples)
+  - [_hash_hashkey2bucket](_hash_hashkey2bucket.md) (computes bucket for hash key)
   - _hash_get_indextuple_hashkey (extracts hash key from tuple)
-  - _hash_doinsert (inserts tuple into hash index)
-  - pgstat_progress_update_param (reports progress)
+  - [_hash_doinsert](_hash_doinsert.md) (inserts tuple into hash index)
+  - [pgstat_progress_update_param](../p/pgstat_progress_update_param.md) (reports progress)
   - PROGRESS_CREATEIDX_TUPLES_DONE (progress tracking constant)
 - Called from (representative examples):
-  - hashbuild
+  - [hashbuild](hashbuild.md)
 
 ## Notes and Other Information
 - Sorting is primarily for performance optimization (locality of access) rather than correctness

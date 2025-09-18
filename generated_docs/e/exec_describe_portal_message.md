@@ -17,15 +17,15 @@ This function handles the Describe message for portals in PostgreSQL's extended 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - start_xact_command
+  - [start_xact_command](../s/start_xact_command.md)
   - GetPortalByName
   - PortalIsValid
-  - IsAbortedTransactionBlockState
-  - SendRowDescriptionMessage
-  - FetchPortalTargetList
-  - pq_putemptymessage
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
+  - [FetchPortalTargetList](../F/FetchPortalTargetList.md)
+  - [pq_putemptymessage](../p/pq_putemptymessage.md)
 - Called from (representative examples):
-  - PostgresMain
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - Portals are the result of binding prepared statements with parameter values

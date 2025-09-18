@@ -26,14 +26,14 @@ AdjustTimeForTypmod adjusts the precision of TIME data type values according to 
   - TimeScales array (static scaling factors for each precision level)
   - TimeOffsets array (static offset values for rounding)
 - Called from (representative examples):
-  - GetSQLCurrentTime (src/backend/utils/adt/date.c:354)
-  - GetSQLLocalTime (src/backend/utils/adt/date.c:373)
-  - time_in (src/backend/utils/adt/date.c:1407)
-  - time_recv (src/backend/utils/adt/date.c:1538)
-  - time_scale (src/backend/utils/adt/date.c:1632)
-  - timetz_in (src/backend/utils/adt/date.c:2308)
-  - timetz_recv (src/backend/utils/adt/date.c:2362)
-  - timetz_scale (src/backend/utils/adt/date.c:2436)
+  - [GetSQLCurrentTime](../G/GetSQLCurrentTime.md) (src/backend/utils/adt/date.c:354)
+  - [GetSQLLocalTime](../G/GetSQLLocalTime.md) (src/backend/utils/adt/date.c:373)
+  - [time_in](../t/time_in.md) (src/backend/utils/adt/date.c:1407)
+  - [time_recv](../t/time_recv.md) (src/backend/utils/adt/date.c:1538)
+  - [time_scale](../t/time_scale.md) (src/backend/utils/adt/date.c:1632)
+  - [timetz_in](../t/timetz_in.md) (src/backend/utils/adt/date.c:2308)
+  - [timetz_recv](../t/timetz_recv.md) (src/backend/utils/adt/date.c:2362)
+  - [timetz_scale](../t/timetz_scale.md) (src/backend/utils/adt/date.c:2436)
 
 ## Notes and Other Information
 - Uses static lookup tables for performance optimization (TimeScales and TimeOffsets arrays)

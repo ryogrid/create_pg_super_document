@@ -19,14 +19,14 @@ This static function initializes the IndexAmRoutine structure for an index relat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetIndexAmRoutine
-  - MemoryContextAlloc
+  - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - memcpy
-  - pfree
-  - IndexAmRoutine (struct type)
+  - [pfree](../p/pfree.md)
+  - [IndexAmRoutine](IndexAmRoutine.md) (struct type)
 - Called from:
-  - RelationInitIndexAccessInfo
-  - load_relcache_init_file
+  - [RelationInitIndexAccessInfo](../R/RelationInitIndexAccessInfo.md)
+  - [load_relcache_init_file](../l/load_relcache_init_file.md)
 
 ## Notes and Other Information
 - This is a static function within relcache.c, used internally for relation cache initialization

@@ -22,13 +22,13 @@ This function serves as the public API for changing foreign server ownership whe
 - Functions called/Symbols referenced:
   - table_open: Open the pg_foreign_server catalog with exclusive lock
   - SearchSysCacheCopy1: Look up foreign server by name in system cache
-  - CStringGetDatum: Convert C string to Datum for cache lookup
-  - AlterForeignServerOwner_internal: Perform the actual ownership change
+  - [CStringGetDatum](../C/CStringGetDatum.md): Convert C string to Datum for cache lookup
+  - [AlterForeignServerOwner_internal](AlterForeignServerOwner_internal.md): Perform the actual ownership change
   - ObjectAddressSet: Create ObjectAddress for return value
-  - heap_freetuple: Free the tuple memory after use
+  - [heap_freetuple](../h/heap_freetuple.md): Free the tuple memory after use
   - table_close: Close the catalog relation with lock release
 - Called from (representative examples):
-  - ExecAlterOwnerStmt: General ALTER OWNER statement execution
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md): General ALTER OWNER statement execution
   - DEFREM_H: Header declaration for external usage
 
 ## Notes and Other Information

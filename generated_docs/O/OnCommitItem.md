@@ -23,11 +23,11 @@ The OnCommitItem structure is used to maintain a list of ON COMMIT actions that 
   - OnCommitAction (enum type)
   - SubTransactionId (type)
 - Called from (representative examples):
-  - register_on_commit_action
-  - remove_on_commit_action
-  - PreCommit_on_commit_actions
-  - AtEOXact_on_commit_actions
-  - AtEOSubXact_on_commit_actions
+  - [register_on_commit_action](../r/register_on_commit_action.md)
+  - [remove_on_commit_action](../r/remove_on_commit_action.md)
+  - [PreCommit_on_commit_actions](../P/PreCommit_on_commit_actions.md)
+  - [AtEOXact_on_commit_actions](../A/AtEOXact_on_commit_actions.md)
+  - [AtEOSubXact_on_commit_actions](../A/AtEOSubXact_on_commit_actions.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's transaction management system for handling temporary table cleanup

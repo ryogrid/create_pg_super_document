@@ -33,10 +33,10 @@ The function handles the special case where a full node256 has a count of zero d
   - RT_MAKE_NAME (macro for generating function names)
   - RT_BM_IDX (macro to get bitmap word index for chunk)
   - RT_BM_BIT (macro to get bit number within bitmap word)
-  - RT_SHRINK_NODE_256 (conditionally called to shrink the node)
+  - [RT_SHRINK_NODE_256](RT_SHRINK_NODE_256.md) (conditionally called to shrink the node)
   - Min (minimum value macro)
 - Called from (representative examples):
-  - RT_NODE_DELETE (src/include/lib/radixtree.h:2597)
+  - [RT_NODE_DELETE](RT_NODE_DELETE.md) (src/include/lib/radixtree.h:2597)
 
 ## Notes and Other Information
 - This is part of PostgreSQL's template-based radix tree implementation

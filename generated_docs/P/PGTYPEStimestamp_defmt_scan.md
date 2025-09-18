@@ -39,21 +39,21 @@ The function recursively handles composite format specifiers (like %D, %r, %R, %
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgtypes_defmt_scan (extensively for individual component parsing)
-  - pgtypes_alloc (for temporary string allocation)
-  - DecodeTimezone (for timezone string parsing)
-  - tm2timestamp (for final timestamp construction)
+  - [pgtypes_defmt_scan](../p/pgtypes_defmt_scan.md) (extensively for individual component parsing)
+  - [pgtypes_alloc](../p/pgtypes_alloc.md) (for temporary string allocation)
+  - [DecodeTimezone](../D/DecodeTimezone.md) (for timezone string parsing)
+  - [tm2timestamp](../t/tm2timestamp.md) (for final timestamp construction)
   - strncmp (standard C library function)
   - strlen (standard C library function)
   - strcpy/strcat (standard C library functions)
   - gmtime (standard C library function)
   - free (standard C library function)
-  - pg_strcasecmp (PostgreSQL string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (PostgreSQL string comparison)
   - isleap (leap year checking)
   - Various constants: PGTYPES_TYPE_UINT, PGTYPES_TYPE_UINT_LONG, PGTYPES_TYPE_STRING_MALLOCED, MONTHS_PER_YEAR, TZ, DTZ
   - Global arrays: pgtypes_date_weekdays_short, days, months, pgtypes_date_months, datetktbl, day_tab
 - Called from (representative examples):
-  - PGTYPEStimestamp_defmt_asc
+  - [PGTYPEStimestamp_defmt_asc](PGTYPEStimestamp_defmt_asc.md)
   - Self-recursively for composite format specifiers
 
 ## Notes and Other Information

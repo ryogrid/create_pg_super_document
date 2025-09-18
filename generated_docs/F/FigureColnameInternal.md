@@ -35,9 +35,9 @@ The function handles a comprehensive set of SQL expression types including colum
   - Various enum constants (AEXPR_NULLIF, SVFOP_*, IS_*, JSON_*_OP)
 
 - Called from (representative examples):
-  - FigureColname (main public interface)
-  - FigureIndexColname (for index column naming)
-  - FigureColnameInternal (recursive self-calls for complex expressions)
+  - [FigureColname](FigureColname.md) (main public interface)
+  - [FigureIndexColname](FigureIndexColname.md) (for index column naming)
+  - [FigureColnameInternal](FigureColnameInternal.md) (recursive self-calls for complex expressions)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/parser/parse_target.c

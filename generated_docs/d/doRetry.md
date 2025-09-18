@@ -20,14 +20,14 @@ This function implements pgbench's retry policy for failed transactions. It perf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CState (client state structure)
+  - [CState](../C/CState.md) (client state structure)
   - pg_time_usec_t (time type definition)
   - ESTATUS_NO_ERROR (error status constant)
-  - canRetryError (check if error type is retryable)
-  - pg_time_now_lazy (get current time when needed)
+  - [canRetryError](../c/canRetryError.md) (check if error type is retryable)
+  - [pg_time_now_lazy](../p/pg_time_now_lazy.md) (get current time when needed)
   - Global variables: max_tries, latency_limit, duration, timer_exceeded
 - Called from (representative examples):
-  - advanceConnectionState (multiple call sites)
+  - [advanceConnectionState](../a/advanceConnectionState.md) (multiple call sites)
 
 ## Notes and Other Information
 - Returns true if retry is allowed, false if any constraint prevents retrying

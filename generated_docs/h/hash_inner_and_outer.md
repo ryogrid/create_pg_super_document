@@ -34,19 +34,19 @@ For parallel execution, the function explores partial hash join paths when the j
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinType (enum type)
-  - JoinPathExtraData (struct type)
+  - [JoinPathExtraData](../J/JoinPathExtraData.md) (struct type)
   - IS_OUTER_JOIN
   - RINFO_IS_PUSHED_DOWN
-  - clause_sides_match_join
+  - [clause_sides_match_join](../c/clause_sides_match_join.md)
   - PATH_PARAM_BY_REL
   - JOIN_UNIQUE_OUTER, JOIN_UNIQUE_INNER, JOIN_INNER, JOIN_FULL, JOIN_RIGHT, JOIN_RIGHT_ANTI (enum values)
-  - create_unique_path
-  - try_hashjoin_path
-  - try_partial_hashjoin_path
+  - [create_unique_path](../c/create_unique_path.md)
+  - [try_hashjoin_path](../t/try_hashjoin_path.md)
+  - [try_partial_hashjoin_path](../t/try_partial_hashjoin_path.md)
   - bms_is_empty
-  - get_cheapest_parallel_safe_total_inner
+  - [get_cheapest_parallel_safe_total_inner](../g/get_cheapest_parallel_safe_total_inner.md)
 - Called from (representative examples):
-  - add_paths_to_joinrel
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the joinpath.c compilation unit

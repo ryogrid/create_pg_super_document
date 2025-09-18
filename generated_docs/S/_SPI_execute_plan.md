@@ -29,22 +29,22 @@ For each statement in the plan, it sets up appropriate destination receivers, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSubTransaction
+  - [IsSubTransaction](../I/IsSubTransaction.md)
   - PushActiveSnapshot/PopActiveSnapshot
-  - GetCachedPlan/ReleaseCachedPlan
-  - CreateQueryDesc/FreeQueryDesc
-  - ProcessUtility
+  - [GetCachedPlan](../G/GetCachedPlan.md)/ReleaseCachedPlan
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)/FreeQueryDesc
+  - [ProcessUtility](../P/ProcessUtility.md)
   - CommandCounterIncrement
-  - _SPI_pquery
-  - pg_analyze_and_rewrite_withcb
-  - pg_analyze_and_rewrite_fixedparams
-  - CompleteCachedPlan
+  - [_SPI_pquery](_SPI_pquery.md)
+  - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md)
+  - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md)
 - Called from (representative examples):
-  - SPI_execute
-  - SPI_execute_extended
-  - SPI_execute_plan
-  - SPI_execute_plan_extended
-  - SPI_execute_with_args
+  - [SPI_execute](SPI_execute.md)
+  - [SPI_execute_extended](SPI_execute_extended.md)
+  - [SPI_execute_plan](SPI_execute_plan.md)
+  - [SPI_execute_plan_extended](SPI_execute_plan_extended.md)
+  - [SPI_execute_with_args](SPI_execute_with_args.md)
 
 ## Notes and Other Information
 - Returns SPI result codes (SPI_OK_*, SPI_ERROR_*)

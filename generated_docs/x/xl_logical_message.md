@@ -25,9 +25,9 @@ The structure uses a flexible array member to store both the prefix (a null-term
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array member declaration)
 - Called from (representative examples):
-  - logicalmsg_decode (decode.c:606, 617)
-  - LogLogicalMessage (message.c:46)
-  - logicalmsg_desc (logicalmsgdesc.c:26)
+  - [logicalmsg_decode](../l/logicalmsg_decode.md) (decode.c:606, 617)
+  - [LogLogicalMessage](../L/LogLogicalMessage.md) (message.c:46)
+  - [logicalmsg_desc](../l/logicalmsg_desc.md) (logicalmsgdesc.c:26)
   - SizeOfLogicalMessage (message.h:30)
 
 ## Notes and Other Information

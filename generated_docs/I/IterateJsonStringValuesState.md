@@ -30,12 +30,12 @@ The IterateJsonStringValuesState structure provides the framework for iterating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
   - JsonIterateStringValuesAction
 - Called from (representative examples):
-  - iterate_json_values
-  - iterate_values_scalar
-  - iterate_values_object_field_start
+  - [iterate_json_values](../i/iterate_json_values.md)
+  - [iterate_values_scalar](../i/iterate_values_scalar.md)
+  - [iterate_values_object_field_start](../i/iterate_values_object_field_start.md)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL JSON processing infrastructure and provides a generic mechanism for applying operations to JSON values. The use of function pointers and void state allows for flexible customization of iteration behavior. The flags member enables selective processing of different JSON element types, making this structure suitable for various JSON manipulation tasks.

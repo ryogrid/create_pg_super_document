@@ -25,21 +25,21 @@ The function includes stack depth checking to prevent overflow from deeply neste
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - JsonbIteratorNext
-  - getKeyJsonValueFromContainer
+  - [JsonbIteratorNext](JsonbIteratorNext.md)
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md)
   - IsAJsonbScalar
-  - equalsJsonbScalarValue
-  - JsonbIteratorInit
-  - findJsonbValueFromContainer
-  - JsonbDeepContains (recursive call)
-  - palloc, pfree
+  - [equalsJsonbScalarValue](../e/equalsJsonbScalarValue.md)
+  - [JsonbIteratorInit](JsonbIteratorInit.md)
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md)
+  - [JsonbDeepContains](JsonbDeepContains.md) (recursive call)
+  - [palloc](../p/palloc.md), pfree
   - WJB_BEGIN_OBJECT, WJB_BEGIN_ARRAY, WJB_END_OBJECT, WJB_END_ARRAY, WJB_KEY, WJB_VALUE, WJB_ELEM
   - jbvObject, jbvArray, jbvBinary, jbvString
   - JB_FARRAY
 - Called from (representative examples):
-  - jsonb_contains
-  - jsonb_contained
-  - JsonbDeepContains (recursive calls)
+  - [jsonb_contains](../j/jsonb_contains.md)
+  - [jsonb_contained](../j/jsonb_contained.md)
+  - [JsonbDeepContains](JsonbDeepContains.md) (recursive calls)
 
 ## Notes and Other Information
 - Implements PostgreSQL's JSONB containment operator (@>) semantics

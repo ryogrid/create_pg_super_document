@@ -29,20 +29,20 @@ Unlike changeDependenciesOf, this function uses DependReferenceIndexId for effic
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - isObjectPinned
+  - [isObjectPinned](../i/isObjectPinned.md)
   - ereport
-  - getObjectDescription
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - heap_copytuple
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
   - GETSTRUCT
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - systable_endscan
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
 
 - Called from (representative examples):

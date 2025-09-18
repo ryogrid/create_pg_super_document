@@ -20,14 +20,14 @@ The function handles the complete syntax for table publication including optiona
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf - formats strings safely
-  - fmtId - formats identifiers safely for SQL output
+  - [psprintf](../p/psprintf.md) - formats strings safely
+  - [fmtId](../f/fmtId.md) - formats identifiers safely for SQL output
   - fmtQualifiedDumpable - formats qualified table names for dump output
-  - ArchiveEntry - creates an archive entry for the dump
+  - [ArchiveEntry](../A/ArchiveEntry.md) - creates an archive entry for the dump
   - createPQExpBuffer/destroyPQExpBuffer - manages query buffers
-  - appendPQExpBuffer/appendPQExpBufferStr - builds SQL statements
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)/appendPQExpBufferStr - builds SQL statements
 - Called from (representative examples):
-  - dumpDumpableObject - main dispatcher for dumping various object types
+  - [dumpDumpableObject](dumpDumpableObject.md) - [main](../m/main.md) dispatcher for dumping various object types
 
 ## Notes and Other Information
 - Only operates when DUMP_COMPONENT_DEFINITION flag is set
@@ -35,6 +35,6 @@ The function handles the complete syntax for table publication including optiona
 - No drop statement is generated since table drops handle this automatically
 - Creates archive entries in SECTION_POST_DATA for proper restore ordering
 - Supports column lists (pubrattrs) and row filters (pubrelqual) for PostgreSQL 15+
-- Publication table objects cannot currently have comments or security labels
+- [Publication](../P/Publication.md) table objects cannot currently have comments or security labels
 - Uses the publication owner's role name for the archive entry to ensure correct restore permissions
 - Adds parentheses around WHERE expressions to handle cases like "WHERE TRUE" properly

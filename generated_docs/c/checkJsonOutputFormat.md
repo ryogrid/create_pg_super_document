@@ -25,11 +25,11 @@ The function will raise errors with appropriate error codes and position informa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_type_category_preferred
+  - [get_type_category_preferred](../g/get_type_category_preferred.md)
   - ereport (for error reporting)
-  - parser_errposition
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - transformJsonOutput
+  - [transformJsonOutput](../t/transformJsonOutput.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the parser for JSON expression validation

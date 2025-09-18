@@ -27,13 +27,13 @@ This design separates the high-level parsing orchestration from the detailed URI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conninfo_init
-  - conninfo_uri_parse_options
-  - PQconninfoFree
-  - conninfo_add_defaults
+  - [conninfo_init](conninfo_init.md)
+  - [conninfo_uri_parse_options](conninfo_uri_parse_options.md)
+  - [PQconninfoFree](../P/PQconninfoFree.md)
+  - [conninfo_add_defaults](conninfo_add_defaults.md)
 - Called from (representative examples):
   - internalPQconninfoOption (src/interfaces/libpq/fe-connect.c:420)
-  - parse_connection_string (src/interfaces/libpq/fe-connect.c:5804)
+  - [parse_connection_string](../p/parse_connection_string.md) (src/interfaces/libpq/fe-connect.c:5804)
 
 ## Notes and Other Information
 - This is a static function, internal to the fe-connect.c file

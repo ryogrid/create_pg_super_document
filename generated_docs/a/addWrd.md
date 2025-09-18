@@ -27,16 +27,16 @@ The function uses static variables to track the current result array size, allow
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc: PostgreSQL memory allocation function
-  - repalloc: PostgreSQL memory reallocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
+  - [repalloc](../r/repalloc.md): PostgreSQL memory reallocation function
   - memcpy: Standard C library function for memory copying
   - DictThesaurus: Main thesaurus dictionary structure
-  - TheSubstitute: Structure representing a complete substitution rule
+  - [TheSubstitute](../T/TheSubstitute.md): Structure representing a complete substitution rule
   - TSLexeme: Structure representing individual result lexemes
   - DT_USEASIS: Flag constant for lexeme processing behavior
 
 - Called from (representative examples):
-  - thesaurusRead: Parser function that processes thesaurus configuration files
+  - [thesaurusRead](../t/thesaurusRead.md): Parser function that processes thesaurus configuration files
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dict_thesaurus.c file

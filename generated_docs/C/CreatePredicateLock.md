@@ -24,15 +24,15 @@ The function first acquires the appropriate locks (SerializablePredicateListLock
   - PredicateLockHashPartitionLock
   - LWLockAcquire, LWLockRelease
   - IsInParallelMode
-  - hash_search_with_hash_value
-  - dlist_init, dlist_push_tail
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
+  - [dlist_init](../d/dlist_init.md), dlist_push_tail
   - PredicateLockHashCodeFromTargetHashCode
   - PREDICATELOCKTARGET, PREDICATELOCK, PREDICATELOCKTAG (structs)
   - InvalidSerCommitSeqNo (constant)
 - Called from (representative examples):
-  - PredicateLockAcquire
+  - [PredicateLockAcquire](../P/PredicateLockAcquire.md)
   - predicatelock_twophase_recover
-  - SerialControl
+  - [SerialControl](../S/SerialControl.md)
 
 ## Notes and Other Information
 - This function only handles the core lock creation mechanics and does not deal with granularity promotion or local lock table management

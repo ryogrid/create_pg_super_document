@@ -21,16 +21,16 @@ The function calculates the size needed to store the SharedAggInfo structure plu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - offsetof (macro)
 - Data types referenced:
-  - AggState
-  - SharedAggInfo
-  - AggregateInstrumentation
+  - [AggState](../A/AggState.md)
+  - [SharedAggInfo](../S/SharedAggInfo.md)
+  - [AggregateInstrumentation](../A/AggregateInstrumentation.md)
   - Size
 - Called from (representative examples):
-  - ExecParallelRetrieveInstrumentation
+  - [ExecParallelRetrieveInstrumentation](ExecParallelRetrieveInstrumentation.md)
 
 ## Notes and Other Information
 - This function only operates when shared_info is not NULL (i.e., when parallel execution was used)

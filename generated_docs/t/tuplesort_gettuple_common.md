@@ -27,7 +27,7 @@ The function implements bidirectional tuple access for random access sorts and m
 - Functions called/Symbols referenced:
   - WORKER (macro to check worker process state)
   - RELEASE_SLAB_SLOT (memory management for slab allocator)
-  - getlen (reads tuple length from logical tape)
+  - [getlen](../g/getlen.md) (reads tuple length from logical tape)
   - READTUP (reads tuple data from tape)
   - LogicalTapeBackspace (positions tape backward)
   - LogicalTapeClose (closes logical tape)
@@ -35,12 +35,12 @@ The function implements bidirectional tuple access for random access sorts and m
   - tuplesort_heap_delete_top (heap management during merge)
   - tuplesort_heap_replace_top (heap management during merge)
 - Called from (representative examples):
-  - tuplesort_skiptuples
-  - tuplesort_gettupleslot
-  - tuplesort_getheaptuple
-  - tuplesort_getindextuple
-  - tuplesort_getbrintuple
-  - tuplesort_getdatum
+  - [tuplesort_skiptuples](tuplesort_skiptuples.md)
+  - [tuplesort_gettupleslot](tuplesort_gettupleslot.md)
+  - [tuplesort_getheaptuple](tuplesort_getheaptuple.md)
+  - [tuplesort_getindextuple](tuplesort_getindextuple.md)
+  - [tuplesort_getbrintuple](tuplesort_getbrintuple.md)
+  - [tuplesort_getdatum](tuplesort_getdatum.md)
 
 ## Notes and Other Information
 - The function enforces that backward scanning requires TUPLESORT_RANDOMACCESS option

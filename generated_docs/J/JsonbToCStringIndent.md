@@ -19,10 +19,10 @@ This function provides an interface for converting JSONB data to a formatted str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbToCStringWorker (the core conversion function with indentation control)
-  - JsonbContainer (JSONB container structure type)
+  - [JsonbToCStringWorker](JsonbToCStringWorker.md) (the core conversion function with indentation control)
+  - [JsonbContainer](JsonbContainer.md) (JSONB container structure type)
 - Called from (representative examples):
-  - jsonb_pretty (SQL function for pretty-printing JSONB)
+  - [jsonb_pretty](../j/jsonb_pretty.md) (SQL function for pretty-printing JSONB)
   - PG_RETURN_JSONB_P (macro for returning JSONB values with formatting)
 
 ## Notes and Other Information

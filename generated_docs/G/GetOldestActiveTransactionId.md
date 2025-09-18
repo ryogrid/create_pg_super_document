@@ -26,14 +26,14 @@ This function takes no parameters and returns:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - LWLockAcquire/LWLockRelease
   - XidFromFullTransactionId
   - TransactionIdIsNormal
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - UINT32_ACCESS_ONCE
 - Called from (representative examples):
-  - CreateCheckPoint (src/backend/access/transam/xlog.c:6932)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (src/backend/access/transam/xlog.c:6932)
 
 ## Notes and Other Information
 - Only executed during normal operation, never during recovery

@@ -17,15 +17,15 @@ This function serves as a type conversion utility within PostgreSQL's geometric 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (implicit through casting)
-  - BOX (geometric data type)
+  - [DatumGetPointer](DatumGetPointer.md) (implicit through casting)
+  - [BOX](../B/BOX.md) (geometric data type)
 - Called from (representative examples):
-  - gist_box_consistent
-  - gist_box_union  
-  - gist_box_penalty
-  - gist_box_picksplit
-  - gist_point_fetch
-  - spg_box_quad_choose
+  - [gist_box_consistent](../g/gist_box_consistent.md)
+  - [gist_box_union](../g/gist_box_union.md)  
+  - [gist_box_penalty](../g/gist_box_penalty.md)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md)
+  - [gist_point_fetch](../g/gist_point_fetch.md)
+  - [spg_box_quad_choose](../s/spg_box_quad_choose.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's geometric data type conversion infrastructure, primarily used by GiST (Generalized Search Tree) and SP-GiST (Space-Partitioned Generalized Search Tree) indexing methods for efficient spatial queries. It's defined in src/include/utils/geo_decls.h:234-238 and is extensively used throughout the geometric indexing subsystem.

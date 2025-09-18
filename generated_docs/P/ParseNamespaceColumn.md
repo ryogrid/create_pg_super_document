@@ -32,10 +32,10 @@ Dropped columns are represented with all-zero values, conventionally detected by
   - AttrNumber (type from PostgreSQL catalog system)
   - Oid (type from PostgreSQL catalog system)
 - Called from (representative examples):
-  - buildVarFromNSColumn (src/backend/parser/parse_clause.c:1640)
-  - scanNSItemForColumn (src/backend/parser/parse_relation.c:731)
-  - buildNSItemFromTupleDesc (src/backend/parser/parse_relation.c:1299)
-  - transformFromClauseItem (src/backend/parser/parse_clause.c:1167)
+  - [buildVarFromNSColumn](../b/buildVarFromNSColumn.md) (src/backend/parser/parse_clause.c:1640)
+  - [scanNSItemForColumn](../s/scanNSItemForColumn.md) (src/backend/parser/parse_relation.c:731)
+  - [buildNSItemFromTupleDesc](../b/buildNSItemFromTupleDesc.md) (src/backend/parser/parse_relation.c:1299)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (src/backend/parser/parse_clause.c:1167)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's parser infrastructure for resolving column references in SQL queries

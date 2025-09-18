@@ -29,11 +29,11 @@ The function uses a sophisticated offset management system where every JB_OFFSET
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - padBufferToInt (aligns buffer to 4-byte boundary)
-  - appendToBuffer (appends data to buffer)
-  - reserveFromBuffer (reserves space in buffer)
-  - convertJsonbValue (recursively converts array elements)
-  - copyToBuffer (copies data to specific buffer offset)
+  - [padBufferToInt](../p/padBufferToInt.md) (aligns buffer to 4-byte boundary)
+  - [appendToBuffer](../a/appendToBuffer.md) (appends data to buffer)
+  - [reserveFromBuffer](../r/reserveFromBuffer.md) (reserves space in buffer)
+  - [convertJsonbValue](convertJsonbValue.md) (recursively converts array elements)
+  - [copyToBuffer](copyToBuffer.md) (copies data to specific buffer offset)
   - JBE_OFFLENFLD (extracts offset/length from JEntry)
 - Constants used:
   - JB_FARRAY (array flag)
@@ -44,7 +44,7 @@ The function uses a sophisticated offset management system where every JB_OFFSET
   - JENTRY_HAS_OFF (offset flag)
   - JENTRY_ISCONTAINER (container flag)
 - Called from:
-  - convertJsonbValue (main conversion dispatcher)
+  - [convertJsonbValue](convertJsonbValue.md) (main conversion dispatcher)
 
 ## Notes and Other Information
 - Enforces a maximum total size limit of JENTRY_OFFLENMASK bytes for array contents

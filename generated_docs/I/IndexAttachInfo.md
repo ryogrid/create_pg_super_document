@@ -24,15 +24,15 @@ This structure is critical for maintaining the integrity of partitioned index hi
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (inherited base structure)
-  - IndxInfo (referenced by both parentIdx and partitionIdx pointers)
+  - [IndxInfo](IndxInfo.md) (referenced by both parentIdx and partitionIdx pointers)
 - Called from (representative examples):
-  - flagInhIndexes (processes index inheritance relationships)
-  - dumpIndexAttach (generates index attachment commands)
-  - addConstrChildIdxDeps (manages constraint dependencies)
-  - dumpDumpableObject (generic dump processing)
+  - [flagInhIndexes](../f/flagInhIndexes.md) (processes index inheritance relationships)
+  - [dumpIndexAttach](../d/dumpIndexAttach.md) (generates index attachment commands)
+  - [addConstrChildIdxDeps](../a/addConstrChildIdxDeps.md) (manages constraint dependencies)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (generic dump processing)
 
 ## Notes and Other Information
-- IndexAttachInfo objects are created during the schema discovery phase when pg_dump detects partitioned index relationships
+- [IndexAttachInfo](IndexAttachInfo.md) objects are created during the schema discovery phase when pg_dump detects partitioned index relationships
 - These structures ensure proper ordering during restore: partition indexes are created before being attached to parent indexes
 - The structure helps maintain referential integrity between parent and child indexes in partitioned table hierarchies
 - During restore, IndexAttachInfo generates ALTER INDEX ... ATTACH PARTITION commands to rebuild the index hierarchy

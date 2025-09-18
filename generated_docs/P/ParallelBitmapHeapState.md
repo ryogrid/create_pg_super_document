@@ -24,16 +24,16 @@ ParallelBitmapHeapState manages the coordination of parallel bitmap heap scan op
 ## Dependencies
 - Functions called/Symbols referenced:
   - dsa_pointer
-  - slock_t
+  - [slock_t](../s/slock_t.md)
   - SharedBitmapState
   - ConditionVariable
 - Called from (representative examples):
-  - BitmapHeapNext
-  - ExecBitmapHeapInitializeDSM
-  - ExecBitmapHeapInitializeWorker
-  - BitmapDoneInitializingSharedState
-  - BitmapAdjustPrefetchIterator
-  - BitmapPrefetch
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
+  - [ExecBitmapHeapInitializeDSM](../E/ExecBitmapHeapInitializeDSM.md)
+  - [ExecBitmapHeapInitializeWorker](../E/ExecBitmapHeapInitializeWorker.md)
+  - [BitmapDoneInitializingSharedState](../B/BitmapDoneInitializingSharedState.md)
+  - [BitmapAdjustPrefetchIterator](../B/BitmapAdjustPrefetchIterator.md)
+  - [BitmapPrefetch](../B/BitmapPrefetch.md)
 
 ## Notes and Other Information
 - Essential for parallel bitmap heap scans where multiple workers collaborate on scanning heap pages

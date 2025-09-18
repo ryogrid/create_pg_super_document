@@ -19,8 +19,8 @@ The pg_ndistinct_recv function serves as the binary input routine for the pg_ndi
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (PostgreSQL error reporting function)
-  - errcode (error code specification macro)
-  - errmsg (error message formatting macro)  
+  - [errcode](../e/errcode.md) (error code specification macro)
+  - [errmsg](../e/errmsg.md) (error message formatting macro)  
   - PG_RETURN_VOID (macro to return void Datum)
 - Error codes used:
   - ERRCODE_FEATURE_NOT_SUPPORTED (PostgreSQL error code)

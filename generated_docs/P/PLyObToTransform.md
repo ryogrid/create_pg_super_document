@@ -24,9 +24,9 @@ Transform functions are particularly useful for complex data types that require 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)
 - Called from (representative examples):
-  - PLyObToDatum (as part of union in conversion structure)
+  - [PLyObToDatum](PLyObToDatum.md) (as part of union in conversion structure)
 
 ## Notes and Other Information
 - This structure is part of the PL/Python type conversion framework located in src/pl/plpython/plpy_typeio.h

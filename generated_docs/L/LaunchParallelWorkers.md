@@ -21,18 +21,18 @@ Each worker is configured to execute the ParallelWorkerMain function with the DS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BecomeLockGroupLeader (establishes lock group coordination)
-  - RegisterDynamicBackgroundWorker (registers worker with background worker infrastructure)
+  - [BecomeLockGroupLeader](../B/BecomeLockGroupLeader.md) (establishes lock group coordination)
+  - [RegisterDynamicBackgroundWorker](../R/RegisterDynamicBackgroundWorker.md) (registers worker with background worker infrastructure)
   - dsm_segment_handle (obtains handle to shared memory segment)
-  - shm_mq_set_handle, shm_mq_detach (manages message queue handles)
-  - BackgroundWorker (structure type for worker configuration)
-  - UInt32GetDatum (converts segment handle to Datum for worker argument)
+  - [shm_mq_set_handle](../s/shm_mq_set_handle.md), shm_mq_detach (manages message queue handles)
+  - [BackgroundWorker](../B/BackgroundWorker.md) (structure type for worker configuration)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md) (converts segment handle to Datum for worker argument)
 
 - Called from (representative examples):
-  - _brin_begin_parallel (launches workers for BRIN index operations)
-  - _bt_begin_parallel (launches workers for B-tree index operations)
-  - parallel_vacuum_process_all_indexes (launches workers for vacuum operations)
-  - ExecGather, ExecGatherMerge (launches workers for parallel query execution)
+  - [_brin_begin_parallel](../b/_brin_begin_parallel.md) (launches workers for BRIN index operations)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md) (launches workers for B-tree index operations)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md) (launches workers for vacuum operations)
+  - [ExecGather](../E/ExecGather.md), ExecGatherMerge (launches workers for parallel query execution)
 
 ## Notes and Other Information
 - Gracefully handles worker registration failures by continuing with fewer workers

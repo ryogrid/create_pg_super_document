@@ -30,10 +30,10 @@ Key aspects:
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - fmtQualifiedDumpable
-  - ArchiveEntry
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing in data-only dump mode

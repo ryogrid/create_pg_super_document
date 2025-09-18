@@ -19,14 +19,14 @@ This function creates a new relation file on disk with comprehensive error handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TablespaceCreateDbspace (ensures tablespace directory exists)
+  - [TablespaceCreateDbspace](../T/TablespaceCreateDbspace.md) (ensures tablespace directory exists)
   - relpath (constructs the file path)
   - PathNameOpenFile (opens/creates the file)
-  - _mdfd_open_flags (gets appropriate file open flags)
-  - _fdvec_resize (resizes the file descriptor vector)
+  - [_mdfd_open_flags](_mdfd_open_flags.md) (gets appropriate file open flags)
+  - [_fdvec_resize](../f/_fdvec_resize.md) (resizes the file descriptor vector)
   - SmgrIsTemp (checks if relation is temporary)
-  - register_dirty_segment (tracks dirty segments for cleanup)
-  - pfree (frees allocated memory)
+  - [register_dirty_segment](../r/register_dirty_segment.md) (tracks dirty segments for cleanup)
+  - [pfree](../p/pfree.md) (frees allocated memory)
 
 - Called from (representative examples):
   - Declared in src/include/storage/md.h for external usage

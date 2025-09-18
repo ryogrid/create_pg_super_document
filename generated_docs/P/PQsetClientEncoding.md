@@ -21,13 +21,13 @@ PQsetClientEncoding sets the client character encoding for the given database co
   - CONNECTION_OK (connection status constant)
   - pg_encoding_to_char (converts encoding ID to string)
   - pg_get_encoding_from_locale (gets encoding from system locale)
-  - PQexec (executes SQL command)
+  - [PQexec](PQexec.md) (executes SQL command)
   - PGRES_COMMAND_OK (result status constant)
-  - PQclear (frees result object)
+  - [PQclear](PQclear.md) (frees result object)
 - Called from (representative examples):
-  - setup_connection (in pg_dump.c)
-  - main (in pg_dumpall.c)
-  - exec_command_encoding (in psql command.c)
+  - [setup_connection](../s/setup_connection.md) (in pg_dump.c)
+  - [main](../m/main.md) (in pg_dumpall.c)
+  - [exec_command_encoding](../e/exec_command_encoding.md) (in psql command.c)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure

@@ -29,14 +29,14 @@ The function sets inhdetachpending to false, indicating this is not a pending de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_form_tuple: Creates a heap tuple from the provided values
-  - CatalogTupleInsert: Inserts the tuple into the system catalog
-  - heap_freetuple: Frees memory allocated for the heap tuple
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates a heap tuple from the provided values
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md): Inserts the tuple into the system catalog
+  - [heap_freetuple](../h/heap_freetuple.md): Frees memory allocated for the heap tuple
 - Called from (representative examples):
   - index_create: When creating inheritance relationships for indexes
   - index_concurrently_swap: During concurrent index operations
-  - IndexSetParentIndex: When setting up index inheritance
-  - StoreCatalogInheritance1: Higher-level inheritance storage function
+  - [IndexSetParentIndex](../I/IndexSetParentIndex.md): When setting up index inheritance
+  - [StoreCatalogInheritance1](StoreCatalogInheritance1.md): Higher-level inheritance storage function
 
 ## Notes and Other Information
 - This is a low-level function for creating individual inheritance entries

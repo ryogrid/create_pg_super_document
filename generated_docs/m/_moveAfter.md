@@ -25,7 +25,7 @@ The operation is performed in two phases:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
   - (No direct callers found in the current codebase)
 

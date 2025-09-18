@@ -21,9 +21,9 @@ For NaN inputs, the function returns NaN. For all other values (including infini
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts the NUMERIC argument from function arguments
   - NUMERIC_IS_NAN: Checks if the numeric value is NaN
-  - make_result: Converts internal numeric representation to NUMERIC datum
+  - [make_result](../m/make_result.md): Converts internal numeric representation to NUMERIC datum
   - PG_RETURN_NUMERIC: Returns the result as a NUMERIC Datum
-  - numeric_sign_internal: Internal function that performs the actual sign determination
+  - [numeric_sign_internal](numeric_sign_internal.md): Internal function that performs the actual sign determination
   - const_nan, const_zero, const_one, const_minus_one: Pre-defined NUMERIC constants
 
 - Called from (representative examples):

@@ -24,15 +24,15 @@ This function uses the PostgreSQL function call convention and doesn't take expl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - get_extension_control_directory
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [get_extension_control_directory](../g/get_extension_control_directory.md)
   - AllocateDir
   - ReadDir
-  - is_extension_control_filename
-  - read_extension_control_file
+  - [is_extension_control_filename](../i/is_extension_control_filename.md)
+  - [read_extension_control_file](../r/read_extension_control_file.md)
   - DirectFunctionCall1
   - namein
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
   - CStringGetTextDatum
   - tuplestore_putvalues
   - FreeDir

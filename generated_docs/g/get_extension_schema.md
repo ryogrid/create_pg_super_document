@@ -29,18 +29,18 @@ This function is essential for extension management operations that need to unde
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open (opens pg_extension catalog)
-  - ScanKeyInit (initializes search key)
-  - systable_beginscan (starts catalog scan)
-  - systable_getnext (retrieves next tuple)
-  - systable_endscan (ends catalog scan)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (initializes search key)
+  - [systable_beginscan](../s/systable_beginscan.md) (starts catalog scan)
+  - [systable_getnext](../s/systable_getnext.md) (retrieves next tuple)
+  - [systable_endscan](../s/systable_endscan.md) (ends catalog scan)
   - table_close (closes catalog relation)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - Form_pg_extension (cast to extension tuple structure)
 
 - Called from (representative examples):
-  - CreateExtensionInternal (during extension creation)
-  - ApplyExtensionUpdates (during extension updates)
-  - ExecAlterExtensionContentsRecurse (content management operations)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (during extension creation)
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md) (during extension updates)
+  - [ExecAlterExtensionContentsRecurse](../E/ExecAlterExtensionContentsRecurse.md) (content management operations)
 
 ## Notes and Other Information
 - Returns InvalidOid (0) if the extension OID does not exist, rather than throwing an error

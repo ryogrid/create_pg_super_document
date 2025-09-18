@@ -22,14 +22,14 @@ The function creates a template tuple descriptor using CreateTemplateTupleDesc a
   - Form_pg_class (pg_class tuple structure type)
   - RelationData (relation descriptor structure type)
   - CLASS_TUPLE_SIZE (constant for fixed-size portion of pg_class)
-  - CreateTemplateTupleDesc (creates empty tuple descriptor template)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (creates empty tuple descriptor template)
 - Called from (representative examples):
-  - RelationBuildDesc (main relation descriptor building function)
+  - [RelationBuildDesc](../R/RelationBuildDesc.md) (main relation descriptor building function)
 
 ## Notes and Other Information
 - Allocates memory in CacheMemoryContext to ensure proper lifetime management
 - Only copies the fixed-size portion (CLASS_TUPLE_SIZE) of pg_class tuples
-- Variable-length fields (relacl, reloptions) are intentionally excluded from relcache storage
+- [Variable](../V/Variable.md)-length fields (relacl, reloptions) are intentionally excluded from relcache storage
 - Sets up reference counting (tdrefcount = 1) for the tuple descriptor
 - Initializes rd_smgr to NULL to indicate no open storage manager file
 - The returned relation descriptor requires further initialization by other functions

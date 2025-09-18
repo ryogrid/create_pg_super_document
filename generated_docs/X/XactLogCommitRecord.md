@@ -31,16 +31,16 @@ XactLogCommitRecord is a critical function in PostgreSQL's transaction logging s
 - Functions called/Symbols referenced:
   - TransactionIdIsValid
   - XLogLogicalInfoActive
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogSetRecordFlags
-  - XLogInsert
+  - [XLogBeginInsert](XLogBeginInsert.md)
+  - [XLogRegisterData](XLogRegisterData.md)
+  - [XLogSetRecordFlags](XLogSetRecordFlags.md)
+  - [XLogInsert](XLogInsert.md)
   - unconstify
   - Various WAL record structure types (xl_xact_commit, xl_xact_xinfo, etc.)
   - Multiple XACT_* constants and flags
 - Called from (representative examples):
-  - RecordTransactionCommit
-  - RecordTransactionCommitPrepared (in two-phase commit)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [RecordTransactionCommitPrepared](../R/RecordTransactionCommitPrepared.md) (in two-phase commit)
 
 ## Notes and Other Information
 - Returns an XLogRecPtr representing the WAL location of the inserted commit record

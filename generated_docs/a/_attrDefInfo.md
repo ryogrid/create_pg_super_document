@@ -21,9 +21,9 @@ The  structure encapsulates information about DEFAULT expressions defined on tab
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
-  - _tableInfo (referenced in the attrdefs field)
+  - [_tableInfo](../t/_tableInfo.md) (referenced in the attrdefs field)
 
 ## Notes and Other Information
 This structure is part of the broader schema metadata management system in pg_dump. The  field contains the human-readable SQL expression that represents the default value, which may range from simple literals to complex expressions involving functions or other columns. The structure maintains referential integrity with its parent table through the  pointer, ensuring that default expressions are properly associated with their corresponding tables and columns during the dump and restore process.

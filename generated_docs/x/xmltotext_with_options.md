@@ -24,16 +24,16 @@ When indentation is requested, the function creates a libxml2 save context and c
 ## Dependencies
 - Functions called/Symbols referenced:
   - xml_parse (XML parsing with validation)
-  - GetDatabaseEncoding (database encoding retrieval)
-  - pg_xml_init (XML error context initialization)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding retrieval)
+  - [pg_xml_init](../p/pg_xml_init.md) (XML error context initialization)
   - parse_xml_decl (XML declaration parsing)
   - xml_text2xmlChar (text to xmlChar conversion)
   - xml_ereport (XML-specific error reporting)
   - cstring_to_text_with_len (text conversion utility)
-  - xmlBuffer_to_xmltype (buffer to XML type conversion)
+  - [xmlBuffer_to_xmltype](xmlBuffer_to_xmltype.md) (buffer to XML type conversion)
   - pg_xml_done (XML context cleanup)
 - Called from (representative examples):
-  - ExecEvalXmlExpr (expression evaluation in executor)
+  - [ExecEvalXmlExpr](../E/ExecEvalXmlExpr.md) (expression evaluation in executor)
   - PG_RETURN_XML_P (via macro usage)
 
 ## Notes and Other Information

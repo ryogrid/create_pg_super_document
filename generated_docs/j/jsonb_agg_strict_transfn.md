@@ -17,7 +17,7 @@ This function serves as the transition function for the  aggregate function, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_agg_transfn_worker
+  - [jsonb_agg_transfn_worker](jsonb_agg_transfn_worker.md)
 - Called from (representative examples):
   - PostgreSQL aggregate framework (no direct code references found)
 

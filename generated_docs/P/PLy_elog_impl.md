@@ -25,9 +25,9 @@ The function handles special PostgreSQL-specific exception types (PLy_exc_spi_er
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_get_spi_error_data: Extracts error data from SPI exceptions
-  - PLy_get_error_data: Extracts error data from general PostgreSQL exceptions  
-  - PLy_traceback: Processes Python traceback for context information
+  - [PLy_get_spi_error_data](PLy_get_spi_error_data.md): Extracts error data from SPI exceptions
+  - [PLy_get_error_data](PLy_get_error_data.md): Extracts error data from general PostgreSQL exceptions  
+  - [PLy_traceback](PLy_traceback.md): Processes Python traceback for context information
   - appendStringInfoVA: Formats variable argument strings
   - ereport: PostgreSQL's main error reporting function
   - PG_TRY/PG_FINALLY/PG_END_TRY: PostgreSQL exception handling macros

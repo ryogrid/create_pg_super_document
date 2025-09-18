@@ -22,8 +22,8 @@ This function serves as a comprehensive test for the DSA subsystem in PostgreSQL
   - LWLockRegisterTranche: Registers the tranche with a descriptive name
   - dsa_create: Creates a new DSA area
   - dsa_allocate: Allocates memory blocks within the DSA
-  - dsa_get_address: Translates DSA pointers to virtual addresses
-  - dsa_free: Frees allocated memory blocks
+  - [dsa_get_address](../d/dsa_get_address.md): Translates DSA pointers to virtual addresses
+  - [dsa_free](../d/dsa_free.md): Frees allocated memory blocks
   - dsa_detach: Detaches from and cleans up the DSA area
   - PG_RETURN_VOID: PostgreSQL macro for returning void from functions
 - Called from (representative examples):

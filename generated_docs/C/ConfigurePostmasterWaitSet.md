@@ -23,9 +23,9 @@ The function always destroys and recreates the entire WaitEventSet rather than m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeWaitEventSet
-  - CreateWaitEventSet
-  - AddWaitEventToSet
+  - [FreeWaitEventSet](../F/FreeWaitEventSet.md)
+  - [CreateWaitEventSet](CreateWaitEventSet.md)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
 - Constants used:
   - WL_LATCH_SET
   - WL_SOCKET_ACCEPT
@@ -36,8 +36,8 @@ The function always destroys and recreates the entire WaitEventSet rather than m
   - NumListenSockets
   - ListenSockets
 - Called from:
-  - ServerLoop
-  - PostmasterStateMachine
+  - [ServerLoop](../S/ServerLoop.md)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md)
 
 ## Notes and Other Information
 - The function always includes the postmaster latch (MyLatch) in the wait set for internal signaling

@@ -27,11 +27,11 @@ This functionality is particularly valuable for backup and recovery strategies, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogIsNeeded
   - text_to_cstring
   - MAXFNAMELEN
-  - XLogRestorePoint
+  - [XLogRestorePoint](../X/XLogRestorePoint.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct callers found (SQL function interface)

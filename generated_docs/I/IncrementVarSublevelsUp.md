@@ -26,18 +26,18 @@ The function uses a selective increment approach, only modifying sublevel counte
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_walker
-  - IncrementVarSublevelsUp_walker
+  - [IncrementVarSublevelsUp_walker](IncrementVarSublevelsUp_walker.md)
   - IncrementVarSublevelsUp_context (structure)
-  - QTW_EXAMINE_RTES_BEFORE (flag for proper range table processing)
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md) (flag for proper range table processing)
 - Called from (representative examples):
-  - extract_lateral_references (initsplan.c)
-  - build_minmax_path (planagg.c)
-  - inline_cte_walker (subselect.c)
-  - convert_EXISTS_sublink_to_join (subselect.c)
-  - pull_up_simple_subquery (prepjointree.c)
-  - flatten_join_alias_vars_mutator (var.c)
-  - ReplaceVarsFromTargetList_callback (rewriteManip.c)
-  - rewriteSearchAndCycle (rewriteSearchCycle.c)
+  - [extract_lateral_references](../e/extract_lateral_references.md) (initsplan.c)
+  - [build_minmax_path](../b/build_minmax_path.md) (planagg.c)
+  - [inline_cte_walker](../i/inline_cte_walker.md) (subselect.c)
+  - [convert_EXISTS_sublink_to_join](../c/convert_EXISTS_sublink_to_join.md) (subselect.c)
+  - [pull_up_simple_subquery](../p/pull_up_simple_subquery.md) (prepjointree.c)
+  - [flatten_join_alias_vars_mutator](../f/flatten_join_alias_vars_mutator.md) (var.c)
+  - [ReplaceVarsFromTargetList_callback](../R/ReplaceVarsFromTargetList_callback.md) (rewriteManip.c)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (rewriteSearchCycle.c)
 
 ## Notes and Other Information
 - This is a public function declared in rewrite/rewriteManip.h

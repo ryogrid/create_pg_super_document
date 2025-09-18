@@ -24,18 +24,18 @@ The write barrier (pg_write_barrier) is crucial for ensuring memory ordering - i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type)
+  - [BufferDesc](../B/BufferDesc.md) (structure type)
   - pg_write_barrier (memory barrier function)
-  - pg_atomic_write_u32 (atomic write operation)
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md) (atomic write operation)
   - BM_LOCKED (buffer state flag constant)
 - Called from (representative examples):
-  - BufferAlloc
-  - InvalidateBuffer
-  - GetVictimBuffer
+  - [BufferAlloc](../B/BufferAlloc.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
   - PinBuffer_Locked
   - UnpinBufferNoOwner
   - SyncOneBuffer
-  - FlushBuffer
+  - [FlushBuffer](../F/FlushBuffer.md)
   - StartBufferIO
   - TerminateBufferIO
 

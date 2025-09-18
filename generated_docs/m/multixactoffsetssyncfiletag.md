@@ -18,7 +18,7 @@ This function serves as a wrapper around SlruSyncFileTag specifically for multix
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruSyncFileTag
+  - [SlruSyncFileTag](../S/SlruSyncFileTag.md)
   - MultiXactOffsetCtl
   - FileTag (type)
 - Called from:

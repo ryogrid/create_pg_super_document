@@ -19,15 +19,15 @@ void XLogReaderFree(XLogReaderState *state)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - segment_close (callback function via state->routine)
 - Called from (representative examples):
-  - ShutdownWalRecovery
-  - FreeDecodingContext
-  - SummarizeWAL
-  - main (pg_waldump utility)
-  - XlogReadTwoPhaseData
-  - extractPageMap
+  - [ShutdownWalRecovery](../S/ShutdownWalRecovery.md)
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
+  - [main](../m/main.md) (pg_waldump utility)
+  - [XlogReadTwoPhaseData](XlogReadTwoPhaseData.md)
+  - [extractPageMap](../e/extractPageMap.md)
 
 ## Notes and Other Information
 - The function safely handles the case where ws_file is -1 (no open file)

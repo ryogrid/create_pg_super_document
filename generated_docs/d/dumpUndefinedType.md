@@ -20,16 +20,16 @@ The function creates a simple  statement without any implementation details, eff
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - binary_upgrade_set_type_oids_by_type_oid
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
-  - dumpACL
+  - [binary_upgrade_set_type_oids_by_type_oid](../b/binary_upgrade_set_type_oids_by_type_oid.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
 - Called from (representative examples):
-  - dumpType
+  - [dumpType](dumpType.md)
 
 ## Notes and Other Information
 - Creates shell types using simple  syntax without any parameters

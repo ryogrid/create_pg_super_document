@@ -21,8 +21,8 @@ This function checks if a given character can legally begin a PostgreSQL identif
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro for checking high-bit-set characters)
 - Called from (representative examples):
-  - is_ident_cont
-  - parse_ident
+  - [is_ident_cont](is_ident_cont.md)
+  - [parse_ident](../p/parse_ident.md)
 
 ## Notes and Other Information
 - This is a static function used internally within misc.c

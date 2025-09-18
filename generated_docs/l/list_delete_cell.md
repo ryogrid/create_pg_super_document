@@ -20,14 +20,14 @@ If the deleted cell was the last remaining member of the list, the entire list s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_delete_nth_cell
+  - [list_delete_nth_cell](list_delete_nth_cell.md)
 - Called from (representative examples):
-  - transformGenericOptions (src/backend/commands/foreigncmds.c:161)
-  - list_delete (src/backend/nodes/list.c:863) 
-  - list_delete_ptr (src/backend/nodes/list.c:882)
-  - list_delete_int (src/backend/nodes/list.c:901)
-  - list_delete_oid (src/backend/nodes/list.c:920)
-  - remove_useless_joins (src/backend/optimizer/plan/analyzejoins.c:103)
+  - [transformGenericOptions](../t/transformGenericOptions.md) (src/backend/commands/foreigncmds.c:161)
+  - [list_delete](list_delete.md) (src/backend/nodes/list.c:863) 
+  - [list_delete_ptr](list_delete_ptr.md) (src/backend/nodes/list.c:882)
+  - [list_delete_int](list_delete_int.md) (src/backend/nodes/list.c:901)
+  - [list_delete_oid](list_delete_oid.md) (src/backend/nodes/list.c:920)
+  - [remove_useless_joins](../r/remove_useless_joins.md) (src/backend/optimizer/plan/analyzejoins.c:103)
 
 ## Notes and Other Information
 - The function performs bounds checking through the underlying  call

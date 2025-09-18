@@ -31,21 +31,21 @@ This function is the core execution engine for individual after-trigger events. 
 - Functions called/Symbols referenced:
   - GetTriggerSharedData
   - InstrStartNode
-  - GetCurrentFDWTuplestore
-  - tuplestore_gettupleslot
-  - ExecFetchSlotHeapTuple
-  - ExecGetTriggerOldSlot
-  - ExecGetTriggerNewSlot
+  - [GetCurrentFDWTuplestore](../G/GetCurrentFDWTuplestore.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md)
+  - [ExecGetTriggerOldSlot](../E/ExecGetTriggerOldSlot.md)
+  - [ExecGetTriggerNewSlot](../E/ExecGetTriggerNewSlot.md)
   - table_tuple_fetch_row_version
-  - ExecGetChildToRootMap
-  - execute_attr_map_slot
+  - [ExecGetChildToRootMap](../E/ExecGetChildToRootMap.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - ExecCopySlot
-  - ExecCallTriggerFunc
-  - heap_freetuple
+  - [ExecCallTriggerFunc](../E/ExecCallTriggerFunc.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ExecClearTuple
   - InstrStopNode
 - Called from (representative examples):
-  - afterTriggerInvokeEvents
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md)
 
 ## Notes and Other Information
 - Handles graceful scenarios where triggers may have been dropped since event queuing

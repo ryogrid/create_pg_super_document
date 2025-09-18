@@ -20,12 +20,12 @@ This function is primarily useful with portals created by SQL DECLARE CURSOR com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexecStart
-  - PQsendTypedCommand
+  - [PQexecStart](PQexecStart.md)
+  - [PQsendTypedCommand](PQsendTypedCommand.md)
   - PqMsg_Describe
-  - PQexecFinish
+  - [PQexecFinish](PQexecFinish.md)
 - Called from (representative examples):
-  - test_prepared (src/test/modules/libpq_pipeline/libpq_pipeline.c:1396)
+  - [test_prepared](../t/test_prepared.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:1396)
 
 ## Notes and Other Information
 - This is similar to PQdescribePrepared but for portals instead of prepared statements

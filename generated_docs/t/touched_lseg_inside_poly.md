@@ -21,11 +21,11 @@ touched_lseg_inside_poly handles a special geometric case when determining if a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_eq_point: Tests if two points are equal
-  - lseg_contain_point: Tests if a line segment contains a specific point
-  - lseg_inside_poly: Recursively determines if a line segment is inside the polygon
+  - [point_eq_point](../p/point_eq_point.md): Tests if two points are equal
+  - [lseg_contain_point](../l/lseg_contain_point.md): Tests if a line segment contains a specific point
+  - [lseg_inside_poly](../l/lseg_inside_poly.md): Recursively determines if a line segment is inside the polygon
 - Called from (representative examples):
-  - lseg_inside_poly: Called during polygon containment testing
+  - [lseg_inside_poly](../l/lseg_inside_poly.md): Called during polygon containment testing
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:3830-3865

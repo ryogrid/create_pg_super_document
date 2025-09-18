@@ -21,7 +21,7 @@ The function operates as a structural pass-through, ensuring that JSON arrays ma
 - Functions called/Symbols referenced:
   - appendStringInfoCharMacro
 - Called from (representative examples):
-  - transform_json_string_values (set as sem->array_start callback)
+  - [transform_json_string_values](transform_json_string_values.md) (set as sem->array_start callback)
 
 ## Notes and Other Information
 - Returns JSON_SUCCESS to indicate successful processing

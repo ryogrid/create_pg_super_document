@@ -31,8 +31,8 @@ This synchronization is essential for making informed decisions about memory usa
   - ParallelHashJoinState, ParallelHashJoinBatchAccessor (parallel state structures)
 
 - Called from (representative examples):
-  - MultiExecParallelHash
-  - ExecParallelHashIncreaseNumBatches
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md)
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md)
 
 ## Notes and Other Information
 - This function is called at synchronization points where all workers need consistent batch statistics

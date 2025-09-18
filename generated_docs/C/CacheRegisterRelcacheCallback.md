@@ -35,11 +35,11 @@ The function maintains a global callback list and simply appends new callbacks t
   - elog (error logging function)
 - Called from (representative examples):
   - logicalrep_relmap_init (src/backend/replication/logical/relation.c:124)
-  - logicalrep_partmap_init (src/backend/replication/logical/relation.c:586)
-  - init_rel_sync_cache (src/backend/replication/pgoutput/pgoutput.c:1942)
-  - InitPlanCache (src/backend/utils/cache/plancache.c:157)
+  - [logicalrep_partmap_init](../l/logicalrep_partmap_init.md) (src/backend/replication/logical/relation.c:586)
+  - [init_rel_sync_cache](../i/init_rel_sync_cache.md) (src/backend/replication/pgoutput/pgoutput.c:1942)
+  - [InitPlanCache](../I/InitPlanCache.md) (src/backend/utils/cache/plancache.c:157)
   - InitializeRelfilenumberMap (src/backend/utils/cache/relfilenumbermap.c:125)
-  - lookup_type_cache (src/backend/utils/cache/typcache.c:362)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (src/backend/utils/cache/typcache.c:362)
 
 ## Notes and Other Information
 - The callback registration is permanent for the lifetime of the backend process

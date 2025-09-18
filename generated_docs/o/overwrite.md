@@ -20,18 +20,18 @@ The  function provides functionality to overwrite a specific segment of data in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_open (PostgreSQL large object opening)
-  - lo_lseek (PostgreSQL large object seeking)
-  - lo_write (PostgreSQL large object writing)
-  - lo_close (PostgreSQL large object closing)
+  - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)
+  - [lo_lseek](../l/lo_lseek.md) (PostgreSQL large object seeking)
+  - [lo_write](../l/lo_write.md) (PostgreSQL large object writing)
+  - [lo_close](../l/lo_close.md) (PostgreSQL large object closing)
   - malloc (memory allocation)
   - free (memory deallocation)
   - fprintf (formatted output to stderr)
   - INV_WRITE (large object access mode constant)
   - SEEK_SET (seek position constant)
 - Called from (representative examples):
-  - main (in src/test/examples/testlo.c:258)
-  - main (in src/test/examples/testlo64.c:282)
+  - [main](../m/main.md) (in src/test/examples/testlo.c:258)
+  - [main](../m/main.md) (in src/test/examples/testlo64.c:282)
 
 ## Notes and Other Information
 - This is a static function used in PostgreSQL test examples for demonstrating large object write operations

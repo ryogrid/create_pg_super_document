@@ -31,13 +31,13 @@ The function ensures data integrity by re-validating pages even if previously re
 - Functions called/Symbols referenced:
   - XLByteToSeg
   - XLogSegmentOffset
-  - XLogReaderValidatePageHeader
+  - [XLogReaderValidatePageHeader](../X/XLogReaderValidatePageHeader.md)
   - XLogPageHeaderSize
-  - XLogReaderInvalReadState
-  - state->routine.page_read (callback)
+  - [XLogReaderInvalReadState](../X/XLogReaderInvalReadState.md)
+  - [state](../s/state.md)->routine.page_read (callback)
 - Called from (representative examples):
-  - XLogDecodeNextRecord (multiple times)
-  - XLogFindNextRecord
+  - [XLogDecodeNextRecord](../X/XLogDecodeNextRecord.md) (multiple times)
+  - [XLogFindNextRecord](../X/XLogFindNextRecord.md)
 
 ## Notes and Other Information
 - Returns actual bytes read on success, XLREAD_WOULDBLOCK for non-blocking reads without data, or XLREAD_FAIL on errors

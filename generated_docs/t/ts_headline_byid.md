@@ -24,7 +24,7 @@ This design pattern allows PostgreSQL to provide both a simple interface for com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ts_headline_byid_opt (the core headline implementation)
+  - [ts_headline_byid_opt](ts_headline_byid_opt.md) (the core headline implementation)
   - PG_RETURN_DATUM (macro to return a Datum result)
   - DirectFunctionCall3 (direct function call with 3 arguments)
   - PG_GETARG_DATUM (macros to extract function arguments)

@@ -26,11 +26,11 @@ This design supports the dynamic bucket splitting mechanism used in hash indexes
 - Functions called/Symbols referenced:
   - Bucket (bucket number type)
 - Called from (representative examples):
-  - hashbucketcleanup (in hash.c at line 752)
-  - _hash_splitbucket (in hashpage.c at line 1152)
-  - _hash_getbucketbuf_from_hashkey (in hashpage.c at line 1584)
-  - _h_indexbuild (in hashsort.c at line 142)
-  - comparetup_index_hash (in tuplesortvariants.c at lines 1606 and 1610)
+  - [hashbucketcleanup](hashbucketcleanup.md) (in hash.c at line 752)
+  - [_hash_splitbucket](_hash_splitbucket.md) (in hashpage.c at line 1152)
+  - [_hash_getbucketbuf_from_hashkey](_hash_getbucketbuf_from_hashkey.md) (in hashpage.c at line 1584)
+  - [_h_indexbuild](_h_indexbuild.md) (in hashsort.c at line 142)
+  - [comparetup_index_hash](../c/comparetup_index_hash.md) (in tuplesortvariants.c at lines 1606 and 1610)
 
 ## Notes and Other Information
 - Core algorithm for bucket selection in PostgreSQL's hash indexes

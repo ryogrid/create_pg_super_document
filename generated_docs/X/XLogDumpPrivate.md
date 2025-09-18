@@ -25,8 +25,8 @@ The structure is designed to be passed to callback functions during WAL record p
   - TimeLineID (PostgreSQL timeline identifier type)
   - XLogRecPtr (PostgreSQL WAL record pointer type)
 - Called from (representative examples):
-  - WALDumpReadPage
-  - main (pg_waldump)
+  - [WALDumpReadPage](../W/WALDumpReadPage.md)
+  - [main](../m/main.md) (pg_waldump)
 
 ## Notes and Other Information
 - This structure is specific to the pg_waldump utility and is not used in the main PostgreSQL server code

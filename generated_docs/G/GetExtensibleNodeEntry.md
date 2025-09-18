@@ -21,17 +21,17 @@ This function serves as the core lookup mechanism for extensible node entries in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Data types used:
-  - HTAB
+  - [HTAB](../H/HTAB.md)
   - ExtensibleNodeEntry
   - HASH_FIND
 - Called from (representative examples):
-  - GetExtensibleNodeMethods
-  - GetCustomScanMethods
+  - [GetExtensibleNodeMethods](GetExtensibleNodeMethods.md)
+  - [GetCustomScanMethods](GetCustomScanMethods.md)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed in the public API

@@ -19,16 +19,16 @@ The function is crucial for PostgreSQL's catalog caching mechanism, as it provid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LOCALLOCK (structure type)
+  - [LOCALLOCK](../L/LOCALLOCK.md) (structure type)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - LockRelationOid
-  - ConditionalLockRelationOid
-  - LockRelationId
-  - LockRelation
-  - ConditionalLockRelation
-  - ConditionalLockDatabaseObject
-  - ConditionalLockSharedObject
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [ConditionalLockRelationOid](../C/ConditionalLockRelationOid.md)
+  - [LockRelationId](../L/LockRelationId.md)
+  - [LockRelation](../L/LockRelation.md)
+  - [ConditionalLockRelation](../C/ConditionalLockRelation.md)
+  - [ConditionalLockDatabaseObject](../C/ConditionalLockDatabaseObject.md)
+  - [ConditionalLockSharedObject](../C/ConditionalLockSharedObject.md)
   - LockHashPartitionLockByProc
 
 ## Notes and Other Information

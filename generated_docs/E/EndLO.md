@@ -24,11 +24,11 @@ The function maintains consistency with the large object archival protocol by op
 - Functions called/Symbols referenced:
   - AH->EndLOPtr (format-specific large object end handler, called conditionally)
 - Called from (representative examples):
-  - dumpLOs
+  - [dumpLOs](../d/dumpLOs.md)
 
 ## Notes and Other Information
 - This function complements StartLO to provide complete large object archival bracketing
-- EndLO processing is optional for some archive formats (conditional EndLOPtr check)
+- [EndLO](EndLO.md) processing is optional for some archive formats (conditional EndLOPtr check)
 - Must be called within the context of the same TOC entry used for the corresponding StartLO call
 - Always returns 1 to indicate successful completion, unlike StartLO which can terminate on error
 - Part of the Large Object Archival subsystem in pg_dump

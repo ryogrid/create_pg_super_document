@@ -19,12 +19,12 @@ This function determines the day of the week for a given Julian date by converti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2j: Converts year/month/day to Julian day number (used with reference date 2000-01-01)
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number (used with reference date 2000-01-01)
 - Called from (representative examples):
-  - rdayofweek: Informix compatibility wrapper function
-  - PGTYPESdate_fmt_asc: Used for date formatting with day names
-  - PGTYPEStimestamp_fmt_asc: Used for timestamp formatting with day names
-  - main: Used in test programs (dt_test.c)
+  - [rdayofweek](../r/rdayofweek.md): Informix compatibility wrapper function
+  - [PGTYPESdate_fmt_asc](PGTYPESdate_fmt_asc.md): Used for date formatting with day names
+  - [PGTYPEStimestamp_fmt_asc](PGTYPEStimestamp_fmt_asc.md): Used for timestamp formatting with day names
+  - [main](../m/main.md): Used in test programs (dt_test.c)
 
 ## Notes and Other Information
 - Returns integer values following the convention: Sunday=0, Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6

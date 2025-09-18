@@ -19,19 +19,19 @@ The get_namespace_name_or_temp function is a specialized version of get_namespac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - isTempNamespace (checks if namespace is current backend's temp namespace)
-  - pstrdup (string duplication with palloc)
-  - get_namespace_name (retrieves actual namespace name)
+  - [isTempNamespace](../i/isTempNamespace.md) (checks if namespace is current backend's temp namespace)
+  - [pstrdup](../p/pstrdup.md) (string duplication with palloc)
+  - [get_namespace_name](get_namespace_name.md) (retrieves actual namespace name)
 - Called from (representative examples):
-  - getObjectIdentityParts
-  - getOpFamilyIdentity
-  - getRelationIdentity
-  - pg_event_trigger_ddl_commands
-  - ExplainTargetRel
-  - format_type_extended
-  - format_procedure_parts
-  - format_operator_parts
-  - pg_get_functiondef
+  - [getObjectIdentityParts](getObjectIdentityParts.md)
+  - [getOpFamilyIdentity](getOpFamilyIdentity.md)
+  - [getRelationIdentity](getRelationIdentity.md)
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)
+  - [ExplainTargetRel](../E/ExplainTargetRel.md)
+  - [format_type_extended](../f/format_type_extended.md)
+  - [format_procedure_parts](../f/format_procedure_parts.md)
+  - [format_operator_parts](../f/format_operator_parts.md)
+  - [pg_get_functiondef](../p/pg_get_functiondef.md)
   - generate_relation_name
   - generate_qualified_relation_name
   - generate_function_name

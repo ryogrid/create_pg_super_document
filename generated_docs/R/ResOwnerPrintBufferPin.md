@@ -19,8 +19,8 @@ This function serves as an advanced debugging tool that provides much more detai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DebugPrintBufferRefcount
-  - DatumGetInt32
+  - [DebugPrintBufferRefcount](../D/DebugPrintBufferRefcount.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from (representative examples):
   - ResourceOwner system (callback mechanism for diagnostic output)
 

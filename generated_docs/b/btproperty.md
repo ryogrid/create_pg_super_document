@@ -31,7 +31,7 @@ For B-tree indexes, columns are always returnable since B-tree stores the actual
   - IndexAMProperty (enum type)
   - AMPROP_RETURNABLE (constant)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's access method interface and is called during query planning to determine index capabilities. The AMPROP_RETURNABLE property is crucial for enabling index-only scans, which can significantly improve query performance by avoiding heap access when all required data is available in the index.

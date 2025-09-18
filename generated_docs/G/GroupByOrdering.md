@@ -22,12 +22,12 @@ The structure enforces a specific relationship between its two main components: 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (for type identification)
-  - List (PostgreSQL's list structure)
+  - [List](../L/List.md) (PostgreSQL's list structure)
 
 - Called from (representative examples):
-  - get_useful_group_keys_orderings (src/backend/optimizer/path/pathkeys.c:469-530)
-  - add_paths_to_grouping_rel (src/backend/optimizer/plan/planner.c:7080, 7161)
-  - create_partial_grouping_paths (src/backend/optimizer/plan/planner.c:7412, 7468)
+  - [get_useful_group_keys_orderings](../g/get_useful_group_keys_orderings.md) (src/backend/optimizer/path/pathkeys.c:469-530)
+  - [add_paths_to_grouping_rel](../a/add_paths_to_grouping_rel.md) (src/backend/optimizer/plan/planner.c:7080, 7161)
+  - [create_partial_grouping_paths](../c/create_partial_grouping_paths.md) (src/backend/optimizer/plan/planner.c:7412, 7468)
 
 ## Notes and Other Information
 - The structure maintains a strict ordering constraint between pathkeys and clauses

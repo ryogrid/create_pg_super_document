@@ -23,13 +23,13 @@ ReserveXLogInsertLocation is the performance-critical serialization point for WA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogBytePosToRecPtr
-  - XLogBytePosToEndRecPtr
-  - XLogRecPtrToBytePos
+  - [XLogBytePosToRecPtr](../X/XLogBytePosToRecPtr.md)
+  - [XLogBytePosToEndRecPtr](../X/XLogBytePosToEndRecPtr.md)
+  - [XLogRecPtrToBytePos](../X/XLogRecPtrToBytePos.md)
   - SpinLockAcquire/SpinLockRelease
   - MAXALIGN
 - Called from (representative examples):
-  - XLogInsertRecord (normal and checkpoint cases)
+  - [XLogInsertRecord](../X/XLogInsertRecord.md) (normal and checkpoint cases)
   - RefreshXLogWriteResult
 
 ## Notes and Other Information

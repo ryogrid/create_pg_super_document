@@ -22,9 +22,9 @@ Set operations typically require data to be sorted in a specific order to effici
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pathkeys_count_contained_in (function to count common pathkeys)
+  - [pathkeys_count_contained_in](pathkeys_count_contained_in.md) (function to count common pathkeys)
 - Called from (representative examples):
-  - truncate_useless_pathkeys
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)
 
 ## Notes and Other Information
 - This function is specifically designed for optimizing set operations (UNION, INTERSECT, EXCEPT)

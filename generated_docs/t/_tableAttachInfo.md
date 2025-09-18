@@ -19,7 +19,7 @@ The  structure is a specialized data structure used by pg_dump to manage partiti
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

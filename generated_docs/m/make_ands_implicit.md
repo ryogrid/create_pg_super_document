@@ -31,7 +31,7 @@ This function is crucial for query optimization as it normalizes different repre
   -  - Creates a single-element list
 - Called from (representative examples):
   -  - Index creation command processing
-  -  - Query planner expression preprocessing
+  -  - [Query](../Q/Query.md) planner expression preprocessing
   -  - Constraint extraction for optimization
   -  - Index predicate processing
 

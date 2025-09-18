@@ -26,18 +26,18 @@ The function implements sophisticated priority logic where .history files are co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_exchange_u32 (check/clear forced directory scan flag)
+  - [pg_atomic_exchange_u32](pg_atomic_exchange_u32.md) (check/clear forced directory scan flag)
   - StatusFilePath (construct status file paths)
-  - binaryheap_reset (reset the priority heap)
+  - [binaryheap_reset](../b/binaryheap_reset.md) (reset the priority heap)
   - AllocateDir/ReadDir/FreeDir (directory traversal)
-  - binaryheap_add_unordered/binaryheap_build (heap construction)
-  - binaryheap_first/binaryheap_remove_first (heap operations)
-  - ready_file_comparator (compare file priorities)
-  - CStringGetDatum/DatumGetCString (datum conversion)
+  - [binaryheap_add_unordered](../b/binaryheap_add_unordered.md)/binaryheap_build (heap construction)
+  - [binaryheap_first](../b/binaryheap_first.md)/binaryheap_remove_first (heap operations)
+  - [ready_file_comparator](../r/ready_file_comparator.md) (compare file priorities)
+  - [CStringGetDatum](../C/CStringGetDatum.md)/DatumGetCString (datum conversion)
 - Constants used:
   - XLOGDIR, MAX_XFN_CHARS, MIN_XFN_CHARS, VALID_XFN_CHARS, NUM_FILES_PER_DIRECTORY_SCAN
 - Called from (representative examples):
-  - pgarch_ArchiverCopyLoop (main archival loop)
+  - [pgarch_ArchiverCopyLoop](pgarch_ArchiverCopyLoop.md) (main archival loop)
 
 ## Notes and Other Information
 - Returns true if a file is found, false if no ready files exist

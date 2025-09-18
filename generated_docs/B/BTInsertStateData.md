@@ -29,12 +29,12 @@ This structure is primarily used internally by nbtinsert.c but is also utilized 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanInsert (type)
-  - IndexTuple (type)
+  - [IndexTuple](../I/IndexTuple.md) (type)
   - Size (type)
   - Buffer (type)
   - OffsetNumber (type)
 - Called from (representative examples):
-  - _bt_doinsert
+  - [_bt_doinsert](../b/_bt_doinsert.md)
   - BTInsertState (typedef alias)
 
 ## Notes and Other Information

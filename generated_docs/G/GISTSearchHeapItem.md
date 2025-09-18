@@ -23,12 +23,12 @@ The structure contains essential information for tuple processing, including the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData
+  - [ItemPointerData](../I/ItemPointerData.md)
   - HeapTuple
   - OffsetNumber
 - Called from (representative examples):
-  - GISTSearchItem
-  - GISTScanOpaqueData
+  - [GISTSearchItem](GISTSearchItem.md)
+  - [GISTScanOpaqueData](GISTScanOpaqueData.md)
 
 ## Notes and Other Information
 This structure is primarily used within the GiST search queue management system, where it's embedded in GISTSearchItem structures. The recheck flags are crucial for maintaining correctness in lossy index operations where the index might provide false positives. The recontup field enables efficient index-only scans by avoiding heap access when all required data can be reconstructed from the index. The structure plays a vital role in the pairing heap-based priority queue that ensures optimal search order during GiST traversals.

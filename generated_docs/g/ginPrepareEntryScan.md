@@ -30,20 +30,20 @@ The function also handles WAL recovery scenarios where the ginstate may contain 
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset
-  - entryLocateEntry
-  - entryGetLeftMostPage
-  - entryIsMoveRight
-  - entryLocateLeafEntry
-  - entryFindChildPtr
-  - entryBeginPlaceToPage
-  - entryExecPlaceToPage
-  - ginEntryFillRoot
-  - entryPrepareDownlink
+  - [entryLocateEntry](../e/entryLocateEntry.md)
+  - [entryGetLeftMostPage](../e/entryGetLeftMostPage.md)
+  - [entryIsMoveRight](../e/entryIsMoveRight.md)
+  - [entryLocateLeafEntry](../e/entryLocateLeafEntry.md)
+  - [entryFindChildPtr](../e/entryFindChildPtr.md)
+  - [entryBeginPlaceToPage](../e/entryBeginPlaceToPage.md)
+  - [entryExecPlaceToPage](../e/entryExecPlaceToPage.md)
+  - [ginEntryFillRoot](ginEntryFillRoot.md)
+  - [entryPrepareDownlink](../e/entryPrepareDownlink.md)
   - GIN_ROOT_BLKNO
 - Called from (representative examples):
-  - startScanEntry
-  - ginEntryInsert
-  - GinBtreeDataLeafInsertData (via function pointer setup)
+  - [startScanEntry](../s/startScanEntry.md)
+  - [ginEntryInsert](ginEntryInsert.md)
+  - [GinBtreeDataLeafInsertData](../G/GinBtreeDataLeafInsertData.md) (via function pointer setup)
 
 ## Notes and Other Information
 - The function sets isData=false to indicate this btree is for entry pages, not posting pages

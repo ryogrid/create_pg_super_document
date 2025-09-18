@@ -21,14 +21,14 @@ The decompressor maintains an internal buffer and tracks the number of bytes wri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - z_stream (zlib type)
   - inflate (zlib function)
   - inflateInit2 (zlib function)
 - Called from (representative examples):
-  - bbstreamer_gzip_decompressor_new
-  - bbstreamer_gzip_decompressor_content
-  - bbstreamer_gzip_decompressor_finalize
+  - [bbstreamer_gzip_decompressor_new](bbstreamer_gzip_decompressor_new.md)
+  - [bbstreamer_gzip_decompressor_content](bbstreamer_gzip_decompressor_content.md)
+  - [bbstreamer_gzip_decompressor_finalize](bbstreamer_gzip_decompressor_finalize.md)
 
 ## Notes and Other Information
 - This structure is only available when PostgreSQL is compiled with zlib support (HAVE_LIBZ)

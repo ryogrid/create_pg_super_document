@@ -27,9 +27,9 @@ Unlike clamp_row_est, this function uses Assert() to verify that negative values
   - `Assert()`: PostgreSQL assertion macro for debugging
 
 - Called from (representative examples):
-  - `set_rel_width`: Sets the estimated width for relation tuples
-  - `set_pathtarget_cost_width`: Sets cost and width for path targets
-  - `get_rel_data_width`: Gets data width for relations
+  - `[set_rel_width](../s/set_rel_width.md)`: Sets the estimated width for relation tuples
+  - `[set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)`: Sets cost and width for path targets
+  - `[get_rel_data_width](../g/get_rel_data_width.md)`: Gets data width for relations
   - `build_joinrel_tlist`: Builds target lists for join relations
 
 ## Notes and Other Information

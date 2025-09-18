@@ -23,16 +23,16 @@ The function extracts parser function specifications from the parameters list, v
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser: Checks if current user has superuser privileges
-  - QualifiedNameGetCreationNamespace: Resolves namespace and extracts parser name
-  - GetNewOidWithIndex: Generates new OID for the parser
-  - get_ts_parser_func: Validates and retrieves function OIDs for parser methods
-  - heap_form_tuple: Creates heap tuple from values array
-  - CatalogTupleInsert: Inserts tuple into pg_ts_parser catalog
-  - makeParserDependencies: Establishes all dependency relationships
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md): Resolves namespace and extracts parser name
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generates new OID for the parser
+  - [get_ts_parser_func](../g/get_ts_parser_func.md): Validates and retrieves function OIDs for parser methods
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates heap tuple from values array
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md): Inserts tuple into pg_ts_parser catalog
+  - [makeParserDependencies](../m/makeParserDependencies.md): Establishes all dependency relationships
   - InvokeObjectPostCreateHook: Triggers post-creation hooks
-  - heap_freetuple: Frees tuple memory
+  - [heap_freetuple](../h/heap_freetuple.md): Frees tuple memory
 - Called from (representative examples):
-  - ProcessUtilitySlow: Called during SQL command processing for CREATE TEXT SEARCH PARSER
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Called during SQL command processing for CREATE TEXT SEARCH PARSER
 
 ## Notes and Other Information
 - Requires superuser privileges to create text search parsers

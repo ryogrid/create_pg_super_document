@@ -24,13 +24,13 @@ The function first obtains the base path using relpath() and then appends the se
 ## Dependencies
 - Functions called/Symbols referenced:
   - relpath (constructs base relation path)
-  - psprintf (formatted string allocation)
-  - pfree (memory deallocation)
+  - [psprintf](../p/psprintf.md) (formatted string allocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - _mdfd_openseg (src/backend/storage/smgr/md.c:1558)
-  - _mdfd_getseg (src/backend/storage/smgr/md.c:1701)
-  - _mdfd_getseg (src/backend/storage/smgr/md.c:1715)
-  - mdsyncfiletag (src/backend/storage/smgr/md.c:1768)
+  - [_mdfd_openseg](_mdfd_openseg.md) (src/backend/storage/smgr/md.c:1558)
+  - [_mdfd_getseg](_mdfd_getseg.md) (src/backend/storage/smgr/md.c:1701)
+  - [_mdfd_getseg](_mdfd_getseg.md) (src/backend/storage/smgr/md.c:1715)
+  - [mdsyncfiletag](mdsyncfiletag.md) (src/backend/storage/smgr/md.c:1768)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

@@ -34,29 +34,29 @@ The function is essential for building the distributed targetlists that ensure e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_base_rel
-  - find_placeholder_info
+  - [find_base_rel](../f/find_base_rel.md)
+  - [find_placeholder_info](../f/find_placeholder_info.md)
   - copyObject
   - bms_is_empty
-  - bms_is_subset
-  - bms_add_members
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_add_members](../b/bms_add_members.md)
   - nodeTag
   - lappend
   - elog (for error handling)
 - Data structures used:
   - Var
-  - PlaceHolderVar
+  - [PlaceHolderVar](../P/PlaceHolderVar.md)
   - PlaceHolderInfo
   - RelOptInfo
 - Called from (representative examples):
-  - build_base_rel_tlists
-  - extract_lateral_references
-  - distribute_qual_to_rels
-  - process_implied_equality
+  - [build_base_rel_tlists](../b/build_base_rel_tlists.md)
+  - [extract_lateral_references](../e/extract_lateral_references.md)
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
+  - [process_implied_equality](../p/process_implied_equality.md)
 
 ## Notes and Other Information
 - The where_needed parameter must not be empty (enforced by Assert)
-- Variables are copied before being added to targetlists to avoid aliasing issues
+- [Variables](../V/Variables.md) are copied before being added to targetlists to avoid aliasing issues
 - varnullingrels are cleared at the scan level and restored during join processing
 - PlaceHolderVars don't have a single owning relation, so their info is kept in root->placeholder_list
 - The function includes optimization to skip processing if where_needed is already satisfied

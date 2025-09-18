@@ -23,19 +23,19 @@ timestamp_cmp_internal is the core comparison function for PostgreSQL timestamp 
   - Timestamp: PostgreSQL's internal timestamp data type
 
 - Called from (representative examples):
-  - timestamp_eq: Equality comparison operator
-  - timestamp_ne: Inequality comparison operator  
-  - timestamp_lt: Less-than comparison operator
-  - timestamp_gt: Greater-than comparison operator
-  - timestamp_le: Less-than-or-equal comparison operator
-  - timestamp_ge: Greater-than-or-equal comparison operator
-  - timestamp_cmp: Public comparison function for sorting
-  - timestamp_fastcmp: Fast comparison for internal use
-  - timestamp_smaller: Returns the smaller of two timestamps
-  - timestamp_larger: Returns the larger of two timestamps
-  - generate_series_timestamp: Used in timestamp series generation
+  - [timestamp_eq](timestamp_eq.md): Equality comparison operator
+  - [timestamp_ne](timestamp_ne.md): Inequality comparison operator  
+  - [timestamp_lt](timestamp_lt.md): Less-than comparison operator
+  - [timestamp_gt](timestamp_gt.md): Greater-than comparison operator
+  - [timestamp_le](timestamp_le.md): Less-than-or-equal comparison operator
+  - [timestamp_ge](timestamp_ge.md): Greater-than-or-equal comparison operator
+  - [timestamp_cmp](timestamp_cmp.md): Public comparison function for sorting
+  - [timestamp_fastcmp](timestamp_fastcmp.md): Fast comparison for internal use
+  - [timestamp_smaller](timestamp_smaller.md): Returns the smaller of two timestamps
+  - [timestamp_larger](timestamp_larger.md): Returns the larger of two timestamps
+  - [generate_series_timestamp](../g/generate_series_timestamp.md): Used in timestamp series generation
   - timestamptz_cmp_internal: Comparison for timestamptz values
-  - date_cmp_timestamp_internal: Cross-type comparison with dates
+  - [date_cmp_timestamp_internal](../d/date_cmp_timestamp_internal.md): Cross-type comparison with dates
 
 ## Notes and Other Information
 - This is a shared implementation used by both timestamp and timestamptz comparison operations

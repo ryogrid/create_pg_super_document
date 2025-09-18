@@ -19,9 +19,9 @@ The pending list uses separate list links (pending_prev and pending_next) from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - RestoreArchive (in restore operations)
+  - [RestoreArchive](../R/RestoreArchive.md) (in restore operations)
   - Functions related to TEXT_DUMPALL_HEADER processing
 
 ## Notes and Other Information

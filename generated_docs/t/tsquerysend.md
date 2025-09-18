@@ -29,12 +29,12 @@ This function uses PostgreSQL's function call convention:
   - PG_GETARG_TSQUERY: Extract TSQuery from function arguments
   - GETQUERY: Get query items array from TSQuery
   - GETOPERAND: Get operand string data from TSQuery
-  - pq_begintypsend: Initialize binary output buffer
-  - pq_sendint32: Send 32-bit integer
-  - pq_sendint8: Send 8-bit integer  
-  - pq_sendint16: Send 16-bit integer
-  - pq_sendstring: Send null-terminated string
-  - pq_endtypsend: Finalize binary output buffer
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initialize binary output buffer
+  - [pq_sendint32](../p/pq_sendint32.md): Send 32-bit integer
+  - [pq_sendint8](../p/pq_sendint8.md): Send 8-bit integer  
+  - [pq_sendint16](../p/pq_sendint16.md): Send 16-bit integer
+  - [pq_sendstring](../p/pq_sendstring.md): Send null-terminated string
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalize binary output buffer
   - PG_FREE_IF_COPY: Free input if it's a copy
   - PG_RETURN_BYTEA_P: Return binary data
 

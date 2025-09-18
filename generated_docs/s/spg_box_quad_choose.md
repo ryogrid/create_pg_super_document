@@ -26,9 +26,9 @@ The function operates by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBoxP (converts Datum to BOX pointer)
-  - BoxPGetDatum (converts BOX pointer to Datum)
-  - getQuadrant (determines quadrant based on centroid and box)
+  - [DatumGetBoxP](../D/DatumGetBoxP.md) (converts Datum to BOX pointer)
+  - [BoxPGetDatum](../B/BoxPGetDatum.md) (converts BOX pointer to Datum)
+  - [getQuadrant](../g/getQuadrant.md) (determines quadrant based on centroid and box)
   - spgMatchNode (result type constant)
   - PG_RETURN_VOID (PostgreSQL function return macro)
 - Called from (representative examples):

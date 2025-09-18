@@ -50,11 +50,11 @@ The numeric values are specifically chosen to match the corresponding ICU (Inter
 - Functions called/Symbols referenced:
   - None (enum definition)
 - Called from (representative examples):
-  - unicode_category
-  - unicode_category_string
-  - unicode_category_abbrev
-  - pg_u_isprint
-  - test_icu
+  - [unicode_category](../u/unicode_category.md)
+  - [unicode_category_string](../u/unicode_category_string.md)
+  - [unicode_category_abbrev](../u/unicode_category_abbrev.md)
+  - [pg_u_isprint](pg_u_isprint.md)
+  - [test_icu](../t/test_icu.md)
 
 ## Notes and Other Information
 - The enum values are designed to match ICU UCharCategory for compatibility

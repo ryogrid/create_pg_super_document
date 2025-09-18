@@ -20,14 +20,14 @@ The algorithm checks: box1.low.x <= box2.high.x AND box2.low.x <= box1.high.x AN
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FPle (floating-point less-than-or-equal comparison macro)
-  - BOX (box data structure)
+  - [FPle](../F/FPle.md) (floating-point less-than-or-equal comparison macro)
+  - [BOX](../B/BOX.md) (box data structure)
 - Called from (representative examples):
-  - box_overlap (SQL-callable overlap function)
-  - box_intersect (box intersection calculation)
-  - path_inter (path intersection testing)
-  - box_interpt_lseg (box-line segment intersection)
-  - poly_overlap_internal (polygon overlap detection)
+  - [box_overlap](box_overlap.md) (SQL-callable overlap function)
+  - [box_intersect](box_intersect.md) (box intersection calculation)
+  - [path_inter](../p/path_inter.md) (path intersection testing)
+  - [box_interpt_lseg](box_interpt_lseg.md) (box-line segment intersection)
+  - [poly_overlap_internal](../p/poly_overlap_internal.md) (polygon overlap detection)
 
 ## Notes and Other Information
 - This is the core overlap detection logic used throughout PostgreSQL's geometric system

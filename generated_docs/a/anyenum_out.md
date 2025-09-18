@@ -17,7 +17,7 @@ The anyenum_out function serves as a text output function for the anyenum pseudo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enum_out: The actual implementation for text enum output (converts internal enum OID to string representation)
+  - [enum_out](../e/enum_out.md): The actual implementation for text enum output (converts internal enum OID to string representation)
   - PSEUDOTYPE_DUMMY_INPUT_FUNC: Referenced in the surrounding context
 - Called from (representative examples):
   - No direct references found in the codebase (typically called through PostgreSQL's type system)

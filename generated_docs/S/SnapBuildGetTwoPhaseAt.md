@@ -19,9 +19,9 @@ This function serves as an accessor method that returns the LSN (Log Sequence Nu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SnapBuild (structure access)
+  - [SnapBuild](SnapBuild.md) (structure access)
 - Called from (representative examples):
-  - DecodeCommit
+  - [DecodeCommit](../D/DecodeCommit.md)
 
 ## Notes and Other Information
 This is a simple getter function that directly returns the two_phase_at field from the SnapBuild structure. The field is set during snapshot builder initialization in AllocateSnapshotBuilder. The LSN value is used primarily during commit decoding to determine whether a transaction should be processed with two-phase commit semantics. If the transaction's LSN is at or after the two_phase_at LSN, it indicates that two-phase commit processing should be applied. This mechanism ensures backward compatibility while enabling two-phase commit features from a specific point in the replication stream.

@@ -28,19 +28,19 @@ This comprehensive analysis is essential for join ordering, as relations with la
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_placeholder_info
-  - find_base_rel
-  - find_base_rel_ignore_join
-  - bms_add_member
-  - bms_add_members
-  - bms_copy
-  - bms_intersect
+  - [find_placeholder_info](../f/find_placeholder_info.md)
+  - [find_base_rel](../f/find_base_rel.md)
+  - [find_base_rel_ignore_join](../f/find_base_rel_ignore_join.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_intersect](../b/bms_intersect.md)
   - bms_is_empty
-  - bms_get_singleton_member
-  - bms_is_member
-  - bms_next_member
+  - [bms_get_singleton_member](../b/bms_get_singleton_member.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_next_member](../b/bms_next_member.md)
 - Called from (representative examples):
-  - query_planner
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - Only executes if root->hasLateralRTEs is true, providing early exit optimization

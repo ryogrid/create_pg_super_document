@@ -21,9 +21,9 @@ This function is a wrapper around the system() call for executing diff commands 
   - system (for command execution)
   - WIFEXITED, WEXITSTATUS (for process status checking)
   - bail (for error reporting and termination)
-  - file_size (Windows-specific validation)
+  - [file_size](../f/file_size.md) (Windows-specific validation)
 - Called from (representative examples):
-  - results_differ (multiple calls in src/test/regress/pg_regress.c: lines 1442, 1470, 1498, 1533)
+  - [results_differ](results_differ.md) (multiple calls in src/test/regress/pg_regress.c: lines 1442, 1470, 1498, 1533)
 
 ## Notes and Other Information
 - Returns the exit status of the diff command (0 for identical files, 1 for different files)

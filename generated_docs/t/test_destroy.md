@@ -21,9 +21,9 @@ The function follows PostgreSQL's memory management practices by using pfree() t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_tidstore_available - Validates that tidstore exists before destruction
-  - TidStoreDestroy - Core function to destroy the TidStore instance
-  - pfree - PostgreSQL memory deallocation function (used 3 times for verification arrays)
+  - [check_tidstore_available](../c/check_tidstore_available.md) - Validates that tidstore exists before destruction
+  - [TidStoreDestroy](../T/TidStoreDestroy.md) - Core function to destroy the TidStore instance
+  - [pfree](../p/pfree.md) - PostgreSQL memory deallocation function (used 3 times for verification arrays)
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface in tests)
 

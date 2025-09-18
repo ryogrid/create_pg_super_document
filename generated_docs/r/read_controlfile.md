@@ -33,13 +33,13 @@ This function takes no parameters and returns a boolean indicating success/valid
   - pg_log_error (error logging)
   - pg_log_error_hint (hint logging)
   - pg_log_warning (warning logging)
-  - pg_fatal (fatal error handling)
+  - [pg_fatal](../p/pg_fatal.md) (fatal error handling)
   - memcpy (memory copying)
   - IsValidWalSegSize (WAL segment size validation)
   - ngettext (internationalized messaging)
   - INIT_CRC32C, COMP_CRC32C, FIN_CRC32C, EQ_CRC32C (CRC calculation macros)
 - Called from:
-  - main (in pg_resetwal.c:383)
+  - [main](../m/main.md) (in pg_resetwal.c:383)
 
 ## Notes and Other Information
 - This is a static function, accessible only within pg_resetwal.c

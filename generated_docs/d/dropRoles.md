@@ -19,13 +19,13 @@ The function handles different PostgreSQL server versions: for version 9.6 and l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printfPQExpBuffer (format SQL query strings)
-  - executeQuery (execute SQL queries against the database)
-  - fmtId (format SQL identifiers with proper quoting)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query strings)
+  - [executeQuery](../e/executeQuery.md) (execute SQL queries against the database)
+  - [fmtId](../f/fmtId.md) (format SQL identifiers with proper quoting)
   - createPQExpBuffer, destroyPQExpBuffer (manage query buffers)
-  - PQfnumber, PQntuples, PQgetvalue, PQclear (PostgreSQL result set handling)
+  - [PQfnumber](../P/PQfnumber.md), PQntuples, PQgetvalue, PQclear (PostgreSQL result set handling)
 - Called from:
-  - main (in src/bin/pg_dump/pg_dumpall.c as part of the dump process)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dumpall.c as part of the dump process)
 
 ## Notes and Other Information
 - Function is marked as , indicating it's only used within pg_dumpall.c

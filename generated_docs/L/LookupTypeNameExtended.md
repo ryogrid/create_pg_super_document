@@ -23,22 +23,22 @@ LookupTypeNameExtended performs comprehensive type name resolution in PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVar
-  - NameListToString
+  - [makeRangeVar](../m/makeRangeVar.md)
+  - [NameListToString](../N/NameListToString.md)
   - RangeVarGetRelid
-  - get_attnum
-  - get_atttype
-  - DeconstructQualifiedName
-  - setup_parser_errposition_callback
-  - LookupExplicitNamespace
+  - [get_attnum](../g/get_attnum.md)
+  - [get_atttype](../g/get_atttype.md)
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [setup_parser_errposition_callback](../s/setup_parser_errposition_callback.md)
+  - [LookupExplicitNamespace](LookupExplicitNamespace.md)
   - GetSysCacheOid2
-  - cancel_parser_errposition_callback
-  - TypenameGetTypidExtended
-  - get_array_type
-  - typenameTypeMod
+  - [cancel_parser_errposition_callback](../c/cancel_parser_errposition_callback.md)
+  - [TypenameGetTypidExtended](../T/TypenameGetTypidExtended.md)
+  - [get_array_type](../g/get_array_type.md)
+  - [typenameTypeMod](../t/typenameTypeMod.md)
 - Called from (representative examples):
-  - LookupTypeName
-  - FuncNameAsType
+  - [LookupTypeName](LookupTypeName.md)
+  - [FuncNameAsType](../F/FuncNameAsType.md)
 
 ## Notes and Other Information
 Located in src/backend/parser/parse_type.c:73-231. This function requires callers to check typisdefined before assuming the type is fully valid, and successful calls must ReleaseSysCache the returned tuple when done. The function handles complex %TYPE syntax for referencing column types and supports array type decoration. Most code should use the higher-level typenameType or typenameTypeId functions instead of calling this directly.

@@ -17,21 +17,21 @@ This function serves as a support function for PostgreSQL's SQL-callable pgstat*
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_local_beentry_by_proc_number
+  - [pgstat_get_local_beentry_by_proc_number](pgstat_get_local_beentry_by_proc_number.md)
   - ProcNumber (type)
-  - LocalPgBackendStatus (struct type)
+  - [LocalPgBackendStatus](../L/LocalPgBackendStatus.md) (struct type)
 - Called from (representative examples):
-  - pg_stat_get_backend_pid
-  - pg_stat_get_backend_dbid
-  - pg_stat_get_backend_userid
-  - pg_stat_get_backend_activity
-  - pg_stat_get_backend_wait_event_type
-  - pg_stat_get_backend_wait_event
-  - pg_stat_get_backend_activity_start
-  - pg_stat_get_backend_xact_start
-  - pg_stat_get_backend_start
-  - pg_stat_get_backend_client_addr
-  - pg_stat_get_backend_client_port
+  - [pg_stat_get_backend_pid](pg_stat_get_backend_pid.md)
+  - [pg_stat_get_backend_dbid](pg_stat_get_backend_dbid.md)
+  - [pg_stat_get_backend_userid](pg_stat_get_backend_userid.md)
+  - [pg_stat_get_backend_activity](pg_stat_get_backend_activity.md)
+  - [pg_stat_get_backend_wait_event_type](pg_stat_get_backend_wait_event_type.md)
+  - [pg_stat_get_backend_wait_event](pg_stat_get_backend_wait_event.md)
+  - [pg_stat_get_backend_activity_start](pg_stat_get_backend_activity_start.md)
+  - [pg_stat_get_backend_xact_start](pg_stat_get_backend_xact_start.md)
+  - [pg_stat_get_backend_start](pg_stat_get_backend_start.md)
+  - [pg_stat_get_backend_client_addr](pg_stat_get_backend_client_addr.md)
+  - [pg_stat_get_backend_client_port](pg_stat_get_backend_client_port.md)
 
 ## Notes and Other Information
 - Unlike pgstat_get_local_beentry_by_index(), this function takes a ProcNumber rather than an array index

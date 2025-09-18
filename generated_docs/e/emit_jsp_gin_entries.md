@@ -23,11 +23,11 @@ The function modifies the node tree in-place by replacing entry datums with thei
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (prevents stack overflow during deep recursion)
-  - add_gin_entry (registers a GIN entry and returns its index)
-  - emit_jsp_gin_entries (recursive self-calls for tree traversal)
+  - [add_gin_entry](../a/add_gin_entry.md) (registers a GIN entry and returns its index)
+  - [emit_jsp_gin_entries](emit_jsp_gin_entries.md) (recursive self-calls for tree traversal)
 - Called from (representative examples):
-  - extract_jsp_query (main query extraction and entry collection)
-  - emit_jsp_gin_entries (recursive self-calls for child nodes)
+  - [extract_jsp_query](extract_jsp_query.md) (main query extraction and entry collection)
+  - [emit_jsp_gin_entries](emit_jsp_gin_entries.md) (recursive self-calls for child nodes)
 
 ## Notes and Other Information
 - The function operates in-place, modifying the node tree structure during traversal

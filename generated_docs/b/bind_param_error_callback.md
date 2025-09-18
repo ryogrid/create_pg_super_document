@@ -24,15 +24,15 @@ The function handles both named and unnamed portals, providing appropriate conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BindParamCbData (callback data structure)
-  - StringInfoData (string buffer structure)
+  - [BindParamCbData](../B/BindParamCbData.md) (callback data structure)
+  - [StringInfoData](../S/StringInfoData.md) (string buffer structure)
   - initStringInfo (initializes string buffer)
-  - appendStringInfoStringQuoted (adds quoted string with length limit)
+  - [appendStringInfoStringQuoted](../a/appendStringInfoStringQuoted.md) (adds quoted string with length limit)
   - errcontext (adds context to error messages)
-  - pfree (frees memory)
+  - [pfree](../p/pfree.md) (frees memory)
   - log_parameter_max_length_on_error (configuration variable)
 - Called from (representative examples):
-  - exec_bind_message (as error callback during parameter parsing)
+  - [exec_bind_message](../e/exec_bind_message.md) (as error callback during parameter parsing)
 
 ## Notes and Other Information
 - Used exclusively as an error callback function during bind message processing

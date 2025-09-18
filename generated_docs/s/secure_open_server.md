@@ -19,33 +19,33 @@ The function first preserves any unencrypted data that was already read from the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_buffer_remaining_data (checks for buffered unencrypted data)
-  - pq_startmsgread/pq_endmsgread (message reading protocol functions)
-  - pq_getbytes (reads buffered data)
-  - be_tls_open_server (performs actual SSL handshake)
-  - palloc/pfree (PostgreSQL memory management)
+  - [pq_buffer_remaining_data](../p/pq_buffer_remaining_data.md) (checks for buffered unencrypted data)
+  - [pq_startmsgread](../p/pq_startmsgread.md)/pq_endmsgread (message reading protocol functions)
+  - [pq_getbytes](../p/pq_getbytes.md) (reads buffered data)
+  - [be_tls_open_server](../b/be_tls_open_server.md) (performs actual SSL handshake)
+  - [palloc](../p/palloc.md)/pfree (PostgreSQL memory management)
   - ereport (PostgreSQL logging system)
   - STATUS_ERROR (error return constant)
 - Called from (representative examples):
-  - ProcessSSLStartup (during SSL connection establishment)
-  - ProcessStartupPacket (as part of connection startup sequence)
+  - [ProcessSSLStartup](../P/ProcessSSLStartup.md) (during SSL connection establishment)
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md) (as part of connection startup sequence)
   - FeBeWaitSetNEvents (referenced in libpq.h)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_buffer_remaining_data
-  - pq_startmsgread
-  - pq_getbytes
-  - pq_endmsgread
-  - be_tls_open_server
-  - palloc
-  - pfree
+  - [pq_buffer_remaining_data](../p/pq_buffer_remaining_data.md)
+  - [pq_startmsgread](../p/pq_startmsgread.md)
+  - [pq_getbytes](../p/pq_getbytes.md)
+  - [pq_endmsgread](../p/pq_endmsgread.md)
+  - [be_tls_open_server](../b/be_tls_open_server.md)
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - ereport
   - STATUS_ERROR
   - DEBUG2
 - Called from (representative examples):
-  - ProcessSSLStartup
-  - ProcessStartupPacket
+  - [ProcessSSLStartup](../P/ProcessSSLStartup.md)
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md)
   - FeBeWaitSetNEvents
 
 ## Notes and Other Information

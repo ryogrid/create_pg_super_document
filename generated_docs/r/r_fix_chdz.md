@@ -19,12 +19,12 @@ This function addresses specific Lithuanian orthographic corrections for two imp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Backward pattern matching function for 'ch'/'dz' pattern detection
-  - slice_from_s: String replacement function for applying single-character corrections
+  - [find_among_b](../f/find_among_b.md): Backward pattern matching function for 'ch'/'dz' pattern detection
+  - [slice_from_s](../s/slice_from_s.md): String replacement function for applying single-character corrections
   - a_3: Array of 2 Lithuanian 'ch'/'dz' patterns
   - s_8, s_9: Single-character replacement constants for the corrections
 - Called from (representative examples):
-  - lithuanian_UTF_8_stem: Main Lithuanian stemming function (called twice at different stages)
+  - [lithuanian_UTF_8_stem](../l/lithuanian_UTF_8_stem.md): Main Lithuanian stemming function (called twice at different stages)
 
 ## Notes and Other Information
 - Returns 1 on successful transformation, 0 if no matching patterns found or optimization checks fail

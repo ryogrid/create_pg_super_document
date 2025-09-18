@@ -21,11 +21,11 @@ This function releases a session-level lock on the specified relation. It constr
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_RELATION (macro to construct relation lock tag)
-  - LockRelease (performs the actual lock release with session=true)
+  - [LockRelease](../L/LockRelease.md) (performs the actual lock release with session=true)
 - Called from (representative examples):
-  - index_drop (when finishing index drop operations)
-  - DefineIndex (when completing index creation)
-  - vacuum_rel (when finishing vacuum operations)
+  - [index_drop](../i/index_drop.md) (when finishing index drop operations)
+  - [DefineIndex](../D/DefineIndex.md) (when completing index creation)
+  - [vacuum_rel](../v/vacuum_rel.md) (when finishing vacuum operations)
 
 ## Notes and Other Information
 - Must be paired with LockRelationIdForSession calls

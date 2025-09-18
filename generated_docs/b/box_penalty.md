@@ -27,12 +27,12 @@ A lower penalty indicates a better insertion choice, as it minimizes the expansi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BOX (data type)
-  - rt_box_union (to compute the union of both boxes)
-  - size_box (to calculate areas of union and original boxes)
-  - float8_mi (to compute the difference in areas)
+  - [BOX](../B/BOX.md) (data type)
+  - [rt_box_union](../r/rt_box_union.md) (to compute the union of both boxes)
+  - [size_box](../s/size_box.md) (to calculate areas of union and original boxes)
+  - [float8_mi](../f/float8_mi.md) (to compute the difference in areas)
 - Called from (representative examples):
-  - gist_box_penalty
+  - [gist_box_penalty](../g/gist_box_penalty.md)
   - PLACE_RIGHT (multiple times)
 
 ## Notes and Other Information

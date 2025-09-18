@@ -23,9 +23,9 @@ This structure is fundamental to PostgreSQL's B-tree deduplication feature, whic
   - OffsetNumber (type)
   - uint16 (type)
 - Called from (representative examples):
-  - _bt_dedup_pass
-  - btree_xlog_dedup
-  - BTDedupStateData (as member)
+  - [_bt_dedup_pass](../b/_bt_dedup_pass.md)
+  - [btree_xlog_dedup](../b/btree_xlog_dedup.md)
+  - [BTDedupStateData](BTDedupStateData.md) (as member)
 
 ## Notes and Other Information
 - Used primarily in B-tree deduplication algorithms to efficiently track ranges of duplicate tuples

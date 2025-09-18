@@ -23,10 +23,10 @@ While this approach may seem inefficient, it ensures correctness and simplifies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ResetPlanCache (invalidates all cached plans and expressions)
+  - [ResetPlanCache](../R/ResetPlanCache.md) (invalidates all cached plans and expressions)
 
 - Called from (representative examples):
-  - InitPlanCache (registers this callback for multiple system caches)
+  - [InitPlanCache](../I/InitPlanCache.md) (registers this callback for multiple system caches)
   - Syscache invalidation system (via callback mechanism for various system catalog changes)
 
 ## Notes and Other Information

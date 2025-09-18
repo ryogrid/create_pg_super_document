@@ -20,14 +20,14 @@ The function first checks if a .done file already exists and exits early if foun
 ## Dependencies
 - Functions called/Symbols referenced:
   - StatusFilePath
-  - durable_rename  
+  - [durable_rename](../d/durable_rename.md)  
   - AllocateFile
   - FreeFile
 - Called from (representative examples):
-  - KeepFileRestoredFromArchive
-  - WalReceiverMain
-  - WalRcvFetchTimeLineHistoryFiles
-  - XLogWalRcvClose
+  - [KeepFileRestoredFromArchive](../K/KeepFileRestoredFromArchive.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [WalRcvFetchTimeLineHistoryFiles](../W/WalRcvFetchTimeLineHistoryFiles.md)
+  - [XLogWalRcvClose](XLogWalRcvClose.md)
 
 ## Notes and Other Information
 - Creates .done files in the archive_status directory under pg_wal

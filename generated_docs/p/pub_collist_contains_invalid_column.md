@@ -24,21 +24,21 @@ For REPLICA IDENTITY FULL tables, the function immediately returns true (invalid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetTopMostAncestorInPublication
-  - SearchSysCache2
-  - SysCacheGetAttr
-  - pub_collist_to_bitmapset
-  - RelationGetIndexAttrBitmap
-  - bms_next_member
-  - get_attname
-  - get_attnum
-  - bms_is_member
-  - bms_free
+  - [GetTopMostAncestorInPublication](../G/GetTopMostAncestorInPublication.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [pub_collist_to_bitmapset](pub_collist_to_bitmapset.md)
+  - [RelationGetIndexAttrBitmap](../R/RelationGetIndexAttrBitmap.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [get_attname](../g/get_attname.md)
+  - [get_attnum](../g/get_attnum.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_free](../b/bms_free.md)
   - REPLICA_IDENTITY_FULL
   - INDEX_ATTR_BITMAP_IDENTITY_KEY
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - RelationBuildPublicationDesc
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md)
   - MAX_RELCACHE_INVAL_MSGS (referenced in header)
 
 ## Notes and Other Information

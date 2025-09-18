@@ -20,11 +20,11 @@ The function is called by PostgreSQL's access method infrastructure to obtain th
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create IndexAmRoutine)
-  - spgbuild, spgbuildempty, spginsert
-  - spgbulkdelete, spgvacuumcleanup
-  - spgcanreturn, spgcostestimate, spgoptions, spgproperty
-  - spgvalidate, spgadjustmembers
-  - spgbeginscan, spgrescan, spggettuple, spggetbitmap, spgendscan
+  - [spgbuild](spgbuild.md), spgbuildempty, spginsert
+  - [spgbulkdelete](spgbulkdelete.md), spgvacuumcleanup
+  - [spgcanreturn](spgcanreturn.md), spgcostestimate, spgoptions, spgproperty
+  - [spgvalidate](spgvalidate.md), spgadjustmembers
+  - [spgbeginscan](spgbeginscan.md), spgrescan, spggettuple, spggetbitmap, spgendscan
   - Constants: SPGISTNProc, SPGIST_OPTIONS_PROC, VACUUM_OPTION_PARALLEL_BULKDEL, VACUUM_OPTION_PARALLEL_COND_CLEANUP
 - Called from (representative examples):
   - PostgreSQL access method infrastructure (no direct references found in indexed code)

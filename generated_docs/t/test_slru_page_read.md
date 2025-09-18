@@ -19,9 +19,9 @@ This function provides a testing interface for reading data from SLRU (Simple Lo
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64/PG_GETARG_BOOL (argument extraction macros)
-  - SimpleLruGetBankLock (lock acquisition for the page bank)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (lock acquisition for the page bank)
   - LWLockAcquire/LWLockRelease (locking primitives)
-  - SimpleLruReadPage (page reading from disk/cache)
+  - [SimpleLruReadPage](../S/SimpleLruReadPage.md) (page reading from disk/cache)
   - TestSlruCtl (global SLRU control structure)
   - InvalidTransactionId (constant for transaction ID parameter)
   - cstring_to_text (text conversion for PostgreSQL return)

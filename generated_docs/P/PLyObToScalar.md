@@ -24,10 +24,10 @@ PLyObToScalar is a component structure used as part of the PLyObToDatum conversi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FmgrInfo (PostgreSQL function manager structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - PLyObToDatum (as union member 'scalar')
+  - [PLyObToDatum](PLyObToDatum.md) (as union member 'scalar')
   - Various scalar conversion functions in plpy_typeio.c
 
 ## Notes and Other Information

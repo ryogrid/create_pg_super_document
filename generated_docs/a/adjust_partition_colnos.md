@@ -27,10 +27,10 @@ This translation is necessary because:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetChildToRootMap (retrieves the tuple conversion map for parent-to-child translation)
-  - adjust_partition_colnos_using_map (performs the actual column number adjustment using the attribute map)
+  - [ExecGetChildToRootMap](../E/ExecGetChildToRootMap.md) (retrieves the tuple conversion map for parent-to-child translation)
+  - [adjust_partition_colnos_using_map](adjust_partition_colnos_using_map.md) (performs the actual column number adjustment using the attribute map)
 - Called from (representative examples):
-  - ExecInitPartitionInfo (during partition initialization for UPDATE operations)
+  - [ExecInitPartitionInfo](../E/ExecInitPartitionInfo.md) (during partition initialization for UPDATE operations)
 
 ## Notes and Other Information
 - This is a static function used internally within the partition routing subsystem

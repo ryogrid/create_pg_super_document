@@ -19,12 +19,12 @@ The function enforces that ExecutorFinish was previously called (except for EXPL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - ExecEndPlan
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [ExecEndPlan](../E/ExecEndPlan.md)
   - UnregisterSnapshot
-  - FreeExecutorState
+  - [FreeExecutorState](../F/FreeExecutorState.md)
 - Called from (representative examples):
-  - ExecutorEnd
+  - [ExecutorEnd](../E/ExecutorEnd.md)
 
 ## Notes and Other Information
 - Asserts that ExecutorFinish was called unless in EXPLAIN-only mode

@@ -21,10 +21,10 @@ The function converts the LLVMJitContext pointer to a Datum using PointerGetDatu
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerRemember
-  - PointerGetDatum (macro)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (macro)
   - jit_resowner_desc (resource descriptor)
 - Called from (representative examples):
-  - llvm_create_context
+  - [llvm_create_context](../l/llvm_create_context.md)
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only visible within the llvmjit.c compilation unit

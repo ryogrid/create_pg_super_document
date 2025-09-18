@@ -23,16 +23,16 @@ The algorithm iterates through all provided paths, filtering based on parallel-s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_path_costs
-  - pathkeys_contained_in
-  - bms_is_subset
+  - [compare_path_costs](../c/compare_path_costs.md)
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
   - PATH_REQ_OUTER
   - CostSelector (type)
 - Called from (representative examples):
-  - generate_orderedappend_paths
-  - get_cheapest_parameterized_child_path
-  - generate_mergejoin_paths
-  - generate_union_paths
+  - [generate_orderedappend_paths](generate_orderedappend_paths.md)
+  - [get_cheapest_parameterized_child_path](get_cheapest_parameterized_child_path.md)
+  - [generate_mergejoin_paths](generate_mergejoin_paths.md)
+  - [generate_union_paths](generate_union_paths.md)
 
 ## Notes and Other Information
 - Cost comparison is performed before pathkey comparison as an optimization, since cost comparison is computationally cheaper

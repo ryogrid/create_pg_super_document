@@ -25,20 +25,20 @@ The function handles polymorphic operators carefully, ensuring type consistency 
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType
-  - get_base_element_type
-  - oper
-  - op_signature_string
-  - enforce_generic_type_consistency
-  - get_func_retset
+  - [get_base_element_type](../g/get_base_element_type.md)
+  - [oper](../o/oper.md)
+  - [op_signature_string](../o/op_signature_string.md)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)
+  - [get_func_retset](../g/get_func_retset.md)
   - IsPolymorphicType
-  - get_array_type
-  - make_fn_arguments
+  - [get_array_type](../g/get_array_type.md)
+  - [make_fn_arguments](make_fn_arguments.md)
   - makeNode
-  - oprid
-  - ReleaseSysCache
+  - [oprid](../o/oprid.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - transformAExprOpAny
-  - transformAExprOpAll
+  - [transformAExprOpAny](../t/transformAExprOpAny.md)
+  - [transformAExprOpAll](../t/transformAExprOpAll.md)
   - transformAExprIn
 
 ## Notes and Other Information

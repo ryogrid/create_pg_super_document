@@ -32,16 +32,16 @@ This structure is primarily used in `src/backend/tsearch/dict_thesaurus.c` for i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LexemeInfo (self-referential for linked list pointers)
+  - [LexemeInfo](LexemeInfo.md) (self-referential for linked list pointers)
 - Called from (representative examples):
-  - newLexeme
-  - addCompiledLexeme
-  - cmpLexemeInfo
-  - thesaurus_init
-  - matchIdSubst
-  - findVariant
-  - checkMatch
-  - thesaurus_lexize
+  - [newLexeme](../n/newLexeme.md)
+  - [addCompiledLexeme](../a/addCompiledLexeme.md)
+  - [cmpLexemeInfo](../c/cmpLexemeInfo.md)
+  - [thesaurus_init](../t/thesaurus_init.md)
+  - [matchIdSubst](../m/matchIdSubst.md)
+  - [findVariant](../f/findVariant.md)
+  - [checkMatch](../c/checkMatch.md)
+  - [thesaurus_lexize](../t/thesaurus_lexize.md)
 
 ## Notes and Other Information
 - The structure implements a doubly-linked organizational system where entries and variants can be traversed independently

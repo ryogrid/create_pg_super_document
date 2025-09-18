@@ -32,10 +32,10 @@ Special handling includes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (error handling and termination)
+  - [pg_fatal](../p/pg_fatal.md) (error handling and termination)
   - ControlData (data structure for control information)
 - Called from (representative examples):
-  - check_cluster_compatibility (src/bin/pg_upgrade/check.c:844)
+  - [check_cluster_compatibility](check_cluster_compatibility.md) (src/bin/pg_upgrade/check.c:844)
 
 ## Notes and Other Information
 - Terminates pg_upgrade immediately upon any compatibility violation with detailed error messages

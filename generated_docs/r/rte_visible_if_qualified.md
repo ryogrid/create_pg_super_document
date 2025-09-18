@@ -22,9 +22,9 @@ When this function returns true, PostgreSQL can provide helpful hints like "To r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findNSItemForRTE
+  - [findNSItemForRTE](../f/findNSItemForRTE.md)
 - Called from (representative examples):
-  - errorMissingColumn
+  - [errorMissingColumn](../e/errorMissingColumn.md)
 
 ## Notes and Other Information
 - Static function with internal linkage, used specifically for error message generation

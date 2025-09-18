@@ -25,9 +25,9 @@ This structure is critical for PostgreSQL's extension system, allowing the datab
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length arrays)
 - Used by (representative examples):
-  - internal_load_library (src/backend/utils/fmgr/dfmgr.c:184)
-  - EstimateLibraryStateSpace (src/backend/utils/fmgr/dfmgr.c:637)
-  - SerializeLibraryState (src/backend/utils/fmgr/dfmgr.c:654)
+  - [internal_load_library](../i/internal_load_library.md) (src/backend/utils/fmgr/dfmgr.c:184)
+  - [EstimateLibraryStateSpace](../E/EstimateLibraryStateSpace.md) (src/backend/utils/fmgr/dfmgr.c:637)
+  - [SerializeLibraryState](../S/SerializeLibraryState.md) (src/backend/utils/fmgr/dfmgr.c:654)
 
 ## Notes and Other Information
 - The structure is managed through global variables file_list and file_tail that maintain the head and tail pointers of the linked list

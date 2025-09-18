@@ -19,13 +19,13 @@ The `PQreset` function provides a way to reestablish a PostgreSQL connection usi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqClosePGconn
-  - pqConnectDBStart
-  - pqConnectDBComplete
-  - PGEventConnReset (event structure)
+  - [pqClosePGconn](../p/pqClosePGconn.md)
+  - [pqConnectDBStart](../p/pqConnectDBStart.md)
+  - [pqConnectDBComplete](../p/pqConnectDBComplete.md)
+  - [PGEventConnReset](PGEventConnReset.md) (event structure)
   - PGEVT_CONNRESET (event type constant)
 - Called from (representative examples):
-  - CheckConnection (psql)
+  - [CheckConnection](../C/CheckConnection.md) (psql)
   - PQsetdb (compatibility function)
 
 ## Notes and Other Information

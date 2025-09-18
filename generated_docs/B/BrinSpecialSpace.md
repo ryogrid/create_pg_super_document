@@ -22,7 +22,7 @@ The special area serves as metadata storage for BRIN pages and provides a standa
   - MAXALIGN (macro for memory alignment)
 - Called from (representative examples):
   - BrinMaxItemSize (in brin_pageops.c:32)
-  - brin_page_init (in brin_pageops.c:477)
+  - [brin_page_init](../b/brin_page_init.md) (in brin_pageops.c:477)
   - BrinPageType (in brin_page.h:43)
   - BrinPageFlags (in brin_page.h:47)
   - REVMAP_CONTENT_SIZE (in brin_page.h:91)

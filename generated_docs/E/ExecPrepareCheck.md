@@ -24,11 +24,11 @@ Check constraints have specific evaluation semantics (must return boolean, handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_planner (applies planning transformations to constraint expressions)
-  - ExecInitCheck (compiles check constraint into specialized ExprState)
-  - MemoryContextSwitchTo (memory context management)
+  - [expression_planner](../e/expression_planner.md) (applies planning transformations to constraint expressions)
+  - [ExecInitCheck](ExecInitCheck.md) (compiles check constraint into specialized ExprState)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
 - Called from (representative examples):
-  - ExecPartitionCheck (partition constraint validation)
+  - [ExecPartitionCheck](ExecPartitionCheck.md) (partition constraint validation)
 
 ## Notes and Other Information
 - **Constraint specialization**: Specifically designed for check constraint expressions with proper constraint evaluation semantics

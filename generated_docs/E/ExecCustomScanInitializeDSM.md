@@ -20,13 +20,13 @@ ExecCustomScanInitializeDSM is responsible for setting up the shared memory coor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CustomScanState (structure type)
-  - ParallelContext (structure type)
-  - CustomExecMethods (structure type)
+  - [CustomScanState](../C/CustomScanState.md) (structure type)
+  - [ParallelContext](../P/ParallelContext.md) (structure type)
+  - [CustomExecMethods](../C/CustomExecMethods.md) (structure type)
   - shm_toc_allocate (shared memory TOC allocation function)
   - shm_toc_insert (shared memory TOC insertion function)
 - Called from (representative examples):
-  - ExecParallelInitializeDSM (general parallel execution DSM initializer)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (general parallel execution DSM initializer)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel query execution framework

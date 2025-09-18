@@ -24,15 +24,15 @@ If no valid WAL files are found in the directory, it returns InvalidXLogRecPtr t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_destination_dir
+  - [get_destination_dir](../g/get_destination_dir.md)
   - readdir
-  - is_xlogfilename
-  - XLogFromFileName
-  - stat, open, lseek, read, close (system calls)
+  - [is_xlogfilename](../i/is_xlogfilename.md)
+  - [XLogFromFileName](../X/XLogFromFileName.md)
+  - [stat](../s/stat.md), open, lseek, read, close (system calls)
   - pg_log_warning
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - StreamLog (in pg_receivewal.c:537)
+  - [StreamLog](../S/StreamLog.md) (in pg_receivewal.c:537)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_receivewal.c

@@ -18,11 +18,11 @@ The  function is responsible for ensuring data durability and maintaining commun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputFsync (forces buffered data to disk)
-  - feGetCurrentTimestamp (gets current timestamp)
-  - sendFeedback (sends feedback message to server)
+  - [OutputFsync](../O/OutputFsync.md) (forces buffered data to disk)
+  - [feGetCurrentTimestamp](feGetCurrentTimestamp.md) (gets current timestamp)
+  - [sendFeedback](../s/sendFeedback.md) (sends feedback message to server)
 - Called from (representative examples):
-  - StreamLogicalLog (multiple locations in logical replication processing)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (multiple locations in logical replication processing)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within its compilation unit

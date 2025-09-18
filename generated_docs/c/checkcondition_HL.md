@@ -24,12 +24,12 @@ The `checkcondition_HL` function serves as a callback for the TS_execute framewo
   - QueryOperand (query operand type)
   - ExecPhraseData (execution phrase data structure)
   - hlCheck (headline check structure type cast)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - WordEntryPos (word entry position type)
   - TS_YES/TS_NO (ternary value constants)
 - Called from (representative examples):
-  - hlCover (src/backend/tsearch/wparser_def.c:2157)
-  - prsd_headline (src/backend/tsearch/wparser_def.c:2697)
+  - [hlCover](../h/hlCover.md) (src/backend/tsearch/wparser_def.c:2157)
+  - [prsd_headline](../p/prsd_headline.md) (src/backend/tsearch/wparser_def.c:2697)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search highlighting system

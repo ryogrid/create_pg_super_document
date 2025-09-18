@@ -23,24 +23,24 @@ The function includes debug support by flushing the debug output stream when tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqSendSome
+  - [pqSendSome](pqSendSome.md)
   - fflush (standard library)
 - Called from (representative examples):
-  - pg_SASL_init
-  - sendTerminateConn
-  - pqPacketSend
-  - PQsendQueryInternal
-  - PQconsumeInput
-  - PQgetResult
-  - PQputCopyData
-  - PQputCopyEnd
+  - [pg_SASL_init](pg_SASL_init.md)
+  - [sendTerminateConn](../s/sendTerminateConn.md)
+  - [pqPacketSend](pqPacketSend.md)
+  - [PQsendQueryInternal](../P/PQsendQueryInternal.md)
+  - [PQconsumeInput](../P/PQconsumeInput.md)
+  - [PQgetResult](../P/PQgetResult.md)
+  - [PQputCopyData](../P/PQputCopyData.md)
+  - [PQputCopyEnd](../P/PQputCopyEnd.md)
   - PQexitPipelineMode
-  - pqPipelineSyncInternal
-  - PQsetnonblocking
-  - PQflush
-  - pqPipelineFlush
-  - pqEndcopy3
-  - pqFunctionCall3
+  - [pqPipelineSyncInternal](pqPipelineSyncInternal.md)
+  - [PQsetnonblocking](../P/PQsetnonblocking.md)
+  - [PQflush](../P/PQflush.md)
+  - [pqPipelineFlush](pqPipelineFlush.md)
+  - [pqEndcopy3](pqEndcopy3.md)
+  - [pqFunctionCall3](pqFunctionCall3.md)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on failure, 1 when not all data could be sent due to non-blocking socket constraints

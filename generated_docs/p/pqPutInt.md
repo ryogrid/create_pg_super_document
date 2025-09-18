@@ -25,13 +25,13 @@ The function performs the byte order conversion using appropriate conversion fun
 - Functions called/Symbols referenced:
   - pg_hton16 (converts 16-bit value from host to network byte order)
   - pg_hton32 (converts 32-bit value from host to network byte order)
-  - pqPutMsgBytes (writes raw bytes to the output buffer)
-  - pqInternalNotice (logs internal notice messages)
+  - [pqPutMsgBytes](pqPutMsgBytes.md) (writes raw bytes to the output buffer)
+  - [pqInternalNotice](pqInternalNotice.md) (logs internal notice messages)
 - Called from (representative examples):
-  - PQsendPrepare (sending prepared statement creation)
-  - PQsendQueryGuts (sending query execution requests)
-  - pqFunctionCall3 (sending function call requests)
-  - pg_SASL_init (authentication message construction)
+  - [PQsendPrepare](../P/PQsendPrepare.md) (sending prepared statement creation)
+  - [PQsendQueryGuts](../P/PQsendQueryGuts.md) (sending query execution requests)
+  - [pqFunctionCall3](pqFunctionCall3.md) (sending function call requests)
+  - [pg_SASL_init](pg_SASL_init.md) (authentication message construction)
 
 ## Notes and Other Information
 - Only supports 2-byte and 4-byte integers; other sizes will result in an error notice and EOF return

@@ -35,8 +35,8 @@ The structure is created and initialized by MJExamineQuals() during merge join n
   - ExprState
   - Datum
 - Called from (representative examples):
-  - MJExamineQuals (creates and initializes arrays of MergeJoinClauseData)
-  - MergeJoinClause (typedef pointer to this structure)
+  - [MJExamineQuals](MJExamineQuals.md) (creates and initializes arrays of MergeJoinClauseData)
+  - [MergeJoinClause](MergeJoinClause.md) (typedef pointer to this structure)
 
 ## Notes and Other Information
 - This structure is private to nodeMergejoin.c and is not exposed in header files

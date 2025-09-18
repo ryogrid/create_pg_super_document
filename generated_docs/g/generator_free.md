@@ -19,8 +19,8 @@ This function deallocates the memory used by a CombinationGenerator structure, i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CombinationGenerator (structure type)
-  - pfree (PostgreSQL memory deallocation function)
+  - [CombinationGenerator](../C/CombinationGenerator.md) (structure type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
 - Called from (representative examples):
   - statext_ndistinct_build
 

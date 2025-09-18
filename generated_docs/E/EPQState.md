@@ -29,19 +29,19 @@ EPQState implements EvalPlanQual (EPQ) rechecking, a critical mechanism in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EState
-  - List
+  - [EState](EState.md)
+  - [List](../L/List.md)
   - TupleTableSlot
-  - Plan
-  - ExecAuxRowMark
-  - PlanState
+  - [Plan](../P/Plan.md)
+  - [ExecAuxRowMark](ExecAuxRowMark.md)
+  - [PlanState](../P/PlanState.md)
 - Called from (representative examples):
-  - EvalPlanQual
-  - EvalPlanQualInit
-  - EvalPlanQualBegin
-  - EvalPlanQualNext
-  - ExecMergeMatched
-  - GetTupleForTrigger
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [EvalPlanQualInit](EvalPlanQualInit.md)
+  - [EvalPlanQualBegin](EvalPlanQualBegin.md)
+  - [EvalPlanQualNext](EvalPlanQualNext.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
+  - [GetTupleForTrigger](../G/GetTupleForTrigger.md)
 
 ## Notes and Other Information
 EPQState is fundamental to PostgreSQL's optimistic concurrency control, allowing transactions to proceed without locking while maintaining consistency through rechecking. The separate execution environment (recheckestate) enables EPQ to run modified plans that use substitute tuples instead of scanning base tables. The relsubs_slot mechanism allows callers to provide specific tuples for rechecking, while the rowmark system handles tuple identification. EPQ is essential for operations like UPDATE, DELETE, MERGE, and trigger execution where concurrent modifications must be handled gracefully. The blocked/done flag arrays optimize EPQ execution by tracking which relations have viable tuples for the current recheck operation.

@@ -33,7 +33,7 @@ The function populates a SerializedReindexState structure with:
   - currentlyReindexedIndex (global variable)
   - pendingReindexedIndexes (global list variable)
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's parallel reindex infrastructure

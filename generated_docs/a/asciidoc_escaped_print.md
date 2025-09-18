@@ -21,8 +21,8 @@ This function processes an input string and escapes characters that have special
   - fputs (standard C library function)
   - fputc (standard C library function)
 - Called from:
-  - print_asciidoc_text (src/fe_utils/print.c:2241, 2267)
-  - print_asciidoc_vertical (src/fe_utils/print.c:2354, 2361)
+  - [print_asciidoc_text](../p/print_asciidoc_text.md) (src/fe_utils/print.c:2241, 2267)
+  - [print_asciidoc_vertical](../p/print_asciidoc_vertical.md) (src/fe_utils/print.c:2354, 2361)
 
 ## Notes and Other Information
 - Currently only escapes the pipe character ('|') by converting it to '\|'

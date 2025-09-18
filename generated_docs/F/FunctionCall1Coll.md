@@ -26,15 +26,15 @@ The function creates a local FunctionCallInfoData structure with space for 1 arg
   - FunctionCallInvoke
   - elog (for error reporting)
 - Called from (representative examples):
-  - brin_bloom_add_value
-  - brin_bloom_consistent  
-  - brin_inclusion_add_value
+  - [brin_bloom_add_value](../b/brin_bloom_add_value.md)
+  - [brin_bloom_consistent](../b/brin_bloom_consistent.md)  
+  - [brin_inclusion_add_value](../b/brin_inclusion_add_value.md)
   - gistdentryinit
-  - _hash_datum2hashkey
+  - [_hash_datum2hashkey](../h/_hash_datum2hashkey.md)
   - ExecHashGetHashValue
-  - hash_multirange
-  - hash_range
-  - OidFunctionCall1Coll
+  - [hash_multirange](../h/hash_multirange.md)
+  - [hash_range](../h/hash_range.md)
+  - [OidFunctionCall1Coll](../O/OidFunctionCall1Coll.md)
 
 ## Notes and Other Information
 - This function explicitly checks for NULL results and throws an ERROR if the called function returns NULL

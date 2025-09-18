@@ -30,19 +30,19 @@ This function is critical for maintaining data durability and is called by vario
 - Functions called/Symbols referenced:
   - INIT_MD_FILETAG
   - SmgrIsTemp
-  - RegisterSyncRequest
-  - pgstat_prepare_io_time
+  - [RegisterSyncRequest](../R/RegisterSyncRequest.md)
+  - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
   - FileSync
   - data_sync_elevel
-  - FilePathName
-  - pgstat_count_io_op_time
+  - [FilePathName](../F/FilePathName.md)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
 - Called from (representative examples):
-  - mdcreate
+  - [mdcreate](../m/mdcreate.md)
   - mdextend
   - mdzeroextend
-  - mdwritev
-  - mdtruncate
-  - mdregistersync
+  - [mdwritev](../m/mdwritev.md)
+  - [mdtruncate](../m/mdtruncate.md)
+  - [mdregistersync](../m/mdregistersync.md)
 
 ## Notes and Other Information
 - Static function, only called from within the md.c file

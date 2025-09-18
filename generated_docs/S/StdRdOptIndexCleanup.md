@@ -27,7 +27,7 @@ The enum is used in conjunction with the vacuum_index_cleanup table storage para
 - Functions called/Symbols referenced:
   - Used as part of StdRdOptions structure
 - Called from (representative examples):
-  - vacuum_rel (src/backend/commands/vacuum.c:2154)
+  - [vacuum_rel](../v/vacuum_rel.md) (src/backend/commands/vacuum.c:2154)
   - StdRdOptions structure (src/include/utils/rel.h:344)
 
 ## Notes and Other Information

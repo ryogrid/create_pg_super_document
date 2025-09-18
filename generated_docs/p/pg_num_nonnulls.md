@@ -22,7 +22,7 @@ This function is useful in SQL queries for data completeness analysis, validatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - count_nulls
+  - [count_nulls](../c/count_nulls.md)
   - PG_RETURN_NULL
   - PG_RETURN_INT32
 - Called from (representative examples):

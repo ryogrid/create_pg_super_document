@@ -25,13 +25,13 @@ Finally, if no existing result is available, the function creates a new empty PG
 ## Dependencies
 - Functions called/Symbols referenced:
   - CONNECTION_OK
-  - pqSaveErrorResult
+  - [pqSaveErrorResult](../p/pqSaveErrorResult.md)
   - PGASYNC_IDLE
-  - pqPrepareAsyncResult
-  - PQmakeEmptyPGresult
+  - [pqPrepareAsyncResult](../p/pqPrepareAsyncResult.md)
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
   - ExecStatusType
 - Called from (representative examples):
-  - PQgetResult (for COPY_IN, COPY_OUT, and COPY_BOTH cases)
+  - [PQgetResult](../P/PQgetResult.md) (for COPY_IN, COPY_OUT, and COPY_BOTH cases)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public libpq API

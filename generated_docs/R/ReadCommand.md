@@ -23,11 +23,11 @@ This abstraction allows the rest of the PostgreSQL backend to process commands u
 - Functions called/Symbols referenced:
   - whereToSendOutput (global variable indicating output destination)
   - DestRemote (constant for remote client destination)
-  - SocketBackend() (handles client-server protocol communication)
-  - InteractiveBackend() (handles interactive terminal input)
+  - [SocketBackend](../S/SocketBackend.md)() (handles client-server protocol communication)
+  - [InteractiveBackend](../I/InteractiveBackend.md)() (handles interactive terminal input)
 
 - Called from (representative examples):
-  - PostgresMain (src/backend/tcop/postgres.c:4699)
+  - [PostgresMain](../P/PostgresMain.md) (src/backend/tcop/postgres.c:4699)
 
 ## Notes and Other Information
 - This function is static, meaning it's only accessible within the postgres.c compilation unit

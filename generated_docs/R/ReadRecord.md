@@ -27,19 +27,19 @@ Key behaviors include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogPrefetcherGetReader
-  - XLogPrefetcherReadRecord
-  - emode_for_corrupt_record
-  - tliInHistory
-  - SwitchIntoArchiveRecovery
-  - CheckRecoveryConsistency
-  - EnableStandbyMode
-  - CheckForStandbyTrigger
+  - [XLogPrefetcherGetReader](../X/XLogPrefetcherGetReader.md)
+  - [XLogPrefetcherReadRecord](../X/XLogPrefetcherReadRecord.md)
+  - [emode_for_corrupt_record](../e/emode_for_corrupt_record.md)
+  - [tliInHistory](../t/tliInHistory.md)
+  - [SwitchIntoArchiveRecovery](../S/SwitchIntoArchiveRecovery.md)
+  - [CheckRecoveryConsistency](../C/CheckRecoveryConsistency.md)
+  - [EnableStandbyMode](../E/EnableStandbyMode.md)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
 - Called from (representative examples):
-  - InitWalRecovery
-  - PerformWalRecovery
-  - FinishWalRecovery
-  - ReadCheckpointRecord
+  - [InitWalRecovery](../I/InitWalRecovery.md)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
+  - [FinishWalRecovery](../F/FinishWalRecovery.md)
+  - [ReadCheckpointRecord](ReadCheckpointRecord.md)
 
 ## Notes and Other Information
 - The function maintains global state variables like lastSourceFailed and currentSource to coordinate retry logic

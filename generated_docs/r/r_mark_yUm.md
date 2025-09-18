@@ -25,12 +25,12 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_check_vowel_harmony
-  - find_among_b
-  - r_mark_suffix_with_optional_y_consonant
+  - [r_check_vowel_harmony](r_check_vowel_harmony.md)
+  - [find_among_b](../f/find_among_b.md)
+  - [r_mark_suffix_with_optional_y_consonant](r_mark_suffix_with_optional_y_consonant.md)
   - a_12 (static array containing suffix patterns: "im", "um", "ım", "üm")
 - Called from (representative examples):
-  - r_stem_nominal_verb_suffixes (at lines 955, 1073, 1119)
+  - [r_stem_nominal_verb_suffixes](r_stem_nominal_verb_suffixes.md) (at lines 955, 1073, 1119)
 
 ## Notes and Other Information
 - The `a_12` array contains 4 suffix variations: "im", "um", "ım" (with dotless ı), and "üm"

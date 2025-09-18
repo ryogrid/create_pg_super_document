@@ -25,10 +25,10 @@ This function serves as a callback during backup manifest parsing, specifically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - lappend
 - Called from (representative examples):
-  - IncrementalBackupInfo (as callback in manifest parsing)
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md) (as callback in manifest parsing)
 
 ## Notes and Other Information
 - This is a static function local to basebackup_incremental.c

@@ -31,17 +31,17 @@ The function is designed to optimize memory usage patterns commonly found in Pos
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk - converts pointer to chunk header
-  - MemoryChunkIsExternal - checks if chunk is externally allocated
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md) - checks if chunk is externally allocated
   - ExternalChunkGetBlock / MemoryChunkGetBlock - retrieves containing block
   - GenerationBlockIsValid - validates block integrity
-  - MemoryChunkGetValue - gets chunk size information
-  - sentinel_ok - validates memory bounds (debug builds)
-  - wipe_mem - clears freed memory (debug builds)
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md) - gets chunk size information
+  - [sentinel_ok](../s/sentinel_ok.md) - validates memory bounds (debug builds)
+  - [wipe_mem](../w/wipe_mem.md) - clears freed memory (debug builds)
   - IsKeeperBlock - checks if block is the keeper block
-  - GenerationBlockMarkEmpty - marks block as empty for reuse
-  - GenerationBlockFree - actually frees the block memory
+  - [GenerationBlockMarkEmpty](GenerationBlockMarkEmpty.md) - marks block as empty for reuse
+  - [GenerationBlockFree](GenerationBlockFree.md) - actually frees the block memory
 - Called from:
-  - GenerationRealloc - during memory reallocation operations
+  - [GenerationRealloc](GenerationRealloc.md) - during memory reallocation operations
   - BOGUS_MCTX - as part of memory context method table
   - General memory context operations throughout PostgreSQL
 

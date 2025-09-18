@@ -17,14 +17,14 @@ This function queries the pg_catalog.pg_subscription system catalog to count all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - atoi
-  - PQgetvalue
-  - PQclear
-  - PQfinish
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
 - Called from (representative examples):
-  - check_and_dump_old_cluster
+  - [check_and_dump_old_cluster](../c/check_and_dump_old_cluster.md)
   - fopen_priv
 
 ## Notes and Other Information

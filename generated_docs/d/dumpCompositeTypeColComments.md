@@ -21,16 +21,16 @@ The function creates archive entries for each column comment with proper depende
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findComments
-  - fmtId
+  - [findComments](../f/findComments.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
   - appendStringLiteralAH
-  - createDumpId
-  - ArchiveEntry
-  - resetPQExpBuffer
-  - appendPQExpBuffer
+  - [createDumpId](../c/createDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
 - Called from (representative examples):
-  - dumpCompositeType
+  - [dumpCompositeType](dumpCompositeType.md)
 
 ## Notes and Other Information
 - Returns early if --no-comments option is specified in dump options

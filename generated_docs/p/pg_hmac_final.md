@@ -23,17 +23,17 @@ The pg_hmac_final function completes the HMAC computation process by implementin
 - Functions called/Symbols referenced:
   - ALLOC (memory allocation)
   - FREE (memory deallocation)
-  - pg_cryptohash_final
-  - pg_cryptohash_init
-  - pg_cryptohash_update
-  - pg_cryptohash_error
+  - [pg_cryptohash_final](pg_cryptohash_final.md)
+  - [pg_cryptohash_init](pg_cryptohash_init.md)
+  - [pg_cryptohash_update](pg_cryptohash_update.md)
+  - [pg_cryptohash_error](pg_cryptohash_error.md)
   - PG_HMAC_ERROR_OOM
   - PG_HMAC_ERROR_INTERNAL
 - Called from (representative examples):
-  - verify_client_proof (SCRAM authentication)
-  - build_server_final_message (SCRAM authentication)
+  - [verify_client_proof](../v/verify_client_proof.md) (SCRAM authentication)
+  - [build_server_final_message](../b/build_server_final_message.md) (SCRAM authentication)
   - scram_SaltedPassword (SCRAM key derivation)
-  - calculate_client_proof (libpq SCRAM client)
+  - [calculate_client_proof](../c/calculate_client_proof.md) (libpq SCRAM client)
 
 ## Notes and Other Information
 - Implements the final step of HMAC: H(K XOR opad, H(K XOR ipad, text))

@@ -18,16 +18,16 @@ This function provides indexed access to individual heap tuple identifiers withi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleGetPosting
+  - [BTreeTupleGetPosting](BTreeTupleGetPosting.md)
 - Called from (representative examples):
   - _bt_bottomupdel_finish_pending
   - _bt_update_posting
-  - _bt_swap_posting
-  - _bt_check_unique
-  - _bt_simpledel_pass
-  - _bt_binsrch_posting
-  - _bt_readpage
-  - BTreeTupleGetMaxHeapTID
+  - [_bt_swap_posting](../b/_bt_swap_posting.md)
+  - [_bt_check_unique](../b/_bt_check_unique.md)
+  - [_bt_simpledel_pass](../b/_bt_simpledel_pass.md)
+  - [_bt_binsrch_posting](../b/_bt_binsrch_posting.md)
+  - [_bt_readpage](../b/_bt_readpage.md)
+  - [BTreeTupleGetMaxHeapTID](BTreeTupleGetMaxHeapTID.md)
 
 ## Notes and Other Information
 - The caller must ensure that n is within valid bounds (0 <= n < BTreeTupleGetNPosting(posting))

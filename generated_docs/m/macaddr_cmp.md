@@ -20,7 +20,7 @@ The macaddr_cmp function is a PostgreSQL built-in function that implements three
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_MACADDR_P (extracts macaddr argument from function args)
-  - macaddr_cmp_internal (performs the actual comparison logic)
+  - [macaddr_cmp_internal](macaddr_cmp_internal.md) (performs the actual comparison logic)
   - PG_RETURN_INT32 (returns 32-bit integer result)
 - Called from (representative examples):
   - No direct references found in the codebase

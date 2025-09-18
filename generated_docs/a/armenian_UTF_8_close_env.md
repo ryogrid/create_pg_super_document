@@ -24,7 +24,7 @@ The function handles the complete cleanup process including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (performs the actual memory deallocation with S_size=0 parameter)
+  - [SN_close_env](../S/SN_close_env.md) (performs the actual memory deallocation with S_size=0 parameter)
 - Called from:
   - External callers that need to clean up Armenian stemming environments
 

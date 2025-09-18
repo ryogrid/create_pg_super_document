@@ -19,7 +19,7 @@ This function serves as the configuration interface for SP-GiST quadtree indexin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (structure type)
+  - [spgConfigOut](spgConfigOut.md) (structure type)
   - PG_RETURN_VOID (macro)
 - Called from (representative examples):
   - Used as part of SP-GiST operator class registration for range types

@@ -19,12 +19,12 @@ This is the complementary cleanup function to json_parse_manifest_incremental_in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
   - freeJsonLexContext
 - Called from (representative examples):
-  - FinalizeIncrementalManifest (src/backend/backup/basebackup_incremental.c:245)
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:211)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:489)
+  - [FinalizeIncrementalManifest](../F/FinalizeIncrementalManifest.md) (src/backend/backup/basebackup_incremental.c:245)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:211)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:489)
 
 ## Notes and Other Information
 - The manifest_ctx (cryptographic hash context) should be freed by the caller before calling this function

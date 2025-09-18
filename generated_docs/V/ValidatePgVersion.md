@@ -30,14 +30,14 @@ The function performs several validation steps:
   - snprintf
   - fscanf
   - ereport
-  - errcode
-  - errcode_for_file_access
-  - errmsg
-  - errdetail
-  - errhint
+  - [errcode](../e/errcode.md)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
+  - [errhint](../e/errhint.md)
 - Called from (representative examples):
-  - checkDataDir
-  - InitPostgres
+  - [checkDataDir](../c/checkDataDir.md)
+  - [InitPostgres](../I/InitPostgres.md)
   - INIT_PG_OVERRIDE_ROLE_LOGIN
 
 ## Notes and Other Information

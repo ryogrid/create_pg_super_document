@@ -24,7 +24,7 @@ The advice function is a minimal helper that provides guidance to users when the
   - _() (internationalization macro)
   - progname (global variable containing program name)
 - Called from (representative examples):
-  - main (src/bin/pg_config/pg_config.c:183)
+  - [main](../m/main.md) (src/bin/pg_config/pg_config.c:183)
 
 ## Notes and Other Information
 - Uses internationalization support for localized error messages

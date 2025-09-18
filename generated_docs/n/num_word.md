@@ -26,7 +26,7 @@ The function handles several formatting cases:
   - Cash (type)
   - sprintf (standard library function)
 - Called from (representative examples):
-  - cash_words
+  - [cash_words](../c/cash_words.md)
 
 ## Notes and Other Information
 - Uses static storage for both the word arrays and output buffer, making it non-reentrant

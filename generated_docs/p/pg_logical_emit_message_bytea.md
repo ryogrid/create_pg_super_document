@@ -36,10 +36,10 @@ The function is implemented by extracting the parameters and calling `LogLogical
   - PG_GETARG_BOOL
   - text_to_cstring
   - PG_GETARG_BYTEA_PP
-  - LogLogicalMessage
+  - [LogLogicalMessage](../L/LogLogicalMessage.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
-  - pg_logical_emit_message_text
+  - [pg_logical_emit_message_text](pg_logical_emit_message_text.md)
   - Direct SQL function calls from applications
 
 ## Notes and Other Information

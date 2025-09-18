@@ -22,7 +22,7 @@ None - this is a parameterless factory function.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env: Core Snowball framework function that allocates and initializes the environment structure
+  - [SN_create_env](../S/SN_create_env.md): Core Snowball framework function that allocates and initializes the environment structure
 - Called from:
   - External interfaces (likely through stemmer initialization routines)
 

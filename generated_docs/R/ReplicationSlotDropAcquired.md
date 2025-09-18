@@ -24,13 +24,13 @@ This function takes no parameters and operates on the global MyReplicationSlot v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlotDropPtr
-  - ReplicationSlot (data type)
+  - [ReplicationSlotDropPtr](ReplicationSlotDropPtr.md)
+  - [ReplicationSlot](ReplicationSlot.md) (data type)
 - Called from (representative examples):
-  - ReplicationSlotRelease
-  - ReplicationSlotDrop
-  - drop_local_obsolete_slots
-  - ReplicationSlotsDropDBSlots
+  - [ReplicationSlotRelease](ReplicationSlotRelease.md)
+  - [ReplicationSlotDrop](ReplicationSlotDrop.md)
+  - [drop_local_obsolete_slots](../d/drop_local_obsolete_slots.md)
+  - [ReplicationSlotsDropDBSlots](ReplicationSlotsDropDBSlots.md)
 
 ## Notes and Other Information
 - Requires that MyReplicationSlot be non-NULL (a slot must be currently acquired)

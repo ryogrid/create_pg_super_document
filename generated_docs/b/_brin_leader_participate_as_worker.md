@@ -21,12 +21,12 @@ In parallel BRIN index builds, the leader process not only coordinates the paral
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _brin_parallel_scan_and_build: Performs the actual parallel scanning and building work
-  - BrinBuildState: Structure containing the build state and leader information
-  - BrinLeader: Structure containing parallel coordination data
+  - [_brin_parallel_scan_and_build](_brin_parallel_scan_and_build.md): Performs the actual parallel scanning and building work
+  - [BrinBuildState](../B/BrinBuildState.md): Structure containing the build state and leader information
+  - [BrinLeader](../B/BrinLeader.md): Structure containing parallel coordination data
 
 - Called from (representative examples):
-  - _brin_begin_parallel: Calls this function to have the leader participate in the parallel build
+  - [_brin_begin_parallel](_brin_begin_parallel.md): Calls this function to have the leader participate in the parallel build
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

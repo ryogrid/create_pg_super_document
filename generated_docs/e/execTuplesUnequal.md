@@ -34,13 +34,13 @@ The function is primarily used in hash-based subplan execution to determine if t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset (clears temporary evaluation context)
-  - MemoryContextSwitchTo (switches to evaluation context)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (clears temporary evaluation context)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (switches to evaluation context)
   - slot_getattr (extracts column values from tuple slots)
-  - FunctionCall2Coll (invokes type-specific equality function with collation)
-  - DatumGetBool (converts function result to boolean)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (invokes type-specific equality function with collation)
+  - [DatumGetBool](../D/DatumGetBool.md) (converts function result to boolean)
 - Called from (representative examples):
-  - findPartialMatch (in nodeSubplan.c:758)
+  - [findPartialMatch](../f/findPartialMatch.md) (in nodeSubplan.c:758)
 
 ## Notes and Other Information
 - Implements SQL NULL semantics: NULL values cannot prove inequality

@@ -29,13 +29,13 @@ Unlike r_owned, this function does not perform preliminary character checking, i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R1 (region boundary test function)
-  - find_among_b (backward pattern matching function)
-  - slice_from_s (string replacement function)
-  - slice_del (deletion function)
+  - [r_R1](r_R1.md) (region boundary test function)
+  - [find_among_b](../f/find_among_b.md) (backward pattern matching function)
+  - [slice_from_s](../s/slice_from_s.md) (string replacement function)
+  - [slice_del](../s/slice_del.md) (deletion function)
 - Called from (representative examples):
-  - hungarian_ISO_8859_2_stem
-  - hungarian_UTF_8_stem
+  - [hungarian_ISO_8859_2_stem](../h/hungarian_ISO_8859_2_stem.md)
+  - [hungarian_UTF_8_stem](../h/hungarian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function is part of the Hungarian stemming algorithm implementation

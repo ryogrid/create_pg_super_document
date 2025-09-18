@@ -27,13 +27,13 @@ The logic prevents over-stemming by ensuring that words ending in short syllable
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_R2 (tests if current position is within R2 morphological region)
-  - r_R1 (tests if current position is within R1 morphological region)
-  - r_shortv (tests if the word ends in a short vowel pattern)
-  - slice_del (deletes the matched substring - the terminal 'e')
+  - [r_R2](r_R2.md) (tests if current position is within R2 morphological region)
+  - [r_R1](r_R1.md) (tests if current position is within R1 morphological region)
+  - [r_shortv](r_shortv.md) (tests if the word ends in a short vowel pattern)
+  - [slice_del](../s/slice_del.md) (deletes the matched substring - the terminal 'e')
 - Called from (representative examples):
-  - porter_ISO_8859_1_stem
-  - porter_UTF_8_stem
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md)
+  - [porter_UTF_8_stem](../p/porter_UTF_8_stem.md)
 
 ## Notes and Other Information
 - Returns 1 on successful 'e' removal, 0 if the word doesn't end in 'e' or conditions aren't met

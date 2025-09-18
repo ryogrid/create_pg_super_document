@@ -27,10 +27,10 @@ DecodeTimezone interprets string representations of numeric timezone offsets (li
   - MINS_PER_HOUR
   - SECS_PER_MINUTE
 - Called from (representative examples):
-  - DecodeDateTime
-  - DecodeTimeOnly
-  - parse_sane_timezone
-  - DecodePosixTimezone (in ECPG)
+  - [DecodeDateTime](DecodeDateTime.md)
+  - [DecodeTimeOnly](DecodeTimeOnly.md)
+  - [parse_sane_timezone](../p/parse_sane_timezone.md)
+  - [DecodePosixTimezone](DecodePosixTimezone.md) (in ECPG)
 
 ## Notes and Other Information
 - Accepts formats like +HH:MM:SS, +HH:MM, +HHMM, -HH:MM:SS, -HH:MM, -HHMM

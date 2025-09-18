@@ -19,10 +19,10 @@ This function deallocates all memory associated with a SimpleOidList by iteratin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_free (for memory deallocation)
+  - [pg_free](../p/pg_free.md) (for memory deallocation)
 - Data structures used:
-  - SimpleOidList (the list container structure)
-  - SimpleOidListCell (individual list node structure)
+  - [SimpleOidList](../S/SimpleOidList.md) (the list container structure)
+  - [SimpleOidListCell](../S/SimpleOidListCell.md) (individual list node structure)
 - Called from:
   - No references found in the current codebase (may be called from external code or used for cleanup purposes)
 

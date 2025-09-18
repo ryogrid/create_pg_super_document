@@ -29,13 +29,13 @@ Unlike normal query execution, this function deliberately suppresses error messa
 - Functions called/Symbols referenced:
   - PQstatus (to check database connection status)
   - CONNECTION_OK (constant for valid connection state)
-  - PQexec (PostgreSQL function to execute queries)
+  - [PQexec](../P/PQexec.md) (PostgreSQL function to execute queries)
   - PGRES_TUPLES_OK (constant for successful SELECT result)
-  - PQclear (to clean up failed results)
+  - [PQclear](../P/PQclear.md) (to clean up failed results)
 - Called from (representative examples):
   - THING_NO_SHOW (completion handling)
-  - _complete_from_query (for query-based tab completion)
-  - get_guctype (to retrieve GUC parameter types)
+  - [_complete_from_query](../c/_complete_from_query.md) (for query-based tab completion)
+  - [get_guctype](../g/get_guctype.md) (to retrieve GUC parameter types)
 
 ## Notes and Other Information
 - Returns PGresult pointer on success, NULL on any error

@@ -28,14 +28,14 @@ The function ensures that hash aggregation can continue processing even when mem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggState
-  - hashagg_recompile_expressions
+  - [AggState](../A/AggState.md)
+  - [hashagg_recompile_expressions](hashagg_recompile_expressions.md)
   - LogicalTapeSetCreate
-  - HashAggSpill
-  - AggStatePerHash
-  - hashagg_spill_init
+  - [HashAggSpill](../H/HashAggSpill.md)
+  - [AggStatePerHash](../A/AggStatePerHash.md)
+  - [hashagg_spill_init](hashagg_spill_init.md)
 - Called from (representative examples):
-  - hash_agg_check_limits
+  - [hash_agg_check_limits](hash_agg_check_limits.md)
 
 ## Notes and Other Information
 - Once spill mode is activated, no new groups can be created in any hash table during the current phase

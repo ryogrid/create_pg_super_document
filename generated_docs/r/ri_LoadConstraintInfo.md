@@ -26,18 +26,18 @@ The function handles constraint inheritance by determining the root constraint I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_InitHashTables
-  - hash_search
-  - SearchSysCache1
+  - [ri_InitHashTables](ri_InitHashTables.md)
+  - [hash_search](../h/hash_search.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - get_ri_constraint_root
+  - [get_ri_constraint_root](../g/get_ri_constraint_root.md)
   - GetSysCacheHashValue1
-  - DeconstructFkConstraintRow
-  - ReleaseSysCache
-  - dclist_push_tail
+  - [DeconstructFkConstraintRow](../D/DeconstructFkConstraintRow.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [dclist_push_tail](../d/dclist_push_tail.md)
 - Called from (representative examples):
-  - ri_FetchConstraintInfo
+  - [ri_FetchConstraintInfo](ri_FetchConstraintInfo.md)
 
 ## Notes and Other Information
 - Uses a hash table (ri_constraint_cache) for efficient constraint info caching

@@ -25,7 +25,7 @@ This function takes no parameters.
 - Global variables used:
   - in_restore_command (set to false)
 - Called from (representative examples):
-  - RestoreArchivedFile (in xlogarchive.c, after restore command completion)
+  - [RestoreArchivedFile](../R/RestoreArchivedFile.md) (in xlogarchive.c, after restore command completion)
 
 ## Notes and Other Information
 - This function works as a pair with PreRestoreCommand to bracket restore command execution

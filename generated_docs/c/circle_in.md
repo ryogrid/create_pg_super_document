@@ -25,7 +25,7 @@ The parser handles various delimiter combinations, whitespace, and parenthesis n
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING (retrieves input string argument)
-  - palloc (allocates memory for CIRCLE structure)
+  - [palloc](../p/palloc.md) (allocates memory for CIRCLE structure)
   - pair_decode (parses center point coordinates)
   - single_decode (parses radius value)
   - ereturn (error return with context support)
@@ -36,7 +36,7 @@ The parser handles various delimiter combinations, whitespace, and parenthesis n
   - DELIM (general delimiter character)
 - Types referenced:
   - CIRCLE (output geometric type)
-  - Node (for error context)
+  - [Node](../N/Node.md) (for error context)
 - Called from (representative examples):
   - No direct references found in the codebase
 

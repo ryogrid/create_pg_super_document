@@ -23,9 +23,9 @@ This function is a PostgreSQL built-in function that creates an XML Schema Defin
   - PG_GETARG_BOOL
   - text_to_cstring
   - table_open
-  - map_sql_table_to_xmlschema
+  - [map_sql_table_to_xmlschema](../m/map_sql_table_to_xmlschema.md)
   - table_close
-  - cstring_to_xmltype
+  - [cstring_to_xmltype](../c/cstring_to_xmltype.md)
   - PG_RETURN_XML_P
 - Called from:
   - Available as SQL function (no direct C callers found)

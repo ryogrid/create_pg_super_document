@@ -23,19 +23,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called:
-  - `GetCurrentTimestamp()` (timestamp utility function)
+  - `[GetCurrentTimestamp](../G/GetCurrentTimestamp.md)()` (timestamp utility function)
   - `TimestampTzPlusMilliseconds()` (timestamp arithmetic function)
   - `enable_timeout_every()` (timeout management function)
 
 - Constants referenced:
   - `STARTUP_PROGRESS_TIMEOUT` (timeout identifier)
 
-- Variables accessed:
+- [Variables](../V/Variables.md) accessed:
   - `log_startup_progress_interval` (configuration variable for progress interval)
   - `startup_progress_phase_start_time` (static variable to store phase start time)
 
 - Called from:
-  - begin_startup_progress_phase (src/backend/postmaster/startup.c:350)
+  - [begin_startup_progress_phase](../b/begin_startup_progress_phase.md) (src/backend/postmaster/startup.c:350)
   - ereport_startup_progress (referenced in src/include/postmaster/startup.h:35)
 
 ## Notes and Other Information

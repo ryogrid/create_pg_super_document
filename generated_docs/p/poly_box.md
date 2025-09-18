@@ -21,7 +21,7 @@ The `poly_box` function extracts the bounding box from a polygon and returns it 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POLYGON_P (macro to extract POLYGON argument)
-  - palloc (memory allocation for result BOX)
+  - [palloc](palloc.md) (memory allocation for result BOX)
   - PG_RETURN_BOX_P (macro to return BOX result)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

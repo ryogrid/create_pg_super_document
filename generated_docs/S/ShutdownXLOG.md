@@ -20,17 +20,17 @@ This function handles the orderly shutdown of the WAL (Write-Ahead Log) subsyste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WalSndInitStopping
-  - WalSndWaitStopping
-  - RecoveryInProgress
-  - CreateRestartPoint
+  - [WalSndInitStopping](../W/WalSndInitStopping.md)
+  - [WalSndWaitStopping](../W/WalSndWaitStopping.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md)
   - XLogArchivingActive
-  - RequestXLogSwitch
-  - CreateCheckPoint
+  - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
   - CHECKPOINT_IS_SHUTDOWN, CHECKPOINT_IMMEDIATE (flags)
 - Called from (representative examples):
-  - HandleCheckpointerInterrupts (in checkpointer.c:600)
-  - InitPostgres (in postinit.c:810)
+  - [HandleCheckpointerInterrupts](../H/HandleCheckpointerInterrupts.md) (in checkpointer.c:600)
+  - [InitPostgres](../I/InitPostgres.md) (in postinit.c:810)
 
 ## Notes and Other Information
 - Must be called exactly once during shutdown

@@ -27,21 +27,21 @@ The function implements a sophisticated batching mechanism that reads and locks 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogEnsureRecordSpace (ensures sufficient WAL record space)
-  - ReadBufferExtended (reads buffers with RBM_NORMAL mode)
-  - LockBuffer (acquires BUFFER_LOCK_EXCLUSIVE)
-  - PageIsNew (checks if page is completely empty)
-  - XLogBeginInsert (begins WAL record construction)
-  - XLogRegisterBuffer (registers buffers with REGBUF_FORCE_IMAGE flags)
-  - XLogInsert (finalizes WAL record with RM_XLOG_ID, XLOG_FPI)
+  - [XLogEnsureRecordSpace](../X/XLogEnsureRecordSpace.md) (ensures sufficient WAL record space)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (reads buffers with RBM_NORMAL mode)
+  - [LockBuffer](../L/LockBuffer.md) (acquires BUFFER_LOCK_EXCLUSIVE)
+  - [PageIsNew](../P/PageIsNew.md) (checks if page is completely empty)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md) (begins WAL record construction)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md) (registers buffers with REGBUF_FORCE_IMAGE flags)
+  - [XLogInsert](../X/XLogInsert.md) (finalizes WAL record with RM_XLOG_ID, XLOG_FPI)
   - MarkBufferDirty (marks buffers as dirty)
-  - PageSetLSN (sets page LSN)
-  - UnlockReleaseBuffer (releases buffer locks)
+  - [PageSetLSN](../P/PageSetLSN.md) (sets page LSN)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md) (releases buffer locks)
 - Called from (representative examples):
-  - ginbuild (GIN index building)
-  - gistbuild (GiST index building)
-  - spgbuild (SP-GiST index building)
-  - smgrDoPendingSyncs (storage manager sync operations)
+  - [ginbuild](../g/ginbuild.md) (GIN index building)
+  - [gistbuild](../g/gistbuild.md) (GiST index building)
+  - [spgbuild](../s/spgbuild.md) (SP-GiST index building)
+  - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md) (storage manager sync operations)
 
 ## Notes and Other Information
 - Acquires exclusive locks on all pages in the range - caller must ensure no deadlock risk

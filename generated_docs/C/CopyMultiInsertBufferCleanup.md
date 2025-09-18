@@ -30,13 +30,13 @@ The function handles both regular tables (with BulkInsertState) and foreign tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeBulkInsertState (cleanup of bulk insert state)
+  - [FreeBulkInsertState](../F/FreeBulkInsertState.md) (cleanup of bulk insert state)
   - MAX_BUFFERED_TUPLES (constant defining maximum buffered tuples)
-  - ExecDropSingleTupleTableSlot (slot cleanup)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (slot cleanup)
   - table_finish_bulk_insert (bulk insert finalization)
 - Called from (representative examples):
-  - CopyMultiInsertInfoFlush (at src/backend/commands/copyfrom.c:558)
-  - CopyMultiInsertInfoCleanup (at src/backend/commands/copyfrom.c:572)
+  - [CopyMultiInsertInfoFlush](CopyMultiInsertInfoFlush.md) (at src/backend/commands/copyfrom.c:558)
+  - [CopyMultiInsertInfoCleanup](CopyMultiInsertInfoCleanup.md) (at src/backend/commands/copyfrom.c:572)
 
 ## Notes and Other Information
 The function includes assertions to ensure proper usage - the buffer must be flushed (nused == 0) before cleanup. It creates slots on demand during normal operation, so cleanup only needs to handle non-null slots. The cleanup is essential for preventing memory leaks and ensuring proper resource management during COPY operations, especially when dealing with partitioned tables that may have multiple buffers.

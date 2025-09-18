@@ -19,10 +19,10 @@ When a security restriction is detected, the function immediately raises an ERRO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InSecurityRestrictedOperation (checks if currently in a security-restricted context)
+  - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md) (checks if currently in a security-restricted context)
   - ereport (reports the error with appropriate error code and message)
 - Called from (representative examples):
-  - standard_ProcessUtility (multiple call sites for different command types)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (multiple call sites for different command types)
 
 ## Notes and Other Information
 - This function is static to utility.c, indicating it's an internal implementation detail of the utility command processing system

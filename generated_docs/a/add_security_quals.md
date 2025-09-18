@@ -29,13 +29,13 @@ When combining multiple permissive policy qualifiers, it creates a single OR exp
 ## Dependencies
 - Functions called/Symbols referenced:
   - copyObject
-  - ChangeVarNodes
-  - list_append_unique
-  - makeBoolExpr
-  - makeConst
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [list_append_unique](../l/list_append_unique.md)
+  - [makeBoolExpr](../m/makeBoolExpr.md)
+  - [makeConst](../m/makeConst.md)
   - linitial/list_length
 - Called from (representative examples):
-  - get_row_security_policies (for SELECT, UPDATE, DELETE operations)
+  - [get_row_security_policies](../g/get_row_security_policies.md) (for SELECT, UPDATE, DELETE operations)
 
 ## Notes and Other Information
 - Implements PostgreSQL's default-deny security model - no permissive policies means no access

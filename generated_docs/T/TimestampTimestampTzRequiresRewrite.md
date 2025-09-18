@@ -19,10 +19,10 @@ The function follows PostgreSQL's convention of assuming GUC changes occur no mo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_get_timezone_offset
+  - [pg_get_timezone_offset](../p/pg_get_timezone_offset.md)
   - session_timezone
 - Called from (representative examples):
-  - ATColumnChangeRequiresRewrite (in src/backend/commands/tablecmds.c:13126)
+  - [ATColumnChangeRequiresRewrite](../A/ATColumnChangeRequiresRewrite.md) (in src/backend/commands/tablecmds.c:13126)
   - timestamptz_cmp_internal (in src/include/utils/timestamp.h:145)
 
 ## Notes and Other Information

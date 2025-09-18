@@ -21,17 +21,17 @@ The restart timing mechanism prevents rapid restart loops and allows for control
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ValidateSlotSyncParams (validates slot sync configuration parameters)
-  - SlotSyncWorkerCanRestart (checks if enough time has passed since last launch)
-  - StartChildProcess (creates the slot sync worker process with B_SLOTSYNC_WORKER type)
-- Variables referenced:
+  - [ValidateSlotSyncParams](../V/ValidateSlotSyncParams.md) (validates slot sync configuration parameters)
+  - [SlotSyncWorkerCanRestart](../S/SlotSyncWorkerCanRestart.md) (checks if enough time has passed since last launch)
+  - [StartChildProcess](../S/StartChildProcess.md) (creates the slot sync worker process with B_SLOTSYNC_WORKER type)
+- [Variables](../V/Variables.md) referenced:
   - SlotSyncWorkerPID (tracks current worker process ID)
   - pmState (postmaster state - must be PM_HOT_STANDBY)
   - Shutdown (shutdown state - compared with SmartShutdown)
   - sync_replication_slots (configuration parameter enabling slot synchronization)
 - Called from (representative examples):
-  - ServerLoop (main postmaster loop for regular checks)
-  - process_pm_child_exit (restart after child process termination)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster loop for regular checks)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md) (restart after child process termination)
 
 ## Notes and Other Information
 - Only functions on hot standby servers - primary servers don't need slot sync workers

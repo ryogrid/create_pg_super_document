@@ -22,16 +22,16 @@ The function handles error conditions by checking the LZ4 compression result and
   - NO_LZ4_SUPPORT (macro to handle missing LZ4 support)
   - VARSIZE_ANY_EXHDR (macro to get data size excluding header)
   - LZ4_compressBound (LZ4 function to calculate max compressed size)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)
   - LZ4_compress_default (core LZ4 compression function)
   - VARDATA_ANY (macro to get data portion of varlena)
   - elog (PostgreSQL logging/error function)
   - ERROR (error level constant)
-  - pfree (PostgreSQL memory deallocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - SET_VARSIZE_COMPRESSED (macro to set compressed size header)
 - Called from (representative examples):
-  - toast_compress_datum (in src/backend/access/common/toast_internals.c:71)
+  - [toast_compress_datum](../t/toast_compress_datum.md) (in src/backend/access/common/toast_internals.c:71)
   - Referenced in CompressionMethodIsValid (in src/include/access/toast_compression.h:63)
 
 ## Notes and Other Information

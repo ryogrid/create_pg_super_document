@@ -22,10 +22,10 @@ This function implements PostgreSQL's left() SQL function for extracting charact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_mbstrlen_with_len
-  - pg_mbcharcliplen
+  - [pg_mbstrlen_with_len](../p/pg_mbstrlen_with_len.md)
+  - [pg_mbcharcliplen](../p/pg_mbcharcliplen.md)
   - cstring_to_text_with_len
-  - text_substring
+  - [text_substring](text_substring.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - (No direct references found - called via SQL function dispatch)

@@ -20,12 +20,12 @@ This function is part of the JSON null-stripping functionality in PostgreSQL. It
 ## Dependencies
 - Functions called/Symbols referenced:
   - `appendStringInfoCharMacro` - Macro to append a single character to a StringInfo buffer
-  - `StripnullState` - State structure for null-stripping operations
+  - `[StripnullState](../S/StripnullState.md)` - State structure for null-stripping operations
   - `JSON_SUCCESS` - Success return code constant
   - `JsonParseErrorType` - Return type for JSON parsing operations
 
 - Called from (representative examples):
-  - `json_strip_nulls` - Main function that orchestrates JSON null stripping
+  - `[json_strip_nulls](../j/json_strip_nulls.md)` - Main function that orchestrates JSON null stripping
   - `JsObjectFree` - Object cleanup function
 
 ## Notes and Other Information

@@ -27,22 +27,22 @@ The function is critical for INSERT operations where values are not explicitly p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NextValueExpr
-  - getIdentitySequence
-  - TupleDescGetDefault
-  - get_typdefault
-  - coerce_to_target_type
+  - [NextValueExpr](../N/NextValueExpr.md)
+  - [getIdentitySequence](../g/getIdentitySequence.md)
+  - [TupleDescGetDefault](../T/TupleDescGetDefault.md)
+  - [get_typdefault](../g/get_typdefault.md)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
   - COERCION_ASSIGNMENT
   - COERCE_IMPLICIT_CAST
 - Called from (representative examples):
-  - BeginCopyFrom
-  - ATExecAddColumn
-  - ATExecSetExpression
-  - ATExecAlterColumnType
-  - ExecInitStoredGenerated
-  - slot_fill_defaults
-  - rewriteTargetListIU
-  - rewriteValuesRTE
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [ExecInitStoredGenerated](../E/ExecInitStoredGenerated.md)
+  - [slot_fill_defaults](../s/slot_fill_defaults.md)
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md)
+  - [rewriteValuesRTE](../r/rewriteValuesRTE.md)
 
 ## Notes and Other Information
 - Returns NULL if no default value is available anywhere (column, type, or identity)

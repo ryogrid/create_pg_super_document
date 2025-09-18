@@ -37,16 +37,16 @@ Key design considerations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk - converts pointer to chunk header
-  - MemoryChunkIsExternal - determines chunk type
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md) - determines chunk type
   - ExternalChunkGetBlock / MemoryChunkGetBlock - retrieves containing block
   - GenerationBlockIsValid - validates block integrity
-  - MemoryChunkGetValue - gets chunk size
-  - sentinel_ok - validates memory bounds (debug builds)
-  - randomize_mem - fills memory with random data (debug builds)
-  - set_sentinel - sets boundary markers (debug builds)
-  - GenerationAlloc - allocates new memory chunk
-  - MemoryContextAllocationFailure - handles allocation failures
-  - GenerationFree - frees the old chunk
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md) - gets chunk size
+  - [sentinel_ok](../s/sentinel_ok.md) - validates memory bounds (debug builds)
+  - [randomize_mem](../r/randomize_mem.md) - fills memory with random data (debug builds)
+  - [set_sentinel](../s/set_sentinel.md) - sets boundary markers (debug builds)
+  - [GenerationAlloc](GenerationAlloc.md) - allocates new memory chunk
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md) - handles allocation failures
+  - [GenerationFree](GenerationFree.md) - frees the old chunk
   - memcpy - copies data between memory regions
 - Called from:
   - BOGUS_MCTX - as part of memory context method table

@@ -23,9 +23,9 @@ This is a convenience function for checking the current user's privileges on a f
 - Functions called/Symbols referenced:
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
-  - GetUserId
-  - convert_server_priv_string
-  - object_aclcheck_ext
+  - [GetUserId](../G/GetUserId.md)
+  - [convert_server_priv_string](../c/convert_server_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
   - AclResult (type)

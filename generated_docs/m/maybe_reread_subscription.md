@@ -17,19 +17,19 @@ None - This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsTransactionState
-  - StartTransactionCommand
-  - GetSubscription
+  - [IsTransactionState](../I/IsTransactionState.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
+  - [GetSubscription](../G/GetSubscription.md)
   - ApplyLauncherForgetWorkerStartTime
-  - apply_worker_exit
-  - FreeSubscription
-  - SetConfigOption
-  - CommitTransactionCommand
+  - [apply_worker_exit](../a/apply_worker_exit.md)
+  - [FreeSubscription](../F/FreeSubscription.md)
+  - [SetConfigOption](../S/SetConfigOption.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
 - Called from (representative examples):
-  - LogicalRepApplyLoop (at line 3638)
-  - apply_handle_commit_internal (at line 2288)
-  - begin_replication_step (at line 517)
-  - pa_can_start (in applyparallelworker.c at line 280)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (at line 3638)
+  - [apply_handle_commit_internal](../a/apply_handle_commit_internal.md) (at line 2288)
+  - [begin_replication_step](../b/begin_replication_step.md) (at line 517)
+  - [pa_can_start](../p/pa_can_start.md) (in applyparallelworker.c at line 280)
 
 ## Notes and Other Information
 - This is a public function (not static) that can be called from other modules

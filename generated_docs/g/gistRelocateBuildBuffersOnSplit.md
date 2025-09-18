@@ -30,13 +30,13 @@ The function also handles the complex memory management involved in buffer reloc
 ## Dependencies
 - Functions called/Symbols referenced:
   - LEVEL_HAS_BUFFERS
-  - BufferGetBlockNumber
-  - hash_search
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [hash_search](../h/hash_search.md)
   - gistDeCompressAtt
   - gistGetNodeBuffer
-  - gistPopItupFromNodeBuffer
-  - gistpenalty
-  - gistPushItupToNodeBuffer
+  - [gistPopItupFromNodeBuffer](gistPopItupFromNodeBuffer.md)
+  - [gistpenalty](gistpenalty.md)
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
   - gistgetadjusted
   - IndexRelationGetNumberOfKeyAttributes
 - Called from (representative examples):

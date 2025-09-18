@@ -37,16 +37,16 @@ This function is particularly valuable for debugging tools and recovery scenario
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid (LSN validation function)
-  - ReadPageInternal (internal page reading function)
+  - [ReadPageInternal](../R/ReadPageInternal.md) (internal page reading function)
   - XLogPageHeader, XLogPageHeaderSize (page header handling)
   - XLP_FIRST_IS_CONTRECORD (page flag for continuation records)
-  - XLogBeginRead (reader positioning function)
-  - XLogReadRecord (record reading function)
-  - XLogReaderInvalReadState (error state cleanup function)
+  - [XLogBeginRead](XLogBeginRead.md) (reader positioning function)
+  - [XLogReadRecord](XLogReadRecord.md) (record reading function)
+  - [XLogReaderInvalReadState](XLogReaderInvalReadState.md) (error state cleanup function)
   - MAXALIGN (alignment macro)
 - Called from (representative examples):
-  - SummarizeWAL (at line 970 in walsummarizer.c)
-  - main (at line 1214 in pg_waldump.c)
+  - [SummarizeWAL](../S/SummarizeWAL.md) (at line 970 in walsummarizer.c)
+  - [main](../m/main.md) (at line 1214 in pg_waldump.c)
   - XLogReaderHasQueuedRecordOrError (header function at line 346)
 
 ## Notes and Other Information

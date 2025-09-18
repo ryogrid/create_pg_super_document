@@ -27,7 +27,7 @@ The function cannot distinguish between domain constraint updates and table cons
   - firstDomainTypeEntry (global variable)
   - nextDomain (TypeCacheEntry field)
 - Called from (representative examples):
-  - lookup_type_cache (callback registration)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (callback registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within typcache.c

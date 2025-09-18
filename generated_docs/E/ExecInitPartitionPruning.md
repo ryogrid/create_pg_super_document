@@ -23,13 +23,13 @@ This function creates and initializes a PartitionPruneState structure that enabl
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecAssignExprContext
-  - CreatePartitionPruneState
-  - ExecFindMatchingSubPlans
-  - bms_add_range
-  - bms_num_members
-  - PartitionPruneFixSubPlanMap
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
+  - [ExecFindMatchingSubPlans](ExecFindMatchingSubPlans.md)
+  - [bms_add_range](../b/bms_add_range.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [PartitionPruneFixSubPlanMap](../P/PartitionPruneFixSubPlanMap.md)
 - Called from (representative examples):
-  - ExecInitAppend
+  - [ExecInitAppend](ExecInitAppend.md)
   - ExecInitMergeAppend
 
 ## Notes and Other Information

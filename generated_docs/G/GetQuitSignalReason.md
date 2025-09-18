@@ -24,7 +24,7 @@ This function allows child processes to determine why they are being terminated 
   - PMSignalState (global shared memory structure)
   - PMQUIT_NOT_SENT (enum constant)
 - Called from (representative examples):
-  - quickdie (src/backend/tcop/postgres.c:2949)
+  - [quickdie](../q/quickdie.md) (src/backend/tcop/postgres.c:2949)
 
 ## Notes and Other Information
 - Designed to be signal-safe with extra paranoid safety checks

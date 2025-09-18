@@ -24,18 +24,18 @@ The arrays are sized based on the range table length plus one (to accommodate 1-
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (to determine array size)
-  - palloc0 (for memory allocation)
+  - [palloc0](../p/palloc0.md) (for memory allocation)
   - lfirst, lfirst_node (for list traversal)
   - elog (for error reporting)
 - Data structures used:
-  - AppendRelInfo
-  - RangeTblEntry
+  - [AppendRelInfo](../A/AppendRelInfo.md)
+  - [RangeTblEntry](../R/RangeTblEntry.md)
   - RelOptInfo
 - Called from (representative examples):
-  - query_planner (src/backend/optimizer/plan/planmain.c:85)
-  - plan_cluster_use_sort (src/backend/optimizer/plan/planner.c:6784)
-  - plan_create_index_workers (src/backend/optimizer/plan/planner.c:6914)
-  - plan_set_operations (src/backend/optimizer/prep/prepunion.c:133)
+  - [query_planner](../q/query_planner.md) (src/backend/optimizer/plan/planmain.c:85)
+  - [plan_cluster_use_sort](../p/plan_cluster_use_sort.md) (src/backend/optimizer/plan/planner.c:6784)
+  - [plan_create_index_workers](../p/plan_create_index_workers.md) (src/backend/optimizer/plan/planner.c:6914)
+  - [plan_set_operations](../p/plan_set_operations.md) (src/backend/optimizer/prep/prepunion.c:133)
 
 ## Notes and Other Information
 - Arrays use 1-based indexing to match PostgreSQL's range table index convention

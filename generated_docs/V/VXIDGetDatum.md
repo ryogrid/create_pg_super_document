@@ -24,7 +24,7 @@ VXIDGetDatum is a static utility function that formats a Virtual Transaction ID 
   - ProcNumber
   - LocalTransactionId
 - Called from (representative examples):
-  - pg_lock_status (multiple locations: lines 305, 355, 421)
+  - [pg_lock_status](../p/pg_lock_status.md) (multiple locations: lines 305, 355, 421)
 
 ## Notes and Other Information
 - This function is currently only used within pg_lock_status functionality and is therefore defined as static within lockfuncs.c

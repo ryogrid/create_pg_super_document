@@ -28,14 +28,14 @@ The function extracts a HeapTuple from the provided slot, sets the appropriate t
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommandId (parameter type)
-  - BulkInsertState (parameter type)
-  - ExecFetchSlotHeapTuple (slot-to-tuple conversion)
+  - [BulkInsertState](../B/BulkInsertState.md) (parameter type)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md) (slot-to-tuple conversion)
   - RelationGetRelid (relation OID retrieval)
-  - heap_insert (core insertion logic)
-  - ItemPointerCopy (TID copying)
-  - pfree (memory deallocation)
+  - [heap_insert](heap_insert.md) (core insertion logic)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md) (TID copying)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - SampleHeapTupleVisible (indirectly through table AM interface)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (indirectly through table AM interface)
 
 ## Notes and Other Information
 - This is a static function serving as a callback in the table access method interface
@@ -44,5 +44,5 @@ The function extracts a HeapTuple from the provided slot, sets the appropriate t
 - Copies the resulting TID from the inserted tuple back to the slot for caller access
 - Part of the heap access method's tuple manipulation functions
 - The options parameter can include flags like HEAP_INSERT_SKIP_WAL, HEAP_INSERT_SKIP_FSM, etc.
-- BulkInsertState parameter enables optimization for bulk operations but is optional for single inserts
+- [BulkInsertState](../B/BulkInsertState.md) parameter enables optimization for bulk operations but is optional for single inserts
 - The function ensures proper integration between the generic table access method layer and heap-specific implementation

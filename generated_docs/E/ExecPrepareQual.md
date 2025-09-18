@@ -24,27 +24,27 @@ Like ExecPrepareExpr, it handles memory context management by switching to the E
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_planner (applies planning transformations to the qualifier list)
-  - ExecInitQual (compiles qualifier into executable ExprState)
-  - MemoryContextSwitchTo (memory context management)
+  - [expression_planner](../e/expression_planner.md) (applies planning transformations to the qualifier list)
+  - [ExecInitQual](ExecInitQual.md) (compiles qualifier into executable ExprState)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
 - Called from (representative examples):
-  - heapam_index_build_range_scan (index build filtering)
-  - IndexCheckExclusion (exclusion constraint checking)
-  - TriggerEnabled (trigger condition evaluation)
-  - ExecInsertIndexTuples (index constraint checking)
-  - ExecCheckIndexConstraints (index validation)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md) (index build filtering)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md) (exclusion constraint checking)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (trigger condition evaluation)
+  - [ExecInsertIndexTuples](ExecInsertIndexTuples.md) (index constraint checking)
+  - [ExecCheckIndexConstraints](ExecCheckIndexConstraints.md) (index validation)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_planner (applies planning transformations)
-  - ExecInitQual (compiles qualifier expressions)
-  - MemoryContextSwitchTo (memory management)
+  - [expression_planner](../e/expression_planner.md) (applies planning transformations)
+  - [ExecInitQual](ExecInitQual.md) (compiles qualifier expressions)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 - Called from (representative examples):
-  - heapam_index_build_range_scan (heap scan filtering)
-  - IndexCheckExclusion (exclusion constraint validation)
-  - TriggerEnabled (trigger condition evaluation)
-  - ExecInsertIndexTuples (index tuple validation)
-  - compute_index_stats (statistics computation filtering)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md) (heap scan filtering)
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md) (exclusion constraint validation)
+  - [TriggerEnabled](../T/TriggerEnabled.md) (trigger condition evaluation)
+  - [ExecInsertIndexTuples](ExecInsertIndexTuples.md) (index tuple validation)
+  - [compute_index_stats](../c/compute_index_stats.md) (statistics computation filtering)
 
 ## Notes and Other Information
 - **Qualifier specialization**: Specifically designed for boolean expressions that filter or validate data

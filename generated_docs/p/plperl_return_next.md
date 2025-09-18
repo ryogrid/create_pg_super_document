@@ -21,12 +21,12 @@ The error handling assumes that Perl code may trap the converted error, so it do
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_spi_usage_allowed
+  - [check_spi_usage_allowed](../c/check_spi_usage_allowed.md)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling macros)
-  - plperl_return_next_internal
-  - CopyErrorData
-  - FlushErrorState
-  - croak_cstr
+  - [plperl_return_next_internal](plperl_return_next_internal.md)
+  - [CopyErrorData](../C/CopyErrorData.md)
+  - [FlushErrorState](../F/FlushErrorState.md)
+  - [croak_cstr](../c/croak_cstr.md)
 - Global variables referenced:
   - CurrentMemoryContext
 - Called from (representative examples):

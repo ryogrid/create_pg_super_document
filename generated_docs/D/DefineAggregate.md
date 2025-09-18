@@ -22,14 +22,14 @@ DefineAggregate serves as the main entry point for CREATE AGGREGATE statement pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace
-  - object_aclcheck
-  - extractModify
-  - typenameTypeId
-  - interpret_function_parameter_list
-  - AggregateCreate
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [extractModify](../e/extractModify.md)
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md)
+  - [AggregateCreate](../A/AggregateCreate.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 DefineAggregate handles complex validation logic for different aggregate types and parameter combinations. It supports both traditional aggregates and advanced features like moving-window aggregates, parallel execution modes, and serialization functions for custom aggregate state. The function enforces strict consistency rules between related parameters (e.g., moving-aggregate functions must be specified together) and provides detailed error messages for invalid configurations. The oldstyle parameter maintains backward compatibility with PostgreSQL versions prior to 8.2.

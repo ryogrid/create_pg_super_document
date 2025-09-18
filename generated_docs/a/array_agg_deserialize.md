@@ -20,21 +20,21 @@ The function handles different deserialization strategies based on element type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - ArrayBuildState
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [ArrayBuildState](../A/ArrayBuildState.md)
   - PG_GETARG_BYTEA_PP
-  - initReadOnlyStringInfo
-  - pq_getmsgint
-  - pq_getmsgint64
-  - initArrayResultWithSize
-  - pq_getmsgbyte
-  - pq_getmsgbytes
-  - DeserialIOData
-  - MemoryContextAlloc
-  - getTypeBinaryInputInfo
-  - fmgr_info_cxt
-  - ReceiveFunctionCall
-  - pq_getmsgend
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [initArrayResultWithSize](../i/initArrayResultWithSize.md)
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [pq_getmsgbytes](../p/pq_getmsgbytes.md)
+  - [DeserialIOData](../D/DeserialIOData.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [ReceiveFunctionCall](../R/ReceiveFunctionCall.md)
+  - [pq_getmsgend](../p/pq_getmsgend.md)
   - memcpy
   - ereport
 - Called from (representative examples):

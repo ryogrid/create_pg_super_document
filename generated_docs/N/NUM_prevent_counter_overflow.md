@@ -22,8 +22,8 @@ This function takes no parameters.
   - n_NUMCache (global variable)
   - NUMCacheEntry (struct type)
 - Called from (representative examples):
-  - NUM_cache_getnew
-  - NUM_cache_search
+  - [NUM_cache_getnew](NUM_cache_getnew.md)
+  - [NUM_cache_search](NUM_cache_search.md)
 
 ## Notes and Other Information
 - This function works similarly to DCH_prevent_counter_overflow for date/time formatting cache

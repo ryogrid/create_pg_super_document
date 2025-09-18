@@ -22,12 +22,12 @@ The Uppercase property is distinct from the general category "Uppercase Letter" 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_U_PROP_UPPERCASE (constant bitmask for the Uppercase property)
-  - range_search (function for searching ranges)
+  - [range_search](../r/range_search.md) (function for searching ranges)
   - lengthof (macro for array length)
 - Called from (representative examples):
-  - pg_u_prop_cased
-  - pg_u_isupper
-  - icu_test (testing function)
+  - [pg_u_prop_cased](pg_u_prop_cased.md)
+  - [pg_u_isupper](pg_u_isupper.md)
+  - [icu_test](../i/icu_test.md) (testing function)
 
 ## Notes and Other Information
 - Optimized for ASCII characters with direct bitmask lookup

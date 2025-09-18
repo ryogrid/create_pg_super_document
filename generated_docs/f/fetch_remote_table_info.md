@@ -38,18 +38,18 @@ Key features include:
 - Functions called/Symbols referenced:
   - walrcv_exec (executes SQL queries on publisher connection)
   - walrcv_server_version (checks publisher PostgreSQL version)
-  - walrcv_clear_result (cleans up query results)
-  - MakeSingleTupleTableSlot (creates tuple slots for result processing)
-  - ExecDropSingleTupleTableSlot (cleans up tuple slots)
-  - tuplestore_gettupleslot (retrieves tuples from result sets)
+  - [walrcv_clear_result](../w/walrcv_clear_result.md) (cleans up query results)
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md) (creates tuple slots for result processing)
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md) (cleans up tuple slots)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (retrieves tuples from result sets)
   - slot_getattr (extracts column values from tuples)
-  - quote_literal_cstr (safely quotes SQL string literals)
-  - bms_add_member, bms_is_member (bitmap set operations for column tracking)
+  - [quote_literal_cstr](../q/quote_literal_cstr.md) (safely quotes SQL string literals)
+  - [bms_add_member](../b/bms_add_member.md), bms_is_member (bitmap set operations for column tracking)
   - LogRepWorkerWalRcvConn (global WAL receiver connection)
   - MySubscription (global subscription information)
 
 - Called from (representative examples):
-  - copy_table (uses the retrieved metadata for COPY operations during initial sync)
+  - [copy_table](../c/copy_table.md) (uses the retrieved metadata for COPY operations during initial sync)
 
 ## Notes and Other Information
 - Located in src/backend/replication/logical/tablesync.c:820-1140

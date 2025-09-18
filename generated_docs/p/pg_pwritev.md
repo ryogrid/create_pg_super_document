@@ -28,7 +28,7 @@ Like its read counterpart pg_preadv, this function includes important platform-s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - iovec (struct)
+  - [iovec](../i/iovec.md) (struct)
   - ssize_t (type)
   - pwrite (POSIX function)
   - pwritev (POSIX function, if available)

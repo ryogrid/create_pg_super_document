@@ -19,12 +19,12 @@ This function performs a comprehensive check across all worker slots to verify t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelState (struct)
+  - [ParallelState](../P/ParallelState.md) (struct)
   - WRKR_IDLE (constant)
 - Called from (representative examples):
-  - ParallelBackupEnd
-  - WaitForWorkers
-  - restore_toc_entries_parallel
+  - [ParallelBackupEnd](../P/ParallelBackupEnd.md)
+  - [WaitForWorkers](../W/WaitForWorkers.md)
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
 
 ## Notes and Other Information
 - Returns true only when ALL workers are in the WRKR_IDLE state, false otherwise

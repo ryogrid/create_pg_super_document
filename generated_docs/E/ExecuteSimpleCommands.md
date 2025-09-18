@@ -21,14 +21,14 @@ ExecuteSimpleCommands is a sophisticated SQL parser and executor designed specif
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - appendPQExpBufferChar
-  - ExecuteSqlCommand
-  - resetPQExpBuffer
+  - [ExecuteSqlCommand](ExecuteSqlCommand.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
 - Constants referenced:
   - SQL_SCAN
   - SQL_IN_SINGLE_QUOTE
   - SQL_IN_DOUBLE_QUOTE
 - Called from (representative examples):
-  - ExecuteSqlCommandBuf
+  - [ExecuteSqlCommandBuf](ExecuteSqlCommandBuf.md)
 
 ## Notes and Other Information
 - This is a static function limited to pg_backup_db.c scope

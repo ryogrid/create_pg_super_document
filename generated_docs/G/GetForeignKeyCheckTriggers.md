@@ -31,16 +31,16 @@ The function ensures that exactly one insert trigger and one update trigger are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit: Initialize scan key for catalog search
-  - systable_beginscan/systable_getnext/systable_endscan: Scan pg_trigger catalog
-  - RI_FKey_trigger_type: Determine trigger type (check vs action)
+  - [ScanKeyInit](../S/ScanKeyInit.md): Initialize scan key for catalog search
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext/systable_endscan: Scan pg_trigger catalog
+  - [RI_FKey_trigger_type](../R/RI_FKey_trigger_type.md): Determine trigger type (check vs action)
   - TRIGGER_FOR_INSERT/TRIGGER_FOR_UPDATE: Check trigger event type
   - elog: Report errors if triggers not found
 
 - Called from:
-  - CloneFkReferencing: When cloning FK constraints to partitions on the referencing side
-  - tryAttachPartitionForeignKey: When attaching existing partition FK constraints to parent
-  - DetachPartitionFinalize: During partition detachment operations
+  - [CloneFkReferencing](../C/CloneFkReferencing.md): When cloning FK constraints to partitions on the referencing side
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md): When attaching existing partition FK constraints to parent
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md): During partition detachment operations
 
 ## Notes and Other Information
 - Check triggers execute on the referencing table when rows are inserted or updated

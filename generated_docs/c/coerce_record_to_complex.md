@@ -34,15 +34,15 @@ If the target type is a domain over a composite type, it applies domain constrai
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (node type checking)
-  - GetNSItemByRangeTablePosn, expandNSItemVars (namespace handling)
-  - getBaseTypeAndTypmod, lookup_rowtype_tupdesc (type system)
-  - coerce_to_target_type (recursive field coercion)
-  - coerce_to_domain (domain constraint application)
+  - [GetNSItemByRangeTablePosn](../G/GetNSItemByRangeTablePosn.md), expandNSItemVars (namespace handling)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md), lookup_rowtype_tupdesc (type system)
+  - [coerce_to_target_type](coerce_to_target_type.md) (recursive field coercion)
+  - [coerce_to_domain](coerce_to_domain.md) (domain constraint application)
   - makeNode, makeNullConst (node construction)
   - list_head, lnext, lappend (list operations)
-  - format_type_be, parser_coercion_errposition (error reporting)
+  - [format_type_be](../f/format_type_be.md), parser_coercion_errposition (error reporting)
 - Called from:
-  - coerce_type
+  - [coerce_type](coerce_type.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_coerce.c

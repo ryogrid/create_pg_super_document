@@ -21,20 +21,20 @@ The GetComment function performs a lookup in the pg_description system catalog t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
   - RelationGetDescr
-  - systable_beginscan
-  - systable_getnext
-  - heap_getattr
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [heap_getattr](../h/heap_getattr.md)
   - TextDatumGetCString
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
 - Called from (representative examples):
-  - ATPostAlterTypeParse
-  - RebuildConstraintComment
-  - transformTableLikeClause
-  - expandTableLikeClause
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
+  - [RebuildConstraintComment](../R/RebuildConstraintComment.md)
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md)
 
 ## Notes and Other Information
 - The function assumes there can be only one matching comment per object and breaks after finding the first match

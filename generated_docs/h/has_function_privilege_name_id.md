@@ -33,8 +33,8 @@ The key difference from other variants is the use of object_aclcheck_ext, which 
   - PG_GETARG_OID: Macro to extract OID argument from function call
   - AclResult: Enumeration for access control check results
   - get_role_oid_or_public: Converts role name to OID, handling "public"
-  - convert_function_priv_string: Converts privilege string to AclMode bitmask
-  - object_aclcheck_ext: Extended access control check with missing object detection
+  - [convert_function_priv_string](../c/convert_function_priv_string.md): Converts privilege string to AclMode bitmask
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Extended access control check with missing object detection
 - Called from (representative examples):
   - No direct references found (likely called through SQL interface)
 

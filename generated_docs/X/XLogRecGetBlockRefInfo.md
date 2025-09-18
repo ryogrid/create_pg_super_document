@@ -26,14 +26,14 @@ The function is commonly used by WAL analysis tools like pg_waldump and pg_walin
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecMaxBlockId (gets maximum block ID in record)
-  - XLogRecGetBlockTagExtended (extracts block tag information)
+  - [XLogRecGetBlockTagExtended](XLogRecGetBlockTagExtended.md) (extracts block tag information)
   - XLogRecHasBlockImage (checks if block has full-page image)
   - XLogRecGetBlock (gets block reference data)
   - XLogRecBlockImageApply (checks if block image should be applied)
   - Various BKPIMAGE_* compression constants
   - appendStringInfo, appendStringInfoChar, appendStringInfoString (string buffer operations)
 - Called from (representative examples):
-  - XLogDumpDisplayRecord (pg_waldump utility)
+  - [XLogDumpDisplayRecord](XLogDumpDisplayRecord.md) (pg_waldump utility)
   - pg_walinspect extension functions
 
 ## Notes and Other Information

@@ -19,10 +19,10 @@ This function performs cleanup of a RelInfoArr structure by deallocating all dyn
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_free
+  - [pg_free](../p/pg_free.md)
   - RelInfoArr (struct type)
 - Called from (representative examples):
-  - free_db_and_rel_infos
+  - [free_db_and_rel_infos](free_db_and_rel_infos.md)
 
 ## Notes and Other Information
 - This is a static function only used within src/bin/pg_upgrade/info.c

@@ -17,28 +17,28 @@ This function performs the comprehensive catalog cleanup required when dropping 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_partition_parent
-  - get_default_partition_oid
-  - LockRelationOid
-  - relation_open
-  - CheckTableNotInUse
-  - CheckTableForSerializableConflictIn
-  - CatalogTupleDelete
-  - RemovePartitionKeyByRelId
-  - update_default_partition_oid
-  - RelationDropStorage
+  - [get_partition_parent](../g/get_partition_parent.md)
+  - [get_default_partition_oid](../g/get_default_partition_oid.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [relation_open](../r/relation_open.md)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md)
+  - [CheckTableForSerializableConflictIn](../C/CheckTableForSerializableConflictIn.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [RemovePartitionKeyByRelId](../R/RemovePartitionKeyByRelId.md)
+  - [update_default_partition_oid](../u/update_default_partition_oid.md)
+  - [RelationDropStorage](../R/RelationDropStorage.md)
   - pgstat_drop_relation
-  - relation_close
-  - RemoveSubscriptionRel
-  - remove_on_commit_action
-  - RelationForgetRelation
-  - RelationRemoveInheritance
-  - RemoveStatistics
-  - DeleteAttributeTuples
-  - DeleteRelationTuple
-  - CacheInvalidateRelcacheByRelid
+  - [relation_close](../r/relation_close.md)
+  - [RemoveSubscriptionRel](../R/RemoveSubscriptionRel.md)
+  - [remove_on_commit_action](../r/remove_on_commit_action.md)
+  - [RelationForgetRelation](../R/RelationForgetRelation.md)
+  - [RelationRemoveInheritance](../R/RelationRemoveInheritance.md)
+  - [RemoveStatistics](../R/RemoveStatistics.md)
+  - [DeleteAttributeTuples](../D/DeleteAttributeTuples.md)
+  - [DeleteRelationTuple](../D/DeleteRelationTuple.md)
+  - [CacheInvalidateRelcacheByRelid](../C/CacheInvalidateRelcacheByRelid.md)
 - Called from (representative examples):
-  - doDeletion
+  - [doDeletion](../d/doDeletion.md)
 
 ## Notes and Other Information
 - Should not be called directly; use performDeletion() instead which handles dependency resolution

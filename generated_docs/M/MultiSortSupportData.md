@@ -21,8 +21,8 @@ MultiSortSupportData is designed to handle sorting operations across multiple di
   - SortSupportData (embedded structure for each dimension)
   - FLEXIBLE_ARRAY_MEMBER (macro for variable-length array)
 - Called from (representative examples):
-  - multi_sort_init (src/backend/statistics/extended_stats.c:838)
-  - statext_mcv_build (src/backend/statistics/mcv.c:269)
+  - [multi_sort_init](../m/multi_sort_init.md) (src/backend/statistics/extended_stats.c:838)
+  - [statext_mcv_build](../s/statext_mcv_build.md) (src/backend/statistics/mcv.c:269)
   - MultiSortSupport (typedef alias at src/include/statistics/extended_stats_internal.h:51)
 
 ## Notes and Other Information

@@ -40,25 +40,25 @@ The function handles both regular tables and foreign tables, supports inheritanc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_truncate_find_FKs
-  - heap_truncate_check_FKs
-  - truncate_check_rel
-  - truncate_check_perms
-  - truncate_check_activity
-  - getOwnedSequences
-  - CreateExecutorState
-  - ExecBSTruncateTriggers
-  - ExecASTruncateTriggers
-  - heap_truncate_one_rel
-  - RelationSetNewRelfilenumber
-  - reindex_relation
-  - ResetSequence
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
+  - [heap_truncate_find_FKs](../h/heap_truncate_find_FKs.md)
+  - [heap_truncate_check_FKs](../h/heap_truncate_check_FKs.md)
+  - [truncate_check_rel](../t/truncate_check_rel.md)
+  - [truncate_check_perms](../t/truncate_check_perms.md)
+  - [truncate_check_activity](../t/truncate_check_activity.md)
+  - [getOwnedSequences](../g/getOwnedSequences.md)
+  - [CreateExecutorState](../C/CreateExecutorState.md)
+  - [ExecBSTruncateTriggers](ExecBSTruncateTriggers.md)
+  - [ExecASTruncateTriggers](ExecASTruncateTriggers.md)
+  - [heap_truncate_one_rel](../h/heap_truncate_one_rel.md)
+  - [RelationSetNewRelfilenumber](../R/RelationSetNewRelfilenumber.md)
+  - [reindex_relation](../r/reindex_relation.md)
+  - [ResetSequence](../R/ResetSequence.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
 - Called from (representative examples):
-  - ExecuteTruncate
-  - apply_handle_truncate
+  - [ExecuteTruncate](ExecuteTruncate.md)
+  - [apply_handle_truncate](../a/apply_handle_truncate.md)
 
 ## Notes and Other Information
 - This function is used both by direct TRUNCATE commands and logical replication subscribers

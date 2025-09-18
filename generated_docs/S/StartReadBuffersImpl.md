@@ -21,13 +21,13 @@ StartReadBuffersImpl is the heart of PostgreSQL's asynchronous buffer reading me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PinBufferForBlock
-  - smgrprefetch
+  - [PinBufferForBlock](../P/PinBufferForBlock.md)
+  - [smgrprefetch](../s/smgrprefetch.md)
   - likely (branch prediction hint)
   - MAX_IO_COMBINE_LIMIT (constant for I/O combining limit)
 - Called from (representative examples):
-  - StartReadBuffers
-  - StartReadBuffer
+  - [StartReadBuffers](StartReadBuffers.md)
+  - [StartReadBuffer](StartReadBuffer.md)
 
 ## Notes and Other Information
 - The function enforces MAX_IO_COMBINE_LIMIT to prevent excessive I/O combination that could hurt performance

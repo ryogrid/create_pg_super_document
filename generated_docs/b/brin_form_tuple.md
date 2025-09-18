@@ -27,19 +27,19 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinDesc, BrinMemTuple, BrinTuple (structure types)
-  - brtuple_disk_tupdesc
-  - heap_compute_data_size
-  - heap_fill_tuple
+  - [BrinDesc](../B/BrinDesc.md), BrinMemTuple, BrinTuple (structure types)
+  - [brtuple_disk_tupdesc](brtuple_disk_tupdesc.md)
+  - [heap_compute_data_size](../h/heap_compute_data_size.md)
+  - [heap_fill_tuple](../h/heap_fill_tuple.md)
   - TOAST handling functions (detoast_external_attr, toast_compress_datum)
   - Memory management functions (palloc, palloc0, pfree)
 - Called from:
-  - brininsert (src/backend/access/brin/brin.c:464)
-  - summarize_range (src/backend/access/brin/brin.c:1830)
-  - form_and_insert_tuple (src/backend/access/brin/brin.c:1981)
-  - form_and_spill_tuple (src/backend/access/brin/brin.c:2006)
-  - _brin_parallel_merge (src/backend/access/brin/brin.c:2698, 2730)
-  - brin_build_empty_tuple (src/backend/access/brin/brin.c:2954)
+  - [brininsert](brininsert.md) (src/backend/access/brin/brin.c:464)
+  - [summarize_range](../s/summarize_range.md) (src/backend/access/brin/brin.c:1830)
+  - [form_and_insert_tuple](../f/form_and_insert_tuple.md) (src/backend/access/brin/brin.c:1981)
+  - [form_and_spill_tuple](../f/form_and_spill_tuple.md) (src/backend/access/brin/brin.c:2006)
+  - [_brin_parallel_merge](_brin_parallel_merge.md) (src/backend/access/brin/brin.c:2698, 2730)
+  - [brin_build_empty_tuple](brin_build_empty_tuple.md) (src/backend/access/brin/brin.c:2954)
   - BrinTupleIsEmptyRange (src/include/access/brin_tuple.h:96)
 
 ## Notes and Other Information

@@ -23,17 +23,17 @@ This type of invalidation is more aggressive than individual cache entry invalid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddInvalidationMessage (to add the constructed message to the group)
+  - [AddInvalidationMessage](AddInvalidationMessage.md) (to add the constructed message to the group)
   - VALGRIND_MAKE_MEM_DEFINED (for memory debugging support)
 - Constants used:
   - SHAREDINVALCATALOG_ID (message type identifier for catalog invalidation)
   - CatCacheMsgs (subgroup identifier for catalog cache messages)
 - Data structures used:
-  - InvalidationMsgsGroup
+  - [InvalidationMsgsGroup](../I/InvalidationMsgsGroup.md)
   - SharedInvalidationMessage
   - Oid type
 - Called from:
-  - RegisterCatalogInvalidation
+  - [RegisterCatalogInvalidation](../R/RegisterCatalogInvalidation.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the inval.c file

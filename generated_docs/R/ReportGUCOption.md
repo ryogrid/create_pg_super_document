@@ -29,15 +29,15 @@ The function includes robust memory management with graceful handling of out-of-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShowGUCOption: Converts configuration value to string representation
+  - [ShowGUCOption](../S/ShowGUCOption.md): Converts configuration value to string representation
   - pq_beginmessage: Starts construction of protocol message
-  - pq_sendstring: Adds string data to protocol message
-  - pq_endmessage: Finalizes and sends protocol message
-  - guc_free: Frees GUC-allocated memory
-  - guc_strdup: Duplicates string using GUC memory context
+  - [pq_sendstring](../p/pq_sendstring.md): Adds string data to protocol message
+  - [pq_endmessage](../p/pq_endmessage.md): Finalizes and sends protocol message
+  - [guc_free](../g/guc_free.md): Frees GUC-allocated memory
+  - [guc_strdup](../g/guc_strdup.md): Duplicates string using GUC memory context
 - Called from (representative examples):
-  - BeginReportingGUCOptions: Reports initial values during startup
-  - ReportChangedGUCOptions: Reports changed values during operation
+  - [BeginReportingGUCOptions](../B/BeginReportingGUCOptions.md): Reports initial values during startup
+  - [ReportChangedGUCOptions](ReportChangedGUCOptions.md): Reports changed values during operation
 
 ## Notes and Other Information
 - Static function, only accessible within guc.c

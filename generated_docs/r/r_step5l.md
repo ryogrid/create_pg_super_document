@@ -33,15 +33,15 @@ The function uses backward searching to find suffixes and performs deletion and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (backward suffix matching)
-  - slice_del (delete substring)
-  - slice_from_s (insert substring)
+  - [find_among_b](../f/find_among_b.md) (backward suffix matching)
+  - [slice_del](../s/slice_del.md) (delete substring)
+  - [slice_from_s](../s/slice_from_s.md) (insert substring)
 - Arrays used:
   - a_61 (3 Greek suffixes: ουνε, ησουνε, ηθουνε)
   - a_62 (6 Greek word patterns)
   - s_104 (Greek suffix "ουν" replacement)
 - Called from:
-  - greek_UTF_8_stem at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3643
+  - [greek_UTF_8_stem](../g/greek_UTF_8_stem.md) at src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3643
 
 ## Notes and Other Information
 - Returns 1 on successful processing, 0 if no transformation was applied

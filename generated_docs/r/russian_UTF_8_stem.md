@@ -29,19 +29,19 @@ The algorithm works backwards from the end of the word (right-to-left processing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s: String equality check for forward matching
-  - skip_utf8: UTF-8 character boundary navigation
-  - slice_from_s: Replace text slice with specified string
-  - r_mark_regions: Identify morphological word regions
-  - r_perfective_gerund: Remove perfective gerund suffixes
-  - r_reflexive: Remove reflexive suffixes  
-  - r_adjectival: Remove adjectival suffixes
-  - r_verb: Remove verb suffixes
-  - r_noun: Remove noun suffixes
-  - eq_s_b: String equality check for backward matching
-  - slice_del: Delete text slice
-  - r_derivational: Remove derivational suffixes
-  - r_tidy_up: Final cleanup operations
+  - [eq_s](../e/eq_s.md): String equality check for forward matching
+  - [skip_utf8](../s/skip_utf8.md): UTF-8 character boundary navigation
+  - [slice_from_s](../s/slice_from_s.md): Replace text slice with specified string
+  - [r_mark_regions](r_mark_regions.md): Identify morphological word regions
+  - [r_perfective_gerund](r_perfective_gerund.md): Remove perfective gerund suffixes
+  - [r_reflexive](r_reflexive.md): Remove reflexive suffixes  
+  - [r_adjectival](r_adjectival.md): Remove adjectival suffixes
+  - [r_verb](r_verb.md): Remove verb suffixes
+  - [r_noun](r_noun.md): Remove noun suffixes
+  - [eq_s_b](../e/eq_s_b.md): String equality check for backward matching
+  - [slice_del](../s/slice_del.md): Delete text slice
+  - [r_derivational](r_derivational.md): Remove derivational suffixes
+  - [r_tidy_up](r_tidy_up.md): Final cleanup operations
 - Called from:
   - No direct references found (likely called through external stemming interface)
 

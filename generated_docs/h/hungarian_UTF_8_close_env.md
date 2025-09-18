@@ -21,7 +21,7 @@ This function ensures proper resource management for the Hungarian stemmer compo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (performs the actual environment cleanup with 0 string arrays to deallocate)
+  - [SN_close_env](../S/SN_close_env.md) (performs the actual environment cleanup with 0 string arrays to deallocate)
 
 - Called from (representative examples):
   - No direct references found in the current codebase

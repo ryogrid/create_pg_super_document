@@ -24,15 +24,15 @@ The function manages several key aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReceiveCopyData
-  - ReceiveArchiveStreamChunk
-  - bbstreamer_inject_file
-  - bbstreamer_finalize
-  - bbstreamer_free
+  - [ReceiveCopyData](ReceiveCopyData.md)
+  - [ReceiveArchiveStreamChunk](ReceiveArchiveStreamChunk.md)
+  - [bbstreamer_inject_file](../b/bbstreamer_inject_file.md)
+  - [bbstreamer_finalize](../b/bbstreamer_finalize.md)
+  - [bbstreamer_free](../b/bbstreamer_free.md)
   - fclose
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - BaseBackup
+  - [BaseBackup](../B/BaseBackup.md)
 
 ## Notes and Other Information
 - This function is static and only used within pg_basebackup.c

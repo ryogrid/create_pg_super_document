@@ -19,7 +19,7 @@ The function uses a switch statement to map each RELKIND constant to a specific 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - errdetail (for generating error detail messages)
+  - [errdetail](errdetail.md) (for generating error detail messages)
   - elog (for logging unrecognized relkind errors)
   - RELKIND_RELATION (table constant)
   - RELKIND_INDEX (index constant) 
@@ -33,15 +33,15 @@ The function uses a switch statement to map each RELKIND constant to a specific 
   - RELKIND_PARTITIONED_INDEX (partitioned index constant)
 
 - Called from (representative examples):
-  - validate_relation_kind (in sequence.c and table.c)
-  - check_publication_add_relation (in pg_publication.c)
-  - CommentObject (in comment.c)
-  - DefineIndex (in indexcmds.c)
-  - RangeVarCallbackForLockTable (in lockcmds.c)
-  - CreateStatistics (in statscmds.c)
-  - ATSimplePermissions (in tablecmds.c)
-  - transformMergeStmt (in parse_merge.c)
-  - DefineQueryRewrite (in rewriteDefine.c)
+  - [validate_relation_kind](../v/validate_relation_kind.md) (in sequence.c and table.c)
+  - [check_publication_add_relation](../c/check_publication_add_relation.md) (in pg_publication.c)
+  - [CommentObject](../C/CommentObject.md) (in comment.c)
+  - [DefineIndex](../D/DefineIndex.md) (in indexcmds.c)
+  - [RangeVarCallbackForLockTable](../R/RangeVarCallbackForLockTable.md) (in lockcmds.c)
+  - [CreateStatistics](../C/CreateStatistics.md) (in statscmds.c)
+  - [ATSimplePermissions](../A/ATSimplePermissions.md) (in tablecmds.c)
+  - [transformMergeStmt](../t/transformMergeStmt.md) (in parse_merge.c)
+  - [DefineQueryRewrite](../D/DefineQueryRewrite.md) (in rewriteDefine.c)
 
 ## Notes and Other Information
 - This function is widely used throughout PostgreSQL's DDL (Data Definition Language) operations to provide consistent error messaging

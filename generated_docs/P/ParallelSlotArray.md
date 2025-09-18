@@ -24,14 +24,14 @@ This structure is commonly used in utilities like pg_amcheck, reindexdb, and vac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConnParams
-  - ParallelSlot
+  - [ConnParams](../C/ConnParams.md)
+  - [ParallelSlot](ParallelSlot.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - ParallelSlotsSetup
-  - ParallelSlotsGetIdle
-  - ParallelSlotsTerminate
-  - ParallelSlotsWaitCompletion
+  - [ParallelSlotsSetup](ParallelSlotsSetup.md)
+  - [ParallelSlotsGetIdle](ParallelSlotsGetIdle.md)
+  - [ParallelSlotsTerminate](ParallelSlotsTerminate.md)
+  - [ParallelSlotsWaitCompletion](ParallelSlotsWaitCompletion.md)
 
 ## Notes and Other Information
 - This structure is defined in src/include/fe_utils/parallel_slot.h:36-44

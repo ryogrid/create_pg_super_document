@@ -17,10 +17,10 @@ This function provides a string description for Unicode general category values 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_unicode_category (parameter type)
+  - [pg_unicode_category](../p/pg_unicode_category.md) (parameter type)
   - All PG_U_* category constants (PG_U_UNASSIGNED, PG_U_UPPERCASE_LETTER, PG_U_LOWERCASE_LETTER, PG_U_TITLECASE_LETTER, PG_U_MODIFIER_LETTER, PG_U_OTHER_LETTER, PG_U_NONSPACING_MARK, PG_U_ENCLOSING_MARK, PG_U_SPACING_MARK, PG_U_DECIMAL_NUMBER, PG_U_LETTER_NUMBER, PG_U_OTHER_NUMBER, PG_U_SPACE_SEPARATOR, PG_U_LINE_SEPARATOR, PG_U_PARAGRAPH_SEPARATOR, PG_U_CONTROL, PG_U_FORMAT, PG_U_PRIVATE_USE, PG_U_SURROGATE, PG_U_DASH_PUNCTUATION, PG_U_OPEN_PUNCTUATION, PG_U_CLOSE_PUNCTUATION, PG_U_CONNECTOR_PUNCTUATION, PG_U_OTHER_PUNCTUATION, PG_U_MATH_SYMBOL, PG_U_CURRENCY_SYMBOL, PG_U_MODIFIER_SYMBOL, PG_U_OTHER_SYMBOL, PG_U_INITIAL_PUNCTUATION, PG_U_FINAL_PUNCTUATION)
 - Called from (representative examples):
-  - icu_test (in Unicode category tests for validation)
+  - [icu_test](../i/icu_test.md) (in Unicode category tests for validation)
 
 ## Notes and Other Information
 - Returns constant strings that match official Unicode general category names

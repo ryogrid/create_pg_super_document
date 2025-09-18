@@ -22,7 +22,7 @@ The result is only trustworthy and free from race conditions if the caller has a
   - CachedPlanSource (structure type)
   - CACHEDPLANSOURCE_MAGIC (magic number for validation)
 - Called from (representative examples):
-  - SPI_plan_is_valid
+  - [SPI_plan_is_valid](../S/SPI_plan_is_valid.md)
 
 ## Notes and Other Information
 - The function includes an assertion to verify the magic number of the CachedPlanSource structure, ensuring structural integrity

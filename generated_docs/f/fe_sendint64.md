@@ -22,7 +22,7 @@ The function uses PostgreSQL's portable byte-swapping infrastructure () to handl
 - Functions called/Symbols referenced:
   - pg_hton64 (converts host to network byte order for 64-bit values)
 - Called from (representative examples):
-  - sendFeedback (in pg_recvlogical.c and receivelog.c)
+  - [sendFeedback](../s/sendFeedback.md) (in pg_recvlogical.c and receivelog.c)
 
 ## Notes and Other Information
 - The function assumes the output buffer has sufficient space (8 bytes) to store the converted value

@@ -29,17 +29,17 @@ Unlike REGRESS_object_access_hook_str which handles specific parameter operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - audit_attempt
-  - accesstype_to_string
-  - accesstype_arg_to_string
+  - [audit_attempt](../a/audit_attempt.md)
+  - [accesstype_to_string](../a/accesstype_to_string.md)
+  - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
   - superuser_arg
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - ereport
-  - errcode
-  - errmsg
-  - audit_success
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [audit_success](../a/audit_success.md)
 - Called from (representative examples):
-  - _PG_init (hook installation)
+  - [_PG_init](../P/_PG_init.md) (hook installation)
 
 ## Notes and Other Information
 - This is a static function used exclusively for regression testing in the test_oat_hooks module

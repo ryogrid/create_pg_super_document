@@ -22,15 +22,15 @@ The function also applies _bt_checkpage to sanity-check the page and performs Va
 ## Dependencies
 - Functions called/Symbols referenced:
   - BlockNumberIsValid (validates the block number)
-  - ReadBuffer (reads the block into buffer pool)
-  - _bt_lockbuf (applies appropriate buffer lock)
-  - _bt_checkpage (performs sanity checks on the page)
+  - [ReadBuffer](../R/ReadBuffer.md) (reads the block into buffer pool)
+  - [_bt_lockbuf](_bt_lockbuf.md) (applies appropriate buffer lock)
+  - [_bt_checkpage](_bt_checkpage.md) (performs sanity checks on the page)
 - Called from (representative examples):
-  - _bt_insertonpg (during B-tree insertion)
-  - _bt_split (during page splitting operations)
-  - _bt_getroot (when accessing the root page)
-  - _bt_moveright (during rightward page navigation)
-  - _bt_pagedel (during page deletion)
+  - [_bt_insertonpg](_bt_insertonpg.md) (during B-tree insertion)
+  - [_bt_split](_bt_split.md) (during page splitting operations)
+  - [_bt_getroot](_bt_getroot.md) (when accessing the root page)
+  - [_bt_moveright](_bt_moveright.md) (during rightward page navigation)
+  - [_bt_pagedel](_bt_pagedel.md) (during page deletion)
 
 ## Notes and Other Information
 - This is a fundamental building block for all B-tree page access operations

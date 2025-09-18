@@ -23,13 +23,13 @@ TidStoreDestroy completely destroys a TidStore object and releases all memory as
   - shared_ts_free (radix tree generated function)
   - dsa_detach 
   - local_ts_free (radix tree generated function)
-  - MemoryContextDelete
-  - pfree
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - dead_items_reset (in vacuumlazy.c)
-  - parallel_vacuum_end (in vacuumparallel.c)
-  - parallel_vacuum_reset_dead_items (in vacuumparallel.c)
-  - test_destroy (in test_tidstore.c)
+  - [dead_items_reset](../d/dead_items_reset.md) (in vacuumlazy.c)
+  - [parallel_vacuum_end](../p/parallel_vacuum_end.md) (in vacuumparallel.c)
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md) (in vacuumparallel.c)
+  - [test_destroy](../t/test_destroy.md) (in test_tidstore.c)
 
 ## Notes and Other Information
 - The caller must ensure no other backend will attempt to access the TidStore before calling this function

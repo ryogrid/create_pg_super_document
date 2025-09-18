@@ -21,13 +21,13 @@ This function is part of the TupleTableSlotOps implementation for MinimalTupleTa
 - Functions called/Symbols referenced:
   - MinimalTupleTableSlot (type cast)
   - TTS_SHOULDFREE
-  - heap_free_minimal_tuple
+  - [heap_free_minimal_tuple](../h/heap_free_minimal_tuple.md)
   - TTS_FLAG_SHOULDFREE
   - TTS_FLAG_EMPTY
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
 - Called from (representative examples):
-  - tts_minimal_store_tuple
-  - slot_deform_heap_tuple
+  - [tts_minimal_store_tuple](tts_minimal_store_tuple.md)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - This is a static function specific to minimal tuple table slot operations

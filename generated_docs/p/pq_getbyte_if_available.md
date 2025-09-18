@@ -17,15 +17,15 @@ pq_getbyte_if_available provides a non-blocking alternative to pq_getbyte for sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - socket_set_nonblocking
-  - secure_read
+  - [socket_set_nonblocking](../s/socket_set_nonblocking.md)
+  - [secure_read](../s/secure_read.md)
   - EAGAIN
   - EINTR
   - EWOULDBLOCK
   - COMMERROR
-  - errcode_for_socket_access
+  - [errcode_for_socket_access](../e/errcode_for_socket_access.md)
 - Called from (representative examples):
-  - ProcessRepliesIfAny
+  - [ProcessRepliesIfAny](../P/ProcessRepliesIfAny.md)
 
 ## Notes and Other Information
 - Returns 1 if a byte was successfully read, 0 if no data available, EOF on error

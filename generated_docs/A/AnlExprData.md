@@ -26,15 +26,15 @@ The structure facilitates the analysis of complex expressions (not just simple c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Node (PostgreSQL parse tree node base type)
+  - [Node](../N/Node.md) (PostgreSQL parse tree node base type)
   - VacAttrStats (PostgreSQL statistics collection structure)
 
 - Called from (representative examples):
-  - BuildRelationExtStatistics
-  - compute_expr_stats
-  - expr_fetch_func
-  - build_expr_data
-  - serialize_expr_stats
+  - [BuildRelationExtStatistics](../B/BuildRelationExtStatistics.md)
+  - [compute_expr_stats](../c/compute_expr_stats.md)
+  - [expr_fetch_func](../e/expr_fetch_func.md)
+  - [build_expr_data](../b/build_expr_data.md)
+  - [serialize_expr_stats](../s/serialize_expr_stats.md)
 
 ## Notes and Other Information
 This structure is defined in src/backend/statistics/extended_stats.c and is used exclusively during the expression statistics collection phase. It represents a pairing of an expression with its analysis parameters, enabling PostgreSQL to collect statistics on expression results rather than just simple column values.

@@ -25,9 +25,9 @@ The function is used across different types of scan operations (SeqScan, IndexSc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainTargetRel
+  - [ExplainTargetRel](ExplainTargetRel.md)
 - Called from (representative examples):
-  - ExplainNode (for various scan node types including SeqScan, IndexScan, IndexOnlyScan, BitmapHeapScan)
+  - [ExplainNode](ExplainNode.md) (for various scan node types including SeqScan, IndexScan, IndexOnlyScan, BitmapHeapScan)
 
 ## Notes and Other Information
 - This is a thin wrapper function that provides a Scan-specific interface to the general relation explanation functionality

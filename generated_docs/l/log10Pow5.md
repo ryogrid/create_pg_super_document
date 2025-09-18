@@ -24,7 +24,7 @@ The function includes safety assertions to ensure the input parameter e is withi
   - Assert (for input validation)
 - Called from (representative examples):
   - d2d (in src/common/d2s.c at line 441)
-  - f2d (in src/common/f2s.c at line 312)
+  - [f2d](../f/f2d.md) (in src/common/f2s.c at line 312)
 
 ## Notes and Other Information
 - The approximation is valid up to e = 2620; beyond that, it fails for 5^2621 > 10^1832

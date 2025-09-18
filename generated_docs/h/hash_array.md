@@ -29,7 +29,7 @@ The hash algorithm provides good distribution properties for arrays up to 2^27 e
   -  - Get cached type information with hash function
   -  - Set up function manager info for record hashing
   -  - Calculate total number of array elements
-  -  - Initialize array iterator
+  -  - [Initialize](../I/Initialize.md) array iterator
   -  - Get next array element
   -  - Call element hash function
   -  - Extract uint32 from Datum

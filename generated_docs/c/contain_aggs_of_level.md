@@ -22,13 +22,13 @@ The function is designed to handle complex query structures with nested subqueri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_aggs_of_level_context (context structure)
+  - [contain_aggs_of_level_context](contain_aggs_of_level_context.md) (context structure)
   - query_or_expression_tree_walker (tree traversal utility)
-  - contain_aggs_of_level_walker (callback function for tree walking)
+  - [contain_aggs_of_level_walker](contain_aggs_of_level_walker.md) (callback function for tree walking)
 - Called from (representative examples):
-  - convert_EXISTS_to_ANY (subselect optimization)
-  - checkTargetlistEntrySQL92 (SQL standard compliance checking)
-  - AddQual (query rewriting)
+  - [convert_EXISTS_to_ANY](convert_EXISTS_to_ANY.md) (subselect optimization)
+  - [checkTargetlistEntrySQL92](checkTargetlistEntrySQL92.md) (SQL standard compliance checking)
+  - [AddQual](../A/AddQual.md) (query rewriting)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:86-102

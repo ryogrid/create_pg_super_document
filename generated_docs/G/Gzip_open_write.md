@@ -23,10 +23,10 @@ This function provides a convenient interface specifically for write operations,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's version of sprintf with memory allocation)
-  - pg_free (PostgreSQL's memory deallocation function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's version of sprintf with memory allocation)
+  - [pg_free](../p/pg_free.md) (PostgreSQL's memory deallocation function)
   - CFH->open_func (function pointer to the actual open implementation)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through function pointers in compression interface)
 

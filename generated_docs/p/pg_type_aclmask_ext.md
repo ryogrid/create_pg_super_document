@@ -22,16 +22,16 @@ The function performs permission checking for PostgreSQL data types with special
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser_arg
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - IsTrueArrayType
-  - get_multirange_range
-  - SysCacheGetAttr
-  - acldefault
+  - [get_multirange_range](../g/get_multirange_range.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclP
-  - aclmask
+  - [aclmask](../a/aclmask.md)
 - Called from (representative examples):
   - InternalDefaultACL
-  - object_aclmask_ext
+  - [object_aclmask_ext](../o/object_aclmask_ext.md)
 
 ## Notes and Other Information
 - Superusers automatically bypass all permission checks

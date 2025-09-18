@@ -27,10 +27,10 @@ This function represents the maximum number of search keys supported by PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchCatCacheInternal
+  - [SearchCatCacheInternal](SearchCatCacheInternal.md)
   - CatCache (structure type)
 - Called from (representative examples):
-  - SearchSysCache4
+  - [SearchSysCache4](SearchSysCache4.md)
   - CatCacheHeader
 
 ## Notes and Other Information

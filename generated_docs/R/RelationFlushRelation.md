@@ -27,15 +27,15 @@ The function serves as a critical component of PostgreSQL's cache coherency syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationIncrementReferenceCount
-  - RelationClearRelation
-  - RelationDecrementReferenceCount
-  - RelationInvalidateRelation
+  - [RelationIncrementReferenceCount](RelationIncrementReferenceCount.md)
+  - [RelationClearRelation](RelationClearRelation.md)
+  - [RelationDecrementReferenceCount](RelationDecrementReferenceCount.md)
+  - [RelationInvalidateRelation](RelationInvalidateRelation.md)
   - RelationHasReferenceCountZero
-  - IsTransactionState
+  - [IsTransactionState](../I/IsTransactionState.md)
   - InvalidSubTransactionId
 - Called from (representative examples):
-  - RelationCacheInvalidateEntry
+  - [RelationCacheInvalidateEntry](RelationCacheInvalidateEntry.md)
 
 ## Notes and Other Information
 - Central dispatcher for cache invalidation event handling

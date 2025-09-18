@@ -24,17 +24,17 @@ If a matching mapping is found, the function returns the corresponding new_dir (
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlcpy
-  - canonicalize_path
-  - TablespaceListCell (struct type)
+  - [canonicalize_path](../c/canonicalize_path.md)
+  - [TablespaceListCell](../T/TablespaceListCell.md) (struct type)
   - tablespace_dirs (global variable)
 - Called from (representative examples):
-  - CreateBackupStreamer
-  - BaseBackup
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md)
+  - [BaseBackup](../B/BaseBackup.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_basebackup.c compilation unit
 - The function relies on the global tablespace_dirs linked list which is populated by command-line parsing of -T options
-- Path canonicalization ensures robust matching regardless of how paths are specified (with/without trailing slashes, relative vs absolute)
+- [Path](../P/Path.md) canonicalization ensures robust matching regardless of how paths are specified (with/without trailing slashes, relative vs absolute)
 - Returns a const char* pointing either to the original input or to a string stored in the tablespace mapping list
 - The function is central to pg_basebackup's tablespace relocation feature, allowing users to change tablespace locations during backup restore
 - Used extensively throughout the backup creation process wherever tablespace paths need to be resolved

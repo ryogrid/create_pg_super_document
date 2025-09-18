@@ -19,9 +19,9 @@ ExecReScanUnique handles the rescan operation for UNIQUE plan nodes, which is ne
 - Functions called/Symbols referenced:
   - outerPlanState: Get the outer plan state from UniqueState
   - ExecClearTuple: Clear the result tuple slot to reset state
-  - ExecReScan: Recursively rescan the outer subplan if no parameter changes
+  - [ExecReScan](ExecReScan.md): Recursively rescan the outer subplan if no parameter changes
 - Called from:
-  - ExecReScan: During query rescan operations
+  - [ExecReScan](ExecReScan.md): During query rescan operations
   - nodeUnique.h: Header declaration
 
 ## Notes and Other Information

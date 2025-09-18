@@ -26,8 +26,8 @@ The function includes two assertions to verify its preconditions: m must not exc
   - Assert (PostgreSQL assertion macro)
   - UINT64CONST (PostgreSQL macro for 64-bit constants)
 - Called from:
-  - bloom_filter (at src/backend/lib/bloomfilter.c:58)
-  - k_hashes (at src/backend/lib/bloomfilter.c:264, 265, 271, 272) - called 4 times
+  - [bloom_filter](../b/bloom_filter.md) (at src/backend/lib/bloomfilter.c:58)
+  - [k_hashes](../k/k_hashes.md) (at src/backend/lib/bloomfilter.c:264, 265, 271, 272) - called 4 times
 
 ## Notes and Other Information
 - Requires m to be a power of two for correctness - this is enforced by assertion

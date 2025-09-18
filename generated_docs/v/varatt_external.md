@@ -26,12 +26,12 @@ The data referenced by this pointer is compressed if and only if the external si
   - uint32 (PostgreSQL type)
   - Oid (PostgreSQL type)
 - Called from (representative examples):
-  - detoast_attr_slice
-  - toast_fetch_datum
-  - toast_fetch_datum_slice
-  - toast_save_datum
-  - toast_delete_datum
-  - ReorderBufferToastReplace
+  - [detoast_attr_slice](../d/detoast_attr_slice.md)
+  - [toast_fetch_datum](../t/toast_fetch_datum.md)
+  - [toast_fetch_datum_slice](../t/toast_fetch_datum_slice.md)
+  - [toast_save_datum](../t/toast_save_datum.md)
+  - [toast_delete_datum](../t/toast_delete_datum.md)
+  - [ReorderBufferToastReplace](../R/ReorderBufferToastReplace.md)
 
 ## Notes and Other Information
 - This structure must not contain padding to ensure memcmp compatibility

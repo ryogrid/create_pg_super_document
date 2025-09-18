@@ -23,7 +23,7 @@ The function handles both first-time initialization (when structures don't exist
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct (shared memory structure initialization)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory structure initialization)
   - ShmemInitHash (shared memory hash table initialization)
   - SpinLockInit (spinlock initialization)
   - WaitEventCustomCounterData (counter data structure type)
@@ -36,7 +36,7 @@ The function handles both first-time initialization (when structures don't exist
   - NAMEDATALEN (maximum name length constant)
 
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (in src/backend/storage/ipc/ipci.c:358)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (in src/backend/storage/ipc/ipci.c:358)
   - PG_WAIT_INJECTIONPOINT (in src/include/utils/wait_event.h:61)
 
 ## Notes and Other Information

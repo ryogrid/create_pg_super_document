@@ -22,14 +22,14 @@ This function creates a richly detailed Python exception by extracting informati
 - Functions called/Symbols referenced:
   - Py_BuildValue (Python C API function)
   - PyObject_CallObject (Python C API function)
-  - set_string_attr (helper function for setting object attributes)
-  - unpack_sql_state (function to format SQL state codes)
+  - [set_string_attr](../s/set_string_attr.md) (helper function for setting object attributes)
+  - [unpack_sql_state](../u/unpack_sql_state.md) (function to format SQL state codes)
   - PyErr_SetObject (Python C API function)
   - Py_DECREF/Py_XDECREF (Python reference counting functions)
   - elog (PostgreSQL logging function)
   - ErrorData (PostgreSQL error data structure)
 - Called from (representative examples):
-  - PLy_output
+  - [PLy_output](PLy_output.md)
 
 ## Notes and Other Information
 - Provides comprehensive error details including SQL state, hints, query context, and object names

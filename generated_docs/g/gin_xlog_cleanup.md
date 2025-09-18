@@ -23,7 +23,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete (PostgreSQL memory management function)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md) (PostgreSQL memory management function)
 - Called from (representative examples):
   - No direct callers found in the current analysis
 

@@ -27,10 +27,10 @@ This macro expands to a function that typically takes:
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
 - Called from (representative examples):
-  - RT_NODE_INSERT (when RT_NODE_MUST_GROW condition is true for node-4)
+  - [RT_NODE_INSERT](RT_NODE_INSERT.md) (when RT_NODE_MUST_GROW condition is true for node-4)
 - Related symbols:
   - RT_NODE_MUST_GROW (condition check)
-  - RT_ADD_CHILD_16 (typically used after growth)
+  - [RT_ADD_CHILD_16](RT_ADD_CHILD_16.md) (typically used after growth)
 
 ## Notes and Other Information
 - Part of PostgreSQL's adaptive radix tree implementation

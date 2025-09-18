@@ -20,8 +20,8 @@ The function acquires an exclusive lock on the first element of MainLWLockArray 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - LWLockAcquire
   - LWLockRelease
   - GetLWTrancheName
@@ -34,7 +34,7 @@ The function acquires an exclusive lock on the first element of MainLWLockArray 
   - MainLWLockArray
   - MyProcPid
 - Called from:
-  - init_lwlock_stats (registered as exit handler via on_shmem_exit)
+  - [init_lwlock_stats](../i/init_lwlock_stats.md) (registered as exit handler via on_shmem_exit)
   - LOG_LWDEBUG (src/backend/storage/lmgr/lwlock.c:308)
 
 ## Notes and Other Information

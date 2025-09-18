@@ -26,18 +26,18 @@ The function supports both case-sensitive and case-insensitive matching modes. I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strcasecmp (for case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (for case-insensitive string comparison)
   - strcmp (for case-sensitive string comparison)  
   - ereport (for error logging)
-  - check_ident_usermap (for processing usermap file entries)
+  - [check_ident_usermap](check_ident_usermap.md) (for processing usermap file entries)
   - parsed_ident_lines (global list of parsed identity mapping entries)
   - STATUS_OK, STATUS_ERROR (return status constants)
 - Called from (representative examples):
-  - pg_GSS_checkauth (GSS/Kerberos authentication)
-  - pg_SSPI_recvauth (Windows SSPI authentication)
-  - ident_inet (ident protocol authentication)
-  - auth_peer (peer authentication)
-  - CheckCertAuth (SSL certificate authentication)
+  - [pg_GSS_checkauth](../p/pg_GSS_checkauth.md) (GSS/Kerberos authentication)
+  - [pg_SSPI_recvauth](../p/pg_SSPI_recvauth.md) (Windows SSPI authentication)
+  - [ident_inet](../i/ident_inet.md) (ident protocol authentication)
+  - [auth_peer](../a/auth_peer.md) (peer authentication)
+  - [CheckCertAuth](../C/CheckCertAuth.md) (SSL certificate authentication)
 
 ## Notes and Other Information
 - This function is located at src/backend/libpq/hba.c:2904-2958

@@ -18,11 +18,11 @@ This function serves as a memory deallocation callback for pagetable hash struct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TIDBitmap (struct type)
+  - [TIDBitmap](../T/TIDBitmap.md) (struct type)
   - DsaPointerIsValid (function)
-  - dsa_free (function)
+  - [dsa_free](../d/dsa_free.md) (function)
   - InvalidDsaPointer (constant)
-  - pfree (function)
+  - [pfree](pfree.md) (function)
 - Called from (representative examples):
   - Used as callback in hash table operations (not directly referenced)
 

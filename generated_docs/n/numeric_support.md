@@ -25,10 +25,10 @@ The  function is a PostgreSQL planner support function specifically designed to 
   - lsecond
   - linitial
   - exprTypmod
-  - DatumGetInt32
-  - numeric_typmod_scale
-  - numeric_typmod_precision
-  - is_valid_numeric_typmod
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [numeric_typmod_scale](numeric_typmod_scale.md)
+  - [numeric_typmod_precision](numeric_typmod_precision.md)
+  - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md)
   - relabel_to_typmod
   - PG_RETURN_POINTER
 - Called from:

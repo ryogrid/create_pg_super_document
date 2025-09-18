@@ -45,17 +45,17 @@ AggStatePerAgg is a pointer type that references per-aggregate information struc
 - Functions called/Symbols referenced:
   - AggStatePerAggData
   - Aggref
-  - FmgrInfo
-  - List
+  - [FmgrInfo](../F/FmgrInfo.md)
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - finalize_aggregate
-  - finalize_partialaggregate
-  - finalize_aggregates
-  - agg_retrieve_direct
-  - agg_retrieve_hash_table_in_memory
-  - ExecInitAgg
-  - AggGetAggref
-  - AggStateIsShared
+  - [finalize_aggregate](../f/finalize_aggregate.md)
+  - [finalize_partialaggregate](../f/finalize_partialaggregate.md)
+  - [finalize_aggregates](../f/finalize_aggregates.md)
+  - [agg_retrieve_direct](../a/agg_retrieve_direct.md)
+  - [agg_retrieve_hash_table_in_memory](../a/agg_retrieve_hash_table_in_memory.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [AggGetAggref](AggGetAggref.md)
+  - [AggStateIsShared](AggStateIsShared.md)
 
 ## Notes and Other Information
 - This is a private structure definition in nodeAgg.c, indicating it's an internal implementation detail of the aggregation executor

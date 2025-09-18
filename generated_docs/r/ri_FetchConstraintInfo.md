@@ -26,21 +26,21 @@ The function is critical for ensuring that referential integrity triggers operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_LoadConstraintInfo
+  - [ri_LoadConstraintInfo](ri_LoadConstraintInfo.md)
   - OidIsValid
   - ereport
   - RelationGetRelationName
   - RelationGetRelid
   - elog
 - Called from (representative examples):
-  - ri_restrict
-  - RI_FKey_cascade_del
-  - RI_FKey_cascade_upd
-  - ri_set
-  - RI_FKey_pk_upd_check_required
-  - RI_FKey_fk_upd_check_required
-  - RI_Initial_Check
-  - RI_PartitionRemove_Check
+  - [ri_restrict](ri_restrict.md)
+  - [RI_FKey_cascade_del](../R/RI_FKey_cascade_del.md)
+  - [RI_FKey_cascade_upd](../R/RI_FKey_cascade_upd.md)
+  - [ri_set](ri_set.md)
+  - [RI_FKey_pk_upd_check_required](../R/RI_FKey_pk_upd_check_required.md)
+  - [RI_FKey_fk_upd_check_required](../R/RI_FKey_fk_upd_check_required.md)
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
 
 ## Notes and Other Information
 - Returns a const pointer to RI_ConstraintInfo, indicating the returned data should not be modified

@@ -30,10 +30,10 @@ The function manages the partexprs_item iterator to advance through expression-b
 - Functions called/Symbols referenced:
   - makeVar
   - copyObject
-  - lnext
+  - [lnext](../l/lnext.md)
   - castNode
 - Called from (representative examples):
-  - get_qual_for_range
+  - [get_qual_for_range](get_qual_for_range.md)
   - compare_range_bounds
 
 ## Notes and Other Information

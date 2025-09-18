@@ -18,11 +18,11 @@ CopyGetInt32 is a utility function for reading 32-bit integers from binary COPY 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyReadBinaryData (read raw binary data from input)
+  - [CopyReadBinaryData](CopyReadBinaryData.md) (read raw binary data from input)
   - pg_ntoh32 (convert from network to host byte order)
 - Called from (representative examples):
-  - ReceiveCopyBinaryHeader (src/backend/commands/copyfromparse.c:202, 216)
-  - CopyReadBinaryAttribute (src/backend/commands/copyfromparse.c:1993)
+  - [ReceiveCopyBinaryHeader](../R/ReceiveCopyBinaryHeader.md) (src/backend/commands/copyfromparse.c:202, 216)
+  - [CopyReadBinaryAttribute](CopyReadBinaryAttribute.md) (src/backend/commands/copyfromparse.c:1993)
 
 ## Notes and Other Information
 - Returns true on successful read, false on EOF or insufficient data

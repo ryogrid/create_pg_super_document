@@ -26,12 +26,12 @@ This function is a support function for PostgreSQL's window function RANGE claus
   - PG_GETARG_INTERVAL_P
   - PG_GETARG_BOOL
   - PG_RETURN_BOOL
-  - pg_add_s64_overflow (for overflow detection)
+  - [pg_add_s64_overflow](../p/pg_add_s64_overflow.md) (for overflow detection)
   - ereport (for error handling)
 - Data types used:
   - TimeADT
   - Interval
-  - bool
+  - [bool](../b/bool.md)
 - Called from (representative examples):
   - No direct references found (likely called via SQL window function system)
 

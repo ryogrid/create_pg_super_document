@@ -31,19 +31,19 @@ The function uses an iterative approach rather than deep recursion to assign XID
   - FullTransactionIdIsValid
   - IsInParallelMode, IsParallelWorker
   - GetNewTransactionId
-  - SubTransSetParent
+  - [SubTransSetParent](../S/SubTransSetParent.md)
   - XidFromFullTransactionId
-  - RegisterPredicateLockingXid
-  - XactLockTableInsert
+  - [RegisterPredicateLockingXid](../R/RegisterPredicateLockingXid.md)
+  - [XactLockTableInsert](../X/XactLockTableInsert.md)
   - XLogLogicalInfoActive, XLogStandbyInfoActive
-  - XLogBeginInsert, XLogRegisterData, XLogInsert
-  - GetTopTransactionId
+  - [XLogBeginInsert](../X/XLogBeginInsert.md), XLogRegisterData, XLogInsert
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)
 - Called from (representative examples):
-  - GetTopTransactionId
-  - GetCurrentTransactionId
-  - GetTopFullTransactionId
-  - GetCurrentFullTransactionId
-  - AssignTransactionId (recursive)
+  - [GetTopTransactionId](../G/GetTopTransactionId.md)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [GetTopFullTransactionId](../G/GetTopFullTransactionId.md)
+  - [GetCurrentFullTransactionId](../G/GetCurrentFullTransactionId.md)
+  - [AssignTransactionId](AssignTransactionId.md) (recursive)
 
 ## Notes and Other Information
 - Static function - only accessible within the same source file

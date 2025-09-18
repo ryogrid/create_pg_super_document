@@ -22,12 +22,12 @@ This function provides an OID-based alternative to the name-based foreign server
 - Functions called/Symbols referenced:
   - table_open: Open the pg_foreign_server catalog with exclusive lock
   - SearchSysCacheCopy1: Look up foreign server by OID in system cache
-  - ObjectIdGetDatum: Convert OID to Datum for cache lookup
-  - AlterForeignServerOwner_internal: Perform the actual ownership change
-  - heap_freetuple: Free the tuple memory after use
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md): Convert OID to Datum for cache lookup
+  - [AlterForeignServerOwner_internal](AlterForeignServerOwner_internal.md): Perform the actual ownership change
+  - [heap_freetuple](../h/heap_freetuple.md): Free the tuple memory after use
   - table_close: Close the catalog relation with lock release
 - Called from (representative examples):
-  - shdepReassignOwned_Owner: Bulk ownership reassignment during role operations
+  - [shdepReassignOwned_Owner](../s/shdepReassignOwned_Owner.md): Bulk ownership reassignment during role operations
   - DEFREM_H: Header declaration for external usage
 
 ## Notes and Other Information

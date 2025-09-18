@@ -22,7 +22,7 @@ This function converts a PostgreSQL "char" value to a text data type following s
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR (macro for extracting char argument)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - VARHDRSZ (constant for variable-length header size)
   - IS_HIGHBIT_SET (macro to check if high bit is set)
   - SET_VARSIZE (macro to set variable-length data size)

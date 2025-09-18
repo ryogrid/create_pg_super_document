@@ -18,18 +18,18 @@ PLy_spi_subtransaction_abort is called when an error occurs during SPI operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyErrorData: Copies the current error information for later use
-  - FlushErrorState: Clears the PostgreSQL error state
-  - RollbackAndReleaseCurrentSubTransaction: Rolls back and releases the current subtransaction
-  - hash_search: Searches for appropriate Python exception based on SQL error code
-  - PLy_spi_exception_set: Sets up Python exception with PostgreSQL error data
-  - FreeErrorData: Releases the copied error data memory
+  - [CopyErrorData](../C/CopyErrorData.md): Copies the current error information for later use
+  - [FlushErrorState](../F/FlushErrorState.md): Clears the PostgreSQL error state
+  - [RollbackAndReleaseCurrentSubTransaction](../R/RollbackAndReleaseCurrentSubTransaction.md): Rolls back and releases the current subtransaction
+  - [hash_search](../h/hash_search.md): Searches for appropriate Python exception based on SQL error code
+  - [PLy_spi_exception_set](PLy_spi_exception_set.md): Sets up Python exception with PostgreSQL error data
+  - [FreeErrorData](../F/FreeErrorData.md): Releases the copied error data memory
 - Called from (representative examples):
-  - PLy_cursor_query: In PG_CATCH blocks for cursor query error handling
-  - PLy_cursor_plan: In PG_CATCH blocks for cursor plan error handling
-  - PLy_spi_prepare: In PG_CATCH blocks for SPI preparation error handling
-  - PLy_spi_execute_plan: In PG_CATCH blocks for plan execution error handling
-  - PLy_spi_execute_query: In PG_CATCH blocks for query execution error handling
+  - [PLy_cursor_query](PLy_cursor_query.md): In PG_CATCH blocks for cursor query error handling
+  - [PLy_cursor_plan](PLy_cursor_plan.md): In PG_CATCH blocks for cursor plan error handling
+  - [PLy_spi_prepare](PLy_spi_prepare.md): In PG_CATCH blocks for SPI preparation error handling
+  - [PLy_spi_execute_plan](PLy_spi_execute_plan.md): In PG_CATCH blocks for plan execution error handling
+  - [PLy_spi_execute_query](PLy_spi_execute_query.md): In PG_CATCH blocks for query execution error handling
 
 ## Notes and Other Information
 - Must be paired with a preceding PLy_spi_subtransaction_begin call

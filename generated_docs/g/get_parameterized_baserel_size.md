@@ -26,9 +26,9 @@ The key difference from  is that this function includes additional parameter cla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_concat_copy
-  - clauselist_selectivity
-  - clamp_row_est
+  - [list_concat_copy](../l/list_concat_copy.md)
+  - [clauselist_selectivity](../c/clauselist_selectivity.md)
+  - [clamp_row_est](../c/clamp_row_est.md)
   - JOIN_INNER
 - Called from (representative examples):
   - get_baserel_parampathinfo

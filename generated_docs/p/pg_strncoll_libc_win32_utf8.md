@@ -24,13 +24,13 @@ This function implements UTF-8 string collation on Windows systems using the lib
   - MultiByteToWideChar (Windows API for UTF-8 to UTF-16 conversion)
   - wcscoll_l, wcscoll (Windows wide character collation functions)
   - GetLastError (Windows error reporting)
-  - GetDatabaseEncoding (PostgreSQL encoding function)
-  - palloc, pfree (PostgreSQL memory management)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (PostgreSQL encoding function)
+  - [palloc](palloc.md), pfree (PostgreSQL memory management)
   - ereport, errmsg (PostgreSQL error reporting)
   - TEXTBUFLEN, PG_UTF8, COLLPROVIDER_LIBC (constants)
 - Called from (representative examples):
-  - pg_strcoll_libc (at line 1950)
-  - pg_strncoll_libc (at line 1984)
+  - [pg_strcoll_libc](pg_strcoll_libc.md) (at line 1950)
+  - [pg_strncoll_libc](pg_strncoll_libc.md) (at line 1984)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_locale.c compilation unit

@@ -32,17 +32,17 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetHomeDirectory
-  - SSLerrmessage / SSLerrfree (error handling)
+  - [pqGetHomeDirectory](../p/pqGetHomeDirectory.md)
+  - [SSLerrmessage](../S/SSLerrmessage.md) / SSLerrfree (error handling)
   - SSL_CTX_new / SSL_CTX_free (OpenSSL context management)
   - SSL_new / my_SSL_set_fd (SSL object creation)
   - SSL_CTX_use_certificate_chain_file (certificate loading)
   - SSL_use_PrivateKey_file (private key loading)
-  - ssl_protocol_version_to_openssl (version conversion)
-  - cert_cb / PQssl_passwd_cb / verify_cb (callback functions)
+  - [ssl_protocol_version_to_openssl](../s/ssl_protocol_version_to_openssl.md) (version conversion)
+  - [cert_cb](../c/cert_cb.md) / PQssl_passwd_cb / verify_cb (callback functions)
   - Various OpenSSL configuration functions
 - Called from:
-  - pgtls_open_client
+  - [pgtls_open_client](../p/pgtls_open_client.md)
 
 ## Notes and Other Information
 - Creates separate SSL context for each connection to avoid certificate conflicts

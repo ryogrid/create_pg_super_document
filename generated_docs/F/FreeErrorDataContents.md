@@ -20,11 +20,11 @@ FreeErrorDataContents is a static utility function that systematically deallocat
 ## Dependencies
 - Functions called/Symbols referenced:
   - ErrorData (structure type)
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
 
 - Called from (representative examples):
-  - errfinish
-  - FreeErrorData
+  - [errfinish](../e/errfinish.md)
+  - [FreeErrorData](FreeErrorData.md)
 
 ## Notes and Other Information
 - Static function scope limits its usage to within the elog.c file

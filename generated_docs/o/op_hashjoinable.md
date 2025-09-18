@@ -20,19 +20,19 @@ This function evaluates if an operator is suitable for hash join algorithms. For
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_HASH_PROC
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_operator
 - Called from (representative examples):
-  - generate_join_implied_equalities_normal
-  - compute_semijoin_info
-  - check_hashjoinable
-  - hash_ok_operator
-  - addTargetToSortList
+  - [generate_join_implied_equalities_normal](../g/generate_join_implied_equalities_normal.md)
+  - [compute_semijoin_info](../c/compute_semijoin_info.md)
+  - [check_hashjoinable](../c/check_hashjoinable.md)
+  - [hash_ok_operator](../h/hash_ok_operator.md)
+  - [addTargetToSortList](../a/addTargetToSortList.md)
 
 ## Notes and Other Information
 - Similar to op_mergejoinable but focuses on hash join capability rather than merge join capability

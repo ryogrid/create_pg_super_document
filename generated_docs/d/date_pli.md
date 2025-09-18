@@ -28,8 +28,8 @@ Special handling is provided for infinite date values - when the input date is i
   - `DATE_NOT_FINITE` - Macro to test if date is infinite
   - `IS_VALID_DATE` - Macro to validate date is within allowed range
   - `ereport` - PostgreSQL error reporting function
-  - `errcode` - Error code specification macro
-  - `errmsg` - Error message specification macro
+  - `[errcode](../e/errcode.md)` - Error code specification macro
+  - `[errmsg](../e/errmsg.md)` - Error message specification macro
   - `PG_RETURN_DATEADT` - Macro to return a DateADT result
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL operator interface)

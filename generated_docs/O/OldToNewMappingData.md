@@ -23,9 +23,9 @@ OldToNewMappingData structures are stored in hash tables and are used to resolve
 ## Dependencies
 - Functions called/Symbols referenced:
   - TidHashKey (hash key structure for tuple identification)
-  - ItemPointerData (tuple identifier structure)
+  - [ItemPointerData](../I/ItemPointerData.md) (tuple identifier structure)
 - Called from (representative examples):
-  - begin_heap_rewrite (where old-to-new mapping tracking is initialized)
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md) (where old-to-new mapping tracking is initialized)
 
 ## Notes and Other Information
 - This structure is the complement to UnresolvedTupData in the heap rewriting system

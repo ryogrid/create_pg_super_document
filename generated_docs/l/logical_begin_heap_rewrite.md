@@ -24,11 +24,11 @@ When enabled, it sets up the RewriteState with logical rewrite parameters and cr
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationIsAccessibleInLogicalDecoding
-  - ProcArrayGetReplicationSlotXmin
-  - GetXLogInsertRecPtr
-  - hash_create
+  - [ProcArrayGetReplicationSlotXmin](../P/ProcArrayGetReplicationSlotXmin.md)
+  - [GetXLogInsertRecPtr](../G/GetXLogInsertRecPtr.md)
+  - [hash_create](../h/hash_create.md)
 - Called from (representative examples):
-  - begin_heap_rewrite
+  - [begin_heap_rewrite](../b/begin_heap_rewrite.md)
 
 ## Notes and Other Information
 - This is a static function internal to the rewriteheap.c module

@@ -20,15 +20,15 @@ The function returns an integer indicating whether the value at the specified me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGis_noind_null
+  - [ECPGis_noind_null](../E/ECPGis_noind_null.md)
 - Called from (representative examples):
-  - deccall3
-  - deccvasc
-  - deccvdbl
-  - deccvint
-  - deccvlong
-  - dectoasc
-  - test_null (in test cases)
+  - [deccall3](../d/deccall3.md)
+  - [deccvasc](../d/deccvasc.md)
+  - [deccvdbl](../d/deccvdbl.md)
+  - [deccvint](../d/deccvint.md)
+  - [deccvlong](../d/deccvlong.md)
+  - [dectoasc](../d/dectoasc.md)
+  - [test_null](../t/test_null.md) (in test cases)
   - Various merge join functions in the PostgreSQL executor
   - Various test functions in the ECPG test suite
 

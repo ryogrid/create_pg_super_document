@@ -32,20 +32,20 @@ The structure is allocated in the current transaction's memory context and exist
 ## Dependencies
 - Functions called/Symbols referenced:
   - CmdType (enum for command types)
-  - AfterTriggerEventList (structure for event lists)
+  - [AfterTriggerEventList](AfterTriggerEventList.md) (structure for event lists)
   - Tuplestorestate (tuplestore management)
   - TupleTableSlot (tuple slot management)
-  - GetAfterTriggersTableData (factory function)
-  - GetAfterTriggersStoreSlot (slot accessor)
-  - GetAfterTriggersTransitionTable (transition table accessor)
-  - TransitionTableAddTuple (tuple addition to transition tables)
+  - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md) (factory function)
+  - [GetAfterTriggersStoreSlot](../G/GetAfterTriggersStoreSlot.md) (slot accessor)
+  - [GetAfterTriggersTransitionTable](../G/GetAfterTriggersTransitionTable.md) (transition table accessor)
+  - [TransitionTableAddTuple](../T/TransitionTableAddTuple.md) (tuple addition to transition tables)
 
 - Called from (representative examples):
-  - GetAfterTriggersTableData (factory/lookup function)
-  - afterTriggerInvokeEvents (trigger execution)
-  - MakeTransitionCaptureState (transition table setup)
-  - TransitionTableAddTuple (tuple storage)
-  - AfterTriggerFreeQuery (cleanup)
+  - [GetAfterTriggersTableData](../G/GetAfterTriggersTableData.md) (factory/lookup function)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md) (trigger execution)
+  - [MakeTransitionCaptureState](../M/MakeTransitionCaptureState.md) (transition table setup)
+  - [TransitionTableAddTuple](../T/TransitionTableAddTuple.md) (tuple storage)
+  - [AfterTriggerFreeQuery](AfterTriggerFreeQuery.md) (cleanup)
 
 ## Notes and Other Information
 - The structure is designed to handle PostgreSQL's MERGE statement which can perform multiple DML operations in a single statement, requiring separate transition tables for each operation type

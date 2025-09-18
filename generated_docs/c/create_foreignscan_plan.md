@@ -20,17 +20,17 @@ This function is responsible for creating a ForeignScan execution plan node from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_plan_recurse
+  - [create_plan_recurse](create_plan_recurse.md)
   - planner_rt_fetch
-  - order_qual_clauses
-  - copy_generic_path_info
-  - bms_difference
-  - replace_nestloop_params
-  - pull_varattnos
-  - bms_is_member
-  - bms_free
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [bms_difference](../b/bms_difference.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [pull_varattnos](../p/pull_varattnos.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_free](../b/bms_free.md)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - The function delegates actual plan generation to the FDW's GetForeignPlan callback, allowing FDWs to customize their execution strategy

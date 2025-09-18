@@ -22,7 +22,7 @@ This function implements the "less than" operator for the tid (tuple identifier)
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ITEMPOINTER (extracts ItemPointer from function arguments)
-  - ItemPointerCompare (performs the actual comparison between ItemPointers)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md) (performs the actual comparison between ItemPointers)
   - PG_RETURN_BOOL (returns boolean result)
 
 - Called from (representative examples):

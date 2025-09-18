@@ -31,11 +31,11 @@ The operation involves up to 6 backup blocks:
 - Functions called/Symbols referenced:
   - BlockNumber (type)
   - uint16 (type)
-  - bool (type)
+  - [bool](../b/bool.md) (type)
 - Called from (representative examples):
-  - hash_xlog_squeeze_page (WAL replay function)
-  - _hash_freeovflpage (hash overflow page freeing function)
-  - hash_desc (hash WAL record description function)
+  - [hash_xlog_squeeze_page](../h/hash_xlog_squeeze_page.md) (WAL replay function)
+  - [_hash_freeovflpage](../h/_hash_freeovflpage.md) (hash overflow page freeing function)
+  - [hash_desc](../h/hash_desc.md) (hash WAL record description function)
   - SizeOfHashSqueezePage (macro for calculating structure size)
 
 ## Notes and Other Information

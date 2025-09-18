@@ -24,13 +24,13 @@ Note that the function currently only compares base datatypes and does not consi
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head (to get the first element of colTypes list)
-  - lnext (to advance through colTypes list)
+  - [lnext](../l/lnext.md) (to advance through colTypes list)
   - exprType (to get the datatype of an expression)
   - lfirst_oid (to extract Oid from list cell)
-  - TargetEntry (struct type)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
 - Called from (representative examples):
-  - is_simple_union_all_recurse
-  - recurse_set_operations
+  - [is_simple_union_all_recurse](../i/is_simple_union_all_recurse.md)
+  - [recurse_set_operations](../r/recurse_set_operations.md)
 
 ## Notes and Other Information
 - Returns false if the target list is longer or shorter than the expected column types list

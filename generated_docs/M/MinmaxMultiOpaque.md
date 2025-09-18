@@ -22,9 +22,9 @@ MinmaxMultiOpaque serves as a cache structure for the BRIN minmax-multi operator
   - MINMAX_MAX_PROCNUMS (value: 1)
   - BTMaxStrategyNumber (value: 5)
 - Used by functions:
-  - brin_minmax_multi_opcinfo
-  - minmax_multi_get_procinfo  
-  - minmax_multi_get_strategy_procinfo
+  - [brin_minmax_multi_opcinfo](../b/brin_minmax_multi_opcinfo.md)
+  - [minmax_multi_get_procinfo](../m/minmax_multi_get_procinfo.md)  
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
 
 ## Notes and Other Information
 - This is an internal structure specific to the BRIN minmax-multi access method

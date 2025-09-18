@@ -20,12 +20,12 @@ The function extracts the operation code from the WAL record and uses a switch s
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo (extracts info from WAL record)
-  - heap_xlog_insert (handles INSERT operations)
-  - heap_xlog_delete (handles DELETE operations) 
-  - heap_xlog_update (handles UPDATE and HOT_UPDATE operations)
-  - heap_xlog_confirm (handles CONFIRM operations)
-  - heap_xlog_lock (handles LOCK operations)
-  - heap_xlog_inplace (handles in-place UPDATE operations)
+  - [heap_xlog_insert](heap_xlog_insert.md) (handles INSERT operations)
+  - [heap_xlog_delete](heap_xlog_delete.md) (handles DELETE operations) 
+  - [heap_xlog_update](heap_xlog_update.md) (handles UPDATE and HOT_UPDATE operations)
+  - [heap_xlog_confirm](heap_xlog_confirm.md) (handles CONFIRM operations)
+  - [heap_xlog_lock](heap_xlog_lock.md) (handles LOCK operations)
+  - [heap_xlog_inplace](heap_xlog_inplace.md) (handles in-place UPDATE operations)
 - Called from:
   - WAL replay infrastructure (not directly referenced by other functions)
 

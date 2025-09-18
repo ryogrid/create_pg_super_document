@@ -25,17 +25,17 @@ The function uses Simple-8b encoding to compress sequences of integers relative 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_new_leaf_node
-  - simple8b_encode
-  - intset_update_upper
-  - intset_leaf_node
-  - intset_node
-  - leaf_item
+  - [intset_new_leaf_node](intset_new_leaf_node.md)
+  - [simple8b_encode](../s/simple8b_encode.md)
+  - [intset_update_upper](intset_update_upper.md)
+  - [intset_leaf_node](intset_leaf_node.md)
+  - [intset_node](intset_node.md)
+  - [leaf_item](../l/leaf_item.md)
   - MAX_VALUES_PER_LEAF_ITEM
   - MAX_LEAF_ITEMS
 - Called from (representative examples):
-  - intset_add_member
-  - IntegerSet (during finalization)
+  - [intset_add_member](intset_add_member.md)
+  - [IntegerSet](../I/IntegerSet.md) (during finalization)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the integerset.c file

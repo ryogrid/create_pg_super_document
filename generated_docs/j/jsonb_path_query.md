@@ -23,7 +23,7 @@ The function serves as the entry point for the `jsonb_path_query` SQL function a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jsonb_path_query_internal
+  - [jsonb_path_query_internal](jsonb_path_query_internal.md)
 - Called from (representative examples):
   - SQL function calls through PostgreSQL's function manager
 

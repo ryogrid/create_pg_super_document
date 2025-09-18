@@ -19,18 +19,18 @@ The function acquires locks to prevent concurrent truncation and reads shared me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_multixact_start
+  - [find_multixact_start](../f/find_multixact_start.md)
   - LWLockAcquire
   - LWLockRelease
   - ereport
-  - errmsg_internal
-  - errmsg
+  - [errmsg_internal](../e/errmsg_internal.md)
+  - [errmsg](../e/errmsg.md)
   - MULTIXACT_MEMBERS_PER_PAGE
   - SLRU_PAGES_PER_SEGMENT
   - MULTIXACT_MEMBER_SAFE_THRESHOLD
 - Called from (representative examples):
   - debug_elog6 (src/backend/access/transam/multixact.c:413)
-  - SetMultiXactIdLimit (src/backend/access/transam/multixact.c:2440)
+  - [SetMultiXactIdLimit](SetMultiXactIdLimit.md) (src/backend/access/transam/multixact.c:2440)
 
 ## Notes and Other Information
 - Returns true if emergency autovacuum is required, false otherwise

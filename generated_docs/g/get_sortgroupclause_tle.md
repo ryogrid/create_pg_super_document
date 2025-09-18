@@ -18,15 +18,15 @@ This function serves as a convenience wrapper around get_sortgroupref_tle(). It 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_sortgroupref_tle
+  - [get_sortgroupref_tle](get_sortgroupref_tle.md)
   - SortGroupClause (structure type)
 - Called from (representative examples):
-  - build_pertrans_for_aggref
-  - query_is_distinct_for
-  - create_groupingsets_plan
-  - create_windowagg_plan
-  - make_sort_from_sortclauses
-  - get_sortgroupclause_expr
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md)
+  - [query_is_distinct_for](../q/query_is_distinct_for.md)
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md)
+  - [create_windowagg_plan](../c/create_windowagg_plan.md)
+  - [make_sort_from_sortclauses](../m/make_sort_from_sortclauses.md)
+  - [get_sortgroupclause_expr](get_sortgroupclause_expr.md)
 
 ## Notes and Other Information
 This function is a simple wrapper that provides a more convenient interface when working with SortGroupClause structures. It's widely used throughout the PostgreSQL optimizer and executor for operations involving sorting and grouping.

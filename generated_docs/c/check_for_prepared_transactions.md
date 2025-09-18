@@ -21,16 +21,16 @@ The function connects to the template1 database and queries the pg_catalog.pg_pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer - Establishes connection to the specified cluster
-  - prep_status - Updates status display for the current check operation  
-  - executeQueryOrDie - Executes the prepared transaction query with error handling
-  - PQclear - Releases PostgreSQL result set memory
-  - PQfinish - Closes the database connection
-  - check_ok - Marks the validation step as successful
-  - pg_fatal - Terminates upgrade with fatal error message
+  - [connectToServer](connectToServer.md) - Establishes connection to the specified cluster
+  - [prep_status](../p/prep_status.md) - Updates status display for the current check operation  
+  - [executeQueryOrDie](../e/executeQueryOrDie.md) - Executes the prepared transaction query with error handling
+  - [PQclear](../P/PQclear.md) - Releases PostgreSQL result set memory
+  - [PQfinish](../P/PQfinish.md) - Closes the database connection
+  - [check_ok](check_ok.md) - Marks the validation step as successful
+  - [pg_fatal](../p/pg_fatal.md) - Terminates upgrade with fatal error message
 - Called from (representative examples):
-  - check_and_dump_old_cluster - Part of old cluster validation sequence
-  - check_new_cluster - Part of new cluster validation sequence
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md) - Part of old cluster validation sequence
+  - [check_new_cluster](check_new_cluster.md) - Part of new cluster validation sequence
 
 ## Notes and Other Information
 - This is a static function within the pg_upgrade check.c module, indicating it's only used internally within that compilation unit

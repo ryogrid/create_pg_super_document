@@ -34,7 +34,7 @@ The caching strategy is designed to perform well for queries that access large n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexInfoFindDataOffset
+  - [IndexInfoFindDataOffset](../I/IndexInfoFindDataOffset.md)
   - IndexTupleHasNulls
   - IndexTupleHasVarwidths
   - fetchatt
@@ -44,9 +44,9 @@ The caching strategy is designed to perform well for queries that access large n
   - att_addlength_pointer
 - Data types used:
   - bits8 (for null bitmap navigation)
-  - IndexTupleData
+  - [IndexTupleData](../I/IndexTupleData.md)
 - Called from:
-  - index_getattr macro (src/include/access/itup.h:134, 144)
+  - [index_getattr](../i/index_getattr.md) macro (src/include/access/itup.h:134, 144)
 
 ## Notes and Other Information
 - Located in src/backend/access/common/indextuple.c:241-455
@@ -54,6 +54,6 @@ The caching strategy is designed to perform well for queries that access large n
 - Handles three distinct cases based on the presence of nulls and variable-width attributes before the target attribute
 - The null bitmap is located immediately after the IndexTupleData header
 - For fixed-width columns without preceding nulls or variable-width attributes, the function pre-calculates and caches offsets for all leading columns
-- Variable-length attribute handling includes proper alignment considerations
+- [Variable](../V/Variable.md)-length attribute handling includes proper alignment considerations
 - The caching mechanism improves performance significantly for repeated access to the same attributes across multiple tuples
 - Comment indicates this approach was designed by "cim 5/4/91" as a performance optimization

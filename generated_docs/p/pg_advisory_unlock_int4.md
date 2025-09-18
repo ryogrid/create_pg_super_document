@@ -22,7 +22,7 @@ This function releases a session-scoped exclusive advisory lock identified by a 
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (to extract function arguments)
   - SET_LOCKTAG_INT32 (to construct lock tag from the two keys)
-  - LockRelease (to release the exclusive lock)
+  - [LockRelease](../L/LockRelease.md) (to release the exclusive lock)
   - PG_RETURN_BOOL (to return boolean result)
 - Types used:
   - LOCKTAG (lock identifier structure)

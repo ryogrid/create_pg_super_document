@@ -29,8 +29,8 @@ TSConfigInfo is part of pg_dump's internal representation of PostgreSQL database
   - DumpableObject (base structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getTSConfigurations (populates TSConfigInfo structures from pg_ts_config catalog)
-  - dumpTSConfig (uses TSConfigInfo to generate CREATE TEXT SEARCH CONFIGURATION statements)
+  - [getTSConfigurations](../g/getTSConfigurations.md) (populates TSConfigInfo structures from pg_ts_config catalog)
+  - [dumpTSConfig](../d/dumpTSConfig.md) (uses TSConfigInfo to generate CREATE TEXT SEARCH CONFIGURATION statements)
   - fmtQualifiedDumpable (formats the configuration name for output)
 
 ## Notes and Other Information

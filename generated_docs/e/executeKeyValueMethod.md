@@ -22,19 +22,19 @@ The `executeKeyValueMethod` function implements the .keyvalue() method for JSON 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbType: Get type of JsonbValue
+  - [JsonbType](../J/JsonbType.md): Get type of JsonbValue
   - JsonContainerSize: Get number of elements in JSON container
-  - jspGetNext: Get next item in JSON path
-  - JsonbIteratorInit/JsonbIteratorNext: Iterate through JSON object pairs
-  - pushJsonbValue: Build JSON objects programmatically
-  - JsonbValueToJsonb: Convert JsonbValue to Jsonb format
-  - JsonbInitBinary: Initialize binary JsonbValue
-  - int64_to_numeric: Convert integer to PostgreSQL numeric type
-  - setBaseObject: Set base object context for ID generation
-  - executeNextItem: Continue JSON path evaluation
-  - jspOperationName: Get operation name for error messages
+  - [jspGetNext](../j/jspGetNext.md): Get next item in JSON path
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)/JsonbIteratorNext: Iterate through JSON object pairs
+  - [pushJsonbValue](../p/pushJsonbValue.md): Build JSON objects programmatically
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md): Convert JsonbValue to Jsonb format
+  - [JsonbInitBinary](../J/JsonbInitBinary.md): Initialize binary JsonbValue
+  - [int64_to_numeric](../i/int64_to_numeric.md): Convert integer to PostgreSQL numeric type
+  - [setBaseObject](../s/setBaseObject.md): Set base object context for ID generation
+  - [executeNextItem](executeNextItem.md): Continue JSON path evaluation
+  - [jspOperationName](../j/jspOperationName.md): Get operation name for error messages
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget: Main item execution dispatcher
+  - [executeItemOptUnwrapTarget](executeItemOptUnwrapTarget.md): Main item execution dispatcher
   - RETURN_ERROR: Error handling macro
 
 ## Notes and Other Information

@@ -26,14 +26,14 @@ The function specifically handles multi-object loops (as opposed to simple view-
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency (removes existing dependency relationships)
-  - addObjectDependency (establishes new dependency relationships)
+  - [removeObjectDependency](removeObjectDependency.md) (removes existing dependency relationships)
+  - [addObjectDependency](../a/addObjectDependency.md) (establishes new dependency relationships)
   - postDataBoundId (global variable marking post-data phase boundary)
   - DumpableObject (base structure for dumpable database objects)
-  - TableInfo (structure containing view-specific information)
-  - RuleInfo (structure containing rule-specific information)
+  - [TableInfo](../T/TableInfo.md) (structure containing view-specific information)
+  - [RuleInfo](../R/RuleInfo.md) (structure containing rule-specific information)
 - Called from:
-  - repairDependencyLoop (main dependency loop repair dispatcher)
+  - [repairDependencyLoop](repairDependencyLoop.md) (main dependency loop repair dispatcher)
 
 ## Notes and Other Information
 - This approach does NOT work for materialized views (matviews) as noted in the comments

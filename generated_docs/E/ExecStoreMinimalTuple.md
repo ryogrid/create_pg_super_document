@@ -25,15 +25,15 @@ The function includes a runtime check to ensure the slot is actually a minimal t
 - Functions called/Symbols referenced:
   - MinimalTuple (type)
   - TTS_IS_MINIMALTUPLE (macro for type checking)
-  - tts_minimal_store_tuple (low-level storage function)
+  - [tts_minimal_store_tuple](../t/tts_minimal_store_tuple.md) (low-level storage function)
 - Called from (representative examples):
   - TupleHashTableHash_internal
-  - TupleHashTableMatch
-  - agg_refill_hash_table
-  - gather_getnext
-  - ExecScanHashBucket
-  - tuplesort_gettupleslot
-  - tuplestore_gettupleslot
+  - [TupleHashTableMatch](../T/TupleHashTableMatch.md)
+  - [agg_refill_hash_table](../a/agg_refill_hash_table.md)
+  - [gather_getnext](../g/gather_getnext.md)
+  - [ExecScanHashBucket](ExecScanHashBucket.md)
+  - [tuplesort_gettupleslot](../t/tuplesort_gettupleslot.md)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md)
 
 ## Notes and Other Information
 - This function is optimized for performance when the slot type is guaranteed to be TTSOpsMinimalTuple

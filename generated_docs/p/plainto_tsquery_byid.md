@@ -23,14 +23,14 @@ The function uses the P_TSQ_PLAIN flag during parsing, which instructs the parse
 ## Dependencies
 - Functions called/Symbols referenced:
   - TSQuery (return type)
-  - MorphOpaque (data structure for morphological operations)
+  - [MorphOpaque](../M/MorphOpaque.md) (data structure for morphological operations)
   - OP_AND (operator constant)
-  - parse_tsquery (core parsing function)
+  - [parse_tsquery](parse_tsquery.md) (core parsing function)
   - text_to_cstring (text conversion utility)
-  - pushval_morph (morphological processing callback)
+  - [pushval_morph](pushval_morph.md) (morphological processing callback)
   - P_TSQ_PLAIN (parsing flag constant)
 - Called from (representative examples):
-  - plainto_tsquery
+  - [plainto_tsquery](plainto_tsquery.md)
 
 ## Notes and Other Information
 - This is a PostgreSQL internal function (Datum-returning) designed to be called through the SQL function interface

@@ -25,17 +25,17 @@ The function uses heap_form_tuple to construct the tuple from arrays of values a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - Various Datum conversion functions (ObjectIdGetDatum, NameGetDatum, Int32GetDatum, etc.)
 - Called from (representative examples):
-  - AddNewRelationTuple
+  - [AddNewRelationTuple](../A/AddNewRelationTuple.md)
   - index_create
 
 ## Notes and Other Information
 - The caller must have already opened and locked the pg_class relation before calling this function
 - The relpartbound field is always set to NULL initially and updated separately if needed for partitioned tables
-- Variable-width fields (relacl, reloptions) are handled specially since they're not present in cached relation descriptors
+- [Variable](../V/Variable.md)-width fields (relacl, reloptions) are handled specially since they're not present in cached relation descriptors
 - The function assumes all fixed-width relation metadata is available in the new_rel_desc->rd_rel structure
 - Memory management is handled automatically - the function allocates and frees the tuple as needed

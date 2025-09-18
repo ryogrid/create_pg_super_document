@@ -22,8 +22,8 @@ This function is part of the ECPG compatibility layer for Oracle, specifically u
   - fprintf (standard C library function)
   - stderr (standard error stream)
 - Called from (representative examples):
-  - main (in src/interfaces/ecpg/test/expected/compat_oracle-char_array.c at multiple lines)
-  - main (in src/interfaces/ecpg/test/expected/preproc-whenever.c at multiple lines)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/compat_oracle-char_array.c at multiple lines)
+  - [main](../m/main.md) (in src/interfaces/ecpg/test/expected/preproc-whenever.c at multiple lines)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the same translation unit

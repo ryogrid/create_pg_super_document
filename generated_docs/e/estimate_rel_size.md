@@ -32,15 +32,15 @@ When statistical data is unavailable (e.g., never vacuumed), the function estima
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_relation_estimate_size
+  - [table_relation_estimate_size](../t/table_relation_estimate_size.md)
   - RelationGetNumberOfBlocks
-  - get_rel_data_width
+  - [get_rel_data_width](../g/get_rel_data_width.md)
   - MAXALIGN, rint
   - RELKIND_HAS_TABLE_AM, RELKIND_INDEX
 - Called from (representative examples):
-  - get_relation_info
-  - hashbuild
-  - plan_create_index_workers
+  - [get_relation_info](../g/get_relation_info.md)
+  - [hashbuild](../h/hashbuild.md)
+  - [plan_create_index_workers](../p/plan_create_index_workers.md)
 
 ## Notes and Other Information
 - Handles metapage discounting for index size estimation (works for btree, hash, GIN; suspect for GiST)

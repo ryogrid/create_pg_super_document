@@ -28,15 +28,15 @@ The function performs several key operations:
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
   - PG_GETARG_BOOL
-  - get_backup_status
+  - [get_backup_status](../g/get_backup_status.md)
   - text_to_cstring
   - AllocSetContextCreate
-  - MemoryContextReset
-  - MemoryContextSwitchTo
-  - palloc0
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc0](palloc0.md)
   - makeStringInfo
-  - register_persistent_abort_backup_handler
-  - do_pg_backup_start
+  - [register_persistent_abort_backup_handler](../r/register_persistent_abort_backup_handler.md)
+  - [do_pg_backup_start](../d/do_pg_backup_start.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct callers found (SQL function interface)

@@ -31,9 +31,9 @@ The scanner maintains a simple state machine to handle comment parsing correctly
   - getc (standard C library)
   - isspace (standard C library)
   - printf (standard C library, when verbose mode is enabled)
-  - set_option (processes each parsed option string)
+  - [set_option](set_option.md) (processes each parsed option string)
 - Called from (representative examples):
-  - set_profile (src/tools/pg_bsd_indent/args.c:187, 191)
+  - [set_profile](set_profile.md) (src/tools/pg_bsd_indent/args.c:187, 191)
 
 ## Notes and Other Information
 - Uses a BUFSIZ-sized buffer to accumulate option strings

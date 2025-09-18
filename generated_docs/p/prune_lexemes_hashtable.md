@@ -18,15 +18,15 @@ This function implements the pruning phase of the Lossy Counting algorithm used 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB
+  - [HTAB](../H/HTAB.md)
   - HASH_SEQ_STATUS
-  - TrackItem
-  - hash_seq_init
-  - hash_seq_search
-  - hash_search
+  - [TrackItem](../T/TrackItem.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_search](../h/hash_search.md)
   - HASH_REMOVE
 - Called from (representative examples):
-  - compute_tsvector_stats
+  - [compute_tsvector_stats](../c/compute_tsvector_stats.md)
 
 ## Notes and Other Information
 - Part of the Lossy Counting algorithm's D structure maintenance

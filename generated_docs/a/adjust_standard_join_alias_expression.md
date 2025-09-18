@@ -38,18 +38,18 @@ The function is designed to be called only after is_standard_join_alias_expressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_add_members (for merging nullingrels bitmaps)
-  - PlaceHolderVar, FuncExpr, RelabelType
+  - [bms_add_members](../b/bms_add_members.md) (for merging nullingrels bitmaps)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md), FuncExpr, RelabelType
   - CoerceViaIO, ArrayCoerceExpr, CoalesceExpr
   - linitial (for accessing first arguments)
   - Recursive calls to adjust_standard_join_alias_expression
 - Called from (representative examples):
-  - add_nullingrels_if_needed (when direct integration is possible)
+  - [add_nullingrels_if_needed](add_nullingrels_if_needed.md) (when direct integration is possible)
 
 ## Notes and Other Information
 - The function assumes proper prior validation by is_standard_join_alias_expression
 - Uses bms_add_members rather than assignment to preserve existing nullingrels information
-- Query level matching ensures that only appropriate Vars and PlaceHolderVars are modified
+- [Query](../Q/Query.md) level matching ensures that only appropriate Vars and PlaceHolderVars are modified
 - The Assert(false) at the end serves as a safety net for unexpected node types
 - Coercion expressions are handled transparently since they don't affect null semantics
 - COALESCE processing applies nullingrels to all arguments since any of them might contribute to the final result

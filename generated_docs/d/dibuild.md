@@ -21,11 +21,11 @@ This function is a minimal implementation of an index build routine for PostgreS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
-  - IndexBuildResult (result structure type)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [IndexBuildResult](../I/IndexBuildResult.md) (result structure type)
   - IndexInfo (index information structure type)
 - Called from (representative examples):
-  - dihandler (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:304)
+  - [dihandler](dihandler.md) (dummy index access method handler at src/test/modules/dummy_index_am/dummy_index_am.c:304)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's test infrastructure for the dummy index access method

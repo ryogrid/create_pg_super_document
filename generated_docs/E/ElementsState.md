@@ -25,14 +25,14 @@ ElementsState serves as a context structure for PostgreSQL's JSON array elements
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
   - Tuplestorestate
 - Called from (representative examples):
-  - elements_worker
-  - elements_array_element_start
-  - elements_array_element_end
-  - elements_object_start
-  - elements_scalar
+  - [elements_worker](../e/elements_worker.md)
+  - [elements_array_element_start](../e/elements_array_element_start.md)
+  - [elements_array_element_end](../e/elements_array_element_end.md)
+  - [elements_object_start](../e/elements_object_start.md)
+  - [elements_scalar](../e/elements_scalar.md)
 
 ## Notes and Other Information
 This structure is specifically designed for the json_array_elements family of functions in PostgreSQL, which allow users to extract individual elements from JSON arrays in a tabular format. Unlike EachState which handles key-value pairs from objects, ElementsState focuses on extracting sequential elements from arrays. The function_name field is particularly useful for providing context-specific error messages during processing.

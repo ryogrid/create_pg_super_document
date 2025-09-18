@@ -34,13 +34,13 @@ The ranges are stored as pairs of values in the values array, where each range o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - minmax_multi_get_strategy_procinfo (to get comparison functions)
-  - FunctionCall2Coll (for performing value comparisons)
-  - DatumGetBool (to extract boolean results)
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md) (to get comparison functions)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (for performing value comparisons)
+  - [DatumGetBool](../D/DatumGetBool.md) (to extract boolean results)
   - BTLessStrategyNumber (comparison strategy constant)
   - BTGreaterStrategyNumber (comparison strategy constant)
 - Called from (representative examples):
-  - range_contains_value (used for value containment checks)
+  - [range_contains_value](../r/range_contains_value.md) (used for value containment checks)
 
 ## Notes and Other Information
 - Returns true if the value falls within any existing range, false otherwise

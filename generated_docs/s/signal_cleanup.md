@@ -23,7 +23,7 @@ The signal_cleanup function serves as a signal handler for pg_test_fsync utility
   - STDOUT_FILENO (standard output file descriptor)
 - Called from (representative examples):
   - STOP_TIMER macro (multiple locations)
-  - main function (signal handler registration)
+  - [main](../m/main.md) function (signal handler registration)
 
 ## Notes and Other Information
 - Uses global variables  and  to determine cleanup actions

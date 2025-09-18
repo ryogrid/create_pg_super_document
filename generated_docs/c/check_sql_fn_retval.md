@@ -35,15 +35,15 @@ The function returns a boolean indicating whether the result is a complete tuple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCleanTargetListLength (counts non-junk target list entries)
-  - get_typtype (determines type category)
-  - coerce_fn_result_column (handles individual column coercion)
-  - makeConst, makeTargetEntry, makeAlias, makeFromExpr (AST construction)
-  - format_type_be (error message formatting)
+  - [ExecCleanTargetListLength](../E/ExecCleanTargetListLength.md) (counts non-junk target list entries)
+  - [get_typtype](../g/get_typtype.md) (determines type category)
+  - [coerce_fn_result_column](coerce_fn_result_column.md) (handles individual column coercion)
+  - [makeConst](../m/makeConst.md), makeTargetEntry, makeAlias, makeFromExpr (AST construction)
+  - [format_type_be](../f/format_type_be.md) (error message formatting)
 - Called from (representative examples):
-  - fmgr_sql_validator (during function creation/validation)
-  - init_sql_fcache (during function cache initialization)
-  - inline_function, inline_set_returning_function (query optimization)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md) (during function creation/validation)
+  - [init_sql_fcache](../i/init_sql_fcache.md) (during function cache initialization)
+  - [inline_function](../i/inline_function.md), inline_set_returning_function (query optimization)
 
 ## Notes and Other Information
 - Handles both scalar and composite return types with different validation strategies

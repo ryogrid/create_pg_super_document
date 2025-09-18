@@ -23,21 +23,21 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_signal_initialize (Windows signal handling)
+  - [pgwin32_signal_initialize](../p/pgwin32_signal_initialize.md) (Windows signal handling)
   - set_stack_base (stack depth checking setup)
-  - InitProcessGlobals (global process state)
-  - on_exit_reset (clear parent's exit handlers)
-  - pqinitmask (signal mask initialization for EXEC_BACKEND)
+  - [InitProcessGlobals](InitProcessGlobals.md) (global process state)
+  - [on_exit_reset](../o/on_exit_reset.md) (clear parent's exit handlers)
+  - [pqinitmask](../p/pqinitmask.md) (signal mask initialization for EXEC_BACKEND)
   - InitializeLatchSupport (latch infrastructure)
-  - InitProcessLocalLatch (process-local latch)
+  - [InitProcessLocalLatch](InitProcessLocalLatch.md) (process-local latch)
   - InitializeLatchWaitSet (wait event infrastructure)
-  - pqsignal (signal handler setup)
-  - SignalHandlerForCrashExit (crash signal handler)
+  - [pqsignal](../p/pqsignal.md) (signal handler setup)
+  - [SignalHandlerForCrashExit](../S/SignalHandlerForCrashExit.md) (crash signal handler)
   - PostmasterDeathSignalInit (postmaster monitoring)
 
 - Called from (representative examples):
-  - postmaster_child_launch
-  - SubPostmasterMain
+  - [postmaster_child_launch](../p/postmaster_child_launch.md)
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
 
 ## Notes and Other Information
 - Must be called after read_backend_variables() on EXEC_BACKEND builds

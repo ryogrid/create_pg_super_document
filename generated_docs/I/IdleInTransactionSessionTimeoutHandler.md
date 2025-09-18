@@ -26,9 +26,9 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch (for process wake-up signaling)
+  - [SetLatch](../S/SetLatch.md) (for process wake-up signaling)
 - Called from (representative examples):
-  - InitPostgres (src/backend/utils/init/postinit.c:776)
+  - [InitPostgres](InitPostgres.md) (src/backend/utils/init/postinit.c:776)
 
 ## Notes and Other Information
 - Uses deferred handling through flags rather than immediate termination

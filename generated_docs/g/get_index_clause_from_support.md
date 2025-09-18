@@ -24,14 +24,14 @@ The function initializes a support request structure with query context, functio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_func_support
+  - [get_func_support](get_func_support.md)
   - OidFunctionCall1
   - make_simple_restrictinfo
   - makeNode
   - lappend
 - Called from (representative examples):
-  - match_opclause_to_indexcol
-  - match_funcclause_to_indexcol
+  - [match_opclause_to_indexcol](../m/match_opclause_to_indexcol.md)
+  - [match_funcclause_to_indexcol](../m/match_funcclause_to_indexcol.md)
 
 ## Notes and Other Information
 - Returns NULL if the function has no planner support or if the support function cannot generate useful index conditions

@@ -31,16 +31,16 @@ The function includes safety assertions to prevent out-of-bounds memory access w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tzset (load timezone from system database)
+  - [pg_tzset](../p/pg_tzset.md) (load timezone from system database)
 - Data structures referenced:
   - DynamicZoneAbbrev (dynamic timezone abbreviation structure)
   - datetkn (timezone token structure)
   - TimeZoneAbbrevTable (timezone abbreviation table)
   - DateTimeErrorExtra (error context structure)
 - Called from (representative examples):
-  - DecodeTimezoneAbbrev (src/backend/utils/adt/datetime.c:3120)
-  - DecodeTimezoneAbbrevPrefix (src/backend/utils/adt/datetime.c:3310)
-  - pg_timezone_abbrevs (src/backend/utils/adt/datetime.c:5071)
+  - [DecodeTimezoneAbbrev](../D/DecodeTimezoneAbbrev.md) (src/backend/utils/adt/datetime.c:3120)
+  - [DecodeTimezoneAbbrevPrefix](../D/DecodeTimezoneAbbrevPrefix.md) (src/backend/utils/adt/datetime.c:3310)
+  - [pg_timezone_abbrevs](../p/pg_timezone_abbrevs.md) (src/backend/utils/adt/datetime.c:5071)
 
 ## Notes and Other Information
 - This is a static helper function, only accessible within datetime.c

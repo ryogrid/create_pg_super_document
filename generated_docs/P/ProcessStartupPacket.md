@@ -19,23 +19,23 @@ ProcessStartupPacket handles the complex process of reading and interpreting Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_startmsgread
-  - pq_getbytes
-  - pq_endmsgread
+  - [pq_startmsgread](../p/pq_startmsgread.md)
+  - [pq_getbytes](../p/pq_getbytes.md)
+  - [pq_endmsgread](../p/pq_endmsgread.md)
   - pg_ntoh32
-  - processCancelRequest
-  - secure_write
-  - secure_open_server (SSL builds)
-  - secure_open_gssapi (GSSAPI builds)
-  - pq_buffer_remaining_data
-  - parse_bool
+  - [processCancelRequest](../p/processCancelRequest.md)
+  - [secure_write](../s/secure_write.md)
+  - [secure_open_server](../s/secure_open_server.md) (SSL builds)
+  - [secure_open_gssapi](../s/secure_open_gssapi.md) (GSSAPI builds)
+  - [pq_buffer_remaining_data](../p/pq_buffer_remaining_data.md)
+  - [parse_bool](../p/parse_bool.md)
   - pg_clean_ascii
-  - SendNegotiateProtocolVersion
-  - pstrdup
+  - [SendNegotiateProtocolVersion](../S/SendNegotiateProtocolVersion.md)
+  - [pstrdup](../p/pstrdup.md)
   - lappend
 - Called from (representative examples):
-  - BackendInitialize
-  - ProcessStartupPacket (recursive for SSL/GSSAPI negotiation)
+  - [BackendInitialize](../B/BackendInitialize.md)
+  - [ProcessStartupPacket](ProcessStartupPacket.md) (recursive for SSL/GSSAPI negotiation)
 
 ## Notes and Other Information
 - Returns STATUS_OK for successful processing, STATUS_ERROR for failures or special cases

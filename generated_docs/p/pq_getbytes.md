@@ -18,11 +18,11 @@ pq_getbytes is designed for reading larger chunks of data from the client connec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_recvbuf
+  - [pq_recvbuf](pq_recvbuf.md)
 - Called from (representative examples):
-  - secure_open_server
+  - [secure_open_server](../s/secure_open_server.md)
   - pq_getmessage
-  - ProcessStartupPacket
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF if unable to read the requested amount of data

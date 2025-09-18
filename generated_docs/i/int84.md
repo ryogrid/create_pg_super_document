@@ -23,7 +23,7 @@ The int84 function implements type conversion from PostgreSQL's 8-byte integer t
   - ereport (function for reporting errors)
   - PG_RETURN_INT32 (macro for returning 32-bit integer result)
 - Called from (representative examples):
-  - int8_to_char (in src/backend/utils/adt/formatting.c:6642)
+  - [int8_to_char](int8_to_char.md) (in src/backend/utils/adt/formatting.c:6642)
 
 ## Notes and Other Information
 - This function performs explicit range checking using PG_INT32_MIN and PG_INT32_MAX constants

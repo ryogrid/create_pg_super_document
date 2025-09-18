@@ -20,17 +20,17 @@ PQfname returns the column name associated with the given field number in a quer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number (for parameter validation)
+  - [check_field_number](../c/check_field_number.md) (for parameter validation)
 - Called from (representative examples):
-  - libpqrcv_processTuples
-  - dumpTableData_insert
-  - readCommandResponse
-  - StoreQueryTuple
-  - DescribeQuery
-  - printCrosstab
-  - printQuery
-  - ECPGget_desc
-  - ecpg_build_compat_sqlda
+  - [libpqrcv_processTuples](../l/libpqrcv_processTuples.md)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md)
+  - [readCommandResponse](../r/readCommandResponse.md)
+  - [StoreQueryTuple](../S/StoreQueryTuple.md)
+  - [DescribeQuery](../D/DescribeQuery.md)
+  - [printCrosstab](../p/printCrosstab.md)
+  - [printQuery](../p/printQuery.md)
+  - [ECPGget_desc](../E/ECPGget_desc.md)
+  - [ecpg_build_compat_sqlda](../e/ecpg_build_compat_sqlda.md)
   - PQprintTuples
 
 ## Notes and Other Information

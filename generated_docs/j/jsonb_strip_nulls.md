@@ -23,10 +23,10 @@ The function handles scalar JSONB values by returning them unchanged since scala
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
   - JB_ROOT_IS_SCALAR
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - JsonbValueToJsonb
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
 - Called from (representative examples):
   - No direct callers found (exposed as SQL function)
 

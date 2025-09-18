@@ -22,10 +22,10 @@ The  structure is used in PostgreSQL's WAL system to record information about Ac
   - TransactionId (type)
   - Oid (type)
 - Called from (representative examples):
-  - LogAccessExclusiveLock (src/backend/storage/ipc/standby.c:1425)
-  - LogAccessExclusiveLocks (src/backend/storage/ipc/standby.c:1405, 1413)
-  - StandbyAcquireAccessExclusiveLock (src/backend/storage/ipc/standby.c:989)
-  - GetRunningTransactionLocks (src/backend/storage/lmgr/lock.c:3990, 4012)
+  - [LogAccessExclusiveLock](../L/LogAccessExclusiveLock.md) (src/backend/storage/ipc/standby.c:1425)
+  - [LogAccessExclusiveLocks](../L/LogAccessExclusiveLocks.md) (src/backend/storage/ipc/standby.c:1405, 1413)
+  - [StandbyAcquireAccessExclusiveLock](../S/StandbyAcquireAccessExclusiveLock.md) (src/backend/storage/ipc/standby.c:989)
+  - [GetRunningTransactionLocks](../G/GetRunningTransactionLocks.md) (src/backend/storage/lmgr/lock.c:3990, 4012)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's hot standby functionality, enabling read-only queries on standby servers

@@ -29,11 +29,11 @@ The function defaults to kilobytes when no suffix is specified, and megabyte val
 - Functions called/Symbols referenced:
   - strtod (standard C library function for string to double conversion)
   - isspace (standard C library function for whitespace checking)
-  - pg_fatal (PostgreSQL error reporting function)
+  - [pg_fatal](pg_fatal.md) (PostgreSQL error reporting function)
   - MAX_RATE_LOWER (minimum acceptable transfer rate constant)
   - MAX_RATE_UPPER (maximum acceptable transfer rate constant)
 - Called from (representative examples):
-  - main (in pg_basebackup.c for processing command-line arguments)
+  - [main](../m/main.md) (in pg_basebackup.c for processing command-line arguments)
 
 ## Notes and Other Information
 - The function is static, having internal linkage within the pg_basebackup.c file

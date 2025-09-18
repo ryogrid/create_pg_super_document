@@ -23,16 +23,16 @@ The function uses the pd_lower field to determine the page format version - newe
 ## Dependencies
 - Functions called/Symbols referenced:
   - GistPageIsDeleted
-  - PageGetContents
+  - [PageGetContents](../P/PageGetContents.md)
   - FullTransactionIdFromEpochAndXid
   - MAXALIGN
   - SizeOfPageHeaderData
-  - GISTDeletedPageContents
+  - [GISTDeletedPageContents](GISTDeletedPageContents.md)
   - PageHeader
   - FirstNormalTransactionId
 - Called from (representative examples):
-  - gistNewBuffer
-  - gistPageRecyclable
+  - [gistNewBuffer](../g/gistNewBuffer.md)
+  - [gistPageRecyclable](../g/gistPageRecyclable.md)
 
 ## Notes and Other Information
 - The function includes an assertion that the page must be marked as deleted

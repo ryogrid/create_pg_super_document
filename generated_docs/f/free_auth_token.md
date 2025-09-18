@@ -25,9 +25,9 @@ Note that the function only explicitly frees the regular expression - the AuthTo
 - Functions called/Symbols referenced:
   - token_has_regexp (checks if the token contains a compiled regular expression)
   - pg_regfree (PostgreSQL's regex cleanup function)
-  - AuthToken (the struct type being processed)
+  - [AuthToken](../A/AuthToken.md) (the struct type being processed)
 - Called from (representative examples):
-  - check_ident_usermap (in src/backend/libpq/hba.c)
+  - [check_ident_usermap](../c/check_ident_usermap.md) (in src/backend/libpq/hba.c)
 
 ## Notes and Other Information
 - This is a static function, only visible within the hba.c file

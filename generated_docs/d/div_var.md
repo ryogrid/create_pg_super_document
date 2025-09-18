@@ -30,26 +30,26 @@ The algorithm estimates quotient digits using the first two dividend digits, adj
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport/ERROR (for division by zero)
-  - div_var_int (for short integer divisors)
-  - div_var_int64 (for 64-bit integer divisors on 128-bit platforms)
-  - zero_var (for zero dividend case)
-  - alloc_var (for result allocation)
-  - round_var (for rounding result)
-  - trunc_var (for truncating result)
-  - strip_var (for removing leading/trailing zeros)
-  - palloc0/pfree (for memory management)
+  - [div_var_int](div_var_int.md) (for short integer divisors)
+  - [div_var_int64](div_var_int64.md) (for 64-bit integer divisors on 128-bit platforms)
+  - [zero_var](../z/zero_var.md) (for zero dividend case)
+  - [alloc_var](../a/alloc_var.md) (for result allocation)
+  - [round_var](../r/round_var.md) (for rounding result)
+  - [trunc_var](../t/trunc_var.md) (for truncating result)
+  - [strip_var](../s/strip_var.md) (for removing leading/trailing zeros)
+  - [palloc0](../p/palloc0.md)/pfree (for memory management)
   - memcpy (for copying digit arrays)
   - NUMERIC_POS/NUMERIC_NEG (sign constants)
   - NBASE/HALF_NBASE (numeric base constants)
   - DEC_DIGITS (digits per NumericDigit)
 - Called from (representative examples):
-  - numeric_div_opt_error
-  - numeric_div_trunc
-  - numeric_lcm
-  - numeric_stddev_internal
-  - mod_var
-  - power_var_int
-  - get_str_from_var_sci
+  - [numeric_div_opt_error](../n/numeric_div_opt_error.md)
+  - [numeric_div_trunc](../n/numeric_div_trunc.md)
+  - [numeric_lcm](../n/numeric_lcm.md)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md)
+  - [mod_var](../m/mod_var.md)
+  - [power_var_int](../p/power_var_int.md)
+  - [get_str_from_var_sci](../g/get_str_from_var_sci.md)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

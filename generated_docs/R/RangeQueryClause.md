@@ -26,11 +26,11 @@ The structure is organized as a linked list, where each node represents a differ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Node (PostgreSQL's base node type)
+  - [Node](../N/Node.md) (PostgreSQL's base node type)
   - Selectivity (PostgreSQL's selectivity type)
 - Called from (representative examples):
-  - clauselist_selectivity_ext (src/backend/optimizer/path/clausesel.c:127, 271)
-  - addRangeClause (src/backend/optimizer/path/clausesel.c:427, 430, 498)
+  - [clauselist_selectivity_ext](../c/clauselist_selectivity_ext.md) (src/backend/optimizer/path/clausesel.c:127, 271)
+  - [addRangeClause](../a/addRangeClause.md) (src/backend/optimizer/path/clausesel.c:427, 430, 498)
 
 ## Notes and Other Information
 - The structure is defined in src/backend/optimizer/path/clausesel.c:31-39

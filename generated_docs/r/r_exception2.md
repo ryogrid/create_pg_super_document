@@ -21,11 +21,11 @@ The function only matches complete words (cursor must be at the beginning of the
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - find_among_b: Searches backwards through the word for matching patterns from the a_9 array
+  - [find_among_b](../f/find_among_b.md): Searches backwards through the word for matching patterns from the a_9 array
   - a_9: Array of 8 exceptional word patterns that should not be stemmed
 - Called from (representative examples):
-  - english_ISO_8859_1_stem: Main English stemming function (called early to catch exceptions)
-  - english_UTF_8_stem: UTF-8 version of English stemming
+  - [english_ISO_8859_1_stem](../e/english_ISO_8859_1_stem.md): Main English stemming function (called early to catch exceptions)
+  - [english_UTF_8_stem](../e/english_UTF_8_stem.md): UTF-8 version of English stemming
 
 ## Notes and Other Information
 - This is part of the exception handling system in the Porter stemming algorithm

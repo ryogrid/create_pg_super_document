@@ -38,15 +38,15 @@ where oi represents element occurrences, fi represents element frequencies, m is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - element_compare
+  - [element_compare](../e/element_compare.md)
   - DEFAULT_CONTAIN_SEL
-  - palloc
+  - [palloc](../p/palloc.md)
   - exp (math function)
-  - calc_distr
-  - calc_hist
+  - [calc_distr](../c/calc_distr.md)
+  - [calc_hist](../c/calc_hist.md)
 - Called from (representative examples):
-  - scalararraysel_containment
-  - mcelem_array_selec
+  - [scalararraysel_containment](../s/scalararraysel_containment.md)
+  - [mcelem_array_selec](mcelem_array_selec.md)
 
 ## Notes and Other Information
 - Requires both MCELEM and DECHIST statistics to function properly; falls back to DEFAULT_CONTAIN_SEL if unavailable

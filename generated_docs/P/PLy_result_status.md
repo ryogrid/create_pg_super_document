@@ -18,7 +18,7 @@ This function is a Python method implementation that provides access to the stat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyResultObject (cast target type)
+  - [PLyResultObject](PLyResultObject.md) (cast target type)
   - Py_INCREF (Python reference count increment)
 - Called from:
   - Exposed as 'status' method on PLython result objects

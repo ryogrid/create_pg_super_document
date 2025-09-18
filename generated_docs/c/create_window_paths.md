@@ -40,12 +40,12 @@ The function always includes the cheapest total path (which may require addition
 ## Dependencies
 - Functions called/Symbols referenced:
   - fetch_upper_rel
-  - is_parallel_safe
-  - pathkeys_count_contained_in
-  - create_one_window_path
-  - set_cheapest
+  - [is_parallel_safe](../i/is_parallel_safe.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_one_window_path](create_one_window_path.md)
+  - [set_cheapest](../s/set_cheapest.md)
 - Called from (representative examples):
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
 
 ## Notes and Other Information
 - All input paths are expected to return data matching the input_target specification

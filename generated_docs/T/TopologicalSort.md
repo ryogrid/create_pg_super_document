@@ -32,15 +32,15 @@ The algorithm ensures that the final arrangement allows each CTE to be evaluated
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty (check if dependency bitmap is empty)
-  - bms_del_member (remove item ID from dependency bitmap)
+  - [bms_del_member](../b/bms_del_member.md) (remove item ID from dependency bitmap)
   - ereport (error reporting)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
-  - parser_errposition (parse location for error reporting)
-  - CteItem (CTE item structure)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [parser_errposition](../p/parser_errposition.md) (parse location for error reporting)
+  - [CteItem](../C/CteItem.md) (CTE item structure)
 
 - Called from:
-  - makeDependencyGraph (main dependency analysis function)
+  - [makeDependencyGraph](../m/makeDependencyGraph.md) (main dependency analysis function)
 
 ## Notes and Other Information
 - The algorithm has O(n²) time complexity in the worst case, which is acceptable for typical numbers of CTEs in a WITH clause

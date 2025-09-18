@@ -19,7 +19,7 @@ This function serves as the SQL-callable interface for retrieving constraint def
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID, PG_RETURN_NULL, PG_RETURN_TEXT_P (PostgreSQL function interface macros)
-  - pg_get_constraintdef_worker (core implementation function that handles constraint definition generation)
+  - [pg_get_constraintdef_worker](pg_get_constraintdef_worker.md) (core implementation function that handles constraint definition generation)
   - string_to_text (converts C string to PostgreSQL text type)
   - PRETTYFLAG_INDENT (formatting constant for indented output)
 - Called from (representative examples):

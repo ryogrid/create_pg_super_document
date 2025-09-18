@@ -27,14 +27,14 @@ This processing is essential for Hungarian morphological analysis since factive 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches for factive patterns from array a_7 containing 'á', 'é')
-  - r_R1 (checks if position is in R1 region)
-  - r_double (detects doubled consonants before the suffix)
-  - slice_del (removes the factive suffix)
-  - r_undouble (removes doubled consonants after suffix removal)
+  - [find_among_b](../f/find_among_b.md) (searches for factive patterns from array a_7 containing 'á', 'é')
+  - [r_R1](r_R1.md) (checks if position is in R1 region)
+  - [r_double](r_double.md) (detects doubled consonants before the suffix)
+  - [slice_del](../s/slice_del.md) (removes the factive suffix)
+  - [r_undouble](r_undouble.md) (removes doubled consonants after suffix removal)
 - Called from (representative examples):
-  - hungarian_ISO_8859_2_stem
-  - hungarian_UTF_8_stem
+  - [hungarian_ISO_8859_2_stem](../h/hungarian_ISO_8859_2_stem.md)
+  - [hungarian_UTF_8_stem](../h/hungarian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - The factive case is a relatively rare case in Hungarian but important for complete morphological coverage

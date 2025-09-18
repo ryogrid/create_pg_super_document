@@ -20,11 +20,11 @@ The serialization order is carefully chosen with element_type first to facilitat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - pq_begintypsend
-  - pq_sendint32
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
   - pq_sendbytes
-  - pq_endtypsend
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):
   - No direct references found (used as aggregate serialize function)

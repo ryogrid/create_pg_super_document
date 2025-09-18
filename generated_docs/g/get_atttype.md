@@ -20,19 +20,19 @@ This function performs a system cache lookup to retrieve the atttypid field from
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2 - performs the system cache lookup using ATTNUM cache
-  - ObjectIdGetDatum - converts relation OID to Datum format
+  - [SearchSysCache2](../S/SearchSysCache2.md) - performs the system cache lookup using ATTNUM cache
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) - converts relation OID to Datum format
   - Int16GetDatum - converts attribute number to Datum format
   - HeapTupleIsValid - checks if the cache lookup returned a valid tuple
   - GETSTRUCT - extracts the Form_pg_attribute structure from the heap tuple
-  - ReleaseSysCache - releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) - releases the system cache entry
   - InvalidOid - constant representing an invalid/non-existent OID
 
 - Called from (representative examples):
-  - GetIndexInputType (access/spgist/spgutils.c:129)
-  - LookupTypeNameExtended (parser/parse_type.c:150)
-  - generateClonedIndexStmt (parser/parse_utilcmd.c:1709)
-  - transformAlterTableStmt (parser/parse_utilcmd.c:3453)
+  - [GetIndexInputType](../G/GetIndexInputType.md) (access/spgist/spgutils.c:129)
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md) (parser/parse_type.c:150)
+  - [generateClonedIndexStmt](generateClonedIndexStmt.md) (parser/parse_utilcmd.c:1709)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md) (parser/parse_utilcmd.c:3453)
 
 ## Notes and Other Information
 - Returns InvalidOid if the attribute doesn't exist or has been dropped, rather than throwing an error

@@ -20,15 +20,15 @@ This function constructs a new Bitmapset with a single bit set at position . It 
   - WORDNUM (macro to calculate word number from bit position)
   - BITNUM (macro to calculate bit position within word)
   - BITMAPSET_SIZE (macro to calculate memory size needed)
-  - palloc0 (PostgreSQL memory allocation function)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation function)
   - elog (error logging function)
   - bitmapword (type for individual bitmap words)
 
 - Called from (representative examples):
-  - bms_add_member
-  - build_base_rel_tlists
-  - transform_MERGE_to_join
-  - get_matching_hash_bounds
+  - [bms_add_member](bms_add_member.md)
+  - [build_base_rel_tlists](build_base_rel_tlists.md)
+  - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md)
+  - [get_matching_hash_bounds](../g/get_matching_hash_bounds.md)
   - examine_simple_variable
 
 ## Notes and Other Information

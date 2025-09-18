@@ -38,15 +38,15 @@ The function uses CaseTestExpr as a creative placeholder mechanism to represent 
   - makeNode
   - exprType
   - exprTypmod
-  - exprCollation  
-  - coerceJsonFuncExpr
+  - [exprCollation](../e/exprCollation.md)  
+  - [coerceJsonFuncExpr](../c/coerceJsonFuncExpr.md)
 - Called from (representative examples):
-  - transformJsonObjectConstructor
-  - transformJsonAggConstructor
-  - transformJsonArrayConstructor
-  - transformJsonParseExpr
-  - transformJsonScalarExpr
-  - transformJsonSerializeExpr
+  - [transformJsonObjectConstructor](../t/transformJsonObjectConstructor.md)
+  - [transformJsonAggConstructor](../t/transformJsonAggConstructor.md)
+  - [transformJsonArrayConstructor](../t/transformJsonArrayConstructor.md)
+  - [transformJsonParseExpr](../t/transformJsonParseExpr.md)
+  - [transformJsonScalarExpr](../t/transformJsonScalarExpr.md)
+  - [transformJsonSerializeExpr](../t/transformJsonSerializeExpr.md)
 
 ## Notes and Other Information
 - This is a static function used internally within PostgreSQL's JSON expression parsing

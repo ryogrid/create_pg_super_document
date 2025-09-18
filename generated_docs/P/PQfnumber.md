@@ -20,7 +20,7 @@ PQfnumber performs a reverse lookup to find the 0-based column number correspond
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_tolower (for case-folding of unquoted characters)
+  - [pg_tolower](../p/pg_tolower.md) (for case-folding of unquoted characters)
 - Called from (representative examples):
   - No direct references found in the current codebase analysis
 

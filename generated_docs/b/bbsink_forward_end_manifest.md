@@ -24,7 +24,7 @@ This forwarding pattern maintains the chain of responsibility design, allowing d
   - bbsink_end_manifest
   - bbsink (structure type)
 - Called from (representative examples):
-  - bbsink_server_end_manifest
+  - [bbsink_server_end_manifest](bbsink_server_end_manifest.md)
 
 ## Notes and Other Information
 - This function is called when manifest processing is complete and needs to be finalized

@@ -20,13 +20,13 @@ This function allocates memory for a RecordIOData structure along with space for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - offsetof
   - InvalidOid
   - MemSet
 - Called from (representative examples):
   - JsObjectFree
-  - populate_record
+  - [populate_record](../p/populate_record.md)
 
 ## Notes and Other Information
 This function demonstrates efficient memory management by allocating the RecordIOData structure and its variable-length columns array in a single memory block, avoiding fragmentation and improving cache locality. The use of offsetof ensures proper alignment and portability across different architectures. The initialization to safe defaults (InvalidOid, zero typmod) ensures that the structure can be safely used and checked for validity. This allocation pattern is common in PostgreSQL for structures with variable-length trailing arrays.

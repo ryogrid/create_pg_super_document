@@ -22,12 +22,12 @@ The function removes completed steps from the waiting array by shifting remainin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - try_complete_step
+  - [try_complete_step](try_complete_step.md)
   - memmove (standard library)
-  - TestSpec (structure)
-  - PermutationStep (structure)
+  - [TestSpec](../T/TestSpec.md) (structure)
+  - [PermutationStep](../P/PermutationStep.md) (structure)
 - Called from (representative examples):
-  - run_permutation
+  - [run_permutation](../r/run_permutation.md)
   - STEP_RETRY flag usage context
 
 ## Notes and Other Information

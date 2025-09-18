@@ -24,21 +24,21 @@ The deletion process involves multiple steps: unlinking the page from its siblin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferExtended (read pages into buffers)
-  - BufferGetPage (get page from buffer)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md) (read pages into buffers)
+  - [BufferGetPage](../B/BufferGetPage.md) (get page from buffer)
   - GinPageGetOpaque (access page opaque data)
-  - PredicateLockPageCombine (handle predicate locking)
+  - [PredicateLockPageCombine](../P/PredicateLockPageCombine.md) (handle predicate locking)
   - GinDataPageGetPostingItem (get posting item from page)
   - PostingItemGetBlockNumber (extract block number from posting item)
-  - GinPageDeletePostingItem (remove posting item from page)
+  - [GinPageDeletePostingItem](../G/GinPageDeletePostingItem.md) (remove posting item from page)
   - GinPageSetDeleted (mark page as deleted)
   - GinPageSetDeleteXid (set deletion transaction ID)
   - ReadNextTransactionId (get next transaction ID)
   - MarkBufferDirty (mark buffers as modified)
-  - XLogBeginInsert/XLogRegisterBuffer/XLogInsert (WAL logging)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterBuffer/XLogInsert (WAL logging)
   - ReleaseBuffer (release buffer references)
 - Called from (representative examples):
-  - ginScanToDelete
+  - [ginScanToDelete](ginScanToDelete.md)
 
 ## Notes and Other Information
 - Static function, only accessible within ginvacuum.c

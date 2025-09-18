@@ -17,10 +17,10 @@ The basque_UTF_8_stem function implements the complete Basque stemming algorithm
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (region boundary identification)
-  - r_aditzak (verb suffix processing)
-  - r_izenak (noun suffix processing)
-  - r_adjetiboak (adjective suffix processing)
+  - [r_mark_regions](../r/r_mark_regions.md) (region boundary identification)
+  - [r_aditzak](../r/r_aditzak.md) (verb suffix processing)
+  - [r_izenak](../r/r_izenak.md) (noun suffix processing)
+  - [r_adjetiboak](../r/r_adjetiboak.md) (adjective suffix processing)
 - Called from (representative examples):
   - External stemming interface (no direct references found in indexed code)
 

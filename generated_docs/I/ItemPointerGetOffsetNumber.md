@@ -19,17 +19,17 @@ This function provides the same safety-performance balance as its block number c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerIsValid
-  - ItemPointerGetOffsetNumberNoCheck
+  - [ItemPointerIsValid](ItemPointerIsValid.md)
+  - [ItemPointerGetOffsetNumberNoCheck](ItemPointerGetOffsetNumberNoCheck.md)
 - Called from (representative examples):
-  - heap_fetch
-  - heap_insert
-  - heap_delete
-  - heap_update
-  - brininsert
-  - TidStoreIsMember
-  - spgTestLeafTuple
-  - ItemPointerEquals
+  - [heap_fetch](../h/heap_fetch.md)
+  - [heap_insert](../h/heap_insert.md)
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [brininsert](../b/brininsert.md)
+  - [TidStoreIsMember](../T/TidStoreIsMember.md)
+  - [spgTestLeafTuple](../s/spgTestLeafTuple.md)
+  - [ItemPointerEquals](ItemPointerEquals.md)
 
 ## Notes and Other Information
 - This is an inline function for performance optimization

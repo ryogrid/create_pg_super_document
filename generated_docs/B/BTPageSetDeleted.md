@@ -24,16 +24,16 @@ The function clears the BTP_HALF_DEAD flag (if set) and sets both BTP_DELETED an
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTPageGetOpaque
-  - PageGetContents
+  - [PageGetContents](../P/PageGetContents.md)
   - BTPageOpaque (type)
   - PageHeader (type)
-  - BTDeletedPageData (type)
+  - [BTDeletedPageData](BTDeletedPageData.md) (type)
   - FullTransactionId (type)
   - BTP_HALF_DEAD, BTP_DELETED, BTP_HAS_FULLXID (flags)
   - SizeOfPageHeaderData (constant)
 - Called from (representative examples):
-  - _bt_unlink_halfdead_page
-  - btree_xlog_unlink_page
+  - [_bt_unlink_halfdead_page](../b/_bt_unlink_halfdead_page.md)
+  - [btree_xlog_unlink_page](../b/btree_xlog_unlink_page.md)
 
 ## Notes and Other Information
 This function is typically called during B-tree page deletion operations when a page is being unlinked from the tree structure. The safexid parameter is crucial for MVCC (Multi-Version Concurrency Control) as it ensures the page isn't recycled while older transactions might still need to access it. The function is defined as a static inline in the header file for performance reasons since it's a frequently used operation in B-tree maintenance.

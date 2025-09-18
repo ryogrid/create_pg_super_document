@@ -23,7 +23,7 @@ The function ensures proper memory cleanup by deallocating all resources associa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (with parameters z and 0)
+  - [SN_close_env](../S/SN_close_env.md) (with parameters z and 0)
 - Called from (representative examples):
   - No direct references found in the current codebase analysis
 

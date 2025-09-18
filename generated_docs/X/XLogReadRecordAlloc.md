@@ -26,11 +26,11 @@ Only the 'oversized' flag is initialized in the returned record, leaving other i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeXLogRecordRequiredSpace
-  - palloc
+  - [DecodeXLogRecordRequiredSpace](../D/DecodeXLogRecordRequiredSpace.md)
+  - [palloc](../p/palloc.md)
   - DEFAULT_DECODE_BUFFER_SIZE
 - Called from (representative examples):
-  - XLogDecodeNextRecord
+  - [XLogDecodeNextRecord](XLogDecodeNextRecord.md)
 
 ## Notes and Other Information
 - Returns NULL if no space is available and oversized allocation is not allowed, or if memory allocation fails

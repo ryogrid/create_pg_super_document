@@ -26,10 +26,10 @@ Most callers modify the cost information after copying it, using this function a
 - Functions called/Symbols referenced:
   - (No function calls - direct field access only)
 - Called from (representative examples):
-  - create_gating_plan
-  - inject_projection_plan
-  - create_mergejoin_plan
-  - create_hashjoin_plan
+  - [create_gating_plan](create_gating_plan.md)
+  - [inject_projection_plan](../i/inject_projection_plan.md)
+  - [create_mergejoin_plan](create_mergejoin_plan.md)
+  - [create_hashjoin_plan](create_hashjoin_plan.md)
 
 ## Notes and Other Information
 - Used specifically for Plan-to-Plan copying, not Path-to-Plan like copy_generic_path_info

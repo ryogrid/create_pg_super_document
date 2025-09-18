@@ -19,9 +19,9 @@ This function serves as the main entry point for converting arbitrary PostgreSQL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype (to determine input data type)
-  - json_categorize_type (to categorize the type for JSON conversion)
-  - datum_to_json (to perform the actual conversion)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md) (to determine input data type)
+  - [json_categorize_type](../j/json_categorize_type.md) (to categorize the type for JSON conversion)
+  - [datum_to_json](../d/datum_to_json.md) (to perform the actual conversion)
   - PG_RETURN_DATUM (to return the result)
 - Called from:
   - Direct SQL function calls (no internal callers found)

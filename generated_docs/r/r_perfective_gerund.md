@@ -35,12 +35,12 @@ This function is critical for accurate Russian text processing as perfective ger
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (finds matching patterns from suffix list a_0)
-  - slice_del (removes the identified suffix)
+  - [find_among_b](../f/find_among_b.md) (finds matching patterns from suffix list a_0)
+  - [slice_del](../s/slice_del.md) (removes the identified suffix)
   - a_0 (array containing 9 perfective gerund patterns)
 - Called from (representative examples):
-  - russian_KOI8_R_stem (main Russian stemming function for KOI8-R encoding)
-  - russian_UTF_8_stem (main Russian stemming function for UTF-8 encoding)
+  - [russian_KOI8_R_stem](russian_KOI8_R_stem.md) (main Russian stemming function for KOI8-R encoding)
+  - [russian_UTF_8_stem](russian_UTF_8_stem.md) (main Russian stemming function for UTF-8 encoding)
 
 ## Notes and Other Information
 - This function is specific to Russian morphology and handles the complex inflectional system of Russian perfective gerunds

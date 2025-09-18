@@ -34,17 +34,17 @@ This node type uses a simple linear search approach for child lookup, which is e
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro for name generation)
-  - RT_NODE (base node structure)
+  - [RT_NODE](RT_NODE.md) (base node structure)
   - RT_FANOUT_4_MAX (maximum capacity constant)
   - RT_PTR_ALLOC (child pointer type)
   - FLEXIBLE_ARRAY_MEMBER (variable-length array support)
 - Called from (representative examples):
-  - RT_ALLOC_NODE (node allocation with RT_NODE_KIND_4)
-  - RT_NODE_SEARCH (child lookup using linear search)
-  - RT_NODE_4_GET_INSERTPOS (finding insertion position)
-  - RT_ADD_CHILD_4 (adding new child entries)
-  - RT_GROW_NODE_4 (converting to RT_NODE_16 when capacity exceeded)
-  - RT_REMOVE_CHILD_4 (removing child entries)
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md) (node allocation with RT_NODE_KIND_4)
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md) (child lookup using linear search)
+  - [RT_NODE_4_GET_INSERTPOS](RT_NODE_4_GET_INSERTPOS.md) (finding insertion position)
+  - [RT_ADD_CHILD_4](RT_ADD_CHILD_4.md) (adding new child entries)
+  - [RT_GROW_NODE_4](RT_GROW_NODE_4.md) (converting to RT_NODE_16 when capacity exceeded)
+  - [RT_REMOVE_CHILD_4](RT_REMOVE_CHILD_4.md) (removing child entries)
 
 ## Notes and Other Information
 - Uses linear search for child lookup, optimal for small fanouts (1-8 children)

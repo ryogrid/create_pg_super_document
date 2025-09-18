@@ -28,11 +28,11 @@ As a typedef of ,  inherits:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varlena (base structure)
+  - [varlena](../v/varlena.md) (base structure)
 - Called from (representative examples):
-  - bytea_catenate
-  - bytea_substring
-  - bytea_overlay
+  - [bytea_catenate](bytea_catenate.md)
+  - [bytea_substring](bytea_substring.md)
+  - [bytea_overlay](bytea_overlay.md)
   - Functions in varlena.c
   - Various I/O and manipulation functions
 

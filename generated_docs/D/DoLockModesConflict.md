@@ -24,10 +24,10 @@ The conflict determination is based on a pre-computed conflict matrix stored in 
   - DEFAULT_LOCKMETHOD: Index for the default lock method
   - LOCKBIT_ON: Macro to convert lock mode to bit position for conflict checking
 - Called from (representative examples):
-  - test_lockmode_for_conflict: Used in heap access method for conflict testing
-  - DoesMultiXactIdConflict: Used in multitransaction conflict detection
-  - Do_MultiXactIdWait: Used during multitransaction waiting operations
-  - initialize_reloptions: Used during relation options initialization
+  - [test_lockmode_for_conflict](../t/test_lockmode_for_conflict.md): Used in heap access method for conflict testing
+  - [DoesMultiXactIdConflict](DoesMultiXactIdConflict.md): Used in multitransaction conflict detection
+  - [Do_MultiXactIdWait](Do_MultiXactIdWait.md): Used during multitransaction waiting operations
+  - [initialize_reloptions](../i/initialize_reloptions.md): Used during relation options initialization
   - LockHashPartitionLockByProc: Used in lock hash partition operations
 
 ## Notes and Other Information

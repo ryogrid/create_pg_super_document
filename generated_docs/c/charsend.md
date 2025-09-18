@@ -26,9 +26,9 @@ This creates a binary representation that can be efficiently transmitted over th
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CHAR (to extract input character)
-  - pq_begintypsend (to initialize binary output buffer)
-  - pq_sendbyte (to write the character byte to the buffer)
-  - pq_endtypsend (to finalize the buffer and prepare for output)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (to initialize binary output buffer)
+  - [pq_sendbyte](../p/pq_sendbyte.md) (to write the character byte to the buffer)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (to finalize the buffer and prepare for output)
   - PG_RETURN_BYTEA_P (to return the bytea result)
 - Called from (representative examples):
   - PostgreSQL binary protocol handling

@@ -24,7 +24,7 @@ ForEachState is a lightweight state structure designed to support PostgreSQL's f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (implicitly referenced through the l member)
+  - [List](../L/List.md) (implicitly referenced through the l member)
 - Called from (representative examples):
   - foreach
   - for_each_from

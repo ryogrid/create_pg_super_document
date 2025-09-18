@@ -19,19 +19,19 @@ This is the most sophisticated table formatting function in PostgreSQL's printin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_line_style (gets formatting characters for the current line style)
-  - _print_horizontal_line (draws horizontal border lines)
-  - pg_wcssize (calculates display width of wide character strings)
-  - pg_wcsformat (formats wide character strings for display)
+  - [get_line_style](../g/get_line_style.md) (gets formatting characters for the current line style)
+  - [_print_horizontal_line](_print_horizontal_line.md) (draws horizontal border lines)
+  - [pg_wcssize](pg_wcssize.md) (calculates display width of wide character strings)
+  - [pg_wcsformat](pg_wcsformat.md) (formats wide character strings for display)
   - strlen_max_width (calculates byte length up to a display width limit)
-  - print_aligned_vertical (alternative vertical layout for wide tables)
-  - PageOutput (initiates pager for large output)
-  - IsPagerNeeded (determines if pager is required)
-  - footers_with_default (gets table footers with defaults)
+  - [print_aligned_vertical](print_aligned_vertical.md) (alternative vertical layout for wide tables)
+  - [PageOutput](../P/PageOutput.md) (initiates pager for large output)
+  - [IsPagerNeeded](../I/IsPagerNeeded.md) (determines if pager is required)
+  - [footers_with_default](../f/footers_with_default.md) (gets table footers with defaults)
   - pg_malloc0/pg_malloc (memory allocation functions)
   - Various PRINT_RULE_* and PRINT_LINE_WRAP_* constants for formatting states
 - Called from (representative examples):
-  - printTable (main table printing dispatcher function)
+  - [printTable](printTable.md) (main table printing dispatcher function)
 
 ## Notes and Other Information
 - Most complex function in the PostgreSQL table formatting system with ~590 lines of code

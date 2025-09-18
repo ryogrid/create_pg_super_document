@@ -26,19 +26,19 @@ The function operates only during normal operation (not recovery) and returns wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - RefreshXLogWriteResult
   - XLByteInPrevSeg
-  - XLogFileClose
-  - GetCurrentTimestamp
-  - TimestampDifferenceExceeds
-  - WaitXLogInsertionsToFinish
-  - XLogWrite
-  - WalSndWakeupProcessRequests
-  - AdvanceXLInsertBuffer
+  - [XLogFileClose](XLogFileClose.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
+  - [WaitXLogInsertionsToFinish](../W/WaitXLogInsertionsToFinish.md)
+  - [XLogWrite](XLogWrite.md)
+  - [WalSndWakeupProcessRequests](../W/WalSndWakeupProcessRequests.md)
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md)
 - Called from (representative examples):
-  - WalWriterMain
-  - WalSndWaitForWal
+  - [WalWriterMain](../W/WalWriterMain.md)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md)
 
 ## Notes and Other Information
 - Only operates during normal operation, not during recovery

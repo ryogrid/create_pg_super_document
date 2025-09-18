@@ -32,16 +32,16 @@ The function returns a test_regex_ctx structure containing all match information
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0/palloc (PostgreSQL memory allocation)
-  - pg_database_encoding_max_length (gets max character length)
-  - pg_mb2wchar_with_len (converts multibyte to wide characters)
-  - test_re_execute (executes regex pattern)
-  - repalloc (reallocates memory with larger size)
-  - pfree (PostgreSQL memory deallocation)
+  - [palloc0](../p/palloc0.md)/palloc (PostgreSQL memory allocation)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md) (gets max character length)
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md) (converts multibyte to wide characters)
+  - [test_re_execute](../t/test_re_execute.md) (executes regex pattern)
+  - [repalloc](../r/repalloc.md) (reallocates memory with larger size)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - MaxAllocSize (PostgreSQL memory limit constant)
   - ereport/ERROR (PostgreSQL error reporting)
 - Called from (representative examples):
-  - test_regex (main regex testing function)
+  - [test_regex](../t/test_regex.md) (main regex testing function)
 
 ## Notes and Other Information
 - This is a static (internal) function within the test_regex module

@@ -23,9 +23,9 @@ The function is designed to be passed as a function pointer to various statistic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
 - Called from (representative examples):
-  - do_analyze_rel (assigned as function pointer for statistics computation)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (assigned as function pointer for statistics computation)
 
 ## Notes and Other Information
 - Provides abstraction between statistics computation routines and sample data access

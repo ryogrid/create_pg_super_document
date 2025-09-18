@@ -27,14 +27,14 @@ The same structure is used for both shared and local buffers, though some fields
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferTag (for buffer identification)
-  - pg_atomic_uint32 (for atomic state operations)
-  - LWLock (for content locking)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (for atomic state operations)
+  - [LWLock](../L/LWLock.md) (for content locking)
 - Called from (representative examples):
-  - BufferAlloc (for buffer allocation)
+  - [BufferAlloc](BufferAlloc.md) (for buffer allocation)
   - PinBuffer (for buffer pinning operations)
   - UnpinBuffer (for buffer unpinning)
-  - FlushBuffer (for writing buffers to disk)
-  - GetBufferDescriptor (for buffer access)
+  - [FlushBuffer](../F/FlushBuffer.md) (for writing buffers to disk)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md) (for buffer access)
   - StrategyGetBuffer (for buffer strategy operations)
 
 ## Notes and Other Information

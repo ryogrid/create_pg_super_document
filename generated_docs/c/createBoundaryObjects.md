@@ -25,14 +25,14 @@ Each boundary object is assigned a unique dump ID and given a descriptive name f
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - AssignDumpId
-  - pg_strdup
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [pg_strdup](../p/pg_strdup.md)
 - Constants used:
   - DO_PRE_DATA_BOUNDARY
   - DO_POST_DATA_BOUNDARY
   - nilCatalogId
 - Called from:
-  - main (in src/bin/pg_dump/pg_dump.c:996)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dump.c:996)
 
 ## Notes and Other Information
 - Static function, only accessible within pg_dump.c

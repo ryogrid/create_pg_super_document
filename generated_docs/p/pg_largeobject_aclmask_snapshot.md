@@ -34,20 +34,20 @@ The snapshot parameter is crucial for maintaining consistency when large objects
 - Functions called/Symbols referenced:
   - superuser_arg
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - heap_getattr
-  - acldefault
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclP
-  - aclmask
-  - systable_endscan
+  - [aclmask](../a/aclmask.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - pfree
+  - [pfree](pfree.md)
 - Called from (representative examples):
   - InternalDefaultACL
-  - pg_aclmask
-  - pg_largeobject_aclcheck_snapshot
+  - [pg_aclmask](pg_aclmask.md)
+  - [pg_largeobject_aclcheck_snapshot](pg_largeobject_aclcheck_snapshot.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not directly accessible outside aclchk.c

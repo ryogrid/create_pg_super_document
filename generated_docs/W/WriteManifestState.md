@@ -22,8 +22,8 @@ The structure is designed to be simple and focused, dealing exclusively with man
 - Functions called/Symbols referenced:
   - (No direct symbol references - uses standard C FILE operations)
 - Called from (representative examples):
-  - ReceiveBackupManifest
-  - ReceiveBackupManifestChunk
+  - [ReceiveBackupManifest](../R/ReceiveBackupManifest.md)
+  - [ReceiveBackupManifestChunk](../R/ReceiveBackupManifestChunk.md)
 
 ## Notes and Other Information
 - This is the simplest of the state management structures in pg_basebackup, focusing solely on file operations

@@ -20,21 +20,21 @@ GetForeignServerExtended is the core function for looking up foreign server obje
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple structure extraction)
-  - palloc (memory allocation)
-  - pstrdup (string duplication)
-  - SysCacheGetAttr (attribute extraction)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [pstrdup](../p/pstrdup.md) (string duplication)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (attribute extraction)
   - TextDatumGetCString (text conversion)
-  - untransformRelOptions (options parsing)
-  - ReleaseSysCache (cache cleanup)
+  - [untransformRelOptions](../u/untransformRelOptions.md) (options parsing)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_foreign_server (catalog form structure)
   - FSV_MISSING_OK (flag constant)
 - Called from (representative examples):
-  - GetForeignServer
-  - getObjectDescription
-  - getObjectIdentityParts
+  - [GetForeignServer](GetForeignServer.md)
+  - [getObjectDescription](../g/getObjectDescription.md)
+  - [getObjectIdentityParts](../g/getObjectIdentityParts.md)
 
 ## Notes and Other Information
 - Located in src/backend/foreign/foreign.c:123-181

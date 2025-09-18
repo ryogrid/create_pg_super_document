@@ -21,10 +21,10 @@ When the reset completes successfully (PGRES_POLLING_OK), the function notifies 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQconnectPoll
+  - [PQconnectPoll](PQconnectPoll.md)
   - PostgresPollingStatusType
   - PGRES_POLLING_OK
-  - PGEventConnReset
+  - [PGEventConnReset](PGEventConnReset.md)
   - PGEVT_CONNRESET
   - PGRES_POLLING_FAILED
 - Called from (representative examples):

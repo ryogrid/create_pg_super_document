@@ -23,7 +23,7 @@ The callback follows PostgreSQL's standard error context callback pattern, where
 - Functions called/Symbols referenced:
   - `errcontext` (adds context information to PostgreSQL error reports)
 - Called from (representative examples):
-  - `call_pltcl_start_proc` (set as error context callback during startup procedure processing)
+  - `[call_pltcl_start_proc](../c/call_pltcl_start_proc.md)` (set as error context callback during startup procedure processing)
 
 ## Notes and Other Information
 - This is a specialized error context callback used only during startup procedure processing

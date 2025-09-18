@@ -22,10 +22,10 @@ Unlike the validation functions (alen_object_start and alen_scalar), this functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlenState (structure type)
+  - [AlenState](../A/AlenState.md) (structure type)
   - JSON_SUCCESS (return value constant)
 - Called from (representative examples):
-  - json_array_length (main array length function)
+  - [json_array_length](../j/json_array_length.md) (main array length function)
   - JsObjectFree (JSON object processing)
 
 ## Notes and Other Information

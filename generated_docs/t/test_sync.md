@@ -28,14 +28,14 @@ Each test writes XLOG_BLCKSZ-sized blocks (typically 8KB) and measures performan
 - Functions called/Symbols referenced:
   - printf
   - fflush
-  - open_direct
+  - [open_direct](../o/open_direct.md)
   - open
   - pg_pwrite
   - fdatasync
   - fsync
-  - pg_fsync_writethrough
+  - [pg_fsync_writethrough](../p/pg_fsync_writethrough.md)
   - close
-  - die
+  - [die](../d/die.md)
 - Macros used:
   - START_TIMER
   - STOP_TIMER
@@ -44,7 +44,7 @@ Each test writes XLOG_BLCKSZ-sized blocks (typically 8KB) and measures performan
   - XLOG_BLCKSZ_K
   - XLOG_BLCKSZ
 - Called from:
-  - main (in pg_test_fsync.c)
+  - [main](../m/main.md) (in pg_test_fsync.c)
 
 ## Notes and Other Information
 - Uses conditional compilation for platform-specific sync methods (O_DSYNC, O_SYNC, HAVE_FSYNC_WRITETHROUGH)

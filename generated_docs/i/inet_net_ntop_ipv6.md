@@ -22,14 +22,14 @@ The implementation is portable across different architectures, avoiding assumpti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - decoct (for IPv4 embedded address formatting)
+  - [decoct](../d/decoct.md) (for IPv4 embedded address formatting)
   - SPRINTF (macro for formatted string output)
   - NS_IN6ADDRSZ (IPv6 address size constant)
   - NS_INT16SZ (16-bit integer size constant)
   - EMSGSIZE (error constant for insufficient buffer size)
   - EINVAL (error constant for invalid input)
 - Called from (representative examples):
-  - pg_inet_net_ntop
+  - [pg_inet_net_ntop](../p/pg_inet_net_ntop.md)
 
 ## Notes and Other Information
 - Returns pointer to dst on success, NULL on error (check errno)

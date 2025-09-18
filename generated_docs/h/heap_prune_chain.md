@@ -34,15 +34,15 @@ The function ensures that no DEAD tuples with storage remain after pruning, as V
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetItemId, PageGetItem
+  - [PageGetItemId](../P/PageGetItemId.md), PageGetItem
   - ItemId manipulation functions (ItemIdIsRedirected, ItemIdIsNormal, etc.)
   - HeapTupleHeader functions (HeapTupleHeaderGetXmin, HeapTupleHeaderIsHotUpdated, etc.)
-  - htsv_get_valid_status (for accessing cached visibility)
-  - HeapTupleHeaderAdvanceConflictHorizon
+  - [htsv_get_valid_status](htsv_get_valid_status.md) (for accessing cached visibility)
+  - [HeapTupleHeaderAdvanceConflictHorizon](../H/HeapTupleHeaderAdvanceConflictHorizon.md)
   - heap_prune_record_* functions (for recording planned changes)
   - ItemPointer functions for following chain links
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information  
 - Static function internal to pruneheap.c

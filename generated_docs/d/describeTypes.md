@@ -22,20 +22,20 @@ This function generates and executes a SQL query to list data types from the pg_
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - printACLColumn
-  - map_typename_pattern
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [printACLColumn](../p/printACLColumn.md)
+  - [map_typename_pattern](../m/map_typename_pattern.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - CppAsString2
   - RELKIND_COMPOSITE_TYPE
 - Called from (representative examples):
-  - exec_command_d (in command.c:923)
+  - [exec_command_d](../e/exec_command_d.md) (in command.c:923)
 
 ## Notes and Other Information
 - Part of psql's describe functionality (\dT command)

@@ -30,15 +30,15 @@ The function enforces security restrictions, preventing non-superusers from modi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetSubscription: Retrieves subscription details from catalog
-  - parse_subscription_options: Parses and validates subscription option changes
-  - PreventInTransactionBlock: Prevents operations that can't be rolled back from running in transaction blocks
-  - publicationListToArray: Converts publication name list to array format
-  - AlterSubscription_refresh: Handles subscription refresh operations
+  - [GetSubscription](../G/GetSubscription.md): Retrieves subscription details from catalog
+  - [parse_subscription_options](../p/parse_subscription_options.md): Parses and validates subscription option changes
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md): Prevents operations that can't be rolled back from running in transaction blocks
+  - [publicationListToArray](../p/publicationListToArray.md): Converts publication name list to array format
+  - [AlterSubscription_refresh](AlterSubscription_refresh.md): Handles subscription refresh operations
   - walrcv_alter_slot: Alters replication slot properties on publisher
-  - heap_freetuple: Frees heap tuple memory
+  - [heap_freetuple](../h/heap_freetuple.md): Frees heap tuple memory
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main utility command processor in tcop/utility.c:1863
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main utility command processor in tcop/utility.c:1863
 
 ## Notes and Other Information
 - Requires exclusive lock on the subscription to prevent concurrent modifications

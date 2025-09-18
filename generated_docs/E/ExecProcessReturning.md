@@ -28,15 +28,15 @@ The function leverages PostgreSQL's projection infrastructure to efficiently com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProjectionInfo (struct type)
+  - [ProjectionInfo](../P/ProjectionInfo.md) (struct type)
   - ExecProject
   - RelationGetRelid
 - Called from (representative examples):
-  - ExecInsert
-  - ExecDelete
-  - ExecUpdate
-  - ExecMergeMatched
-  - ExecModifyTable
+  - [ExecInsert](ExecInsert.md)
+  - [ExecDelete](ExecDelete.md)
+  - [ExecUpdate](ExecUpdate.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
+  - [ExecModifyTable](ExecModifyTable.md)
 
 ## Notes and Other Information
 - This function is static to nodeModifyTable.c and used internally during DML execution

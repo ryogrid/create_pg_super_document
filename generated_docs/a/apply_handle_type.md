@@ -19,12 +19,12 @@ This approach simplifies the replication process by avoiding complex type mappin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - handle_streamed_transaction
-  - logicalrep_read_typ
-  - LogicalRepTyp (data structure)
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
+  - [logicalrep_read_typ](../l/logicalrep_read_typ.md)
+  - [LogicalRepTyp](../L/LogicalRepTyp.md) (data structure)
   - LOGICAL_REP_MSG_TYPE (constant)
 - Called from (representative examples):
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - This is a static function within the logical replication worker module

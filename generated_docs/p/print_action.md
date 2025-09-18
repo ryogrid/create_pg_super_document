@@ -26,7 +26,7 @@ This static function generates corresponding C code for various ECPG WHENEVER ac
   - W_SQLPRINT, W_GOTO, W_DO, W_STOP, W_BREAK, W_CONTINUE (enumeration constants)
   - struct when
 - Called from:
-  - whenever_action (multiple locations in src/interfaces/ecpg/preproc/output.c)
+  - [whenever_action](../w/whenever_action.md) (multiple locations in src/interfaces/ecpg/preproc/output.c)
 
 ## Notes and Other Information
 - Static function, only accessible within the output.c module

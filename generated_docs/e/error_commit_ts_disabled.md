@@ -20,13 +20,13 @@ This internal helper function generates a consistent error message when code att
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (ERROR)
-  - errcode (ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE)
-  - errmsg
-  - RecoveryInProgress
-  - errhint
+  - [errcode](errcode.md) (ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE)
+  - [errmsg](errmsg.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [errhint](errhint.md)
 - Called from (representative examples):
-  - TransactionIdGetCommitTsData
-  - GetLatestCommitTsData
+  - [TransactionIdGetCommitTsData](../T/TransactionIdGetCommitTsData.md)
+  - [GetLatestCommitTsData](../G/GetLatestCommitTsData.md)
 
 ## Notes and Other Information
 - Static function with internal linkage, only accessible within commit_ts.c

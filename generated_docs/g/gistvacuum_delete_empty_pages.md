@@ -290,15 +290,15 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - intset_num_entries, intset_begin_iterate, intset_iterate_next, intset_is_member (integer set operations for page tracking)
-  - ReadBufferExtended, LockBuffer, UnlockReleaseBuffer, ReleaseBuffer (buffer and locking management)
-  - PageIsNew, GistPageIsDeleted, GistPageIsLeaf (page state validation)
-  - PageGetMaxOffsetNumber, PageGetItemId, PageGetItem (page structure access)
-  - ItemPointerGetBlockNumber (extracting block numbers from downlink tuples)
-  - gistcheckpage (page integrity validation)
-  - gistdeletepage (actual page deletion logic with validation)
+  - [intset_num_entries](../i/intset_num_entries.md), intset_begin_iterate, intset_iterate_next, intset_is_member (integer set operations for page tracking)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md), LockBuffer, UnlockReleaseBuffer, ReleaseBuffer (buffer and locking management)
+  - [PageIsNew](../P/PageIsNew.md), GistPageIsDeleted, GistPageIsLeaf (page state validation)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId, PageGetItem (page structure access)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md) (extracting block numbers from downlink tuples)
+  - [gistcheckpage](gistcheckpage.md) (page integrity validation)
+  - [gistdeletepage](gistdeletepage.md) (actual page deletion logic with validation)
 - Called from (representative examples):
-  - gistvacuumscan (after completing the main scan phase)
+  - [gistvacuumscan](gistvacuumscan.md) (after completing the main scan phase)
 
 ## Notes and Other Information
 - Implements careful deadlock avoidance by releasing parent locks before acquiring child locks, then re-acquiring parent locks

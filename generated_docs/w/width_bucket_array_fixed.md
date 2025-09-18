@@ -32,9 +32,9 @@ The binary search maintains the invariant that all values in [0, left) are less 
   - ARR_DIMS
   - fetch_att
   - FunctionCallInvoke
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Called from:
-  - width_bucket_array (src/backend/utils/adt/arrayfuncs.c:6724)
+  - [width_bucket_array](width_bucket_array.md) (src/backend/utils/adt/arrayfuncs.c:6724)
 
 ## Notes and Other Information
 - Optimized for fixed-width types where element size is known at compile time

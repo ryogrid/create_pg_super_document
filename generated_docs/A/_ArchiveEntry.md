@@ -29,7 +29,7 @@ The data state is set to either:
   - K_OFFSET_POS_NOT_SET, K_OFFSET_NO_DATA (offset state constants)
 
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (assigned as ArchiveEntryPtr function pointer)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (assigned as ArchiveEntryPtr function pointer)
   - Referenced by InitArchiveFmt_Directory (directory format also uses this pattern)
 
 ## Notes and Other Information

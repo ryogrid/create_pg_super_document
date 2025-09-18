@@ -20,17 +20,17 @@ After creating the base relation, the function manages TOAST table creation when
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefineRelation
+  - [DefineRelation](../D/DefineRelation.md)
   - CommandCounterIncrement
-  - transformRelOptions
-  - heap_reloptions
-  - NewRelationCreateToastTable
+  - [transformRelOptions](../t/transformRelOptions.md)
+  - [heap_reloptions](../h/heap_reloptions.md)
+  - [NewRelationCreateToastTable](../N/NewRelationCreateToastTable.md)
   - copyObject
-  - StoreViewQuery
+  - [StoreViewQuery](../S/StoreViewQuery.md)
 - Called from (representative examples):
   - DR_intorel
-  - create_ctas_nodata
-  - intorel_startup
+  - [create_ctas_nodata](create_ctas_nodata.md)
+  - [intorel_startup](../i/intorel_startup.md)
 
 ## Notes and Other Information
 - This is a static function within the createas.c file, serving as an internal implementation detail

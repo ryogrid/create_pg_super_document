@@ -23,16 +23,16 @@ The function creates a dummy ParseState to provide the necessary context for exp
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode - Creates new PartitionSpec node
-  - make_parsestate - Creates parser state for expression transformation
-  - addRangeTableEntryForRelation - Adds relation to parser's range table
-  - addNSItemToQuery - Adds namespace item to query context
-  - lfirst_node - List iteration macro for PartitionElem nodes
+  - [make_parsestate](../m/make_parsestate.md) - Creates parser state for expression transformation
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md) - Adds relation to parser's range table
+  - [addNSItemToQuery](../a/addNSItemToQuery.md) - Adds namespace item to query context
+  - lfirst_node - [List](../L/List.md) iteration macro for PartitionElem nodes
   - copyObject - Deep copies partition element to avoid modifying input
-  - transformExpr - Transforms expressions using parser context
-  - assign_expr_collations - Assigns collations to transformed expressions
+  - [transformExpr](transformExpr.md) - Transforms expressions using parser context
+  - [assign_expr_collations](../a/assign_expr_collations.md) - Assigns collations to transformed expressions
   - lappend - Appends elements to result list
 - Called from (representative examples):
-  - DefineRelation (src/backend/commands/tablecmds.c:1170)
+  - [DefineRelation](../D/DefineRelation.md) (src/backend/commands/tablecmds.c:1170)
 
 ## Notes and Other Information
 - Static function scope limits visibility to tablecmds.c module

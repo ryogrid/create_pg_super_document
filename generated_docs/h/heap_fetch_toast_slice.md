@@ -30,20 +30,20 @@ The function performs the following key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_open_indexes
-  - init_toast_snapshot
-  - systable_beginscan_ordered
-  - systable_getnext_ordered
-  - systable_endscan_ordered
-  - toast_close_indexes
-  - fastgetattr
-  - DatumGetInt32
+  - [toast_open_indexes](../t/toast_open_indexes.md)
+  - [init_toast_snapshot](../i/init_toast_snapshot.md)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
+  - [systable_getnext_ordered](../s/systable_getnext_ordered.md)
+  - [systable_endscan_ordered](../s/systable_endscan_ordered.md)
+  - [toast_close_indexes](../t/toast_close_indexes.md)
+  - [fastgetattr](../f/fastgetattr.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - VARATT_IS_EXTENDED
   - VARATT_IS_SHORT
   - VARSIZE/VARSIZE_SHORT
   - VARDATA/VARDATA_SHORT
 - Called from (representative examples):
-  - SampleHeapTupleVisible (sampling functionality)
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md) (sampling functionality)
   - Functions working with TOAST_MAX_CHUNK_SIZE
 
 ## Notes and Other Information

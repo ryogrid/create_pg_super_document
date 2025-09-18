@@ -28,8 +28,8 @@ The output follows standard SQL VALUES syntax:
   - lfirst
   - foreach
 - Called from (representative examples):
-  - get_basic_select_query
-  - get_insert_query_def
+  - [get_basic_select_query](get_basic_select_query.md)
+  - [get_insert_query_def](get_insert_query_def.md)
   - get_from_clause_item
 
 ## Notes and Other Information

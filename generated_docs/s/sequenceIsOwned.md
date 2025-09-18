@@ -27,14 +27,14 @@ When such a dependency is found, the function extracts the owning table's OID (`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](systable_beginscan.md)
+  - [systable_getnext](systable_getnext.md)
   - Form_pg_depend
 - Called from (representative examples):
-  - process_owned_by
-  - ATExecChangeOwner
-  - AlterTableNamespace
+  - [process_owned_by](../p/process_owned_by.md)
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md)
+  - [AlterTableNamespace](../A/AlterTableNamespace.md)
   - PERFORM_DELETION_CONCURRENT_LOCK
 
 ## Notes and Other Information

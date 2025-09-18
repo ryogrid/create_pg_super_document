@@ -28,15 +28,15 @@ If no suitable fragments are found, it falls back to showing the first min_words
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hlCover (finds query word covers)
-  - get_next_fragment (breaks covers into smaller fragments)
-  - mark_fragment (marks selected fragments for highlighting)
-  - repalloc (reallocates memory for cover array)
+  - [hlCover](../h/hlCover.md) (finds query word covers)
+  - [get_next_fragment](../g/get_next_fragment.md) (breaks covers into smaller fragments)
+  - [mark_fragment](mark_fragment.md) (marks selected fragments for highlighting)
+  - [repalloc](../r/repalloc.md) (reallocates memory for cover array)
   - NONWORDTOKEN (macro to check if token is a non-word)
   - BADENDPOINT (macro to check if position is a bad fragment endpoint)
   - PG_INT32_MAX (maximum 32-bit integer constant)
 - Called from:
-  - prsd_headline (main headline generation function)
+  - [prsd_headline](../p/prsd_headline.md) (main headline generation function)
 
 ## Notes and Other Information
 - Uses a CoverPos structure array to track potential fragments with their positions, lengths, and selection status

@@ -35,12 +35,12 @@ The function is more restrictive than previous steps, requiring exact pattern ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `find_among_b`: Backward pattern matching function
-  - `slice_del`: Function to delete a substring slice  
-  - `slice_from_s`: Function to replace slice with specific string
-  - `eq_s_b`: Backward string equality check function (called twice)
+  - `[find_among_b](../f/find_among_b.md)`: Backward pattern matching function
+  - `[slice_del](../s/slice_del.md)`: Function to delete a substring slice  
+  - `[slice_from_s](../s/slice_from_s.md)`: Function to replace slice with specific string
+  - `[eq_s_b](../e/eq_s_b.md)`: Backward string equality check function (called twice)
 - Called from (representative examples):
-  - `greek_UTF_8_stem`: Main Greek stemming function
+  - `[greek_UTF_8_stem](../g/greek_UTF_8_stem.md)`: Main Greek stemming function
 
 ## Notes and Other Information
 - This function is specific to Greek language morphology and handles UTF-8 encoded Greek text

@@ -20,7 +20,7 @@ This structure works in conjunction with TablespaceListCell to provide a complet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TablespaceListCell (referenced by both head and tail pointers)
+  - [TablespaceListCell](TablespaceListCell.md) (referenced by both head and tail pointers)
 - Called from (representative examples):
   - CompressionLocation (appears to be used in context with compression settings)
 

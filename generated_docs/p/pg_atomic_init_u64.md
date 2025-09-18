@@ -24,18 +24,18 @@ The function includes conditional pointer alignment enforcement based on whether
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (conditionally)
-  - pg_atomic_init_u64_impl
-  - pg_atomic_uint64 (type)
+  - [pg_atomic_init_u64_impl](pg_atomic_init_u64_impl.md)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (type)
   - PG_HAVE_ATOMIC_U64_SIMULATION (preprocessor macro)
 - Called from (representative examples):
-  - table_block_parallelscan_initialize
-  - SimpleLruInit
-  - MarkAsPreparingGuts
-  - XLOGShmemInit
-  - XLogPrefetchShmemInit
-  - WalRcvShmemInit
-  - ProcSignalShmemInit
-  - shm_mq_create
+  - [table_block_parallelscan_initialize](../t/table_block_parallelscan_initialize.md)
+  - [SimpleLruInit](../S/SimpleLruInit.md)
+  - [MarkAsPreparingGuts](../M/MarkAsPreparingGuts.md)
+  - [XLOGShmemInit](../X/XLOGShmemInit.md)
+  - [XLogPrefetchShmemInit](../X/XLogPrefetchShmemInit.md)
+  - [WalRcvShmemInit](../W/WalRcvShmemInit.md)
+  - [ProcSignalShmemInit](../P/ProcSignalShmemInit.md)
+  - [shm_mq_create](../s/shm_mq_create.md)
   - InitProcGlobal
   - StatsShmemInit
 

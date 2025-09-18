@@ -22,14 +22,14 @@ DefElem is one of the most widely used structures in PostgreSQL's parser, servin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElemAction (enum for specifying the action type)
+  - [DefElemAction](DefElemAction.md) (enum for specifying the action type)
   - ParseLoc (type for tracking source location)
 - Called from (representative examples):
-  - transformRelOptions (processes table/index options)
-  - DefineAggregate (handles aggregate function definitions)
-  - DefineCollation (processes collation definitions)
-  - CreateExtension (handles extension options)
-  - defGetString/defGetNumeric/defGetBoolean (utility functions for extracting values)
+  - [transformRelOptions](../t/transformRelOptions.md) (processes table/index options)
+  - [DefineAggregate](DefineAggregate.md) (handles aggregate function definitions)
+  - [DefineCollation](DefineCollation.md) (processes collation definitions)
+  - [CreateExtension](../C/CreateExtension.md) (handles extension options)
+  - [defGetString](../d/defGetString.md)/defGetNumeric/defGetBoolean (utility functions for extracting values)
 
 ## Notes and Other Information
 DefElem is fundamental to PostgreSQL's extensible option system, allowing various database objects to accept custom parameters and configurations. The structure's flexibility enables consistent handling of options across different DDL commands while maintaining type safety through the arg Node pointer. The defaction field supports incremental modifications to option lists, particularly useful in ALTER statements where options can be added, modified, or removed independently.

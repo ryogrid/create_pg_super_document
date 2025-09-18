@@ -27,17 +27,17 @@ The function operates on the PendingIOStats global structure, which accumulates 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_tracks_io_op
-  - IOObject
-  - IOContext
-  - IOOp
+  - [pgstat_tracks_io_op](pgstat_tracks_io_op.md)
+  - [IOObject](../I/IOObject.md)
+  - [IOContext](../I/IOContext.md)
+  - [IOOp](../I/IOOp.md)
   - IOOBJECT_NUM_TYPES
   - IOCONTEXT_NUM_TYPES
   - IOOP_NUM_TYPES
-  - instr_time
+  - [instr_time](../i/instr_time.md)
 - Called from (representative examples):
-  - pgstat_count_io_op
-  - pgstat_count_io_op_time
+  - [pgstat_count_io_op](pgstat_count_io_op.md)
+  - [pgstat_count_io_op_time](pgstat_count_io_op_time.md)
 
 ## Notes and Other Information
 - Uses Assert macros for parameter validation, meaning checks are only active in debug builds

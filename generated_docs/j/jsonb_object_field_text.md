@@ -25,9 +25,9 @@ The function uses the same key lookup mechanism as jsonb_object_field but conver
   - PG_GETARG_JSONB_P: Retrieves JSONB argument from function call
   - PG_GETARG_TEXT_PP: Retrieves text argument from function call
   - JB_ROOT_IS_OBJECT: Macro to check if JSONB root is an object type
-  - getKeyJsonValueFromContainer: Searches for a key in JSONB container and returns the value
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md): Searches for a key in JSONB container and returns the value
   - jbvNull: JSONB value type constant for null values
-  - JsonbValueAsText: Converts JsonbValue to text representation
+  - [JsonbValueAsText](../J/JsonbValueAsText.md): Converts JsonbValue to text representation
   - PG_RETURN_TEXT_P: Returns text result from function
   - PG_RETURN_NULL: Returns NULL result from function
 - Called from (representative examples):

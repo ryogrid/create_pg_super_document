@@ -18,13 +18,13 @@ This function determines if two bitmap sets have any bits in common by performin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation function for bitmap sets)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation function for bitmap sets)
 - Called from (representative examples):
-  - heap_update (heap access method for update operations)
-  - has_partition_attrs (partitioning attribute analysis)
-  - ExecUpdateLockMode (executor lock mode determination)
-  - generate_join_implied_equalities (join equality generation)
-  - join_is_legal (join legality checking)
+  - [heap_update](../h/heap_update.md) (heap access method for update operations)
+  - [has_partition_attrs](../h/has_partition_attrs.md) (partitioning attribute analysis)
+  - [ExecUpdateLockMode](../E/ExecUpdateLockMode.md) (executor lock mode determination)
+  - [generate_join_implied_equalities](../g/generate_join_implied_equalities.md) (join equality generation)
+  - [join_is_legal](../j/join_is_legal.md) (join legality checking)
 
 ## Notes and Other Information
 This function is extensively used throughout PostgreSQL's query optimizer and execution engine to test for conflicts, dependencies, and relationships between sets of identifiers. Common use cases include checking if two relations share attributes, if join conditions affect overlapping column sets, if outer join conditions conflict with other constraints, and if parameter dependencies exist between different parts of a query plan. The function's efficiency is crucial since it's called frequently during query planning and execution, particularly in complex join scenarios and partitioned table operations.

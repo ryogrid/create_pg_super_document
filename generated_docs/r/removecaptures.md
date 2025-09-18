@@ -22,8 +22,8 @@ The function operates in multiple phases: first clearing capture numbers and fla
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `freesubreandsiblings`: Called to free child nodes when simplifying
-  - `removecaptures`: Recursive call to process child nodes
+  - `[freesubreandsiblings](../f/freesubreandsiblings.md)`: Called to free child nodes when simplifying
+  - `[removecaptures](removecaptures.md)`: Recursive call to process child nodes
   - `BRUSE`: Flag indicating node is referenced by backreferences
   - `CAP`: Flag indicating node contains captures
   - `BACKR`: Flag indicating node contains backreferences
@@ -31,7 +31,7 @@ The function operates in multiple phases: first clearing capture numbers and fla
   - `subre`: Sub-regular expression structure type
 - Called from (representative examples):
   - `CNOERR`: Main compilation error handling
-  - `removecaptures`: Recursive self-calls for tree traversal
+  - `[removecaptures](removecaptures.md)`: Recursive self-calls for tree traversal
 
 ## Notes and Other Information
 - Only called when REG_NOSUB flag is set during compilation

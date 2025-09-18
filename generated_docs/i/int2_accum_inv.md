@@ -24,9 +24,9 @@ The function performs validation to ensure it's not called with a NULL state, as
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PolyNumAggState` (structure type)
-  - `do_int128_discard` (removes value from 128-bit integer accumulation when HAVE_INT128)
-  - `do_numeric_discard` (removes value from numeric accumulation)
-  - `int64_to_numeric` (converts int64 to numeric type)
+  - `[do_int128_discard](../d/do_int128_discard.md)` (removes value from 128-bit integer accumulation when HAVE_INT128)
+  - `[do_numeric_discard](../d/do_numeric_discard.md)` (removes value from numeric accumulation)
+  - `[int64_to_numeric](int64_to_numeric.md)` (converts int64 to numeric type)
   - `PG_GETARG_INT16` (extracts int16 argument)
 - Called from (representative examples):
   - No direct references found (likely referenced through PostgreSQL's sliding window aggregate system)

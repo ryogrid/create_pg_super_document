@@ -30,15 +30,15 @@ This function orchestrates the reindexing of an entire table by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackMaintainsTable
-  - get_rel_relkind
-  - get_rel_persistence
-  - ReindexPartitions
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackMaintainsTable](RangeVarCallbackMaintainsTable.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [get_rel_persistence](../g/get_rel_persistence.md)
+  - [ReindexPartitions](ReindexPartitions.md)
   - ReindexRelationConcurrently
-  - reindex_relation
+  - [reindex_relation](../r/reindex_relation.md)
 - Called from:
-  - ExecReindex
+  - [ExecReindex](../E/ExecReindex.md)
 
 ## Notes and Other Information
 - The function automatically upgrades locks for temporary tables when concurrent reindexing is requested

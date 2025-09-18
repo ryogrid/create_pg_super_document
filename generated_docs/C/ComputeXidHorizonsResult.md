@@ -34,11 +34,11 @@ The differentiation between raw and non-raw horizons allows the system to handle
 
 - Called from (representative examples):
   - ComputeXidHorizons
-  - GetOldestNonRemovableTransactionId
-  - GetOldestTransactionIdConsideredRunning
-  - GetReplicationHorizons
-  - GlobalVisUpdateApply
-  - GlobalVisUpdate
+  - [GetOldestNonRemovableTransactionId](../G/GetOldestNonRemovableTransactionId.md)
+  - [GetOldestTransactionIdConsideredRunning](../G/GetOldestTransactionIdConsideredRunning.md)
+  - [GetReplicationHorizons](../G/GetReplicationHorizons.md)
+  - [GlobalVisUpdateApply](../G/GlobalVisUpdateApply.md)
+  - [GlobalVisUpdate](../G/GlobalVisUpdate.md)
 
 ## Notes and Other Information
 - This structure is the result of expensive computation and should be cached when possible to avoid repeated ProcArrayLock acquisitions

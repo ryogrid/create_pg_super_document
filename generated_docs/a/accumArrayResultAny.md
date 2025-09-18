@@ -22,12 +22,12 @@ This function provides a unified interface for accumulating array elements durin
 ## Dependencies
 - Functions called/Symbols referenced:
   - initArrayResultAny (for state initialization when astate is NULL)
-  - accumArrayResult (for scalar element accumulation)
+  - [accumArrayResult](accumArrayResult.md) (for scalar element accumulation)
   - accumArrayResultArr (for array input accumulation)
-  - ArrayBuildStateAny (state structure type)
+  - [ArrayBuildStateAny](../A/ArrayBuildStateAny.md) (state structure type)
 - Called from (representative examples):
-  - ExecScanSubPlan (in nodeSubplan.c:395)
-  - ExecSetParamPlan (in nodeSubplan.c:1162)
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md) (in nodeSubplan.c:395)
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md) (in nodeSubplan.c:1162)
 
 ## Notes and Other Information
 - This function serves as a polymorphic wrapper that can handle both scalar and array inputs

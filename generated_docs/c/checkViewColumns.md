@@ -30,12 +30,12 @@ The strict enforcement of type, typmod, and collation immutability is critical b
 - Functions called/Symbols referenced:
   - TupleDescAttr (macro for accessing tuple descriptor attributes)
   - NameStr (macro for converting Name to string)
-  - format_type_with_typemod
-  - get_collation_name
+  - [format_type_with_typemod](../f/format_type_with_typemod.md)
+  - [get_collation_name](../g/get_collation_name.md)
   - ereport, errcode, errmsg, errhint (error reporting)
 
 - Called from:
-  - DefineVirtualRelation
+  - [DefineVirtualRelation](../D/DefineVirtualRelation.md)
 
 ## Notes and Other Information
 - The function allows new views to have more columns than old views, but not fewer

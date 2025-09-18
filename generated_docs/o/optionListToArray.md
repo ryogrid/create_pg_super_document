@@ -17,15 +17,15 @@ This static function transforms a linked list of DefElem structures (representin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayBuildState (type used for building arrays)
-  - DefElem (structure representing option definitions)  
-  - defGetString (extracts string value from DefElem)
+  - [ArrayBuildState](../A/ArrayBuildState.md) (type used for building arrays)
+  - [DefElem](../D/DefElem.md) (structure representing option definitions)  
+  - [defGetString](../d/defGetString.md) (extracts string value from DefElem)
   - SET_VARSIZE (sets the size of a variable-length type)
   - VARDATA (gets pointer to data portion of variable-length type)
-  - accumArrayResult (accumulates elements into array result)
-  - makeArrayResult (finalizes and returns the array result)
+  - [accumArrayResult](../a/accumArrayResult.md) (accumulates elements into array result)
+  - [makeArrayResult](../m/makeArrayResult.md) (finalizes and returns the array result)
 - Called from (representative examples):
-  - transformGenericOptions (src/backend/commands/foreigncmds.c:190)
+  - [transformGenericOptions](../t/transformGenericOptions.md) (src/backend/commands/foreigncmds.c:190)
 
 ## Notes and Other Information
 - The function validates that option names do not contain "=" characters to prevent ambiguous parsing of the "name=value" format

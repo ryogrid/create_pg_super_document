@@ -23,7 +23,7 @@ The returned string remains constant throughout the session and is stored in lon
 - Functions called/Symbols referenced:
   - SystemUser (global static variable access)
 - Called from (representative examples):
-  - system_user (function in miscinit.c:946)
+  - [system_user](../s/system_user.md) (function in miscinit.c:946)
   - External functions via miscadmin.h header inclusion
 
 ## Notes and Other Information

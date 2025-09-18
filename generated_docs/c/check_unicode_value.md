@@ -25,10 +25,10 @@ The function is static, meaning it's only accessible within the parser.c compila
 - Functions called/Symbols referenced:
   - is_valid_unicode_codepoint (for validation logic)
   - ereport (for error reporting)
-  - errcode (for error code specification)
-  - errmsg (for error message formatting)
+  - [errcode](../e/errcode.md) (for error code specification)
+  - [errmsg](../e/errmsg.md) (for error message formatting)
 - Called from (representative examples):
-  - str_udeescape (called twice during Unicode escape processing)
+  - [str_udeescape](../s/str_udeescape.md) (called twice during Unicode escape processing)
 
 ## Notes and Other Information
 - Part of PostgreSQL's Unicode string literal processing pipeline

@@ -128,20 +128,20 @@ The structure maintains plugin-specific state, output buffers, and writer callba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlot
-  - ReorderBuffer
-  - SnapBuild
-  - OutputPluginCallbacks
-  - OutputPluginOptions
+  - [ReplicationSlot](../R/ReplicationSlot.md)
+  - [ReorderBuffer](../R/ReorderBuffer.md)
+  - [SnapBuild](../S/SnapBuild.md)
+  - [OutputPluginCallbacks](../O/OutputPluginCallbacks.md)
+  - [OutputPluginOptions](../O/OutputPluginOptions.md)
   - LogicalOutputPluginWriterPrepareWrite
 - Called from (representative examples):
-  - LogicalDecodingProcessRecord
+  - [LogicalDecodingProcessRecord](LogicalDecodingProcessRecord.md)
   - StartupDecodingContext
   - CreateDecodingContext
   - CreateInitDecodingContext
-  - FreeDecodingContext
-  - pgoutput_startup
-  - WalSndPrepareWrite
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
+  - [pgoutput_startup](../p/pgoutput_startup.md)
+  - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)
 
 ## Notes and Other Information
 - The structure is defined in src/include/replication/logical.h:33-115

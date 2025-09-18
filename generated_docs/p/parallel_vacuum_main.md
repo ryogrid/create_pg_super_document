@@ -46,18 +46,18 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - table_open
-  - vac_open_indexes
-  - TidStoreAttach
-  - VacuumUpdateCosts
+  - [vac_open_indexes](../v/vac_open_indexes.md)
+  - [TidStoreAttach](../T/TidStoreAttach.md)
+  - [VacuumUpdateCosts](../V/VacuumUpdateCosts.md)
   - GetAccessStrategyWithSize
-  - parallel_vacuum_error_callback
-  - InstrStartParallelQuery
-  - parallel_vacuum_process_safe_indexes
-  - InstrEndParallelQuery
-  - TidStoreDetach
-  - vac_close_indexes
+  - [parallel_vacuum_error_callback](parallel_vacuum_error_callback.md)
+  - [InstrStartParallelQuery](../I/InstrStartParallelQuery.md)
+  - [parallel_vacuum_process_safe_indexes](parallel_vacuum_process_safe_indexes.md)
+  - [InstrEndParallelQuery](../I/InstrEndParallelQuery.md)
+  - [TidStoreDetach](../T/TidStoreDetach.md)
+  - [vac_close_indexes](../v/vac_close_indexes.md)
   - table_close
   - FreeAccessStrategy
 - Called from (representative examples):

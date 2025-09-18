@@ -28,15 +28,15 @@ The compilation process supports concurrent execution of the same plan tree sinc
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates new ExprState)
-  - ExecCreateExprSetupSteps (inserts setup steps)
-  - ExecInitExprRec (recursively compiles expression)
-  - ExprEvalPushStep (adds evaluation steps)
-  - ExecReadyExpr (finalizes expression for execution)
+  - [ExecCreateExprSetupSteps](ExecCreateExprSetupSteps.md) (inserts setup steps)
+  - [ExecInitExprRec](ExecInitExprRec.md) (recursively compiles expression)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (adds evaluation steps)
+  - [ExecReadyExpr](ExecReadyExpr.md) (finalizes expression for execution)
   - EEOP_DONE (opcode constant)
 - Called from (representative examples):
-  - ExecInitCheck (for check constraints)
-  - ExecInitExprList (for expression lists)
-  - ExecPrepareExpr (for standalone expressions)
+  - [ExecInitCheck](ExecInitCheck.md) (for check constraints)
+  - [ExecInitExprList](ExecInitExprList.md) (for expression lists)
+  - [ExecPrepareExpr](ExecPrepareExpr.md) (for standalone expressions)
   - Various node initialization functions (ExecInitLimit, ExecInitMemoize, etc.)
 
 ## Notes and Other Information

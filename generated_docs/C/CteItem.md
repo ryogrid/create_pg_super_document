@@ -29,11 +29,11 @@ This structure acts as a wrapper around each CommonTableExpr, adding metadata ne
 ## Dependencies
 - Functions called/Symbols referenced:
   - CommonTableExpr
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
 - Called from (representative examples):
-  - transformWithClause
-  - TopologicalSort
-  - CteState (used as member variable)
+  - [transformWithClause](../t/transformWithClause.md)
+  - [TopologicalSort](../T/TopologicalSort.md)
+  - [CteState](CteState.md) (used as member variable)
 
 ## Notes and Other Information
 - This structure is only used internally during CTE parsing and analysis; it is not part of the final parsed query structure

@@ -22,7 +22,7 @@ If an invalid attribute number is provided, the function terminates the program 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Constants referenced:
   - SelfItemPointerAttributeNumber (ctid)
   - MinTransactionIdAttributeNumber (xmin)
@@ -31,10 +31,10 @@ If an invalid attribute number is provided, the function terminates the program 
   - MaxCommandIdAttributeNumber (cmax)
   - TableOidAttributeNumber (tableoid)
 - Types referenced:
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
 - Called from:
-  - dumpTableSecLabel
-  - dumpConstraint
+  - [dumpTableSecLabel](../d/dumpTableSecLabel.md)
+  - [dumpConstraint](../d/dumpConstraint.md)
 
 ## Notes and Other Information
 - Uses 1-based indexing for user attributes (attrnum - 1) to access zero-based attnames array

@@ -18,7 +18,7 @@ MemoryContextSwitchTo is a fundamental memory management utility in PostgreSQL t
 ## Dependencies
 - Functions called/Symbols referenced:
   - CurrentMemoryContext (global variable)
-  - MemoryContext (type definition)
+  - [MemoryContext](MemoryContext.md) (type definition)
 - Called from (representative examples):
   - Various test modules and PL/Python extensions
   - Memory allocation routines throughout PostgreSQL

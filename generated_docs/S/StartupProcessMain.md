@@ -22,19 +22,19 @@ The function follows a structured initialization pattern: it first establishes t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AuxiliaryProcessMainCommon
-  - StartupXLOG (main recovery function)
-  - on_shmem_exit (registers StartupProcExit as exit handler)
-  - pqsignal (signal handler registration)
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
+  - [StartupXLOG](StartupXLOG.md) (main recovery function)
+  - [on_shmem_exit](../o/on_shmem_exit.md) (registers StartupProcExit as exit handler)
+  - [pqsignal](../p/pqsignal.md) (signal handler registration)
   - InitializeTimeouts
   - RegisterTimeout (for standby timeouts)
   - sigprocmask
-  - proc_exit
+  - [proc_exit](../p/proc_exit.md)
 - Signal handlers registered:
-  - StartupProcSigHupHandler (SIGHUP)
-  - StartupProcShutdownHandler (SIGTERM)
-  - procsignal_sigusr1_handler (SIGUSR1)
-  - StartupProcTriggerHandler (SIGUSR2)
+  - [StartupProcSigHupHandler](StartupProcSigHupHandler.md) (SIGHUP)
+  - [StartupProcShutdownHandler](StartupProcShutdownHandler.md) (SIGTERM)
+  - [procsignal_sigusr1_handler](../p/procsignal_sigusr1_handler.md) (SIGUSR1)
+  - [StartupProcTriggerHandler](StartupProcTriggerHandler.md) (SIGUSR2)
 - Called from (representative examples):
   - launch_backend.c (process launching infrastructure)
 

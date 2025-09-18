@@ -19,10 +19,10 @@ This cleanup is essential because table function scans cache all their results i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableFuncScanState (struct type)
-  - tuplestore_end (function to deallocate tuplestore resources)
+  - [TableFuncScanState](../T/TableFuncScanState.md) (struct type)
+  - [tuplestore_end](../t/tuplestore_end.md) (function to deallocate tuplestore resources)
 - Called from:
-  - ExecEndNode (main executor cleanup function)
+  - [ExecEndNode](ExecEndNode.md) (main executor cleanup function)
   - Referenced in nodeTableFuncscan.h header
 
 ## Notes and Other Information

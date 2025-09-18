@@ -23,19 +23,19 @@ This function takes no parameters and returns no values. It operates as a side-e
 - Functions called/Symbols referenced:
   - WSAGetLastError (Windows Winsock API)
   - ereport (PostgreSQL error reporting)
-  - errmsg_internal (PostgreSQL internal error messaging)
+  - [errmsg_internal](../e/errmsg_internal.md) (PostgreSQL internal error messaging)
   - Various errno constants (EINVAL, EINPROGRESS, EISCONN, etc.)
 
 - Called from (representative examples):
-  - pgwin32_waitforsinglesocket
-  - pgwin32_socket
-  - pgwin32_bind
-  - pgwin32_listen
-  - pgwin32_accept
-  - pgwin32_connect
-  - pgwin32_recv
-  - pgwin32_send
-  - pgwin32_select
+  - [pgwin32_waitforsinglesocket](../p/pgwin32_waitforsinglesocket.md)
+  - [pgwin32_socket](../p/pgwin32_socket.md)
+  - [pgwin32_bind](../p/pgwin32_bind.md)
+  - [pgwin32_listen](../p/pgwin32_listen.md)
+  - [pgwin32_accept](../p/pgwin32_accept.md)
+  - [pgwin32_connect](../p/pgwin32_connect.md)
+  - [pgwin32_recv](../p/pgwin32_recv.md)
+  - [pgwin32_send](../p/pgwin32_send.md)
+  - [pgwin32_select](../p/pgwin32_select.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function located in src/backend/port/win32/socket.c

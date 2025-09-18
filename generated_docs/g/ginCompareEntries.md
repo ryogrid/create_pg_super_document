@@ -28,17 +28,17 @@ This function is essential for maintaining the sorted order of GIN index entries
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt32: PostgreSQL function to extract int32 from Datum result
-  - FunctionCall2Coll: PostgreSQL function to invoke a collation-aware comparison function
-  - GinState: Structure containing GIN index state and comparison functions
+  - [DatumGetInt32](../D/DatumGetInt32.md): PostgreSQL function to extract int32 from Datum result
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md): PostgreSQL function to invoke a collation-aware comparison function
+  - [GinState](../G/GinState.md): Structure containing GIN index state and comparison functions
   - GinNullCategory: Enumeration for categorizing null and special values
   - GIN_CAT_NORM_KEY: Constant representing normal (non-null) key values
 
 - Called from (representative examples):
-  - collectMatchBitmap: During index scanning and bitmap collection
-  - collectMatchesForHeapRow: When collecting matches for specific heap rows
-  - ginFillScanEntry: During scan entry preparation
-  - ginCompareAttEntries: Higher-level comparison function for entries with attributes
+  - [collectMatchBitmap](../c/collectMatchBitmap.md): During index scanning and bitmap collection
+  - [collectMatchesForHeapRow](../c/collectMatchesForHeapRow.md): When collecting matches for specific heap rows
+  - [ginFillScanEntry](ginFillScanEntry.md): During scan entry preparation
+  - [ginCompareAttEntries](ginCompareAttEntries.md): Higher-level comparison function for entries with attributes
 
 ## Notes and Other Information
 - Returns negative, zero, or positive integer following standard comparison conventions

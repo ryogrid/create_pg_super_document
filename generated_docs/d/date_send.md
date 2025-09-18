@@ -20,9 +20,9 @@ The `date_send` function is responsible for converting date values from PostgreS
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_DATEADT: Macro to extract DateADT argument from function call
-  - pq_begintypsend: Initializes a StringInfo buffer for binary output
-  - pq_sendint32: Writes a 32-bit integer to the output buffer
-  - pq_endtypsend: Finalizes the output buffer and returns bytea
+  - [pq_begintypsend](../p/pq_begintypsend.md): Initializes a StringInfo buffer for binary output
+  - [pq_sendint32](../p/pq_sendint32.md): Writes a 32-bit integer to the output buffer
+  - [pq_endtypsend](../p/pq_endtypsend.md): Finalizes the output buffer and returns bytea
   - PG_RETURN_BYTEA_P: Macro to return bytea values from PostgreSQL functions
 - Called from (representative examples):
   - No direct references found (likely referenced through function pointers in type system)

@@ -25,15 +25,15 @@ The function assumes that both ranges are of the same type (verified by the call
 - Functions called/Symbols referenced:
   - RangeBound (struct type for representing range bounds)
   - RangeTypeGetOid (function to get range type OID for verification)
-  - range_deserialize (function to extract bounds and empty flag from range)
-  - range_cmp_bounds (function to compare range bounds using type-specific comparison)
+  - [range_deserialize](range_deserialize.md) (function to extract bounds and empty flag from range)
+  - [range_cmp_bounds](range_cmp_bounds.md) (function to compare range bounds using type-specific comparison)
   - elog (PostgreSQL error logging function)
 - Called from (representative examples):
-  - range_contains (public SQL-callable function)
-  - range_contained_by_internal (used for symmetric containment test)
-  - range_gist_consistent_int_range (GiST index support)
-  - range_gist_consistent_leaf_range (GiST index support)
-  - spg_range_quad_leaf_consistent (SP-GiST index support)
+  - [range_contains](range_contains.md) (public SQL-callable function)
+  - [range_contained_by_internal](range_contained_by_internal.md) (used for symmetric containment test)
+  - [range_gist_consistent_int_range](range_gist_consistent_int_range.md) (GiST index support)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md) (GiST index support)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md) (SP-GiST index support)
 
 ## Notes and Other Information
 - This is an internal function used by various range operators and index support functions

@@ -29,15 +29,15 @@ The function preserves sortgroupref annotations and handles cases where SRFs hav
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - split_pathtarget_walker (walks expressions to find and categorize SRFs and Vars)
+  - [split_pathtarget_walker](split_pathtarget_walker.md) (walks expressions to find and categorize SRFs and Vars)
   - get_pathtarget_sortgroupref (retrieves sortgroupref for expressions)
-  - create_empty_pathtarget (creates new empty PathTarget structures)
-  - add_sp_items_to_pathtarget, add_sp_item_to_pathtarget (adds items to PathTargets)
-  - set_pathtarget_cost_width (calculates cost and width estimates)
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md) (creates new empty PathTarget structures)
+  - [add_sp_items_to_pathtarget](../a/add_sp_items_to_pathtarget.md), add_sp_item_to_pathtarget (adds items to PathTargets)
+  - [set_pathtarget_cost_width](set_pathtarget_cost_width.md) (calculates cost and width estimates)
   - IS_SRF_CALL (macro to check if node is an SRF call)
   - Various list manipulation functions (list_make1, list_concat, lappend, etc.)
 - Called from (representative examples):
-  - grouping_planner (in src/backend/optimizer/plan/planner.c:1634, 1640, 1646, 1652)
+  - [grouping_planner](../g/grouping_planner.md) (in src/backend/optimizer/plan/planner.c:1634, 1640, 1646, 1652)
 
 ## Notes and Other Information
 - The function uses a sophisticated algorithm to track SRF nesting depth and organize expressions into appropriate evaluation levels

@@ -20,14 +20,14 @@ This function implements the DROP USER MAPPING SQL command by removing an entry 
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_rolespec_oid
-  - GetForeignServerByName
+  - [GetForeignServerByName](../G/GetForeignServerByName.md)
   - GetSysCacheOid2
   - MappingUserName
-  - user_mapping_ddl_aclcheck
-  - performDeletion
+  - [user_mapping_ddl_aclcheck](../u/user_mapping_ddl_aclcheck.md)
+  - [performDeletion](../p/performDeletion.md)
   - DROP_CASCADE
 - Called from (representative examples):
-  - ProcessUtilitySlow
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 The function supports graceful degradation with the IF EXISTS clause, issuing notices instead of errors when the specified user mapping, server, or role does not exist. It uses CASCADE deletion semantics to ensure proper cleanup of any dependent objects. The function returns the OID of the deleted mapping on success, or InvalidOid when the operation is skipped due to missing objects in conditional mode. Access control is enforced through the same user_mapping_ddl_aclcheck function used by other user mapping operations.

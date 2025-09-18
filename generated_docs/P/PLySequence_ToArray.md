@@ -27,13 +27,13 @@ The conversion process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLySequence_ToArray_recurse (recursive traversal helper)
-  - construct_empty_array (creates empty array for zero elements)
+  - [PLySequence_ToArray_recurse](PLySequence_ToArray_recurse.md) (recursive traversal helper)
+  - [construct_empty_array](../c/construct_empty_array.md) (creates empty array for zero elements)
   - makeMdArrayResult (constructs final multi-dimensional array)
   - PySequence_Check (Python API validation)
   - PySequence_Length (Python API length retrieval)
 - Called from (representative examples):
-  - PLy_output_setup_func (src/pl/plpython/plpy_typeio.c:359)
+  - [PLy_output_setup_func](PLy_output_setup_func.md) (src/pl/plpython/plpy_typeio.c:359)
 
 ## Notes and Other Information
 - For historical compatibility, accepts any Python sequence type at the top level, not just lists

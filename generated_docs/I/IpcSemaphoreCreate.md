@@ -21,24 +21,24 @@ Once a semaphore set is successfully created, the function marks it as belonging
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InternalIpcSemaphoreCreate
-  - IpcSemaphoreGetValue
-  - IpcSemaphoreGetLastPID
-  - IpcSemaphoreInitialize
-  - PGSemaphoreUnlock
+  - [InternalIpcSemaphoreCreate](InternalIpcSemaphoreCreate.md)
+  - [IpcSemaphoreGetValue](IpcSemaphoreGetValue.md)
+  - [IpcSemaphoreGetLastPID](IpcSemaphoreGetLastPID.md)
+  - [IpcSemaphoreInitialize](IpcSemaphoreInitialize.md)
+  - [PGSemaphoreUnlock](../P/PGSemaphoreUnlock.md)
   - kill
   - semget
   - semctl
 - Types referenced:
   - IpcSemaphoreId
-  - PGSemaphoreData
+  - [PGSemaphoreData](../P/PGSemaphoreData.md)
   - union semun
   - pid_t
 - Constants referenced:
   - PGSemaMagic
   - IPC_RMID
 - Called from (representative examples):
-  - PGSemaphoreCreate
+  - [PGSemaphoreCreate](../P/PGSemaphoreCreate.md)
 
 ## Notes and Other Information
 - The function is static and only used internally within the sysv_sema.c module

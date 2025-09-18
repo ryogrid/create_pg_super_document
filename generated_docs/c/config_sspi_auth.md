@@ -20,14 +20,14 @@ The function writes configuration entries that map the current Windows domain us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - current_windows_user
-  - get_user_name
+  - [current_windows_user](current_windows_user.md)
+  - [get_user_name](../g/get_user_name.md)
   - bail
   - fopen/fclose/fputs/fprintf (standard I/O)
   - WSAStartup/getaddrinfo (Windows networking)
-  - fmtHba
+  - [fmtHba](../f/fmtHba.md)
 - Called from (representative examples):
-  - regression_main (in --config-auth mode)
+  - [regression_main](../r/regression_main.md) (in --config-auth mode)
 
 ## Notes and Other Information
 - This function is only available when compiled with ENABLE_SSPI support

@@ -20,12 +20,12 @@ This function calculates the total shared memory size required for the logical r
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalRepCtxStruct
-  - add_size
-  - mul_size
-  - LogicalRepWorker
+  - [add_size](../a/add_size.md)
+  - [mul_size](../m/mul_size.md)
+  - [LogicalRepWorker](../L/LogicalRepWorker.md)
 - Called from (representative examples):
-  - ApplyLauncherShmemInit
-  - CalculateShmemSize
+  - [ApplyLauncherShmemInit](ApplyLauncherShmemInit.md)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md)
   - LOGICALLAUNCHER_H
 
 ## Notes and Other Information

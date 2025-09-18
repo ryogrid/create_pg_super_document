@@ -23,9 +23,9 @@ The function follows PostgreSQL's standard binary send protocol: it initializes 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSN (extracts LSN argument from function args)
-  - pq_begintypsend (initializes binary output buffer)
-  - pq_sendint64 (writes 64-bit integer to binary buffer)
-  - pq_endtypsend (finalizes binary output buffer)
+  - [pq_begintypsend](pq_begintypsend.md) (initializes binary output buffer)
+  - [pq_sendint64](pq_sendint64.md) (writes 64-bit integer to binary buffer)
+  - [pq_endtypsend](pq_endtypsend.md) (finalizes binary output buffer)
   - PG_RETURN_BYTEA_P (returns binary data as bytea Datum)
 
 - Called from (representative examples):

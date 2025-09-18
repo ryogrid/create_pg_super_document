@@ -24,14 +24,14 @@ CompareIndexInfo performs a comprehensive comparison of two IndexInfo structures
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexInfo (structure type)
-  - AttrMap (structure type)
+  - [AttrMap](../A/AttrMap.md) (structure type)
   - InvalidAttrNumber (constant)
-  - map_variable_attnos (function)
-  - equal (function)
+  - [map_variable_attnos](../m/map_variable_attnos.md) (function)
+  - [equal](../e/equal.md) (function)
 - Called from (representative examples):
-  - DefineIndex
-  - AttachPartitionEnsureIndexes
-  - ATExecAttachPartitionIdx
+  - [DefineIndex](../D/DefineIndex.md)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md)
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md)
 
 ## Notes and Other Information
 - The function requires collations and opfamilies to be passed separately, which the comments note as a kludge that could be improved

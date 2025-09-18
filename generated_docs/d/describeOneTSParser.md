@@ -20,15 +20,15 @@ This function provides comprehensive details about a single text search parser b
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer  
-  - PSQLexec
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)  
+  - [PSQLexec](../P/PSQLexec.md)
   - termPQExpBuffer
-  - printQuery
-  - PQclear
+  - [printQuery](../p/printQuery.md)
+  - [PQclear](../P/PQclear.md)
   - gettext_noop
   - lengthof
 - Called from (representative examples):
-  - listTSParsersVerbose
+  - [listTSParsersVerbose](../l/listTSParsersVerbose.md)
 
 ## Notes and Other Information
 - Returns false on error, true on success

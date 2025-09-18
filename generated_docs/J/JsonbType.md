@@ -18,7 +18,7 @@ This function returns the effective type of a JsonbValue structure. For most Jso
 ## Dependencies
 - Functions called/Symbols referenced:
   - jbvBinary (JsonbValue type constant for binary data)
-  - JsonbContainer (structure representing JSONB binary containers)
+  - [JsonbContainer](JsonbContainer.md) (structure representing JSONB binary containers)
   - JsonContainerIsScalar (macro to check if container holds a scalar value)
   - JsonContainerIsObject (macro to check if container holds an object)
   - jbvObject (JsonbValue type constant for objects)
@@ -26,10 +26,10 @@ This function returns the effective type of a JsonbValue structure. For most Jso
   - jbvArray (JsonbValue type constant for arrays)
   - elog (PostgreSQL error logging function)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (extensively used)
-  - executeItemOptUnwrapResult
-  - executeNumericItemMethod
-  - executeKeyValueMethod
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (extensively used)
+  - [executeItemOptUnwrapResult](../e/executeItemOptUnwrapResult.md)
+  - [executeNumericItemMethod](../e/executeNumericItemMethod.md)
+  - [executeKeyValueMethod](../e/executeKeyValueMethod.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c, not exposed in the public API

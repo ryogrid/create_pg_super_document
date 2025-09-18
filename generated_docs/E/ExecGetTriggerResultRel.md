@@ -19,14 +19,14 @@ ExecGetTriggerResultRel manages ResultRelInfo structures specifically for trigge
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitResultRelInfo
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
   - RelationGetRelid
   - table_open
   - makeNode
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - lappend
 - Called from (representative examples):
-  - afterTriggerInvokeEvents (multiple locations in trigger.c)
+  - [afterTriggerInvokeEvents](../a/afterTriggerInvokeEvents.md) (multiple locations in trigger.c)
 
 ## Notes and Other Information
 - Searches three potential sources: es_opened_result_relations, es_tuple_routing_result_relations, and es_trig_target_relations

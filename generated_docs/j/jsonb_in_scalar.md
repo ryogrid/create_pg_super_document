@@ -19,15 +19,15 @@ This function serves as a callback handler for scalar values during JSON to JSON
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkStringLen (for string length validation)
-  - DirectInputFunctionCallSafe, numeric_in, DatumGetNumeric (for numeric conversion)
-  - pushJsonbValue (for building JSONB structure)
+  - [checkStringLen](../c/checkStringLen.md) (for string length validation)
+  - [DirectInputFunctionCallSafe](../D/DirectInputFunctionCallSafe.md), numeric_in, DatumGetNumeric (for numeric conversion)
+  - [pushJsonbValue](../p/pushJsonbValue.md) (for building JSONB structure)
   - elog (for error reporting)
   - JSON token constants: JSON_TOKEN_STRING, JSON_TOKEN_NUMBER, JSON_TOKEN_TRUE, JSON_TOKEN_FALSE, JSON_TOKEN_NULL
   - JSONB value constants: jbvString, jbvNumeric, jbvBool, jbvNull, jbvArray, jbvObject
   - JSONB builder constants: WJB_BEGIN_ARRAY, WJB_ELEM, WJB_END_ARRAY, WJB_VALUE
 - Called from (representative examples):
-  - jsonb_from_cstring (as part of JSON parsing callbacks)
+  - [jsonb_from_cstring](jsonb_from_cstring.md) (as part of JSON parsing callbacks)
   - datum_to_jsonb_internal (for internal JSONB conversion)
 
 ## Notes and Other Information

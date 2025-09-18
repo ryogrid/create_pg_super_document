@@ -19,7 +19,7 @@ This function creates a new PLySubtransactionObject instance that represents a s
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_New (Python C API function)
-  - PLySubtransactionObject (struct type)
+  - [PLySubtransactionObject](PLySubtransactionObject.md) (struct type)
   - PLy_SubtransactionType (Python type object)
 - Called from:
   - No direct references found (likely registered as Python method)

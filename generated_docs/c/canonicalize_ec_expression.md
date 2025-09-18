@@ -28,14 +28,14 @@ The function uses applyRelabelType to preserve const-flatness, which is crucial 
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType
-  - exprCollation
+  - [exprCollation](../e/exprCollation.md)
   - exprTypmod
   - IsPolymorphicType
   - applyRelabelType
 - Called from (representative examples):
-  - process_equivalence
-  - get_eclass_for_sort_expr
-  - convert_subquery_pathkeys
+  - [process_equivalence](../p/process_equivalence.md)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
+  - [convert_subquery_pathkeys](convert_subquery_pathkeys.md)
 
 ## Notes and Other Information
 - Preserves const-flatness by using applyRelabelType rather than direct RelabelType construction

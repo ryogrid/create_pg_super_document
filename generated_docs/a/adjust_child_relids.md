@@ -21,16 +21,16 @@ The substitution process removes the parent relation ID from the set and adds th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (structure type)
-  - bms_is_member (checks if relation ID exists in set)
-  - bms_copy (creates copy of bitmap set)
-  - bms_del_member (removes relation ID from set)
-  - bms_add_member (adds relation ID to set)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)
+  - [bms_is_member](../b/bms_is_member.md) (checks if relation ID exists in set)
+  - [bms_copy](../b/bms_copy.md) (creates copy of bitmap set)
+  - [bms_del_member](../b/bms_del_member.md) (removes relation ID from set)
+  - [bms_add_member](../b/bms_add_member.md) (adds relation ID to set)
 - Called from (representative examples):
-  - try_partitionwise_join
-  - build_child_join_sjinfo
-  - adjust_appendrel_attrs_mutator
-  - adjust_child_relids_multilevel
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
+  - [build_child_join_sjinfo](../b/build_child_join_sjinfo.md)
+  - [adjust_appendrel_attrs_mutator](adjust_appendrel_attrs_mutator.md)
+  - [adjust_child_relids_multilevel](adjust_child_relids_multilevel.md)
   - build_child_join_rel
 
 ## Notes and Other Information

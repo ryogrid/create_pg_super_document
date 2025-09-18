@@ -29,12 +29,12 @@ The `match_network_function` helper is responsible for analyzing the specific ne
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (extract pointer argument)
   - IsA (type checking macro)
-  - is_opclause (check if node is operator expression)
-  - is_funcclause (check if node is function expression) 
+  - [is_opclause](../i/is_opclause.md) (check if node is operator expression)
+  - [is_funcclause](../i/is_funcclause.md) (check if node is function expression) 
   - list_length (get list length)
   - linitial (get first list element)
   - lsecond (get second list element)
-  - match_network_function (convert network operations to index conditions)
+  - [match_network_function](../m/match_network_function.md) (convert network operations to index conditions)
   - Assert (assertion macro)
   - PG_RETURN_POINTER (return pointer result)
 - Called from (representative examples):

@@ -26,11 +26,11 @@ The function builds the potential loop path in the workspace array as it recurse
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByDumpId
-  - findLoop (recursive call)
+  - [findObjectByDumpId](findObjectByDumpId.md)
+  - [findLoop](findLoop.md) (recursive call)
 - Called from (representative examples):
-  - findDependencyLoops
-  - findLoop (recursive)
+  - [findDependencyLoops](findDependencyLoops.md)
+  - [findLoop](findLoop.md) (recursive)
 
 ## Notes and Other Information
 - Returns the length of the found loop (> 0) on success, or 0 if no loop is found

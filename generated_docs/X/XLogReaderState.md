@@ -32,17 +32,17 @@ XLogReaderState serves as the comprehensive state machine for WAL reading operat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderRoutine (callback structure)
-  - DecodedXLogRecord (decoded record structure)
-  - WALSegmentContext (segment context)
-  - WALOpenSegment (open segment state)
+  - [XLogReaderRoutine](XLogReaderRoutine.md) (callback structure)
+  - [DecodedXLogRecord](../D/DecodedXLogRecord.md) (decoded record structure)
+  - [WALSegmentContext](../W/WALSegmentContext.md) (segment context)
+  - [WALOpenSegment](../W/WALOpenSegment.md) (open segment state)
   - XLogRecPtr (WAL position type)
   - TimeLineID (timeline identifier type)
 - Called from (representative examples):
-  - XLogReaderAllocate (allocation function)
-  - XLogReaderFree (deallocation function)
-  - XLogBeginRead (positioning function)
-  - XLogFindNextRecord (navigation function)
+  - [XLogReaderAllocate](XLogReaderAllocate.md) (allocation function)
+  - [XLogReaderFree](XLogReaderFree.md) (deallocation function)
+  - [XLogBeginRead](XLogBeginRead.md) (positioning function)
+  - [XLogFindNextRecord](XLogFindNextRecord.md) (navigation function)
   - Various callback functions throughout the WAL reading infrastructure
 
 ## Notes and Other Information

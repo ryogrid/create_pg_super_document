@@ -25,22 +25,22 @@ The function handles multiple scenarios including regular index scans, index-onl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexPath (structure)
-  - IndexOptInfo (structure)
+  - [IndexPath](../I/IndexPath.md) (structure)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
   - Cost (type)
   - QualCost (structure)
-  - list_concat
-  - extract_nonindex_conditions
-  - clamp_row_est
-  - get_tablespace_page_costs
-  - index_pages_fetched
-  - compute_parallel_worker
-  - cost_qual_eval
-  - get_parallel_divisor
+  - [list_concat](../l/list_concat.md)
+  - [extract_nonindex_conditions](../e/extract_nonindex_conditions.md)
+  - [clamp_row_est](clamp_row_est.md)
+  - [get_tablespace_page_costs](../g/get_tablespace_page_costs.md)
+  - [index_pages_fetched](../i/index_pages_fetched.md)
+  - [compute_parallel_worker](compute_parallel_worker.md)
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [get_parallel_divisor](../g/get_parallel_divisor.md)
   - RTE_RELATION (constant)
 - Called from (representative examples):
-  - create_index_path
-  - reparameterize_path
+  - [create_index_path](create_index_path.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
 This function implements one of the most sophisticated costing models in PostgreSQL, handling the complex relationship between index selectivity, heap page correlation, and access patterns. It distinguishes between startup costs (index initialization and qualification setup) and run costs (per-tuple processing and I/O). The correlation-based interpolation between random and sequential access costs is crucial for accurate cost estimation, especially for clustered tables. For parallel execution, it adjusts both worker count estimation and cost distribution among workers.

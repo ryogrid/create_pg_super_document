@@ -19,13 +19,13 @@ The function performs a simple cast operation to return the address of the conte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferDesc (structure type)
-  - LWLock (structure type)
+  - [BufferDesc](BufferDesc.md) (structure type)
+  - [LWLock](../L/LWLock.md) (structure type)
 - Called from (representative examples):
   - InitBufferPool
-  - ZeroAndLockBuffer
-  - GetVictimBuffer
-  - LockBuffer
+  - [ZeroAndLockBuffer](../Z/ZeroAndLockBuffer.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
   - ConditionalLockBuffer
   - MarkBufferDirty
   - FlushOneBuffer

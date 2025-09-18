@@ -23,7 +23,7 @@ This function is fundamental to PostgreSQL's type system infrastructure for enum
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enum_cmp_internal: Core enum comparison function that performs the actual comparison logic
+  - [enum_cmp_internal](enum_cmp_internal.md): Core enum comparison function that performs the actual comparison logic
   - PG_GETARG_OID: Macro to extract OID arguments from function call
   - PG_RETURN_INT32: Macro to return a 32-bit integer result
 - Called from (representative examples):

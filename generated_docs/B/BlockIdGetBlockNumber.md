@@ -19,13 +19,13 @@ BlockIdGetBlockNumber performs the inverse operation of BlockIdSet by reconstruc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockIdData (structure type)
+  - [BlockIdData](BlockIdData.md) (structure type)
   - BlockNumber (return type)
 - Called from (representative examples):
-  - ginRedoInsert
-  - gin_desc
+  - [ginRedoInsert](../g/ginRedoInsert.md)
+  - [gin_desc](../g/gin_desc.md)
   - PostingItemGetBlockNumber
-  - ItemPointerGetBlockNumberNoCheck
+  - [ItemPointerGetBlockNumberNoCheck](../I/ItemPointerGetBlockNumberNoCheck.md)
 
 ## Notes and Other Information
 - This is a static inline function defined in src/include/storage/block.h for optimal performance

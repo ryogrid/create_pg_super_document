@@ -22,7 +22,7 @@ This function is part of PostgreSQL's type input/output framework and is automat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `oidsend`: Binary send function for OID type that performs the actual binary serialization
+  - `[oidsend](../o/oidsend.md)`: Binary send function for OID type that performs the actual binary serialization
 
 - Called from (representative examples):
   - No direct references found (typically called via PostgreSQL's type system during binary I/O)

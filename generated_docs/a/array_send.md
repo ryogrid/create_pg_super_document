@@ -26,25 +26,25 @@ The serialization process involves writing array header information (dimensions,
   - AARR_LBOUND
   - AARR_HASNULL
   - ArrayGetNItems
-  - get_type_io_data
+  - [get_type_io_data](../g/get_type_io_data.md)
   - IOFunc_send
-  - fmgr_info_cxt
-  - pq_begintypsend
-  - pq_sendint32
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
   - array_iter_setup
   - array_iter_next
-  - SendFunctionCall
+  - [SendFunctionCall](../S/SendFunctionCall.md)
   - pq_sendbytes
-  - pq_endtypsend
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - VARSIZE
   - VARDATA
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):
-  - int2vectorsend
-  - oidvectorsend
-  - anyarray_send
-  - anycompatiblearray_send
-  - CATALOG (pg_type.h)
+  - [int2vectorsend](../i/int2vectorsend.md)
+  - [oidvectorsend](../o/oidvectorsend.md)
+  - [anyarray_send](anyarray_send.md)
+  - [anycompatiblearray_send](anycompatiblearray_send.md)
+  - [CATALOG](../C/CATALOG.md) (pg_type.h)
 
 ## Notes and Other Information
 The function uses ArrayMetaState caching to store element type information and avoid repeated type system lookups, improving performance for repeated operations. The binary protocol format is PostgreSQL-specific and includes comprehensive metadata to enable proper deserialization. NULL elements are efficiently represented using -1 length markers without additional data. The function ensures that element types have valid binary send procedures and reports appropriate errors for types lacking binary output support. Memory management is handled carefully with proper cleanup of temporary bytea objects to prevent memory leaks during serialization.

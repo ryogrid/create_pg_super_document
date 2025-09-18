@@ -18,17 +18,17 @@ ParallelBackupStart is the main entry point for setting up parallel processing i
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc, pg_malloc0 (memory allocation)
-  - pgpipe (pipe creation for IPC)
+  - [pgpipe](../p/pgpipe.md) (pipe creation for IPC)
   - fork (Unix process creation)
   - _beginthreadex (Windows thread creation)
-  - RunWorker (worker main function)
-  - set_archive_cancel_info (query cancellation setup)
-  - set_cancel_pstate (signal handling setup)
-  - pqsignal (signal handler registration)
+  - [RunWorker](../R/RunWorker.md) (worker main function)
+  - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (query cancellation setup)
+  - [set_cancel_pstate](../s/set_cancel_pstate.md) (signal handling setup)
+  - [pqsignal](../p/pqsignal.md) (signal handler registration)
   - closesocket (cleanup of unused pipe ends)
 - Called from (representative examples):
-  - RestoreArchive (src/bin/pg_dump/pg_backup_archiver.c:731)
-  - _CloseArchive (src/bin/pg_dump/pg_backup_directory.c:576)
+  - [RestoreArchive](../R/RestoreArchive.md) (src/bin/pg_dump/pg_backup_archiver.c:731)
+  - [_CloseArchive](../C/_CloseArchive.md) (src/bin/pg_dump/pg_backup_directory.c:576)
 
 ## Notes and Other Information
 - Returns a ParallelState structure containing worker management information and communication pipes

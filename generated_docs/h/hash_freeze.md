@@ -17,8 +17,8 @@ The hash_freeze function marks a hash table as frozen, preventing any future ins
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_seq_scans
-  - HTAB (structure access)
+  - [has_seq_scans](has_seq_scans.md)
+  - [HTAB](../H/HTAB.md) (structure access)
   - elog (for error reporting)
 - Called from (representative examples):
   - HASH_SEQ_STATUS (referenced in header file)

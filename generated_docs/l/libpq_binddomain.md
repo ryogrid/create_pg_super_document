@@ -19,8 +19,8 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_lock
-  - pthread_mutex_unlock
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md)
   - getenv (standard C library function)
   - bindtextdomain (gettext function)
   - PG_TEXTDOMAIN
@@ -28,8 +28,8 @@ This function takes no parameters.
   - errno (on non-Windows platforms)
   - GetLastError/SetLastError (on Windows)
 - Called from (representative examples):
-  - libpq_gettext
-  - libpq_ngettext
+  - [libpq_gettext](libpq_gettext.md)
+  - [libpq_ngettext](libpq_ngettext.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within fe-misc.c

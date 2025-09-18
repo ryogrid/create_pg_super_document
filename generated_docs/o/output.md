@@ -23,7 +23,7 @@ The histogram uses a logarithmic scale where each bin represents timing duration
   - printf (formatted output)
   - Max (macro for maximum value calculation)
 - Called from:
-  - main (pg_test_timing.c:37)
+  - [main](../m/main.md) (pg_test_timing.c:37)
 
 ## Dependencies on Global Variables
 - : Global array containing timing measurement counts for each power-of-2 microsecond bin

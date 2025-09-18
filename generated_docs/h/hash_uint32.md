@@ -21,19 +21,19 @@ The function serves as the standard interface for hashing 32-bit values in Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes_uint32
-  - UInt32GetDatum
+  - [hash_bytes_uint32](hash_bytes_uint32.md)
+  - [UInt32GetDatum](../U/UInt32GetDatum.md)
 - Called from (representative examples):
-  - hashchar
-  - hashint2
-  - hashint4
-  - hashint8
-  - hashoid
-  - hashenum
-  - timetz_hash
-  - hash_range
-  - hash_multirange
-  - hashRowType
+  - [hashchar](hashchar.md)
+  - [hashint2](hashint2.md)
+  - [hashint4](hashint4.md)
+  - [hashint8](hashint8.md)
+  - [hashoid](hashoid.md)
+  - [hashenum](hashenum.md)
+  - [timetz_hash](../t/timetz_hash.md)
+  - [hash_range](hash_range.md)
+  - [hash_multirange](hash_multirange.md)
+  - [hashRowType](hashRowType.md)
 
 ## Notes and Other Information
 This function is widely used throughout PostgreSQL for hashing various integer-based data types including characters, small integers, regular integers, object identifiers, and enums. It's also utilized in specialized contexts like abbreviation conversion for sorting operations and hash computations for complex types like ranges and multiranges. The optimized implementation makes it the preferred choice over general-purpose hashing when dealing with 32-bit integer values.

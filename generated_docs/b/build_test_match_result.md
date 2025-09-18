@@ -35,15 +35,15 @@ For string extraction, the function supports both wide character conversion (usi
 ## Dependencies
 - Functions called/Symbols referenced:
   - cstring_to_text
-  - pg_wchar2mb_with_len
+  - [pg_wchar2mb_with_len](../p/pg_wchar2mb_with_len.md)
   - cstring_to_text_with_len
-  - text_substr
+  - [text_substr](../t/text_substr.md)
   - DirectFunctionCall3
-  - construct_md_array
+  - [construct_md_array](../c/construct_md_array.md)
   - REG_EXPECT
   - TYPALIGN_INT
 - Called from (representative examples):
-  - test_regex
+  - [test_regex](../t/test_regex.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively within the test_regex module for testing regex functionality

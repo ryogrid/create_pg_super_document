@@ -25,15 +25,15 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitCatCache
+  - [InitCatCache](InitCatCache.md)
   - PointerIsValid
-  - RelationInvalidatesSnapshotsOnly
+  - [RelationInvalidatesSnapshotsOnly](../R/RelationInvalidatesSnapshotsOnly.md)
   - lengthof
   - qsort
-  - oid_compare
-  - qunique
+  - [oid_compare](../o/oid_compare.md)
+  - [qunique](../q/qunique.md)
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](InitPostgres.md)
 
 ## Notes and Other Information
 - Must be called exactly once during PostgreSQL backend initialization

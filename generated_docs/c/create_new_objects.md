@@ -30,18 +30,18 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status_progress: Shows progress status to user
-  - pg_log: Logs status messages
-  - exec_prog: Executes pg_restore for template1
-  - parallel_exec_prog: Executes pg_restore in parallel for other databases
-  - cluster_conn_opts: Generates connection options
-  - reap_child: Waits for parallel child processes to complete
-  - end_progress_output: Ends progress display
-  - check_ok: Verifies operations completed successfully
-  - set_frozenxids: Sets frozen XIDs for pre-9.3 clusters
-  - get_db_rel_and_slot_infos: Updates cluster information after restoration
+  - [prep_status_progress](../p/prep_status_progress.md): Shows progress status to user
+  - [pg_log](../p/pg_log.md): Logs status messages
+  - [exec_prog](../e/exec_prog.md): Executes pg_restore for template1
+  - [parallel_exec_prog](../p/parallel_exec_prog.md): Executes pg_restore in parallel for other databases
+  - [cluster_conn_opts](cluster_conn_opts.md): Generates connection options
+  - [reap_child](../r/reap_child.md): Waits for parallel child processes to complete
+  - [end_progress_output](../e/end_progress_output.md): Ends progress display
+  - [check_ok](check_ok.md): Verifies operations completed successfully
+  - [set_frozenxids](../s/set_frozenxids.md): Sets frozen XIDs for pre-9.3 clusters
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md): Updates cluster information after restoration
 - Data structures used:
-  - DbInfo: Database information structure
+  - [DbInfo](../D/DbInfo.md): Database information structure
   - old_cluster.dbarr: Array of databases in old cluster
   - new_cluster: New cluster connection information
 - Constants used:
@@ -50,7 +50,7 @@ This function takes no parameters.
   - RESTORE_TRANSACTION_SIZE: Default transaction size for pg_restore
   - PG_STATUS: Log level for status messages
 - Called from:
-  - main: Part of the main pg_upgrade workflow
+  - [main](../m/main.md): Part of the main pg_upgrade workflow
 
 ## Notes and Other Information
 - The function handles both serial and parallel execution modes based on user_opts.jobs

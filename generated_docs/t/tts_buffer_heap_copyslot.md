@@ -38,11 +38,11 @@ In this case, it shares the buffer reference via tts_buffer_heap_store_tuple() b
   - TTS_FLAG_EMPTY (flag indicating empty slot)
   - ExecCopySlotHeapTuple (creates HeapTuple copy from slot)
   - TTS_FLAG_SHOULDFREE (marks slot as owning tuple memory)
-  - tts_buffer_heap_store_tuple (stores tuple with buffer reference)
-  - HeapTupleData (tuple header structure)
+  - [tts_buffer_heap_store_tuple](tts_buffer_heap_store_tuple.md) (stores tuple with buffer reference)
+  - [HeapTupleData](../H/HeapTupleData.md) (tuple header structure)
 
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function includes an important optimization: when sharing buffer references, it copies the HeapTupleData structure locally to prevent use-after-free issues if the source slot is freed before the destination

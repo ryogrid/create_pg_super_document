@@ -19,12 +19,12 @@ On first invocation (when conn->ssl is NULL), it calls initialize_SSL() to set u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initialize_SSL
-  - pgtls_close  
+  - [initialize_SSL](../i/initialize_SSL.md)
+  - [pgtls_close](pgtls_close.md)  
   - PGRES_POLLING_FAILED
-  - open_client_SSL
+  - [open_client_SSL](../o/open_client_SSL.md)
 - Called from (representative examples):
-  - pqsecure_open_client (in fe-secure.c:156)
+  - [pqsecure_open_client](pqsecure_open_client.md) (in fe-secure.c:156)
   - pgunlock_thread (referenced in libpq-int.h:805)
 
 ## Notes and Other Information

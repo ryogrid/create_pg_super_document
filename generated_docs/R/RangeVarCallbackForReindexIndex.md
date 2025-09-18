@@ -28,14 +28,14 @@ This function serves as a callback for RangeVarGetRelidExtended() during index r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_relkind
-  - IndexGetRelation
-  - pg_class_aclcheck
-  - aclcheck_error
-  - LockRelationOid
-  - UnlockRelationOid
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [IndexGetRelation](../I/IndexGetRelation.md)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
 - Called from:
-  - ReindexIndex
+  - [ReindexIndex](ReindexIndex.md)
 
 ## Notes and Other Information
 - The function handles both concurrent and non-concurrent reindexing scenarios with different locking strategies

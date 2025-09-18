@@ -24,9 +24,9 @@ This function takes no parameters and returns an integer representing the maximu
   - max_wal_senders (global variable)
   - max_worker_processes (global variable)
 - Called from (representative examples):
-  - processCancelRequest (src/backend/postmaster/postmaster.c:1857)
-  - canAcceptConnections (src/backend/postmaster/postmaster.c:1940)
-  - ShmemBackendArraySize (src/backend/postmaster/postmaster.c:4552)
+  - [processCancelRequest](../p/processCancelRequest.md) (src/backend/postmaster/postmaster.c:1857)
+  - [canAcceptConnections](../c/canAcceptConnections.md) (src/backend/postmaster/postmaster.c:1940)
+  - [ShmemBackendArraySize](../S/ShmemBackendArraySize.md) (src/backend/postmaster/postmaster.c:4552)
   - PMSignalShmemSize (src/backend/storage/ipc/pmsignal.c:134)
   - PMSignalShmemInit (src/backend/storage/ipc/pmsignal.c:155)
 

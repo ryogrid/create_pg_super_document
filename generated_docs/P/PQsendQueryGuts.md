@@ -34,16 +34,16 @@ The function is designed to work with both regular query execution and pipeline 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqAllocCmdQueueEntry
-  - pqPutMsgStart, pqPutMsgEnd
-  - pqPuts, pqPutc, pqPutnchar, pqPutInt
-  - pqPipelineFlush
-  - pqAppendCmdQueueEntry, pqRecycleCmdQueueEntry
-  - PGcmdQueueEntry, PGQUERY_EXTENDED
+  - [pqAllocCmdQueueEntry](../p/pqAllocCmdQueueEntry.md)
+  - [pqPutMsgStart](../p/pqPutMsgStart.md), pqPutMsgEnd
+  - [pqPuts](../p/pqPuts.md), pqPutc, pqPutnchar, pqPutInt
+  - [pqPipelineFlush](../p/pqPipelineFlush.md)
+  - [pqAppendCmdQueueEntry](../p/pqAppendCmdQueueEntry.md), pqRecycleCmdQueueEntry
+  - [PGcmdQueueEntry](PGcmdQueueEntry.md), PGQUERY_EXTENDED
   - Protocol message types: PqMsg_Parse, PqMsg_Bind, PqMsg_Describe, PqMsg_Execute, PqMsg_Sync
 - Called from (representative examples):
-  - PQsendQueryParams
-  - PQsendQueryPrepared
+  - [PQsendQueryParams](PQsendQueryParams.md)
+  - [PQsendQueryPrepared](PQsendQueryPrepared.md)
 
 ## Notes and Other Information
 - This is a static function used internally by libpq and not exposed to client applications

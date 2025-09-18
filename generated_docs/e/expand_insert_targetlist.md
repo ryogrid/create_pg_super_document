@@ -34,16 +34,16 @@ After processing all table attributes, any remaining resjunk (auxiliary) entries
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes
   - TupleDescAttr
-  - makeConst
-  - getBaseTypeAndTypmod
-  - coerce_null_to_domain
-  - eval_const_expressions
-  - makeTargetEntry
-  - flatCopyTargetEntry
+  - [makeConst](../m/makeConst.md)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
+  - [coerce_null_to_domain](../c/coerce_null_to_domain.md)
+  - [eval_const_expressions](eval_const_expressions.md)
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [flatCopyTargetEntry](../f/flatCopyTargetEntry.md)
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
 - Called from (representative examples):
-  - preprocess_targetlist (src/backend/optimizer/prep/preptlist.c:107, 153)
+  - [preprocess_targetlist](../p/preprocess_targetlist.md) (src/backend/optimizer/prep/preptlist.c:107, 153)
 
 ## Notes and Other Information
 This function is located in src/backend/optimizer/prep/preptlist.c:382-525 and is declared as static, meaning it's only used within the same file. It's a critical component for INSERT statement processing, ensuring that the executor receives a complete and correctly ordered targetlist. The function handles various PostgreSQL-specific features like dropped columns, generated columns, and domain constraints while maintaining compatibility with the executor's expectations.

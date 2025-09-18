@@ -29,16 +29,16 @@ The function works in conjunction with hash_object_field_start to complete the f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JHashState (struct type for state management)
-  - JsonHashEntry (struct type for hash table entries)
+  - [JHashState](../J/JHashState.md) (struct type for state management)
+  - [JsonHashEntry](../J/JsonHashEntry.md) (struct type for hash table entries)
   - JSON_SUCCESS (return value constant)
   - NAMEDATALEN (maximum identifier length constant)
-  - hash_search (hash table lookup/insert function)
+  - [hash_search](hash_search.md) (hash table lookup/insert function)
   - HASH_ENTER (hash operation mode)
   - JSON_TOKEN_NULL (token type constant)
   - JsonParseErrorType (return type)
 - Called from (representative examples):
-  - get_json_object_as_hash
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
   - JsObjectFree
 
 ## Notes and Other Information

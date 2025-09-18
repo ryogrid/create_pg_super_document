@@ -27,7 +27,7 @@ The function directly invokes any registered object access hooks through the glo
   - Assert (assertion macro)
 
 - Called from (representative examples):
-  - ObjectAccessNamespaceSearch  
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)  
   - InvokeObjectTruncateHook
 
 ## Notes and Other Information

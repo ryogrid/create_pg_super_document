@@ -19,7 +19,7 @@ This function implements the extended hash operation for PostgreSQL's time data 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hashint8extended
+  - [hashint8extended](../h/hashint8extended.md)
 - Called from (representative examples):
   - Used internally by PostgreSQL's hash-based operations requiring extended hash functions
 

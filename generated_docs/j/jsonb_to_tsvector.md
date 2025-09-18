@@ -20,9 +20,9 @@ This function serves as a wrapper around the core JSONB to TSVector conversion f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_jsonb_index_flags
-  - getTSCurrentConfig
-  - jsonb_to_tsvector_worker
+  - [parse_jsonb_index_flags](../p/parse_jsonb_index_flags.md)
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md)
+  - [jsonb_to_tsvector_worker](jsonb_to_tsvector_worker.md)
   - PG_GETARG_JSONB_P
   - PG_FREE_IF_COPY
   - PG_RETURN_TSVECTOR

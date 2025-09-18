@@ -28,12 +28,12 @@ The registered provider becomes available for use with SECURITY LABEL SQL comman
 ## Dependencies
 - Functions called/Symbols referenced:
   - LabelProvider (struct type)
-  - MemoryContextSwitchTo
-  - palloc
-  - pstrdup
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [pstrdup](../p/pstrdup.md)
   - lappend
 - Called from (representative examples):
-  - _PG_init (in security label extension modules)
+  - [_PG_init](../P/_PG_init.md) (in security label extension modules)
 
 ## Notes and Other Information
 - The function uses TopMemoryContext to ensure provider registrations persist for the lifetime of the backend process

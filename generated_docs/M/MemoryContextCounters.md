@@ -24,12 +24,12 @@ The counters track both allocated and free memory at the block and chunk level, 
 - Functions called/Symbols referenced:
   - Size (PostgreSQL's size type)
 - Called from (representative examples):
-  - show_memory_counters (explain.c:3950)
-  - AllocSetStats (aset.c:1523)
-  - BumpStats (bump.c:689)
-  - GenerationStats (generation.c:1035)
-  - SlabStats (slab.c:931)
-  - MemoryContextStatsDetail (mcxt.c:833)
+  - [show_memory_counters](../s/show_memory_counters.md) (explain.c:3950)
+  - [AllocSetStats](../A/AllocSetStats.md) (aset.c:1523)
+  - [BumpStats](../B/BumpStats.md) (bump.c:689)
+  - [GenerationStats](../G/GenerationStats.md) (generation.c:1035)
+  - [SlabStats](../S/SlabStats.md) (slab.c:931)
+  - [MemoryContextStatsDetail](MemoryContextStatsDetail.md) (mcxt.c:833)
 
 ## Notes and Other Information
 - The structure is designed with AllocSet contexts in mind, but is used by all memory context types

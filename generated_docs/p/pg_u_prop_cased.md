@@ -28,12 +28,12 @@ A character is considered cased if any of these conditions are true, making this
 - Functions called/Symbols referenced:
   - PG_U_PROP_CASED (constant bitmask for the Cased property)
   - PG_U_CATEGORY_MASK (macro for category masking)
-  - unicode_category (function to get character category)
+  - [unicode_category](../u/unicode_category.md) (function to get character category)
   - PG_U_LT_MASK (mask for titlecase letters)
-  - pg_u_prop_lowercase (function to check lowercase property)
-  - pg_u_prop_uppercase (function to check uppercase property)
+  - [pg_u_prop_lowercase](pg_u_prop_lowercase.md) (function to check lowercase property)
+  - [pg_u_prop_uppercase](pg_u_prop_uppercase.md) (function to check uppercase property)
 - Called from (representative examples):
-  - icu_test (testing function)
+  - [icu_test](../i/icu_test.md) (testing function)
 
 ## Notes and Other Information
 - Comprehensive approach combining category checks and property checks

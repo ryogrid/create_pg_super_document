@@ -22,13 +22,13 @@ TriggerInfo represents trigger metadata in PostgreSQL's pg_dump utility. It exte
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - TableInfo (for table association)
+  - [TableInfo](TableInfo.md) (for table association)
 - Called from (representative examples):
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:252)
-  - getTriggers (src/bin/pg_dump/pg_dump.c:8232, 8360)
-  - dumpDumpableObject (src/bin/pg_dump/pg_dump.c:10598)
-  - dumpTrigger (src/bin/pg_dump/pg_dump.c:17893)
-  - DOTypeNameCompare (src/bin/pg_dump/pg_dump_sort.c:378, 379)
+  - [getTriggers](../g/getTriggers.md) (src/bin/pg_dump/pg_dump.c:8232, 8360)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (src/bin/pg_dump/pg_dump.c:10598)
+  - [dumpTrigger](../d/dumpTrigger.md) (src/bin/pg_dump/pg_dump.c:17893)
+  - [DOTypeNameCompare](../D/DOTypeNameCompare.md) (src/bin/pg_dump/pg_dump_sort.c:378, 379)
 
 ## Notes and Other Information
 - This structure is specifically used in the pg_dump utility context for backup and restore operations

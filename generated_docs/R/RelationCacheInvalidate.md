@@ -34,21 +34,21 @@ The function also handles SMgrRelation cleanup and optionally signals any in-pro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationMapInvalidateAll
-  - hash_seq_init
-  - hash_seq_search
+  - [RelationMapInvalidateAll](RelationMapInvalidateAll.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - RelationHasReferenceCountZero
-  - RelationClearRelation
+  - [RelationClearRelation](RelationClearRelation.md)
   - RelationIsMapped
   - RelationCloseSmgr
-  - RelationInitPhysicalAddr
-  - smgrreleaseall
-  - lcons
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)
+  - [smgrreleaseall](../s/smgrreleaseall.md)
+  - [lcons](../l/lcons.md)
   - lappend
-  - list_free
+  - [list_free](../l/list_free.md)
 - Called from (representative examples):
-  - InvalidateSystemCachesExtended
-  - LocalExecuteInvalidationMessage
+  - [InvalidateSystemCachesExtended](../I/InvalidateSystemCachesExtended.md)
+  - [LocalExecuteInvalidationMessage](../L/LocalExecuteInvalidationMessage.md)
 
 ## Notes and Other Information
 - The two-phase approach is critical for safety with hash_seq_search, which only handles concurrent deletion of the currently visited element

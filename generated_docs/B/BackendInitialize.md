@@ -19,23 +19,23 @@ BackendInitialize performs comprehensive initialization for a new backend proces
 ## Dependencies
 - Functions called/Symbols referenced:
   - ReserveExternalFD
-  - pg_usleep
-  - pq_init
-  - pqsignal
+  - [pg_usleep](../p/pg_usleep.md)
+  - [pq_init](../p/pq_init.md)
+  - [pqsignal](../p/pqsignal.md)
   - InitializeTimeouts
   - sigprocmask
   - pg_getnameinfo_all
   - RegisterTimeout
-  - ProcessSSLStartup
-  - ProcessStartupPacket
+  - [ProcessSSLStartup](../P/ProcessSSLStartup.md)
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md)
   - disable_timeout
-  - check_on_shmem_exit_lists_are_empty
-  - proc_exit
-  - GetBackendTypeDesc
+  - [check_on_shmem_exit_lists_are_empty](../c/check_on_shmem_exit_lists_are_empty.md)
+  - [proc_exit](../p/proc_exit.md)
+  - [GetBackendTypeDesc](../G/GetBackendTypeDesc.md)
   - init_ps_display
   - set_ps_display
 - Called from (representative examples):
-  - BackendMain
+  - [BackendMain](BackendMain.md)
 
 ## Notes and Other Information
 - Function does not depend on shared memory access and must not modify shared memory before authentication

@@ -22,12 +22,12 @@ The function implements several safety checks to ensure the sort can be performe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_ec_member_matching_expr
-  - expression_returns_set
-  - is_parallel_safe
-  - find_computable_ec_member
+  - [find_ec_member_matching_expr](../f/find_ec_member_matching_expr.md)
+  - [expression_returns_set](../e/expression_returns_set.md)
+  - [is_parallel_safe](../i/is_parallel_safe.md)
+  - [find_computable_ec_member](../f/find_computable_ec_member.md)
 - Called from (representative examples):
-  - get_useful_pathkeys_for_relation
+  - [get_useful_pathkeys_for_relation](../g/get_useful_pathkeys_for_relation.md)
 
 ## Notes and Other Information
 - Volatile EquivalenceClasses are immediately rejected as such sorts must be postponed

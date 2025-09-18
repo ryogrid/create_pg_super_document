@@ -26,15 +26,15 @@ This function provides safe input function calling when you have a direct pointe
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro for local function call info)
   - InitFunctionCallInfoData (initializes function call structure with NULL FmgrInfo)
-  - CStringGetDatum (converts C string to Datum)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (converts C string to Datum)
   - SOFT_ERROR_OCCURRED (checks if a soft error occurred)
 - Called from (representative examples):
-  - jsonb_in_scalar
-  - executeItemOptUnwrapTarget
-  - to_regproc
-  - to_regprocedure
-  - to_regoper
-  - parseNumericOid
+  - [jsonb_in_scalar](../j/jsonb_in_scalar.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [to_regproc](../t/to_regproc.md)
+  - [to_regprocedure](../t/to_regprocedure.md)
+  - [to_regoper](../t/to_regoper.md)
+  - [parseNumericOid](../p/parseNumericOid.md)
 
 ## Notes and Other Information
 - More efficient than InputFunctionCallSafe when you already have the function pointer

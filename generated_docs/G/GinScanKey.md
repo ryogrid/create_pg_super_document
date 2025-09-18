@@ -19,17 +19,17 @@ This is a typedef pointer, so it has no direct members. It points to a GinScanKe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinScanKeyData (the structure it points to)
+  - [GinScanKeyData](GinScanKeyData.md) (the structure it points to)
 - Called from (representative examples):
-  - entryIndexByFrequencyCmp (src/backend/access/gin/ginget.c:490)
-  - startScanKey (src/backend/access/gin/ginget.c:505)
-  - keyGetItem (src/backend/access/gin/ginget.c:992)
-  - scanGetItem (src/backend/access/gin/ginget.c:1323)
-  - collectMatchesForHeapRow (src/backend/access/gin/ginget.c:1623)
-  - ginInitConsistentFunction (src/backend/access/gin/ginlogic.c:227)
-  - ginScanKeyAddHiddenEntry (src/backend/access/gin/ginscan.c:142)
-  - ginFillScanKey (src/backend/access/gin/ginscan.c:164)
-  - ginNewScanKey (src/backend/access/gin/ginscan.c:286)
+  - [entryIndexByFrequencyCmp](../e/entryIndexByFrequencyCmp.md) (src/backend/access/gin/ginget.c:490)
+  - [startScanKey](../s/startScanKey.md) (src/backend/access/gin/ginget.c:505)
+  - [keyGetItem](../k/keyGetItem.md) (src/backend/access/gin/ginget.c:992)
+  - [scanGetItem](../s/scanGetItem.md) (src/backend/access/gin/ginget.c:1323)
+  - [collectMatchesForHeapRow](../c/collectMatchesForHeapRow.md) (src/backend/access/gin/ginget.c:1623)
+  - [ginInitConsistentFunction](../g/ginInitConsistentFunction.md) (src/backend/access/gin/ginlogic.c:227)
+  - [ginScanKeyAddHiddenEntry](../g/ginScanKeyAddHiddenEntry.md) (src/backend/access/gin/ginscan.c:142)
+  - [ginFillScanKey](../g/ginFillScanKey.md) (src/backend/access/gin/ginscan.c:164)
+  - [ginNewScanKey](../g/ginNewScanKey.md) (src/backend/access/gin/ginscan.c:286)
 
 ## Notes and Other Information
 - Defined in src/include/access/gin_private.h:264-265

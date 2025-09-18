@@ -22,9 +22,9 @@ This struct is used primarily in the bootstrap process to avoid repeated lookups
 - Functions called/Symbols referenced:
   - MAXATTR (used in related arrays)
 - Called from (representative examples):
-  - populate_typ_list (creates and populates typmap instances)
-  - gettype (searches through typmap instances)
-  - boot_get_type_io_data (accesses typmap data)
+  - [populate_typ_list](../p/populate_typ_list.md) (creates and populates typmap instances)
+  - [gettype](../g/gettype.md) (searches through typmap instances)
+  - [boot_get_type_io_data](../b/boot_get_type_io_data.md) (accesses typmap data)
 
 ## Notes and Other Information
 - This structure is marked as "a hack" in the source code, indicating it's a pragmatic solution rather than an elegant design

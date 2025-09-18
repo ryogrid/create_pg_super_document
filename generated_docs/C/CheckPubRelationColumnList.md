@@ -28,13 +28,13 @@ The function iterates through all provided tables, checking each one with a colu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PublicationRelInfo
-  - get_namespace_name
+  - [PublicationRelInfo](../P/PublicationRelInfo.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
   - RelationGetRelationName
 - Called from:
-  - CreatePublication
-  - AlterPublicationTables
+  - [CreatePublication](CreatePublication.md)
+  - [AlterPublicationTables](../A/AlterPublicationTables.md)
 
 ## Notes and Other Information
 - This is a static function used internally within publicationcmds.c

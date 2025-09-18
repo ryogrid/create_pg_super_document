@@ -22,13 +22,13 @@ The  function processes character ranges that are above MAX_SIMPLE_CHR, handling
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newhicolorrow (creates new rows in hicolormap, called at lines 801, 832, 841, 859)
-  - subcoloronerow (processes a row for subcolor allocation)
+  - [newhicolorrow](../n/newhicolorrow.md) (creates new rows in hicolormap, called at lines 801, 832, 841, 859)
+  - [subcoloronerow](subcoloronerow.md) (processes a row for subcolor allocation)
   - MALLOC/FREE (memory allocation/deallocation)
   - CERR (error reporting macro)
   - MAX_SIMPLE_CHR (constant for simple character threshold)
 - Called from (representative examples):
-  - subcolorcvec (at line 569)
+  - [subcolorcvec](subcolorcvec.md) (at line 569)
 
 ## Notes and Other Information
 - Does not return a value (void function)

@@ -18,14 +18,14 @@ This function removes missing value information from all attributes in a relatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfAttributes
-  - SearchSysCache2
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - finish_heap_swap
-  - ATExecSetExpression
-  - ATExecAlterColumnType
+  - [finish_heap_swap](../f/finish_heap_swap.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
 
 ## Notes and Other Information
 - Requires AccessExclusive lock on the relation (must be held by caller)

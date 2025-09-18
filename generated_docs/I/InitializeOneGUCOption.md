@@ -31,10 +31,10 @@ The function ensures that validation hooks are called even for boot values, allo
   - PGC_BOOL, PGC_INT, PGC_REAL, PGC_STRING, PGC_ENUM: Parameter type constants
   - config_bool, config_int, config_real, config_string, config_enum: Type-specific structures
   - call_bool_check_hook, call_int_check_hook, call_real_check_hook, call_string_check_hook, call_enum_check_hook: Type-specific validation functions
-  - guc_strdup: GUC-specific string duplication function
+  - [guc_strdup](../g/guc_strdup.md): GUC-specific string duplication function
 - Called from (representative examples):
-  - InitializeGUCOptions: Main GUC initialization during startup
-  - define_custom_variable: Custom parameter registration
+  - [InitializeGUCOptions](InitializeGUCOptions.md): Main GUC initialization during startup
+  - [define_custom_variable](../d/define_custom_variable.md): Custom parameter registration
   - RestoreGUCState: State restoration during recovery
 
 ## Notes and Other Information

@@ -25,8 +25,8 @@ This function serves as the counterpart to JsonTableInitOpaque, ensuring proper 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetJsonTableExecContext (context retrieval and validation)
-  - JsonTableExecContext (struct type)
+  - [GetJsonTableExecContext](../G/GetJsonTableExecContext.md) (context retrieval and validation)
+  - [JsonTableExecContext](JsonTableExecContext.md) (struct type)
 - Called from (representative examples):
   - Table function scan cleanup routines
   - Error handling paths

@@ -28,15 +28,15 @@ This information is crucial for partition-aware planning, including partition pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreatePartitionDirectory
-  - PartitionDirectoryLookup
-  - find_partition_scheme
-  - set_baserel_partition_key_exprs
-  - set_baserel_partition_constraint
-  - PartitionDesc
+  - [CreatePartitionDirectory](../C/CreatePartitionDirectory.md)
+  - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
+  - [find_partition_scheme](../f/find_partition_scheme.md)
+  - [set_baserel_partition_key_exprs](set_baserel_partition_key_exprs.md)
+  - [set_baserel_partition_constraint](set_baserel_partition_constraint.md)
+  - [PartitionDesc](../P/PartitionDesc.md)
   - PartitionScheme
 - Called from (representative examples):
-  - get_relation_info
+  - [get_relation_info](../g/get_relation_info.md)
 
 ## Notes and Other Information
 - This is a static function only used within plancat.c

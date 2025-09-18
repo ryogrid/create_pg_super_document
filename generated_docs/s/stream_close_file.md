@@ -21,11 +21,11 @@ This function provides a simple interface to close the currently active streamin
 - Functions called/Symbols referenced:
   - BufFileClose
 - Called from (representative examples):
-  - apply_handle_stream_prepare
-  - stream_stop_internal
-  - apply_handle_stream_abort
-  - apply_spooled_messages
-  - apply_handle_stream_commit
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [stream_stop_internal](stream_stop_internal.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
+  - [apply_spooled_messages](../a/apply_spooled_messages.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - This is a static function, visible only within the worker.c compilation unit

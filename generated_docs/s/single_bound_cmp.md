@@ -22,11 +22,11 @@ The function follows the standard qsort comparator interface, taking two void po
 ## Dependencies
 - Functions called/Symbols referenced:
   - SingleBoundSortItem (struct type)
-  - TypeCacheEntry (struct type)
-  - range_cmp_bounds
+  - [TypeCacheEntry](../T/TypeCacheEntry.md) (struct type)
+  - [range_cmp_bounds](../r/range_cmp_bounds.md)
 - Called from:
   - rangeCopy (src/backend/utils/adt/rangetypes_gist.c:181)
-  - range_gist_single_sorting_split (src/backend/utils/adt/rangetypes_gist.c:1267)
+  - [range_gist_single_sorting_split](../r/range_gist_single_sorting_split.md) (src/backend/utils/adt/rangetypes_gist.c:1267)
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation

@@ -23,14 +23,14 @@ This check is crucial for the query planner to decide between different grouping
 - Functions called/Symbols referenced:
   - lfirst (for list iteration)
   - SortGroupClause (structure type)
-  - PathTarget (referenced in function context)
+  - [PathTarget](../P/PathTarget.md) (referenced in function context)
 - Called from (representative examples):
-  - create_grouping_paths (src/backend/optimizer/plan/planner.c:3889)
-  - create_partial_distinct_paths (src/backend/optimizer/plan/planner.c:5044)
-  - create_final_distinct_paths (src/backend/optimizer/plan/planner.c:5269)
-  - generate_recursion_path (src/backend/optimizer/prep/prepunion.c:464)
-  - generate_union_paths (src/backend/optimizer/prep/prepunion.c:892)
-  - choose_hashed_setop (src/backend/optimizer/prep/prepunion.c:1306)
+  - [create_grouping_paths](../c/create_grouping_paths.md) (src/backend/optimizer/plan/planner.c:3889)
+  - [create_partial_distinct_paths](../c/create_partial_distinct_paths.md) (src/backend/optimizer/plan/planner.c:5044)
+  - [create_final_distinct_paths](../c/create_final_distinct_paths.md) (src/backend/optimizer/plan/planner.c:5269)
+  - [generate_recursion_path](generate_recursion_path.md) (src/backend/optimizer/prep/prepunion.c:464)
+  - [generate_union_paths](generate_union_paths.md) (src/backend/optimizer/prep/prepunion.c:892)
+  - [choose_hashed_setop](../c/choose_hashed_setop.md) (src/backend/optimizer/prep/prepunion.c:1306)
 
 ## Notes and Other Information
 - Returns true only if all grouping columns are hashable, false otherwise

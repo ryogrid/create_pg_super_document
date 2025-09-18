@@ -27,15 +27,15 @@ This is a critical function for dependency resolution, parallel processing coord
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - buildTocEntryArrays (ensures index arrays are available)
+  - [buildTocEntryArrays](../b/buildTocEntryArrays.md) (ensures index arrays are available)
   - DumpId (type)
 - Called from (representative examples):
-  - parseWorkerCommand (parallel processing coordination)
-  - SortTocFromFile (TOC reordering operations)  
-  - TocIDRequired (dependency checking)
-  - _tocEntryRequired (dependency resolution)
-  - _PrintTocData (custom format operations)
-  - IssueACLPerBlob (ACL processing)
+  - [parseWorkerCommand](../p/parseWorkerCommand.md) (parallel processing coordination)
+  - [SortTocFromFile](../S/SortTocFromFile.md) (TOC reordering operations)  
+  - [TocIDRequired](../T/TocIDRequired.md) (dependency checking)
+  - [_tocEntryRequired](../t/_tocEntryRequired.md) (dependency resolution)
+  - [_PrintTocData](../P/_PrintTocData.md) (custom format operations)
+  - [IssueACLPerBlob](../I/IssueACLPerBlob.md) (ACL processing)
 
 ## Notes and Other Information
 - Returns NULL for invalid dump IDs (≤ 0 or > maxDumpId)

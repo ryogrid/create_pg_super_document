@@ -17,7 +17,7 @@ The  function computes how much extra space is needed to format a numeric string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - integer_digits
+  - [integer_digits](../i/integer_digits.md)
   - strlen (standard C library function)
   - strchr (standard C library function)
 - Global variables referenced:
@@ -25,7 +25,7 @@ The  function computes how much extra space is needed to format a numeric string
   - thousands_sep
   - decimal_point
 - Called from (representative examples):
-  - format_numeric_locale
+  - [format_numeric_locale](../f/format_numeric_locale.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/fe_utils/print.c

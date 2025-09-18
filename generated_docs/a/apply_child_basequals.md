@@ -25,17 +25,17 @@ The function returns false if any qualifier evaluates to constant false or NULL,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - adjust_appendrel_attrs (translates variable references)
-  - eval_const_expressions (evaluates constant expressions)
-  - make_ands_implicit (flattens AND clauses)
-  - contain_vars_of_level (checks for variables)
-  - contain_volatile_functions (checks for volatile functions)
-  - make_restrictinfo (creates RestrictInfo structures)
-  - restriction_is_always_false (tests for unsatisfiable conditions)
-  - restriction_is_always_true (tests for tautological conditions)
-  - AppendRelInfo (data structure for relation mapping)
+  - [adjust_appendrel_attrs](adjust_appendrel_attrs.md) (translates variable references)
+  - [eval_const_expressions](../e/eval_const_expressions.md) (evaluates constant expressions)
+  - [make_ands_implicit](../m/make_ands_implicit.md) (flattens AND clauses)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md) (checks for variables)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md) (checks for volatile functions)
+  - [make_restrictinfo](../m/make_restrictinfo.md) (creates RestrictInfo structures)
+  - [restriction_is_always_false](../r/restriction_is_always_false.md) (tests for unsatisfiable conditions)
+  - [restriction_is_always_true](../r/restriction_is_always_true.md) (tests for tautological conditions)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (data structure for relation mapping)
 - Called from (representative examples):
-  - build_simple_rel
+  - [build_simple_rel](../b/build_simple_rel.md)
 
 ## Notes and Other Information
 - Returns false to indicate child relation should be treated as dummy (excluded from scan)

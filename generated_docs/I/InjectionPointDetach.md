@@ -29,17 +29,17 @@ The function optimizes the shared memory usage by compacting the active range wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_read_u32
-  - pg_atomic_read_u64
-  - pg_atomic_write_u64
-  - pg_atomic_write_u32
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_read_u64](../p/pg_atomic_read_u64.md)
+  - [pg_atomic_write_u64](../p/pg_atomic_write_u64.md)
+  - [pg_atomic_write_u32](../p/pg_atomic_write_u32.md)
   - LWLockAcquire/LWLockRelease
 - Types referenced:
-  - InjectionPointEntry
-  - InjectionPointCacheEntry
+  - [InjectionPointEntry](InjectionPointEntry.md)
+  - [InjectionPointCacheEntry](InjectionPointCacheEntry.md)
 - Called from:
-  - injection_points_cleanup (src/test/modules/injection_points/injection_points.c:172)
-  - injection_points_detach (src/test/modules/injection_points/injection_points.c:390)
+  - [injection_points_cleanup](../i/injection_points_cleanup.md) (src/test/modules/injection_points/injection_points.c:172)
+  - [injection_points_detach](../i/injection_points_detach.md) (src/test/modules/injection_points/injection_points.c:390)
 
 ## Notes and Other Information
 - Only functional when compiled with USE_INJECTION_POINTS defined

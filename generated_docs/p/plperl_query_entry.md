@@ -19,13 +19,13 @@ The  structure acts as a hash table entry for managing cached query descriptors 
 ## Dependencies
 - Functions called/Symbols referenced:
   - NAMEDATALEN (PostgreSQL constant defining maximum name length)
-  - plperl_query_desc (structure containing cached query details)
+  - [plperl_query_desc](plperl_query_desc.md) (structure containing cached query details)
 - Called from (representative examples):
-  - select_perl_context
-  - plperl_spi_prepare
-  - plperl_spi_exec_prepared
-  - plperl_spi_query_prepared
-  - plperl_spi_freeplan
+  - [select_perl_context](../s/select_perl_context.md)
+  - [plperl_spi_prepare](plperl_spi_prepare.md)
+  - [plperl_spi_exec_prepared](plperl_spi_exec_prepared.md)
+  - [plperl_spi_query_prepared](plperl_spi_query_prepared.md)
+  - [plperl_spi_freeplan](plperl_spi_freeplan.md)
 
 ## Notes and Other Information
 - This structure implements the key-value relationship for a hash table used to cache prepared queries

@@ -21,7 +21,7 @@ This function implements the greater-than-or-equal-to comparison operator (>=) b
 - Functions called/Symbols referenced:
   - PG_GETARG_DATEADT (macro to extract DateADT from function args)
   - PG_GETARG_TIMESTAMP (macro to extract Timestamp from function args)
-  - date_cmp_timestamp_internal (internal comparison function)
+  - [date_cmp_timestamp_internal](date_cmp_timestamp_internal.md) (internal comparison function)
   - PG_RETURN_BOOL (macro to return boolean result)
 - Data types used:
   - DateADT (PostgreSQL date type)

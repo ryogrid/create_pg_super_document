@@ -26,8 +26,8 @@ The selectivity values are carefully chosen based on the expected frequency and 
   - DEFAULT_RANGE_INEQ_SEL (constant for range inequality selectivity)
   - DEFAULT_INEQ_SEL (constant for standard inequality selectivity)
 - Called from (representative examples):
-  - rangesel
-  - calc_rangesel
+  - [rangesel](../r/rangesel.md)
+  - [calc_rangesel](../c/calc_rangesel.md)
 
 ## Notes and Other Information
 - This function is static and only used within the rangetypes_selfuncs.c file

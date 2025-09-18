@@ -19,13 +19,13 @@ The "empty" designation indicates this calculation is for structural metadata on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields (to get the number of fields in the result set)
-  - ecpg_sqlda_align_add_size (for alignment calculations)
-  - sqlda_struct (native SQLDA structure type)
-  - sqlvar_struct (native field descriptor structure type)
+  - [PQnfields](../P/PQnfields.md) (to get the number of fields in the result set)
+  - [ecpg_sqlda_align_add_size](../e/ecpg_sqlda_align_add_size.md) (for alignment calculations)
+  - [sqlda_struct](sqlda_struct.md) (native SQLDA structure type)
+  - [sqlvar_struct](sqlvar_struct.md) (native field descriptor structure type)
 - Called from (representative examples):
-  - sqlda_native_total_size
-  - ecpg_set_native_sqlda
+  - [sqlda_native_total_size](sqlda_native_total_size.md)
+  - [ecpg_set_native_sqlda](../e/ecpg_set_native_sqlda.md)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's ECPG native-mode SQLDA implementation, which provides a more modern and efficient interface compared to the compatibility mode. The native mode structure differs from compatibility mode in its internal layout and field organization. The calculation accounts for the fact that the main sqlda_struct already includes space for one sqlvar_struct, so only additional field descriptors need to be allocated. This optimization reduces memory overhead compared to the compatibility mode. The alignment padding ensures optimal memory access patterns for subsequent data storage operations.

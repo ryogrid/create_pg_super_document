@@ -19,11 +19,11 @@ The  function is a PostgreSQL binary input conversion function that deserializes
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER
-  - palloc
-  - pq_getmsgfloat8
-  - float8_lt
+  - [palloc](../p/palloc.md)
+  - [pq_getmsgfloat8](../p/pq_getmsgfloat8.md)
+  - [float8_lt](../f/float8_lt.md)
   - PG_RETURN_BOX_P
-  - BOX (struct type)
+  - [BOX](../B/BOX.md) (struct type)
   - StringInfo (type)
 - Called from (representative examples):
   - This is a PostgreSQL binary input function, typically called by the PostgreSQL protocol handler when receiving binary box data

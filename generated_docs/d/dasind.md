@@ -26,9 +26,9 @@ This function implements the PostgreSQL SQL function  with degree output. It tak
   - isnan: Checks if input is Not-a-Number
   - get_float8_nan: Returns NaN value for float8
   - INIT_DEGREE_CONSTANTS: Initializes degree conversion constants
-  - asind_q1: Computes inverse sine in degrees for first quadrant values [0, 1]
+  - [asind_q1](../a/asind_q1.md): Computes inverse sine in degrees for first quadrant values [0, 1]
   - isinf: Checks if result is infinite
-  - float_overflow_error: Reports overflow error
+  - [float_overflow_error](../f/float_overflow_error.md): Reports overflow error
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)
 

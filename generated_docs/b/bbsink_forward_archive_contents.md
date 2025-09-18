@@ -25,9 +25,9 @@ The function enforces strict buffer sharing requirements through assertions, ens
   - bbsink_archive_contents
   - bbsink (type reference)
 - Called from (representative examples):
-  - bbsink_progress_archive_contents (src/backend/backup/basebackup_progress.c:164)
-  - bbsink_server_archive_contents (src/backend/backup/basebackup_server.c:187)
-  - bbsink_throttle_archive_contents (src/backend/backup/basebackup_throttle.c:114)
+  - [bbsink_progress_archive_contents](bbsink_progress_archive_contents.md) (src/backend/backup/basebackup_progress.c:164)
+  - [bbsink_server_archive_contents](bbsink_server_archive_contents.md) (src/backend/backup/basebackup_server.c:187)
+  - [bbsink_throttle_archive_contents](bbsink_throttle_archive_contents.md) (src/backend/backup/basebackup_throttle.c:114)
 
 ## Notes and Other Information
 - This function should only be used when the bbsink shares its buffer with the successor bbsink

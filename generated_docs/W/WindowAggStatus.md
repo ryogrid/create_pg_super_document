@@ -21,7 +21,7 @@ WindowAggStatus manages the execution state of PostgreSQL's window function proc
 ## Dependencies
 - Functions called/Symbols referenced: (None - this is a simple enumeration)
 - Called from (representative examples):
-  - WindowAggState (used as status field at execnodes.h:2585)
+  - [WindowAggState](WindowAggState.md) (used as status field at execnodes.h:2585)
   - nodeWindowAgg.c:ExecWindowAgg() (status checks and assignments throughout)
   - nodeWindowAgg.c:begin_partition() (transition to WINDOWAGG_RUN at line 2164)
   - nodeWindowAgg.c:ExecInitWindowAgg() (initialization to WINDOWAGG_RUN at line 2652)

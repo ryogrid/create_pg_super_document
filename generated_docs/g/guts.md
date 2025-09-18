@@ -44,14 +44,14 @@ The guts struct is the core internal representation of a compiled regular expres
 ## Dependencies
 - Functions called/Symbols referenced:
   - subre (subexpression tree nodes)
-  - cnfa (compiled NFA structure)
-  - colormap (character classification structure)
+  - [cnfa](../c/cnfa.md) (compiled NFA structure)
+  - [colormap](../c/colormap.md) (character classification structure)
 - Called from (representative examples):
   - pg_regcomp (in regcomp.c:380) - allocates and initializes guts during compilation
-  - rfree (in regcomp.c:2449, 2455) - cleanup and deallocation
-  - vars (in regexec.c:109) - execution context references guts
+  - [rfree](../r/rfree.md) (in regcomp.c:2449, 2455) - [cleanup](../c/cleanup.md) and deallocation
+  - [vars](../v/vars.md) (in regexec.c:109) - execution context references guts
   - pg_reg_* functions (in regexport.c) - various export functions access guts internals
-  - pg_regprefix (in regprefix.c:50, 68) - prefix optimization functions
+  - [pg_regprefix](../p/pg_regprefix.md) (in regprefix.c:50, 68) - prefix optimization functions
 
 ## Notes and Other Information
 - The guts struct is always accessed through a char* pointer (re_guts) in pg_regex_t for portability

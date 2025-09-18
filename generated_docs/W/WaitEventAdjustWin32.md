@@ -31,8 +31,8 @@ This function manages Windows-specific event handle configuration for PostgreSQL
   - WSA_INVALID_EVENT, PGINVALID_SOCKET (Windows-specific invalid handle constants)
 - Called from (representative examples):
   - LatchWaitSetLatchPos (at line 194)
-  - AddWaitEventToSet (at line 1035)
-  - ModifyWaitEvent (at line 1115)
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md) (at line 1035)
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md) (at line 1115)
 
 ## Notes and Other Information
 - Windows-specific implementation that parallels kqueue and epoll implementations on other platforms

@@ -20,12 +20,12 @@ pqWaitTimed provides timed socket waiting functionality for PostgreSQL client co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqSocketCheck
+  - [pqSocketCheck](pqSocketCheck.md)
   - pg_usec_time_t (type)
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
-  - pqConnectDBComplete
-  - pqWait
+  - [pqConnectDBComplete](pqConnectDBComplete.md)
+  - [pqWait](pqWait.md)
 
 ## Notes and Other Information
 - Returns -1 on failure (error message set), 0 if socket is ready, 1 if timeout occurred

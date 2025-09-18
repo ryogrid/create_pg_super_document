@@ -20,16 +20,16 @@ This function is designed to work with not-yet-planned expressions and handles s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pull_varnos_context (struct used for walker context)
+  - [pull_varnos_context](pull_varnos_context.md) (struct used for walker context)
   - query_or_expression_tree_walker
-  - pull_varnos_walker
+  - [pull_varnos_walker](pull_varnos_walker.md)
 - Called from (representative examples):
-  - cost_incremental_sort
-  - get_eclass_for_sort_expr
-  - match_saopclause_to_indexcol
-  - join_is_removable
-  - make_outerjoininfo
-  - distribute_qual_to_rels
+  - [cost_incremental_sort](../c/cost_incremental_sort.md)
+  - [get_eclass_for_sort_expr](../g/get_eclass_for_sort_expr.md)
+  - [match_saopclause_to_indexcol](../m/match_saopclause_to_indexcol.md)
+  - [join_is_removable](../j/join_is_removable.md)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md)
+  - [distribute_qual_to_rels](../d/distribute_qual_to_rels.md)
 
 ## Notes and Other Information
 - Designed for use on not-yet-planned expressions, making it suitable for early query planning phases

@@ -21,11 +21,11 @@ The function is marked as `static inline` to encourage compiler inlining for max
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
 - Called from (representative examples):
-  - fix_scan_expr_mutator
-  - search_indexed_tlist_for_var
-  - fix_join_expr_mutator
+  - [fix_scan_expr_mutator](../f/fix_scan_expr_mutator.md)
+  - [search_indexed_tlist_for_var](../s/search_indexed_tlist_for_var.md)
+  - [fix_join_expr_mutator](../f/fix_join_expr_mutator.md)
 
 ## Notes and Other Information
 - Performs a shallow copy using structure assignment (*newvar = *var)

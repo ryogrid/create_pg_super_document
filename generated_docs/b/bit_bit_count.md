@@ -24,7 +24,7 @@ The function uses the highly optimized `pg_popcount` function to perform the act
 - Functions called/Symbols referenced:
   - PG_GETARG_VARBIT_P (argument extraction macro)
   - PG_RETURN_INT64 (return value macro)
-  - pg_popcount (optimized population count function)
+  - [pg_popcount](../p/pg_popcount.md) (optimized population count function)
   - VARBITS (macro to get raw bit data from VarBit)
   - VARBITBYTES (macro to get byte length of VarBit data)
 - Called from (representative examples):

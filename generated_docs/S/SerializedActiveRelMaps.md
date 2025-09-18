@@ -28,11 +28,11 @@ The separation of shared and local updates reflects PostgreSQL's two-tier catalo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapFile (struct type for both member variables)
+  - [RelMapFile](../R/RelMapFile.md) (struct type for both member variables)
 - Called from (representative examples):
-  - EstimateRelationMapSpace
-  - SerializeRelationMap
-  - RestoreRelationMap
+  - [EstimateRelationMapSpace](../E/EstimateRelationMapSpace.md)
+  - [SerializeRelationMap](SerializeRelationMap.md)
+  - [RestoreRelationMap](../R/RestoreRelationMap.md)
 
 ## Notes and Other Information
 - Used exclusively for parallel worker communication and synchronization

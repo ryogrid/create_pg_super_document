@@ -18,15 +18,15 @@ pg_time_now_lazy provides a performance optimization for scenarios where time re
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_time_usec_t (type for microsecond timestamps)
-  - pg_time_now (function to get current time)
+  - [pg_time_now](pg_time_now.md) (function to get current time)
 
 - Called from (representative examples):
-  - doRetry
-  - printVerboseErrorMessages
-  - advanceConnectionState
-  - executeMetaCommand
-  - processXactStats
-  - threadRun
+  - [doRetry](../d/doRetry.md)
+  - [printVerboseErrorMessages](printVerboseErrorMessages.md)
+  - [advanceConnectionState](../a/advanceConnectionState.md)
+  - [executeMetaCommand](../e/executeMetaCommand.md)
+  - [processXactStats](processXactStats.md)
+  - [threadRun](../t/threadRun.md)
 
 ## Notes and Other Information
 - Implements lazy evaluation pattern to avoid unnecessary time system calls

@@ -29,9 +29,9 @@ The function delegates the actual numeric accumulation work to do_numeric_accum,
 - Functions called/Symbols referenced:
   - PG_ARGISNULL
   - PG_GETARG_POINTER
-  - makeNumericAggState
+  - [makeNumericAggState](../m/makeNumericAggState.md)
   - PG_GETARG_NUMERIC
-  - do_numeric_accum
+  - [do_numeric_accum](../d/do_numeric_accum.md)
   - PG_RETURN_POINTER
 - Called from (representative examples):
   - No direct references found (likely referenced through PostgreSQL's aggregate function catalog)

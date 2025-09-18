@@ -27,7 +27,7 @@ This function takes no parameters.
   - myTempToastNamespace (global variable)
 
 - Called from (representative examples):
-  - create_toast_table
+  - [create_toast_table](../c/create_toast_table.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

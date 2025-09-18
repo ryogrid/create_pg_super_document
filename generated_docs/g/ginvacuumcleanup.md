@@ -23,22 +23,22 @@ The function scans all pages in the index to identify recyclable pages, count di
 ## Dependencies
 - Functions called/Symbols referenced:
   - AmAutoVacuumWorkerProcess
-  - initGinState
-  - ginInsertCleanup
+  - [initGinState](../i/initGinState.md)
+  - [ginInsertCleanup](ginInsertCleanup.md)
   - LockRelationForExtension
   - RelationGetNumberOfBlocks
   - UnlockRelationForExtension
-  - ReadBufferExtended
-  - GinPageIsRecyclable
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [GinPageIsRecyclable](../G/GinPageIsRecyclable.md)
   - RecordFreeIndexPage
   - GinPageIsData
   - GinPageIsList
   - GinPageIsLeaf
-  - PageGetMaxOffsetNumber
-  - ginUpdateStats
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [ginUpdateStats](ginUpdateStats.md)
   - IndexFreeSpaceMapVacuum
 - Called from (representative examples):
-  - ginhandler (as part of index AM interface)
+  - [ginhandler](ginhandler.md) (as part of index AM interface)
 
 ## Notes and Other Information
 - Entry point for GIN index vacuum cleanup called by the vacuum subsystem

@@ -25,14 +25,14 @@ The function returns true if r1's upper bound is less than or equal to r2's uppe
 - Functions called/Symbols referenced:
   - RangeTypeGetOid (to validate range types match)
   - elog (for error reporting when types don't match)
-  - range_deserialize (to extract bounds from both ranges)
-  - range_cmp_bounds (to compare the upper bounds)
+  - [range_deserialize](range_deserialize.md) (to extract bounds from both ranges)
+  - [range_cmp_bounds](range_cmp_bounds.md) (to compare the upper bounds)
 - Called from (representative examples):
-  - range_overleft (public wrapper function)
-  - multirange_intersect_internal
-  - range_gist_consistent_int_range
-  - range_gist_consistent_leaf_range
-  - spg_range_quad_leaf_consistent
+  - [range_overleft](range_overleft.md) (public wrapper function)
+  - [multirange_intersect_internal](../m/multirange_intersect_internal.md)
+  - [range_gist_consistent_int_range](range_gist_consistent_int_range.md)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md)
   - RANGESTRAT_EQ (macro in rangetypes.h)
 
 ## Notes and Other Information

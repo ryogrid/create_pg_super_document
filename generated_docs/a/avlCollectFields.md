@@ -22,9 +22,9 @@ The function is specifically designed for the PostgreSQL psql crosstab view feat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - avlCollectFields (recursive calls for left and right subtrees)
+  - [avlCollectFields](avlCollectFields.md) (recursive calls for left and right subtrees)
 - Called from (representative examples):
-  - PrintResultInCrosstab (main crosstab processing function)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (main crosstab processing function)
 
 ## Notes and Other Information
 - The fields array must be pre-allocated to hold exactly tree->count entries before calling this function

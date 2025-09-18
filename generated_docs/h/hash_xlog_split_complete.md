@@ -19,19 +19,19 @@ This function handles the replay of the completion phase of a hash index split o
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogReadBufferForRedo
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - HashPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
-  - xl_hash_split_complete
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [xl_hash_split_complete](../x/xl_hash_split_complete.md)
   - XLogRedoAction
   - HashPageOpaque
   - BLK_NEEDS_REDO
   - BLK_RESTORED
 - Called from (representative examples):
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery module

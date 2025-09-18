@@ -22,10 +22,10 @@ This internal utility function determines the correct combination of file open f
   - PG_O_DIRECT (direct I/O flag when supported)
 
 - Called from (representative examples):
-  - mdcreate (when creating new relation files)
+  - [mdcreate](mdcreate.md) (when creating new relation files)
   - mdopenfork (when opening relation forks)
-  - _mdfd_openseg (when opening file segments)
-  - mdsyncfiletag (when syncing specific files)
+  - [_mdfd_openseg](_mdfd_openseg.md) (when opening file segments)
+  - [mdsyncfiletag](mdsyncfiletag.md) (when syncing specific files)
 
 ## Notes and Other Information
 - This function is static inline for performance optimization since it's called frequently during file operations

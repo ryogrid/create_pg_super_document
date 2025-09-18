@@ -20,12 +20,12 @@ RI_CompareHashEntry represents an entry in the comparison operator cache hash ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RI_CompareKey
-  - FmgrInfo (PostgreSQL function manager info structure)
+  - [RI_CompareKey](RI_CompareKey.md)
+  - [FmgrInfo](../F/FmgrInfo.md) (PostgreSQL function manager info structure)
 - Called from (representative examples):
-  - ri_InitHashTables
-  - ri_AttributesEqual
-  - ri_HashCompareOp
+  - [ri_InitHashTables](../r/ri_InitHashTables.md)
+  - [ri_AttributesEqual](../r/ri_AttributesEqual.md)
+  - [ri_HashCompareOp](../r/ri_HashCompareOp.md)
 
 ## Notes and Other Information
 This structure is essential for optimizing referential integrity checking in PostgreSQL. The FmgrInfo structures cache function lookup results, allowing the system to call equality operators directly without repeated catalog lookups. The cast_func_finfo member handles cases where foreign key and primary key columns have compatible but not identical types, requiring type coercion before comparison. The valid flag ensures that only properly initialized entries are used, preventing errors during constraint validation operations.

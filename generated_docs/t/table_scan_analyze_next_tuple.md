@@ -30,11 +30,11 @@ When a suitable tuple is found, it is stored in the provided slot and the functi
 - Functions called/Symbols referenced:
   - scan->rs_rd->rd_tableam->scan_analyze_next_tuple (table access method implementation)
 - Types referenced:
-  - TableScanDesc
+  - [TableScanDesc](../T/TableScanDesc.md)
   - TransactionId
   - TupleTableSlot
 - Called from (representative examples):
-  - acquire_sample_rows (src/backend/commands/analyze.c:1212)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1212)
 
 ## Notes and Other Information
 - Must be called on a block where `table_scan_analyze_next_block()` returned true

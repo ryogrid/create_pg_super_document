@@ -30,14 +30,14 @@ The function follows PostgreSQL's convention that type input functions convert t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupFuncName (searches for functions by name and argument signature)
-  - NameListToString (converts name list to string representation for error messages)
-  - func_signature_string (generates function signature strings for error reporting)
-  - get_func_rettype (retrieves function return type for validation)
-  - func_volatile (checks function volatility classification)
+  - [LookupFuncName](../L/LookupFuncName.md) (searches for functions by name and argument signature)
+  - [NameListToString](../N/NameListToString.md) (converts name list to string representation for error messages)
+  - [func_signature_string](func_signature_string.md) (generates function signature strings for error reporting)
+  - [get_func_rettype](../g/get_func_rettype.md) (retrieves function return type for validation)
+  - [func_volatile](func_volatile.md) (checks function volatility classification)
   - PROVOLATILE_VOLATILE (volatility constant for comparison)
 - Called from (representative examples):
-  - DefineType (during type creation)
+  - [DefineType](../D/DefineType.md) (during type creation)
   - AlterTypeRecurseParams (during type modifications)
 
 ## Notes and Other Information

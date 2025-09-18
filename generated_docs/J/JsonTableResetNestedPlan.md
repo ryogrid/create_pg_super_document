@@ -17,13 +17,13 @@ This function recursively resets nested JSON table plans to re-evaluate their ro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonTableResetRowPattern (resets row pattern evaluation for path scan plans)
-  - JsonTableResetNestedPlan (recursive calls for sibling join plans)
+  - [JsonTableResetRowPattern](JsonTableResetRowPattern.md) (resets row pattern evaluation for path scan plans)
+  - [JsonTableResetNestedPlan](JsonTableResetNestedPlan.md) (recursive calls for sibling join plans)
   - IsA (PostgreSQL macro for type checking)
   - Assert (assertion macro for debugging)
 - Called from (representative examples):
-  - JsonTablePlanScanNextRow (when processing nested plans with new parent rows)
-  - JsonTableResetNestedPlan (recursive calls for sibling join plans)
+  - [JsonTablePlanScanNextRow](JsonTablePlanScanNextRow.md) (when processing nested plans with new parent rows)
+  - [JsonTableResetNestedPlan](JsonTableResetNestedPlan.md) (recursive calls for sibling join plans)
 
 ## Notes and Other Information
 - This function only operates on child plans (planstate->parent must not be NULL)

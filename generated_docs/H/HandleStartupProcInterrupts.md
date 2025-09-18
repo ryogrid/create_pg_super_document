@@ -29,17 +29,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartupRereadConfig (handles configuration reloading)
-  - proc_exit (terminates process with exit code)
-  - PostmasterIsAlive (checks if postmaster process is still alive)
-  - ProcessProcSignalBarrier (processes barrier events)
-  - ProcessLogMemoryContextInterrupt (handles memory context logging)
+  - [StartupRereadConfig](../S/StartupRereadConfig.md) (handles configuration reloading)
+  - [proc_exit](../p/proc_exit.md) (terminates process with exit code)
+  - [PostmasterIsAlive](../P/PostmasterIsAlive.md) (checks if postmaster process is still alive)
+  - [ProcessProcSignalBarrier](../P/ProcessProcSignalBarrier.md) (processes barrier events)
+  - [ProcessLogMemoryContextInterrupt](../P/ProcessLogMemoryContextInterrupt.md) (handles memory context logging)
   - POSTMASTER_POLL_RATE_LIMIT (conditional compilation macro for rate limiting)
 - Called from (representative examples):
-  - PerformWalRecovery (during WAL recovery operations)
-  - recoveryPausesHere (when recovery is paused)
-  - recoveryApplyDelay (during recovery delay periods)
-  - WaitForWALToBecomeAvailable (while waiting for WAL data)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md) (during WAL recovery operations)
+  - [recoveryPausesHere](../r/recoveryPausesHere.md) (when recovery is paused)
+  - [recoveryApplyDelay](../r/recoveryApplyDelay.md) (during recovery delay periods)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (while waiting for WAL data)
 
 ## Notes and Other Information
 - Central point for processing startup process interrupts during recovery

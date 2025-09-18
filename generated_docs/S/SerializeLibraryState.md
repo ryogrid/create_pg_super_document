@@ -23,7 +23,7 @@ This function takes the global list of loaded dynamic libraries and serializes t
   - DynamicFileList (data structure)
   - strlcpy (safe string copy function)
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
   - OidFunctionCall9
 
 ## Notes and Other Information

@@ -24,9 +24,9 @@ This function implements the getsysattr callback for heap tuple table slots with
 - Functions called/Symbols referenced:
   - HeapTupleTableSlot (cast target type)
   - TTS_EMPTY (macro to check if slot is empty)
-  - heap_getsysattr (function that retrieves system attributes from heap tuples)
+  - [heap_getsysattr](../h/heap_getsysattr.md) (function that retrieves system attributes from heap tuples)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (indirectly through TupleTableSlotOps structure)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (indirectly through TupleTableSlotOps structure)
 
 ## Notes and Other Information
 - This function only works with materialized heap tuples, not virtual or minimal tuples

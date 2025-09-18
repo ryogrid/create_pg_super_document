@@ -27,12 +27,12 @@ The generic WAL logging system allows extensions and core PostgreSQL code to cre
   - writeFragment
   - computeRegionDelta
   - computeDelta
-  - applyPageRedo
+  - [applyPageRedo](../a/applyPageRedo.md)
 - Called from (representative examples):
   - GenericXLogStart
   - GenericXLogRegisterBuffer
-  - GenericXLogFinish
-  - GenericXLogAbort
+  - [GenericXLogFinish](GenericXLogFinish.md)
+  - [GenericXLogAbort](GenericXLogAbort.md)
   - computeDelta
 
 ## Notes and Other Information

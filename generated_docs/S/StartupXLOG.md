@@ -26,23 +26,23 @@ The function handles various database states (DB_SHUTDOWNED, DB_IN_CRASH_RECOVER
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ValidateXLOGDirectoryStructure
-  - InitWalRecovery
-  - PerformWalRecovery
-  - FinishWalRecovery
-  - PrescanPreparedTransactions
-  - RecoverPreparedTransactions
-  - findNewestTimeLine
-  - writeTimeLineHistory
-  - XLogInitNewTimeline
-  - StartupCLOG, StartupMultiXact, StartupReplicationSlots
-  - RemoveTempXlogFiles
+  - [ValidateXLOGDirectoryStructure](../V/ValidateXLOGDirectoryStructure.md)
+  - [InitWalRecovery](../I/InitWalRecovery.md)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
+  - [FinishWalRecovery](../F/FinishWalRecovery.md)
+  - [PrescanPreparedTransactions](../P/PrescanPreparedTransactions.md)
+  - [RecoverPreparedTransactions](../R/RecoverPreparedTransactions.md)
+  - [findNewestTimeLine](../f/findNewestTimeLine.md)
+  - [writeTimeLineHistory](../w/writeTimeLineHistory.md)
+  - [XLogInitNewTimeline](../X/XLogInitNewTimeline.md)
+  - [StartupCLOG](StartupCLOG.md), StartupMultiXact, StartupReplicationSlots
+  - [RemoveTempXlogFiles](../R/RemoveTempXlogFiles.md)
   - ResetUnloggedRelations
-  - PerformRecoveryXLogAction
-  - PreallocXlogFiles
+  - [PerformRecoveryXLogAction](../P/PerformRecoveryXLogAction.md)
+  - [PreallocXlogFiles](../P/PreallocXlogFiles.md)
 - Called from (representative examples):
-  - StartupProcessMain (startup process entry point)
-  - InitPostgres (single-user mode startup)
+  - [StartupProcessMain](StartupProcessMain.md) (startup process entry point)
+  - [InitPostgres](../I/InitPostgres.md) (single-user mode startup)
 
 ## Notes and Other Information
 - Must be called exactly once during database startup

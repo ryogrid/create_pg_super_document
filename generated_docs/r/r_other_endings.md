@@ -28,12 +28,12 @@ The switch statement currently handles only one case:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (pattern matching for backward processing)
-  - eq_s_b (string equality check for backward processing)
-  - slice_del (removes matched substring)
+  - [find_among_b](../f/find_among_b.md) (pattern matching for backward processing)
+  - [eq_s_b](../e/eq_s_b.md) (string equality check for backward processing)
+  - [slice_del](../s/slice_del.md) (removes matched substring)
 - Called from (representative examples):
-  - finnish_ISO_8859_1_stem (main stemming function)
-  - finnish_UTF_8_stem (UTF-8 variant of stemming function)
+  - [finnish_ISO_8859_1_stem](../f/finnish_ISO_8859_1_stem.md) (main stemming function)
+  - [finnish_UTF_8_stem](../f/finnish_UTF_8_stem.md) (UTF-8 variant of stemming function)
 
 ## Notes and Other Information
 - Part of the Finnish Snowball stemmer algorithm for miscellaneous ending removal

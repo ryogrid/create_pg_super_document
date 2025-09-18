@@ -30,12 +30,12 @@ Unlike other suffix functions that may handle multiple patterns, this function t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_has_min_length (validates minimum word length)
-  - eq_s_b (exact backward string matching for 9-character pattern s_54)
-  - slice_from_s (replaces matched pattern with 3-character form s_55)
-  - r_fix_ending (applies morphological corrections after replacement)
+  - [r_has_min_length](r_has_min_length.md) (validates minimum word length)
+  - [eq_s_b](../e/eq_s_b.md) (exact backward string matching for 9-character pattern s_54)
+  - [slice_from_s](../s/slice_from_s.md) (replaces matched pattern with 3-character form s_55)
+  - [r_fix_ending](r_fix_ending.md) (applies morphological corrections after replacement)
 - Called from (representative examples):
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - Handles a very specific Tamil morphological pattern ("um" suffix variations)

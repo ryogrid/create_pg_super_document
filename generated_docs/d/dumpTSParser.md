@@ -21,18 +21,18 @@ The function skips execution during data-only dumps and constructs both creation
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - pg_strdup
-  - fmtId
+  - [pg_strdup](../p/pg_strdup.md)
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - convertTSFunction
-  - appendPQExpBuffer
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [convertTSFunction](../c/convertTSFunction.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
   - destroyPQExpBuffer
   - free
 - Called from (representative examples):
-  - dumpDumpableObject (via switch statement for DO_TSPARSER objects)
+  - [dumpDumpableObject](dumpDumpableObject.md) (via switch statement for DO_TSPARSER objects)
 
 ## Notes and Other Information
 - Only executes during schema dumps (skipped when dopt->dataOnly is true)

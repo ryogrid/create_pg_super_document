@@ -28,26 +28,26 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExtractSetVariableArgs
+  - [ExtractSetVariableArgs](../E/ExtractSetVariableArgs.md)
   - superuser
-  - pg_parameter_aclcheck
-  - GetUserId
+  - [pg_parameter_aclcheck](../p/pg_parameter_aclcheck.md)
+  - [GetUserId](../G/GetUserId.md)
   - find_option
   - parse_and_validate_value
-  - valid_custom_variable_name
-  - assignable_custom_variable_name
+  - [valid_custom_variable_name](../v/valid_custom_variable_name.md)
+  - [assignable_custom_variable_name](../a/assignable_custom_variable_name.md)
   - LWLockAcquire
   - LWLockRelease
   - AllocateFile
   - FreeFile
   - ParseConfigFp
-  - replace_auto_config_value
-  - write_auto_conf_file
+  - [replace_auto_config_value](../r/replace_auto_config_value.md)
+  - [write_auto_conf_file](../w/write_auto_conf_file.md)
   - InvokeObjectPostAlterHookArgStr
   - BasicOpenFile
-  - durable_rename
+  - [durable_rename](../d/durable_rename.md)
   - FreeConfigVariables
-  - guc_free
+  - [guc_free](../g/guc_free.md)
 - Data structures used:
   - AlterSystemStmt
   - ConfigVariable
@@ -62,7 +62,7 @@ Key features include:
   - PG_AUTOCONF_FILENAME
   - CONF_FILE_START_DEPTH
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
   - EmitWarningsOnPlaceholders
 
 ## Notes and Other Information

@@ -20,12 +20,12 @@ The function uses the same double hashing approach as bloom_add_value to ensure 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes_uint32_extended: PostgreSQL's extended hash function for 32-bit values
+  - [hash_bytes_uint32_extended](../h/hash_bytes_uint32_extended.md): PostgreSQL's extended hash function for 32-bit values
   - BLOOM_SEED_1: First seed constant for hash function diversity  
   - BLOOM_SEED_2: Second seed constant for hash function diversity
-  - BloomFilter: The bloom filter data structure
+  - [BloomFilter](../B/BloomFilter.md): The bloom filter data structure
 - Called from (representative examples):
-  - brin_bloom_consistent
+  - [brin_bloom_consistent](brin_bloom_consistent.md)
 
 ## Notes and Other Information
 - The function is static, meaning it's only accessible within the brin_bloom.c file

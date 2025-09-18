@@ -45,14 +45,14 @@ The structure uses a discriminated union approach where the  field determines wh
 - Types referenced:
   - jbvType (enum defining JSON value types)
   - Numeric (PostgreSQL numeric type)
-  - JsonbPair (key-value pair structure)
-  - JsonbContainer (on-disk container format)
+  - [JsonbPair](JsonbPair.md) (key-value pair structure)
+  - [JsonbContainer](JsonbContainer.md) (on-disk container format)
   - Datum (PostgreSQL datum type)
   - Oid (PostgreSQL object identifier type)
 - Related structures:
   - Jsonb (on-disk representation)
-  - JsonbPair (object key-value pairs)
-  - JsonbContainer (binary container format)
+  - [JsonbPair](JsonbPair.md) (object key-value pairs)
+  - [JsonbContainer](JsonbContainer.md) (binary container format)
 
 ## Notes and Other Information
 - The structure is designed for efficient in-memory JSON manipulation while the on-disk Jsonb format prioritizes storage efficiency and alignment

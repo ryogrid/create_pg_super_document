@@ -22,12 +22,12 @@ The `lseg_intersect` function is a PostgreSQL built-in function that tests wheth
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSEG_P: PostgreSQL macro to extract line segment arguments
-  - lseg_interpt_lseg: Internal function that computes intersection of two line segments
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md): Internal function that computes intersection of two line segments
   - PG_RETURN_BOOL: PostgreSQL macro to return boolean result
-  - LSEG: Line segment data structure type
+  - [LSEG](../L/LSEG.md): Line segment data structure type
 
 - Called from (representative examples):
-  - interpt_pp: Used in regression tests
+  - [interpt_pp](../i/interpt_pp.md): Used in regression tests
   - This function is typically called from SQL queries rather than C code
 
 ## Notes and Other Information

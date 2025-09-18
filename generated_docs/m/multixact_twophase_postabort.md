@@ -22,7 +22,7 @@ This function is part of PostgreSQL's two-phase commit protocol handling for mul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multixact_twophase_postcommit
+  - [multixact_twophase_postcommit](multixact_twophase_postcommit.md)
 - Called from (representative examples):
   - Referenced in SizeOfMultiXactTruncate
 

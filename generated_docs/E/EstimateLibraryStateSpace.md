@@ -18,9 +18,9 @@ This function estimates the total size required to serialize the current state o
 ## Dependencies
 - Functions called/Symbols referenced:
   - DynamicFileList (data structure)
-  - add_size (utility function for safe size addition)
+  - [add_size](../a/add_size.md) (utility function for safe size addition)
 - Called from (representative examples):
-  - InitializeParallelDSM
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
   - OidFunctionCall9
 
 ## Notes and Other Information

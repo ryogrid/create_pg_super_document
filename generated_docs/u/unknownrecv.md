@@ -23,7 +23,7 @@ This function is part of PostgreSQL's type system infrastructure, specifically h
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (macro for extracting pointer argument)
-  - pq_getmsgtext (function to extract text from message buffer)
+  - [pq_getmsgtext](../p/pq_getmsgtext.md) (function to extract text from message buffer)
   - PG_RETURN_CSTRING (macro for returning C string result)
 
 - Called from (representative examples):

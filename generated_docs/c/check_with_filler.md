@@ -23,12 +23,12 @@ This function encapsulates the logic for determining expected membership in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntegerSet (data structure)
-  - intset_is_member
+  - [IntegerSet](../I/IntegerSet.md) (data structure)
+  - [intset_is_member](../i/intset_is_member.md)
   - UINT64_FORMAT
   - elog (with ERROR level)
 - Called from (representative examples):
-  - test_single_value_and_filler (called 13 times with different boundary values)
+  - [test_single_value_and_filler](../t/test_single_value_and_filler.md) (called 13 times with different boundary values)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the test_integerset.c file

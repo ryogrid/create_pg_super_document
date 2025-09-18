@@ -21,8 +21,8 @@ This function serves as a public API function (declared in ecpglib.h) that appli
 ## Dependencies
 - Functions called/Symbols referenced:
   - ecpg_get_connection (retrieves connection object by name)
-  - ecpg_init (performs ECPG initialization and basic validation)
-  - ecpg_raise (raises errors when connection issues are detected)
+  - [ecpg_init](../e/ecpg_init.md) (performs ECPG initialization and basic validation)
+  - [ecpg_raise](../e/ecpg_raise.md) (raises errors when connection issues are detected)
   - ECPG_NOT_CONN, ECPG_SQLSTATE_ECPG_INTERNAL_ERROR (error codes and states)
 - Called from (representative examples):
   - User applications (public API function)

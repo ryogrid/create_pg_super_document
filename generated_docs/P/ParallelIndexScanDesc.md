@@ -20,18 +20,18 @@ ParallelIndexScanDesc is a generic structure used for coordinating parallel inde
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelIndexScanDescData
+  - [ParallelIndexScanDescData](ParallelIndexScanDescData.md)
   - Oid
   - Size
   - FLEXIBLE_ARRAY_MEMBER
 
 - Called from (representative examples):
-  - index_beginscan_internal
-  - index_parallelscan_initialize
-  - index_beginscan_parallel
-  - ExecIndexScanInitializeDSM
-  - ExecIndexOnlyScanInitializeDSM
-  - btparallelrescan
+  - [index_beginscan_internal](../i/index_beginscan_internal.md)
+  - [index_parallelscan_initialize](../i/index_parallelscan_initialize.md)
+  - [index_beginscan_parallel](../i/index_beginscan_parallel.md)
+  - [ExecIndexScanInitializeDSM](../E/ExecIndexScanInitializeDSM.md)
+  - [ExecIndexOnlyScanInitializeDSM](../E/ExecIndexOnlyScanInitializeDSM.md)
+  - [btparallelrescan](../b/btparallelrescan.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's parallel query execution framework

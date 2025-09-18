@@ -22,14 +22,14 @@ This is a lightweight validation function that must be consistent with  - any st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - uri_prefix_length
+  - [uri_prefix_length](../u/uri_prefix_length.md)
   - strchr (standard C library function)
 - Called from (representative examples):
-  - do_connect (src/bin/psql/command.c:3402)
+  - [do_connect](../d/do_connect.md) (src/bin/psql/command.c:3402)
   - HeadMatchesCS (src/bin/psql/tab-complete.c:4814, 4819)
   - internalPQconninfoOption (src/interfaces/libpq/fe-connect.c:412)
   - PQsetdbLogin (src/interfaces/libpq/fe-connect.c:1938)
-  - conninfo_array_parse (src/interfaces/libpq/fe-connect.c:6055)
+  - [conninfo_array_parse](../c/conninfo_array_parse.md) (src/interfaces/libpq/fe-connect.c:6055)
 
 ## Notes and Other Information
 - This function is implemented in multiple locations (noted as a duplicate of libpq function)

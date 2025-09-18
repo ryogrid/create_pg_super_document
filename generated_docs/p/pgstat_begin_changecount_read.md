@@ -31,7 +31,7 @@ The returned value is used with pgstat_end_changecount_read to determine if the 
   - CHECK_FOR_INTERRUPTS (macro to handle pending interrupts)
   - pg_read_barrier (memory barrier function)
 - Called from (representative examples):
-  - pgstat_copy_changecounted_stats
+  - [pgstat_copy_changecounted_stats](pgstat_copy_changecounted_stats.md)
 
 ## Notes and Other Information
 - This function must always be paired with pgstat_end_changecount_read

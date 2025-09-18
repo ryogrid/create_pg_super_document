@@ -23,9 +23,9 @@ The function handles NULL values appropriately by skipping them during accumulat
 - Functions called/Symbols referenced:
   - PolyNumAggState (data structure)
   - makePolyNumAggState (state initialization)
-  - do_int128_accum (128-bit integer accumulation when HAVE_INT128 is defined)
-  - do_numeric_accum (numeric accumulation fallback)
-  - int64_to_numeric (conversion utility)
+  - [do_int128_accum](../d/do_int128_accum.md) (128-bit integer accumulation when HAVE_INT128 is defined)
+  - [do_numeric_accum](../d/do_numeric_accum.md) (numeric accumulation fallback)
+  - [int64_to_numeric](int64_to_numeric.md) (conversion utility)
 - Called from (representative examples):
   - No direct references found in the codebase
 

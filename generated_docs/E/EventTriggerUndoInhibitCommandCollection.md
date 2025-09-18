@@ -23,7 +23,7 @@ The function includes the same safety check as its counterpart, returning early 
 - Functions called/Symbols referenced:
   - currentEventTriggerState (global state variable)
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1695)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1695)
   - CALLED_AS_EVENT_TRIGGER macro context
 
 ## Notes and Other Information

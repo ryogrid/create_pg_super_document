@@ -26,7 +26,7 @@ This design allows the winsock_strerror function to progressively search through
   - (No direct function calls - this is a data structure)
 - Called from (representative examples):
   - DLLS_SIZE (macro that calculates array size)
-  - winsock_strerror (uses the dlls array for DLL iteration)
+  - [winsock_strerror](../w/winsock_strerror.md) (uses the dlls array for DLL iteration)
 
 ## Notes and Other Information
 - The structure is part of the Windows-specific error handling implementation in libpq

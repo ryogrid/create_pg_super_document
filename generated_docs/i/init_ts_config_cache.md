@@ -19,18 +19,18 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the configuration cache hash table)
-  - CacheRegisterSyscacheCallback (registers cache invalidation callbacks for both config and config_map catalogs)
-  - InvalidateTSCacheCallBack (cache invalidation callback function)
-  - CreateCacheMemoryContext (ensures cache memory context exists)
+  - [hash_create](../h/hash_create.md) (creates the configuration cache hash table)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md) (registers cache invalidation callbacks for both config and config_map catalogs)
+  - [InvalidateTSCacheCallBack](../I/InvalidateTSCacheCallBack.md) (cache invalidation callback function)
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md) (ensures cache memory context exists)
   - HASHCTL (hash table control structure)
   - TSConfigCacheEntry (configuration cache entry structure)
   - TSConfigCacheHash (global hash table variable)
   - HASH_ELEM, HASH_BLOBS (hash table creation flags)
   - TSCONFIGOID, TSCONFIGMAP (syscache identifiers)
 - Called from (representative examples):
-  - lookup_ts_config_cache (main configuration lookup function)
-  - getTSCurrentConfig (current configuration retrieval function)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md) (main configuration lookup function)
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md) (current configuration retrieval function)
 
 ## Notes and Other Information
 - This is a static function, only visible within the ts_cache.c compilation unit

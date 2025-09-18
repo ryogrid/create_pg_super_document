@@ -23,11 +23,11 @@ The function walks through the linked chain of tuples using SGLT_GET_NEXTOFFSET(
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpGistBlockIsRoot (checks if the current block is the root page)
-  - PageGetMaxOffsetNumber (gets maximum valid offset number on page)
-  - PageGetItem/PageGetItemId (page item access functions)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md) (gets maximum valid offset number on page)
+  - [PageGetItem](../P/PageGetItem.md)/PageGetItemId (page item access functions)
   - SGLT_GET_NEXTOFFSET (macro to get next offset in leaf tuple chain)
 - Called from (representative examples):
-  - spgdoinsert (at src/backend/access/spgist/spgdoinsert.c:2123)
+  - [spgdoinsert](../s/spgdoinsert.md) (at src/backend/access/spgist/spgdoinsert.c:2123)
 
 ## Notes and Other Information
 - Returns the total size in bytes needed to store all live tuples in the chain

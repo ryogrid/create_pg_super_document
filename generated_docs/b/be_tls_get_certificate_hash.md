@@ -29,11 +29,11 @@ The function retrieves the server certificate from the SSL connection, determine
   - EVP_sha256 (OpenSSL function)
   - EVP_get_digestbynid (OpenSSL function)
   - X509_digest (OpenSSL function)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
   - memcpy (standard C function)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - read_client_final_message (SCRAM authentication)
+  - [read_client_final_message](../r/read_client_final_message.md) (SCRAM authentication)
 
 ## Notes and Other Information
 - Implements RFC 5929 channel binding specifications for TLS certificate hashing

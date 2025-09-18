@@ -28,7 +28,7 @@ By convention, an empty set is always represented by a NULL pointer rather than 
   - NodeTag
 - Called from (representative examples):
   - Various bitmapset manipulation functions (bms_add_member, bms_union, bms_intersect, etc.)
-  - Query planning and optimization code throughout PostgreSQL
+  - [Query](../Q/Query.md) planning and optimization code throughout PostgreSQL
 
 ## Notes and Other Information
 - Empty sets are represented as NULL pointers, never as allocated Bitmapset structures

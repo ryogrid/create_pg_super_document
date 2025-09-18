@@ -27,7 +27,7 @@ The conversion is done in-place, meaning the destination buffer can be the same 
   - ereport (for error reporting)
   - pg_encoding_to_char (for error message formatting)
 - Called from (representative examples):
-  - encode_to_ascii (src/backend/utils/adt/ascii.c:106)
+  - [encode_to_ascii](../e/encode_to_ascii.md) (src/backend/utils/adt/ascii.c:106)
 
 ## Notes and Other Information
 - The function uses hardcoded translation tables for each supported encoding

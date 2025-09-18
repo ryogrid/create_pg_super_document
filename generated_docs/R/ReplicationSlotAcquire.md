@@ -20,17 +20,17 @@ The function uses a combination of lightweight locks and condition variables to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchNamedReplicationSlot
+  - [SearchNamedReplicationSlot](../S/SearchNamedReplicationSlot.md)
   - LWLockAcquire/LWLockRelease
-  - ConditionVariablePrepareToSleep/ConditionVariableSleep/ConditionVariableCancelSleep/ConditionVariableBroadcast
+  - [ConditionVariablePrepareToSleep](../C/ConditionVariablePrepareToSleep.md)/ConditionVariableSleep/ConditionVariableCancelSleep/ConditionVariableBroadcast
   - SpinLockAcquire/SpinLockRelease
   - SlotIsLogical
   - pgstat_acquire_replslot
 - Called from (representative examples):
-  - StartReplication
-  - StartLogicalReplication
-  - pg_logical_slot_get_changes_guts
-  - synchronize_one_slot
+  - [StartReplication](../S/StartReplication.md)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
+  - [pg_logical_slot_get_changes_guts](../p/pg_logical_slot_get_changes_guts.md)
+  - [synchronize_one_slot](../s/synchronize_one_slot.md)
 
 ## Notes and Other Information
 - Sets MyReplicationSlot global variable upon successful acquisition

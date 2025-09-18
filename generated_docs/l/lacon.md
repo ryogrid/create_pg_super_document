@@ -31,28 +31,28 @@ The function includes important optimizations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - getladfa (retrieves the DFA for the lookaround constraint)
-  - shortest (tests lookahead constraints by finding shortest match)
-  - matchuntil (tests lookbehind constraints with caching)
+  - [shortest](../s/shortest.md) (tests lookahead constraints by finding shortest match)
+  - [matchuntil](../m/matchuntil.md) (tests lookbehind constraints with caching)
   - STACK_TOO_DEEP (stack overflow protection macro)
   - LATYPE_IS_AHEAD, LATYPE_IS_POS (lookaround type checking macros)
   - ERR (error reporting macro)
   - FDEBUG (debugging output macro)
 - Called from (representative examples):
-  - miss (during DFA state transition computation)
+  - [miss](../m/miss.md) (during DFA state transition computation)
   - LOFF (regex execution function)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - getladfa
-  - shortest
-  - matchuntil
+  - [shortest](../s/shortest.md)
+  - [matchuntil](../m/matchuntil.md)
   - STACK_TOO_DEEP
   - LATYPE_IS_AHEAD
   - LATYPE_IS_POS
   - ERR
   - FDEBUG
 - Called from (representative examples):
-  - miss
+  - [miss](../m/miss.md)
   - LOFF
 
 ## Notes and Other Information

@@ -19,18 +19,18 @@ The function uses the system cache (INDEXRELID cache) to find the index's metada
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_index
 - Called from (representative examples):
-  - cluster
-  - cluster_rel
-  - mark_index_clustered
-  - RememberClusterOnForRebuilding
+  - [cluster](../c/cluster.md)
+  - [cluster_rel](../c/cluster_rel.md)
+  - [mark_index_clustered](../m/mark_index_clustered.md)
+  - [RememberClusterOnForRebuilding](../R/RememberClusterOnForRebuilding.md)
 
 ## Notes and Other Information
 - This function is part of the low-level system cache interface (lsyscache) that provides efficient access to system catalog information

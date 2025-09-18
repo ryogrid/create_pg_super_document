@@ -33,15 +33,15 @@ The comparison operator is invoked via function call protocol, with the scalar a
   - ArrayGetNItems: Calculates total number of elements in the array
   - ARR_NDIM/ARR_DIMS: Macros for accessing array dimensions
   - ARR_ELEMTYPE: Macro for getting array element type OID
-  - get_typlenbyvalalign: Retrieves type information for array elements
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md): Retrieves type information for array elements
   - ARR_DATA_PTR: Gets pointer to array data storage
   - ARR_NULLBITMAP: Gets pointer to array's NULL bitmap
   - fetch_att: Extracts individual array element values
   - att_addlength_pointer/att_align_nominal: Navigate through array storage
-  - BoolGetDatum/DatumGetBool: Convert between boolean values and Datums
+  - [BoolGetDatum](../B/BoolGetDatum.md)/DatumGetBool: Convert between boolean values and Datums
 - Called from (representative examples):
-  - ExecInterpExpr: Main expression interpreter dispatch function
-  - FunctionReturningBool: JIT compilation type mapping function
+  - [ExecInterpExpr](ExecInterpExpr.md): Main expression interpreter dispatch function
+  - [FunctionReturningBool](../F/FunctionReturningBool.md): JIT compilation type mapping function
 
 ## Notes and Other Information
 - Supports both ANY (useOr=true) and ALL (useOr=false) semantics with appropriate short-circuiting

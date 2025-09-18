@@ -25,13 +25,13 @@ The barrier is designed to be a drop-in replacement for pthread_barrier_t on sys
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_t (POSIX mutex type)
+  - [pthread_mutex_t](pthread_mutex_t.md) (POSIX mutex type)
   - pthread_cond_t (POSIX condition variable type)
-  - bool (C99 boolean type)
+  - [bool](../b/bool.md) (C99 boolean type)
 - Called from (representative examples):
-  - pthread_barrier_init (src/port/pthread_barrier_wait.c:19)
-  - pthread_barrier_wait (src/port/pthread_barrier_wait.c:38)
-  - pthread_barrier_destroy (src/port/pthread_barrier_wait.c:72)
+  - [pthread_barrier_init](pthread_barrier_init.md) (src/port/pthread_barrier_wait.c:19)
+  - [pthread_barrier_wait](pthread_barrier_wait.md) (src/port/pthread_barrier_wait.c:38)
+  - [pthread_barrier_destroy](pthread_barrier_destroy.md) (src/port/pthread_barrier_wait.c:72)
   - pgbench threading implementation (src/bin/pgbench/pgbench.c)
 
 ## Notes and Other Information

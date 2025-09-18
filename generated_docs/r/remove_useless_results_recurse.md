@@ -38,21 +38,21 @@ The function carefully handles PlaceHolderVar dependencies to ensure they remain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_result_relid
-  - find_dependent_phvs_in_jointree
-  - find_dependent_phvs
-  - remove_result_refs
+  - [get_result_relid](../g/get_result_relid.md)
+  - [find_dependent_phvs_in_jointree](../f/find_dependent_phvs_in_jointree.md)
+  - [find_dependent_phvs](../f/find_dependent_phvs.md)
+  - [remove_result_refs](remove_result_refs.md)
   - foreach_delete_current
-  - bms_add_member
-  - bms_next_member
-  - list_concat
-  - makeFromExpr
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_concat](../l/list_concat.md)
+  - [makeFromExpr](../m/makeFromExpr.md)
   - nodeTag (for error handling)
   - JOIN_INNER, JOIN_LEFT, JOIN_SEMI, JOIN_FULL, JOIN_ANTI (constants)
 
 - Called from (representative examples):
-  - remove_useless_result_rtes (top-level caller)
-  - remove_useless_results_recurse (recursive self-calls)
+  - [remove_useless_result_rtes](remove_useless_result_rtes.md) (top-level caller)
+  - [remove_useless_results_recurse](remove_useless_results_recurse.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within prepjointree.c

@@ -23,15 +23,15 @@ The  structure serves as a shared memory descriptor for tracking individual auto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_node (doubly-linked list operations)
-  - PGPROC (process control structure)
-  - pg_atomic_flag (atomic boolean operations)
+  - [dlist_node](../d/dlist_node.md) (doubly-linked list operations)
+  - [PGPROC](../P/PGPROC.md) (process control structure)
+  - [pg_atomic_flag](../p/pg_atomic_flag.md) (atomic boolean operations)
 - Called from (representative examples):
-  - WorkerInfo (type alias)
-  - do_start_worker
-  - autovac_recalculate_workers_for_balance
-  - do_autovacuum
-  - AutoVacuumShmemSize
+  - [WorkerInfo](WorkerInfo.md) (type alias)
+  - [do_start_worker](../d/do_start_worker.md)
+  - [autovac_recalculate_workers_for_balance](../a/autovac_recalculate_workers_for_balance.md)
+  - [do_autovacuum](../d/do_autovacuum.md)
+  - [AutoVacuumShmemSize](../A/AutoVacuumShmemSize.md)
 
 ## Notes and Other Information
 - Stored in shared memory with array size determined by autovacuum_max_workers configuration

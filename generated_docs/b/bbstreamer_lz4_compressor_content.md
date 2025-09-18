@@ -26,10 +26,10 @@ The function implements a buffering strategy where it forwards compressed data t
   - LZ4F_compressBegin
   - LZ4F_compressUpdate  
   - LZ4F_compressBound
-  - bbstreamer_content
+  - [bbstreamer_content](bbstreamer_content.md)
   - enlargeStringInfo
 - Called from (representative examples):
-  - bbstreamer operation table (via function pointer)
+  - [bbstreamer](bbstreamer.md) operation table (via function pointer)
 
 ## Notes and Other Information
 - Writes LZ4 frame header before processing first data chunk

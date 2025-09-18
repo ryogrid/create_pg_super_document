@@ -24,19 +24,19 @@ This function is the core job dispatcher for parallel pg_dump operations. It ass
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetIdleWorker
-  - WaitForWorkers
-  - buildWorkerCommand
-  - sendMessageToWorker
-  - ParallelState (struct)
-  - TocEntry (struct)
+  - [GetIdleWorker](../G/GetIdleWorker.md)
+  - [WaitForWorkers](../W/WaitForWorkers.md)
+  - [buildWorkerCommand](../b/buildWorkerCommand.md)
+  - [sendMessageToWorker](../s/sendMessageToWorker.md)
+  - [ParallelState](../P/ParallelState.md) (struct)
+  - [TocEntry](../T/TocEntry.md) (struct)
   - T_Action (enum)
   - NO_SLOT (constant)
   - WFW_ONE_IDLE (constant)
   - WRKR_WORKING (constant)
 - Called from (representative examples):
-  - WriteDataChunks
-  - restore_toc_entries_parallel
+  - [WriteDataChunks](../W/WriteDataChunks.md)
+  - [restore_toc_entries_parallel](../r/restore_toc_entries_parallel.md)
 
 ## Notes and Other Information
 - This function may block if no workers are available, making it synchronous from the caller's perspective

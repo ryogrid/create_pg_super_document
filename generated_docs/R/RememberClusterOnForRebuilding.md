@@ -24,11 +24,11 @@ A clustered index indicates that the table's physical storage order matches the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_index_isclustered
-  - get_rel_name
+  - [get_index_isclustered](../g/get_index_isclustered.md)
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - RememberConstraintForRebuilding
-  - RememberIndexForRebuilding
+  - [RememberConstraintForRebuilding](RememberConstraintForRebuilding.md)
+  - [RememberIndexForRebuilding](RememberIndexForRebuilding.md)
 
 ## Notes and Other Information
 - Only stores cluster information if the index is actually marked as clustered

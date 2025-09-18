@@ -27,8 +27,8 @@ This is part of PostgreSQL's SP-GiST access method implementation specifically t
   - int16 (PostgreSQL type alias)
 
 - Called from (representative examples):
-  - cmpNodePtr (comparison function for qsort)
-  - spg_text_picksplit (main picksplit function for text SP-GiST)
+  - [cmpNodePtr](../c/cmpNodePtr.md) (comparison function for qsort)
+  - [spg_text_picksplit](spg_text_picksplit.md) (main picksplit function for text SP-GiST)
 
 ## Notes and Other Information
 - This struct is used only internally within the SP-GiST text processing module and is not exposed in any public API

@@ -24,7 +24,7 @@ The `make_date` function serves as a date constructor that creates a PostgreSQL 
   - PG_GETARG_INT32: Macro to extract 32-bit integer arguments
   - ValidateDate: Validates date field values and relationships
   - IS_VALID_JULIAN: Macro to check if date components form a valid Julian date
-  - date2j: Converts year/month/day to Julian day number
+  - [date2j](../d/date2j.md): Converts year/month/day to Julian day number
   - IS_VALID_DATE: Macro to validate DateADT values are within PostgreSQL range
   - ereport: PostgreSQL error reporting function
   - PG_RETURN_DATEADT: Macro to return DateADT values

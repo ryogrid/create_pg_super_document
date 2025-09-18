@@ -25,11 +25,11 @@ The function determines whether the clause should be treated as a join clause or
 - Functions called/Symbols referenced:
   - linitial_oid
   - list_make2
-  - NumRelids
-  - join_selectivity
-  - restriction_selectivity
+  - [NumRelids](../N/NumRelids.md)
+  - [join_selectivity](../j/join_selectivity.md)
+  - [restriction_selectivity](restriction_selectivity.md)
 - Called from (representative examples):
-  - clause_selectivity_ext
+  - [clause_selectivity_ext](../c/clause_selectivity_ext.md)
 
 ## Notes and Other Information
 - The function intentionally simplifies row comparisons to single-column comparisons for estimation purposes

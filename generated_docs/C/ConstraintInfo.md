@@ -43,14 +43,14 @@ ConstraintInfo represents constraint metadata in PostgreSQL's pg_dump utility. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (base structure)
-  - TableInfo (for table association)
-  - TypeInfo (for domain association)
+  - [TableInfo](../T/TableInfo.md) (for table association)
+  - [TypeInfo](../T/TypeInfo.md) (for domain association)
 - Called from (representative examples):
-  - getTableDataFKConstraints (src/bin/pg_dump/pg_dump.c:3026)
-  - getConstraints (src/bin/pg_dump/pg_dump.c:7830, 7899)
-  - getDomainConstraints (src/bin/pg_dump/pg_dump.c:8012, 8060, 8068)
-  - dumpConstraint (src/bin/pg_dump/pg_dump.c:17237)
-  - repairTableConstraintMultiLoop (src/bin/pg_dump/pg_dump_sort.c:1079)
+  - [getTableDataFKConstraints](../g/getTableDataFKConstraints.md) (src/bin/pg_dump/pg_dump.c:3026)
+  - [getConstraints](../g/getConstraints.md) (src/bin/pg_dump/pg_dump.c:7830, 7899)
+  - [getDomainConstraints](../g/getDomainConstraints.md) (src/bin/pg_dump/pg_dump.c:8012, 8060, 8068)
+  - [dumpConstraint](../d/dumpConstraint.md) (src/bin/pg_dump/pg_dump.c:17237)
+  - [repairTableConstraintMultiLoop](../r/repairTableConstraintMultiLoop.md) (src/bin/pg_dump/pg_dump_sort.c:1079)
 
 ## Notes and Other Information
 - This structure handles all constraint types using a unified interface, with type-specific fields used as appropriate

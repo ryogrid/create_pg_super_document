@@ -21,11 +21,11 @@ This ensures that no decompressed data is lost during the finalization process a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer
-  - bbstreamer_zstd_frame
-  - bbstreamer_content
+  - [bbstreamer](bbstreamer.md)
+  - [bbstreamer_zstd_frame](bbstreamer_zstd_frame.md)
+  - [bbstreamer_content](bbstreamer_content.md)
   - BBSTREAMER_UNKNOWN
-  - bbstreamer_finalize
+  - [bbstreamer_finalize](bbstreamer_finalize.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

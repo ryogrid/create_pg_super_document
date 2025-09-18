@@ -27,9 +27,9 @@ The calculated wakeup times are stored in a global wakeup array indexed by the w
   - TIMESTAMP_INFINITY
   - WalRcvWakeupReason enum values (WALRCV_WAKEUP_TERMINATE, WALRCV_WAKEUP_PING, WALRCV_WAKEUP_HSFEEDBACK, WALRCV_WAKEUP_REPLY)
 - Called from (representative examples):
-  - WalReceiverMain
-  - XLogWalRcvSendReply
-  - XLogWalRcvSendHSFeedback
+  - [WalReceiverMain](WalReceiverMain.md)
+  - [XLogWalRcvSendReply](../X/XLogWalRcvSendReply.md)
+  - [XLogWalRcvSendHSFeedback](../X/XLogWalRcvSendHSFeedback.md)
 
 ## Notes and Other Information
 - TERMINATE and PING wakeups are based on wal_receiver_timeout (in milliseconds)

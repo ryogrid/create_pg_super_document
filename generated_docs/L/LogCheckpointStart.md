@@ -21,7 +21,7 @@ This static function generates log messages to record the start of checkpoint op
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (with LOG level)
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - CHECKPOINT_IS_SHUTDOWN
   - CHECKPOINT_END_OF_RECOVERY
   - CHECKPOINT_IMMEDIATE
@@ -31,8 +31,8 @@ This static function generates log messages to record the start of checkpoint op
   - CHECKPOINT_CAUSE_TIME
   - CHECKPOINT_FLUSH_ALL
 - Called from (representative examples):
-  - CreateCheckPoint (in xlog.c:7057)
-  - CreateRestartPoint (in xlog.c:7690)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (in xlog.c:7057)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (in xlog.c:7690)
 
 ## Notes and Other Information
 - Static function only called internally within xlog.c

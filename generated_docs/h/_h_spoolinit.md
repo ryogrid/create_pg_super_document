@@ -21,12 +21,12 @@ The hash masks are computed using power-of-2 arithmetic where  represents the up
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HSpool (structure type)
-  - pg_nextpower2_32 (calculates next power of 2)
-  - tuplesort_begin_index_hash (initializes tuple sorting state)
+  - [HSpool](../H/HSpool.md) (structure type)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md) (calculates next power of 2)
+  - [tuplesort_begin_index_hash](../t/tuplesort_begin_index_hash.md) (initializes tuple sorting state)
   - TUPLESORT_NONE (tuplesort option constant)
 - Called from (representative examples):
-  - hashbuild
+  - [hashbuild](hashbuild.md)
 
 ## Notes and Other Information
 - Uses  instead of  to speed up index creation

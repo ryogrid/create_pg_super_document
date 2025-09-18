@@ -25,14 +25,14 @@ The target tuple slot is kept in . The  function evaluates the target list, form
   - ExprState  
   - ExprContext
 - Called from (representative examples):
-  - ExecBuildProjectionInfo
-  - ExecScan
-  - ExecProcessReturning
-  - ExecGetInsertNewTuple
-  - ExecGetUpdateNewTuple
+  - [ExecBuildProjectionInfo](../E/ExecBuildProjectionInfo.md)
+  - [ExecScan](../E/ExecScan.md)
+  - [ExecProcessReturning](../E/ExecProcessReturning.md)
+  - [ExecGetInsertNewTuple](../E/ExecGetInsertNewTuple.md)
+  - [ExecGetUpdateNewTuple](../E/ExecGetUpdateNewTuple.md)
 
 ## Notes and Other Information
-- ProjectionInfo is fundamental to PostgreSQL's tuple processing pipeline
+- [ProjectionInfo](ProjectionInfo.md) is fundamental to PostgreSQL's tuple processing pipeline
 - The structure enables efficient evaluation of SELECT list expressions
 - Used extensively throughout the executor for forming output tuples
 - The pi_exprContext provides the runtime environment for expression evaluation

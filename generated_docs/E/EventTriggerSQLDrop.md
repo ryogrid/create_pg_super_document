@@ -29,15 +29,15 @@ The function is more complex than other event trigger functions due to the need 
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerData (struct for trigger context)
-  - slist_is_empty (checks if SQLDropList is empty)
-  - EventTriggerCommonSetup (identifies applicable triggers)
+  - [slist_is_empty](../s/slist_is_empty.md) (checks if SQLDropList is empty)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_SQLDrop (event type constant)
   - CommandCounterIncrement (ensures visibility)
   - PG_TRY/PG_FINALLY/PG_END_TRY (exception handling)
-  - EventTriggerInvoke (executes the triggers)
-  - list_free (memory cleanup)
+  - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
+  - [list_free](../l/list_free.md) (memory cleanup)
 - Called from (representative examples):
-  - ProcessUtilitySlow (main DDL command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main DDL command processing)
 
 ## Notes and Other Information
 - Includes specialized logic for dropped object collection and access control

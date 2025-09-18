@@ -25,14 +25,14 @@ The `bernoulli_beginsamplescan` function initializes the Bernoulli sampler with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetFloat4 (extracts float4 sampling percentage from Datum)
+  - [DatumGetFloat4](../D/DatumGetFloat4.md) (extracts float4 sampling percentage from Datum)
   - isnan (validates percentage is not NaN)
   - rint (rounds cutoff calculation to nearest integer)
   - ereport/ERROR (reports parameter validation errors)
   - PG_UINT32_MAX (maximum 32-bit unsigned integer for cutoff calculation)
   - InvalidOffsetNumber (initializes last tuple offset)
 - Called from (representative examples):
-  - tsm_bernoulli_handler (sets this as BeginSampleScan callback)
+  - [tsm_bernoulli_handler](../t/tsm_bernoulli_handler.md) (sets this as BeginSampleScan callback)
 
 ## Notes and Other Information
 - Validates sampling percentage is between 0 and 100, raising an error otherwise

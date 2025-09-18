@@ -32,13 +32,13 @@ The function handles complex data structures like HeapTuples by serializing both
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferSerializeReserve (ensures buffer space availability)
+  - [ReorderBufferSerializeReserve](ReorderBufferSerializeReserve.md) (ensures buffer space availability)
   - write (system call for disk I/O)
   - CloseTransientFile (closes file on error)
   - pgstat_report_wait_start/end (wait event reporting)
   - memcpy (memory copying operations)
 - Called from (representative examples):
-  - ReorderBufferSerializeTXN (during transaction spilling process)
+  - [ReorderBufferSerializeTXN](ReorderBufferSerializeTXN.md) (during transaction spilling process)
 
 ## Notes and Other Information
 - Handles 8 different change types with type-specific serialization logic
@@ -47,5 +47,5 @@ The function handles complex data structures like HeapTuples by serializing both
 - Includes comprehensive error handling for disk space issues
 - The on-disk format includes a size header for each serialized change
 - HeapTuple data is serialized as both header and data portions
-- Variable-length data (messages, snapshots, truncate relations) is properly handled
+- [Variable](../V/Variable.md)-length data (messages, snapshots, truncate relations) is properly handled
 - Wait events are reported for performance monitoring during disk writes

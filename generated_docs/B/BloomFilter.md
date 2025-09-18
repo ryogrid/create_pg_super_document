@@ -41,14 +41,14 @@ BloomFilter implements a probabilistic data structure that efficiently tests set
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - bloom_filter_size
-  - bloom_init
-  - bloom_add_value
-  - bloom_contains_value
-  - brin_bloom_add_value
-  - brin_bloom_consistent
-  - brin_bloom_union
-  - brin_bloom_summary_out
+  - [bloom_filter_size](../b/bloom_filter_size.md)
+  - [bloom_init](../b/bloom_init.md)
+  - [bloom_add_value](../b/bloom_add_value.md)
+  - [bloom_contains_value](../b/bloom_contains_value.md)
+  - [brin_bloom_add_value](../b/brin_bloom_add_value.md)
+  - [brin_bloom_consistent](../b/brin_bloom_consistent.md)
+  - [brin_bloom_union](../b/brin_bloom_union.md)
+  - [brin_bloom_summary_out](../b/brin_bloom_summary_out.md)
 
 ## Notes and Other Information
 Located in src/backend/access/brin/brin_bloom.c:242-257. The structure includes extensive comments about potential optimizations like sparse bloom filters and adaptive behavior based on false positive rates. The implementation balances memory efficiency with query performance, utilizing PostgreSQL's compression capabilities rather than implementing custom sparse storage.

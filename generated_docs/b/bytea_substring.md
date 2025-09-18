@@ -23,13 +23,13 @@ This function implements the complete substring extraction logic for bytea value
 - Functions called/Symbols referenced:
   - Max (macro to get maximum value)
   - ereport (for error reporting)
-  - pg_add_s32_overflow (to check for integer overflow)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (to check for integer overflow)
   - PG_STR_GET_BYTEA (to create empty bytea)
   - DatumGetByteaPSlice (performs the actual slice extraction)
 - Called from (representative examples):
-  - bytea_substr (with explicit length)
-  - bytea_substr_no_len (without length parameter)
-  - bytea_overlay (for overlay operations)
+  - [bytea_substr](bytea_substr.md) (with explicit length)
+  - [bytea_substr_no_len](bytea_substr_no_len.md) (without length parameter)
+  - [bytea_overlay](bytea_overlay.md) (for overlay operations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within varlena.c

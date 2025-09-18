@@ -22,12 +22,12 @@ Unlike the directional comparison functions (point_left, point_right, point_abov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (data type)
+  - [Point](../P/Point.md) (data type)
   - PG_GETARG_POINT_P (macro for extracting Point arguments)
-  - FPeq (floating-point equality comparison function)
+  - [FPeq](../F/FPeq.md) (floating-point equality comparison function)
   - PG_RETURN_BOOL (macro for returning boolean result)
 - Called from (representative examples):
-  - getQuadrant (in spgquadtreeproc.c)
+  - [getQuadrant](../g/getQuadrant.md) (in spgquadtreeproc.c)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/geo_ops.c:1937-1945

@@ -22,14 +22,14 @@ The function includes special handling for the leader process (reader == 0) by d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gm_readnext_tuple
-  - GatherMergeState
-  - GMReaderTupleBuffer
+  - [gm_readnext_tuple](../g/gm_readnext_tuple.md)
+  - [GatherMergeState](../G/GatherMergeState.md)
+  - [GMReaderTupleBuffer](../G/GMReaderTupleBuffer.md)
   - MinimalTuple
   - MAX_TUPLE_STORE
 - Called from (representative examples):
-  - gather_merge_init
-  - gather_merge_readnext
+  - [gather_merge_init](../g/gather_merge_init.md)
+  - [gather_merge_readnext](../g/gather_merge_readnext.md)
 
 ## Notes and Other Information
 - The function operates only on worker processes (reader > 0), skipping the leader process entirely

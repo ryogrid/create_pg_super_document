@@ -20,14 +20,14 @@ DumpSignalInformation serves as the central data structure for managing signal h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArchiveHandle
-  - ParallelState
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [ParallelState](../P/ParallelState.md)
 - Called from (representative examples):
-  - sigTermHandler (signal handler function)
-  - consoleHandler (Windows console handler)
-  - set_cancel_handler
-  - set_cancel_pstate
-  - ParallelBackupStart
+  - [sigTermHandler](../s/sigTermHandler.md) (signal handler function)
+  - [consoleHandler](../c/consoleHandler.md) (Windows console handler)
+  - [set_cancel_handler](../s/set_cancel_handler.md)
+  - [set_cancel_pstate](../s/set_cancel_pstate.md)
+  - [ParallelBackupStart](../P/ParallelBackupStart.md)
 
 ## Notes and Other Information
 - Used as a static volatile global variable 'signal_info' that is initialized to zero

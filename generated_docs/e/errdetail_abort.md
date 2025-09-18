@@ -23,14 +23,14 @@ The function is part of PostgreSQL's error reporting system and helps users unde
 - Functions called/Symbols referenced:
   - MyProc (current process structure)
   - recoveryConflictPending (field in process structure)
-  - errdetail (adds detail to error messages)
+  - [errdetail](errdetail.md) (adds detail to error messages)
 - Called from (representative examples):
-  - exec_simple_query (during simple query execution)
-  - exec_parse_message (during parse message processing)
-  - exec_bind_message (during bind message processing)
-  - exec_execute_message (during execute message processing)
-  - exec_describe_statement_message (during describe statement processing)
-  - exec_describe_portal_message (during describe portal processing)
+  - [exec_simple_query](exec_simple_query.md) (during simple query execution)
+  - [exec_parse_message](exec_parse_message.md) (during parse message processing)
+  - [exec_bind_message](exec_bind_message.md) (during bind message processing)
+  - [exec_execute_message](exec_execute_message.md) (during execute message processing)
+  - [exec_describe_statement_message](exec_describe_statement_message.md) (during describe statement processing)
+  - [exec_describe_portal_message](exec_describe_portal_message.md) (during describe portal processing)
 
 ## Notes and Other Information
 - Returns 0 in all cases (return value appears to be unused)

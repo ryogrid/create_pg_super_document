@@ -17,19 +17,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock type)
-  - pg_atomic_uint32 (32-bit atomic variable type)
-  - pg_atomic_uint64 (64-bit atomic variable type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
+  - [pg_atomic_uint32](../p/pg_atomic_uint32.md) (32-bit atomic variable type)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md) (64-bit atomic variable type)
   - SpinLockInit (spinlock initialization)
   - SpinLockAcquire (acquire spinlock)
   - SpinLockRelease (release spinlock)
-  - pg_atomic_init_u32/pg_atomic_init_u64 (atomic initialization)
-  - pg_atomic_fetch_add_u32/pg_atomic_fetch_add_u64 (atomic add operations)
-  - pg_atomic_fetch_sub_u32/pg_atomic_fetch_sub_u64 (atomic subtract operations)
-  - pg_atomic_read_u32/pg_atomic_read_u64 (atomic read operations)
+  - [pg_atomic_init_u32](../p/pg_atomic_init_u32.md)/pg_atomic_init_u64 (atomic initialization)
+  - [pg_atomic_fetch_add_u32](../p/pg_atomic_fetch_add_u32.md)/pg_atomic_fetch_add_u64 (atomic add operations)
+  - [pg_atomic_fetch_sub_u32](../p/pg_atomic_fetch_sub_u32.md)/pg_atomic_fetch_sub_u64 (atomic subtract operations)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)/pg_atomic_read_u64 (atomic read operations)
   - EXPECT_EQ_U32/EXPECT_EQ_U64 (test assertion macros)
 - Called from (representative examples):
-  - test_atomic_ops (main atomic operations test function)
+  - [test_atomic_ops](test_atomic_ops.md) (main atomic operations test function)
 
 ## Notes and Other Information
 - Located in src/test/regress/regress.c:964-966

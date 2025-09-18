@@ -20,15 +20,15 @@ The macro implements a dynamic buffer expansion strategy that ensures the code f
 ## Dependencies
 - Functions called/Symbols referenced:
   - realloc (standard C library function)
-  - err (error handling function)
+  - [err](../e/err.md) (error handling function)
 - Global variables used:
   - : Current end position in the code buffer
   - : Limit/end of the code buffer
   - : Start of the code buffer
   - : The main code buffer pointer
 - Called from (representative examples):
-  - main function (multiple times at lines 495, 514, 637, 648, 990, 1004)
-  - indent_declaration function (lines 1258, 1266)
+  - [main](../m/main.md) function (multiple times at lines 495, 514, 637, 648, 990, 1004)
+  - [indent_declaration](../i/indent_declaration.md) function (lines 1258, 1266)
 
 ## Notes and Other Information
 - This macro is essential for the dynamic memory management strategy of pg_bsd_indent

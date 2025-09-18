@@ -19,16 +19,16 @@ The `AsyncShmemInit` function performs the crucial initialization of shared memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size, add_size (safe arithmetic for memory calculations)
-  - ShmemInitStruct (shared memory structure initialization)
+  - [mul_size](../m/mul_size.md), add_size (safe arithmetic for memory calculations)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md) (shared memory structure initialization)
   - SET_QUEUE_POS (macro for setting queue positions)
-  - asyncQueuePagePrecedes (page ordering function)
-  - SimpleLruInit (SLRU system initialization)
-  - SlruScanDirectory, SlruScanDirCbDeleteAll (SLRU directory management)
-  - AsyncQueueControl, QueueBackendStatus (data structures)
+  - [asyncQueuePagePrecedes](../a/asyncQueuePagePrecedes.md) (page ordering function)
+  - [SimpleLruInit](../S/SimpleLruInit.md) (SLRU system initialization)
+  - [SlruScanDirectory](../S/SlruScanDirectory.md), SlruScanDirCbDeleteAll (SLRU directory management)
+  - [AsyncQueueControl](AsyncQueueControl.md), QueueBackendStatus (data structures)
   - Various queue management macros (QUEUE_HEAD, QUEUE_TAIL, etc.)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs (during shared memory setup)
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md) (during shared memory setup)
   - Referenced in ASYNC_H header file
 
 ## Notes and Other Information

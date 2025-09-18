@@ -44,19 +44,19 @@ The function also handles special cases:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PATH_PARAM_BY_REL
-  - create_unique_path
-  - ExecMaterializesOutput
-  - create_material_path
-  - build_join_pathkeys
-  - try_nestloop_path
-  - get_memoize_path
-  - generate_mergejoin_paths
-  - consider_parallel_nestloop
-  - consider_parallel_mergejoin
-  - get_cheapest_parallel_safe_total_inner
+  - [create_unique_path](../c/create_unique_path.md)
+  - [ExecMaterializesOutput](../E/ExecMaterializesOutput.md)
+  - [create_material_path](../c/create_material_path.md)
+  - [build_join_pathkeys](../b/build_join_pathkeys.md)
+  - [try_nestloop_path](../t/try_nestloop_path.md)
+  - [get_memoize_path](../g/get_memoize_path.md)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md)
+  - [consider_parallel_nestloop](../c/consider_parallel_nestloop.md)
+  - [consider_parallel_mergejoin](../c/consider_parallel_mergejoin.md)
+  - [get_cheapest_parallel_safe_total_inner](../g/get_cheapest_parallel_safe_total_inner.md)
   - bms_is_empty
 - Called from (representative examples):
-  - add_paths_to_joinrel
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
 
 ## Notes and Other Information
 - This is a static function within joinpath.c serving as a major join path generation hub

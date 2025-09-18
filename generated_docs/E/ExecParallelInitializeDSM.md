@@ -34,19 +34,19 @@ The function allows each plan node to allocate shared memory space and insert ke
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine plan node type)
-  - ExecSeqScanInitializeDSM, ExecIndexScanInitializeDSM, ExecIndexOnlyScanInitializeDSM
-  - ExecForeignScanInitializeDSM, ExecAppendInitializeDSM, ExecCustomScanInitializeDSM
-  - ExecBitmapHeapInitializeDSM, ExecHashJoinInitializeDSM, ExecHashInitializeDSM
-  - ExecSortInitializeDSM, ExecIncrementalSortInitializeDSM, ExecAggInitializeDSM
-  - ExecMemoizeInitializeDSM
+  - [ExecSeqScanInitializeDSM](ExecSeqScanInitializeDSM.md), ExecIndexScanInitializeDSM, ExecIndexOnlyScanInitializeDSM
+  - [ExecForeignScanInitializeDSM](ExecForeignScanInitializeDSM.md), ExecAppendInitializeDSM, ExecCustomScanInitializeDSM
+  - [ExecBitmapHeapInitializeDSM](ExecBitmapHeapInitializeDSM.md), ExecHashJoinInitializeDSM, ExecHashInitializeDSM
+  - [ExecSortInitializeDSM](ExecSortInitializeDSM.md), ExecIncrementalSortInitializeDSM, ExecAggInitializeDSM
+  - [ExecMemoizeInitializeDSM](ExecMemoizeInitializeDSM.md)
   - planstate_tree_walker (for recursive traversal)
 - Called from:
-  - ExecInitParallelPlan (main parallel plan initialization)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md) (main parallel plan initialization)
   - Recursively calls itself via planstate_tree_walker
 
 ## Notes and Other Information
 - This is a static function internal to execParallel.c
 - The function returns false if planstate is NULL, otherwise continues traversal
-- Node counting and instrumentation setup occur before type-specific initialization
+- [Node](../N/Node.md) counting and instrumentation setup occur before type-specific initialization
 - The recursive nature ensures all nodes in the plan tree are properly initialized for parallel execution
 - Hash, Sort, IncrementalSort, Agg, and Memoize nodes always initialize DSM regardless of parallel_aware flag to support EXPLAIN ANALYZE functionality

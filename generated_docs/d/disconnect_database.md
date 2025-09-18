@@ -20,22 +20,22 @@ The function includes an assertion to ensure that a valid connection pointer is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQfinish (libpq function for closing database connections)
+  - [PQfinish](../P/PQfinish.md) (libpq function for closing database connections)
   - Assert (macro for debug assertions)
   - exit (system function for program termination)
 
 - Called from (representative examples):
-  - cleanup_objects_atexit
-  - get_primary_sysid
-  - generate_object_name
-  - setup_publisher
-  - check_publisher
-  - check_subscriber
-  - setup_subscriber
-  - wait_for_end_recovery
-  - create_publication
-  - create_subscription
-  - set_replication_progress
+  - [cleanup_objects_atexit](../c/cleanup_objects_atexit.md)
+  - [get_primary_sysid](../g/get_primary_sysid.md)
+  - [generate_object_name](../g/generate_object_name.md)
+  - [setup_publisher](../s/setup_publisher.md)
+  - [check_publisher](../c/check_publisher.md)
+  - [check_subscriber](../c/check_subscriber.md)
+  - [setup_subscriber](../s/setup_subscriber.md)
+  - [wait_for_end_recovery](../w/wait_for_end_recovery.md)
+  - [create_publication](../c/create_publication.md)
+  - [create_subscription](../c/create_subscription.md)
+  - [set_replication_progress](../s/set_replication_progress.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_createsubscriber.c file

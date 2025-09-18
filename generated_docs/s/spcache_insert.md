@@ -20,16 +20,16 @@ This function implements a lookup-or-insert operation for PostgreSQL's search pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchPathCacheEntry (cache entry structure type)
-  - SearchPathCacheKey (key structure for hash table operations)  
+  - [SearchPathCacheEntry](../S/SearchPathCacheEntry.md) (cache entry structure type)
+  - [SearchPathCacheKey](../S/SearchPathCacheKey.md) (key structure for hash table operations)  
   - nsphash_lookup (hash table lookup function)
   - nsphash_insert (hash table insertion function)
-  - MemoryContextStrdup (creates persistent string copy in cache context)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md) (creates persistent string copy in cache context)
   - strcmp (standard C library string comparison)
   - Assert (assertion macro for debugging)
 - Called from (representative examples):
-  - cachedNamespacePath (for namespace path caching operations)
-  - check_search_path (for search path validation and caching)
+  - [cachedNamespacePath](../c/cachedNamespacePath.md) (for namespace path caching operations)
+  - [check_search_path](../c/check_search_path.md) (for search path validation and caching)
 
 ## Notes and Other Information
 - Combines lookup and insertion logic for efficient cache management

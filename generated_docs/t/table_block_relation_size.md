@@ -30,7 +30,7 @@ This is a convenience function that table access methods can use directly rather
   - MAX_FORKNUM
   - BLCKSZ
 - Called from (representative examples):
-  - SampleHeapTupleVisible
+  - [SampleHeapTupleVisible](../S/SampleHeapTupleVisible.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

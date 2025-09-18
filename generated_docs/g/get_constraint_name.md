@@ -21,19 +21,19 @@ The function performs a system cache lookup to efficiently retrieve the constrai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (performs system cache lookup by constraint OID)
-  - ObjectIdGetDatum (converts OID to Datum)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (performs system cache lookup by constraint OID)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (converts OID to Datum)
   - HeapTupleIsValid (checks if cache lookup succeeded)
   - Form_pg_constraint (type cast to constraint catalog structure)
   - GETSTRUCT (extracts structure from heap tuple)
-  - pstrdup (creates palloc'd copy of string)
+  - [pstrdup](../p/pstrdup.md) (creates palloc'd copy of string)
   - NameStr (extracts string from Name type)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
 - Called from (representative examples):
-  - report_triggers (for EXPLAIN output with trigger information)
-  - addFkRecurseReferencing (during foreign key constraint creation)
-  - CloneFkReferencing (during table inheritance with foreign keys)
-  - get_insert_query_def (for rule and view definition output)
+  - [report_triggers](../r/report_triggers.md) (for EXPLAIN output with trigger information)
+  - [addFkRecurseReferencing](../a/addFkRecurseReferencing.md) (during foreign key constraint creation)
+  - [CloneFkReferencing](../C/CloneFkReferencing.md) (during table inheritance with foreign keys)
+  - [get_insert_query_def](get_insert_query_def.md) (for rule and view definition output)
 
 ## Notes and Other Information
 - Returns NULL if the constraint OID is not found, rather than throwing an error

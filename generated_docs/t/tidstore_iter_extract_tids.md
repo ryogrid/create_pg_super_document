@@ -25,16 +25,16 @@ The function dynamically expands the output buffer if needed when processing bit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TidStoreIter (iterator structure type)
-  - BlocktableEntry (page entry structure type) 
+  - [TidStoreIter](../T/TidStoreIter.md) (iterator structure type)
+  - [BlocktableEntry](../B/BlocktableEntry.md) (page entry structure type) 
   - TidStoreIterResult (output structure type)
   - NUM_FULL_OFFSETS (constant for header array size)
   - InvalidOffsetNumber (constant representing invalid offset)
   - bitmapword (bitmap word type)
   - BITS_PER_BITMAPWORD (constant for bits per word)
-  - repalloc (memory reallocation function)
+  - [repalloc](../r/repalloc.md) (memory reallocation function)
 - Called from (representative examples):
-  - TidStoreIterateNext (main iteration function that processes each page)
+  - [TidStoreIterateNext](../T/TidStoreIterateNext.md) (main iteration function that processes each page)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tidstore.c file

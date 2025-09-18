@@ -21,7 +21,7 @@ The returned strings are static literals, so callers do not need to manage memor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactStatus enumeration constants:
+  - [MultiXactStatus](../M/MultiXactStatus.md) enumeration constants:
     - MultiXactStatusForKeyShare ("keysh")
     - MultiXactStatusForShare ("sh") 
     - MultiXactStatusForNoKeyUpdate ("fornokeyupd")
@@ -30,9 +30,9 @@ The returned strings are static literals, so callers do not need to manage memor
     - MultiXactStatusUpdate ("upd")
   - elog (for error reporting on invalid status values)
 - Called from (representative examples):
-  - mxid_to_string (for composite MultiXact string representations)
-  - MultiXactIdExpand (for debugging output during MultiXact expansion)
-  - mxact (debugging/diagnostic function)
+  - [mxid_to_string](mxid_to_string.md) (for composite MultiXact string representations)
+  - [MultiXactIdExpand](../M/MultiXactIdExpand.md) (for debugging output during MultiXact expansion)
+  - [mxact](mxact.md) (debugging/diagnostic function)
   - debug_elog6 (debugging context)
 
 ## Notes and Other Information

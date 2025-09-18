@@ -30,10 +30,10 @@ The function respects the case sensitivity setting established during dictionary
 ## Dependencies
 - Functions called/Symbols referenced:
   - DictSyn, Syn, TSLexeme (data structures)
-  - pnstrdup (string duplication with length)
-  - lowerstr_with_len (case conversion)
+  - [pnstrdup](../p/pnstrdup.md) (string duplication with length)
+  - [lowerstr_with_len](../l/lowerstr_with_len.md) (case conversion)
   - bsearch with compareSyn (binary search)
-  - palloc0 (memory allocation)
+  - [palloc0](../p/palloc0.md) (memory allocation)
 - Called from (representative examples):
   - PostgreSQL text search lexicalization system (no direct callers in provided data)
 

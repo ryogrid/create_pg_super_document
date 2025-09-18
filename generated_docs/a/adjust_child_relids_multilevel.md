@@ -24,13 +24,13 @@ The function first performs an optimization check to see if the input relids set
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AppendRelInfo (structure type)
-  - bms_overlap (checks if two bitmap sets have common elements)
-  - adjust_child_relids_multilevel (recursive self-call)
-  - find_appinfos_by_relids (finds AppendRelInfo structures for given relation IDs)
-  - adjust_child_relids (performs actual relation ID substitution)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (structure type)
+  - [bms_overlap](../b/bms_overlap.md) (checks if two bitmap sets have common elements)
+  - [adjust_child_relids_multilevel](adjust_child_relids_multilevel.md) (recursive self-call)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md) (finds AppendRelInfo structures for given relation IDs)
+  - [adjust_child_relids](adjust_child_relids.md) (performs actual relation ID substitution)
 - Called from (representative examples):
-  - adjust_child_relids_multilevel (recursive calls)
+  - [adjust_child_relids_multilevel](adjust_child_relids_multilevel.md) (recursive calls)
   - REPARAMETERIZE_CHILD_PATH_LIST
 
 ## Notes and Other Information

@@ -21,16 +21,16 @@ This function creates a modified copy of an ACL array by replacing all occurrenc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl: Validates the input ACL structure
-  - allocacl: Allocates memory for the new ACL array
-  - aclitem_match: Determines if two ACL items have the same grantee-grantor pair
+  - [check_acl](../c/check_acl.md): Validates the input ACL structure
+  - [allocacl](allocacl.md): Allocates memory for the new ACL array
+  - [aclitem_match](aclitem_match.md): Determines if two ACL items have the same grantee-grantor pair
   - ACL manipulation macros (ACL_NUM, ACL_DAT, ACLITEM_GET_RIGHTS, ACLITEM_SET_RIGHTS, etc.)
   - Memory management functions (memcpy, ARR_DIMS, SET_VARSIZE)
 - Called from (representative examples):
-  - AlterObjectOwner_internal: Generic object ownership change
-  - AlterDatabaseOwner: Database ownership changes
-  - ATExecChangeOwner: Table ownership changes
-  - AlterSchemaOwner_internal: Schema ownership changes
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md): Generic object ownership change
+  - [AlterDatabaseOwner](../A/AlterDatabaseOwner.md): Database ownership changes
+  - [ATExecChangeOwner](../A/ATExecChangeOwner.md): Table ownership changes
+  - [AlterSchemaOwner_internal](../A/AlterSchemaOwner_internal.md): Schema ownership changes
   - Various other ALTER OWNER commands
 
 ## Notes and Other Information

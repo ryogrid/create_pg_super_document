@@ -23,10 +23,10 @@ This function includes bounds checking through an assertion that verifies the ce
   - Assert (for bounds checking to ensure cell is within list boundaries)
   - Direct access to List structure fields (elements array and length)
 - Called from (representative examples):
-  - SyncPostCheckpoint (synchronous checkpoint processing)
-  - push_ancestor_plan (rule decompilation utilities)
-  - for_each_cell_setup (list iteration macro setup)
-  - for_both_cell_setup (dual list iteration macro setup)
+  - [SyncPostCheckpoint](../S/SyncPostCheckpoint.md) (synchronous checkpoint processing)
+  - [push_ancestor_plan](../p/push_ancestor_plan.md) (rule decompilation utilities)
+  - [for_each_cell_setup](../f/for_each_cell_setup.md) (list iteration macro setup)
+  - [for_both_cell_setup](../f/for_both_cell_setup.md) (dual list iteration macro setup)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

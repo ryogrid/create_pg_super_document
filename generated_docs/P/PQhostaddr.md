@@ -21,8 +21,8 @@ PQhostaddr is a libpq client library function that retrieves the parsed IP addre
 - Functions called/Symbols referenced:
   - None (simple accessor function)
 - Called from (representative examples):
-  - exec_command_conninfo (src/bin/psql/command.c:682)
-  - do_connect (src/bin/psql/command.c:3805)
+  - [exec_command_conninfo](../e/exec_command_conninfo.md) (src/bin/psql/command.c:682)
+  - [do_connect](../d/do_connect.md) (src/bin/psql/command.c:3805)
 
 ## Notes and Other Information
 - Returns a pointer to the parsed IP address string; the caller should not modify or free this string

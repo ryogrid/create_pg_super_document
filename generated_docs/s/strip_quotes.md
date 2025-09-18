@@ -22,10 +22,10 @@ The function operates destructively on the input string, overwriting it with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmblenBounded
+  - [PQmblenBounded](../P/PQmblenBounded.md)
 - Called from (representative examples):
-  - strtokx
-  - parse_slash_copy
+  - [strtokx](strtokx.md)
+  - [parse_slash_copy](../p/parse_slash_copy.md)
 
 ## Notes and Other Information
 - The source string is modified in-place, so the original content is lost

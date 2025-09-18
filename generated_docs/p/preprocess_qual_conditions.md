@@ -26,14 +26,14 @@ The function serves as a specialized dispatcher that identifies qualification co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - preprocess_expression (qualification expression preprocessing)
-  - preprocess_qual_conditions (recursive self-calls for tree traversal)
+  - [preprocess_expression](preprocess_expression.md) (qualification expression preprocessing)
+  - [preprocess_qual_conditions](preprocess_qual_conditions.md) (recursive self-calls for tree traversal)
   - IsA macro (node type checking)
   - nodeTag (node type identification for error reporting)
 - Called from (representative examples):
-  - subquery_planner (main qual preprocessing)
+  - [subquery_planner](../s/subquery_planner.md) (main qual preprocessing)
   - standard_qp_extra (additional processing)
-  - preprocess_qual_conditions (recursive self-calls)
+  - [preprocess_qual_conditions](preprocess_qual_conditions.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Essential component of the comprehensive expression preprocessing pipeline in subquery_planner

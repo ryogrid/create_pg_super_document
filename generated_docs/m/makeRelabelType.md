@@ -27,10 +27,10 @@ The `makeRelabelType` function creates a RelabelType node that represents a type
   - RelabelType (struct type)
   - CoercionForm (enum type)
 - Called from (representative examples):
-  - buildMergedJoinVar
-  - coerce_type
-  - assign_hypothetical_collations
-  - make_partition_op_expr
+  - [buildMergedJoinVar](../b/buildMergedJoinVar.md)
+  - [coerce_type](../c/coerce_type.md)
+  - [assign_hypothetical_collations](../a/assign_hypothetical_collations.md)
+  - [make_partition_op_expr](make_partition_op_expr.md)
 
 ## Notes and Other Information
 - Used primarily for binary-compatible type conversions that require no runtime work

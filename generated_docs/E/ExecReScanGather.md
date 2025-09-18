@@ -17,12 +17,12 @@ ExecReScanGather handles the complex task of preparing a Gather node for a resca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecShutdownGatherWorkers
+  - [ExecShutdownGatherWorkers](ExecShutdownGatherWorkers.md)
   - outerPlanState
-  - bms_add_member
-  - ExecReScan
+  - [bms_add_member](../b/bms_add_member.md)
+  - [ExecReScan](ExecReScan.md)
 - Called from (representative examples):
-  - ExecReScan (general executor rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (general executor rescan dispatcher)
 
 ## Notes and Other Information
 This function is part of the executor node interface and is exposed via nodeGather.h. It handles the intricate coordination required when rescanning parallel operations, including proper management of parameter changes and the relationship between shared and local state. The function includes detailed comments about the ordering requirements between ReInitializeDSM, ReScan, and ExecProcNode calls, which is critical for parallel-aware child nodes. The rescan_param mechanism allows the Gather node to signal that the leader process subset might change even if the overall rowset remains the same.

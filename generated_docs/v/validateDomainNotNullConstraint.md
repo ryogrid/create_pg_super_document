@@ -17,22 +17,22 @@ This function verifies that existing data in all tables using the specified doma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rels_with_domain
+  - [get_rels_with_domain](../g/get_rels_with_domain.md)
   - RegisterSnapshot
   - GetLatestSnapshot
-  - table_beginscan
-  - table_slot_create
-  - table_scan_getnextslot
+  - [table_beginscan](../t/table_beginscan.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [table_scan_getnextslot](../t/table_scan_getnextslot.md)
   - slot_attisnull
-  - ExecDropSingleTupleTableSlot
-  - table_endscan
+  - [ExecDropSingleTupleTableSlot](../E/ExecDropSingleTupleTableSlot.md)
+  - [table_endscan](../t/table_endscan.md)
   - UnregisterSnapshot
   - TupleDescAttr
   - RelationGetRelationName
-  - errtablecol
+  - [errtablecol](../e/errtablecol.md)
 - Called from (representative examples):
-  - AlterDomainNotNull
-  - AlterDomainAddConstraint
+  - [AlterDomainNotNull](../A/AlterDomainNotNull.md)
+  - [AlterDomainAddConstraint](../A/AlterDomainAddConstraint.md)
 
 ## Notes and Other Information
 - Uses ShareLock to prevent concurrent data changes during validation

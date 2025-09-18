@@ -30,16 +30,16 @@ The function also sets up the function manager info structures and collation inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - trueConsistentFn
-  - trueTriConsistentFn
-  - directBoolConsistentFn
-  - shimBoolConsistentFn
-  - directTriConsistentFn
-  - shimTriConsistentFn
+  - [trueConsistentFn](../t/trueConsistentFn.md)
+  - [trueTriConsistentFn](../t/trueTriConsistentFn.md)
+  - [directBoolConsistentFn](../d/directBoolConsistentFn.md)
+  - [shimBoolConsistentFn](../s/shimBoolConsistentFn.md)
+  - [directTriConsistentFn](../d/directTriConsistentFn.md)
+  - [shimTriConsistentFn](../s/shimTriConsistentFn.md)
   - GIN_SEARCH_MODE_EVERYTHING (constant)
   - OidIsValid (macro)
 - Called from (representative examples):
-  - ginFillScanKey
+  - [ginFillScanKey](ginFillScanKey.md)
   - GinScanOpaque (indirectly through scan operations)
 
 ## Notes and Other Information

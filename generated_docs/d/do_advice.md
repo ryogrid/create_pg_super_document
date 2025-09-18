@@ -17,13 +17,13 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - write_stderr
+  - [write_stderr](../w/write_stderr.md)
   - progname (global variable)
 - Called from (representative examples):
-  - set_mode
-  - set_sig
-  - set_starttype
-  - main (multiple locations)
+  - [set_mode](../s/set_mode.md)
+  - [set_sig](../s/set_sig.md)
+  - [set_starttype](../s/set_starttype.md)
+  - [main](../m/main.md) (multiple locations)
 
 ## Notes and Other Information
 - The function is marked as static, limiting its scope to the pg_ctl.c file

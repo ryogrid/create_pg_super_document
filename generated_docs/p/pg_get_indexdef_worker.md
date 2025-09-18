@@ -35,19 +35,19 @@ The implementation follows a systematic approach: it first retrieves catalog inf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1, SysCacheGetAttrNotNull (system catalog access)
-  - GetIndexAmRoutine (access method information)
-  - deparse_expression_pretty (expression formatting)
-  - get_attname, get_atttypetypmodcoll (attribute information)
+  - [SearchSysCache1](../S/SearchSysCache1.md), SysCacheGetAttrNotNull (system catalog access)
+  - [GetIndexAmRoutine](../G/GetIndexAmRoutine.md) (access method information)
+  - [deparse_expression_pretty](../d/deparse_expression_pretty.md) (expression formatting)
+  - [get_attname](../g/get_attname.md), get_atttypetypmodcoll (attribute information)
   - generate_relation_name, generate_qualified_relation_name (relation naming)
-  - quote_identifier (identifier quoting)
+  - [quote_identifier](../q/quote_identifier.md) (identifier quoting)
   - get_opclass_name, generate_collation_name (index option formatting)
   - flatten_reloptions, get_reloptions (option handling)
 - Called from (representative examples):
-  - pg_get_indexdef (public interface for complete index definitions)
-  - pg_get_indexdef_columns (key columns only)
-  - pg_get_indexdef_columns_extended (configurable column definitions)
-  - pg_get_constraintdef_worker (exclusion constraint definitions)
+  - [pg_get_indexdef](pg_get_indexdef.md) (public interface for complete index definitions)
+  - [pg_get_indexdef_columns](pg_get_indexdef_columns.md) (key columns only)
+  - [pg_get_indexdef_columns_extended](pg_get_indexdef_columns_extended.md) (configurable column definitions)
+  - [pg_get_constraintdef_worker](pg_get_constraintdef_worker.md) (exclusion constraint definitions)
 
 ## Notes and Other Information
 - This is a static function serving as the implementation foundation for all public index definition functions

@@ -20,11 +20,11 @@ This function implements the Z-order curve (also known as Morton code) mapping a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ieee_float32_to_uint32 (converts IEEE 754 float to uint32)
-  - part_bits32_by2 (spreads 32-bit value bits by factor of 2)
+  - [ieee_float32_to_uint32](../i/ieee_float32_to_uint32.md) (converts IEEE 754 float to uint32)
+  - [part_bits32_by2](part_bits32_by2.md) (spreads 32-bit value bits by factor of 2)
 - Called from:
-  - gist_bbox_zorder_cmp (multiple calls for bounding box corners)
-  - gist_bbox_zorder_abbrev_convert
+  - [gist_bbox_zorder_cmp](../g/gist_bbox_zorder_cmp.md) (multiple calls for bounding box corners)
+  - [gist_bbox_zorder_abbrev_convert](../g/gist_bbox_zorder_abbrev_convert.md)
 
 ## Notes and Other Information
 - The function assumes IEEE 754 floating-point format for input coordinates

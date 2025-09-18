@@ -20,17 +20,17 @@ The function includes several assertions to ensure it's called in the correct co
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - LWLockHeldByMe
-  - TransactionIdPrecedes
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
   - XidFromFullTransactionId
-  - FullXidRelativeTo
+  - [FullXidRelativeTo](../F/FullXidRelativeTo.md)
   - IsBootstrapProcessingMode
   - FullTransactionIdIsNormal
 - Called from (representative examples):
-  - ProcArrayRemove
-  - ProcArrayEndTransactionInternal
-  - XidCacheRemoveRunningXids
+  - [ProcArrayRemove](../P/ProcArrayRemove.md)
+  - [ProcArrayEndTransactionInternal](../P/ProcArrayEndTransactionInternal.md)
+  - [XidCacheRemoveRunningXids](../X/XidCacheRemoveRunningXids.md)
 
 ## Notes and Other Information
 - Must be called while holding ProcArrayLock to ensure atomic updates

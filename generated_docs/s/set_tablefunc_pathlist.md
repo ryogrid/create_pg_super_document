@@ -23,10 +23,10 @@ Similar to other specialized scan types, table function scans have limited optim
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_path
-  - create_tablefuncscan_path
+  - [add_path](../a/add_path.md)
+  - [create_tablefuncscan_path](../c/create_tablefuncscan_path.md)
 - Called from (representative examples):
-  - set_rel_pathlist
+  - [set_rel_pathlist](set_rel_pathlist.md)
 
 ## Notes and Other Information
 - Table function scans do not support pushing join clauses into their quals, limiting optimization opportunities

@@ -35,17 +35,17 @@ Key analysis patterns include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_make_singleton
-  - bms_join
-  - bms_int_members
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [bms_join](../b/bms_join.md)
+  - [bms_int_members](../b/bms_int_members.md)
   - bms_is_empty
-  - bms_add_members
-  - bms_membership
-  - func_strict
+  - [bms_add_members](../b/bms_add_members.md)
+  - [bms_membership](../b/bms_membership.md)
+  - [func_strict](func_strict.md)
   - set_opfuncid
-  - is_strict_saop
+  - [is_strict_saop](../i/is_strict_saop.md)
 - Called from (representative examples):
-  - find_nonnullable_rels
+  - [find_nonnullable_rels](find_nonnullable_rels.md)
   - max_parallel_hazard_context (self-recursively)
 
 ## Notes and Other Information

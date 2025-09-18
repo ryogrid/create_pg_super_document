@@ -26,11 +26,11 @@ This enables SQL queries like:
 - Functions called/Symbols referenced:
   - castNode
   - elog
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - cstring_to_text_with_len
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_NOTHING (command type constants)
 - Called from (representative examples):
-  - ExecInterpExpr (main expression interpreter loop)
+  - [ExecInterpExpr](ExecInterpExpr.md) (main expression interpreter loop)
 
 ## Notes and Other Information
 - This function is only valid within MERGE statement execution contexts

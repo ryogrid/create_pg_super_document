@@ -27,7 +27,7 @@ This is part of PostgreSQL's JIT compilation infrastructure and is primarily use
   - LLVMInt16TypeInContext (LLVM C API function)
   - int16 (PostgreSQL type alias for signed 16-bit integer)
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c, used extensively for tuple slot deformation operations)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c, used extensively for tuple slot deformation operations)
   - llvm_compile_expr (in llvmjit_expr.c, used for expression compilation)
 
 ## Notes and Other Information

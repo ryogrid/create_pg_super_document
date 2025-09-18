@@ -24,12 +24,12 @@ The function includes an important caveat: it makes no attempt to preserve AND/O
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_andclause (to create the AND expression when both qualifiers are present)
+  - [make_andclause](make_andclause.md) (to create the AND expression when both qualifiers are present)
   - list_make2 (to create a two-element list for the AND clause arguments)
 - Called from (representative examples):
-  - subquery_push_qual (in query optimization)
-  - transform_MERGE_to_join (in join processing)
-  - AddQual (in query rewriting)
+  - [subquery_push_qual](../s/subquery_push_qual.md) (in query optimization)
+  - [transform_MERGE_to_join](../t/transform_MERGE_to_join.md) (in join processing)
+  - [AddQual](../A/AddQual.md) (in query rewriting)
 
 ## Notes and Other Information
 - Returns the non-NULL qualifier directly when the other is NULL, avoiding unnecessary expression creation

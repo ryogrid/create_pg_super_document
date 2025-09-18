@@ -20,17 +20,17 @@ The function directly delegates to ReadBufferExtended with predetermined paramet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBufferExtended: Core buffer reading implementation
+  - [ReadBufferExtended](ReadBufferExtended.md): Core buffer reading implementation
   - MAIN_FORKNUM: Constant for main fork identifier
   - RBM_NORMAL: Constant for normal read mode
 - Called from (representative examples):
-  - brinGetStats: BRIN index statistics collection
-  - brin_getinsertbuffer: BRIN index buffer allocation
-  - ginFindLeafPage: GIN index leaf page access
-  - gistdoinsert: GiST index insertion operations
-  - heap_fetch: Heap tuple retrieval
-  - RelationGetBufferForTuple: Heap tuple storage
-  - _bt_search_insert: B-tree insertion operations
+  - [brinGetStats](../b/brinGetStats.md): BRIN index statistics collection
+  - [brin_getinsertbuffer](../b/brin_getinsertbuffer.md): BRIN index buffer allocation
+  - [ginFindLeafPage](../g/ginFindLeafPage.md): GIN index leaf page access
+  - [gistdoinsert](../g/gistdoinsert.md): GiST index insertion operations
+  - [heap_fetch](../h/heap_fetch.md): Heap tuple retrieval
+  - [RelationGetBufferForTuple](RelationGetBufferForTuple.md): Heap tuple storage
+  - [_bt_search_insert](../b/_bt_search_insert.md): B-tree insertion operations
   - Many other index and table access operations
 
 ## Notes and Other Information

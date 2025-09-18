@@ -28,13 +28,13 @@ The function uses static storage for the decimal constructor to avoid repeatedly
   - PyImport_ImportModule: Python C API function to import cdecimal or decimal module
   - PyErr_Clear: Clears Python exception state when cdecimal import fails
   - PyObject_GetAttrString: Gets the Decimal attribute from the imported module
-  - numeric_out: PostgreSQL function that converts numeric values to string representation
+  - [numeric_out](../n/numeric_out.md): PostgreSQL function that converts numeric values to string representation
   - DirectFunctionCall1: PostgreSQL macro for calling functions with one argument
-  - DatumGetCString: Extracts C string from PostgreSQL Datum
+  - [DatumGetCString](../D/DatumGetCString.md): Extracts C string from PostgreSQL Datum
   - PyObject_CallFunction: Python C API function to call the Decimal constructor
   - PLy_elog: PL/Python error logging function
 - Called from (representative examples):
-  - PLy_input_setup_func: Sets up input conversion functions for various PostgreSQL data types
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Sets up input conversion functions for various PostgreSQL data types
 
 ## Notes and Other Information
 - The function uses static storage for decimal_constructor to cache the constructor across multiple calls

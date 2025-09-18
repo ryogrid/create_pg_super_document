@@ -25,8 +25,8 @@ The function handles the extraction of name data using the appropriate OpenSSL A
 - Functions called/Symbols referenced:
   - ASN1_STRING_get0_data (OpenSSL 1.1.0+) or ASN1_STRING_data (legacy)
   - ASN1_STRING_length
-  - pq_verify_peer_name_matches_certificate_name (generic verification function)
-  - libpq_append_conn_error (for error reporting)
+  - [pq_verify_peer_name_matches_certificate_name](../p/pq_verify_peer_name_matches_certificate_name.md) (generic verification function)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (for error reporting)
 - Called from (representative examples):
   - pgtls_verify_peer_name_matches_certificate_guts (during SAN processing)
   - pgtls_verify_peer_name_matches_certificate_guts (during Common Name processing)

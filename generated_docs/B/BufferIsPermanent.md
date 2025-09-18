@@ -19,12 +19,12 @@ BufferIsPermanent is a buffer management function that checks whether a given bu
 - Functions called/Symbols referenced:
   - BufferIsLocal
   - BufferIsPinned (assertion only)
-  - GetBufferDescriptor
-  - pg_atomic_read_u32
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - BM_PERMANENT (flag constant)
-  - BufferDesc (type)
+  - [BufferDesc](BufferDesc.md) (type)
 - Called from (representative examples):
-  - SetHintBits
+  - [SetHintBits](../S/SetHintBits.md)
   - RelationGetNumberOfBlocks
 
 ## Notes and Other Information

@@ -30,12 +30,12 @@ This approach allows callers to attempt file removal without worrying about whet
 - Functions called/Symbols referenced:
   - unlink (system call)
   - ereport (for error reporting)
-  - errcode_for_file_access (for error codes)
-  - errmsg (for error messages)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (for error codes)
+  - [errmsg](../e/errmsg.md) (for error messages)
 - Called from (representative examples):
-  - RelationCacheInitFilePreInvalidate
-  - RelationCacheInitFileRemove  
-  - RelationCacheInitFileRemoveInDir
+  - [RelationCacheInitFilePreInvalidate](../R/RelationCacheInitFilePreInvalidate.md)
+  - [RelationCacheInitFileRemove](../R/RelationCacheInitFileRemove.md)  
+  - [RelationCacheInitFileRemoveInDir](../R/RelationCacheInitFileRemoveInDir.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within relcache.c

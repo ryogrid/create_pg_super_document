@@ -18,14 +18,14 @@ This function provides comprehensive process termination capability by signaling
 ## Dependencies
 - Functions called/Symbols referenced:
   - SignalChildren (signals regular backends)
-  - signal_child (sends signal to individual processes)
+  - [signal_child](../s/signal_child.md) (sends signal to individual processes)
   - Various global PID variables (StartupPID, BgWriterPID, etc.)
   - Signal constants (SIGQUIT, SIGKILL, SIGABRT)
   - STARTUP_SIGNALED status constant
 - Called from (representative examples):
-  - ServerLoop (main postmaster loop)
-  - process_pm_shutdown_request (shutdown handling)
-  - process_pm_child_exit (child exit processing)
+  - [ServerLoop](../S/ServerLoop.md) (main postmaster loop)
+  - [process_pm_shutdown_request](../p/process_pm_shutdown_request.md) (shutdown handling)
+  - [process_pm_child_exit](../p/process_pm_child_exit.md) (child exit processing)
 
 ## Notes and Other Information
 - Static function internal to postmaster.c

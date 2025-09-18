@@ -28,11 +28,11 @@ This callback is essential for diagnosing issues with relation cache resource ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (to extract the relation pointer)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (to extract the relation pointer)
   - RelationGetRelationName (to get the relation name)
-  - psprintf (to format the output string)
+  - [psprintf](../p/psprintf.md) (to format the output string)
 - Called from (representative examples):
-  - RelationIdGetRelation (as part of resource owner registration)
+  - [RelationIdGetRelation](RelationIdGetRelation.md) (as part of resource owner registration)
 
 ## Notes and Other Information
 - This is a static function, only accessible within relcache.c

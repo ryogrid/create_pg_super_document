@@ -21,13 +21,13 @@ The function provides a simple type-safe conversion from the generic Datum type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetPointer (function for extracting pointer from Datum)
+  - [DatumGetPointer](DatumGetPointer.md) (function for extracting pointer from Datum)
   - TSQuery (type casting)
 - Called from (representative examples):
-  - tsquerysel
-  - gtsquery_compress
-  - tsquery_rewrite_query
-  - ts_match_tt
+  - [tsquerysel](../t/tsquerysel.md)
+  - [gtsquery_compress](../g/gtsquery_compress.md)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [ts_match_tt](../t/ts_match_tt.md)
   - PG_GETARG_TSQUERY
 
 ## Notes and Other Information

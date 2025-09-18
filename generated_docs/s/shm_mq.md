@@ -32,17 +32,17 @@ The design allows the sender to write to unused portions and the receiver to rea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t
-  - PGPROC
-  - pg_atomic_uint64
+  - [slock_t](slock_t.md)
+  - [PGPROC](../P/PGPROC.md)
+  - [pg_atomic_uint64](../p/pg_atomic_uint64.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - shm_mq_create
-  - shm_mq_attach  
-  - shm_mq_sendv
-  - shm_mq_receive
-  - ExecParallelSetupTupleQueues
-  - InitializeParallelDSM
+  - [shm_mq_create](shm_mq_create.md)
+  - [shm_mq_attach](shm_mq_attach.md)  
+  - [shm_mq_sendv](shm_mq_sendv.md)
+  - [shm_mq_receive](shm_mq_receive.md)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
 
 ## Notes and Other Information
 - Critical for PostgreSQL's parallel query execution and logical replication

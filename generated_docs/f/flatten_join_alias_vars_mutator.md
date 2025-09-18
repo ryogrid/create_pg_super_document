@@ -43,16 +43,16 @@ The function also maintains important state:
   - rt_fetch, RTE_JOIN, InvalidAttrNumber
   - copyObject, IncrementVarSublevelsUp
   - RowExpr, COERCE_IMPLICIT_CAST
-  - add_nullingrels_if_needed
-  - checkExprHasSubLink
+  - [add_nullingrels_if_needed](../a/add_nullingrels_if_needed.md)
+  - [checkExprHasSubLink](../c/checkExprHasSubLink.md)
   - expression_tree_mutator, query_tree_mutator
-  - alias_relid_set
+  - [alias_relid_set](../a/alias_relid_set.md)
 - Called from (representative examples):
-  - flatten_join_alias_vars (initial call)
+  - [flatten_join_alias_vars](flatten_join_alias_vars.md) (initial call)
   - Recursive calls to itself during tree traversal
 
 ## Notes and Other Information
 - The function asserts that it should not encounter already-planned SubPlan nodes or planner auxiliary nodes
 - Whole-row expansion creates RowExpr with COERCE_IMPLICIT_CAST format and explicit column names
 - The QTW_IGNORE_JOINALIASES flag prevents infinite recursion when processing Query nodes
-- Variable-free expressions in add_nullingrels_if_needed require special evaluation placement logic
+- [Variable](../V/Variable.md)-free expressions in add_nullingrels_if_needed require special evaluation placement logic

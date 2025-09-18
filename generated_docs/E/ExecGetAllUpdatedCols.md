@@ -26,15 +26,15 @@ The function allocates the result bitmap in the per-tuple memory context, which 
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetPerTupleMemoryContext: Retrieves the per-tuple memory context for short-lived allocations
-  - ExecGetUpdatedCols: Gets bitmap of explicitly updated columns
-  - ExecGetExtraUpdatedCols: Gets bitmap of generated columns that need updating
-  - bms_union: Combines two bitmaps into a single unified bitmap
+  - [ExecGetUpdatedCols](ExecGetUpdatedCols.md): Gets bitmap of explicitly updated columns
+  - [ExecGetExtraUpdatedCols](ExecGetExtraUpdatedCols.md): Gets bitmap of generated columns that need updating
+  - [bms_union](../b/bms_union.md): Combines two bitmaps into a single unified bitmap
 - Called from (representative examples):
-  - ExecBSUpdateTriggers: For determining which columns changed when firing BEFORE statement triggers
-  - ExecASUpdateTriggers: For AFTER statement trigger processing
-  - ExecBRUpdateTriggersNew: For BEFORE row trigger processing with new tuple values
-  - ExecARUpdateTriggers: For AFTER row trigger processing
-  - ExecUpdateLockMode: For determining appropriate locking based on updated columns
+  - [ExecBSUpdateTriggers](ExecBSUpdateTriggers.md): For determining which columns changed when firing BEFORE statement triggers
+  - [ExecASUpdateTriggers](ExecASUpdateTriggers.md): For AFTER statement trigger processing
+  - [ExecBRUpdateTriggersNew](ExecBRUpdateTriggersNew.md): For BEFORE row trigger processing with new tuple values
+  - [ExecARUpdateTriggers](ExecARUpdateTriggers.md): For AFTER row trigger processing
+  - [ExecUpdateLockMode](ExecUpdateLockMode.md): For determining appropriate locking based on updated columns
 
 ## Notes and Other Information
 - The returned bitmap is allocated in per-tuple memory context and has limited lifespan

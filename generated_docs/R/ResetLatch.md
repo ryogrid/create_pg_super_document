@@ -24,10 +24,10 @@ The function uses a memory barrier after clearing the latch state to ensure prop
   - Assert (debugging assertions)
 - Called from (representative examples):
   - WaitForParallelWorkersToAttach (parallel processing coordination)
-  - BackgroundWriterMain (background writer process main loop)
-  - CheckpointerMain (checkpoint process main loop)
-  - WalReceiverMain (WAL receiver main loop)
-  - LogicalRepApplyLoop (logical replication worker loop)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md) (background writer process main loop)
+  - [CheckpointerMain](../C/CheckpointerMain.md) (checkpoint process main loop)
+  - [WalReceiverMain](../W/WalReceiverMain.md) (WAL receiver main loop)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (logical replication worker loop)
 
 ## Notes and Other Information
 - Only the latch owner (the process that owns the latch) should call this function

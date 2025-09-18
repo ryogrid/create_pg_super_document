@@ -21,12 +21,12 @@ This function divides one Cash value by another and returns the quotient as a fl
   - PG_GETARG_CASH
   - PG_RETURN_FLOAT8
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
 - Called from (representative examples):
   - No direct callers found in codebase
 
 ## Notes and Other Information
 - Raises ERRCODE_DIVISION_BY_ZERO error when divisor is zero
-- Result is always returned as float8, not Cash, which allows for fractional results
+- [Result](../R/Result.md) is always returned as float8, not Cash, which allows for fractional results
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c

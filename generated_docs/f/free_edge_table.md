@@ -18,10 +18,10 @@ This function deallocates the memory previously allocated for an edge table in t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (memory deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
   - Edge (data structure type)
 - Called from (representative examples):
-  - geqo (main genetic algorithm function for cleanup)
+  - [geqo](../g/geqo.md) (main genetic algorithm function for cleanup)
 
 ## Notes and Other Information
 - Should be called to free memory allocated by alloc_edge_table

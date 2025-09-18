@@ -28,16 +28,16 @@ The function leverages PostgreSQL's fuzzy attribute matching system to provide t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - searchRangeTableForCol
-  - rte_visible_if_lateral
-  - rte_visible_if_qualified
+  - [searchRangeTableForCol](../s/searchRangeTableForCol.md)
+  - [rte_visible_if_lateral](../r/rte_visible_if_lateral.md)
+  - [rte_visible_if_qualified](../r/rte_visible_if_qualified.md)
   - ereport
-  - errcode (ERRCODE_UNDEFINED_COLUMN)
-  - errmsg
-  - errhint
-  - errdetail
-  - parser_errposition
-  - list_nth
+  - [errcode](errcode.md) (ERRCODE_UNDEFINED_COLUMN)
+  - [errmsg](errmsg.md)
+  - [errhint](errhint.md)
+  - [errdetail](errdetail.md)
+  - [parser_errposition](../p/parser_errposition.md)
+  - [list_nth](../l/list_nth.md)
   - strVal
 - Called from (representative examples):
   - Parser expression functions when column resolution fails

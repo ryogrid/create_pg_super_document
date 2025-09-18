@@ -29,12 +29,12 @@ The function implements a lazy creation strategy - the temporary namespace is on
 ## Dependencies
 - Functions called/Symbols referenced:
   - XACT_FLAGS_ACCESSEDTEMPNAMESPACE (flag constant)
-  - InitTempTableNamespace
+  - [InitTempTableNamespace](../I/InitTempTableNamespace.md)
 - Called from (representative examples):
-  - RangeVarGetCreationNamespace
-  - LookupCreationNamespace
-  - QualifiedNameGetCreationNamespace
-  - fetch_search_path
+  - [RangeVarGetCreationNamespace](../R/RangeVarGetCreationNamespace.md)
+  - [LookupCreationNamespace](../L/LookupCreationNamespace.md)
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [fetch_search_path](../f/fetch_search_path.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within namespace.c

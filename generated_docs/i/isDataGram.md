@@ -31,7 +31,7 @@ The function is essential for socket operations that need to behave differently 
   - SOCK_DGRAM (datagram socket type constant)
 
 - Called from (representative examples):
-  - pgwin32_waitforsinglesocket
+  - [pgwin32_waitforsinglesocket](../p/pgwin32_waitforsinglesocket.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function located in src/backend/port/win32/socket.c

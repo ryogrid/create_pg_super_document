@@ -19,12 +19,12 @@ The function includes safety checks - it asserts that the EXEC_FLAG_MARK flag is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MaterialState
+  - [MaterialState](../M/MaterialState.md)
   - EXEC_FLAG_MARK
-  - tuplestore_copy_read_pointer
-  - tuplestore_trim
+  - [tuplestore_copy_read_pointer](../t/tuplestore_copy_read_pointer.md)
+  - [tuplestore_trim](../t/tuplestore_trim.md)
 - Called from (representative examples):
-  - ExecMarkPos
+  - [ExecMarkPos](ExecMarkPos.md)
 
 ## Notes and Other Information
 - Requires EXEC_FLAG_MARK to be set during node initialization

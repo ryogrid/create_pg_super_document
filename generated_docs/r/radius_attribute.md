@@ -21,7 +21,7 @@ The  structure is a fundamental component of PostgreSQL's RADIUS authentication 
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array declaration)
 - Called from (representative examples):
-  - radius_add_attribute (uses radius_attribute pointer to construct attributes within RADIUS packets)
+  - [radius_add_attribute](radius_add_attribute.md) (uses radius_attribute pointer to construct attributes within RADIUS packets)
 
 ## Notes and Other Information
 - The structure is designed to be packed sequentially within RADIUS packets without padding

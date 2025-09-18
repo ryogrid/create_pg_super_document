@@ -23,9 +23,9 @@ Continuation records are used when a single logical WAL record spans multiple WA
   - XLogRecPtr (WAL record pointer type)
   - TimestampTz (timestamp with timezone type)
 - Called from (representative examples):
-  - CreateOverwriteContrecordRecord (creates and logs overwrite contrecord records)
-  - xlog_desc (describes overwrite contrecord records for debugging)
-  - xlogrecovery_redo (processes overwrite contrecord records during recovery)
+  - [CreateOverwriteContrecordRecord](../C/CreateOverwriteContrecordRecord.md) (creates and logs overwrite contrecord records)
+  - [xlog_desc](xlog_desc.md) (describes overwrite contrecord records for debugging)
+  - [xlogrecovery_redo](xlogrecovery_redo.md) (processes overwrite contrecord records during recovery)
 
 ## Notes and Other Information
 - Associated with WAL record type XLOG_OVERWRITE_CONTRECORD (0xD0)

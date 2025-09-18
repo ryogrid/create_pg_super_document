@@ -21,19 +21,19 @@ The function processes roles in two phases: first dumping role definitions, then
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printfPQExpBuffer (format SQL query strings for different PostgreSQL versions)
-  - executeQuery (execute SQL queries against the database)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (format SQL query strings for different PostgreSQL versions)
+  - [executeQuery](../e/executeQuery.md) (execute SQL queries against the database)
   - atooid (convert string OID to numeric OID type)
   - pg_log_warning (log warning messages for skipped system roles)
-  - resetPQExpBuffer, appendPQExpBuffer, appendPQExpBufferStr (manage query buffer)
-  - fmtId (format SQL identifiers with proper quoting)
-  - PQgetisnull, PQgetvalue (check for NULL values and retrieve result data)
-  - appendStringLiteralConn (safely append string literals to SQL)
-  - buildShSecLabels (generate security label statements)
-  - dumpUserConfig (dump role-specific configuration parameters)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md), appendPQExpBuffer, appendPQExpBufferStr (manage query buffer)
+  - [fmtId](../f/fmtId.md) (format SQL identifiers with proper quoting)
+  - [PQgetisnull](../P/PQgetisnull.md), PQgetvalue (check for NULL values and retrieve result data)
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md) (safely append string literals to SQL)
+  - [buildShSecLabels](../b/buildShSecLabels.md) (generate security label statements)
+  - [dumpUserConfig](dumpUserConfig.md) (dump role-specific configuration parameters)
   - createPQExpBuffer, destroyPQExpBuffer (manage query buffers)
 - Called from:
-  - main (in src/bin/pg_dump/pg_dumpall.c as part of the cluster dump process)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dumpall.c as part of the cluster dump process)
 
 ## Notes and Other Information
 - Function is marked as , indicating it's only used within pg_dumpall.c

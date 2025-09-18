@@ -20,11 +20,11 @@ The function returns true if a valid, non-dropped attribute with the specified n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCacheAttName
+  - [SearchSysCacheAttName](SearchSysCacheAttName.md)
   - HeapTupleIsValid
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - RemoveInheritance (src/backend/commands/tablecmds.c:16319)
+  - [RemoveInheritance](../R/RemoveInheritance.md) (src/backend/commands/tablecmds.c:16319)
 
 ## Notes and Other Information
 - This function is specifically designed to ignore dropped attributes, making it safer for use in contexts where dropped attributes should be treated as non-existent

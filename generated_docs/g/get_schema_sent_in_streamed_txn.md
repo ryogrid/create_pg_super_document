@@ -21,9 +21,9 @@ The `get_schema_sent_in_streamed_txn` function is a utility function used in Pos
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_xid
+  - [list_member_xid](../l/list_member_xid.md)
 - Called from (representative examples):
-  - maybe_send_schema
+  - [maybe_send_schema](../m/maybe_send_schema.md)
 
 ## Notes and Other Information
 - This is a simple wrapper function around list_member_xid for better code readability

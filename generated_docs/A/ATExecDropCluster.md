@@ -22,9 +22,9 @@ The operation is straightforward - it simply delegates to mark_index_clustered w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mark_index_clustered
+  - [mark_index_clustered](../m/mark_index_clustered.md)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within tablecmds.c as part of the ALTER TABLE infrastructure

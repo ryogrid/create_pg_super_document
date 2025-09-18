@@ -19,7 +19,7 @@ This function serves as the initialization routine for BufferHeapTupleTableSlot 
 - Functions called/Symbols referenced:
   - None (empty function)
 - Called from (representative examples):
-  - slot_deform_heap_tuple (as part of slot operations table)
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md) (as part of slot operations table)
 
 ## Notes and Other Information
 - This is a static function internal to execTuples.c

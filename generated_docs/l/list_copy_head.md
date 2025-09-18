@@ -22,15 +22,15 @@ This function is particularly useful in query optimization and planning where on
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_list
-  - check_list_invariants
+  - [new_list](../n/new_list.md)
+  - [check_list_invariants](../c/check_list_invariants.md)
 - Called from (representative examples):
-  - get_object_address_relobject
-  - expand_indexqual_rowcompare
-  - group_keys_reorder_by_pathkeys
-  - truncate_useless_pathkeys
-  - create_append_plan
-  - create_merge_append_plan
+  - [get_object_address_relobject](../g/get_object_address_relobject.md)
+  - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md)
+  - [group_keys_reorder_by_pathkeys](../g/group_keys_reorder_by_pathkeys.md)
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)
+  - [create_append_plan](../c/create_append_plan.md)
+  - [create_merge_append_plan](../c/create_merge_append_plan.md)
 
 ## Notes and Other Information
 - This is a shallow copy operation - only the list structure is duplicated, not the data elements

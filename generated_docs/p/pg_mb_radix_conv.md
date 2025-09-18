@@ -30,8 +30,8 @@ The radix tree can use either 16-bit or 32-bit character arrays depending on the
 - Functions called/Symbols referenced:
   - pg_mb_radix_tree (structure type for radix tree data)
 - Called from (representative examples):
-  - UtfToLocal (for UTF-8 to local encoding conversion)
-  - LocalToUtf (for local encoding to UTF-8 conversion)
+  - [UtfToLocal](../U/UtfToLocal.md) (for UTF-8 to local encoding conversion)
+  - [LocalToUtf](../L/LocalToUtf.md) (for local encoding to UTF-8 conversion)
 
 ## Notes and Other Information
 - This is a static inline function optimized for performance in character conversion operations

@@ -24,17 +24,17 @@ For each join type, the function evaluates whether the join can produce any resu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_dummy_rel
-  - restriction_is_constant_false
-  - mark_dummy_rel
-  - add_paths_to_joinrel
-  - bms_is_subset
-  - bms_equal
-  - create_unique_path
-  - try_partitionwise_join
+  - [is_dummy_rel](../i/is_dummy_rel.md)
+  - [restriction_is_constant_false](../r/restriction_is_constant_false.md)
+  - [mark_dummy_rel](../m/mark_dummy_rel.md)
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [create_unique_path](../c/create_unique_path.md)
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
 - Called from (representative examples):
-  - make_join_rel
-  - try_partitionwise_join
+  - [make_join_rel](../m/make_join_rel.md)
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
 
 ## Notes and Other Information
 - Function is static to the joinrels.c file and not exposed externally

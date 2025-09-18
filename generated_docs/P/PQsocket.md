@@ -23,12 +23,12 @@ The socket descriptor allows applications to integrate PostgreSQL connections in
 - Functions called/Symbols referenced:
   - PGINVALID_SOCKET (constant representing an invalid socket)
 - Called from (representative examples):
-  - libpqrcv_connect (in replication walreceiver)
-  - StreamLogicalLog (in pg_recvlogical)
-  - CopyStreamPoll (in receivelog)
-  - threadRun (in pgbench for connection monitoring)
-  - wait_until_connected (in psql)
-  - wait_on_slots (in parallel slot management)
+  - [libpqrcv_connect](../l/libpqrcv_connect.md) (in replication walreceiver)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (in pg_recvlogical)
+  - [CopyStreamPoll](../C/CopyStreamPoll.md) (in receivelog)
+  - [threadRun](../t/threadRun.md) (in pgbench for connection monitoring)
+  - [wait_until_connected](../w/wait_until_connected.md) (in psql)
+  - [wait_on_slots](../w/wait_on_slots.md) (in parallel slot management)
 
 ## Notes and Other Information
 - Returns -1 for invalid connections (NULL pointer or invalid socket)

@@ -22,11 +22,11 @@ This function provides a safe conversion from PostgreSQL's numeric data type to 
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL (macro to check for special values)
   - NUMERIC_IS_NAN (macro to check for NaN)
-  - init_var_from_num (converts Numeric to NumericVar)
-  - numericvar_to_int64 (performs the actual conversion)
+  - [init_var_from_num](../i/init_var_from_num.md) (converts Numeric to NumericVar)
+  - [numericvar_to_int64](numericvar_to_int64.md) (performs the actual conversion)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (in JSON path execution)
-  - numeric_int8 (standard int8 conversion function)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (in JSON path execution)
+  - [numeric_int8](numeric_int8.md) (standard int8 conversion function)
   - PG_RETURN_NUMERIC (in numeric utilities)
 
 ## Notes and Other Information

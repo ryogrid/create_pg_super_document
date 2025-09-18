@@ -21,7 +21,7 @@ The function is used internally within the index management system to coordinate
 - Functions called/Symbols referenced:
   - currentlyReindexedIndex: Global variable tracking the currently reindexed index
 - Called from (representative examples):
-  - IndexCheckExclusion: Exclusion constraint validation during index operations
+  - [IndexCheckExclusion](../I/IndexCheckExclusion.md): Exclusion constraint validation during index operations
   - SerializedReindexState: State management for reindex coordination
 
 ## Notes and Other Information

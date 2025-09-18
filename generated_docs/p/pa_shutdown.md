@@ -24,14 +24,14 @@ Second, it explicitly detaches from the dynamic shared memory (DSM) segment, whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SendProcSignal
+  - [SendProcSignal](../S/SendProcSignal.md)
   - PROCSIG_PARALLEL_APPLY_MESSAGE
   - INVALID_PROC_NUMBER
-  - dsm_detach
-  - DatumGetPointer
+  - [dsm_detach](../d/dsm_detach.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - MyLogicalRepWorker (global variable)
 - Called from (representative examples):
-  - ParallelApplyWorkerMain (registered as exit callback)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (registered as exit callback)
 
 ## Notes and Other Information
 - This is a static function, accessible only within applyparallelworker.c

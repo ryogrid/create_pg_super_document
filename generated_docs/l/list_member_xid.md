@@ -23,13 +23,13 @@ This function is optimized for TransactionId comparison and should only be used 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsXidList - Validates that the list contains TransactionId values
-  - check_list_invariants - Performs debugging validation of list structure
+  - [check_list_invariants](../c/check_list_invariants.md) - Performs debugging validation of list structure
   - foreach - Macro for iterating through list cells
   - lfirst_xid - Macro for accessing the XID value of a list cell
 
 - Called from (representative examples):
-  - pa_start_subtrans - Used in parallel apply worker for subtransaction handling
-  - get_schema_sent_in_streamed_txn - Used in logical replication for schema tracking in streamed transactions
+  - [pa_start_subtrans](../p/pa_start_subtrans.md) - Used in parallel apply worker for subtransaction handling
+  - [get_schema_sent_in_streamed_txn](../g/get_schema_sent_in_streamed_txn.md) - Used in logical replication for schema tracking in streamed transactions
 
 ## Notes and Other Information
 - The function uses direct TransactionId value comparison (typically 32-bit unsigned integers)

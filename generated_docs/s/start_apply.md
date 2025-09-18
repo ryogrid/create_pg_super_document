@@ -26,17 +26,17 @@ The function is designed to handle recoverable errors gracefully while ensuring 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepApplyLoop (main replication apply loop)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (main replication apply loop)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling macros)
-  - replorigin_reset (resets replication origin progress)
-  - DisableSubscriptionAndExit (disables subscription and terminates worker)
-  - AbortOutOfAnyTransaction (aborts current transaction state)
-  - pgstat_report_subscription_error (reports subscription error statistics)
-  - am_tablesync_worker (checks if this is a table synchronization worker)
+  - [replorigin_reset](../r/replorigin_reset.md) (resets replication origin progress)
+  - [DisableSubscriptionAndExit](../D/DisableSubscriptionAndExit.md) (disables subscription and terminates worker)
+  - [AbortOutOfAnyTransaction](../A/AbortOutOfAnyTransaction.md) (aborts current transaction state)
+  - [pgstat_report_subscription_error](../p/pgstat_report_subscription_error.md) (reports subscription error statistics)
+  - [am_tablesync_worker](../a/am_tablesync_worker.md) (checks if this is a table synchronization worker)
   - PG_RE_THROW (re-throws caught exception)
 - Called from (representative examples):
-  - run_tablesync_worker (at src/backend/replication/logical/tablesync.c:1732)
-  - run_apply_worker (at src/backend/replication/logical/worker.c:4579)
+  - [run_tablesync_worker](../r/run_tablesync_worker.md) (at src/backend/replication/logical/tablesync.c:1732)
+  - [run_apply_worker](../r/run_apply_worker.md) (at src/backend/replication/logical/worker.c:4579)
 
 ## Notes and Other Information
 - Does not handle FATAL errors, which are typically system resource issues and non-repeatable

@@ -23,11 +23,11 @@ The function is part of PostgreSQL's extended statistics system, which allows fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateStatistics
-  - AlteredTableInfo (struct)
+  - [CreateStatistics](../C/CreateStatistics.md)
+  - [AlteredTableInfo](AlteredTableInfo.md) (struct)
   - CreateStatsStmt (struct)
 - Called from (representative examples):
-  - ATExecCmd
+  - [ATExecCmd](ATExecCmd.md)
   - child_dependency_type
 
 ## Notes and Other Information

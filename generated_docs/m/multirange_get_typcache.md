@@ -20,19 +20,19 @@ The function validates that the requested type is indeed a multirange type by ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache (to retrieve type information when not cached)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (to retrieve type information when not cached)
   - TYPECACHE_MULTIRANGE_INFO (flag specifying what multirange information to cache)
   - elog (for error reporting when type validation fails)
 - Called from (representative examples):
-  - multirange_constructor2
-  - multirange_constructor1
-  - multirange_constructor0
-  - multirange_union
-  - multirange_minus
-  - multirange_intersect
-  - range_agg_finalfn
-  - multirange_agg_transfn
-  - multirange_intersect_agg_transfn
+  - [multirange_constructor2](multirange_constructor2.md)
+  - [multirange_constructor1](multirange_constructor1.md)
+  - [multirange_constructor0](multirange_constructor0.md)
+  - [multirange_union](multirange_union.md)
+  - [multirange_minus](multirange_minus.md)
+  - [multirange_intersect](multirange_intersect.md)
+  - [range_agg_finalfn](../r/range_agg_finalfn.md)
+  - [multirange_agg_transfn](multirange_agg_transfn.md)
+  - [multirange_intersect_agg_transfn](multirange_intersect_agg_transfn.md)
   - Various multirange comparison and operation functions
 
 ## Notes and Other Information

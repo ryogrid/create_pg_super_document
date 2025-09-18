@@ -23,13 +23,13 @@ This validation function is critical for maintaining data integrity and preventi
 - Functions called/Symbols referenced:
   - RELKIND_SEQUENCE (constant)
   - ereport
-  - errcode
+  - [errcode](../e/errcode.md)
   - ERRCODE_WRONG_OBJECT_TYPE
-  - errmsg
+  - [errmsg](../e/errmsg.md)
   - RelationGetRelationName
-  - errdetail_relkind_not_supported
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
 - Called from (representative examples):
-  - sequence_open
+  - [sequence_open](../s/sequence_open.md)
 
 ## Notes and Other Information
 - This function is declared as `static inline` for performance optimization, as it's a simple validation that may be called frequently

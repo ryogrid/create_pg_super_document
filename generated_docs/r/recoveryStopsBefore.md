@@ -25,10 +25,10 @@ The function implements complex logic to handle different recovery scenarios: st
   - XLogRecGetInfo: Gets info field from WAL record
   - XLogRecGetXid: Extracts transaction ID from WAL record
   - XLogRecGetData: Gets data portion of WAL record
-  - ParseCommitRecord: Parses commit record details for prepared transactions
-  - ParseAbortRecord: Parses abort record details for prepared transactions
-  - getRecordTimestamp: Extracts timestamp from WAL records
-  - timestamptz_to_str: Converts timestamp to string for logging
+  - [ParseCommitRecord](../P/ParseCommitRecord.md): Parses commit record details for prepared transactions
+  - [ParseAbortRecord](../P/ParseAbortRecord.md): Parses abort record details for prepared transactions
+  - [getRecordTimestamp](../g/getRecordTimestamp.md): Extracts timestamp from WAL records
+  - [timestamptz_to_str](../t/timestamptz_to_str.md): Converts timestamp to string for logging
 - Constants used:
   - RECOVERY_TARGET_IMMEDIATE: Recovery target type for immediate stop
   - RECOVERY_TARGET_LSN: Recovery target type for specific LSN
@@ -38,9 +38,9 @@ The function implements complex logic to handle different recovery scenarios: st
   - XLOG_XACT_COMMIT/XLOG_XACT_COMMIT_PREPARED: Commit record types
   - XLOG_XACT_ABORT/XLOG_XACT_ABORT_PREPARED: Abort record types
 - Structures used:
-  - xl_xact_commit: Structure for commit records
-  - xl_xact_abort: Structure for abort records
-  - xl_xact_parsed_commit: Parsed commit record structure
+  - [xl_xact_commit](../x/xl_xact_commit.md): Structure for commit records
+  - [xl_xact_abort](../x/xl_xact_abort.md): Structure for abort records
+  - [xl_xact_parsed_commit](../x/xl_xact_parsed_commit.md): Parsed commit record structure
   - xl_xact_parsed_abort: Parsed abort record structure
 - Global variables accessed:
   - ArchiveRecoveryRequested: Indicates if archive recovery is active
@@ -50,7 +50,7 @@ The function implements complex logic to handle different recovery scenarios: st
   - recoveryTargetLSN/recoveryTargetXid/recoveryTargetTime: Target values
   - recoveryStop* variables: Variables storing recovery stop information
 - Called from:
-  - PerformWalRecovery: Main recovery loop that uses this to determine stopping points
+  - [PerformWalRecovery](../P/PerformWalRecovery.md): Main recovery loop that uses this to determine stopping points
 
 ## Notes and Other Information
 - This is a static function, only accessible within xlogrecovery.c

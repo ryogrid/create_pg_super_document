@@ -21,13 +21,13 @@ The btoidfastcmp function is an optimized comparison function for OID values tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetObjectId: Extracts OID value from Datum
+  - [DatumGetObjectId](../D/DatumGetObjectId.md): Extracts OID value from Datum
   - A_GREATER_THAN_B: Constant indicating first argument is greater
   - A_LESS_THAN_B: Constant indicating first argument is less than second
   - SortSupport: Type for sort support structure
 
 - Called from (representative examples):
-  - btoidsortsupport: Sets this as the comparison function for OID sort support
+  - [btoidsortsupport](btoidsortsupport.md): Sets this as the comparison function for OID sort support
 
 ## Notes and Other Information
 - This is a performance-optimized version of OID comparison for sort operations

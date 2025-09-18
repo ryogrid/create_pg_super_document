@@ -22,16 +22,16 @@ When processing an ATTACH PARTITION command with a partition bound, the function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
-  - transformPartitionBound
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [transformPartitionBound](transformPartitionBound.md)
   - RelationGetRelationName
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - elog
   - Assert
 - Called from (representative examples):
-  - transformAlterTableStmt (in src/backend/parser/parse_utilcmd.c:3528)
+  - [transformAlterTableStmt](transformAlterTableStmt.md) (in src/backend/parser/parse_utilcmd.c:3528)
 
 ## Notes and Other Information
 - Only handles RELKIND_PARTITIONED_TABLE and RELKIND_PARTITIONED_INDEX as valid parent relations

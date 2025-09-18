@@ -29,25 +29,25 @@ The function handles sophisticated scheduling logic, determining which pass each
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - makeRangeVar
-  - get_namespace_name
+  - [makeRangeVar](../m/makeRangeVar.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
   - RelationGetNamespace
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - RelationGetRelationName
   - list_make1
-  - transformAlterTableStmt
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
   - RelationGetRelid
-  - ProcessUtilityForAlterTable
+  - [ProcessUtilityForAlterTable](../P/ProcessUtilityForAlterTable.md)
   - CommandCounterIncrement
   - lfirst_node
-  - ATPrepSetNotNull
+  - [ATPrepSetNotNull](ATPrepSetNotNull.md)
   - castNode
   - lappend
-  - list_concat
+  - [list_concat](../l/list_concat.md)
 - Called from:
-  - ATPrepCmd
-  - ATExecCmd
-  - ATExecAddColumn
+  - [ATPrepCmd](ATPrepCmd.md)
+  - [ATExecCmd](ATExecCmd.md)
+  - [ATExecAddColumn](ATExecAddColumn.md)
 
 ## Notes and Other Information
 - This function is static and only used within the tablecmds.c module

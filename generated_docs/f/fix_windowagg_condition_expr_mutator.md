@@ -31,12 +31,12 @@ The function is designed to be lightweight and efficient, focusing solely on thi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - search_indexed_tlist_for_non_var (searches for matching WindowFunc expressions in target list)
+  - [search_indexed_tlist_for_non_var](../s/search_indexed_tlist_for_non_var.md) (searches for matching WindowFunc expressions in target list)
   - expression_tree_mutator (framework function for recursive tree traversal)
-  - fix_windowagg_condition_expr_mutator (recursive self-call)
+  - [fix_windowagg_condition_expr_mutator](fix_windowagg_condition_expr_mutator.md) (recursive self-call)
 - Called from (representative examples):
-  - fix_windowagg_condition_expr
-  - fix_windowagg_condition_expr_mutator (recursive calls)
+  - [fix_windowagg_condition_expr](fix_windowagg_condition_expr.md)
+  - [fix_windowagg_condition_expr_mutator](fix_windowagg_condition_expr_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is highly specialized for window function reference fixing, unlike the more general-purpose expression mutators in the same file

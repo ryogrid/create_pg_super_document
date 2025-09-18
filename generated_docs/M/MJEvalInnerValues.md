@@ -30,7 +30,7 @@ The function leverages the assumption that mergejoin operators are strict to ena
 - Functions called/Symbols referenced:
   - TupIsNull
   - ResetExprContext
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
   - ExecEvalExpr
   - MJEVAL_ENDOFJOIN
   - MJEVAL_MATCHABLE

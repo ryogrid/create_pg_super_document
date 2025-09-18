@@ -25,17 +25,17 @@ The function prepares the shared memory structure that will be accessed by multi
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELATION_CHECKS (validation macro for relations)
-  - add_size (safe size addition utility)
-  - ParallelIndexScanDescData (parallel scan descriptor structure)
+  - [add_size](../a/add_size.md) (safe size addition utility)
+  - [ParallelIndexScanDescData](../P/ParallelIndexScanDescData.md) (parallel scan descriptor structure)
   - EstimateSnapshotSpace (estimates snapshot serialization space)
   - MAXALIGN (memory alignment macro)
   - RelationGetRelid (gets relation OID)
-  - SerializeSnapshot (serializes snapshot to shared memory)
+  - [SerializeSnapshot](../S/SerializeSnapshot.md) (serializes snapshot to shared memory)
   - OffsetToPointer (converts offset to memory pointer)
   - aminitparallelscan (AM-specific parallel scan initialization)
 - Called from (representative examples):
-  - ExecIndexScanInitializeDSM
-  - ExecIndexOnlyScanInitializeDSM
+  - [ExecIndexScanInitializeDSM](../E/ExecIndexScanInitializeDSM.md)
+  - [ExecIndexOnlyScanInitializeDSM](../E/ExecIndexOnlyScanInitializeDSM.md)
 
 ## Notes and Other Information
 - Called only once by the leader process during parallel query setup

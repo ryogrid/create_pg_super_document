@@ -31,11 +31,11 @@ The function is designed to be safe for concurrent access, as only the checkpoin
 - Functions called/Symbols referenced:
   - SyncStandbysDefined (checks current sync standby configuration)
   - LWLockAcquire/LWLockRelease (exclusive lock management)
-  - SyncRepWakeQueue (wakes waiting backends)
+  - [SyncRepWakeQueue](SyncRepWakeQueue.md) (wakes waiting backends)
   - SYNC_STANDBY_DEFINED, SYNC_STANDBY_INIT (status flag constants)
   - NUM_SYNC_REP_WAIT_MODE (number of wait modes)
 - Called from (representative examples):
-  - UpdateSharedMemoryConfig (src/backend/postmaster/checkpointer.c:1320)
+  - [UpdateSharedMemoryConfig](../U/UpdateSharedMemoryConfig.md) (src/backend/postmaster/checkpointer.c:1320)
 
 ## Notes and Other Information
 - Called exclusively by the checkpointer process

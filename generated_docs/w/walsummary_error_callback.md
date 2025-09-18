@@ -26,7 +26,7 @@ This callback function handles error conditions that occur during WAL summary pr
   - PG_LOG_ERROR (error log level constant)
   - PG_LOG_PRIMARY (primary log destination constant)
 - Called from:
-  - CreateBlockRefTableReader (in pg_walsummary.c:113 as error callback)
+  - [CreateBlockRefTableReader](../C/CreateBlockRefTableReader.md) (in pg_walsummary.c:113 as error callback)
 
 ## Notes and Other Information
 - Function has pg_attribute_printf(2, 3) attribute for format string checking

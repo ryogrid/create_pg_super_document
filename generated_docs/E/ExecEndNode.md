@@ -28,15 +28,15 @@ The function is designed to be called only after query execution is complete, as
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow protection)
-  - bms_free (bitmap set memory deallocation)
+  - [bms_free](../b/bms_free.md) (bitmap set memory deallocation)
   - nodeTag (node type identification)
-  - ExecEndResult, ExecEndProjectSet, ExecEndModifyTable (control node cleanup)
-  - ExecEndSeqScan, ExecEndIndexScan, ExecEndBitmapHeapScan (scan node cleanup)
-  - ExecEndNestLoop, ExecEndMergeJoin, ExecEndHashJoin (join node cleanup)
-  - ExecEndSort, ExecEndHash, ExecEndAgg, ExecEndWindowAgg (materialization node cleanup)
+  - [ExecEndResult](ExecEndResult.md), ExecEndProjectSet, ExecEndModifyTable (control node cleanup)
+  - [ExecEndSeqScan](ExecEndSeqScan.md), ExecEndIndexScan, ExecEndBitmapHeapScan (scan node cleanup)
+  - [ExecEndNestLoop](ExecEndNestLoop.md), ExecEndMergeJoin, ExecEndHashJoin (join node cleanup)
+  - [ExecEndSort](ExecEndSort.md), ExecEndHash, ExecEndAgg, ExecEndWindowAgg (materialization node cleanup)
 - Called from (representative examples):
-  - ExecEndPlan (main plan termination)
-  - EvalPlanQualEnd (EPQ cleanup)
+  - [ExecEndPlan](ExecEndPlan.md) (main plan termination)
+  - [EvalPlanQualEnd](EvalPlanQualEnd.md) (EPQ cleanup)
   - Various ExecEnd* functions (recursive cleanup)
 
 ## Notes and Other Information

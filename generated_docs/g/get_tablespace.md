@@ -21,13 +21,13 @@ A key design consideration is that cache entries are created only after reading 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitializeTableSpaceCache: Initialize cache if not already done
-  - hash_search: Search and create hash table entries (with HASH_FIND and HASH_ENTER)
-  - SearchSysCache1: Look up tablespace in system catalog cache
-  - SysCacheGetAttr: Extract tablespace options from catalog tuple
-  - tablespace_reloptions: Parse and validate tablespace options
-  - MemoryContextAlloc: Allocate memory in cache context
-  - ReleaseSysCache: Release system cache tuple
+  - [InitializeTableSpaceCache](../I/InitializeTableSpaceCache.md): Initialize cache if not already done
+  - [hash_search](../h/hash_search.md): Search and create hash table entries (with HASH_FIND and HASH_ENTER)
+  - [SearchSysCache1](../S/SearchSysCache1.md): Look up tablespace in system catalog cache
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md): Extract tablespace options from catalog tuple
+  - [tablespace_reloptions](../t/tablespace_reloptions.md): Parse and validate tablespace options
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Allocate memory in cache context
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Release system cache tuple
   - HeapTupleIsValid: Check if catalog lookup succeeded
 - Data structures used:
   - TableSpaceCacheEntry: Cache entry structure for tablespace data
@@ -40,9 +40,9 @@ A key design consideration is that cache entries are created only after reading 
   - TABLESPACEOID: System cache identifier for tablespace catalog
   - Anum_pg_tablespace_spcoptions: Column number for tablespace options
 - Called from:
-  - get_tablespace_page_costs: To retrieve cost configuration
-  - get_tablespace_io_concurrency: To retrieve I/O concurrency settings
-  - get_tablespace_maintenance_io_concurrency: To retrieve maintenance I/O settings
+  - [get_tablespace_page_costs](get_tablespace_page_costs.md): To retrieve cost configuration
+  - [get_tablespace_io_concurrency](get_tablespace_io_concurrency.md): To retrieve I/O concurrency settings
+  - [get_tablespace_maintenance_io_concurrency](get_tablespace_maintenance_io_concurrency.md): To retrieve maintenance I/O settings
 
 ## Notes and Other Information
 - This is a static function, only accessible within the spccache.c module

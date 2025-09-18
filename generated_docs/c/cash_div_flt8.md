@@ -22,7 +22,7 @@ This function implements the PostgreSQL SQL operator for dividing a money amount
 - Functions called/Symbols referenced:
   - PG_GETARG_CASH
   - PG_GETARG_FLOAT8
-  - cash_div_float8
+  - [cash_div_float8](cash_div_float8.md)
   - PG_RETURN_CASH
 - Called from (representative examples):
   - No direct callers found in codebase
@@ -30,6 +30,6 @@ This function implements the PostgreSQL SQL operator for dividing a money amount
 ## Notes and Other Information
 - Delegates actual division logic to cash_div_float8 helper function
 - The helper function performs range checking and raises ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE errors for out-of-range results
-- Result is rounded to nearest integer to maintain Cash type precision
+- [Result](../R/Result.md) is rounded to nearest integer to maintain Cash type precision
 - Division by zero is handled by the underlying float8_div function
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c

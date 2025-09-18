@@ -18,15 +18,15 @@ This function is part of the pg_createsubscriber utility that converts a standby
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeLiteral (escapes database name for safe SQL usage)
-  - PQexec (executes the subscription query)
-  - PQresultStatus/PGRES_TUPLES_OK (checks query result status)
-  - PQresultErrorMessage (retrieves error messages on failure)
-  - disconnect_database (handles connection cleanup on error)
-  - drop_existing_subscriptions (removes individual subscriptions)
-  - PQfreemem (frees escaped string memory)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md) (escapes database name for safe SQL usage)
+  - [PQexec](../P/PQexec.md) (executes the subscription query)
+  - [PQresultStatus](../P/PQresultStatus.md)/PGRES_TUPLES_OK (checks query result status)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (retrieves error messages on failure)
+  - [disconnect_database](../d/disconnect_database.md) (handles connection cleanup on error)
+  - [drop_existing_subscriptions](../d/drop_existing_subscriptions.md) (removes individual subscriptions)
+  - [PQfreemem](../P/PQfreemem.md) (frees escaped string memory)
 - Called from:
-  - setup_subscriber (main subscription setup function)
+  - [setup_subscriber](../s/setup_subscriber.md) (main subscription setup function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_createsubscriber.c

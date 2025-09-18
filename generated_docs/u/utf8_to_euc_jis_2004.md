@@ -27,7 +27,7 @@ The function validates the encoding conversion arguments and delegates the actua
   - PG_GETARG_INT32 (argument extraction)
   - PG_GETARG_BOOL (argument extraction)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - UtfToLocal (core conversion function)
+  - [UtfToLocal](../U/UtfToLocal.md) (core conversion function)
   - PG_RETURN_INT32 (return value macro)
   - lengthof (array length utility)
 - Constants used:

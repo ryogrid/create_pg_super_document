@@ -24,12 +24,12 @@ If multiple possibilities exist, the function returns the first valid one found,
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
   - ReleaseSysCacheList
-  - get_opfamily_member
+  - [get_opfamily_member](get_opfamily_member.md)
   - BTLessStrategyNumber
   - Form_pg_amop
   - CatCList
 - Called from (representative examples):
-  - create_unique_plan
+  - [create_unique_plan](../c/create_unique_plan.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching ordering operator can be found

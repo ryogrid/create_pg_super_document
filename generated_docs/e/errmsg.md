@@ -24,7 +24,7 @@ This function is a core component of PostgreSQL's error reporting infrastructure
   - ErrorData (struct type for error information)
   - CHECK_STACK_DEPTH (macro for stack depth validation)
   - EVALUATE_MESSAGE (macro for message processing and formatting)
-  - MemoryContextSwitchTo (memory context management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
 - Called from (representative examples):
   - Used extensively throughout PostgreSQL codebase in error reporting
   - Typically called within ereport() macro constructs

@@ -23,11 +23,11 @@ SetShellResultVariables is a public function that manages psql's special variabl
 - Global variables accessed:
   - pset.vars (psql variable storage)
 - Called from:
-  - exec_command_write (src/bin/psql/command.c:2823)
-  - do_shell (src/bin/psql/command.c:5312) 
-  - CloseGOutput (src/bin/psql/common.c:116)
-  - setQFout (src/bin/psql/common.c:145)
-  - do_copy (src/bin/psql/copy.c:394)
+  - [exec_command_write](../e/exec_command_write.md) (src/bin/psql/command.c:2823)
+  - [do_shell](../d/do_shell.md) (src/bin/psql/command.c:5312) 
+  - [CloseGOutput](../C/CloseGOutput.md) (src/bin/psql/common.c:116)
+  - [setQFout](../s/setQFout.md) (src/bin/psql/common.c:145)
+  - [do_copy](../d/do_copy.md) (src/bin/psql/copy.c:394)
 
 ## Notes and Other Information
 This function is part of psql's shell integration system, providing feedback mechanisms for commands that interact with the operating system. Unlike SetResultVariables which handles SQL query results, this function specifically deals with external command execution. The distinction between wait_result and exit_code is important: wait_result contains the raw status from system calls which may include signal information, while the exit_code extracts just the program's exit status. The SHELL_ERROR and SHELL_EXIT_CODE variables enable psql scripts to implement robust error handling for shell operations, making it possible to write conditional logic based on external command success or failure.

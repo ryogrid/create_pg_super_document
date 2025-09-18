@@ -26,15 +26,15 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_call_result_type
+  - [get_call_result_type](get_call_result_type.md)
   - TYPEFUNC_COMPOSITE
-  - FreeTupleDesc
-  - CreateTupleDescCopy
-  - MemoryContextSwitchTo
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - ereport (for error handling)
 - Called from (representative examples):
-  - populate_record_worker
-  - populate_recordset_worker
+  - [populate_record_worker](../p/populate_record_worker.md)
+  - [populate_recordset_worker](../p/populate_recordset_worker.md)
 
 ## Notes and Other Information
 - This function is used when type information cannot be extracted from arguments

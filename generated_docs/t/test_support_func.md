@@ -27,10 +27,10 @@ The function demonstrates how support functions can provide the query planner wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA: Type checking macro for Node types
-  - join_selectivity: Calculates selectivity for join operations
-  - restriction_selectivity: Calculates selectivity for restriction clauses
+  - [join_selectivity](../j/join_selectivity.md): Calculates selectivity for join operations
+  - [restriction_selectivity](../r/restriction_selectivity.md): Calculates selectivity for restriction clauses
   - linitial/lsecond: List access macros for getting first and second elements
-  - DatumGetInt32: Converts Datum to int32 value
+  - [DatumGetInt32](../D/DatumGetInt32.md): Converts Datum to int32 value
   - PG_GETARG_POINTER/PG_RETURN_POINTER: PostgreSQL function interface macros
 - Called from (representative examples):
   - Referenced by test_fdw_handler at src/test/regress/regress.c:1028

@@ -23,28 +23,28 @@ After processing all segments, if any modifications were made, the function reco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - disassembleLeaf
-  - ginPostingListDecode
-  - ginVacuumItemPointers
-  - ginCompressPostingList
-  - computeLeafRecompressWALData
-  - dataPlaceToPageLeafRecompress
-  - XLogBeginInsert
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - XLogInsert
+  - [disassembleLeaf](../d/disassembleLeaf.md)
+  - [ginPostingListDecode](ginPostingListDecode.md)
+  - [ginVacuumItemPointers](ginVacuumItemPointers.md)
+  - [ginCompressPostingList](ginCompressPostingList.md)
+  - [computeLeafRecompressWALData](../c/computeLeafRecompressWALData.md)
+  - [dataPlaceToPageLeafRecompress](../d/dataPlaceToPageLeafRecompress.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
   - RelationNeedsWAL
   - MarkBufferDirty
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
   - dlist_foreach
   - dlist_container
-  - BufferGetPage
-  - pfree
-  - palloc
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [pfree](../p/pfree.md)
+  - [palloc](../p/palloc.md)
   - memcpy
 - Called from (representative examples):
-  - ginVacuumPostingTreeLeaves
+  - [ginVacuumPostingTreeLeaves](ginVacuumPostingTreeLeaves.md)
 
 ## Notes and Other Information
 - The function preserves the original segment structure rather than re-encoding for optimal packing, deferring optimization to future insertions

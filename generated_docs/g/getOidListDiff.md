@@ -26,7 +26,7 @@ The algorithm works by maintaining separate input and output pointers for each a
 - Functions called/Symbols referenced:
   - None (pure algorithmic function)
 - Called from (representative examples):
-  - updateAclDependenciesWorker
+  - [updateAclDependenciesWorker](../u/updateAclDependenciesWorker.md)
 
 ## Notes and Other Information
 - Requires both input arrays to be pre-sorted and de-duplicated for correct operation

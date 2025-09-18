@@ -25,7 +25,7 @@ The function uses psprintf() to format the output string, including both the acc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - OAT_POST_CREATE
   - OAT_DROP
   - OAT_POST_ALTER
@@ -35,8 +35,8 @@ The function uses psprintf() to format the output string, including both the acc
   - ACL_SET
   - ACL_ALTER_SYSTEM
 - Called from (representative examples):
-  - REGRESS_object_access_hook_str
-  - REGRESS_object_access_hook
+  - [REGRESS_object_access_hook_str](../R/REGRESS_object_access_hook_str.md)
+  - [REGRESS_object_access_hook](../R/REGRESS_object_access_hook.md)
 
 ## Notes and Other Information
 - This is a static function used exclusively within the test_oat_hooks module for formatting audit messages

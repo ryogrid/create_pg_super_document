@@ -19,10 +19,10 @@ Similar to the compressor, this function only compiles when USE_LZ4 is defined a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_lz4_frame (struct type)
-  - bbstreamer_ops (operations table)
+  - [bbstreamer_lz4_frame](bbstreamer_lz4_frame.md) (struct type)
+  - [bbstreamer_ops](bbstreamer_ops.md) (operations table)
   - LZ4F_createDecompressionContext
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - initStringInfo
 - Called from (representative examples):
   - Backup restoration utilities (when decompressing LZ4 backup streams)

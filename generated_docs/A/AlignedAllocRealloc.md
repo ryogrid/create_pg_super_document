@@ -30,17 +30,17 @@ The function handles memory context allocation failures gracefully and includes 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkGetValue
-  - MemoryChunkGetBlock
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - GetMemoryChunkSpace
   - PallocAlignedExtraBytes
   - GetMemoryChunkContext
-  - MemoryContextAllocAligned
-  - MemoryContextAllocationFailure
+  - [MemoryContextAllocAligned](../M/MemoryContextAllocAligned.md)
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS
   - memcpy
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - BOGUS_MCTX (memory context operations)
   - Referenced in memutils_internal.h

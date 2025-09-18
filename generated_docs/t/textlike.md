@@ -24,7 +24,7 @@ The function extracts the variable-length data and sizes from both text argument
   - PG_GETARG_TEXT_PP: Extracts text arguments from function arguments with potential detoasting
   - VARDATA_ANY: Gets pointer to variable-length data for both string and pattern
   - VARSIZE_ANY_EXHDR: Gets size of variable-length data excluding header for both arguments
-  - GenericMatchText: Core pattern matching function that handles LIKE operations
+  - [GenericMatchText](../G/GenericMatchText.md): Core pattern matching function that handles LIKE operations
   - PG_GET_COLLATION: Gets collation information for the operation
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
   - LIKE_TRUE: Constant representing a successful pattern match

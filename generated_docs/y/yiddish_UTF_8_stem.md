@@ -26,9 +26,9 @@ The algorithm follows the standard Snowball stemmer pattern where the cursor is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude
-  - r_mark_regions  
-  - r_standard_suffix
+  - [r_prelude](../r/r_prelude.md)
+  - [r_mark_regions](../r/r_mark_regions.md)  
+  - [r_standard_suffix](../r/r_standard_suffix.md)
 - Called from (representative examples):
   - No direct callers found in the codebase (likely called through stemmer interface)
 

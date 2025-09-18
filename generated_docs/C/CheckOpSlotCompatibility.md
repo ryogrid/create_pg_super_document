@@ -29,9 +29,9 @@ The function handles several compatibility scenarios:
   - TTSOpsVirtual (slot operations)
 - Called from (representative examples):
   - EEO_JUMP (macro expansion)
-  - ExecInterpExpr
-  - ExecJustVarImpl
-  - ExecJustAssignVarImpl
+  - [ExecInterpExpr](../E/ExecInterpExpr.md)
+  - [ExecJustVarImpl](../E/ExecJustVarImpl.md)
+  - [ExecJustAssignVarImpl](../E/ExecJustAssignVarImpl.md)
 
 ## Notes and Other Information
 - Only active in debug builds (USE_ASSERT_CHECKING), making it a development-time safety check

@@ -19,11 +19,11 @@ The function follows the typical Snowball stemming pattern: it sets the  marker 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches backwards through the  array of 57 Armenian ending patterns)
-  - r_R2 (validates that the match occurs within the R2 morphological region)
-  - slice_del (removes the matched suffix from the word)
+  - [find_among_b](../f/find_among_b.md) (searches backwards through the  array of 57 Armenian ending patterns)
+  - [r_R2](r_R2.md) (validates that the match occurs within the R2 morphological region)
+  - [slice_del](../s/slice_del.md) (removes the matched suffix from the word)
 - Called from:
-  - armenian_UTF_8_stem (main Armenian stemming function at line 527)
+  - [armenian_UTF_8_stem](../a/armenian_UTF_8_stem.md) (main Armenian stemming function at line 527)
 
 ## Notes and Other Information
 - Returns 1 on successful suffix removal, 0 if no matching pattern found, or negative values on error

@@ -22,8 +22,8 @@ The function delegates the actual setup to varstr_sortsupport(), passing BYTEAOI
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (extract SortSupport pointer)
-  - MemoryContextSwitchTo (memory context management)
-  - varstr_sortsupport (generic variable-length string sort setup)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory context management)
+  - [varstr_sortsupport](../v/varstr_sortsupport.md) (generic variable-length string sort setup)
   - PG_RETURN_VOID (return void result)
 - Called from (representative examples):
   - B-tree index creation and maintenance

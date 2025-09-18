@@ -23,17 +23,17 @@ This function is the core mechanism for modifying ACL arrays in PostgreSQL. It c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl: Validates ACL structure
-  - check_circularity: Prevents circular grant relationships
-  - aclitem_match: Matches grantee-grantor pairs in ACL items
-  - allocacl: Allocates memory for new ACL array
-  - recursive_revoke: Handles cascading privilege revocation
+  - [check_acl](../c/check_acl.md): Validates ACL structure
+  - [check_circularity](../c/check_circularity.md): Prevents circular grant relationships
+  - [aclitem_match](aclitem_match.md): Matches grantee-grantor pairs in ACL items
+  - [allocacl](allocacl.md): Allocates memory for new ACL array
+  - [recursive_revoke](../r/recursive_revoke.md): Handles cascading privilege revocation
   - Various ACL manipulation macros (ACLITEM_GET_RIGHTS, ACLITEM_SET_RIGHTS, etc.)
 - Called from (representative examples):
-  - merge_acl_with_grant: Merging ACLs during privilege operations
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md): Merging ACLs during privilege operations
   - aclmerge: ACL merging operations
-  - check_circularity: Circular dependency detection
-  - recursive_revoke: Cascading revoke operations
+  - [check_circularity](../c/check_circularity.md): Circular dependency detection
+  - [recursive_revoke](../r/recursive_revoke.md): Cascading revoke operations
 
 ## Notes and Other Information
 - Returns a modified copy of the input ACL; the original ACL is not changed

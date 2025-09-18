@@ -21,13 +21,13 @@ The initialization includes setting up the mutex for protecting shared state, ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTParallelScanDesc (type cast)
+  - [BTParallelScanDesc](../B/BTParallelScanDesc.md) (type cast)
   - SpinLockInit (function)
   - InvalidBlockNumber (constant)
   - BTPARALLEL_NOT_INITIALIZED (constant)
-  - ConditionVariableInit (function)
+  - [ConditionVariableInit](../C/ConditionVariableInit.md) (function)
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - This function is called once per parallel scan to initialize the shared coordination structure

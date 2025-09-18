@@ -26,13 +26,13 @@ The function assigns the partition a new merged index and increments the next av
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionMap (data type)
+  - [PartitionMap](../P/PartitionMap.md) (data type)
 - Called from:
   - compare_range_bounds (src/backend/partitioning/partbounds.c:164)
-  - process_outer_partition (src/backend/partitioning/partbounds.c:2046)
-  - process_inner_partition (src/backend/partitioning/partbounds.c:2128)
-  - merge_null_partitions (src/backend/partitioning/partbounds.c:2199, 2216)
-  - merge_default_partitions (src/backend/partitioning/partbounds.c:2300, 2325)
+  - [process_outer_partition](../p/process_outer_partition.md) (src/backend/partitioning/partbounds.c:2046)
+  - [process_inner_partition](../p/process_inner_partition.md) (src/backend/partitioning/partbounds.c:2128)
+  - [merge_null_partitions](merge_null_partitions.md) (src/backend/partitioning/partbounds.c:2199, 2216)
+  - [merge_default_partitions](merge_default_partitions.md) (src/backend/partitioning/partbounds.c:2300, 2325)
 
 ## Notes and Other Information
 - Returns the newly assigned merged partition index

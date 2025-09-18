@@ -27,17 +27,17 @@ The function includes important safety checks to prevent mapping changes in unsu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileNumber (parameter type)
-  - RelMapFile (structure type for mapping tables)
+  - [RelFileNumber](RelFileNumber.md) (parameter type)
+  - [RelMapFile](RelMapFile.md) (structure type for mapping tables)
   - IsBootstrapProcessingMode (checks if in bootstrap mode)
-  - GetCurrentTransactionNestLevel (ensures not in subtransaction)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md) (ensures not in subtransaction)
   - IsInParallelMode (ensures not in parallel execution)
-  - apply_map_update (applies the actual mapping change)
+  - [apply_map_update](../a/apply_map_update.md) (applies the actual mapping change)
 - Called from (representative examples):
-  - swap_relation_files (cluster.c:1179, 1180)
-  - formrdesc (relcache.c:1997)
-  - RelationBuildLocalRelation (relcache.c:3704)
-  - RelationSetNewRelfilenumber (relcache.c:3917)
+  - [swap_relation_files](../s/swap_relation_files.md) (cluster.c:1179, 1180)
+  - [formrdesc](../f/formrdesc.md) (relcache.c:1997)
+  - [RelationBuildLocalRelation](RelationBuildLocalRelation.md) (relcache.c:3704)
+  - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md) (relcache.c:3917)
 
 ## Notes and Other Information
 - Does not support mapping changes within subtransactions due to complexity of required bookkeeping

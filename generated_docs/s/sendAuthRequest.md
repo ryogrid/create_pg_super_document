@@ -26,24 +26,24 @@ A key optimization is implemented where most authentication messages are immedia
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS (check for query cancellation)
   - pq_beginmessage (start building a protocol message)
-  - pq_sendint32 (send 32-bit integer in network byte order)
+  - [pq_sendint32](../p/pq_sendint32.md) (send 32-bit integer in network byte order)
   - pq_sendbytes (send raw bytes)
-  - pq_endmessage (finalize message construction)
+  - [pq_endmessage](../p/pq_endmessage.md) (finalize message construction)
   - pq_flush (immediately send buffered data to client)
 - Constants used:
   - PqMsg_AuthenticationRequest (message type identifier)
   - AUTH_REQ_OK (successful authentication)
   - AUTH_REQ_SASL_FIN (SASL authentication completion)
 - Called from (representative examples):
-  - CheckSASLAuth (SASL/SCRAM authentication)
-  - CheckPasswordAuth (password authentication)
-  - CheckMD5Auth (MD5 password authentication)
-  - pg_GSS_recvauth (GSS/Kerberos authentication)
-  - pg_SSPI_recvauth (SSPI authentication)
-  - CheckBSDAuth (BSD authentication)
-  - CheckLDAPAuth (LDAP authentication)
-  - CheckRADIUSAuth (RADIUS authentication)
-  - ClientAuthentication (main authentication dispatcher)
+  - [CheckSASLAuth](../C/CheckSASLAuth.md) (SASL/SCRAM authentication)
+  - [CheckPasswordAuth](../C/CheckPasswordAuth.md) (password authentication)
+  - [CheckMD5Auth](../C/CheckMD5Auth.md) (MD5 password authentication)
+  - [pg_GSS_recvauth](../p/pg_GSS_recvauth.md) (GSS/Kerberos authentication)
+  - [pg_SSPI_recvauth](../p/pg_SSPI_recvauth.md) (SSPI authentication)
+  - [CheckBSDAuth](../C/CheckBSDAuth.md) (BSD authentication)
+  - [CheckLDAPAuth](../C/CheckLDAPAuth.md) (LDAP authentication)
+  - [CheckRADIUSAuth](../C/CheckRADIUSAuth.md) (RADIUS authentication)
+  - [ClientAuthentication](../C/ClientAuthentication.md) (main authentication dispatcher)
 
 ## Notes and Other Information
 - The function handles both simple authentication requests (no extra data) and complex ones requiring additional parameters

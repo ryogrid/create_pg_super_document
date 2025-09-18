@@ -19,7 +19,7 @@ The function is a simple wrapper around the internal pgstat_clear_snapshot() fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_clear_snapshot (clears the internal statistics snapshot)
+  - [pgstat_clear_snapshot](pgstat_clear_snapshot.md) (clears the internal statistics snapshot)
   - PG_RETURN_VOID (PostgreSQL macro to return void from a function)
 - Called from (representative examples):
   - SQL queries using pg_stat_clear_snapshot() function

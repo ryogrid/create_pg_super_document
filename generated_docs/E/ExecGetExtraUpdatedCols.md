@@ -22,11 +22,11 @@ The "extra updated columns" represent columns that aren't explicitly mentioned i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInitStoredGenerated: Initializes generated column expressions and computes dependency information
+  - [ExecInitStoredGenerated](ExecInitStoredGenerated.md): Initializes generated column expressions and computes dependency information
   - CMD_UPDATE: Command type constant indicating UPDATE operation context
 - Called from (representative examples):
-  - index_unchanged_by_update: To determine if indexes need updating due to generated column changes
-  - ExecGetAllUpdatedCols: To compute the complete set of updated columns including generated ones
+  - [index_unchanged_by_update](../i/index_unchanged_by_update.md): To determine if indexes need updating due to generated column changes
+  - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md): To compute the complete set of updated columns including generated ones
 
 ## Notes and Other Information
 - Uses lazy initialization to avoid computing generated column info until needed

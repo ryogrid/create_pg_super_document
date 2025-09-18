@@ -22,8 +22,8 @@ This static function updates the estimate of WAL distance between checkpoints us
   - PrevCheckPointDistance (global variable)
   - CheckPointDistanceEstimate (global variable)
 - Called from (representative examples):
-  - CreateCheckPoint (in xlog.c:7295)
-  - CreateRestartPoint (in xlog.c:7762)
+  - [CreateCheckPoint](../C/CreateCheckPoint.md) (in xlog.c:7295)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (in xlog.c:7762)
 
 ## Notes and Other Information
 - Static function only called internally within xlog.c

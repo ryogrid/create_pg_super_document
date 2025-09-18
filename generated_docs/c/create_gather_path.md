@@ -31,13 +31,13 @@ Key behaviors include:
 - Functions called/Symbols referenced:
   - makeNode (to create GatherPath node)
   - get_baserel_parampathinfo (to get parameter information)
-  - cost_gather (to calculate execution costs)
-  - PathTarget (target column specification)
+  - [cost_gather](cost_gather.md) (to calculate execution costs)
+  - [PathTarget](../P/PathTarget.md) (target column specification)
   - GatherPath (the path node structure)
 
 - Called from (representative examples):
-  - generate_gather_paths (in allpaths.c:3077)
-  - generate_union_paths (in prepunion.c:884)
+  - [generate_gather_paths](../g/generate_gather_paths.md) (in allpaths.c:3077)
+  - [generate_union_paths](../g/generate_union_paths.md) (in prepunion.c:884)
 
 ## Notes and Other Information
 - The function requires the subpath to be parallel-safe, enforced by an Assert

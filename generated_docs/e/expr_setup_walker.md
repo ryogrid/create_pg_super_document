@@ -301,10 +301,10 @@ Text creation and manipulation
   - Max (macro for tracking maximum attribute numbers)
   - IsA (node type checking macros)
 - Called from (representative examples):
-  - ExecCreateExprSetupSteps (primary expression analysis entry point)
-  - ExecBuildUpdateProjection (update projection analysis)
-  - ExecBuildAggTrans (aggregate transition expression analysis)
-  - expr_setup_walker (recursive self-calls during tree traversal)
+  - [ExecCreateExprSetupSteps](../E/ExecCreateExprSetupSteps.md) (primary expression analysis entry point)
+  - [ExecBuildUpdateProjection](../E/ExecBuildUpdateProjection.md) (update projection analysis)
+  - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md) (aggregate transition expression analysis)
+  - [expr_setup_walker](expr_setup_walker.md) (recursive self-calls during tree traversal)
 
 ## Notes and Other Information
 - Returns false from Var nodes to prevent unnecessary recursion into leaf nodes

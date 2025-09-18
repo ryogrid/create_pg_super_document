@@ -27,7 +27,7 @@ The function follows PostgreSQL's standard comparison semantics, returning a neg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - varstr_cmp (string comparison function)
+  - [varstr_cmp](../v/varstr_cmp.md) (string comparison function)
   - C_COLLATION_OID (constant for C collation)
   - PG_GETARG_TEXT_PP, VARDATA_ANY, VARSIZE_ANY_EXHDR (PostgreSQL macros)
   - PG_FREE_IF_COPY, PG_RETURN_INT32 (PostgreSQL macros)

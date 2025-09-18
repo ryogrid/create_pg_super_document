@@ -41,12 +41,12 @@ When not in WAL replay mode, the function generates a WAL record containing the 
   - pgstat_report_wait_start/pgstat_report_wait_end: Wait event reporting for monitoring
   - write: System call for writing version data to file
   - pg_fsync: PostgreSQL wrapper for fsync system call
-  - fsync_fname: Synchronizes directory metadata changes
+  - [fsync_fname](../f/fsync_fname.md): Synchronizes directory metadata changes
   - data_sync_elevel: Determines appropriate error level for sync failures
-  - XLogBeginInsert/XLogRegisterData/XLogInsert: WAL record construction and insertion
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogRegisterData/XLogInsert: WAL record construction and insertion
 - Called from (representative examples):
-  - CreateDatabaseUsingWalLog: Uses this during WAL_LOG database creation strategy
-  - dbase_redo: Uses this during WAL replay of database creation operations
+  - [CreateDatabaseUsingWalLog](CreateDatabaseUsingWalLog.md): Uses this during WAL_LOG database creation strategy
+  - [dbase_redo](../d/dbase_redo.md): Uses this during WAL replay of database creation operations
 
 ## Notes and Other Information
 - Static function within dbcommands.c, not exposed to external modules

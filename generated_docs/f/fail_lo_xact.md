@@ -20,13 +20,13 @@ This function serves as the error handling counterpart to both start_lo_xact and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PSQLexec (psql utility function to execute SQL commands)
-  - PQclear (libpq function to free result memory)
+  - [PSQLexec](../P/PSQLexec.md) (psql utility function to execute SQL commands)
+  - [PQclear](../P/PQclear.md) (libpq function to free result memory)
   - pset.autocommit (global setting controlling automatic transaction commits)
 - Called from (representative examples):
-  - do_lo_export
-  - do_lo_import (multiple error paths)
-  - do_lo_unlink
+  - [do_lo_export](../d/do_lo_export.md)
+  - [do_lo_import](../d/do_lo_import.md) (multiple error paths)
+  - [do_lo_unlink](../d/do_lo_unlink.md)
 
 ## Notes and Other Information
 - Always returns false to indicate operation failure

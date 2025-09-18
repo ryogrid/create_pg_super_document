@@ -38,22 +38,22 @@ Key design considerations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PortalIsValid
-  - Portal (type)
+  - [Portal](Portal.md) (type)
   - CommandTag (type)
   - CachedPlan (type)
   - PORTAL_NEW (constant)
   - PORTAL_DEFINED (constant)
 - Called from (representative examples):
-  - PerformCursorOpen
-  - ExecuteQuery
-  - SPI_cursor_open_internal
-  - exec_simple_query
-  - exec_bind_message
+  - [PerformCursorOpen](PerformCursorOpen.md)
+  - [ExecuteQuery](../E/ExecuteQuery.md)
+  - [SPI_cursor_open_internal](../S/SPI_cursor_open_internal.md)
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
 
 ## Notes and Other Information
 - Introduced mandatory sourceText requirement in PostgreSQL 8.4 for better debugging and logging
 - Critical for proper cached plan reference counting - the function must not fail after accepting a cached plan reference
 - The portal transitions from PORTAL_NEW to PORTAL_DEFINED status after successful completion
-- Command tag must be a pointer to a constant string as it is not copied
+- [Command](../C/Command.md) tag must be a pointer to a constant string as it is not copied
 - Caller is responsible for ensuring adequate lifetime of prepStmtName and sourceText parameters
 - Used in both simple query execution and prepared statement execution paths

@@ -34,15 +34,15 @@ The function gracefully handles cases with insufficient or missing statistics by
 - Functions called/Symbols referenced:
   - check_stack_depth: Prevents stack overflow from deep recursion
   - bsearch: Binary search for exact lexeme matches in statistics
-  - compare_lexeme_textfreq: Comparison function for binary search
+  - [compare_lexeme_textfreq](../c/compare_lexeme_textfreq.md): Comparison function for binary search
   - strncmp: String comparison for prefix matching
   - CLAMP_PROBABILITY: Ensures selectivity stays within [0,1] bounds
   - elog: Error logging for unrecognized operators
 - Data structures used:
   - QueryItem: TSQuery tree node structure
   - QueryOperand: Lexeme node with distance, length, and prefix flag
-  - TextFreq: Pairing of lexeme text with frequency statistics
-  - LexemeKey: Search key structure for binary search
+  - [TextFreq](../T/TextFreq.md): Pairing of lexeme text with frequency statistics
+  - [LexemeKey](../L/LexemeKey.md): Search key structure for binary search
 - Constants used:
   - QI_VAL: Query item type for lexeme nodes
   - OP_NOT/OP_AND/OP_PHRASE/OP_OR: Operator type constants
@@ -50,7 +50,7 @@ The function gracefully handles cases with insufficient or missing statistics by
 - Macros used:
   - VARSIZE_ANY_EXHDR/VARDATA_ANY: Text data access macros
 - Called from (representative examples):
-  - mcelem_tsquery_selec: Entry point with statistics
+  - [mcelem_tsquery_selec](../m/mcelem_tsquery_selec.md): Entry point with statistics
   - Self-recursive calls for operator evaluation
 
 ## Notes and Other Information

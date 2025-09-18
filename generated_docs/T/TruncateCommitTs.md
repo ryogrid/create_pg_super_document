@@ -25,15 +25,15 @@ The implementation is efficient in that it first checks whether any files can ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TransactionIdToCTsPage (oldestXact)
-  - SlruScanDirectory (CommitTsCtl, SlruScanDirCbReportPresence, &cutoffPage)
-  - SlruScanDirCbReportPresence (callback function)
-  - WriteTruncateXlogRec (cutoffPage, oldestXact)
-  - SimpleLruTruncate (CommitTsCtl, cutoffPage)
+  - [TransactionIdToCTsPage](TransactionIdToCTsPage.md) (oldestXact)
+  - [SlruScanDirectory](../S/SlruScanDirectory.md) (CommitTsCtl, SlruScanDirCbReportPresence, &cutoffPage)
+  - [SlruScanDirCbReportPresence](../S/SlruScanDirCbReportPresence.md) (callback function)
+  - [WriteTruncateXlogRec](../W/WriteTruncateXlogRec.md) (cutoffPage, oldestXact)
+  - [SimpleLruTruncate](../S/SimpleLruTruncate.md) (CommitTsCtl, cutoffPage)
   - CommitTsCtl (SLRU control structure)
 
 - Called from (representative examples):
-  - vac_truncate_clog (vacuum cleanup function)
+  - [vac_truncate_clog](../v/vac_truncate_clog.md) (vacuum cleanup function)
 
 ## Notes and Other Information
 - This function does not need to flush WAL since the truncation is logged via WriteTruncateXlogRec

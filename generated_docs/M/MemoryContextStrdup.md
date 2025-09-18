@@ -20,14 +20,14 @@ This function provides a memory context-aware version of the standard C library 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc (allocates memory within the specified context)
+  - [MemoryContextAlloc](MemoryContextAlloc.md) (allocates memory within the specified context)
   - strlen (C standard library function to get string length)
   - memcpy (C standard library function for memory copying)
 - Called from (representative examples):
-  - init_string_reloption (relation option string initialization)
-  - DefineSavepoint (savepoint name duplication)
-  - ExecuteQuery (prepared statement query duplication)
-  - pstrdup (convenience wrapper for current memory context)
+  - [init_string_reloption](../i/init_string_reloption.md) (relation option string initialization)
+  - [DefineSavepoint](../D/DefineSavepoint.md) (savepoint name duplication)
+  - [ExecuteQuery](../E/ExecuteQuery.md) (prepared statement query duplication)
+  - [pstrdup](../p/pstrdup.md) (convenience wrapper for current memory context)
   - Various authentication and caching functions
 
 ## Notes and Other Information

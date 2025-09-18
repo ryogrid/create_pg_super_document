@@ -25,23 +25,23 @@ The function handles complex ownership scenarios such as domain constraints (whi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck
-  - aclcheck_error
-  - aclcheck_error_type
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md)
   - superuser_arg
-  - has_createrole_privilege
+  - [has_createrole_privilege](../h/has_createrole_privilege.md)
   - is_admin_of_role
-  - SearchSysCache1
-  - typenameTypeId
-  - format_type_be
-  - GetUserNameFromId
-  - NameListToString
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [GetUserNameFromId](../G/GetUserNameFromId.md)
+  - [NameListToString](../N/NameListToString.md)
 - Called from (representative examples):
-  - ExecAlterObjectDependsStmt (src/backend/commands/alter.c:475)
-  - CommentObject (src/backend/commands/comment.c:76)
-  - RemoveObjects (src/backend/commands/dropcmds.c:105)
-  - ExecAlterExtensionContentsStmt (src/backend/commands/extension.c:3349)
-  - ExecSecLabelStmt (src/backend/commands/seclabel.c:172)
+  - [ExecAlterObjectDependsStmt](../E/ExecAlterObjectDependsStmt.md) (src/backend/commands/alter.c:475)
+  - [CommentObject](../C/CommentObject.md) (src/backend/commands/comment.c:76)
+  - [RemoveObjects](../R/RemoveObjects.md) (src/backend/commands/dropcmds.c:105)
+  - [ExecAlterExtensionContentsStmt](../E/ExecAlterExtensionContentsStmt.md) (src/backend/commands/extension.c:3349)
+  - [ExecSecLabelStmt](../E/ExecSecLabelStmt.md) (src/backend/commands/seclabel.c:172)
 
 ## Notes and Other Information
 - Supports over 30 different object types with type-specific ownership rules

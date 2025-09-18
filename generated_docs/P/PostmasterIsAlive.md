@@ -33,10 +33,10 @@ This function takes no parameters and returns a boolean value:
   - `postmaster_possibly_dead` (volatile flag set by signal handler)
 
 - Called from (representative examples):
-  - `vacuum_delay_point` (src/backend/commands/vacuum.c:2439)
-  - `pgarch_ArchiverCopyLoop` (src/backend/postmaster/pgarch.c:410)
-  - `HandleStartupProcInterrupts` (src/backend/postmaster/startup.c:185)
-  - `WaitEventAdjustKqueue` (src/backend/storage/ipc/latch.c:1354)
+  - `[vacuum_delay_point](../v/vacuum_delay_point.md)` (src/backend/commands/vacuum.c:2439)
+  - `[pgarch_ArchiverCopyLoop](../p/pgarch_ArchiverCopyLoop.md)` (src/backend/postmaster/pgarch.c:410)
+  - `[HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md)` (src/backend/postmaster/startup.c:185)
+  - `[WaitEventAdjustKqueue](../W/WaitEventAdjustKqueue.md)` (src/backend/storage/ipc/latch.c:1354)
 
 ## Notes and Other Information
 - This function is declared as `static inline` in the header file (src/include/storage/pmsignal.h:95-102) for maximum performance

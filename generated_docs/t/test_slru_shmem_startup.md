@@ -27,13 +27,13 @@ This function serves as a shmem_startup_hook callback in the test_slru module, r
   - MakePGDirectory
   - LWLockNewTrancheId
   - LWLockRegisterTranche
-  - test_slru_page_precedes_logically
-  - SimpleLruInit
+  - [test_slru_page_precedes_logically](test_slru_page_precedes_logically.md)
+  - [SimpleLruInit](../S/SimpleLruInit.md)
   - TestSlruCtl (macro pointing to &TestSlruCtlData)
   - NUM_TEST_BUFFERS (constant: 16)
   - SYNC_HANDLER_NONE
 - Called from (representative examples):
-  - _PG_init
+  - [_PG_init](../P/_PG_init.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the test_slru.c file

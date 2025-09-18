@@ -27,11 +27,11 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - dTHX (Perl threading macro)
   - eval_pv (evaluate Perl code)
-  - strip_trailing_ws
-  - sv2cstr (convert Perl scalar to C string)
+  - [strip_trailing_ws](../s/strip_trailing_ws.md)
+  - [sv2cstr](../s/sv2cstr.md) (convert Perl scalar to C string)
   - ereport/errcode/errmsg/errcontext (PostgreSQL error reporting)
 - Called from:
-  - select_perl_context (when setting up untrusted Perl context)
+  - [select_perl_context](../s/select_perl_context.md) (when setting up untrusted Perl context)
 
 ## Notes and Other Information
 - This function is used for PL/PerlU (untrusted PL/Perl) where security restrictions are not applied

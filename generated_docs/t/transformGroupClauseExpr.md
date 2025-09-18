@@ -32,20 +32,20 @@ The function ensures that both the targetlist (for expression evaluation) and th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findTargetlistEntrySQL99
-  - findTargetlistEntrySQL92
-  - bms_is_member
-  - targetIsInSortList
+  - [findTargetlistEntrySQL99](../f/findTargetlistEntrySQL99.md)
+  - [findTargetlistEntrySQL92](../f/findTargetlistEntrySQL92.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [targetIsInSortList](targetIsInSortList.md)
   - copyObject
-  - addTargetToGroupList
-  - exprLocation
+  - [addTargetToGroupList](../a/addTargetToGroupList.md)
+  - [exprLocation](../e/exprLocation.md)
   - lappend
   - SortGroupClause
-  - ParseExprKind
+  - [ParseExprKind](../P/ParseExprKind.md)
 - Called from (representative examples):
-  - transformGroupClauseList
-  - transformGroupingSet
-  - transformGroupClause
+  - [transformGroupClauseList](transformGroupClauseList.md)
+  - [transformGroupingSet](transformGroupingSet.md)
+  - [transformGroupClause](transformGroupClause.md)
 
 ## Notes and Other Information
 - This is a static function within parse_clause.c for internal parser use

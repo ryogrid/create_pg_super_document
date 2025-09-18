@@ -22,7 +22,7 @@ This function serves as the standard PostgreSQL input function for the BPCHAR (C
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bpchar_input (core processing logic)
+  - [bpchar_input](bpchar_input.md) (core processing logic)
   - PG_GETARG_CSTRING (argument extraction macro)
   - PG_GETARG_INT32 (argument extraction macro)  
   - PG_RETURN_BPCHAR_P (return value macro)

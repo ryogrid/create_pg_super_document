@@ -33,7 +33,7 @@ This operation is commonly used to assign uniform importance to all terms in a d
   - PG_GETARG_TSVECTOR (macro for extracting TSVector argument)
   - PG_GETARG_CHAR (macro for extracting character argument)
   - elog (PostgreSQL logging/error function)
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard C memory copy function)
   - VARSIZE (macro for getting variable-length data size)
   - ARRPTR (macro for getting WordEntry array pointer)

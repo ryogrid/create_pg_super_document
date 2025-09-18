@@ -34,8 +34,8 @@ The function always clears the revents field and sets the file descriptor, ensur
   - Standard poll flags (POLLIN, POLLOUT, POLLRDHUP)
 - Called from (representative examples):
   - LatchWaitSetLatchPos
-  - AddWaitEventToSet
-  - ModifyWaitEvent
+  - [AddWaitEventToSet](../A/AddWaitEventToSet.md)
+  - [ModifyWaitEvent](../M/ModifyWaitEvent.md)
 
 ## Notes and Other Information
 - Only compiled on systems with WAIT_USE_POLL defined (typically older Unix systems)

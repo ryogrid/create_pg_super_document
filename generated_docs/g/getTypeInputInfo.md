@@ -30,28 +30,28 @@ This function is fundamental to PostgreSQL's type system and is used extensively
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
   - Form_pg_type
   - elog
   - ereport
-  - errcode
-  - errmsg
-  - format_type_be
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
   - OidIsValid
-  - getTypeIOParam
-  - ReleaseSysCache
-  - ObjectIdGetDatum
+  - [getTypeIOParam](getTypeIOParam.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - DefineAggregate
-  - BeginCopyFrom
-  - ExecInitExprRec
-  - TupleDescGetAttInMetadata
-  - GetAggInitVal
-  - exec_bind_message
-  - record_in
-  - PLy_output_setup_func
+  - [DefineAggregate](../D/DefineAggregate.md)
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md)
+  - [GetAggInitVal](../G/GetAggInitVal.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
+  - [record_in](../r/record_in.md)
+  - [PLy_output_setup_func](../P/PLy_output_setup_func.md)
 
 ## Notes and Other Information
 - Raises ERROR if the type does not exist in the system catalog

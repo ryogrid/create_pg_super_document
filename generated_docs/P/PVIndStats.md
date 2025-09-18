@@ -21,16 +21,16 @@ PVIndStats serves as a per-index tracking structure within PostgreSQL's parallel
 ## Dependencies
 - Functions called/Symbols referenced:
   - PVIndVacStatus (enum for processing status)
-  - IndexBulkDeleteResult (structure for vacuum results)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (structure for vacuum results)
 - Called from (representative examples):
-  - ParallelVacuumState (as member array)
-  - parallel_vacuum_init
-  - parallel_vacuum_process_all_indexes
-  - parallel_vacuum_process_safe_indexes
-  - parallel_vacuum_process_unsafe_indexes
-  - parallel_vacuum_process_one_index
-  - parallel_vacuum_main
-  - parallel_vacuum_end
+  - [ParallelVacuumState](ParallelVacuumState.md) (as member array)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md)
+  - [parallel_vacuum_process_all_indexes](../p/parallel_vacuum_process_all_indexes.md)
+  - [parallel_vacuum_process_safe_indexes](../p/parallel_vacuum_process_safe_indexes.md)
+  - [parallel_vacuum_process_unsafe_indexes](../p/parallel_vacuum_process_unsafe_indexes.md)
+  - [parallel_vacuum_process_one_index](../p/parallel_vacuum_process_one_index.md)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md)
+  - [parallel_vacuum_end](../p/parallel_vacuum_end.md)
 
 ## Notes and Other Information
 - The status and parallel_workers_can_process fields are set by the leader process before executing parallel index operations

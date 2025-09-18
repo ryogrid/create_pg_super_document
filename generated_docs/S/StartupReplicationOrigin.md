@@ -28,7 +28,7 @@ This function takes no parameters.
   - REPLICATION_STATE_MAGIC
   - ERRCODE_DATA_CORRUPTED
 - Called from (representative examples):
-  - StartupXLOG (src/backend/access/transam/xlog.c:5588)
+  - [StartupXLOG](StartupXLOG.md) (src/backend/access/transam/xlog.c:5588)
 
 ## Notes and Other Information
 - The function includes assert checking to ensure it's only called once during startup

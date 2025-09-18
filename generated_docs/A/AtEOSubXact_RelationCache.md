@@ -29,10 +29,10 @@ The function must be called before processing invalidation messages, similar to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
-  - hash_search
-  - AtEOSubXact_cleanup
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [hash_search](../h/hash_search.md)
+  - [AtEOSubXact_cleanup](AtEOSubXact_cleanup.md)
 - Data structures used:
   - HASH_SEQ_STATUS
   - RelIdCacheEnt
@@ -45,8 +45,8 @@ The function must be called before processing invalidation messages, similar to 
   - eoxact_list_len
   - RelationIdCache
 - Called from:
-  - CommitSubTransaction (in xact.c)
-  - AbortSubTransaction (in xact.c)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (in xact.c)
+  - [AbortSubTransaction](AbortSubTransaction.md) (in xact.c)
 
 ## Notes and Other Information
 - This function must be called before processing invalidation messages during subtransaction termination

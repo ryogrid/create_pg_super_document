@@ -27,14 +27,14 @@ This function implements PostgreSQL's lockfile creation mechanism, which prevent
   - Process operations: `getpid`, `getppid`, `kill`, `getenv`, `atoi`
   - PostgreSQL functions: `pgstat_report_wait_start/end`, `PGSharedMemoryIsInUse`
   - Memory/string operations: `snprintf`, `strlcat`, `strlen`, `strchr`, `sscanf`, `pstrdup`
-  - List operations: `lcons`, `NIL`
+  - [List](../L/List.md) operations: `lcons`, `NIL`
   - Callback registration: `on_proc_exit`, `UnlinkLockFiles`
   - Error handling: `ereport`, `errcode_for_file_access`, `errmsg`, `errhint`
   - Constants: `LOCK_FILE_LINE_SHMEM_KEY`, `INT64_FORMAT`, `MAXPGPATH`
   - Global variables: `DataDir`, `MyStartTime`, `PostPortNumber`, `lock_files`
 - Called from (representative examples):
-  - `CreateDataDirLockFile` - Creates data directory lockfile ($DATADIR/postmaster.pid)  
-  - `CreateSocketLockFile` - Creates Unix socket lockfile ($SOCKFILE.lock)
+  - `[CreateDataDirLockFile](CreateDataDirLockFile.md)` - Creates data directory lockfile ($DATADIR/postmaster.pid)  
+  - `[CreateSocketLockFile](CreateSocketLockFile.md)` - Creates Unix socket lockfile ($SOCKFILE.lock)
 
 ## Notes and Other Information
 - Function is declared static, making it internal to miscinit.c compilation unit

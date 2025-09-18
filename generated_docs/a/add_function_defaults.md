@@ -27,11 +27,11 @@ This is a simpler operation compared to reorder_function_arguments since it does
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fetch_function_defaults
+  - [fetch_function_defaults](../f/fetch_function_defaults.md)
   - list_delete_first_n
-  - list_concat_copy
+  - [list_concat_copy](../l/list_concat_copy.md)
 - Called from (representative examples):
-  - expand_function_arguments
+  - [expand_function_arguments](../e/expand_function_arguments.md)
 
 ## Notes and Other Information
 - This function is used only for positional argument lists, not for mixed positional/named arguments

@@ -23,13 +23,13 @@ For detailed per-record statistics, it extracts the record type identifier from 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetRmid
-  - XLogRecGetLen
+  - [XLogRecGetLen](XLogRecGetLen.md)
   - XLogRecGetInfo
 - Types referenced:
-  - XLogStats
+  - [XLogStats](XLogStats.md)
   - RmgrId
 - Called from (representative examples):
-  - main (in pg_waldump)
+  - [main](../m/main.md) (in pg_waldump)
 
 ## Notes and Other Information
 - XACT records require special handling due to their xl_info bit layout (uses lower 3 bits for opcode)

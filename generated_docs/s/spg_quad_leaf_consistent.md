@@ -26,12 +26,12 @@ The function processes each scan key sequentially and returns false immediately 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgLeafConsistentIn/spgLeafConsistentOut
-  - Point
-  - DatumGetPointP
+  - [spgLeafConsistentIn](spgLeafConsistentIn.md)/spgLeafConsistentOut
+  - [Point](../P/Point.md)
+  - [DatumGetPointP](../D/DatumGetPointP.md)
   - SPTEST macro with point comparison functions (point_left, point_right, point_above, point_below, point_eq)
-  - box_contain_pt
-  - spg_key_orderbys_distances
+  - [box_contain_pt](../b/box_contain_pt.md)
+  - [spg_key_orderbys_distances](spg_key_orderbys_distances.md)
   - Strategy number constants (RTLeftStrategyNumber, RTRightStrategyNumber, etc.)
   - PG_RETURN_BOOL
 - Called from (representative examples):

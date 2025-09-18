@@ -24,11 +24,11 @@ This function provides a way for aggregate transition and final functions to ver
   - AGG_CONTEXT_AGGREGATE
   - AGG_CONTEXT_WINDOW
 - Called from (representative examples):
-  - array_agg_transfn (src/backend/utils/adt/array_userfuncs.c:497)
-  - numeric_combine (src/backend/utils/adt/numeric.c:5063)
-  - string_agg_finalfn (src/backend/utils/adt/varlena.c:5363)
-  - json_agg_transfn_worker (src/backend/utils/adt/json.c:777)
-  - makeNumericAggState (src/backend/utils/adt/numeric.c:4839)
+  - [array_agg_transfn](../a/array_agg_transfn.md) (src/backend/utils/adt/array_userfuncs.c:497)
+  - [numeric_combine](../n/numeric_combine.md) (src/backend/utils/adt/numeric.c:5063)
+  - [string_agg_finalfn](../s/string_agg_finalfn.md) (src/backend/utils/adt/varlena.c:5363)
+  - [json_agg_transfn_worker](../j/json_agg_transfn_worker.md) (src/backend/utils/adt/json.c:777)
+  - [makeNumericAggState](../m/makeNumericAggState.md) (src/backend/utils/adt/numeric.c:4839)
 
 ## Notes and Other Information
 - Part of the public API exposed to aggregate functions for context validation

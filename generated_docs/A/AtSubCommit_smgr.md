@@ -23,12 +23,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionNestLevel (returns current transaction nesting level)
-  - PendingRelDelete (struct type for pending deletion tracking)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md) (returns current transaction nesting level)
+  - [PendingRelDelete](../P/PendingRelDelete.md) (struct type for pending deletion tracking)
   - pendingDeletes (global variable - linked list of pending deletions)
 
 - Called from (representative examples):
-  - CommitSubTransaction (src/backend/access/transam/xact.c:5108)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (src/backend/access/transam/xact.c:5108)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's nested transaction (savepoint) implementation

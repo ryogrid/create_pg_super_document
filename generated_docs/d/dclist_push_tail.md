@@ -23,14 +23,14 @@ The function leverages the underlying dlist_push_tail implementation for the act
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_init
-  - dlist_push_tail
+  - [dclist_init](dclist_init.md)
+  - [dlist_push_tail](dlist_push_tail.md)
 - Called from (representative examples):
-  - logical_rewrite_log_mapping (src/backend/access/heap/rewriteheap.c:983)
-  - ReorderBufferXidSetCatalogChanges (src/backend/replication/logical/reorderbuffer.c:3540, 3556)
-  - DeadLockCheck (src/backend/storage/lmgr/deadlock.c:262)
+  - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md) (src/backend/access/heap/rewriteheap.c:983)
+  - [ReorderBufferXidSetCatalogChanges](../R/ReorderBufferXidSetCatalogChanges.md) (src/backend/replication/logical/reorderbuffer.c:3540, 3556)
+  - [DeadLockCheck](../D/DeadLockCheck.md) (src/backend/storage/lmgr/deadlock.c:262)
   - ProcSleep (src/backend/storage/lmgr/proc.c:1197)
-  - ri_LoadConstraintInfo (src/backend/utils/adt/ri_triggers.c:2182)
+  - [ri_LoadConstraintInfo](../r/ri_LoadConstraintInfo.md) (src/backend/utils/adt/ri_triggers.c:2182)
 
 ## Notes and Other Information
 - The function automatically handles list initialization if the list header indicates a NULL state

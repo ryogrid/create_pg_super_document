@@ -35,12 +35,12 @@ This function is the abort counterpart to ParseCommitRecord, responsible for par
   - XACT_XINFO_HAS_GID
   - XACT_XINFO_HAS_ORIGIN
 - Called from (representative examples):
-  - xact_desc_abort
-  - xact_redo
-  - recoveryStopsBefore
-  - recoveryStopsAfter
-  - SummarizeXactRecord
-  - xact_decode
+  - [xact_desc_abort](../x/xact_desc_abort.md)
+  - [xact_redo](../x/xact_redo.md)
+  - [recoveryStopsBefore](../r/recoveryStopsBefore.md)
+  - [recoveryStopsAfter](../r/recoveryStopsAfter.md)
+  - [SummarizeXactRecord](../S/SummarizeXactRecord.md)
+  - [xact_decode](../x/xact_decode.md)
 
 ## Notes and Other Information
 - Structurally similar to ParseCommitRecord but handles abort-specific data

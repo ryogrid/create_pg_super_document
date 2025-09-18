@@ -21,11 +21,11 @@ The comparison logic prioritizes NULL lexemes as "greater than" non-NULL lexemes
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (standard C library function)
-  - TheLexeme (structure type)
+  - [TheLexeme](../T/TheLexeme.md) (structure type)
 - Called from (representative examples):
-  - cmpLexemeQ
-  - cmpTheLexeme  
-  - compileTheLexeme
+  - [cmpLexemeQ](cmpLexemeQ.md)
+  - [cmpTheLexeme](cmpTheLexeme.md)  
+  - [compileTheLexeme](compileTheLexeme.md)
 
 ## Notes and Other Information
 - Returns 0 if both lexemes are NULL or if both lexemes are identical strings

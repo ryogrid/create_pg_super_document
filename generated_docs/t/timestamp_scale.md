@@ -23,7 +23,7 @@ The `timestamp_scale` function is a PostgreSQL built-in function that adjusts ti
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP
   - PG_GETARG_INT32
-  - AdjustTimestampForTypmod
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)
   - PG_RETURN_TIMESTAMP
   - Timestamp (type)
 - Called from (representative examples):

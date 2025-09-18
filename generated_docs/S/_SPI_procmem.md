@@ -19,10 +19,10 @@ The procedure memory context typically has a longer lifetime than the execution 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo: Core PostgreSQL function that switches active memory context
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Core PostgreSQL function that switches active memory context
   - _SPI_current->procCxt: Procedure memory context from current SPI connection
 - Called from (representative examples):
-  - spi_dest_startup: SPI destination startup operations
+  - [spi_dest_startup](../s/spi_dest_startup.md): SPI destination startup operations
   - _SPI_end_call: When cleaning up SPI call context
 
 ## Notes and Other Information

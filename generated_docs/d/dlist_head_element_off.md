@@ -22,13 +22,13 @@ An assertion ensures the list is not empty before attempting to access the first
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_head (struct type)
-  - dlist_is_empty (function to check if list is empty)
+  - [dlist_head](dlist_head.md) (struct type)
+  - [dlist_is_empty](dlist_is_empty.md) (function to check if list is empty)
   - Assert (macro for debug assertions)
 - Called from (representative examples):
-  - dlist_head_node (src/include/lib/ilist.h:567)
+  - [dlist_head_node](dlist_head_node.md) (src/include/lib/ilist.h:567)
   - dlist_head_element (src/include/lib/ilist.h:605)
-  - dclist_head_node (src/include/lib/ilist.h:904)
+  - [dclist_head_node](dclist_head_node.md) (src/include/lib/ilist.h:904)
 
 ## Notes and Other Information
 - This is an internal implementation function not typically called directly by user code

@@ -28,24 +28,24 @@ The function includes early exit conditions for skipped changes or streamed tran
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_skipping_changes
-  - handle_streamed_transaction
-  - begin_replication_step
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
+  - [begin_replication_step](../b/begin_replication_step.md)
   - logicalrep_read_update
   - logicalrep_rel_open
-  - should_apply_changes_for_rel
-  - check_relation_updatable
-  - SwitchToUntrustedUser
-  - create_edata_for_relation
-  - ExecInitExtraTupleSlot
-  - slot_store_data
-  - apply_handle_tuple_routing
-  - apply_handle_update_internal
-  - finish_edata
-  - RestoreUserContext
+  - [should_apply_changes_for_rel](../s/should_apply_changes_for_rel.md)
+  - [check_relation_updatable](../c/check_relation_updatable.md)
+  - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md)
+  - [create_edata_for_relation](../c/create_edata_for_relation.md)
+  - [ExecInitExtraTupleSlot](../E/ExecInitExtraTupleSlot.md)
+  - [slot_store_data](../s/slot_store_data.md)
+  - [apply_handle_tuple_routing](apply_handle_tuple_routing.md)
+  - [apply_handle_update_internal](apply_handle_update_internal.md)
+  - [finish_edata](../f/finish_edata.md)
+  - [RestoreUserContext](../R/RestoreUserContext.md)
   - logicalrep_rel_close
-  - end_replication_step
+  - [end_replication_step](../e/end_replication_step.md)
 - Called from (representative examples):
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - The function includes a TODO comment indicating that FDW (Foreign Data Wrapper) support is planned but not yet implemented

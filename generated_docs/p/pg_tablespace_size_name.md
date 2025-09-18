@@ -21,8 +21,8 @@ Like its OID-based counterpart, this function returns NULL when the size calcula
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tablespace_oid
-  - calculate_tablespace_size
+  - [get_tablespace_oid](../g/get_tablespace_oid.md)
+  - [calculate_tablespace_size](../c/calculate_tablespace_size.md)
   - PG_GETARG_NAME
   - PG_RETURN_INT64
   - PG_RETURN_NULL

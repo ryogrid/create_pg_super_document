@@ -28,17 +28,17 @@ If the funcname matches a valid, non-dropped column in the tuple descriptor, the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetNSItemByRangeTablePosn
-  - scanNSItemForColumn
-  - expandRecordVariable
-  - get_expr_result_tupdesc
+  - [GetNSItemByRangeTablePosn](../G/GetNSItemByRangeTablePosn.md)
+  - [scanNSItemForColumn](../s/scanNSItemForColumn.md)
+  - [expandRecordVariable](../e/expandRecordVariable.md)
+  - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md)
   - TupleDescAttr
   - makeNode
   - FieldSelect (struct)
-  - ParseNamespaceItem (struct)
+  - [ParseNamespaceItem](ParseNamespaceItem.md) (struct)
   - InvalidAttrNumber (constant)
 - Called from (representative examples):
-  - ParseFuncOrColumn
+  - [ParseFuncOrColumn](ParseFuncOrColumn.md)
   - FuncLookupError
 
 ## Notes and Other Information

@@ -23,9 +23,9 @@ The function calculates the number of bytes available in the input buffer, alloc
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER
-  - palloc
+  - [palloc](../p/palloc.md)
   - SET_VARSIZE
-  - pq_copymsgbytes
+  - [pq_copymsgbytes](../p/pq_copymsgbytes.md)
   - VARDATA
   - PG_RETURN_BYTEA_P
 - Constants referenced:

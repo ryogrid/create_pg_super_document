@@ -23,14 +23,14 @@ This is a static function, meaning it's only accessible within the plancache.c f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list structure)
-  - Query (PostgreSQL query structure)
+  - [List](../L/List.md) (PostgreSQL list structure)
+  - [Query](Query.md) (PostgreSQL query structure)
   - foreach (PostgreSQL list iteration macro)
   - lfirst_node (macro to extract typed node from list cell)
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation
-  - CachedPlanGetTargetList  
-  - PlanCacheComputeResultDesc
+  - [CachedPlanGetTargetList](../C/CachedPlanGetTargetList.md)  
+  - [PlanCacheComputeResultDesc](../P/PlanCacheComputeResultDesc.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within plancache.c

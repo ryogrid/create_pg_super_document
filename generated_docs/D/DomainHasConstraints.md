@@ -19,14 +19,14 @@ As a side effect of the lookup operation, the function causes the type cache's d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache (retrieves type cache information)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (retrieves type cache information)
   - TYPECACHE_DOMAIN_CONSTR_INFO (flag requesting domain constraint information)
 - Called from (representative examples):
-  - ATExecAddColumn (table column addition)
-  - ATColumnChangeRequiresRewrite (column change analysis)
-  - ExecInitJsonCoercion (JSON coercion initialization)
-  - eval_const_expressions_mutator (constant expression evaluation)
-  - transformJsonFuncExpr (JSON function expression transformation)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (table column addition)
+  - [ATColumnChangeRequiresRewrite](../A/ATColumnChangeRequiresRewrite.md) (column change analysis)
+  - [ExecInitJsonCoercion](../E/ExecInitJsonCoercion.md) (JSON coercion initialization)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (constant expression evaluation)
+  - [transformJsonFuncExpr](../t/transformJsonFuncExpr.md) (JSON function expression transformation)
 
 ## Notes and Other Information
 - The function is explicitly designed to return false rather than error for non-domain types, making it safe to use in uncertain contexts

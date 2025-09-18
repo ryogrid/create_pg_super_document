@@ -29,9 +29,9 @@ Like MemoryContextAlloc, this function integrates with Valgrind memory debugging
   - VALGRIND_MEMPOOL_ALLOC (integrates with Valgrind debugging)
   - MemSetAligned (efficiently clears memory to zero)
 - Called from (representative examples):
-  - index_form_tuple_context
-  - InitializeSession
-  - PushTransaction
+  - [index_form_tuple_context](../i/index_form_tuple_context.md)
+  - [InitializeSession](../I/InitializeSession.md)
+  - [PushTransaction](../P/PushTransaction.md)
   - CreatePortal
   - ResourceOwnerCreate
   - array manipulation functions

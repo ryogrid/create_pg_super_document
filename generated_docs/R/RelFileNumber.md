@@ -24,17 +24,17 @@ N/A - This is a simple typedef, not a function or structure.
   - InvalidOid (used in InvalidRelFileNumber constant)
 
 - Called from (representative examples):
-  - heap_create (creates new relation files)
+  - [heap_create](../h/heap_create.md) (creates new relation files)
   - index_create (creates new index files)  
-  - RelationInitPhysicalAddr (initializes physical addresses)
-  - GetRelationPath (constructs file paths)
-  - swap_relation_files (exchanges relation files during operations like CLUSTER)
-  - RelationSetNewRelfilenumber (assigns new file numbers to relations)
-  - RelationMapFilenumberToOid (maps file numbers to object IDs)
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md) (initializes physical addresses)
+  - [GetRelationPath](../G/GetRelationPath.md) (constructs file paths)
+  - [swap_relation_files](../s/swap_relation_files.md) (exchanges relation files during operations like CLUSTER)
+  - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md) (assigns new file numbers to relations)
+  - [RelationMapFilenumberToOid](RelationMapFilenumberToOid.md) (maps file numbers to object IDs)
 
 ## Notes and Other Information
 - The InvalidRelFileNumber constant is defined as ((RelFileNumber) InvalidOid) and represents an invalid or uninitialized file number
-- RelFileNumber is extensively used in buffer management (BufferTag), backup operations, and storage management
+- [RelFileNumber](RelFileNumber.md) is extensively used in buffer management (BufferTag), backup operations, and storage management
 - This type is fundamental to PostgreSQL's MVCC implementation and physical storage architecture
 - Used in conjunction with ForkNumber to fully specify relation file variants (main, FSM, visibility map, etc.)
 - Critical for binary upgrade processes where file number consistency must be maintained across PostgreSQL versions

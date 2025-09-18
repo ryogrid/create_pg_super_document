@@ -21,16 +21,16 @@ The function iterates through each operator family in the EquivalenceClass and a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opfamily_member (to find operators within operator families)
-  - get_opcode (to get the function implementing the operator)
-  - get_func_leakproof (to check if the function is leakproof)
+  - [get_opfamily_member](../g/get_opfamily_member.md) (to find operators within operator families)
+  - [get_opcode](../g/get_opcode.md) (to get the function implementing the operator)
+  - [get_func_leakproof](../g/get_func_leakproof.md) (to check if the function is leakproof)
   - EquivalenceClass (struct type for equivalence class representation)
 - Called from (representative examples):
-  - generate_base_implied_equalities_const
-  - generate_base_implied_equalities_no_const
-  - generate_join_implied_equalities_normal
-  - reconsider_outer_join_clause
-  - reconsider_full_join_clause
+  - [generate_base_implied_equalities_const](../g/generate_base_implied_equalities_const.md)
+  - [generate_base_implied_equalities_no_const](../g/generate_base_implied_equalities_no_const.md)
+  - [generate_join_implied_equalities_normal](../g/generate_join_implied_equalities_normal.md)
+  - [reconsider_outer_join_clause](../r/reconsider_outer_join_clause.md)
+  - [reconsider_full_join_clause](../r/reconsider_full_join_clause.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no suitable operator can be found for the given datatype combination

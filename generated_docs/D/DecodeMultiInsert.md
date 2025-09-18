@@ -31,18 +31,18 @@ Key processing steps:
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - FilterByOrigin
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [FilterByOrigin](../F/FilterByOrigin.md)
   - XLogRecGetOrigin
-  - XLogRecGetBlockData
-  - ReorderBufferGetChange
-  - ReorderBufferGetTupleBuf
-  - ReorderBufferQueueChange
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [ReorderBufferGetChange](../R/ReorderBufferGetChange.md)
+  - [ReorderBufferGetTupleBuf](../R/ReorderBufferGetTupleBuf.md)
+  - [ReorderBufferQueueChange](../R/ReorderBufferQueueChange.md)
   - XLogRecGetXid
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - SHORTALIGN
 - Called from (representative examples):
-  - heap2_decode
+  - [heap2_decode](../h/heap2_decode.md)
 
 ## Notes and Other Information
 - This function always expects full tuples in multi-insert records (not just tuple deltas)

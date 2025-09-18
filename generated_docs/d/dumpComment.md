@@ -24,22 +24,22 @@ This function serves as a streamlined interface to dumpCommentExtended for cases
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpCommentExtended
+  - [dumpCommentExtended](dumpCommentExtended.md)
 - Called from (representative examples):
-  - dumpLO
-  - dumpPolicy
-  - dumpPublication
-  - dumpSubscription
-  - dumpExtension
-  - dumpEnumType
-  - dumpRangeType
-  - dumpBaseType
-  - dumpDomain
-  - dumpFunc
-  - dumpIndex
-  - dumpSequence
-  - dumpTrigger
-  - dumpRule
+  - [dumpLO](dumpLO.md)
+  - [dumpPolicy](dumpPolicy.md)
+  - [dumpPublication](dumpPublication.md)
+  - [dumpSubscription](dumpSubscription.md)
+  - [dumpExtension](dumpExtension.md)
+  - [dumpEnumType](dumpEnumType.md)
+  - [dumpRangeType](dumpRangeType.md)
+  - [dumpBaseType](dumpBaseType.md)
+  - [dumpDomain](dumpDomain.md)
+  - [dumpFunc](dumpFunc.md)
+  - [dumpIndex](dumpIndex.md)
+  - [dumpSequence](dumpSequence.md)
+  - [dumpTrigger](dumpTrigger.md)
+  - [dumpRule](dumpRule.md)
 
 ## Notes and Other Information
 - This is the standard function used by most object dump routines for comment handling

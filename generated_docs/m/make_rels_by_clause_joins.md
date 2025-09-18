@@ -23,12 +23,12 @@ The function leverages the join_rel_level mechanism to automatically ensure that
 ## Dependencies
 - Functions called/Symbols referenced:
   - for_each_from
-  - bms_overlap
-  - have_relevant_joinclause
-  - have_join_order_restriction
-  - make_join_rel
+  - [bms_overlap](../b/bms_overlap.md)
+  - [have_relevant_joinclause](../h/have_relevant_joinclause.md)
+  - [have_join_order_restriction](../h/have_join_order_restriction.md)
+  - [make_join_rel](make_join_rel.md)
 - Called from (representative examples):
-  - join_search_one_level
+  - [join_search_one_level](../j/join_search_one_level.md)
 
 ## Notes and Other Information
 - Currently used primarily with initial relations in other_rels, but the design supports joining to join relations as well

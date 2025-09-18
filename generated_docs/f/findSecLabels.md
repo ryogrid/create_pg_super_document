@@ -21,12 +21,12 @@ The search works in two phases: first, it performs a standard binary search to f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SecLabelItem: Structure type for security label entries
+  - [SecLabelItem](../S/SecLabelItem.md): Structure type for security label entries
   - nseclabels: Global variable containing count of security labels
   - seclabels: Global array containing all security labels
 - Called from:
-  - dumpSecLabel: For dumping security labels of general database objects
-  - dumpTableSecLabel: For dumping security labels of tables and their columns
+  - [dumpSecLabel](../d/dumpSecLabel.md): For dumping security labels of general database objects
+  - [dumpTableSecLabel](../d/dumpTableSecLabel.md): For dumping security labels of tables and their columns
   - fmtQualifiedDumpable: For formatting qualified names with security context
 
 ## Notes and Other Information

@@ -24,11 +24,11 @@ This function ensures type safety by asserting that the list is of type IntList 
   - list_nth_cell (to get the cell at position n)
   - lfirst_int (to extract the integer value from the cell)
 - Called from (representative examples):
-  - CopyReadAttributesText (COPY command attribute processing)
-  - CopyReadAttributesCSV (CSV format COPY processing)
-  - set_cte_pathlist (CTE path planning)
-  - create_ctescan_plan (CTE scan plan creation)
-  - rewriteSearchAndCycle (search/cycle rewriting logic)
+  - [CopyReadAttributesText](../C/CopyReadAttributesText.md) (COPY command attribute processing)
+  - [CopyReadAttributesCSV](../C/CopyReadAttributesCSV.md) (CSV format COPY processing)
+  - [set_cte_pathlist](../s/set_cte_pathlist.md) (CTE path planning)
+  - [create_ctescan_plan](../c/create_ctescan_plan.md) (CTE scan plan creation)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (search/cycle rewriting logic)
   - examine_simple_variable (statistics analysis)
 
 ## Notes and Other Information

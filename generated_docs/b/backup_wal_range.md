@@ -22,8 +22,8 @@ The backup_wal_range structure is used to store information about WAL ranges fou
   - TimeLineID (data type)
   - XLogRecPtr (data type)
 - Called from (representative examples):
-  - manifest_process_wal_range (creates and populates instances)
-  - PrepareForIncrementalBackup (uses instances for backup planning)
+  - [manifest_process_wal_range](../m/manifest_process_wal_range.md) (creates and populates instances)
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md) (uses instances for backup planning)
 
 ## Notes and Other Information
 - This structure is primarily used in the context of incremental backup functionality introduced in PostgreSQL

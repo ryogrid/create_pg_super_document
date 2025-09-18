@@ -23,23 +23,23 @@ The function uses pg_encoding_mblen_or_incomplete to determine how many bytes co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_encoding_mblen_or_incomplete (determines character or incomplete sequence length)
+  - [pg_encoding_mblen_or_incomplete](../p/pg_encoding_mblen_or_incomplete.md) (determines character or incomplete sequence length)
   - Min (macro for minimum value calculation)
   - sprintf (standard C library function for string formatting)
   - ereport (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
   - pg_enc2name_tbl (encoding name lookup table)
 - Called from (representative examples):
-  - CopyConversionError
-  - local2local
-  - latin2mic
-  - mic2latin
+  - [CopyConversionError](../C/CopyConversionError.md)
+  - [local2local](../l/local2local.md)
+  - [latin2mic](../l/latin2mic.md)
+  - [mic2latin](../m/mic2latin.md)
   - Various encoding conversion functions
-  - UtfToLocal
-  - LocalToUtf
-  - pg_verify_mbstr
-  - pg_verify_mbstr_len
+  - [UtfToLocal](../U/UtfToLocal.md)
+  - [LocalToUtf](../L/LocalToUtf.md)
+  - [pg_verify_mbstr](../p/pg_verify_mbstr.md)
+  - [pg_verify_mbstr_len](../p/pg_verify_mbstr_len.md)
 
 ## Notes and Other Information
 - The function never returns - it always throws an error using ereport with ERROR level

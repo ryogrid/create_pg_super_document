@@ -23,14 +23,14 @@ The function serves as the cleanup and finalization step in the incremental mani
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - json_parse_manifest_incremental_chunk
-  - pfree
-  - json_parse_manifest_incremental_shutdown
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [json_parse_manifest_incremental_chunk](../j/json_parse_manifest_incremental_chunk.md)
+  - [pfree](../p/pfree.md)
+  - [json_parse_manifest_incremental_shutdown](../j/json_parse_manifest_incremental_shutdown.md)
 - Types referenced:
-  - IncrementalBackupInfo
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md)
 - Called from:
-  - UploadManifest (src/backend/replication/walsender.c:715)
+  - [UploadManifest](../U/UploadManifest.md) (src/backend/replication/walsender.c:715)
 
 ## Notes and Other Information
 - This function must be called after all AppendIncrementalManifestData calls are complete

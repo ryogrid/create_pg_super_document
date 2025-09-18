@@ -35,13 +35,13 @@ The function is designed to work with batched SQL commands (multiple REINDEX sta
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf
-  - PQsendQuery
+  - [PQsendQuery](../P/PQsendQuery.md)
   - pg_log_error
-  - PQdb
-  - PQerrorMessage
+  - [PQdb](../P/PQdb.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - ReindexType enums (REINDEX_DATABASE, REINDEX_SYSTEM, REINDEX_SCHEMA, REINDEX_TABLE, REINDEX_INDEX)
 - Called from (representative examples):
-  - reindex_one_database (reindexdb.c:471)
+  - [reindex_one_database](reindex_one_database.md) (reindexdb.c:471)
 
 ## Notes and Other Information
 - Uses asynchronous query execution (PQsendQuery) rather than synchronous (PQexec) to integrate with parallel processing infrastructure

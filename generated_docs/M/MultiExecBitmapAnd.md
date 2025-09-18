@@ -22,15 +22,15 @@ The function handles its own instrumentation for performance monitoring, calling
 ## Dependencies
 - Functions called/Symbols referenced:
   - InstrStartNode (for performance instrumentation)
-  - MultiExecProcNode (to execute each subplan)
+  - [MultiExecProcNode](MultiExecProcNode.md) (to execute each subplan)
   - tbm_intersect (to perform bitmap intersection)
-  - tbm_free (to free intermediate bitmaps)
-  - tbm_is_empty (to check for optimization opportunities)
+  - [tbm_free](../t/tbm_free.md) (to free intermediate bitmaps)
+  - [tbm_is_empty](../t/tbm_is_empty.md) (to check for optimization opportunities)
   - InstrStopNode (to complete performance instrumentation)
   - IsA (for type checking)
   - elog (for error reporting)
 - Called from (representative examples):
-  - MultiExecProcNode (general multi-execution dispatcher)
+  - [MultiExecProcNode](MultiExecProcNode.md) (general multi-execution dispatcher)
 
 ## Notes and Other Information
 - This is the actual execution function for BitmapAnd nodes, unlike ExecBitmapAnd which only throws an error

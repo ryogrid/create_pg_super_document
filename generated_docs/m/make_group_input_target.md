@@ -27,15 +27,15 @@ For example, given , the function generates the subplan target:  where  will be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_empty_pathtarget
+  - [create_empty_pathtarget](../c/create_empty_pathtarget.md)
   - get_pathtarget_sortgroupref
-  - get_sortgroupref_clause_noerr
-  - add_column_to_pathtarget
-  - pull_var_clause
-  - add_new_columns_to_pathtarget
-  - set_pathtarget_cost_width
+  - [get_sortgroupref_clause_noerr](../g/get_sortgroupref_clause_noerr.md)
+  - [add_column_to_pathtarget](../a/add_column_to_pathtarget.md)
+  - [pull_var_clause](../p/pull_var_clause.md)
+  - [add_new_columns_to_pathtarget](../a/add_new_columns_to_pathtarget.md)
+  - [set_pathtarget_cost_width](../s/set_pathtarget_cost_width.md)
 - Called from:
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
 
 ## Notes and Other Information
 - The parser-generated target list already contains ORDER BY and GROUP BY expressions but lacks HAVING variables

@@ -26,7 +26,7 @@ The function extracts the C string from the Name argument, gets the pattern from
   - NameStr: Macro to get C string from Name structure
   - VARDATA_ANY: Gets pointer to variable-length data
   - VARSIZE_ANY_EXHDR: Gets size of variable-length data excluding header
-  - GenericMatchText: Core pattern matching function that handles LIKE operations
+  - [GenericMatchText](../G/GenericMatchText.md): Core pattern matching function that handles LIKE operations
   - PG_GET_COLLATION: Gets collation information for the operation
   - PG_RETURN_BOOL: Returns boolean result to PostgreSQL
   - LIKE_TRUE: Constant representing a successful pattern match

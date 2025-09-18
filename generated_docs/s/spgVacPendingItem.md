@@ -21,13 +21,13 @@ The structure implements a simple linked list where new items are always appende
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerData (for storing tuple identifiers)
+  - [ItemPointerData](../I/ItemPointerData.md) (for storing tuple identifiers)
   - struct spgVacPendingItem (self-reference for linked list)
 - Called from (representative examples):
-  - spgBulkDeleteState (contains pendingList field)
-  - spgAddPendingTID (creates and manages pending items)
-  - spgClearPendingList (iterates and frees pending items)
-  - spgprocesspending (processes pending items)
+  - [spgBulkDeleteState](spgBulkDeleteState.md) (contains pendingList field)
+  - [spgAddPendingTID](spgAddPendingTID.md) (creates and manages pending items)
+  - [spgClearPendingList](spgClearPendingList.md) (iterates and frees pending items)
+  - [spgprocesspending](spgprocesspending.md) (processes pending items)
 
 ## Notes and Other Information
 - New items are always appended at the end of the list to maintain scan consistency

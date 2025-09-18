@@ -26,10 +26,10 @@ The LibraryInfo structure represents metadata about shared libraries that are lo
 - Functions called/Symbols referenced:
   - Referenced within ClusterInfo structure
 - Called from (representative examples):
-  - library_name_compare (in function.c)
-  - get_loadable_libraries (in function.c) 
-  - check_loadable_libraries (in function.c)
-  - OSInfo structure (as libraries array)
+  - [library_name_compare](../l/library_name_compare.md) (in function.c)
+  - [get_loadable_libraries](../g/get_loadable_libraries.md) (in function.c) 
+  - [check_loadable_libraries](../c/check_loadable_libraries.md) (in function.c)
+  - [OSInfo](../O/OSInfo.md) structure (as libraries array)
 
 ## Notes and Other Information
 - This structure is typically used in arrays to represent all loadable libraries in a cluster

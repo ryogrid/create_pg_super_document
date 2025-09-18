@@ -23,12 +23,12 @@ This is more efficient than `list_delete()` when you want to remove a specific o
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList (macro for type checking)
-  - check_list_invariants
-  - list_delete_cell
+  - [check_list_invariants](../c/check_list_invariants.md)
+  - [list_delete_cell](list_delete_cell.md)
 - Called from (representative examples):
   - FreeExprContext (src/backend/executor/execUtils.c:425)
-  - remove_join_clause_from_rels (src/backend/optimizer/util/joininfo.c:181)
-  - pa_free_worker_info (src/backend/replication/logical/applyparallelworker.c:613)
+  - [remove_join_clause_from_rels](../r/remove_join_clause_from_rels.md) (src/backend/optimizer/util/joininfo.c:181)
+  - [pa_free_worker_info](../p/pa_free_worker_info.md) (src/backend/replication/logical/applyparallelworker.c:613)
 
 ## Notes and Other Information
 - Only works with pointer lists, not integer or OID lists

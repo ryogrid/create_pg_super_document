@@ -21,16 +21,16 @@ The function requires an active client connection (MyProcPort must not be NULL) 
 - Functions called/Symbols referenced:
   - MyProcPort (global variable pointing to current client connection structure)
   - ereport/errmsg (PostgreSQL error reporting functions)
-  - errcode (PostgreSQL error code function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
   - ERRCODE_CONNECTION_DOES_NOT_EXIST (PostgreSQL error code constant)
   - ERROR (PostgreSQL error level constant)
 
 - Called from (representative examples):
-  - pq_recvbuf (when managing receive buffer operations)
-  - pq_getbyte_if_available (for non-blocking byte reading)
+  - [pq_recvbuf](../p/pq_recvbuf.md) (when managing receive buffer operations)
+  - [pq_getbyte_if_available](../p/pq_getbyte_if_available.md) (for non-blocking byte reading)
   - internal_putbytes (during data transmission)
   - socket_flush (when flushing output buffers)
-  - socket_flush_if_writable (for conditional buffer flushing)
+  - [socket_flush_if_writable](socket_flush_if_writable.md) (for conditional buffer flushing)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file (pqcomm.c)

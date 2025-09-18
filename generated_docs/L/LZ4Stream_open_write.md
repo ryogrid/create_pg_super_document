@@ -25,11 +25,11 @@ The function is designed to work as part of the compression file handle abstract
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (for string formatting)
+  - [psprintf](../p/psprintf.md) (for string formatting)
   - CFH->open_func (configured open function)
-  - pg_free (for memory cleanup)
+  - [pg_free](../p/pg_free.md) (for memory cleanup)
 - Called from (representative examples):
-  - InitCompressFileHandleLZ4 (sets this as the open_write_func callback)
+  - [InitCompressFileHandleLZ4](../I/InitCompressFileHandleLZ4.md) (sets this as the open_write_func callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the compress_lz4.c file

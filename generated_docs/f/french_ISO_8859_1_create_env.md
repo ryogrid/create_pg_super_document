@@ -24,7 +24,7 @@ The created environment contains all necessary data structures for text processi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 
 - Called from (representative examples):
   - PostgreSQL dictionary initialization routines

@@ -19,10 +19,10 @@ The  function is a PostgreSQL output conversion function that transforms a BOX s
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P
-  - path_encode
+  - [path_encode](../p/path_encode.md)
   - PATH_NONE
   - PG_RETURN_CSTRING
-  - BOX (struct type)
+  - [BOX](../B/BOX.md) (struct type)
 - Called from (representative examples):
   - This is a PostgreSQL output function, typically called by the PostgreSQL system when converting box values to string format for display or export
 

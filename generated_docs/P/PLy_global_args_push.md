@@ -19,12 +19,12 @@ This function manages the argument stack for PLpython procedures to support recu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_function_save_args (saves current argument state)
-  - PLyProcedure (procedure structure type)
-  - PLySavedArgs (saved arguments structure type)
+  - [PLy_function_save_args](PLy_function_save_args.md) (saves current argument state)
+  - [PLyProcedure](PLyProcedure.md) (procedure structure type)
+  - [PLySavedArgs](PLySavedArgs.md) (saved arguments structure type)
 - Called from (representative examples):
-  - PLy_exec_function (at src/pl/plpython/plpy_exec.c:70)
-  - PLy_exec_trigger (at src/pl/plpython/plpy_exec.c:359)
+  - [PLy_exec_function](PLy_exec_function.md) (at src/pl/plpython/plpy_exec.c:70)
+  - [PLy_exec_trigger](PLy_exec_trigger.md) (at src/pl/plpython/plpy_exec.c:359)
 
 ## Notes and Other Information
 - This is a static function internal to plpy_exec.c

@@ -20,13 +20,13 @@ This function retrieves and formats the transform types associated with a Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_func_trftypes
+  - [get_func_trftypes](../g/get_func_trftypes.md)
   - appendStringInfoString
   - appendStringInfo
   - appendStringInfoChar
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
 - Called from (representative examples):
-  - pg_get_functiondef
+  - [pg_get_functiondef](pg_get_functiondef.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's rule utilities system used for reconstructing function definitions

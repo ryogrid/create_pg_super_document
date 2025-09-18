@@ -26,14 +26,14 @@ The function is designed to be lightweight and inline, providing efficient buffe
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal
-  - GetLocalBufferDescriptor
-  - pg_atomic_read_u32
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
   - StartBufferIO
-  - GetBufferDescriptor
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
 - Constants used:
   - BM_VALID
 - Called from (representative examples):
-  - WaitReadBuffers (multiple call sites)
+  - [WaitReadBuffers](WaitReadBuffers.md) (multiple call sites)
 
 ## Notes and Other Information
 - This is a static inline function, suggesting it's used frequently and performance is critical

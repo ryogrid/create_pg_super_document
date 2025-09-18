@@ -26,9 +26,9 @@ This structure serves as the master container for all Unicode table formatting s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicodeStyleRowFormat (at Line 128)
-  - unicodeStyleColumnFormat (at Line 129) 
-  - unicodeStyleBorderFormat (at Line 130)
+  - [unicodeStyleRowFormat](unicodeStyleRowFormat.md) (at Line 128)
+  - [unicodeStyleColumnFormat](unicodeStyleColumnFormat.md) (at Line 129) 
+  - [unicodeStyleBorderFormat](unicodeStyleBorderFormat.md) (at Line 130)
 - Called from (representative examples):
   - (No direct references found - likely used through variable instantiation)
 

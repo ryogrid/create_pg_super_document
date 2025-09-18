@@ -20,17 +20,17 @@ This function is a critical subroutine for ATExecAlterColumnType that manages in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid
-  - get_index_constraint
-  - RememberConstraintForRebuilding
-  - pg_get_indexdef_string
+  - [list_member_oid](../l/list_member_oid.md)
+  - [get_index_constraint](../g/get_index_constraint.md)
+  - [RememberConstraintForRebuilding](RememberConstraintForRebuilding.md)
+  - [pg_get_indexdef_string](../p/pg_get_indexdef_string.md)
   - lappend_oid
-  - RememberReplicaIdentityForRebuilding
-  - RememberClusterOnForRebuilding
-  - AlteredTableInfo (struct)
+  - [RememberReplicaIdentityForRebuilding](RememberReplicaIdentityForRebuilding.md)
+  - [RememberClusterOnForRebuilding](RememberClusterOnForRebuilding.md)
+  - [AlteredTableInfo](../A/AlteredTableInfo.md) (struct)
 - Called from (representative examples):
   - child_dependency_type
-  - RememberAllDependentForRebuilding
+  - [RememberAllDependentForRebuilding](RememberAllDependentForRebuilding.md)
 
 ## Notes and Other Information
 - The deduplication check is critical for two reasons: preventing double recreation and ensuring definition strings are captured before any column type changes

@@ -19,12 +19,12 @@ The function is responsible for managing the coordination between the outer scan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecScanReScan (rescans the base scan state)
-  - UpdateChangedParamSet (propagates parameter changes to subplan)
-  - ExecReScan (rescans the subplan if needed)
-  - SubqueryScanState (the node state structure)
+  - [ExecScanReScan](ExecScanReScan.md) (rescans the base scan state)
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (propagates parameter changes to subplan)
+  - [ExecReScan](ExecReScan.md) (rescans the subplan if needed)
+  - [SubqueryScanState](../S/SubqueryScanState.md) (the node state structure)
 - Called from (representative examples):
-  - ExecReScan (general rescan dispatcher in execAmi.c:205)
+  - [ExecReScan](ExecReScan.md) (general rescan dispatcher in execAmi.c:205)
 
 ## Notes and Other Information
 - The function handles parameter change signaling manually because the subplan operates in its own memory context where chgParam state is maintained separately

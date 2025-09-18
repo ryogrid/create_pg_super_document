@@ -20,14 +20,14 @@ The function is a utility routine used internally by the SP-GiST access method t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system cache lookup for type information)
-  - ObjectIdGetDatum (convert Oid to Datum for cache lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup for type information)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (convert Oid to Datum for cache lookup)
   - HeapTupleIsValid (validate the returned tuple)
   - GETSTRUCT (extract structure from heap tuple)
-  - ReleaseSysCache (release system cache entry)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (release system cache entry)
   - elog (error logging)
 - Called from (representative examples):
-  - spgGetCache (at src/backend/access/spgist/spgutils.c:238, 247, 255, 256)
+  - [spgGetCache](../s/spgGetCache.md) (at src/backend/access/spgist/spgutils.c:238, 247, 255, 256)
 
 ## Notes and Other Information
 - Located in src/backend/access/spgist/spgutils.c:160-181

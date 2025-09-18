@@ -25,11 +25,11 @@ The function processes the string from right to left (backward processing) by se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_is_reserved_word (checks for protected words that shouldn't be stemmed)
-  - r_append_U_to_stems_ending_with_d_or_g (applies vowel harmony rules)
-  - r_post_process_last_consonants (applies final consonant transformations)
+  - [r_is_reserved_word](r_is_reserved_word.md) (checks for protected words that shouldn't be stemmed)
+  - [r_append_U_to_stems_ending_with_d_or_g](r_append_U_to_stems_ending_with_d_or_g.md) (applies vowel harmony rules)
+  - [r_post_process_last_consonants](r_post_process_last_consonants.md) (applies final consonant transformations)
 - Called from:
-  - turkish_UTF_8_stem (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2087)
+  - [turkish_UTF_8_stem](../t/turkish_UTF_8_stem.md) (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2087)
 
 ## Notes and Other Information
 - This is a static function within the Turkish stemmer implementation

@@ -26,17 +26,17 @@ The function implements a graceful degradation strategy - in hot standby mode, i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HotStandbyActiveInReplay
-  - SetRecoveryPause
-  - GetRecoveryPauseState
-  - HandleStartupProcInterrupts
-  - CheckForStandbyTrigger
-  - ConfirmRecoveryPaused
-  - ConditionVariableTimedSleep
-  - ConditionVariableCancelSleep
+  - [HotStandbyActiveInReplay](../H/HotStandbyActiveInReplay.md)
+  - [SetRecoveryPause](../S/SetRecoveryPause.md)
+  - [GetRecoveryPauseState](../G/GetRecoveryPauseState.md)
+  - [HandleStartupProcInterrupts](../H/HandleStartupProcInterrupts.md)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
+  - [ConfirmRecoveryPaused](../C/ConfirmRecoveryPaused.md)
+  - [ConditionVariableTimedSleep](../C/ConditionVariableTimedSleep.md)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - RECOVERY_NOT_PAUSED
 - Called from:
-  - CheckRequiredParameterValues (multiple parameter validations)
+  - [CheckRequiredParameterValues](../C/CheckRequiredParameterValues.md) (multiple parameter validations)
 
 ## Notes and Other Information
 - The function never returns when currValue < minValue - it either pauses indefinitely or terminates with FATAL

@@ -22,8 +22,8 @@ The implementation first processes elements in chunks using vectorized operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - Vector8 (vector data type for SIMD operations)
-  - vector8_load (loads data into vector register)
-  - vector8_has (checks if vector contains the target value)
+  - [vector8_load](../v/vector8_load.md) (loads data into vector register)
+  - [vector8_has](../v/vector8_has.md) (checks if vector contains the target value)
 - Called from (representative examples):
   - test_lfind8_internal (in test modules)
 

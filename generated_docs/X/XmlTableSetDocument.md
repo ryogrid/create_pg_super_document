@@ -20,9 +20,9 @@ The function employs PostgreSQL's exception handling mechanism to ensure proper 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData (retrieves XmlTable context)
-  - DatumGetXmlP (converts Datum to xmltype)
-  - xml_out_internal (converts XML to string)
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md) (retrieves XmlTable context)
+  - [DatumGetXmlP](../D/DatumGetXmlP.md) (converts Datum to xmltype)
+  - [xml_out_internal](../x/xml_out_internal.md) (converts XML to string)
   - pg_xmlCharStrndup (creates libxml2 string)
   - xmlCtxtReadMemory (libxml2 document parsing)
   - xmlXPathNewContext (XPath context creation)
@@ -34,9 +34,9 @@ The function employs PostgreSQL's exception handling mechanism to ensure proper 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData
-  - DatumGetXmlP
-  - xml_out_internal
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md)
+  - [DatumGetXmlP](../D/DatumGetXmlP.md)
+  - [xml_out_internal](../x/xml_out_internal.md)
   - pg_xmlCharStrndup
   - xmlCtxtReadMemory
   - xmlXPathNewContext

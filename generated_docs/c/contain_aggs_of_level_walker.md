@@ -28,14 +28,14 @@ The level tracking mechanism ensures that aggregates are correctly attributed to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_aggs_of_level_context (context structure)
+  - [contain_aggs_of_level_context](contain_aggs_of_level_context.md) (context structure)
   - Aggref (aggregate function reference node)
   - GroupingFunc (GROUPING function node)
   - query_tree_walker (subquery traversal)
   - expression_tree_walker (general expression traversal)
 - Called from (representative examples):
-  - contain_aggs_of_level (main entry point)
-  - contain_aggs_of_level_walker (recursive self-calls)
+  - [contain_aggs_of_level](contain_aggs_of_level.md) (main entry point)
+  - [contain_aggs_of_level_walker](contain_aggs_of_level_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:103-149

@@ -22,7 +22,7 @@ This function should only be called after bbstreamer_gzip_writer_finalize() has 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Assert
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
   - Used as callback through bbstreamer_gzip_writer_ops function pointer table
 

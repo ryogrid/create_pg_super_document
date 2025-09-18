@@ -19,13 +19,13 @@ This function computes the maximum number of bytes required to store a PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_valid_numeric_typmod (at Line 956)
-  - numeric_typmod_precision (at Line 960)
+  - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md) (at Line 956)
+  - [numeric_typmod_precision](numeric_typmod_precision.md) (at Line 960)
   - DEC_DIGITS (at Line 972)
   - NumericDigit (at Line 981)
   - NUMERIC_HDRSZ (at Line 981)
 - Called from (representative examples):
-  - type_maximum_size (at src/backend/utils/adt/format_type.c:429)
+  - [type_maximum_size](../t/type_maximum_size.md) (at src/backend/utils/adt/format_type.c:429)
   - PG_RETURN_NUMERIC (at src/include/utils/numeric.h:87)
 
 ## Notes and Other Information

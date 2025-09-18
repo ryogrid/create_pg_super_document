@@ -39,11 +39,11 @@ The function ensures proper recovery configuration injection while maintaining a
 - Functions called/Symbols referenced:
   - memcpy
   - strcmp
-  - bbstreamer_content
-  - bbstreamer_inject_file
-  - pg_fatal
+  - [bbstreamer_content](bbstreamer_content.md)
+  - [bbstreamer_inject_file](bbstreamer_inject_file.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - bbstreamer_member (struct type)
-  - bbstreamer_archive_context (enum)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (enum)
   - BBSTREAMER_* constants
 - Called from (representative examples):
   - No direct references found (likely called via function pointer in operations table)

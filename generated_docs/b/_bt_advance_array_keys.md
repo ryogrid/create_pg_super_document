@@ -32,20 +32,20 @@ The function also performs requalification by calling _bt_check_compare with the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_tuple_before_array_skeys
-  - _bt_verify_keys_with_arraykeys  
-  - _bt_binsrch_array_skey
-  - _bt_compare_array_skey
-  - _bt_advance_array_keys_increment
-  - _bt_check_compare
-  - _bt_rewind_nonrequired_arrays
-  - _bt_parallel_primscan_schedule
-  - index_getattr
+  - [_bt_tuple_before_array_skeys](_bt_tuple_before_array_skeys.md)
+  - [_bt_verify_keys_with_arraykeys](_bt_verify_keys_with_arraykeys.md)  
+  - [_bt_binsrch_array_skey](_bt_binsrch_array_skey.md)
+  - [_bt_compare_array_skey](_bt_compare_array_skey.md)
+  - [_bt_advance_array_keys_increment](_bt_advance_array_keys_increment.md)
+  - [_bt_check_compare](_bt_check_compare.md)
+  - [_bt_rewind_nonrequired_arrays](_bt_rewind_nonrequired_arrays.md)
+  - [_bt_parallel_primscan_schedule](_bt_parallel_primscan_schedule.md)
+  - [index_getattr](../i/index_getattr.md)
   - BTreeTupleGetNAtts
 - Called from (representative examples):
-  - _bt_checkkeys
-  - _bt_check_compare
-  - _bt_advance_array_keys (recursive)
+  - [_bt_checkkeys](_bt_checkkeys.md)
+  - [_bt_check_compare](_bt_check_compare.md)
+  - [_bt_advance_array_keys](_bt_advance_array_keys.md) (recursive)
 
 ## Notes and Other Information
 - Implements a complex state machine for array advancement with multiple phases

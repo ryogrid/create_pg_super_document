@@ -22,11 +22,11 @@ The function is essential for combining ordering requirements from different par
 - Functions called/Symbols referenced:
   - Assert (assertion macro)
   - lfirst_node (list iteration with node type checking)
-  - pathkey_is_redundant (redundancy checking function)
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md) (redundancy checking function)
   - lappend (list append operation)
 - Called from (representative examples):
-  - adjust_group_pathkeys_for_groupagg
-  - make_pathkeys_for_window
+  - [adjust_group_pathkeys_for_groupagg](adjust_group_pathkeys_for_groupagg.md)
+  - [make_pathkeys_for_window](../m/make_pathkeys_for_window.md)
 
 ## Notes and Other Information
 - The target list must not be NIL (assertion enforced)

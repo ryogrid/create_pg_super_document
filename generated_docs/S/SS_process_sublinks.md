@@ -23,11 +23,11 @@ This function is a critical component of the query planning phase, as it handles
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - process_sublinks_context (struct)
-  - process_sublinks_mutator
+  - [process_sublinks_context](../p/process_sublinks_context.md) (struct)
+  - [process_sublinks_mutator](../p/process_sublinks_mutator.md)
 - Called from (representative examples):
-  - preprocess_expression
-  - build_subplan
+  - [preprocess_expression](../p/preprocess_expression.md)
+  - [build_subplan](../b/build_subplan.md)
 
 ## Notes and Other Information
 - The isQual parameter is important for optimization: when processing top-level WHERE/HAVING qualifiers, the distinction between FALSE and UNKNOWN (NULL) return values from sublinks can be ignored, potentially enabling more efficient execution strategies.

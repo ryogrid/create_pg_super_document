@@ -17,18 +17,18 @@ This function performs a complete deep copy of a tuple descriptor, including all
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc
-  - TupleConstr
-  - AttrDefault
+  - [CreateTemplateTupleDesc](CreateTemplateTupleDesc.md)
+  - [TupleConstr](../T/TupleConstr.md)
+  - [AttrDefault](../A/AttrDefault.md)
   - AttrMissing
-  - ConstrCheck
-  - datumCopy
+  - [ConstrCheck](ConstrCheck.md)
+  - [datumCopy](../d/datumCopy.md)
 - Called from (representative examples):
-  - initGISTstate
-  - ATGetQueueEntry
-  - init_tuple_slot
-  - CatalogCacheInitializeCache
-  - lookup_rowtype_tupdesc_copy
+  - [initGISTstate](../i/initGISTstate.md)
+  - [ATGetQueueEntry](../A/ATGetQueueEntry.md)
+  - [init_tuple_slot](../i/init_tuple_slot.md)
+  - [CatalogCacheInitializeCache](CatalogCacheInitializeCache.md)
+  - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md)
 
 ## Notes and Other Information
 - Performs deep copying of all constraint structures including default values, check constraints, and missing values

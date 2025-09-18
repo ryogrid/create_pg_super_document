@@ -25,9 +25,9 @@ This function is heavily used in buffer management operations where precise bloc
 - Functions called/Symbols referenced:
   - BufferTag (structure type)
 - Called from (representative examples):
-  - ReadRecentBuffer
-  - InvalidateBuffer
-  - InvalidateVictimBuffer
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md)
+  - [InvalidateBuffer](../I/InvalidateBuffer.md)
+  - [InvalidateVictimBuffer](../I/InvalidateVictimBuffer.md)
   - LocalBufferAlloc
 
 ## Notes and Other Information

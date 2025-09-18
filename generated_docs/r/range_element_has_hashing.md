@@ -17,11 +17,11 @@ The function determines if a range or multirange type's element type supports ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cache_range_element_properties
+  - [cache_range_element_properties](../c/cache_range_element_properties.md)
   - TCFLAGS_CHECKED_ELEM_PROPERTIES (flag)
   - TCFLAGS_HAVE_ELEM_HASHING (flag)
 - Called from (representative examples):
-  - lookup_type_cache
+  - [lookup_type_cache](../l/lookup_type_cache.md)
 
 ## Notes and Other Information
 - This is a static function only used within typcache.c

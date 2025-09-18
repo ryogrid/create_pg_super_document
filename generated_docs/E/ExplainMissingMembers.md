@@ -21,11 +21,11 @@ This function displays information about runtime partition pruning in Append and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainPropertyInteger
+  - [ExplainPropertyInteger](ExplainPropertyInteger.md)
   - ExplainState (struct)
   - EXPLAIN_FORMAT_TEXT (constant)
 - Called from (representative examples):
-  - ExplainNode (for Append and MergeAppend nodes)
+  - [ExplainNode](ExplainNode.md) (for Append and MergeAppend nodes)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

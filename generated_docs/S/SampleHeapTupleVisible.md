@@ -31,11 +31,11 @@ The binary search optimization is particularly valuable for sampling operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapScanDesc (cast from TableScanDesc)
+  - [HeapScanDesc](../H/HeapScanDesc.md) (cast from TableScanDesc)
   - SO_ALLOW_PAGEMODE (scan flag)
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](../H/HeapTupleSatisfiesVisibility.md)
 - Called from (representative examples):
-  - heapam_scan_sample_next_tuple
+  - [heapam_scan_sample_next_tuple](../h/heapam_scan_sample_next_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam_handler.c, specifically optimized for sampling operations

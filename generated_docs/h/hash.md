@@ -20,7 +20,7 @@ The function iterates through the array and XORs all values together to produce 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sset (struct type - used in context via HASH macro)
+  - [sset](../s/sset.md) (struct type - used in context via HASH macro)
 - Called from (representative examples):
   - Used indirectly via HASH macro in initialize function
   - Used in DFA state set caching mechanisms

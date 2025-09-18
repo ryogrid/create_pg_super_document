@@ -17,10 +17,10 @@ DestroyBlockRefTableReader performs complete cleanup of a BlockRefTableReader st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - Safely handles NULL chunk_size pointer by checking before freeing

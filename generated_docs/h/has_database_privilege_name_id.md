@@ -24,8 +24,8 @@ This PostgreSQL function implements a hybrid variant of the has_database_privile
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - get_role_oid_or_public
-  - convert_database_priv_string
-  - object_aclcheck_ext
+  - [convert_database_priv_string](../c/convert_database_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
 - Called from (representative examples):
@@ -37,8 +37,8 @@ This PostgreSQL function implements a hybrid variant of the has_database_privile
   - PG_GETARG_OID 
   - PG_GETARG_TEXT_PP
   - get_role_oid_or_public
-  - convert_database_priv_string
-  - object_aclcheck_ext
+  - [convert_database_priv_string](../c/convert_database_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
 - Called from (representative examples):

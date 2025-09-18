@@ -24,17 +24,17 @@ For exclude-only scan keys, all entries are placed in the additional set since n
 ## Dependencies
 - Functions called/Symbols referenced:
   - ItemPointerSetMin
-  - entryIndexByFrequencyCmp
-  - MemoryContextReset
+  - [entryIndexByFrequencyCmp](../e/entryIndexByFrequencyCmp.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
   - CHECK_FOR_INTERRUPTS
 - Data types used:
-  - GinState
+  - [GinState](../G/GinState.md)
   - GinScanOpaque
-  - GinScanKey
-  - GinScanEntry
+  - [GinScanKey](../G/GinScanKey.md)
+  - [GinScanEntry](../G/GinScanEntry.md)
   - GIN_FALSE, GIN_MAYBE (enum values)
 - Called from:
-  - startScan
+  - [startScan](startScan.md)
 
 ## Notes and Other Information
 - Uses multiple memory contexts (keyCtx, tempCtx) for proper memory management during scan initialization

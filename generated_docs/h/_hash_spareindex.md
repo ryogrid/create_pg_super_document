@@ -23,13 +23,13 @@ The calculation involves three components: single-phase groups, multi-phase grou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ceil_log2_32 (calculates ceiling of log base 2 for determining splitpoint group)
+  - [pg_ceil_log2_32](../p/pg_ceil_log2_32.md) (calculates ceiling of log base 2 for determining splitpoint group)
   - HASH_SPLITPOINT_GROUPS_WITH_ONE_PHASE (constant defining number of single-phase groups)
   - HASH_SPLITPOINT_PHASE_BITS (constant defining bits used for phase calculation)
   - HASH_SPLITPOINT_PHASE_MASK (bitmask for extracting phase information)
 - Called from (representative examples):
-  - _hash_init_metabuffer (in hashpage.c at lines 523 and 525)
-  - _hash_expandtable (in hashpage.c at line 783)
+  - [_hash_init_metabuffer](_hash_init_metabuffer.md) (in hashpage.c at lines 523 and 525)
+  - [_hash_expandtable](_hash_expandtable.md) (in hashpage.c at line 783)
   - BUCKET_TO_BLKNO (macro in hash.h at line 40)
 
 ## Notes and Other Information

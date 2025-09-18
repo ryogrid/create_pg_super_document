@@ -30,10 +30,10 @@ The structure works in conjunction with PostgreSQL's array iterator mechanism an
   - AARR_NDIM
   - AARR_DIMS
   - AARR_ELEMTYPE
-  - get_typlenbyvalalign
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
   - VARATT_IS_EXPANDED_HEADER
 - Called from (representative examples):
-  - array_unnest (src/backend/utils/adt/arrayfuncs.c:6242)
+  - [array_unnest](array_unnest.md) (src/backend/utils/adt/arrayfuncs.c:6242)
 
 ## Notes and Other Information
 - This is a typedef struct defined locally within the array_unnest function, not a global type

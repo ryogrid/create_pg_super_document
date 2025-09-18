@@ -29,7 +29,7 @@ The most critical case handled is XLOG_DBASE_CREATE_FILE_COPY, which can create 
   - BlockRefTableSetLimitBlock: Set limit block to 0 for database/tablespace combinations
   - MAIN_FORKNUM: Main fork identifier for relation files
 - Called from (representative examples):
-  - SummarizeWAL: Main WAL summarization loop when processing RM_DBASE_ID records
+  - [SummarizeWAL](SummarizeWAL.md): Main WAL summarization loop when processing RM_DBASE_ID records
 
 ## Notes and Other Information
 - Handles three specific database operation types: XLOG_DBASE_CREATE_FILE_COPY, XLOG_DBASE_CREATE_WAL_LOG, and XLOG_DBASE_DROP

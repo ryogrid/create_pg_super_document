@@ -29,11 +29,11 @@ All character arrays in this structure must be null-terminated, ensuring safe st
   - NAMEDATALEN (used for sizing all string fields)
 - Used by:
   - NumBackendStatSlots (for memory calculation)
-  - BackendStatusShmemSize (for shared memory sizing)
-  - CreateSharedBackendStatus (for initialization)
-  - pgstat_bestart (for populating SSL status)
+  - [BackendStatusShmemSize](../B/BackendStatusShmemSize.md) (for shared memory sizing)
+  - [CreateSharedBackendStatus](../C/CreateSharedBackendStatus.md) (for initialization)
+  - [pgstat_bestart](../p/pgstat_bestart.md) (for populating SSL status)
   - pgstat_read_current_status (for reading SSL information)
-  - PgBackendStatus (as a member structure)
+  - [PgBackendStatus](PgBackendStatus.md) (as a member structure)
 
 ## Notes and Other Information
 - This structure is only allocated and populated when SSL is enabled for a connection

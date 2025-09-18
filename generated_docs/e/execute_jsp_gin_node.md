@@ -26,14 +26,14 @@ The ternary flag determines whether the check array contains boolean values or G
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - execute_jsp_gin_node (recursive self-calls for child node evaluation)
+  - [execute_jsp_gin_node](execute_jsp_gin_node.md) (recursive self-calls for child node evaluation)
   - elog (error logging for invalid node types)
 - Called from (representative examples):
-  - gin_consistent_jsonb (boolean consistency checking for jsonb_ops)
-  - gin_triconsistent_jsonb (ternary consistency checking for jsonb_ops)
-  - gin_consistent_jsonb_path (boolean consistency checking for jsonb_path_ops)
-  - gin_triconsistent_jsonb_path (ternary consistency checking for jsonb_path_ops)
-  - execute_jsp_gin_node (recursive self-calls for nested expressions)
+  - [gin_consistent_jsonb](../g/gin_consistent_jsonb.md) (boolean consistency checking for jsonb_ops)
+  - [gin_triconsistent_jsonb](../g/gin_triconsistent_jsonb.md) (ternary consistency checking for jsonb_ops)
+  - [gin_consistent_jsonb_path](../g/gin_consistent_jsonb_path.md) (boolean consistency checking for jsonb_path_ops)
+  - [gin_triconsistent_jsonb_path](../g/gin_triconsistent_jsonb_path.md) (ternary consistency checking for jsonb_path_ops)
+  - [execute_jsp_gin_node](execute_jsp_gin_node.md) (recursive self-calls for nested expressions)
 
 ## Notes and Other Information
 - Implements proper three-valued logic semantics with short-circuiting optimization

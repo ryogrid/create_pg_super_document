@@ -31,15 +31,15 @@ The function uses a static table of error mappings (rerrs[]) that contains error
   - REG_ATOI (constant for name-to-number conversion)
   - REG_ITOA (constant for number-to-name conversion)
 - Called from (representative examples):
-  - regcomp_auth_token
-  - check_ident_usermap
-  - NIAddAffix
-  - RE_compile_and_cache
-  - RE_wchar_execute
-  - regexp_fixed_prefix
+  - [regcomp_auth_token](../r/regcomp_auth_token.md)
+  - [check_ident_usermap](../c/check_ident_usermap.md)
+  - [NIAddAffix](../N/NIAddAffix.md)
+  - [RE_compile_and_cache](../R/RE_compile_and_cache.md)
+  - [RE_wchar_execute](../R/RE_wchar_execute.md)
+  - [regexp_fixed_prefix](../r/regexp_fixed_prefix.md)
   - replace_text_regexp
-  - test_re_compile
-  - test_re_execute
+  - [test_re_compile](../t/test_re_compile.md)
+  - [test_re_execute](../t/test_re_execute.md)
 
 ## Notes and Other Information
 - Returns the total space needed for the error message (including NUL terminator), following POSIX conventions

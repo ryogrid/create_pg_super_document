@@ -19,14 +19,14 @@ This function is responsible for reading the PostgreSQL control file during the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - ReadControlFile
   - ControlFileData (struct type)
 - Called from (representative examples):
-  - SubPostmasterMain
-  - PostmasterMain
-  - PostmasterStateMachine
-  - PostgresSingleUserMain
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md)
 
 ## Notes and Other Information
 - Must be called during startup before shared memory initialization

@@ -28,17 +28,17 @@ The function uses a temporary memory context to avoid memory leaks during the de
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate: Creates temporary memory context for safe memory management
-  - brin_deform_tuple: Converts on-disk tuple b to in-memory format for processing
-  - datumCopy: Creates copies of datum values with proper memory management
-  - index_getprocinfo: Retrieves index-specific union function for each key
-  - FunctionCall3Coll: Calls the union function with collation support
-  - MemoryContextDelete: Cleans up temporary memory context
-  - BrinDesc, BrinMemTuple, BrinTuple: Core BRIN data structures
-  - BrinValues, BrinOpcInfo: Per-column summary and operator information structures
+  - [brin_deform_tuple](../b/brin_deform_tuple.md): Converts on-disk tuple b to in-memory format for processing
+  - [datumCopy](../d/datumCopy.md): Creates copies of datum values with proper memory management
+  - [index_getprocinfo](../i/index_getprocinfo.md): Retrieves index-specific union function for each key
+  - [FunctionCall3Coll](../F/FunctionCall3Coll.md): Calls the union function with collation support
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Cleans up temporary memory context
+  - [BrinDesc](../B/BrinDesc.md), BrinMemTuple, BrinTuple: Core BRIN data structures
+  - [BrinValues](../B/BrinValues.md), BrinOpcInfo: Per-column summary and operator information structures
 
 - Called from (representative examples):
-  - summarize_range: During BRIN index maintenance and summarization
-  - _brin_parallel_merge: During parallel BRIN index construction merge phase
+  - [summarize_range](../s/summarize_range.md): During BRIN index maintenance and summarization
+  - [_brin_parallel_merge](../b/_brin_parallel_merge.md): During parallel BRIN index construction merge phase
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

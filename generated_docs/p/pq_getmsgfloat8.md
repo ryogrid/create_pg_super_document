@@ -17,15 +17,15 @@ The `pq_getmsgfloat8` function reads an 8-byte double-precision floating-point v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64 (reads 8 bytes as int64 with byte order conversion)
+  - [pq_getmsgint64](pq_getmsgint64.md) (reads 8 bytes as int64 with byte order conversion)
   - float8 (PostgreSQL's double-precision float type)
 - Called from (representative examples):
-  - float8recv (float8 data type receive function)
-  - box_recv (geometric box type receive)
-  - point_recv (geometric point type receive)
-  - line_recv (geometric line type receive)
-  - circle_recv (geometric circle type receive)
-  - complex_recv (tutorial complex type receive)
+  - [float8recv](../f/float8recv.md) (float8 data type receive function)
+  - [box_recv](../b/box_recv.md) (geometric box type receive)
+  - [point_recv](point_recv.md) (geometric point type receive)
+  - [line_recv](../l/line_recv.md) (geometric line type receive)
+  - [circle_recv](../c/circle_recv.md) (geometric circle type receive)
+  - [complex_recv](../c/complex_recv.md) (tutorial complex type receive)
 
 ## Notes and Other Information
 - Uses a union for safe type punning between int64 and float8

@@ -21,13 +21,13 @@ The  function calculates the cost of performing a TID scan on a relation, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - estimate_array_length
-  - cost_qual_eval
-  - get_tablespace_page_costs
-  - get_restriction_qual_cost
+  - [estimate_array_length](../e/estimate_array_length.md)
+  - [cost_qual_eval](cost_qual_eval.md)
+  - [get_tablespace_page_costs](../g/get_tablespace_page_costs.md)
+  - [get_restriction_qual_cost](../g/get_restriction_qual_cost.md)
   - lsecond
 - Called from (representative examples):
-  - create_tidscan_path
+  - [create_tidscan_path](create_tidscan_path.md)
 
 ## Notes and Other Information
 - Only applies to base relations (not joins or subqueries)

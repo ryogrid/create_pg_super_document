@@ -24,26 +24,26 @@ The function handles various tuple states including live, dead, recently dead, a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage
-  - BufferGetBlockNumber
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
   - ItemIdIsRedirected
   - ItemIdIsDead
   - ItemIdIsNormal
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - ItemIdGetLength
-  - HeapTupleSatisfiesVacuum
+  - [HeapTupleSatisfiesVacuum](../H/HeapTupleSatisfiesVacuum.md)
   - HeapTupleHeaderXminCommitted
   - HeapTupleHeaderGetXmin
-  - TransactionIdPrecedes
-  - TransactionIdFollows
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)
+  - [TransactionIdFollows](../T/TransactionIdFollows.md)
   - TransactionIdIsNormal
-  - heap_tuple_needs_eventual_freeze
+  - [heap_tuple_needs_eventual_freeze](heap_tuple_needs_eventual_freeze.md)
 - Called from (representative examples):
-  - lazy_scan_prune
-  - lazy_vacuum_heap_page
+  - [lazy_scan_prune](../l/lazy_scan_prune.md)
+  - [lazy_vacuum_heap_page](../l/lazy_vacuum_heap_page.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within vacuumlazy.c

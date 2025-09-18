@@ -25,17 +25,17 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventCommandIfReadOnly
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
   - text_to_cstring_buffer
   - OpenTransientFile
-  - inv_create
-  - inv_open
-  - inv_write
-  - inv_close
+  - [inv_create](../i/inv_create.md)
+  - [inv_open](../i/inv_open.md)
+  - [inv_write](../i/inv_write.md)
+  - [inv_close](../i/inv_close.md)
   - CloseTransientFile
 - Called from (representative examples):
-  - be_lo_import
-  - be_lo_import_with_oid
+  - [be_lo_import](../b/be_lo_import.md)
+  - [be_lo_import_with_oid](../b/be_lo_import_with_oid.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within be-fsstubs.c

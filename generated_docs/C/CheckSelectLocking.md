@@ -22,13 +22,13 @@ The function checks for seven different incompatible features and generates spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LCS_asString (for error message formatting)
+  - [LCS_asString](../L/LCS_asString.md) (for error message formatting)
   - ereport (for error reporting)
   - Assert (assertion macro)
   - LCS_NONE (enum value)
 - Called from (representative examples):
-  - transformLockingClause (during parse analysis)
-  - preprocess_rowmarks (during query planning)
+  - [transformLockingClause](../t/transformLockingClause.md) (during parse analysis)
+  - [preprocess_rowmarks](../p/preprocess_rowmarks.md) (during query planning)
 
 ## Notes and Other Information
 - Exported function that can be called from both parser and planner components

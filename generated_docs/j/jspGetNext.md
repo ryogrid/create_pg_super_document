@@ -19,15 +19,15 @@ The jspGetNext function is a core navigation utility in PostgreSQL's JSON path i
 ## Dependencies
 - Functions called/Symbols referenced:
   - jspHasNext
-  - jspInitByBuffer
+  - [jspInitByBuffer](jspInitByBuffer.md)
   - JsonPathItem (struct type)
   - Multiple jpi* enumeration constants (jpiNull, jpiString, jpiNumeric, etc.)
 - Called from (representative examples):
-  - extract_jsp_path_expr_nodes
-  - printJsonPathItem
-  - executeItemOptUnwrapTarget
-  - executeNextItem
-  - executeBinaryArithmExpr
+  - [extract_jsp_path_expr_nodes](../e/extract_jsp_path_expr_nodes.md)
+  - [printJsonPathItem](../p/printJsonPathItem.md)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md)
+  - [executeNextItem](../e/executeNextItem.md)
+  - [executeBinaryArithmExpr](../e/executeBinaryArithmExpr.md)
 
 ## Notes and Other Information
 - Returns true if a next item exists and was successfully retrieved, false otherwise

@@ -26,11 +26,11 @@ The order of operations is crucial - general endings are removed first, followed
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (identifies R1 and R2 morphological regions in the word)
-  - r_ending (removes general Armenian ending suffixes)
-  - r_verb (removes Armenian verbal suffixes)
-  - r_adjective (removes Armenian adjectival suffixes) 
-  - r_noun (removes Armenian nominal suffixes)
+  - [r_mark_regions](../r/r_mark_regions.md) (identifies R1 and R2 morphological regions in the word)
+  - [r_ending](../r/r_ending.md) (removes general Armenian ending suffixes)
+  - [r_verb](../r/r_verb.md) (removes Armenian verbal suffixes)
+  - [r_adjective](../r/r_adjective.md) (removes Armenian adjectival suffixes) 
+  - [r_noun](../r/r_noun.md) (removes Armenian nominal suffixes)
 - Called from:
   - External callers (this is the main public interface for Armenian stemming)
 

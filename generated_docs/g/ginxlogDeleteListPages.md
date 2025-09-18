@@ -22,11 +22,11 @@ The structure includes a complete copy of the GinMetaPageData to ensure the meta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinMetaPageData (src/include/access/ginblock.h:55)
+  - [GinMetaPageData](../G/GinMetaPageData.md) (src/include/access/ginblock.h:55)
 - Called from (representative examples):
-  - shiftList (src/backend/access/gin/ginfast.c:570, 650)
-  - ginRedoDeleteListPages (src/backend/access/gin/ginxlog.c:678)
-  - gin_desc (src/backend/access/rmgrdesc/gindesc.c:174)
+  - [shiftList](../s/shiftList.md) (src/backend/access/gin/ginfast.c:570, 650)
+  - [ginRedoDeleteListPages](ginRedoDeleteListPages.md) (src/backend/access/gin/ginxlog.c:678)
+  - [gin_desc](gin_desc.md) (src/backend/access/rmgrdesc/gindesc.c:174)
 
 ## Notes and Other Information
 - This structure is specifically designed for WAL logging and is not used for in-memory operations

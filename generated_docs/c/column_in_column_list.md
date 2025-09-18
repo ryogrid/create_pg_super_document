@@ -20,10 +20,10 @@ The function is used within PostgreSQL's logical replication protocol to determi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (checks if a member is present in a Bitmapset)
+  - [bms_is_member](../b/bms_is_member.md) (checks if a member is present in a Bitmapset)
 - Called from (representative examples):
-  - logicalrep_write_tuple (multiple locations for filtering columns during tuple serialization)
-  - logicalrep_write_attrs (multiple locations for filtering attributes during attribute information serialization)
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md) (multiple locations for filtering columns during tuple serialization)
+  - [logicalrep_write_attrs](../l/logicalrep_write_attrs.md) (multiple locations for filtering attributes during attribute information serialization)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the proto.c file

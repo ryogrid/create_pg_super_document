@@ -19,11 +19,11 @@ This function initializes a KeyArray structure by allocating memory for storing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - palloc_array (for allocating memory arrays)
-  - KeyArray (structure type)
+  - [KeyArray](../K/KeyArray.md) (structure type)
   - GinNullCategory (enumeration type)
 - Called from (representative examples):
-  - ginInsertCleanup (at src/backend/access/gin/ginfast.c:868)
-  - ginInsertCleanup (at src/backend/access/gin/ginfast.c:993)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (at src/backend/access/gin/ginfast.c:868)
+  - [ginInsertCleanup](../g/ginInsertCleanup.md) (at src/backend/access/gin/ginfast.c:993)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the ginfast.c file

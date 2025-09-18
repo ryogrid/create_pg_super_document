@@ -30,17 +30,17 @@ The function integrates with PostgreSQL's type system and ensures that JSON outp
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode
-  - makeJsonFormat
+  - [makeJsonFormat](../m/makeJsonFormat.md)
   - copyObject
-  - typenameTypeIdAndMod
-  - get_typtype
-  - checkJsonOutputFormat
+  - [typenameTypeIdAndMod](typenameTypeIdAndMod.md)
+  - [get_typtype](../g/get_typtype.md)
+  - [checkJsonOutputFormat](../c/checkJsonOutputFormat.md)
   - ereport (for error reporting)
 - Called from (representative examples):
-  - transformJsonConstructorOutput
-  - transformJsonReturning
-  - transformJsonSerializeExpr
-  - transformJsonFuncExpr
+  - [transformJsonConstructorOutput](transformJsonConstructorOutput.md)
+  - [transformJsonReturning](transformJsonReturning.md)
+  - [transformJsonSerializeExpr](transformJsonSerializeExpr.md)
+  - [transformJsonFuncExpr](transformJsonFuncExpr.md)
 
 ## Notes and Other Information
 - This is a static function used internally within PostgreSQL's JSON expression parsing

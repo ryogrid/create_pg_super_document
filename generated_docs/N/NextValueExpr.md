@@ -23,10 +23,10 @@ Unlike regular nextval() function calls, NextValueExpr nodes are created and man
 - Functions called/Symbols referenced:
   - (No direct symbol references)
 - Called from (representative examples):
-  - find_expr_references_walker (src/backend/catalog/dependency.c:2078)
-  - ATExecAddColumn (src/backend/commands/tablecmds.c:7270)
-  - ExecInitExprRec (src/backend/executor/execExpr.c:2578)
-  - build_column_default (src/backend/rewrite/rewriteHandler.c:1229)
+  - [find_expr_references_walker](../f/find_expr_references_walker.md) (src/backend/catalog/dependency.c:2078)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md) (src/backend/commands/tablecmds.c:7270)
+  - [ExecInitExprRec](../E/ExecInitExprRec.md) (src/backend/executor/execExpr.c:2578)
+  - [build_column_default](../b/build_column_default.md) (src/backend/rewrite/rewriteHandler.c:1229)
 
 ## Notes and Other Information
 - Primarily used for identity columns where sequences are implicit dependencies

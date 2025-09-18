@@ -23,16 +23,16 @@ The function initializes an XLogReader with the SimpleXLogPageRead page reading 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogReaderAllocate
-  - SimpleXLogPageRead
-  - XLogBeginRead
-  - XLogReadRecord
-  - extractPageInfo
-  - XLogReaderFree
-  - XLogRecord
-  - XLogPageReadPrivate
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md)
+  - [SimpleXLogPageRead](../S/SimpleXLogPageRead.md)
+  - [XLogBeginRead](../X/XLogBeginRead.md)
+  - [XLogReadRecord](../X/XLogReadRecord.md)
+  - [extractPageInfo](extractPageInfo.md)
+  - [XLogReaderFree](../X/XLogReaderFree.md)
+  - [XLogRecord](../X/XLogRecord.md)
+  - [XLogPageReadPrivate](../X/XLogPageReadPrivate.md)
 - Called from (representative examples):
-  - main (in src/bin/pg_rewind/pg_rewind.c:487)
+  - [main](../m/main.md) (in src/bin/pg_rewind/pg_rewind.c:487)
 
 ## Notes and Other Information
 - This function is specific to pg_rewind and is used during the WAL analysis phase

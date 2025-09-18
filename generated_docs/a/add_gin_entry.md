@@ -24,12 +24,12 @@ The function is essential for building GIN index entries during JSONB processing
 ## Dependencies
 - Functions called/Symbols referenced:
   - GinEntries (struct type)
-  - repalloc (memory reallocation function)
-  - palloc (memory allocation function)
+  - [repalloc](../r/repalloc.md) (memory reallocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):
-  - gin_extract_jsonb (at src/backend/utils/adt/jsonb_gin.c:256, 260, 263)
-  - emit_jsp_gin_entries (at src/backend/utils/adt/jsonb_gin.c:727)
-  - gin_extract_jsonb_path (at src/backend/utils/adt/jsonb_gin.c:1153)
+  - [gin_extract_jsonb](../g/gin_extract_jsonb.md) (at src/backend/utils/adt/jsonb_gin.c:256, 260, 263)
+  - [emit_jsp_gin_entries](../e/emit_jsp_gin_entries.md) (at src/backend/utils/adt/jsonb_gin.c:727)
+  - [gin_extract_jsonb_path](../g/gin_extract_jsonb_path.md) (at src/backend/utils/adt/jsonb_gin.c:1153)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the jsonb_gin.c file

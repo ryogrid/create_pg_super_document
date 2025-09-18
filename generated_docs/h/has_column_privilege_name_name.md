@@ -19,11 +19,11 @@ This function is one of PostgreSQL's privilege checking functions that determine
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
-  - convert_table_name
-  - convert_column_name
-  - convert_column_priv_string
-  - column_privilege_check
+  - [GetUserId](../G/GetUserId.md)
+  - [convert_table_name](../c/convert_table_name.md)
+  - [convert_column_name](../c/convert_column_name.md)
+  - [convert_column_priv_string](../c/convert_column_priv_string.md)
+  - [column_privilege_check](../c/column_privilege_check.md)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)
 

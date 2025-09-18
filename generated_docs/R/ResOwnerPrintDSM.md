@@ -21,7 +21,7 @@ This function serves as a debug print callback in PostgreSQL's resource manageme
 - Functions called/Symbols referenced:
   - dsm_segment (type cast from Datum)
   - dsm_segment_handle (to get the segment's unique handle)
-  - psprintf (for formatted string creation)
+  - [psprintf](../p/psprintf.md) (for formatted string creation)
 - Called from (representative examples):
   - Registered as callback in ResourceOwner system (referenced in dsm resource owner descriptor at line 155)
 

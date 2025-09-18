@@ -20,13 +20,13 @@ This function handles the first phase of connection option processing for libpq.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_connection_string (parses the connection string into options)
-  - fillPGconn (transfers options into the PGconn structure)
-  - PQconninfoFree (frees the connection options structure)
-  - PQconninfoOption (structure type for connection options)
+  - [parse_connection_string](../p/parse_connection_string.md) (parses the connection string into options)
+  - [fillPGconn](../f/fillPGconn.md) (transfers options into the PGconn structure)
+  - [PQconninfoFree](../P/PQconninfoFree.md) (frees the connection options structure)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (structure type for connection options)
   - CONNECTION_BAD (connection status constant)
 - Called from (representative examples):
-  - PQconnectStart
+  - [PQconnectStart](../P/PQconnectStart.md)
   - PQsetdbLogin
 
 ## Notes and Other Information

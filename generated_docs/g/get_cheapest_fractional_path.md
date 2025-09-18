@@ -31,10 +31,10 @@ This is essential for optimizing queries where only a portion of results will be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - compare_fractional_path_costs
+  - [compare_fractional_path_costs](../c/compare_fractional_path_costs.md)
 - Called from:
-  - standard_planner (src/backend/optimizer/plan/planner.c:420)
-  - make_subplan (src/backend/optimizer/plan/subselect.c:233)
+  - [standard_planner](../s/standard_planner.md) (src/backend/optimizer/plan/planner.c:420)
+  - [make_subplan](../m/make_subplan.md) (src/backend/optimizer/plan/subselect.c:233)
 - Declared in:
   - PLANNER_H (src/include/optimizer/planner.h:57)
 

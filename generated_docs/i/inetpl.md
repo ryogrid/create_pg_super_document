@@ -23,7 +23,7 @@ This function enables SQL expressions like `inet_address + integer_value` to per
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP
   - PG_GETARG_INT64  
-  - internal_inetpl
+  - [internal_inetpl](internal_inetpl.md)
   - PG_RETURN_INET_P
 - Called from (representative examples):
   - SQL queries using inet + bigint operator

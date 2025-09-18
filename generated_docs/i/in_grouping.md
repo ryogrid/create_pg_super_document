@@ -25,13 +25,13 @@ The function uses a bitmask approach where each bit in the array `s` represents 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_env struct members (z->c, z->l, z->p)
-  - repeat parameter
+  - [SN_env](../S/SN_env.md) struct members (z->c, z->l, z->p)
+  - [repeat](../r/repeat.md) parameter
 - Called from (representative examples):
-  - r_mark_regions (in various language stemmers)
-  - r_prelude (in Dutch, English, French, German, Italian, Romanian stemmers)
-  - porter_ISO_8859_1_stem (in Porter stemmer)
-  - r_VOWEL (in Indonesian stemmer)
+  - [r_mark_regions](../r/r_mark_regions.md) (in various language stemmers)
+  - [r_prelude](../r/r_prelude.md) (in Dutch, English, French, German, Italian, Romanian stemmers)
+  - [porter_ISO_8859_1_stem](../p/porter_ISO_8859_1_stem.md) (in Porter stemmer)
+  - [r_VOWEL](../r/r_VOWEL.md) (in Indonesian stemmer)
 
 ## Notes and Other Information
 - Returns -1 if at end of string buffer (z->c >= z->l)

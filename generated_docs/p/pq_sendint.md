@@ -23,13 +23,13 @@ The function uses a switch statement to determine which specific serialization f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendint8
-  - pq_sendint16  
-  - pq_sendint32
+  - [pq_sendint8](pq_sendint8.md)
+  - [pq_sendint16](pq_sendint16.md)  
+  - [pq_sendint32](pq_sendint32.md)
   - elog (for error handling)
 - Called from (representative examples):
-  - logicalrep_write_tuple
-  - string_agg_serialize
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
+  - [string_agg_serialize](../s/string_agg_serialize.md)
 
 ## Notes and Other Information
 - This function is deprecated and should be avoided in new code

@@ -24,13 +24,13 @@ The function ensures that no temporary files or file descriptors leak beyond tra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CleanupTempFiles (performs the actual cleanup of temporary files)
+  - [CleanupTempFiles](../C/CleanupTempFiles.md) (performs the actual cleanup of temporary files)
   - tempTableSpaces (global variable reset to NULL)
   - numTempTableSpaces (global variable reset to -1)
 - Called from (representative examples):
-  - CommitTransaction (in src/backend/access/transam/xact.c:2417)
-  - AbortTransaction (in src/backend/access/transam/xact.c:2926)
-  - PrepareTransaction (in src/backend/access/transam/xact.c:2706)
+  - [CommitTransaction](../C/CommitTransaction.md) (in src/backend/access/transam/xact.c:2417)
+  - [AbortTransaction](AbortTransaction.md) (in src/backend/access/transam/xact.c:2926)
+  - [PrepareTransaction](../P/PrepareTransaction.md) (in src/backend/access/transam/xact.c:2706)
   - Various background processes (bgwriter, checkpointer, walwriter, etc.)
 
 ## Notes and Other Information

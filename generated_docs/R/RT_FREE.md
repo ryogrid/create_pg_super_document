@@ -31,9 +31,9 @@ The function ensures complete memory cleanup and helps prevent memory leaks by p
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (for name generation)
-  - RT_FREE_RECURSE (in shared memory mode)
-  - MemoryContextReset (in regular mode)
-  - dsa_free (in shared memory mode)
+  - [RT_FREE_RECURSE](RT_FREE_RECURSE.md) (in shared memory mode)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (in regular mode)
+  - [dsa_free](../d/dsa_free.md) (in shared memory mode)
 - Called from (representative examples):
   - User code that needs to clean up radix trees
   - Memory cleanup routines

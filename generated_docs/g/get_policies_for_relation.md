@@ -26,12 +26,12 @@ The function handles the special 'ALL' command type ('*') which applies to all o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_role_for_policy
-  - sort_policies_by_name
+  - [check_role_for_policy](../c/check_role_for_policy.md)
+  - [sort_policies_by_name](../s/sort_policies_by_name.md)
   - row_security_policy_hook_restrictive (hook)
   - row_security_policy_hook_permissive (hook)
 - Called from (representative examples):
-  - get_row_security_policies (multiple times for different command types)
+  - [get_row_security_policies](get_row_security_policies.md) (multiple times for different command types)
 
 ## Notes and Other Information
 - The MERGE command type is handled specially - it doesn't have its own policies but derives them from other command types

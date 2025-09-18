@@ -23,12 +23,12 @@ This function takes no parameters.
   - AmCheckpointerProcess (check if current process is checkpointer)
   - AllocSetContextCreate (create memory allocation context)
   - MemoryContextAllowInCriticalSection (allow memory allocation in critical sections)
-  - hash_create (create hash table)
+  - [hash_create](../h/hash_create.md) (create hash table)
   - HASHCTL (hash table control structure)
   - FileTag (key type for hash table)
   - PendingFsyncEntry (value type for hash table)
 - Called from (representative examples):
-  - BaseInit (initialization function in postinit.c:671)
+  - [BaseInit](../B/BaseInit.md) (initialization function in postinit.c:671)
 
 ## Notes and Other Information
 - The function includes a detailed comment about the theoretical risk of running out of memory while absorbing fsync requests within a critical section, which would lead to a PANIC

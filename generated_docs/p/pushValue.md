@@ -26,16 +26,16 @@ The function implements a comprehensive operand storage system where strings are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pushValue_internal (internal implementation for stack operations)
-  - repalloc (PostgreSQL memory reallocation function)
+  - [pushValue_internal](pushValue_internal.md) (internal implementation for stack operations)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation function)
   - memcpy (standard C memory copy function)
   - ereturn (PostgreSQL error return macro)
   - INIT_LEGACY_CRC32, COMP_LEGACY_CRC32, FIN_LEGACY_CRC32 (CRC calculation macros)
   - MAXSTRLEN (PostgreSQL string length limit constant)
   - pg_crc32 (PostgreSQL CRC32 type)
 - Called from (representative examples):
-  - pushval_morph
-  - pushval_asis
+  - [pushval_morph](pushval_morph.md)
+  - [pushval_asis](pushval_asis.md)
   - P_TSQ_WEB
 
 ## Notes and Other Information
@@ -44,6 +44,6 @@ The function implements a comprehensive operand storage system where strings are
 - CRC calculation uses PostgreSQL's legacy CRC32 implementation for consistency with existing query structures
 - The operand buffer (state->op) stores all operand strings contiguously with null terminators
 - Error handling validates string length against MAXSTRLEN before processing
-- The distance calculation (state->curop - state->op) represents the offset of the current operand in the buffer
+- The distance calculation (state->curop - [state](../s/state.md)->op) represents the offset of the current operand in the buffer
 - Buffer management includes proper pointer arithmetic to maintain the curop position after reallocation
 - The sumlen field tracks the total length of all stored operands plus their null terminators

@@ -25,15 +25,15 @@ The information schema provides a standardized way for applications to discover 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_run_file (executes SQL script files)
+  - [setup_run_file](setup_run_file.md) (executes SQL script files)
   - PG_CMD_PRINTF (macro for formatted SQL output)
-  - escape_quotes (escapes quotes in file paths)
+  - [escape_quotes](../e/escape_quotes.md) (escapes quotes in file paths)
   - infoversion (global variable containing formatted version string)
   - info_schema_file (global variable containing path to information schema SQL file)
   - features_file (global variable containing path to SQL features data file)
 
 - Called from:
-  - initialize_data_directory (main database initialization function)
+  - [initialize_data_directory](../i/initialize_data_directory.md) (main database initialization function)
 
 ## Notes and Other Information
 - The information schema is defined by the SQL standard (ISO/IEC 9075) and provides portable metadata access

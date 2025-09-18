@@ -22,25 +22,25 @@ The function uses proper SQL escaping for both identifiers and literals when con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQescapeIdentifier
-  - PQescapeLiteral
+  - [PQescapeIdentifier](../P/PQescapeIdentifier.md)
+  - [PQescapeLiteral](../P/PQescapeLiteral.md)
   - createPQExpBuffer
-  - appendPQExpBuffer
-  - PQexec
-  - PQresultStatus
-  - PQresultErrorMessage
-  - PQntuples
-  - PQclear
-  - resetPQExpBuffer
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQclear](../P/PQclear.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
   - pg_log_info
   - pg_log_debug
   - pg_log_error
   - pg_log_error_hint
-  - disconnect_database
-  - PQfreemem
+  - [disconnect_database](../d/disconnect_database.md)
+  - [PQfreemem](../P/PQfreemem.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - setup_publisher
+  - [setup_publisher](../s/setup_publisher.md)
 
 ## Notes and Other Information
 - Creates publications with "FOR ALL TABLES" clause to include all tables in the database
@@ -48,5 +48,5 @@ The function uses proper SQL escaping for both identifiers and literals when con
 - Performs existence checking before creation to provide informative error messages
 - Supports dry run mode for testing without making actual changes
 - Sets the made_publication flag in LogicalRepInfo for proper cleanup handling
-- Publication names are properly escaped to prevent SQL injection vulnerabilities
+- [Publication](../P/Publication.md) names are properly escaped to prevent SQL injection vulnerabilities
 - Error handling includes helpful hints for resolving naming conflicts

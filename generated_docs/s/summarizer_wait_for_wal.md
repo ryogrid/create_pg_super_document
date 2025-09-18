@@ -28,15 +28,15 @@ This function takes no parameters but operates on several global state variables
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitLatch
-  - ResetLatch
+  - [WaitLatch](../W/WaitLatch.md)
+  - [ResetLatch](../R/ResetLatch.md)
   - MAX_SLEEP_QUANTA (constant)
   - WL_LATCH_SET (latch flag)
   - WL_TIMEOUT (latch flag)
   - WL_EXIT_ON_PM_DEATH (latch flag)
   - MS_PER_SLEEP_QUANTUM (constant)
 - Called from (representative examples):
-  - summarizer_read_local_xlog_page
+  - [summarizer_read_local_xlog_page](summarizer_read_local_xlog_page.md)
 
 ## Notes and Other Information
 - The adaptive algorithm prevents both tight-looping (wasting CPU) and excessive delays (reducing responsiveness)

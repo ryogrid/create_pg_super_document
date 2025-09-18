@@ -33,13 +33,13 @@ The function is designed to be lightweight and non-blocking, making it suitable 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogRecPtrIsInvalid
   - LWLockConditionalAcquire
   - RefreshXLogWriteResult
 - Called from (representative examples):
-  - SetHintBits
-  - GetVictimBuffer
+  - [SetHintBits](../S/SetHintBits.md)
+  - [GetVictimBuffer](../G/GetVictimBuffer.md)
 
 ## Notes and Other Information
 - Uses different semantics during recovery (minRecoveryPoint) vs normal operation (WAL flush)

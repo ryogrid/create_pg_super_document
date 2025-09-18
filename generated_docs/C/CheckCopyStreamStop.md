@@ -21,12 +21,12 @@ The function operates within the context of WAL streaming operations, typically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StreamCtl (structure type)
-  - close_walfile
-  - PQputCopyEnd
-  - PQflush
+  - [StreamCtl](../S/StreamCtl.md) (structure type)
+  - [close_walfile](../c/close_walfile.md)
+  - [PQputCopyEnd](../P/PQputCopyEnd.md)
+  - [PQflush](../P/PQflush.md)
 - Called from (representative examples):
-  - HandleCopyStream
+  - [HandleCopyStream](../H/HandleCopyStream.md)
 
 ## Notes and Other Information
 - This is a static function internal to receivelog.c, used specifically in WAL streaming contexts

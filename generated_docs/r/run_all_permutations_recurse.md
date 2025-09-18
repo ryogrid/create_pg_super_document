@@ -22,14 +22,14 @@ When all sessions have exhausted their steps (all piles are empty), it executes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TestSpec (struct type)
-  - PermutationStep (struct type) 
-  - Step (struct type)
-  - run_all_permutations_recurse (recursive self-call)
-  - run_permutation
+  - [TestSpec](../T/TestSpec.md) (struct type)
+  - [PermutationStep](../P/PermutationStep.md) (struct type) 
+  - [Step](../S/Step.md) (struct type)
+  - [run_all_permutations_recurse](run_all_permutations_recurse.md) (recursive self-call)
+  - [run_permutation](run_permutation.md)
 - Called from (representative examples):
-  - run_all_permutations
-  - run_all_permutations_recurse (recursive calls)
+  - [run_all_permutations](run_all_permutations.md)
+  - [run_all_permutations_recurse](run_all_permutations_recurse.md) (recursive calls)
 
 ## Notes and Other Information
 - Uses a backtracking algorithm to generate all possible step orderings

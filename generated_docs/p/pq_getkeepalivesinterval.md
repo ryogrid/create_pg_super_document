@@ -24,8 +24,8 @@ This function returns the TCP keepalive interval setting for a port connection. 
   - IPPROTO_TCP (protocol constant)
   - socklen_t (socket length type)
 - Called from (representative examples):
-  - pq_setkeepalivesinterval
-  - show_tcp_keepalives_interval
+  - [pq_setkeepalivesinterval](pq_setkeepalivesinterval.md)
+  - [show_tcp_keepalives_interval](../s/show_tcp_keepalives_interval.md)
 
 ## Notes and Other Information
 - Platform-dependent implementation using conditional compilation (#ifdef TCP_KEEPINTVL)

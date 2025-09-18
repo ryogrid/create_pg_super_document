@@ -23,7 +23,7 @@ This function performs a conversion from a time with time zone data type to a pl
   - TimeTzADT: Time with timezone data type
   - TimeADT: Plain time data type
 - Called from (representative examples):
-  - executeDateTimeMethod: Used in JSON path execution for datetime method processing
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md): Used in JSON path execution for datetime method processing
 
 ## Notes and Other Information
 - This is a simple extraction function that performs no validation or complex processing

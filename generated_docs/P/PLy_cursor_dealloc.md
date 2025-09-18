@@ -23,9 +23,9 @@ The function follows Python's object deallocation protocol by calling the type's
 - Functions called/Symbols referenced:
   - GetPortalByName
   - PortalIsValid
-  - UnpinPortal
-  - SPI_cursor_close
-  - MemoryContextDelete
+  - [UnpinPortal](../U/UnpinPortal.md)
+  - [SPI_cursor_close](../S/SPI_cursor_close.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - tp_free (Python C API via ob_type)
 - Called from (representative examples):
   - Python garbage collector (referenced in PLy_CursorType.tp_dealloc)

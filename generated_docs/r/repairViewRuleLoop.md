@@ -24,9 +24,9 @@ The function assumes that when this repair is applied, there are no other object
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - removeObjectDependency
+  - [removeObjectDependency](removeObjectDependency.md)
 - Called from (representative examples):
-  - repairDependencyLoop
+  - [repairDependencyLoop](repairDependencyLoop.md)
 
 ## Notes and Other Information
 - Specifically handles view-rule circular dependencies in pg_dump

@@ -26,11 +26,11 @@ The function runs in the leader process and blocks until all parallel workers ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease (mutex protection)
-  - ConditionVariableSleep (wait for workers)
-  - ConditionVariableCancelSleep (cleanup wait state)
-  - BrinShared (shared state structure)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md) (wait for workers)
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md) (cleanup wait state)
+  - [BrinShared](../B/BrinShared.md) (shared state structure)
 - Called from (representative examples):
-  - _brin_parallel_merge (during parallel merge phase)
+  - [_brin_parallel_merge](_brin_parallel_merge.md) (during parallel merge phase)
 
 ## Notes and Other Information
 - Returns the total number of heap tuples scanned across all workers

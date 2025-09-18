@@ -19,16 +19,16 @@ The function is part of PostgreSQL's Unicode case conversion testing infrastruct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_lowercase_simple
-  - unicode_titlecase_simple  
-  - unicode_uppercase_simple
+  - [unicode_lowercase_simple](../u/unicode_lowercase_simple.md)
+  - [unicode_titlecase_simple](../u/unicode_titlecase_simple.md)  
+  - [unicode_uppercase_simple](../u/unicode_uppercase_simple.md)
   - u_tolower (ICU function)
   - u_totitle (ICU function)
   - u_toupper (ICU function)
   - printf
   - exit
 - Called from (representative examples):
-  - test_icu
+  - [test_icu](../t/test_icu.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the case_test.c compilation unit

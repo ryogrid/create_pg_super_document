@@ -26,12 +26,12 @@ The function ensures proper memory management by:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ecpg_free
-  - PQclear
-  - descriptor (struct type)
+  - [PQclear](../P/PQclear.md)
+  - [descriptor](descriptor.md) (struct type)
   - descriptor_item (struct type)
 - Called from (representative examples):
-  - ECPGdeallocate_desc
-  - descriptor_deallocate_all
+  - [ECPGdeallocate_desc](../E/ECPGdeallocate_desc.md)
+  - [descriptor_deallocate_all](descriptor_deallocate_all.md)
 
 ## Notes and Other Information
 - Static function, only accessible within the same source file

@@ -17,18 +17,18 @@ This function is part of the pg_dump utility's object management system. It sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct) 
-  - TypeInfo (struct)
+  - [TypeInfo](../T/TypeInfo.md) (struct)
   - DO_TYPE (enum value)
   - DO_DUMMY_TYPE (enum value)
 - Called from (representative examples):
-  - getCasts (src/bin/pg_dump/pg_dump.c:8672-8673)
-  - getTransforms (src/bin/pg_dump/pg_dump.c:8778)
-  - collectComments (src/bin/pg_dump/pg_dump.c:10497)
-  - collectSecLabels (src/bin/pg_dump/pg_dump.c:15693)
-  - getFormattedTypeName (src/bin/pg_dump/pg_dump.c:18958)
+  - [getCasts](../g/getCasts.md) (src/bin/pg_dump/pg_dump.c:8672-8673)
+  - [getTransforms](../g/getTransforms.md) (src/bin/pg_dump/pg_dump.c:8778)
+  - [collectComments](../c/collectComments.md) (src/bin/pg_dump/pg_dump.c:10497)
+  - [collectSecLabels](../c/collectSecLabels.md) (src/bin/pg_dump/pg_dump.c:15693)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md) (src/bin/pg_dump/pg_dump.c:18958)
 
 ## Notes and Other Information
 - Returns NULL if no type with the specified OID is found

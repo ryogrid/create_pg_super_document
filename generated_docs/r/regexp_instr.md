@@ -34,18 +34,18 @@ The function uses PostgreSQL's internal regular expression engine and integrates
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP_IF_EXISTS: Extract optional text arguments
-  - parse_re_flags: Parse regular expression flags
-  - setup_regexp_matches: Set up pattern matching context
+  - [parse_re_flags](../p/parse_re_flags.md): Parse regular expression flags
+  - [setup_regexp_matches](../s/setup_regexp_matches.md): Set up pattern matching context
   - PG_GET_COLLATION: Get current collation for locale-aware matching
   - PG_NARGS: Get number of function arguments
   - Various PostgreSQL error reporting functions
 
 - Called from (representative examples):
-  - regexp_instr_no_start: Wrapper without start parameter
-  - regexp_instr_no_n: Wrapper without occurrence parameter
-  - regexp_instr_no_endoption: Wrapper without end option parameter
-  - regexp_instr_no_flags: Wrapper without flags parameter
-  - regexp_instr_no_subexpr: Wrapper without subexpression parameter
+  - [regexp_instr_no_start](regexp_instr_no_start.md): Wrapper without start parameter
+  - [regexp_instr_no_n](regexp_instr_no_n.md): Wrapper without occurrence parameter
+  - [regexp_instr_no_endoption](regexp_instr_no_endoption.md): Wrapper without end option parameter
+  - [regexp_instr_no_flags](regexp_instr_no_flags.md): Wrapper without flags parameter
+  - [regexp_instr_no_subexpr](regexp_instr_no_subexpr.md): Wrapper without subexpression parameter
 
 ## Notes and Other Information
 - Returns 1-based positions (PostgreSQL SQL standard)

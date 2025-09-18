@@ -23,20 +23,20 @@ This separation is crucial for PostgreSQL's transaction handling, as it allows t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - raw_parser
+  - [raw_parser](../r/raw_parser.md)
   - RAW_PARSE_DEFAULT
   - ResetUsage
   - ShowUsage
   - copyObject (debugging)
-  - equal (debugging)
-  - nodeToStringWithLocations (debugging)
-  - stringToNodeWithLocations (debugging)
+  - [equal](../e/equal.md) (debugging)
+  - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md) (debugging)
+  - [stringToNodeWithLocations](../s/stringToNodeWithLocations.md) (debugging)
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_parse_message
-  - fmgr_sql_validator
-  - init_sql_fcache
-  - inline_function
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_parse_message](../e/exec_parse_message.md)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [inline_function](../i/inline_function.md)
 
 ## Notes and Other Information
 - Returns a List of RawStmt nodes since multiple commands may be present in a single query string

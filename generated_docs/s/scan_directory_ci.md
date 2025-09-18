@@ -23,13 +23,13 @@ This function performs a case-insensitive directory scan to locate a file matchi
 - Functions called/Symbols referenced:
   - AllocateDir (allocates directory descriptor)
   - ReadDirExtended (reads directory entries with error logging)
-  - pg_strncasecmp (case-insensitive string comparison)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (case-insensitive string comparison)
   - strlcpy (safe string copying)
   - FreeDir (frees directory descriptor)
   - DIR (directory structure type)
-  - dirent (directory entry structure)
+  - [dirent](../d/dirent.md) (directory entry structure)
 - Called from (representative examples):
-  - pg_open_tzfile (in src/timezone/pgtz.c:126)
+  - [pg_open_tzfile](../p/pg_open_tzfile.md) (in src/timezone/pgtz.c:126)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the same source file

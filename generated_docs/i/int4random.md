@@ -23,8 +23,8 @@ The function includes input validation to ensure the lower bound is less than or
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT32` - Extracts 32-bit integer arguments from function call
-  - `initialize_prng` - Ensures PRNG is seeded before use
-  - `pg_prng_int64_range` - Generates unbiased random integer within specified range
+  - `[initialize_prng](initialize_prng.md)` - Ensures PRNG is seeded before use
+  - `[pg_prng_int64_range](../p/pg_prng_int64_range.md)` - Generates unbiased random integer within specified range
   - `PG_RETURN_INT32` - Returns 32-bit integer from PostgreSQL function
 - Called from:
   - No direct callers found in the analyzed codebase (likely called from SQL)

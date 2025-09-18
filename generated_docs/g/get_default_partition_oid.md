@@ -21,15 +21,15 @@ The function is a simpler alternative to get_default_oid_from_partdesc() when yo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (via PARTRELID cache)
-  - ObjectIdGetDatum
+  - [SearchSysCache1](../S/SearchSysCache1.md) (via PARTRELID cache)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
   - GETSTRUCT (macro)
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Form_pg_partitioned_table (struct type)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - RelationBuildPartitionDesc
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the parentId doesn't correspond to a partitioned table or if no default partition is configured

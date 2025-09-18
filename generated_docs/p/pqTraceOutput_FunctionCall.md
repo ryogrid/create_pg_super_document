@@ -40,11 +40,11 @@ The function follows the PostgreSQL FunctionCall message format:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputInt32 (for function OID and parameter lengths)
-  - pqTraceOutputInt16 (for parameter format codes and counts)
-  - pqTraceOutputNchar (for parameter value data)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (for function OID and parameter lengths)
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md) (for parameter format codes and counts)
+  - [pqTraceOutputNchar](pqTraceOutputNchar.md) (for parameter value data)
 - Called from (representative examples):
-  - pqTraceOutputMessage
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md)
 
 ## Notes and Other Information
 - This is a static function internal to the fe-trace.c module

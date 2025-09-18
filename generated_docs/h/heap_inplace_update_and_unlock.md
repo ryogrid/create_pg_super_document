@@ -35,24 +35,24 @@ Critical constraints:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerEquals
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - START_CRIT_SECTION/END_CRIT_SECTION
   - memcpy
   - MarkBufferDirty
   - RelationNeedsWAL
-  - ItemPointerGetOffsetNumber
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogRegisterBuffer
-  - XLogRegisterBufData
-  - XLogInsert
-  - PageSetLSN
-  - BufferGetPage
-  - heap_inplace_unlock
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogRegisterBufData](../X/XLogRegisterBufData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [heap_inplace_unlock](heap_inplace_unlock.md)
   - IsBootstrapProcessingMode
-  - CacheInvalidateHeapTuple
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
 - Called from (representative examples):
-  - systable_inplace_update_finish
+  - [systable_inplace_update_finish](../s/systable_inplace_update_finish.md)
   - HeapScanIsValid (indirect reference)
 
 ## Notes and Other Information

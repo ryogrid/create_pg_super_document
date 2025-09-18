@@ -35,7 +35,7 @@ The function maintains backward compatibility by using slightly different whites
   - appendStringInfoChar (for parentheses and type indicators)
   - IsA (macro for type checking)
   - outNode (recursive function for serializing node elements)
-  - lnext (macro for list traversal)
+  - [lnext](../l/lnext.md) (macro for list traversal)
   - lfirst_int (macro for extracting integer values)
   - lfirst_oid (macro for extracting OID values)  
   - lfirst_xid (macro for extracting XID values)

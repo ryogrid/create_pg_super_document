@@ -21,11 +21,11 @@ The maintenance I/O concurrency setting controls how many concurrent I/O operati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_tablespace
+  - [get_tablespace](get_tablespace.md)
   - TableSpaceCacheEntry
   - maintenance_io_concurrency (global variable)
 - Called from (representative examples):
-  - heap_index_delete_tuples
+  - [heap_index_delete_tuples](../h/heap_index_delete_tuples.md)
   - read_stream_begin_relation
   - SPCCACHE_H (header declaration)
 

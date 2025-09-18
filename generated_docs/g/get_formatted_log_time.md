@@ -30,14 +30,14 @@ The function uses a specific format: "YYYY-MM-DD HH:MM:SS.mmm TZ" where mmm repr
 - Functions called/Symbols referenced:
   - gettimeofday (system call for current time)
   - pg_strftime (PostgreSQL timezone-aware strftime)
-  - pg_localtime (PostgreSQL timezone-aware localtime)  
+  - [pg_localtime](../p/pg_localtime.md) (PostgreSQL timezone-aware localtime)  
   - sprintf, memcpy (standard C library functions)
   - FORMATTED_TS_LEN (constant defining timestamp buffer length)
   - pg_time_t (PostgreSQL time type)
 - Called from (representative examples):
-  - write_csvlog
-  - write_jsonlog
-  - log_status_format
+  - [write_csvlog](../w/write_csvlog.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
+  - [log_status_format](../l/log_status_format.md)
 
 ## Notes and Other Information
 - Uses static variables formatted_log_time[], saved_timeval, and saved_timeval_set for caching

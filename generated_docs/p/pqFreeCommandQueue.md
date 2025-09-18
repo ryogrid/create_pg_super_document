@@ -21,11 +21,11 @@ This function is essential for connection cleanup and memory management in libpq
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGcmdQueueEntry (struct type)
+  - [PGcmdQueueEntry](../P/PGcmdQueueEntry.md) (struct type)
   - free (standard library function)
 
 - Called from (representative examples):
-  - pqDropConnection (twice - for cmd_queue_head and cmd_queue_recycle)
+  - [pqDropConnection](pqDropConnection.md) (twice - for cmd_queue_head and cmd_queue_recycle)
   - internalPQconninfoOption
 
 ## Notes and Other Information

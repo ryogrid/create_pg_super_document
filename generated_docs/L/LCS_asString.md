@@ -25,11 +25,11 @@ The function is used extensively throughout the parser and planner components wh
   - LCS_NONE, LCS_FORKEYSHARE, LCS_FORSHARE, LCS_FORNOKEYUPDATE, LCS_FORUPDATE (enum values)
   - Assert (assertion macro)
 - Called from (representative examples):
-  - CheckSelectLocking (multiple times for error reporting)
-  - transformLockingClause (multiple times for error reporting)  
-  - transformValuesClause
-  - transformSetOperationStmt
-  - transformDeclareCursorStmt
+  - [CheckSelectLocking](../C/CheckSelectLocking.md) (multiple times for error reporting)
+  - [transformLockingClause](../t/transformLockingClause.md) (multiple times for error reporting)  
+  - [transformValuesClause](../t/transformValuesClause.md)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md)
+  - [transformDeclareCursorStmt](../t/transformDeclareCursorStmt.md)
 
 ## Notes and Other Information
 - The function should never be called with LCS_NONE as this represents no locking clause and will trigger an assertion failure

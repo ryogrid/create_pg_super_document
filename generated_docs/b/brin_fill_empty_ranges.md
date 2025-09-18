@@ -23,12 +23,12 @@ This mechanism ensures that the BRIN index maintains complete coverage of the ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinBuildState (struct type)
-  - brin_build_empty_tuple
-  - brin_doinsert
+  - [BrinBuildState](../B/BrinBuildState.md) (struct type)
+  - [brin_build_empty_tuple](brin_build_empty_tuple.md)
+  - [brin_doinsert](brin_doinsert.md)
 - Called from (representative examples):
-  - brinbuild
-  - _brin_parallel_merge
+  - [brinbuild](brinbuild.md)
+  - [_brin_parallel_merge](_brin_parallel_merge.md)
   - BRIN_ALL_BLOCKRANGES (macro context)
 
 ## Notes and Other Information

@@ -26,17 +26,17 @@ The algorithm follows a two-phase approach: first it processes all entry pages s
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - initGinState
-  - ginInsertCleanup
-  - ReadBufferExtended
-  - ginVacuumEntryPage
-  - ginVacuumPostingTree
-  - PageRestoreTempPage
-  - xlogVacuumPage
-  - vacuum_delay_point
-  - MemoryContextDelete
+  - [initGinState](../i/initGinState.md)
+  - [ginInsertCleanup](ginInsertCleanup.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [ginVacuumEntryPage](ginVacuumEntryPage.md)
+  - [ginVacuumPostingTree](ginVacuumPostingTree.md)
+  - [PageRestoreTempPage](../P/PageRestoreTempPage.md)
+  - [xlogVacuumPage](../x/xlogVacuumPage.md)
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - ginhandler (as part of index AM interface)
+  - [ginhandler](ginhandler.md) (as part of index AM interface)
 
 ## Notes and Other Information
 - Entry point for GIN index vacuum operations called by the vacuum subsystem

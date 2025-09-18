@@ -23,13 +23,13 @@ The generated paths are added to the relation's pathlist, where the query optimi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_path (adds sequential scan path to relation's pathlist)
-  - create_seqscan_path (creates sequential scan access path)
-  - create_plain_partial_paths (generates parallel scan paths)
-  - create_index_paths (generates index-based access paths)
-  - create_tidscan_paths (creates TID scan access paths)
+  - [add_path](../a/add_path.md) (adds sequential scan path to relation's pathlist)
+  - [create_seqscan_path](../c/create_seqscan_path.md) (creates sequential scan access path)
+  - [create_plain_partial_paths](../c/create_plain_partial_paths.md) (generates parallel scan paths)
+  - [create_index_paths](../c/create_index_paths.md) (generates index-based access paths)
+  - [create_tidscan_paths](../c/create_tidscan_paths.md) (creates TID scan access paths)
 - Called from:
-  - set_rel_pathlist (main pathlist generation dispatcher)
+  - [set_rel_pathlist](set_rel_pathlist.md) (main pathlist generation dispatcher)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c that handles the simplest case of base relation access

@@ -27,8 +27,8 @@ The tracker works by recording WAL flush events with their timestamps using LagT
   - LAG_TRACKER_BUFFER_SIZE (buffer size constant)
   - NUM_SYNC_REP_WAIT_MODE (number of sync modes)
 - Called from (representative examples):
-  - LagTrackerWrite (records new samples)
-  - LagTrackerRead (computes lag from samples)
+  - [LagTrackerWrite](LagTrackerWrite.md) (records new samples)
+  - [LagTrackerRead](LagTrackerRead.md) (computes lag from samples)
 
 ## Notes and Other Information
 - The circular buffer prevents memory growth by overwriting old samples when full

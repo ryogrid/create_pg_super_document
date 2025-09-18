@@ -18,12 +18,12 @@ WIDGET is a test data type defined in the PostgreSQL regression test suite. It w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (built-in PostgreSQL geometric type)
+  - [Point](../P/Point.md) (built-in PostgreSQL geometric type)
   - PG_FUNCTION_INFO_V1 (PostgreSQL function registration macro)
 - Called from (representative examples):
-  - widget_in (input function for WIDGET type)
-  - widget_out (output function for WIDGET type)
-  - pt_in_widget (function to test if a point is inside a widget)
+  - [widget_in](../w/widget_in.md) (input function for WIDGET type)
+  - [widget_out](../w/widget_out.md) (output function for WIDGET type)
+  - [pt_in_widget](../p/pt_in_widget.md) (function to test if a point is inside a widget)
 
 ## Notes and Other Information
 - This is a test-only data type located in src/test/regress/regress.c:163-167

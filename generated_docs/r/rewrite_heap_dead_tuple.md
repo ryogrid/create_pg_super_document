@@ -21,10 +21,10 @@ The function performs garbage collection by checking if there are any unresolved
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderGetXmin
-  - hash_search
-  - heap_freetuple
+  - [hash_search](../h/hash_search.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 
 ## Notes and Other Information
 - Returns true if an unresolved tuple entry was removed, false otherwise

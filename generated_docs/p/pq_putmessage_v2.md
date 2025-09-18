@@ -29,7 +29,7 @@ Returns:
 - Functions called/Symbols referenced:
   -  (lines 1565, 1568) - places raw bytes into the send buffer
 - Global variables accessed:
-  -  - flag to prevent reentrant calls and message interleaving
+  -  - [flag](../f/flag.md) to prevent reentrant calls and message interleaving
 - Referenced by:
   -  (src/backend/utils/error/elog.c:3638) - likely for error reporting
   -  (src/include/libpq/libpq.h:83) - for event handling scenarios

@@ -23,10 +23,10 @@ The function first checks if the input clause has a parent equivalence class (if
 ## Dependencies
 - Functions called/Symbols referenced:
   - EquivalenceClass (structure type for equivalence class representation)
-  - RestrictInfo (structure accessed for parent_ec field)
-  - List traversal (foreach macro and lfirst function)
+  - [RestrictInfo](../R/RestrictInfo.md) (structure accessed for parent_ec field)
+  - [List](../L/List.md) traversal (foreach macro and lfirst function)
 - Called from (representative examples):
-  - create_tidscan_plan (src/backend/optimizer/plan/createplan.c:3583)
+  - [create_tidscan_plan](../c/create_tidscan_plan.md) (src/backend/optimizer/plan/createplan.c:3583)
 
 ## Notes and Other Information
 - Only works with clauses that have been derived from equivalence classes (parent_ec != NULL)

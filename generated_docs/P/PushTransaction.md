@@ -37,14 +37,14 @@ This function takes no parameters and operates on global transaction state varia
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAllocZero
-  - NewGUCNestLevel
-  - GetUserIdAndSecContext
-  - pfree (on error path)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md)
+  - [GetUserIdAndSecContext](../G/GetUserIdAndSecContext.md)
+  - [pfree](../p/pfree.md) (on error path)
   - ereport, errcode, errmsg (on error path)
 - Called from (representative examples):
-  - DefineSavepoint
-  - BeginInternalSubTransaction
+  - [DefineSavepoint](../D/DefineSavepoint.md)
+  - [BeginInternalSubTransaction](../B/BeginInternalSubTransaction.md)
 
 ## Notes and Other Information
 - The function includes a warning that callers must reassign CurrentTransactionState local pointers after calling this function

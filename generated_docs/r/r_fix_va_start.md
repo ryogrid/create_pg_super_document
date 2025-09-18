@@ -19,11 +19,11 @@ The function employs a complex control flow with multiple labels and gotos to ef
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s (string equality comparison function used 8 times for pattern matching)
-  - slice_from_s (string replacement function)
+  - [eq_s](../e/eq_s.md) (string equality comparison function used 8 times for pattern matching)
+  - [slice_from_s](../s/slice_from_s.md) (string replacement function)
 - Called from (representative examples):
-  - r_remove_question_prefixes (Tamil question prefix removal function)
-  - r_remove_pronoun_prefixes (Tamil pronoun prefix removal function)
+  - [r_remove_question_prefixes](r_remove_question_prefixes.md) (Tamil question prefix removal function)
+  - [r_remove_pronoun_prefixes](r_remove_pronoun_prefixes.md) (Tamil pronoun prefix removal function)
 
 ## Notes and Other Information
 - Returns 1 on successful pattern matching and replacement, 0 if no patterns match

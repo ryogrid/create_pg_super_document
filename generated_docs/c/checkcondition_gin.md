@@ -29,7 +29,7 @@ This callback is crucial for the two-phase checking process in GIN text search: 
 - Functions called/Symbols referenced:
   -  - Structure containing check array and mapping information
   -  - Text search query operand structure
-  -  - Query tree item type for pointer arithmetic
+  -  - [Query](../Q/Query.md) tree item type for pointer arithmetic
   -  - Data structure for phrase execution context
   -  - GIN ternary logic values (TRUE, FALSE, MAYBE)
   -  - Text search ternary logic values

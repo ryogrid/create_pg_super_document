@@ -21,7 +21,7 @@ The `dclist_head_element_off` function is an internal utility that computes the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dclist_is_empty
+  - [dclist_is_empty](dclist_is_empty.md)
 - Called from (representative examples):
   - dclist_head_element
 

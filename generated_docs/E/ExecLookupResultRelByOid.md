@@ -22,16 +22,16 @@ The function first checks if a hash table () exists for fast lookups. If present
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - RelationGetRelid
   - elog
 - Data structures used:
-  - ModifyTableState
-  - MTTargetRelLookup
-  - ResultRelInfo
+  - [ModifyTableState](../M/ModifyTableState.md)
+  - [MTTargetRelLookup](../M/MTTargetRelLookup.md)
+  - [ResultRelInfo](../R/ResultRelInfo.md)
 - Called from (representative examples):
-  - ExecFindPartition
-  - ExecModifyTable
+  - [ExecFindPartition](ExecFindPartition.md)
+  - [ExecModifyTable](ExecModifyTable.md)
   - exec_rt_fetch
 
 ## Notes and Other Information

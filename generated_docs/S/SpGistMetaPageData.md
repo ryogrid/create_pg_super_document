@@ -24,11 +24,11 @@ SpGistMetaPageData represents the structure stored in the metapage of SP-GiST in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistLUPCache: The cache structure for maintaining last-used page information
+  - [SpGistLUPCache](SpGistLUPCache.md): The cache structure for maintaining last-used page information
 - Called from (representative examples):
-  - spgGetCache (in src/backend/access/spgist/spgutils.c)
-  - SpGistUpdateMetaPage (in src/backend/access/spgist/spgutils.c)
-  - SpGistInitMetapage (in src/backend/access/spgist/spgutils.c)
+  - [spgGetCache](../s/spgGetCache.md) (in src/backend/access/spgist/spgutils.c)
+  - [SpGistUpdateMetaPage](SpGistUpdateMetaPage.md) (in src/backend/access/spgist/spgutils.c)
+  - [SpGistInitMetapage](SpGistInitMetapage.md) (in src/backend/access/spgist/spgutils.c)
   - SpGistPageGetMeta (in src/include/access/spgist_private.h)
 
 ## Notes and Other Information

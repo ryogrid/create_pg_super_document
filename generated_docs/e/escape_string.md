@@ -21,12 +21,12 @@ This is essential for preventing SQL injection and ensuring that user input cont
 - Functions called/Symbols referenced:
   - strlen
   - pg_malloc
-  - PQescapeStringConn
+  - [PQescapeStringConn](../P/PQescapeStringConn.md)
 - Called from (representative examples):
-  - _complete_from_query (multiple locations)
-  - make_like_pattern
-  - get_guctype
-  - escape_fmt_id (in test modules)
+  - [_complete_from_query](../c/_complete_from_query.md) (multiple locations)
+  - [make_like_pattern](../m/make_like_pattern.md)
+  - [get_guctype](../g/get_guctype.md)
+  - [escape_fmt_id](escape_fmt_id.md) (in test modules)
 
 ## Notes and Other Information
 The returned string must be freed by the caller. The function allocates memory for the worst-case scenario where every character might need escaping. Uses the current database connection (pset.db) for context-aware escaping that considers the connection's encoding and other settings.

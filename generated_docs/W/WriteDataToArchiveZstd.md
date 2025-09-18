@@ -22,11 +22,11 @@ This function serves as the main entry point for compressing data using ZSTD in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ZstdCompressorState (cast target for private_data)
-  - _ZstdWriteCommon (internal helper for compression processing)
-  - CompressorState (compression state structure)
+  - [ZstdCompressorState](../Z/ZstdCompressorState.md) (cast target for private_data)
+  - [_ZstdWriteCommon](../Z/_ZstdWriteCommon.md) (internal helper for compression processing)
+  - [CompressorState](../C/CompressorState.md) (compression state structure)
 - Called from (representative examples):
-  - InitCompressorZstd (registered as data write callback)
+  - [InitCompressorZstd](../I/InitCompressorZstd.md) (registered as data write callback)
 
 ## Notes and Other Information
 - This is a static function internal to the compress_zstd.c module

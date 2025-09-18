@@ -27,9 +27,9 @@ The function enforces strict non-NULL semantics - neither the argument nor the r
   - InitFunctionCallInfoData
   - elog (for error reporting)
 - Called from (representative examples):
-  - Generic_Text_IC_like
+  - [Generic_Text_IC_like](../G/Generic_Text_IC_like.md)
   - texthashfast
-  - libpqrcv_create_slot
+  - [libpqrcv_create_slot](../l/libpqrcv_create_slot.md)
   - DirectFunctionCall1 (macro wrapper)
 
 ## Notes and Other Information

@@ -22,8 +22,8 @@ The  structure is part of PostgreSQL's pg_dump utility framework, designed to st
   - DumpableObject (base structure)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - getOpclasses (allocation and initialization of operator class arrays)
-  - dumpOpclass (for dumping operator class definitions)
+  - [getOpclasses](../g/getOpclasses.md) (allocation and initialization of operator class arrays)
+  - [dumpOpclass](../d/dumpOpclass.md) (for dumping operator class definitions)
   - Comparison functions in pg_dump_sort.c (for sorting operator classes during dump)
 
 ## Notes and Other Information

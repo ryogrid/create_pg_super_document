@@ -20,18 +20,18 @@ This function is responsible for the final phase of transaction processing in Po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelApplyWorkerInfo
-  - am_leader_apply_worker
-  - pa_unlock_stream
+  - [ParallelApplyWorkerInfo](../P/ParallelApplyWorkerInfo.md)
+  - [am_leader_apply_worker](../a/am_leader_apply_worker.md)
+  - [pa_unlock_stream](pa_unlock_stream.md)
   - AccessExclusiveLock
-  - pa_wait_for_xact_finish
+  - [pa_wait_for_xact_finish](pa_wait_for_xact_finish.md)
   - XLogRecPtrIsInvalid
-  - store_flush_position
-  - pa_free_worker
+  - [store_flush_position](../s/store_flush_position.md)
+  - [pa_free_worker](pa_free_worker.md)
 - Called from (representative examples):
-  - apply_handle_stream_prepare
-  - apply_handle_stream_abort
-  - apply_handle_stream_commit
+  - [apply_handle_stream_prepare](../a/apply_handle_stream_prepare.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
+  - [apply_handle_stream_commit](../a/apply_handle_stream_commit.md)
 
 ## Notes and Other Information
 - Only valid to call from the leader apply worker context (enforced by Assert)

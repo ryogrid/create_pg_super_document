@@ -22,11 +22,11 @@ LockPage is a PostgreSQL locking function that acquires a page-level lock on a s
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_PAGE
-  - LockAcquire
+  - [LockAcquire](LockAcquire.md)
   - LOCKTAG
 - Called from (representative examples):
-  - ginInsertCleanup
-  - XLTW_Oper
+  - [ginInsertCleanup](../g/ginInsertCleanup.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - This function is specifically designed for page-level locking, which is more granular than relation-level locking

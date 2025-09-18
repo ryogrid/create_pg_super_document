@@ -29,7 +29,7 @@ The function follows PostgreSQL's function call convention using `PG_FUNCTION_AR
   - `PG_GETARG_INT32`: Extract integer argument from function call  
   - `PG_GETARG_BOOL`: Extract boolean argument from function call
   - `CHECK_ENCODING_CONVERSION_ARGS`: Validate source and destination encodings
-  - `LocalToUtf`: Core conversion function that performs EUC-KR to UTF-8 conversion
+  - `[LocalToUtf](../L/LocalToUtf.md)`: Core conversion function that performs EUC-KR to UTF-8 conversion
   - `euc_kr_to_unicode_tree`: Precomputed radix tree for EUC-KR to Unicode mapping
   - `PG_RETURN_INT32`: Return integer result from function
 - Called from (representative examples):

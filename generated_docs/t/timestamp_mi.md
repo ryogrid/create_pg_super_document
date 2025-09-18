@@ -31,8 +31,8 @@ The implementation includes a documented workaround that maintains backward comp
   - PG_GETARG_TIMESTAMP (PostgreSQL function call interface macro)
   - TIMESTAMP_NOT_FINITE, TIMESTAMP_IS_NOBEGIN, TIMESTAMP_IS_NOEND (infinity checking macros)
   - INTERVAL_NOBEGIN, INTERVAL_NOEND (infinity setting macros for intervals)
-  - pg_sub_s64_overflow (safe 64-bit subtraction with overflow detection)
-  - interval_justify_hours (normalizes hours to days conversion)
+  - [pg_sub_s64_overflow](../p/pg_sub_s64_overflow.md) (safe 64-bit subtraction with overflow detection)
+  - [interval_justify_hours](../i/interval_justify_hours.md) (normalizes hours to days conversion)
   - DirectFunctionCall1, DatumGetIntervalP, IntervalPGetDatum (PostgreSQL function call utilities)
   - PG_RETURN_INTERVAL_P (PostgreSQL return value macro)
 - Called from (representative examples):

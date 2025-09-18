@@ -20,10 +20,10 @@ This function determines if a specified character encoding can be used with ICU-
   - PG_VALID_BE_ENCODING (macro for validating backend encodings)
   - pg_enc2icu_tbl (global mapping table from PostgreSQL encodings to ICU encoding names)
 - Called from (representative examples):
-  - lookup_collation (src/backend/catalog/namespace.c:2351)
-  - DefineCollation (src/backend/commands/collationcmds.c:337)  
-  - createdb (src/backend/commands/dbcommands.c:1106)
-  - check_icu_locale_encoding (src/bin/initdb/initdb.c:2284)
+  - [lookup_collation](../l/lookup_collation.md) (src/backend/catalog/namespace.c:2351)
+  - [DefineCollation](../D/DefineCollation.md) (src/backend/commands/collationcmds.c:337)  
+  - [createdb](../c/createdb.md) (src/backend/commands/dbcommands.c:1106)
+  - [check_icu_locale_encoding](../c/check_icu_locale_encoding.md) (src/bin/initdb/initdb.c:2284)
 
 ## Notes and Other Information
 - Returns false for invalid backend encodings or encodings without ICU support

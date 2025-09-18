@@ -17,18 +17,18 @@ EndPrepare finalizes the two-phase commit preparation process initiated by Start
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterTwoPhaseRecord
-  - XLogEnsureRecordSpace
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogSetRecordFlags
-  - XLogInsert
-  - XLogFlush
-  - MarkAsPrepared
-  - SyncRepWaitForLSN
-  - replorigin_session_advance
+  - [RegisterTwoPhaseRecord](../R/RegisterTwoPhaseRecord.md)
+  - [XLogEnsureRecordSpace](../X/XLogEnsureRecordSpace.md)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogSetRecordFlags](../X/XLogSetRecordFlags.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [XLogFlush](../X/XLogFlush.md)
+  - [MarkAsPrepared](../M/MarkAsPrepared.md)
+  - [SyncRepWaitForLSN](../S/SyncRepWaitForLSN.md)
+  - [replorigin_session_advance](../r/replorigin_session_advance.md)
 - Called from (representative examples):
-  - PrepareTransaction
+  - [PrepareTransaction](../P/PrepareTransaction.md)
 
 ## Notes and Other Information
 - Uses DELAY_CHKPT_START flags to coordinate with checkpoint process to ensure state file is properly fsync'd

@@ -21,15 +21,15 @@ The function sets up a `WriteManifestState` structure to track the output file h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WriteManifestState (struct for maintaining file state)
+  - [WriteManifestState](../W/WriteManifestState.md) (struct for maintaining file state)
   - fopen (standard C library function to open the output file)
-  - ReceiveCopyData (PostgreSQL utility function for receiving streamed data)
-  - ReceiveBackupManifestChunk (callback function for processing manifest chunks)
+  - [ReceiveCopyData](ReceiveCopyData.md) (PostgreSQL utility function for receiving streamed data)
+  - [ReceiveBackupManifestChunk](ReceiveBackupManifestChunk.md) (callback function for processing manifest chunks)
   - fclose (standard C library function to close the output file)
-  - pg_fatal (PostgreSQL error handling function)
+  - [pg_fatal](../p/pg_fatal.md) (PostgreSQL error handling function)
 
 - Called from (representative examples):
-  - BaseBackup (main base backup orchestration function)
+  - [BaseBackup](../B/BaseBackup.md) (main base backup orchestration function)
 
 ## Notes and Other Information
 - The manifest file is initially created with a `.tmp` extension for atomicity

@@ -26,18 +26,18 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - ScanTupleHashTable
-  - select_current_set
+  - [select_current_set](../s/select_current_set.md)
   - ResetTupleHashIterator
   - ResetExprContext
-  - ExecStoreMinimalTuple
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
   - slot_getallattrs
   - ExecClearTuple
-  - ExecStoreVirtualTuple
-  - prepare_projection_slot
-  - finalize_aggregates
-  - project_aggregates
+  - [ExecStoreVirtualTuple](../E/ExecStoreVirtualTuple.md)
+  - [prepare_projection_slot](../p/prepare_projection_slot.md)
+  - [finalize_aggregates](../f/finalize_aggregates.md)
+  - [project_aggregates](../p/project_aggregates.md)
 - Called from (representative examples):
-  - agg_retrieve_hash_table
+  - [agg_retrieve_hash_table](agg_retrieve_hash_table.md)
 
 ## Notes and Other Information
 - This function only handles in-memory hash tables and does not process spilled tuples

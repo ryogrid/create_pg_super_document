@@ -28,7 +28,7 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC, PG_RETURN_NUMERIC
-  - numeric_mod_opt_error (core implementation)
+  - [numeric_mod_opt_error](numeric_mod_opt_error.md) (core implementation)
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function dispatch)
 

@@ -21,19 +21,19 @@ The  function orchestrates the entire SP-GiST tuple insertion process. It begins
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistGetLeafTupleSize
-  - spgFormLeafTuple
-  - addLeafTuple
-  - checkSplitConditions
-  - moveLeafs
-  - doPickSplit
-  - spgMatchNodeAction
-  - spgAddNodeAction
-  - spgSplitNodeAction
-  - spgExtractNodeLabels
+  - [SpGistGetLeafTupleSize](../S/SpGistGetLeafTupleSize.md)
+  - [spgFormLeafTuple](spgFormLeafTuple.md)
+  - [addLeafTuple](../a/addLeafTuple.md)
+  - [checkSplitConditions](../c/checkSplitConditions.md)
+  - [moveLeafs](../m/moveLeafs.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgMatchNodeAction](spgMatchNodeAction.md)
+  - [spgAddNodeAction](spgAddNodeAction.md)
+  - [spgSplitNodeAction](spgSplitNodeAction.md)
+  - [spgExtractNodeLabels](spgExtractNodeLabels.md)
 - Called from (representative examples):
-  - spgistBuildCallback
-  - spginsert
+  - [spgistBuildCallback](spgistBuildCallback.md)
+  - [spginsert](spginsert.md)
 
 ## Notes and Other Information
 Returns true on successful insertion, false if insertion failed due to conflicts (requiring retry by caller). The function includes comprehensive interrupt handling to prevent infinite loops from broken opclasses, with progress tracking for tuple size reduction during prefix stripping. It manages buffer locking carefully to avoid deadlocks during tree descent, using conditional locking and retry mechanisms. The function supports both regular and null value insertion, routing to appropriate tree sections. Size validation prevents oversized tuples from being inserted unless the opclass supports long value handling through successive prefix stripping operations.

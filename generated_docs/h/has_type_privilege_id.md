@@ -20,9 +20,9 @@ This function is a PostgreSQL built-in function that checks whether the current 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId: Gets the current user's OID
-  - convert_type_priv_string: Converts privilege text to AclMode bitmask
-  - object_aclcheck_ext: Performs the actual access control check
+  - [GetUserId](../G/GetUserId.md): Gets the current user's OID
+  - [convert_type_priv_string](../c/convert_type_priv_string.md): Converts privilege text to AclMode bitmask
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md): Performs the actual access control check
   - PG_RETURN_NULL: Returns NULL if type is missing
   - PG_RETURN_BOOL: Returns boolean result of privilege check
 - Called from (representative examples):

@@ -23,13 +23,13 @@ After updating the statistics, the function schedules the next statistics update
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lrq_inflight (gets number of pending I/O operations)
-  - lrq_completed (gets number of completed I/O operations)
+  - [lrq_inflight](../l/lrq_inflight.md) (gets number of pending I/O operations)
+  - [lrq_completed](../l/lrq_completed.md) (gets number of completed I/O operations)
   - XLOGPREFETCHER_STATS_DISTANCE (constant defining update interval)
 - Called from (representative examples):
-  - XLogPrefetcherReadRecord (during regular record processing)
-  - ShutdownWalRecovery (during recovery shutdown)
-  - WaitForWALToBecomeAvailable (during WAL availability checks)
+  - [XLogPrefetcherReadRecord](XLogPrefetcherReadRecord.md) (during regular record processing)
+  - [ShutdownWalRecovery](../S/ShutdownWalRecovery.md) (during recovery shutdown)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md) (during WAL availability checks)
 
 ## Notes and Other Information
 - Updates three key shared memory statistics: wal_distance, io_depth, and block_distance

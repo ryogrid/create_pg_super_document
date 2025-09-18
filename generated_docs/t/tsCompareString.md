@@ -31,19 +31,19 @@ The implementation carefully handles boundary conditions including zero-length s
   - Min: Macro to find minimum of two values
 
 - Called from (representative examples):
-  - compareWORD: Word comparison in text search parsing
-  - hlfinditem: Text search parsing operations
-  - gin_cmp_tslexeme: GIN index comparison for tsvector lexemes
-  - gin_cmp_prefix: GIN index prefix comparison
+  - [compareWORD](../c/compareWORD.md): Word comparison in text search parsing
+  - [hlfinditem](../h/hlfinditem.md): Text search parsing operations
+  - [gin_cmp_tslexeme](../g/gin_cmp_tslexeme.md): GIN index comparison for tsvector lexemes
+  - [gin_cmp_prefix](../g/gin_cmp_prefix.md): GIN index prefix comparison
   - QTNodeCompare: Query tree node comparison
   - WordECompareQueryItem: Query ranking comparisons
-  - compareQueryOperand: Query operand comparison in ranking
-  - compareentry: Entry comparison in tsvector operations
-  - silly_cmp_tsvector: Tsvector comparison operations
+  - [compareQueryOperand](../c/compareQueryOperand.md): Query operand comparison in ranking
+  - [compareentry](../c/compareentry.md): Entry comparison in tsvector operations
+  - [silly_cmp_tsvector](../s/silly_cmp_tsvector.md): Tsvector comparison operations
   - compareEntry: Entry comparison in tsvector operations
-  - tsvector_bsearch: Binary search in tsvector
-  - compare_text_lexemes: Text lexeme comparison
-  - checkcondition_str: Condition checking for text search
+  - [tsvector_bsearch](tsvector_bsearch.md): Binary search in tsvector
+  - [compare_text_lexemes](../c/compare_text_lexemes.md): Text lexeme comparison
+  - [checkcondition_str](../c/checkcondition_str.md): Condition checking for text search
   - compareStatWord: Statistical word comparison
 
 ## Notes and Other Information

@@ -22,17 +22,17 @@ The core update operation is delegated to heap_inplace_update_and_unlock(), whic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_inplace_update_and_unlock
-  - systable_endscan
-  - SysScanDesc (type)
+  - [heap_inplace_update_and_unlock](../h/heap_inplace_update_and_unlock.md)
+  - [systable_endscan](systable_endscan.md)
+  - [SysScanDesc](../S/SysScanDesc.md) (type)
   - BufferHeapTupleTableSlot (type)
 - Called from (representative examples):
-  - index_update_stats
-  - create_toast_table  
-  - dropdb
-  - EventTriggerOnLogin
-  - vac_update_relstats
-  - vac_update_datfrozenxid
+  - [index_update_stats](../i/index_update_stats.md)
+  - [create_toast_table](../c/create_toast_table.md)  
+  - [dropdb](../d/dropdb.md)
+  - [EventTriggerOnLogin](../E/EventTriggerOnLogin.md)
+  - [vac_update_relstats](../v/vac_update_relstats.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
 
 ## Notes and Other Information
 - Must be paired with a prior successful call to systable_inplace_update_begin()

@@ -19,7 +19,7 @@ The printSimpleStats function formats and displays basic statistical metrics for
   - printf - Standard output formatting function
   - SimpleStats - Structure type containing statistical data
 - Called from (representative examples):
-  - printResults - Main results printing function that uses this for displaying latency and lag statistics
+  - [printResults](printResults.md) - Main results printing function that uses this for displaying latency and lag statistics
 
 ## Notes and Other Information
 - Only prints statistics when count > 0 to avoid division by zero errors

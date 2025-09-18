@@ -23,7 +23,7 @@ This function implements the division operator for mixed-precision floating-poin
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8: Extracts float8 argument from function call context
   - PG_GETARG_FLOAT4: Extracts float4 argument from function call context
-  - float8_div: Performs the actual float8 division with error handling
+  - [float8_div](float8_div.md): Performs the actual float8 division with error handling
   - PG_RETURN_FLOAT8: Returns the float8 result
 - Called from (representative examples):
   - No direct references found in the codebase

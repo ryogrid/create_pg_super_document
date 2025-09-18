@@ -31,11 +31,11 @@ The SecurityRestrictionContext contains flags that indicate various security res
   - CurrentUserId (global static variable access)
   - SecurityRestrictionContext (global static variable access)
 - Called from (representative examples):
-  - StartTransaction, PushTransaction (transaction management)
-  - brin_summarize_range, do_analyze_rel, cluster_rel (maintenance operations)
-  - DefineIndex, reindex_index (index operations)
-  - fmgr_security_definer (security definer functions)
-  - SwitchToUntrustedUser (user context switching)
+  - [StartTransaction](../S/StartTransaction.md), PushTransaction (transaction management)
+  - [brin_summarize_range](../b/brin_summarize_range.md), do_analyze_rel, cluster_rel (maintenance operations)
+  - [DefineIndex](../D/DefineIndex.md), reindex_index (index operations)
+  - [fmgr_security_definer](../f/fmgr_security_definer.md) (security definer functions)
+  - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md) (user context switching)
 
 ## Notes and Other Information
 - This function never throws errors or assertions, making it safe for error recovery contexts

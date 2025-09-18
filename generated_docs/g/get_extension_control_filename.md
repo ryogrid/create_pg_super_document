@@ -19,11 +19,11 @@ The function uses PostgreSQL's standard path resolution mechanisms and memory ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_share_path (PostgreSQL path utility function)
-  - palloc (PostgreSQL memory allocation function)
+  - [get_share_path](get_share_path.md) (PostgreSQL path utility function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - snprintf (standard C library function)
 - Called from (representative examples):
-  - parse_extension_control_file
+  - [parse_extension_control_file](../p/parse_extension_control_file.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the src/backend/commands/extension.c file

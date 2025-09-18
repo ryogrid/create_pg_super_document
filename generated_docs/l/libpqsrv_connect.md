@@ -20,9 +20,9 @@ The function will throw an error if file descriptor acquisition fails through Ac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpqsrv_connect_prepare
-  - PQconnectStart
-  - libpqsrv_connect_internal
+  - [libpqsrv_connect_prepare](libpqsrv_connect_prepare.md)
+  - [PQconnectStart](../P/PQconnectStart.md)
+  - [libpqsrv_connect_internal](libpqsrv_connect_internal.md)
 - Called from (representative examples):
   - No direct references found in the analyzed codebase
 

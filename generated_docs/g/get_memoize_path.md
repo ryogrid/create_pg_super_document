@@ -33,15 +33,15 @@ When all conditions are met, the function creates a MemoizePath using the collec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - paraminfo_get_equal_hashops
-  - create_memoize_path
-  - contain_volatile_functions
-  - bms_num_members
+  - [paraminfo_get_equal_hashops](../p/paraminfo_get_equal_hashops.md)
+  - [create_memoize_path](../c/create_memoize_path.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [bms_num_members](../b/bms_num_members.md)
   - JOIN_SEMI
   - JOIN_ANTI
 - Called from (representative examples):
-  - match_unsorted_outer
-  - consider_parallel_nestloop
+  - [match_unsorted_outer](../m/match_unsorted_outer.md)
+  - [consider_parallel_nestloop](../c/consider_parallel_nestloop.md)
 
 ## Notes and Other Information
 This function is static and used internally within joinpath.c. It implements sophisticated logic to handle unique joins where nested loops may not scan the inner relation to completion, requiring special handling for cache entry marking.

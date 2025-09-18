@@ -19,11 +19,11 @@ This function retrieves the start timestamp of a backend process identified by i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_beentry_by_proc_number
+  - [pgstat_get_beentry_by_proc_number](pgstat_get_beentry_by_proc_number.md)
   - HAS_PGSTAT_PERMISSIONS  
   - PG_RETURN_TIMESTAMPTZ
 - Data types used:
-  - PgBackendStatus
+  - [PgBackendStatus](../P/PgBackendStatus.md)
   - TimestampTz
 
 ## Notes and Other Information

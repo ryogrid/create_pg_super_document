@@ -32,10 +32,10 @@ The exclusion list is kept synchronized with the list used in basebackup.c to en
 - Functions called/Symbols referenced:
   - `strlen` (standard C library function for string length)
   - `strncmp` (standard C library function for string comparison)
-  - `skip` (static array of exclude_list_item structures)
+  - `[skip](skip.md)` (static array of exclude_list_item structures)
 
 - Called from (representative examples):
-  - `scan_directory` function in pg_checksums.c during directory traversal
+  - `[scan_directory](scan_directory.md)` function in pg_checksums.c during directory traversal
 
 ## Notes and Other Information
 - This is a static function with internal linkage, accessible only within pg_checksums.c

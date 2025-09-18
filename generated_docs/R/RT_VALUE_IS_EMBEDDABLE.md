@@ -27,7 +27,7 @@ The function checks if the size of the value is less than or equal to the size o
   - RT_GET_VALUE_SIZE (macro to get the size of a value)
   - RT_PTR_ALLOC (type representing pointer allocation slots)
 - Called from (representative examples):
-  - RT_SET (within the radix tree set operation at src/include/lib/radixtree.h:1754)
+  - [RT_SET](RT_SET.md) (within the radix tree set operation at src/include/lib/radixtree.h:1754)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's generic radix tree implementation template. The RT_ prefix and function name are generated based on the specific instantiation parameters. This optimization allows small values to be stored directly in pointer slots rather than requiring separate memory allocations, which can significantly improve memory efficiency and cache performance for radix trees storing small values.

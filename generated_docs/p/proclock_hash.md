@@ -21,7 +21,7 @@ The function works by first computing the hash code of the associated LOCK objec
 ## Dependencies
 - Functions called/Symbols referenced:
   - LockTagHashCode: Computes hash code for the associated LOCK's tag
-  - PointerGetDatum: Converts pointer to Datum for hash computation
+  - [PointerGetDatum](../P/PointerGetDatum.md): Converts pointer to Datum for hash computation
   - LOG2_NUM_LOCK_PARTITIONS: Used to left-shift the process pointer to preserve partition bits
 - Called from (representative examples):
   - InitLocks: Used during lock manager initialization

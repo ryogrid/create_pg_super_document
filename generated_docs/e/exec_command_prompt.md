@@ -23,14 +23,14 @@ The `exec_command_prompt` function handles the `\prompt` backslash command in ps
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option()` - Parses command arguments (prompt text and variable name)
   - `simple_prompt_extended()` - Prompts for user input interactively with SIGINT support
-  - `gets_fromFile()` - Reads input from file when not in interactive mode
+  - `[gets_fromFile](../g/gets_fromFile.md)()` - Reads input from file when not in interactive mode
   - `SetVariable()` - Sets the psql variable with the input value
   - `fputs()`, `fflush()` - Standard I/O functions for displaying prompt text
   - `free()` - Memory management
   - `pg_log_error()` - Error logging
-  - `ignore_slash_options()` - Handles unused options when inactive
+  - `[ignore_slash_options](../i/ignore_slash_options.md)()` - Handles unused options when inactive
 - Called from (representative examples):
-  - `exec_command` - Main command dispatcher in psql
+  - `[exec_command](exec_command.md)` - Main command dispatcher in psql
 
 ## Notes and Other Information
 - Returns `PSQL_CMD_SKIP_LINE` on success, `PSQL_CMD_ERROR` on failure

@@ -34,7 +34,7 @@ The final selectivity is clamped to 1.0 to handle cases where multiple wildcards
   - ANY_CHAR_SEL (selectivity constant for _ wildcard)  
   - FIXED_CHAR_SEL (selectivity constant for literal characters)
 - Called from:
-  - like_fixed_prefix (when estimating selectivity for the remaining pattern after prefix extraction)
+  - [like_fixed_prefix](like_fixed_prefix.md) (when estimating selectivity for the remaining pattern after prefix extraction)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, not exposed in the public API

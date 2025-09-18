@@ -23,16 +23,16 @@ The function delegates the actual work to ExecTypeFromTLInternal with the 'hasoi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecTypeFromTLInternal (the actual implementation function)
+  - [ExecTypeFromTLInternal](ExecTypeFromTLInternal.md) (the actual implementation function)
 - Called from (representative examples):
-  - ExecInitResultTypeTL
-  - find_hash_columns
-  - build_pertrans_for_aggref
-  - ExecInitCustomScan
-  - ExecInitForeignScan
-  - ExecInitIndexOnlyScan
-  - ExecInitSubPlan
-  - ordered_set_startup
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [find_hash_columns](../f/find_hash_columns.md)
+  - [build_pertrans_for_aggref](../b/build_pertrans_for_aggref.md)
+  - [ExecInitCustomScan](ExecInitCustomScan.md)
+  - [ExecInitForeignScan](ExecInitForeignScan.md)
+  - [ExecInitIndexOnlyScan](ExecInitIndexOnlyScan.md)
+  - [ExecInitSubPlan](ExecInitSubPlan.md)
+  - [ordered_set_startup](../o/ordered_set_startup.md)
 
 ## Notes and Other Information
 - This function specifically handles parse/plan target lists, not ExprState target lists

@@ -21,9 +21,9 @@ This function serves as a callback for SLRU directory scanning operations in the
 ## Dependencies
 - Functions called/Symbols referenced:
   - elog (for logging NOTICE messages)
-  - SlruScanDirCbDeleteAll (the actual deletion callback function)
+  - [SlruScanDirCbDeleteAll](../S/SlruScanDirCbDeleteAll.md) (the actual deletion callback function)
 - Called from (representative examples):
-  - test_slru_delete_all
+  - [test_slru_delete_all](test_slru_delete_all.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the test_slru.c file

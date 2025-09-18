@@ -303,16 +303,16 @@ Text creation and manipulation
   - XLogReadBufferForRedo
   - XLogInitBufferForRedo
   - BTPageGetOpaque
-  - BTreeTupleGetDownLink
-  - BTreeTupleSetDownLink
-  - BTreeTupleSetTopParent
-  - PageIndexTupleDelete
-  - _bt_pageinit
+  - [BTreeTupleGetDownLink](../B/BTreeTupleGetDownLink.md)
+  - [BTreeTupleSetDownLink](../B/BTreeTupleSetDownLink.md)
+  - [BTreeTupleSetTopParent](../B/BTreeTupleSetTopParent.md)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)
+  - [_bt_pageinit](_bt_pageinit.md)
   - PageAddItem
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - This is a static function used internally for B-tree WAL recovery

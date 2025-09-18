@@ -27,23 +27,23 @@ After establishing the connection, it constructs and stores a canonical connecti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - trivalue (enum type for tristate values)
-  - PQconninfoOption (PostgreSQL connection info structure)
-  - TRI_YES/TRI_NO (tristate constants)
+  - [trivalue](../t/trivalue.md) (enum type for tristate values)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (PostgreSQL connection info structure)
+  - [TRI_YES](../T/TRI_YES.md)/TRI_NO (tristate constants)
   - simple_prompt (password prompting utility)
-  - PQconninfoFree (connection info cleanup)
-  - PQconninfoParse (connection string parsing)
+  - [PQconninfoFree](../P/PQconninfoFree.md) (connection info cleanup)
+  - [PQconninfoParse](../P/PQconninfoParse.md) (connection string parsing)
   - pg_malloc0 (memory allocation)
-  - PQconnectdbParams (PostgreSQL connection establishment)
+  - [PQconnectdbParams](../P/PQconnectdbParams.md) (PostgreSQL connection establishment)
   - PQstatus/CONNECTION_BAD (connection status checking)
-  - PQconnectionNeedsPassword (password requirement checking)
-  - PQfinish (connection cleanup)
-  - constructConnStr (connection string construction)
+  - [PQconnectionNeedsPassword](../P/PQconnectionNeedsPassword.md) (password requirement checking)
+  - [PQfinish](../P/PQfinish.md) (connection cleanup)
+  - [constructConnStr](constructConnStr.md) (connection string construction)
   - PQparameterStatus/PQserverVersion (version checking)
-  - executeQuery/ALWAYS_SECURE_SEARCH_PATH_SQL (security initialization)
+  - [executeQuery](../e/executeQuery.md)/ALWAYS_SECURE_SEARCH_PATH_SQL (security initialization)
 - Called from (representative examples):
-  - main (in pg_dumpall.c at multiple lines)
-  - connectMaintenanceDatabase (in connect_utils.c)
+  - [main](../m/main.md) (in pg_dumpall.c at multiple lines)
+  - [connectMaintenanceDatabase](connectMaintenanceDatabase.md) (in connect_utils.c)
   - Various database utilities (pg_amcheck, clusterdb, reindexdb, vacuumdb)
 
 ## Notes and Other Information

@@ -19,17 +19,17 @@ This function constructs a comprehensive Python dictionary that contains all the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyUnicode_FromString
-  - PLy_input_from_tuple
+  - [PLyUnicode_FromString](PLyUnicode_FromString.md)
+  - [PLy_input_from_tuple](PLy_input_from_tuple.md)
   - DirectFunctionCall1
-  - DatumGetCString
+  - [DatumGetCString](../D/DatumGetCString.md)
   - SPI_getrelname
   - SPI_getnspname
   - TRIGGER_FIRED_BEFORE/AFTER/INSTEAD
   - TRIGGER_FIRED_FOR_ROW/STATEMENT
   - TRIGGER_FIRED_BY_INSERT/DELETE/UPDATE/TRUNCATE
 - Called from (representative examples):
-  - PLy_exec_trigger
+  - [PLy_exec_trigger](PLy_exec_trigger.md)
 
 ## Notes and Other Information
 The function creates a Python dictionary with the following keys:

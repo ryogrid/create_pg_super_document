@@ -25,8 +25,8 @@ The function uses PostgreSQL's function call interface, accessing arguments thro
   - PG_GETARG_JSONB_P: Retrieves JSONB argument from function call
   - PG_GETARG_TEXT_PP: Retrieves text argument from function call  
   - JB_ROOT_IS_OBJECT: Macro to check if JSONB root is an object type
-  - getKeyJsonValueFromContainer: Searches for a key in JSONB container and returns the value
-  - JsonbValueToJsonb: Converts JsonbValue to Jsonb format
+  - [getKeyJsonValueFromContainer](../g/getKeyJsonValueFromContainer.md): Searches for a key in JSONB container and returns the value
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md): Converts JsonbValue to Jsonb format
   - PG_RETURN_JSONB_P: Returns JSONB result from function
   - PG_RETURN_NULL: Returns NULL result from function
 - Called from (representative examples):

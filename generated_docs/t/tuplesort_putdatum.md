@@ -22,15 +22,15 @@ This function handles the insertion of individual Datum values into a sorting op
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - datumCopy
-  - DatumGetPointer
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - tuplesort_puttuple_common
 - Called from (representative examples):
-  - validate_index_callback
-  - ExecEvalAggOrderedTransDatum
-  - ExecSort
-  - ordered_set_transition
+  - [validate_index_callback](../v/validate_index_callback.md)
+  - [ExecEvalAggOrderedTransDatum](../E/ExecEvalAggOrderedTransDatum.md)
+  - [ExecSort](../E/ExecSort.md)
+  - [ordered_set_transition](../o/ordered_set_transition.md)
 
 ## Notes and Other Information
 - Handles NULL values by setting datum1 to zero for consistency and efficient comparison

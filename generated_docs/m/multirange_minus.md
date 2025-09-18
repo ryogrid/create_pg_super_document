@@ -23,11 +23,11 @@ This function implements the minus (difference) operation for multirange types. 
 - Functions called/Symbols referenced:
   - PG_GETARG_MULTIRANGE_P
   - MultirangeTypeGetOid
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeIsEmpty
   - PG_RETURN_MULTIRANGE_P
-  - multirange_deserialize
-  - multirange_minus_internal
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [multirange_minus_internal](multirange_minus_internal.md)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's operator dispatch system)
 

@@ -23,17 +23,17 @@ Critical safety features include preventing drops of template databases, the cur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_info, CountOtherDBBackends, TerminateOtherDBBackends
-  - ReplicationSlotsCountDBSlots, ReplicationSlotsDropDBSlots
-  - CountDBSubscriptions
-  - DeleteSharedComments, DeleteSharedSecurityLabel, DropSetting
-  - dropDatabaseDependencies, pgstat_drop_database
-  - systable_inplace_update_begin, systable_inplace_update_finish
-  - DropDatabaseBuffers, ForgetDatabaseSyncRequests
-  - RequestCheckpoint, ForceSyncCommit
-  - remove_dbtablespaces
+  - [get_db_info](../g/get_db_info.md), CountOtherDBBackends, TerminateOtherDBBackends
+  - [ReplicationSlotsCountDBSlots](../R/ReplicationSlotsCountDBSlots.md), ReplicationSlotsDropDBSlots
+  - [CountDBSubscriptions](../C/CountDBSubscriptions.md)
+  - [DeleteSharedComments](../D/DeleteSharedComments.md), DeleteSharedSecurityLabel, DropSetting
+  - [dropDatabaseDependencies](dropDatabaseDependencies.md), pgstat_drop_database
+  - [systable_inplace_update_begin](../s/systable_inplace_update_begin.md), systable_inplace_update_finish
+  - [DropDatabaseBuffers](../D/DropDatabaseBuffers.md), ForgetDatabaseSyncRequests
+  - [RequestCheckpoint](../R/RequestCheckpoint.md), ForceSyncCommit
+  - [remove_dbtablespaces](../r/remove_dbtablespaces.md)
 - Called from (representative examples):
-  - DropDatabase (SQL command processing wrapper)
+  - [DropDatabase](../D/DropDatabase.md) (SQL command processing wrapper)
 
 ## Notes and Other Information
 - Uses AccessExclusiveLock to prevent concurrent access during the entire drop operation

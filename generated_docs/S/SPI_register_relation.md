@@ -18,12 +18,12 @@ This function is part of the SPI (Server Programming Interface) API that allows 
 ## Dependencies
 - Functions called/Symbols referenced:
   - _SPI_begin_call (to start SPI call context)
-  - _SPI_find_ENR_by_name (to check for duplicate names)
-  - create_queryEnv (to create query environment if needed)
-  - register_ENR (to actually register the relation)
+  - [_SPI_find_ENR_by_name](_SPI_find_ENR_by_name.md) (to check for duplicate names)
+  - [create_queryEnv](../c/create_queryEnv.md) (to create query environment if needed)
+  - [register_ENR](../r/register_ENR.md) (to actually register the relation)
   - _SPI_end_call (to end SPI call context)
 - Called from (representative examples):
-  - SPI_register_trigger_data
+  - [SPI_register_trigger_data](SPI_register_trigger_data.md)
 
 ## Notes and Other Information
 - Returns SPI_ERROR_ARGUMENT if enr is NULL or enr->md.name is NULL

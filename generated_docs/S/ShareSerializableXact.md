@@ -21,7 +21,7 @@ The function is designed to be lightweight and safe - it performs no validation 
 - Functions called/Symbols referenced:
   - MySerializableXact (global variable reference)
 - Called from (representative examples):
-  - InitializeParallelDSM (in src/backend/access/transam/parallel.c:353)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (in src/backend/access/transam/parallel.c:353)
 
 ## Notes and Other Information
 - This function is only meaningful when called from a process that has an active serializable transaction (MySerializableXact != InvalidSerializableXact)

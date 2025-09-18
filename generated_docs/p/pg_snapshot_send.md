@@ -28,10 +28,10 @@ The function uses PostgreSQL's standard binary output infrastructure with pq_* f
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_VARLENA_P
-  - pq_begintypsend
-  - pq_sendint32
-  - pq_sendint64
-  - pq_endtypsend
+  - [pq_begintypsend](pq_begintypsend.md)
+  - [pq_sendint32](pq_sendint32.md)
+  - [pq_sendint64](pq_sendint64.md)
+  - [pq_endtypsend](pq_endtypsend.md)
   - U64FromFullTransactionId
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):

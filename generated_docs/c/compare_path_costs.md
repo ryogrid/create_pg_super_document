@@ -30,13 +30,13 @@ For TOTAL_COST criterion (default):
   - CostSelector (enum type)
   - STARTUP_COST (enum value)
 - Called from (representative examples):
-  - get_cheapest_parameterized_child_path
-  - generate_mergejoin_paths
-  - get_cheapest_path_for_pathkeys
-  - compare_fractional_path_costs
-  - set_cheapest
-  - append_total_cost_compare
-  - append_startup_cost_compare
+  - [get_cheapest_parameterized_child_path](../g/get_cheapest_parameterized_child_path.md)
+  - [generate_mergejoin_paths](../g/generate_mergejoin_paths.md)
+  - [get_cheapest_path_for_pathkeys](../g/get_cheapest_path_for_pathkeys.md)
+  - [compare_fractional_path_costs](compare_fractional_path_costs.md)
+  - [set_cheapest](../s/set_cheapest.md)
+  - [append_total_cost_compare](../a/append_total_cost_compare.md)
+  - [append_startup_cost_compare](../a/append_startup_cost_compare.md)
 
 ## Notes and Other Information
 This is a fundamental utility function used throughout the PostgreSQL query optimizer for path selection and cost-based optimization. The deterministic tiebreaking ensures consistent behavior when paths have identical primary costs, which is important for reproducible query plans.

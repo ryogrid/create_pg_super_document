@@ -57,14 +57,14 @@ The structure supports both table-resident data (stored permanently in the hash 
 - Functions called/Symbols referenced:
   - tuplehash_hash (underlying hash implementation)
   - AttrNumber (column attribute numbers)
-  - FmgrInfo (function manager info)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info)
   - ExprState (expression evaluation state)
-  - MemoryContext (memory management)
+  - [MemoryContext](../M/MemoryContext.md) (memory management)
   - TupleTableSlot (tuple access interface)
   - ExprContext (expression evaluation context)
 - Called from (representative examples):
   - BuildTupleHashTableExt (src/backend/executor/execGrouping.c:180)
-  - TupleHashTable typedef (src/include/nodes/execnodes.h:800)
+  - [TupleHashTable](TupleHashTable.md) typedef (src/include/nodes/execnodes.h:800)
 
 ## Notes and Other Information
 - The separation of persistent and transient fields enables efficient reuse of hash tables across multiple operations

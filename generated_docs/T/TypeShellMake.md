@@ -26,19 +26,19 @@ Once the full CREATE TYPE command is processed, the dummy values in the shell ty
   - PointerIsValid
   - table_open
   - namestrcpy
-  - NameGetDatum, Int16GetDatum, CharGetDatum, BoolGetDatum, ObjectIdGetDatum, Int32GetDatum
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
+  - [NameGetDatum](../N/NameGetDatum.md), Int16GetDatum, CharGetDatum, BoolGetDatum, ObjectIdGetDatum, Int32GetDatum
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
   - IsBootstrapProcessingMode
-  - GenerateTypeDependencies
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)
   - InvokeObjectPostCreateHook
   - ObjectAddressSet
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
 - Called from (representative examples):
-  - compute_return_type (src/backend/commands/functioncmds.c:153)
-  - DefineType (src/backend/commands/typecmds.c:267)
+  - [compute_return_type](../c/compute_return_type.md) (src/backend/commands/functioncmds.c:153)
+  - [DefineType](../D/DefineType.md) (src/backend/commands/typecmds.c:267)
 
 ## Notes and Other Information
 - The shell type is created with characteristics similar to int4 (4-byte length, pass-by-value, integer alignment)

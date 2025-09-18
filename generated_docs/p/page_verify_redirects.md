@@ -19,19 +19,19 @@ The function performs comprehensive validation to catch bugs in HOT pruning logi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsRedirected
   - ItemIdGetRedirect
   - ItemIdIsUsed
   - ItemIdIsNormal
   - ItemIdHasStorage
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
   - HeapTupleHeaderIsHeapOnly
   - FirstOffsetNumber
   - OffsetNumberNext
 - Called from (representative examples):
-  - heap_page_prune_execute
+  - [heap_page_prune_execute](../h/heap_page_prune_execute.md)
 
 ## Notes and Other Information
 - This function only executes when PostgreSQL is built with assertion checking enabled

@@ -23,17 +23,17 @@ A key design decision is that the function never shrinks allocated arrays to avo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - MemoryContextAlloc
-  - repalloc
+  - [pfree](../p/pfree.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [repalloc](../r/repalloc.md)
   - MdCxt (memory context)
-  - MdfdVec (segment descriptor structure)
+  - [MdfdVec](../M/MdfdVec.md) (segment descriptor structure)
 - Called from (representative examples):
-  - mdcreate (src/backend/storage/smgr/md.c:236)
+  - [mdcreate](../m/mdcreate.md) (src/backend/storage/smgr/md.c:236)
   - mdopenfork (src/backend/storage/smgr/md.c:666)
-  - mdclose (src/backend/storage/smgr/md.c:705)
-  - mdtruncate (src/backend/storage/smgr/md.c:1204)
-  - _mdfd_openseg (src/backend/storage/smgr/md.c:1574)
+  - [mdclose](../m/mdclose.md) (src/backend/storage/smgr/md.c:705)
+  - [mdtruncate](../m/mdtruncate.md) (src/backend/storage/smgr/md.c:1204)
+  - [_mdfd_openseg](../m/_mdfd_openseg.md) (src/backend/storage/smgr/md.c:1574)
 
 ## Notes and Other Information
 - The function deliberately avoids shrinking arrays to prevent memory allocation in critical sections

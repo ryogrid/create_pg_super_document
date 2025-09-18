@@ -30,7 +30,7 @@ The conversion follows this mapping:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_MACADDR8_P`: Retrieves the input macaddr8 parameter
-  - `palloc0`: Allocates zero-initialized memory for the result
+  - `[palloc0](../p/palloc0.md)`: Allocates zero-initialized memory for the result
   - `ereport`: Reports error when conversion is not possible
   - `PG_RETURN_MACADDR_P`: Returns the macaddr result
 - Types referenced:

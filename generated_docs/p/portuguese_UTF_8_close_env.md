@@ -19,7 +19,7 @@ This function serves as a cleanup method for Portuguese stemming environments, e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct references found (likely called via external stemming interfaces)
 

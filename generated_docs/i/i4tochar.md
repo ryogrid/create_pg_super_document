@@ -23,8 +23,8 @@ This function performs a safe conversion from a 32-bit signed integer to Postgre
   - PG_GETARG_INT32 (macro for extracting int32 argument)
   - SCHAR_MIN, SCHAR_MAX (system constants for signed char range)
   - ereport (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
   - int8 (8-bit signed integer type)
   - PG_RETURN_CHAR (macro for returning char result)
 

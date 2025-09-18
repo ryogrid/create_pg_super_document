@@ -26,9 +26,9 @@ During this operation, the key space moves rightward as the parent page's downli
   - SizeOfBtreeMarkPageHalfDead (size calculation macro)
   - BTP_HALF_DEAD (page flag constant)
 - Called from (representative examples):
-  - _bt_mark_page_halfdead (src/backend/access/nbtree/nbtpage.c:2253)
-  - btree_xlog_mark_page_halfdead (src/backend/access/nbtree/nbtxlog.c:716)
-  - btree_desc (src/backend/access/rmgrdesc/nbtdesc.c:86)
+  - [_bt_mark_page_halfdead](../b/_bt_mark_page_halfdead.md) (src/backend/access/nbtree/nbtpage.c:2253)
+  - [btree_xlog_mark_page_halfdead](../b/btree_xlog_mark_page_halfdead.md) (src/backend/access/nbtree/nbtxlog.c:716)
+  - [btree_desc](../b/btree_desc.md) (src/backend/access/rmgrdesc/nbtdesc.c:86)
 
 ## Notes and Other Information
 - This is the first stage of a two-phase page deletion protocol; the second stage uses xl_btree_unlink_page

@@ -42,19 +42,19 @@ The function stops processing when the parser returns type <= 0, indicating end 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_ts_config_cache (retrieves text search configuration)
-  - lookup_ts_parser_cache (retrieves parser configuration)
+  - [lookup_ts_config_cache](../l/lookup_ts_config_cache.md) (retrieves text search configuration)
+  - [lookup_ts_parser_cache](../l/lookup_ts_parser_cache.md) (retrieves parser configuration)
   - FunctionCall2, FunctionCall3, FunctionCall1 (calls parser functions)
   - LexizeInit (initializes lexical analysis)
   - LexizeAddLemm (adds tokens to lexical queue)
-  - LexizeExec (processes tokens through dictionaries)
-  - repalloc (reallocates memory for growing word array)
-  - DatumGetInt32, DatumGetPointer (type conversion functions)
+  - [LexizeExec](../L/LexizeExec.md) (processes tokens through dictionaries)
+  - [repalloc](../r/repalloc.md) (reallocates memory for growing word array)
+  - [DatumGetInt32](../D/DatumGetInt32.md), DatumGetPointer (type conversion functions)
 - Called from (representative examples):
-  - to_tsvector_byid (main tsvector creation function)
-  - add_to_tsvector (incremental tsvector building)
-  - pushval_morph (morphological processing)
-  - tsvector_update_trigger (automatic tsvector updates)
+  - [to_tsvector_byid](../t/to_tsvector_byid.md) (main tsvector creation function)
+  - [add_to_tsvector](../a/add_to_tsvector.md) (incremental tsvector building)
+  - [pushval_morph](pushval_morph.md) (morphological processing)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (automatic tsvector updates)
 
 ## Notes and Other Information
 - This is a public function used throughout the text search subsystem

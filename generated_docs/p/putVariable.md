@@ -20,13 +20,13 @@ This function is responsible for setting the string value of a pgbench variable 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookupCreateVariable
-  - pg_strdup
+  - [lookupCreateVariable](../l/lookupCreateVariable.md)
+  - [pg_strdup](pg_strdup.md)
   - free
   - PGBT_NO_VALUE
 - Called from:
-  - readCommandResponse (src/bin/pgbench/pgbench.c:3307)
-  - main (src/bin/pgbench/pgbench.c:6826, 7225)
+  - [readCommandResponse](../r/readCommandResponse.md) (src/bin/pgbench/pgbench.c:3307)
+  - [main](../m/main.md) (src/bin/pgbench/pgbench.c:6826, 7225)
 
 ## Notes and Other Information
 - Returns false if the variable name is invalid or creation fails

@@ -23,9 +23,9 @@ The function retrieves the range table entry for the VALUES relation, counts the
   - planner_rt_fetch
   - RTE_VALUES
   - list_length (implicitly via rte->values_lists)
-  - set_baserel_size_estimates
+  - [set_baserel_size_estimates](set_baserel_size_estimates.md)
 - Called from (representative examples):
-  - set_rel_size
+  - [set_rel_size](set_rel_size.md)
 
 ## Notes and Other Information
 - Provides exact cardinality estimation rather than approximation since VALUES list length is known

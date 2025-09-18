@@ -19,17 +19,17 @@ The function also includes a compatibility fix for pre-PostgreSQL 11 versions by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
+  - [ReadBuffer](../R/ReadBuffer.md)
   - ConditionalLockBuffer
-  - BufferGetPage
+  - [BufferGetPage](../B/BufferGetPage.md)
   - SpGistPageGetMeta
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - ReleaseBuffer
 - Called from (representative examples):
-  - spgbuild
-  - spginsert
-  - spgvacuumscan
+  - [spgbuild](../s/spgbuild.md)
+  - [spginsert](../s/spginsert.md)
+  - [spgvacuumscan](../s/spgvacuumscan.md)
 
 ## Notes and Other Information
 This is an optimization function that operates on a "best effort" basis - if the metapage cannot be locked immediately, the update is simply skipped without error. The lastUsedPages information helps with efficient page allocation but is not critical for index correctness. The function includes important backward compatibility handling for pg_upgraded indexes from pre-v11 PostgreSQL versions.

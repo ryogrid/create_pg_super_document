@@ -19,10 +19,10 @@ This is a generic implementation of atomic read with memory barrier that ensures
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_atomic_fetch_add_u32_impl
-  - pg_atomic_uint32 (type)
+  - [pg_atomic_fetch_add_u32_impl](pg_atomic_fetch_add_u32_impl.md)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type)
 - Called from (representative examples):
-  - pg_atomic_read_membarrier_u32
+  - [pg_atomic_read_membarrier_u32](pg_atomic_read_membarrier_u32.md)
 
 ## Notes and Other Information
 - This is a generic fallback implementation used when native atomic read with memory barrier is not available

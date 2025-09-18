@@ -30,18 +30,18 @@ Unlike ensure_free_space_in_buffer, this function doesn't apply a load factor si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - minmax_multi_get_strategy_procinfo
-  - minmax_multi_get_procinfo
+  - [minmax_multi_get_strategy_procinfo](../m/minmax_multi_get_strategy_procinfo.md)
+  - [minmax_multi_get_procinfo](../m/minmax_multi_get_procinfo.md)
   - AllocSetContextCreate
-  - build_expanded_ranges
-  - build_distances
-  - reduce_expanded_ranges
-  - count_values
-  - store_expanded_ranges
-  - AssertCheckRanges
-  - MemoryContextDelete
+  - [build_expanded_ranges](../b/build_expanded_ranges.md)
+  - [build_distances](../b/build_distances.md)
+  - [reduce_expanded_ranges](../r/reduce_expanded_ranges.md)
+  - [count_values](count_values.md)
+  - [store_expanded_ranges](../s/store_expanded_ranges.md)
+  - [AssertCheckRanges](../A/AssertCheckRanges.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from:
-  - brin_minmax_multi_serialize
+  - [brin_minmax_multi_serialize](../b/brin_minmax_multi_serialize.md)
 
 ## Notes and Other Information
 - Unlike other compaction functions, this does not use a load factor buffer since it's used during serialization

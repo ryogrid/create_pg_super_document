@@ -21,21 +21,21 @@ The function is essential for type resolution in PostgreSQL's polymorphic type s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookup with RANGEMULTIRANGE cache)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup with RANGEMULTIRANGE cache)
   - HeapTupleIsValid (tuple validation)
   - GETSTRUCT (tuple data extraction)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_range (pg_range catalog structure)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - InvalidOid (constant for invalid OID)
 - Called from (representative examples):
-  - pg_type_aclmask_ext
-  - AlterTypeOwner
-  - check_generic_type_consistency
-  - enforce_generic_type_consistency
-  - load_multirangetype_info
-  - resolve_anyelement_from_others
-  - resolve_anyrange_from_others
+  - [pg_type_aclmask_ext](../p/pg_type_aclmask_ext.md)
+  - [AlterTypeOwner](../A/AlterTypeOwner.md)
+  - [check_generic_type_consistency](../c/check_generic_type_consistency.md)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md)
+  - [load_multirangetype_info](../l/load_multirangetype_info.md)
+  - [resolve_anyelement_from_others](../r/resolve_anyelement_from_others.md)
+  - [resolve_anyrange_from_others](../r/resolve_anyrange_from_others.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if the input is not a valid multirange type OID

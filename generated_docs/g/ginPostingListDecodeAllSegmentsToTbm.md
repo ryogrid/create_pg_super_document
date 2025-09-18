@@ -23,13 +23,13 @@ This is particularly useful during query processing where multiple posting lists
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginPostingListDecodeAllSegments
-  - tbm_add_tuples
-  - pfree
-  - GinPostingList (type)
-  - TIDBitmap (type)
+  - [ginPostingListDecodeAllSegments](ginPostingListDecodeAllSegments.md)
+  - [tbm_add_tuples](../t/tbm_add_tuples.md)
+  - [pfree](../p/pfree.md)
+  - [GinPostingList](../G/GinPostingList.md) (type)
+  - [TIDBitmap](../T/TIDBitmap.md) (type)
 - Called from (representative examples):
-  - GinDataLeafPageGetItemsToTbm (gin/gindatapage.c:192)
+  - [GinDataLeafPageGetItemsToTbm](../G/GinDataLeafPageGetItemsToTbm.md) (gin/gindatapage.c:192)
 
 ## Notes and Other Information
 - Provides a memory-efficient interface for bitmap operations by handling temporary array allocation and cleanup internally

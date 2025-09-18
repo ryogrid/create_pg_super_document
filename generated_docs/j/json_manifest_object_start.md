@@ -28,8 +28,8 @@ The function handles three main object types in manifest JSON: the top-level doc
   - JM_EXPECT_WAL_RANGES_NEXT
   - JM_EXPECT_THIS_WAL_RANGE_FIELD
 - Called from (representative examples):
-  - json_parse_manifest_incremental_init (src/common/parse_manifest.c:145)
-  - json_parse_manifest (src/common/parse_manifest.c:245)
+  - [json_parse_manifest_incremental_init](json_parse_manifest_incremental_init.md) (src/common/parse_manifest.c:145)
+  - [json_parse_manifest](json_parse_manifest.md) (src/common/parse_manifest.c:245)
 
 ## Notes and Other Information
 - Returns JSON_SUCCESS on successful state transition or triggers parse failure for unexpected objects

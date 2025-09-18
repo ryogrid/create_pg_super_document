@@ -21,16 +21,16 @@ This function serves as a JsonPathGetVarCallback implementation specifically des
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findJsonbValueFromContainer (searches for value in JSONB container)
-  - JsonbInitBinary (initializes JsonbValue from binary JSONB)
+  - [findJsonbValueFromContainer](../f/findJsonbValueFromContainer.md) (searches for value in JSONB container)
+  - [JsonbInitBinary](../J/JsonbInitBinary.md) (initializes JsonbValue from binary JSONB)
   - jbvString (JsonbValue type constant for string values)
   - JB_FOBJECT (JSONB container type flag for objects)
 - Called from (representative examples):
-  - jsonb_path_exists_internal
-  - jsonb_path_match_internal
-  - jsonb_path_query_internal
-  - jsonb_path_query_array_internal
-  - jsonb_path_query_first_internal
+  - [jsonb_path_exists_internal](../j/jsonb_path_exists_internal.md)
+  - [jsonb_path_match_internal](../j/jsonb_path_match_internal.md)
+  - [jsonb_path_query_internal](../j/jsonb_path_query_internal.md)
+  - [jsonb_path_query_array_internal](../j/jsonb_path_query_array_internal.md)
+  - [jsonb_path_query_first_internal](../j/jsonb_path_query_first_internal.md)
 
 ## Notes and Other Information
 - This is a static callback function, only accessible within the jsonpath_exec.c module

@@ -23,7 +23,7 @@ This function performs the reverse operation of pg_mb2wchar, converting a null-t
   - pg_wchar_table (global encoding table)
   - DatabaseEncoding (current database encoding setting)
   - wchar2mb_with_len (encoding-specific conversion function pointer)
-  - pg_wchar_strlen (calculates length of wide character string)
+  - [pg_wchar_strlen](pg_wchar_strlen.md) (calculates length of wide character string)
 - Called from (representative examples):
   - No direct references found in the current codebase
 

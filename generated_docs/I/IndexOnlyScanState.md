@@ -288,16 +288,16 @@ v_str ESTAB   0      0                                               *:633275472
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
-  - IndexRuntimeKeyInfo
-  - IndexScanDescData
+  - [ScanState](../S/ScanState.md)
+  - [IndexRuntimeKeyInfo](IndexRuntimeKeyInfo.md)
+  - [IndexScanDescData](IndexScanDescData.md)
 - Called from (representative examples):
-  - ExecIndexOnlyScan
-  - ExecInitIndexOnlyScan
-  - ExecEndIndexOnlyScan
-  - ExecReScanIndexOnlyScan
-  - IndexOnlyNext
-  - IndexOnlyRecheck
+  - [ExecIndexOnlyScan](../E/ExecIndexOnlyScan.md)
+  - [ExecInitIndexOnlyScan](../E/ExecInitIndexOnlyScan.md)
+  - [ExecEndIndexOnlyScan](../E/ExecEndIndexOnlyScan.md)
+  - [ExecReScanIndexOnlyScan](../E/ExecReScanIndexOnlyScan.md)
+  - [IndexOnlyNext](IndexOnlyNext.md)
+  - [IndexOnlyRecheck](IndexOnlyRecheck.md)
 
 ## Notes and Other Information
 - Index-only scans are a critical optimization that can significantly improve query performance by avoiding heap access

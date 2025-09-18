@@ -23,10 +23,10 @@ The function converts int8 values to Numeric format and uses numeric_add for the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - int64_to_numeric (convert int8 to Numeric)
-  - numeric_add (add two Numeric values)
+  - [int64_to_numeric](int64_to_numeric.md) (convert int8 to Numeric)
+  - [numeric_add](../n/numeric_add.md) (add two Numeric values)
   - DirectFunctionCall2 (direct function call mechanism)
-  - NumericGetDatum (convert Numeric to Datum)
+  - [NumericGetDatum](../N/NumericGetDatum.md) (convert Numeric to Datum)
   - PG_ARGISNULL (null checking macros)
   - PG_GETARG_INT64 (extract int8 argument)
   - PG_GETARG_NUMERIC (extract Numeric argument)

@@ -22,15 +22,15 @@ ExecInitScanTupleSlot is specifically designed for scan nodes in PostgreSQL's ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecAllocTableSlot: Creates and adds the tuple slot to the tuple table
-  - ScanState: Structure containing scan-specific state information
+  - [ExecAllocTableSlot](ExecAllocTableSlot.md): Creates and adds the tuple slot to the tuple table
+  - [ScanState](../S/ScanState.md): Structure containing scan-specific state information
   - TupleTableSlotOps: Structure defining slot operations
 - Called from (representative examples):
-  - ExecInitSeqScan: Sequential scan initialization
-  - ExecInitIndexScan: Index scan initialization
-  - ExecInitBitmapHeapScan: Bitmap heap scan initialization
-  - ExecInitForeignScan: Foreign scan initialization
-  - ExecInitSubqueryScan: Subquery scan initialization
+  - [ExecInitSeqScan](ExecInitSeqScan.md): Sequential scan initialization
+  - [ExecInitIndexScan](ExecInitIndexScan.md): Index scan initialization
+  - [ExecInitBitmapHeapScan](ExecInitBitmapHeapScan.md): Bitmap heap scan initialization
+  - [ExecInitForeignScan](ExecInitForeignScan.md): Foreign scan initialization
+  - [ExecInitSubqueryScan](ExecInitSubqueryScan.md): Subquery scan initialization
   - And many other scan node initialization functions
 
 ## Notes and Other Information

@@ -26,11 +26,11 @@ Each suffix removal phase uses cursor position saving/restoration to ensure that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_initial_morph: Handles initial morphological transformations
-  - r_mark_regions: Identifies and marks R1, R2, and RV regions
-  - r_noun_sfx: Removes Irish noun suffixes
-  - r_deriv: Processes derivational suffix transformations
-  - r_verb_sfx: Removes Irish verb suffixes
+  - [r_initial_morph](../r/r_initial_morph.md): Handles initial morphological transformations
+  - [r_mark_regions](../r/r_mark_regions.md): Identifies and marks R1, R2, and RV regions
+  - [r_noun_sfx](../r/r_noun_sfx.md): Removes Irish noun suffixes
+  - [r_deriv](../r/r_deriv.md): Processes derivational suffix transformations
+  - [r_verb_sfx](../r/r_verb_sfx.md): Removes Irish verb suffixes
 - Called from (representative examples):
   - This function appears to be an external API entry point for the Irish UTF-8 stemmer
 

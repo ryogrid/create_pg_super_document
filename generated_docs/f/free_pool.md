@@ -26,11 +26,11 @@ This function is critical for preventing memory leaks in the GEQO system, as gen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree (PostgreSQL memory deallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - Pool (struct type for genetic algorithm pool)
   - Chromosome (struct type for individual solutions)
 - Called from (representative examples):
-  - geqo (main GEQO optimization function for cleanup)
+  - [geqo](../g/geqo.md) (main GEQO optimization function for cleanup)
 
 ## Notes and Other Information
 - Must be called to free memory allocated by alloc_pool() to prevent memory leaks

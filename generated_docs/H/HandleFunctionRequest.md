@@ -20,32 +20,32 @@ HandleFunctionRequest is the main entry point for PostgreSQL's fast-path functio
   - LOCAL_FCINFO
   - FUNC_MAX_ARGS
   - AclResult
-  - fp_info
-  - IsAbortedTransactionBlockState
+  - [fp_info](../f/fp_info.md)
+  - [IsAbortedTransactionBlockState](../I/IsAbortedTransactionBlockState.md)
   - GetTransactionSnapshot
   - PushActiveSnapshot
-  - pq_getmsgint
-  - fetch_fp_info
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [fetch_fp_info](../f/fetch_fp_info.md)
   - LOGSTMT_ALL
-  - object_aclcheck
+  - [object_aclcheck](../o/object_aclcheck.md)
   - ACL_USAGE
   - ACL_EXECUTE
-  - aclcheck_error
+  - [aclcheck_error](../a/aclcheck_error.md)
   - OBJECT_SCHEMA
   - OBJECT_FUNCTION
-  - get_namespace_name
-  - get_func_name
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [get_func_name](../g/get_func_name.md)
   - InvokeNamespaceSearchHook
   - InvokeFunctionExecuteHook
   - InitFunctionCallInfoData
-  - parse_fcall_arguments
-  - pq_getmsgend
+  - [parse_fcall_arguments](../p/parse_fcall_arguments.md)
+  - [pq_getmsgend](../p/pq_getmsgend.md)
   - FunctionCallInvoke
-  - SendFunctionResult
+  - [SendFunctionResult](../S/SendFunctionResult.md)
   - PopActiveSnapshot
-  - check_log_duration
+  - [check_log_duration](../c/check_log_duration.md)
 - Called from (representative examples):
-  - PostgresMain
+  - [PostgresMain](../P/PostgresMain.md)
 
 ## Notes and Other Information
 - This function corresponds to the libpq protocol symbol "F" for fast-path function calls

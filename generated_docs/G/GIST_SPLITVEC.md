@@ -44,13 +44,13 @@ The PickSplit method is responsible for allocating memory for the spl_left and s
   - OffsetNumber
   - Datum
 - Called from (representative examples):
-  - fallbackSplit
-  - gist_box_picksplit
-  - supportSecondarySplit
-  - genericPickSplit
-  - gistUserPicksplit
-  - range_gist_picksplit
-  - gtsvector_picksplit
+  - [fallbackSplit](../f/fallbackSplit.md)
+  - [gist_box_picksplit](../g/gist_box_picksplit.md)
+  - [supportSecondarySplit](../s/supportSecondarySplit.md)
+  - [genericPickSplit](../g/genericPickSplit.md)
+  - [gistUserPicksplit](../g/gistUserPicksplit.md)
+  - [range_gist_picksplit](../r/range_gist_picksplit.md)
+  - [gtsvector_picksplit](../g/gtsvector_picksplit.md)
 
 ## Notes and Other Information
 - The PickSplit method must palloc both spl_left and spl_right arrays - memory management is the caller's responsibility

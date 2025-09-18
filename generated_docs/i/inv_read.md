@@ -30,15 +30,15 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PointerIsValid` (pointer validation macro)
-  - `open_lo_relation` (opens large object system relation)
-  - `systable_beginscan_ordered`, `systable_getnext_ordered`, `systable_endscan_ordered` (system catalog scanning)
-  - `getdatafield` (extracts data from large object tuple)
+  - `[open_lo_relation](../o/open_lo_relation.md)` (opens large object system relation)
+  - `[systable_beginscan_ordered](../s/systable_beginscan_ordered.md)`, `systable_getnext_ordered`, `systable_endscan_ordered` (system catalog scanning)
+  - `[getdatafield](../g/getdatafield.md)` (extracts data from large object tuple)
   - `MemSet` (memory zeroing for holes)
   - `LOBLKSIZE` (large object block size constant)
 - Called from (representative examples):
-  - `lo_read` (user-facing read function)
-  - `be_lo_export` (large object export functionality)
-  - `lo_get_fragment_internal` (internal fragment retrieval)
+  - `[lo_read](../l/lo_read.md)` (user-facing read function)
+  - `[be_lo_export](../b/be_lo_export.md)` (large object export functionality)
+  - `[lo_get_fragment_internal](../l/lo_get_fragment_internal.md)` (internal fragment retrieval)
 
 ## Notes and Other Information
 - Returns the actual number of bytes read (may be less than requested)

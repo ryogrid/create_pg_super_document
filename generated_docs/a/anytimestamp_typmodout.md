@@ -20,11 +20,11 @@ When a valid precision is specified (typmod >= 0), the output includes the preci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (for formatted string creation)
-  - pstrdup (for string duplication)
+  - [psprintf](../p/psprintf.md) (for formatted string creation)
+  - [pstrdup](../p/pstrdup.md) (for string duplication)
 - Called from:
-  - timestamptypmodout (src/backend/utils/adt/timestamp.c:314)
-  - timestamptztypmodout (src/backend/utils/adt/timestamp.c:870)
+  - [timestamptypmodout](../t/timestamptypmodout.md) (src/backend/utils/adt/timestamp.c:314)
+  - [timestamptztypmodout](../t/timestamptztypmodout.md) (src/backend/utils/adt/timestamp.c:870)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

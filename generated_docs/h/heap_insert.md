@@ -25,21 +25,21 @@ The insertion process involves several critical steps: preparing the tuple (incl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_prepare_insert
-  - GetCurrentTransactionId
-  - RelationGetBufferForTuple
-  - CheckForSerializableConflictIn
-  - RelationPutHeapTuple
-  - visibilitymap_clear
-  - XLogInsert (and related WAL functions)
-  - CacheInvalidateHeapTuple
+  - [heap_prepare_insert](heap_prepare_insert.md)
+  - [GetCurrentTransactionId](../G/GetCurrentTransactionId.md)
+  - [RelationGetBufferForTuple](../R/RelationGetBufferForTuple.md)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
+  - [RelationPutHeapTuple](../R/RelationPutHeapTuple.md)
+  - [visibilitymap_clear](../v/visibilitymap_clear.md)
+  - [XLogInsert](../X/XLogInsert.md) (and related WAL functions)
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
   - pgstat_count_heap_insert
-  - heap_freetuple
+  - [heap_freetuple](heap_freetuple.md)
 - Called from (representative examples):
-  - simple_heap_insert
-  - heapam_tuple_insert
-  - heapam_tuple_insert_speculative
-  - toast_save_datum
+  - [simple_heap_insert](../s/simple_heap_insert.md)
+  - [heapam_tuple_insert](heapam_tuple_insert.md)
+  - [heapam_tuple_insert_speculative](heapam_tuple_insert_speculative.md)
+  - [toast_save_datum](../t/toast_save_datum.md)
 
 ## Notes and Other Information
 - Updates tup->t_self with the actual TID where the tuple was stored

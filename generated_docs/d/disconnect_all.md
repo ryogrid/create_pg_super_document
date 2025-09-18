@@ -20,11 +20,11 @@ This function provides a convenient way to cleanly disconnect all database conne
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - finishCon (connection cleanup function)
-  - CState (client state structure type)
+  - [finishCon](../f/finishCon.md) (connection cleanup function)
+  - [CState](../C/CState.md) (client state structure type)
 - Called from (representative examples):
-  - main (at src/bin/pgbench/pgbench.c:7410)
-  - threadRun (at src/bin/pgbench/pgbench.c:7714)
+  - [main](../m/main.md) (at src/bin/pgbench/pgbench.c:7410)
+  - [threadRun](../t/threadRun.md) (at src/bin/pgbench/pgbench.c:7714)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pgbench.c

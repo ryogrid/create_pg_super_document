@@ -21,8 +21,8 @@ Like other enum functions in PostgreSQL, the actual argument value is not examin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_fn_expr_argtype
-  - enum_range_internal
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [enum_range_internal](enum_range_internal.md)
   - ereport
   - PG_RETURN_ARRAYTYPE_P
 - Called from:

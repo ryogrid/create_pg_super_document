@@ -28,16 +28,16 @@ The function only works with simple relations and requires immutable functions t
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SIMPLE_REL (macro for checking simple relation type)
-  - contain_mutable_functions (checks for mutable functions in expressions)
-  - predicate_refuted_by (logical refutation testing)
-  - get_relation_constraints (retrieves relation's constraint expressions)
+  - [contain_mutable_functions](../c/contain_mutable_functions.md) (checks for mutable functions in expressions)
+  - [predicate_refuted_by](../p/predicate_refuted_by.md) (logical refutation testing)
+  - [get_relation_constraints](../g/get_relation_constraints.md) (retrieves relation's constraint expressions)
   - CONSTRAINT_EXCLUSION_OFF/PARTITION/ON (GUC setting values)
   - RELOPT_BASEREL, RELOPT_OTHER_MEMBER_REL (relation optimization kinds)
   - RTE_RELATION (range table entry kind)
 
 - Called from (representative examples):
-  - set_rel_size (src/backend/optimizer/path/allpaths.c:364)
-  - set_append_rel_size (src/backend/optimizer/path/allpaths.c:1027)
+  - [set_rel_size](../s/set_rel_size.md) (src/backend/optimizer/path/allpaths.c:364)
+  - [set_append_rel_size](../s/set_append_rel_size.md) (src/backend/optimizer/path/allpaths.c:1027)
 
 ## Notes and Other Information
 - Only processes simple relations (Assert(IS_SIMPLE_REL(rel)) enforced)

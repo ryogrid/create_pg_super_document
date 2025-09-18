@@ -28,9 +28,9 @@ ReorderBufferRememberPrepareInfo stores essential prepare-time information in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
 - Called from (representative examples):
-  - DecodePrepare
+  - [DecodePrepare](../D/DecodePrepare.md)
 
 ## Notes and Other Information
 This function is essential for two-phase commit support in logical replication. The stored prepare information is later retrieved and used by ReorderBufferFinishPrepared when processing COMMIT PREPARED or ROLLBACK PREPARED records. The function updates the transaction structure fields including final_lsn, end_lsn, prepare_time, origin_id, and origin_lsn to preserve the prepare-time state.

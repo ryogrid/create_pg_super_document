@@ -20,14 +20,14 @@ The listLanguages function generates and executes a SQL query to retrieve inform
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - printACLColumn
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [printACLColumn](../p/printACLColumn.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher)
 
 ## Notes and Other Information
 - Implements the \dL psql meta-command functionality

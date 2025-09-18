@@ -25,22 +25,22 @@ The function includes comprehensive error handling, with the ability to return N
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - ReleaseSysCache
-  - GetIndexAmRoutine
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [GetIndexAmRoutine](GetIndexAmRoutine.md)
   - Form_pg_am
   - regproc
   - AMTYPE_INDEX
   - RegProcedureIsValid
 - Called from (representative examples):
-  - amvalidate
-  - ConstructTupleDescriptor
-  - DefineOpClass
-  - AlterOpFamily
-  - IndexSupportsBackwardScan
-  - indexam_property
+  - [amvalidate](../a/amvalidate.md)
+  - [ConstructTupleDescriptor](../C/ConstructTupleDescriptor.md)
+  - [DefineOpClass](../D/DefineOpClass.md)
+  - [AlterOpFamily](../A/AlterOpFamily.md)
+  - [IndexSupportsBackwardScan](../I/IndexSupportsBackwardScan.md)
+  - [indexam_property](../i/indexam_property.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/index/amapi.c:56-113

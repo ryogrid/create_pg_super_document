@@ -24,10 +24,10 @@ The operation iterates through each byte of the IP addresses and applies the bit
 - Functions called/Symbols referenced:
   - PG_GETARG_INET_PP (PostgreSQL argument retrieval macro)
   - inet (struct type for network addresses)
-  - palloc0 (PostgreSQL zero-initialized memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL zero-initialized memory allocation)
   - ip_family (get address family)
   - ereport (PostgreSQL error reporting)
-  - errcode/errmsg (error handling macros)
+  - [errcode](../e/errcode.md)/errmsg (error handling macros)
   - ip_addrsize (get size of IP address in bytes)
   - ip_addr (get pointer to IP address bytes)
   - ip_bits (get/set subnet mask bits)
@@ -41,7 +41,7 @@ The operation iterates through each byte of the IP addresses and applies the bit
 - Implements the PostgreSQL | operator for inet types
 - Requires both operands to be of the same address family (IPv4 or IPv6)
 - Raises ERRCODE_INVALID_PARAMETER_VALUE error for mismatched address families
-- Result subnet mask is the maximum of the two input subnet masks
+- [Result](../R/Result.md) subnet mask is the maximum of the two input subnet masks
 - Allocates new inet structure for the result using palloc0
 - Accessible from SQL as the | operator (e.g., '192.168.1.1'::inet | '0.0.0.255'::inet)
 - Part of PostgreSQL's network address manipulation functions

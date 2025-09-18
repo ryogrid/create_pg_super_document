@@ -23,7 +23,7 @@ The `scalarlesel` function is PostgreSQL's selectivity estimator specifically fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `scalarineqsel_wrapper`: Core wrapper function that handles preprocessing and delegates to `scalarineqsel()`
+  - `[scalarineqsel_wrapper](scalarineqsel_wrapper.md)`: Core wrapper function that handles preprocessing and delegates to `scalarineqsel()`
 - Called from:
   - This function is typically registered in PostgreSQL's system catalogs and called automatically by the query planner when estimating selectivity for less-than-or-equal predicates
 

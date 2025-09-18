@@ -25,14 +25,14 @@ The function uses backtracking mechanisms (m1, m2 markers) to restore the cursor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b (checks if character belongs to specified group, moving backwards)
-  - r_RV (tests if current position is within the RV morphological region)  
-  - slice_del (removes text between bra and ket markers)
+  - [in_grouping_b](../i/in_grouping_b.md) (checks if character belongs to specified group, moving backwards)
+  - [r_RV](r_RV.md) (tests if current position is within the RV morphological region)  
+  - [slice_del](../s/slice_del.md) (removes text between bra and ket markers)
 - Called from (representative examples):
-  - italian_ISO_8859_1_stem
-  - italian_UTF_8_stem
-  - romanian_ISO_8859_2_stem
-  - romanian_UTF_8_stem
+  - [italian_ISO_8859_1_stem](../i/italian_ISO_8859_1_stem.md)
+  - [italian_UTF_8_stem](../i/italian_UTF_8_stem.md)
+  - [romanian_ISO_8859_2_stem](romanian_ISO_8859_2_stem.md)
+  - [romanian_UTF_8_stem](romanian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function is part of the suffix removal phase in Italian and Romanian stemming

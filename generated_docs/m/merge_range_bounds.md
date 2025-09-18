@@ -33,22 +33,22 @@ The algorithm processes ranges in ascending order and creates merged partition b
 ## Dependencies
 - Functions called/Symbols referenced:
   - partition_bound_has_default
-  - init_partition_map
-  - is_dummy_partition
-  - get_range_partition
-  - compare_range_partitions
-  - merge_matching_partitions
-  - get_merged_range_bounds
+  - [init_partition_map](../i/init_partition_map.md)
+  - [is_dummy_partition](../i/is_dummy_partition.md)
+  - [get_range_partition](../g/get_range_partition.md)
+  - [compare_range_partitions](../c/compare_range_partitions.md)
+  - [merge_matching_partitions](merge_matching_partitions.md)
+  - [get_merged_range_bounds](../g/get_merged_range_bounds.md)
   - compare_range_bounds
-  - process_outer_partition
-  - process_inner_partition
-  - add_merged_range_bounds
-  - merge_default_partitions
-  - generate_matching_part_pairs
-  - build_merged_partition_bounds
-  - free_partition_map
+  - [process_outer_partition](../p/process_outer_partition.md)
+  - [process_inner_partition](../p/process_inner_partition.md)
+  - [add_merged_range_bounds](../a/add_merged_range_bounds.md)
+  - [merge_default_partitions](merge_default_partitions.md)
+  - [generate_matching_part_pairs](../g/generate_matching_part_pairs.md)
+  - [build_merged_partition_bounds](../b/build_merged_partition_bounds.md)
+  - [free_partition_map](../f/free_partition_map.md)
 - Called from:
-  - partition_bounds_merge
+  - [partition_bounds_merge](../p/partition_bounds_merge.md)
 
 ## Notes and Other Information
 - The function is static and internal to partbounds.c

@@ -30,11 +30,11 @@ Common use cases include query optimization scenarios where reordering operands 
 ## Dependencies
 - Functions called/Symbols referenced:
   - OpExpr (the operator expression type being manipulated)
-  - is_opclause (validates the clause is an operator expression)
-  - get_commutator (finds the commutator operator for the current operator)
+  - [is_opclause](../i/is_opclause.md) (validates the clause is an operator expression)
+  - [get_commutator](../g/get_commutator.md) (finds the commutator operator for the current operator)
   - lsecond (accesses the second element in the argument list)
 - Called from (representative examples):
-  - get_switched_clauses (during plan creation to generate alternative clause forms)
+  - [get_switched_clauses](../g/get_switched_clauses.md) (during plan creation to generate alternative clause forms)
 
 ## Notes and Other Information
 - **DESTRUCTIVE**: Modifies the original clause in-place rather than creating a copy

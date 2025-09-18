@@ -28,10 +28,10 @@ The function uses spinlock protection when accessing shared memory to ensure thr
   - XLogRecoveryCtl (shared memory structure)
   - LocalPromoteIsTriggered (local static variable)
 - Called from (representative examples):
-  - PerformRecoveryXLogAction
-  - pg_wal_replay_pause
-  - pg_wal_replay_resume
-  - EndOfWalRecoveryInfo (header reference)
+  - [PerformRecoveryXLogAction](PerformRecoveryXLogAction.md)
+  - [pg_wal_replay_pause](../p/pg_wal_replay_pause.md)
+  - [pg_wal_replay_resume](../p/pg_wal_replay_resume.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md) (header reference)
 
 ## Notes and Other Information
 - This is a public function (not static), accessible from other modules

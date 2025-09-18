@@ -24,7 +24,7 @@ The `varcharin` function serves as the primary input function for PostgreSQL's v
 - Functions called/Symbols referenced:
   - `PG_GETARG_CSTRING`: Extracts C string argument from function call context
   - `PG_GETARG_INT32`: Extracts type modifier from function call context
-  - `varchar_input`: Core function that performs length validation and conversion
+  - `[varchar_input](varchar_input.md)`: Core function that performs length validation and conversion
   - `strlen`: Standard C function to determine string length
   - `PG_RETURN_VARCHAR_P`: Returns VarChar pointer as Datum
 - Called from (representative examples):

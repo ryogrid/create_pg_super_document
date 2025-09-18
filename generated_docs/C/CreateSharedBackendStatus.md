@@ -19,10 +19,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mul_size
-  - ShmemInitStruct
+  - [mul_size](../m/mul_size.md)
+  - [ShmemInitStruct](../S/ShmemInitStruct.md)
   - MemSet
-  - PgBackendStatus
+  - [PgBackendStatus](../P/PgBackendStatus.md)
   - NumBackendStatSlots
   - NAMEDATALEN
   - pgstat_track_activity_query_size
@@ -30,10 +30,10 @@ This function takes no parameters.
   - BackendAppnameBuffer
   - BackendClientHostnameBuffer
   - BackendActivityBuffer
-  - PgBackendSSLStatus (ifdef USE_SSL)
-  - PgBackendGSSStatus (ifdef ENABLE_GSS)
+  - [PgBackendSSLStatus](../P/PgBackendSSLStatus.md) (ifdef USE_SSL)
+  - [PgBackendGSSStatus](../P/PgBackendGSSStatus.md) (ifdef ENABLE_GSS)
 - Called from:
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 The function follows PostgreSQL's shared memory initialization pattern using ShmemInitStruct, which either creates new structures or attaches to existing ones in case of restart. It properly handles the conditional compilation of SSL and GSS features. The function ensures that all string pointers in the backend status array point to the correct locations in their respective shared buffers, enabling efficient access to backend information across processes.

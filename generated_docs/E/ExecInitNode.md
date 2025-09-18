@@ -31,12 +31,12 @@ The initialization process ensures that all necessary data structures, memory co
   - check_stack_depth (stack overflow prevention)
   - nodeTag (node type identification)
   - ExecInit* functions for each node type (ExecInitSeqScan, ExecInitAgg, etc.)
-  - ExecSetExecProcNode (execution procedure setup)
-  - ExecInitSubPlan (subplan initialization)
+  - [ExecSetExecProcNode](ExecSetExecProcNode.md) (execution procedure setup)
+  - [ExecInitSubPlan](ExecInitSubPlan.md) (subplan initialization)
   - InstrAlloc (instrumentation setup)
 - Called from (representative examples):
-  - InitPlan (main executor initialization)
-  - EvalPlanQualStart (EPQ initialization)
+  - [InitPlan](../I/InitPlan.md) (main executor initialization)
+  - [EvalPlanQualStart](EvalPlanQualStart.md) (EPQ initialization)
   - Various ExecInit* functions for recursive child node initialization
 
 ## Notes and Other Information

@@ -20,7 +20,7 @@ The  function is a PostgreSQL built-in function that compares two ItemPointer va
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ITEMPOINTER (macro for extracting ItemPointer arguments)
-  - ItemPointerCompare (performs the actual TID comparison)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md) (performs the actual TID comparison)
   - PG_RETURN_ITEMPOINTER (macro for returning ItemPointer result)
 - Called from:
   - No direct references found (likely accessible through SQL as a built-in function)

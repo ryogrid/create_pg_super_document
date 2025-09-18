@@ -17,11 +17,11 @@ This function performs cleanup of a DbInfoArr structure by deallocating all dyna
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - free_rel_infos
-  - pg_free
-  - DbInfoArr (struct type)
+  - [free_rel_infos](free_rel_infos.md)
+  - [pg_free](../p/pg_free.md)
+  - [DbInfoArr](../D/DbInfoArr.md) (struct type)
 - Called from (representative examples):
-  - get_db_rel_and_slot_infos
+  - [get_db_rel_and_slot_infos](../g/get_db_rel_and_slot_infos.md)
 
 ## Notes and Other Information
 - This is a static function only used within src/bin/pg_upgrade/info.c

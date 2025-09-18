@@ -20,21 +20,21 @@ This function performs a comprehensive reset of an aggregate execution node to e
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState
-  - bms_overlap
+  - [bms_overlap](../b/bms_overlap.md)
   - ResetTupleHashIterator
-  - select_current_set
+  - [select_current_set](../s/select_current_set.md)
   - tuplesort_end
   - ReScanExprContext
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - ExecClearTuple
   - MemSet
-  - hashagg_reset_spill_state
-  - build_hash_tables
-  - hashagg_recompile_expressions
-  - initialize_phase
-  - ExecReScan
+  - [hashagg_reset_spill_state](../h/hashagg_reset_spill_state.md)
+  - [build_hash_tables](../b/build_hash_tables.md)
+  - [hashagg_recompile_expressions](../h/hashagg_recompile_expressions.md)
+  - [initialize_phase](../i/initialize_phase.md)
+  - [ExecReScan](ExecReScan.md)
 - Called from (representative examples):
-  - ExecReScan (src/backend/executor/execAmi.c:273)
+  - [ExecReScan](ExecReScan.md) (src/backend/executor/execAmi.c:273)
 
 ## Notes and Other Information
 - Optimizes hash aggregate rescans by avoiding hash table rebuilds when parameters haven't changed and no spilling occurred

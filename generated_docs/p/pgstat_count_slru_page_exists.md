@@ -21,9 +21,9 @@ The function increments the `blocks_exists` counter, which helps track how frequ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_slru_entry
+  - [get_slru_entry](../g/get_slru_entry.md)
 - Called from (representative examples):
-  - SimpleLruDoesPhysicalPageExist
+  - [SimpleLruDoesPhysicalPageExist](../S/SimpleLruDoesPhysicalPageExist.md)
   - pgstat_count_buffer_hit
 
 ## Notes and Other Information

@@ -22,16 +22,16 @@ This ensures that the resulting list contains only unique OID values, which is c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid
+  - [list_member_oid](list_member_oid.md)
   - lappend_oid
 - Called from (representative examples):
-  - hashvalidate
-  - btvalidate
-  - heap_truncate_find_FKs
-  - ObjectsInPublicationToOids
-  - ATExecAlterConstrRecurse
-  - DropRole
-  - LogicalRepWorkersWakeupAtCommit
+  - [hashvalidate](../h/hashvalidate.md)
+  - [btvalidate](../b/btvalidate.md)
+  - [heap_truncate_find_FKs](../h/heap_truncate_find_FKs.md)
+  - [ObjectsInPublicationToOids](../O/ObjectsInPublicationToOids.md)
+  - [ATExecAlterConstrRecurse](../A/ATExecAlterConstrRecurse.md)
+  - [DropRole](../D/DropRole.md)
+  - [LogicalRepWorkersWakeupAtCommit](../L/LogicalRepWorkersWakeupAtCommit.md)
   - map_sql_typecoll_to_xmlschema_types
   - forfive
 

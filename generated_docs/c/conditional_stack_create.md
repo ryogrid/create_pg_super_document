@@ -18,11 +18,11 @@ This function allocates and initializes a new conditional stack structure used b
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc (memory allocation function)
-  - ConditionalStackData (structure type being allocated)
+  - [ConditionalStackData](../C/ConditionalStackData.md) (structure type being allocated)
 - Called from (representative examples):
-  - CheckConditional (in pgbench)
-  - main (in pgbench)
-  - MainLoop (in psql)
+  - [CheckConditional](../C/CheckConditional.md) (in pgbench)
+  - [main](../m/main.md) (in pgbench)
+  - [MainLoop](../M/MainLoop.md) (in psql)
   - PARAMS_ARRAY_SIZE (in psql startup)
 
 ## Notes and Other Information

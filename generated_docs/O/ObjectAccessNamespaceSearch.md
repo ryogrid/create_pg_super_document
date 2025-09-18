@@ -26,12 +26,12 @@ This design ensures that multiple security extensions can work together without 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAccessType (used in hook function signatures)
+  - [ObjectAccessType](ObjectAccessType.md) (used in hook function signatures)
   - Various RunNamespaceSearch* functions
 - Called from (representative examples):
-  - RunNamespaceSearchHook
-  - RunNamespaceSearchHookStr
-  - accesstype_arg_to_string
+  - [RunNamespaceSearchHook](../R/RunNamespaceSearchHook.md)
+  - [RunNamespaceSearchHookStr](../R/RunNamespaceSearchHookStr.md)
+  - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
 
 ## Notes and Other Information
 - This struct is specifically used with OAT_NAMESPACE_SEARCH hook events

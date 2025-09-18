@@ -27,14 +27,14 @@ The function hard-codes these properties rather than performing catalog lookups 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - string_to_datum (converts C string to Datum)
+  - [string_to_datum](string_to_datum.md) (converts C string to Datum)
   - NAMEDATALEN (constant for name type length)
-  - makeConst (creates the Const node)
+  - [makeConst](../m/makeConst.md) (creates the Const node)
 - Called from (representative examples):
   - Pattern_Prefix_Status
-  - like_fixed_prefix
-  - regex_fixed_prefix
-  - make_greater_string
+  - [like_fixed_prefix](../l/like_fixed_prefix.md)
+  - [regex_fixed_prefix](../r/regex_fixed_prefix.md)
+  - [make_greater_string](../m/make_greater_string.md)
 
 ## Notes and Other Information
 - This is a static function within like_support.c, used internally for pattern matching support

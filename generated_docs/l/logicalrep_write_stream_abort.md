@@ -24,13 +24,13 @@ The function includes a conditional mechanism to optionally include abort LSN an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint32
-  - pq_sendint64
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
   - LOGICAL_REP_MSG_STREAM_ABORT (message type constant)
   - TransactionIdIsValid (assertion)
 - Called from (representative examples):
-  - pgoutput_stream_abort
+  - [pgoutput_stream_abort](../p/pgoutput_stream_abort.md)
 
 ## Notes and Other Information
 - For top-level transaction aborts, xid and subxid parameters are the same value

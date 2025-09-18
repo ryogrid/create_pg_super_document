@@ -20,13 +20,13 @@ This function is part of PostgreSQL's parallel scan support infrastructure. It e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_parallelscan_estimate
+  - [table_parallelscan_estimate](../t/table_parallelscan_estimate.md)
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
 - Types referenced:
-  - SeqScanState
-  - ParallelContext
-  - EState
+  - [SeqScanState](../S/SeqScanState.md)
+  - [ParallelContext](../P/ParallelContext.md)
+  - [EState](EState.md)
 - Called from (representative examples):
   - ExecParallelEstimate (in execParallel.c)
 

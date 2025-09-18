@@ -26,7 +26,7 @@ The function formats the output to show:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpcstate
+  - [dumpcstate](dumpcstate.md)
   - fprintf
   - fflush
   - COLORLESS
@@ -35,8 +35,8 @@ The function formats the output to show:
   - DUPINF
 - Called from (representative examples):
   - REPLACEARC (in regcomp.c:240)
-  - dump (in regcomp.c:2521, 2547)
-  - stdump (in regcomp.c:2619)
+  - [dump](dump.md) (in regcomp.c:2521, 2547)
+  - [stdump](../s/stdump.md) (in regcomp.c:2619)
 
 ## Notes and Other Information
 - This function is only compiled when REG_DEBUG is defined

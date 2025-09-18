@@ -17,14 +17,14 @@ This function builds the client-final-message in the SCRAM authentication exchan
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calculate_client_proof (computes cryptographic proof)
-  - pgtls_get_peer_certificate_hash (gets SSL cert hash for channel binding)
+  - [calculate_client_proof](../c/calculate_client_proof.md) (computes cryptographic proof)
+  - [pgtls_get_peer_certificate_hash](../p/pgtls_get_peer_certificate_hash.md) (gets SSL cert hash for channel binding)
   - pg_b64_encode (base64 encoding for binary data)
   - initPQExpBuffer/appendPQExpBuffer* (message construction)
-  - enlargePQExpBuffer (buffer management)
-  - libpq_append_conn_error (error reporting)
+  - [enlargePQExpBuffer](../e/enlargePQExpBuffer.md) (buffer management)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (error reporting)
 - Called from:
-  - scram_exchange (main SCRAM authentication handler)
+  - [scram_exchange](../s/scram_exchange.md) (main SCRAM authentication handler)
 
 ## Notes and Other Information
 - Handles two SCRAM variants: SCRAM-SHA-256 and SCRAM-SHA-256-PLUS

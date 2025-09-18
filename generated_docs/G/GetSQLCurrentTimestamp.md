@@ -19,10 +19,10 @@ The function maintains SQL standard compliance by using the transaction start ti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionStartTimestamp
-  - AdjustTimestampForTypmod
+  - [GetCurrentTransactionStartTimestamp](GetCurrentTransactionStartTimestamp.md)
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
   - TimestampTzPlusSeconds
 
 ## Notes and Other Information

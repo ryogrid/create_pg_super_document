@@ -34,15 +34,15 @@ Key behaviors:
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts WAL record data)
   - XLogReadBufferForRedo (reads buffer for redo operation)
-  - XLogRecGetBlockData (gets block data from WAL record)
-  - PageIndexTupleOverwrite (overwrites single tuple)
-  - PageIndexMultiDelete (deletes multiple tuples)
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md) (gets block data from WAL record)
+  - [PageIndexTupleOverwrite](../P/PageIndexTupleOverwrite.md) (overwrites single tuple)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (deletes multiple tuples)
   - PageAddItem (adds new items to page)
   - GistPageIsLeaf, GistMarkTuplesDeleted (leaf page handling)
-  - gistRedoClearFollowRight (clears follow-right flags)
+  - [gistRedoClearFollowRight](gistRedoClearFollowRight.md) (clears follow-right flags)
   - Various buffer and page management functions
 - Called from (representative examples):
-  - gist_redo (main GiST WAL redo dispatcher)
+  - [gist_redo](gist_redo.md) (main GiST WAL redo dispatcher)
 
 ## Notes and Other Information
 - This is a static function only used within gistxlog.c

@@ -17,13 +17,13 @@ This function is called during transaction abort processing to clean up notifica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - asyncQueueUnregister (removes backend from listener queue when orphaned)
-  - ClearPendingActionsAndNotifies (cleans up all pending notification state)
+  - [asyncQueueUnregister](../a/asyncQueueUnregister.md) (removes backend from listener queue when orphaned)
+  - [ClearPendingActionsAndNotifies](../C/ClearPendingActionsAndNotifies.md) (cleans up all pending notification state)
   - amRegisteredListener (global flag indicating listener registration status)
   - listenChannels (list of channels the backend is listening on)
   - NIL (PostgreSQL's NULL list constant)
 - Called from:
-  - AbortTransaction (part of transaction abort processing in xact.c:2860)
+  - [AbortTransaction](AbortTransaction.md) (part of transaction abort processing in xact.c:2860)
   - ASYNC_H (declared in async.h:38 header file)
 
 ## Notes and Other Information

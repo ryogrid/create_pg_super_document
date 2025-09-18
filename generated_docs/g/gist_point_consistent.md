@@ -28,15 +28,15 @@ The function implements strategy-specific logic, with special handling for leaf 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `gist_point_consistent_internal`
-  - `gist_poly_consistent`
-  - `gist_circle_consistent`
-  - `DatumGetBoxP`
+  - `[gist_point_consistent_internal](gist_point_consistent_internal.md)`
+  - `[gist_poly_consistent](gist_poly_consistent.md)`
+  - `[gist_circle_consistent](gist_circle_consistent.md)`
+  - `[DatumGetBoxP](../D/DatumGetBoxP.md)`
   - `GIST_LEAF`
   - `DirectFunctionCall5`
   - `DirectFunctionCall2`
-  - `poly_contain_pt`
-  - `circle_contain_pt`
+  - `[poly_contain_pt](../p/poly_contain_pt.md)`
+  - `[circle_contain_pt](../c/circle_contain_pt.md)`
 - Called from (representative examples):
   - GiST index access methods (indirectly through function pointers)
 

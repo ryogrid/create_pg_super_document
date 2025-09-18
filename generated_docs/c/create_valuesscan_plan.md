@@ -21,15 +21,15 @@ This function creates a ValuesScan plan node for executing a VALUES clause scan.
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_valuesscan
-  - copy_generic_path_info
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_valuesscan](../m/make_valuesscan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
   - ValuesScan (return type)
   - RTE_VALUES (constant)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - The function assumes the scan_relid corresponds to a VALUES base relation (RTE_VALUES)

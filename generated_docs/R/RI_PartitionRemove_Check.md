@@ -36,18 +36,18 @@ WHERE (<partition constraint>) AND (fk.key IS NOT NULL [AND/OR ...])
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_FetchConstraintInfo
-  - quoteOneName, quoteRelationName
+  - [ri_FetchConstraintInfo](../r/ri_FetchConstraintInfo.md)
+  - [quoteOneName](../q/quoteOneName.md), quoteRelationName
   - RIAttName, RIAttType, RIAttCollation
-  - ri_GenerateQual, ri_GenerateQualCollation
-  - pg_get_partconstrdef_string
+  - [ri_GenerateQual](../r/ri_GenerateQual.md), ri_GenerateQualCollation
+  - [pg_get_partconstrdef_string](../p/pg_get_partconstrdef_string.md)
   - SPI_connect, SPI_prepare, SPI_execute_snapshot, SPI_finish
-  - MakeSingleTupleTableSlot
-  - heap_deform_tuple, ExecStoreVirtualTuple
-  - ri_ReportViolation
-  - NewGUCNestLevel, set_config_option, AtEOXact_GUC
+  - [MakeSingleTupleTableSlot](../M/MakeSingleTupleTableSlot.md)
+  - [heap_deform_tuple](../h/heap_deform_tuple.md), ExecStoreVirtualTuple
+  - [ri_ReportViolation](../r/ri_ReportViolation.md)
+  - [NewGUCNestLevel](../N/NewGUCNestLevel.md), set_config_option, AtEOXact_GUC
 - Called from (representative examples):
-  - ATDetachCheckNoForeignKeyRefs
+  - [ATDetachCheckNoForeignKeyRefs](../A/ATDetachCheckNoForeignKeyRefs.md)
 
 ## Notes and Other Information
 - This is a specialized function for partition management operations, not general constraint checking

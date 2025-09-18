@@ -20,14 +20,14 @@ This function provides efficient O(1) access to the number of elements in a doub
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_is_empty (consistency validation)
-  - dclist_head (parameter type)
+  - [dlist_is_empty](dlist_is_empty.md) (consistency validation)
+  - [dclist_head](dclist_head.md) (parameter type)
 - Called from (representative examples):
-  - logical_heap_rewrite_flush_mappings (heap rewriting)
-  - mXactCachePut (multixact transaction management)
-  - ReorderBufferGetCatalogChangesXacts (logical replication)
-  - DeadLockCheck (deadlock detection)
-  - SlabStats (memory management)
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md) (heap rewriting)
+  - [mXactCachePut](../m/mXactCachePut.md) (multixact transaction management)
+  - [ReorderBufferGetCatalogChangesXacts](../R/ReorderBufferGetCatalogChangesXacts.md) (logical replication)
+  - [DeadLockCheck](../D/DeadLockCheck.md) (deadlock detection)
+  - [SlabStats](../S/SlabStats.md) (memory management)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance

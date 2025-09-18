@@ -25,16 +25,16 @@ This function provides comprehensive logging of recovery conflicts during hot st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TimestampDifference (calculates time difference between timestamps)
+  - [TimestampDifference](../T/TimestampDifference.md) (calculates time difference between timestamps)
   - VirtualTransactionIdIsValid (checks validity of virtual transaction ID)
   - ProcNumberGetProc (gets PGPROC structure from process number)
   - initStringInfo/appendStringInfo (builds process ID list string)
-  - get_recovery_conflict_desc (gets human-readable conflict description)
+  - [get_recovery_conflict_desc](../g/get_recovery_conflict_desc.md) (gets human-readable conflict description)
   - ereport/errmsg/errdetail_log_plural (logging functions)
-  - pfree (frees allocated memory)
+  - [pfree](../p/pfree.md) (frees allocated memory)
 - Called from (representative examples):
   - LockBufferForCleanup (buffer cleanup conflicts)
-  - ResolveRecoveryConflictWithVirtualXIDs (virtual transaction conflicts)
+  - [ResolveRecoveryConflictWithVirtualXIDs](../R/ResolveRecoveryConflictWithVirtualXIDs.md) (virtual transaction conflicts)
   - ProcSleep (lock conflicts during recovery)
 
 ## Notes and Other Information

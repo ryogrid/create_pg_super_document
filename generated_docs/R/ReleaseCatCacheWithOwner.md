@@ -21,12 +21,12 @@ The function includes safety checks to ensure the provided tuple is actually a v
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForgetCatCacheRef
-  - CatCacheRemoveCTup
+  - [CatCacheRemoveCTup](../C/CatCacheRemoveCTup.md)
   - CT_MAGIC (magic number constant)
   - offsetof (standard C macro)
 - Called from (representative examples):
-  - ReleaseCatCache
-  - ResOwnerReleaseCatCache
+  - [ReleaseCatCache](ReleaseCatCache.md)
+  - [ResOwnerReleaseCatCache](ResOwnerReleaseCatCache.md)
 
 ## Notes and Other Information
 - Uses pointer arithmetic to convert HeapTuple back to CatCTup structure

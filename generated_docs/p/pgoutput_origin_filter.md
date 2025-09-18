@@ -27,7 +27,7 @@ The filtering decision is based on whether the publication is configured to publ
 - Functions called/Symbols referenced:
   - InvalidRepOriginId (constant for comparison)
 - Called from (representative examples):
-  - _PG_output_plugin_init (as callback registration)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (as callback registration)
 
 ## Notes and Other Information
 - Returns true when changes should be filtered out (not replicated)

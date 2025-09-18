@@ -17,8 +17,8 @@ RI_FKey_setnull_del is a trigger function that enforces referential integrity by
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_CheckTrigger (validates trigger call context)
-  - ri_set (performs the actual SET NULL operation)
+  - [ri_CheckTrigger](../r/ri_CheckTrigger.md) (validates trigger call context)
+  - [ri_set](../r/ri_set.md) (performs the actual SET NULL operation)
   - RI_TRIGTYPE_DELETE (trigger type constant)
   - TriggerData (structure containing trigger context information)
 - Called from (representative examples):

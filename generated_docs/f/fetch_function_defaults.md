@@ -25,12 +25,12 @@ The returned list contains expression nodes that represent the default values fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysCacheGetAttrNotNull
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - TextDatumGetCString
-  - stringToNode
+  - [stringToNode](../s/stringToNode.md)
 - Called from (representative examples):
-  - reorder_function_arguments
-  - add_function_defaults
+  - [reorder_function_arguments](../r/reorder_function_arguments.md)
+  - [add_function_defaults](../a/add_function_defaults.md)
 
 ## Notes and Other Information
 - The function assumes that proargdefaults is not NULL (uses SysCacheGetAttrNotNull)

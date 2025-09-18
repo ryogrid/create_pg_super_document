@@ -28,7 +28,7 @@ The conversion process transforms EUC_TW characters (including those from differ
   - PG_GETARG_INT32 (macro for extracting integer arguments)  
   - PG_GETARG_BOOL (macro for extracting boolean arguments)
   - CHECK_ENCODING_CONVERSION_ARGS (validates source and target encodings)
-  - euc_tw2mic (performs the actual character conversion)
+  - [euc_tw2mic](euc_tw2mic.md) (performs the actual character conversion)
   - PG_RETURN_INT32 (macro for returning integer result)
   - PG_EUC_TW (encoding constant)
   - PG_MULE_INTERNAL (encoding constant)

@@ -25,16 +25,16 @@ The policy can be either permissive (allowing access to rows that match the cond
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ArrayType (for roles array)
-  - Expr (for qualification expressions)
-  - MemoryContext (implicitly through expression trees)
+  - [ArrayType](../A/ArrayType.md) (for roles array)
+  - [Expr](../E/Expr.md) (for qualification expressions)
+  - [MemoryContext](../M/MemoryContext.md) (implicitly through expression trees)
 
 - Called from (representative examples):
-  - RelationBuildRowSecurity (policy.c:237, 242)
-  - get_policies_for_relation (rowsecurity.c:554, 634, 648)
-  - add_security_quals (rowsecurity.c:716, 742)
-  - row_security_policy_cmp (rowsecurity.c:676, 677)
-  - equalPolicy (relcache.c:953)
+  - [RelationBuildRowSecurity](RelationBuildRowSecurity.md) (policy.c:237, 242)
+  - [get_policies_for_relation](../g/get_policies_for_relation.md) (rowsecurity.c:554, 634, 648)
+  - [add_security_quals](../a/add_security_quals.md) (rowsecurity.c:716, 742)
+  - [row_security_policy_cmp](../r/row_security_policy_cmp.md) (rowsecurity.c:676, 677)
+  - [equalPolicy](../e/equalPolicy.md) (relcache.c:953)
 
 ## Notes and Other Information
 - Policies are stored as part of the relation cache and are built when a relation is accessed

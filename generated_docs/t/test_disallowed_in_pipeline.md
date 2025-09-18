@@ -28,23 +28,23 @@ The function performs the following test sequence:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQisnonblocking
+  - [PQisnonblocking](../P/PQisnonblocking.md)
   - PQenterPipelineMode
-  - PQpipelineStatus
+  - [PQpipelineStatus](../P/PQpipelineStatus.md)
   - PQ_PIPELINE_OFF
-  - PQexec
-  - PQresultStatus
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - PGRES_FATAL_ERROR
   - PGRES_TUPLES_OK
-  - PQerrorMessage
-  - PQsendQuery
-  - PQisBusy
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQsendQuery](../P/PQsendQuery.md)
+  - [PQisBusy](../P/PQisBusy.md)
   - PQexitPipelineMode
   - strcmp
   - fprintf
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function within the libpq_pipeline test module

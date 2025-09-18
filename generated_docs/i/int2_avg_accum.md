@@ -24,8 +24,8 @@ The function expects the transition state to be a 2-element int8 array containin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16
-  - Int8TransTypeData
-  - AggCheckCallContext  
+  - [Int8TransTypeData](../I/Int8TransTypeData.md)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)  
   - PG_GETARG_ARRAYTYPE_P
   - PG_GETARG_ARRAYTYPE_P_COPY
   - ARR_HASNULL

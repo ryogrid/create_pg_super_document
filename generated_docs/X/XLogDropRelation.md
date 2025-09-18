@@ -22,10 +22,10 @@ When a relation is dropped, any invalid page tracking for that relation becomes 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - forget_invalid_pages
+  - [forget_invalid_pages](../f/forget_invalid_pages.md)
 
 - Called from (representative examples):
-  - DropRelationFiles
+  - [DropRelationFiles](../D/DropRelationFiles.md)
   - InHotStandby (referenced in header)
 
 ## Notes and Other Information

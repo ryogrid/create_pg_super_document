@@ -21,14 +21,14 @@ The function is designed to work with both ORDER BY and GROUP BY clauses. It del
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_commutator
+  - [get_commutator](../g/get_commutator.md)
 - Called from (representative examples):
-  - addTargetToSortList
-  - addTargetToGroupList  
-  - transformGroupClauseExpr
-  - transformDistinctOnClause
-  - check_output_expressions
-  - targetIsInAllPartitionLists
+  - [addTargetToSortList](../a/addTargetToSortList.md)
+  - [addTargetToGroupList](../a/addTargetToGroupList.md)  
+  - [transformGroupClauseExpr](transformGroupClauseExpr.md)
+  - [transformDistinctOnClause](transformDistinctOnClause.md)
+  - [check_output_expressions](../c/check_output_expressions.md)
+  - [targetIsInAllPartitionLists](targetIsInAllPartitionLists.md)
 
 ## Notes and Other Information
 - Returns false immediately if tle->ressortgroupref is 0 (no marker assigned)

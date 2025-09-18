@@ -24,13 +24,13 @@ The structure contains references to the associated parser node, projection info
 - Functions called/Symbols referenced:
   - NodeTag
   - MergeAction
-  - ProjectionInfo
+  - [ProjectionInfo](../P/ProjectionInfo.md)
   - ExprState
 - Called from (representative examples):
-  - ExecMergeMatched
-  - ExecMergeNotMatched
-  - ExecInitMerge
-  - ExecEvalMergeSupportFunc
+  - [ExecMergeMatched](../E/ExecMergeMatched.md)
+  - [ExecMergeNotMatched](../E/ExecMergeNotMatched.md)
+  - [ExecInitMerge](../E/ExecInitMerge.md)
+  - [ExecEvalMergeSupportFunc](../E/ExecEvalMergeSupportFunc.md)
 
 ## Notes and Other Information
 - Core component of PostgreSQL's MERGE statement execution engine

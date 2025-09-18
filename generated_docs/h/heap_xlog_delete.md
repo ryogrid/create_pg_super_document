@@ -30,23 +30,23 @@ The function carefully validates the tuple location and panics if inconsistencie
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract xl_heap_delete structure from WAL record
-  - XLogRecGetBlockTag: Get target relation and block information
-  - ItemPointerSetBlockNumber/ItemPointerSetOffsetNumber: Set target tuple location
-  - CreateFakeRelcacheEntry/FreeFakeRelcacheEntry: Temporary relation cache management
-  - visibilitymap_pin/visibilitymap_clear: Update visibility map when needed
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md): Get target relation and block information
+  - [ItemPointerSetBlockNumber](../I/ItemPointerSetBlockNumber.md)/ItemPointerSetOffsetNumber: Set target tuple location
+  - [CreateFakeRelcacheEntry](../C/CreateFakeRelcacheEntry.md)/FreeFakeRelcacheEntry: Temporary relation cache management
+  - [visibilitymap_pin](../v/visibilitymap_pin.md)/visibilitymap_clear: Update visibility map when needed
   - XLogReadBufferForRedo: Read target page for redo operation
-  - PageGetMaxOffsetNumber/PageGetItemId: Access tuple within page
-  - PageGetItem: Get tuple data from page
-  - fix_infomask_from_infobits: Restore tuple header flags from compressed WAL data
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)/PageGetItemId: Access tuple within page
+  - [PageGetItem](../P/PageGetItem.md): Get tuple data from page
+  - [fix_infomask_from_infobits](../f/fix_infomask_from_infobits.md): Restore tuple header flags from compressed WAL data
   - HeapTupleHeaderSetXmax/HeapTupleHeaderSetXmin: Set transaction ID fields
   - HeapTupleHeaderSetCmax: Set command ID
   - HeapTupleHeaderClearHotUpdated: Clear HOT update flag
   - PageSetPrunable: Mark page for future pruning
-  - PageClearAllVisible: Clear page visibility flag
+  - [PageClearAllVisible](../P/PageClearAllVisible.md): Clear page visibility flag
   - HeapTupleHeaderSetMovedPartitions: Handle partition movement deletions
 
 - Called from:
-  - heap_redo: Main heap WAL record replay dispatcher
+  - [heap_redo](heap_redo.md): Main heap WAL record replay dispatcher
 
 ## Notes and Other Information
 - This is a static function exclusively used during WAL recovery operations

@@ -22,11 +22,11 @@ The function maintains a static counter for successful conversions and provides 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rfmtdate (formats date structure to string according to format)
-  - check_return (handles error reporting)
+  - [rfmtdate](../r/rfmtdate.md) (formats date structure to string according to format)
+  - [check_return](../c/check_return.md) (handles error reporting)
   - date (date structure type)
 - Called from (representative examples):
-  - main (called multiple times in the test program with various format specifications)
+  - [main](../m/main.md) (called multiple times in the test program with various format specifications)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

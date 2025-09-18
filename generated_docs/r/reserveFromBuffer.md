@@ -20,11 +20,11 @@ This static function is part of the buffer manipulation utilities used by conver
 - Functions called/Symbols referenced:
   - enlargeStringInfo (to ensure buffer capacity)
 - Called from (representative examples):
-  - appendToBuffer
-  - padBufferToInt
-  - convertToJsonb
-  - convertJsonbArray
-  - convertJsonbObject
+  - [appendToBuffer](../a/appendToBuffer.md)
+  - [padBufferToInt](../p/padBufferToInt.md)
+  - [convertToJsonb](../c/convertToJsonb.md)
+  - [convertJsonbArray](../c/convertJsonbArray.md)
+  - [convertJsonbObject](../c/convertJsonbObject.md)
 
 ## Notes and Other Information
 The function is declared static and scoped to jsonb_util.c. It follows a reserve-then-fill pattern common in buffer management, where space allocation is separated from data copying. The preservation of StringInfo invariants (trailing null terminator) ensures compatibility with standard PostgreSQL string handling utilities. The returned offset can be used by subsequent calls to copyToBuffer() to fill the reserved space with actual data. This approach optimizes memory allocation by reducing the number of buffer resize operations during JSONB construction.

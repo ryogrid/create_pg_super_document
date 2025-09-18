@@ -19,9 +19,9 @@ The  function converts a closed PATH geometric type to a POLYGON type. It valida
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_PATH_P (macro to extract PATH argument)
-  - palloc (memory allocation)
+  - [palloc](palloc.md) (memory allocation)
   - SET_VARSIZE (macro to set variable-length type size)
-  - make_bound_box (computes bounding box for polygon)
+  - [make_bound_box](../m/make_bound_box.md) (computes bounding box for polygon)
   - PG_RETURN_POLYGON_P (macro to return POLYGON result)
   - ereport (error reporting)
 - Called from (representative examples):

@@ -20,14 +20,14 @@ The `rdatestr` function is part of PostgreSQL's ECPG date handling compatibility
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESdate_to_asc
+  - [PGTYPESdate_to_asc](../P/PGTYPESdate_to_asc.md)
   - strcpy
   - free
   - ECPG_INFORMIX_DATE_CONVERT (error constant)
 - Called from (representative examples):
-  - date_test_strdate (in test programs)
-  - date_test_defmt (in test programs)
-  - main (in test programs)
+  - [date_test_strdate](../d/date_test_strdate.md) (in test programs)
+  - [date_test_defmt](../d/date_test_defmt.md) (in test programs)
+  - [main](../m/main.md) (in test programs)
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)
 
 ## Notes and Other Information

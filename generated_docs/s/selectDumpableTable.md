@@ -30,11 +30,11 @@ This hierarchical approach ensures that extension membership takes precedence, f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership (check if table belongs to extension)
-  - simple_oid_list_member (check membership in include/exclude lists)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md) (check if table belongs to extension)
+  - [simple_oid_list_member](simple_oid_list_member.md) (check membership in include/exclude lists)
   - DUMP_COMPONENT_ALL, DUMP_COMPONENT_NONE (dump component constants)
 - Called from (representative examples):
-  - getTables
+  - [getTables](../g/getTables.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dump.c used during the dump planning phase

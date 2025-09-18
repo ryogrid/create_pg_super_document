@@ -27,9 +27,9 @@ The function performs an assertion to ensure the page is indeed uncompressed, th
   - GinPageGetOpaque
 - Called from (representative examples):
   - leafSegmentInfo
-  - GinDataLeafPageGetItems
-  - GinDataLeafPageGetItemsToTbm
-  - disassembleLeaf
+  - [GinDataLeafPageGetItems](../G/GinDataLeafPageGetItems.md)
+  - [GinDataLeafPageGetItemsToTbm](../G/GinDataLeafPageGetItemsToTbm.md)
+  - [disassembleLeaf](disassembleLeaf.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

@@ -17,7 +17,7 @@ This static function parses a privilege string for column-level permissions and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string
+  - [convert_any_priv_string](convert_any_priv_string.md)
   - priv_map (struct type)
   - ACL_SELECT
   - ACL_INSERT 
@@ -25,10 +25,10 @@ This static function parses a privilege string for column-level permissions and 
   - ACL_REFERENCES
   - ACL_GRANT_OPTION_FOR (macro)
 - Called from (representative examples):
-  - has_any_column_privilege_name_name
-  - has_any_column_privilege_name
-  - has_column_privilege_name_name_name
-  - has_column_privilege_id_attnum
+  - [has_any_column_privilege_name_name](../h/has_any_column_privilege_name_name.md)
+  - [has_any_column_privilege_name](../h/has_any_column_privilege_name.md)
+  - [has_column_privilege_name_name_name](../h/has_column_privilege_name_name_name.md)
+  - [has_column_privilege_id_attnum](../h/has_column_privilege_id_attnum.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the acl.c file

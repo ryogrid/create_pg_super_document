@@ -21,12 +21,12 @@ The function includes stack overflow protection via  to prevent infinite recursi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - check_stack_depth (stack overflow protection)
-  - maketree (recursive self-call)
+  - [maketree](maketree.md) (recursive self-call)
 - Called from (representative examples):
-  - clean_NOT
-  - cleanup_tsquery_stopwords
+  - [clean_NOT](../c/clean_NOT.md)
+  - [cleanup_tsquery_stopwords](../c/cleanup_tsquery_stopwords.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's text search query cleanup and optimization system

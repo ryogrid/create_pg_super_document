@@ -35,11 +35,11 @@ The design ensures that the most valuable deletion opportunities (high npromisin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_nextpower2_32
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
   - pg_unreachable
-  - IndexDeleteCounts (structure type)
+  - [IndexDeleteCounts](../I/IndexDeleteCounts.md) (structure type)
 - Called from (representative examples):
-  - bottomup_sort_and_shrink
+  - [bottomup_sort_and_shrink](bottomup_sort_and_shrink.md)
 
 ## Notes and Other Information
 - Uses power-of-two bucketing scheme for npromisingtids (pre-normalized by caller)

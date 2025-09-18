@@ -21,7 +21,7 @@ This function implements the backend support for PostgreSQL's lo_lseek64 large o
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (parameter extraction macro)
   - PG_GETARG_INT64 (64-bit parameter extraction macro)  
-  - inv_seek (internal large object seek function)
+  - [inv_seek](../i/inv_seek.md) (internal large object seek function)
   - PG_RETURN_INT64 (64-bit return value macro)
   - ereport/ERROR (error reporting for invalid descriptors)
 - Called from (representative examples):

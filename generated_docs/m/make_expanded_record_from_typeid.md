@@ -23,13 +23,13 @@ The function performs type validation through the type cache, ensuring the speci
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_type_cache
-  - lookup_rowtype_tupdesc
-  - assign_record_type_identifier
+  - [lookup_type_cache](../l/lookup_type_cache.md)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
+  - [assign_record_type_identifier](../a/assign_record_type_identifier.md)
   - AllocSetContextCreate
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - EOH_init_header
-  - MemoryContextRegisterResetCallback
+  - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md)
   - ReleaseTupleDesc
 - Called from:
   - (No direct references found in the analyzed codebase)

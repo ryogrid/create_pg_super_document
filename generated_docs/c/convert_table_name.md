@@ -21,15 +21,15 @@ The function performs name resolution without acquiring locks on the target rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeRangeVarFromNameList: Creates a RangeVar structure from a qualified name list
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md): Creates a RangeVar structure from a qualified name list
   - textToQualifiedNameList: Parses text input into a qualified name list
   - RangeVarGetRelid: Resolves RangeVar to relation OID without locking
-  - RangeVar: Structure type representing a relation reference
+  - [RangeVar](../R/RangeVar.md): Structure type representing a relation reference
 - Called from (representative examples):
-  - has_table_privilege_name_name: Table privilege check with role name and table name
-  - has_table_privilege_name: Table privilege check with current user and table name
-  - has_table_privilege_id_name: Table privilege check with role ID and table name
-  - has_sequence_privilege_name_name: Sequence privilege check functions
+  - [has_table_privilege_name_name](../h/has_table_privilege_name_name.md): Table privilege check with role name and table name
+  - [has_table_privilege_name](../h/has_table_privilege_name.md): Table privilege check with current user and table name
+  - [has_table_privilege_id_name](../h/has_table_privilege_id_name.md): Table privilege check with role ID and table name
+  - [has_sequence_privilege_name_name](../h/has_sequence_privilege_name_name.md): Sequence privilege check functions
   - has_column_privilege functions: Column-level privilege checking functions
 
 ## Notes and Other Information

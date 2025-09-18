@@ -30,15 +30,15 @@ This design provides O(1) allocation and deallocation performance while maintain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SERIALIZABLEXACT (the main serializable transaction structure type)
-  - dlist_is_empty (function to check if doubly-linked list is empty)
+  - [SERIALIZABLEXACT](../S/SERIALIZABLEXACT.md) (the main serializable transaction structure type)
+  - [dlist_is_empty](../d/dlist_is_empty.md) (function to check if doubly-linked list is empty)
   - dlist_container (macro to get containing structure from list node)
-  - dlist_pop_head_node (function to remove and return head node from list)
-  - dlist_push_tail (function to add node to tail of list)
+  - [dlist_pop_head_node](../d/dlist_pop_head_node.md) (function to remove and return head node from list)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (function to add node to tail of list)
 - Called from (representative examples):
-  - SerialControl
-  - InitPredicateLocks
-  - GetSerializableTransactionSnapshotInt
+  - [SerialControl](../S/SerialControl.md)
+  - [InitPredicateLocks](../I/InitPredicateLocks.md)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md)
   - predicatelock_twophase_recover
 
 ## Notes and Other Information

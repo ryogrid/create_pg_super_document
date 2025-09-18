@@ -18,13 +18,13 @@ SharedAggInfo serves as a shared memory data structure that facilitates coordina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggregateInstrumentation
+  - [AggregateInstrumentation](../A/AggregateInstrumentation.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - ExecAggEstimate
-  - ExecAggInitializeDSM
-  - ExecAggRetrieveInstrumentation
-  - AggState (as a member)
+  - [ExecAggEstimate](../E/ExecAggEstimate.md)
+  - [ExecAggInitializeDSM](../E/ExecAggInitializeDSM.md)
+  - [ExecAggRetrieveInstrumentation](../E/ExecAggRetrieveInstrumentation.md)
+  - [AggState](../A/AggState.md) (as a member)
 
 ## Notes and Other Information
 - This structure is specifically designed for parallel query execution scenarios where multiple worker processes collaborate on aggregate operations

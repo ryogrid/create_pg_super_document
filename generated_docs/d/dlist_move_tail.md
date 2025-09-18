@@ -22,14 +22,14 @@ The function includes a debug check at the end using `dlist_check` to verify lis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete
-  - dlist_push_tail
-  - dlist_check
-  - dlist_head (type)
-  - dlist_node (type)
+  - [dlist_delete](dlist_delete.md)
+  - [dlist_push_tail](dlist_push_tail.md)
+  - [dlist_check](dlist_check.md)
+  - [dlist_head](dlist_head.md) (type)
+  - [dlist_node](dlist_node.md) (type)
 - Called from (representative examples):
-  - cache_lookup
-  - dclist_move_tail
+  - [cache_lookup](../c/cache_lookup.md)
+  - [dclist_move_tail](dclist_move_tail.md)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file for performance

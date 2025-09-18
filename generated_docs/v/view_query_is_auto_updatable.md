@@ -26,15 +26,15 @@ When check_cols is true, the function also verifies that at least one column in 
   - rt_fetch (function to retrieve range table entries)
   - RTE_RELATION (constant for relation range table entry type)
   - RELKIND_RELATION, RELKIND_FOREIGN_TABLE, RELKIND_VIEW, RELKIND_PARTITIONED_TABLE (relation kind constants)
-  - view_col_is_auto_updatable (function to check individual column updatability)
+  - [view_col_is_auto_updatable](view_col_is_auto_updatable.md) (function to check individual column updatability)
   - gettext_noop (macro for marking translatable strings)
   - IsA (macro for type checking)
   - linitial (macro to get first list element)
   - list_length (function to get list length)
 - Called from (representative examples):
-  - ATExecSetRelOptions (in src/backend/commands/tablecmds.c:15146)
-  - DefineView (in src/backend/commands/view.c:435)
-  - rewriteTargetView (in src/backend/rewrite/rewriteHandler.c:3272)
+  - [ATExecSetRelOptions](../A/ATExecSetRelOptions.md) (in src/backend/commands/tablecmds.c:15146)
+  - [DefineView](../D/DefineView.md) (in src/backend/commands/view.c:435)
+  - [rewriteTargetView](../r/rewriteTargetView.md) (in src/backend/rewrite/rewriteHandler.c:3272)
 
 ## Notes and Other Information
 - Implements SQL-92 auto-updatable view standards with PostgreSQL-specific extensions and relaxations

@@ -25,7 +25,7 @@ The validation is conservative - if any required field is NULL, the entire struc
 - Functions called/Symbols referenced:
   - None (only performs pointer NULL checks)
 - Called from (representative examples):
-  - PGLC_localeconv (at line 693 in pg_locale.c)
+  - [PGLC_localeconv](../P/PGLC_localeconv.md) (at line 693 in pg_locale.c)
 
 ## Notes and Other Information
 - The function is declared as , making it internal to pg_locale.c

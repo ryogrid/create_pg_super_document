@@ -19,14 +19,14 @@ This static function resolves a type name into an ObjectAddress structure, handl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeName (looks up type by name in system catalogs)
-  - typeTypeId (extracts OID from Type tuple)
-  - TypeNameToString (converts TypeName to string for error messages)
-  - ReleaseSysCache (releases system cache tuple)
+  - [LookupTypeName](../L/LookupTypeName.md) (looks up type by name in system catalogs)
+  - [typeTypeId](../t/typeTypeId.md) (extracts OID from Type tuple)
+  - [TypeNameToString](../T/TypeNameToString.md) (converts TypeName to string for error messages)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases system cache tuple)
   - GETSTRUCT (extracts struct from heap tuple)
 - Called from (representative examples):
-  - get_object_address (main object address resolution function)
-  - get_object_address_opf_member (for resolving operator family member types)
+  - [get_object_address](get_object_address.md) (main object address resolution function)
+  - [get_object_address_opf_member](get_object_address_opf_member.md) (for resolving operator family member types)
 
 ## Notes and Other Information
 - Returns ObjectAddress with classId set to TypeRelationId and objectSubId set to 0

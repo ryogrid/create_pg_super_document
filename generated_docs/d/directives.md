@@ -29,7 +29,7 @@ This lookup mechanism allows pg_bsd_indent to validate preprocessor directives a
 ## Dependencies
 - Functions called/Symbols referenced:
   - strncmp (for directive string comparison)
-  - diag2 (for error reporting of unrecognized directives)
+  - [diag2](diag2.md) (for error reporting of unrecognized directives)
 - Called from (representative examples):
   - Used within the main() function's preprocessor parsing logic (preesc case)
 

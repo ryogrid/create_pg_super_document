@@ -29,16 +29,16 @@ This structure can represent different levels of specificity:
 - Functions called/Symbols referenced:
   - (None - this is a data structure definition)
 - Called from (representative examples):
-  - saveNodeLink
-  - addLeafTuple
-  - checkSplitConditions
-  - moveLeafs
-  - setRedirectionTuple
-  - doPickSplit
-  - spgMatchNodeAction
-  - spgAddNodeAction
-  - spgSplitNodeAction
-  - spgdoinsert
+  - [saveNodeLink](../s/saveNodeLink.md)
+  - [addLeafTuple](../a/addLeafTuple.md)
+  - [checkSplitConditions](../c/checkSplitConditions.md)
+  - [moveLeafs](../m/moveLeafs.md)
+  - [setRedirectionTuple](../s/setRedirectionTuple.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgMatchNodeAction](../s/spgMatchNodeAction.md)
+  - [spgAddNodeAction](../s/spgAddNodeAction.md)
+  - [spgSplitNodeAction](../s/spgSplitNodeAction.md)
+  - [spgdoinsert](../s/spgdoinsert.md)
 
 ## Notes and Other Information
 - This structure is central to SP-GiST insertion logic, used throughout the spgdoinsert.c module

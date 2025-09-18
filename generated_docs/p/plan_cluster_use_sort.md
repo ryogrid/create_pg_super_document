@@ -30,7 +30,7 @@ The function returns true if sorting is cheaper, false if index scanning is more
 ## Dependencies
 - Functions called/Symbols referenced:
   - , , , ,  - Planner data structures
-  -  - Node creation utility
+  -  - [Node](../N/Node.md) creation utility
   -  - Sets up relation arrays for planning
   -  - Creates RelOptInfo for the table
   -  - Estimates tuple width

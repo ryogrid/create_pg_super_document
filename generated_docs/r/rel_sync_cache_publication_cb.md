@@ -25,11 +25,11 @@ The actual rebuilding of invalidated entries happens lazily on the next access v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init (initialize hash table iteration)
-  - hash_seq_search (iterate through all hash entries)
+  - [hash_seq_init](../h/hash_seq_init.md) (initialize hash table iteration)
+  - [hash_seq_search](../h/hash_seq_search.md) (iterate through all hash entries)
 - Called from (representative examples):
-  - publication_invalidation_cb (wrapper for publication invalidations)
-  - init_rel_sync_cache (registered for multiple syscache invalidations)
+  - [publication_invalidation_cb](../p/publication_invalidation_cb.md) (wrapper for publication invalidations)
+  - [init_rel_sync_cache](../i/init_rel_sync_cache.md) (registered for multiple syscache invalidations)
 
 ## Notes and Other Information
 - Registered for multiple system catalogs: pg_publication, pg_publication_rel, pg_publication_namespace, pg_namespace

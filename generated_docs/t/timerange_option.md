@@ -29,7 +29,7 @@ The function performs comprehensive validation including:
   - PG_INT64_MAX (PostgreSQL macro for 64-bit integer maximum)
   - PG_INT64_MIN (PostgreSQL macro for 64-bit integer minimum)
 - Called from (representative examples):
-  - main (in src/timezone/zic.c:777)
+  - [main](../m/main.md) (in src/timezone/zic.c:777)
 
 ## Notes and Other Information
 - Returns true on successful parsing and validation, false on any error

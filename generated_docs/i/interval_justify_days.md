@@ -25,9 +25,9 @@ The function performs the following operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INTERVAL_P
-  - palloc
+  - [palloc](../p/palloc.md)
   - INTERVAL_NOT_FINITE
-  - pg_add_s32_overflow
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md)
   - ereport
   - PG_RETURN_INTERVAL_P
 - Constants used:

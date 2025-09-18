@@ -17,16 +17,16 @@ RemoveRelations is the main function responsible for handling various DROP state
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - new_object_addresses
-  - makeRangeVarFromNameList
-  - AcceptInvalidationMessages
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForDropRelation
-  - DropErrorMsgNonExistent
-  - find_all_inheritors
-  - add_exact_object_address
-  - performMultipleDeletions
-  - free_object_addresses
+  - [new_object_addresses](../n/new_object_addresses.md)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForDropRelation](RangeVarCallbackForDropRelation.md)
+  - [DropErrorMsgNonExistent](../D/DropErrorMsgNonExistent.md)
+  - [find_all_inheritors](../f/find_all_inheritors.md)
+  - [add_exact_object_address](../a/add_exact_object_address.md)
+  - [performMultipleDeletions](../p/performMultipleDeletions.md)
+  - [free_object_addresses](../f/free_object_addresses.md)
 - Called from (representative examples):
   - ExecDropStmt
 

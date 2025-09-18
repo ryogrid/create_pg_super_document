@@ -25,7 +25,7 @@ This function provides a direct way to determine if a WAL file is currently in t
 - Functions called/Symbols referenced:
   - StatusFilePath
 - Called from (representative examples):
-  - RemoveNonParentXlogFiles
+  - [RemoveNonParentXlogFiles](../R/RemoveNonParentXlogFiles.md)
 
 ## Notes and Other Information
 - Most basic of the archive status checking functions

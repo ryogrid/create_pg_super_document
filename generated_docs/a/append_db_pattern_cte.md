@@ -20,15 +20,15 @@ This function generates the body of a SQL CTE (Common Table Expression) that con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
-  - appendStringLiteralConn
+  - [appendPQExpBufferStr](appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](appendPQExpBuffer.md)
+  - [appendStringLiteralConn](appendStringLiteralConn.md)
   - appendPQExpBufferChar
-  - PatternInfoArray
-  - PatternInfo
+  - [PatternInfoArray](../P/PatternInfoArray.md)
+  - [PatternInfo](../P/PatternInfo.md)
 - Called from (representative examples):
-  - compile_database_list (at src/bin/pg_amcheck/pg_amcheck.c:1608)
-  - compile_database_list (at src/bin/pg_amcheck/pg_amcheck.c:1625)
+  - [compile_database_list](../c/compile_database_list.md) (at src/bin/pg_amcheck/pg_amcheck.c:1608)
+  - [compile_database_list](../c/compile_database_list.md) (at src/bin/pg_amcheck/pg_amcheck.c:1625)
 
 ## Notes and Other Information
 - Returns true if any database patterns were found and appended, false otherwise

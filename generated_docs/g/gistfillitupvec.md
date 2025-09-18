@@ -22,13 +22,13 @@ The function also returns the total memory length through the memlen parameter, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexTupleSize (macro to get the size of an IndexTuple)
-  - IndexTupleData (type definition for index tuple data structure)
-  - palloc (PostgreSQL memory allocation function)
+  - [IndexTupleData](../I/IndexTupleData.md) (type definition for index tuple data structure)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard C memory copy function)
 - Called from (representative examples):
-  - gistplacetopage (in gist.c:396)
-  - gistSplit (in gist.c:1499, 1521) 
-  - gist_indexsortbuild_levelstate_flush (in gistbuild.c:533)
+  - [gistplacetopage](gistplacetopage.md) (in gist.c:396)
+  - [gistSplit](gistSplit.md) (in gist.c:1499, 1521) 
+  - [gist_indexsortbuild_levelstate_flush](gist_indexsortbuild_levelstate_flush.md) (in gistbuild.c:533)
 
 ## Notes and Other Information
 - The function allocates memory using palloc(), so the returned memory will be automatically freed when the current memory context is destroyed

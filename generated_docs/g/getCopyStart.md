@@ -20,14 +20,14 @@ The function assumes that parseInput has already read the message type and lengt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQmakeEmptyPGresult
-  - pqGetc  
-  - pqGetInt
-  - pqResultAlloc
+  - [PQmakeEmptyPGresult](../P/PQmakeEmptyPGresult.md)
+  - [pqGetc](../p/pqGetc.md)  
+  - [pqGetInt](../p/pqGetInt.md)
+  - [pqResultAlloc](../p/pqResultAlloc.md)
   - MemSet
-  - PQclear
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - pqParseInput3 (when processing CopyInResponse, CopyOutResponse, or CopyBothResponse messages)
+  - [pqParseInput3](../p/pqParseInput3.md) (when processing CopyInResponse, CopyOutResponse, or CopyBothResponse messages)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF on failure

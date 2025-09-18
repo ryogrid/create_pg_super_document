@@ -21,17 +21,17 @@ The  function divides a Cash value (64-bit signed integer representing monetary 
   - Cash (type)
   - float8 (type)
   - rint (rounding function)
-  - float8_div (PostgreSQL's safe float8 division)
+  - [float8_div](../f/float8_div.md) (PostgreSQL's safe float8 division)
   - isnan (NaN detection function)
   - FLOAT8_FITS_IN_INT64 (range checking macro)
   - ereport (error reporting)
-  - errcode (error code specification)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code specification)
+  - [errmsg](../e/errmsg.md) (error message formatting)
   - ERROR (error level constant)
   - ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE (specific error code)
 - Called from (representative examples):
-  - cash_div_flt8
-  - cash_div_flt4
+  - [cash_div_flt8](cash_div_flt8.md)
+  - [cash_div_flt4](cash_div_flt4.md)
 
 ## Notes and Other Information
 - Declared as  for performance optimization in arithmetic operations

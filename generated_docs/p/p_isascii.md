@@ -19,10 +19,10 @@ This function is essential for distinguishing between ASCII and non-ASCII charac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (structure type)
+  - [TParser](../T/TParser.md) (structure type)
   - isascii() (standard C library macro for ASCII character testing)
 - Called from (representative examples):
-  - p_isasclet (used as part of ASCII letter testing)
+  - [p_isasclet](p_isasclet.md) (used as part of ASCII letter testing)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

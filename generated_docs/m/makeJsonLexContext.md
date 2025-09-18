@@ -19,17 +19,17 @@ makeJsonLexContext provides a simplified interface for creating JSON lexical con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_detoast_datum_packed
-  - makeJsonLexContextCstringLen
+  - [pg_detoast_datum_packed](../p/pg_detoast_datum_packed.md)
+  - [makeJsonLexContextCstringLen](makeJsonLexContextCstringLen.md)
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
 - Called from (representative examples):
-  - json_in
-  - json_validate
-  - json_typeof
-  - json_object_keys
-  - get_worker
+  - [json_in](../j/json_in.md)
+  - [json_validate](../j/json_validate.md)
+  - [json_typeof](../j/json_typeof.md)
+  - [json_object_keys](../j/json_object_keys.md)
+  - [get_worker](../g/get_worker.md)
 
 ## Notes and Other Information
 This function is fundamental to PostgreSQL's JSON processing pipeline as it bridges the gap between PostgreSQL's internal text representation and the JSON parser's string-based interface. The automatic detoasting ensures compatibility with both toasted and non-toasted text values, making it safe to use with data of any size. The function is widely used throughout the JSON function library as the standard entry point for text-to-JSON conversion operations.

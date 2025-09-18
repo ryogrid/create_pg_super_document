@@ -30,13 +30,13 @@ This cleanup is essential because leftover pre-allocated or recycled WAL segment
 - Functions called/Symbols referenced:
   - XLByteToPrevSeg
   - XLByteToSeg  
-  - XLogFileName
+  - [XLogFileName](../X/XLogFileName.md)
   - AllocateDir
   - ReadDir
   - FreeDir
-  - IsXLogFileName
-  - XLogArchiveIsReady
-  - RemoveXlogFile
+  - [IsXLogFileName](../I/IsXLogFileName.md)
+  - [XLogArchiveIsReady](../X/XLogArchiveIsReady.md)
+  - [RemoveXlogFile](RemoveXlogFile.md)
   - elog
 - Constants used:
   - XLOGDIR
@@ -44,8 +44,8 @@ This cleanup is essential because leftover pre-allocated or recycled WAL segment
   - MAXFNAMELEN
   - wal_segment_size
 - Called from:
-  - CleanupAfterArchiveRecovery
-  - ApplyWalRecord
+  - [CleanupAfterArchiveRecovery](../C/CleanupAfterArchiveRecovery.md)
+  - [ApplyWalRecord](../A/ApplyWalRecord.md)
 
 ## Notes and Other Information
 - This function is declared as public (not static), making it accessible from other files

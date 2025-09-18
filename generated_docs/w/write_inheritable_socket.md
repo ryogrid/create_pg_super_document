@@ -24,12 +24,12 @@ This Windows-specific function addresses a common problem with socket inheritanc
   - WSADuplicateSocket (Windows Socket API)
   - WSAGetLastError (Windows Socket API)
   - ereport
-  - errmsg
-  - InheritableSocket (structure type)
+  - [errmsg](../e/errmsg.md)
+  - [InheritableSocket](../I/InheritableSocket.md) (structure type)
   - pid_t (type)
   - PGINVALID_SOCKET (constant)
 - Called from (representative examples):
-  - save_backend_variables
+  - [save_backend_variables](../s/save_backend_variables.md)
 
 ## Notes and Other Information
 - This is a Windows-specific function designed to work around LSP compatibility issues

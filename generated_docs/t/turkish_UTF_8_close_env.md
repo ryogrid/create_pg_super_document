@@ -17,7 +17,7 @@ This function serves as the counterpart to turkish_UTF_8_create_env, providing p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env
+  - [SN_close_env](../S/SN_close_env.md)
 - Called from (representative examples):
   - No direct references found (likely called through external interface when stemming operations complete)
 

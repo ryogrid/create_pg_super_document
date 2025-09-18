@@ -30,9 +30,9 @@ This function decomposes a Timestamp value into its constituent time components 
   - USECS_PER_MINUTE (microseconds per minute constant)
   - USECS_PER_SEC (microseconds per second constant)
 - Called from (representative examples):
-  - DecodeDateTime (datetime decoding functions)
-  - DecodeTimeOnly (time-only decoding)
-  - timestamp2tm (timestamp to broken-down time conversion)
+  - [DecodeDateTime](../D/DecodeDateTime.md) (datetime decoding functions)
+  - [DecodeTimeOnly](../D/DecodeTimeOnly.md) (time-only decoding)
+  - [timestamp2tm](../t/timestamp2tm.md) (timestamp to broken-down time conversion)
 
 ## Notes and Other Information
 - The function modifies the values pointed to by the output parameters

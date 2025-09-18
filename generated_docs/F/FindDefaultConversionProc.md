@@ -20,14 +20,14 @@ This function searches for a default conversion procedure that can convert text 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recomputeNamespacePath
-  - FindDefaultConversion
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [FindDefaultConversion](FindDefaultConversion.md)
 - Called from (representative examples):
-  - BeginCopyFrom
-  - PrepareClientEncoding
-  - InitializeClientEncoding
-  - pg_do_encoding_conversion
-  - test_enc_conversion
+  - [BeginCopyFrom](../B/BeginCopyFrom.md)
+  - [PrepareClientEncoding](../P/PrepareClientEncoding.md)
+  - [InitializeClientEncoding](../I/InitializeClientEncoding.md)
+  - [pg_do_encoding_conversion](../p/pg_do_encoding_conversion.md)
+  - [test_enc_conversion](../t/test_enc_conversion.md)
 
 ## Notes and Other Information
 - Skips the temporary namespace when searching through the search path

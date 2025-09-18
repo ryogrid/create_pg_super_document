@@ -26,15 +26,15 @@ This function takes no parameters.
   - CurrentTransactionState (global variable)
   - TransactionState (type)
 - Called from (representative examples):
-  - SetReindexProcessing, SetReindexPending, RestoreReindexState
-  - EnumValuesCreate, AddEnumLabel
-  - RelationCreateStorage, RelationDropStorage
-  - smgrDoPendingDeletes, smgrDoPendingSyncs
-  - Async_Notify, queue_listen
-  - AfterTriggerBeginSubXact, AfterTriggerEndSubXact
+  - [SetReindexProcessing](../S/SetReindexProcessing.md), SetReindexPending, RestoreReindexState
+  - [EnumValuesCreate](../E/EnumValuesCreate.md), AddEnumLabel
+  - [RelationCreateStorage](../R/RelationCreateStorage.md), RelationDropStorage
+  - [smgrDoPendingDeletes](../s/smgrDoPendingDeletes.md), smgrDoPendingSyncs
+  - [Async_Notify](../A/Async_Notify.md), queue_listen
+  - [AfterTriggerBeginSubXact](../A/AfterTriggerBeginSubXact.md), AfterTriggerEndSubXact
   - pgstat_drop_relation, ensure_tabstat_xact_level
-  - PrepareInvalidationState, AtEOSubXact_Inval
-  - RelationMapUpdateMap
+  - [PrepareInvalidationState](../P/PrepareInvalidationState.md), AtEOSubXact_Inval
+  - [RelationMapUpdateMap](../R/RelationMapUpdateMap.md)
   - CreatePortal, PushActiveSnapshot
 
 ## Notes and Other Information

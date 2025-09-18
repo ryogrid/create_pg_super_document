@@ -28,10 +28,10 @@ The function uses test markers (m2, m3, m4) to preserve cursor positions between
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions (region identification)
-  - r_main_suffix (primary suffix removal)
-  - r_consonant_pair (consonant reduction)
-  - r_other_suffix (secondary suffix processing)
+  - [r_mark_regions](../r/r_mark_regions.md) (region identification)
+  - [r_main_suffix](../r/r_main_suffix.md) (primary suffix removal)
+  - [r_consonant_pair](../r/r_consonant_pair.md) (consonant reduction)
+  - [r_other_suffix](../r/r_other_suffix.md) (secondary suffix processing)
 - Called from (representative examples):
   - This appears to be an external interface function, likely called by PostgreSQL's text search system or other stemming clients
 

@@ -18,9 +18,9 @@ SampleRecheck is an access method routine specifically designed for use during E
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SampleScanState (type reference)
+  - [SampleScanState](SampleScanState.md) (type reference)
 - Called from (representative examples):
-  - ExecSampleScan
+  - [ExecSampleScan](../E/ExecSampleScan.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeSamplescan.c

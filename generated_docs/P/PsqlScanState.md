@@ -36,12 +36,12 @@ The actual implementation details are hidden behind this abstract type, providin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PsqlScanStateData
+  - [PsqlScanStateData](PsqlScanStateData.md)
 - Called from (representative examples):
-  - process_backslash_command (src/bin/pgbench/pgbench.c:5671)
-  - ParseScript (src/bin/pgbench/pgbench.c:5944)
-  - HandleSlashCmds (src/bin/psql/command.c:221)
-  - MainLoop (src/bin/psql/mainloop.c:35)
+  - [process_backslash_command](../p/process_backslash_command.md) (src/bin/pgbench/pgbench.c:5671)
+  - [ParseScript](ParseScript.md) (src/bin/pgbench/pgbench.c:5944)
+  - [HandleSlashCmds](../H/HandleSlashCmds.md) (src/bin/psql/command.c:221)
+  - [MainLoop](../M/MainLoop.md) (src/bin/psql/mainloop.c:35)
 
 ## Notes and Other Information
 - This type is fundamental to PostgreSQL's frontend SQL parsing infrastructure

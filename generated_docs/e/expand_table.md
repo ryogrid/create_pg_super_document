@@ -17,14 +17,14 @@ The expand_table function is a critical component of PostgreSQL's dynamic hash t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dir_realloc
-  - seg_alloc
-  - calc_bucket
+  - [dir_realloc](../d/dir_realloc.md)
+  - [seg_alloc](../s/seg_alloc.md)
+  - [calc_bucket](../c/calc_bucket.md)
   - IS_PARTITIONED
   - MOD
-  - HASHHDR, HASHSEGMENT, HASHBUCKET (structure access)
+  - [HASHHDR](../H/HASHHDR.md), HASHSEGMENT, HASHBUCKET (structure access)
 - Called from (representative examples):
-  - hash_search_with_hash_value
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure (typically due to memory allocation failure)

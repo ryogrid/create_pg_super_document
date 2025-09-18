@@ -25,7 +25,7 @@ The function examines both empty blocks (stored in the emptyblocks list) and act
 - Functions called/Symbols referenced:
   - SlabIsValid
   - Slab_CONTEXT_HDRSZ
-  - dclist_count
+  - [dclist_count](../d/dclist_count.md)
   - dlist_foreach
   - dlist_container
   - snprintf

@@ -26,12 +26,12 @@ The function treats the BitmapAndPath as a pseudo-Path object with cost properti
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_bitmap_tree_node (to get cost/selectivity from child nodes)
+  - [cost_bitmap_tree_node](cost_bitmap_tree_node.md) (to get cost/selectivity from child nodes)
   - list_head (to check for first element in list)
   - cpu_operator_cost (global cost parameter)
 
 - Called from:
-  - create_bitmap_and_path (in pathnode.c:1117)
+  - [create_bitmap_and_path](create_bitmap_and_path.md) (in pathnode.c:1117)
 
 ## Notes and Other Information
 - Assumes independence of child selectivities, which is often inaccurate but necessary given available information

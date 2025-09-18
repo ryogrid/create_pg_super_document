@@ -19,7 +19,7 @@ The function operates by updating shared statistics directly, which is acceptabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_report_checksum_failures_in_db
+  - [pgstat_report_checksum_failures_in_db](pgstat_report_checksum_failures_in_db.md)
   - MyDatabaseId (global variable)
 - Called from (representative examples):
   - PageIsVerifiedExtended (in src/backend/storage/page/bufpage.c:156)

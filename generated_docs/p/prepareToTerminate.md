@@ -20,13 +20,13 @@ The  function handles the graceful shutdown of a logical replication stream by n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQputCopyEnd (sends copy end message to server)
-  - PQflush (flushes connection buffer)
+  - [PQputCopyEnd](../P/PQputCopyEnd.md) (sends copy end message to server)
+  - [PQflush](../P/PQflush.md) (flushes connection buffer)
   - pg_log_info (logging function for informational messages)
   - XLogRecPtrIsInvalid (checks if LSN is invalid)
   - StreamStopReason enum values (STREAM_STOP_SIGNAL, STREAM_STOP_KEEPALIVE, STREAM_STOP_END_OF_WAL, STREAM_STOP_NONE)
 - Called from (representative examples):
-  - StreamLogicalLog (when terminating logical replication stream)
+  - [StreamLogicalLog](../S/StreamLogicalLog.md) (when terminating logical replication stream)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only visible within its compilation unit

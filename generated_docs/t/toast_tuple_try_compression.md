@@ -22,16 +22,16 @@ This is a key component of PostgreSQL's TOAST strategy, which attempts compressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_compress_datum
-  - DatumGetPointer
-  - pfree
+  - [toast_compress_datum](toast_compress_datum.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [pfree](../p/pfree.md)
   - VARSIZE
   - TOASTCOL_NEEDS_FREE
   - TOASTCOL_INCOMPRESSIBLE
   - TOAST_NEEDS_CHANGE
   - TOAST_NEEDS_FREE
 - Called from (representative examples):
-  - heap_toast_insert_or_update (called multiple times during compression phase)
+  - [heap_toast_insert_or_update](../h/heap_toast_insert_or_update.md) (called multiple times during compression phase)
 
 ## Notes and Other Information
 - Uses the compression method specified in the attribute's tai_compression field

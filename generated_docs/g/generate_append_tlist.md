@@ -23,21 +23,21 @@ The function first analyzes all input targetlists to determine the most appropri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - list_length
   - list_head
   - exprType
   - exprTypmod
-  - lnext
+  - [lnext](../l/lnext.md)
   - makeVar
-  - makeTargetEntry
+  - [makeTargetEntry](../m/makeTargetEntry.md)
   - lappend
-  - pfree
+  - [pfree](../p/pfree.md)
   - forthree (macro for iterating over three lists)
 - Called from:
-  - generate_recursion_path
-  - generate_union_paths  
-  - generate_nonunion_paths
+  - [generate_recursion_path](generate_recursion_path.md)
+  - [generate_union_paths](generate_union_paths.md)  
+  - [generate_nonunion_paths](generate_nonunion_paths.md)
 
 ## Notes and Other Information
 - All generated Vars use varno 0, which indicates they reference the current plan node's output

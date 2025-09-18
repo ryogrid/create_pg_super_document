@@ -29,16 +29,16 @@ The function ensures atomicity by tracking all moved objects in the objsMoved pa
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - AlterRelationNamespaceInternal
-  - AlterTypeNamespaceInternal
-  - AlterIndexNamespaces
-  - AlterSeqNamespaces
-  - AlterConstraintNamespaces
+  - [AlterRelationNamespaceInternal](AlterRelationNamespaceInternal.md)
+  - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md)
+  - [AlterIndexNamespaces](AlterIndexNamespaces.md)
+  - [AlterSeqNamespaces](AlterSeqNamespaces.md)
+  - [AlterConstraintNamespaces](AlterConstraintNamespaces.md)
   - table_close
 
 - Called from (representative examples):
-  - AlterTableNamespace (high-level ALTER TABLE SET SCHEMA handler)
-  - AlterObjectNamespace_oid (generic object namespace alteration)
+  - [AlterTableNamespace](AlterTableNamespace.md) (high-level ALTER TABLE SET SCHEMA handler)
+  - [AlterObjectNamespace_oid](AlterObjectNamespace_oid.md) (generic object namespace alteration)
 
 ## Notes and Other Information
 - Requires objsMoved parameter to be non-NULL for proper object tracking

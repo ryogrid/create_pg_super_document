@@ -25,18 +25,18 @@ The function handles all range strategy operators including before, overleft, ov
   - RangeIsEmpty
   - MultirangeIsEmpty
   - RangeIsOrContainsEmpty
-  - range_overright_multirange_internal
-  - range_after_multirange_internal
-  - range_overlaps_multirange_internal
-  - range_before_multirange_internal
-  - range_overleft_multirange_internal
-  - range_adjacent_multirange_internal
-  - range_contains_multirange_internal
+  - [range_overright_multirange_internal](range_overright_multirange_internal.md)
+  - [range_after_multirange_internal](range_after_multirange_internal.md)
+  - [range_overlaps_multirange_internal](range_overlaps_multirange_internal.md)
+  - [range_before_multirange_internal](range_before_multirange_internal.md)
+  - [range_overleft_multirange_internal](range_overleft_multirange_internal.md)
+  - [range_adjacent_multirange_internal](range_adjacent_multirange_internal.md)
+  - [range_contains_multirange_internal](range_contains_multirange_internal.md)
   - RANGESTRAT_* constants
 - Called from (representative examples):
   - rangeCopy
-  - range_gist_consistent
-  - multirange_gist_consistent
+  - [range_gist_consistent](range_gist_consistent.md)
+  - [multirange_gist_consistent](../m/multirange_gist_consistent.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the range types GiST implementation

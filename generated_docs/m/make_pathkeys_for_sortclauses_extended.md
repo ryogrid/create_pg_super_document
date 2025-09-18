@@ -26,14 +26,14 @@ The function maintains canonical form by eliminating redundant ordering keys and
 - Functions called/Symbols referenced:
   - SortGroupClause (struct type)
   - PathKey (struct type)
-  - get_sortgroupclause_expr
-  - make_pathkey_from_sortop
-  - pathkey_is_redundant
+  - [get_sortgroupclause_expr](../g/get_sortgroupclause_expr.md)
+  - [make_pathkey_from_sortop](make_pathkey_from_sortop.md)
+  - [pathkey_is_redundant](../p/pathkey_is_redundant.md)
   - foreach_delete_current
 - Called from (representative examples):
-  - make_pathkeys_for_sortclauses
-  - standard_qp_callback
-  - make_pathkeys_for_window
+  - [make_pathkeys_for_sortclauses](make_pathkeys_for_sortclauses.md)
+  - [standard_qp_callback](../s/standard_qp_callback.md)
+  - [make_pathkeys_for_window](make_pathkeys_for_window.md)
 
 ## Notes and Other Information
 - This is the comprehensive version of pathkey generation with maximum flexibility and control

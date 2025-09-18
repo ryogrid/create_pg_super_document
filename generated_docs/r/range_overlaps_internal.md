@@ -26,17 +26,17 @@ If either condition is true, the ranges overlap.
 ## Dependencies
 - Functions called/Symbols referenced:
   - RangeTypeGetOid
-  - range_deserialize  
-  - range_cmp_bounds
+  - [range_deserialize](range_deserialize.md)  
+  - [range_cmp_bounds](range_cmp_bounds.md)
 - Called from (representative examples):
-  - range_overlaps
-  - range_union_internal
-  - range_intersect_internal
-  - multirange_minus_internal
-  - multirange_intersect_internal
-  - range_gist_consistent_int_range
-  - range_gist_consistent_leaf_range
-  - spg_range_quad_leaf_consistent
+  - [range_overlaps](range_overlaps.md)
+  - [range_union_internal](range_union_internal.md)
+  - [range_intersect_internal](range_intersect_internal.md)
+  - [multirange_minus_internal](../m/multirange_minus_internal.md)
+  - [multirange_intersect_internal](../m/multirange_intersect_internal.md)
+  - [range_gist_consistent_int_range](range_gist_consistent_int_range.md)
+  - [range_gist_consistent_leaf_range](range_gist_consistent_leaf_range.md)
+  - [spg_range_quad_leaf_consistent](../s/spg_range_quad_leaf_consistent.md)
 
 ## Notes and Other Information
 - Validates that both ranges are of the same type, throwing an error if not

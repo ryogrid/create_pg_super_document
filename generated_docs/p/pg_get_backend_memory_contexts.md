@@ -20,7 +20,7 @@ The function initializes a materialized SRF and delegates the actual memory cont
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
   - PutMemoryContextsStatsTupleStore
   - ReturnSetInfo (struct type)
 - Called from (representative examples):

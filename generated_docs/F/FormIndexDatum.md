@@ -22,18 +22,18 @@ FormIndexDatum is a core function responsible for extracting and preparing data 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexInfo (structure type)
-  - ExecPrepareExprList (function)
+  - [ExecPrepareExprList](../E/ExecPrepareExprList.md) (function)
   - GetPerTupleExprContext (function)
   - list_head (function)
   - slot_getsysattr (function)
   - slot_getattr (function)
   - ExecEvalExprSwitchContext (function)
-  - lnext (function)
+  - [lnext](../l/lnext.md) (function)
 - Called from (representative examples):
-  - heapam_index_build_range_scan
-  - CatalogIndexInsert
-  - ExecInsertIndexTuples
-  - ExecCheckIndexConstraints
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [CatalogIndexInsert](../C/CatalogIndexInsert.md)
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md)
+  - [ExecCheckIndexConstraints](../E/ExecCheckIndexConstraints.md)
 
 ## Notes and Other Information
 - Expression evaluation state is lazily initialized on first use to avoid overhead when not needed

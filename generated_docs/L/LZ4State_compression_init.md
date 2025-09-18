@@ -29,7 +29,7 @@ This function prepares an LZ4State structure for compression by setting up the c
   - LZ4F_HEADER_SIZE_MAX
   - LZ4F_VERSION
 - Called from (representative examples):
-  - LZ4Stream_init
+  - [LZ4Stream_init](LZ4Stream_init.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

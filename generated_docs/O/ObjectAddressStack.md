@@ -19,10 +19,10 @@ ObjectAddressStack is a linked list structure that maintains a stack of ObjectAd
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAddress (referenced through the object pointer)
+  - [ObjectAddress](ObjectAddress.md) (referenced through the object pointer)
 - Called from (representative examples):
-  - stack_address_present_add_flags
-  - findDependentObjects
+  - [stack_address_present_add_flags](../s/stack_address_present_add_flags.md)
+  - [findDependentObjects](../f/findDependentObjects.md)
   - find_expr_references_context
 
 ## Notes and Other Information

@@ -21,19 +21,19 @@ The function handles platform-specific differences, particularly between Unix-li
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tarPositionTo
+  - [_tarPositionTo](_tarPositionTo.md)
   - pg_malloc0_object
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - tmpfile (Unix) / _tempnam + open (Windows)
   - umask
   - fdopen
 - Called from (representative examples):
-  - _StartData
-  - _PrintFileData
-  - _LoadLOs
-  - _CloseArchive
-  - _StartLOs
-  - _StartLO
+  - [_StartData](../S/_StartData.md)
+  - [_PrintFileData](../P/_PrintFileData.md)
+  - [_LoadLOs](../L/_LoadLOs.md)
+  - [_CloseArchive](../C/_CloseArchive.md)
+  - [_StartLOs](../S/_StartLOs.md)
+  - [_StartLO](../S/_StartLO.md)
 
 ## Notes and Other Information
 - Returns NULL if no file is found when filename is NULL in read mode

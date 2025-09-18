@@ -21,12 +21,12 @@ For empty multiranges, the function returns an empty range. For non-empty multir
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultirangeIsEmpty
-  - make_empty_range
-  - multirange_get_bounds
-  - make_range
+  - [make_empty_range](make_empty_range.md)
+  - [multirange_get_bounds](multirange_get_bounds.md)
+  - [make_range](make_range.md)
   - RangeBound
 - Called from (representative examples):
-  - multirange_gist_compress
+  - [multirange_gist_compress](multirange_gist_compress.md)
   - PG_RETURN_MULTIRANGE_P
 
 ## Notes and Other Information

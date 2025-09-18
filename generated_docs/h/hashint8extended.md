@@ -19,13 +19,13 @@ This function extends the hashint8 algorithm by incorporating an additional 64-b
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT64: PostgreSQL macro to extract int64 arguments from function call (used twice)
-  - hash_uint32_extended: Extended 32-bit hash function that incorporates the seed value
+  - [hash_uint32_extended](hash_uint32_extended.md): Extended 32-bit hash function that incorporates the seed value
 - Called from (representative examples):
-  - time_hash_extended: Extended hash function for time data type
-  - timetz_hash_extended: Extended hash function for time with timezone data type
-  - pg_lsn_hash_extended: Extended hash function for PostgreSQL Log Sequence Number
-  - timestamp_hash_extended: Extended hash function for timestamp data type
-  - interval_hash_extended: Extended hash function for interval data type
+  - [time_hash_extended](../t/time_hash_extended.md): Extended hash function for time data type
+  - [timetz_hash_extended](../t/timetz_hash_extended.md): Extended hash function for time with timezone data type
+  - [pg_lsn_hash_extended](../p/pg_lsn_hash_extended.md): Extended hash function for PostgreSQL Log Sequence Number
+  - [timestamp_hash_extended](../t/timestamp_hash_extended.md): Extended hash function for timestamp data type
+  - [interval_hash_extended](../i/interval_hash_extended.md): Extended hash function for interval data type
 
 ## Notes and Other Information
 - Maintains the same cross-type compatibility guarantees as hashint8 while providing extended hash functionality

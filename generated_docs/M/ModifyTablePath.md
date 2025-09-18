@@ -52,15 +52,15 @@ ModifyTablePath is a comprehensive path node that encapsulates all aspects of da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Path (base structure)
+  - [Path](../P/Path.md) (base structure)
   - CmdType (operation type enum)
   - OnConflictExpr (conflict handling)
-  - List (various list structures)
+  - [List](../L/List.md) (various list structures)
   - PlanRowMark (row marking)
 - Called from (representative examples):
-  - create_modifytable_path (pathnode.c:3737)
-  - create_modifytable_plan (createplan.c:2815)
-  - create_plan_recurse (createplan.c:534)
+  - [create_modifytable_path](../c/create_modifytable_path.md) (pathnode.c:3737)
+  - [create_modifytable_plan](../c/create_modifytable_plan.md) (createplan.c:2815)
+  - [create_plan_recurse](../c/create_plan_recurse.md) (createplan.c:534)
 
 ## Notes and Other Information
 - The path is always marked as not parallel-safe since data modification operations require coordination that conflicts with parallel execution

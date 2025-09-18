@@ -24,13 +24,13 @@ This function uses the PostgreSQL function call convention and doesn't take expl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InitMaterializedSRF
-  - get_extension_control_directory
+  - [InitMaterializedSRF](../I/InitMaterializedSRF.md)
+  - [get_extension_control_directory](../g/get_extension_control_directory.md)
   - AllocateDir
   - ReadDir
-  - is_extension_control_filename
-  - read_extension_control_file
-  - get_available_versions_for_extension
+  - [is_extension_control_filename](../i/is_extension_control_filename.md)
+  - [read_extension_control_file](../r/read_extension_control_file.md)
+  - [get_available_versions_for_extension](../g/get_available_versions_for_extension.md)
   - FreeDir
 - Called from (representative examples):
   - No direct references found (typically called via SQL function interface)

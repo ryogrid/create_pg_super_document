@@ -19,17 +19,17 @@ The transformRangeFunction function handles the complex transformation of functi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr
-  - FigureColname
+  - [transformExpr](transformExpr.md)
+  - [FigureColname](../F/FigureColname.md)
   - makeFuncCall
   - SystemFuncName
-  - assign_list_collations
-  - contain_vars_of_level
-  - addRangeTableEntryForFunction
+  - [assign_list_collations](../a/assign_list_collations.md)
+  - [contain_vars_of_level](../c/contain_vars_of_level.md)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
   - EXPR_KIND_FROM_FUNCTION
   - COERCE_EXPLICIT_CALL
 - Called from (representative examples):
-  - transformFromClauseItem
+  - [transformFromClauseItem](transformFromClauseItem.md)
 
 ## Notes and Other Information
 - The function automatically sets p_lateral_active = true for all function calls in FROM, regardless of explicit LATERAL marking

@@ -26,12 +26,12 @@ For columns with small, fixed sets of possible values (like boolean or enum type
 - Functions called/Symbols referenced:
   - VacAttrStatsP (parameter type)
   - AnalyzeAttrFetchFunc (function pointer type)
-  - TrackItem (internal struct for value tracking)
+  - [TrackItem](../T/TrackItem.md) (internal struct for value tracking)
   - Various PostgreSQL memory management functions (palloc, datumCopy)
-  - FunctionCall2Coll (for equality comparisons)
-  - analyze_mcv_list (for MCV list optimization)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md) (for equality comparisons)
+  - [analyze_mcv_list](../a/analyze_mcv_list.md) (for MCV list optimization)
 - Called from (representative examples):
-  - std_typanalyze (main analysis function dispatcher)
+  - [std_typanalyze](../s/std_typanalyze.md) (main analysis function dispatcher)
 
 ## Notes and Other Information
 - This function is used specifically when the data type only supports equality operations and not ordering operations

@@ -19,14 +19,14 @@ This function handles error reporting for failed newlocale() system calls in a p
 - Functions called/Symbols referenced:
   - errno (global variable)
   - ereport
-  - errcode
-  - errmsg
-  - errdetail
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [errdetail](../e/errdetail.md)
   - ERRCODE_INVALID_PARAMETER_VALUE
   - ERROR
   - ENOENT
 - Called from (representative examples):
-  - pg_newlocale_from_collation (at lines 1645, 1656, 1660)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md) (at lines 1645, 1656, 1660)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_locale.c compilation unit

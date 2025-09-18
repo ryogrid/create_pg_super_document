@@ -28,18 +28,18 @@ The function performs the following operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSharedRelation
-  - SetSharedSecurityLabel
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
+  - [IsSharedRelation](../I/IsSharedRelation.md)
+  - [SetSharedSecurityLabel](SetSharedSecurityLabel.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - ExecSecLabelStmt
+  - [ExecSecLabelStmt](../E/ExecSecLabelStmt.md)
 
 ## Notes and Other Information
 - The function distinguishes between shared and non-shared objects, routing shared objects to SetSharedSecurityLabel

@@ -21,8 +21,8 @@ This ensures proper cleanup ordering where dependent components are freed before
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_free (frees the next streamer in chain)
-  - pfree (PostgreSQL memory deallocation)
+  - [bbstreamer_free](bbstreamer_free.md) (frees the next streamer in chain)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 - Called from (representative examples):
   - Via bbstreamer_tar_archiver_ops.free function pointer  
   - Through general bbstreamer cleanup mechanisms

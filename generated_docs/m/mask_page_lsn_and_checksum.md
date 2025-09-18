@@ -23,15 +23,15 @@ The function operates directly on the page header structure, modifying the pd_ls
   - PageHeader (type cast for page header access)
   - MASK_MARKER (constant used as mask value)
 - Called from (representative examples):
-  - brin_mask (BRIN index masking)
-  - gin_mask (GIN index masking)
-  - gist_mask (GiST index masking)
-  - hash_mask (hash index masking)
-  - heap_mask (heap page masking)
-  - btree_mask (B-tree index masking)
-  - spg_mask (SP-GiST index masking)
-  - generic_mask (generic WAL masking)
-  - seq_mask (sequence masking)
+  - [brin_mask](../b/brin_mask.md) (BRIN index masking)
+  - [gin_mask](../g/gin_mask.md) (GIN index masking)
+  - [gist_mask](../g/gist_mask.md) (GiST index masking)
+  - [hash_mask](../h/hash_mask.md) (hash index masking)
+  - [heap_mask](../h/heap_mask.md) (heap page masking)
+  - [btree_mask](../b/btree_mask.md) (B-tree index masking)
+  - [spg_mask](../s/spg_mask.md) (SP-GiST index masking)
+  - [generic_mask](../g/generic_mask.md) (generic WAL masking)
+  - [seq_mask](../s/seq_mask.md) (sequence masking)
 
 ## Notes and Other Information
 - This function is part of the buffer masking infrastructure used for WAL consistency checks

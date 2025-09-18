@@ -22,7 +22,7 @@ This function is commonly used with fixed-length character fields (like CHAR col
 - Functions called/Symbols referenced:
   - None (uses only basic C operations)
 - Called from (representative examples):
-  - ldchar() function in the same file
+  - [ldchar](../l/ldchar.md)() function in the same file
   - Test cases in compat_informix-charfuncs.c
   - ECPG_INFORMIX_EXTRA_CHARS macro context
 

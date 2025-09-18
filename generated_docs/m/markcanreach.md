@@ -27,9 +27,9 @@ The marking mechanism uses the tmp field of state structures to track which stat
   - STACK_TOO_DEEP (stack overflow protection macro)
   - NERR (error reporting macro)
   - REG_ETOOBIG (error code for regex too complex)
-  - markcanreach (recursive self-call)
+  - [markcanreach](markcanreach.md) (recursive self-call)
 - Called from (representative examples):
-  - cleanup (src/backend/regex/regc_nfa.c:2976)
+  - [cleanup](../c/cleanup.md) (src/backend/regex/regc_nfa.c:2976)
   - REPLACEARC macro (src/backend/regex/regcomp.c:222)
 
 ## Notes and Other Information

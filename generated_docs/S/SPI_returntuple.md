@@ -20,9 +20,9 @@ The function performs several validation checks: it verifies that both the input
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - assign_record_type_typmod
-  - heap_copy_tuple_as_datum
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
+  - [heap_copy_tuple_as_datum](../h/heap_copy_tuple_as_datum.md)
   - DatumGetHeapTupleHeader
 - Called from (representative examples):
   - Various stored procedure implementations that need to return tuples

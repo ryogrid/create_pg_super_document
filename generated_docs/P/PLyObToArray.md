@@ -24,11 +24,11 @@ PLyObToArray is a component structure used as part of the PLyObToDatum conversio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyObToDatum (for element conversion)
+  - [PLyObToDatum](PLyObToDatum.md) (for element conversion)
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - PLyObToDatum (as union member 'array')
-  - PLySequence_ToArray functions in plpy_typeio.c
+  - [PLyObToDatum](PLyObToDatum.md) (as union member 'array')
+  - [PLySequence_ToArray](PLySequence_ToArray.md) functions in plpy_typeio.c
   - Array conversion functions in PLpython
 
 ## Notes and Other Information

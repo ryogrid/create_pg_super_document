@@ -22,11 +22,11 @@ The function performs a simple linear scan through the expanded ranges array, ex
 - Functions called/Symbols referenced:
   - (none - uses only basic operations)
 - Types referenced:
-  - ExpandedRange
+  - [ExpandedRange](../E/ExpandedRange.md)
 - Called from:
-  - store_expanded_ranges
-  - ensure_free_space_in_buffer
-  - compactify_ranges
+  - [store_expanded_ranges](../s/store_expanded_ranges.md)
+  - [ensure_free_space_in_buffer](../e/ensure_free_space_in_buffer.md)
+  - [compactify_ranges](compactify_ranges.md)
 
 ## Notes and Other Information
 - Returns the total count of boundary values needed for storage

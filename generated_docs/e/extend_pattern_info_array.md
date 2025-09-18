@@ -21,14 +21,14 @@ The function handles memory management safely by using pg_realloc, which will te
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PatternInfoArray (struct type)
-  - PatternInfo (struct type)
+  - [PatternInfoArray](../P/PatternInfoArray.md) (struct type)
+  - [PatternInfo](../P/PatternInfo.md) (struct type)
   - pg_realloc
   - memset
 - Called from:
-  - append_database_pattern (at src/bin/pg_amcheck/pg_amcheck.c:1360)
-  - append_schema_pattern (at src/bin/pg_amcheck/pg_amcheck.c:1391)
-  - append_relation_pattern_helper (at src/bin/pg_amcheck/pg_amcheck.c:1435)
+  - [append_database_pattern](../a/append_database_pattern.md) (at src/bin/pg_amcheck/pg_amcheck.c:1360)
+  - [append_schema_pattern](../a/append_schema_pattern.md) (at src/bin/pg_amcheck/pg_amcheck.c:1391)
+  - [append_relation_pattern_helper](../a/append_relation_pattern_helper.md) (at src/bin/pg_amcheck/pg_amcheck.c:1435)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pg_amcheck.c

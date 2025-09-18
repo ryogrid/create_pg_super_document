@@ -23,29 +23,29 @@ The function requires determining the object's owner to properly process the ACL
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open/table_close
-  - ScanKeyInit
-  - systable_beginscan/systable_endscan/systable_getnext
-  - heap_getattr
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_endscan/systable_getnext
+  - [heap_getattr](../h/heap_getattr.md)
   - DatumGetAclPCopy
-  - aclmembers
-  - get_object_catcache_oid
-  - SearchSysCache1/ReleaseSysCache
-  - get_object_class_descr
-  - SysCacheGetAttrNotNull
-  - DatumGetObjectId
-  - get_object_attnum_owner
-  - merge_acl_with_grant
+  - [aclmembers](../a/aclmembers.md)
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)/ReleaseSysCache
+  - [get_object_class_descr](../g/get_object_class_descr.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
+  - [DatumGetObjectId](../D/DatumGetObjectId.md)
+  - [get_object_attnum_owner](../g/get_object_attnum_owner.md)
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
   - DROP_RESTRICT
   - list_make1_oid
   - ACLITEM_ALL_PRIV_BITS
   - ACL_NUM
-  - CatalogTupleDelete
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - updateInitAclDependencies
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [updateInitAclDependencies](../u/updateInitAclDependencies.md)
   - CommandCounterIncrement
 - Called from (representative examples):
-  - shdepDropOwned
+  - [shdepDropOwned](../s/shdepDropOwned.md)
 
 ## Notes and Other Information
 - Specifically designed for role dropping operations via shdepDropOwned

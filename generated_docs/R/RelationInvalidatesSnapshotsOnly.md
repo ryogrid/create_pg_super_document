@@ -19,9 +19,9 @@ RelationInvalidatesSnapshotsOnly identifies relations that do not have system ca
 - Functions called/Symbols referenced:
   - None (pure switch statement logic)
 - Called from (representative examples):
-  - CacheInvalidateHeapTuple
-  - InitCatalogCache  
-  - GetNonHistoricCatalogSnapshot
+  - [CacheInvalidateHeapTuple](../C/CacheInvalidateHeapTuple.md)
+  - [InitCatalogCache](../I/InitCatalogCache.md)  
+  - [GetNonHistoricCatalogSnapshot](../G/GetNonHistoricCatalogSnapshot.md)
 
 ## Notes and Other Information
 - Currently handles 7 specific system relations: DbRoleSettingRelationId, DependRelationId, SharedDependRelationId, DescriptionRelationId, SharedDescriptionRelationId, SecLabelRelationId, and SharedSecLabelRelationId

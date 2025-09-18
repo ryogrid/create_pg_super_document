@@ -31,15 +31,15 @@ This dual-mode behavior makes the function suitable for both contexts where exce
 - Functions called/Symbols referenced:
   - NUMERIC_IS_SPECIAL (macro to check for NaN/infinity)
   - NUMERIC_IS_NAN (macro to check for NaN)
-  - init_var_from_num (initialize NumericVar from Numeric)
-  - numericvar_to_int32 (perform the actual conversion)
+  - [init_var_from_num](../i/init_var_from_num.md) (initialize NumericVar from Numeric)
+  - [numericvar_to_int32](numericvar_to_int32.md) (perform the actual conversion)
   - ereport (PostgreSQL error reporting)
-  - errcode/errmsg (error code and message macros)
+  - [errcode](../e/errcode.md)/errmsg (error code and message macros)
 - Called from (representative examples):
-  - executeItemOptUnwrapTarget (JSON path execution with error handling)
-  - executeDateTimeMethod (JSON date/time processing)
-  - getArrayIndex (JSON array indexing)
-  - numeric_int4 (standard SQL conversion function)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (JSON path execution with error handling)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (JSON date/time processing)
+  - [getArrayIndex](../g/getArrayIndex.md) (JSON array indexing)
+  - [numeric_int4](numeric_int4.md) (standard SQL conversion function)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/numeric.c:4413-4462

@@ -40,13 +40,13 @@ The function configures the shared memory message queues so that data flows thro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup (locate queue structures in TOC)
-  - shm_mq_set_receiver (configure receiving process for input queue)
-  - shm_mq_set_sender (configure sending process for output queue)
-  - shm_mq_attach (create handles for queue communication)
+  - [shm_toc_lookup](../s/shm_toc_lookup.md) (locate queue structures in TOC)
+  - [shm_mq_set_receiver](../s/shm_mq_set_receiver.md) (configure receiving process for input queue)
+  - [shm_mq_set_sender](../s/shm_mq_set_sender.md) (configure sending process for output queue)
+  - [shm_mq_attach](../s/shm_mq_attach.md) (create handles for queue communication)
   - MyProc (current process descriptor)
 - Called from (representative examples):
-  - test_shm_mq_main (during worker initialization)
+  - [test_shm_mq_main](../t/test_shm_mq_main.md) (during worker initialization)
 
 ## Notes and Other Information
 - This function is static (internal to worker.c) and represents application-specific logic that would be customized for different use cases

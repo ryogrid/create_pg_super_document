@@ -23,9 +23,9 @@ The HISTSIZE variable in psql controls how many previous commands are kept in me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup (implicitly called to duplicate the "500" string)
+  - [pg_strdup](../p/pg_strdup.md) (implicitly called to duplicate the "500" string)
 - Called from (representative examples):
-  - EstablishVariableSpace
+  - [EstablishVariableSpace](../E/EstablishVariableSpace.md)
 
 ## Notes and Other Information
 - This is a static function within the psql startup module, making it internal to the psql implementation

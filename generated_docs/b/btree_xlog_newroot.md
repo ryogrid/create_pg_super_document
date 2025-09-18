@@ -30,18 +30,18 @@ The new root page has no siblings (prev/next pointers set to P_NONE) and is mark
 - Functions called/Symbols referenced:
   - XLogRecGetData
   - XLogInitBufferForRedo
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - BTPageGetOpaque
-  - _bt_pageinit
-  - _bt_restore_page
-  - _bt_clear_incomplete_split
-  - _bt_restore_meta
-  - BufferGetPageSize
-  - PageSetLSN
+  - [_bt_pageinit](_bt_pageinit.md)
+  - [_bt_restore_page](_bt_restore_page.md)
+  - [_bt_clear_incomplete_split](_bt_clear_incomplete_split.md)
+  - [_bt_restore_meta](_bt_restore_meta.md)
+  - [BufferGetPageSize](../B/BufferGetPageSize.md)
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - The new root page is always initialized with prev/next pointers set to P_NONE

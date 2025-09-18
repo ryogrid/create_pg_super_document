@@ -20,17 +20,17 @@ The function increments the line number counter for error reporting purposes and
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_get_line_buf
-  - pg_any_to_server
-  - pstrdup
-  - pfree
+  - [pg_any_to_server](../p/pg_any_to_server.md)
+  - [pstrdup](../p/pstrdup.md)
+  - [pfree](../p/pfree.md)
   - PG_UTF8 (constant)
 - Called from (representative examples):
-  - dsynonym_init
-  - thesaurusRead
-  - NIImportDictionary
+  - [dsynonym_init](../d/dsynonym_init.md)
+  - [thesaurusRead](thesaurusRead.md)
+  - [NIImportDictionary](../N/NIImportDictionary.md)
   - NIImportOOAffixes
   - NIImportAffixes
-  - readstoplist
+  - [readstoplist](../r/readstoplist.md)
 
 ## Notes and Other Information
 - Returns NULL when end of file is reached

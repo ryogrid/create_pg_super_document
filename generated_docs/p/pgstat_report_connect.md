@@ -21,14 +21,14 @@ The function first checks if connection statistics should be reported using pgst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_should_report_connstat
-  - pgstat_prep_database_pending
-  - PgStat_StatDBEntry (data structure)
+  - [pgstat_should_report_connstat](pgstat_should_report_connstat.md)
+  - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md) (data structure)
   - MyDatabaseId (global variable)
   - MyStartTimestamp (global variable)
   - pgLastSessionReportTime (global variable)
 - Called from (representative examples):
-  - PostgresMain (in src/backend/tcop/postgres.c:4354)
+  - [PostgresMain](../P/PostgresMain.md) (in src/backend/tcop/postgres.c:4354)
 
 ## Notes and Other Information
 - Only reports statistics for normal backend processes (B_BACKEND), not parallel workers or WAL senders
@@ -36,4 +36,4 @@ The function first checks if connection statistics should be reported using pgst
 - Uses pending statistics approach for efficient batch updates to shared memory
 - Part of PostgreSQL's database-level session monitoring system
 - The dboid parameter is provided but the function uses MyDatabaseId for consistency
-- Session statistics help administrators monitor database connection patterns and usage
+- [Session](../S/Session.md) statistics help administrators monitor database connection patterns and usage

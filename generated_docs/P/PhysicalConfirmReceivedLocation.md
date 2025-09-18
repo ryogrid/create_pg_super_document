@@ -21,12 +21,12 @@ The design philosophy emphasizes performance over immediate durability - the slo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlot (accessed via MyReplicationSlot global)
-  - ReplicationSlotMarkDirty
-  - ReplicationSlotsComputeRequiredLSN  
-  - PhysicalWakeupLogicalWalSnd
+  - [ReplicationSlot](../R/ReplicationSlot.md) (accessed via MyReplicationSlot global)
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md)
+  - [ReplicationSlotsComputeRequiredLSN](../R/ReplicationSlotsComputeRequiredLSN.md)  
+  - [PhysicalWakeupLogicalWalSnd](PhysicalWakeupLogicalWalSnd.md)
 - Called from (representative examples):
-  - ProcessStandbyReplyMessage
+  - [ProcessStandbyReplyMessage](ProcessStandbyReplyMessage.md)
 
 ## Notes and Other Information
 - The function uses spinlocks for thread-safe access to replication slot data

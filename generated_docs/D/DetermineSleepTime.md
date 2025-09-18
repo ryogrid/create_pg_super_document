@@ -25,9 +25,9 @@ The function ensures that background workers are serviced promptly while maintai
 ## Dependencies
 - Functions called/Symbols referenced:
   - TimestampTzPlusMilliseconds
-  - GetCurrentTimestamp  
-  - TimestampDifferenceMilliseconds
-  - ForgetBackgroundWorker
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)  
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
+  - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md)
   - slist_foreach_modify
   - slist_container
 - Constants used:
@@ -35,7 +35,7 @@ The function ensures that background workers are serviced promptly while maintai
   - SIGKILL_CHILDREN_AFTER_SECS
   - BGW_NEVER_RESTART
 - Called from:
-  - ServerLoop
+  - [ServerLoop](../S/ServerLoop.md)
 
 ## Notes and Other Information
 - The function uses global variables like Shutdown, AbortStartTime, StartWorkerNeeded, and HaveCrashedWorker to determine server state

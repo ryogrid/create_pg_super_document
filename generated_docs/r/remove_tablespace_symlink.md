@@ -23,11 +23,11 @@ This function safely removes tablespace links from the PostgreSQL pg_tblspc dire
   - unlink: Removes a symbolic link or file
   - rmdir: Removes an empty directory
   - ereport: PostgreSQL error reporting function
-  - errcode_for_file_access: Error code function for file access errors
+  - [errcode_for_file_access](../e/errcode_for_file_access.md): Error code function for file access errors
 
 - Called from (representative examples):
-  - InitWalRecovery: Used during WAL recovery initialization
-  - create_tablespace_directories: Part of tablespace creation process
+  - [InitWalRecovery](../I/InitWalRecovery.md): Used during WAL recovery initialization
+  - [create_tablespace_directories](../c/create_tablespace_directories.md): Part of tablespace creation process
 
 ## Notes and Other Information
 - Designed to handle cross-platform differences between Unix symlinks and Windows junction points

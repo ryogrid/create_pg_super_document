@@ -27,12 +27,12 @@ The function assumes the caller has already acquired the necessary SLRU bank loc
 - Functions called/Symbols referenced:
   - TransactionIdToCTsEntry (macro to calculate entry offset within page)
   - TransactionIdIsNormal (validation function for transaction ID)
-  - CommitTimestampEntry (structure type for storing timestamp data)
+  - [CommitTimestampEntry](../C/CommitTimestampEntry.md) (structure type for storing timestamp data)
   - CommitTsCtl (global SLRU control structure)
   - SizeOfCommitTimestampEntry (size constant for the entry structure)
   - RepOriginId (replication origin identifier type)
 - Called from (representative examples):
-  - SetXidCommitTsInPage (for both main transaction and subtransactions)
+  - [SetXidCommitTsInPage](../S/SetXidCommitTsInPage.md) (for both main transaction and subtransactions)
 
 ## Notes and Other Information
 - This is a static function, only accessible within commit_ts.c

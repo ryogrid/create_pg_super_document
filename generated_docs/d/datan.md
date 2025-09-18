@@ -24,7 +24,7 @@ This function implements the SQL ATAN function for PostgreSQL, computing the inv
   - get_float8_nan
   - atan (standard C library function)
   - isinf
-  - float_overflow_error
+  - [float_overflow_error](../f/float_overflow_error.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

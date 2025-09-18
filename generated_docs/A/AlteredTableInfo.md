@@ -88,10 +88,10 @@ AlteredTableInfo serves as the central coordination structure for PostgreSQL's m
   - AT_NUM_PASSES (constant)
   - Various PostgreSQL core types (Oid, TupleDesc, List, Expr, etc.)
 - Called from (representative examples):
-  - ATRewriteCatalogs
-  - ATExecCmd
-  - ATRewriteTables
-  - ATGetQueueEntry
+  - [ATRewriteCatalogs](ATRewriteCatalogs.md)
+  - [ATExecCmd](ATExecCmd.md)
+  - [ATRewriteTables](ATRewriteTables.md)
+  - [ATGetQueueEntry](ATGetQueueEntry.md)
   - Various ATExec* functions for specific ALTER TABLE operations
 
 ## Notes and Other Information

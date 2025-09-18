@@ -24,7 +24,7 @@ The function includes overflow protection to prevent integer overflow when calcu
   - PG_GETARG_PATH_P (macro for retrieving PATH arguments)
   - PG_RETURN_PATH_P (macro for returning PATH result)
   - SET_VARSIZE (macro for setting variable size)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
   - ereport (PostgreSQL error reporting)
 - Called from:
   - No direct references found in the codebase

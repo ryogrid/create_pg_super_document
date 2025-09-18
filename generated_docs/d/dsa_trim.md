@@ -27,7 +27,7 @@ Large objects (DSA_SCLASS_SPAN_LARGE) are skipped because they already return se
   - LWLockAcquire
   - LWLockRelease
   - DsaPointerIsValid
-  - dsa_get_address
+  - [dsa_get_address](dsa_get_address.md)
   - destroy_superblock
 - Called from (representative examples):
   - Available through DSA public interface

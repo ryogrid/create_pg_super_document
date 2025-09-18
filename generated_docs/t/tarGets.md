@@ -23,7 +23,7 @@ The function handles end-of-file conditions gracefully, returning NULL if no dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _tarReadRaw
+  - [_tarReadRaw](_tarReadRaw.md)
   - strlen
 - Called from (representative examples):
   - lclTocEntry

@@ -23,23 +23,23 @@ For backward scans, the function positions at the end of the bucket chain. When 
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgstat_count_index_scan
-  - _hash_datum2hashkey
-  - _hash_datum2hashkey_type
-  - _hash_getbucketbuf_from_hashkey
-  - PredicateLockPage
-  - BufferGetBlockNumber
+  - [_hash_datum2hashkey](_hash_datum2hashkey.md)
+  - [_hash_datum2hashkey_type](_hash_datum2hashkey_type.md)
+  - [_hash_getbucketbuf_from_hashkey](_hash_getbucketbuf_from_hashkey.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
   - HashPageGetOpaque
   - H_BUCKET_BEING_POPULATED
-  - _hash_get_oldblock_from_newbucket
-  - _hash_getbuf
-  - _hash_dropbuf
+  - [_hash_get_oldblock_from_newbucket](_hash_get_oldblock_from_newbucket.md)
+  - [_hash_getbuf](_hash_getbuf.md)
+  - [_hash_dropbuf](_hash_dropbuf.md)
   - ScanDirectionIsBackward
   - BlockNumberIsValid
-  - _hash_readnext
-  - _hash_readpage
+  - [_hash_readnext](_hash_readnext.md)
+  - [_hash_readpage](_hash_readpage.md)
 - Called from (representative examples):
-  - hashgettuple
-  - hashgetbitmap
+  - [hashgettuple](hashgettuple.md)
+  - [hashgetbitmap](hashgetbitmap.md)
 
 ## Notes and Other Information
 The function requires at least one scan key and only supports equality operations (HTEqualStrategyNumber). NULL values in scan keys cause immediate failure since hash indexes cannot match NULL values. During bucket splits, careful locking order is maintained: acquire lock on split bucket first, then release lock but keep pin, then acquire lock on populated bucket. This prevents deadlocks with vacuum operations. The function maintains statistics by calling pgstat_count_index_scan and implements predicate locking for snapshot isolation.

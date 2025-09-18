@@ -21,7 +21,7 @@ The function converts wide character command-line arguments to multibyte strings
 ## Dependencies
 - Functions called/Symbols referenced:
   - wcstombs (converts wide character string to multibyte)
-  - DllRegisterServer (registers the DLL and event source)
+  - [DllRegisterServer](DllRegisterServer.md) (registers the DLL and event source)
 - Called from (representative examples):
   - Invoked by Windows regsvr32.exe utility with /i flag
   - COM registration framework

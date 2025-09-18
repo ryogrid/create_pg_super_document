@@ -23,14 +23,14 @@ The function operates in a loop, using getCopyDataMessage to handle protocol-lev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getCopyDataMessage
-  - pqWait
-  - pqReadData
+  - [getCopyDataMessage](../g/getCopyDataMessage.md)
+  - [pqWait](pqWait.md)
+  - [pqReadData](pqReadData.md)
   - malloc
   - memcpy
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
-  - PQgetCopyData (public API wrapper)
+  - [PQgetCopyData](../P/PQgetCopyData.md) (public API wrapper)
 
 ## Notes and Other Information
 - Returns: row length (> 0) on success, 0 if no data available (async mode only), -1 if end of copy, -2 if error

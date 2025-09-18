@@ -35,19 +35,19 @@ The function handles the most complex scenarios in PostgreSQL's type system, inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
-  - build_function_result_tupdesc_t
-  - resolve_polymorphic_tupdesc
-  - assign_record_type_typmod
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [build_function_result_tupdesc_t](../b/build_function_result_tupdesc_t.md)
+  - [resolve_polymorphic_tupdesc](../r/resolve_polymorphic_tupdesc.md)
+  - [assign_record_type_typmod](../a/assign_record_type_typmod.md)
   - IsPolymorphicType
   - exprType
-  - get_type_func_class
-  - lookup_rowtype_tupdesc_copy
-  - ReleaseSysCache
+  - [get_type_func_class](../g/get_type_func_class.md)
+  - [lookup_rowtype_tupdesc_copy](../l/lookup_rowtype_tupdesc_copy.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - get_call_result_type
-  - get_expr_result_type (twice)
-  - get_func_result_type
+  - [get_call_result_type](../g/get_call_result_type.md)
+  - [get_expr_result_type](../g/get_expr_result_type.md) (twice)
+  - [get_func_result_type](../g/get_func_result_type.md)
 
 ## Notes and Other Information
 - This is a static function, not exposed in the public API

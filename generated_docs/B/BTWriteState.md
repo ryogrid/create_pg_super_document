@@ -23,13 +23,13 @@ The structure provides a generic insertion scankey that can be reused throughout
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BulkWriteState
+  - [BulkWriteState](BulkWriteState.md)
   - BTScanInsert
 - Called from (representative examples):
-  - _bt_leafbuild
-  - _bt_blnewpage
-  - _bt_blwritepage
-  - _bt_pagestate
+  - [_bt_leafbuild](../b/_bt_leafbuild.md)
+  - [_bt_blnewpage](../b/_bt_blnewpage.md)
+  - [_bt_blwritepage](../b/_bt_blwritepage.md)
+  - [_bt_pagestate](../b/_bt_pagestate.md)
   - _bt_buildadd
   - _bt_sort_dedup_finish_pending
   - _bt_uppershutdown

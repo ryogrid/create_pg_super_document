@@ -19,8 +19,8 @@ This function performs complete memory cleanup for a gzip decompressor streamer 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base streamer type)
-  - bbstreamer_free (function to free the next streamer in chain)
+  - [bbstreamer](bbstreamer.md) (base streamer type)
+  - [bbstreamer_free](bbstreamer_free.md) (function to free the next streamer in chain)
 - Called from (representative examples):
   - No direct references found (likely called through function pointer in ops structure)
 

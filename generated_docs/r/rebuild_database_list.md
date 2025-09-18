@@ -18,21 +18,21 @@ This function rebuilds the global DatabaseList used by the autovacuum launcher t
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - hash_create
-  - pgstat_fetch_stat_dbentry
-  - hash_search
-  - get_database_list
-  - dlist_init
+  - [hash_create](../h/hash_create.md)
+  - [pgstat_fetch_stat_dbentry](../p/pgstat_fetch_stat_dbentry.md)
+  - [hash_search](../h/hash_search.md)
+  - [get_database_list](../g/get_database_list.md)
+  - [dlist_init](../d/dlist_init.md)
   - qsort (with db_comparator)
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - TimestampTzPlusMilliseconds
-  - dlist_push_head
-  - MemoryContextDelete
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Data structures used:
-  - avl_dbase
+  - [avl_dbase](../a/avl_dbase.md)
   - HASHTBL
-  - dlist_iter
-  - PgStat_StatDBEntry
+  - [dlist_iter](../d/dlist_iter.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
 - Global variables accessed:
   - DatabaseList
   - DatabaseListCxt
@@ -40,10 +40,10 @@ This function rebuilds the global DatabaseList used by the autovacuum launcher t
   - autovacuum_naptime
   - MIN_AUTOVAC_SLEEPTIME
 - Called from:
-  - HandleAutoVacLauncherInterrupts (config reload - line 756)
-  - launcher_determine_sleep (time rebalancing - line 840)
-  - do_start_worker (worker launch handling - line 1264)
-  - launch_worker (worker management - line 1327)
+  - [HandleAutoVacLauncherInterrupts](../H/HandleAutoVacLauncherInterrupts.md) (config reload - line 756)
+  - [launcher_determine_sleep](../l/launcher_determine_sleep.md) (time rebalancing - line 840)
+  - [do_start_worker](../d/do_start_worker.md) (worker launch handling - line 1264)
+  - [launch_worker](../l/launch_worker.md) (worker management - line 1327)
 
 ## Notes and Other Information
 - Uses a three-phase database insertion algorithm: new database first, existing databases second, catalog databases last

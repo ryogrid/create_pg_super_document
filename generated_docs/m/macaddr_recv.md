@@ -23,8 +23,8 @@ This function is part of PostgreSQL's type system infrastructure and is used whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_POINTER`: PostgreSQL macro to extract pointer from function arguments
-  - `palloc`: PostgreSQL memory allocation function
-  - `pq_getmsgbyte`: PostgreSQL function to read a single byte from message buffer
+  - `[palloc](../p/palloc.md)`: PostgreSQL memory allocation function
+  - `[pq_getmsgbyte](../p/pq_getmsgbyte.md)`: PostgreSQL function to read a single byte from message buffer
   - `PG_RETURN_MACADDR_P`: PostgreSQL macro to return macaddr pointer
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via PostgreSQL type system during binary protocol operations)

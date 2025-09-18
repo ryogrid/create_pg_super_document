@@ -31,21 +31,21 @@ For UPDATE operations, it performs additional validation to check if the updated
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecSetupPartitionTupleRouting
-  - ExecFindPartition
-  - CheckSubscriptionRelkind
-  - ExecGetRootToChildMap
-  - execute_attr_map_slot
-  - apply_handle_insert_internal
-  - apply_handle_delete_internal
-  - FindReplTupleInLocalRel
-  - slot_modify_data
-  - ExecPartitionCheck
-  - convert_tuples_by_name
+  - [ExecSetupPartitionTupleRouting](../E/ExecSetupPartitionTupleRouting.md)
+  - [ExecFindPartition](../E/ExecFindPartition.md)
+  - [CheckSubscriptionRelkind](../C/CheckSubscriptionRelkind.md)
+  - [ExecGetRootToChildMap](../E/ExecGetRootToChildMap.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [apply_handle_insert_internal](apply_handle_insert_internal.md)
+  - [apply_handle_delete_internal](apply_handle_delete_internal.md)
+  - [FindReplTupleInLocalRel](../F/FindReplTupleInLocalRel.md)
+  - [slot_modify_data](../s/slot_modify_data.md)
+  - [ExecPartitionCheck](../E/ExecPartitionCheck.md)
+  - [convert_tuples_by_name](../c/convert_tuples_by_name.md)
 - Called from (representative examples):
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
+  - [apply_handle_insert](apply_handle_insert.md)
+  - [apply_handle_update](apply_handle_update.md)
+  - [apply_handle_delete](apply_handle_delete.md)
 
 ## Notes and Other Information
 - This function is crucial for logical replication of partitioned tables, ensuring data consistency across partition boundaries

@@ -25,8 +25,8 @@ This function is commonly used by monitoring tools, backup scripts, and replicat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - GetXLogWriteRecPtr
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [GetXLogWriteRecPtr](../G/GetXLogWriteRecPtr.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct callers found (SQL function interface)

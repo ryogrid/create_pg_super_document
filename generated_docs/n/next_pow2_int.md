@@ -19,11 +19,11 @@ This utility function computes the smallest power of 2 that is greater than or e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - my_log2
+  - [my_log2](../m/my_log2.md)
 - Called from (representative examples):
   - MOD
-  - hash_create
-  - init_htab
+  - [hash_create](../h/hash_create.md)
+  - [init_htab](../i/init_htab.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the dynahash.c file

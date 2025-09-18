@@ -35,23 +35,23 @@ The function handles edge cases like all-null columns, mixed null/non-null scena
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - index_getattr (extract column values from tuples)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [index_getattr](../i/index_getattr.md) (extract column values from tuples)
   - gistdentryinit (initialize GIST entries)
-  - gistSplitHalf (fallback even split)
-  - gistUserPicksplit (user-defined splitting with optimization)
-  - gistunionsubkey (union key computation)
+  - [gistSplitHalf](gistSplitHalf.md) (fallback even split)
+  - [gistUserPicksplit](gistUserPicksplit.md) (user-defined splitting with optimization)
+  - [gistunionsubkey](gistunionsubkey.md) (union key computation)
   - memcpy (memory copying for backup operations)
 - Types referenced:
-  - Relation, Page, IndexTuple
-  - GISTSTATE, GistSplitVector, GIST_SPLITVEC
-  - GistEntryVector, GISTENTRY
+  - [Relation](../R/Relation.md), Page, IndexTuple
+  - [GISTSTATE](../G/GISTSTATE.md), GistSplitVector, GIST_SPLITVEC
+  - [GistEntryVector](../G/GistEntryVector.md), GISTENTRY
   - OffsetNumber, Datum
 - Constants used:
   - GEVHDRSZ (GistEntryVector header size)
 - Called from:
-  - gistSplit (main external caller)
-  - gistSplitByKey (recursive self-calls)
+  - [gistSplit](gistSplit.md) (main external caller)
+  - [gistSplitByKey](gistSplitByKey.md) (recursive self-calls)
 
 ## Notes and Other Information
 - The function is designed to be called initially with attno=0, with internal recursion incrementing attno

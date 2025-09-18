@@ -22,18 +22,18 @@ AlterDatabase handles various ALTER DATABASE operations by parsing statement opt
 ## Dependencies
 - Functions called/Symbols referenced:
   - AlterDatabaseStmt: Statement structure containing alter database parameters
-  - DefElem: Definition element structure for parsing individual options
-  - errorConflictingDefElem: Reports errors for duplicate options
-  - PreventInTransactionBlock: Prevents certain operations within transaction blocks
-  - movedb: Handles database tablespace relocation
-  - defGetBoolean/defGetInt32/defGetString: Extract typed values from DefElem
-  - database_is_invalid_form: Checks if database is in invalid state
-  - object_ownercheck: Validates database ownership permissions
-  - heap_modify_tuple: Creates modified catalog tuple
-  - CatalogTupleUpdate: Updates database catalog entry
+  - [DefElem](../D/DefElem.md): Definition element structure for parsing individual options
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md): Reports errors for duplicate options
+  - [PreventInTransactionBlock](../P/PreventInTransactionBlock.md): Prevents certain operations within transaction blocks
+  - [movedb](../m/movedb.md): Handles database tablespace relocation
+  - [defGetBoolean](../d/defGetBoolean.md)/defGetInt32/defGetString: Extract typed values from DefElem
+  - [database_is_invalid_form](../d/database_is_invalid_form.md): Checks if database is in invalid state
+  - [object_ownercheck](../o/object_ownercheck.md): Validates database ownership permissions
+  - [heap_modify_tuple](../h/heap_modify_tuple.md): Creates modified catalog tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates database catalog entry
   - InvokeObjectPostAlterHook: Triggers post-alter event hooks
 - Called from (representative examples):
-  - standard_ProcessUtility: Main utility statement processing function
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md): Main utility statement processing function
 
 ## Notes and Other Information
 - Supports four main options: is_template, allow_connections, connection_limit, and tablespace

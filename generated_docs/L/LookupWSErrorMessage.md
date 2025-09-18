@@ -24,7 +24,7 @@ The function uses a straightforward linear search algorithm. As noted in the sou
   - WSErrorEntry (struct type for error entries)
   - strcpy (standard C library function)
 - Called from (representative examples):
-  - winsock_strerror
+  - [winsock_strerror](../w/winsock_strerror.md)
 
 ## Notes and Other Information
 - Returns 1 if the error code is found and description is copied, 0 if not found

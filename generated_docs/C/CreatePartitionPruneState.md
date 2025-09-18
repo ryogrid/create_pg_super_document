@@ -20,16 +20,16 @@ This function constructs a complex two-level data structure (PartitionPruneState
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreatePartitionDirectory
-  - bms_copy
+  - [CreatePartitionDirectory](CreatePartitionDirectory.md)
+  - [bms_copy](../b/bms_copy.md)
   - AllocSetContextCreate
-  - ExecGetRangeTableRelation
-  - RelationGetPartitionKey
-  - PartitionDirectoryLookup
-  - InitPartitionPruneContext
-  - bms_add_members
+  - [ExecGetRangeTableRelation](../E/ExecGetRangeTableRelation.md)
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [PartitionDirectoryLookup](../P/PartitionDirectoryLookup.md)
+  - [InitPartitionPruneContext](../I/InitPartitionPruneContext.md)
+  - [bms_add_members](../b/bms_add_members.md)
 - Called from (representative examples):
-  - ExecInitPartitionPruning
+  - [ExecInitPartitionPruning](../E/ExecInitPartitionPruning.md)
 
 ## Notes and Other Information
 - Static function only accessible within execPartition.c

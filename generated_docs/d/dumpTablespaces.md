@@ -21,17 +21,17 @@ Like other dump functions, it excludes built-in system tablespaces (those with p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeQuery: Executes SQL query to retrieve comprehensive tablespace information
+  - [executeQuery](../e/executeQuery.md): Executes SQL query to retrieve comprehensive tablespace information
   - atooid: Converts string representation to OID type
-  - fmtId: Formats identifiers for safe SQL output
+  - [fmtId](../f/fmtId.md): Formats identifiers for safe SQL output
   - is_absolute_path: Checks if tablespace location uses absolute path
-  - appendStringLiteralConn: Safely appends string literals to SQL buffer
-  - buildACLCommands: Generates GRANT/REVOKE commands from ACL data
-  - buildShSecLabels: Generates security label assignments
-  - PQfinish: Closes database connection on error
-  - exit_nicely: Performs clean exit with error status
+  - [appendStringLiteralConn](../a/appendStringLiteralConn.md): Safely appends string literals to SQL buffer
+  - [buildACLCommands](../b/buildACLCommands.md): Generates GRANT/REVOKE commands from ACL data
+  - [buildShSecLabels](../b/buildShSecLabels.md): Generates security label assignments
+  - [PQfinish](../P/PQfinish.md): Closes database connection on error
+  - [exit_nicely](../e/exit_nicely.md): Performs clean exit with error status
 - Called from (representative examples):
-  - main: Primary entry point in pg_dumpall utility for tablespace dumping
+  - [main](../m/main.md): Primary entry point in pg_dumpall utility for tablespace dumping
 
 ## Notes and Other Information
 - Supports binary upgrade mode where original tablespace OIDs are preserved

@@ -43,17 +43,17 @@ CompressFileHandle provides a unified file I/O interface for different compressi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_compress_specification
-  - InitCompressFileHandle
-  - InitDiscoverCompressFileHandle
-  - EndCompressFileHandle
+  - [pg_compress_specification](../p/pg_compress_specification.md)
+  - [InitCompressFileHandle](../I/InitCompressFileHandle.md)
+  - [InitDiscoverCompressFileHandle](../I/InitDiscoverCompressFileHandle.md)
+  - [EndCompressFileHandle](../E/EndCompressFileHandle.md)
 - Called from (representative examples):
-  - InitCompressFileHandleGzip (src/bin/pg_dump/compress_gzip.c:432)
-  - InitCompressFileHandleLZ4 (src/bin/pg_dump/compress_lz4.c:804)
-  - InitCompressFileHandleZstd (src/bin/pg_dump/compress_zstd.c:559)
-  - InitCompressFileHandleNone (src/bin/pg_dump/compress_none.c:201)
-  - RestoreArchive (src/bin/pg_dump/pg_backup_archiver.c:340)
-  - SetOutput (src/bin/pg_dump/pg_backup_archiver.c:1678)
+  - [InitCompressFileHandleGzip](../I/InitCompressFileHandleGzip.md) (src/bin/pg_dump/compress_gzip.c:432)
+  - [InitCompressFileHandleLZ4](../I/InitCompressFileHandleLZ4.md) (src/bin/pg_dump/compress_lz4.c:804)
+  - [InitCompressFileHandleZstd](../I/InitCompressFileHandleZstd.md) (src/bin/pg_dump/compress_zstd.c:559)
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md) (src/bin/pg_dump/compress_none.c:201)
+  - [RestoreArchive](../R/RestoreArchive.md) (src/bin/pg_dump/pg_backup_archiver.c:340)
+  - [SetOutput](../S/SetOutput.md) (src/bin/pg_dump/pg_backup_archiver.c:1678)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_dump/compress_io.h:98-193

@@ -32,13 +32,13 @@ The LsnReadQueue serves as a circular buffer for managing LSN (Log Sequence Numb
   - XLogRecPtr (WAL position type)
 
 - Called from (representative examples):
-  - XLogPrefetcher (contains LsnReadQueue as member)  
-  - lrq_alloc (allocates and initializes LsnReadQueue)
-  - lrq_free (deallocates LsnReadQueue)
-  - lrq_inflight (checks inflight count)
-  - lrq_completed (checks completed count)
-  - lrq_prefetch (performs prefetch operations)
-  - lrq_complete_lsn (marks LSN as completed)
+  - [XLogPrefetcher](../X/XLogPrefetcher.md) (contains LsnReadQueue as member)  
+  - [lrq_alloc](../l/lrq_alloc.md) (allocates and initializes LsnReadQueue)
+  - [lrq_free](../l/lrq_free.md) (deallocates LsnReadQueue)
+  - [lrq_inflight](../l/lrq_inflight.md) (checks inflight count)
+  - [lrq_completed](../l/lrq_completed.md) (checks completed count)
+  - [lrq_prefetch](../l/lrq_prefetch.md) (performs prefetch operations)
+  - [lrq_complete_lsn](../l/lrq_complete_lsn.md) (marks LSN as completed)
 
 ## Notes and Other Information
 The structure implements a gap-based circular buffer where the full ring buffer maintains a gap between head and tail to distinguish between full and empty states. The design anticipates future expansion to more sophisticated IO control mechanisms, explaining the function pointer indirection. The queue is used specifically in the context of WAL (Write-Ahead Log) prefetching to optimize read performance by predicting and pre-loading blocks that will be needed soon.

@@ -25,9 +25,9 @@ The function is designed to work with scalar values only, as validated by the ca
 ## Dependencies
 - Functions called/Symbols referenced:
   - jbvObject (JSONB object type constant)
-  - JsonbParseState (parse state structure)
+  - [JsonbParseState](../J/JsonbParseState.md) (parse state structure)
 - Called from (representative examples):
-  - pushJsonbValueScalar (when processing WJB_VALUE tokens and nested objects)
+  - [pushJsonbValueScalar](../p/pushJsonbValueScalar.md) (when processing WJB_VALUE tokens and nested objects)
 
 ## Notes and Other Information
 - This is a static function internal to jsonb_util.c, not exposed in the public API

@@ -21,8 +21,8 @@ The `circle_ne` function compares two circles for area inequality. It computes t
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_CIRCLE_P`: Macro to extract CIRCLE argument from function call
-  - `circle_ar`: Function to calculate the area of a circle
-  - `FPne`: Floating-point inequality comparison with accuracy tolerance
+  - `[circle_ar](circle_ar.md)`: Function to calculate the area of a circle
+  - `[FPne](../F/FPne.md)`: Floating-point inequality comparison with accuracy tolerance
   - `PG_RETURN_BOOL`: Macro to return boolean result
 - Called from (representative examples):
   - No direct references found in the codebase

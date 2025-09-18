@@ -19,13 +19,13 @@ The function allocates memory for a  structure and initializes it with the appro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (PostgreSQL memory allocation)
+  - [palloc0](../p/palloc0.md) (PostgreSQL memory allocation)
   - bbstreamer_tar_archiver_ops (operations structure)
-  - bbstreamer (base streamer type)
-  - bbstreamer_tar_archiver (specific archiver structure)
+  - [bbstreamer](bbstreamer.md) (base streamer type)
+  - [bbstreamer_tar_archiver](bbstreamer_tar_archiver.md) (specific archiver structure)
 - Called from (representative examples):
-  - CreateBackupStreamer (src/bin/pg_basebackup/pg_basebackup.c:1225)
-  - bbstreamer_buffer_until (src/bin/pg_basebackup/bbstreamer.h:218)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (src/bin/pg_basebackup/pg_basebackup.c:1225)
+  - [bbstreamer_buffer_until](bbstreamer_buffer_until.md) (src/bin/pg_basebackup/bbstreamer.h:218)
 
 ## Notes and Other Information
 - The archiver maintains state through the  structure, which includes a  boolean flag used to track when tar headers have been regenerated and corresponding padding needs to be updated

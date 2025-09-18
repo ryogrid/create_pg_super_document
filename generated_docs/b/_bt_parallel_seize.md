@@ -29,17 +29,17 @@ When a primitive scan is needed (for array key operations), only workers calling
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanOpaque (type)
-  - ParallelIndexScanDesc (type)
-  - BTParallelScanDesc (type)
+  - [ParallelIndexScanDesc](../P/ParallelIndexScanDesc.md) (type)
+  - [BTParallelScanDesc](../B/BTParallelScanDesc.md) (type)
   - OffsetToPointer (function)
   - SpinLockAcquire/SpinLockRelease (functions)
-  - ConditionVariableSleep/ConditionVariableCancelSleep (functions)
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md)/ConditionVariableCancelSleep (functions)
   - P_NONE, InvalidBlockNumber (constants)
   - BTPARALLEL_DONE, BTPARALLEL_NEED_PRIMSCAN, BTPARALLEL_ADVANCING (status constants)
 - Called from (representative examples):
-  - _bt_first
-  - _bt_steppage
-  - _bt_readnextpage
+  - [_bt_first](_bt_first.md)
+  - [_bt_steppage](_bt_steppage.md)
+  - [_bt_readnextpage](_bt_readnextpage.md)
 
 ## Notes and Other Information
 - Returns true if scan control was successfully seized, false otherwise

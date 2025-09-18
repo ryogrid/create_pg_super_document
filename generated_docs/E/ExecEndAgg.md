@@ -21,13 +21,13 @@ This function is responsible for cleaning up all resources associated with an ag
 - Functions called/Symbols referenced:
   - IsParallelWorker
   - tuplesort_end
-  - hashagg_reset_spill_state
-  - MemoryContextDelete
+  - [hashagg_reset_spill_state](../h/hashagg_reset_spill_state.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - ReScanExprContext
   - outerPlanState
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
 - Called from (representative examples):
-  - ExecEndNode (src/backend/executor/execProcnode.c:721)
+  - [ExecEndNode](ExecEndNode.md) (src/backend/executor/execProcnode.c:721)
 
 ## Notes and Other Information
 - Handles parallel worker cleanup by copying statistics back to shared memory for EXPLAIN ANALYZE reporting

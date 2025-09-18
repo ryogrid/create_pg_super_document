@@ -29,20 +29,20 @@ For each publication found, it creates a detailed table showing all properties a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - formatPGVersionNumber
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printTableInit
-  - printTableAddHeader
-  - printTableAddCell
-  - addFooterToPublicationDesc
-  - printTable
-  - printTableCleanup
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printTableInit](../p/printTableInit.md)
+  - [printTableAddHeader](../p/printTableAddHeader.md)
+  - [printTableAddCell](../p/printTableAddCell.md)
+  - [addFooterToPublicationDesc](../a/addFooterToPublicationDesc.md)
+  - [printTable](../p/printTable.md)
+  - [printTableCleanup](../p/printTableCleanup.md)
 - Called from (representative examples):
-  - exec_command_d (in command.c for \dRp+ command processing)
+  - [exec_command_d](../e/exec_command_d.md) (in command.c for \dRp+ command processing)
 
 ## Notes and Other Information
 - Requires PostgreSQL 10.0 or later (publications were introduced in version 10)

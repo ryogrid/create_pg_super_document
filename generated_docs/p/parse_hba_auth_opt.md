@@ -29,16 +29,16 @@ The function is designed to provide detailed error reporting with file context i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup (string duplication)
+  - [pstrdup](pstrdup.md) (string duplication)
   - ereport/errcode/errmsg/errcontext (error reporting)
   - INVALID_AUTH_OPTION/REQUIRE_AUTH_OPTION (validation macros)
   - ldap_url_parse/ldap_free_urldesc (LDAP URL handling)
-  - SplitGUCList (comma-separated list parsing)
+  - [SplitGUCList](../S/SplitGUCList.md) (comma-separated list parsing)
   - pg_getaddrinfo_all/pg_freeaddrinfo_all (network address resolution)
   - Authentication method constants (uaPAM, uaLDAP, uaRADIUS, etc.)
   - Client certificate constants (clientCertFull, clientCertCA, etc.)
 - Called from:
-  - parse_hba_line (src/backend/libpq/hba.c:1875)
+  - [parse_hba_line](parse_hba_line.md) (src/backend/libpq/hba.c:1875)
 
 ## Notes and Other Information
 - Supports a comprehensive set of authentication options including PAM, LDAP, RADIUS, Kerberos/GSSAPI, SSPI, and SSL client certificates

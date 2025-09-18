@@ -24,11 +24,11 @@ For valid matches, the function preserves the original order of the set operatio
 - Functions called/Symbols referenced:
   - copyObject
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - exprType
-  - assignSortGroupRef
+  - [assignSortGroupRef](../a/assignSortGroupRef.md)
 - Called from (representative examples):
-  - standard_qp_callback
+  - [standard_qp_callback](../s/standard_qp_callback.md)
 
 ## Notes and Other Information
 - The function skips resjunk columns as they may have sortgroupref values for internal purposes

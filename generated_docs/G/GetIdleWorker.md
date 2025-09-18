@@ -19,13 +19,13 @@ This function performs a simple linear search through the parallel worker slots 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelState (struct)
+  - [ParallelState](../P/ParallelState.md) (struct)
   - WRKR_IDLE (constant)
   - NO_SLOT (constant)
 - Called from (representative examples):
-  - DispatchJobForTocEntry
-  - WaitForWorkers
-  - write_stderr
+  - [DispatchJobForTocEntry](../D/DispatchJobForTocEntry.md)
+  - [WaitForWorkers](../W/WaitForWorkers.md)
+  - [write_stderr](../w/write_stderr.md)
 
 ## Notes and Other Information
 - Returns the first available worker slot number (0-based index) or NO_SLOT if none available

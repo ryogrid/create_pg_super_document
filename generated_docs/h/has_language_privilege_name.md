@@ -19,10 +19,10 @@ This function is a simplified variant of the has_language_privilege family that 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP: Extract text arguments from function call
-  - GetUserId: Get the OID of the current user
-  - convert_language_name: Convert language name to language OID
-  - convert_language_priv_string: Convert privilege string to AclMode bitmask
-  - object_aclcheck: Perform the actual privilege check
+  - [GetUserId](../G/GetUserId.md): Get the OID of the current user
+  - [convert_language_name](../c/convert_language_name.md): Convert language name to language OID
+  - [convert_language_priv_string](../c/convert_language_priv_string.md): Convert privilege string to AclMode bitmask
+  - [object_aclcheck](../o/object_aclcheck.md): Perform the actual privilege check
 - Called from (representative examples):
   - No direct callers found (SQL-level function)
 

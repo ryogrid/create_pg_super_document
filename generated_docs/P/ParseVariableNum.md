@@ -25,10 +25,10 @@ The function treats NULL input as an empty string, which results in a parsing er
   - pg_log_error (PostgreSQL error logging function)
 - Called from (representative examples):
   - fmt (formatting command)
-  - fetch_count_hook
-  - histsize_hook
-  - ignoreeof_substitute_hook
-  - ignoreeof_hook
+  - [fetch_count_hook](../f/fetch_count_hook.md)
+  - [histsize_hook](../h/histsize_hook.md)
+  - [ignoreeof_substitute_hook](../i/ignoreeof_substitute_hook.md)
+  - [ignoreeof_hook](../i/ignoreeof_hook.md)
 
 ## Notes and Other Information
 - Uses strtol with base 0 for automatic base detection (supports decimal, octal with 0 prefix, hex with 0x prefix)

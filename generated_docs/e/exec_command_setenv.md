@@ -26,15 +26,15 @@ The function includes validation to ensure the environment variable name is vali
   - strchr
   - setenv
   - unsetenv
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - free
-  - PsqlScanState (type)
-  - backslashResult (return type)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
+  - [backslashResult](../b/backslashResult.md) (return type)
   - OT_NORMAL (option type)
   - PSQL_CMD_SKIP_LINE (success return value)
   - PSQL_CMD_ERROR (error return value)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

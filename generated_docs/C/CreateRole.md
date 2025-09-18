@@ -20,23 +20,23 @@ CreateRole is the core implementation function for the CREATE ROLE, CREATE USER,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetUserId
-  - has_createrole_privilege
+  - [GetUserId](../G/GetUserId.md)
+  - [has_createrole_privilege](../h/has_createrole_privilege.md)
   - superuser_arg
-  - have_createdb_privilege
-  - has_rolreplication
-  - has_bypassrls_privilege
-  - IsReservedName
+  - [have_createdb_privilege](../h/have_createdb_privilege.md)
+  - [has_rolreplication](../h/has_rolreplication.md)
+  - [has_bypassrls_privilege](../h/has_bypassrls_privilege.md)
+  - [IsReservedName](../I/IsReservedName.md)
   - get_role_oid
   - table_open
   - RelationGetDescr
-  - CatalogTupleInsert
-  - AddRoleMems
+  - [CatalogTupleInsert](CatalogTupleInsert.md)
+  - [AddRoleMems](../A/AddRoleMems.md)
   - InvokeObjectPostCreateHook
-  - encrypt_password
-  - heap_form_tuple
+  - [encrypt_password](../e/encrypt_password.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Returns the OID of the newly created role

@@ -35,14 +35,14 @@ The function processes tuples sequentially as they are encountered during the ta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber: Extracts block number from tuple ID
-  - form_and_insert_tuple: Creates and inserts completed BRIN index tuple
-  - brin_memtuple_initialize: Reinitializes summary tuple for new range
-  - add_values_to_range: Accumulates tuple values into range summary
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md): Extracts block number from tuple ID
+  - [form_and_insert_tuple](../f/form_and_insert_tuple.md): Creates and inserts completed BRIN index tuple
+  - [brin_memtuple_initialize](brin_memtuple_initialize.md): Reinitializes summary tuple for new range
+  - [add_values_to_range](../a/add_values_to_range.md): Accumulates tuple values into range summary
   - BRIN_elog: Debug logging for range completion
 - Called from (representative examples):
-  - brinbuild: Main BRIN index build function
-  - summarize_range: Function to summarize a specific page range
+  - [brinbuild](brinbuild.md): Main BRIN index build function
+  - [summarize_range](../s/summarize_range.md): Function to summarize a specific page range
 
 ## Notes and Other Information
 - This is a static function, only used internally within the BRIN module

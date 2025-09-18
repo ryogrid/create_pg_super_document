@@ -21,9 +21,9 @@ The function serves as the primary interface for visibility checking when error 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ConversionIsVisibleExt
+  - [ConversionIsVisibleExt](ConversionIsVisibleExt.md)
 - Called from (representative examples):
-  - getObjectDescription (in objectaddress.c)
+  - [getObjectDescription](../g/getObjectDescription.md) (in objectaddress.c)
   - Referenced in namespace.h header
 
 ## Notes and Other Information

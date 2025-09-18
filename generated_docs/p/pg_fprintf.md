@@ -21,7 +21,7 @@ The function accepts a variable number of arguments following the format string,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_vfprintf
+  - [pg_vfprintf](pg_vfprintf.md)
 - Called from (representative examples):
   - fprintf (via macro redefinition in src/include/port.h:243)
   - printf (via macro redefinition in src/include/port.h:217)

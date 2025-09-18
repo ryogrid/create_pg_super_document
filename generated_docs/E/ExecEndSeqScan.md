@@ -19,11 +19,11 @@ ExecEndSeqScan handles the termination and cleanup of a sequential scan operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - table_endscan
-  - SeqScanState
-  - TableScanDesc
+  - [table_endscan](../t/table_endscan.md)
+  - [SeqScanState](../S/SeqScanState.md)
+  - [TableScanDesc](../T/TableScanDesc.md)
 - Called from (representative examples):
-  - ExecEndNode
+  - [ExecEndNode](ExecEndNode.md)
   - NODESEQSCAN_H
 
 ## Notes and Other Information

@@ -20,11 +20,11 @@ This function implements the core block selection algorithm for the SYSTEM table
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_any (computes hash value from byte array)
-  - DatumGetUInt32 (extracts uint32 value from hash result)
+  - [hash_any](../h/hash_any.md) (computes hash value from byte array)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md) (extracts uint32 value from hash result)
   - InvalidBlockNumber (constant representing invalid block)
 - Called from (representative examples):
-  - tsm_system_handler (as function pointer in TsmRoutine)
+  - [tsm_system_handler](../t/tsm_system_handler.md) (as function pointer in TsmRoutine)
   - PostgreSQL executor during sample scan execution
 
 ## Notes and Other Information

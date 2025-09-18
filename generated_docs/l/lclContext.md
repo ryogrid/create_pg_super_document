@@ -30,15 +30,15 @@ This context is used throughout the custom archive implementation to track the c
 ## Dependencies
 - Functions called/Symbols referenced:
   - pgoff_t (for file position tracking)
-  - CompressorState (for compression handling)
+  - [CompressorState](../C/CompressorState.md) (for compression handling)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (allocates and initializes lclContext)
-  - _StartData (accesses context for data operations)
-  - _WriteData (uses context for writing data)
-  - _EndData (references context for data finalization)
-  - _getFilePos (uses context to determine file position capabilities)
-  - _Clone (copies context during parallel operations)
-  - _DeClone (cleans up cloned context)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (allocates and initializes lclContext)
+  - [_StartData](../S/_StartData.md) (accesses context for data operations)
+  - [_WriteData](../W/_WriteData.md) (uses context for writing data)
+  - [_EndData](../E/_EndData.md) (references context for data finalization)
+  - [_getFilePos](../g/_getFilePos.md) (uses context to determine file position capabilities)
+  - [_Clone](../C/_Clone.md) (copies context during parallel operations)
+  - [_DeClone](../D/_DeClone.md) (cleans up cloned context)
 
 ## Notes and Other Information
 - The structure is allocated using pg_malloc0() during archive initialization, ensuring all fields start with zero values

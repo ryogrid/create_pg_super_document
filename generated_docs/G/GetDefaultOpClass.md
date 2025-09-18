@@ -26,18 +26,18 @@ For domain types, the function automatically resolves to the base type before pe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getBaseType (for domain type resolution)
-  - TypeCategory (for type category determination)
+  - [getBaseType](../g/getBaseType.md) (for domain type resolution)
+  - [TypeCategory](../T/TypeCategory.md) (for type category determination)
   - table_open, table_close (for catalog access)
-  - systable_beginscan, systable_getnext, systable_endscan (for catalog scanning)
-  - IsBinaryCoercible (for type compatibility checking)
-  - IsPreferredType (for preferred type determination)
-  - ScanKeyInit (for search key setup)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan (for catalog scanning)
+  - [IsBinaryCoercible](../I/IsBinaryCoercible.md) (for type compatibility checking)
+  - [IsPreferredType](../I/IsPreferredType.md) (for preferred type determination)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (for search key setup)
 - Called from (representative examples):
-  - ResolveOpClass (when no explicit operator class is specified)
-  - ComputePartitionAttrs (for partition key default operator classes)
-  - lookup_type_cache (for type cache initialization)
-  - transformIndexConstraint (during constraint processing)
+  - [ResolveOpClass](../R/ResolveOpClass.md) (when no explicit operator class is specified)
+  - [ComputePartitionAttrs](../C/ComputePartitionAttrs.md) (for partition key default operator classes)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (for type cache initialization)
+  - [transformIndexConstraint](../t/transformIndexConstraint.md) (during constraint processing)
 
 ## Notes and Other Information
 - Returns InvalidOid if no suitable default operator class is found

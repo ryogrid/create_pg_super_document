@@ -24,7 +24,7 @@ The function is also useful during debugging sessions where you need to examine 
   - VARSIZE_ANY (macro)
 
 - Called from (representative examples):
-  - FunctionReturningBool (in JIT context)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in JIT context)
   - HeapTupleClearHeapOnly
   - Used in debugging scenarios
 

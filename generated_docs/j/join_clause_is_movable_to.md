@@ -25,13 +25,13 @@ Key safety conditions checked:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (bitmap set membership test)
-  - bms_overlap (bitmap set overlap test)
+  - [bms_is_member](../b/bms_is_member.md) (bitmap set membership test)
+  - [bms_overlap](../b/bms_overlap.md) (bitmap set overlap test)
 - Called from (representative examples):
-  - match_join_clauses_to_index
-  - check_index_predicates  
-  - BuildParameterizedTidPaths
-  - extract_restriction_or_clauses
+  - [match_join_clauses_to_index](../m/match_join_clauses_to_index.md)
+  - [check_index_predicates](../c/check_index_predicates.md)  
+  - [BuildParameterizedTidPaths](../B/BuildParameterizedTidPaths.md)
+  - [extract_restriction_or_clauses](../e/extract_restriction_or_clauses.md)
   - make_simple_restrictinfo
 
 ## Notes and Other Information

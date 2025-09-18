@@ -35,19 +35,19 @@ A key optimization is detecting when the current transaction already holds a loc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_fetch
-  - test_lockmode_for_conflict
-  - compute_new_xmax_infomask
-  - GetMultiXactIdMembers
-  - XactLockTableWait
-  - visibilitymap_pin
-  - visibilitymap_clear
-  - compute_infobits
+  - [heap_fetch](heap_fetch.md)
+  - [test_lockmode_for_conflict](../t/test_lockmode_for_conflict.md)
+  - [compute_new_xmax_infomask](../c/compute_new_xmax_infomask.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [XactLockTableWait](../X/XactLockTableWait.md)
+  - [visibilitymap_pin](../v/visibilitymap_pin.md)
+  - [visibilitymap_clear](../v/visibilitymap_clear.md)
+  - [compute_infobits](../c/compute_infobits.md)
   - HeapTupleHeaderGetXmin, HeapTupleHeaderGetRawXmax, HeapTupleHeaderSetXmax
   - HeapTupleHeaderGetUpdateXid, HeapTupleHeaderIndicatesMovedPartitions
   - Various WAL logging functions (XLogBeginInsert, XLogRegisterBuffer, etc.)
 - Called from (representative examples):
-  - heap_lock_updated_tuple
+  - [heap_lock_updated_tuple](heap_lock_updated_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam.c, implementing recursive tuple chain locking

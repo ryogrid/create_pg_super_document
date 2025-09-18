@@ -25,14 +25,14 @@ GISTInsertStack represents a single level in the descent path during GiST index 
 - Functions called/Symbols referenced:
   - GistNSN
 - Called from (representative examples):
-  - gistdoinsert
-  - gistFindPath
-  - gistFindCorrectParent
-  - gistformdownlink
-  - gistfixsplit
-  - gistinserttuple
-  - gistinserttuples
-  - gistfinishsplit
+  - [gistdoinsert](../g/gistdoinsert.md)
+  - [gistFindPath](../g/gistFindPath.md)
+  - [gistFindCorrectParent](../g/gistFindCorrectParent.md)
+  - [gistformdownlink](../g/gistformdownlink.md)
+  - [gistfixsplit](../g/gistfixsplit.md)
+  - [gistinserttuple](../g/gistinserttuple.md)
+  - [gistinserttuples](../g/gistinserttuples.md)
+  - [gistfinishsplit](../g/gistfinishsplit.md)
 
 ## Notes and Other Information
 The stack structure is crucial for handling concurrent modifications in GiST indexes. The LSN tracking mechanism allows detection of page splits that occur between the time a page is first visited and when it's actually modified. The retry_from_parent flag implements an essential concurrency control mechanism, ensuring that when splits invalidate the current path, the operation can restart from an appropriate level rather than failing or producing incorrect results.

@@ -24,19 +24,19 @@ In verbose mode, the function includes role descriptions from the system comment
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer: Initialize query buffer for SQL construction
-  - printfPQExpBuffer: Format SQL query with role attributes
-  - validateSQLNamePattern: Process and validate the role name pattern
-  - PSQLexec: Execute the role information query
-  - printTableInit: Initialize table formatting structure
-  - printTableAddHeader: Add column headers for the role table
-  - printTableAddCell: Add role data to table cells
-  - add_role_attribute: Helper function to format individual role attributes
-  - resetPQExpBuffer: Clear buffer for reuse in attribute formatting
-  - printTable: Display the formatted role table
-  - printTableCleanup: Clean up table formatting resources
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Format SQL query with role attributes
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md): Process and validate the role name pattern
+  - [PSQLexec](../P/PSQLexec.md): Execute the role information query
+  - [printTableInit](../p/printTableInit.md): Initialize table formatting structure
+  - [printTableAddHeader](../p/printTableAddHeader.md): Add column headers for the role table
+  - [printTableAddCell](../p/printTableAddCell.md): Add role data to table cells
+  - [add_role_attribute](../a/add_role_attribute.md): Helper function to format individual role attributes
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md): Clear buffer for reuse in attribute formatting
+  - [printTable](../p/printTable.md): Display the formatted role table
+  - [printTableCleanup](../p/printTableCleanup.md): Clean up table formatting resources
   - pg_malloc0: Allocate memory for attribute strings
 - Called from (representative examples):
-  - exec_command_d: Command dispatcher for both \du and \dg commands in psql
+  - [exec_command_d](../e/exec_command_d.md): Command dispatcher for both \du and \dg commands in psql
 
 ## Notes and Other Information
 - The function treats \du and \dg identically since PostgreSQL unified users and groups into roles

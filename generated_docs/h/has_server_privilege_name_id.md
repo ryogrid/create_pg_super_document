@@ -26,8 +26,8 @@ This function is useful when working with foreign server OIDs directly, which mi
   - PG_GETARG_OID
   - PG_GETARG_TEXT_PP
   - get_role_oid_or_public
-  - convert_server_priv_string
-  - object_aclcheck_ext
+  - [convert_server_priv_string](../c/convert_server_priv_string.md)
+  - [object_aclcheck_ext](../o/object_aclcheck_ext.md)
   - PG_RETURN_NULL
   - PG_RETURN_BOOL
   - Name (type)

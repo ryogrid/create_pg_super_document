@@ -29,33 +29,33 @@ The function includes comprehensive error handling and ensures proper cleanup of
 ## Dependencies
 - Functions called/Symbols referenced:
   - is_skipping_changes
-  - handle_streamed_transaction
-  - begin_replication_step
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
+  - [begin_replication_step](../b/begin_replication_step.md)
   - logicalrep_read_insert
   - logicalrep_rel_open
-  - should_apply_changes_for_rel
+  - [should_apply_changes_for_rel](../s/should_apply_changes_for_rel.md)
   - logicalrep_rel_close
-  - SwitchToUntrustedUser
-  - create_edata_for_relation
-  - ExecInitExtraTupleSlot
+  - [SwitchToUntrustedUser](../S/SwitchToUntrustedUser.md)
+  - [create_edata_for_relation](../c/create_edata_for_relation.md)
+  - [ExecInitExtraTupleSlot](../E/ExecInitExtraTupleSlot.md)
   - GetPerTupleMemoryContext
-  - slot_store_data
-  - slot_fill_defaults
-  - apply_handle_tuple_routing
-  - apply_handle_insert_internal
-  - ExecOpenIndices
-  - ExecCloseIndices
-  - finish_edata
-  - RestoreUserContext
-  - end_replication_step
-  - LogicalRepRelMapEntry (data structure)
-  - LogicalRepTupleData (data structure)
+  - [slot_store_data](../s/slot_store_data.md)
+  - [slot_fill_defaults](../s/slot_fill_defaults.md)
+  - [apply_handle_tuple_routing](apply_handle_tuple_routing.md)
+  - [apply_handle_insert_internal](apply_handle_insert_internal.md)
+  - [ExecOpenIndices](../E/ExecOpenIndices.md)
+  - [ExecCloseIndices](../E/ExecCloseIndices.md)
+  - [finish_edata](../f/finish_edata.md)
+  - [RestoreUserContext](../R/RestoreUserContext.md)
+  - [end_replication_step](../e/end_replication_step.md)
+  - [LogicalRepRelMapEntry](../L/LogicalRepRelMapEntry.md) (data structure)
+  - [LogicalRepTupleData](../L/LogicalRepTupleData.md) (data structure)
   - UserContext (data structure)
   - ApplyExecutionData (data structure)
   - LOGICAL_REP_MSG_INSERT (constant)
   - CMD_INSERT (constant)
 - Called from (representative examples):
-  - apply_dispatch
+  - [apply_dispatch](apply_dispatch.md)
 
 ## Notes and Other Information
 - This is a static function within the logical replication worker module

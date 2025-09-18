@@ -20,13 +20,13 @@ The  function produces a canonical string representation of PostgreSQL's Numeric
   - NUMERIC_IS_SPECIAL
   - NUMERIC_IS_PINF  
   - NUMERIC_IS_NINF
-  - pstrdup
-  - init_var_from_num
-  - get_str_from_var
+  - [pstrdup](../p/pstrdup.md)
+  - [init_var_from_num](../i/init_var_from_num.md)
+  - [get_str_from_var](../g/get_str_from_var.md)
   - strchr
   - strlen
 - Called from (representative examples):
-  - make_scalar_key (src/backend/utils/adt/jsonb_gin.c:1393)
+  - [make_scalar_key](../m/make_scalar_key.md) (src/backend/utils/adt/jsonb_gin.c:1393)
 
 ## Notes and Other Information
 - The function ensures that equal numeric values produce identical normalized strings

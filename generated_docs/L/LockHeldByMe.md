@@ -22,17 +22,17 @@ The function first constructs a LOCALLOCKTAG and searches for a corresponding LO
 ## Dependencies
 - Functions called/Symbols referenced:
   - MemSet: Clears the LOCALLOCKTAG structure padding
-  - hash_search: Searches the local lock hash table for the lock entry
+  - [hash_search](../h/hash_search.md): Searches the local lock hash table for the lock entry
   - LockMethodLocalHash: The backend's local lock hash table
   - HASH_FIND: Hash operation flag for searching
   - MaxLockMode: Maximum valid lock mode for iteration
-  - LockHeldByMe: Recursive call for checking stronger modes
+  - [LockHeldByMe](LockHeldByMe.md): Recursive call for checking stronger modes
 - Called from (representative examples):
-  - CheckRelationLockedByMe: High-level relation lock checking
-  - CheckRelationOidLockedByMe: OID-based relation lock checking
-  - check_lock_if_inplace_updateable_rel: Heap access method lock validation
-  - check_inplace_rel_lock: In-place update lock verification
-  - UpdateSubscriptionRelStateEx: Subscription relation lock checking
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md): High-level relation lock checking
+  - [CheckRelationOidLockedByMe](../C/CheckRelationOidLockedByMe.md): OID-based relation lock checking
+  - [check_lock_if_inplace_updateable_rel](../c/check_lock_if_inplace_updateable_rel.md): Heap access method lock validation
+  - [check_inplace_rel_lock](../c/check_inplace_rel_lock.md): In-place update lock verification
+  - [UpdateSubscriptionRelStateEx](../U/UpdateSubscriptionRelStateEx.md): Subscription relation lock checking
   - LockHashPartitionLockByProc: Lock partition operations
 
 ## Notes and Other Information

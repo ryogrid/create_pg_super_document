@@ -28,14 +28,14 @@ The preservation of rinfo_serial numbers is critical for ensuring that RestrictI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - restriction_is_always_true
-  - restriction_is_always_false  
-  - make_restrictinfo
-  - makeBoolConst
-  - bms_next_member
-  - find_base_rel_ignore_join
+  - [restriction_is_always_true](../r/restriction_is_always_true.md)
+  - [restriction_is_always_false](../r/restriction_is_always_false.md)  
+  - [make_restrictinfo](../m/make_restrictinfo.md)
+  - [makeBoolConst](../m/makeBoolConst.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [find_base_rel_ignore_join](../f/find_base_rel_ignore_join.md)
 - Called from (representative examples):
-  - distribute_restrictinfo_to_rels
+  - [distribute_restrictinfo_to_rels](../d/distribute_restrictinfo_to_rels.md)
 
 ## Notes and Other Information
 - The same RestrictInfo node is shared across multiple joininfo lists for efficiency

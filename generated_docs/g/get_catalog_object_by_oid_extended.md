@@ -24,18 +24,18 @@ For relations without syscache support, the function performs an index scan usin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_catcache_oid (to determine cache availability)
-  - SearchSysCacheLockedCopy1 (locked syscache lookup)
+  - [get_object_catcache_oid](get_object_catcache_oid.md) (to determine cache availability)
+  - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md) (locked syscache lookup)
   - SearchSysCacheCopy1 (regular syscache lookup)
-  - get_object_oid_index (for direct table scan)
-  - systable_beginscan, systable_getnext, systable_endscan (table scanning)
-  - LockTuple (tuple locking for inplace updates)
+  - [get_object_oid_index](get_object_oid_index.md) (for direct table scan)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan (table scanning)
+  - [LockTuple](../L/LockTuple.md) (tuple locking for inplace updates)
   - InplaceUpdateTupleLock (lock mode constant)
-  - heap_copytuple (tuple copying)
+  - [heap_copytuple](../h/heap_copytuple.md) (tuple copying)
   - RelationGetRelid, ObjectIdGetDatum, HeapTupleIsValid, ScanKeyInit
 - Called from (representative examples):
-  - get_catalog_object_by_oid (main wrapper)
-  - AlterObjectOwner_internal
+  - [get_catalog_object_by_oid](get_catalog_object_by_oid.md) (main wrapper)
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

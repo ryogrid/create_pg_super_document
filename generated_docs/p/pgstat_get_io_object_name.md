@@ -17,12 +17,12 @@ This function provides a mapping from internal IOObject enumeration values to th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IOObject
+  - [IOObject](../I/IOObject.md)
   - IOOBJECT_RELATION
   - IOOBJECT_TEMP_RELATION
   - pg_unreachable
 - Called from (representative examples):
-  - pg_stat_get_io
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - Returns constant string literals for each I/O object type

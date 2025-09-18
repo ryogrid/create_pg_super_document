@@ -19,11 +19,11 @@ The `binaryheap_reset` function efficiently clears all data from a binary heap w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - binaryheap (struct type)
+  - [binaryheap](binaryheap.md) (struct type)
 - Called from (representative examples):
-  - gather_merge_init
+  - [gather_merge_init](../g/gather_merge_init.md)
   - ExecReScanMergeAppend
-  - pgarch_readyXlog
+  - [pgarch_readyXlog](../p/pgarch_readyXlog.md)
 
 ## Notes and Other Information
 - This is a very efficient operation as it only modifies two integer fields

@@ -23,19 +23,19 @@ An important note is that the cache struct cannot be reused for different domain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainIOData (struct type)
-  - MemoryContextAlloc
-  - lookup_type_cache
+  - [DomainIOData](../D/DomainIOData.md) (struct type)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - TYPECACHE_DOMAIN_BASE_INFO
   - TYPTYPE_DOMAIN
-  - getTypeBinaryInputInfo
-  - getTypeInputInfo
-  - fmgr_info_cxt
-  - InitDomainConstraintRef
+  - [getTypeBinaryInputInfo](../g/getTypeBinaryInputInfo.md)
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [InitDomainConstraintRef](../I/InitDomainConstraintRef.md)
 
 - Called from (representative examples):
-  - domain_in (src/backend/utils/adt/domains.c:256)
-  - domain_recv (src/backend/utils/adt/domains.c:315)
+  - [domain_in](domain_in.md) (src/backend/utils/adt/domains.c:256)
+  - [domain_recv](domain_recv.md) (src/backend/utils/adt/domains.c:315)
   - domain_check_internal (src/backend/utils/adt/domains.c:389)
 
 ## Notes and Other Information

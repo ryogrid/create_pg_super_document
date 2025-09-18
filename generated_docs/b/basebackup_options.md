@@ -50,15 +50,15 @@ The `basebackup_options` structure serves as a comprehensive configuration conta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BaseBackupTargetHandle
+  - [BaseBackupTargetHandle](../B/BaseBackupTargetHandle.md)
   - backup_manifest_option
-  - pg_compress_algorithm
-  - pg_compress_specification
+  - [pg_compress_algorithm](../p/pg_compress_algorithm.md)
+  - [pg_compress_specification](../p/pg_compress_specification.md)
   - pg_checksum_type
 - Called from (representative examples):
-  - perform_base_backup
-  - parse_basebackup_options
-  - SendBaseBackup
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [parse_basebackup_options](../p/parse_basebackup_options.md)
+  - [SendBaseBackup](../S/SendBaseBackup.md)
 
 ## Notes and Other Information
 This structure is defined in src/backend/backup/basebackup.c:62-79 and serves as the primary configuration interface for PostgreSQL base backup operations. The structure is typically populated by parsing command-line options or protocol messages and then passed to the core backup execution functions. The design allows for extensible configuration management while maintaining a clean interface between option parsing and backup execution logic.

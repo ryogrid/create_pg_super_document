@@ -21,11 +21,11 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - stmtStartTimestamp (global variable)
 - Called from (representative examples):
-  - InitializeParallelDSM
-  - StorePreparedStatement
-  - check_log_duration
-  - pgstat_report_activity
-  - statement_timestamp
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
+  - [StorePreparedStatement](../S/StorePreparedStatement.md)
+  - [check_log_duration](../c/check_log_duration.md)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md)
+  - [statement_timestamp](../s/statement_timestamp.md)
   - CreatePortal
 
 ## Notes and Other Information

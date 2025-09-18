@@ -28,8 +28,8 @@ This function creates a new Python exception class using the Python C API and pr
   - Py_INCREF (Python C API)
   - PyModule_AddObject (Python C API)
 - Called from (representative examples):
-  - PLy_add_exceptions (multiple calls for Error, Fatal, SPIError)
-  - PLy_generate_spi_exceptions
+  - [PLy_add_exceptions](PLy_add_exceptions.md) (multiple calls for Error, Fatal, SPIError)
+  - [PLy_generate_spi_exceptions](PLy_generate_spi_exceptions.md)
 
 ## Notes and Other Information
 - Carefully manages Python reference counting due to PyModule_AddObject behavior

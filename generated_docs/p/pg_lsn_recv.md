@@ -23,7 +23,7 @@ The function is part of PostgreSQL's binary I/O system, which provides more effi
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_POINTER (extracts pointer argument from function args)
-  - pq_getmsgint64 (reads 64-bit integer from binary message buffer)
+  - [pq_getmsgint64](pq_getmsgint64.md) (reads 64-bit integer from binary message buffer)
   - PG_RETURN_LSN (returns LSN value as Datum)
 
 - Called from (representative examples):

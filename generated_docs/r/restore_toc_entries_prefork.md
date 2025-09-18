@@ -21,18 +21,18 @@ The function iterates through all TOC entries, identifying those that can be pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_debug (logging function for debug messages)
-  - fix_dependencies (adjusts dependency information before processing)
-  - _tocEntryRestorePass (determines which restore pass an entry belongs to)
+  - [fix_dependencies](../f/fix_dependencies.md) (adjusts dependency information before processing)
+  - [_tocEntryRestorePass](../t/_tocEntryRestorePass.md) (determines which restore pass an entry belongs to)
   - pg_log_info (logging function for informational messages)
-  - restore_toc_entry (processes individual TOC entry restoration)
-  - reduce_dependencies (updates dependency counts after item completion)
-  - pending_list_append (adds items to the pending list for later processing)
-  - CommitTransaction (commits current transaction if in transaction-size mode)
-  - DisconnectDatabase (closes parent connection to prepare for parallel steps)
+  - [restore_toc_entry](restore_toc_entry.md) (processes individual TOC entry restoration)
+  - [reduce_dependencies](reduce_dependencies.md) (updates dependency counts after item completion)
+  - [pending_list_append](../p/pending_list_append.md) (adds items to the pending list for later processing)
+  - [CommitTransaction](../C/CommitTransaction.md) (commits current transaction if in transaction-size mode)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md) (closes parent connection to prepare for parallel steps)
   - SECTION_PRE_DATA, SECTION_DATA, SECTION_POST_DATA (section type constants)
   - RESTORE_PASS_MAIN (restore pass constant)
 - Called from (representative examples):
-  - RestoreArchive (main restore orchestration function)
+  - [RestoreArchive](../R/RestoreArchive.md) (main restore orchestration function)
 
 ## Notes and Other Information
 - This function is part of a three-phase parallel restore system

@@ -26,16 +26,16 @@ For column-level access, the function combines both table-level and attribute-le
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclmask
-  - pg_attribute_aclmask
-  - object_aclmask
-  - pg_largeobject_aclmask_snapshot
-  - pg_parameter_acl_aclmask
+  - [pg_class_aclmask](pg_class_aclmask.md)
+  - [pg_attribute_aclmask](pg_attribute_aclmask.md)
+  - [object_aclmask](../o/object_aclmask.md)
+  - [pg_largeobject_aclmask_snapshot](pg_largeobject_aclmask_snapshot.md)
+  - [pg_parameter_acl_aclmask](pg_parameter_acl_aclmask.md)
   - ObjectType enum constants (OBJECT_COLUMN, OBJECT_TABLE, etc.)
   - ACL_NO_RIGHTS constant
 - Called from (representative examples):
   - InternalDefaultACL
-  - restrict_and_check_grant
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
 
 ## Notes and Other Information
 - This is a static function internal to the aclchk.c module, not exposed in the public API

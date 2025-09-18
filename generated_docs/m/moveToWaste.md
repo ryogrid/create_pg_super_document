@@ -29,7 +29,7 @@ This function is typically used during text search parsing to clean up processed
 - Functions called/Symbols referenced:
   - RemoveHead (removes and moves lexemes from towork to waste)
 - Called from (representative examples):
-  - LexizeExec (at lines 319, 324 in ts_parse.c)
+  - [LexizeExec](../L/LexizeExec.md) (at lines 319, 324 in ts_parse.c)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the ts_parse.c compilation unit

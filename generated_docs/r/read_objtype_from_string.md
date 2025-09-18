@@ -26,7 +26,7 @@ When an unrecognized object type string is provided, the function reports an err
   - ereport (error reporting)
   - ObjectTypeMap (static mapping table)
 - Called from (representative examples):
-  - pg_get_object_address (src/backend/catalog/objectaddress.c:2119)
+  - [pg_get_object_address](../p/pg_get_object_address.md) (src/backend/catalog/objectaddress.c:2119)
   - ObjectAddressSet (src/include/catalog/objectaddress.h:81)
 
 ## Notes and Other Information

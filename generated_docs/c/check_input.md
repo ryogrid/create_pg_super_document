@@ -17,13 +17,13 @@ The  function performs file system validation on input files that are essential 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - stat (system call to get file status)
+  - [stat](../s/stat.md) (system call to get file status)
   - pg_log_error (PostgreSQL error logging function)
   - pg_log_error_hint (PostgreSQL error hint logging function)
   - S_ISREG (macro to check if file is a regular file)
   - exit (system function to terminate the program)
 - Called from (representative examples):
-  - setup_data_file_paths (called multiple times to validate template and configuration files)
+  - [setup_data_file_paths](../s/setup_data_file_paths.md) (called multiple times to validate template and configuration files)
 
 ## Notes and Other Information
 - This is a static function, only accessible within initdb.c

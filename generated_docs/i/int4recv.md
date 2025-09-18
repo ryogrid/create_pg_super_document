@@ -21,7 +21,7 @@ The int4recv function is a PostgreSQL type receive function that converts data f
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
+  - [pq_getmsgint](../p/pq_getmsgint.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

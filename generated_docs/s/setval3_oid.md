@@ -25,7 +25,7 @@ This function is primarily designed for pg_dump operations during database resto
   - PG_GETARG_OID: Extract OID argument from function call
   - PG_GETARG_INT64: Extract 64-bit integer argument from function call
   - PG_GETARG_BOOL: Extract boolean argument from function call
-  - do_setval: Internal function that performs the actual setval operation
+  - [do_setval](../d/do_setval.md): Internal function that performs the actual setval operation
   - PG_RETURN_INT64: Return the set value as result
 - Called from (representative examples):
   - No direct references found (called via SQL function dispatch)

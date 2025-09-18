@@ -33,7 +33,7 @@ The IncrementalSort node extends the basic Sort functionality by tracking how ma
   - makeNode (to create the IncrementalSort node)
   - IncrementalSort (plan node type)
 - Called from (representative examples):
-  - make_incrementalsort_from_pathkeys (src/backend/optimizer/plan/createplan.c:6403)
+  - [make_incrementalsort_from_pathkeys](make_incrementalsort_from_pathkeys.md) (src/backend/optimizer/plan/createplan.c:6403)
 
 ## Notes and Other Information
 - This is a static function within createplan.c, used internally by the planner

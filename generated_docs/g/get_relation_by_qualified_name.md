@@ -27,13 +27,13 @@ After successful validation, the function sets the objectId to the relation's OI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_openrv_extended (for opening relations with missing_ok support)
-  - makeRangeVarFromNameList (for converting name list to RangeVar)
+  - [relation_openrv_extended](../r/relation_openrv_extended.md) (for opening relations with missing_ok support)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md) (for converting name list to RangeVar)
   - RelationGetRelationName (for error messages)
   - RelationGetRelid (for getting relation OID)
   - Various RELKIND_* constants for type validation
 - Called from (representative examples):
-  - get_object_address
+  - [get_object_address](get_object_address.md)
 
 ## Notes and Other Information
 This function is marked static and serves as a specialized helper for relation objects within the objectaddress.c module. It combines name resolution, locking, and type validation in a single operation. The type validation is strict - it will reject relations that don't exactly match the expected type, which helps prevent operations on wrong object types. The function handles both regular and partitioned variants of tables and indexes, recognizing that these are logically similar object types.

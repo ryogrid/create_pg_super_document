@@ -28,9 +28,9 @@ For prefixes, it uses standard string comparison (`strcmp`) since prefix matchin
   - AFFIX (structure type)
   - FF_PREFIX (constant for prefix type)
   - strcmp (standard C library function)
-  - strbcmp (custom reverse string comparison function)
+  - [strbcmp](../s/strbcmp.md) (custom reverse string comparison function)
 - Called from (representative examples):
-  - NISortAffixes
+  - [NISortAffixes](../N/NISortAffixes.md)
 
 ## Notes and Other Information
 - Returns -1 if s1 < s2, 1 if s1 > s2, and 0 if they are equal

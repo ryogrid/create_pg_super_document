@@ -29,19 +29,19 @@ The mark/restore capability is specifically designed for nodes that can produce 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (node type identification)
-  - ExecIndexMarkPos (index scan position marking)
-  - ExecIndexOnlyMarkPos (index-only scan position marking)
-  - ExecCustomMarkPos (custom scan position marking)
-  - ExecMaterialMarkPos (material node position marking)
-  - ExecSortMarkPos (sort node position marking)
-  - ExecResultMarkPos (result node position marking)
+  - [ExecIndexMarkPos](ExecIndexMarkPos.md) (index scan position marking)
+  - [ExecIndexOnlyMarkPos](ExecIndexOnlyMarkPos.md) (index-only scan position marking)
+  - [ExecCustomMarkPos](ExecCustomMarkPos.md) (custom scan position marking)
+  - [ExecMaterialMarkPos](ExecMaterialMarkPos.md) (material node position marking)
+  - [ExecSortMarkPos](ExecSortMarkPos.md) (sort node position marking)
+  - [ExecResultMarkPos](ExecResultMarkPos.md) (result node position marking)
 - Called from (representative examples):
   - ExecMergeJoin (merge join operations)
-  - ExecResultMarkPos (result node delegation)
+  - [ExecResultMarkPos](ExecResultMarkPos.md) (result node delegation)
 
 ## Notes and Other Information
 - Unlike ExecReScan, this function does not throw a hard error for unsupported node types - it only logs a DEBUG2 message, allowing the caller to handle unsupported cases
 - The comment explains that mark/restore is primarily needed for immediate inner children of MergeJoin nodes
-- Node types that cannot produce sorted output don't typically need mark/restore capability
+- [Node](../N/Node.md) types that cannot produce sorted output don't typically need mark/restore capability
 - When mark/restore is needed but not supported by a node type, the planner automatically inserts a Material node to provide this capability
 - The mark position is stored internally within each node type's state structure and can be restored later with ExecRestrPos

@@ -20,14 +20,14 @@ The function sets up the node type and argument count but leaves the actual argu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - offsetof (C macro for calculating structure member offset)
   - JsonPathGinNodeType (enum type for different node types)
   - JsonPathGinNode (the main node structure type)
 
 - Called from:
-  - make_jsp_expr_node_args (creates expression nodes with argument initialization)
-  - make_jsp_expr_node_binary (creates binary expression nodes)
+  - [make_jsp_expr_node_args](make_jsp_expr_node_args.md) (creates expression nodes with argument initialization)
+  - [make_jsp_expr_node_binary](make_jsp_expr_node_binary.md) (creates binary expression nodes)
 
 ## Notes and Other Information
 The memory allocation uses a flexible array member pattern where the args array size is determined at runtime. The caller is responsible for populating the args array after node creation. This function serves as a foundation for building more complex query expression trees in the JSONB GIN indexing system.

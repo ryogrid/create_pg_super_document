@@ -26,26 +26,26 @@ The function ensures proper constraint inheritance semantics by maintaining depe
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - heap_copytuple
+  - [heap_copytuple](../h/heap_copytuple.md)
   - GETSTRUCT
   - OidIsValid
   - Assert
   - ereport
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](CatalogTupleUpdate.md)
   - ObjectAddressSet
-  - recordDependencyOn
-  - deleteDependencyRecordsForClass
-  - ReleaseSysCache
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - table_close
 - Called from (representative examples):
-  - DefineIndex (indexcmds.c:1417)
-  - tryAttachPartitionForeignKey (tablecmds.c:11188)
-  - AttachPartitionEnsureIndexes (tablecmds.c:18939)
-  - DetachPartitionFinalize (tablecmds.c:19400, 19515, 19556)
-  - ATExecAttachPartitionIdx (tablecmds.c:19983)
+  - [DefineIndex](../D/DefineIndex.md) (indexcmds.c:1417)
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md) (tablecmds.c:11188)
+  - [AttachPartitionEnsureIndexes](../A/AttachPartitionEnsureIndexes.md) (tablecmds.c:18939)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md) (tablecmds.c:19400, 19515, 19556)
+  - [ATExecAttachPartitionIdx](../A/ATExecAttachPartitionIdx.md) (tablecmds.c:19983)
 
 ## Notes and Other Information
 - Prevents setting a parent for constraints that already have one (assertion-based check)

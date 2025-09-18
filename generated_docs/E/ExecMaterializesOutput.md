@@ -30,13 +30,13 @@ This information is crucial for the query optimizer when making cost-based decis
 - Functions called/Symbols referenced:
   - None (uses only built-in switch statement and NodeTag constants)
 - Called from (representative examples):
-  - cost_subplan (in optimizer cost estimation)
-  - match_unsorted_outer (in join path selection)
-  - build_subplan (in subquery planning)
+  - [cost_subplan](../c/cost_subplan.md) (in optimizer cost estimation)
+  - [match_unsorted_outer](../m/match_unsorted_outer.md) (in join path selection)
+  - [build_subplan](../b/build_subplan.md) (in subquery planning)
 
 ## Notes and Other Information
 - This function is used primarily by the query optimizer for cost estimation and plan selection
 - The materialization characteristic significantly impacts rescan costs, making it important for nested loop join cost calculations
 - The function only identifies node types that inherently materialize; it doesn't account for runtime materialization decisions
-- Plan types not listed in the switch statement are assumed to not materialize their output
+- [Plan](../P/Plan.md) types not listed in the switch statement are assumed to not materialize their output
 - The function is critical for accurate cost estimation in scenarios involving multiple rescans of the same plan node

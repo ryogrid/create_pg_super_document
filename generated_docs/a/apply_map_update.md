@@ -20,13 +20,13 @@ The  function is responsible for maintaining the relation-to-file mapping table 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelMapFile (structure)
-  - RelFileNumber (type)
+  - [RelMapFile](../R/RelMapFile.md) (structure)
+  - [RelFileNumber](../R/RelFileNumber.md) (type)
   - MAX_MAPPINGS (constant)
   - elog (for error reporting)
 - Called from (representative examples):
-  - RelationMapUpdateMap
-  - merge_map_updates
+  - [RelationMapUpdateMap](../R/RelationMapUpdateMap.md)
+  - [merge_map_updates](../m/merge_map_updates.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the relmapper.c file

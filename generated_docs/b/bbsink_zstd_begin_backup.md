@@ -22,7 +22,7 @@ This function initializes the zstd compression context for a basebackup sink. It
   - ZSTD_isError (checks for zstd errors)
   - ZSTD_getErrorName (gets error description)
   - ZSTD_compressBound (calculates maximum compressed size)
-  - palloc (allocates memory for buffer)
+  - [palloc](../p/palloc.md) (allocates memory for buffer)
   - bbsink_begin_backup (initializes next sink in chain)
   - elog/ereport (error reporting)
   - PG_COMPRESSION_OPTION_WORKERS (worker count option flag)

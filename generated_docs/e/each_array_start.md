@@ -19,14 +19,14 @@ This function is part of the JSON parsing callback system used by functions like
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EachState (state structure)
+  - [EachState](../E/EachState.md) (state structure)
   - ereport (PostgreSQL error reporting function)
-  - errcode (error code specification)
-  - errmsg (error message specification)  
+  - [errcode](errcode.md) (error code specification)
+  - [errmsg](errmsg.md) (error message specification)  
   - JSON_SUCCESS (return value constant)
   - ERRCODE_INVALID_PARAMETER_VALUE (PostgreSQL error code)
 - Called from:
-  - each_worker (main JSON expansion worker function)
+  - [each_worker](each_worker.md) (main JSON expansion worker function)
   - JsObjectFree (JSON object callback structure)
 
 ## Notes and Other Information

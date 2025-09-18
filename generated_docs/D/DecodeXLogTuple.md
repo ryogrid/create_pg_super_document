@@ -31,15 +31,15 @@ Key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerSetInvalid
-  - xl_heap_header (struct)
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
+  - [xl_heap_header](../x/xl_heap_header.md) (struct)
   - HeapTupleHeader (type)
   - SizeOfHeapHeader
   - SizeofHeapTupleHeader
 - Called from (representative examples):
-  - DecodeInsert
-  - DecodeUpdate
-  - DecodeDelete
+  - [DecodeInsert](DecodeInsert.md)
+  - [DecodeUpdate](DecodeUpdate.md)
+  - [DecodeDelete](DecodeDelete.md)
 
 ## Notes and Other Information
 - This function is specifically NOT used by heap_multi_insert operations, which have their own decoding logic

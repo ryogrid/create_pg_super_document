@@ -18,13 +18,13 @@ The function calculates the total shared memory requirement for a parallel BRIN 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size: Safely adds two Size values, checking for overflow
+  - [add_size](../a/add_size.md): Safely adds two Size values, checking for overflow
   - BUFFERALIGN: Macro for aligning memory to buffer boundaries
-  - table_parallelscan_estimate: Estimates memory needed for parallel table scanning
-  - BrinShared: Structure containing shared state for parallel BRIN builds
+  - [table_parallelscan_estimate](../t/table_parallelscan_estimate.md): Estimates memory needed for parallel table scanning
+  - [BrinShared](../B/BrinShared.md): Structure containing shared state for parallel BRIN builds
 
 - Called from (representative examples):
-  - _brin_begin_parallel: Uses this estimate when setting up parallel BRIN builds
+  - [_brin_begin_parallel](_brin_begin_parallel.md): Uses this estimate when setting up parallel BRIN builds
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

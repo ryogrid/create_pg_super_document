@@ -23,8 +23,8 @@ The dshash_seq_status structure encapsulates all state information needed to per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dshash_table
-  - dshash_table_item
+  - [dshash_table](dshash_table.md)
+  - [dshash_table_item](dshash_table_item.md)
   - dsa_pointer
 - Called from (representative examples):
   - dshash_seq_init

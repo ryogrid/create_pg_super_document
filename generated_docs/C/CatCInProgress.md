@@ -26,12 +26,12 @@ The structure forms a linked list (stack) where new entries are added to the fro
 ## Dependencies
 - Functions called/Symbols referenced:
   - CatCache (referenced as member type)
-  - CatCInProgress (self-reference for linked list structure)
+  - [CatCInProgress](CatCInProgress.md) (self-reference for linked list structure)
 - Called from (representative examples):
-  - CatCacheInvalidate (marks matching entries as dead)
-  - ResetCatalogCache (processes the stack during cache reset)
-  - SearchCatCacheList (manages stack during list creation)
-  - CatalogCacheCreateEntry (manages stack during entry creation)
+  - [CatCacheInvalidate](CatCacheInvalidate.md) (marks matching entries as dead)
+  - [ResetCatalogCache](../R/ResetCatalogCache.md) (processes the stack during cache reset)
+  - [SearchCatCacheList](../S/SearchCatCacheList.md) (manages stack during list creation)
+  - [CatalogCacheCreateEntry](CatalogCacheCreateEntry.md) (manages stack during entry creation)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's catalog cache system located in src/backend/utils/cache/catcache.c

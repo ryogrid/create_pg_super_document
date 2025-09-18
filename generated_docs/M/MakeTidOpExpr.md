@@ -18,11 +18,11 @@ This static function processes an OpExpr containing a CTID (tuple identifier) co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_leftop
-  - get_rightop
-  - IsCTIDVar
-  - ExecInitExpr
-  - palloc
+  - [get_leftop](../g/get_leftop.md)
+  - [get_rightop](../g/get_rightop.md)
+  - [IsCTIDVar](../I/IsCTIDVar.md)
+  - [ExecInitExpr](../E/ExecInitExpr.md)
+  - [palloc](../p/palloc.md)
   - elog
 - Constants used:
   - TIDLessEqOperator
@@ -32,7 +32,7 @@ This static function processes an OpExpr containing a CTID (tuple identifier) co
   - TIDEXPR_LOWER_BOUND
   - TIDEXPR_UPPER_BOUND
 - Called from:
-  - TidExprListCreate
+  - [TidExprListCreate](../T/TidExprListCreate.md)
 
 ## Notes and Other Information
 - The function determines inclusiveness based on whether the operator includes equality (<=, >=)

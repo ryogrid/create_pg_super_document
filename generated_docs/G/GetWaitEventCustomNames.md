@@ -22,11 +22,11 @@ This function retrieves all currently defined custom wait event names that belon
 - Functions called/Symbols referenced:
   - LWLockAcquire
   - LWLockRelease
-  - hash_get_num_entries
-  - palloc
-  - hash_seq_init
-  - hash_seq_search
-  - pstrdup
+  - [hash_get_num_entries](../h/hash_get_num_entries.md)
+  - [palloc](../p/palloc.md)
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
+  - [pstrdup](../p/pstrdup.md)
 - Data structures used:
   - WaitEventCustomEntryByName
   - WaitEventCustomHashByName

@@ -22,7 +22,7 @@ The conversion process iterates through each of the 16 input bytes, splits each 
 - Functions called/Symbols referenced:
   - (none - uses only basic C operations and static hex lookup table)
 - Called from (representative examples):
-  - pg_md5_hash
+  - [pg_md5_hash](../p/pg_md5_hash.md)
 
 ## Notes and Other Information
 - The function is declared static, limiting its scope to the md5_common.c file

@@ -25,7 +25,7 @@ Note that the comparison logic checks if the result is > 0 because `date_cmp_tim
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP
   - PG_GETARG_DATEADT
-  - date_cmp_timestamp_internal
+  - [date_cmp_timestamp_internal](../d/date_cmp_timestamp_internal.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct callers found (likely called through SQL operator infrastructure)

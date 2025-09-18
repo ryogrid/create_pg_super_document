@@ -22,7 +22,7 @@ If no bits are set in the considered range, or if the first set bit is beyond th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_leftmost_one_pos32
+  - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)
 - Called from (representative examples):
   - addHyperLogLog
 

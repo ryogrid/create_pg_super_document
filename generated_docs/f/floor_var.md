@@ -27,17 +27,17 @@ The algorithm:
 ## Dependencies
 - Functions called/Symbols referenced:
   - `init_var`: Initialize a new `NumericVar` structure
-  - `set_var_from_var`: Copy one `NumericVar` to another
-  - `trunc_var`: Truncate a numeric value to specified decimal places
-  - `cmp_var`: Compare two `NumericVar` values
-  - `sub_var`: Subtract two `NumericVar` values
-  - `free_var`: Free memory associated with a `NumericVar`
+  - `[set_var_from_var](../s/set_var_from_var.md)`: Copy one `NumericVar` to another
+  - `[trunc_var](../t/trunc_var.md)`: Truncate a numeric value to specified decimal places
+  - `[cmp_var](../c/cmp_var.md)`: Compare two `NumericVar` values
+  - `[sub_var](../s/sub_var.md)`: Subtract two `NumericVar` values
+  - `[free_var](free_var.md)`: Free memory associated with a `NumericVar`
   - `NUMERIC_NEG`: Constant representing negative sign
   - `const_one`: Predefined `NumericVar` constant representing value 1
 
 - Called from (representative examples):
   - `numeric_floor`: SQL-callable floor function wrapper
-  - `compute_bucket`: Used in histogram bucket calculations
+  - `[compute_bucket](../c/compute_bucket.md)`: Used in histogram bucket calculations
 
 ## Notes and Other Information
 - This is a static function internal to the numeric data type implementation

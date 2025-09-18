@@ -21,19 +21,19 @@ The function is version-aware, handling differences between PostgreSQL versions:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion (determine PostgreSQL server version for compatibility)
-  - printfPQExpBuffer, appendPQExpBuffer, appendPQExpBufferStr (build SQL queries)
-  - executeQuery (execute SQL queries against the database)
-  - PQgetisnull, PQgetvalue (handle result set data and NULL values)
+  - [PQserverVersion](../P/PQserverVersion.md) (determine PostgreSQL server version for compatibility)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md), appendPQExpBuffer, appendPQExpBufferStr (build SQL queries)
+  - [executeQuery](../e/executeQuery.md) (execute SQL queries against the database)
+  - [PQgetisnull](../P/PQgetisnull.md), PQgetvalue (handle result set data and NULL values)
   - pg_log_warning, pg_log_error (log diagnostic messages)
   - pg_malloc0, pg_free (memory management for tracking arrays)
-  - PQfinish, exit_nicely (error handling and cleanup)
+  - [PQfinish](../P/PQfinish.md), exit_nicely (error handling and cleanup)
   - atooid (convert string OID to numeric OID type)
-  - resetPQExpBuffer, destroyPQExpBuffer (manage query buffers)
-  - fmtId (format SQL identifiers with proper quoting)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md), destroyPQExpBuffer (manage query buffers)
+  - [fmtId](../f/fmtId.md) (format SQL identifiers with proper quoting)
   - rolename_create, rolename_lookup, rolename_insert, rolename_destroy (hash table for grantor tracking)
 - Called from:
-  - main (in src/bin/pg_dump/pg_dumpall.c after role definitions are dumped)
+  - [main](../m/main.md) (in src/bin/pg_dump/pg_dumpall.c after role definitions are dumped)
 
 ## Notes and Other Information
 - Function is marked as , indicating it's only used within pg_dumpall.c

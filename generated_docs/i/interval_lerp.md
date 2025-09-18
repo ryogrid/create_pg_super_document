@@ -24,13 +24,13 @@ The interpolation is performed using the formula: `result = lo + pct * (hi - lo)
 ## Dependencies
 - Functions called/Symbols referenced:
   - DirectFunctionCall2 (calls PostgreSQL functions with two arguments)
-  - interval_mi (interval subtraction function)
-  - interval_mul (interval multiplication function)
-  - interval_pl (interval addition function)
+  - [interval_mi](interval_mi.md) (interval subtraction function)
+  - [interval_mul](interval_mul.md) (interval multiplication function)
+  - [interval_pl](interval_pl.md) (interval addition function)
   - Float8GetDatumFast (fast conversion of double to Datum)
 - Called from (representative examples):
-  - percentile_cont_interval_final
-  - percentile_cont_interval_multi_final
+  - [percentile_cont_interval_final](../p/percentile_cont_interval_final.md)
+  - [percentile_cont_interval_multi_final](../p/percentile_cont_interval_multi_final.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally within the ordered-set aggregates module

@@ -24,13 +24,13 @@ The  structure serves as the central configuration and state management object f
 - Functions called/Symbols referenced:
   - (No direct references from this structure)
 - Called from (representative examples):
-  - report_result
-  - test_gb18030_page_multiple
-  - test_gb18030_json
-  - test_psql_parse
-  - test_one_vector_escape
-  - test_one_vector
-  - main
+  - [report_result](../r/report_result.md)
+  - [test_gb18030_page_multiple](../t/test_gb18030_page_multiple.md)
+  - [test_gb18030_json](../t/test_gb18030_json.md)
+  - [test_psql_parse](../t/test_psql_parse.md)
+  - [test_one_vector_escape](../t/test_one_vector_escape.md)
+  - [test_one_vector](../t/test_one_vector.md)
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 This structure is fundamental to the test_escape module's architecture, providing a consistent interface for test configuration and result tracking. It enables the module to maintain state across multiple test functions while providing flexible configuration options for different testing scenarios.

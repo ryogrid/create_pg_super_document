@@ -23,13 +23,13 @@ When called at the top level (lex_level == 0), it indicates that the JSON is a s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AlenState (structure type)
+  - [AlenState](../A/AlenState.md) (structure type)
   - JSON_SUCCESS (return value constant)
   - JsonParseErrorType (return type)
-  - JsonTokenType (parameter type)
+  - [JsonTokenType](../J/JsonTokenType.md) (parameter type)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - json_array_length (main array length function)
+  - [json_array_length](../j/json_array_length.md) (main array length function)
   - JsObjectFree (JSON object processing)
 
 ## Notes and Other Information

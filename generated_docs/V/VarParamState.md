@@ -23,11 +23,11 @@ The structure supports parameter type resolution where initially unknown paramet
   - Oid (PostgreSQL object identifier type)
   - UNKNOWNOID (special OID value for unknown types)
 - Called from (representative examples):
-  - setup_parse_variable_parameters
-  - variable_paramref_hook
-  - variable_coerce_param_hook
-  - check_variable_parameters
-  - check_parameter_resolution_walker
+  - [setup_parse_variable_parameters](../s/setup_parse_variable_parameters.md)
+  - [variable_paramref_hook](../v/variable_paramref_hook.md)
+  - [variable_coerce_param_hook](../v/variable_coerce_param_hook.md)
+  - [check_variable_parameters](../c/check_variable_parameters.md)
+  - [check_parameter_resolution_walker](../c/check_parameter_resolution_walker.md)
 
 ## Notes and Other Information
 - This structure is allocated using palloc() and attached to the ParseState's p_ref_hook_state field

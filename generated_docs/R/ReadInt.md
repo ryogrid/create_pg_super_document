@@ -21,11 +21,11 @@ ReadInt is the counterpart to WriteInt, deserializing a signed integer from an a
   - AH->ReadBytePtr (function pointer for reading single bytes)
   - AH->version, AH->intSize (archive handle members)
 - Called from (representative examples):
-  - ReadOffset (for backward compatibility with older offset formats)
-  - ReadStr (for string length deserialization)
-  - ReadToc (for table of contents deserialization)
-  - ReadHead (for archive header deserialization)
-  - _ReadExtraToc, _LoadLOs, _skipLOs, _skipData (archive processing functions)
+  - [ReadOffset](ReadOffset.md) (for backward compatibility with older offset formats)
+  - [ReadStr](ReadStr.md) (for string length deserialization)
+  - [ReadToc](ReadToc.md) (for table of contents deserialization)
+  - [ReadHead](ReadHead.md) (for archive header deserialization)
+  - [_ReadExtraToc](_ReadExtraToc.md), _LoadLOs, _skipLOs, _skipData (archive processing functions)
   - appendByteaLiteralAHX (for bytea literal handling)
 
 ## Notes and Other Information

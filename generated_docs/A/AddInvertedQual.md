@@ -23,12 +23,12 @@ The function creates a BooleanTest node wrapping the input qualification and del
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create BooleanTest node)
-  - AddQual (to add the inverted qualification to the query)
+  - [AddQual](AddQual.md) (to add the inverted qualification to the query)
 - Symbols used:
   - BooleanTest (node type for boolean tests)
   - IS_NOT_TRUE (boolean test type constant)
 - Called from (representative examples):
-  - CopyAndAddInvertedQual (in rewriteHandler.c)
+  - [CopyAndAddInvertedQual](../C/CopyAndAddInvertedQual.md) (in rewriteHandler.c)
   - Functions that need to add negated conditions with proper NULL semantics
 
 ## Notes and Other Information

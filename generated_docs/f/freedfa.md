@@ -23,9 +23,9 @@ The function safely handles NULL pointers and only frees memory that was actuall
 ## Dependencies
 - Functions called/Symbols referenced:
   - FREE (macro for memory deallocation)
-  - dfa (struct type)
+  - [dfa](../d/dfa.md) (struct type)
 - Called from (representative examples):
-  - newdfa (when DFA creation fails)
+  - [newdfa](../n/newdfa.md) (when DFA creation fails)
   - LOFF (during regex execution cleanup)
   - LOCALDFA (for local DFA cleanup)
   - find (regex matching function cleanup)

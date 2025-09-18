@@ -22,22 +22,22 @@ The  function extends the basic  functionality by providing conditional array un
 ## Dependencies
 - Functions called/Symbols referenced:
   - jspAutoUnwrap
-  - executeItem
+  - [executeItem](executeItem.md)
   - jperIsError
-  - JsonValueListInitIterator
-  - JsonValueListNext
-  - JsonbType
-  - executeItemUnwrapTargetArray
-  - JsonValueListAppend
+  - [JsonValueListInitIterator](../J/JsonValueListInitIterator.md)
+  - [JsonValueListNext](../J/JsonValueListNext.md)
+  - [JsonbType](../J/JsonbType.md)
+  - [executeItemUnwrapTargetArray](executeItemUnwrapTargetArray.md)
+  - [JsonValueListAppend](../J/JsonValueListAppend.md)
   - jperOk (enum value)
-  - JsonValueList (type)
-  - JsonValueListIterator (type)
-  - JsonPathExecResult (return type)
+  - [JsonValueList](../J/JsonValueList.md) (type)
+  - [JsonValueListIterator](../J/JsonValueListIterator.md) (type)
+  - [JsonPathExecResult](../J/JsonPathExecResult.md) (return type)
   - jbvArray (enum value)
 - Called from (representative examples):
-  - executeItemOptUnwrapResultNoThrow
-  - executeBinaryArithmExpr
-  - executeUnaryArithmExpr
+  - [executeItemOptUnwrapResultNoThrow](executeItemOptUnwrapResultNoThrow.md)
+  - [executeBinaryArithmExpr](executeBinaryArithmExpr.md)
+  - [executeUnaryArithmExpr](executeUnaryArithmExpr.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c

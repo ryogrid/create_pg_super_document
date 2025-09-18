@@ -27,14 +27,14 @@ SimpleStringListCell represents a single node in a singly-linked list specifical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleStringListCell (self-reference for next pointer)
+  - [SimpleStringListCell](SimpleStringListCell.md) (self-reference for next pointer)
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro for variable-length arrays)
-  - bool (boolean type)
+  - [bool](../b/bool.md) (boolean type)
 - Called from (representative examples):
-  - simple_string_list_append
-  - simple_string_list_member
-  - simple_string_list_destroy
-  - simple_string_list_not_touched
+  - [simple_string_list_append](../s/simple_string_list_append.md)
+  - [simple_string_list_member](../s/simple_string_list_member.md)
+  - [simple_string_list_destroy](../s/simple_string_list_destroy.md)
+  - [simple_string_list_not_touched](../s/simple_string_list_not_touched.md)
   - Various PostgreSQL frontend tools (pg_dump, clusterdb, reindexdb, vacuumdb)
   - store_pub_sub_info
   - expand_*_name_patterns functions

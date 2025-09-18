@@ -21,13 +21,13 @@ When a hash table is available (indicating sufficient notification volume), it u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search: Performs hash table lookup for notification matching
+  - [hash_search](../h/hash_search.md): Performs hash table lookup for notification matching
   - HASH_FIND: Hash table operation mode constant
   - foreach/lfirst: List iteration macros for scanning notification events
   - memcmp: Memory comparison function for notification data matching
 - Called from:
-  - Async_Notify: Main NOTIFY command processing to prevent duplicates
-  - AtSubCommit_Notify: Subtransaction commit processing for notification deduplication
+  - [Async_Notify](Async_Notify.md): Main NOTIFY command processing to prevent duplicates
+  - [AtSubCommit_Notify](AtSubCommit_Notify.md): Subtransaction commit processing for notification deduplication
 
 ## Notes and Other Information
 - Returns false immediately if pendingNotifies is NULL (no pending notifications)

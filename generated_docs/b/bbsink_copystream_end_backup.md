@@ -19,8 +19,8 @@ This function finalizes the backup process by sending the necessary wire protoco
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SendCopyDone
-  - SendXlogRecPtrResult
+  - [SendCopyDone](../S/SendCopyDone.md)
+  - [SendXlogRecPtrResult](../S/SendXlogRecPtrResult.md)
 - Called from (representative examples):
   - Used as callback function during backup finalization in bbsink copystream operations
 

@@ -22,15 +22,15 @@ The function was originally authored by Paul Vixie (ISC) in June 1996 and has be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - inet_net_pton_ipv4 (for IPv4 network parsing)
-  - inet_cidr_pton_ipv4 (for IPv4 CIDR parsing)
-  - inet_net_pton_ipv6 (for IPv6 network parsing)
-  - inet_cidr_pton_ipv6 (for IPv6 CIDR parsing)
+  - [inet_net_pton_ipv4](../i/inet_net_pton_ipv4.md) (for IPv4 network parsing)
+  - [inet_cidr_pton_ipv4](../i/inet_cidr_pton_ipv4.md) (for IPv4 CIDR parsing)
+  - [inet_net_pton_ipv6](../i/inet_net_pton_ipv6.md) (for IPv6 network parsing)
+  - [inet_cidr_pton_ipv6](../i/inet_cidr_pton_ipv6.md) (for IPv6 CIDR parsing)
   - PGSQL_AF_INET (IPv4 address family constant)
   - PGSQL_AF_INET6 (IPv6 address family constant)
   - EAFNOSUPPORT (error constant for unsupported address family)
 - Called from (representative examples):
-  - network_in (src/backend/utils/adt/network.c:93)
+  - [network_in](../n/network_in.md) (src/backend/utils/adt/network.c:93)
 
 ## Notes and Other Information
 - Returns the number of bits in the network specification (either inferred classfully or specified with CIDR notation)

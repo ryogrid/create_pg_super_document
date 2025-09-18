@@ -24,7 +24,7 @@ The function uses the standard PostgreSQL function call interface:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - generate_subscripts
+  - [generate_subscripts](generate_subscripts.md)
 - Called from (representative examples):
   - Used as PostgreSQL function implementation (no direct code references found)
 

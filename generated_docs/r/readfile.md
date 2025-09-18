@@ -39,7 +39,7 @@ Memory management follows PostgreSQL patterns using , , and  functions. If the f
 
 ## Notes and Other Information
 - Returns a malloc'd array of individually malloc'd strings
-- Result array is NULL-terminated for easy iteration
+- [Result](../R/Result.md) array is NULL-terminated for easy iteration
 - Automatically handles files of arbitrary size through dynamic reallocation
 - Initial capacity is 1024 lines, doubles when needed
 - Uses PostgreSQL memory management functions throughout

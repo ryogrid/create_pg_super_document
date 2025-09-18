@@ -23,10 +23,10 @@ The int8gcd_internal function implements the mathematical greatest common diviso
 - Functions called/Symbols referenced:
   - PG_INT64_MIN (minimum int64 constant for overflow detection)
   - ereport (error reporting for overflow cases)
-  - errcode/errmsg (error code and message macros)
+  - [errcode](../e/errcode.md)/errmsg (error code and message macros)
 - Called from:
-  - int8gcd (public GCD function wrapper)
-  - int8lcm (least common multiple function)
+  - [int8gcd](int8gcd.md) (public GCD function wrapper)
+  - [int8lcm](int8lcm.md) (least common multiple function)
 
 ## Notes and Other Information
 - Implements mathematical properties: gcd(x, 0) = gcd(0, x) = abs(x), gcd(0, 0) = 0

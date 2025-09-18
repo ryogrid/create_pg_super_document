@@ -23,10 +23,10 @@ This function takes no parameters.
   - CurrentMemoryContext (parent context)
   - ALLOCSET_DEFAULT_SIZES (default allocation parameters)
 - Called from:
-  - gistinsert (at src/backend/access/gist/gist.c:174)
-  - gistbuild (at src/backend/access/gist/gistbuild.c:207)  
-  - gistbeginscan (at src/backend/access/gist/gistscan.c:95)
-  - gist_xlog_startup (at src/backend/access/gist/gistxlog.c:440)
+  - [gistinsert](../g/gistinsert.md) (at src/backend/access/gist/gist.c:174)
+  - [gistbuild](../g/gistbuild.md) (at src/backend/access/gist/gistbuild.c:207)  
+  - [gistbeginscan](../g/gistbeginscan.md) (at src/backend/access/gist/gistscan.c:95)
+  - [gist_xlog_startup](../g/gist_xlog_startup.md) (at src/backend/access/gist/gistxlog.c:440)
 
 ## Notes and Other Information
 - The context is named "GiST temporary context" for debugging and monitoring purposes

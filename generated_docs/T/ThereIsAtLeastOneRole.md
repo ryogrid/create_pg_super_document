@@ -22,15 +22,15 @@ The function uses PostgreSQL's table access methods to safely scan the system ca
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDesc (type)
+  - [TableScanDesc](TableScanDesc.md) (type)
   - table_open
-  - table_beginscan_catalog
-  - heap_getnext
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
   - ForwardScanDirection (constant)
-  - table_endscan
+  - [table_endscan](../t/table_endscan.md)
   - table_close
 - Called from (representative examples):
-  - InitPostgres
+  - [InitPostgres](../I/InitPostgres.md)
 
 ## Notes and Other Information
 - This is a static function within postinit.c, limiting its visibility to that compilation unit

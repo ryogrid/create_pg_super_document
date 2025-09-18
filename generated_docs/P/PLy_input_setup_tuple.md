@@ -29,17 +29,17 @@ The function is designed to handle re-initialization efficiently, only updating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyDict_FromComposite (validation)
-  - MemoryContextAllocZero
-  - PLy_input_setup_func
-  - pfree
+  - [PLyDict_FromComposite](PLyDict_FromComposite.md) (validation)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
+  - [PLy_input_setup_func](PLy_input_setup_func.md)
+  - [pfree](../p/pfree.md)
   - TupleDescAttr
 - Called from (representative examples):
-  - PLy_cursor_iternext
-  - PLy_cursor_fetch  
-  - PLy_exec_trigger
-  - PLy_spi_execute_fetch_result
-  - PLyDict_FromComposite
+  - [PLy_cursor_iternext](PLy_cursor_iternext.md)
+  - [PLy_cursor_fetch](PLy_cursor_fetch.md)  
+  - [PLy_exec_trigger](PLy_exec_trigger.md)
+  - [PLy_spi_execute_fetch_result](PLy_spi_execute_fetch_result.md)
+  - [PLyDict_FromComposite](PLyDict_FromComposite.md)
 
 ## Notes and Other Information
 - This function is specifically designed to handle anonymous record types where tuple descriptors must be passed explicitly

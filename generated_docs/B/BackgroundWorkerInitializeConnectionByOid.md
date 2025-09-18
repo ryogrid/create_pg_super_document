@@ -23,21 +23,21 @@ Like its name-based counterpart, the function performs validation checks to ensu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorker (struct type)
+  - [BackgroundWorker](BackgroundWorker.md) (struct type)
   - MyBgworkerEntry (global variable)
   - BGWORKER_BYPASS_ALLOWCONN (flag constant)
   - INIT_PG_OVERRIDE_ALLOW_CONNS (flag constant)
   - BGWORKER_BYPASS_ROLELOGINCHECK (flag constant)
   - INIT_PG_OVERRIDE_ROLE_LOGIN (flag constant)
   - BGWORKER_BACKEND_DATABASE_CONNECTION (flag constant)
-  - InitPostgres (function)
+  - [InitPostgres](../I/InitPostgres.md) (function)
   - IsInitProcessingMode (function)
   - SetProcessingMode (function)
   - NormalProcessing (processing mode constant)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1428)
-  - InitializeLogRepWorker (src/backend/replication/logical/worker.c:4599)
-  - worker_spi_main (src/test/modules/worker_spi/worker_spi.c:171)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1428)
+  - [InitializeLogRepWorker](../I/InitializeLogRepWorker.md) (src/backend/replication/logical/worker.c:4599)
+  - [worker_spi_main](../w/worker_spi_main.md) (src/test/modules/worker_spi/worker_spi.c:171)
 
 ## Notes and Other Information
 - More efficient than the name-based version when OIDs are already available, avoiding name resolution overhead

@@ -34,18 +34,18 @@ The function performs validation checks, assigns the event to the next available
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitEventAdjustEpoll (Linux)
-  - WaitEventAdjustKqueue (BSD)
-  - WaitEventAdjustPoll (poll-based systems)
-  - WaitEventAdjustWin32 (Windows)
+  - [WaitEventAdjustEpoll](../W/WaitEventAdjustEpoll.md) (Linux)
+  - [WaitEventAdjustKqueue](../W/WaitEventAdjustKqueue.md) (BSD)
+  - [WaitEventAdjustPoll](../W/WaitEventAdjustPoll.md) (poll-based systems)
+  - [WaitEventAdjustWin32](../W/WaitEventAdjustWin32.md) (Windows)
   - elog (error reporting)
 - Called from (representative examples):
-  - ExecAppendAsyncEventWait
-  - pq_init
-  - ConfigurePostmasterWaitSet
-  - SysLoggerMain
+  - [ExecAppendAsyncEventWait](../E/ExecAppendAsyncEventWait.md)
+  - [pq_init](../p/pq_init.md)
+  - [ConfigurePostmasterWaitSet](../C/ConfigurePostmasterWaitSet.md)
+  - [SysLoggerMain](../S/SysLoggerMain.md)
   - InitializeLatchWaitSet
-  - WaitLatchOrSocket
+  - [WaitLatchOrSocket](../W/WaitLatchOrSocket.md)
 
 ## Notes and Other Information
 - Returns the position index in the events array, which can be used with ModifyWaitEvent()

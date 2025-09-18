@@ -20,7 +20,7 @@ The `interval_lt` function is a PostgreSQL function that implements the less-tha
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INTERVAL_P (macro for extracting interval arguments)
-  - interval_cmp_internal
+  - [interval_cmp_internal](interval_cmp_internal.md)
   - PG_RETURN_BOOL (macro for returning boolean results)
 - Called from:
   - No direct references found (likely registered as SQL operator function)

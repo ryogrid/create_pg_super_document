@@ -21,11 +21,11 @@ The function validates that it's being called in a proper aggregate context and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AggCheckCallContext
-  - get_fn_expr_argtype
-  - type_is_range
-  - initArrayResult
-  - accumArrayResult
+  - [AggCheckCallContext](../A/AggCheckCallContext.md)
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [type_is_range](../t/type_is_range.md)
+  - [initArrayResult](../i/initArrayResult.md)
+  - [accumArrayResult](../a/accumArrayResult.md)
   - PG_ARGISNULL
   - PG_GETARG_POINTER
   - PG_GETARG_DATUM

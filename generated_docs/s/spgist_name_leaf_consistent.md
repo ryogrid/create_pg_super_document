@@ -35,8 +35,8 @@ All comparisons are performed using non-collation-aware string operations, and e
 ## Dependencies
 - Functions called/Symbols referenced:
   - `DatumGetTextPP`
-  - `DatumGetName`
-  - `palloc0`
+  - `[DatumGetName](../D/DatumGetName.md)`
+  - `[palloc0](../p/palloc0.md)`
   - `NAMEDATALEN`
   - `memcmp`
   - Strategy numbers (`BTLessStrategyNumber`, `BTEqualStrategyNumber`, etc.)

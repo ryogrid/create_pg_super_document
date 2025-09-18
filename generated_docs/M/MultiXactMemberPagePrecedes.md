@@ -20,12 +20,12 @@ The function is specifically designed for MultiXact member pages, which store th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactOffsetPrecedes
+  - [MultiXactOffsetPrecedes](MultiXactOffsetPrecedes.md)
   - MultiXactOffset (type)
   - MULTIXACT_MEMBERS_PER_PAGE (constant)
 - Called from (representative examples):
   - debug_elog6
-  - MultiXactShmemInit
+  - [MultiXactShmemInit](MultiXactShmemInit.md)
 
 ## Notes and Other Information
 - This is a static function internal to multixact.c

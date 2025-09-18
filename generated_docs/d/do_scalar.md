@@ -22,12 +22,12 @@ This function serves as a semantic action callback that processes scalar values 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DoState` (struct type for parser state)
-  - `JsonTokenType` (enum type for token classification)
+  - `[DoState](../D/DoState.md)` (struct type for parser state)
+  - `[JsonTokenType](../J/JsonTokenType.md)` (enum type for token classification)
   - `JSON_TOKEN_STRING` (enum constant for string tokens)
   - `JSON_SUCCESS` (return value constant)
   - `resetStringInfo` (function to reset StringInfo buffer)
-  - `escape_json` (helper function for JSON string escaping)
+  - `[escape_json](../e/escape_json.md)` (helper function for JSON string escaping)
   - `printf` (standard C library function for output)
 - Called from (representative examples):
   - Used as a callback function in JSON parser semantic actions (no direct references found in current analysis)

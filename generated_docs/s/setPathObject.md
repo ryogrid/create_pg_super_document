@@ -39,14 +39,14 @@ Key behaviors include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetTextPP
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - setPath (recursive call)
-  - push_path
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [setPath](setPath.md) (recursive call)
+  - [push_path](../p/push_path.md)
   - WJB_KEY, WJB_VALUE, WJB_BEGIN_ARRAY, WJB_BEGIN_OBJECT, WJB_END_ARRAY, WJB_END_OBJECT
   - JB_PATH_CREATE_OR_INSERT, JB_PATH_INSERT_BEFORE, JB_PATH_INSERT_AFTER, JB_PATH_DELETE, JB_PATH_FILL_GAPS
 - Called from (representative examples):
-  - setPath
+  - [setPath](setPath.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonfuncs.c  

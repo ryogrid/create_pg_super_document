@@ -36,26 +36,26 @@ Key features include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SchemaQuery (struct type)
-  - PQExpBufferData (struct type)
-  - parse_identifier
-  - make_like_pattern
-  - escape_string
+  - [SchemaQuery](../S/SchemaQuery.md) (struct type)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (struct type)
+  - [parse_identifier](../p/parse_identifier.md)
+  - [make_like_pattern](../m/make_like_pattern.md)
+  - [escape_string](../e/escape_string.md)
   - initPQExpBuffer
-  - exec_query
+  - [exec_query](../e/exec_query.md)
   - termPQExpBuffer
   - PGRES_TUPLES_OK
-  - PQgetisnull
-  - PQnfields
-  - identifier_needs_quotes
-  - requote_identifier
-  - pg_strncasecmp
-  - pg_strdup_keyword_case
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQnfields](../P/PQnfields.md)
+  - [identifier_needs_quotes](../i/identifier_needs_quotes.md)
+  - [requote_identifier](../r/requote_identifier.md)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md)
+  - [pg_strdup_keyword_case](../p/pg_strdup_keyword_case.md)
 - Called from (representative examples):
-  - complete_from_query
-  - complete_from_versioned_query
-  - complete_from_schema_query
-  - complete_from_versioned_schema_query
+  - [complete_from_query](complete_from_query.md)
+  - [complete_from_versioned_query](complete_from_versioned_query.md)
+  - [complete_from_schema_query](complete_from_schema_query.md)
+  - [complete_from_versioned_schema_query](complete_from_versioned_schema_query.md)
 
 ## Notes and Other Information
 - Uses static variables to maintain state across multiple readline calls for the same completion

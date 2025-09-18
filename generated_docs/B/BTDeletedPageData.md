@@ -23,8 +23,8 @@ This mechanism is crucial for MVCC (Multi-Version Concurrency Control) complianc
 - Functions called/Symbols referenced:
   - FullTransactionId (transaction identifier type)
 - Called from (representative examples):
-  - BTPageSetDeleted (macro to mark a page as deleted)
-  - BTPageGetDeleteXid (macro to retrieve the deletion transaction ID)
+  - [BTPageSetDeleted](BTPageSetDeleted.md) (macro to mark a page as deleted)
+  - [BTPageGetDeleteXid](BTPageGetDeleteXid.md) (macro to retrieve the deletion transaction ID)
 
 ## Notes and Other Information
 - This structure is stored in the tuple area of deleted pages, while BTPageOpaqueData remains in the special area

@@ -22,13 +22,13 @@ The  function is the execution handler for ALTER TABLE ENABLE/DISABLE TRIGGER co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - EnableDisableTrigger
+  - [EnableDisableTrigger](../E/EnableDisableTrigger.md)
   - InvokeObjectPostAlterHook
   - RelationRelationId
   - RelationGetRelid
   - InvalidOid
 - Called from (representative examples):
-  - ATExecCmd (multiple trigger-related ALTER TABLE subcases)
+  - [ATExecCmd](ATExecCmd.md) (multiple trigger-related ALTER TABLE subcases)
 
 ## Notes and Other Information
 - Part of the ALTER TABLE command execution infrastructure

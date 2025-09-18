@@ -41,12 +41,12 @@ The function returns a boolean indicating whether the insertion was successful.
   - IndexInfo (type)
   - RELATION_CHECKS (macro)
   - CHECK_REL_PROCEDURE (macro)
-  - CheckForSerializableConflictIn
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md)
 - Called from (representative examples):
-  - toast_save_datum
-  - heapam_index_validate_scan
-  - CatalogIndexInsert
-  - ExecInsertIndexTuples
+  - [toast_save_datum](../t/toast_save_datum.md)
+  - [heapam_index_validate_scan](../h/heapam_index_validate_scan.md)
+  - [CatalogIndexInsert](../C/CatalogIndexInsert.md)
+  - [ExecInsertIndexTuples](../E/ExecInsertIndexTuples.md)
 
 ## Notes and Other Information
 - This is a generic interface that works with all index access methods

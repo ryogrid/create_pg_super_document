@@ -19,17 +19,17 @@ This function converts a uint32 value into a decimal string representation and s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultoa_n (core conversion function)
+  - [pg_ultoa_n](pg_ultoa_n.md) (core conversion function)
   - DIGIT_TABLE (lookup table for digit pairs)
   - memcpy (for optimized digit copying)
   - memmove (for shifting digits when padding needed)
   - memset (for zero-padding)
 - Called from (representative examples):
-  - AppendSeconds (datetime.c:453)
+  - [AppendSeconds](../A/AppendSeconds.md) (datetime.c:453)
   - EncodeTimezone (datetime.c:4206, 4208, 4210, 4214, 4216, 4219)
-  - EncodeDateOnly (datetime.c:4236, 4239, 4241, 4248, 4250, 4254, 4256, 4259, 4265, 4267, 4269, 4278, 4280, 4284, 4286, 4289)
+  - [EncodeDateOnly](../E/EncodeDateOnly.md) (datetime.c:4236, 4239, 4241, 4248, 4250, 4254, 4256, 4259, 4265, 4267, 4269, 4278, 4280, 4284, 4286, 4289)
   - EncodeTimeOnly (datetime.c:4314, 4316)
-  - EncodeDateTime (datetime.c:4359, 4362, 4364, 4366, 4368, 4379, 4381, 4385, 4387, 4390, 4393, 4395, 4419, 4421, 4423, 4426, 4428, 4454, 4464, 4467, 4469, 4473)
+  - [EncodeDateTime](../E/EncodeDateTime.md) (datetime.c:4359, 4362, 4364, 4366, 4368, 4379, 4381, 4385, 4387, 4390, 4393, 4395, 4419, 4421, 4423, 4426, 4428, 4454, 4464, 4467, 4469, 4473)
 
 ## Notes and Other Information
 - Returns a pointer to the position immediately after the last written character (not NUL-terminated)

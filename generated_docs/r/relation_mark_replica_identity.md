@@ -30,16 +30,16 @@ The function ensures transactional consistency by updating both catalog tables (
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheCopy1: Retrieves catalog tuple copies for modification
-  - CatalogTupleUpdate: Updates modified tuples in catalog tables
-  - RelationGetIndexList: Gets list of all indexes on the relation
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md): Updates modified tuples in catalog tables
+  - [RelationGetIndexList](../R/RelationGetIndexList.md): Gets list of all indexes on the relation
   - InvokeObjectPostAlterHookArg: Triggers post-alter hooks with additional arguments
-  - CacheInvalidateRelcache: Invalidates relation cache entries
-  - heap_freetuple: Frees heap tuple memory
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md): Invalidates relation cache entries
+  - [heap_freetuple](../h/heap_freetuple.md): Frees heap tuple memory
   - Form_pg_class: Structure for pg_class catalog entries
   - Form_pg_index: Structure for pg_index catalog entries
 
 - Called from (representative examples):
-  - ATExecReplicaIdentity: Main ALTER TABLE REPLICA IDENTITY command handler
+  - [ATExecReplicaIdentity](../A/ATExecReplicaIdentity.md): Main ALTER TABLE REPLICA IDENTITY command handler
 
 ## Notes and Other Information
 - The caller must hold an exclusive lock on the relation to prevent concurrent modifications

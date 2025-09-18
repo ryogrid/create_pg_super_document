@@ -22,7 +22,7 @@ This function searches through a list of SortGroupClause structures to find the 
   - elog (error logging function)
   - Index (type alias)
 - Called from (representative examples):
-  - preprocess_groupclause
+  - [preprocess_groupclause](../p/preprocess_groupclause.md)
 
 ## Notes and Other Information
 This function enforces the invariant that all referenced sort/group clauses must be present in the provided list by raising an error if a match is not found. This helps catch programming errors during query planning where references become inconsistent. The function is part of a family of utilities for working with sort and group clause lists, though it's less frequently used than its related functions. The linear search approach is acceptable given that sort/group clause lists are typically small.

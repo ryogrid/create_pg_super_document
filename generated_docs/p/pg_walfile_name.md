@@ -26,10 +26,10 @@ The function is essential for backup and recovery operations where external tool
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_LSN: Extracts LSN argument from function call
-  - RecoveryInProgress: Checks if database is in recovery mode
+  - [RecoveryInProgress](../R/RecoveryInProgress.md): Checks if database is in recovery mode
   - XLByteToSeg: Converts LSN to WAL segment number
-  - GetWALInsertionTimeLine: Gets the current WAL timeline ID
-  - XLogFileName: Constructs the WAL filename from timeline and segment
+  - [GetWALInsertionTimeLine](../G/GetWALInsertionTimeLine.md): Gets the current WAL timeline ID
+  - [XLogFileName](../X/XLogFileName.md): Constructs the WAL filename from timeline and segment
   - cstring_to_text: Converts C string to PostgreSQL text type
   - PG_RETURN_TEXT_P: Returns PostgreSQL text value
 - Types used:

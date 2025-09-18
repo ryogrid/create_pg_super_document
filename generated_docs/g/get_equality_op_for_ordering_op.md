@@ -20,15 +20,15 @@ The function also optionally reports whether the input operator represents a "re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_ordering_op_properties
-  - get_opfamily_member
+  - [get_ordering_op_properties](get_ordering_op_properties.md)
+  - [get_opfamily_member](get_opfamily_member.md)
   - BTGreaterStrategyNumber
 - Called from (representative examples):
-  - show_sortorder_options
+  - [show_sortorder_options](../s/show_sortorder_options.md)
   - preparePresortedCols
-  - create_unique_plan
-  - preprocess_minmax_aggregates
-  - addTargetToSortList
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [preprocess_minmax_aggregates](../p/preprocess_minmax_aggregates.md)
+  - [addTargetToSortList](../a/addTargetToSortList.md)
 
 ## Notes and Other Information
 - Returns InvalidOid if no matching equality operator can be found

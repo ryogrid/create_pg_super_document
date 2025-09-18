@@ -23,9 +23,9 @@ The structure stores two critical pieces of information: the pages-per-range par
   - BlockNumber (type)
   - uint16 (type)
 - Called from (representative examples):
-  - brinbuild (in src/backend/access/brin/brin.c:1127)
-  - brin_xlog_createidx (in src/backend/access/brin/brin_xlog.c:27)
-  - brin_desc (in src/backend/access/rmgrdesc/brindesc.c:28)
+  - [brinbuild](../b/brinbuild.md) (in src/backend/access/brin/brin.c:1127)
+  - [brin_xlog_createidx](../b/brin_xlog_createidx.md) (in src/backend/access/brin/brin_xlog.c:27)
+  - [brin_desc](../b/brin_desc.md) (in src/backend/access/rmgrdesc/brindesc.c:28)
   - SizeOfBrinCreateIdx (macro in src/include/access/brin_xlog.h:55)
 
 ## Notes and Other Information

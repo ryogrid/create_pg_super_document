@@ -28,13 +28,13 @@ The function follows the pattern: safety checks, setup eligible triggers, make c
 ## Dependencies
 - Functions called/Symbols referenced:
   - EventTriggerData (struct for trigger context)
-  - EventTriggerCommonSetup (identifies applicable triggers)
+  - [EventTriggerCommonSetup](EventTriggerCommonSetup.md) (identifies applicable triggers)
   - EVT_DDLCommandEnd (event type constant)
   - CommandCounterIncrement (ensures visibility)
-  - EventTriggerInvoke (executes the triggers)
-  - list_free (memory cleanup)
+  - [EventTriggerInvoke](EventTriggerInvoke.md) (executes the triggers)
+  - [list_free](../l/list_free.md) (memory cleanup)
 - Called from (representative examples):
-  - ProcessUtilitySlow (main DDL command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (main DDL command processing)
 
 ## Notes and Other Information
 - Includes a crucial check for currentEventTriggerState to prevent execution when no triggers were active at command start

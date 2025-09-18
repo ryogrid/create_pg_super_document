@@ -20,16 +20,16 @@ This function implements the core chunk allocation logic within a slab block. It
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlabContext (struct type)
-  - SlabBlock (struct type)
+  - [SlabContext](SlabContext.md) (struct type)
+  - [SlabBlock](SlabBlock.md) (struct type)
   - MemoryChunk (struct type)
   - VALGRIND_MAKE_MEM_DEFINED (Valgrind macro for memory debugging)
   - SlabChunkGetPointer (function to get pointer from chunk)
   - SlabBlockGetChunk (function to get specific chunk from block)
   - SlabChunkMod (function for chunk alignment validation)
 - Called from (representative examples):
-  - SlabAllocFromNewBlock
-  - SlabAlloc
+  - [SlabAllocFromNewBlock](SlabAllocFromNewBlock.md)
+  - [SlabAlloc](SlabAlloc.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

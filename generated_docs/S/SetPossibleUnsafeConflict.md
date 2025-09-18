@@ -19,19 +19,19 @@ This function creates a record of a possible unsafe conflict between a read-only
 ## Dependencies
 - Functions called/Symbols referenced:
   - SxactIsReadOnly
-  - dlist_is_empty
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - dlist_head_element
-  - dlist_delete
-  - dlist_push_tail
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - ereport
 - Types referenced:
-  - SERIALIZABLEXACT
-  - RWConflict
-  - RWConflictData
+  - [SERIALIZABLEXACT](SERIALIZABLEXACT.md)
+  - [RWConflict](../R/RWConflict.md)
+  - [RWConflictData](../R/RWConflictData.md)
 - Global variables accessed:
   - RWConflictPool
 - Called from (representative examples):
-  - GetSerializableTransactionSnapshotInt
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md)
 
 ## Notes and Other Information
 - Asserts that the transactions are different and have the expected read-only/read-write characteristics

@@ -34,17 +34,17 @@ The function returns  if it finds any matching PHV, allowing early termination o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_equal (to compare relation ID sets)
+  - [bms_equal](../b/bms_equal.md) (to compare relation ID sets)
   - query_tree_walker (for recursing into subqueries)
   - expression_tree_walker (for general expression tree traversal)
-  - PlaceHolderVar (type checking and access)
-  - SpecialJoinInfo, PlaceHolderInfo, MinMaxAggInfo (assertion checks)
+  - [PlaceHolderVar](../P/PlaceHolderVar.md) (type checking and access)
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md), PlaceHolderInfo, MinMaxAggInfo (assertion checks)
   - find_dependent_phvs_context (parameter type)
 
 - Called from (representative examples):
-  - find_dependent_phvs
-  - find_dependent_phvs_in_jointree  
-  - find_dependent_phvs_walker (recursive self-calls)
+  - [find_dependent_phvs](find_dependent_phvs.md)
+  - [find_dependent_phvs_in_jointree](find_dependent_phvs_in_jointree.md)  
+  - [find_dependent_phvs_walker](find_dependent_phvs_walker.md) (recursive self-calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within prepjointree.c

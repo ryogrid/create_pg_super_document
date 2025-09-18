@@ -33,13 +33,13 @@ The function maintains several optimization hints and conditions to determine wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `_bt_simpledel_pass`: Performs simple deletion of dead tuples
-  - `_bt_bottomupdel_pass`: Performs bottom-up deletion of obsolete index entries
-  - `_bt_dedup_pass`: Performs deduplication of identical key values
-  - `PageGetFreeSpace`: Checks available space after operations
+  - `[_bt_simpledel_pass](_bt_simpledel_pass.md)`: Performs simple deletion of dead tuples
+  - `[_bt_bottomupdel_pass](_bt_bottomupdel_pass.md)`: Performs bottom-up deletion of obsolete index entries
+  - `[_bt_dedup_pass](_bt_dedup_pass.md)`: Performs deduplication of identical key values
+  - `[PageGetFreeSpace](../P/PageGetFreeSpace.md)`: Checks available space after operations
   - `BTGetDeduplicateItems`: Checks if deduplication is enabled for the index
 - Called from (representative examples):
-  - `_bt_findinsertloc`: During insertion location finding when space is tight
+  - `[_bt_findinsertloc](_bt_findinsertloc.md)`: During insertion location finding when space is tight
 
 ## Notes and Other Information
 - Only operates on leaf pages (assertion enforces this)

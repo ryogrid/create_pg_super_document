@@ -26,16 +26,16 @@ The function performs critical section protection during bit manipulation and ha
 ## Dependencies
 - Functions called/Symbols referenced:
   - HEAPBLK_TO_MAPBLOCK/HEAPBLK_TO_MAPBYTE/HEAPBLK_TO_OFFSET (heap-to-map conversion macros)
-  - BufferGetBlockNumber (gets block number from buffer)
-  - PageGetContents (gets page contents from buffer)
-  - PageIsAllVisible (checks if heap page has all-visible bit set)
-  - log_heap_visible (generates WAL record for visibility changes)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md) (gets block number from buffer)
+  - [PageGetContents](../P/PageGetContents.md) (gets page contents from buffer)
+  - [PageIsAllVisible](../P/PageIsAllVisible.md) (checks if heap page has all-visible bit set)
+  - [log_heap_visible](../l/log_heap_visible.md) (generates WAL record for visibility changes)
   - XLogHintBitIsNeeded (determines if hint bit protection is needed)
   - RelationNeedsWAL (checks if relation requires WAL logging)
 - Called from (representative examples):
-  - heap_multi_insert (sets all-visible bits after bulk inserts)
-  - lazy_scan_prune (sets visibility bits during vacuum operations)
-  - heap_xlog_visible (sets bits during WAL replay)
+  - [heap_multi_insert](../h/heap_multi_insert.md) (sets all-visible bits after bulk inserts)
+  - [lazy_scan_prune](../l/lazy_scan_prune.md) (sets visibility bits during vacuum operations)
+  - [heap_xlog_visible](../h/heap_xlog_visible.md) (sets bits during WAL replay)
 
 ## Notes and Other Information  
 - Must be called with buffers previously pinned via visibilitymap_pin

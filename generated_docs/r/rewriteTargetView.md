@@ -30,26 +30,26 @@ Key operations include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_view_query
+  - [get_view_query](../g/get_view_query.md)
   - copyObject
   - rt_fetch
-  - getRTEPermissionInfo
-  - view_query_is_auto_updatable
-  - error_view_not_updatable
-  - view_cols_are_auto_updatable
-  - view_has_instead_trigger
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
+  - [view_query_is_auto_updatable](../v/view_query_is_auto_updatable.md)
+  - [error_view_not_updatable](../e/error_view_not_updatable.md)
+  - [view_cols_are_auto_updatable](../v/view_cols_are_auto_updatable.md)
+  - [view_has_instead_trigger](../v/view_has_instead_trigger.md)
   - table_open
-  - acquireLocksOnSubLinks
-  - ChangeVarNodes
-  - ReplaceVarsFromTargetList
-  - addRTEPermissionInfo
-  - adjust_view_column_set
+  - [acquireLocksOnSubLinks](../a/acquireLocksOnSubLinks.md)
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md)
+  - [addRTEPermissionInfo](../a/addRTEPermissionInfo.md)
+  - [adjust_view_column_set](../a/adjust_view_column_set.md)
   - RelationHasSecurityInvoker
   - RelationIsSecurityView
   - RelationHasCheckOption
-  - AddQual
+  - [AddQual](../A/AddQual.md)
 - Called from (representative examples):
-  - RewriteQuery (src/backend/rewrite/rewriteHandler.c:4213)
+  - [RewriteQuery](../R/RewriteQuery.md) (src/backend/rewrite/rewriteHandler.c:4213)
 
 ## Notes and Other Information
 - Requires RowExclusiveLock on the base relation since it becomes the target

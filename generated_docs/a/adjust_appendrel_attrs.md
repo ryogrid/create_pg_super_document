@@ -20,14 +20,14 @@ This function serves as the main entry point for translating parent relation ref
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - adjust_appendrel_attrs_mutator (performs the actual tree transformation)
+  - [adjust_appendrel_attrs_mutator](adjust_appendrel_attrs_mutator.md) (performs the actual tree transformation)
   - adjust_appendrel_attrs_context (context structure for transformation)
 - Called from (representative examples):
-  - set_append_rel_size
-  - add_child_rel_equivalences
-  - try_partitionwise_join
-  - apply_scanjoin_target_to_paths
-  - adjust_appendrel_attrs_multilevel
+  - [set_append_rel_size](../s/set_append_rel_size.md)
+  - [add_child_rel_equivalences](add_child_rel_equivalences.md)
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
+  - [apply_scanjoin_target_to_paths](apply_scanjoin_target_to_paths.md)
+  - [adjust_appendrel_attrs_multilevel](adjust_appendrel_attrs_multilevel.md)
 
 ## Notes and Other Information
 - Only works on post-sublink-conversion trees, avoiding recursion into sub-queries

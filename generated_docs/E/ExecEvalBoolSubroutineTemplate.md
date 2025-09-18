@@ -26,7 +26,7 @@ ExecEvalBoolSubroutineTemplate serves as a template function in PostgreSQL's LLV
   - AssertVariableIsOfType (for type assertion)
   - ExecEvalBoolSubroutine (function pointer type for assertion)
 - Called from (representative examples):
-  - llvm_create_types (in llvmjit.c:1137)
+  - [llvm_create_types](../l/llvm_create_types.md) (in llvmjit.c:1137)
   - llvm_compile_expr (in llvmjit_expr.c:1162)
 
 ## Notes and Other Information

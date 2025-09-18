@@ -24,25 +24,25 @@ The function implements a complete permission model where the current user must 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList
-  - LookupTypeName
-  - TypeNameToString
-  - typeTypeId
-  - heap_copytuple
-  - ReleaseSysCache
-  - get_rel_relkind
+  - [LookupTypeName](../L/LookupTypeName.md)
+  - [TypeNameToString](../T/TypeNameToString.md)
+  - [typeTypeId](../t/typeTypeId.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
   - IsTrueArrayType
-  - get_multirange_range
+  - [get_multirange_range](../g/get_multirange_range.md)
   - superuser
-  - object_ownercheck
-  - aclcheck_error_type
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md)
   - check_can_set_role
-  - object_aclcheck
-  - aclcheck_error
-  - get_namespace_name
-  - AlterTypeOwner_oid
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [AlterTypeOwner_oid](AlterTypeOwner_oid.md)
   - ObjectAddressSet
 - Called from (representative examples):
-  - ExecAlterOwnerStmt
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md)
 
 ## Notes and Other Information
 - Returns an ObjectAddress pointing to the type for dependency tracking

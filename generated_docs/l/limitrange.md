@@ -24,12 +24,12 @@ The `limitrange` function takes a timerange structure and constrains it to fit w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timerange (structure type for timezone range data)
+  - [timerange](../t/timerange.md) (structure type for timezone range data)
   - zic_t (type definition for timezone timestamps)
   - ZIC_MAX (maximum time value constant)
   - trans (global array for leap second transitions)
 - Called from (representative examples):
-  - writezone (called twice, likely for different time ranges)
+  - [writezone](../w/writezone.md) (called twice, likely for different time ranges)
 
 ## Notes and Other Information
 - The function modifies the base index and counts to effectively `slice` the time range data

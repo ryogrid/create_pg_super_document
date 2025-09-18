@@ -24,7 +24,7 @@ The function does not modify the plan node's cost estimates or parallel_safe fla
 - Functions called/Symbols referenced:
   - (Direct field access only: root->init_plans, plan->initPlan)
 - Called from (representative examples):
-  - create_plan (src/backend/optimizer/plan/createplan.c:369)
+  - [create_plan](../c/create_plan.md) (src/backend/optimizer/plan/createplan.c:369)
 
 ## Notes and Other Information
 - InitPlans can be attached to any node at or above their reference point, but the implementation chooses the topmost node for simplicity

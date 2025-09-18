@@ -34,17 +34,17 @@ The extractor supports symbolic link remapping through a callback function and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
+  - [bbstreamer](bbstreamer.md) (base structure)
   - MAXPGPATH (path length constant)
 - Called from (representative examples):
-  - bbstreamer_extractor_new
-  - bbstreamer_extractor_content
-  - bbstreamer_extractor_finalize
-  - bbstreamer_extractor_free
+  - [bbstreamer_extractor_new](bbstreamer_extractor_new.md)
+  - [bbstreamer_extractor_content](bbstreamer_extractor_content.md)
+  - [bbstreamer_extractor_finalize](bbstreamer_extractor_finalize.md)
+  - [bbstreamer_extractor_free](bbstreamer_extractor_free.md)
 
 ## Notes and Other Information
 - Requires typed chunks following the rules described in bbstreamer.h, cannot process raw untyped data
-- Archive format is abstracted away - works with any archive format as long as proper member information is provided
+- [Archive](../A/Archive.md) format is abstracted away - works with any archive format as long as proper member information is provided
 - The link_map function allows for path remapping of symbolic links during extraction, useful for relocating restored databases
 - Progress reporting through report_output_file callback enables user feedback during long restore operations
 - Automatically handles directory creation and file permissions during extraction

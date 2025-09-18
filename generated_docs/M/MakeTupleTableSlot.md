@@ -26,17 +26,17 @@ The function initializes all essential slot fields including the operations poin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - PinTupleDesc
   - TupleTableSlotOps->init
   - MAXALIGN (macro)
   - CurrentMemoryContext (global)
 - Called from (representative examples):
-  - ExecPartitionCheckEmitError
-  - ExecConstraints
-  - ExecWithCheckOptions
-  - ExecAllocTableSlot
-  - MakeSingleTupleTableSlot
+  - [ExecPartitionCheckEmitError](../E/ExecPartitionCheckEmitError.md)
+  - [ExecConstraints](../E/ExecConstraints.md)
+  - [ExecWithCheckOptions](../E/ExecWithCheckOptions.md)
+  - [ExecAllocTableSlot](../E/ExecAllocTableSlot.md)
+  - [MakeSingleTupleTableSlot](MakeSingleTupleTableSlot.md)
 
 ## Notes and Other Information
 - When tupleDesc is provided, the slot gains TTS_FLAG_FIXED flag and optimized single-allocation layout

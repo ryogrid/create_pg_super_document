@@ -19,15 +19,15 @@ RelationDropStorage schedules the unlinking of physical storage files for a rela
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
-  - GetCurrentTransactionNestLevel
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
   - RelationCloseSmgr
-  - PendingRelDelete
+  - [PendingRelDelete](../P/PendingRelDelete.md)
 - Called from (representative examples):
-  - heap_drop_with_catalog
-  - index_drop
-  - RelationSetNewRelfilenumber
-  - reindex_index
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md)
+  - [index_drop](../i/index_drop.md)
+  - [RelationSetNewRelfilenumber](RelationSetNewRelfilenumber.md)
+  - [reindex_index](../r/reindex_index.md)
 
 ## Notes and Other Information
 - Creates PendingRelDelete entry in TopMemoryContext with atCommit=true to ensure deletion on commit

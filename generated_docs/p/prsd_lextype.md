@@ -30,8 +30,8 @@ This function is typically called by PostgreSQL's text search system when users 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
-  - pstrdup (PostgreSQL string duplication)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
+  - [pstrdup](pstrdup.md) (PostgreSQL string duplication)
   - tok_alias (array of token type aliases)
   - lex_descr (array of token type descriptions)
   - LASTNUM (constant defining maximum token type number, value 23)

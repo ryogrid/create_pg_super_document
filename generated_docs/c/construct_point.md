@@ -20,8 +20,8 @@ This function constructs a 2D point from two floating-point coordinate values. I
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT8 (extract floating-point coordinate arguments)
-  - palloc (allocate memory for Point structure)
-  - point_construct (initialize Point structure with coordinates)
+  - [palloc](../p/palloc.md) (allocate memory for Point structure)
+  - [point_construct](../p/point_construct.md) (initialize Point structure with coordinates)
   - PG_RETURN_POINT_P (return Point as PostgreSQL Datum)
 - Called from (representative examples):
   - No direct references found in the codebase (likely used via SQL point construction functions)

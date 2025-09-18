@@ -20,19 +20,19 @@ This function establishes a connection to a specific database on a PostgreSQL se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_conn
+  - [get_db_conn](../g/get_db_conn.md)
   - PQstatus
-  - pg_log
-  - PQfinish
-  - executeQueryOrDie
-  - PQclear
+  - [pg_log](../p/pg_log.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - check_for_data_types_usage
-  - check_is_install_user
-  - check_proper_datallowconn
-  - get_loadable_libraries
-  - get_template0_info
-  - get_db_infos
+  - [check_for_data_types_usage](check_for_data_types_usage.md)
+  - [check_is_install_user](check_is_install_user.md)
+  - [check_proper_datallowconn](check_proper_datallowconn.md)
+  - [get_loadable_libraries](../g/get_loadable_libraries.md)
+  - [get_template0_info](../g/get_template0_info.md)
+  - [get_db_infos](../g/get_db_infos.md)
 
 ## Notes and Other Information
 - This function implements a "fail-fast" approach - any connection failure results in immediate program termination

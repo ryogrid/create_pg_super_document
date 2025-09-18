@@ -29,13 +29,13 @@ The function is essential for maintaining trigger semantics and data consistency
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecPendingInserts (flush accumulated batch inserts)
-  - ExecBRDeleteTriggersNew (execute BEFORE ROW DELETE triggers)
+  - [ExecPendingInserts](ExecPendingInserts.md) (flush accumulated batch inserts)
+  - [ExecBRDeleteTriggersNew](ExecBRDeleteTriggersNew.md) (execute BEFORE ROW DELETE triggers)
   - TM_Ok (tuple modification success status)
   - CMD_MERGE (command type checking)
 - Called from (representative examples):
-  - ExecDelete (standard DELETE operation processing)
-  - ExecMergeMatched (MERGE statement DELETE actions)
+  - [ExecDelete](ExecDelete.md) (standard DELETE operation processing)
+  - [ExecMergeMatched](ExecMergeMatched.md) (MERGE statement DELETE actions)
 
 ## Notes and Other Information
 - The function name follows PostgreSQL's convention of "Prologue" for preparatory phases
@@ -43,4 +43,4 @@ The function is essential for maintaining trigger semantics and data consistency
 - The function handles both regular DELETE operations and DELETE actions within MERGE statements
 - Return value determines whether the delete operation should proceed (true) or be skipped (false)
 - The tmfd field in context is passed to trigger execution for tuple metadata handling
-- EvalPlanQual (EPQ) integration allows for concurrent update handling in higher isolation levels
+- [EvalPlanQual](EvalPlanQual.md) (EPQ) integration allows for concurrent update handling in higher isolation levels

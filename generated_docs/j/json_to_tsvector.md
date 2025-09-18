@@ -20,9 +20,9 @@ This function serves as a PostgreSQL SQL-callable wrapper that converts JSON tex
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_P
   - PG_GETARG_JSONB_P
-  - parse_jsonb_index_flags
-  - getTSCurrentConfig
-  - json_to_tsvector_worker
+  - [parse_jsonb_index_flags](../p/parse_jsonb_index_flags.md)
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md)
+  - [json_to_tsvector_worker](json_to_tsvector_worker.md)
   - PG_FREE_IF_COPY
   - PG_RETURN_TSVECTOR
 - Called from (representative examples):

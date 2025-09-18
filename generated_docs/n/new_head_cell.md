@@ -19,11 +19,11 @@ The function only creates the space - it does not initialize the data in the new
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - enlarge_list (expands the list's capacity when needed)
+  - [enlarge_list](../e/enlarge_list.md) (expands the list's capacity when needed)
 - Called from (representative examples):
-  - lcons (prepends a generic pointer value to the list)
-  - lcons_int (prepends an integer value to the list)
-  - lcons_oid (prepends an OID value to the list)
+  - [lcons](../l/lcons.md) (prepends a generic pointer value to the list)
+  - [lcons_int](../l/lcons_int.md) (prepends an integer value to the list)
+  - [lcons_oid](../l/lcons_oid.md) (prepends an OID value to the list)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/nodes/list.c

@@ -30,16 +30,16 @@ Key design considerations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationCloseSmgr
-  - ScanPgRelation
-  - RelationParseRelOptions
-  - heap_freetuple
-  - RelationInitPhysicalAddr
-  - IsSystemRelation
+  - [ScanPgRelation](../S/ScanPgRelation.md)
+  - [RelationParseRelOptions](RelationParseRelOptions.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [RelationInitPhysicalAddr](RelationInitPhysicalAddr.md)
+  - [IsSystemRelation](../I/IsSystemRelation.md)
   - HeapTupleHeaderSetXmin
 - Called from (representative examples):
-  - RelationIdGetRelation
-  - RelationReloadNailed
-  - RelationClearRelation
+  - [RelationIdGetRelation](RelationIdGetRelation.md)
+  - [RelationReloadNailed](RelationReloadNailed.md)
+  - [RelationClearRelation](RelationClearRelation.md)
 
 ## Notes and Other Information
 - This is a static function, only callable from within relcache.c

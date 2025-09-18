@@ -20,10 +20,10 @@ This function is a PostgreSQL built-in function that verifies whether a specific
 ## Dependencies
 - Functions called/Symbols referenced:
   - get_role_oid_or_public: Resolves username to role OID
-  - convert_sequence_priv_string: Converts privilege text to AclMode bitmask
-  - get_rel_relkind: Gets relation kind to verify it's a sequence
-  - get_rel_name: Gets relation name for error messages
-  - pg_class_aclcheck_ext: Performs the actual privilege check
+  - [convert_sequence_priv_string](../c/convert_sequence_priv_string.md): Converts privilege text to AclMode bitmask
+  - [get_rel_relkind](../g/get_rel_relkind.md): Gets relation kind to verify it's a sequence
+  - [get_rel_name](../g/get_rel_name.md): Gets relation name for error messages
+  - [pg_class_aclcheck_ext](../p/pg_class_aclcheck_ext.md): Performs the actual privilege check
 - Called from (representative examples):
   - No direct references found (likely called via SQL function interface)
 

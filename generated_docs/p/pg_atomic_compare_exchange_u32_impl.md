@@ -27,17 +27,17 @@ The implementation uses a spinlock embedded within the atomic variable's structu
 - Functions called/Symbols referenced:
   - SpinLockAcquire: Acquires the spinlock for atomic operation protection
   - SpinLockRelease: Releases the spinlock after operation completion
-  - pg_atomic_uint32: The atomic variable structure type
-  - slock_t: Spinlock type used for synchronization
+  - [pg_atomic_uint32](pg_atomic_uint32.md): The atomic variable structure type
+  - [slock_t](../s/slock_t.md): Spinlock type used for synchronization
 
 - Called from (representative examples):
-  - pg_atomic_compare_exchange_u32: Main atomic compare-exchange interface function
-  - pg_atomic_test_set_flag_impl: Generic atomic flag setting implementation
-  - pg_atomic_clear_flag_impl: Generic atomic flag clearing implementation
-  - pg_atomic_exchange_u32_impl: Generic atomic exchange implementation
-  - pg_atomic_fetch_add_u32_impl: Generic atomic fetch-and-add implementation
-  - pg_atomic_fetch_and_u32_impl: Generic atomic fetch-and-AND implementation
-  - pg_atomic_fetch_or_u32_impl: Generic atomic fetch-and-OR implementation
+  - [pg_atomic_compare_exchange_u32](pg_atomic_compare_exchange_u32.md): Main atomic compare-exchange interface function
+  - [pg_atomic_test_set_flag_impl](pg_atomic_test_set_flag_impl.md): Generic atomic flag setting implementation
+  - [pg_atomic_clear_flag_impl](pg_atomic_clear_flag_impl.md): Generic atomic flag clearing implementation
+  - [pg_atomic_exchange_u32_impl](pg_atomic_exchange_u32_impl.md): Generic atomic exchange implementation
+  - [pg_atomic_fetch_add_u32_impl](pg_atomic_fetch_add_u32_impl.md): Generic atomic fetch-and-add implementation
+  - [pg_atomic_fetch_and_u32_impl](pg_atomic_fetch_and_u32_impl.md): Generic atomic fetch-and-AND implementation
+  - [pg_atomic_fetch_or_u32_impl](pg_atomic_fetch_or_u32_impl.md): Generic atomic fetch-and-OR implementation
 
 ## Notes and Other Information
 - This is a fallback implementation used when native hardware atomic compare-and-exchange is not available

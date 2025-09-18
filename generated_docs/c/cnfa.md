@@ -34,12 +34,12 @@ The  struct is the core data structure representing a compiled NFA in PostgreSQL
   - struct carc (for transition arcs)
   - color (for character color classification)
 - Called from (representative examples):
-  - compact (NFA compilation)
-  - freecnfa (memory cleanup)
-  - dumpcnfa (debugging output)
-  - longest/shortest (pattern matching functions)
-  - newdfa (DFA construction)
-  - pg_reg_getnumstates (export functions)
+  - [compact](compact.md) (NFA compilation)
+  - [freecnfa](../f/freecnfa.md) (memory cleanup)
+  - [dumpcnfa](../d/dumpcnfa.md) (debugging output)
+  - [longest](../l/longest.md)/shortest (pattern matching functions)
+  - [newdfa](../n/newdfa.md) (DFA construction)
+  - [pg_reg_getnumstates](../p/pg_reg_getnumstates.md) (export functions)
 
 ## Notes and Other Information
 - The CNFA is the compiled, optimized form of an NFA used for actual pattern matching execution

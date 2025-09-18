@@ -42,10 +42,10 @@ The function uses a switch statement to categorize trigger function OIDs based o
   - RI_TRIGGER_NONE (return value for non-RI triggers)
 
 - Called from (representative examples):
-  - GetForeignKeyActionTriggers (src/backend/commands/tablecmds.c:11315)
-  - GetForeignKeyCheckTriggers (src/backend/commands/tablecmds.c:11376)
+  - [GetForeignKeyActionTriggers](../G/GetForeignKeyActionTriggers.md) (src/backend/commands/tablecmds.c:11315)
+  - [GetForeignKeyCheckTriggers](../G/GetForeignKeyCheckTriggers.md) (src/backend/commands/tablecmds.c:11376)
   - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6425)
-  - ExecCrossPartitionUpdateForeignKey (src/backend/executor/nodeModifyTable.c:2238)
+  - [ExecCrossPartitionUpdateForeignKey](../E/ExecCrossPartitionUpdateForeignKey.md) (src/backend/executor/nodeModifyTable.c:2238)
 
 ## Notes and Other Information
 - This function is crucial for PostgreSQL's referential integrity enforcement system

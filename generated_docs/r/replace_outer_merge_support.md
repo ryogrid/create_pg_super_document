@@ -36,7 +36,7 @@ The function includes error checking to ensure that the MergeSupportFunc is inde
   - elog: Reports error if no MERGE command is found in the query hierarchy
 
 - Called from (representative examples):
-  - replace_correlation_vars_mutator: Used during correlation variable replacement in subquery planning
+  - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md): Used during correlation variable replacement in subquery planning
 
 ## Notes and Other Information
 - The function asserts that the current query level is not a MERGE command (root->parse->commandType != CMD_MERGE)

@@ -21,12 +21,12 @@ The function handles NULL input gracefully by returning 0, making it safe to use
 - Functions called/Symbols referenced:
   - None (accesses res->numAttributes directly)
 - Called from (representative examples):
-  - libpqrcv_identify_system (replication system identification)
-  - BaseBackup (pg_basebackup result processing)
-  - dumpTableData_insert (pg_dump data processing)
-  - StoreQueryTuple (psql result storage)
-  - PrintResultInCrosstab (psql crosstab display)
-  - ECPGget_desc_header (ECPG descriptor handling)
+  - [libpqrcv_identify_system](../l/libpqrcv_identify_system.md) (replication system identification)
+  - [BaseBackup](../B/BaseBackup.md) (pg_basebackup result processing)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md) (pg_dump data processing)
+  - [StoreQueryTuple](../S/StoreQueryTuple.md) (psql result storage)
+  - [PrintResultInCrosstab](PrintResultInCrosstab.md) (psql crosstab display)
+  - [ECPGget_desc_header](../E/ECPGget_desc_header.md) (ECPG descriptor handling)
   - ecpg_process_output (ECPG result processing)
   - PQprint (libpq result printing)
 

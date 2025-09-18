@@ -22,17 +22,17 @@ The function implements throttling for lag tracking, recording position samples 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTimestamp (gets current time for lag tracking)
-  - LagTrackerWrite (records lag samples)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md) (gets current time for lag tracking)
+  - [LagTrackerWrite](../L/LagTrackerWrite.md) (records lag samples)
   - SyncRepRequested (checks if synchronous replication is enabled)
-  - WalSndKeepalive (sends keepalive messages)
-  - ProcessPendingWrites (processes pending output)
-  - TimestampDifferenceExceeds (time comparison utility)
+  - [WalSndKeepalive](WalSndKeepalive.md) (sends keepalive messages)
+  - [ProcessPendingWrites](../P/ProcessPendingWrites.md) (processes pending output)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md) (time comparison utility)
   - pq_flush_if_writable (network output flushing)
   - pq_is_send_pending (check pending network output)
 - Called from (representative examples):
-  - CreateReplicationSlot (as callback during slot creation)
-  - StartLogicalReplication (as callback during logical replication)
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md) (as callback during slot creation)
+  - [StartLogicalReplication](../S/StartLogicalReplication.md) (as callback during logical replication)
 
 ## Notes and Other Information
 - Callback function registered with CreateDecodingContext for logical replication progress tracking

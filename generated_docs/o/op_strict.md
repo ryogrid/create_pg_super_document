@@ -19,16 +19,16 @@ This function determines whether an operator is strict, meaning it returns NULL 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_opcode
-  - func_strict
+  - [get_opcode](../g/get_opcode.md)
+  - [func_strict](../f/func_strict.md)
   - elog
   - RegProcedure
 - Called from (representative examples):
   - ExecHashTableCreate
-  - clause_is_strict_for
-  - operator_predicate_proof
-  - have_partkey_equi_join
-  - match_clause_to_partition_key
+  - [clause_is_strict_for](../c/clause_is_strict_for.md)
+  - [operator_predicate_proof](operator_predicate_proof.md)
+  - [have_partkey_equi_join](../h/have_partkey_equi_join.md)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md)
 
 ## Notes and Other Information
 - A strict operator returns NULL if any input is NULL, without evaluating the function

@@ -19,18 +19,18 @@ pg_log serves as a convenient variadic wrapper around pg_log_v, the core logging
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_log_v (the actual logging implementation)
+  - [pg_log_v](pg_log_v.md) (the actual logging implementation)
   - eLogType (enum type for log levels)
 - Called from (representative examples):
-  - check_for_data_types_usage
-  - output_check_banner  
-  - report_clusters_compatible
-  - get_control_data
-  - generate_old_dump
-  - connectToServer
-  - executeQueryOrDie
-  - start_postmaster
-  - prep_status
+  - [check_for_data_types_usage](../c/check_for_data_types_usage.md)
+  - [output_check_banner](../o/output_check_banner.md)  
+  - [report_clusters_compatible](../r/report_clusters_compatible.md)
+  - [get_control_data](../g/get_control_data.md)
+  - [generate_old_dump](../g/generate_old_dump.md)
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
+  - [start_postmaster](../s/start_postmaster.md)
+  - [prep_status](prep_status.md)
 
 ## Notes and Other Information
 - This function is widely used throughout pg_upgrade with over 100 call sites across the codebase

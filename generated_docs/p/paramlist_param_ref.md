@@ -19,14 +19,14 @@ The paramlist_param_ref function is a parameter reference hook that gets called 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (creates a new Param node)
-  - get_typcollation (gets the collation for the parameter type)
+  - [get_typcollation](../g/get_typcollation.md) (gets the collation for the parameter type)
   - OidIsValid (macro to validate OID)
-  - ParamListInfo (parameter list structure type)
+  - [ParamListInfo](../P/ParamListInfo.md) (parameter list structure type)
   - ParamExternData (individual parameter data type)
   - Param (execution node for parameters)
   - PARAM_EXTERN (parameter kind constant)
 - Called from (representative examples):
-  - paramlist_parser_setup (sets this as the p_paramref_hook)
+  - [paramlist_parser_setup](paramlist_parser_setup.md) (sets this as the p_paramref_hook)
 
 ## Notes and Other Information
 - This is a static function, only accessible within params.c

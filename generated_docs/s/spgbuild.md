@@ -20,17 +20,17 @@ This function implements the complete SP-GiST index building process. It first v
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetNumberOfBlocks
-  - SpGistNewBuffer
-  - SpGistInitMetapage
-  - SpGistInitBuffer
-  - initSpGistState
-  - table_index_build_scan
-  - spgistBuildCallback
-  - SpGistUpdateMetaPage
+  - [SpGistNewBuffer](../S/SpGistNewBuffer.md)
+  - [SpGistInitMetapage](../S/SpGistInitMetapage.md)
+  - [SpGistInitBuffer](../S/SpGistInitBuffer.md)
+  - [initSpGistState](../i/initSpGistState.md)
+  - [table_index_build_scan](../t/table_index_build_scan.md)
+  - [spgistBuildCallback](spgistBuildCallback.md)
+  - [SpGistUpdateMetaPage](../S/SpGistUpdateMetaPage.md)
   - RelationNeedsWAL
-  - log_newpage_range
+  - [log_newpage_range](../l/log_newpage_range.md)
 - Called from (representative examples):
-  - spghandler
+  - [spghandler](spghandler.md)
 
 ## Notes and Other Information
 The function ensures index pages are created in the correct order (meta, root, null) and validates their block numbers. It includes comprehensive WAL logging for durability when required. The build process is atomic and creates a fully functional SP-GiST index ready for queries.

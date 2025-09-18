@@ -23,9 +23,9 @@ For example, with pathkeys (a,b,c) and group keys (a,b,e), the function determin
 ## Dependencies
 - Functions called/Symbols referenced:
   - PathKey (structure type)
-  - list_member_ptr (function to check list membership)
+  - [list_member_ptr](../l/list_member_ptr.md) (function to check list membership)
 - Called from (representative examples):
-  - truncate_useless_pathkeys
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)
 
 ## Notes and Other Information
 - Returns 0 if no special ordering is requested for grouping (group_pathkeys is NIL)

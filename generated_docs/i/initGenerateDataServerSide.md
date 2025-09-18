@@ -17,15 +17,15 @@ This function provides an alternative approach to initializing pgbench test data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeStatement: Executes SQL statements including BEGIN, INSERT, and COMMIT
-  - initTruncateTables: Truncates all pgbench tables to remove existing data
+  - [executeStatement](../e/executeStatement.md): Executes SQL statements including BEGIN, INSERT, and COMMIT
+  - [initTruncateTables](initTruncateTables.md): Truncates all pgbench tables to remove existing data
   - initPQExpBuffer/termPQExpBuffer: PostgreSQL buffer management for SQL statement construction
-  - printfPQExpBuffer: Formats SQL INSERT statements with parameters
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md): Formats SQL INSERT statements with parameters
   - nbranches, ntellers, naccounts: Global variables defining record counts per table type
   - scale: Global scaling factor for total record generation
   - INT64_FORMAT: Macro for platform-specific 64-bit integer formatting
 - Called from (representative examples):
-  - runInitSteps: Main initialization workflow that selects this function for server-side data generation
+  - [runInitSteps](../r/runInitSteps.md): Main initialization workflow that selects this function for server-side data generation
 
 ## Notes and Other Information
 - Uses PostgreSQL's generate_series function to create sequences of IDs for data generation

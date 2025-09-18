@@ -27,17 +27,17 @@ Key features include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - resetPQExpBuffer
-  - printfPQExpBuffer
-  - appendPQExpBufferStr
-  - appendPQExpBuffer
-  - pg_time_now_lazy
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [printfPQExpBuffer](printfPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [pg_time_now_lazy](pg_time_now_lazy.md)
   - pg_log_info
 - Global variables referenced:
   - max_tries
   - latency_limit
 - Called from (representative examples):
-  - advanceConnectionState
+  - [advanceConnectionState](../a/advanceConnectionState.md)
 
 ## Notes and Other Information
 - Uses a static PQExpBuffer for efficient string building across multiple calls

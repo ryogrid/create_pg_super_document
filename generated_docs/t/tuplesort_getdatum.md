@@ -29,19 +29,19 @@ The function manages memory contexts carefully, switching to the sort context fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - MemoryContextSwitchTo
-  - tuplesort_gettuple_common
-  - datumCopy
-  - PointerGetDatum
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [tuplesort_gettuple_common](tuplesort_gettuple_common.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - TuplesortDatumArg (struct type)
   - SortTuple (struct type)
 - Called from (representative examples):
-  - heapam_index_validate_scan
-  - process_ordered_aggregate_single
-  - ExecSort
-  - percentile_disc_final
-  - percentile_cont_final_common
-  - mode_final
+  - [heapam_index_validate_scan](../h/heapam_index_validate_scan.md)
+  - [process_ordered_aggregate_single](../p/process_ordered_aggregate_single.md)
+  - [ExecSort](../E/ExecSort.md)
+  - [percentile_disc_final](../p/percentile_disc_final.md)
+  - [percentile_cont_final_common](../p/percentile_cont_final_common.md)
+  - [mode_final](../m/mode_final.md)
 
 ## Notes and Other Information
 - Returns false when no more datums are available in the specified direction

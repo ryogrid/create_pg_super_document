@@ -22,15 +22,15 @@ This command structure is processed by the ALTER TABLE infrastructure and transl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar
-  - PartitionBoundSpec
+  - [RangeVar](../R/RangeVar.md)
+  - [PartitionBoundSpec](PartitionBoundSpec.md)
   - NodeTag (inherited)
 - Called from (representative examples):
-  - ATExecAttachPartition
-  - transformPartitionCmd
-  - AlterTableGetLockLevel
-  - ATExecCmd
-  - ProcessUtilitySlow
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
+  - [transformPartitionCmd](../t/transformPartitionCmd.md)
+  - [AlterTableGetLockLevel](../A/AlterTableGetLockLevel.md)
+  - [ATExecCmd](../A/ATExecCmd.md)
+  - [ProcessUtilitySlow](ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Used exclusively for partition management DDL operations (ATTACH/DETACH PARTITION)

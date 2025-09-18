@@ -21,15 +21,15 @@ For non-NULL items with distance-based ordering, the function allocates addition
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
   - memcpy (standard library function for memory copying)
   - SizeOfSpGistSearchItem (macro calculating structure size based on distance array needs)
   - SpGistScanOpaque (scan context structure type)
   - SpGistSearchItem (search item structure type)
 - Called from (representative examples):
-  - spgAddStartItem (allocates initial search items)
-  - spgNewHeapItem (creates items for heap tuples)
-  - spgMakeInnerItem (creates items for inner nodes)
+  - [spgAddStartItem](spgAddStartItem.md) (allocates initial search items)
+  - [spgNewHeapItem](spgNewHeapItem.md) (creates items for heap tuples)
+  - [spgMakeInnerItem](spgMakeInnerItem.md) (creates items for inner nodes)
 
 ## Notes and Other Information
 - Uses variable-sized allocation based on the number of ORDER BY clauses to optimize memory usage

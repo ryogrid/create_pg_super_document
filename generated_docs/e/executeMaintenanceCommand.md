@@ -22,13 +22,13 @@ The function sets up a cancellation handler before executing the command and res
 ## Dependencies
 - Functions called/Symbols referenced:
   - printf (for echoing the command when echo flag is true)
-  - SetCancelConn (to enable Ctrl-C cancellation for the connection)
-  - PQexec (PostgreSQL API function to execute the command)
-  - ResetCancelConn (to disable cancellation handling after execution)
+  - [SetCancelConn](../S/SetCancelConn.md) (to enable Ctrl-C cancellation for the connection)
+  - [PQexec](../P/PQexec.md) (PostgreSQL API function to execute the command)
+  - [ResetCancelConn](../R/ResetCancelConn.md) (to disable cancellation handling after execution)
   - PGRES_COMMAND_OK (PostgreSQL result status constant for successful commands)
-  - PQclear (to free the result set memory)
+  - [PQclear](../P/PQclear.md) (to free the result set memory)
 - Called from (representative examples):
-  - cluster_one_database (for executing CLUSTER commands)
+  - [cluster_one_database](../c/cluster_one_database.md) (for executing CLUSTER commands)
   - Various maintenance utilities that need cancellable operations
 
 ## Notes and Other Information

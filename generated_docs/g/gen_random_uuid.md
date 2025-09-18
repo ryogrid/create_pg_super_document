@@ -29,13 +29,13 @@ The resulting UUID has the format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx where x r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_uuid_t (UUID structure type)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (UUID structure type)
   - UUID_LEN (UUID length constant - 16 bytes)
-  - palloc (PostgreSQL memory allocation)
-  - pg_strong_random (cryptographic random number generator)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pg_strong_random](../p/pg_strong_random.md) (cryptographic random number generator)
   - ereport/ERROR (error reporting macros)
-  - errcode/ERRCODE_INTERNAL_ERROR (error code definitions)
-  - errmsg (error message function)
+  - [errcode](../e/errcode.md)/ERRCODE_INTERNAL_ERROR (error code definitions)
+  - [errmsg](../e/errmsg.md) (error message function)
   - PG_RETURN_UUID_P (return value macro)
 - Called from (representative examples):
   - SQL queries using gen_random_uuid() function

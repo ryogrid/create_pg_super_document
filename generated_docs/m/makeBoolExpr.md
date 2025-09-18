@@ -23,13 +23,13 @@ The `makeBoolExpr` function creates a BoolExpr node that represents boolean expr
 - Functions called/Symbols referenced:
   - makeNode
   - BoolExpr (struct type)
-  - BoolExprType (enum type)
+  - [BoolExprType](../B/BoolExprType.md) (enum type)
 - Called from (representative examples):
-  - transformJoinUsingClause
+  - [transformJoinUsingClause](../t/transformJoinUsingClause.md)
   - transformAExprDistinct
   - transformAExprIn
   - transformAExprBetween
-  - make_row_comparison_op
+  - [make_row_comparison_op](make_row_comparison_op.md)
 
 ## Notes and Other Information
 - Used extensively in the parser to convert SQL boolean expressions into internal representation

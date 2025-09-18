@@ -26,11 +26,11 @@ This function implements a binary search algorithm for range partition bounds wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionBoundInfo (partition boundary structure)
-  - partition_rbound_datum_cmp (compares range bound with datum values)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md) (partition boundary structure)
+  - [partition_rbound_datum_cmp](partition_rbound_datum_cmp.md) (compares range bound with datum values)
 - Called from:
-  - get_partition_for_tuple (at src/backend/executor/execPartition.c:1544)
-  - get_matching_range_bounds (at src/backend/partitioning/partprune.c:3017, 3144, 3225)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md) (at src/backend/executor/execPartition.c:1544)
+  - [get_matching_range_bounds](../g/get_matching_range_bounds.md) (at src/backend/partitioning/partprune.c:3017, 3144, 3225)
   - partition_bound_has_default (at src/include/partitioning/partbounds.h:139)
 
 ## Notes and Other Information

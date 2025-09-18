@@ -33,17 +33,17 @@ The function performs comprehensive analysis including:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap
-  - bms_is_subset
-  - bms_equal
-  - create_unique_path
-  - have_dangerous_phv
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [create_unique_path](../c/create_unique_path.md)
+  - [have_dangerous_phv](../h/have_dangerous_phv.md)
   - min_join_parameterization
-  - bms_copy
-  - bms_add_members
+  - [bms_copy](../b/bms_copy.md)
+  - [bms_add_members](../b/bms_add_members.md)
 - Called from (representative examples):
-  - make_join_rel
-  - has_legal_joinclause
+  - [make_join_rel](../m/make_join_rel.md)
+  - [has_legal_joinclause](../h/has_legal_joinclause.md)
 
 ## Notes and Other Information
 - Returns false if the join violates any special join constraints or LATERAL reference requirements

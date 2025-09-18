@@ -23,10 +23,10 @@ This function is used internally by SP-GiST (Space-partitioned Generalized Searc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SortedPoint (structure type)
+  - [SortedPoint](../S/SortedPoint.md) (structure type)
 - Called from (representative examples):
-  - spg_kd_picksplit
-  - spg_quad_picksplit
+  - [spg_kd_picksplit](../s/spg_kd_picksplit.md)
+  - [spg_quad_picksplit](../s/spg_quad_picksplit.md)
 
 ## Notes and Other Information
 - This function is defined as static, meaning it has internal linkage within the spgkdtreeproc.c file

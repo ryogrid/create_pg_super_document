@@ -21,10 +21,10 @@ For ASCII characters (code < 0x80), the function uses a pre-computed lookup tabl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_u_prop_lowercase
+  - [pg_u_prop_lowercase](pg_u_prop_lowercase.md)
 - Called from (representative examples):
-  - pg_wc_islower (regex locale support)
-  - icu_test (Unicode category testing)
+  - [pg_wc_islower](pg_wc_islower.md) (regex locale support)
+  - [icu_test](../i/icu_test.md) (Unicode category testing)
 
 ## Notes and Other Information
 - Returns true if the character has the lowercase property, false otherwise

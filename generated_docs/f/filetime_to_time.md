@@ -26,7 +26,7 @@ The conversion process involves:
   - ULARGE_INTEGER (Windows API union)
   - UINT64CONST macro
 - Called from:
-  - fileinfo_to_stat (multiple times at src/port/win32stat.c:86, 90, 96)
+  - [fileinfo_to_stat](fileinfo_to_stat.md) (multiple times at src/port/win32stat.c:86, 90, 96)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the win32stat.c file

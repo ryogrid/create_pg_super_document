@@ -37,13 +37,13 @@ This function serves as the critical decision point in the GIN entry insertion p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - entryIsEnoughSpace
-  - entrySplitPage
-  - GinBtreeEntryInsertData (type casting)
+  - [entryIsEnoughSpace](entryIsEnoughSpace.md)
+  - [entrySplitPage](entrySplitPage.md)
+  - [GinBtreeEntryInsertData](../G/GinBtreeEntryInsertData.md) (type casting)
   - GPTP_SPLIT
   - GPTP_INSERT
 - Called from (representative examples):
-  - ginPrepareEntryScan
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the GIN entry page management system

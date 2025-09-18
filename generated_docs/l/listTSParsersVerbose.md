@@ -18,17 +18,17 @@ This function implements the verbose listing functionality for PostgreSQL text s
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - PQntuples
-  - PQgetisnull
-  - PQgetvalue
-  - describeOneTSParser
-  - PQclear
+  - [PSQLexec](../P/PSQLexec.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [describeOneTSParser](../d/describeOneTSParser.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - listTSParsers
+  - [listTSParsers](listTSParsers.md)
 
 ## Notes and Other Information
 - Returns false on error or when no parsers match the pattern

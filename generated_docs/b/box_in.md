@@ -20,12 +20,12 @@ The  function is a PostgreSQL input conversion function that parses string repre
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_CSTRING
-  - palloc
+  - [palloc](../p/palloc.md)
   - path_decode
-  - float8_lt
+  - [float8_lt](../f/float8_lt.md)
   - PG_RETURN_BOX_P
   - PG_RETURN_NULL
-  - BOX (struct type)
+  - [BOX](../B/BOX.md) (struct type)
 - Called from (representative examples):
   - This is a PostgreSQL input function, typically called by the PostgreSQL parser when converting string literals to box type
 

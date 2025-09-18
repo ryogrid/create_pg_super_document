@@ -24,14 +24,14 @@ The structure supports flexible input methods: direct assignment to the  field f
 - Functions called/Symbols referenced:
   - uint64 (data type)
 - Called from (representative examples):
-  - fasthash_init (initializes the state structure)
-  - fasthash_combine (processes the accum field into the hash)
-  - fasthash_accum (adds arbitrary data to the hash state)
-  - fasthash_accum_cstring (optimized string hashing)
-  - fasthash_final32 (finalizes to 32-bit hash)
-  - fasthash_final64 (finalizes to 64-bit hash)
-  - spcachekey_hash (namespace cache key hashing)
-  - hash_string (string hashing utility)
+  - [fasthash_init](fasthash_init.md) (initializes the state structure)
+  - [fasthash_combine](fasthash_combine.md) (processes the accum field into the hash)
+  - [fasthash_accum](fasthash_accum.md) (adds arbitrary data to the hash state)
+  - [fasthash_accum_cstring](fasthash_accum_cstring.md) (optimized string hashing)
+  - [fasthash_final32](fasthash_final32.md) (finalizes to 32-bit hash)
+  - [fasthash_final64](fasthash_final64.md) (finalizes to 64-bit hash)
+  - [spcachekey_hash](../s/spcachekey_hash.md) (namespace cache key hashing)
+  - [hash_string](../h/hash_string.md) (string hashing utility)
 
 ## Notes and Other Information
 - The structure is defined in  at lines 93-99

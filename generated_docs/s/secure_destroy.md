@@ -19,10 +19,10 @@ This function is typically called during configuration reloads to clean up the o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - be_tls_destroy (when USE_SSL is defined)
+  - [be_tls_destroy](../b/be_tls_destroy.md) (when USE_SSL is defined)
   - USE_SSL (compile-time macro check)
 - Called from (representative examples):
-  - process_pm_reload_request (during configuration reload to clean up old SSL context)
+  - [process_pm_reload_request](../p/process_pm_reload_request.md) (during configuration reload to clean up old SSL context)
   - FeBeWaitSetNEvents (referenced in libpq.h)
 
 ## Notes and Other Information

@@ -26,15 +26,15 @@ This operation ensures that the BRIN index correctly reflects the invalidated st
 - Functions called/Symbols referenced:
   - XLogRecGetData: Extract record data from WAL
   - XLogReadBufferForRedo: Read and prepare buffers for redo operation
-  - ItemPointerSetInvalid: Set item pointer to invalid state
-  - brinSetHeapBlockItemptr: Set heap block item pointer in revmap
-  - BufferGetPage: Get page from buffer
-  - PageIndexTupleDeleteNoCompact: Delete tuple from page without compacting
-  - PageSetLSN: Set LSN on page
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md): Set item pointer to invalid state
+  - [brinSetHeapBlockItemptr](brinSetHeapBlockItemptr.md): Set heap block item pointer in revmap
+  - [BufferGetPage](../B/BufferGetPage.md): Get page from buffer
+  - [PageIndexTupleDeleteNoCompact](../P/PageIndexTupleDeleteNoCompact.md): Delete tuple from page without compacting
+  - [PageSetLSN](../P/PageSetLSN.md): Set LSN on page
   - MarkBufferDirty: Mark buffer as modified
-  - UnlockReleaseBuffer: Release buffer locks
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md): Release buffer locks
 - Called from (representative examples):
-  - brin_redo: Main BRIN WAL replay dispatcher function
+  - [brin_redo](brin_redo.md): Main BRIN WAL replay dispatcher function
 
 ## Notes and Other Information
 - This is a static function used only within the BRIN WAL replay subsystem

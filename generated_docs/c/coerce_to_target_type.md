@@ -31,19 +31,19 @@ The function returns NULL rather than throwing errors directly, allowing callers
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - can_coerce_type
-  - coerce_type
-  - coerce_type_typmod
-  - type_is_collatable
+  - [can_coerce_type](can_coerce_type.md)
+  - [coerce_type](coerce_type.md)
+  - [coerce_type_typmod](coerce_type_typmod.md)
+  - [type_is_collatable](../t/type_is_collatable.md)
   - CollateExpr (node type)
   - CoercionContext (enum)
   - CoercionForm (enum)
 - Called from (representative examples):
-  - transformTypeCast
-  - transformAssignedExpr
-  - coerce_to_boolean
-  - build_coercion_expression
-  - ATExecAlterColumnType
+  - [transformTypeCast](../t/transformTypeCast.md)
+  - [transformAssignedExpr](../t/transformAssignedExpr.md)
+  - [coerce_to_boolean](coerce_to_boolean.md)
+  - [build_coercion_expression](../b/build_coercion_expression.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
 
 ## Notes and Other Information
 - This is the recommended entry point for type coercion operations; direct use of component functions should be limited to special cases

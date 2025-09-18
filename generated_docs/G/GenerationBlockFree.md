@@ -28,12 +28,12 @@ The function is marked as static inline, indicating it's an internal utility fun
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsKeeperBlock - checks if the block is a keeper block
-  - dlist_delete - removes block from doubly-linked list
-  - wipe_mem - clears memory content (when CLOBBER_FREED_MEMORY is defined)
+  - [dlist_delete](../d/dlist_delete.md) - removes block from doubly-linked list
+  - [wipe_mem](../w/wipe_mem.md) - clears memory content (when CLOBBER_FREED_MEMORY is defined)
   - free - system call to release memory
 - Called from:
-  - GenerationReset - when resetting the memory context
-  - GenerationFree - during memory deallocation operations
+  - [GenerationReset](GenerationReset.md) - when resetting the memory context
+  - [GenerationFree](GenerationFree.md) - during memory deallocation operations
 
 ## Notes and Other Information
 - This function includes important safety assertions to prevent freeing critical blocks

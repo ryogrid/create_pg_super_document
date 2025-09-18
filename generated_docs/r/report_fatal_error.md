@@ -27,10 +27,10 @@ This function provides a standardized way to handle fatal errors in the pg_verif
   - PG_LOG_ERROR (log level constant)
   - PG_LOG_PRIMARY (log destination constant)
 - Called from (representative examples):
-  - parse_manifest_file (multiple locations)
-  - verifybackup_per_file_cb
-  - verify_backup_directory
-  - verify_control_file (multiple locations)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (multiple locations)
+  - [verifybackup_per_file_cb](../v/verifybackup_per_file_cb.md)
+  - [verify_backup_directory](../v/verify_backup_directory.md)
+  - [verify_control_file](../v/verify_control_file.md) (multiple locations)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only accessible within the pg_verifybackup.c source file

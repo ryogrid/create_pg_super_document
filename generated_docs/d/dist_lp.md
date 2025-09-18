@@ -20,7 +20,7 @@ This PostgreSQL function computes the shortest distance between an infinite line
 - Functions called/Symbols referenced:
   - PG_GETARG_LINE_P (retrieve line argument)
   - PG_GETARG_POINT_P (retrieve point argument)
-  - line_closept_point (calculate closest point and distance between line and point)
+  - [line_closept_point](../l/line_closept_point.md) (calculate closest point and distance between line and point)
   - PG_RETURN_FLOAT8 (return float8 result)
 - Called from:
   - No direct references found in the analyzed codebase

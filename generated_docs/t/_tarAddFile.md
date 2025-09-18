@@ -21,14 +21,14 @@ This function implements the core functionality for adding files to TAR archives
 ## Dependencies
 - Functions called/Symbols referenced:
   - fseeko/ftello (file positioning)
-  - _tarWriteHeader (writes TAR header block)  
+  - [_tarWriteHeader](_tarWriteHeader.md) (writes TAR header block)  
   - fread/fwrite (file I/O operations)
-  - tarPaddingBytesRequired (calculates padding needed)
-  - lclContext (local context struct type)
+  - [tarPaddingBytesRequired](tarPaddingBytesRequired.md) (calculates padding needed)
+  - [lclContext](../l/lclContext.md) (local context struct type)
   - pgoff_t (PostgreSQL offset type)
   - WRITE_ERROR_EXIT/READ_ERROR_EXIT (error handling macros)
 - Called from (representative examples):
-  - tarClose (during archive finalization)
+  - [tarClose](tarClose.md) (during archive finalization)
 
 ## Notes and Other Information
 - Uses a 32KB buffer (32768 bytes) for efficient file copying

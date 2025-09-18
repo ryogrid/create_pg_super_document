@@ -18,13 +18,13 @@ This function implements the bitmap scan interface for SP-GiST indexes. It initi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgWalk
-  - storeBitmap
-  - IndexScanDesc
-  - TIDBitmap
+  - [spgWalk](spgWalk.md)
+  - [storeBitmap](storeBitmap.md)
+  - [IndexScanDesc](../I/IndexScanDesc.md)
+  - [TIDBitmap](../T/TIDBitmap.md)
   - SpGistScanOpaque
 - Called from (representative examples):
-  - spghandler (as part of the SP-GiST access method interface)
+  - [spghandler](spghandler.md) (as part of the SP-GiST access method interface)
 
 ## Notes and Other Information
 - This is a public function that implements part of the SP-GiST access method API

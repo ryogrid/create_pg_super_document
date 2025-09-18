@@ -19,21 +19,21 @@ This function implements the PostgreSQL DO statement functionality for PL/Perl b
 - Functions called/Symbols referenced:
   - LOCAL_FCINFO (macro to create local function call info)
   - InlineCodeBlock (structure containing code block information)
-  - plperl_proc_desc (procedure descriptor structure)
-  - plperl_call_data (call state management structure)
+  - [plperl_proc_desc](plperl_proc_desc.md) (procedure descriptor structure)
+  - [plperl_call_data](plperl_call_data.md) (call state management structure)
   - MemSet (memory initialization)
-  - plperl_inline_callback (error context callback)
+  - [plperl_inline_callback](plperl_inline_callback.md) (error context callback)
   - SizeForFunctionCallInfo (size calculation for fcinfo)
   - SPI_connect_ext, SPI_finish (SPI database interface)
   - SPI_OPT_NONATOMIC (non-atomic SPI option)
-  - select_perl_context (Perl interpreter context selection)
-  - plperl_create_sub (create Perl subroutine)
-  - plperl_call_perl_func (execute Perl function)
-  - SvREFCNT_dec_current (Perl reference counting)
-  - activate_interpreter (interpreter management)
+  - [select_perl_context](../s/select_perl_context.md) (Perl interpreter context selection)
+  - [plperl_create_sub](plperl_create_sub.md) (create Perl subroutine)
+  - [plperl_call_perl_func](plperl_call_perl_func.md) (execute Perl function)
+  - [SvREFCNT_dec_current](../S/SvREFCNT_dec_current.md) (Perl reference counting)
+  - [activate_interpreter](../a/activate_interpreter.md) (interpreter management)
   - PG_TRY, PG_FINALLY, PG_END_TRY (exception handling)
 - Called from (representative examples):
-  - plperlu_inline_handler
+  - [plperlu_inline_handler](plperlu_inline_handler.md)
 
 ## Notes and Other Information
 - Creates a fake function call environment to reuse existing PL/Perl infrastructure

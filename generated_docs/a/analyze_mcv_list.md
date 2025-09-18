@@ -31,7 +31,7 @@ The key insight is that all non-MCV values are assumed to be equally common afte
 - Functions called/Symbols referenced:
   - `sqrt` (mathematical function)
 - Called from (representative examples):
-  - `compute_scalar_stats` (during ANALYZE operation)
+  - `[compute_scalar_stats](../c/compute_scalar_stats.md)` (during ANALYZE operation)
 
 ## Notes and Other Information
 The algorithm deliberately works by removing values from the full list rather than adding them, because the latter approach can fail when common values have similar frequencies and dominate the table. The function uses hypergeometric distribution calculations since sampling is done without replacement. If the entire table was sampled, all MCVs are kept. The statistical confidence interval uses a 2-standard-error threshold plus continuity correction of 0.5 to determine significance.

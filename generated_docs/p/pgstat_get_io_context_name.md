@@ -17,14 +17,14 @@ This function provides a mapping from internal IOContext enumeration values to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IOContext
+  - [IOContext](../I/IOContext.md)
   - IOCONTEXT_BULKREAD
   - IOCONTEXT_BULKWRITE  
   - IOCONTEXT_NORMAL
   - IOCONTEXT_VACUUM
   - pg_unreachable
 - Called from (representative examples):
-  - pg_stat_get_io
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - Returns constant string literals for each I/O context type

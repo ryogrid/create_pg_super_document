@@ -32,20 +32,20 @@ The function ensures that older update scripts remain functional even when newer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_extension_aux_control_file
+  - [read_extension_aux_control_file](../r/read_extension_aux_control_file.md)
   - table_open
-  - systable_beginscan/systable_getnext
-  - get_namespace_name
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - get_required_extension
-  - get_extension_schema
-  - deleteDependencyRecordsForClass
-  - recordDependencyOn
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [get_required_extension](../g/get_required_extension.md)
+  - [get_extension_schema](../g/get_extension_schema.md)
+  - [deleteDependencyRecordsForClass](../d/deleteDependencyRecordsForClass.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
   - InvokeObjectPostAlterHook
-  - execute_extension_script
+  - [execute_extension_script](../e/execute_extension_script.md)
 - Called from (representative examples):
-  - CreateExtensionInternal (during extension creation)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (during extension creation)
   - ExecAlterExtensionStmt (during explicit extension updates)
 
 ## Notes and Other Information

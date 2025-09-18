@@ -39,19 +39,19 @@ The function also handles intelligent defaulting when changing sequence types, a
 - Functions called/Symbols referenced:
   - Form_pg_sequence (sequence catalog structure)
   - Form_pg_sequence_data (sequence data structure)
-  - DefElem (parsed option element structure)
-  - errorConflictingDefElem (reports conflicting option errors)
-  - defGetQualifiedName (extracts qualified name from DefElem)
-  - typenameTypeId (resolves type name to OID)
-  - defGetTypeName (extracts type name from DefElem)
-  - defGetInt64 (extracts 64-bit integer from DefElem)
+  - [DefElem](../D/DefElem.md) (parsed option element structure)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md) (reports conflicting option errors)
+  - [defGetQualifiedName](../d/defGetQualifiedName.md) (extracts qualified name from DefElem)
+  - [typenameTypeId](../t/typenameTypeId.md) (resolves type name to OID)
+  - [defGetTypeName](../d/defGetTypeName.md) (extracts type name from DefElem)
+  - [defGetInt64](../d/defGetInt64.md) (extracts 64-bit integer from DefElem)
   - boolVal (extracts boolean value)
   - BoolIsValid (validates boolean value)
   - Various type constants (INT2OID, INT4OID, INT8OID)
   - Various limit constants (PG_INT16_MIN/MAX, PG_INT32_MIN/MAX, PG_INT64_MIN/MAX)
 - Called from (representative examples):
-  - DefineSequence
-  - AlterSequence
+  - [DefineSequence](../D/DefineSequence.md)
+  - [AlterSequence](../A/AlterSequence.md)
 
 ## Notes and Other Information
 - Supports all standard sequence options: AS, INCREMENT, START, RESTART, MINVALUE, MAXVALUE, CACHE, CYCLE, OWNED BY

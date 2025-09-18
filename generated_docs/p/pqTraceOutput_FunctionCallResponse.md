@@ -24,10 +24,10 @@ The function first reads a 32-bit integer indicating the length of the result da
 ## Dependencies
 - Functions called/Symbols referenced:
   - fprintf (standard C library)
-  - pqTraceOutputInt32 (reads and formats the result data length)
-  - pqTraceOutputNchar (outputs the result data content when not NULL)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (reads and formats the result data length)
+  - [pqTraceOutputNchar](pqTraceOutputNchar.md) (outputs the result data content when not NULL)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message dispatcher for trace output)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message dispatcher for trace output)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, part of the internal tracing infrastructure

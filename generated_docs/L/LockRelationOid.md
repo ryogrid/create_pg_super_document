@@ -27,18 +27,18 @@ The function handles recursive locking scenarios where code might act on tables 
 ## Dependencies
 - Functions called/Symbols referenced:
   - LOCKTAG
-  - LOCALLOCK  
+  - [LOCALLOCK](LOCALLOCK.md)  
   - LockAcquireResult
-  - SetLocktagRelationOid
-  - LockAcquireExtended
+  - [SetLocktagRelationOid](../S/SetLocktagRelationOid.md)
+  - [LockAcquireExtended](LockAcquireExtended.md)
   - LOCKACQUIRE_ALREADY_CLEAR
-  - AcceptInvalidationMessages
-  - MarkLockClear
+  - [AcceptInvalidationMessages](../A/AcceptInvalidationMessages.md)
+  - [MarkLockClear](../M/MarkLockClear.md)
 - Called from (representative examples):
-  - relation_open (src/backend/access/common/relation.c:55)
-  - try_relation_open (src/backend/access/common/relation.c:96)
-  - RangeVarGetRelidExtended (src/backend/catalog/namespace.c:592)
-  - heap_create_with_catalog (src/backend/catalog/heap.c:1258)
+  - [relation_open](../r/relation_open.md) (src/backend/access/common/relation.c:55)
+  - [try_relation_open](../t/try_relation_open.md) (src/backend/access/common/relation.c:96)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md) (src/backend/catalog/namespace.c:592)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1258)
   - index_create (src/backend/catalog/index.c:1061)
 
 ## Notes and Other Information

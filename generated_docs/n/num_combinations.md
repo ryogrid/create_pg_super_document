@@ -19,7 +19,7 @@ This function computes the total number of possible combinations for n elements,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CombinationGenerator (referenced at line 588)
+  - [CombinationGenerator](../C/CombinationGenerator.md) (referenced at line 588)
 - Called from (representative examples):
   - statext_ndistinct_build
 

@@ -25,13 +25,13 @@ The function is critical for ensuring that pruning decisions are made correctly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HeapTupleSatisfiesVacuumHorizon
+  - [HeapTupleSatisfiesVacuumHorizon](../H/HeapTupleSatisfiesVacuumHorizon.md)
   - TransactionIdIsValid
   - NormalTransactionIdPrecedes  
-  - GlobalVisTestIsRemovableXid
+  - [GlobalVisTestIsRemovableXid](../G/GlobalVisTestIsRemovableXid.md)
   - HTSV_Result constants (HEAPTUPLE_RECENTLY_DEAD, HEAPTUPLE_DEAD)
 - Called from (representative examples):
-  - heap_page_prune_and_freeze
+  - [heap_page_prune_and_freeze](heap_page_prune_and_freeze.md)
 
 ## Notes and Other Information
 - Static function internal to pruneheap.c

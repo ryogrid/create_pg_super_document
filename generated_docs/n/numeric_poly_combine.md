@@ -26,11 +26,11 @@ Memory management is carefully handled to ensure all operations occur in the pro
 ## Dependencies
 - Functions called/Symbols referenced:
   - PolyNumAggState (data structure)
-  - AggCheckCallContext (context validation)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (context validation)
   - makePolyNumAggState (state initialization)
-  - accum_sum_copy (sum copying for non-int128 path)
-  - accum_sum_combine (sum combining for non-int128 path)
-  - MemoryContext management functions
+  - [accum_sum_copy](../a/accum_sum_copy.md) (sum copying for non-int128 path)
+  - [accum_sum_combine](../a/accum_sum_combine.md) (sum combining for non-int128 path)
+  - [MemoryContext](../M/MemoryContext.md) management functions
 - Called from (representative examples):
   - No direct references found in the codebase
 

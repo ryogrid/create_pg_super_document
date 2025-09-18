@@ -25,7 +25,7 @@ This function is called by PostgreSQL's archiving infrastructure to validate tha
 - Functions called/Symbols referenced:
   - XLogArchiveCommand (global variable containing archive_command GUC value)
   - arch_module_check_errdetail (error reporting function)
-  - ArchiveModuleState (parameter type)
+  - [ArchiveModuleState](../A/ArchiveModuleState.md) (parameter type)
 - Called from (representative examples):
   - Referenced indirectly through shell_archive_callbacks structure
 

@@ -30,12 +30,12 @@ The function also handles status printing for INSERT/UPDATE/DELETE/MERGE RETURNI
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus (determines result status type)
-  - StoreQueryTuple (handles \gset variable storage)
-  - ExecQueryTuples (handles \gexec command execution)
-  - PrintResultInCrosstab (handles \crosstabview display)
-  - PrintQueryTuples (handles normal result display)
-  - PrintQueryStatus (prints command status messages)
+  - [PQresultStatus](PQresultStatus.md) (determines result status type)
+  - [StoreQueryTuple](../S/StoreQueryTuple.md) (handles \gset variable storage)
+  - [ExecQueryTuples](../E/ExecQueryTuples.md) (handles \gexec command execution)
+  - [PrintResultInCrosstab](PrintResultInCrosstab.md) (handles \crosstabview display)
+  - [PrintQueryTuples](PrintQueryTuples.md) (handles normal result display)
+  - [PrintQueryStatus](PrintQueryStatus.md) (prints command status messages)
   - pg_log_error (logs unexpected errors)
 - Constants referenced:
   - PGRES_TUPLES_OK (successful query with data)
@@ -49,8 +49,8 @@ The function also handles status printing for INSERT/UPDATE/DELETE/MERGE RETURNI
   - pset.crosstab_flag (\crosstabview enabled flag)
   - pset.show_all_results (show intermediate results flag)
 - Called from:
-  - DescribeQuery (in src/bin/psql/common.c:1406)
-  - ExecQueryAndProcessResults (in src/bin/psql/common.c:1795)
+  - [DescribeQuery](../D/DescribeQuery.md) (in src/bin/psql/common.c:1406)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (in src/bin/psql/common.c:1795)
 
 ## Notes and Other Information
 - This is a static function internal to psql's common.c module

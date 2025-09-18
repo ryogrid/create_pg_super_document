@@ -25,15 +25,15 @@ This function takes no parameters but returns detailed recovery completion infor
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogShutdownWalRcv (terminates WAL receiver process)
-  - ShutDownSlotSync (shuts down slot synchronization worker)
-  - WalRcvStreaming (checks if WAL receiver is active)
-  - XLogPrefetcherBeginRead (positions prefetcher for reading)
-  - ReadRecord (re-reads the last valid record)
-  - getRecoveryStopReason (generates recovery completion explanation)
+  - [XLogShutdownWalRcv](../X/XLogShutdownWalRcv.md) (terminates WAL receiver process)
+  - [ShutDownSlotSync](../S/ShutDownSlotSync.md) (shuts down slot synchronization worker)
+  - [WalRcvStreaming](../W/WalRcvStreaming.md) (checks if WAL receiver is active)
+  - [XLogPrefetcherBeginRead](../X/XLogPrefetcherBeginRead.md) (positions prefetcher for reading)
+  - [ReadRecord](../R/ReadRecord.md) (re-reads the last valid record)
+  - [getRecoveryStopReason](../g/getRecoveryStopReason.md) (generates recovery completion explanation)
   - XLogSegmentOffset (calculates WAL segment offset)
 - Called from:
-  - StartupXLOG (during database startup recovery completion)
+  - [StartupXLOG](../S/StartupXLOG.md) (during database startup recovery completion)
 
 ## Notes and Other Information
 - Returns allocated EndOfWalRecoveryInfo struct with comprehensive recovery results

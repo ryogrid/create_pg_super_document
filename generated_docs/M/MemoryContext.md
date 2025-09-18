@@ -31,11 +31,11 @@ The MemoryContextData structure contains:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextData (underlying structure)
-  - MemoryContextMethods (virtual function table)
-  - MemoryContextCallback (callback mechanism)
+  - [MemoryContextData](MemoryContextData.md) (underlying structure)
+  - [MemoryContextMethods](MemoryContextMethods.md) (virtual function table)
+  - [MemoryContextCallback](MemoryContextCallback.md) (callback mechanism)
 - Called from (representative examples):
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](MemoryContextSwitchTo.md)
   - Memory allocation functions throughout PostgreSQL
 
 ## Notes and Other Information

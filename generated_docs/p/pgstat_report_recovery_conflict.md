@@ -19,8 +19,8 @@ This function is responsible for tracking and recording various types of recover
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_database_pending
-  - PgStat_StatDBEntry
+  - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
   - PROCSIG_RECOVERY_CONFLICT_DATABASE
   - PROCSIG_RECOVERY_CONFLICT_TABLESPACE
   - PROCSIG_RECOVERY_CONFLICT_LOCK
@@ -29,7 +29,7 @@ This function is responsible for tracking and recording various types of recover
   - PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT
   - PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK
 - Called from (representative examples):
-  - ProcessRecoveryConflictInterrupt (in src/backend/tcop/postgres.c:3193, 3212)
+  - [ProcessRecoveryConflictInterrupt](../P/ProcessRecoveryConflictInterrupt.md) (in src/backend/tcop/postgres.c:3193, 3212)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's Hot Standby statistics tracking system

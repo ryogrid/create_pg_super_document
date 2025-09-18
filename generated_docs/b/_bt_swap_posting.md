@@ -27,20 +27,20 @@ The design accounts for potential representational differences between tuples th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BTreeTupleGetNPosting
-  - _bt_posting_valid
-  - CopyIndexTuple
-  - BTreeTupleGetPostingN
-  - BTreeTupleIsPivot
-  - BTreeTupleIsPosting
-  - ItemPointerCopy
-  - BTreeTupleGetMaxHeapTID
-  - ItemPointerCompare
-  - BTreeTupleGetHeapTID
+  - [BTreeTupleGetNPosting](../B/BTreeTupleGetNPosting.md)
+  - [_bt_posting_valid](_bt_posting_valid.md)
+  - [CopyIndexTuple](../C/CopyIndexTuple.md)
+  - [BTreeTupleGetPostingN](../B/BTreeTupleGetPostingN.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [BTreeTupleIsPosting](../B/BTreeTupleIsPosting.md)
+  - [ItemPointerCopy](../I/ItemPointerCopy.md)
+  - [BTreeTupleGetMaxHeapTID](../B/BTreeTupleGetMaxHeapTID.md)
+  - [ItemPointerCompare](../I/ItemPointerCompare.md)
+  - [BTreeTupleGetHeapTID](../B/BTreeTupleGetHeapTID.md)
 - Called from (representative examples):
-  - _bt_insertonpg
-  - btree_xlog_insert
-  - btree_xlog_split
+  - [_bt_insertonpg](_bt_insertonpg.md)
+  - [btree_xlog_insert](btree_xlog_insert.md)
+  - [btree_xlog_split](btree_xlog_split.md)
 
 ## Notes and Other Information
 - The function includes critical error checking for corruption cases where postingoff is out of valid range

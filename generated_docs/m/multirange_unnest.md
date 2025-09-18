@@ -33,15 +33,15 @@ The implementation uses a local structure `multirange_unnest_fctx` to maintain:
   - `SRF_IS_FIRSTCALL()`: PostgreSQL SRF macro for first call detection
   - `SRF_FIRSTCALL_INIT()`: Initialize SRF context
   - `PG_GETARG_MULTIRANGE_P()`: Extract multirange argument
-  - `palloc()`: PostgreSQL memory allocation
-  - `lookup_type_cache()`: Get type cache information
+  - `[palloc](../p/palloc.md)()`: PostgreSQL memory allocation
+  - `[lookup_type_cache](../l/lookup_type_cache.md)()`: Get type cache information
   - `MultirangeTypeGetOid()`: Get OID of multirange type
   - `SRF_PERCALL_SETUP()`: Setup for each SRF call
-  - `multirange_get_range()`: Extract specific range from multirange
+  - `[multirange_get_range](multirange_get_range.md)()`: Extract specific range from multirange
   - `RangeTypePGetDatum()`: Convert range to Datum
   - `SRF_RETURN_NEXT()`: Return next result in SRF
   - `SRF_RETURN_DONE()`: Signal completion of SRF
-  - `MemoryContextSwitchTo()`: Memory context management
+  - `[MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)()`: Memory context management
 - Called from: 
   - SQL `unnest()` function calls on multirange types (via function catalog)
 

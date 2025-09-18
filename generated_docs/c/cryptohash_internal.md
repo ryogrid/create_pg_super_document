@@ -26,13 +26,13 @@ This is a core internal function that provides a unified interface for computing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_cryptohash_create
-  - pg_cryptohash_init
-  - pg_cryptohash_update
-  - pg_cryptohash_final
-  - pg_cryptohash_free
-  - pg_cryptohash_error
-  - palloc0
+  - [pg_cryptohash_create](../p/pg_cryptohash_create.md)
+  - [pg_cryptohash_init](../p/pg_cryptohash_init.md)
+  - [pg_cryptohash_update](../p/pg_cryptohash_update.md)
+  - [pg_cryptohash_final](../p/pg_cryptohash_final.md)
+  - [pg_cryptohash_free](../p/pg_cryptohash_free.md)
+  - [pg_cryptohash_error](../p/pg_cryptohash_error.md)
+  - [palloc0](../p/palloc0.md)
   - SET_VARSIZE
   - VARDATA
   - VARDATA_ANY
@@ -42,10 +42,10 @@ This is a core internal function that provides a unified interface for computing
   - PG_SHA224_DIGEST_LENGTH, PG_SHA256_DIGEST_LENGTH, PG_SHA384_DIGEST_LENGTH, PG_SHA512_DIGEST_LENGTH
   - VARHDRSZ
 - Called from (representative examples):
-  - sha224_bytea
-  - sha256_bytea
-  - sha384_bytea
-  - sha512_bytea
+  - [sha224_bytea](../s/sha224_bytea.md)
+  - [sha256_bytea](../s/sha256_bytea.md)
+  - [sha384_bytea](../s/sha384_bytea.md)
+  - [sha512_bytea](../s/sha512_bytea.md)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/cryptohashfuncs.c:80-139

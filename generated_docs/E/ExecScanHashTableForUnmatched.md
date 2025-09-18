@@ -25,11 +25,11 @@ The scanning process follows this order:
 - Functions called/Symbols referenced:
   - HeapTupleHeaderHasMatch - checks if a tuple has been matched
   - HJTUPLE_MINTUPLE - macro to extract minimal tuple from hash join tuple
-  - ExecStoreMinimalTuple - stores minimal tuple in a tuple table slot
+  - [ExecStoreMinimalTuple](ExecStoreMinimalTuple.md) - stores minimal tuple in a tuple table slot
   - ResetExprContext - resets temporary memory in expression context
   - CHECK_FOR_INTERRUPTS - allows query cancellation
 - Called from (representative examples):
-  - ExecHashJoinImpl - main hash join execution function
+  - [ExecHashJoinImpl](ExecHashJoinImpl.md) - [main](../m/main.md) hash join execution function
 
 ## Notes and Other Information
 - Returns true when an unmatched tuple is found, false when all buckets have been scanned

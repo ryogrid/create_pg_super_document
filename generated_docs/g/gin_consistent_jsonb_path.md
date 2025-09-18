@@ -29,7 +29,7 @@ The jsonb_path_ops approach is necessarily lossy due to hash collisions and the 
   - PG_GETARG_POINTER
   - PG_GETARG_UINT16
   - PG_GETARG_INT32
-  - execute_jsp_gin_node
+  - [execute_jsp_gin_node](../e/execute_jsp_gin_node.md)
   - PG_RETURN_BOOL
   - elog
 - Strategy constants:

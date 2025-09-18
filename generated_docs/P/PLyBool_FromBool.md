@@ -27,13 +27,13 @@ This specialized converter is more efficient than generic scalar conversion sinc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBool: PostgreSQL macro to extract boolean value from Datum
+  - [DatumGetBool](../D/DatumGetBool.md): PostgreSQL macro to extract boolean value from Datum
   - Py_RETURN_TRUE: Python macro returning True singleton with proper reference counting
   - Py_RETURN_FALSE: Python macro returning False singleton with proper reference counting
 - Referenced types:
-  - PLyDatumToOb: Input conversion context structure
+  - [PLyDatumToOb](PLyDatumToOb.md): Input conversion context structure
 - Called from:
-  - PLy_input_setup_func: Set as conversion function for BOOLOID types
+  - [PLy_input_setup_func](PLy_input_setup_func.md): Set as conversion function for BOOLOID types
 
 ## Notes and Other Information
 - This is a static function, only accessible within the plpy_typeio.c compilation unit

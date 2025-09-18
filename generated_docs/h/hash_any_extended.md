@@ -23,18 +23,18 @@ The function leverages `hash_bytes_extended` internally while handling the type 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes_extended
-  - UInt64GetDatum
+  - [hash_bytes_extended](hash_bytes_extended.md)
+  - [UInt64GetDatum](../U/UInt64GetDatum.md)
 - Called from (representative examples):
-  - hashfloat4extended
-  - hashfloat8extended
-  - hashtextextended
-  - hashvarlenaextended
-  - hash_numeric_extended
-  - uuid_hash_extended
-  - hashinetextended
-  - k_hashes (bloom filter)
-  - JumbleQuery (query fingerprinting)
+  - [hashfloat4extended](hashfloat4extended.md)
+  - [hashfloat8extended](hashfloat8extended.md)
+  - [hashtextextended](hashtextextended.md)
+  - [hashvarlenaextended](hashvarlenaextended.md)
+  - [hash_numeric_extended](hash_numeric_extended.md)
+  - [uuid_hash_extended](../u/uuid_hash_extended.md)
+  - [hashinetextended](hashinetextended.md)
+  - [k_hashes](../k/k_hashes.md) (bloom filter)
+  - [JumbleQuery](../J/JumbleQuery.md) (query fingerprinting)
 
 ## Notes and Other Information
 This function is extensively used in PostgreSQL's extended hash infrastructure, particularly for the "extended" variants of hash functions across different data types. It plays a crucial role in bloom filters, query jumbling for plan caching, and anywhere enhanced hash distribution is needed. The 64-bit output and seeding capability make it suitable for applications requiring resistance to hash collision attacks.

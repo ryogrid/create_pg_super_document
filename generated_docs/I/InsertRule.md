@@ -23,24 +23,24 @@ InsertRule performs the low-level catalog insertion of a rewrite rule into the p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToString
+  - [nodeToString](../n/nodeToString.md)
   - namestrcpy
-  - NameGetDatum
-  - CharGetDatum
-  - SearchSysCache2
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - GetNewOidWithIndex
-  - heap_form_tuple
-  - CatalogTupleInsert
-  - heap_freetuple
-  - deleteDependencyRecordsFor
-  - recordDependencyOn
-  - recordDependencyOnExpr
-  - getInsertSelectQuery
+  - [NameGetDatum](../N/NameGetDatum.md)
+  - [CharGetDatum](../C/CharGetDatum.md)
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [deleteDependencyRecordsFor](../d/deleteDependencyRecordsFor.md)
+  - [recordDependencyOn](../r/recordDependencyOn.md)
+  - [recordDependencyOnExpr](../r/recordDependencyOnExpr.md)
+  - [getInsertSelectQuery](../g/getInsertSelectQuery.md)
   - InvokeObjectPostCreateHook
 - Called from (representative examples):
-  - DefineQueryRewrite
+  - [DefineQueryRewrite](../D/DefineQueryRewrite.md)
 
 ## Notes and Other Information
 - This is a static function internal to rewriteDefine.c

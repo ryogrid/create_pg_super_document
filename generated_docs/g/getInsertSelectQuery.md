@@ -34,10 +34,10 @@ This is specifically designed for rule-action queries where OLD and NEW placehol
   - RTE_SUBQUERY (range table entry type)
   - list_length, linitial (list manipulation functions)
 - Called from (representative examples):
-  - transformRuleStmt (during rule statement parsing)
-  - InsertRule, DefineQueryRewrite (during rule definition)
-  - rewriteRuleAction (during rule action rewriting)
-  - make_ruledef (during rule definition display)
+  - [transformRuleStmt](../t/transformRuleStmt.md) (during rule statement parsing)
+  - [InsertRule](../I/InsertRule.md), DefineQueryRewrite (during rule definition)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md) (during rule action rewriting)
+  - [make_ruledef](../m/make_ruledef.md) (during rule definition display)
 
 ## Notes and Other Information
 - Located in src/backend/rewrite/rewriteManip.c:999-1056

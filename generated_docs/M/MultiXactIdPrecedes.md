@@ -22,16 +22,16 @@ The function is fundamental to MultiXact management operations, including vacuum
 - Functions called/Symbols referenced:
   - MultiXactId (type)
 - Called from (representative examples):
-  - FreezeMultiXactId
-  - heap_prepare_freeze_tuple
-  - heap_tuple_should_freeze
-  - MultiXactIdSetOldestVisible
-  - GetNewMultiXactId
-  - GetMultiXactIdMembers
-  - SetMultiXactIdLimit
-  - TruncateMultiXact
-  - vacuum_get_cutoffs
-  - vac_update_datfrozenxid
+  - [FreezeMultiXactId](../F/FreezeMultiXactId.md)
+  - [heap_prepare_freeze_tuple](../h/heap_prepare_freeze_tuple.md)
+  - [heap_tuple_should_freeze](../h/heap_tuple_should_freeze.md)
+  - [MultiXactIdSetOldestVisible](MultiXactIdSetOldestVisible.md)
+  - [GetNewMultiXactId](../G/GetNewMultiXactId.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [SetMultiXactIdLimit](../S/SetMultiXactIdLimit.md)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md)
 
 ## Notes and Other Information
 - The function uses signed 32-bit arithmetic to handle wrap-around in the MultiXact ID space

@@ -20,10 +20,10 @@ The function includes pointer alignment verification to ensure the atomic variab
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (for 4-byte alignment verification)
-  - pg_atomic_read_u32_impl (platform-specific implementation)
+  - [pg_atomic_read_u32_impl](pg_atomic_read_u32_impl.md) (platform-specific implementation)
 - Called from (representative examples):
   - TransactionGroupUpdateXidStatus (transaction processing)
-  - ReadRecentBuffer (buffer management)
+  - [ReadRecentBuffer](../R/ReadRecentBuffer.md) (buffer management)
   - PinBuffer (buffer pinning operations)
   - LWLockAttemptLock (lightweight lock operations)
   - pgstat_acquire_entry_ref (statistics entry management)

@@ -26,7 +26,7 @@ This function takes no parameters and operates on the global currentEventTrigger
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Memory context switching
-  -  - List append operation
+  -  - [List](../L/List.md) append operation
   -  - Memory deallocation
   -  - Empty list constant
 - Called from (representative examples):

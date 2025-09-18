@@ -22,13 +22,13 @@ The function follows PostgreSQL's standard pattern for signal handlers by first 
   - sigprocmask (signal masking)
   - SIG_SETMASK (signal mask operation)
   - ereport (error reporting)
-  - errcode (error code generation)
-  - errmsg (error message formatting)
+  - [errcode](../e/errcode.md) (error code generation)
+  - [errmsg](../e/errmsg.md) (error message formatting)
 - Global variables accessed:
   - BlockSig (signal mask)
   - MyBgworkerEntry (current worker's entry)
 - Called from:
-  - BackgroundWorkerMain (registered as SIGTERM handler)
+  - [BackgroundWorkerMain](../B/BackgroundWorkerMain.md) (registered as SIGTERM handler)
 
 ## Notes and Other Information
 - This is a static function internal to bgworker.c

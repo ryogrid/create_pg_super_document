@@ -23,22 +23,22 @@ The function constructs human-readable tags combining table and column names for
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - fmtQualifiedDumpable
-  - appendPQExpBuffer
-  - fmtId
-  - psprintf
-  - ArchiveEntry
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [fmtId](../f/fmtId.md)
+  - [psprintf](../p/psprintf.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - free
   - destroyPQExpBuffer
 - Types referenced:
-  - Archive
-  - AttrDefInfo
+  - [Archive](../A/Archive.md)
+  - [AttrDefInfo](../A/AttrDefInfo.md)
   - DumpOptions
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
   - PQExpBuffer
 - Called from:
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Only processes defaults marked with the "separate" flag to avoid conflicts with table definition

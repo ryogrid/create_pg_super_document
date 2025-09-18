@@ -21,7 +21,7 @@ This flag is particularly useful in scenarios where multiple mutation passes are
 - Functions called/Symbols referenced:
   - (This is a constant definition - no function calls)
 - Called from (representative examples):
-  - query_tree_mutator_impl (src/backend/nodes/nodeFuncs.c:3757)
+  - [query_tree_mutator_impl](../q/query_tree_mutator_impl.md) (src/backend/nodes/nodeFuncs.c:3757)
 
 ## Notes and Other Information
 - This flag is part of a family of QTW (Query Tree Walker) flags defined in src/include/nodes/nodeFuncs.h

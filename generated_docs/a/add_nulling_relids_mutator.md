@@ -34,15 +34,15 @@ The function ensures proper handling of nested subqueries by tracking the sublev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_member (check if relation is in target set)
-  - bms_union (combine relation ID bitmapsets)
-  - bms_overlap (check if PHV relations overlap with targets)
+  - [bms_is_member](../b/bms_is_member.md) (check if relation is in target set)
+  - [bms_union](../b/bms_union.md) (combine relation ID bitmapsets)
+  - [bms_overlap](../b/bms_overlap.md) (check if PHV relations overlap with targets)
   - copyObject (create deep copy of Var)
   - makeNode (create new PlaceHolderVar)
   - query_tree_mutator (recursively process Query nodes)
   - expression_tree_mutator (recursively process other expression nodes)
 - Called from:
-  - add_nulling_relids (primary entry point)
+  - [add_nulling_relids](add_nulling_relids.md) (primary entry point)
   - Recursively calls itself during tree traversal
 
 ## Notes and Other Information

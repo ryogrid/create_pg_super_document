@@ -21,17 +21,17 @@ TokenizedAuthLine is an intermediate representation created during the parsing o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL list data structure)
-  - AuthToken (indirectly through fields structure)
+  - [List](../L/List.md) (PostgreSQL list data structure)
+  - [AuthToken](../A/AuthToken.md) (indirectly through fields structure)
 - Called from (representative examples):
-  - tokenize_expand_file
-  - tokenize_auth_file
-  - parse_hba_line
-  - load_hba
-  - parse_ident_line
-  - load_ident
-  - fill_hba_view
-  - fill_ident_view
+  - [tokenize_expand_file](../t/tokenize_expand_file.md)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md)
+  - [parse_hba_line](../p/parse_hba_line.md)
+  - [load_hba](../l/load_hba.md)
+  - [parse_ident_line](../p/parse_ident_line.md)
+  - [load_ident](../l/load_ident.md)
+  - [fill_hba_view](../f/fill_hba_view.md)
+  - [fill_ident_view](../f/fill_ident_view.md)
 
 ## Notes and Other Information
 - Serves as an intermediate parsing stage between raw configuration text and final authentication structures

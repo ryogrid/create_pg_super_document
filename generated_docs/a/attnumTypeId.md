@@ -18,12 +18,12 @@ The  function returns the type OID (Object Identifier) of an attribute specified
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SystemAttributeDefinition
+  - [SystemAttributeDefinition](../S/SystemAttributeDefinition.md)
   - TupleDescAttr
   - elog (for error handling)
 - Called from (representative examples):
-  - transformFkeyGetPrimaryKey
-  - transformAssignedExpr
+  - [transformFkeyGetPrimaryKey](../t/transformFkeyGetPrimaryKey.md)
+  - [transformAssignedExpr](../t/transformAssignedExpr.md)
   - RIAttType
 
 ## Notes and Other Information

@@ -23,12 +23,12 @@ The function enforces that resjunk (result junk) columns are not supported in se
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_head (list manipulation function)
-  - lnext (list traversal function)
+  - [lnext](../l/lnext.md) (list traversal function)
   - lfirst_node (list access macro)
-  - TargetEntry (struct type)
+  - [TargetEntry](../T/TargetEntry.md) (struct type)
 - Called from (representative examples):
   - standard_qp_extra (src/backend/optimizer/plan/planner.c:210)
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1390)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1390)
 
 ## Notes and Other Information
 - This function implements a current limitation where resjunk output columns are not supported for set operations

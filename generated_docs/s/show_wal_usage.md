@@ -29,15 +29,15 @@ This information helps database administrators and developers understand the WAL
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainIndentText
+  - [ExplainIndentText](../E/ExplainIndentText.md)
   - appendStringInfoString
   - appendStringInfo
   - appendStringInfoChar
-  - ExplainPropertyInteger
-  - ExplainPropertyUInteger
+  - [ExplainPropertyInteger](../E/ExplainPropertyInteger.md)
+  - [ExplainPropertyUInteger](../E/ExplainPropertyUInteger.md)
   - UINT64_FORMAT
 - Called from (representative examples):
-  - ExplainNode
+  - [ExplainNode](../E/ExplainNode.md)
 
 ## Notes and Other Information
 - Only displays positive counter values to avoid cluttering output with zeros

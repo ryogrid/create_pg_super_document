@@ -23,11 +23,11 @@ The cost calculation is specialized since it doesn't use the standard cost_resul
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (GroupResultPath creation)
-  - cost_qual_eval (for costing HAVING qualifications)
+  - [cost_qual_eval](cost_qual_eval.md) (for costing HAVING qualifications)
   - cpu_tuple_cost (global cost parameter)
 - Called from (representative examples):
-  - create_degenerate_grouping_paths
-  - query_planner
+  - [create_degenerate_grouping_paths](create_degenerate_grouping_paths.md)
+  - [query_planner](../q/query_planner.md)
 
 ## Notes and Other Information
 - Always produces exactly one row (path.rows = 1)

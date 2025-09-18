@@ -24,10 +24,10 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _SPI_rollback (internal implementation with chain parameter set to false)
+  - [_SPI_rollback](_SPI_rollback.md) (internal implementation with chain parameter set to false)
 - Called from (representative examples):
-  - plperl_spi_rollback (from PL/Perl)
-  - PLy_rollback (from PL/Python)
+  - [plperl_spi_rollback](../p/plperl_spi_rollback.md) (from PL/Perl)
+  - [PLy_rollback](../P/PLy_rollback.md) (from PL/Python)
   - pltcl_rollback (from PL/Tcl)
 
 ## Notes and Other Information

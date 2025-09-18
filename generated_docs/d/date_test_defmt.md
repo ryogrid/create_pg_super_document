@@ -22,12 +22,12 @@ Like `date_test_strdate`, this function maintains a static counter and provides 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rdefmtdate (parses formatted string to date structure)
-  - rdatestr (converts date structure to standard string)  
-  - check_return (handles error reporting)
+  - [rdefmtdate](../r/rdefmtdate.md) (parses formatted string to date structure)
+  - [rdatestr](../r/rdatestr.md) (converts date structure to standard string)  
+  - [check_return](../c/check_return.md) (handles error reporting)
   - date (date structure type)
 - Called from (representative examples):
-  - main (called extensively in the test program with various format/input combinations)
+  - [main](../m/main.md) (called extensively in the test program with various format/input combinations)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

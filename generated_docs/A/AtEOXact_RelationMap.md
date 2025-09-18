@@ -31,7 +31,7 @@ The timing of this function during commit is critical - it must be called as lat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - perform_relmap_update (called for both shared and local mappings during commit)
+  - [perform_relmap_update](../p/perform_relmap_update.md) (called for both shared and local mappings during commit)
   - Assert (for debugging checks on pending updates)
 - Global variables accessed:
   - active_shared_updates (static RelMapFile structure)
@@ -39,8 +39,8 @@ The timing of this function during commit is critical - it must be called as lat
   - pending_shared_updates (static RelMapFile structure) 
   - pending_local_updates (static RelMapFile structure)
 - Called from (representative examples):
-  - CommitTransaction (in src/backend/access/transam/xact.c)
-  - AbortTransaction (in src/backend/access/transam/xact.c)
+  - [CommitTransaction](../C/CommitTransaction.md) (in src/backend/access/transam/xact.c)
+  - [AbortTransaction](AbortTransaction.md) (in src/backend/access/transam/xact.c)
 
 ## Notes and Other Information
 - This function is critical for maintaining consistency of the relation mapping system across transaction boundaries

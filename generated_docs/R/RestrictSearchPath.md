@@ -30,11 +30,11 @@ This function takes no parameters.
   - PGC_USERSET, PGC_S_SESSION (parameter classification constants)
   - GUC_ACTION_SAVE (action type for transactional setting)
 - Called from (representative examples):
-  - index_build (index construction operations)
-  - reindex_index (index rebuilding operations)
-  - vacuum_rel (vacuum operations)
-  - DefineIndex (index definition operations)
-  - do_analyze_rel (table analysis operations)
+  - [index_build](../i/index_build.md) (index construction operations)
+  - [reindex_index](../r/reindex_index.md) (index rebuilding operations)
+  - [vacuum_rel](../v/vacuum_rel.md) (vacuum operations)
+  - [DefineIndex](../D/DefineIndex.md) (index definition operations)
+  - [do_analyze_rel](../d/do_analyze_rel.md) (table analysis operations)
 
 ## Notes and Other Information
 - This is a public function declared in guc.h

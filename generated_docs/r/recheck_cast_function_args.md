@@ -25,10 +25,10 @@ The function validates that the resolved return type matches the expected result
 - Functions called/Symbols referenced:
   - Form_pg_proc (struct type for pg_proc catalog entries)
   - FUNC_MAX_ARGS (maximum number of function arguments constant)
-  - enforce_generic_type_consistency (resolves polymorphic types)
-  - make_fn_arguments (performs argument type coercion)
+  - [enforce_generic_type_consistency](../e/enforce_generic_type_consistency.md) (resolves polymorphic types)
+  - [make_fn_arguments](../m/make_fn_arguments.md) (performs argument type coercion)
 - Called from:
-  - expand_function_arguments (twice - for handling default arguments)
+  - [expand_function_arguments](../e/expand_function_arguments.md) (twice - for handling default arguments)
 
 ## Notes and Other Information
 - This function is static and used internally within clauses.c

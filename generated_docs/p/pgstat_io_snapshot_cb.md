@@ -20,7 +20,7 @@ This function takes no parameters.
 ## Dependencies
 - Functions called/Symbols referenced:
   - BACKEND_NUM_TYPES (constant defining number of backend types)
-  - LWLock (lightweight lock structure)
+  - [LWLock](../L/LWLock.md) (lightweight lock structure)
   - PgStat_BktypeIO (backend type I/O statistics structure)
   - LWLockAcquire() (acquire shared lock)
   - LWLockRelease() (release lock)

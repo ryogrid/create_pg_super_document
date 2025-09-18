@@ -22,13 +22,13 @@ As an enumeration constant, ECPGd_cardinality has no parameters or member variab
 ## Dependencies
 - Functions called/Symbols referenced: None (enumeration constant)
 - Used by (representative examples):
-  - ECPGget_desc (src/interfaces/ecpg/ecpglib/descriptor.c:409)
-  - descriptor_item_name (src/interfaces/ecpg/preproc/descriptor.c:237)
-  - output_set_descr (src/interfaces/ecpg/preproc/descriptor.c:286)
-  - get_dtype (src/interfaces/ecpg/preproc/type.c:741)
+  - [ECPGget_desc](ECPGget_desc.md) (src/interfaces/ecpg/ecpglib/descriptor.c:409)
+  - [descriptor_item_name](../d/descriptor_item_name.md) (src/interfaces/ecpg/preproc/descriptor.c:237)
+  - [output_set_descr](../o/output_set_descr.md) (src/interfaces/ecpg/preproc/descriptor.c:286)
+  - [get_dtype](../g/get_dtype.md) (src/interfaces/ecpg/preproc/type.c:741)
 
 ## Notes and Other Information
-- ECPGd_cardinality appears after ECPGd_EODT in the enumeration, suggesting it may be treated as a special case or extension beyond the standard descriptor types
+- [ECPGd_cardinality](ECPGd_cardinality.md) appears after ECPGd_EODT in the enumeration, suggesting it may be treated as a special case or extension beyond the standard descriptor types
 - The cardinality concept is important in SQL for understanding the size and scope of data operations, particularly relevant for array operations and bulk data processing
 - Usage in descriptor-related functions indicates its role in SQL descriptor metadata management
 - The symbol is used in both runtime library functions (ecpglib) and preprocessor functions (preproc), showing its importance across different phases of ECPG processing

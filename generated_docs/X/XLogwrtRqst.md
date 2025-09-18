@@ -22,12 +22,12 @@ The structure is used in conjunction with XLogwrtResult to track both what needs
 - Functions called/Symbols referenced:
   - XLogRecPtr (data type for WAL record pointers)
 - Called from (representative examples):
-  - XLogCtlData (contains LogwrtRqst member)
+  - [XLogCtlData](XLogCtlData.md) (contains LogwrtRqst member)
   - RefreshXLogWriteResult
-  - AdvanceXLInsertBuffer
-  - XLogWrite
-  - XLogFlush
-  - XLogBackgroundFlush
+  - [AdvanceXLInsertBuffer](../A/AdvanceXLInsertBuffer.md)
+  - [XLogWrite](XLogWrite.md)
+  - [XLogFlush](XLogFlush.md)
+  - [XLogBackgroundFlush](XLogBackgroundFlush.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's shared-memory WAL control structures

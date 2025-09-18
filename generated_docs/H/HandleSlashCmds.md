@@ -23,17 +23,17 @@ The function includes sophisticated argument handling - after successful command
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_command
-  - exec_command
-  - conditional_active
-  - conditional_stack_push
-  - conditional_stack_pop
+  - [exec_command](../e/exec_command.md)
+  - [conditional_active](../c/conditional_active.md)
+  - [conditional_stack_push](../c/conditional_stack_push.md)
+  - [conditional_stack_pop](../c/conditional_stack_pop.md)
   - psql_scan_slash_option
   - psql_scan_slash_command_end
   - pg_log_error
   - pg_log_error_hint
   - pg_log_warning
 - Called from (representative examples):
-  - MainLoop (src/bin/psql/mainloop.c:496)
+  - [MainLoop](../M/MainLoop.md) (src/bin/psql/mainloop.c:496)
 
 ## Notes and Other Information
 - Returns backslashResult status codes indicating desired action (PSQL_CMD_ERROR, PSQL_CMD_UNKNOWN, etc.)

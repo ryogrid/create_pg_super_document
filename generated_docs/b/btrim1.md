@@ -19,7 +19,7 @@ btrim1 is a PostgreSQL built-in function that provides a simplified interface fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dotrim (core trimming logic function)
+  - [dotrim](../d/dotrim.md) (core trimming logic function)
   - PG_RETURN_TEXT_P (PostgreSQL macro for returning text values)
 - Called from (representative examples):
   - No direct references found in the codebase

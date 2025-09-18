@@ -28,18 +28,18 @@ This function is essential for creating proper composite Datums from heap tuples
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHeaderHasExternal
-  - PointerGetDatum
-  - lookup_rowtype_tupdesc
+  - [PointerGetDatum](../P/PointerGetDatum.md)
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md)
   - HeapTupleHeaderGetTypeId
   - HeapTupleHeaderGetTypMod
-  - toast_flatten_tuple_to_datum
+  - [toast_flatten_tuple_to_datum](../t/toast_flatten_tuple_to_datum.md)
   - HeapTupleHeaderGetDatumLength
   - ReleaseTupleDesc
 - Called from (representative examples):
-  - populate_composite (jsonfuncs.c)
-  - populate_recordset_record (jsonfuncs.c)
+  - [populate_composite](../p/populate_composite.md) (jsonfuncs.c)
+  - [populate_recordset_record](../p/populate_recordset_record.md) (jsonfuncs.c)
   - PG_RETURN_HEAPTUPLEHEADER macro
-  - HeapTupleGetDatum
+  - [HeapTupleGetDatum](HeapTupleGetDatum.md)
 
 ## Notes and Other Information
 - The input tuple must not be an on-disk tuple but should be freshly constructed

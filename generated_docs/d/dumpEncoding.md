@@ -21,11 +21,11 @@ The  function creates an archive entry that contains a SQL command to set the cl
   - pg_log_info (logs the encoding being saved)
   - createPQExpBuffer/appendPQExpBufferStr/destroyPQExpBuffer (string buffer management)
   - appendStringLiteralAH (safely quotes the encoding name as SQL literal)
-  - createDumpId (generates unique dump ID)
-  - ArchiveEntry (creates archive entry with SQL command)
+  - [createDumpId](../c/createDumpId.md) (generates unique dump ID)
+  - [ArchiveEntry](../A/ArchiveEntry.md) (creates archive entry with SQL command)
   - ARCHIVE_OPTS/SECTION_PRE_DATA (archive configuration macros)
 - Called from (representative examples):
-  - main (pg_dump main function)
+  - [main](../m/main.md) (pg_dump main function)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

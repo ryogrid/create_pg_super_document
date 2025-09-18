@@ -30,14 +30,14 @@ The `manifest_data` structure represents the complete parsed contents of a backu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - manifest_wal_range
+  - [manifest_wal_range](manifest_wal_range.md)
   - manifest_files_hash (implied hash table type for files)
 
 - Called from (representative examples):
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:116)
-  - parse_manifest_file (src/bin/pg_verifybackup/pg_verifybackup.c:400)
-  - main (src/bin/pg_verifybackup/pg_verifybackup.c:389)
-  - verifybackup_version_cb (src/bin/pg_verifybackup/pg_verifybackup.c:525)
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:116)
+  - [parse_manifest_file](../p/parse_manifest_file.md) (src/bin/pg_verifybackup/pg_verifybackup.c:400)
+  - [main](main.md) (src/bin/pg_verifybackup/pg_verifybackup.c:389)
+  - [verifybackup_version_cb](../v/verifybackup_version_cb.md) (src/bin/pg_verifybackup/pg_verifybackup.c:525)
   - process_directory_recursively (src/bin/pg_combinebackup/pg_combinebackup.c:829)
 
 ## Notes and Other Information

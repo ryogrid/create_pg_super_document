@@ -32,10 +32,10 @@ The `stdump` function is the recursive implementation core of the `dumpst` funct
   - `INUSE`
   - `DUPINF`
   - `NULLCNFA`
-  - `dumpcnfa`
+  - `[dumpcnfa](../d/dumpcnfa.md)`
 - Called from (representative examples):
   - `dumpst`
-  - `stdump` (recursive self-call)
+  - `[stdump](stdump.md)` (recursive self-call)
 
 ## Notes and Other Information
 - This is a static function only accessible within regcomp.c

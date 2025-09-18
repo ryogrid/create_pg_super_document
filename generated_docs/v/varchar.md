@@ -29,7 +29,7 @@ The function optimizes for the common case where no truncation is needed by retu
   - `PG_GETARG_BOOL`: Extracts boolean argument (isExplicit)
   - `VARSIZE_ANY_EXHDR`: Gets size excluding header from variable-length data
   - `VARDATA_ANY`: Gets pointer to variable-length data
-  - `pg_mbcharcliplen`: Clips string preserving multibyte boundaries
+  - `[pg_mbcharcliplen](../p/pg_mbcharcliplen.md)`: Clips string preserving multibyte boundaries
   - `ereport`: Reports errors with proper error codes
   - `cstring_to_text_with_len`: Converts C string to text with specified length
   - `PG_RETURN_VARCHAR_P`: Returns VARCHAR result

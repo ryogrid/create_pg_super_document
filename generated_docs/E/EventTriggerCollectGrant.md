@@ -24,12 +24,12 @@ After creating the copy, the function constructs a CollectedCommand structure wi
   -  - Memory context management
   -  - Memory allocation in current context
   -  - Memory copying function
-  -  - List copying for objects and grantees
+  -  - [List](../L/List.md) copying for objects and grantees
   -  - Deep copy for column privileges
-  -  - List append operation
-  -  - List cell access macro
+  -  - [List](../L/List.md) append operation
+  -  - [List](../L/List.md) cell access macro
   -  - Empty list constant
-  -  - Command type constant
+  -  - [Command](../C/Command.md) type constant
 - Called from (representative examples):
   -  - GRANT/REVOKE statement execution
 

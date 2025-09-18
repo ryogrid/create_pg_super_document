@@ -24,19 +24,19 @@ The function is designed to be robust against invalid inputs (negative numbers, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cmp_var (for comparing with constants)
+  - [cmp_var](../c/cmp_var.md) (for comparing with constants)
   - init_var (for initializing temporary variables)
-  - sub_var (for subtraction operations)
-  - free_var (for memory cleanup)
+  - [sub_var](../s/sub_var.md) (for subtraction operations)
+  - [free_var](../f/free_var.md) (for memory cleanup)
   - log10, log, fabs (standard math functions)
 - Constants used:
   - NUMERIC_POS (positive number indicator)
   - const_zero_point_nine, const_one_point_one, const_one (numeric constants)
   - DEC_DIGITS, NBASE (numeric system constants)
 - Called from:
-  - numeric_ln (natural logarithm function)
-  - log_var (logarithm computation)
-  - power_var (power computation)
+  - [numeric_ln](../n/numeric_ln.md) (natural logarithm function)
+  - [log_var](../l/log_var.md) (logarithm computation)
+  - [power_var](../p/power_var.md) (power computation)
 
 ## Notes and Other Information
 - This is a static function within the numeric.c module

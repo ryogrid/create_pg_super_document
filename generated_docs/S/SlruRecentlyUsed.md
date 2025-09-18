@@ -24,9 +24,9 @@ SlruRecentlyUsed is an inline function that implements the LRU (Least Recently U
 - Types used:
   - SlruShared
 - Called from:
-  - SimpleLruZeroPage  
-  - SimpleLruReadPage
-  - SimpleLruReadPage_ReadOnly
+  - [SimpleLruZeroPage](SimpleLruZeroPage.md)  
+  - [SimpleLruReadPage](SimpleLruReadPage.md)
+  - [SimpleLruReadPage_ReadOnly](SimpleLruReadPage_ReadOnly.md)
 
 ## Notes and Other Information
 - The function includes an optimization that suppresses redundant LRU counter updates when the same page is accessed consecutively, reducing counter wrap-around probability

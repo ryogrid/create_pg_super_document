@@ -24,8 +24,8 @@ PQsetErrorContextVisibility configures whether and when context information is d
   - PGContextVisibility (enum type)
   - PQSHOW_CONTEXT_ERRORS (default context visibility constant)
 - Called from (representative examples):
-  - SyncVariables (in psql command.c)
-  - show_context_hook (in psql startup.c)
+  - [SyncVariables](../S/SyncVariables.md) (in psql command.c)
+  - [show_context_hook](../s/show_context_hook.md) (in psql startup.c)
 
 ## Notes and Other Information
 - Returns the previous context visibility setting for restoration purposes

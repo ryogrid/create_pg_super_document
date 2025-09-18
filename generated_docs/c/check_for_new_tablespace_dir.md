@@ -27,13 +27,13 @@ This function takes no parameters and operates on global state variables.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status (status reporting for user feedback)
-  - check_ok (completion status reporting)
+  - [prep_status](../p/prep_status.md) (status reporting for user feedback)
+  - [check_ok](check_ok.md) (completion status reporting)
   - snprintf (string formatting)
-  - stat (file system status checking)
-  - pg_fatal (error reporting and termination)
+  - [stat](../s/stat.md) (file system status checking)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting and termination)
 - Called from (representative examples):
-  - check_new_cluster (main cluster validation function)
+  - [check_new_cluster](check_new_cluster.md) (main cluster validation function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the check.c compilation unit

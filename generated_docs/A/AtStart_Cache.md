@@ -21,9 +21,9 @@ This function is critical for maintaining cache coherency across different backe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AcceptInvalidationMessages (at line 1166)
+  - [AcceptInvalidationMessages](AcceptInvalidationMessages.md) (at line 1166)
 - Called from (representative examples):
-  - StartTransaction (src/backend/access/transam/xact.c:2155)
+  - [StartTransaction](../S/StartTransaction.md) (src/backend/access/transam/xact.c:2155)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the xact.c file

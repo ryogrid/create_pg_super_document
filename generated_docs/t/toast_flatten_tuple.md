@@ -24,17 +24,17 @@ Note that this function only handles out-of-line external values - it does not d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_deform_tuple
-  - detoast_external_attr
-  - heap_form_tuple
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
+  - [detoast_external_attr](../d/detoast_external_attr.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - VARATT_IS_EXTERNAL
   - MaxTupleAttributeNumber
   - HEAP_XACT_MASK
   - HEAP2_XACT_MASK
 - Called from (representative examples):
-  - ExtractReplicaIdentity
-  - expanded_record_set_tuple
-  - CatalogCacheCreateEntry
+  - [ExtractReplicaIdentity](../E/ExtractReplicaIdentity.md)
+  - [expanded_record_set_tuple](../e/expanded_record_set_tuple.md)
+  - [CatalogCacheCreateEntry](../C/CatalogCacheCreateEntry.md)
 
 ## Notes and Other Information
 - Expects the caller to have already verified that the tuple has external attributes using HeapTupleHasExternal()

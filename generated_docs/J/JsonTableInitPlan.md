@@ -36,14 +36,14 @@ The function builds a tree structure of plan states that mirrors the logical str
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (zero-initialized memory allocation)
-  - DatumGetJsonPathP (jsonpath extraction from Datum)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [DatumGetJsonPathP](../D/DatumGetJsonPathP.md) (jsonpath extraction from Datum)
   - AllocSetContextCreate (memory context creation)
-  - PointerGetDatum (NULL pointer to Datum conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (NULL pointer to Datum conversion)
   - IsA (type checking macro)
 - Called from (representative examples):
-  - JsonTableInitOpaque (root plan initialization)
-  - JsonTableInitPlan (recursive calls for child plans)
+  - [JsonTableInitOpaque](JsonTableInitOpaque.md) (root plan initialization)
+  - [JsonTableInitPlan](JsonTableInitPlan.md) (recursive calls for child plans)
 
 ## Notes and Other Information
 - This is a static recursive function within jsonpath_exec.c

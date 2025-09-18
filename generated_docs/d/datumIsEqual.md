@@ -32,16 +32,16 @@ The  function performs equality comparison between two datums using a straightfo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - datumGetSize (called twice for pass-by-reference types)
-  - DatumGetPointer
+  - [datumGetSize](datumGetSize.md) (called twice for pass-by-reference types)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
   - memcmp
 - Called from (representative examples):
-  - equalTupleDescs
-  - heap_attr_equals
-  - _equalConst
-  - find_compatible_trans
-  - coerce_type
-  - partition_bounds_equal
+  - [equalTupleDescs](../e/equalTupleDescs.md)
+  - [heap_attr_equals](../h/heap_attr_equals.md)
+  - [_equalConst](../e/_equalConst.md)
+  - [find_compatible_trans](../f/find_compatible_trans.md)
+  - [coerce_type](../c/coerce_type.md)
+  - [partition_bounds_equal](../p/partition_bounds_equal.md)
 
 ## Notes and Other Information
 - This is a low-level comparison function that does not invoke type-specific equality operators

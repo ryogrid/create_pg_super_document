@@ -37,13 +37,13 @@ Key behaviors include:
   - HeapTupleHeaderGetRawXmax
   - HeapTupleHeaderIsSpeculative
   - HeapTupleHeaderGetSpeculativeToken
-  - HeapTupleGetUpdateXid
-  - TransactionIdIsCurrentTransactionId
+  - [HeapTupleGetUpdateXid](HeapTupleGetUpdateXid.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)
   - TransactionIdIsInProgress
-  - TransactionIdDidCommit
-  - SetHintBits
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md)
+  - [SetHintBits](../S/SetHintBits.md)
 - Called from (representative examples):
-  - HeapTupleSatisfiesVisibility
+  - [HeapTupleSatisfiesVisibility](HeapTupleSatisfiesVisibility.md)
 
 ## Notes and Other Information
 The function is static and primarily used internally by the visibility subsystem. It implements SNAPSHOT_DIRTY semantics which are used for specific internal operations that need to observe uncommitted changes from other transactions.

@@ -20,10 +20,10 @@ The comparison follows standard qsort conventions: returning negative values whe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactMember (structure type)
+  - [MultiXactMember](../M/MultiXactMember.md) (structure type)
 - Called from (representative examples):
-  - mXactCacheGetBySet (via qsort)
-  - mXactCachePut (via qsort)
+  - [mXactCacheGetBySet](mXactCacheGetBySet.md) (via qsort)
+  - [mXactCachePut](mXactCachePut.md) (via qsort)
   - debug_elog6 (debugging context)
 
 ## Notes and Other Information

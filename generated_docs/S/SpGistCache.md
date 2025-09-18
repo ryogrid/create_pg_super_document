@@ -22,18 +22,18 @@ SpGistCache serves as the primary cache structure for SP-GiST indexes, combining
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut
+  - [spgConfigOut](../s/spgConfigOut.md)
   - SpGistTypeDesc
-  - SpGistLUPCache
+  - [SpGistLUPCache](SpGistLUPCache.md)
 - Called from (representative examples):
-  - spgcanreturn
-  - fillTypeDesc
-  - spgGetCache
-  - initSpGistState
-  - SpGistUpdateMetaPage
-  - allocNewBuffer
-  - SpGistGetBuffer
-  - SpGistSetLastUsedPage
+  - [spgcanreturn](../s/spgcanreturn.md)
+  - [fillTypeDesc](../f/fillTypeDesc.md)
+  - [spgGetCache](../s/spgGetCache.md)
+  - [initSpGistState](../i/initSpGistState.md)
+  - [SpGistUpdateMetaPage](SpGistUpdateMetaPage.md)
+  - [allocNewBuffer](../a/allocNewBuffer.md)
+  - [SpGistGetBuffer](SpGistGetBuffer.md)
+  - [SpGistSetLastUsedPage](SpGistSetLastUsedPage.md)
 
 ## Notes and Other Information
 - This structure is stored in index->rd_amcache for persistent caching across operations

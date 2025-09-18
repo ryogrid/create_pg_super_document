@@ -21,7 +21,7 @@ This function implements the subtraction operator for mixed-precision integer ar
 - Functions called/Symbols referenced:
   - PG_GETARG_INT16 - extracts 16-bit integer argument
   - PG_GETARG_INT32 - extracts 32-bit integer argument  
-  - pg_sub_s32_overflow - performs safe 32-bit integer subtraction with overflow detection
+  - [pg_sub_s32_overflow](../p/pg_sub_s32_overflow.md) - performs safe 32-bit integer subtraction with overflow detection
   - PG_RETURN_INT32 - returns 32-bit integer result
 - Called from (representative examples):
   - No direct references found in the codebase

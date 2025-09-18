@@ -27,11 +27,11 @@ The function is designed to handle lookup failures with full error reporting tre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_aclmask_ext
+  - [object_aclmask_ext](object_aclmask_ext.md)
   - AclMaskHow enum
 - Called from (representative examples):
   - InternalDefaultACL
-  - pg_aclmask (multiple calls for different object types)
+  - [pg_aclmask](../p/pg_aclmask.md) (multiple calls for different object types)
 
 ## Notes and Other Information
 - This is a static function internal to the aclchk.c module

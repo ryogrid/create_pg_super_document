@@ -28,7 +28,7 @@ The function ensures mathematical correctness when dealing with infinite interva
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntervalAggState (struct type)
+  - [IntervalAggState](../I/IntervalAggState.md) (struct type)
   - Interval (struct type)
   - IA_TOTAL_COUNT (macro for total count calculation)
   - PG_ARGISNULL (PostgreSQL macro)
@@ -38,9 +38,9 @@ The function ensures mathematical correctness when dealing with infinite interva
   - INTERVAL_NOEND (macro for positive infinity)
   - INTERVAL_NOBEGIN (macro for negative infinity)
   - ereport (error reporting function)
-  - errcode (error code function)
-  - errmsg (error message function)
-  - palloc (memory allocation function)
+  - [errcode](../e/errcode.md) (error code function)
+  - [errmsg](../e/errmsg.md) (error message function)
+  - [palloc](../p/palloc.md) (memory allocation function)
   - memcpy (memory copy function)
 - Called from (representative examples):
   - No direct references found (likely used through PostgreSQL's aggregate function infrastructure)

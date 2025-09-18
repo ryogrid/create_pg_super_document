@@ -32,26 +32,26 @@ The function supports several key options:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetString
-  - defGetBoolean
+  - [defGetString](../d/defGetString.md)
+  - [defGetBoolean](../d/defGetBoolean.md)
   - ereport
   - elog
 - Data types/Constants referenced:
-  - CreateReplicationSlotCmd
-  - CRSSnapshotAction
-  - DefElem
+  - [CreateReplicationSlotCmd](../C/CreateReplicationSlotCmd.md)
+  - [CRSSnapshotAction](../C/CRSSnapshotAction.md)
+  - [DefElem](../D/DefElem.md)
   - REPLICATION_KIND_LOGICAL
   - REPLICATION_KIND_PHYSICAL
   - CRS_EXPORT_SNAPSHOT
   - CRS_NOEXPORT_SNAPSHOT
   - CRS_USE_SNAPSHOT
 - Called from:
-  - CreateReplicationSlot
+  - [CreateReplicationSlot](../C/CreateReplicationSlot.md)
 
 ## Notes and Other Information
 - The function is static and only used within the walsender module
 - Enforces strict separation between physical and logical replication slot options
-- Snapshot-related options (snapshot, two_phase, failover) are only valid for logical replication slots
+- [Snapshot](../S/Snapshot.md)-related options (snapshot, two_phase, failover) are only valid for logical replication slots
 - The reserve_wal option is only valid for physical replication slots
 - Provides detailed error messages for invalid option combinations or unrecognized parameter values
 - Uses PostgreSQL's standard DefElem parsing utilities (defGetString, defGetBoolean)

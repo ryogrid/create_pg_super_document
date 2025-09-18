@@ -24,8 +24,8 @@ The function handles PostgreSQL's variable-length data structures properly, extr
   - PG_GETARG_TEXT_PP - Extract text argument  
   - VARDATA_ANY - Get pointer to variable-length data
   - VARSIZE_ANY_EXHDR - Get size of variable-length data excluding header
-  - tsvector_bsearch - Binary search for lexeme in TSVector
-  - tsvector_delete_by_indices - Helper to delete lexemes by index array
+  - [tsvector_bsearch](tsvector_bsearch.md) - Binary search for lexeme in TSVector
+  - [tsvector_delete_by_indices](tsvector_delete_by_indices.md) - Helper to delete lexemes by index array
   - PG_FREE_IF_COPY - Free copied arguments if needed
   - PG_RETURN_POINTER - Return result pointer
 - Called from (representative examples):

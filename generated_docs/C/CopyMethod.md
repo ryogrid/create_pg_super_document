@@ -39,14 +39,14 @@ The enumeration is designed to enable performance optimization by leveraging pla
 - Functions called/Symbols referenced:
   - Used as parameter type in copy_file function
 - Called from (representative examples):
-  - copy_file (src/bin/pg_combinebackup/copy_file.c:51)
-  - cb_options (src/bin/pg_combinebackup/pg_combinebackup.c:80)
-  - reconstruct_from_incremental_file (src/bin/pg_combinebackup/reconstruct.c:99)
-  - write_reconstructed_file (src/bin/pg_combinebackup/reconstruct.c:557)
+  - [copy_file](../c/copy_file.md) (src/bin/pg_combinebackup/copy_file.c:51)
+  - [cb_options](../c/cb_options.md) (src/bin/pg_combinebackup/pg_combinebackup.c:80)
+  - [reconstruct_from_incremental_file](../r/reconstruct_from_incremental_file.md) (src/bin/pg_combinebackup/reconstruct.c:99)
+  - [write_reconstructed_file](../w/write_reconstructed_file.md) (src/bin/pg_combinebackup/reconstruct.c:557)
 
 ## Notes and Other Information
 - On Windows platforms, the copy method is automatically overridden to COPY_METHOD_COPYFILE regardless of user selection
 - The default copy method in pg_combinebackup is COPY_METHOD_COPY for maximum compatibility
-- Command-line options in pg_combinebackup allow users to select specific copy methods: --clone, --copy, --copy-file-range
+- [Command](Command.md)-line options in pg_combinebackup allow users to select specific copy methods: --clone, --copy, --copy-file-range
 - The enumeration is part of the pg_combinebackup utility's file handling system, not part of the main PostgreSQL server
 - Platform-specific compilation ensures only supported copy methods are available on each operating system

@@ -27,7 +27,7 @@ The allocated socket set is used throughout pgbench's multi-threaded benchmark e
   -  type (structure definition varies by implementation)
   -  macro (ppoll version only)
 - Called from (representative examples):
-  - threadRun() function at src/bin/pgbench/pgbench.c:7438
+  - [threadRun](../t/threadRun.md)() function at src/bin/pgbench/pgbench.c:7438
 
 ## Notes and Other Information
 - There are two distinct implementations depending on whether  or  is defined

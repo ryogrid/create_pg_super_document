@@ -17,12 +17,12 @@ This function creates and initializes a new bbsink_copystream instance, which is
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - bbsink_copystream_ops
-  - GetCurrentTimestamp
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
   - UINT64CONST
 - Called from (representative examples):
-  - SendBaseBackup (at src/backend/backup/basebackup.c:1032)
+  - [SendBaseBackup](../S/SendBaseBackup.md) (at src/backend/backup/basebackup.c:1032)
 
 ## Notes and Other Information
 - The function initializes progress reporting with the current timestamp and zero bytes processed

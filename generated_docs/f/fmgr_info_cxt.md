@@ -23,12 +23,12 @@ Like fmgr_info, this function is a wrapper around fmgr_info_cxt_security, but it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info_cxt_security (the core function that performs the actual initialization)
+  - [fmgr_info_cxt_security](fmgr_info_cxt_security.md) (the core function that performs the actual initialization)
 - Called from (representative examples):
-  - index_getprocinfo (for setting up index access method procedures)
-  - lookup_type_cache (when initializing type cache entries with function info)
-  - CatalogCacheInitializeCache (during catalog cache setup)
-  - array_in, array_out, array_recv, array_send (for array type I/O functions)
+  - [index_getprocinfo](../i/index_getprocinfo.md) (for setting up index access method procedures)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (when initializing type cache entries with function info)
+  - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md) (during catalog cache setup)
+  - [array_in](../a/array_in.md), array_out, array_recv, array_send (for array type I/O functions)
   - Various procedural language handlers (plperl, plpython, pltcl)
   - Sort support and comparison function setup
   - BRIN index strategy functions

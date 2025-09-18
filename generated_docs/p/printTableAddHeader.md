@@ -23,15 +23,15 @@ This function adds a header string to the next available column position in a pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - printTableContent (content structure type)
+  - [printTableContent](printTableContent.md) (content structure type)
   - EXIT_FAILURE (standard exit code for failure)
-  - mbvalidate (multibyte string validation function)
+  - [mbvalidate](../m/mbvalidate.md) (multibyte string validation function)
 - Called from (representative examples):
-  - printCrosstab (src/bin/psql/crosstabview.c:304, 332)
-  - describeOneTableDetails (src/bin/psql/describe.c:2054)
-  - describeRoles (src/bin/psql/describe.c:3672, 3673, 3676)
-  - describePublications (src/bin/psql/describe.c:6431-6439)
-  - printQuery (src/fe_utils/print.c:3569)
+  - [printCrosstab](printCrosstab.md) (src/bin/psql/crosstabview.c:304, 332)
+  - [describeOneTableDetails](../d/describeOneTableDetails.md) (src/bin/psql/describe.c:2054)
+  - [describeRoles](../d/describeRoles.md) (src/bin/psql/describe.c:3672, 3673, 3676)
+  - [describePublications](../d/describePublications.md) (src/bin/psql/describe.c:6431-6439)
+  - [printQuery](printQuery.md) (src/fe_utils/print.c:3569)
 
 ## Notes and Other Information
 - Must be called after printTableInit and before adding cell content

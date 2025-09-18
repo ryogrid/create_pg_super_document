@@ -22,15 +22,15 @@ Key operations include: option parsing and validation, permission and ownership 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_db_info, database_is_invalid_oid, CountOtherDBBackends
-  - check_encoding_locale_matches, check_locale, builtin_validate_locale, icu_validate_locale
-  - have_createdb_privilege, check_can_set_role, object_ownercheck
-  - get_tablespace_oid, GetDatabasePath, get_database_oid
-  - CreateDatabaseUsingWalLog, CreateDatabaseUsingFileCopy
-  - createdb_failure_callback, ForceSyncCommit
+  - [get_db_info](../g/get_db_info.md), database_is_invalid_oid, CountOtherDBBackends
+  - [check_encoding_locale_matches](check_encoding_locale_matches.md), check_locale, builtin_validate_locale, icu_validate_locale
+  - [have_createdb_privilege](../h/have_createdb_privilege.md), check_can_set_role, object_ownercheck
+  - [get_tablespace_oid](../g/get_tablespace_oid.md), GetDatabasePath, get_database_oid
+  - [CreateDatabaseUsingWalLog](../C/CreateDatabaseUsingWalLog.md), CreateDatabaseUsingFileCopy
+  - [createdb_failure_callback](createdb_failure_callback.md), ForceSyncCommit
   - Various catalog operations: CatalogTupleInsert, recordDependencyOnOwner
 - Called from (representative examples):
-  - standard_ProcessUtility (main SQL command processing)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (main SQL command processing)
 
 ## Notes and Other Information
 - Supports two database creation strategies: CREATEDB_WAL_LOG (default) and CREATEDB_FILE_COPY

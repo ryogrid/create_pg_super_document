@@ -29,10 +29,10 @@ The borrowing mechanism is crucial for maintaining the guarantee that elements c
   - IS_PARTITIONED (macro to check if hash table is partitioned)
   - SpinLockAcquire (acquires spinlock for thread safety)
   - SpinLockRelease (releases spinlock)
-  - element_alloc (allocates new chunk of bucket elements)
+  - [element_alloc](../e/element_alloc.md) (allocates new chunk of bucket elements)
   - NUM_FREELISTS (constant defining number of freelists)
 - Called from (representative examples):
-  - hash_search_with_hash_value (when creating new entries)
+  - [hash_search_with_hash_value](../h/hash_search_with_hash_value.md) (when creating new entries)
 
 ## Notes and Other Information
 - This is a static (internal) function, not exposed in the public API

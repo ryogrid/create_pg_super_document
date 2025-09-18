@@ -29,12 +29,12 @@ This static function converts selected bits from a tuple's infomask and infomask
   - XLHL_XMAX_KEYSHR_LOCK (WAL record bit)
   - XLHL_KEYS_UPDATED (WAL record bit)
 - Called from:
-  - heap_delete
-  - heap_update
-  - heap_lock_tuple
-  - heap_lock_updated_tuple_rec
-  - heap_abort_speculative
-  - log_heap_update
+  - [heap_delete](../h/heap_delete.md)
+  - [heap_update](../h/heap_update.md)
+  - [heap_lock_tuple](../h/heap_lock_tuple.md)
+  - [heap_lock_updated_tuple_rec](../h/heap_lock_updated_tuple_rec.md)
+  - [heap_abort_speculative](../h/heap_abort_speculative.md)
+  - [log_heap_update](../l/log_heap_update.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within heapam.c

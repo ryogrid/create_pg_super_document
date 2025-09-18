@@ -26,22 +26,22 @@ The function provides flexible error handling through the missing_ok parameter. 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - ObjectIdGetDatum
-  - CStringGetDatum
-  - systable_beginscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
   - HeapTupleIsValid
-  - systable_getnext
+  - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
-  - systable_endscan
+  - [systable_endscan](../s/systable_endscan.md)
   - OidIsValid
   - ereport
-  - get_rel_name
+  - [get_rel_name](get_rel_name.md)
   - table_close
 - Called from (representative examples):
-  - get_object_address_relobject (objectaddress.c:1460)
-  - rename_constraint_internal (tablecmds.c:3945)
-  - expandTableLikeClause (parse_utilcmd.c:1332)
+  - [get_object_address_relobject](get_object_address_relobject.md) (objectaddress.c:1460)
+  - [rename_constraint_internal](../r/rename_constraint_internal.md) (tablecmds.c:3945)
+  - [expandTableLikeClause](../e/expandTableLikeClause.md) (parse_utilcmd.c:1332)
 
 ## Notes and Other Information
 - Uses ConstraintRelidTypidNameIndexId for efficient constraint lookup by composite key

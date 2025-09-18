@@ -24,16 +24,16 @@ PQcancel implements the original PostgreSQL query cancellation mechanism. It est
   - send (system call for sending data)
   - recv (system call for receiving data)
   - closesocket (socket cleanup)
-  - optional_setsockopt (helper for socket options)
+  - [optional_setsockopt](../o/optional_setsockopt.md) (helper for socket options)
   - strlcpy (safe string copying)
   - pg_hton32 (host to network byte order conversion)
-  - pqSetKeepalivesWin32 (Windows keepalive configuration)
+  - [pqSetKeepalivesWin32](../p/pqSetKeepalivesWin32.md) (Windows keepalive configuration)
 - Called from (representative examples):
-  - ShutdownWorkersHard (src/bin/pg_dump/parallel.c:433)
-  - sigTermHandler (src/bin/pg_dump/parallel.c:581)
-  - handle_sigint (src/fe_utils/cancel.c:165)
-  - PQrequestCancel (src/interfaces/libpq/fe-cancel.c:685)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:267)
+  - [ShutdownWorkersHard](../S/ShutdownWorkersHard.md) (src/bin/pg_dump/parallel.c:433)
+  - [sigTermHandler](../s/sigTermHandler.md) (src/bin/pg_dump/parallel.c:581)
+  - [handle_sigint](../h/handle_sigint.md) (src/fe_utils/cancel.c:165)
+  - [PQrequestCancel](PQrequestCancel.md) (src/interfaces/libpq/fe-cancel.c:685)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:267)
 
 ## Notes and Other Information
 - Signal-safe implementation suitable for use in signal handlers

@@ -23,7 +23,7 @@ This function takes no parameters.
   - RM_MAX_ID
   - RmgrTable[rmid].rm_startup
 - Called from (representative examples):
-  - PerformWalRecovery
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
 
 ## Notes and Other Information
 - Located in src/backend/access/transam/rmgr.c:58-73

@@ -28,13 +28,13 @@ For regular numeric values, it delegates to `numeric_abbrev_convert_var` after c
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM_PACKED (datum detoasting)
-  - init_var_from_num (numeric to NumericVar conversion)
+  - [init_var_from_num](../i/init_var_from_num.md) (numeric to NumericVar conversion)
   - numeric_abbrev_convert_var (actual abbreviation logic)
   - VARATT_IS_SHORT, VARSIZE_SHORT, SET_VARSIZE (variable-length attribute macros)
   - NUMERIC_IS_SPECIAL, NUMERIC_IS_PINF, NUMERIC_IS_NINF (special value tests)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - numeric_sortsupport (as abbreviation converter callback)
+  - [numeric_sortsupport](numeric_sortsupport.md) (as abbreviation converter callback)
 
 ## Notes and Other Information
 - This is a static function internal to numeric.c module

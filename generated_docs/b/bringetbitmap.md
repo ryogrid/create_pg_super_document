@@ -33,15 +33,15 @@ The function processes each page range by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brinGetTupleForHeapBlock: Retrieves BRIN tuple for a given heap block
-  - brin_deform_tuple: Converts physical tuple to in-memory format
-  - brin_copy_tuple: Creates a copy of a BRIN tuple
-  - check_null_keys: Validates IS NULL/IS NOT NULL scan conditions  
-  - index_getprocinfo: Gets consistent support procedure for attribute
+  - [brinGetTupleForHeapBlock](brinGetTupleForHeapBlock.md): Retrieves BRIN tuple for a given heap block
+  - [brin_deform_tuple](brin_deform_tuple.md): Converts physical tuple to in-memory format
+  - [brin_copy_tuple](brin_copy_tuple.md): Creates a copy of a BRIN tuple
+  - [check_null_keys](../c/check_null_keys.md): Validates IS NULL/IS NOT NULL scan conditions  
+  - [index_getprocinfo](../i/index_getprocinfo.md): Gets consistent support procedure for attribute
   - tbm_add_page: Adds page to TID bitmap
   - pgstat_count_index_scan: Updates index scan statistics
 - Called from (representative examples):
-  - brinhandler: BRIN access method handler registration
+  - [brinhandler](brinhandler.md): BRIN access method handler registration
 
 ## Notes and Other Information
 - Returns an approximate count of tuples (totalpages * 10) rather than exact tuple count

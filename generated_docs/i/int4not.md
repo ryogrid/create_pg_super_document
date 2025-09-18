@@ -32,4 +32,4 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - Part of PostgreSQL's arithmetic and bitwise operations for the int4 data type
 - The bitwise NOT operation flips all bits: ~0 becomes -1, ~(-1) becomes 0
 - For any integer x, the result is -(x+1) due to two's complement representation
-- Result follows standard C bitwise complement semantics for 32-bit signed integers
+- [Result](../R/Result.md) follows standard C bitwise complement semantics for 32-bit signed integers

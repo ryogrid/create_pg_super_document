@@ -22,9 +22,9 @@ This function is used in testing scenarios to clean up injection points that are
 ## Dependencies
 - Functions called/Symbols referenced:
   - `text_to_cstring`
-  - `InjectionPointDetach`
-  - `list_delete`
-  - `makeString`
+  - `[InjectionPointDetach](../I/InjectionPointDetach.md)`
+  - `[list_delete](../l/list_delete.md)`
+  - `[makeString](../m/makeString.md)`
   - `PG_RETURN_VOID`
 - Called from (representative examples):
   - Referenced by `injection_points_set_local` (src/test/modules/injection_points/injection_points.c:384)

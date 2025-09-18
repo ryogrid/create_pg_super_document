@@ -19,11 +19,11 @@ This function provides a simple interface for window functions to determine the 
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
 - Called from (representative examples):
-  - rank_up
-  - window_row_number
-  - window_rank
-  - window_percent_rank
-  - window_cume_dist
+  - [rank_up](../r/rank_up.md)
+  - [window_row_number](../w/window_row_number.md)
+  - [window_rank](../w/window_rank.md)
+  - [window_percent_rank](../w/window_percent_rank.md)
+  - [window_cume_dist](../w/window_cume_dist.md)
 
 ## Notes and Other Information
 - Returns int64 representing the zero-based position of the current row

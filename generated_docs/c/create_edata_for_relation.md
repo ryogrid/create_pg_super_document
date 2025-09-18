@@ -26,24 +26,24 @@ The function is specifically designed for logical replication workers and ensure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateExecutorState
+  - [CreateExecutorState](../C/CreateExecutorState.md)
   - makeNode
   - RelationGetRelid
-  - addRTEPermissionInfo
+  - [addRTEPermissionInfo](../a/addRTEPermissionInfo.md)
   - ExecInitRangeTable
-  - InitResultRelInfo
-  - GetCurrentCommandId
-  - AfterTriggerBeginQuery
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
+  - [GetCurrentCommandId](../G/GetCurrentCommandId.md)
+  - [AfterTriggerBeginQuery](../A/AfterTriggerBeginQuery.md)
 - Called from (representative examples):
-  - apply_handle_insert
-  - apply_handle_update
-  - apply_handle_delete
+  - [apply_handle_insert](../a/apply_handle_insert.md)
+  - [apply_handle_update](../a/apply_handle_update.md)
+  - [apply_handle_delete](../a/apply_handle_delete.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the logical replication worker
 - The caller is responsible for opening and closing any indexes that need to be updated
 - The function sets up the ResultRelInfo in es_opened_result_relations list to make it discoverable by ExecGetTriggerResultRel()
-- ExecOpenIndices() is deliberately not called here - each execution path is responsible for index management
+- [ExecOpenIndices](../E/ExecOpenIndices.md)() is deliberately not called here - each execution path is responsible for index management
 - The function prepares the system to catch AFTER triggers by calling AfterTriggerBeginQuery()
 - Uses AccessShareLock as the relation lock mode in the range table entry
 - The returned ApplyExecutionData structure has most fields initialized to NULL initially, with specific fields populated as needed by subsequent operations

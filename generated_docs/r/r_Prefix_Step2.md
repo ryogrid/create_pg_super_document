@@ -27,12 +27,12 @@ The negative check (eq_s with s_58) is a safeguard mechanism that prevents remov
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among: Searches for prefix patterns using lookup table a_5
-  - len_utf8: Calculates UTF-8 character length for validation
-  - eq_s: Checks if current position matches a specific sequence (s_58)
-  - slice_del: Removes the identified prefix from the string
+  - [find_among](../f/find_among.md): Searches for prefix patterns using lookup table a_5
+  - [len_utf8](../l/len_utf8.md): Calculates UTF-8 character length for validation
+  - [eq_s](../e/eq_s.md): Checks if current position matches a specific sequence (s_58)
+  - [slice_del](../s/slice_del.md): Removes the identified prefix from the string
 - Called from (representative examples):
-  - arabic_UTF_8_stem: Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1613
+  - [arabic_UTF_8_stem](../a/arabic_UTF_8_stem.md): Main Arabic stemming function at src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1613
 
 ## Notes and Other Information
 This function represents the more conservative second phase of prefix removal, with stricter validation compared to r_Prefix_Step1. The negative check mechanism ensures linguistic accuracy by preventing removal of prefixes that would result in invalid Arabic word forms. The function returns 1 on successful prefix removal, 0 if no applicable prefixes are found, or 0 if the safeguard check prevents removal. This two-step prefix approach helps maintain the balance between effective stemming and preservation of word meaning in Arabic text processing.

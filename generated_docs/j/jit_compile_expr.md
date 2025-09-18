@@ -19,12 +19,12 @@ This function serves as the main entry point for JIT compilation of expressions 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - provider_init
+  - [provider_init](../p/provider_init.md)
   - provider.compile_expr() (function pointer call)
   - PGJIT_PERFORM (flag constant)
   - PGJIT_EXPR (flag constant)
 - Called from (representative examples):
-  - ExecReadyExpr (in src/backend/executor/execExpr.c:879)
+  - [ExecReadyExpr](../E/ExecReadyExpr.md) (in src/backend/executor/execExpr.c:879)
 
 ## Notes and Other Information
 - Located in src/backend/jit/jit.c:151-181

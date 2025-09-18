@@ -26,17 +26,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeXLogRecordRequiredSpace (validates record decoding requirements)
+  - [DecodeXLogRecordRequiredSpace](../D/DecodeXLogRecordRequiredSpace.md) (validates record decoding requirements)
   - XLogRecordMaxSize (maximum WAL record size constant)
   - AllocSizeIsValid (validates allocation size)
   - AllocSetContextCreate (creates memory context with ALLOCSET_DEFAULT_SIZES)
-  - MemoryContextAllocZero (allocates zero-filled memory)
-  - MemoryContextAlloc (allocates memory)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (allocates zero-filled memory)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md) (allocates memory)
   - XLR_NORMAL_MAX_BLOCK_ID (normal maximum block ID constant)
   - XLR_NORMAL_RDATAS (normal record data array size)
   - HEADER_SCRATCH_SIZE (header scratch buffer size)
 - Called from (representative examples):
-  - BaseInit (during backend initialization)
+  - [BaseInit](../B/BaseInit.md) (during backend initialization)
 
 ## Notes and Other Information
 - Called once per backend process during initialization

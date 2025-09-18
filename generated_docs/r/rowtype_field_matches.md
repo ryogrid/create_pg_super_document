@@ -34,10 +34,10 @@ The validation process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lookup_rowtype_tupdesc_domain (retrieves tuple descriptor, handling domains)
+  - [lookup_rowtype_tupdesc_domain](../l/lookup_rowtype_tupdesc_domain.md) (retrieves tuple descriptor, handling domains)
   - ReleaseTupleDesc (deallocates tuple descriptor resources)
 - Called from (representative examples):
-  - eval_const_expressions_mutator (during expression simplification)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (during expression simplification)
 
 ## Notes and Other Information
 - Static function - internal to clauses.c module

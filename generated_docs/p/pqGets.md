@@ -22,15 +22,15 @@ The function operates on buffered data that has already been received from the n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGets_internal (with resetbuffer=true to clear the buffer first)
+  - [pqGets_internal](pqGets_internal.md) (with resetbuffer=true to clear the buffer first)
 - Called from (representative examples):
-  - pg_SASL_init (SASL authentication string processing)
-  - pqParseInput3 (protocol 3 message parsing)
-  - getRowDescriptions (result set field name parsing)
-  - pqGetErrorNotice3 (error/notice message string parsing)
-  - pqGetNegotiateProtocolVersion3 (protocol negotiation)
-  - getParameterStatus (server parameter name/value parsing)
-  - getNotify (notification channel/payload parsing)
+  - [pg_SASL_init](pg_SASL_init.md) (SASL authentication string processing)
+  - [pqParseInput3](pqParseInput3.md) (protocol 3 message parsing)
+  - [getRowDescriptions](../g/getRowDescriptions.md) (result set field name parsing)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md) (error/notice message string parsing)
+  - [pqGetNegotiateProtocolVersion3](pqGetNegotiateProtocolVersion3.md) (protocol negotiation)
+  - [getParameterStatus](../g/getParameterStatus.md) (server parameter name/value parsing)
+  - [getNotify](../g/getNotify.md) (notification channel/payload parsing)
 
 ## Notes and Other Information
 - Returns 0 on success, EOF when a complete null-terminated string is not available

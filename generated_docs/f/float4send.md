@@ -22,9 +22,9 @@ The function uses PostgreSQL's StringInfoData buffer system along with the pq_be
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4 (argument extraction)
-  - pq_begintypsend (initialize binary output buffer)
-  - pq_sendfloat4 (write float4 in binary format)
-  - pq_endtypsend (finalize binary output buffer)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (initialize binary output buffer)
+  - [pq_sendfloat4](../p/pq_sendfloat4.md) (write float4 in binary format)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (finalize binary output buffer)
   - PG_RETURN_BYTEA_P (return bytea value macro)
 - Called from (representative examples):
   - No direct references found (likely called via PostgreSQL's function call mechanism for binary I/O)

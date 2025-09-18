@@ -24,11 +24,11 @@ This approach allows the system to defer setting the "real" default value until 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetConfigOption
+  - [SetConfigOption](../S/SetConfigOption.md)
   - PGC_POSTMASTER (GUC context level)
   - PGC_S_DYNAMIC_DEFAULT (GUC source type)
 - Called from (representative examples):
-  - SelectConfigFiles
+  - [SelectConfigFiles](../S/SelectConfigFiles.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within guc.c

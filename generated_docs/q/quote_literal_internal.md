@@ -22,8 +22,8 @@ The `quote_literal_internal` function is a low-level utility that converts a sou
   - `ESCAPE_STRING_SYNTAX` - Constant or macro for escape string prefix character
   - `SQL_STR_DOUBLE` - Macro to determine if a character should be doubled in SQL strings
 - Called from (representative examples):
-  - `quote_literal` - PostgreSQL function for quoting text literals
-  - `quote_literal_cstr` - Function for quoting C string literals
+  - `[quote_literal](quote_literal.md)` - PostgreSQL function for quoting text literals
+  - `[quote_literal_cstr](quote_literal_cstr.md)` - Function for quoting C string literals
 
 ## Notes and Other Information
 - This is a static function, only accessible within the quote.c file

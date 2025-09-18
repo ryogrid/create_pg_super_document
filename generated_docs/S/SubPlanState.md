@@ -44,21 +44,21 @@ SubPlanState manages the execution state for subquery expressions such as EXISTS
 ## Dependencies
 - Functions called/Symbols referenced:
   - SubPlan
-  - ProjectionInfo
-  - TupleHashTable
-  - PlanState
+  - [ProjectionInfo](../P/ProjectionInfo.md)
+  - [TupleHashTable](../T/TupleHashTable.md)
+  - [PlanState](../P/PlanState.md)
   - ExprState
   - HeapTuple
-  - TupleDesc
-  - MemoryContext
+  - [TupleDesc](../T/TupleDesc.md)
+  - [MemoryContext](../M/MemoryContext.md)
   - ExprContext
-  - FmgrInfo
+  - [FmgrInfo](../F/FmgrInfo.md)
 - Called from (representative examples):
-  - ExecSubPlan
-  - ExecHashSubPlan
-  - ExecScanSubPlan
-  - ExecInitSubPlan
-  - ExecSetParamPlan
+  - [ExecSubPlan](../E/ExecSubPlan.md)
+  - [ExecHashSubPlan](../E/ExecHashSubPlan.md)
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md)
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md)
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md)
 
 ## Notes and Other Information
 SubPlanState implements sophisticated caching mechanisms to optimize repeated subquery evaluation. The dual hash table approach (hashtable for non-nulls, hashnulls for nulls) ensures correct handling of SQL three-valued logic. The structure is particularly important for correlated subqueries where the subplan may be executed many times with different parameter values from the outer query.

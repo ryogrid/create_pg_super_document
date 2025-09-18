@@ -29,8 +29,8 @@ The function uses snprintf to safely format the savepoint name into the provided
   - TransactionId (PostgreSQL transaction identifier type)
   - Size (PostgreSQL size type)
 - Called from (representative examples):
-  - pa_start_subtrans
-  - pa_stream_abort
+  - [pa_start_subtrans](pa_start_subtrans.md)
+  - [pa_stream_abort](pa_stream_abort.md)
 
 ## Notes and Other Information
 - This function is located in src/backend/replication/logical/applyparallelworker.c:1348-1361

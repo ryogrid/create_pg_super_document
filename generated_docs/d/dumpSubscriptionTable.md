@@ -24,13 +24,13 @@ This function creates the SQL statements needed to restore subscription table me
 - Functions called/Symbols referenced:
   - DumpOptions
   - SubscriptionInfo
-  - psprintf
+  - [psprintf](../p/psprintf.md)
   - createPQExpBuffer
   - DUMP_COMPONENT_DEFINITION
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendStringLiteralAH
-  - appendPQExpBuffer
-  - ArchiveEntry
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
   - ARCHIVE_OPTS
   - SECTION_POST_DATA
   - free

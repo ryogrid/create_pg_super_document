@@ -21,17 +21,17 @@ This function is critical for efficient disk-based tuple access patterns where t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferIsValid
+  - [BufferIsValid](../B/BufferIsValid.md)
   - TTS_IS_BUFFERTUPLE
-  - tts_buffer_heap_store_tuple
+  - [tts_buffer_heap_store_tuple](../t/tts_buffer_heap_store_tuple.md)
 
 - Called from (representative examples):
-  - heap_getnextslot
-  - heap_getnextslot_tidrange
-  - heapam_index_fetch_tuple
-  - heapam_scan_analyze_next_tuple
-  - heapam_index_build_range_scan
-  - heapam_scan_bitmap_next_tuple
+  - [heap_getnextslot](../h/heap_getnextslot.md)
+  - [heap_getnextslot_tidrange](../h/heap_getnextslot_tidrange.md)
+  - [heapam_index_fetch_tuple](../h/heapam_index_fetch_tuple.md)
+  - [heapam_scan_analyze_next_tuple](../h/heapam_scan_analyze_next_tuple.md)
+  - [heapam_index_build_range_scan](../h/heapam_index_build_range_scan.md)
+  - [heapam_scan_bitmap_next_tuple](../h/heapam_scan_bitmap_next_tuple.md)
 
 ## Notes and Other Information
 - The tuple table code acquires a pin on the buffer which is held until the slot is cleared

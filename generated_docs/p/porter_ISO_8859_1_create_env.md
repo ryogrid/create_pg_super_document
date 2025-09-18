@@ -24,7 +24,7 @@ The returned environment must be properly cleaned up using the corresponding clo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_create_env (generic Snowball environment creation function)
+  - [SN_create_env](../S/SN_create_env.md) (generic Snowball environment creation function)
 - Called from (representative examples):
   - External clients needing Porter stemming environments (no direct references found in codebase)
 

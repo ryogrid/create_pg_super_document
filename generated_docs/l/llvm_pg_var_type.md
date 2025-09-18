@@ -24,7 +24,7 @@ The function works by finding a named global variable in the types module and ex
   - elog (PostgreSQL error reporting)
   - llvm_types_module (global module containing type definitions)
 - Called from:
-  - llvm_create_types (multiple calls for different PostgreSQL types)
+  - [llvm_create_types](llvm_create_types.md) (multiple calls for different PostgreSQL types)
   - llvm_compile_expr (for expression compilation type needs)
 
 ## Notes and Other Information

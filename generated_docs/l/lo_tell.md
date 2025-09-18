@@ -20,10 +20,10 @@ The function first ensures that the large object function OIDs are properly init
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_initialize
+  - [lo_initialize](lo_initialize.md)
   - PQfn
-  - PQclear
-  - PQresultStatus
+  - [PQclear](../P/PQclear.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
 - Types referenced:
   - PQArgBlock
   - PGresult

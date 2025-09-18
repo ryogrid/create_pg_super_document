@@ -22,8 +22,8 @@ The function is explicitly not useful for transition functions since the returne
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - AggState (aggregate execution state structure)
-  - FunctionCallInfo (function call information structure)
+  - [AggState](AggState.md) (aggregate execution state structure)
+  - [FunctionCallInfo](../F/FunctionCallInfo.md) (function call information structure)
 - Called from (representative examples):
   - AGG_CONTEXT_WINDOW (referenced in include/fmgr.h)
 

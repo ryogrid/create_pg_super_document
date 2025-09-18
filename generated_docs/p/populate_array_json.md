@@ -19,22 +19,22 @@ This function orchestrates the parsing of JSON array data by setting up a JSON l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PopulateArrayContext (context structure)
-  - PopulateArrayState (state structure)
-  - JsonSemAction (semantic action structure)
-  - makeJsonLexContextCstringLen (lexical context creation)
-  - GetDatabaseEncoding (database encoding function)
-  - populate_array_object_start (object start callback)
-  - populate_array_array_end (array end callback)
-  - populate_array_element_start (element start callback)
-  - populate_array_element_end (element end callback)
-  - populate_array_scalar (scalar value callback)
-  - pg_parse_json_or_errsave (JSON parser function)
+  - [PopulateArrayContext](../P/PopulateArrayContext.md) (context structure)
+  - [PopulateArrayState](../P/PopulateArrayState.md) (state structure)
+  - [JsonSemAction](../J/JsonSemAction.md) (semantic action structure)
+  - [makeJsonLexContextCstringLen](../m/makeJsonLexContextCstringLen.md) (lexical context creation)
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md) (database encoding function)
+  - [populate_array_object_start](populate_array_object_start.md) (object start callback)
+  - [populate_array_array_end](populate_array_array_end.md) (array end callback)
+  - [populate_array_element_start](populate_array_element_start.md) (element start callback)
+  - [populate_array_element_end](populate_array_element_end.md) (element end callback)
+  - [populate_array_scalar](populate_array_scalar.md) (scalar value callback)
+  - [pg_parse_json_or_errsave](pg_parse_json_or_errsave.md) (JSON parser function)
   - freeJsonLexContext (cleanup function)
   - SOFT_ERROR_OCCURRED (error checking macro)
 - Called from (representative examples):
   - JsObjectFree
-  - populate_array
+  - [populate_array](populate_array.md)
 
 ## Notes and Other Information
 - This is a static function within jsonfuncs.c, serving as an internal implementation detail

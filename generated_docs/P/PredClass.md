@@ -23,8 +23,8 @@ The classification is essential for iterating over components of complex logical
 - Functions called/Symbols referenced: None (enum definition)
 - Called from (representative examples):
   - iterate_end (src/backend/optimizer/util/predtest.c:87)
-  - predicate_implied_by_recurse (src/backend/optimizer/util/predtest.c:295)
-  - predicate_refuted_by_recurse (src/backend/optimizer/util/predtest.c:536, 825)
+  - [predicate_implied_by_recurse](../p/predicate_implied_by_recurse.md) (src/backend/optimizer/util/predtest.c:295)
+  - [predicate_refuted_by_recurse](../p/predicate_refuted_by_recurse.md) (src/backend/optimizer/util/predtest.c:536, 825)
 
 ## Notes and Other Information
 This enum is part of PostgreSQL's predicate testing infrastructure used by the query optimizer. It works in conjunction with the PredIterInfo framework to provide a generic way to iterate over and analyze complex logical expressions. The classification allows the optimizer to apply different logical reasoning rules based on whether an expression represents an atomic condition, a conjunction (AND), or a disjunction (OR) of sub-expressions.

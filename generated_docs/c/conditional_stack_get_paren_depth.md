@@ -19,10 +19,10 @@ This function fetches the last-recorded parenthesis nesting depth from the topmo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_empty (stack validation)
-  - ConditionalStack (type definition)
+  - [conditional_stack_empty](conditional_stack_empty.md) (stack validation)
+  - [ConditionalStack](../C/ConditionalStack.md) (type definition)
 - Called from (representative examples):
-  - discard_query_text (src/bin/psql/command.c:3303)
+  - [discard_query_text](../d/discard_query_text.md) (src/bin/psql/command.c:3303)
 
 ## Notes and Other Information
 - Returns -1 if the stack is empty or uninitialized, providing safe error handling

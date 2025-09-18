@@ -30,19 +30,19 @@ The function supports graceful handling of missing relations through the  parame
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - superuser_arg
-  - IsSystemClass
-  - SysCacheGetAttr
-  - acldefault
+  - [IsSystemClass](../I/IsSystemClass.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclP
-  - aclmask
+  - [aclmask](../a/aclmask.md)
   - has_privs_of_role
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - pg_class_aclmask
-  - pg_class_aclcheck_ext
+  - [pg_class_aclmask](pg_class_aclmask.md)
+  - [pg_class_aclcheck_ext](pg_class_aclcheck_ext.md)
   - InternalDefaultACL
 
 ## Notes and Other Information

@@ -19,11 +19,11 @@ The ActionList structure implements a transaction-aware stack for managing LISTE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ActionList (self-reference for the linked list structure)
+  - [ActionList](ActionList.md) (self-reference for the linked list structure)
 - Called from (representative examples):
-  - queue_listen
-  - AtSubCommit_Notify
-  - AtSubAbort_Notify
+  - [queue_listen](../q/queue_listen.md)
+  - [AtSubCommit_Notify](AtSubCommit_Notify.md)
+  - [AtSubAbort_Notify](AtSubAbort_Notify.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's transaction-aware LISTEN/NOTIFY system

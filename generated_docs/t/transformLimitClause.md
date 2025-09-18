@@ -21,19 +21,19 @@ This function is responsible for processing LIMIT and OFFSET clauses in SQL SELE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformExpr (expression transformation)
-  - coerce_to_specific_type (type coercion to INT8)
-  - checkExprIsVarFree (variable reference validation)
-  - ParseExprKind (enumeration type)
-  - LimitOption (enumeration type)
-  - A_Const (constant node type)
+  - [transformExpr](transformExpr.md) (expression transformation)
+  - [coerce_to_specific_type](../c/coerce_to_specific_type.md) (type coercion to INT8)
+  - [checkExprIsVarFree](../c/checkExprIsVarFree.md) (variable reference validation)
+  - [ParseExprKind](../P/ParseExprKind.md) (enumeration type)
+  - [LimitOption](../L/LimitOption.md) (enumeration type)
+  - [A_Const](../A/A_Const.md) (constant node type)
   - LIMIT_OPTION_WITH_TIES (enum value)
   - EXPR_KIND_LIMIT (enum value)
 - Called from (representative examples):
-  - transformSelectStmt
-  - transformValuesClause
-  - transformSetOperationStmt
-  - transformPLAssignStmt
+  - [transformSelectStmt](transformSelectStmt.md)
+  - [transformValuesClause](transformValuesClause.md)
+  - [transformSetOperationStmt](transformSetOperationStmt.md)
+  - [transformPLAssignStmt](transformPLAssignStmt.md)
 
 ## Notes and Other Information
 - Returns NULL if the input clause is NULL, making LIMIT/OFFSET clauses optional

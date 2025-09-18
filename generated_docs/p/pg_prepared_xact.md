@@ -22,16 +22,16 @@ pg_prepared_xact is a Set-Returning Function (SRF) that implements the pg_prepar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetPreparedTransactionList (to retrieve transaction list)
+  - [GetPreparedTransactionList](../G/GetPreparedTransactionList.md) (to retrieve transaction list)
   - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP (SRF framework)
-  - CreateTemplateTupleDesc, TupleDescInitEntry, BlessTupleDesc (tuple descriptor creation)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md), TupleDescInitEntry, BlessTupleDesc (tuple descriptor creation)
   - GetPGProcByNumber (to get process information)
-  - TransactionIdGetDatum, CStringGetTextDatum, TimestampTzGetDatum, ObjectIdGetDatum (data conversion)
-  - heap_form_tuple, HeapTupleGetDatum (tuple creation)
+  - [TransactionIdGetDatum](../T/TransactionIdGetDatum.md), CStringGetTextDatum, TimestampTzGetDatum, ObjectIdGetDatum (data conversion)
+  - [heap_form_tuple](../h/heap_form_tuple.md), HeapTupleGetDatum (tuple creation)
 - Data structures accessed:
-  - FuncCallContext (SRF context)
+  - [FuncCallContext](../F/FuncCallContext.md) (SRF context)
   - GlobalTransaction (transaction data)
-  - PGPROC (process information)
+  - [PGPROC](../P/PGPROC.md) (process information)
 - Called from:
   - SQL queries on pg_prepared_xacts system view
 

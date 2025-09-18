@@ -31,12 +31,12 @@ The function includes robust error checking for integer overflow conditions and 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting function)
-  - pg_add_s32_overflow (safe integer addition with overflow detection)
-  - bitsubstring (extracts substring from bit string)
-  - bit_catenate (concatenates two bit strings)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (safe integer addition with overflow detection)
+  - [bitsubstring](bitsubstring.md) (extracts substring from bit string)
+  - [bit_catenate](bit_catenate.md) (concatenates two bit strings)
 - Called from (representative examples):
-  - bitoverlay (public SQL function wrapper)
-  - bitoverlay_no_len (public SQL function wrapper with default length)
+  - [bitoverlay](bitoverlay.md) (public SQL function wrapper)
+  - [bitoverlay_no_len](bitoverlay_no_len.md) (public SQL function wrapper with default length)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/varbit.c:1176-1210

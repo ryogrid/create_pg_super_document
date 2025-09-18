@@ -31,18 +31,18 @@ The structure is critical for crash recovery, archive recovery, and streaming re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Latch
-  - RecoveryPauseState
+  - [Latch](../L/Latch.md)
+  - [RecoveryPauseState](../R/RecoveryPauseState.md)
   - ConditionVariable
-  - slock_t
+  - [slock_t](../s/slock_t.md)
   - XLogRecPtr
   - TimeLineID
   - TimestampTz
 - Called from (representative examples):
-  - XLogRecoveryShmemSize
-  - XLogRecoveryShmemInit
-  - PerformWalRecovery
-  - WaitForWALToBecomeAvailable
+  - [XLogRecoveryShmemSize](XLogRecoveryShmemSize.md)
+  - [XLogRecoveryShmemInit](XLogRecoveryShmemInit.md)
+  - [PerformWalRecovery](../P/PerformWalRecovery.md)
+  - [WaitForWALToBecomeAvailable](../W/WaitForWALToBecomeAvailable.md)
 
 ## Notes and Other Information
 This structure is allocated in shared memory and is crucial for multi-process coordination during recovery operations. The recoveryWakeupLatch is specifically designed as a separate latch from the startup process's procLatch to maintain clear separation between WAL replay signaling and recovery conflict handling. The structure supports both hot standby operations and promotion scenarios, making it essential for streaming replication setups.

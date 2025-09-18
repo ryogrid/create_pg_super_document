@@ -22,16 +22,16 @@ The function follows PostgreSQL's standard pattern for relation callbacks by fir
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVar (struct representing relation name with optional schema)
-  - truncate_check_rel (function to validate relation type for truncation)
-  - truncate_check_perms (function to check TRUNCATE permissions)
+  - [RangeVar](RangeVar.md) (struct representing relation name with optional schema)
+  - [truncate_check_rel](../t/truncate_check_rel.md) (function to validate relation type for truncation)
+  - [truncate_check_perms](../t/truncate_check_perms.md) (function to check TRUNCATE permissions)
   - Form_pg_class (typedef for pg_class catalog row structure)
-  - SearchSysCache1 (system cache lookup function)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system cache lookup function)
   - HeapTupleIsValid (macro to validate heap tuple)
   - GETSTRUCT (macro to extract structure from heap tuple)
-  - ReleaseSysCache (system cache cleanup function)
+  - [ReleaseSysCache](ReleaseSysCache.md) (system cache cleanup function)
 - Called from:
-  - ExecuteTruncate (main TRUNCATE command implementation)
+  - [ExecuteTruncate](../E/ExecuteTruncate.md) (main TRUNCATE command implementation)
   - child_dependency_type (during dependency analysis for truncation)
 
 ## Notes and Other Information

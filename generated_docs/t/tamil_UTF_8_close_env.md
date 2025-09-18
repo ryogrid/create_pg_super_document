@@ -21,7 +21,7 @@ The function is the counterpart to `tamil_UTF_8_create_env` and should be called
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (called with parameters z, 0)
+  - [SN_close_env](../S/SN_close_env.md) (called with parameters z, 0)
 - Called from (representative examples):
   - No direct references found in the codebase
 

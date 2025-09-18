@@ -22,17 +22,17 @@ The function includes an optimization to skip sorting when the list has fewer th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_list_invariants
+  - [check_list_invariants](../c/check_list_invariants.md)
   - qsort (standard library function)
   - list_length (indirectly referenced)
 - Called from (representative examples):
-  - perform_base_backup
-  - WalSummariesAreComplete
-  - heap_truncate_find_FKs
-  - GetPublicationRelations
-  - create_append_path
-  - expand_grouping_sets
-  - RelationGetIndexList
+  - [perform_base_backup](../p/perform_base_backup.md)
+  - [WalSummariesAreComplete](../W/WalSummariesAreComplete.md)
+  - [heap_truncate_find_FKs](../h/heap_truncate_find_FKs.md)
+  - [GetPublicationRelations](../G/GetPublicationRelations.md)
+  - [create_append_path](../c/create_append_path.md)
+  - [expand_grouping_sets](../e/expand_grouping_sets.md)
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
 
 ## Notes and Other Information
 - Sorts the list in-place, modifying the original list structure
@@ -42,4 +42,4 @@ The function includes an optimization to skip sorting when the list has fewer th
 - Optimized to skip sorting for lists with 0 or 1 elements
 - Commonly used for sorting relation lists, path lists, and other collections that need ordering
 - The comparator function should follow standard qsort conventions for return values
-- List structure integrity is validated before sorting
+- [List](../L/List.md) structure integrity is validated before sorting

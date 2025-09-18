@@ -31,10 +31,10 @@ This approach ensures that recursive CTEs have consistent column definitions acr
   - RangeTblRef (struct access)  
   - rt_fetch (retrieves range table entry)
   - forboth (macro for parallel list iteration)
-  - makeTargetEntry (creates target entry nodes)
-  - analyzeCTETargetList (analyzes CTE target list structure)
+  - [makeTargetEntry](../m/makeTargetEntry.md) (creates target entry nodes)
+  - [analyzeCTETargetList](../a/analyzeCTETargetList.md) (analyzes CTE target list structure)
 - Called from (representative examples):
-  - transformSetOperationTree
+  - [transformSetOperationTree](../t/transformSetOperationTree.md)
 
 ## Notes and Other Information
 This function is specifically designed for recursive CTE processing and is called during the parse analysis phase. It assumes the input represents a valid set operation structure where the leftmost leaf is a RangeTblRef. The function creates dummy target entries to facilitate type analysis without executing the actual queries. The resulting column information becomes part of the parent CTE's structure and is used for type checking throughout the recursive CTE processing.

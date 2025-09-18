@@ -27,12 +27,12 @@ The function recursively processes complex statement types (PREPARE, EXECUTE, EX
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine the node type)
-  - FetchPreparedStatement (for EXECUTE statements)
-  - defGetBoolean (for EXPLAIN option processing)
+  - [FetchPreparedStatement](../F/FetchPreparedStatement.md) (for EXECUTE statements)
+  - [defGetBoolean](../d/defGetBoolean.md) (for EXPLAIN option processing)
   - LogStmtLevel constants (LOGSTMT_ALL, LOGSTMT_MOD, LOGSTMT_DDL)
   - Various statement structures (SelectStmt, CopyStmt, etc.)
 - Called from (representative examples):
-  - check_log_statement (src/backend/tcop/postgres.c:2382)
+  - [check_log_statement](../c/check_log_statement.md) (src/backend/tcop/postgres.c:2382)
   - CreateCommandName (src/include/tcop/utility.h:108)
 
 ## Notes and Other Information

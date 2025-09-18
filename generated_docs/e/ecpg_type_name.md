@@ -27,7 +27,7 @@ The function uses a comprehensive switch statement to handle all supported ECPG 
 - Called from (representative examples):
   - ecpg_get_data (in data.c:297, 945)
   - ecpg_store_input (in execute.c:1067)
-  - ECPGdump_a_simple (in type.c:553)
+  - [ECPGdump_a_simple](../E/ECPGdump_a_simple.md) (in type.c:553)
 
 ## Notes and Other Information
 - The function returns string literals for type names, making it safe to use the returned pointer without memory management concerns.

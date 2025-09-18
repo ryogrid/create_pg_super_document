@@ -23,19 +23,19 @@ The algorithm works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - fill_str (fills result with '#' for invalid numbers)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [fill_str](../f/fill_str.md) (fills result with '#' for invalid numbers)
   - snprintf (string formatting)
   - strcat (string concatenation)
   - rm1[] (Roman numeral patterns for units 1-9)
   - rm10[] (Roman numeral patterns for tens 10-90)
   - rm100[] (Roman numeral patterns for hundreds 100-900)
 - Called from (representative examples):
-  - numeric_to_char (formatting.c:6428)
-  - int4_to_char (formatting.c:6546)
-  - int8_to_char (formatting.c:6642)
-  - float4_to_char (formatting.c:6743)
-  - float8_to_char (formatting.c:6845)
+  - [numeric_to_char](../n/numeric_to_char.md) (formatting.c:6428)
+  - [int4_to_char](int4_to_char.md) (formatting.c:6546)
+  - [int8_to_char](int8_to_char.md) (formatting.c:6642)
+  - [float4_to_char](../f/float4_to_char.md) (formatting.c:6743)
+  - [float8_to_char](../f/float8_to_char.md) (formatting.c:6845)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

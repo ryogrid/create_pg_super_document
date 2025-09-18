@@ -21,13 +21,13 @@ The structure is particularly important for maintaining efficiency when insertin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BrinRevmap
-  - BrinDesc
+  - [BrinRevmap](BrinRevmap.md)
+  - [BrinDesc](BrinDesc.md)
 - Called from (representative examples):
-  - brinhandler
-  - initialize_brin_insertstate
-  - brininsert
-  - brininsertcleanup
+  - [brinhandler](../b/brinhandler.md)
+  - [initialize_brin_insertstate](../i/initialize_brin_insertstate.md)
+  - [brininsert](../b/brininsert.md)
+  - [brininsertcleanup](../b/brininsertcleanup.md)
 
 ## Notes and Other Information
 This state structure is specifically designed for insert operations and is much simpler than BrinBuildState since it doesn't need to track build progress or coordinate parallel operations. The state is typically initialized once per command and reused for multiple insert operations, then cleaned up when the command completes. The bis_pages_per_range value is cached to avoid repeated lookups during insert operations.

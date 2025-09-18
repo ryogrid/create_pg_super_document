@@ -24,7 +24,7 @@ This function serves as a PostgreSQL conversion procedure that transforms KOI8-R
   - PG_GETARG_INT32 (parameter extraction)
   - PG_GETARG_BOOL (parameter extraction)
   - CHECK_ENCODING_CONVERSION_ARGS (validation macro)
-  - LocalToUtf (core local encoding to UTF-8 conversion function)
+  - [LocalToUtf](../L/LocalToUtf.md) (core local encoding to UTF-8 conversion function)
   - PG_RETURN_INT32 (return value macro)
   - koi8r_to_unicode_tree (KOI8-R to Unicode conversion table)
 - Called from:

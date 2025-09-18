@@ -31,15 +31,15 @@ The function automatically manages compound word flags, ensuring that words mark
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - repalloc
-  - palloc
-  - RS_isRegis
-  - RS_compile
+  - [repalloc](../r/repalloc.md)
+  - [palloc](../p/palloc.md)
+  - [RS_isRegis](../R/RS_isRegis.md)
+  - [RS_compile](../R/RS_compile.md)
   - tmpalloc
-  - pg_mb2wchar_with_len
+  - [pg_mb2wchar_with_len](../p/pg_mb2wchar_with_len.md)
   - pg_regcomp
-  - pg_regerror
-  - cpstrdup
+  - [pg_regerror](../p/pg_regerror.md)
+  - [cpstrdup](../c/cpstrdup.md)
   - FF_SUFFIX
   - FF_PREFIX
   - FF_COMPOUNDONLY

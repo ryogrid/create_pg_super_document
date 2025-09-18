@@ -22,23 +22,23 @@ The function handles the complexity of hash table management, including dealing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prepare_probe_slot (sets up hash table lookup parameters)
+  - [prepare_probe_slot](../p/prepare_probe_slot.md) (sets up hash table lookup parameters)
   - memoize_insert (inserts/finds entries in hash table)
-  - dlist_move_tail (moves existing entry to end of LRU list)
-  - palloc (allocates memory for new key)
+  - [dlist_move_tail](../d/dlist_move_tail.md) (moves existing entry to end of LRU list)
+  - [palloc](../p/palloc.md) (allocates memory for new key)
   - ExecCopySlotMinimalTuple (copies scan parameters as minimal tuple)
-  - dlist_push_tail (adds new entry to end of LRU list)
-  - cache_reduce_memory (evicts entries if over memory limit)
+  - [dlist_push_tail](../d/dlist_push_tail.md) (adds new entry to end of LRU list)
+  - [cache_reduce_memory](cache_reduce_memory.md) (evicts entries if over memory limit)
   - memoize_lookup (re-finds entry after hash table reorganization)
-  - MemoryContextSwitchTo (manages memory context)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (manages memory context)
   - EMPTY_ENTRY_MEMORY_BYTES (calculates entry memory usage)
 - Types referenced:
-  - MemoizeState
-  - MemoizeEntry
-  - MemoizeKey
-  - MemoryContext
+  - [MemoizeState](../M/MemoizeState.md)
+  - [MemoizeEntry](../M/MemoizeEntry.md)
+  - [MemoizeKey](../M/MemoizeKey.md)
+  - [MemoryContext](../M/MemoryContext.md)
 - Called from:
-  - ExecMemoize (main executor function for memoize nodes)
+  - [ExecMemoize](../E/ExecMemoize.md) (main executor function for memoize nodes)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeMemoize.c

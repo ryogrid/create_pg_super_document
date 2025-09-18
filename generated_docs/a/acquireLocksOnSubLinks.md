@@ -24,15 +24,15 @@ The function explicitly avoids recursing into Query nodes because AcquireRewrite
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AcquireRewriteLocks
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md)
   - expression_tree_walker
   - IsA (macro for type checking)
 - Called from (representative examples):
-  - AcquireRewriteLocks
-  - rewriteRuleAction
-  - fireRIRrules
-  - CopyAndAddInvertedQual
-  - rewriteTargetView
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md)
+  - [rewriteRuleAction](../r/rewriteRuleAction.md)
+  - [fireRIRrules](../f/fireRIRrules.md)
+  - [CopyAndAddInvertedQual](../C/CopyAndAddInvertedQual.md)
+  - [rewriteTargetView](../r/rewriteTargetView.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rewriteHandler.c file

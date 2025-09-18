@@ -34,18 +34,18 @@ The function includes comprehensive error checking for unsupported sublink types
   - TupIsNull (to check for end of results)
   - initArrayResultAny, accumArrayResultAny, makeArrayResultAny (for array handling)
   - ExecCopySlotHeapTuple (to copy tuple data)
-  - heap_getattr, heap_freetuple (for heap tuple operations)
+  - [heap_getattr](../h/heap_getattr.md), heap_freetuple (for heap tuple operations)
   - slot_getattr (for slot attribute access)
-  - MemoryContextSwitchTo (for memory context management)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (for memory context management)
   - linitial_int, lfirst_int (for list operations)
 - Types used:
-  - SubPlanState, SubPlan, PlanState, EState
-  - SubLinkType, ScanDirection, ExprContext
-  - ParamExecData, ArrayBuildStateAny
+  - [SubPlanState](../S/SubPlanState.md), SubPlan, PlanState, EState
+  - [SubLinkType](../S/SubLinkType.md), ScanDirection, ExprContext
+  - [ParamExecData](../P/ParamExecData.md), ArrayBuildStateAny
   - TupleTableSlot, TupleDesc
 - Called from (representative examples):
-  - ExecEvalParamExec (when parameter value is needed)
-  - ExecSetParamPlanMulti (for multi-parameter execution)
+  - [ExecEvalParamExec](ExecEvalParamExec.md) (when parameter value is needed)
+  - [ExecSetParamPlanMulti](ExecSetParamPlanMulti.md) (for multi-parameter execution)
 
 ## Notes and Other Information
 - This function MUST clear execPlan fields after evaluating parameters to prevent re-execution

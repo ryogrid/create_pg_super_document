@@ -21,20 +21,20 @@ This function prepares column metadata cache by analyzing the given type ID and 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - GETSTRUCT
-  - getBaseTypeAndTypmod
-  - get_typtype
-  - MemoryContextAllocZero
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
+  - [get_typtype](../g/get_typtype.md)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md)
   - IsTrueArrayType
-  - getTypeInputInfo
-  - fmgr_info_cxt
-  - ReleaseSysCache
+  - [getTypeInputInfo](../g/getTypeInputInfo.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
   - JsObjectFree
-  - populate_record_field
-  - get_record_type_from_argument
+  - [populate_record_field](populate_record_field.md)
+  - [get_record_type_from_argument](../g/get_record_type_from_argument.md)
 
 ## Notes and Other Information
 This function is static and specifically designed for JSON processing functionality in PostgreSQL. It performs comprehensive type analysis to determine the most efficient processing strategy for different PostgreSQL data types. The function handles the complexity of PostgreSQL's type system including domain types (which can be domains over other domains or composites), composite types, array types, and scalar types. Memory allocation is performed in the provided memory context to ensure proper cleanup. The function is critical for the JSON populate functions to correctly handle diverse PostgreSQL data types.

@@ -25,7 +25,7 @@ The implementation is straightforward but essential for maintaining code portabi
 - Functions called/Symbols referenced:
   - malloc (C standard library)
   - sprintf (C standard library)
-  - pgwin32_putenv (internal function)
+  - [pgwin32_putenv](pgwin32_putenv.md) (internal function)
   - free (C standard library)
 - Called from (representative examples):
   - unsetenv macro replacement (src/include/port/win32_port.h:536)

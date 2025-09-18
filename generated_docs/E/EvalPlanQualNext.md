@@ -18,10 +18,10 @@ This function advances EPQ testing by executing one iteration of the recheck pla
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecProcNode
-  - EPQState
+  - [EPQState](EPQState.md)
 - Called from (representative examples):
-  - EvalPlanQual
-  - ExecLockRows
+  - [EvalPlanQual](EvalPlanQual.md)
+  - [ExecLockRows](ExecLockRows.md)
   - EvalPlanQualSetSlot
 
 ## Notes and Other Information

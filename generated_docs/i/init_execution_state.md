@@ -24,15 +24,15 @@ This function processes a list of parsed and rewritten query trees for a SQL fun
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_plan_query
+  - [pg_plan_query](../p/pg_plan_query.md)
   - makeNode
-  - CommandIsReadOnly
+  - [CommandIsReadOnly](../C/CommandIsReadOnly.md)
   - CreateCommandName
-  - palloc
+  - [palloc](../p/palloc.md)
   - lappend
   - lfirst_node
 - Called from (representative examples):
-  - init_sql_fcache
+  - [init_sql_fcache](init_sql_fcache.md)
 
 ## Notes and Other Information
 - Creates execution_state structures linked in sequential order for each query

@@ -20,22 +20,22 @@ This function handles the replay of tuple deletion operations in hash indexes du
   - XLogRecGetData
   - XLogReadBufferForRedoExtended
   - XLogReadBufferForRedo
-  - XLogRecGetBlockData
-  - BufferGetPage
-  - PageIndexMultiDelete
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - HashPageGetOpaque
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
-  - xl_hash_delete
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
+  - [xl_hash_delete](../x/xl_hash_delete.md)
   - XLogRedoAction
   - HashPageOpaque
   - RBM_NORMAL
   - BLK_NEEDS_REDO
   - LH_PAGE_HAS_DEAD_TUPLES
 - Called from (representative examples):
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery module

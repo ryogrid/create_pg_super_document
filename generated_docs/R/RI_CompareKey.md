@@ -20,9 +20,9 @@ RI_CompareKey provides a composite key mechanism for caching equality comparison
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
 - Called from (representative examples):
-  - RI_CompareHashEntry (as a member)
-  - ri_InitHashTables
-  - ri_HashCompareOp
+  - [RI_CompareHashEntry](RI_CompareHashEntry.md) (as a member)
+  - [ri_InitHashTables](../r/ri_InitHashTables.md)
+  - [ri_HashCompareOp](../r/ri_HashCompareOp.md)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's optimization strategy for referential integrity checking. By caching the mapping between data types and their appropriate equality operators, the system can quickly determine how to compare foreign key values with primary key values without repeatedly querying the system catalogs for operator information. The key is used in a hash table that stores RI_CompareHashEntry structures, providing fast access to comparison operator information during constraint validation operations.

@@ -48,18 +48,18 @@ For a short summary of all commands, run 'snap help --all'.: Snapshot for non-tr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReorderBufferGetChange (allocates new change structure)
-  - ReorderBufferQueueChange (queues transactional messages)
-  - ReorderBufferTXNByXid (gets transaction for non-transactional context)
+  - [ReorderBufferGetChange](ReorderBufferGetChange.md) (allocates new change structure)
+  - [ReorderBufferQueueChange](ReorderBufferQueueChange.md) (queues transactional messages)
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md) (gets transaction for non-transactional context)
   - SetupHistoricSnapshot (establishes snapshot for catalog access)
   - TeardownHistoricSnapshot (cleans up snapshot)
   - PG_TRY/PG_CATCH/PG_END_TRY (exception handling macros)
   - rb->message (callback function for message processing)
-  - pstrdup (duplicates prefix string)
-  - palloc (allocates message memory)
+  - [pstrdup](../p/pstrdup.md) (duplicates prefix string)
+  - [palloc](../p/palloc.md) (allocates message memory)
   - memcpy (copies message data)
 - Called from (representative examples):
-  - logicalmsg_decode (when decoding logical message WAL records)
+  - [logicalmsg_decode](../l/logicalmsg_decode.md) (when decoding logical message WAL records)
 
 ## Notes and Other Information
 - Transactional messages are queued as REORDER_BUFFER_CHANGE_MESSAGE changes and processed during transaction commit

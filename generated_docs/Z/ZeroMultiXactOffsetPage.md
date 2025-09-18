@@ -24,16 +24,16 @@ The function assumes that the appropriate control lock (for MultiXactOffsetCtl) 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruZeroPage
-  - WriteMZeroPageXlogRec
+  - [SimpleLruZeroPage](../S/SimpleLruZeroPage.md)
+  - [WriteMZeroPageXlogRec](../W/WriteMZeroPageXlogRec.md)
   - XLOG_MULTIXACT_ZERO_OFF_PAGE (constant)
 - Global variables accessed:
   - MultiXactOffsetCtl
 - Called from:
-  - BootStrapMultiXact
-  - MaybeExtendOffsetSlru
-  - ExtendMultiXactOffset
-  - multixact_redo
+  - [BootStrapMultiXact](../B/BootStrapMultiXact.md)
+  - [MaybeExtendOffsetSlru](../M/MaybeExtendOffsetSlru.md)
+  - [ExtendMultiXactOffset](../E/ExtendMultiXactOffset.md)
+  - [multixact_redo](../m/multixact_redo.md)
 
 ## Notes and Other Information
 - Function is static and only accessible within the multixact.c module

@@ -20,13 +20,13 @@ The function employs a lazy allocation strategy - creating the dummy header only
 ## Dependencies
 - Functions called/Symbols referenced:
   - expanded_record_get_tupdesc
-  - get_short_term_cxt
-  - MemoryContextAlloc
+  - [get_short_term_cxt](../g/get_short_term_cxt.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - EOH_init_header
   - ER_MAGIC
 - Called from (representative examples):
-  - check_domain_for_new_field
-  - check_domain_for_new_tuple
+  - [check_domain_for_new_field](../c/check_domain_for_new_field.md)
+  - [check_domain_for_new_tuple](../c/check_domain_for_new_tuple.md)
 
 ## Notes and Other Information
 - Function is marked static, indicating internal use within expandedrecord.c only

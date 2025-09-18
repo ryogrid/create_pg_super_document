@@ -27,13 +27,13 @@ The cache entry includes validation fields (slot_idx and generation) that allow 
   - INJ_PRIVATE_MAXLEN (1024)
   - InjectionPointCallback
 - Called from (representative examples):
-  - injection_point_cache_add
-  - injection_point_cache_remove
-  - injection_point_cache_load
-  - injection_point_cache_get
-  - InjectionPointDetach
-  - InjectionPointCacheRefresh
-  - InjectionPointRun
+  - [injection_point_cache_add](../i/injection_point_cache_add.md)
+  - [injection_point_cache_remove](../i/injection_point_cache_remove.md)
+  - [injection_point_cache_load](../i/injection_point_cache_load.md)
+  - [injection_point_cache_get](../i/injection_point_cache_get.md)
+  - [InjectionPointDetach](InjectionPointDetach.md)
+  - [InjectionPointCacheRefresh](InjectionPointCacheRefresh.md)
+  - [InjectionPointRun](InjectionPointRun.md)
 
 ## Notes and Other Information
 The cache is stored in TopMemoryContext to ensure it persists for the lifetime of the backend process. The slot_idx and generation fields provide a mechanism to validate cache entries against the shared memory state, allowing the system to detect when an injection point has been modified or removed by another process. This validation is crucial for maintaining consistency in a multi-process environment where injection points can be dynamically added or removed.

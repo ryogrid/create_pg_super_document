@@ -22,10 +22,10 @@ This function initializes a JsonbValue structure to wrap an existing Jsonb conta
   - jbvBinary (JsonbValue type enum value for binary data)
   - VARSIZE_ANY_EXHDR (PostgreSQL macro to get size excluding header)
 - Called from (representative examples):
-  - executeJsonPath
-  - executeKeyValueMethod
-  - JsonItemFromDatum
-  - getJsonPathVariableFromJsonb
+  - [executeJsonPath](../e/executeJsonPath.md)
+  - [executeKeyValueMethod](../e/executeKeyValueMethod.md)
+  - [JsonItemFromDatum](JsonItemFromDatum.md)
+  - [getJsonPathVariableFromJsonb](../g/getJsonPathVariableFromJsonb.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath_exec.c, not exposed in the public API

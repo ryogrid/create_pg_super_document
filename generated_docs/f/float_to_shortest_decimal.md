@@ -21,8 +21,8 @@ The function abstracts away buffer management concerns and provides a simple int
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation function)
-  - float_to_shortest_decimal_buf (conversion function with caller-provided buffer)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)
+  - [float_to_shortest_decimal_buf](float_to_shortest_decimal_buf.md) (conversion function with caller-provided buffer)
   - FLOAT_SHORTEST_DECIMAL_LEN (buffer size constant)
 - Called from:
   - FLOAT_SHORTEST_DECIMAL_LEN (macro context)

@@ -22,10 +22,10 @@ This function is designed to work in tandem with savePsetInfo, providing a compl
 - Functions called/Symbols referenced:
   - free (for memory deallocation)
   - memcpy (for structure copying)
-  - printQueryOpt (structure type)
+  - [printQueryOpt](../p/printQueryOpt.md) (structure type)
 - Called from (representative examples):
-  - process_command_g_options
-  - SendQuery
+  - [process_command_g_options](../p/process_command_g_options.md)
+  - [SendQuery](../S/SendQuery.md)
 
 ## Notes and Other Information
 - Must be called with a save pointer that was created by savePsetInfo

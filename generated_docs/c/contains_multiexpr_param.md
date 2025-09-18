@@ -23,8 +23,8 @@ This function performs a tree traversal to detect MULTIEXPR parameters within an
   - Param (structure type)
   - PARAM_MULTIEXPR (parameter kind constant)
 - Called from (representative examples):
-  - ReplaceVarsFromTargetList_callback
-  - contains_multiexpr_param (recursive self-call via expression_tree_walker)
+  - [ReplaceVarsFromTargetList_callback](../R/ReplaceVarsFromTargetList_callback.md)
+  - [contains_multiexpr_param](contains_multiexpr_param.md) (recursive self-call via expression_tree_walker)
 
 ## Notes and Other Information
 - This is a static function within rewriteManip.c, indicating it's an internal utility

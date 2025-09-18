@@ -25,12 +25,12 @@ This callback ensures that tuple descriptors are properly released even if the e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FreeTupleDesc
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
 - Called from (representative examples):
-  - make_expanded_record_from_typeid (callback registration)
-  - make_expanded_record_from_tupdesc (callback registration)  
-  - make_expanded_record_from_exprecord (callback registration)
-  - expanded_record_fetch_tupdesc (callback registration)
+  - [make_expanded_record_from_typeid](../m/make_expanded_record_from_typeid.md) (callback registration)
+  - [make_expanded_record_from_tupdesc](../m/make_expanded_record_from_tupdesc.md) (callback registration)  
+  - [make_expanded_record_from_exprecord](../m/make_expanded_record_from_exprecord.md) (callback registration)
+  - [expanded_record_fetch_tupdesc](../e/expanded_record_fetch_tupdesc.md) (callback registration)
 
 ## Notes and Other Information
 - This is a memory context callback, not a regular function call

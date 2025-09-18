@@ -19,18 +19,18 @@ This function creates a formatted string representation of a MultiXact ID and it
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mxstatus_to_string
-  - MemoryContextStrdup
+  - [mxstatus_to_string](mxstatus_to_string.md)
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
   - initStringInfo
   - appendStringInfo
   - appendStringInfoChar
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - MultiXactIdCreate
-  - MultiXactIdCreateFromMembers
-  - GetMultiXactIdMembers
-  - mXactCacheGetBySet
-  - mXactCacheGetById
+  - [MultiXactIdCreate](../M/MultiXactIdCreate.md)
+  - [MultiXactIdCreateFromMembers](../M/MultiXactIdCreateFromMembers.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)
+  - [mXactCacheGetBySet](mXactCacheGetBySet.md)
+  - [mXactCacheGetById](mXactCacheGetById.md)
 
 ## Notes and Other Information
 - Uses a static buffer that is automatically freed on subsequent calls

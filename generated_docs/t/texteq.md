@@ -21,13 +21,13 @@ PostgreSQL function implementing text equality comparison with optimizations for
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GET_COLLATION
-  - check_collation_set
-  - lc_collate_is_c
-  - pg_newlocale_from_collation
-  - pg_locale_deterministic
-  - toast_raw_datum_size
+  - [check_collation_set](../c/check_collation_set.md)
+  - [lc_collate_is_c](../l/lc_collate_is_c.md)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [pg_locale_deterministic](../p/pg_locale_deterministic.md)
+  - [toast_raw_datum_size](toast_raw_datum_size.md)
   - DatumGetTextPP
-  - text_cmp
+  - [text_cmp](text_cmp.md)
   - VARDATA_ANY (macro)
   - PG_FREE_IF_COPY (macro)
   - PG_RETURN_BOOL (macro)

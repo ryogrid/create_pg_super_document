@@ -40,13 +40,13 @@ The structure manages the state of file I/O operations during the backup process
   - bbsink (base structure)
   - File (PostgreSQL file handle type)
 - Called from (representative examples):
-  - bbsink_server_new
-  - bbsink_server_begin_archive
-  - bbsink_server_archive_contents
-  - bbsink_server_end_archive
-  - bbsink_server_begin_manifest
-  - bbsink_server_manifest_contents
-  - bbsink_server_end_manifest
+  - [bbsink_server_new](bbsink_server_new.md)
+  - [bbsink_server_begin_archive](bbsink_server_begin_archive.md)
+  - [bbsink_server_archive_contents](bbsink_server_archive_contents.md)
+  - [bbsink_server_end_archive](bbsink_server_end_archive.md)
+  - [bbsink_server_begin_manifest](bbsink_server_begin_manifest.md)
+  - [bbsink_server_manifest_contents](bbsink_server_manifest_contents.md)
+  - [bbsink_server_end_manifest](bbsink_server_end_manifest.md)
 
 ## Notes and Other Information
 This structure is part of PostgreSQL's modular backup sink architecture, which allows for chaining multiple processing steps (compression, progress reporting, throttling, etc.) before final storage. The server sink typically appears at the end of the sink chain as the final destination for backup data. The structure is defined in `src/backend/backup/basebackup_server.c` and is created via the `bbsink_server_new()` constructor function, as referenced in the header file `basebackup_sink.h:291`.

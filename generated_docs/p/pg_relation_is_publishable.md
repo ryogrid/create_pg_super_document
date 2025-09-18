@@ -34,11 +34,11 @@ This design makes it suitable for use in administrative tools and interactive se
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_OID (macro to extract OID argument)
-  - SearchSysCache1 (system catalog lookup)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
   - HeapTupleIsValid (tuple validity check)
-  - is_publishable_class (core publishability logic)
+  - [is_publishable_class](../i/is_publishable_class.md) (core publishability logic)
   - GETSTRUCT (macro to extract struct from tuple)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - PG_RETURN_NULL (return NULL to SQL)
   - PG_RETURN_BOOL (return boolean to SQL)
 - Types used:

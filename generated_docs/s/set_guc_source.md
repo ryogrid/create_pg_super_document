@@ -29,11 +29,11 @@ This approach ensures that the guc_nondef_list always accurately reflects which 
   - GucSource (enum type)
   - config_generic (struct)
   - PGC_S_DEFAULT (source constant)
-  - dlist_push_tail
-  - dlist_delete
+  - [dlist_push_tail](../d/dlist_push_tail.md)
+  - [dlist_delete](../d/dlist_delete.md)
 - Called from (representative examples):
-  - ResetAllOptions
-  - AtEOXact_GUC
+  - [ResetAllOptions](../R/ResetAllOptions.md)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
   - Various GUC assignment functions
 
 ## Notes and Other Information

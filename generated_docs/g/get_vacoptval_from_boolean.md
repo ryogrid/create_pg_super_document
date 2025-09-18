@@ -17,7 +17,7 @@ This utility function serves as an adapter between the generic boolean value ext
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - defGetBoolean
+  - [defGetBoolean](../d/defGetBoolean.md)
   - VACOPTVALUE_ENABLED (enum constant)
   - VACOPTVALUE_DISABLED (enum constant)
 - Called from (representative examples):

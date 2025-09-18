@@ -27,11 +27,11 @@ The function iterates through the JSONB structure and for each key or element en
   - ARR_NDIM
   - JB_ROOT_IS_SCALAR
   - JB_ROOT_COUNT
-  - deconstruct_array_builtin
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - JsonbValueToJsonb
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - PG_RETURN_JSONB_P
   - ereport/ERROR
 - Called from (representative examples):

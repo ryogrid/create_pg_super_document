@@ -28,11 +28,11 @@ Cost estimation includes the base cost from the subpath plus an additional cpu_t
   - makeNode (to create LockRowsPath node)
   - cpu_tuple_cost (cost constant for tuple processing)
 - Called from (representative examples):
-  - grouping_planner (src/backend/optimizer/plan/planner.c:1805)
+  - [grouping_planner](../g/grouping_planner.md) (src/backend/optimizer/plan/planner.c:1805)
 
 ## Notes and Other Information
 - The resulting path has no pathkeys (sort order) since locking may modify sort key values
 - Parallel execution is disabled for lock rows operations (parallel_aware = false, parallel_safe = false)
 - Uses the same pathtarget as the subpath since LockRows doesn't project new columns
 - Cost estimation is somewhat conservative, charging cpu_tuple_cost per row for locking overhead
-- EvalPlanQual mechanism is supported through the epqParam for handling concurrent modifications
+- [EvalPlanQual](../E/EvalPlanQual.md) mechanism is supported through the epqParam for handling concurrent modifications

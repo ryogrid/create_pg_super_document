@@ -26,10 +26,10 @@ For custom resource managers that may not yet be loaded during early startup, th
   - MemSet
   - SplitIdentifierString
   - GUC_check_errdetail
-  - list_free
+  - [list_free](../l/list_free.md)
   - RmgrIdExists
   - GetRmgr
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - GUC system during parameter validation
 

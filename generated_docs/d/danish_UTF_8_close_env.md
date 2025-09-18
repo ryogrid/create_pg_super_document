@@ -21,7 +21,7 @@ The function ensures that all allocated memory including string buffers, integer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Generic Snowball environment cleanup function that handles the actual deallocation with the specified buffer count parameter
+  - [SN_close_env](../S/SN_close_env.md): Generic Snowball environment cleanup function that handles the actual deallocation with the specified buffer count parameter
 
 - Called from (representative examples):
   - No direct references found (likely called by external stemming interface or library cleanup code)

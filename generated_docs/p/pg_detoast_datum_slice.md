@@ -21,8 +21,8 @@ The function delegates to detoast_attr_slice, which implements sophisticated opt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - detoast_attr_slice (function that performs the actual slice extraction)
-  - varlena (structure type)
+  - [detoast_attr_slice](../d/detoast_attr_slice.md) (function that performs the actual slice extraction)
+  - [varlena](../v/varlena.md) (structure type)
 - Called from (representative examples):
   - PG_DETOAST_DATUM_SLICE (macro)
   - Functions implementing substring operations on text and bytea types

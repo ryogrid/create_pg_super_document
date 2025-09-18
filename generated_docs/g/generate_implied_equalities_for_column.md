@@ -24,17 +24,17 @@ The function uses a callback mechanism to allow callers to specify exactly which
 ## Dependencies
 - Functions called/Symbols referenced:
   - find_childrel_parents
-  - bms_next_member
-  - list_nth
-  - bms_is_subset
-  - bms_equal
-  - bms_overlap
-  - select_equality_operator
-  - create_join_clause
+  - [bms_next_member](../b/bms_next_member.md)
+  - [list_nth](../l/list_nth.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [bms_overlap](../b/bms_overlap.md)
+  - [select_equality_operator](../s/select_equality_operator.md)
+  - [create_join_clause](../c/create_join_clause.md)
   - lappend
 - Called from (representative examples):
-  - match_eclass_clauses_to_index
-  - create_tidscan_paths
+  - [match_eclass_clauses_to_index](../m/match_eclass_clauses_to_index.md)
+  - [create_tidscan_paths](../c/create_tidscan_paths.md)
 
 ## Notes and Other Information
 - Primarily used for index optimization and foreign data wrapper support

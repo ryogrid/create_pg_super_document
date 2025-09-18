@@ -25,20 +25,20 @@ ExecWithCheckOptions enforces WITH CHECK OPTION constraints and row-level securi
 - Functions called/Symbols referenced:
   - GetPerTupleExprContext
   - ExecQual
-  - build_attrmap_by_name_if_req
-  - execute_attr_map_slot
-  - MakeTupleTableSlot
-  - ExecGetInsertedCols
-  - ExecGetUpdatedCols
-  - bms_union
-  - ExecBuildSlotValueDescription
+  - [build_attrmap_by_name_if_req](../b/build_attrmap_by_name_if_req.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
+  - [MakeTupleTableSlot](../M/MakeTupleTableSlot.md)
+  - [ExecGetInsertedCols](ExecGetInsertedCols.md)
+  - [ExecGetUpdatedCols](ExecGetUpdatedCols.md)
+  - [bms_union](../b/bms_union.md)
+  - [ExecBuildSlotValueDescription](ExecBuildSlotValueDescription.md)
 - Called from (representative examples):
-  - ExecInsert
-  - ExecBatchInsert
-  - ExecUpdateAct
-  - ExecUpdateEpilogue
-  - ExecOnConflictUpdate
-  - ExecMergeMatched
+  - [ExecInsert](ExecInsert.md)
+  - [ExecBatchInsert](ExecBatchInsert.md)
+  - [ExecUpdateAct](ExecUpdateAct.md)
+  - [ExecUpdateEpilogue](ExecUpdateEpilogue.md)
+  - [ExecOnConflictUpdate](ExecOnConflictUpdate.md)
+  - [ExecMergeMatched](ExecMergeMatched.md)
 
 ## Notes and Other Information
 - Designed for multiple invocations with different WCOKind values to handle all constraint types in a single modification operation

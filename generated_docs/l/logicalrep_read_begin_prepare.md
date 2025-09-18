@@ -20,15 +20,15 @@ This function deserializes a BEGIN PREPARE message from the logical replication 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64
-  - pq_getmsgint
-  - pq_getmsgstring
+  - [pq_getmsgint64](../p/pq_getmsgint64.md)
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [pq_getmsgstring](../p/pq_getmsgstring.md)
   - strlcpy
   - elog
   - InvalidXLogRecPtr
-  - LogicalRepPreparedTxnData
+  - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md)
 - Called from (representative examples):
-  - apply_handle_begin_prepare
+  - [apply_handle_begin_prepare](../a/apply_handle_begin_prepare.md)
 
 ## Notes and Other Information
 - Validates that prepare_lsn and end_lsn are not InvalidXLogRecPtr, throwing errors if they are

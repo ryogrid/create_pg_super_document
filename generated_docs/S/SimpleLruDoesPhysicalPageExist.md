@@ -27,19 +27,19 @@ This function is particularly important for systems that need to verify page ava
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_count_slru_page_exists
-  - SlruFileName
+  - [pgstat_count_slru_page_exists](../p/pgstat_count_slru_page_exists.md)
+  - [SlruFileName](SlruFileName.md)
   - OpenTransientFile
   - lseek
   - CloseTransientFile
-  - SlruReportIOError
+  - [SlruReportIOError](SlruReportIOError.md)
   - SLRU_PAGES_PER_SEGMENT
   - PG_BINARY
 - Called from (representative examples):
-  - ActivateCommitTs
-  - MaybeExtendOffsetSlru
-  - find_multixact_start
-  - test_slru_page_exists
+  - [ActivateCommitTs](../A/ActivateCommitTs.md)
+  - [MaybeExtendOffsetSlru](../M/MaybeExtendOffsetSlru.md)
+  - [find_multixact_start](../f/find_multixact_start.md)
+  - [test_slru_page_exists](../t/test_slru_page_exists.md)
 
 ## Notes and Other Information
 - Returns false for both non-existent files and files too small to contain the requested page

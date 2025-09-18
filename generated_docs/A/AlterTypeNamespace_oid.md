@@ -20,14 +20,14 @@ AlterTypeNamespace_oid is an intermediate-level function that handles type names
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck
-  - aclcheck_error_type
-  - get_element_type
-  - get_array_type
-  - AlterTypeNamespaceInternal
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error_type](../a/aclcheck_error_type.md)
+  - [get_element_type](../g/get_element_type.md)
+  - [get_array_type](../g/get_array_type.md)
+  - [AlterTypeNamespaceInternal](AlterTypeNamespaceInternal.md)
 - Called from (representative examples):
-  - AlterTypeNamespace
-  - AlterObjectNamespace_oid
+  - [AlterTypeNamespace](AlterTypeNamespace.md)
+  - [AlterObjectNamespace_oid](AlterObjectNamespace_oid.md)
 
 ## Notes and Other Information
 - Exported for use by AlterObjectNamespace_oid to handle dependent types gracefully

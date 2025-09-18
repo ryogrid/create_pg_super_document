@@ -19,7 +19,7 @@ A public API function that deallocates all prepared statements for a specified d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_deallocate_all_conn (internal function that performs the bulk deallocation)
+  - [ecpg_deallocate_all_conn](../e/ecpg_deallocate_all_conn.md) (internal function that performs the bulk deallocation)
   - ecpg_get_connection (retrieve connection structure by name)
 - Called from (representative examples):
   - Test programs for ECPG functionality

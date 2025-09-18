@@ -33,19 +33,19 @@ The algorithm maintains partition maps to track relationships and generates list
 - Functions called/Symbols referenced:
   - partition_bound_has_default
   - partition_bound_accepts_nulls
-  - init_partition_map / free_partition_map
-  - is_dummy_partition
-  - merge_matching_partitions
-  - process_outer_partition / process_inner_partition
-  - merge_null_partitions / merge_default_partitions
-  - generate_matching_part_pairs
-  - build_merged_partition_bounds
-  - fix_merged_indexes
-  - FunctionCall2Coll
-  - DatumGetInt32
+  - [init_partition_map](../i/init_partition_map.md) / free_partition_map
+  - [is_dummy_partition](../i/is_dummy_partition.md)
+  - [merge_matching_partitions](merge_matching_partitions.md)
+  - [process_outer_partition](../p/process_outer_partition.md) / process_inner_partition
+  - [merge_null_partitions](merge_null_partitions.md) / merge_default_partitions
+  - [generate_matching_part_pairs](../g/generate_matching_part_pairs.md)
+  - [build_merged_partition_bounds](../b/build_merged_partition_bounds.md)
+  - [fix_merged_indexes](../f/fix_merged_indexes.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
 - Data types used:
-  - PartitionBoundInfo
-  - PartitionMap
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
+  - [PartitionMap](../P/PartitionMap.md)
   - RelOptInfo
   - JoinType
 - Constants used:
@@ -53,7 +53,7 @@ The algorithm maintains partition maps to track relationships and generates list
   - JOIN_FULL
   - IS_OUTER_JOIN
 - Called from:
-  - partition_bounds_merge
+  - [partition_bounds_merge](../p/partition_bounds_merge.md)
   - compare_range_bounds
 
 ## Notes and Other Information

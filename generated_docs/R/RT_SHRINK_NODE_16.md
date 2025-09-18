@@ -36,13 +36,13 @@ This combined approach is more efficient than separate delete and shrink operati
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME
-  - RT_ALLOC_NODE
-  - RT_COPY_COMMON
-  - RT_COPY_ARRAYS_AND_DELETE
-  - RT_VERIFY_NODE
-  - RT_FREE_NODE
+  - [RT_ALLOC_NODE](RT_ALLOC_NODE.md)
+  - [RT_COPY_COMMON](RT_COPY_COMMON.md)
+  - [RT_COPY_ARRAYS_AND_DELETE](RT_COPY_ARRAYS_AND_DELETE.md)
+  - [RT_VERIFY_NODE](RT_VERIFY_NODE.md)
+  - [RT_FREE_NODE](RT_FREE_NODE.md)
 - Called from (representative examples):
-  - RT_REMOVE_CHILD_16
+  - [RT_REMOVE_CHILD_16](RT_REMOVE_CHILD_16.md)
 
 ## Notes and Other Information
 - This function is marked with pg_noinline attribute to prevent inlining for better code size optimization

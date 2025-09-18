@@ -18,7 +18,7 @@ This function implements the absolute value operation for PostgreSQL's NUMERIC t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_NUMERIC: Extracts numeric argument from function call
-  - duplicate_numeric: Creates a copy of the numeric value
+  - [duplicate_numeric](../d/duplicate_numeric.md): Creates a copy of the numeric value
   - NUMERIC_IS_SHORT: Checks if numeric uses short representation
   - NUMERIC_SHORT_SIGN_MASK: Mask for sign bit in short format
   - NUMERIC_IS_SPECIAL: Checks if numeric is NaN or infinity
@@ -28,8 +28,8 @@ This function implements the absolute value operation for PostgreSQL's NUMERIC t
   - PG_RETURN_NUMERIC: Returns numeric result
 
 - Called from (representative examples):
-  - numeric_absolute: Database size calculation function
-  - executeItemOptUnwrapTarget: JSON path execution context
+  - [numeric_absolute](numeric_absolute.md): Database size calculation function
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md): JSON path execution context
 
 ## Notes and Other Information
 - Implements direct bit manipulation for optimal performance

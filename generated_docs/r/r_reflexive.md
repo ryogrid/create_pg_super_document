@@ -28,13 +28,13 @@ The function follows the standard Snowball stemmer pattern:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b: Performs backward matching against suffix array
-  - slice_del: Deletes the substring between bra and ket markers
+  - [find_among_b](../f/find_among_b.md): Performs backward matching against suffix array
+  - [slice_del](../s/slice_del.md): Deletes the substring between bra and ket markers
 - Data structures used:
   - a_3: Array containing reflexive suffix patterns (ся, сь)
 - Called from (representative examples):
-  - russian_KOI8_R_stem: Main stemming function
-  - russian_UTF_8_stem: UTF-8 variant of the stemmer
+  - [russian_KOI8_R_stem](russian_KOI8_R_stem.md): Main stemming function
+  - [russian_UTF_8_stem](russian_UTF_8_stem.md): UTF-8 variant of the stemmer
 
 ## Notes and Other Information
 - This is part of the automatically generated Snowball stemmer code for Russian language processing

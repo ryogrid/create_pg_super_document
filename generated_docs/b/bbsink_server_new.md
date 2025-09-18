@@ -20,17 +20,17 @@ The function implements a security model requiring explicit pg_write_server_file
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - StartTransactionCommand/CommitTransactionCommand  
+  - [palloc0](../p/palloc0.md)
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)/CommitTransactionCommand  
   - has_privs_of_role
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - is_absolute_path
   - pg_check_dir
   - MakePGDirectory
   - ereport
   - bbsink_server_ops
 - Called from (representative examples):
-  - server_get_sink (in basebackup_target.c:205)
+  - [server_get_sink](../s/server_get_sink.md) (in basebackup_target.c:205)
 
 ## Notes and Other Information
 - Requires ROLE_PG_WRITE_SERVER_FILES privileges, not just replication permissions

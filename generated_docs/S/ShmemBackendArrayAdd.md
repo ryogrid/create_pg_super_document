@@ -19,13 +19,13 @@ This function adds a backend process entry to the ShmemBackendArray at a specifi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Backend (data structure type)
+  - [Backend](../B/Backend.md) (data structure type)
   - Assert (debugging assertion macro)
 - Called from:
-  - win32_deadchild_waitinfo (src/backend/postmaster/postmaster.c:465)
-  - BackendStartup (src/backend/postmaster/postmaster.c:3627)
-  - StartAutovacuumWorker (src/backend/postmaster/postmaster.c:4005)
-  - do_start_bgworker (src/backend/postmaster/postmaster.c:4295)
+  - [win32_deadchild_waitinfo](../w/win32_deadchild_waitinfo.md) (src/backend/postmaster/postmaster.c:465)
+  - [BackendStartup](../B/BackendStartup.md) (src/backend/postmaster/postmaster.c:3627)
+  - [StartAutovacuumWorker](StartAutovacuumWorker.md) (src/backend/postmaster/postmaster.c:4005)
+  - [do_start_bgworker](../d/do_start_bgworker.md) (src/backend/postmaster/postmaster.c:4295)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the postmaster.c file

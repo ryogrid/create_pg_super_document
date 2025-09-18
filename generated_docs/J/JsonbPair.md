@@ -28,15 +28,15 @@ This structure is primarily used in the conversion process from text JSON to bin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbValue (for both key and value members)
+  - [JsonbValue](JsonbValue.md) (for both key and value members)
   - uint32 (standard type)
   - jbvString (enum value indicating string type)
 - Called from (representative examples):
-  - pushJsonbValueScalar
-  - appendKey
-  - convertJsonbObject
-  - lengthCompareJsonbPair
-  - uniqueifyJsonbObject
+  - [pushJsonbValueScalar](../p/pushJsonbValueScalar.md)
+  - [appendKey](../a/appendKey.md)
+  - [convertJsonbObject](../c/convertJsonbObject.md)
+  - [lengthCompareJsonbPair](../l/lengthCompareJsonbPair.md)
+  - [uniqueifyJsonbObject](../u/uniqueifyJsonbObject.md)
 
 ## Notes and Other Information
 JsonbPair is only used temporarily during JSONB construction and is not persisted to disk. The order field enables proper duplicate key handling by implementing "last observed wins" semantics. Keys are required to be strings as per JSON specification, while values can be any valid JSON type. The structure is typically used in arrays that are later processed to create the final on-disk JsonbContainer format.

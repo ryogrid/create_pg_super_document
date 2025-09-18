@@ -31,10 +31,10 @@ The function also prepares the leaf value for return to the query executor, ensu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP (datum to inet conversion)
-  - InetPGetDatum (inet to datum conversion)
-  - inet_spg_consistent_bitmap (evaluate query conditions against address)
-  - spgLeafConsistentIn/spgLeafConsistentOut (SP-GiST structures)
+  - [DatumGetInetPP](../D/DatumGetInetPP.md) (datum to inet conversion)
+  - [InetPGetDatum](../I/InetPGetDatum.md) (inet to datum conversion)
+  - [inet_spg_consistent_bitmap](inet_spg_consistent_bitmap.md) (evaluate query conditions against address)
+  - [spgLeafConsistentIn](../s/spgLeafConsistentIn.md)/spgLeafConsistentOut (SP-GiST structures)
 - Called from (representative examples):
   - SP-GiST query processing engine
   - Final stage of index search operations

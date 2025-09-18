@@ -21,7 +21,7 @@ The function uses GCC inline assembly with specific constraints to ensure proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (typedef for unsigned char)
+  - [slock_t](../s/slock_t.md) (typedef for unsigned char)
 - Called from (representative examples):
   - TAS macro (defined as TAS(lock) tas(lock))
   - Used indirectly through SPIN_DELAY macro

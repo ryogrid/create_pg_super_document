@@ -19,19 +19,19 @@ This function allocates and initializes an empty tuple descriptor structure with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - Assert (sanity checking)
-  - TupleDescData (structure definition)
+  - [TupleDescData](../T/TupleDescData.md) (structure definition)
   - RECORDOID, ATTRIBUTE_FIXED_PART_SIZE, FormData_pg_attribute (constants/types)
 - Called from (representative examples):
-  - CreateTupleDesc
-  - CreateTupleDescCopy
-  - CreateTupleDescCopyConstr
-  - BuildDescFromLists
-  - ConstructTupleDescriptor
-  - ExecTypeFromTLInternal
-  - AllocateRelationDesc
-  - formrdesc
+  - [CreateTupleDesc](CreateTupleDesc.md)
+  - [CreateTupleDescCopy](CreateTupleDescCopy.md)
+  - [CreateTupleDescCopyConstr](CreateTupleDescCopyConstr.md)
+  - [BuildDescFromLists](../B/BuildDescFromLists.md)
+  - [ConstructTupleDescriptor](ConstructTupleDescriptor.md)
+  - [ExecTypeFromTLInternal](../E/ExecTypeFromTLInternal.md)
+  - [AllocateRelationDesc](../A/AllocateRelationDesc.md)
+  - [formrdesc](../f/formrdesc.md)
 
 ## Notes and Other Information
 - Performs sanity check to ensure natts >= 0

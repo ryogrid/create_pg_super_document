@@ -22,9 +22,9 @@ This function implements the equality comparison operator (`=`) for the UUID dat
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_UUID_P (macro to extract UUID argument)
-  - uuid_internal_cmp (core comparison function)
+  - [uuid_internal_cmp](uuid_internal_cmp.md) (core comparison function)
   - PG_RETURN_BOOL (macro to return boolean result)
-  - pg_uuid_t (UUID data type structure)
+  - [pg_uuid_t](../p/pg_uuid_t.md) (UUID data type structure)
 - Called from (representative examples):
   - SQL queries using `=` operator
   - Hash table operations

@@ -18,15 +18,15 @@ This function performs a comprehensive comparison between two bitmap sets and re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set (validation function for bitmap sets)
+  - [bms_is_valid_set](bms_is_valid_set.md) (validation function for bitmap sets)
   - BMS_Comparison (enum type for comparison results)
   - BMS_EQUAL, BMS_SUBSET1, BMS_SUBSET2, BMS_DIFFERENT (enum values)
   - bitmapword (type for bitmap word storage)
 - Called from (representative examples):
-  - consider_index_join_outer_rels (index path optimization)
-  - remove_useless_groupby_columns (query optimization)
-  - set_cheapest (path selection)
-  - add_path (path management)
+  - [consider_index_join_outer_rels](../c/consider_index_join_outer_rels.md) (index path optimization)
+  - [remove_useless_groupby_columns](../r/remove_useless_groupby_columns.md) (query optimization)
+  - [set_cheapest](../s/set_cheapest.md) (path selection)
+  - [add_path](../a/add_path.md) (path management)
 
 ## Notes and Other Information
 The function uses a state-based approach where it starts assuming equality and updates the relationship as differences are discovered. The early termination logic ensures that as soon as it's determined that neither set is a subset of the other, the function returns BMS_DIFFERENT immediately. This function is particularly valuable in the query optimizer where comparing sets of relation IDs or other identifiers is common, and knowing the exact relationship helps make better optimization decisions.

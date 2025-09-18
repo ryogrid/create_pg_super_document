@@ -20,11 +20,11 @@ This function provides proper cleanup for JIT compilation contexts in PostgreSQL
 ## Dependencies
 - Functions called/Symbols referenced:
   - provider.release_context() (function pointer call)
-  - pfree (PostgreSQL memory free function)
-  - JitContext (struct type)
+  - [pfree](../p/pfree.md) (PostgreSQL memory free function)
+  - [JitContext](../J/JitContext.md) (struct type)
   - Uses global variable: `provider_successfully_loaded`
 - Called from (representative examples):
-  - FreeExecutorState (in src/backend/executor/execUtils.c:211)
+  - [FreeExecutorState](../F/FreeExecutorState.md) (in src/backend/executor/execUtils.c:211)
   - ResOwnerReleaseJitContext (in src/backend/jit/llvm/llvmjit.c:1385)
 
 ## Notes and Other Information

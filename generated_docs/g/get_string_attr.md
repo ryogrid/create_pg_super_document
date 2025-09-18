@@ -22,11 +22,11 @@ This function safely retrieves a named attribute from a Python object and conver
 ## Dependencies
 - Functions called/Symbols referenced:
   - PyObject_GetAttrString (Python C API function)
-  - PLyUnicode_AsString (PL/Python Unicode conversion function)
-  - pstrdup (PostgreSQL memory allocation function)
+  - [PLyUnicode_AsString](../P/PLyUnicode_AsString.md) (PL/Python Unicode conversion function)
+  - [pstrdup](../p/pstrdup.md) (PostgreSQL memory allocation function)
   - Py_XDECREF (Python reference counting function)
 - Called from (representative examples):
-  - PLy_get_error_data (multiple calls for different attributes)
+  - [PLy_get_error_data](../P/PLy_get_error_data.md) (multiple calls for different attributes)
 
 ## Notes and Other Information
 - Safely handles cases where the attribute doesn't exist or is None

@@ -28,7 +28,7 @@ The function includes an assertion check  to ensure the input bit string is prop
   - PG_RETURN_CSTRING
   - BITS_PER_BYTE
 - Called from:
-  - bit_out
+  - [bit_out](../b/bit_out.md)
 
 ## Notes and Other Information
 - The function includes a comment noting that  and hex input to  can load values that this function cannot emit, suggesting potential for hex output format for such values

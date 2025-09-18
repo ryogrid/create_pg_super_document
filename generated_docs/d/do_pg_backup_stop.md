@@ -26,20 +26,20 @@ The function handles different behavior depending on whether the backup is taken
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - XLogIsNeeded
-  - WALInsertLockAcquireExclusive/WALInsertLockRelease
-  - XLogBeginInsert
-  - XLogRegisterData
-  - XLogInsert
-  - RequestXLogSwitch
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)/WALInsertLockRelease
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)
+  - [XLogRegisterData](../X/XLogRegisterData.md)
+  - [XLogInsert](../X/XLogInsert.md)
+  - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
   - BackupHistoryFilePath
-  - build_backup_content
+  - [build_backup_content](../b/build_backup_content.md)
   - CleanupBackupHistory
   - XLogArchivingActive/XLogArchivingAlways
-  - XLogArchiveIsBusy
+  - [XLogArchiveIsBusy](../X/XLogArchiveIsBusy.md)
 - Called from:
-  - perform_base_backup (src/backend/backup/basebackup.c:394)
+  - [perform_base_backup](../p/perform_base_backup.md) (src/backend/backup/basebackup.c:394)
   - PG_BACKUP_STOP_V2_COLS function implementations
 
 ## Notes and Other Information

@@ -24,10 +24,10 @@ This explicit lock management is crucial for proper subtransaction handling in P
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_TRANSACTION (macro to construct transaction-specific lock tag)
-  - LockRelease (releases the exclusive lock on the transaction)
+  - [LockRelease](../L/LockRelease.md) (releases the exclusive lock on the transaction)
   - ExclusiveLock (lock mode constant matching the lock mode that was acquired)
 - Called from (representative examples):
-  - CommitSubTransaction (when a subtransaction commits)
+  - [CommitSubTransaction](../C/CommitSubTransaction.md) (when a subtransaction commits)
   - Various subtransaction management functions
 
 ## Notes and Other Information

@@ -33,16 +33,16 @@ The function assumes callers have pre-validated that each clause is a mergejoina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_has_unique_index_for (checks unique index coverage for plain relations)
+  - [relation_has_unique_index_for](relation_has_unique_index_for.md) (checks unique index coverage for plain relations)
   - castNode (safely casts nodes to specific types)
-  - get_rightop (extracts right operand from expressions)
-  - get_leftop (extracts left operand from expressions)
+  - [get_rightop](../g/get_rightop.md) (extracts right operand from expressions)
+  - [get_leftop](../g/get_leftop.md) (extracts left operand from expressions)
   - lappend_int (appends integers to lists)
   - lappend_oid (appends OIDs to lists)
-  - query_is_distinct_for (analyzes subquery distinctness)
+  - [query_is_distinct_for](../q/query_is_distinct_for.md) (analyzes subquery distinctness)
 - Called from (representative examples):
-  - join_is_removable (when checking if joins can be eliminated)
-  - is_innerrel_unique_for (when testing inner relation uniqueness)
+  - [join_is_removable](../j/join_is_removable.md) (when checking if joins can be eliminated)
+  - [is_innerrel_unique_for](../i/is_innerrel_unique_for.md) (when testing inner relation uniqueness)
 
 ## Notes and Other Information
 - This is a static function within analyzejoins.c, serving as an internal utility

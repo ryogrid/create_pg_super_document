@@ -27,17 +27,17 @@ When indexOid is InvalidOid, the function clears the clustered flag from all ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_index_isclustered
+  - [get_index_isclustered](../g/get_index_isclustered.md)
   - table_open/table_close
-  - RelationGetIndexList
+  - [RelationGetIndexList](../R/RelationGetIndexList.md)
   - SearchSysCacheCopy1
-  - CatalogTupleUpdate
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
   - InvokeObjectPostAlterHookArg
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
 - Called from (representative examples):
-  - rebuild_relation
-  - ATExecClusterOn
-  - ATExecDropCluster
+  - [rebuild_relation](../r/rebuild_relation.md)
+  - [ATExecClusterOn](../A/ATExecClusterOn.md)
+  - [ATExecDropCluster](../A/ATExecDropCluster.md)
 
 ## Notes and Other Information
 - Explicitly prevents marking indexes as clustered on partitioned tables since clustering is performed at the partition level

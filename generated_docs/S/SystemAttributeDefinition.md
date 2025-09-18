@@ -20,11 +20,11 @@ The function validates the input attribute number and uses it as an index into t
   - elog (error logging function)
   - SysAtt (static array of system attribute definitions)
 - Called from (representative examples):
-  - SPI_fname (in src/backend/executor/spi.c:1214)
-  - SPI_getvalue (in src/backend/executor/spi.c:1244)
-  - build_index_tlist (in src/backend/optimizer/util/plancat.c:1905)
-  - scanNSItemForColumn (in src/backend/parser/parse_relation.c:756)
-  - attnumAttName (in src/backend/parser/parse_relation.c:3539)
+  - [SPI_fname](SPI_fname.md) (in src/backend/executor/spi.c:1214)
+  - [SPI_getvalue](SPI_getvalue.md) (in src/backend/executor/spi.c:1244)
+  - [build_index_tlist](../b/build_index_tlist.md) (in src/backend/optimizer/util/plancat.c:1905)
+  - [scanNSItemForColumn](../s/scanNSItemForColumn.md) (in src/backend/parser/parse_relation.c:756)
+  - [attnumAttName](../a/attnumAttName.md) (in src/backend/parser/parse_relation.c:3539)
 
 ## Notes and Other Information
 - System attributes are defined as static FormData_pg_attribute structures (a1-a6) representing ctid, xmin, cmin, xmax, cmax, and tableoid

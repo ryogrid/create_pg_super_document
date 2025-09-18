@@ -21,13 +21,13 @@ The function implements a simple but effective invalidation strategy: it resets 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_seq_init
-  - hash_seq_search
+  - [hash_seq_init](../h/hash_seq_init.md)
+  - [hash_seq_search](../h/hash_seq_search.md)
   - HASH_SEQ_STATUS (type)
-  - OprProofCacheEntry (type)
+  - [OprProofCacheEntry](../O/OprProofCacheEntry.md) (type)
 - Called from (representative examples):
   - iterate_end (predtest.c:112)
-  - lookup_proof_cache (predtest.c:2129)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md) (predtest.c:2129)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's predicate testing subsystem located in predtest.c

@@ -22,12 +22,12 @@ The function implements a critical safety check by refusing to create restart po
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - XLogHaveInvalidPages
+  - [XLogHaveInvalidPages](../X/XLogHaveInvalidPages.md)
   - elog (DEBUG2 level)
   - SpinLockAcquire/SpinLockRelease
   - CheckPoint (structure)
 - Called from (representative examples):
-  - xlog_redo (when processing XLOG_CHECKPOINT_SHUTDOWN and XLOG_CHECKPOINT_ONLINE records)
+  - [xlog_redo](../x/xlog_redo.md) (when processing XLOG_CHECKPOINT_SHUTDOWN and XLOG_CHECKPOINT_ONLINE records)
 
 ## Notes and Other Information
 - This function is executed by the startup process during recovery, while CreateRestartPoint is executed by the checkpointer process

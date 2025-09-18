@@ -18,12 +18,12 @@ get_index_am_oid is a specialized wrapper function that provides type-safe looku
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_am_type_oid: Internal worker function for access method lookup
+  - [get_am_type_oid](get_am_type_oid.md): Internal worker function for access method lookup
   - AMTYPE_INDEX: Constant defining the index access method type
 - Called from (representative examples):
-  - get_object_address_opcf: Object address resolution for operator classes/families
-  - DefineOpFamily: Operator family definition processing
-  - transformIndexConstraint: Index constraint transformation in parser
+  - [get_object_address_opcf](get_object_address_opcf.md): Object address resolution for operator classes/families
+  - [DefineOpFamily](../D/DefineOpFamily.md): Operator family definition processing
+  - [transformIndexConstraint](../t/transformIndexConstraint.md): Index constraint transformation in parser
 
 ## Notes and Other Information
 - Provides type-safe interface specifically for index access methods

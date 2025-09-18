@@ -20,13 +20,13 @@ This function is essential for iterating through all tuples that hash to the sam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address
+  - [dsa_get_address](../d/dsa_get_address.md)
 - Data types used:
-  - HashJoinTable
-  - HashJoinTuple
+  - [HashJoinTable](../H/HashJoinTable.md)
+  - [HashJoinTuple](../H/HashJoinTuple.md)
 - Called from (representative examples):
-  - ExecParallelScanHashBucket
-  - ExecParallelScanHashTableForUnmatched
+  - [ExecParallelScanHashBucket](ExecParallelScanHashBucket.md)
+  - [ExecParallelScanHashTableForUnmatched](ExecParallelScanHashTableForUnmatched.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance in tuple scanning loops

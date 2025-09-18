@@ -30,15 +30,15 @@ The skipjunk parameter controls whether resjunk columns are included in the fina
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecCleanTargetListLength (for counting non-junk entries)
-  - ExecTargetListLength (for counting all entries)
-  - CreateTemplateTupleDesc (for creating the empty descriptor template)
-  - TupleDescInitEntry (for initializing each attribute entry)
-  - TupleDescInitEntryCollation (for setting collation information)
+  - [ExecCleanTargetListLength](ExecCleanTargetListLength.md) (for counting non-junk entries)
+  - [ExecTargetListLength](ExecTargetListLength.md) (for counting all entries)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (for creating the empty descriptor template)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (for initializing each attribute entry)
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md) (for setting collation information)
   - exprType, exprTypmod, exprCollation (for extracting type information from expressions)
 - Called from (representative examples):
-  - ExecTypeFromTL (with skipjunk=false)
-  - ExecCleanTypeFromTL (with skipjunk=true)
+  - [ExecTypeFromTL](ExecTypeFromTL.md) (with skipjunk=false)
+  - [ExecCleanTypeFromTL](ExecCleanTypeFromTL.md) (with skipjunk=true)
 
 ## Notes and Other Information
 - This is a static function, not exposed outside of execTuples.c

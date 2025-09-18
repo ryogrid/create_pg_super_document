@@ -23,10 +23,10 @@ _WriteLOData is a specialized function used by the null archive format to handle
 - Functions called/Symbols referenced:
   - createPQExpBuffer (PostgreSQL buffer creation)
   - appendByteaLiteralAHX (converts binary to bytea literal)
-  - ahprintf (formatted output to archive)
+  - [ahprintf](../a/ahprintf.md) (formatted output to archive)
   - destroyPQExpBuffer (buffer cleanup)
 - Called from (representative examples):
-  - _StartLO (sets this as the active WriteData function)
+  - [_StartLO](../S/_StartLO.md) (sets this as the active WriteData function)
 
 ## Notes and Other Information
 - This function is specific to the null archive format implementation

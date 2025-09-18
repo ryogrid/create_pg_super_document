@@ -29,12 +29,12 @@ This design allows parallel operations to maintain consistent progress reporting
   - IsParallelWorker (function)
   - pq_beginmessage (function)
   - PqMsg_Progress (message type constant)
-  - pq_sendint32 (function)
-  - pq_sendint64 (function)
-  - pq_endmessage (function)
-  - pgstat_progress_incr_param (function)
+  - [pq_sendint32](pq_sendint32.md) (function)
+  - [pq_sendint64](pq_sendint64.md) (function)
+  - [pq_endmessage](pq_endmessage.md) (function)
+  - [pgstat_progress_incr_param](pgstat_progress_incr_param.md) (function)
 - Called from (representative examples):
-  - parallel_vacuum_process_one_index (parallel VACUUM operations)
+  - [parallel_vacuum_process_one_index](parallel_vacuum_process_one_index.md) (parallel VACUUM operations)
 
 ## Notes and Other Information
 - Uses a static StringInfoData buffer for message construction to avoid repeated memory allocations

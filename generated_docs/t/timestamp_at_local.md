@@ -22,7 +22,7 @@ The existence of this wrapper is necessitated by PostgreSQL's grammar requiremen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timestamp_timestamptz (actual conversion function)
+  - [timestamp_timestamptz](timestamp_timestamptz.md) (actual conversion function)
 - Called from:
   - SQL queries using the AT LOCAL syntax with timestamp input
 

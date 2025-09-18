@@ -21,9 +21,9 @@ The  function performs a controlled release of resources associated with an SMgr
   - MAX_FORKNUM (maximum fork number constant)
   - InvalidBlockNumber (constant used to reset cached values)
 - Called from (representative examples):
-  - smgrclose
-  - smgrreleaseall
-  - smgrreleaserellocator
+  - [smgrclose](smgrclose.md)
+  - [smgrreleaseall](smgrreleaseall.md)
+  - [smgrreleaserellocator](smgrreleaserellocator.md)
   - SmgrIsTemp
 
 ## Notes and Other Information

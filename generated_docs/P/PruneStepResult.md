@@ -35,17 +35,17 @@ The bound_offsets field is the core result, containing a bitmap where each bit c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Bitmapset (PostgreSQL bitmap data structure)
+  - [Bitmapset](../B/Bitmapset.md) (PostgreSQL bitmap data structure)
 
 - Called from (representative examples):
-  - get_matching_partitions
-  - get_steps_using_prefix_recurse
-  - get_matching_hash_bounds
-  - get_matching_list_bounds
-  - get_matching_range_bounds
-  - get_partkey_exec_paramids
-  - perform_pruning_base_step
-  - perform_pruning_combine_step
+  - [get_matching_partitions](../g/get_matching_partitions.md)
+  - [get_steps_using_prefix_recurse](../g/get_steps_using_prefix_recurse.md)
+  - [get_matching_hash_bounds](../g/get_matching_hash_bounds.md)
+  - [get_matching_list_bounds](../g/get_matching_list_bounds.md)
+  - [get_matching_range_bounds](../g/get_matching_range_bounds.md)
+  - [get_partkey_exec_paramids](../g/get_partkey_exec_paramids.md)
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md)
+  - [perform_pruning_combine_step](../p/perform_pruning_combine_step.md)
 
 ## Notes and Other Information
 - This structure is the fundamental result type returned by partition pruning operations, providing a standardized way to represent which partitions should be scanned

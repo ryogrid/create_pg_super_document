@@ -24,13 +24,13 @@ The function is designed as a 'can't-happen' case handler, as noted in the comme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_fatal (implicitly called, terminates program)
+  - [pg_fatal](../p/pg_fatal.md) (implicitly called, terminates program)
 - Called from (representative examples):
-  - GetCopyDataEnd
-  - GetCopyDataByte
-  - GetCopyDataString
-  - GetCopyDataUInt64
-  - ReceiveArchiveStreamChunk
+  - [GetCopyDataEnd](../G/GetCopyDataEnd.md)
+  - [GetCopyDataByte](../G/GetCopyDataByte.md)
+  - [GetCopyDataString](../G/GetCopyDataString.md)
+  - [GetCopyDataUInt64](../G/GetCopyDataUInt64.md)
+  - [ReceiveArchiveStreamChunk](ReceiveArchiveStreamChunk.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_basebackup.c compilation unit

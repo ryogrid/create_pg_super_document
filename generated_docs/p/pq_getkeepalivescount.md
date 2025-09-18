@@ -23,10 +23,10 @@ The function implements a caching mechanism to avoid repeated system calls - it 
 - Functions called/Symbols referenced:
   - getsockopt (system call to retrieve socket options)
   - ereport (PostgreSQL error reporting function)
-  - errmsg (PostgreSQL error message formatting)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message formatting)
 - Called from (representative examples):
-  - pq_setkeepalivescount
-  - show_tcp_keepalives_count
+  - [pq_setkeepalivescount](pq_setkeepalivescount.md)
+  - [show_tcp_keepalives_count](../s/show_tcp_keepalives_count.md)
 
 ## Notes and Other Information
 - The function is only functional when TCP_KEEPCNT is defined at compile time

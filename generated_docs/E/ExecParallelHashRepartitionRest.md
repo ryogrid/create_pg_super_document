@@ -27,18 +27,18 @@ This cooperative repartitioning allows multiple parallel workers to efficiently 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dsa_get_address (shared memory address resolution)
+  - [dsa_get_address](../d/dsa_get_address.md) (shared memory address resolution)
   - NthParallelHashJoinBatch (batch accessor function)
-  - sts_attach, sts_begin_parallel_scan, sts_parallel_scan_next, sts_end_parallel_scan (shared tuplestore operations)
+  - [sts_attach](../s/sts_attach.md), sts_begin_parallel_scan, sts_parallel_scan_next, sts_end_parallel_scan (shared tuplestore operations)
   - ParallelHashJoinBatchInner (batch inner structure accessor)
-  - ExecHashGetBucketAndBatch (hash-to-bucket/batch mapping)
-  - sts_puttuple (tuple storage to disk)
+  - [ExecHashGetBucketAndBatch](ExecHashGetBucketAndBatch.md) (hash-to-bucket/batch mapping)
+  - [sts_puttuple](../s/sts_puttuple.md) (tuple storage to disk)
   - palloc0_array, pfree (memory management)
   - CHECK_FOR_INTERRUPTS (interruption handling)
   - HJTUPLE_OVERHEAD, MAXALIGN (tuple size calculations)
 
 - Called from (representative examples):
-  - ExecParallelHashIncreaseNumBatches
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md)
 
 ## Notes and Other Information
 - This function complements ExecParallelHashRepartitionFirst by handling disk-based batches while the former handles memory-resident batch 0

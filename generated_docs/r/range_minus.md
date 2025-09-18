@@ -21,8 +21,8 @@ The range_minus function is a PostgreSQL built-in function that implements the r
 - Functions called/Symbols referenced:
   - PG_GETARG_RANGE_P
   - RangeTypeGetOid
-  - range_get_typcache
-  - range_minus_internal
+  - [range_get_typcache](range_get_typcache.md)
+  - [range_minus_internal](range_minus_internal.md)
   - PG_RETURN_RANGE_P
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)

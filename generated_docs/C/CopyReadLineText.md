@@ -19,7 +19,7 @@ The function uses an optimized approach by processing input in chunks when possi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyLoadInputBuf: Loads more data into the input buffer when needed
+  - [CopyLoadInputBuf](CopyLoadInputBuf.md): Loads more data into the input buffer when needed
   - appendBinaryStringInfo: Efficiently appends binary data to the line buffer
   - REFILL_LINEBUF: Macro that transfers pending data from input buffer to line buffer
   - IF_NEED_REFILL_AND_NOT_EOF_CONTINUE: Macro for conditional data loading and loop continuation
@@ -27,7 +27,7 @@ The function uses an optimized approach by processing input in chunks when possi
   - NO_END_OF_COPY_GOTO: Macro for handling invalid end-of-copy sequences in CSV mode
   - EOL_NL, EOL_CR, EOL_CRNL, EOL_UNKNOWN: End-of-line type constants
 - Called from (representative examples):
-  - CopyReadLine: Higher-level line reading wrapper that handles EOL stripping
+  - [CopyReadLine](CopyReadLine.md): Higher-level line reading wrapper that handles EOL stripping
   - NO_END_OF_COPY_GOTO: Error recovery mechanism for invalid end-of-copy sequences
 
 ## Notes and Other Information

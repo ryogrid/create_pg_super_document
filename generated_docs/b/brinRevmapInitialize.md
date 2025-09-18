@@ -25,23 +25,23 @@ The function performs the following key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffer
-  - LockBuffer  
-  - BufferGetPage
-  - PageGetContents
-  - palloc
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)  
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageGetContents](../P/PageGetContents.md)
+  - [palloc](../p/palloc.md)
 - Types referenced:
-  - BrinRevmap
-  - BrinMetaPageData
+  - [BrinRevmap](../B/BrinRevmap.md)
+  - [BrinMetaPageData](../B/BrinMetaPageData.md)
   - BRIN_METAPAGE_BLKNO
   - BUFFER_LOCK_SHARE
   - BUFFER_LOCK_UNLOCK
 - Called from:
-  - initialize_brin_insertstate
-  - brinbeginscan
-  - brinbuild
-  - brinsummarize
-  - brinRevmapDesummarizeRange
+  - [initialize_brin_insertstate](../i/initialize_brin_insertstate.md)
+  - [brinbeginscan](brinbeginscan.md)
+  - [brinbuild](brinbuild.md)
+  - [brinsummarize](brinsummarize.md)
+  - [brinRevmapDesummarizeRange](brinRevmapDesummarizeRange.md)
 
 ## Notes and Other Information
 - The returned BrinRevmap object must be freed using brinRevmapTerminate when no longer needed

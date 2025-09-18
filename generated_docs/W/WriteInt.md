@@ -21,10 +21,10 @@ WriteInt is a fundamental serialization function in pg_dump's archiver that writ
   - AH->WriteBytePtr (function pointer for writing single bytes)
   - AH->intSize (archive handle member specifying integer size)
 - Called from (representative examples):
-  - WriteStr (for string length serialization)
-  - WriteToc (for table of contents serialization)
-  - WriteHead (for archive header serialization)
-  - _StartData, _EndData, _StartLO, _EndLO (archive section markers)
+  - [WriteStr](WriteStr.md) (for string length serialization)
+  - [WriteToc](WriteToc.md) (for table of contents serialization)
+  - [WriteHead](WriteHead.md) (for archive header serialization)
+  - [_StartData](../S/_StartData.md), _EndData, _StartLO, _EndLO (archive section markers)
   - appendByteaLiteralAHX (for bytea literal handling)
 
 ## Notes and Other Information

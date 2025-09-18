@@ -25,9 +25,9 @@ The function operates efficiently by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - utf_charcheck
+  - [utf_charcheck](../u/utf_charcheck.md)
 - Called from (representative examples):
-  - mbvalidate
+  - [mbvalidate](mbvalidate.md)
 
 ## Notes and Other Information
 - Performs in-place modification of the input string

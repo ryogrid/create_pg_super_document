@@ -55,15 +55,15 @@ The structure is populated by save_backend_variables() in the parent process and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClientSocket
-  - InheritableSocket
+  - [ClientSocket](../C/ClientSocket.md)
+  - [InheritableSocket](../I/InheritableSocket.md)
   - MAXPGPATH
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - save_backend_variables
-  - read_backend_variables
-  - restore_backend_variables
-  - internal_forkexec
+  - [save_backend_variables](../s/save_backend_variables.md)
+  - [read_backend_variables](../r/read_backend_variables.md)
+  - [restore_backend_variables](../r/restore_backend_variables.md)
+  - [internal_forkexec](../i/internal_forkexec.md)
 
 ## Notes and Other Information
 - Contains platform-specific fields for Windows and Unix systems

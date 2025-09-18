@@ -25,13 +25,13 @@ This optimization is particularly important during bulk data loading as it preve
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _becomeUser (switches to specified user)
+  - [_becomeUser](../b/_becomeUser.md) (switches to specified user)
   - pg_log_info (logs information message)
-  - ahprintf (outputs SQL command)
-  - fmtQualifiedId (formats schema-qualified table name)
-  - RestoreOptions (accesses restore configuration)
+  - [ahprintf](../a/ahprintf.md) (outputs SQL command)
+  - [fmtQualifiedId](../f/fmtQualifiedId.md) (formats schema-qualified table name)
+  - [RestoreOptions](../R/RestoreOptions.md) (accesses restore configuration)
 - Called from (representative examples):
-  - restore_toc_entry (during data loading phase)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (during data loading phase)
 
 ## Notes and Other Information
 - Only executes during data-only restores when disable_triggers option is set

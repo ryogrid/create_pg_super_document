@@ -30,18 +30,18 @@ If a `deptype` filter is specified, only sequences with that exact dependency ty
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_depend
   - DEPENDENCY_AUTO
   - DEPENDENCY_INTERNAL
-  - get_rel_relkind
+  - [get_rel_relkind](get_rel_relkind.md)
   - RELKIND_SEQUENCE
   - lappend_oid
 - Called from (representative examples):
-  - getOwnedSequences
-  - getIdentitySequence
+  - [getOwnedSequences](getOwnedSequences.md)
+  - [getIdentitySequence](getIdentitySequence.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_depend.c file

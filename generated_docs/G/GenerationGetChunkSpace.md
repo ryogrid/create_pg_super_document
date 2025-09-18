@@ -31,9 +31,9 @@ The function is essential for memory accounting, debugging, and optimization ana
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk - converts pointer to chunk header
-  - MemoryChunkIsExternal - determines chunk allocation type
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md) - determines chunk allocation type
   - ExternalChunkGetBlock - retrieves block for external chunks
-  - MemoryChunkGetValue - gets stored size for internal chunks
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md) - gets stored size for internal chunks
   - GenerationBlockIsValid - validates block structure integrity
   - VALGRIND_MAKE_MEM_DEFINED / VALGRIND_MAKE_MEM_NOACCESS - memory access control
 - Called from:

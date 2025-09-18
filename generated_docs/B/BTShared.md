@@ -32,14 +32,14 @@ The structure includes a condition variable for synchronizing worker completion 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ConditionVariable
-  - slock_t
+  - [slock_t](../s/slock_t.md)
 - Called from (representative examples):
-  - BTLeader
-  - _bt_begin_parallel
-  - _bt_parallel_estimate_shared
-  - _bt_parallel_heapscan
-  - _bt_parallel_build_main
-  - _bt_parallel_scan_and_sort
+  - [BTLeader](BTLeader.md)
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
+  - [_bt_parallel_estimate_shared](../b/_bt_parallel_estimate_shared.md)
+  - [_bt_parallel_heapscan](../b/_bt_parallel_heapscan.md)
+  - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
 
 ## Notes and Other Information
 BTShared is designed specifically for parallel index builds and contains a separate tuplesort TOC entry that is private to tuplesort.c but allocated by the nbtsort module. The structure layout ensures that ParallelTableScanDescData follows immediately after, with consideration for alignment requirements of the parallel table scan descriptor interface. The mutable state fields are only safe to access after all workers have indicated completion through the workersdonecv condition variable.

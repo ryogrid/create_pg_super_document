@@ -22,14 +22,14 @@ The function works by obtaining a fresh catalog snapshot and using it to test tu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecFetchSlotHeapTuple (for tuple validation)
-  - GetCatalogSnapshot (to obtain fresh snapshot)
+  - [ExecFetchSlotHeapTuple](../E/ExecFetchSlotHeapTuple.md) (for tuple validation)
+  - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (to obtain fresh snapshot)
   - RelationGetRelid (to get relation OID)
   - table_tuple_satisfies_snapshot (for visibility testing)
-  - HandleConcurrentAbort (concurrent abort handling)
+  - [HandleConcurrentAbort](../H/HandleConcurrentAbort.md) (concurrent abort handling)
 - Called from (representative examples):
-  - findDependentObjects
-  - shdepDropOwned
+  - [findDependentObjects](../f/findDependentObjects.md)
+  - [shdepDropOwned](shdepDropOwned.md)
   - IndexScanIsValid
 
 ## Notes and Other Information

@@ -18,19 +18,19 @@ This function is designed for marking buffers dirty when making non-critical cha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage, BufferIsValid, BufferIsLocal
+  - [BufferGetPage](../B/BufferGetPage.md), BufferIsValid, BufferIsLocal
   - MarkLocalBufferDirty, GetBufferDescriptor
-  - GetPrivateRefCount, LWLockHeldByMe, BufferDescriptorGetContentLock
-  - pg_atomic_read_u32, XLogHintBitIsNeeded
-  - RecoveryInProgress, RelFileLocatorSkippingWAL, BufTagGetRelFileLocator  
-  - XLogSaveBufferForHint, LockBufHdr, UnlockBufHdr
-  - PageSetLSN, XLogRecPtrIsInvalid
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md), LWLockHeldByMe, BufferDescriptorGetContentLock
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md), XLogHintBitIsNeeded
+  - [RecoveryInProgress](../R/RecoveryInProgress.md), RelFileLocatorSkippingWAL, BufTagGetRelFileLocator  
+  - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md), LockBufHdr, UnlockBufHdr
+  - [PageSetLSN](../P/PageSetLSN.md), XLogRecPtrIsInvalid
   - Various buffer state flags (BM_DIRTY, BM_JUST_DIRTIED, BM_PERMANENT)
 - Called from (representative examples):
-  - SetHintBits (heap visibility operations)
-  - _bt_killitems (B-tree index cleanup)
-  - gistkillitems (GiST index cleanup) 
-  - heap_page_prune_and_freeze (heap maintenance)
+  - [SetHintBits](../S/SetHintBits.md) (heap visibility operations)
+  - [_bt_killitems](../b/_bt_killitems.md) (B-tree index cleanup)
+  - [gistkillitems](../g/gistkillitems.md) (GiST index cleanup) 
+  - [heap_page_prune_and_freeze](../h/heap_page_prune_and_freeze.md) (heap maintenance)
   - Free space map operations (fsm_set_and_search, fsm_vacuum_page)
 
 ## Notes and Other Information

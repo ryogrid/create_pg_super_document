@@ -26,14 +26,14 @@ If all validation passes, it delegates to pqConnectDBStart() to begin the actual
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - libpq_append_conn_error
-  - pqConnectDBStart
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
+  - [pqConnectDBStart](../p/pqConnectDBStart.md)
   - CONNECTION_BAD (status constant)
   - CONNECTION_ALLOCATED (status constant)
 - Called from (representative examples):
-  - PQcancelBlocking (src/interfaces/libpq/fe-cancel.c:174)
-  - libpqsrv_cancel (src/include/libpq/libpq-be-fe-helpers.h:399)
-  - test_cancel (src/test/modules/libpq_pipeline/libpq_pipeline.c:296)
+  - [PQcancelBlocking](PQcancelBlocking.md) (src/interfaces/libpq/fe-cancel.c:174)
+  - [libpqsrv_cancel](../l/libpqsrv_cancel.md) (src/include/libpq/libpq-be-fe-helpers.h:399)
+  - [test_cancel](../t/test_cancel.md) (src/test/modules/libpq_pipeline/libpq_pipeline.c:296)
 
 ## Notes and Other Information
 - Returns 1 if the cancellation process was successfully initiated, 0 on failure

@@ -21,10 +21,10 @@ The function is designed to be used as a callback in the BaseBackupTargetType st
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (PostgreSQL error reporting)
-  - errcode, errmsg (error code and message macros)
+  - [errcode](../e/errcode.md), errmsg (error code and message macros)
   - ERRCODE_SYNTAX_ERROR, ERROR (PostgreSQL error constants)
 - Called from (representative examples):
-  - BaseBackupTargetHandle (via function pointer in target type structure)
+  - [BaseBackupTargetHandle](../B/BaseBackupTargetHandle.md) (via function pointer in target type structure)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the basebackup_target.c file

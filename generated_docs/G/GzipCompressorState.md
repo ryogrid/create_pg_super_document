@@ -23,10 +23,10 @@ The structure is designed to work with the zlib library (when HAVE_LIBZ is defin
 - Functions called/Symbols referenced:
   - z_streamp (from zlib library)
 - Called from (representative examples):
-  - DeflateCompressorInit (initializes the structure)
-  - DeflateCompressorEnd (cleans up the structure)
-  - DeflateCompressorCommon (uses the structure during compression)
-  - WriteDataToArchiveGzip (accesses the structure for data compression)
+  - [DeflateCompressorInit](../D/DeflateCompressorInit.md) (initializes the structure)
+  - [DeflateCompressorEnd](../D/DeflateCompressorEnd.md) (cleans up the structure)
+  - [DeflateCompressorCommon](../D/DeflateCompressorCommon.md) (uses the structure during compression)
+  - [WriteDataToArchiveGzip](../W/WriteDataToArchiveGzip.md) (accesses the structure for data compression)
 
 ## Notes and Other Information
 - This structure is only available when PostgreSQL is compiled with zlib support (HAVE_LIBZ)

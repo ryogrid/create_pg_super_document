@@ -24,12 +24,12 @@ The function provides a complete string conversion solution, unlike `pg_ultoa_n`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultoa_n (performs the actual unsigned integer to string conversion)
+  - [pg_ultoa_n](pg_ultoa_n.md) (performs the actual unsigned integer to string conversion)
 - Called from (representative examples):
-  - printsimple (for debug output formatting)
-  - int4out (converts int32 to string for PostgreSQL output)
-  - executeItemOptUnwrapTarget (in JSON path execution contexts)
-  - pg_itoa (uses pg_ltoa as implementation for 16-bit integers)
+  - [printsimple](printsimple.md) (for debug output formatting)
+  - [int4out](../i/int4out.md) (converts int32 to string for PostgreSQL output)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (in JSON path execution contexts)
+  - [pg_itoa](pg_itoa.md) (uses pg_ltoa as implementation for 16-bit integers)
 
 ## Notes and Other Information
 - The output string IS null-terminated, making it suitable for standard C string operations

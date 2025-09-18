@@ -19,11 +19,11 @@ The `point_send` function is responsible for serializing Point data into Postgre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Point` - PostgreSQL's 2D point data structure
+  - `[Point](../P/Point.md)` - PostgreSQL's 2D point data structure
   - `PG_GETARG_POINT_P` - Macro for extracting Point argument from PostgreSQL function call
-  - `pq_begintypsend` - Initialize binary output buffer for type serialization
-  - `pq_sendfloat8` - Write float8 value to binary output buffer  
-  - `pq_endtypsend` - Finalize binary output buffer and return bytea
+  - `[pq_begintypsend](pq_begintypsend.md)` - [Initialize](../I/Initialize.md) binary output buffer for type serialization
+  - `[pq_sendfloat8](pq_sendfloat8.md)` - Write float8 value to binary output buffer  
+  - `[pq_endtypsend](pq_endtypsend.md)` - Finalize binary output buffer and return bytea
   - `PG_RETURN_BYTEA_P` - Macro for returning bytea data from PostgreSQL functions
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system)

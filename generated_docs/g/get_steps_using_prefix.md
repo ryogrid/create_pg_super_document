@@ -28,13 +28,13 @@ When the prefix is empty (single partition key case), it directly generates a si
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gen_prune_step_op
-  - get_steps_using_prefix_recurse
+  - [gen_prune_step_op](gen_prune_step_op.md)
+  - [get_steps_using_prefix_recurse](get_steps_using_prefix_recurse.md)
   - list_make1
   - list_make1_oid
   - list_head
 - Called from:
-  - gen_prune_steps_from_opexps (multiple locations)
+  - [gen_prune_steps_from_opexps](gen_prune_steps_from_opexps.md) (multiple locations)
 
 ## Notes and Other Information
 The function includes important assertions to ensure correct usage based on partitioning strategy. For HASH partitioned tables, step_nullkeys provides a mechanism to handle missing clauses for certain partition keys, which is essential for hash partitioning semantics. The prefix list must be properly sorted by keyno to ensure correct step generation. This function is crucial for multi-column partition key pruning optimization.

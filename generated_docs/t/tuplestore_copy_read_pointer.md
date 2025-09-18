@@ -25,8 +25,8 @@ This function copies all the state information from a source read pointer to a d
   - BufFileSeek
   - BufFileTell
 - Called from (representative examples):
-  - ExecMaterialMarkPos
-  - ExecMaterialRestrPos
+  - [ExecMaterialMarkPos](../E/ExecMaterialMarkPos.md)
+  - [ExecMaterialRestrPos](../E/ExecMaterialRestrPos.md)
 
 ## Notes and Other Information
 - The function performs validation to ensure both pointer indices are within valid range

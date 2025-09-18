@@ -30,18 +30,18 @@ The function handles special cases like "raw scalar" pseudo-arrays and ensures c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbIteratorInit (initializes JSONB iteration)
-  - JsonbIteratorNext (advances iterator and gets next value)
-  - compareJsonbScalarValue (compares scalar JSONB values)
-  - pfree (PostgreSQL memory deallocation)
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md) (initializes JSONB iteration)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md) (advances iterator and gets next value)
+  - [compareJsonbScalarValue](compareJsonbScalarValue.md) (compares scalar JSONB values)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - elog (error logging)
 - Called from (representative examples):
-  - jsonb_eq (equality operator)
-  - jsonb_lt (less-than operator)
-  - jsonb_gt (greater-than operator)
-  - jsonb_le (less-than-or-equal operator)
-  - jsonb_ge (greater-than-or-equal operator)
-  - jsonb_cmp (comparison function)
+  - [jsonb_eq](../j/jsonb_eq.md) (equality operator)
+  - [jsonb_lt](../j/jsonb_lt.md) (less-than operator)
+  - [jsonb_gt](../j/jsonb_gt.md) (greater-than operator)
+  - [jsonb_le](../j/jsonb_le.md) (less-than-or-equal operator)
+  - [jsonb_ge](../j/jsonb_ge.md) (greater-than-or-equal operator)
+  - [jsonb_cmp](../j/jsonb_cmp.md) (comparison function)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

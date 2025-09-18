@@ -33,13 +33,13 @@ The function processes the input string character by character, using a fast pat
   - strnlen
   - IS_HIGHBIT_SET
   - SQL_STR_DOUBLE
-  - pg_encoding_mblen_or_incomplete
-  - pg_encoding_verifymbchar
-  - pg_encoding_set_invalid
-  - libpq_append_conn_error
+  - [pg_encoding_mblen_or_incomplete](../p/pg_encoding_mblen_or_incomplete.md)
+  - [pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)
+  - [pg_encoding_set_invalid](../p/pg_encoding_set_invalid.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
-  - PQescapeStringConn
-  - PQescapeString
+  - [PQescapeStringConn](PQescapeStringConn.md)
+  - [PQescapeString](PQescapeString.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public libpq API

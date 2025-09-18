@@ -23,12 +23,12 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGdo (ECPG runtime function for SQL execution)
+  - [ECPGdo](../E/ECPGdo.md) (ECPG runtime function for SQL execution)
   - printf (standard C library function)
-  - sqlprint (ECPG error printing function)
+  - [sqlprint](../s/sqlprint.md) (ECPG error printing function)
   
 - Called from (representative examples):
-  - main (multiple times throughout the test program at various line numbers: 128, 144, 174, 201, 228, 255, 282, 309, 362, 399, 436, 473, 510, 541, 572, 607, 642)
+  - [main](../m/main.md) (multiple times throughout the test program at various line numbers: 128, 144, 174, 201, 228, 255, 282, 309, 362, 399, 436, 473, 510, 541, 572, 607, 642)
 
 ## Notes and Other Information
 - This is a test-specific function located in the ECPG test expected output file

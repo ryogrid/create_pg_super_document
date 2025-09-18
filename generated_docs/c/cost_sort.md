@@ -33,19 +33,19 @@ This is the primary interface used throughout the PostgreSQL query planner for e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - cost_tuplesort
+  - [cost_tuplesort](cost_tuplesort.md)
   - Cost (type)
   - enable_sort (global parameter)
   - disable_cost (global parameter)
 - Called from (representative examples):
-  - cost_append
-  - create_sort_path
-  - create_merge_append_path
-  - create_unique_path
-  - create_gather_merge_path
-  - create_groupingsets_path
-  - initial_cost_mergejoin
-  - choose_hashed_setop
+  - [cost_append](cost_append.md)
+  - [create_sort_path](create_sort_path.md)
+  - [create_merge_append_path](create_merge_append_path.md)
+  - [create_unique_path](create_unique_path.md)
+  - [create_gather_merge_path](create_gather_merge_path.md)
+  - [create_groupingsets_path](create_groupingsets_path.md)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md)
+  - [choose_hashed_setop](choose_hashed_setop.md)
 
 ## Notes and Other Information
 - Currently ignores pathkeys parameter, but designed to handle it gracefully for future enhancements

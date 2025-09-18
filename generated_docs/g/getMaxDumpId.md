@@ -21,8 +21,8 @@ This function provides read-only access to the current maximum DumpId value by r
 - Data structures used:
   - DumpId (return type)
 - Called from (representative examples):
-  - TopoSort (src/bin/pg_dump/pg_dump_sort.c:602)
-  - findDependencyLoops (src/bin/pg_dump/pg_dump_sort.c:776-777)
+  - [TopoSort](../T/TopoSort.md) (src/bin/pg_dump/pg_dump_sort.c:602)
+  - [findDependencyLoops](../f/findDependencyLoops.md) (src/bin/pg_dump/pg_dump_sort.c:776-777)
 
 ## Notes and Other Information
 - Simple getter function that returns the current value of lastDumpId

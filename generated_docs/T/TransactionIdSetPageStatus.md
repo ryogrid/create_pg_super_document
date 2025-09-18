@@ -31,9 +31,9 @@ The group update optimization is particularly beneficial in high-concurrency sce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md)
   - LWLockConditionalAcquire
-  - TransactionIdSetPageStatusInternal
+  - [TransactionIdSetPageStatusInternal](TransactionIdSetPageStatusInternal.md)
   - TransactionGroupUpdateXidStatus
   - LWLockAcquire
   - LWLockRelease
@@ -41,8 +41,8 @@ The group update optimization is particularly beneficial in high-concurrency sce
   - THRESHOLD_SUBTRANS_CLOG_OPT
   - PGPROC_MAX_CACHED_SUBXIDS
 - Called from (representative examples):
-  - TransactionIdSetTreeStatus
-  - set_status_by_pages
+  - [TransactionIdSetTreeStatus](TransactionIdSetTreeStatus.md)
+  - [set_status_by_pages](../s/set_status_by_pages.md)
 
 ## Notes and Other Information
 - This is a static function intended for internal use within the CLOG subsystem

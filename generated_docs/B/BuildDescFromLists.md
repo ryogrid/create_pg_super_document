@@ -29,16 +29,16 @@ No constraints are generated for the resulting tuple descriptor, making it suita
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CreateTemplateTupleDesc (creates empty tuple descriptor)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) (creates empty tuple descriptor)
   - forfour (macro for parallel iteration over four lists)
-  - TupleDescInitEntry (initializes individual attribute entries)
-  - TupleDescInitEntryCollation (sets collation for attributes)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md) (initializes individual attribute entries)
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md) (sets collation for attributes)
   - list_length (gets list length)
   - strVal, lfirst_oid, lfirst_int (list access macros)
 - Called from (representative examples):
-  - ExecInitFunctionScan (function scan initialization)
-  - ExecInitTableFuncScan (table function scan initialization)
-  - inline_set_returning_function (optimizer inlining)
+  - [ExecInitFunctionScan](../E/ExecInitFunctionScan.md) (function scan initialization)
+  - [ExecInitTableFuncScan](../E/ExecInitTableFuncScan.md) (table function scan initialization)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md) (optimizer inlining)
 
 ## Notes and Other Information
 - All four input lists must have the same length - the function asserts this condition

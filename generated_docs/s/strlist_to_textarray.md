@@ -21,17 +21,17 @@ The function operates by iterating through each list element, converting non-nul
 - Functions called/Symbols referenced:
   - AllocSetContextCreate: Creates temporary memory context for array construction
   - ALLOCSET_DEFAULT_SIZES: Default memory context size parameters
-  - construct_md_array: Core PostgreSQL function to build multidimensional arrays
+  - [construct_md_array](../c/construct_md_array.md): Core PostgreSQL function to build multidimensional arrays
   - TYPALIGN_INT: Type alignment constant for integer alignment
-  - MemoryContextDelete: Cleans up temporary memory context
+  - [MemoryContextDelete](../M/MemoryContextDelete.md): Cleans up temporary memory context
   - CStringGetTextDatum: Converts C-string to PostgreSQL TEXT datum
   - list_length: Gets the length of a PostgreSQL List
-  - MemoryContextSwitchTo: Switches memory contexts
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md): Switches memory contexts
 
 - Called from (representative examples):
   - pg_identify_object_as_address: Object identification system
-  - pg_event_trigger_dropped_objects: Event trigger handling for dropped objects
-  - fill_hba_line: Host-based authentication configuration processing
+  - [pg_event_trigger_dropped_objects](../p/pg_event_trigger_dropped_objects.md): Event trigger handling for dropped objects
+  - [fill_hba_line](../f/fill_hba_line.md): Host-based authentication configuration processing
 
 ## Notes and Other Information
 - Uses a temporary memory context to simplify memory management and avoid individual pfree() calls

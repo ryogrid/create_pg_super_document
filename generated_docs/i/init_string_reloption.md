@@ -23,15 +23,15 @@ This static function serves as a constructor for string-type relation options wi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - allocate_reloption
+  - [allocate_reloption](../a/allocate_reloption.md)
   - RELOPT_TYPE_STRING
   - RELOPT_KIND_LOCAL
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
   - TopMemoryContext
   - bits32
 - Called from (representative examples):
-  - add_string_reloption
-  - add_local_string_reloption
+  - [add_string_reloption](../a/add_string_reloption.md)
+  - [add_local_string_reloption](../a/add_local_string_reloption.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within reloptions.c

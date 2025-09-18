@@ -23,8 +23,8 @@ The structure allows plugins to specify whether they want binary or textual outp
   - OutputPluginOutputType
 - Called from (representative examples):
   - startup_cb_wrapper (src/backend/replication/logical/logical.c:793)
-  - pgoutput_startup (src/backend/replication/pgoutput/pgoutput.c:434)
-  - LogicalDecodingContext (src/include/replication/logical.h:54)
+  - [pgoutput_startup](../p/pgoutput_startup.md) (src/backend/replication/pgoutput/pgoutput.c:434)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (src/include/replication/logical.h:54)
 
 ## Notes and Other Information
 This structure is typically initialized and configured in the LogicalDecodeStartupCB callback function implemented by output plugins. The settings in this structure affect the entire lifetime of a logical decoding session and cannot be changed after the startup phase. Output plugins must carefully consider their capabilities when setting these options, as they determine the format and type of data the plugin will receive from the logical decoding system.

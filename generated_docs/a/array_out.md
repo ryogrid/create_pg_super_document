@@ -25,17 +25,17 @@ The function performs several key operations: determines if explicit dimension b
   - AARR_DIMS
   - AARR_LBOUND
   - ArrayGetNItems
-  - get_type_io_data
-  - fmgr_info_cxt
+  - [get_type_io_data](../g/get_type_io_data.md)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md)
   - array_iter_setup
   - array_iter_next
-  - OutputFunctionCall
-  - scanner_isspace
-  - MemoryContextAlloc
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)
+  - [scanner_isspace](../s/scanner_isspace.md)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from (representative examples):
-  - anyarray_out
-  - anycompatiblearray_out
-  - CATALOG (pg_type.h)
+  - [anyarray_out](anyarray_out.md)
+  - [anycompatiblearray_out](anycompatiblearray_out.md)
+  - [CATALOG](../C/CATALOG.md) (pg_type.h)
 
 ## Notes and Other Information
 The function uses an ArrayMetaState cache structure to store element type information, avoiding repeated type lookups for better performance. It handles special cases like empty strings and literal "NULL" values by forcing quotes. The function calculates exact memory requirements before constructing the output string to avoid buffer overflows. Multi-dimensional arrays include explicit dimension bounds (e.g., [1:3][1:2]) when lower bounds differ from 1. Character escaping follows PostgreSQL standards, with backslashes and double quotes being escaped with backslashes.

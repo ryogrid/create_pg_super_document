@@ -24,10 +24,10 @@ The function is designed to work even when the query contains OLD or NEW rule RT
   - RTE_RELATION (range table entry type constant)  
   - forboth (macro for iterating over two lists simultaneously)
 - Called from (representative examples):
-  - get_basic_select_query (src/backend/utils/adt/ruleutils.c:5922)
+  - [get_basic_select_query](get_basic_select_query.md) (src/backend/utils/adt/ruleutils.c:5922)
 
 ## Notes and Other Information
 - Only works with auto-generated sub-queries with restricted structure from the parser
-- DefineView might modify the target list by injecting column aliases, which this function detects
+- [DefineView](../D/DefineView.md) might modify the target list by injecting column aliases, which this function detects
 - Returns NULL if the query structure is too complex or if column names have been modified
 - Part of the PostgreSQL rule utilities for query deparsing and rule generation

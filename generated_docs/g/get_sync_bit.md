@@ -30,14 +30,14 @@ The function implements several key behaviors:
   - WAL_SYNC_METHOD_FSYNC_WRITETHROUGH
   - WAL_SYNC_METHOD_FDATASYNC
   - WAL_SYNC_METHOD_OPEN
-  - WAL_SYNC_METHOD_OPEN_DSYNC
+  - [WAL_SYNC_METHOD_OPEN_DSYNC](../W/WAL_SYNC_METHOD_OPEN_DSYNC.md)
   - O_DSYNC
 - Called from (representative examples):
   - RefreshXLogWriteResult
-  - XLogFileInitInternal
-  - XLogFileInit
-  - XLogFileOpen
-  - assign_wal_sync_method
+  - [XLogFileInitInternal](../X/XLogFileInitInternal.md)
+  - [XLogFileInit](../X/XLogFileInit.md)
+  - [XLogFileOpen](../X/XLogFileOpen.md)
+  - [assign_wal_sync_method](../a/assign_wal_sync_method.md)
 
 ## Notes and Other Information
 - The function excludes walreceiver processes from O_DIRECT usage because they perform unaligned writes and read WAL data shortly after writing

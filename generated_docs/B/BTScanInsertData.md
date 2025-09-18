@@ -30,10 +30,10 @@ The scankeys array serves as a flexible array member that contains scan key entr
 - Functions called/Symbols referenced:
   - INDEX_MAX_KEYS (constant)
   - ItemPointer (type)
-  - ScanKeyData (type)
+  - [ScanKeyData](../S/ScanKeyData.md) (type)
 - Called from (representative examples):
-  - _bt_first
-  - _bt_mkscankey
+  - [_bt_first](../b/_bt_first.md)
+  - [_bt_mkscankey](../b/_bt_mkscankey.md)
   - BTScanInsert (typedef alias)
 
 ## Notes and Other Information

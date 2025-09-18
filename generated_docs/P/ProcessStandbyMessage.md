@@ -29,13 +29,13 @@ This function takes no parameters and operates on the global reply_message buffe
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgbyte
-  - ProcessStandbyReplyMessage
-  - ProcessStandbyHSFeedbackMessage
-  - proc_exit
+  - [pq_getmsgbyte](../p/pq_getmsgbyte.md)
+  - [ProcessStandbyReplyMessage](ProcessStandbyReplyMessage.md)
+  - [ProcessStandbyHSFeedbackMessage](ProcessStandbyHSFeedbackMessage.md)
+  - [proc_exit](../p/proc_exit.md)
   - Error reporting: COMMERROR, ERRCODE_PROTOCOL_VIOLATION
 - Called from (representative examples):
-  - ProcessRepliesIfAny (at src/backend/replication/walsender.c:2294)
+  - [ProcessRepliesIfAny](ProcessRepliesIfAny.md) (at src/backend/replication/walsender.c:2294)
 
 ## Notes and Other Information
 - This is a static function within walsender.c, serving as an internal dispatcher for standby message processing

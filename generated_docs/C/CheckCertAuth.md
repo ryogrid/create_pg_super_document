@@ -26,8 +26,8 @@ The function also handles error reporting for different certificate validation s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_usermap`: Validate username mapping against certificate identity
-  - `set_authn_id`: Set the authenticated identity for logging and auditing
+  - `[check_usermap](../c/check_usermap.md)`: Validate username mapping against certificate identity
+  - `[set_authn_id](../s/set_authn_id.md)`: Set the authenticated identity for logging and auditing
   - `ereport`: Generate error messages and log entries
   - `strlen`: Check certificate identity string length
   - clientCertDN, clientCertCN: Constants defining certificate name extraction modes
@@ -39,8 +39,8 @@ The function also handles error reporting for different certificate validation s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `check_usermap`: Validates username mapping
-  - `set_authn_id`: Sets authenticated identity
+  - `[check_usermap](../c/check_usermap.md)`: Validates username mapping
+  - `[set_authn_id](../s/set_authn_id.md)`: Sets authenticated identity
   - `ereport`: Error reporting
   - Various certificate and authentication constants
 - Called from (representative examples):

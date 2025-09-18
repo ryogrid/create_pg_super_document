@@ -19,11 +19,11 @@ The function first obtains the transaction start timestamp with timezone, conver
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetCurrentTransactionStartTimestamp
-  - timestamptz2timestamp
-  - AdjustTimestampForTypmod
+  - [GetCurrentTransactionStartTimestamp](GetCurrentTransactionStartTimestamp.md)
+  - [timestamptz2timestamp](../t/timestamptz2timestamp.md)
+  - [AdjustTimestampForTypmod](../A/AdjustTimestampForTypmod.md)
 - Called from (representative examples):
-  - ExecEvalSQLValueFunction
+  - [ExecEvalSQLValueFunction](../E/ExecEvalSQLValueFunction.md)
   - TimestampTzPlusSeconds
 
 ## Notes and Other Information

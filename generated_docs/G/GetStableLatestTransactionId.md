@@ -33,10 +33,10 @@ This design ensures that functions like age(xid) get consistent results even if 
 - Functions called/Symbols referenced:
   - LocalTransactionId (type)
   - InvalidLocalTransactionId
-  - GetTopTransactionIdIfAny
+  - [GetTopTransactionIdIfAny](GetTopTransactionIdIfAny.md)
   - ReadNextTransactionId
 - Called from (representative examples):
-  - xid_age
+  - [xid_age](../x/xid_age.md)
 
 ## Notes and Other Information
 - Primary use case is supporting the age(xid) SQL function

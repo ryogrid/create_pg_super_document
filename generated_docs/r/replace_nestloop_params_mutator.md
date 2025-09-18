@@ -31,16 +31,16 @@ For all other node types, it delegates to expression_tree_mutator() to continue 
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_SPECIAL_VARNO
-  - bms_is_member
-  - replace_nestloop_param_var
-  - bms_is_subset
-  - find_placeholder_info
-  - replace_nestloop_param_placeholdervar
+  - [bms_is_member](../b/bms_is_member.md)
+  - [replace_nestloop_param_var](replace_nestloop_param_var.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [find_placeholder_info](../f/find_placeholder_info.md)
+  - [replace_nestloop_param_placeholdervar](replace_nestloop_param_placeholdervar.md)
   - expression_tree_mutator
-  - replace_nestloop_params_mutator (recursive call)
+  - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md) (recursive call)
 - Called from (representative examples):
-  - replace_nestloop_params
-  - replace_nestloop_params_mutator (recursive calls)
+  - [replace_nestloop_params](replace_nestloop_params.md)
+  - [replace_nestloop_params_mutator](replace_nestloop_params_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 This function is a critical component of PostgreSQL's nested loop join implementation. It ensures proper parameterization of outer relation references, which is essential for efficient nested loop execution. The function handles PlaceHolderVars specially, creating copies when the entire PHV cannot be replaced but its internal expressions need processing. The recursive nature allows it to handle complex nested expression structures while maintaining the correct parameter relationships. Located in src/backend/optimizer/plan/createplan.c at lines 4943-5022.

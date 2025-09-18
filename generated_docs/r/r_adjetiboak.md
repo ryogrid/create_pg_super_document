@@ -17,13 +17,13 @@ The r_adjetiboak function processes Basque adjective endings during stemming by 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_RV (region boundary test)
-  - find_among_b (suffix matching)
-  - slice_del (suffix deletion)
-  - slice_from_s (suffix replacement)
+  - [r_RV](r_RV.md) (region boundary test)
+  - [find_among_b](../f/find_among_b.md) (suffix matching)
+  - [slice_del](../s/slice_del.md) (suffix deletion)
+  - [slice_from_s](../s/slice_from_s.md) (suffix replacement)
 - Called from (representative examples):
-  - basque_ISO_8859_1_stem
-  - basque_UTF_8_stem
+  - [basque_ISO_8859_1_stem](../b/basque_ISO_8859_1_stem.md)
+  - [basque_UTF_8_stem](../b/basque_UTF_8_stem.md)
 
 ## Notes and Other Information
 This function is part of the Basque stemming algorithm and specifically handles adjective morphology. It processes 19 different adjective suffixes with simpler logic compared to noun processing (r_izenak). The function returns 1 on successful processing and 0 if no matching suffix is found. The relatively small number of patterns (19 vs 295 for nouns) reflects the simpler morphological structure of Basque adjectives compared to nouns.

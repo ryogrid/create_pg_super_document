@@ -21,14 +21,14 @@ The  structure is designed to parse TAR archive streams in pg_basebackup. It ext
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer (base structure)
-  - bbstreamer_archive_context (enumeration for chunk types)
+  - [bbstreamer](bbstreamer.md) (base structure)
+  - [bbstreamer_archive_context](bbstreamer_archive_context.md) (enumeration for chunk types)
   - bbstreamer_member (structure for member metadata)
 - Called from (representative examples):
-  - bbstreamer_tar_parser_new (constructor function)
-  - bbstreamer_tar_parser_content (content processing function)
-  - bbstreamer_tar_header (header processing function)
-  - bbstreamer_tar_parser_finalize (finalization function)
+  - [bbstreamer_tar_parser_new](bbstreamer_tar_parser_new.md) (constructor function)
+  - [bbstreamer_tar_parser_content](bbstreamer_tar_parser_content.md) (content processing function)
+  - [bbstreamer_tar_header](bbstreamer_tar_header.md) (header processing function)
+  - [bbstreamer_tar_parser_finalize](bbstreamer_tar_parser_finalize.md) (finalization function)
 
 ## Notes and Other Information
 - This structure is specifically used in src/bin/pg_basebackup/bbstreamer_tar.c:30-37

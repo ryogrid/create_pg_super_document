@@ -22,16 +22,16 @@ SPI_keepplan extends the lifetime of an SPI execution plan beyond the current pr
   - _SPI_PLAN_MAGIC
   - MemoryContextSetParent
   - CachedPlanSource
-  - SaveCachedPlan
+  - [SaveCachedPlan](SaveCachedPlan.md)
   - SPI_ERROR_ARGUMENT
 - Called from (representative examples):
-  - ri_PlanCheck (referential integrity triggers)
-  - pg_get_ruledef_worker (rule definition utilities)
-  - pg_get_viewdef_worker (view definition utilities)
-  - plperl_spi_prepare (PL/Perl language handler)
-  - PLy_spi_prepare (PL/Python language handler)
+  - [ri_PlanCheck](../r/ri_PlanCheck.md) (referential integrity triggers)
+  - [pg_get_ruledef_worker](../p/pg_get_ruledef_worker.md) (rule definition utilities)
+  - [pg_get_viewdef_worker](../p/pg_get_viewdef_worker.md) (view definition utilities)
+  - [plperl_spi_prepare](../p/plperl_spi_prepare.md) (PL/Perl language handler)
+  - [PLy_spi_prepare](../P/PLy_spi_prepare.md) (PL/Python language handler)
   - pltcl_SPI_prepare (PL/Tcl language handler)
-  - ttdummy (test regression function)
+  - [ttdummy](../t/ttdummy.md) (test regression function)
 
 ## Notes and Other Information
 - Returns 0 on success, SPI_ERROR_ARGUMENT on failure

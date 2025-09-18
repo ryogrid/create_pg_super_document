@@ -28,22 +28,22 @@ Performance statistics can be collected when  is enabled.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QueryRewrite
+  - [QueryRewrite](../Q/QueryRewrite.md)
   - elog_node_display
   - ResetUsage
   - ShowUsage
   - copyObject
-  - equal
-  - nodeToStringWithLocations
-  - stringToNodeWithLocations
+  - [equal](../e/equal.md)
+  - [nodeToStringWithLocations](../n/nodeToStringWithLocations.md)
+  - [stringToNodeWithLocations](../s/stringToNodeWithLocations.md)
   - list_make1
 - Called from (representative examples):
-  - pg_analyze_and_rewrite_fixedparams
-  - pg_analyze_and_rewrite_varparams
-  - pg_analyze_and_rewrite_withcb
-  - fmgr_sql_validator
-  - init_sql_fcache
-  - inline_set_returning_function
+  - [pg_analyze_and_rewrite_fixedparams](pg_analyze_and_rewrite_fixedparams.md)
+  - [pg_analyze_and_rewrite_varparams](pg_analyze_and_rewrite_varparams.md)
+  - [pg_analyze_and_rewrite_withcb](pg_analyze_and_rewrite_withcb.md)
+  - [fmgr_sql_validator](../f/fmgr_sql_validator.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)
+  - [inline_set_returning_function](../i/inline_set_returning_function.md)
 
 ## Notes and Other Information
 - The function assumes the input query comes directly from the parser (no AcquireRewriteLocks() is performed)

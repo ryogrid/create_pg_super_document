@@ -22,7 +22,7 @@ The `float4div` function is a PostgreSQL fmgr-compatible function that divides t
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_FLOAT4 (macro to extract float4 arguments)
-  - float4_div (inline helper function that performs the actual division with comprehensive error checking)
+  - [float4_div](float4_div.md) (inline helper function that performs the actual division with comprehensive error checking)
   - PG_RETURN_FLOAT4 (macro to return float4 result as Datum)
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's function manager system for the '/' operator)

@@ -28,48 +28,48 @@ This function takes no parameters but operates on global transaction state, part
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShowTransactionState
-  - AfterTriggerFireDeferred
-  - PreCommit_Portals
-  - CallXactCallbacks
-  - AtEOXact_Parallel
-  - AfterTriggerEndXact
-  - PreCommit_on_commit_actions
-  - smgrDoPendingSyncs
-  - AtEOXact_LargeObject
-  - PreCommit_Notify
+  - [ShowTransactionState](../S/ShowTransactionState.md)
+  - [AfterTriggerFireDeferred](../A/AfterTriggerFireDeferred.md)
+  - [PreCommit_Portals](../P/PreCommit_Portals.md)
+  - [CallXactCallbacks](CallXactCallbacks.md)
+  - [AtEOXact_Parallel](../A/AtEOXact_Parallel.md)
+  - [AfterTriggerEndXact](../A/AfterTriggerEndXact.md)
+  - [PreCommit_on_commit_actions](../P/PreCommit_on_commit_actions.md)
+  - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md)
+  - [AtEOXact_LargeObject](../A/AtEOXact_LargeObject.md)
+  - [PreCommit_Notify](../P/PreCommit_Notify.md)
   - PreCommit_CheckForSerializationFailure
-  - AtEOXact_RelationMap
-  - RecordTransactionCommit
-  - ProcArrayEndTransaction
+  - [AtEOXact_RelationMap](../A/AtEOXact_RelationMap.md)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md)
+  - [ProcArrayEndTransaction](../P/ProcArrayEndTransaction.md)
   - ResourceOwnerRelease
-  - AtEOXact_Buffers
-  - AtEOXact_RelationCache
-  - AtEOXact_Inval
-  - AtEOXact_MultiXact
-  - smgrDoPendingDeletes
-  - AtCommit_Notify
-  - AtEOXact_GUC
-  - AtEOXact_SPI
-  - AtEOXact_Enum
-  - AtEOXact_on_commit_actions
-  - AtEOXact_Namespace
-  - AtEOXact_SMgr
-  - AtEOXact_Files
+  - [AtEOXact_Buffers](../A/AtEOXact_Buffers.md)
+  - [AtEOXact_RelationCache](../A/AtEOXact_RelationCache.md)
+  - [AtEOXact_Inval](../A/AtEOXact_Inval.md)
+  - [AtEOXact_MultiXact](../A/AtEOXact_MultiXact.md)
+  - [smgrDoPendingDeletes](../s/smgrDoPendingDeletes.md)
+  - [AtCommit_Notify](../A/AtCommit_Notify.md)
+  - [AtEOXact_GUC](../A/AtEOXact_GUC.md)
+  - [AtEOXact_SPI](../A/AtEOXact_SPI.md)
+  - [AtEOXact_Enum](../A/AtEOXact_Enum.md)
+  - [AtEOXact_on_commit_actions](../A/AtEOXact_on_commit_actions.md)
+  - [AtEOXact_Namespace](../A/AtEOXact_Namespace.md)
+  - [AtEOXact_SMgr](../A/AtEOXact_SMgr.md)
+  - [AtEOXact_Files](../A/AtEOXact_Files.md)
   - AtEOXact_ComboCid
-  - AtEOXact_HashTables
+  - [AtEOXact_HashTables](../A/AtEOXact_HashTables.md)
   - AtEOXact_PgStat
-  - AtEOXact_Snapshot
+  - [AtEOXact_Snapshot](../A/AtEOXact_Snapshot.md)
   - AtEOXact_ApplyLauncher
-  - AtEOXact_LogicalRepWorkers
-  - AtCommit_Memory
+  - [AtEOXact_LogicalRepWorkers](../A/AtEOXact_LogicalRepWorkers.md)
+  - [AtCommit_Memory](../A/AtCommit_Memory.md)
 
 - Called from (representative examples):
-  - CommitTransactionCommandInternal
-  - EndParallelWorkerTransaction
-  - RestoreArchive (pg_dump)
-  - restore_toc_entry (pg_dump)
-  - IssueCommandPerBlob (pg_dump)
+  - [CommitTransactionCommandInternal](CommitTransactionCommandInternal.md)
+  - [EndParallelWorkerTransaction](../E/EndParallelWorkerTransaction.md)
+  - [RestoreArchive](../R/RestoreArchive.md) (pg_dump)
+  - [restore_toc_entry](../r/restore_toc_entry.md) (pg_dump)
+  - [IssueCommandPerBlob](../I/IssueCommandPerBlob.md) (pg_dump)
 
 ## Notes and Other Information
 - This is a static function within xact.c, meaning it's only called from within the transaction management module

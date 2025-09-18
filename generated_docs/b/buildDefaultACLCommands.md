@@ -28,12 +28,12 @@ The function incorporates the target role directly into the command rather than 
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer/destroyPQExpBuffer (for buffer management)
-  - fmtId (for identifier quoting)
-  - buildACLCommands (for actual ACL command generation)
-  - appendPQExpBuffer (for string building)
+  - [fmtId](../f/fmtId.md) (for identifier quoting)
+  - [buildACLCommands](buildACLCommands.md) (for actual ACL command generation)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md) (for string building)
 
 - Called from (representative examples):
-  - dumpDefaultACL (in pg_dump.c)
+  - [dumpDefaultACL](../d/dumpDefaultACL.md) (in pg_dump.c)
 
 ## Notes and Other Information
 - Returns true on success, false if ACL parsing fails (delegated to buildACLCommands)

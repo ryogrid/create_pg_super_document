@@ -18,14 +18,14 @@ GinBtree represents a handle to a GIN B-tree operational context through a point
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinBtreeData (the underlying structure this points to)
+  - [GinBtreeData](GinBtreeData.md) (the underlying structure this points to)
 - Called from (representative examples):
-  - ginFindLeafPage
-  - ginFindParents
-  - ginPlaceToPage
-  - ginInsertValue
-  - dataLocateItem
-  - entryLocateEntry
+  - [ginFindLeafPage](../g/ginFindLeafPage.md)
+  - [ginFindParents](../g/ginFindParents.md)
+  - [ginPlaceToPage](../g/ginPlaceToPage.md)
+  - [ginInsertValue](../g/ginInsertValue.md)
+  - [dataLocateItem](../d/dataLocateItem.md)
+  - [entryLocateEntry](../e/entryLocateEntry.md)
 
 ## Notes and Other Information
 - Located in src/include/access/gin_private.h:140

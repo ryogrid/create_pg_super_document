@@ -30,9 +30,9 @@ The function works by:
   - PG_GETARG_MULTIRANGE_P
   - RangeBound
   - MultirangeIsEmpty
-  - multirange_get_typcache
+  - [multirange_get_typcache](multirange_get_typcache.md)
   - MultirangeTypeGetOid
-  - multirange_get_bounds
+  - [multirange_get_bounds](multirange_get_bounds.md)
 - Called from (representative examples):
   - No direct references found in codebase
 

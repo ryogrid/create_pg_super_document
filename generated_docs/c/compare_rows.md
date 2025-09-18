@@ -23,10 +23,10 @@ The function follows the standard qsort comparator convention, returning negativ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - acquire_sample_rows (via qsort_interruptible)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (via qsort_interruptible)
 
 ## Notes and Other Information
 - Used specifically with qsort_interruptible for sorting sampled tuples by physical position

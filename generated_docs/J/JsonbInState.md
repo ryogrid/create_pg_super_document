@@ -20,16 +20,16 @@ JsonbInState serves as a context structure that maintains the state during JSONB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbParseState
-  - JsonbValue
-  - Node
+  - [JsonbParseState](JsonbParseState.md)
+  - [JsonbValue](JsonbValue.md)
+  - [Node](../N/Node.md)
 - Called from (representative examples):
-  - jsonb_from_cstring
-  - jsonb_agg_transfn_worker
-  - jsonb_object_agg_transfn_worker
+  - [jsonb_from_cstring](../j/jsonb_from_cstring.md)
+  - [jsonb_agg_transfn_worker](../j/jsonb_agg_transfn_worker.md)
+  - [jsonb_object_agg_transfn_worker](../j/jsonb_object_agg_transfn_worker.md)
   - datum_to_jsonb_internal
-  - jsonb_build_object_worker
-  - jsonb_build_array_worker
+  - [jsonb_build_object_worker](../j/jsonb_build_object_worker.md)
+  - [jsonb_build_array_worker](../j/jsonb_build_array_worker.md)
 
 ## Notes and Other Information
 - This structure is fundamental to JSONB input processing and is used across many JSONB-related functions

@@ -18,16 +18,16 @@ This function implements the core quadrant determination logic for SP-GiST quadt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (structure type)
+  - [Point](../P/Point.md) (structure type)
   - SPTEST (macro for spatial tests)
-  - point_above, point_below, point_left, point_right (spatial comparison functions)
-  - point_horiz, point_vert (axis alignment test functions)
+  - [point_above](../p/point_above.md), point_below, point_left, point_right (spatial comparison functions)
+  - [point_horiz](../p/point_horiz.md), point_vert (axis alignment test functions)
   - elog (error logging function)
 - Called from (representative examples):
-  - spg_quad_choose
-  - spg_quad_picksplit
-  - spg_range_quad_choose
-  - spg_range_quad_picksplit
+  - [spg_quad_choose](../s/spg_quad_choose.md)
+  - [spg_quad_picksplit](../s/spg_quad_picksplit.md)
+  - [spg_range_quad_choose](../s/spg_range_quad_choose.md)
+  - [spg_range_quad_picksplit](../s/spg_range_quad_picksplit.md)
 
 ## Notes and Other Information
 - Quadrant numbering follows a specific pattern: 4|1 over 3|2 (counter-clockwise from upper right)

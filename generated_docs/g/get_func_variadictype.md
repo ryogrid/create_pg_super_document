@@ -17,15 +17,15 @@ This function retrieves the variadic type information for a specified function b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1: Searches the system cache for the function entry
+  - [SearchSysCache1](../S/SearchSysCache1.md): Searches the system cache for the function entry
   - HeapTupleIsValid: Validates the returned heap tuple
   - elog: Logs error if function not found
   - GETSTRUCT: Extracts the struct from the heap tuple
-  - ReleaseSysCache: Releases the system cache entry
+  - [ReleaseSysCache](../R/ReleaseSysCache.md): Releases the system cache entry
   - Form_pg_proc: PostgreSQL system catalog structure for procedures/functions
 - Called from (representative examples):
-  - assign_ordered_set_collations: Used in collation assignment for ordered set aggregates
-  - assign_hypothetical_collations: Used in collation assignment for hypothetical set aggregates
+  - [assign_ordered_set_collations](../a/assign_ordered_set_collations.md): Used in collation assignment for ordered set aggregates
+  - [assign_hypothetical_collations](../a/assign_hypothetical_collations.md): Used in collation assignment for hypothetical set aggregates
 
 ## Notes and Other Information
 - Part of PostgreSQL's system catalog lookup utilities in lsyscache.c

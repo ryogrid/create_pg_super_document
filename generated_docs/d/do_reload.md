@@ -29,13 +29,13 @@ This function takes no parameters and operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_pgpid - retrieves the postmaster process ID from the PID file
+  - [get_pgpid](../g/get_pgpid.md) - retrieves the postmaster process ID from the PID file
   - kill - sends the reload signal (SIGHUP) to the postmaster process
-  - write_stderr - outputs error messages for various failure conditions
-  - print_msg - outputs success confirmation message
+  - [write_stderr](../w/write_stderr.md) - outputs error messages for various failure conditions
+  - [print_msg](../p/print_msg.md) - outputs success confirmation message
 
 - Called from (representative examples):
-  - main - main entry point of pg_ctl when reload action is requested
+  - [main](../m/main.md) - [main](../m/main.md) entry point of pg_ctl when reload action is requested
 
 ## Notes and Other Information
 - The reload operation sends SIGHUP signal, which is the standard Unix signal for configuration reload

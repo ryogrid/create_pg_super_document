@@ -24,13 +24,13 @@ The estimation process considers the index relation descriptor, scan keys for fi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_parallelscan_estimate
+  - [index_parallelscan_estimate](../i/index_parallelscan_estimate.md)
   - shm_toc_estimate_chunk
   - shm_toc_estimate_keys
 - Types used:
-  - IndexOnlyScanState
-  - ParallelContext
-  - EState
+  - [IndexOnlyScanState](../I/IndexOnlyScanState.md)
+  - [ParallelContext](../P/ParallelContext.md)
+  - [EState](EState.md)
 - Called from (representative examples):
   - ExecParallelEstimate
 

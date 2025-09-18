@@ -22,15 +22,15 @@ The function is designed to be used as part of a three-function sequence: tsearc
 - Functions called/Symbols referenced:
   - AllocateFile
   - initStringInfo
-  - tsearch_readline_callback
-  - tsearch_readline_state (struct type)
+  - [tsearch_readline_callback](tsearch_readline_callback.md)
+  - [tsearch_readline_state](tsearch_readline_state.md) (struct type)
 - Called from (representative examples):
-  - dsynonym_init
-  - thesaurusRead
-  - NIImportDictionary
+  - [dsynonym_init](../d/dsynonym_init.md)
+  - [thesaurusRead](thesaurusRead.md)
+  - [NIImportDictionary](../N/NIImportDictionary.md)
   - NIImportOOAffixes
   - NIImportAffixes
-  - readstoplist
+  - [readstoplist](../r/readstoplist.md)
 
 ## Notes and Other Information
 - Returns true on successful file opening, false on failure

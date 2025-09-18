@@ -29,13 +29,13 @@ The function advances through queue entries until it reaches the stop position, 
 - Functions called/Symbols referenced:
   - QUEUE_POS_EQUAL: Compares queue positions for equality
   - QUEUE_POS_OFFSET: Calculates offset within page from queue position
-  - asyncQueueAdvance: Advances queue position to next entry
-  - XidInMVCCSnapshot: Tests if transaction is visible in snapshot
-  - TransactionIdDidCommit: Verifies if transaction committed
-  - IsListeningOn: Checks if current backend listens on channel
-  - NotifyMyFrontEnd: Delivers notification to frontend
+  - [asyncQueueAdvance](asyncQueueAdvance.md): Advances queue position to next entry
+  - [XidInMVCCSnapshot](../X/XidInMVCCSnapshot.md): Tests if transaction is visible in snapshot
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md): Verifies if transaction committed
+  - [IsListeningOn](../I/IsListeningOn.md): Checks if current backend listens on channel
+  - [NotifyMyFrontEnd](../N/NotifyMyFrontEnd.md): Delivers notification to frontend
 - Called from:
-  - asyncQueueReadAllNotifications: Main notification processing routine
+  - [asyncQueueReadAllNotifications](asyncQueueReadAllNotifications.md): Main notification processing routine
 
 ## Notes and Other Information
 - Returns true when stop position is reached or uncommitted transaction encountered, false when page processing is complete

@@ -27,13 +27,13 @@ The function is particularly valuable for accessing substrings of large text val
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - toast_fetch_datum_slice: Efficiently retrieves a slice from TOAST relations
-  - toast_fetch_datum: Retrieves complete datum from TOAST relations
-  - toast_decompress_datum_slice: Decompresses only the required portion of compressed data
-  - toast_decompress_datum: Decompresses entire compressed datum
-  - detoast_external_attr: Handles externally stored attributes
+  - [toast_fetch_datum_slice](../t/toast_fetch_datum_slice.md): Efficiently retrieves a slice from TOAST relations
+  - [toast_fetch_datum](../t/toast_fetch_datum.md): Retrieves complete datum from TOAST relations
+  - [toast_decompress_datum_slice](../t/toast_decompress_datum_slice.md): Decompresses only the required portion of compressed data
+  - [toast_decompress_datum](../t/toast_decompress_datum.md): Decompresses entire compressed datum
+  - [detoast_external_attr](detoast_external_attr.md): Handles externally stored attributes
   - pglz_maximum_compressed_size: Calculates maximum compressed size for PGLZ algorithm
-  - pg_add_s32_overflow: Safe integer addition with overflow detection
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md): Safe integer addition with overflow detection
   - VARATT_IS_EXTERNAL_ONDISK: Checks if value is stored externally on disk
   - VARATT_IS_EXTERNAL_INDIRECT: Checks if value is an indirect pointer
   - VARATT_IS_EXTERNAL_EXPANDED: Checks if value is an expanded object
@@ -45,10 +45,10 @@ The function is particularly valuable for accessing substrings of large text val
   - VARATT_EXTERNAL_GET_COMPRESS_METHOD: Gets compression method used
   - VARDATA/VARDATA_SHORT: Macros to access varlena data
   - SET_VARSIZE: Sets the size field of a varlena
-  - palloc: PostgreSQL memory allocation function
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
 - Called from (representative examples):
-  - pg_detoast_datum_slice: Main slice detoasting interface in function manager
-  - detoast_attr_slice: Recursive calls for indirect pointers
+  - [pg_detoast_datum_slice](../p/pg_detoast_datum_slice.md): Main slice detoasting interface in function manager
+  - [detoast_attr_slice](detoast_attr_slice.md): Recursive calls for indirect pointers
 
 ## Notes and Other Information
 - The function includes intelligent optimization for compressed external data: for PGLZ compression, it calculates the minimum compressed data needed for the requested slice, while for LZ4 it fetches the entire compressed data due to API limitations

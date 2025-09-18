@@ -29,9 +29,9 @@ The function performs a simple assignment operation, copying the current transac
   - XactReadOnly (global variable)
   - XactDeferrable (global variable)
 - Called from (representative examples):
-  - CommitTransactionCommandInternal
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md)
   - _SPI_commit
-  - _SPI_rollback
+  - [_SPI_rollback](_SPI_rollback.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's transaction chaining implementation

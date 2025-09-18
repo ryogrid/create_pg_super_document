@@ -22,8 +22,8 @@ This function takes no parameters and returns void.
   - printf (standard C library function)
   - sqlca (global SQL Communications Area structure)
 - Called from (representative examples):
-  - main (called 21 times throughout the test program)
-  - openit (called once during database connection testing)
+  - [main](../m/main.md) (called 21 times throughout the test program)
+  - [openit](../o/openit.md) (called once during database connection testing)
 
 ## Notes and Other Information
 - This is a static function, meaning it has internal linkage and is only visible within the compilation unit

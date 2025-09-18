@@ -27,16 +27,16 @@ The function returns a boolean indicating whether the tuple was actually frozen.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - heap_prepare_freeze_tuple
-  - heap_execute_freeze_tuple
+  - [heap_prepare_freeze_tuple](heap_prepare_freeze_tuple.md)
+  - [heap_execute_freeze_tuple](heap_execute_freeze_tuple.md)
 - Types used:
   - HeapTupleHeader
   - TransactionId
-  - HeapTupleFreeze
+  - [HeapTupleFreeze](../H/HeapTupleFreeze.md)
   - VacuumCutoffs
-  - HeapPageFreeze
+  - [HeapPageFreeze](../H/HeapPageFreeze.md)
 - Called from (representative examples):
-  - rewrite_heap_tuple
+  - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md)
 
 ## Notes and Other Information
 - Does not perform WAL logging - caller is responsible for WAL if needed

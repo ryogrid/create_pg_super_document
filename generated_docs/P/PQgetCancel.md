@@ -21,15 +21,15 @@ PQgetCancel extracts essential cancellation parameters from an active PostgreSQL
 - Functions called/Symbols referenced:
   - malloc
   - memcpy  
-  - pqParseIntParam
+  - [pqParseIntParam](../p/pqParseIntParam.md)
   - PGcancel (type)
-  - SockAddr (type)
+  - [SockAddr](../S/SockAddr.md) (type)
   - PGINVALID_SOCKET (constant)
 - Called from (representative examples):
-  - PQrequestCancel (in fe-cancel.c)
-  - SetCancelConn (in cancel utility functions)
-  - set_archive_cancel_info (in pg_dump parallel operations)
-  - test_cancel (in libpq_pipeline test module)
+  - [PQrequestCancel](PQrequestCancel.md) (in fe-cancel.c)
+  - [SetCancelConn](../S/SetCancelConn.md) (in cancel utility functions)
+  - [set_archive_cancel_info](../s/set_archive_cancel_info.md) (in pg_dump parallel operations)
+  - [test_cancel](../t/test_cancel.md) (in libpq_pipeline test module)
 
 ## Notes and Other Information
 - Returns NULL if the connection is invalid or lacks a valid socket

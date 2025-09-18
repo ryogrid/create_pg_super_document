@@ -19,16 +19,16 @@ The function follows PostgreSQL's memory management conventions by using the app
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - tuplestore_end
-  - FreeTupleDesc
-  - WalRcvExecResult (structure type)
+  - [pfree](../p/pfree.md)
+  - [tuplestore_end](../t/tuplestore_end.md)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)
+  - [WalRcvExecResult](../W/WalRcvExecResult.md) (structure type)
 - Called from (representative examples):
-  - check_publications (src/backend/commands/subscriptioncmds.c:528)
-  - ReplicationSlotDropAtPubNode (src/backend/commands/subscriptioncmds.c:1886)
-  - fetch_table_list (src/backend/commands/subscriptioncmds.c:2237)
-  - fetch_remote_table_info (src/backend/replication/logical/tablesync.c:871)
-  - copy_table (src/backend/replication/logical/tablesync.c:1258)
+  - [check_publications](../c/check_publications.md) (src/backend/commands/subscriptioncmds.c:528)
+  - [ReplicationSlotDropAtPubNode](../R/ReplicationSlotDropAtPubNode.md) (src/backend/commands/subscriptioncmds.c:1886)
+  - [fetch_table_list](../f/fetch_table_list.md) (src/backend/commands/subscriptioncmds.c:2237)
+  - [fetch_remote_table_info](../f/fetch_remote_table_info.md) (src/backend/replication/logical/tablesync.c:871)
+  - [copy_table](../c/copy_table.md) (src/backend/replication/logical/tablesync.c:1258)
 
 ## Notes and Other Information
 - This is an inline function defined in the header file src/include/replication/walreceiver.h

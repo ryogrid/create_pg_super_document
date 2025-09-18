@@ -19,8 +19,8 @@ The ginxlogCreatePostingTree structure is used as part of WAL logging when creat
 - Functions called/Symbols referenced:
   - (No direct references from this structure)
 - Called from (representative examples):
-  - createPostingTree (in src/backend/access/gin/gindatapage.c:1842,1847)
-  - ginRedoCreatePTree (in src/backend/access/gin/ginxlog.c:47,57)
+  - [createPostingTree](../c/createPostingTree.md) (in src/backend/access/gin/gindatapage.c:1842,1847)
+  - [ginRedoCreatePTree](ginRedoCreatePTree.md) (in src/backend/access/gin/ginxlog.c:47,57)
 
 ## Notes and Other Information
 - This structure is part of the GIN index WAL logging infrastructure (XLOG_GIN_CREATE_PTREE operation)

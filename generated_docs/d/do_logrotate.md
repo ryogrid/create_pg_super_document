@@ -33,16 +33,16 @@ This function takes no parameters and operates on global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_pgpid - retrieves the postmaster process ID from the PID file
+  - [get_pgpid](../g/get_pgpid.md) - retrieves the postmaster process ID from the PID file
   - fopen/fclose - creates and closes the logrotate signal file
   - kill - sends SIGUSR1 signal to trigger log rotation
   - unlink - removes the logrotate signal file if signal sending fails
-  - write_stderr - outputs error messages
-  - print_msg - outputs success confirmation message
+  - [write_stderr](../w/write_stderr.md) - outputs error messages
+  - [print_msg](../p/print_msg.md) - outputs success confirmation message
   - SIGUSR1 - signal used to trigger log rotation processing
 
 - Called from (representative examples):
-  - main - main entry point of pg_ctl when logrotate action is requested
+  - [main](../m/main.md) - [main](../m/main.md) entry point of pg_ctl when logrotate action is requested
 
 ## Notes and Other Information
 - Only works when the logging_collector is enabled in PostgreSQL configuration

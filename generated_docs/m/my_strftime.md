@@ -27,7 +27,7 @@ This is a common technique used in PostgreSQL and other codebases to handle comp
   - strftime (standard C library function for time formatting)
 
 - Called from:
-  - locale_date_order (function that determines date ordering for locale)
+  - [locale_date_order](../l/locale_date_order.md) (function that determines date ordering for locale)
 
 ## Notes and Other Information
 - This is a compiler warning suppression hack, not a functional enhancement

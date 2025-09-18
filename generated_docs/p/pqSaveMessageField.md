@@ -21,15 +21,15 @@ The function implements a singly-linked list where new fields are prepended to t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqResultAlloc (for memory allocation with result tracking)
+  - [pqResultAlloc](pqResultAlloc.md) (for memory allocation with result tracking)
   - strcpy (for copying the field value)
   - strlen (implicit, used in size calculation)
   - offsetof (for calculating structure size)
 - Types used:
-  - PGMessageField (structure representing a single message field)
+  - [PGMessageField](../P/PGMessageField.md) (structure representing a single message field)
 - Called from:
-  - pqInternalNotice (multiple times for different field types)
-  - pqGetErrorNotice3 (for processing server error/notice messages)
+  - [pqInternalNotice](pqInternalNotice.md) (multiple times for different field types)
+  - [pqGetErrorNotice3](pqGetErrorNotice3.md) (for processing server error/notice messages)
 
 ## Notes and Other Information
 - Uses a variable-length allocation strategy: allocates exactly the space needed for the PGMessageField structure plus the string content

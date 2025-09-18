@@ -34,7 +34,7 @@ This approach ensures that IPv4 and IPv6 addresses are kept separate, networks w
   - gk_ip_minbits: Gets minimum network bits from GistInetKey
   - gk_ip_commonbits: Gets common address bits from GistInetKey
   - gk_ip_addr: Gets address buffer from GistInetKey
-  - bitncommon: Calculates number of common leading bits between two addresses
+  - [bitncommon](../b/bitncommon.md): Calculates number of common leading bits between two addresses
   - Min: Macro for minimum of two values
 
 - Called from (representative examples):

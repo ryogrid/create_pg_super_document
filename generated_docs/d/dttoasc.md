@@ -22,7 +22,7 @@ The function handles the memory management by obtaining a dynamically allocated 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPEStimestamp_to_asc
+  - [PGTYPEStimestamp_to_asc](../P/PGTYPEStimestamp_to_asc.md)
 - Called from (representative examples):
   - ECPG_INFORMIX_EXTRA_CHARS (referenced in header)
 

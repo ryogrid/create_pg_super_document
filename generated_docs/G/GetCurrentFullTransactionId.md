@@ -24,7 +24,7 @@ The function works with the CurrentTransactionState to check if the transaction 
   - TransactionState (type)
   - CurrentTransactionState (global variable)
   - FullTransactionIdIsValid
-  - AssignTransactionId
+  - [AssignTransactionId](../A/AssignTransactionId.md)
 - Called from (representative examples):
   - No direct references found in the codebase
 

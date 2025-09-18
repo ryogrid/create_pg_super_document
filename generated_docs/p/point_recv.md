@@ -19,8 +19,8 @@ The `point_recv` function is responsible for deserializing Point data from Postg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Point` - PostgreSQL's 2D point data structure  
-  - `pq_getmsgfloat8` - Function to read float8 values from binary message buffer
+  - `[Point](../P/Point.md)` - PostgreSQL's 2D point data structure  
+  - `[pq_getmsgfloat8](pq_getmsgfloat8.md)` - Function to read float8 values from binary message buffer
   - `PG_RETURN_POINT_P` - Macro for returning Point data from PostgreSQL functions
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system)

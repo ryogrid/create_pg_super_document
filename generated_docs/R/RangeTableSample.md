@@ -34,10 +34,10 @@ RangeTableSample represents the TABLESAMPLE clause that appears in raw FROM clau
 - Functions called/Symbols referenced:
   - ParseLoc
 - Called from (representative examples):
-  - transformRangeTableSample
-  - transformFromClauseItem
-  - exprLocation
-  - raw_expression_tree_walker_impl
+  - [transformRangeTableSample](../t/transformRangeTableSample.md)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md)
+  - [exprLocation](../e/exprLocation.md)
+  - [raw_expression_tree_walker_impl](../r/raw_expression_tree_walker_impl.md)
 
 ## Notes and Other Information
 - Located in src/include/nodes/parsenodes.h:695-703

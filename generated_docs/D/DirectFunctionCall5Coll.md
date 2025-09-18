@@ -32,7 +32,7 @@ The function uses the `LOCAL_FCINFO` macro to create a local function call info 
   - elog (for error reporting when function returns NULL)
 
 - Called from (representative examples):
-  - neqjoinsel (selectivity estimation for not-equal joins)
+  - [neqjoinsel](../n/neqjoinsel.md) (selectivity estimation for not-equal joins)
   - DirectFunctionCall5 (as a fallback in the macro definition)
 
 ## Notes and Other Information

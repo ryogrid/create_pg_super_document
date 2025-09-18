@@ -34,18 +34,18 @@ The function ensures that all variable references in join expressions correctly 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - search_indexed_tlist_for_var
-  - search_indexed_tlist_for_phv
-  - search_indexed_tlist_for_non_var
-  - copyVar
-  - fix_param_node
-  - fix_alternative_subplan
-  - fix_expr_common
+  - [search_indexed_tlist_for_var](../s/search_indexed_tlist_for_var.md)
+  - [search_indexed_tlist_for_phv](../s/search_indexed_tlist_for_phv.md)
+  - [search_indexed_tlist_for_non_var](../s/search_indexed_tlist_for_non_var.md)
+  - [copyVar](../c/copyVar.md)
+  - [fix_param_node](fix_param_node.md)
+  - [fix_alternative_subplan](fix_alternative_subplan.md)
+  - [fix_expr_common](fix_expr_common.md)
   - expression_tree_mutator
 - Called from (representative examples):
   - fix_scan_list
-  - fix_join_expr
-  - fix_join_expr_mutator (recursive calls)
+  - [fix_join_expr](fix_join_expr.md)
+  - [fix_join_expr_mutator](fix_join_expr_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is part of the setrefs.c module which handles setting up references between plan nodes

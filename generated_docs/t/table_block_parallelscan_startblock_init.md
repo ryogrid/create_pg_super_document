@@ -30,19 +30,19 @@ The function uses a retry mechanism when dealing with synchronized scans - it re
 - Functions called/Symbols referenced:
   - memset
   - StaticAssertStmt
-  - pg_nextpower2_32
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
   - Max/Min macros
   - SpinLockAcquire
   - SpinLockRelease
-  - ss_get_location
+  - [ss_get_location](../s/ss_get_location.md)
   - MaxBlockNumber
   - InvalidBlockNumber
   - PARALLEL_SEQSCAN_NCHUNKS
   - PARALLEL_SEQSCAN_MAX_CHUNK_SIZE
-  - ParallelBlockTableScanWorker (struct type)
-  - ParallelBlockTableScanDesc (struct type)
+  - [ParallelBlockTableScanWorker](../P/ParallelBlockTableScanWorker.md) (struct type)
+  - [ParallelBlockTableScanDesc](../P/ParallelBlockTableScanDesc.md) (struct type)
 - Called from (representative examples):
-  - heap_scan_stream_read_next_parallel
+  - [heap_scan_stream_read_next_parallel](../h/heap_scan_stream_read_next_parallel.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

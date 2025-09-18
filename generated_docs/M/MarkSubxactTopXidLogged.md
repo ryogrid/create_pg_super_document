@@ -23,9 +23,9 @@ This is a critical component of PostgreSQL's logical decoding infrastructure, as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsSubxactTopXidLogPending (in assertion)
+  - [IsSubxactTopXidLogPending](../I/IsSubxactTopXidLogPending.md) (in assertion)
 - Called from (representative examples):
-  - XLogInsertRecord
+  - [XLogInsertRecord](../X/XLogInsertRecord.md)
 
 ## Notes and Other Information
 - Must only be called when IsSubxactTopXidLogPending() returns true

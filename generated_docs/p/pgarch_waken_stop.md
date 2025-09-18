@@ -19,9 +19,9 @@ This function is part of PostgreSQL's graceful shutdown mechanism for the archiv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch (to wake up the main loop)
+  - [SetLatch](../S/SetLatch.md) (to wake up the main loop)
 - Called from (representative examples):
-  - PgArchiverMain (registered as SIGUSR2 handler)
+  - [PgArchiverMain](../P/PgArchiverMain.md) (registered as SIGUSR2 handler)
 
 ## Notes and Other Information
 - This is a static function internal to the pgarch.c module

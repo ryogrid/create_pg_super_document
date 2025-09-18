@@ -21,7 +21,7 @@ The function employs several optimizations: it bypasses qualification and projec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecScanFetch (tuple fetching with EPQ handling)
+  - [ExecScanFetch](ExecScanFetch.md) (tuple fetching with EPQ handling)
   - ResetExprContext (memory context management)
   - TupIsNull (tuple validity checking)
   - ExecQual (qualification evaluation)
@@ -29,16 +29,16 @@ The function employs several optimizations: it bypasses qualification and projec
   - ExecClearTuple (tuple slot clearing)
   - InstrCountFiltered1 (instrumentation for filtered tuples)
 - Data structures used:
-  - ScanState
-  - ProjectionInfo
+  - [ScanState](../S/ScanState.md)
+  - [ProjectionInfo](../P/ProjectionInfo.md)
   - ExprContext
   - ExprState
   - TupleTableSlot
 - Called from (representative examples):
-  - ExecSeqScan (sequential scan execution)
-  - ExecIndexScan (index scan execution)
-  - ExecBitmapHeapScan (bitmap heap scan execution)
-  - ExecForeignScan (foreign scan execution)
+  - [ExecSeqScan](ExecSeqScan.md) (sequential scan execution)
+  - [ExecIndexScan](ExecIndexScan.md) (index scan execution)
+  - [ExecBitmapHeapScan](ExecBitmapHeapScan.md) (bitmap heap scan execution)
+  - [ExecForeignScan](ExecForeignScan.md) (foreign scan execution)
   - All other scan node execution functions
 
 ## Notes and Other Information

@@ -37,15 +37,15 @@ Design considerations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - addRangeTableEntryForRelation (creates EXCLUDED pseudo-relation)
-  - BuildOnConflictExcludedTargetlist (builds target list for EXCLUDED relation)
-  - transformOnConflictArbiter (processes conflict detection elements)
-  - transformUpdateTargetList (handles DO UPDATE target expressions)
-  - transformWhereClause (processes DO UPDATE WHERE condition)
-  - addNSItemToQuery/list_delete_last (namespace management)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md) (creates EXCLUDED pseudo-relation)
+  - [BuildOnConflictExcludedTargetlist](../B/BuildOnConflictExcludedTargetlist.md) (builds target list for EXCLUDED relation)
+  - [transformOnConflictArbiter](transformOnConflictArbiter.md) (processes conflict detection elements)
+  - [transformUpdateTargetList](transformUpdateTargetList.md) (handles DO UPDATE target expressions)
+  - [transformWhereClause](transformWhereClause.md) (processes DO UPDATE WHERE condition)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)/list_delete_last (namespace management)
 
 - Called from (representative examples):
-  - transformInsertStmt (main INSERT statement transformation)
+  - [transformInsertStmt](transformInsertStmt.md) (main INSERT statement transformation)
 
 ## Notes and Other Information
 - Critical for PostgreSQLs UPSERT functionality implementation

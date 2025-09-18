@@ -21,7 +21,7 @@ This variant provides the same regexp_instr functionality but with a simplified 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_instr
+  - [regexp_instr](regexp_instr.md)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

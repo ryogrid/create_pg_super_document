@@ -19,26 +19,26 @@ DropRole implements the DROP ROLE, DROP USER, and DROP GROUP SQL statements by r
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - have_createrole_privilege
+  - [have_createrole_privilege](../h/have_createrole_privilege.md)
   - table_open
-  - SearchSysCache1
-  - GetUserId
-  - GetOuterUserId
-  - GetSessionUserId
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [GetUserId](../G/GetUserId.md)
+  - [GetOuterUserId](../G/GetOuterUserId.md)
+  - [GetSessionUserId](../G/GetSessionUserId.md)
   - superuser
   - is_admin_of_role
   - InvokeObjectDropHook
-  - LockSharedObject
-  - systable_beginscan
-  - systable_getnext
-  - deleteSharedDependencyRecordsFor
-  - CatalogTupleDelete
-  - checkSharedDependencies
-  - DeleteSharedComments
-  - DeleteSharedSecurityLabel
-  - DropSetting
+  - [LockSharedObject](../L/LockSharedObject.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [deleteSharedDependencyRecordsFor](../d/deleteSharedDependencyRecordsFor.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [checkSharedDependencies](../c/checkSharedDependencies.md)
+  - [DeleteSharedComments](DeleteSharedComments.md)
+  - [DeleteSharedSecurityLabel](DeleteSharedSecurityLabel.md)
+  - [DropSetting](DropSetting.md)
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Returns void (no return value)

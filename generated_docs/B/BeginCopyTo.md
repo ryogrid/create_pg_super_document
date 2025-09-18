@@ -35,16 +35,16 @@ BeginCopyTo performs comprehensive setup for COPY TO operations by creating a Co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcessCopyOptions
-  - CopyGetAttnums
-  - pg_analyze_and_rewrite_fixedparams
-  - pg_plan_query
-  - ExecutorStart
-  - CreateQueryDesc
+  - [ProcessCopyOptions](../P/ProcessCopyOptions.md)
+  - [CopyGetAttnums](../C/CopyGetAttnums.md)
+  - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)
+  - [pg_plan_query](../p/pg_plan_query.md)
+  - [ExecutorStart](../E/ExecutorStart.md)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
   - AllocSetContextCreate
-  - pgstat_progress_start_command
+  - [pgstat_progress_start_command](../p/pgstat_progress_start_command.md)
 - Called from (representative examples):
-  - DoCopy
+  - [DoCopy](../D/DoCopy.md)
   - test_copy_to_callback
 
 ## Notes and Other Information

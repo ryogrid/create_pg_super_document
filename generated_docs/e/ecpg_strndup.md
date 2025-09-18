@@ -24,7 +24,7 @@ This function is part of the Informix compatibility layer in ECPG, providing saf
   - strlen (implicit)
   - memcpy (implicit)
 - Called from (representative examples):
-  - deccvasc
+  - [deccvasc](../d/deccvasc.md)
 
 ## Notes and Other Information
 - Returns a newly allocated string that must be freed by the caller

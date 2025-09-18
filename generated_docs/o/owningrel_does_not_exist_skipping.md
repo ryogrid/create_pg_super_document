@@ -19,14 +19,14 @@ This function is used when a rule or trigger specification returns that the obje
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy_head: Creates a copy of the list excluding the last element (to get parent object)
-  - schema_does_not_exist_skipping: Checks if the schema exists
-  - makeRangeVarFromNameList: Converts name list to RangeVar
+  - [list_copy_head](../l/list_copy_head.md): Creates a copy of the list excluding the last element (to get parent object)
+  - [schema_does_not_exist_skipping](../s/schema_does_not_exist_skipping.md): Checks if the schema exists
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md): Converts name list to RangeVar
   - RangeVarGetRelid: Gets relation OID, returns InvalidOid if not found
-  - NameListToString: Converts name list to string for error messages
+  - [NameListToString](../N/NameListToString.md): Converts name list to string for error messages
 
 - Called from (representative examples):
-  - does_not_exist_skipping: Used for rule and trigger object types
+  - [does_not_exist_skipping](../d/does_not_exist_skipping.md): Used for rule and trigger object types
 
 ## Notes and Other Information
 - This is a static function internal to dropcmds.c

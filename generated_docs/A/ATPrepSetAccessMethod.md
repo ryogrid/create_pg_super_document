@@ -23,11 +23,11 @@ The function first resolves the access method name to its OID using get_table_am
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_table_am_oid
+  - [get_table_am_oid](../g/get_table_am_oid.md)
   - default_table_access_method (global variable)
   - AT_REWRITE_ACCESS_METHOD
 - Called from (representative examples):
-  - ATPrepCmd
+  - [ATPrepCmd](ATPrepCmd.md)
 
 ## Notes and Other Information
 - This is a static function only accessible within tablecmds.c as part of the ALTER TABLE infrastructure

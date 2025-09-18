@@ -20,8 +20,8 @@ JsonTablePlanRowSource is a fundamental data structure used in PostgreSQL's JSON
 - Functions called/Symbols referenced:
   - (No direct function calls from this structure definition)
 - Called from (representative examples):
-  - JsonTablePlanState (contains this as a member)
-  - JsonTableGetValue (uses this structure for column value computation)
+  - [JsonTablePlanState](JsonTablePlanState.md) (contains this as a member)
+  - [JsonTableGetValue](JsonTableGetValue.md) (uses this structure for column value computation)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's JSON_TABLE execution framework

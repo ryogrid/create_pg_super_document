@@ -21,7 +21,7 @@ The function internally calls `SN_close_env` with a parameter of 0, indicating t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env (with S_size parameter of 0)
+  - [SN_close_env](../S/SN_close_env.md) (with S_size parameter of 0)
 - Called from (representative examples):
   - No direct callers found in the current codebase analysis
 

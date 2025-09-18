@@ -22,16 +22,16 @@ The function validates that the input codepoint is within the valid Unicode rang
   - lengthof (macro for array length)
   - PG_U_UNASSIGNED (constant for unassigned category)
 - Called from (representative examples):
-  - unicode_assigned
-  - pg_u_prop_cased
-  - pg_u_isdigit
-  - pg_u_isword
-  - pg_u_isblank
-  - pg_u_iscntrl
-  - pg_u_isgraph
-  - pg_u_isprint
-  - pg_u_ispunct
-  - pg_u_isxdigit
+  - [unicode_assigned](unicode_assigned.md)
+  - [pg_u_prop_cased](../p/pg_u_prop_cased.md)
+  - [pg_u_isdigit](../p/pg_u_isdigit.md)
+  - [pg_u_isword](../p/pg_u_isword.md)
+  - [pg_u_isblank](../p/pg_u_isblank.md)
+  - [pg_u_iscntrl](../p/pg_u_iscntrl.md)
+  - [pg_u_isgraph](../p/pg_u_isgraph.md)
+  - [pg_u_isprint](../p/pg_u_isprint.md)
+  - [pg_u_ispunct](../p/pg_u_ispunct.md)
+  - [pg_u_isxdigit](../p/pg_u_isxdigit.md)
 
 ## Notes and Other Information
 - Uses binary search algorithm for efficient O(log n) lookup in the unicode_categories table

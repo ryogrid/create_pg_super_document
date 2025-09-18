@@ -26,8 +26,8 @@ The function handles negative indices by converting them to positive indices usi
   - PG_GETARG_INT32: Retrieves 32-bit integer argument from function call
   - JB_ROOT_IS_ARRAY: Macro to check if JSONB root is an array type
   - JB_ROOT_COUNT: Macro to get the count of elements in JSONB root container
-  - getIthJsonbValueFromContainer: Retrieves the i-th element from JSONB array container
-  - JsonbValueToJsonb: Converts JsonbValue to Jsonb format
+  - [getIthJsonbValueFromContainer](../g/getIthJsonbValueFromContainer.md): Retrieves the i-th element from JSONB array container
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md): Converts JsonbValue to Jsonb format
   - PG_RETURN_JSONB_P: Returns JSONB result from function
   - PG_RETURN_NULL: Returns NULL result from function
 - Called from (representative examples):

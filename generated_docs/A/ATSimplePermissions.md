@@ -19,23 +19,23 @@ ATSimplePermissions serves as a critical security gatekeeper for ALTER TABLE ope
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - alter_table_type_to_string
-  - errdetail_relkind_not_supported
-  - object_ownercheck
-  - aclcheck_error
-  - get_relkind_objtype
-  - IsSystemRelation
+  - [alter_table_type_to_string](../a/alter_table_type_to_string.md)
+  - [errdetail_relkind_not_supported](../e/errdetail_relkind_not_supported.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_relkind_objtype](../g/get_relkind_objtype.md)
+  - [IsSystemRelation](../I/IsSystemRelation.md)
   - RelationGetRelationName
   - RelationGetRelid
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
 - Called from (representative examples):
-  - ATPrepCmd (extensively throughout ALTER TABLE command preparation)
-  - ATExecAddColumn
-  - ATExecDropColumn
-  - ATAddCheckConstraint
-  - ATExecDropConstraint
-  - ATExecAddInherit
-  - ATExecAttachPartition
+  - [ATPrepCmd](ATPrepCmd.md) (extensively throughout ALTER TABLE command preparation)
+  - [ATExecAddColumn](ATExecAddColumn.md)
+  - [ATExecDropColumn](ATExecDropColumn.md)
+  - [ATAddCheckConstraint](ATAddCheckConstraint.md)
+  - [ATExecDropConstraint](ATExecDropConstraint.md)
+  - [ATExecAddInherit](ATExecAddInherit.md)
+  - [ATExecAttachPartition](ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - Maps relation kinds (RELKIND_*) to internal target types (ATT_*) for validation

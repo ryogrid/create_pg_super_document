@@ -21,8 +21,8 @@ This function iterates through all block references in a WAL record, identifies 
   - XLogRecMaxBlockId
   - XLogRecHasBlockRef
   - XLogRecHasBlockImage
-  - RestoreBlockImage
-  - XLogRecGetBlockTagExtended
+  - [RestoreBlockImage](../R/RestoreBlockImage.md)
+  - [XLogRecGetBlockTagExtended](XLogRecGetBlockTagExtended.md)
   - fopen
   - fwrite
   - fclose
@@ -31,7 +31,7 @@ This function iterates through all block references in a WAL record, identifies 
   - MAX_FORKNUM (constant)
   - PG_BINARY_W (constant)
 - Called from (representative examples):
-  - main (used when --save-fpw option is specified in pg_waldump)
+  - [main](../m/main.md) (used when --save-fpw option is specified in pg_waldump)
 
 ## Notes and Other Information
 - Creates files with naming pattern: timeline-lsn-space-db-relation-block-fork.extension

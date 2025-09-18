@@ -22,10 +22,10 @@ This is a typedef, so it doesn't have direct members, but it points to a Paralle
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParallelBlockTableScanWorkerData
+  - [ParallelBlockTableScanWorkerData](ParallelBlockTableScanWorkerData.md)
 - Called from (representative examples):
-  - table_block_parallelscan_startblock_init
-  - table_block_parallelscan_nextpage
+  - [table_block_parallelscan_startblock_init](../t/table_block_parallelscan_startblock_init.md)
+  - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md)
   - table_scan_sample_next_tuple
 
 ## Notes and Other Information

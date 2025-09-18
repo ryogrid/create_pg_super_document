@@ -25,11 +25,11 @@ The function serves as a wrapper around the standard library fwrite() function, 
 - Functions called/Symbols referenced:
   - WRITE_ERROR_EXIT: Error handling macro for write failures
 - Called from (representative examples):
-  - InitArchiveFmt_Custom: Used during custom format archive initialization
-  - _CustomWriteFunc: Used for custom format-specific write operations
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md): Used during custom format archive initialization
+  - [_CustomWriteFunc](../C/_CustomWriteFunc.md): Used for custom format-specific write operations
   - lclTocEntry: Used in directory format implementation
-  - InitArchiveFmt_Directory: Used in directory format initialization
-  - InitArchiveFmt_Null: Used in null format initialization
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md): Used in directory format initialization
+  - [InitArchiveFmt_Null](../I/InitArchiveFmt_Null.md): Used in null format initialization
 
 ## Notes and Other Information
 - This is a static function specific to the custom format archive handling

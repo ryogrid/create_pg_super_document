@@ -27,11 +27,11 @@ The function supports two comparison modes:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoizeKey
-  - MemoizeState
-  - ExecStoreMinimalTuple
+  - [MemoizeKey](MemoizeKey.md)
+  - [MemoizeState](MemoizeState.md)
+  - [ExecStoreMinimalTuple](../E/ExecStoreMinimalTuple.md)
   - slot_getallattrs
-  - datum_image_eq
+  - [datum_image_eq](../d/datum_image_eq.md)
   - ExecQual
 - Called from (representative examples):
   - SH_DECLARE (hash table declaration)

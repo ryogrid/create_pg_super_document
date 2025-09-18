@@ -19,17 +19,17 @@ The function performs careful size calculations using PostgreSQL's safe arithmet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (safe addition to prevent overflow)
-  - mul_size (safe multiplication to prevent overflow)
+  - [add_size](../a/add_size.md) (safe addition to prevent overflow)
+  - [mul_size](../m/mul_size.md) (safe multiplication to prevent overflow)
   - MAXALIGN (alignment macro)
   - offsetof (standard C macro)
 - Types referenced:
-  - TwoPhaseStateData (main state structure)
+  - [TwoPhaseStateData](TwoPhaseStateData.md) (main state structure)
   - GlobalTransaction (pointer type)
-  - GlobalTransactionData (actual transaction data structure)
+  - [GlobalTransactionData](../G/GlobalTransactionData.md) (actual transaction data structure)
 - Called from:
-  - TwoPhaseShmemInit (in twophase.c:258)
-  - CalculateShmemSize (in ipci.c:130)
+  - [TwoPhaseShmemInit](TwoPhaseShmemInit.md) (in twophase.c:258)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (in ipci.c:130)
 
 ## Notes and Other Information
 - The calculation depends on the max_prepared_xacts GUC parameter

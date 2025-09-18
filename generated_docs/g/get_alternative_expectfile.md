@@ -23,7 +23,7 @@ The function allocates memory for the new filename, finds the last dot in the or
   - malloc (for memory allocation)
   - strlen, strcpy, strrchr, snprintf (standard string functions)
 - Called from (representative examples):
-  - results_differ (in src/test/regress/pg_regress.c:1456)
+  - [results_differ](../r/results_differ.md) (in src/test/regress/pg_regress.c:1456)
 
 ## Notes and Other Information
 - Returns a dynamically allocated string that must be freed by the caller

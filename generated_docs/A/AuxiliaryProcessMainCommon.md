@@ -19,26 +19,26 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
   - init_ps_display
   - SetProcessingMode (with BootstrapProcessing and NormalProcessing)
-  - InitAuxiliaryProcess
-  - BaseInit
-  - ProcSignalInit
-  - CreateAuxProcessResourceOwner
-  - pgstat_beinit
-  - pgstat_bestart
-  - before_shmem_exit
-  - ShutdownAuxiliaryProcess
+  - [InitAuxiliaryProcess](../I/InitAuxiliaryProcess.md)
+  - [BaseInit](../B/BaseInit.md)
+  - [ProcSignalInit](../P/ProcSignalInit.md)
+  - [CreateAuxProcessResourceOwner](../C/CreateAuxProcessResourceOwner.md)
+  - [pgstat_beinit](../p/pgstat_beinit.md)
+  - [pgstat_bestart](../p/pgstat_bestart.md)
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [ShutdownAuxiliaryProcess](../S/ShutdownAuxiliaryProcess.md)
 
 - Called from:
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - PgArchiverMain
-  - StartupProcessMain
-  - WalSummarizerMain
-  - WalWriterMain
-  - WalReceiverMain
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [PgArchiverMain](../P/PgArchiverMain.md)
+  - [StartupProcessMain](../S/StartupProcessMain.md)
+  - [WalSummarizerMain](../W/WalSummarizerMain.md)
+  - [WalWriterMain](../W/WalWriterMain.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
 
 ## Notes and Other Information
 - Must be called under the postmaster (Assert(IsUnderPostmaster))

@@ -24,7 +24,7 @@ This function places an index tuple into a buffer page by finding the appropriat
   - MAXALIGN (macro)
   - memcpy
 - Called from (representative examples):
-  - gistPushItupToNodeBuffer
+  - [gistPushItupToNodeBuffer](gistPushItupToNodeBuffer.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the gistbuildbuffers.c file

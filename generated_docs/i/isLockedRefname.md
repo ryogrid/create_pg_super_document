@@ -23,8 +23,8 @@ This function checks if a given table reference name is subject to row-level loc
   - lfirst (for list cell access)
   - strcmp (for string comparison)
 - Called from (representative examples):
-  - transformRangeSubselect (in parse_clause.c:433)
-  - addRangeTableEntry (in parse_relation.c:1494)
+  - [transformRangeSubselect](../t/transformRangeSubselect.md) (in parse_clause.c:433)
+  - [addRangeTableEntry](../a/addRangeTableEntry.md) (in parse_relation.c:1494)
 
 ## Notes and Other Information
 - Returns true if the parent query has marked this subquery as locked (p_locked_from_parent)

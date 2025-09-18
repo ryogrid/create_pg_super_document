@@ -41,18 +41,18 @@ The function performs several key operations:
   - dlist_foreach_modify
   - dlist_container
   - rbtxn_is_known_subxact
-  - ReorderBufferTruncateTXN (recursive call)
-  - dlist_delete
-  - ReorderBufferChangeSize
-  - ReorderBufferReturnChange
+  - [ReorderBufferTruncateTXN](ReorderBufferTruncateTXN.md) (recursive call)
+  - [dlist_delete](../d/dlist_delete.md)
+  - [ReorderBufferChangeSize](ReorderBufferChangeSize.md)
+  - [ReorderBufferReturnChange](ReorderBufferReturnChange.md)
   - ReorderBufferChangeMemoryUpdate
   - rbtxn_is_toptxn
-  - hash_destroy
+  - [hash_destroy](../h/hash_destroy.md)
   - rbtxn_is_serialized
-  - ReorderBufferRestoreCleanup
+  - [ReorderBufferRestoreCleanup](ReorderBufferRestoreCleanup.md)
 - Called from (representative examples):
-  - ReorderBufferStreamCommit
-  - ReorderBufferResetTXN
+  - [ReorderBufferStreamCommit](ReorderBufferStreamCommit.md)
+  - [ReorderBufferResetTXN](ReorderBufferResetTXN.md)
   - CHANGES_THRESHOLD (in reorderbuffer.c)
 
 ## Notes and Other Information

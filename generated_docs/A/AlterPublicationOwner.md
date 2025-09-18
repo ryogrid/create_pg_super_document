@@ -24,14 +24,14 @@ The function returns an ObjectAddress representing the modified publication, whi
 - Functions called/Symbols referenced:
   - table_open
   - SearchSysCacheCopy1
-  - CStringGetDatum
-  - AlterPublicationOwner_internal
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [AlterPublicationOwner_internal](AlterPublicationOwner_internal.md)
   - ObjectAddressSet
-  - heap_freetuple
+  - [heap_freetuple](../h/heap_freetuple.md)
   - table_close
   - Form_pg_publication (struct type)
 - Called from (representative examples):
-  - ExecAlterOwnerStmt
+  - [ExecAlterOwnerStmt](../E/ExecAlterOwnerStmt.md)
 
 ## Notes and Other Information
 - This is a public function, accessible throughout the PostgreSQL codebase and declared in publicationcmds.h

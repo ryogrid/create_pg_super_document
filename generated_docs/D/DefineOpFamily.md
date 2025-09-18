@@ -21,15 +21,15 @@ The function is relatively simple compared to DefineOpClass because operator fam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - QualifiedNameGetCreationNamespace
-  - object_aclcheck
-  - aclcheck_error
-  - get_namespace_name
-  - get_index_am_oid
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
+  - [get_index_am_oid](../g/get_index_am_oid.md)
   - superuser
-  - CreateOpFamily
+  - [CreateOpFamily](../C/CreateOpFamily.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility command processing)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility command processing)
 
 ## Notes and Other Information
 - Requires superuser privileges for the same security reasons as DefineOpClass

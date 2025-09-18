@@ -23,9 +23,9 @@ The function serves as a gatekeeper for the parameter ACL system, maintaining da
 - Functions called/Symbols referenced:
   - find_option: Searches for an existing GUC parameter by name
   - DEBUG5: Log level constant used for debug logging
-  - assignable_custom_variable_name: Validates custom GUC variable name patterns
+  - [assignable_custom_variable_name](../a/assignable_custom_variable_name.md): Validates custom GUC variable name patterns
 - Called from (representative examples):
-  - ParameterAclCreate: Creates new parameter ACL entries
+  - [ParameterAclCreate](../P/ParameterAclCreate.md): Creates new parameter ACL entries
   - EmitWarningsOnPlaceholders: Warning system for placeholder parameters
 
 ## Notes and Other Information

@@ -19,7 +19,7 @@ This is a pointer typedef, so it does not have direct member variables. It point
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDescData
+  - [TableScanDescData](TableScanDescData.md)
 - Called from (representative examples):
   - Various table access method functions
   - Scan execution nodes

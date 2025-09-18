@@ -29,17 +29,17 @@ The function employs a liberal definition of "const" - accepting any expression 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsBooleanOpfamily
-  - match_boolean_index_clause
-  - match_opclause_to_indexcol
-  - match_funcclause_to_indexcol
-  - match_saopclause_to_indexcol
-  - match_rowcompare_to_indexcol
-  - match_index_to_operand
+  - [IsBooleanOpfamily](../I/IsBooleanOpfamily.md)
+  - [match_boolean_index_clause](match_boolean_index_clause.md)
+  - [match_opclause_to_indexcol](match_opclause_to_indexcol.md)
+  - [match_funcclause_to_indexcol](match_funcclause_to_indexcol.md)
+  - [match_saopclause_to_indexcol](match_saopclause_to_indexcol.md)
+  - [match_rowcompare_to_indexcol](match_rowcompare_to_indexcol.md)
+  - [match_index_to_operand](match_index_to_operand.md)
   - makeNode (IndexClause creation)
 - Called from (representative examples):
   - ec_member_matches_arg
-  - match_clause_to_index
+  - [match_clause_to_index](match_clause_to_index.md)
 
 ## Notes and Other Information
 - Returns NULL for OR/AND clauses - higher-level routines must handle these complex expressions

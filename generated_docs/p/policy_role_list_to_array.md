@@ -27,17 +27,17 @@ The function allocates memory for the result array and populates it with ObjectI
 ## Dependencies
 - Functions called/Symbols referenced:
   - list_length (list utility function)
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
   - lfirst (list cell access macro)
-  - ObjectIdGetDatum (OID to Datum conversion)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (OID to Datum conversion)
   - ereport (error/warning reporting)
   - get_rolespec_oid (role specification to OID resolution)
   - ACL_ID_PUBLIC (public role constant)
   - ROLESPEC_PUBLIC (public role type constant)
 
 - Called from:
-  - CreatePolicy (during policy creation to convert role specifications)
-  - AlterPolicy (during policy modification to convert role specifications)
+  - [CreatePolicy](../C/CreatePolicy.md) (during policy creation to convert role specifications)
+  - [AlterPolicy](../A/AlterPolicy.md) (during policy modification to convert role specifications)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the policy.c module

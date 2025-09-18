@@ -29,16 +29,16 @@ Column range parameters (colMin/colMax) define which columns in the global colum
 - Functions called/Symbols referenced:
   - makeNode: Creates new PostgreSQL parse tree nodes
   - castNode: Safely casts nodes to specific types with type checking
-  - makeConst: Creates constant value nodes
+  - [makeConst](makeConst.md): Creates constant value nodes
   - DirectFunctionCall1: Directly calls PostgreSQL functions
-  - jsonpath_in: Parses and compiles JSONPath expressions
-  - CStringGetDatum: Converts C strings to PostgreSQL Datum values
-  - makeJsonTablePath: Creates JsonTablePath structures
+  - [jsonpath_in](../j/jsonpath_in.md): Parses and compiles JSONPath expressions
+  - [CStringGetDatum](../C/CStringGetDatum.md): Converts C strings to PostgreSQL Datum values
+  - [makeJsonTablePath](makeJsonTablePath.md): Creates JsonTablePath structures
   - IsA: Type checking macro for node types
   - T_JsonTablePathScan: Node type identifier for path scan plans
 
 - Called from (representative examples):
-  - transformJsonTableColumns: Main column transformation function that creates scan plans
+  - [transformJsonTableColumns](../t/transformJsonTableColumns.md): Main column transformation function that creates scan plans
 
 ## Notes and Other Information
 - The function validates that the path specification contains a proper A_Const node

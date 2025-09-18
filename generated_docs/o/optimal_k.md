@@ -28,8 +28,8 @@ The optimal number of hash functions minimizes the false positive probability of
   - Max() (PostgreSQL utility macro)
   - Min() (PostgreSQL utility macro)
 - Called from:
-  - bloom_filter (at src/backend/lib/bloomfilter.c:55)
-  - bloom_create (at src/backend/lib/bloomfilter.c:115)
+  - [bloom_filter](../b/bloom_filter.md) (at src/backend/lib/bloomfilter.c:55)
+  - [bloom_create](../b/bloom_create.md) (at src/backend/lib/bloomfilter.c:115)
 
 ## Notes and Other Information
 - The formula k = ln(2) * m/n is mathematically derived to minimize false positive probability

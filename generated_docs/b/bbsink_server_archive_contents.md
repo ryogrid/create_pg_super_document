@@ -20,14 +20,14 @@ The function maintains the current file position and provides comprehensive erro
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FileWrite
-  - FilePathName  
+  - [FileWrite](../F/FileWrite.md)
+  - [FilePathName](../F/FilePathName.md)  
   - ereport
-  - errcode_for_file_access
-  - errcode (ERRCODE_DISK_FULL)
-  - errmsg
-  - errhint
-  - bbsink_forward_archive_contents
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errcode](../e/errcode.md) (ERRCODE_DISK_FULL)
+  - [errmsg](../e/errmsg.md)
+  - [errhint](../e/errhint.md)
+  - [bbsink_forward_archive_contents](bbsink_forward_archive_contents.md)
 - Called from (representative examples):
   - Referenced through bbsink_server_ops function table
 

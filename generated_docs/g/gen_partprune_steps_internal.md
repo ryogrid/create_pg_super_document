@@ -29,24 +29,24 @@ For BoolExpr clauses, it processes arguments recursively: OR expressions use UNI
 ## Dependencies
 - Functions called/Symbols referenced:
   - partition_bound_has_default
-  - predicate_refuted_by
-  - is_orclause
-  - is_andclause
-  - match_clause_to_partition_key
-  - gen_prune_step_op
-  - gen_prune_step_combine
-  - gen_prune_steps_from_opexps
-  - bms_is_member
-  - bms_add_member
+  - [predicate_refuted_by](../p/predicate_refuted_by.md)
+  - [is_orclause](../i/is_orclause.md)
+  - [is_andclause](../i/is_andclause.md)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md)
+  - [gen_prune_step_op](gen_prune_step_op.md)
+  - [gen_prune_step_combine](gen_prune_step_combine.md)
+  - [gen_prune_steps_from_opexps](gen_prune_steps_from_opexps.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - bms_is_empty
-  - bms_num_members
-  - list_concat
+  - [bms_num_members](../b/bms_num_members.md)
+  - [list_concat](../l/list_concat.md)
   - lappend_int
   - llast
 - Called from (representative examples):
-  - gen_partprune_steps (partprune.c:736)
-  - gen_partprune_steps_internal (recursive calls at lines 1043, 1114)
-  - match_clause_to_partition_key (partprune.c:1855, 2368)
+  - [gen_partprune_steps](gen_partprune_steps.md) (partprune.c:736)
+  - [gen_partprune_steps_internal](gen_partprune_steps_internal.md) (recursive calls at lines 1043, 1114)
+  - [match_clause_to_partition_key](../m/match_clause_to_partition_key.md) (partprune.c:1855, 2368)
 
 ## Notes and Other Information
 - Returns NIL when contradictory clauses are found or no pruning is possible

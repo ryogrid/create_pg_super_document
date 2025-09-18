@@ -22,11 +22,11 @@ The function ensures that the returned bytea result is not toasted, making it su
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info
-  - SendFunctionCall
+  - [fmgr_info](../f/fmgr_info.md)
+  - [SendFunctionCall](../S/SendFunctionCall.md)
 - Called from (representative examples):
-  - logicalrep_write_tuple
-  - SendFunctionResult
+  - [logicalrep_write_tuple](../l/logicalrep_write_tuple.md)
+  - [SendFunctionResult](../S/SendFunctionResult.md)
 
 ## Notes and Other Information
 - Like other OidXXXFunctionCall functions, this is slow and may leak memory, so use sparingly

@@ -19,7 +19,7 @@ This function iterates through the pre-generated combinations stored in a Combin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CombinationGenerator (structure type)
+  - [CombinationGenerator](../C/CombinationGenerator.md) (structure type)
 - Called from (representative examples):
   - statext_ndistinct_build
 

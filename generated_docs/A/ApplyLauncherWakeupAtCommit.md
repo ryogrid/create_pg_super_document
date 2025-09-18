@@ -19,9 +19,9 @@ This function sets a flag () that signals the logical replication launcher to wa
 - Functions called/Symbols referenced:
   - on_commit_launcher_wakeup (static variable)
 - Called from (representative examples):
-  - CreateSubscription
-  - AlterSubscription 
-  - AlterSubscriptionOwner_internal
+  - [CreateSubscription](../C/CreateSubscription.md)
+  - [AlterSubscription](AlterSubscription.md) 
+  - [AlterSubscriptionOwner_internal](AlterSubscriptionOwner_internal.md)
 
 ## Notes and Other Information
 - This function is typically called when new tuples are added to the pg_subscription catalog

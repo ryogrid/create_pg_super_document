@@ -26,16 +26,16 @@ This static function implements the recursive logic for inserting RestrictInfo n
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - is_orclause
+  - [is_orclause](../i/is_orclause.md)
   - BoolExpr
-  - make_sub_restrictinfos (recursive call)
-  - make_restrictinfo_internal
-  - make_orclause
-  - is_andclause
-  - make_andclause
+  - [make_sub_restrictinfos](make_sub_restrictinfos.md) (recursive call)
+  - [make_restrictinfo_internal](make_restrictinfo_internal.md)
+  - [make_orclause](make_orclause.md)
+  - [is_andclause](../i/is_andclause.md)
+  - [make_andclause](make_andclause.md)
 - Called from (representative examples):
-  - make_restrictinfo
-  - make_sub_restrictinfos (recursive calls)
+  - [make_restrictinfo](make_restrictinfo.md)
+  - [make_sub_restrictinfos](make_sub_restrictinfos.md) (recursive calls)
 
 ## Notes and Other Information
 - Recursive structure: The function calls itself to process nested boolean expressions, ensuring proper RestrictInfo placement throughout the expression tree

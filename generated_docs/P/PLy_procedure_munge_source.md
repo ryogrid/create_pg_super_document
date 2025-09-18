@@ -21,12 +21,12 @@ This function takes raw PL/Python procedure source code and transforms it into a
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (C standard library function)
-  - palloc (PostgreSQL memory allocation function)  
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation function)  
   - snprintf (C standard library function)
   - Assert (PostgreSQL assertion macro)
   - elog (PostgreSQL logging function)
 - Called from (representative examples):
-  - PLy_procedure_compile
+  - [PLy_procedure_compile](PLy_procedure_compile.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the plpy_procedure.c file

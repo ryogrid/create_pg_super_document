@@ -26,13 +26,13 @@ The function handles the memory layout transformation between MinimalTuple and H
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - heap_getattr
-  - HeapTupleData (struct type)
+  - [heap_getattr](../h/heap_getattr.md)
+  - [HeapTupleData](../H/HeapTupleData.md) (struct type)
   - MinimalTuple (type)
   - HeapTupleHeader (type)
   - MINIMAL_TUPLE_OFFSET (constant)
 - Called from (representative examples):
-  - tuplesort_begin_heap (via CLUSTER_SORT macro)
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md) (via CLUSTER_SORT macro)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tuplesortvariants.c file

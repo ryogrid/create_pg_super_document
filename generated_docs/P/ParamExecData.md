@@ -24,15 +24,15 @@ When execPlan is NULL, the value and isnull fields contain the actual parameter 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum (PostgreSQL data type)
-  - SubPlanState (implicitly referenced through execPlan)
+  - [SubPlanState](../S/SubPlanState.md) (implicitly referenced through execPlan)
 
 - Called from (representative examples):
-  - ExecEvalParamExec (parameter evaluation)
-  - standard_ExecutorStart (executor initialization)
-  - ExecScanSubPlan (sub-plan scanning)
-  - ExecSetParamPlan (parameter plan setting)
+  - [ExecEvalParamExec](../E/ExecEvalParamExec.md) (parameter evaluation)
+  - [standard_ExecutorStart](../s/standard_ExecutorStart.md) (executor initialization)
+  - [ExecScanSubPlan](../E/ExecScanSubPlan.md) (sub-plan scanning)
+  - [ExecSetParamPlan](../E/ExecSetParamPlan.md) (parameter plan setting)
   - SerializeParamExecParams (parallel execution serialization)
-  - ExecInitSubPlan (sub-plan initialization)
+  - [ExecInitSubPlan](../E/ExecInitSubPlan.md) (sub-plan initialization)
 
 ## Notes and Other Information
 - Critical for inter-query parameter passing in complex queries with sub-selects

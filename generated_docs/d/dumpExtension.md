@@ -20,20 +20,20 @@ In regular mode, the function intentionally omits version specification to use t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - appendStringLiteralAH
-  - findObjectByDumpId
+  - [findObjectByDumpId](../f/findObjectByDumpId.md)
   - appendPQExpBufferChar
-  - ArchiveEntry
-  - dumpComment
-  - dumpSecLabel
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpSecLabel](dumpSecLabel.md)
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - pg_strdup
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - dumpDumpableObject (in pg_dump.c:10541)
+  - [dumpDumpableObject](dumpDumpableObject.md) (in pg_dump.c:10541)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode ()

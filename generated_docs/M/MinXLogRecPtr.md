@@ -26,7 +26,7 @@ The function uses a three-way conditional logic:
   - XLogRecPtrIsInvalid (macro to check if XLogRecPtr is invalid)
   - Min (standard minimum macro)
 - Called from (representative examples):
-  - findCommonAncestorTimeline
+  - [findCommonAncestorTimeline](../f/findCommonAncestorTimeline.md)
 
 ## Notes and Other Information
 - This is a static function local to pg_rewind.c

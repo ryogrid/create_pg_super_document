@@ -39,16 +39,16 @@ The function handles the distinction between direct container assignments and as
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - transformContainerType
-  - transformContainerSubscripts
-  - get_typcollation
-  - transformAssignmentIndirection (recursive call)
-  - coerce_to_target_type
+  - [transformContainerType](transformContainerType.md)
+  - [transformContainerSubscripts](transformContainerSubscripts.md)
+  - [get_typcollation](../g/get_typcollation.md)
+  - [transformAssignmentIndirection](transformAssignmentIndirection.md) (recursive call)
+  - [coerce_to_target_type](../c/coerce_to_target_type.md)
   - exprType
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
   - Constants: COERCE_IMPLICIT_CAST
 - Called from:
-  - transformAssignmentIndirection (twice - for embedded and trailing subscripts)
+  - [transformAssignmentIndirection](transformAssignmentIndirection.md) (twice - for embedded and trailing subscripts)
 
 ## Notes and Other Information
 - This is a static function, only accessible within parse_target.c

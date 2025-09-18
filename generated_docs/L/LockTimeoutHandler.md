@@ -23,7 +23,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - kill (system call for sending signals)
 - Called from (representative examples):
-  - InitPostgres (src/backend/utils/init/postinit.c:774)
+  - [InitPostgres](../I/InitPostgres.md) (src/backend/utils/init/postinit.c:774)
 
 ## Notes and Other Information
 - Always sends SIGINT, never SIGTERM, as lock timeouts are recoverable conditions

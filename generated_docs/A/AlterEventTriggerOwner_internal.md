@@ -20,15 +20,15 @@ This function performs the actual work of changing an event trigger's owner. It 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_event_trigger (catalog form structure)
-  - object_ownercheck (permission validation)
-  - aclcheck_error (access control error reporting)
+  - [object_ownercheck](../o/object_ownercheck.md) (permission validation)
+  - [aclcheck_error](../a/aclcheck_error.md) (access control error reporting)
   - superuser_arg (superuser privilege check)
-  - CatalogTupleUpdate (catalog tuple modification)
-  - changeDependencyOnOwner (dependency system update)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog tuple modification)
+  - [changeDependencyOnOwner](../c/changeDependencyOnOwner.md) (dependency system update)
   - InvokeObjectPostAlterHook (post-alter event notification)
 - Called from (representative examples):
-  - AlterEventTriggerOwner
-  - AlterEventTriggerOwner_oid
+  - [AlterEventTriggerOwner](AlterEventTriggerOwner.md)
+  - [AlterEventTriggerOwner_oid](AlterEventTriggerOwner_oid.md)
 
 ## Notes and Other Information
 - This is a static internal function, not exposed outside event_trigger.c

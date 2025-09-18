@@ -29,17 +29,17 @@ The inlining process involves several phases: validation of function properties,
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc (function catalog entry structure)
-  - heap_attisnull (checks for NULL attributes)
-  - prepare_sql_fn_parse_info (prepares SQL function parsing context)
-  - pg_parse_query (parses SQL text into parse trees)
-  - sql_fn_parser_setup (configures parser for SQL functions)
-  - transformTopLevelStmt (transforms parse tree to Query)
-  - check_sql_fn_retval (validates function return value)
-  - substitute_actual_parameters (replaces parameter references)
-  - contain_volatile_functions, contain_mutable_functions, contain_nonstrict_functions (volatility checks)
-  - eval_const_expressions_mutator (recursive optimization)
+  - [heap_attisnull](../h/heap_attisnull.md) (checks for NULL attributes)
+  - [prepare_sql_fn_parse_info](../p/prepare_sql_fn_parse_info.md) (prepares SQL function parsing context)
+  - [pg_parse_query](../p/pg_parse_query.md) (parses SQL text into parse trees)
+  - [sql_fn_parser_setup](../s/sql_fn_parser_setup.md) (configures parser for SQL functions)
+  - [transformTopLevelStmt](../t/transformTopLevelStmt.md) (transforms parse tree to Query)
+  - [check_sql_fn_retval](../c/check_sql_fn_retval.md) (validates function return value)
+  - [substitute_actual_parameters](../s/substitute_actual_parameters.md) (replaces parameter references)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md), contain_mutable_functions, contain_nonstrict_functions (volatility checks)
+  - [eval_const_expressions_mutator](../e/eval_const_expressions_mutator.md) (recursive optimization)
 - Called from:
-  - simplify_function (main function simplification routine)
+  - [simplify_function](../s/simplify_function.md) (main function simplification routine)
 
 ## Notes and Other Information
 - Returns NULL if inlining is not possible, otherwise returns the inlined expression

@@ -22,7 +22,7 @@ The function follows PostgreSQL's standard function calling convention using the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidsend (delegates all processing to this function)
+  - [oidsend](../o/oidsend.md) (delegates all processing to this function)
 - Called from (representative examples):
   - This function is typically invoked by PostgreSQL's type system when binary output conversion is needed for regrole values
 

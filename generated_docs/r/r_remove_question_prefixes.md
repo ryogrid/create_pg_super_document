@@ -23,12 +23,12 @@ If all three conditions are met, it removes the matched prefix using  and then a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - eq_s (string equality comparison, used twice for pattern matching)
-  - find_among (pattern matching function against an array of alternatives)
-  - slice_del (function to delete the matched text segment)
-  - r_fix_va_start (character sequence normalization function)
+  - [eq_s](../e/eq_s.md) (string equality comparison, used twice for pattern matching)
+  - [find_among](../f/find_among.md) (pattern matching function against an array of alternatives)
+  - [slice_del](../s/slice_del.md) (function to delete the matched text segment)
+  - [r_fix_va_start](r_fix_va_start.md) (character sequence normalization function)
 - Called from (representative examples):
-  - tamil_UTF_8_stem (main Tamil stemming function)
+  - [tamil_UTF_8_stem](../t/tamil_UTF_8_stem.md) (main Tamil stemming function)
 
 ## Notes and Other Information
 - Returns 1 on successful prefix removal, 0 if no matching pattern is found

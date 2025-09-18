@@ -20,53 +20,53 @@ The function contains a comprehensive switch statement that handles all possible
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dumpNamespace
-  - dumpExtension  
-  - dumpType
-  - dumpShellType
-  - dumpFunc
-  - dumpAgg
-  - dumpOpr
-  - dumpAccessMethod
-  - dumpOpclass
-  - dumpOpfamily
-  - dumpCollation
-  - dumpConversion
-  - dumpTable
-  - dumpTableAttach
-  - dumpAttrDef
-  - dumpIndex
-  - dumpIndexAttach
-  - dumpStatisticsExt
-  - refreshMatViewData
-  - dumpRule
-  - dumpTrigger
-  - dumpEventTrigger
-  - dumpConstraint
-  - dumpProcLang
-  - dumpCast
-  - dumpTransform
-  - dumpSequenceData
-  - dumpTableData
-  - dumpTSParser
-  - dumpTSDictionary
-  - dumpTSTemplate
-  - dumpTSConfig
-  - dumpForeignDataWrapper
-  - dumpForeignServer
-  - dumpDefaultACL
-  - dumpLO
-  - dumpPolicy
-  - dumpPublication
-  - dumpPublicationTable
-  - dumpPublicationNamespace
-  - dumpSubscription
-  - dumpSubscriptionTable
-  - findObjectByDumpId
-  - ArchiveEntry
-  - dumpLOs
+  - [dumpNamespace](dumpNamespace.md)
+  - [dumpExtension](dumpExtension.md)  
+  - [dumpType](dumpType.md)
+  - [dumpShellType](dumpShellType.md)
+  - [dumpFunc](dumpFunc.md)
+  - [dumpAgg](dumpAgg.md)
+  - [dumpOpr](dumpOpr.md)
+  - [dumpAccessMethod](dumpAccessMethod.md)
+  - [dumpOpclass](dumpOpclass.md)
+  - [dumpOpfamily](dumpOpfamily.md)
+  - [dumpCollation](dumpCollation.md)
+  - [dumpConversion](dumpConversion.md)
+  - [dumpTable](dumpTable.md)
+  - [dumpTableAttach](dumpTableAttach.md)
+  - [dumpAttrDef](dumpAttrDef.md)
+  - [dumpIndex](dumpIndex.md)
+  - [dumpIndexAttach](dumpIndexAttach.md)
+  - [dumpStatisticsExt](dumpStatisticsExt.md)
+  - [refreshMatViewData](../r/refreshMatViewData.md)
+  - [dumpRule](dumpRule.md)
+  - [dumpTrigger](dumpTrigger.md)
+  - [dumpEventTrigger](dumpEventTrigger.md)
+  - [dumpConstraint](dumpConstraint.md)
+  - [dumpProcLang](dumpProcLang.md)
+  - [dumpCast](dumpCast.md)
+  - [dumpTransform](dumpTransform.md)
+  - [dumpSequenceData](dumpSequenceData.md)
+  - [dumpTableData](dumpTableData.md)
+  - [dumpTSParser](dumpTSParser.md)
+  - [dumpTSDictionary](dumpTSDictionary.md)
+  - [dumpTSTemplate](dumpTSTemplate.md)
+  - [dumpTSConfig](dumpTSConfig.md)
+  - [dumpForeignDataWrapper](dumpForeignDataWrapper.md)
+  - [dumpForeignServer](dumpForeignServer.md)
+  - [dumpDefaultACL](dumpDefaultACL.md)
+  - [dumpLO](dumpLO.md)
+  - [dumpPolicy](dumpPolicy.md)
+  - [dumpPublication](dumpPublication.md)
+  - [dumpPublicationTable](dumpPublicationTable.md)
+  - [dumpPublicationNamespace](dumpPublicationNamespace.md)
+  - [dumpSubscription](dumpSubscription.md)
+  - [dumpSubscriptionTable](dumpSubscriptionTable.md)
+  - [findObjectByDumpId](../f/findObjectByDumpId.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpLOs](dumpLOs.md)
 - Called from (representative examples):
-  - main (in pg_dump.c:1036)
+  - [main](../m/main.md) (in pg_dump.c:1036)
 
 ## Notes and Other Information
 - Performs component filtering optimization before dispatching to specialized dump functions

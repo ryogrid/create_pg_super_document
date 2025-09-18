@@ -21,16 +21,16 @@ This function is a dispatcher that creates different types of target file system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_target_dir (for directories)
-  - create_target_symlink (for symbolic links)
-  - pg_fatal (for error handling)
+  - [create_target_dir](create_target_dir.md) (for directories)
+  - [create_target_symlink](create_target_symlink.md) (for symbolic links)
+  - [pg_fatal](../p/pg_fatal.md) (for error handling)
   - Assert (for validation)
 - Enums/Types used:
-  - file_entry_t (structure type)
+  - [file_entry_t](../f/file_entry_t.md) (structure type)
   - FILE_ACTION_CREATE (action enum)
   - FILE_TYPE_DIRECTORY, FILE_TYPE_SYMLINK, FILE_TYPE_REGULAR, FILE_TYPE_UNDEFINED (file type enums)
 - Called from (representative examples):
-  - perform_rewind
+  - [perform_rewind](../p/perform_rewind.md)
 
 ## Notes and Other Information
 - Part of pg_rewind utility's file operations module (src/bin/pg_rewind/file_ops.c)

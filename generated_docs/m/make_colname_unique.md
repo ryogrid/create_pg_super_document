@@ -42,16 +42,16 @@ The algorithm guarantees that a unique name will eventually be found, as the num
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - colname_is_unique
-  - pg_mbcliplen
+  - [colname_is_unique](../c/colname_is_unique.md)
+  - [pg_mbcliplen](../p/pg_mbcliplen.md)
   - strlen
   - memcpy  
   - sprintf
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - set_using_names
-  - set_relation_column_names
-  - set_join_column_names
+  - [set_using_names](../s/set_using_names.md)
+  - [set_relation_column_names](../s/set_relation_column_names.md)
+  - [set_join_column_names](../s/set_join_column_names.md)
 
 ## Notes and Other Information
 - Central utility function in PostgreSQL's rule decompilation system for ensuring column name uniqueness

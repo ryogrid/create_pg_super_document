@@ -21,16 +21,16 @@ lseg_inside_poly implements a comprehensive algorithm to test whether a line seg
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth: Prevents stack overflow during recursion
-  - lseg_contain_point: Tests if a line segment contains a point
-  - touched_lseg_inside_poly: Handles special cases where segment touches polygon edge
-  - lseg_interpt_lseg: Finds intersection point between two line segments
-  - float8_pl: Floating-point addition for coordinate calculations
-  - float8_div: Floating-point division for coordinate calculations  
-  - point_inside: Tests if a point lies inside the polygon
+  - [lseg_contain_point](lseg_contain_point.md): Tests if a line segment contains a point
+  - [touched_lseg_inside_poly](../t/touched_lseg_inside_poly.md): Handles special cases where segment touches polygon edge
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md): Finds intersection point between two line segments
+  - [float8_pl](../f/float8_pl.md): Floating-point addition for coordinate calculations
+  - [float8_div](../f/float8_div.md): Floating-point division for coordinate calculations  
+  - [point_inside](../p/point_inside.md): Tests if a point lies inside the polygon
   - CHECK_FOR_INTERRUPTS: Allows query cancellation during long operations
 - Called from (representative examples):
-  - touched_lseg_inside_poly: For recursive edge case handling
-  - poly_contain_poly: As part of polygon containment testing
+  - [touched_lseg_inside_poly](../t/touched_lseg_inside_poly.md): For recursive edge case handling
+  - [poly_contain_poly](../p/poly_contain_poly.md): As part of polygon containment testing
   - PATH_CLOSED: For closed path containment testing
 
 ## Notes and Other Information

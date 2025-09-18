@@ -26,11 +26,11 @@ This design provides optimal performance for the common case where tuples differ
 ## Dependencies
 - Functions called/Symbols referenced:
   - TuplesortstateGetPublic
-  - ApplySortComparator
-  - comparetup_index_btree_tiebreak
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [comparetup_index_btree_tiebreak](comparetup_index_btree_tiebreak.md)
 - Called from (representative examples):
-  - tuplesort_begin_index_btree
-  - tuplesort_begin_index_gist
+  - [tuplesort_begin_index_btree](../t/tuplesort_begin_index_btree.md)
+  - [tuplesort_begin_index_gist](../t/tuplesort_begin_index_gist.md)
   - CLUSTER_SORT operations
 
 ## Notes and Other Information

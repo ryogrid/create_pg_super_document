@@ -24,7 +24,7 @@ This function takes no parameters.
   - fork (standard Unix system call)
   - fflush
   - getitimer (Linux profiling support)
-  - setitimer (Linux profiling support)
+  - [setitimer](../s/setitimer.md) (Linux profiling support)
   - sigprocmask (signal handling)
   - getpid
   - getenv
@@ -32,10 +32,10 @@ This function takes no parameters.
   - write
   - close
   - strlen
-  - pg_strong_random_init
+  - [pg_strong_random_init](../p/pg_strong_random_init.md)
 - Called from (representative examples):
-  - postmaster_child_launch
-  - internal_forkexec
+  - [postmaster_child_launch](../p/postmaster_child_launch.md)
+  - [internal_forkexec](../i/internal_forkexec.md)
 
 ## Notes and Other Information
 - Return values match those of the standard fork() system call: -1 on failure, 0 in child process, child PID in parent process

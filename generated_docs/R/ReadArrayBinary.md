@@ -30,16 +30,16 @@ The function also calculates the total storage space required for all elements, 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint
-  - ReceiveFunctionCall
-  - initReadOnlyStringInfo
+  - [pq_getmsgint](../p/pq_getmsgint.md)
+  - [ReceiveFunctionCall](ReceiveFunctionCall.md)
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md)
   - PG_DETOAST_DATUM
   - att_addlength_datum
   - att_align_nominal
   - AllocSizeIsValid
   - MaxAllocSize
 - Called from (representative examples):
-  - array_recv
+  - [array_recv](../a/array_recv.md)
 
 ## Notes and Other Information
 The function uses -1 as a special length value to indicate NULL elements in the binary format. It employs read-only StringInfo structures to avoid unnecessary data copying during element processing. Comprehensive validation ensures that receive procedures consume exactly the expected amount of data. For variable-length types, the function automatically detoasts values to ensure proper storage calculations. Memory overflow protection prevents creation of arrays exceeding MaxAllocSize limits, maintaining system stability during large array operations.

@@ -17,13 +17,13 @@ XLogInsertAllowed is a critical function that controls access to WAL insertion o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress (to check if system is still recovering)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md) (to check if system is still recovering)
   - LocalXLogInsertAllowed (local static variable for caching)
 - Called from (representative examples):
-  - XLogInsertRecord
-  - XLogFlush
-  - XLogBeginInsert
-  - WALAvailability
+  - [XLogInsertRecord](XLogInsertRecord.md)
+  - [XLogFlush](XLogFlush.md)
+  - [XLogBeginInsert](XLogBeginInsert.md)
+  - [WALAvailability](../W/WALAvailability.md)
 
 ## Notes and Other Information
 - Ordinarily equivalent to !RecoveryInProgress() but with process-specific overrides

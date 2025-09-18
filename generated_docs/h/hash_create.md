@@ -289,25 +289,25 @@ Text creation and manipulation
 ## Dependencies
 - Functions called/Symbols referenced:
   - AllocSetContextCreate
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - MemoryContextSetIdentifier
-  - string_hash
-  - string_compare
+  - [string_hash](../s/string_hash.md)
+  - [string_compare](../s/string_compare.md)
   - uint32_hash
   - tag_hash
   - strlcpy
-  - DynaHashAlloc
-  - hdefault
-  - next_pow2_int
-  - my_log2
-  - init_htab
-  - element_alloc
+  - [DynaHashAlloc](../D/DynaHashAlloc.md)
+  - [hdefault](hdefault.md)
+  - [next_pow2_int](../n/next_pow2_int.md)
+  - [my_log2](../m/my_log2.md)
+  - [init_htab](../i/init_htab.md)
+  - [element_alloc](../e/element_alloc.md)
 - Called from (representative examples):
-  - InitBufferPoolAccess
-  - RelationCacheInitialize  
-  - lookup_type_cache
+  - [InitBufferPoolAccess](../I/InitBufferPoolAccess.md)
+  - [RelationCacheInitialize](../R/RelationCacheInitialize.md)  
+  - [lookup_type_cache](../l/lookup_type_cache.md)
   - InitLocks
-  - ReorderBufferAllocate
+  - [ReorderBufferAllocate](../R/ReorderBufferAllocate.md)
 
 ## Notes and Other Information
 - HASH_ELEM flag is mandatory - must specify key and entry sizes

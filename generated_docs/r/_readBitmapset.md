@@ -28,13 +28,13 @@ The function uses PostgreSQL's standard tokenization mechanism (`pg_strtok`) and
 ## Dependencies
 - Functions called/Symbols referenced:
   - `READ_TEMP_LOCALS` (macro for local tokenization variables)
-  - `pg_strtok` (tokenization function)
+  - `[pg_strtok](../p/pg_strtok.md)` (tokenization function)
   - `strtol` (string to integer conversion)
-  - `bms_add_member` (adds member to Bitmapset)
+  - `[bms_add_member](../b/bms_add_member.md)` (adds member to Bitmapset)
   - `elog` (error logging)
 - Called from (representative examples):
   - `READ_BITMAPSET_FIELD` (macro for reading Bitmapset fields)
-  - `readBitmapset` (public wrapper function)
+  - `[readBitmapset](readBitmapset.md)` (public wrapper function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the readfuncs.c compilation unit

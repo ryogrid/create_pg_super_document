@@ -25,7 +25,7 @@ The parameter '0' passed to SN_close_env indicates that no additional string var
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SN_close_env: Core Snowball framework function that handles the actual memory deallocation and cleanup
+  - [SN_close_env](../S/SN_close_env.md): Core Snowball framework function that handles the actual memory deallocation and cleanup
 - Called from:
   - External interfaces (likely through stemmer cleanup routines)
 

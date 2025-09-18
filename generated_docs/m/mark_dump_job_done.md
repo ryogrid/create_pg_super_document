@@ -21,9 +21,9 @@ This function serves as a completion callback for parallel dump operations in Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
 - Called from (representative examples):
-  - WriteDataChunks
+  - [WriteDataChunks](../W/WriteDataChunks.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pg_backup_archiver.c source file

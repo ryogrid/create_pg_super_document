@@ -39,19 +39,19 @@ The function delegates to specialized handlers (setPathObject, setPathArray) bas
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - JsonbIteratorNext
-  - pushJsonbValue
-  - setPathArray
-  - setPathObject
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [setPathArray](setPathArray.md)
+  - [setPathObject](setPathObject.md)
   - WJB_BEGIN_ARRAY, WJB_BEGIN_OBJECT, WJB_END_ARRAY, WJB_END_OBJECT, WJB_ELEM, WJB_VALUE
   - JB_PATH_FILL_GAPS operation flag
 - Called from (representative examples):
-  - jsonb_set_element
-  - jsonb_set
-  - jsonb_delete_path
-  - jsonb_insert
-  - setPathObject (recursive)
-  - setPathArray (recursive)
+  - [jsonb_set_element](../j/jsonb_set_element.md)
+  - [jsonb_set](../j/jsonb_set.md)
+  - [jsonb_delete_path](../j/jsonb_delete_path.md)
+  - [jsonb_insert](../j/jsonb_insert.md)
+  - [setPathObject](setPathObject.md) (recursive)
+  - [setPathArray](setPathArray.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function internal to jsonfuncs.c

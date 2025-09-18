@@ -23,16 +23,16 @@ The function handles schema qualification by checking if the operator family is 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1 (system catalog lookups for OPFAMILYOID and AMOID)
-  - OpfamilyIsVisible (visibility checking for operator families)
-  - get_namespace_name (schema name retrieval)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookups for OPFAMILYOID and AMOID)
+  - [OpfamilyIsVisible](../O/OpfamilyIsVisible.md) (visibility checking for operator families)
+  - [get_namespace_name](get_namespace_name.md) (schema name retrieval)
   - quote_qualified_identifier (safe name quoting)
   - appendStringInfo (string formatting)
-  - ReleaseSysCache (cache cleanup)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (cache cleanup)
   - Form_pg_opfamily and Form_pg_am structures
 
 - Called from (representative examples):
-  - getObjectDescription (main object description function, multiple locations for operator families and related objects)
+  - [getObjectDescription](getObjectDescription.md) (main object description function, multiple locations for operator families and related objects)
   - object_type_map (object type mapping)
 
 ## Notes and Other Information

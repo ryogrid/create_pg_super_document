@@ -25,30 +25,30 @@ doDeletion implements a comprehensive switch statement that handles deletion for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_rel_relkind: Determines relation kind for relation objects
-  - index_drop: Drops index objects with concurrent support
-  - RemoveAttributeById: Removes table attributes/columns
-  - heap_drop_with_catalog: Drops table relations
-  - DeleteSequenceTuple: Removes sequence metadata
-  - RemoveFunctionById: Removes function objects
-  - RemoveTypeById: Removes data type objects
-  - RemoveConstraintById: Removes constraint objects
-  - RemoveAttrDefaultById: Removes attribute default objects
-  - LargeObjectDrop: Removes large objects
-  - RemoveOperatorById: Removes operator objects
-  - RemoveRewriteRuleById: Removes rewrite rules
-  - RemoveTriggerById: Removes trigger objects
-  - RemoveStatisticsById: Removes statistics objects
-  - RemoveTSConfigurationById: Removes text search configurations
-  - RemoveExtensionById: Removes extension objects
-  - RemovePolicyById: Removes row security policies
-  - RemovePublicationSchemaById: Removes publication schemas
-  - RemovePublicationRelById: Removes publication relations
-  - RemovePublicationById: Removes publication objects
-  - DropObjectById: Generic object deletion for simple catalog types
+  - [get_rel_relkind](../g/get_rel_relkind.md): Determines relation kind for relation objects
+  - [index_drop](../i/index_drop.md): Drops index objects with concurrent support
+  - [RemoveAttributeById](../R/RemoveAttributeById.md): Removes table attributes/columns
+  - [heap_drop_with_catalog](../h/heap_drop_with_catalog.md): Drops table relations
+  - [DeleteSequenceTuple](../D/DeleteSequenceTuple.md): Removes sequence metadata
+  - [RemoveFunctionById](../R/RemoveFunctionById.md): Removes function objects
+  - [RemoveTypeById](../R/RemoveTypeById.md): Removes data type objects
+  - [RemoveConstraintById](../R/RemoveConstraintById.md): Removes constraint objects
+  - [RemoveAttrDefaultById](../R/RemoveAttrDefaultById.md): Removes attribute default objects
+  - [LargeObjectDrop](../L/LargeObjectDrop.md): Removes large objects
+  - [RemoveOperatorById](../R/RemoveOperatorById.md): Removes operator objects
+  - [RemoveRewriteRuleById](../R/RemoveRewriteRuleById.md): Removes rewrite rules
+  - [RemoveTriggerById](../R/RemoveTriggerById.md): Removes trigger objects
+  - [RemoveStatisticsById](../R/RemoveStatisticsById.md): Removes statistics objects
+  - [RemoveTSConfigurationById](../R/RemoveTSConfigurationById.md): Removes text search configurations
+  - [RemoveExtensionById](../R/RemoveExtensionById.md): Removes extension objects
+  - [RemovePolicyById](../R/RemovePolicyById.md): Removes row security policies
+  - [RemovePublicationSchemaById](../R/RemovePublicationSchemaById.md): Removes publication schemas
+  - [RemovePublicationRelById](../R/RemovePublicationRelById.md): Removes publication relations
+  - [RemovePublicationById](../R/RemovePublicationById.md): Removes publication objects
+  - [DropObjectById](../D/DropObjectById.md): Generic object deletion for simple catalog types
 - Called from:
   - find_expr_references_context: Expression reference finding context
-  - deleteOneObject: Main object deletion orchestration
+  - [deleteOneObject](deleteOneObject.md): Main object deletion orchestration
 
 ## Notes and Other Information
 - This function serves as the central routing mechanism for object deletion in PostgreSQL

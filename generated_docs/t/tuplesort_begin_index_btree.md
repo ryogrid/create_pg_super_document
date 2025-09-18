@@ -23,19 +23,19 @@ This function creates a specialized tuplesort state for B-tree index creation op
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - tuplesort_begin_common
+  - [tuplesort_begin_common](tuplesort_begin_common.md)
   - TuplesortstateGetPublic
   - IndexRelationGetNumberOfKeyAttributes
-  - _bt_mkscankey
-  - removeabbrev_index
-  - comparetup_index_btree
-  - comparetup_index_btree_tiebreak
-  - writetup_index
-  - readtup_index
+  - [_bt_mkscankey](../b/_bt_mkscankey.md)
+  - [removeabbrev_index](../r/removeabbrev_index.md)
+  - [comparetup_index_btree](../c/comparetup_index_btree.md)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md)
+  - [writetup_index](../w/writetup_index.md)
+  - [readtup_index](../r/readtup_index.md)
   - PrepareSortSupportFromIndexRel
 - Called from (representative examples):
-  - _bt_spools_heapscan (nbtsort.c:428, nbtsort.c:469)
-  - _bt_parallel_scan_and_sort (nbtsort.c:1879, nbtsort.c:1905)
+  - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md) (nbtsort.c:428, nbtsort.c:469)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md) (nbtsort.c:1879, nbtsort.c:1905)
 
 ## Notes and Other Information
 - Creates a TuplesortIndexBTreeArg structure to store index-specific parameters including heap and index relations

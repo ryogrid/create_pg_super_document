@@ -20,10 +20,10 @@ The comparison follows standard C library conventions: returning a negative valu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowSecurityPolicy (structure access)
+  - [RowSecurityPolicy](../R/RowSecurityPolicy.md) (structure access)
   - strcmp (standard library function)
 - Called from (representative examples):
-  - sort_policies_by_name (via list_sort)
+  - [sort_policies_by_name](../s/sort_policies_by_name.md) (via list_sort)
 
 ## Notes and Other Information
 - Designed specifically for use with PostgreSQL's list_sort function

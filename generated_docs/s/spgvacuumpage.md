@@ -24,17 +24,17 @@ The function ensures proper buffer management, applies vacuum delay points for t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - vacuum_delay_point
-  - ReadBufferExtended
-  - vacuumLeafRoot
-  - vacuumLeafPage
-  - vacuumRedirectAndPlaceholder
+  - [vacuum_delay_point](../v/vacuum_delay_point.md)
+  - [ReadBufferExtended](../R/ReadBufferExtended.md)
+  - [vacuumLeafRoot](../v/vacuumLeafRoot.md)
+  - [vacuumLeafPage](../v/vacuumLeafPage.md)
+  - [vacuumRedirectAndPlaceholder](../v/vacuumRedirectAndPlaceholder.md)
   - RecordFreeIndexPage
-  - SpGistSetLastUsedPage
-  - PageIsNew/PageIsEmpty
+  - [SpGistSetLastUsedPage](../S/SpGistSetLastUsedPage.md)
+  - [PageIsNew](../P/PageIsNew.md)/PageIsEmpty
   - SpGistPageIsLeaf/SpGistBlockIsRoot
 - Called from (representative examples):
-  - spgvacuumscan
+  - [spgvacuumscan](spgvacuumscan.md)
 
 ## Notes and Other Information
 - Uses exclusive buffer locking to ensure data consistency during vacuum operations

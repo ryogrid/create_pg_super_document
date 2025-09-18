@@ -33,8 +33,8 @@ The character values ('i', 'o', 'b', 'v', 't') are the actual values stored in t
 - Functions called/Symbols referenced:
   - (None - this is an enumeration type)
 - Called from (representative examples):
-  - interpret_function_parameter_list (src/backend/commands/functioncmds.c:225)
-  - interpret_function_parameter_list (src/backend/commands/functioncmds.c:364)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md) (src/backend/commands/functioncmds.c:225)
+  - [interpret_function_parameter_list](../i/interpret_function_parameter_list.md) (src/backend/commands/functioncmds.c:364)
   - FunctionParameter (src/include/nodes/parsenodes.h:3456)
 
 ## Notes and Other Information

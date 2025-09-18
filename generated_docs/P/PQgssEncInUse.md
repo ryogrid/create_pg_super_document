@@ -25,7 +25,7 @@ This function is useful for applications that need to verify the security status
 - Functions called/Symbols referenced:
   - None (simple field access and logical operations)
 - Called from (representative examples):
-  - printGSSInfo (in psql command.c:4001 - for displaying connection security info)
+  - [printGSSInfo](../p/printGSSInfo.md) (in psql command.c:4001 - for displaying connection security info)
 - Connection fields accessed:
   - conn->gctx (GSSAPI security context)
   - conn->gssenc (GSSAPI encryption status flag)

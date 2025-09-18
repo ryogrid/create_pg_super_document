@@ -21,17 +21,17 @@ This function initializes an ICU collator within a pg_locale_struct for use in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ucol_open
+  - [pg_ucol_open](../p/pg_ucol_open.md)
   - ucol_getRules
-  - icu_to_uchar
+  - [icu_to_uchar](../i/icu_to_uchar.md)
   - palloc_array
   - ucol_close
   - ucol_openRules
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
   - ereport
 - Called from (representative examples):
-  - pg_newlocale_from_collation
-  - CheckMyDatabase
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md)
+  - [CheckMyDatabase](../C/CheckMyDatabase.md)
 
 ## Notes and Other Information
 - Only available when PostgreSQL is compiled with ICU support (USE_ICU)

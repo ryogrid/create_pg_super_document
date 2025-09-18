@@ -21,12 +21,12 @@ This internal function traverses the linked list of registered subtransaction ca
 - Functions called/Symbols referenced:
   - SubXactEvent (enumeration type)
   - SubTransactionId (type definition)
-  - SubXactCallbackItem (structure type)
+  - [SubXactCallbackItem](../S/SubXactCallbackItem.md) (structure type)
   - SubXact_callbacks (global callback list head)
 - Called from (representative examples):
-  - StartSubTransaction (at src/backend/access/transam/xact.c:5035)
-  - CommitSubTransaction (at src/backend/access/transam/xact.c:5060, 5099)
-  - AbortSubTransaction (at src/backend/access/transam/xact.c:5273)
+  - [StartSubTransaction](../S/StartSubTransaction.md) (at src/backend/access/transam/xact.c:5035)
+  - [CommitSubTransaction](CommitSubTransaction.md) (at src/backend/access/transam/xact.c:5060, 5099)
+  - [AbortSubTransaction](../A/AbortSubTransaction.md) (at src/backend/access/transam/xact.c:5273)
 
 ## Notes and Other Information
 - The function is declared static, limiting its scope to the xact.c file

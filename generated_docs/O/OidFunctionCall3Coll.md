@@ -25,8 +25,8 @@ This function is used for more complex operations that require three parameters,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmgr_info (initializes function manager information)
-  - FunctionCall3Coll (performs the actual function call with collation and three arguments)
+  - [fmgr_info](../f/fmgr_info.md) (initializes function manager information)
+  - [FunctionCall3Coll](../F/FunctionCall3Coll.md) (performs the actual function call with collation and three arguments)
 - Called from (representative examples):
   - Various PostgreSQL internal functions that need to invoke ternary functions with collation support
 

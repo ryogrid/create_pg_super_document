@@ -23,9 +23,9 @@ This function generates human-readable status strings for failed or skipped tran
   - EStatus (enumeration type)
   - ESTATUS_SERIALIZATION_ERROR (enum constant)
   - ESTATUS_DEADLOCK_ERROR (enum constant)
-  - pg_fatal (error reporting function)
+  - [pg_fatal](../p/pg_fatal.md) (error reporting function)
 - Called from (representative examples):
-  - doLog (at src/bin/pgbench/pgbench.c:4662)
+  - [doLog](../d/doLog.md) (at src/bin/pgbench/pgbench.c:4662)
 
 ## Notes and Other Information
 - This is a static function, only accessible within pgbench.c

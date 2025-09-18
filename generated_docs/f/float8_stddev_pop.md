@@ -35,7 +35,7 @@ The function returns NULL for empty input sets (N == 0) since population standar
 - Returns NULL for empty input sets since population standard deviation is undefined for N=0
 - Uses first and third elements of transition array (N and Sxx), ignores Sx (sum)
 - Computes square root of population variance: sqrt(Sxx/N)
-- Result is guaranteed to be non-negative due to mathematical properties of standard deviation
+- [Result](../R/Result.md) is guaranteed to be non-negative due to mathematical properties of standard deviation
 - Population standard deviation divides by N, unlike sample standard deviation which divides by (N-1)
 - Part of PostgreSQL's statistical aggregate infrastructure
 - Located in src/backend/utils/adt/float.c:3182-3203

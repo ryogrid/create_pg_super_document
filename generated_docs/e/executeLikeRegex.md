@@ -22,14 +22,14 @@ The `executeLikeRegex` function implements the LIKE_REGEX predicate functionalit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getScalar: Converts JsonbValue to scalar string type
+  - [getScalar](../g/getScalar.md): Converts JsonbValue to scalar string type
   - cstring_to_text_with_len: Converts C string to PostgreSQL text type
   - jspConvertRegexFlags: Converts JSON path regex flags to PostgreSQL regex flags
-  - RE_compile_and_execute: Compiles and executes regular expression
-  - JsonLikeRegexContext: Context structure for caching regex compilation
+  - [RE_compile_and_execute](../R/RE_compile_and_execute.md): Compiles and executes regular expression
+  - [JsonLikeRegexContext](../J/JsonLikeRegexContext.md): Context structure for caching regex compilation
   - DEFAULT_COLLATION_OID: Default collation for regex matching
 - Called from (representative examples):
-  - executeBoolItem: Main boolean item execution function
+  - [executeBoolItem](executeBoolItem.md): Main boolean item execution function
   - RETURN_ERROR: Error handling macro
 
 ## Notes and Other Information

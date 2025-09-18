@@ -33,11 +33,11 @@ The function ensures that attribute number mappings are consistent and handles t
   - COERCE_IMPLICIT_CAST (constant)
   - query_tree_mutator
   - expression_tree_mutator
-  - palloc (memory allocation)
+  - [palloc](../p/palloc.md) (memory allocation)
   - makeNode (node creation)
 - Called from (representative examples):
-  - map_variable_attnos
-  - map_variable_attnos_mutator (recursive calls)
+  - [map_variable_attnos](map_variable_attnos.md)
+  - [map_variable_attnos_mutator](map_variable_attnos_mutator.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the rewriteManip.c file

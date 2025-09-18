@@ -24,13 +24,13 @@ When processing leaf keys, the function:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GISTENTRY (struct type)
+  - [GISTENTRY](../G/GISTENTRY.md) (struct type)
   - TSQuerySign (type)
-  - makeTSQuerySign (creates signature from TSQuery)
-  - DatumGetTSQuery (extracts TSQuery from Datum)
+  - [makeTSQuerySign](../m/makeTSQuerySign.md) (creates signature from TSQuery)
+  - [DatumGetTSQuery](../D/DatumGetTSQuery.md) (extracts TSQuery from Datum)
   - gistentryinit (initializes GISTENTRY structure)
-  - TSQuerySignGetDatum (converts signature to Datum)
-  - palloc (memory allocation)
+  - [TSQuerySignGetDatum](../T/TSQuerySignGetDatum.md) (converts signature to Datum)
+  - [palloc](../p/palloc.md) (memory allocation)
 - Called from (representative examples):
   - GiST index operations (no direct references found in codebase)
 

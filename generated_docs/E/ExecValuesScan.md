@@ -22,11 +22,11 @@ The function acts as a thin wrapper that casts the generic PlanState to a Values
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (via ValuesScanState cast)
-  - ExecScan
-  - ValuesNext (passed as access method)
-  - ValuesRecheck (passed as recheck method)
+  - [ExecScan](ExecScan.md)
+  - [ValuesNext](../V/ValuesNext.md) (passed as access method)
+  - [ValuesRecheck](../V/ValuesRecheck.md) (passed as recheck method)
 - Called from:
-  - ExecInitValuesScan (indirectly through executor dispatch)
+  - [ExecInitValuesScan](ExecInitValuesScan.md) (indirectly through executor dispatch)
 
 ## Notes and Other Information
 - Follows PostgreSQL's standard executor pattern by using ExecScan as the core scanning engine

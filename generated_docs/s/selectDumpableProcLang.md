@@ -32,14 +32,14 @@ This approach ensures that system languages are handled appropriately while pres
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - checkExtensionMembership
-  - ProcLangInfo (structure)
+  - [checkExtensionMembership](../c/checkExtensionMembership.md)
+  - [ProcLangInfo](../P/ProcLangInfo.md) (structure)
   - DUMP_COMPONENT_NONE (constant)
   - DUMP_COMPONENT_ACL (constant)
   - DUMP_COMPONENT_ALL (constant)
   - g_last_builtin_oid (global variable)
 - Called from (representative examples):
-  - getProcLangs
+  - [getProcLangs](../g/getProcLangs.md)
 
 ## Notes and Other Information
 - Procedural languages do not live in any namespace, making them similar to casts in this regard

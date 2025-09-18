@@ -24,20 +24,20 @@ This conditional compilation abstracts away the platform-specific details of flo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInt64 (conditionally, when USE_FLOAT8_BYVAL is defined)
-  - DatumGetPointer (conditionally, when USE_FLOAT8_BYVAL is not defined)
+  - [DatumGetInt64](DatumGetInt64.md) (conditionally, when USE_FLOAT8_BYVAL is defined)
+  - [DatumGetPointer](DatumGetPointer.md) (conditionally, when USE_FLOAT8_BYVAL is not defined)
   - USE_FLOAT8_BYVAL (compilation flag determining float8 passing convention)
 - Called from (representative examples):
-  - build_distances
-  - gistindex_keytest
+  - [build_distances](../b/build_distances.md)
+  - [gistindex_keytest](../g/gistindex_keytest.md)
   - point_point_distance
-  - spg_kd_choose
-  - spg_kd_inner_consistent
-  - restriction_selectivity
-  - join_selectivity
-  - width_bucket_array_float8
-  - btfloat8fastcmp
-  - float8_lerp
+  - [spg_kd_choose](../s/spg_kd_choose.md)
+  - [spg_kd_inner_consistent](../s/spg_kd_inner_consistent.md)
+  - [restriction_selectivity](../r/restriction_selectivity.md)
+  - [join_selectivity](../j/join_selectivity.md)
+  - [width_bucket_array_float8](../w/width_bucket_array_float8.md)
+  - [btfloat8fastcmp](../b/btfloat8fastcmp.md)
+  - [float8_lerp](../f/float8_lerp.md)
   - scalararraysel
   - convert_numeric_to_scalar
   - PG_GETARG_FLOAT8

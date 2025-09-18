@@ -31,16 +31,16 @@ Key features include:
 - Functions called/Symbols referenced:
   - TSQueryParserState
   - t_iseq
-  - t_isspace
+  - [t_isspace](../t/t_isspace.md)
   - ISOPERATOR
-  - reset_tsvector_parser
-  - gettoken_tsvector
+  - [reset_tsvector_parser](../r/reset_tsvector_parser.md)
+  - [gettoken_tsvector](gettoken_tsvector.md)
   - SOFT_ERROR_OCCURRED
-  - pushStop
-  - parse_or_operator
-  - pg_mblen
+  - [pushStop](../p/pushStop.md)
+  - [parse_or_operator](../p/parse_or_operator.md)
+  - [pg_mblen](../p/pg_mblen.md)
 - Called from (representative examples):
-  - parse_tsquery
+  - [parse_tsquery](../p/parse_tsquery.md)
 
 ## Notes and Other Information
 - Designed for websearch_to_tsquery() which provides Google-like search syntax

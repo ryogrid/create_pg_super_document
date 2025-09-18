@@ -24,12 +24,12 @@ Note that like its underlying translate_col_privs function, this will expand who
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - translate_col_privs_multilevel (recursive call)
-  - translate_col_privs
-  - AppendRelInfo (data structure)
+  - [translate_col_privs_multilevel](translate_col_privs_multilevel.md) (recursive call)
+  - [translate_col_privs](translate_col_privs.md)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (data structure)
 - Called from (representative examples):
-  - get_rel_all_updated_cols
-  - translate_col_privs_multilevel (recursive)
+  - [get_rel_all_updated_cols](../g/get_rel_all_updated_cols.md)
+  - [translate_col_privs_multilevel](translate_col_privs_multilevel.md) (recursive)
 
 ## Notes and Other Information
 - Fast path optimization returns NULL immediately if parent_cols is NULL

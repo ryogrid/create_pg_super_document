@@ -19,19 +19,19 @@ This static helper function parses database privilege names and converts them to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - convert_any_priv_string: Generic privilege string parser that uses the provided mapping table
+  - [convert_any_priv_string](convert_any_priv_string.md): Generic privilege string parser that uses the provided mapping table
   - priv_map: Structure type for privilege name to bitmask mapping
   - ACL_CREATE: Privilege constant for CREATE privilege
   - ACL_CREATE_TEMP: Privilege constant for TEMPORARY privilege  
   - ACL_CONNECT: Privilege constant for CONNECT privilege
   - ACL_GRANT_OPTION_FOR: Macro to add grant option flag to privileges
 - Called from (representative examples):
-  - has_database_privilege_name_name: User name + database name variant
-  - has_database_privilege_name: Current user + database name variant
-  - has_database_privilege_name_id: User name + database OID variant
-  - has_database_privilege_id: Current user + database OID variant
-  - has_database_privilege_id_name: User OID + database name variant
-  - has_database_privilege_id_id: User OID + database OID variant
+  - [has_database_privilege_name_name](../h/has_database_privilege_name_name.md): User name + database name variant
+  - [has_database_privilege_name](../h/has_database_privilege_name.md): Current user + database name variant
+  - [has_database_privilege_name_id](../h/has_database_privilege_name_id.md): User name + database OID variant
+  - [has_database_privilege_id](../h/has_database_privilege_id.md): Current user + database OID variant
+  - [has_database_privilege_id_name](../h/has_database_privilege_id_name.md): User OID + database name variant
+  - [has_database_privilege_id_id](../h/has_database_privilege_id_id.md): User OID + database OID variant
 
 ## Notes and Other Information
 - Supports three main database privileges: CREATE, TEMPORARY (alias TEMP), and CONNECT

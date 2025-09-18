@@ -25,14 +25,14 @@ The ginReadTuple function extracts item pointers from a GIN leaf entry tuple, su
   - GinGetPosting: Gets pointer to posting list data in the tuple
   - GinGetNPosting: Gets number of posting list items from tuple header
   - GinItupIsCompressed: Checks if tuple contains compressed posting list
-  - ginPostingListDecode: Decodes compressed posting list into ItemPointer array
-  - palloc: Allocates memory for result array
+  - [ginPostingListDecode](ginPostingListDecode.md): Decodes compressed posting list into ItemPointer array
+  - [palloc](../p/palloc.md): Allocates memory for result array
   - memcpy: Copies uncompressed ItemPointer data
 
 - Called from (representative examples):
-  - collectMatchBitmap: Collecting matching items during GIN scan operations
-  - startScanEntry: Starting scan entry operations
-  - addItemPointersToLeafTuple: Adding item pointers to leaf tuples during insertion
+  - [collectMatchBitmap](../c/collectMatchBitmap.md): Collecting matching items during GIN scan operations
+  - [startScanEntry](../s/startScanEntry.md): Starting scan entry operations
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md): Adding item pointers to leaf tuples during insertion
 
 ## Notes and Other Information
 - Returns a pallocd array that must be freed by the caller

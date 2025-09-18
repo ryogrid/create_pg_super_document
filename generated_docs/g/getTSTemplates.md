@@ -20,14 +20,14 @@ The function constructs a SQL query to select all relevant fields from pg_ts_tem
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecuteSqlQuery: Executes the SQL query against the database
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md): Executes the SQL query against the database
   - pg_malloc: Allocates memory for the TSTemplateInfo array
   - atooid: Converts string OID values to Oid type
-  - AssignDumpId: Assigns unique dump ID to each template object
-  - findNamespace: Looks up namespace information for the template
-  - selectDumpableObject: Determines if the template should be included in dump
+  - [AssignDumpId](../A/AssignDumpId.md): Assigns unique dump ID to each template object
+  - [findNamespace](../f/findNamespace.md): Looks up namespace information for the template
+  - [selectDumpableObject](../s/selectDumpableObject.md): Determines if the template should be included in dump
 - Called from (representative examples):
-  - getSchemaData: Main schema data collection function
+  - [getSchemaData](getSchemaData.md): Main schema data collection function
 
 ## Notes and Other Information
 - The function queries pg_ts_template system catalog to retrieve template metadata including name, namespace, and function OIDs

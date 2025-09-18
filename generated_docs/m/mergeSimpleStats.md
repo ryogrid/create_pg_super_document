@@ -29,8 +29,8 @@ This enables aggregation of statistics from multiple threads, time periods, or m
 - Functions called/Symbols referenced:
   - SimpleStats (structure type)
 - Called from (representative examples):
-  - printProgressReport
-  - main
+  - [printProgressReport](../p/printProgressReport.md)
+  - [main](main.md)
 
 ## Notes and Other Information
 - Handles empty accumulator case correctly by checking acc->count == 0

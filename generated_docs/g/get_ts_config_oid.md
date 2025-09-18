@@ -26,20 +26,20 @@ This function is essential for text search operations as configurations define h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName (to parse qualified names)
-  - LookupExplicitNamespace (to find specific schema)
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md) (to parse qualified names)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md) (to find specific schema)
   - GetSysCacheOid2 (to lookup configuration in pg_ts_config catalog)
-  - recomputeNamespacePath (to ensure current search path)
-  - NameListToString (for error message formatting)
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md) (to ensure current search path)
+  - [NameListToString](../N/NameListToString.md) (for error message formatting)
   - ereport (for error reporting)
 - Called from (representative examples):
-  - get_object_address (for object address resolution)
-  - GetTSConfigTuple (for configuration tuple retrieval)
-  - DefineTSConfiguration (when creating text search configurations)
-  - regconfigin (for regconfig type input)
-  - tsvector_update_trigger (for automatic tsvector updates)
-  - getTSCurrentConfig (for default configuration resolution)
-  - check_default_text_search_config (for configuration validation)
+  - [get_object_address](get_object_address.md) (for object address resolution)
+  - [GetTSConfigTuple](../G/GetTSConfigTuple.md) (for configuration tuple retrieval)
+  - [DefineTSConfiguration](../D/DefineTSConfiguration.md) (when creating text search configurations)
+  - [regconfigin](../r/regconfigin.md) (for regconfig type input)
+  - [tsvector_update_trigger](../t/tsvector_update_trigger.md) (for automatic tsvector updates)
+  - [getTSCurrentConfig](getTSCurrentConfig.md) (for default configuration resolution)
+  - [check_default_text_search_config](../c/check_default_text_search_config.md) (for configuration validation)
 
 ## Notes and Other Information
 - Returns InvalidOid for non-existent configurations when missing_ok is true

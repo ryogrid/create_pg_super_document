@@ -33,23 +33,23 @@ The function also sets up a GroupPathExtraData structure containing flags and me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_agg_clause_costs
-  - make_grouping_rel
-  - is_degenerate_grouping
-  - create_degenerate_grouping_paths
-  - grouping_is_sortable
-  - grouping_is_hashable
-  - can_partial_agg
-  - create_ordinary_grouping_paths
-  - set_cheapest
+  - [get_agg_clause_costs](../g/get_agg_clause_costs.md)
+  - [make_grouping_rel](../m/make_grouping_rel.md)
+  - [is_degenerate_grouping](../i/is_degenerate_grouping.md)
+  - [create_degenerate_grouping_paths](create_degenerate_grouping_paths.md)
+  - [grouping_is_sortable](../g/grouping_is_sortable.md)
+  - [grouping_is_hashable](../g/grouping_is_hashable.md)
+  - [can_partial_agg](can_partial_agg.md)
+  - [create_ordinary_grouping_paths](create_ordinary_grouping_paths.md)
+  - [set_cheapest](../s/set_cheapest.md)
 - Data structures used:
   - AggClauseCosts
-  - GroupPathExtraData
-  - PathTarget
+  - [GroupPathExtraData](../G/GroupPathExtraData.md)
+  - [PathTarget](../P/PathTarget.md)
   - grouping_sets_data
 - Called from:
   - standard_qp_extra
-  - grouping_planner
+  - [grouping_planner](../g/grouping_planner.md)
 
 ## Notes and Other Information
 - This function is a key entry point for the grouping/aggregation phase of query planning

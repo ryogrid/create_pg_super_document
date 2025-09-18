@@ -23,8 +23,8 @@ The structure is part of PostgreSQL's testing infrastructure for custom WAL reso
   - FLEXIBLE_ARRAY_MEMBER (PostgreSQL macro for flexible array members)
 - Called from (representative examples):
   - SizeOfTestCustomRmgrsMessage (macro that calculates the fixed size of the structure)
-  - testcustomrmgrs_desc (function that describes WAL record contents for debugging)
-  - test_custom_rmgrs_insert_wal_record (function that creates WAL records using this structure)
+  - [testcustomrmgrs_desc](../t/testcustomrmgrs_desc.md) (function that describes WAL record contents for debugging)
+  - [test_custom_rmgrs_insert_wal_record](../t/test_custom_rmgrs_insert_wal_record.md) (function that creates WAL records using this structure)
 
 ## Notes and Other Information
 - The structure is defined in `src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c:32-36`

@@ -32,15 +32,15 @@ The function integrates pattern processing with safety checks to prevent common 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (data structure)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (data structure)
   - initPQExpBuffer
-  - processSQLNamePattern
-  - PQdb
+  - [processSQLNamePattern](../p/processSQLNamePattern.md)
+  - [PQdb](../P/PQdb.md)
   - termPQExpBuffer
 - Called from (representative examples):
-  - describeAggregates (src/bin/psql/describe.c:111)
-  - listForeignTables (src/bin/psql/describe.c:5971)
-  - listExtensions (src/bin/psql/describe.c:6021)
+  - [describeAggregates](../d/describeAggregates.md) (src/bin/psql/describe.c:111)
+  - [listForeignTables](../l/listForeignTables.md) (src/bin/psql/describe.c:5971)
+  - [listExtensions](../l/listExtensions.md) (src/bin/psql/describe.c:6021)
   - Many other describe functions throughout describe.c
 
 ## Notes and Other Information

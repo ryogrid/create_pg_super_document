@@ -31,16 +31,16 @@ The output buffer is dynamically resized as needed to accommodate the growing st
   - RESIZEBUF
   - t_iseq
   - COPYCHAR
-  - pg_mblen
-  - pg_database_encoding_max_length
+  - [pg_mblen](../p/pg_mblen.md)
+  - [pg_database_encoding_max_length](../p/pg_database_encoding_max_length.md)
   - QO_PRIORITY
   - sprintf
   - strchr
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - infix (recursive calls)
-  - tsqueryout
-  - tsquerytree
+  - [infix](infix.md) (recursive calls)
+  - [tsqueryout](../t/tsqueryout.md)
+  - [tsquerytree](../t/tsquerytree.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the tsquery.c module

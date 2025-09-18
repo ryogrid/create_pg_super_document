@@ -28,13 +28,13 @@ The search process:
 - Functions called/Symbols referenced:
   - ARRPTR (macro to get WordEntry array pointer)
   - STRPTR (macro to get string data pointer)
-  - tsCompareString (string comparison function for TSVector lexemes)
+  - [tsCompareString](tsCompareString.md) (string comparison function for TSVector lexemes)
   - WordEntry (structure type for TSVector entries)
 - Called from:
   - TSVectorStat (for statistical operations)
-  - tsvector_setweight_by_filter (for weight modification operations)
-  - tsvector_delete_str (for single lexeme deletion)
-  - tsvector_delete_arr (for multiple lexeme deletion)
+  - [tsvector_setweight_by_filter](tsvector_setweight_by_filter.md) (for weight modification operations)
+  - [tsvector_delete_str](tsvector_delete_str.md) (for single lexeme deletion)
+  - [tsvector_delete_arr](tsvector_delete_arr.md) (for multiple lexeme deletion)
 
 ## Notes and Other Information
 - Returns the array index (0-based) if the lexeme is found, -1 if not found

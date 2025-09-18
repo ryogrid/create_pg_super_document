@@ -22,21 +22,21 @@ The function parses the TocEntry's definition string line by line, treating each
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - strchr
-  - ahprintf
-  - CommitTransaction
-  - StartTransaction
-  - pg_free
+  - [ahprintf](../a/ahprintf.md)
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [StartTransaction](../S/StartTransaction.md)
+  - [pg_free](../p/pg_free.md)
 - Types referenced:
-  - ArchiveHandle
-  - TocEntry
-  - RestoreOptions
+  - [ArchiveHandle](../A/ArchiveHandle.md)
+  - [TocEntry](../T/TocEntry.md)
+  - [RestoreOptions](../R/RestoreOptions.md)
 
 - Called from (representative examples):
-  - RestoreArchive
-  - _printTocEntry
-  - IssueACLPerBlob
+  - [RestoreArchive](../R/RestoreArchive.md)
+  - [_printTocEntry](../p/_printTocEntry.md)
+  - [IssueACLPerBlob](IssueACLPerBlob.md)
 
 ## Notes and Other Information
 - This function is specific to pg_dump/pg_restore functionality and handles large object management

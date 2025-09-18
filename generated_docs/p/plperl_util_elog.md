@@ -20,13 +20,13 @@ The function uses PostgreSQL's PG_TRY/PG_CATCH exception handling mechanism to e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sv2cstr (converts Perl SV to C string)
+  - [sv2cstr](../s/sv2cstr.md) (converts Perl SV to C string)
   - elog (PostgreSQL's logging function)
-  - pfree (PostgreSQL memory management)
+  - [pfree](pfree.md) (PostgreSQL memory management)
   - PG_TRY/PG_CATCH/PG_END_TRY (PostgreSQL exception handling macros)
-  - CopyErrorData (copies error information)
-  - FlushErrorState (resets error state)
-  - croak_cstr (throws Perl exception)
+  - [CopyErrorData](../C/CopyErrorData.md) (copies error information)
+  - [FlushErrorState](../F/FlushErrorState.md) (resets error state)
+  - [croak_cstr](../c/croak_cstr.md) (throws Perl exception)
 - Called from (representative examples):
   - PL_PERL_H (header file declaration)
 

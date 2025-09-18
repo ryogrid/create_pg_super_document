@@ -22,32 +22,32 @@ This function creates a new replication slot based on the command parameters. Fo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parseCreateReplSlotOptions - Parse slot creation options
-  - ReplicationSlotCreate - Create the actual replication slot
-  - ReplicationSlotReserveWal - Reserve WAL for physical slots
-  - ReplicationSlotMarkDirty - Mark slot as needing persistence
-  - ReplicationSlotSave - Save persistent slot to disk
+  - [parseCreateReplSlotOptions](../p/parseCreateReplSlotOptions.md) - Parse slot creation options
+  - [ReplicationSlotCreate](../R/ReplicationSlotCreate.md) - Create the actual replication slot
+  - [ReplicationSlotReserveWal](../R/ReplicationSlotReserveWal.md) - Reserve WAL for physical slots
+  - [ReplicationSlotMarkDirty](../R/ReplicationSlotMarkDirty.md) - Mark slot as needing persistence
+  - [ReplicationSlotSave](../R/ReplicationSlotSave.md) - Save persistent slot to disk
   - CheckLogicalDecodingRequirements - Validate logical decoding setup
-  - CreateInitDecodingContext - Initialize logical decoding context
-  - DecodingContextFindStartpoint - Build initial snapshot and find start point
-  - SnapBuildExportSnapshot - Export snapshot for logical slots
-  - SnapBuildInitialSnapshot - Create initial snapshot
-  - RestoreTransactionSnapshot - Apply snapshot to current transaction
-  - FreeDecodingContext - Clean up decoding context
-  - ReplicationSlotPersist - Make ephemeral slot persistent
-  - CreateDestReceiver - Create output destination
-  - CreateTemplateTupleDesc - Create tuple descriptor for results
+  - CreateInitDecodingContext - [Initialize](../I/Initialize.md) logical decoding context
+  - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md) - Build initial snapshot and find start point
+  - [SnapBuildExportSnapshot](../S/SnapBuildExportSnapshot.md) - Export snapshot for logical slots
+  - [SnapBuildInitialSnapshot](../S/SnapBuildInitialSnapshot.md) - Create initial snapshot
+  - [RestoreTransactionSnapshot](../R/RestoreTransactionSnapshot.md) - Apply snapshot to current transaction
+  - [FreeDecodingContext](../F/FreeDecodingContext.md) - Clean up decoding context
+  - [ReplicationSlotPersist](../R/ReplicationSlotPersist.md) - Make ephemeral slot persistent
+  - [CreateDestReceiver](CreateDestReceiver.md) - Create output destination
+  - [CreateTemplateTupleDesc](CreateTemplateTupleDesc.md) - Create tuple descriptor for results
   - Various tuple output functions for returning results
-  - ReplicationSlotRelease - Release the created slot
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md) - Release the created slot
 - Called from (representative examples):
-  - exec_replication_command (walsender.c:2131)
-  - StartLogStreamer (pg_basebackup.c:669)
-  - main functions in pg_receivewal.c and pg_recvlogical.c
+  - [exec_replication_command](../e/exec_replication_command.md) (walsender.c:2131)
+  - [StartLogStreamer](../S/StartLogStreamer.md) (pg_basebackup.c:669)
+  - [main](../m/main.md) functions in pg_receivewal.c and pg_recvlogical.c
 
 ## Notes and Other Information
 - Physical slots can optionally reserve WAL to prevent cleanup before the slot is used
 - Logical slots require additional validation of transaction state and isolation level
-- Snapshot export/use operations have strict transaction requirements (must be outside/inside transaction respectively)
+- [Snapshot](../S/Snapshot.md) export/use operations have strict transaction requirements (must be outside/inside transaction respectively)
 - Logical slots are initially created as ephemeral and converted to persistent after successful initialization
 - The function returns a 4-column result set: slot_name, consistent_point, snapshot_name, output_plugin
 - For snapshot 'use' operations, the transaction must be REPEATABLE READ, read-only, and called before any other queries

@@ -21,7 +21,7 @@ The function uses a shared lock on WALSummarizerLock to safely read the summariz
 - Functions called/Symbols referenced:
   - LWLockAcquire
   - LWLockRelease
-  - SetLatch
+  - [SetLatch](SetLatch.md)
   - ProcNumber (type)
   - LW_SHARED (constant)
   - INVALID_PROC_NUMBER (constant)
@@ -29,7 +29,7 @@ The function uses a shared lock on WALSummarizerLock to safely read the summariz
   - WalSummarizerCtl
   - ProcGlobal
 - Called from (representative examples):
-  - CreateCheckPoint
+  - [CreateCheckPoint](../C/CreateCheckPoint.md)
 
 ## Notes and Other Information
 - The function is designed to be safe to call even when the WAL summarizer is not running

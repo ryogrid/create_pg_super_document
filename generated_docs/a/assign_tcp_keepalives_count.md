@@ -22,7 +22,7 @@ The tcp_keepalives_count parameter controls the maximum number of keepalive prob
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `pq_setkeepalivescount`: Sets the actual TCP keepalive count socket option
+  - `[pq_setkeepalivescount](../p/pq_setkeepalivescount.md)`: Sets the actual TCP keepalive count socket option
   - `MyProcPort`: Global variable representing the current client connection port
 - Called from (representative examples):
   - GUC system when parameter value is assigned or changed

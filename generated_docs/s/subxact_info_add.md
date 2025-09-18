@@ -19,17 +19,17 @@ This function manages the dynamic tracking of subtransactions during logical rep
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
-  - repalloc
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
   - BufFileTell
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - SubXactInfo
   - LogicalStreamingContext
   - stream_xid (global variable)
   - stream_fd (global variable)
   - subxact_data (global structure)
 - Called from (representative examples):
-  - handle_streamed_transaction
+  - [handle_streamed_transaction](../h/handle_streamed_transaction.md)
 
 ## Notes and Other Information
 - This is a static function with internal linkage within worker.c

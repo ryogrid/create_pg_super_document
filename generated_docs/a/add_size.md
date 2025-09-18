@@ -23,13 +23,13 @@ When overflow is detected, the function raises an ERROR with ERRCODE_PROGRAM_LIM
 ## Dependencies
 - Functions called/Symbols referenced:
   - ereport (error reporting function)
-  - errcode/errmsg (error reporting macros)
+  - [errcode](../e/errcode.md)/errmsg (error reporting macros)
   - ERRCODE_PROGRAM_LIMIT_EXCEEDED (error code constant)
 - Called from (representative examples):
-  - CalculateShmemSize (extensively used for summing memory requirements)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (extensively used for summing memory requirements)
   - BufferShmemSize (buffer pool size calculations)
-  - LockShmemSize (lock table size calculations)
-  - hash_estimate_size (hash table size estimations)
+  - [LockShmemSize](../L/LockShmemSize.md) (lock table size calculations)
+  - [hash_estimate_size](../h/hash_estimate_size.md) (hash table size estimations)
 
 ## Notes and Other Information
 - Critical for preventing integer overflow in shared memory size calculations

@@ -24,16 +24,16 @@ This function is responsible for extracting indexable nodes from JSON path expre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_jsp_entry_node
-  - make_jsp_entry_node_scalar
-  - make_jsp_expr_node_binary
+  - [make_jsp_entry_node](../m/make_jsp_entry_node.md)
+  - [make_jsp_entry_node_scalar](../m/make_jsp_entry_node_scalar.md)
+  - [make_jsp_expr_node_binary](../m/make_jsp_expr_node_binary.md)
   - lappend
   - JsonPathGinPathItem
   - JsonPathGinNode
   - GinTernaryValue
   - Various enum values (jpiKey, jbvString, JSP_GIN_OR, GIN_TRUE, GIN_FALSE, GIN_MAYBE)
 - Called from (representative examples):
-  - extract_jsp_query
+  - [extract_jsp_query](../e/extract_jsp_query.md)
 
 ## Notes and Other Information
 - This is a static function within the JSONB GIN indexing module

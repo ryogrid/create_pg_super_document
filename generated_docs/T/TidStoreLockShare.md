@@ -20,7 +20,7 @@ TidStoreLockShare is a locking function that acquires a shared (read) lock on a 
   - TidStoreIsShared (macro)
   - shared_ts_lock_share (radix tree generated function)
 - Called from (representative examples):
-  - check_set_block_offsets (in test_tidstore.c)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md) (in test_tidstore.c)
 
 ## Notes and Other Information
 - Only performs locking operations on shared TidStores (when ts->area != NULL)

@@ -23,8 +23,8 @@ The verify_directory function performs a simple but essential validation check t
   - opendir (system function to open a directory stream)
   - closedir (system function to close a directory stream)
 - Called from (representative examples):
-  - main (called in pg_waldump.c:1102)
-  - main (called in pg_waldump.c:1126)
+  - [main](../m/main.md) (called in pg_waldump.c:1102)
+  - [main](../m/main.md) (called in pg_waldump.c:1126)
 
 ## Notes and Other Information
 - The function preserves errno on failure to enable accurate error reporting by the caller

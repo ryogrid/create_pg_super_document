@@ -35,20 +35,20 @@ The function operates through these paths:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetChildToRootMap
-  - GetAfterTriggersStoreSlot
-  - execute_attr_map_slot
+  - [ExecGetChildToRootMap](../E/ExecGetChildToRootMap.md)
+  - [GetAfterTriggersStoreSlot](../G/GetAfterTriggersStoreSlot.md)
+  - [execute_attr_map_slot](../e/execute_attr_map_slot.md)
   - tuplestore_puttupleslot
 - Types used:
-  - EState
+  - [EState](../E/EState.md)
   - TransitionCaptureState
-  - ResultRelInfo
+  - [ResultRelInfo](../R/ResultRelInfo.md)
   - TupleTableSlot
   - Tuplestorestate
   - TupleConversionMap
-  - AfterTriggersTableData
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md)
 - Called from (representative examples):
-  - AfterTriggersTableData (src/backend/commands/trigger.c:3986)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3986)
   - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6199, 6215)
 
 ## Notes and Other Information

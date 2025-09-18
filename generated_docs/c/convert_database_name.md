@@ -20,11 +20,11 @@ This is a static helper function used by the has_database_privilege family of fu
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring: Converts PostgreSQL text type to C string
-  - get_database_oid: Looks up database OID by name (with error if not found)
+  - [get_database_oid](../g/get_database_oid.md): Looks up database OID by name (with error if not found)
 - Called from (representative examples):
-  - has_database_privilege_name_name: User name + database name variant
-  - has_database_privilege_name: Current user + database name variant  
-  - has_database_privilege_id_name: User OID + database name variant
+  - [has_database_privilege_name_name](../h/has_database_privilege_name_name.md): User name + database name variant
+  - [has_database_privilege_name](../h/has_database_privilege_name.md): Current user + database name variant  
+  - [has_database_privilege_id_name](../h/has_database_privilege_id_name.md): User OID + database name variant
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

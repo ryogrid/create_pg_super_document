@@ -21,14 +21,14 @@ This static function constructs a PostgreSQL connection string with properly quo
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - appendPQExpBufferStr
-  - appendConnStrVal
-  - appendPQExpBuffer
-  - PQconnectdb
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [appendConnStrVal](../a/appendConnStrVal.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [PQconnectdb](../P/PQconnectdb.md)
   - termPQExpBuffer
 - Called from (representative examples):
-  - connectToServer
-  - start_postmaster
+  - [connectToServer](../c/connectToServer.md)
+  - [start_postmaster](../s/start_postmaster.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the same source file (server.c)

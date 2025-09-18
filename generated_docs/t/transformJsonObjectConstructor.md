@@ -27,14 +27,14 @@ The transformation process involves:
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode (for JsonKeyValue casting)
-  - transformExprRecurse (for key transformation)
-  - transformJsonValueExpr (for value transformation with JSON_OBJECT context)
-  - transformJsonConstructorOutput (for output formatting)
-  - makeJsonConstructorExpr (for creating the final expression node)
+  - [transformExprRecurse](transformExprRecurse.md) (for key transformation)
+  - [transformJsonValueExpr](transformJsonValueExpr.md) (for value transformation with JSON_OBJECT context)
+  - [transformJsonConstructorOutput](transformJsonConstructorOutput.md) (for output formatting)
+  - [makeJsonConstructorExpr](../m/makeJsonConstructorExpr.md) (for creating the final expression node)
   - JS_FORMAT_DEFAULT (default JSON formatting constant)
   - JSCTOR_JSON_OBJECT (JSON constructor type constant)
 - Called from (representative examples):
-  - transformExprRecurse (main expression transformation dispatcher)
+  - [transformExprRecurse](transformExprRecurse.md) (main expression transformation dispatcher)
 
 ## Notes and Other Information
 - The function handles both empty JSON_OBJECT() calls and those with key-value pairs

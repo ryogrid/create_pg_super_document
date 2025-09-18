@@ -22,14 +22,14 @@ The function handles two scenarios:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetBool
-  - WALInsertLockAcquireExclusive
-  - WALInsertLockRelease
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)
+  - [WALInsertLockRelease](../W/WALInsertLockRelease.md)
   - SESSION_BACKUP_NONE
 - Called from:
-  - do_pg_backup_start (as error cleanup callback)
-  - register_persistent_abort_backup_handler (as exit handler)
-  - perform_base_backup (error cleanup)
+  - [do_pg_backup_start](do_pg_backup_start.md) (as error cleanup callback)
+  - [register_persistent_abort_backup_handler](../r/register_persistent_abort_backup_handler.md) (as exit handler)
+  - [perform_base_backup](../p/perform_base_backup.md) (error cleanup)
 
 ## Notes and Other Information
 - Used as both a PG_ENSURE_ERROR_CLEANUP callback and before_shmem_exit handler

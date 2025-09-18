@@ -46,15 +46,15 @@ AggStatePerPhase manages the execution state for individual phases within Postgr
 - Functions called/Symbols referenced:
   - AggStatePerPhaseData
   - AggStrategy
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
   - ExprState
   - Agg
   - Sort
 - Called from (representative examples):
-  - ExecBuildAggTrans
-  - hashagg_recompile_expressions
-  - ExecInitAgg
-  - AggState (as a member)
+  - [ExecBuildAggTrans](../E/ExecBuildAggTrans.md)
+  - [hashagg_recompile_expressions](../h/hashagg_recompile_expressions.md)
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [AggState](AggState.md) (as a member)
 
 ## Notes and Other Information
 - Central to PostgreSQL's advanced grouping sets functionality (ROLLUP, CUBE, GROUPING SETS)

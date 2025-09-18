@@ -32,14 +32,14 @@ This function takes no parameters but operates on several global variables:
 - Functions called/Symbols referenced:
   - setenv
   - unsetenv
-  - make_temp_sockdir
+  - [make_temp_sockdir](../m/make_temp_sockdir.md)
   - note
-  - load_resultmap
+  - [load_resultmap](../l/load_resultmap.md)
   - DEFAULT_PGSOCKET_DIR
   - __darwin__ (preprocessor macro)
   - ENABLE_SSPI (preprocessor macro)
 - Called from (representative examples):
-  - regression_main
+  - [regression_main](../r/regression_main.md)
 
 ## Notes and Other Information
 - Sets timezone to "America/Los_Angeles" and datestyle to "Postgres, MDY" for consistent datetime testing

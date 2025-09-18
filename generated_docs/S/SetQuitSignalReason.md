@@ -23,8 +23,8 @@ This function sets the shutdown reason in shared memory before the postmaster se
   - PMSignalState (global shared memory structure)
   - QuitSignalReason (enum type)
 - Called from (representative examples):
-  - process_pm_shutdown_request (src/backend/postmaster/postmaster.c:2327)
-  - HandleChildCrash (src/backend/postmaster/postmaster.c:2896)
+  - [process_pm_shutdown_request](../p/process_pm_shutdown_request.md) (src/backend/postmaster/postmaster.c:2327)
+  - [HandleChildCrash](../H/HandleChildCrash.md) (src/backend/postmaster/postmaster.c:2896)
 
 ## Notes and Other Information
 - Must be called before sending SIGQUIT to children to ensure they have context for the shutdown

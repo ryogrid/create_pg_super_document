@@ -22,14 +22,14 @@ ExecEvalAggOrderedTransTuple is the tuple-based counterpart to ExecEvalAggOrdere
 ## Dependencies
 - Functions called/Symbols referenced:
   - ExecClearTuple
-  - ExecStoreVirtualTuple  
-  - tuplesort_puttupleslot
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md)  
+  - [tuplesort_puttupleslot](../t/tuplesort_puttupleslot.md)
   - ExprEvalStep (struct)
-  - AggStatePerTrans (struct)
+  - [AggStatePerTrans](../A/AggStatePerTrans.md) (struct)
   - pg_attribute_always_inline
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - This function is specifically designed for ordered aggregates with tuple arguments

@@ -26,7 +26,7 @@ The function can only be called when the server is running in binary upgrade mod
   - CHECK_IS_BINARY_UPGRADE (macro that verifies binary upgrade mode is active)
   - PG_GETARG_OID (extracts RelFileNumber argument from function call)
   - PG_RETURN_VOID (returns void result)
-  - RelFileNumber (type definition for relation file numbers)
+  - [RelFileNumber](../R/RelFileNumber.md) (type definition for relation file numbers)
 - Global variable modified:
   - binary_upgrade_next_index_pg_class_relfilenumber (defined in src/backend/catalog/index.c:85)
 - Called from:
@@ -40,6 +40,6 @@ The function can only be called when the server is running in binary upgrade mod
 - Also used in relation cache management in src/backend/utils/cache/relcache.c around lines 3788-3794
 - Error is raised if called outside binary upgrade mode
 - After the RelFileNumber is used for index creation, the global variable is reset to InvalidRelFileNumber
-- RelFileNumber preservation is essential for avoiding index rebuilds during upgrades, which can be a major performance bottleneck
+- [RelFileNumber](../R/RelFileNumber.md) preservation is essential for avoiding index rebuilds during upgrades, which can be a major performance bottleneck
 - Works in conjunction with heap and toast relfilenode preservation functions to provide comprehensive physical file mapping preservation
 - Note: There appears to be a type inconsistency in relcache.c:3794 where InvalidOid is used instead of InvalidRelFileNumber

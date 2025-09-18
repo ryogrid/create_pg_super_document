@@ -27,11 +27,11 @@ This design optimizes for both latency (by returning cached results immediately)
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty (bitmap emptiness checking)
-  - bms_next_member (bitmap iteration for request processing)
-  - bms_free (bitmap memory management)
+  - [bms_next_member](../b/bms_next_member.md) (bitmap iteration for request processing)
+  - [bms_free](../b/bms_free.md) (bitmap memory management)
   - ExecAsyncRequest (actual async operation initiation)
 - Called from (representative examples):
-  - ExecAppendAsyncGetNext (async tuple retrieval coordination)
+  - [ExecAppendAsyncGetNext](ExecAppendAsyncGetNext.md) (async tuple retrieval coordination)
 
 ## Notes and Other Information
 - Returns true when a tuple is available, false when no tuple is ready

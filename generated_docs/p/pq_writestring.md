@@ -22,13 +22,13 @@ The function performs several key operations: it calculates the string length, c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_server_to_client (character encoding conversion function)
+  - [pg_server_to_client](pg_server_to_client.md) (character encoding conversion function)
   - strlen (standard library function)
   - memcpy (standard library function)
-  - pfree (PostgreSQL memory management function)
+  - [pfree](pfree.md) (PostgreSQL memory management function)
   - Assert (macro)
 - Called from (representative examples):
-  - SendRowDescriptionMessage
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md)
 
 ## Notes and Other Information
 - Automatically handles character encoding conversion from server to client encoding

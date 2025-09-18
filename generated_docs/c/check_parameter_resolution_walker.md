@@ -26,13 +26,13 @@ If inconsistencies are found, appropriate errors are reported with precise locat
 - Functions called/Symbols referenced:
   - Param
   - PARAM_EXTERN
-  - VarParamState
+  - [VarParamState](../V/VarParamState.md)
   - query_tree_walker
   - expression_tree_walker
-  - check_parameter_resolution_walker (recursive)
+  - [check_parameter_resolution_walker](check_parameter_resolution_walker.md) (recursive)
 - Called from (representative examples):
-  - check_variable_parameters
-  - check_parameter_resolution_walker (recursive)
+  - [check_variable_parameters](check_variable_parameters.md)
+  - [check_parameter_resolution_walker](check_parameter_resolution_walker.md) (recursive)
 
 ## Notes and Other Information
 - This is a static function used internally within the parameter resolution system

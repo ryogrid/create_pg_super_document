@@ -23,14 +23,14 @@ The function performs comprehensive validation of parameters and handles various
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_field_number
-  - pqInternalNotice
-  - pqResultAlloc
-  - pqAddTuple
-  - libpq_gettext
+  - [check_field_number](../c/check_field_number.md)
+  - [pqInternalNotice](../p/pqInternalNotice.md)
+  - [pqResultAlloc](../p/pqResultAlloc.md)
+  - [pqAddTuple](../p/pqAddTuple.md)
+  - [libpq_gettext](../l/libpq_gettext.md)
   - memcpy
 - Called from (representative examples):
-  - PQcopyResult
+  - [PQcopyResult](PQcopyResult.md)
 
 ## Notes and Other Information
 - Returns true (non-zero) for success, false (0) for failure

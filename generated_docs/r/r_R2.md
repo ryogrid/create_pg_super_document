@@ -24,11 +24,11 @@ This function performs a single comparison to check if the current cursor positi
 ## Dependencies
 - Functions called/Symbols referenced: None (simple boundary check)
 - Called from (representative examples):
-  - r_aditzak (Basque verb processing)
-  - r_izenak (Basque noun processing)
-  - r_standard_suffix (across multiple Romance languages)
-  - r_Step_3, r_Step_4, r_Step_5 (English Porter stemmer steps)
-  - r_verb_suffix (French/Catalan verb processing)
+  - [r_aditzak](r_aditzak.md) (Basque verb processing)
+  - [r_izenak](r_izenak.md) (Basque noun processing)
+  - [r_standard_suffix](r_standard_suffix.md) (across multiple Romance languages)
+  - [r_Step_3](r_Step_3.md), r_Step_4, r_Step_5 (English Porter stemmer steps)
+  - [r_verb_suffix](r_verb_suffix.md) (French/Catalan verb processing)
   - Language-specific suffix removal functions across all supported languages
 
 ## Notes and Other Information

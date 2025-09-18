@@ -44,20 +44,20 @@ The structure also supports both local and shared memory contexts for parallel q
 - Functions called/Symbols referenced:
   - TBMStatus
   - TBMIteratingState
-  - PagetableEntry
+  - [PagetableEntry](../P/PagetableEntry.md)
   - dsa_pointer
   - dsa_area
 - Called from (representative examples):
-  - index_getbitmap (from various index access methods)
-  - MultiExecBitmapAnd
-  - MultiExecBitmapOr
-  - BitmapHeapNext
-  - tbm_create
+  - [index_getbitmap](../i/index_getbitmap.md) (from various index access methods)
+  - [MultiExecBitmapAnd](../M/MultiExecBitmapAnd.md)
+  - [MultiExecBitmapOr](../M/MultiExecBitmapOr.md)
+  - [BitmapHeapNext](../B/BitmapHeapNext.md)
+  - [tbm_create](../t/tbm_create.md)
   - tbm_union
   - tbm_intersect
 
 ## Notes and Other Information
-- TIDBitmap is central to PostgreSQL's bitmap index scan optimization, enabling efficient processing of queries involving multiple indexes
+- [TIDBitmap](TIDBitmap.md) is central to PostgreSQL's bitmap index scan optimization, enabling efficient processing of queries involving multiple indexes
 - The lossification mechanism allows graceful degradation under memory pressure, maintaining query correctness while reducing memory consumption
 - Supports both AND and OR operations between multiple bitmaps, essential for complex query optimization
 - The dual-mode operation (exact vs lossy) balances precision with memory efficiency, critical for large result sets

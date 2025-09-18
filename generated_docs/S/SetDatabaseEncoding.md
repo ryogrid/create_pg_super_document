@@ -27,7 +27,7 @@ The function includes an assertion to ensure consistency between the provided en
   - pg_enc2name_tbl (global encoding table)
   - DatabaseEncoding (global variable being set)
 - Called from (representative examples):
-  - CheckMyDatabase
+  - [CheckMyDatabase](../C/CheckMyDatabase.md)
 
 ## Notes and Other Information
 - This function is typically called during database startup/initialization

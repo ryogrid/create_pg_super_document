@@ -24,7 +24,7 @@ When the slot is valid, the function delegates the actual tuple printing to the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - TupIsNull (macro to check if tuple slot contains null)
-  - debugtup (function that performs the actual tuple printing)
+  - [debugtup](../d/debugtup.md) (function that performs the actual tuple printing)
 - Called from (representative examples):
   - nodeDisplay (via print.h header inclusion)
 

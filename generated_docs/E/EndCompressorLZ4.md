@@ -24,11 +24,11 @@ This function performs the cleanup and finalization tasks for LZ4 compression in
   - LZ4F_freeCompressionContext
   - LZ4F_isError
   - LZ4F_getErrorName
-  - pg_fatal
-  - pg_free
+  - [pg_fatal](../p/pg_fatal.md)
+  - [pg_free](../p/pg_free.md)
 - Types used:
-  - LZ4State
-  - CompressorState
+  - [LZ4State](../L/LZ4State.md)
+  - [CompressorState](../C/CompressorState.md)
 - Called from (representative examples):
   - No direct references found (likely used via function pointer)
 

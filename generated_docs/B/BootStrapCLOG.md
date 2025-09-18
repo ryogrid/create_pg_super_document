@@ -27,16 +27,16 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SimpleLruGetBankLock (obtains lock for SLRU bank)
+  - [SimpleLruGetBankLock](../S/SimpleLruGetBankLock.md) (obtains lock for SLRU bank)
   - LWLockAcquire/LWLockRelease (lock management)
-  - ZeroCLOGPage (creates and zeros a CLOG page)
-  - SimpleLruWritePage (writes page to disk)
+  - [ZeroCLOGPage](../Z/ZeroCLOGPage.md) (creates and zeros a CLOG page)
+  - [SimpleLruWritePage](../S/SimpleLruWritePage.md) (writes page to disk)
 - Types referenced:
-  - LWLock (lightweight lock type)
+  - [LWLock](../L/LWLock.md) (lightweight lock type)
 - Global variables:
   - XactCtl (CLOG SLRU control structure)
 - Called from:
-  - BootStrapXLOG (during WAL/transaction log bootstrap)
+  - [BootStrapXLOG](BootStrapXLOG.md) (during WAL/transaction log bootstrap)
 
 ## Notes and Other Information
 - This function is called exactly once during the lifetime of a PostgreSQL installation

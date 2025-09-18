@@ -18,8 +18,8 @@ The `numeric_poly_var_samp` function is a PostgreSQL aggregate function finalize
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `numeric_poly_stddev_internal` (performs variance calculation with 128-bit integer state)
-  - `numeric_var_samp` (fallback for systems without 128-bit integer support)
+  - `[numeric_poly_stddev_internal](numeric_poly_stddev_internal.md)` (performs variance calculation with 128-bit integer state)
+  - `[numeric_var_samp](numeric_var_samp.md)` (fallback for systems without 128-bit integer support)
   - `PolyNumAggState` (polymorphic aggregate state with 128-bit integers)
   - `Numeric` (PostgreSQL numeric data type)
   - `PG_RETURN_NUMERIC` (macro for returning numeric values)
@@ -28,8 +28,8 @@ The `numeric_poly_var_samp` function is a PostgreSQL aggregate function finalize
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `numeric_poly_stddev_internal` (performs variance calculation with 128-bit integer state)
-  - `numeric_var_samp` (fallback for systems without 128-bit integer support)
+  - `[numeric_poly_stddev_internal](numeric_poly_stddev_internal.md)` (performs variance calculation with 128-bit integer state)
+  - `[numeric_var_samp](numeric_var_samp.md)` (fallback for systems without 128-bit integer support)
   - `PolyNumAggState` (polymorphic aggregate state with 128-bit integers)
   - `Numeric` (PostgreSQL numeric data type)
   - `PG_RETURN_NUMERIC` (macro for returning numeric values)

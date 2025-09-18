@@ -20,11 +20,11 @@ This function implements cache validation logic for PL/Python procedures by chec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyProcedure (structure type)
+  - [PLyProcedure](PLyProcedure.md) (structure type)
   - HeapTupleHeaderGetRawXmin (PostgreSQL tuple header function)
-  - ItemPointerEquals (PostgreSQL tuple identifier comparison)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md) (PostgreSQL tuple identifier comparison)
 - Called from (representative examples):
-  - PLy_procedure_get
+  - [PLy_procedure_get](PLy_procedure_get.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the plpy_procedure.c file

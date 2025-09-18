@@ -19,7 +19,7 @@ The function is designed to provide a consistent view of SLRU statistics at a sp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_snapshot_fixed
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
   - PGSTAT_KIND_SLRU
 - Called from (representative examples):
   - PG_STAT_GET_SLRU_COLS

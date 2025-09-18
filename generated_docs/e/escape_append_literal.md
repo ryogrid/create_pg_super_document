@@ -21,10 +21,10 @@ This function is a wrapper around the  function that formats an unescaped string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendStringLiteral
-  - PQclientEncoding
+  - [appendStringLiteral](../a/appendStringLiteral.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
 - Called from (representative examples):
-  - escape_fmt_id
+  - [escape_fmt_id](escape_fmt_id.md)
 
 ## Notes and Other Information
 - This is a test module function located in 

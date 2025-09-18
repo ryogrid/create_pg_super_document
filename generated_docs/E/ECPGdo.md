@@ -24,7 +24,7 @@ ECPGdo serves as the primary public interface for executing embedded SQL stateme
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_do
+  - [ecpg_do](../e/ecpg_do.md)
 - Called from (representative examples):
   - (This is typically called by ECPG-generated code)
 

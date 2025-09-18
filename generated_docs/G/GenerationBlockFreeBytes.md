@@ -22,11 +22,11 @@ The function performs simple pointer arithmetic to determine contiguous free spa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GenerationBlock (operates on the block structure directly)
+  - [GenerationBlock](GenerationBlock.md) (operates on the block structure directly)
 - Called from (representative examples):
   - IsKeeperBlock (checking keeper block space availability)
-  - GenerationAlloc (determining if current block has sufficient space)
-  - GenerationAlloc (checking freeblock space for reuse decisions)
+  - [GenerationAlloc](GenerationAlloc.md) (determining if current block has sufficient space)
+  - [GenerationAlloc](GenerationAlloc.md) (checking freeblock space for reuse decisions)
 
 ## Notes and Other Information
 - Marked as static inline for maximum performance optimization

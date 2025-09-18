@@ -18,15 +18,15 @@ The  function is a convenience wrapper around  that attempts to interpret a null
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - parse_bool_with_len
+  - [parse_bool_with_len](parse_bool_with_len.md)
   - strlen (standard C library function)
 - Called from (representative examples):
-  - parse_one_reloption (reloptions.c:1601)
-  - parse_basebackup_options (basebackup.c:842)
-  - parse_extension_control_file (extension.c:566,574,582)
-  - GrantRole (user.c:1500,1506,1512)
-  - ProcessStartupPacket (backend_startup.c:738)
-  - executeItemOptUnwrapTarget (jsonpath_exec.c:1374)
+  - [parse_one_reloption](parse_one_reloption.md) (reloptions.c:1601)
+  - [parse_basebackup_options](parse_basebackup_options.md) (basebackup.c:842)
+  - [parse_extension_control_file](parse_extension_control_file.md) (extension.c:566,574,582)
+  - [GrantRole](../G/GrantRole.md) (user.c:1500,1506,1512)
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md) (backend_startup.c:738)
+  - [executeItemOptUnwrapTarget](../e/executeItemOptUnwrapTarget.md) (jsonpath_exec.c:1374)
   - parse_and_validate_value (guc.c:3143)
 
 ## Notes and Other Information

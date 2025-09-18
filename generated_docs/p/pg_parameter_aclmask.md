@@ -29,17 +29,17 @@ This is part of PostgreSQL's security framework that allows administrators to co
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser_arg
-  - convert_GUC_name_for_parameter_acl
+  - [convert_GUC_name_for_parameter_acl](../c/convert_GUC_name_for_parameter_acl.md)
   - cstring_to_text
-  - SearchSysCache1
-  - SysCacheGetAttr
-  - acldefault
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclP
-  - aclmask
-  - ReleaseSysCache
-  - pfree
+  - [aclmask](../a/aclmask.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [pfree](pfree.md)
 - Called from (representative examples):
-  - pg_parameter_aclcheck
+  - [pg_parameter_aclcheck](pg_parameter_aclcheck.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not directly accessible outside aclchk.c

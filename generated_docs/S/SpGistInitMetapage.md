@@ -21,17 +21,17 @@ The function sets up the lastUsedPages cache by initializing all cached page ent
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SpGistInitPage
+  - [SpGistInitPage](SpGistInitPage.md)
   - SpGistPageGetMeta
-  - SpGistMetaPageData (struct)
+  - [SpGistMetaPageData](SpGistMetaPageData.md) (struct)
   - SPGIST_META (constant)
   - SPGIST_MAGIC_NUMBER (constant)
   - SPGIST_CACHED_PAGES (constant)
   - InvalidBlockNumber (constant)
   - PageHeader (struct)
 - Called from (representative examples):
-  - spgbuild
-  - spgbuildempty
+  - [spgbuild](../s/spgbuild.md)
+  - [spgbuildempty](../s/spgbuildempty.md)
 
 ## Notes and Other Information
 - The metadata page is always the first page (page 0) in an SP-GiST index

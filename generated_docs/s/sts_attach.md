@@ -25,8 +25,8 @@ This function is commonly used in parallel query execution where one process (ty
   - SharedFileSet (struct type)
   - SharedTuplestoreAccessor (struct type)
 - Called from (representative examples):
-  - ExecParallelHashRepartitionRest
-  - ExecParallelHashEnsureBatchAccessors
+  - [ExecParallelHashRepartitionRest](../E/ExecParallelHashRepartitionRest.md)
+  - [ExecParallelHashEnsureBatchAccessors](../E/ExecParallelHashEnsureBatchAccessors.md)
   - SHARED_TUPLESTORE_SINGLE_PASS
 
 ## Notes and Other Information

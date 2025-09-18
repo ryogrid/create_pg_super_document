@@ -26,7 +26,7 @@ The function iterates through both strings simultaneously, converting characters
 - Called from (representative examples):
   - Used extensively throughout PostgreSQL codebase for case-insensitive string comparisons
   - Configuration parameter processing (guc.c)
-  - Command parsing and SQL keyword matching
+  - [Command](../C/Command.md) parsing and SQL keyword matching
   - Authentication and connection handling
   - Utility functions in psql and other tools
 

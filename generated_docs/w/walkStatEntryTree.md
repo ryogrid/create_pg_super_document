@@ -19,11 +19,11 @@ The function works in conjunction with ts_setup_firstcall to provide iteration c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - walkStatEntryTree (recursive call)
+  - [walkStatEntryTree](walkStatEntryTree.md) (recursive call)
   - Assert macro
 - Called from (representative examples):
-  - ts_process_call
-  - walkStatEntryTree (recursive self-call)
+  - [ts_process_call](../t/ts_process_call.md)
+  - [walkStatEntryTree](walkStatEntryTree.md) (recursive self-call)
 
 ## Notes and Other Information
 - Implements iterative in-order tree traversal using an explicit stack instead of recursive calls

@@ -19,7 +19,7 @@ The pg_logical/mappings directory contains files that are part of PostgreSQL's l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ls_dir_files
+  - [pg_ls_dir_files](pg_ls_dir_files.md)
 - Called from (representative examples):
   - Available as SQL function but no direct callers found in codebase
 

@@ -22,16 +22,16 @@ This static function computes the closest point on a line segment to an infinite
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `Point` - Point data type definition
-  - `LSEG` - Line segment data type definition  
+  - `[Point](../P/Point.md)` - [Point](../P/Point.md) data type definition
+  - `[LSEG](../L/LSEG.md)` - Line segment data type definition  
   - `LINE` - Line data type definition
-  - `lseg_interpt_line` - Checks for intersection between line segment and line
-  - `line_closept_point` - Calculates distance from a point to a line
+  - `[lseg_interpt_line](lseg_interpt_line.md)` - Checks for intersection between line segment and line
+  - `[line_closept_point](line_closept_point.md)` - Calculates distance from a point to a line
 - Called from (representative examples):
-  - `dist_sl` - Distance between line segment and line
-  - `dist_ls` - Distance between line and line segment
-  - `lseg_closept_point` - Line segment closest point to point calculation
-  - `close_ls` - Closest point on line segment to line
+  - `[dist_sl](../d/dist_sl.md)` - Distance between line segment and line
+  - `[dist_ls](../d/dist_ls.md)` - Distance between line and line segment
+  - `[lseg_closept_point](lseg_closept_point.md)` - Line segment closest point to point calculation
+  - `[close_ls](../c/close_ls.md)` - Closest point on line segment to line
 
 ## Notes and Other Information
 - This is a static (internal) function within the geometric operations module

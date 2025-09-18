@@ -30,14 +30,14 @@ The function handles three types of slots (inner, outer, scan) and uses differen
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecGetResultSlotOps (retrieves slot operations and fixedness information)
-  - ExecGetResultType (gets tuple descriptor for plan state results)
+  - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (retrieves slot operations and fixedness information)
+  - [ExecGetResultType](ExecGetResultType.md) (gets tuple descriptor for plan state results)
   - innerPlanState/outerPlanState (plan state navigation macros)
   - TTSOpsVirtual (virtual slot operations constant)
 - Called from (representative examples):
-  - ExecPushExprSetupSteps (during setup step generation for all slot types)
-  - ExecBuildGroupingEqual (for grouping comparison operations)
-  - ExecBuildParamSetEqual (for parameter set comparison operations)
+  - [ExecPushExprSetupSteps](ExecPushExprSetupSteps.md) (during setup step generation for all slot types)
+  - [ExecBuildGroupingEqual](ExecBuildGroupingEqual.md) (for grouping comparison operations)
+  - [ExecBuildParamSetEqual](ExecBuildParamSetEqual.md) (for parameter set comparison operations)
 
 ## Notes and Other Information
 - Returns true if a deformation step is required, false if it can be skipped

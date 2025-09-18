@@ -24,14 +24,14 @@ The function includes security checks to prevent deferred triggers from being fi
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetTriggerSharedData
-  - afterTriggerCheckState
-  - afterTriggerAddEvent
-  - InSecurityRestrictedOperation
+  - [afterTriggerCheckState](afterTriggerCheckState.md)
+  - [afterTriggerAddEvent](afterTriggerAddEvent.md)
+  - [InSecurityRestrictedOperation](../I/InSecurityRestrictedOperation.md)
   - for_each_event_chunk (macro)
 - Called from (representative examples):
-  - AfterTriggerEndQuery
-  - AfterTriggerFireDeferred
-  - AfterTriggerSetState
+  - [AfterTriggerEndQuery](../A/AfterTriggerEndQuery.md)
+  - [AfterTriggerFireDeferred](../A/AfterTriggerFireDeferred.md)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md)
 
 ## Notes and Other Information
 - Returns true if any invokable events were found, false otherwise

@@ -34,7 +34,7 @@ This function is registered in the PostgreSQL system catalog as both 'namelike' 
   - strlen (get string length)
   - VARDATA_ANY (get text data pointer)
   - VARSIZE_ANY_EXHDR (get text size excluding header)
-  - GenericMatchText (perform the actual pattern matching)
+  - [GenericMatchText](../G/GenericMatchText.md) (perform the actual pattern matching)
   - PG_GET_COLLATION (get collation from function call context)
   - PG_RETURN_BOOL (return boolean result)
 - Called from (representative examples):

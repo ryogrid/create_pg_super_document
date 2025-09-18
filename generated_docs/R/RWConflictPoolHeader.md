@@ -19,9 +19,9 @@ RWConflictPoolHeader is a typedef that creates a pointer type for RWConflictPool
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RWConflictPoolHeaderData (the underlying structure type)
+  - [RWConflictPoolHeaderData](RWConflictPoolHeaderData.md) (the underlying structure type)
 - Called from (representative examples):
-  - SerialControl (uses this type in serialization control structure)
+  - [SerialControl](../S/SerialControl.md) (uses this type in serialization control structure)
 
 ## Notes and Other Information
 - This is a standard PostgreSQL pattern of creating pointer typedefs for cleaner code

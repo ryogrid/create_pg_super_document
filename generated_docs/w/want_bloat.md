@@ -19,9 +19,9 @@ The want_bloat function is a simple predicate that checks the global bloat varia
 - Functions called/Symbols referenced:
   - ZIC_BLOAT_DEFAULT (default bloat configuration constant)
 - Called from (representative examples):
-  - writezone (multiple calls in src/timezone/zic.c at lines 2191, 2344, 2431)
-  - years_of_observations (in src/timezone/zic.c at lines 3085, 3256)
-  - addtype (in src/timezone/zic.c at line 3368)
+  - [writezone](writezone.md) (multiple calls in src/timezone/zic.c at lines 2191, 2344, 2431)
+  - [years_of_observations](../y/years_of_observations.md) (in src/timezone/zic.c at lines 3085, 3256)
+  - [addtype](../a/addtype.md) (in src/timezone/zic.c at line 3368)
 
 ## Notes and Other Information
 - Returns true if bloat is enabled (bloat >= 0), false otherwise

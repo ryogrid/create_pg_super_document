@@ -21,9 +21,9 @@ The `close_none` function is a static helper function that implements file closi
 - Functions called/Symbols referenced:
   - fclose (C standard library)
   - pg_log_error (PostgreSQL error logging function)
-  - CompressFileHandle (structure type)
+  - [CompressFileHandle](../C/CompressFileHandle.md) (structure type)
 - Called from (representative examples):
-  - InitCompressFileHandleNone
+  - [InitCompressFileHandleNone](../I/InitCompressFileHandleNone.md)
 
 ## Notes and Other Information
 - This function is part of the "none" compression implementation, handling uncompressed file closure

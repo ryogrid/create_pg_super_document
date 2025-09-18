@@ -27,14 +27,14 @@ The function includes robust error handling for duplicate constraint names and u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ATAddCheckConstraint
-  - ConstraintNameIsUsed
-  - ChooseConstraintName
-  - ChooseForeignKeyConstraintNameAddition
-  - ATAddForeignKeyConstraint
+  - [ATAddCheckConstraint](ATAddCheckConstraint.md)
+  - [ConstraintNameIsUsed](../C/ConstraintNameIsUsed.md)
+  - [ChooseConstraintName](../C/ChooseConstraintName.md)
+  - [ChooseForeignKeyConstraintNameAddition](../C/ChooseForeignKeyConstraintNameAddition.md)
+  - [ATAddForeignKeyConstraint](ATAddForeignKeyConstraint.md)
   - RelationGetNamespace
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Currently supports only CHECK and FOREIGN KEY constraints, with extensible design for future constraint types

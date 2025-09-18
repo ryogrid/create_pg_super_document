@@ -34,17 +34,17 @@ The function includes the same race condition safety measures as transformIndexS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_parsestate
-  - relation_open
-  - addRangeTableEntryForRelation
-  - addNSItemToQuery
-  - transformExpr
-  - assign_expr_collations
-  - free_parsestate
+  - [make_parsestate](../m/make_parsestate.md)
+  - [relation_open](../r/relation_open.md)
+  - [addRangeTableEntryForRelation](../a/addRangeTableEntryForRelation.md)
+  - [addNSItemToQuery](../a/addNSItemToQuery.md)
+  - [transformExpr](transformExpr.md)
+  - [assign_expr_collations](../a/assign_expr_collations.md)
+  - [free_parsestate](../f/free_parsestate.md)
   - table_close
 - Called from (representative examples):
-  - ATPostAlterTypeParse
-  - ProcessUtilitySlow
+  - [ATPostAlterTypeParse](../A/ATPostAlterTypeParse.md)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md)
 
 ## Notes and Other Information
 - Similar in structure to transformIndexStmt but specifically designed for statistics expressions

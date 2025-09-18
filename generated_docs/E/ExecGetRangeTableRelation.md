@@ -21,12 +21,12 @@ This function implements lazy opening of relations referenced in the query's ran
   - exec_rt_fetch
   - table_open
   - IsParallelWorker
-  - CheckRelationLockedByMe
+  - [CheckRelationLockedByMe](../C/CheckRelationLockedByMe.md)
 - Called from (representative examples):
-  - InitPlan
-  - CreatePartitionPruneState
+  - [InitPlan](../I/InitPlan.md)
+  - [CreatePartitionPruneState](../C/CreatePartitionPruneState.md)
   - ExecOpenScanRelation
-  - ExecInitResultRelation
+  - [ExecInitResultRelation](ExecInitResultRelation.md)
 
 ## Notes and Other Information
 - Relations are opened with NoLock in normal execution (assumes appropriate lock already held)

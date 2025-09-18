@@ -21,14 +21,14 @@ This function performs a recursive traversal to duplicate a portion of an NFA be
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - newarc
+  - [newarc](../n/newarc.md)
   - EMPTY
-  - duptraverse
-  - cleartraverse
+  - [duptraverse](duptraverse.md)
+  - [cleartraverse](../c/cleartraverse.md)
 - Called from (representative examples):
   - ARCV (multiple locations in regcomp.c)
   - REDUCE (multiple locations in regcomp.c)
-  - nfanode
+  - [nfanode](../n/nfanode.md)
 
 ## Notes and Other Information
 The function uses a clever design where the tmp pointer in state structures serves dual purposes: marking visited states during traversal and pointing to their duplicates. After duplication is complete, the tmp pointers are cleared by calling cleartraverse to maintain the integrity of the NFA structure.

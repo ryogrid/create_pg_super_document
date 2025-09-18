@@ -31,21 +31,21 @@ The lookup order prioritizes abbreviations over full names to handle cases where
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - downcase_truncate_identifier (string processing function)
-  - DecodeTimezoneAbbrev (timezone abbreviation resolver)
+  - [downcase_truncate_identifier](../d/downcase_truncate_identifier.md) (string processing function)
+  - [DecodeTimezoneAbbrev](DecodeTimezoneAbbrev.md) (timezone abbreviation resolver)
   - DateTimeParseError (error handling function)
-  - pg_tzset (timezone database lookup function)
+  - [pg_tzset](../p/pg_tzset.md) (timezone database lookup function)
   - ereport, errcode, errmsg (PostgreSQL error reporting)
-  - pg_tz (PostgreSQL timezone type)
+  - [pg_tz](../p/pg_tz.md) (PostgreSQL timezone type)
   - DateTimeErrorExtra (error information structure)
   - TZ, DTZ, DYNTZ (timezone type constants)
   - TZNAME_FIXED_OFFSET, TZNAME_DYNTZ, TZNAME_ZONE (return type constants)
 
 - Called from (representative examples):
-  - timetz_zone (time with timezone conversion functions)
-  - timestamp_zone, timestamptz_zone (timestamp timezone conversion)
-  - parse_sane_timezone (timezone validation function)
-  - DecodeTimezoneNameToTz (wrapper function)
+  - [timetz_zone](../t/timetz_zone.md) (time with timezone conversion functions)
+  - [timestamp_zone](../t/timestamp_zone.md), timestamptz_zone (timestamp timezone conversion)
+  - [parse_sane_timezone](../p/parse_sane_timezone.md) (timezone validation function)
+  - [DecodeTimezoneNameToTz](DecodeTimezoneNameToTz.md) (wrapper function)
 
 ## Notes and Other Information
 - Returns timezone type constants indicating the kind of identifier found

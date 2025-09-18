@@ -21,7 +21,7 @@ Like jsonb_eq, this function delegates the actual comparison logic to compareJso
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_JSONB_P
-  - compareJsonbContainers (src/backend/utils/adt/jsonb_util.c:191-340)
+  - [compareJsonbContainers](../c/compareJsonbContainers.md) (src/backend/utils/adt/jsonb_util.c:191-340)
   - PG_FREE_IF_COPY
   - PG_RETURN_INT32
 - Data types used:

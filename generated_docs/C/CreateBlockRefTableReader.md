@@ -21,13 +21,13 @@ CreateBlockRefTableReader initializes a new BlockRefTableReader structure that p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BlockRefTableRead
+  - [BlockRefTableRead](../B/BlockRefTableRead.md)
   - INIT_CRC32C
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - BLOCKREFTABLE_MAGIC
 - Called from (representative examples):
-  - PrepareForIncrementalBackup
-  - pg_wal_summary_contents
+  - [PrepareForIncrementalBackup](../P/PrepareForIncrementalBackup.md)
+  - [pg_wal_summary_contents](../p/pg_wal_summary_contents.md)
 
 ## Notes and Other Information
 - Validates file format by checking BLOCKREFTABLE_MAGIC number at the beginning

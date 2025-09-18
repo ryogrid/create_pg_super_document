@@ -29,10 +29,10 @@ Anonymous windows (those with NULL names) are deliberately ignored since they ap
 ## Dependencies
 - Functions called/Symbols referenced:
   - appendContextKeyword (for formatted keyword output with indentation)
-  - quote_identifier (for proper SQL identifier quoting)  
-  - get_rule_windowspec (to format individual window specifications)
+  - [quote_identifier](../q/quote_identifier.md) (for proper SQL identifier quoting)  
+  - [get_rule_windowspec](get_rule_windowspec.md) (to format individual window specifications)
 - Called from (representative examples):
-  - get_basic_select_query (for generating complete SELECT statements)
+  - [get_basic_select_query](get_basic_select_query.md) (for generating complete SELECT statements)
 
 ## Notes and Other Information
 - Static function accessible only within ruleutils.c

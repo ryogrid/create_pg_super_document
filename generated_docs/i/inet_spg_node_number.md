@@ -26,8 +26,8 @@ The function assumes the value has the same address family as the node's prefix 
   - ip_addr: Gets the address bytes of the inet value
   - ip_bits: Gets the mask length (network bits) of the inet value
 - Called from (representative examples):
-  - inet_spg_choose: Uses this function to determine which child node to route values to during index construction
-  - inet_spg_picksplit: Uses this function during node splitting operations
+  - [inet_spg_choose](inet_spg_choose.md): Uses this function to determine which child node to route values to during index construction
+  - [inet_spg_picksplit](inet_spg_picksplit.md): Uses this function during node splitting operations
 
 ## Notes and Other Information
 - This is a static helper function specific to network address SP-GiST indexing

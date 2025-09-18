@@ -17,13 +17,13 @@ set_apply_error_context_origin is a utility function used in PostgreSQL's logica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextStrdup
+  - [MemoryContextStrdup](../M/MemoryContextStrdup.md)
   - ApplyContext (global memory context)
   - apply_error_callback_arg (global structure to store error context)
 - Called from (representative examples):
-  - ParallelApplyWorkerMain (src/backend/replication/logical/applyparallelworker.c:968)
-  - run_tablesync_worker (src/backend/replication/logical/tablesync.c:1725)
-  - run_apply_worker (src/backend/replication/logical/worker.c:4532)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (src/backend/replication/logical/applyparallelworker.c:968)
+  - [run_tablesync_worker](../r/run_tablesync_worker.md) (src/backend/replication/logical/tablesync.c:1725)
+  - [run_apply_worker](../r/run_apply_worker.md) (src/backend/replication/logical/worker.c:4532)
 
 ## Notes and Other Information
 - The function is designed to be called during the initialization phase of logical replication workers

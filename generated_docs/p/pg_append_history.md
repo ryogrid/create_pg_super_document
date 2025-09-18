@@ -23,11 +23,11 @@ The function performs a simple but important role in psql's history management b
 ## Dependencies
 - Functions called/Symbols referenced:
   - USE_READLINE (preprocessor macro)
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
   - strlen
 - Called from (representative examples):
-  - MainLoop (multiple locations)
+  - [MainLoop](../M/MainLoop.md) (multiple locations)
 
 ## Notes and Other Information
 - Only functions when USE_READLINE is defined and useHistory is enabled

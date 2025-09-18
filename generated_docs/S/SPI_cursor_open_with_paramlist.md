@@ -29,14 +29,14 @@ The function is essentially a thin wrapper around SPI_cursor_open_internal, maki
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_cursor_open_internal (the core cursor opening implementation)
+  - [SPI_cursor_open_internal](SPI_cursor_open_internal.md) (the core cursor opening implementation)
 - Called from (representative examples):
   - Available through SPI interface for direct use
   - Used internally by other SPI functions that already have ParamListInfo structures
 
 ## Notes and Other Information
 - This is the most efficient SPI cursor opening function when parameters are already in ParamListInfo format.
-- ParamListInfo provides advanced features like parameter hooks, dynamic parameter resolution, and custom parameter processing.
+- [ParamListInfo](../P/ParamListInfo.md) provides advanced features like parameter hooks, dynamic parameter resolution, and custom parameter processing.
 - The function performs no parameter validation or conversion, delegating all work to the internal implementation.
 - Particularly useful for extensions and internal PostgreSQL code that work directly with ParamListInfo structures.
 - Provides the foundation for more sophisticated parameter handling scenarios that the simpler array-based interfaces cannot support.

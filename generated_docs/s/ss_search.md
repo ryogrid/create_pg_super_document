@@ -29,10 +29,10 @@ The function implements an efficient LRU cache where frequently accessed tables 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelFileLocatorEquals (comparison function)
-  - ss_lru_item_t (data structure type)
+  - [ss_lru_item_t](ss_lru_item_t.md) (data structure type)
 - Called from (representative examples):
-  - ss_get_location
-  - ss_report_location
+  - [ss_get_location](ss_get_location.md)
+  - [ss_report_location](ss_report_location.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the syncscan.c file

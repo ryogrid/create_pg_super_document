@@ -30,13 +30,13 @@ The copying process includes comprehensive error handling, progress reporting th
   - write
   - pg_fsync
   - CloseTransientFile
-  - InstallXLogFileSegment
+  - [InstallXLogFileSegment](../I/InstallXLogFileSegment.md)
   - pgstat_report_wait_start/end
   - ereport
-  - errcode_for_file_access
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
   - data_sync_elevel
 - Called from (representative examples):
-  - XLogInitNewTimeline (src/backend/access/transam/xlog.c:5207)
+  - [XLogInitNewTimeline](XLogInitNewTimeline.md) (src/backend/access/transam/xlog.c:5207)
 
 ## Notes and Other Information
 - Currently only used during recovery operations

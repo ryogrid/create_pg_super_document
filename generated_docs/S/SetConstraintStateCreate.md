@@ -20,13 +20,13 @@ The SetConstraintState is used to track the current state of deferred constraint
 ## Dependencies
 - Functions called/Symbols referenced:
   - SetConstraintState (return type)
-  - MemoryContextAllocZero (for zero-initialized allocation)
+  - [MemoryContextAllocZero](../M/MemoryContextAllocZero.md) (for zero-initialized allocation)
   - SetConstraintStateData (struct definition for size calculation)
   - SetConstraintTriggerData (array element type)
 - Called from:
-  - AfterTriggersTableData (src/backend/commands/trigger.c:3993)
-  - SetConstraintStateCopy (src/backend/commands/trigger.c:5700)
-  - AfterTriggerSetState (src/backend/commands/trigger.c:5752)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3993)
+  - [SetConstraintStateCopy](SetConstraintStateCopy.md) (src/backend/commands/trigger.c:5700)
+  - [AfterTriggerSetState](../A/AfterTriggerSetState.md) (src/backend/commands/trigger.c:5752)
 
 ## Notes and Other Information
 - Memory is allocated in TopTransactionContext for proper transaction-scoped cleanup

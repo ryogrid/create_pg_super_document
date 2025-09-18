@@ -18,19 +18,19 @@ The  function generates SQL statements for PostgreSQL rules, with sophisticated 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - fmtQualifiedDumpable
-  - nonemptyReloptions
-  - appendReloptionsArrayAH
-  - createViewAsClause
-  - createDummyViewAsClause
-  - ExecuteSqlQuery
-  - printfPQExpBuffer
-  - psprintf
-  - ArchiveEntry
-  - dumpComment
+  - [nonemptyReloptions](../n/nonemptyReloptions.md)
+  - [appendReloptionsArrayAH](../a/appendReloptionsArrayAH.md)
+  - [createViewAsClause](../c/createViewAsClause.md)
+  - [createDummyViewAsClause](../c/createDummyViewAsClause.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [psprintf](../p/psprintf.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing in data-only dump mode and for non-separate rules

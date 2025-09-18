@@ -27,13 +27,13 @@ The function handles two symmetric cases based on whether the problematic node's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RBTree (tree structure type)
-  - RBTNode (node structure type)
+  - [RBTree](../R/RBTree.md) (tree structure type)
+  - [RBTNode](../R/RBTNode.md) (node structure type)
   - RBTRED, RBTBLACK (color constants)
   - color (node color field)
-  - rbt_rotate_left, rbt_rotate_right (rotation operations)
+  - [rbt_rotate_left](rbt_rotate_left.md), rbt_rotate_right (rotation operations)
 - Called from (representative examples):
-  - rbt_insert (in rbtree.c:508)
+  - [rbt_insert](rbt_insert.md) (in rbtree.c:508)
 
 ## Notes and Other Information
 - This is a static (internal) function not exposed in the public API

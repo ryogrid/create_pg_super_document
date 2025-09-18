@@ -23,14 +23,14 @@ For assignments, it supports nested assignment situations where the replacement 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getSubscriptingRoutines (to get container-specific methods)
-  - executor_errposition (for error position reporting)
-  - ExecInitExprRec (to initialize sub-expressions)
-  - ExprEvalPushStep (to add execution steps)
-  - isAssignmentIndirectionExpr (to check for nested assignments)
-  - exprLocation (to get expression location for errors)
+  - [getSubscriptingRoutines](../g/getSubscriptingRoutines.md) (to get container-specific methods)
+  - [executor_errposition](../e/executor_errposition.md) (for error position reporting)
+  - [ExecInitExprRec](ExecInitExprRec.md) (to initialize sub-expressions)
+  - [ExprEvalPushStep](ExprEvalPushStep.md) (to add execution steps)
+  - [isAssignmentIndirectionExpr](../i/isAssignmentIndirectionExpr.md) (to check for nested assignments)
+  - [exprLocation](../e/exprLocation.md) (to get expression location for errors)
 - Called from (representative examples):
-  - ExecInitExprRec (during expression tree initialization)
+  - [ExecInitExprRec](ExecInitExprRec.md) (during expression tree initialization)
 
 ## Notes and Other Information
 - Handles both upper and lower subscript bounds for slicing operations

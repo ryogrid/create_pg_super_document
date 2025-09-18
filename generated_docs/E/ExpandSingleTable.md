@@ -27,15 +27,15 @@ For permission management, the function ensures SELECT access is granted at both
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expandNSItemAttrs
-  - expandNSItemVars  
-  - markVarForSelectPriv
-  - ParseNamespaceItem
-  - RTEPermissionInfo
+  - [expandNSItemAttrs](../e/expandNSItemAttrs.md)
+  - [expandNSItemVars](../e/expandNSItemVars.md)  
+  - [markVarForSelectPriv](../m/markVarForSelectPriv.md)
+  - [ParseNamespaceItem](../P/ParseNamespaceItem.md)
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
   - RTE_RELATION
   - ACL_SELECT
 - Called from (representative examples):
-  - ExpandRowReference
+  - [ExpandRowReference](ExpandRowReference.md)
 
 ## Notes and Other Information
 - This is a static function within parse_target.c, indicating it's an internal helper for target list processing

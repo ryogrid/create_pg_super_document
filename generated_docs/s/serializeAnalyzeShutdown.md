@@ -19,11 +19,11 @@ This function performs the cleanup phase for a serialize analyze destination rec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
-  - MemoryContextDelete
-  - SerializeDestReceiver
+  - [pfree](../p/pfree.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [SerializeDestReceiver](../S/SerializeDestReceiver.md)
 - Called from (representative examples):
-  - CreateExplainSerializeDestReceiver
+  - [CreateExplainSerializeDestReceiver](../C/CreateExplainSerializeDestReceiver.md)
 
 ## Notes and Other Information
 - This function follows PostgreSQL's standard pattern of setting pointers to NULL after freeing memory

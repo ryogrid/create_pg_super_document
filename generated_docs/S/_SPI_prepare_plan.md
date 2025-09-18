@@ -24,19 +24,19 @@ All resulting data structures are stored in the current memory context, typicall
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - raw_parser
-  - CreateCachedPlan
-  - CreateCommandTag
-  - pg_analyze_and_rewrite_withcb
-  - pg_analyze_and_rewrite_fixedparams
-  - CompleteCachedPlan
-  - _SPI_error_callback
+  - [raw_parser](../r/raw_parser.md)
+  - [CreateCachedPlan](../C/CreateCachedPlan.md)
+  - [CreateCommandTag](../C/CreateCommandTag.md)
+  - [pg_analyze_and_rewrite_withcb](../p/pg_analyze_and_rewrite_withcb.md)
+  - [pg_analyze_and_rewrite_fixedparams](../p/pg_analyze_and_rewrite_fixedparams.md)
+  - [CompleteCachedPlan](../C/CompleteCachedPlan.md)
+  - [_SPI_error_callback](_SPI_error_callback.md)
 - Called from (representative examples):
-  - SPI_prepare_cursor
-  - SPI_prepare_extended
-  - SPI_prepare_params
-  - SPI_cursor_open_with_args
-  - SPI_cursor_parse_open
+  - [SPI_prepare_cursor](SPI_prepare_cursor.md)
+  - [SPI_prepare_extended](SPI_prepare_extended.md)
+  - [SPI_prepare_params](SPI_prepare_params.md)
+  - [SPI_cursor_open_with_args](SPI_cursor_open_with_args.md)
+  - [SPI_cursor_parse_open](SPI_cursor_parse_open.md)
 
 ## Notes and Other Information
 - Results are stored in plan->plancache_list as a list of CachedPlanSource entries

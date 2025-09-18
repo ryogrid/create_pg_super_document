@@ -21,15 +21,15 @@ The structure is used within the `libpq_source` context where an array of these 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rewind_source (interface)
+  - [rewind_source](../r/rewind_source.md) (interface)
   - MAX_CHUNKS_PER_QUERY (constant)
 - Used by:
-  - libpq_queue_fetch_range (queues fetch requests)
-  - process_queued_fetch_requests (processes queued requests)
+  - [libpq_queue_fetch_range](../l/libpq_queue_fetch_range.md) (queues fetch requests)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md) (processes queued requests)
 
 ## Notes and Other Information
 - The structure is used as part of a request queue within the `libpq_source` struct, allowing up to 1000 concurrent fetch requests
-- Path comparison uses pointer equality for optimization, relying on the caller to provide the same pointer for identical file paths
+- [Path](../P/Path.md) comparison uses pointer equality for optimization, relying on the caller to provide the same pointer for identical file paths
 - The implementation includes logic to merge adjacent requests for the same file to optimize data transfer
 - Each individual request is limited to `MAX_CHUNK_SIZE` (1MB) to prevent excessive memory usage
 - Part of the pg_rewind utility's libpq-based data source implementation for synchronizing PostgreSQL data directories

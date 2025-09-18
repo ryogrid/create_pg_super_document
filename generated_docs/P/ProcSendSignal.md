@@ -17,11 +17,11 @@ ProcSendSignal provides a mechanism to signal a specific backend process by sett
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetLatch
+  - [SetLatch](../S/SetLatch.md)
   - ProcNumber (type reference)
 - Called from (representative examples):
   - UnpinBufferNoOwner
-  - ReleasePredicateLocks
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md)
 
 ## Notes and Other Information
 - Performs bounds checking against ProcGlobal->allProcCount to prevent invalid access

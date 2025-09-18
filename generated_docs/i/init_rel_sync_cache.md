@@ -20,13 +20,13 @@ The `init_rel_sync_cache` function sets up the relation synchronization cache us
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create
-  - CacheRegisterRelcacheCallback
-  - CacheRegisterSyscacheCallback
-  - rel_sync_cache_relation_cb
-  - rel_sync_cache_publication_cb
+  - [hash_create](../h/hash_create.md)
+  - [CacheRegisterRelcacheCallback](../C/CacheRegisterRelcacheCallback.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)
+  - [rel_sync_cache_relation_cb](../r/rel_sync_cache_relation_cb.md)
+  - [rel_sync_cache_publication_cb](../r/rel_sync_cache_publication_cb.md)
 - Called from (representative examples):
-  - pgoutput_startup
+  - [pgoutput_startup](../p/pgoutput_startup.md)
 
 ## Notes and Other Information
 - The function uses a static boolean `relation_callbacks_registered` to ensure callbacks are registered only once

@@ -27,12 +27,12 @@ This analysis enables the rewriter to optimize queries like `INSERT INTO table V
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetToDefault
-  - bms_add_member
-  - bms_del_member
+  - [SetToDefault](../S/SetToDefault.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_del_member](../b/bms_del_member.md)
   - bms_is_empty
 - Called from (representative examples):
-  - rewriteTargetListIU
+  - [rewriteTargetListIU](../r/rewriteTargetListIU.md)
 
 ## Notes and Other Information
 - Returns NULL if no columns are default-only across all rows

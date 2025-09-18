@@ -26,7 +26,7 @@ This function is typically used by other WAL management routines to determine wh
   - ControlFileLock
   - LW_SHARED (lock mode constant)
 - Called from (representative examples):
-  - XLogFileRead (in xlogrecovery.c)
+  - [XLogFileRead](../X/XLogFileRead.md) (in xlogrecovery.c)
 
 ## Notes and Other Information
 - Uses shared locking to allow concurrent reads without blocking other readers

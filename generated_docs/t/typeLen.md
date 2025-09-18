@@ -25,7 +25,7 @@ The function extracts the Form_pg_type structure from the HeapTuple and returns 
   - Form_pg_type (for accessing tuple structure)
   - GETSTRUCT (macro to extract structure from tuple)
 - Called from (representative examples):
-  - coerce_type
+  - [coerce_type](../c/coerce_type.md)
 
 ## Notes and Other Information
 - Returns the typlen field which has special meaning in PostgreSQL:

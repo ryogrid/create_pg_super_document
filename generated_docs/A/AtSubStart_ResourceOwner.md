@@ -22,7 +22,7 @@ This function takes no parameters.
   - ResourceOwnerCreate
   - TransactionState (type)
 - Called from (representative examples):
-  - StartSubTransaction
+  - [StartSubTransaction](../S/StartSubTransaction.md)
 
 ## Notes and Other Information
 - This is a static function within xact.c, part of the subtransaction initialization sequence

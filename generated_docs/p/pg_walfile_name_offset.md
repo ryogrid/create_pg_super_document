@@ -26,16 +26,16 @@ The function ensures that it cannot be executed during recovery mode, similar to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `RecoveryInProgress()` - Checks if database recovery is currently active
-  - `CreateTemplateTupleDesc()` - Creates tuple descriptor for result
-  - `TupleDescInitEntry()` - Initializes tuple descriptor entries
-  - `BlessTupleDesc()` - Finalizes tuple descriptor
+  - `[RecoveryInProgress](../R/RecoveryInProgress.md)()` - Checks if database recovery is currently active
+  - `[CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)()` - Creates tuple descriptor for result
+  - `[TupleDescInitEntry](../T/TupleDescInitEntry.md)()` - Initializes tuple descriptor entries
+  - `[BlessTupleDesc](../B/BlessTupleDesc.md)()` - Finalizes tuple descriptor
   - `XLByteToSeg()` - Converts LSN to segment number
-  - `GetWALInsertionTimeLine()` - Gets current WAL insertion timeline
-  - `XLogFileName()` - Generates WAL filename from segment info
+  - `[GetWALInsertionTimeLine](../G/GetWALInsertionTimeLine.md)()` - Gets current WAL insertion timeline
+  - `[XLogFileName](../X/XLogFileName.md)()` - Generates WAL filename from segment info
   - `XLogSegmentOffset()` - Calculates offset within segment
   - `CStringGetTextDatum()`, `UInt32GetDatum()` - Convert values to Datums
-  - `heap_form_tuple()`, `HeapTupleGetDatum()` - Create and return tuple
+  - `[heap_form_tuple](../h/heap_form_tuple.md)()`, `HeapTupleGetDatum()` - Create and return tuple
   - `PG_RETURN_DATUM` - Macro to return Datum value
 - Called from (representative examples):
   - No direct callers found in the codebase (SQL-callable function)

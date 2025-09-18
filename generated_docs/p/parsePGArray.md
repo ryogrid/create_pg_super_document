@@ -32,14 +32,14 @@ The parser is designed for frontend utilities that need to process array values 
   - strlen
 
 - Called from (representative examples):
-  - buildACLCommands (src/bin/pg_dump/dumputils.c:137, 144)
-  - dumpSearchPath (src/bin/pg_dump/pg_dump.c:3633)
-  - getPublicationTables (src/bin/pg_dump/pg_dump.c:4623)
-  - dumpSubscription (src/bin/pg_dump/pg_dump.c:5182)
-  - dumpFunc (src/bin/pg_dump/pg_dump.c:12498)
-  - dumpIndex (src/bin/pg_dump/pg_dump.c:17033, 17035)
-  - processExtensionTables (src/bin/pg_dump/pg_dump.c:18422, 18424)
-  - appendReloptionsArray (src/fe_utils/string_utils.c:973)
+  - [buildACLCommands](../b/buildACLCommands.md) (src/bin/pg_dump/dumputils.c:137, 144)
+  - [dumpSearchPath](../d/dumpSearchPath.md) (src/bin/pg_dump/pg_dump.c:3633)
+  - [getPublicationTables](../g/getPublicationTables.md) (src/bin/pg_dump/pg_dump.c:4623)
+  - [dumpSubscription](../d/dumpSubscription.md) (src/bin/pg_dump/pg_dump.c:5182)
+  - [dumpFunc](../d/dumpFunc.md) (src/bin/pg_dump/pg_dump.c:12498)
+  - [dumpIndex](../d/dumpIndex.md) (src/bin/pg_dump/pg_dump.c:17033, 17035)
+  - [processExtensionTables](processExtensionTables.md) (src/bin/pg_dump/pg_dump.c:18422, 18424)
+  - [appendReloptionsArray](../a/appendReloptionsArray.md) (src/fe_utils/string_utils.c:973)
 
 ## Notes and Other Information
 - Located in src/fe_utils/string_utils.c:819-901

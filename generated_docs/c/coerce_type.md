@@ -34,22 +34,22 @@ The function assumes the caller has already verified the coercion is possible vi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_coercion_pathway
-  - build_coercion_expression
-  - coerce_to_domain
-  - coerce_record_to_complex
-  - getBaseType
-  - getBaseTypeAndTypmod
-  - typeInheritsFrom
-  - stringTypeDatum
-  - makeRelabelType
-  - type_is_collatable
+  - [find_coercion_pathway](../f/find_coercion_pathway.md)
+  - [build_coercion_expression](../b/build_coercion_expression.md)
+  - [coerce_to_domain](coerce_to_domain.md)
+  - [coerce_record_to_complex](coerce_record_to_complex.md)
+  - [getBaseType](../g/getBaseType.md)
+  - [getBaseTypeAndTypmod](../g/getBaseTypeAndTypmod.md)
+  - [typeInheritsFrom](../t/typeInheritsFrom.md)
+  - [stringTypeDatum](../s/stringTypeDatum.md)
+  - [makeRelabelType](../m/makeRelabelType.md)
+  - [type_is_collatable](../t/type_is_collatable.md)
 - Called from (representative examples):
-  - coerce_to_target_type
+  - [coerce_to_target_type](coerce_to_target_type.md)
   - transformArrayExpr
-  - make_fn_arguments
-  - coerce_to_common_type
-  - buildMergedJoinVar
+  - [make_fn_arguments](../m/make_fn_arguments.md)
+  - [coerce_to_common_type](coerce_to_common_type.md)
+  - [buildMergedJoinVar](../b/buildMergedJoinVar.md)
 
 ## Notes and Other Information
 - Must not modify the input expression tree; only adds decoration on top

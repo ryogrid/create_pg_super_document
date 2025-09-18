@@ -27,26 +27,26 @@ The split operation preserves the logical ordering of segments while physically 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinInitPage
+  - [GinInitPage](../G/GinInitPage.md)
   - GinDataLeafPageGetPostingList
   - GinDataPageSetDataSize
   - GinDataPageGetRightBound
   - SizeOfGinPostingList
-  - dlist_next_node
-  - dlist_head_node
-  - dlist_has_next
+  - [dlist_next_node](dlist_next_node.md)
+  - [dlist_head_node](dlist_head_node.md)
+  - [dlist_has_next](dlist_has_next.md)
   - dlist_container
   - memcpy
   - Assert
   - leafSegmentInfo (structure type)
-  - dlist_node (structure type)
-  - ItemPointerData (structure type)
+  - [dlist_node](dlist_node.md) (structure type)
+  - [ItemPointerData](../I/ItemPointerData.md) (structure type)
   - GIN_DATA (constant)
   - GIN_LEAF (constant)
   - GIN_COMPRESSED (constant)
   - GIN_SEGMENT_DELETE (constant)
 - Called from (representative examples):
-  - dataBeginPlaceToPageLeaf
+  - [dataBeginPlaceToPageLeaf](dataBeginPlaceToPageLeaf.md)
 
 ## Notes and Other Information
 - Operates on temporary in-memory page copies rather than modifying original pages

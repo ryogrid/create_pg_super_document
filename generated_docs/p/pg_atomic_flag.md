@@ -23,11 +23,11 @@ PostgreSQL's atomic flag implementation is architecture-aware, with platform-spe
 - Functions called/Symbols referenced:
   - None (this is a data structure definition)
 - Called from (representative examples):
-  - pg_atomic_init_flag_impl
-  - pg_atomic_test_set_flag_impl  
-  - pg_atomic_clear_flag_impl
-  - pg_atomic_unlocked_test_flag_impl
-  - WorkerInfoData (autovacuum worker synchronization)
+  - [pg_atomic_init_flag_impl](pg_atomic_init_flag_impl.md)
+  - [pg_atomic_test_set_flag_impl](pg_atomic_test_set_flag_impl.md)  
+  - [pg_atomic_clear_flag_impl](pg_atomic_clear_flag_impl.md)
+  - [pg_atomic_unlocked_test_flag_impl](pg_atomic_unlocked_test_flag_impl.md)
+  - [WorkerInfoData](../W/WorkerInfoData.md) (autovacuum worker synchronization)
 
 ## Notes and Other Information
 - The flag is typically used through the atomic operation wrappers (pg_atomic_init_flag, pg_atomic_test_set_flag, pg_atomic_clear_flag, pg_atomic_unlocked_test_flag) rather than direct manipulation

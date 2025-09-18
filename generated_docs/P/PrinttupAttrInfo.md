@@ -24,12 +24,12 @@ The structure stores precomputed metadata for each column in a result set, inclu
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (PostgreSQL object identifier type)
-  - FmgrInfo (function manager info structure)
+  - [FmgrInfo](../F/FmgrInfo.md) (function manager info structure)
   - int16 (16-bit integer type)
-  - bool (boolean type)
+  - [bool](../b/bool.md) (boolean type)
 - Called from (representative examples):
-  - printtup_prepare_info (initializes PrinttupAttrInfo arrays)
-  - printtup (uses PrinttupAttrInfo for tuple formatting)
+  - [printtup_prepare_info](../p/printtup_prepare_info.md) (initializes PrinttupAttrInfo arrays)
+  - [printtup](../p/printtup.md) (uses PrinttupAttrInfo for tuple formatting)
 
 ## Notes and Other Information
 - This structure is designed for performance optimization in query result formatting by caching frequently-used type information

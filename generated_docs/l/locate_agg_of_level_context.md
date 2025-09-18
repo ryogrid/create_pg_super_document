@@ -27,8 +27,8 @@ The context is used in conjunction with `locate_agg_of_level()` function to find
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)
 - Called from (representative examples):
-  - locate_agg_of_level (src/backend/rewrite/rewriteManip.c:152)
-  - locate_agg_of_level_walker (src/backend/rewrite/rewriteManip.c:171)
+  - [locate_agg_of_level](locate_agg_of_level.md) (src/backend/rewrite/rewriteManip.c:152)
+  - [locate_agg_of_level_walker](locate_agg_of_level_walker.md) (src/backend/rewrite/rewriteManip.c:171)
 
 ## Notes and Other Information
 - Part of PostgreSQL's query rewriting infrastructure in rewriteManip.c

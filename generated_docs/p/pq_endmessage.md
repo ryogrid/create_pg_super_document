@@ -22,15 +22,15 @@ This function is designed to be the standard way to complete message transmissio
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_putmessage (performs the actual network transmission of the message)
-  - pfree (frees the buffer's data memory)
+  - [pfree](pfree.md) (frees the buffer's data memory)
 
 - Called from (representative examples):
-  - ReadyForQuery (sends ready-for-query status messages)
-  - SendCopyBegin, ReceiveCopyBegin (COPY operation setup)
-  - NotifyMyFrontEnd (asynchronous notification system)
-  - send_message_to_frontend (error and notice message transmission)
-  - ReportGUCOption (GUC parameter reporting)
-  - PostgresMain (various protocol messages in main query loop)
+  - [ReadyForQuery](../R/ReadyForQuery.md) (sends ready-for-query status messages)
+  - [SendCopyBegin](../S/SendCopyBegin.md), ReceiveCopyBegin (COPY operation setup)
+  - [NotifyMyFrontEnd](../N/NotifyMyFrontEnd.md) (asynchronous notification system)
+  - [send_message_to_frontend](../s/send_message_to_frontend.md) (error and notice message transmission)
+  - [ReportGUCOption](../R/ReportGUCOption.md) (GUC parameter reporting)
+  - [PostgresMain](../P/PostgresMain.md) (various protocol messages in main query loop)
 
 ## Notes and Other Information
 - The message type is retrieved from the cursor field of the StringInfo, which must be set prior to calling this function

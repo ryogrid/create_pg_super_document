@@ -20,7 +20,7 @@ This function is a thin wrapper around the each_worker function, specifically de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - each_worker (called with as_text=true)
+  - [each_worker](../e/each_worker.md) (called with as_text=true)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL interface)
 

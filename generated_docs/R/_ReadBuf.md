@@ -24,10 +24,10 @@ This function is part of the custom archive format's function table and is calle
   - fread (standard C library function)
   - READ_ERROR_EXIT (PostgreSQL macro for handling read errors)
 - Called from (representative examples):
-  - InitArchiveFmt_Custom (custom format initialization)
-  - _CustomReadFunc (custom format read function)
+  - [InitArchiveFmt_Custom](../I/InitArchiveFmt_Custom.md) (custom format initialization)
+  - [_CustomReadFunc](../C/_CustomReadFunc.md) (custom format read function)
   - lclTocEntry (directory format TOC entry handling)
-  - InitArchiveFmt_Directory (directory format initialization)
+  - [InitArchiveFmt_Directory](../I/InitArchiveFmt_Directory.md) (directory format initialization)
 
 ## Notes and Other Information
 - This is a static function specific to the custom archive format implementation

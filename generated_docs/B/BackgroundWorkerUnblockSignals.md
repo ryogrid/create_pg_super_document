@@ -23,13 +23,13 @@ This function takes no parameters and returns void.
   - SIG_SETMASK (signal mask operation constant)
   - UnBlockSig (global signal set variable)
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1320)
-  - BackgroundWorkerMain (src/backend/postmaster/bgworker.c:803)
-  - ParallelApplyWorkerMain (src/backend/replication/logical/applyparallelworker.c:876)
-  - ApplyLauncherMain (src/backend/replication/logical/launcher.c:1148)
-  - SetupApplyOrSyncWorker (src/backend/replication/logical/worker.c:4701)
-  - test_shm_mq_main (src/test/modules/test_shm_mq/worker.c:64)
-  - worker_spi_main (src/test/modules/worker_spi/worker_spi.c:167)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1320)
+  - [BackgroundWorkerMain](BackgroundWorkerMain.md) (src/backend/postmaster/bgworker.c:803)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md) (src/backend/replication/logical/applyparallelworker.c:876)
+  - [ApplyLauncherMain](../A/ApplyLauncherMain.md) (src/backend/replication/logical/launcher.c:1148)
+  - [SetupApplyOrSyncWorker](../S/SetupApplyOrSyncWorker.md) (src/backend/replication/logical/worker.c:4701)
+  - [test_shm_mq_main](../t/test_shm_mq_main.md) (src/test/modules/test_shm_mq/worker.c:64)
+  - [worker_spi_main](../w/worker_spi_main.md) (src/test/modules/worker_spi/worker_spi.c:167)
 
 ## Notes and Other Information
 - Used in conjunction with BackgroundWorkerBlockSignals to manage critical sections

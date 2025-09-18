@@ -26,8 +26,8 @@ The function is designed primarily for leaf-level key entries containing posting
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_form_tuple: Creates basic IndexTuple from datums and nulls arrays
-  - UInt16GetDatum: Converts attribute number to Datum
+  - [index_form_tuple](../i/index_form_tuple.md): Creates basic IndexTuple from datums and nulls arrays
+  - [UInt16GetDatum](../U/UInt16GetDatum.md): Converts attribute number to Datum
   - IndexTupleSize: Gets current size of index tuple
   - IndexTupleHasNulls: Checks if tuple has null values
   - GinCategoryOffset: Calculates offset for null category storage
@@ -35,13 +35,13 @@ The function is designed primarily for leaf-level key entries containing posting
   - GinSetNPosting: Sets number of posting list items
   - GinGetPosting: Gets pointer to posting list data in tuple
   - GinSetNullCategory: Sets null category byte in tuple
-  - repalloc: Reallocates tuple memory if size changes
+  - [repalloc](../r/repalloc.md): Reallocates tuple memory if size changes
 
 - Called from (representative examples):
-  - ginHeapTupleFastCollect: Fast collection of heap tuples during GIN operations
-  - addItemPointersToLeafTuple: Adding item pointers to leaf tuples during insertion
-  - buildFreshLeafTuple: Building new leaf tuples
-  - ginVacuumEntryPage: Vacuum operations on entry pages
+  - [ginHeapTupleFastCollect](../g/ginHeapTupleFastCollect.md): Fast collection of heap tuples during GIN operations
+  - [addItemPointersToLeafTuple](../a/addItemPointersToLeafTuple.md): Adding item pointers to leaf tuples during insertion
+  - [buildFreshLeafTuple](../b/buildFreshLeafTuple.md): Building new leaf tuples
+  - [ginVacuumEntryPage](../g/ginVacuumEntryPage.md): Vacuum operations on entry pages
 
 ## Notes and Other Information
 - The function handles both single-column and multi-column GIN indexes through ginstate->oneCol

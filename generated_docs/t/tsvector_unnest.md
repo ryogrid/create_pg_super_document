@@ -24,10 +24,10 @@ The function creates a tuple descriptor with three columns and processes each le
 ## Dependencies
 - Functions called/Symbols referenced:
   - SRF_IS_FIRSTCALL - Check if this is the first call of SRF
-  - SRF_FIRSTCALL_INIT - Initialize SRF context  
-  - CreateTemplateTupleDesc - Create tuple descriptor template
-  - TupleDescInitEntry - Initialize tuple descriptor column
-  - get_call_result_type - Verify return type
+  - SRF_FIRSTCALL_INIT - [Initialize](../I/Initialize.md) SRF context  
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md) - Create tuple descriptor template
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md) - [Initialize](../I/Initialize.md) tuple descriptor column
+  - [get_call_result_type](../g/get_call_result_type.md) - Verify return type
   - PG_GETARG_TSVECTOR_COPY - Extract and copy TSVector argument
   - SRF_PERCALL_SETUP - Setup for each SRF call
   - ARRPTR - Get pointer to WordEntry array
@@ -36,8 +36,8 @@ The function creates a tuple descriptor with three columns and processes each le
   - _POSVECPTR - Get position vector pointer
   - WEP_GETPOS - Extract position from position-weight value
   - WEP_GETWEIGHT - Extract weight from position-weight value
-  - construct_array_builtin - Build PostgreSQL array
-  - heap_form_tuple - Create heap tuple
+  - [construct_array_builtin](../c/construct_array_builtin.md) - Build PostgreSQL array
+  - [heap_form_tuple](../h/heap_form_tuple.md) - Create heap tuple
   - SRF_RETURN_NEXT - Return next row in SRF
   - SRF_RETURN_DONE - Signal SRF completion
 - Called from (representative examples):

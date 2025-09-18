@@ -17,7 +17,7 @@ TypenameGetTypid is a simple wrapper function that provides backward binary comp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TypenameGetTypidExtended
+  - [TypenameGetTypidExtended](TypenameGetTypidExtended.md)
 - Called from (representative examples):
   - RangeVarGetRelid (src/include/catalog/namespace.h:96)
 

@@ -22,12 +22,12 @@ The generation counter provides a fast-path optimization: when the search path h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - List (PostgreSQL's generic list structure)
+  - [List](../L/List.md) (PostgreSQL's generic list structure)
 - Called from (representative examples):
-  - GetSearchPathMatcher (creates and populates the structure)
-  - CopySearchPathMatcher (copies the structure)
-  - SearchPathMatchesCurrentEnvironment (validates against current search path)
-  - SetTempNamespaceState (used in temporary namespace management)
+  - [GetSearchPathMatcher](../G/GetSearchPathMatcher.md) (creates and populates the structure)
+  - [CopySearchPathMatcher](../C/CopySearchPathMatcher.md) (copies the structure)
+  - [SearchPathMatchesCurrentEnvironment](SearchPathMatchesCurrentEnvironment.md) (validates against current search path)
+  - [SetTempNamespaceState](SetTempNamespaceState.md) (used in temporary namespace management)
 
 ## Notes and Other Information
 - The generation counter is private to namespace.c and should not be modified by external code

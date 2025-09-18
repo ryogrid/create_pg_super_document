@@ -21,9 +21,9 @@ pg_vsnprintf provides a safe, portable alternative to the standard vsnprintf fun
 ## Dependencies
 - Functions called/Symbols referenced:
   - PrintfTarget (struct for managing output formatting)
-  - dopr (internal function that performs the actual formatting work)
+  - [dopr](../d/dopr.md) (internal function that performs the actual formatting work)
 - Called from (representative examples):
-  - pg_snprintf (wrapper function for snprintf functionality)
+  - [pg_snprintf](pg_snprintf.md) (wrapper function for snprintf functionality)
   - vsnprintf (when PostgreSQL's implementation is used instead of system's)
   - printf (indirectly through other PostgreSQL printf wrappers)
 

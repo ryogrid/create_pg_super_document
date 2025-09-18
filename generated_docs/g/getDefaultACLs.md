@@ -21,20 +21,20 @@ This function is part of the pg_dump utility and extracts default access control
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQuery
-  - PQntuples/PQfnumber/PQgetvalue
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)/PQfnumber/PQgetvalue
   - pg_malloc
   - atooid
-  - AssignDumpId
-  - findNamespace
-  - getRoleName
-  - selectDumpableDefaultACL
-  - pg_strdup
-  - PQclear
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [getRoleName](getRoleName.md)
+  - [selectDumpableDefaultACL](../s/selectDumpableDefaultACL.md)
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - getSchemaData
+  - [getSchemaData](getSchemaData.md)
 
 ## Notes and Other Information
 - The function distinguishes between global default ACLs (defaclnamespace=0) and namespace-specific ACLs

@@ -33,7 +33,7 @@ The function supports all inet comparison strategies including equality, orderin
   - gk_ip_family, gk_ip_minbits, gk_ip_commonbits, gk_ip_maxbits, gk_ip_addr
   - ip_family, ip_bits, ip_addr
   - GIST_LEAF
-  - bitncmp
+  - [bitncmp](../b/bitncmp.md)
   - Min
   - INETSTRAT_* constants
 - Called from (representative examples):

@@ -29,15 +29,15 @@ The function prevents race conditions between multiple sync attempts and ensures
   - SpinLockRelease
   - Assert (macro)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - InvalidPid (constant)
   - ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE
 - Global variables accessed:
   - SlotSyncCtx (shared memory structure)
   - syncing_slots (module-level flag)
 - Called from (representative examples):
-  - ReplSlotSyncWorkerMain (in src/backend/replication/logical/slotsync.c:1401)
+  - [ReplSlotSyncWorkerMain](../R/ReplSlotSyncWorkerMain.md) (in src/backend/replication/logical/slotsync.c:1401)
   - SyncReplicationSlots (in src/backend/replication/logical/slotsync.c:1729)
 
 ## Notes and Other Information

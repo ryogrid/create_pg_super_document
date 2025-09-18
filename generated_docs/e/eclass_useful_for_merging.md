@@ -27,11 +27,11 @@ The function checks several conditions:
 - Functions called/Symbols referenced:
   - IS_OTHER_REL (macro for checking relation type)
   - bms_is_empty (bitmap set emptiness check)
-  - bms_is_subset (bitmap set subset test)
-  - bms_overlap (bitmap set overlap test)
+  - [bms_is_subset](../b/bms_is_subset.md) (bitmap set subset test)
+  - [bms_overlap](../b/bms_overlap.md) (bitmap set overlap test)
   - list_length (list length utility)
 - Called from (representative examples):
-  - pathkeys_useful_for_merging (src/backend/optimizer/path/pathkeys.c:2054)
+  - [pathkeys_useful_for_merging](../p/pathkeys_useful_for_merging.md) (src/backend/optimizer/path/pathkeys.c:2054)
 
 ## Notes and Other Information
 - This is explicitly designed as a heuristic that can be overoptimistic

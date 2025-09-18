@@ -19,14 +19,14 @@ The calculation uses safe arithmetic functions (mul_size, add_size) to prevent i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NumLWLocksForNamedTranches
-  - mul_size
-  - add_size
+  - [NumLWLocksForNamedTranches](../N/NumLWLocksForNamedTranches.md)
+  - [mul_size](../m/mul_size.md)
+  - [add_size](../a/add_size.md)
   - strlen
 - Types referenced:
   - Size
   - LWLockPadded
-  - NamedLWLockTranche
+  - [NamedLWLockTranche](../N/NamedLWLockTranche.md)
 - Constants used:
   - NUM_FIXED_LWLOCKS
   - LWLOCK_PADDED_SIZE
@@ -34,9 +34,9 @@ The calculation uses safe arithmetic functions (mul_size, add_size) to prevent i
   - NamedLWLockTrancheRequests
   - NamedLWLockTrancheRequestArray
 - Called from:
-  - CalculateShmemSize (src/backend/storage/ipc/ipci.c:133)
+  - [CalculateShmemSize](../C/CalculateShmemSize.md) (src/backend/storage/ipc/ipci.c:133)
   - CreateLWLocks (src/backend/storage/lmgr/lwlock.c:457)
-  - LWLockMode (src/include/storage/lwlock.h:139)
+  - [LWLockMode](LWLockMode.md) (src/include/storage/lwlock.h:139)
 
 ## Notes and Other Information
 - Returns a Size type representing bytes of shared memory needed

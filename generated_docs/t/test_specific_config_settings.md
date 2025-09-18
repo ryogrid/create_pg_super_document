@@ -18,9 +18,9 @@ The function builds a command string that includes the backend executable path, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - appendShellString
-  - appendPQExpBuffer
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [appendShellString](../a/appendShellString.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - termPQExpBuffer
   - system
 - Called from (representative examples):

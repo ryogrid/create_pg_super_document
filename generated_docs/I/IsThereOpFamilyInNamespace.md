@@ -24,14 +24,14 @@ This validation prevents naming conflicts and maintains the integrity of the ope
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheExists3 (system cache lookup function)
-  - CStringGetDatum (datum conversion utility)
-  - ObjectIdGetDatum (datum conversion utility)
-  - get_am_name (retrieves access method name for error reporting)
-  - get_namespace_name (retrieves schema name for error reporting)
+  - [CStringGetDatum](../C/CStringGetDatum.md) (datum conversion utility)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md) (datum conversion utility)
+  - [get_am_name](../g/get_am_name.md) (retrieves access method name for error reporting)
+  - [get_namespace_name](../g/get_namespace_name.md) (retrieves schema name for error reporting)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - AlterObjectRename_internal (when renaming operator families)
-  - AlterObjectNamespace_internal (when moving operator families to different schemas)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (when renaming operator families)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (when moving operator families to different schemas)
 
 ## Notes and Other Information
 - This function is specifically designed for ALTER OPERATOR FAMILY operations and acts as a prerequisite validation step

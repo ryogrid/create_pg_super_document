@@ -30,14 +30,14 @@ The function has important side effects: when a transaction becomes RO-safe (mea
   - InvalidSerializableXact (constant indicating no active serializable transaction)
   - IsMVCCSnapshot (function to check if snapshot uses MVCC)
   - SxactIsROSafe (function to check if transaction is read-only safe)
-  - ReleasePredicateLocks (function to release all predicate locks)
-  - PredicateLockingNeededForRelation (function to check relation eligibility)
+  - [ReleasePredicateLocks](../R/ReleasePredicateLocks.md) (function to release all predicate locks)
+  - [PredicateLockingNeededForRelation](../P/PredicateLockingNeededForRelation.md) (function to check relation eligibility)
 - Called from (representative examples):
-  - PredicateLockRelation
-  - PredicateLockPage
-  - PredicateLockTID
-  - CheckForSerializableConflictOutNeeded
-  - CheckForSerializableConflictOut
+  - [PredicateLockRelation](../P/PredicateLockRelation.md)
+  - [PredicateLockPage](../P/PredicateLockPage.md)
+  - [PredicateLockTID](../P/PredicateLockTID.md)
+  - [CheckForSerializableConflictOutNeeded](../C/CheckForSerializableConflictOutNeeded.md)
+  - [CheckForSerializableConflictOut](../C/CheckForSerializableConflictOut.md)
 
 ## Notes and Other Information
 - This function is marked inline for performance since it's called frequently during read operations

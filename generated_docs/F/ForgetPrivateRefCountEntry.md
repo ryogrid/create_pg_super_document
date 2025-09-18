@@ -23,7 +23,7 @@ For entries stored in the hash table (overflow entries), the function removes th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - HASH_REMOVE
   - PrivateRefCountEntry (struct type)
   - REFCOUNT_ARRAY_ENTRIES (macro)

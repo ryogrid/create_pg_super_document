@@ -288,21 +288,21 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xl_xact_commit (struct type)
+  - [xl_xact_commit](xl_xact_commit.md) (struct type)
   - RepOriginId (type)
-  - xl_xact_parsed_commit (struct type)
-  - ParseCommitRecord (parses commit record into structured format)
-  - timestamptz_to_str (formats timestamps)
-  - xact_desc_relations (formats relation information)
-  - xact_desc_subxacts (formats subtransaction information)
-  - xact_desc_stats (formats dropped statistics)
-  - standby_desc_invalidations (formats cache invalidation messages)
+  - [xl_xact_parsed_commit](xl_xact_parsed_commit.md) (struct type)
+  - [ParseCommitRecord](../P/ParseCommitRecord.md) (parses commit record into structured format)
+  - [timestamptz_to_str](../t/timestamptz_to_str.md) (formats timestamps)
+  - [xact_desc_relations](xact_desc_relations.md) (formats relation information)
+  - [xact_desc_subxacts](xact_desc_subxacts.md) (formats subtransaction information)
+  - [xact_desc_stats](xact_desc_stats.md) (formats dropped statistics)
+  - [standby_desc_invalidations](../s/standby_desc_invalidations.md) (formats cache invalidation messages)
   - XactCompletionRelcacheInitFileInval (checks invalidation flags)
   - XactCompletionApplyFeedback (checks apply feedback flag)
   - XactCompletionForceSyncCommit (checks sync commit flag)
   - XACT_XINFO_HAS_ORIGIN (flag for origin information)
 - Called from (representative examples):
-  - xact_desc (src/backend/access/rmgrdesc/xactdesc.c:447)
+  - [xact_desc](xact_desc.md) (src/backend/access/rmgrdesc/xactdesc.c:447)
 
 ## Notes and Other Information
 - This is a static function, only visible within the xactdesc.c file

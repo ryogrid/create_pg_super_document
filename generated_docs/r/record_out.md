@@ -22,11 +22,11 @@ The function extracts type information directly from the tuple header, decompose
   - check_stack_depth: Stack overflow protection for recursive calls
   - HeapTupleHeaderGetTypeId: Extracts type OID from tuple header
   - HeapTupleHeaderGetTypMod: Extracts type modifier from tuple header
-  - lookup_rowtype_tupdesc: Retrieves tuple descriptor for the record type
-  - heap_deform_tuple: Extracts individual column values from tuple
-  - getTypeOutputInfo: Gets output function info for column types
-  - OutputFunctionCall: Calls type-specific output functions
-  - MemoryContextAlloc: Memory allocation in function context
+  - [lookup_rowtype_tupdesc](../l/lookup_rowtype_tupdesc.md): Retrieves tuple descriptor for the record type
+  - [heap_deform_tuple](../h/heap_deform_tuple.md): Extracts individual column values from tuple
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md): Gets output function info for column types
+  - [OutputFunctionCall](../O/OutputFunctionCall.md): Calls type-specific output functions
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md): Memory allocation in function context
   - ReleaseTupleDesc: Releases tuple descriptor reference
 
 - Called from (representative examples):

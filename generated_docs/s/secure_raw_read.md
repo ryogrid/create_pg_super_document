@@ -26,9 +26,9 @@ When no buffered data is available, the function performs a direct recv() call o
   - recv: Standard POSIX socket receive function for reading data from network socket
   - memcpy: Memory copy operation for transferring buffered data to caller's buffer
 - Called from (representative examples):
-  - secure_read: Higher-level secure read function for non-encrypted connections
-  - be_gssapi_read: GSS-API read implementation uses this for underlying socket operations
-  - my_sock_read: SSL/TLS socket read operations in OpenSSL backend
+  - [secure_read](secure_read.md): Higher-level secure read function for non-encrypted connections
+  - [be_gssapi_read](../b/be_gssapi_read.md): GSS-API read implementation uses this for underlying socket operations
+  - [my_sock_read](../m/my_sock_read.md): SSL/TLS socket read operations in OpenSSL backend
 
 ## Notes and Other Information
 - The function manages the Port structure's raw_buf, raw_buf_consumed, and raw_buf_remaining fields for buffer tracking

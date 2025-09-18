@@ -91,11 +91,11 @@ The  structure serves as the central repository for all metadata related to data
 - Functions called/Symbols referenced:
   - DumpableObject
   - DumpableAcl
-  - _attrDefInfo
-  - _constraintInfo
-  - _indxInfo
-  - _tableDataInfo
-  - _triggerInfo
+  - [_attrDefInfo](../a/_attrDefInfo.md)
+  - [_constraintInfo](../c/_constraintInfo.md)
+  - [_indxInfo](../i/_indxInfo.md)
+  - [_tableDataInfo](_tableDataInfo.md)
+  - [_triggerInfo](_triggerInfo.md)
 - Called from (representative examples):
   - Self-referential for parent table relationships
 

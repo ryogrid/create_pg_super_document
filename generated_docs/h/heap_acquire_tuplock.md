@@ -27,13 +27,13 @@ The function utilizes either LockTupleTuplock for blocking operations or Conditi
 - Functions called/Symbols referenced:
   - LockTupleTuplock
   - ConditionalLockTupleTuplock
-  - LockTupleMode (enum)
+  - [LockTupleMode](../L/LockTupleMode.md) (enum)
   - LockWaitPolicy (enum)
   - LockWaitBlock, LockWaitSkip, LockWaitError (enum values)
 - Called from (representative examples):
-  - heap_delete
-  - heap_update
-  - heap_lock_tuple
+  - [heap_delete](heap_delete.md)
+  - [heap_update](heap_update.md)
+  - [heap_lock_tuple](heap_lock_tuple.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam.c, not exposed in the public API

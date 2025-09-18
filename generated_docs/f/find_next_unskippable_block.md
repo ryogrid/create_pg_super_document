@@ -28,12 +28,12 @@ The function maintains visibility map buffer pins and updates vacrel state with 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - visibilitymap_get_status (retrieves visibility map bits for blocks)
+  - [visibilitymap_get_status](../v/visibilitymap_get_status.md) (retrieves visibility map bits for blocks)
   - VISIBILITYMAP_ALL_VISIBLE (visibility map constant)
   - VISIBILITYMAP_ALL_FROZEN (visibility map constant)
 
 - Called from (representative examples):
-  - heap_vac_scan_next_block (src/backend/access/heap/vacuumlazy.c:1121)
+  - [heap_vac_scan_next_block](../h/heap_vac_scan_next_block.md) (src/backend/access/heap/vacuumlazy.c:1121)
 
 ## Notes and Other Information
 - Handles race conditions gracefully - it's safe if visibility information becomes stale between check and processing

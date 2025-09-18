@@ -23,15 +23,15 @@ This function handles the \e (\edit) command which allows users to edit SQL quer
 ## Dependencies
 - Functions called/Symbols referenced:
   - psql_scan_slash_option
-  - expand_tilde
-  - canonicalize_path_enc
-  - copy_previous_query
-  - do_edit
-  - resetPQExpBuffer
-  - ignore_slash_options
+  - [expand_tilde](expand_tilde.md)
+  - [canonicalize_path_enc](../c/canonicalize_path_enc.md)
+  - [copy_previous_query](../c/copy_previous_query.md)
+  - [do_edit](../d/do_edit.md)
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - pg_log_error, atoi, strspn, strlen
 - Called from (representative examples):
-  - exec_command (main command dispatcher)
+  - [exec_command](exec_command.md) (main command dispatcher)
 
 ## Notes and Other Information
 - Supports syntax: \e [filename] [line_number] or \e [line_number]

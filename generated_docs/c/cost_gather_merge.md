@@ -31,7 +31,7 @@ The costing model accounts for the algorithmic complexity of merging multiple so
 ## Dependencies
 - Functions called/Symbols referenced:
   - GatherMergePath (structure)
-  - ParamPathInfo (structure)
+  - [ParamPathInfo](../P/ParamPathInfo.md) (structure)
   - Cost (type)
   - LOG2 (macro)
   - enable_gathermerge (global variable)
@@ -40,7 +40,7 @@ The costing model accounts for the algorithmic complexity of merging multiple so
   - parallel_setup_cost (global variable)
   - parallel_tuple_cost (global variable)
 - Called from (representative examples):
-  - create_gather_merge_path
+  - [create_gather_merge_path](create_gather_merge_path.md)
 
 ## Notes and Other Information
 The function implements a sophisticated costing model that reflects the O(N log N) complexity of heap-based merge operations. The 5% communication cost penalty acknowledges that gather merge requires more coordination than regular gather since it must wait for tuples from all workers to maintain sort order. The algorithm assumes each tuple comparison costs twice the standard CPU operator cost to account for the overhead of heap maintenance operations.

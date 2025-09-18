@@ -18,16 +18,16 @@ This function provides functionality for the psql \\drds metacommand, which disp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData (PostgreSQL's expandable string buffer structure)
-  - printQueryOpt (print formatting options structure)
+  - [PQExpBufferData](../P/PQExpBufferData.md) (PostgreSQL's expandable string buffer structure)
+  - [printQueryOpt](../p/printQueryOpt.md) (print formatting options structure)
   - initPQExpBuffer (initialize buffer)
-  - printfPQExpBuffer (formatted append to buffer)
-  - validateSQLNamePattern (validate and append SQL name patterns)
-  - PSQLexec (execute SQL query)
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md) (formatted append to buffer)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md) (validate and append SQL name patterns)
+  - [PSQLexec](../P/PSQLexec.md) (execute SQL query)
   - termPQExpBuffer (cleanup buffer)
-  - printQuery (display query results)
+  - [printQuery](../p/printQuery.md) (display query results)
 - Called from (representative examples):
-  - exec_command_d (psql command dispatcher at src/bin/psql/command.c:941)
+  - [exec_command_d](../e/exec_command_d.md) (psql command dispatcher at src/bin/psql/command.c:941)
   - DESCRIBE_H (function declaration in src/bin/psql/describe.h:38)
 
 ## Notes and Other Information

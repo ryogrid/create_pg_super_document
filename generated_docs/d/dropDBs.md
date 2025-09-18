@@ -19,10 +19,10 @@ The function explicitly excludes critical system databases (postgres, template0,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeQuery: Executes SQL query to retrieve database information
-  - fmtId: Formats database names as proper SQL identifiers
+  - [executeQuery](../e/executeQuery.md): Executes SQL query to retrieve database information
+  - [fmtId](../f/fmtId.md): Formats database names as proper SQL identifiers
 - Called from (representative examples):
-  - main: Primary entry point in pg_dumpall utility during clean restoration operations
+  - [main](../m/main.md): Primary entry point in pg_dumpall utility during clean restoration operations
 
 ## Notes and Other Information
 - Only drops databases that allow connections and have valid connection limits

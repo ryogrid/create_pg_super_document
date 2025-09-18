@@ -26,12 +26,12 @@ The function calculates the required memory size, allocates it from the shared m
   - memset (initializes memory to zero)
   - shm_toc_insert (registers the allocated memory with a key in the TOC)
 - Types referenced:
-  - MemoizeState (memoize execution state structure)
-  - ParallelContext (parallel execution context)
-  - SharedMemoizeInfo (shared memory structure for memoize statistics)
-  - MemoizeInstrumentation (individual worker instrumentation data)
+  - [MemoizeState](../M/MemoizeState.md) (memoize execution state structure)
+  - [ParallelContext](../P/ParallelContext.md) (parallel execution context)
+  - [SharedMemoizeInfo](../S/SharedMemoizeInfo.md) (shared memory structure for memoize statistics)
+  - [MemoizeInstrumentation](../M/MemoizeInstrumentation.md) (individual worker instrumentation data)
 - Called from:
-  - ExecParallelInitializeDSM (main parallel DSM initialization function)
+  - [ExecParallelInitializeDSM](ExecParallelInitializeDSM.md) (main parallel DSM initialization function)
 
 ## Notes and Other Information
 - Only performs initialization when instrumentation is enabled (node->ss.ps.instrument is true) and parallel workers are present (pcxt->nworkers > 0)

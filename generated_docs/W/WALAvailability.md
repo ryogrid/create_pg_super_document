@@ -23,9 +23,9 @@ WALAvailability provides status codes returned by the GetWALAvailability functio
 - Functions called/Symbols referenced:
   - None (enum type definition)
 - Called from (representative examples):
-  - CreateRestartPoint (src/backend/access/transam/xlog.c:7880)
+  - [CreateRestartPoint](../C/CreateRestartPoint.md) (src/backend/access/transam/xlog.c:7880)
   - PG_GET_REPLICATION_SLOTS_COLS (src/backend/replication/slotfuncs.c:264)
-  - GetWALAvailability function (referenced in src/include/access/xlog.h:242)
+  - [GetWALAvailability](../G/GetWALAvailability.md) function (referenced in src/include/access/xlog.h:242)
 
 ## Notes and Other Information
 - Essential for replication monitoring and troubleshooting WAL segment availability issues

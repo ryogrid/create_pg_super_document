@@ -29,14 +29,14 @@ The function is designed to be called as a final cleanup step when a LOCALLOCK i
 - Functions called/Symbols referenced:
   - ResourceOwnerForgetLock
   - FastPathStrongLockHashPartition
-  - hash_search
-  - CheckAndSetLockHeld
+  - [hash_search](../h/hash_search.md)
+  - [CheckAndSetLockHeld](../C/CheckAndSetLockHeld.md)
   - HASH_REMOVE (constant)
 - Called from (representative examples):
-  - LockAcquireExtended
-  - LockRelease
-  - LockReleaseAll
-  - PostPrepare_Locks
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
+  - [LockRelease](../L/LockRelease.md)
+  - [LockReleaseAll](../L/LockReleaseAll.md)
+  - [PostPrepare_Locks](../P/PostPrepare_Locks.md)
 
 ## Notes and Other Information
 - This is a static function internal to lock.c, not exposed to external modules

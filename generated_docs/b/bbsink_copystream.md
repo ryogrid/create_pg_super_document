@@ -28,11 +28,11 @@ The sink also tracks progress reporting by maintaining timestamps and byte count
   - bbsink (base structure)
   - TimestampTz (PostgreSQL timestamp type)
 - Called from (representative examples):
-  - bbsink_copystream_new
-  - bbsink_copystream_begin_backup
-  - bbsink_copystream_archive_contents
-  - bbsink_copystream_end_archive
-  - bbsink_copystream_manifest_contents
+  - [bbsink_copystream_new](bbsink_copystream_new.md)
+  - [bbsink_copystream_begin_backup](bbsink_copystream_begin_backup.md)
+  - [bbsink_copystream_archive_contents](bbsink_copystream_archive_contents.md)
+  - [bbsink_copystream_end_archive](bbsink_copystream_end_archive.md)
+  - [bbsink_copystream_manifest_contents](bbsink_copystream_manifest_contents.md)
 
 ## Notes and Other Information
 - This structure is defined in 

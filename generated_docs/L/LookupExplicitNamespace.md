@@ -22,17 +22,17 @@ LookupExplicitNamespace provides a secure way to look up a namespace by name wit
 - Functions called/Symbols referenced:
   - strcmp
   - OidIsValid  
-  - get_namespace_oid
-  - object_aclcheck
-  - GetUserId
-  - aclcheck_error
+  - [get_namespace_oid](../g/get_namespace_oid.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [GetUserId](../G/GetUserId.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
   - InvokeNamespaceSearchHook
 - Called from (representative examples):
-  - objectsInSchemaToOids
-  - RangeVarGetRelidExtended
-  - FuncnameGetCandidates
-  - OpernameGetOprid
-  - LookupTypeNameExtended
+  - [objectsInSchemaToOids](../o/objectsInSchemaToOids.md)
+  - [RangeVarGetRelidExtended](../R/RangeVarGetRelidExtended.md)
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md)
+  - [OpernameGetOprid](../O/OpernameGetOprid.md)
+  - [LookupTypeNameExtended](LookupTypeNameExtended.md)
 
 ## Notes and Other Information
 - Includes proper permission checking via ACL_USAGE privilege verification

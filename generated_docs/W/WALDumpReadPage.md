@@ -21,13 +21,13 @@ This function serves as the page_read callback for the XLogReaderRoutine structu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WALRead
-  - XLogFileName
-  - XLogDumpPrivate (type)
-  - WALReadError (type)
-  - WALOpenSegment (type)
+  - [WALRead](WALRead.md)
+  - [XLogFileName](../X/XLogFileName.md)
+  - [XLogDumpPrivate](../X/XLogDumpPrivate.md) (type)
+  - [WALReadError](WALReadError.md) (type)
+  - [WALOpenSegment](WALOpenSegment.md) (type)
 - Called from (representative examples):
-  - main (assigned as callback in XLogReaderRoutine)
+  - [main](../m/main.md) (assigned as callback in XLogReaderRoutine)
 
 ## Notes and Other Information
 - Returns the actual number of bytes read on success, or -1 when the configured endpoint is reached

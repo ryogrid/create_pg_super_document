@@ -24,12 +24,12 @@ The enum values guide the main loop's behavior: whether to send a completed quer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HandleSlashCmds (uses this as return type)
-  - PsqlScanState
-  - ConditionalStack
+  - [HandleSlashCmds](../H/HandleSlashCmds.md) (uses this as return type)
+  - [PsqlScanState](../P/PsqlScanState.md)
+  - [ConditionalStack](../C/ConditionalStack.md)
   - PQExpBuffer
 - Called from (representative examples):
-  - MainLoop (in src/bin/psql/mainloop.c:48)
+  - [MainLoop](../M/MainLoop.md) (in src/bin/psql/mainloop.c:48)
   - Various exec_command_* functions throughout src/bin/psql/command.c
 
 ## Notes and Other Information

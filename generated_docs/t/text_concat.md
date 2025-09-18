@@ -19,7 +19,7 @@ This function serves as the PostgreSQL SQL function entry point for the concat()
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - concat_internal
+  - [concat_internal](../c/concat_internal.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - (No direct references found - called via SQL function dispatch)

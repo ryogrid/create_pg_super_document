@@ -24,11 +24,11 @@ RewriteMappingDataEntry serves as a container for individual logical rewrite map
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRewriteMappingData
-  - dlist_node
+  - [LogicalRewriteMappingData](../L/LogicalRewriteMappingData.md)
+  - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
-  - logical_heap_rewrite_flush_mappings
-  - logical_rewrite_log_mapping
+  - [logical_heap_rewrite_flush_mappings](../l/logical_heap_rewrite_flush_mappings.md)
+  - [logical_rewrite_log_mapping](../l/logical_rewrite_log_mapping.md)
 
 ## Notes and Other Information
 This structure is specifically designed for logical replication scenarios where maintaining precise tuple location mappings is critical for consistency. The embedded LogicalRewriteMappingData contains the essential mapping information (old/new relation file locators and tuple IDs) while the dlist_node enables efficient list management during batch processing operations. The structure allows for both memory-efficient storage and fast sequential access patterns commonly needed during mapping file operations.

@@ -23,7 +23,7 @@ The function follows the standard DestReceiver startup callback signature but de
 - Functions called/Symbols referenced:
   - DestReceiver (parameter type)
 - Called from (representative examples):
-  - CreateSQLFunctionDestReceiver (sets this as startup callback)
+  - [CreateSQLFunctionDestReceiver](../C/CreateSQLFunctionDestReceiver.md) (sets this as startup callback)
   - Used within SQLFunctionCachePtr context
 
 ## Notes and Other Information

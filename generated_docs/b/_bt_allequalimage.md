@@ -26,17 +26,17 @@ The result is typically stored in the index metapage during index builds and det
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfAttributes
   - IndexRelationGetNumberOfKeyAttributes
-  - get_opfamily_proc
-  - OidFunctionCall1Coll
-  - DatumGetBool
-  - ObjectIdGetDatum
+  - [get_opfamily_proc](../g/get_opfamily_proc.md)
+  - [OidFunctionCall1Coll](../O/OidFunctionCall1Coll.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - OidIsValid
   - RelationGetRelationName
   - elog (for debug messages)
   - Constants: BTEQUALIMAGE_PROC, DEBUG1
 - Called from (representative examples):
-  - btbuildempty
-  - _bt_leafbuild
+  - [btbuildempty](btbuildempty.md)
+  - [_bt_leafbuild](_bt_leafbuild.md)
 
 ## Notes and Other Information
 - INCLUDE indexes can never support deduplication (non-key attributes prevent it)
@@ -45,6 +45,6 @@ The result is typically stored in the index metapage during index builds and det
 - Missing BTEQUALIMAGE_PROC procedures are treated as unsafe for deduplication
 - The function uses the attribute's collation when calling the equality image procedure
 - Debug messages clearly indicate whether an index can use deduplication
-- Result affects index metapage settings and runtime deduplication behavior
+- [Result](../R/Result.md) affects index metapage settings and runtime deduplication behavior
 - Deduplication safety is an all-or-nothing property - all attributes must be compatible
 - Essential for determining posting list tuple support and other deduplication optimizations

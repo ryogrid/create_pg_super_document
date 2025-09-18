@@ -21,8 +21,8 @@ The function serves as a validation tool to ensure that TidStoreMemoryUsage retu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_tidstore_available - Validates that tidstore is available for operations
-  - TidStoreMemoryUsage - Returns current memory usage of the TidStore
+  - [check_tidstore_available](../c/check_tidstore_available.md) - Validates that tidstore is available for operations
+  - [TidStoreMemoryUsage](../T/TidStoreMemoryUsage.md) - Returns current memory usage of the TidStore
 - Called from (representative examples):
   - No direct references found (likely called via SQL interface in tests)
 

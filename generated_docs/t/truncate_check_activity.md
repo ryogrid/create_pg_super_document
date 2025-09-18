@@ -24,11 +24,11 @@ The function is designed as a separate validation step because it requires an al
 ## Dependencies
 - Functions called/Symbols referenced:
   - RELATION_IS_OTHER_TEMP (macro for detecting other sessions temp tables)
-  - CheckTableNotInUse (function to detect active table usage)
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md) (function to detect active table usage)
   - ereport (error reporting function)
 - Called from (representative examples):
-  - ExecuteTruncate (main truncate execution function)
-  - ExecuteTruncateGuts (internal truncate processing function)
+  - [ExecuteTruncate](../E/ExecuteTruncate.md) (main truncate execution function)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (internal truncate processing function)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the tablecmds.c compilation unit

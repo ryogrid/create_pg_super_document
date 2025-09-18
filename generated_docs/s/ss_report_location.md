@@ -29,13 +29,13 @@ The function balances between providing useful coordination information and avoi
 - Functions called/Symbols referenced:
   - LWLockConditionalAcquire
   - LWLockRelease
-  - ss_search (internal function with set=true)
+  - [ss_search](ss_search.md) (internal function with set=true)
   - SYNC_SCAN_REPORT_INTERVAL (constant, 128KB / BLCKSZ)
   - SyncScanLock (lock identifier)
 - Called from (representative examples):
-  - heapgettup_advance_block
-  - heapam_scan_sample_next_block
-  - table_block_parallelscan_nextpage
+  - [heapgettup_advance_block](../h/heapgettup_advance_block.md)
+  - [heapam_scan_sample_next_block](../h/heapam_scan_sample_next_block.md)
+  - [table_block_parallelscan_nextpage](../t/table_block_parallelscan_nextpage.md)
 
 ## Notes and Other Information
 - Updates are throttled to every SYNC_SCAN_REPORT_INTERVAL pages to balance coordination benefits with performance

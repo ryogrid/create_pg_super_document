@@ -31,18 +31,18 @@ The function handles sophisticated scenarios like lock group leadership transfer
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SyncRepCleanupAtProcExit
-  - dlist_is_empty
+  - [SyncRepCleanupAtProcExit](../S/SyncRepCleanupAtProcExit.md)
+  - [dlist_is_empty](../d/dlist_is_empty.md)
   - LWLockReleaseAll
-  - ConditionVariableCancelSleep
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md)
   - LockHashPartitionLockByProc
   - LWLockAcquire
-  - dlist_delete
-  - dlist_push_head
-  - SwitchBackToLocalLatch
-  - pgstat_reset_wait_event_storage
-  - DisownLatch
-  - dlist_push_tail
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_push_head](../d/dlist_push_head.md)
+  - [SwitchBackToLocalLatch](../S/SwitchBackToLocalLatch.md)
+  - [pgstat_reset_wait_event_storage](../p/pgstat_reset_wait_event_storage.md)
+  - [DisownLatch](../D/DisownLatch.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
   - update_spins_per_delay
   - MarkPostmasterChildInactive
   - AmAutoVacuumLauncherProcess

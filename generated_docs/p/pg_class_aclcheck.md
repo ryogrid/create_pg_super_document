@@ -21,20 +21,20 @@ The `pg_class_aclcheck` function is an exported routine that verifies whether a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclcheck_ext
+  - [pg_class_aclcheck_ext](pg_class_aclcheck_ext.md)
   - AclResult
 - Called from (representative examples):
-  - BuildIndexValueDescription
-  - cluster_is_permitted_for_relation
-  - RangeVarCallbackForReindexIndex
-  - LockTableAclCheck
-  - nextval_internal
-  - truncate_check_perms
-  - CreateTriggerFiringOn
+  - [BuildIndexValueDescription](../B/BuildIndexValueDescription.md)
+  - [cluster_is_permitted_for_relation](../c/cluster_is_permitted_for_relation.md)
+  - [RangeVarCallbackForReindexIndex](../R/RangeVarCallbackForReindexIndex.md)
+  - [LockTableAclCheck](../L/LockTableAclCheck.md)
+  - [nextval_internal](../n/nextval_internal.md)
+  - [truncate_check_perms](../t/truncate_check_perms.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
   - vacuum_is_permitted_for_relation
-  - has_table_privilege_name_name
-  - has_sequence_privilege_name_name
-  - has_any_column_privilege_name_name
+  - [has_table_privilege_name_name](../h/has_table_privilege_name_name.md)
+  - [has_sequence_privilege_name_name](../h/has_sequence_privilege_name_name.md)
+  - [has_any_column_privilege_name_name](../h/has_any_column_privilege_name_name.md)
 
 ## Notes and Other Information
 - This is the standard interface for table-level privilege checking in PostgreSQL

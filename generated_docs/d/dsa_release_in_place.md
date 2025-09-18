@@ -29,8 +29,8 @@ The function performs several safety checks including magic number validation an
   - DSM_HANDLE_INVALID
 - Called from (representative examples):
   - pgstat_detach_shmem (src/backend/utils/activity/pgstat_shmem.c:255)
-  - dsa_on_dsm_detach_release_in_place (src/backend/utils/mmgr/dsa.c:578)
-  - dsa_on_shmem_exit_release_in_place (src/backend/utils/mmgr/dsa.c:592)
+  - [dsa_on_dsm_detach_release_in_place](dsa_on_dsm_detach_release_in_place.md) (src/backend/utils/mmgr/dsa.c:578)
+  - [dsa_on_shmem_exit_release_in_place](dsa_on_shmem_exit_release_in_place.md) (src/backend/utils/mmgr/dsa.c:592)
 
 ## Notes and Other Information
 - It is preferable to use the dsa_on_XXX callbacks for automatic management rather than calling this directly

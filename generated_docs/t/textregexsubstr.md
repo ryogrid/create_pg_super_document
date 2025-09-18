@@ -24,14 +24,14 @@ The `textregexsubstr` function implements PostgreSQL's regular expression substr
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PG_GETARG_TEXT_PP`: Extracts text arguments with potential detoasting
-  - `RE_compile_and_cache`: Compiles and caches the regular expression
-  - `RE_execute`: Executes the compiled regex against the text
+  - `[RE_compile_and_cache](../R/RE_compile_and_cache.md)`: Compiles and caches the regular expression
+  - `[RE_execute](../R/RE_execute.md)`: Executes the compiled regex against the text
   - `VARDATA_ANY`: Gets pointer to the actual data portion of text
   - `VARSIZE_ANY_EXHDR`: Gets the size of text data excluding header
   - `PG_GET_COLLATION`: Gets collation information for the operation
   - `DirectFunctionCall3`: Calls another PostgreSQL function directly
-  - `text_substr`: Extracts substring from text using start position and length
-  - `PointerGetDatum`, `Int32GetDatum`: Convert values to PostgreSQL Datum format
+  - `[text_substr](text_substr.md)`: Extracts substring from text using start position and length
+  - `[PointerGetDatum](../P/PointerGetDatum.md)`, `Int32GetDatum`: Convert values to PostgreSQL Datum format
   - `REG_ADVANCED`: Flag for advanced regular expression features
   - `regex_t`, `regmatch_t`: Regular expression data types
 - Called from (representative examples):

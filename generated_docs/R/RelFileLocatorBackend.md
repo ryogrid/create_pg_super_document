@@ -31,17 +31,17 @@ The structure includes utility macros for comparison and testing:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelFileLocator (embedded struct)
+  - [RelFileLocator](RelFileLocator.md) (embedded struct)
   - ProcNumber (process identifier type)
 - Called from (representative examples):
-  - smgropen (storage manager relation opening)
-  - DropRelationBuffers (buffer management)
-  - mdunlink/mdunlinkfork (relation file unlinking)
+  - [smgropen](../s/smgropen.md) (storage manager relation opening)
+  - [DropRelationBuffers](../D/DropRelationBuffers.md) (buffer management)
+  - [mdunlink](../m/mdunlink.md)/mdunlinkfork (relation file unlinking)
   - Cache invalidation functions
 
 ## Notes and Other Information
 - Essential for PostgreSQL's storage manager and buffer management systems
 - The backend field determines relation visibility and lifecycle management
-- Backend-local relations are automatically cleaned up on backend termination or crash
+- [Backend](../B/Backend.md)-local relations are automatically cleaned up on backend termination or crash
 - Used extensively in storage manager operations, buffer pool management, and cache invalidation
 - Supports both persistent (multi-backend) and temporary (single-backend) relation storage patterns

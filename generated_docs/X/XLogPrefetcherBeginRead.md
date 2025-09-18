@@ -28,7 +28,7 @@ This function is essential for maintaining consistency between the prefetcher's 
 - Functions called/Symbols referenced:
   -  - Underlying WAL reader initialization function
 - Called from (representative examples):
-  -  - Initialize WAL recovery process
+  -  - [Initialize](../I/Initialize.md) WAL recovery process
   -  - Finalize WAL recovery operations  
   -  - Main WAL recovery loop
   -  - Read specific checkpoint records

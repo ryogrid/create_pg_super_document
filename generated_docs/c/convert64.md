@@ -20,7 +20,7 @@ The  function takes a 64-bit integer value (of type ) and converts it into an 8-
 - Functions called/Symbols referenced:
   - zic_t (type definition)
 - Called from (representative examples):
-  - puttzcodepass
+  - [puttzcodepass](../p/puttzcodepass.md)
 
 ## Notes and Other Information
 - The function uses a loop with bit shifting to convert the 64-bit value byte by byte

@@ -22,21 +22,21 @@ This function is commonly used in dependency tracking scenarios where the system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_acl
+  - [check_acl](../c/check_acl.md)
   - ACL_NUM
   - ACL_DAT
   - ACL_ID_PUBLIC
-  - palloc
+  - [palloc](../p/palloc.md)
   - qsort
-  - oid_cmp
-  - qunique
+  - [oid_cmp](../o/oid_cmp.md)
+  - [qunique](../q/qunique.md)
 - Called from (representative examples):
-  - SetDefaultACL
-  - ExecGrant_Attribute
-  - ExecGrant_Relation
-  - ExecGrant_common
-  - recordDependencyOnNewAcl
-  - ReplaceRoleInInitPriv
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [ExecGrant_Attribute](../E/ExecGrant_Attribute.md)
+  - [ExecGrant_Relation](../E/ExecGrant_Relation.md)
+  - [ExecGrant_common](../E/ExecGrant_common.md)
+  - [recordDependencyOnNewAcl](../r/recordDependencyOnNewAcl.md)
+  - [ReplaceRoleInInitPriv](../R/ReplaceRoleInInitPriv.md)
 
 ## Notes and Other Information
 - Returns 0 and sets  to NULL if ACL is NULL or empty

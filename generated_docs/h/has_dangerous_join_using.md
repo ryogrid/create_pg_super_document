@@ -22,11 +22,11 @@ This function performs a recursive pre-scan of a join tree to identify problemat
   - FromExpr  
   - JoinExpr
   - rt_fetch
-  - list_nth
+  - [list_nth](../l/list_nth.md)
   - nodeTag
 - Called from (representative examples):
-  - set_deparse_for_query
-  - has_dangerous_join_using (recursive calls)
+  - [set_deparse_for_query](../s/set_deparse_for_query.md)
+  - [has_dangerous_join_using](has_dangerous_join_using.md) (recursive calls)
 
 ## Notes and Other Information
 - Recursively traverses the join tree using different logic for each node type

@@ -21,10 +21,10 @@ This utility function extends a dynamically allocated string by appending additi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's sprintf variant)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf variant)
   - free (standard library)
 - Called from (representative examples):
-  - parse_slash_copy (multiple locations: lines 114, 128, 129, 141, 142, 155, 160, 172, 173, 181, 182)
+  - [parse_slash_copy](../p/parse_slash_copy.md) (multiple locations: lines 114, 128, 129, 141, 142, 155, 160, 172, 173, 181, 182)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/bin/psql/copy.c

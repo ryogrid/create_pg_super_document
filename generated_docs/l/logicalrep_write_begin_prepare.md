@@ -20,14 +20,14 @@ This function serializes a BEGIN PREPARE message for logical replication, which 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint64  
-  - pq_sendint32
-  - pq_sendstring
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)  
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
   - LOGICAL_REP_MSG_BEGIN_PREPARE
-  - ReorderBufferTXN
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
 - Called from (representative examples):
-  - pgoutput_begin_prepare_txn
+  - [pgoutput_begin_prepare_txn](../p/pgoutput_begin_prepare_txn.md)
 
 ## Notes and Other Information
 - Sends fixed-size fields first (LSNs, timing, XID) followed by variable-length GID string

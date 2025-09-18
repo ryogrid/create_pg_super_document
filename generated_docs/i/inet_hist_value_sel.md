@@ -28,15 +28,15 @@ For performance optimization, when there are too many histogram elements, the fu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DatumGetInetPP
-  - inet_inclusion_cmp
-  - inet_hist_match_divider
+  - [DatumGetInetPP](../D/DatumGetInetPP.md)
+  - [inet_inclusion_cmp](inet_inclusion_cmp.md)
+  - [inet_hist_match_divider](inet_hist_match_divider.md)
   - MAX_CONSIDERED_ELEMS
 - Called from (representative examples):
-  - networksel
-  - inet_mcv_hist_sel
-  - inet_hist_inclusion_join_sel
-  - inet_semi_join_sel
+  - [networksel](../n/networksel.md)
+  - [inet_mcv_hist_sel](inet_mcv_hist_sel.md)
+  - [inet_hist_inclusion_join_sel](inet_hist_inclusion_join_sel.md)
+  - [inet_semi_join_sel](inet_semi_join_sel.md)
 
 ## Notes and Other Information
 - Returns 0.0 for histograms with <= 1 values to guard against division by zero

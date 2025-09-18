@@ -17,7 +17,7 @@ This function provides a shorthand for the common combination of unlocking a buf
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer (with BUFFER_LOCK_UNLOCK)
+  - [LockBuffer](../L/LockBuffer.md) (with BUFFER_LOCK_UNLOCK)
   - ReleaseBuffer
   - BUFFER_LOCK_UNLOCK
 - Called from (representative examples):

@@ -24,18 +24,18 @@ Each execution_state node represents one parsed and planned SQL statement from t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecStatus
-  - PlannedStmt
+  - [ExecStatus](../E/ExecStatus.md)
+  - [PlannedStmt](../P/PlannedStmt.md)
   - QueryDesc
 
 - Called from (representative examples):
-  - init_execution_state
-  - postquel_start
-  - postquel_getnext
-  - postquel_end
-  - fmgr_sql
-  - sql_exec_error_callback
-  - ShutdownSQLFunction
+  - [init_execution_state](../i/init_execution_state.md)
+  - [postquel_start](../p/postquel_start.md)
+  - [postquel_getnext](../p/postquel_getnext.md)
+  - [postquel_end](../p/postquel_end.md)
+  - [fmgr_sql](../f/fmgr_sql.md)
+  - [sql_exec_error_callback](../s/sql_exec_error_callback.md)
+  - [ShutdownSQLFunction](../S/ShutdownSQLFunction.md)
 
 ## Notes and Other Information
 The execution_state structure is primarily used within the SQL function execution framework in PostgreSQL. It's part of a linked list architecture that allows SQL functions to contain multiple statements while maintaining proper execution order and state management. The structure supports PostgreSQL's lazy evaluation optimization, which can significantly improve performance for functions that may not need to fully execute all statements depending on control flow and result requirements. The lazyEval flag is particularly important for set-returning functions and functions with conditional logic that may not require full result materialization.

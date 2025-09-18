@@ -24,10 +24,10 @@ This comparator is specifically optimized for 32-bit integer data types, providi
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortSupport (struct type)
-  - DatumGetInt32 (conversion macro/function)
+  - [DatumGetInt32](../D/DatumGetInt32.md) (conversion macro/function)
   - INVERT_COMPARE_RESULT (macro)
 - Called from (representative examples):
-  - qsort_tuple_int32_compare (src/backend/utils/sort/tuplesort.c:549)
+  - [qsort_tuple_int32_compare](../q/qsort_tuple_int32_compare.md) (src/backend/utils/sort/tuplesort.c:549)
 
 ## Notes and Other Information
 This function is a performance optimization specifically for 32-bit signed integer data types such as int4. It provides the same NULL handling and sort direction semantics as the general ApplySortComparator but avoids function pointer overhead. The use of DatumGetInt32() ensures proper conversion from the Datum representation to a 32-bit signed integer value for comparison. This comparator is typically used in tuplesort operations where the data type is known to be a 32-bit integer.

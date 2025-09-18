@@ -26,11 +26,11 @@ This function is typically called after memory is freed but before it is returne
   - MEMORY_CONTEXT_CHECKING
 
 - Called from (representative examples):
-  - AllocSetReset (src/backend/utils/mmgr/aset.c:571)
-  - AllocSetFree (src/backend/utils/mmgr/aset.c:1105)
-  - GenerationFree (src/backend/utils/mmgr/generation.c:744)
-  - SlabFree (src/backend/utils/mmgr/slab.c:741)
-  - list_delete_nth_cell (src/backend/nodes/list.c:814)
+  - [AllocSetReset](../A/AllocSetReset.md) (src/backend/utils/mmgr/aset.c:571)
+  - [AllocSetFree](../A/AllocSetFree.md) (src/backend/utils/mmgr/aset.c:1105)
+  - [GenerationFree](../G/GenerationFree.md) (src/backend/utils/mmgr/generation.c:744)
+  - [SlabFree](../S/SlabFree.md) (src/backend/utils/mmgr/slab.c:741)
+  - [list_delete_nth_cell](../l/list_delete_nth_cell.md) (src/backend/nodes/list.c:814)
 
 ## Notes and Other Information
 - The function uses the byte pattern 0x7F as the wipe value, which appears as DEL character in ASCII and is easily recognizable in hex dumps

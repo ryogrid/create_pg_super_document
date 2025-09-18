@@ -19,12 +19,12 @@ The chr function performs the inverse operation of the ascii function, convertin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetDatabaseEncoding
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
   - PG_UTF8
   - SET_VARSIZE
   - VARDATA
-  - pg_utf8_islegal
-  - pg_encoding_max_length
+  - [pg_utf8_islegal](../p/pg_utf8_islegal.md)
+  - [pg_encoding_max_length](../p/pg_encoding_max_length.md)
   - PG_RETURN_TEXT_P
 - Called from (representative examples):
   - Multiple references in regex engine (src/backend/regex/)

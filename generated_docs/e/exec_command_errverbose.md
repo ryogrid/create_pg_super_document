@@ -18,18 +18,18 @@ This function retrieves and displays verbose error information from the last fai
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultVerboseErrorMessage
-  - PQfreemem
+  - [PQresultVerboseErrorMessage](../P/PQresultVerboseErrorMessage.md)
+  - [PQfreemem](../P/PQfreemem.md)
   - pg_log_error
   - puts
   - _ (internationalization macro)
-  - PsqlScanState (type)
+  - [PsqlScanState](../P/PsqlScanState.md) (type)
   - PQERRORS_VERBOSE (constant)
   - PQSHOW_CONTEXT_ALWAYS (constant)
   - PSQL_CMD_SKIP_LINE (return value)
-  - backslashResult (return type)
+  - [backslashResult](../b/backslashResult.md) (return type)
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
   - EditableObjectType (indirectly through command dispatch)
 
 ## Notes and Other Information

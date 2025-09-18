@@ -23,20 +23,20 @@ The function specifically looks for constraints of type CONSTRAINT_PRIMARY and c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SysScanDesc
-  - systable_beginscan
-  - systable_getnext
+  - [SysScanDesc](../S/SysScanDesc.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - Form_pg_constraint
   - CONSTRAINT_PRIMARY
-  - heap_getattr
+  - [heap_getattr](../h/heap_getattr.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - check_functional_grouping
-  - remove_useless_groupby_columns
-  - ConstraintCategory
+  - [check_functional_grouping](../c/check_functional_grouping.md)
+  - [remove_useless_groupby_columns](../r/remove_useless_groupby_columns.md)
+  - [ConstraintCategory](../C/ConstraintCategory.md)
 
 ## Notes and Other Information
 - Returns NULL if no primary key exists or if a deferrable primary key is found but deferrableOk is false

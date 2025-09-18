@@ -21,21 +21,21 @@ This function creates a new pg_attrdef tuple to store a default expression for a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - nodeToString: Converts expression node to string representation
-  - GetNewOidWithIndex: Generates new OID for the pg_attrdef entry
-  - heap_form_tuple: Creates heap tuple from values array
-  - CatalogTupleInsert: Inserts tuple into catalog
-  - heap_freetuple: Frees heap tuple memory
+  - [nodeToString](../n/nodeToString.md): Converts expression node to string representation
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md): Generates new OID for the pg_attrdef entry
+  - [heap_form_tuple](../h/heap_form_tuple.md): Creates heap tuple from values array
+  - [CatalogTupleInsert](../C/CatalogTupleInsert.md): Inserts tuple into catalog
+  - [heap_freetuple](../h/heap_freetuple.md): Frees heap tuple memory
   - SearchSysCacheCopy2: Searches system cache for attribute entry
-  - recordDependencyOn: Records dependency between default and column
-  - recordDependencyOnSingleRelExpr: Records dependencies on expression objects
+  - [recordDependencyOn](../r/recordDependencyOn.md): Records dependency between default and column
+  - [recordDependencyOnSingleRelExpr](../r/recordDependencyOnSingleRelExpr.md): Records dependencies on expression objects
   - InvokeObjectPostCreateHookArg: Invokes post-creation hooks
 
 - Called from (representative examples):
-  - StoreConstraints: When storing table constraints during creation
-  - AddRelationNewConstraints: When adding new constraints to relations
-  - ATExecCookedColumnDefault: During ALTER TABLE column default operations
-  - ATExecAlterColumnType: When changing column types that affect defaults
+  - [StoreConstraints](StoreConstraints.md): When storing table constraints during creation
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md): When adding new constraints to relations
+  - [ATExecCookedColumnDefault](../A/ATExecCookedColumnDefault.md): During ALTER TABLE column default operations
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md): When changing column types that affect defaults
 
 ## Notes and Other Information
 The function includes legacy code for handling missing values when adding columns (add_column_mode), but this functionality is currently unused in core PostgreSQL as noted in the comments. The function carefully manages memory allocation and deallocation, freeing temporary structures like the stringified expression and heap tuples. It establishes proper dependency relationships to ensure cascading deletion behavior when columns or tables are dropped. For generated columns, it creates internal dependencies to prevent separate deletion of the default expression.

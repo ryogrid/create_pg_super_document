@@ -21,12 +21,12 @@ The function serves as a high-level wrapper around the platform-specific impleme
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment
-  - pg_atomic_fetch_or_u32_impl
-  - pg_atomic_uint32 (type)
+  - [pg_atomic_fetch_or_u32_impl](pg_atomic_fetch_or_u32_impl.md)
+  - [pg_atomic_uint32](pg_atomic_uint32.md) (type)
 - Called from (representative examples):
   - LockBufHdr
-  - EmitProcSignalBarrier
-  - ResetProcSignalBarrierBits
+  - [EmitProcSignalBarrier](../E/EmitProcSignalBarrier.md)
+  - [ResetProcSignalBarrierBits](../R/ResetProcSignalBarrierBits.md)
   - LWLockWaitListLock
   - LWLockQueueSelf
   - LWLockDequeueSelf

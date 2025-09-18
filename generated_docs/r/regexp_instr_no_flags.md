@@ -21,7 +21,7 @@ The function is part of PostgreSQL's regular expression support system and provi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - regexp_instr
+  - [regexp_instr](regexp_instr.md)
 - Called from (representative examples):
   - (No direct references found in the codebase)
 

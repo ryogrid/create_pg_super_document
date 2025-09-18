@@ -17,12 +17,12 @@ ReorderBufferGetTXN creates a fresh ReorderBufferTXN instance by allocating memo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
-  - dlist_init (called 3 times for different lists)
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
+  - [dlist_init](../d/dlist_init.md) (called 3 times for different lists)
   - InvalidCommandId
 - Called from (representative examples):
   - IsInsertOrUpdate
-  - ReorderBufferTXNByXid
+  - [ReorderBufferTXNByXid](ReorderBufferTXNByXid.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not part of the public API

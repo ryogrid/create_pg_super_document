@@ -28,15 +28,15 @@ For range partitioning, datums represent boundary points with minimal storage (u
   - PartitionBoundInfoData (underlying structure)
   - PartitionStrategy (partitioning strategy enum)
   - Datum (PostgreSQL datum type)
-  - PartitionRangeDatumKind (range boundary type indicators)
-  - Bitmapset (for tracking interleaved partitions)
+  - [PartitionRangeDatumKind](PartitionRangeDatumKind.md) (range boundary type indicators)
+  - [Bitmapset](../B/Bitmapset.md) (for tracking interleaved partitions)
 
 - Called from (representative examples):
-  - RelationBuildPartitionDesc (partition descriptor construction)
-  - get_partition_for_tuple (partition routing)
-  - partition_bounds_create (boundary creation)
-  - partition_bounds_merge (boundary merging for joins)
-  - get_matching_hash_bounds/get_matching_list_bounds/get_matching_range_bounds (partition pruning)
+  - [RelationBuildPartitionDesc](../R/RelationBuildPartitionDesc.md) (partition descriptor construction)
+  - [get_partition_for_tuple](../g/get_partition_for_tuple.md) (partition routing)
+  - [partition_bounds_create](../p/partition_bounds_create.md) (boundary creation)
+  - [partition_bounds_merge](../p/partition_bounds_merge.md) (boundary merging for joins)
+  - [get_matching_hash_bounds](../g/get_matching_hash_bounds.md)/get_matching_list_bounds/get_matching_range_bounds (partition pruning)
 
 ## Notes and Other Information
 - The structure is designed for efficient binary search operations during partition pruning

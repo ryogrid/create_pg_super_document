@@ -19,10 +19,10 @@ The principal name is stored in the port's GSSAPI structure (port->gss->princ) a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Port (structure access)
+  - [Port](../P/Port.md) (structure access)
 - Called from (representative examples):
-  - pgstat_bestart (backend statistics initialization)
-  - PerformAuthentication (authentication process)
+  - [pgstat_bestart](../p/pgstat_bestart.md) (backend statistics initialization)
+  - [PerformAuthentication](../P/PerformAuthentication.md) (authentication process)
   - Referenced in libpq-be.h (header declaration)
 
 ## Notes and Other Information

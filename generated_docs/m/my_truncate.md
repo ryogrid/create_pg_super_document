@@ -19,15 +19,15 @@ The  function provides functionality to truncate a PostgreSQL large object to a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lo_open (PostgreSQL large object opening)
-  - lo_truncate64 (PostgreSQL 64-bit large object truncation)
-  - lo_close (PostgreSQL large object closing)
-  - PQerrorMessage (PostgreSQL error message retrieval)
+  - [lo_open](../l/lo_open.md) (PostgreSQL large object opening)
+  - [lo_truncate64](../l/lo_truncate64.md) (PostgreSQL 64-bit large object truncation)
+  - [lo_close](../l/lo_close.md) (PostgreSQL large object closing)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (PostgreSQL error message retrieval)
   - fprintf (formatted output to stderr)
   - pg_int64 (PostgreSQL 64-bit integer type)
   - INV_READ, INV_WRITE (large object access mode constants)
 - Called from (representative examples):
-  - main (in src/test/examples/testlo64.c:290)
+  - [main](main.md) (in src/test/examples/testlo64.c:290)
 
 ## Notes and Other Information
 - This is a static function used in PostgreSQL 64-bit large object test examples

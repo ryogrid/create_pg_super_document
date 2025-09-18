@@ -29,21 +29,21 @@ The implementation considers all indexes returned by , including those not yet r
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetForm
-  - RelationGetIndexList
-  - index_open/index_close
-  - heap_getattr
-  - GetPgIndexDescriptor
-  - stringToNode/TextDatumGetCString
-  - bms_add_member/bms_copy/bms_free
-  - pull_varattnos
+  - [RelationGetIndexList](RelationGetIndexList.md)
+  - [index_open](../i/index_open.md)/index_close
+  - [heap_getattr](../h/heap_getattr.md)
+  - [GetPgIndexDescriptor](../G/GetPgIndexDescriptor.md)
+  - [stringToNode](../s/stringToNode.md)/TextDatumGetCString
+  - [bms_add_member](../b/bms_add_member.md)/bms_copy/bms_free
+  - [pull_varattnos](../p/pull_varattnos.md)
   - FirstLowInvalidHeapAttributeNumber
 - Called from (representative examples):
-  - heap_update
-  - ExtractReplicaIdentity
-  - pub_rf_contains_invalid_column
-  - pub_collist_contains_invalid_column
-  - GetParentedForeignKeyRefs
-  - ExecUpdateLockMode
+  - [heap_update](../h/heap_update.md)
+  - [ExtractReplicaIdentity](../E/ExtractReplicaIdentity.md)
+  - [pub_rf_contains_invalid_column](../p/pub_rf_contains_invalid_column.md)
+  - [pub_collist_contains_invalid_column](../p/pub_collist_contains_invalid_column.md)
+  - [GetParentedForeignKeyRefs](../G/GetParentedForeignKeyRefs.md)
+  - [ExecUpdateLockMode](../E/ExecUpdateLockMode.md)
   - logicalrep_rel_mark_updatable
 
 ## Notes and Other Information

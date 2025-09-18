@@ -20,8 +20,8 @@ The function operates within the memory context of the SPI tuple table to ensure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
-  - repalloc_huge
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [repalloc_huge](../r/repalloc_huge.md)
   - ExecCopySlotHeapTuple
   - elog
 - Called from (representative examples):

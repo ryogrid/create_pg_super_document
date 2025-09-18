@@ -18,20 +18,20 @@ This function is a crucial component of pg_upgrade that gathers comprehensive re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - pg_malloc
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - atooid
-  - PQfnumber
-  - PQntuples
-  - PQgetvalue
-  - PQclear
-  - PQfinish
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
   - CppAsString2
   - strcmp
 - Called from (representative examples):
-  - get_db_rel_and_slot_infos
+  - [get_db_rel_and_slot_infos](get_db_rel_and_slot_infos.md)
 
 ## Notes and Other Information
 - Results are sorted by OID to enable efficient old/new database matching

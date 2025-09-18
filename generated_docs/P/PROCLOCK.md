@@ -25,16 +25,16 @@ The PROCLOCK structure is stored in a shared memory hash table and enables the l
 ## Dependencies
 - Functions called/Symbols referenced:
   - PROCLOCKTAG
-  - PGPROC
+  - [PGPROC](PGPROC.md)
   - LOCKMASK
-  - dlist_node
+  - [dlist_node](../d/dlist_node.md)
 - Called from (representative examples):
-  - LockAcquireExtended
-  - LockRelease
-  - SetupLockInTable
-  - LockCheckConflicts
-  - FastPathTransferRelationLocks
-  - GetLockStatusData
+  - [LockAcquireExtended](../L/LockAcquireExtended.md)
+  - [LockRelease](../L/LockRelease.md)
+  - [SetupLockInTable](../S/SetupLockInTable.md)
+  - [LockCheckConflicts](../L/LockCheckConflicts.md)
+  - [FastPathTransferRelationLocks](../F/FastPathTransferRelationLocks.md)
+  - [GetLockStatusData](../G/GetLockStatusData.md)
 
 ## Notes and Other Information
 PROCLOCK objects are managed in a hash table indexed by PROCLOCKTAG, which combines the lock identifier and process identifier. The structure enables efficient lock management operations such as deadlock detection, lock release during process cleanup, and fast-path lock optimizations. The bidirectional linking through lockLink and procLink allows the system to efficiently traverse from locks to their holders and from processes to their held locks.

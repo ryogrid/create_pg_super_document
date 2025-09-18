@@ -27,14 +27,14 @@ The function handles multiple return types including scalars, tuples, and set-re
   - compile_pltcl_function (function compilation/lookup)
   - pltcl_build_tuple_argument (tuple to Tcl conversion)
   - pltcl_build_tuple_result (Tcl to tuple conversion)
-  - OutputFunctionCall/InputFunctionCall (data type I/O)
+  - [OutputFunctionCall](../O/OutputFunctionCall.md)/InputFunctionCall (data type I/O)
   - HeapTupleHeader functions (tuple manipulation)
-  - TupleDescGetAttInMetadata (tuple descriptor utilities)
-  - CreateTupleDescCopy (tuple descriptor copying)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md) (tuple descriptor utilities)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md) (tuple descriptor copying)
   - throw_tcl_error (error handling)
   - Tcl library functions (Tcl_EvalObjEx, Tcl_ListObjAppendElement, etc.)
 - Called from (representative examples):
-  - pltcl_handler (main dispatcher)
+  - [pltcl_handler](pltcl_handler.md) (main dispatcher)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside the PL/Tcl module

@@ -24,9 +24,9 @@ The function performs a systematic search through the PUBLICATIONNAMESPACEMAP sy
   - ReleaseSysCacheList: Releases the system cache list to free memory
   - GETSTRUCT: Macro to extract structure from heap tuple
 - Called from (representative examples):
-  - GetTopMostAncestorInPublication: Checks publication membership for table inheritance
-  - get_rel_sync_entry: Determines replication synchronization requirements
-  - RelationBuildPublicationDesc: Builds publication descriptions for relation cache
+  - [GetTopMostAncestorInPublication](GetTopMostAncestorInPublication.md): Checks publication membership for table inheritance
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md): Determines replication synchronization requirements
+  - [RelationBuildPublicationDesc](../R/RelationBuildPublicationDesc.md): Builds publication descriptions for relation cache
 
 ## Notes and Other Information
 - Returns NIL (empty list) if no publications are associated with the specified schema

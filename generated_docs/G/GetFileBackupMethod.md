@@ -44,7 +44,7 @@ For incremental backups, the function outputs the exact list of blocks that need
 - Functions called/Symbols referenced:
   - OidIsValid, RelFileNumberIsValid: Parameter validation
   - backup_file_lookup: Checks if file existed in prior backup
-  - GetIncrementalFilePath: Gets incremental file path for lookups
+  - [GetIncrementalFilePath](GetIncrementalFilePath.md): Gets incremental file path for lookups
   - BlockRefTableGetEntry: Looks up change information for relation
   - BlockRefTableEntryGetBlocks: Gets list of modified blocks
   - qsort, compare_block_numbers: Sorts block numbers
@@ -54,9 +54,9 @@ For incremental backups, the function outputs the exact list of blocks that need
   - FSM_FORKNUM, MAIN_FORKNUM: Fork number constants
   - BACK_UP_FILE_FULLY, BACK_UP_FILE_INCREMENTALLY: Return values
 - Types referenced:
-  - IncrementalBackupInfo, FileBackupMethod, BlockRefTableEntry
+  - [IncrementalBackupInfo](../I/IncrementalBackupInfo.md), FileBackupMethod, BlockRefTableEntry
 - Called from:
-  - sendDir (src/backend/backup/basebackup.c:1502)
+  - [sendDir](../s/sendDir.md) (src/backend/backup/basebackup.c:1502)
 
 ## Notes and Other Information
 - Must be called after PrepareForIncrementalBackup has completed

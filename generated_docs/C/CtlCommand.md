@@ -34,8 +34,8 @@ The enum values are processed in a switch statement in the main function, where 
   - Used in switch statement at main() function
   - Assigned from command-line argument parsing logic
 - Called from (representative examples):
-  - main() function in pg_ctl.c:2459
-  - Command-line parsing logic in pg_ctl.c:2356-2389
+  - [main](../m/main.md)() function in pg_ctl.c:2459
+  - [Command](Command.md)-line parsing logic in pg_ctl.c:2356-2389
 
 ## Notes and Other Information
 - Defined in src/bin/pg_ctl/pg_ctl.c:51-66

@@ -21,18 +21,18 @@ This function serves as a specialized wrapper around ExplainProperty for handlin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (PostgreSQL's sprintf variant that allocates memory)
-  - ExplainProperty (generic property explanation function)
-  - pfree (PostgreSQL's memory deallocation function)
+  - [psprintf](../p/psprintf.md) (PostgreSQL's sprintf variant that allocates memory)
+  - [ExplainProperty](ExplainProperty.md) (generic property explanation function)
+  - [pfree](../p/pfree.md) (PostgreSQL's memory deallocation function)
 - Called from (representative examples):
-  - ExplainOnePlan (for planning and execution times)
+  - [ExplainOnePlan](ExplainOnePlan.md) (for planning and execution times)
   - ExplainPrintJIT (for JIT compilation timing statistics)
   - ExplainPrintSerialize (for serialization times)
-  - report_triggers (for trigger execution times)
-  - ExplainNode (for costs, selectivity, and timing information)
-  - show_instrumentation_count (for average values)
-  - show_buffer_usage (for hit ratios and timing)
-  - show_modifytable_info (for conflict resolution statistics)
+  - [report_triggers](../r/report_triggers.md) (for trigger execution times)
+  - [ExplainNode](ExplainNode.md) (for costs, selectivity, and timing information)
+  - [show_instrumentation_count](../s/show_instrumentation_count.md) (for average values)
+  - [show_buffer_usage](../s/show_buffer_usage.md) (for hit ratios and timing)
+  - [show_modifytable_info](../s/show_modifytable_info.md) (for conflict resolution statistics)
 
 ## Notes and Other Information
 - Most heavily used of the type-specific property functions due to prevalence of timing and cost metrics

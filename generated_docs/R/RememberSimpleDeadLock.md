@@ -28,7 +28,7 @@ This information is later used by `DeadLockReport` to generate comprehensive err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGPROC (struct type)
+  - [PGPROC](../P/PGPROC.md) (struct type)
   - LOCKMODE (type)
   - LOCK (struct type)
   - DEADLOCK_INFO (struct type)

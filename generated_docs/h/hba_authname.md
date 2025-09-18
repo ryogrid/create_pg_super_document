@@ -24,11 +24,11 @@ The returned string is statically allocated and should not be freed by the calle
   - UserAuthName (static string array containing authentication method names)
   - UserAuth (enumeration type defining all supported authentication methods)
 - Called from (representative examples):
-  - ParallelWorkerMain (for logging worker authentication details)
-  - set_authn_id (for setting authentication identifier)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (for logging worker authentication details)
+  - [set_authn_id](../s/set_authn_id.md) (for setting authentication identifier)
   - HOSTNAME_LOOKUP_DETAIL (for detailed hostname lookup logging)
-  - fill_hba_line (for populating HBA function results)
-  - InitPostgres (during database initialization and authentication logging)
+  - [fill_hba_line](../f/fill_hba_line.md) (for populating HBA function results)
+  - [InitPostgres](../I/InitPostgres.md) (during database initialization and authentication logging)
 
 ## Notes and Other Information
 - This function is located at src/backend/libpq/hba.c:3061-3064

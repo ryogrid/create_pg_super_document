@@ -22,13 +22,13 @@ The function implements atomic reads of the worker PID while acknowledging that 
 - Functions called/Symbols referenced:
   - LWLockAcquire (with BackgroundWorkerLock and LW_SHARED)
   - LWLockRelease
-  - BackgroundWorkerSlot structure access
-  - BgwHandleStatus enum values (BGWH_STARTED, BGWH_NOT_YET_STARTED, BGWH_STOPPED)
+  - [BackgroundWorkerSlot](../B/BackgroundWorkerSlot.md) structure access
+  - [BgwHandleStatus](../B/BgwHandleStatus.md) enum values (BGWH_STARTED, BGWH_NOT_YET_STARTED, BGWH_STOPPED)
 - Called from (representative examples):
   - WaitForParallelWorkersToAttach
-  - WaitForBackgroundWorkerStartup
-  - WaitForBackgroundWorkerShutdown
-  - shm_mq_counterparty_gone
+  - [WaitForBackgroundWorkerStartup](../W/WaitForBackgroundWorkerStartup.md)
+  - [WaitForBackgroundWorkerShutdown](../W/WaitForBackgroundWorkerShutdown.md)
+  - [shm_mq_counterparty_gone](../s/shm_mq_counterparty_gone.md)
 
 ## Notes and Other Information
 - Returns BGWH_STARTED if worker is running (with PID in *pidp)

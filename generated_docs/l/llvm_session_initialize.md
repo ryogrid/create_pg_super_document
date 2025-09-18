@@ -29,13 +29,13 @@ This function initializes the LLVM JIT compilation infrastructure for the curren
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - llvm_create_types (type system setup)
-  - llvm_set_target (target configuration)
+  - [llvm_create_types](llvm_create_types.md) (type system setup)
+  - [llvm_set_target](llvm_set_target.md) (target configuration)
   - llvm_create_jit_instance (JIT instance creation)
-  - llvm_shutdown (cleanup function)
-  - on_proc_exit (process exit handler registration)
+  - [llvm_shutdown](llvm_shutdown.md) (cleanup function)
+  - [on_proc_exit](../o/on_proc_exit.md) (process exit handler registration)
 - Called from (representative examples):
-  - llvm_create_context
+  - [llvm_create_context](llvm_create_context.md)
 
 ## Notes and Other Information
 - The function uses a guard variable  to prevent multiple initializations

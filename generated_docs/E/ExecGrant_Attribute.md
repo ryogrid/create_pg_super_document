@@ -35,21 +35,21 @@ This static function handles the detailed processing of GRANT/REVOKE operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - SysCacheGetAttr
-  - acldefault
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclPCopy
-  - aclmembers
+  - [aclmembers](../a/aclmembers.md)
   - aclconcat
   - select_best_grantor
-  - restrict_and_check_grant
-  - merge_acl_with_grant
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - recordExtensionInitPriv
-  - updateAclDependencies
+  - [restrict_and_check_grant](../r/restrict_and_check_grant.md)
+  - [merge_acl_with_grant](../m/merge_acl_with_grant.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [recordExtensionInitPriv](../r/recordExtensionInitPriv.md)
+  - [updateAclDependencies](../u/updateAclDependencies.md)
 - Called from (representative examples):
-  - ExecGrant_Relation
+  - [ExecGrant_Relation](ExecGrant_Relation.md)
 
 ## Notes and Other Information
 - This is a static function only used within aclchk.c as part of the relation-level grant processing

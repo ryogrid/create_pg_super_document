@@ -28,13 +28,13 @@ FilterObjectType is an enumeration used by PostgreSQL's backup and restore utili
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - filter_object_type_name (converts enum values to string representations)
+  - [filter_object_type_name](../f/filter_object_type_name.md) (converts enum values to string representations)
 - Called from (representative examples):
-  - get_object_type (src/bin/pg_dump/filter.c:123)
-  - filter_read_item (src/bin/pg_dump/filter.c:396)
-  - read_dump_filters (src/bin/pg_dump/pg_dump.c:19063)
-  - read_dumpall_filters (src/bin/pg_dump/pg_dumpall.c:2048)
-  - read_restore_filters (src/bin/pg_dump/pg_restore.c:555)
+  - [get_object_type](../g/get_object_type.md) (src/bin/pg_dump/filter.c:123)
+  - [filter_read_item](../f/filter_read_item.md) (src/bin/pg_dump/filter.c:396)
+  - [read_dump_filters](../r/read_dump_filters.md) (src/bin/pg_dump/pg_dump.c:19063)
+  - [read_dumpall_filters](../r/read_dumpall_filters.md) (src/bin/pg_dump/pg_dumpall.c:2048)
+  - [read_restore_filters](../r/read_restore_filters.md) (src/bin/pg_dump/pg_restore.c:555)
 
 ## Notes and Other Information
 - Defined in src/bin/pg_dump/filter.h:47-61

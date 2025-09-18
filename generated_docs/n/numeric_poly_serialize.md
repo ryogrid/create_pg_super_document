@@ -23,17 +23,17 @@ The function serializes three key components: the count of values (N), the sum o
 ## Dependencies
 - Functions called/Symbols referenced:
   - PolyNumAggState (data structure)
-  - AggCheckCallContext (context validation)
-  - StringInfoData (buffer for serialization)
-  - NumericVar (temporary numeric variable)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (context validation)
+  - [StringInfoData](../S/StringInfoData.md) (buffer for serialization)
+  - [NumericVar](../N/NumericVar.md) (temporary numeric variable)
   - init_var (numeric variable initialization)
-  - pq_begintypsend (begin binary output)
-  - pq_sendint64 (serialize int64 value)
-  - int128_to_numericvar (convert 128-bit int to numeric, when HAVE_INT128)
-  - accum_sum_final (finalize accumulator sum to numeric)
-  - numericvar_serialize (serialize numeric variable)
-  - pq_endtypsend (end binary output)
-  - free_var (cleanup numeric variable)
+  - [pq_begintypsend](../p/pq_begintypsend.md) (begin binary output)
+  - [pq_sendint64](../p/pq_sendint64.md) (serialize int64 value)
+  - [int128_to_numericvar](../i/int128_to_numericvar.md) (convert 128-bit int to numeric, when HAVE_INT128)
+  - [accum_sum_final](../a/accum_sum_final.md) (finalize accumulator sum to numeric)
+  - [numericvar_serialize](numericvar_serialize.md) (serialize numeric variable)
+  - [pq_endtypsend](../p/pq_endtypsend.md) (end binary output)
+  - [free_var](../f/free_var.md) (cleanup numeric variable)
   - PG_RETURN_BYTEA_P (return bytea result)
 - Called from (representative examples):
   - No direct references found in the codebase

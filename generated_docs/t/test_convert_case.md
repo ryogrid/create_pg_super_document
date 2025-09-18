@@ -23,10 +23,10 @@ The function delegates the actual testing to , which performs comprehensive vali
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_strlower
+  - [test_strlower](test_strlower.md)
   - printf
 - Called from (representative examples):
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the case_test.c compilation unit

@@ -32,19 +32,19 @@ The function delegates actual catalog insertion to CastCreate after completing a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - typenameTypeId
-  - get_typtype
-  - object_ownercheck
-  - object_aclcheck
-  - LookupFuncWithArgs
-  - SearchSysCache1
-  - IsBinaryCoercibleWithCast
+  - [typenameTypeId](../t/typenameTypeId.md)
+  - [get_typtype](../g/get_typtype.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [object_aclcheck](../o/object_aclcheck.md)
+  - [LookupFuncWithArgs](../L/LookupFuncWithArgs.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [IsBinaryCoercibleWithCast](../I/IsBinaryCoercibleWithCast.md)
   - superuser
-  - get_typlenbyvalalign
-  - get_element_type
-  - CastCreate
+  - [get_typlenbyvalalign](../g/get_typlenbyvalalign.md)
+  - [get_element_type](../g/get_element_type.md)
+  - [CastCreate](CastCreate.md)
 - Called from (representative examples):
-  - ProcessUtilitySlow (utility.c:1720)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (utility.c:1720)
 
 ## Notes and Other Information
 - Enforces superuser requirement for binary-compatible casts due to crash risk from erroneous casts

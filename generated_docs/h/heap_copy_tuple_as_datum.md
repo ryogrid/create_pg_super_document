@@ -27,18 +27,18 @@ The function ensures that the returned Datum has proper header information set, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - HeapTupleHasExternal
-  - toast_flatten_tuple_to_datum
-  - palloc
+  - [toast_flatten_tuple_to_datum](../t/toast_flatten_tuple_to_datum.md)
+  - [palloc](../p/palloc.md)
   - memcpy
   - HeapTupleHeaderSetDatumLength
   - HeapTupleHeaderSetTypeId
   - HeapTupleHeaderSetTypMod
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
-  - ExecEvalConvertRowtype
-  - ExecFetchSlotHeapTupleDatum
-  - SPI_returntuple
-  - serialize_expr_stats
+  - [ExecEvalConvertRowtype](../E/ExecEvalConvertRowtype.md)
+  - [ExecFetchSlotHeapTupleDatum](../E/ExecFetchSlotHeapTupleDatum.md)
+  - [SPI_returntuple](../S/SPI_returntuple.md)
+  - [serialize_expr_stats](../s/serialize_expr_stats.md)
 
 ## Notes and Other Information
 - The function automatically handles TOAST pointer detoasting when necessary

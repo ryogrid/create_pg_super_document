@@ -19,11 +19,11 @@ The function operates as a workhorse for ExecTableFuncScan, handling the low-lev
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableFuncScanState (struct type)
-  - tfuncFetchRows (function to fetch all rows from table function)
-  - tuplestore_gettupleslot (function to retrieve next tuple from tuplestore)
+  - [TableFuncScanState](TableFuncScanState.md) (struct type)
+  - [tfuncFetchRows](../t/tfuncFetchRows.md) (function to fetch all rows from table function)
+  - [tuplestore_gettupleslot](../t/tuplestore_gettupleslot.md) (function to retrieve next tuple from tuplestore)
 - Called from:
-  - ExecTableFuncScan
+  - [ExecTableFuncScan](../E/ExecTableFuncScan.md)
 
 ## Notes and Other Information
 - Uses a lazy initialization pattern - the tuplestore is only populated on first access

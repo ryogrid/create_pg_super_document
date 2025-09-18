@@ -23,10 +23,10 @@ The star-schema case is detected when the outer relation provides some (but not 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap
-  - bms_nonempty_difference
+  - [bms_overlap](../b/bms_overlap.md)
+  - [bms_nonempty_difference](../b/bms_nonempty_difference.md)
 - Called from (representative examples):
-  - try_nestloop_path
+  - [try_nestloop_path](../t/try_nestloop_path.md)
 
 ## Notes and Other Information
 This function is marked as static inline, indicating it's a small optimization function used internally within the joinpath.c module. The function enables more flexible join planning for data warehouse workloads that commonly use star-schema designs.

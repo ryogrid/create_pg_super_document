@@ -27,9 +27,9 @@ This design allows each foreign data wrapper to receive all its relevant tables 
 ## Dependencies
 - Functions called/Symbols referenced:
   - Oid (data type)
-  - List (data type from PostgreSQL list utilities)
+  - [List](../L/List.md) (data type from PostgreSQL list utilities)
 - Called from (representative examples):
-  - ExecuteTruncateGuts (src/backend/commands/tablecmds.c:2093, 2102, 2189)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md) (src/backend/commands/tablecmds.c:2093, 2102, 2189)
 
 ## Notes and Other Information
 - Used specifically in hash tables created during TRUNCATE operations with the key being the foreign server OID

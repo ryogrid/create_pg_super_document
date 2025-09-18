@@ -25,11 +25,11 @@ AllocFreeListLink is a crucial component of the allocation set's free list manag
   - MemoryChunk (structure representing a memory chunk)
 - Called from (representative examples):
   - GetFreeListLink (retrieves free list link from memory chunk)
-  - AllocSetContextCreateInternal (initializes allocation context with free lists)
-  - AllocSetAlloc (uses free lists for efficient allocation)
-  - AllocSetFree (adds chunks to appropriate free lists)
-  - AllocSetAllocFromNewBlock (manages free list when creating new blocks)
-  - AllocSetStats (reports statistics about free list usage)
+  - [AllocSetContextCreateInternal](AllocSetContextCreateInternal.md) (initializes allocation context with free lists)
+  - [AllocSetAlloc](AllocSetAlloc.md) (uses free lists for efficient allocation)
+  - [AllocSetFree](AllocSetFree.md) (adds chunks to appropriate free lists)
+  - [AllocSetAllocFromNewBlock](AllocSetAllocFromNewBlock.md) (manages free list when creating new blocks)
+  - [AllocSetStats](AllocSetStats.md) (reports statistics about free list usage)
 
 ## Notes and Other Information
 - Essential for the allocation set's free list optimization strategy

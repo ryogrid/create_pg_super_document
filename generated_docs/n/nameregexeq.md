@@ -21,7 +21,7 @@ This function is a PostgreSQL interface routine called by the function manager t
 - Functions called/Symbols referenced:
   - PG_GETARG_NAME: Extracts name argument from function arguments
   - PG_GETARG_TEXT_PP: Extracts text argument (pattern) from function arguments
-  - RE_compile_and_execute: Compiles and executes the regular expression
+  - [RE_compile_and_execute](../R/RE_compile_and_execute.md): Compiles and executes the regular expression
   - NameStr: Converts Name to null-terminated string
   - strlen: Calculates string length
   - PG_GET_COLLATION: Gets current collation for locale-aware matching

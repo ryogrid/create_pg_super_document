@@ -45,17 +45,17 @@ The structure is designed to handle both compression (for writing dumps) and dec
   - FILE (from standard C library)
 
 - Called from (representative examples):
-  - InitCompressorZstd
-  - _ZstdWriteCommon
-  - EndCompressorZstd
-  - WriteDataToArchiveZstd
-  - ReadDataFromArchiveZstd
-  - Zstd_read_internal
-  - Zstd_write
-  - Zstd_close
-  - Zstd_eof
-  - Zstd_open
-  - Zstd_get_error
+  - [InitCompressorZstd](../I/InitCompressorZstd.md)
+  - [_ZstdWriteCommon](_ZstdWriteCommon.md)
+  - [EndCompressorZstd](../E/EndCompressorZstd.md)
+  - [WriteDataToArchiveZstd](../W/WriteDataToArchiveZstd.md)
+  - [ReadDataFromArchiveZstd](../R/ReadDataFromArchiveZstd.md)
+  - [Zstd_read_internal](Zstd_read_internal.md)
+  - [Zstd_write](Zstd_write.md)
+  - [Zstd_close](Zstd_close.md)
+  - [Zstd_eof](Zstd_eof.md)
+  - [Zstd_open](Zstd_open.md)
+  - [Zstd_get_error](Zstd_get_error.md)
 
 ## Notes and Other Information
 This structure is specifically designed for pg_dump's Zstandard compression implementation located in `src/bin/pg_dump/compress_zstd.c`. It provides a clean abstraction over the Zstandard library's streaming interface, allowing pg_dump to handle compressed archives efficiently. The structure supports both compression and decompression modes, with the appropriate stream (cstream or dstream) being used depending on the operation being performed. Error handling is facilitated through the zstderror member, which can hold descriptive error messages from the Zstandard library operations.

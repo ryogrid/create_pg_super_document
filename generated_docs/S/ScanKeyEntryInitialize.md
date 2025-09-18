@@ -25,15 +25,15 @@ ScanKeyEntryInitialize is the most comprehensive function for initializing ScanK
 ## Dependencies
 - Functions called/Symbols referenced:
   - RegProcedureIsValid
-  - fmgr_info
+  - [fmgr_info](../f/fmgr_info.md)
   - MemSet
   - SK_SEARCHNULL
   - SK_SEARCHNOTNULL
 - Called from (representative examples):
-  - _bt_first (B-tree index scanning)
-  - check_exclusion_or_unique_constraint (constraint checking)
-  - ExecIndexBuildScanKeys (executor index scanning)
-  - get_actual_variable_range (statistics estimation)
+  - [_bt_first](../b/_bt_first.md) (B-tree index scanning)
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md) (constraint checking)
+  - [ExecIndexBuildScanKeys](../E/ExecIndexBuildScanKeys.md) (executor index scanning)
+  - [get_actual_variable_range](../g/get_actual_variable_range.md) (statistics estimation)
 
 ## Notes and Other Information
 - The CurrentMemoryContext at call time should be as long-lived as the ScanKey itself, as it will be used for any subsidiary info attached to the ScanKey's FmgrInfo record

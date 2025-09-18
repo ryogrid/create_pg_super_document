@@ -34,7 +34,7 @@ The normalization process ensures that intervals are represented in a canonical 
   - DAYS_PER_MONTH (constant defining days per month normalization)
   - USECS_PER_DAY (constant for microseconds per day conversion)
   - TMODULO (time modulo operation macro)
-  - pg_add_s32_overflow (safe 32-bit addition with overflow detection)
+  - [pg_add_s32_overflow](../p/pg_add_s32_overflow.md) (safe 32-bit addition with overflow detection)
   - PG_RETURN_INTERVAL_P (PostgreSQL return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

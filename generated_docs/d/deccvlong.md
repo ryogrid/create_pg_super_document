@@ -20,14 +20,14 @@ This function maintains Informix semantics for decimal conversion, ensuring seam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rsetnull
-  - risnull
-  - PGTYPESnumeric_new
-  - PGTYPESnumeric_from_long
+  - [rsetnull](../r/rsetnull.md)
+  - [risnull](../r/risnull.md)
+  - [PGTYPESnumeric_new](../P/PGTYPESnumeric_new.md)
+  - [PGTYPESnumeric_from_long](../P/PGTYPESnumeric_from_long.md)
   - PGTYPESnumeric_to_decimal
-  - PGTYPESnumeric_free
+  - [PGTYPESnumeric_free](../P/PGTYPESnumeric_free.md)
 - Called from (representative examples):
-  - main (in test cases)
+  - [main](../m/main.md) (in test cases)
   - ECPG_INFORMIX_EXTRA_CHARS
 
 ## Notes and Other Information

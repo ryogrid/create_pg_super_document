@@ -29,24 +29,24 @@ The function also validates that unsupported execution flags (backward scan, mar
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GroupState (state structure creation)
+  - [GroupState](../G/GroupState.md) (state structure creation)
   - Group (plan node type)
   - TupleTableSlotOps (slot operations)
   - EXEC_FLAG_BACKWARD, EXEC_FLAG_MARK (unsupported flags)
   - makeNode (memory allocation)
-  - ExecGroup (assigned as execution function)
+  - [ExecGroup](ExecGroup.md) (assigned as execution function)
   - ExecAssignExprContext (expression context setup)
-  - ExecInitNode (child initialization)
+  - [ExecInitNode](ExecInitNode.md) (child initialization)
   - outerPlan, outerPlanState (child plan access)
-  - ExecGetResultSlotOps (slot operations determination)
+  - [ExecGetResultSlotOps](ExecGetResultSlotOps.md) (slot operations determination)
   - ExecCreateScanSlotFromOuterPlan (scan slot creation)
-  - ExecInitResultTupleSlotTL (result slot initialization)
-  - ExecAssignProjectionInfo (projection setup)
-  - ExecInitQual (HAVING clause compilation)
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md) (result slot initialization)
+  - [ExecAssignProjectionInfo](ExecAssignProjectionInfo.md) (projection setup)
+  - [ExecInitQual](ExecInitQual.md) (HAVING clause compilation)
   - execTuplesMatchPrepare (group comparison setup)
-  - ExecGetResultType (type information)
+  - [ExecGetResultType](ExecGetResultType.md) (type information)
 - Called from (representative examples):
-  - ExecInitNode (during plan tree initialization)
+  - [ExecInitNode](ExecInitNode.md) (during plan tree initialization)
 
 ## Notes and Other Information
 - Validates that backward scanning and mark/restore are not requested

@@ -22,10 +22,10 @@ This function manages locks required during the planning phase of query executio
 - Functions called/Symbols referenced:
   - CMD_UTILITY
   - UtilityContainsQuery
-  - ScanQueryForLocks
+  - [ScanQueryForLocks](../S/ScanQueryForLocks.md)
 - Called from (representative examples):
   - StmtPlanRequiresRevalidation
-  - RevalidateCachedQuery
+  - [RevalidateCachedQuery](../R/RevalidateCachedQuery.md)
 
 ## Notes and Other Information
 - This function operates at the planning stage, before queries are converted to execution plans

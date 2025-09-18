@@ -27,9 +27,9 @@ This check is essential because EquivalenceClasses can generate multiple logical
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_subset
+  - [bms_is_subset](../b/bms_is_subset.md)
 - Called from (representative examples):
-  - consider_index_join_outer_rels
+  - [consider_index_join_outer_rels](../c/consider_index_join_outer_rels.md)
 
 ## Notes and Other Information
 - Part of the heuristic system that prevents exponential explosion in parameterized path generation

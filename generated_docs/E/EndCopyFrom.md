@@ -22,13 +22,13 @@ This function is essential for preventing resource leaks and ensures that extern
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ClosePipeFromProgram
+  - [ClosePipeFromProgram](../C/ClosePipeFromProgram.md)
   - FreeFile  
-  - pgstat_progress_end_command
-  - MemoryContextDelete
-  - pfree
+  - [pgstat_progress_end_command](../p/pgstat_progress_end_command.md)
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - DoCopy (after COPY FROM completion or error)
+  - [DoCopy](../D/DoCopy.md) (after COPY FROM completion or error)
 
 ## Notes and Other Information
 - Must be called to properly clean up after every BeginCopyFrom call, even if the COPY operation fails

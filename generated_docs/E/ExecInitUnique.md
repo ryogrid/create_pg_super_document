@@ -21,15 +21,15 @@ ExecInitUnique performs comprehensive initialization of a UNIQUE plan node. It c
 - Functions called/Symbols referenced:
   - makeNode: Create new UniqueState structure
   - ExecAssignExprContext: Set up expression evaluation context
-  - ExecInitNode: Recursively initialize outer subplan
+  - [ExecInitNode](ExecInitNode.md): Recursively initialize outer subplan
   - outerPlan: Get outer plan from Unique node
   - outerPlanState: Get outer plan state from UniqueState
-  - ExecInitResultTupleSlotTL: Initialize result tuple slot with minimal tuple ops
+  - [ExecInitResultTupleSlotTL](ExecInitResultTupleSlotTL.md): Initialize result tuple slot with minimal tuple ops
   - execTuplesMatchPrepare: Precompute equality comparison functions
-  - ExecGetResultType: Get result tuple descriptor from outer plan
-  - ExecUnique: Main execution function assigned to ExecProcNode
+  - [ExecGetResultType](ExecGetResultType.md): Get result tuple descriptor from outer plan
+  - [ExecUnique](ExecUnique.md): Main execution function assigned to ExecProcNode
 - Called from:
-  - ExecInitNode: During plan tree initialization
+  - [ExecInitNode](ExecInitNode.md): During plan tree initialization
   - nodeUnique.h: Header declaration
 
 ## Notes and Other Information

@@ -26,8 +26,8 @@ This is the 64-bit version of the truncate function, essential for handling larg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventCommandIfReadOnly
-  - lo_truncate_internal
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
+  - [lo_truncate_internal](../l/lo_truncate_internal.md)
   - PG_GETARG_INT64
 - Called from (representative examples):
   - SQL function lo_truncate64() (via function manager)

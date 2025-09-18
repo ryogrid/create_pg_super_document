@@ -19,14 +19,14 @@ The function is crucial for maintaining database consistency during reindex oper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid: Checks if the index OID exists in the pending reindex list
+  - [list_member_oid](../l/list_member_oid.md): Checks if the index OID exists in the pending reindex list
   - currentlyReindexedIndex: Global variable tracking the currently active reindexed index
   - pendingReindexedIndexes: Global list of indexes awaiting reindex
 - Called from (representative examples):
-  - systable_beginscan: System catalog scanning operations
-  - systable_beginscan_ordered: Ordered system catalog scanning
-  - CatalogIndexInsert: System catalog index insertion operations
-  - reindex_relation: Verification during relation reindexing
+  - [systable_beginscan](../s/systable_beginscan.md): System catalog scanning operations
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md): Ordered system catalog scanning
+  - [CatalogIndexInsert](../C/CatalogIndexInsert.md): System catalog index insertion operations
+  - [reindex_relation](../r/reindex_relation.md): Verification during relation reindexing
   - RELATION_CHECKS: Index availability validation
 
 ## Notes and Other Information

@@ -25,18 +25,18 @@ This function takes no parameters and operates on several global variables:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TrimExtension (custom function to remove file extensions)
-  - IsXLogFileName (PostgreSQL function to validate WAL filenames)  
-  - IsPartialXLogFileName (PostgreSQL function to validate partial WAL filenames)
+  - [TrimExtension](../T/TrimExtension.md) (custom function to remove file extensions)
+  - [IsXLogFileName](../I/IsXLogFileName.md) (PostgreSQL function to validate WAL filenames)  
+  - [IsPartialXLogFileName](../I/IsPartialXLogFileName.md) (PostgreSQL function to validate partial WAL filenames)
   - IsBackupHistoryFileName (PostgreSQL function to validate backup history filenames)
-  - XLogFileNameById (PostgreSQL function to construct WAL filename from components)
+  - [XLogFileNameById](../X/XLogFileNameById.md) (PostgreSQL function to construct WAL filename from components)
   - sscanf (standard library function for parsing formatted strings)
   - strcpy (standard library function for string copying)
   - pg_log_error (PostgreSQL logging function)
   - pg_log_error_hint (PostgreSQL logging function for hints)
   - exit (standard library function)
 - Called from (representative examples):
-  - main (in src/bin/pg_archivecleanup/pg_archivecleanup.c:385)
+  - [main](../m/main.md) (in src/bin/pg_archivecleanup/pg_archivecleanup.c:385)
 
 ## Notes and Other Information
 - The function is marked as `static`, making it internal to the pg_archivecleanup.c file

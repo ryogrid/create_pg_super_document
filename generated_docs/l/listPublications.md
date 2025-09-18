@@ -23,16 +23,16 @@ The function performs several key operations:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - formatPGVersionNumber
+  - [formatPGVersionNumber](../f/formatPGVersionNumber.md)
   - initPQExpBuffer
-  - printfPQExpBuffer
-  - validateSQLNamePattern
+  - [printfPQExpBuffer](../p/printfPQExpBuffer.md)
+  - [validateSQLNamePattern](../v/validateSQLNamePattern.md)
   - termPQExpBuffer
-  - PSQLexec
-  - printQuery
+  - [PSQLexec](../P/PSQLexec.md)
+  - [printQuery](../p/printQuery.md)
   - lengthof
 - Called from (representative examples):
-  - exec_command_d (in command.c for \dRp command processing)
+  - [exec_command_d](../e/exec_command_d.md) (in command.c for \dRp command processing)
 
 ## Notes and Other Information
 - Requires PostgreSQL 10.0 or later (publications were introduced in version 10)

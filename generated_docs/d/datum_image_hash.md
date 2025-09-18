@@ -27,14 +27,14 @@ This function is particularly useful in scenarios like query memoization where e
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_bytes (core hashing function)
-  - toast_raw_datum_size (gets size of potentially TOASTed data)
+  - [hash_bytes](../h/hash_bytes.md) (core hashing function)
+  - [toast_raw_datum_size](../t/toast_raw_datum_size.md) (gets size of potentially TOASTed data)
   - PG_DETOAST_DATUM_PACKED (decompresses TOASTed data)
-  - DatumGetCString (extracts C string from Datum)
+  - [DatumGetCString](../D/DatumGetCString.md) (extracts C string from Datum)
   - VARDATA_ANY (gets variable data portion)
-  - pfree (memory deallocation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - MemoizeHash_hash (in query memoization)
+  - [MemoizeHash_hash](../M/MemoizeHash_hash.md) (in query memoization)
 
 ## Notes and Other Information
 - The function carefully handles memory management for detoasted values, only freeing memory when a copy was made

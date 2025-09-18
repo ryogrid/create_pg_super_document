@@ -28,7 +28,7 @@ The function utilizes the `UtfToLocal` conversion utility with the `euc_cn_from_
   - PG_GETARG_CSTRING
   - PG_GETARG_INT32
   - CHECK_ENCODING_CONVERSION_ARGS
-  - UtfToLocal
+  - [UtfToLocal](../U/UtfToLocal.md)
   - PG_RETURN_INT32
 - Constants used:
   - PG_UTF8

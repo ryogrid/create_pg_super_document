@@ -24,17 +24,17 @@ The function follows PostgreSQL's wire protocol by starting each message with a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqPutMsgStart
-  - pqPutnchar
-  - pqPutMsgEnd
-  - pqFlush
+  - [pqPutMsgStart](pqPutMsgStart.md)
+  - [pqPutnchar](pqPutnchar.md)
+  - [pqPutMsgEnd](pqPutMsgEnd.md)
+  - [pqFlush](pqFlush.md)
   - STATUS_ERROR
   - STATUS_OK
 - Called from (representative examples):
-  - pg_GSS_continue
-  - pg_SSPI_continue
-  - pg_SASL_continue
-  - pg_password_sendauth
+  - [pg_GSS_continue](pg_GSS_continue.md)
+  - [pg_SSPI_continue](pg_SSPI_continue.md)
+  - [pg_SASL_continue](pg_SASL_continue.md)
+  - [pg_password_sendauth](pg_password_sendauth.md)
   - Various connection-related functions
 
 ## Notes and Other Information

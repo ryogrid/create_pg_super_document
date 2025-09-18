@@ -26,13 +26,13 @@ The function handles several critical aspects:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_overlap (for checking parameter intersection)
-  - bms_free (for cleaning up bitmap sets)
-  - bms_next_member (for iterating async plans)
-  - UpdateChangedParamSet (for parameter change propagation)
-  - ExecReScan (for recursive subplan rescanning)
+  - [bms_overlap](../b/bms_overlap.md) (for checking parameter intersection)
+  - [bms_free](../b/bms_free.md) (for cleaning up bitmap sets)
+  - [bms_next_member](../b/bms_next_member.md) (for iterating async plans)
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (for parameter change propagation)
+  - [ExecReScan](ExecReScan.md) (for recursive subplan rescanning)
 - Called from (representative examples):
-  - ExecReScan (main executor rescan dispatcher)
+  - [ExecReScan](ExecReScan.md) (main executor rescan dispatcher)
 
 ## Notes and Other Information
 - The function intelligently avoids double-rescanning subplans that will be rescanned automatically due to parameter changes

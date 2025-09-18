@@ -27,8 +27,8 @@ This function removes a FreePageSpanLeader from the doubly-linked list freelist 
   - FPM_NUM_FREELISTS
   - FPM_PAGE_SIZE
 - Called from (representative examples):
-  - FreePageBtreeCleanup
-  - FreePageManagerPutInternal (multiple calls during consolidation operations)
+  - [FreePageBtreeCleanup](FreePageBtreeCleanup.md)
+  - [FreePageManagerPutInternal](FreePageManagerPutInternal.md) (multiple calls during consolidation operations)
 
 ## Notes and Other Information
 - This is a static utility function used internally by the Free Page Manager

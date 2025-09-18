@@ -25,7 +25,7 @@ The function treats empty arguments and single dash ("-") arguments as NULL, whi
   - strcmp (to check for special "-" argument)
   - free (to deallocate memory when returning NULL for empty/dash arguments)
 - Called from (representative examples):
-  - exec_command_connect (multiple times to read database, user, host, and port arguments)
+  - [exec_command_connect](../e/exec_command_connect.md) (multiple times to read database, user, host, and port arguments)
 
 ## Notes and Other Information
 - Returns a mallocd string containing the connection argument, or NULL for no/empty arguments

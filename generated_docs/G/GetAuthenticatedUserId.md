@@ -25,8 +25,8 @@ The function includes an assertion to ensure that the AuthenticatedUserId has be
   - OidIsValid (to validate AuthenticatedUserId)
   - AuthenticatedUserId (global static variable access)
 - Called from (representative examples):
-  - InitializeParallelDSM (in parallel.c:340)
-  - check_session_authorization (in variable.c:869, 870)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (in parallel.c:340)
+  - [check_session_authorization](../c/check_session_authorization.md) (in variable.c:869, 870)
   - External functions via miscadmin.h header inclusion
 
 ## Notes and Other Information

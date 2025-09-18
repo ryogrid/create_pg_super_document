@@ -22,16 +22,16 @@ The function implements comprehensive security checks to prevent data leakage by
 ## Dependencies
 - Functions called/Symbols referenced:
   - IndexRelationGetNumberOfKeyAttributes (get key column count)
-  - check_enable_rls (Row Level Security check)
-  - pg_class_aclcheck (table-level permission check)
-  - pg_attribute_aclcheck (column-level permission check)
-  - pg_get_indexdef_columns (get column names for display)
-  - getTypeOutputInfo (get output function for data type)
-  - OidOutputFunctionCall (convert value to string representation)
+  - [check_enable_rls](../c/check_enable_rls.md) (Row Level Security check)
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md) (table-level permission check)
+  - [pg_attribute_aclcheck](../p/pg_attribute_aclcheck.md) (column-level permission check)
+  - [pg_get_indexdef_columns](../p/pg_get_indexdef_columns.md) (get column names for display)
+  - [getTypeOutputInfo](../g/getTypeOutputInfo.md) (get output function for data type)
+  - [OidOutputFunctionCall](../O/OidOutputFunctionCall.md) (convert value to string representation)
 - Called from (representative examples):
-  - _bt_check_unique (B-tree unique constraint checking)
-  - check_exclusion_or_unique_constraint (constraint violation handling)
-  - comparetup_index_btree_tiebreak (tuple sorting operations)
+  - [_bt_check_unique](../b/_bt_check_unique.md) (B-tree unique constraint checking)
+  - [check_exclusion_or_unique_constraint](../c/check_exclusion_or_unique_constraint.md) (constraint violation handling)
+  - [comparetup_index_btree_tiebreak](../c/comparetup_index_btree_tiebreak.md) (tuple sorting operations)
 
 ## Notes and Other Information
 - Returns NULL if the user lacks SELECT permissions on any key columns to prevent data leakage

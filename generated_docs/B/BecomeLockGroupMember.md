@@ -21,11 +21,11 @@ BecomeLockGroupMember allows a process to join an existing lock group under a de
   - LockHashPartitionLockByProc
   - LWLockAcquire
   - LWLockRelease
-  - dlist_push_tail
-  - PGPROC
-  - LWLock
+  - [dlist_push_tail](../d/dlist_push_tail.md)
+  - [PGPROC](../P/PGPROC.md)
+  - [LWLock](../L/LWLock.md)
 - Called from (representative examples):
-  - ParallelWorkerMain
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
 
 ## Notes and Other Information
 - Returns true if successfully joined the group, false otherwise

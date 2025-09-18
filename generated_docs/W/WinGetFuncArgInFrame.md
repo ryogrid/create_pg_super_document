@@ -39,18 +39,18 @@ The exclusion logic ensures that when counting frame positions, only in-frame ro
 ## Dependencies
 - Functions called/Symbols referenced:
   - WindowObjectIsValid
-  - update_frameheadpos
-  - update_frametailpos
-  - update_grouptailpos
-  - window_gettupleslot
-  - row_is_in_frame
-  - WinSetMarkPosition
+  - [update_frameheadpos](../u/update_frameheadpos.md)
+  - [update_frametailpos](../u/update_frametailpos.md)
+  - [update_grouptailpos](../u/update_grouptailpos.md)
+  - [window_gettupleslot](../w/window_gettupleslot.md)
+  - [row_is_in_frame](../r/row_is_in_frame.md)
+  - [WinSetMarkPosition](WinSetMarkPosition.md)
   - ExecEvalExpr
-  - list_nth
+  - [list_nth](../l/list_nth.md)
 - Called from (representative examples):
-  - window_first_value
-  - window_last_value
-  - window_nth_value
+  - [window_first_value](../w/window_first_value.md)
+  - [window_last_value](../w/window_last_value.md)
+  - [window_nth_value](../w/window_nth_value.md)
 
 ## Notes and Other Information
 - WINDOW_SEEK_CURRENT is explicitly not supported due to ambiguous semantics when the current row might not be in the frame

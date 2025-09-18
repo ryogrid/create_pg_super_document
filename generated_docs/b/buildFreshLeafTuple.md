@@ -32,14 +32,14 @@ This dual approach ensures efficient storage for small posting lists while seaml
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginCompressPostingList: Compress item pointers into posting list format
-  - GinFormTuple: Create GIN index tuple with posting list or tree reference
-  - createPostingTree: Create posting tree when list becomes too large
+  - [ginCompressPostingList](../g/ginCompressPostingList.md): Compress item pointers into posting list format
+  - [GinFormTuple](../G/GinFormTuple.md): Create GIN index tuple with posting list or tree reference
+  - [createPostingTree](../c/createPostingTree.md): Create posting tree when list becomes too large
   - GinSetPostingTree: Set posting tree block number in tuple
   - SizeOfGinPostingList: Calculate size of compressed posting list
 
 - Called from (representative examples):
-  - ginEntryInsert: Main entry point for GIN index insertion operations
+  - [ginEntryInsert](../g/ginEntryInsert.md): Main entry point for GIN index insertion operations
 
 ## Notes and Other Information
 - Similar to addItemPointersToLeafTuple but works from component values rather than modifying existing tuple

@@ -21,14 +21,14 @@ This function processes a GiST index tuple to reconstruct the original tuple dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextSwitchTo
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
   - IndexRelationGetNumberOfKeyAttributes
-  - index_getattr
-  - gistFetchAtt
-  - heap_form_tuple
+  - [index_getattr](../i/index_getattr.md)
+  - [gistFetchAtt](gistFetchAtt.md)
+  - [heap_form_tuple](../h/heap_form_tuple.md)
   - INDEX_MAX_KEYS (constant)
 - Called from (representative examples):
-  - gistScanPage
+  - [gistScanPage](gistScanPage.md)
 
 ## Notes and Other Information
 - Used primarily for index-only scans where the original tuple data must be reconstructed from the index

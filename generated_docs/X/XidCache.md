@@ -21,7 +21,7 @@ The cache is part of PostgreSQL's visibility checking mechanism. When determinin
 - Functions called/Symbols referenced:
   - PGPROC_MAX_CACHED_SUBXIDS (constant defining cache size as 64)
 - Called from (representative examples):
-  - PGPROC (used as a member of the PGPROC structure)
+  - [PGPROC](../P/PGPROC.md) (used as a member of the PGPROC structure)
 
 ## Notes and Other Information
 - The cache size of 64 subtransactions is noted as a "guessed-at value" and may be subject to tuning

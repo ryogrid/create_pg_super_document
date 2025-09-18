@@ -25,13 +25,13 @@ The function specifically handles the distinction between regular tables and for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CopyMultiInsertBuffer (struct type)
-  - palloc (memory allocation function)
+  - [CopyMultiInsertBuffer](CopyMultiInsertBuffer.md) (struct type)
+  - [palloc](../p/palloc.md) (memory allocation function)
   - memset (memory initialization function)
   - MAX_BUFFERED_TUPLES (constant defining maximum buffered tuples)
-  - GetBulkInsertState (function to obtain bulk insert state)
+  - [GetBulkInsertState](../G/GetBulkInsertState.md) (function to obtain bulk insert state)
 - Called from (representative examples):
-  - CopyMultiInsertInfoSetupBuffer (at src/backend/commands/copyfrom.c:243)
+  - [CopyMultiInsertInfoSetupBuffer](CopyMultiInsertInfoSetupBuffer.md) (at src/backend/commands/copyfrom.c:243)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the copyfrom.c file
@@ -39,4 +39,4 @@ The function specifically handles the distinction between regular tables and for
 - The slots array is initialized to hold up to MAX_BUFFERED_TUPLES tuple pointers
 - Memory is allocated in the current memory context using palloc
 - The buffer starts with zero used slots (nused = 0), ready to accept new tuples
-- BulkInsertState is only created for regular tables to optimize buffer allocation during bulk operations
+- [BulkInsertState](../B/BulkInsertState.md) is only created for regular tables to optimize buffer allocation during bulk operations

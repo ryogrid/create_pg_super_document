@@ -26,18 +26,18 @@ The function supports a comprehensive set of PostgreSQL plan node types, from ba
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrEndLoop (timing instrumentation)
-  - UpdateChangedParamSet (parameter propagation)
-  - ExecReScanSetParamPlan (InitPlan parameter handling)
+  - [InstrEndLoop](../I/InstrEndLoop.md) (timing instrumentation)
+  - [UpdateChangedParamSet](../U/UpdateChangedParamSet.md) (parameter propagation)
+  - [ExecReScanSetParamPlan](ExecReScanSetParamPlan.md) (InitPlan parameter handling)
   - ReScanExprContext (expression context reset)
   - nodeTag (node type identification)
-  - bms_free (memory cleanup)
-  - Node-specific rescan functions (ExecReScanResult, ExecReScanSeqScan, etc.)
+  - [bms_free](../b/bms_free.md) (memory cleanup)
+  - [Node](../N/Node.md)-specific rescan functions (ExecReScanResult, ExecReScanSeqScan, etc.)
 - Called from (representative examples):
-  - ExecutorRewind (main executor rewind)
-  - ExecReScanNestLoop (nested loop joins)
+  - [ExecutorRewind](ExecutorRewind.md) (main executor rewind)
+  - [ExecReScanNestLoop](ExecReScanNestLoop.md) (nested loop joins)
   - ExecReScanMergeJoin (merge joins)
-  - ExecReScanHashJoin (hash joins)
+  - [ExecReScanHashJoin](ExecReScanHashJoin.md) (hash joins)
 
 ## Notes and Other Information
 - The function includes extensive parameter change handling logic that ensures InitPlans can depend on sibling InitPlans that appear earlier in the list

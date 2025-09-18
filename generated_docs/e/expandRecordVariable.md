@@ -33,25 +33,25 @@ The function operates through several strategies:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRTEByRangeTablePosn
-  - expandRTE
-  - CreateTemplateTupleDesc
-  - TupleDescInitEntry
-  - TupleDescInitEntryCollation
-  - get_tle_by_resno
-  - GetCTEForRTE
+  - [GetRTEByRangeTablePosn](../G/GetRTEByRangeTablePosn.md)
+  - [expandRTE](expandRTE.md)
+  - [CreateTemplateTupleDesc](../C/CreateTemplateTupleDesc.md)
+  - [TupleDescInitEntry](../T/TupleDescInitEntry.md)
+  - [TupleDescInitEntryCollation](../T/TupleDescInitEntryCollation.md)
+  - [get_tle_by_resno](../g/get_tle_by_resno.md)
+  - [GetCTEForRTE](../G/GetCTEForRTE.md)
   - GetCTETargetList
-  - get_expr_result_tupdesc
+  - [get_expr_result_tupdesc](../g/get_expr_result_tupdesc.md)
   - exprType
   - exprTypmod
-  - exprCollation
-  - list_nth
+  - [exprCollation](exprCollation.md)
+  - [list_nth](../l/list_nth.md)
   - InvalidAttrNumber
   - RTE constants (RTE_RELATION, RTE_SUBQUERY, RTE_JOIN, etc.)
 - Called from (representative examples):
-  - ExpandRowReference
-  - ParseComplexProjection
-  - expandRecordVariable (recursive calls)
+  - [ExpandRowReference](../E/ExpandRowReference.md)
+  - [ParseComplexProjection](../P/ParseComplexProjection.md)
+  - [expandRecordVariable](expandRecordVariable.md) (recursive calls)
 
 ## Notes and Other Information
 - This function is crucial for PostgreSQL's flexible type system, allowing complex nested queries and joins to work with RECORD types

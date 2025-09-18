@@ -35,7 +35,7 @@ The function categorizes statements into three groups:
   - nodeTag (node type identification)
 
 - Called from (representative examples):
-  - analyze_requires_snapshot (determining snapshot requirements)
+  - [analyze_requires_snapshot](../a/analyze_requires_snapshot.md) (determining snapshot requirements)
   - StmtPlanRequiresRevalidation (plan cache revalidation logic)
 
 ## Notes and Other Information

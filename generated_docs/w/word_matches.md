@@ -21,13 +21,13 @@ The `word_matches` function implements a flexible pattern matching algorithm tha
 - Functions called/Symbols referenced:
   - strlen (standard C library function)
   - strncmp (standard C library function)
-  - pg_strncasecmp (PostgreSQL case-insensitive string comparison)
+  - [pg_strncasecmp](../p/pg_strncasecmp.md) (PostgreSQL case-insensitive string comparison)
   - cimatch (internal macro for conditional case-sensitive/insensitive comparison)
 - Called from (representative examples):
   - cimatch (recursive call for negated patterns)
-  - TailMatchesImpl (tab completion matching)
-  - MatchesImpl (tab completion matching)
-  - HeadMatchesImpl (tab completion matching)
+  - [TailMatchesImpl](../T/TailMatchesImpl.md) (tab completion matching)
+  - [MatchesImpl](../M/MatchesImpl.md) (tab completion matching)
+  - [HeadMatchesImpl](../H/HeadMatchesImpl.md) (tab completion matching)
 
 ## Notes and Other Information
 - NULL patterns match anything (returns true)

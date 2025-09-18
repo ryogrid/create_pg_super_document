@@ -19,10 +19,10 @@ The function operates asynchronously - it simply sets a flag and wakes up the re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WakeupRecovery (wakes up the recovery process)
+  - [WakeupRecovery](../W/WakeupRecovery.md) (wakes up the recovery process)
   - SIGNAL_ARGS (signal handler arguments macro)
 - Called from (representative examples):
-  - StartupProcessMain (registers this as SIGUSR2 handler)
+  - [StartupProcessMain](StartupProcessMain.md) (registers this as SIGUSR2 handler)
 
 ## Notes and Other Information
 - This handler is registered specifically for SIGUSR2 signals during startup process initialization

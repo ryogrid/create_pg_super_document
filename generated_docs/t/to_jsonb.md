@@ -20,9 +20,9 @@ The to_jsonb function is the PostgreSQL SQL function implementation that convert
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_DATUM
-  - get_fn_expr_argtype
-  - json_categorize_type
-  - datum_to_jsonb
+  - [get_fn_expr_argtype](../g/get_fn_expr_argtype.md)
+  - [json_categorize_type](../j/json_categorize_type.md)
+  - [datum_to_jsonb](../d/datum_to_jsonb.md)
   - PG_RETURN_DATUM
   - JsonTypeCategory
 - Called from (representative examples):

@@ -26,14 +26,14 @@ The algorithm assumes that if A functionally determines B, then for any group of
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multi_sort_init
-  - lookup_type_cache  
-  - multi_sort_add_dimension
-  - build_sorted_items
-  - multi_sort_compare_dims
-  - multi_sort_compare_dim
+  - [multi_sort_init](../m/multi_sort_init.md)
+  - [lookup_type_cache](../l/lookup_type_cache.md)  
+  - [multi_sort_add_dimension](../m/multi_sort_add_dimension.md)
+  - [build_sorted_items](../b/build_sorted_items.md)
+  - [multi_sort_compare_dims](../m/multi_sort_compare_dims.md)
+  - [multi_sort_compare_dim](../m/multi_sort_compare_dim.md)
 - Called from:
-  - statext_dependencies_build
+  - [statext_dependencies_build](../s/statext_dependencies_build.md)
   - DependencyGenerator
 
 ## Notes and Other Information

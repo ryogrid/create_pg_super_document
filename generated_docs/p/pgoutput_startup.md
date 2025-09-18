@@ -21,17 +21,17 @@ This function performs comprehensive initialization of the pgoutput plugin durin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalDecodingContext (logical decoding context structure)
-  - OutputPluginOptions (output plugin options structure)
-  - PGOutputData (plugin private data structure)
-  - MemoryContextCallback (memory context callback structure)
+  - [LogicalDecodingContext](../L/LogicalDecodingContext.md) (logical decoding context structure)
+  - [OutputPluginOptions](../O/OutputPluginOptions.md) (output plugin options structure)
+  - [PGOutputData](../P/PGOutputData.md) (plugin private data structure)
+  - [MemoryContextCallback](../M/MemoryContextCallback.md) (memory context callback structure)
   - AllocSetContextCreate (memory context creation function)
   - ALLOCSET_DEFAULT_SIZES (default memory context sizes)
   - ALLOCSET_SMALL_SIZES (small memory context sizes)
-  - pgoutput_pubctx_reset_callback (publication context reset callback)
-  - MemoryContextRegisterResetCallback (register memory context callback)
+  - [pgoutput_pubctx_reset_callback](pgoutput_pubctx_reset_callback.md) (publication context reset callback)
+  - [MemoryContextRegisterResetCallback](../M/MemoryContextRegisterResetCallback.md) (register memory context callback)
   - OUTPUT_PLUGIN_BINARY_OUTPUT (binary output type constant)
-  - parse_output_parameters (parameter parsing function)
+  - [parse_output_parameters](parse_output_parameters.md) (parameter parsing function)
   - LOGICALREP_PROTO_MAX_VERSION_NUM (maximum protocol version)
   - LOGICALREP_PROTO_MIN_VERSION_NUM (minimum protocol version)
   - LOGICALREP_STREAM_OFF (streaming disabled constant)
@@ -40,11 +40,11 @@ This function performs comprehensive initialization of the pgoutput plugin durin
   - LOGICALREP_PROTO_STREAM_VERSION_NUM (streaming protocol version)
   - LOGICALREP_PROTO_STREAM_PARALLEL_VERSION_NUM (parallel streaming protocol version)
   - LOGICALREP_PROTO_TWOPHASE_VERSION_NUM (two-phase commit protocol version)
-  - CacheRegisterSyscacheCallback (system cache callback registration)
-  - publication_invalidation_cb (publication cache invalidation callback)
-  - init_rel_sync_cache (relation synchronization cache initialization)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md) (system cache callback registration)
+  - [publication_invalidation_cb](publication_invalidation_cb.md) (publication cache invalidation callback)
+  - [init_rel_sync_cache](../i/init_rel_sync_cache.md) (relation synchronization cache initialization)
 - Called from:
-  - _PG_output_plugin_init (plugin initialization callback registration)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (plugin initialization callback registration)
 
 ## Notes and Other Information
 - Creates three separate memory contexts: main context, cache context, and publication context

@@ -28,11 +28,11 @@ This function takes no parameters but uses several global variables:
 - Functions called/Symbols referenced:
   - malloc (for initial lookahead buffer allocation)
   - realloc (for expanding the lookahead buffer when needed)
-  - errx (for fatal error reporting on allocation failure)
+  - [errx](../e/errx.md) (for fatal error reporting on allocation failure)
 - Called from (representative examples):
-  - is_func_definition (in lexi.c for parsing function definitions)
-  - _discoverArchiveFormat (in pg_backup_archiver.c for archive format detection)
-  - _tarReadRaw (in pg_backup_tar.c for tar format processing)
+  - [is_func_definition](../i/is_func_definition.md) (in lexi.c for parsing function definitions)
+  - [_discoverArchiveFormat](../d/_discoverArchiveFormat.md) (in pg_backup_archiver.c for archive format detection)
+  - [_tarReadRaw](../t/_tarReadRaw.md) (in pg_backup_tar.c for tar format processing)
 
 ## Notes and Other Information
 - Returns the next character as an unsigned char cast to int, or EOF when end of input is reached

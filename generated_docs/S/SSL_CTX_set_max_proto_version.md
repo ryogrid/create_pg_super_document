@@ -27,8 +27,8 @@ Unlike the minimum version function, this implementation does not disable SSLv2 
   - TLS1_1_VERSION, TLS1_2_VERSION (OpenSSL version constants)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - be_tls_init (src/backend/libpq/be-secure-openssl.c:234)
-  - initialize_SSL (src/interfaces/libpq/fe-secure-openssl.c:1009)
+  - [be_tls_init](../b/be_tls_init.md) (src/backend/libpq/be-secure-openssl.c:234)
+  - [initialize_SSL](../i/initialize_SSL.md) (src/interfaces/libpq/fe-secure-openssl.c:1009)
 
 ## Notes and Other Information
 - This is a compatibility function only compiled when the native OpenSSL function is not available (pre-1.1.0)

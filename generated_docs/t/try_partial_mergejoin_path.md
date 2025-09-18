@@ -29,14 +29,14 @@ Like other partial path functions, it uses simplified validation logic due to th
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - pathkeys_contained_in
-  - initial_cost_mergejoin
-  - add_partial_path_precheck
-  - add_partial_path
-  - create_mergejoin_path
+  - [pathkeys_contained_in](../p/pathkeys_contained_in.md)
+  - [initial_cost_mergejoin](../i/initial_cost_mergejoin.md)
+  - [add_partial_path_precheck](../a/add_partial_path_precheck.md)
+  - [add_partial_path](../a/add_partial_path.md)
+  - [create_mergejoin_path](../c/create_mergejoin_path.md)
 - Called from (representative examples):
-  - try_mergejoin_path
-  - sort_inner_and_outer
+  - [try_mergejoin_path](try_mergejoin_path.md)
+  - [sort_inner_and_outer](../s/sort_inner_and_outer.md)
 
 ## Notes and Other Information
 - Specifically designed for parallel query execution with no support for parameterized inner paths

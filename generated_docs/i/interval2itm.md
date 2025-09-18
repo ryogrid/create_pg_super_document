@@ -29,10 +29,10 @@ The function performs no validation or overflow checking since the pg_itm struct
   - USECS_PER_HOUR, USECS_PER_MINUTE, USECS_PER_SEC (time conversion constants)
   - TimeOffset (type for intermediate calculations)
 - Called from (representative examples):
-  - interval_out (interval to string conversion)
-  - interval_to_char (formatted interval output)
-  - interval_trunc (interval truncation operations)
-  - interval_part_common (EXTRACT function for intervals)
+  - [interval_out](interval_out.md) (interval to string conversion)
+  - [interval_to_char](interval_to_char.md) (formatted interval output)
+  - [interval_trunc](interval_trunc.md) (interval truncation operations)
+  - [interval_part_common](interval_part_common.md) (EXTRACT function for intervals)
 
 ## Notes and Other Information
 - This is a void function that always succeeds (no error return)

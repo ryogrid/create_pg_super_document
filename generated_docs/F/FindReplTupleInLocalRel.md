@@ -32,19 +32,19 @@ The function returns a boolean indicating whether the tuple was found and popula
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TargetPrivilegesCheck
-  - table_slot_create
-  - index_open (debug builds only)
-  - GetRelationIdentityOrPK (debug builds only)
-  - IsIndexUsableForReplicaIdentityFull (debug builds only)
-  - BuildIndexInfo (debug builds only)
-  - index_close (debug builds only)
-  - RelationFindReplTupleByIndex
-  - RelationFindReplTupleSeq
+  - [TargetPrivilegesCheck](../T/TargetPrivilegesCheck.md)
+  - [table_slot_create](../t/table_slot_create.md)
+  - [index_open](../i/index_open.md) (debug builds only)
+  - [GetRelationIdentityOrPK](../G/GetRelationIdentityOrPK.md) (debug builds only)
+  - [IsIndexUsableForReplicaIdentityFull](../I/IsIndexUsableForReplicaIdentityFull.md) (debug builds only)
+  - [BuildIndexInfo](../B/BuildIndexInfo.md) (debug builds only)
+  - [index_close](../i/index_close.md) (debug builds only)
+  - [RelationFindReplTupleByIndex](../R/RelationFindReplTupleByIndex.md)
+  - [RelationFindReplTupleSeq](../R/RelationFindReplTupleSeq.md)
 - Called from (representative examples):
-  - apply_handle_update_internal
-  - apply_handle_delete_internal
-  - apply_handle_tuple_routing
+  - [apply_handle_update_internal](../a/apply_handle_update_internal.md)
+  - [apply_handle_delete_internal](../a/apply_handle_delete_internal.md)
+  - [apply_handle_tuple_routing](../a/apply_handle_tuple_routing.md)
 
 ## Notes and Other Information
 - The function always checks for SELECT privileges since it performs read operations, regardless of the higher-level operation (UPDATE or DELETE)

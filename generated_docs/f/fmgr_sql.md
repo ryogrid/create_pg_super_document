@@ -17,18 +17,18 @@ fmgr_sql serves as the central entry point for executing SQL functions in Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sql_exec_error_callback
-  - init_sql_fcache  
-  - postquel_sub_params
-  - postquel_start
-  - postquel_getnext
-  - postquel_end
-  - postquel_get_single_result
-  - SubTransactionIsActive
+  - [sql_exec_error_callback](../s/sql_exec_error_callback.md)
+  - [init_sql_fcache](../i/init_sql_fcache.md)  
+  - [postquel_sub_params](../p/postquel_sub_params.md)
+  - [postquel_start](../p/postquel_start.md)
+  - [postquel_getnext](../p/postquel_getnext.md)
+  - [postquel_end](../p/postquel_end.md)
+  - [postquel_get_single_result](../p/postquel_get_single_result.md)
+  - [SubTransactionIsActive](../S/SubTransactionIsActive.md)
   - tuplestore_begin_heap
-  - RegisterExprContextCallback
-  - UnregisterExprContextCallback
-  - CreateTupleDescCopy
+  - [RegisterExprContextCallback](../R/RegisterExprContextCallback.md)
+  - [UnregisterExprContextCallback](../U/UnregisterExprContextCallback.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
 - Called from (representative examples):
   - Function manager system via fmgr_info_cxt_security
 

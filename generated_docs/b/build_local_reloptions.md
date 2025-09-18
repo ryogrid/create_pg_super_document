@@ -19,20 +19,20 @@ This function handles the processing of local relation options that are not part
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - local_relopts (struct type)
+  - [local_relopts](../l/local_relopts.md) (struct type)
   - relopt_parse_elt (struct type)
-  - relopt_value (struct type)
-  - local_relopt (struct type)
-  - parseLocalRelOptions (function)
-  - allocateReloptStruct (function)
-  - fillRelOptions (function)
+  - [relopt_value](../r/relopt_value.md) (struct type)
+  - [local_relopt](../l/local_relopt.md) (struct type)
+  - [parseLocalRelOptions](../p/parseLocalRelOptions.md) (function)
+  - [allocateReloptStruct](../a/allocateReloptStruct.md) (function)
+  - [fillRelOptions](../f/fillRelOptions.md) (function)
   - list_length (PostgreSQL list function)
-  - palloc (PostgreSQL memory allocation)
-  - pfree (PostgreSQL memory deallocation)
+  - [palloc](../p/palloc.md) (PostgreSQL memory allocation)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
   - foreach, lfirst (PostgreSQL list macros)
   - relopts_validator (function pointer type)
 - Called from:
-  - index_opclass_options (src/backend/access/index/indexam.c:1038)
+  - [index_opclass_options](../i/index_opclass_options.md) (src/backend/access/index/indexam.c:1038)
   - GET_STRING_RELOPTION (src/include/access/reloptions.h:233)
 
 ## Notes and Other Information

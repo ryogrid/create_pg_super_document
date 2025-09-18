@@ -22,12 +22,12 @@ The function performs similar array allocation and population as make_sort_from_
 ## Dependencies
 - Functions called/Symbols referenced:
   - SortGroupClause (struct type)
-  - get_tle_by_resno
-  - exprCollation
-  - make_sort
+  - [get_tle_by_resno](../g/get_tle_by_resno.md)
+  - [exprCollation](../e/exprCollation.md)
+  - [make_sort](make_sort.md)
   - Material (related type)
 - Called from (representative examples):
-  - create_groupingsets_plan
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file

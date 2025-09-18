@@ -21,11 +21,11 @@ This function performs a lexicographic comparison between two SortItem structure
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ApplySortComparator
-  - SortItem (type)
+  - [ApplySortComparator](../A/ApplySortComparator.md)
+  - [SortItem](../S/SortItem.md) (type)
   - MultiSortSupport (type)
 - Called from (representative examples):
-  - dependency_degree (src/backend/statistics/dependencies.c:306)
+  - [dependency_degree](../d/dependency_degree.md) (src/backend/statistics/dependencies.c:306)
 
 ## Notes and Other Information
 - Provides more flexibility than multi_sort_compare by allowing range-based comparison

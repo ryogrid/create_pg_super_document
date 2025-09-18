@@ -27,13 +27,13 @@ The function uses the query_or_expression_tree_mutator infrastructure to recursi
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_or_expression_tree_mutator
-  - replace_rte_variables_mutator
-  - replace_rte_variables_context
+  - [replace_rte_variables_mutator](replace_rte_variables_mutator.md)
+  - [replace_rte_variables_context](replace_rte_variables_context.md)
   - replace_rte_variables_callback
 - Called from (representative examples):
-  - pullup_replace_vars
-  - pullup_replace_vars_subquery
-  - ReplaceVarsFromTargetList
+  - [pullup_replace_vars](../p/pullup_replace_vars.md)
+  - [pullup_replace_vars_subquery](../p/pullup_replace_vars_subquery.md)
+  - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md)
 
 ## Notes and Other Information
 - The function exposes its mutator function and context struct publicly because callbacks often need to recurse directly to the mutator on sub-expressions

@@ -24,12 +24,12 @@ For unrecognized codes, the function falls back to generating a formatted string
   - Various SPI return code constants (SPI_OK_*, SPI_ERROR_*)
   - sprintf (for unrecognized codes)
 - Called from (representative examples):
-  - RI_Initial_Check
-  - RI_PartitionRemove_Check
-  - ri_PlanCheck
-  - ri_PerformCheck
-  - plperl_spi_execute_fetch_result
-  - PLy_cursor_query
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
+  - [ri_PlanCheck](../r/ri_PlanCheck.md)
+  - [ri_PerformCheck](../r/ri_PerformCheck.md)
+  - [plperl_spi_execute_fetch_result](../p/plperl_spi_execute_fetch_result.md)
+  - [PLy_cursor_query](../P/PLy_cursor_query.md)
   - pltcl_process_SPI_result
 
 ## Notes and Other Information

@@ -19,9 +19,9 @@ This function serves as the public API for registering extensible node types in 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RegisterExtensibleNodeEntry
+  - [RegisterExtensibleNodeEntry](RegisterExtensibleNodeEntry.md)
 - Data types used:
-  - ExtensibleNodeMethods
+  - [ExtensibleNodeMethods](../E/ExtensibleNodeMethods.md)
 - Called from (representative examples):
   - (No direct references found - likely called from extension modules)
 

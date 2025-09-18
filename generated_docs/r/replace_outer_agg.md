@@ -24,12 +24,12 @@ The function navigates up the planner hierarchy to find the query level where th
   - Param (parameter node structure)
   - PlannerParamItem (parameter item structure)
   - copyObject (deep copy of the Aggref node)
-  - IncrementVarSublevelsUp (adjust variable level references)
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md) (adjust variable level references)
   - makeNode (node creation)
   - lappend_oid (append OID to list)
   - PARAM_EXEC (parameter type constant)
 - Called from (representative examples):
-  - replace_correlation_vars_mutator
+  - [replace_correlation_vars_mutator](replace_correlation_vars_mutator.md)
   - PARAMASSIGN_H (header file reference)
 
 ## Notes and Other Information

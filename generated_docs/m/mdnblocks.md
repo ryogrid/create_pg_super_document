@@ -21,14 +21,14 @@ The function works by starting from the last known open segment and iterating th
 ## Dependencies
 - Functions called/Symbols referenced:
   - mdopenfork
-  - _mdnblocks
-  - _mdfd_openseg
+  - [_mdnblocks](_mdnblocks.md)
+  - [_mdfd_openseg](_mdfd_openseg.md)
 - Called from (representative examples):
   - mdextend
   - mdzeroextend
-  - mdwritev
-  - mdregistersync
-  - mdimmedsync
+  - [mdwritev](mdwritev.md)
+  - [mdregistersync](mdregistersync.md)
+  - [mdimmedsync](mdimmedsync.md)
 
 ## Notes and Other Information
 - Opens all active segments as a side effect, which is essential for proper segment management

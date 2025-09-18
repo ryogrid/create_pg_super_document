@@ -26,15 +26,15 @@ The function includes comprehensive error handling, generating detailed error me
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
-  - SearchSysCache3
-  - OpfamilynameGetOpfid
-  - SearchSysCache1
-  - NameListToString
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
+  - [SearchSysCache3](../S/SearchSysCache3.md)
+  - [OpfamilynameGetOpfid](OpfamilynameGetOpfid.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [NameListToString](../N/NameListToString.md)
   - Form_pg_am
 - Called from:
-  - get_opfamily_oid
+  - [get_opfamily_oid](../g/get_opfamily_oid.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it is only accessible within the same source file (opclasscmds.c)

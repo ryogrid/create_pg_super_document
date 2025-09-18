@@ -24,7 +24,7 @@ This function serves as a PostgreSQL conversion procedure that transforms charac
   - PG_GETARG_INT32
   - PG_GETARG_BOOL
   - CHECK_ENCODING_CONVERSION_ARGS
-  - latin2mic
+  - [latin2mic](latin2mic.md)
   - PG_RETURN_INT32
 - Called from (representative examples):
   - No direct callers found (likely called through PostgreSQL's function dispatch system)

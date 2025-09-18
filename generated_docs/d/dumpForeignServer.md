@@ -26,18 +26,18 @@ The function operates as part of pg_dump's comprehensive database export process
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - pg_strdup 
-  - fmtId
-  - ExecuteSqlQueryForSingleRow
+  - [pg_strdup](../p/pg_strdup.md) 
+  - [fmtId](../f/fmtId.md)
+  - [ExecuteSqlQueryForSingleRow](../E/ExecuteSqlQueryForSingleRow.md)
   - appendStringLiteralAH
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
-  - dumpACL
-  - dumpUserMappings
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
+  - [dumpACL](dumpACL.md)
+  - [dumpUserMappings](dumpUserMappings.md)
   - destroyPQExpBuffer
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

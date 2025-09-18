@@ -31,13 +31,13 @@ The cache operates on a per-transaction basis, with entries allocated in a memor
 ## Dependencies
 - Functions called/Symbols referenced:
   - MultiXactId (identifier type for multixacts)
-  - dlist_node (for doubly-linked list organization)
-  - MultiXactMember (member transaction information)
+  - [dlist_node](../d/dlist_node.md) (for doubly-linked list organization)
+  - [MultiXactMember](../M/MultiXactMember.md) (member transaction information)
   - FLEXIBLE_ARRAY_MEMBER (for variable-length member array)
 - Called from (representative examples):
-  - mXactCacheGetBySet (retrieves cache entries by member set)
-  - mXactCacheGetById (retrieves cache entries by MultiXactId)
-  - mXactCachePut (adds new entries to cache)
+  - [mXactCacheGetBySet](mXactCacheGetBySet.md) (retrieves cache entries by member set)
+  - [mXactCacheGetById](mXactCacheGetById.md) (retrieves cache entries by MultiXactId)
+  - [mXactCachePut](mXactCachePut.md) (adds new entries to cache)
 
 ## Notes and Other Information
 The cache design has acknowledged limitations, particularly around the transaction-scoped lifetime policy which may not be optimal for multixacts containing update XIDs that outlive the original caching transaction. The structure uses a flexible array member to efficiently store variable numbers of multixact members in a single allocation. Cache entries are organized using doubly-linked lists for efficient insertion and removal operations during cache management.

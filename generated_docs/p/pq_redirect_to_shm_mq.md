@@ -23,13 +23,13 @@ The function switches the communication method from the default socket-based app
 ## Dependencies
 - Functions called/Symbols referenced:
   - on_dsm_detach
-  - pq_cleanup_redirect_to_shm_mq
+  - [pq_cleanup_redirect_to_shm_mq](pq_cleanup_redirect_to_shm_mq.md)
   - PqCommMqMethods
   - DestRemote
   - PG_PROTOCOL_LATEST
 - Called from (representative examples):
-  - ParallelWorkerMain
-  - ParallelApplyWorkerMain
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
+  - [ParallelApplyWorkerMain](../P/ParallelApplyWorkerMain.md)
 
 ## Notes and Other Information
 - Sets up the communication method pointer (PqCommMethods) to use message queue methods

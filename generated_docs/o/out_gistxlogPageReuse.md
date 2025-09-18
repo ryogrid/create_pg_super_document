@@ -26,12 +26,12 @@ The function formats comprehensive details including the relation identifier, bl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gistxlogPageReuse (struct type)
+  - [gistxlogPageReuse](../g/gistxlogPageReuse.md) (struct type)
   - EpochFromFullTransactionId (extracts epoch from FullTransactionId)
   - XidFromFullTransactionId (extracts transaction ID from FullTransactionId)
   - appendStringInfo (StringInfo formatting function)
 - Called from (representative examples):
-  - gist_desc (when processing XLOG_GIST_PAGE_REUSE records)
+  - [gist_desc](../g/gist_desc.md) (when processing XLOG_GIST_PAGE_REUSE records)
 
 ## Notes and Other Information
 - This function provides detailed output compared to many other WAL record description functions

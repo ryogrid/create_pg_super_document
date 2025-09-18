@@ -20,7 +20,7 @@ Unlike the full decompression function, this variant allows specifying the exact
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (PostgreSQL memory allocation)
+  - [palloc](palloc.md) (PostgreSQL memory allocation)
   - VARHDRSZ (standard varlena header size)
   - pglz_decompress (core PGLZ decompression function)
   - VARHDRSZ_COMPRESSED (compressed varlena header size)  
@@ -28,12 +28,12 @@ Unlike the full decompression function, this variant allows specifying the exact
   - VARDATA (macro to get data portion of varlena)
   - ereport (PostgreSQL error reporting)
   - ERROR (error level constant)
-  - errcode (error code function)
+  - [errcode](../e/errcode.md) (error code function)
   - ERRCODE_DATA_CORRUPTED (specific error code for data corruption)
-  - errmsg_internal (internal error message function)
+  - [errmsg_internal](../e/errmsg_internal.md) (internal error message function)
   - SET_VARSIZE (macro to set varlena size header)
 - Called from (representative examples):
-  - toast_decompress_datum_slice (in src/backend/access/common/detoast.c:528)
+  - [toast_decompress_datum_slice](../t/toast_decompress_datum_slice.md) (in src/backend/access/common/detoast.c:528)
   - Referenced in CompressionMethodIsValid (in src/include/access/toast_compression.h:59)
 
 ## Notes and Other Information

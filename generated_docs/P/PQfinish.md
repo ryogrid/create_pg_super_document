@@ -19,17 +19,17 @@ The `PQfinish` function is the primary public API for completely terminating a P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqClosePGconn
-  - freePGconn
+  - [pqClosePGconn](../p/pqClosePGconn.md)
+  - [freePGconn](../f/freePGconn.md)
 - Called from (representative examples):
-  - libpqrcv_disconnect (WAL receiver)
-  - disconnect_atexit (pg_basebackup)
-  - DisconnectDatabase (pg_dump)
-  - connectToServer (pg_upgrade)
-  - finishCon (pgbench)
-  - do_connect (psql)
-  - PQcancelFinish
-  - exit_nicely (various test programs)
+  - [libpqrcv_disconnect](../l/libpqrcv_disconnect.md) (WAL receiver)
+  - [disconnect_atexit](../d/disconnect_atexit.md) (pg_basebackup)
+  - [DisconnectDatabase](../D/DisconnectDatabase.md) (pg_dump)
+  - [connectToServer](../c/connectToServer.md) (pg_upgrade)
+  - [finishCon](../f/finishCon.md) (pgbench)
+  - [do_connect](../d/do_connect.md) (psql)
+  - [PQcancelFinish](PQcancelFinish.md)
+  - [exit_nicely](../e/exit_nicely.md) (various test programs)
 
 ## Notes and Other Information
 - This is the standard function for properly cleaning up PostgreSQL connections

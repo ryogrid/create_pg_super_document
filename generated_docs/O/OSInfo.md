@@ -36,7 +36,7 @@ The OSInfo structure serves as a central repository for operating system and env
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LibraryInfo (for libraries array)
+  - [LibraryInfo](../L/LibraryInfo.md) (for libraries array)
   - ClusterInfo (for running_cluster)
   - Various pg_upgrade utility functions
 - Called from (representative examples):

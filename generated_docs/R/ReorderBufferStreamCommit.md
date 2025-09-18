@@ -28,14 +28,14 @@ The function ensures proper handling of both single-phase and two-phase commit p
 ## Dependencies
 - Functions called/Symbols referenced:
   - rbtxn_is_streamed (assertion check)
-  - ReorderBufferStreamTXN (stream remaining transaction parts)
+  - [ReorderBufferStreamTXN](ReorderBufferStreamTXN.md) (stream remaining transaction parts)
   - rbtxn_prepared (check if transaction is prepared)
-  - ReorderBufferTruncateTXN (for prepared transactions)
-  - ReorderBufferCleanupTXN (for regular transactions)
+  - [ReorderBufferTruncateTXN](ReorderBufferTruncateTXN.md) (for prepared transactions)
+  - [ReorderBufferCleanupTXN](ReorderBufferCleanupTXN.md) (for regular transactions)
   - rb->stream_prepare (callback for prepared transactions)
   - rb->stream_commit (callback for regular transactions)
 - Called from (representative examples):
-  - ReorderBufferReplay
+  - [ReorderBufferReplay](ReorderBufferReplay.md)
 
 ## Notes and Other Information
 - This is a static function within reorderbuffer.c for internal use

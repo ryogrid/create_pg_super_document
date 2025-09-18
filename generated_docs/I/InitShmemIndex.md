@@ -33,7 +33,7 @@ This function takes no parameters.
   - HASH_ELEM (hash table flag)
   - HASH_STRINGS (hash table flag)
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - This function must be called early in shared memory initialization before other shared memory structures are created

@@ -21,18 +21,18 @@ The retrieved information is stored in the cluster's template0 field for later u
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - connectToServer
-  - executeQueryOrDie
+  - [connectToServer](../c/connectToServer.md)
+  - [executeQueryOrDie](../e/executeQueryOrDie.md)
   - GET_MAJOR_VERSION
   - pg_malloc
-  - pg_strdup
-  - PQfnumber
-  - PQgetvalue
-  - PQgetisnull
-  - PQntuples
-  - PQclear
-  - PQfinish
-  - pg_fatal
+  - [pg_strdup](../p/pg_strdup.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
+  - [PQgetisnull](../P/PQgetisnull.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
+  - [pg_fatal](../p/pg_fatal.md)
   - atoi
 - Data structures used:
   - ClusterInfo
@@ -40,7 +40,7 @@ The retrieved information is stored in the cluster's template0 field for later u
   - PGconn
   - PGresult
 - Called from (representative examples):
-  - get_db_rel_and_slot_infos
+  - [get_db_rel_and_slot_infos](get_db_rel_and_slot_infos.md)
 
 ## Notes and Other Information
 - Static function - only accessible within the same source file (info.c)

@@ -20,20 +20,20 @@ This function finds the identity sequence owned by a specific column of a relati
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetForm
-  - get_partition_ancestors
-  - get_attname
+  - [get_partition_ancestors](get_partition_ancestors.md)
+  - [get_attname](get_attname.md)
   - llast_oid
-  - get_attnum
-  - list_free
-  - getOwnedSequences_internal
+  - [get_attnum](get_attnum.md)
+  - [list_free](../l/list_free.md)
+  - [getOwnedSequences_internal](getOwnedSequences_internal.md)
   - linitial_oid
   - DEPENDENCY_INTERNAL
   - InvalidAttrNumber
 - Called from (representative examples):
-  - ATExecDropIdentity
-  - transformTableLikeClause
-  - transformAlterTableStmt
-  - build_column_default
+  - [ATExecDropIdentity](../A/ATExecDropIdentity.md)
+  - [transformTableLikeClause](../t/transformTableLikeClause.md)
+  - [transformAlterTableStmt](../t/transformAlterTableStmt.md)
+  - [build_column_default](../b/build_column_default.md)
 
 ## Notes and Other Information
 The function handles partitioned tables specially by traversing up to the topmost partitioned table, as identity sequences are stored at the partition root level. It performs attribute name resolution to handle cases where column ordering might differ between partitions. The function enforces strict validation by default, ensuring exactly one identity sequence exists unless missing_ok is true. This is crucial for maintaining data integrity in identity column operations.

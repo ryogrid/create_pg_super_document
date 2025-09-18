@@ -18,10 +18,10 @@ SetReindexProcessing is a static function that establishes the global reindexing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RemoveReindexPending
-  - GetCurrentTransactionNestLevel
+  - [RemoveReindexPending](../R/RemoveReindexPending.md)
+  - [GetCurrentTransactionNestLevel](../G/GetCurrentTransactionNestLevel.md)
 - Called from (representative examples):
-  - reindex_index
+  - [reindex_index](../r/reindex_index.md)
   - SerializedReindexState
 
 ## Notes and Other Information

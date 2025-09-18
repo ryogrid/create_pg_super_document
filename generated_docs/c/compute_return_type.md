@@ -22,15 +22,15 @@ The function first attempts to look up the specified return type. If found but i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeName: Searches for an existing type definition
-  - TypeNameToString: Converts TypeName to string representation
-  - typeTypeId: Extracts the OID from a type tuple
-  - QualifiedNameGetCreationNamespace: Determines namespace for new shell type
-  - object_aclcheck: Checks access permissions
-  - aclcheck_error/aclcheck_error_type: Reports permission errors
-  - TypeShellMake: Creates a new shell type definition
+  - [LookupTypeName](../L/LookupTypeName.md): Searches for an existing type definition
+  - [TypeNameToString](../T/TypeNameToString.md): Converts TypeName to string representation
+  - [typeTypeId](../t/typeTypeId.md): Extracts the OID from a type tuple
+  - [QualifiedNameGetCreationNamespace](../Q/QualifiedNameGetCreationNamespace.md): Determines namespace for new shell type
+  - [object_aclcheck](../o/object_aclcheck.md): Checks access permissions
+  - [aclcheck_error](../a/aclcheck_error.md)/aclcheck_error_type: Reports permission errors
+  - [TypeShellMake](../T/TypeShellMake.md): Creates a new shell type definition
 - Called from (representative examples):
-  - CreateFunction: Main function creation routine
+  - [CreateFunction](../C/CreateFunction.md): Main function creation routine
 
 ## Notes and Other Information
 - Only C-coded functions (INTERNAL or C language) can return undefined shell types

@@ -32,21 +32,21 @@ The reindexing process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexGetRelation: Gets heap relation OID from index OID
+  - [IndexGetRelation](../I/IndexGetRelation.md): Gets heap relation OID from index OID
   - table_open/try_table_open: Opens the parent heap relation
-  - index_open/try_index_open: Opens the target index relation
-  - SetUserIdAndSecContext: Manages security context for index functions
-  - CheckRelationTableSpaceMove: Validates tablespace move operations
-  - CheckTableNotInUse: Ensures no active usage of the index
-  - SetRelationTableSpace: Updates tablespace information
-  - RelationDropStorage: Schedules old storage file deletion
-  - SetReindexProcessing/ResetReindexProcessing: Controls index usage suppression
-  - index_build: Performs the actual index reconstruction
-  - BuildIndexInfo: Creates index metadata structure
+  - [index_open](../i/index_open.md)/try_index_open: Opens the target index relation
+  - [SetUserIdAndSecContext](../S/SetUserIdAndSecContext.md): Manages security context for index functions
+  - [CheckRelationTableSpaceMove](../C/CheckRelationTableSpaceMove.md): Validates tablespace move operations
+  - [CheckTableNotInUse](../C/CheckTableNotInUse.md): Ensures no active usage of the index
+  - [SetRelationTableSpace](../S/SetRelationTableSpace.md): Updates tablespace information
+  - [RelationDropStorage](../R/RelationDropStorage.md): Schedules old storage file deletion
+  - [SetReindexProcessing](../S/SetReindexProcessing.md)/ResetReindexProcessing: Controls index usage suppression
+  - [index_build](../i/index_build.md): Performs the actual index reconstruction
+  - [BuildIndexInfo](../B/BuildIndexInfo.md): Creates index metadata structure
 - Called from (representative examples):
-  - reindex_relation: For reindexing all indexes of a relation
-  - ReindexIndex: Direct command interface for REINDEX INDEX
-  - ReindexMultipleInternal: Batch reindexing operations
+  - [reindex_relation](reindex_relation.md): For reindexing all indexes of a relation
+  - [ReindexIndex](../R/ReindexIndex.md): Direct command interface for REINDEX INDEX
+  - [ReindexMultipleInternal](../R/ReindexMultipleInternal.md): Batch reindexing operations
 
 ## Notes and Other Information
 - Requires AccessExclusiveLock on the target index to prevent concurrent access

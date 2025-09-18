@@ -19,8 +19,8 @@ For shared relations, the function uses InvalidOid as the database ID, indicatin
 
 ## Dependencies  
 - Functions called/Symbols referenced:
-  - IsSharedRelation (to determine if the relation is shared across databases)
-  - pgstat_reset (to perform the actual statistics reset)
+  - [IsSharedRelation](../I/IsSharedRelation.md) (to determine if the relation is shared across databases)
+  - [pgstat_reset](pgstat_reset.md) (to perform the actual statistics reset)
   - PG_RETURN_VOID (to return from the function)
 - Constants used:
   - PGSTAT_KIND_RELATION (specifies that relation statistics are being reset)

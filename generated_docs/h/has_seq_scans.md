@@ -19,11 +19,11 @@ This function searches through the global sequential scan tracking arrays to det
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - HTAB (struct type)
+  - [HTAB](../H/HTAB.md) (struct type)
 - Called from (representative examples):
   - MOD
-  - hash_search_with_hash_value
-  - hash_freeze
+  - [hash_search_with_hash_value](hash_search_with_hash_value.md)
+  - [hash_freeze](hash_freeze.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the dynahash.c file

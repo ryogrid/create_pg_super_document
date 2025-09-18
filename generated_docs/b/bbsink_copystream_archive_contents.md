@@ -19,12 +19,12 @@ This function handles the transmission of archive content chunks during a baseba
 ## Dependencies
 - Functions called/Symbols referenced:
   - pq_putmessage
-  - GetCurrentTimestamp
-  - TimestampDifferenceMilliseconds
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceMilliseconds](../T/TimestampDifferenceMilliseconds.md)
   - pq_beginmessage
-  - pq_sendbyte
-  - pq_sendint64
-  - pq_endmessage
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
   - pq_flush_if_writable
   - PROGRESS_REPORT_BYTE_INTERVAL (65536 bytes)
   - PROGRESS_REPORT_MILLISECOND_THRESHOLD (1000 ms)

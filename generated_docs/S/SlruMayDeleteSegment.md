@@ -33,9 +33,9 @@ The function uses the SLRU's PagePrecedes callback function to handle the specif
   - SLRU_PAGES_PER_SEGMENT (constant defining pages per segment)
   - Assert (for debugging validation)
 - Called from (representative examples):
-  - SlruPagePrecedesTestOffset (in test scenarios)  
-  - SlruScanDirCbReportPresence (during directory scanning)
-  - SlruScanDirCbDeleteCutoff (during cleanup operations)
+  - [SlruPagePrecedesTestOffset](SlruPagePrecedesTestOffset.md) (in test scenarios)  
+  - [SlruScanDirCbReportPresence](SlruScanDirCbReportPresence.md) (during directory scanning)
+  - [SlruScanDirCbDeleteCutoff](SlruScanDirCbDeleteCutoff.md) (during cleanup operations)
 
 ## Notes and Other Information
 - This is a static (internal) function used within the SLRU subsystem

@@ -23,10 +23,10 @@ The function works by comparing the provided epoch with the next transaction's e
   - ReadNextFullTransactionId
   - XidFromFullTransactionId
   - EpochFromFullTransactionId
-  - TransactionIdPrecedesOrEquals
+  - [TransactionIdPrecedesOrEquals](TransactionIdPrecedesOrEquals.md)
 - Called from (representative examples):
-  - ProcessStandbyHSFeedbackMessage (in walsender.c)
-  - pg_xact_status (in xid8funcs.c)
+  - [ProcessStandbyHSFeedbackMessage](../P/ProcessStandbyHSFeedbackMessage.md) (in walsender.c)
+  - [pg_xact_status](../p/pg_xact_status.md) (in xid8funcs.c)
 
 ## Notes and Other Information
 - This is a static function used internally within the WAL sender subsystem

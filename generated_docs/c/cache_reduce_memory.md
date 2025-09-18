@@ -24,19 +24,19 @@ The function returns a boolean indicating whether a 'special' cache entry (if sp
 - Functions called/Symbols referenced:
   - dlist_foreach_modify (iterates through LRU list with modification capability)
   - dlist_container (retrieves key from LRU list node)
-  - prepare_probe_slot (sets up hash table lookup)
+  - [prepare_probe_slot](../p/prepare_probe_slot.md) (sets up hash table lookup)
   - memoize_lookup (finds cache entry in hash table)
-  - remove_cache_entry (removes and frees cache entry)
+  - [remove_cache_entry](../r/remove_cache_entry.md) (removes and frees cache entry)
   - Assert (debugging assertion)
   - elog (error logging)
 - Types referenced:
-  - MemoizeState
-  - MemoizeKey
-  - MemoizeEntry
-  - dlist_mutable_iter
+  - [MemoizeState](../M/MemoizeState.md)
+  - [MemoizeKey](../M/MemoizeKey.md)
+  - [MemoizeEntry](../M/MemoizeEntry.md)
+  - [dlist_mutable_iter](../d/dlist_mutable_iter.md)
 - Called from:
-  - cache_lookup
-  - cache_store_tuple
+  - [cache_lookup](cache_lookup.md)
+  - [cache_store_tuple](cache_store_tuple.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeMemoize.c

@@ -31,8 +31,8 @@ The caller is responsible for ensuring that the imported snapshot comes from a s
 - Functions called/Symbols referenced:
   - IsolationIsSerializable (verifies serializable isolation level)
   - IsParallelWorker (checks if running in parallel worker process)
-  - GetSerializableTransactionSnapshotInt (main implementation for setting up serializable context)
-  - VirtualTransactionId (type for virtual transaction identifier)
+  - [GetSerializableTransactionSnapshotInt](../G/GetSerializableTransactionSnapshotInt.md) (main implementation for setting up serializable context)
+  - [VirtualTransactionId](../V/VirtualTransactionId.md) (type for virtual transaction identifier)
 - Called from (representative examples):
   - SetTransactionSnapshot (in src/backend/utils/time/snapmgr.c:553)
 

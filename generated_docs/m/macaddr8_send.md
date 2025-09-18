@@ -26,9 +26,9 @@ Unlike the text output function which formats the address as a colon-separated s
 - Functions called/Symbols referenced:
   - `macaddr8`: The input data structure containing the MAC address bytes
   - `PG_GETARG_MACADDR8_P`: PostgreSQL macro for extracting macaddr8 arguments
-  - `pq_begintypsend`: PostgreSQL function to initialize binary output buffer
-  - `pq_sendbyte`: PostgreSQL function to write a byte to the output buffer (called 8 times)
-  - `pq_endtypsend`: PostgreSQL function to finalize binary output buffer
+  - `[pq_begintypsend](../p/pq_begintypsend.md)`: PostgreSQL function to initialize binary output buffer
+  - `[pq_sendbyte](../p/pq_sendbyte.md)`: PostgreSQL function to write a byte to the output buffer (called 8 times)
+  - `[pq_endtypsend](../p/pq_endtypsend.md)`: PostgreSQL function to finalize binary output buffer
   - `PG_RETURN_BYTEA_P`: PostgreSQL macro for returning binary data (bytea type)
 - Called from:
   - PostgreSQL binary protocol handler (automatically called when transmitting binary macaddr8 data)

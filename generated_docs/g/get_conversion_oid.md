@@ -20,13 +20,13 @@ This function searches for a conversion by name, which can be either a simple na
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DeconstructQualifiedName
-  - LookupExplicitNamespace
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md)
+  - [LookupExplicitNamespace](../L/LookupExplicitNamespace.md)
   - GetSysCacheOid2
-  - recomputeNamespacePath
-  - NameListToString
+  - [recomputeNamespacePath](../r/recomputeNamespacePath.md)
+  - [NameListToString](../N/NameListToString.md)
 - Called from (representative examples):
-  - get_object_address
+  - [get_object_address](get_object_address.md)
   - RangeVarGetRelid
 
 ## Notes and Other Information

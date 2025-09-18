@@ -19,14 +19,14 @@ The function outputs detailed information for each pinned buffer including the b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetBufferDescriptor
-  - BufferDescriptorGetBuffer
-  - GetPrivateRefCount (called twice - for checking and displaying)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufferDescriptorGetBuffer](../B/BufferDescriptorGetBuffer.md)
+  - [GetPrivateRefCount](../G/GetPrivateRefCount.md) (called twice - for checking and displaying)
   - relpathperm
-  - BufTagGetRelFileLocator
-  - BufTagGetForkNum
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
 - Types used:
-  - BufferDesc
+  - [BufferDesc](../B/BufferDesc.md)
   - Buffer
 - Called from (representative examples):
   - RelationGetNumberOfBlocks (via header reference)

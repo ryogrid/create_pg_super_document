@@ -25,7 +25,7 @@ The function returns:
 ## Dependencies
 - Functions called/Symbols referenced: None (implements basic comparison logic with type casting)
 - Called from:
-  - element (src/backend/regex/regc_locale.c:395)
+  - [element](../e/element.md) (src/backend/regex/regc_locale.c:395)
   - lookupcclass (src/backend/regex/regc_locale.c:551)
 
 ## Notes and Other Information

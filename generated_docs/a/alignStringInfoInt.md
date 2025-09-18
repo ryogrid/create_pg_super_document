@@ -20,7 +20,7 @@ This utility function ensures that the current length of a StringInfo buffer is 
   - INTALIGN (macro for calculating integer alignment)
   - appendStringInfoCharMacro (macro for appending single characters)
 - Called from (representative examples):
-  - flattenJsonPathParseItem
+  - [flattenJsonPathParseItem](../f/flattenJsonPathParseItem.md)
 
 ## Notes and Other Information
 - This is a static function internal to jsonpath.c

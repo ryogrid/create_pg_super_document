@@ -32,10 +32,10 @@ Key behaviors include:
 - Functions called/Symbols referenced:
   - makeNode (to create Path node)
   - get_baserel_parampathinfo (to get parameter information)
-  - cost_functionscan (to calculate execution costs)
+  - [cost_functionscan](cost_functionscan.md) (to calculate execution costs)
 
 - Called from (representative examples):
-  - set_function_pathlist (in allpaths.c:2807)
+  - [set_function_pathlist](../s/set_function_pathlist.md) (in allpaths.c:2807)
 
 ## Notes and Other Information
 - Returns a basic Path node rather than a specialized path type, indicating function scans are treated as simple operations

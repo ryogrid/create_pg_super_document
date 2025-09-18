@@ -20,9 +20,9 @@ AllocSetGetChunkSpace calculates the total memory space used by an allocated chu
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkIsExternal
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
   - ExternalChunkGetBlock
-  - MemoryChunkGetValue
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
   - AllocBlockIsValid
   - FreeListIdxIsValid
   - GetChunkSizeFromFreeListIdx

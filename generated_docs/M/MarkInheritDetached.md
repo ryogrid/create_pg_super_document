@@ -19,18 +19,18 @@ MarkInheritDetached is a utility function used by the concurrent partition detac
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - heap_copytuple
-  - CatalogTupleUpdate
-  - heap_freetuple
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - get_rel_name
-  - get_namespace_name
+  - [get_rel_name](../g/get_rel_name.md)
+  - [get_namespace_name](../g/get_namespace_name.md)
 - Called from (representative examples):
-  - ATExecDetachPartition
+  - [ATExecDetachPartition](../A/ATExecDetachPartition.md)
 
 ## Notes and Other Information
 - Requires that the parent relation is a partitioned table (asserted with relkind check)

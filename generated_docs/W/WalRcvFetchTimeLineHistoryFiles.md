@@ -30,17 +30,17 @@ wtmp begins Sun Aug 20 19:22:10 2023: The ending timeline ID in the range to che
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - existsTimeLineHistory
+  - [existsTimeLineHistory](../e/existsTimeLineHistory.md)
   - walrcv_readtimelinehistoryfile
   - TLHistoryFileName
-  - writeTimeLineHistoryFile
-  - XLogArchiveForceDone, XLogArchiveNotify
+  - [writeTimeLineHistoryFile](../w/writeTimeLineHistoryFile.md)
+  - [XLogArchiveForceDone](../X/XLogArchiveForceDone.md), XLogArchiveNotify
   - ereport, errmsg, errmsg_internal
   - strcmp, pfree
   - MAXFNAMELEN, ARCHIVE_MODE_ALWAYS
 
 - Called from (representative examples):
-  - WalReceiverMain (during streaming setup and timeline changes)
+  - [WalReceiverMain](WalReceiverMain.md) (during streaming setup and timeline changes)
   - WalRcvWakeupReason
 
 ## Notes and Other Information

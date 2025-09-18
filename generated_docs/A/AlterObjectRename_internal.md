@@ -22,23 +22,23 @@ This function provides a generic mechanism for renaming various types of databas
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetRelid (get relation OID)
-  - get_object_catcache_oid/name (cache ID functions)
-  - get_object_attnum_name/namespace/owner (attribute number functions)
-  - SearchSysCache1 (cache lookup)
-  - heap_getattr (extract attributes from tuples)
+  - [get_object_catcache_oid](../g/get_object_catcache_oid.md)/name (cache ID functions)
+  - [get_object_attnum_name](../g/get_object_attnum_name.md)/namespace/owner (attribute number functions)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (cache lookup)
+  - [heap_getattr](../h/heap_getattr.md) (extract attributes from tuples)
   - superuser (check superuser privileges)
   - has_privs_of_role (role privilege checking)
-  - object_aclcheck (access control checking)
-  - aclcheck_error (ACL error reporting)
+  - [object_aclcheck](../o/object_aclcheck.md) (access control checking)
+  - [aclcheck_error](../a/aclcheck_error.md) (ACL error reporting)
   - Various object-specific existence check functions (IsThereFunctionInNamespace, etc.)
-  - report_name_conflict/report_namespace_conflict (conflict reporting)
-  - heap_modify_tuple (tuple modification)
-  - CatalogTupleUpdate (catalog update)
+  - [report_name_conflict](../r/report_name_conflict.md)/report_namespace_conflict (conflict reporting)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (tuple modification)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (catalog update)
   - InvokeObjectPostAlterHook (post-alter hook)
-  - LogicalRepWorkersWakeupAtCommit (subscription-specific)
+  - [LogicalRepWorkersWakeupAtCommit](../L/LogicalRepWorkersWakeupAtCommit.md) (subscription-specific)
 
 - Called from (representative examples):
-  - ExecRenameStmt (src/backend/commands/alter.c:434)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (src/backend/commands/alter.c:434)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/backend/commands/alter.c

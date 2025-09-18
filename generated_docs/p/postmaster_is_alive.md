@@ -28,8 +28,8 @@ The function is designed specifically for pg_ctl's needs to verify postmaster st
   - getppid (Unix only)
   - kill
 - Called from (representative examples):
-  - do_restart (src/bin/pg_ctl/pg_ctl.c:1091, 1101)
-  - do_status (src/bin/pg_ctl/pg_ctl.c:1348, 1358)
+  - [do_restart](../d/do_restart.md) (src/bin/pg_ctl/pg_ctl.c:1091, 1101)
+  - [do_status](../d/do_status.md) (src/bin/pg_ctl/pg_ctl.c:1348, 1358)
 
 ## Notes and Other Information
 - The function is static, meaning it's only used within pg_ctl.c

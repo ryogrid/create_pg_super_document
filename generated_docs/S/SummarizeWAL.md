@@ -27,15 +27,15 @@ The function handles various edge cases including timeline switches, checkpoint 
 ## Dependencies
 - Functions called/Symbols referenced:
   - CreateEmptyBlockRefTable: Creates empty block reference table for tracking modifications
-  - XLogReaderAllocate: Allocates WAL reader state structure
-  - XLogBeginRead/XLogFindNextRecord: Initialize WAL reading from specified position
-  - XLogReadRecord: Read individual WAL records
-  - SummarizeXlogRecord: Handle special XLOG record types (checkpoints, etc.)
-  - SummarizeDbaseRecord/SummarizeSmgrRecord/SummarizeXactRecord: Handle specific record types
+  - [XLogReaderAllocate](../X/XLogReaderAllocate.md): Allocates WAL reader state structure
+  - [XLogBeginRead](../X/XLogBeginRead.md)/XLogFindNextRecord: Initialize WAL reading from specified position
+  - [XLogReadRecord](../X/XLogReadRecord.md): Read individual WAL records
+  - [SummarizeXlogRecord](SummarizeXlogRecord.md): Handle special XLOG record types (checkpoints, etc.)
+  - [SummarizeDbaseRecord](SummarizeDbaseRecord.md)/SummarizeSmgrRecord/SummarizeXactRecord: Handle specific record types
   - BlockRefTableMarkBlockModified: Mark blocks as modified in the reference table
-  - WriteBlockRefTable: Write the block reference table to summary file
+  - [WriteBlockRefTable](../W/WriteBlockRefTable.md): Write the block reference table to summary file
 - Called from (representative examples):
-  - WalSummarizerMain: Main entry point for WAL summarizer process
+  - [WalSummarizerMain](../W/WalSummarizerMain.md): Main entry point for WAL summarizer process
 
 ## Notes and Other Information
 - The function implements sophisticated timeline handling, supporting both current and historic timelines

@@ -42,10 +42,10 @@ DirectoryMethodFile extends the base Walfile structure to provide directory-spec
 - Functions called/Symbols referenced:
   - Walfile (base structure)
 - Called from (representative examples):
-  - dir_open_for_write (creates and initializes DirectoryMethodFile instances)
-  - dir_write (writes data using DirectoryMethodFile)
-  - dir_close (closes and finalizes DirectoryMethodFile)
-  - dir_sync (synchronizes DirectoryMethodFile to disk)
+  - [dir_open_for_write](../d/dir_open_for_write.md) (creates and initializes DirectoryMethodFile instances)
+  - [dir_write](../d/dir_write.md) (writes data using DirectoryMethodFile)
+  - [dir_close](../d/dir_close.md) (closes and finalizes DirectoryMethodFile)
+  - [dir_sync](../d/dir_sync.md) (synchronizes DirectoryMethodFile to disk)
 
 ## Notes and Other Information
 - This structure follows PostgreSQL's object-oriented programming pattern in C, with the base Walfile embedded as the first member

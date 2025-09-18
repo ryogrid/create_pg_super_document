@@ -26,7 +26,7 @@ The function returns the position of the highest set bit, which equals floor(log
 - Functions called/Symbols referenced:
   - None (uses only basic bit operations)
 - Called from (representative examples):
-  - mcelem_array_contain_overlap_selec
+  - [mcelem_array_contain_overlap_selec](../m/mcelem_array_contain_overlap_selec.md)
   - Functions referenced via DEFAULT_SEL
 
 ## Notes and Other Information

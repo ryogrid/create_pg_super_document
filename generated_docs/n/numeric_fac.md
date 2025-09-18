@@ -22,12 +22,12 @@ The `numeric_fac` function implements the mathematical factorial operation (n!) 
 - Functions called/Symbols referenced:
   - `PG_GETARG_INT64`: Extracts 64-bit integer argument from function call context
   - `ereport`: Reports errors for negative inputs and overflow conditions
-  - `make_result`: Converts NumericVar to Numeric result (for base case and final result)
+  - `[make_result](../m/make_result.md)`: Converts NumericVar to Numeric result (for base case and final result)
   - `init_var`: Initializes NumericVar structures for computation
-  - `int64_to_numericvar`: Converts int64 values to NumericVar for arithmetic
-  - `mul_var`: Performs multiplication in the factorial loop
+  - `[int64_to_numericvar](../i/int64_to_numericvar.md)`: Converts int64 values to NumericVar for arithmetic
+  - `[mul_var](../m/mul_var.md)`: Performs multiplication in the factorial loop
   - `CHECK_FOR_INTERRUPTS`: Allows query cancellation during long computations
-  - `free_var`: Releases memory allocated for NumericVar structures
+  - `[free_var](../f/free_var.md)`: Releases memory allocated for NumericVar structures
   - `PG_RETURN_NUMERIC`: Returns numeric result to caller
 - Called from (representative examples):
   - No direct references found (likely called via SQL function dispatch)

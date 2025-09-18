@@ -26,7 +26,7 @@ The function packs the UTF-8 bytes into a single 32-bit word using bit shifting,
 
 ## Dependencies
 - Functions called/Symbols referenced: 
-  - word (local variable)
+  - [word](../w/word.md) (local variable)
 - Called from (representative examples):
   - conv18030 (src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:132)
 

@@ -18,13 +18,13 @@ The avlAdjustBalance function is responsible for maintaining the balanced proper
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - avlBalance
-  - avlRotate
-  - avlUpdateHeight
+  - [avlBalance](avlBalance.md)
+  - [avlRotate](avlRotate.md)
+  - [avlUpdateHeight](avlUpdateHeight.md)
   - avl_tree
   - avl_node
 - Called from (representative examples):
-  - avlInsertNode
+  - [avlInsertNode](avlInsertNode.md)
 
 ## Notes and Other Information
 This function implements the core AVL tree balancing logic used in PostgreSQL's crosstab view functionality. It uses integer arithmetic to determine rotation directions efficiently, where the balance factor is divided by 2 to determine if rebalancing is needed (b != 0), and the direction is calculated using (1-b)/2. The function handles both single and double rotation cases by first checking if a double rotation is needed (when child balance factor equals -b) before performing the main rotation. The function only updates height for nodes that are not the tree end marker, ensuring proper tree maintenance.

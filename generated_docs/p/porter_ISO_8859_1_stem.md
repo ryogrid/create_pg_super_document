@@ -30,10 +30,10 @@ The function uses cursor positioning to work backwards from the end of the word,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping (vowel group checking)
-  - out_grouping (non-vowel group checking)  
-  - slice_from_s (string replacement)
-  - r_Step_1a through r_Step_5b (all Porter algorithm steps)
+  - [in_grouping](../i/in_grouping.md) (vowel group checking)
+  - [out_grouping](../o/out_grouping.md) (non-vowel group checking)  
+  - [slice_from_s](../s/slice_from_s.md) (string replacement)
+  - [r_Step_1a](../r/r_Step_1a.md) through r_Step_5b (all Porter algorithm steps)
 - Called from (representative examples):
   - External stemming interfaces (no direct references found in codebase)
 

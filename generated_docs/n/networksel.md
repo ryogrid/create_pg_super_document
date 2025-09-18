@@ -26,11 +26,11 @@ The estimation process combines MCV selectivity (exact matches from frequent val
 - Functions called/Symbols referenced:
   - get_restriction_variable
   - mcv_selectivity
-  - inet_opr_codenum
-  - inet_hist_value_sel
-  - get_attstatsslot
-  - fmgr_info
-  - get_opcode
+  - [inet_opr_codenum](../i/inet_opr_codenum.md)
+  - [inet_hist_value_sel](../i/inet_hist_value_sel.md)
+  - [get_attstatsslot](../g/get_attstatsslot.md)
+  - [fmgr_info](../f/fmgr_info.md)
+  - [get_opcode](../g/get_opcode.md)
   - ReleaseVariableStats
   - DEFAULT_SEL
   - CLAMP_PROBABILITY

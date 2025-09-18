@@ -24,20 +24,20 @@ While convenient for single-tuple operations, this function has moderate overhea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogTupleCheckConstraints (validates constraints)
-  - CatalogOpenIndexes (opens catalog indexes)
-  - simple_heap_insert (inserts tuple into heap)
-  - CatalogIndexInsert (creates index entries)
-  - CatalogCloseIndexes (closes catalog indexes)
+  - [CatalogTupleCheckConstraints](CatalogTupleCheckConstraints.md) (validates constraints)
+  - [CatalogOpenIndexes](CatalogOpenIndexes.md) (opens catalog indexes)
+  - [simple_heap_insert](../s/simple_heap_insert.md) (inserts tuple into heap)
+  - [CatalogIndexInsert](CatalogIndexInsert.md) (creates index entries)
+  - [CatalogCloseIndexes](CatalogCloseIndexes.md) (closes catalog indexes)
 - Called from (representative examples):
-  - SetDefaultACL
-  - InsertPgClassTuple
-  - AggregateCreate
-  - CreateConstraintEntry
-  - ProcedureCreate
-  - TypeCreate
-  - CreateAccessMethod
-  - createdb
+  - [SetDefaultACL](../S/SetDefaultACL.md)
+  - [InsertPgClassTuple](../I/InsertPgClassTuple.md)
+  - [AggregateCreate](../A/AggregateCreate.md)
+  - [CreateConstraintEntry](CreateConstraintEntry.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [TypeCreate](../T/TypeCreate.md)
+  - [CreateAccessMethod](CreateAccessMethod.md)
+  - [createdb](../c/createdb.md)
 
 ## Notes and Other Information
 - This is a public function, part of PostgreSQL's catalog management API

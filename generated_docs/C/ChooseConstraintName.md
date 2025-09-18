@@ -23,25 +23,25 @@ This function generates a unique constraint name following SQL specification req
 - Functions called/Symbols referenced:
   - table_open
   - strlcpy
-  - makeObjectName
+  - [makeObjectName](../m/makeObjectName.md)
   - strcmp
   - lfirst
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - pfree
+  - [pfree](../p/pfree.md)
   - snprintf
-  - CStringGetDatum
-  - ObjectIdGetDatum
+  - [CStringGetDatum](CStringGetDatum.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - HeapTupleIsValid
 - Called from (representative examples):
-  - AddRelationNewConstraints
-  - ATExecAddConstraint
-  - addFkConstraint
-  - domainAddCheckConstraint
-  - domainAddNotNullConstraint
+  - [AddRelationNewConstraints](../A/AddRelationNewConstraints.md)
+  - [ATExecAddConstraint](../A/ATExecAddConstraint.md)
+  - [addFkConstraint](../a/addFkConstraint.md)
+  - [domainAddCheckConstraint](../d/domainAddCheckConstraint.md)
+  - [domainAddNotNullConstraint](../d/domainAddNotNullConstraint.md)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

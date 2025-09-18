@@ -19,9 +19,9 @@ This function implements the platform-specific atomic write operation for 64-bit
 ## Dependencies
 - Functions called/Symbols referenced:
   - AssertPointerAlignment (ensures 8-byte alignment)
-  - pg_atomic_uint64 (the atomic 64-bit integer type)
+  - [pg_atomic_uint64](pg_atomic_uint64.md) (the atomic 64-bit integer type)
 - Called from (representative examples):
-  - pg_atomic_write_u64 (public interface wrapper)
+  - [pg_atomic_write_u64](pg_atomic_write_u64.md) (public interface wrapper)
 
 ## Notes and Other Information
 - This implementation assumes the platform guarantees atomic 64-bit aligned writes

@@ -20,12 +20,12 @@ A utility function that adjusts iovec arrays after partial vectored I/O operatio
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - iovec (system struct)
+  - [iovec](../i/iovec.md) (system struct)
   - memmove
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
-  - mdreadv
-  - mdwritev
+  - [mdreadv](../m/mdreadv.md)
+  - [mdwritev](../m/mdwritev.md)
   - pg_pwritev_with_retry
 
 ## Notes and Other Information

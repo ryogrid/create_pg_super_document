@@ -27,12 +27,12 @@ In frontend applications (like pg_waldump), additional fields track the WAL posi
 - Functions called/Symbols referenced:
   - FRONTEND (preprocessor conditional compilation flag)
   - RM_MAX_ID (maximum resource manager ID constant)
-  - XLogRecStats (member structure type)
+  - [XLogRecStats](XLogRecStats.md) (member structure type)
   - MAX_XLINFO_TYPES (maximum number of record info types)
 - Called from (representative examples):
-  - XLogRecStoreStats (function that updates statistics in this structure)
-  - XLogDumpDisplayStats (pg_waldump function that displays these statistics)
-  - main (pg_waldump main function that processes WAL files)
+  - [XLogRecStoreStats](XLogRecStoreStats.md) (function that updates statistics in this structure)
+  - [XLogDumpDisplayStats](XLogDumpDisplayStats.md) (pg_waldump function that displays these statistics)
+  - [main](../m/main.md) (pg_waldump main function that processes WAL files)
 
 ## Notes and Other Information
 - This structure is defined in src/include/access/xlogstats.h as the central component of PostgreSQL's WAL statistics system

@@ -23,16 +23,16 @@ BTSpool serves as a wrapper structure that encapsulates all the necessary inform
 - Functions called/Symbols referenced:
   - Tuplesortstate
 - Called from (representative examples):
-  - BTBuildState
-  - _bt_spools_heapscan
-  - _bt_spooldestroy
-  - _bt_spool
-  - _bt_leafbuild
+  - [BTBuildState](BTBuildState.md)
+  - [_bt_spools_heapscan](../b/_bt_spools_heapscan.md)
+  - [_bt_spooldestroy](../b/_bt_spooldestroy.md)
+  - [_bt_spool](../b/_bt_spool.md)
+  - [_bt_leafbuild](../b/_bt_leafbuild.md)
   - _bt_load
-  - _bt_begin_parallel
-  - _bt_leader_participate_as_worker
-  - _bt_parallel_build_main
-  - _bt_parallel_scan_and_sort
+  - [_bt_begin_parallel](../b/_bt_begin_parallel.md)
+  - [_bt_leader_participate_as_worker](../b/_bt_leader_participate_as_worker.md)
+  - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md)
+  - [_bt_parallel_scan_and_sort](../b/_bt_parallel_scan_and_sort.md)
 
 ## Notes and Other Information
 - The comment in the source indicates that there may be two BTSpool instances in certain scenarios, particularly when dealing with uniqueness-checking requirements involving dead tuples

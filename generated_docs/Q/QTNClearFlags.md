@@ -22,10 +22,10 @@ QTNClearFlags traverses a QTNode tree recursively and clears the specified flag 
 - Functions called/Symbols referenced:
   - check_stack_depth (prevents stack overflow during recursion)
   - QI_VAL (query item type constant for leaf nodes)
-  - QTNClearFlags (recursive self-call for child nodes)
+  - [QTNClearFlags](QTNClearFlags.md) (recursive self-call for child nodes)
 - Called from (representative examples):
-  - tsquery_rewrite_query (query rewriting operations)
-  - QTNClearFlags (recursive self-calls)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md) (query rewriting operations)
+  - [QTNClearFlags](QTNClearFlags.md) (recursive self-calls)
 
 ## Notes and Other Information
 - Uses bitwise AND with complement (~flags) to clear specific bits while preserving others

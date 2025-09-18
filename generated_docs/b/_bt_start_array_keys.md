@@ -91,15 +91,15 @@ update_symbol_types.py: ScanDirection indicating whether this is a forward or ba
 - Functions called/Symbols referenced:
   - ScanDirectionIsBackward
   - BTScanOpaque (structure)
-  - BTArrayKeyInfo (structure)
-  - IndexScanDesc (structure)
+  - [BTArrayKeyInfo](../B/BTArrayKeyInfo.md) (structure)
+  - [IndexScanDesc](../I/IndexScanDesc.md) (structure)
   - ScanDirection (enum)
   - ScanKey (structure)
   - SK_SEARCHARRAY (flag)
 - Called from (representative examples):
-  - btrestrpos
-  - _bt_first
-  - _bt_advance_array_keys_increment
+  - [btrestrpos](btrestrpos.md)
+  - [_bt_first](_bt_first.md)
+  - [_bt_advance_array_keys_increment](_bt_advance_array_keys_increment.md)
 
 ## Notes and Other Information
 - Function assumes so->numArrayKeys > 0 and so->qual_ok is true

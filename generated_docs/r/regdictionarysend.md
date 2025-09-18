@@ -24,7 +24,7 @@ Similar to its receive counterpart, this function delegates all processing to th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - oidsend (delegates all processing to this function)
+  - [oidsend](../o/oidsend.md) (delegates all processing to this function)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through function registry)
 

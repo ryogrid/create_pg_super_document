@@ -19,9 +19,9 @@ The  struct is a minimal data structure containing a single 32-bit unsigned inte
 - Functions called/Symbols referenced:
   - (No direct references from this struct)
 - Called from (representative examples):
-  - fill_seq_fork_with_data (src/backend/commands/sequence.c:363, 374, 375)
-  - read_seq_tuple (src/backend/commands/sequence.c:1194, 1201)
-  - seq_redo (src/backend/commands/sequence.c:1844, 1863, 1864)
+  - [fill_seq_fork_with_data](../f/fill_seq_fork_with_data.md) (src/backend/commands/sequence.c:363, 374, 375)
+  - [read_seq_tuple](../r/read_seq_tuple.md) (src/backend/commands/sequence.c:1194, 1201)
+  - [seq_redo](seq_redo.md) (src/backend/commands/sequence.c:1844, 1863, 1864)
 
 ## Notes and Other Information
 - This is a simple wrapper struct around a uint32 magic number

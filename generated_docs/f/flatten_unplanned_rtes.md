@@ -23,14 +23,14 @@ The  flag ensures that RTEs are examined before recursing into substructures, wh
 ## Dependencies
 - Functions called/Symbols referenced:
   - query_tree_walker
-  - flatten_rtes_walker
+  - [flatten_rtes_walker](flatten_rtes_walker.md)
 - Types used:
   - PlannerGlobal
   - flatten_rtes_walker_context
 - Constants used:
-  - QTW_EXAMINE_RTES_BEFORE
+  - [QTW_EXAMINE_RTES_BEFORE](../Q/QTW_EXAMINE_RTES_BEFORE.md)
 - Called from (representative examples):
-  - add_rtes_to_flat_rtable
+  - [add_rtes_to_flat_rtable](../a/add_rtes_to_flat_rtable.md)
   - fix_scan_list
 
 ## Notes and Other Information

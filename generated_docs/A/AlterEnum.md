@@ -31,16 +31,16 @@ The function operates on the live enum type and immediately makes changes visibl
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeTypeNameFromNameList: Converts name list to TypeName structure
-  - typenameTypeId: Resolves type name to OID
-  - SearchSysCache1: Retrieves type tuple from system cache
-  - checkEnumOwner: Validates user permissions to modify the enum
-  - RenameEnumLabel: Handles enum value renaming operations
-  - AddEnumLabel: Handles enum value addition with positioning
+  - [typenameTypeId](../t/typenameTypeId.md): Resolves type name to OID
+  - [SearchSysCache1](../S/SearchSysCache1.md): Retrieves type tuple from system cache
+  - [checkEnumOwner](../c/checkEnumOwner.md): Validates user permissions to modify the enum
+  - [RenameEnumLabel](../R/RenameEnumLabel.md): Handles enum value renaming operations
+  - [AddEnumLabel](AddEnumLabel.md): Handles enum value addition with positioning
   - InvokeObjectPostAlterHook: Triggers post-modification hooks
   - ObjectAddressSet: Sets up return address structure
 
 - Called from (representative examples):
-  - ProcessUtilitySlow: Main DDL command processing
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md): Main DDL command processing
 
 ## Notes and Other Information
 - The function acts as a dispatcher between ADD VALUE and RENAME VALUE operations based on the presence of oldVal

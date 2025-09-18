@@ -25,15 +25,15 @@ The function performs sophisticated logic to handle partial key matches when few
 ## Dependencies
 - Functions called/Symbols referenced:
   - partition_bound_has_default
-  - partition_range_datum_bsearch
-  - partition_rbound_datum_cmp
+  - [partition_range_datum_bsearch](../p/partition_range_datum_bsearch.md)
+  - [partition_rbound_datum_cmp](../p/partition_rbound_datum_cmp.md)
   - bms_is_empty
-  - bms_add_range
-  - bms_make_singleton
+  - [bms_add_range](../b/bms_add_range.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
   - Constants: PARTITION_STRATEGY_RANGE, PARTITION_RANGE_DATUM_MINVALUE, PARTITION_RANGE_DATUM_MAXVALUE
   - Strategy numbers: BTEqualStrategyNumber, BTGreaterStrategyNumber, BTGreaterEqualStrategyNumber, BTLessStrategyNumber, BTLessEqualStrategyNumber
 - Called from:
-  - perform_pruning_base_step
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the partition pruning subsystem

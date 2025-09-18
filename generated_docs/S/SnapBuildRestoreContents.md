@@ -35,7 +35,7 @@ The function is specifically designed for reading serialized snapshot components
   - ereport/errcode_for_file_access
   - ERRCODE_DATA_CORRUPTED (error code constant)
 - Called from (representative examples):
-  - SnapBuildRestore (multiple times for different data components)
+  - [SnapBuildRestore](SnapBuildRestore.md) (multiple times for different data components)
 
 ## Notes and Other Information
 - Used exclusively by SnapBuildRestore to read different portions of the serialized snapshot file

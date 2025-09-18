@@ -23,13 +23,13 @@ This function releases a session-level lock on a shared database object. It is t
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_OBJECT
-  - LockRelease
+  - [LockRelease](../L/LockRelease.md)
 - Types used:
   - LOCKTAG
 - Called from (representative examples):
-  - movedb
-  - dbase_redo
-  - XLTW_Oper
+  - [movedb](../m/movedb.md)
+  - [dbase_redo](../d/dbase_redo.md)
+  - [XLTW_Oper](../X/XLTW_Oper.md)
 
 ## Notes and Other Information
 - Releases session-level locks that were acquired with LockSharedObjectForSession

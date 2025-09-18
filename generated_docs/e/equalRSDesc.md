@@ -20,14 +20,14 @@ The function assumes that RelationBuildRowSecurity builds policies in a consiste
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowSecurityDesc (structure type)
-  - RowSecurityPolicy (structure type)
+  - [RowSecurityDesc](../R/RowSecurityDesc.md) (structure type)
+  - [RowSecurityPolicy](../R/RowSecurityPolicy.md) (structure type)
   - list_length (function to get list length)
   - forboth (macro for parallel list iteration)
   - lfirst (macro to get list cell value)
-  - equalPolicy (function to compare policies)
+  - [equalPolicy](equalPolicy.md) (function to compare policies)
 - Called from (representative examples):
-  - RelationClearRelation
+  - [RelationClearRelation](../R/RelationClearRelation.md)
 
 ## Notes and Other Information
 - Returns true if both descriptors are NULL (equivalent empty state)

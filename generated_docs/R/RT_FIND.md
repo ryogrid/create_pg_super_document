@@ -28,10 +28,10 @@ When the traversal reaches the bottom level (shift < 0), the function checks whe
 ## Dependencies
 - Functions called/Symbols referenced:
   - RT_MAKE_NAME (macro expansion)
-  - RT_NODE_SEARCH
+  - [RT_NODE_SEARCH](RT_NODE_SEARCH.md)
   - RT_GET_KEY_CHUNK
-  - RT_PTR_SET_LOCAL
-  - RT_CHILDPTR_IS_VALUE
+  - [RT_PTR_SET_LOCAL](RT_PTR_SET_LOCAL.md)
+  - [RT_CHILDPTR_IS_VALUE](RT_CHILDPTR_IS_VALUE.md)
   - RT_PTR_ALLOC_IS_VALID
   - Assert
 - Called from (representative examples):

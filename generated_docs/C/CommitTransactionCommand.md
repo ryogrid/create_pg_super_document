@@ -23,14 +23,14 @@ This wrapper pattern is essential for handling PostgreSQL's hierarchical transac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommitTransactionCommandInternal
+  - [CommitTransactionCommandInternal](CommitTransactionCommandInternal.md)
 - Called from (representative examples):
-  - finish_xact_command (main transaction processing)
-  - InitPostgres (initialization contexts)
-  - vacuum_rel (vacuum operations)
+  - [finish_xact_command](../f/finish_xact_command.md) (main transaction processing)
+  - [InitPostgres](../I/InitPostgres.md) (initialization contexts)
+  - [vacuum_rel](../v/vacuum_rel.md) (vacuum operations)
   - _SPI_commit (SPI transaction handling)
   - Various replication workers (logical replication)
-  - ParallelWorkerMain (parallel processing)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel processing)
   - Multiple DDL operations (index creation, table operations)
 
 ## Notes and Other Information

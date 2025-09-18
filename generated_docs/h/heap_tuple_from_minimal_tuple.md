@@ -30,15 +30,15 @@ The result includes a complete HeapTupleData header with system columns set to z
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
   - memset
-  - ItemPointerSetInvalid
+  - [ItemPointerSetInvalid](../I/ItemPointerSetInvalid.md)
   - MINIMAL_TUPLE_OFFSET
   - HEAPTUPLESIZE
   - InvalidOid
 - Called from (representative examples):
-  - tts_minimal_copy_heap_tuple
+  - [tts_minimal_copy_heap_tuple](../t/tts_minimal_copy_heap_tuple.md)
   - HeapTupleClearHeapOnly
 
 ## Notes and Other Information

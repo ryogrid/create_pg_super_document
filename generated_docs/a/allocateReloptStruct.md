@@ -21,12 +21,12 @@ This function performs memory allocation for relation option structures by calcu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - GET_STRING_RELOPTION_LEN (macro)
   - Custom fill_cb functions (via function pointers)
 - Called from (representative examples):
-  - build_reloptions
-  - build_local_reloptions
+  - [build_reloptions](../b/build_reloptions.md)
+  - [build_local_reloptions](../b/build_local_reloptions.md)
 
 ## Notes and Other Information
 - Returns zero-initialized memory using palloc0() to ensure clean state

@@ -20,8 +20,8 @@ The bool_accum function serves as the state transition function for PostgreSQL's
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeBoolAggState
-  - BoolAggState
+  - [makeBoolAggState](../m/makeBoolAggState.md)
+  - [BoolAggState](../B/BoolAggState.md)
   - PG_GETARG_BOOL
   - PG_ARGISNULL
   - PG_GETARG_POINTER

@@ -22,21 +22,21 @@ The function provides memory management flexibility through the `makecopy` param
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFdwRoutineByRelId
+  - [GetFdwRoutineByRelId](GetFdwRoutineByRelId.md)
   - RelationGetRelid
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
   - memcpy
-  - palloc
+  - [palloc](../p/palloc.md)
 - Called from (representative examples):
-  - analyze_rel
-  - acquire_inherited_sample_rows
-  - CheckValidRowMarkRel
-  - InitResultRelInfo
-  - EvalPlanQualFetchRowMark
-  - ExecInitForeignScan
-  - ExecLockRows
-  - add_row_identity_columns
-  - get_relation_info
+  - [analyze_rel](../a/analyze_rel.md)
+  - [acquire_inherited_sample_rows](../a/acquire_inherited_sample_rows.md)
+  - [CheckValidRowMarkRel](../C/CheckValidRowMarkRel.md)
+  - [InitResultRelInfo](../I/InitResultRelInfo.md)
+  - [EvalPlanQualFetchRowMark](../E/EvalPlanQualFetchRowMark.md)
+  - [ExecInitForeignScan](../E/ExecInitForeignScan.md)
+  - [ExecLockRows](../E/ExecLockRows.md)
+  - [add_row_identity_columns](../a/add_row_identity_columns.md)
+  - [get_relation_info](../g/get_relation_info.md)
 
 ## Notes and Other Information
 - Preferred over GetFdwRoutineByRelId due to caching optimization

@@ -23,18 +23,18 @@ This structure represents a WAL record for cleaning up redirect and placeholder 
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - vacuumRedirectAndPlaceholder (src/backend/access/spgist/spgvacuum.c:504)
-  - spgRedoVacuumRedirect (src/backend/access/spgist/spgxlog.c:864)
-  - spg_desc (src/backend/access/rmgrdesc/spgdesc.c:119)
+  - [vacuumRedirectAndPlaceholder](../v/vacuumRedirectAndPlaceholder.md) (src/backend/access/spgist/spgvacuum.c:504)
+  - [spgRedoVacuumRedirect](spgRedoVacuumRedirect.md) (src/backend/access/spgist/spgxlog.c:864)
+  - [spg_desc](spg_desc.md) (src/backend/access/rmgrdesc/spgdesc.c:119)
   - SizeOfSpgxlogVacuumRedirect (src/include/access/spgxlog.h:250)
 
 ## Dependencies
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - vacuumRedirectAndPlaceholder (src/backend/access/spgist/spgvacuum.c:504)
-  - spgRedoVacuumRedirect (src/backend/access/spgist/spgxlog.c:864)
-  - spg_desc (src/backend/access/rmgrdesc/spgdesc.c:119)
+  - [vacuumRedirectAndPlaceholder](../v/vacuumRedirectAndPlaceholder.md) (src/backend/access/spgist/spgvacuum.c:504)
+  - [spgRedoVacuumRedirect](spgRedoVacuumRedirect.md) (src/backend/access/spgist/spgxlog.c:864)
+  - [spg_desc](spg_desc.md) (src/backend/access/rmgrdesc/spgdesc.c:119)
   - SizeOfSpgxlogVacuumRedirect (src/include/access/spgxlog.h:250)
 
 ## Notes and Other Information

@@ -33,14 +33,14 @@ The function also performs necessary opcode lookup operations and updates the gl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_tlist_index_other_vars (builds indexed target list excluding result relation)
-  - fix_join_expr (performs the actual variable reference fixing)
-  - pfree (memory cleanup)
+  - [build_tlist_index_other_vars](../b/build_tlist_index_other_vars.md) (builds indexed target list excluding result relation)
+  - [fix_join_expr](../f/fix_join_expr.md) (performs the actual variable reference fixing)
+  - [pfree](../p/pfree.md) (memory cleanup)
   - NRM_EQUAL (nulling-resilient matching mode)
   - NUM_EXEC_TLIST (execution count estimation macro)
 - Called from (representative examples):
   - fix_scan_list
-  - set_plan_refs
+  - [set_plan_refs](set_plan_refs.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's plan reference fixing system for handling RETURNING clauses in DML operations

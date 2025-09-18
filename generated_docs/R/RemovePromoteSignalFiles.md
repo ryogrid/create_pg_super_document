@@ -20,9 +20,9 @@ This function takes no parameters.
   - unlink (system call)
   - PROMOTE_SIGNAL_FILE (macro constant)
 - Called from (representative examples):
-  - CheckForStandbyTrigger
-  - PostmasterMain
-  - EndOfWalRecoveryInfo (through header inclusion)
+  - [CheckForStandbyTrigger](../C/CheckForStandbyTrigger.md)
+  - [PostmasterMain](../P/PostmasterMain.md)
+  - [EndOfWalRecoveryInfo](../E/EndOfWalRecoveryInfo.md) (through header inclusion)
 
 ## Notes and Other Information
 - This function has public visibility (not static) unlike other promotion-related functions

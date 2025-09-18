@@ -18,7 +18,7 @@ PQtrace enables protocol-level tracing for a PostgreSQL connection. It allows de
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQuntrace
+  - [PQuntrace](PQuntrace.md)
 - Called from (representative examples):
   - Referenced in libpq-fe.h header (line 456)
   - Used in libpq_pipeline test module (line 2248)

@@ -22,7 +22,7 @@ The  function is a qsort-compatible comparison function that establishes a total
   - WEP_GETWEIGHT: Macro that extracts weight class from WordEntryPos (bits 14+)
   - DocRepresentation: Structure containing position data and word entry mapping information
 - Called from (representative examples):
-  - get_docrep: Uses qsort with compareDocR to sort document representation arrays
+  - [get_docrep](../g/get_docrep.md): Uses qsort with compareDocR to sort document representation arrays
 
 ## Notes and Other Information
 - Returns standard comparison values: negative for a < b, zero for a == b, positive for a > b

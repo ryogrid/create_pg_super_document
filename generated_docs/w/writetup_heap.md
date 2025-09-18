@@ -31,13 +31,13 @@ The function operates by:
 - Data structures used:
   - TuplesortPublic
   - MinimalTuple
-  - LogicalTape
+  - [LogicalTape](../L/LogicalTape.md)
   - SortTuple
 - Constants referenced:
   - MINIMAL_TUPLE_DATA_OFFSET
   - TUPLESORT_RANDOMACCESS
 - Called from (representative examples):
-  - tuplesort_begin_heap
+  - [tuplesort_begin_heap](../t/tuplesort_begin_heap.md)
   - tuplestore_begin_heap
 
 ## Notes and Other Information

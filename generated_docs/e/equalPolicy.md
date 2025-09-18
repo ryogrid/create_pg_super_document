@@ -20,12 +20,12 @@ The function handles null pointer cases and performs deep comparison of array da
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RowSecurityPolicy (structure type)
+  - [RowSecurityPolicy](../R/RowSecurityPolicy.md) (structure type)
   - ARR_DIMS (macro for array dimensions)
   - ARR_DATA_PTR (macro for array data pointer)
-  - equal (function for comparing Node structures)
+  - [equal](equal.md) (function for comparing Node structures)
 - Called from (representative examples):
-  - equalRSDesc
+  - [equalRSDesc](equalRSDesc.md)
 
 ## Notes and Other Information
 - Compares policy command types (polcmd) which determine what operations the policy applies to (SELECT, INSERT, UPDATE, DELETE)

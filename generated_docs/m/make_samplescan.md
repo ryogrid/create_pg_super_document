@@ -23,10 +23,10 @@ This function is part of PostgreSQL's plan node building infrastructure and crea
 ## Dependencies
 - Functions called/Symbols referenced:
   - SampleScan (the plan node type being created)
-  - TableSampleClause (structure defining sampling parameters)
+  - [TableSampleClause](../T/TableSampleClause.md) (structure defining sampling parameters)
   - makeNode (PostgreSQL's node allocation macro)
 - Called from (representative examples):
-  - create_samplescan_plan
+  - [create_samplescan_plan](../c/create_samplescan_plan.md)
 
 ## Notes and Other Information
 - This is a static function within createplan.c for internal module use

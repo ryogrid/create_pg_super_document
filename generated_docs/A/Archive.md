@@ -69,7 +69,7 @@ The Archive structure serves as the core abstraction for PostgreSQL dump and res
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpOptions
-  - RestoreOptions
+  - [RestoreOptions](../R/RestoreOptions.md)
 - Called from (representative examples):
   - No direct references found in current analysis
 

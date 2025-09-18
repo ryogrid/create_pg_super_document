@@ -36,15 +36,15 @@ This function constructs an Agg plan node that represents aggregation operations
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeNode (to create Agg node)
-  - clamp_cardinality_to_long (to safely convert group count estimate)
+  - [clamp_cardinality_to_long](../c/clamp_cardinality_to_long.md) (to safely convert group count estimate)
 - Types referenced:
   - AggStrategy (enumeration for aggregation strategies)
   - AggSplit (enumeration for aggregation splitting)
   - Agg (the aggregation plan node structure)
 - Called from (representative examples):
-  - create_agg_plan
-  - create_unique_plan
-  - create_groupingsets_plan
+  - [create_agg_plan](../c/create_agg_plan.md)
+  - [create_unique_plan](../c/create_unique_plan.md)
+  - [create_groupingsets_plan](../c/create_groupingsets_plan.md)
 
 ## Notes and Other Information
 - The function sets `aggParams` to NULL as it will be filled later by `SS_finalize_plan()`

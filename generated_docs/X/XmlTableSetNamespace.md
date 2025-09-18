@@ -21,7 +21,7 @@ The function explicitly rejects DEFAULT namespace declarations (where name is NU
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetXmlTableBuilderPrivateData (retrieves XmlTable context)
+  - [GetXmlTableBuilderPrivateData](../G/GetXmlTableBuilderPrivateData.md) (retrieves XmlTable context)
   - ereport (PostgreSQL error reporting for unsupported features)
   - pg_xmlCharStrndup (converts C strings to libxml2 format)
   - xmlXPathRegisterNs (libxml2 namespace registration)

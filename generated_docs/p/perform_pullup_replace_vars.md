@@ -25,16 +25,16 @@ The function is careful not to replace any jointree structure itself, delegating
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pullup_replace_vars
-  - replace_vars_in_jointree
+  - [pullup_replace_vars](pullup_replace_vars.md)
+  - [replace_vars_in_jointree](../r/replace_vars_in_jointree.md)
   - pullup_replace_vars_context
-  - AppendRelInfo
+  - [AppendRelInfo](../A/AppendRelInfo.md)
   - MergeAction
   - RTE_JOIN
 - Called from (representative examples):
-  - pull_up_simple_subquery
-  - pull_up_simple_values
-  - pull_up_constant_function
+  - [pull_up_simple_subquery](pull_up_simple_subquery.md)
+  - [pull_up_simple_values](pull_up_simple_values.md)
+  - [pull_up_constant_function](pull_up_constant_function.md)
 
 ## Notes and Other Information
 - Uses PHVs (PlaceHolderVars) in targetList, returningList, and havingQual since these are above any outer join

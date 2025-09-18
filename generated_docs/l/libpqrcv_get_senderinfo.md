@@ -25,9 +25,9 @@ The function safely handles cases where host or port information is unavailable,
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `PQhost` (get hostname from libpq connection)
-  - `PQport` (get port from libpq connection)
-  - `pstrdup` (duplicate hostname string using PostgreSQL memory management)
+  - `[PQhost](../P/PQhost.md)` (get hostname from libpq connection)
+  - `[PQport](../P/PQport.md)` (get port from libpq connection)
+  - `[pstrdup](../p/pstrdup.md)` (duplicate hostname string using PostgreSQL memory management)
   - `strlen` (check string length)
   - `atoi` (convert port string to integer)
 
@@ -42,7 +42,7 @@ The function safely handles cases where host or port information is unavailable,
 - Safely handles missing or empty host/port information by setting defaults
 - Function requires an active connection (conn->streamConn must not be NULL)
 - Hostname returned is the resolved hostname, not necessarily what was in the connection string
-- Port is converted from string to integer; invalid port strings will result in 0
+- [Port](../P/Port.md) is converted from string to integer; invalid port strings will result in 0
 - Useful for identifying the source server in master-standby replication topologies
 - Information can be used for monitoring replication lag and connection health
 - Does not perform any network operations; only queries existing connection metadata

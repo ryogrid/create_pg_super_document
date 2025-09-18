@@ -29,18 +29,18 @@ The function specifically handles parameter access control by checking various A
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - audit_attempt
-  - accesstype_to_string
-  - audit_success
+  - [audit_attempt](../a/audit_attempt.md)
+  - [accesstype_to_string](../a/accesstype_to_string.md)
+  - [audit_success](../a/audit_success.md)
   - superuser_arg
-  - GetUserId
+  - [GetUserId](../G/GetUserId.md)
   - ereport
-  - errcode
-  - errmsg
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
   - elog
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
 - Called from (representative examples):
-  - _PG_init (hook installation)
+  - [_PG_init](../P/_PG_init.md) (hook installation)
 
 ## Notes and Other Information
 - This is a static function used exclusively for regression testing in the test_oat_hooks module

@@ -18,12 +18,12 @@ This function opens a target file for writing as part of pg_rewind's file synchr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - close_target_file
+  - [close_target_file](../c/close_target_file.md)
   - open (system call)
   - snprintf
   - strcmp
   - strlen
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Global variables used:
   - dry_run (configuration flag)
   - dstfd (static file descriptor)
@@ -31,11 +31,11 @@ This function opens a target file for writing as part of pg_rewind's file synchr
   - datadir_target (target directory path)
   - pg_file_create_mode (file permission mode)
 - Called from (representative examples):
-  - libpq_queue_fetch_file
-  - process_queued_fetch_requests
-  - local_queue_fetch_file
-  - local_queue_fetch_range
-  - createBackupLabel
+  - [libpq_queue_fetch_file](../l/libpq_queue_fetch_file.md)
+  - [process_queued_fetch_requests](../p/process_queued_fetch_requests.md)
+  - [local_queue_fetch_file](../l/local_queue_fetch_file.md)
+  - [local_queue_fetch_range](../l/local_queue_fetch_range.md)
+  - [createBackupLabel](../c/createBackupLabel.md)
 
 ## Notes and Other Information
 - Part of pg_rewind utility's file operations module (src/bin/pg_rewind/file_ops.c)

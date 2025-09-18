@@ -32,18 +32,18 @@ The function works by:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _hash_getcachedmetap (gets cached metapage data)
-  - _hash_hashkey2bucket (converts hash key to bucket number)
+  - [_hash_getcachedmetap](_hash_getcachedmetap.md) (gets cached metapage data)
+  - [_hash_hashkey2bucket](_hash_hashkey2bucket.md) (converts hash key to bucket number)
   - BUCKET_TO_BLKNO (converts bucket number to block number)
-  - _hash_getbuf (reads bucket page from disk)
+  - [_hash_getbuf](_hash_getbuf.md) (reads bucket page from disk)
   - HashPageGetOpaque (gets hash-specific page data)
-  - _hash_relbuf (releases buffer with lock)
-  - _hash_dropbuf (releases buffer with pin)
+  - [_hash_relbuf](_hash_relbuf.md) (releases buffer with lock)
+  - [_hash_dropbuf](_hash_dropbuf.md) (releases buffer with pin)
   - HASH_READ, HASH_WRITE (access mode constants)
   - LH_BUCKET_PAGE (lock mode for bucket pages)
 - Called from (representative examples):
-  - _hash_doinsert (during tuple insertion operations)
-  - _hash_first (during index scan initialization)
+  - [_hash_doinsert](_hash_doinsert.md) (during tuple insertion operations)
+  - [_hash_first](_hash_first.md) (during index scan initialization)
 
 ## Notes and Other Information
 - The function assumes bucket pages do not move or get removed once allocated, enabling the caching optimization

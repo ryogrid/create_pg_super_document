@@ -21,11 +21,11 @@ The dependencies generated follow the pattern where the first (k-1) elements are
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0 (zero-initialized memory allocation)
-  - generate_dependencies_recurse (recursive dependency generation)
-  - pfree (memory deallocation)
+  - [palloc0](../p/palloc0.md) (zero-initialized memory allocation)
+  - [generate_dependencies_recurse](generate_dependencies_recurse.md) (recursive dependency generation)
+  - [pfree](../p/pfree.md) (memory deallocation)
 - Called from (representative examples):
-  - DependencyGenerator_init
+  - [DependencyGenerator_init](../D/DependencyGenerator_init.md)
 
 ## Notes and Other Information
 - This is a static function internal to the dependencies.c module

@@ -20,7 +20,7 @@ The function takes an array of type modifiers (typically containing just the len
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_ARRAYTYPE_P (extract array argument containing type modifiers)
-  - anybit_typmodin (shared validation logic for bit and varbit types)
+  - [anybit_typmodin](../a/anybit_typmodin.md) (shared validation logic for bit and varbit types)
   - PG_RETURN_INT32 (return validated type modifier value)
 - Called from (representative examples):
   - PostgreSQL's type system when processing DDL statements with bit type specifications

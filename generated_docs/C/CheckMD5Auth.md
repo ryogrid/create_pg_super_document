@@ -19,13 +19,13 @@ CheckMD5Auth performs MD5-based challenge-response authentication by generating 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strong_random (generates cryptographically secure random salt)
-  - sendAuthRequest (sends AUTH_REQ_MD5 request with salt to client)
-  - recv_password_packet (receives MD5 hashed response from client)
-  - md5_crypt_verify (verifies client's MD5 response against stored hash)
-  - pfree (memory cleanup for received password)
+  - [pg_strong_random](../p/pg_strong_random.md) (generates cryptographically secure random salt)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (sends AUTH_REQ_MD5 request with salt to client)
+  - [recv_password_packet](../r/recv_password_packet.md) (receives MD5 hashed response from client)
+  - [md5_crypt_verify](../m/md5_crypt_verify.md) (verifies client's MD5 response against stored hash)
+  - [pfree](../p/pfree.md) (memory cleanup for received password)
 - Called from (representative examples):
-  - CheckPWChallengeAuth function in auth.c:867
+  - [CheckPWChallengeAuth](CheckPWChallengeAuth.md) function in auth.c:867
 
 ## Notes and Other Information
 - Uses 4-byte random salt to prevent rainbow table attacks

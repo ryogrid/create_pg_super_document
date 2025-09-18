@@ -23,18 +23,18 @@ The function is designed to be safe and cannot fail during initialization - any 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecPtrIsInvalid (macro to validate XLogRecPtr)
-  - ResetDecoder (function to reset the reader's decoder state)
+  - [ResetDecoder](../R/ResetDecoder.md) (function to reset the reader's decoder state)
   - InvalidXLogRecPtr (constant representing an invalid record pointer)
 - Called from (representative examples):
-  - XlogReadTwoPhaseData
-  - XLogPrefetcherBeginRead
-  - XLogFindNextRecord
-  - SummarizeWAL
-  - DecodingContextFindStartpoint
+  - [XlogReadTwoPhaseData](XlogReadTwoPhaseData.md)
+  - [XLogPrefetcherBeginRead](XLogPrefetcherBeginRead.md)
+  - [XLogFindNextRecord](XLogFindNextRecord.md)
+  - [SummarizeWAL](../S/SummarizeWAL.md)
+  - [DecodingContextFindStartpoint](../D/DecodingContextFindStartpoint.md)
   - LogicalReplicationSlotHasPendingWal
-  - StartLogicalReplication
-  - extractPageMap
-  - findLastCheckpoint
+  - [StartLogicalReplication](../S/StartLogicalReplication.md)
+  - [extractPageMap](../e/extractPageMap.md)
+  - [findLastCheckpoint](../f/findLastCheckpoint.md)
 
 ## Notes and Other Information
 - This function cannot fail and performs only initialization - validation of the starting position occurs during actual record reading

@@ -23,26 +23,26 @@ This comprehensive validation function ensures partition bound integrity when ad
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionKey
-  - RelationGetPartitionDesc
+  - [RelationGetPartitionKey](../R/RelationGetPartitionKey.md)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
   - partition_bound_has_default
-  - partition_hash_bsearch
-  - partition_list_bsearch
-  - partition_range_bsearch
-  - make_one_partition_rbound
-  - partition_rbound_cmp
-  - get_rel_name
-  - DatumGetInt32
-  - PartitionBoundSpec
-  - PartitionKey
-  - PartitionDesc
-  - PartitionBoundInfo
-  - PartitionRangeBound
-  - PartitionRangeDatum
-  - PartitionRangeDatumKind
+  - [partition_hash_bsearch](../p/partition_hash_bsearch.md)
+  - [partition_list_bsearch](../p/partition_list_bsearch.md)
+  - [partition_range_bsearch](../p/partition_range_bsearch.md)
+  - [make_one_partition_rbound](../m/make_one_partition_rbound.md)
+  - [partition_rbound_cmp](../p/partition_rbound_cmp.md)
+  - [get_rel_name](../g/get_rel_name.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
+  - [PartitionBoundSpec](../P/PartitionBoundSpec.md)
+  - [PartitionKey](../P/PartitionKey.md)
+  - [PartitionDesc](../P/PartitionDesc.md)
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
+  - [PartitionRangeBound](../P/PartitionRangeBound.md)
+  - [PartitionRangeDatum](../P/PartitionRangeDatum.md)
+  - [PartitionRangeDatumKind](../P/PartitionRangeDatumKind.md)
 - Called from (representative examples):
-  - DefineRelation
-  - ATExecAttachPartition
+  - [DefineRelation](../D/DefineRelation.md)
+  - [ATExecAttachPartition](../A/ATExecAttachPartition.md)
 
 ## Notes and Other Information
 - This is a public function (non-static) used by table creation and partition attachment commands

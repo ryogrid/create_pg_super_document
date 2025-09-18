@@ -17,11 +17,11 @@ The `get_object_start` function is a semantic action callback used during JSON p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetState
+  - [GetState](../G/GetState.md)
   - JSON_SUCCESS
   - JsonParseErrorType
 - Called from (representative examples):
-  - get_worker
+  - [get_worker](get_worker.md)
 
 ## Notes and Other Information
 - This function is static and internal to jsonfuncs.c

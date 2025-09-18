@@ -18,14 +18,14 @@ This function retrieves the fully qualified name (schema.name) of a collation gi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_typcollation
-  - SearchSysCache1
-  - get_namespace_name
-  - makeString
+  - [get_typcollation](get_typcollation.md)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [get_namespace_name](get_namespace_name.md)
+  - [makeString](../m/makeString.md)
   - list_make2
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Called from (representative examples):
-  - generateClonedIndexStmt
+  - [generateClonedIndexStmt](generateClonedIndexStmt.md)
 
 ## Notes and Other Information
 - Returns NIL (empty list) when collation specification is unnecessary

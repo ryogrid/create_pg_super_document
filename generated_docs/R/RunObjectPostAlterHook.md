@@ -25,14 +25,14 @@ The function constructs an ObjectAccessPostAlter structure with the provided par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ObjectAccessPostAlter (struct type)
+  - [ObjectAccessPostAlter](../O/ObjectAccessPostAlter.md) (struct type)
   - OAT_POST_ALTER (enum value)
   - object_access_hook (global function pointer)
   - Assert (assertion macro)
   - memset (memory initialization function)
 
 - Called from (representative examples):
-  - ObjectAccessNamespaceSearch
+  - [ObjectAccessNamespaceSearch](../O/ObjectAccessNamespaceSearch.md)
   - InvokeObjectPostAlterHookArg
 
 ## Notes and Other Information

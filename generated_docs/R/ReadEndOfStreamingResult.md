@@ -21,13 +21,13 @@ The function is critical for maintaining continuous replication across timeline 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQnfields
-  - PQntuples
-  - PQgetvalue
+  - [PQnfields](../P/PQnfields.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atoi
   - sscanf
 - Called from (representative examples):
-  - ReceiveXlogStream
+  - [ReceiveXlogStream](ReceiveXlogStream.md)
 
 ## Notes and Other Information
 - Expects exactly one row with two columns: next_tli and next_tli_startpos

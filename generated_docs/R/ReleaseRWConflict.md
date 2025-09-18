@@ -17,16 +17,16 @@ This function cleans up a read-write conflict record by removing it from both th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - dlist_delete
-  - dlist_push_tail
+  - [dlist_delete](../d/dlist_delete.md)
+  - [dlist_push_tail](../d/dlist_push_tail.md)
 - Types referenced:
-  - RWConflict
+  - [RWConflict](RWConflict.md)
 - Global variables accessed:
   - RWConflictPool
 - Called from (representative examples):
-  - FlagSxactUnsafe
-  - ReleasePredicateLocks
-  - ReleaseOneSerializableXact
+  - [FlagSxactUnsafe](../F/FlagSxactUnsafe.md)
+  - [ReleasePredicateLocks](ReleasePredicateLocks.md)
+  - [ReleaseOneSerializableXact](ReleaseOneSerializableXact.md)
 
 ## Notes and Other Information
 - Removes the conflict from both inLink and outLink lists to disconnect it from transactions

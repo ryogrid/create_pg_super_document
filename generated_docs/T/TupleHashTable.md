@@ -36,14 +36,14 @@ This is a typedef pointer, so it references the members of TupleHashTableData:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleHashTableData (underlying struct)
+  - [TupleHashTableData](TupleHashTableData.md) (underlying struct)
 - Called from (representative examples):
   - BuildTupleHashTableExt (src/backend/executor/execGrouping.c:165)
   - ResetTupleHashTable (src/backend/executor/execGrouping.c:283)
   - LookupTupleHashEntry (src/backend/executor/execGrouping.c:304)
   - TupleHashTableHash (src/backend/executor/execGrouping.c:336)
-  - initialize_hash_entry (src/backend/executor/nodeAgg.c:2045)
-  - lookup_hash_entries (src/backend/executor/nodeAgg.c:2104)
+  - [initialize_hash_entry](../i/initialize_hash_entry.md) (src/backend/executor/nodeAgg.c:2045)
+  - [lookup_hash_entries](../l/lookup_hash_entries.md) (src/backend/executor/nodeAgg.c:2104)
 
 ## Notes and Other Information
 - Used extensively in aggregation operations (nodeAgg.c) for grouping tuples by key columns

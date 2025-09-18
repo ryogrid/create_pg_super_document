@@ -28,18 +28,18 @@ All constraint expressions undergo the same preprocessing as qual clauses in  to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TupleConstr
-  - stringToNode
-  - eval_const_expressions
-  - canonicalize_qual
-  - ChangeVarNodes
-  - list_concat
-  - make_ands_implicit
+  - [TupleConstr](../T/TupleConstr.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [eval_const_expressions](../e/eval_const_expressions.md)
+  - [canonicalize_qual](../c/canonicalize_qual.md)
+  - [ChangeVarNodes](../C/ChangeVarNodes.md)
+  - [list_concat](../l/list_concat.md)
+  - [make_ands_implicit](../m/make_ands_implicit.md)
   - NullTest
   - makeVar
-  - set_baserel_partition_constraint
+  - [set_baserel_partition_constraint](../s/set_baserel_partition_constraint.md)
 - Called from (representative examples):
-  - relation_excluded_by_constraints
+  - [relation_excluded_by_constraints](../r/relation_excluded_by_constraints.md)
 
 ## Notes and Other Information
 - This is a static function, not part of the external API

@@ -27,17 +27,17 @@ The function uses PostgreSQL's exception handling mechanism (PG_TRY/PG_CATCH) to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLy_global_args_push/PLy_global_args_pop
-  - PLy_function_build_args
-  - PLy_procedure_call
-  - PLy_function_save_args/PLy_function_restore_args
-  - PLy_output_convert/PLy_output_setup_record
+  - [PLy_global_args_push](PLy_global_args_push.md)/PLy_global_args_pop
+  - [PLy_function_build_args](PLy_function_build_args.md)
+  - [PLy_procedure_call](PLy_procedure_call.md)
+  - [PLy_function_save_args](PLy_function_save_args.md)/PLy_function_restore_args
+  - [PLy_output_convert](PLy_output_convert.md)/PLy_output_setup_record
   - SRF_* macros for set-returning function management
   - SPI_finish for database connection cleanup
   - PyIter_Next, PyObject_GetIter for Python iteration
 - Called from (representative examples):
-  - plpython3_call_handler (main function handler)
-  - plpython3_inline_handler (inline code handler)
+  - [plpython3_call_handler](../p/plpython3_call_handler.md) (main function handler)
+  - [plpython3_inline_handler](../p/plpython3_inline_handler.md) (inline code handler)
 
 ## Notes and Other Information
 - Supports both regular functions and set-returning functions through a unified interface

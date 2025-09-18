@@ -25,7 +25,7 @@ This function takes no parameters and operates on the global CurrentTransactionS
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CommitTransaction - performs the actual transaction commit process
+  - [CommitTransaction](../C/CommitTransaction.md) - performs the actual transaction commit process
   - Assert - validates expected transaction state before proceeding
 - Constants used:
   - TBLOCK_PARALLEL_INPROGRESS - expected initial state for parallel worker transactions
@@ -33,7 +33,7 @@ This function takes no parameters and operates on the global CurrentTransactionS
 - Structures used:
   - CurrentTransactionState - global transaction state being modified
 - Called from (representative examples):
-  - ParallelWorkerMain (src/backend/access/transam/parallel.c:1559)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (src/backend/access/transam/parallel.c:1559)
 
 ## Notes and Other Information
 - Counterpart to StartParallelWorkerTransaction - completes the parallel worker transaction lifecycle

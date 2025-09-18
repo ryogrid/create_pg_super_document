@@ -29,7 +29,7 @@ The function is designed to never call ereport(ERROR) directly since callers may
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruFileName
+  - [SlruFileName](SlruFileName.md)
   - OpenTransientFile
   - pg_pread
   - pgstat_report_wait_start
@@ -39,7 +39,7 @@ The function is designed to never call ereport(ERROR) directly since callers may
   - SLRU_PAGES_PER_SEGMENT
   - PG_BINARY
 - Called from (representative examples):
-  - SimpleLruReadPage
+  - [SimpleLruReadPage](SimpleLruReadPage.md)
 
 ## Notes and Other Information
 - Returns boolean success/failure status rather than using ereport(ERROR) to allow caller cleanup

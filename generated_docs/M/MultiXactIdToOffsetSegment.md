@@ -21,12 +21,12 @@ The function is essential for file-level operations in the MultiXact system, suc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MultiXactIdToOffsetPage (function to get page number)
+  - [MultiXactIdToOffsetPage](MultiXactIdToOffsetPage.md) (function to get page number)
   - SLRU_PAGES_PER_SEGMENT (constant defining pages per segment)
   - MultiXactId (type definition)
 - Called from (representative examples):
-  - TruncateMultiXact (called twice for range operations)
-  - multixact_redo (called twice during WAL replay)
+  - [TruncateMultiXact](../T/TruncateMultiXact.md) (called twice for range operations)
+  - [multixact_redo](../m/multixact_redo.md) (called twice during WAL replay)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

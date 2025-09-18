@@ -22,7 +22,7 @@ The  function promotes a PostgreSQL date to a timestamp with time zone, incorpor
   - DATE_IS_NOEND: Checks for positive infinity date
   - TIMESTAMP_NOBEGIN: Sets result to negative infinity timestamp
   - TIMESTAMP_NOEND: Sets result to positive infinity timestamp
-  - j2date: Converts Julian day to year/month/day components
+  - [j2date](../j/j2date.md): Converts Julian day to year/month/day components
   - DetermineTimeZoneOffset: Calculates timezone offset for given time and zone
   - TIMESTAMP_END_JULIAN: Upper boundary constant for timestamp range
   - POSTGRES_EPOCH_JDATE: PostgreSQL epoch reference date
@@ -32,8 +32,8 @@ The  function promotes a PostgreSQL date to a timestamp with time zone, incorpor
   - MIN_TIMESTAMP: Lower boundary constant for timestamp range
   - session_timezone: Current session timezone setting
 - Called from (representative examples):
-  - date2timestamptz: Wrapper function without overflow handling
-  - date_cmp_timestamptz_internal: Date-timestamptz comparison function
+  - [date2timestamptz](date2timestamptz.md): Wrapper function without overflow handling
+  - [date_cmp_timestamptz_internal](date_cmp_timestamptz_internal.md): Date-timestamptz comparison function
   - PG_RETURN_TIMETZADT_P: Header macro usage
 
 ## Notes and Other Information

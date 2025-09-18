@@ -22,7 +22,7 @@ dshash_strhash serves as a wrapper function around PostgreSQL's string_hash func
 ## Dependencies
 - Functions called/Symbols referenced:
   - strlen (standard library function, used in assertion)
-  - string_hash (PostgreSQL's internal string hashing function)
+  - [string_hash](../s/string_hash.md) (PostgreSQL's internal string hashing function)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
   - No direct references found in the current codebase

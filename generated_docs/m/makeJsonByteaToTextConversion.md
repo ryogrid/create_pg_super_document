@@ -23,7 +23,7 @@ The function creates a two-argument function call where the first argument is th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getJsonEncodingConst (to get encoding constant)
+  - [getJsonEncodingConst](../g/getJsonEncodingConst.md) (to get encoding constant)
   - makeFuncExpr (to create function expression node)
   - list_make2 (to create argument list)
   - JsonFormat (input parameter type)
@@ -34,8 +34,8 @@ The function creates a two-argument function call where the first argument is th
   - InvalidOid (for missing OID values)
   - COERCE_EXPLICIT_CALL (coercion type constant)
 - Called from (representative examples):
-  - transformJsonValueExpr
-  - transformJsonParseArg
+  - [transformJsonValueExpr](../t/transformJsonValueExpr.md)
+  - [transformJsonParseArg](../t/transformJsonParseArg.md)
 
 ## Notes and Other Information
 - This is a static helper function within parse_expr.c

@@ -29,13 +29,13 @@ This operation is part of PostgreSQL's mechanism to ensure tuple consistency dur
 - Functions called/Symbols referenced:
   - XLogRecGetData (extracts xl_heap_confirm structure from WAL record)
   - XLogReadBufferForRedo (reads and locks the target buffer for redo operations)
-  - PageGetMaxOffsetNumber, PageGetItemId (page-level tuple access functions)
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md), PageGetItemId (page-level tuple access functions)
   - ItemIdIsNormal (validates tuple item identifier)
-  - PageGetItem (retrieves tuple data from page)
-  - ItemPointerSet (sets the tuple's ctid self-reference)
-  - PageSetLSN, MarkBufferDirty (page maintenance operations)
+  - [PageGetItem](../P/PageGetItem.md) (retrieves tuple data from page)
+  - [ItemPointerSet](../I/ItemPointerSet.md) (sets the tuple's ctid self-reference)
+  - [PageSetLSN](../P/PageSetLSN.md), MarkBufferDirty (page maintenance operations)
 - Called from (representative examples):
-  - heap_redo (main heap WAL replay dispatcher)
+  - [heap_redo](heap_redo.md) (main heap WAL replay dispatcher)
 
 ## Notes and Other Information
 - **Transaction Finalization**: This operation typically occurs as part of finalizing complex transactions where tuple insertion occurs in multiple stages

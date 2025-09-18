@@ -17,19 +17,19 @@ ClearOrSaveResult implements psql's error result preservation mechanism. When a 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus (PostgreSQL libpq function)
-  - PQclear (PostgreSQL libpq memory management function)
-- Result status constants:
+  - [PQresultStatus](../P/PQresultStatus.md) (PostgreSQL libpq function)
+  - [PQclear](../P/PQclear.md) (PostgreSQL libpq memory management function)
+- [Result](../R/Result.md) status constants:
   - PGRES_NONFATAL_ERROR (PostgreSQL result status)
   - PGRES_FATAL_ERROR (PostgreSQL result status)
 - Global variables accessed:
   - pset.last_error_result (psql global state for error preservation)
 - Called from:
-  - ClearOrSaveAllResults (src/bin/psql/common.c:552)
-  - PSQLexec (src/bin/psql/common.c:657)
-  - SendQuery (src/bin/psql/common.c:1143, 1146, 1161, 1164, 1229)
-  - DescribeQuery (src/bin/psql/common.c:1342, 1416)
-  - ExecQueryAndProcessResults (src/bin/psql/common.c:1549, 1696, 1738, 1803, 1809)
+  - [ClearOrSaveAllResults](ClearOrSaveAllResults.md) (src/bin/psql/common.c:552)
+  - [PSQLexec](../P/PSQLexec.md) (src/bin/psql/common.c:657)
+  - [SendQuery](../S/SendQuery.md) (src/bin/psql/common.c:1143, 1146, 1161, 1164, 1229)
+  - [DescribeQuery](../D/DescribeQuery.md) (src/bin/psql/common.c:1342, 1416)
+  - [ExecQueryAndProcessResults](../E/ExecQueryAndProcessResults.md) (src/bin/psql/common.c:1549, 1696, 1738, 1803, 1809)
 
 ## Notes and Other Information
 This function is central to psql's memory management strategy for query results. It implements the policy of preserving error results for debugging purposes while immediately freeing successful results to minimize memory usage. The function safely handles NULL results and ensures that only one error result is kept at a time by clearing any existing saved error before storing a new one. The preserved error results enable the \errverbose command to provide detailed error information even after subsequent queries have been executed. This applies to results from all queries, including internal "back door" queries used for debugging, making it a comprehensive error tracking mechanism.

@@ -26,13 +26,13 @@ This function parses and validates the function-related options specified in CRE
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DefElem
-  - errorConflictingDefElem
-  - lookup_fdw_handler_func
-  - lookup_fdw_validator_func
+  - [DefElem](../D/DefElem.md)
+  - [errorConflictingDefElem](../e/errorConflictingDefElem.md)
+  - [lookup_fdw_handler_func](../l/lookup_fdw_handler_func.md)
+  - [lookup_fdw_validator_func](../l/lookup_fdw_validator_func.md)
 - Called from (representative examples):
-  - CreateForeignDataWrapper
-  - AlterForeignDataWrapper
+  - [CreateForeignDataWrapper](../C/CreateForeignDataWrapper.md)
+  - [AlterForeignDataWrapper](../A/AlterForeignDataWrapper.md)
 
 ## Notes and Other Information
 - This is a static helper function used internally by FDW management commands

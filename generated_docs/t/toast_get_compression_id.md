@@ -25,7 +25,7 @@ This function analyzes a varlena data structure to determine its compression met
   - VARDATA_COMPRESSED_GET_COMPRESS_METHOD
   - TOAST_INVALID_COMPRESSION_ID
 - Called from (representative examples):
-  - pg_column_compression
+  - [pg_column_compression](../p/pg_column_compression.md)
   - CompressionMethodIsValid
 
 ## Notes and Other Information

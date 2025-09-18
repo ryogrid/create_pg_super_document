@@ -29,24 +29,24 @@ The function handles concurrent operations gracefully by detecting when range ma
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - revmap_get_blkno
-  - ReadBuffer
-  - LockBuffer
-  - BufferGetBlockNumber
-  - PageGetContents
+  - [revmap_get_blkno](../r/revmap_get_blkno.md)
+  - [ReadBuffer](../R/ReadBuffer.md)
+  - [LockBuffer](../L/LockBuffer.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [PageGetContents](../P/PageGetContents.md)
   - HEAPBLK_TO_REVMAP_INDEX
-  - ItemPointerIsValid
-  - ItemPointerEquals
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [ItemPointerEquals](../I/ItemPointerEquals.md)
   - BRIN_IS_REGULAR_PAGE
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - ItemIdIsUsed
-  - PageGetItem
+  - [PageGetItem](../P/PageGetItem.md)
 - Called from (representative examples):
-  - brininsert
-  - bringetbitmap
-  - summarize_range
-  - brinsummarize
+  - [brininsert](brininsert.md)
+  - [bringetbitmap](bringetbitmap.md)
+  - [summarize_range](../s/summarize_range.md)
+  - [brinsummarize](brinsummarize.md)
 
 ## Notes and Other Information
 - Returns NULL if no tuple is found for the given heap range

@@ -22,14 +22,14 @@ The function first validates that a relation ID was found, then retrieves the re
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - object_ownercheck - Verifies user ownership of database objects
-  - aclcheck_error - Reports access control violations
-  - get_relkind_objtype - Determines object type from relation kind
-  - get_rel_relkind - Retrieves relation kind from system catalog
-  - IsSystemClass - Checks if relation is a system catalog
+  - [object_ownercheck](../o/object_ownercheck.md) - Verifies user ownership of database objects
+  - [aclcheck_error](../a/aclcheck_error.md) - Reports access control violations
+  - [get_relkind_objtype](../g/get_relkind_objtype.md) - Determines object type from relation kind
+  - [get_rel_relkind](../g/get_rel_relkind.md) - Retrieves relation kind from system catalog
+  - [IsSystemClass](../I/IsSystemClass.md) - Checks if relation is a system catalog
 - Called from (representative examples):
-  - AlterSequence (src/backend/commands/sequence.c:457)
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1478)
+  - [AlterSequence](../A/AlterSequence.md) (src/backend/commands/sequence.c:457)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1478)
 
 ## Notes and Other Information
 - The function silently returns if no valid relation ID is provided, allowing higher-level code to handle missing relations appropriately

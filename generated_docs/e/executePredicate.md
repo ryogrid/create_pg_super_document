@@ -35,14 +35,14 @@ The function uses existence semantics where TRUE is returned if ANY pair satisfi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - executeItemOptUnwrapResultNoThrow
-  - JsonValueListInitIterator
-  - JsonValueListNext
+  - [executeItemOptUnwrapResultNoThrow](executeItemOptUnwrapResultNoThrow.md)
+  - [JsonValueListInitIterator](../J/JsonValueListInitIterator.md)
+  - [JsonValueListNext](../J/JsonValueListNext.md)
   - jperIsError
   - jspStrictAbsenceOfErrors
-  - exec (callback function parameter)
+  - [exec](exec.md) (callback function parameter)
 - Called from (representative examples):
-  - executeBoolItem (multiple call sites for different predicate types)
+  - [executeBoolItem](executeBoolItem.md) (multiple call sites for different predicate types)
 
 ## Notes and Other Information
 - This is a static function used only within the jsonpath_exec.c compilation unit

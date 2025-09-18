@@ -21,9 +21,9 @@ xidsend serves as the binary output conversion function for the xid data type in
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TRANSACTIONID
-  - pq_begintypsend
-  - pq_sendint32
-  - pq_endtypsend
+  - [pq_begintypsend](../p/pq_begintypsend.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_endtypsend](../p/pq_endtypsend.md)
   - PG_RETURN_BYTEA_P
 - Called from (representative examples):
   - No direct references found (likely called through PostgreSQL's type system infrastructure for binary protocol)

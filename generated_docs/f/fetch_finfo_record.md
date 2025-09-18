@@ -26,14 +26,14 @@ The function ensures that C-language functions have proper PG_FUNCTION_INFO_V1 d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - psprintf (format string into allocated memory)
-  - lookup_external_function (find function in shared library)
+  - [psprintf](../p/psprintf.md) (format string into allocated memory)
+  - [lookup_external_function](../l/lookup_external_function.md) (find function in shared library)
   - ereport (detailed error reporting)
   - elog (simple error logging)
-  - pfree (free allocated memory)
+  - [pfree](../p/pfree.md) (free allocated memory)
 - Called from (representative examples):
-  - fmgr_info_C_lang (during function info setup)
-  - fmgr_c_validator (during function validation)
+  - [fmgr_info_C_lang](fmgr_info_C_lang.md) (during function info setup)
+  - [fmgr_c_validator](fmgr_c_validator.md) (during function validation)
 
 ## Notes and Other Information
 - This function enforces PostgreSQL's requirement that C functions have PG_FUNCTION_INFO_V1 declarations

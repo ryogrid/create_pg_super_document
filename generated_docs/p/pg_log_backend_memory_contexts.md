@@ -27,9 +27,9 @@ This mechanism is designed for debugging memory usage issues and is typically us
   - BackendPidGetProc
   - AuxiliaryPidGetProc  
   - GetNumberFromPGProc
-  - SendProcSignal
+  - [SendProcSignal](../S/SendProcSignal.md)
   - PROCSIG_LOG_MEMORY_CONTEXT
-  - PGPROC (struct type)
+  - [PGPROC](../P/PGPROC.md) (struct type)
   - ProcNumber (type)
   - INVALID_PROC_NUMBER
 - Called from (representative examples):

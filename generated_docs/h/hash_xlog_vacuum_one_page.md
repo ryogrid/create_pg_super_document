@@ -28,31 +28,31 @@ Hot standby conflict resolution is important because removing DEAD tuples can co
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetData
-  - XLogRecGetBlockTag
-  - ResolveRecoveryConflictWithSnapshot
+  - [XLogRecGetBlockTag](../X/XLogRecGetBlockTag.md)
+  - [ResolveRecoveryConflictWithSnapshot](../R/ResolveRecoveryConflictWithSnapshot.md)
   - XLogReadBufferForRedoExtended
-  - BufferGetPage
-  - PageIndexMultiDelete
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md)
   - HashPageGetOpaque
   - HashPageGetMeta
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - BufferIsValid
-  - UnlockReleaseBuffer
+  - [BufferIsValid](../B/BufferIsValid.md)
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
   - XLogReadBufferForRedo
 - Types referenced:
-  - xl_hash_vacuum_one_page
+  - [xl_hash_vacuum_one_page](../x/xl_hash_vacuum_one_page.md)
   - XLogRedoAction
   - HashPageOpaque
   - HashMetaPage
-  - RelFileLocator
+  - [RelFileLocator](../R/RelFileLocator.md)
   - BLK_NEEDS_REDO
   - RBM_NORMAL
   - LH_PAGE_HAS_DEAD_TUPLES
 - Constants referenced:
   - InHotStandby
 - Called from:
-  - hash_redo
+  - [hash_redo](hash_redo.md)
 
 ## Notes and Other Information
 - This is a static function used only within the hash WAL recovery subsystem

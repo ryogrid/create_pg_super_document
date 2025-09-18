@@ -19,23 +19,23 @@ ri_set is the central workhorse function that implements the actual logic for ON
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ri_FetchConstraintInfo (retrieves constraint metadata)
+  - [ri_FetchConstraintInfo](ri_FetchConstraintInfo.md) (retrieves constraint metadata)
   - table_open (opens the foreign key relation with RowExclusiveLock)
   - SPI_connect/SPI_finish (SPI interface management)
-  - ri_BuildQueryKey/ri_FetchPreparedPlan (query plan management)
-  - ri_PlanCheck (prepares new query plans when needed)
-  - ri_PerformCheck (executes the UPDATE statement)
-  - ri_restrict (performs additional validation for SET DEFAULT case)
+  - [ri_BuildQueryKey](ri_BuildQueryKey.md)/ri_FetchPreparedPlan (query plan management)
+  - [ri_PlanCheck](ri_PlanCheck.md) (prepares new query plans when needed)
+  - [ri_PerformCheck](ri_PerformCheck.md) (executes the UPDATE statement)
+  - [ri_restrict](ri_restrict.md) (performs additional validation for SET DEFAULT case)
   - Various utility functions: RIAttName, RIAttType, RIAttCollation, quoteRelationName, quoteOneName
 - Called from (representative examples):
-  - RI_FKey_setnull_del
-  - RI_FKey_setnull_upd
-  - RI_FKey_setdefault_del
-  - RI_FKey_setdefault_upd
+  - [RI_FKey_setnull_del](../R/RI_FKey_setnull_del.md)
+  - [RI_FKey_setnull_upd](../R/RI_FKey_setnull_upd.md)
+  - [RI_FKey_setdefault_del](../R/RI_FKey_setdefault_del.md)
+  - [RI_FKey_setdefault_upd](../R/RI_FKey_setdefault_upd.md)
 
 ## Notes and Other Information
 - The function supports both full and partial column updates based on confdelsetcols configuration
-- Query plans are cached for performance using the RI_QueryKey mechanism
+- [Query](../Q/Query.md) plans are cached for performance using the RI_QueryKey mechanism
 - Handles partitioned tables by omitting the ONLY keyword when appropriate
 - For SET DEFAULT operations, performs additional validation via ri_restrict to ensure no constraint violations
 - Uses SPI (Server Programming Interface) to execute dynamically constructed UPDATE statements

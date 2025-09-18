@@ -21,9 +21,9 @@ The function intentionally does not restore the is_truncated field from the orig
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddPendingSync
+  - [AddPendingSync](../A/AddPendingSync.md)
 - Called from (representative examples):
-  - ParallelWorkerMain
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md)
 
 ## Notes and Other Information
 - The function assumes pendingSyncHash is NULL when called (asserted)

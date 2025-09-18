@@ -27,7 +27,7 @@ This function performs a type conversion from PostgreSQL's double-precision floa
   - ereport (PostgreSQL error reporting function)
   - PG_RETURN_INT64 (macro to return int64 result)
 - Called from (representative examples):
-  - int8_to_char (in src/backend/utils/adt/formatting.c:6676)
+  - [int8_to_char](../i/int8_to_char.md) (in src/backend/utils/adt/formatting.c:6676)
 
 ## Notes and Other Information
 - Located in src/backend/utils/adt/int8.c:1297-1317

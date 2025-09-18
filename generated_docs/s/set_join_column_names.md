@@ -46,13 +46,13 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - deparse_columns_fetch
-  - expand_colnames_array_to
-  - make_colname_unique
-  - list_nth
-  - bms_add_member
-  - bms_is_member
+  - [expand_colnames_array_to](../e/expand_colnames_array_to.md)
+  - [make_colname_unique](../m/make_colname_unique.md)
+  - [list_nth](../l/list_nth.md)
+  - [bms_add_member](../b/bms_add_member.md)
+  - [bms_is_member](../b/bms_is_member.md)
 - Called from (representative examples):
-  - set_deparse_for_query
+  - [set_deparse_for_query](set_deparse_for_query.md)
 
 ## Notes and Other Information
 - Part of PostgreSQL's rule decompilation system for reconstructing SQL text from internal join representations

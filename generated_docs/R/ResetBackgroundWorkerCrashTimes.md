@@ -19,15 +19,15 @@ This function handles the cleanup and reset of background worker states followin
 - Functions called/Symbols referenced:
   - slist_foreach_modify (macro for safely iterating and modifying singly-linked lists)
   - slist_container (macro to get container structure from list node)
-  - ForgetBackgroundWorker (removes worker registration)
+  - [ForgetBackgroundWorker](../F/ForgetBackgroundWorker.md) (removes worker registration)
   - BGW_NEVER_RESTART (constant indicating worker should not restart)
   - BGWORKER_CLASS_PARALLEL (flag indicating parallel worker class)
 - Data structures used:
-  - slist_mutable_iter
-  - RegisteredBgWorker
+  - [slist_mutable_iter](../s/slist_mutable_iter.md)
+  - [RegisteredBgWorker](RegisteredBgWorker.md)
   - BackgroundWorkerList (global list of registered background workers)
 - Called from (representative examples):
-  - PostmasterStateMachine
+  - [PostmasterStateMachine](../P/PostmasterStateMachine.md)
 
 ## Notes and Other Information
 - This function should only be called from the postmaster process

@@ -24,12 +24,12 @@ The function uses a doubling strategy for block sizes, starting with initBlockSi
 - Functions called/Symbols referenced:
   - pg_nextpower2_size_t (rounds size up to next power of 2)
   - malloc (system memory allocation)
-  - MemoryContextAllocationFailure (handles allocation failures)
-  - GenerationBlockInit (initializes the new block structure)
-  - dlist_push_head (adds block to the context's block list)
-  - GenerationAllocChunkFromBlock (allocates the actual chunk)
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md) (handles allocation failures)
+  - [GenerationBlockInit](GenerationBlockInit.md) (initializes the new block structure)
+  - [dlist_push_head](../d/dlist_push_head.md) (adds block to the context's block list)
+  - [GenerationAllocChunkFromBlock](GenerationAllocChunkFromBlock.md) (allocates the actual chunk)
 - Called from (representative examples):
-  - GenerationAlloc (when current block cannot satisfy request)
+  - [GenerationAlloc](GenerationAlloc.md) (when current block cannot satisfy request)
 
 ## Notes and Other Information
 - Marked as pg_noinline to keep GenerationAlloc() lean for the common case

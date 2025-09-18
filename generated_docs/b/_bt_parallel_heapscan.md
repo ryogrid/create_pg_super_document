@@ -33,11 +33,11 @@ Key responsibilities include:
 ## Dependencies
 - Functions called/Symbols referenced:
   - SpinLockAcquire/SpinLockRelease: Protect access to shared state variables
-  - ConditionVariableSleep: Wait for worker completion notification
-  - ConditionVariableCancelSleep: Clean up condition variable wait state
-  - BTShared: Shared state structure containing coordination and statistics
+  - [ConditionVariableSleep](../C/ConditionVariableSleep.md): Wait for worker completion notification
+  - [ConditionVariableCancelSleep](../C/ConditionVariableCancelSleep.md): Clean up condition variable wait state
+  - [BTShared](../B/BTShared.md): Shared state structure containing coordination and statistics
 - Called from (representative examples):
-  - _bt_spools_heapscan: Main heap scanning coordinator after parallel workers are launched
+  - [_bt_spools_heapscan](_bt_spools_heapscan.md): Main heap scanning coordinator after parallel workers are launched
 
 ## Notes and Other Information
 - Uses WAIT_EVENT_PARALLEL_CREATE_INDEX_SCAN for wait event monitoring

@@ -27,15 +27,15 @@ The function ensures that empty groups are represented consistently across all s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExplainXMLTag (for XML self-closing tag generation)
-  - ExplainJSONLineEnding (for proper JSON line formatting)
-  - ExplainYAMLLineStarting (for proper YAML line formatting)
+  - [ExplainXMLTag](ExplainXMLTag.md) (for XML self-closing tag generation)
+  - [ExplainJSONLineEnding](ExplainJSONLineEnding.md) (for proper JSON line formatting)
+  - [ExplainYAMLLineStarting](ExplainYAMLLineStarting.md) (for proper YAML line formatting)
   - appendStringInfoSpaces (for indentation)
   - appendStringInfoString (for string concatenation)
-  - escape_json (for JSON string escaping)
-  - escape_yaml (for YAML string escaping)
+  - [escape_json](../e/escape_json.md) (for JSON string escaping)
+  - [escape_yaml](../e/escape_yaml.md) (for YAML string escaping)
 - Called from (representative examples):
-  - ExplainOneUtility (multiple calls for different empty utility command scenarios)
+  - [ExplainOneUtility](ExplainOneUtility.md) (multiple calls for different empty utility command scenarios)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the explain.c file

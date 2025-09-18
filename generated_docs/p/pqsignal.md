@@ -30,9 +30,9 @@ This design ensures portable, predictable signal handling behavior across Postgr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - wrapper_handler (when installing custom handlers)
+  - [wrapper_handler](../w/wrapper_handler.md) (when installing custom handlers)
   - pqsignal_handlers (array to store original handlers)
-  - sigaction (POSIX signal installation function)
+  - [sigaction](../s/sigaction.md) (POSIX signal installation function)
   - sigemptyset (to initialize signal mask)
   - signal (on Windows frontend)
   - SIG_IGN, SIG_DFL, SIG_ERR (standard signal constants)

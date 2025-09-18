@@ -27,9 +27,9 @@ If all conditions are met, it sets the boundary markers (ket and bra) and return
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (for pattern matching in suffix array a_1)
+  - [find_among_b](../f/find_among_b.md) (for pattern matching in suffix array a_1)
 - Called from:
-  - nepali_UTF_8_stem (main stemming function)
+  - [nepali_UTF_8_stem](../n/nepali_UTF_8_stem.md) (main stemming function)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the Nepali stemmer module  

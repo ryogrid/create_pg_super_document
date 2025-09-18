@@ -19,15 +19,15 @@ This function implements the complete Portuguese stemming algorithm by orchestra
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude
-  - r_mark_regions  
-  - r_standard_suffix
-  - r_verb_suffix
-  - r_RV
-  - slice_del
-  - r_residual_suffix
-  - r_residual_form
-  - r_postlude
+  - [r_prelude](../r/r_prelude.md)
+  - [r_mark_regions](../r/r_mark_regions.md)  
+  - [r_standard_suffix](../r/r_standard_suffix.md)
+  - [r_verb_suffix](../r/r_verb_suffix.md)
+  - [r_RV](../r/r_RV.md)
+  - [slice_del](../s/slice_del.md)
+  - [r_residual_suffix](../r/r_residual_suffix.md)
+  - [r_residual_form](../r/r_residual_form.md)
+  - [r_postlude](../r/r_postlude.md)
 - Called from (representative examples):
   - No direct references found (likely called via function pointers or external interfaces)
 

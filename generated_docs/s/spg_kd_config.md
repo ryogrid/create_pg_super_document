@@ -19,7 +19,7 @@ This function serves as the configuration entry point for SP-GiST k-d tree opera
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - spgConfigOut (structure type)
+  - [spgConfigOut](spgConfigOut.md) (structure type)
   - PG_RETURN_VOID (PostgreSQL macro)
 - Called from (representative examples):
   - No direct references found in the codebase

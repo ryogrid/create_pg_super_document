@@ -25,17 +25,17 @@ This function is essential for maintaining consistency across parallel workers w
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecParallelHashCloseBatchAccessors (cleanup existing accessors)
+  - [ExecParallelHashCloseBatchAccessors](ExecParallelHashCloseBatchAccessors.md) (cleanup existing accessors)
   - DsaPointerIsValid (validate shared batch array pointer)
   - palloc0_array (allocate zero-initialized accessor array)  
-  - dsa_get_address (convert DSA pointer to local address)
+  - [dsa_get_address](../d/dsa_get_address.md) (convert DSA pointer to local address)
   - NthParallelHashJoinBatch (access specific batch in array)
-  - sts_attach (attach to existing shared tuplestores)
+  - [sts_attach](../s/sts_attach.md) (attach to existing shared tuplestores)
   - ParallelHashJoinBatchInner/Outer (get tuplestore memory areas)
-  - MemoryContextSwitchTo (manage memory contexts)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (manage memory contexts)
 - Called from:
-  - MultiExecParallelHash (nodeHash.c:278, 341)
-  - ExecParallelHashIncreaseNumBatches (nodeHash.c:1226, 1252)
+  - [MultiExecParallelHash](../M/MultiExecParallelHash.md) (nodeHash.c:278, 341)
+  - [ExecParallelHashIncreaseNumBatches](ExecParallelHashIncreaseNumBatches.md) (nodeHash.c:1226, 1252)
   - ExecParallelHashIncreaseNumBuckets (nodeHash.c:1585)
 
 ## Notes and Other Information

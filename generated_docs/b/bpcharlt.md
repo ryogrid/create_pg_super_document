@@ -18,8 +18,8 @@ This function compares two BPCHAR values to determine if the first is lexicograp
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BPCHAR_PP (macro)
-  - bcTruelen
-  - varstr_cmp
+  - [bcTruelen](bcTruelen.md)
+  - [varstr_cmp](../v/varstr_cmp.md)
   - PG_GET_COLLATION (macro)
   - VARDATA_ANY (macro)
   - PG_FREE_IF_COPY (macro)

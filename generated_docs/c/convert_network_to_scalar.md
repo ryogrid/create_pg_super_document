@@ -21,9 +21,9 @@ This function converts various network-related data types to approximate scalar 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `DatumGetInetPP` - extracts inet value from Datum
-  - `DatumGetMacaddrP` - extracts macaddr value from Datum
-  - `DatumGetMacaddr8P` - extracts macaddr8 value from Datum
+  - `[DatumGetInetPP](../D/DatumGetInetPP.md)` - extracts inet value from Datum
+  - `[DatumGetMacaddrP](../D/DatumGetMacaddrP.md)` - extracts macaddr value from Datum
+  - `[DatumGetMacaddr8P](../D/DatumGetMacaddr8P.md)` - extracts macaddr8 value from Datum
   - `ip_family` - gets address family from inet structure
   - `ip_addr` - gets address bytes from inet structure
   - `PGSQL_AF_INET` - constant for IPv4 address family

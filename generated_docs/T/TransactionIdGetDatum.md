@@ -19,11 +19,11 @@ TransactionIdGetDatum performs a simple type cast from a TransactionId to a Datu
 - Functions called/Symbols referenced:
   - (None - performs direct cast)
 - Called from (representative examples):
-  - heap_getsysattr (system attribute access in heap tuples)
-  - pg_last_committed_xact (committed transaction information)
-  - pg_prepared_xact (prepared transaction details)
-  - createdb (database creation operations)
-  - pg_lock_status (lock status reporting)
+  - [heap_getsysattr](../h/heap_getsysattr.md) (system attribute access in heap tuples)
+  - [pg_last_committed_xact](../p/pg_last_committed_xact.md) (committed transaction information)
+  - [pg_prepared_xact](../p/pg_prepared_xact.md) (prepared transaction details)
+  - [createdb](../c/createdb.md) (database creation operations)
+  - [pg_lock_status](../p/pg_lock_status.md) (lock status reporting)
   - PG_STAT_GET_ACTIVITY_COLS (activity statistics)
   - PG_RETURN_TRANSACTIONID (function return macro)
 

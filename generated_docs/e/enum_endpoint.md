@@ -20,18 +20,18 @@ The function implements proper transaction safety by calling  to ensure that unc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanKeyInit
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - table_open
-  - index_open
-  - systable_beginscan_ordered
-  - systable_getnext_ordered
-  - check_safe_enum_use
-  - systable_endscan_ordered
-  - index_close
+  - [index_open](../i/index_open.md)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
+  - [systable_getnext_ordered](../s/systable_getnext_ordered.md)
+  - [check_safe_enum_use](../c/check_safe_enum_use.md)
+  - [systable_endscan_ordered](../s/systable_endscan_ordered.md)
+  - [index_close](../i/index_close.md)
   - table_close
 - Called from:
-  - enum_first
-  - enum_last
+  - [enum_first](enum_first.md)
+  - [enum_last](enum_last.md)
 
 ## Notes and Other Information
 - This is a static function, not directly accessible outside the enum.c module

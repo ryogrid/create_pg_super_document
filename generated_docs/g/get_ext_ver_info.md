@@ -29,14 +29,14 @@ The function uses a linear search through the version list, which the comments a
 ## Dependencies
 - Functions called/Symbols referenced:
   - strcmp (string comparison for version name lookup)
-  - palloc (memory allocation for new ExtensionVersionInfo)
-  - pstrdup (duplicate version name string)
+  - [palloc](../p/palloc.md) (memory allocation for new ExtensionVersionInfo)
+  - [pstrdup](../p/pstrdup.md) (duplicate version name string)
   - lappend (append new version info to list)
   - lfirst (access list cell contents)
 - Called from:
-  - get_ext_ver_list (multiple calls for building version graph)
-  - identify_update_path (for path finding)
-  - CreateExtensionInternal (during extension installation)
+  - [get_ext_ver_list](get_ext_ver_list.md) (multiple calls for building version graph)
+  - [identify_update_path](../i/identify_update_path.md) (for path finding)
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md) (during extension installation)
 
 ## Notes and Other Information
 - This is a static function within the extension.c module

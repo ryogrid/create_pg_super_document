@@ -29,7 +29,7 @@ The mapping ensures consistency with PostgreSQL's existing access control infras
   - ACL_DELETE_CHR (delete command character constant)
 
 - Called from:
-  - CreatePolicy (during policy creation to parse command specifications)
+  - [CreatePolicy](../C/CreatePolicy.md) (during policy creation to parse command specifications)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the policy.c module

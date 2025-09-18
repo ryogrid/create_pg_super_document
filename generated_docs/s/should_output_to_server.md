@@ -22,9 +22,9 @@ This is a policy-setting subroutine that provides a centralized decision point f
   - is_log_level_output
   - log_min_messages (global variable)
 - Called from (representative examples):
-  - message_level_is_interesting
-  - errstart
-  - pg_re_throw
+  - [message_level_is_interesting](../m/message_level_is_interesting.md)
+  - [errstart](../e/errstart.md)
+  - [pg_re_throw](../p/pg_re_throw.md)
 
 ## Notes and Other Information
 - This function is declared as `static inline` for performance optimization since it's called frequently during error processing

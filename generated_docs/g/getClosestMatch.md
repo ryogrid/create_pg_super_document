@@ -21,9 +21,9 @@ If no suitable candidates were provided via `updateClosestMatch()`, or if none o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `ClosestMatchState` (struct type)
+  - `[ClosestMatchState](../C/ClosestMatchState.md)` (struct type)
 - Called from (representative examples):
-  - `postgresql_fdw_validator` in src/backend/foreign/foreign.c:657
+  - `[postgresql_fdw_validator](../p/postgresql_fdw_validator.md)` in src/backend/foreign/foreign.c:657
 
 ## Notes and Other Information
 - The function returns NULL if no suitable match was found during the matching process

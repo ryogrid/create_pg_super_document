@@ -23,19 +23,19 @@ This handler is essential for robust parallel database maintenance operations wh
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQresultStatus
-  - PQresultErrorField
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQresultErrorField](../P/PQresultErrorField.md)
   - pg_log_error
-  - PQdb
-  - PQerrorMessage
-  - PQclear
+  - [PQdb](../P/PQdb.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQclear](../P/PQclear.md)
   - PGRES_COMMAND_OK
   - PG_DIAG_SQLSTATE
   - ERRCODE_UNDEFINED_TABLE
 - Called from (representative examples):
-  - reindex_one_database (src/bin/scripts/reindexdb.c:442)
-  - vacuum_one_database (src/bin/scripts/vacuumdb.c:859, 884)
-  - ParallelSlotClearHandler (src/include/fe_utils/parallel_slot.h:74)
+  - [reindex_one_database](../r/reindex_one_database.md) (src/bin/scripts/reindexdb.c:442)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (src/bin/scripts/vacuumdb.c:859, 884)
+  - [ParallelSlotClearHandler](../P/ParallelSlotClearHandler.md) (src/include/fe_utils/parallel_slot.h:74)
 
 ## Notes and Other Information
 - Returns true for successful commands and harmless missing table errors

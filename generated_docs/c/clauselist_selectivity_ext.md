@@ -45,26 +45,26 @@ The algorithm significantly improves selectivity estimation accuracy compared to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - clause_selectivity_ext
-  - find_single_rel_for_clauses
-  - statext_clauselist_selectivity
-  - addRangeClause
-  - bms_is_member
-  - is_opclause
-  - is_pseudo_constant_clause_relids
-  - is_pseudo_constant_clause
-  - get_oprrest
+  - [clause_selectivity_ext](clause_selectivity_ext.md)
+  - [find_single_rel_for_clauses](../f/find_single_rel_for_clauses.md)
+  - [statext_clauselist_selectivity](../s/statext_clauselist_selectivity.md)
+  - [addRangeClause](../a/addRangeClause.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [is_opclause](../i/is_opclause.md)
+  - [is_pseudo_constant_clause_relids](../i/is_pseudo_constant_clause_relids.md)
+  - [is_pseudo_constant_clause](../i/is_pseudo_constant_clause.md)
+  - [get_oprrest](../g/get_oprrest.md)
   - nulltestsel
-  - NumRelids
+  - [NumRelids](../N/NumRelids.md)
   - RTE_RELATION
   - DEFAULT_INEQ_SEL
   - DEFAULT_RANGE_INEQ_SEL
   - IS_NULL
 - Called from (representative examples):
-  - clauselist_selectivity
-  - clause_selectivity_ext
-  - clauselist_apply_dependencies
-  - statext_mcv_clauselist_selectivity
+  - [clauselist_selectivity](clauselist_selectivity.md)
+  - [clause_selectivity_ext](clause_selectivity_ext.md)
+  - [clauselist_apply_dependencies](clauselist_apply_dependencies.md)
+  - [statext_mcv_clauselist_selectivity](../s/statext_mcv_clauselist_selectivity.md)
 
 ## Notes and Other Information
 This function represents the heart of PostgreSQL's selectivity estimation engine and is critical for accurate cost-based query optimization. Key implementation notes:

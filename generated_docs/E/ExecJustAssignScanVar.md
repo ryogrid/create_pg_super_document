@@ -23,10 +23,10 @@ The function serves as a thin wrapper around ExecJustAssignVarImpl, configured t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecJustAssignVarImpl
+  - [ExecJustAssignVarImpl](ExecJustAssignVarImpl.md)
 - Called from (representative examples):
   - EEO_JUMP (via expression evaluation dispatch mechanism)
-  - ExecReadyInterpretedExpr (during expression setup and initialization)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (during expression setup and initialization)
 
 ## Notes and Other Information
 - Part of the assignment expression fast-path family along with ExecJustAssignInnerVar and ExecJustAssignOuterVar

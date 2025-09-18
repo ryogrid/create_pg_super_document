@@ -24,16 +24,16 @@ BufferGetTag is a comprehensive buffer metadata extraction function that retriev
 - Functions called/Symbols referenced:
   - BufferIsPinned
   - BufferIsLocal
-  - GetLocalBufferDescriptor
-  - GetBufferDescriptor
-  - BufTagGetRelFileLocator
-  - BufTagGetForkNum
-  - BufferDesc
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [BufTagGetRelFileLocator](BufTagGetRelFileLocator.md)
+  - [BufTagGetForkNum](BufTagGetForkNum.md)
+  - [BufferDesc](BufferDesc.md)
 - Called from (representative examples):
-  - ginRedoInsertEntry
-  - XLogRegisterBuffer
-  - XLogSaveBufferForHint
-  - log_newpage_buffer
+  - [ginRedoInsertEntry](../g/ginRedoInsertEntry.md)
+  - [XLogRegisterBuffer](../X/XLogRegisterBuffer.md)
+  - [XLogSaveBufferForHint](../X/XLogSaveBufferForHint.md)
+  - [log_newpage_buffer](../l/log_newpage_buffer.md)
   - fsm_search_avail
 
 ## Notes and Other Information

@@ -23,8 +23,8 @@ Catalog cache lists are used for queries that return multiple tuples matching ce
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReleaseCatCacheListWithOwner (performs the actual catalog cache list release)
-  - DatumGetPointer (extracts pointer from Datum)
+  - [ReleaseCatCacheListWithOwner](ReleaseCatCacheListWithOwner.md) (performs the actual catalog cache list release)
+  - [DatumGetPointer](../D/DatumGetPointer.md) (extracts pointer from Datum)
   - CatCList (catalog cache list structure type)
 - Called from (representative examples):
   - Used as a callback by the ResourceOwner system (registration not shown in direct references)

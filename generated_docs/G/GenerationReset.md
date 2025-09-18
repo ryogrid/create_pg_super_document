@@ -20,18 +20,18 @@ The function iterates through all blocks in the context's doubly-linked list, di
 ## Dependencies
 - Functions called/Symbols referenced:
   - GenerationIsValid
-  - GenerationCheck (when MEMORY_CONTEXT_CHECKING is enabled)
+  - [GenerationCheck](GenerationCheck.md) (when MEMORY_CONTEXT_CHECKING is enabled)
   - dlist_foreach_modify
   - dlist_container
   - IsKeeperBlock
-  - GenerationBlockMarkEmpty
-  - GenerationBlockFree
+  - [GenerationBlockMarkEmpty](GenerationBlockMarkEmpty.md)
+  - [GenerationBlockFree](GenerationBlockFree.md)
   - KeeperBlock
-  - dlist_is_empty
-  - dlist_has_next
-  - dlist_head_node
+  - [dlist_is_empty](../d/dlist_is_empty.md)
+  - [dlist_has_next](../d/dlist_has_next.md)
+  - [dlist_head_node](../d/dlist_head_node.md)
 - Called from (representative examples):
-  - GenerationDelete
+  - [GenerationDelete](GenerationDelete.md)
   - BOGUS_MCTX
   - MEMUTILS_INTERNAL_H
 

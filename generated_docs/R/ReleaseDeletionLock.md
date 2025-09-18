@@ -22,12 +22,12 @@ ReleaseDeletionLock is the companion function to AcquireDeletionLock, responsibl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - UnlockRelationOid: Releases locks on relation objects
-  - UnlockDatabaseObject: Releases locks on database objects
+  - [UnlockRelationOid](../U/UnlockRelationOid.md): Releases locks on relation objects
+  - [UnlockDatabaseObject](../U/UnlockDatabaseObject.md): Releases locks on database objects
   - AccessExclusiveLock: Lock mode constant for exclusive access
 - Called from:
-  - findDependentObjects: Dependency analysis function (multiple locations)
-  - shdepDropOwned: Shared dependency cleanup (multiple locations)
+  - [findDependentObjects](../f/findDependentObjects.md): Dependency analysis function (multiple locations)
+  - [shdepDropOwned](../s/shdepDropOwned.md): Shared dependency cleanup (multiple locations)
   - PERFORM_DELETION_CONCURRENT_LOCK: Referenced in header file
 
 ## Notes and Other Information

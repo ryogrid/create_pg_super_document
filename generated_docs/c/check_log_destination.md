@@ -21,17 +21,17 @@ This function validates the `log_destination` configuration parameter by parsing
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pstrdup
+  - [pstrdup](../p/pstrdup.md)
   - SplitIdentifierString
   - GUC_check_errdetail
-  - list_free
-  - pg_strcasecmp
+  - [list_free](../l/list_free.md)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md)
   - LOG_DESTINATION_STDERR
   - LOG_DESTINATION_CSVLOG
   - LOG_DESTINATION_JSONLOG
   - LOG_DESTINATION_SYSLOG
   - LOG_DESTINATION_EVENTLOG
-  - guc_malloc
+  - [guc_malloc](../g/guc_malloc.md)
 - Called from (representative examples):
   - GUC system (via function pointer in guc_hooks.h)
 

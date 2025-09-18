@@ -23,15 +23,15 @@ BEFORE STATEMENT triggers are not allowed to return values - if a trigger attemp
 ## Dependencies
 - Functions called/Symbols referenced:
   - before_stmt_triggers_fired
-  - ExecGetAllUpdatedCols
-  - ExecCallTriggerFunc
-  - TriggerEnabled
+  - [ExecGetAllUpdatedCols](ExecGetAllUpdatedCols.md)
+  - [ExecCallTriggerFunc](ExecCallTriggerFunc.md)
+  - [TriggerEnabled](../T/TriggerEnabled.md)
   - GetPerTupleMemoryContext
 - Data types referenced:
   - TriggerDesc
   - TriggerData
   - Trigger
-  - Bitmapset
+  - [Bitmapset](../B/Bitmapset.md)
   - TRIGGER_EVENT_UPDATE
   - TRIGGER_EVENT_BEFORE
   - TRIGGER_TYPE_STATEMENT
@@ -41,7 +41,7 @@ BEFORE STATEMENT triggers are not allowed to return values - if a trigger attemp
 - Macros used:
   - TRIGGER_TYPE_MATCHES
 - Called from (representative examples):
-  - fireBSTriggers (in nodeModifyTable.c)
+  - [fireBSTriggers](../f/fireBSTriggers.md) (in nodeModifyTable.c)
 
 ## Notes and Other Information
 - Only executes on the root relation (parent table), not on partitions

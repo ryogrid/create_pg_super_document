@@ -21,16 +21,16 @@ The function builds tuples with two string values: the numeric token type identi
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncCallContext (PostgreSQL function context structure)
+  - [FuncCallContext](../F/FuncCallContext.md) (PostgreSQL function context structure)
   - PrsStorage (token storage structure)
-  - BuildTupleFromCStrings (tuple construction utility)
-  - HeapTupleGetDatum (tuple to Datum conversion)
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md) (tuple construction utility)
+  - [HeapTupleGetDatum](../H/HeapTupleGetDatum.md) (tuple to Datum conversion)
   - sprintf (standard C string formatting)
-  - pfree (PostgreSQL memory deallocation)
+  - [pfree](pfree.md) (PostgreSQL memory deallocation)
 
 - Called from (representative examples):
-  - ts_parse_byid (at src/backend/tsearch/wparser.c:258)
-  - ts_parse_byname (at src/backend/tsearch/wparser.c:282)
+  - [ts_parse_byid](../t/ts_parse_byid.md) (at src/backend/tsearch/wparser.c:258)
+  - [ts_parse_byname](../t/ts_parse_byname.md) (at src/backend/tsearch/wparser.c:282)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the wparser.c module

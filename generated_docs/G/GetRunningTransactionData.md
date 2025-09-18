@@ -36,8 +36,8 @@ This function takes no parameters but returns a RunningTransactions structure co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - TransactionIdPrecedes  
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [TransactionIdPrecedes](../T/TransactionIdPrecedes.md)  
   - XidFromFullTransactionId
   - TransactionIdIsValid
   - TransactionIdIsNormal

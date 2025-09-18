@@ -22,18 +22,18 @@ AlterTypeRecurse performs the actual catalog updates for type property modificat
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - GenerateTypeDependencies
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)
   - InvokeObjectPostAlterHook
-  - SearchSysCache1
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
-  - AlterTypeRecurse (recursive call)
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
+  - [AlterTypeRecurse](AlterTypeRecurse.md) (recursive call)
 - Called from (representative examples):
-  - AlterType
-  - AlterTypeRecurse (recursive call)
+  - [AlterType](AlterType.md)
+  - [AlterTypeRecurse](AlterTypeRecurse.md) (recursive call)
 
 ## Notes and Other Information
 - Includes stack depth checking to prevent overflow during deep recursion

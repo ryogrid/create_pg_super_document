@@ -21,11 +21,11 @@ This function serves as the primary entry point for numeric format caching in Po
 ## Dependencies
 - Functions called/Symbols referenced:
   - text_to_cstring
-  - NUM_cache_fetch
+  - [NUM_cache_fetch](NUM_cache_fetch.md)
   - zeroize_NUM
   - parse_format
-  - palloc
-  - pfree
+  - [palloc](../p/palloc.md)
+  - [pfree](../p/pfree.md)
   - NUM_CACHE_SIZE (constant)
   - NUM_keywords (global array)
   - NUM_index (global array)
@@ -34,7 +34,7 @@ This function serves as the primary entry point for numeric format caching in Po
   - FormatNode (struct type)
 - Called from (representative examples):
   - NUM_TOCHAR_prepare
-  - numeric_to_number
+  - [numeric_to_number](../n/numeric_to_number.md)
 
 ## Notes and Other Information
 - Implements hybrid caching strategy based on format string length

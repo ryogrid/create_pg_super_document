@@ -19,16 +19,16 @@ The function leverages the centralized object property system through  to mainta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
+  - [get_object_property_data](get_object_property_data.md)
   - ObjectPropertyType (struct)
 - Called from (representative examples):
   - pg_identify_object
-  - AlterObjectRename_internal
-  - AlterObjectNamespace_oid
-  - AlterObjectNamespace_internal
-  - AlterObjectOwner_internal
-  - EventTriggerSQLDropAddObject
-  - pg_event_trigger_ddl_commands
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md)
+  - [AlterObjectNamespace_oid](../A/AlterObjectNamespace_oid.md)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md)
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md)
+  - [EventTriggerSQLDropAddObject](../E/EventTriggerSQLDropAddObject.md)
+  - [pg_event_trigger_ddl_commands](../p/pg_event_trigger_ddl_commands.md)
   - ObjectAddressSet
 
 ## Notes and Other Information

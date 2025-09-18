@@ -25,9 +25,9 @@ This function is noted as a duplicate of a similar function in libpq, indicating
 - Functions called/Symbols referenced:
   - strncmp (standard C library function for string comparison)
 - Called from (representative examples):
-  - recognized_connection_string (in both psql and libpq)
-  - parse_connection_string (in libpq)
-  - conninfo_uri_parse_options (in libpq)
+  - [recognized_connection_string](../r/recognized_connection_string.md) (in both psql and libpq)
+  - [parse_connection_string](../p/parse_connection_string.md) (in libpq)
+  - [conninfo_uri_parse_options](../c/conninfo_uri_parse_options.md) (in libpq)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the same source file

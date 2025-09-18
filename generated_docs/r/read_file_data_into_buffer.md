@@ -30,11 +30,11 @@ The function is designed to handle concurrent database modifications gracefully 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - basebackup_read_file
-  - verify_page_checksum
+  - [basebackup_read_file](../b/basebackup_read_file.md)
+  - [verify_page_checksum](../v/verify_page_checksum.md)
   - PageHeader (for checksum access)
 - Called from (representative examples):
-  - sendFile
+  - [sendFile](../s/sendFile.md)
 
 ## Notes and Other Information
 - Returns the actual number of bytes read, which may be less than requested if buffer is too small or file was truncated

@@ -54,25 +54,25 @@ The function can operate in two modes: creating a completely new type or updatin
 - Functions called/Symbols referenced:
   - namestrcpy, NameGetDatum, Int16GetDatum, CharGetDatum, BoolGetDatum, ObjectIdGetDatum, Int32GetDatum
   - CStringGetTextDatum, PointerGetDatum
-  - get_user_default_acl
+  - [get_user_default_acl](../g/get_user_default_acl.md)
   - table_open, table_close
   - SearchSysCacheCopy2
-  - heap_modify_tuple, heap_form_tuple
-  - CatalogTupleUpdate, CatalogTupleInsert
-  - GetNewOidWithIndex
+  - [heap_modify_tuple](../h/heap_modify_tuple.md), heap_form_tuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md), CatalogTupleInsert
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md)
   - IsBootstrapProcessingMode
-  - GenerateTypeDependencies
-  - stringToNode
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)
+  - [stringToNode](../s/stringToNode.md)
   - InvokeObjectPostCreateHook
   - ObjectAddressSet
-  - aclcheck_error
+  - [aclcheck_error](../a/aclcheck_error.md)
 - Called from (representative examples):
-  - AddNewRelationType (src/backend/catalog/heap.c:1036)
-  - heap_create_with_catalog (src/backend/catalog/heap.c:1359)
-  - DefineType (src/backend/commands/typecmds.c:573, 615)
-  - DefineDomain (src/backend/commands/typecmds.c:1024, 1065)
-  - DefineEnum (src/backend/commands/typecmds.c:1187, 1228)
-  - DefineRange (src/backend/commands/typecmds.c:1529, 1596, 1639, 1678)
+  - [AddNewRelationType](../A/AddNewRelationType.md) (src/backend/catalog/heap.c:1036)
+  - [heap_create_with_catalog](../h/heap_create_with_catalog.md) (src/backend/catalog/heap.c:1359)
+  - [DefineType](../D/DefineType.md) (src/backend/commands/typecmds.c:573, 615)
+  - [DefineDomain](../D/DefineDomain.md) (src/backend/commands/typecmds.c:1024, 1065)
+  - [DefineEnum](../D/DefineEnum.md) (src/backend/commands/typecmds.c:1187, 1228)
+  - [DefineRange](../D/DefineRange.md) (src/backend/commands/typecmds.c:1529, 1596, 1639, 1678)
 
 ## Notes and Other Information
 - Performs comprehensive validation of type size, alignment, and pass-by-value consistency

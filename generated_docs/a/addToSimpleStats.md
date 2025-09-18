@@ -29,8 +29,8 @@ This incremental approach allows efficient computation of statistical measures w
 - Functions called/Symbols referenced:
   - SimpleStats (structure type)
 - Called from (representative examples):
-  - accumStats
-  - advanceConnectionState
+  - [accumStats](accumStats.md)
+  - [advanceConnectionState](advanceConnectionState.md)
 
 ## Notes and Other Information
 - Handles the first value case correctly by checking count == 0 for min/max initialization

@@ -21,16 +21,16 @@ The function captures the current timestamp to mark when the reset operation occ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
-  - GetCurrentTimestamp
-  - pgstat_reset_entries_of_kind
-  - PgStat_Kind (enum type)
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [pgstat_reset_entries_of_kind](pgstat_reset_entries_of_kind.md)
+  - [PgStat_Kind](../P/PgStat_Kind.md) (enum type)
   - PgStat_KindInfo (struct type)
 - Called from (representative examples):
-  - pg_stat_reset_shared
-  - pg_stat_reset_slru
-  - pg_stat_reset_replication_slot
-  - pg_stat_reset_subscription_stats
+  - [pg_stat_reset_shared](pg_stat_reset_shared.md)
+  - [pg_stat_reset_slru](pg_stat_reset_slru.md)
+  - [pg_stat_reset_replication_slot](pg_stat_reset_replication_slot.md)
+  - [pg_stat_reset_subscription_stats](pg_stat_reset_subscription_stats.md)
 
 ## Notes and Other Information
 - Permission checking for this function is managed through the normal PostgreSQL GRANT system, as noted in the source comments

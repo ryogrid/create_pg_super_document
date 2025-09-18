@@ -21,11 +21,11 @@ The `boolin` function serves as the input conversion function for PostgreSQL's b
   - PG_GETARG_CSTRING (PostgreSQL function argument extraction macro)
   - isspace (standard C library function)
   - strlen (standard C library function) 
-  - parse_bool_with_len (core boolean parsing function)
+  - [parse_bool_with_len](../p/parse_bool_with_len.md) (core boolean parsing function)
   - PG_RETURN_BOOL (PostgreSQL return value macro)
   - ereturn (PostgreSQL error reporting function)
-  - errcode (PostgreSQL error code function)
-  - errmsg (PostgreSQL error message function)
+  - [errcode](../e/errcode.md) (PostgreSQL error code function)
+  - [errmsg](../e/errmsg.md) (PostgreSQL error message function)
 - Called from:
   - PostgreSQL type system (no direct references in indexed code)
 

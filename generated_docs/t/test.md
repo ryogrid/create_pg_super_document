@@ -25,17 +25,17 @@ This function takes no parameters as it is a void function designed for testing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGdebug: Enables ECPG debugging output
-  - ECPGconnect: Establishes database connection
-  - ECPGdo: Executes SQL statements
+  - [ECPGdebug](../E/ECPGdebug.md): Enables ECPG debugging output
+  - [ECPGconnect](../E/ECPGconnect.md): Establishes database connection
+  - [ECPGdo](../E/ECPGdo.md): Executes SQL statements
   - ECPGprepare: Prepares SQL statements
   - ECPGprepared_statement: References prepared statements
-  - ECPGdisconnect: Closes database connection
-  - sqlprint: Prints SQL error/warning messages
+  - [ECPGdisconnect](../E/ECPGdisconnect.md): Closes database connection
+  - [sqlprint](../s/sqlprint.md): Prints SQL error/warning messages
   - printf: Standard C library function for output
 
 - Called from (representative examples):
-  - main: Main function in the same test file (src/interfaces/ecpg/test/expected/preproc-autoprep.c:252)
+  - [main](../m/main.md): Main function in the same test file (src/interfaces/ecpg/test/expected/preproc-autoprep.c:252)
 
 ## Notes and Other Information
 - This is a generated test file from the ECPG preprocessor, as indicated by the .c extension and the presence of preprocessor line directives

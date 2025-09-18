@@ -22,11 +22,11 @@ The printTextLineFormat structure encapsulates the character set used for drawin
 - Functions called/Symbols referenced:
   - (None - this is a simple data structure)
 - Called from (representative examples):
-  - _print_horizontal_line (src/fe_utils/print.c:598)
-  - print_aligned_text (src/fe_utils/print.c:641)
-  - print_aligned_vertical_line (src/fe_utils/print.c:1233)
-  - print_aligned_vertical (src/fe_utils/print.c:1330)
-  - printTextFormat (src/include/fe_utils/print.h:85)
+  - [_print_horizontal_line](_print_horizontal_line.md) (src/fe_utils/print.c:598)
+  - [print_aligned_text](print_aligned_text.md) (src/fe_utils/print.c:641)
+  - [print_aligned_vertical_line](print_aligned_vertical_line.md) (src/fe_utils/print.c:1233)
+  - [print_aligned_vertical](print_aligned_vertical.md) (src/fe_utils/print.c:1330)
+  - [printTextFormat](printTextFormat.md) (src/include/fe_utils/print.h:85)
 
 ## Notes and Other Information
 This structure is part of the frontend utilities printing system and is used to maintain consistency in table formatting across different PostgreSQL client tools like psql. The character choices can vary depending on the desired visual style (e.g., ASCII vs Unicode box-drawing characters).

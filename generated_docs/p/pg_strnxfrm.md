@@ -30,16 +30,16 @@ This variant is particularly useful when working with text data that may contain
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strnxfrm_libc
-  - pg_strnxfrm_icu  
+  - [pg_strnxfrm_libc](pg_strnxfrm_libc.md)
+  - [pg_strnxfrm_icu](pg_strnxfrm_icu.md)  
   - COLLPROVIDER_LIBC
   - COLLPROVIDER_ICU
   - PGLOCALE_SUPPORT_ERROR
 - Called from (representative examples):
-  - hashtext
-  - hashtextextended
-  - hashbpchar
-  - hashbpcharextended
+  - [hashtext](../h/hashtext.md)
+  - [hashtextextended](../h/hashtextextended.md)
+  - [hashbpchar](../h/hashbpchar.md)
+  - [hashbpcharextended](../h/hashbpcharextended.md)
 
 ## Notes and Other Information
 - Returns the number of bytes needed to store the complete transformed string (excluding null terminator)

@@ -22,13 +22,13 @@ The function iterates through both the copied group clauses and the targetlist i
 - Functions called/Symbols referenced:
   - copyObject
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - SetOperationStmt (structure type)
   - SortGroupClause (structure type)
 - Called from:
-  - generate_recursion_path
-  - generate_union_paths
-  - generate_nonunion_paths
+  - [generate_recursion_path](generate_recursion_path.md)
+  - [generate_union_paths](generate_union_paths.md)
+  - [generate_nonunion_paths](generate_nonunion_paths.md)
 
 ## Notes and Other Information
 - The function assumes that non-resjunk columns have ressortgroupref equal to their resno, which is a convention established by the targetlist generation functions

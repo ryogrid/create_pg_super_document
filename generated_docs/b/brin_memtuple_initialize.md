@@ -18,15 +18,15 @@ This function performs a complete reinitialization of an existing BrinMemTuple s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextReset (clears the tuple's memory context)
+  - [MemoryContextReset](../M/MemoryContextReset.md) (clears the tuple's memory context)
   - MAXALIGN (memory alignment macro)
-  - PointerGetDatum (converts pointer to Datum)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (converts pointer to Datum)
 - Called from (representative examples):
-  - brinbuildCallback
-  - brinbuildCallbackParallel
-  - brinsummarize
-  - brin_new_memtuple
-  - brin_deform_tuple
+  - [brinbuildCallback](brinbuildCallback.md)
+  - [brinbuildCallbackParallel](brinbuildCallbackParallel.md)
+  - [brinsummarize](brinsummarize.md)
+  - [brin_new_memtuple](brin_new_memtuple.md)
+  - [brin_deform_tuple](brin_deform_tuple.md)
   - BrinTupleIsEmptyRange
 
 ## Notes and Other Information

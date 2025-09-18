@@ -23,8 +23,8 @@ All fields are stored in network byte order (big-endian) to ensure proper commun
 - Functions called/Symbols referenced:
   - MsgType
 - Called from (representative examples):
-  - ProcessStartupPacket (in backend startup handling)
-  - PQcancel (in libpq cancel operations)
+  - [ProcessStartupPacket](../P/ProcessStartupPacket.md) (in backend startup handling)
+  - [PQcancel](../P/PQcancel.md) (in libpq cancel operations)
 
 ## Notes and Other Information
 - The authentication mechanism prevents malicious processes from canceling arbitrary queries by requiring knowledge of both the backend PID and the secret cancel code

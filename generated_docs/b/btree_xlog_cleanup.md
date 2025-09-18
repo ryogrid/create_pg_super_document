@@ -19,7 +19,7 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
   - Resource manager framework (via rmgrlist.h registration)
   - WAL cleanup procedures during shutdown

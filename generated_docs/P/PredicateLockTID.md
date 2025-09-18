@@ -27,18 +27,18 @@ The function is essential for maintaining consistency in SERIALIZABLE isolation 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SerializationNeededForRead
-  - TransactionIdIsCurrentTransactionId  
+  - [SerializationNeededForRead](../S/SerializationNeededForRead.md)
+  - [TransactionIdIsCurrentTransactionId](../T/TransactionIdIsCurrentTransactionId.md)  
   - SET_PREDICATELOCKTARGETTAG_RELATION
   - PredicateLockExists
   - SET_PREDICATELOCKTARGETTAG_TUPLE
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - PredicateLockAcquire
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [PredicateLockAcquire](PredicateLockAcquire.md)
 - Called from (representative examples):
-  - heap_fetch
-  - heap_hot_search_buffer
-  - heapam_scan_bitmap_next_block
+  - [heap_fetch](../h/heap_fetch.md)
+  - [heap_hot_search_buffer](../h/heap_hot_search_buffer.md)
+  - [heapam_scan_bitmap_next_block](../h/heapam_scan_bitmap_next_block.md)
 
 ## Notes and Other Information
 - Only active when running under SERIALIZABLE isolation level

@@ -25,7 +25,7 @@ This is a set-returning function (SRF) that can be used in SQL queries to extrac
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - each_worker (the core implementation function, called with false parameter)
+  - [each_worker](../e/each_worker.md) (the core implementation function, called with false parameter)
   - PG_FUNCTION_ARGS (PostgreSQL function argument macro)
   - Datum (PostgreSQL return type)
 - Called from (representative examples):

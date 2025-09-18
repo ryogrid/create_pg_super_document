@@ -32,21 +32,21 @@ The function handles BC dates (years ≤ 0), microsecond precision, timezone abb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ultostr_zeropad (zero-padded number formatting)
+  - [pg_ultostr_zeropad](../p/pg_ultostr_zeropad.md) (zero-padded number formatting)
   - AppendTimestampSeconds (seconds and fractional seconds formatting)
   - EncodeTimezone (timezone offset formatting)
-  - date2j, j2day (Julian date conversion for day-of-week calculation)
+  - [date2j](../d/date2j.md), j2day (Julian date conversion for day-of-week calculation)
   - sprintf, strlen, memcpy (standard C library functions)
   - Various constants: MONTHS_PER_YEAR, MAXTZLEN, DateOrder, DATEORDER_DMY
   - Style constants: USE_ISO_DATES, USE_XSD_DATES, USE_SQL_DATES, USE_GERMAN_DATES, USE_POSTGRES_DATES
   - Global arrays: days[], months[] (day/month name abbreviations)
 
 - Called from (representative examples):
-  - timestamp_out (src/backend/utils/adt/timestamp.c:244)
-  - timestamptz_out (src/backend/utils/adt/timestamp.c:799)
+  - [timestamp_out](../t/timestamp_out.md) (src/backend/utils/adt/timestamp.c:244)
+  - [timestamptz_out](../t/timestamptz_out.md) (src/backend/utils/adt/timestamp.c:799)
   - JsonEncodeDateTime (src/backend/utils/adt/json.c:362, 400)
-  - map_sql_value_to_xml_value (src/backend/utils/adt/xml.c:2579, 2606)
-  - PGTYPEStimestamp_to_asc (src/interfaces/ecpg/pgtypeslib/timestamp.c:284)
+  - [map_sql_value_to_xml_value](../m/map_sql_value_to_xml_value.md) (src/backend/utils/adt/xml.c:2579, 2606)
+  - [PGTYPEStimestamp_to_asc](../P/PGTYPEStimestamp_to_asc.md) (src/interfaces/ecpg/pgtypeslib/timestamp.c:284)
 
 ## Notes and Other Information
 - The function includes validation that tm_mon is within valid range (1-12)

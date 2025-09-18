@@ -28,14 +28,14 @@ This function takes no parameters but operates on:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransaction (called only when in TBLOCK_DEFAULT state)
-  - BlockStateAsString (for error reporting in invalid states)
-  - MemoryContextSwitchTo (ensures correct memory context)
+  - [StartTransaction](StartTransaction.md) (called only when in TBLOCK_DEFAULT state)
+  - [BlockStateAsString](../B/BlockStateAsString.md) (for error reporting in invalid states)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (ensures correct memory context)
   - Various TBLOCK_* constants (transaction block state enumeration)
 
 - Called from (representative examples):
-  - start_xact_command (main command processing entry point)
-  - ParallelWorkerMain (parallel worker initialization)
+  - [start_xact_command](../s/start_xact_command.md) (main command processing entry point)
+  - [ParallelWorkerMain](../P/ParallelWorkerMain.md) (parallel worker initialization)
   - Various background processes (autovacuum, logical replication workers)
   - SPI functions (_SPI_commit, _SPI_rollback)
   - Maintenance commands (VACUUM, CLUSTER, REINDEX)

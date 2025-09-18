@@ -22,10 +22,10 @@ This function is part of the freeze plan consolidation mechanism that reduces WA
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - xlhp_freeze_plan (struct type)
-  - HeapTupleFreeze (struct type)
+  - [xlhp_freeze_plan](../x/xlhp_freeze_plan.md) (struct type)
+  - [HeapTupleFreeze](../H/HeapTupleFreeze.md) (struct type)
 - Called from (representative examples):
-  - heap_log_freeze_plan
+  - [heap_log_freeze_plan](heap_log_freeze_plan.md)
 
 ## Notes and Other Information
 - This is a static inline function for optimal performance during vacuum operations

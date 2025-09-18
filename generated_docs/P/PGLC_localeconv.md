@@ -48,22 +48,22 @@ This function takes no parameters but returns a pointer to a static struct lconv
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - free_struct_lconv
+  - [free_struct_lconv](../f/free_struct_lconv.md)
   - setlocale
-  - struct_lconv_is_valid
+  - [struct_lconv_is_valid](../s/struct_lconv_is_valid.md)
   - pg_get_encoding_from_locale
-  - db_encoding_convert
+  - [db_encoding_convert](../d/db_encoding_convert.md)
   - PG_TRY/PG_CATCH/PG_END_TRY
   - PG_SQL_ASCII
   - localeconv (standard C library)
   - strdup (standard C library)
 
 - Called from (representative examples):
-  - cash_in (src/backend/utils/adt/cash.c:189)
-  - cash_out (src/backend/utils/adt/cash.c:403)
-  - cash_numeric (src/backend/utils/adt/cash.c:1051)
-  - numeric_cash (src/backend/utils/adt/cash.c:1110)
-  - NUM_prepare_locale (src/backend/utils/adt/formatting.c:5296)
+  - [cash_in](../c/cash_in.md) (src/backend/utils/adt/cash.c:189)
+  - [cash_out](../c/cash_out.md) (src/backend/utils/adt/cash.c:403)
+  - [cash_numeric](../c/cash_numeric.md) (src/backend/utils/adt/cash.c:1051)
+  - [numeric_cash](../n/numeric_cash.md) (src/backend/utils/adt/cash.c:1110)
+  - [NUM_prepare_locale](../N/NUM_prepare_locale.md) (src/backend/utils/adt/formatting.c:5296)
 
 ## Notes and Other Information
 - **Thread Safety**: Uses static variables for caching, so not inherently thread-safe

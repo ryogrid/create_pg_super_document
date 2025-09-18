@@ -26,7 +26,7 @@ The function validates the cache ID to ensure it refers to a valid system cache,
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerIsValid (for cache validation)
-  - SearchCatCacheList (core list search implementation)
+  - [SearchCatCacheList](SearchCatCacheList.md) (core list search implementation)
   - elog (for error reporting)
 - Called from (representative examples):
   - SearchSysCacheList1 (convenience macro for 1-key searches)

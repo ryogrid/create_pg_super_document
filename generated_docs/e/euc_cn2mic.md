@@ -23,11 +23,11 @@ This static function implements the core algorithm for converting text from EUC-
 ## Dependencies
 - Functions called/Symbols referenced:
   - IS_HIGHBIT_SET (macro to check if high bit is set)
-  - report_invalid_encoding (error reporting function)
+  - [report_invalid_encoding](../r/report_invalid_encoding.md) (error reporting function)
   - PG_EUC_CN (encoding constant)
   - LC_GB2312_80 (MIC language code for GB2312-80 character set)
 - Called from:
-  - euc_cn_to_mic (PostgreSQL function wrapper)
+  - [euc_cn_to_mic](euc_cn_to_mic.md) (PostgreSQL function wrapper)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same compilation unit

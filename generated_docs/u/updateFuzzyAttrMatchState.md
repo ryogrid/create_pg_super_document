@@ -22,10 +22,10 @@ This static function implements fuzzy matching logic for PostgreSQL's column nam
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuzzyAttrMatchState (structure type)
-  - varstr_levenshtein_less_equal (Levenshtein distance calculation)
+  - [FuzzyAttrMatchState](../F/FuzzyAttrMatchState.md) (structure type)
+  - [varstr_levenshtein_less_equal](../v/varstr_levenshtein_less_equal.md) (Levenshtein distance calculation)
 - Called from (representative examples):
-  - scanRTEForColumn
+  - [scanRTEForColumn](../s/scanRTEForColumn.md)
 
 ## Notes and Other Information
 - Static function, only accessible within parse_relation.c

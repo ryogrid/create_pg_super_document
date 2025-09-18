@@ -25,12 +25,12 @@ Additionally, the function maintains global progress tracking by updating the to
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_content
-  - progress_report
-  - WriteTarState (type cast)
+  - [bbstreamer_content](../b/bbstreamer_content.md)
+  - [progress_report](../p/progress_report.md)
+  - [WriteTarState](../W/WriteTarState.md) (type cast)
   - BBSTREAMER_UNKNOWN (constant)
 - Called from (representative examples):
-  - ReceiveTarFile (via ReceiveCopyData callback mechanism)
+  - [ReceiveTarFile](ReceiveTarFile.md) (via ReceiveCopyData callback mechanism)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the pg_basebackup.c compilation unit

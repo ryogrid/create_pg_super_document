@@ -21,21 +21,21 @@ This function performs type coercion on an expression node to convert it to a ta
 ## Dependencies
 - Functions called/Symbols referenced:
   - exprType (to get input type)
-  - can_coerce_type (to check coercion feasibility)
-  - coerce_type (to perform actual coercion)
+  - [can_coerce_type](can_coerce_type.md) (to check coercion feasibility)
+  - [coerce_type](coerce_type.md) (to perform actual coercion)
   - ereport/errcode/errmsg (for error reporting)
-  - format_type_be (for type name formatting)
-  - parser_errposition (for error location)
-  - exprLocation (to get node location)
+  - [format_type_be](../f/format_type_be.md) (for type name formatting)
+  - [parser_errposition](../p/parser_errposition.md) (for error location)
+  - [exprLocation](../e/exprLocation.md) (to get node location)
   - COERCION_IMPLICIT (coercion method constant)
   - COERCE_IMPLICIT_CAST (coercion format constant)
 
 - Called from (representative examples):
   - transformCaseExpr (CASE expression processing)
-  - transformSetOperationTree (UNION/INTERSECT/EXCEPT operations)
+  - [transformSetOperationTree](../t/transformSetOperationTree.md) (UNION/INTERSECT/EXCEPT operations)
   - transformArrayExpr (array construction)
   - transformCoalesceExpr (COALESCE function)
-  - generate_setop_tlist (set operation target list generation)
+  - [generate_setop_tlist](../g/generate_setop_tlist.md) (set operation target list generation)
 
 ## Notes and Other Information
 - Returns the original node unchanged if no coercion is needed (input type matches target type)

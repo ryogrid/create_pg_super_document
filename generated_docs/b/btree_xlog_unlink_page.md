@@ -299,18 +299,18 @@ Text creation and manipulation
   - XLogReadBufferForRedo
   - XLogInitBufferForRedo
   - XLogRecHasBlockRef
-  - XLogRecGetBlockData
+  - [XLogRecGetBlockData](../X/XLogRecGetBlockData.md)
   - BTPageGetOpaque
-  - BTPageSetDeleted
-  - BTreeTupleSetTopParent
-  - _bt_pageinit
-  - _bt_restore_meta
+  - [BTPageSetDeleted](../B/BTPageSetDeleted.md)
+  - [BTreeTupleSetTopParent](../B/BTreeTupleSetTopParent.md)
+  - [_bt_pageinit](_bt_pageinit.md)
+  - [_bt_restore_meta](_bt_restore_meta.md)
   - PageAddItem
-  - PageSetLSN
+  - [PageSetLSN](../P/PageSetLSN.md)
   - MarkBufferDirty
-  - UnlockReleaseBuffer
+  - [UnlockReleaseBuffer](../U/UnlockReleaseBuffer.md)
 - Called from (representative examples):
-  - btree_redo
+  - [btree_redo](btree_redo.md)
 
 ## Notes and Other Information
 - Handles both regular page unlinks and meta-updating unlinks (when info == XLOG_BTREE_UNLINK_PAGE_META)

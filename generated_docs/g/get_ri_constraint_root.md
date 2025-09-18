@@ -25,14 +25,14 @@ The function uses a simple loop to walk up the constraint hierarchy, making syst
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - OidIsValid
 - Called from (representative examples):
-  - ri_LoadConstraintInfo
+  - [ri_LoadConstraintInfo](../r/ri_LoadConstraintInfo.md)
 
 ## Notes and Other Information
 - Essential for handling partitioned foreign key constraints where child constraints inherit from parent constraints

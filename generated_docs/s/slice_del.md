@@ -23,7 +23,7 @@ The function operates on the Snowball environment structure which maintains the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slice_from_s (called with empty string parameters to achieve deletion)
+  - [slice_from_s](slice_from_s.md) (called with empty string parameters to achieve deletion)
 - Called from (representative examples):
   - Various stemming algorithm functions in generated stemmer code
 

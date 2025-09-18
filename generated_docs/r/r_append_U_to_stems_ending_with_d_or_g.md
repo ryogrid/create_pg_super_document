@@ -27,11 +27,11 @@ The function uses complex logic with multiple labels and backtracking to handle 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - out_grouping_b_U (Snowball function for backward vowel group testing)
-  - eq_s_b (Snowball function for backward string equality testing)
-  - insert_s (Snowball function for string insertion)
+  - [out_grouping_b_U](../o/out_grouping_b_U.md) (Snowball function for backward vowel group testing)
+  - [eq_s_b](../e/eq_s_b.md) (Snowball function for backward string equality testing)
+  - [insert_s](../i/insert_s.md) (Snowball function for string insertion)
 - Called from:
-  - r_postlude (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2052)
+  - [r_postlude](r_postlude.md) (at src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2052)
 
 ## Notes and Other Information
 - This is a static function within the Turkish stemmer implementation

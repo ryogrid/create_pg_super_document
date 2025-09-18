@@ -23,7 +23,7 @@ This function takes a PageXLogRecPtr structure (which contains separate 32-bit x
   - XLogRecPtr (return type - 64-bit WAL pointer)
 - Called from (representative examples):
   - GistPageGetNSN (in src/include/access/gist.h:186)
-  - PageGetLSN (in src/include/storage/bufpage.h:386)
+  - [PageGetLSN](PageGetLSN.md) (in src/include/storage/bufpage.h:386)
 
 ## Notes and Other Information
 - This is an inline function defined in bufpage.h for performance

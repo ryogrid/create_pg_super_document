@@ -19,18 +19,18 @@ The function accesses the pg_proc system catalog to retrieve the function's argu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
-  - heap_attisnull
-  - SysCacheGetAttrNotNull
+  - [heap_attisnull](../h/heap_attisnull.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - DatumGetArrayTypeP
   - ARR_DIMS, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE, ARR_DATA_PTR
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - TextDatumGetCString
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - PROARGMODE_IN, PROARGMODE_VARIADIC, PROARGMODE_OUT, PROARGMODE_INOUT, PROARGMODE_TABLE
 - Called from (representative examples):
-  - chooseScalarFunctionAlias
+  - [chooseScalarFunctionAlias](../c/chooseScalarFunctionAlias.md)
   - TypeFuncClass
 
 ## Notes and Other Information

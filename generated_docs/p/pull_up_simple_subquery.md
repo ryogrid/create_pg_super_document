@@ -57,7 +57,7 @@ The function includes extensive safety checks and can abort the pull-up if condi
 
 ## Notes and Other Information
 - The function creates a complete PlannerInfo structure for the subquery, duplicating setup from 
-- Variable replacement requires careful handling of PlaceHolderVars, especially for appendrel members and queries with grouping sets
+- [Variable](../V/Variable.md) replacement requires careful handling of PlaceHolderVars, especially for appendrel members and queries with grouping sets
 - LATERAL subqueries require special handling to propagate lateral markers to child RTEs
 - The function performs extensive validation and can abort pull-up if the subquery becomes non-simple during processing
 - Range table combination preserves all metadata including row marks and permission info

@@ -18,11 +18,11 @@ This function is the output counterpart to , serving to convert internal typmod 
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32: Extracts int32 argument from function call
-  - palloc: PostgreSQL memory allocation function
-  - is_valid_numeric_typmod: Validates the typmod value
+  - [palloc](../p/palloc.md): PostgreSQL memory allocation function
+  - [is_valid_numeric_typmod](../i/is_valid_numeric_typmod.md): Validates the typmod value
   - snprintf: Standard C string formatting function
-  - numeric_typmod_precision: Extracts precision from typmod
-  - numeric_typmod_scale: Extracts scale from typmod
+  - [numeric_typmod_precision](numeric_typmod_precision.md): Extracts precision from typmod
+  - [numeric_typmod_scale](numeric_typmod_scale.md): Extracts scale from typmod
   - PG_RETURN_CSTRING: Returns C string result
 
 - Called from (representative examples):

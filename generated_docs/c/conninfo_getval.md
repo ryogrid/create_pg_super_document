@@ -25,11 +25,11 @@ This is a read-only operation that does not modify the connection options array 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conninfo_find
-  - PQconninfoOption (struct type)
+  - [conninfo_find](conninfo_find.md)
+  - [PQconninfoOption](../P/PQconninfoOption.md) (struct type)
 - Called from (representative examples):
-  - fillPGconn
-  - parseServiceInfo
+  - [fillPGconn](../f/fillPGconn.md)
+  - [parseServiceInfo](../p/parseServiceInfo.md)
   - internalPQconninfoOption
 
 ## Notes and Other Information

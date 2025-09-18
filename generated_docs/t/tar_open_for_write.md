@@ -24,16 +24,16 @@ This function is responsible for opening a new file within a TAR archive for wri
 - Functions called/Symbols referenced:
   - clear_error (error state reset)
   - open (system call for file opening)
-  - tar_get_file_name (filename construction)
+  - [tar_get_file_name](tar_get_file_name.md) (filename construction)
   - tarCreateHeader (TAR header creation)
-  - tar_write_compressed_data (compression handling)
-  - tar_write_padding_data (padding data writer)
+  - [tar_write_compressed_data](tar_write_compressed_data.md) (compression handling)
+  - [tar_write_padding_data](tar_write_padding_data.md) (padding data writer)
   - deflateInit2, deflateParams (zlib compression functions)
   - lseek, write (file I/O system calls)
   - pg_malloc0, pg_malloc, pg_free, pg_strdup (PostgreSQL memory functions)
   - Various constants: PG_COMPRESSION_GZIP, PG_COMPRESSION_NONE, TAR_BLOCK_SIZE, etc.
 - Called from:
-  - CreateWalDirectoryMethod (as function pointer assignment)
+  - [CreateWalDirectoryMethod](../C/CreateWalDirectoryMethod.md) (as function pointer assignment)
 
 ## Notes and Other Information
 - Returns pointer to Walfile structure on success, NULL on failure

@@ -40,11 +40,11 @@ The dshash_table_control struct is the central control structure for PostgreSQL'
 ## Dependencies
 - Functions called/Symbols referenced:
   - dshash_table_handle
-  - dshash_partition
+  - [dshash_partition](dshash_partition.md)
   - DSHASH_NUM_PARTITIONS
   - dsa_pointer
 - Called from (representative examples):
-  - dshash_table (contains pointer to control structure)
+  - [dshash_table](dshash_table.md) (contains pointer to control structure)
   - dshash_create
 
 ## Notes and Other Information

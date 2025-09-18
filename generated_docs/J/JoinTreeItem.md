@@ -30,16 +30,16 @@ The structure is populated in two main phases: first during deconstruct_recurse 
 ## Dependencies
 - Functions called/Symbols referenced:
   - JoinDomain
-  - SpecialJoinInfo
-  - Node
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
+  - [Node](../N/Node.md)
   - Relids
-  - List
+  - [List](../L/List.md)
 - Called from (representative examples):
-  - deconstruct_jointree
-  - deconstruct_recurse
-  - deconstruct_distribute
-  - deconstruct_distribute_oj_quals
-  - distribute_quals_to_rels
+  - [deconstruct_jointree](../d/deconstruct_jointree.md)
+  - [deconstruct_recurse](../d/deconstruct_recurse.md)
+  - [deconstruct_distribute](../d/deconstruct_distribute.md)
+  - [deconstruct_distribute_oj_quals](../d/deconstruct_distribute_oj_quals.md)
+  - [distribute_quals_to_rels](../d/distribute_quals_to_rels.md)
 
 ## Notes and Other Information
 The JoinTreeItem structures are temporary and can be freed after deconstruct_jointree completes, but their substructures (particularly the relid sets) should not be modified or freed as they may be referenced by RestrictInfo and SpecialJoinInfo nodes. This design pattern allows for efficient memory management while maintaining necessary cross-references during the planning process.

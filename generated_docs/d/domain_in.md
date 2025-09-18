@@ -28,10 +28,10 @@ The function uses the PostgreSQL function calling convention with:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainIOData (struct type)
-  - domain_state_setup
-  - InputFunctionCallSafe
-  - domain_check_input
+  - [DomainIOData](../D/DomainIOData.md) (struct type)
+  - [domain_state_setup](domain_state_setup.md)
+  - [InputFunctionCallSafe](../I/InputFunctionCallSafe.md)
+  - [domain_check_input](domain_check_input.md)
   - PG_RETURN_DATUM
   - PG_FUNCTION_ARGS (macro)
   - PG_ARGISNULL

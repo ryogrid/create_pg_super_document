@@ -25,19 +25,19 @@ This function creates a CteScan plan node for executing a CTE scan operation. It
 ## Dependencies
 - Functions called/Symbols referenced:
   - planner_rt_fetch
-  - order_qual_clauses
-  - extract_actual_clauses
-  - replace_nestloop_params
-  - make_ctescan
-  - copy_generic_path_info
-  - list_nth_int
+  - [order_qual_clauses](../o/order_qual_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [make_ctescan](../m/make_ctescan.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
+  - [list_nth_int](../l/list_nth_int.md)
   - linitial_int
   - CteScan (return type)
   - SubPlan
   - CommonTableExpr
   - RTE_CTE (constant)
 - Called from (representative examples):
-  - create_scan_plan
+  - [create_scan_plan](create_scan_plan.md)
 
 ## Notes and Other Information
 - The function assumes the scan_relid corresponds to a CTE base relation (RTE_CTE) that is not self-referencing

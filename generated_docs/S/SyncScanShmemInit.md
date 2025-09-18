@@ -24,16 +24,16 @@ This function takes no parameters and returns void.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ShmemInitStruct
+  - [ShmemInitStruct](ShmemInitStruct.md)
   - SizeOfScanLocations (macro)
   - SYNC_SCAN_NELEM (constant)
-  - ss_scan_locations_t (type)
-  - ss_lru_item_t (type)
+  - [ss_scan_locations_t](../s/ss_scan_locations_t.md) (type)
+  - [ss_lru_item_t](../s/ss_lru_item_t.md) (type)
   - InvalidOid
   - InvalidRelFileNumber
   - InvalidBlockNumber
 - Called from (representative examples):
-  - CreateOrAttachShmemStructs
+  - [CreateOrAttachShmemStructs](../C/CreateOrAttachShmemStructs.md)
 
 ## Notes and Other Information
 - Only the postmaster process initializes the data structures; worker processes just attach to existing shared memory

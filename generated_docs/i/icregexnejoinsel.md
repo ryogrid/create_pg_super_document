@@ -24,7 +24,7 @@ The function is a thin wrapper around the generic  function, specifically config
   - : Core pattern matching join selectivity function
   - : Enum value indicating case-insensitive regex pattern type
 - Called from (representative examples):
-  - Query planner when estimating costs for joins with case-insensitive regex non-match conditions
+  - [Query](../Q/Query.md) planner when estimating costs for joins with case-insensitive regex non-match conditions
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's cost-based optimizer infrastructure

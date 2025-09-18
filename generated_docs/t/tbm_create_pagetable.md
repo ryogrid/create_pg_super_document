@@ -25,7 +25,7 @@ The function creates the hash table with an initial size of 128 buckets and tran
   - Assert (macro)
   - TBM_HASH (enum value)
   - TBM_ONE_PAGE (enum value)
-  - PagetableEntry (struct type)
+  - [PagetableEntry](../P/PagetableEntry.md) (struct type)
 - Called from (representative examples):
   - tbm_get_pageentry
   - tbm_mark_page_lossy

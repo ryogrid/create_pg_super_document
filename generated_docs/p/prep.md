@@ -21,8 +21,8 @@ The  structure represents a prepared statement in the ECPG (Embedded SQL in C) s
 - Functions called/Symbols referenced:
   - No direct symbol references from this structure
 - Called from (representative examples):
-  - ECPGdescribe (in src/interfaces/ecpg/ecpglib/descriptor.c)
-  - ecpg_auto_prepare (in src/interfaces/ecpg/ecpglib/prepare.c)
+  - [ECPGdescribe](../E/ECPGdescribe.md) (in src/interfaces/ecpg/ecpglib/descriptor.c)
+  - [ecpg_auto_prepare](../e/ecpg_auto_prepare.md) (in src/interfaces/ecpg/ecpglib/prepare.c)
 
 ## Notes and Other Information
 - This structure is central to ECPG's prepared statement functionality, located in 

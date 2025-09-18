@@ -28,9 +28,9 @@ Key characteristics:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqGetlineAsync3
+  - [pqGetlineAsync3](../p/pqGetlineAsync3.md)
 - Called from (representative examples):
-  - pqGetline3 (internal fallback)
+  - [pqGetline3](../p/pqGetline3.md) (internal fallback)
   - Event-driven applications using async COPY operations
 
 ## Notes and Other Information

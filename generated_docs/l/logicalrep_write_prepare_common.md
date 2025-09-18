@@ -22,18 +22,18 @@ This internal function encapsulates the common logic for serializing PREPARE mes
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint64
-  - pq_sendint32
-  - pq_sendstring
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
   - rbtxn_prepared
   - Assert
   - TransactionIdIsValid
   - LogicalRepMsgType
-  - ReorderBufferTXN
+  - [ReorderBufferTXN](../R/ReorderBufferTXN.md)
 - Called from (representative examples):
-  - logicalrep_write_prepare
-  - logicalrep_write_stream_prepare
+  - [logicalrep_write_prepare](logicalrep_write_prepare.md)
+  - [logicalrep_write_stream_prepare](logicalrep_write_stream_prepare.md)
 
 ## Notes and Other Information
 - Static function internal to proto.c, not exposed in header files

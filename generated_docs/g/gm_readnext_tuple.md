@@ -27,14 +27,14 @@ A critical aspect of this function is that it creates a copy of any successfully
 ## Dependencies
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
-  - TupleQueueReaderNext
-  - heap_copy_minimal_tuple
-  - GatherMergeState
-  - TupleQueueReader
+  - [TupleQueueReaderNext](../T/TupleQueueReaderNext.md)
+  - [heap_copy_minimal_tuple](../h/heap_copy_minimal_tuple.md)
+  - [GatherMergeState](../G/GatherMergeState.md)
+  - [TupleQueueReader](../T/TupleQueueReader.md)
   - MinimalTuple
 - Called from (representative examples):
-  - load_tuple_array
-  - gather_merge_readnext
+  - [load_tuple_array](../l/load_tuple_array.md)
+  - [gather_merge_readnext](gather_merge_readnext.md)
 
 ## Notes and Other Information
 - Returns a MinimalTuple if successful, NULL if no tuple is available or worker is done

@@ -22,21 +22,21 @@ The  function implements comprehensive datetime comparison logic for SQL/JSON pa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date_cmp
-  - time_cmp
-  - timetz_cmp
-  - timestamp_cmp
-  - cmpDateToTimestamp
-  - cmpDateToTimestampTz
-  - cmpTimestampToTimestampTz
-  - castTimeToTimeTz
+  - [date_cmp](../d/date_cmp.md)
+  - [time_cmp](../t/time_cmp.md)
+  - [timetz_cmp](../t/timetz_cmp.md)
+  - [timestamp_cmp](../t/timestamp_cmp.md)
+  - [cmpDateToTimestamp](cmpDateToTimestamp.md)
+  - [cmpDateToTimestampTz](cmpDateToTimestampTz.md)
+  - [cmpTimestampToTimestampTz](cmpTimestampToTimestampTz.md)
+  - [castTimeToTimeTz](castTimeToTimeTz.md)
   - DatumGetDateADT
   - DatumGetTimestamp
   - DatumGetTimestampTz
-  - DatumGetInt32
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - DirectFunctionCall2
 - Called from (representative examples):
-  - compareItems
+  - [compareItems](compareItems.md)
   - RETURN_ERROR
 
 ## Notes and Other Information

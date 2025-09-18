@@ -24,13 +24,13 @@ The function operates differently from other conflict resolution mechanisms by u
 ## Dependencies
 - Functions called/Symbols referenced:
   - GetConflictingVirtualXIDs
-  - ResolveRecoveryConflictWithVirtualXIDs
+  - [ResolveRecoveryConflictWithVirtualXIDs](ResolveRecoveryConflictWithVirtualXIDs.md)
   - PROCSIG_RECOVERY_CONFLICT_TABLESPACE
   - WAIT_EVENT_RECOVERY_CONFLICT_TABLESPACE
   - InvalidTransactionId
   - InvalidOid
 - Called from (representative examples):
-  - tblspc_redo
+  - [tblspc_redo](../t/tblspc_redo.md)
 
 ## Notes and Other Information
 - The function uses an intentionally broad conflict resolution approach, canceling all backends rather than trying to identify specific ones using the tablespace

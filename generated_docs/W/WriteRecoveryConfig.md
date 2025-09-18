@@ -21,16 +21,16 @@ The function determines the appropriate configuration method based on the server
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQserverVersion
+  - [PQserverVersion](../P/PQserverVersion.md)
   - MINIMUM_VERSION_FOR_RECOVERY_GUC
   - snprintf
   - fopen
   - fwrite
   - fclose
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - setup_recovery (pg_createsubscriber.c:1237)
-  - main (pg_rewind.c:453, 530)
+  - [setup_recovery](../s/setup_recovery.md) (pg_createsubscriber.c:1237)
+  - [main](../m/main.md) (pg_rewind.c:453, 530)
 
 ## Notes and Other Information
 - Handles PostgreSQL version differences: uses recovery.conf for pre-12 versions, postgresql.auto.conf + standby.signal for 12+

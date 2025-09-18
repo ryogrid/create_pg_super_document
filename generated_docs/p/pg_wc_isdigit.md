@@ -29,15 +29,15 @@ The function handles six different regex strategies:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_char_properties (character property lookup table)
-  - pg_u_isdigit (built-in Unicode digit test)
+  - [pg_u_isdigit](pg_u_isdigit.md) (built-in Unicode digit test)
   - iswdigit (system wide character digit test)
   - isdigit (standard single-byte digit test)
   - iswdigit_l (locale-specific wide character digit test)
   - isdigit_l (locale-specific single-byte digit test)
   - u_isdigit (ICU digit classification)
 - Called from (representative examples):
-  - cclasscvec (src/backend/regex/regc_locale.c:627)
-  - cclass_column_index (src/backend/regex/regc_locale.c:693)
+  - [cclasscvec](../c/cclasscvec.md) (src/backend/regex/regc_locale.c:627)
+  - [cclass_column_index](../c/cclass_column_index.md) (src/backend/regex/regc_locale.c:693)
   - REPLACEARC (src/backend/regex/regcomp.c:252)
   - iscdigit (src/include/regex/regcustom.h:93)
 

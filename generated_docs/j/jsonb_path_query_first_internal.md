@@ -27,17 +27,17 @@ This static function serves as the core implementation for JSONPath first-match 
   - PG_GETARG_JSONB_P (argument extraction)
   - PG_GETARG_JSONPATH_P (path argument extraction)
   - PG_GETARG_BOOL (boolean argument extraction)
-  - executeJsonPath (core path execution)
-  - getJsonPathVariableFromJsonb (variable resolver)
-  - countVariablesFromJsonb (variable counter)
-  - JsonValueListLength (list length check)
-  - JsonValueListHead (first item retrieval)
-  - JsonbValueToJsonb (conversion function)
+  - [executeJsonPath](../e/executeJsonPath.md) (core path execution)
+  - [getJsonPathVariableFromJsonb](../g/getJsonPathVariableFromJsonb.md) (variable resolver)
+  - [countVariablesFromJsonb](../c/countVariablesFromJsonb.md) (variable counter)
+  - [JsonValueListLength](../J/JsonValueListLength.md) (list length check)
+  - [JsonValueListHead](../J/JsonValueListHead.md) (first item retrieval)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md) (conversion function)
   - PG_RETURN_JSONB_P (return macro)
   - PG_RETURN_NULL (null return macro)
 - Called from (representative examples):
-  - jsonb_path_query_first
-  - jsonb_path_query_first_tz
+  - [jsonb_path_query_first](jsonb_path_query_first.md)
+  - [jsonb_path_query_first_tz](jsonb_path_query_first_tz.md)
 
 ## Notes and Other Information
 - This is a static internal function not exposed outside the module

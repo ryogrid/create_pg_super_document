@@ -18,11 +18,11 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - lower2D
+  - [lower2D](../l/lower2D.md)
   - RectBox (struct)
   - RangeBox (struct)
 - Called from (representative examples):
-  - spg_box_quad_inner_consistent
+  - [spg_box_quad_inner_consistent](../s/spg_box_quad_inner_consistent.md)
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. It provides vertical positioning evaluation, complementing the horizontal positioning functions (left4D, right4D, overLeft4D, overRight4D). The function checks the y-axis relationship and is part of the comprehensive spatial relationship predicate system that enables efficient geometric indexing and query processing for PostgreSQL's spatial data types. Note that it compares the y-range with the query's right boundary, which may seem counterintuitive but follows the internal structure design of the RangeBox.

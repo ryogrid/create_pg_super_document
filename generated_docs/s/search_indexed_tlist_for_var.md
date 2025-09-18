@@ -23,20 +23,20 @@ The function includes cross-checking of varnullingrels between the input Var and
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - copyVar
-  - bms_is_subset
-  - bms_equal
-  - bmsToString
+  - [copyVar](../c/copyVar.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_equal](../b/bms_equal.md)
+  - [bmsToString](../b/bmsToString.md)
   - elog
 - Data types used:
-  - indexed_tlist
+  - [indexed_tlist](../i/indexed_tlist.md)
   - tlist_vinfo
   - NullingRelsMatch
   - AttrNumber
 - Called from (representative examples):
   - fix_scan_list
-  - fix_join_expr_mutator
-  - fix_upper_expr_mutator
+  - [fix_join_expr_mutator](../f/fix_join_expr_mutator.md)
+  - [fix_upper_expr_mutator](../f/fix_upper_expr_mutator.md)
 
 ## Notes and Other Information
 - Returns NULL if no match is found in the indexed target list

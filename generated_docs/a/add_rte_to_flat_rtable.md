@@ -32,18 +32,18 @@ The  function creates an optimized copy of a RangeTblEntry for inclusion in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getRTEPermissionInfo
-  - addRTEPermissionInfo
+  - [getRTEPermissionInfo](../g/getRTEPermissionInfo.md)
+  - [addRTEPermissionInfo](addRTEPermissionInfo.md)
   - lappend_oid
 - Types used:
   - PlannerGlobal
-  - RTEPermissionInfo
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md)
 - Constants used:
   - RTE_RELATION
   - RTE_SUBQUERY
 - Called from (representative examples):
-  - add_rtes_to_flat_rtable
-  - flatten_rtes_walker
+  - [add_rtes_to_flat_rtable](add_rtes_to_flat_rtable.md)
+  - [flatten_rtes_walker](../f/flatten_rtes_walker.md)
   - fix_scan_list
 
 ## Notes and Other Information

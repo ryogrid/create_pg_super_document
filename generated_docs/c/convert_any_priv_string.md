@@ -34,17 +34,17 @@ This function is the core parsing engine used by all the specific privilege conv
   - strchr (finds comma separators)
   - isspace (checks for whitespace characters)
   - strlen (gets string length)
-  - pg_strcasecmp (case-insensitive string comparison)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md) (case-insensitive string comparison)
   - ereport/ERROR (error reporting)
-  - errcode/ERRCODE_INVALID_PARAMETER_VALUE (error code)
-  - errmsg (error message formatting)
-  - pfree (PostgreSQL memory deallocation)
+  - [errcode](../e/errcode.md)/ERRCODE_INVALID_PARAMETER_VALUE (error code)
+  - [errmsg](../e/errmsg.md) (error message formatting)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation)
 - Called from (representative examples):
-  - makeaclitem (creates ACL items from components)
-  - convert_table_priv_string (converts table privilege strings)
-  - convert_sequence_priv_string (converts sequence privilege strings)
-  - convert_column_priv_string (converts column privilege strings)
-  - convert_database_priv_string (converts database privilege strings)
+  - [makeaclitem](../m/makeaclitem.md) (creates ACL items from components)
+  - [convert_table_priv_string](convert_table_priv_string.md) (converts table privilege strings)
+  - [convert_sequence_priv_string](convert_sequence_priv_string.md) (converts sequence privilege strings)
+  - [convert_column_priv_string](convert_column_priv_string.md) (converts column privilege strings)
+  - [convert_database_priv_string](convert_database_priv_string.md) (converts database privilege strings)
   - Multiple other convert_*_priv_string functions for different object types
 
 ## Notes and Other Information

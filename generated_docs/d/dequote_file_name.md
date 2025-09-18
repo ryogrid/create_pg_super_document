@@ -25,11 +25,11 @@ The function handles two scenarios:
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_malloc
-  - strtokx 
+  - [strtokx](../s/strtokx.md) 
   - strcpy
   - strlen
   - free
-  - pg_strdup
+  - [pg_strdup](../p/pg_strdup.md)
   - Assert
 - Called from (representative examples):
   - Used in psql tab completion system

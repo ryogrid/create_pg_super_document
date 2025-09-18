@@ -23,14 +23,14 @@ The function handles the legacy line-oriented COPY protocol semantics, including
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQgetlineAsync
-  - pqWait
-  - pqReadData
-  - libpq_append_conn_error
+  - [PQgetlineAsync](../P/PQgetlineAsync.md)
+  - [pqWait](pqWait.md)
+  - [pqReadData](pqReadData.md)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
   - strcpy
   - PGINVALID_SOCKET, PGASYNC_COPY_OUT, PGASYNC_COPY_BOTH
 - Called from (representative examples):
-  - PQgetline (public API wrapper)
+  - [PQgetline](../P/PQgetline.md) (public API wrapper)
 
 ## Notes and Other Information
 - Returns: 0 if line successfully read, 1 if buffer filled without finding newline, EOF on error or end of copy

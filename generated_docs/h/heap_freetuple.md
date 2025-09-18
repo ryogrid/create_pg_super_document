@@ -19,20 +19,20 @@ This function is used extensively throughout the PostgreSQL codebase whenever he
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - toast_save_datum
-  - heap_insert
-  - heap_delete
-  - heap_update
-  - ExtractReplicaIdentity
-  - reform_and_rewrite_tuple
-  - rewrite_heap_tuple
-  - InsertOneTuple
-  - CatalogTuplesMultiInsertWithInfo
-  - ExecBRInsertTriggers
-  - SPI_freetuple
-  - RelationBuildDesc
+  - [toast_save_datum](../t/toast_save_datum.md)
+  - [heap_insert](heap_insert.md)
+  - [heap_delete](heap_delete.md)
+  - [heap_update](heap_update.md)
+  - [ExtractReplicaIdentity](../E/ExtractReplicaIdentity.md)
+  - [reform_and_rewrite_tuple](../r/reform_and_rewrite_tuple.md)
+  - [rewrite_heap_tuple](../r/rewrite_heap_tuple.md)
+  - [InsertOneTuple](../I/InsertOneTuple.md)
+  - [CatalogTuplesMultiInsertWithInfo](../C/CatalogTuplesMultiInsertWithInfo.md)
+  - [ExecBRInsertTriggers](../E/ExecBRInsertTriggers.md)
+  - [SPI_freetuple](../S/SPI_freetuple.md)
+  - [RelationBuildDesc](../R/RelationBuildDesc.md)
 
 ## Notes and Other Information
 - This is a fundamental memory management function used throughout PostgreSQL

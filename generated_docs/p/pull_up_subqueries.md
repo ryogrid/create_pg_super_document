@@ -26,7 +26,7 @@ The function operates on the assumption that the top level of the jointree is al
 ## Dependencies
 - Functions called/Symbols referenced:
   -  - Performs the recursive subquery pull-up processing
-  -  - Node type representing FROM clause expressions
+  -  - [Node](../N/Node.md) type representing FROM clause expressions
   -  - Macro for type checking nodes
 
 - Called from (representative examples):

@@ -24,20 +24,20 @@ The function performs extensive validation to ensure physical target lists are o
 ## Dependencies
 - Functions called/Symbols referenced:
   - bms_is_empty
-  - bms_nonempty_difference
-  - bms_is_subset
-  - bms_is_member
-  - bms_add_member
+  - [bms_nonempty_difference](../b/bms_nonempty_difference.md)
+  - [bms_is_subset](../b/bms_is_subset.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [bms_add_member](../b/bms_add_member.md)
   - CustomPath (type check)
   - BitmapHeapPath (type check)
-  - IndexPath (cast)
+  - [IndexPath](../I/IndexPath.md) (cast)
   - PlaceHolderInfo (type)
-  - IndexOptInfo (type)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (type)
   - Various RTE constants (RTE_RELATION, RTE_SUBQUERY, etc.)
   - Various flag constants (CP_EXACT_TLIST, CP_SMALL_TLIST, CP_LABEL_TLIST)
 - Called from (representative examples):
-  - create_scan_plan
-  - create_projection_plan
+  - [create_scan_plan](../c/create_scan_plan.md)
+  - [create_projection_plan](../c/create_projection_plan.md)
 
 ## Notes and Other Information
 - Returns false immediately if CP_EXACT_TLIST or CP_SMALL_TLIST flags are set, as these demand specific target list formats

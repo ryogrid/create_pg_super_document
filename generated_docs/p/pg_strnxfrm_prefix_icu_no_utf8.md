@@ -44,21 +44,21 @@ LC_ALL=: ICU locale specification with collation rules
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - init_icu_converter
-  - uchar_length
-  - uchar_convert
+  - [init_icu_converter](../i/init_icu_converter.md)
+  - [uchar_length](../u/uchar_length.md)
+  - [uchar_convert](../u/uchar_convert.md)
   - uiter_setString
   - ucol_nextSortKeyPart
   - u_errorName
   - ereport
-  - GetDatabaseEncoding
-  - palloc
-  - pfree
+  - [GetDatabaseEncoding](../G/GetDatabaseEncoding.md)
+  - [palloc](palloc.md)
+  - [pfree](pfree.md)
   - COLLPROVIDER_ICU
   - PG_UTF8
   - TEXTBUFLEN
 - Called from (representative examples):
-  - pg_strnxfrm_prefix_icu (src/backend/utils/adt/pg_locale.c:2349)
+  - [pg_strnxfrm_prefix_icu](pg_strnxfrm_prefix_icu.md) (src/backend/utils/adt/pg_locale.c:2349)
 
 ## Notes and Other Information
 - This is a static function available only when ICU support is compiled

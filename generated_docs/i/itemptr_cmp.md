@@ -23,10 +23,10 @@ The function follows the standard C library qsort comparator interface, returnin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
 - Called from (representative examples):
-  - check_set_block_offsets (used with qsort for sorting ItemPointer arrays)
+  - [check_set_block_offsets](../c/check_set_block_offsets.md) (used with qsort for sorting ItemPointer arrays)
 
 ## Notes and Other Information
 - This is a static function within the test_tidstore module, used specifically for testing tidstore functionality

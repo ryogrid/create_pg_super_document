@@ -19,12 +19,12 @@ LogicalSlotInfoArr serves as a collection wrapper for logical replication slot m
 ## Dependencies
 - Functions called/Symbols referenced:
   - LogicalSlotInfo
-  - RelFileNumber (indirectly through related structures)
+  - [RelFileNumber](../R/RelFileNumber.md) (indirectly through related structures)
 - Called from (representative examples):
-  - check_old_cluster_for_valid_slots
-  - get_loadable_libraries  
-  - print_slot_infos
-  - create_logical_replication_slots
+  - [check_old_cluster_for_valid_slots](../c/check_old_cluster_for_valid_slots.md)
+  - [get_loadable_libraries](../g/get_loadable_libraries.md)  
+  - [print_slot_infos](../p/print_slot_infos.md)
+  - [create_logical_replication_slots](../c/create_logical_replication_slots.md)
 
 ## Notes and Other Information
 - This structure is specifically designed for pg_upgrade operations and logical replication slot migration

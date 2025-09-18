@@ -27,16 +27,16 @@ This function encodes a custom MESSAGE operation into the logical replication pr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_sendbyte
-  - pq_sendint32
-  - pq_sendint8
-  - pq_sendint64
-  - pq_sendstring
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint32](../p/pq_sendint32.md)
+  - [pq_sendint8](../p/pq_sendint8.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
+  - [pq_sendstring](../p/pq_sendstring.md)
   - pq_sendbytes
   - LOGICAL_REP_MSG_MESSAGE
   - MESSAGE_TRANSACTIONAL
 - Called from (representative examples):
-  - pgoutput_message
+  - [pgoutput_message](../p/pgoutput_message.md)
 
 ## Notes and Other Information
 - Part of the logical replication protocol for custom application messaging

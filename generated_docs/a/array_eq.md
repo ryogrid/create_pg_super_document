@@ -28,7 +28,7 @@ The function handles null elements specially: two null elements are considered e
   - PG_GET_COLLATION (gets collation for comparison)
   - AARR_NDIM, AARR_DIMS, AARR_LBOUND (array metadata access macros)
   - AARR_ELEMTYPE (gets element type)
-  - lookup_type_cache (looks up type information and operators)
+  - [lookup_type_cache](../l/lookup_type_cache.md) (looks up type information and operators)
   - TYPECACHE_EQ_OPR_FINFO (type cache flag for equality operator)
   - InitFunctionCallInfoData (initializes function call structure)
   - ArrayGetNItems (calculates total number of elements)
@@ -39,7 +39,7 @@ The function handles null elements specially: two null elements are considered e
   - AnyArrayType (generalized array type)
 
 - Called from (representative examples):
-  - array_ne (array inequality function uses this as basis)
+  - [array_ne](array_ne.md) (array inequality function uses this as basis)
 
 ## Notes and Other Information
 - Does not use array_cmp for comparison, since equality can be meaningful for types without total ordering

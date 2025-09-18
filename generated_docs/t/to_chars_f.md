@@ -37,7 +37,7 @@ The function determines the appropriate format based on `nexp = exp + olength` a
   - memcpy, memmove, memset (memory operations for efficient string manipulation)
   - Assert (for validation of preconditions)
 - Called from (representative examples):
-  - to_chars (at src/common/f2s.c:581)
+  - [to_chars](to_chars.md) (at src/common/f2s.c:581)
 
 ## Notes and Other Information
 - This is an inline static function optimized for performance

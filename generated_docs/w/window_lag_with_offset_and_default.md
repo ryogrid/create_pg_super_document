@@ -17,7 +17,7 @@ This function provides the full SQL LAG window function functionality with both 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - leadlag_common (with parameters false, true, true indicating lag operation, with offset, with default)
+  - [leadlag_common](../l/leadlag_common.md) (with parameters false, true, true indicating lag operation, with offset, with default)
 - Called from:
   - No direct references found (likely called through PostgreSQL's function call mechanism)
 

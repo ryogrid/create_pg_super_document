@@ -20,9 +20,9 @@ The function operates at the command level, meaning invalidations registered dur
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - AddCatalogInvalidationMessage
+  - [AddCatalogInvalidationMessage](../A/AddCatalogInvalidationMessage.md)
 - Called from (representative examples):
-  - CacheInvalidateCatalog
+  - [CacheInvalidateCatalog](../C/CacheInvalidateCatalog.md)
 
 ## Notes and Other Information
 - This is a static function internal to the invalidation system

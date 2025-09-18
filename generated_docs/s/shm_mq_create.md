@@ -20,14 +20,14 @@ The shm_mq_create function initializes a shared memory message queue at the prov
 - Functions called/Symbols referenced:
   - MAXALIGN_DOWN
   - SpinLockInit  
-  - pg_atomic_init_u64
-  - shm_mq (structure)
+  - [pg_atomic_init_u64](../p/pg_atomic_init_u64.md)
+  - [shm_mq](shm_mq.md) (structure)
 - Called from (representative examples):
-  - InitializeParallelDSM
-  - ReinitializeParallelDSM
-  - ExecParallelSetupTupleQueues
-  - pa_setup_dsm
-  - setup_dynamic_shared_memory
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
+  - [ReinitializeParallelDSM](../R/ReinitializeParallelDSM.md)
+  - [ExecParallelSetupTupleQueues](../E/ExecParallelSetupTupleQueues.md)
+  - [pa_setup_dsm](../p/pa_setup_dsm.md)
+  - [setup_dynamic_shared_memory](setup_dynamic_shared_memory.md)
 
 ## Notes and Other Information
 - The function performs MAXALIGN_DOWN on the size to ensure proper memory alignment

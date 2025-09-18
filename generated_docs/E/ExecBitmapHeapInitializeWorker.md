@@ -27,13 +27,13 @@ After this initialization, the worker process can participate in coordinated bit
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
   - Assert (macro)
-  - BitmapHeapScanState (structure)
-  - ParallelWorkerContext (structure)
-  - ParallelBitmapHeapState (structure)
+  - [BitmapHeapScanState](../B/BitmapHeapScanState.md) (structure)
+  - [ParallelWorkerContext](../P/ParallelWorkerContext.md) (structure)
+  - [ParallelBitmapHeapState](../P/ParallelBitmapHeapState.md) (structure)
 - Called from (representative examples):
-  - ExecParallelInitializeWorker
+  - [ExecParallelInitializeWorker](ExecParallelInitializeWorker.md)
 
 ## Notes and Other Information
 This function is the counterpart to ExecBitmapHeapInitializeDSM - while the leader process creates and initializes the shared state, worker processes use this function to connect to that pre-existing shared state. The function includes a critical assertion that verifies DSA availability, as this is required for all shared memory operations. The plan_node_id serves as a unique identifier ensuring each worker connects to the correct shared state when multiple parallel bitmap scans exist in the same query.

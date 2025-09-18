@@ -19,11 +19,11 @@ The function uses a static boolean flag to ensure the handler is only registered
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - before_shmem_exit
-  - do_pg_abort_backup
-  - DatumGetBool
+  - [before_shmem_exit](../b/before_shmem_exit.md)
+  - [do_pg_abort_backup](../d/do_pg_abort_backup.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
 - Called from:
-  - pg_backup_start (src/backend/access/transam/xlogfuncs.c:96)
+  - [pg_backup_start](../p/pg_backup_start.md) (src/backend/access/transam/xlogfuncs.c:96)
 
 ## Notes and Other Information
 - Uses a static boolean flag (already_done) to prevent multiple registrations

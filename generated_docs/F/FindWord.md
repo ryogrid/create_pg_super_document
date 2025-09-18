@@ -27,11 +27,11 @@ The search process uses a binary search algorithm at each tree node to quickly l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IsAffixFlagInUse
+  - [IsAffixFlagInUse](../I/IsAffixFlagInUse.md)
   - FF_COMPOUNDFLAGMASK
   - FF_COMPOUNDONLY
 - Called from (representative examples):
-  - NormalizeSubWord
+  - [NormalizeSubWord](../N/NormalizeSubWord.md)
 
 ## Notes and Other Information
 - Returns 1 if the word is found with valid affix associations, 0 otherwise

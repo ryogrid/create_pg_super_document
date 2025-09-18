@@ -36,16 +36,16 @@ The function supports both traditional inheritance and modern partitioning, with
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_append_rel_info
-  - makeAlias, makeString, makeVar
-  - select_rowmark_type
-  - add_row_identity_var
-  - add_row_identity_columns
+  - [make_append_rel_info](../m/make_append_rel_info.md)
+  - [makeAlias](../m/makeAlias.md), makeString, makeVar
+  - [select_rowmark_type](../s/select_rowmark_type.md)
+  - [add_row_identity_var](../a/add_row_identity_var.md)
+  - [add_row_identity_columns](../a/add_row_identity_columns.md)
   - copyObject
-  - bms_is_member, bms_add_member
+  - [bms_is_member](../b/bms_is_member.md), bms_add_member
 - Called from (representative examples):
-  - expand_inherited_rtentry
-  - expand_partitioned_rtentry
+  - [expand_inherited_rtentry](expand_inherited_rtentry.md)
+  - [expand_partitioned_rtentry](expand_partitioned_rtentry.md)
 
 ## Notes and Other Information
 - Creates a hierarchical structure where each partitioned descendant acts as parent of its immediate partitions (differs from older flattened approach)

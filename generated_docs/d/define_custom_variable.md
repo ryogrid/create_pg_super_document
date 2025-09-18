@@ -20,24 +20,24 @@ This function completes the custom variable definition process by integrating th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - check_GUC_init
-  - hash_search
-  - InitializeOneGUCOption
-  - add_guc_variable
-  - RemoveGUCFromLists
+  - [check_GUC_init](../c/check_GUC_init.md)
+  - [hash_search](../h/hash_search.md)
+  - [InitializeOneGUCOption](../I/InitializeOneGUCOption.md)
+  - [add_guc_variable](../a/add_guc_variable.md)
+  - [RemoveGUCFromLists](../R/RemoveGUCFromLists.md)
   - set_config_option_ext
-  - reapply_stacked_values
-  - set_config_sourcefile
-  - set_string_field
-  - guc_free
+  - [reapply_stacked_values](../r/reapply_stacked_values.md)
+  - [set_config_sourcefile](../s/set_config_sourcefile.md)
+  - [set_string_field](../s/set_string_field.md)
+  - [guc_free](../g/guc_free.md)
   - GUC_CUSTOM_PLACEHOLDER (flag)
   - HASH_FIND, GUC_ACTION_SET (constants)
 - Called from (representative examples):
-  - DefineCustomBoolVariable
-  - DefineCustomIntVariable
-  - DefineCustomRealVariable
-  - DefineCustomStringVariable
-  - DefineCustomEnumVariable
+  - [DefineCustomBoolVariable](../D/DefineCustomBoolVariable.md)
+  - [DefineCustomIntVariable](../D/DefineCustomIntVariable.md)
+  - [DefineCustomRealVariable](../D/DefineCustomRealVariable.md)
+  - [DefineCustomStringVariable](../D/DefineCustomStringVariable.md)
+  - [DefineCustomEnumVariable](../D/DefineCustomEnumVariable.md)
 
 ## Notes and Other Information
 - This is a static function internal to guc.c and not exposed publicly

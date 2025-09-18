@@ -22,13 +22,13 @@ fillPGconn is an internal utility function that performs the critical task of po
 - Functions called/Symbols referenced:
   - PQconninfoOptions (global options table)
   - internalPQconninfoOption (structure type)
-  - conninfo_getval
+  - [conninfo_getval](../c/conninfo_getval.md)
   - strdup (standard library)
   - free (standard library)
-  - libpq_append_conn_error
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md)
 - Called from (representative examples):
-  - PQconnectStartParams (fe-connect.c)
-  - connectOptions1 (fe-connect.c)
+  - [PQconnectStartParams](../P/PQconnectStartParams.md) (fe-connect.c)
+  - [connectOptions1](../c/connectOptions1.md) (fe-connect.c)
 
 ## Notes and Other Information
 - This is a static internal function not exposed in the public libpq API

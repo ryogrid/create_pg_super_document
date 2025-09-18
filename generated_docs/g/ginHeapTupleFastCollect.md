@@ -22,15 +22,15 @@ This function is responsible for converting a single attribute value from a heap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ginExtractEntries
-  - pg_nextpower2_32
+  - [ginExtractEntries](ginExtractEntries.md)
+  - [pg_nextpower2_32](../p/pg_nextpower2_32.md)
   - palloc_array
   - repalloc_array
-  - GinFormTuple
+  - [GinFormTuple](../G/GinFormTuple.md)
   - IndexTupleSize
   - MaxAllocSize
 - Called from (representative examples):
-  - gininsert
+  - [gininsert](gininsert.md)
 
 ## Notes and Other Information
 - Part of GIN's fast insertion mechanism for collecting tuples before bulk insertion

@@ -19,9 +19,9 @@ publication_invalidation_cb is a syscache invalidation callback function in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - rel_sync_cache_publication_cb
+  - [rel_sync_cache_publication_cb](../r/rel_sync_cache_publication_cb.md)
 - Called from (representative examples):
-  - pgoutput_startup (registered as callback)
+  - [pgoutput_startup](pgoutput_startup.md) (registered as callback)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the pgoutput.c file

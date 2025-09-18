@@ -21,11 +21,11 @@ The callback distinguishes between named and unnamed portals, providing appropri
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ParamsErrorCbData (callback data structure type)
+  - [ParamsErrorCbData](ParamsErrorCbData.md) (callback data structure type)
   - errcontext (to add context information to error messages)
 - Called from (representative examples):
-  - exec_bind_message (during query parameter binding)
-  - exec_execute_message (during query execution)
+  - [exec_bind_message](../e/exec_bind_message.md) (during query parameter binding)
+  - [exec_execute_message](../e/exec_execute_message.md) (during query execution)
 
 ## Notes and Other Information
 - Only provides output if paramValuesStr has been previously set by BuildParamLogString

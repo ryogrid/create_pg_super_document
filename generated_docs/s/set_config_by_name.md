@@ -32,7 +32,7 @@ Key behaviors:
 ## Dependencies
 - Functions called/Symbols referenced:
   - set_config_option
-  - GetConfigOptionByName
+  - [GetConfigOptionByName](../G/GetConfigOptionByName.md)
   - TextDatumGetCString
   - cstring_to_text
   - superuser

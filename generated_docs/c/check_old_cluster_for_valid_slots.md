@@ -21,14 +21,14 @@ The function operates in two modes based on the `live_check` parameter. When per
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - prep_status
-  - LogicalSlotInfoArr
+  - [prep_status](../p/prep_status.md)
+  - [LogicalSlotInfoArr](../L/LogicalSlotInfoArr.md)
   - LogicalSlotInfo
   - fopen_priv
-  - pg_log
-  - check_ok
+  - [pg_log](../p/pg_log.md)
+  - [check_ok](check_ok.md)
 - Called from (representative examples):
-  - check_and_dump_old_cluster
+  - [check_and_dump_old_cluster](check_and_dump_old_cluster.md)
 
 ## Notes and Other Information
 - Creates "invalid_logical_slots.txt" file in the log base directory when problematic slots are detected

@@ -20,10 +20,10 @@ The function defers validation of the system identifier to a later stage in the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonManifestParseContext (type reference)
-  - manifest_data (type reference and field access)
+  - [JsonManifestParseContext](../J/JsonManifestParseContext.md) (type reference)
+  - [manifest_data](../m/manifest_data.md) (type reference and field access)
 - Called from:
-  - load_backup_manifest (src/bin/pg_combinebackup/load_manifest.c:146) - set as system_identifier_cb callback
+  - [load_backup_manifest](../l/load_backup_manifest.md) (src/bin/pg_combinebackup/load_manifest.c:146) - set as system_identifier_cb callback
   - Referenced in SH_DEFINE macro context
 
 ## Notes and Other Information

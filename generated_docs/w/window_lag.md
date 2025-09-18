@@ -26,7 +26,7 @@ If the previous row doesn't exist (i.e., current row is the first row in the par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - leadlag_common
+  - [leadlag_common](../l/leadlag_common.md)
 - Called from (representative examples):
   - SQL LAG() window function calls through PostgreSQL's function call infrastructure
 

@@ -22,11 +22,11 @@ This internal function is responsible for accumulating text fields during string
 - Functions called/Symbols referenced:
   - text_isequal (for comparing field_value with null_string)
   - tuplestore_putvalues (for adding values to tuple store)
-  - accumArrayResult (for adding values to array accumulator)
-  - PointerGetDatum (for converting text pointer to Datum)
+  - [accumArrayResult](../a/accumArrayResult.md) (for adding values to array accumulator)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (for converting text pointer to Datum)
   - CurrentMemoryContext (for memory management)
 - Called from:
-  - split_text (multiple times during text splitting operations)
+  - [split_text](split_text.md) (multiple times during text splitting operations)
 
 ## Notes and Other Information
 This function is part of PostgreSQL's string manipulation infrastructure, specifically used by the split_text function family. The dual-mode operation (tuple store vs array accumulator) allows the same splitting logic to support both table-valued functions and array-returning functions. The null string comparison uses proper collation rules to ensure consistent behavior across different locale settings. The function is marked as static, indicating it's an internal implementation detail not exposed to external callers.

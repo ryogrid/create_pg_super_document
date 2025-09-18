@@ -19,23 +19,23 @@ When a parser entry is not found or is invalid, the function performs a system c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_create (creates the parser cache hash table)
-  - hash_search (searches and inserts entries in the hash table)
-  - CacheRegisterSyscacheCallback (registers cache invalidation callback)
-  - InvalidateTSCacheCallBack (cache invalidation callback function)
-  - CreateCacheMemoryContext (ensures cache memory context exists)
-  - SearchSysCache1 (system catalog lookup)
-  - fmgr_info_cxt (caches function manager information)
-  - ObjectIdGetDatum, PointerGetDatum (datum conversion utilities)
+  - [hash_create](../h/hash_create.md) (creates the parser cache hash table)
+  - [hash_search](../h/hash_search.md) (searches and inserts entries in the hash table)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md) (registers cache invalidation callback)
+  - [InvalidateTSCacheCallBack](../I/InvalidateTSCacheCallBack.md) (cache invalidation callback function)
+  - [CreateCacheMemoryContext](../C/CreateCacheMemoryContext.md) (ensures cache memory context exists)
+  - [SearchSysCache1](../S/SearchSysCache1.md) (system catalog lookup)
+  - [fmgr_info_cxt](../f/fmgr_info_cxt.md) (caches function manager information)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md), PointerGetDatum (datum conversion utilities)
   - HeapTupleIsValid, OidIsValid (validation utilities)
   - MemSet (memory initialization)
 - Called from (representative examples):
-  - getTokenTypes (in tsearchcmds.c)
-  - parsetext (in ts_parse.c)
-  - hlparsetext (in ts_parse.c)
-  - tt_setup_firstcall (in wparser.c)
-  - prs_setup_firstcall (in wparser.c)
-  - ts_headline_byid_opt (in wparser.c)
+  - [getTokenTypes](../g/getTokenTypes.md) (in tsearchcmds.c)
+  - [parsetext](../p/parsetext.md) (in ts_parse.c)
+  - [hlparsetext](../h/hlparsetext.md) (in ts_parse.c)
+  - [tt_setup_firstcall](../t/tt_setup_firstcall.md) (in wparser.c)
+  - [prs_setup_firstcall](../p/prs_setup_firstcall.md) (in wparser.c)
+  - [ts_headline_byid_opt](../t/ts_headline_byid_opt.md) (in wparser.c)
 
 ## Notes and Other Information
 - The function uses a two-level caching strategy: a single-entry cache for the most recently used parser and a hash table for multiple parsers

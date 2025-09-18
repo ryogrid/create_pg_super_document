@@ -18,25 +18,25 @@ This function creates a HashJoin execution plan node from a HashPath. Hash joins
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_path_tlist
-  - create_plan_recurse
-  - order_qual_clauses
+  - [build_path_tlist](../b/build_path_tlist.md)
+  - [create_plan_recurse](create_plan_recurse.md)
+  - [order_qual_clauses](../o/order_qual_clauses.md)
   - IS_OUTER_JOIN
-  - extract_actual_join_clauses
-  - extract_actual_clauses
-  - get_actual_clauses
-  - list_difference
-  - replace_nestloop_params
-  - get_switched_clauses
-  - is_opclause
+  - [extract_actual_join_clauses](../e/extract_actual_join_clauses.md)
+  - [extract_actual_clauses](../e/extract_actual_clauses.md)
+  - [get_actual_clauses](../g/get_actual_clauses.md)
+  - [list_difference](../l/list_difference.md)
+  - [replace_nestloop_params](../r/replace_nestloop_params.md)
+  - [get_switched_clauses](../g/get_switched_clauses.md)
+  - [is_opclause](../i/is_opclause.md)
   - lappend_oid
   - lsecond
-  - make_hash
-  - copy_plan_costsize
-  - make_hashjoin
-  - copy_generic_path_info
+  - [make_hash](../m/make_hash.md)
+  - [copy_plan_costsize](copy_plan_costsize.md)
+  - [make_hashjoin](../m/make_hashjoin.md)
+  - [copy_generic_path_info](copy_generic_path_info.md)
 - Called from (representative examples):
-  - create_join_plan
+  - [create_join_plan](create_join_plan.md)
 
 ## Notes and Other Information
 - Hash joins are typically the most efficient join method when one relation is much smaller than the other

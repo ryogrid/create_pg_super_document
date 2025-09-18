@@ -27,11 +27,11 @@ The handle construction uses bit manipulation to pack the slot number and random
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_prng_uint32
-  - pg_leftmost_one_pos32
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
+  - [pg_leftmost_one_pos32](../p/pg_leftmost_one_pos32.md)
   - dsm_handle (type)
 - Called from (representative examples):
-  - dsm_create (called twice in the function)
+  - [dsm_create](../d/dsm_create.md) (called twice in the function)
 
 ## Notes and Other Information
 - Static inline function - internal to dsm.c implementation and optimized for performance

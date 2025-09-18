@@ -19,18 +19,18 @@ This function is part of the pg_dump utility's object management system. It sear
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - findObjectByCatalogId
-  - CatalogId (struct)
+  - [findObjectByCatalogId](findObjectByCatalogId.md)
+  - [CatalogId](../C/CatalogId.md) (struct)
   - DumpableObject (struct)
-  - CollInfo (struct)
+  - [CollInfo](../C/CollInfo.md) (struct)
   - DO_COLLATION (enum value)
   - CollationRelationId (constant)
 - Called from (representative examples):
-  - dumpRangeType (src/bin/pg_dump/pg_dump.c:11182)
-  - dumpDomain (src/bin/pg_dump/pg_dump.c:11637)
-  - dumpCompositeType (src/bin/pg_dump/pg_dump.c:11898)
-  - createDummyViewAsClause (src/bin/pg_dump/pg_dump.c:15929)
-  - dumpTableSchema (src/bin/pg_dump/pg_dump.c:16206)
+  - [dumpRangeType](../d/dumpRangeType.md) (src/bin/pg_dump/pg_dump.c:11182)
+  - [dumpDomain](../d/dumpDomain.md) (src/bin/pg_dump/pg_dump.c:11637)
+  - [dumpCompositeType](../d/dumpCompositeType.md) (src/bin/pg_dump/pg_dump.c:11898)
+  - [createDummyViewAsClause](../c/createDummyViewAsClause.md) (src/bin/pg_dump/pg_dump.c:15929)
+  - [dumpTableSchema](../d/dumpTableSchema.md) (src/bin/pg_dump/pg_dump.c:16206)
 
 ## Notes and Other Information
 - Returns NULL if no collation with the specified OID is found

@@ -22,15 +22,15 @@ The lock is associated with both a transaction ID and the current subscription I
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockApplyTransactionForSession
+  - [LockApplyTransactionForSession](../L/LockApplyTransactionForSession.md)
   - PARALLEL_APPLY_LOCK_STREAM (constant)
   - MyLogicalRepWorker (global variable)
 - Called from (representative examples):
-  - pa_process_spooled_messages_if_required
-  - pa_switch_to_partial_serialize
-  - pa_decr_and_wait_stream_block
-  - apply_handle_stream_stop
-  - apply_handle_stream_abort
+  - [pa_process_spooled_messages_if_required](pa_process_spooled_messages_if_required.md)
+  - [pa_switch_to_partial_serialize](pa_switch_to_partial_serialize.md)
+  - [pa_decr_and_wait_stream_block](pa_decr_and_wait_stream_block.md)
+  - [apply_handle_stream_stop](../a/apply_handle_stream_stop.md)
+  - [apply_handle_stream_abort](../a/apply_handle_stream_abort.md)
 
 ## Notes and Other Information
 - Helper function that abstracts the complexity of stream-specific locking

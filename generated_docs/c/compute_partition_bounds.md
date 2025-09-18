@@ -34,16 +34,16 @@ The function also initializes the joinrel's partition-related data structures in
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - partition_bounds_equal
-  - partition_bounds_merge
-  - get_matching_part_pairs
+  - [partition_bounds_equal](../p/partition_bounds_equal.md)
+  - [partition_bounds_merge](../p/partition_bounds_merge.md)
+  - [get_matching_part_pairs](../g/get_matching_part_pairs.md)
   - list_length
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - Assert
   - PartitionScheme
-  - PartitionBoundInfo
+  - [PartitionBoundInfo](../P/PartitionBoundInfo.md)
 - Called from (representative examples):
-  - try_partitionwise_join
+  - [try_partitionwise_join](../t/try_partitionwise_join.md)
 
 ## Notes and Other Information
 - Sets joinrel->nparts to 0 if partition bounds cannot be merged (incompatible partitioning)

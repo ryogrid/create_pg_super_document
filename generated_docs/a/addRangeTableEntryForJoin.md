@@ -41,13 +41,13 @@ This function creates a RangeTblEntry of type RTE_JOIN for handling join operati
 - Functions called/Symbols referenced:
   - makeNode (for RangeTblEntry creation)
   - copyObject (for alias copying)
-  - makeAlias (for default alias creation)
-  - list_concat (for combining column name lists)
-  - list_copy_tail (for copying partial lists)
-  - palloc (for ParseNamespaceItem allocation)
+  - [makeAlias](../m/makeAlias.md) (for default alias creation)
+  - [list_concat](../l/list_concat.md) (for combining column name lists)
+  - [list_copy_tail](../l/list_copy_tail.md) (for copying partial lists)
+  - [palloc](../p/palloc.md) (for ParseNamespaceItem allocation)
 - Called from (representative examples):
-  - transformSetOperationStmt (in analyze.c:1871)
-  - transformFromClauseItem (in parse_clause.c:1543)
+  - [transformSetOperationStmt](../t/transformSetOperationStmt.md) (in analyze.c:1871)
+  - [transformFromClauseItem](../t/transformFromClauseItem.md) (in parse_clause.c:1543)
 
 ## Notes and Other Information
 - Enforces PostgreSQL's limit of MaxAttrNumber columns per join

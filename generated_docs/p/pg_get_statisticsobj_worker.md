@@ -29,18 +29,18 @@ The function performs several key operations:
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_statistic_ext (system catalog structure)
-  - heap_attisnull, SysCacheGetAttrNotNull (catalog access)
+  - [heap_attisnull](../h/heap_attisnull.md), SysCacheGetAttrNotNull (catalog access)
   - TextDatumGetCString, stringToNode (expression handling)
-  - get_namespace_name_or_temp, quote_qualified_identifier (name formatting)
+  - [get_namespace_name_or_temp](../g/get_namespace_name_or_temp.md), quote_qualified_identifier (name formatting)
   - DatumGetArrayTypeP, ARR_NDIM, ARR_HASNULL, ARR_ELEMTYPE (array processing)
-  - get_attname, quote_identifier (column name handling)
-  - deparse_context_for, deparse_expression_pretty (expression formatting)
+  - [get_attname](../g/get_attname.md), quote_identifier (column name handling)
+  - [deparse_context_for](../d/deparse_context_for.md), deparse_expression_pretty (expression formatting)
   - generate_relation_name (relation name formatting)
   - looks_like_function (expression analysis)
 - Called from (representative examples):
-  - pg_get_statisticsobjdef
-  - pg_get_statisticsobjdef_string
-  - pg_get_statisticsobjdef_columns
+  - [pg_get_statisticsobjdef](pg_get_statisticsobjdef.md)
+  - [pg_get_statisticsobjdef_string](pg_get_statisticsobjdef_string.md)
+  - [pg_get_statisticsobjdef_columns](pg_get_statisticsobjdef_columns.md)
 
 ## Notes and Other Information
 - This is a static (internal) function not directly accessible from SQL

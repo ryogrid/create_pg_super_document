@@ -19,10 +19,10 @@ The `parse_bool_with_len` function is the core implementation for boolean string
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_strncasecmp (PostgreSQL's case-insensitive string comparison function)
+  - [pg_strncasecmp](pg_strncasecmp.md) (PostgreSQL's case-insensitive string comparison function)
 - Called from (representative examples):
-  - parse_bool (bool.c:32)
-  - boolin (bool.c:144)
+  - [parse_bool](parse_bool.md) (bool.c:32)
+  - [boolin](../b/boolin.md) (bool.c:144)
 
 ## Notes and Other Information
 - Returns true if the string parses successfully as a boolean, false otherwise

@@ -19,25 +19,25 @@ This function takes no parameters and returns a List of avw_dbase structures.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - StartTransactionCommand
+  - [StartTransactionCommand](../S/StartTransactionCommand.md)
   - GetTransactionSnapshot
   - table_open
-  - table_beginscan_catalog
-  - heap_getnext
-  - table_endscan
+  - [table_beginscan_catalog](../t/table_beginscan_catalog.md)
+  - [heap_getnext](../h/heap_getnext.md)
+  - [table_endscan](../t/table_endscan.md)
   - table_close
-  - CommitTransactionCommand
-  - database_is_invalid_form
-  - MemoryContextSwitchTo
-  - palloc
-  - pstrdup
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)
+  - [database_is_invalid_form](../d/database_is_invalid_form.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [palloc](../p/palloc.md)
+  - [pstrdup](../p/pstrdup.md)
   - lappend
   - elog
   - GETSTRUCT
   - NameStr
 - Called from (representative examples):
-  - rebuild_database_list
-  - do_start_worker
+  - [rebuild_database_list](../r/rebuild_database_list.md)
+  - [do_start_worker](../d/do_start_worker.md)
 
 ## Notes and Other Information
 The function includes a FIXME comment indicating a potential bug related to snapshot management and HOT pruning prevention. The comment suggests that an inactive snapshot may not reliably prevent HOT pruning due to possible xmin clearing during cache invalidation processing. The memory context switching is carefully orchestrated to allocate results in the caller's long-lived context while ensuring that temporary allocations from heap scanning occur in the shorter-lived transaction context. The function is specifically designed for the autovacuum launcher's unique requirement to access system catalogs without being connected to a specific database.

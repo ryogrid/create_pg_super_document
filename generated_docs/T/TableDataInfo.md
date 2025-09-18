@@ -22,16 +22,16 @@ The structure is designed to separate the concept of table schema information fr
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject (inherited base structure)
-  - TableInfo (referenced via tdtable pointer)
+  - [TableInfo](TableInfo.md) (referenced via tdtable pointer)
 - Called from (representative examples):
-  - makeTableDataInfo (creates TableDataInfo instances)
-  - dumpTableData (processes table data dumps)
-  - dumpTableData_copy (COPY-based data dumping)
-  - dumpTableData_insert (INSERT-based data dumping)
-  - dumpDumpableObject (generic dump processing)
+  - [makeTableDataInfo](../m/makeTableDataInfo.md) (creates TableDataInfo instances)
+  - [dumpTableData](../d/dumpTableData.md) (processes table data dumps)
+  - [dumpTableData_copy](../d/dumpTableData_copy.md) (COPY-based data dumping)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md) (INSERT-based data dumping)
+  - [dumpDumpableObject](../d/dumpDumpableObject.md) (generic dump processing)
 
 ## Notes and Other Information
-- TableDataInfo objects are created by makeTableDataInfo() when pg_dump determines that table data should be included in the dump
+- [TableDataInfo](TableDataInfo.md) objects are created by makeTableDataInfo() when pg_dump determines that table data should be included in the dump
 - The filtercond member enables selective data dumping based on user-specified WHERE conditions
 - This structure is part of pg_dump's internal object model and is not exposed to end users directly
 - The separation of TableDataInfo from TableInfo allows for flexible dump strategies where schema and data can be handled independently

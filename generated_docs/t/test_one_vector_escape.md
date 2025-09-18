@@ -21,27 +21,27 @@ This function performs extensive validation of an escape function using a specif
 - Functions called/Symbols referenced:
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - encoding_conflicts_ascii
-  - PQclientEncoding
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [encoding_conflicts_ascii](../e/encoding_conflicts_ascii.md)
+  - [PQclientEncoding](../P/PQclientEncoding.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
   - appendBinaryPQExpBuffer
-  - escapify
-  - pg_encoding_verifymbstr
+  - [escapify](../e/escapify.md)
+  - [pg_encoding_verifymbstr](../p/pg_encoding_verifymbstr.md)
   - strnlen
   - strstr
   - VALGRIND_MAKE_MEM_NOACCESS
-  - report_result
-  - test_psql_parse
+  - [report_result](../r/report_result.md)
+  - [test_psql_parse](test_psql_parse.md)
 - Constants referenced:
   - NEVER_ACCESS_STR
 - Types referenced:
-  - pe_test_config
-  - pe_test_vector
-  - pe_test_escape_func
+  - [pe_test_config](../p/pe_test_config.md)
+  - [pe_test_vector](../p/pe_test_vector.md)
+  - [pe_test_escape_func](../p/pe_test_escape_func.md)
 - Called from (representative examples):
-  - test_one_vector
+  - [test_one_vector](test_one_vector.md)
 
 ## Notes and Other Information
 - This is a test module function located in 

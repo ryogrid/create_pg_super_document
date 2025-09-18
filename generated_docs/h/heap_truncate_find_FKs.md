@@ -25,24 +25,24 @@ The function automatically restarts the scan if new referenced relations are dis
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_copy
+  - [list_copy](../l/list_copy.md)
   - table_open
-  - systable_beginscan
-  - systable_getnext
-  - systable_endscan
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - list_member_oid
+  - [list_member_oid](../l/list_member_oid.md)
   - lappend_oid
-  - list_append_unique_oid
-  - list_free
-  - list_sort
-  - list_oid_cmp
-  - list_deduplicate_oid
-  - ScanKeyInit
+  - [list_append_unique_oid](../l/list_append_unique_oid.md)
+  - [list_free](../l/list_free.md)
+  - [list_sort](../l/list_sort.md)
+  - [list_oid_cmp](../l/list_oid_cmp.md)
+  - [list_deduplicate_oid](../l/list_deduplicate_oid.md)
+  - [ScanKeyInit](../S/ScanKeyInit.md)
   - GETSTRUCT
 - Called from (representative examples):
-  - heap_truncate_check_FKs
-  - ExecuteTruncateGuts
+  - [heap_truncate_check_FKs](heap_truncate_check_FKs.md)
+  - [ExecuteTruncateGuts](../E/ExecuteTruncateGuts.md)
 
 ## Notes and Other Information
 - Requires appropriate locks on all input relations to ensure stable results

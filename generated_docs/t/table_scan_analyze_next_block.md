@@ -22,10 +22,10 @@ The function may acquire resources such as locks that are held until the corresp
 - Functions called/Symbols referenced:
   - scan->rs_rd->rd_tableam->scan_analyze_next_block (table access method implementation)
 - Types referenced:
-  - TableScanDesc
-  - ReadStream
+  - [TableScanDesc](../T/TableScanDesc.md)
+  - [ReadStream](../R/ReadStream.md)
 - Called from (representative examples):
-  - acquire_sample_rows (src/backend/commands/analyze.c:1208)
+  - [acquire_sample_rows](../a/acquire_sample_rows.md) (src/backend/commands/analyze.c:1208)
 
 ## Notes and Other Information
 - Returns false if the block is unsuitable for sampling, true otherwise

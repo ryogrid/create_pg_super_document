@@ -21,18 +21,18 @@ This function recursively traverses the dependency tree of a DumpableObject to i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocIDRequired
-  - findObjectByDumpId
+  - [TocIDRequired](../T/TocIDRequired.md)
+  - [findObjectByDumpId](findObjectByDumpId.md)
   - pg_realloc
-  - findDumpableDependencies (recursive call)
+  - [findDumpableDependencies](findDumpableDependencies.md) (recursive call)
 - Types used:
   - DumpableObject
   - DumpId
   - DO_PRE_DATA_BOUNDARY
   - DO_POST_DATA_BOUNDARY
 - Called from (representative examples):
-  - BuildArchiveDependencies
-  - findDumpableDependencies (recursive)
+  - [BuildArchiveDependencies](../B/BuildArchiveDependencies.md)
+  - [findDumpableDependencies](findDumpableDependencies.md) (recursive)
 
 ## Notes and Other Information
 - Ignores section boundary objects (DO_PRE_DATA_BOUNDARY, DO_POST_DATA_BOUNDARY) to avoid bogus dependencies

@@ -25,23 +25,23 @@ This function validates that the psql parser interprets the provided input buffe
   - psql_scan_setup
   - psql_scan
   - psql_scan_destroy
-  - resetPQExpBuffer
-  - appendPQExpBuffer
+  - [resetPQExpBuffer](../r/resetPQExpBuffer.md)
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
   - destroyPQExpBuffer
-  - PQclientEncoding
+  - [PQclientEncoding](../P/PQclientEncoding.md)
   - scan_res_s
-  - escapify
-  - report_result
+  - [escapify](../e/escapify.md)
+  - [report_result](../r/report_result.md)
 - Types referenced:
-  - pe_test_config
-  - PsqlScanState
+  - [pe_test_config](../p/pe_test_config.md)
+  - [PsqlScanState](../P/PsqlScanState.md)
   - PsqlScanResult
   - promptStatus_t
   - PROMPT_READY
   - PSCAN_INCOMPLETE
   - PSCAN_EOL
 - Called from (representative examples):
-  - test_one_vector_escape
+  - [test_one_vector_escape](test_one_vector_escape.md)
 
 ## Notes and Other Information
 - This is a test module function located in 

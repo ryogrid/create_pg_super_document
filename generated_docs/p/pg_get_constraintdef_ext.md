@@ -21,7 +21,7 @@ pg_get_constraintdef_ext is a PostgreSQL built-in function that returns the SQL 
   - PG_GETARG_OID (macro for extracting OID argument)
   - PG_GETARG_BOOL (macro for extracting boolean argument)
   - GET_PRETTY_FLAGS (macro for converting boolean to pretty-printing flags)
-  - pg_get_constraintdef_worker (core worker function that generates constraint definition)
+  - [pg_get_constraintdef_worker](pg_get_constraintdef_worker.md) (core worker function that generates constraint definition)
   - string_to_text (utility function for converting C string to PostgreSQL text type)
   - PG_RETURN_TEXT_P (macro for returning text result)
   - PG_RETURN_NULL (macro for returning NULL result)

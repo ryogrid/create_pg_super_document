@@ -35,23 +35,23 @@ The leafkey flag is particularly important for GiST algorithms, as leaf and inte
 ## Dependencies
 - Functions called/Symbols referenced:
   - Datum
-  - Relation  
+  - [Relation](../R/Relation.md)  
   - Page
   - OffsetNumber
 - Called from (representative examples):
-  - gistindex_keytest
-  - gist_box_consistent
-  - gist_box_penalty
-  - gist_poly_compress
-  - gistMakeUnionKey
+  - [gistindex_keytest](../g/gistindex_keytest.md)
+  - [gist_box_consistent](../g/gist_box_consistent.md)
+  - [gist_box_penalty](../g/gist_box_penalty.md)
+  - [gist_poly_compress](../g/gist_poly_compress.md)
+  - [gistMakeUnionKey](../g/gistMakeUnionKey.md)
   - gistdentryinit
-  - gistCompressValues
-  - inet_gist_consistent
-  - range_gist_consistent
-  - gtsvector_compress
+  - [gistCompressValues](../g/gistCompressValues.md)
+  - [inet_gist_consistent](../i/inet_gist_consistent.md)
+  - [range_gist_consistent](../r/range_gist_consistent.md)
+  - [gtsvector_compress](../g/gtsvector_compress.md)
 
 ## Notes and Other Information
-- GISTENTRY instances are commonly created and manipulated during index traversal and maintenance operations
+- [GISTENTRY](GISTENTRY.md) instances are commonly created and manipulated during index traversal and maintenance operations
 - The structure provides the bridge between logical key operations (handled by data type-specific methods) and physical storage management (handled by GiST core code)
 - Different GiST operator classes use the same GISTENTRY structure but interpret the key field according to their specific data type requirements
 - The combination of rel, page, and offset provides a complete physical address for the entry, supporting operations that need to modify or reference the stored data

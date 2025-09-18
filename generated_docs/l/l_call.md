@@ -30,7 +30,7 @@ Function calls are essential in compiled code for invoking both user-defined fun
   - LLVMBuildCall2 (LLVM >= 16)
   - fn (parameter reference)
 - Called from (representative examples):
-  - slot_compile_deform (in llvmjit_deform.c)
+  - [slot_compile_deform](../s/slot_compile_deform.md) (in llvmjit_deform.c)
   - llvm_compile_expr (extensively in llvmjit_expr.c)
   - BuildV1Call
   - build_EvalXFuncInt

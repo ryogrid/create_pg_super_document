@@ -26,13 +26,13 @@ This dual-mode capability is crucial for system recovery scenarios and bootstrap
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TableScanDescData (for heap scans)
-  - IndexScanDescData (for index scans)
-  - SnapshotData (for transaction visibility)
+  - [TableScanDescData](../T/TableScanDescData.md) (for heap scans)
+  - [IndexScanDescData](../I/IndexScanDescData.md) (for index scans)
+  - [SnapshotData](SnapshotData.md) (for transaction visibility)
 - Called from (representative examples):
-  - systable_beginscan
-  - systable_beginscan_ordered
-  - SysScanDesc (typedef pointer)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_beginscan_ordered](../s/systable_beginscan_ordered.md)
+  - [SysScanDesc](SysScanDesc.md) (typedef pointer)
 
 ## Notes and Other Information
 - This structure is central to PostgreSQL's catalog access mechanisms and is used extensively throughout the system for metadata operations

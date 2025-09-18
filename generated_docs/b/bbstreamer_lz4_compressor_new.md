@@ -20,13 +20,13 @@ The streamer uses LZ4 frame format with a maximum 256KB block size and honors th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bbstreamer_lz4_frame (struct type)
-  - bbstreamer_ops (operations table)
+  - [bbstreamer_lz4_frame](bbstreamer_lz4_frame.md) (struct type)
+  - [bbstreamer_ops](bbstreamer_ops.md) (operations table)
   - LZ4F_createCompressionContext
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - initStringInfo
 - Called from (representative examples):
-  - CreateBackupStreamer (src/bin/pg_basebackup/pg_basebackup.c:1204)
+  - [CreateBackupStreamer](../C/CreateBackupStreamer.md) (src/bin/pg_basebackup/pg_basebackup.c:1204)
 
 ## Notes and Other Information
 - Only available when PostgreSQL is built with LZ4 support (USE_LZ4 defined)

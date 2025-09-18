@@ -19,22 +19,22 @@ This function processes logical replication PREPARE messages that signal the pre
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LogicalRepPreparedTxnData (struct for storing prepare message data)
+  - [LogicalRepPreparedTxnData](../L/LogicalRepPreparedTxnData.md) (struct for storing prepare message data)
   - logicalrep_read_prepare (deserializes PREPARE message from stream)
-  - begin_replication_step (starts replication step tracking)
-  - apply_handle_prepare_internal (performs the actual prepare operation)
-  - end_replication_step (ends replication step tracking)
-  - CommitTransactionCommand (commits the prepare transaction command)
-  - pgstat_report_stat (reports statistics)
-  - store_flush_position (stores LSN flush position)
-  - process_syncing_tables (processes tables being synchronized in parallel)
-  - stop_skipping_changes (stops LSN-based change skipping)
-  - clear_subscription_skip_lsn (clears subscription skip LSN)
-  - pgstat_report_activity (reports worker activity status)
+  - [begin_replication_step](../b/begin_replication_step.md) (starts replication step tracking)
+  - [apply_handle_prepare_internal](apply_handle_prepare_internal.md) (performs the actual prepare operation)
+  - [end_replication_step](../e/end_replication_step.md) (ends replication step tracking)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md) (commits the prepare transaction command)
+  - [pgstat_report_stat](../p/pgstat_report_stat.md) (reports statistics)
+  - [store_flush_position](../s/store_flush_position.md) (stores LSN flush position)
+  - [process_syncing_tables](../p/process_syncing_tables.md) (processes tables being synchronized in parallel)
+  - [stop_skipping_changes](../s/stop_skipping_changes.md) (stops LSN-based change skipping)
+  - [clear_subscription_skip_lsn](../c/clear_subscription_skip_lsn.md) (clears subscription skip LSN)
+  - [pgstat_report_activity](../p/pgstat_report_activity.md) (reports worker activity status)
   - STATE_IDLE (activity state constant)
-  - reset_apply_error_context_info (cleans up error context)
+  - [reset_apply_error_context_info](../r/reset_apply_error_context_info.md) (cleans up error context)
 - Called from:
-  - apply_dispatch (main message dispatcher for logical replication)
+  - [apply_dispatch](apply_dispatch.md) (main message dispatcher for logical replication)
 
 ## Notes and Other Information
 - Validates that prepare_data.prepare_lsn matches remote_final_lsn to detect protocol violations

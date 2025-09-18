@@ -17,12 +17,12 @@ This function performs a series of checks to determine if a parallel apply worke
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - am_leader_apply_worker
-  - maybe_reread_subscription
+  - [am_leader_apply_worker](../a/am_leader_apply_worker.md)
+  - [maybe_reread_subscription](../m/maybe_reread_subscription.md)
   - XLogRecPtrIsInvalid
-  - AllTablesyncsReady
+  - [AllTablesyncsReady](../A/AllTablesyncsReady.md)
 - Called from:
-  - pa_allocate_worker
+  - [pa_allocate_worker](pa_allocate_worker.md)
 
 ## Notes and Other Information
 - Only leader apply workers can start parallel apply workers

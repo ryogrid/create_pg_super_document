@@ -24,8 +24,8 @@ This operation ensures that all current WAL data is flushed to the current file 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RecoveryInProgress
-  - RequestXLogSwitch
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
+  - [RequestXLogSwitch](../R/RequestXLogSwitch.md)
   - PG_RETURN_LSN
 - Called from (representative examples):
   - No direct callers found (SQL function interface)

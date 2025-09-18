@@ -25,7 +25,7 @@ The function is typically invoked through SQL as `SELECT pg_cancel_backend(pid)`
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_signal_backend (with SIGINT signal)
+  - [pg_signal_backend](pg_signal_backend.md) (with SIGINT signal)
   - PG_GETARG_INT32
   - PG_RETURN_BOOL
   - ereport

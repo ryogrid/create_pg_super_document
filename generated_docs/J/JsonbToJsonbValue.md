@@ -24,9 +24,9 @@ The conversion is lightweight as it doesn't parse or copy the data - it simply w
   - jbvBinary (JsonbValue type constant)
   - Jsonb (structure type)
 - Called from (representative examples):
-  - jsonb_subscript_assign
-  - jsonb_set 
-  - jsonb_insert
+  - [jsonb_subscript_assign](../j/jsonb_subscript_assign.md)
+  - [jsonb_set](../j/jsonb_set.md) 
+  - [jsonb_insert](../j/jsonb_insert.md)
   - PG_RETURN_JSONB_P
 
 ## Notes and Other Information

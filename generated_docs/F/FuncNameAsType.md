@@ -19,15 +19,15 @@ The function uses  in the type lookup to maintain security contracts when writin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LookupTypeNameExtended
+  - [LookupTypeNameExtended](../L/LookupTypeNameExtended.md)
   - makeTypeNameFromNameList
-  - typeTypeId
-  - typeTypeRelid
-  - ReleaseSysCache
+  - [typeTypeId](../t/typeTypeId.md)
+  - [typeTypeRelid](../t/typeTypeRelid.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - Type (struct)
   - Form_pg_type (struct)
 - Called from (representative examples):
-  - func_get_detail
+  - [func_get_detail](../f/func_get_detail.md)
   - FuncLookupError
 
 ## Notes and Other Information

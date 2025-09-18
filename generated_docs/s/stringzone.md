@@ -29,13 +29,13 @@ It follows RFC 8536 requirements for TZ string generation and returns a compatib
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - `rule_cmp` (compares timezone rules for sorting)
-  - `doabbr` (formats timezone abbreviations)
-  - `stringoffset` (formats time offsets)
-  - `stringrule` (formats daylight saving time transition rules)
+  - `[rule_cmp](../r/rule_cmp.md)` (compares timezone rules for sorting)
+  - `[doabbr](../d/doabbr.md)` (formats timezone abbreviations)
+  - `[stringoffset](stringoffset.md)` (formats time offsets)
+  - `[stringrule](stringrule.md)` (formats daylight saving time transition rules)
   - `strlen` (standard library string length function)
 - Called from (representative examples):
-  - `outzone` (outputs timezone data to files)
+  - `[outzone](../o/outzone.md)` (outputs timezone data to files)
 
 ## Notes and Other Information
 - Returns -1 if the timezone cannot be represented as a POSIX TZ string

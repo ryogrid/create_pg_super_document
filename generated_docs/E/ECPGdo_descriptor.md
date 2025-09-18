@@ -20,7 +20,7 @@ ECPGdo_descriptor provides a simplified interface for executing SQL statements t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ECPGdo
+  - [ECPGdo](ECPGdo.md)
   - ECPG_COMPAT_PGSQL
   - ECPGt_descriptor
   - ECPGt_EOIT

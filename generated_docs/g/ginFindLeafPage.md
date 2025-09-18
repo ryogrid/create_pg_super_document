@@ -19,20 +19,20 @@ ginFindLeafPage is a fundamental tree traversal function in PostgreSQL's GIN ind
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc (memory allocation)
-  - ReadBuffer, ReleaseAndReadBuffer (buffer management)
-  - CheckForSerializableConflictIn (serialization conflict detection)
-  - ginTraverseLock (buffer locking)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [ReadBuffer](../R/ReadBuffer.md), ReleaseAndReadBuffer (buffer management)
+  - [CheckForSerializableConflictIn](../C/CheckForSerializableConflictIn.md) (serialization conflict detection)
+  - [ginTraverseLock](ginTraverseLock.md) (buffer locking)
   - GinPageIsIncompleteSplit, ginFinishOldSplit (split handling)
   - GinPageGetOpaque, GinPageIsLeaf (page inspection)
-  - ginStepRight (rightward page navigation)
-  - LockBuffer (buffer locking operations)
+  - [ginStepRight](ginStepRight.md) (rightward page navigation)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking operations)
 - Called from (representative examples):
-  - ginInsertItemPointers
-  - ginScanBeginPostingTree
-  - startScanEntry
-  - entryLoadMoreItems
-  - ginEntryInsert
+  - [ginInsertItemPointers](ginInsertItemPointers.md)
+  - [ginScanBeginPostingTree](ginScanBeginPostingTree.md)
+  - [startScanEntry](../s/startScanEntry.md)
+  - [entryLoadMoreItems](../e/entryLoadMoreItems.md)
+  - [ginEntryInsert](ginEntryInsert.md)
 
 ## Notes and Other Information
 The function implements an optimized traversal strategy where search operations don't maintain the full path stack to reduce memory overhead. The right-link following logic handles the case where concurrent operations may cause the search to land on the wrong page initially. The incomplete split handling ensures index consistency even in the presence of interrupted operations. The predictNumber field in the stack is used for buffer prefetching optimization during tree traversal.

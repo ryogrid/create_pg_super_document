@@ -19,10 +19,10 @@ This function is a static implementation of the file size retrieval operation fo
 ## Dependencies
 - Functions called/Symbols referenced:
   - snprintf (system function)
-  - stat (system function)
+  - [stat](../s/stat.md) (system function)
 - Data structures used:
-  - WalWriteMethod
-  - DirectoryMethodData
+  - [WalWriteMethod](../W/WalWriteMethod.md)
+  - [DirectoryMethodData](../D/DirectoryMethodData.md)
   - struct stat
 - Called from:
   - Used as a function pointer in WAL writing method operations

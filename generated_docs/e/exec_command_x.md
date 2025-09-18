@@ -20,9 +20,9 @@ This function handles the execution of the \x command in psql, which controls th
 - Functions called/Symbols referenced:
   - psql_scan_slash_option: Parses the optional on/off argument
   - do_pset: Core function that handles setting psql display options
-  - ignore_slash_options: Skips parsing when in inactive branch
+  - [ignore_slash_options](../i/ignore_slash_options.md): Skips parsing when in inactive branch
 - Called from (representative examples):
-  - exec_command: Main command dispatcher in psql
+  - [exec_command](exec_command.md): Main command dispatcher in psql
 
 ## Notes and Other Information
 - When called without arguments, toggles the current expanded display setting

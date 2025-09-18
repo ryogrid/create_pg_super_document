@@ -24,9 +24,9 @@ This optimization avoids unnecessary work when the outer plan will be rescanned 
 ## Dependencies
 - Functions called/Symbols referenced:
   - outerPlanState (macro to access outer plan state)
-  - ExecReScan (to rescan outer subplan when needed)
+  - [ExecReScan](ExecReScan.md) (to rescan outer subplan when needed)
 - Called from (representative examples):
-  - ExecReScan (standard plan node rescan mechanism)
+  - [ExecReScan](ExecReScan.md) (standard plan node rescan mechanism)
 
 ## Notes and Other Information
 - The rescan optimization based on chgParam is a common pattern across PostgreSQL executor nodes

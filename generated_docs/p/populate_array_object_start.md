@@ -19,13 +19,13 @@ This function serves as a JSON parsing event handler specifically for object sta
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - populate_array_assign_ndims (dimension assignment)
-  - populate_array_report_expected_array (error reporting)
+  - [populate_array_assign_ndims](populate_array_assign_ndims.md) (dimension assignment)
+  - [populate_array_report_expected_array](populate_array_report_expected_array.md) (error reporting)
   - SOFT_ERROR_OCCURRED (error checking macro)
-  - PopulateArrayState, JsonParseErrorType (data types)
+  - [PopulateArrayState](../P/PopulateArrayState.md), JsonParseErrorType (data types)
   - JSON_SEM_ACTION_FAILED, JSON_SUCCESS (return constants)
 - Called from (representative examples):
-  - populate_array_json
+  - [populate_array_json](populate_array_json.md)
   - JsObjectFree
 
 ## Notes and Other Information

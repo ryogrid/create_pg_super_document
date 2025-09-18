@@ -22,10 +22,10 @@ This function handles the \getenv backslash command which takes two arguments: a
   - psql_scan_slash_option
   - getenv
   - SetVariable
-  - ignore_slash_options
+  - [ignore_slash_options](../i/ignore_slash_options.md)
   - pg_log_error
 - Called from (representative examples):
-  - exec_command
+  - [exec_command](exec_command.md)
 
 ## Notes and Other Information
 - Requires exactly two arguments: psql variable name and environment variable name

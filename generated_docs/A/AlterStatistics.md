@@ -25,13 +25,13 @@ Key validation steps include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_statistics_object_oid (resolves statistics object name to OID)
-  - object_ownercheck (verifies ownership permissions)  
-  - heap_modify_tuple (creates updated catalog tuple)
-  - CatalogTupleUpdate (commits changes to pg_statistic_ext)
+  - [get_statistics_object_oid](../g/get_statistics_object_oid.md) (resolves statistics object name to OID)
+  - [object_ownercheck](../o/object_ownercheck.md) (verifies ownership permissions)  
+  - [heap_modify_tuple](../h/heap_modify_tuple.md) (creates updated catalog tuple)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md) (commits changes to pg_statistic_ext)
   - InvokeObjectPostAlterHook (triggers post-alter event hooks)
 - Called from (representative examples):
-  - ProcessUtilitySlow (src/backend/tcop/utility.c:1907)
+  - [ProcessUtilitySlow](../P/ProcessUtilitySlow.md) (src/backend/tcop/utility.c:1907)
 
 ## Notes and Other Information
 - Only supports altering the statistics target, not other statistics object properties

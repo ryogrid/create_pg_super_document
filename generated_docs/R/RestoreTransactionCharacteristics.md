@@ -31,9 +31,9 @@ This restoration is necessary because PostgreSQL's GUC system automatically rese
   - XactReadOnly (global variable - target)
   - XactDeferrable (global variable - target)
 - Called from (representative examples):
-  - CommitTransactionCommandInternal (multiple locations)
+  - [CommitTransactionCommandInternal](../C/CommitTransactionCommandInternal.md) (multiple locations)
   - _SPI_commit
-  - _SPI_rollback
+  - [_SPI_rollback](../S/_SPI_rollback.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's transaction chaining implementation

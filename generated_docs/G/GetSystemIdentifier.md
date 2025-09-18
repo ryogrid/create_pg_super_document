@@ -24,11 +24,11 @@ This function takes no parameters.
   - ControlFile (global variable access)
   - Assert (assertion check)
 - Called from (representative examples):
-  - InitializeBackupManifest
-  - manifest_process_system_identifier
-  - ReplicationSlotNameForTablesync
-  - WalReceiverMain
-  - IdentifySystem
+  - [InitializeBackupManifest](../I/InitializeBackupManifest.md)
+  - [manifest_process_system_identifier](../m/manifest_process_system_identifier.md)
+  - [ReplicationSlotNameForTablesync](../R/ReplicationSlotNameForTablesync.md)
+  - [WalReceiverMain](../W/WalReceiverMain.md)
+  - [IdentifySystem](../I/IdentifySystem.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure ControlFile is not NULL before accessing it

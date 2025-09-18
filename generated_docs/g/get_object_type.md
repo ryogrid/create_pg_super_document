@@ -20,17 +20,17 @@ This function determines the ObjectType for a database object identified by its 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_object_property_data
-  - get_relkind_objtype
-  - get_rel_relkind
+  - [get_object_property_data](get_object_property_data.md)
+  - [get_relkind_objtype](get_relkind_objtype.md)
+  - [get_rel_relkind](get_rel_relkind.md)
   - OBJECT_TABLE (constant)
 - Called from (representative examples):
-  - ExecGrant_common (in aclchk.c)
-  - object_aclmask_ext (in aclchk.c)
-  - AlterObjectRename_internal (in alter.c)
-  - AlterObjectNamespace_internal (in alter.c)
-  - AlterObjectOwner_internal (in alter.c)
-  - filter_read_item (in filter.c)
+  - [ExecGrant_common](../E/ExecGrant_common.md) (in aclchk.c)
+  - [object_aclmask_ext](../o/object_aclmask_ext.md) (in aclchk.c)
+  - [AlterObjectRename_internal](../A/AlterObjectRename_internal.md) (in alter.c)
+  - [AlterObjectNamespace_internal](../A/AlterObjectNamespace_internal.md) (in alter.c)
+  - [AlterObjectOwner_internal](../A/AlterObjectOwner_internal.md) (in alter.c)
+  - [filter_read_item](../f/filter_read_item.md) (in filter.c)
 
 ## Notes and Other Information
 - Designed to avoid failing to ensure reliable error message generation

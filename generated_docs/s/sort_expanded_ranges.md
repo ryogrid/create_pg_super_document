@@ -26,15 +26,15 @@ The function currently uses quicksort for all elements, though there's potential
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExpandedRange
-  - compare_context
-  - compare_expanded_ranges
+  - [ExpandedRange](../E/ExpandedRange.md)
+  - [compare_context](../c/compare_context.md)
+  - [compare_expanded_ranges](../c/compare_expanded_ranges.md)
   - qsort_arg
   - memcpy
 
 - Called from (representative examples):
-  - build_expanded_ranges
-  - brin_minmax_multi_union
+  - [build_expanded_ranges](../b/build_expanded_ranges.md)
+  - [brin_minmax_multi_union](../b/brin_minmax_multi_union.md)
 
 ## Notes and Other Information
 - Returns the number of unique ranges after deduplication (always ≤ input count)

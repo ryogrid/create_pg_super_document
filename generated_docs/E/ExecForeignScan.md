@@ -28,11 +28,11 @@ The function delegates tuple fetching to ForeignNext and tuple rechecking during
 ## Dependencies
 - Functions called/Symbols referenced:
   - castNode
-  - ExecScan
-  - ForeignNext (via function pointer)
-  - ForeignRecheck (via function pointer)
+  - [ExecScan](ExecScan.md)
+  - [ForeignNext](../F/ForeignNext.md) (via function pointer)
+  - [ForeignRecheck](../F/ForeignRecheck.md) (via function pointer)
 - Called from:
-  - ExecInitForeignScan (for node setup)
+  - [ExecInitForeignScan](ExecInitForeignScan.md) (for node setup)
 
 ## Notes and Other Information
 - This is a static function, only accessible within nodeForeignscan.c

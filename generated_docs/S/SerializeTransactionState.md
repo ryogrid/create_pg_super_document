@@ -32,18 +32,18 @@ All transaction IDs are emitted in sorted order for efficient processing by the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - FullTransactionIdIsValid - validates transaction IDs before inclusion
-  - add_size - safe size arithmetic
+  - [add_size](../a/add_size.md) - safe size arithmetic
   - XidFromFullTransactionId - extracts 32-bit XID from full transaction ID
   - qsort - sorts transaction IDs using xidComparator
-  - xidComparator - comparison function for transaction ID sorting
-  - palloc - PostgreSQL memory allocation
+  - [xidComparator](../x/xidComparator.md) - comparison function for transaction ID sorting
+  - [palloc](../p/palloc.md) - PostgreSQL memory allocation
   - memcpy - copies transaction ID arrays
 - Structures used:
   - TransactionState - transaction hierarchy traversal
-  - SerializedTransactionState - output structure format
+  - [SerializedTransactionState](SerializedTransactionState.md) - [output](../o/output.md) structure format
   - SerializedTransactionStateHeaderSize - header size constant
 - Called from (representative examples):
-  - InitializeParallelDSM (src/backend/access/transam/parallel.c:418)
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md) (src/backend/access/transam/parallel.c:418)
 
 ## Notes and Other Information
 - Works in conjunction with EstimateTransactionStateSpace for accurate memory allocation

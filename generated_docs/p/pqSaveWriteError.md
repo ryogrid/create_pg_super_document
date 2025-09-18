@@ -26,12 +26,12 @@ This function is typically called when write operations have failed and libpq ha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - appendPQExpBufferStr (to append error messages to the connection's error buffer)
-  - libpq_append_conn_error (to append generic error messages)
-  - pqSaveErrorResult (to mark the connection as having an error condition)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md) (to append error messages to the connection's error buffer)
+  - [libpq_append_conn_error](../l/libpq_append_conn_error.md) (to append generic error messages)
+  - [pqSaveErrorResult](pqSaveErrorResult.md) (to mark the connection as having an error condition)
 
 - Called from (representative examples):
-  - PQgetResult (when handling write errors during result retrieval)
+  - [PQgetResult](../P/PQgetResult.md) (when handling write errors during result retrieval)
 
 ## Notes and Other Information
 - **Internal function**: This is a static internal libpq function, not part of the public API

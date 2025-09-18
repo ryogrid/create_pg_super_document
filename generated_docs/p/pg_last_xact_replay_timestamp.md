@@ -23,7 +23,7 @@ The function internally calls GetLatestXTime() to retrieve the timestamp of the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLatestXTime (retrieves the actual timestamp from recovery state)
+  - [GetLatestXTime](../G/GetLatestXTime.md) (retrieves the actual timestamp from recovery state)
   - PG_RETURN_TIMESTAMPTZ (macro for returning timestamp value)
   - PG_RETURN_NULL (macro for returning NULL value)
 - Called from (representative examples):

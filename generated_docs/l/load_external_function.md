@@ -22,15 +22,15 @@ The function provides flexibility in error handling - it can either raise an err
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expand_dynamic_library_name
-  - internal_load_library
+  - [expand_dynamic_library_name](../e/expand_dynamic_library_name.md)
+  - [internal_load_library](../i/internal_load_library.md)
   - dlsym
 - Called from (representative examples):
-  - LookupParallelWorkerFunction
-  - fmgr_c_validator
-  - provider_init
-  - llvm_resolve_symbol
-  - fmgr_info_C_lang
+  - [LookupParallelWorkerFunction](../L/LookupParallelWorkerFunction.md)
+  - [fmgr_c_validator](../f/fmgr_c_validator.md)
+  - [provider_init](../p/provider_init.md)
+  - [llvm_resolve_symbol](llvm_resolve_symbol.md)
+  - [fmgr_info_C_lang](../f/fmgr_info_C_lang.md)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's dynamic function management system located in src/backend/utils/fmgr/dfmgr.c

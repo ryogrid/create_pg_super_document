@@ -17,13 +17,13 @@ The EstimateParamListSpace function calculates the total memory space needed to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_size (safely adds sizes, checking for overflow)
-  - get_typlenbyval (gets type length and pass-by-value information)
-  - datumEstimateSpace (estimates space needed for a datum value)
+  - [add_size](../a/add_size.md) (safely adds sizes, checking for overflow)
+  - [get_typlenbyval](../g/get_typlenbyval.md) (gets type length and pass-by-value information)
+  - [datumEstimateSpace](../d/datumEstimateSpace.md) (estimates space needed for a datum value)
   - OidIsValid (macro to validate OID)
   - ParamExternData (individual parameter data type)
 - Called from (representative examples):
-  - ExecInitParallelPlan (in execParallel.c for parallel query setup)
+  - [ExecInitParallelPlan](ExecInitParallelPlan.md) (in execParallel.c for parallel query setup)
 
 ## Notes and Other Information
 - Returns sizeof(int) for NULL or empty parameter lists (space for parameter count)

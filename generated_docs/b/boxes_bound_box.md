@@ -22,9 +22,9 @@ The `boxes_bound_box` function calculates the bounding box (also known as the un
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract box arguments)
-  - palloc (memory allocation)
-  - float8_max (utility to find maximum of two float8 values)
-  - float8_min (utility to find minimum of two float8 values)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [float8_max](../f/float8_max.md) (utility to find maximum of two float8 values)
+  - [float8_min](../f/float8_min.md) (utility to find minimum of two float8 values)
   - PG_RETURN_BOX_P (macro to return box result)
 - Called from (representative examples):
   - No direct callers found in the codebase

@@ -26,10 +26,10 @@ This structure serves as the shared memory control area for managing all replica
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReplicationSlot (array element type)
+  - [ReplicationSlot](ReplicationSlot.md) (array element type)
 - Called from (representative examples):
-  - ReplicationSlotsShmemSize (for calculating shared memory requirements)
-  - ReplicationSlotsShmemInit (for initializing the control structure)
+  - [ReplicationSlotsShmemSize](ReplicationSlotsShmemSize.md) (for calculating shared memory requirements)
+  - [ReplicationSlotsShmemInit](ReplicationSlotsShmemInit.md) (for initializing the control structure)
   - SLOT_VERSION (version-related operations)
 
 ## Notes and Other Information

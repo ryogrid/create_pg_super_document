@@ -29,11 +29,11 @@ The function uses the forboth() macro to iterate through both the indexorderbys 
 - Functions called/Symbols referenced:
   - forboth (macro)
   - lfirst_int
-  - fix_indexqual_clause
-  - IndexPath (struct type)
-  - IndexOptInfo (struct type)
+  - [fix_indexqual_clause](fix_indexqual_clause.md)
+  - [IndexPath](../I/IndexPath.md) (struct type)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (struct type)
 - Called from (representative examples):
-  - create_indexscan_plan
+  - [create_indexscan_plan](../c/create_indexscan_plan.md)
 
 ## Notes and Other Information
 This function is essential for index scans that need to maintain specific ordering, such as those used to satisfy ORDER BY clauses in queries. It ensures that ORDER BY expressions are properly transformed for execution while maintaining the correct association between expressions and index columns. The simplified design compared to fix_indexqual_references reflects the fact that ORDER BY clauses typically have simpler structure than WHERE clause qualifications. The function is part of the index scan planning infrastructure in PostgreSQL's query planner. Located in src/backend/optimizer/plan/createplan.c at lines 5064-5092.

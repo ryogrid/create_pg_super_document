@@ -21,14 +21,14 @@ This function is typically called when the predicate testing operation is comple
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PredIterInfo (parameter type)
+  - [PredIterInfo](../P/PredIterInfo.md) (parameter type)
   - ArrayConstIterState (state structure)
-  - pfree (memory deallocation function)
-  - list_free (list deallocation function)
+  - [pfree](../p/pfree.md) (memory deallocation function)
+  - [list_free](../l/list_free.md) (list deallocation function)
   - OpExpr (operator expression structure)
 - Called from (representative examples):
   - iterate_end (src/backend/optimizer/util/predtest.c:94)
-  - predicate_classify (src/backend/optimizer/util/predtest.c:884)
+  - [predicate_classify](../p/predicate_classify.md) (src/backend/optimizer/util/predtest.c:884)
 
 ## Notes and Other Information
 - This is a static function, accessible only within the predtest.c file

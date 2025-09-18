@@ -36,10 +36,10 @@ The int2vector structure is a specialized array type used primarily in PostgreSQ
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array declaration)
 - Called from (representative examples):
-  - buildint2vector (constructs int2vector instances)
-  - int2vectorin/int2vectorout (input/output functions)
+  - [buildint2vector](../b/buildint2vector.md) (constructs int2vector instances)
+  - [int2vectorin](int2vectorin.md)/int2vectorout (input/output functions)
   - Int2VectorSize (calculates required size)
-  - pg_get_indexdef_worker (used in index definition formatting)
+  - [pg_get_indexdef_worker](../p/pg_get_indexdef_worker.md) (used in index definition formatting)
   - Various catalog operations in pg_index, pg_trigger, and other system catalogs
 
 ## Notes and Other Information

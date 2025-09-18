@@ -19,13 +19,13 @@ This function captures the current state of the query buffer and scanner to allo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - conditional_stack_set_query_len
-  - conditional_stack_set_paren_depth
+  - [conditional_stack_set_query_len](../c/conditional_stack_set_query_len.md)
+  - [conditional_stack_set_paren_depth](../c/conditional_stack_set_paren_depth.md)
   - psql_scan_get_paren_depth
 - Called from (representative examples):
-  - exec_command_if
-  - exec_command_elif
-  - exec_command_else
+  - [exec_command_if](../e/exec_command_if.md)
+  - [exec_command_elif](../e/exec_command_elif.md)
+  - [exec_command_else](../e/exec_command_else.md)
 
 ## Notes and Other Information
 - This is a static function used internally within psql's command processing

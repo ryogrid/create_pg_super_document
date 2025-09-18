@@ -26,8 +26,8 @@ This is the 32-bit version of the truncate function, suitable for large objects 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PreventCommandIfReadOnly
-  - lo_truncate_internal
+  - [PreventCommandIfReadOnly](../P/PreventCommandIfReadOnly.md)
+  - [lo_truncate_internal](../l/lo_truncate_internal.md)
 - Called from (representative examples):
   - SQL function lo_truncate() (via function manager)
 

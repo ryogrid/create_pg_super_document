@@ -51,14 +51,14 @@ The structure supports various types of data sources including regular relations
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Alias
-  - RTEKind
-  - TableSampleClause
+  - [Alias](../A/Alias.md)
+  - [RTEKind](RTEKind.md)
+  - [TableSampleClause](../T/TableSampleClause.md)
   - JoinType
-  - TableFunc
+  - [TableFunc](../T/TableFunc.md)
   - Cardinality
 - Called from (representative examples):
-  - Query parser functions
+  - [Query](../Q/Query.md) parser functions
   - Planner routines
   - Executor initialization
 
@@ -68,4 +68,4 @@ The structure supports various types of data sources including regular relations
 - Lock modes are stored as integers to avoid including lock-related headers
 - The structure handles complex scenarios like view expansion, join alias resolution, and CTE recursion
 - Special handling exists for dropped columns in ENRs (represented as zero values)
-- Query jumble attributes are used to exclude certain fields from query fingerprinting for performance optimization
+- [Query](../Q/Query.md) jumble attributes are used to exclude certain fields from query fingerprinting for performance optimization

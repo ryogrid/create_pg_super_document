@@ -23,17 +23,17 @@ This function processes an array of WordEntryIN structures to eliminate duplicat
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort_arg (sorting function with additional argument)
-  - compareentry (comparator for WordEntryIN sorting)
-  - uniquePos (removes duplicate positions within entries)
+  - [compareentry](../c/compareentry.md) (comparator for WordEntryIN sorting)
+  - [uniquePos](uniquePos.md) (removes duplicate positions within entries)
   - strncmp (string comparison function)
   - memcpy (memory copy function)
-  - repalloc (PostgreSQL memory reallocation function)
-  - pfree (PostgreSQL memory deallocation function)
+  - [repalloc](../r/repalloc.md) (PostgreSQL memory reallocation function)
+  - [pfree](../p/pfree.md) (PostgreSQL memory deallocation function)
   - SHORTALIGN (alignment macro)
   - WordEntryIN (input structure type)
   - WordEntryPos (position structure type)
 - Called from (representative examples):
-  - tsvectorin (during tsvector input processing)
+  - [tsvectorin](../t/tsvectorin.md) (during tsvector input processing)
 
 ## Notes and Other Information
 - Returns the new length of the array after duplicate removal

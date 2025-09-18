@@ -26,13 +26,13 @@ Key behaviors:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQsendQuery (libpq function for asynchronous query execution)
-  - PQdb (libpq function to get database name from connection)
-  - PQerrorMessage (libpq function to get error message from connection)
+  - [PQsendQuery](../P/PQsendQuery.md) (libpq function for asynchronous query execution)
+  - [PQdb](../P/PQdb.md) (libpq function to get database name from connection)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (libpq function to get error message from connection)
   - printf (standard C library function)
   - pg_log_error (PostgreSQL logging function)
 - Called from:
-  - vacuum_one_database (multiple call sites)
+  - [vacuum_one_database](../v/vacuum_one_database.md) (multiple call sites)
 
 ## Notes and Other Information
 - The function is static and only used within vacuumdb.c

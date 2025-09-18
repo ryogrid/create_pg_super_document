@@ -18,12 +18,12 @@ This function computes the distance from a point to the closest point on a circl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Point (type definition)
+  - [Point](../P/Point.md) (type definition)
   - CIRCLE (type definition)
   - PG_GETARG_POINT_P (parameter extraction macro)
   - PG_GETARG_CIRCLE_P (parameter extraction macro)
-  - point_dt (distance between two points)
-  - float8_mi (floating point subtraction)
+  - [point_dt](../p/point_dt.md) (distance between two points)
+  - [float8_mi](../f/float8_mi.md) (floating point subtraction)
   - PG_RETURN_FLOAT8 (return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

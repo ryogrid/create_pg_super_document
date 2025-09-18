@@ -30,15 +30,15 @@ All constructors are created as internal language functions marked as immutable 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ProcedureCreate (creates the constructor function catalog entries)
-  - buildoidvector (constructs parameter type vectors)
-  - construct_array_builtin (builds parameter mode arrays)
-  - recordDependencyOn (establishes dependency relationships)
+  - [ProcedureCreate](../P/ProcedureCreate.md) (creates the constructor function catalog entries)
+  - [buildoidvector](../b/buildoidvector.md) (constructs parameter type vectors)
+  - [construct_array_builtin](../c/construct_array_builtin.md) (builds parameter mode arrays)
+  - [recordDependencyOn](../r/recordDependencyOn.md) (establishes dependency relationships)
   - DEPENDENCY_INTERNAL (dependency type constant)
   - FUNC_PARAM_VARIADIC (parameter mode for variadic functions)
   - PROKIND_FUNCTION, PROVOLATILE_IMMUTABLE, PROPARALLEL_SAFE (function attribute constants)
 - Called from (representative examples):
-  - DefineRange (during range type creation)
+  - [DefineRange](../D/DefineRange.md) (during range type creation)
   - AlterTypeRecurseParams (during type alterations)
 
 ## Notes and Other Information

@@ -18,11 +18,11 @@ This function converts a timestamp (without timezone) to a timestamptz (with tim
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP
-  - timestamp2timestamptz
+  - [timestamp2timestamptz](timestamp2timestamptz.md)
   - PG_RETURN_TIMESTAMPTZ
 - Called from (representative examples):
-  - executeDateTimeMethod (in src/backend/utils/adt/jsonpath_exec.c:2736)
-  - timestamp_at_local (in src/backend/utils/adt/timestamp.c:6694)
+  - [executeDateTimeMethod](../e/executeDateTimeMethod.md) (in src/backend/utils/adt/jsonpath_exec.c:2736)
+  - [timestamp_at_local](timestamp_at_local.md) (in src/backend/utils/adt/timestamp.c:6694)
 
 ## Notes and Other Information
 - This function is the SQL-callable wrapper for timestamp to timestamptz conversion

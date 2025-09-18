@@ -25,7 +25,7 @@ Note that this compares a plain timestamp (without timezone) against a date, whi
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMESTAMP
   - PG_GETARG_DATEADT
-  - date_cmp_timestamp_internal
+  - [date_cmp_timestamp_internal](../d/date_cmp_timestamp_internal.md)
   - PG_RETURN_BOOL
 - Called from (representative examples):
   - No direct callers found (likely called through SQL operator infrastructure)

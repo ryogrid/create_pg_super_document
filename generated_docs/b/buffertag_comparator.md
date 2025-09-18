@@ -25,9 +25,9 @@ The function returns -1 if ba < bb, 0 if ba == bb, and 1 if ba > bb, following s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufTagGetRelFileLocator
+  - [BufTagGetRelFileLocator](../B/BufTagGetRelFileLocator.md)
   - rlocator_comparator
-  - BufTagGetForkNum
+  - [BufTagGetForkNum](../B/BufTagGetForkNum.md)
   - BufferTag (type)
 - Called from (representative examples):
   - BufferIsPinned

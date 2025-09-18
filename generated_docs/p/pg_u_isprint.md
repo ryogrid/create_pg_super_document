@@ -23,15 +23,15 @@ This encompasses all characters that would typically appear in printed text, inc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - unicode_category (internal Unicode category determination function)
-  - pg_u_isgraph (graphical character detection function)
-  - pg_u_isblank (blank character detection function)
-  - pg_unicode_category (Unicode category type)
+  - [unicode_category](../u/unicode_category.md) (internal Unicode category determination function)
+  - [pg_u_isgraph](pg_u_isgraph.md) (graphical character detection function)
+  - [pg_u_isblank](pg_u_isblank.md) (blank character detection function)
+  - [pg_unicode_category](pg_unicode_category.md) (Unicode category type)
   - PG_U_CONTROL (Unicode category constant for control characters)
 - Called from (representative examples):
-  - pg_wc_isprint (regex locale wrapper function)
-  - icu_test (test function)
-  - pg_unicode_category (Unicode category interface)
+  - [pg_wc_isprint](pg_wc_isprint.md) (regex locale wrapper function)
+  - [icu_test](../i/icu_test.md) (test function)
+  - [pg_unicode_category](pg_unicode_category.md) (Unicode category interface)
 
 ## Notes and Other Information
 - Returns true for all characters suitable for display or printing

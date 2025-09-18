@@ -20,9 +20,9 @@ The structure is designed to be compact, using only 16-bit integers for buffer i
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ReadBuffersOperation
+  - [ReadBuffersOperation](../R/ReadBuffersOperation.md)
 - Called from (representative examples):
-  - ReadStream (as member variable)
+  - [ReadStream](../R/ReadStream.md) (as member variable)
   - read_stream_begin_relation
 
 ## Notes and Other Information

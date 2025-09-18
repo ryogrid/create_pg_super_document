@@ -28,14 +28,14 @@ This static function serves as the central implementation for PostgreSQL's funct
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FuncnameGetCandidates
-  - get_func_prokind
+  - [FuncnameGetCandidates](../F/FuncnameGetCandidates.md)
+  - [get_func_prokind](../g/get_func_prokind.md)
   - FUNCLOOKUP_NOSUCHFUNC
   - FUNCLOOKUP_AMBIGUOUS
   - OidIsValid
 - Called from (representative examples):
-  - LookupFuncName
-  - LookupFuncWithArgs
+  - [LookupFuncName](LookupFuncName.md)
+  - [LookupFuncWithArgs](LookupFuncWithArgs.md)
 
 ## Notes and Other Information
 This function implements PostgreSQL's function overloading resolution by examining both argument types and object kinds. It distinguishes between functions, procedures, and aggregates using the prokind system catalog field. The function is designed to be called by higher-level lookup functions that handle user-facing error messages and missing_ok semantics. Error handling is deferred to callers through the lookupError parameter, allowing for customized error messages based on context.

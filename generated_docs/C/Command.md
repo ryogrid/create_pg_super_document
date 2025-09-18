@@ -44,23 +44,23 @@ This structure serves as the fundamental building block for pgbench script execu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData
-  - MetaCommand
+  - [PQExpBufferData](../P/PQExpBufferData.md)
+  - [MetaCommand](../M/MetaCommand.md)
   - MAX_ARGS
-  - PgBenchExpr
+  - [PgBenchExpr](../P/PgBenchExpr.md)
   - SimpleStats
 - Called from (representative examples):
-  - ParsedScript
-  - getQueryParams
-  - prepareCommand
-  - prepareCommandsInPipeline
-  - sendCommand
-  - advanceConnectionState
-  - executeMetaCommand
-  - parseQuery
-  - create_sql_command
-  - postprocess_sql_command
-  - process_backslash_command
+  - [ParsedScript](../P/ParsedScript.md)
+  - [getQueryParams](../g/getQueryParams.md)
+  - [prepareCommand](../p/prepareCommand.md)
+  - [prepareCommandsInPipeline](../p/prepareCommandsInPipeline.md)
+  - [sendCommand](../s/sendCommand.md)
+  - [advanceConnectionState](../a/advanceConnectionState.md)
+  - [executeMetaCommand](../e/executeMetaCommand.md)
+  - [parseQuery](../p/parseQuery.md)
+  - [create_sql_command](../c/create_sql_command.md)
+  - [postprocess_sql_command](../p/postprocess_sql_command.md)
+  - [process_backslash_command](../p/process_backslash_command.md)
 
 ## Notes and Other Information
 Commands support sophisticated features including prepared statement caching, variable substitution with pgbench expressions, conditional execution flow, and detailed performance tracking. The structure is designed to handle both simple SQL statements and complex meta-commands that control script execution flow, making it the core abstraction for pgbench's scripting capabilities.

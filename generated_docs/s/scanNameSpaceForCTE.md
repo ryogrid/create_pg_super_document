@@ -22,8 +22,8 @@ This function searches through the CTE namespace starting from the current parsi
   - CommonTableExpr (struct type)
   - strcmp (for name comparison)
 - Called from (representative examples):
-  - getNSItemForSpecialRelationTypes
-  - searchRangeTableForRel
+  - [getNSItemForSpecialRelationTypes](../g/getNSItemForSpecialRelationTypes.md)
+  - [searchRangeTableForRel](searchRangeTableForRel.md)
 
 ## Notes and Other Information
 - Traverses the parsing state hierarchy using parentParseState links

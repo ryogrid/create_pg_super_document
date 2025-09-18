@@ -24,7 +24,7 @@ For most built-in scalar types (like int4, text, etc.), this value is typically 
   - GETSTRUCT (macro to extract structure from HeapTuple)
   - Oid (object identifier type)
 - Called from (representative examples):
-  - FuncNameAsType (in parse_func.c:1896)
+  - [FuncNameAsType](../F/FuncNameAsType.md) (in parse_func.c:1896)
 
 ## Notes and Other Information
 - This function is essential for handling composite types and row types in PostgreSQL

@@ -28,17 +28,17 @@ DecodeDateTime is PostgreSQL's comprehensive date/time interpretation engine tha
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DecodeTimezone, DecodeTime, DecodeDate, DecodeNumber, DecodeNumberField
-  - DecodeSpecial, DecodeTimezoneAbbrev
+  - [DecodeTimezone](DecodeTimezone.md), DecodeTime, DecodeDate, DecodeNumber, DecodeNumberField
+  - [DecodeSpecial](DecodeSpecial.md), DecodeTimezoneAbbrev
   - ValidateDate, ParseFraction
-  - j2date, date2j, dt2time
+  - [j2date](../j/j2date.md), date2j, dt2time
   - GetCurrentTimeUsec, GetCurrentDateTime
   - DetermineTimeZoneOffset, DetermineTimeZoneAbbrevOffset
-  - pg_tzset, time_overflows
+  - [pg_tzset](../p/pg_tzset.md), time_overflows
   - Various DTK_* constants and DTERR_* error codes
 - Called from (representative examples):
-  - date_in, timestamp_in, timestamptz_in
-  - check_recovery_target_time
+  - [date_in](../d/date_in.md), timestamp_in, timestamptz_in
+  - [check_recovery_target_time](../c/check_recovery_target_time.md)
   - ECPG datetime parsing functions
 
 ## Notes and Other Information

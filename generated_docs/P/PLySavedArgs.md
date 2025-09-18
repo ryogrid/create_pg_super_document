@@ -23,13 +23,13 @@ PLySavedArgs implements a linked-list structure that preserves function argument
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (for variable-length array implementation)
 - Called from (representative examples):
-  - PLySRFState (contains PLySavedArgs for set-returning function state)
-  - PLy_function_save_args (creates and populates PLySavedArgs structures)
-  - PLy_function_restore_args (restores arguments from PLySavedArgs)
-  - PLy_function_drop_args (deallocates PLySavedArgs structures)
-  - PLy_global_args_push (pushes arguments onto the stack)
-  - PLy_global_args_pop (pops arguments from the stack)
-  - PLyProcedure (contains PLySavedArgs for procedure context)
+  - [PLySRFState](PLySRFState.md) (contains PLySavedArgs for set-returning function state)
+  - [PLy_function_save_args](PLy_function_save_args.md) (creates and populates PLySavedArgs structures)
+  - [PLy_function_restore_args](PLy_function_restore_args.md) (restores arguments from PLySavedArgs)
+  - [PLy_function_drop_args](PLy_function_drop_args.md) (deallocates PLySavedArgs structures)
+  - [PLy_global_args_push](PLy_global_args_push.md) (pushes arguments onto the stack)
+  - [PLy_global_args_pop](PLy_global_args_pop.md) (pops arguments from the stack)
+  - [PLyProcedure](PLyProcedure.md) (contains PLySavedArgs for procedure context)
 
 ## Notes and Other Information
 - This structure is essential for maintaining proper argument isolation in recursive PL/Python function calls

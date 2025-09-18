@@ -22,13 +22,13 @@ The function performs a complete cleanup by calling MemoryContextDelete on the e
 ## Dependencies
 - Functions called/Symbols referenced:
   - DatumGetEOHP
-  - ExpandedObjectHeader
+  - [ExpandedObjectHeader](../E/ExpandedObjectHeader.md)
   - VARATT_IS_EXTERNAL_EXPANDED_RW
-  - MemoryContextDelete
+  - [MemoryContextDelete](../M/MemoryContextDelete.md)
 - Called from (representative examples):
-  - ExecAggCopyTransValue
-  - advance_windowaggregate
-  - advance_windowaggregate_base
+  - [ExecAggCopyTransValue](../E/ExecAggCopyTransValue.md)
+  - [advance_windowaggregate](../a/advance_windowaggregate.md)
+  - [advance_windowaggregate_base](../a/advance_windowaggregate_base.md)
   - MakeExpandedObjectReadOnly
 
 ## Notes and Other Information

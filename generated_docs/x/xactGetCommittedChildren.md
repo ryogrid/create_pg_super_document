@@ -20,10 +20,10 @@ xactGetCommittedChildren provides access to the committed child transactions of 
   - TransactionState (struct type)
   - CurrentTransactionState (global variable)
 - Called from (representative examples):
-  - StartPrepare (in two-phase commit)
-  - RecordTransactionCommit (for WAL logging)
-  - RecordTransactionAbort (for abort logging)
-  - ExportSnapshot (for snapshot management)
+  - [StartPrepare](../S/StartPrepare.md) (in two-phase commit)
+  - [RecordTransactionCommit](../R/RecordTransactionCommit.md) (for WAL logging)
+  - [RecordTransactionAbort](../R/RecordTransactionAbort.md) (for abort logging)
+  - [ExportSnapshot](../E/ExportSnapshot.md) (for snapshot management)
 
 ## Notes and Other Information
 - Returns the number of committed child transactions as an integer

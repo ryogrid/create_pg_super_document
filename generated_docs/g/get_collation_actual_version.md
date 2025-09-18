@@ -18,20 +18,20 @@ This function obtains the actual version string for a collation from the underly
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_ucol_open, ucol_getVersion, ucol_close, u_versionToString (ICU functions)
-  - pg_strcasecmp, pg_strncasecmp (string comparison functions)
+  - [pg_ucol_open](../p/pg_ucol_open.md), ucol_getVersion, ucol_close, u_versionToString (ICU functions)
+  - [pg_strcasecmp](../p/pg_strcasecmp.md), pg_strncasecmp (string comparison functions)
   - newlocale, querylocale, freelocale (libc locale functions on FreeBSD)
   - gnu_get_libc_version (glibc function)
   - MultiByteToWideChar, GetNLSVersionEx, GetLastError (Windows functions)
-  - pstrdup, psprintf (PostgreSQL memory/string functions)
+  - [pstrdup](../p/pstrdup.md), psprintf (PostgreSQL memory/string functions)
   - ereport, errcode, errmsg (error reporting)
 - Called from (representative examples):
-  - DefineCollation (at line 360)
-  - AlterCollation (at line 467)
-  - pg_collation_actual_version (at line 573)
-  - createdb (at lines 1240, 1276)
-  - pg_newlocale_from_collation (at line 1707)
-  - CheckMyDatabase (at line 485)
+  - [DefineCollation](../D/DefineCollation.md) (at line 360)
+  - [AlterCollation](../A/AlterCollation.md) (at line 467)
+  - [pg_collation_actual_version](../p/pg_collation_actual_version.md) (at line 573)
+  - [createdb](../c/createdb.md) (at lines 1240, 1276)
+  - [pg_newlocale_from_collation](../p/pg_newlocale_from_collation.md) (at line 1707)
+  - [CheckMyDatabase](../C/CheckMyDatabase.md) (at line 485)
 
 ## Notes and Other Information
 - Returns dynamically allocated strings that must be freed by the caller

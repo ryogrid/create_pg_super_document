@@ -20,20 +20,20 @@ This static function provides type-aware conversion of JsonbValue structures to 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
-  - DatumGetCString
+  - [DatumGetCString](../D/DatumGetCString.md)
   - DirectFunctionCall1
-  - numeric_out
-  - NumericGetDatum
-  - boolout
-  - BoolGetDatum
-  - date_out, time_out, timetz_out, timestamp_out, timestamptz_out
-  - jsonb_out
-  - JsonbValueToJsonb
-  - JsonbPGetDatum
+  - [numeric_out](../n/numeric_out.md)
+  - [NumericGetDatum](../N/NumericGetDatum.md)
+  - [boolout](../b/boolout.md)
+  - [BoolGetDatum](../B/BoolGetDatum.md)
+  - [date_out](../d/date_out.md), time_out, timetz_out, timestamp_out, timestamptz_out
+  - [jsonb_out](../j/jsonb_out.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
+  - [JsonbPGetDatum](../J/JsonbPGetDatum.md)
 - Called from (representative examples):
-  - ExecEvalJsonExprPath
+  - [ExecEvalJsonExprPath](ExecEvalJsonExprPath.md)
   - EEO_JUMP (expression evaluation optimization)
 
 ## Notes and Other Information

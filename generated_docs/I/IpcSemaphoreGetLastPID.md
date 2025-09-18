@@ -29,7 +29,7 @@ Like IpcSemaphoreGetValue, this function includes a dummy union semun parameter 
   - union semun
   - pid_t (return type)
 - Called from (representative examples):
-  - IpcSemaphoreCreate
+  - [IpcSemaphoreCreate](IpcSemaphoreCreate.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_sema.c file

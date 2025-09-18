@@ -24,11 +24,11 @@ The function works in tandem with MultiXactIdToOffsetPage to provide complete ad
   - MULTIXACT_OFFSETS_PER_PAGE (constant defining entries per page)
   - MultiXactId (type definition)
 - Called from (representative examples):
-  - RecordNewMultiXact
-  - GetMultiXactIdMembers  
-  - TrimMultiXact
-  - ExtendMultiXactOffset
-  - find_multixact_start
+  - [RecordNewMultiXact](../R/RecordNewMultiXact.md)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md)  
+  - [TrimMultiXact](../T/TrimMultiXact.md)
+  - [ExtendMultiXactOffset](../E/ExtendMultiXactOffset.md)
+  - [find_multixact_start](../f/find_multixact_start.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization

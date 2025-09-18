@@ -24,17 +24,17 @@ For the range (0.0, 1.0], the standard approach is to compute "1.0 - pg_prng_dou
   - pg_prng_state (state structure type)
 - Called from (representative examples):
   - gin_rand (GIN index random operations)
-  - StartTransaction (transaction processing)
-  - geqo_rand (genetic algorithm optimizer)
+  - [StartTransaction](../S/StartTransaction.md) (transaction processing)
+  - [geqo_rand](../g/geqo_rand.md) (genetic algorithm optimizer)
   - perform_spin_delay (lock contention handling)
-  - drandom (SQL random() function)
-  - sampler_random_fract (sampling operations)
-  - getExponentialRand, getPoissonRand (pgbench statistical distributions)
-  - pg_prng_double_normal (normal distribution generator)
+  - [drandom](../d/drandom.md) (SQL random() function)
+  - [sampler_random_fract](../s/sampler_random_fract.md) (sampling operations)
+  - [getExponentialRand](../g/getExponentialRand.md), getPoissonRand (pgbench statistical distributions)
+  - [pg_prng_double_normal](pg_prng_double_normal.md) (normal distribution generator)
 
 ## Notes and Other Information
 - Uses upper 52 bits (v >> (64 - 52)) to match double precision mantissa
-- Result could theoretically round to 1.0 if double precision is less than 52 bits, but PostgreSQL assumes IEEE 754
+- [Result](../R/Result.md) could theoretically round to 1.0 if double precision is less than 52 bits, but PostgreSQL assumes IEEE 754
 - Extensively used throughout PostgreSQL for statistical operations, sampling, and randomized algorithms
 - Core building block for more complex probability distributions
 - Part of PostgreSQL's unified PRNG interface for consistent random number generation

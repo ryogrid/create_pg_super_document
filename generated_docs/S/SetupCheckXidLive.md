@@ -32,11 +32,11 @@ The function sets CheckXidAlive to monitor the specified transaction ID, allowin
 ## Dependencies
 - Functions called/Symbols referenced:
   - TransactionIdEquals (check if xid is already being monitored)
-  - TransactionIdDidCommit (check transaction commit status)
+  - [TransactionIdDidCommit](../T/TransactionIdDidCommit.md) (check transaction commit status)
   - CheckXidAlive (global variable set to the monitored transaction ID)
   - InvalidTransactionId (constant for invalid transaction ID)
 - Called from (representative examples):
-  - ReorderBufferProcessTXN
+  - [ReorderBufferProcessTXN](../R/ReorderBufferProcessTXN.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance in frequent catalog operations

@@ -19,13 +19,13 @@ This static function is responsible for resolving variable references during JSO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - jspGetString (extracts string data from JsonPathItem)
-  - pnstrdup (creates null-terminated string copy)
-  - setBaseObject (sets up base object context)
+  - [jspGetString](../j/jspGetString.md) (extracts string data from JsonPathItem)
+  - [pnstrdup](../p/pnstrdup.md) (creates null-terminated string copy)
+  - [setBaseObject](../s/setBaseObject.md) (sets up base object context)
   - ereport (PostgreSQL error reporting)
   - jpiVariable (JsonPathItem type constant)
 - Called from (representative examples):
-  - getJsonPathItem (main JSON path item processing function)
+  - [getJsonPathItem](getJsonPathItem.md) (main JSON path item processing function)
 
 ## Notes and Other Information
 - This is a static helper function, only accessible within the jsonpath_exec.c module

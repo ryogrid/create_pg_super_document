@@ -26,20 +26,20 @@ The readline integration provides users with command editing capabilities, inclu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - initialize_readline (sets up readline global variables)
+  - [initialize_readline](initialize_readline.md) (sets up readline global variables)
   - rl_variable_bind (configures readline variables like comment-begin)
   - rl_initialize (reads ~/.inputrc configuration)
   - using_history (initializes history functionality)
-  - GetVariable (retrieves psql variables like HISTFILE)
+  - [GetVariable](../G/GetVariable.md) (retrieves psql variables like HISTFILE)
   - getenv (retrieves environment variables like PSQL_HISTORY)
   - get_home_path (determines user's home directory)
-  - psprintf (formatted string creation)
-  - pg_strdup (string duplication)
-  - expand_tilde (expands ~ in file paths)
+  - [psprintf](../p/psprintf.md) (formatted string creation)
+  - [pg_strdup](../p/pg_strdup.md) (string duplication)
+  - [expand_tilde](../e/expand_tilde.md) (expands ~ in file paths)
   - read_history (loads history from file)
-  - decode_history (converts encoded newlines back to actual newlines)
+  - [decode_history](../d/decode_history.md) (converts encoded newlines back to actual newlines)
   - atexit (registers cleanup function)
-  - finishInput (cleanup function registered with atexit)
+  - [finishInput](../f/finishInput.md) (cleanup function registered with atexit)
   - PSQLHISTORY (default history filename: ".psql_history")
 
 - Called from (representative examples):

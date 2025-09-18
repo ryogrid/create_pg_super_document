@@ -23,12 +23,12 @@ PartitionDispatchData represents the routing information needed for a single par
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PartitionKey
-  - PartitionDesc  
-  - AttrMap
+  - [PartitionKey](PartitionKey.md)
+  - [PartitionDesc](PartitionDesc.md)  
+  - [AttrMap](../A/AttrMap.md)
   - FLEXIBLE_ARRAY_MEMBER
 - Called from (representative examples):
-  - ExecInitPartitionDispatchInfo
+  - [ExecInitPartitionDispatchInfo](../E/ExecInitPartitionDispatchInfo.md)
   - PartitionDispatch (typedef usage)
 
 ## Notes and Other Information

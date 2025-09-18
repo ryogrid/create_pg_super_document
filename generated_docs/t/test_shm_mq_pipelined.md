@@ -32,14 +32,14 @@ The function maintains separate counters for sent and received messages, ensurin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - test_shm_mq_setup: Sets up the dynamic shared memory segment and background workers
-  - shm_mq_send: Non-blocking send operation through shared memory queues
-  - shm_mq_receive: Non-blocking receive operation from shared memory queues
-  - verify_message: Validates message integrity (optional, controlled by verify parameter)
-  - WaitEventExtensionNew: Creates custom wait event for message queue operations
-  - WaitLatch: Efficiently waits for latch signals indicating queue activity
-  - ResetLatch: Resets the latch after being signaled
-  - dsm_detach: Cleans up the dynamic shared memory segment
+  - [test_shm_mq_setup](test_shm_mq_setup.md): Sets up the dynamic shared memory segment and background workers
+  - [shm_mq_send](../s/shm_mq_send.md): Non-blocking send operation through shared memory queues
+  - [shm_mq_receive](../s/shm_mq_receive.md): Non-blocking receive operation from shared memory queues
+  - [verify_message](../v/verify_message.md): Validates message integrity (optional, controlled by verify parameter)
+  - [WaitEventExtensionNew](../W/WaitEventExtensionNew.md): Creates custom wait event for message queue operations
+  - [WaitLatch](../W/WaitLatch.md): Efficiently waits for latch signals indicating queue activity
+  - [ResetLatch](../R/ResetLatch.md): Resets the latch after being signaled
+  - [dsm_detach](../d/dsm_detach.md): Cleans up the dynamic shared memory segment
   - CHECK_FOR_INTERRUPTS: Checks for query cancellation during wait periods
 - Called from (representative examples):
   - No direct callers found (likely called via SQL function interface)

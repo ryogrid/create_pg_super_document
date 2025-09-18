@@ -22,12 +22,12 @@ The function only performs sorting when there are more than one transaction IDs 
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort (C library function)
-  - qunique (PostgreSQL utility function)
-  - cmp_fxid (comparison function)
+  - [qunique](../q/qunique.md) (PostgreSQL utility function)
+  - [cmp_fxid](../c/cmp_fxid.md) (comparison function)
   - FullTransactionId (type)
-  - pg_snapshot (type)
+  - [pg_snapshot](../p/pg_snapshot.md) (type)
 - Called from (representative examples):
-  - pg_current_snapshot
+  - [pg_current_snapshot](../p/pg_current_snapshot.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the xid8funcs.c module

@@ -31,11 +31,11 @@ The algorithm processes the binary representation of the exponent, squaring the 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_var_from_var (for variable copying)
-  - round_var (for result rounding)
-  - div_var, div_var_fast (for division operations)
-  - mul_var (for multiplication)
-  - zero_var (for zero assignment)
+  - [set_var_from_var](../s/set_var_from_var.md) (for variable copying)
+  - [round_var](../r/round_var.md) (for result rounding)
+  - [div_var](../d/div_var.md), div_var_fast (for division operations)
+  - [mul_var](../m/mul_var.md) (for multiplication)
+  - [zero_var](../z/zero_var.md) (for zero assignment)
   - init_var, free_var (variable lifecycle management)
   - log10, log, fabs (standard math functions)
 - Constants used:
@@ -45,7 +45,7 @@ The algorithm processes the binary representation of the exponent, squaring the 
   - NUMERIC_MIN_SIG_DIGITS (minimum significant digits)
   - NUMERIC_MIN_DISPLAY_SCALE, NUMERIC_MAX_DISPLAY_SCALE (scale limits)
 - Called from:
-  - power_var (for integer exponent optimization)
+  - [power_var](power_var.md) (for integer exponent optimization)
 
 ## Notes and Other Information
 - This is a static function within the numeric.c module

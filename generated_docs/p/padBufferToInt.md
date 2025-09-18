@@ -18,12 +18,12 @@ The `padBufferToInt` function ensures proper memory alignment for JSONB data str
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTALIGN (macro for calculating integer alignment)
-  - reserveFromBuffer
-  - JsonbContainer (referenced in context)
+  - [reserveFromBuffer](../r/reserveFromBuffer.md)
+  - [JsonbContainer](../J/JsonbContainer.md) (referenced in context)
 - Called from (representative examples):
-  - convertJsonbArray
-  - convertJsonbObject  
-  - convertJsonbScalar
+  - [convertJsonbArray](../c/convertJsonbArray.md)
+  - [convertJsonbObject](../c/convertJsonbObject.md)  
+  - [convertJsonbScalar](../c/convertJsonbScalar.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the jsonb_util.c compilation unit

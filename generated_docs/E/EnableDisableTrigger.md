@@ -28,30 +28,30 @@ The function enforces security by requiring superuser privileges for system trig
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - ObjectIdGetDatum
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - RelationGetRelid
-  - CStringGetDatum
-  - systable_beginscan
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
   - HeapTupleIsValid
-  - systable_getnext
+  - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
   - OidIsValid
   - superuser
-  - heap_copytuple
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [heap_copytuple](../h/heap_copytuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - TRIGGER_FOR_ROW
-  - RelationGetPartitionDesc
-  - relation_open
-  - EnableDisableTrigger (recursive call)
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [relation_open](../r/relation_open.md)
+  - [EnableDisableTrigger](EnableDisableTrigger.md) (recursive call)
   - table_close
   - InvokeObjectPostAlterHook
-  - systable_endscan
-  - CacheInvalidateRelcache
+  - [systable_endscan](../s/systable_endscan.md)
+  - [CacheInvalidateRelcache](../C/CacheInvalidateRelcache.md)
 - Called from (representative examples):
-  - ATExecEnableDisableTrigger
-  - EnableDisableTrigger (recursive)
+  - [ATExecEnableDisableTrigger](../A/ATExecEnableDisableTrigger.md)
+  - [EnableDisableTrigger](EnableDisableTrigger.md) (recursive)
 
 ## Notes and Other Information
 - Called by ALTER TABLE ENABLE/DISABLE [REPLICA | ALWAYS] TRIGGER commands

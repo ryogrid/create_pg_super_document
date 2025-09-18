@@ -24,15 +24,15 @@ This is a critical function for logging, auditing, command completion tracking, 
 ## Dependencies
 - Functions called/Symbols referenced:
   - nodeTag (to determine the type of the input node)
-  - AlterObjectTypeCommandTag (for ALTER operations involving object types)
+  - [AlterObjectTypeCommandTag](../A/AlterObjectTypeCommandTag.md) (for ALTER operations involving object types)
   - Various CommandTag constants (CMDTAG_SELECT, CMDTAG_INSERT, etc.)
   - Statement-specific structures (TransactionStmt, DropStmt, etc.)
   - Object type enums (OBJECT_TABLE, OBJECT_FUNCTION, etc.)
 - Called from (representative examples):
-  - EventTriggerGetTag (src/backend/commands/event_trigger.c:625)
-  - standard_ProcessUtility (src/backend/tcop/utility.c:575)
-  - exec_simple_query (src/backend/tcop/postgres.c:1123)
-  - _SPI_prepare_plan (src/backend/executor/spi.c:2262)
+  - [EventTriggerGetTag](../E/EventTriggerGetTag.md) (src/backend/commands/event_trigger.c:625)
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md) (src/backend/tcop/utility.c:575)
+  - [exec_simple_query](../e/exec_simple_query.md) (src/backend/tcop/postgres.c:1123)
+  - [_SPI_prepare_plan](../S/_SPI_prepare_plan.md) (src/backend/executor/spi.c:2262)
 
 ## Notes and Other Information
 - The function is recursive for RawStmt nodes, calling itself on the contained statement

@@ -37,7 +37,7 @@ These hint flags are used by the trigger execution system to quickly determine w
   - Various TRIGGER_TYPE_* constants for trigger classification
 
 - Called from (representative examples):
-  - RelationBuildTriggers: During trigger descriptor construction
+  - [RelationBuildTriggers](../R/RelationBuildTriggers.md): During trigger descriptor construction
 
 ## Notes and Other Information
 - This is a static (internal) function used only within the trigger.c module

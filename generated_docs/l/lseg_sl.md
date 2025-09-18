@@ -17,16 +17,16 @@ The  function is a utility function that calculates the slope of a line segment.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - point_sl: Calculates slope between two points
-  - LSEG: Line segment data structure type
+  - [point_sl](../p/point_sl.md): Calculates slope between two points
+  - [LSEG](../L/LSEG.md): Line segment data structure type
 
 - Called from (representative examples):
-  - lseg_parallel: Checks if two line segments are parallel
-  - lseg_perp: Checks if two line segments are perpendicular
-  - lseg_interpt_lseg: Finds intersection point of two line segments
-  - lseg_interpt_line: Finds intersection point of line segment and line
-  - close_lseg: Finds closest point on line segment
-  - close_ls: Finds closest point between line and segment
+  - [lseg_parallel](lseg_parallel.md): Checks if two line segments are parallel
+  - [lseg_perp](lseg_perp.md): Checks if two line segments are perpendicular
+  - [lseg_interpt_lseg](lseg_interpt_lseg.md): Finds intersection point of two line segments
+  - [lseg_interpt_line](lseg_interpt_line.md): Finds intersection point of line segment and line
+  - [close_lseg](../c/close_lseg.md): Finds closest point on line segment
+  - [close_ls](../c/close_ls.md): Finds closest point between line and segment
 
 ## Notes and Other Information
 - This is a static inline function, meaning it's only accessible within the same source file and is optimized for performance

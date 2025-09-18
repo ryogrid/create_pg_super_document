@@ -24,15 +24,15 @@ The function ensures proper memory context management by switching to the EState
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - expression_planner (applies planning transformations)
-  - ExecInitExpr (compiles expression into ExprState)
-  - MemoryContextSwitchTo (memory management)
+  - [expression_planner](../e/expression_planner.md) (applies planning transformations)
+  - [ExecInitExpr](ExecInitExpr.md) (compiles expression into ExprState)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md) (memory management)
 - Called from (representative examples):
-  - StoreAttrDefault (column default expressions)
-  - ExecuteCallStmt (function call expressions)
-  - ATRewriteTable (table rewrite expressions)
-  - ExecPrepareExprList (list of expressions)
-  - ExecRelCheck (constraint check expressions)
+  - [StoreAttrDefault](../S/StoreAttrDefault.md) (column default expressions)
+  - [ExecuteCallStmt](ExecuteCallStmt.md) (function call expressions)
+  - [ATRewriteTable](../A/ATRewriteTable.md) (table rewrite expressions)
+  - [ExecPrepareExprList](ExecPrepareExprList.md) (list of expressions)
+  - [ExecRelCheck](ExecRelCheck.md) (constraint check expressions)
 
 ## Notes and Other Information
 - **Context distinction**: Differs from ExecInitExpr by not assuming the caller is already in the appropriate memory context

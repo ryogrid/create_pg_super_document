@@ -29,14 +29,14 @@ The function decomposes the original tuple into its component Datums, nullifies 
 ## Dependencies
 - Functions called/Symbols referenced:
   - RelationGetDescr (via OldHeap and NewHeap)
-  - heap_deform_tuple
+  - [heap_deform_tuple](../h/heap_deform_tuple.md)
   - TupleDescAttr
-  - heap_form_tuple
-  - rewrite_heap_tuple
-  - heap_freetuple
-  - RewriteState
+  - [heap_form_tuple](../h/heap_form_tuple.md)
+  - [rewrite_heap_tuple](rewrite_heap_tuple.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [RewriteState](../R/RewriteState.md)
 - Called from (representative examples):
-  - heapam_relation_copy_for_cluster
+  - [heapam_relation_copy_for_cluster](../h/heapam_relation_copy_for_cluster.md)
 
 ## Notes and Other Information
 - This is a static function internal to heapam_handler.c, specifically designed for table clustering and rewrite operations

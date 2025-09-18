@@ -32,7 +32,7 @@ For normal numeric values, it delegates to `cmp_var_common` which performs the a
   - `NUMERIC_IS_NAN` (macro to check for NaN)
   - `NUMERIC_IS_PINF` (macro to check for positive infinity)
   - `NUMERIC_IS_NINF` (macro to check for negative infinity)
-  - `cmp_var_common` (performs comparison of normal numeric values)
+  - `[cmp_var_common](cmp_var_common.md)` (performs comparison of normal numeric values)
   - `NUMERIC_DIGITS` (extracts digit array)
   - `NUMERIC_NDIGITS` (gets number of digits)
   - `NUMERIC_WEIGHT` (gets weight/scale)
@@ -40,9 +40,9 @@ For normal numeric values, it delegates to `cmp_var_common` which performs the a
 - Called from:
   - `numeric_cmp` (main comparison function)
   - `numeric_eq`, `numeric_ne`, `numeric_gt`, `numeric_ge`, `numeric_lt`, `numeric_le` (comparison operators)
-  - `numeric_smaller`, `numeric_larger` (min/max functions)
+  - `[numeric_smaller](../n/numeric_smaller.md)`, `numeric_larger` (min/max functions)
   - `width_bucket_numeric` (bucketing function)
-  - `numeric_fast_cmp` (optimized comparison)
+  - `[numeric_fast_cmp](../n/numeric_fast_cmp.md)` (optimized comparison)
 
 ## Notes and Other Information
 - This is a static (internal) function, not directly callable from SQL

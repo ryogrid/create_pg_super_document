@@ -28,12 +28,12 @@ The function handles both positional and named arguments, properly formatting na
   - appendStringInfoChar
   - list_length
   - list_head
-  - lnext
+  - [lnext](../l/lnext.md)
   - lfirst
-  - format_type_be
+  - [format_type_be](format_type_be.md)
 - Called from (representative examples):
-  - func_signature_string
-  - IsThereFunctionInNamespace
+  - [func_signature_string](func_signature_string.md)
+  - [IsThereFunctionInNamespace](../I/IsThereFunctionInNamespace.md)
   - FuncDetailCode (referenced from header)
 
 ## Notes and Other Information

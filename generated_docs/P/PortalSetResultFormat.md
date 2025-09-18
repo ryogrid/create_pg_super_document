@@ -21,10 +21,10 @@ The function handles three scenarios: when individual format codes are specified
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - MemoryContextAlloc
+  - [MemoryContextAlloc](../M/MemoryContextAlloc.md)
 - Called from (representative examples):
-  - exec_simple_query
-  - exec_bind_message
+  - [exec_simple_query](../e/exec_simple_query.md)
+  - [exec_bind_message](../e/exec_bind_message.md)
 
 ## Notes and Other Information
 - Must be run after PortalStart and only for portals that return tuples

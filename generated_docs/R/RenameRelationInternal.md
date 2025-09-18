@@ -22,25 +22,25 @@ Beyond the basic renaming, the function handles associated object renaming inclu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - relation_open
+  - [relation_open](../r/relation_open.md)
   - RelationGetNamespace
   - table_open/table_close
-  - SearchSysCacheLockedCopy1
-  - get_relname_relid
+  - [SearchSysCacheLockedCopy1](../S/SearchSysCacheLockedCopy1.md)
+  - [get_relname_relid](../g/get_relname_relid.md)
   - namestrcpy
-  - CatalogTupleUpdate
-  - UnlockTuple
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [UnlockTuple](../U/UnlockTuple.md)
   - InvokeObjectPostAlterHookArg
-  - heap_freetuple
-  - RenameTypeInternal
-  - get_index_constraint
-  - RenameConstraintById
-  - relation_close
+  - [heap_freetuple](../h/heap_freetuple.md)
+  - [RenameTypeInternal](RenameTypeInternal.md)
+  - [get_index_constraint](../g/get_index_constraint.md)
+  - [RenameConstraintById](RenameConstraintById.md)
+  - [relation_close](../r/relation_close.md)
 - Called from (representative examples):
-  - RenameRelation (in src/backend/commands/tablecmds.c)
-  - rename_constraint_internal (in src/backend/commands/tablecmds.c)
-  - finish_heap_swap (in src/backend/commands/cluster.c)
-  - RenameType (in src/backend/commands/typecmds.c)
+  - [RenameRelation](RenameRelation.md) (in src/backend/commands/tablecmds.c)
+  - [rename_constraint_internal](../r/rename_constraint_internal.md) (in src/backend/commands/tablecmds.c)
+  - [finish_heap_swap](../f/finish_heap_swap.md) (in src/backend/commands/cluster.c)
+  - [RenameType](RenameType.md) (in src/backend/commands/typecmds.c)
 
 ## Notes and Other Information
 - Uses different lock levels based on object type (ShareUpdateExclusiveLock for indexes, AccessExclusiveLock for others)

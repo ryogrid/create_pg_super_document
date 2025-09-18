@@ -38,19 +38,19 @@ The initialization process encompasses several critical areas:
   - makeNode
   - ExecAssignExprContext
   - ExecOpenScanRelation
-  - GetFdwRoutineForRelation
-  - GetFdwRoutineByServerId
-  - ExecTypeFromTL
-  - ExecInitScanTupleSlot
-  - CreateTupleDescCopy
-  - ExecInitResultTypeTL
-  - ExecAssignScanProjectionInfoWithVarno
-  - ExecInitQual
-  - ExecInitNode
+  - [GetFdwRoutineForRelation](../G/GetFdwRoutineForRelation.md)
+  - [GetFdwRoutineByServerId](../G/GetFdwRoutineByServerId.md)
+  - [ExecTypeFromTL](ExecTypeFromTL.md)
+  - [ExecInitScanTupleSlot](ExecInitScanTupleSlot.md)
+  - [CreateTupleDescCopy](../C/CreateTupleDescCopy.md)
+  - [ExecInitResultTypeTL](ExecInitResultTypeTL.md)
+  - [ExecAssignScanProjectionInfoWithVarno](ExecAssignScanProjectionInfoWithVarno.md)
+  - [ExecInitQual](ExecInitQual.md)
+  - [ExecInitNode](ExecInitNode.md)
   - BeginForeignScan (via fdwroutine)
   - BeginDirectModify (via fdwroutine)
 - Called from:
-  - ExecInitNode
+  - [ExecInitNode](ExecInitNode.md)
 
 ## Notes and Other Information
 - The function explicitly rejects EXEC_FLAG_BACKWARD and EXEC_FLAG_MARK flags as foreign scans don't support these operations
@@ -58,5 +58,5 @@ The initialization process encompasses several critical areas:
 - Direct modification operations are special-cased to avoid initialization during EvalPlanQual processing
 - Async capability is synchronized with ExecInitAppend() behavior for consistency
 - The scanopsfixed flag is set to false since FDW return formats are unpredictable
-- ResultRelInfo lookup is skipped during EvalPlanQual to avoid initialization issues
+- [ResultRelInfo](../R/ResultRelInfo.md) lookup is skipped during EvalPlanQual to avoid initialization issues
 - Outer plan initialization supports complex query structures with foreign scans as inner nodes

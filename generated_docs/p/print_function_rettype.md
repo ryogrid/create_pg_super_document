@@ -21,13 +21,13 @@ This internal function formats and appends a function's return type specificatio
 ## Dependencies
 - Functions called/Symbols referenced:
   - Form_pg_proc
-  - print_function_arguments
+  - [print_function_arguments](print_function_arguments.md)
   - resetStringInfo
   - appendBinaryStringInfo
 - Called from (representative examples):
   - NameHashEntry
-  - pg_get_functiondef
-  - pg_get_function_result
+  - [pg_get_functiondef](pg_get_functiondef.md)
+  - [pg_get_function_result](pg_get_function_result.md)
 
 ## Notes and Other Information
 - This is a static (internal) function used by other ruleutils.c functions

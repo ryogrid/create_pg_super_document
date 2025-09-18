@@ -34,24 +34,24 @@ The function uses a switch statement to dispatch to command-specific handlers li
 - Functions called/Symbols referenced:
   - CHECK_FOR_INTERRUPTS
   - check_stack_depth
-  - AcquireRewriteLocks
-  - lcons
-  - list_copy
-  - set_deparse_for_query
-  - get_select_query_def
-  - get_update_query_def
-  - get_insert_query_def
-  - get_delete_query_def
-  - get_merge_query_def
-  - get_utility_query_def
+  - [AcquireRewriteLocks](../A/AcquireRewriteLocks.md)
+  - [lcons](../l/lcons.md)
+  - [list_copy](../l/list_copy.md)
+  - [set_deparse_for_query](../s/set_deparse_for_query.md)
+  - [get_select_query_def](get_select_query_def.md)
+  - [get_update_query_def](get_update_query_def.md)
+  - [get_insert_query_def](get_insert_query_def.md)
+  - [get_delete_query_def](get_delete_query_def.md)
+  - [get_merge_query_def](get_merge_query_def.md)
+  - [get_utility_query_def](get_utility_query_def.md)
   - CMD_SELECT, CMD_UPDATE, CMD_INSERT, CMD_DELETE, CMD_MERGE, CMD_NOTHING, CMD_UTILITY
 - Called from (representative examples):
-  - pg_get_querydef
-  - make_ruledef
-  - make_viewdef
-  - get_with_clause
-  - get_setop_query
-  - get_insert_query_def
+  - [pg_get_querydef](../p/pg_get_querydef.md)
+  - [make_ruledef](../m/make_ruledef.md)
+  - [make_viewdef](../m/make_viewdef.md)
+  - [get_with_clause](get_with_clause.md)
+  - [get_setop_query](get_setop_query.md)
+  - [get_insert_query_def](get_insert_query_def.md)
   - get_sublink_expr
   - get_from_clause_item
 

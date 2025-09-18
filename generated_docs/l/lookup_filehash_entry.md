@@ -20,9 +20,9 @@ This function is typically used when you need to check if a file entry already e
 ## Dependencies
 - Functions called/Symbols referenced:
   - filehash_lookup
-  - file_entry_t (return type)
+  - [file_entry_t](../f/file_entry_t.md) (return type)
 - Called from (representative examples):
-  - process_target_wal_block_change (src/bin/pg_rewind/filemap.c:364)
+  - [process_target_wal_block_change](../p/process_target_wal_block_change.md) (src/bin/pg_rewind/filemap.c:364)
 
 ## Notes and Other Information
 - This is a static function, only accessible within filemap.c

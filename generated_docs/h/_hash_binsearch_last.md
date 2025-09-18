@@ -20,14 +20,14 @@ The algorithm uses binary search but with a slightly different approach than the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageGetMaxOffsetNumber
+  - [PageGetMaxOffsetNumber](../P/PageGetMaxOffsetNumber.md)
   - FirstOffsetNumber  
   - OffsetNumberIsValid
-  - PageGetItem
-  - PageGetItemId
+  - [PageGetItem](../P/PageGetItem.md)
+  - [PageGetItemId](../P/PageGetItemId.md)
   - _hash_get_indextuple_hashkey
 - Called from (representative examples):
-  - _hash_readpage
+  - [_hash_readpage](_hash_readpage.md)
 
 ## Notes and Other Information
 The function is specifically optimized for backwards scanning scenarios where you need to start from the last occurrence of a particular hash value. The different bounds (0..maxoffset vs 1..maxoffset+1) reflect this specialized use case. The midpoint calculation uses (upper + lower + 1) / 2 instead of (upper + lower) / 2 to ensure correct behavior when searching for the last occurrence.

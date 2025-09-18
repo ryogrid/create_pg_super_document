@@ -24,15 +24,15 @@ The function preserves the original primary control structure unchanged and retu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - memcpy
-  - parse_extension_control_file
+  - [parse_extension_control_file](../p/parse_extension_control_file.md)
 - Types referenced:
-  - ExtensionControlFile
+  - [ExtensionControlFile](../E/ExtensionControlFile.md)
 - Called from (representative examples):
-  - CreateExtensionInternal
-  - get_available_versions_for_extension
-  - ApplyExtensionUpdates
+  - [CreateExtensionInternal](../C/CreateExtensionInternal.md)
+  - [get_available_versions_for_extension](../g/get_available_versions_for_extension.md)
+  - [ApplyExtensionUpdates](../A/ApplyExtensionUpdates.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the extension.c source file

@@ -31,19 +31,19 @@ The function ensures referential integrity is maintained during detachment and h
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RelationGetPartitionDesc
-  - get_default_oid_from_partdesc
-  - LockRelationOid
+  - [RelationGetPartitionDesc](../R/RelationGetPartitionDesc.md)
+  - [get_default_oid_from_partdesc](../g/get_default_oid_from_partdesc.md)
+  - [LockRelationOid](../L/LockRelationOid.md)
   - table_openrv
-  - RemoveInheritance
-  - MarkInheritDetached
-  - ATDetachCheckNoForeignKeyRefs
-  - DetachAddConstraintIfNeeded
-  - DetachPartitionFinalize
-  - CommitTransactionCommand/StartTransactionCommand
-  - WaitForLockersMultiple
+  - [RemoveInheritance](../R/RemoveInheritance.md)
+  - [MarkInheritDetached](../M/MarkInheritDetached.md)
+  - [ATDetachCheckNoForeignKeyRefs](ATDetachCheckNoForeignKeyRefs.md)
+  - [DetachAddConstraintIfNeeded](../D/DetachAddConstraintIfNeeded.md)
+  - [DetachPartitionFinalize](../D/DetachPartitionFinalize.md)
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md)/StartTransactionCommand
+  - [WaitForLockersMultiple](../W/WaitForLockersMultiple.md)
 - Called from (representative examples):
-  - ATExecCmd (main ALTER TABLE command dispatcher)
+  - [ATExecCmd](ATExecCmd.md) (main ALTER TABLE command dispatcher)
 
 ## Notes and Other Information
 - Cannot run concurrently when a default partition exists due to constraint management issues

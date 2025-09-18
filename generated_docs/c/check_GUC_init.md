@@ -28,8 +28,8 @@ For flag combinations, it enforces specific rules about parameter visibility fla
   - config_bool, config_int, config_real, config_string, config_enum: Type-specific GUC structures
   - GUC_NO_SHOW_ALL, GUC_NOT_IN_SAMPLE: Flag constants for parameter visibility control
 - Called from (representative examples):
-  - InitializeGUCOptions: Main GUC initialization routine
-  - define_custom_variable: Custom parameter definition function
+  - [InitializeGUCOptions](../I/InitializeGUCOptions.md): Main GUC initialization routine
+  - [define_custom_variable](../d/define_custom_variable.md): Custom parameter definition function
 
 ## Notes and Other Information
 - Returns false and logs issues when inconsistencies are detected

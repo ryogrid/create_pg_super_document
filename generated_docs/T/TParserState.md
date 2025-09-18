@@ -48,11 +48,11 @@ Key state categories:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TParser (struct reference)
+  - [TParser](TParser.md) (struct reference)
 - Called from (representative examples):
   - TParserStateActionItem (struct member)
-  - TParserPosition (struct member)
-  - p_isspecial (function usage)
+  - [TParserPosition](TParserPosition.md) (struct member)
+  - [p_isspecial](../p/p_isspecial.md) (function usage)
 
 ## Notes and Other Information
 - The order of enum values must match the corresponding state action tables used by the parser

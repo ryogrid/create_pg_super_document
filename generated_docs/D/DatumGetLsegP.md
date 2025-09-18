@@ -23,8 +23,8 @@ DatumGetLsegP is part of PostgreSQL's function manager (fmgr) interface function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LSEG (geometric line segment data type)
-  - DatumGetPointer (implicit, through direct pointer casting)
+  - [LSEG](../L/LSEG.md) (geometric line segment data type)
+  - [DatumGetPointer](DatumGetPointer.md) (implicit, through direct pointer casting)
 - Called from (representative examples):
   - PG_GETARG_LSEG_P
 

@@ -22,12 +22,12 @@ The function extracts the original text, replacement text, and start position fr
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - text_length
-  - text_overlay
+  - [text_length](text_length.md)
+  - [text_overlay](text_overlay.md)
   - PG_RETURN_TEXT_P
   - PG_GETARG_TEXT_PP
   - PG_GETARG_INT32
-  - PointerGetDatum
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called via SQL OVERLAY function variant)
 

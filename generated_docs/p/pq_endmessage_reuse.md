@@ -21,10 +21,10 @@ The function retrieves the message type from the buffer's cursor field (where it
 - Functions called/Symbols referenced:
   - pq_putmessage
 - Called from (representative examples):
-  - SendRowDescriptionMessage (src/backend/access/common/printtup.c:243)
-  - printtup (src/backend/access/common/printtup.c:375)
-  - UploadManifest (src/backend/replication/walsender.c:707)
-  - exec_describe_statement_message (src/backend/tcop/postgres.c:2691)
+  - [SendRowDescriptionMessage](../S/SendRowDescriptionMessage.md) (src/backend/access/common/printtup.c:243)
+  - [printtup](printtup.md) (src/backend/access/common/printtup.c:375)
+  - [UploadManifest](../U/UploadManifest.md) (src/backend/replication/walsender.c:707)
+  - [exec_describe_statement_message](../e/exec_describe_statement_message.md) (src/backend/tcop/postgres.c:2691)
 
 ## Notes and Other Information
 - This function is part of an optimization pattern for high-frequency message sending scenarios

@@ -26,7 +26,7 @@ The function includes several safety checks: it ensures the block range doesn't 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _mdfd_getseg (gets file descriptor for the appropriate segment)
+  - [_mdfd_getseg](_mdfd_getseg.md) (gets file descriptor for the appropriate segment)
   - FilePrefetch (initiates asynchronous file read)
   - Assert (debug assertions)
   - Min (minimum value macro)

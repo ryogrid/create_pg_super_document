@@ -23,10 +23,10 @@ The term "contain" means that there's a use of the specified relid inside the PH
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - contain_placeholder_references_context (context structure for walker)
-  - contain_placeholder_references_walker (recursive walker function)
+  - [contain_placeholder_references_context](contain_placeholder_references_context.md) (context structure for walker)
+  - [contain_placeholder_references_walker](contain_placeholder_references_walker.md) (recursive walker function)
 - Called from (representative examples):
-  - make_outerjoininfo (src/backend/optimizer/plan/initsplan.c:1512)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md) (src/backend/optimizer/plan/initsplan.c:1512)
 
 ## Notes and Other Information
 - The function includes an optimization that returns false immediately if no PlaceHolderVars exist in the query (lastPHId == 0)

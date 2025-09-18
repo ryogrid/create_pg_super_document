@@ -28,19 +28,19 @@ Key responsibilities include:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sendAuthRequest (to request password from client)
-  - recv_password_packet (to receive password response)
-  - PerformRadiusTransaction (to perform actual RADIUS authentication)
-  - set_authn_id (to set authentication identity on success)
+  - [sendAuthRequest](../s/sendAuthRequest.md) (to request password from client)
+  - [recv_password_packet](../r/recv_password_packet.md) (to receive password response)
+  - [PerformRadiusTransaction](../P/PerformRadiusTransaction.md) (to perform actual RADIUS authentication)
+  - [set_authn_id](../s/set_authn_id.md) (to set authentication identity on success)
   - list_head, lnext (for list traversal)
   - ereport, errmsg (for logging)
-  - pfree (for memory cleanup)
+  - [pfree](../p/pfree.md) (for memory cleanup)
 - Constants referenced:
   - AUTH_REQ_PASSWORD
   - STATUS_OK, STATUS_ERROR, STATUS_EOF
   - RADIUS_MAX_PASSWORD_LENGTH
 - Types referenced:
-  - Port, radius_packet
+  - [Port](../P/Port.md), radius_packet
 - Called from:
   - Main authentication logic at src/backend/libpq/auth.c:631
 

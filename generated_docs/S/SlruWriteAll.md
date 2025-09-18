@@ -22,11 +22,11 @@ This is a type alias (pointer type), so it doesn't have direct members, but it p
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SlruWriteAllData (the underlying structure this type points to)
+  - [SlruWriteAllData](SlruWriteAllData.md) (the underlying structure this type points to)
 - Called from (representative examples):
   - SlruErrorCause (function that may use this type for error handling)
-  - SlruInternalWritePage (internal function for writing pages)
-  - SlruPhysicalWritePage (physical page write function)
+  - [SlruInternalWritePage](SlruInternalWritePage.md) (internal function for writing pages)
+  - [SlruPhysicalWritePage](SlruPhysicalWritePage.md) (physical page write function)
 
 ## Notes and Other Information
 - This type alias provides a more convenient way to pass SlruWriteAllData structures by pointer

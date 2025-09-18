@@ -23,10 +23,10 @@ The function handles the deserialization of complex query structures using strin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_toc_lookup
-  - stringToNode
-  - RestoreParamList
-  - CreateQueryDesc
+  - [shm_toc_lookup](../s/shm_toc_lookup.md)
+  - [stringToNode](../s/stringToNode.md)
+  - [RestoreParamList](../R/RestoreParamList.md)
+  - [CreateQueryDesc](../C/CreateQueryDesc.md)
   - GetActiveSnapshot
 - Constants used:
   - PARALLEL_KEY_QUERY_TEXT
@@ -34,12 +34,12 @@ The function handles the deserialization of complex query structures using strin
   - PARALLEL_KEY_PARAMLISTINFO
   - InvalidSnapshot
 - Types used:
-  - PlannedStmt
-  - ParamListInfo
+  - [PlannedStmt](../P/PlannedStmt.md)
+  - [ParamListInfo](../P/ParamListInfo.md)
   - QueryDesc
   - DestReceiver
 - Called from:
-  - ParallelQueryMain
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execParallel.c

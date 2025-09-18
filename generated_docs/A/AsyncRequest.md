@@ -22,12 +22,12 @@ AsyncRequest encapsulates the state necessary for asynchronous communication bet
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PlanState (struct type)
+  - [PlanState](../P/PlanState.md) (struct type)
   - TupleTableSlot (struct type)
 - Called from (representative examples):
   - ExecAsyncRequest (src/backend/executor/execAsync.c:26)
-  - ExecAppendAsyncRequest (src/backend/executor/nodeAppend.c:992)
-  - ExecAsyncForeignScanRequest (src/backend/executor/nodeForeignscan.c:456)
+  - [ExecAppendAsyncRequest](../E/ExecAppendAsyncRequest.md) (src/backend/executor/nodeAppend.c:992)
+  - [ExecAsyncForeignScanRequest](../E/ExecAsyncForeignScanRequest.md) (src/backend/executor/nodeForeignscan.c:456)
 
 ## Notes and Other Information
 This structure is primarily used in PostgreSQL's asynchronous execution framework, particularly for foreign data wrappers and parallel append operations. The asynchronous request mechanism helps optimize performance by allowing the executor to overlap computation with I/O operations, especially beneficial when dealing with remote data sources or parallel worker processes.

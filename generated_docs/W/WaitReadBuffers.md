@@ -42,17 +42,17 @@ The function implements a sophisticated algorithm that:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - WaitReadBuffersCanStartIO
+  - [WaitReadBuffersCanStartIO](WaitReadBuffersCanStartIO.md)
   - IOContextForStrategy
-  - BufferGetBlock
-  - BufferGetBlockNumber
-  - smgrreadv
+  - [BufferGetBlock](../B/BufferGetBlock.md)
+  - [BufferGetBlockNumber](../B/BufferGetBlockNumber.md)
+  - [smgrreadv](../s/smgrreadv.md)
   - PageIsVerifiedExtended
   - TerminateBufferIO
-  - GetLocalBufferDescriptor
-  - GetBufferDescriptor
-  - pgstat_prepare_io_time
-  - pgstat_count_io_op_time
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [pgstat_prepare_io_time](../p/pgstat_prepare_io_time.md)
+  - [pgstat_count_io_op_time](../p/pgstat_count_io_op_time.md)
 - Constants used:
   - MAX_IO_COMBINE_LIMIT
   - RELPERSISTENCE_TEMP
@@ -60,7 +60,7 @@ The function implements a sophisticated algorithm that:
   - READ_BUFFERS_ZERO_ON_ERROR
 - Called from (representative examples):
   - read_stream_next_buffer
-  - ReadBuffer_common
+  - [ReadBuffer_common](../R/ReadBuffer_common.md)
 
 ## Notes and Other Information
 - Implements PostgreSQL's advanced I/O combining strategy to reduce system call overhead

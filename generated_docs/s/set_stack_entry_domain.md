@@ -26,8 +26,8 @@ The function ensures that both the main error message domain and the context mes
   - PG_TEXTDOMAIN (macro for text domain specification)
 
 - Called from (representative examples):
-  - errstart (src/backend/utils/error/elog.c:450)
-  - errsave_start (src/backend/utils/error/elog.c:662)
+  - [errstart](../e/errstart.md) (src/backend/utils/error/elog.c:450)
+  - [errsave_start](../e/errsave_start.md) (src/backend/utils/error/elog.c:662)
 
 ## Notes and Other Information
 - The function is static and only used internally within the error handling subsystem

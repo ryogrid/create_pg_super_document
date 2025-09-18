@@ -27,8 +27,8 @@ This function is essential for proper traversal of Shift-JIS encoded strings wit
   - IS_HIGHBIT_SET
 - Called from (representative examples):
   - pg_sjis_verifychar
-  - pg_encoding_set_invalid
-  - debackslash_path
+  - [pg_encoding_set_invalid](pg_encoding_set_invalid.md)
+  - [debackslash_path](../d/debackslash_path.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within src/common/wchar.c

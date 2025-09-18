@@ -27,10 +27,10 @@ This function is designed to work even with TypeNames that don't correspond to a
   - strVal
   - appendStringInfoChar
   - appendStringInfoString
-  - format_type_be
+  - [format_type_be](../f/format_type_be.md)
 - Called from (representative examples):
-  - TypeNameToString
-  - TypeNameListToString
+  - [TypeNameToString](../T/TypeNameToString.md)
+  - [TypeNameListToString](../T/TypeNameListToString.md)
 
 ## Notes and Other Information
 This is a static function internal to parse_type.c, designed to be the shared implementation for string conversion operations. It handles the complexity of different TypeName formats in a centralized location, ensuring consistent string representation across the codebase. The function carefully handles decorations like %TYPE and array bounds, which are important for accurate type representation in error messages and debugging output. The design allows it to work with invalid or incomplete TypeNames, making it robust for error reporting scenarios.

@@ -22,14 +22,14 @@ The btrescan function reinitializes an existing B-tree index scan with new scan 
 ## Dependencies
 - Functions called/Symbols referenced:
   - BTScanPosIsValid
-  - _bt_killitems
+  - [_bt_killitems](_bt_killitems.md)
   - BTScanPosUnpinIfPinned
   - BTScanPosInvalidate
-  - IndexScanDesc
+  - [IndexScanDesc](../I/IndexScanDesc.md)
   - ScanKey
   - BTScanOpaque
 - Called from (representative examples):
-  - bthandler
+  - [bthandler](bthandler.md)
 
 ## Notes and Other Information
 - Handles cleanup of killed items from previous scan iterations using _bt_killitems

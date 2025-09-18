@@ -20,12 +20,12 @@ The function ensures that the final line buffer contains only the actual data wi
 ## Dependencies
 - Functions called/Symbols referenced:
   - resetStringInfo: Clears and resets the line buffer string
-  - CopyReadLineText: Performs the actual line reading from input source
-  - CopyGetData: Reads additional data from frontend protocol connections
+  - [CopyReadLineText](CopyReadLineText.md): Performs the actual line reading from input source
+  - [CopyGetData](CopyGetData.md): Reads additional data from frontend protocol connections
   - EOL_NL, EOL_CR, EOL_CRNL, EOL_UNKNOWN: End-of-line type constants
   - COPY_FRONTEND: Input source type constant
 - Called from (representative examples):
-  - NextCopyFromRawFields: Higher-level function that processes raw field data
+  - [NextCopyFromRawFields](../N/NextCopyFromRawFields.md): Higher-level function that processes raw field data
   - NO_END_OF_COPY_GOTO: Error handling context
 
 ## Notes and Other Information

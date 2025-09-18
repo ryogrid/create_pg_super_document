@@ -21,10 +21,10 @@ The function assumes immutability of the pred_op and relies on the fact that com
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_negator
-  - operator_same_subexprs_lookup
+  - [get_negator](../g/get_negator.md)
+  - [operator_same_subexprs_lookup](operator_same_subexprs_lookup.md)
 - Called from:
-  - operator_predicate_proof (twice - for direct and commuted cases)
+  - [operator_predicate_proof](operator_predicate_proof.md) (twice - for direct and commuted cases)
 
 ## Notes and Other Information
 This function handles the straightforward cases of operator relationships before falling back to more complex btree opfamily analysis. The "same operator" case typically won't reach this function when called directly, but can occur after operator commutation in the calling function.

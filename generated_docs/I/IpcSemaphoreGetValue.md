@@ -28,7 +28,7 @@ This function is typically used for debugging purposes or to check semaphore sta
 - Types used:
   - union semun
 - Called from (representative examples):
-  - IpcSemaphoreCreate
+  - [IpcSemaphoreCreate](IpcSemaphoreCreate.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the sysv_sema.c file

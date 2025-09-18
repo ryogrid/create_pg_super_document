@@ -24,12 +24,12 @@ The sentinel end node (tree->end) is freed only once, when the root node is bein
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_free (for memory deallocation)
-  - avlFree (recursive self-calls for tree traversal)
+  - [pg_free](../p/pg_free.md) (for memory deallocation)
+  - [avlFree](avlFree.md) (recursive self-calls for tree traversal)
   - avl_tree, avl_node (structure types)
 - Called from (representative examples):
-  - PrintResultInCrosstab (src/bin/psql/crosstabview.c:273, 274)
-  - avlFree (recursive calls at src/bin/psql/crosstabview.c:452, 457)
+  - [PrintResultInCrosstab](../P/PrintResultInCrosstab.md) (src/bin/psql/crosstabview.c:273, 274)
+  - [avlFree](avlFree.md) (recursive calls at src/bin/psql/crosstabview.c:452, 457)
 
 ## Notes and Other Information
 - Uses post-order traversal to ensure children are freed before their parent

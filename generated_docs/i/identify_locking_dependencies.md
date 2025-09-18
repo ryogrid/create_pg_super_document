@@ -20,7 +20,7 @@ Most POST_DATA items are ALTER TABLE operations or equivalent commands that requ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - TocEntry (struct type)
+  - [TocEntry](../T/TocEntry.md) (struct type)
   - DumpId (type)
   - SECTION_POST_DATA (constant)
   - pg_malloc (memory allocation function)
@@ -28,7 +28,7 @@ Most POST_DATA items are ALTER TABLE operations or equivalent commands that requ
   - strcmp (string comparison function)
   - free (memory deallocation function)
 - Called from (representative examples):
-  - fix_dependencies
+  - [fix_dependencies](../f/fix_dependencies.md)
 
 ## Notes and Other Information
 - Only processes POST_DATA section entries; other sections are ignored

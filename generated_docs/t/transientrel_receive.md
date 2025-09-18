@@ -20,7 +20,7 @@ This function serves as the receive callback for a DestReceiver that handles wri
 - Functions called/Symbols referenced:
   - table_tuple_insert
 - Called from (representative examples):
-  - CreateTransientRelDestReceiver (callback assignment)
+  - [CreateTransientRelDestReceiver](../C/CreateTransientRelDestReceiver.md) (callback assignment)
 
 ## Notes and Other Information
 - Returns true to indicate successful tuple processing to the executor

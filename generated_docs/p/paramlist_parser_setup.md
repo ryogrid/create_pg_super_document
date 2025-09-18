@@ -18,9 +18,9 @@ The paramlist_parser_setup function is a parser setup callback that configures t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - paramlist_param_ref (the parameter reference hook function)
+  - [paramlist_param_ref](paramlist_param_ref.md) (the parameter reference hook function)
 - Called from (representative examples):
-  - makeParamList (as the default parser setup function)
+  - [makeParamList](../m/makeParamList.md) (as the default parser setup function)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the params.c file

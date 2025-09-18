@@ -27,18 +27,18 @@ The approach relies on the fact that most B-tree opclasses can only indicate two
 - Functions called/Symbols referenced:
   - RelationGetDescr (via TupleDesc access)
   - IndexRelationGetNumberOfKeyAttributes
-  - index_getattr
+  - [index_getattr](../i/index_getattr.md)
   - TupleDescAttr
-  - datum_image_eq
+  - [datum_image_eq](../d/datum_image_eq.md)
 - Called from (representative examples):
-  - _bt_dedup_pass
-  - _bt_bottomupdel_pass
+  - [_bt_dedup_pass](_bt_dedup_pass.md)
+  - [_bt_bottomupdel_pass](_bt_bottomupdel_pass.md)
   - _bt_do_singleval
   - _bt_load
-  - _bt_afternewitemoff
-  - _bt_strategy
-  - _bt_split_penalty
-  - _bt_keep_natts
+  - [_bt_afternewitemoff](_bt_afternewitemoff.md)
+  - [_bt_strategy](_bt_strategy.md)
+  - [_bt_split_penalty](_bt_split_penalty.md)
+  - [_bt_keep_natts](_bt_keep_natts.md)
 
 ## Notes and Other Information
 - Exported function specifically designed for use by nbtsplitloc.c for evaluating split points

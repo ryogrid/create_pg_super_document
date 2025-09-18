@@ -28,14 +28,14 @@ The resulting path allows incremental backup files to be stored alongside the or
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetRelationPath: Gets the standard filesystem path for a relation file
+  - [GetRelationPath](GetRelationPath.md): Gets the standard filesystem path for a relation file
   - strrchr: Finds the last directory separator in the path
-  - psprintf: Formats the incremental path string
-  - pfree: Frees the temporary path memory
+  - [psprintf](../p/psprintf.md): Formats the incremental path string
+  - [pfree](../p/pfree.md): Frees the temporary path memory
 - Constants referenced:
   - INVALID_PROC_NUMBER: Used when calling GetRelationPath
 - Called from:
-  - GetFileBackupMethod (src/backend/backup/basebackup_incremental.c:733)
+  - [GetFileBackupMethod](GetFileBackupMethod.md) (src/backend/backup/basebackup_incremental.c:733)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

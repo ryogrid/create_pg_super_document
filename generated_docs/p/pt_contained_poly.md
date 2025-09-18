@@ -21,7 +21,7 @@ This function tests whether a given point lies inside a polygon, using the same 
 - Functions called/Symbols referenced:
   - PG_GETARG_POINT_P (extract point argument)
   - PG_GETARG_POLYGON_P (extract polygon argument)
-  - point_inside (perform point-in-polygon test)
+  - [point_inside](point_inside.md) (perform point-in-polygon test)
   - PG_RETURN_BOOL (return boolean result)
 - Called from (representative examples):
   - No direct references found in the codebase (likely used via SQL operator @)

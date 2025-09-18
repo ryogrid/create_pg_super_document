@@ -18,30 +18,30 @@ This function builds dependency relationships for materialized view refresh oper
 ## Dependencies
 - Functions called/Symbols referenced:
   - createPQExpBuffer
-  - appendPQExpBufferStr
-  - ExecuteSqlQuery
-  - PQntuples
-  - PQfnumber
-  - PQgetvalue
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [ExecuteSqlQuery](../E/ExecuteSqlQuery.md)
+  - [PQntuples](../P/PQntuples.md)
+  - [PQfnumber](../P/PQfnumber.md)
+  - [PQgetvalue](../P/PQgetvalue.md)
   - atooid
-  - findObjectByCatalogId
-  - addObjectDependency
-  - PQclear
+  - [findObjectByCatalogId](../f/findObjectByCatalogId.md)
+  - [addObjectDependency](../a/addObjectDependency.md)
+  - [PQclear](../P/PQclear.md)
   - destroyPQExpBuffer
 - Types referenced:
-  - Archive
+  - [Archive](../A/Archive.md)
   - PQExpBuffer
   - PGresult
-  - CatalogId
+  - [CatalogId](../C/CatalogId.md)
   - DumpableObject
-  - TableInfo
+  - [TableInfo](../T/TableInfo.md)
   - RELKIND_MATVIEW
   - RELKIND_VIEW
   - DO_TABLE
   - DO_REFRESH_MATVIEW
   - PGRES_TUPLES_OK
 - Called from:
-  - main
+  - [main](../m/main.md)
 
 ## Notes and Other Information
 - Only processes databases with PostgreSQL version 9.3 or later (when materialized views were introduced)

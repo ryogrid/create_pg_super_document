@@ -32,10 +32,10 @@ The function includes a notable design consideration regarding context->ident: i
   - context->methods->reset (context-specific reset implementation)
   - VALGRIND_DESTROY_MEMPOOL, VALGRIND_CREATE_MEMPOOL (Valgrind debugging support)
 - Called from (representative examples):
-  - MemoryContextReset (as part of comprehensive context reset)
-  - MemoryContextResetChildren (when resetting child contexts)
-  - AllocSetDelete (during context deletion)
-  - JsonTableResetRowPattern (JSON table function operations)
+  - [MemoryContextReset](MemoryContextReset.md) (as part of comprehensive context reset)
+  - [MemoryContextResetChildren](MemoryContextResetChildren.md) (when resetting child contexts)
+  - [AllocSetDelete](../A/AllocSetDelete.md) (during context deletion)
+  - [JsonTableResetRowPattern](../J/JsonTableResetRowPattern.md) (JSON table function operations)
   - mergeruns (during tuplesort operations)
 
 ## Notes and Other Information

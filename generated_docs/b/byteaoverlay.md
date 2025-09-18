@@ -23,7 +23,7 @@ The  function provides a direct implementation of the SQL OVERLAY() function for
 - Functions called/Symbols referenced:
   - PG_GETARG_BYTEA_PP (for extracting bytea arguments)
   - PG_GETARG_INT32 (for extracting integer arguments)
-  - bytea_overlay (core overlay implementation)
+  - [bytea_overlay](bytea_overlay.md) (core overlay implementation)
   - PG_RETURN_BYTEA_P (for returning bytea result)
 - Called from:
   - SQL OVERLAY() function invocations on bytea data

@@ -22,8 +22,8 @@ The function delegates to the internal  function to obtain the actual DSA pointe
   - TidStoreIsShared (macro to verify the TidStore is shared)
   - shared_ts_get_handle (internal function to get DSA handle from shared tree)
 - Called from (representative examples):
-  - parallel_vacuum_init (initializes parallel vacuum workers with shared TidStore)
-  - parallel_vacuum_reset_dead_items (resets dead items tracking in parallel vacuum)
+  - [parallel_vacuum_init](../p/parallel_vacuum_init.md) (initializes parallel vacuum workers with shared TidStore)
+  - [parallel_vacuum_reset_dead_items](../p/parallel_vacuum_reset_dead_items.md) (resets dead items tracking in parallel vacuum)
 
 ## Notes and Other Information
 - The function asserts that the TidStore is shared using , which checks if 

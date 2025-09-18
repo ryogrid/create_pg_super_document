@@ -23,12 +23,12 @@ The hash is computed over the entire `words` array of the Bitmapset, taking into
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - bms_is_valid_set
-  - hash_any
-  - DatumGetUInt32
+  - [bms_is_valid_set](bms_is_valid_set.md)
+  - [hash_any](../h/hash_any.md)
+  - [DatumGetUInt32](../D/DatumGetUInt32.md)
   - bitmapword (type)
 - Called from (examples):
-  - bitmap_hash
+  - [bitmap_hash](bitmap_hash.md)
   - bms_is_empty (header usage)
 
 ## Notes and Other Information

@@ -30,16 +30,16 @@ The conflict resolution strategy is conservative - it continues incrementing the
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - makeObjectName (for base name generation)
+  - [makeObjectName](../m/makeObjectName.md) (for base name generation)
   - InitDirtySnapshot (for setting up dirty snapshot)
   - table_open, table_close (for catalog access)
-  - systable_beginscan, systable_getnext, systable_endscan (for catalog scanning)
-  - ScanKeyInit (for search key setup)
-  - ConstraintNameExists (for constraint conflict checking when isconstraint=true)
+  - [systable_beginscan](../s/systable_beginscan.md), systable_getnext, systable_endscan (for catalog scanning)
+  - [ScanKeyInit](../S/ScanKeyInit.md) (for search key setup)
+  - [ConstraintNameExists](ConstraintNameExists.md) (for constraint conflict checking when isconstraint=true)
   - strlcpy, snprintf (for string operations)
 - Called from (representative examples):
-  - ChooseIndexName (for generating unique index names)
-  - generateSerialExtraStmts (for generating sequence names)
+  - [ChooseIndexName](ChooseIndexName.md) (for generating unique index names)
+  - [generateSerialExtraStmts](../g/generateSerialExtraStmts.md) (for generating sequence names)
 
 ## Notes and Other Information
 - Returns a palloc'd string that must be freed by the caller

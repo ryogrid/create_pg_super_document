@@ -29,15 +29,15 @@ The function maintains the same tuple formation process using brin_form_tuple() 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - brin_form_tuple: Converts in-memory BRIN summary data into serialized format
-  - tuplesort_putbrintuple: Writes BRIN tuple to tuplesort for later processing
-  - pfree: Memory deallocation function
-  - BrinBuildState: Build state structure type
-  - BrinTuple: On-disk tuple structure type
+  - [brin_form_tuple](../b/brin_form_tuple.md): Converts in-memory BRIN summary data into serialized format
+  - [tuplesort_putbrintuple](../t/tuplesort_putbrintuple.md): Writes BRIN tuple to tuplesort for later processing
+  - [pfree](../p/pfree.md): Memory deallocation function
+  - [BrinBuildState](../B/BrinBuildState.md): Build state structure type
+  - [BrinTuple](../B/BrinTuple.md): On-disk tuple structure type
 
 - Called from (representative examples):
-  - brinbuildCallbackParallel: Parallel callback function during BRIN index build
-  - _brin_parallel_scan_and_build: Main parallel BRIN index construction function
+  - [brinbuildCallbackParallel](../b/brinbuildCallbackParallel.md): Parallel callback function during BRIN index build
+  - [_brin_parallel_scan_and_build](../b/_brin_parallel_scan_and_build.md): Main parallel BRIN index construction function
 
 ## Notes and Other Information
 - This is a static function, only accessible within the brin.c file

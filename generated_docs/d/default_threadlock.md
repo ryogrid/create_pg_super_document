@@ -19,14 +19,14 @@ This function implements the default thread locking mechanism for libpq using PO
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pthread_mutex_t (POSIX mutex type)
+  - [pthread_mutex_t](../p/pthread_mutex_t.md) (POSIX mutex type)
   - PTHREAD_MUTEX_INITIALIZER (POSIX mutex initializer macro)
-  - pthread_mutex_lock (POSIX mutex lock function)
-  - pthread_mutex_unlock (POSIX mutex unlock function)
+  - [pthread_mutex_lock](../p/pthread_mutex_lock.md) (POSIX mutex lock function)
+  - [pthread_mutex_unlock](../p/pthread_mutex_unlock.md) (POSIX mutex unlock function)
   - Assert (PostgreSQL assertion macro)
 - Called from (representative examples):
   - internalPQconninfoOption (as thread lock callback)
-  - PQregisterThreadLock (as default implementation)
+  - [PQregisterThreadLock](../P/PQregisterThreadLock.md) (as default implementation)
 
 ## Notes and Other Information
 - Static function scope limited to fe-connect.c

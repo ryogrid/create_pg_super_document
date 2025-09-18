@@ -26,8 +26,8 @@ UNIQUE_PATH_NOOP represents an optimization where the input is already guarantee
   - (This is an enum, so it doesn't reference other symbols directly)
 
 - Called from (representative examples):
-  - create_unique_plan (in createplan.c for plan creation)
-  - create_unique_path (in pathnode.c for path generation)
+  - [create_unique_plan](../c/create_unique_plan.md) (in createplan.c for plan creation)
+  - [create_unique_path](../c/create_unique_path.md) (in pathnode.c for path generation)
   - UniquePath struct (as umethod field)
 
 ## Notes and Other Information

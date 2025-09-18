@@ -31,15 +31,15 @@ The function performs several key validations: it ensures the index is a B-tree 
   - linitial
   - linitial_oid
   - IndexCollMatchesExprColl
-  - match_index_to_operand
-  - bms_is_member
-  - pull_varnos
-  - contain_volatile_functions
-  - get_commutator
-  - get_op_opfamily_strategy
-  - expand_indexqual_rowcompare
+  - [match_index_to_operand](match_index_to_operand.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [pull_varnos](../p/pull_varnos.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
+  - [get_commutator](../g/get_commutator.md)
+  - [get_op_opfamily_strategy](../g/get_op_opfamily_strategy.md)
+  - [expand_indexqual_rowcompare](../e/expand_indexqual_rowcompare.md)
 - Called from (representative examples):
-  - match_clause_to_indexcol
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md)
 
 ## Notes and Other Information
 - Only works with B-tree indexes since they support ordered multi-column comparisons

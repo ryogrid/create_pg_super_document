@@ -29,7 +29,7 @@ This function corresponds to the SQL function  that can be called from SQL queri
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (macro)
   - PG_GETARG_FLOAT8 (macro)
-  - make_timestamp_internal
+  - [make_timestamp_internal](make_timestamp_internal.md)
   - PG_RETURN_TIMESTAMP (macro)
 - Called from:
   - SQL queries (via function call mechanism)

@@ -18,26 +18,26 @@ This internal function implements the core logic for comparing timestamp (withou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - timestamp2timestamptz_opt_overflow (converts timestamp to timestamptz with overflow detection)
+  - [timestamp2timestamptz_opt_overflow](timestamp2timestamptz_opt_overflow.md) (converts timestamp to timestamptz with overflow detection)
   - TIMESTAMP_IS_NOEND (checks for positive infinity)
   - TIMESTAMP_IS_NOBEGIN (checks for negative infinity)
   - timestamptz_cmp_internal (performs final comparison)
 - Called from (representative examples):
-  - timestamp_eq_timestamptz
-  - timestamp_ne_timestamptz
-  - timestamp_lt_timestamptz
-  - timestamp_gt_timestamptz
-  - timestamp_le_timestamptz
-  - timestamp_ge_timestamptz
-  - timestamp_cmp_timestamptz
-  - timestamptz_eq_timestamp
-  - timestamptz_ne_timestamp
-  - timestamptz_lt_timestamp
-  - timestamptz_gt_timestamp
-  - timestamptz_le_timestamp
-  - timestamptz_ge_timestamp
-  - timestamptz_cmp_timestamp
-  - cmpTimestampToTimestampTz
+  - [timestamp_eq_timestamptz](timestamp_eq_timestamptz.md)
+  - [timestamp_ne_timestamptz](timestamp_ne_timestamptz.md)
+  - [timestamp_lt_timestamptz](timestamp_lt_timestamptz.md)
+  - [timestamp_gt_timestamptz](timestamp_gt_timestamptz.md)
+  - [timestamp_le_timestamptz](timestamp_le_timestamptz.md)
+  - [timestamp_ge_timestamptz](timestamp_ge_timestamptz.md)
+  - [timestamp_cmp_timestamptz](timestamp_cmp_timestamptz.md)
+  - [timestamptz_eq_timestamp](timestamptz_eq_timestamp.md)
+  - [timestamptz_ne_timestamp](timestamptz_ne_timestamp.md)
+  - [timestamptz_lt_timestamp](timestamptz_lt_timestamp.md)
+  - [timestamptz_gt_timestamp](timestamptz_gt_timestamp.md)
+  - [timestamptz_le_timestamp](timestamptz_le_timestamp.md)
+  - [timestamptz_ge_timestamp](timestamptz_ge_timestamp.md)
+  - [timestamptz_cmp_timestamp](timestamptz_cmp_timestamp.md)
+  - [cmpTimestampToTimestampTz](../c/cmpTimestampToTimestampTz.md)
 
 ## Notes and Other Information
 - This is an internal function that serves as the foundation for all cross-type timestamp/timestamptz comparison operations

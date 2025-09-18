@@ -21,7 +21,7 @@ The function builds the output string by iterating through each element in the l
 - Functions called/Symbols referenced:
   - list_head: Used to check if current element is the first in the list
   - String: Node type for string name components  
-  - A_Star: Node type for asterisk wildcard components
+  - [A_Star](../A/A_Star.md): Node type for asterisk wildcard components
   - nodeTag: Used for error reporting when an unexpected node type is encountered
   - initStringInfo: Initializes the StringInfo buffer
   - appendStringInfoChar: Appends single characters (dots and asterisks)
@@ -30,12 +30,12 @@ The function builds the output string by iterating through each element in the l
   - elog: Reports errors for unexpected node types
 
 - Called from (representative examples):
-  - get_statistics_object_oid: For error reporting with statistics object names
-  - DeconstructQualifiedName: For error messages during name parsing
-  - makeRangeVarFromNameList: When converting name lists to range variables
-  - AggregateCreate: For error messages during aggregate creation
-  - ParseFuncOrColumn: For function name error reporting
-  - LookupFuncName: For function lookup error messages
+  - [get_statistics_object_oid](../g/get_statistics_object_oid.md): For error reporting with statistics object names
+  - [DeconstructQualifiedName](../D/DeconstructQualifiedName.md): For error messages during name parsing
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md): When converting name lists to range variables
+  - [AggregateCreate](../A/AggregateCreate.md): For error messages during aggregate creation
+  - [ParseFuncOrColumn](../P/ParseFuncOrColumn.md): For function name error reporting
+  - [LookupFuncName](../L/LookupFuncName.md): For function lookup error messages
 
 ## Notes and Other Information
 - The function is specifically designed for error message formatting and prioritizes readability over syntactic correctness

@@ -24,16 +24,16 @@ The input multirange must be fully detoasted and cannot have a short varlena hea
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multirange_get_range
-  - palloc
+  - [multirange_get_range](multirange_get_range.md)
+  - [palloc](../p/palloc.md)
   - MultirangeType
 - Called from (representative examples):
-  - multirange_out
-  - multirange_send
-  - multirange_union
-  - multirange_minus
-  - multirange_intersect
-  - multirange_agg_transfn
+  - [multirange_out](multirange_out.md)
+  - [multirange_send](multirange_send.md)
+  - [multirange_union](multirange_union.md)
+  - [multirange_minus](multirange_minus.md)
+  - [multirange_intersect](multirange_intersect.md)
+  - [multirange_agg_transfn](multirange_agg_transfn.md)
   - PG_RETURN_MULTIRANGE_P
 
 ## Notes and Other Information

@@ -290,11 +290,11 @@ Text creation and manipulation
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexVacuumInfo (structure type)
-  - IndexBulkDeleteResult (structure type)
+  - [IndexVacuumInfo](../I/IndexVacuumInfo.md) (structure type)
+  - [IndexBulkDeleteResult](../I/IndexBulkDeleteResult.md) (structure type)
   - IndexBulkDeleteCallback (function pointer type)
 - Called from (representative examples):
-  - dihandler (dummy index AM handler registration)
+  - [dihandler](dihandler.md) (dummy index AM handler registration)
 
 ## Notes and Other Information
 - This is a test module function, not used in production PostgreSQL

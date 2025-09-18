@@ -21,20 +21,20 @@ This function is fundamental to the SPI interface and is widely used throughout 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SPI_prepare_cursor
-  - SPIPlanPtr
+  - [SPI_prepare_cursor](SPI_prepare_cursor.md)
+  - [SPIPlanPtr](SPIPlanPtr.md)
 - Called from (representative examples):
-  - RI_Initial_Check
-  - RI_PartitionRemove_Check
-  - ri_PlanCheck
-  - pg_get_ruledef_worker
-  - pg_get_viewdef_worker
-  - tsquery_rewrite_query
-  - ts_stat_sql
-  - query_to_xmlschema
-  - query_to_xml_and_xmlschema
-  - plperl_spi_prepare
-  - PLy_spi_prepare
+  - [RI_Initial_Check](../R/RI_Initial_Check.md)
+  - [RI_PartitionRemove_Check](../R/RI_PartitionRemove_Check.md)
+  - [ri_PlanCheck](../r/ri_PlanCheck.md)
+  - [pg_get_ruledef_worker](../p/pg_get_ruledef_worker.md)
+  - [pg_get_viewdef_worker](../p/pg_get_viewdef_worker.md)
+  - [tsquery_rewrite_query](../t/tsquery_rewrite_query.md)
+  - [ts_stat_sql](../t/ts_stat_sql.md)
+  - [query_to_xmlschema](../q/query_to_xmlschema.md)
+  - [query_to_xml_and_xmlschema](../q/query_to_xml_and_xmlschema.md)
+  - [plperl_spi_prepare](../p/plperl_spi_prepare.md)
+  - [PLy_spi_prepare](../P/PLy_spi_prepare.md)
   - pltcl_SPI_prepare
 
 ## Notes and Other Information

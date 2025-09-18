@@ -19,16 +19,16 @@ This function constructs and sends a replication protocol feedback message ('r' 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_flush_position
-  - GetCurrentTimestamp
-  - TimestampDifferenceExceeds
+  - [get_flush_position](../g/get_flush_position.md)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md)
+  - [TimestampDifferenceExceeds](../T/TimestampDifferenceExceeds.md)
   - makeStringInfo
   - resetStringInfo
-  - pq_sendbyte
-  - pq_sendint64
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint64](../p/pq_sendint64.md)
   - walrcv_send
 - Called from (representative examples):
-  - LogicalRepApplyLoop (at lines 3615, 3628, 3725)
+  - [LogicalRepApplyLoop](../L/LogicalRepApplyLoop.md) (at lines 3615, 3628, 3725)
 
 ## Notes and Other Information
 - This is a static function internal to the worker.c file

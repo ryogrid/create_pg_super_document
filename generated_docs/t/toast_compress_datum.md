@@ -20,19 +20,19 @@ The function implements a cost-benefit analysis by requiring that compressed dat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pglz_compress_datum
-  - lz4_compress_datum
+  - [pglz_compress_datum](../p/pglz_compress_datum.md)
+  - [lz4_compress_datum](../l/lz4_compress_datum.md)
   - CompressionMethodIsValid
   - VARATT_IS_EXTERNAL
   - VARATT_IS_COMPRESSED
   - VARSIZE_ANY_EXHDR
   - VARSIZE
   - TOAST_COMPRESS_SET_SIZE_AND_COMPRESS_METHOD
-  - pfree
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - brin_form_tuple
-  - index_form_tuple_context
-  - toast_tuple_try_compression
+  - [brin_form_tuple](../b/brin_form_tuple.md)
+  - [index_form_tuple_context](../i/index_form_tuple_context.md)
+  - [toast_tuple_try_compression](toast_tuple_try_compression.md)
 
 ## Notes and Other Information
 - The function validates that input data is not already external or compressed

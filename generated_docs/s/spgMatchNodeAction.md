@@ -23,12 +23,12 @@ The  function implements the "match" operation in SP-GiST tree traversal. When t
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGITITERATE
-  - ItemPointerIsValid
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
-  - SpGistSetLastUsedPage
+  - [ItemPointerIsValid](../I/ItemPointerIsValid.md)
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
+  - [SpGistSetLastUsedPage](../S/SpGistSetLastUsedPage.md)
 - Called from (representative examples):
-  - spgdoinsert
+  - [spgdoinsert](spgdoinsert.md)
 
 ## Notes and Other Information
 This function manages buffer references carefully, releasing the previous parent buffer if it differs from the current buffer to prevent resource leaks. The function performs bounds checking to ensure the requested node number exists within the inner tuple. After execution, current.buffer and current.page are set to InvalidBuffer and NULL respectively, indicating that the target page needs to be read in the next iteration of the insertion loop.

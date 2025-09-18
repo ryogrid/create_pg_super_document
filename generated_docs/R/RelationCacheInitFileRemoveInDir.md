@@ -31,10 +31,10 @@ This approach ensures that relation cache initialization files are removed from 
   - AllocateDir
   - ReadDirExtended  
   - FreeDir
-  - unlink_initfile
+  - [unlink_initfile](../u/unlink_initfile.md)
   - RELCACHE_INIT_FILENAME
 - Called from (representative examples):
-  - RelationCacheInitFileRemove
+  - [RelationCacheInitFileRemove](RelationCacheInitFileRemove.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within relcache.c

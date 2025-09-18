@@ -21,11 +21,11 @@ The function accesses the sversion field from the connection structure, which is
 - Functions called/Symbols referenced:
   - CONNECTION_BAD (connection status constant)
 - Called from (representative examples):
-  - libpqrcv_server_version (in replication walreceiver)
-  - CheckServerVersionForStreaming (in pg_basebackup)
-  - _check_database_version (in pg_dump)
-  - printVersion (in pgbench)
-  - SyncVariables (in psql)
+  - [libpqrcv_server_version](../l/libpqrcv_server_version.md) (in replication walreceiver)
+  - [CheckServerVersionForStreaming](../C/CheckServerVersionForStreaming.md) (in pg_basebackup)
+  - [_check_database_version](../c/_check_database_version.md) (in pg_dump)
+  - [printVersion](../p/printVersion.md) (in pgbench)
+  - [SyncVariables](../S/SyncVariables.md) (in psql)
 
 ## Notes and Other Information
 - Returns 0 for invalid connections (NULL pointer or CONNECTION_BAD status)

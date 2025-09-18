@@ -30,7 +30,7 @@ This comparison strategy matches exactly how the ANALYZE code sorted data before
   - `VARDATA_ANY`: Macro to get the data portion of a variable-length type
   - `strncmp`: Standard C string comparison function
 - Called from (representative examples):
-  - `tsquery_opr_selec`: Used in `bsearch()` calls to find lexemes in MCELEM statistics for text search selectivity estimation
+  - `[tsquery_opr_selec](../t/tsquery_opr_selec.md)`: Used in `bsearch()` calls to find lexemes in MCELEM statistics for text search selectivity estimation
 
 ## Notes and Other Information
 - This is a static function used internally within ts_selfuncs.c for text search selectivity calculations

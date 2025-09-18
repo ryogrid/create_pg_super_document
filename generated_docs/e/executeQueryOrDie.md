@@ -24,19 +24,19 @@ This variadic function formats and executes SQL queries using printf-style forma
   - va_start
   - vsnprintf
   - va_end
-  - pg_log
-  - PQexec
-  - PQresultStatus
-  - PQerrorMessage
-  - PQclear
-  - PQfinish
+  - [pg_log](../p/pg_log.md)
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQerrorMessage](../P/PQerrorMessage.md)
+  - [PQclear](../P/PQclear.md)
+  - [PQfinish](../P/PQfinish.md)
 - Called from (representative examples):
-  - connectToServer
-  - check_for_data_types_usage
-  - check_is_install_user
-  - get_template0_info
-  - get_db_infos
-  - set_locale_and_encoding
+  - [connectToServer](../c/connectToServer.md)
+  - [check_for_data_types_usage](../c/check_for_data_types_usage.md)
+  - [check_is_install_user](../c/check_is_install_user.md)
+  - [get_template0_info](../g/get_template0_info.md)
+  - [get_db_infos](../g/get_db_infos.md)
+  - [set_locale_and_encoding](../s/set_locale_and_encoding.md)
 
 ## Notes and Other Information
 - Uses static buffer (QUERY_ALLOC size) for query formatting - queries exceeding this limit may be truncated

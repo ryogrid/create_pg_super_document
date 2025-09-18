@@ -33,14 +33,14 @@ Key aspects of the inlining process include:
   - query_tree_walker
   - expression_tree_walker
   - copyObject
-  - IncrementVarSublevelsUp
+  - [IncrementVarSublevelsUp](../I/IncrementVarSublevelsUp.md)
   - strcmp
-  - QTW_EXAMINE_RTES_AFTER (flag constant)
+  - [QTW_EXAMINE_RTES_AFTER](../Q/QTW_EXAMINE_RTES_AFTER.md) (flag constant)
   - RTE_CTE, RTE_SUBQUERY (enum values)
   - NIL (null list constant)
 - Called from (representative examples):
-  - inline_cte
-  - inline_cte_walker (recursive calls)
+  - [inline_cte](inline_cte.md)
+  - [inline_cte_walker](inline_cte_walker.md) (recursive calls)
 
 ## Notes and Other Information
 - This is a recursive function that calls itself when processing Query nodes and expression nodes

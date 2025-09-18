@@ -19,12 +19,12 @@ This function is the commit prepared callback for the pgoutput logical replicati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - OutputPluginUpdateProgress
-  - OutputPluginPrepareWrite
+  - [OutputPluginUpdateProgress](../O/OutputPluginUpdateProgress.md)
+  - [OutputPluginPrepareWrite](../O/OutputPluginPrepareWrite.md)
   - logicalrep_write_commit_prepared
-  - OutputPluginWrite
+  - [OutputPluginWrite](../O/OutputPluginWrite.md)
 - Called from (representative examples):
-  - _PG_output_plugin_init (registered as commit prepared callback)
+  - [_PG_output_plugin_init](../P/_PG_output_plugin_init.md) (registered as commit prepared callback)
 
 ## Notes and Other Information
 - This is a static function internal to the pgoutput plugin

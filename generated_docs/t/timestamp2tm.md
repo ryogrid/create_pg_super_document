@@ -30,17 +30,17 @@ The function handles edge cases including negative timestamps, out-of-range date
 ## Dependencies
 - Functions called/Symbols referenced:
   - TMODULO (macro for timestamp/date separation)
-  - j2date (Julian date to Gregorian date conversion)
-  - dt2time (time component extraction)
-  - pg_localtime (timezone-aware time conversion)
+  - [j2date](../j/j2date.md) (Julian date to Gregorian date conversion)
+  - [dt2time](../d/dt2time.md) (time component extraction)
+  - [pg_localtime](../p/pg_localtime.md) (timezone-aware time conversion)
   - USECS_PER_DAY, USECS_PER_SEC, SECS_PER_DAY (time constants)
   - POSTGRES_EPOCH_JDATE, UNIX_EPOCH_JDATE (epoch constants)
 - Called from (representative examples):
-  - timestamp_out (timestamp to string conversion)
-  - timestamp_to_char (formatted timestamp output)
-  - timestamp_pl_interval (timestamp arithmetic)
-  - timestamptz_out (timestamptz to string conversion)
-  - timestamp_part_common (EXTRACT function implementation)
+  - [timestamp_out](timestamp_out.md) (timestamp to string conversion)
+  - [timestamp_to_char](timestamp_to_char.md) (formatted timestamp output)
+  - [timestamp_pl_interval](timestamp_pl_interval.md) (timestamp arithmetic)
+  - [timestamptz_out](timestamptz_out.md) (timestamptz to string conversion)
+  - [timestamp_part_common](timestamp_part_common.md) (EXTRACT function implementation)
 
 ## Notes and Other Information
 - Returns 0 on success, -1 on out of range error

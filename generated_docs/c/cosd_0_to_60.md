@@ -28,8 +28,8 @@ The implementation uses a mathematically sophisticated approach: instead of dire
   - RADIANS_PER_DEGREE: Conversion constant from degrees to radians
   - one_minus_cos_60: Precomputed value of  used in scaling (equals 0.5)
 - Called from (representative examples):
-  - sind_q1: First quadrant sine computation function at src/backend/utils/adt/float.c:2283
-  - cosd_q1: First quadrant cosine computation function at src/backend/utils/adt/float.c:2301
+  - [sind_q1](../s/sind_q1.md): First quadrant sine computation function at src/backend/utils/adt/float.c:2283
+  - [cosd_q1](cosd_q1.md): First quadrant cosine computation function at src/backend/utils/adt/float.c:2301
 
 ## Notes and Other Information
 - This is a static helper function, not directly accessible outside the float.c compilation unit

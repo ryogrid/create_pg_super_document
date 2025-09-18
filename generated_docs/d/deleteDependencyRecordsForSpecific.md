@@ -26,19 +26,19 @@ The function scans the pg_depend catalog table using the depender object as the 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
   - GETSTRUCT
-  - CatalogTupleDelete
-  - systable_endscan
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
 
 - Called from (representative examples):
-  - ExecAlterObjectDependsStmt (src/backend/commands/alter.c:493)
-  - tryAttachPartitionForeignKey (src/backend/commands/tablecmds.c:11244)
+  - [ExecAlterObjectDependsStmt](../E/ExecAlterObjectDependsStmt.md) (src/backend/commands/alter.c:493)
+  - [tryAttachPartitionForeignKey](../t/tryAttachPartitionForeignKey.md) (src/backend/commands/tablecmds.c:11244)
 
 ## Notes and Other Information
 - Provides the most specific form of dependency record deletion, requiring exact matches for both depender and dependee objects

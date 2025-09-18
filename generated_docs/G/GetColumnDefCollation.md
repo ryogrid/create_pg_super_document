@@ -23,23 +23,23 @@ The function also performs validation to ensure that collations are only applied
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ColumnDef
-  - get_typcollation
-  - LookupCollation
+  - [ColumnDef](../C/ColumnDef.md)
+  - [get_typcollation](../g/get_typcollation.md)
+  - [LookupCollation](../L/LookupCollation.md)
   - OidIsValid
   - ereport
-  - errcode
-  - errmsg
-  - format_type_be
-  - parser_errposition
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [format_type_be](../f/format_type_be.md)
+  - [parser_errposition](../p/parser_errposition.md)
 - Called from (representative examples):
-  - BuildDescForRelation
-  - MergeChildAttribute
-  - MergeInheritedAttribute
-  - ATExecAddColumn
-  - ATPrepAlterColumnType
-  - ATExecAlterColumnType
-  - addRangeTableEntryForFunction
+  - [BuildDescForRelation](../B/BuildDescForRelation.md)
+  - [MergeChildAttribute](../M/MergeChildAttribute.md)
+  - [MergeInheritedAttribute](../M/MergeInheritedAttribute.md)
+  - [ATExecAddColumn](../A/ATExecAddColumn.md)
+  - [ATPrepAlterColumnType](../A/ATPrepAlterColumnType.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [addRangeTableEntryForFunction](../a/addRangeTableEntryForFunction.md)
 
 ## Notes and Other Information
 - Implements a three-tier priority system for collation determination: explicit COLLATE clause > precooked collOid > type default

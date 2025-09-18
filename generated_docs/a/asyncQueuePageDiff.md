@@ -20,7 +20,7 @@ The  function performs a straightforward subtraction to calculate the difference
 - Functions called/Symbols referenced: None
 - Called from (representative examples):
   - NotificationHash
-  - SignalBackends
+  - [SignalBackends](../S/SignalBackends.md)
 
 ## Notes and Other Information
 - The function is declared as , making it internal to the async.c file and suitable for inlining by the compiler for performance

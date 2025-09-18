@@ -23,11 +23,11 @@ This function processes auxiliary tablespace directories during PostgreSQL base 
 ## Dependencies
 - Functions called/Symbols referenced:
   - lstat
-  - _tarWriteHeader
-  - sendDir
+  - [_tarWriteHeader](../t/_tarWriteHeader.md)
+  - [sendDir](sendDir.md)
   - TABLESPACE_VERSION_DIRECTORY
 - Called from (representative examples):
-  - perform_base_backup
+  - [perform_base_backup](../p/perform_base_backup.md)
 
 ## Notes and Other Information
 - Only used for auxiliary tablespaces, not for the main PGDATA directory

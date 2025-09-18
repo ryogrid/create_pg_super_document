@@ -30,18 +30,18 @@ The viewQuery field is specifically used for CREATE MATERIALIZED VIEW to store t
 ## Dependencies
 - Functions called/Symbols referenced:
   - NodeTag (node system)
-  - RangeVar (target relation specification)
-  - List (PostgreSQL list structure)
+  - [RangeVar](../R/RangeVar.md) (target relation specification)
+  - [List](../L/List.md) (PostgreSQL list structure)
   - OnCommitAction (transaction behavior enum)
-  - Node (generic node structure)
+  - [Node](../N/Node.md) (generic node structure)
 
 - Called from (representative examples):
-  - ExecCreateTableAs (execution of CREATE TABLE AS)
-  - create_ctas_internal (internal table creation)
-  - CreateIntoRelDestReceiver (result destination setup)
-  - ExplainOneQuery (EXPLAIN processing)
-  - intorel_startup/shutdown (relation lifecycle management)
-  - standard_ExplainOneQuery (query explanation)
+  - [ExecCreateTableAs](../E/ExecCreateTableAs.md) (execution of CREATE TABLE AS)
+  - [create_ctas_internal](../c/create_ctas_internal.md) (internal table creation)
+  - [CreateIntoRelDestReceiver](../C/CreateIntoRelDestReceiver.md) (result destination setup)
+  - [ExplainOneQuery](../E/ExplainOneQuery.md) (EXPLAIN processing)
+  - [intorel_startup](../i/intorel_startup.md)/shutdown (relation lifecycle management)
+  - [standard_ExplainOneQuery](../s/standard_ExplainOneQuery.md) (query explanation)
 
 ## Notes and Other Information
 - Central to PostgreSQL's table creation from query results functionality

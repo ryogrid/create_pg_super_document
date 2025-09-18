@@ -17,14 +17,14 @@ The  function provides a simplified interface for date-to-timestamp conversion b
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - date2timestamp_opt_overflow: Core conversion function with overflow detection
+  - [date2timestamp_opt_overflow](date2timestamp_opt_overflow.md): Core conversion function with overflow detection
   - DateADT: PostgreSQL internal date type
 - Called from (representative examples):
-  - in_range_date_interval: Date range checking with intervals
-  - date_pl_interval: Date plus interval arithmetic
-  - date_mi_interval: Date minus interval arithmetic  
-  - date_timestamp: SQL function for date to timestamp conversion
-  - datetime_timestamp: DateTime to timestamp conversion
+  - [in_range_date_interval](../i/in_range_date_interval.md): Date range checking with intervals
+  - [date_pl_interval](date_pl_interval.md): Date plus interval arithmetic
+  - [date_mi_interval](date_mi_interval.md): Date minus interval arithmetic  
+  - [date_timestamp](date_timestamp.md): SQL function for date to timestamp conversion
+  - [datetime_timestamp](datetime_timestamp.md): DateTime to timestamp conversion
 
 ## Notes and Other Information
 - Static function scope limits usage to date.c module internal operations

@@ -29,14 +29,14 @@ The function sets all non-resjunk columns to have ressortgroupref equal to their
   - makeVar
   - exprType
   - exprTypmod  
-  - exprCollation
-  - coerce_to_common_type
+  - [exprCollation](../e/exprCollation.md)
+  - [coerce_to_common_type](../c/coerce_to_common_type.md)
   - applyRelabelType
-  - makeTargetEntry
-  - makeConst
+  - [makeTargetEntry](../m/makeTargetEntry.md)
+  - [makeConst](../m/makeConst.md)
   - forfour (macro for iterating over four lists)
 - Called from:
-  - recurse_set_operations
+  - [recurse_set_operations](../r/recurse_set_operations.md)
 
 ## Notes and Other Information
 - The function marks the tlist as non-trivial when type coercions or collation relabeling is required

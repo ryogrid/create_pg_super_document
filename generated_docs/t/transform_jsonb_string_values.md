@@ -22,15 +22,15 @@ This function provides a mechanism for transforming string values within a JSONB
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - JsonbIteratorInit
-  - JsonbIteratorNext
-  - pg_detoast_datum_packed
-  - pushJsonbValue
-  - JsonbValueToJsonb
+  - [JsonbIteratorInit](../J/JsonbIteratorInit.md)
+  - [JsonbIteratorNext](../J/JsonbIteratorNext.md)
+  - [pg_detoast_datum_packed](../p/pg_detoast_datum_packed.md)
+  - [pushJsonbValue](../p/pushJsonbValue.md)
+  - [JsonbValueToJsonb](../J/JsonbValueToJsonb.md)
   - VARDATA_ANY
   - VARSIZE_ANY_EXHDR
 - Called from (representative examples):
-  - ts_headline_jsonb_byid_opt
+  - [ts_headline_jsonb_byid_opt](ts_headline_jsonb_byid_opt.md)
   - pg_parse_json_or_ereport
 
 ## Notes and Other Information

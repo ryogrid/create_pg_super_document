@@ -23,12 +23,12 @@ This batching approach helps reduce the overhead of individual flush operations 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PendingWriteback (for individual writeback requests)
+  - [PendingWriteback](../P/PendingWriteback.md) (for individual writeback requests)
   - WRITEBACK_MAX_PENDING_FLUSHES (constant defining array size)
 - Called from (representative examples):
-  - WritebackContextInit (for context initialization)
-  - ScheduleBufferTagForWriteback (for adding requests to context)
-  - IssuePendingWritebacks (for processing pending requests)
+  - [WritebackContextInit](WritebackContextInit.md) (for context initialization)
+  - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md) (for adding requests to context)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md) (for processing pending requests)
   - BufferSync (for buffer synchronization operations)
   - BgBufferSync (for background buffer sync)
 

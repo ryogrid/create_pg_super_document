@@ -26,14 +26,14 @@ This function takes no parameters but processes data from the global  buffer con
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgint64, pq_getmsgbyte (message parsing)
-  - LagTrackerRead (lag calculation)
-  - WalSndKeepalive (keepalive responses)
-  - SyncRepReleaseWaiters (synchronous replication)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md), pq_getmsgbyte (message parsing)
+  - [LagTrackerRead](../L/LagTrackerRead.md) (lag calculation)
+  - [WalSndKeepalive](../W/WalSndKeepalive.md) (keepalive responses)
+  - [SyncRepReleaseWaiters](../S/SyncRepReleaseWaiters.md) (synchronous replication)
   - LogicalConfirmReceivedLocation, PhysicalConfirmReceivedLocation (slot advancement)
-  - GetCurrentTimestamp, timestamptz_to_str (timing functions)
+  - [GetCurrentTimestamp](../G/GetCurrentTimestamp.md), timestamptz_to_str (timing functions)
 - Called from (representative examples):
-  - ProcessStandbyMessage
+  - [ProcessStandbyMessage](ProcessStandbyMessage.md)
 
 ## Notes and Other Information
 - Uses spinlocks for thread-safe updates to shared WalSender state

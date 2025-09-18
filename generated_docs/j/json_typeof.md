@@ -19,14 +19,14 @@ This function implements the SQL function json_typeof(json) -> text, which analy
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TEXT_PP
-  - makeJsonLexContext
+  - [makeJsonLexContext](../m/makeJsonLexContext.md)
   - json_lex
-  - json_errsave_error
+  - [json_errsave_error](json_errsave_error.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
   - elog
 - Data types referenced:
-  - JsonLexContext
+  - [JsonLexContext](../J/JsonLexContext.md)
   - JsonParseErrorType
   - JSON_SUCCESS
   - JSON_TOKEN_OBJECT_START

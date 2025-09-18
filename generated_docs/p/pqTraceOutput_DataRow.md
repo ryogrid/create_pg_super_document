@@ -29,11 +29,11 @@ Fields with length -1 represent NULL values and are skipped in the output. This 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pqTraceOutputInt16 (for the field count)
-  - pqTraceOutputInt32 (for field lengths)
-  - pqTraceOutputNchar (for field data)
+  - [pqTraceOutputInt16](pqTraceOutputInt16.md) (for the field count)
+  - [pqTraceOutputInt32](pqTraceOutputInt32.md) (for field lengths)
+  - [pqTraceOutputNchar](pqTraceOutputNchar.md) (for field data)
 - Called from (representative examples):
-  - pqTraceOutputMessage (main message tracing dispatcher)
+  - [pqTraceOutputMessage](pqTraceOutputMessage.md) (main message tracing dispatcher)
 
 ## Notes and Other Information
 - This is a static function within fe-trace.c, making it internal to the libpq tracing implementation

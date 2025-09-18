@@ -25,7 +25,7 @@ dshash_memcpy serves as a wrapper function around the standard library's memcpy 
   - memcpy (standard library function)
 - Called from (representative examples):
   - SH_DECLARE (in src/backend/utils/activity/pgstat_shmem.c:67)
-  - shared_record_table_hash (in src/backend/utils/cache/typcache.c:261, 271)
+  - [shared_record_table_hash](../s/shared_record_table_hash.md) (in src/backend/utils/cache/typcache.c:261, 271)
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison, hashing, and copying. The unused `arg` parameter maintains compatibility with the expected function signature for dshash copy functions, allowing for potential future extensions or use cases where additional context might be needed. The function explicitly casts the return value of memcpy to void using `(void)` to indicate that the return value is intentionally ignored, as the dshash copy function interface expects a void return type rather than the pointer return of standard memcpy.

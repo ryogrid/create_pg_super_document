@@ -35,17 +35,17 @@ The function validates input by checking that the provided MultiXact ID is valid
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetMultiXactIdMembers (retrieves member transaction information)
-  - mxstatus_to_string (converts lock status enum to text)
+  - [GetMultiXactIdMembers](../G/GetMultiXactIdMembers.md) (retrieves member transaction information)
+  - [mxstatus_to_string](../m/mxstatus_to_string.md) (converts lock status enum to text)
   - PG_GETARG_TRANSACTIONID (macro to extract XID argument)
   - SRF_IS_FIRSTCALL, SRF_FIRSTCALL_INIT, SRF_PERCALL_SETUP (SRF protocol macros)
   - SRF_RETURN_NEXT, SRF_RETURN_DONE (SRF return macros)
-  - BuildTupleFromCStrings (constructs result tuples)
-  - TupleDescGetAttInMetadata (metadata for tuple construction)
+  - [BuildTupleFromCStrings](../B/BuildTupleFromCStrings.md) (constructs result tuples)
+  - [TupleDescGetAttInMetadata](../T/TupleDescGetAttInMetadata.md) (metadata for tuple construction)
 - Data types used:
   - MultiXactId (multi-transaction identifier)
-  - MultiXactMember (structure containing xid and status)
-  - FuncCallContext (SRF context structure)
+  - [MultiXactMember](../M/MultiXactMember.md) (structure containing xid and status)
+  - [FuncCallContext](../F/FuncCallContext.md) (SRF context structure)
   - HeapTuple (result tuple type)
 - Called from:
   - SQL queries as a system function

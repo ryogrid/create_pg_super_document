@@ -27,13 +27,13 @@ The conversion process involves:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGTYPESnumeric_from_asc (converts ASCII string to numeric)
-  - PGTYPESnumeric_copy (copies numeric values)
-  - PGTYPESnumeric_free (frees numeric memory)
-  - numeric (type definition)
+  - [PGTYPESnumeric_from_asc](PGTYPESnumeric_from_asc.md) (converts ASCII string to numeric)
+  - [PGTYPESnumeric_copy](PGTYPESnumeric_copy.md) (copies numeric values)
+  - [PGTYPESnumeric_free](PGTYPESnumeric_free.md) (frees numeric memory)
+  - [numeric](../n/numeric.md) (type definition)
   - DBL_DIG (constant for double precision digits)
 - Called from (representative examples):
-  - deccvdbl (in informix compatibility library)
+  - [deccvdbl](../d/deccvdbl.md) (in informix compatibility library)
   - decimal (in test programs)
 
 ## Notes and Other Information

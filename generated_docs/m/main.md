@@ -27,20 +27,20 @@ The function ensures that PostgreSQL is not running as root (with exceptions for
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_install_crashdump_handler (Windows crash handling)
-  - get_progname (extract program name from argv[0])
-  - startup_hacks (platform-specific initialization)
-  - save_ps_display_args (preserve argv for process title display)
-  - MemoryContextInit (initialize memory management)
-  - set_pglocale_pgservice (set up localization)
-  - init_locale (configure various locale categories)
-  - help (display help information)
-  - check_root (verify not running as root)
-  - BootstrapModeMain (bootstrap/check mode entry point)
-  - SubPostmasterMain (subprocess mode entry point)
-  - GucInfoMain (configuration description mode)
-  - PostgresSingleUserMain (single-user mode entry point)
-  - PostmasterMain (normal server mode entry point)
+  - [pgwin32_install_crashdump_handler](../p/pgwin32_install_crashdump_handler.md) (Windows crash handling)
+  - [get_progname](../g/get_progname.md) (extract program name from argv[0])
+  - [startup_hacks](../s/startup_hacks.md) (platform-specific initialization)
+  - [save_ps_display_args](../s/save_ps_display_args.md) (preserve argv for process title display)
+  - [MemoryContextInit](../M/MemoryContextInit.md) (initialize memory management)
+  - [set_pglocale_pgservice](../s/set_pglocale_pgservice.md) (set up localization)
+  - [init_locale](../i/init_locale.md) (configure various locale categories)
+  - [help](../h/help.md) (display help information)
+  - [check_root](../c/check_root.md) (verify not running as root)
+  - [BootstrapModeMain](../B/BootstrapModeMain.md) (bootstrap/check mode entry point)
+  - [SubPostmasterMain](../S/SubPostmasterMain.md) (subprocess mode entry point)
+  - [GucInfoMain](../G/GucInfoMain.md) (configuration description mode)
+  - [PostgresSingleUserMain](../P/PostgresSingleUserMain.md) (single-user mode entry point)
+  - [PostmasterMain](../P/PostmasterMain.md) (normal server mode entry point)
 - Called from (representative examples):
   - Entry point - not called by other functions
 

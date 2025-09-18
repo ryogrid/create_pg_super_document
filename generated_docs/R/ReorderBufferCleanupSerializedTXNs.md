@@ -28,11 +28,11 @@ The function first checks if the slot directory exists and is indeed a directory
   - unlink (file deletion)
   - FreeDir (directory handle cleanup)
   - ereport/ERROR (error reporting)
-  - errcode_for_file_access (error code generation)
+  - [errcode_for_file_access](../e/errcode_for_file_access.md) (error code generation)
 - Called from (representative examples):
-  - ReorderBufferAllocate
-  - ReorderBufferFree
-  - StartupReorderBuffer
+  - [ReorderBufferAllocate](ReorderBufferAllocate.md)
+  - [ReorderBufferFree](ReorderBufferFree.md)
+  - [StartupReorderBuffer](../S/StartupReorderBuffer.md)
 
 ## Notes and Other Information
 - This is a static function used internally within the reorderbuffer.c module
@@ -41,4 +41,4 @@ The function first checks if the slot directory exists and is indeed a directory
 - The function safely handles the case where the slot directory doesnt exist or isnt a directory
 - Critical for preventing accumulation of orphaned spill files after crashes or abnormal termination
 - Uses ReadDirExtended with INFO level logging for better error handling during directory scanning
-- Path construction uses pg_replslot/[slotname]/xid* pattern for file identification
+- [Path](../P/Path.md) construction uses pg_replslot/[slotname]/xid* pattern for file identification

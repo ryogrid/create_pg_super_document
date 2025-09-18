@@ -28,14 +28,14 @@ The function operates within a critical section and handles WAL (Write-Ahead Log
 ## Dependencies
 - Functions called/Symbols referenced:
   - SGLT_SET_NEXTOFFSET (macro for setting next offset in leaf tuple)
-  - SpGistPageAddNewItem (adds new item to SPGiST page)
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md) (adds new item to SPGiST page)
   - SpGistBlockIsRoot (checks if block is root)
-  - saveNodeLink (updates parent's downlink)
-  - PageGetItem/PageGetItemId (page item access functions)
-  - PageIndexTupleDelete/PageAddItem (page modification functions)
-  - XLogBeginInsert/XLogInsert (WAL logging functions)
+  - [saveNodeLink](../s/saveNodeLink.md) (updates parent's downlink)
+  - [PageGetItem](../P/PageGetItem.md)/PageGetItemId (page item access functions)
+  - [PageIndexTupleDelete](../P/PageIndexTupleDelete.md)/PageAddItem (page modification functions)
+  - [XLogBeginInsert](../X/XLogBeginInsert.md)/XLogInsert (WAL logging functions)
 - Called from (representative examples):
-  - spgdoinsert (at src/backend/access/spgist/spgdoinsert.c:2118)
+  - [spgdoinsert](../s/spgdoinsert.md) (at src/backend/access/spgist/spgdoinsert.c:2118)
 
 ## Notes and Other Information
 - Operates within START_CRIT_SECTION() and END_CRIT_SECTION() for atomicity

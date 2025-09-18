@@ -22,11 +22,11 @@ The function iterates through all append relations in the planner's append_rel_l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - build_simple_rel (creates RelOptInfo for child relations)
-  - expand_inherited_rtentry (recursively handles inherited child relations)
-  - AppendRelInfo (data structure for append relation information)
+  - [build_simple_rel](../b/build_simple_rel.md) (creates RelOptInfo for child relations)
+  - [expand_inherited_rtentry](expand_inherited_rtentry.md) (recursively handles inherited child relations)
+  - [AppendRelInfo](../A/AppendRelInfo.md) (data structure for append relation information)
 - Called from (representative examples):
-  - expand_inherited_rtentry
+  - [expand_inherited_rtentry](expand_inherited_rtentry.md)
 
 ## Notes and Other Information
 - Only processes append relations that match the current parent relation ID (rti)

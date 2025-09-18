@@ -21,8 +21,8 @@ This post-order traversal approach is particularly valuable for operations like 
 - Functions called/Symbols referenced:
   - (This is a constant definition - no function calls)
 - Called from (representative examples):
-  - range_table_entry_walker_impl (src/backend/nodes/nodeFuncs.c:2862)
-  - inline_cte_walker (src/backend/optimizer/plan/subselect.c:1167)
+  - [range_table_entry_walker_impl](../r/range_table_entry_walker_impl.md) (src/backend/nodes/nodeFuncs.c:2862)
+  - [inline_cte_walker](../i/inline_cte_walker.md) (src/backend/optimizer/plan/subselect.c:1167)
 
 ## Notes and Other Information
 - This flag is part of a family of QTW (Query Tree Walker) flags defined in src/include/nodes/nodeFuncs.h

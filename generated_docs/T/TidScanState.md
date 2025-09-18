@@ -280,15 +280,15 @@ v_str ESTAB      0      0                                               *:633275
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ScanState
+  - [ScanState](../S/ScanState.md)
 - Called from (representative examples):
-  - ExecTidScan
-  - ExecInitTidScan
-  - ExecEndTidScan
-  - ExecReScanTidScan
+  - [ExecTidScan](../E/ExecTidScan.md)
+  - [ExecInitTidScan](../E/ExecInitTidScan.md)
+  - [ExecEndTidScan](../E/ExecEndTidScan.md)
+  - [ExecReScanTidScan](../E/ExecReScanTidScan.md)
   - TidNext
   - TidListEval
-  - TidExprListCreate
+  - [TidExprListCreate](TidExprListCreate.md)
 
 ## Notes and Other Information
 - TID scans provide the most direct access method to specific tuples, bypassing all indexing mechanisms

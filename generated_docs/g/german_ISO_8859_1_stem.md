@@ -24,10 +24,10 @@ The function carefully manages cursor positions throughout the process, saving a
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_prelude (preprocessing and character normalization)
-  - r_mark_regions (morphological region identification)
-  - r_standard_suffix (German suffix removal)
-  - r_postlude (postprocessing cleanup)
+  - [r_prelude](../r/r_prelude.md) (preprocessing and character normalization)
+  - [r_mark_regions](../r/r_mark_regions.md) (morphological region identification)
+  - [r_standard_suffix](../r/r_standard_suffix.md) (German suffix removal)
+  - [r_postlude](../r/r_postlude.md) (postprocessing cleanup)
 - Called from (representative examples):
   - No direct references found (likely called through function pointers or external interfaces)
 

@@ -19,8 +19,8 @@ This function provides a convenient way to convert JSON string data to a TSVecto
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - getTSCurrentConfig
-  - json_to_tsvector_worker
+  - [getTSCurrentConfig](../g/getTSCurrentConfig.md)
+  - [json_to_tsvector_worker](json_to_tsvector_worker.md)
   - PG_GETARG_TEXT_P
   - PG_FREE_IF_COPY
   - PG_RETURN_TSVECTOR

@@ -21,13 +21,13 @@ The function registers callbacks for both relation cache invalidations (PlanCach
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CacheRegisterRelcacheCallback
-  - CacheRegisterSyscacheCallback  
-  - PlanCacheRelCallback
-  - PlanCacheObjectCallback
-  - PlanCacheSysCallback
+  - [CacheRegisterRelcacheCallback](../C/CacheRegisterRelcacheCallback.md)
+  - [CacheRegisterSyscacheCallback](../C/CacheRegisterSyscacheCallback.md)  
+  - [PlanCacheRelCallback](../P/PlanCacheRelCallback.md)
+  - [PlanCacheObjectCallback](../P/PlanCacheObjectCallback.md)
+  - [PlanCacheSysCallback](../P/PlanCacheSysCallback.md)
 - Called from (representative examples):
-  - InitPostgres (during backend initialization)
+  - [InitPostgres](InitPostgres.md) (during backend initialization)
 
 ## Notes and Other Information
 - Called once per backend during the InitPostgres initialization sequence

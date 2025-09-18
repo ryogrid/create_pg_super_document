@@ -21,9 +21,9 @@ The function is used when the system determines that the current visibility boun
 - Functions called/Symbols referenced:
   - ComputeXidHorizons
 - Types used:
-  - ComputeXidHorizonsResult
+  - [ComputeXidHorizonsResult](../C/ComputeXidHorizonsResult.md)
 - Called from:
-  - GlobalVisTestIsRemovableFullXid
+  - [GlobalVisTestIsRemovableFullXid](GlobalVisTestIsRemovableFullXid.md)
 
 ## Notes and Other Information
 - This is a static function, only visible within procarray.c

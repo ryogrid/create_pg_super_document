@@ -20,19 +20,19 @@ The function also handles binary upgrade scenarios and dumps associated metadata
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpCommentExtended
-  - dumpSecLabel
-  - dumpACL
+  - [fmtId](../f/fmtId.md)
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpCommentExtended](dumpCommentExtended.md)
+  - [dumpSecLabel](dumpSecLabel.md)
+  - [dumpACL](dumpACL.md)
   - createPQExpBuffer
   - destroyPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
-  - pg_strdup
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
+  - [pg_strdup](../p/pg_strdup.md)
 - Called from (representative examples):
-  - dumpDumpableObject (in pg_dump.c:10538)
+  - [dumpDumpableObject](dumpDumpableObject.md) (in pg_dump.c:10538)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode ()

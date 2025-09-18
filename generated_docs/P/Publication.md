@@ -25,13 +25,13 @@ The Publication structure is fundamental to PostgreSQL's logical replication arc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PublicationActions (embedded structure at line 106)
+  - [PublicationActions](PublicationActions.md) (embedded structure at line 106)
 - Called from (representative examples):
-  - get_object_address_publication_rel (src/backend/catalog/objectaddress.c:1870)
-  - publication_add_relation (src/backend/catalog/pg_publication.c:368)
-  - GetPublication (src/backend/catalog/pg_publication.c:1009)
-  - LoadPublications (src/backend/replication/pgoutput/pgoutput.c:1754)
-  - get_rel_sync_entry (src/backend/replication/pgoutput/pgoutput.c:2139)
+  - [get_object_address_publication_rel](../g/get_object_address_publication_rel.md) (src/backend/catalog/objectaddress.c:1870)
+  - [publication_add_relation](../p/publication_add_relation.md) (src/backend/catalog/pg_publication.c:368)
+  - [GetPublication](../G/GetPublication.md) (src/backend/catalog/pg_publication.c:1009)
+  - [LoadPublications](../L/LoadPublications.md) (src/backend/replication/pgoutput/pgoutput.c:1754)
+  - [get_rel_sync_entry](../g/get_rel_sync_entry.md) (src/backend/replication/pgoutput/pgoutput.c:2139)
 
 ## Notes and Other Information
 - This structure represents the runtime/cache version of publication data, distinct from the catalog storage format

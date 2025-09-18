@@ -22,16 +22,16 @@ The function supports optimization for standard page layouts by allowing unused 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BufferGetPage (to extract the page from the buffer)
-  - BufferGetTag (to extract relation file locator, fork number, and block number)
-  - log_newpage (the underlying function that creates the WAL record)
+  - [BufferGetPage](../B/BufferGetPage.md) (to extract the page from the buffer)
+  - [BufferGetTag](../B/BufferGetTag.md) (to extract relation file locator, fork number, and block number)
+  - [log_newpage](log_newpage.md) (the underlying function that creates the WAL record)
 - Called from (representative examples):
-  - brinbuildempty (BRIN index empty page creation)
-  - brin_initialize_empty_new_buffer (BRIN buffer initialization)
-  - ginbuildempty (GIN index empty page creation)
-  - gistbuildempty (GiST index empty page creation)
-  - lazy_scan_new_or_empty (vacuum operations)
-  - visibilitymap_prepare_truncate (visibility map operations)
+  - [brinbuildempty](../b/brinbuildempty.md) (BRIN index empty page creation)
+  - [brin_initialize_empty_new_buffer](../b/brin_initialize_empty_new_buffer.md) (BRIN buffer initialization)
+  - [ginbuildempty](../g/ginbuildempty.md) (GIN index empty page creation)
+  - [gistbuildempty](../g/gistbuildempty.md) (GiST index empty page creation)
+  - [lazy_scan_new_or_empty](lazy_scan_new_or_empty.md) (vacuum operations)
+  - [visibilitymap_prepare_truncate](../v/visibilitymap_prepare_truncate.md) (visibility map operations)
   - RelationCopyStorageUsingBuffer (relation storage operations)
   - FreeSpaceMapPrepareTruncateRel (free space map operations)
 

@@ -20,9 +20,9 @@ This function serves as the destructor for PLyResultObject instances in the Pyth
 ## Dependencies
 - Functions called/Symbols referenced:
   - Py_XDECREF() (Python C API - safe decrement reference)
-  - FreeTupleDesc() (PostgreSQL tuple descriptor deallocation)
+  - [FreeTupleDesc](../F/FreeTupleDesc.md)() (PostgreSQL tuple descriptor deallocation)
   - tp_free() (Python type's free function)
-  - PLyResultObject (struct type)
+  - [PLyResultObject](PLyResultObject.md) (struct type)
 - Called from (representative examples):
   - Referenced as tp_dealloc in PLy_ResultType at src/pl/plpython/plpy_resultobject.c:51
   - Automatically invoked by Python's garbage collector

@@ -25,10 +25,10 @@ The function performs a simple but essential role in establishing the memory bou
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PGShmemHeader (type cast)
+  - [PGShmemHeader](../P/PGShmemHeader.md) (type cast)
 - Called from (representative examples):
-  - SubPostmasterMain
-  - CreateSharedMemoryAndSemaphores
+  - [SubPostmasterMain](../S/SubPostmasterMain.md)
+  - [CreateSharedMemoryAndSemaphores](../C/CreateSharedMemoryAndSemaphores.md)
 
 ## Notes and Other Information
 - This function must be called early in the PostgreSQL startup process before any shared memory allocation operations can take place

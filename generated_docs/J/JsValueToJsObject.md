@@ -26,14 +26,14 @@ The function includes comprehensive error handling for invalid input types, spec
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_json_object_as_hash
+  - [get_json_object_as_hash](../g/get_json_object_as_hash.md)
   - JsonContainerIsObject
   - IsAJsonbScalar
   - JsonContainerIsScalar
   - errsave
   - SOFT_ERROR_OCCURRED
 - Called from (representative examples):
-  - populate_composite
+  - [populate_composite](../p/populate_composite.md)
   - JsObjectFree
 
 ## Notes and Other Information

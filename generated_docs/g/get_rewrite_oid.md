@@ -25,23 +25,23 @@ This function is essential for PostgreSQL's object management system, particular
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache2
-  - ObjectIdGetDatum
-  - PointerGetDatum
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
   - HeapTupleIsValid
   - ereport
-  - errcode
-  - errmsg
-  - get_rel_name
+  - [errcode](../e/errcode.md)
+  - [errmsg](../e/errmsg.md)
+  - [get_rel_name](get_rel_name.md)
   - GETSTRUCT
   - Assert
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
 - Types used:
   - HeapTuple
   - Form_pg_rewrite
   - Oid
 - Called from (representative examples):
-  - get_object_address_relobject
+  - [get_object_address_relobject](get_object_address_relobject.md)
 
 ## Notes and Other Information
 - Uses the RULERELNAME system cache for efficient rule lookup by relation and name

@@ -30,13 +30,13 @@ This specialized handling maintains Hungarian vowel harmony and morphological st
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - find_among_b (searches for sublative patterns from array a_6 containing 'stul', 'astul', 'ástul', 'stül', 'estül', 'éstül')
-  - r_R1 (checks if position is in R1 region)
-  - slice_del (removes the matched suffix completely)
-  - slice_from_s (replaces suffix with vowel 'a' or 'e')
+  - [find_among_b](../f/find_among_b.md) (searches for sublative patterns from array a_6 containing 'stul', 'astul', 'ástul', 'stül', 'estül', 'éstül')
+  - [r_R1](r_R1.md) (checks if position is in R1 region)
+  - [slice_del](../s/slice_del.md) (removes the matched suffix completely)
+  - [slice_from_s](../s/slice_from_s.md) (replaces suffix with vowel 'a' or 'e')
 - Called from (representative examples):
-  - hungarian_ISO_8859_2_stem
-  - hungarian_UTF_8_stem
+  - [hungarian_ISO_8859_2_stem](../h/hungarian_ISO_8859_2_stem.md)
+  - [hungarian_UTF_8_stem](../h/hungarian_UTF_8_stem.md)
 
 ## Notes and Other Information
 - The sublative case in Hungarian expresses "from/off of" relationships and can have complex morphophonological alternations

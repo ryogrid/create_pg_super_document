@@ -26,16 +26,16 @@ If no options procedure exists but options are provided, the function raises an 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getprocid
-  - init_local_reloptions
-  - index_getprocinfo
+  - [index_getprocid](index_getprocid.md)
+  - [init_local_reloptions](init_local_reloptions.md)
+  - [index_getprocinfo](index_getprocinfo.md)
   - FunctionCall1
-  - build_local_reloptions
-  - SysCacheGetAttrNotNull
+  - [build_local_reloptions](../b/build_local_reloptions.md)
+  - [SysCacheGetAttrNotNull](../S/SysCacheGetAttrNotNull.md)
   - generate_opclass_name
 - Called from (representative examples):
   - index_create (during index creation)
-  - RelationGetIndexAttOptions (when retrieving cached options)
+  - [RelationGetIndexAttOptions](../R/RelationGetIndexAttOptions.md) (when retrieving cached options)
 
 ## Notes and Other Information
 - Uses the build_local_reloptions function (mentioned in related processed symbols) to handle the final conversion step

@@ -24,13 +24,13 @@ The primary use case is for testing scenarios where one process needs to wait at
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - slock_t (spinlock type)
+  - [slock_t](../s/slock_t.md) (spinlock type)
   - ConditionVariable (condition variable type)
   - INJ_MAX_WAIT (constant: 8)
   - INJ_NAME_MAXLEN (constant: 64)
 - Called from (representative examples):
-  - injection_point_init_state
-  - injection_init_shmem
+  - [injection_point_init_state](../i/injection_point_init_state.md)
+  - [injection_init_shmem](../i/injection_init_shmem.md)
 
 ## Notes and Other Information
 - This structure is allocated in dynamic shared memory using  with the segment name "injection_points"

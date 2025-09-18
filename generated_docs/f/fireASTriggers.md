@@ -19,15 +19,15 @@ The fireASTriggers function is responsible for firing AFTER EACH STATEMENT trigg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecASInsertTriggers
-  - ExecASUpdateTriggers
-  - ExecASDeleteTriggers
-  - ModifyTable (plan structure)
+  - [ExecASInsertTriggers](../E/ExecASInsertTriggers.md)
+  - [ExecASUpdateTriggers](../E/ExecASUpdateTriggers.md)
+  - [ExecASDeleteTriggers](../E/ExecASDeleteTriggers.md)
+  - [ModifyTable](../M/ModifyTable.md) (plan structure)
   - CMD_INSERT, CMD_UPDATE, CMD_DELETE, CMD_MERGE (operation constants)
   - ONCONFLICT_UPDATE (conflict action constant)
   - MERGE_INSERT, MERGE_UPDATE, MERGE_DELETE (merge subcommand flags)
 - Called from (representative examples):
-  - ExecModifyTable (at src/backend/executor/nodeModifyTable.c:4355)
+  - [ExecModifyTable](../E/ExecModifyTable.md) (at src/backend/executor/nodeModifyTable.c:4355)
 
 ## Notes and Other Information
 - This function specifically handles AFTER EACH STATEMENT triggers, which are executed once per SQL statement after all rows have been processed

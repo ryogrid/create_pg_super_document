@@ -19,7 +19,7 @@ This function configures the global state for SIGPIPE signal handling by setting
 - Functions called/Symbols referenced:
   - (none - only sets a global variable)
 - Called from (representative examples):
-  - setQFout (src/bin/psql/common.c:154)
+  - [setQFout](setQFout.md) (src/bin/psql/common.c:154)
 
 ## Notes and Other Information
 - This function is part of the signal handling infrastructure in PostgreSQL frontend utilities

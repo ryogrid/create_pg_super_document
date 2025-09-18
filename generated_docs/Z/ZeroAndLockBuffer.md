@@ -26,16 +26,16 @@ When a buffer is already valid, the function simply acquires the appropriate loc
 ## Dependencies
 - Functions called/Symbols referenced:
   - BufferIsLocal
-  - GetLocalBufferDescriptor
-  - GetBufferDescriptor
-  - pg_atomic_read_u32
-  - pg_atomic_unlocked_write_u32
+  - [GetLocalBufferDescriptor](../G/GetLocalBufferDescriptor.md)
+  - [GetBufferDescriptor](../G/GetBufferDescriptor.md)
+  - [pg_atomic_read_u32](../p/pg_atomic_read_u32.md)
+  - [pg_atomic_unlocked_write_u32](../p/pg_atomic_unlocked_write_u32.md)
   - StartBufferIO
   - TerminateBufferIO
-  - BufferGetPage
-  - BufferDescriptorGetContentLock
+  - [BufferGetPage](../B/BufferGetPage.md)
+  - [BufferDescriptorGetContentLock](../B/BufferDescriptorGetContentLock.md)
   - LWLockAcquire
-  - LockBuffer
+  - [LockBuffer](../L/LockBuffer.md)
   - LockBufferForCleanup
   - memset
   - BM_VALID
@@ -44,7 +44,7 @@ When a buffer is already valid, the function simply acquires the appropriate loc
   - LW_EXCLUSIVE
   - BLCKSZ
 - Called from (representative examples):
-  - ReadBuffer_common
+  - [ReadBuffer_common](../R/ReadBuffer_common.md)
 
 ## Notes and Other Information
 - This is a static function internal to bufmgr.c

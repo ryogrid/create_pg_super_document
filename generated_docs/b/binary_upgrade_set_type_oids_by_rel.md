@@ -26,10 +26,10 @@ The function extracts the composite type OID from the table's metadata (`tbinfo-
 ## Dependencies
 - Functions called/Symbols referenced:
   - OidIsValid (macro to check if OID is valid)
-  - binary_upgrade_set_type_oids_by_type_oid (core function for type OID preservation)
-  - TableInfo (struct containing table metadata)
+  - [binary_upgrade_set_type_oids_by_type_oid](binary_upgrade_set_type_oids_by_type_oid.md) (core function for type OID preservation)
+  - [TableInfo](../T/TableInfo.md) (struct containing table metadata)
 - Called from (representative examples):
-  - dumpTableSchema (src/bin/pg_dump/pg_dump.c:15973)
+  - [dumpTableSchema](../d/dumpTableSchema.md) (src/bin/pg_dump/pg_dump.c:15973)
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:323)
 
 ## Notes and Other Information

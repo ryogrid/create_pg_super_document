@@ -19,19 +19,19 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus, PgBackendSSLStatus, PgBackendGSSStatus
+  - [PgBackendStatus](../P/PgBackendStatus.md), PgBackendSSLStatus, PgBackendGSSStatus
   - memcpy, memset, unvolatize
   - MyProcPid, MyBackendType, MyStartTimestamp, MyDatabaseId
-  - GetSessionUserId, MyProcPort
+  - [GetSessionUserId](../G/GetSessionUserId.md), MyProcPort
   - B_BACKEND, B_WAL_SENDER, B_BG_WORKER
   - Various SSL functions (be_tls_*)
   - Various GSS functions (be_gssapi_*)
   - PGSTAT_BEGIN_WRITE_ACTIVITY, PGSTAT_END_WRITE_ACTIVITY
-  - pgstat_report_appname
+  - [pgstat_report_appname](pgstat_report_appname.md)
   - STATE_UNDEFINED, PROGRESS_COMMAND_INVALID
 - Called from:
-  - AuxiliaryProcessMainCommon
-  - InitPostgres (multiple call sites)
+  - [AuxiliaryProcessMainCommon](../A/AuxiliaryProcessMainCommon.md)
+  - [InitPostgres](../I/InitPostgres.md) (multiple call sites)
 
 ## Notes and Other Information
 The function must be called from within a transaction context for non-auxiliary processes since it may need to perform encoding conversion on strings. It handles SSL and GSS status conditionally based on compile-time configuration. The critical section protocol ensures atomic updates to the shared status entry, and the function updates the application name to match the current GUC setting after initialization.

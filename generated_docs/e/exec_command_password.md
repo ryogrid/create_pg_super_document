@@ -21,16 +21,16 @@ The `exec_command_password` function handles the `\password` backslash command i
 ## Dependencies
 - Functions called/Symbols referenced:
   - `psql_scan_slash_option()` - Parses optional username parameter
-  - `PSQLexec()` - Executes SQL query to get CURRENT_USER
+  - `[PSQLexec](../P/PSQLexec.md)()` - Executes SQL query to get CURRENT_USER
   - `simple_prompt_extended()` - Securely prompts for password input
   - `PQchangePassword()` - libpq function to change user password
-  - `PQgetvalue()`, `PQclear()` - libpq result handling functions
+  - `[PQgetvalue](../P/PQgetvalue.md)()`, `PQclear()` - libpq result handling functions
   - `initPQExpBuffer()`, `printfPQExpBuffer()`, `termPQExpBuffer()` - Buffer management
-  - `pg_strdup()`, `free()` - Memory management functions
+  - `[pg_strdup](../p/pg_strdup.md)()`, `free()` - Memory management functions
   - `pg_log_error()`, `pg_log_info()` - Logging functions
-  - `ignore_slash_options()` - Handles unused options when inactive
+  - `[ignore_slash_options](../i/ignore_slash_options.md)()` - Handles unused options when inactive
 - Called from (representative examples):
-  - `exec_command` - Main command dispatcher in psql
+  - `[exec_command](exec_command.md)` - Main command dispatcher in psql
 
 ## Notes and Other Information
 - Returns `PSQL_CMD_SKIP_LINE` on success, `PSQL_CMD_ERROR` on failure

@@ -35,17 +35,17 @@ The function handles different scan types (ST_INDEXSCAN, ST_BITMAPSCAN, ST_ANYSC
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - create_index_path
-  - build_index_pathkeys
-  - check_index_only
-  - match_pathkeys_to_index
-  - get_loop_count
-  - has_useful_pathkeys
-  - truncate_useless_pathkeys
-  - add_partial_path
+  - [create_index_path](../c/create_index_path.md)
+  - [build_index_pathkeys](build_index_pathkeys.md)
+  - [check_index_only](../c/check_index_only.md)
+  - [match_pathkeys_to_index](../m/match_pathkeys_to_index.md)
+  - [get_loop_count](../g/get_loop_count.md)
+  - [has_useful_pathkeys](../h/has_useful_pathkeys.md)
+  - [truncate_useless_pathkeys](../t/truncate_useless_pathkeys.md)
+  - [add_partial_path](../a/add_partial_path.md)
 - Called from (representative examples):
-  - get_index_paths
-  - build_paths_for_OR
+  - [get_index_paths](../g/get_index_paths.md)
+  - [build_paths_for_OR](build_paths_for_OR.md)
 
 ## Notes and Other Information
 - Returns paths to caller rather than immediately submitting them via add_path()

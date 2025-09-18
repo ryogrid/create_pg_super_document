@@ -26,8 +26,8 @@ The function handles inheritance hierarchies correctly by delegating to GetResul
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetResultRTEPermissionInfo (to get permission info for the relation)
-  - RTEPermissionInfo (structure type for permission information)
+  - [GetResultRTEPermissionInfo](../G/GetResultRTEPermissionInfo.md) (to get permission info for the relation)
+  - [RTEPermissionInfo](../R/RTEPermissionInfo.md) (structure type for permission information)
 - Called from (representative examples):
   - exec_rt_fetch (referenced in src/include/executor/executor.h:620)
 

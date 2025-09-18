@@ -41,23 +41,23 @@ Applied recursively for multi-attribute dependencies.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - has_stats_of_kind
-  - dependency_is_compatible_clause
-  - dependency_is_compatible_expression
+  - [has_stats_of_kind](../h/has_stats_of_kind.md)
+  - [dependency_is_compatible_clause](dependency_is_compatible_clause.md)
+  - [dependency_is_compatible_expression](dependency_is_compatible_expression.md)
   - planner_rt_fetch
-  - statext_dependencies_load
-  - find_strongest_dependency
-  - clauselist_apply_dependencies
-  - bms_membership, bms_add_member, bms_del_member, bms_free
+  - [statext_dependencies_load](../s/statext_dependencies_load.md)
+  - [find_strongest_dependency](../f/find_strongest_dependency.md)
+  - [clauselist_apply_dependencies](../c/clauselist_apply_dependencies.md)
+  - [bms_membership](../b/bms_membership.md), bms_add_member, bms_del_member, bms_free
 - Types used:
   - JoinType
-  - SpecialJoinInfo
-  - MVDependencies
+  - [SpecialJoinInfo](../S/SpecialJoinInfo.md)
+  - [MVDependencies](../M/MVDependencies.md)
   - MVDependency
   - StatisticExtInfo
   - STATS_EXT_DEPENDENCIES
 - Called from (representative examples):
-  - statext_clauselist_selectivity
+  - [statext_clauselist_selectivity](../s/statext_clauselist_selectivity.md)
 
 ## Notes and Other Information
 - Returns 1.0 (no selectivity change) when no applicable dependencies are found

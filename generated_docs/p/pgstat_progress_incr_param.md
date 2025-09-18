@@ -22,14 +22,14 @@ This is commonly used for metrics like the number of tuples processed, blocks sc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PgBackendStatus (struct type)
+  - [PgBackendStatus](../P/PgBackendStatus.md) (struct type)
   - PGSTAT_NUM_PROGRESS_PARAM (constant)
   - PGSTAT_BEGIN_WRITE_ACTIVITY (macro)
   - PGSTAT_END_WRITE_ACTIVITY (macro)
 - Called from (representative examples):
-  - DefineIndex (CREATE INDEX progress increments)
-  - HandleParallelMessage (parallel worker progress aggregation)
-  - pgstat_progress_parallel_incr_param (parallel progress coordination)
+  - [DefineIndex](../D/DefineIndex.md) (CREATE INDEX progress increments)
+  - [HandleParallelMessage](../H/HandleParallelMessage.md) (parallel worker progress aggregation)
+  - [pgstat_progress_parallel_incr_param](pgstat_progress_parallel_incr_param.md) (parallel progress coordination)
 
 ## Notes and Other Information
 - Includes an assertion to validate that the index is within the valid range [0, PGSTAT_NUM_PROGRESS_PARAM)

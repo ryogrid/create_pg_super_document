@@ -22,13 +22,13 @@ get_trigger_oid provides a convenient interface for finding triggers by name wit
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan/systable_getnext
-  - get_rel_name
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)/systable_getnext
+  - [get_rel_name](get_rel_name.md)
   - Form_pg_trigger
-  - CStringGetDatum
+  - [CStringGetDatum](../C/CStringGetDatum.md)
 - Called from (representative examples):
-  - get_object_address_relobject
+  - [get_object_address_relobject](get_object_address_relobject.md)
 
 ## Notes and Other Information
 - Uses composite index TriggerRelidNameIndexId for efficient lookup by (relation, name)

@@ -25,9 +25,9 @@ The `box_div` function implements geometric division (inverse scaling) between a
 - Functions called/Symbols referenced:
   - PG_GETARG_BOX_P (macro to extract box argument)
   - PG_GETARG_POINT_P (macro to extract point argument)
-  - palloc (memory allocation)
-  - point_div_point (point division helper)
-  - box_construct (constructs a properly oriented box from two points)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [point_div_point](../p/point_div_point.md) (point division helper)
+  - [box_construct](box_construct.md) (constructs a properly oriented box from two points)
   - PG_RETURN_BOX_P (macro to return box result)
 - Called from (representative examples):
   - No direct callers found in the codebase

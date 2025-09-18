@@ -21,10 +21,10 @@ This function is the counterpart to ResourceOwnerRememberRelationRef() and is ty
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResourceOwnerForget
-  - PointerGetDatum (implicit conversion)
+  - [PointerGetDatum](../P/PointerGetDatum.md) (implicit conversion)
   - relref_resowner_desc (resource descriptor)
 - Called from (representative examples):
-  - RelationDecrementReferenceCount
+  - [RelationDecrementReferenceCount](RelationDecrementReferenceCount.md)
 
 ## Notes and Other Information
 - This is a static inline function, inlined at compile time for performance

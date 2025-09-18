@@ -18,13 +18,13 @@ ginTraverseLock is a critical function in PostgreSQL's GIN (Generalized Inverted
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - LockBuffer (buffer locking operations)
-  - BufferGetPage (page retrieval from buffer)
+  - [LockBuffer](../L/LockBuffer.md) (buffer locking operations)
+  - [BufferGetPage](../B/BufferGetPage.md) (page retrieval from buffer)
   - GinPageIsLeaf (page type checking)
   - GIN_SHARE, GIN_EXCLUSIVE, GIN_UNLOCK (lock type constants)
 - Called from (representative examples):
-  - ginFindLeafPage
-  - ginCompareItemPointers
+  - [ginFindLeafPage](ginFindLeafPage.md)
+  - [ginCompareItemPointers](ginCompareItemPointers.md)
 
 ## Notes and Other Information
 The function implements a sophisticated locking strategy that balances concurrency with data integrity. The relock mechanism handles the edge case where page structure changes during lock upgrade, which can occur in high-concurrency scenarios. The returned access value indicates the final lock type held, which callers use to determine subsequent unlock behavior.

@@ -22,13 +22,13 @@ This function handles keepalive messages that are sent by the PostgreSQL server 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetLastWalMethodError
-  - feGetCurrentTimestamp
-  - sendFeedback
+  - [GetLastWalMethodError](../G/GetLastWalMethodError.md)
+  - [feGetCurrentTimestamp](../f/feGetCurrentTimestamp.md)
+  - [sendFeedback](../s/sendFeedback.md)
   - pg_log_error
-  - pg_fatal
+  - [pg_fatal](../p/pg_fatal.md)
 - Called from (representative examples):
-  - HandleCopyStream
+  - [HandleCopyStream](../H/HandleCopyStream.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

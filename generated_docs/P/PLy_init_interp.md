@@ -26,7 +26,7 @@ This function sets up the Python interpreter's global namespace for PL/Python op
   - PyDict_SetItemString (set dictionary item)
   - Py_DECREF (Python reference counting)
 - Called from (representative examples):
-  - PLy_initialize (single caller)
+  - [PLy_initialize](PLy_initialize.md) (single caller)
 
 ## Notes and Other Information
 - Located in src/pl/plpython/plpy_main.c at lines 133-155

@@ -30,12 +30,12 @@ The thresholds for format selection (-4 to +6) are chosen to match standard prin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - decimalLength (calculates number of digits in mantissa)
-  - to_chars_f (handles fixed-point formatting)
+  - [decimalLength](../d/decimalLength.md) (calculates number of digits in mantissa)
+  - [to_chars_f](to_chars_f.md) (handles fixed-point formatting)
   - DIGIT_TABLE (lookup table for efficient digit generation)
   - memcpy (for copying digit pairs)
 - Called from (representative examples):
-  - float_to_shortest_decimal_bufn (at src/common/f2s.c:769)
+  - [float_to_shortest_decimal_bufn](../f/float_to_shortest_decimal_bufn.md) (at src/common/f2s.c:769)
 
 ## Notes and Other Information
 - This is an inline static function optimized for performance

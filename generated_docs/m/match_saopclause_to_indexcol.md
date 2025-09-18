@@ -30,16 +30,16 @@ The function performs several validation checks: it only accepts ANY clauses (no
 - Functions called/Symbols referenced:
   - linitial
   - lsecond
-  - pull_varnos
-  - match_index_to_operand
-  - bms_is_member
-  - contain_volatile_functions
+  - [pull_varnos](../p/pull_varnos.md)
+  - [match_index_to_operand](match_index_to_operand.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [contain_volatile_functions](../c/contain_volatile_functions.md)
   - IndexCollMatchesExprColl
-  - op_in_opfamily
+  - [op_in_opfamily](../o/op_in_opfamily.md)
   - makeNode
   - list_make1
 - Called from (representative examples):
-  - match_clause_to_indexcol
+  - [match_clause_to_indexcol](match_clause_to_indexcol.md)
 
 ## Notes and Other Information
 - Only processes ANY clauses (useOr = true), rejecting ALL clauses which have different semantics

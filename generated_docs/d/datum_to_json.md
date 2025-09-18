@@ -22,11 +22,11 @@ This function performs the actual conversion of a PostgreSQL Datum to JSON text 
 ## Dependencies
 - Functions called/Symbols referenced:
   - makeStringInfo (to create output buffer)
-  - datum_to_json_internal (to perform the actual conversion logic)
+  - [datum_to_json_internal](datum_to_json_internal.md) (to perform the actual conversion logic)
   - cstring_to_text_with_len (to convert result to PostgreSQL text datum)
 - Called from:
-  - to_json (main SQL function entry point)
-  - ExecEvalJsonConstructor (from executor for JSON constructors)
+  - [to_json](../t/to_json.md) (main SQL function entry point)
+  - [ExecEvalJsonConstructor](../E/ExecEvalJsonConstructor.md) (from executor for JSON constructors)
 
 ## Notes and Other Information
 - Requires pre-categorized type information from json_categorize_type for optimal performance

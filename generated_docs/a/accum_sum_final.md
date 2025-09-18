@@ -20,27 +20,27 @@ The function is designed to work across memory contexts, allowing callers to be 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - accum_sum_carry
-  - set_var_from_var
+  - [accum_sum_carry](accum_sum_carry.md)
+  - [set_var_from_var](../s/set_var_from_var.md)
   - init_var
   - digitbuf_alloc
-  - add_var
-  - strip_var
-  - NumericSumAccum
-  - NumericVar
+  - [add_var](add_var.md)
+  - [strip_var](../s/strip_var.md)
+  - [NumericSumAccum](../N/NumericSumAccum.md)
+  - [NumericVar](../N/NumericVar.md)
   - NUMERIC_POS
   - NUMERIC_NEG
   - NBASE
   - const_zero
 - Called from (representative examples):
-  - numeric_avg_serialize
-  - numeric_serialize
-  - numeric_poly_serialize
-  - int8_avg_serialize
-  - numeric_avg
-  - numeric_sum
-  - numeric_stddev_internal
-  - accum_sum_combine
+  - [numeric_avg_serialize](../n/numeric_avg_serialize.md)
+  - [numeric_serialize](../n/numeric_serialize.md)
+  - [numeric_poly_serialize](../n/numeric_poly_serialize.md)
+  - [int8_avg_serialize](../i/int8_avg_serialize.md)
+  - [numeric_avg](../n/numeric_avg.md)
+  - [numeric_sum](../n/numeric_sum.md)
+  - [numeric_stddev_internal](../n/numeric_stddev_internal.md)
+  - [accum_sum_combine](accum_sum_combine.md)
 
 ## Notes and Other Information
 - The function returns zero (via const_zero) if the accumulator has no digits (ndigits == 0)

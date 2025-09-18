@@ -23,9 +23,9 @@ This function performs a three-way comparison between two 128-bit integers, foll
 - Functions called/Symbols referenced:
   - INT128 (type definition)
 - Called from (representative examples):
-  - interval_cmp_internal (in src/backend/utils/adt/timestamp.c:2510)
-  - interval_sign (in src/backend/utils/adt/timestamp.c:2519)
-  - main (in src/tools/testint128.c:144, 148, 158, 162)
+  - [interval_cmp_internal](interval_cmp_internal.md) (in src/backend/utils/adt/timestamp.c:2510)
+  - [interval_sign](interval_sign.md) (in src/backend/utils/adt/timestamp.c:2519)
+  - [main](../m/main.md) (in src/tools/testint128.c:144, 148, 158, 162)
 
 ## Notes and Other Information
 - This is a static inline function defined in the header file for optimal performance

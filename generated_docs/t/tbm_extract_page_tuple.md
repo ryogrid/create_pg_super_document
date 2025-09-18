@@ -20,14 +20,14 @@ This static inline function processes a single page entry from a TIDBitmap to ex
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PagetableEntry (structure type)
+  - [PagetableEntry](../P/PagetableEntry.md) (structure type)
   - TBMIterateResult (structure type)
   - WORDS_PER_PAGE (constant)
   - bitmapword (type)
   - BITS_PER_BITMAPWORD (constant)
 - Called from (representative examples):
-  - tbm_iterate (src/backend/nodes/tidbitmap.c:1032)
-  - tbm_shared_iterate (src/backend/nodes/tidbitmap.c:1121)
+  - [tbm_iterate](tbm_iterate.md) (src/backend/nodes/tidbitmap.c:1032)
+  - [tbm_shared_iterate](tbm_shared_iterate.md) (src/backend/nodes/tidbitmap.c:1121)
 
 ## Notes and Other Information
 - This is a static inline function for performance optimization during bitmap iteration

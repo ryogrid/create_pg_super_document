@@ -21,20 +21,20 @@ The resulting RangeType is allocated as a complete, standalone range object that
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - multirange_get_bounds_offset
+  - [multirange_get_bounds_offset](multirange_get_bounds_offset.md)
   - MultirangeGetFlagsPtr
   - MultirangeGetBoundariesPtr
   - RANGE_HAS_LBOUND
   - RANGE_HAS_UBOUND
   - att_addlength_pointer
   - att_align_pointer
-  - palloc0
+  - [palloc0](../p/palloc0.md)
   - SET_VARSIZE
   - memcpy
 - Called from (representative examples):
-  - multirange_deserialize
-  - range_merge_from_multirange
-  - multirange_unnest_fctx
+  - [multirange_deserialize](multirange_deserialize.md)
+  - [range_merge_from_multirange](../r/range_merge_from_multirange.md)
+  - [multirange_unnest_fctx](multirange_unnest_fctx.md)
   - PG_RETURN_MULTIRANGE_P
 
 ## Notes and Other Information

@@ -24,18 +24,18 @@ The function requires that the item numbers array be provided in sorted order an
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PageIndexTupleDelete
-  - PageGetMaxOffsetNumber
-  - PageGetItemId
+  - [PageIndexTupleDelete](PageIndexTupleDelete.md)
+  - [PageGetMaxOffsetNumber](PageGetMaxOffsetNumber.md)
+  - [PageGetItemId](PageGetItemId.md)
   - ItemIdHasStorage
   - ItemIdGetLength
   - ItemIdGetOffset
-  - compactify_tuples
+  - [compactify_tuples](../c/compactify_tuples.md)
 - Called from (representative examples):
-  - _bt_delitems_vacuum (B-tree vacuum operations)
-  - _hash_vacuum_one_page (Hash index vacuum)
-  - gistprunepage (GiST index page pruning)
-  - spgPageIndexMultiDelete (SP-GiST operations)
+  - [_bt_delitems_vacuum](../b/_bt_delitems_vacuum.md) (B-tree vacuum operations)
+  - [_hash_vacuum_one_page](../h/_hash_vacuum_one_page.md) (Hash index vacuum)
+  - [gistprunepage](../g/gistprunepage.md) (GiST index page pruning)
+  - [spgPageIndexMultiDelete](../s/spgPageIndexMultiDelete.md) (SP-GiST operations)
 
 ## Notes and Other Information
 - Critical requirement: item numbers must be provided in ascending order

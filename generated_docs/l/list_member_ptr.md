@@ -21,17 +21,17 @@ This function is optimized for pointer comparison and should only be used with l
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsPointerList - Validates that the list contains pointer values
-  - check_list_invariants - Performs debugging validation of list structure
+  - [check_list_invariants](../c/check_list_invariants.md) - Performs debugging validation of list structure
   - foreach - Macro for iterating through list cells
   - lfirst - Macro for accessing the data pointer of a list cell
 
 - Called from (representative examples):
-  - ExecInsert - Used in executor for insert operations
+  - [ExecInsert](../E/ExecInsert.md) - Used in executor for insert operations
   - list_union_ptr - Used when creating union of pointer lists
-  - list_difference_ptr - Used when computing difference between pointer lists
-  - list_append_unique_ptr - Used to ensure uniqueness when appending pointers
-  - get_foreign_key_join_selectivity - Used in query optimization
-  - create_bitmap_scan_plan - Used in plan creation
+  - [list_difference_ptr](list_difference_ptr.md) - Used when computing difference between pointer lists
+  - [list_append_unique_ptr](list_append_unique_ptr.md) - Used to ensure uniqueness when appending pointers
+  - [get_foreign_key_join_selectivity](../g/get_foreign_key_join_selectivity.md) - Used in query optimization
+  - [create_bitmap_scan_plan](../c/create_bitmap_scan_plan.md) - Used in plan creation
 
 ## Notes and Other Information
 - The function uses simple pointer address comparison, not content comparison

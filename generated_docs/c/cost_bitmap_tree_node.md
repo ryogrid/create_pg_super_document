@@ -27,18 +27,18 @@ The function includes a small bitmap manipulation overhead for IndexPath nodes t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IndexPath (struct type)
+  - [IndexPath](../I/IndexPath.md) (struct type)
   - BitmapAndPath (struct type)
   - BitmapOrPath (struct type)
   - nodeTag (function)
   - cpu_operator_cost (global variable)
 
 - Called from:
-  - cost_bitmap_and_node (in costsize.c:1180)
-  - cost_bitmap_or_node (in costsize.c:1225)
-  - compute_bitmap_pages (in costsize.c:6422)
-  - choose_bitmap_and (in indxpath.c:1389, 1390)
-  - path_usage_comparator (in indxpath.c:1502, 1503)
+  - [cost_bitmap_and_node](cost_bitmap_and_node.md) (in costsize.c:1180)
+  - [cost_bitmap_or_node](cost_bitmap_or_node.md) (in costsize.c:1225)
+  - [compute_bitmap_pages](compute_bitmap_pages.md) (in costsize.c:6422)
+  - [choose_bitmap_and](choose_bitmap_and.md) (in indxpath.c:1389, 1390)
+  - [path_usage_comparator](../p/path_usage_comparator.md) (in indxpath.c:1502, 1503)
 
 ## Notes and Other Information
 - This is a utility function that provides a uniform interface for extracting cost/selectivity from different bitmap node types

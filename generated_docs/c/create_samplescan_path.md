@@ -31,13 +31,13 @@ The function delegates cost calculation to , which accounts for the reduced I/O 
 - Functions called/Symbols referenced:
   - makeNode (creates new Path node)
   - get_baserel_parampathinfo (handles parameterization)
-  - cost_samplescan (calculates sampling costs)
+  - [cost_samplescan](cost_samplescan.md) (calculates sampling costs)
   - T_SampleScan (pathtype constant)
   - NIL (empty list constant)
 
 - Called from (representative examples):
-  - set_tablesample_rel_pathlist
-  - reparameterize_path
+  - [set_tablesample_rel_pathlist](../s/set_tablesample_rel_pathlist.md)
+  - [reparameterize_path](../r/reparameterize_path.md)
 
 ## Notes and Other Information
 - Sample scans are always non-parallel since sampling coordination between workers is complex

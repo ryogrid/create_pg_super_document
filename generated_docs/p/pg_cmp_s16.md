@@ -26,10 +26,10 @@ This function is part of a family of comparison routines designed to ensure tran
 - Functions called/Symbols referenced:
   - None (performs direct arithmetic operations)
 - Called from (representative examples):
-  - `_bt_delitems_cmp` at src/backend/access/nbtree/nbtpage.c:1471
-  - `_bt_splitcmp` at src/backend/access/nbtree/nbtsplitloc.c:599
-  - `cmpNodePtr` at src/backend/access/spgist/spgtextproc.c:329
-  - `AttrDefaultCmp` at src/backend/utils/cache/relcache.c:4575
+  - `[_bt_delitems_cmp](../b/_bt_delitems_cmp.md)` at src/backend/access/nbtree/nbtpage.c:1471
+  - `[_bt_splitcmp](../b/_bt_splitcmp.md)` at src/backend/access/nbtree/nbtsplitloc.c:599
+  - `[cmpNodePtr](../c/cmpNodePtr.md)` at src/backend/access/spgist/spgtextproc.c:329
+  - `[AttrDefaultCmp](../A/AttrDefaultCmp.md)` at src/backend/utils/cache/relcache.c:4575
 
 ## Notes and Other Information
 - The function is primarily designed for use in qsort() comparator functions and B-tree operations

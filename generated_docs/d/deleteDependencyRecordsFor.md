@@ -20,26 +20,26 @@ This function removes all dependency records from pg_depend where the specified 
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit
-  - systable_beginscan
-  - systable_getnext
-  - CatalogTupleDelete
-  - systable_endscan
+  - [ScanKeyInit](../S/ScanKeyInit.md)
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [CatalogTupleDelete](../C/CatalogTupleDelete.md)
+  - [systable_endscan](../s/systable_endscan.md)
   - table_close
-  - SysScanDesc
+  - [SysScanDesc](../S/SysScanDesc.md)
   - Form_pg_depend
   - DEPENDENCY_EXTENSION
 - Called from (representative examples):
-  - makeOperatorDependencies
-  - ProcedureCreate
-  - GenerateTypeDependencies
-  - swap_relation_files
-  - CreateTransform
-  - AlterPolicy
-  - CreateProceduralLanguage
-  - ATExecSetExpression
-  - ATExecAlterColumnType
-  - CreateTriggerFiringOn
+  - [makeOperatorDependencies](../m/makeOperatorDependencies.md)
+  - [ProcedureCreate](../P/ProcedureCreate.md)
+  - [GenerateTypeDependencies](../G/GenerateTypeDependencies.md)
+  - [swap_relation_files](../s/swap_relation_files.md)
+  - [CreateTransform](../C/CreateTransform.md)
+  - [AlterPolicy](../A/AlterPolicy.md)
+  - [CreateProceduralLanguage](../C/CreateProceduralLanguage.md)
+  - [ATExecSetExpression](../A/ATExecSetExpression.md)
+  - [ATExecAlterColumnType](../A/ATExecAlterColumnType.md)
+  - [CreateTriggerFiringOn](../C/CreateTriggerFiringOn.md)
 
 ## Notes and Other Information
 - Located in src/backend/catalog/pg_depend.c:302-351

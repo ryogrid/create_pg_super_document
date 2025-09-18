@@ -26,22 +26,22 @@ This trivial approach ensures that the split operation can complete successfully
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc
+  - [palloc](../p/palloc.md)
   - OffsetNumberNext
   - memcpy
-  - FunctionCall2Coll
-  - PointerGetDatum
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [PointerGetDatum](../P/PointerGetDatum.md)
 - Types referenced:
-  - GISTSTATE
-  - GistEntryVector
-  - GIST_SPLITVEC
-  - GISTENTRY
+  - [GISTSTATE](../G/GISTSTATE.md)
+  - [GistEntryVector](../G/GistEntryVector.md)
+  - [GIST_SPLITVEC](../G/GIST_SPLITVEC.md)
+  - [GISTENTRY](../G/GISTENTRY.md)
   - OffsetNumber
 - Constants used:
   - FirstOffsetNumber
   - GEVHDRSZ
 - Called from:
-  - gistUserPicksplit
+  - [gistUserPicksplit](gistUserPicksplit.md)
 
 ## Notes and Other Information
 - This function is only invoked as a last resort when user-defined picksplit methods fail

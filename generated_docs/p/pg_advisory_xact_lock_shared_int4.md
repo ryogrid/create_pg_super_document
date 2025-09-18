@@ -21,7 +21,7 @@ This function acquires a shared advisory lock that is automatically scoped to th
 ## Dependencies
 - Functions called/Symbols referenced:
   - SET_LOCKTAG_INT32: Macro to initialize the lock tag with two 32-bit integers
-  - LockAcquire: Core lock acquisition function with ShareLock mode and transaction scope (false)
+  - [LockAcquire](../L/LockAcquire.md): Core lock acquisition function with ShareLock mode and transaction scope (false)
   - LOCKTAG: Lock identifier structure
   - ShareLock: Lock mode constant for shared access
   - PG_RETURN_VOID: Macro to return void from a PostgreSQL function

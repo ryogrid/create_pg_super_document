@@ -35,17 +35,17 @@ GinBtreeData implements a polymorphic interface for GIN B-tree operations throug
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GinBtree (parameter type for function pointers)
-  - GinBtreeStack (parameter type for function pointers)
-  - GinPlaceToPageRC (return type for beginPlaceToPage)
-  - GinState (for ginstate member)
+  - [GinBtree](GinBtree.md) (parameter type for function pointers)
+  - [GinBtreeStack](GinBtreeStack.md) (parameter type for function pointers)
+  - [GinPlaceToPageRC](GinPlaceToPageRC.md) (return type for beginPlaceToPage)
+  - [GinState](GinState.md) (for ginstate member)
   - GinNullCategory (for entryCategory member)
 - Called from (representative examples):
-  - ginPrepareDataScan
-  - ginPrepareEntryScan
-  - ginInsertItemPointers
-  - moveRightIfItNeeded
-  - scanPostingTree
+  - [ginPrepareDataScan](../g/ginPrepareDataScan.md)
+  - [ginPrepareEntryScan](../g/ginPrepareEntryScan.md)
+  - [ginInsertItemPointers](../g/ginInsertItemPointers.md)
+  - [moveRightIfItNeeded](../m/moveRightIfItNeeded.md)
+  - [scanPostingTree](../s/scanPostingTree.md)
 
 ## Notes and Other Information
 - Located in src/include/access/gin_private.h:150-180

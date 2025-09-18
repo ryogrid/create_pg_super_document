@@ -22,12 +22,12 @@ pgwin32_recv is the most complex of the Windows socket wrapper functions in Post
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgwin32_poll_signals
+  - [pgwin32_poll_signals](pgwin32_poll_signals.md)
   - WSARecv (Windows socket API)
   - WSAGetLastError (Windows socket API)
-  - TranslateSocketError
-  - pgwin32_waitforsinglesocket
-  - pg_usleep
+  - [TranslateSocketError](../T/TranslateSocketError.md)
+  - [pgwin32_waitforsinglesocket](pgwin32_waitforsinglesocket.md)
+  - [pg_usleep](pg_usleep.md)
   - ereport
   - NOTICE
   - EWOULDBLOCK

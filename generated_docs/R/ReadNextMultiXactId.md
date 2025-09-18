@@ -31,15 +31,15 @@ Key characteristics:
   - MultiXactState->nextMXact
   - FirstMultiXactId
 - Called from (representative examples):
-  - refresh_by_heap_swap (src/backend/commands/matview.c:891)
-  - ATRewriteTables (src/backend/commands/tablecmds.c:5868)
-  - vacuum_get_cutoffs (src/backend/commands/vacuum.c:1129)
-  - vacuum_xid_failsafe_check (src/backend/commands/vacuum.c:1286)
-  - vac_update_relstats (src/backend/commands/vacuum.c:1531)
-  - vac_update_datfrozenxid (src/backend/commands/vacuum.c:1630)
-  - do_start_worker (src/backend/postmaster/autovacuum.c:1122)
-  - AutoVacWorkerMain (src/backend/postmaster/autovacuum.c:1572)
-  - mxid_age (src/backend/utils/adt/xid.c:123)
+  - [refresh_by_heap_swap](../r/refresh_by_heap_swap.md) (src/backend/commands/matview.c:891)
+  - [ATRewriteTables](../A/ATRewriteTables.md) (src/backend/commands/tablecmds.c:5868)
+  - [vacuum_get_cutoffs](../v/vacuum_get_cutoffs.md) (src/backend/commands/vacuum.c:1129)
+  - [vacuum_xid_failsafe_check](../v/vacuum_xid_failsafe_check.md) (src/backend/commands/vacuum.c:1286)
+  - [vac_update_relstats](../v/vac_update_relstats.md) (src/backend/commands/vacuum.c:1531)
+  - [vac_update_datfrozenxid](../v/vac_update_datfrozenxid.md) (src/backend/commands/vacuum.c:1630)
+  - [do_start_worker](../d/do_start_worker.md) (src/backend/postmaster/autovacuum.c:1122)
+  - [AutoVacWorkerMain](../A/AutoVacWorkerMain.md) (src/backend/postmaster/autovacuum.c:1572)
+  - [mxid_age](../m/mxid_age.md) (src/backend/utils/adt/xid.c:123)
 
 ## Notes and Other Information
 - Uses shared lock - allows concurrent reads while preventing writes during the read

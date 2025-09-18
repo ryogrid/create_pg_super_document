@@ -24,19 +24,19 @@ The `oper` function is the primary interface for binary operator resolution in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - make_oper_cache_key (creates cache lookup key)
-  - find_oper_cache_entry (checks operator cache)
-  - binary_oper_exact (attempts exact type match)
-  - OpernameGetCandidates (gets candidate operators by name)
-  - oper_select_candidate (selects best candidate from multiple matches)
-  - make_oper_cache_entry (updates cache with successful lookup)
-  - op_error (reports operator resolution errors)
-  - SearchSysCache1, ReleaseSysCache (syscache management)
+  - [make_oper_cache_key](../m/make_oper_cache_key.md) (creates cache lookup key)
+  - [find_oper_cache_entry](../f/find_oper_cache_entry.md) (checks operator cache)
+  - [binary_oper_exact](../b/binary_oper_exact.md) (attempts exact type match)
+  - [OpernameGetCandidates](../O/OpernameGetCandidates.md) (gets candidate operators by name)
+  - [oper_select_candidate](oper_select_candidate.md) (selects best candidate from multiple matches)
+  - [make_oper_cache_entry](../m/make_oper_cache_entry.md) (updates cache with successful lookup)
+  - [op_error](op_error.md) (reports operator resolution errors)
+  - [SearchSysCache1](../S/SearchSysCache1.md), ReleaseSysCache (syscache management)
 - Called from (representative examples):
-  - LookupOperWithArgs (operator lookup with argument specification)
-  - compatible_oper (exact/binary-compatible operator resolution)
-  - make_op (expression tree operator node creation)
-  - make_scalar_array_op (scalar array operator creation)
+  - [LookupOperWithArgs](../L/LookupOperWithArgs.md) (operator lookup with argument specification)
+  - [compatible_oper](../c/compatible_oper.md) (exact/binary-compatible operator resolution)
+  - [make_op](../m/make_op.md) (expression tree operator node creation)
+  - [make_scalar_array_op](../m/make_scalar_array_op.md) (scalar array operator creation)
 
 ## Notes and Other Information
 - Returns NULL if noError is true and no operator found

@@ -75,12 +75,12 @@ The design supports both posting list processing (for smaller result sets) and p
   - GinNullCategory (null category enumeration)
   - Pointer (generic pointer type)
   - StrategyNumber (strategy number type)
-  - TIDBitmap (tuple ID bitmap structure)
-  - TBMIterator (bitmap iterator)
+  - [TIDBitmap](../T/TIDBitmap.md) (tuple ID bitmap structure)
+  - [TBMIterator](../T/TBMIterator.md) (bitmap iterator)
   - TBMIterateResult (bitmap iteration result)
-  - GinBtreeData (B-tree navigation data)
+  - [GinBtreeData](GinBtreeData.md) (B-tree navigation data)
 - Called from (representative examples):
-  - ginFillScanEntry (src/backend/access/gin/ginscan.c:101)
+  - [ginFillScanEntry](../g/ginFillScanEntry.md) (src/backend/access/gin/ginscan.c:101)
   - Referenced by GinScanEntry typedef
 
 ## Notes and Other Information

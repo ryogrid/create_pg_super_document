@@ -19,15 +19,15 @@ This function performs crucial one-time setup for the expression evaluation inte
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ExecInterpExpr (to obtain dispatch table addresses)
+  - [ExecInterpExpr](ExecInterpExpr.md) (to obtain dispatch table addresses)
   - qsort (to sort the reverse lookup table)
-  - dispatch_compare_ptr (comparator function for sorting)
+  - [dispatch_compare_ptr](../d/dispatch_compare_ptr.md) (comparator function for sorting)
   - EEOP_LAST (constant defining number of opcodes)
-  - ExprEvalOp (enumeration type)
-  - ExprEvalOpLookup (structure type)
+  - [ExprEvalOp](ExprEvalOp.md) (enumeration type)
+  - [ExprEvalOpLookup](ExprEvalOpLookup.md) (structure type)
 - Called from (representative examples):
   - EEO_JUMP macro (at line 145)
-  - ExecReadyInterpretedExpr (at line 239)
+  - [ExecReadyInterpretedExpr](ExecReadyInterpretedExpr.md) (at line 239)
 
 ## Notes and Other Information
 - Only compiled when EEO_USE_COMPUTED_GOTO is defined

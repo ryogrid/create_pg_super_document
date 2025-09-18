@@ -17,16 +17,16 @@ This function serves as a transaction cleanup routine for buffer management in P
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckForBufferLeaks
+  - [CheckForBufferLeaks](../C/CheckForBufferLeaks.md)
   - AtEOXact_LocalBuffers
   - PrivateRefCountOverflowed (global variable)
 - Called from (representative examples):
-  - CommitTransaction
-  - PrepareTransaction  
-  - AbortTransaction
-  - BackgroundWriterMain
-  - CheckpointerMain
-  - WalWriterMain
+  - [CommitTransaction](../C/CommitTransaction.md)
+  - [PrepareTransaction](../P/PrepareTransaction.md)  
+  - [AbortTransaction](AbortTransaction.md)
+  - [BackgroundWriterMain](../B/BackgroundWriterMain.md)
+  - [CheckpointerMain](../C/CheckpointerMain.md)
+  - [WalWriterMain](../W/WalWriterMain.md)
 
 ## Notes and Other Information
 - This function is primarily used for debugging purposes since PostgreSQL 8.0 introduced automatic buffer pin cleanup via ResourceOwner

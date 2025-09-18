@@ -24,20 +24,20 @@ This function is widely used throughout the pg_dump codebase for executing setup
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQexec
-  - PQresultStatus
-  - PQclear
-  - die_on_query_failure
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
+  - [PQclear](../P/PQclear.md)
+  - [die_on_query_failure](../d/die_on_query_failure.md)
   - PGRES_COMMAND_OK (constant)
 
 - Called from (representative examples):
-  - setup_connection (multiple times)
-  - expand_table_name_patterns
-  - dumpTableData_insert
-  - getTables
-  - dumpEnumType
-  - dumpFunc
-  - dumpTable
+  - [setup_connection](../s/setup_connection.md) (multiple times)
+  - [expand_table_name_patterns](../e/expand_table_name_patterns.md)
+  - [dumpTableData_insert](../d/dumpTableData_insert.md)
+  - [getTables](../g/getTables.md)
+  - [dumpEnumType](../d/dumpEnumType.md)
+  - [dumpFunc](../d/dumpFunc.md)
+  - [dumpTable](../d/dumpTable.md)
 
 ## Notes and Other Information
 - This function is part of the public API for pg_dump modules, declared in pg_backup_db.h

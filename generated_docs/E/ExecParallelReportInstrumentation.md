@@ -22,21 +22,21 @@ The function uses a planstate_tree_walker to recursively process all nodes in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - InstrEndLoop
+  - [InstrEndLoop](../I/InstrEndLoop.md)
   - GetInstrumentationArray  
   - IsParallelWorker
-  - InstrAggNode
+  - [InstrAggNode](../I/InstrAggNode.md)
   - planstate_tree_walker
   - elog (for error reporting)
 - Global variables used:
   - ParallelWorkerNumber
 - Types used:
-  - PlanState
-  - SharedExecutorInstrumentation
+  - [PlanState](../P/PlanState.md)
+  - [SharedExecutorInstrumentation](../S/SharedExecutorInstrumentation.md)
   - Instrumentation
 - Called from:
-  - ParallelQueryMain
-  - ExecParallelReportInstrumentation (recursive self-call via planstate_tree_walker)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md)
+  - [ExecParallelReportInstrumentation](ExecParallelReportInstrumentation.md) (recursive self-call via planstate_tree_walker)
 
 ## Notes and Other Information
 - This is a static function, only accessible within execParallel.c

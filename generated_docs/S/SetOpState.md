@@ -31,15 +31,15 @@ SetOpState maintains the execution state for SetOp nodes, which implement SQL se
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SetOpStatePerGroup
-  - TupleHashTable
+  - [SetOpStatePerGroup](SetOpStatePerGroup.md)
+  - [TupleHashTable](../T/TupleHashTable.md)
   - TupleHashIterator
 - Called from (representative examples):
-  - ExecSetOp
-  - ExecInitSetOp
-  - ExecEndSetOp
-  - setop_retrieve_direct
-  - setop_fill_hash_table
+  - [ExecSetOp](../E/ExecSetOp.md)
+  - [ExecInitSetOp](../E/ExecInitSetOp.md)
+  - [ExecEndSetOp](../E/ExecEndSetOp.md)
+  - [setop_retrieve_direct](../s/setop_retrieve_direct.md)
+  - [setop_fill_hash_table](../s/setop_fill_hash_table.md)
 
 ## Notes and Other Information
 - Supports both sorted and hashed execution strategies for different input conditions

@@ -28,19 +28,19 @@ The function coordinates multiple subsystems including buffer management, transa
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CheckPointGuts (core checkpoint work)
-  - SyncPreCheckpoint/SyncPostCheckpoint (storage manager coordination)
-  - WALInsertLockAcquireExclusive/WALInsertLockRelease (WAL coordination)
-  - XLogInsert/XLogFlush (WAL record management)
+  - [CheckPointGuts](CheckPointGuts.md) (core checkpoint work)
+  - [SyncPreCheckpoint](../S/SyncPreCheckpoint.md)/SyncPostCheckpoint (storage manager coordination)
+  - [WALInsertLockAcquireExclusive](../W/WALInsertLockAcquireExclusive.md)/WALInsertLockRelease (WAL coordination)
+  - [XLogInsert](../X/XLogInsert.md)/XLogFlush (WAL record management)
   - UpdateControlFile (control file updates)
-  - LogCheckpointStart/LogCheckpointEnd (checkpoint logging)
-  - RemoveOldXlogFiles/PreallocXlogFiles (WAL file management)
-  - GetVirtualXIDsDelayingChkpt (transaction coordination)
-  - update_checkpoint_display (process status updates)
+  - [LogCheckpointStart](../L/LogCheckpointStart.md)/LogCheckpointEnd (checkpoint logging)
+  - [RemoveOldXlogFiles](../R/RemoveOldXlogFiles.md)/PreallocXlogFiles (WAL file management)
+  - [GetVirtualXIDsDelayingChkpt](../G/GetVirtualXIDsDelayingChkpt.md) (transaction coordination)
+  - [update_checkpoint_display](../u/update_checkpoint_display.md) (process status updates)
 - Called from (representative examples):
-  - CheckpointerMain
-  - ShutdownXLOG
-  - RequestCheckpoint
+  - [CheckpointerMain](CheckpointerMain.md)
+  - [ShutdownXLOG](../S/ShutdownXLOG.md)
+  - [RequestCheckpoint](../R/RequestCheckpoint.md)
 
 ## Notes and Other Information
 - May take many minutes to execute on busy systems due to extensive I/O operations

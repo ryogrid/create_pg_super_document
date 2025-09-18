@@ -26,12 +26,12 @@ This is particularly important for access methods that implement custom truncati
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - hash_search
+  - [hash_search](../h/hash_search.md)
   - RelationGetSmgr
-  - PendingRelSync (struct type)
+  - [PendingRelSync](../P/PendingRelSync.md) (struct type)
   - HASH_FIND (constant)
 - Called from (representative examples):
-  - RelationTruncate
+  - [RelationTruncate](RelationTruncate.md)
 
 ## Notes and Other Information
 - This function is lightweight and safe to call even when no pending syncs exist

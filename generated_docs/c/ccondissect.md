@@ -31,17 +31,17 @@ The function includes proper cleanup of match data using zaptreesubs() when back
 ## Dependencies
 - Functions called/Symbols referenced:
   - struct vars, struct subre, struct dfa, chr (core regex data structures)
-  - cnfa (compiled NFA structure)
+  - [cnfa](cnfa.md) (compiled NFA structure)
   - getsubdfa (function to obtain DFA for subexpression)
-  - longest (function to find longest match)
-  - cdissect (recursive dissection function)
-  - zaptreesubs (function to clear match data)
+  - [longest](../l/longest.md) (function to find longest match)
+  - [cdissect](cdissect.md) (recursive dissection function)
+  - [zaptreesubs](../z/zaptreesubs.md) (function to clear match data)
   - NOERR, MDEBUG, LOFF (utility/debugging macros)
   - REG_OKAY, REG_NOMATCH, REG_ASSERT (return codes)
   - SHORTER (flag constant)
 - Called from (representative examples):
   - LOFF (macro/function at src/backend/regex/regexec.c:150)
-  - cdissect (function at src/backend/regex/regexec.c:787)
+  - [cdissect](cdissect.md) (function at src/backend/regex/regexec.c:787)
 
 ## Notes and Other Information
 - This is a static function, only accessible within regexec.c

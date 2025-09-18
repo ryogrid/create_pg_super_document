@@ -28,8 +28,8 @@ This function is essential for memory context management operations that need to
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkIsExternal
-  - MemoryChunkGetBlock
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
   - GetMemoryChunkContext
   - VALGRIND_MAKE_MEM_DEFINED
   - VALGRIND_MAKE_MEM_NOACCESS

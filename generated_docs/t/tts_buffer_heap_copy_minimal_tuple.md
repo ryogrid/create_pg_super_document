@@ -27,11 +27,11 @@ The returned MinimalTuple is independent of the original slot and provides a mem
 - Functions called/Symbols referenced:
   - BufferHeapTupleTableSlot (cast to access slot-specific fields)
   - TTS_EMPTY (assertion check to ensure slot is not empty)
-  - tts_buffer_heap_materialize (materializes virtual tuples when needed)
-  - minimal_tuple_from_heap_tuple (converts HeapTuple to MinimalTuple format)
+  - [tts_buffer_heap_materialize](tts_buffer_heap_materialize.md) (materializes virtual tuples when needed)
+  - [minimal_tuple_from_heap_tuple](../m/minimal_tuple_from_heap_tuple.md) (converts HeapTuple to MinimalTuple format)
 
 - Called from (representative examples):
-  - slot_deform_heap_tuple
+  - [slot_deform_heap_tuple](../s/slot_deform_heap_tuple.md)
 
 ## Notes and Other Information
 - The function includes an assertion to ensure the slot is not empty before attempting to access tuple data

@@ -27,8 +27,8 @@ The function immediately raises an error with a descriptive message indicating t
   - ExprEvalStep
   - ereport (error reporting)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (via JIT compilation)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (via JIT compilation)
 
 ## Notes and Other Information
 - This is an intentional error-generating function, not a bug

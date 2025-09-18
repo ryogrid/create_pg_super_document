@@ -30,10 +30,10 @@ This validation prevents crashes that could occur when trying to detoast (decomp
   - RelationGetRelid
   - HaveRegisteredOrActiveSnapshot
 - Called from (representative examples):
-  - heap_insert (src/backend/access/heap/heapam.c:2051)
-  - heap_multi_insert (src/backend/access/heap/heapam.c:2330)
-  - heap_delete (src/backend/access/heap/heapam.c:2754)
-  - heap_update (src/backend/access/heap/heapam.c:3251)
+  - [heap_insert](../h/heap_insert.md) (src/backend/access/heap/heapam.c:2051)
+  - [heap_multi_insert](../h/heap_multi_insert.md) (src/backend/access/heap/heapam.c:2330)
+  - [heap_delete](../h/heap_delete.md) (src/backend/access/heap/heapam.c:2754)
+  - [heap_update](../h/heap_update.md) (src/backend/access/heap/heapam.c:3251)
 
 ## Notes and Other Information
 - This is a debug-only function that compiles to nothing in production builds (when USE_ASSERT_CHECKING is not defined)

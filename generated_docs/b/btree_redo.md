@@ -36,18 +36,18 @@ Each operation type has its own specialized recovery function that reconstructs 
 ## Dependencies
 - Functions called/Symbols referenced:
   - XLogRecGetInfo
-  - MemoryContextSwitchTo
-  - MemoryContextReset
-  - btree_xlog_insert
-  - btree_xlog_split
-  - btree_xlog_dedup
-  - btree_xlog_vacuum
-  - btree_xlog_delete
-  - btree_xlog_mark_page_halfdead
-  - btree_xlog_unlink_page
-  - btree_xlog_newroot
-  - btree_xlog_reuse_page
-  - _bt_restore_meta
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [MemoryContextReset](../M/MemoryContextReset.md)
+  - [btree_xlog_insert](btree_xlog_insert.md)
+  - [btree_xlog_split](btree_xlog_split.md)
+  - [btree_xlog_dedup](btree_xlog_dedup.md)
+  - [btree_xlog_vacuum](btree_xlog_vacuum.md)
+  - [btree_xlog_delete](btree_xlog_delete.md)
+  - [btree_xlog_mark_page_halfdead](btree_xlog_mark_page_halfdead.md)
+  - [btree_xlog_unlink_page](btree_xlog_unlink_page.md)
+  - [btree_xlog_newroot](btree_xlog_newroot.md)
+  - [btree_xlog_reuse_page](btree_xlog_reuse_page.md)
+  - [_bt_restore_meta](_bt_restore_meta.md)
   - elog (PANIC)
 - Called from (representative examples):
   - PostgreSQL WAL recovery system

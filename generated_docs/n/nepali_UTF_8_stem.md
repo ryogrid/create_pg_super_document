@@ -33,10 +33,10 @@ The function uses cursor position management with save/restore operations (m1, m
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_remove_category_1 (removes category 1 suffixes)
-  - r_check_category_2 (checks for category 2 patterns)
-  - r_remove_category_2 (removes category 2 suffixes)
-  - r_remove_category_3 (removes category 3 suffixes)
+  - [r_remove_category_1](../r/r_remove_category_1.md) (removes category 1 suffixes)
+  - [r_check_category_2](../r/r_check_category_2.md) (checks for category 2 patterns)
+  - [r_remove_category_2](../r/r_remove_category_2.md) (removes category 2 suffixes)
+  - [r_remove_category_3](../r/r_remove_category_3.md) (removes category 3 suffixes)
 - Called from:
   - External callers in PostgreSQL text search system (not directly referenced in this file)
 

@@ -21,7 +21,7 @@ This function takes no parameters.
 - Functions called/Symbols referenced:
   - IsUnderPostmaster (assertion check)
   - elog (error reporting with PANIC level)
-  - PosixSemaphoreCreate (platform-specific semaphore creation)
+  - [PosixSemaphoreCreate](PosixSemaphoreCreate.md) (platform-specific semaphore creation)
   - PG_SEM_REF (macro for getting semaphore reference)
 - Called from (representative examples):
   - InitProcGlobal (process management initialization)

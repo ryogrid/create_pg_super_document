@@ -22,10 +22,10 @@ This function handles string appending with formatting capabilities including fi
 - Functions called/Symbols referenced:
   - appendStringInfoString
   - appendStringInfoSpaces
-  - pg_mbstrlen
+  - [pg_mbstrlen](../p/pg_mbstrlen.md)
   - TEXT_FORMAT_FLAG_MINUS (constant)
 - Called from:
-  - text_format_string_conversion (multiple calls at lines 6052, 6054, 6069, 6075, 6080)
+  - [text_format_string_conversion](text_format_string_conversion.md) (multiple calls at lines 6052, 6054, 6069, 6075, 6080)
 
 ## Notes and Other Information
 - Fast path optimization when width is 0 - simply appends the string without formatting

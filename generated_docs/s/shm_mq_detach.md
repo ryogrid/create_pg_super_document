@@ -21,17 +21,17 @@ The detachment process follows a specific sequence: first, any pending send data
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - shm_mq_inc_bytes_written
-  - shm_mq_detach_internal
+  - [shm_mq_inc_bytes_written](shm_mq_inc_bytes_written.md)
+  - [shm_mq_detach_internal](shm_mq_detach_internal.md)
   - cancel_on_dsm_detach
-  - shm_mq_detach_callback
-  - pfree
+  - [shm_mq_detach_callback](shm_mq_detach_callback.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - LaunchParallelWorkers
+  - [LaunchParallelWorkers](../L/LaunchParallelWorkers.md)
   - DestroyParallelContext
-  - HandleParallelMessage
-  - ExecParallelFinish
-  - tqueueShutdownReceiver
+  - [HandleParallelMessage](../H/HandleParallelMessage.md)
+  - [ExecParallelFinish](../E/ExecParallelFinish.md)
+  - [tqueueShutdownReceiver](../t/tqueueShutdownReceiver.md)
 
 ## Notes and Other Information
 - Ensures any pending send data is committed before detachment to prevent data loss

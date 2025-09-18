@@ -32,7 +32,7 @@ The function exists in multiple architecture-specific variants:
 
 ## Dependencies
 - Functions called/Symbols referenced (SSE 4.2 version):
-  - `pg_crc32c_sse42_available`
+  - `[pg_crc32c_sse42_available](pg_crc32c_sse42_available.md)`
   - `pg_comp_crc32c_sse42`
   - `pg_comp_crc32c_sb8`
 

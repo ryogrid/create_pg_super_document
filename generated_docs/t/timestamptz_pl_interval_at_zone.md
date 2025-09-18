@@ -25,8 +25,8 @@ This function is a PostgreSQL built-in function that implements the addition ope
   - PG_GETARG_TIMESTAMPTZ (macro for extracting timestamptz argument)
   - PG_GETARG_INTERVAL_P (macro for extracting interval pointer argument)
   - PG_GETARG_TEXT_PP (macro for extracting text argument)
-  - lookup_timezone (function to resolve timezone name to pg_tz structure)
-  - timestamptz_pl_interval_internal (internal implementation function)
+  - [lookup_timezone](../l/lookup_timezone.md) (function to resolve timezone name to pg_tz structure)
+  - [timestamptz_pl_interval_internal](timestamptz_pl_interval_internal.md) (internal implementation function)
   - PG_RETURN_TIMESTAMP (macro for returning timestamp result)
 - Called from (representative examples):
   - No direct references found in the codebase (likely called through specialized SQL functions)

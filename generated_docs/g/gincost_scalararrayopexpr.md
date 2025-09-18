@@ -23,17 +23,17 @@ The gincost_scalararrayopexpr function handles cost estimation for ScalarArrayOp
 ## Dependencies
 - Functions called/Symbols referenced:
   - lsecond
-  - estimate_expression_value
+  - [estimate_expression_value](../e/estimate_expression_value.md)
   - RelabelType
-  - estimate_array_length
+  - [estimate_array_length](../e/estimate_array_length.md)
   - DatumGetArrayTypeP
-  - get_typlenbyvalalign
+  - [get_typlenbyvalalign](get_typlenbyvalalign.md)
   - ARR_ELEMTYPE
-  - deconstruct_array
-  - gincost_pattern
+  - [deconstruct_array](../d/deconstruct_array.md)
+  - [gincost_pattern](gincost_pattern.md)
   - IsA (macro)
 - Called from (representative examples):
-  - gincostestimate
+  - [gincostestimate](gincostestimate.md)
 
 ## Notes and Other Information
 - Assumes the ScalarArrayOpExpr uses OR semantics (useOr must be true)

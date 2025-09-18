@@ -23,12 +23,12 @@ XLogReaderRoutine serves as an abstraction layer that allows the WAL reading inf
   - WALSegmentOpenCB (function type for segment opening)  
   - WALSegmentCloseCB (function type for segment closing)
 - Called from (representative examples):
-  - XLogReaderAllocate (reader allocation with custom routines)
+  - [XLogReaderAllocate](XLogReaderAllocate.md) (reader allocation with custom routines)
   - StartupDecodingContext (logical replication startup)
   - CreateInitDecodingContext (initial decoding context creation)
   - CreateDecodingContext (general decoding context creation)
   - XL_ROUTINE (routine access macro)
-  - XLogReaderState (embedded within reader state)
+  - [XLogReaderState](XLogReaderState.md) (embedded within reader state)
 
 ## Notes and Other Information
 This callback structure enables PostgreSQL's WAL reading infrastructure to work across diverse scenarios including crash recovery, streaming replication, logical replication, backup tools, and WAL analysis utilities. Different implementations can optimize for their specific requirements - for example, streaming replication might implement non-blocking reads while recovery operations might prefer blocking behavior. The timeline management capabilities in the callbacks are crucial for handling complex recovery scenarios involving timeline switches during point-in-time recovery operations.

@@ -20,19 +20,19 @@ The  function serves as a central validation point for all PostgreSQL query resu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ecpg_log (for logging error messages)
-  - ecpg_raise_backend (for backend-originated errors)
-  - ecpg_raise (for ECPG-specific errors)
-  - PQresultStatus (to get result status)
-  - PQerrorMessage (for connection error messages)
-  - PQresultErrorMessage (for result-specific error messages)
-  - PQclear (to free result memory)
+  - [ecpg_log](ecpg_log.md) (for logging error messages)
+  - [ecpg_raise_backend](ecpg_raise_backend.md) (for backend-originated errors)
+  - [ecpg_raise](ecpg_raise.md) (for ECPG-specific errors)
+  - [PQresultStatus](../P/PQresultStatus.md) (to get result status)
+  - [PQerrorMessage](../P/PQerrorMessage.md) (for connection error messages)
+  - [PQresultErrorMessage](../P/PQresultErrorMessage.md) (for result-specific error messages)
+  - [PQclear](../P/PQclear.md) (to free result memory)
   - PQendcopy (to end COPY operations)
 - Called from (representative examples):
-  - ECPGsetcommit
-  - ECPGdescribe
+  - [ECPGsetcommit](../E/ECPGsetcommit.md)
+  - [ECPGdescribe](../E/ECPGdescribe.md)
   - ecpg_execute
-  - ECPGtrans
+  - [ECPGtrans](../E/ECPGtrans.md)
   - prepare_common
 
 ## Notes and Other Information

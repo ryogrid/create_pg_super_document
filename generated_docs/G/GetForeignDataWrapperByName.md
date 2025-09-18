@@ -20,13 +20,13 @@ GetForeignDataWrapperByName provides a convenient interface to look up foreign-d
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_foreign_data_wrapper_oid (name to OID resolution)
+  - [get_foreign_data_wrapper_oid](../g/get_foreign_data_wrapper_oid.md) (name to OID resolution)
   - OidIsValid (OID validation macro)
-  - GetForeignDataWrapper (OID-based FDW retrieval)
-  - ForeignDataWrapper (return type structure)
+  - [GetForeignDataWrapper](GetForeignDataWrapper.md) (OID-based FDW retrieval)
+  - [ForeignDataWrapper](../F/ForeignDataWrapper.md) (return type structure)
 - Called from (representative examples):
-  - CreateForeignDataWrapper
-  - CreateForeignServer
+  - [CreateForeignDataWrapper](../C/CreateForeignDataWrapper.md)
+  - [CreateForeignServer](../C/CreateForeignServer.md)
 
 ## Notes and Other Information
 - Located in src/backend/foreign/foreign.c:96-110

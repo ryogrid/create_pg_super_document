@@ -24,19 +24,19 @@ This internal function recursively examines SQL clauses to determine compatibili
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
   - AttrNumberIsForUserDefinedAttr
-  - bms_add_member
-  - is_opclause
-  - examine_opclause_args
-  - get_oprrest
-  - get_opcode
-  - get_func_leakproof
-  - is_andclause
-  - is_orclause
-  - is_notclause
+  - [bms_add_member](../b/bms_add_member.md)
+  - [is_opclause](../i/is_opclause.md)
+  - [examine_opclause_args](../e/examine_opclause_args.md)
+  - [get_oprrest](../g/get_oprrest.md)
+  - [get_opcode](../g/get_opcode.md)
+  - [get_func_leakproof](../g/get_func_leakproof.md)
+  - [is_andclause](../i/is_andclause.md)
+  - [is_orclause](../i/is_orclause.md)
+  - [is_notclause](../i/is_notclause.md)
   - lappend
 - Called from (representative examples):
-  - statext_is_compatible_clause_internal (recursive calls)
-  - statext_is_compatible_clause
+  - [statext_is_compatible_clause_internal](statext_is_compatible_clause_internal.md) (recursive calls)
+  - [statext_is_compatible_clause](statext_is_compatible_clause.md)
 
 ## Notes and Other Information
 The function uses recursive descent parsing to handle nested clause structures. It rejects system attributes and whole-row variables since statistics cannot be collected on them. For operator expressions, it validates that operators use supported selectivity estimation functions (F_EQSEL, F_NEQSEL, etc.). The leakproof tracking ensures that security-sensitive queries maintain their security properties when using extended statistics. Future expansions may support more complex cases like Var op Var comparisons.

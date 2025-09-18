@@ -24,11 +24,11 @@ The returned names are intentionally "raw" (unquoted) to allow the caller to app
 ## Dependencies
 - Functions called/Symbols referenced:
   - explain_get_index_name_hook (global function pointer, if set)
-  - get_rel_name
+  - [get_rel_name](../g/get_rel_name.md)
   - elog
 - Called from (representative examples):
-  - ExplainNode
-  - ExplainIndexScanDetails
+  - [ExplainNode](../E/ExplainNode.md)
+  - [ExplainIndexScanDetails](../E/ExplainIndexScanDetails.md)
 
 ## Notes and Other Information
 - The hook mechanism allows extensions to provide names for hypothetical or temporary indexes that don't exist in pg_class

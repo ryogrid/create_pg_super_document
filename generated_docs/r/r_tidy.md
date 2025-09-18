@@ -24,14 +24,14 @@ The function uses backward processing (from end to beginning of the word) and em
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_LONG
-  - in_grouping_b
-  - slice_del
-  - slice_to
-  - eq_v_b
+  - [r_LONG](r_LONG.md)
+  - [in_grouping_b](../i/in_grouping_b.md)
+  - [slice_del](../s/slice_del.md)
+  - [slice_to](../s/slice_to.md)
+  - [eq_v_b](../e/eq_v_b.md)
 - Called from (representative examples):
-  - finnish_ISO_8859_1_stem
-  - finnish_UTF_8_stem
+  - [finnish_ISO_8859_1_stem](../f/finnish_ISO_8859_1_stem.md)
+  - [finnish_UTF_8_stem](../f/finnish_UTF_8_stem.md)
 
 ## Notes and Other Information
 - This function is always called as the final step in the Finnish stemming process after all morphological endings have been removed

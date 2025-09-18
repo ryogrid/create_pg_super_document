@@ -34,25 +34,25 @@ The function is particularly intelligent about sorting: it always includes the c
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - add_setop_child_rel_equivalences
-  - set_subquery_size_estimates
+  - [add_setop_child_rel_equivalences](../a/add_setop_child_rel_equivalences.md)
+  - [set_subquery_size_estimates](../s/set_subquery_size_estimates.md)
   - fetch_upper_rel
-  - convert_subquery_pathkeys
-  - make_tlist_from_pathtarget
-  - create_subqueryscan_path
-  - pathkeys_count_contained_in
-  - create_sort_path
-  - create_incremental_sort_path
-  - add_path
-  - add_partial_path
-  - postprocess_setop_rel
-  - estimate_num_groups
-  - get_tlist_exprs
+  - [convert_subquery_pathkeys](../c/convert_subquery_pathkeys.md)
+  - [make_tlist_from_pathtarget](../m/make_tlist_from_pathtarget.md)
+  - [create_subqueryscan_path](../c/create_subqueryscan_path.md)
+  - [pathkeys_count_contained_in](../p/pathkeys_count_contained_in.md)
+  - [create_sort_path](../c/create_sort_path.md)
+  - [create_incremental_sort_path](../c/create_incremental_sort_path.md)
+  - [add_path](../a/add_path.md)
+  - [add_partial_path](../a/add_partial_path.md)
+  - [postprocess_setop_rel](../p/postprocess_setop_rel.md)
+  - [estimate_num_groups](../e/estimate_num_groups.md)
+  - [get_tlist_exprs](../g/get_tlist_exprs.md)
   - bms_is_empty
 - Called from (representative examples):
-  - generate_recursion_path (src/backend/optimizer/prep/prepunion.c:419, 431)
-  - generate_union_paths (src/backend/optimizer/prep/prepunion.c:772)
-  - generate_nonunion_paths (src/backend/optimizer/prep/prepunion.c:1058, 1071)
+  - [generate_recursion_path](../g/generate_recursion_path.md) (src/backend/optimizer/prep/prepunion.c:419, 431)
+  - [generate_union_paths](../g/generate_union_paths.md) (src/backend/optimizer/prep/prepunion.c:772)
+  - [generate_nonunion_paths](../g/generate_nonunion_paths.md) (src/backend/optimizer/prep/prepunion.c:1058, 1071)
 
 ## Notes and Other Information
 - This is a static function, internal to the prepunion.c module

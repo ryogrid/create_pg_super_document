@@ -22,10 +22,10 @@ This internal function initializes or resets a NumericVar structure to represent
   - digitbuf_free (for releasing digit buffer memory)
   - NUMERIC_POS (constant for positive sign designation)
 - Called from (representative examples):
-  - add_var, sub_var, mul_var, div_var (arithmetic operations)
-  - sqrt_var, exp_var, power_var (mathematical functions)
-  - PGTYPESnumeric_add, PGTYPESnumeric_sub, PGTYPESnumeric_div (ECPG functions)
-  - set_var_from_non_decimal_integer_str (string parsing)
+  - [add_var](../a/add_var.md), sub_var, mul_var, div_var (arithmetic operations)
+  - [sqrt_var](../s/sqrt_var.md), exp_var, power_var (mathematical functions)
+  - [PGTYPESnumeric_add](../P/PGTYPESnumeric_add.md), PGTYPESnumeric_sub, PGTYPESnumeric_div (ECPG functions)
+  - [set_var_from_non_decimal_integer_str](../s/set_var_from_non_decimal_integer_str.md) (string parsing)
 
 ## Notes and Other Information
 - This is a static function internal to the numeric.c module

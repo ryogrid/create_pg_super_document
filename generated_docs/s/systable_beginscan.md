@@ -24,22 +24,22 @@ The function handles snapshot management by automatically using catalog snapshot
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_open (open index relation)
-  - palloc (memory allocation)
-  - table_slot_create (create tuple slot)
-  - GetCatalogSnapshot (get catalog snapshot)
+  - [index_open](../i/index_open.md) (open index relation)
+  - [palloc](../p/palloc.md) (memory allocation)
+  - [table_slot_create](../t/table_slot_create.md) (create tuple slot)
+  - [GetCatalogSnapshot](../G/GetCatalogSnapshot.md) (get catalog snapshot)
   - RegisterSnapshot (register snapshot)
   - IndexRelationGetNumberOfAttributes (get index column count)
-  - index_beginscan (start index scan)
-  - index_rescan (initialize index scan with keys)
-  - table_beginscan_strat (start heap scan)
-  - ReindexIsProcessingIndex (check reindex state)
+  - [index_beginscan](../i/index_beginscan.md) (start index scan)
+  - [index_rescan](../i/index_rescan.md) (initialize index scan with keys)
+  - [table_beginscan_strat](../t/table_beginscan_strat.md) (start heap scan)
+  - [ReindexIsProcessingIndex](../R/ReindexIsProcessingIndex.md) (check reindex state)
 - Called from (representative examples):
-  - GetNewOidWithIndex (OID generation)
-  - SearchCatCacheMiss (catalog cache operations)
-  - RelationBuildTupleDesc (relation cache building)
-  - get_extension_oid (extension management)
-  - RemoveTriggerById (trigger management)
+  - [GetNewOidWithIndex](../G/GetNewOidWithIndex.md) (OID generation)
+  - [SearchCatCacheMiss](../S/SearchCatCacheMiss.md) (catalog cache operations)
+  - [RelationBuildTupleDesc](../R/RelationBuildTupleDesc.md) (relation cache building)
+  - [get_extension_oid](../g/get_extension_oid.md) (extension management)
+  - [RemoveTriggerById](../R/RemoveTriggerById.md) (trigger management)
 
 ## Notes and Other Information
 - Automatically falls back to heap scan when IgnoreSystemIndexes is set or during reindexing

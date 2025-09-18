@@ -25,15 +25,15 @@ The function returns both the ObjectAddress of the publication relation mapping 
 - Functions called/Symbols referenced:
   - ObjectAddressSet
   - linitial/lsecond (list manipulation)
-  - relation_openrv_extended
-  - makeRangeVarFromNameList
-  - GetPublicationByName
-  - relation_close
+  - [relation_openrv_extended](../r/relation_openrv_extended.md)
+  - [makeRangeVarFromNameList](../m/makeRangeVarFromNameList.md)
+  - [GetPublicationByName](../G/GetPublicationByName.md)
+  - [relation_close](../r/relation_close.md)
   - GetSysCacheOid2 (PUBLICATIONRELMAP cache lookup)
   - RelationGetRelid/RelationGetRelationName
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
 - Called from (representative examples):
-  - get_object_address (main object address resolution dispatcher)
+  - [get_object_address](get_object_address.md) (main object address resolution dispatcher)
   - object_type_map (object type mapping table)
 
 ## Notes and Other Information

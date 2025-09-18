@@ -28,21 +28,21 @@ The function handles fallback scenarios where certain log destinations are unava
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - log_line_prefix
-  - error_severity
-  - unpack_sql_state
-  - append_with_tabs
-  - check_log_of_query
-  - write_syslog
-  - write_eventlog
-  - write_csvlog
-  - write_jsonlog
-  - write_pipe_chunks
-  - write_console
-  - write_syslogger_file
+  - [log_line_prefix](../l/log_line_prefix.md)
+  - [error_severity](../e/error_severity.md)
+  - [unpack_sql_state](../u/unpack_sql_state.md)
+  - [append_with_tabs](../a/append_with_tabs.md)
+  - [check_log_of_query](../c/check_log_of_query.md)
+  - [write_syslog](../w/write_syslog.md)
+  - [write_eventlog](../w/write_eventlog.md)
+  - [write_csvlog](../w/write_csvlog.md)
+  - [write_jsonlog](../w/write_jsonlog.md)
+  - [write_pipe_chunks](../w/write_pipe_chunks.md)
+  - [write_console](../w/write_console.md)
+  - [write_syslogger_file](../w/write_syslogger_file.md)
   - Various logging constants and backend type checks
 - Called from:
-  - EmitErrorReport
+  - [EmitErrorReport](../E/EmitErrorReport.md)
 
 ## Notes and Other Information
 - This is a static function internal to elog.c, serving as the core server logging implementation

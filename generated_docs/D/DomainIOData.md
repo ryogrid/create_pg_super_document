@@ -24,16 +24,16 @@ DomainIOData serves as a comprehensive cache structure for domain type processin
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - DomainConstraintRef
+  - [DomainConstraintRef](DomainConstraintRef.md)
 - Called from (representative examples):
-  - domain_state_setup
-  - domain_check_input
-  - domain_in
-  - domain_recv
+  - [domain_state_setup](../d/domain_state_setup.md)
+  - [domain_check_input](../d/domain_check_input.md)
+  - [domain_in](../d/domain_in.md)
+  - [domain_recv](../d/domain_recv.md)
   - domain_check_internal
-  - ColumnIOData
+  - [ColumnIOData](../C/ColumnIOData.md)
   - JsObjectFree
-  - populate_domain
+  - [populate_domain](../p/populate_domain.md)
 
 ## Notes and Other Information
 - Defined in src/backend/utils/adt/domains.c at lines 50-64

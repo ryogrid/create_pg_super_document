@@ -17,8 +17,8 @@ psql_setup_cancel_handler serves as a wrapper function that sets up the cancella
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - setup_cancel_handler (generic signal handler setup function)
-  - psql_cancel_callback (psql-specific cancellation callback)
+  - [setup_cancel_handler](../s/setup_cancel_handler.md) (generic signal handler setup function)
+  - [psql_cancel_callback](psql_cancel_callback.md) (psql-specific cancellation callback)
 - Called from (representative examples):
   - Startup code in src/bin/psql/startup.c
   - Referenced in src/bin/psql/common.h header

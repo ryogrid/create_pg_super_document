@@ -22,7 +22,7 @@ This function releases a session-scoped shared advisory lock identified by a pai
 - Functions called/Symbols referenced:
   - PG_GETARG_INT32 (to extract function arguments)
   - SET_LOCKTAG_INT32 (to construct lock tag from the two keys)
-  - LockRelease (to release the shared lock)
+  - [LockRelease](../L/LockRelease.md) (to release the shared lock)
   - PG_RETURN_BOOL (to return boolean result)
 - Types used:
   - LOCKTAG (lock identifier structure)

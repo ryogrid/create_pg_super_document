@@ -29,14 +29,14 @@ During index operations, the function carefully manages locking to avoid deadloc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - CatalogCacheInitializeCache (to complete cache initialization)
-  - LockRelationOid (to lock the catalog relation before index access)
-  - index_open (to open the associated index)
-  - index_close (to close the index after validation)
-  - UnlockRelationOid (to release the catalog relation lock)
+  - [CatalogCacheInitializeCache](../C/CatalogCacheInitializeCache.md) (to complete cache initialization)
+  - [LockRelationOid](../L/LockRelationOid.md) (to lock the catalog relation before index access)
+  - [index_open](../i/index_open.md) (to open the associated index)
+  - [index_close](../i/index_close.md) (to close the index after validation)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md) (to release the catalog relation lock)
 - Called from:
-  - InitCatalogCachePhase2 (during system-wide cache initialization)
-  - SysCacheGetAttr (to ensure cache is initialized before attribute access)
+  - [InitCatalogCachePhase2](InitCatalogCachePhase2.md) (during system-wide cache initialization)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md) (to ensure cache is initialized before attribute access)
   - Various functions through CatCacheHeader macro
 
 ## Notes and Other Information

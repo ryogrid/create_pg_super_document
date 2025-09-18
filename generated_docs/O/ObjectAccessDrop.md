@@ -23,9 +23,9 @@ This information enables security and logging extensions to make informed decisi
 - Functions called/Symbols referenced: 
   - PERFORM_DELETION_* constants (from dependency.h)
 - Called from (representative examples):
-  - RunObjectDropHook
-  - RunObjectDropHookStr
-  - accesstype_arg_to_string
+  - [RunObjectDropHook](../R/RunObjectDropHook.md)
+  - [RunObjectDropHookStr](../R/RunObjectDropHookStr.md)
+  - [accesstype_arg_to_string](../a/accesstype_arg_to_string.md)
 
 ## Notes and Other Information
 - This struct is specifically used with OAT_DROP hook events

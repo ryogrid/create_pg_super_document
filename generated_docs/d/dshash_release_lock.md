@@ -27,8 +27,8 @@ The  function is responsible for releasing the lightweight lock (LWLock) that wa
   - ApplyLauncherGetWorkerStartTime: After retrieving worker startup times
   - GetNamedDSMSegment: After DSM segment operations
   - pgstat_get_entry_ref: After statistics entry reference operations
-  - lookup_rowtype_tupdesc_internal: After type descriptor lookups
-  - find_or_make_matching_shared_tupledesc: After tuple descriptor operations
+  - [lookup_rowtype_tupdesc_internal](../l/lookup_rowtype_tupdesc_internal.md): After type descriptor lookups
+  - [find_or_make_matching_shared_tupledesc](../f/find_or_make_matching_shared_tupledesc.md): After tuple descriptor operations
 
 ## Notes and Other Information
 - Must only be called on entries obtained through  or 

@@ -19,12 +19,12 @@ The function uses cursor position management to ensure that failed attempts don'
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_fix_ending (the actual ending fix function that performs individual transformations)
+  - [r_fix_ending](r_fix_ending.md) (the actual ending fix function that performs individual transformations)
 - Called from (representative examples):
-  - r_remove_question_suffixes (Tamil question suffix removal function)
-  - r_remove_common_word_endings (Tamil common word ending removal function)  
-  - r_remove_vetrumai_urupukal (Tamil case marker removal function)
-  - r_remove_tense_suffix (Tamil tense suffix removal function)
+  - [r_remove_question_suffixes](r_remove_question_suffixes.md) (Tamil question suffix removal function)
+  - [r_remove_common_word_endings](r_remove_common_word_endings.md) (Tamil common word ending removal function)  
+  - [r_remove_vetrumai_urupukal](r_remove_vetrumai_urupukal.md) (Tamil case marker removal function)
+  - [r_remove_tense_suffix](r_remove_tense_suffix.md) (Tamil tense suffix removal function)
 
 ## Notes and Other Information
 - Always returns 1 (success), indicating the function completes regardless of whether any fixes were applied

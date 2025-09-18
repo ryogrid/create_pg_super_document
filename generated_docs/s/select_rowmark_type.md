@@ -31,13 +31,13 @@ This function analyzes a range table entry and the requested lock clause strengt
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - GetFdwRoutineByRelId
+  - [GetFdwRoutineByRelId](../G/GetFdwRoutineByRelId.md)
   - Various RowMarkType constants (ROW_MARK_COPY, ROW_MARK_REFERENCE, etc.)
   - LockClauseStrength enum values
   - RTE_RELATION, RELKIND_FOREIGN_TABLE constants
 - Called from:
-  - preprocess_rowmarks
-  - expand_single_inheritance_child
+  - [preprocess_rowmarks](../p/preprocess_rowmarks.md)
+  - [expand_single_inheritance_child](../e/expand_single_inheritance_child.md)
 
 ## Notes and Other Information
 - The function includes error handling for unrecognized LockClauseStrength values

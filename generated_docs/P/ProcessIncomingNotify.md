@@ -22,14 +22,14 @@ The function first checks if the backend is actively listening on any channels b
 ## Dependencies
 - Functions called/Symbols referenced:
   - set_ps_display: Updates process status display
-  - StartTransactionCommand: Initiates transaction for safe queue reading
-  - asyncQueueReadAllNotifications: Core function that reads and processes notifications
-  - CommitTransactionCommand: Commits the transaction after processing
+  - [StartTransactionCommand](../S/StartTransactionCommand.md): Initiates transaction for safe queue reading
+  - [asyncQueueReadAllNotifications](../a/asyncQueueReadAllNotifications.md): Core function that reads and processes notifications
+  - [CommitTransactionCommand](../C/CommitTransactionCommand.md): Commits the transaction after processing
   - MemoryContextIsValid/MemoryContextSwitchTo: Manages memory context preservation
   - pq_flush: Forces immediate frontend message delivery
   - elog: Debug logging functionality
 - Called from:
-  - ProcessNotifyInterrupt: Main interrupt handler for notification processing
+  - [ProcessNotifyInterrupt](ProcessNotifyInterrupt.md): Main interrupt handler for notification processing
 
 ## Notes and Other Information
 - Must reset notifyInterruptPending flag to prevent repeated processing

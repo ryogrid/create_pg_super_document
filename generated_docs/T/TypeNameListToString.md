@@ -25,9 +25,9 @@ Like TypeNameToString, this function is designed to work reliably even with inva
   - lfirst_node
   - list_head
   - appendStringInfoChar
-  - appendTypeNameToBuffer
+  - [appendTypeNameToBuffer](../a/appendTypeNameToBuffer.md)
 - Called from (representative examples):
-  - does_not_exist_skipping (multiple instances in dropcmds.c)
+  - [does_not_exist_skipping](../d/does_not_exist_skipping.md) (multiple instances in dropcmds.c)
 
 ## Notes and Other Information
 This function is specifically designed for handling multiple type names in bulk operations, making it valuable for DROP operations and other DDL commands that can operate on multiple types simultaneously. The comma-separated format provides a clear and readable representation for user-facing error messages. The caller is responsible for freeing the returned string memory. The function leverages the same core formatting logic as TypeNameToString through the shared appendTypeNameToBuffer function, ensuring consistency in type name representation across the system.

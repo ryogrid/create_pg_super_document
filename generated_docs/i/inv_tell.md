@@ -22,10 +22,10 @@ The function performs no permission checks since both read and write permissions
 ## Dependencies
 - Functions called/Symbols referenced:
   - `PointerIsValid` (assertion macro to validate pointer)
-  - `LargeObjectDesc` (structure type for large object descriptors)
+  - `[LargeObjectDesc](../L/LargeObjectDesc.md)` (structure type for large object descriptors)
 - Called from (representative examples):
-  - `be_lo_tell` (backend function for 32-bit tell operations)
-  - `be_lo_tell64` (backend function for 64-bit tell operations)
+  - `[be_lo_tell](../b/be_lo_tell.md)` (backend function for 32-bit tell operations)
+  - `[be_lo_tell64](../b/be_lo_tell64.md)` (backend function for 64-bit tell operations)
 
 ## Notes and Other Information
 - Returns an `int64` value representing the current byte position

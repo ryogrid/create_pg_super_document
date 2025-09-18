@@ -28,13 +28,13 @@ Key optimization techniques:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - decimalLength32 (calculates the number of digits needed)
+  - [decimalLength32](../d/decimalLength32.md) (calculates the number of digits needed)
   - DIGIT_TABLE (lookup table for digit pairs)
 - Called from (representative examples):
-  - printsimple (for debug output formatting)
-  - pg_ltoa (as part of signed integer conversion)
-  - pg_ultostr_zeropad (for zero-padded string conversion)
-  - pg_ultostr (for null-terminated string conversion)
+  - [printsimple](printsimple.md) (for debug output formatting)
+  - [pg_ltoa](pg_ltoa.md) (as part of signed integer conversion)
+  - [pg_ultostr_zeropad](pg_ultostr_zeropad.md) (for zero-padded string conversion)
+  - [pg_ultostr](pg_ultostr.md) (for null-terminated string conversion)
 
 ## Notes and Other Information
 - The output string is NOT null-terminated - caller must handle termination if needed

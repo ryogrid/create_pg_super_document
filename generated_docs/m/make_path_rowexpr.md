@@ -23,14 +23,14 @@ The resulting RowExpr has a record type (RECORDOID) and uses implicit coercion f
   - makeNode (to create RowExpr)
   - strVal (to extract string values)
   - list_length (to get list size)
-  - list_nth (to access list elements)
+  - [list_nth](../l/list_nth.md) (to access list elements)
   - makeVar (to create variable references)
-  - list_nth_oid (to get OID from list)
-  - list_nth_int (to get integer from list)
+  - [list_nth_oid](../l/list_nth_oid.md) (to get OID from list)
+  - [list_nth_int](../l/list_nth_int.md) (to get integer from list)
   - lappend (to append to lists)
-  - makeString (to create String nodes)
+  - [makeString](makeString.md) (to create String nodes)
 - Called from:
-  - rewriteSearchAndCycle (at lines 319 and 343)
+  - [rewriteSearchAndCycle](../r/rewriteSearchAndCycle.md) (at lines 319 and 343)
 
 ## Notes and Other Information
 - This is a static helper function only used within rewriteSearchCycle.c

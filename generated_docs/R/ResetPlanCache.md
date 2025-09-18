@@ -30,10 +30,10 @@ None - this function takes no parameters.
   - StmtPlanRequiresRevalidation (checks if plan needs revalidation)
 
 - Called from (representative examples):
-  - DiscardCommand (SQL DISCARD PLANS command)
-  - DiscardAll (SQL DISCARD ALL command)
+  - [DiscardCommand](../D/DiscardCommand.md) (SQL DISCARD PLANS command)
+  - [DiscardAll](../D/DiscardAll.md) (SQL DISCARD ALL command)
   - assign_session_replication_role (when session replication role changes)
-  - PlanCacheSysCallback (syscache invalidation callback)
+  - [PlanCacheSysCallback](../P/PlanCacheSysCallback.md) (syscache invalidation callback)
 
 ## Notes and Other Information
 - This is a public function (non-static) accessible from other modules

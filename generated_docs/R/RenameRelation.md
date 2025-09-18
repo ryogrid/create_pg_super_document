@@ -23,15 +23,15 @@ The function uses ShareUpdateExclusiveLock for index operations and AccessExclus
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - RangeVarGetRelidExtended
-  - RangeVarCallbackForAlterRelation
-  - get_rel_relkind
-  - UnlockRelationOid
-  - RenameRelationInternal
+  - [RangeVarGetRelidExtended](RangeVarGetRelidExtended.md)
+  - [RangeVarCallbackForAlterRelation](RangeVarCallbackForAlterRelation.md)
+  - [get_rel_relkind](../g/get_rel_relkind.md)
+  - [UnlockRelationOid](../U/UnlockRelationOid.md)
+  - [RenameRelationInternal](RenameRelationInternal.md)
   - ObjectAddressSet
   - ereport/NOTICE
 - Called from (representative examples):
-  - ExecRenameStmt (in src/backend/commands/alter.c)
+  - [ExecRenameStmt](../E/ExecRenameStmt.md) (in src/backend/commands/alter.c)
 
 ## Notes and Other Information
 - Uses adaptive locking strategy to handle statement/object type mismatches (e.g., ALTER INDEX on a table)

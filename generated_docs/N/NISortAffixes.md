@@ -36,20 +36,20 @@ The resulting tree structures enable fast affix matching during word transformat
 ## Dependencies
 - Functions called/Symbols referenced:
   - qsort
-  - cmpaffix
-  - isAffixInUse
-  - mkANode
-  - mkVoidAffix
-  - palloc
-  - repalloc
-  - strbncmp
+  - [cmpaffix](../c/cmpaffix.md)
+  - [isAffixInUse](../i/isAffixInUse.md)
+  - [mkANode](../m/mkANode.md)
+  - [mkVoidAffix](../m/mkVoidAffix.md)
+  - [palloc](../p/palloc.md)
+  - [repalloc](../r/repalloc.md)
+  - [strbncmp](../s/strbncmp.md)
   - AFFIX
   - CMPDAffix
   - FF_PREFIX
   - FF_SUFFIX
   - FF_COMPOUNDFLAG
 - Called from (representative examples):
-  - dispell_init
+  - [dispell_init](../d/dispell_init.md)
 
 ## Notes and Other Information
 - Returns early if no affixes are present (naffixes == 0)

@@ -28,8 +28,8 @@ This function retrieves the user's home directory and stores it in the provided 
   - snprintf (Windows: format path string)
 - Called from (representative examples):
   - pqConnectOptions2
-  - parseServiceInfo
-  - initialize_SSL
+  - [parseServiceInfo](parseServiceInfo.md)
+  - [initialize_SSL](../i/initialize_SSL.md)
 
 ## Notes and Other Information
 - Returns true on success, false on failure

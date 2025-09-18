@@ -28,15 +28,15 @@ The function produces an unterminated string (no null character) in the provided
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - float_to_bits (bit manipulation utility)
-  - copy_special_str (handles special values)
-  - f2d_small_int (optimization for small integers) 
-  - f2d (main Ryu conversion algorithm)
-  - to_chars (converts decimal representation to string)
-  - floating_decimal_32 (result structure)
+  - [float_to_bits](float_to_bits.md) (bit manipulation utility)
+  - [copy_special_str](../c/copy_special_str.md) (handles special values)
+  - [f2d_small_int](f2d_small_int.md) (optimization for small integers) 
+  - [f2d](f2d.md) (main Ryu conversion algorithm)
+  - [to_chars](../t/to_chars.md) (converts decimal representation to string)
+  - [floating_decimal_32](floating_decimal_32.md) (result structure)
   - FLOAT_MANTISSA_BITS, FLOAT_EXPONENT_BITS (constants)
 - Called from:
-  - float_to_shortest_decimal_buf
+  - [float_to_shortest_decimal_buf](float_to_shortest_decimal_buf.md)
   - FLOAT_SHORTEST_DECIMAL_LEN (macro context)
 
 ## Notes and Other Information

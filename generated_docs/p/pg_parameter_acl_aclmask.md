@@ -31,16 +31,16 @@ This approach is more efficient than name-based lookup when the OID is already a
 ## Dependencies
 - Functions called/Symbols referenced:
   - superuser_arg
-  - SearchSysCache1
-  - SysCacheGetAttr
-  - acldefault
+  - [SearchSysCache1](../S/SearchSysCache1.md)
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
+  - [acldefault](../a/acldefault.md)
   - DatumGetAclP
-  - aclmask
-  - ReleaseSysCache
-  - pfree
+  - [aclmask](../a/aclmask.md)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
+  - [pfree](pfree.md)
 - Called from (representative examples):
   - InternalDefaultACL
-  - pg_aclmask
+  - [pg_aclmask](pg_aclmask.md)
 
 ## Notes and Other Information
 - This is a static (internal) function, not directly accessible outside aclchk.c

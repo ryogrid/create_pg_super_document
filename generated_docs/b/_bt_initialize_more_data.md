@@ -191,9 +191,9 @@ write_data_to_archive_lz4_doc.md: ScanDirection - The direction of the scan (for
   - BTScanOpaque (type)
   - ScanDirection (type)
 - Called from (representative examples):
-  - _bt_first
-  - _bt_parallel_readpage
-  - _bt_endpoint
+  - [_bt_first](_bt_first.md)
+  - [_bt_parallel_readpage](_bt_parallel_readpage.md)
+  - [_bt_endpoint](_bt_endpoint.md)
 
 ## Notes and Other Information
 - This is a static inline function for performance, only accessible within nbtsearch.c

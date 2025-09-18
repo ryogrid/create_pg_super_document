@@ -28,23 +28,23 @@ The function includes extensive memory debugging support, including detection of
 ## Dependencies
 - Functions called/Symbols referenced:
   - PointerGetMemoryChunk
-  - MemoryChunkIsExternal
+  - [MemoryChunkIsExternal](../M/MemoryChunkIsExternal.md)
   - ExternalChunkGetBlock
   - AllocBlockIsValid
   - MemoryContextCheckSize
-  - MemoryChunkGetBlock
-  - MemoryChunkGetValue
+  - [MemoryChunkGetBlock](../M/MemoryChunkGetBlock.md)
+  - [MemoryChunkGetValue](../M/MemoryChunkGetValue.md)
   - FreeListIdxIsValid
   - GetChunkSizeFromFreeListIdx
   - MemoryChunkGetPointer
-  - AllocSetAlloc
-  - AllocSetFree
+  - [AllocSetAlloc](AllocSetAlloc.md)
+  - [AllocSetFree](AllocSetFree.md)
   - realloc
   - memcpy
-  - MemoryContextAllocationFailure
-  - sentinel_ok (when MEMORY_CONTEXT_CHECKING enabled)
-  - set_sentinel (when MEMORY_CONTEXT_CHECKING enabled)
-  - randomize_mem (when RANDOMIZE_ALLOCATED_MEMORY enabled)
+  - [MemoryContextAllocationFailure](../M/MemoryContextAllocationFailure.md)
+  - [sentinel_ok](../s/sentinel_ok.md) (when MEMORY_CONTEXT_CHECKING enabled)
+  - [set_sentinel](../s/set_sentinel.md) (when MEMORY_CONTEXT_CHECKING enabled)
+  - [randomize_mem](../r/randomize_mem.md) (when RANDOMIZE_ALLOCATED_MEMORY enabled)
   - Various Valgrind memory tracking macros
   - elog
 - Called from:

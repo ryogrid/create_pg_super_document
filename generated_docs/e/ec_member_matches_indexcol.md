@@ -23,16 +23,16 @@ For btree indexes, the function enforces strict opfamily compatibility since no 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_member_oid
+  - [list_member_oid](../l/list_member_oid.md)
   - IndexCollMatchesExprColl
-  - match_index_to_operand
+  - [match_index_to_operand](../m/match_index_to_operand.md)
   - EquivalenceClass (structure)
-  - EquivalenceMember (structure)
-  - IndexOptInfo (structure)
+  - [EquivalenceMember](../E/EquivalenceMember.md) (structure)
+  - [IndexOptInfo](../I/IndexOptInfo.md) (structure)
   - ec_member_matches_arg (structure)
   - BTREE_AM_OID (constant)
 - Called from (representative examples):
-  - match_eclass_clauses_to_index
+  - [match_eclass_clauses_to_index](../m/match_eclass_clauses_to_index.md)
   - Used as callback in ec_member_matches_arg
 
 ## Notes and Other Information

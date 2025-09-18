@@ -21,7 +21,7 @@ This function serves as a diagnostic and informational tool within the statistic
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_clear_snapshot
+  - [pgstat_clear_snapshot](pgstat_clear_snapshot.md)
   - PGSTAT_FETCH_CONSISTENCY_SNAPSHOT (constant)
 - Called from (representative examples):
   - No direct callers found in the current codebase analysis

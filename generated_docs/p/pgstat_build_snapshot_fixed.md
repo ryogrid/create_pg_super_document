@@ -21,14 +21,14 @@ The actual snapshot building is delegated to the kind-specific callback function
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_get_kind_info
+  - [pgstat_get_kind_info](pgstat_get_kind_info.md)
   - kind_info->snapshot_cb (callback function)
   - PGSTAT_FETCH_CONSISTENCY_NONE
   - PGSTAT_FETCH_CONSISTENCY_CACHE
 - Called from (representative examples):
-  - pgstat_snapshot_fixed
-  - pgstat_build_snapshot
-  - pgstat_write_statsfile
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
+  - [pgstat_build_snapshot](pgstat_build_snapshot.md)
+  - [pgstat_write_statsfile](pgstat_write_statsfile.md)
 
 ## Notes and Other Information
 - Static function for internal use within the pgstat module

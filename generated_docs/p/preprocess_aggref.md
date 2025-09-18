@@ -40,19 +40,19 @@ Special handling is included for:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - get_aggregate_argtypes
-  - resolve_aggregate_transtype  
-  - find_compatible_agg
-  - find_compatible_trans
-  - get_typlenbyval
-  - GetAggInitVal
-  - agg_args_support_sendreceive
+  - [get_aggregate_argtypes](../g/get_aggregate_argtypes.md)
+  - [resolve_aggregate_transtype](../r/resolve_aggregate_transtype.md)  
+  - [find_compatible_agg](../f/find_compatible_agg.md)
+  - [find_compatible_trans](../f/find_compatible_trans.md)
+  - [get_typlenbyval](../g/get_typlenbyval.md)
+  - [GetAggInitVal](../G/GetAggInitVal.md)
+  - [agg_args_support_sendreceive](../a/agg_args_support_sendreceive.md)
   - exprTypmod
-  - SysCacheGetAttr
+  - [SysCacheGetAttr](../S/SysCacheGetAttr.md)
   - list_nth_node
   - makeNode (AggInfo, AggTransInfo)
 - Called from (representative examples):
-  - preprocess_aggrefs_walker
+  - [preprocess_aggrefs_walker](preprocess_aggrefs_walker.md)
 
 ## Notes and Other Information
 - This is a static function only called from within the same file

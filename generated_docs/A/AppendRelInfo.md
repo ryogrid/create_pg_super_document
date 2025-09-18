@@ -32,15 +32,15 @@ These structures are stored in the PlannerInfo's append_rel_list and indexed by 
   - NodeTag (node identification)
   - Index (relation identifiers)
   - Oid (object identifiers)
-  - List (generic list structure)
+  - [List](../L/List.md) (generic list structure)
   - AttrNumber (attribute number type)
 
 - Called from (representative examples):
-  - make_append_rel_info
-  - adjust_appendrel_attrs
-  - set_append_rel_size
-  - expand_partitioned_rtentry
-  - pull_up_union_leaf_queries
+  - [make_append_rel_info](../m/make_append_rel_info.md)
+  - [adjust_appendrel_attrs](../a/adjust_appendrel_attrs.md)
+  - [set_append_rel_size](../s/set_append_rel_size.md)
+  - [expand_partitioned_rtentry](../e/expand_partitioned_rtentry.md)
+  - [pull_up_union_leaf_queries](../p/pull_up_union_leaf_queries.md)
 
 ## Notes and Other Information
 - Critical for table inheritance and UNION ALL query processing

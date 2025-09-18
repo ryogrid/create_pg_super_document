@@ -19,17 +19,17 @@ ConvInfo is a structure used by pg_dump to encapsulate information about convers
 ## Dependencies
 - Functions called/Symbols referenced:
   - DumpableObject
-  - getRoleName
-  - findNamespace
-  - AssignDumpId
-  - selectDumpableObject
+  - [getRoleName](../g/getRoleName.md)
+  - [findNamespace](../f/findNamespace.md)
+  - [AssignDumpId](../A/AssignDumpId.md)
+  - [selectDumpableObject](../s/selectDumpableObject.md)
 - Called from (representative examples):
-  - getConversions (src/bin/pg_dump/pg_dump.c:6178)
-  - dumpConversion (src/bin/pg_dump/pg_dump.c:14099)
+  - [getConversions](../g/getConversions.md) (src/bin/pg_dump/pg_dump.c:6178)
+  - [dumpConversion](../d/dumpConversion.md) (src/bin/pg_dump/pg_dump.c:14099)
   - fmtQualifiedDumpable (src/bin/pg_dump/pg_dump.c:249)
 
 ## Notes and Other Information
-- ConvInfo objects are allocated as arrays in getConversions() function based on the number of conversions found in pg_conversion
+- [ConvInfo](ConvInfo.md) objects are allocated as arrays in getConversions() function based on the number of conversions found in pg_conversion
 - The structure inherits all functionality from DumpableObject including dependency tracking and selective dumping
 - Unlike CollInfo, ConvInfo does not store encoding information directly as the conversion-specific details (source/target encodings, conversion function) are retrieved during the dump phase
 - Used exclusively within the pg_dump utility for backup and restore operations

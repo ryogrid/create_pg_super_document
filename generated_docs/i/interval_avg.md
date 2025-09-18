@@ -26,7 +26,7 @@ The function properly handles the mathematical complexities of averaging interva
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IntervalAggState (struct type)
+  - [IntervalAggState](../I/IntervalAggState.md) (struct type)
   - IA_TOTAL_COUNT (macro for total count calculation)
   - Interval (struct type)
   - PG_ARGISNULL (PostgreSQL macro)
@@ -36,11 +36,11 @@ The function properly handles the mathematical complexities of averaging interva
   - INTERVAL_NOEND (macro)
   - INTERVAL_NOBEGIN (macro)
   - DirectFunctionCall2 (PostgreSQL function call mechanism)
-  - interval_div (interval division function)
-  - IntervalPGetDatum (conversion macro)
-  - Float8GetDatum (conversion macro)
+  - [interval_div](interval_div.md) (interval division function)
+  - [IntervalPGetDatum](../I/IntervalPGetDatum.md) (conversion macro)
+  - [Float8GetDatum](../F/Float8GetDatum.md) (conversion macro)
   - ereport (error reporting function)
-  - palloc (memory allocation function)
+  - [palloc](../p/palloc.md) (memory allocation function)
 - Called from (representative examples):
   - No direct references found (likely used through PostgreSQL's aggregate function infrastructure)
 

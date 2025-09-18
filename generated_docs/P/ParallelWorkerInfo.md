@@ -18,11 +18,11 @@ ParallelWorkerInfo is a simple data structure used in PostgreSQL's parallel proc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - BackgroundWorkerHandle
-  - shm_mq_handle
+  - [BackgroundWorkerHandle](../B/BackgroundWorkerHandle.md)
+  - [shm_mq_handle](../s/shm_mq_handle.md)
 - Called from (representative examples):
-  - InitializeParallelDSM
-  - ParallelContext
+  - [InitializeParallelDSM](../I/InitializeParallelDSM.md)
+  - [ParallelContext](ParallelContext.md)
 
 ## Notes and Other Information
 - This structure is part of PostgreSQL's parallel query execution infrastructure

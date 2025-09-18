@@ -24,16 +24,16 @@ The function uses PostgreSQL's PQExpBuffer system for efficient string building 
 ## Dependencies
 - Functions called/Symbols referenced:
   - initPQExpBuffer
-  - appendPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBuffer](../a/appendPQExpBuffer.md)
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
-  - fmtId
-  - getFormattedTypeName
+  - [fmtId](fmtId.md)
+  - [getFormattedTypeName](../g/getFormattedTypeName.md)
 - Called from (representative examples):
-  - dumpFunc
-  - dumpCast
-  - dumpTransform
-  - dumpAgg
+  - [dumpFunc](../d/dumpFunc.md)
+  - [dumpCast](../d/dumpCast.md)
+  - [dumpTransform](../d/dumpTransform.md)
+  - [dumpAgg](../d/dumpAgg.md)
   - fmtQualifiedDumpable
 
 ## Notes and Other Information

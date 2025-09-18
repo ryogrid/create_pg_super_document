@@ -26,11 +26,11 @@ The stemming process follows these steps:
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - r_mark_regions
-  - r_main_suffix
-  - r_consonant_pair
-  - r_other_suffix
-  - r_undouble
+  - [r_mark_regions](../r/r_mark_regions.md)
+  - [r_main_suffix](../r/r_main_suffix.md)
+  - [r_consonant_pair](../r/r_consonant_pair.md)
+  - [r_other_suffix](../r/r_other_suffix.md)
+  - [r_undouble](../r/r_undouble.md)
 - Called from (representative examples):
   - No direct callers found in the codebase
 

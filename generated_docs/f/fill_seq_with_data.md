@@ -29,17 +29,17 @@ This dual-fork approach for unlogged sequences ensures that after a crash, the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fill_seq_fork_with_data
-  - smgropen
-  - smgrcreate
-  - log_smgrcreate
-  - FlushRelationBuffers
-  - smgrclose
+  - [fill_seq_fork_with_data](fill_seq_fork_with_data.md)
+  - [smgropen](../s/smgropen.md)
+  - [smgrcreate](../s/smgrcreate.md)
+  - [log_smgrcreate](../l/log_smgrcreate.md)
+  - [FlushRelationBuffers](../F/FlushRelationBuffers.md)
+  - [smgrclose](../s/smgrclose.md)
 - Called from (representative examples):
-  - DefineSequence (src/backend/commands/sequence.c:217)
-  - ResetSequence (src/backend/commands/sequence.c:322)
-  - AlterSequence (src/backend/commands/sequence.c:516)
-  - SequenceChangePersistence (src/backend/commands/sequence.c:563)
+  - [DefineSequence](../D/DefineSequence.md) (src/backend/commands/sequence.c:217)
+  - [ResetSequence](../R/ResetSequence.md) (src/backend/commands/sequence.c:322)
+  - [AlterSequence](../A/AlterSequence.md) (src/backend/commands/sequence.c:516)
+  - [SequenceChangePersistence](../S/SequenceChangePersistence.md) (src/backend/commands/sequence.c:563)
 
 ## Notes and Other Information
 - This is a static function used internally within sequence.c

@@ -19,14 +19,14 @@ This function serves as a specialized mapping utility that determines the approp
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - IOOp (parameter type)
+  - [IOOp](../I/IOOp.md) (parameter type)
   - IOOP_READ, IOOP_WRITE, IOOP_WRITEBACK, IOOP_EXTEND, IOOP_FSYNC (operations with timing)
   - IOOP_EVICT, IOOP_HIT, IOOP_REUSE (operations without timing)
-  - pgstat_get_io_op_index (to get base column index)
+  - [pgstat_get_io_op_index](pgstat_get_io_op_index.md) (to get base column index)
   - IO_COL_INVALID (returned for operations without timing)
   - pg_unreachable (error handling)
 - Called from (representative examples):
-  - pg_stat_get_io
+  - [pg_stat_get_io](pg_stat_get_io.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the same source file

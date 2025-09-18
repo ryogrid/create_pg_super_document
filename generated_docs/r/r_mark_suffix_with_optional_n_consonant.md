@@ -23,13 +23,13 @@ This function is crucial for correctly identifying and processing Turkish suffix
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - in_grouping_b_U (called 2 times for vowel group checking)
-  - skip_b_utf8 (for UTF-8 character boundary handling)
+  - [in_grouping_b_U](../i/in_grouping_b_U.md) (called 2 times for vowel group checking)
+  - [skip_b_utf8](../s/skip_b_utf8.md) (for UTF-8 character boundary handling)
   - g_vowel (vowel group definition)
 
 - Called from (representative examples):
   - r_mark_nUn (suffix marking function)
-  - r_mark_ncA (suffix marking function)
+  - [r_mark_ncA](r_mark_ncA.md) (suffix marking function)
 
 ## Notes and Other Information
 - Returns 1 if the optional 'n' consonant pattern is valid, 0 otherwise

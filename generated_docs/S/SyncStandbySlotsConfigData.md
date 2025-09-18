@@ -35,9 +35,9 @@ The slot names are stored as consecutive null-terminated C strings in the flexib
 - Functions called/Symbols referenced:
   - FLEXIBLE_ARRAY_MEMBER (macro for flexible array members)
 - Called from (representative examples):
-  - check_synchronized_standby_slots (src/backend/replication/slot.c:2495)
-  - assign_synchronized_standby_slots (src/backend/replication/slot.c:2552)
-  - SlotExistsInSyncStandbySlots (src/backend/replication/slot.c:2564)
+  - [check_synchronized_standby_slots](../c/check_synchronized_standby_slots.md) (src/backend/replication/slot.c:2495)
+  - [assign_synchronized_standby_slots](../a/assign_synchronized_standby_slots.md) (src/backend/replication/slot.c:2552)
+  - [SlotExistsInSyncStandbySlots](SlotExistsInSyncStandbySlots.md) (src/backend/replication/slot.c:2564)
 
 ## Notes and Other Information
 - This structure is used specifically for the synchronized_standby_slots GUC parameter

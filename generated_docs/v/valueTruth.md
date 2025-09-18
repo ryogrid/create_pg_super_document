@@ -26,7 +26,7 @@ The `valueTruth` function provides a unified way to evaluate the boolean truthin
   - PGBT_DOUBLE - Enumeration value for double values (non-zero is true)
 - Called from (representative examples):
   - evalLazyFunc - Uses valueTruth for conditional evaluation in logical expressions
-  - executeMetaCommand - Uses valueTruth for \\if conditional statements in pgbench scripts
+  - [executeMetaCommand](../e/executeMetaCommand.md) - Uses valueTruth for \\if conditional statements in pgbench scripts
 
 ## Notes and Other Information
 - Implements C-like truthiness: 0 and NULL are false, everything else is true

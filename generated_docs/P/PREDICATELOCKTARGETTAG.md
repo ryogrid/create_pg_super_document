@@ -22,17 +22,17 @@ PREDICATELOCKTARGETTAG is a versatile identification structure used to uniquely 
 - Functions called/Symbols referenced:
   - uint32 (base integer type)
 - Called from (representative examples):
-  - SerialControl (extensive usage in predicate locking control structure)
-  - InitPredicateLocks (predicate locking system initialization)
+  - [SerialControl](../S/SerialControl.md) (extensive usage in predicate locking control structure)
+  - [InitPredicateLocks](../I/InitPredicateLocks.md) (predicate locking system initialization)
   - GetPredicateLockStatusData (lock status reporting)
-  - CreateLocalPredicateLockHash (local predicate lock hash creation)
+  - [CreateLocalPredicateLockHash](../C/CreateLocalPredicateLockHash.md) (local predicate lock hash creation)
   - PageIsPredicateLocked (page lock checking)
   - PredicateLockExists (lock existence checking)
   - GetParentPredicateLockTag (parent lock tag construction)
   - CoarserLockCovers (lock coverage checking)
-  - PredicateLockRelation (relation-level predicate locking)
-  - PredicateLockPage (page-level predicate locking)
-  - PredicateLockTID (tuple-level predicate locking)
+  - [PredicateLockRelation](PredicateLockRelation.md) (relation-level predicate locking)
+  - [PredicateLockPage](PredicateLockPage.md) (page-level predicate locking)
+  - [PredicateLockTID](PredicateLockTID.md) (tuple-level predicate locking)
   - PREDICATELOCKTARGET (uses this as tag field)
   - LOCALPREDICATELOCK (uses this as tag field)
 

@@ -27,14 +27,14 @@ When all keys are provided, the function computes the partition hash using the s
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - palloc0
-  - bms_num_members
-  - bms_is_member
-  - compute_partition_hash_value
-  - bms_make_singleton
-  - bms_add_range
+  - [palloc0](../p/palloc0.md)
+  - [bms_num_members](../b/bms_num_members.md)
+  - [bms_is_member](../b/bms_is_member.md)
+  - [compute_partition_hash_value](../c/compute_partition_hash_value.md)
+  - [bms_make_singleton](../b/bms_make_singleton.md)
+  - [bms_add_range](../b/bms_add_range.md)
 - Called from:
-  - perform_pruning_base_step
+  - [perform_pruning_base_step](../p/perform_pruning_base_step.md)
 
 ## Notes and Other Information
 Hash partitioning requires all partition key values to perform effective pruning - partial key information results in scanning all partitions. The function uses the greatest_modulus (total number of partition indexes) to compute the final partition offset. Unlike range and list partitioning, hash partitioning does not support special null or default partitions, so scan_null and scan_default are always set to false. The hash computation considers both explicit values and NULL indicators to ensure consistent partition assignment.

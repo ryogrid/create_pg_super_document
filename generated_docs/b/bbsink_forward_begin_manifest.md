@@ -24,7 +24,7 @@ The manifest in PostgreSQL's backup system contains metadata about the backup, i
   - bbsink_begin_manifest
   - bbsink (type reference)
 - Called from (representative examples):
-  - bbsink_server_begin_manifest (src/backend/backup/basebackup_server.c:246)
+  - [bbsink_server_begin_manifest](bbsink_server_begin_manifest.md) (src/backend/backup/basebackup_server.c:246)
 
 ## Notes and Other Information
 - The function performs an assertion to ensure that bbs_next is properly initialized before forwarding

@@ -18,7 +18,7 @@ This function provides a copy-safe variant of DatumGetPolygonP, specifically des
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_DETOAST_DATUM_COPY (TOAST decompression with copy semantics)
-  - POLYGON (variable-length geometric data type)
+  - [POLYGON](../P/POLYGON.md) (variable-length geometric data type)
 - Called from (representative examples):
   - PG_GETARG_POLYGON_P_COPY (macro)
 

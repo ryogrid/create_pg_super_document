@@ -26,7 +26,7 @@ The function handles two critical edge cases: (1) division by zero, which raises
   - PG_GETARG_INT16 (macro for extracting int16 arguments)
   - PG_INT16_MIN (constant representing minimum int16 value)
   - ereport (error reporting function)
-  - errcode/errmsg (error handling macros)
+  - [errcode](../e/errcode.md)/errmsg (error handling macros)
   - PG_RETURN_INT16 (macro for returning int16 value)
   - PG_RETURN_NULL (macro for returning null, used after error for compiler)
 - Called from (representative examples):

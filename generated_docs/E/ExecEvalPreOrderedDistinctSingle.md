@@ -18,15 +18,15 @@ This function implements the DISTINCT filtering logic for single-argument aggreg
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - FunctionCall2Coll
-  - datumCopy
-  - MemoryContextSwitchTo
-  - DatumGetBool
-  - DatumGetPointer
-  - pfree
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [datumCopy](../d/datumCopy.md)
+  - [MemoryContextSwitchTo](../M/MemoryContextSwitchTo.md)
+  - [DatumGetBool](../D/DatumGetBool.md)
+  - [DatumGetPointer](../D/DatumGetPointer.md)
+  - [pfree](../p/pfree.md)
 - Called from (representative examples):
-  - ExecInterpExpr
-  - FunctionReturningBool (in JIT compilation context)
+  - [ExecInterpExpr](ExecInterpExpr.md)
+  - [FunctionReturningBool](../F/FunctionReturningBool.md) (in JIT compilation context)
 
 ## Notes and Other Information
 - Part of the DISTINCT aggregate optimization system for pre-sorted input data

@@ -26,8 +26,8 @@ This function is typically called by PostgreSQL's aggregate execution framework 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - percentile_cont_final_common (core percentile calculation logic)
-  - float8_lerp (float8-specific linear interpolation function)
+  - [percentile_cont_final_common](percentile_cont_final_common.md) (core percentile calculation logic)
+  - [float8_lerp](../f/float8_lerp.md) (float8-specific linear interpolation function)
   - FLOAT8OID (type validation constant)
 - Called from (representative examples):
   - PostgreSQL aggregate execution framework (no direct C references shown)

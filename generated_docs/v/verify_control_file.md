@@ -22,14 +22,14 @@ This function implements critical validation logic specifically for PostgreSQL's
 - Functions called/Symbols referenced:
   - pg_log_debug
   - get_controlfile_by_exact_path
-  - report_fatal_error
-  - pfree
+  - [report_fatal_error](../r/report_fatal_error.md)
+  - [pfree](../p/pfree.md)
 - Constants referenced:
   - PG_CONTROL_VERSION
 - Types referenced:
   - ControlFileData
 - Called from (representative examples):
-  - verify_backup_file
+  - [verify_backup_file](verify_backup_file.md)
 
 ## Notes and Other Information
 - All errors in this function are fatal since control file problems indicate severe backup corruption

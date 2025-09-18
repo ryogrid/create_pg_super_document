@@ -29,21 +29,21 @@ The function ensures that collation version tracking remains accurate after syst
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - ScanKeyInit 
-  - systable_beginscan
-  - systable_getnext
-  - object_ownercheck
-  - aclcheck_error
-  - LockTuple/UnlockTuple
-  - heap_getattr
-  - get_collation_actual_version
-  - heap_modify_tuple
-  - CatalogTupleUpdate
-  - heap_freetuple
+  - [ScanKeyInit](../S/ScanKeyInit.md) 
+  - [systable_beginscan](../s/systable_beginscan.md)
+  - [systable_getnext](../s/systable_getnext.md)
+  - [object_ownercheck](../o/object_ownercheck.md)
+  - [aclcheck_error](../a/aclcheck_error.md)
+  - [LockTuple](../L/LockTuple.md)/UnlockTuple
+  - [heap_getattr](../h/heap_getattr.md)
+  - [get_collation_actual_version](../g/get_collation_actual_version.md)
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
+  - [heap_freetuple](../h/heap_freetuple.md)
   - InvokeObjectPostAlterHook
   - ObjectAddressSet
 - Called from (representative examples):
-  - standard_ProcessUtility
+  - [standard_ProcessUtility](../s/standard_ProcessUtility.md)
 
 ## Notes and Other Information
 - Requires database owner privileges to execute

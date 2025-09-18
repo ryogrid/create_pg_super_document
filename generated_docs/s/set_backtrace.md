@@ -29,8 +29,8 @@ This static function is the core implementation for capturing call stack backtra
   - backtrace (system function for stack capture - when HAVE_BACKTRACE_SYMBOLS defined)
   - backtrace_symbols (system function for symbol resolution - when HAVE_BACKTRACE_SYMBOLS defined)
 - Called from (representative examples):
-  - errfinish (error finalization function)
-  - errbacktrace (public backtrace interface)
+  - [errfinish](../e/errfinish.md) (error finalization function)
+  - [errbacktrace](../e/errbacktrace.md) (public backtrace interface)
 
 ## Notes and Other Information
 - Static function - only accessible within elog.c

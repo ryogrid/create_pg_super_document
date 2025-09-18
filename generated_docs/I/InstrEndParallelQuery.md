@@ -19,17 +19,17 @@ InstrEndParallelQuery finalizes parallel query instrumentation by calculating th
 ## Dependencies
 - Functions called/Symbols referenced:
   - memset (standard C function for memory initialization)
-  - BufferUsageAccumDiff (function to calculate buffer usage difference)
-  - WalUsageAccumDiff (function to calculate WAL usage difference)
+  - [BufferUsageAccumDiff](../B/BufferUsageAccumDiff.md) (function to calculate buffer usage difference)
+  - [WalUsageAccumDiff](../W/WalUsageAccumDiff.md) (function to calculate WAL usage difference)
   - pgBufferUsage (global variable for current buffer usage)
   - pgWalUsage (global variable for current WAL usage)
   - save_pgBufferUsage (static baseline buffer usage from InstrStartParallelQuery)
   - save_pgWalUsage (static baseline WAL usage from InstrStartParallelQuery)
 - Called from (representative examples):
-  - _brin_parallel_build_main (in brin.c for parallel BRIN index building)
-  - _bt_parallel_build_main (in nbtsort.c for parallel B-tree index building)
-  - parallel_vacuum_main (in vacuumparallel.c for parallel vacuum operations)
-  - ParallelQueryMain (in execParallel.c for general parallel query execution)
+  - [_brin_parallel_build_main](../b/_brin_parallel_build_main.md) (in brin.c for parallel BRIN index building)
+  - [_bt_parallel_build_main](../b/_bt_parallel_build_main.md) (in nbtsort.c for parallel B-tree index building)
+  - [parallel_vacuum_main](../p/parallel_vacuum_main.md) (in vacuumparallel.c for parallel vacuum operations)
+  - [ParallelQueryMain](../P/ParallelQueryMain.md) (in execParallel.c for general parallel query execution)
 
 ## Notes and Other Information
 - Must be called after InstrStartParallelQuery to provide meaningful delta calculations

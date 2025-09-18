@@ -28,13 +28,13 @@ This is particularly useful for outer joins, bitmap heap scans with no matching 
 - Functions called/Symbols referenced:
   - ExecClearTuple (clears existing slot contents)
   - MemSet (macro for setting memory to zero)
-  - ExecStoreVirtualTuple (marks slot as containing valid virtual tuple)
+  - [ExecStoreVirtualTuple](ExecStoreVirtualTuple.md) (marks slot as containing valid virtual tuple)
 - Called from (representative examples):
-  - heapam_scan_bitmap_next_tuple
-  - ATRewriteTable
-  - ExecInitNullTupleSlot
-  - prepare_projection_slot
-  - ExecDelete
+  - [heapam_scan_bitmap_next_tuple](../h/heapam_scan_bitmap_next_tuple.md)
+  - [ATRewriteTable](../A/ATRewriteTable.md)
+  - [ExecInitNullTupleSlot](ExecInitNullTupleSlot.md)
+  - [prepare_projection_slot](../p/prepare_projection_slot.md)
+  - [ExecDelete](ExecDelete.md)
 
 ## Notes and Other Information
 - The resulting slot is considered "full" and valid, not empty, despite containing only NULL values

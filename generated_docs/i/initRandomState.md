@@ -24,7 +24,7 @@ The function serves as a wrapper around PostgreSQL's PRNG seeding mechanism, pro
   - pg_prng_uint64 (PostgreSQL PRNG 64-bit value generator)
   - base_random_sequence (global PRNG state used as entropy source)
 - Called from (representative examples):
-  - main (at src/bin/pgbench/pgbench.c:7237, 7329, 7330, 7331)
+  - [main](../m/main.md) (at src/bin/pgbench/pgbench.c:7237, 7329, 7330, 7331)
 
 ## Notes and Other Information
 - Function is declared static, limiting its scope to the pgbench.c file

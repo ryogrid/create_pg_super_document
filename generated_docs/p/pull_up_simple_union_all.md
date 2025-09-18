@@ -37,7 +37,7 @@ Unlike other pull-up operations, this function doesn't modify the jointree struc
   -  - Adjusts variable sublevels in range table
   -  - Merges range tables and permission info
   -  - Recursively processes UNION leaf queries
-  -  - Node type for range table references
+  -  - [Node](../N/Node.md) type for range table references
   -  - Range table entry type for subqueries
 
 - Called from (representative examples):
@@ -46,7 +46,7 @@ Unlike other pull-up operations, this function doesn't modify the jointree struc
 ## Notes and Other Information
 - This optimization is specifically for UNION ALL operations; UNION (with duplicate elimination) cannot be optimized this way
 - The function assumes that  has already validated that the subquery is eligible for this transformation
-- Variable offset adjustment is not needed because UNION leaf queries cannot cross-reference each other
+- [Variable](../V/Variable.md) offset adjustment is not needed because UNION leaf queries cannot cross-reference each other
 - The resulting append relation allows the executor to use more efficient scanning strategies
 - LATERAL handling ensures that any potential lateral cross-references in leaf queries are properly marked for later validation
 - The inheritance flag () is the key marker that tells the planner this RTE represents an append relation

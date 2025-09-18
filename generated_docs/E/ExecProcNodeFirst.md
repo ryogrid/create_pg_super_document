@@ -24,10 +24,10 @@ After performing these checks, the function updates the node's ExecProcNode poin
 ## Dependencies
 - Functions called/Symbols referenced:
   - check_stack_depth (stack overflow prevention)
-  - ExecProcNodeInstr (instrumentation wrapper function)
+  - [ExecProcNodeInstr](ExecProcNodeInstr.md) (instrumentation wrapper function)
   - ExecProcNode (execution procedure field)
 - Called from (representative examples):
-  - ExecSetExecProcNode (sets this as initial wrapper)
+  - [ExecSetExecProcNode](ExecSetExecProcNode.md) (sets this as initial wrapper)
 
 ## Notes and Other Information
 - This is a static function, only visible within execProcnode.c

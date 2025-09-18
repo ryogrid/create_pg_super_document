@@ -19,12 +19,12 @@ The adjleap function performs post-processing of leap second data within Postgre
 - Functions called/Symbols referenced:
   - tadd (time addition with overflow handling)
   - oadd (overflow-safe addition)
-  - warning (warning message output)
+  - [warning](../w/warning.md) (warning message output)
   - SECSPERDAY (seconds per day constant)
   - EXIT_FAILURE (error exit status)
   - zic_t (timestamp type definition)
 - Called from (representative examples):
-  - main (at line 811)
+  - [main](../m/main.md) (at line 811)
 
 ## Notes and Other Information
 - Validates that leap seconds are spaced at least 28 days apart to comply with leap second regulations

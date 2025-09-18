@@ -21,16 +21,16 @@ The function will terminate the program with a fatal error if the requested vari
 - Functions called/Symbols referenced:
   - find_struct: Handles struct/union member lookup
   - find_simple: Performs simple variable name lookup
-  - new_variable: Creates new variable structures for complex expressions
-  - ECPGmake_array_type: Creates array type structures
-  - ECPGmake_struct_type: Creates struct/union type structures
-  - ECPGmake_simple_type: Creates simple type structures
+  - [new_variable](../n/new_variable.md): Creates new variable structures for complex expressions
+  - [ECPGmake_array_type](../E/ECPGmake_array_type.md): Creates array type structures
+  - [ECPGmake_struct_type](../E/ECPGmake_struct_type.md): Creates struct/union type structures
+  - [ECPGmake_simple_type](../E/ECPGmake_simple_type.md): Creates simple type structures
   - mmfatal: Reports fatal errors and terminates execution
 - Called from (representative examples):
-  - ECPGnumeric_lvalue: When processing numeric lvalue expressions
-  - output_get_descr: During descriptor output generation
-  - output_set_descr: During descriptor setting operations
-  - ECPGdump_a_type: When dumping type information
+  - [ECPGnumeric_lvalue](../E/ECPGnumeric_lvalue.md): When processing numeric lvalue expressions
+  - [output_get_descr](../o/output_get_descr.md): During descriptor output generation
+  - [output_set_descr](../o/output_set_descr.md): During descriptor setting operations
+  - [ECPGdump_a_type](../E/ECPGdump_a_type.md): When dumping type information
   - find_struct: For recursive struct member lookup
 
 ## Notes and Other Information

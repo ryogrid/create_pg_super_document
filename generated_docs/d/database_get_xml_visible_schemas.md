@@ -19,11 +19,11 @@ This function returns all schemas (namespaces) in the current database that are 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - query_to_oid_list
+  - [query_to_oid_list](../q/query_to_oid_list.md)
   - XML_VISIBLE_SCHEMAS (macro that expands to: "SELECT oid FROM pg_catalog.pg_namespace WHERE pg_catalog.has_schema_privilege (oid, 'USAGE') AND NOT (nspname ~ '^pg_' OR nspname = 'information_schema')")
 - Called from (representative examples):
-  - database_to_xml_internal
-  - database_to_xmlschema_internal
+  - [database_to_xml_internal](database_to_xml_internal.md)
+  - [database_to_xmlschema_internal](database_to_xmlschema_internal.md)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the xml.c file

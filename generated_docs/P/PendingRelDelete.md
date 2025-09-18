@@ -26,18 +26,18 @@ The structure supports subtransaction handling through nesting levels, allowing 
 ## Dependencies
 - Functions called/Symbols referenced:
   - ProcNumber
-  - RelFileLocator (implied from rlocator member)
+  - [RelFileLocator](../R/RelFileLocator.md) (implied from rlocator member)
 
 - Called from (representative examples):
-  - RelationCreateStorage
-  - RelationDropStorage  
-  - RelationPreserveStorage
-  - smgrDoPendingDeletes
-  - smgrDoPendingSyncs
-  - smgrGetPendingDeletes
-  - PostPrepare_smgr
-  - AtSubCommit_smgr
-  - SerializePendingSyncs
+  - [RelationCreateStorage](../R/RelationCreateStorage.md)
+  - [RelationDropStorage](../R/RelationDropStorage.md)  
+  - [RelationPreserveStorage](../R/RelationPreserveStorage.md)
+  - [smgrDoPendingDeletes](../s/smgrDoPendingDeletes.md)
+  - [smgrDoPendingSyncs](../s/smgrDoPendingSyncs.md)
+  - [smgrGetPendingDeletes](../s/smgrGetPendingDeletes.md)
+  - [PostPrepare_smgr](PostPrepare_smgr.md)
+  - [AtSubCommit_smgr](../A/AtSubCommit_smgr.md)
+  - [SerializePendingSyncs](../S/SerializePendingSyncs.md)
 
 ## Notes and Other Information
 - The linked list is maintained in TopMemoryContext to prevent premature deallocation

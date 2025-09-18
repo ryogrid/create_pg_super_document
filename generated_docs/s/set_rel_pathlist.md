@@ -24,23 +24,23 @@ After core path generation, the function allows plugins to modify the pathlist v
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - set_append_rel_pathlist (for inheritance relations)
-  - set_foreign_pathlist (for foreign tables)
-  - set_tablesample_rel_pathlist (for sampled relations)
-  - set_plain_rel_pathlist (for regular tables)
-  - set_function_pathlist (for range functions)
-  - set_tablefunc_pathlist (for table functions)
-  - set_values_pathlist (for VALUES lists)
-  - generate_useful_gather_paths (for parallel path generation)
-  - set_cheapest (to determine optimal paths)
+  - [set_append_rel_pathlist](set_append_rel_pathlist.md) (for inheritance relations)
+  - [set_foreign_pathlist](set_foreign_pathlist.md) (for foreign tables)
+  - [set_tablesample_rel_pathlist](set_tablesample_rel_pathlist.md) (for sampled relations)
+  - [set_plain_rel_pathlist](set_plain_rel_pathlist.md) (for regular tables)
+  - [set_function_pathlist](set_function_pathlist.md) (for range functions)
+  - [set_tablefunc_pathlist](set_tablefunc_pathlist.md) (for table functions)
+  - [set_values_pathlist](set_values_pathlist.md) (for VALUES lists)
+  - [generate_useful_gather_paths](../g/generate_useful_gather_paths.md) (for parallel path generation)
+  - [set_cheapest](set_cheapest.md) (to determine optimal paths)
   - IS_DUMMY_REL, bms_equal (utility macros/functions)
 - Called from:
-  - set_base_rel_pathlists (main entry point for base relation processing)
-  - set_append_rel_pathlist (recursive call for inheritance hierarchies)
+  - [set_base_rel_pathlists](set_base_rel_pathlists.md) (main entry point for base relation processing)
+  - [set_append_rel_pathlist](set_append_rel_pathlist.md) (recursive call for inheritance hierarchies)
 
 ## Notes and Other Information
 - This is a static function within allpaths.c, serving as an internal dispatcher
 - The function supports plugin extensibility through 
 - Parallel execution planning is carefully managed to avoid excessive gather nodes in inheritance hierarchies
 - The function includes debug support via  compilation flag
-- Path generation is skipped for certain relation types (subqueries, CTEs, etc.) that are fully handled during the size estimation phase
+- [Path](../P/Path.md) generation is skipped for certain relation types (subqueries, CTEs, etc.) that are fully handled during the size estimation phase

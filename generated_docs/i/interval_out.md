@@ -20,17 +20,17 @@ The `interval_out` function is the output conversion function for PostgreSQL's i
 ## Dependencies
 - Functions called/Symbols referenced:
   - INTERVAL_NOT_FINITE (macro to check for infinite intervals)
-  - EncodeSpecialInterval (handles infinite interval encoding)
-  - interval2itm (converts Interval to internal time structure)
-  - EncodeInterval (encodes finite intervals to string)
+  - [EncodeSpecialInterval](../E/EncodeSpecialInterval.md) (handles infinite interval encoding)
+  - [interval2itm](interval2itm.md) (converts Interval to internal time structure)
+  - [EncodeInterval](../E/EncodeInterval.md) (encodes finite intervals to string)
   - IntervalStyle (global variable controlling output format)
-  - pstrdup (duplicates string in PostgreSQL memory context)
+  - [pstrdup](../p/pstrdup.md) (duplicates string in PostgreSQL memory context)
   - PG_RETURN_CSTRING (macro for returning C string result)
 - Called from (representative examples):
-  - timetz_izone (src/backend/utils/adt/date.c:3133, 3140)
-  - timestamp_izone (src/backend/utils/adt/timestamp.c:6243, 6250)
-  - timestamptz_izone (src/backend/utils/adt/timestamp.c:6480, 6487)
-  - flatten_set_variable_args (src/backend/utils/misc/guc_funcs.c:282)
+  - [timetz_izone](../t/timetz_izone.md) (src/backend/utils/adt/date.c:3133, 3140)
+  - [timestamp_izone](../t/timestamp_izone.md) (src/backend/utils/adt/timestamp.c:6243, 6250)
+  - [timestamptz_izone](../t/timestamptz_izone.md) (src/backend/utils/adt/timestamp.c:6480, 6487)
+  - [flatten_set_variable_args](../f/flatten_set_variable_args.md) (src/backend/utils/misc/guc_funcs.c:282)
 
 ## Notes and Other Information
 - Uses a branching approach to handle finite vs infinite intervals differently

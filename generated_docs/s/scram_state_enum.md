@@ -23,8 +23,8 @@ The SCRAM authentication follows RFC 5802 specifications and provides a secure p
 - Functions called/Symbols referenced:
   - Used as a member type in the scram_state struct
 - Called from (representative examples):
-  - pg_SASL_init (sets initial state to SCRAM_AUTH_INIT)
-  - pg_SASL_continue (transitions between states during authentication)
+  - [pg_SASL_init](../p/pg_SASL_init.md) (sets initial state to SCRAM_AUTH_INIT)
+  - [pg_SASL_continue](../p/pg_SASL_continue.md) (transitions between states during authentication)
 
 ## Notes and Other Information
 - This enum is private to the auth-scram.c file and is not exposed in any header files

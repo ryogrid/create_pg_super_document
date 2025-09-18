@@ -42,7 +42,7 @@ The function operates by:
   - TRIGGER_EVENT_INSERT
   - TRIGGER_EVENT_UPDATE
 - Called from (representative examples):
-  - AfterTriggersTableData (src/backend/commands/trigger.c:3982)
+  - [AfterTriggersTableData](../A/AfterTriggersTableData.md) (src/backend/commands/trigger.c:3982)
   - AfterTriggerSaveEvent (src/backend/commands/trigger.c:6195, 6211)
 
 ## Notes and Other Information

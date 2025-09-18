@@ -193,14 +193,14 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - index_getattr
-  - BTreeTupleIsPivot
-  - FunctionCall2Coll
-  - DatumGetInt32
+  - [index_getattr](../i/index_getattr.md)
+  - [BTreeTupleIsPivot](../B/BTreeTupleIsPivot.md)
+  - [FunctionCall2Coll](../F/FunctionCall2Coll.md)
+  - [DatumGetInt32](../D/DatumGetInt32.md)
   - ScanDirectionIsForward/ScanDirectionIsBackward
   - INVERT_COMPARE_RESULT
 - Called from (representative examples):
-  - _bt_check_compare
+  - [_bt_check_compare](_bt_check_compare.md)
 
 ## Notes and Other Information
 - Handles truncated attributes in pivot tuples by assuming they pass the qualification

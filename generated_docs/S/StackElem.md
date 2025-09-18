@@ -25,10 +25,10 @@ This mechanism is essential for PostgreSQL's flexible variable system, allowing 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - YY_BUFFER_STATE (used for buf member)
-  - StackElem (self-reference for next pointer)
+  - [YY_BUFFER_STATE](../Y/YY_BUFFER_STATE.md) (used for buf member)
+  - [StackElem](StackElem.md) (self-reference for next pointer)
 - Called from (representative examples):
-  - PsqlScanStateData (used as buffer_stack member)
+  - [PsqlScanStateData](../P/PsqlScanStateData.md) (used as buffer_stack member)
   - psqlscan_push_new_buffer (manipulates stack elements)
   - psqlscan_pop_buffer_stack (manipulates stack elements)
 

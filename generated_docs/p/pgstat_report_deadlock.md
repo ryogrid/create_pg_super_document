@@ -19,10 +19,10 @@ This function is called whenever a deadlock is detected in the PostgreSQL system
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_prep_database_pending
-  - PgStat_StatDBEntry
+  - [pgstat_prep_database_pending](pgstat_prep_database_pending.md)
+  - [PgStat_StatDBEntry](../P/PgStat_StatDBEntry.md)
 - Called from (representative examples):
-  - DeadLockReport (in src/backend/storage/lmgr/deadlock.c:1128)
+  - [DeadLockReport](../D/DeadLockReport.md) (in src/backend/storage/lmgr/deadlock.c:1128)
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's statistics collection system

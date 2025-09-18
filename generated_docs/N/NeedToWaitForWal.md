@@ -25,10 +25,10 @@ The function also sets an appropriate wait event to help with monitoring and deb
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - NeedToWaitForStandbys
+  - [NeedToWaitForStandbys](NeedToWaitForStandbys.md)
   - WAIT_EVENT_WAL_SENDER_WAIT_FOR_WAL (wait event constant)
 - Called from (representative examples):
-  - WalSndWaitForWal (at src/backend/replication/walsender.c:1836, 1922)
+  - [WalSndWaitForWal](../W/WalSndWaitForWal.md) (at src/backend/replication/walsender.c:1836, 1922)
 
 ## Notes and Other Information
 - This is a static function within walsender.c, indicating it's an internal utility for WAL sender operations

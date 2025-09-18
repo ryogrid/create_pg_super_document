@@ -29,11 +29,11 @@ This function takes no parameters and relies on the global OutputFileName variab
   - isatty (system function)
   - freopen (C library function)
   - ereport (for error reporting)
-  - errcode_for_file_access
-  - errmsg
+  - [errcode_for_file_access](../e/errcode_for_file_access.md)
+  - [errmsg](../e/errmsg.md)
 
 - Called from (representative examples):
-  - BaseInit
+  - [BaseInit](../B/BaseInit.md)
   - LOG_DESTINATION_JSONLOG (referenced in header)
 
 ## Notes and Other Information

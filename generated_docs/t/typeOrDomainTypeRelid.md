@@ -23,16 +23,16 @@ The function uses a loop to traverse through domain types, checking each type's 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache1
+  - [SearchSysCache1](../S/SearchSysCache1.md)
   - HeapTupleIsValid
   - elog
-  - ObjectIdGetDatum
+  - [ObjectIdGetDatum](../O/ObjectIdGetDatum.md)
   - GETSTRUCT
-  - ReleaseSysCache
+  - [ReleaseSysCache](../R/ReleaseSysCache.md)
   - TYPTYPE_DOMAIN
 - Called from (representative examples):
-  - typeInheritsFrom (src/backend/catalog/pg_inherits.c:417)
-  - typeIsOfTypedTable (src/backend/parser/parse_coerce.c:3384)
+  - [typeInheritsFrom](typeInheritsFrom.md) (src/backend/catalog/pg_inherits.c:417)
+  - [typeIsOfTypedTable](typeIsOfTypedTable.md) (src/backend/parser/parse_coerce.c:3384)
   - ISCOMPLEX macro (src/include/parser/parse_type.h:59)
 
 ## Notes and Other Information

@@ -22,8 +22,8 @@ When the bitmap exceeds its memory limit (`maxentries`), the function triggers l
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - ItemPointerGetBlockNumber
-  - ItemPointerGetOffsetNumber
+  - [ItemPointerGetBlockNumber](../I/ItemPointerGetBlockNumber.md)
+  - [ItemPointerGetOffsetNumber](../I/ItemPointerGetOffsetNumber.md)
   - tbm_page_is_lossy
   - tbm_get_pageentry
   - tbm_lossify
@@ -34,16 +34,16 @@ When the bitmap exceeds its memory limit (`maxentries`), the function triggers l
   - TBM_NOT_ITERATING (enum value)
   - MAX_TUPLES_PER_PAGE (constant)
   - bitmapword (type)
-  - PagetableEntry (struct type)
+  - [PagetableEntry](../P/PagetableEntry.md) (struct type)
 - Called from (representative examples):
-  - GinDataLeafPageGetItemsToTbm
-  - collectMatchBitmap
-  - scanPendingInsert
-  - gingetbitmap
-  - gistScanPage
-  - hashgetbitmap
-  - btgetbitmap
-  - storeBitmap
+  - [GinDataLeafPageGetItemsToTbm](../G/GinDataLeafPageGetItemsToTbm.md)
+  - [collectMatchBitmap](../c/collectMatchBitmap.md)
+  - [scanPendingInsert](../s/scanPendingInsert.md)
+  - [gingetbitmap](../g/gingetbitmap.md)
+  - [gistScanPage](../g/gistScanPage.md)
+  - [hashgetbitmap](../h/hashgetbitmap.md)
+  - [btgetbitmap](../b/btgetbitmap.md)
+  - [storeBitmap](../s/storeBitmap.md)
 
 ## Notes and Other Information
 - Optimizes for consecutive tuples on the same page by caching the current page lookup

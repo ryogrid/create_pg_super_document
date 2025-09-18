@@ -20,13 +20,13 @@ The function uses the PostgreSQL access control system via pg_class_aclcheck() t
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pg_class_aclcheck
+  - [pg_class_aclcheck](../p/pg_class_aclcheck.md)
   - ereport
-  - get_rel_name
+  - [get_rel_name](../g/get_rel_name.md)
 - Called from (representative examples):
-  - cluster_rel
-  - get_tables_to_cluster
-  - get_tables_to_cluster_partitioned
+  - [cluster_rel](cluster_rel.md)
+  - [get_tables_to_cluster](../g/get_tables_to_cluster.md)
+  - [get_tables_to_cluster_partitioned](../g/get_tables_to_cluster_partitioned.md)
 
 ## Notes and Other Information
 - This is a static function internal to cluster.c

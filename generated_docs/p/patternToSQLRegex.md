@@ -34,20 +34,20 @@ The function intelligently distributes pattern components across the provided bu
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PQExpBufferData
+  - [PQExpBufferData](../P/PQExpBufferData.md)
   - initPQExpBuffer
-  - appendPQExpBufferStr
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)
   - appendPQExpBufferChar
   - termPQExpBuffer
-  - pg_tolower
-  - PQmblenBounded
+  - [pg_tolower](pg_tolower.md)
+  - [PQmblenBounded](../P/PQmblenBounded.md)
   - strchr
   - isupper
 
 - Called from (representative examples):
-  - append_database_pattern (src/bin/pg_amcheck/pg_amcheck.c:1363)
-  - append_schema_pattern (src/bin/pg_amcheck/pg_amcheck.c:1396)
-  - append_relation_pattern_helper (src/bin/pg_amcheck/pg_amcheck.c:1441)
+  - [append_database_pattern](../a/append_database_pattern.md) (src/bin/pg_amcheck/pg_amcheck.c:1363)
+  - [append_schema_pattern](../a/append_schema_pattern.md) (src/bin/pg_amcheck/pg_amcheck.c:1396)
+  - [append_relation_pattern_helper](../a/append_relation_pattern_helper.md) (src/bin/pg_amcheck/pg_amcheck.c:1441)
   - WHEREAND (src/fe_utils/string_utils.c:1093)
 
 ## Notes and Other Information

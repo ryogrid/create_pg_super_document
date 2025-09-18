@@ -21,17 +21,17 @@ The function uses signed arithmetic to handle edge cases where pd_lower might ex
 - Functions called/Symbols referenced:
   - PageHeader (cast to access page header fields)
 - Called from (representative examples):
-  - brin_can_do_samepage_update
-  - writeListPage
-  - ginHeapTupleFastInsert
-  - _bt_dedup_pass
-  - _bt_bottomupdel_pass
-  - _bt_findsplitloc
-  - doPickSplit
-  - spgAddNodeAction
-  - allocNewBuffer
-  - SpGistGetBuffer
-  - SpGistPageAddNewItem
+  - [brin_can_do_samepage_update](../b/brin_can_do_samepage_update.md)
+  - [writeListPage](../w/writeListPage.md)
+  - [ginHeapTupleFastInsert](../g/ginHeapTupleFastInsert.md)
+  - [_bt_dedup_pass](../b/_bt_dedup_pass.md)
+  - [_bt_bottomupdel_pass](../b/_bt_bottomupdel_pass.md)
+  - [_bt_findsplitloc](../b/_bt_findsplitloc.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [spgAddNodeAction](../s/spgAddNodeAction.md)
+  - [allocNewBuffer](../a/allocNewBuffer.md)
+  - [SpGistGetBuffer](../S/SpGistGetBuffer.md)
+  - [SpGistPageAddNewItem](../S/SpGistPageAddNewItem.md)
   - GinDataLeafPageGetFreeSpace
   - SpGistPageGetFreeSpace
 

@@ -23,9 +23,9 @@ This structure works in conjunction with  to manage and coordinate writeback ope
 - Functions called/Symbols referenced:
   - BufferTag (for buffer identification)
 - Called from (representative examples):
-  - ScheduleBufferTagForWriteback (for scheduling writeback operations)
-  - IssuePendingWritebacks (for processing pending writebacks)
-  - WritebackContext (as part of writeback management system)
+  - [ScheduleBufferTagForWriteback](../S/ScheduleBufferTagForWriteback.md) (for scheduling writeback operations)
+  - [IssuePendingWritebacks](../I/IssuePendingWritebacks.md) (for processing pending writebacks)
+  - [WritebackContext](../W/WritebackContext.md) (as part of writeback management system)
 
 ## Notes and Other Information
 - Part of PostgreSQL's writeback optimization mechanism for improved I/O performance

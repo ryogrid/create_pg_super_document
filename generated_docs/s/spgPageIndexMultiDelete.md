@@ -26,19 +26,19 @@ This function performs a bulk deletion operation on an SP-GiST index page by rep
 - Functions called/Symbols referenced:
   - memcpy (copies offset numbers array)
   - qsort (sorts offset numbers using cmpOffsetNumbers)
-  - cmpOffsetNumbers (comparator for sorting offset numbers)
-  - PageIndexMultiDelete (removes original tuples from page)
-  - spgFormDeadTuple (creates dead tuple structures)
+  - [cmpOffsetNumbers](../c/cmpOffsetNumbers.md) (comparator for sorting offset numbers)
+  - [PageIndexMultiDelete](../P/PageIndexMultiDelete.md) (removes original tuples from page)
+  - [spgFormDeadTuple](spgFormDeadTuple.md) (creates dead tuple structures)
   - PageAddItem (adds dead tuples back to page)
   - SpGistPageGetOpaque (accesses page metadata)
   - elog (error reporting)
 - Called from (representative examples):
-  - moveLeafs
-  - doPickSplit
-  - vacuumLeafPage
-  - spgRedoMoveLeafs
-  - spgRedoPickSplit
-  - spgRedoVacuumLeaf
+  - [moveLeafs](../m/moveLeafs.md)
+  - [doPickSplit](../d/doPickSplit.md)
+  - [vacuumLeafPage](../v/vacuumLeafPage.md)
+  - [spgRedoMoveLeafs](spgRedoMoveLeafs.md)
+  - [spgRedoPickSplit](spgRedoPickSplit.md)
+  - [spgRedoVacuumLeaf](spgRedoVacuumLeaf.md)
 
 ## Notes and Other Information
 - Designed to be safe for use during WAL replay and in critical sections (no palloc calls)

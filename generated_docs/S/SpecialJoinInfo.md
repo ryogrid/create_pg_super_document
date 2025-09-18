@@ -71,14 +71,14 @@ For semi-joins, additional information about available join operators enables th
 - Functions called/Symbols referenced:
   - Relids (relation set representation)
   - JoinType (enumeration of join types)
-  - List (generic list structure)
-  - RestrictInfo (join clause information)
+  - [List](../L/List.md) (generic list structure)
+  - [RestrictInfo](../R/RestrictInfo.md) (join clause information)
 
 - Called from (representative examples):
-  - make_outerjoininfo() (creates SpecialJoinInfo during query deconstruction)
-  - join_is_legal() (uses SpecialJoinInfo to validate join ordering)
-  - add_paths_to_joinrel() (consults SpecialJoinInfo for join path generation)
-  - clause_selectivity() (uses SpecialJoinInfo for selectivity estimation)
+  - [make_outerjoininfo](../m/make_outerjoininfo.md)() (creates SpecialJoinInfo during query deconstruction)
+  - [join_is_legal](../j/join_is_legal.md)() (uses SpecialJoinInfo to validate join ordering)
+  - [add_paths_to_joinrel](../a/add_paths_to_joinrel.md)() (consults SpecialJoinInfo for join path generation)
+  - [clause_selectivity](../c/clause_selectivity.md)() (uses SpecialJoinInfo for selectivity estimation)
 
 ## Notes and Other Information
 SpecialJoinInfo is fundamental to PostgreSQL's handling of complex join queries. It ensures that outer join semantics are preserved during optimization while enabling maximum flexibility for join reordering within semantic constraints.

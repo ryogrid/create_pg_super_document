@@ -23,15 +23,15 @@ The `euc_tw2big5` function performs the actual character-by-character conversion
 ## Dependencies
 - Functions called/Symbols referenced:
   - `IS_HIGHBIT_SET`: Macro to check if high bit is set in a byte
-  - `pg_encoding_verifymbchar`: Verify multibyte character validity for PG_EUC_TW
-  - `report_invalid_encoding`: Report invalid encoding sequences
-  - `report_untranslatable_char`: Report characters that cannot be converted
-  - `CNStoBIG5`: Convert CNS 11643 character codes to Big5 equivalents
+  - `[pg_encoding_verifymbchar](../p/pg_encoding_verifymbchar.md)`: Verify multibyte character validity for PG_EUC_TW
+  - `[report_invalid_encoding](../r/report_invalid_encoding.md)`: Report invalid encoding sequences
+  - `[report_untranslatable_char](../r/report_untranslatable_char.md)`: Report characters that cannot be converted
+  - `[CNStoBIG5](../C/CNStoBIG5.md)`: Convert CNS 11643 character codes to Big5 equivalents
   - `SS2`: Single Shift 2 character constant for plane switching
   - `LC_CNS11643_1`, `LC_CNS11643_2`, `LC_CNS11643_3`: CNS character plane constants
   - `PG_EUC_TW`, `PG_BIG5`: Encoding identifier constants
 - Called from:
-  - `euc_tw_to_big5`: Main wrapper function for EUC-TW to Big5 conversion
+  - `[euc_tw_to_big5](euc_tw_to_big5.md)`: Main wrapper function for EUC-TW to Big5 conversion
 
 ## Notes and Other Information
 - Handles ASCII characters (single-byte) by passing them through unchanged

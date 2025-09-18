@@ -20,12 +20,12 @@ This function is specifically designed for binary upgrade scenarios to restore m
 ## Dependencies
 - Functions called/Symbols referenced:
   - table_open
-  - SearchSysCacheAttName
+  - [SearchSysCacheAttName](SearchSysCacheAttName.md)
   - OidFunctionCall3
-  - heap_modify_tuple
-  - CatalogTupleUpdate
+  - [heap_modify_tuple](../h/heap_modify_tuple.md)
+  - [CatalogTupleUpdate](../C/CatalogTupleUpdate.md)
 - Called from (representative examples):
-  - binary_upgrade_set_missing_value
+  - [binary_upgrade_set_missing_value](../b/binary_upgrade_set_missing_value.md)
 
 ## Notes and Other Information
 - Designed exclusively for binary upgrade operations, not for general use

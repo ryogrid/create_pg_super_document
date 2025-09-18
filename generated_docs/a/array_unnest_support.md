@@ -21,9 +21,9 @@ The function handles SupportRequestRows requests by examining the array argument
 ## Dependencies
 - Functions called/Symbols referenced:
   - IsA (macro for type checking)
-  - is_funcclause
-  - estimate_expression_value  
-  - estimate_array_length
+  - [is_funcclause](../i/is_funcclause.md)
+  - [estimate_expression_value](../e/estimate_expression_value.md)  
+  - [estimate_array_length](../e/estimate_array_length.md)
   - linitial (macro for getting first list element)
   - PG_GETARG_POINTER
   - PG_RETURN_POINTER

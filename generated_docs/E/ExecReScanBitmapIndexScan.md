@@ -22,11 +22,11 @@ The function is particularly important for handling parameterized scans where sc
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetExprContext (to prevent memory leaks in runtime context)
-  - ExecIndexEvalRuntimeKeys (to recalculate runtime-dependent scan keys)
-  - ExecIndexEvalArrayKeys (to evaluate array keys for IN clauses)
-  - index_rescan (to restart the index scan with new keys)
+  - [ExecIndexEvalRuntimeKeys](ExecIndexEvalRuntimeKeys.md) (to recalculate runtime-dependent scan keys)
+  - [ExecIndexEvalArrayKeys](ExecIndexEvalArrayKeys.md) (to evaluate array keys for IN clauses)
+  - [index_rescan](../i/index_rescan.md) (to restart the index scan with new keys)
 - Called from (representative examples):
-  - ExecReScan (from the general executor rescan framework)
+  - [ExecReScan](ExecReScan.md) (from the general executor rescan framework)
 
 ## Notes and Other Information
 - Essential for nested loop joins where inner scan parameters depend on outer tuple values

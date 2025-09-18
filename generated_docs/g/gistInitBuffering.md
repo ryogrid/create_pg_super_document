@@ -31,14 +31,14 @@ The algorithm uses a geometric series formula to estimate subtree sizes and appl
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - calculatePagesPerBuffer
+  - [calculatePagesPerBuffer](../c/calculatePagesPerBuffer.md)
   - gistInitBuildBuffers
   - gistGetMaxLevel
-  - gistInitParentMap
+  - [gistInitParentMap](gistInitParentMap.md)
   - TupleDescAttr
   - MAXALIGN
 - Called from (representative examples):
-  - gistBuildCallback
+  - [gistBuildCallback](gistBuildCallback.md)
 
 ## Notes and Other Information
 - The levelStep calculation is based on Arge et al's external memory algorithms research, with PostgreSQL-specific optimizations

@@ -22,14 +22,14 @@ Memory management is carefully handled by distributing the available hash memory
 ## Dependencies
 - Functions called/Symbols referenced:
   - ResetTupleHashTable
-  - hash_choose_num_buckets
-  - build_hash_table
+  - [hash_choose_num_buckets](../h/hash_choose_num_buckets.md)
+  - [build_hash_table](build_hash_table.md)
 - Types referenced:
-  - AggState
-  - AggStatePerHash
+  - [AggState](../A/AggState.md)
+  - [AggStatePerHash](../A/AggStatePerHash.md)
 - Called from (representative examples):
-  - ExecInitAgg
-  - ExecReScanAgg
+  - [ExecInitAgg](../E/ExecInitAgg.md)
+  - [ExecReScanAgg](../E/ExecReScanAgg.md)
 
 ## Notes and Other Information
 - Creates separate hash tables for each grouping set to handle complex GROUP BY operations efficiently

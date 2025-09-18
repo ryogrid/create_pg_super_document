@@ -23,20 +23,20 @@ The function follows the same error handling pattern as executeQuery but differs
 ## Dependencies
 - Functions called/Symbols referenced:
   - pg_log_info
-  - PQexec
-  - PQresultStatus
+  - [PQexec](../P/PQexec.md)
+  - [PQresultStatus](../P/PQresultStatus.md)
   - PGRES_COMMAND_OK
-  - PQerrorMessage
+  - [PQerrorMessage](../P/PQerrorMessage.md)
   - pg_log_error
   - pg_log_error_detail
-  - PQfinish
-  - exit_nicely
-  - PQclear
+  - [PQfinish](../P/PQfinish.md)
+  - [exit_nicely](exit_nicely.md)
+  - [PQclear](../P/PQclear.md)
 - Called from (representative examples):
-  - main (pg_dumpall)
-  - appendQualifiedRelation
-  - vacuum_one_database
-  - connect_slot
+  - [main](../m/main.md) (pg_dumpall)
+  - [appendQualifiedRelation](../a/appendQualifiedRelation.md)
+  - [vacuum_one_database](../v/vacuum_one_database.md)
+  - [connect_slot](../c/connect_slot.md)
 
 ## Notes and Other Information
 - This is a static function within pg_dumpall.c for internal module use

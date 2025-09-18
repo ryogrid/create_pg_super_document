@@ -19,14 +19,14 @@ This function removes a backend process entry from the ShmemBackendArray by mark
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Backend (data structure type)
+  - [Backend](../B/Backend.md) (data structure type)
   - Assert (debugging assertion macro)
   - pid_t (process ID type)
 - Called from:
-  - win32_deadchild_waitinfo (src/backend/postmaster/postmaster.c:466)
-  - CleanupBackgroundWorker (src/backend/postmaster/postmaster.c:2757)
-  - CleanupBackend (src/backend/postmaster/postmaster.c:2845)
-  - HandleChildCrash (src/backend/postmaster/postmaster.c:2915, 2950)
+  - [win32_deadchild_waitinfo](../w/win32_deadchild_waitinfo.md) (src/backend/postmaster/postmaster.c:466)
+  - [CleanupBackgroundWorker](../C/CleanupBackgroundWorker.md) (src/backend/postmaster/postmaster.c:2757)
+  - [CleanupBackend](../C/CleanupBackend.md) (src/backend/postmaster/postmaster.c:2845)
+  - [HandleChildCrash](../H/HandleChildCrash.md) (src/backend/postmaster/postmaster.c:2915, 2950)
 
 ## Notes and Other Information
 - This is a static function, only accessible within the postmaster.c file

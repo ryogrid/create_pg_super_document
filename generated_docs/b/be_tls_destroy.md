@@ -28,7 +28,7 @@ This function takes no parameters.
   - SSL_CTX_free (OpenSSL context cleanup function)
 
 - Called from (representative examples):
-  - secure_destroy (in be-secure.c:89)
+  - [secure_destroy](../s/secure_destroy.md) (in be-secure.c:89)
 
 ## Notes and Other Information
 - This function is idempotent - it can be safely called multiple times without adverse effects

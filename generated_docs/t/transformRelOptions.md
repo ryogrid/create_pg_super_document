@@ -24,19 +24,19 @@ This function is the core transformation engine for PostgreSQL relation options.
 - Functions called/Symbols referenced:
   - PointerIsValid
   - DatumGetArrayTypeP  
-  - deconstruct_array_builtin
+  - [deconstruct_array_builtin](../d/deconstruct_array_builtin.md)
   - VARDATA/VARSIZE macros
-  - accumArrayResult
-  - makeArrayResult
-  - defGetString
-  - defGetBoolean
-  - DefElem
-  - ArrayBuildState
+  - [accumArrayResult](../a/accumArrayResult.md)
+  - [makeArrayResult](../m/makeArrayResult.md)
+  - [defGetString](../d/defGetString.md)
+  - [defGetBoolean](../d/defGetBoolean.md)
+  - [DefElem](../D/DefElem.md)
+  - [ArrayBuildState](../A/ArrayBuildState.md)
 - Called from (representative examples):
-  - DefineRelation (table creation)
-  - DefineIndex (index creation)
-  - ATExecSetOptions (ALTER TABLE)
-  - CreateTableSpace (tablespace creation)
+  - [DefineRelation](../D/DefineRelation.md) (table creation)
+  - [DefineIndex](../D/DefineIndex.md) (index creation)
+  - [ATExecSetOptions](../A/ATExecSetOptions.md) (ALTER TABLE)
+  - [CreateTableSpace](../C/CreateTableSpace.md) (tablespace creation)
 
 ## Notes and Other Information
 - Returns text array as Datum, or (Datum) 0 if no options

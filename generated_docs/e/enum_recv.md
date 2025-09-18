@@ -20,11 +20,11 @@ The function performs similar validation to enum_in but works with binary protoc
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pq_getmsgtext
+  - [pq_getmsgtext](../p/pq_getmsgtext.md)
   - NAMEDATALEN
-  - SearchSysCache2
-  - CStringGetDatum
-  - check_safe_enum_use
+  - [SearchSysCache2](../S/SearchSysCache2.md)
+  - [CStringGetDatum](../C/CStringGetDatum.md)
+  - [check_safe_enum_use](../c/check_safe_enum_use.md)
   - Form_pg_enum
   - PG_RETURN_OID
 - Called from (representative examples):

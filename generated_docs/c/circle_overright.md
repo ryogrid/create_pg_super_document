@@ -22,8 +22,8 @@ The comparison uses floating-point arithmetic with appropriate precision handlin
 - Functions called/Symbols referenced:
   - CIRCLE (type definition)
   - PG_GETARG_CIRCLE_P (argument extraction macro)
-  - FPge (floating-point greater-than-or-equal comparison)
-  - float8_mi (floating-point subtraction)
+  - [FPge](../F/FPge.md) (floating-point greater-than-or-equal comparison)
+  - [float8_mi](../f/float8_mi.md) (floating-point subtraction)
   - PG_RETURN_BOOL (return value macro)
 - Called from (representative examples):
   - No direct references found in the codebase

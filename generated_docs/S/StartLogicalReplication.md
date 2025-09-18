@@ -24,31 +24,31 @@ The function updates replication state tracking in both local and shared memory,
 ## Dependencies
 - Functions called/Symbols referenced:
   - CheckLogicalDecodingRequirements
-  - ReplicationSlotAcquire
-  - RecoveryInProgress
+  - [ReplicationSlotAcquire](../R/ReplicationSlotAcquire.md)
+  - [RecoveryInProgress](../R/RecoveryInProgress.md)
   - CreateDecodingContext
-  - logical_read_xlog_page
-  - WalSndSegmentOpen
-  - wal_segment_close
-  - WalSndPrepareWrite
-  - WalSndWriteData
-  - WalSndUpdateProgress
-  - WalSndSetState
+  - [logical_read_xlog_page](../l/logical_read_xlog_page.md)
+  - [WalSndSegmentOpen](../W/WalSndSegmentOpen.md)
+  - [wal_segment_close](../w/wal_segment_close.md)
+  - [WalSndPrepareWrite](../W/WalSndPrepareWrite.md)
+  - [WalSndWriteData](../W/WalSndWriteData.md)
+  - [WalSndUpdateProgress](../W/WalSndUpdateProgress.md)
+  - [WalSndSetState](../W/WalSndSetState.md)
   - pq_beginmessage
-  - pq_sendbyte
-  - pq_sendint16
-  - pq_endmessage
+  - [pq_sendbyte](../p/pq_sendbyte.md)
+  - [pq_sendint16](../p/pq_sendint16.md)
+  - [pq_endmessage](../p/pq_endmessage.md)
   - pq_flush
-  - XLogBeginRead
-  - SyncRepInitConfig
-  - WalSndLoop
-  - XLogSendLogical
-  - FreeDecodingContext
-  - ReplicationSlotRelease
+  - [XLogBeginRead](../X/XLogBeginRead.md)
+  - [SyncRepInitConfig](SyncRepInitConfig.md)
+  - [WalSndLoop](../W/WalSndLoop.md)
+  - [XLogSendLogical](../X/XLogSendLogical.md)
+  - [FreeDecodingContext](../F/FreeDecodingContext.md)
+  - [ReplicationSlotRelease](../R/ReplicationSlotRelease.md)
   - SetQueryCompletion
-  - EndCommand
+  - [EndCommand](../E/EndCommand.md)
 - Called from (representative examples):
-  - exec_replication_command
+  - [exec_replication_command](../e/exec_replication_command.md)
 
 ## Notes and Other Information
 - This function handles the transition from setup to active logical replication streaming

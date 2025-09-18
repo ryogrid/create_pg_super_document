@@ -18,14 +18,14 @@ The  function generates SQL CREATE EVENT TRIGGER statements to restore PostgreSQ
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - fmtId
+  - [fmtId](../f/fmtId.md)
   - createPQExpBuffer/destroyPQExpBuffer
-  - appendPQExpBufferStr/appendPQExpBufferChar
-  - binary_upgrade_extension_member
-  - ArchiveEntry
-  - dumpComment
+  - [appendPQExpBufferStr](../a/appendPQExpBufferStr.md)/appendPQExpBufferChar
+  - [binary_upgrade_extension_member](../b/binary_upgrade_extension_member.md)
+  - [ArchiveEntry](../A/ArchiveEntry.md)
+  - [dumpComment](dumpComment.md)
 - Called from (representative examples):
-  - dumpDumpableObject
+  - [dumpDumpableObject](dumpDumpableObject.md)
 
 ## Notes and Other Information
 - Skips processing entirely in data-only dump mode

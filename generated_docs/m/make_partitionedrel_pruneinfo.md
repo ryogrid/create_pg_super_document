@@ -33,19 +33,19 @@ The function handles multi-level partitioning by properly translating qualificat
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - gen_partprune_steps
-  - find_base_rel
-  - adjust_appendrel_attrs
-  - adjust_appendrel_attrs_multilevel
-  - find_appinfos_by_relids
-  - get_partkey_exec_paramids
-  - bms_next_member
-  - bms_equal
+  - [gen_partprune_steps](../g/gen_partprune_steps.md)
+  - [find_base_rel](../f/find_base_rel.md)
+  - [adjust_appendrel_attrs](../a/adjust_appendrel_attrs.md)
+  - [adjust_appendrel_attrs_multilevel](../a/adjust_appendrel_attrs_multilevel.md)
+  - [find_appinfos_by_relids](../f/find_appinfos_by_relids.md)
+  - [get_partkey_exec_paramids](../g/get_partkey_exec_paramids.md)
+  - [bms_next_member](../b/bms_next_member.md)
+  - [bms_equal](../b/bms_equal.md)
   - bms_is_empty
-  - bms_add_member
+  - [bms_add_member](../b/bms_add_member.md)
   - planner_rt_fetch
 - Called from (representative examples):
-  - make_partition_pruneinfo
+  - [make_partition_pruneinfo](make_partition_pruneinfo.md)
 
 ## Notes and Other Information
 - Returns NIL if no useful runtime pruning steps can be generated

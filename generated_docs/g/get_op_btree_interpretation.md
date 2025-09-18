@@ -24,16 +24,16 @@ The results are returned as a palloc'd list of OpBtreeInterpretation structures,
 ## Dependencies
 - Functions called/Symbols referenced:
   - SearchSysCacheList1
-  - get_negator
+  - [get_negator](get_negator.md)
   - ReleaseSysCacheList
   - OpBtreeInterpretation
   - StrategyNumber
   - ROWCOMPARE_NE
   - BTEqualStrategyNumber
 - Called from (representative examples):
-  - find_window_run_conditions
-  - lookup_proof_cache
-  - make_row_comparison_op
+  - [find_window_run_conditions](../f/find_window_run_conditions.md)
+  - [lookup_proof_cache](../l/lookup_proof_cache.md)
+  - [make_row_comparison_op](../m/make_row_comparison_op.md)
 
 ## Notes and Other Information
 - Returns a List of OpBtreeInterpretation structs, or NIL if no btree interpretation exists

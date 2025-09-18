@@ -21,7 +21,7 @@ The function uses gettimeofday() to obtain the current system time with microsec
 - Functions called/Symbols referenced:
   - gettimeofday
   - pg_strftime
-  - pg_localtime
+  - [pg_localtime](../p/pg_localtime.md)
   - cstring_to_text
   - PG_RETURN_TEXT_P
 - Called from (representative examples):

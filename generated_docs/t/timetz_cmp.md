@@ -25,12 +25,12 @@ This function serves as the foundation for all other timetz comparison operation
 ## Dependencies
 - Functions called/Symbols referenced:
   - PG_GETARG_TIMETZADT_P: Extracts TimeTzADT arguments from function call
-  - timetz_cmp_internal: Internal comparison function that performs the actual comparison logic
+  - [timetz_cmp_internal](timetz_cmp_internal.md): Internal comparison function that performs the actual comparison logic
   - PG_RETURN_INT32: Returns integer result to PostgreSQL function call framework
 - Data types used:
   - TimeTzADT: Structure containing time (TimeADT) and zone (int32) fields
 - Called from (representative examples):
-  - compareDatetime: Used in JSON path execution for datetime comparisons
+  - [compareDatetime](../c/compareDatetime.md): Used in JSON path execution for datetime comparisons
   - PostgreSQL sorting and indexing operations
   - Other timetz comparison functions (timetz_gt, timetz_ge, etc.)
 

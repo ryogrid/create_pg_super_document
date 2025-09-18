@@ -34,20 +34,20 @@ The function preserves the subquery's hasAggs and hasSubLinks flags since pushdo
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - recurse_push_qual
-  - ReplaceVarsFromTargetList
-  - make_and_qual
+  - [recurse_push_qual](../r/recurse_push_qual.md)
+  - [ReplaceVarsFromTargetList](../R/ReplaceVarsFromTargetList.md)
+  - [make_and_qual](../m/make_and_qual.md)
 - Constants referenced:
   - REPLACEVARS_REPORT_ERROR
 - Called from (representative examples):
-  - set_subquery_pathlist (src/backend/optimizer/path/allpaths.c:2572)
-  - recurse_push_qual (src/backend/optimizer/path/allpaths.c:4013)
+  - [set_subquery_pathlist](set_subquery_pathlist.md) (src/backend/optimizer/path/allpaths.c:2572)
+  - [recurse_push_qual](../r/recurse_push_qual.md) (src/backend/optimizer/path/allpaths.c:4013)
 
 ## Notes and Other Information
 - Static function within allpaths.c, part of PostgreSQL's qualifier pushdown optimization framework
 - Assumes the qualifier has already passed safety validation via qual_is_pushdown_safe()
 - Handles both simple subqueries and complex set operation trees
-- Variable replacement ensures each component query in set operations gets its own copy of the qualifier
+- [Variable](../V/Variable.md) replacement ensures each component query in set operations gets its own copy of the qualifier
 - Intelligent clause placement based on subquery structure (WHERE vs HAVING)
 - Preserves query flags to maintain optimizer state consistency
 - Located in src/backend/optimizer/path/allpaths.c:3956-4002

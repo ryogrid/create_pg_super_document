@@ -19,17 +19,17 @@ This function takes no parameters.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_snapshot_fixed
+  - [pgstat_snapshot_fixed](pgstat_snapshot_fixed.md)
   - PGSTAT_KIND_CHECKPOINTER
 - Called from (representative examples):
-  - pg_stat_get_checkpointer_num_requested
-  - pg_stat_get_checkpointer_restartpoints_timed
-  - pg_stat_get_checkpointer_restartpoints_requested
-  - pg_stat_get_checkpointer_restartpoints_performed
-  - pg_stat_get_checkpointer_buffers_written
-  - pg_stat_get_checkpointer_write_time
-  - pg_stat_get_checkpointer_sync_time
-  - pg_stat_get_checkpointer_stat_reset_time
+  - [pg_stat_get_checkpointer_num_requested](pg_stat_get_checkpointer_num_requested.md)
+  - [pg_stat_get_checkpointer_restartpoints_timed](pg_stat_get_checkpointer_restartpoints_timed.md)
+  - [pg_stat_get_checkpointer_restartpoints_requested](pg_stat_get_checkpointer_restartpoints_requested.md)
+  - [pg_stat_get_checkpointer_restartpoints_performed](pg_stat_get_checkpointer_restartpoints_performed.md)
+  - [pg_stat_get_checkpointer_buffers_written](pg_stat_get_checkpointer_buffers_written.md)
+  - [pg_stat_get_checkpointer_write_time](pg_stat_get_checkpointer_write_time.md)
+  - [pg_stat_get_checkpointer_sync_time](pg_stat_get_checkpointer_sync_time.md)
+  - [pg_stat_get_checkpointer_stat_reset_time](pg_stat_get_checkpointer_stat_reset_time.md)
 
 ## Notes and Other Information
 - Located at src/backend/utils/activity/pgstat_checkpointer.c:80-87

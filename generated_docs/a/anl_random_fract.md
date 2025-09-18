@@ -19,9 +19,9 @@ This function takes no parameters and manages its own internal state.
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - sampler_random_init_state
-  - pg_prng_uint32
-  - sampler_random_fract
+  - [sampler_random_init_state](../s/sampler_random_init_state.md)
+  - [pg_prng_uint32](../p/pg_prng_uint32.md)
+  - [sampler_random_fract](../s/sampler_random_fract.md)
 - Called from (representative examples):
   - Referenced in MAX_STATISTICS_TARGET context
   - Used in ReservoirState context

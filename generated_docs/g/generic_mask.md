@@ -20,8 +20,8 @@ The function masks two types of variable data: LSN and checksum fields (which ch
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - mask_page_lsn_and_checksum (masks LSN and checksum fields in page header)
-  - mask_unused_space (masks unused/uninitialized space within the page)
+  - [mask_page_lsn_and_checksum](../m/mask_page_lsn_and_checksum.md) (masks LSN and checksum fields in page header)
+  - [mask_unused_space](../m/mask_unused_space.md) (masks unused/uninitialized space within the page)
 - Called from (representative examples):
   - No direct callers found in current analysis (typically called by WAL consistency checking infrastructure)
 

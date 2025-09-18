@@ -18,16 +18,16 @@ This function looks up an operator in the pg_amop system catalog to determine if
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - SearchSysCache3 (system cache lookup function)
+  - [SearchSysCache3](../S/SearchSysCache3.md) (system cache lookup function)
   - HeapTupleIsValid (checks if tuple is valid)
   - GETSTRUCT (extracts structure from heap tuple)
-  - ReleaseSysCache (releases cache reference)
+  - [ReleaseSysCache](../R/ReleaseSysCache.md) (releases cache reference)
   - Form_pg_amop (structure type for pg_amop catalog)
   - AMOP_ORDER (constant for ordering operator type)
-  - CharGetDatum (datum conversion function)
+  - [CharGetDatum](../C/CharGetDatum.md) (datum conversion function)
   - InvalidOid (constant representing invalid OID)
 - Called from (representative examples):
-  - match_clause_to_ordering_op (src/backend/optimizer/path/indxpath.c:3194)
+  - [match_clause_to_ordering_op](../m/match_clause_to_ordering_op.md) (src/backend/optimizer/path/indxpath.c:3194)
 
 ## Notes and Other Information
 - Specifically searches for ordering operators (AMOP_ORDER) rather than search operators (AMOP_SEARCH)

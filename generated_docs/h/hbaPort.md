@@ -19,24 +19,24 @@ hbaPort is a typedef alias that represents the Port structure specifically in th
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - Port (underlying structure)
-  - load_hba (function that uses hbaPort)
-  - load_ident (function that uses hbaPort)
-  - hba_authname (function that uses UserAuth)
-  - hba_getauthmethod (function that takes hbaPort parameter)
-  - check_usermap (function for user mapping validation)
-  - parse_hba_line (function returning HbaLine from TokenizedAuthLine)
-  - parse_ident_line (function returning IdentLine from TokenizedAuthLine)
-  - pg_isblank (utility function for character checking)
-  - open_auth_file (file handling function)
-  - free_auth_file (file cleanup function)
-  - tokenize_auth_file (tokenization function)
+  - [Port](../P/Port.md) (underlying structure)
+  - [load_hba](../l/load_hba.md) (function that uses hbaPort)
+  - [load_ident](../l/load_ident.md) (function that uses hbaPort)
+  - [hba_authname](hba_authname.md) (function that uses UserAuth)
+  - [hba_getauthmethod](hba_getauthmethod.md) (function that takes hbaPort parameter)
+  - [check_usermap](../c/check_usermap.md) (function for user mapping validation)
+  - [parse_hba_line](../p/parse_hba_line.md) (function returning HbaLine from TokenizedAuthLine)
+  - [parse_ident_line](../p/parse_ident_line.md) (function returning IdentLine from TokenizedAuthLine)
+  - [pg_isblank](../p/pg_isblank.md) (utility function for character checking)
+  - [open_auth_file](../o/open_auth_file.md) (file handling function)
+  - [free_auth_file](../f/free_auth_file.md) (file cleanup function)
+  - [tokenize_auth_file](../t/tokenize_auth_file.md) (tokenization function)
 - Called from (representative examples):
-  - ident_inet
-  - auth_peer
-  - check_hostname
-  - check_hba
-  - hba_getauthmethod
+  - [ident_inet](../i/ident_inet.md)
+  - [auth_peer](../a/auth_peer.md)
+  - [check_hostname](../c/check_hostname.md)
+  - [check_hba](../c/check_hba.md)
+  - [hba_getauthmethod](hba_getauthmethod.md)
 
 ## Notes and Other Information
 - Serves as an interface abstraction to avoid header file dependency issues

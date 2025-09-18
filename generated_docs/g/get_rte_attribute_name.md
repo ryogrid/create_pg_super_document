@@ -22,8 +22,8 @@ The function follows a hierarchical approach: first checking for user-written co
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - list_nth
-  - get_attname
+  - [list_nth](../l/list_nth.md)
+  - [get_attname](get_attname.md)
   - strVal (macro)
   - list_length
   - elog
@@ -31,9 +31,9 @@ The function follows a hierarchical approach: first checking for user-written co
   - RTE_RELATION
 - Called from (representative examples):
   - print_expr
-  - check_ungrouped_columns_walker
-  - get_variable
-  - get_name_for_var_field
+  - [check_ungrouped_columns_walker](../c/check_ungrouped_columns_walker.md)
+  - [get_variable](get_variable.md)
+  - [get_name_for_var_field](get_name_for_var_field.md)
 
 ## Notes and Other Information
 - Returns "*" when attnum is InvalidAttrNumber, representing a whole tuple reference

@@ -26,17 +26,17 @@ The function maintains archive statistics by incrementing the TOC count and trac
 - Functions called/Symbols referenced:
   - pg_malloc0 (for TocEntry allocation)
   - pg_malloc (for dependencies array allocation)
-  - pg_strdup (for string duplication)
+  - [pg_strdup](../p/pg_strdup.md) (for string duplication)
   - memcpy (for copying dependency arrays)
   - AH->ArchiveEntryPtr (format-specific entry handler)
 - Called from (representative examples):
-  - dumpTableData
-  - dumpDatabase
-  - dumpNamespace
-  - dumpFunc
-  - dumpIndex
-  - dumpConstraint
-  - dumpSequence
+  - [dumpTableData](../d/dumpTableData.md)
+  - [dumpDatabase](../d/dumpDatabase.md)
+  - [dumpNamespace](../d/dumpNamespace.md)
+  - [dumpFunc](../d/dumpFunc.md)
+  - [dumpIndex](../d/dumpIndex.md)
+  - [dumpConstraint](../d/dumpConstraint.md)
+  - [dumpSequence](../d/dumpSequence.md)
 
 ## Notes and Other Information
 - The TOC was originally designed as a table of contents but has evolved into the complete metadata repository

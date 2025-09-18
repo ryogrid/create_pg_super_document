@@ -21,8 +21,8 @@ This function provides a simple interface to retrieve the current count of keys 
 - Functions called/Symbols referenced:
   - Accesses tree->ctl->num_keys (radix tree control structure member)
 - Called from (representative examples):
-  - test_empty (in test suite)
-  - test_random (in test suite)
+  - [test_empty](../t/test_empty.md) (in test suite)
+  - [test_random](../t/test_random.md) (in test suite)
 
 ## Notes and Other Information
 - This is a static function used internally within the test_radixtree module

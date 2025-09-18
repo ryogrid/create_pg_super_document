@@ -29,7 +29,7 @@ The function maintains the same interface as the standard XLogReaderRoutine page
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - read_local_xlog_page_guts (with wait=false parameter)
+  - [read_local_xlog_page_guts](read_local_xlog_page_guts.md) (with wait=false parameter)
 - Called from (representative examples):
   - No current references found in the codebase
 

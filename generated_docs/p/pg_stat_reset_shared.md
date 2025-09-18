@@ -27,8 +27,8 @@ The function supports resetting statistics for several key PostgreSQL subsystems
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - pgstat_reset_of_kind (multiple calls for different PGSTAT_KIND_* constants)
-  - XLogPrefetchResetStats
+  - [pgstat_reset_of_kind](pgstat_reset_of_kind.md) (multiple calls for different PGSTAT_KIND_* constants)
+  - [XLogPrefetchResetStats](../X/XLogPrefetchResetStats.md)
   - text_to_cstring
   - PG_RETURN_VOID
   - ereport (for error handling)

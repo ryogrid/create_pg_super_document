@@ -140,11 +140,11 @@ write_data_to_archive_lz4_doc.md: Scan direction (forward or backward)
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - _bt_verify_arrays_bt_first
-  - _bt_parallel_done
+  - [_bt_verify_arrays_bt_first](_bt_verify_arrays_bt_first.md)
+  - [_bt_parallel_done](_bt_parallel_done.md)
 - Called from (representative examples):
-  - btgettuple
-  - btgetbitmap
+  - [btgettuple](btgettuple.md)
+  - [btgetbitmap](btgetbitmap.md)
 
 ## Notes and Other Information
 - Should only be called during scans with one or more equality type array scan keys

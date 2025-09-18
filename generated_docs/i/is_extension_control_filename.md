@@ -22,9 +22,9 @@ The function is part of PostgreSQL's extension management infrastructure and ser
   - strrchr (standard C library function)
   - strcmp (standard C library function)
 - Called from (representative examples):
-  - pg_available_extensions
-  - pg_available_extension_versions  
-  - extension_file_exists
+  - [pg_available_extensions](../p/pg_available_extensions.md)
+  - [pg_available_extension_versions](../p/pg_available_extension_versions.md)  
+  - [extension_file_exists](../e/extension_file_exists.md)
 
 ## Notes and Other Information
 - This is a static function, meaning it's only accessible within the src/backend/commands/extension.c file

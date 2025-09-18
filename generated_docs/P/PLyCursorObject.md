@@ -23,17 +23,17 @@ The structure maintains state information about the cursor including its portal 
 
 ## Dependencies
 - Functions called/Symbols referenced:
-  - PLyDatumToOb
+  - [PLyDatumToOb](PLyDatumToOb.md)
 - Called from (representative examples):
-  - PLy_cursor_query
-  - PLy_cursor_plan  
-  - PLy_cursor_dealloc
-  - PLy_cursor_iternext
-  - PLy_cursor_fetch
-  - PLy_cursor_close
+  - [PLy_cursor_query](PLy_cursor_query.md)
+  - [PLy_cursor_plan](PLy_cursor_plan.md)  
+  - [PLy_cursor_dealloc](PLy_cursor_dealloc.md)
+  - [PLy_cursor_iternext](PLy_cursor_iternext.md)
+  - [PLy_cursor_fetch](PLy_cursor_fetch.md)
+  - [PLy_cursor_close](PLy_cursor_close.md)
 
 ## Notes and Other Information
-- PLyCursorObject implements Python's iterator protocol, allowing cursors to be used in Python for loops
+- [PLyCursorObject](PLyCursorObject.md) implements Python's iterator protocol, allowing cursors to be used in Python for loops
 - The structure uses a dedicated memory context (mcxt) to ensure proper cleanup of cursor-related memory allocations
 - Cursors created through this structure support both manual fetching and automatic iteration
 - The portalname field connects this Python object to the underlying PostgreSQL portal system

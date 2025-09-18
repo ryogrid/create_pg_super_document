@@ -23,19 +23,19 @@ The function reads the serialized data using PostgreSQL's binary protocol format
 ## Dependencies
 - Functions called/Symbols referenced:
   - PolyNumAggState (data structure)
-  - AggCheckCallContext (context validation)
-  - StringInfoData (buffer for deserialization)
-  - NumericVar (temporary numeric variable)
+  - [AggCheckCallContext](../A/AggCheckCallContext.md) (context validation)
+  - [StringInfoData](../S/StringInfoData.md) (buffer for deserialization)
+  - [NumericVar](../N/NumericVar.md) (temporary numeric variable)
   - PG_GETARG_BYTEA_PP (extract bytea argument)
   - init_var (numeric variable initialization)
-  - initReadOnlyStringInfo (initialize read buffer)
+  - [initReadOnlyStringInfo](../i/initReadOnlyStringInfo.md) (initialize read buffer)
   - makePolyNumAggStateCurrentContext (create new state structure)
-  - pq_getmsgint64 (deserialize int64 value)
-  - numericvar_deserialize (deserialize numeric variable)
-  - numericvar_to_int128 (convert numeric to 128-bit int, when HAVE_INT128)
-  - accum_sum_add (add to accumulator sum)
-  - pq_getmsgend (finalize message reading)
-  - free_var (cleanup numeric variable)
+  - [pq_getmsgint64](../p/pq_getmsgint64.md) (deserialize int64 value)
+  - [numericvar_deserialize](numericvar_deserialize.md) (deserialize numeric variable)
+  - [numericvar_to_int128](numericvar_to_int128.md) (convert numeric to 128-bit int, when HAVE_INT128)
+  - [accum_sum_add](../a/accum_sum_add.md) (add to accumulator sum)
+  - [pq_getmsgend](../p/pq_getmsgend.md) (finalize message reading)
+  - [free_var](../f/free_var.md) (cleanup numeric variable)
 - Called from (representative examples):
   - No direct references found in the codebase
 
